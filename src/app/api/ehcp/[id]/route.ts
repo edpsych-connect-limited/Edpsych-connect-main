@@ -270,7 +270,7 @@ export async function PUT(
 
     if (!validation.success) {
       return NextResponse.json(
-        { error: 'Invalid EHCP data', details: validation.error.errors },
+        { error: 'Invalid EHCP data', details: validation.error.issues },
         { status: 400 }
       );
     }

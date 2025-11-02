@@ -97,7 +97,7 @@ export async function GET(request: NextRequest) {
 
     if (!validation.success) {
       return NextResponse.json(
-        { error: 'Invalid query parameters', details: validation.error.errors },
+        { error: 'Invalid query parameters', details: validation.error.issues },
         { status: 400 }
       );
     }
@@ -204,7 +204,7 @@ export async function POST(request: NextRequest) {
 
     if (!validation.success) {
       return NextResponse.json(
-        { error: 'Invalid intervention data', details: validation.error.errors },
+        { error: 'Invalid intervention data', details: validation.error.issues },
         { status: 400 }
       );
     }

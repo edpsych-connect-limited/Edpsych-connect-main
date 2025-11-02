@@ -16,7 +16,22 @@
       "Bash(for file in src/app/interventions/page.tsx src/app/progress/page.tsx src/app/subscription/page.tsx)",
       "Bash(do)",
       "Bash(echo:*)",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(git rm:*)",
+      "Bash(git remote set-head:*)",
+      "Bash(git symbolic-ref:*)",
+      "Bash(git log:*)",
+      "Bash(git config:*)",
+      "Bash(vercel:*)",
+      "Bash(for file in )",
+      "Bash(\"src/app/api/assessments/route.ts\" )",
+      "Bash(\"src/app/api/assessments/[id]/route.ts\" )",
+      "Bash(\"src/app/api/ehcp/route.ts\" )",
+      "Bash(\"src/app/api/ehcp/[id]/route.ts\" )",
+      "Bash(\"src/app/api/interventions/route.ts\")",
+      "Bash(if [ -f \"$file\" ])",
+      "Bash(then)",
+      "Bash(fi)"
     ],
     "deny": [],
     "ask": []
