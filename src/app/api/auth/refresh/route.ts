@@ -13,36 +13,54 @@ export async function POST(request: NextRequest) {
 
     if (!refreshToken) {
       return NextResponse.json(
-        { error: 'Refresh token is required' },
+        {
+          success: false,
+          error: 'Refresh token is required'
+        },
         { status: 400 }
       );
     }
 
-    // For now, we'll create a simple refresh mechanism
-    // In production, implement proper refresh token validation
-    const user = await authService.verifyToken(refreshToken);
+    // Verify the refresh token
+    const session = await authService.verifyToken(refreshToken);
 
-    if (!user) {
+    if (!session) {
       return NextResponse.json(
-        { error: 'Invalid refresh token' },
+        {
+          success: false,
+          error: 'Invalid refresh token'
+        },
         { status: 401 }
       );
     }
 
-    // Generate new tokens
-    const tokens = authService['generateTokens'](user);
+    // Generate new access token
+    const newToken = await authService.generateToken(session);
 
-    // Create authenticated response
-    return authService.createAuthResponse(user, tokens, {
+    // Set the new token in cookies
+    authService.setAuthCookie(newToken);
+
+    return NextResponse.json({
+      success: true,
+      message: 'Token refreshed successfully',
       data: {
-        message: 'Token refreshed successfully'
+        accessToken: newToken,
+        user: {
+          id: session.id,
+          email: session.email,
+          name: session.name,
+          role: session.role
+        }
       }
     });
 
   } catch (error) {
     console.error('Token refresh error:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      {
+        success: false,
+        error: 'Internal server error'
+      },
       { status: 500 }
     );
   }

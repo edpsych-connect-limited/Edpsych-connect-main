@@ -9,51 +9,70 @@ import { logger } from './logger';
 // Check if we're in production environment
 const isProduction = process.env.NODE_ENV === 'production';
 
+// Type for the extended Prisma client
+type ExtendedPrismaClient = ReturnType<typeof createPrismaClient>;
+
 // Create a global variable to store the prisma instance
 declare global {
-   
-  const prisma: PrismaClient | undefined;
+  var prisma: ExtendedPrismaClient | undefined;
 }
 
-// Initialize Prisma Client with logging options
-function createPrismaClient(): PrismaClient {
-  const client = new PrismaClient({
+// Initialize Prisma Client with logging options and extensions
+function createPrismaClient() {
+  const baseClient = new PrismaClient({
     log: isProduction
       ? ['error'] // Only log errors in production
       : ['query', 'error', 'warn'], // More verbose in development
   });
 
-  // Add custom logging middleware only if $use is available
-  if (typeof client.$use === 'function') {
-    client.$use(async (params, next) => {
-      const before = Date.now();
-      const result = await next(params);
-      const after = Date.now();
-      const executionTime = after - before;
+  // Use Prisma Client Extensions (proper replacement for deprecated $use middleware)
+  const extendedClient = baseClient.$extends({
+    name: 'query-logger',
+    query: {
+      $allModels: {
+        async $allOperations({ model, operation, args, query }) {
+          const before = Date.now();
+          try {
+            const result = await query(args);
+            const after = Date.now();
+            const executionTime = after - before;
 
-      // Log slow queries (taking more than 100ms)
-      if (executionTime > 100) {
-        logger.warn(`Slow query detected (${executionTime}ms)`, {
-          model: params.model,
-          action: params.action,
-          executionTime,
-        });
-      }
+            // Log slow queries (taking more than 100ms)
+            if (executionTime > 100) {
+              logger.warn(`Slow query detected (${executionTime}ms)`, {
+                model,
+                operation,
+                executionTime,
+              });
+            }
 
-      // Log all database operations in debug mode
-      logger.debug(`Prisma query: ${params.model}.${params.action}`, {
-        model: params.model,
-        action: params.action,
-        executionTime,
-      });
+            // Log all database operations in debug mode
+            logger.debug(`Prisma query: ${model}.${operation}`, {
+              model,
+              operation,
+              executionTime,
+            });
 
-      return result;
-    });
-  } else {
-    logger.warn('⚠️ Prisma middleware ($use) not available in this environment.');
-  }
+            return result;
+          } catch (error) {
+            const after = Date.now();
+            const executionTime = after - before;
 
-  return client;
+            logger.error(`Query failed: ${model}.${operation}`, {
+              model,
+              operation,
+              executionTime,
+              error: error instanceof Error ? error.message : String(error),
+            });
+
+            throw error;
+          }
+        },
+      },
+    },
+  });
+
+  return extendedClient;
 }
 
 // Export a singleton Prisma client instance

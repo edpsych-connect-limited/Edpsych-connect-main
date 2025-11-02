@@ -457,22 +457,27 @@ export class DepartmentService {
       // Verify the user making the request has admin permissions for this department
       await this.verifyDepartmentAdminAccess(department.institutionId, userId);
       
+      // Parse managerId to Int since users table uses Int IDs
+      const managerIdInt = parseInt(managerId);
+      if (isNaN(managerIdInt)) {
+        throw new ValidationError(`Invalid manager ID: ${managerId}`);
+      }
+
       // Check if the user to be added exists
-      const manager = await prisma.user.findUnique({
-        where: { id: managerId },
+      const manager = await prisma.users.findUnique({
+        where: { id: managerIdInt },
       });
-      
+
       if (!manager) {
         throw new NotFoundError(`User with ID ${managerId} not found`);
       }
-      
-      // Add the user as a manager
-      await prisma.department.update({
-        where: { id: departmentId },
+
+      // Add the user as a manager using the join table
+      await prisma.departmentManager.create({
         data: {
-          managers: {
-            connect: { id: managerId },
-          },
+          departmentId,
+          userId: managerIdInt,
+          assignedBy: userId,
         },
       });
       
@@ -507,24 +512,28 @@ export class DepartmentService {
       
       // Verify the user making the request has admin permissions for this department
       await this.verifyDepartmentAdminAccess(department.institutionId, userId);
-      
+
+      // Parse managerId to Int since users table uses Int IDs
+      const managerIdInt = parseInt(managerId);
+      if (isNaN(managerIdInt)) {
+        throw new ValidationError(`Invalid manager ID: ${managerId}`);
+      }
+
       // Prevent removing the last manager
       const managerCount = await prisma.department.findUnique({
         where: { id: departmentId },
         select: { _count: { select: { managers: true } } },
       });
-      
+
       if (managerCount?._count.managers === 1) {
         throw new ValidationError('Cannot remove the last department manager');
       }
-      
-      // Remove the user as a manager
-      await prisma.department.update({
-        where: { id: departmentId },
-        data: {
-          managers: {
-            disconnect: { id: managerId },
-          },
+
+      // Remove the user as a manager using the join table
+      await prisma.departmentManager.deleteMany({
+        where: {
+          departmentId,
+          userId: managerIdInt,
         },
       });
       
@@ -649,27 +658,57 @@ export class DepartmentService {
 
   /**
    * Verify that a user has access to an institution
+   * Uses InstitutionAdmin, DepartmentMember, and DepartmentManager join tables
    */
   private async verifyInstitutionAccess(institutionId: string, userId: string): Promise<void> {
     // Check if user is a system admin
     const isAdmin = await this.isSystemAdmin(userId);
     if (isAdmin) return;
-    
-    // Check if user is associated with the institution
-    const userInstitution = await prisma.user.findFirst({
+
+    // Parse userId to Int since users table uses Int IDs
+    const userIdInt = parseInt(userId);
+    if (isNaN(userIdInt)) {
+      throw new ValidationError(`Invalid user ID: ${userId}`);
+    }
+
+    // Check if user is an institution admin using InstitutionAdmin join table
+    const institutionAdmin = await prisma.institutionAdmin.findUnique({
       where: {
-        id: userId,
-        OR: [
-          { institutionId },
-          { adminInstitutions: { some: { id: institutionId } } },
-          { departments: { some: { institutionId } } },
-        ],
+        institutionId_userId: {
+          institutionId,
+          userId: userIdInt,
+        },
       },
     });
-    
-    if (!userInstitution) {
-      throw new AccessDeniedError('You do not have permission to access this institution');
-    }
+
+    if (institutionAdmin) return;
+
+    // Check if user is a member of any department in this institution
+    const departmentMembership = await prisma.departmentMember.findFirst({
+      where: {
+        userId: userIdInt,
+        department: {
+          institutionId,
+        },
+      },
+    });
+
+    if (departmentMembership) return;
+
+    // Check if user is a manager of any department in this institution
+    const departmentManagement = await prisma.departmentManager.findFirst({
+      where: {
+        userId: userIdInt,
+        department: {
+          institutionId,
+        },
+      },
+    });
+
+    if (departmentManagement) return;
+
+    // If none of the above checks passed, deny access
+    throw new AccessDeniedError('You do not have permission to access this institution');
   }
 
   /**
@@ -686,22 +725,31 @@ export class DepartmentService {
 
   /**
    * Verify that a user has admin access to a department
+   * Uses InstitutionAdmin join table for proper permission checking
    */
   private async verifyDepartmentAdminAccess(institutionId: string, userId: string): Promise<void> {
     // Check if user is a system admin
     const isAdmin = await this.isSystemAdmin(userId);
     if (isAdmin) return;
-    
-    // Check if user is an institution admin
-    const isInstitutionAdmin = await prisma.institution.findFirst({
+
+    // Parse userId to Int since users table uses Int IDs
+    const userIdInt = parseInt(userId);
+    if (isNaN(userIdInt)) {
+      throw new ValidationError(`Invalid user ID: ${userId}`);
+    }
+
+    // Check if user is an institution admin using InstitutionAdmin join table
+    const institutionAdmin = await prisma.institutionAdmin.findUnique({
       where: {
-        id: institutionId,
-        admins: { some: { id: userId } },
+        institutionId_userId: {
+          institutionId,
+          userId: userIdInt,
+        },
       },
     });
-    
-    if (!isInstitutionAdmin) {
-      throw new AccessDeniedError('You do not have admin permission for this department');
+
+    if (!institutionAdmin) {
+      throw new AccessDeniedError('You do not have admin permission for this institution');
     }
   }
 
@@ -717,12 +765,19 @@ export class DepartmentService {
    * Check if a user is a system admin
    */
   private async isSystemAdmin(userId: string): Promise<boolean> {
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      select: { roles: true },
+    // Parse userId to Int since users table uses Int IDs
+    const userIdInt = parseInt(userId);
+    if (isNaN(userIdInt)) {
+      return false; // Invalid ID is not admin
+    }
+
+    const user = await prisma.users.findUnique({
+      where: { id: userIdInt },
+      select: { role: true }, // users model has 'role' not 'roles'
     });
-    
-    return user?.roles?.includes('ADMIN') ?? false;
+
+    // Check if user has ADMIN or SUPER_ADMIN role
+    return user?.role?.toUpperCase().includes('ADMIN') ?? false;
   }
 }
 

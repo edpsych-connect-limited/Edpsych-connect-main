@@ -57,497 +57,198 @@ enum Feature {
   SINGLE_SIGN_ON
 }
 
-model User {
-  id                     String                   @id @default(cuid())
-  email                  String                   @unique
-  createdAt              DateTime                 @default(now())
-  updatedAt              DateTime                 @updatedAt
-  name                   String?
-  AccessibilitySettings  AccessibilitySettings?
-  ClassEnrollment        ClassEnrollment[]
-  Enrollment             Enrollment[]
-  Forum                  Forum[]
-  ForumReply             ForumReply[]
-  ForumThread            ForumThread[]
-  LearningStyle          LearningStyle?
-  Merit                  Merit[]
-  ResearchAnalysis       ResearchAnalysis[]
-  ResearchCollaborator   ResearchCollaborator[]
-  ResearchEthicsApproval ResearchEthicsApproval[]
-  ResearchParticipant    ResearchParticipant[]
-  ResearchStudy          ResearchStudy[]
-  SpeechRecognitionLog   SpeechRecognitionLog[]
-  SpeechSynthesisLog     SpeechSynthesisLog[]
-  SquadMember            SquadMember[]
-  SubjectEnrollment      SubjectEnrollment[]
-  TranslationLog         TranslationLog[]
-  UserPreferences        UserPreferences?
+// ============================================================================
+// CORE TENANT & USER MODELS
+// ============================================================================
+
+model tenants {
+  id            Int             @id @default(autoincrement())
+  name          String
+  subdomain     String          @unique
+  
+  // Tenant Type & Hierarchy
+  tenant_type       String              @default("SCHOOL")  // "LA", "MAT", "SCHOOL", "RESEARCH"
+  parent_tenant_id  Int?
+  parent_tenant     tenants?            @relation("TenantHierarchy", fields: [parent_tenant_id], references: [id])
+  child_tenants     tenants[]           @relation("TenantHierarchy")
+  
+  // UK-specific fields
+  urn               String?             @unique  // Unique Reference Number
+  la_code           String?                      // Local Authority code
+  postcode          String?
+  
+  // Configuration
+  settings          Json?
+  status            String              @default("active")  // active, suspended, trial
+  contact_email     String?
+  contact_phone     String?
+  
+  // Metadata
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @default(now())
+  
+  // Relations - Core
+  users         users[]
+  students      students[]
+  professionals professionals[]
+  assessments   assessments[]
+  cases         cases[]
+  interventions interventions[]
+  subscriptions subscriptions[]
+  
+  // Relations - Training
+  courses               courses[]
+  enrollments           enrollments[]
+  academic_years        academic_years[]
+  terms                 terms[]
+  class_enrollments     class_enrollments[]
+  subject_enrollments   subject_enrollments[]
+  teacher_subjects      teacher_subjects[]
+  timetable_slots       timetable_slots[]
+  
+  // Relations - Gamification
+  battle_stats          battle_stats[]
+  merits                merits[]
+  game_items            game_items[]
+  equipped_items        equipped_items[]
+  houses                houses[]
+  squad_competitions    squad_competitions[]
+  squad_members         squad_members[]
+  
+  // Relations - Networking
+  forums                forums[]
+  forum_threads         forum_threads[]
+  forum_replies         forum_replies[]
+  friendships           friendships[]
+  
+  // Relations - EHCP/SEND
+  ehcps                 ehcps[]
+  sen_details           sen_details[]
+  attachments           attachments[]
+  
+  // Relations - Research
+  research_studies      research_studies[]
+  
+  @@index([subdomain])
+  @@index([tenant_type])
+  @@index([status])
+  @@index([parent_tenant_id])
 }
 
-model Course {
-  id          String       @id
-  title       String
-  description String
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime
-  Enrollment  Enrollment[]
+model users {
+  id                        Int                         @id @default(autoincrement())
+  tenant_id                 Int
+  email                     String                      @unique
+  password_hash             String
+  name                      String
+  role                      String
+  
+  // Additional auth fields
+  firstName                 String?
+  lastName                  String?
+  permissions               String[]                    @default([])
+  isEmailVerified           Boolean                     @default(false)
+  emailVerificationToken    String?
+  resetPasswordToken        String?
+  resetPasswordExpires      DateTime?
+  
+  // Status and tracking
+  is_active                 Boolean                     @default(true)
+  last_login                DateTime?
+  created_at                DateTime                    @default(now())
+  updated_at                DateTime                    @default(now())
+  
+  // Relations - Tenant
+  tenants                   tenants                     @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  
+  // Relations - Educational
+  assessments               assessments[]
+  cases                     cases[]
+  interventions_created     interventions[]             @relation("interventions_created_byTousers")
+  interventions_implemented interventions[]             @relation("interventions_implemented_byTousers")
+  
+  // Relations - Gamification
+  gamification_achievements gamification_achievements[]
+  gamification_badges       gamification_badges[]
+  gamification_scores       gamification_scores[]
+  
+  // Relations - Help System
+  help_preferences          help_preferences?
+  help_viewed_items         help_viewed_items[]
+  
+  // Relations - User Types
+  parents                   parents?
+  professionals             professionals?
+  
+  // Relations - Training
+  enrollments               enrollments[]
+  class_enrollments         class_enrollments[]
+  subject_enrollments       subject_enrollments[]
+  
+  // Relations - Gamification Extended
+  battle_stats              battle_stats[]
+  merits                    merits[]
+  equipped_items            equipped_items[]
+  squad_members             squad_members[]
+  
+  // Relations - Networking
+  forums_created            forums[]                    @relation("ForumCreator")
+  forum_threads             forum_threads[]
+  forum_replies             forum_replies[]
+  friendships_initiated     friendships[]               @relation("FriendshipInitiator")
+  friendships_received      friendships[]               @relation("FriendshipReceiver")
+  
+  // Relations - Research
+  research_studies          research_studies[]
+  research_collaborations   research_collaborators[]
+  research_participants     research_participants[]
+  research_ethics_approvals research_ethics_approvals[]
+  research_analyses         research_analyses[]
+  
+  // Relations - Accessibility
+  accessibility_settings    accessibility_settings?
+  user_preferences          user_preferences?
+  learning_style            learning_style?
+  speech_recognition_logs   speech_recognition_logs[]
+  speech_synthesis_logs     speech_synthesis_logs[]
+  translation_logs          translation_logs[]
+
+  // Relations - Institutional Management
+  departmentMemberships     DepartmentMember[]  @relation("DepartmentMembers")
+  departmentManagements     DepartmentManager[] @relation("DepartmentManagers")
+  institutionAdmins         InstitutionAdmin[]  @relation("InstitutionAdmins")
+
+  @@index([tenant_id])
+  @@index([email])
+  @@index([is_active])
+  @@index([role])
 }
 
-model AcademicYear {
-  id        String   @id
-  yearLabel String
-  startDate DateTime
-  endDate   DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-}
+// ============================================================================
+// EDUCATIONAL MODELS (TENANT-SCOPED)
+// ============================================================================
 
-model AccessibilitySettings {
-  id            String   @id
-  userId        String   @unique
-  highContrast  Boolean  @default(false)
-  largeText     Boolean  @default(false)
-  screenReader  Boolean  @default(false)
-  reducedMotion Boolean  @default(false)
-  textToSpeech  Boolean  @default(false)
-  speechToText  Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime
-  User          User     @relation(fields: [userId], references: [id])
-}
-
-model Attachment {
-  id        String   @id
-  fileName  String
-  fileType  String
-  fileUrl   String
-  createdAt DateTime @default(now())
-}
-
-model BattleStats {
-  id        String   @id
-  userId    String
-  wins      Int      @default(0)
-  losses    Int      @default(0)
-  xp        Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-}
-
-model ClassEnrollment {
-  id        String   @id
-  classId   String
-  studentId String
-  joinedAt  DateTime @default(now())
-  User      User     @relation(fields: [studentId], references: [id])
-}
-
-model EHCP {
-  id          String   @id
-  studentId   String
-  planDetails Json
-  issuedAt    DateTime @default(now())
-  updatedAt   DateTime
-}
-
-model Enrollment {
-  id          String    @id
-  userId      String
-  courseId    String
-  status      String    @default("active")
-  progress    Int       @default(0)
-  startedAt   DateTime  @default(now())
-  completedAt DateTime?
-  updatedAt   DateTime
-  Course      Course    @relation(fields: [courseId], references: [id])
-  User        User      @relation(fields: [userId], references: [id])
-
-  @@unique([userId, courseId])
-}
-
-model EquippedItem {
-  id         String   @id
-  userId     String
-  itemId     String
-  equippedAt DateTime @default(now())
-}
-
-model Forum {
-  id          String        @id
-  name        String
-  slug        String        @unique
-  description String?
-  category    String?
-  icon        String?
-  color       String?
-  isPrivate   Boolean       @default(false)
-  createdById String?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime
-  User        User?         @relation(fields: [createdById], references: [id])
-  ForumThread ForumThread[]
-}
-
-model ForumReply {
-  id          String      @id
-  content     String
-  threadId    String
-  authorId    String
-  likeCount   Int         @default(0)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime
-  User        User        @relation(fields: [authorId], references: [id])
-  ForumThread ForumThread @relation(fields: [threadId], references: [id])
-}
-
-model ForumThread {
-  id         String       @id
-  title      String
-  slug       String       @unique
-  content    String
-  forumId    String
-  authorId   String
-  isPinned   Boolean      @default(false)
-  tags       String[]
-  viewCount  Int          @default(0)
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime
-  ForumReply ForumReply[]
-  User       User         @relation(fields: [authorId], references: [id])
-  Forum      Forum        @relation(fields: [forumId], references: [id])
-}
-
-model Friendship {
-  id        String   @id
-  userAId   String
-  userBId   String
-  status    String   @default("pending")
-  createdAt DateTime @default(now())
-}
-
-model GameItem {
-  id        String   @id
-  name      String
-  rarity    String
-  type      String
-  createdAt DateTime @default(now())
-}
-
-model House {
-  id        String   @id
-  name      String
-  color     String?
-  motto     String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-}
-
-model LearningStyle {
-  id          String   @id
-  userId      String   @unique
-  visual      Int      @default(0)
-  auditory    Int      @default(0)
-  kinesthetic Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime
-  User        User     @relation(fields: [userId], references: [id])
-}
-
-model Merit {
-  id          String   @id
-  userId      String
-  title       String
-  description String
-  points      Int      @default(10)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime
-  User        User     @relation(fields: [userId], references: [id])
-}
-
-model ParentPermissions {
-  id          String   @id
-  parentId    String
-  canViewData Boolean  @default(true)
-  canMessage  Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime
-}
-
-model ResearchAnalysis {
-  id              String          @id
-  title           String
-  description     String
-  methodology     String
-  results         String
-  status          String          @default("in-progress")
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime
-  datasetId       String
-  researcherId    String
-  ResearchDataset ResearchDataset @relation(fields: [datasetId], references: [id], onDelete: Cascade)
-  User            User            @relation(fields: [researcherId], references: [id])
-}
-
-model ResearchCollaborator {
-  id               String        @id
-  role             String        @default("researcher")
-  permissions      String[]
-  invitationStatus String        @default("pending")
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime
-  studyId          String
-  userId           String
-  ResearchStudy    ResearchStudy @relation(fields: [studyId], references: [id], onDelete: Cascade)
-  User             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([studyId, userId])
-}
-
-model ResearchDataset {
-  id               String             @id
-  name             String
-  description      String
-  dataType         String
-  format           String
-  size             Int
-  location         String
-  isAnonymized     Boolean            @default(true)
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime
-  studyId          String
-  ResearchAnalysis ResearchAnalysis[]
-  ResearchStudy    ResearchStudy      @relation(fields: [studyId], references: [id], onDelete: Cascade)
-}
-
-model ResearchEthicsApproval {
-  id              String    @id
-  approvalBody    String
-  referenceNumber String
-  approvalDate    DateTime
-  expiryDate      DateTime?
-  documentUrl     String?
-  status          String    @default("approved")
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime
-  userId          String
-  User            User      @relation(fields: [userId], references: [id])
-}
-
-model ResearchParticipant {
-  id               String             @id
-  consentProvided  Boolean            @default(false)
-  consentDate      DateTime?
-  participantCode  String             @unique
-  status           String             @default("enrolled")
-  enrollmentDate   DateTime           @default(now())
-  completionDate   DateTime?
-  withdrawalDate   DateTime?
-  withdrawalReason String?
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime
-  studyId          String
-  userId           String?
-  ResearchStudy    ResearchStudy      @relation(fields: [studyId], references: [id], onDelete: Cascade)
-  User             User?              @relation(fields: [userId], references: [id])
-  ResearchResponse ResearchResponse[]
-
-  @@unique([studyId, userId])
-}
-
-model ResearchPublication {
-  id              String        @id
-  title           String
-  authors         String[]
-  abstract        String
-  publicationDate DateTime?
-  journal         String?
-  doi             String?
-  url             String?
-  citation        String?
-  publicationType String        @default("article")
-  status          String        @default("draft")
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime
-  studyId         String
-  ResearchStudy   ResearchStudy @relation(fields: [studyId], references: [id], onDelete: Cascade)
-}
-
-model ResearchResponse {
-  id                  String              @id
-  answers             Json
-  completionTime      Int?
-  startedAt           DateTime            @default(now())
-  completedAt         DateTime?
-  ipAddress           String?
-  userAgent           String?
-  createdAt           DateTime            @default(now())
-  surveyId            String
-  participantId       String
-  ResearchParticipant ResearchParticipant @relation(fields: [participantId], references: [id], onDelete: Cascade)
-  ResearchSurvey      ResearchSurvey      @relation(fields: [surveyId], references: [id], onDelete: Cascade)
-}
-
-model ResearchStudy {
-  id                   String                 @id
-  title                String
-  description          String
-  objective            String
-  methodology          String
-  ethicsApproval       Boolean                @default(false)
-  ethicsReference      String?
-  startDate            DateTime
-  endDate              DateTime?
-  status               String                 @default("draft")
-  isPublic             Boolean                @default(false)
-  createdAt            DateTime               @default(now())
-  updatedAt            DateTime
-  creatorId            String
-  ResearchCollaborator ResearchCollaborator[]
-  ResearchDataset      ResearchDataset[]
-  ResearchParticipant  ResearchParticipant[]
-  ResearchPublication  ResearchPublication[]
-  User                 User                   @relation(fields: [creatorId], references: [id])
-  ResearchSurvey       ResearchSurvey[]
-}
-
-model ResearchSurvey {
-  id                String             @id
-  title             String
-  description       String
-  instructions      String
-  questions         Json
-  estimatedDuration Int?
-  isAnonymous       Boolean            @default(false)
-  status            String             @default("draft")
-  startDate         DateTime?
-  endDate           DateTime?
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime
-  studyId           String
-  ResearchResponse  ResearchResponse[]
-  ResearchStudy     ResearchStudy      @relation(fields: [studyId], references: [id], onDelete: Cascade)
-}
-
-model SENDetails {
-  id          String   @id
-  description String
-  supportPlan Json?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime
-}
-
-model SpeechRecognitionLog {
-  id         Int      @id @default(autoincrement())
-  text       String
-  confidence Float
-  language   String
-  provider   String
-  timestamp  DateTime @default(now())
-  userId     String?
-  User       User?    @relation(fields: [userId], references: [id])
-}
-
-model SpeechSynthesisLog {
-  id             Int      @id @default(autoincrement())
-  text           String
-  language       String
-  provider       String
-  voiceName      String
-  voiceGender    String
-  characterCount Int
-  timestamp      DateTime @default(now())
-  userId         String?
-  User           User?    @relation(fields: [userId], references: [id])
-}
-
-model SquadCompetition {
-  id        String   @id
-  name      String
-  startDate DateTime
-  endDate   DateTime
-  createdAt DateTime @default(now())
-}
-
-model SquadMember {
-  id       String   @id
-  squadId  String
-  userId   String
-  role     String   @default("member")
-  joinedAt DateTime @default(now())
-  User     User     @relation(fields: [userId], references: [id])
-}
-
-model SubjectEnrollment {
-  id        String   @id
-  subject   String
-  userId    String
-  createdAt DateTime @default(now())
-  User      User     @relation(fields: [userId], references: [id])
-}
-
-model TeacherSubject {
-  id          String   @id
-  teacherId   String
-  subjectName String
-  createdAt   DateTime @default(now())
-}
-
-model Term {
-  id        String   @id
-  name      String
-  startDate DateTime
-  endDate   DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-}
-
-model TimetableSlot {
-  id        String @id
-  classId   String
-  subject   String
-  dayOfWeek String
-  startTime String
-  endTime   String
-}
-
-model TranslationLog {
-  id             Int      @id @default(autoincrement())
-  originalText   String
-  translatedText String
-  sourceLanguage String
-  targetLanguage String
-  provider       String
-  characterCount Int
-  timestamp      DateTime @default(now())
-  userId         String?
-  User           User?    @relation(fields: [userId], references: [id])
-}
-
-model UserPreferences {
-  id        String   @id
-  userId    String   @unique
-  theme     String   @default("light")
-  language  String   @default("en")
-  timezone  String   @default("UTC")
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-  User      User     @relation(fields: [userId], references: [id])
-}
-
-model assessments {
-  id              Int       @id @default(autoincrement())
-  case_id         Int
-  tenant_id       Int
-  assessment_type String
-  scheduled_date  DateTime?
-  completion_date DateTime?
-  status          String
-  created_by      Int?
-  created_at      DateTime  @default(now())
-  updated_at      DateTime  @default(now())
-  cases           cases     @relation(fields: [case_id], references: [id], onDelete: Cascade)
-  users           users?    @relation(fields: [created_by], references: [id])
-  tenants         tenants   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+model students {
+  id            Int      @id @default(autoincrement())
+  tenant_id     Int
+  unique_id     String
+  first_name    String
+  last_name     String
+  date_of_birth DateTime
+  year_group    String
+  sen_status    String?
+  
+  created_at    DateTime @default(now())
+  updated_at    DateTime @default(now())
+  
+  // Relations
+  tenants       tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  cases         cases[]
+  
+  @@unique([tenant_id, unique_id])
+  @@index([tenant_id])
+  @@index([sen_status])
+  @@index([year_group])
 }
 
 model cases {
@@ -559,118 +260,95 @@ model cases {
   priority      String
   type          String
   referral_date DateTime
+  
   created_at    DateTime        @default(now())
   updated_at    DateTime        @default(now())
-  assessments   assessments[]
-  users         users?          @relation(fields: [assigned_to], references: [id])
-  students      students        @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  
+  // Relations
   tenants       tenants         @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  students      students        @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  users         users?          @relation(fields: [assigned_to], references: [id])
+  assessments   assessments[]
   interventions interventions[]
+  
+  @@index([tenant_id])
+  @@index([student_id])
+  @@index([status])
+  @@index([priority])
 }
 
-model gamification_achievements {
-  id               Int      @id @default(autoincrement())
-  user_id          Int
-  achievement_type String
-  achievement_name String
-  achieved_at      DateTime @default(now())
-  description      String?
-  points_awarded   Int
-  metadata         Json?
-  users            users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
-
-  @@index([user_id])
-}
-
-model gamification_badges {
-  id          Int      @id @default(autoincrement())
-  user_id     Int
-  badge_type  String
-  badge_name  String
-  awarded_at  DateTime @default(now())
-  description String?
-  image_url   String?
-  level       Int?     @default(1)
-  metadata    Json?
-  users       users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
-
-  @@index([user_id])
-}
-
-model gamification_scores {
-  id          Int      @id @default(autoincrement())
-  user_id     Int
-  score_type  String
-  score_value Int
-  created_at  DateTime @default(now())
-  updated_at  DateTime
-  metadata    Json?
-  users       users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
-
-  @@index([user_id])
-}
-
-model help_preferences {
-  user_id              Int      @id
-  show_contextual_help Boolean  @default(true)
-  enable_tours         Boolean  @default(true)
-  show_help_button     Boolean  @default(true)
-  updated_at           DateTime @default(now())
-  users                users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
-}
-
-model help_viewed_items {
-  user_id   Int
-  item_id   String
-  viewed_at DateTime @default(now())
-  users     users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
-
-  @@id([user_id, item_id])
+model assessments {
+  id              Int       @id @default(autoincrement())
+  tenant_id       Int
+  case_id         Int
+  assessment_type String
+  scheduled_date  DateTime?
+  completion_date DateTime?
+  status          String
+  created_by      Int?
+  
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @default(now())
+  
+  // Relations
+  tenants         tenants   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  cases           cases     @relation(fields: [case_id], references: [id], onDelete: Cascade)
+  users           users?    @relation(fields: [created_by], references: [id])
+  
+  @@index([tenant_id])
+  @@index([case_id])
+  @@index([status])
 }
 
 model interventions {
-  id                                        Int       @id @default(autoincrement())
-  case_id                                   Int
-  tenant_id                                 Int
-  intervention_type                         String
-  start_date                                DateTime?
-  end_date                                  DateTime?
-  status                                    String
-  created_by                                Int?
-  implemented_by                            Int?
-  created_at                                DateTime  @default(now())
-  updated_at                                DateTime  @default(now())
-  cases                                     cases     @relation(fields: [case_id], references: [id], onDelete: Cascade)
-  users_interventions_created_byTousers     users?    @relation("interventions_created_byTousers", fields: [created_by], references: [id])
-  users_interventions_implemented_byTousers users?    @relation("interventions_implemented_byTousers", fields: [implemented_by], references: [id])
-  tenants                                   tenants   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  id                Int       @id @default(autoincrement())
+  tenant_id         Int
+  case_id           Int
+  intervention_type String
+  start_date        DateTime?
+  end_date          DateTime?
+  status            String
+  created_by        Int?
+  implemented_by    Int?
+  
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @default(now())
+  
+  // Relations
+  tenants           tenants   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  cases             cases     @relation(fields: [case_id], references: [id], onDelete: Cascade)
+  creator           users?    @relation("interventions_created_byTousers", fields: [created_by], references: [id])
+  implementer       users?    @relation("interventions_implemented_byTousers", fields: [implemented_by], references: [id])
+  
+  @@index([tenant_id])
+  @@index([case_id])
+  @@index([status])
 }
 
-model parent_portal_activities {
-  id            Int       @id @default(autoincrement())
-  parent_id     Int
-  child_id      Int
-  activity_type String
-  activity_data Json
-  created_at    DateTime  @default(now())
-  viewed_at     DateTime?
-  status        String?   @default("unread")
-  parents       parents   @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+// ============================================================================
+// USER TYPE EXTENSIONS
+// ============================================================================
 
-  @@index([child_id])
-  @@index([parent_id])
-}
-
-model parents {
-  id                       Int                        @id @default(autoincrement())
-  user_id                  Int                        @unique
-  created_at               DateTime                   @default(now())
-  updated_at               DateTime
-  child_ids                Int[]
-  notification_preferences Json?
-  last_login               DateTime?
-  parent_portal_activities parent_portal_activities[]
-  users                    users                      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+model professionals {
+  id                          Int                           @id @default(autoincrement())
+  user_id                     Int                           @unique
+  tenant_id                   Int
+  professional_type           String
+  specialisation              String?
+  qualifications              String[]
+  student_ids                 Int[]
+  last_login                  DateTime?
+  
+  created_at                  DateTime                      @default(now())
+  updated_at                  DateTime                      @default(now())
+  
+  // Relations
+  users                       users                         @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  tenants                     tenants                       @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  professional_portal_metrics professional_portal_metrics[]
+  
+  @@index([tenant_id])
+  @@index([professional_type])
 }
 
 model professional_portal_metrics {
@@ -680,118 +358,862 @@ model professional_portal_metrics {
   metric_value    Float
   measured_at     DateTime      @default(now())
   metadata        Json?
+  
+  // Relations
   professionals   professionals @relation(fields: [professional_id], references: [id], onDelete: Cascade)
-
+  
   @@index([professional_id])
+  @@index([measured_at])
 }
 
-model professionals {
-  id                          Int                           @id @default(autoincrement())
-  user_id                     Int                           @unique
-  created_at                  DateTime                      @default(now())
-  updated_at                  DateTime
-  professional_type           String
-  specialisation              String?
-  qualifications              String[]
-  student_ids                 Int[]
-  tenant_id                   Int
-  last_login                  DateTime?
-  professional_portal_metrics professional_portal_metrics[]
-  tenants                     tenants                       @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
-  users                       users                         @relation(fields: [user_id], references: [id], onDelete: Cascade)
-}
-
-model students {
-  id            Int      @id @default(autoincrement())
-  tenant_id     Int
-  unique_id     String
-  first_name    String
-  last_name     String
-  date_of_birth DateTime
-  year_group    String
-  sen_status    String?
-  created_at    DateTime @default(now())
-  updated_at    DateTime @default(now())
-  cases         cases[]
-  tenants       tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
-
-  @@unique([tenant_id, unique_id])
-}
-
-model subscriptions {
-  id             Int      @id @default(autoincrement())
-  tenant_id      Int
+model parents {
+  id                       Int                        @id @default(autoincrement())
+  user_id                  Int                        @unique
+  child_ids                Int[]
+  notification_preferences Json?
+  last_login               DateTime?
   
-  // Legacy fields (keep for backward compatibility)
-  plan_type      String
-  payment_status String
-  amount_paid    Decimal
+  created_at               DateTime                   @default(now())
+  updated_at               DateTime                   @default(now())
   
-  // Dates
-  start_date     DateTime
-  end_date       DateTime
-  is_active      Boolean  @default(true)
+  // Relations
+  users                    users                      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  parent_portal_activities parent_portal_activities[]
+  parent_permissions       parent_permissions[]
+}
+
+model parent_portal_activities {
+  id            Int       @id @default(autoincrement())
+  parent_id     Int
+  child_id      Int
+  activity_type String
+  activity_data Json
+  status        String?   @default("unread")
+  viewed_at     DateTime?
+  created_at    DateTime  @default(now())
+  
+  // Relations
+  parents       parents   @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+  
+  @@index([parent_id])
+  @@index([child_id])
+  @@index([status])
+}
+
+model parent_permissions {
+  id          Int      @id @default(autoincrement())
+  parent_id   Int
+  canViewData Boolean  @default(true)
+  canMessage  Boolean  @default(true)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+  
+  // Relations
+  parents     parents  @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+  
+  @@index([parent_id])
+}
+
+// ============================================================================
+// TRAINING & EDUCATION PLATFORM (TENANT-SCOPED)
+// ============================================================================
+
+model courses {
+  id          String       @id @default(cuid())
+  tenant_id   Int
+  title       String
+  description String
+  created_at  DateTime     @default(now())
+  updated_at  DateTime     @default(now())
+  
+  // Relations
+  tenants     tenants      @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  enrollments enrollments[]
+  
+  @@index([tenant_id])
+}
+
+model enrollments {
+  id           String    @id @default(cuid())
+  tenant_id    Int
+  user_id      Int
+  course_id    String
+  status       String    @default("active")
+  progress     Int       @default(0)
+  started_at   DateTime  @default(now())
+  completed_at DateTime?
+  updated_at   DateTime  @default(now())
+  
+  // Relations
+  tenants      tenants   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  users        users     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  courses      courses   @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  
+  @@unique([user_id, course_id])
+  @@index([tenant_id])
+  @@index([user_id])
+  @@index([course_id])
+}
+
+model academic_years {
+  id         String   @id @default(cuid())
+  tenant_id  Int
+  year_label String
+  start_date DateTime
+  end_date   DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  
+  // Relations
+  tenants    tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+}
+
+model terms {
+  id         String   @id @default(cuid())
+  tenant_id  Int
+  name       String
+  start_date DateTime
+  end_date   DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  
+  // Relations
+  tenants    tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+}
+
+model class_enrollments {
+  id         String   @id @default(cuid())
+  tenant_id  Int
+  class_id   String
+  student_id Int
+  joined_at  DateTime @default(now())
+  
+  // Relations
+  tenants    tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  users      users    @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+  @@index([class_id])
+  @@index([student_id])
+}
+
+model subject_enrollments {
+  id         String   @id @default(cuid())
+  tenant_id  Int
+  subject    String
+  user_id    Int
+  created_at DateTime @default(now())
+  
+  // Relations
+  tenants    tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  users      users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+  @@index([user_id])
+}
+
+model teacher_subjects {
+  id           String   @id @default(cuid())
+  tenant_id    Int
+  teacher_id   String
+  subject_name String
+  created_at   DateTime @default(now())
+  
+  // Relations
+  tenants      tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+  @@index([teacher_id])
+}
+
+model timetable_slots {
+  id         String @id @default(cuid())
+  tenant_id  Int
+  class_id   String
+  subject    String
+  day_of_week String
+  start_time String
+  end_time   String
+  
+  // Relations
+  tenants    tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+  @@index([class_id])
+}
+
+// ============================================================================
+// GAMIFICATION SYSTEM (TENANT-SCOPED)
+// ============================================================================
+
+model gamification_achievements {
+  id               Int      @id @default(autoincrement())
+  user_id          Int
+  achievement_type String
+  achievement_name String
+  description      String?
+  points_awarded   Int
+  metadata         Json?
+  achieved_at      DateTime @default(now())
+  
+  // Relations
+  users            users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  @@index([user_id])
+  @@index([achievement_type])
+}
+
+model gamification_badges {
+  id          Int      @id @default(autoincrement())
+  user_id     Int
+  badge_type  String
+  badge_name  String
+  description String?
+  image_url   String?
+  level       Int?     @default(1)
+  metadata    Json?
+  awarded_at  DateTime @default(now())
+  
+  // Relations
+  users       users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  @@index([user_id])
+  @@index([badge_type])
+}
+
+model gamification_scores {
+  id          Int      @id @default(autoincrement())
+  user_id     Int
+  score_type  String
+  score_value Int
+  metadata    Json?
+  
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+  
+  // Relations
+  users       users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  @@index([user_id])
+  @@index([score_type])
+}
+
+model battle_stats {
+  id         String   @id @default(cuid())
+  tenant_id  Int
+  user_id    Int
+  wins       Int      @default(0)
+  losses     Int      @default(0)
+  xp         Int      @default(0)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  
+  // Relations
+  tenants    tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  users      users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  @@unique([tenant_id, user_id])
+  @@index([tenant_id])
+  @@index([user_id])
+}
+
+model merits {
+  id          String   @id @default(cuid())
+  tenant_id   Int
+  user_id     Int
+  title       String
+  description String
+  points      Int      @default(10)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+  
+  // Relations
+  tenants     tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  users       users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+  @@index([user_id])
+}
+
+model game_items {
+  id         String   @id @default(cuid())
+  tenant_id  Int
+  name       String
+  rarity     String
+  type       String
+  created_at DateTime @default(now())
+  
+  // Relations
+  tenants    tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+}
+
+model equipped_items {
+  id         String   @id @default(cuid())
+  tenant_id  Int
+  user_id    Int
+  item_id    String
+  equipped_at DateTime @default(now())
+  
+  // Relations
+  tenants    tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  users      users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+  @@index([user_id])
+}
+
+model houses {
+  id         String   @id @default(cuid())
+  tenant_id  Int
+  name       String
+  color      String?
+  motto      String?
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  
+  // Relations
+  tenants    tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+}
+
+model squad_competitions {
+  id         String   @id @default(cuid())
+  tenant_id  Int
+  name       String
+  start_date DateTime
+  end_date   DateTime
+  created_at DateTime @default(now())
+  
+  // Relations
+  tenants    tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+}
+
+model squad_members {
+  id        String   @id @default(cuid())
+  tenant_id Int
+  squad_id  String
+  user_id   Int
+  role      String   @default("member")
+  joined_at DateTime @default(now())
+  
+  // Relations
+  tenants   tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  users     users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+  @@index([squad_id])
+  @@index([user_id])
+}
+
+// ============================================================================
+// NETWORKING & FORUMS (TENANT-SCOPED)
+// ============================================================================
+
+model forums {
+  id           String          @id @default(cuid())
+  tenant_id    Int
+  name         String
+  slug         String
+  description  String?
+  category     String?
+  icon         String?
+  color        String?
+  is_private   Boolean         @default(false)
+  created_by_id Int?
+  created_at   DateTime        @default(now())
+  updated_at   DateTime        @default(now())
+  
+  // Relations
+  tenants      tenants         @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  created_by   users?          @relation("ForumCreator", fields: [created_by_id], references: [id])
+  threads      forum_threads[]
+  
+  @@unique([tenant_id, slug])
+  @@index([tenant_id])
+}
+
+model forum_threads {
+  id         String         @id @default(cuid())
+  tenant_id  Int
+  title      String
+  slug       String
+  content    String
+  forum_id   String
+  author_id  Int
+  is_pinned  Boolean        @default(false)
+  tags       String[]
+  view_count Int            @default(0)
+  created_at DateTime       @default(now())
+  updated_at DateTime       @default(now())
+  
+  // Relations
+  tenants    tenants        @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  forums     forums         @relation(fields: [forum_id], references: [id], onDelete: Cascade)
+  author     users          @relation(fields: [author_id], references: [id], onDelete: Cascade)
+  replies    forum_replies[]
+  
+  @@unique([tenant_id, slug])
+  @@index([tenant_id])
+  @@index([forum_id])
+  @@index([author_id])
+}
+
+model forum_replies {
+  id         String        @id @default(cuid())
+  tenant_id  Int
+  content    String
+  thread_id  String
+  author_id  Int
+  like_count Int           @default(0)
+  created_at DateTime      @default(now())
+  updated_at DateTime      @default(now())
+  
+  // Relations
+  tenants    tenants       @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  threads    forum_threads @relation(fields: [thread_id], references: [id], onDelete: Cascade)
+  author     users         @relation(fields: [author_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+  @@index([thread_id])
+  @@index([author_id])
+}
+
+model friendships {
+  id         String   @id @default(cuid())
+  tenant_id  Int
+  user_a_id  Int
+  user_b_id  Int
+  status     String   @default("pending")
+  created_at DateTime @default(now())
+  
+  // Relations
+  tenants    tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  user_a     users    @relation("FriendshipInitiator", fields: [user_a_id], references: [id], onDelete: Cascade)
+  user_b     users    @relation("FriendshipReceiver", fields: [user_b_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+  @@index([user_a_id])
+  @@index([user_b_id])
+}
+
+// ============================================================================
+// EHCP & SEND SUPPORT (TENANT-SCOPED)
+// ============================================================================
+
+model ehcps {
+  id           String   @id @default(cuid())
+  tenant_id    Int
+  student_id   String
+  plan_details Json
+  issued_at    DateTime @default(now())
+  updated_at   DateTime @default(now())
+  
+  // Relations
+  tenants      tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+  @@index([student_id])
+}
+
+model sen_details {
+  id           String   @id @default(cuid())
+  tenant_id    Int
+  description  String
+  support_plan Json?
+  created_at   DateTime @default(now())
+  updated_at   DateTime @default(now())
+  
+  // Relations
+  tenants      tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+}
+
+model attachments {
+  id         String   @id @default(cuid())
+  tenant_id  Int
+  file_name  String
+  file_type  String
+  file_url   String
+  created_at DateTime @default(now())
+  
+  // Relations
+  tenants    tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+}
+
+// ============================================================================
+// RESEARCH FOUNDATION (TENANT-SCOPED)
+// ============================================================================
+
+model research_studies {
+  id                   String                     @id @default(cuid())
+  tenant_id            Int
+  title                String
+  description          String
+  objective            String
+  methodology          String
+  ethics_approval      Boolean                    @default(false)
+  ethics_reference     String?
+  start_date           DateTime
+  end_date             DateTime?
+  status               String                     @default("draft")
+  is_public            Boolean                    @default(false)
+  creator_id           Int
+  created_at           DateTime                   @default(now())
+  updated_at           DateTime                   @default(now())
+  
+  // Relations
+  tenants              tenants                    @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  creator              users                      @relation(fields: [creator_id], references: [id])
+  collaborators        research_collaborators[]
+  datasets             research_datasets[]
+  participants         research_participants[]
+  publications         research_publications[]
+  surveys              research_surveys[]
+  
+  @@index([tenant_id])
+  @@index([creator_id])
+  @@index([status])
+}
+
+model research_collaborators {
+  id                String          @id @default(cuid())
+  study_id          String
+  user_id           Int
+  role              String          @default("researcher")
+  permissions       String[]
+  invitation_status String          @default("pending")
+  created_at        DateTime        @default(now())
+  updated_at        DateTime        @default(now())
+  
+  // Relations
+  study             research_studies @relation(fields: [study_id], references: [id], onDelete: Cascade)
+  user              users           @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  @@unique([study_id, user_id])
+  @@index([study_id])
+  @@index([user_id])
+}
+
+model research_datasets {
+  id               String              @id @default(cuid())
+  study_id         String
+  name             String
+  description      String
+  data_type        String
+  format           String
+  size             Int
+  location         String
+  is_anonymized    Boolean             @default(true)
+  created_at       DateTime            @default(now())
+  updated_at       DateTime            @default(now())
+  
+  // Relations
+  study            research_studies    @relation(fields: [study_id], references: [id], onDelete: Cascade)
+  analyses         research_analyses[]
+  
+  @@index([study_id])
+}
+
+model research_analyses {
+  id            String             @id @default(cuid())
+  dataset_id    String
+  researcher_id Int
+  title         String
+  description   String
+  methodology   String
+  results       String
+  status        String             @default("in-progress")
+  created_at    DateTime           @default(now())
+  updated_at    DateTime           @default(now())
+  
+  // Relations
+  dataset       research_datasets  @relation(fields: [dataset_id], references: [id], onDelete: Cascade)
+  researcher    users              @relation(fields: [researcher_id], references: [id])
+  
+  @@index([dataset_id])
+  @@index([researcher_id])
+}
+
+model research_participants {
+  id                  String                @id @default(cuid())
+  study_id            String
+  user_id             Int?
+  consent_provided    Boolean               @default(false)
+  consent_date        DateTime?
+  participant_code    String                @unique
+  status              String                @default("enrolled")
+  enrollment_date     DateTime              @default(now())
+  completion_date     DateTime?
+  withdrawal_date     DateTime?
+  withdrawal_reason   String?
+  created_at          DateTime              @default(now())
+  updated_at          DateTime              @default(now())
+  
+  // Relations
+  study               research_studies      @relation(fields: [study_id], references: [id], onDelete: Cascade)
+  user                users?                @relation(fields: [user_id], references: [id])
+  responses           research_responses[]
+  
+  @@unique([study_id, user_id])
+  @@index([study_id])
+  @@index([user_id])
+}
+
+model research_surveys {
+  id                 String               @id @default(cuid())
+  study_id           String
+  title              String
+  description        String
+  instructions       String
+  questions          Json
+  estimated_duration Int?
+  is_anonymous       Boolean              @default(false)
+  status             String               @default("draft")
+  start_date         DateTime?
+  end_date           DateTime?
+  created_at         DateTime             @default(now())
+  updated_at         DateTime             @default(now())
+  
+  // Relations
+  study              research_studies     @relation(fields: [study_id], references: [id], onDelete: Cascade)
+  responses          research_responses[]
+  
+  @@index([study_id])
+}
+
+model research_responses {
+  id              String                  @id @default(cuid())
+  survey_id       String
+  participant_id  String
+  answers         Json
+  completion_time Int?
+  started_at      DateTime                @default(now())
+  completed_at    DateTime?
+  ip_address      String?
+  user_agent      String?
+  created_at      DateTime                @default(now())
+  
+  // Relations
+  survey          research_surveys        @relation(fields: [survey_id], references: [id], onDelete: Cascade)
+  participant     research_participants   @relation(fields: [participant_id], references: [id], onDelete: Cascade)
+  
+  @@index([survey_id])
+  @@index([participant_id])
+}
+
+model research_publications {
+  id               String           @id @default(cuid())
+  study_id         String
+  title            String
+  authors          String[]
+  abstract         String
+  publication_date DateTime?
+  journal          String?
+  doi              String?
+  url              String?
+  citation         String?
+  publication_type String           @default("article")
+  status           String           @default("draft")
+  created_at       DateTime         @default(now())
+  updated_at       DateTime         @default(now())
+  
+  // Relations
+  study            research_studies @relation(fields: [study_id], references: [id], onDelete: Cascade)
+  
+  @@index([study_id])
+}
+
+model research_ethics_approvals {
+  id               String    @id @default(cuid())
+  user_id          Int
+  approval_body    String
+  reference_number String
+  approval_date    DateTime
+  expiry_date      DateTime?
+  document_url     String?
+  status           String    @default("approved")
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @default(now())
+  
+  // Relations
+  user             users     @relation(fields: [user_id], references: [id])
+  
+  @@index([user_id])
+}
+
+// ============================================================================
+// ACCESSIBILITY & PREFERENCES
+// ============================================================================
+
+model accessibility_settings {
+  id             String   @id @default(cuid())
+  user_id        Int      @unique
+  high_contrast  Boolean  @default(false)
+  large_text     Boolean  @default(false)
+  screen_reader  Boolean  @default(false)
+  reduced_motion Boolean  @default(false)
+  text_to_speech Boolean  @default(false)
+  speech_to_text Boolean  @default(false)
   created_at     DateTime @default(now())
   updated_at     DateTime @default(now())
   
-  // NEW: Tier-based access control
-  tier           SubscriptionTier @default(LEGACY)
-  max_schools    Int?
-  max_users      Int?
-  max_students   Int?
-  
-  // NEW: Stripe integration
-  stripe_customer_id     String? @unique
-  stripe_subscription_id String? @unique
-  stripe_price_id        String?
+  // Relations
+  user           users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model user_preferences {
+  id         String   @id @default(cuid())
+  user_id    Int      @unique
+  theme      String   @default("light")
+  language   String   @default("en")
+  timezone   String   @default("UTC")
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
   
   // Relations
-  tenants        tenants         @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
-  feature_usage  feature_usage[]
+  user       users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model learning_style {
+  id          String   @id @default(cuid())
+  user_id     Int      @unique
+  visual      Int      @default(0)
+  auditory    Int      @default(0)
+  kinesthetic Int      @default(0)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+  
+  // Relations
+  user        users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model speech_recognition_logs {
+  id         Int      @id @default(autoincrement())
+  user_id    Int?
+  text       String
+  confidence Float
+  language   String
+  provider   String
+  timestamp  DateTime @default(now())
+  
+  // Relations
+  user       users?   @relation(fields: [user_id], references: [id])
+  
+  @@index([user_id])
+}
+
+model speech_synthesis_logs {
+  id              Int      @id @default(autoincrement())
+  user_id         Int?
+  text            String
+  language        String
+  provider        String
+  voice_name      String
+  voice_gender    String
+  character_count Int
+  timestamp       DateTime @default(now())
+  
+  // Relations
+  user            users?   @relation(fields: [user_id], references: [id])
+  
+  @@index([user_id])
+}
+
+model translation_logs {
+  id              Int      @id @default(autoincrement())
+  user_id         Int?
+  original_text   String
+  translated_text String
+  source_language String
+  target_language String
+  provider        String
+  character_count Int
+  timestamp       DateTime @default(now())
+  
+  // Relations
+  user            users?   @relation(fields: [user_id], references: [id])
+  
+  @@index([user_id])
+}
+
+// ============================================================================
+// HELP & ONBOARDING SYSTEM
+// ============================================================================
+
+model help_preferences {
+  user_id              Int      @id
+  show_contextual_help Boolean  @default(true)
+  enable_tours         Boolean  @default(true)
+  show_help_button     Boolean  @default(true)
+  updated_at           DateTime @default(now())
+  
+  // Relations
+  users                users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model help_viewed_items {
+  user_id   Int
+  item_id   String
+  viewed_at DateTime @default(now())
+  
+  // Relations
+  users     users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  @@id([user_id, item_id])
+}
+
+// ============================================================================
+// SUBSCRIPTION & BILLING (STRIPE INTEGRATED)
+// ============================================================================
+
+model subscriptions {
+  id                     Int              @id @default(autoincrement())
+  tenant_id              Int
+  
+  // Tier-based access control
+  tier                   SubscriptionTier @default(TRIAL)
+  max_schools            Int?
+  max_users              Int?
+  max_students           Int?
+  
+  // Legacy fields (backward compatibility)
+  plan_type              String
+  payment_status         String
+  amount_paid            Decimal
+  
+  // Dates
+  start_date             DateTime
+  end_date               DateTime
+  is_active              Boolean          @default(true)
+  
+  // Stripe integration
+  stripe_customer_id     String?          @unique
+  stripe_subscription_id String?          @unique
+  stripe_price_id        String?
+  
+  created_at             DateTime         @default(now())
+  updated_at             DateTime         @default(now())
+  
+  // Relations
+  tenants                tenants          @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  feature_usage          feature_usage[]
   
   @@index([tenant_id])
   @@index([tier])
   @@index([is_active])
-}
-
-model tenants {
-  id            Int             @id @default(autoincrement())
-  name          String
-  subdomain     String          @unique
-  created_at    DateTime        @default(now())
-  updated_at    DateTime        @default(now())
-  assessments   assessments[]
-  cases         cases[]
-  interventions interventions[]
-  professionals professionals[]
-  students      students[]
-  subscriptions subscriptions[]
-  users         users[]
-}
-
-model users {
-  id                                                Int                         @id @default(autoincrement())
-  tenant_id                                         Int
-  email                                             String                      @unique
-  password_hash                                     String
-  name                                              String
-  role                                              String
-  is_active                                         Boolean                     @default(true)
-  last_login                                        DateTime?
-  created_at                                        DateTime                    @default(now())
-  updated_at                                        DateTime                    @default(now())
-  assessments                                       assessments[]
-  cases                                             cases[]
-  gamification_achievements                         gamification_achievements[]
-  gamification_badges                               gamification_badges[]
-  gamification_scores                               gamification_scores[]
-  help_preferences                                  help_preferences?
-  help_viewed_items                                 help_viewed_items[]
-  interventions_interventions_created_byTousers     interventions[]             @relation("interventions_created_byTousers")
-  interventions_interventions_implemented_byTousers interventions[]             @relation("interventions_implemented_byTousers")
-  parents                                           parents?
-  professionals                                     professionals?
-  tenants                                           tenants                     @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  @@index([stripe_customer_id])
 }
 
 model feature_usage {
@@ -800,14 +1222,1023 @@ model feature_usage {
   tenant_id       Int
   feature         Feature
   tier            SubscriptionTier
-  timestamp       DateTime         @default(now())
   duration        Int?
   metadata        Json?
+  timestamp       DateTime         @default(now())
   
-  subscription    subscriptions @relation(fields: [subscription_id], references: [id], onDelete: Cascade)
+  // Relations
+  subscription    subscriptions    @relation(fields: [subscription_id], references: [id], onDelete: Cascade)
   
   @@index([subscription_id])
   @@index([tenant_id])
   @@index([feature])
   @@index([timestamp])
+}
+
+// ============================================================================
+// TRAINING & CPD MANAGEMENT MODELS
+// ============================================================================
+
+model Course {
+  id           String   @id @default(uuid())
+  title        String
+  description  String?  @db.Text
+  category     String
+  level        String
+  duration     Int      // in minutes
+  imageUrl     String?
+  status       String   @default("draft") // draft, published, archived
+  cpdHours     Float    @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  instructor         CourseInstructor?
+  modules            CourseModule[]
+  enrollments        CourseEnrollment[]
+  reviews            CourseReview[]
+  certificates       Certificate[]
+
+  @@index([category])
+  @@index([status])
+  @@index([level])
+}
+
+model CourseInstructor {
+  id        String   @id @default(uuid())
+  courseId  String   @unique
+  name      String
+  title     String?
+  bio       String?  @db.Text
+  imageUrl  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([courseId])
+}
+
+model CourseModule {
+  id          String   @id @default(uuid())
+  courseId    String
+  title       String
+  description String?  @db.Text
+  orderIndex  Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  course  Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  lessons CourseLesson[]
+
+  @@index([courseId])
+  @@index([orderIndex])
+}
+
+model CourseLesson {
+  id          String   @id @default(uuid())
+  moduleId    String
+  title       String
+  content     String?  @db.Text
+  videoUrl    String?
+  duration    Int?     // in minutes
+  orderIndex  Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  module CourseModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@index([moduleId])
+  @@index([orderIndex])
+}
+
+model CourseEnrollment {
+  id             String    @id @default(uuid())
+  userId         String
+  courseId       String
+  status         String    @default("active") // active, completed, suspended
+  progress       Int       @default(0) // 0-100
+  timeSpent      Int       @default(0) // in minutes
+  lastAccessedAt DateTime?
+  completedAt    DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  // Relations
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+  @@index([userId])
+  @@index([courseId])
+  @@index([status])
+}
+
+model CourseReview {
+  id        String   @id @default(uuid())
+  courseId  String
+  userId    String
+  rating    Int      // 1-5
+  comment   String?  @db.Text
+  status    String   @default("pending") // pending, published, rejected
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([courseId])
+  @@index([userId])
+  @@index([status])
+}
+
+model Certificate {
+  id               String   @id @default(uuid())
+  userId           String
+  courseId         String
+  verificationCode String   @unique
+  issueDate        DateTime @default(now())
+  completionDate   DateTime
+  grade            String?
+  skills           String[] // Array of skills/competencies achieved
+  status           String   @default("issued") // issued, revoked
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Relations
+  course Course @relation(fields: [courseId], references: [id], onDelete: Restrict)
+
+  @@index([userId])
+  @@index([courseId])
+  @@index([verificationCode])
+  @@index([status])
+}
+
+model CPDEntry {
+  id          String   @id @default(uuid())
+  userId      String
+  date        DateTime
+  activity    String
+  category    String
+  hours       Float
+  provider    String
+  certificate Boolean  @default(false)
+  notes       String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([date])
+  @@index([category])
+}
+
+// ============================================================================
+// ASSESSMENT MODELS
+// ============================================================================
+
+model Assessment {
+  id              String    @id @default(uuid())
+  studentId       String
+  assessmentType  String
+  title           String
+  description     String?   @db.Text
+  status          String    @default("draft") // draft, in_progress, completed
+  assessedBy      String
+  assessmentDate  DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Relations
+  results AssessmentResult[]
+
+  @@index([studentId])
+  @@index([status])
+  @@index([assessmentType])
+  @@index([assessmentDate])
+}
+
+model AssessmentResult {
+  id           String   @id @default(uuid())
+  assessmentId String
+  domain       String
+  score        Float
+  maxScore     Float
+  percentile   Float?
+  notes        String?  @db.Text
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  assessment Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+
+  @@index([assessmentId])
+  @@index([domain])
+}
+
+// ============================================================================
+// SECURE STORAGE MODEL
+// ============================================================================
+
+model SecureDocument {
+  id        String   @id @default(uuid())
+  path      String   @unique
+  content   String   @db.Text
+  metadata  Json?
+  encrypted Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([path])
+  @@index([encrypted])
+}
+
+// ============================================================================
+// BETA ACCESS MODEL
+// ============================================================================
+
+model BetaAccessCode {
+  id             String    @id @default(uuid())
+  code           String    @unique
+  email          String?
+  usedBy         String?
+  usedAt         DateTime?
+  maxUses        Int       @default(1)
+  currentUses    Int       @default(0)
+  remainingUses  Int       @default(1)
+  role           String?
+  features       String[]  @default([])
+  metadata       Json?
+  expiresAt      DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([code])
+  @@index([email])
+  @@index([usedBy])
+}
+
+model BetaAccessCodeUsage {
+  id             String   @id @default(uuid())
+  accessCodeId   String
+  userId         String?
+  usedAt         DateTime @default(now())
+  ipAddress      String?
+  userAgent      String?
+  metadata       Json?
+  createdAt      DateTime @default(now())
+
+  @@index([accessCodeId])
+  @@index([userId])
+  @@index([usedAt])
+}
+
+model LegalSignature {
+  id                String   @id @default(uuid())
+  userId            String
+  documentId        String?
+  agreementType     String
+  agreementVersion  String
+  signatureData     String   @db.Text
+  signedAt          DateTime @default(now())
+  timestamp         DateTime @default(now())
+  ipAddress         String?
+  userAgent         String?
+  status            String   @default("active")
+  verified          Boolean  @default(false)
+  metadata          Json?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([userId])
+  @@index([documentId])
+  @@index([timestamp])
+  @@index([signedAt])
+}
+
+// ============================================================================
+// AUDIT & LEGAL MODELS
+// ============================================================================
+
+model AuditLog {
+  id             String   @id @default(uuid())
+  userId         String?
+  performedById  String?
+  institutionId  String?
+  subscriptionId String?
+  action         String
+  resource       String?
+  description    String?
+  details        Json?
+  entityType     String?
+  entityId       String?
+  changes        Json?
+  metadata       Json?
+  ipAddress      String?
+  userAgent      String?
+  timestamp      DateTime @default(now())
+  createdAt      DateTime @default(now())
+
+  @@index([userId])
+  @@index([performedById])
+  @@index([institutionId])
+  @@index([subscriptionId])
+  @@index([resource])
+  @@index([entityType, entityId])
+  @@index([timestamp])
+  @@index([action])
+  @@map("audit_logs")
+}
+
+model LegalDocument {
+  id          String   @id @default(uuid())
+  type        String
+  version     String
+  content     String   @db.Text
+  effectiveDate DateTime
+  status      String   @default("active")
+  metadata    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([type])
+  @@index([version])
+  @@index([status])
+  @@index([effectiveDate])
+}
+
+// ============================================================================
+// USER PREFERENCES MODEL
+// ============================================================================
+
+model UserPreference {
+  id                String   @id @default(uuid())
+  userId            String   @unique
+  category          String?
+  type              String?
+  value             Json?
+  theme             String?  @default("light")
+  language          String?  @default("en")
+  notifications     Json?
+  accessibility     Json?
+  privacy           Json?
+  displaySettings   Json?
+  metadata          Json?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([userId])
+  @@index([category])
+  @@index([type])
+}
+
+// ============================================================================
+// VOLUME DISCOUNT MODEL
+// ============================================================================
+
+model VolumeDiscountTier {
+  id             String   @id @default(uuid())
+  tier           String
+  minQuantity    Int
+  maxQuantity    Int?
+  discountPercent Float
+  description    String?
+  isActive       Boolean  @default(true)
+  metadata       Json?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([tier])
+  @@index([minQuantity])
+  @@index([isActive])
+}
+
+// ============================================================================
+// INSTITUTIONAL MANAGEMENT MODELS
+// ============================================================================
+
+model Institution {
+  id                 String    @id @default(uuid())
+  name               String
+  type               String
+  size               String
+  address            String?
+  city               String?
+  region             String?
+  postcode           String?
+  country            String?
+  phone              String?
+  email              String
+  website            String?
+  logoUrl            String?
+  notes              String?   @db.Text
+  tags               String[]  @default([])
+  customFields       Json?
+  verificationStatus String    @default("PENDING")
+  verifiedAt         DateTime?
+  isActive           Boolean   @default(true)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  createdBy          String?
+
+  contacts      InstitutionContact[]
+  departments   Department[]
+  subscriptions InstitutionSubscription[]
+  admins        InstitutionAdmin[]
+
+  @@index([name])
+  @@index([type])
+  @@index([verificationStatus])
+  @@index([isActive])
+  @@index([email])
+}
+
+model InstitutionContact {
+  id               String    @id @default(uuid())
+  institutionId    String
+  firstName        String
+  lastName         String
+  email            String
+  phone            String?
+  role             String?
+  isPrimaryContact Boolean   @default(false)
+  jobTitle         String?
+  notes            String?   @db.Text
+  departmentId     String?
+  isActive         Boolean   @default(true)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  institution Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+  department  Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+
+  @@index([institutionId])
+  @@index([email])
+  @@index([isPrimaryContact])
+  @@index([departmentId])
+}
+
+model Department {
+  id                  String    @id @default(uuid())
+  institutionId       String
+  name                String
+  description         String?   @db.Text
+  type                String
+  parentDepartmentId  String?
+  headOfDepartmentId  String?
+  status              String    @default("ACTIVE")
+  isActive            Boolean   @default(true)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  createdBy           String
+
+  institution       Institution          @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+  parentDepartment  Department?          @relation("DepartmentHierarchy", fields: [parentDepartmentId], references: [id], onDelete: SetNull)
+  childDepartments  Department[]         @relation("DepartmentHierarchy")
+  contacts          InstitutionContact[]
+  users             DepartmentMember[]
+  managers          DepartmentManager[]
+
+  @@index([institutionId])
+  @@index([name])
+  @@index([type])
+  @@index([status])
+  @@index([parentDepartmentId])
+  @@index([headOfDepartmentId])
+}
+
+// Join table for Department members
+model DepartmentMember {
+  id           String   @id @default(uuid())
+  departmentId String
+  userId       Int
+  role         String?
+  joinedAt     DateTime @default(now())
+  createdAt    DateTime @default(now())
+
+  department Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  user       users      @relation("DepartmentMembers", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([departmentId, userId])
+  @@index([departmentId])
+  @@index([userId])
+}
+
+// Join table for Department managers
+model DepartmentManager {
+  id           String   @id @default(uuid())
+  departmentId String
+  userId       Int
+  assignedAt   DateTime @default(now())
+  assignedBy   String?
+  createdAt    DateTime @default(now())
+
+  department Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  user       users      @relation("DepartmentManagers", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([departmentId, userId])
+  @@index([departmentId])
+  @@index([userId])
+}
+
+// Institution Subscription model
+model InstitutionSubscription {
+  id                String   @id @default(uuid())
+  institutionId     String
+  plan              String
+  status            String
+  licenseCount      Int      @default(1)
+  price             Float    @default(0)
+  paymentMethod     String?
+  billingCycle      String   @default("ANNUALLY")
+  autoRenew         Boolean  @default(true)
+  discountPercentage Float?
+  discountCode      String?
+  startDate         DateTime
+  endDate           DateTime
+  notes             String?  @db.Text
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  institution Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+
+  @@index([institutionId])
+  @@index([status])
+  @@index([startDate])
+  @@index([endDate])
+}
+
+// Join table for Institution admins
+model InstitutionAdmin {
+  id            String   @id @default(uuid())
+  institutionId String
+  userId        Int
+  assignedAt    DateTime @default(now())
+  assignedBy    String?
+  createdAt     DateTime @default(now())
+
+  institution Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+  user        users       @relation("InstitutionAdmins", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([institutionId, userId])
+  @@index([institutionId])
+  @@index([userId])
+}
+
+// ============================================================================
+// PHASE 4: TRAINING PLATFORM EXTENSIONS
+// ============================================================================
+
+model CourseQuiz {
+  id          String   @id @default(uuid())
+  courseId    String
+  moduleId    String?
+  lessonId    String?
+  title       String
+  description String?  @db.Text
+  timeLimit   Int?     // in minutes
+  passingScore Int     @default(70) // percentage
+  orderIndex  Int
+  isRequired  Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  course    Course
+  questions QuizQuestion[]
+  attempts  QuizAttempt[]
+
+  @@index([courseId])
+  @@index([moduleId])
+  @@index([lessonId])
+  @@index([orderIndex])
+}
+
+model QuizQuestion {
+  id             String   @id @default(uuid())
+  quizId         String
+  questionText   String   @db.Text
+  questionType   String   // multiple_choice, true_false, short_answer, essay
+  options        Json?    // For multiple choice: ["Option 1", "Option 2", ...]
+  correctAnswer  String   @db.Text // JSON for flexibility
+  explanation    String?  @db.Text
+  points         Int      @default(1)
+  orderIndex     Int
+  difficulty     String   @default("medium") // easy, medium, hard
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  quiz    CourseQuiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  answers QuizAnswer[]
+
+  @@index([quizId])
+  @@index([orderIndex])
+  @@index([difficulty])
+}
+
+model QuizAttempt {
+  id          String    @id @default(uuid())
+  quizId      String
+  userId      String
+  score       Int       // 0-100 percentage
+  maxScore    Int
+  isPassed    Boolean
+  timeSpent   Int       // in seconds
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  // Relations
+  quiz    CourseQuiz   @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  answers QuizAnswer[]
+
+  @@index([quizId])
+  @@index([userId])
+  @@index([completedAt])
+  @@index([isPassed])
+}
+
+model QuizAnswer {
+  id          String   @id @default(uuid())
+  attemptId   String
+  questionId  String
+  userAnswer  String   @db.Text // JSON for flexibility
+  isCorrect   Boolean
+  pointsEarned Int     @default(0)
+  createdAt   DateTime @default(now())
+
+  // Relations
+  attempt  QuizAttempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([attemptId])
+  @@index([questionId])
+}
+
+model LessonProgress {
+  id             String    @id @default(uuid())
+  userId         String
+  courseId       String
+  moduleId       String
+  lessonId       String
+  status         String    @default("not_started") // not_started, in_progress, completed
+  progress       Int       @default(0) // 0-100
+  timeSpent      Int       @default(0) // in seconds
+  lastPosition   Int?      // For video lessons - timestamp in seconds
+  completedAt    DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@unique([userId, lessonId])
+  @@index([userId])
+  @@index([courseId])
+  @@index([moduleId])
+  @@index([lessonId])
+  @@index([status])
+}
+
+// ============================================================================
+// PHASE 4: BATTLE ROYALE GAMIFICATION EXTENSIONS
+// ============================================================================
+
+model PowerUp {
+  id          String   @id @default(uuid())
+  name        String
+  description String   @db.Text
+  category    String   // boost, skip, hint, time, squad
+  rarity      String   // common, uncommon, rare, epic, legendary
+  meritCost   Int
+  duration    Int?     // in minutes (null for permanent/instant)
+  effect      Json     // Effect configuration
+  imageUrl    String?
+  isActive    Boolean  @default(true)
+  stockLimit  Int?     // For limited edition items
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  purchases PowerUpPurchase[]
+
+  @@index([category])
+  @@index([rarity])
+  @@index([isActive])
+}
+
+model PowerUpPurchase {
+  id          String    @id @default(uuid())
+  userId      String
+  powerUpId   String
+  meritSpent  Int
+  purchasedAt DateTime  @default(now())
+  usedAt      DateTime?
+  expiresAt   DateTime?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+
+  // Relations
+  powerUp PowerUp @relation(fields: [powerUpId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([powerUpId])
+  @@index([isActive])
+  @@index([expiresAt])
+}
+
+model Challenge {
+  id          String   @id @default(uuid())
+  title       String
+  description String   @db.Text
+  type        String   // daily, weekly, special_event
+  difficulty  String   // easy, medium, hard, legendary
+  objective   Json     // Challenge objective configuration
+  meritReward Int
+  xpReward    Int
+  startDate   DateTime
+  endDate     DateTime
+  isActive    Boolean  @default(true)
+  maxParticipants Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  progress ChallengeProgress[]
+
+  @@index([type])
+  @@index([difficulty])
+  @@index([isActive])
+  @@index([startDate])
+  @@index([endDate])
+}
+
+model ChallengeProgress {
+  id             String    @id @default(uuid())
+  challengeId    String
+  userId         String
+  progress       Int       @default(0) // Current progress value
+  target         Int       // Target value to complete
+  isCompleted    Boolean   @default(false)
+  completedAt    DateTime?
+  meritEarned    Int       @default(0)
+  xpEarned       Int       @default(0)
+  startedAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  // Relations
+  challenge Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+
+  @@unique([challengeId, userId])
+  @@index([challengeId])
+  @@index([userId])
+  @@index([isCompleted])
+}
+
+model Leaderboard {
+  id          String   @id @default(uuid())
+  name        String
+  description String?  @db.Text
+  type        String   // global, school, squad, subject, weekly, monthly, season
+  scope       String   // all, tenant, squad
+  scopeId     String?  // Tenant ID or Squad ID if scoped
+  period      String   @default("all_time") // all_time, weekly, monthly, season
+  isActive    Boolean  @default(true)
+  startDate   DateTime?
+  endDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  entries LeaderboardEntry[]
+
+  @@index([type])
+  @@index([scope])
+  @@index([scopeId])
+  @@index([period])
+  @@index([isActive])
+}
+
+model LeaderboardEntry {
+  id            String   @id @default(uuid())
+  leaderboardId String
+  userId        String
+  rank          Int
+  score         Int
+  meritsEarned  Int      @default(0)
+  lessonsCompleted Int   @default(0)
+  quizzesPassed Int      @default(0)
+  badgesUnlocked Int     @default(0)
+  metadata      Json?    // Additional stats
+  lastUpdated   DateTime @default(now())
+  createdAt     DateTime @default(now())
+
+  // Relations
+  leaderboard Leaderboard @relation(fields: [leaderboardId], references: [id], onDelete: Cascade)
+
+  @@unique([leaderboardId, userId])
+  @@index([leaderboardId])
+  @@index([userId])
+  @@index([rank])
+  @@index([score])
+}
+
+model Squad {
+  id             String   @id @default(uuid())
+  name           String
+  description    String?  @db.Text
+  bannerUrl      String?
+  createdByUserId String
+  memberLimit    Int      @default(5)
+  isPublic       Boolean  @default(true)
+  region         String   @default("UK")
+  division       String   @default("bronze") // bronze, silver, gold, platinum, diamond, champion, legend
+  totalMeritsEarned Int   @default(0)
+  competitionWins Int      @default(0)
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  members      SquadMember[]
+  competitions SquadCompetitionEntry[]
+
+  @@index([createdByUserId])
+  @@index([division])
+  @@index([isPublic])
+  @@index([isActive])
+}
+
+model SquadMember {
+  id                  String   @id @default(uuid())
+  squadId             String
+  userId              String
+  role                String   @default("member") // leader, co_leader, elite, member
+  contributionScore   Int      @default(0)
+  meritContribution   Int      @default(0)
+  isActive            Boolean  @default(true)
+  joinedAt            DateTime @default(now())
+  lastActiveAt        DateTime @default(now())
+
+  // Relations
+  squad Squad @relation(fields: [squadId], references: [id], onDelete: Cascade)
+
+  @@unique([squadId, userId])
+  @@index([squadId])
+  @@index([userId])
+  @@index([role])
+  @@index([isActive])
+}
+
+model SquadCompetition {
+  id                String   @id @default(uuid())
+  name              String
+  description       String   @db.Text
+  type              String   // weekly_challenge, storm_event, season_championship, head_to_head
+  format            String   // free_for_all, knockout, round_robin
+  division          String?  // Division restriction or null for all
+  status            String   @default("upcoming") // upcoming, registration_open, in_progress, completed
+  maxParticipants   Int
+  entryMeritCost    Int      @default(0)
+  prizePool         Json     // Prize distribution
+  objectives        Json     // Competition objectives
+  startDate         DateTime
+  endDate           DateTime
+  registrationDeadline DateTime
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Relations
+  entries SquadCompetitionEntry[]
+
+  @@index([type])
+  @@index([status])
+  @@index([division])
+  @@index([startDate])
+  @@index([endDate])
+}
+
+model SquadCompetitionEntry {
+  id              String    @id @default(uuid())
+  competitionId   String
+  squadId         String
+  rank            Int?
+  totalPoints     Int       @default(0)
+  objectivesCompleted Int   @default(0)
+  registeredAt    DateTime  @default(now())
+  startedAt       DateTime?
+  completedAt     DateTime?
+  prizeClaimed    Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Relations
+  competition SquadCompetition @relation(fields: [competitionId], references: [id], onDelete: Cascade)
+  squad       Squad            @relation(fields: [squadId], references: [id], onDelete: Cascade)
+
+  @@unique([competitionId, squadId])
+  @@index([competitionId])
+  @@index([squadId])
+  @@index([rank])
+}
+
+// ============================================================================
+// PHASE 4: SOCIAL FEATURES
+// ============================================================================
+
+model Forum {
+  id          String   @id @default(uuid())
+  name        String
+  slug        String
+  description String?  @db.Text
+  category    String?
+  icon        String?
+  color       String?
+  isPrivate   Boolean  @default(false)
+  createdById String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  threads ForumThread[]
+
+  @@unique([slug])
+  @@index([slug])
+  @@index([category])
+  @@index([isActive])
+  @@index([createdById])
+}
+
+model ForumThread {
+  id          String   @id @default(uuid())
+  forumId     String
+  title       String
+  slug        String
+  content     String   @db.Text
+  authorId    String
+  isPinned    Boolean  @default(false)
+  isLocked    Boolean  @default(false)
+  tags        String[]
+  viewCount   Int      @default(0)
+  replyCount  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  forum   Forum        @relation(fields: [forumId], references: [id], onDelete: Cascade)
+  replies ForumReply[]
+
+  @@unique([slug])
+  @@index([forumId])
+  @@index([authorId])
+  @@index([slug])
+  @@index([isPinned])
+  @@index([createdAt])
+}
+
+model ForumReply {
+  id          String   @id @default(uuid())
+  threadId    String
+  content     String   @db.Text
+  authorId    String
+  likeCount   Int      @default(0)
+  isDeleted   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  thread ForumThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  @@index([threadId])
+  @@index([authorId])
+  @@index([createdAt])
+}
+
+model Friendship {
+  id          String   @id @default(uuid())
+  userAId     String
+  userBId     String
+  status      String   @default("pending") // pending, accepted, blocked
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userAId, userBId])
+  @@index([userAId])
+  @@index([userBId])
+  @@index([status])
+}
+
+model ActivityFeed {
+  id          String   @id @default(uuid())
+  userId      String
+  activityType String  // course_completed, badge_earned, quiz_passed, squad_joined
+  title       String
+  description String?  @db.Text
+  metadata    Json?
+  isPublic    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+  @@index([activityType])
+  @@index([createdAt])
 }

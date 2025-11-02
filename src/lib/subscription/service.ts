@@ -274,7 +274,7 @@ export async function getActiveTenantSubscription(tenantId: number) {
       tenant_id: tenantId,
       is_active: true,
       OR: [
-        { end_date: null },
+        { end_date: null as any },
         { end_date: { gte: new Date() } }
       ]
     },
@@ -390,7 +390,7 @@ export async function upgradeTenantSubscription(
       plan_type: newTier, // Keep backward compatibility
       is_active: true,
       start_date: new Date(),
-      end_date: options?.endDate || null,
+      end_date: (options?.endDate || null) as any,
       payment_status: 'active',
       amount_paid: options?.amount || 0,
       max_schools: options?.maxSchools,

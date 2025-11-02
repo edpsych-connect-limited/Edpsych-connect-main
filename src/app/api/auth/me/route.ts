@@ -10,42 +10,41 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
-    // Get user from request
-    const user = await authService.getUserFromRequest(request);
+    // Get user session from request
+    const session = await authService.getSessionFromRequest(request);
 
-    if (!user) {
+    if (!session) {
       return NextResponse.json(
-        { error: 'Not authenticated' },
+        {
+          success: false,
+          error: 'Not authenticated'
+        },
         { status: 401 }
       );
     }
 
-    // Get tenant information
-    const tenant = await authService.getTenant(user.tenantId);
-
+    // Return user session information
     return NextResponse.json({
       success: true,
       user: {
-        id: user.id,
-        email: user.email,
-        tenantId: user.tenantId,
-        roles: user.roles,
-        permissions: user.permissions,
-        profile: user.profile,
-        metadata: {
-          ...user.metadata,
-          createdAt: user.metadata.createdAt.toISOString(),
-          updatedAt: user.metadata.updatedAt.toISOString(),
-          lastLoginAt: user.metadata.lastLoginAt?.toISOString()
-        }
-      },
-      tenant
+        id: session.id,
+        email: session.email,
+        name: session.name,
+        role: session.role,
+        organization: session.organization,
+        permissions: session.permissions,
+        subscriptionTier: session.subscriptionTier,
+        sessionId: session.sessionId
+      }
     });
 
   } catch (error) {
     console.error('User verification error:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      {
+        success: false,
+        error: 'Internal server error'
+      },
       { status: 500 }
     );
   }

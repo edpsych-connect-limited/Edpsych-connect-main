@@ -85,13 +85,12 @@ function getConnectionOptions(): MongoClientOptions {
     socketTimeoutMS: MONGODB_POOL_CONFIG.SOCKET_TIMEOUT_MS,
     serverSelectionTimeoutMS: MONGODB_POOL_CONFIG.SERVER_SELECTION_TIMEOUT_MS,
     waitQueueTimeoutMS: MONGODB_POOL_CONFIG.WAIT_QUEUE_TIMEOUT_MS,
-    waitQueueSize: MONGODB_POOL_CONFIG.WAIT_QUEUE_SIZE,
+    // waitQueueSize: MONGODB_POOL_CONFIG.WAIT_QUEUE_SIZE, // Deprecated in newer MongoDB driver versions
     heartbeatFrequencyMS: MONGODB_POOL_CONFIG.HEARTBEAT_FREQUENCY_MS,
     localThresholdMS: MONGODB_POOL_CONFIG.LOCAL_THRESHOLD_MS,
     retryReads: MONGODB_POOL_CONFIG.RETRY_READS,
     retryWrites: MONGODB_POOL_CONFIG.RETRY_WRITES,
-    // Add keepAlive to prevent connection timeout in serverless environments
-    keepAlive: true,
+    // keepAlive: true, // Deprecated in newer MongoDB driver versions
   };
 }
 
@@ -108,7 +107,8 @@ function startConnectionMonitoring() {
       try {
         // Update pool statistics
         connectionStats.poolStats = await connection.client.db().admin().serverStatus();
-        connectionStats.isConnected = connection.client.topology?.isConnected() || false;
+        // Cast to any for deprecated topology property
+        connectionStats.isConnected = (connection.client as any).topology?.isConnected() || false;
       } catch (error) {
         logger.warn('Failed to update MongoDB connection statistics', error);
       }

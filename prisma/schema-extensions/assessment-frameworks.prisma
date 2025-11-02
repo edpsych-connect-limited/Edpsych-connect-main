@@ -1,0 +1,390 @@
+// ============================================================================
+// EVIDENCE-BASED ASSESSMENT FRAMEWORKS
+// EdPsych Connect Limited - Proprietary Assessment Tools
+// ============================================================================
+//
+// This schema extension provides the foundation for:
+// - ECCA: EdPsych Connect Cognitive Assessment
+// - ECCP: EdPsych Connect Communication Profile
+// - ECWA: EdPsych Connect Wellbeing Assessment
+// - ECSMS: EdPsych Connect Sensory & Motor Screen
+// - ECSEF: EdPsych Connect Social-Emotional Functioning
+//
+// Key Principles:
+// - EP-controlled workflow (guidance, not automation)
+// - Evidence-based content (Vygotsky, Feuerstein, contemporary research)
+// - Collaborative input (EP, parent, teacher, child)
+// - Copyright-safe (original EdPsych Connect content)
+// - Professional interpretation required at all stages
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// ASSESSMENT FRAMEWORK DEFINITION (Template)
+// ----------------------------------------------------------------------------
+
+model AssessmentFramework {
+  id                    String   @id @default(uuid())
+  name                  String   // "EdPsych Connect Cognitive Assessment"
+  abbreviation          String   @unique // "ECCA"
+  version               String   @default("1.0")
+  domain                String   // "Cognitive & Learning", "Communication", etc.
+
+  // Description and purpose
+  description           String   @db.Text
+  purpose               String   @db.Text
+  age_range_min         Int?     // Minimum age in years
+  age_range_max         Int?     // Maximum age in years
+
+  // Evidence base and research foundations
+  evidence_base         Json     // Citations, research foundations
+  theoretical_frameworks String[] // ["Vygotsky", "Feuerstein", "Information Processing"]
+
+  // Administration guidelines
+  administration_guide  Json     // Step-by-step EP guidance
+  time_estimate_minutes Int?     // Typical administration time
+
+  // Interpretation framework
+  interpretation_guide  Json     // How to interpret observations
+  qualitative_descriptors Json   // Strength-based descriptors
+
+  // Content structure
+  domains               AssessmentDomain[]
+
+  // Status and metadata
+  status                String   @default("active") // active, draft, archived
+  is_proprietary        Boolean  @default(true)
+  copyright_holder      String   @default("EdPsych Connect Limited")
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+
+  // Relations
+  instances             AssessmentInstance[]
+
+  @@index([abbreviation])
+  @@index([domain])
+  @@index([status])
+}
+
+// ----------------------------------------------------------------------------
+// ASSESSMENT DOMAINS (Areas to assess within a framework)
+// ----------------------------------------------------------------------------
+
+model AssessmentDomain {
+  id                    String   @id @default(uuid())
+  framework_id          String
+
+  // Domain identification
+  name                  String   // "Working Memory", "Attention & Executive Function"
+  description           String   @db.Text
+  order_index           Int      // Display order
+
+  // EP Guidance for this domain
+  observation_prompts   Json     // Prompts to guide EP observation
+  task_suggestions      Json     // Suggested tasks/activities
+  key_indicators        Json     // What to look for (strengths and needs)
+
+  // Collaborative input questions
+  parent_questions      Json     // Questions for parent input
+  teacher_questions     Json     // Questions for teacher input
+  child_prompts         Json?    // Age-appropriate child input prompts
+
+  // Interpretation support
+  interpretation_guidance Json   // How to interpret observations in this domain
+  strength_descriptors   Json    // Qualitative descriptors for strengths
+  need_descriptors       Json    // Qualitative descriptors for needs
+
+  // Evidence-based interventions (linked)
+  suggested_interventions Json   // UK evidence-based interventions
+
+  // Relations
+  framework             AssessmentFramework @relation(fields: [framework_id], references: [id], onDelete: Cascade)
+  observations          DomainObservation[]
+
+  @@index([framework_id])
+  @@index([order_index])
+}
+
+// ----------------------------------------------------------------------------
+// ASSESSMENT INSTANCE (Specific assessment being conducted)
+// ----------------------------------------------------------------------------
+
+model AssessmentInstance {
+  id                    String    @id @default(uuid())
+  tenant_id             Int
+  framework_id          String
+  case_id               Int
+  student_id            Int
+
+  // Assessment metadata
+  title                 String?   // Optional custom title
+  conducted_by          Int       // EP user ID
+  assessment_date       DateTime?
+
+  // Status tracking
+  status                String    @default("draft") // draft, in_progress, collaborative_input, interpretation, completed
+  progress_percentage   Int       @default(0)
+
+  // Collaborative input status
+  parent_input_requested Boolean  @default(false)
+  parent_input_received  Boolean  @default(false)
+  teacher_input_requested Boolean @default(false)
+  teacher_input_received Boolean  @default(false)
+  child_input_requested  Boolean  @default(false)
+  child_input_received   Boolean  @default(false)
+
+  // EP observations and interpretation
+  ep_summary            String?   @db.Text
+  ep_interpretation     String?   @db.Text
+  ep_recommendations    Json?     // Linked to EHCP sections
+
+  // Links to outputs
+  linked_ehcp_id        String?   // If contributed to EHCP
+  linked_report_id      String?   // If generated report
+
+  created_at            DateTime  @default(now())
+  updated_at            DateTime  @updatedAt
+  completed_at          DateTime?
+
+  // Relations
+  framework             AssessmentFramework @relation(fields: [framework_id], references: [id])
+  domain_observations   DomainObservation[]
+  collaborations        AssessmentCollaboration[]
+
+  @@index([tenant_id])
+  @@index([framework_id])
+  @@index([case_id])
+  @@index([student_id])
+  @@index([conducted_by])
+  @@index([status])
+}
+
+// ----------------------------------------------------------------------------
+// DOMAIN OBSERVATIONS (EP's observations for each domain)
+// ----------------------------------------------------------------------------
+
+model DomainObservation {
+  id                    String   @id @default(uuid())
+  instance_id           String
+  domain_id             String
+
+  // EP Observations
+  observations          String   @db.Text // EP's narrative observations
+  observed_strengths    Json     // Structured strengths data
+  observed_needs        Json     // Structured needs data
+
+  // Context
+  observation_context   String?  @db.Text // Where/when/how observed
+  tasks_used            Json?    // Specific tasks or activities used
+
+  // Qualitative assessment
+  strength_descriptors  String[] // Selected from domain's descriptors
+  need_descriptors      String[] // Selected from domain's descriptors
+
+  // Professional interpretation
+  interpretation        String?  @db.Text
+  significance          String?  @db.Text // Why this matters for the child
+
+  // Evidence-to-provision
+  suggested_provisions  Json?    // Linked interventions/provisions
+
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+
+  // Relations
+  instance              AssessmentInstance @relation(fields: [instance_id], references: [id], onDelete: Cascade)
+  domain                AssessmentDomain @relation(fields: [domain_id], references: [id])
+
+  @@index([instance_id])
+  @@index([domain_id])
+}
+
+// ----------------------------------------------------------------------------
+// COLLABORATIVE INPUT (Parent/Teacher/Child perspectives)
+// ----------------------------------------------------------------------------
+
+model AssessmentCollaboration {
+  id                    String   @id @default(uuid())
+  instance_id           String
+
+  // Contributor identification
+  contributor_type      String   // "parent", "teacher", "child", "other_professional"
+  contributor_name      String?
+  contributor_email     String?
+  contributor_role      String?  // For professionals
+
+  // Input data
+  responses             Json     // Structured responses to domain questions
+  narrative_input       String?  @db.Text // Free-text input
+
+  // Context
+  relationship_to_child String?  // "Mother", "Class Teacher", etc.
+  observation_context   String?  // "Home environment", "Classroom", etc.
+
+  // Metadata
+  submitted_at          DateTime @default(now())
+  invitation_sent_at    DateTime?
+  invitation_method     String?  // "email", "paper_form", "in_person"
+
+  // Status
+  status                String   @default("pending") // pending, received, integrated
+  integrated_at         DateTime?
+  integrated_by         Int?     // EP who integrated the input
+
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+
+  // Relations
+  instance              AssessmentInstance @relation(fields: [instance_id], references: [id], onDelete: Cascade)
+
+  @@index([instance_id])
+  @@index([contributor_type])
+  @@index([status])
+}
+
+// ----------------------------------------------------------------------------
+// ASSESSMENT GUIDANCE (Evidence-based content for EPs)
+// ----------------------------------------------------------------------------
+
+model AssessmentGuidance {
+  id                    String   @id @default(uuid())
+
+  // Categorization
+  category              String   // "observation_technique", "interpretation_principle", "research_update"
+  topic                 String   // "Working Memory Assessment", "Dynamic Assessment Principles"
+
+  // Content
+  title                 String
+  summary               String   @db.Text
+  detailed_content      String   @db.Text
+
+  // Evidence base
+  research_citations    Json     // Structured citations
+  evidence_strength     String?  // "strong", "moderate", "emerging"
+
+  // Practical application
+  practical_tips        Json?    // How to apply in practice
+  example_scenarios     Json?    // Real-world examples
+  common_pitfalls       Json?    // What to avoid
+
+  // Target domains/frameworks
+  relevant_frameworks   String[] // Which frameworks this applies to
+  relevant_domains      String[] // Which domains this applies to
+
+  // Status and metadata
+  status                String   @default("published") // draft, published, archived
+  author                String?
+  reviewed_by           String?
+  review_date           DateTime?
+
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+
+  @@index([category])
+  @@index([topic])
+  @@index([status])
+}
+
+// ----------------------------------------------------------------------------
+// ASSESSMENT TEMPLATES (Pre-filled scenarios for common cases)
+// ----------------------------------------------------------------------------
+
+model AssessmentTemplate {
+  id                    String   @id @default(uuid())
+  framework_id          String
+
+  // Template identification
+  name                  String   // "Year 3 Reading Difficulties - Working Memory Focus"
+  description           String   @db.Text
+  use_case              String   @db.Text // When to use this template
+
+  // Age/stage appropriateness
+  age_range_min         Int?
+  age_range_max         Int?
+  year_group            String?
+
+  // Pre-populated content
+  suggested_domains     String[] // Which domains to prioritize
+  observation_prompts   Json     // Pre-filled observation prompts
+  task_suggestions      Json     // Suggested tasks
+
+  // Metadata
+  usage_count           Int      @default(0)
+  created_by            String?
+
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+
+  @@index([framework_id])
+  @@index([age_range_min, age_range_max])
+}
+
+// ----------------------------------------------------------------------------
+// ASSESSMENT OUTCOMES TRACKING (Evidence of impact)
+// ----------------------------------------------------------------------------
+
+model AssessmentOutcome {
+  id                    String   @id @default(uuid())
+  tenant_id             Int
+  instance_id           String
+  student_id            Int
+
+  // Outcome tracking
+  outcome_type          String   // "provision_implemented", "progress_observed", "ehcp_issued"
+  outcome_description   String   @db.Text
+
+  // Evidence of impact
+  evidence_data         Json?    // Quantitative/qualitative evidence
+  impact_rating         String?  // "significant", "moderate", "minimal"
+
+  // Timeline
+  baseline_date         DateTime?
+  outcome_date          DateTime
+  followup_date         DateTime?
+
+  // User contribution to research (opt-in)
+  contributed_to_research Boolean @default(false)
+  anonymized_data       Json?    // Anonymized version for research
+
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+
+  @@index([tenant_id])
+  @@index([instance_id])
+  @@index([student_id])
+  @@index([outcome_type])
+  @@index([contributed_to_research])
+}
+
+// ============================================================================
+// NOTES ON USAGE:
+// ============================================================================
+//
+// 1. EP WORKFLOW:
+//    - EP selects framework (ECCA, ECCP, etc.)
+//    - System creates AssessmentInstance
+//    - EP follows domain-by-domain guidance
+//    - EP records observations in DomainObservation
+//    - System prompts for collaborative input
+//    - EP integrates collaborative input
+//    - EP provides professional interpretation
+//    - EP generates recommendations
+//
+// 2. COLLABORATIVE INPUT:
+//    - EP invites parents/teachers via AssessmentCollaboration
+//    - Contributors respond to domain-specific questions
+//    - EP reviews and integrates input into assessment
+//    - All perspectives visible but EP maintains professional control
+//
+// 3. DATA OWNERSHIP:
+//    - All AssessmentInstance data owned by tenant
+//    - AssessmentOutcome can be contributed to research (opt-in)
+//    - Anonymization applied to contributed data
+//    - User can export all assessment data anytime
+//
+// 4. EVIDENCE BASE:
+//    - AssessmentFramework contains research foundations
+//    - AssessmentGuidance provides ongoing professional development
+//    - AssessmentOutcome tracks real-world effectiveness
+//    - Contributes to EdPsych Connect's research foundation
+//
+// ============================================================================

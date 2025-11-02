@@ -23,42 +23,63 @@ interface UseSubscriptionReturn {
    * The user's current subscription info
    */
   subscription: SubscriptionInfo | null;
-  
+
   /**
    * The user's subscription tier or null if not subscribed
    */
   tier: SubscriptionTier | null;
-  
+
   /**
    * The user's subscription status or null if not subscribed
    */
   status: SubscriptionStatus | null;
-  
+
   /**
    * Whether the user has an active subscription
    */
   isActive: boolean;
-  
+
+  /**
+   * Whether the user has any subscription (active or not)
+   */
+  hasSubscription: boolean;
+
   /**
    * The user's type
    */
   userType: UserType;
-  
+
   /**
    * Check if the user has access to a specific feature
    */
   hasAccess: (featureKey: string) => boolean;
-  
+
   /**
    * Get all features available to the user
    */
   availableFeatures: FeatureConfig[];
-  
+
+  /**
+   * Current capacity status for usage limits
+   */
+  capacityStatus?: {
+    limits?: {
+      maxUsers?: number;
+      maxStudents?: number;
+      maxSchools?: number;
+    };
+    current?: {
+      users?: number;
+      students?: number;
+      schools?: number;
+    };
+  };
+
   /**
    * Whether the user is authenticated
    */
   isAuthenticated: boolean;
-  
+
   /**
    * Whether the subscription data is still loading
    */
@@ -91,9 +112,11 @@ export const useSubscription = (): UseSubscriptionReturn => {
     tier: subscription?.tier || null,
     status: subscription?.status || null,
     isActive,
+    hasSubscription: subscription !== null,
     userType,
     hasAccess: (featureKey: string) => hasFeatureAccess(featureKey, subscription, userType),
     availableFeatures,
+    capacityStatus: undefined, // TODO: Implement capacity tracking
     isAuthenticated,
     isLoading,
   };

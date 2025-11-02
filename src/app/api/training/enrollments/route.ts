@@ -13,12 +13,12 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    if (!prisma.courseEnrollment || typeof prisma.courseEnrollment.findMany !== 'function') {
+    if (!(prisma as any).courseEnrollment || typeof (prisma as any).courseEnrollment.findMany !== 'function') {
       console.warn('⚠️ Prisma client missing or misconfigured. Returning mock enrollment data.');
       return NextResponse.json([]);
     }
 
-    if (!prisma || typeof prisma.courseEnrollment?.findMany !== 'function') {
+    if (!prisma || typeof (prisma as any).courseEnrollment?.findMany !== 'function') {
       console.warn('⚠️ Prisma client unavailable during build. Returning mock enrollment data.');
       return NextResponse.json([
         {
@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
       ]);
     }
 
-    const enrollments = await prisma.courseEnrollment.findMany({
+    const enrollments = await (prisma as any).courseEnrollment.findMany({
       where: { userId },
       include: {
         Course: {
@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
     });
 
     // Transform data for frontend
-    const transformedEnrollments = enrollments.map(enrollment => ({
+    const transformedEnrollments = enrollments.map((enrollment: any) => ({
       id: enrollment.id,
       courseId: enrollment.Course.id,
       title: enrollment.Course.title,
@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if already enrolled
-    const existingEnrollment = await prisma.courseEnrollment.findUnique({
+    const existingEnrollment = await (prisma as any).courseEnrollment.findUnique({
       where: {
         userId_courseId: {
           userId,
@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create enrollment
-    const enrollment = await prisma.courseEnrollment.create({
+    const enrollment = await (prisma as any).courseEnrollment.create({
       data: {
         id: `enroll_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
         userId,
@@ -166,7 +166,7 @@ export async function PATCH(request: NextRequest) {
       updateData.status = 'completed';
     }
 
-    const enrollment = await prisma.courseEnrollment.update({
+    const enrollment = await (prisma as any).courseEnrollment.update({
       where: { id: enrollmentId },
       data: updateData
     });

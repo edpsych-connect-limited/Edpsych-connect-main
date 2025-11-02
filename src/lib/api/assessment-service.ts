@@ -58,7 +58,7 @@ export class AssessmentService {
 
     // Fetch assessments with count
     const [assessments, total] = await Promise.all([
-      prisma.assessment.findMany({
+      (prisma as any).assessment.findMany({
         where: filter,
         select: {
           id: true,
@@ -72,7 +72,7 @@ export class AssessmentService {
         skip: offsetNum,
         take: limitNum
       }),
-      prisma.assessment.count({ where: filter })
+      (prisma as any).assessment.count({ where: filter })
     ]);
 
     return {
@@ -110,7 +110,7 @@ export class AssessmentService {
     }
 
     // Create simple assessment record
-    const assessment = await prisma.assessment.create({
+    const assessment = await (prisma as any).assessment.create({
       data: {
         id: `assessment-${Date.now()}-${Math.random().toString(36).substring(2, 15)}`,
         title: data.title,
@@ -127,7 +127,7 @@ export class AssessmentService {
    * Get assessment by ID
    */
   static async getAssessmentById(id: string, user: any) {
-    const assessment = await prisma.assessment.findUnique({
+    const assessment = await (prisma as any).assessment.findUnique({
       where: { id }
     });
 
@@ -145,7 +145,7 @@ export class AssessmentService {
    */
   static async submitAssessment(assessmentId: string, answers: any, user: any) {
     // Validate assessment exists and is active
-    const assessment = await prisma.assessment.findUnique({
+    const assessment = await (prisma as any).assessment.findUnique({
       where: { id: assessmentId }
     });
 
@@ -158,7 +158,7 @@ export class AssessmentService {
     }
 
     // Check if user already submitted
-    const existingResult = await prisma.assessmentResult.findFirst({
+    const existingResult = await (prisma as any).assessmentResult.findFirst({
       where: {
         assessmentId,
         userId: user.id
@@ -174,7 +174,7 @@ export class AssessmentService {
     const maxScore = 100;
 
     // Create result
-    const result = await prisma.assessmentResult.create({
+    const result = await (prisma as any).assessmentResult.create({
       data: {
         id: `assessment-result-${Date.now()}-${Math.random().toString(36).substring(2, 15)}`,
         assessmentId,
@@ -195,7 +195,7 @@ export class AssessmentService {
    */
   static async getAssessmentResults(assessmentId: string, user: any, resultId?: string) {
     // Check assessment exists
-    const assessment = await prisma.assessment.findUnique({
+    const assessment = await (prisma as any).assessment.findUnique({
       where: { id: assessmentId }
     });
 
@@ -207,7 +207,7 @@ export class AssessmentService {
 
     if (resultId) {
       // Get specific result
-      const result = await prisma.assessmentResult.findUnique({
+      const result = await (prisma as any).assessmentResult.findUnique({
         where: { id: resultId }
       });
 
@@ -218,7 +218,7 @@ export class AssessmentService {
       return { result };
     } else {
       // Get all results for assessment
-      const results = await prisma.assessmentResult.findMany({
+      const results = await (prisma as any).assessmentResult.findMany({
         where: { assessmentId },
         orderBy: { createdAt: 'desc' }
       });

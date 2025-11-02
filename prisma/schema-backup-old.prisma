@@ -1,0 +1,452 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// SUBSCRIPTION TIER ACCESS CONTROL ENUMS
+// ============================================================================
+
+enum SubscriptionTier {
+  LA_TIER1
+  LA_TIER2
+  LA_TIER3
+  SCHOOL_SMALL
+  SCHOOL_MEDIUM
+  SCHOOL_LARGE
+  MAT_SMALL
+  MAT_MEDIUM
+  MAT_LARGE
+  RESEARCH_INDIVIDUAL
+  RESEARCH_INSTITUTIONAL
+  RESEARCH_PARTNERSHIP
+  TRIAL
+  DEMO
+  LEGACY
+}
+
+enum Feature {
+  PROBLEM_SOLVER
+  LESSON_DIFFERENTIATION
+  EHCNA_SUPPORT
+  BATTLE_ROYALE
+  PROGRESS_MONITORING
+  INTERVENTION_TRACKING
+  BASIC_ANALYTICS
+  ADVANCED_ANALYTICS
+  CUSTOM_REPORTS
+  DATA_EXPORT
+  TEAM_COLLABORATION
+  PARENT_PORTAL
+  MULTI_SCHOOL_SHARING
+  EMAIL_SUPPORT
+  PHONE_SUPPORT
+  PRIORITY_SUPPORT
+  TRAINING_SESSIONS
+  DEDICATED_ACCOUNT_MANAGER
+  RESEARCH_API
+  RESEARCH_DATA_ACCESS
+  RESEARCH_DOCUMENTATION
+  CUSTOM_FEATURE_DEVELOPMENT
+  API_ACCESS
+  MIS_INTEGRATION
+  SINGLE_SIGN_ON
+}
+
+// ============================================================================
+// CORE TENANT & USER MODELS
+// ============================================================================
+
+model tenants {
+  id            Int             @id @default(autoincrement())
+  name          String
+  subdomain     String          @unique
+  
+  // Metadata
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @default(now())
+  
+  // Relations
+  users         users[]
+  students      students[]
+  professionals professionals[]
+  assessments   assessments[]
+  cases         cases[]
+  interventions interventions[]
+  subscriptions subscriptions[]
+  
+  @@index([subdomain])
+}
+
+model users {
+  id                        Int                         @id @default(autoincrement())
+  tenant_id                 Int
+  email                     String                      @unique
+  password_hash             String
+  name                      String
+  role                      String
+  
+  // Additional auth fields
+  firstName                 String?
+  lastName                  String?
+  permissions               String[]                    @default([])
+  isEmailVerified           Boolean                     @default(false)
+  emailVerificationToken    String?
+  resetPasswordToken        String?
+  resetPasswordExpires      DateTime?
+  
+  // Status and tracking
+  is_active                 Boolean                     @default(true)
+  last_login                DateTime?
+  created_at                DateTime                    @default(now())
+  updated_at                DateTime                    @default(now())
+  
+  // Relations - Tenant
+  tenants                   tenants                     @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  
+  // Relations - Educational
+  assessments               assessments[]
+  cases                     cases[]
+  interventions_created     interventions[]             @relation("interventions_created_byTousers")
+  interventions_implemented interventions[]             @relation("interventions_implemented_byTousers")
+  
+  // Relations - Gamification
+  gamification_achievements gamification_achievements[]
+  gamification_badges       gamification_badges[]
+  gamification_scores       gamification_scores[]
+  
+  // Relations - Help System
+  help_preferences          help_preferences?
+  help_viewed_items         help_viewed_items[]
+  
+  // Relations - User Types
+  parents                   parents?
+  professionals             professionals?
+  
+  @@index([tenant_id])
+  @@index([email])
+  @@index([is_active])
+  @@index([role])
+}
+
+// ============================================================================
+// EDUCATIONAL MODELS (TENANT-SCOPED)
+// ============================================================================
+
+model students {
+  id            Int      @id @default(autoincrement())
+  tenant_id     Int
+  unique_id     String
+  first_name    String
+  last_name     String
+  date_of_birth DateTime
+  year_group    String
+  sen_status    String?
+  
+  created_at    DateTime @default(now())
+  updated_at    DateTime @default(now())
+  
+  // Relations
+  tenants       tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  cases         cases[]
+  
+  @@unique([tenant_id, unique_id])
+  @@index([tenant_id])
+  @@index([sen_status])
+  @@index([year_group])
+}
+
+model cases {
+  id            Int             @id @default(autoincrement())
+  tenant_id     Int
+  student_id    Int
+  assigned_to   Int?
+  status        String
+  priority      String
+  type          String
+  referral_date DateTime
+  
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @default(now())
+  
+  // Relations
+  tenants       tenants         @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  students      students        @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  users         users?          @relation(fields: [assigned_to], references: [id])
+  assessments   assessments[]
+  interventions interventions[]
+  
+  @@index([tenant_id])
+  @@index([student_id])
+  @@index([status])
+  @@index([priority])
+}
+
+model assessments {
+  id              Int       @id @default(autoincrement())
+  tenant_id       Int
+  case_id         Int
+  assessment_type String
+  scheduled_date  DateTime?
+  completion_date DateTime?
+  status          String
+  created_by      Int?
+  
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @default(now())
+  
+  // Relations
+  tenants         tenants   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  cases           cases     @relation(fields: [case_id], references: [id], onDelete: Cascade)
+  users           users?    @relation(fields: [created_by], references: [id])
+  
+  @@index([tenant_id])
+  @@index([case_id])
+  @@index([status])
+}
+
+model interventions {
+  id                Int       @id @default(autoincrement())
+  tenant_id         Int
+  case_id           Int
+  intervention_type String
+  start_date        DateTime?
+  end_date          DateTime?
+  status            String
+  created_by        Int?
+  implemented_by    Int?
+  
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @default(now())
+  
+  // Relations
+  tenants           tenants   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  cases             cases     @relation(fields: [case_id], references: [id], onDelete: Cascade)
+  creator           users?    @relation("interventions_created_byTousers", fields: [created_by], references: [id])
+  implementer       users?    @relation("interventions_implemented_byTousers", fields: [implemented_by], references: [id])
+  
+  @@index([tenant_id])
+  @@index([case_id])
+  @@index([status])
+}
+
+// ============================================================================
+// USER TYPE EXTENSIONS
+// ============================================================================
+
+model professionals {
+  id                          Int                           @id @default(autoincrement())
+  user_id                     Int                           @unique
+  tenant_id                   Int
+  professional_type           String
+  specialisation              String?
+  qualifications              String[]
+  student_ids                 Int[]
+  last_login                  DateTime?
+  
+  created_at                  DateTime                      @default(now())
+  updated_at                  DateTime                      @default(now())
+  
+  // Relations
+  users                       users                         @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  tenants                     tenants                       @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  professional_portal_metrics professional_portal_metrics[]
+  
+  @@index([tenant_id])
+  @@index([professional_type])
+}
+
+model professional_portal_metrics {
+  id              Int           @id @default(autoincrement())
+  professional_id Int
+  metric_type     String
+  metric_value    Float
+  measured_at     DateTime      @default(now())
+  metadata        Json?
+  
+  // Relations
+  professionals   professionals @relation(fields: [professional_id], references: [id], onDelete: Cascade)
+  
+  @@index([professional_id])
+  @@index([measured_at])
+}
+
+model parents {
+  id                       Int                        @id @default(autoincrement())
+  user_id                  Int                        @unique
+  child_ids                Int[]
+  notification_preferences Json?
+  last_login               DateTime?
+  
+  created_at               DateTime                   @default(now())
+  updated_at               DateTime                   @default(now())
+  
+  // Relations
+  users                    users                      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  parent_portal_activities parent_portal_activities[]
+}
+
+model parent_portal_activities {
+  id            Int       @id @default(autoincrement())
+  parent_id     Int
+  child_id      Int
+  activity_type String
+  activity_data Json
+  status        String?   @default("unread")
+  viewed_at     DateTime?
+  created_at    DateTime  @default(now())
+  
+  // Relations
+  parents       parents   @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+  
+  @@index([parent_id])
+  @@index([child_id])
+  @@index([status])
+}
+
+// ============================================================================
+// GAMIFICATION SYSTEM
+// ============================================================================
+
+model gamification_achievements {
+  id               Int      @id @default(autoincrement())
+  user_id          Int
+  achievement_type String
+  achievement_name String
+  description      String?
+  points_awarded   Int
+  metadata         Json?
+  achieved_at      DateTime @default(now())
+  
+  // Relations
+  users            users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  @@index([user_id])
+  @@index([achievement_type])
+}
+
+model gamification_badges {
+  id          Int      @id @default(autoincrement())
+  user_id     Int
+  badge_type  String
+  badge_name  String
+  description String?
+  image_url   String?
+  level       Int?     @default(1)
+  metadata    Json?
+  awarded_at  DateTime @default(now())
+  
+  // Relations
+  users       users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  @@index([user_id])
+  @@index([badge_type])
+}
+
+model gamification_scores {
+  id          Int      @id @default(autoincrement())
+  user_id     Int
+  score_type  String
+  score_value Int
+  metadata    Json?
+  
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+  
+  // Relations
+  users       users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  @@index([user_id])
+  @@index([score_type])
+}
+
+// ============================================================================
+// HELP & ONBOARDING SYSTEM
+// ============================================================================
+
+model help_preferences {
+  user_id              Int      @id
+  show_contextual_help Boolean  @default(true)
+  enable_tours         Boolean  @default(true)
+  show_help_button     Boolean  @default(true)
+  updated_at           DateTime @default(now())
+  
+  // Relations
+  users                users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model help_viewed_items {
+  user_id   Int
+  item_id   String
+  viewed_at DateTime @default(now())
+  
+  // Relations
+  users     users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  @@id([user_id, item_id])
+}
+
+// ============================================================================
+// SUBSCRIPTION & BILLING (STRIPE INTEGRATED)
+// ============================================================================
+
+model subscriptions {
+  id                     Int              @id @default(autoincrement())
+  tenant_id              Int
+  
+  // Tier-based access control
+  tier                   SubscriptionTier @default(TRIAL)
+  max_schools            Int?
+  max_users              Int?
+  max_students           Int?
+  
+  // Legacy fields (backward compatibility)
+  plan_type              String
+  payment_status         String
+  amount_paid            Decimal
+  
+  // Dates
+  start_date             DateTime
+  end_date               DateTime
+  is_active              Boolean          @default(true)
+  
+  // Stripe integration
+  stripe_customer_id     String?          @unique
+  stripe_subscription_id String?          @unique
+  stripe_price_id        String?
+  
+  created_at             DateTime         @default(now())
+  updated_at             DateTime         @default(now())
+  
+  // Relations
+  tenants                tenants          @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  feature_usage          feature_usage[]
+  
+  @@index([tenant_id])
+  @@index([tier])
+  @@index([is_active])
+  @@index([stripe_customer_id])
+}
+
+model feature_usage {
+  id              Int              @id @default(autoincrement())
+  subscription_id Int
+  tenant_id       Int
+  feature         Feature
+  tier            SubscriptionTier
+  duration        Int?
+  metadata        Json?
+  timestamp       DateTime         @default(now())
+  
+  // Relations
+  subscription    subscriptions    @relation(fields: [subscription_id], references: [id], onDelete: Cascade)
+  
+  @@index([subscription_id])
+  @@index([tenant_id])
+  @@index([feature])
+  @@index([timestamp])
+}

@@ -29,7 +29,7 @@ export enum UserType {
 }
 
 export const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY, {
-  apiVersion: '2024-06-20', // Stripe v16.0.0 requires this API version
+  apiVersion: '2025-07-30.basil', // Latest Stripe API version
 });
 
 // Export the Stripe constructor for type checking

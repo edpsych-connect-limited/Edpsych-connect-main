@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 
 export default function DiagnosticPage() {
-  const [diagnosticData, setDiagnosticData] = useState({
+  const [diagnosticData, setDiagnosticData] = useState<any>({
     status: 'Loading...',
     health: null,
     version: null,
@@ -34,12 +34,12 @@ export default function DiagnosticPage() {
             runtime: process.env.NEXT_RUNTIME || 'unknown',
             node: process.versions?.node || 'unknown',
           },
-          status: statusData
+          apiStatus: statusData
         });
       } catch (error) {
         setDiagnosticData({
           status: 'Error',
-          error: error.message
+          error: error instanceof Error ? error.message : String(error)
         });
       }
     }

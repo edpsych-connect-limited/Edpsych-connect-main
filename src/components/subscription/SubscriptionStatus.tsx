@@ -11,7 +11,7 @@ import { useSubscription } from '@/hooks/useSubscription';
 import { SubscriptionTier } from '@prisma/client';
 
 // Tier display names
-const TIER_NAMES: Record<SubscriptionTier, string> = {
+const TIER_NAMES: Record<string, string> = {
   [SubscriptionTier.LA_TIER1]: 'Local Authority Tier 1',
   [SubscriptionTier.LA_TIER2]: 'Local Authority Tier 2',
   [SubscriptionTier.LA_TIER3]: 'Local Authority Tier 3',
@@ -26,7 +26,8 @@ const TIER_NAMES: Record<SubscriptionTier, string> = {
   [SubscriptionTier.RESEARCH_PARTNERSHIP]: 'Research Partnership',
   [SubscriptionTier.TRIAL]: 'Trial',
   [SubscriptionTier.DEMO]: 'Demo',
-  [SubscriptionTier.LEGACY]: 'Legacy'
+  [SubscriptionTier.LEGACY]: 'Legacy',
+  FREE: 'Free' // Add missing tier
 };
 
 // Tier colors for badges
@@ -40,7 +41,7 @@ const TIER_COLORS: Record<string, string> = {
   LEGACY: 'bg-yellow-100 text-yellow-800 border-yellow-200'
 };
 
-function getTierColor(tier: SubscriptionTier): string {
+function getTierColor(tier: string): string {
   for (const [prefix, color] of Object.entries(TIER_COLORS)) {
     if (tier.startsWith(prefix)) {
       return color;
@@ -64,7 +65,7 @@ function getTierColor(tier: SubscriptionTier): string {
  * - Link to manage subscription
  */
 export function SubscriptionStatus() {
-  const { subscription, availableFeatures, capacityStatus, hasSubscription, isLoading } = useSubscription();
+  const { subscription, availableFeatures, capacityStatus, hasSubscription, isActive, isLoading } = useSubscription();
 
   // Loading state
   if (isLoading) {
@@ -112,7 +113,7 @@ export function SubscriptionStatus() {
         <div>
           <p className="text-sm text-gray-600">Status</p>
           <p className="font-medium capitalize flex items-center gap-2">
-            {subscription.isActive ? (
+            {isActive ? (
               <>
                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                 Active

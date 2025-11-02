@@ -1,6 +1,6 @@
 import React from 'react';
-import { useAuth } from '../../contexts/AuthContext';
 
+import { useAuth } from '../../lib/auth/hooks';
 interface Subscription {
   id: string;
   institution: string;

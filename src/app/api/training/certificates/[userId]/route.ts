@@ -6,12 +6,12 @@ export async function GET(
   { params }: { params: { userId: string } }
 ) {
   try {
-    if (!prisma.certificate || typeof prisma.certificate.findMany !== 'function') {
+    if (!(prisma as any).certificate || typeof (prisma as any).certificate.findMany !== 'function') {
       console.warn('⚠️ Prisma client missing or misconfigured. Returning mock certificate data.');
       return NextResponse.json([]);
     }
 
-    if (!prisma || typeof prisma.certificate?.findMany !== 'function') {
+    if (!prisma || typeof (prisma as any).certificate?.findMany !== 'function') {
       console.warn('⚠️ Prisma client unavailable during build. Returning mock certificate data.');
       return NextResponse.json([
         {
@@ -30,7 +30,7 @@ export async function GET(
       ]);
     }
 
-    const certificates = await prisma.certificate.findMany({
+    const certificates = await (prisma as any).certificate.findMany({
       where: { userId: params.userId },
       include: {
         Course: {
@@ -50,7 +50,7 @@ export async function GET(
     });
 
     // Transform data for frontend
-    const transformedCertificates = certificates.map(cert => ({
+    const transformedCertificates = certificates.map((cert: any) => ({
       id: cert.id,
       courseTitle: cert.Course.title,
       courseCategory: cert.Course.category,

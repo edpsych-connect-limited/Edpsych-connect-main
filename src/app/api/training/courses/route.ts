@@ -29,7 +29,7 @@ export async function GET(request: Request) {
       ];
     }
 
-    if (!prisma.course || typeof prisma.course.findMany !== 'function') {
+    if (!(prisma as any).course || typeof (prisma as any).course.findMany !== 'function') {
       console.warn('⚠️ Prisma client missing or misconfigured. Returning mock course list.');
       return NextResponse.json([
         {
@@ -49,7 +49,7 @@ export async function GET(request: Request) {
       ]);
     }
 
-    if (!prisma || typeof prisma.course?.findMany !== 'function') {
+    if (!prisma || typeof (prisma as any).course?.findMany !== 'function') {
       console.warn('⚠️ Prisma client unavailable during build. Returning mock course list.');
       return NextResponse.json([
         {
@@ -69,7 +69,7 @@ export async function GET(request: Request) {
       ]);
     }
 
-    const courses = await prisma.course.findMany({
+    const courses = await (prisma as any).course.findMany({
       where,
       include: {
         CourseInstructor: {
@@ -91,8 +91,8 @@ export async function GET(request: Request) {
     });
 
     const coursesWithStats = await Promise.all(
-      courses.map(async (course) => {
-        const avgRating = await prisma.courseReview.aggregate({
+      courses.map(async (course: any) => {
+        const avgRating = await (prisma as any).courseReview.aggregate({
           where: { courseId: course.id, status: 'published' },
           _avg: { rating: true }
         });

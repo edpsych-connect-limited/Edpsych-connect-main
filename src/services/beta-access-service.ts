@@ -105,7 +105,7 @@ export class BetaAccessService {
           code: accessCode.code,
           expiresAt: accessCode.expiresAt ?? undefined, // Convert null to undefined to match type
           remainingUses: accessCode.remainingUses,
-          role: accessCode.role,
+          role: accessCode.role ?? 'BETA_TESTER', // Default role if null
           features: accessCode.features,
           metadata: accessCode.metadata as Record<string, any>
         }

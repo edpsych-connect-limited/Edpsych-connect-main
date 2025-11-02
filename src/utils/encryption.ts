@@ -1,91 +1,113 @@
-// src/utils/encryption.ts
-import CryptoJS from 'crypto-js';
-
-// Encryption key should be stored securely and not in client-side code
-// For production, this should come from environment variables or a secure backend
-const getEncryptionKey = (): string => {
-  // In production, this would be retrieved securely
-  return process.env.NEXT_PUBLIC_ENCRYPTION_KEY || 'default-dev-key-change-in-production';
-};
+/**
+ * Enterprise-Grade Storage Utility
+ * EdPsych Connect World - Authentication System
+ *
+ * SIMPLIFIED VERSION - No encryption for maximum reliability
+ * - Zero external dependencies (no crypto-js)
+ * - Synchronous operations (no race conditions)
+ * - Universal compatibility (works for all users/roles)
+ * - Production-grade error handling
+ * - Comprehensive logging for debugging
+ *
+ * SECURITY NOTE: Encryption can be added in Phase 3 using Web Crypto API
+ * For now, we prioritize reliability over encryption for authentication tokens
+ *
+ * @module encryption
+ * @version 2.0 - Simplified & Reliable
+ * @author Dr. Scott Ighavongbe-Patrick
+ */
 
 /**
- * Encrypts data using AES encryption
- * @param data - Data to encrypt
- * @param key - Optional encryption key (uses default if not provided)
- * @returns Encrypted string
+ * Stores data in browser storage (localStorage or sessionStorage)
+ *
+ * @param key - Storage key identifier
+ * @param data - Data to store (will be JSON stringified if not string)
+ * @param useSession - If true, uses sessionStorage; otherwise localStorage
+ * @throws Error if storage operation fails
+ *
+ * @example
+ * secureStore('accessToken', 'eyJhbGc...', false);
+ * secureStore('userData', { id: 1, email: 'user@example.com' }, false);
  */
-export const encrypt = (data: string, key?: string): string => {
-  const encryptionKey = key || getEncryptionKey();
-  return CryptoJS.AES.encrypt(data, encryptionKey).toString();
-};
-
-/**
- * Decrypts AES encrypted data
- * @param encryptedData - Data to decrypt
- * @param key - Optional encryption key (uses default if not provided)
- * @returns Decrypted string or null if decryption fails
- */
-export const decrypt = (encryptedData: string, key?: string): string | null => {
+export const secureStore = (key: string, data: any, useSession = false): void => {
   try {
-    const encryptionKey = key || getEncryptionKey();
-    const bytes = CryptoJS.AES.decrypt(encryptedData, encryptionKey);
-    return bytes.toString(CryptoJS.enc.Utf8);
+    const storage = useSession ? sessionStorage : localStorage;
+    const serialized = typeof data === 'string' ? data : JSON.stringify(data);
+    storage.setItem(key, serialized);
+    console.log(`✅ [Storage] Stored ${key} successfully`);
   } catch (error) {
-    console.error('Decryption failed:', error);
+    console.error(`❌ [Storage] Failed to store ${key}:`, error);
+    throw error;
+  }
+};
+
+/**
+ * Retrieves data from browser storage
+ *
+ * @param key - Storage key identifier
+ * @param useSession - If true, uses sessionStorage; otherwise localStorage
+ * @returns Parsed data if valid JSON, raw string otherwise, or null if not found
+ *
+ * @example
+ * const token = secureRetrieve('accessToken');
+ * const user = secureRetrieve('userData');
+ */
+export const secureRetrieve = (key: string, useSession = false): any => {
+  try {
+    const storage = useSession ? sessionStorage : localStorage;
+    const data = storage.getItem(key);
+
+    if (!data) {
+      console.log(`ℹ️ [Storage] No data found for ${key}`);
+      return null;
+    }
+
+    try {
+      // Try to parse as JSON
+      const parsed = JSON.parse(data);
+      console.log(`✅ [Storage] Retrieved ${key} successfully`);
+      return parsed;
+    } catch {
+      // If not valid JSON, return as string
+      console.log(`✅ [Storage] Retrieved ${key} as string`);
+      return data;
+    }
+  } catch (error) {
+    console.error(`❌ [Storage] Failed to retrieve ${key}:`, error);
     return null;
   }
 };
 
 /**
- * Securely stores data in browser storage with encryption
- * @param key - Storage key
- * @param data - Data to store
- * @param useSession - Whether to use sessionStorage instead of localStorage
+ * Removes data from browser storage
+ *
+ * @param key - Storage key identifier
+ * @param useSession - If true, uses sessionStorage; otherwise localStorage
+ *
+ * @example
+ * secureRemove('accessToken');
+ * secureRemove('userData');
  */
-export const secureStore = (key: string, data: any, useSession = false): void => {
-  const storage = useSession ? sessionStorage : localStorage;
-  const serialized = typeof data === 'string' ? data : JSON.stringify(data);
-  const encrypted = encrypt(serialized);
-  storage.setItem(key, encrypted);
-};
-
-/**
- * Retrieves and decrypts data from browser storage
- * @param key - Storage key
- * @param useSession - Whether to use sessionStorage instead of localStorage
- * @returns Decrypted data or null if not found or decryption fails
- */
-export const secureRetrieve = (key: string, useSession = false): any => {
-  const storage = useSession ? sessionStorage : localStorage;
-  const encrypted = storage.getItem(key);
-
-  if (!encrypted) return null;
-
-  const decrypted = decrypt(encrypted);
-  if (!decrypted) return null;
-
+export const secureRemove = (key: string, useSession = false): void => {
   try {
-    return JSON.parse(decrypted);
-  } catch {
-    // If not valid JSON, return as string
-    return decrypted;
+    const storage = useSession ? sessionStorage : localStorage;
+    storage.removeItem(key);
+    console.log(`✅ [Storage] Removed ${key}`);
+  } catch (error) {
+    console.error(`❌ [Storage] Failed to remove ${key}:`, error);
   }
 };
 
 /**
- * Securely removes data from browser storage
- * @param key - Storage key
- * @param useSession - Whether to use sessionStorage instead of localStorage
- */
-export const secureRemove = (key: string, useSession = false): void => {
-  const storage = useSession ? sessionStorage : localStorage;
-  storage.removeItem(key);
-};
-
-/**
- * Validates if data can be securely stored
+ * Validates if data can be safely stored
+ *
  * @param data - Data to validate
- * @returns True if data is safe to store
+ * @returns True if data can be JSON stringified
+ *
+ * @example
+ * if (isValidForStorage(myData)) {
+ *   secureStore('myKey', myData);
+ * }
  */
 export const isValidForStorage = (data: any): boolean => {
   try {
@@ -94,4 +116,44 @@ export const isValidForStorage = (data: any): boolean => {
   } catch {
     return false;
   }
+};
+
+/**
+ * Clears all authentication-related storage
+ * Useful for logout or session cleanup
+ *
+ * @param useSession - If true, clears sessionStorage; otherwise localStorage
+ *
+ * @example
+ * clearAuthStorage(); // Removes all auth tokens and user data
+ */
+export const clearAuthStorage = (useSession = false): void => {
+  try {
+    secureRemove('accessToken', useSession);
+    secureRemove('refreshToken', useSession);
+    secureRemove('userData', useSession);
+    console.log('✅ [Storage] Cleared all authentication data');
+  } catch (error) {
+    console.error('❌ [Storage] Failed to clear authentication data:', error);
+  }
+};
+
+/**
+ * Legacy function aliases for backward compatibility
+ * These are pass-through functions that don't perform encryption
+ * Can be replaced with proper encryption in Phase 3 if needed
+ */
+
+/**
+ * @deprecated Use secureStore directly
+ */
+export const encrypt = (data: string): string => {
+  return data;
+};
+
+/**
+ * @deprecated Use secureRetrieve directly
+ */
+export const decrypt = (encryptedData: string): string | null => {
+  return encryptedData;
 };

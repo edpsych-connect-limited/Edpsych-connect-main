@@ -6,7 +6,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    if (!prisma || typeof prisma.course?.findUnique !== 'function') {
+    if (!prisma || typeof (prisma as any).course?.findUnique !== 'function') {
       console.warn('⚠️ Prisma client unavailable during build. Returning mock course data.');
       return NextResponse.json({
         id: params.id,
@@ -20,7 +20,7 @@ export async function GET(
       });
     }
 
-    const course = await prisma.course.findUnique({
+    const course = await (prisma as any).course.findUnique({
       where: { id: params.id },
       include: {
         CourseInstructor: true,
@@ -54,8 +54,8 @@ export async function GET(
     }
 
     // Calculate average rating
-    const reviews = await prisma.courseReview.findMany({
-      where: { 
+    const reviews = await (prisma as any).courseReview.findMany({
+      where: {
         courseId: params.id,
         status: 'published'
       },
@@ -63,11 +63,11 @@ export async function GET(
     });
 
     const averageRating = reviews.length > 0
-      ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
+      ? reviews.reduce((sum: number, r: any) => sum + r.rating, 0) / reviews.length
       : 0;
 
     // Get related courses from same category
-    const relatedCourses = await prisma.course.findMany({
+    const relatedCourses = await (prisma as any).course.findMany({
       where: {
         category: course.category,
         id: { not: params.id },

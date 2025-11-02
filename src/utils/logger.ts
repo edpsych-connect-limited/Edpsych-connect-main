@@ -1,1 +1,12 @@
-export const logger = (message: string) => console.log('[SAFE LOG]', message); export default logger;
+/**
+ * Simple logging utility with multiple log levels
+ */
+export const logger = {
+  info: (message: string, ...args: any[]) => console.log('[INFO]', message, ...args),
+  warn: (message: string, ...args: any[]) => console.warn('[WARN]', message, ...args),
+  error: (message: string, ...args: any[]) => console.error('[ERROR]', message, ...args),
+  debug: (message: string, ...args: any[]) => console.debug('[DEBUG]', message, ...args),
+  log: (message: string, ...args: any[]) => console.log('[LOG]', message, ...args)
+};
+
+export default logger;

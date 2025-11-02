@@ -155,8 +155,8 @@ export async function verifyToken(token: string): Promise<UserSession | null> {
     const { payload } = await jwtVerify(token, JWT_SECRET, {
       algorithms: ['HS256']
     });
-    
-    return payload as UserSession;
+
+    return payload as unknown as UserSession;
   } catch (error) {
     console.error('Token verification error:', error);
     return null;

@@ -1,0 +1,143 @@
+/**
+ * New Intervention Page
+ * Create a new intervention plan
+ */
+
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import InterventionDesigner from '@/components/interventions/InterventionDesigner';
+
+export default function NewInterventionPage() {
+  const router = useRouter();
+  const { data: session, status } = useSession();
+  const searchParams = useSearchParams();
+
+  const [caseId, setCaseId] = useState<number | null>(null);
+  const [tenantId, setTenantId] = useState<number | null>(null);
+  const [templateId, setTemplateId] = useState<string | null>(null);
+  const [loadingTemplate, setLoadingTemplate] = useState(false);
+  const [templateData, setTemplateData] = useState<any>(null);
+
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/login');
+      return;
+    }
+
+    if (status === 'authenticated') {
+      // Get case ID from query params if provided
+      const caseIdParam = searchParams.get('caseId');
+      if (caseIdParam) {
+        setCaseId(parseInt(caseIdParam));
+      }
+
+      // Get template ID if provided
+      const templateIdParam = searchParams.get('template');
+      if (templateIdParam) {
+        setTemplateId(templateIdParam);
+        loadTemplateData(templateIdParam);
+      }
+
+      // Get tenant ID from session
+      const userTenantId = (session?.user as any)?.tenant_id;
+      if (userTenantId) {
+        setTenantId(userTenantId);
+      }
+    }
+  }, [status, session, searchParams]);
+
+  const loadTemplateData = async (templateId: string) => {
+    setLoadingTemplate(true);
+    try {
+      // In production, fetch template data from API
+      // For now, we'll use the library data
+      // The template data would pre-fill the intervention designer
+      console.log('Loading template:', templateId);
+      // This would be expanded to fetch actual template data
+    } catch (error) {
+      console.error('Failed to load template:', error);
+    } finally {
+      setLoadingTemplate(false);
+    }
+  };
+
+  const handleSave = async (plan: any) => {
+    try {
+      const response = await fetch('/api/interventions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...plan,
+          case_id: caseId,
+          tenant_id: tenantId,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        router.push(`/interventions/${data.intervention.id}`);
+      } else {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to create intervention');
+      }
+    } catch (error: any) {
+      console.error('Failed to save intervention:', error);
+      throw error;
+    }
+  };
+
+  const handleCancel = () => {
+    if (caseId) {
+      router.push(`/cases/${caseId}`);
+    } else {
+      router.push('/interventions');
+    }
+  };
+
+  if (status === 'loading' || loadingTemplate) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  if (!tenantId) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Unable to Load</h2>
+          <p className="text-gray-600">Could not determine tenant information.</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Create New Intervention
+          </h1>
+          <p className="text-gray-600">
+            Design a comprehensive, evidence-based intervention plan with SMART goals
+          </p>
+        </div>
+
+        {/* Designer */}
+        <InterventionDesigner
+          caseId={caseId || 0}
+          tenantId={tenantId}
+          initialData={templateData}
+          onSave={handleSave}
+          onCancel={handleCancel}
+        />
+      </div>
+    </div>
+  );
+}

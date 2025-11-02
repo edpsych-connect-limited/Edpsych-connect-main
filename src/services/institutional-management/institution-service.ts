@@ -209,7 +209,7 @@ export class InstitutionService {
             select: {
               departments: true,
               contacts: true,
-              users: true,
+              subscriptions: true,
             },
           },
           subscriptions: {
@@ -500,14 +500,28 @@ export class InstitutionService {
       
       // Verify the user making the request has admin permissions for this institution
       await this.verifyInstitutionAdminAccess(userId, institutionId);
-      
-      // Add the user as an admin
-      await prisma.institution.update({
-        where: { id: institutionId },
+
+      // Parse adminId to Int since users table uses Int IDs
+      const adminIdInt = parseInt(adminId);
+      if (isNaN(adminIdInt)) {
+        throw new ValidationError(`Invalid admin ID: ${adminId}`);
+      }
+
+      // Check if user exists
+      const admin = await prisma.users.findUnique({
+        where: { id: adminIdInt },
+      });
+
+      if (!admin) {
+        throw new NotFoundError(`User with ID ${adminId} not found`);
+      }
+
+      // Add the user as an admin using the join table
+      await prisma.institutionAdmin.create({
         data: {
-          admins: {
-            connect: { id: adminId },
-          },
+          institutionId,
+          userId: adminIdInt,
+          assignedBy: userId,
         },
       });
       
@@ -541,24 +555,28 @@ export class InstitutionService {
       
       // Verify the user making the request has admin permissions for this institution
       await this.verifyInstitutionAdminAccess(userId, institutionId);
-      
+
+      // Parse adminId to Int since users table uses Int IDs
+      const adminIdInt = parseInt(adminId);
+      if (isNaN(adminIdInt)) {
+        throw new ValidationError(`Invalid admin ID: ${adminId}`);
+      }
+
       // Prevent removing the last admin
       const adminCount = await prisma.institution.findUnique({
         where: { id: institutionId },
         select: { _count: { select: { admins: true } } },
       });
-      
+
       if (adminCount?._count.admins === 1) {
         throw new ValidationError('Cannot remove the last institution administrator');
       }
-      
-      // Remove the user as an admin
-      await prisma.institution.update({
-        where: { id: institutionId },
-        data: {
-          admins: {
-            disconnect: { id: adminId },
-          },
+
+      // Remove the user as an admin using the join table
+      await prisma.institutionAdmin.deleteMany({
+        where: {
+          institutionId,
+          userId: adminIdInt,
         },
       });
       
@@ -652,62 +670,124 @@ export class InstitutionService {
 
   /**
    * Verify that a user has access to view an institution
+   * Uses InstitutionAdmin and DepartmentMember tables for proper permission checking
    */
   private async verifyInstitutionAccess(userId: string, institutionId: string): Promise<void> {
     // Check if user is a system admin
     const isAdmin = await this.isSystemAdmin(userId);
     if (isAdmin) return;
-    
-    // Check if user is associated with the institution
-    const userInstitution = await prisma.user.findFirst({
+
+    // Parse userId to Int since users table uses Int IDs
+    const userIdInt = parseInt(userId);
+    if (isNaN(userIdInt)) {
+      throw new ValidationError(`Invalid user ID: ${userId}`);
+    }
+
+    // Check if user is an institution admin
+    const institutionAdmin = await prisma.institutionAdmin.findUnique({
       where: {
-        id: userId,
-        OR: [
-          { institutionId: institutionId },
-          { adminInstitutions: { some: { id: institutionId } } },
-          { departments: { some: { institutionId: institutionId } } },
-        ],
+        institutionId_userId: {
+          institutionId,
+          userId: userIdInt,
+        },
       },
     });
-    
-    if (!userInstitution) {
-      throw new AccessDeniedError('You do not have permission to access this institution');
+
+    if (institutionAdmin) {
+      return; // User has admin access to this institution
     }
+
+    // Check if user is a member of any department in this institution
+    const departmentMembership = await prisma.departmentMember.findFirst({
+      where: {
+        userId: userIdInt,
+        department: {
+          institutionId,
+        },
+      },
+    });
+
+    if (departmentMembership) {
+      return; // User is a department member
+    }
+
+    // Check if user is a manager of any department in this institution
+    const departmentManagement = await prisma.departmentManager.findFirst({
+      where: {
+        userId: userIdInt,
+        department: {
+          institutionId,
+        },
+      },
+    });
+
+    if (departmentManagement) {
+      return; // User is a department manager
+    }
+
+    // User has no access to this institution
+    throw new AccessDeniedError('You do not have permission to access this institution');
   }
 
   /**
    * Verify that a user has access to list institutions
+   * System admins can list all, others can only list institutions they have access to
    */
   private async verifyInstitutionListAccess(userId: string): Promise<void> {
     // Check if user is a system admin
     const isAdmin = await this.isSystemAdmin(userId);
     if (isAdmin) return;
-    
-    // TODO: Add more granular permissions for institution listing
-    // For now, just check if the user exists
-    const user = await prisma.user.findUnique({ where: { id: userId } });
+
+    // Parse userId to Int since users table uses Int IDs
+    const userIdInt = parseInt(userId);
+    if (isNaN(userIdInt)) {
+      throw new ValidationError(`Invalid user ID: ${userId}`);
+    }
+
+    // Verify user exists and is active
+    const user = await prisma.users.findUnique({
+      where: { id: userIdInt },
+      select: { is_active: true }
+    });
+
     if (!user) {
       throw new AccessDeniedError('User not found');
     }
+
+    if (!user.is_active) {
+      throw new AccessDeniedError('User account is not active');
+    }
+
+    // Non-admin users are allowed to list institutions (they'll only see ones they have access to)
+    return;
   }
 
   /**
    * Verify that a user has admin access to an institution
+   * Uses InstitutionAdmin join table for proper permission checking
    */
   private async verifyInstitutionAdminAccess(userId: string, institutionId: string): Promise<void> {
     // Check if user is a system admin
     const isAdmin = await this.isSystemAdmin(userId);
     if (isAdmin) return;
-    
-    // Check if user is an admin of the institution
-    const isInstitutionAdmin = await prisma.institution.findFirst({
+
+    // Parse userId to Int since users table uses Int IDs
+    const userIdInt = parseInt(userId);
+    if (isNaN(userIdInt)) {
+      throw new ValidationError(`Invalid user ID: ${userId}`);
+    }
+
+    // Check InstitutionAdmin join table for proper permission checking
+    const institutionAdmin = await prisma.institutionAdmin.findUnique({
       where: {
-        id: institutionId,
-        admins: { some: { id: userId } },
+        institutionId_userId: {
+          institutionId,
+          userId: userIdInt,
+        },
       },
     });
-    
-    if (!isInstitutionAdmin) {
+
+    if (!institutionAdmin) {
       throw new AccessDeniedError('You do not have admin permission for this institution');
     }
   }
@@ -735,12 +815,19 @@ export class InstitutionService {
    * Check if a user is a system admin
    */
   private async isSystemAdmin(userId: string): Promise<boolean> {
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      select: { roles: true },
+    // Parse userId to Int since users table uses Int IDs
+    const userIdInt = parseInt(userId);
+    if (isNaN(userIdInt)) {
+      return false; // Invalid ID is not admin
+    }
+
+    const user = await prisma.users.findUnique({
+      where: { id: userIdInt },
+      select: { role: true }, // users model has 'role' not 'roles'
     });
-    
-    return user?.roles.includes(UserRole.ADMIN) || false;
+
+    // Check if user has ADMIN or SUPER_ADMIN role
+    return user?.role?.toUpperCase().includes('ADMIN') ?? false;
   }
 }
 

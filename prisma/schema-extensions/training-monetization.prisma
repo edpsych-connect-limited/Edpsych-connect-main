@@ -1,0 +1,489 @@
+// ============================================================================
+// TRAINING MONETIZATION SYSTEM
+// EdPsych Connect Limited - Evidence-Based CPD Training Platform
+// ============================================================================
+//
+// Market-Rate Pricing Strategy:
+// - Self-service (no facilitators) = competitive pricing
+// - Interactive + engaging = premium value
+// - Evidence-based content = quality positioning
+// - 20-30% below BPS but more interactive
+//
+// Pricing Structure:
+// - Short courses (2-4 hours): £49-79
+// - Standard courses (8-12 hours): £99-149
+// - Comprehensive courses (20+ hours): £199-299
+// - Course bundles: 20-25% discount
+// - Annual unlimited access: £599
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// TRAINING PRODUCT CATALOG
+// ----------------------------------------------------------------------------
+
+model TrainingProduct {
+  id                    String   @id @default(uuid())
+
+  // Product identification
+  type                  String   // "single_course", "course_bundle", "annual_unlimited"
+  name                  String
+  description           String   @db.Text
+  slug                  String   @unique
+
+  // Pricing (in pence for Stripe)
+  price_gbp             Int      // Price in pence (e.g., 9900 = £99.00)
+  original_price_gbp    Int?     // Original price before discount
+  currency              String   @default("GBP")
+
+  // CPD Hours
+  cpd_hours             Float?   // Total CPD hours awarded
+
+  // Product content (for single courses)
+  course_id             String?  // Links to Course model
+
+  // Product content (for bundles)
+  included_course_ids   String[] // Array of course IDs
+
+  // Validity period
+  access_duration_days  Int?     // NULL = lifetime access, otherwise days
+
+  // Stripe integration
+  stripe_product_id     String?  @unique
+  stripe_price_id       String?  @unique
+
+  // Status and metadata
+  status                String   @default("active") // active, archived, draft
+  is_featured           Boolean  @default(false)
+  sort_order            Int      @default(0)
+
+  // Marketing
+  promotional_text      String?
+  benefits              String[] // Array of benefit strings
+  target_audience       String[] // ["Educational Psychologists", "SENCOs", etc.]
+
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+
+  // Relations
+  purchases             TrainingPurchase[]
+
+  @@index([type])
+  @@index([status])
+  @@index([is_featured])
+  @@index([slug])
+}
+
+// ----------------------------------------------------------------------------
+// TRAINING PURCHASES (Orders)
+// ----------------------------------------------------------------------------
+
+model TrainingPurchase {
+  id                    String    @id @default(uuid())
+
+  // Customer
+  user_id               Int
+  email                 String    // Captured at purchase
+
+  // Product
+  product_id            String
+  product_name          String    // Snapshot at purchase time
+  product_type          String    // Snapshot at purchase time
+
+  // Pricing
+  amount_paid_pence     Int       // Amount paid in pence
+  currency              String    @default("GBP")
+  discount_code         String?   // If discount applied
+  discount_amount_pence Int?      // Discount in pence
+
+  // Access granted
+  course_ids            String[]  // Courses user gets access to
+  access_duration_days  Int?      // NULL = lifetime
+  access_granted_at     DateTime  @default(now())
+  access_expires_at     DateTime? // NULL = lifetime
+
+  // Payment processing (Stripe)
+  stripe_customer_id    String?
+  stripe_payment_intent_id String? @unique
+  stripe_invoice_id     String?
+  payment_method        String?   // "card", "bank_transfer", etc.
+  payment_status        String    @default("pending") // pending, succeeded, failed
+
+  // Receipts and invoices
+  receipt_url           String?
+  invoice_number        String?   @unique
+
+  // Status
+  status                String    @default("active") // active, refunded, expired, cancelled
+  refunded_at           DateTime?
+  refund_amount_pence   Int?
+  refund_reason         String?
+
+  // Metadata
+  purchase_metadata     Json?     // Additional metadata
+  created_at            DateTime  @default(now())
+  updated_at            DateTime  @updatedAt
+
+  // Relations
+  product               TrainingProduct @relation(fields: [product_id], references: [id])
+  enrollments           CourseEnrollment[]
+
+  @@index([user_id])
+  @@index([product_id])
+  @@index([payment_status])
+  @@index([status])
+  @@index([stripe_payment_intent_id])
+}
+
+// ----------------------------------------------------------------------------
+// DISCOUNT CODES
+// ----------------------------------------------------------------------------
+
+model DiscountCode {
+  id                    String    @id @default(uuid())
+
+  // Code identification
+  code                  String    @unique // e.g., "LAUNCH25", "BPSEP2025"
+  name                  String    // Internal name
+  description           String?
+
+  // Discount type
+  discount_type         String    // "percentage", "fixed_amount"
+  discount_value        Int       // Percentage (e.g., 25) or pence (e.g., 2500 = £25)
+
+  // Applicability
+  applies_to            String    // "all", "specific_products", "course_bundles"
+  applicable_product_ids String[] // Empty if applies_to = "all"
+  min_purchase_pence    Int?      // Minimum purchase amount
+
+  // Usage limits
+  max_uses              Int?      // NULL = unlimited
+  max_uses_per_user     Int       @default(1)
+  current_uses          Int       @default(0)
+
+  // Validity period
+  valid_from            DateTime  @default(now())
+  valid_until           DateTime?
+
+  // Status
+  is_active             Boolean   @default(true)
+
+  // Metadata
+  created_by            String?
+  created_at            DateTime  @default(now())
+  updated_at            DateTime  @updatedAt
+
+  @@index([code])
+  @@index([is_active])
+  @@index([valid_from, valid_until])
+}
+
+// ----------------------------------------------------------------------------
+// COURSE ENROLLMENT ENHANCEMENTS (extends existing CourseEnrollment)
+// ----------------------------------------------------------------------------
+
+// Note: This extends the existing CourseEnrollment model in main schema
+// New fields to add to CourseEnrollment:
+// - purchase_id: String? (links to TrainingPurchase)
+// - access_granted_via: String? ("purchase", "subscription", "trial", "admin_grant")
+// - access_expires_at: DateTime?
+// - is_lifetime_access: Boolean @default(false)
+
+// ----------------------------------------------------------------------------
+// INTERACTIVE ELEMENTS (for engaging self-service delivery)
+// ----------------------------------------------------------------------------
+
+model InteractiveElement {
+  id                    String   @id @default(uuid())
+
+  // Location
+  lesson_id             String   // Which lesson this element belongs to
+  order_index           Int      // Order within lesson
+
+  // Element type
+  type                  String   // "quiz", "scenario", "reflection", "case_study", "interactive_diagram", "video_quiz", "poll"
+
+  // Content
+  title                 String?
+  content               Json     // Element-specific content structure
+
+  // Configuration
+  is_required           Boolean  @default(false) // Must complete to progress?
+  passing_score         Int?     // For quizzes (percentage)
+  max_attempts          Int?     // NULL = unlimited
+
+  // Metadata
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+
+  // Relations
+  responses             InteractiveResponse[]
+
+  @@index([lesson_id])
+  @@index([order_index])
+  @@index([type])
+}
+
+model InteractiveResponse {
+  id                    String   @id @default(uuid())
+
+  // User and element
+  user_id               Int
+  element_id            String
+  enrollment_id         String   // Which enrollment (course attempt)
+
+  // Response data
+  response_data         Json     // Element-specific response
+  score                 Float?   // If applicable (0-100)
+  is_correct            Boolean? // For quizzes
+  attempt_number        Int      @default(1)
+
+  // Time tracking
+  time_spent_seconds    Int?
+  submitted_at          DateTime @default(now())
+
+  // Feedback
+  feedback_shown        String?  @db.Text
+
+  // Relations
+  element               InteractiveElement @relation(fields: [element_id], references: [id])
+
+  @@index([user_id])
+  @@index([element_id])
+  @@index([enrollment_id])
+  @@index([submitted_at])
+}
+
+// ----------------------------------------------------------------------------
+// LEARNING PATH SYSTEM (Structured course sequences)
+// ----------------------------------------------------------------------------
+
+model LearningPath {
+  id                    String   @id @default(uuid())
+
+  // Path identification
+  name                  String
+  description           String   @db.Text
+  slug                  String   @unique
+
+  // Content
+  course_ids            String[] // Ordered array of course IDs
+  total_cpd_hours       Float
+  estimated_duration    Int      // Total minutes
+
+  // Pricing
+  price_gbp             Int?     // In pence, if sold as bundle
+
+  // Status
+  status                String   @default("active")
+  is_featured           Boolean  @default(false)
+
+  // Metadata
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+
+  // Relations
+  enrollments           LearningPathEnrollment[]
+
+  @@index([slug])
+  @@index([status])
+}
+
+model LearningPathEnrollment {
+  id                    String   @id @default(uuid())
+
+  // User and path
+  user_id               Int
+  path_id               String
+
+  // Progress
+  current_course_index  Int      @default(0)
+  completed_course_ids  String[] @default([])
+  progress_percentage   Int      @default(0)
+
+  // Status
+  status                String   @default("active") // active, completed, abandoned
+  started_at            DateTime @default(now())
+  completed_at          DateTime?
+
+  // Relations
+  path                  LearningPath @relation(fields: [path_id], references: [id])
+
+  @@unique([user_id, path_id])
+  @@index([user_id])
+  @@index([path_id])
+  @@index([status])
+}
+
+// ----------------------------------------------------------------------------
+// CERTIFICATE TEMPLATES
+// ----------------------------------------------------------------------------
+
+model CertificateTemplate {
+  id                    String   @id @default(uuid())
+
+  // Template identification
+  name                  String
+  template_type         String   // "course_completion", "cpd_hours", "learning_path"
+
+  // Design
+  background_image_url  String?
+  logo_url              String?
+  layout_config         Json     // Design configuration
+
+  // Text templates
+  title_template        String   // e.g., "Certificate of Completion"
+  body_template         String   @db.Text // With placeholders
+  footer_text           String?
+
+  // Verification
+  includes_qr_code      Boolean  @default(true)
+  includes_verification_url Boolean @default(true)
+
+  // Status
+  is_active             Boolean  @default(true)
+
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+
+  @@index([template_type])
+  @@index([is_active])
+}
+
+// ----------------------------------------------------------------------------
+// GENERATED CERTIFICATES (extends existing Certificate model)
+// ----------------------------------------------------------------------------
+
+// Note: The existing Certificate model already has most fields needed
+// Enhancement: Add template_id to link to CertificateTemplate
+// Enhancement: Add cpd_hours field (already exists)
+// Enhancement: Add verification URL generation
+
+// ----------------------------------------------------------------------------
+// CPD TRACKING ENHANCEMENTS
+// ----------------------------------------------------------------------------
+
+model CPDLog {
+  id                    String   @id @default(uuid())
+  user_id               Int
+
+  // Activity details
+  activity_type         String   // "course", "webinar", "reading", "reflection", "other"
+  activity_title        String
+  activity_description  String?  @db.Text
+
+  // CPD hours
+  cpd_hours             Float
+  cpd_category          String   // "A: Work-based learning", "B: Professional activity", "C: Formal education"
+
+  // Evidence
+  certificate_id        String?  // Links to Certificate if applicable
+  evidence_urls         String[] // Supporting evidence
+
+  // Dates
+  activity_date         DateTime
+  logged_at             DateTime @default(now())
+
+  // Status
+  status                String   @default("pending") // pending, verified, rejected
+  verified_by           String?
+  verified_at           DateTime?
+
+  // Metadata
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+
+  @@index([user_id])
+  @@index([activity_date])
+  @@index([cpd_category])
+  @@index([status])
+}
+
+// ============================================================================
+// EXAMPLE DATA STRUCTURES
+// ============================================================================
+
+// Example: Quiz Interactive Element
+// {
+//   "type": "quiz",
+//   "questions": [
+//     {
+//       "question": "What is the Zone of Proximal Development?",
+//       "type": "multiple_choice",
+//       "options": [
+//         "The gap between what a child can do independently and with support",
+//         "The area where learning is impossible",
+//         "The physical space in a classroom",
+//         "A specific age range"
+//       ],
+//       "correct_answer": 0,
+//       "explanation": "Vygotsky defined the ZPD as..."
+//     }
+//   ]
+// }
+
+// Example: Scenario Interactive Element
+// {
+//   "type": "scenario",
+//   "scenario_text": "A Year 5 student is struggling with...",
+//   "decision_points": [
+//     {
+//       "question": "What would you do first?",
+//       "options": [
+//         {
+//           "text": "Conduct cognitive assessment",
+//           "feedback": "Good choice because...",
+//           "score": 10
+//         },
+//         {
+//           "text": "Refer to CAMHS immediately",
+//           "feedback": "Consider that...",
+//           "score": 3
+//         }
+//       ]
+//     }
+//   ]
+// }
+
+// Example: Interactive Diagram
+// {
+//   "type": "interactive_diagram",
+//   "diagram_url": "/images/working-memory-model.svg",
+//   "hotspots": [
+//     {
+//       "id": "phonological-loop",
+//       "x": 100,
+//       "y": 150,
+//       "title": "Phonological Loop",
+//       "content": "Processes verbal and auditory information..."
+//     }
+//   ]
+// }
+
+// ============================================================================
+// USAGE NOTES
+// ============================================================================
+//
+// PURCHASE FLOW:
+// 1. User browses TrainingProduct catalog
+// 2. User adds product to cart (applies DiscountCode if any)
+// 3. Stripe payment creates TrainingPurchase
+// 4. On successful payment, CourseEnrollment(s) created with access
+// 5. User can access course content
+// 6. Certificate generated on completion
+// 7. CPD hours logged to CPDLog
+//
+// INTERACTIVE LEARNING:
+// 1. User progresses through CourseLesson
+// 2. Encounters InteractiveElement (quiz, scenario, etc.)
+// 3. User responds, creates InteractiveResponse
+// 4. System provides immediate feedback
+// 5. Tracks engagement and completion
+//
+// CERTIFICATE GENERATION:
+// 1. User completes all course requirements
+// 2. System generates Certificate from CertificateTemplate
+// 3. Certificate includes verification code and QR code
+// 4. Certificate downloadable as PDF
+// 5. CPD hours logged automatically
+//
+// ============================================================================

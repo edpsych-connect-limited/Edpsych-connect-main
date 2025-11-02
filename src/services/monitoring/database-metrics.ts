@@ -209,32 +209,22 @@ export class DatabaseMetricsCollector {
 
   /**
    * Setup Prisma middleware for query tracking
+   *
+   * NOTE: This method is deprecated. Prisma Client Extensions should be used instead
+   * of dynamic middleware attachment. This service should be refactored to accept
+   * an already-extended Prisma client with monitoring capabilities built in.
+   *
+   * TODO: Refactor DatabaseMetricsCollector to work with extended Prisma clients
+   * instead of trying to dynamically add middleware
    */
   private setupPrismaMiddleware(): void {
-    this.prismaClient.$use(async (params, next) => {
-      const startTime = Date.now();
-      
-      try {
-        const result = await next(params);
-        const durationMs = Date.now() - startTime;
-        
-        // Track query metrics
-        this.trackQuery(params.model || 'unknown', params.action, durationMs);
-        
-        return result;
-      } catch (error) {
-        const durationMs = Date.now() - startTime;
-        
-        // Track failed query
-        await monitoringService.trackApiError(
-          'database', 
-          error instanceof Error ? error.name : 'DatabaseError',
-          500
-        );
-        
-        throw error;
-      }
-    });
+    console.warn(
+      '[DatabaseMetrics] Dynamic Prisma middleware setup is deprecated. ' +
+      'Use Prisma Client Extensions in prisma.ts instead.'
+    );
+
+    // No-op: Middleware should be added via extensions when creating the Prisma client,
+    // not dynamically after instantiation
   }
 
   /**

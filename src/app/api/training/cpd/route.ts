@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
       if (endDate) whereClause.date.lte = new Date(endDate);
     }
 
-    if (!prisma.cPDEntry || typeof prisma.cPDEntry.findMany !== 'function') {
+    if (!(prisma as any).cPDEntry || typeof (prisma as any).cPDEntry.findMany !== 'function') {
       console.warn('⚠️ Prisma client missing or misconfigured. Returning mock CPD data.');
       return NextResponse.json({
         entries: [],
@@ -32,13 +32,13 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    const cpdEntries = await prisma.cPDEntry.findMany({
+    const cpdEntries = await (prisma as any).cPDEntry.findMany({
       where: whereClause,
       orderBy: { date: 'desc' }
     });
 
     // Calculate totals by category
-    const totalsByCategory = cpdEntries.reduce((acc, entry) => {
+    const totalsByCategory = cpdEntries.reduce((acc: any, entry: any) => {
       const category = entry.category;
       if (!acc[category]) {
         acc[category] = 0;
@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
       return acc;
     }, {} as Record<string, number>);
 
-    const totalHours = cpdEntries.reduce((sum, entry) => sum + entry.hours, 0);
+    const totalHours = cpdEntries.reduce((sum: number, entry: any) => sum + entry.hours, 0);
 
     return NextResponse.json({
       entries: cpdEntries,
@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const cpdEntry = await prisma.cPDEntry.create({
+    const cpdEntry = await (prisma as any).cPDEntry.create({
       data: {
         id: `cpd_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
         userId,
@@ -112,7 +112,7 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    await prisma.cPDEntry.delete({
+    await (prisma as any).cPDEntry.delete({
       where: { id: entryId }
     });
 
