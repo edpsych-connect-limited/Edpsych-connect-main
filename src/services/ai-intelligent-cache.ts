@@ -445,7 +445,7 @@ export const aiIntelligentCache = AIIntelligentCache.getInstance();
  * Global CDN and Edge Caching Optimization
  * Integrates Cloudflare CDN, Vercel Edge Network, and Redis edge caching for sub-200ms global delivery.
  */
-import { getRedisClient } from '../../cache/redis-client';
+import { getRedisClient } from '../cache/redis-client';
 
 export async function optimizeGlobalCDNAndCaching(): Promise<void> {
   const redis = getRedisClient();
