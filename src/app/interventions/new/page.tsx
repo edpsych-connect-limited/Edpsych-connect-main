@@ -8,14 +8,16 @@
 // Force dynamic rendering for auth-required pages
 export const dynamic = 'force-dynamic';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import InterventionDesigner from '@/components/interventions/InterventionDesigner';
 
-export default function NewInterventionPage() {
+function NewInterventionContent() {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const sessionResult = useSession();
+  const session = sessionResult?.data;
+  const status = sessionResult?.status;
   const searchParams = useSearchParams();
   // Show loading during authentication check
   if (!session) {
@@ -147,5 +149,17 @@ export default function NewInterventionPage() {
         />
       </div>
     </div>
+  );
+}
+
+export default function NewInterventionPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    }>
+      <NewInterventionContent />
+    </Suspense>
   );
 }

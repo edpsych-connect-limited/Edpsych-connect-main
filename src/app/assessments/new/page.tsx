@@ -14,7 +14,9 @@ import { useRouter } from 'next/navigation';
 import AssessmentForm from '@/components/assessments/AssessmentForm';
 
 export default function NewAssessmentPage() {
-  const { data: session, status } = useSession();
+  const sessionResult = useSession();
+  const session = sessionResult?.data;
+  const status = sessionResult?.status;
   const router = useRouter();
   // Show loading during authentication check
   if (status === 'loading' || !session) {

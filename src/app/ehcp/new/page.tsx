@@ -14,7 +14,9 @@ import { useRouter } from 'next/navigation';
 import EHCPWizardForm from '@/components/ehcp/EHCPWizardForm';
 
 export default function NewEHCPPage() {
-  const { data: session, status } = useSession();
+  const sessionResult = useSession();
+  const session = sessionResult?.data;
+  const status = sessionResult?.status;
   const router = useRouter();
   // Show loading during authentication check
   if (status === 'loading' || !session) {

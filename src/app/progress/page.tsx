@@ -15,7 +15,9 @@ import ProgressDashboard from '@/components/progress/ProgressDashboard';
 
 export default function ProgressPage() {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const sessionResult = useSession();
+  const session = sessionResult?.data;
+  const status = sessionResult?.status;
 
   // Show loading during authentication check
   if (status === 'loading' || !session) {

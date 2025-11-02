@@ -38,7 +38,9 @@ interface TrainingProduct {
 
 export default function TrainingMarketplace() {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const sessionResult = useSession();
+  const session = sessionResult?.data;
+  const status = sessionResult?.status;
 
   // Show loading during authentication check
   if (!session) {
