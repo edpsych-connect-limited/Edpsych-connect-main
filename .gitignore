@@ -52,7 +52,7 @@ logs/
 
 # Cache
 .cache/
-cache/
+/cache/
 .next/cache/
 .turbo/
 
