@@ -168,7 +168,7 @@ export default function AdminPage() {
  * so we use a class component wrapper
  */
 class ErrorBoundary extends React.Component<
-  { children: React.ReactNode; fallback: (error: Error) => JSX.Element },
+  { children: React.ReactNode; fallback: (error: Error) => React.ReactElement },
   { hasError: boolean; error: Error | null }
 > {
   constructor(props: any) {
