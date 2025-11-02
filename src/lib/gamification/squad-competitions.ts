@@ -948,12 +948,13 @@ export function generateTournamentBracket(
     const roundMatches: BracketMatch[] = [];
     const numMatches = Math.pow(2, numRounds - r);
 
-    for (let m = 0; m < numMatches; m++) {
-      let roundName = 'Round ' + r;
-      if (r === numRounds) roundName = 'Final';
-      else if (r === numRounds - 1) roundName = 'Semi-Final';
-      else if (r === numRounds - 2) roundName = 'Quarter-Final';
+    // Determine round name (same for all matches in this round)
+    let roundName = 'Round ' + r;
+    if (r === numRounds) roundName = 'Final';
+    else if (r === numRounds - 1) roundName = 'Semi-Final';
+    else if (r === numRounds - 2) roundName = 'Quarter-Final';
 
+    for (let m = 0; m < numMatches; m++) {
       roundMatches.push({
         match_id: `${competition.id}_match_${matchIdCounter++}`,
         round_number: r,

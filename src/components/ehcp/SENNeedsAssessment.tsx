@@ -627,7 +627,7 @@ function Step4Outcomes({
               : 'bg-gray-100 text-gray-700'
           }`}
         >
-          Short-term (< 1 year)
+          Short-term (&lt; 1 year)
         </button>
         <button
           onClick={() => setOutcomeType('long_term')}

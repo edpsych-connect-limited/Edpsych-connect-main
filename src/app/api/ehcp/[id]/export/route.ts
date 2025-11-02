@@ -27,8 +27,8 @@ export async function GET(
     //   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     // }
 
-    const ehcpId = parseInt(params.id);
-    if (isNaN(ehcpId)) {
+    const ehcpId = params.id;
+    if (!ehcpId) {
       return NextResponse.json({ error: 'Invalid EHCP ID' }, { status: 400 });
     }
 
@@ -47,11 +47,8 @@ export async function GET(
     }
 
     // Fetch EHCP from database
-    const ehcp = await prisma.eHCP.findUnique({
+    const ehcp = await prisma.ehcps.findUnique({
       where: { id: ehcpId },
-      include: {
-        student: true,
-      },
     });
 
     if (!ehcp) {
@@ -121,8 +118,8 @@ export async function POST(
     //   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     // }
 
-    const ehcpId = parseInt(params.id);
-    if (isNaN(ehcpId)) {
+    const ehcpId = params.id;
+    if (!ehcpId) {
       return NextResponse.json({ error: 'Invalid EHCP ID' }, { status: 400 });
     }
 
@@ -155,11 +152,8 @@ export async function POST(
     }
 
     // Fetch EHCP from database
-    const ehcp = await prisma.eHCP.findUnique({
+    const ehcp = await prisma.ehcps.findUnique({
       where: { id: ehcpId },
-      include: {
-        student: true,
-      },
     });
 
     if (!ehcp) {

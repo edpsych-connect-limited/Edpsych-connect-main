@@ -85,18 +85,20 @@ class AuditLogger {
     try {
       await prisma.auditLog.create({
         data: {
-          eventType: entry.eventType,
-          severity: entry.severity,
+          action: entry.eventType,
           performedById: entry.performedBy,
-          performedByEmail: entry.performedByEmail,
           entityType: entry.entityType,
           entityId: entry.entityId,
-          details: entry.details as any,
+          details: {
+            ...(entry.details || {}),
+            severity: entry.severity,
+            performedByEmail: entry.performedByEmail,
+            requestId: entry.requestId,
+            success: entry.success,
+            errorMessage: entry.errorMessage,
+          } as any,
           ipAddress: entry.ipAddress,
           userAgent: entry.userAgent,
-          requestId: entry.requestId,
-          success: entry.success,
-          errorMessage: entry.errorMessage,
           timestamp: new Date(),
         },
       });

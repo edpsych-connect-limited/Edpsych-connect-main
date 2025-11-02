@@ -162,7 +162,7 @@ export async function GET(
 
     // 3. Retrieve EHCP from database
     const ehcp = await prisma.ehcps.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: id },
     });
 
     if (!ehcp) {
@@ -279,7 +279,7 @@ export async function PUT(
 
     // 4. Check if EHCP exists
     const existingEHCP = await prisma.ehcps.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: id },
     });
 
     if (!existingEHCP) {
@@ -317,7 +317,7 @@ export async function PUT(
 
     // 7. Update EHCP in database
     const updatedEHCP = await prisma.ehcps.update({
-      where: { id: parseInt(id) },
+      where: { id: id },
       data: {
         plan_details: updatedPlanDetails,
         updated_at: new Date(),
@@ -406,7 +406,7 @@ export async function DELETE(
 
     // 3. Check if EHCP exists
     const existingEHCP = await prisma.ehcps.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: id },
     });
 
     if (!existingEHCP) {
@@ -439,7 +439,7 @@ export async function DELETE(
     // 5. Soft delete - preserve data for compliance
     // Note: Schema should have archived_at field for soft deletes
     const archivedEHCP = await prisma.ehcps.update({
-      where: { id: parseInt(id) },
+      where: { id: id },
       data: {
         // TODO: Add archived_at field to schema
         // archived_at: new Date(),

@@ -149,7 +149,7 @@ export default function EHCPWizardForm({
     setFormData((prev) => ({
       ...prev,
       [section]: {
-        ...prev[section as keyof typeof prev],
+        ...(typeof prev[section as keyof typeof prev] === 'object' ? prev[section as keyof typeof prev] as any : {}),
         [field]: value,
       },
     }));

@@ -99,9 +99,9 @@ export class EHCPPDFGenerator {
   private readonly CONTENT_WIDTH = this.PAGE_WIDTH - (2 * this.MARGIN);
 
   // Colors (LA branding)
-  private readonly PRIMARY_COLOR = [0, 51, 102]; // Dark blue
-  private readonly SECONDARY_COLOR = [100, 100, 100]; // Gray
-  private readonly ACCENT_COLOR = [0, 102, 204]; // Light blue
+  private readonly PRIMARY_COLOR: [number, number, number] = [0, 51, 102]; // Dark blue
+  private readonly SECONDARY_COLOR: [number, number, number] = [100, 100, 100]; // Gray
+  private readonly ACCENT_COLOR: [number, number, number] = [0, 102, 204]; // Light blue
 
   constructor() {
     this.doc = new jsPDF({

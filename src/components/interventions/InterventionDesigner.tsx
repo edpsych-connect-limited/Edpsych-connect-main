@@ -40,10 +40,11 @@ import {
 // ============================================================================
 
 interface InterventionDesignerProps {
-  studentId: string;
-  studentName: string;
-  studentAge: number;
-  targetNeeds?: string[];
+  caseId: number;
+  tenantId: number;
+  initialData?: any;
+  onSave?: (plan: any) => Promise<void>;
+  onCancel?: () => void;
 }
 
 interface InterventionPlan {
@@ -114,10 +115,11 @@ interface ReviewNote {
 // ============================================================================
 
 export default function InterventionDesigner({
-  studentId,
-  studentName,
-  studentAge,
-  targetNeeds = [],
+  caseId,
+  tenantId,
+  initialData,
+  onSave,
+  onCancel,
 }: InterventionDesignerProps) {
   const [activeTab, setActiveTab] = useState<
     'library' | 'plan' | 'progress' | 'fidelity'
@@ -158,10 +160,11 @@ export default function InterventionDesigner({
 
   // Load recommendations on mount
   useEffect(() => {
-    if (targetNeeds.length > 0) {
+    // TODO: Load recommendations based on case data
+    if (initialData?.initialData?.targetNeeds || []?.length > 0) {
       loadRecommendations();
     }
-  }, []);
+  }, [initialData]);
 
   // ============================================================================
   // RECOMMENDATION FUNCTIONS
@@ -170,14 +173,14 @@ export default function InterventionDesigner({
   const loadRecommendations = () => {
     const request: RecommendationRequest = {
       student_profile: {
-        student_id: studentId,
-        age: studentAge,
-        year_group: calculateYearGroup(studentAge),
+        student_id: initialData?.studentId || "unknown",
+        age: initialData?.studentAge || 10,
+        year_group: calculateYearGroup(initialData?.studentAge || 10),
         current_setting: 'mainstream',
         available_settings_for_intervention: ['classroom', 'small_group', 'one_to_one'],
-        specific_difficulties: targetNeeds,
+        specific_difficulties: initialData?.targetNeeds || [],
       },
-      target_areas: targetNeeds,
+      target_areas: initialData?.targetNeeds || [],
       priority_level: 'high',
     };
 
@@ -194,7 +197,7 @@ export default function InterventionDesigner({
       id: `plan_${Date.now()}`,
       intervention_id: intervention.id,
       intervention_name: intervention.name,
-      student_id: studentId,
+      student_id: initialData?.studentId || "unknown",
       created_date: new Date().toISOString().split('T')[0],
       start_date: new Date().toISOString().split('T')[0],
       status: 'planned',
@@ -310,11 +313,11 @@ export default function InterventionDesigner({
           Intervention Designer
         </h1>
         <p className="text-gray-600">
-          Student: <span className="font-semibold">{studentName}</span> (Age: {studentAge})
+          Student: <span className="font-semibold">{initialData?.studentName || "Student"}</span> (Age: {initialData?.studentAge || 10})
         </p>
-        {targetNeeds.length > 0 && (
+        {initialData?.targetNeeds || [].length > 0 && (
           <p className="text-gray-600">
-            Target Areas: <span className="font-semibold">{targetNeeds.join(', ')}</span>
+            Target Areas: <span className="font-semibold">{initialData?.targetNeeds || [].join(', ')}</span>
           </p>
         )}
       </div>
@@ -434,7 +437,7 @@ function LibraryTab({
             <p className="text-sm text-blue-800 mb-3">
               Based on student needs, these interventions are suggested:
             </p>
-            {recommendations.recommendations.slice(0, 3).map((rec) => (
+            {recommendations.recommendations.slice(0, 3).map((rec: any) => (
               <div
                 key={rec.intervention.id}
                 className="bg-white rounded p-3 mb-2 cursor-pointer hover:shadow-md transition"

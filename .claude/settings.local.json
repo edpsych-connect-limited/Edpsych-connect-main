@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(find:*)",
+      "Bash(git push:*)",
+      "Bash(git reset:*)",
+      "Bash(awk:*)",
+      "Bash(npx prisma db pull:*)",
+      "Bash(npx prisma db push:*)",
+      "Bash(npx prisma format)",
+      "Bash(bash:*)",
+      "Bash(for file in src/app/interventions/page.tsx src/app/progress/page.tsx src/app/subscription/page.tsx)",
+      "Bash(do)",
+      "Bash(echo:*)",
+      "Bash(done)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

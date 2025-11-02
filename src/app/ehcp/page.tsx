@@ -13,6 +13,9 @@
 
 'use client';
 
+// Force dynamic rendering for auth-required pages
+export const dynamic = 'force-dynamic';
+
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -49,6 +52,15 @@ interface PaginationInfo {
 export default function EHCPListPage() {
   const router = useRouter();
   const { data: session, status } = useSession();
+
+  // Show loading during authentication check
+  if (status === 'loading' || !session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
 
   // State management
   const [ehcps, setEhcps] = useState<EHCP[]>([]);
@@ -172,22 +184,6 @@ export default function EHCPListPage() {
     }
   }, [status, pagination.page, filters.student_id, filters.tenant_id]);
 
-  // Authentication check
-  if (status === 'loading') {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (status === 'unauthenticated') {
-    router.push('/login');
-    return null;
-  }
 
   // Status badge color
   const getStatusColor = (status?: string) => {

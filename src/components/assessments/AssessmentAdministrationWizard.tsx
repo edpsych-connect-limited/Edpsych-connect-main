@@ -86,7 +86,7 @@ export default function AssessmentAdministrationWizard({
       component: ContextReviewStep,
       isComplete: false,
     },
-    ...framework.domains.map((domain, index) => ({
+    ...framework.domains.map((domain: any, index: number) => ({
       id: `domain-${domain.id}`,
       title: `Domain ${index + 1}: ${domain.name}`,
       description: 'EP observations and interpretation',

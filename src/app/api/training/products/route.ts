@@ -10,6 +10,9 @@ import { apiRateLimit } from '@/lib/middleware/rate-limit';
 
 const prisma = new PrismaClient();
 
+// Route segment config - force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 /**
  * GET /api/training/products
  * List all active training products

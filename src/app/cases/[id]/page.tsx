@@ -51,11 +51,7 @@ export default function CaseDetailPage({ params }: CaseDetailProps) {
     'overview'
   );
 
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login');
-      return;
-    }
+  useEffect(() => {
 
     if (status === 'authenticated') {
       loadCase();
@@ -114,7 +110,7 @@ export default function CaseDetailPage({ params }: CaseDetailProps) {
     }
   };
 
-  if (status === 'loading' || loading) {
+  if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>

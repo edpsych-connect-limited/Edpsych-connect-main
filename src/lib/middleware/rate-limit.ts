@@ -164,16 +164,16 @@ async function checkRateLimit(
  * }
  * ```
  */
-export function createRateLimit(config: RateLimitConfig) {
-  return async (
-    request: NextRequest,
-    userId?: string
-  ): Promise<{
-    allowed: boolean;
-    remaining: number;
-    resetTime: number;
-    response?: NextResponse;
-  }> {
+export function createRateLimit(config: RateLimitConfig): (
+  request: NextRequest,
+  userId?: string
+) => Promise<{
+  allowed: boolean;
+  remaining: number;
+  resetTime: number;
+  response?: NextResponse;
+}> {
+  return async (request: NextRequest, userId?: string) => {
     const requestId = getRequestId(request);
     const ipAddress = getIpAddress(request);
 

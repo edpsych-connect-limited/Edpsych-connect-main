@@ -10,6 +10,9 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import CaseManager from '@/components/cases/CaseManager';
 
+// Force dynamic rendering for auth-required pages
+export const dynamic = 'force-dynamic';
+
 export default function NewCasePage() {
   const router = useRouter();
   const { data: session, status } = useSession();
@@ -18,7 +21,16 @@ export default function NewCasePage() {
     if (status === 'unauthenticated') {
       router.push('/login');
     }
-  }, [status]);
+  }, [status, router]);
+
+  // Show loading during authentication check
+  if (status === 'loading' || !session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
 
   const handleSave = async (caseData: any) => {
     try {
@@ -47,14 +59,6 @@ export default function NewCasePage() {
   const handleCancel = () => {
     router.push('/cases');
   };
-
-  if (status === 'loading') {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
 
   const tenantId = (session?.user as any)?.tenant_id || 1;
 

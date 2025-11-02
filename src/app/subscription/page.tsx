@@ -5,6 +5,9 @@
 
 'use client';
 
+// Force dynamic rendering for auth-required pages
+export const dynamic = 'force-dynamic';
+
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -41,15 +44,20 @@ export default function SubscriptionManagementPage() {
   const router = useRouter();
   const { data: session, status } = useSession();
 
+  // Show loading during authentication check
+  if (status === 'loading' || !session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
+
   const [subscription, setSubscription] = useState<SubscriptionData | null>(null);
   const [usage, setUsage] = useState<UsageData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login');
-      return;
-    }
 
     if (status === 'authenticated') {
       loadSubscriptionData();
@@ -128,7 +136,7 @@ export default function SubscriptionManagementPage() {
     }
   };
 
-  if (status === 'loading' || loading) {
+  if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>

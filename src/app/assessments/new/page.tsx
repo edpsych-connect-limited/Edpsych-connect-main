@@ -5,6 +5,9 @@
 
 'use client';
 
+// Force dynamic rendering for auth-required pages
+export const dynamic = 'force-dynamic';
+
 import React from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -13,22 +16,13 @@ import AssessmentForm from '@/components/assessments/AssessmentForm';
 export default function NewAssessmentPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
-
-  // Authentication check
-  if (status === 'loading') {
+  // Show loading during authentication check
+  if (status === 'loading' || !session) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
-        </div>
+        <div className="text-lg">Loading...</div>
       </div>
     );
-  }
-
-  if (status === 'unauthenticated') {
-    router.push('/login');
-    return null;
   }
 
   return (

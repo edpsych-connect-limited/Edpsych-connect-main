@@ -12,6 +12,9 @@
 
 'use client';
 
+// Force dynamic rendering for auth-required pages
+export const dynamic = 'force-dynamic';
+
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -36,6 +39,15 @@ interface TrainingProduct {
 export default function TrainingMarketplace() {
   const router = useRouter();
   const { data: session, status } = useSession();
+
+  // Show loading during authentication check
+  if (!session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
 
   const [products, setProducts] = useState<TrainingProduct[]>([]);
   const [filter, setFilter] = useState<string>('all'); // all, featured, bundles
@@ -65,7 +77,7 @@ export default function TrainingMarketplace() {
     return true;
   });
 
-  if (status === 'loading' || loading) {
+  if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>

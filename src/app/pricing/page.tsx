@@ -5,6 +5,9 @@
 
 'use client';
 
+// Force dynamic rendering for auth-required pages
+export const dynamic = 'force-dynamic';
+
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -18,6 +21,15 @@ import {
 export default function PricingPage() {
   const router = useRouter();
   const { data: session, status } = useSession();
+
+  // Show loading during authentication check
+  if (status === 'loading') {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
 
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
 

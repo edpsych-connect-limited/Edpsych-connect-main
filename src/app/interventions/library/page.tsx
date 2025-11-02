@@ -5,6 +5,9 @@
 
 'use client';
 
+// Force dynamic rendering for auth-required pages
+export const dynamic = 'force-dynamic';
+
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -12,19 +15,15 @@ import InterventionLibrary from '@/components/interventions/InterventionLibrary'
 
 export default function InterventionLibraryPage() {
   const router = useRouter();
-  const { status } = useSession();
+  const { data: session, status } = useSession();
 
-  if (status === 'loading') {
+  // Show loading during authentication check
+  if (status === 'loading' || !session) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="text-lg">Loading...</div>
       </div>
     );
-  }
-
-  if (status === 'unauthenticated') {
-    router.push('/login');
-    return null;
   }
 
   return (

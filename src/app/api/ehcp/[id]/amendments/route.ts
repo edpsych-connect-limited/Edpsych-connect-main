@@ -18,13 +18,13 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const ehcpId = parseInt(params.id);
-    if (isNaN(ehcpId)) {
+    const ehcpId = params.id;
+    if (!ehcpId) {
       return NextResponse.json({ error: 'Invalid EHCP ID' }, { status: 400 });
     }
 
     // Verify EHCP exists
-    const ehcp = await prisma.eHCP.findUnique({
+    const ehcp = await prisma.ehcps.findUnique({
       where: { id: ehcpId },
     });
 
@@ -59,8 +59,8 @@ export async function POST(
   { params }: { params: { id: string } }
 ) {
   try {
-    const ehcpId = parseInt(params.id);
-    if (isNaN(ehcpId)) {
+    const ehcpId = params.id;
+    if (!ehcpId) {
       return NextResponse.json({ error: 'Invalid EHCP ID' }, { status: 400 });
     }
 
@@ -89,7 +89,7 @@ export async function POST(
     }
 
     // Fetch existing EHCP
-    const ehcp = await prisma.eHCP.findUnique({
+    const ehcp = await prisma.ehcps.findUnique({
       where: { id: ehcpId },
     });
 
@@ -116,7 +116,7 @@ export async function POST(
     amendments.push(newAmendment);
 
     // Update the EHCP
-    await prisma.eHCP.update({
+    await prisma.ehcps.update({
       where: { id: ehcpId },
       data: {
         plan_details: {

@@ -5,6 +5,9 @@
 
 'use client';
 
+// Force dynamic rendering for auth-required pages
+export const dynamic = 'force-dynamic';
+
 import React, { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -14,6 +17,15 @@ export default function NewInterventionPage() {
   const router = useRouter();
   const { data: session, status } = useSession();
   const searchParams = useSearchParams();
+  // Show loading during authentication check
+  if (!session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
+
 
   const [caseId, setCaseId] = useState<number | null>(null);
   const [tenantId, setTenantId] = useState<number | null>(null);
@@ -22,10 +34,6 @@ export default function NewInterventionPage() {
   const [templateData, setTemplateData] = useState<any>(null);
 
   useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login');
-      return;
-    }
 
     if (status === 'authenticated') {
       // Get case ID from query params if provided
@@ -97,7 +105,7 @@ export default function NewInterventionPage() {
     }
   };
 
-  if (status === 'loading' || loadingTemplate) {
+  if (loadingTemplate) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>

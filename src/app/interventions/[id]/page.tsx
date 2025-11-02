@@ -48,11 +48,7 @@ export default function InterventionDetailPage({ params }: InterventionDetailPro
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'overview' | 'progress' | 'fidelity'>('overview');
 
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login');
-      return;
-    }
+  useEffect(() => {
 
     if (status === 'authenticated') {
       loadIntervention();
@@ -94,7 +90,7 @@ export default function InterventionDetailPage({ params }: InterventionDetailPro
     }
   };
 
-  if (status === 'loading' || loading) {
+  if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>

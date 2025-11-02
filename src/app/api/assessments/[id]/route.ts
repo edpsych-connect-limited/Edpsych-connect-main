@@ -101,7 +101,8 @@ export async function GET(
         cases: {
           select: {
             id: true,
-            case_number: true,
+            status: true,
+            type: true,
             student_id: true,
           },
         },

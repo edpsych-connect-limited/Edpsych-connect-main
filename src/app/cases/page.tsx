@@ -5,6 +5,9 @@
 
 'use client';
 
+// Force dynamic rendering for auth-required pages
+export const dynamic = 'force-dynamic';
+
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -28,6 +31,15 @@ export default function CasesPage() {
   const router = useRouter();
   const { data: session, status } = useSession();
 
+  // Show loading during authentication check
+  if (status === 'loading' || !session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
+
   const [cases, setCases] = useState<Case[]>([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -35,15 +47,11 @@ export default function CasesPage() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login');
-      return;
-    }
-
-    if (status === 'authenticated') {
+    // At this point we know we're authenticated (early return handled above)
+    if (session) {
       loadCases();
     }
-  }, [status]);
+  }, [session]);
 
   const loadCases = async () => {
     try {
@@ -120,7 +128,7 @@ export default function CasesPage() {
     ehcps: cases.filter((c) => c.ehcp).length,
   };
 
-  if (status === 'loading' || loading) {
+  if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>

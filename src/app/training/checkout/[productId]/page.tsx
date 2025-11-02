@@ -40,11 +40,7 @@ function CheckoutForm({ productId }: { productId: string }) {
   const [discountCode, setDiscountCode] = useState('');
   const [appliedDiscount, setAppliedDiscount] = useState<any>(null);
 
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login?redirect=/training/checkout/' + productId);
-      return;
-    }
+  useEffect(() => {
 
     loadProduct();
   }, [productId, status]);

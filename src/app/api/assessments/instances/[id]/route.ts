@@ -4,6 +4,8 @@
  *
  * GET /api/assessments/instances/[id] - Get single instance
  * PUT /api/assessments/instances/[id] - Update instance
+ *
+ * Uses the new AssessmentInstance model from schema extensions
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -18,37 +20,45 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const instanceId = parseInt(params.id);
-    if (isNaN(instanceId)) {
-      return NextResponse.json({ error: 'Invalid instance ID' }, { status: 400 });
-    }
+    const instanceId = params.id; // UUID string
 
-    // Fetch assessment
-    const assessment = await prisma.assessment.findUnique({
+    // Fetch assessment instance using new model
+    const instance = await prisma.assessmentInstance.findUnique({
       where: { id: instanceId },
       include: {
-        student: {
+        framework: {
           select: {
-            student_id: true,
-            first_name: true,
-            last_name: true,
-            date_of_birth: true,
+            id: true,
+            name: true,
+            abbreviation: true,
+          },
+        },
+        domain_observations: {
+          include: {
+            domain: {
+              select: {
+                id: true,
+                name: true,
+                order_index: true,
+              },
+            },
+          },
+        },
+        collaborations: {
+          select: {
+            id: true,
+            contributor_type: true,
+            contributor_name: true,
+            status: true,
+            submitted_at: true,
           },
         },
       },
     });
 
-    if (!assessment) {
-      return NextResponse.json({ error: 'Assessment not found' }, { status: 404 });
+    if (!instance) {
+      return NextResponse.json({ error: 'Assessment instance not found' }, { status: 404 });
     }
-
-    // Transform to instance format
-    const instance = {
-      id: assessment.id,
-      student_id: assessment.student_id,
-      student_name: `${assessment.student.first_name} ${assessment.student.last_name}`,
-      ...(assessment.assessment_data as any),
-    };
 
     return NextResponse.json({
       success: true,
@@ -72,64 +82,46 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    const instanceId = parseInt(params.id);
-    if (isNaN(instanceId)) {
-      return NextResponse.json({ error: 'Invalid instance ID' }, { status: 400 });
-    }
+    const instanceId = params.id; // UUID string
 
     const body = await request.json();
     const {
-      completed_at,
       status,
-      responses,
-      scores,
-      notes,
-      environmental_factors,
-      behavioral_observations,
+      progress_percentage,
+      ep_summary,
+      ep_interpretation,
+      ep_recommendations,
+      assessment_date,
     } = body;
 
-    // Fetch existing assessment
-    const existing = await prisma.assessment.findUnique({
+    // Fetch existing instance
+    const existing = await prisma.assessmentInstance.findUnique({
       where: { id: instanceId },
     });
 
     if (!existing) {
-      return NextResponse.json({ error: 'Assessment not found' }, { status: 404 });
+      return NextResponse.json({ error: 'Assessment instance not found' }, { status: 404 });
     }
 
-    // Merge with existing data
-    const updatedData = {
-      ...(existing.assessment_data as any),
-      completed_at: completed_at || (existing.assessment_data as any).completed_at,
-      status: status || (existing.assessment_data as any).status,
-      responses: responses || (existing.assessment_data as any).responses,
-      scores: scores || (existing.assessment_data as any).scores,
-      notes: notes !== undefined ? notes : (existing.assessment_data as any).notes,
-      environmental_factors:
-        environmental_factors !== undefined
-          ? environmental_factors
-          : (existing.assessment_data as any).environmental_factors,
-      behavioral_observations:
-        behavioral_observations !== undefined
-          ? behavioral_observations
-          : (existing.assessment_data as any).behavioral_observations,
-    };
-
-    // Update assessment
-    const updated = await prisma.assessment.update({
+    // Update instance
+    const updated = await prisma.assessmentInstance.update({
       where: { id: instanceId },
       data: {
-        assessment_data: updatedData,
+        ...(status && { status }),
+        ...(progress_percentage !== undefined && { progress_percentage }),
+        ...(ep_summary && { ep_summary }),
+        ...(ep_interpretation && { ep_interpretation }),
+        ...(ep_recommendations && { ep_recommendations }),
+        ...(assessment_date && { assessment_date: new Date(assessment_date) }),
+        ...(status === 'completed' && { completed_at: new Date() }),
+        updated_at: new Date(),
       },
     });
 
     return NextResponse.json({
       success: true,
       message: 'Assessment instance updated successfully',
-      instance: {
-        id: updated.id,
-        ...updatedData,
-      },
+      instance: updated,
     });
   } catch (error) {
     console.error('Error updating assessment instance:', error);
