@@ -84,3 +84,19 @@ deployment-trigger.txt
 # Generated files
 generated/
 .generated/
+
+# Environment files
+.env.txt
+.env.ps1
+*.env.local
+
+# Scripts
+fix-*.sh
+remove-*.sh
+seed-admin.js
+
+# Personal files
+scott-*.jpg
+scott-*.png
+"# 🎯 EDPSYCH CONNECT WORLD - MASTER EXEC.md"
+
