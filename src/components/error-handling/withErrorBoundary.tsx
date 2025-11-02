@@ -37,7 +37,7 @@ export function withErrorBoundary<P extends object>(
 
   const displayName = Component.displayName || Component.name || 'Component';
 
-  const WrappedComponent = (props: P): JSX.Element => (
+  const WrappedComponent = (props: P): React.ReactElement => (
     <ErrorBoundary
       fallback={fallback}
       onError={onError}

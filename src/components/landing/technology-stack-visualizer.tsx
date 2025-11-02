@@ -11,7 +11,7 @@ interface TechnologyCategory {
   }[];
 }
 
-const TechnologyStackVisualizer = (): JSX.Element => {
+const TechnologyStackVisualizer = (): React.ReactElement => {
   const categories: TechnologyCategory[] = [
     {
       name: 'Frontend',

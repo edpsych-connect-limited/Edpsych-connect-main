@@ -7,11 +7,11 @@ type UserRole = 'teacher' | 'student' | 'parent' | 'researcher';
 interface FunnelStep {
   title: string;
   description: string;
-  icon: JSX.Element;
+  icon: React.ReactElement;
   roles: UserRole[];
 }
 
-const ConversionFunnel = (): JSX.Element => {
+const ConversionFunnel = (): React.ReactElement => {
   const [selectedRole, setSelectedRole] = useState<UserRole>('teacher');
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
 
