@@ -26,8 +26,13 @@ import { useOnboarding } from './OnboardingProvider';
 import { ProgressIndicator } from './ProgressIndicator';
 import { Navigation } from './Navigation';
 
-// Step components will be imported here as they're built
-// For now, we'll use placeholder components
+// Step components
+import { Step1Welcome } from './steps/Step1Welcome';
+import { Step2RoleSelection } from './steps/Step2RoleSelection';
+import { Step3ProfileSetup } from './steps/Step3ProfileSetup';
+import { Step4FeatureTour } from './steps/Step4FeatureTour';
+import { Step5QuickWins } from './steps/Step5QuickWins';
+import { Step6Completion } from './steps/Step6Completion';
 
 interface OnboardingWizardProps {
   className?: string;
@@ -255,138 +260,22 @@ export function OnboardingWizard({ className = '' }: OnboardingWizardProps) {
 
 /**
  * Renders the appropriate step component based on current step
- *
- * NOTE: Step components will be built in Phase 3
- * For now, using placeholder components
  */
 function renderStepContent(step: number): React.ReactNode {
   switch (step) {
     case 1:
-      return <Step1Placeholder />;
+      return <Step1Welcome />;
     case 2:
-      return <Step2Placeholder />;
+      return <Step2RoleSelection />;
     case 3:
-      return <Step3Placeholder />;
+      return <Step3ProfileSetup />;
     case 4:
-      return <Step4Placeholder />;
+      return <Step4FeatureTour />;
     case 5:
-      return <Step5Placeholder />;
+      return <Step5QuickWins />;
     case 6:
-      return <Step6Placeholder />;
+      return <Step6Completion />;
     default:
       return <div>Unknown step</div>;
   }
-}
-
-// ============================================================================
-// PLACEHOLDER COMPONENTS
-// These will be replaced with actual step components in Phase 3
-// ============================================================================
-
-function Step1Placeholder() {
-  return (
-    <div className="text-center py-12">
-      <h2 className="text-3xl font-bold text-gray-900 mb-4">
-        Welcome to EdPsych Connect World! 👋
-      </h2>
-      <p className="text-lg text-gray-600 mb-6">
-        This is the Welcome step (Step 1 placeholder)
-      </p>
-      <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-6 max-w-2xl mx-auto">
-        <p className="text-sm text-indigo-800">
-          <strong>Coming in Phase 3:</strong> Welcome video, key benefits showcase, and Get Started CTA
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function Step2Placeholder() {
-  return (
-    <div className="text-center py-12">
-      <h2 className="text-3xl font-bold text-gray-900 mb-4">
-        Select Your Role
-      </h2>
-      <p className="text-lg text-gray-600 mb-6">
-        This is the Role Selection step (Step 2 placeholder)
-      </p>
-      <div className="bg-purple-50 border border-purple-200 rounded-lg p-6 max-w-2xl mx-auto">
-        <p className="text-sm text-purple-800">
-          <strong>Coming in Phase 3:</strong> 5 role cards (EP, SENCO, Teacher, LA, Researcher) with personalized content
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function Step3Placeholder() {
-  return (
-    <div className="text-center py-12">
-      <h2 className="text-3xl font-bold text-gray-900 mb-4">
-        Complete Your Profile
-      </h2>
-      <p className="text-lg text-gray-600 mb-6">
-        This is the Profile Setup step (Step 3 placeholder)
-      </p>
-      <div className="bg-green-50 border border-green-200 rounded-lg p-6 max-w-2xl mx-auto">
-        <p className="text-sm text-green-800">
-          <strong>Coming in Phase 3:</strong> Photo upload, HCPC number input, organization details form
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function Step4Placeholder() {
-  return (
-    <div className="text-center py-12">
-      <h2 className="text-3xl font-bold text-gray-900 mb-4">
-        Explore Key Features
-      </h2>
-      <p className="text-lg text-gray-600 mb-6">
-        This is the Feature Tour step (Step 4 placeholder)
-      </p>
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-2xl mx-auto">
-        <p className="text-sm text-blue-800">
-          <strong>Coming in Phase 3:</strong> 6 feature tabs (ECCA, EHCP, Interventions, Progress, Training, Cases) with videos and demos
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function Step5Placeholder() {
-  return (
-    <div className="text-center py-12">
-      <h2 className="text-3xl font-bold text-gray-900 mb-4">
-        Get Your First Quick Wins
-      </h2>
-      <p className="text-lg text-gray-600 mb-6">
-        This is the Quick Wins step (Step 5 placeholder)
-      </p>
-      <div className="bg-orange-50 border border-orange-200 rounded-lg p-6 max-w-2xl mx-auto">
-        <p className="text-sm text-orange-800">
-          <strong>Coming in Phase 3:</strong> Create first case, complete first assessment, set first goal
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function Step6Placeholder() {
-  return (
-    <div className="text-center py-12">
-      <h2 className="text-3xl font-bold text-gray-900 mb-4">
-        Congratulations! 🎉
-      </h2>
-      <p className="text-lg text-gray-600 mb-6">
-        This is the Completion step (Step 6 placeholder)
-      </p>
-      <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-6 max-w-2xl mx-auto">
-        <p className="text-sm text-emerald-800">
-          <strong>Coming in Phase 3:</strong> Completion animation, certificate download, dashboard tour, next steps
-        </p>
-      </div>
-    </div>
-  );
 }
