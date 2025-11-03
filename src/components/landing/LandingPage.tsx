@@ -1,21 +1,26 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { 
-  Brain, Users, BookOpen, TrendingUp, ChevronRight, 
+import {
+  Brain, Users, BookOpen, TrendingUp, ChevronRight,
   CheckCircle2, Shield, Clock, Star, ArrowRight,
   Sparkles, Target, Award, Zap, Heart, MessageSquare,
   Building2, GraduationCap, FlaskConical
 } from 'lucide-react';
+
+// Import new showcase components
+import ECCAFrameworkShowcase from './ECCAFrameworkShowcase';
+import AssessmentLibraryPreview from './AssessmentLibraryPreview';
+import TrainingPlatformSection from './TrainingPlatformSection';
+import InterventionLibraryPreview from './InterventionLibraryPreview';
 
 export default function LandingPage() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
   const [problemInput, setProblemInput] = useState('');
-  const [activeCustomerSegment, setActiveCustomerSegment] = useState<'la' | 'school' | 'research'>('la');
+  const [activeCustomerSegment, setActiveCustomerSegment] = useState<'la' | 'school' | 'individual_ep' | 'research'>('la');
 
   // Real beta testing testimonials
   const testimonials = [
@@ -115,10 +120,7 @@ export default function LandingPage() {
       <section className="pt-32 pb-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+            <div
             >
               <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-full px-4 py-2 mb-6">
                 <Sparkles className="w-4 h-4 text-indigo-600" />
@@ -162,12 +164,9 @@ export default function LandingPage() {
                   <div className="text-sm text-slate-600">UK Compliant</div>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+            <div
               className="relative"
             >
               <div className="relative bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-8 shadow-2xl border border-indigo-100">
@@ -203,20 +202,17 @@ export default function LandingPage() {
                     "Differentiated strategies",
                     "Progress monitoring tools"
                   ].map((item, idx) => (
-                    <motion.div
+                    <div
                       key={idx}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.4 + idx * 0.1 }}
                       className="flex items-center space-x-3 bg-white rounded-xl p-3 shadow-sm"
                     >
                       <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
                       <span className="text-sm font-medium text-slate-700">{item}</span>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -226,17 +222,17 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-slate-900 mb-4">
-              Built For Three Key Audiences
+              Built For Four Key Audiences
             </h2>
             <p className="text-lg text-slate-600">
-              Select your organization type to see relevant pricing and features
+              Select your role or organization type to see relevant pricing and features
             </p>
           </div>
-          
-          <div className="flex flex-col md:flex-row gap-4 max-w-3xl mx-auto">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
             <button
               onClick={() => setActiveCustomerSegment('la')}
-              className={`flex-1 p-6 rounded-xl border-2 transition-all ${
+              className={`p-6 rounded-xl border-2 transition-all ${
                 activeCustomerSegment === 'la'
                   ? 'border-indigo-600 bg-indigo-50'
                   : 'border-slate-200 hover:border-slate-300'
@@ -248,10 +244,10 @@ export default function LandingPage() {
               <div className="font-bold text-slate-900 mb-1">Local Authorities</div>
               <div className="text-sm text-slate-600">50-300 schools</div>
             </button>
-            
+
             <button
               onClick={() => setActiveCustomerSegment('school')}
-              className={`flex-1 p-6 rounded-xl border-2 transition-all ${
+              className={`p-6 rounded-xl border-2 transition-all ${
                 activeCustomerSegment === 'school'
                   ? 'border-indigo-600 bg-indigo-50'
                   : 'border-slate-200 hover:border-slate-300'
@@ -263,10 +259,25 @@ export default function LandingPage() {
               <div className="font-bold text-slate-900 mb-1">Individual Schools</div>
               <div className="text-sm text-slate-600">Direct subscription</div>
             </button>
-            
+
+            <button
+              onClick={() => setActiveCustomerSegment('individual_ep')}
+              className={`p-6 rounded-xl border-2 transition-all ${
+                activeCustomerSegment === 'individual_ep'
+                  ? 'border-indigo-600 bg-indigo-50'
+                  : 'border-slate-200 hover:border-slate-300'
+              }`}
+            >
+              <Brain className={`w-8 h-8 mb-3 mx-auto ${
+                activeCustomerSegment === 'individual_ep' ? 'text-indigo-600' : 'text-slate-400'
+              }`} />
+              <div className="font-bold text-slate-900 mb-1">Individual EPs</div>
+              <div className="text-sm text-slate-600">Personal subscription</div>
+            </button>
+
             <button
               onClick={() => setActiveCustomerSegment('research')}
-              className={`flex-1 p-6 rounded-xl border-2 transition-all ${
+              className={`p-6 rounded-xl border-2 transition-all ${
                 activeCustomerSegment === 'research'
                   ? 'border-indigo-600 bg-indigo-50'
                   : 'border-slate-200 hover:border-slate-300'
@@ -402,12 +413,8 @@ export default function LandingPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {capabilities.map((capability, idx) => (
-              <motion.div
+              <div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
                 className="group p-6 bg-gradient-to-br from-slate-50 to-white rounded-2xl border-2 border-slate-100 hover:border-indigo-200 hover:shadow-xl transition-all duration-300"
               >
                 <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
@@ -415,11 +422,23 @@ export default function LandingPage() {
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 mb-2">{capability.title}</h3>
                 <p className="text-slate-600 leading-relaxed">{capability.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* ECCA Framework Showcase */}
+      <ECCAFrameworkShowcase />
+
+      {/* Assessment Library Preview */}
+      <AssessmentLibraryPreview />
+
+      {/* Intervention Library Preview */}
+      <InterventionLibraryPreview />
+
+      {/* Training Platform Section */}
+      <TrainingPlatformSection />
 
       {/* Features Section */}
       <section id="features" className="py-20 bg-gradient-to-b from-slate-50 to-white">
@@ -435,12 +454,8 @@ export default function LandingPage() {
 
           <div className="grid md:grid-cols-2 gap-8">
             {features.map((feature, idx) => (
-              <motion.div
+              <div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
                 className="group p-8 bg-white rounded-2xl shadow-lg border-2 border-slate-100 hover:border-indigo-300 hover:shadow-2xl transition-all duration-300"
               >
                 <div className="flex items-start space-x-4">
@@ -456,7 +471,7 @@ export default function LandingPage() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -676,13 +691,9 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <AnimatePresence mode="wait">
-            <motion.div
+          
+            <div
               key={currentTestimonialIndex}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
               className="bg-white rounded-3xl p-10 shadow-2xl border-2 border-indigo-100 relative"
             >
               <div className="absolute -top-6 left-1/2 -translate-x-1/2">
@@ -720,8 +731,8 @@ export default function LandingPage() {
                   ))}
                 </div>
               </div>
-            </motion.div>
-          </AnimatePresence>
+            </div>
+          
         </div>
       </section>
 
@@ -732,11 +743,13 @@ export default function LandingPage() {
             <h2 className="text-4xl font-bold text-slate-900 mb-4">
               {activeCustomerSegment === 'la' && 'Local Authority Pricing Tiers'}
               {activeCustomerSegment === 'school' && 'School & MAT Pricing'}
+              {activeCustomerSegment === 'individual_ep' && 'Individual Educational Psychologist Subscription'}
               {activeCustomerSegment === 'research' && 'Research Institution Licensing'}
             </h2>
             <p className="text-xl text-slate-600">
               {activeCustomerSegment === 'la' && 'Transform SEND delivery across your entire authority'}
               {activeCustomerSegment === 'school' && 'Subscribe independently—full platform access for your school'}
+              {activeCustomerSegment === 'individual_ep' && 'Professional platform access for independent and locum Educational Psychologists'}
               {activeCustomerSegment === 'research' && 'Academic licenses for educational psychology research'}
             </p>
           </div>
@@ -744,10 +757,7 @@ export default function LandingPage() {
           {/* LA Pricing */}
           {activeCustomerSegment === 'la' && (
             <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+              <div
                 className="bg-white rounded-2xl p-8 border-2 border-slate-200 hover:border-indigo-300 hover:shadow-xl transition-all"
               >
                 <div className="text-sm font-semibold text-indigo-600 mb-2">TIER 1</div>
@@ -776,13 +786,9 @@ export default function LandingPage() {
                 <a href="#waitlist" className="block w-full py-3 text-center bg-slate-100 text-slate-900 rounded-xl font-semibold hover:bg-slate-200 transition-colors">
                   Contact Sales
                 </a>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
+              <div
                 className="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-8 text-white relative shadow-2xl scale-105"
               >
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-400 text-slate-900 px-4 py-1 rounded-full text-sm font-bold">
@@ -815,13 +821,9 @@ export default function LandingPage() {
                 <a href="#waitlist" className="block w-full py-3 text-center bg-white text-indigo-600 rounded-xl font-semibold hover:shadow-lg transition-all">
                   Contact Sales
                 </a>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
+              <div
                 className="bg-white rounded-2xl p-8 border-2 border-slate-200 hover:border-indigo-300 hover:shadow-xl transition-all"
               >
                 <div className="text-sm font-semibold text-indigo-600 mb-2">TIER 3</div>
@@ -850,17 +852,14 @@ export default function LandingPage() {
                 <a href="mailto:scott.ipatrick@edpsychconnect.com" className="block w-full py-3 text-center bg-slate-100 text-slate-900 rounded-xl font-semibold hover:bg-slate-200 transition-colors">
                   Contact Sales
                 </a>
-              </motion.div>
+              </div>
             </div>
           )}
 
           {/* School Pricing */}
           {activeCustomerSegment === 'school' && (
             <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+              <div
                 className="bg-white rounded-2xl p-8 border-2 border-slate-200 hover:border-indigo-300 hover:shadow-xl transition-all"
               >
                 <div className="text-sm font-semibold text-indigo-600 mb-2">SMALL SCHOOL</div>
@@ -892,13 +891,9 @@ export default function LandingPage() {
                 <a href="#waitlist" className="block w-full py-3 text-center bg-slate-100 text-slate-900 rounded-xl font-semibold hover:bg-slate-200 transition-colors">
                   Join Waitlist
                 </a>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
+              <div
                 className="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-8 text-white relative shadow-2xl scale-105"
               >
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-400 text-slate-900 px-4 py-1 rounded-full text-sm font-bold">
@@ -934,13 +929,9 @@ export default function LandingPage() {
                 <a href="#waitlist" className="block w-full py-3 text-center bg-white text-indigo-600 rounded-xl font-semibold hover:shadow-lg transition-all">
                   Join Waitlist
                 </a>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
+              <div
                 className="bg-white rounded-2xl p-8 border-2 border-slate-200 hover:border-indigo-300 hover:shadow-xl transition-all"
               >
                 <div className="text-sm font-semibold text-indigo-600 mb-2">LARGE SCHOOL / MAT</div>
@@ -969,17 +960,149 @@ export default function LandingPage() {
                 <a href="mailto:scott.ipatrick@edpsychconnect.com" className="block w-full py-3 text-center bg-slate-100 text-slate-900 rounded-xl font-semibold hover:bg-slate-200 transition-colors">
                   Contact Sales
                 </a>
-              </motion.div>
+              </div>
+            </div>
+          )}
+
+          {/* Individual EP Pricing */}
+          {activeCustomerSegment === 'individual_ep' && (
+            <div className="max-w-2xl mx-auto">
+              <div
+                className="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-3xl p-10 text-white shadow-2xl relative overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+
+                <div className="relative z-10">
+                  <div className="text-center mb-8">
+                    <div className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full px-5 py-2 mb-6">
+                      <Brain className="w-5 h-5" />
+                      <span className="text-sm font-bold">Professional Subscription</span>
+                    </div>
+
+                    <div className="text-6xl font-bold mb-3">
+                      £30
+                      <span className="text-2xl font-normal opacity-90">/month</span>
+                    </div>
+                    <p className="text-xl opacity-95 mb-2">Individual Educational Psychologist</p>
+                    <p className="text-sm opacity-80">Perfect for independent and locum EPs</p>
+                  </div>
+
+                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8 border border-white/20">
+                    <h3 className="text-xl font-bold mb-6">Everything You Need for Professional Practice</h3>
+                    <div className="space-y-4">
+                      {[
+                        {
+                          title: "ECCA Cognitive Assessment Framework",
+                          desc: "Full access to proprietary dynamic assessment system with 4 cognitive domains"
+                        },
+                        {
+                          title: "50+ Assessment Templates",
+                          desc: "Copyright-safe cognitive, educational, behavioural, and speech/language assessments"
+                        },
+                        {
+                          title: "Professional Report Generation",
+                          desc: "LA-compliant PDF reports with automatic scoring and interpretation"
+                        },
+                        {
+                          title: "100+ Evidence-Based Interventions",
+                          desc: "Tier 1-3 interventions with implementation guides and progress monitoring"
+                        },
+                        {
+                          title: "10+ CPD Courses",
+                          desc: "Certificated professional development training across SEND topics"
+                        },
+                        {
+                          title: "Training Marketplace Access",
+                          desc: "Purchase additional courses at discounted rates"
+                        },
+                        {
+                          title: "Case Management Tools",
+                          desc: "Organize your caseload, track progress, manage EHCP processes"
+                        },
+                        {
+                          title: "Professional Resources Library",
+                          desc: "535+ research-backed tools, guides, and best practice resources"
+                        }
+                      ].map((feature, idx) => (
+                        <div key={idx} className="flex items-start">
+                          <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-1 mr-3 text-amber-300" />
+                          <div>
+                            <div className="font-bold mb-1">{feature.title}</div>
+                            <div className="text-sm opacity-90">{feature.desc}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-3 gap-4 mb-8">
+                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 text-center">
+                      <div className="text-3xl font-bold mb-1">£360</div>
+                      <div className="text-sm opacity-90">Annual Cost</div>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 text-center">
+                      <div className="text-3xl font-bold mb-1">£12</div>
+                      <div className="text-sm opacity-90">Per assessment</div>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 text-center">
+                      <div className="text-3xl font-bold mb-1">Unlimited</div>
+                      <div className="text-sm opacity-90">Platform access</div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <a
+                      href="#waitlist"
+                      className="block w-full py-4 bg-white text-indigo-600 rounded-xl font-bold text-lg hover:shadow-2xl transition-all text-center"
+                    >
+                      Subscribe Now
+                    </a>
+                    <p className="text-center text-sm opacity-80">
+                      Cancel anytime • No long-term commitment • Full refund within 14 days
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Value Proposition */}
+              <div
+                className="mt-8 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-8 border-2 border-green-200 text-center"
+              >
+                <TrendingUp className="w-12 h-12 text-green-600 mx-auto mb-4" />
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">
+                  Professional Tools at Fraction of Traditional Costs
+                </h3>
+                <p className="text-lg text-slate-700 mb-4">
+                  Replaces thousands of pounds in assessment test purchases, report writing software,
+                  CPD courses, and intervention resource subscriptions.
+                </p>
+                <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                  <div className="bg-white p-4 rounded-xl border border-green-200">
+                    <div className="text-sm text-slate-600 mb-1">Traditional Costs</div>
+                    <div className="text-3xl font-bold text-slate-900">£3,000+</div>
+                    <div className="text-xs text-slate-500">Annual assessment & resource costs</div>
+                  </div>
+                  <div className="bg-white p-4 rounded-xl border border-green-200">
+                    <div className="text-sm text-slate-600 mb-1">EdPsych Connect</div>
+                    <div className="text-3xl font-bold text-green-600">£360</div>
+                    <div className="text-xs text-slate-500">Complete professional platform</div>
+                  </div>
+                </div>
+                <div className="mt-6 inline-flex items-center space-x-2 bg-green-100 border border-green-300 rounded-full px-5 py-2">
+                  <Award className="w-5 h-5 text-green-700" />
+                  <span className="text-sm font-bold text-green-900">
+                    88% Cost Savings vs Traditional Tools
+                  </span>
+                </div>
+              </div>
             </div>
           )}
 
           {/* Research Institution Pricing */}
           {activeCustomerSegment === 'research' && (
             <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+              <div
                 className="bg-white rounded-2xl p-8 border-2 border-slate-200 hover:border-indigo-300 hover:shadow-xl transition-all"
               >
                 <div className="text-sm font-semibold text-indigo-600 mb-2">INDIVIDUAL RESEARCHER</div>
@@ -1011,13 +1134,9 @@ export default function LandingPage() {
                 <a href="mailto:scott.ipatrick@edpsychconnect.com" className="block w-full py-3 text-center bg-slate-100 text-slate-900 rounded-xl font-semibold hover:bg-slate-200 transition-colors">
                   Apply for License
                 </a>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
+              <div
                 className="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-8 text-white relative shadow-2xl scale-105"
               >
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-400 text-slate-900 px-4 py-1 rounded-full text-sm font-bold">
@@ -1053,13 +1172,9 @@ export default function LandingPage() {
                 <a href="mailto:scott.ipatrick@edpsychconnect.com" className="block w-full py-3 text-center bg-white text-indigo-600 rounded-xl font-semibold hover:shadow-lg transition-all">
                   Apply for License
                 </a>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
+              <div
                 className="bg-white rounded-2xl p-8 border-2 border-slate-200 hover:border-indigo-300 hover:shadow-xl transition-all"
               >
                 <div className="text-sm font-semibold text-indigo-600 mb-2">RESEARCH PARTNERSHIP</div>
@@ -1088,7 +1203,7 @@ export default function LandingPage() {
                 <a href="mailto:scott.ipatrick@edpsychconnect.com" className="block w-full py-3 text-center bg-slate-100 text-slate-900 rounded-xl font-semibold hover:bg-slate-200 transition-colors">
                   Discuss Partnership
                 </a>
-              </motion.div>
+              </div>
             </div>
           )}
 
@@ -1130,6 +1245,24 @@ export default function LandingPage() {
               </div>
             )}
 
+            {activeCustomerSegment !== 'individual_ep' && (
+              <div className="bg-gradient-to-r from-purple-50 to-indigo-50 border-2 border-purple-200 rounded-2xl p-6 text-center">
+                <h3 className="text-xl font-bold text-slate-900 mb-2">
+                  Independent or Locum Educational Psychologist?
+                </h3>
+                <p className="text-slate-700 mb-4">
+                  Professional subscription for just £30/month—ECCA assessment framework, 50+ templates, report generation, 100+ interventions, CPD courses.
+                </p>
+                <button
+                  onClick={() => setActiveCustomerSegment('individual_ep')}
+                  className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+                >
+                  View Individual EP Subscription
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </button>
+              </div>
+            )}
+
             {activeCustomerSegment !== 'research' && (
               <div className="bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-200 rounded-2xl p-6 text-center">
                 <h3 className="text-xl font-bold text-slate-900 mb-2">
@@ -1154,10 +1287,7 @@ export default function LandingPage() {
       {/* CTA Section */}
       <section id="waitlist" className="py-20 bg-gradient-to-br from-indigo-600 to-purple-600">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <div
           >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Join the Waitlist for Beta Access
@@ -1184,18 +1314,15 @@ export default function LandingPage() {
                 </button>
               </div>
               
-              <AnimatePresence>
+
                 {message && (
-                  <motion.p
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
+                  <p
                     className="mt-4 text-white font-semibold bg-white/20 backdrop-blur-sm px-6 py-3 rounded-xl border border-white/30 shadow-lg"
                   >
                     {message}
-                  </motion.p>
+                  </p>
                 )}
-              </AnimatePresence>
+
             </form>
 
             <div className="mt-12 flex items-center justify-center space-x-8 text-white/90">
@@ -1208,7 +1335,7 @@ export default function LandingPage() {
                 <span className="text-sm">Launch Q1 2025</span>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 

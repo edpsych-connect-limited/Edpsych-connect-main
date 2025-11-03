@@ -2477,6 +2477,8 @@ model AssessmentCollaboration {
   submitted_at       DateTime  @default(now())
   invitation_sent_at DateTime?
   invitation_method  String? // "email", "paper_form", "in_person"
+  invitation_token   String?   @unique // Secure token for form access
+  token_expires_at   DateTime? // Token expiration (30 days default)
 
   // Status
   status        String    @default("pending") // pending, received, integrated
