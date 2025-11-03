@@ -60,10 +60,16 @@ export async function POST(req: NextRequest) {
     // Determine user tier (start with free/trial)
     const fullName = `${firstName} ${lastName}`.trim();
 
+    // Generate a unique subdomain for the tenant
+    const subdomain = `user-${Date.now()}-${Math.random().toString(36).substring(7)}`;
+
     // First create a tenant for the user
     const tenant = await prisma.tenants.create({
       data: {
-        tenant_name: organization || `${fullName}'s Account`,
+        name: organization || `${fullName}'s Account`,
+        subdomain: subdomain,
+        tenant_type: organization ? 'SCHOOL' : 'INDIVIDUAL',
+        status: 'trial',
         created_at: new Date(),
         updated_at: new Date(),
       },
