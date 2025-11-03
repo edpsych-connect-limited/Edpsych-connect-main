@@ -13,9 +13,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
-import { authenticateRequest, authorizeRequest, Permission } from '@/lib/middleware/auth';
+import { authenticateRequest, authorizeRequest, Permission, canAccessTenant } from '@/lib/middleware/auth';
 import { ehcpRateLimit } from '@/lib/middleware/rate-limit';
-import { auditLogger, getIpAddress, getRequestId } from '@/lib/security/audit-logger';
+import { auditLogger, getIpAddress, getRequestId, getUserAgent } from '@/lib/security/audit-logger';
 
 const prisma = new PrismaClient();
 
@@ -171,16 +171,33 @@ export async function GET(request: NextRequest) {
 
     const { tenant_id, student_id, page, limit } = validation.data;
 
-    // 4. Build where clause with tenant filtering
+    // 4. Build where clause with tenant filtering (GDPR compliance)
     // Users can only see EHCPs from their own tenant (unless SYSTEM_ADMIN)
     const where: any = {};
+
+    // Enforce tenant isolation
+    if (!canAccessTenant(user.tenant_id, tenant_id ? parseInt(tenant_id) : user.tenant_id, user.role)) {
+      await auditLogger.logUnauthorizedAccess(
+        user.id,
+        'VIEW_EHCP',
+        'EHCP',
+        tenant_id ? `tenant_${tenant_id}` : undefined,
+        ipAddress,
+        getUserAgent(request),
+        requestId
+      );
+      return NextResponse.json(
+        { error: 'Access denied. You cannot view EHCPs from other institutions.' },
+        { status: 403 }
+      );
+    }
+
     if (tenant_id) {
       where.tenant_id = parseInt(tenant_id);
+    } else {
+      // Default to user's tenant if not specified
+      where.tenant_id = user.tenant_id;
     }
-    // TODO: Add tenant_id from user session for multi-tenancy security
-    // if (!hasPermission(user.role, Permission.VIEW_ALL_DATA)) {
-    //   where.tenant_id = user.tenant_id;
-    // }
 
     if (student_id) where.student_id = student_id;
 
@@ -276,16 +293,22 @@ export async function POST(request: NextRequest) {
 
     const { tenant_id, student_id, plan_details } = validation.data;
 
-    // 4. Security: Verify tenant access
-    // TODO: Ensure user can only create EHCPs for their own tenant
-    // if (!hasPermission(user.role, Permission.VIEW_ALL_DATA)) {
-    //   if (tenant_id !== user.tenant_id) {
-    //     return NextResponse.json(
-    //       { error: 'Access denied. You cannot create EHCPs for other institutions.' },
-    //       { status: 403 }
-    //     );
-    //   }
-    // }
+    // 4. Security: Enforce tenant isolation (GDPR compliance)
+    if (!canAccessTenant(user.tenant_id, tenant_id, user.role)) {
+      await auditLogger.logUnauthorizedAccess(
+        user.id,
+        'CREATE_EHCP',
+        'EHCP',
+        `tenant_${tenant_id}`,
+        ipAddress,
+        getUserAgent(request),
+        requestId
+      );
+      return NextResponse.json(
+        { error: 'Access denied. You cannot create EHCPs for other institutions.' },
+        { status: 403 }
+      );
+    }
 
     // 5. Create EHCP in database
     const ehcp = await prisma.ehcps.create({

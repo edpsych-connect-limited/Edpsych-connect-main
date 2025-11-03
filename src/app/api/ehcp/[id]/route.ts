@@ -18,9 +18,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
-import { authenticateRequest, authorizeRequest, Permission } from '@/lib/middleware/auth';
+import { authenticateRequest, authorizeRequest, Permission, canAccessTenant } from '@/lib/middleware/auth';
 import { ehcpRateLimit } from '@/lib/middleware/rate-limit';
-import { auditLogger, getIpAddress, getRequestId } from '@/lib/security/audit-logger';
+import { auditLogger, getIpAddress, getRequestId, getUserAgent } from '@/lib/security/audit-logger';
 
 const prisma = new PrismaClient();
 
@@ -172,25 +172,22 @@ export async function GET(
       );
     }
 
-    // 4. Security: Verify tenant access
-    // TODO: Ensure user can only view EHCPs from their own tenant
-    // if (!hasPermission(user.role, Permission.VIEW_ALL_DATA)) {
-    //   if (ehcp.tenant_id !== user.tenant_id) {
-    //     await auditLogger.logUnauthorizedAccess(
-    //       user.id,
-    //       'VIEW_EHCP',
-    //       'EHCP',
-    //       id,
-    //       ipAddress,
-    //       getUserAgent(request),
-    //       requestId
-    //     );
-    //     return NextResponse.json(
-    //       { error: 'Access denied. You cannot view this EHCP.' },
-    //       { status: 403 }
-    //     );
-    //   }
-    // }
+    // 4. Security: Enforce tenant isolation (GDPR compliance)
+    if (!canAccessTenant(user.tenant_id, ehcp.tenant_id, user.role)) {
+      await auditLogger.logUnauthorizedAccess(
+        user.id,
+        'VIEW_EHCP',
+        'EHCP',
+        id,
+        ipAddress,
+        getUserAgent(request),
+        requestId
+      );
+      return NextResponse.json(
+        { error: 'Access denied. You cannot view this EHCP.' },
+        { status: 403 }
+      );
+    }
 
     // 5. Audit logging (GDPR-compliant data access tracking)
     await auditLogger.logEHCPEvent(
@@ -289,25 +286,22 @@ export async function PUT(
       );
     }
 
-    // 5. Security: Verify tenant access
-    // TODO: Ensure user can only update EHCPs from their own tenant
-    // if (!hasPermission(user.role, Permission.VIEW_ALL_DATA)) {
-    //   if (existingEHCP.tenant_id !== user.tenant_id) {
-    //     await auditLogger.logUnauthorizedAccess(
-    //       user.id,
-    //       'EDIT_EHCP',
-    //       'EHCP',
-    //       id,
-    //       ipAddress,
-    //       getUserAgent(request),
-    //       requestId
-    //     );
-    //     return NextResponse.json(
-    //       { error: 'Access denied. You cannot edit this EHCP.' },
-    //       { status: 403 }
-    //     );
-    //   }
-    // }
+    // 5. Security: Enforce tenant isolation (GDPR compliance)
+    if (!canAccessTenant(user.tenant_id, existingEHCP.tenant_id, user.role)) {
+      await auditLogger.logUnauthorizedAccess(
+        user.id,
+        'EDIT_EHCP',
+        'EHCP',
+        id,
+        ipAddress,
+        getUserAgent(request),
+        requestId
+      );
+      return NextResponse.json(
+        { error: 'Access denied. You cannot edit this EHCP.' },
+        { status: 403 }
+      );
+    }
 
     // 6. Merge existing plan_details with updates (deep merge)
     const updatedPlanDetails = {
@@ -416,33 +410,32 @@ export async function DELETE(
       );
     }
 
-    // 4. Security: Verify tenant access (CRITICAL)
-    // TODO: Ensure user can only delete EHCPs from their own tenant
-    // if (!hasPermission(user.role, Permission.VIEW_ALL_DATA)) {
-    //   if (existingEHCP.tenant_id !== user.tenant_id) {
-    //     await auditLogger.logUnauthorizedAccess(
-    //       user.id,
-    //       'DELETE_EHCP',
-    //       'EHCP',
-    //       id,
-    //       ipAddress,
-    //       getUserAgent(request),
-    //       requestId
-    //     );
-    //     return NextResponse.json(
-    //       { error: 'Access denied. You cannot delete this EHCP.' },
-    //       { status: 403 }
-    //     );
-    //   }
-    // }
+    // 4. Security: Enforce tenant isolation (GDPR compliance - CRITICAL)
+    if (!canAccessTenant(user.tenant_id, existingEHCP.tenant_id, user.role)) {
+      await auditLogger.logUnauthorizedAccess(
+        user.id,
+        'DELETE_EHCP',
+        'EHCP',
+        id,
+        ipAddress,
+        getUserAgent(request),
+        requestId
+      );
+      return NextResponse.json(
+        { error: 'Access denied. You cannot delete this EHCP.' },
+        { status: 403 }
+      );
+    }
 
-    // 5. Soft delete - preserve data for compliance
-    // Note: Schema should have archived_at field for soft deletes
+    // 5. Soft delete - update status to preserve data for compliance
+    // Note: Using status field instead of archived_at (field doesn't exist in current schema)
     const archivedEHCP = await prisma.ehcps.update({
       where: { id: id },
       data: {
-        // TODO: Add archived_at field to schema
-        // archived_at: new Date(),
+        plan_details: {
+          ...(existingEHCP.plan_details as any),
+          status: 'archived',
+        },
         updated_at: new Date(),
       },
     });

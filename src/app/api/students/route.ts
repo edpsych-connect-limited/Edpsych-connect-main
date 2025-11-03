@@ -1,13 +1,13 @@
 /**
- * Assessment API Routes - Enterprise-grade implementation
- * Phase 3.2: Assessment Engine
+ * Students API Routes - Enterprise-grade implementation
+ * Phase 3: Core SEND Functionality
  *
  * Features:
  * - Role-based access control (RBAC)
  * - Rate limiting protection
  * - Comprehensive audit logging (GDPR-compliant)
  * - Input validation with Zod
- * - Multi-tenancy support
+ * - Multi-tenancy support with strict tenant isolation
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -20,48 +20,40 @@ import { auditLogger, getIpAddress, getRequestId, getUserAgent } from '@/lib/sec
 const prisma = new PrismaClient();
 
 /**
- * Assessment Query Schema - Validation
+ * Student Query Schema - Validation
  */
-const AssessmentQuerySchema = z.object({
+const StudentQuerySchema = z.object({
   tenant_id: z.string().optional(),
-  case_id: z.string().optional(),
-  status: z.enum(['pending', 'scheduled', 'in_progress', 'completed', 'cancelled']).optional(),
-  assessment_type: z.string().optional(),
+  year_group: z.string().optional(),
+  sen_status: z.enum(['none', 'support', 'support_plus', 'ehcp']).optional(),
+  search: z.string().optional(), // For name search
   page: z.coerce.number().positive().default(1),
   limit: z.coerce.number().positive().max(100).default(20),
 });
 
 /**
- * Assessment Creation Schema - Validation
+ * Student Creation Schema - Validation
  */
-const CreateAssessmentSchema = z.object({
+const CreateStudentSchema = z.object({
   tenant_id: z.number().positive(),
-  case_id: z.number().positive(),
-  assessment_type: z.enum([
-    'cognitive',
-    'educational',
-    'behavioral',
-    'speech_language',
-    'occupational_therapy',
-    'psychological',
-    'functional_skills',
-    'social_emotional',
-    'other',
-  ]),
-  scheduled_date: z.string().datetime().optional(),
-  status: z.enum(['pending', 'scheduled', 'in_progress', 'completed', 'cancelled']).default('pending'),
-  created_by: z.number().optional(),
+  unique_id: z.string().min(1).max(50),
+  first_name: z.string().min(1).max(100),
+  last_name: z.string().min(1).max(100),
+  date_of_birth: z.string().datetime(),
+  year_group: z.string().min(1).max(20),
+  sen_status: z.enum(['none', 'support', 'support_plus', 'ehcp']).optional(),
 });
 
 /**
- * GET /api/assessments
- * Retrieve assessment list with filters and pagination
+ * GET /api/students
+ * Retrieve student list with filters and pagination
  *
  * Security:
  * - Authentication required
- * - Permission: VIEW_ASSESSMENTS
+ * - Permission: VIEW_STUDENT_DATA
  * - Rate limited: 100 requests per minute
  * - Audit logged (GDPR-compliant)
+ * - Tenant isolation enforced
  */
 export async function GET(request: NextRequest) {
   const ipAddress = getIpAddress(request);
@@ -75,7 +67,7 @@ export async function GET(request: NextRequest) {
     }
 
     // 2. Authentication and authorization check
-    const authResult = await authorizeRequest(request, Permission.VIEW_ASSESSMENTS);
+    const authResult = await authorizeRequest(request, Permission.VIEW_STUDENT_DATA);
     if (!authResult.success) {
       return authResult.response;
     }
@@ -85,11 +77,11 @@ export async function GET(request: NextRequest) {
 
     // 3. Parse and validate query parameters
     const { searchParams } = new URL(request.url);
-    const validation = AssessmentQuerySchema.safeParse({
+    const validation = StudentQuerySchema.safeParse({
       tenant_id: searchParams.get('tenant_id'),
-      case_id: searchParams.get('case_id'),
-      status: searchParams.get('status'),
-      assessment_type: searchParams.get('assessment_type'),
+      year_group: searchParams.get('year_group'),
+      sen_status: searchParams.get('sen_status'),
+      search: searchParams.get('search'),
       page: searchParams.get('page'),
       limit: searchParams.get('limit'),
     });
@@ -101,50 +93,81 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const { tenant_id, case_id, status, assessment_type, page, limit } = validation.data;
+    const { tenant_id, year_group, sen_status, search, page, limit } = validation.data;
 
-    // 4. Build where clause with tenant filtering
+    // 4. Build where clause with tenant filtering (GDPR compliance)
     const where: any = {};
+
+    // Enforce tenant isolation
+    if (!canAccessTenant(user.tenant_id, tenant_id ? parseInt(tenant_id) : user.tenant_id, user.role)) {
+      await auditLogger.logUnauthorizedAccess(
+        user.id,
+        'VIEW_STUDENTS',
+        'Student',
+        tenant_id ? `tenant_${tenant_id}` : undefined,
+        ipAddress,
+        getUserAgent(request),
+        requestId
+      );
+      return NextResponse.json(
+        { error: 'Access denied. You cannot view students from other institutions.' },
+        { status: 403 }
+      );
+    }
+
     if (tenant_id) {
       where.tenant_id = parseInt(tenant_id);
+    } else {
+      // Default to user's tenant if not specified
+      where.tenant_id = user.tenant_id;
     }
-    if (case_id) {
-      where.case_id = parseInt(case_id);
-    }
-    if (status) {
-      where.status = status;
-    }
-    if (assessment_type) {
-      where.assessment_type = assessment_type;
+
+    if (year_group) where.year_group = year_group;
+    if (sen_status) where.sen_status = sen_status;
+
+    // Name search
+    if (search) {
+      where.OR = [
+        { first_name: { contains: search, mode: 'insensitive' } },
+        { last_name: { contains: search, mode: 'insensitive' } },
+        { unique_id: { contains: search, mode: 'insensitive' } },
+      ];
     }
 
     // 5. Execute database query
-    const [assessments, totalCount] = await Promise.all([
-      prisma.assessments.findMany({
+    const [students, totalCount] = await Promise.all([
+      prisma.students.findMany({
         where,
-        orderBy: { created_at: 'desc' },
+        orderBy: [
+          { year_group: 'asc' },
+          { last_name: 'asc' },
+          { first_name: 'asc' },
+        ],
         skip: (page - 1) * limit,
         take: limit,
         include: {
-          users: {
+          cases: {
             select: {
               id: true,
-              name: true,
-              email: true,
+              status: true,
+              type: true,
+              referral_date: true,
             },
+            orderBy: { referral_date: 'desc' },
+            take: 1, // Most recent case
           },
         },
       }),
-      prisma.assessments.count({ where }),
+      prisma.students.count({ where }),
     ]);
 
     // 6. Audit logging (GDPR-compliant data access tracking)
     await auditLogger.logBulkDataAccess(
       user.id,
       user.email,
-      'Assessment',
+      'Student',
       totalCount,
-      { tenant_id, case_id, status, assessment_type, page, limit },
+      { tenant_id, year_group, sen_status, search, page, limit },
       ipAddress,
       requestId
     );
@@ -153,7 +176,7 @@ export async function GET(request: NextRequest) {
     const totalPages = Math.ceil(totalCount / limit);
 
     return NextResponse.json({
-      assessments,
+      students,
       pagination: {
         page,
         limit,
@@ -164,10 +187,10 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('[Assessment API] Error fetching assessments:', error);
+    console.error('[Student API] Error fetching students:', error);
     return NextResponse.json(
       {
-        error: 'Failed to retrieve assessments',
+        error: 'Failed to retrieve students',
         message: error instanceof Error ? error.message : 'Unknown error',
         requestId,
       },
@@ -177,14 +200,15 @@ export async function GET(request: NextRequest) {
 }
 
 /**
- * POST /api/assessments
- * Create new assessment
+ * POST /api/students
+ * Create new student
  *
  * Security:
  * - Authentication required
- * - Permission: CREATE_ASSESSMENTS
+ * - Permission: EDIT_STUDENT_DATA
  * - Rate limited: 100 requests per minute
  * - Audit logged (GDPR-compliant)
+ * - Tenant isolation enforced
  */
 export async function POST(request: NextRequest) {
   const ipAddress = getIpAddress(request);
@@ -198,7 +222,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 2. Authentication and authorization check
-    const authResult = await authorizeRequest(request, Permission.CREATE_ASSESSMENTS);
+    const authResult = await authorizeRequest(request, Permission.EDIT_STUDENT_DATA);
     if (!authResult.success) {
       return authResult.response;
     }
@@ -208,83 +232,102 @@ export async function POST(request: NextRequest) {
 
     // 3. Parse and validate request body
     const body = await request.json();
-    const validation = CreateAssessmentSchema.safeParse(body);
+    const validation = CreateStudentSchema.safeParse(body);
 
     if (!validation.success) {
       return NextResponse.json(
-        { error: 'Invalid assessment data', details: validation.error.issues },
+        { error: 'Invalid student data', details: validation.error.issues },
         { status: 400 }
       );
     }
 
-    const { tenant_id, case_id, assessment_type, scheduled_date, status, created_by } = validation.data;
+    const { tenant_id, unique_id, first_name, last_name, date_of_birth, year_group, sen_status } = validation.data;
 
     // 4. Security: Enforce tenant isolation (GDPR compliance)
     if (!canAccessTenant(user.tenant_id, tenant_id, user.role)) {
       await auditLogger.logUnauthorizedAccess(
         user.id,
-        'CREATE_ASSESSMENT',
-        'Assessment',
+        'CREATE_STUDENT',
+        'Student',
         `tenant_${tenant_id}`,
         ipAddress,
         getUserAgent(request),
         requestId
       );
       return NextResponse.json(
-        { error: 'Access denied. You cannot create assessments for other institutions.' },
+        { error: 'Access denied. You cannot create students for other institutions.' },
         { status: 403 }
       );
     }
 
-    // 5. Create assessment in database
-    const assessment = await prisma.assessments.create({
+    // 5. Check if student with same unique_id already exists in this tenant
+    const existingStudent = await prisma.students.findUnique({
+      where: {
+        tenant_id_unique_id: {
+          tenant_id,
+          unique_id,
+        },
+      },
+    });
+
+    if (existingStudent) {
+      return NextResponse.json(
+        { error: 'A student with this unique ID already exists in your institution.' },
+        { status: 409 } // Conflict
+      );
+    }
+
+    // 6. Create student in database
+    const student = await prisma.students.create({
       data: {
         tenant_id,
-        case_id,
-        assessment_type,
-        scheduled_date: scheduled_date ? new Date(scheduled_date) : null,
-        status,
-        created_by: created_by || parseInt(user.id),
+        unique_id,
+        first_name,
+        last_name,
+        date_of_birth: new Date(date_of_birth),
+        year_group,
+        sen_status: sen_status || 'none',
         created_at: new Date(),
         updated_at: new Date(),
       },
       include: {
-        users: {
+        cases: {
           select: {
             id: true,
-            name: true,
-            email: true,
+            status: true,
+            type: true,
           },
         },
       },
     });
 
-    // 6. Audit logging (GDPR-compliant creation tracking)
+    // 7. Audit logging (GDPR-compliant creation tracking)
     await auditLogger.logDataAccess(
       user.id,
       user.email,
       'CREATE',
-      'Assessment',
-      assessment.id.toString(),
+      'Student',
+      student.id.toString(),
       {
         tenant_id,
-        case_id,
-        assessment_type,
-        status,
+        unique_id,
+        first_name,
+        last_name,
+        sen_status,
       },
       ipAddress,
       requestId
     );
 
     return NextResponse.json(
-      { assessment, message: 'Assessment created successfully' },
+      { student, message: 'Student created successfully' },
       { status: 201 }
     );
   } catch (error) {
-    console.error('[Assessment API] Error creating assessment:', error);
+    console.error('[Student API] Error creating student:', error);
     return NextResponse.json(
       {
-        error: 'Failed to create assessment',
+        error: 'Failed to create student',
         message: error instanceof Error ? error.message : 'Unknown error',
         requestId,
       },

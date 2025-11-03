@@ -13,9 +13,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
-import { authenticateRequest, authorizeRequest, Permission } from '@/lib/middleware/auth';
+import { authenticateRequest, authorizeRequest, Permission, canAccessTenant } from '@/lib/middleware/auth';
 import { apiRateLimit } from '@/lib/middleware/rate-limit';
-import { auditLogger, getIpAddress, getRequestId } from '@/lib/security/audit-logger';
+import { auditLogger, getIpAddress, getRequestId, getUserAgent } from '@/lib/security/audit-logger';
 
 const prisma = new PrismaClient();
 
@@ -211,8 +211,22 @@ export async function POST(request: NextRequest) {
 
     const { tenant_id, case_id, intervention_type, start_date, end_date, status } = validation.data;
 
-    // 4. Security: Verify tenant access
-    // TODO: Ensure user can only create interventions for their own tenant
+    // 4. Security: Enforce tenant isolation (GDPR compliance)
+    if (!canAccessTenant(user.tenant_id, tenant_id, user.role)) {
+      await auditLogger.logUnauthorizedAccess(
+        user.id,
+        'CREATE_INTERVENTION',
+        'Intervention',
+        `tenant_${tenant_id}`,
+        ipAddress,
+        getUserAgent(request),
+        requestId
+      );
+      return NextResponse.json(
+        { error: 'Access denied. You cannot create interventions for other institutions.' },
+        { status: 403 }
+      );
+    }
 
     // 5. Create intervention in database
     const intervention = await prisma.interventions.create({

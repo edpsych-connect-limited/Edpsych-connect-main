@@ -1,13 +1,13 @@
 /**
- * Assessment API Routes - Enterprise-grade implementation
- * Phase 3.2: Assessment Engine
+ * Cases API Routes - Enterprise-grade implementation
+ * Phase 3: Core SEND Functionality
  *
  * Features:
  * - Role-based access control (RBAC)
  * - Rate limiting protection
  * - Comprehensive audit logging (GDPR-compliant)
  * - Input validation with Zod
- * - Multi-tenancy support
+ * - Multi-tenancy support with strict tenant isolation
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -20,48 +20,51 @@ import { auditLogger, getIpAddress, getRequestId, getUserAgent } from '@/lib/sec
 const prisma = new PrismaClient();
 
 /**
- * Assessment Query Schema - Validation
+ * Case Query Schema - Validation
  */
-const AssessmentQuerySchema = z.object({
+const CaseQuerySchema = z.object({
   tenant_id: z.string().optional(),
-  case_id: z.string().optional(),
-  status: z.enum(['pending', 'scheduled', 'in_progress', 'completed', 'cancelled']).optional(),
-  assessment_type: z.string().optional(),
+  student_id: z.string().optional(),
+  status: z.enum(['new', 'assessment', 'intervention', 'review', 'closed']).optional(),
+  priority: z.enum(['low', 'medium', 'high', 'urgent']).optional(),
+  type: z.string().optional(),
+  assigned_to: z.string().optional(),
   page: z.coerce.number().positive().default(1),
   limit: z.coerce.number().positive().max(100).default(20),
 });
 
 /**
- * Assessment Creation Schema - Validation
+ * Case Creation Schema - Validation
  */
-const CreateAssessmentSchema = z.object({
+const CreateCaseSchema = z.object({
   tenant_id: z.number().positive(),
-  case_id: z.number().positive(),
-  assessment_type: z.enum([
-    'cognitive',
-    'educational',
-    'behavioral',
-    'speech_language',
-    'occupational_therapy',
-    'psychological',
-    'functional_skills',
-    'social_emotional',
+  student_id: z.number().positive(),
+  assigned_to: z.number().positive().optional(),
+  status: z.enum(['new', 'assessment', 'intervention', 'review', 'closed']).default('new'),
+  priority: z.enum(['low', 'medium', 'high', 'urgent']).default('medium'),
+  type: z.enum([
+    'initial_assessment',
+    'statutory_assessment',
+    'annual_review',
+    'emergency_review',
+    'safeguarding',
+    'behavior_support',
+    'transition',
     'other',
   ]),
-  scheduled_date: z.string().datetime().optional(),
-  status: z.enum(['pending', 'scheduled', 'in_progress', 'completed', 'cancelled']).default('pending'),
-  created_by: z.number().optional(),
+  referral_date: z.string().datetime(),
 });
 
 /**
- * GET /api/assessments
- * Retrieve assessment list with filters and pagination
+ * GET /api/cases
+ * Retrieve case list with filters and pagination
  *
  * Security:
  * - Authentication required
- * - Permission: VIEW_ASSESSMENTS
+ * - Permission: VIEW_STUDENT_DATA
  * - Rate limited: 100 requests per minute
  * - Audit logged (GDPR-compliant)
+ * - Tenant isolation enforced
  */
 export async function GET(request: NextRequest) {
   const ipAddress = getIpAddress(request);
@@ -75,7 +78,7 @@ export async function GET(request: NextRequest) {
     }
 
     // 2. Authentication and authorization check
-    const authResult = await authorizeRequest(request, Permission.VIEW_ASSESSMENTS);
+    const authResult = await authorizeRequest(request, Permission.VIEW_STUDENT_DATA);
     if (!authResult.success) {
       return authResult.response;
     }
@@ -85,11 +88,13 @@ export async function GET(request: NextRequest) {
 
     // 3. Parse and validate query parameters
     const { searchParams } = new URL(request.url);
-    const validation = AssessmentQuerySchema.safeParse({
+    const validation = CaseQuerySchema.safeParse({
       tenant_id: searchParams.get('tenant_id'),
-      case_id: searchParams.get('case_id'),
+      student_id: searchParams.get('student_id'),
       status: searchParams.get('status'),
-      assessment_type: searchParams.get('assessment_type'),
+      priority: searchParams.get('priority'),
+      type: searchParams.get('type'),
+      assigned_to: searchParams.get('assigned_to'),
       page: searchParams.get('page'),
       limit: searchParams.get('limit'),
     });
@@ -101,31 +106,57 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const { tenant_id, case_id, status, assessment_type, page, limit } = validation.data;
+    const { tenant_id, student_id, status, priority, type, assigned_to, page, limit } = validation.data;
 
-    // 4. Build where clause with tenant filtering
+    // 4. Build where clause with tenant filtering (GDPR compliance)
     const where: any = {};
+
+    // Enforce tenant isolation
+    if (!canAccessTenant(user.tenant_id, tenant_id ? parseInt(tenant_id) : user.tenant_id, user.role)) {
+      await auditLogger.logUnauthorizedAccess(
+        user.id,
+        'VIEW_CASES',
+        'Case',
+        tenant_id ? `tenant_${tenant_id}` : undefined,
+        ipAddress,
+        getUserAgent(request),
+        requestId
+      );
+      return NextResponse.json(
+        { error: 'Access denied. You cannot view cases from other institutions.' },
+        { status: 403 }
+      );
+    }
+
     if (tenant_id) {
       where.tenant_id = parseInt(tenant_id);
-    }
-    if (case_id) {
-      where.case_id = parseInt(case_id);
-    }
-    if (status) {
-      where.status = status;
-    }
-    if (assessment_type) {
-      where.assessment_type = assessment_type;
+    } else {
+      // Default to user's tenant if not specified
+      where.tenant_id = user.tenant_id;
     }
 
+    if (student_id) where.student_id = parseInt(student_id);
+    if (status) where.status = status;
+    if (priority) where.priority = priority;
+    if (type) where.type = type;
+    if (assigned_to) where.assigned_to = parseInt(assigned_to);
+
     // 5. Execute database query
-    const [assessments, totalCount] = await Promise.all([
-      prisma.assessments.findMany({
+    const [cases, totalCount] = await Promise.all([
+      prisma.cases.findMany({
         where,
-        orderBy: { created_at: 'desc' },
+        orderBy: { referral_date: 'desc' },
         skip: (page - 1) * limit,
         take: limit,
         include: {
+          students: {
+            select: {
+              id: true,
+              first_name: true,
+              last_name: true,
+              date_of_birth: true,
+            },
+          },
           users: {
             select: {
               id: true,
@@ -135,16 +166,16 @@ export async function GET(request: NextRequest) {
           },
         },
       }),
-      prisma.assessments.count({ where }),
+      prisma.cases.count({ where }),
     ]);
 
     // 6. Audit logging (GDPR-compliant data access tracking)
     await auditLogger.logBulkDataAccess(
       user.id,
       user.email,
-      'Assessment',
+      'Case',
       totalCount,
-      { tenant_id, case_id, status, assessment_type, page, limit },
+      { tenant_id, student_id, status, priority, type, page, limit },
       ipAddress,
       requestId
     );
@@ -153,7 +184,7 @@ export async function GET(request: NextRequest) {
     const totalPages = Math.ceil(totalCount / limit);
 
     return NextResponse.json({
-      assessments,
+      cases,
       pagination: {
         page,
         limit,
@@ -164,10 +195,10 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('[Assessment API] Error fetching assessments:', error);
+    console.error('[Case API] Error fetching cases:', error);
     return NextResponse.json(
       {
-        error: 'Failed to retrieve assessments',
+        error: 'Failed to retrieve cases',
         message: error instanceof Error ? error.message : 'Unknown error',
         requestId,
       },
@@ -177,14 +208,15 @@ export async function GET(request: NextRequest) {
 }
 
 /**
- * POST /api/assessments
- * Create new assessment
+ * POST /api/cases
+ * Create new case
  *
  * Security:
  * - Authentication required
- * - Permission: CREATE_ASSESSMENTS
+ * - Permission: EDIT_STUDENT_DATA
  * - Rate limited: 100 requests per minute
  * - Audit logged (GDPR-compliant)
+ * - Tenant isolation enforced
  */
 export async function POST(request: NextRequest) {
   const ipAddress = getIpAddress(request);
@@ -198,7 +230,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 2. Authentication and authorization check
-    const authResult = await authorizeRequest(request, Permission.CREATE_ASSESSMENTS);
+    const authResult = await authorizeRequest(request, Permission.EDIT_STUDENT_DATA);
     if (!authResult.success) {
       return authResult.response;
     }
@@ -208,47 +240,76 @@ export async function POST(request: NextRequest) {
 
     // 3. Parse and validate request body
     const body = await request.json();
-    const validation = CreateAssessmentSchema.safeParse(body);
+    const validation = CreateCaseSchema.safeParse(body);
 
     if (!validation.success) {
       return NextResponse.json(
-        { error: 'Invalid assessment data', details: validation.error.issues },
+        { error: 'Invalid case data', details: validation.error.issues },
         { status: 400 }
       );
     }
 
-    const { tenant_id, case_id, assessment_type, scheduled_date, status, created_by } = validation.data;
+    const { tenant_id, student_id, assigned_to, status, priority, type, referral_date } = validation.data;
 
     // 4. Security: Enforce tenant isolation (GDPR compliance)
     if (!canAccessTenant(user.tenant_id, tenant_id, user.role)) {
       await auditLogger.logUnauthorizedAccess(
         user.id,
-        'CREATE_ASSESSMENT',
-        'Assessment',
+        'CREATE_CASE',
+        'Case',
         `tenant_${tenant_id}`,
         ipAddress,
         getUserAgent(request),
         requestId
       );
       return NextResponse.json(
-        { error: 'Access denied. You cannot create assessments for other institutions.' },
+        { error: 'Access denied. You cannot create cases for other institutions.' },
         { status: 403 }
       );
     }
 
-    // 5. Create assessment in database
-    const assessment = await prisma.assessments.create({
+    // 5. Verify student exists and belongs to the same tenant
+    const student = await prisma.students.findUnique({
+      where: { id: student_id },
+      select: { id: true, tenant_id: true },
+    });
+
+    if (!student) {
+      return NextResponse.json(
+        { error: 'Student not found' },
+        { status: 404 }
+      );
+    }
+
+    if (student.tenant_id !== tenant_id) {
+      return NextResponse.json(
+        { error: 'Access denied. Student belongs to a different institution.' },
+        { status: 403 }
+      );
+    }
+
+    // 6. Create case in database
+    const caseRecord = await prisma.cases.create({
       data: {
         tenant_id,
-        case_id,
-        assessment_type,
-        scheduled_date: scheduled_date ? new Date(scheduled_date) : null,
+        student_id,
+        assigned_to,
         status,
-        created_by: created_by || parseInt(user.id),
+        priority,
+        type,
+        referral_date: new Date(referral_date),
         created_at: new Date(),
         updated_at: new Date(),
       },
       include: {
+        students: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            date_of_birth: true,
+          },
+        },
         users: {
           select: {
             id: true,
@@ -259,32 +320,33 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // 6. Audit logging (GDPR-compliant creation tracking)
+    // 7. Audit logging (GDPR-compliant creation tracking)
     await auditLogger.logDataAccess(
       user.id,
       user.email,
       'CREATE',
-      'Assessment',
-      assessment.id.toString(),
+      'Case',
+      caseRecord.id.toString(),
       {
         tenant_id,
-        case_id,
-        assessment_type,
+        student_id,
+        type,
         status,
+        priority,
       },
       ipAddress,
       requestId
     );
 
     return NextResponse.json(
-      { assessment, message: 'Assessment created successfully' },
+      { case: caseRecord, message: 'Case created successfully' },
       { status: 201 }
     );
   } catch (error) {
-    console.error('[Assessment API] Error creating assessment:', error);
+    console.error('[Case API] Error creating case:', error);
     return NextResponse.json(
       {
-        error: 'Failed to create assessment',
+        error: 'Failed to create case',
         message: error instanceof Error ? error.message : 'Unknown error',
         requestId,
       },

@@ -1,18 +1,18 @@
 /**
- * Assessment Individual API Routes - Enterprise-grade implementation
- * Phase 3.2: Assessment Engine
+ * Intervention Individual API Routes - Enterprise-grade implementation
+ * Phase 3.3: Intervention Designer
  *
  * Endpoints:
- * - GET /api/assessments/[id] - Retrieve single assessment
- * - PUT /api/assessments/[id] - Update assessment
- * - DELETE /api/assessments/[id] - Delete assessment
+ * - GET /api/interventions/[id] - Retrieve single intervention
+ * - PATCH /api/interventions/[id] - Update intervention
+ * - DELETE /api/interventions/[id] - Delete/discontinue intervention
  *
  * Features:
  * - Role-based access control (RBAC)
  * - Rate limiting protection
  * - Comprehensive audit logging (GDPR-compliant)
  * - Input validation with Zod
- * - Multi-tenancy support
+ * - Multi-tenancy support with strict tenant isolation
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -25,34 +25,36 @@ import { auditLogger, getIpAddress, getRequestId, getUserAgent } from '@/lib/sec
 const prisma = new PrismaClient();
 
 /**
- * Assessment Update Schema - Validation
+ * Intervention Update Schema - Validation
  */
-const UpdateAssessmentSchema = z.object({
-  assessment_type: z.enum([
-    'cognitive',
-    'educational',
-    'behavioral',
-    'speech_language',
+const UpdateInterventionSchema = z.object({
+  intervention_type: z.enum([
+    'academic_support',
+    'behavioral_intervention',
+    'speech_therapy',
     'occupational_therapy',
-    'psychological',
-    'functional_skills',
-    'social_emotional',
+    'counseling',
+    'social_skills',
+    'assistive_technology',
+    'curriculum_modification',
+    'environmental_adjustment',
     'other',
   ]).optional(),
-  scheduled_date: z.string().datetime().optional(),
-  completion_date: z.string().datetime().optional(),
-  status: z.enum(['pending', 'scheduled', 'in_progress', 'completed', 'cancelled']).optional(),
+  start_date: z.string().datetime().optional(),
+  end_date: z.string().datetime().optional(),
+  status: z.enum(['planned', 'active', 'completed', 'discontinued']).optional(),
 });
 
 /**
- * GET /api/assessments/[id]
- * Retrieve single assessment by ID
+ * GET /api/interventions/[id]
+ * Retrieve single intervention by ID
  *
  * Security:
  * - Authentication required
- * - Permission: VIEW_ASSESSMENTS
+ * - Permission: VIEW_INTERVENTIONS
  * - Rate limited: 100 requests per minute
  * - Audit logged (GDPR-compliant)
+ * - Tenant isolation enforced
  */
 export async function GET(
   request: NextRequest,
@@ -67,7 +69,7 @@ export async function GET(
     // Validate ID format
     if (!id || typeof id !== 'string') {
       return NextResponse.json(
-        { error: 'Invalid assessment ID' },
+        { error: 'Invalid intervention ID' },
         { status: 400 }
       );
     }
@@ -79,7 +81,7 @@ export async function GET(
     }
 
     // 2. Authentication and authorization check
-    const authResult = await authorizeRequest(request, Permission.VIEW_ASSESSMENTS);
+    const authResult = await authorizeRequest(request, Permission.VIEW_INTERVENTIONS);
     if (!authResult.success) {
       return authResult.response;
     }
@@ -87,48 +89,48 @@ export async function GET(
     const { session } = authResult;
     const { user } = session;
 
-    // 3. Retrieve assessment from database
-    const assessment = await prisma.assessments.findUnique({
+    // 3. Retrieve intervention from database
+    const intervention = await prisma.interventions.findUnique({
       where: { id: parseInt(id) },
       include: {
-        users: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-          },
-        },
         cases: {
           select: {
             id: true,
             status: true,
             type: true,
             student_id: true,
+            students: {
+              select: {
+                id: true,
+                first_name: true,
+                last_name: true,
+              },
+            },
           },
         },
       },
     });
 
-    if (!assessment) {
+    if (!intervention) {
       return NextResponse.json(
-        { error: 'Assessment not found' },
+        { error: 'Intervention not found' },
         { status: 404 }
       );
     }
 
     // 4. Security: Enforce tenant isolation (GDPR compliance)
-    if (!canAccessTenant(user.tenant_id, assessment.tenant_id, user.role)) {
+    if (!canAccessTenant(user.tenant_id, intervention.tenant_id, user.role)) {
       await auditLogger.logUnauthorizedAccess(
         user.id,
-        'VIEW_ASSESSMENT',
-        'Assessment',
+        'VIEW_INTERVENTION',
+        'Intervention',
         id,
         ipAddress,
         getUserAgent(request),
         requestId
       );
       return NextResponse.json(
-        { error: 'Access denied. You cannot view this assessment.' },
+        { error: 'Access denied. You cannot view this intervention.' },
         { status: 403 }
       );
     }
@@ -138,22 +140,22 @@ export async function GET(
       user.id,
       user.email,
       'READ',
-      'Assessment',
+      'Intervention',
       id,
-      { tenant_id: assessment.tenant_id, case_id: assessment.case_id },
+      { tenant_id: intervention.tenant_id, case_id: intervention.case_id },
       ipAddress,
       requestId
     );
 
     return NextResponse.json({
-      assessment,
-      message: 'Assessment retrieved successfully',
+      intervention,
+      message: 'Intervention retrieved successfully',
     });
   } catch (error) {
-    console.error('[Assessment API] Error fetching assessment:', error);
+    console.error('[Intervention API] Error fetching intervention:', error);
     return NextResponse.json(
       {
-        error: 'Failed to retrieve assessment',
+        error: 'Failed to retrieve intervention',
         message: error instanceof Error ? error.message : 'Unknown error',
         requestId,
       },
@@ -163,16 +165,17 @@ export async function GET(
 }
 
 /**
- * PUT /api/assessments/[id]
- * Update existing assessment
+ * PATCH /api/interventions/[id]
+ * Update existing intervention
  *
  * Security:
  * - Authentication required
- * - Permission: EDIT_ASSESSMENTS
+ * - Permission: EDIT_INTERVENTIONS
  * - Rate limited: 100 requests per minute
  * - Audit logged (GDPR-compliant)
+ * - Tenant isolation enforced
  */
-export async function PUT(
+export async function PATCH(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
@@ -185,7 +188,7 @@ export async function PUT(
     // Validate ID format
     if (!id || typeof id !== 'string') {
       return NextResponse.json(
-        { error: 'Invalid assessment ID' },
+        { error: 'Invalid intervention ID' },
         { status: 400 }
       );
     }
@@ -197,7 +200,7 @@ export async function PUT(
     }
 
     // 2. Authentication and authorization check
-    const authResult = await authorizeRequest(request, Permission.EDIT_ASSESSMENTS);
+    const authResult = await authorizeRequest(request, Permission.EDIT_INTERVENTIONS);
     if (!authResult.success) {
       return authResult.response;
     }
@@ -207,65 +210,71 @@ export async function PUT(
 
     // 3. Parse and validate request body
     const body = await request.json();
-    const validation = UpdateAssessmentSchema.safeParse(body);
+    const validation = UpdateInterventionSchema.safeParse(body);
 
     if (!validation.success) {
       return NextResponse.json(
-        { error: 'Invalid assessment data', details: validation.error.issues },
+        { error: 'Invalid intervention data', details: validation.error.issues },
         { status: 400 }
       );
     }
 
     const updateData = validation.data;
 
-    // 4. Check if assessment exists
-    const existingAssessment = await prisma.assessments.findUnique({
+    // 4. Check if intervention exists
+    const existingIntervention = await prisma.interventions.findUnique({
       where: { id: parseInt(id) },
     });
 
-    if (!existingAssessment) {
+    if (!existingIntervention) {
       return NextResponse.json(
-        { error: 'Assessment not found' },
+        { error: 'Intervention not found' },
         { status: 404 }
       );
     }
 
     // 5. Security: Enforce tenant isolation (GDPR compliance)
-    if (!canAccessTenant(user.tenant_id, existingAssessment.tenant_id, user.role)) {
+    if (!canAccessTenant(user.tenant_id, existingIntervention.tenant_id, user.role)) {
       await auditLogger.logUnauthorizedAccess(
         user.id,
-        'EDIT_ASSESSMENT',
-        'Assessment',
+        'EDIT_INTERVENTION',
+        'Intervention',
         id,
         ipAddress,
         getUserAgent(request),
         requestId
       );
       return NextResponse.json(
-        { error: 'Access denied. You cannot edit this assessment.' },
+        { error: 'Access denied. You cannot edit this intervention.' },
         { status: 403 }
       );
     }
 
-    // 6. Update assessment in database
-    const updatedAssessment = await prisma.assessments.update({
+    // 6. Update intervention in database
+    const updatedIntervention = await prisma.interventions.update({
       where: { id: parseInt(id) },
       data: {
         ...updateData,
-        scheduled_date: updateData.scheduled_date
-          ? new Date(updateData.scheduled_date)
+        start_date: updateData.start_date
+          ? new Date(updateData.start_date)
           : undefined,
-        completion_date: updateData.completion_date
-          ? new Date(updateData.completion_date)
+        end_date: updateData.end_date
+          ? new Date(updateData.end_date)
           : undefined,
         updated_at: new Date(),
       },
       include: {
-        users: {
+        cases: {
           select: {
             id: true,
-            name: true,
-            email: true,
+            status: true,
+            students: {
+              select: {
+                id: true,
+                first_name: true,
+                last_name: true,
+              },
+            },
           },
         },
       },
@@ -276,11 +285,11 @@ export async function PUT(
       user.id,
       user.email,
       'UPDATE',
-      'Assessment',
+      'Intervention',
       id,
       {
-        tenant_id: updatedAssessment.tenant_id,
-        case_id: updatedAssessment.case_id,
+        tenant_id: updatedIntervention.tenant_id,
+        case_id: updatedIntervention.case_id,
         updated_fields: Object.keys(updateData),
       },
       ipAddress,
@@ -288,14 +297,14 @@ export async function PUT(
     );
 
     return NextResponse.json({
-      assessment: updatedAssessment,
-      message: 'Assessment updated successfully',
+      intervention: updatedIntervention,
+      message: 'Intervention updated successfully',
     });
   } catch (error) {
-    console.error('[Assessment API] Error updating assessment:', error);
+    console.error('[Intervention API] Error updating intervention:', error);
     return NextResponse.json(
       {
-        error: 'Failed to update assessment',
+        error: 'Failed to update intervention',
         message: error instanceof Error ? error.message : 'Unknown error',
         requestId,
       },
@@ -305,14 +314,15 @@ export async function PUT(
 }
 
 /**
- * DELETE /api/assessments/[id]
- * Delete assessment
+ * DELETE /api/interventions/[id]
+ * Delete intervention (soft delete - mark as discontinued)
  *
  * Security:
  * - Authentication required
- * - Permission: EDIT_ASSESSMENTS (soft delete) or DELETE_EHCP (hard delete)
+ * - Permission: EDIT_INTERVENTIONS
  * - Rate limited: 100 requests per minute
  * - Audit logged (CRITICAL security event - GDPR-compliant)
+ * - Tenant isolation enforced
  */
 export async function DELETE(
   request: NextRequest,
@@ -327,7 +337,7 @@ export async function DELETE(
     // Validate ID format
     if (!id || typeof id !== 'string') {
       return NextResponse.json(
-        { error: 'Invalid assessment ID' },
+        { error: 'Invalid intervention ID' },
         { status: 400 }
       );
     }
@@ -339,7 +349,7 @@ export async function DELETE(
     }
 
     // 2. Authentication and authorization check
-    const authResult = await authorizeRequest(request, Permission.EDIT_ASSESSMENTS);
+    const authResult = await authorizeRequest(request, Permission.EDIT_INTERVENTIONS);
     if (!authResult.success) {
       return authResult.response;
     }
@@ -347,40 +357,40 @@ export async function DELETE(
     const { session } = authResult;
     const { user } = session;
 
-    // 3. Check if assessment exists
-    const existingAssessment = await prisma.assessments.findUnique({
+    // 3. Check if intervention exists
+    const existingIntervention = await prisma.interventions.findUnique({
       where: { id: parseInt(id) },
     });
 
-    if (!existingAssessment) {
+    if (!existingIntervention) {
       return NextResponse.json(
-        { error: 'Assessment not found' },
+        { error: 'Intervention not found' },
         { status: 404 }
       );
     }
 
     // 4. Security: Enforce tenant isolation (GDPR compliance)
-    if (!canAccessTenant(user.tenant_id, existingAssessment.tenant_id, user.role)) {
+    if (!canAccessTenant(user.tenant_id, existingIntervention.tenant_id, user.role)) {
       await auditLogger.logUnauthorizedAccess(
         user.id,
-        'DELETE_ASSESSMENT',
-        'Assessment',
+        'DELETE_INTERVENTION',
+        'Intervention',
         id,
         ipAddress,
         getUserAgent(request),
         requestId
       );
       return NextResponse.json(
-        { error: 'Access denied. You cannot delete this assessment.' },
+        { error: 'Access denied. You cannot delete this intervention.' },
         { status: 403 }
       );
     }
 
-    // 5. Soft delete - mark as cancelled
-    const deletedAssessment = await prisma.assessments.update({
+    // 5. Soft delete - mark as discontinued
+    const discontinuedIntervention = await prisma.interventions.update({
       where: { id: parseInt(id) },
       data: {
-        status: 'cancelled',
+        status: 'discontinued',
         updated_at: new Date(),
       },
     });
@@ -390,26 +400,26 @@ export async function DELETE(
       user.id,
       user.email,
       'DELETE',
-      'Assessment',
+      'Intervention',
       id,
       {
-        tenant_id: existingAssessment.tenant_id,
-        case_id: existingAssessment.case_id,
-        reason: 'Assessment cancelled',
+        tenant_id: existingIntervention.tenant_id,
+        case_id: existingIntervention.case_id,
+        reason: 'Intervention discontinued',
       },
       ipAddress,
       requestId
     );
 
     return NextResponse.json({
-      message: 'Assessment cancelled successfully',
-      assessment: deletedAssessment,
+      message: 'Intervention discontinued successfully',
+      intervention: discontinuedIntervention,
     });
   } catch (error) {
-    console.error('[Assessment API] Error deleting assessment:', error);
+    console.error('[Intervention API] Error discontinuing intervention:', error);
     return NextResponse.json(
       {
-        error: 'Failed to delete assessment',
+        error: 'Failed to discontinue intervention',
         message: error instanceof Error ? error.message : 'Unknown error',
         requestId,
       },

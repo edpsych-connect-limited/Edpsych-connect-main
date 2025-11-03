@@ -208,6 +208,7 @@ export async function authenticateRequest(request: NextRequest): Promise<{
       email: string;
       role: string;
       name?: string;
+      tenant_id?: number;
     };
   };
 } | {
@@ -266,6 +267,7 @@ export async function authorizeRequest(
       email: string;
       role: string;
       name?: string;
+      tenant_id?: number;
     };
   };
 } | {
@@ -343,6 +345,38 @@ export function canAccessUserData(
   // Department managers should be able to access users in their department
 
   return false;
+}
+
+/**
+ * Check if user can access data from a specific tenant
+ * CRITICAL: Enforces multi-tenancy isolation
+ *
+ * @param userTenantId - The tenant ID of the user making the request
+ * @param targetTenantId - The tenant ID of the data being accessed
+ * @param userRole - The role of the user
+ * @returns true if user can access the tenant's data, false otherwise
+ */
+export function canAccessTenant(
+  userTenantId: number | string | null | undefined,
+  targetTenantId: number | string | null | undefined,
+  userRole: string
+): boolean {
+  // Normalize IDs to numbers for comparison
+  const normalizedUserTenantId = typeof userTenantId === 'string' ? parseInt(userTenantId) : userTenantId;
+  const normalizedTargetTenantId = typeof targetTenantId === 'string' ? parseInt(targetTenantId) : targetTenantId;
+
+  // System admins can access all tenants
+  if (hasPermission(userRole, Permission.VIEW_ALL_DATA)) {
+    return true;
+  }
+
+  // User must have a tenant ID
+  if (!normalizedUserTenantId) {
+    return false;
+  }
+
+  // User can only access their own tenant's data
+  return normalizedUserTenantId === normalizedTargetTenantId;
 }
 
 /**
