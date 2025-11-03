@@ -158,6 +158,13 @@ model users {
   created_at DateTime  @default(now())
   updated_at DateTime  @default(now())
 
+  // Onboarding tracking
+  onboarding_completed    Boolean   @default(false)
+  onboarding_step         Int       @default(0) // 0-5, tracks current step
+  onboarding_started_at   DateTime?
+  onboarding_completed_at DateTime?
+  onboarding_skipped      Boolean   @default(false)
+
   // Relations - Tenant
   tenants tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
 
