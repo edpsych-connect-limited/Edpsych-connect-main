@@ -351,7 +351,7 @@ export default function LandingPage() {
               <Brain className={`w-8 h-8 mb-3 mx-auto ${
                 activeCustomerSegment === 'individual_ep' ? 'text-indigo-600' : 'text-slate-400'
               }`} />
-              <div className="font-bold text-slate-900 mb-1">Individual EPs</div>
+              <div className="font-bold text-slate-900 mb-1">Educational Psychologists</div>
               <div className="text-sm text-slate-600">Personal subscription</div>
             </button>
 
@@ -388,7 +388,7 @@ export default function LandingPage() {
                 The Economics Are Compelling for LAs
               </h2>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-                Traditional EP services cost £550-700 per day. Medium LAs spend £2-4M annually for reactive, crisis-driven support with 3-4 month waiting lists.
+                Traditional Educational Psychologist services cost £550-700 per day. Medium LAs spend £2-4M annually for reactive, crisis-driven support with 3-4 month waiting lists.
               </p>
             </div>
 
@@ -405,7 +405,7 @@ export default function LandingPage() {
                     </div>
                     <div className="flex items-start">
                       <span className="text-red-600 mr-2">✗</span>
-                      <span>78% chance of unfilled EP positions</span>
+                      <span>78% chance of unfilled Educational Psychologist positions</span>
                     </div>
                     <div className="flex items-start">
                       <span className="text-red-600 mr-2">✗</span>
@@ -433,7 +433,7 @@ export default function LandingPage() {
                     </div>
                     <div className="flex items-start">
                       <span className="text-green-600 mr-2 font-bold">✓</span>
-                      <span>Multiply existing EP effectiveness 4-5x</span>
+                      <span>Multiply existing Educational Psychologist effectiveness 4-5x</span>
                     </div>
                     <div className="flex items-start">
                       <span className="text-green-600 mr-2 font-bold">✓</span>
@@ -445,7 +445,7 @@ export default function LandingPage() {
                     </div>
                     <div className="flex items-start">
                       <span className="text-green-600 mr-2 font-bold">✓</span>
-                      <span>Frees EP time for complex statutory work</span>
+                      <span>Frees Educational Psychologist time for complex statutory work</span>
                     </div>
                   </div>
                 </div>
@@ -470,7 +470,7 @@ export default function LandingPage() {
                   </div>
                   <div className="bg-white/20 rounded-xl p-4 backdrop-blur-sm">
                     <div className="text-2xl font-bold">4-5x</div>
-                    <div className="text-sm opacity-90">EP Capacity</div>
+                    <div className="text-sm opacity-90">Educational Psychologist Capacity</div>
                   </div>
                 </div>
               </div>
@@ -635,7 +635,7 @@ export default function LandingPage() {
                   </p>
 
                   <p>
-                    After completing his First Class Honours degree in Psychology at Buckinghamshire New University and doctoral training at Southampton University, Scott has worked across multiple local authorities including Berkshire, Buckinghamshire, Hertfordshire, Leicestershire, Worcestershire, conducting comprehensive Needs Assessments and developing evidence-based interventions for vulnerable learners.
+                    After completing his First Class Honours degree in Psychology at Buckinghamshire New University and doctoral training at Southampton University, Scott has worked across multiple local authorities including Berkshire, Buckinghamshire, Hertfordshire, Leicestershire, Suffolk, Worcestershire, conducting comprehensive Needs Assessments and developing evidence-based interventions for vulnerable learners.
                   </p>
 
                   <div className="bg-indigo-50 border-l-4 border-indigo-600 p-4 rounded italic">
@@ -860,7 +860,7 @@ export default function LandingPage() {
                 </ul>
                 
                 <div className="text-xs text-slate-500 mb-4 p-3 bg-slate-50 rounded-lg">
-                  Save £1.1M+ vs traditional EP services
+                  Save £1.1M+ vs traditional Educational Psychologist services
                 </div>
                 
                 <a href="#waitlist" className="block w-full py-3 text-center bg-slate-100 text-slate-900 rounded-xl font-semibold hover:bg-slate-200 transition-colors">
