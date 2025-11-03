@@ -21,6 +21,12 @@ interface ProgressDashboardProps {
   studentName?: string;
 }
 
+interface DataPoint {
+  date: string;
+  value: number;
+  note?: string;
+}
+
 interface InterventionSummary {
   id: number;
   name: string;
@@ -36,6 +42,7 @@ interface InterventionSummary {
   trend: 'improving' | 'stable' | 'declining' | 'unknown';
   sessions_completed?: number;
   fidelity_score?: number;
+  dataPoints?: DataPoint[];
 }
 
 interface ProgressAlert {
@@ -64,129 +71,60 @@ export default function ProgressDashboard({
 
   const loadProgressData = async () => {
     try {
-      // In production, this would fetch real data from API
-      // For now, using mock data structure
+      // Build query parameters
+      const params = new URLSearchParams();
+      if (caseId) params.append('caseId', caseId.toString());
+      params.append('timeRange', timeRange);
 
-      // Mock interventions with progress data
-      const mockInterventions: InterventionSummary[] = [
-        {
-          id: 1,
-          name: 'Reading Fluency - Precision Teaching',
-          status: 'active',
-          target_behavior: 'CVC word reading fluency',
-          start_date: '2025-09-01',
-          review_date: '2025-12-01',
-          progress_measure: 'Words correct per minute',
-          baseline_value: 20,
-          current_value: 38,
-          target_value: 40,
-          progress_percentage: 90,
-          trend: 'improving',
-          sessions_completed: 42,
-          fidelity_score: 95,
-        },
-        {
-          id: 2,
-          name: 'Self-Regulation - Zones of Regulation',
-          status: 'active',
-          target_behavior: 'Independent emotion regulation',
-          start_date: '2025-09-15',
-          review_date: '2025-11-30',
-          progress_measure: 'Self-regulation episodes per day',
-          baseline_value: 2,
-          current_value: 5,
-          target_value: 7,
-          progress_percentage: 60,
-          trend: 'improving',
-          sessions_completed: 28,
-          fidelity_score: 88,
-        },
-        {
-          id: 3,
-          name: 'Math Fluency - CPA Approach',
-          status: 'active',
-          target_behavior: 'Addition facts automaticity',
-          start_date: '2025-10-01',
-          review_date: '2025-12-15',
-          progress_measure: 'Correct responses per minute',
-          baseline_value: 15,
-          current_value: 15,
-          target_value: 30,
-          progress_percentage: 0,
-          trend: 'stable',
-          sessions_completed: 18,
-          fidelity_score: 72,
-        },
-      ];
+      // Fetch data from API
+      const response = await fetch(`/api/progress/dashboard?${params.toString()}`);
 
-      setInterventions(mockInterventions);
+      if (!response.ok) {
+        throw new Error('Failed to fetch progress data');
+      }
 
-      // Generate alerts based on intervention data
-      const generatedAlerts: ProgressAlert[] = [];
+      const result = await response.json();
 
-      mockInterventions.forEach((intervention) => {
-        // Review due alerts
-        const daysUntilReview = Math.ceil(
-          (new Date(intervention.review_date).getTime() - Date.now()) / (1000 * 60 * 60 * 24)
-        );
-        if (daysUntilReview <= 7 && daysUntilReview > 0) {
-          generatedAlerts.push({
-            type: 'review_due',
-            severity: daysUntilReview <= 3 ? 'high' : 'medium',
-            intervention_id: intervention.id,
-            intervention_name: intervention.name,
-            message: `Review due in ${daysUntilReview} days`,
-          });
-        }
+      if (result.success && result.data) {
+        const { interventions: apiInterventions, alerts: apiAlerts } = result.data;
 
-        // Goal achieved alerts
-        if (intervention.progress_percentage && intervention.progress_percentage >= 100) {
-          generatedAlerts.push({
-            type: 'goal_achieved',
-            severity: 'low',
-            intervention_id: intervention.id,
-            intervention_name: intervention.name,
-            message: 'Target goal achieved! Consider updating or completing intervention.',
-          });
-        }
+        // Map API response to component format
+        const mappedInterventions: InterventionSummary[] = apiInterventions.map((intervention: any) => ({
+          id: intervention.id,
+          name: intervention.name,
+          status: intervention.status,
+          target_behavior: intervention.targetBehavior,
+          start_date: intervention.startDate,
+          review_date: intervention.reviewDate,
+          progress_measure: intervention.progressMeasure,
+          baseline_value: intervention.baseline,
+          current_value: intervention.current,
+          target_value: intervention.target,
+          progress_percentage: intervention.progressPercentage,
+          trend: intervention.trend,
+          sessions_completed: intervention.sessionsCompleted,
+          fidelity_score: intervention.fidelityScore,
+          dataPoints: intervention.dataPoints,
+        }));
 
-        // Low fidelity alerts
-        if (intervention.fidelity_score && intervention.fidelity_score < 80) {
-          generatedAlerts.push({
-            type: 'low_fidelity',
-            severity: 'high',
-            intervention_id: intervention.id,
-            intervention_name: intervention.name,
-            message: `Low implementation fidelity (${intervention.fidelity_score}%). Review implementation procedures.`,
-          });
-        }
+        setInterventions(mappedInterventions);
 
-        // Declining progress alerts
-        if (intervention.trend === 'declining') {
-          generatedAlerts.push({
-            type: 'declining_progress',
-            severity: 'high',
-            intervention_id: intervention.id,
-            intervention_name: intervention.name,
-            message: 'Progress declining. Consider intervention review or modification.',
-          });
-        }
+        // Map alerts
+        const mappedAlerts: ProgressAlert[] = apiAlerts.map((alert: any) => ({
+          type: alert.type,
+          severity: alert.severity === 'critical' ? 'high' : alert.severity === 'warning' ? 'medium' : 'low',
+          intervention_id: alert.interventionId,
+          intervention_name: alert.interventionName,
+          message: alert.message,
+        }));
 
-        // Stable progress alerts (no improvement)
-        if (intervention.trend === 'stable' && intervention.sessions_completed && intervention.sessions_completed > 15) {
-          generatedAlerts.push({
-            type: 'declining_progress',
-            severity: 'medium',
-            intervention_id: intervention.id,
-            intervention_name: intervention.name,
-            message: `No progress after ${intervention.sessions_completed} sessions. Consider intervention review.`,
-          });
-        }
-      });
-
-      setAlerts(generatedAlerts);
+        setAlerts(mappedAlerts);
+      }
     } catch (error) {
       console.error('Failed to load progress data:', error);
+      // Keep using empty arrays on error
+      setInterventions([]);
+      setAlerts([]);
     } finally {
       setLoading(false);
     }
@@ -203,6 +141,56 @@ export default function ProgressDashboard({
         : 0,
     goalsAchieved: interventions.filter((i) => (i.progress_percentage || 0) >= 100).length,
     highAlerts: alerts.filter((a) => a.severity === 'high').length,
+  };
+
+  const handleExportCSV = () => {
+    // Generate CSV content
+    const headers = [
+      'Intervention Name',
+      'Status',
+      'Target Behavior',
+      'Baseline',
+      'Current',
+      'Target',
+      'Progress %',
+      'Trend',
+      'Sessions',
+      'Fidelity %',
+    ];
+
+    const rows = interventions.map((i) => [
+      i.name,
+      i.status,
+      i.target_behavior,
+      i.baseline_value || '',
+      i.current_value || '',
+      i.target_value || '',
+      i.progress_percentage || '',
+      i.trend,
+      i.sessions_completed || '',
+      i.fidelity_score || '',
+    ]);
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map((row) => row.map((cell) => `"${cell}"`).join(',')),
+    ].join('\n');
+
+    // Create download
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `progress-dashboard-${new Date().toISOString().split('T')[0]}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleExportPDF = () => {
+    // Open print dialog for PDF generation
+    window.print();
   };
 
   if (loading) {
@@ -272,25 +260,51 @@ export default function ProgressDashboard({
         </div>
       )}
 
-      {/* Time Range Selector */}
+      {/* Time Range Selector & Export */}
       <div className="bg-white rounded-lg shadow-md p-4">
-        <div className="flex items-center justify-between">
-          <h3 className="font-semibold text-gray-900">Time Range</h3>
-          <div className="flex space-x-2">
-            {(['week', 'month', 'term', 'year'] as const).map((range) => (
-              <button
-                key={range}
-                onClick={() => setTimeRange(range)}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                  timeRange === range
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {range.charAt(0).toUpperCase() + range.slice(1)}
-              </button>
-            ))}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
+          <div className="flex items-center space-x-4">
+            <h3 className="font-semibold text-gray-900">Time Range</h3>
+            <div className="flex space-x-2">
+              {(['week', 'month', 'term', 'year'] as const).map((range) => (
+                <button
+                  key={range}
+                  onClick={() => setTimeRange(range)}
+                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                    timeRange === range
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  {range.charAt(0).toUpperCase() + range.slice(1)}
+                </button>
+              ))}
+            </div>
           </div>
+
+          {interventions.length > 0 && (
+            <div className="flex items-center space-x-3">
+              <span className="text-sm font-semibold text-gray-700">Export:</span>
+              <button
+                onClick={handleExportCSV}
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium transition-colors flex items-center space-x-2"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span>CSV</span>
+              </button>
+              <button
+                onClick={handleExportPDF}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium transition-colors flex items-center space-x-2"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                <span>PDF</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -511,6 +525,19 @@ function InterventionProgressCard({ intervention, onClick }: InterventionProgres
           {intervention.progress_measure}
         </div>
 
+        {/* Line Chart */}
+        {intervention.dataPoints && intervention.dataPoints.length > 0 && (
+          <div className="mb-4 border-t border-gray-200 pt-4">
+            <h4 className="text-sm font-semibold text-gray-700 mb-3">Progress Over Time</h4>
+            <LineChart
+              dataPoints={intervention.dataPoints}
+              baseline={intervention.baseline_value}
+              target={intervention.target_value}
+              progressMeasure={intervention.progress_measure}
+            />
+          </div>
+        )}
+
         {/* Additional Stats */}
         <div className="flex items-center justify-between text-sm pt-4 border-t border-gray-200">
           <div>
@@ -545,6 +572,187 @@ function InterventionProgressCard({ intervention, onClick }: InterventionProgres
           View Details →
         </button>
       </div>
+    </div>
+  );
+}
+
+// ============================================================================
+// LINE CHART COMPONENT
+// ============================================================================
+
+interface LineChartProps {
+  dataPoints: DataPoint[];
+  baseline?: number;
+  target?: number;
+  progressMeasure: string;
+}
+
+function LineChart({ dataPoints, baseline, target, progressMeasure }: LineChartProps) {
+  if (!dataPoints || dataPoints.length === 0) {
+    return (
+      <div className="text-center py-8 text-gray-500">
+        <svg className="w-12 h-12 mx-auto mb-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        <p className="text-sm">No progress data recorded yet</p>
+      </div>
+    );
+  }
+
+  const width = 600;
+  const height = 200;
+  const padding = { top: 20, right: 20, bottom: 40, left: 50 };
+
+  // Calculate scales
+  const values = dataPoints.map((d) => d.value);
+  const allValues = [...values];
+  if (baseline !== undefined) allValues.push(baseline);
+  if (target !== undefined) allValues.push(target);
+
+  const minValue = Math.min(...allValues);
+  const maxValue = Math.max(...allValues);
+  const valueRange = maxValue - minValue || 1;
+
+  const xScale = (index: number) =>
+    padding.left + (index / (dataPoints.length - 1)) * (width - padding.left - padding.right);
+  const yScale = (value: number) =>
+    height - padding.bottom - ((value - minValue) / valueRange) * (height - padding.top - padding.bottom);
+
+  // Generate path
+  const pathData = dataPoints
+    .map((point, index) => {
+      const x = xScale(index);
+      const y = yScale(point.value);
+      return index === 0 ? `M ${x} ${y}` : `L ${x} ${y}`;
+    })
+    .join(' ');
+
+  return (
+    <div className="w-full overflow-x-auto">
+      <svg width={width} height={height} className="mx-auto">
+        {/* Grid lines */}
+        <g className="opacity-20">
+          {[0, 0.25, 0.5, 0.75, 1].map((fraction) => {
+            const y = height - padding.bottom - fraction * (height - padding.top - padding.bottom);
+            return (
+              <line
+                key={fraction}
+                x1={padding.left}
+                y1={y}
+                x2={width - padding.right}
+                y2={y}
+                stroke="currentColor"
+                strokeWidth="1"
+              />
+            );
+          })}
+        </g>
+
+        {/* Baseline line */}
+        {baseline !== undefined && (
+          <line
+            x1={padding.left}
+            y1={yScale(baseline)}
+            x2={width - padding.right}
+            y2={yScale(baseline)}
+            stroke="#9CA3AF"
+            strokeWidth="2"
+            strokeDasharray="5,5"
+          />
+        )}
+
+        {/* Target line */}
+        {target !== undefined && (
+          <line
+            x1={padding.left}
+            y1={yScale(target)}
+            x2={width - padding.right}
+            y2={yScale(target)}
+            stroke="#10B981"
+            strokeWidth="2"
+            strokeDasharray="5,5"
+          />
+        )}
+
+        {/* Data line */}
+        <path d={pathData} fill="none" stroke="#3B82F6" strokeWidth="3" />
+
+        {/* Data points */}
+        {dataPoints.map((point, index) => (
+          <circle
+            key={index}
+            cx={xScale(index)}
+            cy={yScale(point.value)}
+            r="5"
+            fill="#3B82F6"
+            stroke="white"
+            strokeWidth="2"
+          />
+        ))}
+
+        {/* Y-axis labels */}
+        {[minValue, (minValue + maxValue) / 2, maxValue].map((value) => (
+          <text
+            key={value}
+            x={padding.left - 10}
+            y={yScale(value) + 5}
+            textAnchor="end"
+            fontSize="12"
+            fill="currentColor"
+          >
+            {value.toFixed(1)}
+          </text>
+        ))}
+
+        {/* X-axis labels (dates) */}
+        {dataPoints.map((point, index) => {
+          if (index % Math.ceil(dataPoints.length / 5) === 0 || index === dataPoints.length - 1) {
+            return (
+              <text
+                key={index}
+                x={xScale(index)}
+                y={height - padding.bottom + 20}
+                textAnchor="middle"
+                fontSize="10"
+                fill="currentColor"
+              >
+                {new Date(point.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}
+              </text>
+            );
+          }
+          return null;
+        })}
+
+        {/* Legend */}
+        <g transform={`translate(${width - padding.right - 150}, ${padding.top})`}>
+          <line x1="0" y1="0" x2="20" y2="0" stroke="#3B82F6" strokeWidth="2" />
+          <text x="25" y="5" fontSize="11" fill="currentColor">Current</text>
+          {baseline !== undefined && (
+            <>
+              <line x1="0" y1="15" x2="20" y2="15" stroke="#9CA3AF" strokeWidth="2" strokeDasharray="5,5" />
+              <text x="25" y="20" fontSize="11" fill="currentColor">Baseline</text>
+            </>
+          )}
+          {target !== undefined && (
+            <>
+              <line x1="0" y1="30" x2="20" y2="30" stroke="#10B981" strokeWidth="2" strokeDasharray="5,5" />
+              <text x="25" y="35" fontSize="11" fill="currentColor">Target</text>
+            </>
+          )}
+        </g>
+
+        {/* Y-axis label */}
+        <text
+          x={15}
+          y={height / 2}
+          textAnchor="middle"
+          fontSize="11"
+          fill="currentColor"
+          transform={`rotate(-90, 15, ${height / 2})`}
+        >
+          {progressMeasure}
+        </text>
+      </svg>
     </div>
   );
 }
