@@ -9,6 +9,8 @@ import { authOptions } from '@/lib/auth';
 import { getTenantSubscriptionStatus } from '@/lib/subscription/service';
 import { prisma } from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * GET /api/subscription/status
  * Get current user's tenant subscription status and available features

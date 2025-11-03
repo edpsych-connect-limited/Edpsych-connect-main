@@ -5,10 +5,10 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function HelpCenter() {
+function HelpCenterContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialView = searchParams.get('view') || 'home';
@@ -368,5 +368,13 @@ export default function HelpCenter() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function HelpCenter() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <HelpCenterContent />
+    </Suspense>
   );
 }
