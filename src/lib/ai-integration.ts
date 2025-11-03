@@ -740,4 +740,170 @@ class AIIntegrationService {
 // Export singleton instance
 export const aiService = new AIIntegrationService();
 
+// ============================================================================
+// Conversational AI Chat Interface
+// ============================================================================
+
+/**
+ * Chat message format for multi-turn conversations
+ */
+export interface ChatMessage {
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+}
+
+/**
+ * Chat request format for Study Buddy agents
+ */
+export interface ChatRequest {
+  agentId: string;
+  messages: ChatMessage[];
+  systemPrompt: string;
+  userId: number | string;
+  tenantId: number | string;
+  maxTokens?: number;
+  temperature?: number;
+}
+
+/**
+ * Chat response format with cost tracking
+ */
+export interface ChatResponse {
+  content: string;
+  tokensUsed: number;
+  estimatedCost: number;
+  model: string;
+  responseTime: number;
+}
+
+/**
+ * Conversational AI Integration Service
+ * Provides multi-turn chat interface for Study Buddy agents
+ * Aligns with "invisible AI" strategy - seamless, context-aware responses
+ */
+class AIIntegration {
+  /**
+   * Multi-turn conversational chat with context preservation
+   * Maps to existing agent configurations and AI service
+   *
+   * @param request Chat request with conversation history
+   * @returns AI response with cost and performance metrics
+   *
+   * @example
+   * ```typescript
+   * const response = await aiIntegration.chat({
+   *   agentId: 'report-writer',
+   *   messages: [
+   *     { role: 'user', content: 'Help me write a student report' },
+   *     { role: 'assistant', content: 'I'll help you...' },
+   *     { role: 'user', content: 'Focus on reading progress' }
+   *   ],
+   *   systemPrompt: 'You are a report writing specialist...',
+   *   userId: 123,
+   *   tenantId: 456
+   * });
+   * ```
+   */
+  async chat(request: ChatRequest): Promise<ChatResponse> {
+    const startTime = performance.now();
+
+    try {
+      // Build conversation context from message history
+      const conversationContext = request.messages
+        .filter(m => m.role !== 'system')
+        .map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`)
+        .join('\n\n');
+
+      // Get last user message for AI request
+      const lastUserMessage = request.messages
+        .filter(m => m.role === 'user')
+        .pop()?.content || '';
+
+      // Map agentId to use case for existing AI service
+      const useCase = this.mapAgentToUseCase(request.agentId);
+
+      // Create AI request using existing service format
+      const aiRequest: AIRequest = {
+        prompt: conversationContext ? `${conversationContext}\n\nUser: ${lastUserMessage}` : lastUserMessage,
+        context: {
+          conversationHistory: request.messages,
+          systemPrompt: request.systemPrompt,
+          agentId: request.agentId
+        },
+        id: request.userId.toString(),
+        subscriptionTier: 'professional', // Default for educational psychologists
+        useCase: useCase,
+        maxTokens: request.maxTokens || 800,
+        temperature: request.temperature || 0.7
+      };
+
+      // Process request through existing AI service
+      const response = await aiService.processRequest(aiRequest);
+
+      const responseTime = performance.now() - startTime;
+
+      return {
+        content: response.response,
+        tokensUsed: response.tokens,
+        estimatedCost: response.cost,
+        model: response.model,
+        responseTime: responseTime
+      };
+    } catch (error) {
+      console.error('[aiIntegration] Chat error:', error);
+
+      // Return graceful error response
+      return {
+        content: "I'm experiencing technical difficulties. Please try again in a moment, or contact support if the issue persists.",
+        tokensUsed: 0,
+        estimatedCost: 0,
+        model: 'error',
+        responseTime: performance.now() - startTime
+      };
+    }
+  }
+
+  /**
+   * Maps Study Buddy agent IDs to existing AI service use cases
+   * Ensures consistent behavior across the platform
+   *
+   * @param agentId Study Buddy agent identifier
+   * @returns Corresponding use case for AI service
+   */
+  private mapAgentToUseCase(agentId: string): string {
+    const mapping: Record<string, string> = {
+      'general-assistant': 'content_creation',
+      'report-writer': 'report_writing',
+      'lesson-planner': 'lesson_planning',
+      'behavior-analyst': 'behavior_analysis',
+      'parent-communication': 'parent_communication',
+      'assessment-evaluator': 'assessment',
+      'intervention-designer': 'special_education',
+      'cpd-companion': 'research',
+      'wellbeing-monitor': 'wellbeing',
+      'curriculum-advisor': 'curriculum_advice',
+      'accessibility-specialist': 'accessibility',
+      'data-analyst': 'data_analysis',
+      'collaboration-facilitator': 'collaboration',
+      'neuroconnect-analyst': 'neuroconnect',
+      'restorative-justice': 'restorative_practices',
+      'multilingual-support': 'multilingual',
+      'special-education-coordinator': 'special_education',
+      'career-guidance': 'career_guidance',
+      'mental-health-support': 'mental_health',
+      'stem-specialist': 'stem',
+      'arts-integration': 'arts',
+      'physical-education': 'physical_education',
+      'library-media': 'library',
+      'environmental-education': 'environmental',
+      'digital-citizenship': 'digital_citizenship'
+    };
+
+    return mapping[agentId] || 'content_creation';
+  }
+}
+
+// Export singleton instance for chat interface
+export const aiIntegration = new AIIntegration();
+
 // Export types and utilities

@@ -19,7 +19,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAuth } from '@/lib/auth/auth-service';
-import prisma from '@/lib/prisma';
+import prisma from '@/lib/prismaSafe';
 
 /**
  * POST /api/onboarding/start

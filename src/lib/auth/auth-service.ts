@@ -21,6 +21,7 @@ export interface UserSession {
   permissions: string[];
   subscriptionTier: 'free' | 'premium' | 'enterprise';
   sessionId: string;
+  tenant_id?: number; // Multi-tenancy support
   iat: number;
   exp: number;
 }
@@ -56,7 +57,8 @@ const authService = {
   clearAuthCookie,
   requireAuth,
   hasPermissions,
-  requirePermissions
+  requirePermissions,
+  verifyAuth
 };
 
 export default authService;
@@ -248,10 +250,70 @@ export function hasPermissions(session: UserSession, requiredPermissions: string
  */
 export async function requirePermissions(requiredPermissions: string[]): Promise<UserSession> {
   const session = await requireAuth();
-  
+
   if (!hasPermissions(session, requiredPermissions)) {
     redirect('/unauthorized');
   }
-  
+
   return session;
+}
+
+/**
+ * Lightweight authentication verification for API routes
+ * Returns authentication status and user data in a simplified format
+ *
+ * @param request Next.js request object
+ * @returns Authentication result with isValid flag and user data
+ *
+ * @example
+ * ```typescript
+ * const authResult = await verifyAuth(request);
+ * if (!authResult.isValid) {
+ *   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+ * }
+ * const userId = authResult.user.id;
+ * ```
+ */
+export interface VerifyAuthResult {
+  isValid: boolean;
+  user?: {
+    id: number;
+    email: string;
+    name: string;
+    role: string;
+    tenant_id?: number;
+  };
+  error?: string;
+}
+
+export async function verifyAuth(request: NextRequest): Promise<VerifyAuthResult> {
+  try {
+    const session = await getSessionFromRequest(request);
+
+    if (!session) {
+      return {
+        isValid: false,
+        error: 'No valid session found'
+      };
+    }
+
+    // Map session to expected format
+    // Note: This converts string IDs to numbers for database compatibility
+    return {
+      isValid: true,
+      user: {
+        id: parseInt(session.id),
+        email: session.email,
+        name: session.name,
+        role: session.role,
+        tenant_id: undefined // Will be populated from database if needed
+      }
+    };
+  } catch (error) {
+    console.error('[verifyAuth] Authentication error:', error);
+    return {
+      isValid: false,
+      error: error instanceof Error ? error.message : 'Authentication failed'
+    };
+  }
 }
