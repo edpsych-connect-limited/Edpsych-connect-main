@@ -125,19 +125,19 @@ export default function LandingPage() {
               <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-full px-4 py-2 mb-6">
                 <Sparkles className="w-4 h-4 text-indigo-600" />
                 <span className="text-sm font-semibold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                  Transform SEND Support • LAs Save £1-2M Annually
+                  Experience What Feels Like Magic • Save 80% of Your Time
                 </span>
               </div>
               
               <h1 className="text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-                Readily Available SEND Support{' '}
+                Reports That Write Themselves.{' '}
                 <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                  For Every School, Every Day
+                  Lessons That Plan Themselves. Work That Does Itself.
                 </span>
               </h1>
-              
+
               <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-                15+ years of Educational Psychology expertise, instantly accessible. Purpose-built for UK Local Authorities, individual schools, and research institutions.
+                The UK\'s first truly intelligent Educational Psychology platform. Over a decade of expertise meets invisible power - delivering exceptional SEND support effortlessly to every school.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -156,7 +156,7 @@ export default function LandingPage() {
                   <div className="text-sm text-slate-600">Research Tools</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-slate-900">15+</div>
+                  <div className="text-3xl font-bold text-slate-900">10+</div>
                   <div className="text-sm text-slate-600">Years Expertise</div>
                 </div>
                 <div>
