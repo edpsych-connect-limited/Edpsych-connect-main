@@ -164,7 +164,7 @@ export const withUkLocalization = <P extends object>(
 export const UkText: React.FC<{
   children: string;
   className?: string;
-  as?: keyof JSX.IntrinsicElements;
+  as?: React.ElementType;
 }> = ({ children, className, as: Component = 'span' }) => {
   const { convertToUkSpelling, enabled } = useUkLocalization();
   

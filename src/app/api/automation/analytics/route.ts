@@ -73,9 +73,13 @@ export async function GET(request: NextRequest) {
     };
 
     // Filter by intervention type if specified
-    if (interventionType && analytics.effectiveness.byType[interventionType]) {
-      analytics.summary.totalInterventions = analytics.effectiveness.byType[interventionType].total;
-      analytics.summary.successfulInterventions = analytics.effectiveness.byType[interventionType].successful;
+    if (interventionType) {
+      const typeKey = interventionType as keyof typeof analytics.effectiveness.byType;
+      const typeData = analytics.effectiveness.byType[typeKey];
+      if (typeData) {
+        analytics.summary.totalInterventions = typeData.total;
+        analytics.summary.successfulInterventions = typeData.successful;
+      }
     }
 
     return NextResponse.json(analytics);
