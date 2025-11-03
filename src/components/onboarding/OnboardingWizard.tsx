@@ -1,577 +1,391 @@
 /**
- * Self-Service Onboarding Wizard
- * 5-step guided setup for new users with role-based personalization
+ * FILE: src/components/onboarding/OnboardingWizard.tsx
+ * PURPOSE: Main container for onboarding wizard
  *
- * Features:
- * - Welcome and role selection
- * - Profile completion
- * - Workspace setup and preferences
- * - Interactive feature tour
- * - First task guidance
- * - Progress tracking and saving
- * - Skip option with confirmation
+ * FEATURES:
+ * - Orchestrates entire onboarding flow
+ * - Conditionally renders step components
+ * - Displays progress indicator
+ * - Shows navigation controls
+ * - Handles loading/error states
+ * - WCAG 2.1 AA compliant
+ * - Responsive design (desktop, tablet, mobile)
+ *
+ * USAGE:
+ * <OnboardingProvider>
+ *   <OnboardingWizard />
+ * </OnboardingProvider>
  */
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { AlertCircle, Loader2, PartyPopper } from 'lucide-react';
+import { useOnboarding } from './OnboardingProvider';
+import { ProgressIndicator } from './ProgressIndicator';
+import { Navigation } from './Navigation';
+
+// Step components will be imported here as they're built
+// For now, we'll use placeholder components
 
 interface OnboardingWizardProps {
-  userId: number;
-  userName: string;
-  userEmail: string;
-  userRole: string;
-  currentStep?: number;
+  className?: string;
 }
 
-export default function OnboardingWizard({
-  userId,
-  userName,
-  userEmail,
-  userRole,
-  currentStep: initialStep = 0,
-}: OnboardingWizardProps) {
+export function OnboardingWizard({ className = '' }: OnboardingWizardProps) {
+  const {
+    state,
+    startOnboarding,
+    goToNextStep,
+    goToPreviousStep,
+    skipCurrentStep,
+    canCompleteStep,
+    refreshStatus
+  } = useOnboarding();
+
   const router = useRouter();
-  const [currentStep, setCurrentStep] = useState(initialStep);
-  const [userData, setUserData] = useState({
-    role: userRole || '',
-    organization_type: '',
-    primary_focus: [] as string[],
-    preferred_features: [] as string[],
-    experience_level: '',
-    goals: [] as string[],
-  });
-  const [isSaving, setIsSaving] = useState(false);
 
-  const totalSteps = 5;
-
-  // Auto-save progress
+  // Initialize onboarding on mount
   useEffect(() => {
-    saveProgress();
-  }, [currentStep]);
-
-  const saveProgress = async () => {
-    setIsSaving(true);
-    try {
-      await fetch('/api/user/onboarding', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          onboarding_step: currentStep,
-          onboarding_started_at: new Date().toISOString(),
-        }),
-      });
-    } catch (error) {
-      console.error('Failed to save progress:', error);
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
-  const handleComplete = async () => {
-    setIsSaving(true);
-    try {
-      await fetch('/api/user/onboarding', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...userData,
-          onboarding_completed: true,
-          onboarding_completed_at: new Date().toISOString(),
-        }),
-      });
-
-      router.push('/dashboard');
-    } catch (error) {
-      console.error('Failed to complete onboarding:', error);
-      alert('Failed to save your preferences. Please try again.');
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
-  const handleSkip = async () => {
-    if (confirm('Are you sure you want to skip the onboarding? You can always access it later from your settings.')) {
+    const initialize = async () => {
       try {
-        await fetch('/api/user/onboarding', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            onboarding_skipped: true,
-          }),
-        });
+        await refreshStatus();
 
-        router.push('/dashboard');
+        // If not started, start it
+        if (state.currentStep === 1 && !state.timeStarted) {
+          await startOnboarding();
+        }
       } catch (error) {
-        console.error('Failed to skip onboarding:', error);
+        console.error('[OnboardingWizard] Initialization error:', error);
       }
-    }
-  };
+    };
 
-  const goToNext = () => {
-    if (currentStep < totalSteps - 1) {
-      setCurrentStep(prev => prev + 1);
-    } else {
-      handleComplete();
-    }
-  };
+    initialize();
+  }, []); // Run once on mount
 
-  const goToPrevious = () => {
-    if (currentStep > 0) {
-      setCurrentStep(prev => prev - 1);
+  // Redirect if already completed
+  useEffect(() => {
+    if (state.onboardingCompleted) {
+      console.log('[OnboardingWizard] Onboarding already completed, redirecting to dashboard');
+      router.push('/dashboard');
     }
-  };
+  }, [state.onboardingCompleted, router]);
 
-  const renderStep = () => {
-    switch (currentStep) {
-      case 0:
-        return <WelcomeStep userName={userName} userData={userData} setUserData={setUserData} />;
-      case 1:
-        return <ProfileStep userData={userData} setUserData={setUserData} />;
-      case 2:
-        return <WorkspaceStep userData={userData} setUserData={setUserData} />;
-      case 3:
-        return <FeatureTourStep userData={userData} />;
-      case 4:
-        return <FirstTaskStep userData={userData} />;
-      default:
-        return null;
-    }
-  };
+  // Handle keyboard shortcuts
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      // Skip keyboard shortcuts if user is typing in an input/textarea
+      const target = event.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
+        return;
+      }
+
+      // Arrow keys for navigation (if not focused on a button)
+      if (event.key === 'ArrowRight' && state.canAdvance && !state.isLoading) {
+        goToNextStep();
+      } else if (event.key === 'ArrowLeft' && state.canGoBack && !state.isLoading) {
+        goToPreviousStep();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [state.canAdvance, state.canGoBack, state.isLoading, goToNextStep, goToPreviousStep]);
+
+  // Render loading state (initial load)
+  if (state.isLoading && !state.timeStarted) {
+    return (
+      <div
+        className={`flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 ${className}`}
+        role="status"
+        aria-live="polite"
+        aria-label="Loading onboarding wizard"
+      >
+        <Loader2 className="w-16 h-16 text-indigo-600 animate-spin mb-4" />
+        <p className="text-lg font-medium text-gray-700">
+          Preparing your onboarding experience...
+        </p>
+        <p className="text-sm text-gray-500 mt-2">
+          This will only take a moment
+        </p>
+      </div>
+    );
+  }
+
+  // Render error state
+  if (state.error) {
+    return (
+      <div
+        className={`flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 px-4 ${className}`}
+        role="alert"
+        aria-live="assertive"
+      >
+        <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full border border-red-200">
+          <div className="flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mx-auto mb-4">
+            <AlertCircle className="w-8 h-8 text-red-600" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">
+            Oops! Something went wrong
+          </h2>
+          <p className="text-gray-600 text-center mb-6">
+            {state.error}
+          </p>
+          <div className="flex flex-col gap-3">
+            <button
+              onClick={() => window.location.reload()}
+              className="w-full px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-200 transition-all"
+            >
+              Reload Page
+            </button>
+            <button
+              onClick={() => router.push('/dashboard')}
+              className="w-full px-6 py-3 bg-white text-gray-700 font-medium border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-gray-200 transition-all"
+            >
+              Go to Dashboard
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const isLastStep = state.currentStep === 6;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center px-4 py-8">
-      <div className="max-w-4xl w-full">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to EdPsych Connect World</h1>
-          <p className="text-gray-600">Let's get you set up in just a few minutes</p>
-        </div>
+    <div
+      className={`min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 ${className}`}
+    >
+      {/* Header */}
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
+                <PartyPopper className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-gray-900">
+                  Welcome to EdPsych Connect World
+                </h1>
+                <p className="text-sm text-gray-600">
+                  Let's get you set up in just a few steps
+                </p>
+              </div>
+            </div>
 
-        {/* Progress Bar */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-gray-700">
-              Step {currentStep + 1} of {totalSteps}
-            </span>
-            <span className="text-sm text-gray-600">
-              {Math.round(((currentStep + 1) / totalSteps) * 100)}% complete
-            </span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div
-              className="bg-gradient-to-r from-blue-600 to-purple-600 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${((currentStep + 1) / totalSteps) * 100}%` }}
-            />
+            {/* Exit button (optional) */}
+            <button
+              onClick={() => router.push('/dashboard')}
+              className="text-sm text-gray-600 hover:text-gray-900 underline focus:outline-none focus:ring-2 focus:ring-gray-300 rounded px-2 py-1"
+              aria-label="Exit onboarding and go to dashboard"
+            >
+              Exit to Dashboard
+            </button>
           </div>
         </div>
+      </header>
 
-        {/* Step Content */}
-        <div className="bg-white rounded-lg shadow-xl p-8 mb-6">
-          {renderStep()}
+      {/* Main Content */}
+      <main
+        className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
+        role="main"
+        aria-label="Onboarding wizard content"
+      >
+        {/* Progress Indicator */}
+        <ProgressIndicator
+          currentStep={state.currentStep}
+          stepsCompleted={state.stepsCompleted}
+          stepsSkipped={state.stepsSkipped}
+          progressPercentage={state.progressPercentage}
+        />
+
+        {/* Step Content Container */}
+        <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8 md:p-12 mb-8 min-h-[500px]">
+          {renderStepContent(state.currentStep)}
         </div>
 
         {/* Navigation */}
-        <div className="flex items-center justify-between">
-          <button
-            onClick={handleSkip}
-            className="text-gray-600 hover:text-gray-900 text-sm"
-          >
-            Skip for now
-          </button>
+        <Navigation
+          canGoBack={state.canGoBack}
+          canSkip={state.canSkip}
+          canAdvance={canCompleteStep(state.currentStep)}
+          isLoading={state.isLoading}
+          onBack={goToPreviousStep}
+          onSkip={() => skipCurrentStep()}
+          onNext={goToNextStep}
+          currentStep={state.currentStep}
+          isLastStep={isLastStep}
+        />
 
-          <div className="flex gap-4">
-            {currentStep > 0 && (
-              <button
-                onClick={goToPrevious}
-                className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+        {/* Helpful Tips */}
+        <div className="mt-6 text-center text-sm text-gray-500">
+          <p>
+            💡 <strong>Tip:</strong> Use arrow keys to navigate between steps.
+            {state.canSkip && ' You can skip optional steps at any time.'}
+          </p>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-white border-t border-gray-200 mt-auto">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-600">
+            <p>
+              Need help? Visit our{' '}
+              <a
+                href="/help"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-indigo-600 hover:text-indigo-700 underline focus:outline-none focus:ring-2 focus:ring-indigo-300 rounded"
               >
-                Previous
-              </button>
-            )}
-
-            <button
-              onClick={goToNext}
-              disabled={isSaving}
-              className="px-8 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-md hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
-            >
-              {isSaving ? 'Saving...' : currentStep === totalSteps - 1 ? 'Get Started' : 'Next'}
-            </button>
+                Help Center
+              </a>
+            </p>
+            <p>
+              Time spent: {Math.floor(state.totalTimeSpent / 60)} min{' '}
+              {state.totalTimeSpent % 60} sec
+            </p>
           </div>
         </div>
-      </div>
+      </footer>
     </div>
   );
 }
 
-// ============================================================================
-// STEP 1: WELCOME & ROLE SELECTION
-// ============================================================================
-
-function WelcomeStep({ userName, userData, setUserData }: any) {
-  const roles = [
-    {
-      id: 'educational_psychologist',
-      title: 'Educational Psychologist',
-      description: 'Conduct assessments, create reports, and manage cases',
-      icon: '🎓',
-    },
-    {
-      id: 'senco',
-      title: 'SENCO',
-      description: 'Coordinate SEND provision and track student progress',
-      icon: '👨‍🏫',
-    },
-    {
-      id: 'teacher',
-      title: 'Teacher',
-      description: 'Access interventions and monitor student learning',
-      icon: '👩‍🏫',
-    },
-    {
-      id: 'researcher',
-      title: 'Researcher',
-      description: 'Access data and conduct educational research',
-      icon: '🔬',
-    },
-  ];
-
-  return (
-    <div className="space-y-6">
-      <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome, {userName}!</h2>
-        <p className="text-gray-600">
-          Let's personalize your experience. What best describes your role?
-        </p>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-4">
-        {roles.map((role) => (
-          <button
-            key={role.id}
-            onClick={() => setUserData((prev: any) => ({ ...prev, role: role.id }))}
-            className={`p-6 border-2 rounded-lg text-left transition-all ${
-              userData.role === role.id
-                ? 'border-blue-600 bg-blue-50 shadow-md'
-                : 'border-gray-200 hover:border-blue-300'
-            }`}
-          >
-            <div className="text-4xl mb-3">{role.icon}</div>
-            <h3 className="font-semibold text-gray-900 mb-2">{role.title}</h3>
-            <p className="text-sm text-gray-600">{role.description}</p>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
+/**
+ * Renders the appropriate step component based on current step
+ *
+ * NOTE: Step components will be built in Phase 3
+ * For now, using placeholder components
+ */
+function renderStepContent(step: number): React.ReactNode {
+  switch (step) {
+    case 1:
+      return <Step1Placeholder />;
+    case 2:
+      return <Step2Placeholder />;
+    case 3:
+      return <Step3Placeholder />;
+    case 4:
+      return <Step4Placeholder />;
+    case 5:
+      return <Step5Placeholder />;
+    case 6:
+      return <Step6Placeholder />;
+    default:
+      return <div>Unknown step</div>;
+  }
 }
 
 // ============================================================================
-// STEP 2: PROFILE COMPLETION
+// PLACEHOLDER COMPONENTS
+// These will be replaced with actual step components in Phase 3
 // ============================================================================
 
-function ProfileStep({ userData, setUserData }: any) {
-  const organizationTypes = [
-    'Local Authority',
-    'Multi-Academy Trust',
-    'Single School',
-    'Independent Practice',
-    'University/Research',
-  ];
-
-  const focusAreas = [
-    'SEND Assessment',
-    'EHCP Support',
-    'Intervention Design',
-    'Progress Monitoring',
-    'Staff Training',
-    'Research & Analysis',
-  ];
-
-  const toggleFocus = (focus: string) => {
-    setUserData((prev: any) => ({
-      ...prev,
-      primary_focus: prev.primary_focus.includes(focus)
-        ? prev.primary_focus.filter((f: string) => f !== focus)
-        : [...prev.primary_focus, focus],
-    }));
-  };
-
+function Step1Placeholder() {
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Tell us about your work</h2>
-        <p className="text-gray-600">
-          This helps us customize your dashboard and recommendations
-        </p>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Organization Type
-        </label>
-        <select
-          value={userData.organization_type}
-          onChange={(e) => setUserData((prev: any) => ({ ...prev, organization_type: e.target.value }))}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        >
-          <option value="">Select your organization type...</option>
-          {organizationTypes.map((type) => (
-            <option key={type} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-3">
-          Primary Focus Areas (select all that apply)
-        </label>
-        <div className="grid md:grid-cols-2 gap-3">
-          {focusAreas.map((focus) => (
-            <button
-              key={focus}
-              onClick={() => toggleFocus(focus)}
-              className={`p-4 border-2 rounded-lg text-left transition-all ${
-                userData.primary_focus.includes(focus)
-                  ? 'border-blue-600 bg-blue-50'
-                  : 'border-gray-200 hover:border-blue-300'
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <span className="font-medium text-gray-900">{focus}</span>
-                {userData.primary_focus.includes(focus) && (
-                  <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                )}
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ============================================================================
-// STEP 3: WORKSPACE SETUP
-// ============================================================================
-
-function WorkspaceStep({ userData, setUserData }: any) {
-  const features = [
-    {
-      id: 'problem_solver',
-      title: 'Problem Solver',
-      description: 'AI-powered quick solutions for classroom challenges',
-      icon: '🎯',
-    },
-    {
-      id: 'assessments',
-      title: 'Assessment Library',
-      description: '51 evidence-based assessment templates',
-      icon: '📋',
-    },
-    {
-      id: 'interventions',
-      title: 'Intervention Library',
-      description: '69 research-backed interventions',
-      icon: '🎓',
-    },
-    {
-      id: 'ehcp',
-      title: 'EHCP Support',
-      description: 'Streamlined EHCP creation and management',
-      icon: '📄',
-    },
-    {
-      id: 'training',
-      title: 'CPD Training',
-      description: 'Professional development courses',
-      icon: '🏆',
-    },
-    {
-      id: 'battle_royale',
-      title: 'Battle Royale',
-      description: 'Gamified professional development',
-      icon: '🎮',
-    },
-  ];
-
-  const toggleFeature = (featureId: string) => {
-    setUserData((prev: any) => ({
-      ...prev,
-      preferred_features: prev.preferred_features.includes(featureId)
-        ? prev.preferred_features.filter((f: string) => f !== featureId)
-        : [...prev.preferred_features, featureId],
-    }));
-  };
-
-  return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Choose your key features</h2>
-        <p className="text-gray-600">
-          Select the features you'll use most often to customize your dashboard
-        </p>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-4">
-        {features.map((feature) => (
-          <button
-            key={feature.id}
-            onClick={() => toggleFeature(feature.id)}
-            className={`p-5 border-2 rounded-lg text-left transition-all ${
-              userData.preferred_features.includes(feature.id)
-                ? 'border-blue-600 bg-blue-50 shadow-md'
-                : 'border-gray-200 hover:border-blue-300'
-            }`}
-          >
-            <div className="flex items-start justify-between mb-3">
-              <div className="text-3xl">{feature.icon}</div>
-              {userData.preferred_features.includes(feature.id) && (
-                <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-              )}
-            </div>
-            <h3 className="font-semibold text-gray-900 mb-1">{feature.title}</h3>
-            <p className="text-sm text-gray-600">{feature.description}</p>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ============================================================================
-// STEP 4: FEATURE TOUR
-// ============================================================================
-
-function FeatureTourStep({ userData }: any) {
-  const highlights = [
-    {
-      title: 'Dashboard',
-      description: 'Your personalized hub for all your work',
-      image: '📊',
-    },
-    {
-      title: 'Quick Actions',
-      description: 'Start assessments, create EHCPs, or access interventions instantly',
-      image: '⚡',
-    },
-    {
-      title: 'Search & Filter',
-      description: 'Find any student, case, or resource in seconds',
-      image: '🔍',
-    },
-    {
-      title: 'Help & Support',
-      description: 'Contextual help available wherever you need it',
-      image: '💡',
-    },
-  ];
-
-  return (
-    <div className="space-y-6">
-      <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Quick Tour</h2>
-        <p className="text-gray-600">
-          Here are some key features to help you get started
-        </p>
-      </div>
-
-      <div className="space-y-4">
-        {highlights.map((highlight, index) => (
-          <div
-            key={index}
-            className="flex items-start gap-4 p-5 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-100"
-          >
-            <div className="text-4xl flex-shrink-0">{highlight.image}</div>
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{highlight.title}</h3>
-              <p className="text-gray-600">{highlight.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-5">
-        <h3 className="font-semibold text-blue-900 mb-2">💡 Pro Tip</h3>
-        <p className="text-blue-800">
-          Press <kbd className="px-2 py-1 bg-white border border-blue-300 rounded text-sm">?</kbd> anywhere in the platform for context-sensitive help
+    <div className="text-center py-12">
+      <h2 className="text-3xl font-bold text-gray-900 mb-4">
+        Welcome to EdPsych Connect World! 👋
+      </h2>
+      <p className="text-lg text-gray-600 mb-6">
+        This is the Welcome step (Step 1 placeholder)
+      </p>
+      <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-6 max-w-2xl mx-auto">
+        <p className="text-sm text-indigo-800">
+          <strong>Coming in Phase 3:</strong> Welcome video, key benefits showcase, and Get Started CTA
         </p>
       </div>
     </div>
   );
 }
 
-// ============================================================================
-// STEP 5: FIRST TASK
-// ============================================================================
-
-function FirstTaskStep({ userData }: any) {
-  const suggestedTasks = [
-    {
-      id: 'assessment',
-      title: 'Start Your First Assessment',
-      description: 'Use the ECCA framework to conduct a cognitive assessment',
-      icon: '📋',
-      action: '/assessments/new',
-    },
-    {
-      id: 'problem_solver',
-      title: 'Try the Problem Solver',
-      description: 'Get AI-powered solutions for a classroom challenge',
-      icon: '🎯',
-      action: '/problem-solver',
-    },
-    {
-      id: 'browse',
-      title: 'Explore Interventions',
-      description: 'Browse 69 evidence-based interventions',
-      icon: '🎓',
-      action: '/interventions',
-    },
-    {
-      id: 'training',
-      title: 'Start a Training Course',
-      description: 'Begin your professional development journey',
-      icon: '🏆',
-      action: '/training',
-    },
-  ];
-
+function Step2Placeholder() {
   return (
-    <div className="space-y-6">
-      <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">You're all set!</h2>
-        <p className="text-gray-600">
-          Choose your first action to get started
+    <div className="text-center py-12">
+      <h2 className="text-3xl font-bold text-gray-900 mb-4">
+        Select Your Role
+      </h2>
+      <p className="text-lg text-gray-600 mb-6">
+        This is the Role Selection step (Step 2 placeholder)
+      </p>
+      <div className="bg-purple-50 border border-purple-200 rounded-lg p-6 max-w-2xl mx-auto">
+        <p className="text-sm text-purple-800">
+          <strong>Coming in Phase 3:</strong> 5 role cards (EP, SENCO, Teacher, LA, Researcher) with personalized content
         </p>
       </div>
+    </div>
+  );
+}
 
-      <div className="grid md:grid-cols-2 gap-4">
-        {suggestedTasks.map((task) => (
-          <a
-            key={task.id}
-            href={task.action}
-            className="p-6 border-2 border-gray-200 rounded-lg text-left hover:border-blue-600 hover:bg-blue-50 transition-all group"
-          >
-            <div className="text-4xl mb-3">{task.icon}</div>
-            <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-blue-600">
-              {task.title} →
-            </h3>
-            <p className="text-sm text-gray-600">{task.description}</p>
-          </a>
-        ))}
+function Step3Placeholder() {
+  return (
+    <div className="text-center py-12">
+      <h2 className="text-3xl font-bold text-gray-900 mb-4">
+        Complete Your Profile
+      </h2>
+      <p className="text-lg text-gray-600 mb-6">
+        This is the Profile Setup step (Step 3 placeholder)
+      </p>
+      <div className="bg-green-50 border border-green-200 rounded-lg p-6 max-w-2xl mx-auto">
+        <p className="text-sm text-green-800">
+          <strong>Coming in Phase 3:</strong> Photo upload, HCPC number input, organization details form
+        </p>
       </div>
+    </div>
+  );
+}
 
-      <div className="text-center pt-4">
-        <p className="text-gray-600 mb-2">Or skip ahead to your dashboard</p>
-        <p className="text-sm text-gray-500">You can access all features from there</p>
+function Step4Placeholder() {
+  return (
+    <div className="text-center py-12">
+      <h2 className="text-3xl font-bold text-gray-900 mb-4">
+        Explore Key Features
+      </h2>
+      <p className="text-lg text-gray-600 mb-6">
+        This is the Feature Tour step (Step 4 placeholder)
+      </p>
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-2xl mx-auto">
+        <p className="text-sm text-blue-800">
+          <strong>Coming in Phase 3:</strong> 6 feature tabs (ECCA, EHCP, Interventions, Progress, Training, Cases) with videos and demos
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function Step5Placeholder() {
+  return (
+    <div className="text-center py-12">
+      <h2 className="text-3xl font-bold text-gray-900 mb-4">
+        Get Your First Quick Wins
+      </h2>
+      <p className="text-lg text-gray-600 mb-6">
+        This is the Quick Wins step (Step 5 placeholder)
+      </p>
+      <div className="bg-orange-50 border border-orange-200 rounded-lg p-6 max-w-2xl mx-auto">
+        <p className="text-sm text-orange-800">
+          <strong>Coming in Phase 3:</strong> Create first case, complete first assessment, set first goal
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function Step6Placeholder() {
+  return (
+    <div className="text-center py-12">
+      <h2 className="text-3xl font-bold text-gray-900 mb-4">
+        Congratulations! 🎉
+      </h2>
+      <p className="text-lg text-gray-600 mb-6">
+        This is the Completion step (Step 6 placeholder)
+      </p>
+      <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-6 max-w-2xl mx-auto">
+        <p className="text-sm text-emerald-800">
+          <strong>Coming in Phase 3:</strong> Completion animation, certificate download, dashboard tour, next steps
+        </p>
       </div>
     </div>
   );
