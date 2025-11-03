@@ -6,7 +6,7 @@ import {
   Brain, Users, BookOpen, TrendingUp, ChevronRight,
   CheckCircle2, Shield, Clock, Star, ArrowRight,
   Sparkles, Target, Award, Zap, Heart, MessageSquare,
-  Building2, GraduationCap, FlaskConical
+  Building2, GraduationCap, FlaskConical, Loader2, X
 } from 'lucide-react';
 
 // Import new showcase components
@@ -21,6 +21,14 @@ export default function LandingPage() {
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
   const [problemInput, setProblemInput] = useState('');
   const [activeCustomerSegment, setActiveCustomerSegment] = useState<'la' | 'school' | 'individual_ep' | 'research'>('la');
+
+  // Problem Solver states
+  const [isLoadingProblem, setIsLoadingProblem] = useState(false);
+  const [problemResponse, setProblemResponse] = useState('');
+  const [showProblemResponse, setShowProblemResponse] = useState(false);
+
+  // Waitlist states
+  const [isLoadingWaitlist, setIsLoadingWaitlist] = useState(false);
 
   // Real beta testing testimonials
   const testimonials = [
@@ -51,11 +59,73 @@ export default function LandingPage() {
     return () => clearInterval(timer);
   }, []);
 
+  // Handle Problem Solver submission
+  const handleProblemSolver = async () => {
+    if (!problemInput.trim() || problemInput.length < 10) {
+      alert('Please describe your SEND challenge (at least 10 characters)');
+      return;
+    }
+
+    setIsLoadingProblem(true);
+    setProblemResponse('');
+
+    try {
+      const response = await fetch('/api/problem-solver', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: problemInput }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setProblemResponse(data.response);
+        setShowProblemResponse(true);
+      } else {
+        alert(data.error || 'Failed to get AI response. Please try again.');
+      }
+    } catch (error) {
+      console.error('Problem Solver Error:', error);
+      alert('An error occurred. Please try again later.');
+    } finally {
+      setIsLoadingProblem(false);
+    }
+  };
+
+  // Handle waitlist form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setMessage('Thank you! We\'ll be in touch soon.');
-    setEmail('');
-    setTimeout(() => setMessage(''), 3000);
+
+    if (!email.trim()) {
+      setMessage('Please enter a valid email address.');
+      return;
+    }
+
+    setIsLoadingWaitlist(true);
+    setMessage('');
+
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setMessage(data.message);
+        setEmail('');
+      } else {
+        setMessage(data.error || 'Failed to join waitlist. Please try again.');
+      }
+    } catch (error) {
+      console.error('Waitlist Error:', error);
+      setMessage('An error occurred. Please try again later.');
+    } finally {
+      setIsLoadingWaitlist(false);
+      setTimeout(() => setMessage(''), 5000);
+    }
   };
 
   const capabilities = [
@@ -185,10 +255,20 @@ export default function LandingPage() {
                       placeholder="Describe your SEND challenge..."
                       value={problemInput}
                       onChange={(e) => setProblemInput(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && handleProblemSolver()}
                       className="w-full px-4 py-3 pr-12 border-2 border-slate-200 rounded-xl focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 outline-none transition-all text-slate-900 placeholder-slate-400"
+                      disabled={isLoadingProblem}
                     />
-                    <button className="absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-2 rounded-lg hover:shadow-md transition-all">
-                      <ArrowRight className="w-5 h-5" />
+                    <button
+                      onClick={handleProblemSolver}
+                      disabled={isLoadingProblem}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-2 rounded-lg hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isLoadingProblem ? (
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      ) : (
+                        <ArrowRight className="w-5 h-5" />
+                      )}
                     </button>
                   </div>
                   <p className="text-xs text-slate-500 mt-2">
@@ -1308,9 +1388,17 @@ export default function LandingPage() {
                 />
                 <button
                   type="submit"
-                  className="px-8 py-4 bg-white text-indigo-600 rounded-xl font-semibold hover:shadow-2xl transition-all duration-200 whitespace-nowrap"
+                  disabled={isLoadingWaitlist}
+                  className="px-8 py-4 bg-white text-indigo-600 rounded-xl font-semibold hover:shadow-2xl transition-all duration-200 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                 >
-                  Join Waitlist
+                  {isLoadingWaitlist ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Joining...
+                    </>
+                  ) : (
+                    'Join Waitlist'
+                  )}
                 </button>
               </div>
               
@@ -1385,6 +1473,73 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
+
+      {/* Problem Solver Response Modal */}
+      {showProblemResponse && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[80vh] overflow-hidden">
+            {/* Modal Header */}
+            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-4 flex justify-between items-center">
+              <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                <Target className="w-6 h-6" />
+                AI-Powered Solution
+              </h2>
+              <button
+                onClick={() => setShowProblemResponse(false)}
+                className="text-white hover:bg-white/20 rounded-lg p-2 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6 overflow-y-auto max-h-[calc(80vh-120px)]">
+              {/* Original Query */}
+              <div className="mb-6 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-600">
+                <h3 className="font-semibold text-slate-700 mb-2">Your Challenge:</h3>
+                <p className="text-slate-600">{problemInput}</p>
+              </div>
+
+              {/* AI Response */}
+              <div className="prose prose-slate max-w-none">
+                <div className="whitespace-pre-wrap text-slate-800 leading-relaxed">
+                  {problemResponse}
+                </div>
+              </div>
+
+              {/* Call to Action */}
+              <div className="mt-6 p-4 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
+                <p className="text-sm text-slate-700 mb-3">
+                  Want access to unlimited AI-powered solutions, comprehensive EHCP tools, and expert support?
+                </p>
+                <div className="flex gap-3">
+                  <a
+                    href="#waitlist"
+                    onClick={() => setShowProblemResponse(false)}
+                    className="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
+                  >
+                    Join Waitlist
+                  </a>
+                  <a
+                    href="#pricing"
+                    onClick={() => setShowProblemResponse(false)}
+                    className="px-6 py-2.5 bg-white text-indigo-600 rounded-lg font-semibold border-2 border-indigo-200 hover:border-indigo-300 transition-all"
+                  >
+                    View Pricing
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="px-6 py-4 bg-slate-50 border-t border-slate-200">
+              <p className="text-xs text-slate-500 text-center">
+                This solution is generated by AI and should be used alongside professional judgment and local guidelines.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -225,6 +225,9 @@ model users {
   departmentManagements DepartmentManager[] @relation("DepartmentManagers")
   institutionAdmins     InstitutionAdmin[]  @relation("InstitutionAdmins")
 
+  // Relations - Waitlist & Problem Solver
+  problem_solver_queries problem_solver_queries[]
+
   @@index([tenant_id])
   @@index([email])
   @@index([is_active])
@@ -3256,6 +3259,97 @@ model CPDLog {
   @@index([activity_date])
   @@index([cpd_category])
   @@index([status])
+}
+
+// ============================================================================
+// WAITLIST & LEAD MANAGEMENT
+// ============================================================================
+
+model waitlist {
+  id    String @id @default(uuid())
+  email String @unique
+
+  // Lead information
+  name             String?
+  organization     String?
+  role             String? // "LA", "School", "EP", "Researcher", "Other"
+  organization_type String? // "LA", "MAT", "School", "Research"
+  phone            String?
+
+  // Interest tracking
+  interested_features String[] // Features they're interested in
+  use_case            String?   @db.Text // What they want to use it for
+  referral_source     String? // How they found us
+
+  // Status
+  status       String   @default("pending") // pending, contacted, converted, declined
+  priority     String   @default("medium") // low, medium, high
+  beta_access  Boolean  @default(false)
+  invited_at   DateTime?
+  converted_at DateTime?
+
+  // Communication
+  last_contacted_at DateTime?
+  contact_attempts  Int      @default(0)
+  notes             String?  @db.Text
+
+  // Metadata
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  // Marketing
+  utm_source   String?
+  utm_medium   String?
+  utm_campaign String?
+
+  @@index([email])
+  @@index([status])
+  @@index([priority])
+  @@index([created_at])
+  @@index([organization_type])
+}
+
+model problem_solver_queries {
+  id String @id @default(uuid())
+
+  // Query details
+  query_text String @db.Text
+  user_id    Int?
+  email      String? // For anonymous users
+
+  // AI Response
+  ai_response       String    @db.Text
+  model_used        String? // e.g., "gpt-4", "claude-3-opus"
+  response_time_ms  Int? // How long it took
+  tokens_used       Int?
+  confidence_score  Float? // AI's confidence in the answer
+
+  // Categorization
+  problem_category String? // e.g., "ADHD", "Dyslexia", "Behavior", "Anxiety"
+  student_age      String? // e.g., "Primary", "Secondary", "Post-16"
+  urgency_level    String? // "Low", "Medium", "High"
+
+  // Feedback
+  helpful_rating Int? // 1-5 stars
+  feedback_text  String? @db.Text
+  was_used       Boolean @default(false) // Did they implement the suggestion
+
+  // Follow-up
+  follow_up_requested Boolean @default(false)
+  converted_to_signup Boolean @default(false)
+
+  // Metadata
+  ip_address String?
+  user_agent String?
+  created_at DateTime @default(now())
+
+  // Relations
+  user users? @relation(fields: [user_id], references: [id])
+
+  @@index([created_at])
+  @@index([problem_category])
+  @@index([helpful_rating])
+  @@index([user_id])
 }
 
 // ============================================================================

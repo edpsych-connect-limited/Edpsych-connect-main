@@ -43,7 +43,10 @@
       "Bash(npm run dev:*)",
       "Bash(curl:*)",
       "Bash(npx ts-node prisma/seed-help-center.ts)",
-      "Bash(npx tsx:*)"
+      "Bash(npx tsx:*)",
+      "Bash(node:*)",
+      "Bash(npx prisma:*)",
+      "WebFetch(domain:edpsych-connect-limited.vercel.app)"
     ],
     "deny": [],
     "ask": []
