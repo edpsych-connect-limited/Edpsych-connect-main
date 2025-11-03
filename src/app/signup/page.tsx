@@ -275,10 +275,10 @@ export default function SignupPage() {
               </div>
             </div>
 
-            {/* Organization */}
+            {/* Organisation */}
             <div>
               <label htmlFor="organization" className="block text-sm font-medium text-slate-700 mb-2">
-                Organization (Optional)
+                Organisation (Optional)
               </label>
               <div className="relative">
                 <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -289,7 +289,7 @@ export default function SignupPage() {
                   value={formData.organization}
                   onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition-all"
-                  placeholder="Your School or Organization"
+                  placeholder="Your School or Organisation"
                 />
               </div>
             </div>

@@ -178,6 +178,10 @@ export default function LandingPage() {
               <a href="#features" className="text-slate-700 hover:text-indigo-600 font-medium transition-colors">Features</a>
               <a href="#pricing" className="text-slate-700 hover:text-indigo-600 font-medium transition-colors">Pricing</a>
               <a href="#founder" className="text-slate-700 hover:text-indigo-600 font-medium transition-colors">About</a>
+              <a href="/login" className="text-slate-700 hover:text-indigo-600 font-medium transition-colors">Login</a>
+              <a href="/signup" className="px-4 py-2 border-2 border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50 transition-all duration-200 font-medium">
+                Sign Up
+              </a>
               <a href="#waitlist" className="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all duration-200 font-medium">
                 Join Waitlist
               </a>
@@ -305,7 +309,7 @@ export default function LandingPage() {
               Built For Four Key Audiences
             </h2>
             <p className="text-lg text-slate-600">
-              Select your role or organization type to see relevant pricing and features
+              Select your role or organisation type to see relevant pricing and features
             </p>
           </div>
 
