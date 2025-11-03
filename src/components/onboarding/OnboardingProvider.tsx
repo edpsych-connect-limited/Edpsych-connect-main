@@ -456,15 +456,13 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
 
       if (result.success && result.data) {
         dispatch({ type: 'COMPLETE_ONBOARDING' });
-        return result.data;
+        // Data is stored in state, no need to return it
       } else {
         dispatch({ type: 'SET_ERROR', payload: result.error || 'Failed to complete onboarding' });
-        return null;
       }
     } catch (error) {
       console.error('[OnboardingProvider] completeOnboarding error:', error);
       dispatch({ type: 'SET_ERROR', payload: 'Network error. Please try again.' });
-      return null;
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }

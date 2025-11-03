@@ -22,8 +22,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { SubscriptionTier } from '@prisma/client';
-import { prisma } from '@/lib/prismaSafe';
-import { verifyAuth } from '@/lib/auth/auth-service';
+import prisma from '@/lib/prismaSafe';
+import authService from '@/lib/auth/auth-service';
 import {
   getStripePriceId,
   isUpgrade,
@@ -43,15 +43,16 @@ interface ChangeTierRequest {
 export async function POST(request: NextRequest) {
   try {
     // Verify authentication
-    const auth = await verifyAuth(request);
-    if (!auth.valid || !auth.user) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session) {
       return NextResponse.json(
         { success: false, error: 'Unauthorized' },
         { status: 401 }
       );
     }
 
-    const userId = auth.user.id;
+    const userId = parseInt(session.id);
+    const tenantId = session.tenant_id || 0; // Default to 0 if tenant_id not set
     const body: ChangeTierRequest = await request.json();
     const { newTier, billingInterval } = body;
 
@@ -70,9 +71,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get user's current subscription
+    // Get tenant's current subscription (multi-tenant architecture)
     const subscription = await prisma.subscriptions.findFirst({
-      where: { user_id: userId },
+      where: { tenant_id: tenantId },
     });
 
     if (!subscription) {
@@ -142,7 +143,7 @@ export async function POST(request: NextRequest) {
 
     if (isUpgradeTier) {
       // For upgrades, calculate immediate proration
-      const upcomingInvoice = await stripe.invoices.retrieveUpcoming({
+      const upcomingInvoice = await (stripe.invoices as any).retrieveUpcoming({
         customer: subscription.stripe_customer_id!,
         subscription: stripeSubscriptionId,
         subscription_items: [
@@ -198,7 +199,7 @@ export async function POST(request: NextRequest) {
 
     // Update database with new tier
     await prisma.subscriptions.updateMany({
-      where: { user_id: userId },
+      where: { tenant_id: tenantId },
       data: {
         tier: newTier,
         stripe_price_id: newPriceId,
@@ -258,15 +259,16 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     // Verify authentication
-    const auth = await verifyAuth(request);
-    if (!auth.valid || !auth.user) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session) {
       return NextResponse.json(
         { success: false, error: 'Unauthorized' },
         { status: 401 }
       );
     }
 
-    const userId = auth.user.id;
+    const userId = parseInt(session.id);
+    const tenantId = session.tenant_id || 0; // Default to 0 if tenant_id not set
     const { searchParams } = new URL(request.url);
     const newTier = searchParams.get('newTier') as SubscriptionTier;
     const billingInterval = searchParams.get('billingInterval') as 'month' | 'year';
@@ -278,9 +280,9 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Get user's current subscription
+    // Get tenant's current subscription (multi-tenant architecture)
     const subscription = await prisma.subscriptions.findFirst({
-      where: { user_id: userId },
+      where: { tenant_id: tenantId },
     });
 
     if (!subscription) {
@@ -319,7 +321,7 @@ export async function GET(request: NextRequest) {
     if (isUpgradeTier) {
       // Calculate proration preview
       const prorationDate = Math.floor(Date.now() / 1000);
-      const upcomingInvoice = await stripe.invoices.retrieveUpcoming({
+      const upcomingInvoice = await (stripe.invoices as any).retrieveUpcoming({
         customer: subscription.stripe_customer_id!,
         subscription: stripeSubscriptionId,
         subscription_items: [

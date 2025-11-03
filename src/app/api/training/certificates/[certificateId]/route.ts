@@ -103,8 +103,8 @@ export async function GET(
 
       const pdfBuffer = await CertificateGenerator.generateCertificate(certificateData);
 
-      // Return PDF as download
-      return new NextResponse(pdfBuffer, {
+      // Return PDF as download - convert Buffer to Uint8Array for NextResponse compatibility
+      return new NextResponse(new Uint8Array(pdfBuffer), {
         status: 200,
         headers: {
           'Content-Type': 'application/pdf',

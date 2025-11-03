@@ -19,25 +19,26 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prismaSafe';
-import { verifyAuth } from '@/lib/auth/auth-service';
+import prisma from '@/lib/prismaSafe';
+import authService from '@/lib/auth/auth-service';
 
 export async function GET(request: NextRequest) {
   try {
     // Verify authentication
-    const auth = await verifyAuth(request);
-    if (!auth.valid || !auth.user) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session) {
       return NextResponse.json(
         { success: false, error: 'Unauthorized' },
         { status: 401 }
       );
     }
 
-    const userId = auth.user.id;
+    const userId = parseInt(session.id);
+    const tenantId = session.tenant_id || 0; // Default to 0 if tenant_id not set
 
-    // Get user's subscription
+    // Get tenant's subscription (multi-tenant architecture)
     const subscription = await prisma.subscriptions.findFirst({
-      where: { user_id: userId },
+      where: { tenant_id: tenantId },
     });
 
     if (!subscription) {
@@ -58,10 +59,10 @@ export async function GET(request: NextRequest) {
       success: true,
       subscription: {
         tier: subscription.tier,
-        status: subscription.status,
+        status: subscription.payment_status, // Use payment_status from schema
         billingInterval,
-        currentPeriodEnd: subscription.current_period_end,
-        cancelAtPeriodEnd: subscription.cancel_at_period_end,
+        currentPeriodEnd: subscription.end_date, // Use end_date from schema
+        isActive: subscription.is_active,
         stripeCustomerId: subscription.stripe_customer_id,
         stripeSubscriptionId: subscription.stripe_subscription_id,
       },

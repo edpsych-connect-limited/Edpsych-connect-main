@@ -17,7 +17,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import Stripe from 'stripe';
-import { prisma } from '@/lib/prismaSafe';
+import prisma from '@/lib/prismaSafe';
 import {
   mapStripePriceToTier,
   getBillingIntervalFromPriceId,
@@ -111,14 +111,21 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
 
   console.log(`[Stripe] Subscription created: ${subscriptionId} for customer: ${customerId}`);
 
-  // Find user by Stripe customer ID
-  const user = await prisma.users.findFirst({
-    where: { stripe_customer_id: customerId }
-  });
+  // Get tenant_id from Stripe metadata (should be set during checkout)
+  const metadata = subscription.metadata || {};
+  const tenantId = metadata.tenant_id ? parseInt(metadata.tenant_id) : null;
 
-  if (!user) {
-    console.error(`[Stripe] User not found for customer: ${customerId}`);
-    return;
+  if (!tenantId) {
+    console.error(`[Stripe] tenant_id not found in subscription metadata for customer: ${customerId}`);
+    // Try to find existing subscription to get tenant_id
+    const existingSub = await prisma.subscriptions.findFirst({
+      where: { stripe_customer_id: customerId }
+    });
+
+    if (!existingSub) {
+      console.error(`[Stripe] No existing subscription found to determine tenant_id`);
+      return;
+    }
   }
 
   // Get price to determine subscription tier
@@ -126,33 +133,36 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
   const tier = mapStripePriceToTier(priceId);
   const billingInterval = getBillingIntervalFromPriceId(priceId);
 
-  // Create subscription record
+  // Create or update subscription record (multi-tenant architecture)
   await prisma.subscriptions.upsert({
-    where: { user_id: user.id },
+    where: { stripe_customer_id: customerId },
     update: {
       stripe_subscription_id: subscriptionId,
-      stripe_customer_id: customerId,
       stripe_price_id: priceId,
-      status,
-      current_period_start: new Date((subscription as any).current_period_start * 1000),
-      current_period_end: currentPeriodEnd,
-      cancel_at_period_end: (subscription as any).cancel_at_period_end || false,
+      tier,
+      payment_status: status,
+      start_date: new Date((subscription as any).current_period_start * 1000),
+      end_date: currentPeriodEnd,
+      is_active: status === 'active',
+      plan_type: billingInterval || 'month',
       updated_at: new Date()
     },
     create: {
-      user_id: user.id,
+      tenant_id: tenantId!,
       stripe_subscription_id: subscriptionId,
       stripe_customer_id: customerId,
       stripe_price_id: priceId,
       tier,
-      status,
-      current_period_start: new Date((subscription as any).current_period_start * 1000),
-      current_period_end: currentPeriodEnd,
-      cancel_at_period_end: (subscription as any).cancel_at_period_end || false,
+      payment_status: status,
+      start_date: new Date((subscription as any).current_period_start * 1000),
+      end_date: currentPeriodEnd,
+      is_active: status === 'active',
+      plan_type: billingInterval || 'month',
+      amount_paid: 0, // Will be updated by payment_succeeded webhook
     }
   });
 
-  console.log(`[Stripe] Subscription record created for user ${user.id}`);
+  console.log(`[Stripe] Subscription record created/updated for tenant ${tenantId}`);
 }
 
 /**
@@ -169,17 +179,17 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
   const tier = mapStripePriceToTier(priceId);
   const billingInterval = getBillingIntervalFromPriceId(priceId);
 
-  // Update subscription record
+  // Update subscription record (multi-tenant architecture)
   await prisma.subscriptions.updateMany({
     where: { stripe_subscription_id: subscriptionId },
     data: {
       stripe_price_id: priceId,
       tier,
-      status,
-      current_period_start: new Date((subscription as any).current_period_start * 1000),
-      current_period_end: new Date((subscription as any).current_period_end * 1000),
-      cancel_at_period_end: (subscription as any).cancel_at_period_end || false,
-      canceled_at: (subscription as any).canceled_at ? new Date((subscription as any).canceled_at * 1000) : null,
+      payment_status: status,
+      start_date: new Date((subscription as any).current_period_start * 1000),
+      end_date: new Date((subscription as any).current_period_end * 1000),
+      is_active: status === 'active',
+      plan_type: billingInterval || 'month',
       updated_at: new Date()
     }
   });
@@ -195,12 +205,12 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
 
   console.log(`[Stripe] Subscription deleted: ${subscriptionId}`);
 
-  // Mark subscription as canceled
+  // Mark subscription as canceled (multi-tenant architecture)
   await prisma.subscriptions.updateMany({
     where: { stripe_subscription_id: subscriptionId },
     data: {
-      status: 'canceled',
-      canceled_at: new Date(),
+      payment_status: 'canceled',
+      is_active: false,
       updated_at: new Date()
     }
   });
@@ -217,11 +227,12 @@ async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
 
   console.log(`[Stripe] Payment succeeded for subscription: ${subscriptionId}, amount: £${amountPaid}`);
 
-  // Update subscription status to active
+  // Update subscription status to active (multi-tenant architecture)
   await prisma.subscriptions.updateMany({
     where: { stripe_subscription_id: subscriptionId },
     data: {
-      status: 'active',
+      payment_status: 'active',
+      is_active: true,
       updated_at: new Date()
     }
   });
@@ -242,11 +253,12 @@ async function handlePaymentFailed(invoice: Stripe.Invoice) {
 
   console.log(`[Stripe] Payment failed for subscription: ${subscriptionId}, attempt: ${attemptCount}`);
 
-  // Update subscription status
+  // Update subscription status (multi-tenant architecture)
   await prisma.subscriptions.updateMany({
     where: { stripe_subscription_id: subscriptionId },
     data: {
-      status: 'past_due',
+      payment_status: 'past_due',
+      is_active: false,
       updated_at: new Date()
     }
   });
@@ -266,18 +278,11 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
 
   console.log(`[Stripe] Checkout completed for customer: ${customerId}`);
 
-  // Update user with Stripe customer ID if not already set
-  if (customerId && session.client_reference_id) {
-    await prisma.users.update({
-      where: { id: parseInt(session.client_reference_id) },
-      data: {
-        stripe_customer_id: customerId,
-        updated_at: new Date()
-      }
-    });
+  // NOTE: Stripe customer ID is stored in subscriptions table (multi-tenant architecture)
+  // The subscription.created webhook will handle linking customerId to tenant
+  // via the subscriptions table. No need to update users table.
 
-    console.log(`[Stripe] User ${session.client_reference_id} linked to Stripe customer ${customerId}`);
-  }
+  console.log(`[Stripe] Checkout complete. Subscription ${subscriptionId} will be processed by subscription.created webhook.`);
 
   // TODO: Send welcome email
   // TODO: Trigger onboarding flow

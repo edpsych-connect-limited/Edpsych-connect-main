@@ -653,7 +653,6 @@ if (typeof document !== 'undefined' && !document.getElementById('quiz-styles')) 
   styleElement.innerHTML = quizStyles;
   document.head.appendChild(styleElement);
 }
-}
 
 // ============================================================================
 // SCENARIO ELEMENT (Branching Scenario-Based Learning)
