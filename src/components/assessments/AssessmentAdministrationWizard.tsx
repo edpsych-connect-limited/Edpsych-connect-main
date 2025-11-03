@@ -766,122 +766,233 @@ function DomainObservationStep({ currentDomain, assessmentData, updateAssessment
 }
 
 function CollaborativeInputStep({ assessmentData, updateAssessmentData }: any) {
+  const [collaborations, setCollaborations] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [showInviteForm, setShowInviteForm] = React.useState<string | null>(null);
+  const [inviteData, setInviteData] = React.useState({
+    contributor_name: '',
+    contributor_email: '',
+    relationship_to_child: '',
+    message: '',
+  });
+  const [isSending, setIsSending] = React.useState(false);
+
+  // Load existing collaborations
+  React.useEffect(() => {
+    loadCollaborations();
+  }, []);
+
+  const loadCollaborations = async () => {
+    setLoading(true);
+    try {
+      const instanceId = assessmentData.id || 'temp-id'; // Use actual instance ID when available
+      const response = await fetch(`/api/assessments/collaborations?instance_id=${instanceId}`);
+      if (response.ok) {
+        const data = await response.json();
+        setCollaborations(data.collaborations || []);
+      }
+    } catch (error) {
+      console.error('Failed to load collaborations:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSendInvitation = async (contributorType: string) => {
+    setIsSending(true);
+    try {
+      const instanceId = assessmentData.id || 'temp-id';
+      const response = await fetch('/api/assessments/collaborations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          instance_id: instanceId,
+          contributor_type: contributorType,
+          contributor_name: inviteData.contributor_name,
+          contributor_email: inviteData.contributor_email,
+          relationship_to_child: inviteData.relationship_to_child,
+          message: inviteData.message,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        alert(`Invitation sent successfully to ${inviteData.contributor_name}!\n\nInvitation URL: ${data.invitation_url}`);
+
+        // Reset form and reload collaborations
+        setInviteData({
+          contributor_name: '',
+          contributor_email: '',
+          relationship_to_child: '',
+          message: '',
+        });
+        setShowInviteForm(null);
+        loadCollaborations();
+      } else {
+        const errorData = await response.json();
+        alert(`Failed to send invitation: ${errorData.error}`);
+      }
+    } catch (error) {
+      console.error('Failed to send invitation:', error);
+      alert('Failed to send invitation. Please try again.');
+    } finally {
+      setIsSending(false);
+    }
+  };
+
+  const InviteForm = ({ contributorType, title }: { contributorType: string; title: string }) => (
+    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-4">
+      <h4 className="font-semibold text-gray-900 mb-3">Send {title} Invitation</h4>
+      <div className="space-y-3">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+          <input
+            type="text"
+            value={inviteData.contributor_name}
+            onChange={(e) => setInviteData(prev => ({ ...prev, contributor_name: e.target.value }))}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            placeholder="Full name"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+          <input
+            type="email"
+            value={inviteData.contributor_email}
+            onChange={(e) => setInviteData(prev => ({ ...prev, contributor_email: e.target.value }))}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            placeholder="email@example.com"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Relationship to Child</label>
+          <input
+            type="text"
+            value={inviteData.relationship_to_child}
+            onChange={(e) => setInviteData(prev => ({ ...prev, relationship_to_child: e.target.value }))}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            placeholder="e.g., Mother, Class Teacher"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Personal Message (Optional)</label>
+          <textarea
+            value={inviteData.message}
+            onChange={(e) => setInviteData(prev => ({ ...prev, message: e.target.value }))}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            rows={3}
+            placeholder="Add a personal message to include in the email..."
+          />
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={() => handleSendInvitation(contributorType)}
+            disabled={isSending || !inviteData.contributor_name || !inviteData.contributor_email}
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isSending ? 'Sending...' : 'Send Invitation'}
+          </button>
+          <button
+            onClick={() => setShowInviteForm(null)}
+            className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
+  const CollaborationsList = ({ type, title }: { type: string; title: string }) => {
+    const typeCollabs = collaborations.filter(c => c.contributor_type === type);
+
+    return (
+      <div className="border border-gray-200 rounded-lg p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+          <button
+            onClick={() => setShowInviteForm(type)}
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm"
+          >
+            + Send Invitation
+          </button>
+        </div>
+
+        {showInviteForm === type && (
+          <InviteForm contributorType={type} title={title} />
+        )}
+
+        {typeCollabs.length > 0 && (
+          <div className="mt-4 space-y-3">
+            {typeCollabs.map((collab) => (
+              <div key={collab.id} className="bg-gray-50 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <div>
+                    <p className="font-medium text-gray-900">{collab.contributor_name}</p>
+                    <p className="text-sm text-gray-600">{collab.contributor_email}</p>
+                    {collab.relationship_to_child && (
+                      <p className="text-sm text-gray-500">{collab.relationship_to_child}</p>
+                    )}
+                  </div>
+                  <span
+                    className={`px-3 py-1 rounded-full text-xs font-medium ${
+                      collab.status === 'received'
+                        ? 'bg-green-100 text-green-800'
+                        : collab.status === 'pending'
+                        ? 'bg-yellow-100 text-yellow-800'
+                        : 'bg-gray-100 text-gray-800'
+                    }`}
+                  >
+                    {collab.status === 'received' ? '✓ Received' : 'Pending'}
+                  </span>
+                </div>
+
+                {collab.status === 'received' && collab.narrative_input && (
+                  <div className="mt-3 pt-3 border-t border-gray-200">
+                    <p className="text-sm text-gray-700">{collab.narrative_input}</p>
+                  </div>
+                )}
+
+                {collab.status === 'pending' && (
+                  <p className="text-xs text-gray-500 mt-2">
+                    Sent {new Date(collab.invitation_sent_at).toLocaleDateString()}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {typeCollabs.length === 0 && !showInviteForm && (
+          <p className="text-sm text-gray-500 mt-2">No invitations sent yet</p>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold text-gray-900 mb-4">Collaborative Input</h2>
 
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
         <p className="text-blue-800">
-          Invite parents, teachers, and the child to contribute their perspectives.
-          Send invitation emails with structured questions or conduct in-person consultations.
+          Invite parents, teachers, and the child to contribute their perspectives through secure online forms.
+          Each contributor receives a personalized email with a unique link to provide their input.
         </p>
       </div>
 
-      {/* Parent Input */}
-      <div className="border border-gray-200 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Parent Input</h3>
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-2"
-                checked={assessmentData.collaborative_input?.parent_requested || false}
-                onChange={(e) =>
-                  updateAssessmentData({
-                    collaborative_input: {
-                      ...assessmentData.collaborative_input,
-                      parent_requested: e.target.checked,
-                    },
-                  })
-                }
-              />
-              Parent input requested
-            </label>
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm">
-              Send Invitation Email
-            </button>
-          </div>
-
-          {assessmentData.collaborative_input?.parent_requested && (
-            <textarea
-              className="w-full border border-gray-300 rounded-md p-3 min-h-[150px]"
-              placeholder="Parent responses and perspective..."
-              value={assessmentData.collaborative_input?.parent_input || ''}
-              onChange={(e) =>
-                updateAssessmentData({
-                  collaborative_input: {
-                    ...assessmentData.collaborative_input,
-                    parent_input: e.target.value,
-                  },
-                })
-              }
-            />
-          )}
+      {loading ? (
+        <div className="text-center py-8">
+          <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-600 border-t-transparent"></div>
+          <p className="mt-2 text-gray-600">Loading collaborations...</p>
         </div>
-      </div>
-
-      {/* Teacher Input */}
-      <div className="border border-gray-200 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Teacher Input</h3>
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-2"
-                checked={assessmentData.collaborative_input?.teacher_requested || false}
-                onChange={(e) =>
-                  updateAssessmentData({
-                    collaborative_input: {
-                      ...assessmentData.collaborative_input,
-                      teacher_requested: e.target.checked,
-                    },
-                  })
-                }
-              />
-              Teacher input requested
-            </label>
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm">
-              Send Invitation Email
-            </button>
-          </div>
-
-          {assessmentData.collaborative_input?.teacher_requested && (
-            <textarea
-              className="w-full border border-gray-300 rounded-md p-3 min-h-[150px]"
-              placeholder="Teacher responses and perspective..."
-              value={assessmentData.collaborative_input?.teacher_input || ''}
-              onChange={(e) =>
-                updateAssessmentData({
-                  collaborative_input: {
-                    ...assessmentData.collaborative_input,
-                    teacher_input: e.target.value,
-                  },
-                })
-              }
-            />
-          )}
-        </div>
-      </div>
-
-      {/* Child Input */}
-      <div className="border border-gray-200 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Child Consultation</h3>
-        <textarea
-          className="w-full border border-gray-300 rounded-md p-3 min-h-[150px]"
-          placeholder="What did the child share about their own learning? Use age-appropriate language and consultation methods..."
-          value={assessmentData.collaborative_input?.child_input || ''}
-          onChange={(e) =>
-            updateAssessmentData({
-              collaborative_input: {
-                ...assessmentData.collaborative_input,
-                child_input: e.target.value,
-              },
-            })
-          }
-        />
-      </div>
+      ) : (
+        <>
+          <CollaborationsList type="parent" title="Parent/Carer Input" />
+          <CollaborationsList type="teacher" title="Teacher Input" />
+          <CollaborationsList type="child" title="Child Consultation" />
+        </>
+      )}
     </div>
   );
 }
