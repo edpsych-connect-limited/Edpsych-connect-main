@@ -4,7 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 // ============================================================================
 // GET /api/blog/[slug]
@@ -30,14 +30,6 @@ export async function GET(
         comments: {
           where: { is_approved: true },
           orderBy: { created_at: 'desc' },
-          include: {
-            author: {
-              select: {
-                name: true,
-                email: true,
-              },
-            },
-          },
         },
       },
     });

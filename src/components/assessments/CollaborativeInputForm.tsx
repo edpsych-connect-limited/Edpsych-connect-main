@@ -111,11 +111,11 @@ export default function CollaborativeInputForm({
     const intros = {
       parent: {
         title: 'Parent/Carer Input Form',
-        description: 'Your observations of your child at home and in daily life are invaluable. Please share what you see in your child's everyday activities, strengths, and any challenges you've noticed.',
+        description: 'Your observations of your child at home and in daily life are invaluable. Please share what you see in your child\'s everyday activities, strengths, and any challenges you\'ve noticed.',
       },
       teacher: {
         title: 'Teacher Input Form',
-        description: 'Your classroom observations and professional insights are essential. Please share what you observe about this student's learning, behavior, and interactions in the school environment.',
+        description: 'Your classroom observations and professional insights are essential. Please share what you observe about this student\'s learning, behavior, and interactions in the school environment.',
       },
       child: {
         title: 'Your Views',

@@ -1442,7 +1442,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Text structure teaching'
     ],
 
-    implementation_guide: 'Week 1-2: Teach inference concept using pictures ("What's happening?", "How do you know?"). Week 3-4: Inference from single sentences. Week 5-6: Inference from paragraphs. Week 7-8: Character feelings and motivations. Week 9-10: Predicting outcomes. Week 11-12: Author\'s purpose and message. Always use formula: Text clues + My knowledge = Inference. Activities: Inference pictures, riddles, character feelings, prediction, "read between the lines". Teach question types: Right There (literal), Think & Search (inferential), Author & Me (evaluative). Use graphic organizers. Think-alouds are key!',
+    implementation_guide: 'Week 1-2: Teach inference concept using pictures ("What\'s happening?", "How do you know?"). Week 3-4: Inference from single sentences. Week 5-6: Inference from paragraphs. Week 7-8: Character feelings and motivations. Week 9-10: Predicting outcomes. Week 11-12: Author\'s purpose and message. Always use formula: Text clues + My knowledge = Inference. Activities: Inference pictures, riddles, character feelings, prediction, "read between the lines". Teach question types: Right There (literal), Think & Search (inferential), Author & Me (evaluative). Use graphic organizers. Think-alouds are key!',
 
     parent_information: 'Inference means figuring out things the author doesn\'t say directly - like being a reading detective! Many children can read the words but miss the deeper meaning. We\'re teaching your child to: look for clues in the text, use what they already know, and put it together to understand what the author means (not just what they say). At home, you can help by: asking "How did you know that?", discussing character feelings ("How is she feeling? How do you know?"), pausing during stories to predict, and talking about "hidden" meanings. Any reading can practice inference!',
 
@@ -2640,7 +2640,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     success_rate: '70-75% vocabulary growth',
 
     age_range: ['primary', 'secondary'],
-    setting: ['classroom', 'home', 'library'],
+    setting: ['classroom', 'home', 'mixed'],
     duration: 'Ongoing (minimum 20 weeks)',
     frequency: 'Daily',
     session_length: '20-30 minutes reading + vocabulary work',
@@ -3120,7 +3120,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     success_rate: '70-75% increased reading engagement',
 
     age_range: ['early_years', 'primary', 'secondary'],
-    setting: ['classroom', 'library', 'home'],
+    setting: ['classroom', 'mixed', 'home'],
     duration: 'Ongoing',
     frequency: 'Daily',
     session_length: '20-30 minutes',
@@ -6953,7 +6953,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
 
     created_at: '2025-11-01',
     updated_at: '2025-11-01',
-    tags: ['self_regulation', 'emotions', 'zones', 'autism', 'ADHD', 'tier_2', 'visual', 'whole_school']
+    tags: ['self_regulation', 'emotions', 'zones', 'autism', 'ADHD', 'tier_2', 'visual', 'mixed']
   },
 
   {
@@ -7179,7 +7179,6 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     duration: 'Ongoing approach',
     frequency: 'Continuous',
     session_length: 'N/A - systemic approach',
-    total_sessions: null,
 
     complexity: 'high',
     staff_training_required: true,
@@ -7285,7 +7284,6 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     duration: 'Ongoing support',
     frequency: 'Daily environmental supports + weekly skills teaching',
     session_length: '15-30 minutes for explicit teaching',
-    total_sessions: null,
 
     complexity: 'high',
     staff_training_required: true,
@@ -7392,7 +7390,6 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     duration: 'Ongoing support',
     frequency: 'Continuous environmental supports + targeted teaching',
     session_length: 'Embedded throughout day',
-    total_sessions: null,
 
     complexity: 'high',
     staff_training_required: true,
@@ -8145,11 +8142,10 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     success_rate: '65-80% improved relationships and reduced repeat incidents',
 
     age_range: ['primary', 'secondary', 'post_16'],
-    setting: ['small_group', 'classroom', 'whole_school'],
+    setting: ['small_group', 'classroom', 'mixed'],
     duration: 'Ongoing practice',
     frequency: 'Regular proactive circles + reactive as needed',
     session_length: '20-60 minutes depending on circle type',
-    total_sessions: null,
 
     complexity: 'high',
     staff_training_required: true,
@@ -8254,7 +8250,6 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     duration: 'Ongoing program',
     frequency: 'Mediations as needed; regular mediator training/supervision',
     session_length: '20-40 minutes per mediation',
-    total_sessions: null,
 
     complexity: 'medium',
     staff_training_required: true,
@@ -8658,7 +8653,6 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     duration: '8-20 weeks (variable)',
     frequency: 'Daily contact + gradual attendance building',
     session_length: 'Variable - graduated approach',
-    total_sessions: null,
 
     complexity: 'high',
     staff_training_required: true,
@@ -8973,7 +8967,6 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     duration: '2-5 years (Year 9 through to age 19 or 25 if EHCP)',
     frequency: 'Weekly sessions plus ongoing review',
     session_length: '45-60 minutes',
-    total_sessions: 'Ongoing programme',
 
     complexity: 'high',
     staff_training_required: true,
@@ -9088,11 +9081,10 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     success_rate: '30-40% achieve paid employment (compared to 6% without supported internships)',
 
     age_range: ['post_16'],
-    setting: ['workplace', 'mixed'],
+    setting: ['mixed', 'mixed'],
     duration: '6-12 months minimum',
     frequency: '3-5 days per week',
     session_length: 'Full working day',
-    total_sessions: '150-250 days',
 
     complexity: 'high',
     staff_training_required: true,
@@ -9449,7 +9441,6 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     duration: 'Ongoing whole-school programme',
     frequency: 'Universal + targeted interventions',
     session_length: 'Varied - assemblies, lessons, interventions',
-    total_sessions: 'Continuous',
 
     complexity: 'high',
     staff_training_required: true,
@@ -9552,7 +9543,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
 
     created_at: '2025-11-02',
     updated_at: '2025-11-02',
-    tags: ['bullying', 'anti_bullying', 'cyber_bullying', 'whole_school', 'prevention', 'tier_1', 'safeguarding', 'protected_characteristics', 'PSHE']
+    tags: ['bullying', 'anti_bullying', 'cyber_bullying', 'mixed', 'prevention', 'tier_1', 'safeguarding', 'protected_characteristics', 'PSHE']
   },
 
   {
@@ -9573,7 +9564,6 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     duration: 'Ongoing programme (ambassadors trained annually)',
     frequency: 'Regular ambassador meetings + reactive peer support',
     session_length: 'Varied',
-    total_sessions: 'Continuous',
 
     complexity: 'medium',
     staff_training_required: true,
@@ -9666,7 +9656,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
 
     created_at: '2025-11-02',
     updated_at: '2025-11-02',
-    tags: ['anti_bullying', 'peer_support', 'student_leadership', 'ambassadors', 'prevention', 'tier_2', 'whole_school', 'empowerment']
+    tags: ['anti_bullying', 'peer_support', 'student_leadership', 'ambassadors', 'prevention', 'tier_2', 'mixed', 'empowerment']
   },
 
   {
@@ -10176,7 +10166,6 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     duration: '2-4 terms (flexible based on need)',
     frequency: 'Daily (mornings or full day)',
     session_length: 'Half-day or full day',
-    total_sessions: 'Daily for duration',
 
     complexity: 'high',
     staff_training_required: true,
@@ -10303,7 +10292,6 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     duration: 'Ongoing as needed (situation-specific)',
     frequency: 'Read daily before relevant situation',
     session_length: '5-10 minutes',
-    total_sessions: 'Varies',
 
     complexity: 'medium',
     staff_training_required: true,
@@ -10864,7 +10852,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     success_rate: '70-85% show improved relationships and emotional regulation',
 
     age_range: ['early_years', 'primary', 'secondary', 'all'],
-    setting: ['whole_school', 'classroom', 'one_to_one', 'small_group', 'home'],
+    setting: ['mixed', 'classroom', 'one_to_one', 'small_group', 'home'],
     duration: 'Long-term (often 1-3 years) - attachment work takes time',
     frequency: 'Daily - embedded in all interactions',
     session_length: 'N/A - approach embedded throughout day, plus targeted 1:1 sessions as needed',
@@ -10981,7 +10969,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
 
     created_at: '2025-11-02',
     updated_at: '2025-11-02',
-    tags: ['attachment', 'trauma', 'LAC', 'adopted', 'ACEs', 'key_person', 'trauma_informed', 'tier_1', 'relationship_based', 'neuroscience', 'Bowlby', 'Ainsworth', 'EP_intervention', 'doctoral_research', 'Dr_Scott_Ighavongbe_Patrick', 'evidence_based', 'whole_school']
+    tags: ['attachment', 'trauma', 'LAC', 'adopted', 'ACEs', 'key_person', 'trauma_informed', 'tier_1', 'relationship_based', 'neuroscience', 'Bowlby', 'Ainsworth', 'EP_intervention', 'doctoral_research', 'Dr_Scott_Ighavongbe_Patrick', 'evidence_based', 'mixed']
   }
 ];
 

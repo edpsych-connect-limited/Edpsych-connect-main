@@ -610,7 +610,7 @@ foundational for learning, social interaction, and adaptive behavior across cont
 
       teacher_questions: [
         {
-          question: 'How does the child's attention compare to peers in structured vs. unstructured activities?',
+          question: 'How does the child\'s attention compare to peers in structured vs. unstructured activities?',
           response_type: 'narrative',
           prompts: ['Carpet time vs. group work?', 'Classroom vs. playground?'],
         },
@@ -862,7 +862,7 @@ environments. This domain assesses both perceptual speed (visual/auditory) and m
 
       teacher_questions: [
         {
-          question: 'How does the child's pace of work compare to peers?',
+          question: 'How does the child\'s pace of work compare to peers?',
           response_type: 'narrative',
           prompts: ['Consistently slow, or task-dependent?', 'Finishing classwork/tests?'],
         },
@@ -877,7 +877,7 @@ environments. This domain assesses both perceptual speed (visual/auditory) and m
           prompts: ['Maths facts, reading fluency, written tasks?'],
         },
         {
-          question: 'What accommodations have supported the child's processing speed needs?',
+          question: 'What accommodations have supported the child\'s processing speed needs?',
           response_type: 'narrative',
           prompts: ['Extra time, reduced workload, breaking tasks into chunks?'],
         },
@@ -1104,7 +1104,7 @@ difficulties may arise from encoding problems, storage/consolidation issues, or 
           prompts: ['Repetition, making connections, using imagery?'],
         },
         {
-          question: 'Can your child apply what they've learned in one situation to a different situation?',
+          question: 'Can your child apply what they\'ve learned in one situation to a different situation?',
           response_type: 'narrative',
           prompts: ['Examples of transfer, or lack thereof?'],
         },
@@ -1112,7 +1112,7 @@ difficulties may arise from encoding problems, storage/consolidation issues, or 
 
       teacher_questions: [
         {
-          question: 'How does the child's retention of taught material compare to peers?',
+          question: 'How does the child\'s retention of taught material compare to peers?',
           response_type: 'narrative',
           prompts: ['Same day vs. next day vs. next week?'],
         },
@@ -1127,7 +1127,7 @@ difficulties may arise from encoding problems, storage/consolidation issues, or 
           prompts: ['Verbal vs. visual? Facts vs. procedures?'],
         },
         {
-          question: 'Does the child's performance suggest encoding difficulties, storage problems, or retrieval issues?',
+          question: 'Does the child\'s performance suggest encoding difficulties, storage problems, or retrieval issues?',
           response_type: 'narrative',
           prompts: ['Never learned it, or learned but forgot?'],
         },

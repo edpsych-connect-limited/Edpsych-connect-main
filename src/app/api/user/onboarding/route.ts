@@ -5,7 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 // ============================================================================
 // GET /api/user/onboarding

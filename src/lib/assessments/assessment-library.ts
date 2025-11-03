@@ -515,7 +515,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       'Assess need for speech and language therapy input',
     ],
     references: ['BPVS-3 Manual', 'CELF-5 UK Manual'],
-    tags: ['language', 'communication', 'SLCN'],
+    tags: ['language', 'expressive_language', 'SLCN'],
   },
 
   {
@@ -565,7 +565,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       'Evaluate word-finding difficulties',
     ],
     references: ['CELF-5 Manual', 'TROG-2 Manual'],
-    tags: ['language', 'communication', 'SLCN'],
+    tags: ['language', 'expressive_language', 'SLCN'],
   },
 
   // ==========================================================================
@@ -1907,7 +1907,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       'DSM-5 Anxiety Disorders criteria',
       'NICE Anxiety Guidelines for Children and Young People (UK)',
     ],
-    tags: ['anxiety', 'mental-health', 'emotional-wellbeing', 'social-anxiety'],
+    tags: ['emotional_regulation', 'mental-health', 'emotional-wellbeing', 'social-anxiety'],
   },
 
   {
@@ -3941,7 +3941,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       'Dweck (2006) - Growth mindset in mathematics',
       'EEF (2020) - Metacognition and self-regulated learning',
     ],
-    tags: ['mathematics-anxiety', 'maths', 'anxiety', 'self-concept'],
+    tags: ['mathematics-anxiety', 'maths', 'emotional_regulation', 'self-concept'],
   },
 
   // ============================================================================
@@ -4507,7 +4507,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       'NICE (2013) - Social anxiety disorder guidance',
       'DfE (2022) - Working together to improve school attendance',
     ],
-    tags: ['school-refusal', 'attendance', 'anxiety', 'emotionally-based-school-avoidance'],
+    tags: ['school-refusal', 'attendance', 'emotional_regulation', 'emotionally-based-school-avoidance'],
   },
 
   {
@@ -6266,7 +6266,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
   {
     id: 'transition-readiness-assessment',
     name: 'Transition Readiness Assessment (Post-16)',
-    category: 'adaptive_behavior',
+    category: 'adaptive',
     subcategory: 'Transition',
     description: 'Assessment of readiness for transition to further education, employment, or independent living',
     age_range: '14-19',
@@ -6741,7 +6741,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
     age_range: '3-16',
     administration_time: '30-40',
     purpose: 'Identify sensory processing differences affecting learning, behavior, and participation',
-    domains: ['sensory_processing', 'attention', 'behavior', 'adaptive_behavior'],
+    domains: ['sensory_processing', 'attention', 'adaptive_behavior'],
     qualification_required: 'senco',
     is_standardized: false,
     norm_referenced: false,
@@ -7214,7 +7214,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Severe impact' },
               ],
             },
-            domain: 'behavior',
+            domain: 'adaptive_behavior',
           },
         ],
         scoring_instructions: 'Score 0-12. Score ≥6 indicates sensory differences are significantly impacting daily functioning.',
@@ -7251,7 +7251,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
     age_range: '4-16',
     administration_time: '25-35',
     purpose: 'Identify visual perception difficulties that may underlie literacy, numeracy, or coordination challenges',
-    domains: ['visual_perception', 'literacy', 'numeracy', 'motor_skills'],
+    domains: ['perceptual_reasoning', 'reading', 'numeracy', 'motor_skills'],
     qualification_required: 'senco',
     is_standardized: false,
     norm_referenced: false,
@@ -7276,7 +7276,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
           {
             item_id: 'vd-numbers',
@@ -7292,7 +7292,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
           {
             item_id: 'vd-matching',
@@ -7308,7 +7308,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
         ],
         scoring_instructions: 'Score 0-9. Score ≥5 suggests visual discrimination difficulties.',
@@ -7332,7 +7332,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
           {
             item_id: 'vm-copying',
@@ -7348,7 +7348,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
           {
             item_id: 'vm-recall',
@@ -7364,7 +7364,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
         ],
         scoring_instructions: 'Score 0-9. Score ≥5 suggests visual memory difficulties.',
@@ -7388,7 +7388,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
           {
             item_id: 'fc-orientation',
@@ -7404,7 +7404,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
         ],
         scoring_instructions: 'Score 0-6. Score ≥4 suggests form constancy difficulties.',
@@ -7428,7 +7428,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
           {
             item_id: 'sr-spacing',
@@ -7444,7 +7444,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
           {
             item_id: 'sr-alignment',
@@ -7460,7 +7460,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
           {
             item_id: 'sr-navigation',
@@ -7476,7 +7476,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
         ],
         scoring_instructions: 'Score 0-12. Score ≥6 suggests spatial relations difficulties.',
@@ -7500,7 +7500,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
           {
             item_id: 'vc-puzzle',
@@ -7516,7 +7516,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
         ],
         scoring_instructions: 'Score 0-6. Score ≥4 suggests visual closure difficulties.',
@@ -7540,7 +7540,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
           {
             item_id: 'fg-objects',
@@ -7556,7 +7556,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
           {
             item_id: 'fg-line',
@@ -7572,7 +7572,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
         ],
         scoring_instructions: 'Score 0-9. Score ≥5 suggests figure-ground difficulties.',
@@ -7596,7 +7596,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
           {
             item_id: 'vm-drawing',
@@ -7612,7 +7612,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Consistently/severe' },
               ],
             },
-            domain: 'visual_perception',
+            domain: 'perceptual_reasoning',
           },
           {
             item_id: 'vm-sports',
@@ -7658,13 +7658,13 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
   {
     id: 'selective-mutism-assessment',
     name: 'Selective Mutism Assessment',
-    category: 'communication',
+    category: 'language_communication',
     subcategory: 'Anxiety-Based Communication Disorder',
     description: 'Comprehensive assessment of selective mutism presentation and contextual variation in communication',
     age_range: '3-11',
     administration_time: '20-30',
     purpose: 'Identify selective mutism, understand communication patterns across contexts, and guide intervention',
-    domains: ['communication', 'anxiety', 'social_skills'],
+    domains: ['expressive_language', 'emotional_regulation', 'social_skills'],
     qualification_required: 'senco',
     is_standardized: false,
     norm_referenced: false,
@@ -7690,7 +7690,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 4, label: 'Speaks freely, age-appropriate language' },
               ],
             },
-            domain: 'communication',
+            domain: 'expressive_language',
           },
           {
             item_id: 'sm-school',
@@ -7707,7 +7707,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 4, label: 'Speaks freely, age-appropriate language' },
               ],
             },
-            domain: 'communication',
+            domain: 'expressive_language',
           },
           {
             item_id: 'sm-peers',
@@ -7724,7 +7724,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 4, label: 'Speaks freely, age-appropriate language' },
               ],
             },
-            domain: 'communication',
+            domain: 'expressive_language',
           },
           {
             item_id: 'sm-extended',
@@ -7741,7 +7741,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 4, label: 'Speaks freely, age-appropriate language' },
               ],
             },
-            domain: 'communication',
+            domain: 'expressive_language',
           },
           {
             item_id: 'sm-strangers',
@@ -7758,7 +7758,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 4, label: 'Speaks freely, age-appropriate language' },
               ],
             },
-            domain: 'communication',
+            domain: 'expressive_language',
           },
         ],
         scoring_instructions: 'Selective mutism typically shows large discrepancy between contexts. Score difference ≥8 between home and school suggests SM.',
@@ -7782,7 +7782,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Primary communication method' },
               ],
             },
-            domain: 'communication',
+            domain: 'expressive_language',
           },
           {
             item_id: 'sm-writing',
@@ -7798,7 +7798,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Primary communication method' },
               ],
             },
-            domain: 'communication',
+            domain: 'expressive_language',
           },
           {
             item_id: 'sm-proxy',
@@ -7814,7 +7814,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Primary communication method' },
               ],
             },
-            domain: 'communication',
+            domain: 'expressive_language',
           },
           {
             item_id: 'sm-frozen',
@@ -7830,7 +7830,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Always' },
               ],
             },
-            domain: 'anxiety',
+            domain: 'emotional_regulation',
           },
         ],
         scoring_instructions: 'Documents alternative communication strategies.',
@@ -7854,7 +7854,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Always' },
               ],
             },
-            domain: 'anxiety',
+            domain: 'emotional_regulation',
           },
           {
             item_id: 'sm-anx-avoid',
@@ -7870,7 +7870,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Always' },
               ],
             },
-            domain: 'anxiety',
+            domain: 'emotional_regulation',
           },
           {
             item_id: 'sm-anx-distress',
@@ -7886,7 +7886,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Always' },
               ],
             },
-            domain: 'anxiety',
+            domain: 'emotional_regulation',
           },
           {
             item_id: 'sm-anx-social',
@@ -7902,7 +7902,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Always' },
               ],
             },
-            domain: 'anxiety',
+            domain: 'emotional_regulation',
           },
         ],
         scoring_instructions: 'Score ≥8 indicates significant anxiety associated with speaking.',
@@ -7927,7 +7927,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 4, label: 'More than 1 year' },
               ],
             },
-            domain: 'communication',
+            domain: 'expressive_language',
           },
           {
             item_id: 'sm-academic',
@@ -7943,7 +7943,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Severe impact' },
               ],
             },
-            domain: 'communication',
+            domain: 'expressive_language',
           },
           {
             item_id: 'sm-social-impact',
@@ -7973,25 +7973,25 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             item_id: 'sm-language',
             question_text: 'Child has age-appropriate language skills in comfortable settings (i.e., not explained by language disorder)',
             item_type: 'yes_no',
-            domain: 'communication',
+            domain: 'expressive_language',
           },
           {
             item_id: 'sm-eal',
             question_text: 'If child is learning English, difficulty is NOT solely due to lack of knowledge of English',
             item_type: 'yes_no',
-            domain: 'communication',
+            domain: 'expressive_language',
           },
           {
             item_id: 'sm-autism',
             question_text: 'Communication difficulties are NOT better explained by autism spectrum condition',
             item_type: 'yes_no',
-            domain: 'communication',
+            domain: 'expressive_language',
           },
           {
             item_id: 'sm-willful',
             question_text: 'Child\'s silence appears involuntary - driven by anxiety rather than defiance or choice',
             item_type: 'yes_no',
-            domain: 'anxiety',
+            domain: 'emotional_regulation',
           },
         ],
         scoring_instructions: 'All items should be "yes" for SM diagnosis. If "no", consider alternative explanations.',
@@ -8018,7 +8018,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       'Oerbeck et al. (2014) - Selective mutism prognosis',
       'SMIRA (Selective Mutism Information & Research Association) - UK charity resources',
     ],
-    tags: ['selective-mutism', 'anxiety', 'social-anxiety', 'communication-disorder', 'early-intervention'],
+    tags: ['selective-mutism', 'emotional_regulation', 'social-anxiety', 'communication-disorder', 'early-intervention'],
   },
 ];
 
