@@ -3,12 +3,7 @@
  *
  * This module provides utilities for ensuring consistent UK English spelling
  * and formatting throughout the EdPsych Connect World platform.
- *
- * NOTE: This file contains no API keys, tokens, secrets or credentials.
- * All sensitive values should be stored in environment variables.
  */
-
-import React from 'react';
 
 /**
  * Common US to UK spelling mappings
@@ -54,11 +49,10 @@ export const usToUkSpellings: Record<string, string> = {
   'apologizes': 'apologises',
   'apologized': 'apologised',
   'apologizing': 'apologising',
-  // Using env vars for keys that might trigger security validators
-  [process.env.US_AUTH_TERM || 'authorize']: 'authorise',
-  [process.env.US_AUTH_TERMS || 'authorizes']: 'authorises',
-  [process.env.US_AUTH_TERMD || 'authorized']: 'authorised',
-  [process.env.US_AUTH_TERMING || 'authorizing']: 'authorising',
+  'authorize': 'authorise',
+  'authorizes': 'authorises',
+  'authorized': 'authorised',
+  'authorizing': 'authorising',
   'capitalize': 'capitalise',
   'capitalizes': 'capitalises',
   'capitalized': 'capitalised',
@@ -298,35 +292,16 @@ export const identifyUsSpellings = (text: string): string[] => {
   });
 };
 
-/**
- * Higher-order component that wraps a component and converts all string props to UK spelling
- * @param Component Component to wrap
- * @returns Wrapped component with UK spelling conversion
- */
-export const withUkSpelling = <P extends Record<string, any>>(
-  Component: React.ComponentType<P>
-): React.ComponentType<P> => {
-  const WithUkSpelling = (props: P) => {
-    const convertedProps = convertPropsToUkSpelling(props);
-    return React.createElement(Component, convertedProps as P);
-  };
-  WithUkSpelling.displayName = `WithUkSpelling(${Component.displayName || Component.name || 'Component'})`;
-  return WithUkSpelling;
-};
-
-const ukLocalization = {
+export default {
   convertToUkSpelling,
   formatUkDate,
   formatUkDateTime,
   formatUkCurrency,
   useUkSpelling,
   convertPropsToUkSpelling,
-  withUkSpelling,
   containsUsSpellings,
   identifyUsSpellings,
   convertToUkGradeLevel,
   usToUkSpellings,
   gradeEquivalents
 };
-
-export default ukLocalization;
