@@ -1182,6 +1182,104 @@ model help_viewed_items {
 }
 
 // ============================================================================
+// HELP CENTER & DOCUMENTATION
+// ============================================================================
+
+model HelpCategory {
+  id          String   @id @default(uuid())
+  name        String
+  slug        String   @unique
+  description String?
+  icon        String? // Icon name or emoji
+  order_index Int      @default(0)
+  is_active   Boolean  @default(true)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  // Relations
+  articles HelpArticle[]
+
+  @@index([slug])
+  @@index([is_active])
+}
+
+model HelpArticle {
+  id              String   @id @default(uuid())
+  category_id     String
+  title           String
+  slug            String   @unique
+  content         String   @db.Text
+  excerpt         String?
+  search_keywords String[] @default([])
+
+  // Metadata
+  author      String? // Author name
+  views       Int     @default(0)
+  helpful_yes Int     @default(0)
+  helpful_no  Int     @default(0)
+  order_index Int     @default(0)
+
+  // Status
+  is_published Boolean @default(true)
+  is_featured  Boolean @default(false)
+
+  // Context-sensitive help
+  page_context String[] @default([]) // Pages where this appears contextually
+
+  // Dates
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+  published_at DateTime?
+
+  // Relations
+  category HelpCategory         @relation(fields: [category_id], references: [id], onDelete: Cascade)
+  related  HelpArticleRelated[] @relation("ArticleRelated")
+
+  @@index([category_id])
+  @@index([slug])
+  @@index([is_published])
+  @@index([page_context])
+}
+
+model HelpArticleRelated {
+  article_id String
+  related_id String
+
+  article HelpArticle @relation("ArticleRelated", fields: [article_id], references: [id], onDelete: Cascade)
+
+  @@id([article_id, related_id])
+}
+
+model HelpFAQ {
+  id          String   @id @default(uuid())
+  question    String
+  answer      String   @db.Text
+  category    String? // General, Technical, Billing, etc.
+  order_index Int      @default(0)
+  views       Int      @default(0)
+  helpful_yes Int      @default(0)
+  helpful_no  Int      @default(0)
+  is_active   Boolean  @default(true)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@index([category])
+  @@index([is_active])
+}
+
+model HelpSearchLog {
+  id         String   @id @default(uuid())
+  user_id    Int?
+  query      String
+  results    Int      @default(0)
+  clicked_id String? // Article ID that was clicked
+  created_at DateTime @default(now())
+
+  @@index([query])
+  @@index([created_at])
+}
+
+// ============================================================================
 // SUBSCRIPTION & BILLING (STRIPE INTEGRATED)
 // ============================================================================
 
