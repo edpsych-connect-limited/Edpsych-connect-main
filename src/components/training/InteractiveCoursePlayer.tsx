@@ -25,6 +25,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import {
+  DragAndDropElement,
+  SortingElement,
+  FillInTheBlankElement,
+  HotspotImageElement,
+} from './EnhancedInteractiveElements';
+import { ScoringEngine, AttemptResult } from '@/lib/training/scoring-engine';
 
 // ============================================================================
 // TYPES
@@ -58,7 +65,7 @@ interface CourseLesson {
 
 interface InteractiveElement {
   id: string;
-  type: 'quiz' | 'scenario' | 'reflection' | 'case_study' | 'interactive_diagram' | 'video_quiz' | 'poll';
+  type: 'quiz' | 'scenario' | 'reflection' | 'case_study' | 'interactive_diagram' | 'video_quiz' | 'poll' | 'drag_and_drop' | 'sorting' | 'fill_in_blank' | 'hotspot';
   title?: string;
   content: any; // Type-specific content
   isRequired: boolean;
@@ -431,6 +438,14 @@ function InteractiveElementRenderer({
       return <CaseStudyElement element={element} enrollmentId={enrollmentId} onComplete={onComplete} />;
     case 'interactive_diagram':
       return <InteractiveDiagramElement element={element} enrollmentId={enrollmentId} onComplete={onComplete} />;
+    case 'drag_and_drop':
+      return <DragAndDropElement element={element} onComplete={onComplete} />;
+    case 'sorting':
+      return <SortingElement element={element} onComplete={onComplete} />;
+    case 'fill_in_blank':
+      return <FillInTheBlankElement element={element} onComplete={onComplete} />;
+    case 'hotspot':
+      return <HotspotImageElement element={element} onComplete={onComplete} />;
     default:
       return null;
   }
@@ -446,6 +461,16 @@ function QuizElement({ element, enrollmentId, onComplete }: InteractiveElementRe
   const [showFeedback, setShowFeedback] = useState(false);
   const [quizComplete, setQuizComplete] = useState(false);
   const [score, setScore] = useState(0);
+  const [questionStartTime, setQuestionStartTime] = useState(Date.now());
+  const [attemptCounts, setAttemptCounts] = useState<number[]>([]);
+  const [scoringEngine] = useState(new ScoringEngine({
+    basePoints: 100,
+    timeBonus: true,
+    timeBonusMax: 20,
+    timeBonusThreshold: 30,
+    accuracyMultiplier: true,
+    streakBonus: true,
+  }));
 
   const questions = element.content.questions || [];
   const currentQuestion = questions[currentQuestionIndex];
@@ -456,21 +481,38 @@ function QuizElement({ element, enrollmentId, onComplete }: InteractiveElementRe
 
     // Calculate if correct
     const isCorrect = answerIndex === currentQuestion.correct_answer;
+    const timeSpent = Math.floor((Date.now() - questionStartTime) / 1000);
+    const attemptNumber = (attemptCounts[currentQuestionIndex] || 0) + 1;
+
+    // Use scoring engine
+    const attempt: AttemptResult = {
+      isCorrect,
+      timeSpent,
+      attemptNumber,
+    };
+    const scoreResult = scoringEngine.calculateScore(attempt);
+
     if (isCorrect) {
-      setScore(score + (100 / questions.length));
+      setScore(score + (scoreResult.totalPoints / questions.length));
     }
+
+    // Update attempt count
+    const newAttemptCounts = [...attemptCounts];
+    newAttemptCounts[currentQuestionIndex] = attemptNumber;
+    setAttemptCounts(newAttemptCounts);
 
     // Auto-advance after 2 seconds
     setTimeout(() => {
       if (currentQuestionIndex < questions.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
         setShowFeedback(false);
+        setQuestionStartTime(Date.now());
       } else {
         setQuizComplete(true);
-        const finalScore = isCorrect ? score + (100 / questions.length) : score;
-        onComplete(finalScore);
+        const finalScore = isCorrect ? score + (scoreResult.totalPoints / questions.length) : score;
+        onComplete(Math.min(100, finalScore));
       }
-    }, 2000);
+    }, 2500);
   };
 
   if (quizComplete) {
@@ -495,39 +537,52 @@ function QuizElement({ element, enrollmentId, onComplete }: InteractiveElementRe
   }
 
   return (
-    <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-6 transition-all duration-300 shadow-md hover:shadow-lg">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-xl font-semibold text-blue-900">
+        <h3 className="text-2xl font-bold text-blue-900">
           {element.title || 'Knowledge Check'}
         </h3>
-        <span className="text-sm text-blue-700">
-          Question {currentQuestionIndex + 1} of {questions.length}
-        </span>
+        <div className="flex items-center space-x-4">
+          <span className="text-sm font-medium text-blue-700 bg-blue-100 px-3 py-1 rounded-full">
+            Question {currentQuestionIndex + 1} of {questions.length}
+          </span>
+          {scoringEngine.getCurrentStreak() >= 3 && (
+            <span className="text-sm font-bold text-yellow-700 bg-yellow-100 px-3 py-1 rounded-full animate-pulse">
+              🔥 {scoringEngine.getCurrentStreak()} streak!
+            </span>
+          )}
+        </div>
       </div>
 
       <div className="mb-6">
-        <p className="text-lg text-gray-900 mb-4">{currentQuestion.question}</p>
+        <p className="text-lg text-gray-900 mb-4 font-medium">{currentQuestion.question}</p>
         <div className="space-y-3">
           {currentQuestion.options.map((option: string, index: number) => (
             <button
               key={index}
               onClick={() => handleAnswerSelect(index)}
               disabled={showFeedback}
-              className={`w-full text-left p-4 rounded-lg border-2 transition-colors ${
+              className={`w-full text-left p-4 rounded-lg border-2 transition-all duration-300 transform hover:scale-[1.01] ${
                 showFeedback
                   ? index === currentQuestion.correct_answer
-                    ? 'border-green-500 bg-green-50'
+                    ? 'border-green-500 bg-green-50 shadow-md'
                     : selectedAnswers[currentQuestionIndex] === index
-                    ? 'border-red-500 bg-red-50'
-                    : 'border-gray-200 bg-white'
-                  : 'border-gray-300 bg-white hover:border-blue-500 hover:bg-blue-50'
+                    ? 'border-red-500 bg-red-50 shadow-md'
+                    : 'border-gray-200 bg-white opacity-60'
+                  : 'border-gray-300 bg-white hover:border-blue-500 hover:bg-blue-50 hover:shadow-md'
               }`}
             >
               <div className="flex items-center">
-                <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full border-2 border-current mr-3">
+                <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full border-2 border-current mr-3 font-bold">
                   {String.fromCharCode(65 + index)}
                 </span>
-                <span>{option}</span>
+                <span className="flex-1">{option}</span>
+                {showFeedback && index === currentQuestion.correct_answer && (
+                  <span className="text-green-600 text-2xl animate-scale-in">✓</span>
+                )}
+                {showFeedback && selectedAnswers[currentQuestionIndex] === index && index !== currentQuestion.correct_answer && (
+                  <span className="text-red-600 text-2xl animate-scale-in">✗</span>
+                )}
               </div>
             </button>
           ))}
@@ -535,21 +590,69 @@ function QuizElement({ element, enrollmentId, onComplete }: InteractiveElementRe
       </div>
 
       {showFeedback && (
-        <div className={`p-4 rounded-lg ${
+        <div className={`p-4 rounded-lg animate-slide-down ${
           selectedAnswers[currentQuestionIndex] === currentQuestion.correct_answer
-            ? 'bg-green-100 border border-green-300'
-            : 'bg-red-100 border border-red-300'
+            ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-300'
+            : 'bg-gradient-to-r from-red-50 to-rose-50 border-2 border-red-300'
         }`}>
-          <p className="font-medium mb-2">
-            {selectedAnswers[currentQuestionIndex] === currentQuestion.correct_answer
-              ? '✓ Correct!'
-              : '✗ Incorrect'}
-          </p>
-          <p className="text-sm">{currentQuestion.explanation}</p>
+          <div className="flex items-start space-x-3">
+            <div className="flex-shrink-0 text-3xl">
+              {selectedAnswers[currentQuestionIndex] === currentQuestion.correct_answer ? '🎉' : '💡'}
+            </div>
+            <div className="flex-1">
+              <p className="font-bold text-lg mb-2">
+                {selectedAnswers[currentQuestionIndex] === currentQuestion.correct_answer
+                  ? 'Excellent!'
+                  : 'Not quite, but you\'re learning!'}
+              </p>
+              <p className="text-sm text-gray-700">{currentQuestion.explanation}</p>
+            </div>
+          </div>
         </div>
       )}
     </div>
   );
+}
+
+// Add CSS animations
+const quizStyles = `
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes slide-down {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.3s ease-out;
+  }
+
+  .animate-slide-down {
+    animation: slide-down 0.3s ease-out;
+  }
+`;
+
+if (typeof document !== 'undefined' && !document.getElementById('quiz-styles')) {
+  const styleElement = document.createElement('style');
+  styleElement.id = 'quiz-styles';
+  styleElement.innerHTML = quizStyles;
+  document.head.appendChild(styleElement);
+}
 }
 
 // ============================================================================
