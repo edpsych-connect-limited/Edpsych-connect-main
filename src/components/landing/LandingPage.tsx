@@ -14,6 +14,7 @@ import ECCAFrameworkShowcase from './ECCAFrameworkShowcase';
 import AssessmentLibraryPreview from './AssessmentLibraryPreview';
 import TrainingPlatformSection from './TrainingPlatformSection';
 import InterventionLibraryPreview from './InterventionLibraryPreview';
+import FeatureShowcaseSection from './FeatureShowcaseSection';
 
 export default function LandingPage() {
   const [email, setEmail] = useState('');
@@ -523,6 +524,9 @@ export default function LandingPage() {
 
       {/* Training Platform Section */}
       <TrainingPlatformSection />
+
+      {/* Comprehensive Feature Showcase - Interactive Overview of All Features */}
+      <FeatureShowcaseSection />
 
       {/* Features Section */}
       <section id="features" className="py-20 bg-gradient-to-b from-slate-50 to-white">
