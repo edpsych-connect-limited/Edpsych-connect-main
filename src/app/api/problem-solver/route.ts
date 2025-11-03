@@ -8,7 +8,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { aiService } from '@/services/ai/core';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 // Request validation schema
 const ProblemSolverSchema = z.object({
