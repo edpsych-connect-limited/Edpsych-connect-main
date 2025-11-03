@@ -1280,6 +1280,110 @@ model HelpSearchLog {
 }
 
 // ============================================================================
+// BLOG & CONTENT MARKETING
+// ============================================================================
+
+model BlogCategory {
+  id          String   @id @default(uuid())
+  name        String
+  slug        String   @unique
+  description String?
+  color       String? // Hex color for category badge
+  order_index Int      @default(0)
+  is_active   Boolean  @default(true)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  // Relations
+  posts BlogPost[]
+
+  @@index([slug])
+  @@index([is_active])
+}
+
+model BlogPost {
+  id             String  @id @default(uuid())
+  category_id    String
+  title          String
+  slug           String  @unique
+  content        String  @db.Text
+  excerpt        String?
+  featured_image String? // URL to featured image
+
+  // SEO
+  meta_title       String?
+  meta_description String?
+  keywords         String[] @default([])
+
+  // Author
+  author_name  String
+  author_email String?
+  author_bio   String?
+
+  // Metadata
+  views        Int  @default(0)
+  reading_time Int? // Minutes
+  order_index  Int  @default(0)
+
+  // Status
+  is_published Boolean @default(false)
+  is_featured  Boolean @default(false)
+
+  // Dates
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+  published_at DateTime?
+
+  // Relations
+  category BlogCategory  @relation(fields: [category_id], references: [id], onDelete: Cascade)
+  tags     BlogPostTag[]
+  comments BlogComment[]
+
+  @@index([category_id])
+  @@index([slug])
+  @@index([is_published])
+  @@index([published_at])
+}
+
+model BlogTag {
+  id         String   @id @default(uuid())
+  name       String
+  slug       String   @unique
+  created_at DateTime @default(now())
+
+  // Relations
+  posts BlogPostTag[]
+
+  @@index([slug])
+}
+
+model BlogPostTag {
+  post_id String
+  tag_id  String
+
+  post BlogPost @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  tag  BlogTag  @relation(fields: [tag_id], references: [id], onDelete: Cascade)
+
+  @@id([post_id, tag_id])
+}
+
+model BlogComment {
+  id           String   @id @default(uuid())
+  post_id      String
+  author_name  String
+  author_email String
+  content      String   @db.Text
+  is_approved  Boolean  @default(false)
+  created_at   DateTime @default(now())
+
+  // Relations
+  post BlogPost @relation(fields: [post_id], references: [id], onDelete: Cascade)
+
+  @@index([post_id])
+  @@index([is_approved])
+}
+
+// ============================================================================
 // SUBSCRIPTION & BILLING (STRIPE INTEGRATED)
 // ============================================================================
 
