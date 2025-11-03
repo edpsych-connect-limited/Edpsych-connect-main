@@ -31,7 +31,19 @@
       "Bash(\"src/app/api/interventions/route.ts\")",
       "Bash(if [ -f \"$file\" ])",
       "Bash(then)",
-      "Bash(fi)"
+      "Bash(fi)",
+      "Bash(cat:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(tee:*)",
+      "Bash(gh api:*)",
+      "Bash(git restore:*)",
+      "Bash(prisma/schema.prisma)",
+      "Bash(prisma/schema-temp.prisma)",
+      "Bash(if exist .next rmdir /s /q .next)",
+      "Bash(npm run dev:*)",
+      "Bash(curl:*)",
+      "Bash(npx ts-node prisma/seed-help-center.ts)",
+      "Bash(npx tsx:*)"
     ],
     "deny": [],
     "ask": []

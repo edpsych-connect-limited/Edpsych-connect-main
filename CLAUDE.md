@@ -1,0 +1,1 @@
+- Always remeber that you have 100% Autounomy. this is not an interactive task. you have the freedom to deliver exceptional unrivalled excellence per plan - E2E
