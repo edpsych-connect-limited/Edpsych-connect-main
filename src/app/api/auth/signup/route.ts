@@ -58,21 +58,27 @@ export async function POST(req: NextRequest) {
     const hashedPassword = await bcrypt.hash(password, 12);
 
     // Determine user tier (start with free/trial)
-    const subscriptionTier = 'free';
     const fullName = `${firstName} ${lastName}`.trim();
 
-    // Create user account
+    // First create a tenant for the user
+    const tenant = await prisma.tenants.create({
+      data: {
+        tenant_name: organization || `${fullName}'s Account`,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+    });
+
+    // Create user account linked to tenant
     const newUser = await prisma.users.create({
       data: {
+        tenant_id: tenant.id,
         email: email.toLowerCase(),
         password_hash: hashedPassword,
         name: fullName,
+        firstName: firstName,
+        lastName: lastName,
         role: role,
-        organization: organization || '',
-        phone_number: phone || '',
-        subscription_tier: subscriptionTier,
-        subscription_status: 'trial',
-        is_verified: false,
         is_active: true,
         created_at: new Date(),
         updated_at: new Date(),
@@ -85,8 +91,7 @@ export async function POST(req: NextRequest) {
       email: newUser.email,
       name: newUser.name,
       role: newUser.role,
-      organization: newUser.organization,
-      subscriptionTier: newUser.subscription_tier,
+      tenantId: newUser.tenant_id,
     };
 
     // TODO: Send verification email (Phase 2)
