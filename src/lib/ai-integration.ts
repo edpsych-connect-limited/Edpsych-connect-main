@@ -46,7 +46,7 @@ class AIIntegrationService {
 
   constructor() {
     this.anthropic = new Anthropic({
-      apiKey: process.env.ANTHROPIC_API_KEY,
+      apiKey: process.env.CLAUDE_API_KEY,
     });
 
     this.openai = new OpenAI({

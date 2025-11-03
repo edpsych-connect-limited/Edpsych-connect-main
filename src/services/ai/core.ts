@@ -12,13 +12,13 @@ import { z } from 'zod';
 // Environment validation schema
 const EnvSchema = z.object({
   OPENAI_API_KEY: z.string().optional(),
-  ANTHROPIC_API_KEY: z.string().optional(),
+  CLAUDE_API_KEY: z.string().optional(),
 });
 
 // Validate environment variables
 const env: z.infer<typeof EnvSchema> = {
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
-  ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
+  CLAUDE_API_KEY: process.env.CLAUDE_API_KEY,
 };
 
 // Initialize API clients
@@ -32,9 +32,9 @@ try {
     });
   }
 
-  if (env.ANTHROPIC_API_KEY) {
+  if (env.CLAUDE_API_KEY) {
     anthropicClient = new Anthropic({
-      apiKey: env.ANTHROPIC_API_KEY,
+      apiKey: env.CLAUDE_API_KEY,
     });
   }
 } catch (error) {
