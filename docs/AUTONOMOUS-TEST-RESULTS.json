@@ -1,0 +1,125 @@
+{
+  "timestamp": "2025-11-04T09:24:06.388Z",
+  "summary": {
+    "total": 19,
+    "passed": 10,
+    "failed": 9,
+    "passRate": "52.6"
+  },
+  "tests": [
+    {
+      "name": "Health endpoint returns 200 OK",
+      "passed": true,
+      "details": "",
+      "timestamp": "2025-11-04T09:24:01.001Z"
+    },
+    {
+      "name": "/api/students/16/profile blocks unauthorized access",
+      "passed": true,
+      "details": "",
+      "timestamp": "2025-11-04T09:24:02.208Z"
+    },
+    {
+      "name": "/api/class/dashboard blocks unauthorized access",
+      "passed": true,
+      "details": "",
+      "timestamp": "2025-11-04T09:24:02.680Z"
+    },
+    {
+      "name": "/api/auth/me blocks unauthorized access",
+      "passed": true,
+      "details": "",
+      "timestamp": "2025-11-04T09:24:03.360Z"
+    },
+    {
+      "name": "Protected route requires authentication",
+      "passed": true,
+      "details": "",
+      "timestamp": "2025-11-04T09:24:03.489Z"
+    },
+    {
+      "name": "Teacher login successful",
+      "passed": true,
+      "details": "",
+      "timestamp": "2025-11-04T09:24:04.556Z"
+    },
+    {
+      "name": "Teacher can access /api/auth/me",
+      "passed": false,
+      "details": "Status: 401",
+      "timestamp": "2025-11-04T09:24:04.581Z"
+    },
+    {
+      "name": "Teacher can access student profile API",
+      "passed": false,
+      "details": "Status: 401",
+      "timestamp": "2025-11-04T09:24:04.635Z"
+    },
+    {
+      "name": "Teacher can access class dashboard API",
+      "passed": false,
+      "details": "Status: 401",
+      "timestamp": "2025-11-04T09:24:04.683Z"
+    },
+    {
+      "name": "Student login successful",
+      "passed": true,
+      "details": "",
+      "timestamp": "2025-11-04T09:24:05.228Z"
+    },
+    {
+      "name": "Student can access /api/auth/me",
+      "passed": false,
+      "details": "Status: 401",
+      "timestamp": "2025-11-04T09:24:05.256Z"
+    },
+    {
+      "name": "Student can access own profile",
+      "passed": false,
+      "details": "Status: 401",
+      "timestamp": "2025-11-04T09:24:05.294Z"
+    },
+    {
+      "name": "Parent login successful",
+      "passed": true,
+      "details": "",
+      "timestamp": "2025-11-04T09:24:05.822Z"
+    },
+    {
+      "name": "Parent can access /api/auth/me",
+      "passed": false,
+      "details": "Status: 401",
+      "timestamp": "2025-11-04T09:24:05.842Z"
+    },
+    {
+      "name": "Parent can access own child profile",
+      "passed": false,
+      "details": "Status: 401",
+      "timestamp": "2025-11-04T09:24:05.867Z"
+    },
+    {
+      "name": "🔒 CRITICAL: Parent CANNOT access other children",
+      "passed": true,
+      "details": "✓ Security enforced",
+      "timestamp": "2025-11-04T09:24:05.898Z"
+    },
+    {
+      "name": "EP login successful",
+      "passed": true,
+      "details": "",
+      "timestamp": "2025-11-04T09:24:06.327Z"
+    },
+    {
+      "name": "EP can access /api/auth/me",
+      "passed": false,
+      "details": "Status: 401",
+      "timestamp": "2025-11-04T09:24:06.356Z"
+    },
+    {
+      "name": "EP can access student profile",
+      "passed": false,
+      "details": "Status: 401",
+      "timestamp": "2025-11-04T09:24:06.388Z"
+    }
+  ]
+}
