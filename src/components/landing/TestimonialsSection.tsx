@@ -2,22 +2,22 @@ import React from 'react';
 
 const testimonials = [
   {
-    name: 'Dr. Sarah Chen',
-    role: 'Director of Research, Stanford University',
+    name: 'Sarah Mitchell',
+    role: 'Year 6 Teacher, Birmingham Primary',
     quote:
-      'EdPsych Connect transformed our entire research workflow. What used to take weeks now happens in hours.',
+      'I used to spend 12 hours every weekend planning differentiated lessons. Now the platform does it automatically, and I actually spend Sundays with my family.',
   },
   {
-    name: 'Prof. Michael Rodriguez',
-    role: 'Department Chair, MIT',
+    name: 'James Thompson',
+    role: 'SENCO, Manchester Academy',
     quote:
-      'The AI agents are like having a team of expert research assistants available 24/7.',
+      'The platform automatically builds profiles as students work. No more hunting through files wondering why a child is struggling - I just ask "How is Amara doing?" and get instant answers.',
   },
   {
-    name: 'Dr. Emily Watson',
-    role: 'VP of Academic Innovation, University of Toronto',
+    name: 'Dr. Priya Patel',
+    role: 'Educational Psychologist, Leeds LA',
     quote:
-      'Our student engagement metrics improved by 340% after implementing the Battle Royale system.',
+      'Multi-agency collaboration went from nightmare to seamless. Teachers, parents, and I all see exactly what we need. Parents finally understand their child\'s progress without jargon.',
   },
 ];
 
@@ -26,10 +26,10 @@ export default function TestimonialsSection() {
     <section className="py-20 bg-gradient-to-br from-slate-50 to-white">
       <div className="max-w-6xl mx-auto px-6 text-center">
         <h2 className="text-4xl font-bold text-slate-900 mb-8">
-          What Our Partners Say
+          Teachers Getting Their Time Back
         </h2>
         <p className="text-lg text-slate-600 mb-12">
-          Real results from real institutions transforming education
+          Real educators sharing how the platform transformed their workload
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((t, i) => (

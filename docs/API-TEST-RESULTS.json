@@ -1,0 +1,116 @@
+{
+  "timestamp": "2025-11-04T08:08:51.061Z",
+  "summary": {
+    "total": 21,
+    "passed": 9,
+    "failed": 12,
+    "passRate": "42.9"
+  },
+  "results": [
+    {
+      "name": "Health Check",
+      "passed": true,
+      "message": "Health endpoint returned OK"
+    },
+    {
+      "name": "Unauth /api/students/16/profile",
+      "passed": true,
+      "message": "Correctly blocked: /api/students/16/profile (401)"
+    },
+    {
+      "name": "Unauth /api/class/dashboard",
+      "passed": true,
+      "message": "Correctly blocked: /api/class/dashboard (401)"
+    },
+    {
+      "name": "Unauth /api/auth/me",
+      "passed": true,
+      "message": "Correctly blocked: /api/auth/me (401)"
+    },
+    {
+      "name": "Login TEACHER",
+      "passed": true,
+      "message": "Successfully logged in as TEACHER"
+    },
+    {
+      "name": "Login STUDENT",
+      "passed": true,
+      "message": "Successfully logged in as STUDENT"
+    },
+    {
+      "name": "Login PARENT",
+      "passed": true,
+      "message": "Successfully logged in as PARENT"
+    },
+    {
+      "name": "Login EP",
+      "passed": true,
+      "message": "Successfully logged in as EP"
+    },
+    {
+      "name": "Auth Me TEACHER",
+      "passed": false,
+      "message": "Failed: {\"success\":false,\"error\":\"Not authenticated\"}"
+    },
+    {
+      "name": "Student Profile 16 (TEACHER)",
+      "passed": false,
+      "message": "Failed: {\"error\":\"Unauthorized\"}"
+    },
+    {
+      "name": "Class Dashboard (TEACHER)",
+      "passed": false,
+      "message": "Failed: {\"error\":\"Unauthorized\"}"
+    },
+    {
+      "name": "Students API (TEACHER)",
+      "passed": false,
+      "message": "Failed: {\"error\":\"Authentication required. Please log in.\"}"
+    },
+    {
+      "name": "Assessments (TEACHER)",
+      "passed": false,
+      "message": "Failed: 401"
+    },
+    {
+      "name": "Interventions (TEACHER)",
+      "passed": false,
+      "message": "Failed: 401"
+    },
+    {
+      "name": "EHCP (TEACHER)",
+      "passed": false,
+      "message": "Failed: 401"
+    },
+    {
+      "name": "Auth Me PARENT",
+      "passed": false,
+      "message": "Failed: {\"success\":false,\"error\":\"Not authenticated\"}"
+    },
+    {
+      "name": "Parent Access Own Child",
+      "passed": false,
+      "message": "Parent CANNOT access own child (should be able to!)"
+    },
+    {
+      "name": "Parent Access Other Child",
+      "passed": true,
+      "message": "🔒 SECURITY PASS: Parent blocked from other children"
+    },
+    {
+      "name": "Auth Me STUDENT",
+      "passed": false,
+      "message": "Failed: {\"success\":false,\"error\":\"Not authenticated\"}"
+    },
+    {
+      "name": "Auth Me EP",
+      "passed": false,
+      "message": "Failed: {\"success\":false,\"error\":\"Not authenticated\"}"
+    },
+    {
+      "name": "Students API (EP)",
+      "passed": false,
+      "message": "Failed: {\"error\":\"Authentication required. Please log in.\"}"
+    }
+  ]
+}

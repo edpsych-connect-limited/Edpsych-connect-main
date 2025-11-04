@@ -1,0 +1,538 @@
+// ============================================================================
+// PLATFORM ORCHESTRATION LAYER - DATABASE SCHEMA
+// ============================================================================
+//
+// PURPOSE: The "invisible intelligence" that connects all features into a
+// seamless, automated system reducing teacher workload by 80%.
+//
+// CORE VISION: "No child left behind again" through automatic differentiation,
+// profile building from usage, multi-agency collaboration, and stress-free workflows.
+//
+// This file contains all database models for the Platform Orchestration Layer.
+// To integrate: Copy models into main schema.prisma file.
+//
+// ============================================================================
+
+// ============================================================================
+// STUDENT PROFILE (AUTO-BUILT)
+// ============================================================================
+
+model StudentProfile {
+  id         String @id @default(cuid())
+  tenant_id  Int
+  student_id Int    @unique
+
+  // Auto-Built Learning Profile (from ALL interactions)
+  learning_style        Json? // { visual: 0.7, auditory: 0.3, kinaesthetic: 0.6, confidence: 0.85 }
+  pace_level            String? // "slow", "medium", "fast"
+  difficulty_preference String? // "needs_support", "on_level", "extension"
+
+  // Strengths & Struggles (Auto-Identified)
+  current_strengths String[] @default([]) // Auto-populated from high-performing areas
+  current_struggles String[] @default([]) // Auto-populated from low-performing areas
+
+  // Behavioral Patterns (Auto-Tracked)
+  engagement_score    Float @default(0.5) // 0-1, updated from interactions
+  persistence_score   Float @default(0.5) // 0-1, how often completes challenges
+  collaboration_score Float @default(0.5) // 0-1, peer interaction quality
+
+  // Readiness Predictions (AI-Generated)
+  ready_to_level_up    Boolean @default(false) // Auto-flagged when consistent success
+  needs_intervention   Boolean @default(false) // Auto-flagged when struggling pattern
+  intervention_urgency String? // "low", "medium", "high", "urgent"
+
+  // Cross-Year Continuity
+  historical_sen_needs String[] @default([]) // Preserved across years
+  effective_strategies Json[] // What worked historically (teacher-approved)
+
+  // Metadata
+  profile_confidence Float    @default(0) // 0-1, how much data we have
+  last_synced_at     DateTime @default(now())
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+
+  // Relations
+  tenant              tenants                   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  student             students                  @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  lesson_assignments  StudentLessonAssignment[]
+  progress_snapshots  StudentProgressSnapshot[]
+  automated_actions   AutomatedAction[]
+
+  @@index([tenant_id])
+  @@index([student_id])
+  @@index([needs_intervention])
+  @@index([ready_to_level_up])
+}
+
+// ============================================================================
+// CLASS ROSTER (TEACHER'S CLASS)
+// ============================================================================
+
+model ClassRoster {
+  id         String @id @default(cuid())
+  tenant_id  Int
+  teacher_id Int
+
+  // Class Details
+  class_name    String // "Year 3 Oak", "10B Maths"
+  subject       String? // "Maths", "English", "Mixed" (primary)
+  year_group    String
+  academic_year String
+
+  // Auto-Grouping (System Maintains)
+  urgent_students Int[] @default([]) // Student IDs flagged as urgent
+  needs_support   Int[] @default([]) // Students below expected
+  on_track        Int[] @default([]) // Students meeting expectations
+  exceeding       Int[] @default([]) // Students above expected
+
+  // Settings
+  auto_assign   Boolean @default(true) // Automatic lesson assignment
+  voice_enabled Boolean @default(true)
+
+  // Metadata
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  // Relations
+  tenant       tenants      @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  teacher      users        @relation(fields: [teacher_id], references: [id], onDelete: Cascade)
+  lesson_plans LessonPlan[]
+
+  @@index([tenant_id])
+  @@index([teacher_id])
+  @@index([academic_year])
+}
+
+// ============================================================================
+// LESSON PLAN (TEACHER'S LESSONS)
+// ============================================================================
+
+model LessonPlan {
+  id              String @id @default(cuid())
+  tenant_id       Int
+  class_roster_id String
+  teacher_id      Int
+
+  // Lesson Details
+  title                String
+  subject              String
+  year_group           String
+  curriculum_reference String? // UK National Curriculum reference
+  learning_objectives  String[]
+
+  // Content
+  description  String?
+  base_content Json // Core lesson content
+
+  // Differentiation Levels (Auto-Generated)
+  has_differentiation Boolean  @default(false)
+  difficulty_levels   String[] @default([]) // ["below", "at", "above", "well_above"]
+
+  // Schedule
+  scheduled_for    DateTime?
+  duration_minutes Int       @default(60)
+
+  // Status
+  status String @default("draft") // draft, ready, assigned, in_progress, completed
+
+  // Metadata
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  // Relations
+  tenant              tenants                   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  class_roster        ClassRoster               @relation(fields: [class_roster_id], references: [id], onDelete: Cascade)
+  teacher             users                     @relation(fields: [teacher_id], references: [id], onDelete: Cascade)
+  activities          LessonActivity[]
+  student_assignments StudentLessonAssignment[]
+
+  @@index([tenant_id])
+  @@index([class_roster_id])
+  @@index([teacher_id])
+  @@index([status])
+  @@index([scheduled_for])
+}
+
+// ============================================================================
+// LESSON ACTIVITY (INDIVIDUAL ACTIVITIES IN LESSON)
+// ============================================================================
+
+model LessonActivity {
+  id             String @id @default(cuid())
+  lesson_plan_id String
+
+  // Activity Details
+  title         String
+  activity_type String // "video", "worksheet", "game", "discussion", "assessment"
+  sequence_order Int
+
+  // Base Content
+  base_content    Json
+  base_difficulty String @default("at") // "below", "at", "above"
+
+  // Differentiated Versions (Auto-Generated)
+  differentiated_content Json? // { "below": {...}, "at": {...}, "above": {...}, "well_above": {...} }
+
+  // Timing
+  estimated_duration Int // minutes
+
+  // Success Criteria
+  success_criteria String[]
+
+  // Metadata
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  // Relations
+  lesson_plan        LessonPlan                @relation(fields: [lesson_plan_id], references: [id], onDelete: Cascade)
+  student_responses  StudentActivityResponse[]
+
+  @@index([lesson_plan_id])
+  @@index([sequence_order])
+}
+
+// ============================================================================
+// STUDENT LESSON ASSIGNMENT (DIFFERENTIATED ASSIGNMENT)
+// ============================================================================
+
+model StudentLessonAssignment {
+  id                 String @id @default(cuid())
+  tenant_id          Int
+  student_id         Int
+  lesson_plan_id     String
+  student_profile_id String
+
+  // Assignment Details
+  assigned_difficulty String   @default("at") // "below", "at", "above", "well_above"
+  assigned_at         DateTime @default(now())
+  assigned_by         String   @default("system") // "system" or "teacher_override"
+
+  // Status Tracking
+  status             String    @default("assigned") // assigned, started, completed, needs_help
+  started_at         DateTime?
+  completed_at       DateTime?
+  time_spent_seconds Int       @default(0)
+
+  // Performance
+  success_rate         Float?   // 0-1
+  struggled_activities String[] @default([]) // Activity IDs where student struggled
+  excelled_activities  String[] @default([]) // Activity IDs where student excelled
+
+  // Automated Triggers
+  intervention_triggered Boolean @default(false)
+  parent_notified        Boolean @default(false)
+  teacher_flagged        Boolean @default(false)
+
+  // Metadata
+  updated_at DateTime @updatedAt
+
+  // Relations
+  tenant             tenants                   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  student            students                  @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  lesson_plan        LessonPlan                @relation(fields: [lesson_plan_id], references: [id], onDelete: Cascade)
+  student_profile    StudentProfile            @relation(fields: [student_profile_id], references: [id], onDelete: Cascade)
+  activity_responses StudentActivityResponse[]
+
+  @@index([tenant_id])
+  @@index([student_id])
+  @@index([lesson_plan_id])
+  @@index([status])
+  @@index([intervention_triggered])
+}
+
+// ============================================================================
+// STUDENT ACTIVITY RESPONSE (FINE-GRAINED TRACKING)
+// ============================================================================
+
+model StudentActivityResponse {
+  id                    String @id @default(cuid())
+  student_assignment_id String
+  activity_id           String
+  student_id            Int
+
+  // Response Data
+  response_data Json
+  correct       Boolean?
+  score         Float? // 0-1
+
+  // Behavioral Data
+  time_spent_seconds Int     @default(0)
+  attempts_count     Int     @default(1)
+  help_requested     Boolean @default(false)
+  gave_up            Boolean @default(false)
+
+  // AI Analysis
+  difficulty_mismatch    Boolean @default(false) // Too easy/hard
+  suggested_level_change String? // "move_up", "move_down", "stay"
+
+  // Metadata
+  created_at DateTime @default(now())
+
+  // Relations
+  student_assignment StudentLessonAssignment @relation(fields: [student_assignment_id], references: [id], onDelete: Cascade)
+  activity           LessonActivity          @relation(fields: [activity_id], references: [id], onDelete: Cascade)
+
+  @@index([student_assignment_id])
+  @@index([activity_id])
+  @@index([student_id])
+  @@index([difficulty_mismatch])
+}
+
+// ============================================================================
+// STUDENT PROGRESS SNAPSHOT (POINT-IN-TIME PROGRESS)
+// ============================================================================
+
+model StudentProgressSnapshot {
+  id                 String @id @default(cuid())
+  tenant_id          Int
+  student_id         Int
+  student_profile_id String
+
+  // Snapshot Context
+  snapshot_type String   @default("weekly") // "weekly", "monthly", "term", "year", "milestone"
+  snapshot_date DateTime @default(now())
+
+  // Academic Progress (Aggregated)
+  subjects_progress Json // { "maths": { level: "Y3", subLevel: "secure", trend: "improving" }, ... }
+  overall_pace      String? // "below", "at", "above"
+
+  // Behavioral Progress
+  engagement_trend  String? // "improving", "stable", "declining"
+  persistence_trend String?
+
+  // Key Milestones
+  milestones_achieved String[] @default([])
+  upcoming_milestones String[] @default([])
+
+  // Interventions
+  active_interventions       Int
+  intervention_effectiveness Json?
+
+  // Multi-Agency Relevant Data
+  ehcp_relevant_data  Json?
+  sen_support_summary Json?
+
+  // Metadata
+  created_at DateTime @default(now())
+
+  // Relations
+  tenant          tenants        @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  student         students       @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  student_profile StudentProfile @relation(fields: [student_profile_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id])
+  @@index([student_id])
+  @@index([snapshot_type])
+  @@index([snapshot_date])
+}
+
+// ============================================================================
+// MULTI-AGENCY ACCESS (PERMISSION SCOPING)
+// ============================================================================
+
+model MultiAgencyAccess {
+  id         String @id @default(cuid())
+  tenant_id  Int
+  user_id    Int
+
+  // Access Scope
+  role_type String // "teacher", "form_tutor", "subject_teacher", "head_teacher", "ep", "senco", "parent"
+
+  // Student Access (for role-based filtering)
+  accessible_student_ids Int[] @default([]) // All students this user can see
+  owned_student_ids      Int[] @default([]) // Students directly assigned (teacher's class, parent's child)
+
+  // Data Views Enabled
+  can_view_academic    Boolean @default(true)
+  can_view_behavioral  Boolean @default(true)
+  can_view_ehcp        Boolean @default(false)
+  can_view_assessments Boolean @default(false)
+  can_view_medical     Boolean @default(false)
+
+  // Actions Enabled
+  can_assign_lessons        Boolean @default(false)
+  can_trigger_interventions Boolean @default(false)
+  can_message_parents       Boolean @default(false)
+  can_request_ep            Boolean @default(false)
+
+  // Secondary School Specific
+  is_form_tutor          Boolean @default(false)
+  subject_specialization String?
+
+  // Metadata
+  granted_at DateTime  @default(now())
+  granted_by Int?
+  expires_at DateTime?
+
+  // Relations
+  tenant tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  user   users   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([tenant_id, user_id])
+  @@index([tenant_id])
+  @@index([user_id])
+  @@index([role_type])
+}
+
+// ============================================================================
+// PARENT CHILD LINK (SCOPED PARENT ACCESS)
+// ============================================================================
+
+model ParentChildLink {
+  id         String @id @default(cuid())
+  tenant_id  Int
+  parent_id  Int // users.id where role = "parent"
+  child_id   Int // students.id
+
+  // Relationship
+  relationship_type  String  @default("parent") // "mother", "father", "guardian", "carer"
+  is_primary_contact Boolean @default(false)
+
+  // Permissions
+  can_view_progress  Boolean @default(true)
+  can_view_behavior  Boolean @default(true)
+  can_message_teacher Boolean @default(true)
+  can_view_attendance Boolean @default(true)
+
+  // Communication Preferences
+  notification_email Boolean @default(true)
+  notification_sms   Boolean @default(false)
+  notification_app   Boolean @default(true)
+  digest_frequency   String  @default("weekly") // "daily", "weekly", "monthly"
+
+  // Metadata
+  linked_at   DateTime  @default(now())
+  verified_at DateTime?
+
+  // Relations
+  tenant tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  parent users    @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+  child  students @relation(fields: [child_id], references: [id], onDelete: Cascade)
+
+  @@unique([parent_id, child_id])
+  @@index([tenant_id])
+  @@index([parent_id])
+  @@index([child_id])
+}
+
+// ============================================================================
+// VOICE COMMAND (VOICE INTERFACE LOG)
+// ============================================================================
+
+model VoiceCommand {
+  id         String @id @default(cuid())
+  tenant_id  Int
+  user_id    Int
+
+  // Command Details
+  raw_transcript     String // What was actually said
+  interpreted_intent String // What system understood
+  command_type       String // "query", "action", "navigation"
+
+  // Context
+  context_screen     String?
+  context_student_id Int?
+
+  // Response
+  response_text    String
+  response_data    Json? // Any data returned
+  response_actions String[] @default([]) // Actions taken ["opened_profile", "flagged_intervention"]
+
+  // Performance
+  processing_time_ms Int
+  success            Boolean @default(true)
+  error_message      String?
+
+  // Metadata
+  created_at DateTime @default(now())
+
+  // Relations
+  tenant tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  user   users   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id])
+  @@index([user_id])
+  @@index([created_at])
+  @@index([command_type])
+}
+
+// ============================================================================
+// AUTOMATED ACTION (AUDIT TRAIL)
+// ============================================================================
+
+model AutomatedAction {
+  id         String @id @default(cuid())
+  tenant_id  Int
+
+  // Action Details
+  action_type  String // "profile_updated", "intervention_triggered", "lesson_assigned", "parent_notified", "level_changed"
+  triggered_by String // "assessment_complete", "struggle_pattern", "success_pattern", "ehcp_due", "time_based"
+
+  // Target
+  target_type String // "student", "class", "lesson", "intervention"
+  target_id   String
+  student_id  Int? // If action relates to specific student
+
+  // Action Data
+  action_data Json // Details of what was done
+
+  // Human Review
+  requires_approval Boolean @default(false)
+  approved_by       Int?
+  approved_at       DateTime?
+  rejected_at       DateTime?
+  rejection_reason  String?
+
+  // Outcome
+  outcome_success Boolean @default(true)
+  outcome_data    Json?
+
+  // Metadata
+  created_at DateTime @default(now())
+
+  // Relations
+  tenant          tenants         @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  student_profile StudentProfile? @relation(fields: [student_id], references: [id])
+
+  @@index([tenant_id])
+  @@index([action_type])
+  @@index([student_id])
+  @@index([created_at])
+  @@index([requires_approval])
+}
+
+// ============================================================================
+// RELATION ADDITIONS TO EXISTING MODELS
+// ============================================================================
+//
+// The following relations need to be added to existing models in the main schema:
+//
+// ADD TO: model tenants
+// --------------------
+// student_profiles          StudentProfile[]
+// class_rosters             ClassRoster[]
+// lesson_plans              LessonPlan[]
+// student_lesson_assignments StudentLessonAssignment[]
+// student_progress_snapshots StudentProgressSnapshot[]
+// multi_agency_access        MultiAgencyAccess[]
+// parent_child_links         ParentChildLink[]
+// voice_commands             VoiceCommand[]
+// automated_actions          AutomatedAction[]
+//
+// ADD TO: model students
+// ----------------------
+// student_profile            StudentProfile?
+// lesson_assignments         StudentLessonAssignment[]
+// activity_responses         StudentActivityResponse[]
+// progress_snapshots         StudentProgressSnapshot[]
+// parent_links               ParentChildLink[]
+//
+// ADD TO: model users
+// -------------------
+// class_rosters_teaching     ClassRoster[]
+// lesson_plans_created       LessonPlan[]
+// multi_agency_access        MultiAgencyAccess?
+// parent_child_links         ParentChildLink[]
+// voice_commands             VoiceCommand[]
+//
+// ============================================================================

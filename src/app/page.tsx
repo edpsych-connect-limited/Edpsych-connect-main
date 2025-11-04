@@ -5,8 +5,8 @@ import { Metadata } from 'next';
 import LandingPage from '@/components/landing/LandingPage';
 
 export const metadata: Metadata = {
-  title: 'EdPsych Connect World | Complete Educational Psychology Platform for UK Education',
-  description: 'ECCA cognitive assessment framework, 50+ assessment templates, 100+ evidence-based interventions, professional CPD training, and LA-compliant report generation. For Local Authorities, schools, individual EPs, and researchers. HCPC PYL042340.',
+  title: 'EdPsych Connect World | Teaching That Adapts Itself - Platform Orchestration for UK Education',
+  description: 'Platform intelligence that automatically builds student profiles, differentiates lessons for 40 students, and connects teachers-parents-EPs seamlessly. Save 47+ hours monthly. No child left behind. For Local Authorities, schools, and individual educators. HCPC PYL042340.',
   keywords: [
     'UK SEND support',
     'educational psychology',
@@ -36,15 +36,15 @@ export const metadata: Metadata = {
     'assessment library',
   ],
   openGraph: {
-    title: 'EdPsych Connect World | Complete Educational Psychology Platform',
-    description: 'ECCA cognitive assessment, 50+ templates, 100+ interventions, CPD training, and professional report generation. For LAs, schools, and individual EPs. Founded by HCPC registered Educational Psychologist.',
+    title: 'EdPsych Connect World | Teaching That Adapts Itself',
+    description: 'Invisible platform intelligence that automatically profiles students, differentiates lessons, and connects teachers-parents-EPs. Save 47+ hours monthly. No child left behind. HCPC registered Educational Psychologist-led.',
     type: 'website',
     locale: 'en_GB',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'EdPsych Connect World | Complete EP Platform',
-    description: 'ECCA assessment framework, 50+ templates, 100+ interventions, CPD training. For LAs, schools, and individual EPs. HCPC PYL042340.',
+    title: 'EdPsych Connect World | Teaching That Adapts Itself',
+    description: 'Platform that automatically knows every student, differentiates for 40 learners, and saves teachers 47+ hours monthly. No child left behind. HCPC PYL042340.',
   },
 };
 

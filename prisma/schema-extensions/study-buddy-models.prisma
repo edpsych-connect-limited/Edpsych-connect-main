@@ -1,0 +1,402 @@
+// ============================================================================
+// STUDY BUDDY (AI INTEGRATION) MODELS
+// ============================================================================
+// Phase 6: AI Integration - "Study Buddies" (not "AI Agents")
+// Supports the "invisible AI philosophy" - friendly, approachable AI assistance
+//
+// Purpose: Enable personalized AI recommendations, learning profiles,
+//          conversational AI interface, automated insights, and predictive analytics
+// ============================================================================
+
+// ============================================================================
+// STUDY BUDDY RECOMMENDATIONS
+// ============================================================================
+
+model StudyBuddyRecommendation {
+  id String @id @default(uuid())
+
+  // User targeting
+  user_id   Int
+  tenant_id Int
+
+  // Recommendation details
+  type           String // "course", "intervention", "assessment", "research_article", "training"
+  title          String
+  description    String  @db.Text
+  reason         String  @db.Text // Why this is recommended
+  priority       String  @default("medium") // "low", "medium", "high", "urgent"
+  confidence     Float   @default(0.5) // 0.0 - 1.0
+  expected_value String? // e.g., "Save 2 hours", "Improve engagement by 30%"
+
+  // Resource reference
+  resource_type String // "Course", "Intervention", "Assessment", etc.
+  resource_id   String
+  resource_url  String?
+
+  // Strategy used
+  strategy         String // "content_based", "interest_based", "popularity", "assessment_based", "colleague_based", "predictive"
+  strategy_details Json? // Additional strategy-specific data
+
+  // User interaction
+  status       String   @default("active") // "active", "clicked", "dismissed", "expired", "completed"
+  clicked_at   DateTime?
+  dismissed_at DateTime?
+  completed_at DateTime?
+  feedback     String? // "helpful", "not_helpful", "already_knew"
+
+  // Metadata
+  generated_by_agent String? // Which Study Buddy agent generated this
+  generated_at       DateTime @default(now())
+  expires_at         DateTime? // When this recommendation expires
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+
+  // Relations
+  user   users   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  tenant tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([tenant_id])
+  @@index([status])
+  @@index([type])
+  @@index([priority])
+  @@index([generated_at])
+}
+
+// ============================================================================
+// USER LEARNING PROFILES
+// ============================================================================
+
+model UserLearningProfile {
+  id String @id @default(uuid())
+
+  // User identification
+  user_id   Int      @unique
+  tenant_id Int
+  role      String // "teacher", "ep", "admin", "researcher"
+
+  // Learning preferences (detected by AI)
+  learning_style     String[] @default([]) // "visual", "auditory", "kinesthetic", "reading_writing"
+  preferred_formats  String[] @default([]) // "video", "article", "interactive", "quiz", "game"
+  preferred_duration Int? // Preferred learning session length in minutes
+  preferred_time     String? // "morning", "afternoon", "evening"
+
+  // Interests & expertise
+  interest_areas   String[] @default([]) // e.g., "ADHD", "Dyslexia", "Behavior", "Assessment"
+  expertise_level  Json? // { "ADHD": "expert", "Dyslexia": "intermediate", "Behavior": "beginner" }
+  career_goals     String[] @default([]) // Professional development goals
+  current_projects String[] @default([]) // Active student cases or projects
+
+  // Engagement patterns
+  avg_session_duration  Int      @default(0) // Average session length in minutes
+  most_active_day       String? // "Monday", "Tuesday", etc.
+  most_active_hour      Int? // 0-23
+  engagement_score      Float    @default(0) // 0-100
+  last_active_at        DateTime?
+  total_logins          Int      @default(0)
+  consecutive_days      Int      @default(0)
+  longest_streak        Int      @default(0)
+
+  // Learning behavior
+  courses_started     Int   @default(0)
+  courses_completed   Int   @default(0)
+  completion_rate     Float @default(0) // 0-1
+  avg_quiz_score      Float @default(0) // 0-100
+  total_cpd_hours     Float @default(0)
+  interventions_used  Int   @default(0)
+  assessments_created Int   @default(0)
+
+  // Study Buddy interaction history
+  recommendations_received  Int   @default(0)
+  recommendations_clicked   Int   @default(0)
+  recommendations_completed Int   @default(0)
+  recommendations_dismissed Int   @default(0)
+  total_buddy_interactions  Int   @default(0)
+  favorite_buddy_agent      String? // Most frequently used agent
+
+  // Predictive scores (calculated by AI)
+  churn_risk_score            Float    @default(0) // 0-1, likelihood of disengagement
+  intervention_success_score  Float    @default(0) // 0-1, predicted intervention effectiveness
+  cpd_completion_score        Float    @default(0) // 0-1, likelihood of completing CPD
+  engagement_trend            String   @default("stable") // "improving", "stable", "declining"
+  predicted_next_interest     String? // AI prediction of next area of interest
+
+  // Metadata
+  profile_completeness Float    @default(0) // 0-100
+  last_updated_by_ai   DateTime @default(now())
+  created_at           DateTime @default(now())
+  updated_at           DateTime @updatedAt
+
+  // Relations
+  user   users   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  tenant tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([tenant_id])
+  @@index([role])
+  @@index([engagement_score])
+  @@index([churn_risk_score])
+}
+
+// ============================================================================
+// STUDY BUDDY INTERACTIONS
+// ============================================================================
+
+model StudyBuddyInteraction {
+  id String @id @default(uuid())
+
+  // User and context
+  user_id   Int
+  tenant_id Int
+
+  // Interaction details
+  interaction_type  String // "recommendation", "conversation", "insight", "prediction", "question_answer"
+  agent_used        String // Which Study Buddy agent: "Report Writer", "Lesson Planner", etc.
+  user_input        String? @db.Text // User's query/action
+  agent_response    String? @db.Text // Study Buddy's response
+  conversation_id   String? // For multi-turn conversations
+
+  // Performance metrics
+  response_time_ms Int? // How long the AI took to respond
+  tokens_used      Int? // AI tokens consumed
+  model_used       String? // "gpt-4", "claude-3.5-sonnet", etc.
+  cost_usd         Float? // Estimated cost of this interaction
+
+  // User feedback
+  satisfaction_rating Int? // 1-5 stars
+  was_helpful         Boolean  @default(true)
+  feedback_text       String?  @db.Text
+  reported_issue      Boolean  @default(false)
+  issue_description   String?  @db.Text
+
+  // Context
+  page_context   String? // Where in the app this happened
+  feature_used   String? // Specific feature: "course_recommendation", "report_generation", etc.
+  success        Boolean  @default(true)
+  error_message  String?  @db.Text
+
+  // Follow-up
+  led_to_action     Boolean  @default(false) // Did user take action based on this
+  action_taken      String? // What action: "enrolled_course", "created_intervention", etc.
+  action_timestamp  DateTime?
+
+  // Metadata
+  session_id String? // Tracks session for analytics
+  created_at DateTime @default(now())
+
+  // Relations
+  user   users   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  tenant tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([tenant_id])
+  @@index([interaction_type])
+  @@index([agent_used])
+  @@index([created_at])
+  @@index([satisfaction_rating])
+}
+
+// ============================================================================
+// PREDICTIVE INSIGHTS & AUTOMATED ALERTS
+// ============================================================================
+
+model PredictiveInsight {
+  id String @id @default(uuid())
+
+  // Targeting
+  user_id   Int
+  tenant_id Int
+
+  // Insight details
+  insight_type   String // "churn_warning", "intervention_opportunity", "learning_plateau", "engagement_spike", "cpd_reminder"
+  title          String
+  description    String  @db.Text
+  severity       String  @default("info") // "info", "warning", "critical"
+  priority       Int     @default(50) // 0-100
+
+  // Prediction data
+  prediction_model     String // "churn_predictor", "engagement_analyzer", "intervention_recommender"
+  confidence_score     Float   @default(0.5) // 0-1
+  predicted_outcome    String? // What will happen if no action
+  recommended_action   String  @db.Text // What user should do
+  expected_impact      String? // Expected result if action taken
+
+  // Evidence
+  evidence_data    Json? // Supporting data for this insight
+  trend_direction  String? // "improving", "stable", "declining"
+  comparison_data  Json? // How user compares to peers
+
+  // Actionability
+  is_actionable      Boolean  @default(true)
+  action_button_text String? // "View Course", "Update Profile", etc.
+  action_url         String?
+  estimated_time     Int? // Minutes to complete action
+
+  // User response
+  status        String   @default("active") // "active", "viewed", "acted_upon", "dismissed", "expired"
+  viewed_at     DateTime?
+  acted_at      DateTime?
+  dismissed_at  DateTime?
+  feedback      String? // User's reaction
+
+  // Metadata
+  generated_at DateTime @default(now())
+  expires_at   DateTime? // When this insight is no longer relevant
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  // Relations
+  user   users   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  tenant tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([tenant_id])
+  @@index([insight_type])
+  @@index([severity])
+  @@index([status])
+  @@index([generated_at])
+}
+
+// ============================================================================
+// CONVERSATIONAL AI SESSIONS
+// ============================================================================
+
+model ConversationalAISession {
+  id String @id @default(uuid())
+
+  // User context
+  user_id   Int
+  tenant_id Int
+
+  // Session details
+  session_title     String? // User-provided or auto-generated title
+  primary_agent     String // Which Study Buddy is leading: "Report Writer", "Lesson Planner", etc.
+  session_goal      String? // What user wants to accomplish
+  session_status    String  @default("active") // "active", "completed", "abandoned"
+
+  // Conversation metadata
+  message_count     Int      @default(0)
+  total_tokens      Int      @default(0)
+  total_cost_usd    Float    @default(0)
+  avg_response_time Int      @default(0) // milliseconds
+
+  // Context preservation
+  context_summary   String?  @db.Text // AI-generated summary for context
+  user_preferences  Json? // Session-specific preferences
+  referenced_docs   String[] @default([]) // Document IDs referenced in conversation
+
+  // Outcomes
+  completed_task    Boolean   @default(false)
+  generated_content String?   @db.Text // If AI generated something (report, plan, etc.)
+  exported          Boolean   @default(false)
+  export_format     String? // "pdf", "docx", "json", etc.
+
+  // Quality metrics
+  user_satisfaction Int? // 1-5 rating
+  was_successful    Boolean  @default(true)
+  had_errors        Boolean  @default(false)
+
+  // Timestamps
+  started_at    DateTime  @default(now())
+  last_active   DateTime  @default(now())
+  completed_at  DateTime?
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+
+  // Relations
+  user     users                         @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  tenant   tenants                       @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  messages ConversationalAIMessage[]
+
+  @@index([user_id])
+  @@index([tenant_id])
+  @@index([session_status])
+  @@index([started_at])
+}
+
+// ============================================================================
+// CONVERSATIONAL AI MESSAGES
+// ============================================================================
+
+model ConversationalAIMessage {
+  id String @id @default(uuid())
+
+  // Session reference
+  session_id String
+
+  // Message details
+  role        String // "user", "assistant", "system"
+  content     String @db.Text
+  agent       String? // Which Study Buddy responded (if assistant message)
+
+  // Rendering
+  format              String   @default("text") // "text", "markdown", "html", "code"
+  attachments         String[] @default([]) // File URLs
+  has_code            Boolean  @default(false)
+  has_tables          Boolean  @default(false)
+  contains_pii        Boolean  @default(false) // Privacy flag
+
+  // Performance
+  tokens       Int? // Tokens in this message
+  cost_usd     Float? // Cost of this message
+  response_time_ms Int? // Time to generate (for assistant messages)
+  model_used       String? // AI model used
+
+  // Context
+  in_reply_to  String? // Previous message ID
+  is_edited    Boolean  @default(false)
+  edit_history Json? // Previous versions if edited
+
+  // Metadata
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  // Relations
+  session ConversationalAISession @relation(fields: [session_id], references: [id], onDelete: Cascade)
+
+  @@index([session_id])
+  @@index([role])
+  @@index([created_at])
+}
+
+// ============================================================================
+// STUDY BUDDY AGENT USAGE ANALYTICS
+// ============================================================================
+
+model StudyBuddyAgentAnalytics {
+  id String @id @default(uuid())
+
+  // Tracking period
+  date       DateTime @default(now())
+  tenant_id  Int
+  agent_name String // "Report Writer", "Lesson Planner", etc.
+
+  // Usage metrics
+  total_interactions Int   @default(0)
+  unique_users       Int   @default(0)
+  total_tokens       Int   @default(0)
+  total_cost_usd     Float @default(0)
+  avg_response_time  Int   @default(0) // milliseconds
+
+  // Quality metrics
+  avg_satisfaction  Float @default(0) // 0-5
+  success_rate      Float @default(0) // 0-1
+  error_rate        Float @default(0) // 0-1
+  helpful_rate      Float @default(0) // 0-1
+
+  // Popular features
+  most_used_feature  String?
+  feature_usage      Json? // Breakdown by specific feature
+
+  // Metadata
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  // Relations
+  tenant tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+
+  @@unique([date, tenant_id, agent_name])
+  @@index([tenant_id])
+  @@index([agent_name])
+  @@index([date])
+}

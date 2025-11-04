@@ -302,6 +302,86 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Platform Orchestration Highlight */}
+      <section className="py-20 bg-gradient-to-br from-purple-50 to-blue-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-semibold mb-4">
+              <Sparkles className="h-4 w-4" />
+              NEW: Platform Orchestration Layer
+            </div>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Teaching That Adapts Itself
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Invisible intelligence that automatically knows every student,
+              differentiates for 40 learners, and connects teachers-parents-EPs seamlessly.
+              Save 47+ hours monthly. No child left behind.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Automatic Profiling */}
+            <div className="bg-white rounded-xl p-8 shadow-lg border border-purple-100 hover:shadow-xl transition-shadow">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-purple-100 text-purple-600 rounded-lg mb-4">
+                <Brain className="h-6 w-6" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">
+                Builds Profiles Automatically
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Every assessment, every lesson, every intervention automatically updates student profiles. No manual data entry.
+              </p>
+              <div className="text-sm font-semibold text-purple-600">
+                100% Automated
+              </div>
+            </div>
+
+            {/* 3-Minute Differentiation */}
+            <div className="bg-white rounded-xl p-8 shadow-lg border border-purple-100 hover:shadow-xl transition-shadow">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-purple-100 text-purple-600 rounded-lg mb-4">
+                <Zap className="h-6 w-6" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">
+                Differentiates in 3 Minutes
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Input a lesson. Get 40 personalized versions with scaffolding, extensions, and adaptations. One click to assign.
+              </p>
+              <div className="text-sm font-semibold text-purple-600">
+                40 Students, 3 Minutes
+              </div>
+            </div>
+
+            {/* Seamless Connection */}
+            <div className="bg-white rounded-xl p-8 shadow-lg border border-purple-100 hover:shadow-xl transition-shadow">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-purple-100 text-purple-600 rounded-lg mb-4">
+                <Users className="h-6 w-6" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">
+                Connects Everyone
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Teachers, parents, EPs see the same child - different lenses. Parent portal in plain English, teacher view with actions, EP view with EHCP.
+              </p>
+              <div className="text-sm font-semibold text-purple-600">
+                Triple Security
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <a
+              href="/login"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-semibold transition-colors"
+            >
+              See Orchestration in Action
+              <ArrowRight className="h-5 w-5" />
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Customer Segment Selector */}
       <section className="py-12 bg-white border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-4">

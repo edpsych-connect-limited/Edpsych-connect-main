@@ -28,10 +28,10 @@ const HeroSection: React.FC = () => {
   const [challengeAnalysis, setChallengeAnalysis] = useState<any>(null);
 
   const headlines = [
-    "Save 47 Hours Monthly. Transform Every Student. Lead with Evidence.",
-    "87% Less Admin Time. 73% More Student Engagement. Zero Complexity.",
-    "Invisible Technology. Visible Results. Revolutionary Education.",
-    "From Overwhelmed to Empowered. AI That Actually Helps Teachers."
+    "Teaching That Adapts Itself. No Child Left Behind. Ever.",
+    "40 Students. 40 Different Needs. One Platform That Knows Them All.",
+    "47 Hours Back Every Month. Spent Teaching, Not Planning.",
+    "From 'I Can't Reach Everyone' to 'Every Student Gets What They Need.'"
   ];
 
   const liveMetrics: LiveMetrics = {
@@ -134,7 +134,7 @@ const HeroSection: React.FC = () => {
             >
               <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mr-3 animate-pulse" />
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                🚀 Revolutionary AI-Powered Education Platform
+                ✨ Platform That Knows Every Student. Automatically.
               </span>
             </motion.div>
 
@@ -210,10 +210,10 @@ const HeroSection: React.FC = () => {
                     </motion.div>
                     <div>
                       <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                        AI Problem Solver
+                        Ask About Any Student
                       </h3>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Get instant, personalized solutions
+                        Voice or type - instant insights from all their data
                       </p>
                     </div>
                   </div>
@@ -237,7 +237,7 @@ const HeroSection: React.FC = () => {
                       type="text"
                       value={userChallenge}
                       onChange={(e) => setUserChallenge(e.target.value)}
-                      placeholder="Describe your biggest educational challenge... (e.g., 'I spend 3 hours every Sunday writing individual student reports...')"
+                      placeholder="Try: 'How is Amara doing?' or 'Who needs extra support in maths?' or 'Show me today's lesson plans'"
                       className="w-full px-6 py-4 pr-32 text-lg border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 dark:focus:border-blue-400 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all duration-300"
                       onKeyPress={(e) => e.key === 'Enter' && handleChallengeSubmit()}
                     />
@@ -402,10 +402,10 @@ const HeroSection: React.FC = () => {
                     </motion.div>
                     <div>
                       <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                        Live Impact Metrics
+                        Platform Intelligence In Action
                       </h3>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Real-time platform statistics
+                        Automatic differentiation happening right now
                       </p>
                     </div>
                   </div>
@@ -422,10 +422,10 @@ const HeroSection: React.FC = () => {
 
                 <div className="grid grid-cols-2 gap-6">
                   {[
-                    { value: liveMetrics.schools, label: 'Schools Transformed', color: 'from-blue-500 to-blue-600', icon: FaUsers },
+                    { value: liveMetrics.schools, label: 'Teachers Using Platform', color: 'from-blue-500 to-blue-600', icon: FaUsers },
                     { value: liveMetrics.hoursSaved, label: 'Hours Saved This Week', color: 'from-green-500 to-green-600', icon: FaClock },
-                    { value: liveMetrics.students, label: 'Students Engaged', color: 'from-purple-500 to-purple-600', icon: FaUsers },
-                    { value: '98%', label: 'Satisfaction Rate', color: 'from-orange-500 to-orange-600', icon: FaCheckCircle }
+                    { value: liveMetrics.students, label: 'Students Auto-Profiled', color: 'from-purple-500 to-purple-600', icon: FaBrain },
+                    { value: '98%', label: 'Lessons Auto-Differentiated', color: 'from-orange-500 to-orange-600', icon: FaRocket }
                   ].map((metric, index) => {
                     const Icon = metric.icon;
                     return (
@@ -520,10 +520,10 @@ const HeroSection: React.FC = () => {
                     </motion.div>
                     <div>
                       <h3 className="text-2xl font-bold text-white">
-                        Proven Results
+                        Orchestration Impact
                       </h3>
                       <p className="text-sm text-white/80">
-                        Evidence-based outcomes
+                        Real outcomes from invisible intelligence
                       </p>
                     </div>
                   </div>
@@ -539,10 +539,10 @@ const HeroSection: React.FC = () => {
 
                 <div className="space-y-4">
                   {[
-                    { label: 'Admin time reduction', value: evidenceData.adminReduction, color: 'from-green-400 to-emerald-400' },
-                    { label: 'Student engagement increase', value: evidenceData.engagementIncrease, color: 'from-blue-400 to-cyan-400' },
-                    { label: 'Parent satisfaction', value: evidenceData.parentSatisfaction, color: 'from-purple-400 to-pink-400' },
-                    { label: 'School avoidance decrease', value: evidenceData.schoolAvoidanceDecrease, color: 'from-orange-400 to-red-400' }
+                    { label: 'Time on differentiation saved', value: evidenceData.adminReduction, color: 'from-green-400 to-emerald-400' },
+                    { label: 'Students reached who were falling behind', value: evidenceData.engagementIncrease, color: 'from-blue-400 to-cyan-400' },
+                    { label: 'Parents understand their child\'s progress', value: evidenceData.parentSatisfaction, color: 'from-purple-400 to-pink-400' },
+                    { label: 'Multi-agency coordination improved', value: evidenceData.schoolAvoidanceDecrease, color: 'from-orange-400 to-red-400' }
                   ].map((item, index) => (
                     <motion.div
                       key={index}
