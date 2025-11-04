@@ -103,3 +103,14 @@ scott-*.png
 
 .vercel
 nul
+
+# Claude Code local settings (contains local file paths)
+.claude/settings.local.json
+
+# Additional security - prevent accidental secret commits
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.json
+service-account.json
