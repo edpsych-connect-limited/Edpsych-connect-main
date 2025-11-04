@@ -16,7 +16,7 @@
  * Run: npx tsx prisma/seed-orchestration.ts
  */
 
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -652,7 +652,7 @@ async function main() {
           ehcp_relevant_data: student.sen_status ? {
             current_support: 'SEN Support',
             progress_towards_outcomes: 'Making expected progress'
-          } : null
+          } : Prisma.JsonNull
         }
       });
       snapshotCount++;

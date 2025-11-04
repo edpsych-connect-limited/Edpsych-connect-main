@@ -147,6 +147,7 @@ model tenants {
   parent_child_links         ParentChildLink[]
   voice_commands             VoiceCommand[]
   automated_actions          AutomatedAction[]
+  parent_teacher_messages    ParentTeacherMessage[]
 
   @@index([subdomain])
   @@index([tenant_type])
@@ -264,6 +265,10 @@ model users {
   parent_child_links     ParentChildLink[]
   voice_commands         VoiceCommand[]
 
+  // Relations - Parent-Teacher Messaging
+  sent_messages     ParentTeacherMessage[] @relation("SentMessages")
+  received_messages ParentTeacherMessage[] @relation("ReceivedMessages")
+
   @@index([tenant_id])
   @@index([email])
   @@index([is_active])
@@ -296,6 +301,9 @@ model students {
   lesson_assignments StudentLessonAssignment[]
   progress_snapshots StudentProgressSnapshot[]
   parent_links       ParentChildLink[]
+
+  // Relations - Parent-Teacher Messaging
+  parent_teacher_messages ParentTeacherMessage[]
 
   @@unique([tenant_id, unique_id])
   @@index([tenant_id])
@@ -4339,3 +4347,31 @@ model AutomatedAction {
 // ============================================================================
 // END OF PLATFORM ORCHESTRATION LAYER
 // ============================================================================
+
+
+// Parent-Teacher Messaging System
+model ParentTeacherMessage {
+  id           String   @id @default(cuid())
+  tenant_id    Int
+  sender_id    Int      // users.id (parent or teacher)
+  recipient_id Int      // users.id (parent or teacher)
+  student_id   Int?     // Optional: related student context
+  subject      String
+  content      String   @db.Text
+  sent_at      DateTime @default(now())
+  read_at      DateTime?
+  replied_at   DateTime?
+  parent_message_id String? // For threading
+  
+  // Relations
+  tenant    tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  sender    users   @relation("SentMessages", fields: [sender_id], references: [id])
+  recipient users   @relation("ReceivedMessages", fields: [recipient_id], references: [id])
+  student   students? @relation(fields: [student_id], references: [id])
+  
+  @@index([tenant_id])
+  @@index([sender_id])
+  @@index([recipient_id])
+  @@index([student_id])
+  @@index([sent_at])
+}

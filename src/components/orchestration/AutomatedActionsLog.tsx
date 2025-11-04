@@ -655,7 +655,7 @@ export const AutomatedActionsLog: React.FC<AutomatedActionsLogProps> = ({
                 onApprove={(id) => approveMutation.mutate(id)}
                 onReject={(id) => rejectMutation.mutate(id)}
                 onRetry={(id) => retryMutation.mutate(id)}
-                onModify={(id) => toast.info('Modify functionality coming soon')}
+                onModify={(id) => toast('Modify functionality coming soon')}
               />
             ))}
           </>

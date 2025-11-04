@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import {
   BookOpen,
@@ -355,10 +355,14 @@ export const LessonDifferentiationView: React.FC<LessonDifferentiationViewProps>
       return response.json();
     },
     retry: 1,
-    onSuccess: (data) => {
-      setStudentAssignments(data.studentAssignments);
-    },
   });
+
+  // Handle differentiation data updates (React Query v4+ migration)
+  useEffect(() => {
+    if (differentiationData?.studentAssignments) {
+      setStudentAssignments(differentiationData.studentAssignments);
+    }
+  }, [differentiationData]);
 
   // Assign all lessons mutation
   const assignAllMutation = useMutation({
@@ -528,7 +532,7 @@ export const LessonDifferentiationView: React.FC<LessonDifferentiationViewProps>
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onPreview={() => onPreview?.(version.difficulty)}
-            onEdit={() => toast.info('Edit functionality coming soon')}
+            onEdit={() => toast('Edit functionality coming soon')}
             onDragStart={handleDragStart}
           />
         ))}

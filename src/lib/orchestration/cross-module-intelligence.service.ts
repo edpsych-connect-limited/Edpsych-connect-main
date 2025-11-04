@@ -148,7 +148,7 @@ export class CrossModuleIntelligenceService {
     // STEP 1: Update profile
     await ProfileBuilderService.updateProfileFromAssessment({
       assessment_id: entity_data.assessment_id,
-      student_id,
+      student_id: student_id,
       assessment_type: entity_data.assessment_type,
       domain_scores: entity_data.domain_scores,
       overall_score: entity_data.overall_score,
@@ -179,7 +179,7 @@ export class CrossModuleIntelligenceService {
           triggered_by: 'assessment_complete',
           target_type: 'student',
           target_id: student_id.toString(),
-          student_id,
+          student_id: student_id.toString(),
           action_data: {
             assessment_id: entity_data.assessment_id,
             struggle_areas: struggleAnalysis.struggle_areas,
@@ -318,7 +318,7 @@ export class CrossModuleIntelligenceService {
 
     // STEP 3: Update profile
     await ProfileBuilderService.updateProfileFromLessonActivity({
-      student_id,
+      student_id: student_id,
       lesson_id: entity_data.lesson_id,
       activity_id: entity_data.activity_id,
       assigned_difficulty: entity_data.assigned_difficulty,
@@ -390,7 +390,7 @@ export class CrossModuleIntelligenceService {
 
     // STEP 1: Update profile
     await ProfileBuilderService.updateProfileFromLessonActivity({
-      student_id,
+      student_id: student_id,
       lesson_id: entity_data.lesson_id,
       activity_id: entity_data.activity_id,
       assigned_difficulty: entity_data.assigned_difficulty,
@@ -423,7 +423,7 @@ export class CrossModuleIntelligenceService {
               triggered_by: 'lesson_complete',
               target_type: 'student',
               target_id: student_id.toString(),
-              student_id,
+              student_id: student_id.toString(),
               action_data: {
                 recommendation: recommendation.recommendation,
                 reasoning: recommendation.reasoning,
@@ -566,7 +566,7 @@ export class CrossModuleIntelligenceService {
 
     // Update profile with intervention results
     await ProfileBuilderService.updateProfileFromIntervention({
-      student_id,
+      student_id: student_id,
       intervention_id: entity_data.intervention_id,
       intervention_type: entity_data.intervention_type,
       target_area: entity_data.target_area,
@@ -690,7 +690,7 @@ export class CrossModuleIntelligenceService {
 
     // Update profile with Battle Royale performance
     await ProfileBuilderService.updateProfileFromBattleRoyale({
-      student_id,
+      student_id: student_id,
       game_id: entity_data.game_id,
       speed_score: entity_data.speed_score,
       strategy_score: entity_data.strategy_score,
@@ -928,3 +928,6 @@ export class CrossModuleIntelligenceService {
     return expiryMap[actionType] || 72; // Default 3 days
   }
 }
+
+// Export singleton instance for use in API routes
+export const crossModuleIntelligenceService = new CrossModuleIntelligenceService();

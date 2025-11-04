@@ -102,6 +102,11 @@ export class ProfileBuilderService {
         profile = await this.createInitialProfile(student_id);
       }
 
+      // Ensure profile exists after creation attempt
+      if (!profile) {
+        throw new Error(`Failed to create profile for student ${student_id}`);
+      }
+
       // Extract strengths (domains with >80% score)
       const assessmentStrengths = domain_scores
         .filter((d) => d.score / d.max_score >= 0.8)
@@ -328,7 +333,7 @@ export class ProfileBuilderService {
       // If intervention addressed a struggle area, potentially remove from current_struggles
       if (completed && effectiveness_score >= 0.7) {
         const updatedStruggles = profile.current_struggles.filter(
-          (struggle) => !struggle.toLowerCase().includes(target_area.toLowerCase())
+          (struggle: string) => !struggle.toLowerCase().includes(target_area.toLowerCase())
         );
 
         if (updatedStruggles.length < profile.current_struggles.length) {
@@ -381,7 +386,7 @@ export class ProfileBuilderService {
       await prisma.studentProfile.update({
         where: { student_id },
         data: {
-          learning_style: learningStyle,
+          learning_style: learningStyle as any,
           persistence_score: newPersistenceScore,
           profile_confidence: Math.min(1.0, profile.profile_confidence + 0.08),
           last_synced_at: new Date(),
@@ -781,9 +786,11 @@ export class ProfileBuilderService {
     requires_approval: boolean;
   }): Promise<void> {
     try {
+      const { student_id, ...restData } = data;
       await prisma.automatedAction.create({
         data: {
-          ...data,
+          ...restData,
+          student_id: student_id?.toString(),
           outcome_success: true,
         },
       });

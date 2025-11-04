@@ -46,45 +46,14 @@ function makeQueryClient() {
         retry: 2,
         retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
 
-        // Error Handling
-        onError: (error: any) => {
-          console.error('[Orchestration Query Error]:', error);
-
-          // User-friendly error messages
-          if (error?.response?.status === 401) {
-            toast.error('Session expired. Please log in again.');
-          } else if (error?.response?.status === 403) {
-            toast.error('Access denied. You do not have permission to view this data.');
-          } else if (error?.response?.status === 404) {
-            toast.error('Data not found.');
-          } else if (error?.response?.status >= 500) {
-            toast.error('Server error. Please try again in a moment.');
-          } else {
-            toast.error('An error occurred. Please try again.');
-          }
-        },
+        // Note: onError removed in React Query v5 - handle errors at individual query level
       },
 
       mutations: {
         // Retry mutations only once (safer for data modification)
         retry: 1,
 
-        // Error Handling
-        onError: (error: any) => {
-          console.error('[Orchestration Mutation Error]:', error);
-
-          if (error?.response?.status === 401) {
-            toast.error('Session expired. Please log in again.');
-          } else if (error?.response?.status === 403) {
-            toast.error('You do not have permission to perform this action.');
-          } else if (error?.response?.status === 409) {
-            toast.error('Conflict detected. Please refresh and try again.');
-          } else if (error?.response?.status >= 500) {
-            toast.error('Server error. Your changes may not have been saved.');
-          } else {
-            toast.error('An error occurred. Please try again.');
-          }
-        },
+        // Note: onError removed in React Query v5 - handle errors at individual mutation level
       },
     },
   });
@@ -147,8 +116,6 @@ export function OrchestrationQueryProvider({ children }: OrchestrationQueryProvi
       {process.env.NODE_ENV === 'development' && (
         <ReactQueryDevtools
           initialIsOpen={false}
-          position="bottom-right"
-          buttonPosition="bottom-right"
         />
       )}
     </QueryClientProvider>

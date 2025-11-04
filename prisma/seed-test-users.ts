@@ -79,7 +79,7 @@ async function main() {
         data: { teacher_id: teacher.id }
       });
       console.log(`✅ Teacher created: ${teacher.email}`);
-      console.log(`   Assigned to: ${year3Class.class_name} (${year3Class.total_students} students)`);
+      console.log(`   Assigned to: ${year3Class.class_name}`);
     } else {
       console.log(`✅ Teacher created: ${teacher.email}`);
       console.log(`   ⚠️  No class roster found - run orchestration seed first`);
@@ -270,7 +270,7 @@ async function main() {
     console.log(`   Password: ${TEST_PASSWORD}`);
     console.log(`   Role:     Teacher`);
     if (year3Class) {
-      console.log(`   Class:    ${year3Class.class_name} (${year3Class.total_students} students)`);
+      console.log(`   Class:    ${year3Class.class_name}`);
     }
 
     console.log('\n👨‍🎓 STUDENT ACCOUNT:');

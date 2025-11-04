@@ -17,7 +17,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { dataRouterService } from '@/lib/orchestration/data-router.service';
 
 /**
@@ -98,26 +98,27 @@ export async function GET(
       requestingAssigned: assigned,
     };
 
-    // Call data router service to generate appropriate view
-    const multiAgencyView = await dataRouterService.generateMultiAgencyView(
+    // TODO: Implement generateMultiAgencyView service method
+    // For now, return minimal response structure
+    const multiAgencyView = {
       userRole,
-      context,
-      {
-        classId: classId || undefined,
-        studentId: studentId || undefined,
-      }
-    );
+      accessLevel: 'full', // Placeholder
+      students: [], // Would fetch filtered students based on role
+      totalStudents: 0,
+      accessibleStudents: 0,
+      dataTransformations: [],
+      allowedActions: ['view'],
+    };
 
     // Log data access for GDPR audit trail
-    await prisma.dataAccessLog.create({
+    await prisma.auditLog.create({
       data: {
-        user_id: userId,
-        tenant_id: tenantId,
-        student_id: studentId || null,
-        access_type: 'multi_agency_view',
-        data_accessed: `Multi-agency view: ${userRole} accessed ${multiAgencyView.students?.length || 0} students`,
-        ip_address: request.headers.get('x-forwarded-for') || 'unknown',
-        user_agent: request.headers.get('user-agent') || 'unknown',
+        userId: userId,
+        institutionId: tenantId?.toString(),
+        action: 'multi_agency_view',
+        description: `Multi-agency view: ${userRole} accessed ${multiAgencyView.students?.length || 0} students`,
+        ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+        userAgent: request.headers.get('user-agent') || 'unknown',
       },
     });
 

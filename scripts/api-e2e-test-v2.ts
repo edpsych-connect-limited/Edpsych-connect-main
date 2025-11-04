@@ -71,7 +71,7 @@ async function testHealthCheck() {
   logTest('Health Check Endpoint');
   try {
     const response = await fetch(`${BASE_URL}/api/health`);
-    const data = await response.json();
+    const data = await response.json() as { status?: string };
 
     if (response.ok && data.status === 'ok') {
       addResult('Health Check', true, 'Health endpoint returned OK');
@@ -118,7 +118,7 @@ async function testLogin(email: string, password: string, role: string): Promise
       body: JSON.stringify({ email, password }),
     });
 
-    const data = await response.json();
+    const data = await response.json() as any;
 
     if (response.ok && data.success) {
       // Extract cookie from response
@@ -158,7 +158,7 @@ async function testAuthMe(role: string) {
       }
     });
 
-    const data = await response.json();
+    const data = await response.json() as any;
 
     if (response.ok && data.user) {
       addResult(`Auth Me ${role}`, true, `Retrieved user data: ${data.user.email}`);
@@ -187,7 +187,7 @@ async function testStudentProfileAPI(role: string, studentId: number) {
       }
     });
 
-    const data = await response.json();
+    const data = await response.json() as any;
 
     if (response.ok && data.student) {
       addResult(`Student Profile ${studentId} (${role})`, true, `Profile: ${data.student.first_name} ${data.student.last_name}`);
@@ -215,7 +215,7 @@ async function testClassDashboard(role: string) {
       }
     });
 
-    const data = await response.json();
+    const data = await response.json() as any;
 
     if (response.ok) {
       addResult(`Class Dashboard (${role})`, true, `Dashboard accessible`);
@@ -287,7 +287,7 @@ async function testStudentsAPI(role: string) {
       }
     });
 
-    const data = await response.json();
+    const data = await response.json() as any;
 
     if (response.ok && Array.isArray(data)) {
       addResult(`Students API (${role})`, true, `Retrieved ${data.length} students`);

@@ -14,7 +14,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 /**
  * Lesson assignment response structure
@@ -98,9 +98,9 @@ export async function GET(
     console.log(`[Student Lessons API] GET request - Student: ${studentId}, User: ${userId}, Tenant: ${tenantId}`);
 
     // Verify student belongs to tenant
-    const student = await prisma.student.findFirst({
+    const student = await prisma.students.findFirst({
       where: {
-        id: studentId,
+        id: parseInt(studentId),
         tenant_id: tenantId,
       },
       select: {
@@ -119,22 +119,33 @@ export async function GET(
 
     // Build query filters
     const whereClause: any = {
-      student_id: studentId,
+      student_id: parseInt(studentId),
     };
 
     if (status) {
-      whereClause.completion_status = status;
+      whereClause.status = status;
     }
 
     if (subject) {
-      whereClause.subject = subject;
+      whereClause.lesson_plan = {
+        subject: subject,
+      };
     }
 
     // Fetch lesson assignments
     const [assignments, totalCount] = await Promise.all([
       prisma.studentLessonAssignment.findMany({
         where: whereClause,
-        orderBy: { assigned_date: 'desc' },
+        include: {
+          lesson_plan: {
+            select: {
+              title: true,
+              subject: true,
+              scheduled_for: true,
+            },
+          },
+        },
+        orderBy: { assigned_at: 'desc' },
         take: limit,
         skip: offset,
       }),
@@ -144,8 +155,8 @@ export async function GET(
     ]);
 
     // Calculate statistics
-    const completedCount = assignments.filter(a => a.completion_status === 'completed').length;
-    const inProgressCount = assignments.filter(a => a.completion_status === 'in_progress').length;
+    const completedCount = assignments.filter(a => a.status === 'completed').length;
+    const inProgressCount = assignments.filter(a => a.status === 'started').length;
 
     // Calculate average success rate
     const successRates = assignments
@@ -158,7 +169,7 @@ export async function GET(
     // Analyze struggle patterns
     const allStruggleAreas: string[] = [];
     assignments.forEach(assignment => {
-      const struggles = assignment.struggle_areas as any;
+      const struggles = assignment.struggled_activities as any;
       if (Array.isArray(struggles)) {
         allStruggleAreas.push(...struggles);
       }
@@ -202,42 +213,34 @@ export async function GET(
 
     // Map lessons to response format
     const lessonDetails: LessonDetail[] = assignments.map(assignment => {
-      const adaptations = assignment.adaptations as any || {};
-
       return {
         assignmentId: assignment.id,
-        lessonTitle: assignment.lesson_title,
-        subject: assignment.subject,
-        difficultyLevel: assignment.difficulty_level,
-        assignedDate: assignment.assigned_date,
-        dueDate: assignment.due_date,
-        completionStatus: assignment.completion_status as 'not_started' | 'in_progress' | 'completed',
-        completedDate: assignment.completed_date,
+        lessonTitle: assignment.lesson_plan.title,
+        subject: assignment.lesson_plan.subject,
+        difficultyLevel: assignment.assigned_difficulty,
+        assignedDate: assignment.assigned_at,
+        dueDate: assignment.lesson_plan.scheduled_for,
+        completionStatus: assignment.status as 'not_started' | 'in_progress' | 'completed',
+        completedDate: assignment.completed_at,
         successRate: assignment.success_rate,
-        timeSpent: assignment.time_spent_minutes,
-        struggleAreas: Array.isArray(assignment.struggle_areas)
-          ? assignment.struggle_areas as string[]
+        timeSpent: Math.floor(assignment.time_spent_seconds / 60),
+        struggleAreas: Array.isArray(assignment.struggled_activities)
+          ? assignment.struggled_activities as string[]
           : [],
-        teacherFeedback: assignment.teacher_feedback,
+        teacherFeedback: null, // Teacher feedback would come from a separate system
         parentNotified: assignment.parent_notified,
-        parentNotificationDate: assignment.parent_notification_date,
+        parentNotificationDate: null, // This field doesn't exist in the model
         adaptations: {
-          scaffoldingProvided: Array.isArray(adaptations.scaffoldingProvided)
-            ? adaptations.scaffoldingProvided
-            : [],
-          extensionActivities: Array.isArray(adaptations.extensionActivities)
-            ? adaptations.extensionActivities
-            : [],
-          visualSupports: Array.isArray(adaptations.visualSupports)
-            ? adaptations.visualSupports
-            : [],
+          scaffoldingProvided: [],
+          extensionActivities: [],
+          visualSupports: [],
         },
       };
     });
 
     // Build response
     const response: StudentLessonResponse = {
-      studentId: student.id,
+      studentId: student.id.toString(),
       studentName: `${student.first_name} ${student.last_name}`,
       totalLessons: totalCount,
       completedLessons: completedCount,
@@ -253,15 +256,16 @@ export async function GET(
     };
 
     // Log data access for GDPR audit trail
-    await prisma.dataAccessLog.create({
+    await prisma.auditLog.create({
       data: {
-        user_id: userId,
-        tenant_id: tenantId,
-        student_id: studentId,
-        access_type: 'student_lessons_view',
-        data_accessed: `Student lesson assignments (${assignments.length} lessons)`,
-        ip_address: request.headers.get('x-forwarded-for') || 'unknown',
-        user_agent: request.headers.get('user-agent') || 'unknown',
+        userId: userId,
+        institutionId: tenantId?.toString(),
+        entityId: studentId,
+        entityType: 'student',
+        action: 'student_lessons_view',
+        description: `Student lesson assignments (${assignments.length} lessons)`,
+        ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+        userAgent: request.headers.get('user-agent') || 'unknown',
       },
     });
 

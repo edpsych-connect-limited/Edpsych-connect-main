@@ -66,7 +66,16 @@
       "Bash(else echo \"Cache already clean\")",
       "Bash(netstat:*)",
       "Bash(findstr:*)",
-      "Bash(.gitignore)"
+      "Bash(.gitignore)",
+      "Bash(for file in src/app/api/class/[id]/actions/route.ts src/app/api/class/[id]/students/route.ts src/app/api/lessons/assign/route.ts src/app/api/lessons/differentiate/route.ts src/app/api/multi-agency/ep-dashboard/route.ts src/app/api/multi-agency/view/route.ts src/app/api/parent/messages/route.ts \"src/app/api/parent/portal/[childId]/route.ts\" \"src/app/api/students/[id]/lessons/route.ts\" \"src/app/api/students/[id]/profile/route.ts\" src/app/api/voice/command/route.ts)",
+      "Bash(do sed -i \"s/import prisma from ''@\\/lib\\/prisma''/import { prisma } from ''@\\/lib\\/prisma''/g\" \"$file\")",
+      "Bash(src/lib/orchestration/cross-module-intelligence.service.ts)",
+      "Bash(src/lib/orchestration/assignment-engine.service.ts)",
+      "Bash(src/lib/orchestration/data-router.service.ts)",
+      "Bash(timeout 120 npm run build)",
+      "Bash(timeout 240 npm run build)",
+      "Bash(timeout 300 npm run build:*)",
+      "Bash(1)"
     ],
     "deny": [],
     "ask": []

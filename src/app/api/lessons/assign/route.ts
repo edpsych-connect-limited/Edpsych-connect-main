@@ -17,7 +17,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { crossModuleIntelligenceService } from '@/lib/orchestration/cross-module-intelligence.service';
 import { z } from 'zod';
 
@@ -148,10 +148,10 @@ export async function POST(
     const validation = assignmentRequestSchema.safeParse(body);
 
     if (!validation.success) {
-      console.warn(`[Lesson Assignment API] Validation failed:`, validation.error.errors);
+      console.warn(`[Lesson Assignment API] Validation failed:`, validation.error.issues);
       return NextResponse.json({
         error: 'Validation failed',
-        errors: validation.error.errors
+        errors: validation.error.issues
       }, { status: 400 });
     }
 
@@ -189,9 +189,9 @@ export async function POST(
 
       try {
         // Verify student belongs to tenant
-        const student = await prisma.student.findFirst({
+        const student = await prisma.students.findFirst({
           where: {
-            id: assignment.studentId,
+            id: parseInt(assignment.studentId),
             tenant_id: tenantId,
           },
           select: {
@@ -212,75 +212,42 @@ export async function POST(
         }
 
         // Create lesson assignment record
+        if (!tenantId) {
+          throw new Error('Tenant ID is required');
+        }
+
         const lessonAssignment = await prisma.studentLessonAssignment.create({
           data: {
-            student_id: assignment.studentId,
-            lesson_title: assignment.lessonTitle,
-            subject: assignment.subject,
-            difficulty_level: assignment.difficultyLevel,
-            learning_objectives: assignment.learningObjectives,
-            activities: assignment.activities,
-            adaptations: assignment.adaptations,
-            assigned_date: new Date(),
-            due_date: assignment.dueDate ? new Date(assignment.dueDate) : null,
-            completion_status: 'not_started',
-            assigned_by: userId,
-            parent_notified: false,
+            tenant_id: tenantId,
+            student_id: parseInt(assignment.studentId),
+            lesson_plan_id: `lesson_${Date.now()}`, // Generate unique ID
+            student_profile_id: `profile_${assignment.studentId}`, // Link to student profile
+            assigned_difficulty: assignment.difficultyLevel === 'standard' ? 'at' : assignment.difficultyLevel === 'challenging' ? 'above' : assignment.difficultyLevel === 'highly_scaffolded' ? 'below' : 'at',
+            assigned_by: 'teacher_override',
+            status: 'assigned',
           },
         });
 
         // Notify parent if requested
+        // TODO: Implement parent notification when service method is available
         let parentNotified = false;
         if (assignment.notifyParent) {
-          try {
-            const notificationResult = await crossModuleIntelligenceService.triggerParentNotification({
-              studentId: assignment.studentId,
-              notificationType: 'lesson_assigned',
-              priority: 'normal',
-              message: `New ${assignment.subject} lesson assigned: ${assignment.lessonTitle}`,
-              metadata: {
-                lessonTitle: assignment.lessonTitle,
-                subject: assignment.subject,
-                dueDate: assignment.dueDate,
-                difficultyLevel: assignment.difficultyLevel,
-              },
-            });
-
-            if (notificationResult.success) {
-              parentNotified = true;
-              parentsNotified++;
-
-              // Update assignment record
-              await prisma.studentLessonAssignment.update({
-                where: { id: lessonAssignment.id },
-                data: {
-                  parent_notified: true,
-                  parent_notification_date: new Date(),
-                },
-              });
-            }
-          } catch (notificationError) {
-            console.warn(`[Lesson Assignment API] Parent notification failed for student ${assignment.studentId}:`, notificationError);
-            // Continue with assignment even if notification fails
-          }
+          console.log(`[Lesson Assignment API] Parent notification requested for student ${assignment.studentId} - pending implementation`);
+          // Parent notification service method triggerParentNotification needs to be implemented
         }
 
         // Update student profile (last assigned, difficulty preference)
         try {
           const profile = await prisma.studentProfile.findUnique({
-            where: { student_id: assignment.studentId },
+            where: { student_id: parseInt(assignment.studentId) },
           });
 
           if (profile) {
-            const dataSources = profile.data_sources as any || {};
+            // Update profile timestamp to reflect new lesson assignment
             await prisma.studentProfile.update({
-              where: { student_id: assignment.studentId },
+              where: { student_id: parseInt(assignment.studentId) },
               data: {
-                data_sources: {
-                  ...dataSources,
-                  lessons: (dataSources.lessons || 0) + 1,
-                },
-                updated_at: new Date(),
+                last_synced_at: new Date(),
               },
             });
             profilesUpdated++;
@@ -296,16 +263,20 @@ export async function POST(
             tenant_id: tenantId,
             student_id: assignment.studentId,
             action_type: 'lesson_assigned',
-            trigger_reason: `Differentiated lesson assigned by teacher`,
-            action_taken: JSON.stringify({
+            triggered_by: `teacher_${userId}`,
+            target_type: 'student_lesson',
+            target_id: lessonAssignment.id,
+            action_data: {
               lessonTitle: assignment.lessonTitle,
               subject: assignment.subject,
               difficultyLevel: assignment.difficultyLevel,
               parentNotified,
-            }),
-            success: true,
-            executed_by: userId,
-            executed_at: new Date(),
+            },
+            outcome_success: true,
+            outcome_data: {
+              message: `Differentiated lesson assigned successfully`,
+            },
+            requires_approval: false,
           },
         });
 
@@ -359,14 +330,14 @@ export async function POST(
     console.log(`[Lesson Assignment API] Completed: ${successfulAssignments} successful, ${failedAssignments} failed (${totalTime}ms total)`);
 
     // Log GDPR audit trail
-    await prisma.dataAccessLog.create({
+    await prisma.auditLog.create({
       data: {
-        user_id: userId,
-        tenant_id: tenantId,
-        access_type: 'lesson_assignment_bulk',
-        data_accessed: `Bulk lesson assignment: ${successfulAssignments} students`,
-        ip_address: request.headers.get('x-forwarded-for') || 'unknown',
-        user_agent: request.headers.get('user-agent') || 'unknown',
+        userId: userId,
+        institutionId: tenantId?.toString(),
+        action: 'lesson_assignment_bulk',
+        description: `Bulk lesson assignment: ${successfulAssignments} students`,
+        ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+        userAgent: request.headers.get('user-agent') || 'unknown',
       },
     });
 

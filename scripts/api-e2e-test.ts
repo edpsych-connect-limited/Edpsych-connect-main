@@ -72,7 +72,7 @@ async function testHealthCheck() {
   logTest('Health Check Endpoint');
   try {
     const response = await fetch(`${BASE_URL}/api/health`);
-    const data = await response.json();
+    const data = await response.json() as any;
 
     if (response.ok && data.status === 'ok') {
       addResult('Health Check', true, 'Health endpoint returned OK');
@@ -119,7 +119,7 @@ async function testLogin(email: string, password: string, role: string): Promise
       body: JSON.stringify({ email, password }),
     });
 
-    const data = await response.json();
+    const data = await response.json() as any;
 
     if (response.ok && data.token) {
       addResult(`Login ${role}`, true, `Successfully logged in as ${role}`);
@@ -148,7 +148,7 @@ async function testAuthMe(token: string, role: string) {
     }
 
     const response = await fetch(`${BASE_URL}/api/auth/me`, { headers });
-    const data = await response.json();
+    const data = await response.json() as any;
 
     if (response.ok && data.user) {
       addResult(`Auth Me ${role}`, true, `Retrieved user data for ${role}: ${data.user.email}`);
@@ -170,7 +170,7 @@ async function testStudentProfileAPI(token: string, studentId: number) {
     }
 
     const response = await fetch(`${BASE_URL}/api/students/${studentId}/profile`, { headers });
-    const data = await response.json();
+    const data = await response.json() as any;
 
     if (response.ok && data.student) {
       addResult(`Student Profile ${studentId}`, true, `Retrieved profile: ${data.student.first_name} ${data.student.last_name}`);
@@ -193,7 +193,7 @@ async function testClassDashboard(token: string) {
     }
 
     const response = await fetch(`${BASE_URL}/api/class/dashboard`, { headers });
-    const data = await response.json();
+    const data = await response.json() as any;
 
     if (response.ok) {
       addResult('Class Dashboard', true, `Dashboard data retrieved successfully`);
@@ -251,7 +251,7 @@ async function testStudentsAPI(token: string) {
     }
 
     const response = await fetch(`${BASE_URL}/api/students`, { headers });
-    const data = await response.json();
+    const data = await response.json() as any;
 
     if (response.ok && Array.isArray(data)) {
       addResult('Students API', true, `Retrieved ${data.length} students`);
@@ -275,7 +275,7 @@ async function testAssessmentsAPI(token: string) {
     const response = await fetch(`${BASE_URL}/api/assessments`, { headers });
 
     if (response.ok) {
-      const data = await response.json();
+      const data = await response.json() as any;
       addResult('Assessments API', true, `Assessments endpoint accessible`);
     } else if (response.status === 404) {
       addResult('Assessments API', true, `Assessments endpoint exists (404 = no data yet)`);
@@ -299,7 +299,7 @@ async function testInterventionsAPI(token: string) {
     const response = await fetch(`${BASE_URL}/api/interventions`, { headers });
 
     if (response.ok) {
-      const data = await response.json();
+      const data = await response.json() as any;
       addResult('Interventions API', true, `Interventions endpoint accessible`);
     } else if (response.status === 404) {
       addResult('Interventions API', true, `Interventions endpoint exists (404 = no data yet)`);
@@ -323,7 +323,7 @@ async function testEHCPAPI(token: string) {
     const response = await fetch(`${BASE_URL}/api/ehcp`, { headers });
 
     if (response.ok) {
-      const data = await response.json();
+      const data = await response.json() as any;
       addResult('EHCP API', true, `EHCP endpoint accessible`);
     } else if (response.status === 404) {
       addResult('EHCP API', true, `EHCP endpoint exists (404 = no data yet)`);

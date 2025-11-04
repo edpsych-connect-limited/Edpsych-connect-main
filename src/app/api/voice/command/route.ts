@@ -19,8 +19,8 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
-import prisma from '@/lib/prisma';
-import { voiceCommandService } from '@/lib/orchestration/voice-command.service';
+import { prisma } from '@/lib/prisma';
+import { VoiceCommandService } from '@/lib/orchestration/voice-command.service';
 import { z } from 'zod';
 
 /**
@@ -112,10 +112,10 @@ export async function POST(
     const validation = voiceCommandSchema.safeParse(body);
 
     if (!validation.success) {
-      console.warn(`[Voice Command API] Validation failed:`, validation.error.errors);
+      console.warn(`[Voice Command API] Validation failed:`, validation.error.issues);
       return NextResponse.json({
         error: 'Validation failed',
-        errors: validation.error.errors
+        errors: validation.error.issues
       }, { status: 400 });
     }
 
@@ -160,9 +160,9 @@ export async function POST(
 
     // Verify student context if provided
     if (studentContext) {
-      const student = await prisma.student.findFirst({
+      const student = await prisma.students.findFirst({
         where: {
-          id: studentContext,
+          id: parseInt(studentContext),
           tenant_id: tenantId,
         },
         select: {
@@ -183,61 +183,77 @@ export async function POST(
     }
 
     // Process command using voice command service
-    const commandResult = await voiceCommandService.processCommand(query, context);
-
-    // Build response
-    const response: VoiceCommandResponse = {
-      success: commandResult.success,
-      query,
-      intent: commandResult.intent,
-      response: {
-        text: commandResult.response,
-        spoken: commandResult.spokenResponse || commandResult.response,
-        data: commandResult.data,
+    const voiceCommandRequest = {
+      user_id: parseInt(userId as string),
+      transcript: query,
+      context: {
+        current_screen: classContext || studentContext ? 'dashboard' : 'home',
+        current_student_id: studentContext ? parseInt(studentContext) : undefined,
+        current_class_id: classContext,
       },
-      actions: commandResult.actions?.map(action => ({
-        type: action.type,
-        description: action.description,
-        executed: action.executed,
-        result: action.result,
+    };
+    const commandResult = await VoiceCommandService.processVoiceCommand(voiceCommandRequest);
+
+    // Map service response to route response structure
+    const response: VoiceCommandResponse = {
+      success: commandResult.understood,
+      query,
+      intent: commandResult.intent.type, // Extract type from intent object
+      response: {
+        text: commandResult.response.text,
+        spoken: commandResult.response.text, // Use same text for spoken
+        data: commandResult.response.data,
+      },
+      actions: commandResult.response.actions.map((actionText, index) => ({
+        type: commandResult.intent.type,
+        description: actionText,
+        executed: true,
+        result: null,
       })),
       suggestions: commandResult.suggestions || [],
       conversationId: context.conversationId,
-      processingTime: Date.now() - startTime,
+      processingTime: commandResult.processing_time_ms,
     };
 
     // Log command for GDPR audit trail
-    await prisma.dataAccessLog.create({
+    await prisma.auditLog.create({
       data: {
-        user_id: userId,
-        tenant_id: tenantId,
-        student_id: studentContext || null,
-        access_type: 'voice_command',
-        data_accessed: `Voice query: "${query.substring(0, 100)}"`,
-        ip_address: request.headers.get('x-forwarded-for') || 'unknown',
-        user_agent: request.headers.get('user-agent') || 'unknown',
+        userId: userId,
+        institutionId: tenantId?.toString(),
+        entityId: studentContext || null,
+        entityType: 'student',
+        action: 'voice_command',
+        description: `Voice query: "${query.substring(0, 100)}"`,
+        ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+        userAgent: request.headers.get('user-agent') || 'unknown',
       },
     });
+
+    // Ensure tenant ID exists
+    if (!tenantId) {
+      throw new Error('Tenant ID is required');
+    }
 
     // Log as automated action
     await prisma.automatedAction.create({
       data: {
         tenant_id: tenantId,
-        student_id: studentContext || null,
+        student_id: studentContext || undefined,
         action_type: 'voice_command_processed',
-        trigger_reason: `Voice ${inputType} query`,
-        action_taken: JSON.stringify({
+        triggered_by: `voice_${inputType}_query`,
+        target_type: 'student',
+        target_id: studentContext || 'system',
+        action_data: {
           query: query.substring(0, 100),
-          intent: commandResult.intent,
-          success: commandResult.success,
-        }),
-        success: commandResult.success,
-        executed_by: userId,
-        executed_at: new Date(),
+          intent: commandResult.intent.type,
+          understood: commandResult.understood,
+        },
+        outcome_success: commandResult.understood,
+        requires_approval: false,
       },
     });
 
-    console.log(`[Voice Command API] Command processed - Intent: ${commandResult.intent}, Success: ${commandResult.success}, Time: ${response.processingTime}ms`);
+    console.log(`[Voice Command API] Command processed - Intent: ${commandResult.intent.type}, Success: ${commandResult.understood}, Time: ${response.processingTime}ms`);
 
     return NextResponse.json(response);
 

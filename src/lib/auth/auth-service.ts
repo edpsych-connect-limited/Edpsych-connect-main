@@ -14,6 +14,7 @@ import { redirect } from 'next/navigation';
 // Types
 export interface UserSession {
   id: string;
+  user_id?: string; // Backwards compatibility alias for id
   email: string;
   name: string;
   role: 'admin' | 'educator' | 'researcher' | 'student';

@@ -477,7 +477,7 @@ export class DataRouterService {
           year_group: child.year_group || 'Unknown',
           class_name: 'Class Name', // TODO: Get from class roster
           teacher_name: teacher
-            ? `${teacher.first_name} ${teacher.last_name}`
+            ? `${teacher.firstName} ${teacher.lastName}`
             : 'Unknown Teacher',
         },
         weekly_summary: {
@@ -1064,3 +1064,6 @@ export class DataRouterService {
     }
   }
 }
+
+// Export singleton instance for use in API routes
+export const dataRouterService = new DataRouterService();

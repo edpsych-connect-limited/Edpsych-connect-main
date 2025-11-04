@@ -11,25 +11,25 @@
 
 // Core orchestration components
 export { StudentProfileCard } from './StudentProfileCard';
-export type { StudentProfileCardProps } from './StudentProfileCard';
+// Note: StudentProfileCardProps not exported from source file
 
 export { VoiceCommandInterface } from './VoiceCommandInterface';
-export type { VoiceCommandInterfaceProps } from './VoiceCommandInterface';
+// Note: VoiceCommandInterfaceProps not exported from source file
 
 export { TeacherClassDashboard } from './TeacherClassDashboard';
-export type { TeacherClassDashboardProps } from './TeacherClassDashboard';
+// Note: TeacherClassDashboardProps not exported from source file
 
 export { LessonDifferentiationView } from './LessonDifferentiationView';
-export type { LessonDifferentiationViewProps } from './LessonDifferentiationView';
+// Note: LessonDifferentiationViewProps not exported from source file
 
 export { ParentPortal } from './ParentPortal';
-export type { ParentPortalProps } from './ParentPortal';
+// Note: ParentPortalProps not exported from source file
 
 export { MultiAgencyView } from './MultiAgencyView';
-export type { MultiAgencyViewProps } from './MultiAgencyView';
+// Note: MultiAgencyViewProps not exported from source file
 
 export { AutomatedActionsLog } from './AutomatedActionsLog';
-export type { AutomatedActionsLogProps } from './AutomatedActionsLog';
+// Note: AutomatedActionsLogProps not exported from source file
 
 /**
  * Usage Examples:

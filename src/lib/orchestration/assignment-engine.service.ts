@@ -848,9 +848,11 @@ export class AssignmentEngineService {
     requires_approval: boolean;
   }): Promise<void> {
     try {
+      const { student_id, ...restData } = data;
       await prisma.automatedAction.create({
         data: {
-          ...data,
+          ...restData,
+          student_id: student_id?.toString(),
           outcome_success: true,
         },
       });
@@ -860,3 +862,6 @@ export class AssignmentEngineService {
     }
   }
 }
+
+// Export singleton instance for use in API routes
+export const assignmentEngineService = new AssignmentEngineService();

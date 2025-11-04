@@ -18,7 +18,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { assignmentEngineService } from '@/lib/orchestration/assignment-engine.service';
 import { z } from 'zod';
 
@@ -162,10 +162,10 @@ export async function POST(
     const validation = differentiationRequestSchema.safeParse(body);
 
     if (!validation.success) {
-      console.warn(`[Lesson Differentiation API] Validation failed:`, validation.error.errors);
+      console.warn(`[Lesson Differentiation API] Validation failed:`, validation.error.issues);
       return NextResponse.json({
         error: 'Validation failed',
-        errors: validation.error.errors
+        errors: validation.error.issues
       }, { status: 400 });
     }
 
@@ -177,20 +177,13 @@ export async function POST(
         id: classRosterId,
         tenant_id: tenantId,
       },
-      include: {
-        students: {
-          include: {
-            student: {
-              select: {
-                id: true,
-                first_name: true,
-                last_name: true,
-                has_ehcp: true,
-                primary_send_need: true,
-              },
-            },
-          },
-        },
+      select: {
+        id: true,
+        class_name: true,
+        urgent_students: true,
+        needs_support: true,
+        on_track: true,
+        exceeding: true,
       },
     });
 
@@ -201,22 +194,40 @@ export async function POST(
       }, { status: 404 });
     }
 
-    if (classRoster.students.length === 0) {
+    // Aggregate student IDs from all arrays
+    const studentIds = [
+      ...classRoster.urgent_students,
+      ...classRoster.needs_support,
+      ...classRoster.on_track,
+      ...classRoster.exceeding
+    ];
+
+    if (studentIds.length === 0) {
       console.warn(`[Lesson Differentiation API] Empty class roster - Roster: ${classRosterId}`);
       return NextResponse.json({
         error: 'Class roster has no students. Please add students first.'
       }, { status: 400 });
     }
 
-    console.log(`[Lesson Differentiation API] Differentiating for ${classRoster.students.length} students in class: ${classRoster.class_name}`);
+    console.log(`[Lesson Differentiation API] Differentiating for ${studentIds.length} students in class: ${classRoster.class_name}`);
 
-    // Fetch student profiles
-    const studentIds = classRoster.students.map(s => s.student.id);
-    const studentProfiles = await prisma.studentProfile.findMany({
-      where: {
-        student_id: { in: studentIds },
-      },
-    });
+    // Fetch students and profiles
+    const [students, studentProfiles] = await Promise.all([
+      prisma.students.findMany({
+        where: { id: { in: studentIds } },
+        select: {
+          id: true,
+          first_name: true,
+          last_name: true,
+          sen_status: true,
+        },
+      }),
+      prisma.studentProfile.findMany({
+        where: {
+          student_id: { in: studentIds },
+        },
+      }),
+    ]);
 
     const profileMap = new Map(studentProfiles.map(p => [p.student_id, p]));
 
@@ -229,8 +240,7 @@ export async function POST(
       challenging: 0,
     };
 
-    for (const studentEnrollment of classRoster.students) {
-      const student = studentEnrollment.student;
+    for (const student of students) {
       const profile = profileMap.get(student.id);
 
       if (!profile) {
@@ -238,27 +248,88 @@ export async function POST(
         console.warn(`[Lesson Differentiation API] No profile for student ${student.id}, using defaults`);
       }
 
-      // Call assignment engine service for differentiation
-      const differentiatedLesson = await assignmentEngineService.differentiateLessonForStudent(
-        student.id,
-        lessonPlan,
-        profile || null,
-        differentiationFocus || ['task_complexity', 'scaffolding']
-      );
+      // Determine difficulty level based on profile
+      let difficultyLevel: 'highly_scaffolded' | 'supported' | 'standard' | 'challenging';
+      let rationale: string;
+      let estimatedSuccessRate: number;
+      const warnings: string[] = [];
+
+      if (profile && profile.profile_confidence > 0.5) {
+        // Use profile data to determine level
+        const learningStyle = profile.learning_style as any || {};
+        const readingLevel = learningStyle.readingLevel || 'at_level';
+        const hasEHCP = student.sen_status?.toUpperCase().includes('EHCP');
+
+        if (hasEHCP || readingLevel === 'below_level') {
+          difficultyLevel = 'highly_scaffolded';
+          rationale = `High scaffolding recommended based on ${hasEHCP ? 'EHCP status' : 'reading level'}`;
+          estimatedSuccessRate = 0.75;
+        } else if (readingLevel === 'approaching_level') {
+          difficultyLevel = 'supported';
+          rationale = 'Additional support recommended based on current performance';
+          estimatedSuccessRate = 0.80;
+        } else if (readingLevel === 'above_level') {
+          difficultyLevel = 'challenging';
+          rationale = 'Extended challenge recommended based on advanced reading level';
+          estimatedSuccessRate = 0.85;
+        } else {
+          difficultyLevel = 'standard';
+          rationale = 'Standard curriculum content appropriate';
+          estimatedSuccessRate = 0.82;
+        }
+
+        if (profile.profile_confidence < 0.7) {
+          warnings.push('Profile confidence moderate - recommendations may need adjustment');
+        }
+      } else {
+        // Default to standard for insufficient profile data
+        difficultyLevel = 'standard';
+        rationale = 'Standard level assigned - insufficient profile data for personalization';
+        estimatedSuccessRate = 0.75;
+        warnings.push('Limited profile data - consider additional assessment');
+      }
+
+      // Generate adaptations based on difficulty level
+      const adaptations = {
+        objectivesAdjusted: difficultyLevel === 'challenging'
+          ? [`Extended: ${lessonPlan.learningObjectives[0]}`]
+          : difficultyLevel === 'highly_scaffolded'
+          ? [`Simplified: ${lessonPlan.learningObjectives[0]}`]
+          : [],
+        activitiesModified: lessonPlan.activities.map(activity => ({
+          originalActivity: activity.description,
+          modifiedActivity: activity.description,
+          modification: difficultyLevel === 'highly_scaffolded'
+            ? 'Add visual supports and step-by-step guidance'
+            : difficultyLevel === 'challenging'
+            ? 'Add extension tasks and independent research'
+            : 'No modification needed'
+        })),
+        scaffoldingAdded: difficultyLevel === 'highly_scaffolded' || difficultyLevel === 'supported'
+          ? ['Visual aids', 'Worked examples', 'Step-by-step guides']
+          : [],
+        extensionsAdded: difficultyLevel === 'challenging'
+          ? ['Independent research task', 'Higher-order thinking questions']
+          : [],
+        visualSupportsAdded: difficultyLevel === 'highly_scaffolded'
+          ? ['Diagrams', 'Graphic organizers', 'Picture cards']
+          : [],
+        timeAdjustment: difficultyLevel === 'highly_scaffolded' ? 20 : difficultyLevel === 'challenging' ? -10 : 0
+      };
 
       // Count difficulty distribution
-      difficultyDistribution[differentiatedLesson.difficultyLevel] =
-        (difficultyDistribution[differentiatedLesson.difficultyLevel] || 0) + 1;
+      difficultyDistribution[difficultyLevel] =
+        (difficultyDistribution[difficultyLevel] || 0) + 1;
 
       differentiatedVersions.push({
-        studentId: student.id,
+        studentId: student.id.toString(),
         studentName: `${student.first_name} ${student.last_name}`,
-        difficultyLevel: differentiatedLesson.difficultyLevel,
-        profileConfidence: profile?.confidence_score || 0,
-        rationale: differentiatedLesson.rationale,
-        adaptations: differentiatedLesson.adaptations,
-        estimatedSuccessRate: differentiatedLesson.estimatedSuccessRate,
-        warnings: differentiatedLesson.warnings,
+        difficultyLevel,
+        profileConfidence: profile?.profile_confidence || 0,
+        rationale,
+        adaptations,
+        estimatedSuccessRate,
+        warnings,
       });
     }
 
@@ -279,7 +350,7 @@ export async function POST(
     const response: DifferentiationResponse = {
       classRosterId: classRoster.id,
       className: classRoster.class_name,
-      totalStudents: classRoster.students.length,
+      totalStudents: studentIds.length,
       originalLesson: {
         title: lessonPlan.title,
         subject: lessonPlan.subject,
@@ -296,19 +367,27 @@ export async function POST(
     };
 
     // Log differentiation action
+    if (!tenantId) {
+      throw new Error('Tenant ID is required');
+    }
+
     await prisma.automatedAction.create({
       data: {
         tenant_id: tenantId,
         action_type: 'lesson_differentiation_preview',
-        trigger_reason: `Teacher previewed differentiation for class ${classRoster.class_name}`,
-        action_taken: JSON.stringify({
+        triggered_by: `teacher_${userId}`,
+        target_type: 'class_lesson',
+        target_id: classRosterId,
+        action_data: {
           lessonTitle: lessonPlan.title,
           classRosterId,
-          studentCount: classRoster.students.length,
-        }),
-        success: true,
-        executed_by: userId,
-        executed_at: new Date(),
+          studentCount: studentIds.length,
+        },
+        outcome_success: true,
+        outcome_data: {
+          message: `Differentiation preview generated for ${studentIds.length} students`,
+        },
+        requires_approval: false,
       },
     });
 

@@ -1049,3 +1049,6 @@ export class VoiceCommandService {
     }
   }
 }
+
+// Export singleton instance for use in API routes
+export const voiceCommandService = new VoiceCommandService();

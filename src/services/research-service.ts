@@ -105,7 +105,7 @@ export interface DataAccessLevel {
 export interface DataAccessLog {
   timestamp: Date;
   researcherId: string;
-  dataAccessed: string;
+  description: string;
   purpose: string;
   ipAddress: string;
 }
@@ -282,7 +282,7 @@ export class ResearchService {
     this.logDataAccess({
       timestamp: new Date(),
       researcherId: study.principalInvestigator.id,
-      dataAccessed: datasetId,
+      description: `Dataset ${datasetId} accessed for research`,
       purpose: 'Research study data generation',
       ipAddress: 'system'
     });
@@ -312,7 +312,7 @@ export class ResearchService {
     this.logDataAccess({
       timestamp: new Date(),
       researcherId,
-      dataAccessed: `study_${studyId}_data`,
+      description: `Access requested for study_${studyId}_data`,
       purpose: justification,
       ipAddress: 'system'
     });
@@ -568,7 +568,7 @@ export class ResearchService {
    */
   getDataAccessAuditTrail(studyId?: string): DataAccessLog[] {
     if (studyId) {
-      return this.dataAccessLogs.filter(log => log.dataAccessed.includes(studyId));
+      return this.dataAccessLogs.filter(log => log.description.includes(studyId));
     }
     return this.dataAccessLogs;
   }

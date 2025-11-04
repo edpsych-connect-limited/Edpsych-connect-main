@@ -17,7 +17,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 /**
  * Student urgency levels for prioritization
@@ -165,20 +165,13 @@ export async function GET(
         id: classId,
         tenant_id: tenantId,
       },
-      include: {
-        students: {
-          include: {
-            student: {
-              select: {
-                id: true,
-                first_name: true,
-                last_name: true,
-                has_ehcp: true,
-                primary_send_need: true,
-              },
-            },
-          },
-        },
+      select: {
+        id: true,
+        class_name: true,
+        urgent_students: true,
+        needs_support: true,
+        on_track: true,
+        exceeding: true,
       },
     });
 
@@ -189,39 +182,71 @@ export async function GET(
       }, { status: 404 });
     }
 
-    console.log(`[Class Students API] Processing ${classRoster.students.length} students in class: ${classRoster.class_name}`);
+    // Aggregate student IDs from all arrays
+    const studentIds = [
+      ...classRoster.urgent_students,
+      ...classRoster.needs_support,
+      ...classRoster.on_track,
+      ...classRoster.exceeding
+    ];
 
-    // Fetch all student profiles
-    const studentIds = classRoster.students.map(s => s.student.id);
-    const [profiles, assessments, lessons, interventions] = await Promise.all([
+    console.log(`[Class Students API] Processing ${studentIds.length} students in class: ${classRoster.class_name}`);
+
+    // Fetch students and their associated data
+    const [students, profiles, assessments, lessons, cases, interventions] = await Promise.all([
+      prisma.students.findMany({
+        where: { id: { in: studentIds } },
+        select: {
+          id: true,
+          first_name: true,
+          last_name: true,
+          sen_status: true,
+          year_group: true,
+        },
+      }),
       prisma.studentProfile.findMany({
         where: { student_id: { in: studentIds } },
       }),
       prisma.assessment.findMany({
-        where: { student_id: { in: studentIds } },
-        orderBy: { completed_at: 'desc' },
+        where: { studentId: { in: studentIds.map(String) } },
+        orderBy: { assessmentDate: 'desc' },
       }),
       prisma.studentLessonAssignment.findMany({
         where: { student_id: { in: studentIds } },
-        orderBy: { assigned_date: 'desc' },
+        orderBy: { assigned_at: 'desc' },
       }),
-      prisma.intervention.findMany({
+      prisma.cases.findMany({
         where: { student_id: { in: studentIds } },
+        select: { id: true, student_id: true },
+      }),
+      prisma.interventions.findMany({
+        where: {
+          cases: {
+            student_id: { in: studentIds }
+          }
+        },
         orderBy: { start_date: 'desc' },
+        include: {
+          cases: {
+            select: { student_id: true }
+          }
+        }
       }),
     ]);
 
     // Create lookup maps
     const profileMap = new Map(profiles.map(p => [p.student_id, p]));
-    const assessmentsByStudent = new Map<string, any[]>();
-    const lessonsByStudent = new Map<string, any[]>();
-    const interventionsByStudent = new Map<string, any[]>();
+    const assessmentsByStudent = new Map<number, any[]>();
+    const lessonsByStudent = new Map<number, any[]>();
+    const interventionsByStudent = new Map<number, any[]>();
 
+    // Map assessments by converting string IDs back to numbers for lookup
     assessments.forEach(a => {
-      if (!assessmentsByStudent.has(a.student_id)) {
-        assessmentsByStudent.set(a.student_id, []);
+      const studentIdNum = parseInt(a.studentId, 10);
+      if (!assessmentsByStudent.has(studentIdNum)) {
+        assessmentsByStudent.set(studentIdNum, []);
       }
-      assessmentsByStudent.get(a.student_id)!.push(a);
+      assessmentsByStudent.get(studentIdNum)!.push(a);
     });
 
     lessons.forEach(l => {
@@ -231,23 +256,25 @@ export async function GET(
       lessonsByStudent.get(l.student_id)!.push(l);
     });
 
+    // Map interventions by student through case relationship
     interventions.forEach(i => {
-      if (!interventionsByStudent.has(i.student_id)) {
-        interventionsByStudent.set(i.student_id, []);
+      const studentIdNum = i.cases.student_id;
+      if (!interventionsByStudent.has(studentIdNum)) {
+        interventionsByStudent.set(studentIdNum, []);
       }
-      interventionsByStudent.get(i.student_id)!.push(i);
+      interventionsByStudent.get(studentIdNum)!.push(i);
     });
 
     // Build student summaries
     const studentSummaries: StudentSummary[] = [];
     const now = new Date();
 
-    for (const enrollment of classRoster.students) {
-      const student = enrollment.student;
-      const profile = profileMap.get(student.id);
-      const studentAssessments = assessmentsByStudent.get(student.id) || [];
-      const studentLessons = lessonsByStudent.get(student.id) || [];
-      const studentInterventions = interventionsByStudent.get(student.id) || [];
+    for (const student of students) {
+      const studentId = student.id;
+      const profile = profileMap.get(studentId);
+      const studentAssessments = assessmentsByStudent.get(studentId) || [];
+      const studentLessons = lessonsByStudent.get(studentId) || [];
+      const studentInterventions = interventionsByStudent.get(studentId) || [];
 
       // Calculate recent activity
       const lastAssessment = studentAssessments[0];
@@ -255,11 +282,11 @@ export async function GET(
       const lastIntervention = studentInterventions[0];
 
       const pendingAssignments = studentLessons.filter(
-        l => l.completion_status !== 'completed'
+        l => l.status !== 'completed'
       ).length;
 
       const overdueAssignments = studentLessons.filter(
-        l => l.due_date && new Date(l.due_date) < now && l.completion_status !== 'completed'
+        l => l.completed_at === null && l.assigned_at && new Date(l.assigned_at) < new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000) // Overdue if not completed and assigned >7 days ago
       ).length;
 
       // Calculate performance indicators
@@ -290,15 +317,16 @@ export async function GET(
       });
 
       // Calculate days since last assessment
-      const lastAssessmentDays = lastAssessment
-        ? Math.floor((now.getTime() - new Date(lastAssessment.completed_at).getTime()) / (1000 * 60 * 60 * 24))
+      const lastAssessmentDays = lastAssessment && lastAssessment.assessmentDate
+        ? Math.floor((now.getTime() - new Date(lastAssessment.assessmentDate).getTime()) / (1000 * 60 * 60 * 24))
         : null;
 
       // Determine urgency level
+      const hasEhcp = student.sen_status?.toUpperCase().includes('EHCP') || false;
       const { level: urgencyLevel, reasons: urgencyReasons } = calculateUrgencyLevel({
         successRate: averageSuccessRate,
         overdueAssignments,
-        hasEhcp: student.has_ehcp || false,
+        hasEhcp,
         strugglingSubjects: strugglingSubjects.length,
         lastAssessmentDays,
       });
@@ -311,7 +339,7 @@ export async function GET(
       if (strugglingSubjects.length > 0) {
         actionableInsights.push(`Consider intervention for ${strugglingSubjects.join(', ')}`);
       }
-      if (profile && profile.confidence_score < 0.3) {
+      if (profile && profile.profile_confidence < 0.3) {
         actionableInsights.push('Profile confidence low - needs more assessment data');
       }
       if (lastAssessmentDays && lastAssessmentDays > 30) {
@@ -321,23 +349,23 @@ export async function GET(
         actionableInsights.push(`Excelling in ${excellingSubjects.join(', ')} - consider extension activities`);
       }
 
-      // Get learning profile data
-      const learningProfile = profile?.learning_profile as any || {};
+      // Get learning style data
+      const learningProfile = profile?.learning_style as any || {};
 
       studentSummaries.push({
-        studentId: student.id,
+        studentId: student.id.toString(),
         name: `${student.first_name} ${student.last_name}`,
         urgencyLevel,
         urgencyReasons,
-        hasEhcp: student.has_ehcp || false,
-        primarySendNeed: student.primary_send_need,
-        profileConfidence: profile?.confidence_score || 0,
+        hasEhcp,
+        primarySendNeed: student.sen_status,
+        profileConfidence: profile?.profile_confidence || 0,
         learningStyle: learningProfile.primaryLearningStyle || null,
         currentReadingLevel: learningProfile.readingLevel || null,
         currentMathLevel: learningProfile.mathLevel || null,
         recentActivity: {
-          lastAssessmentDate: lastAssessment?.completed_at || null,
-          lastLessonDate: lastLesson?.assigned_date || null,
+          lastAssessmentDate: lastAssessment?.assessmentDate || null,
+          lastLessonDate: lastLesson?.assigned_at || null,
           lastInterventionDate: lastIntervention?.start_date || null,
           pendingAssignments,
           overdueAssignments,
@@ -411,14 +439,14 @@ export async function GET(
     };
 
     // Log data access for GDPR audit trail
-    await prisma.dataAccessLog.create({
+    await prisma.auditLog.create({
       data: {
-        user_id: userId,
-        tenant_id: tenantId,
-        access_type: 'class_students_view',
-        data_accessed: `Class roster with ${studentSummaries.length} student profiles`,
-        ip_address: request.headers.get('x-forwarded-for') || 'unknown',
-        user_agent: request.headers.get('user-agent') || 'unknown',
+        userId: userId,
+        institutionId: tenantId?.toString(),
+        action: 'class_students_view',
+        description: `Class roster with ${studentSummaries.length} student profiles`,
+        ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+        userAgent: request.headers.get('user-agent') || 'unknown',
       },
     });
 

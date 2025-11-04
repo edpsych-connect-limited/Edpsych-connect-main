@@ -19,7 +19,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
 
 /**
@@ -138,11 +138,10 @@ export async function GET(
       select: {
         id: true,
         class_name: true,
-        students: {
-          select: {
-            student_id: true,
-          },
-        },
+        urgent_students: true,
+        needs_support: true,
+        on_track: true,
+        exceeding: true,
       },
     });
 
@@ -153,8 +152,13 @@ export async function GET(
       }, { status: 404 });
     }
 
-    // Build query filters
-    const studentIds = classRoster.students.map(s => s.student_id);
+    // Build query filters - aggregate student IDs from all arrays
+    const studentIds = [
+      ...classRoster.urgent_students,
+      ...classRoster.needs_support,
+      ...classRoster.on_track,
+      ...classRoster.exceeding
+    ];
     const whereClause: any = {
       tenant_id: tenantId,
       OR: [
@@ -170,22 +174,25 @@ export async function GET(
     if (approvalStatus) {
       if (approvalStatus === 'pending') {
         whereClause.requires_approval = true;
-        whereClause.approval_status = null;
-      } else {
-        whereClause.approval_status = approvalStatus;
+        whereClause.approved_at = null;
+        whereClause.rejected_at = null;
+      } else if (approvalStatus === 'approved') {
+        whereClause.approved_at = { not: null };
+      } else if (approvalStatus === 'rejected') {
+        whereClause.rejected_at = { not: null };
       }
     }
 
     if (dateFrom) {
-      whereClause.executed_at = {
-        ...whereClause.executed_at,
+      whereClause.created_at = {
+        ...whereClause.created_at,
         gte: new Date(dateFrom),
       };
     }
 
     if (dateTo) {
-      whereClause.executed_at = {
-        ...whereClause.executed_at,
+      whereClause.created_at = {
+        ...whereClause.created_at,
         lte: new Date(dateTo),
       };
     }
@@ -194,7 +201,7 @@ export async function GET(
     const [actions, totalCount] = await Promise.all([
       prisma.automatedAction.findMany({
         where: whereClause,
-        orderBy: { executed_at: 'desc' },
+        orderBy: { created_at: 'desc' },
         take: limit,
         skip: offset,
       }),
@@ -206,9 +213,10 @@ export async function GET(
     // Fetch student names for actions
     const actionStudentIds = actions
       .filter(a => a.student_id)
-      .map(a => a.student_id as string);
+      .map(a => parseInt(a.student_id as string, 10))
+      .filter(id => !isNaN(id)); // Filter out invalid IDs
 
-    const students = await prisma.student.findMany({
+    const students = await prisma.students.findMany({
       where: {
         id: { in: actionStudentIds },
       },
@@ -220,14 +228,26 @@ export async function GET(
     });
 
     const studentNameMap = new Map(
-      students.map(s => [s.id, `${s.first_name} ${s.last_name}`])
+      students.map(s => [s.id.toString(), `${s.first_name} ${s.last_name}`])
     );
 
     // Map actions to response format
     const actionSummaries: AutomatedActionSummary[] = actions.map(action => {
-      let actionTakenText = action.action_taken;
-      if (typeof action.action_taken === 'object') {
-        actionTakenText = JSON.stringify(action.action_taken);
+      let actionTakenText: string;
+      if (action.action_data === null) {
+        actionTakenText = '';
+      } else if (typeof action.action_data === 'object') {
+        actionTakenText = JSON.stringify(action.action_data);
+      } else {
+        actionTakenText = String(action.action_data);
+      }
+
+      // Derive approval status from timestamps
+      let approvalStatus: 'pending' | 'approved' | 'rejected' | null = null;
+      if (action.requires_approval) {
+        if (action.approved_at) approvalStatus = 'approved';
+        else if (action.rejected_at) approvalStatus = 'rejected';
+        else approvalStatus = 'pending';
       }
 
       return {
@@ -235,14 +255,14 @@ export async function GET(
         studentId: action.student_id,
         studentName: action.student_id ? studentNameMap.get(action.student_id) || 'Unknown' : null,
         actionType: action.action_type as ActionType,
-        triggerReason: action.trigger_reason,
+        triggerReason: action.triggered_by,
         actionTaken: actionTakenText,
-        success: action.success,
+        success: action.outcome_success,
         requiresApproval: action.requires_approval,
-        approvalStatus: action.approval_status as 'pending' | 'approved' | 'rejected' | null,
-        executedBy: action.executed_by,
-        executedAt: action.executed_at,
-        metadata: action.metadata,
+        approvalStatus,
+        executedBy: action.triggered_by, // Schema doesn't track who executed, use triggered_by
+        executedAt: action.created_at,
+        metadata: action.outcome_data,
       };
     });
 
@@ -252,16 +272,16 @@ export async function GET(
       actionsByType[action.action_type] = (actionsByType[action.action_type] || 0) + 1;
     });
 
-    const successfulActions = actions.filter(a => a.success).length;
+    const successfulActions = actions.filter(a => a.outcome_success).length;
     const successRate = actions.length > 0
       ? (successfulActions / actions.length) * 100
       : 0;
 
     const pendingApprovals = actions.filter(
-      a => a.requires_approval && !a.approval_status
+      a => a.requires_approval && !a.approved_at && !a.rejected_at
     ).length;
 
-    const lastActionDate = actions.length > 0 ? actions[0].executed_at : null;
+    const lastActionDate = actions.length > 0 ? actions[0].created_at : null;
 
     // Build response
     const response: ClassActionsResponse = {
@@ -278,14 +298,14 @@ export async function GET(
     };
 
     // Log data access for GDPR audit trail
-    await prisma.dataAccessLog.create({
+    await prisma.auditLog.create({
       data: {
-        user_id: userId,
-        tenant_id: tenantId,
-        access_type: 'class_actions_view',
-        data_accessed: `Class automated actions (${actions.length} actions)`,
-        ip_address: request.headers.get('x-forwarded-for') || 'unknown',
-        user_agent: request.headers.get('user-agent') || 'unknown',
+        userId: userId,
+        institutionId: tenantId?.toString(),
+        action: 'class_actions_view',
+        description: `Class automated actions (${actions.length} actions)`,
+        ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+        userAgent: request.headers.get('user-agent') || 'unknown',
       },
     });
 
@@ -372,10 +392,10 @@ export async function POST(
     const validation = approvalRequestSchema.safeParse(body);
 
     if (!validation.success) {
-      console.warn(`[Class Actions API] Validation failed:`, validation.error.errors);
+      console.warn(`[Class Actions API] Validation failed:`, validation.error.issues);
       return NextResponse.json({
         error: 'Validation failed',
-        errors: validation.error.errors
+        errors: validation.error.issues
       }, { status: 400 });
     }
 
@@ -402,27 +422,36 @@ export async function POST(
       }, { status: 400 });
     }
 
-    if (action.approval_status) {
+    // Check if already approved or rejected
+    if (action.approved_at || action.rejected_at) {
+      const status = action.approved_at ? 'approved' : 'rejected';
       return NextResponse.json({
-        error: `Action already ${action.approval_status}`
+        error: `Action already ${status}`
       }, { status: 400 });
     }
 
     // Update action with approval decision
+    const updateData: any = {
+      approved_by: userId,
+    };
+
+    if (decision === 'approve' || decision === 'modify') {
+      updateData.approved_at = new Date();
+      // Store modifications in outcome_data
+      if (modifications) {
+        updateData.outcome_data = {
+          ...(action.outcome_data as any || {}),
+          modifications,
+        };
+      }
+    } else {
+      updateData.rejected_at = new Date();
+      updateData.rejection_reason = reason;
+    }
+
     const updatedAction = await prisma.automatedAction.update({
       where: { id: actionId },
-      data: {
-        approval_status: decision === 'approve' || decision === 'modify' ? 'approved' : 'rejected',
-        approved_by: userId,
-        approved_at: new Date(),
-        approval_notes: reason,
-        metadata: modifications
-          ? {
-              ...(action.metadata as any || {}),
-              modifications,
-            }
-          : action.metadata,
-      },
+      data: updateData,
     });
 
     let executedAction = null;
@@ -465,14 +494,14 @@ export async function POST(
     }
 
     // Log approval decision
-    await prisma.dataAccessLog.create({
+    await prisma.auditLog.create({
       data: {
-        user_id: userId,
-        tenant_id: tenantId,
-        access_type: 'action_approval',
-        data_accessed: `Action ${decision}: ${action.action_type}`,
-        ip_address: request.headers.get('x-forwarded-for') || 'unknown',
-        user_agent: request.headers.get('user-agent') || 'unknown',
+        userId: userId,
+        institutionId: tenantId?.toString(),
+        action: 'action_approval',
+        description: `Action ${decision}: ${action.action_type}`,
+        ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+        userAgent: request.headers.get('user-agent') || 'unknown',
       },
     });
 
