@@ -1,18 +1,16 @@
-﻿# Legacy Code Audit
+﻿# Legacy Mapping Report
 
-**Date:** 2025-11-06 12:55  
-**Source ZIP:** C:\EdPsychConnect\_imports\legacy_archive.zip
+**Date:** 2025-11-07 00:25
+**Source root:** ileNameChars() + @(':')
 
 ## Summary
 - Images/media imported: 0
 - Docs/HTML/MD imported: 0
-- Web files imported:    
-- API files imported:    
-- DB/schema files:       
+- Legacy landing present: True
+- Errors: 0
 
-## Mapping
-A CSV of source→destination is stored at: docs/ops/legacy_mapping.csv
+## Mapping CSV
+Stored at: docs/ops/legacy_mapping.csv
 
-## Notes
-- node_modules, build artefacts, .git folders were skipped.
-- Potential env keys were collated to config/.env.example (values not copied).
+## Errors (first 20)
+
