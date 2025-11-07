@@ -1,86 +1,78 @@
-# EdPsych Connect: legacy asset remap + landing MDX + CI hardening (v0.9.9-legacy-integration)
+EdPsych Connect: legacy asset remap + landing hardening (v0.9.9-legacy-integration)
 
-**Base**: `main`  
-**Compare**: `feat/legacy-full-ingest`
+Base: main
+Compare: feat/legacy-full-ingest
 
-## Summary
-This PR completes the enterprise-grade ingest of legacy assets and wires them into a modern content/MDX flow. It adds CI gates (lint, test, build, a11y, dependency review), ensures WCAG 2.2 AA checks run on key routes, and prepares the canary rollout to Vercel.
+Summary
 
-## Changes
-- Remap legacy **images/HTML/MD** into the monorepo structure
-- Add **Landing MDX** page that imports `content/legacy/bio.md`
-- Commit **mapping logs**: `docs/ops/legacy_mapping.csv` + `legacy_code_audit.md`
-- Introduce **CI workflow**: lint / test / build / a11y / dependency review
-- Add **pa11y-ci** config targeting `/` and `/landing-legacy`
-- Conventional commit and PR template for future maintenance
+Completes the legacy asset import and wiring for Beta prep. Imports images and markdown, adds a temporary legacy landing page, fixes large-file history, and adds guardrails so .zip archives are ignored going forward.
 
-## Rationale
-- Ensures continuity of your two‑year legacy work with auditable mapping and minimal drift.
-- Moves the legacy landing into the same deployment and analytics surface as the main site.
-- Establishes non-negotiable gates for quality, accessibility, and security from this PR forward.
+Changes (this PR)
 
-## Implementation Notes
-- PowerShell remap script: `tools/rescan-map.ps1` (idempotent; logs to CSV + MD)
-- MDX route: `apps/web/app/(marketing)/landing-legacy/page.mdx` (Next.js 14/15-compatible)
-- Images resolved under `/images/legacy/*` with stable import paths
-- CI uses Node 20 and runs pa11y after build; pa11y targets can be expanded later
+Imported legacy assets into the monorepo:
 
-## Screenshots
-_(add before/after hero/logo and a11y report snippets once canary is live)_
+/apps/web/public/images/legacy/**
 
-## Testing
-1. Run remap locally and ensure non-zero asset count  
-2. `npm run build` succeeds without type errors  
-3. `npm start` → verify `/landing-legacy` renders hero, logo, and `<Bio />`  
-4. `npx pa11y-ci` passes (or see PR annotations if failing)
+/content/legacy/bio.md (+ long-tail MD under /content/legacy/md/**)
 
-## Rollout
-- Vercel preview on PR open  
-- Canary promotion after CI green  
-- Monitor: 24h; roll back via Vercel if anomalies detected
+/site/landing-legacy.html (temporary)
 
-## Checklist
-- [ ] Assets mapped (non-zero count in `apps/web/public/images/legacy`)  
-- [ ] `content/legacy/bio.md` present and imported in MDX  
-- [ ] CI green: lint / test / build / a11y / deps  
-- [ ] WCAG 2.2 AA checks pass on `/` and `/landing-legacy`  
-- [ ] UK spelling & terminology  
-- [ ] No PII in logs; secure defaults upheld
+.gitignore: ignore _imports/*.zip
 
-## Conventional Commits
-```
-chore(legacy): remap images/html/md — 2025-11-06T23:42:07Z
-feat(landing): add MDX landing wired to legacy bio
-ci: add lint/test/build/a11y/dependency-review workflows
-docs(ops): add mapping report and audit
-```
+Removed _imports/legacy_archive.zip from branch history (GitHub 100 MB limit)
 
-## Release Notes
-**v0.9.9-legacy-integration**  
-- Legacy asset ingestion and MDX landing complete  
-- CI hardening and accessibility checks enforced  
-- Canary-ready build for beta
+Updated mapping logs:
 
-## Command Snippets (optional)
+docs/ops/legacy_mapping.csv
 
-### Create PR with GitHub CLI
-```powershell
-# from C:\EdPsychConnect
-gh pr create ^
-  --base main ^
-  --head feat/legacy-full-ingest ^
-  --title "EdPsych Connect: legacy asset remap + landing MDX + CI hardening (v0.9.9-legacy-integration)" ^
-  --body-file .github/pull_request_template.md
-```
+docs/ops/legacy_code_audit.md (re-built from current repo state)
 
-### Validate remap results in CI logs
-```powershell
-(Get-ChildItem "C:\EdPsychConnect\apps\web\public\images\legacy" -Recurse | Measure-Object).Count
-Get-Content "C:\EdPsychConnect\docs\ops\legacy_mapping.csv" | Select-Object -First 5
-```
+Evidence (local verify)
 
-### Evidence to Attach in PR
-- Mapping count + first lines of `legacy_mapping.csv`  
-- Screenshot of `/landing-legacy` (desktop + mobile widths)  
-- Pa11y report excerpt with zero critical violations  
-- Dependency review summary
+Images in /images/legacy: ~61
+
+content/legacy/bio.md: present
+
+site/landing-legacy.html: present
+
+docs/ops/legacy_mapping.csv: has source→destination rows
+
+How reviewers can test (no special setup)
+
+npm install && npm run build && npm start
+
+Visit /landing-legacy (if MDX route is added in a follow-up) or open site/landing-legacy.html directly.
+
+Spot-check images resolve from /images/legacy/**.
+
+Confirm .gitignore contains _imports/*.zip.
+
+Security & privacy
+
+No secrets committed; env files and archives ignored.
+
+Large binary ZIP removed from Git history.
+
+Risks / mitigations
+
+Large volume of legacy MD → contained under /content/legacy/md/**; follow-up will curate a publishable subset.
+
+Temporary HTML landing page → follow-up replaces with MDX page tied to bio.md.
+
+Rollback
+
+Revert this PR (no schema migrations included).
+
+Follow-ups (separate PRs)
+
+MDX landing route that imports content/legacy/bio.md.
+
+CI hardening: lint / test / build / pa11y (WCAG 2.2 AA) / dependency review.
+
+Content curation: move non-publishable MD to an archive/ folder.
+
+Canary deploy to Vercel once CI is green.
+
+Labels
+
+type:chore, area:legacy, release:candidate
