@@ -29,9 +29,11 @@ export const summarizeSolution = (steps: string[]): string => {
   return `This solution includes ${steps.length} actionable steps.`;
 };
 
-export default {
+const solutionUtils = {
   getSolutionSummary,
   generateSolutionSteps,
   validateSolution,
-  summarizeSolution
+  summarizeSolution,
 };
+
+export default solutionUtils;

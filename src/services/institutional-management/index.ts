@@ -31,11 +31,13 @@ export {
 };
 
 // Export default service bundle
-export default {
+const institutionalManagementServices = {
   institutionService,
   departmentService,
   contactService,
   subscriptionService,
   permissionService,
-  auditLogService
+  auditLogService,
 };
+
+export default institutionalManagementServices;

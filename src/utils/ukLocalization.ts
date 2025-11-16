@@ -292,7 +292,7 @@ export const identifyUsSpellings = (text: string): string[] => {
   });
 };
 
-export default {
+const ukLocalization = {
   convertToUkSpelling,
   formatUkDate,
   formatUkDateTime,
@@ -303,5 +303,7 @@ export default {
   identifyUsSpellings,
   convertToUkGradeLevel,
   usToUkSpellings,
-  gradeEquivalents
+  gradeEquivalents,
 };
+
+export default ukLocalization;

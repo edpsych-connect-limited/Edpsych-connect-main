@@ -32,9 +32,11 @@ export function getDatabaseStats(): any {
 }
 
 // Export the connection module
-export default {
+const mongoDbUtils = {
   connectToDatabase,
   getClient,
   closeDatabase,
-  getDatabaseStats
+  getDatabaseStats,
 };
+
+export default mongoDbUtils;

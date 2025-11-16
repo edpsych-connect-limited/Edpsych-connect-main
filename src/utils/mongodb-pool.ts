@@ -248,10 +248,12 @@ export function getConnectionStatistics() {
 }
 
 // Export default object for backward compatibility
-export default {
+const mongodbPool = {
   connectToMongoDB,
   getDatabase,
   getMongoClient,
   closeMongoDBConnection,
   getConnectionStatistics,
 };
+
+export default mongodbPool;
