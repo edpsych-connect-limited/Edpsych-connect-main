@@ -16,11 +16,11 @@ export interface NotificationService {
    * @returns Promise resolving to notification ID if successfully sent
    */
   sendNotification(
-    id: string,
-    type: string,
-    message: string,
-    data?: Record<string, any>,
-    options?: NotificationOptions
+    _id: string,
+    _type: string,
+    _message: string,
+    _data?: Record<string, any>,
+    _options?: NotificationOptions
   ): Promise<string>;
 
   /**
@@ -33,11 +33,11 @@ export interface NotificationService {
    * @returns Promise resolving to array of notification IDs for successfully sent notifications
    */
   sendBulkNotifications(
-    userIds: string[],
-    type: string,
-    message: string,
-    data?: Record<string, any>,
-    options?: NotificationOptions
+    _userIds: string[],
+    _type: string,
+    _message: string,
+    _data?: Record<string, any>,
+    _options?: NotificationOptions
   ): Promise<string[]>;
 
   /**
@@ -46,7 +46,7 @@ export interface NotificationService {
    * @param id ID of the user marking the notification as read
    * @returns Promise resolving to true if successfully marked as read
    */
-  markAsRead(notificationId: string, id: string): Promise<boolean>;
+  markAsRead(_notificationId: string, _id: string): Promise<boolean>;
 
   /**
    * Retrieve notifications for a user
@@ -54,7 +54,7 @@ export interface NotificationService {
    * @param options Optional filtering options
    * @returns Promise resolving to array of notifications
    */
-  getNotifications(id: string, options?: { 
+  getNotifications(_id: string, options?: { 
     unreadOnly?: boolean;
     types?: string[];
     limit?: number;
