@@ -45,10 +45,10 @@ The GitHub Actions workflow is configured but needs:
    - **Value:** (paste your token from Step 1)
 
 2. **Secret Name:** `VERCEL_ORG_ID`
-   - **Value:** `team_Gm0c4kafxDYK5Pi6ksfvCW1I`
+   - **Value:** `team_5w4WlbG1wuQCrvi6Irp9GLbH`
 
 3. **Secret Name:** `VERCEL_PROJECT_ID`
-   - **Value:** `prj_lkWl7nKkELhz1WD6RuhI8myWiCCG`
+   - **Value:** `prj_QF0sNGVBMfIbzFy6lasTfx2V09TW`
 
 ### Step 3: Trigger Deployment
 
@@ -68,8 +68,8 @@ The GitHub Actions workflow is configured but needs:
 | Secret | Purpose | Value |
 |--------|---------|-------|
 | `VERCEL_TOKEN` | Authenticates to Vercel | Your API token |
-| `VERCEL_ORG_ID` | Specifies team | `team_Gm0c4kafxDYK5Pi6ksfvCW1I` |
-| `VERCEL_PROJECT_ID` | Specifies project | `prj_lkWl7nKkELhz1WD6RuhI8myWiCCG` |
+| `VERCEL_ORG_ID` | Specifies team | `team_5w4WlbG1wuQCrvi6Irp9GLbH` |
+| `VERCEL_PROJECT_ID` | Specifies project | `prj_QF0sNGVBMfIbzFy6lasTfx2V09TW` |
 
 Once set, GitHub Actions can automatically deploy to Vercel on every push to main.
 
