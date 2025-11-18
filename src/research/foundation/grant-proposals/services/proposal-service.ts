@@ -1199,7 +1199,7 @@ export class ProposalService {
    */
   onProposalEvent(
     eventType: string,
-    handler: (eventData: any) => void
+    handler: (_eventData: any) => void
   ): void {
     this.events.on(eventType, handler);
   }
@@ -1209,7 +1209,7 @@ export class ProposalService {
    */
   offProposalEvent(
     eventType: string,
-    handler: (eventData: any) => void
+    handler: (_eventData: any) => void
   ): void {
     this.events.off(eventType, handler);
   }

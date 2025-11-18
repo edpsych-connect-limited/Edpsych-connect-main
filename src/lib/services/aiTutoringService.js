@@ -211,7 +211,6 @@ class AITutoringService {
   async generatePersonalisedFeedback(studentId, performanceData, context = {}) {
     try {
       const {
-        feedbackType = 'comprehensive',
         includeStrengths = true,
         includeAreasForImprovement = true,
         includeRecommendations = true
@@ -348,9 +347,7 @@ class AITutoringService {
   async getTutoringAnalytics(filters = {}) {
     try {
       const {
-        timeRange = 30, // days
-        studentId = null,
-        topicId = null
+        timeRange = 30 // days
       } = filters;
 
       const analytics = {
@@ -480,7 +477,7 @@ class AITutoringService {
    * @param {Array} objectives - Learning objectives
    * @returns {Promise<Array>} Learning path
    */
-  async _generateLearningPath(studentModel, topicId, objectives) {
+  async _generateLearningPath(_studentModel, _topicId, _objectives) {
     // Generate personalised learning path based on student model
     const path = [
       {

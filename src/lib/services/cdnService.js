@@ -301,8 +301,7 @@ class CDNService {
     try {
       const {
         startDate = new Date(Date.now() - 24 * 60 * 60 * 1000),
-        endDate = new Date(),
-        granularity = 'hour'
+        endDate = new Date()
       } = options;
 
       const analytics = {
@@ -620,7 +619,7 @@ class CDNService {
    * @private
    * @param {Object} rules - Caching rules
    */
-  async _applyCachingRules(rules) {
+  async _applyCachingRules(_rules) {
     // This would apply caching rules to the CDN provider
     logger.info('Applying caching rules to CDN');
   }
@@ -645,7 +644,7 @@ class CDNService {
    * @param {Date} endDate - End date
    * @returns {Promise<Object>} Regional analytics
    */
-  async _getRegionalAnalytics(startDate, endDate) {
+  async _getRegionalAnalytics(_startDate, _endDate) {
     // This would get real regional analytics from the CDN provider
     // For demonstration, return mock data
     return {
@@ -663,7 +662,7 @@ class CDNService {
    * @param {Date} endDate - End date
    * @returns {Promise<Object>} Content type analytics
    */
-  async _getContentTypeAnalytics(startDate, endDate) {
+  async _getContentTypeAnalytics(_startDate, _endDate) {
     // This would get real content type analytics from the CDN provider
     return {
       'text/html': { requests: 5000, bandwidth: 1000000 },
@@ -681,7 +680,7 @@ class CDNService {
    * @param {Date} endDate - End date
    * @returns {Promise<Array>} Top content
    */
-  async _getTopContent(startDate, endDate) {
+  async _getTopContent(_startDate, _endDate) {
     // This would get real top content analytics from the CDN provider
     return [
       { path: '/static/main.js', requests: 5000, bandwidth: 2500000 },

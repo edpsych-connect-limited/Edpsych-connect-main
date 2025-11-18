@@ -122,9 +122,10 @@ model tenants {
   friendships   friendships[]
 
   // Relations - EHCP/SEND
-  ehcps       ehcps[]
-  sen_details sen_details[]
-  attachments attachments[]
+  ehcps         ehcps[]
+  ehcp_versions ehcp_versions[]
+  sen_details   sen_details[]
+  attachments   attachments[]
 
   // Relations - Research
   research_studies research_studies[]
@@ -187,6 +188,7 @@ model users {
 
   // Relations - Tenant
   tenants tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  ehcp_versions ehcp_versions[]
 
   // Relations - Educational
   assessments               assessments[]
@@ -879,9 +881,29 @@ model ehcps {
 
   // Relations
   tenants tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  versions ehcp_versions[]
 
   @@index([tenant_id])
   @@index([student_id])
+}
+
+model ehcp_versions {
+  id            String       @id @default(cuid())
+  ehcp_id       String
+  tenant_id     Int
+  created_by_id Int?
+  status        String
+  plan_details  Json
+  change_summary String?
+  created_at    DateTime     @default(now())
+
+  // Relations
+  ehcp    ehcps   @relation(fields: [ehcp_id], references: [id], onDelete: Cascade)
+  tenants tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  created_by users? @relation(fields: [created_by_id], references: [id])
+
+  @@index([ehcp_id])
+  @@index([tenant_id])
 }
 
 model sen_details {
@@ -4375,3 +4397,125 @@ model ParentTeacherMessage {
   @@index([student_id])
   @@index([sent_at])
 }
+
+// ============================================================================
+// TOKENISATION SYSTEM – AUDIT-GRADE FINANCIAL PERSISTENCE LAYER
+// ============================================================================
+
+model TokenisationAccount {
+  id        String @id @default(cuid())
+  tenant_id Int
+  
+  // Account Details
+  account_type  String  @default("TREASURY") // "TREASURY", "REWARDS_POOL"
+  balance       BigInt  @default(0) // Store in smallest unit to avoid float precision issues
+  locked_amount BigInt  @default(0) // Amount locked pending approval/completion
+  
+  // Account Metadata
+  created_at   DateTime @default(now())
+  updated_at   DateTime @default(now())
+  last_verified DateTime?
+  
+  // Relations
+  tenant              tenants                    @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  transactions        TokenisationTransaction[]
+  reward_claims       RewardClaim[]
+  
+  @@unique([tenant_id, account_type])
+  @@index([tenant_id])
+  @@index([account_type])
+  @@index([updated_at])
+}
+
+model TokenisationTransaction {
+  id           String @id @default(cuid())
+  tenant_id    Int
+  account_id   String
+  
+  // Transaction Details
+  transaction_type String  // "MINT", "LOCK", "UNLOCK", "TRANSFER", "ADJUSTMENT"
+  amount           BigInt  // In smallest unit
+  reason           String?
+  
+  // Context
+  user_id          Int?    // User who initiated/affected by transaction
+  related_user_id  Int?    // Secondary user (e.g., recipient in transfer)
+  batch_id         String? // For batch operations
+  
+  // Audit Trail
+  created_at       DateTime @default(now())
+  recorded_at      DateTime @default(now())
+  
+  // Trace ID for audit compliance
+  trace_id         String @unique // Immutable identifier for compliance
+  
+  // Relations
+  tenant   tenants              @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  account  TokenisationAccount  @relation(fields: [account_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+  @@index([account_id])
+  @@index([transaction_type])
+  @@index([user_id])
+  @@index([created_at])
+  @@index([trace_id])
+}
+
+model Reward {
+  id            String   @id @default(cuid())
+  tenant_id     Int
+  
+  // Reward Definition
+  reward_tier   String   // "STANDARD", "SILVER", "GOLD", "PLATINUM"
+  amount        BigInt   // Token value
+  description   String?
+  
+  // Issuance Details
+  issued_at     DateTime @default(now())
+  issued_by     Int?     // User ID who issued (if manual)
+  
+  // Status
+  status        String   @default("AVAILABLE") // "AVAILABLE", "CLAIMED", "EXPIRED", "REVOKED"
+  expires_at    DateTime?
+  
+  // Relations
+  tenant        tenants       @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  claim         RewardClaim?
+  
+  @@index([tenant_id])
+  @@index([reward_tier])
+  @@index([status])
+  @@index([issued_at])
+}
+
+model RewardClaim {
+  id              String   @id @default(cuid())
+  tenant_id       Int
+  reward_id       String   @unique
+  account_id      String
+  
+  // Claim Details
+  user_id         Int
+  claimed_at      DateTime @default(now())
+  
+  // Transaction Link
+  transaction_id  String?  // Reference to unlock transaction
+  
+  // Audit
+  trace_id        String   @unique // Immutable identifier
+  
+  // Relations
+  tenant       tenants              @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  reward       Reward               @relation(fields: [reward_id], references: [id], onDelete: Cascade)
+  account      TokenisationAccount  @relation(fields: [account_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
+  @@index([user_id])
+  @@index([claimed_at])
+  @@index([trace_id])
+}
+
+// ============================================================================
+// END TOKENISATION SYSTEM
+// ============================================================================
+

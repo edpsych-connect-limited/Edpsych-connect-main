@@ -54,7 +54,7 @@ export interface NotificationService {
    * @param options Optional filtering options
    * @returns Promise resolving to array of notifications
    */
-  getNotifications(_id: string, options?: { 
+  getNotifications(_id: string, _options?: { 
     unreadOnly?: boolean;
     types?: string[];
     limit?: number;

@@ -179,12 +179,12 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
   
   // Step 5: Super-aggressive approach to intercept styled-jsx at the Node.js module level
   try {
+    const requireFn = typeof require === 'function' ? require : null;
     // Only do this on the server
-    if (typeof window === 'undefined' && typeof require === 'function') {
+    if (typeof window === 'undefined' && requireFn) {
       // Try to monkey-patch the Node.js module system if possible
       try {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const Module = require('module');
+        const Module = requireFn('module');
         
         // Save the original _compile method
         const originalCompile = Module.prototype._compile;
@@ -203,7 +203,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
               content = content.replace(
                 /var StyleSheet\s*=\s*[\s\S]*?function StyleSheet[\s\S]*?return StyleSheet;?\}\(\)\);?/g,
                  
-                'var StyleSheet = require("' + require.resolve('./enhanced-styled-jsx-patch.js') +
+                'var StyleSheet = require("' + (requireFn?.resolve ? requireFn.resolve('./enhanced-styled-jsx-patch.js') : './enhanced-styled-jsx-patch.js') +
                 '").UltraSafeStyleSheet;'
               );
               
@@ -222,11 +222,10 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
       
       // More direct patching of already loaded modules
       try {
-        // Try to resolve the styled-jsx path
-         
-        const styledJsxPath = require.resolve('styled-jsx');
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const styledJsx = require(styledJsxPath);
+          // Try to resolve the styled-jsx path
+          
+          const styledJsxPath = requireFn?.resolve ? requireFn.resolve('styled-jsx') : null;
+          const styledJsx = styledJsxPath ? requireFn(styledJsxPath) : null;
         
         if (styledJsx && styledJsx.StyleSheet) {
           // Replace the StyleSheet implementation
@@ -250,8 +249,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
       
       for (const path of possiblePaths) {
         try {
-          // eslint-disable-next-line @typescript-eslint/no-require-imports
-          const styledJsx = require(path);
+          const styledJsx = requireFn(path);
           if (styledJsx && styledJsx.StyleSheet) {
             // Replace the StyleSheet implementation
             styledJsx.StyleSheet = UltraSafeStyleSheet;
@@ -263,8 +261,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
       }
       
       // Override require for styled-jsx
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const Module = require('module');
+      const Module = requireFn('module');
       const originalRequire = Module.prototype.require;
       Module.prototype.require = function(id) {
         // Call the original require

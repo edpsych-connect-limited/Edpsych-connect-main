@@ -178,7 +178,6 @@ export class QuantumResistantCrypto {
   
   /**
    * Generate a key pair for the SPHINCS+ signature scheme
-   * 
    * @returns A key pair consisting of public and private keys
    */
   public generateSphincsKeyPair(): { publicKey: CryptoKey; privateKey: CryptoKey } {

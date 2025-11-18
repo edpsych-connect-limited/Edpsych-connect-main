@@ -30,14 +30,16 @@ export interface LogEntry {
 export class LoggingService {
   private enabled: boolean = true;
   private minLevel: LogLevel = 'info';
-  
+  private logSink?: (entry: LogEntry) => void;
+
   constructor(
-    private logSink?: (entry: LogEntry) => void,
+    logSink?: (entry: LogEntry) => void,
     options?: {
       enabled?: boolean;
       minLevel?: LogLevel;
     }
   ) {
+    this.logSink = logSink;
     if (options) {
       this.enabled = options.enabled ?? this.enabled;
       this.minLevel = options.minLevel ?? this.minLevel;
@@ -71,8 +73,8 @@ export class LoggingService {
   /**
    * Log a message with the specified level and context
    */
-  log(entry: LogEntry): void;
-  log(level: LogLevel, message: string, context?: Record<string, any>): void;
+  log(_entry: LogEntry): void;
+  log(_level: LogLevel, _message: string, _context?: Record<string, any>): void;
   log(
     entryOrLevel: LogEntry | LogLevel,
     message?: string,

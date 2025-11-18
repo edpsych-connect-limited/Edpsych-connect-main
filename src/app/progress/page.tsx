@@ -19,31 +19,13 @@ export default function ProgressPage() {
   const session = sessionResult?.data;
   const status = sessionResult?.status;
 
-  // Show loading during authentication check
-  if (status === 'loading' || !session) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg">Loading...</div>
-      </div>
-    );
-  }
-
   const [cases, setCases] = useState<any[]>([]);
   const [selectedCaseId, setSelectedCaseId] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'all' | 'single'>('all');
 
-  useEffect(() => {
-
-    if (status === 'authenticated') {
-      loadCases();
-    }
-  }, [status]);
-
   const loadCases = async () => {
     try {
-      // In production, fetch actual cases from API
-      // For now, using mock data
       const mockCases = [
         { id: 1, student_name: 'Jamie Smith', year_group: 'Year 3', active_interventions: 3 },
         { id: 2, student_name: 'Alex Johnson', year_group: 'Year 5', active_interventions: 2 },
@@ -56,6 +38,21 @@ export default function ProgressPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      loadCases();
+    }
+  }, [status]);
+
+  // Show loading during authentication check
+  if (status === 'loading' || !session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
 
   if (loading) {
     return (

@@ -239,9 +239,7 @@ class AutomatedInterventionService {
   async getInterventionAnalytics(filters = {}) {
     try {
       const {
-        timeRange = 30, // days
-        interventionType = null,
-        studentSegment = null
+        timeRange = 30 // days
       } = filters;
 
       const analytics = {
@@ -287,7 +285,6 @@ class AutomatedInterventionService {
   async optimiseInterventionStrategies(optimisationConfig = {}) {
     try {
       const {
-        targetMetrics = ['success_rate', 'engagement_improvement'],
         timeHorizon = 90, // days
         optimisationGoals = ['maximise_impact', 'minimise_cost']
       } = optimisationConfig;
@@ -580,7 +577,7 @@ class AutomatedInterventionService {
    * @param {Object} intervention - Parent intervention
    * @returns {Promise<Object>} Action result
    */
-  async _executeAction(action, intervention) {
+  async _executeAction(action, _intervention) {
     // This would execute the actual action (send email, create notification, etc.)
     // For demonstration, simulate execution
     return {
@@ -617,7 +614,7 @@ class AutomatedInterventionService {
    * @param {Object} intervention - Delivered intervention
    * @param {Object} deliveryResult - Delivery result
    */
-  async _recordInterventionDelivery(intervention, deliveryResult) {
+  async _recordInterventionDelivery(intervention, _deliveryResult) {
     // Update intervention record with delivery details
     intervention.deliveryRecorded = true;
     intervention.deliveryTimestamp = new Date().toISOString();
@@ -782,7 +779,7 @@ class AutomatedInterventionService {
    * @param {number} timeRange - Time range in days
    * @returns {Object} Intervention trends
    */
-  _analyseInterventionTrends(interventions, timeRange) {
+  _analyseInterventionTrends(interventions, _timeRange) {
     // Group interventions by time periods
     const trends = {
       daily: {},
@@ -869,7 +866,7 @@ class AutomatedInterventionService {
     }
 
     const lowPerformingTypes = Object.entries(analytics.effectiveness.byType)
-      .filter(([type, data]) => data.total > 5 && (data.successful / data.total) < 0.6)
+      .filter(([, data]) => data.total > 5 && (data.successful / data.total) < 0.6)
       .map(([type]) => type);
 
     if (lowPerformingTypes.length > 0) {
@@ -962,7 +959,7 @@ class AutomatedInterventionService {
    * @param {Object} context - Context data
    * @returns {Object} Best template
    */
-  async _selectBestTemplate(templates, studentId, context) {
+  async _selectBestTemplate(templates, _studentId, _context) {
     // Select template with highest effectiveness and lowest recent usage for this student
     return templates.sort((a, b) => {
       const aEffectiveness = a.effectiveness.successful / Math.max(a.effectiveness.triggered, 1);

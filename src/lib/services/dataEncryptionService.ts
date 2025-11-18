@@ -9,12 +9,9 @@
  * - Compliance with data protection regulations
  */
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const crypto = require('crypto');
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const fs = require('fs').promises;
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const path = require('path');
+import crypto from 'crypto';
+import { promises as fs } from 'fs';
+import path from 'path';
 
 class DataEncryptionService {
   constructor(options = {}) {
@@ -857,4 +854,4 @@ class DataEncryptionService {
   }
 }
 
-module.exports = DataEncryptionService;
+export default DataEncryptionService;

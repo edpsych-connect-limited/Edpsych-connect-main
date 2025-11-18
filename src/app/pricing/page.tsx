@@ -24,6 +24,8 @@ export default function PricingPage() {
   const session = sessionResult?.data;
   const status = sessionResult?.status;
 
+  const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
+
   // Show loading during authentication check
   if (status === 'loading') {
     return (
@@ -32,8 +34,6 @@ export default function PricingPage() {
       </div>
     );
   }
-
-  const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
 
   const handleSelectPlan = (planId: string) => {
     if (status === 'unauthenticated') {

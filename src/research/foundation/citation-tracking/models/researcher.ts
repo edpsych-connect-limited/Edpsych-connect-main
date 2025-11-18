@@ -4,7 +4,6 @@
  * This module defines the data structures for tracking researchers, 
  * their publications, and academic impact metrics.
  */
-
 import { v4 as uuidv4 } from 'uuid';
 
 /**
@@ -266,6 +265,23 @@ export class Researcher implements IResearcher {
     // Update the i10-index in the metrics
     this.impactMetrics.i10Index = i10Count;
     this.impactMetrics.lastUpdated = new Date();
+      /**
+       * Researcher role in the academic ecosystem
+       */
+      export enum ResearcherRole {
+        FACULTY = 'faculty',
+        POSTDOC = 'postdoc',
+        GRADUATE_STUDENT = 'graduate_student',
+        UNDERGRADUATE_STUDENT = 'undergraduate_student',
+        RESEARCH_SCIENTIST = 'research_scientist',
+        INDEPENDENT_RESEARCHER = 'independent_researcher',
+        INDUSTRY_RESEARCHER = 'industry_researcher',
+        EMERITUS = 'emeritus',
+        VISITING_SCHOLAR = 'visiting_scholar',
+        ADMINISTRATOR = 'administrator',
+        LIBRARIAN = 'librarian',
+        OTHER = 'other'
+      }
     this.updatedAt = new Date();
     
     return i10Count;

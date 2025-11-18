@@ -6,7 +6,7 @@
  * usage tracking services to provide a complete API access control solution.
  */
 
-import { Request, Response, NextFunction } from 'express';
+import { Request as _Request, Response, NextFunction } from 'express';
 import { ApiKeyService } from '../services/api-key-service';
 import { UsageTrackingService } from '../services/usage-tracking-service';
 import { ApiResourceType } from '../models/api-pricing';
@@ -14,7 +14,7 @@ import { ApiResourceType } from '../models/api-pricing';
 /**
  * Interface for custom properties added to Express Request
  */
-export interface ApiAccessRequest extends Request {
+export interface ApiAccessRequest extends _Request {
   apiKeyId?: string;
   licenseId?: string;
   startTime?: [number, number]; // hrtime tuple for precise timing
@@ -115,7 +115,7 @@ export const verifyApiKey = () => {
  */
 export const checkApiQuota = (
   resourceType: ApiResourceType,
-  getQuantity: (req: ApiAccessRequest) => number = () => 1
+  getQuantity: (_req: ApiAccessRequest) => number = () => 1
 ) => {
   const usageTrackingService = new UsageTrackingService();
   
@@ -168,7 +168,7 @@ export const checkApiQuota = (
  * @returns Express middleware function
  */
 export const trackApiUsage = (
-  resourceType: ApiResourceType | ((req: ApiAccessRequest) => ApiResourceType) = ApiResourceType.API_CALL
+  resourceType: ApiResourceType | ((_req: ApiAccessRequest) => ApiResourceType) = ApiResourceType.API_CALL
 ) => {
   const usageTrackingService = new UsageTrackingService();
   
@@ -271,8 +271,8 @@ export const setRateLimitHeaders = () => {
  * @returns Express middleware function
  */
 export const apiAccessControl = (options: {
-  resourceType?: ApiResourceType | ((req: ApiAccessRequest) => ApiResourceType);
-  getQuantity?: (req: ApiAccessRequest) => number;
+  resourceType?: ApiResourceType | ((_req: ApiAccessRequest) => ApiResourceType);
+  getQuantity?: (_req: ApiAccessRequest) => number;
   enableRateLimiting?: boolean;
   enableQuotaCheck?: boolean;
   enableUsageTracking?: boolean;
@@ -351,7 +351,6 @@ export const apiAccessControl = (options: {
   };
 };
 
-// Extend the Express Request interface to include apiKeyId
 declare module 'express-serve-static-core' {
   interface Request {
     apiKeyId?: string;

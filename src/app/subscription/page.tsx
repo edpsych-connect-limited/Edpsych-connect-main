@@ -46,30 +46,12 @@ export default function SubscriptionManagementPage() {
   const session = sessionResult?.data;
   const status = sessionResult?.status;
 
-  // Show loading during authentication check
-  if (status === 'loading' || !session) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg">Loading...</div>
-      </div>
-    );
-  }
-
   const [subscription, setSubscription] = useState<SubscriptionData | null>(null);
   const [usage, setUsage] = useState<UsageData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-
-    if (status === 'authenticated') {
-      loadSubscriptionData();
-    }
-  }, [status]);
-
   const loadSubscriptionData = async () => {
     try {
-      // In production, fetch from API
-      // Mock data for now
       const mockSubscription: SubscriptionData = {
         id: 1,
         plan_id: 'individual-ep',
@@ -97,6 +79,21 @@ export default function SubscriptionManagementPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      loadSubscriptionData();
+    }
+  }, [status]);
+
+  // Show loading during authentication check
+  if (status === 'loading' || !session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
 
   const handleCancelSubscription = async () => {
     if (

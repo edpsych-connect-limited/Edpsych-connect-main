@@ -1,7 +1,6 @@
 /**
  * Models related to research cohorts in the EdPsych Research Foundation
  */
-
 /**
  * Cohort status enum
  */

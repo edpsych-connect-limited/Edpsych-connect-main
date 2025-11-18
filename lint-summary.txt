@@ -1,0 +1,2 @@
+severity_counts {"1":1707}
+top_rules no-unused-vars (1518), react/no-unescaped-entities (56), react-hooks/exhaustive-deps (36), @next/next/no-img-element (23), @typescript-eslint/no-require-imports (22), react-hooks/set-state-in-effect (16), react-hooks/purity (12), import/no-anonymous-default-export (10), react-hooks/immutability (6), @next/next/no-assign-module-variable (5)

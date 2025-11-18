@@ -47,7 +47,7 @@ export default function ThankYouPage() {
                 <svg className="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span>You will receive a copy of the final assessment report when it's complete</span>
+                <span>You will receive a copy of the final assessment report when it&apos;s complete</span>
               </li>
               <li className="flex items-start">
                 <svg className="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -61,8 +61,8 @@ export default function ThankYouPage() {
           {/* Appreciation Message */}
           <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-8">
             <p className="text-green-800 italic">
-              "Your perspective is invaluable in understanding the child's unique strengths and needs.
-              Thank you for taking the time to share your observations."
+              &ldquo;Your perspective is invaluable in understanding the child&apos;s unique strengths and needs.
+              Thank you for taking the time to share your observations.&rdquo;
             </p>
           </div>
 

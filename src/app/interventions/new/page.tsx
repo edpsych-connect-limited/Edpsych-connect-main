@@ -19,22 +19,12 @@ function NewInterventionContent() {
   const session = sessionResult?.data;
   const status = sessionResult?.status;
   const searchParams = useSearchParams();
-  // Show loading during authentication check
-  if (!session) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg">Loading...</div>
-      </div>
-    );
-  }
-
 
   const [caseId, setCaseId] = useState<number | null>(null);
   const [tenantId, setTenantId] = useState<number | null>(null);
   const [templateId, setTemplateId] = useState<string | null>(null);
   const [loadingTemplate, setLoadingTemplate] = useState(false);
   const [templateData, setTemplateData] = useState<any>(null);
-
   useEffect(() => {
 
     if (status === 'authenticated') {
@@ -59,7 +49,16 @@ function NewInterventionContent() {
     }
   }, [status, session, searchParams]);
 
-  const loadTemplateData = async (templateId: string) => {
+  // Show loading during authentication check
+  if (!session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  async function loadTemplateData(templateId: string) {
     setLoadingTemplate(true);
     try {
       // In production, fetch template data from API
@@ -72,7 +71,7 @@ function NewInterventionContent() {
     } finally {
       setLoadingTemplate(false);
     }
-  };
+  }
 
   const handleSave = async (plan: any) => {
     try {
@@ -154,11 +153,13 @@ function NewInterventionContent() {
 
 export default function NewInterventionPage() {
   return (
-    <Suspense fallback={
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg">Loading...</div>
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-lg">Loading...</div>
+        </div>
+      }
+    >
       <NewInterventionContent />
     </Suspense>
   );

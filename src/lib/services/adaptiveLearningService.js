@@ -186,7 +186,6 @@ class AdaptiveLearningService {
       const {
         contentId,
         timeSpent,
-        interactions,
         comprehensionLevel,
         engagementMetrics
       } = interactionData;
@@ -484,7 +483,7 @@ class AdaptiveLearningService {
    * @param {number} timeSpent - Time spent on assessment
    * @returns {Object} Learning style indicators
    */
-  _analyseLearningStyleIndicators(responses, timeSpent) {
+  _analyseLearningStyleIndicators(responses, _timeSpent) {
     // Simplified analysis - in real implementation, this would use ML models
     const indicators = {
       visual: 0,

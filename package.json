@@ -1,12 +1,13 @@
 {
   "name": "edpsych-connect-web-v2",
   "version": "1.0.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint . --max-warnings=0",
     "postinstall": "prisma generate"
   },
   "dependencies": {
@@ -17,6 +18,7 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.4",
     "@mui/material": "^7.3.4",
+    "@neondatabase/serverless": "^1.0.2",
     "@noble/post-quantum": "^0.5.2",
     "@prisma/client": "^6.18.0",
     "@radix-ui/react-scroll-area": "^1.2.10",
@@ -72,7 +74,7 @@
     "recharts": "^3.3.0",
     "stripe": "^19.2.0",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "^3.4.0",
+    "tailwindcss": "^4.1.17",
     "uuid": "^13.0.0",
     "web-vitals": "^5.1.0",
     "winston": "^3.18.3",
@@ -83,11 +85,14 @@
     "@types/bcrypt": "^6.0.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/crypto-js": "^4.2.2",
+    "@typescript-eslint/eslint-plugin": "^8.47.0",
+    "@typescript-eslint/parser": "^8.47.0",
     "cypress-axe": "^1.7.0",
     "cypress-file-upload": "^5.0.8",
     "cypress-iframe": "^1.0.1",
     "cypress-wait-until": "^3.0.2",
-    "eslint": "8.54.0",
+    "eslint": "^8.55.0",
+    "eslint-config-next": "16.0.3",
     "terser-webpack-plugin": "^5.3.14",
     "tough-cookie": "^6.0.0",
     "typescript": "^5.0.0"

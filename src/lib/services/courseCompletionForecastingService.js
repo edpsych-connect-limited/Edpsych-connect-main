@@ -167,7 +167,6 @@ class CourseCompletionForecastingService {
       const {
         groupBy = 'enrolment_month',
         minGroupSize = 10,
-        includeDemographics = true
       } = cohortCriteria;
 
       // Segment students into cohorts
@@ -481,7 +480,7 @@ class CourseCompletionForecastingService {
    * @param {number} timeRange - Time range in days
    * @returns {Promise<Object>} Completion trends
    */
-  async _analyseCompletionTrends(courseId, timeRange) {
+  async _analyseCompletionTrends(_courseId, _timeRange) {
     // This would analyse historical completion data
     // For demonstration, return mock trends
     return {

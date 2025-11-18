@@ -219,13 +219,11 @@ export interface DataSharingAgreement {
     rejectionDate: Date;
     reason: string;
   }[];
-  renewals?: {
-    renewalDate: Date;
-    renewedBy: string;
-    previousEndDate: Date;
-    newEndDate: Date;
-    changes?: string;
-  }[];
+  renewalDate: Date;
+  renewedBy: string;
+  previousEndDate: Date;
+  newEndDate: Date;
+  changes?: string;
   amendments?: {
     amendmentDate: Date;
     amendedBy: string;

@@ -55,15 +55,6 @@ export default function EHCPListPage() {
   const session = sessionResult?.data;
   const status = sessionResult?.status;
 
-  // Show loading during authentication check
-  if (status === 'loading' || !session) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg">Loading...</div>
-      </div>
-    );
-  }
-
   // State management
   const [ehcps, setEhcps] = useState<EHCP[]>([]);
   const [loading, setLoading] = useState(true);
@@ -185,6 +176,15 @@ export default function EHCPListPage() {
       fetchEHCPs();
     }
   }, [status, pagination.page, filters.student_id, filters.tenant_id]);
+
+  // Show loading during authentication check
+  if (status === 'loading' || !session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
 
 
   // Status badge color

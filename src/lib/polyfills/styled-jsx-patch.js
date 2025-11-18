@@ -10,6 +10,7 @@
  *
  * This approach is more invasive but completely resolves the issue.
  */
+/* eslint-disable @typescript-eslint/no-require-imports */
 
 // Define a production-ready mock registry for styled-jsx
 const createMockRegistry = () => {
@@ -98,6 +99,7 @@ function applyPatch() {
       try {
         // Try to resolve the styled-jsx path
          
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         styledJsxPath = require.resolve('styled-jsx/dist/index');
       } catch (e) {
         // Fallback paths in case require.resolve fails

@@ -3,6 +3,7 @@
 
 import { Metadata } from 'next';
 import LandingPage from '@/components/landing/LandingPage';
+import NeonCommentSection from '@/components/landing/NeonCommentSection';
 
 export const metadata: Metadata = {
   title: 'EdPsych Connect World | Teaching That Adapts Itself - Platform Orchestration for UK Education',
@@ -48,6 +49,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
-  return <LandingPage />;
+type HomeSearchParams = {
+  commented?: string | string[] | undefined;
+};
+
+export default function Home({
+  searchParams,
+}: {
+  searchParams?: HomeSearchParams;
+}) {
+  return (
+    <>
+      <LandingPage />
+      <NeonCommentSection searchParams={searchParams} />
+    </>
+  );
 }

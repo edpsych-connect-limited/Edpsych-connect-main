@@ -35,27 +35,11 @@ export default function InterventionsPage() {
   const session = sessionResult?.data;
   const status = sessionResult?.status;
 
-  // Show loading during authentication check
-  if (status === 'loading' || !session) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg">Loading...</div>
-      </div>
-    );
-  }
-
   const [interventions, setInterventions] = useState<Intervention[]>([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
-
-  useEffect(() => {
-    // At this point we know we're authenticated (early return handled above)
-    if (session) {
-      loadInterventions();
-    }
-  }, [session]);
 
   const loadInterventions = async () => {
     try {
@@ -70,6 +54,21 @@ export default function InterventionsPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (session) {
+      loadInterventions();
+    }
+  }, [session]);
+
+  // Show loading during authentication check
+  if (status === 'loading' || !session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
 
   const filteredInterventions = interventions.filter((intervention) => {
     const matchesStatus =

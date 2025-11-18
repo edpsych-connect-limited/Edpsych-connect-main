@@ -1,0 +1,646 @@
+Found 74 severity‑2 issues:
+
+/mnt/c/EdpsychConnect/src/app/assessments/page.tsx:124:3 react-hooks/rules-of-hooks – React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/cases/page.tsx:51:3 react-hooks/rules-of-hooks – React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/ehcp/page.tsx:68:29 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/ehcp/page.tsx:69:33 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/ehcp/page.tsx:70:29 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/ehcp/page.tsx:71:39 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/ehcp/page.tsx:81:33 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/ehcp/page.tsx:89:45 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/ehcp/page.tsx:90:41 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/ehcp/page.tsx:183:3 react-hooks/rules-of-hooks – React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/interventions/new/page.tsx:32:31 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.
+/mnt/c/EdpsychConnect/src/app/interventions/new/page.tsx:33:35 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.
+/mnt/c/EdpsychConnect/src/app/interventions/new/page.tsx:34:39 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.
+/mnt/c/EdpsychConnect/src/app/interventions/new/page.tsx:35:49 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.
+/mnt/c/EdpsychConnect/src/app/interventions/new/page.tsx:36:43 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.
+/mnt/c/EdpsychConnect/src/app/interventions/new/page.tsx:38:3 react-hooks/rules-of-hooks – React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render.
+/mnt/c/EdpsychConnect/src/app/interventions/page.tsx:47:45 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/interventions/page.tsx:48:33 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/interventions/page.tsx:49:43 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/interventions/page.tsx:50:39 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/interventions/page.tsx:51:41 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/interventions/page.tsx:53:3 react-hooks/rules-of-hooks – React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/interventions/page.tsx:333:53 react-hooks/purity – Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/mnt/c/EdpsychConnect/src/app/interventions/page.tsx:333:53
+  331 |
+  332 |   const daysUntilReview = Math.ceil(
+> 333 |     (new Date(intervention.review_date).getTime() - Date.now()) / (1000 * 60 * 60 * 24)
+      |                                                     ^^^^^^^^^^ Cannot call impure function
+  334 |   );
+  335 |
+  336 |   return (
+/mnt/c/EdpsychConnect/src/app/pricing/page.tsx:36:45 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.
+/mnt/c/EdpsychConnect/src/app/progress/page.tsx:31:29 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/progress/page.tsx:32:47 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/progress/page.tsx:33:33 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/progress/page.tsx:34:35 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/progress/page.tsx:36:3 react-hooks/rules-of-hooks – React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/subscription/page.tsx:58:43 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/subscription/page.tsx:59:29 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/subscription/page.tsx:60:33 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/subscription/page.tsx:62:3 react-hooks/rules-of-hooks – React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?
+/mnt/c/EdpsychConnect/src/app/training/marketplace/page.tsx:54:35 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.
+/mnt/c/EdpsychConnect/src/app/training/marketplace/page.tsx:55:31 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.
+/mnt/c/EdpsychConnect/src/app/training/marketplace/page.tsx:56:33 react-hooks/rules-of-hooks – React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.
+/mnt/c/EdpsychConnect/src/app/training/marketplace/page.tsx:58:3 react-hooks/rules-of-hooks – React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render.
+/mnt/c/EdpsychConnect/src/components/OptimizedImage.tsx:30:42 react-hooks/purity – Error: Cannot call impure function during render
+
+`performance.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/mnt/c/EdpsychConnect/src/components/OptimizedImage.tsx:30:42
+  28 |   const [loaded, setLoaded] = useState<boolean>(false);
+  29 |   const [_loadTime, setLoadTime] = useState<number>(0);
+> 30 |   const startTime = React.useRef<number>(performance.now());
+     |                                          ^^^^^^^^^^^^^^^^^ Cannot call impure function
+  31 |
+  32 |   const defaultBlur = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHN0eWxlPSJmaWxsOiNlOWVhZWI7Ii8+PC9zdmc+';
+  33 |
+/mnt/c/EdpsychConnect/src/components/analytics/Dashboard.tsx:211:33 react-hooks/purity – Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/mnt/c/EdpsychConnect/src/components/analytics/Dashboard.tsx:211:33
+  209 |             }}
+  210 |           >
+> 211 |             {step}: {Math.floor(Math.random() * 1000)} users
+      |                                 ^^^^^^^^^^^^^ Cannot call impure function
+  212 |           </div>
+  213 |         </div>
+  214 |       ))}
+/mnt/c/EdpsychConnect/src/components/analytics/Reports.tsx:235:23 react-hooks/purity – Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/mnt/c/EdpsychConnect/src/components/analytics/Reports.tsx:235:23
+  233 |     type: 'user-activity' as ReportConfig['type'],
+  234 |     dateRange: {
+> 235 |       start: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+      |                       ^^^^^^^^^^ Cannot call impure function
+  236 |       end: new Date()
+  237 |     }
+  238 |   });
+/mnt/c/EdpsychConnect/src/components/assessment-engine/question-types/LongAnswerQuestion.tsx:34:7 react-hooks/set-state-in-effect – Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/mnt/c/EdpsychConnect/src/components/assessment-engine/question-types/LongAnswerQuestion.tsx:34:7
+  32 |   useEffect(() => {
+  33 |     if (currentAnswer && currentAnswer.text) {
+> 34 |       setAnswer(currentAnswer.text);
+     |       ^^^^^^^^^ Avoid calling setState() directly within an effect
+  35 |     }
+  36 |   }, [currentAnswer]);
+  37 |
+/mnt/c/EdpsychConnect/src/components/assessment-engine/question-types/MatchingQuestion.tsx:63:35 react-hooks/purity – Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/mnt/c/EdpsychConnect/src/components/assessment-engine/question-types/MatchingQuestion.tsx:63:35
+  61 |   // Create a shuffled array of responses for selection
+  62 |   const shuffledResponses = sortedPairs.length > 0
+> 63 |     ? [...sortedPairs].sort(() => Math.random() - 0.5)
+     |                                   ^^^^^^^^^^^^^ Cannot call impure function
+  64 |     : [];
+  65 |
+  66 |   return (
+/mnt/c/EdpsychConnect/src/components/assessment-engine/question-types/MultipleChoiceQuestion.tsx:34:7 react-hooks/set-state-in-effect – Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/mnt/c/EdpsychConnect/src/components/assessment-engine/question-types/MultipleChoiceQuestion.tsx:34:7
+  32 |   useEffect(() => {
+  33 |     if (currentAnswer && currentAnswer.selectedOptionIds) {
+> 34 |       setSelectedOptions(currentAnswer.selectedOptionIds);
+     |       ^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  35 |     }
+  36 |   }, [currentAnswer]);
+  37 |
+/mnt/c/EdpsychConnect/src/components/assessment-engine/question-types/NumericQuestion.tsx:39:7 react-hooks/set-state-in-effect – Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/mnt/c/EdpsychConnect/src/components/assessment-engine/question-types/NumericQuestion.tsx:39:7
+  37 |   useEffect(() => {
+  38 |     if (currentAnswer && currentAnswer.value !== undefined) {
+> 39 |       setValue(currentAnswer.value.toString());
+     |       ^^^^^^^^ Avoid calling setState() directly within an effect
+  40 |     }
+  41 |   }, [currentAnswer]);
+  42 |
+/mnt/c/EdpsychConnect/src/components/assessment-engine/question-types/OrderingQuestion.tsx:35:9 react-hooks/set-state-in-effect – Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/mnt/c/EdpsychConnect/src/components/assessment-engine/question-types/OrderingQuestion.tsx:35:9
+  33 |       // If we already have an answer, use that order
+  34 |       if (currentAnswer && currentAnswer.order && currentAnswer.order.length > 0) {
+> 35 |         setOrderedItems(currentAnswer.order);
+     |         ^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  36 |       } else {
+  37 |         // Otherwise, initialize with shuffled order
+  38 |         const shuffled = [...question.options]
+/mnt/c/EdpsychConnect/src/components/assessment-engine/question-types/ShortAnswerQuestion.tsx:30:7 react-hooks/set-state-in-effect – Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/mnt/c/EdpsychConnect/src/components/assessment-engine/question-types/ShortAnswerQuestion.tsx:30:7
+  28 |   useEffect(() => {
+  29 |     if (currentAnswer && currentAnswer.text) {
+> 30 |       setAnswer(currentAnswer.text);
+     |       ^^^^^^^^^ Avoid calling setState() directly within an effect
+  31 |     }
+  32 |   }, [currentAnswer]);
+  33 |
+/mnt/c/EdpsychConnect/src/components/assessment-engine/question-types/SingleChoiceQuestion.tsx:34:7 react-hooks/set-state-in-effect – Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/mnt/c/EdpsychConnect/src/components/assessment-engine/question-types/SingleChoiceQuestion.tsx:34:7
+  32 |   useEffect(() => {
+  33 |     if (currentAnswer && currentAnswer.selectedOptionIds && currentAnswer.selectedOptionIds.length > 0) {
+> 34 |       setSelectedOption(currentAnswer.selectedOptionIds[0]);
+     |       ^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  35 |     }
+  36 |   }, [currentAnswer]);
+  37 |
+/mnt/c/EdpsychConnect/src/components/assessment-engine/question-types/TrueFalseQuestion.tsx:24:7 react-hooks/set-state-in-effect – Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/mnt/c/EdpsychConnect/src/components/assessment-engine/question-types/TrueFalseQuestion.tsx:24:7
+  22 |   useEffect(() => {
+  23 |     if (currentAnswer && currentAnswer.value !== undefined) {
+> 24 |       setSelectedValue(currentAnswer.value);
+     |       ^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  25 |     }
+  26 |   }, [currentAnswer]);
+  27 |
+/mnt/c/EdpsychConnect/src/components/assessments/CollaborativeInputForm.tsx:58:7 react-hooks/immutability – Error: Cannot access variable before it is declared
+
+`handleSaveDraft` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+/mnt/c/EdpsychConnect/src/components/assessments/CollaborativeInputForm.tsx:58:7
+  56 |   useEffect(() => {
+  57 |     const autoSaveInterval = setInterval(() => {
+> 58 |       handleSaveDraft();
+     |       ^^^^^^^^^^^^^^^ `handleSaveDraft` accessed before it is declared
+  59 |     }, 120000); // 2 minutes
+  60 |
+  61 |     return () => clearInterval(autoSaveInterval);
+
+/mnt/c/EdpsychConnect/src/components/assessments/CollaborativeInputForm.tsx:64:3
+  62 |   }, [responses, narrativeInput, observationContext]);
+  63 |
+> 64 |   const handleSaveDraft = async () => {
+     |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 65 |     if (isSaving || isSubmitting) return;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 66 |
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 67 |     setIsSaving(true);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 68 |     const success = await onSaveDraft(responses, narrativeInput, observationContext);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 69 |     if (success) {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 70 |       setLastSaved(new Date());
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 71 |     }
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 72 |     setIsSaving(false);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 73 |   };
+     | ^^^^^ `handleSaveDraft` is declared here
+  74 |
+  75 |   const handleDomainResponse = (domainId: string, question: string, value: any) => {
+  76 |     setResponses(prev => ({
+/mnt/c/EdpsychConnect/src/components/demos/InteractiveDemoPlayer.tsx:55:7 react-hooks/immutability – Error: Cannot access variable before it is declared
+
+`handleNext` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+/mnt/c/EdpsychConnect/src/components/demos/InteractiveDemoPlayer.tsx:55:7
+  53 |
+  54 |     const timer = setTimeout(() => {
+> 55 |       handleNext();
+     |       ^^^^^^^^^^ `handleNext` accessed before it is declared
+  56 |     }, duration);
+  57 |
+  58 |     return () => clearTimeout(timer);
+
+/mnt/c/EdpsychConnect/src/components/demos/InteractiveDemoPlayer.tsx:61:3
+  59 |   }, [isPlaying, currentStep]);
+  60 |
+> 61 |   const handleNext = () => {
+     |   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 62 |     if (currentStep < totalSteps - 1) {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 63 |       setCompletedSteps(prev => new Set(prev).add(currentStep));
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 70 |     }
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 71 |   };
+     | ^^^^^ `handleNext` is declared here
+  72 |
+  73 |   const handlePrevious = () => {
+  74 |     if (currentStep > 0) {
+/mnt/c/EdpsychConnect/src/components/interventions/InterventionDesigner.tsx:165:7 react-hooks/immutability – Error: Cannot access variable before it is declared
+
+`loadRecommendations` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+/mnt/c/EdpsychConnect/src/components/interventions/InterventionDesigner.tsx:165:7
+  163 |     // TODO: Load recommendations based on case data
+  164 |     if (initialData?.initialData?.targetNeeds || []?.length > 0) {
+> 165 |       loadRecommendations();
+      |       ^^^^^^^^^^^^^^^^^^^ `loadRecommendations` accessed before it is declared
+  166 |     }
+  167 |   }, [initialData]);
+  168 |
+
+/mnt/c/EdpsychConnect/src/components/interventions/InterventionDesigner.tsx:173:3
+  171 |   // ============================================================================
+  172 |
+> 173 |   const loadRecommendations = () => {
+      |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 174 |     const request: RecommendationRequest = {
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 175 |       student_profile: {
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 188 |     setRecommendations(response);
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 189 |   };
+      | ^^^^^ `loadRecommendations` is declared here
+  190 |
+  191 |   // ============================================================================
+  192 |   // PLAN MANAGEMENT
+/mnt/c/EdpsychConnect/src/components/landing/ai-conversation-demo.tsx:132:5 react-hooks/immutability – Error: Cannot access variable before it is declared
+
+`scrollToBottom` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+/mnt/c/EdpsychConnect/src/components/landing/ai-conversation-demo.tsx:132:5
+  130 |   // Auto-scroll to bottom when messages change
+  131 |   useEffect(() => {
+> 132 |     scrollToBottom();
+      |     ^^^^^^^^^^^^^^ `scrollToBottom` accessed before it is declared
+  133 |   }, [messages]);
+  134 |
+  135 |   const scrollToBottom = () => {
+
+/mnt/c/EdpsychConnect/src/components/landing/ai-conversation-demo.tsx:135:3
+  133 |   }, [messages]);
+  134 |
+> 135 |   const scrollToBottom = () => {
+      |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 136 |     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 137 |   };
+      | ^^^^^ `scrollToBottom` is declared here
+  138 |
+  139 |   // Handle preset question selection
+  140 |   const handlePresetSelect = (presetId: string) => {
+/mnt/c/EdpsychConnect/src/components/landing/ai-conversation-demo.tsx:157:19 react-hooks/purity – Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/mnt/c/EdpsychConnect/src/components/landing/ai-conversation-demo.tsx:157:19
+  155 |   const addUserMessage = (content: string) => {
+  156 |     const newMessage: Message = {
+> 157 |       id: `user-${Date.now()}`,
+      |                   ^^^^^^^^^^ Cannot call impure function
+  158 |       sender: 'user',
+  159 |       content,
+  160 |       timestamp: new Date(),
+/mnt/c/EdpsychConnect/src/components/landing/ai-conversation-demo.tsx:183:21 react-hooks/purity – Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/mnt/c/EdpsychConnect/src/components/landing/ai-conversation-demo.tsx:183:21
+  181 |     // Add typing indicator
+  182 |     const typingMessage: Message = {
+> 183 |       id: `typing-${Date.now()}`,
+      |                     ^^^^^^^^^^ Cannot call impure function
+  184 |       sender: 'ai',
+  185 |       content: '',
+  186 |       agentName: agent?.name || 'AI Assistant',
+/mnt/c/EdpsychConnect/src/components/landing/ai-conversation-demo.tsx:246:53 react-hooks/purity – Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/mnt/c/EdpsychConnect/src/components/landing/ai-conversation-demo.tsx:246:53
+  244 |     
+  245 |     // For custom input, choose a random preset response for demo purposes
+> 246 |     const randomPreset = presetQuestions[Math.floor(Math.random() * presetQuestions.length)];
+      |                                                     ^^^^^^^^^^^^^ Cannot call impure function
+  247 |     simulateAIResponse(randomPreset.response);
+  248 |   };
+  249 |
+/mnt/c/EdpsychConnect/src/components/orchestration/LessonDifferentiationView.tsx:363:7 react-hooks/set-state-in-effect – Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/mnt/c/EdpsychConnect/src/components/orchestration/LessonDifferentiationView.tsx:363:7
+  361 |   useEffect(() => {
+  362 |     if (differentiationData?.studentAssignments) {
+> 363 |       setStudentAssignments(differentiationData.studentAssignments);
+      |       ^^^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  364 |     }
+  365 |   }, [differentiationData]);
+  366 |
+/mnt/c/EdpsychConnect/src/components/orchestration/VoiceCommandInterface.tsx:110:24 react-hooks/purity – Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/mnt/c/EdpsychConnect/src/components/orchestration/VoiceCommandInterface.tsx:110:24
+  108 |           className="w-1 bg-blue-600 rounded-full animate-pulse"
+  109 |           style={{
+> 110 |             height: `${Math.random() * 60 + 40}%`,
+      |                        ^^^^^^^^^^^^^ Cannot call impure function
+  111 |             animationDelay: `${i * 0.1}s`,
+  112 |             animationDuration: `${0.5 + Math.random() * 0.5}s`,
+  113 |           }}
+/mnt/c/EdpsychConnect/src/components/orchestration/VoiceCommandInterface.tsx:112:41 react-hooks/purity – Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/mnt/c/EdpsychConnect/src/components/orchestration/VoiceCommandInterface.tsx:112:41
+  110 |             height: `${Math.random() * 60 + 40}%`,
+  111 |             animationDelay: `${i * 0.1}s`,
+> 112 |             animationDuration: `${0.5 + Math.random() * 0.5}s`,
+      |                                         ^^^^^^^^^^^^^ Cannot call impure function
+  113 |           }}
+  114 |           aria-hidden="true"
+  115 |         />
+/mnt/c/EdpsychConnect/src/components/orchestration/VoiceCommandInterface.tsx:181:9 react-hooks/set-state-in-effect – Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/mnt/c/EdpsychConnect/src/components/orchestration/VoiceCommandInterface.tsx:181:9
+  179 |       try {
+  180 |         const parsed = JSON.parse(stored);
+> 181 |         setCommandHistory(
+      |         ^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  182 |           parsed.map((item: any) => ({
+  183 |             ...item,
+  184 |             timestamp: new Date(item.timestamp),
+/mnt/c/EdpsychConnect/src/components/providers/CookieConsentProvider.tsx:50:11 react-hooks/set-state-in-effect – Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/mnt/c/EdpsychConnect/src/components/providers/CookieConsentProvider.tsx:50:11
+  48 |         if (savedSettings) {
+  49 |           const parsed = JSON.parse(savedSettings);
+> 50 |           setSettings(parsed);
+     |           ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  51 |         } else {
+  52 |           // No saved settings, show consent banner
+  53 |           setShowBanner(true);
+/mnt/c/EdpsychConnect/src/components/training/EnhancedInteractiveElements.tsx:429:7 react-hooks/set-state-in-effect – Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/mnt/c/EdpsychConnect/src/components/training/EnhancedInteractiveElements.tsx:429:7
+  427 |   useEffect(() => {
+  428 |     if (allExplored && !isComplete) {
+> 429 |       setIsComplete(true);
+      |       ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  430 |       onComplete(100);
+  431 |     }
+  432 |   }, [allExplored, isComplete, onComplete]);
+/mnt/c/EdpsychConnect/src/components/training/InteractiveCoursePlayer.tsx:106:5 react-hooks/immutability – Error: Cannot access variable before it is declared
+
+`loadCourse` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+/mnt/c/EdpsychConnect/src/components/training/InteractiveCoursePlayer.tsx:106:5
+  104 |   // Load course data
+  105 |   useEffect(() => {
+> 106 |     loadCourse();
+      |     ^^^^^^^^^^ `loadCourse` accessed before it is declared
+  107 |     loadProgress();
+  108 |   }, [courseId]);
+  109 |
+
+/mnt/c/EdpsychConnect/src/components/training/InteractiveCoursePlayer.tsx:110:3
+  108 |   }, [courseId]);
+  109 |
+> 110 |   const loadCourse = async () => {
+      |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 111 |     try {
+      | ^^^^^^^^^
+> 112 |       const response = await fetch(`/api/training/courses/${courseId}`);
+      …
+      | ^^^^^^^^^
+> 119 |     }
+      | ^^^^^^^^^
+> 120 |   };
+      | ^^^^^ `loadCourse` is declared here
+  121 |
+  122 |   const loadProgress = async () => {
+  123 |     try {
+/mnt/c/EdpsychConnect/src/components/training/InteractiveCoursePlayer.tsx:107:5 react-hooks/immutability – Error: Cannot access variable before it is declared
+
+`loadProgress` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+/mnt/c/EdpsychConnect/src/components/training/InteractiveCoursePlayer.tsx:107:5
+  105 |   useEffect(() => {
+  106 |     loadCourse();
+> 107 |     loadProgress();
+      |     ^^^^^^^^^^^^ `loadProgress` accessed before it is declared
+  108 |   }, [courseId]);
+  109 |
+  110 |   const loadCourse = async () => {
+
+/mnt/c/EdpsychConnect/src/components/training/InteractiveCoursePlayer.tsx:122:3
+  120 |   };
+  121 |
+> 122 |   const loadProgress = async () => {
+      |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 123 |     try {
+      | ^^^^^^^^^
+> 124 |       const response = await fetch(`/api/training/enrollments/${enrollmentId}/progress`);
+      …
+      | ^^^^^^^^^
+> 131 |     }
+      | ^^^^^^^^^
+> 132 |   };
+      | ^^^^^ `loadProgress` is declared here
+  133 |
+  134 |   const saveProgress = async (updates: any) => {
+  135 |     try {
+/mnt/c/EdpsychConnect/src/components/training/InteractiveCoursePlayer.tsx:464:62 react-hooks/purity – Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/mnt/c/EdpsychConnect/src/components/training/InteractiveCoursePlayer.tsx:464:62
+  462 |   const [quizComplete, setQuizComplete] = useState(false);
+  463 |   const [score, setScore] = useState(0);
+> 464 |   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
+      |                                                              ^^^^^^^^^^ Cannot call impure function
+  465 |   const [attemptCounts, setAttemptCounts] = useState<number[]>([]);
+  466 |   const [scoringEngine] = useState(new ScoringEngine({
+  467 |     basePoints: 100,
+/mnt/c/EdpsychConnect/src/components/training/InteractiveCoursePlayer.tsx:484:35 react-hooks/purity – Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/mnt/c/EdpsychConnect/src/components/training/InteractiveCoursePlayer.tsx:484:35
+  482 |     // Calculate if correct
+  483 |     const isCorrect = answerIndex === currentQuestion.correct_answer;
+> 484 |     const timeSpent = Math.floor((Date.now() - questionStartTime) / 1000);
+      |                                   ^^^^^^^^^^ Cannot call impure function
+  485 |     const attemptNumber = (attemptCounts[currentQuestionIndex] || 0) + 1;
+  486 |
+  487 |     // Use scoring engine
+/mnt/c/EdpsychConnect/src/components/training/OnboardingProgram.tsx:219:5 react-hooks/set-state-in-effect – Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/mnt/c/EdpsychConnect/src/components/training/OnboardingProgram.tsx:219:5
+  217 |     ];
+  218 |
+> 219 |     setCategories(mockCategories);
+      |     ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  220 |     
+  221 |     // Default to showing all tutorials initially
+  222 |     const allTutorials = mockCategories.flatMap(cat => cat.tutorials);
+/mnt/c/EdpsychConnect/src/components/training/OnboardingProgram.tsx:266:5 react-hooks/set-state-in-effect – Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/mnt/c/EdpsychConnect/src/components/training/OnboardingProgram.tsx:266:5
+  264 |     }
+  265 |     
+> 266 |     setFilteredTutorials(results);
+      |     ^^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  267 |   }, [selectedCategory, searchQuery, levelFilter, formatFilter, categories]);
+  268 |
+  269 |   const handleCategorySelect = (categoryId: string) => {
+/mnt/c/EdpsychConnect/src/components/ui/OptimizedIcon.tsx:57:8 react-hooks/static-components – Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+/mnt/c/EdpsychConnect/src/components/ui/OptimizedIcon.tsx:57:8
+  55 |   return (
+  56 |     <Suspense fallback={<IconFallback />}>
+> 57 |       <IconComponent 
+     |        ^^^^^^^^^^^^^ This component is created during render
+  58 |         size={size} 
+  59 |         color={color} 
+  60 |         className={className} 
+
+/mnt/c/EdpsychConnect/src/components/ui/OptimizedIcon.tsx:53:25
+  51 |   
+  52 |   // Dynamically load the icon component
+> 53 |   const IconComponent = lazy(iconMap[name]);
+     |                         ^^^^^^^^^^^^^^^^^^^ The component is created during render here
+  54 |   
+  55 |   return (
+  56 |     <Suspense fallback={<IconFallback />}>
+/mnt/c/EdpsychConnect/src/contexts/CookieConsentContext.tsx:49:5 react-hooks/set-state-in-effect – Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/mnt/c/EdpsychConnect/src/contexts/CookieConsentContext.tsx:49:5
+  47 |   useEffect(() => {
+  48 |     const storedSettings = getCookieSettings();
+> 49 |     setSettings(storedSettings);
+     |     ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  50 |     setShowBanner(shouldShowCookieBanner());
+  51 |
+  52 |     // Detect and set user region
+/mnt/c/EdpsychConnect/src/hooks/useAuth.ts:14:9 react-hooks/set-state-in-effect – Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/mnt/c/EdpsychConnect/src/hooks/useAuth.ts:14:9
+  12 |     useEffect(() => {
+  13 |         // Placeholder: simulate a logged-in user
+> 14 |         setUser({
+     |         ^^^^^^^ Avoid calling setState() directly within an effect
+  15 |             id: '1',
+  16 |             name: 'Test User',
+  17 |             email: 'test@example.com',
+/mnt/c/EdpsychConnect/src/lib/polyfills/styled-jsx-patch.js:112:13 @typescript-eslint/no-require-imports – Definition for rule '@typescript-eslint/no-require-imports' was not found.
+/mnt/c/EdpsychConnect/src/lib/polyfills/styled-jsx-patch.js:125:11 @typescript-eslint/no-require-imports – Definition for rule '@typescript-eslint/no-require-imports' was not found.
+/mnt/c/EdpsychConnect/src/lib/security/SecurityProvider.tsx:25:5 react-hooks/set-state-in-effect – Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/mnt/c/EdpsychConnect/src/lib/security/SecurityProvider.tsx:25:5
+  23 |
+  24 |     // Check if we're in a secure context
+> 25 |     setIsSecureContext(
+     |     ^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  26 |       typeof window !== 'undefined' &&
+  27 |       (window.location.protocol === 'https:' || window.location.hostname === 'localhost')
+  28 |     );
+/mnt/c/EdpsychConnect/src/research/foundation/data-sharing/models/data-sharing.ts:228:13 None – Parsing error: Expression expected.

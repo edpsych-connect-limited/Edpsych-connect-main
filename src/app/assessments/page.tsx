@@ -57,15 +57,6 @@ export default function AssessmentListPage() {
   const session = sessionResult?.data;
   const status = sessionResult?.status;
 
-  // Show loading during authentication check
-  if (status === 'loading' || !session) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg">Loading...</div>
-      </div>
-    );
-  }
-
   // State management
   const [assessments, setAssessments] = useState<Assessment[]>([]);
   const [loading, setLoading] = useState(true);
@@ -92,7 +83,6 @@ export default function AssessmentListPage() {
       setLoading(true);
       setError(null);
 
-      // Build query parameters
       const params = new URLSearchParams({
         page: pagination.page.toString(),
         limit: pagination.limit.toString(),
@@ -126,6 +116,15 @@ export default function AssessmentListPage() {
       fetchAssessments();
     }
   }, [status, pagination.page, filters.case_id, filters.status, filters.assessment_type]);
+
+  // Show loading during authentication check
+  if (status === 'loading' || !session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
 
 
   // Status badge color

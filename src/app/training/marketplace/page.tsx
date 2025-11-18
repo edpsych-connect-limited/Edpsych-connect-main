@@ -42,22 +42,9 @@ export default function TrainingMarketplace() {
   const session = sessionResult?.data;
   const status = sessionResult?.status;
 
-  // Show loading during authentication check
-  if (!session) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg">Loading...</div>
-      </div>
-    );
-  }
-
   const [products, setProducts] = useState<TrainingProduct[]>([]);
   const [filter, setFilter] = useState<string>('all'); // all, featured, bundles
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    loadProducts();
-  }, []);
 
   const loadProducts = async () => {
     try {
@@ -72,6 +59,19 @@ export default function TrainingMarketplace() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  // Show loading during authentication check
+  if (!session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
 
   const filteredProducts = products.filter((product) => {
     if (filter === 'featured') return product.is_featured;

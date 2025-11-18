@@ -292,9 +292,7 @@ class PersonalisedContentService {
   async getRecommendationAnalytics(filters = {}) {
     try {
       const {
-        timeRange = 30, // days
-        userId = null,
-        contentType = null
+        timeRange = 30 // days
       } = filters;
 
       const analytics = {
@@ -805,10 +803,15 @@ class PersonalisedContentService {
    * @param {Object} userProfile - User profile
    * @returns {string} Explanation
    */
-  _generateExplanation(recommendation, userProfile) {
-    // Generate human-readable explanation
-    return `This content matches your learning preferences and has been highly rated by similar learners.`;
-  }
+    _generateExplanation(recommendation, userProfile) {
+      const contentRef = recommendation?.contentId ? `content ${recommendation.contentId}` : 'this content';
+      const preferenceTags = userProfile?.preferences
+        ? Object.keys(userProfile.preferences).join(', ')
+        : 'your learning preferences';
+      const reason = recommendation?.reason || 'your goals';
+      // Generate human-readable explanation
+      return `${contentRef} aligns with ${preferenceTags} and ${reason}.`;
+    }
 
   /**
    * Store recommendation history
@@ -905,13 +908,14 @@ class PersonalisedContentService {
    * @param {string} testId - Test identifier
    * @returns {Promise<Object>} Test results
    */
-  async _analyseABTestResults(testId) {
-    // Analyse the results of the A/B test
-    return {
-      bestAlgorithm: 'hybrid',
-      performance: {}
-    };
-  }
+    async _analyseABTestResults(testId) {
+      logger.info(`Analysing A/B test results for ${testId}`);
+      // Analyse the results of the A/B test
+      return {
+        bestAlgorithm: 'hybrid',
+        performance: {}
+      };
+    }
 
   /**
    * Get relevant recommendation history
@@ -960,7 +964,7 @@ class PersonalisedContentService {
    * @param {Array} history - Recommendation history
    * @returns {Object} Algorithm performance
    */
-  _calculateAlgorithmPerformance(history) {
+  _calculateAlgorithmPerformance(_history) {
     // Calculate performance metrics by algorithm
     return {};
   }
@@ -973,7 +977,7 @@ class PersonalisedContentService {
    * @param {number} timeRange - Time range
    * @returns {Object} Trends
    */
-  _analyseRecommendationTrends(history, timeRange) {
+  _analyseRecommendationTrends(_history, _timeRange) {
     // Analyse trends in recommendation performance
     return {};
   }

@@ -10,14 +10,8 @@
  * - Performance trend analysis
  */
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const { performance, PerformanceObserver } = require('perf_hooks');
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const os = require('os');
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const fs = require('fs').promises;
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const path = require('path');
+import { performance, PerformanceObserver } from 'perf_hooks';
+import os from 'os';
 
 class PerformanceMonitoringService {
   constructor(options = {}) {
@@ -832,10 +826,10 @@ class PerformanceMonitoringService {
    * Analyze performance trends
    *
    * @private
-   * @param {string} period - Analysis period
+   * @param {string} _period - Analysis period (unused)
    * @returns {Promise<Object>} Performance trends
    */
-  async _analyzePerformanceTrends(period) {
+  async _analyzePerformanceTrends(_period) {
     // This would analyze historical data for trends
     // For demonstration, return mock trends
     return {
@@ -966,4 +960,4 @@ class PerformanceMonitoringService {
   }
 }
 
-module.exports = PerformanceMonitoringService;
+export default PerformanceMonitoringService;

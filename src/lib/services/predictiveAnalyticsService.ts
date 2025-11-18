@@ -10,10 +10,6 @@
  * - Performance trend analysis
  */
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const fs = require('fs').promises;
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const path = require('path');
 
 class PredictiveAnalyticsService {
   constructor(options = {}) {
@@ -459,7 +455,7 @@ class PredictiveAnalyticsService {
    * @param {number} timeHorizon - Time horizon in days
    * @returns {Promise<Object>} Prediction result
    */
-  async _generatePrediction(data, predictionType, timeHorizon) {
+  async _generatePrediction(data, _predictionType, _timeHorizon) {
     // This would use actual ML models
     // For demonstration, return mock prediction
     const baseProbability = this._calculateBaseProbability(data);
@@ -728,4 +724,4 @@ class PredictiveAnalyticsService {
   }
 }
 
-module.exports = PredictiveAnalyticsService;
+export default PredictiveAnalyticsService;

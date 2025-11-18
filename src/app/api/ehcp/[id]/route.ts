@@ -16,13 +16,18 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
 import { z } from 'zod';
 import { authenticateRequest, authorizeRequest, Permission, canAccessTenant } from '@/lib/middleware/auth';
 import { ehcpRateLimit } from '@/lib/middleware/rate-limit';
 import { auditLogger, getIpAddress, getRequestId, getUserAgent } from '@/lib/security/audit-logger';
 
 const prisma = new PrismaClient();
+
+type PlanDetails = Record<string, any>;
+
+const snapshotPlanDetails = (details: PlanDetails): Prisma.JsonObject =>
+  JSON.parse(JSON.stringify(details));
 
 /**
  * EHCP Update Schema - Validation
@@ -318,6 +323,25 @@ export async function PUT(
       },
     });
 
+    const planDetailsSnapshot = snapshotPlanDetails(updatedPlanDetails as PlanDetails);
+    const updatedSections = plan_details ? Object.keys(plan_details) : [];
+    const versionStatus =
+      (planDetailsSnapshot as { status?: string }).status ?? 'updated';
+    const changeSummary = updatedSections.length
+      ? `Updated sections: ${updatedSections.join(', ')}`
+      : 'Updated EHCP metadata';
+
+    await prisma.ehcp_versions.create({
+      data: {
+        ehcp_id: updatedEHCP.id,
+        tenant_id: updatedEHCP.tenant_id,
+        created_by_id: user.id,
+        status: versionStatus,
+        plan_details: planDetailsSnapshot,
+        change_summary: changeSummary,
+      },
+    });
+
     // 8. Audit logging (GDPR-compliant modification tracking)
     await auditLogger.logEHCPEvent(
       user.id,
@@ -429,14 +453,27 @@ export async function DELETE(
 
     // 5. Soft delete - update status to preserve data for compliance
     // Note: Using status field instead of archived_at (field doesn't exist in current schema)
+    const archivedPlanDetails: PlanDetails = {
+      ...(existingEHCP.plan_details as any),
+      status: 'archived',
+    };
+
     const archivedEHCP = await prisma.ehcps.update({
       where: { id: id },
       data: {
-        plan_details: {
-          ...(existingEHCP.plan_details as any),
-          status: 'archived',
-        },
+        plan_details: archivedPlanDetails,
         updated_at: new Date(),
+      },
+    });
+
+    await prisma.ehcp_versions.create({
+      data: {
+        ehcp_id: archivedEHCP.id,
+        tenant_id: archivedEHCP.tenant_id,
+        created_by_id: user.id,
+        status: 'archived',
+        plan_details: snapshotPlanDetails(archivedPlanDetails),
+        change_summary: 'Recorded EHCP soft delete',
       },
     });
 

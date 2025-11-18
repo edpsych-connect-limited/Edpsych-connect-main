@@ -6,11 +6,13 @@
  * POST /api/ehcp/[id]/export - Email distribution
  */
 
+import crypto from 'node:crypto';
 import { NextRequest, NextResponse } from 'next/server';
 // import { getServerSession } from 'next-auth';
 // import { authOptions } from '@/lib/auth/config';
 import { prisma } from '@/lib/prisma';
 import { EHCPPDFGenerator } from '@/lib/ehcp/pdf-generator';
+import { logForensicEvent } from '@/lib/server/forensic';
 
 // ============================================================================
 // GET - Download EHCP PDF
@@ -85,6 +87,21 @@ export async function GET(
     const studentName = (ehcp.plan_details as any)?.student_name || 'Student';
     const filename = `EHCP-${ehcp.id}-${studentName.replace(/\s+/g, '-')}.pdf`;
 
+    const traceId = crypto.randomUUID();
+    await logForensicEvent({
+      type: 'ehcp_export',
+      action: 'download',
+      tenantId: ehcp.tenant_id,
+      ehcpId: ehcp.id,
+      sections,
+      format,
+      metadata: {
+        watermark: watermark || 'none',
+        url: request.nextUrl.toString(),
+      },
+      traceId,
+    });
+
     // Return PDF with appropriate headers
     return new NextResponse(buffer, {
       status: 200,
@@ -92,6 +109,7 @@ export async function GET(
         'Content-Type': 'application/pdf',
         'Content-Disposition': `attachment; filename="${filename}"`,
         'Content-Length': buffer.length.toString(),
+        'X-EHCP-Export-Trace-Id': traceId,
       },
     });
   } catch (error) {
@@ -165,10 +183,12 @@ export async function POST(
     //   return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     // }
 
+    const requestedSections = sections || ['A', 'B', 'E', 'F', 'I'];
+
     // Generate PDF
     const generator = new EHCPPDFGenerator();
     const pdfBlob = await generator.generateEHCPPDF(ehcp as any, {
-      sections: sections || ['A', 'B', 'E', 'F', 'I'],
+      sections: requestedSections,
       includeCoverPage: true,
       includeSignatures,
     });
@@ -219,6 +239,22 @@ export async function POST(
       ],
     };
 
+    const traceId = crypto.randomUUID();
+    await logForensicEvent({
+      type: 'ehcp_export',
+      action: 'email_send',
+      tenantId: ehcp.tenant_id,
+      ehcpId: ehcp.id,
+      recipients: recipients.length,
+      sections: requestedSections,
+      metadata: {
+        includeSignatures,
+        subject: subject || `EHCP for ${studentName}`,
+        attachments: 1,
+      },
+      traceId,
+    });
+
     // TODO: Log the email distribution (audit trail) once audit system is configured
     // await prisma.auditLog.create({
     //   data: {
@@ -249,6 +285,10 @@ export async function POST(
         fileSize: pdfBuffer.length,
       },
       // NOTE: Remove emailData from response in production for security
+    }, {
+      headers: {
+        'X-EHCP-Export-Trace-Id': traceId,
+      },
     });
   } catch (error) {
     console.error('EHCP email distribution error:', error);

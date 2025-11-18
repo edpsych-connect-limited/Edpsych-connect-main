@@ -1,50 +1,58 @@
 // Export all types
 export * from './Challenge';
 
-// Add additional type exports for subscription tiers
-export enum SubscriptionTier {
-  FREE = 'FREE',
-  BASIC = 'BASIC',
-  ESSENTIAL = 'ESSENTIAL',
-  PROFESSIONAL = 'PROFESSIONAL',
-  ENTERPRISE = 'ENTERPRISE',
-  RESEARCHER = 'RESEARCHER',
-  PSYCHOLOGIST = 'PSYCHOLOGIST',
-  CUSTOM = 'CUSTOM'
-}
+export const SubscriptionTier = {
+  FREE: 'FREE',
+  BASIC: 'BASIC',
+  ESSENTIAL: 'ESSENTIAL',
+  PROFESSIONAL: 'PROFESSIONAL',
+  ENTERPRISE: 'ENTERPRISE',
+  RESEARCHER: 'RESEARCHER',
+  PSYCHOLOGIST: 'PSYCHOLOGIST',
+  CUSTOM: 'CUSTOM'
+} as const;
 
-export enum BillingCycle {
-  MONTHLY = 'MONTHLY',
-  ANNUALLY = 'ANNUALLY',
-  TERMLY = 'TERMLY'
-}
+export type SubscriptionTier = (typeof SubscriptionTier)[keyof typeof SubscriptionTier];
 
-export enum UserType {
-  SCHOOL_USER = 'SCHOOL_USER',
-  SCHOOL_ADMIN = 'SCHOOL_ADMIN',
-  INDIVIDUAL_USER = 'INDIVIDUAL_USER',
-  PSYCHOLOGIST_USER = 'PSYCHOLOGIST_USER',
-  RESEARCHER_USER = 'RESEARCHER_USER'
-}
+export const BillingCycle = {
+  MONTHLY: 'MONTHLY',
+  ANNUALLY: 'ANNUALLY',
+  TERMLY: 'TERMLY'
+} as const;
 
-// Add user role enum
-export enum UserRole {
-  STUDENT = 'STUDENT',
-  TEACHER = 'TEACHER',
-  ADMIN = 'ADMIN',
-  SYSTEM_ADMIN = 'SYSTEM_ADMIN'
-}
+export type BillingCycle = (typeof BillingCycle)[keyof typeof BillingCycle];
 
-export enum SubscriptionStatus {
-  ACTIVE = 'ACTIVE',
-  INACTIVE = 'INACTIVE',
-  CANCELLED = 'CANCELLED',
-  PAST_DUE = 'PAST_DUE',
-  UNPAID = 'UNPAID',
-  TRIALING = 'TRIALING',
-  TRIAL_EXPIRED = 'TRIAL_EXPIRED',
-  TRIAL = 'TRIAL'
-}
+export const UserType = {
+  SCHOOL_USER: 'SCHOOL_USER',
+  SCHOOL_ADMIN: 'SCHOOL_ADMIN',
+  INDIVIDUAL_USER: 'INDIVIDUAL_USER',
+  PSYCHOLOGIST_USER: 'PSYCHOLOGIST_USER',
+  RESEARCHER_USER: 'RESEARCHER_USER'
+} as const;
+
+export type UserType = (typeof UserType)[keyof typeof UserType];
+
+export const UserRole = {
+  STUDENT: 'STUDENT',
+  TEACHER: 'TEACHER',
+  ADMIN: 'ADMIN',
+  SYSTEM_ADMIN: 'SYSTEM_ADMIN'
+} as const;
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole];
+
+export const SubscriptionStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  CANCELLED: 'CANCELLED',
+  PAST_DUE: 'PAST_DUE',
+  UNPAID: 'UNPAID',
+  TRIALING: 'TRIALING',
+  TRIAL_EXPIRED: 'TRIAL_EXPIRED',
+  TRIAL: 'TRIAL'
+} as const;
+
+export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus];
 
 export interface SubscriptionInfo {
   tier: SubscriptionTier;

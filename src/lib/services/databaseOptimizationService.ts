@@ -10,8 +10,7 @@
  * - Query result caching
  */
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const { performance } = require('perf_hooks');
+import { performance } from 'perf_hooks';
 
 class DatabaseOptimizationService {
   constructor(options = {}) {
@@ -360,7 +359,7 @@ class DatabaseOptimizationService {
 
       // Calculate query statistics
       let totalQueryTime = 0;
-      for (const [query, stats] of this.queryStats) {
+      for (const [_query, stats] of this.queryStats) {
         metrics.queryStats.totalQueries += stats.count;
         totalQueryTime += stats.totalTime;
       }
@@ -574,8 +573,8 @@ class DatabaseOptimizationService {
   async _getConnection() {
     // This would integrate with the actual database connection pool
     // For demonstration, return a mock connection
-    return {
-      query: async (query, params) => {
+      return {
+        query: async (_query, _params) => {
         // Simulate query execution
         await new Promise(resolve => setTimeout(resolve, Math.random() * 100));
         return { rowCount: Math.floor(Math.random() * 100) };
@@ -704,12 +703,12 @@ class DatabaseOptimizationService {
    * @param {Array} params - Query parameters
    * @returns {Promise<Array>} Missing indexes
    */
-  async _identifyMissingIndexes(query, params) {
+  async _identifyMissingIndexes(_query, _params) {
     // This would analyze the query and identify potential indexes
     // For demonstration, return mock recommendations
     const missingIndexes = [];
 
-    if (query.toLowerCase().includes('where user_id')) {
+    if (_query.toLowerCase().includes('where user_id')) {
       missingIndexes.push({
         table: 'users',
         columns: ['user_id']
@@ -726,7 +725,7 @@ class DatabaseOptimizationService {
    * @param {string} table - Table name
    * @returns {Promise<Array>} Existing indexes
    */
-  async _getExistingIndexes(table) {
+  async _getExistingIndexes(_table) {
     // This would query the database for existing indexes
     // For demonstration, return mock data
     return [
@@ -953,4 +952,4 @@ class DatabaseOptimizationService {
   }
 }
 
-module.exports = DatabaseOptimizationService;
+export default DatabaseOptimizationService;

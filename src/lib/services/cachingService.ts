@@ -9,8 +9,7 @@
  * - Distributed cache management
  */
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const Redis = require('redis');
+import Redis from 'redis';
 
 class CachingService {
   constructor(options = {}) {
@@ -141,7 +140,7 @@ class CachingService {
         ttl = this.options.defaultTTL,
         useMemory = true,
         useRedis = true,
-        compress = this.options.compression
+        _compress = this.options.compression
       } = options;
 
       const expires = Date.now() + (ttl * 1000);
@@ -482,4 +481,4 @@ class CachingService {
   }
 }
 
-module.exports = CachingService;
+export default CachingService;

@@ -33,32 +33,14 @@ export default function CasesPage() {
   const session = sessionResult?.data;
   const status = sessionResult?.status;
 
-  // Show loading during authentication check
-  if (status === 'loading' || !session) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg">Loading...</div>
-      </div>
-    );
-  }
-
   const [cases, setCases] = useState<Case[]>([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  useEffect(() => {
-    // At this point we know we're authenticated (early return handled above)
-    if (session) {
-      loadCases();
-    }
-  }, [session]);
-
   const loadCases = async () => {
     try {
-      // In production, fetch from API
-      // Mock data for now
       const mockCases: Case[] = [
         {
           id: 1,
@@ -110,6 +92,21 @@ export default function CasesPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (session) {
+      loadCases();
+    }
+  }, [session]);
+
+  // Show loading during authentication check
+  if (status === 'loading' || !session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
 
   const filteredCases = cases.filter((case_) => {
     const matchesStatus = statusFilter === 'all' || case_.status === statusFilter;

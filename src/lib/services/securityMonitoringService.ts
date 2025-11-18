@@ -9,12 +9,7 @@
  * - Integration with external security tools
  */
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const fs = require('fs').promises;
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const path = require('path');
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const crypto = require('crypto');
+import crypto from 'crypto';
 
 class SecurityMonitoringService {
   constructor(options = {}) {
@@ -664,7 +659,7 @@ class SecurityMonitoringService {
    * @param {Object} patterns - Pattern analysis
    * @returns {Array} Behavioral anomalies
    */
-  _detectBehavioralAnomalies(events, patterns) {
+  _detectBehavioralAnomalies(events, _patterns) {
     const anomalies = [];
 
     // Check for unusual login times
@@ -741,7 +736,7 @@ class SecurityMonitoringService {
    */
   _updateBaselineMetrics(event) {
     const hour = new Date(event.timestamp).getHours();
-    const day = new Date(event.timestamp).getDay();
+    const _day = new Date(event.timestamp).getDay();
 
     if (!this.baselineMetrics[hour]) {
       this.baselineMetrics[hour] = { count: 0, types: {} };
@@ -1168,4 +1163,4 @@ SecurityMonitoringService.prototype.startAutonomousCycle = function () {
   logger.info('Autonomous Operations Cycle started');
 };
 
-module.exports = SecurityMonitoringService;
+export default SecurityMonitoringService;

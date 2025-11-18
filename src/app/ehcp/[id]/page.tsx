@@ -384,7 +384,7 @@ export default function EHCPDetailPage() {
                   <div className="space-y-6">
                     <div>
                       <h3 className="text-lg font-medium text-gray-900 mb-2">
-                        Child's Views
+                        Child’s Views
                       </h3>
                       <p className="text-gray-700 whitespace-pre-wrap">
                         {ehcp.plan_details?.section_a?.child_views ||
@@ -393,7 +393,7 @@ export default function EHCPDetailPage() {
                     </div>
                     <div>
                       <h3 className="text-lg font-medium text-gray-900 mb-2">
-                        Parent's Views
+                        Parent’s Views
                       </h3>
                       <p className="text-gray-700 whitespace-pre-wrap">
                         {ehcp.plan_details?.section_a?.parent_views ||

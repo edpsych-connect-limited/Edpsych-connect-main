@@ -457,7 +457,7 @@ class LoadBalancingService {
    * @param {Object} server - Server object
    * @returns {Promise<boolean>} Health status
    */
-  async _performHealthCheckRequest(server) {
+  async _performHealthCheckRequest(_server) {
     // This would make an actual HTTP request to the server's health endpoint
     // For demonstration, we'll simulate a health check
     return new Promise((resolve) => {
@@ -477,7 +477,6 @@ class LoadBalancingService {
     try {
       const stats = this.getStatistics();
       const healthyServers = stats.healthyServers;
-      const totalConnections = stats.totalActiveConnections;
       const avgConnectionsPerServer = stats.averageConnectionsPerServer;
 
       const utilizationRate = healthyServers > 0 ? avgConnectionsPerServer / this.options.maxConnectionsPerServer : 0;

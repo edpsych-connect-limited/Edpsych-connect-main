@@ -335,6 +335,12 @@ src/components/landing/TestimonialsSection.tsx (testimonials)
 4. **SEO Audit**: Verify meta tags and keywords align with new messaging
 5. **Deployment**: Push updated landing page to production
 
+## Pending Refreshes
+
+- Once the refreshed training video library lands (see `docs/TRAINING_VIDEO_STATUS.md`), update the hero/feature callouts to highlight the coach-marked walkthroughs, include CDN links in the resource section, and flag analytics events tracking views.
+- After completing the EHCP export QA checklist (`docs/ops/ehcp_export_qa.md`), weave the new compliance messaging and traceability proof points into the testimonials/metrics section, referencing the `X-EHCP-Export-Trace-Id` telemetry and `docs/ops/forensic_report.md` for proof.
+- When the tokenisation pilot materialises (per the roadmap), add a mini-case study block describing the Treasury + Rewards services, including the associated telemetry capture outlined in `docs/ops/forensic_report.md`, so the landing page reflects both EHCP and tokenisation progress simultaneously.
+
 ---
 
 ## Conclusion

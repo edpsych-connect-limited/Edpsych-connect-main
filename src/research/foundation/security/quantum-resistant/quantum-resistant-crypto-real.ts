@@ -6,9 +6,9 @@
  *
  * This is a mock implementation for development/testing environments.
  */
-
-import * as crypto from 'crypto';
-// This is a mock implementation that doesn't depend on @noble/post-quantum
+/**
+ * Quantum-Resistant Cryptography: Real implementations
+ */
 // It uses crypto.randomBytes() to simulate the behavior of cryptographic operations
 // The real implementation in quantum-resistant-crypto.ts uses:
 // - ml_kem768 from '@noble/post-quantum/ml-kem.js'

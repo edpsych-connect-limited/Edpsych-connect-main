@@ -2,6 +2,7 @@
  * Models related to grant proposals in the EdPsych Research Foundation
  */
 
+
 /**
  * Grant proposal status enum
  */
