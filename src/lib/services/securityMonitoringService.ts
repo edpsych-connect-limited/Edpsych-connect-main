@@ -125,7 +125,7 @@ class SecurityMonitoringService {
    * @param {Array} events - Security events to analyze
    * @returns {Array} Detected anomalies
    */
-  async detectAnomalies(events = null) {
+  async detectAnomalies(events: any = null): Promise<any> {
     try {
       const eventsToAnalyze = events || this.securityEvents.slice(-1000);
       const anomalies = [];
@@ -320,7 +320,7 @@ class SecurityMonitoringService {
    * @param {Object} options - Report options
    * @returns {Object} Security report
    */
-  async getSecurityReport(options = {}) {
+  async getSecurityReport(options: any = {}): Promise<any> {
     try {
       const {
         startDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
@@ -671,7 +671,7 @@ class SecurityMonitoringService {
    * @param {Object} patterns - Pattern analysis
    * @returns {Array} Behavioral anomalies
    */
-  _detectBehavioralAnomalies(events, _patterns) {
+  _detectBehavioralAnomalies(events: any, _patterns: any): any[] {
     const anomalies = [];
 
     // Check for unusual login times

@@ -219,7 +219,7 @@ class PredictiveAnalyticsService {
    * @param {Object} filters - Filtering options
    * @returns {Promise<Object>} Retention analytics
    */
-  async generateRetentionAnalytics(filters = {}) {
+  async generateRetentionAnalytics(filters: any = {}): Promise<any> {
     try {
       const {
         cohortPeriod = 'monthly',
@@ -347,7 +347,7 @@ class PredictiveAnalyticsService {
    * @param {Object} filters - Dashboard filters
    * @returns {Promise<Object>} Analytics dashboard
    */
-  async getAnalyticsDashboard(filters = {}) {
+  async getAnalyticsDashboard(filters: any = {}): Promise<any> {
     try {
       const {
         timeRange = 30, // days
