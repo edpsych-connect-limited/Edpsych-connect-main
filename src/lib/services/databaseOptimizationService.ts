@@ -466,7 +466,7 @@ class DatabaseOptimizationService {
    * @param {number} executionTime - Execution time in milliseconds
    * @param {number} rowCount - Number of rows returned
    */
-  _recordQueryStats(query, executionTime, rowCount) {
+  _recordQueryStats(query: string, executionTime: number, rowCount: number) {
     const normalizedQuery = this._normalizeQuery(query);
 
     if (!this.queryStats.has(normalizedQuery)) {
@@ -498,7 +498,7 @@ class DatabaseOptimizationService {
    * @param {number} executionTime - Execution time
    * @param {Object} analysis - Query analysis
    */
-  _recordSlowQuery(query, params, executionTime, analysis) {
+  _recordSlowQuery(query: string, params: any[], executionTime: number, analysis: any) {
     this.slowQueries.push({
       query,
       params,
@@ -524,7 +524,7 @@ class DatabaseOptimizationService {
    * @param {number} executionTime - Execution time
    * @param {Error} error - Error object
    */
-  _recordQueryError(query, params, executionTime, error) {
+  _recordQueryError(query: string, params: any[], executionTime: number, error: any) {
     logger.error('Query error recorded:', {
       query,
       params,
@@ -542,7 +542,7 @@ class DatabaseOptimizationService {
    * @param {Object} result - Query result
    * @param {number} executionTime - Execution time
    */
-  _analyzeQueryResult(query, result, executionTime) {
+  _analyzeQueryResult(query: string, result: any, executionTime: number) {
     // Analyze result size vs execution time
     if (result.rowCount > 1000 && executionTime > 500) {
       logger.info(`Large result set query detected: ${result.rowCount} rows in ${executionTime}ms`);
@@ -562,7 +562,7 @@ class DatabaseOptimizationService {
    * @param {string} query - Query string
    * @returns {string} Normalized query
    */
-  _normalizeQuery(query) {
+  _normalizeQuery(query: string) {
     // Remove parameter placeholders and normalize whitespace
     return query
       .replace(/\$\d+/g, '?')
@@ -617,13 +617,53 @@ class DatabaseOptimizationService {
   }
 
   /**
+   * Analyze query before execution
+   *
+   * @private
+   * @param {string} query - Query string
+   * @param {Array} params - Query parameters
+   * @returns {Object} Query analysis
+   */
+  _analyzeQuery(query: string, params: any[] = {}) {
+    const analysis = {
+      estimatedCost: 0,
+      recommendations: [],
+      parameters: params.length
+    };
+
+    // Analyze query structure
+    const structureIssues = this._analyzeQueryStructure(query);
+    analysis.recommendations = structureIssues;
+
+    // Estimate query complexity
+    const lowerQuery = query.toLowerCase();
+    if (lowerQuery.includes('join')) {
+      analysis.estimatedCost += 50;
+    }
+    if (lowerQuery.includes('distinct')) {
+      analysis.estimatedCost += 30;
+    }
+    if (lowerQuery.includes('group by')) {
+      analysis.estimatedCost += 40;
+    }
+    if (lowerQuery.includes('order by')) {
+      analysis.estimatedCost += 20;
+    }
+    if (lowerQuery.includes('like')) {
+      analysis.estimatedCost += 25;
+    }
+
+    return analysis;
+  }
+
+  /**
    * Analyze query structure
    *
    * @private
    * @param {string} query - Query string
    * @returns {Array} Structure analysis recommendations
    */
-  _analyzeQueryStructure(query) {
+  _analyzeQueryStructure(query: string) {
     const recommendations = [];
     const lowerQuery = query.toLowerCase();
 
@@ -683,7 +723,7 @@ class DatabaseOptimizationService {
    * @param {Object} plan - Execution plan
    * @returns {Object} Plan analysis
    */
-  _analyzeExecutionPlan(plan) {
+  _analyzeExecutionPlan(plan: any) {
     const analysis = {
       recommendations: []
     };
@@ -749,7 +789,7 @@ class DatabaseOptimizationService {
    * @param {Array} columns - Index columns
    * @param {string} indexName - Index name
    */
-  _recordIndexCreation(table, columns, indexName) {
+  _recordIndexCreation(table: string, columns: string[], indexName: string) {
     logger.info(`Index created: ${indexName} on ${table}(${columns.join(', ')})`);
   }
 
@@ -761,7 +801,7 @@ class DatabaseOptimizationService {
    * @param {number} currentTime - Current execution time
    * @returns {string} Estimated improvement
    */
-  _estimateIndexImprovement(index, currentTime) {
+  _estimateIndexImprovement(index: any, currentTime: number) {
     // Simple estimation based on query type
     const improvement = currentTime > 1000 ? 'Significant' : 'Moderate';
     return `${improvement} (${Math.round(currentTime * 0.7)}ms estimated)`;
@@ -774,7 +814,7 @@ class DatabaseOptimizationService {
    * @param {Array} recommendations - Recommendations array
    * @returns {Array} Deduplicated recommendations
    */
-  _deduplicateRecommendations(recommendations) {
+  _deduplicateRecommendations(recommendations: any[]) {
     const seen = new Set();
     return recommendations.filter(rec => {
       const key = `${rec.table}-${rec.columns.join(',')}`;
@@ -809,7 +849,7 @@ class DatabaseOptimizationService {
    * @param {Object} config - Current configuration
    * @returns {Array} Memory optimization recommendations
    */
-  _optimizeMemorySettings(config) {
+  _optimizeMemorySettings(config: any) {
     const recommendations = [];
 
     if (parseInt(config.shared_buffers) < 256 * 1024 * 1024) {
@@ -844,7 +884,7 @@ class DatabaseOptimizationService {
    * @param {Object} config - Current configuration
    * @returns {Array} Connection optimization recommendations
    */
-  _optimizeConnectionPool(config) {
+  _optimizeConnectionPool(config: any) {
     const recommendations = [];
 
     if (config.max_connections > 200) {
@@ -868,7 +908,7 @@ class DatabaseOptimizationService {
    * @param {Object} config - Current configuration
    * @returns {Array} Planner optimization recommendations
    */
-  _optimizeQueryPlanner(config) {
+  _optimizeQueryPlanner(config: any) {
     const recommendations = [];
 
     if (parseInt(config.effective_cache_size) < 1024 * 1024 * 1024) {
