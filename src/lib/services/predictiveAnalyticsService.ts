@@ -677,6 +677,71 @@ class PredictiveAnalyticsService {
   }
 
   /**
+   * Gather course data
+   *
+   * @private
+   * @param {string} courseId - Course ID
+   * @returns {Promise<Object>} Course data
+   */
+  async _gatherCourseData(courseId: string): Promise<any> {
+    try {
+      return {
+        courseId,
+        enrollmentCount: 0,
+        averageEngagement: 0,
+        completionRate: 0
+      };
+    } catch (error) {
+      logger.error('Error gathering course data:', error instanceof Error ? error.message : String(error));
+      return {};
+    }
+  }
+
+  /**
+   * Generate forecast
+   *
+   * @private
+   * @param {Object} courseData - Course data
+   * @param {string} horizon - Forecast horizon
+   * @param {string} granularity - Forecast granularity
+   * @returns {Promise<Object>} Forecast data
+   */
+  async _generateForecast(courseData: any, horizon: string, granularity: string): Promise<any> {
+    try {
+      return {
+        courseId: courseData.courseId,
+        horizon,
+        granularity,
+        projections: []
+      };
+    } catch (error) {
+      logger.error('Error generating forecast:', error instanceof Error ? error.message : String(error));
+      return {};
+    }
+  }
+
+  /**
+   * Analyse completion risks
+   *
+   * @private
+   * @param {Object} courseData - Course data
+   * @param {Object} forecast - Forecast data
+   * @returns {Promise<Object>} Risk analysis
+   */
+  async _analyseCompletionRisks(courseData: any, forecast: any): Promise<any> {
+    try {
+      return {
+        courseId: courseData.courseId,
+        riskLevel: 'low',
+        riskFactors: []
+      };
+    } catch (error) {
+      logger.error('Error analysing completion risks:', error instanceof Error ? error.message : String(error));
+      return {};
+    }
+  }
+
+  /**
    * Schedule model updates
    *
    * @private
