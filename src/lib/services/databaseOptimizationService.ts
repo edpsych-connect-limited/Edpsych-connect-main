@@ -73,12 +73,12 @@ class DatabaseOptimizationService {
       const connection = await this._getConnection();
 
       // Execute query with timeout
-      const result = await this._executeWithTimeout(connection, query, params, options.timeout);
+      const result: any = await this._executeWithTimeout(connection, query, params, options.timeout);
 
       const executionTime = performance.now() - startTime;
 
       // Record query statistics
-      this._recordQueryStats(query, executionTime, result.rowCount || 0);
+      this._recordQueryStats(query, executionTime, (result as any)?.rowCount || 0);
 
       // Check for slow query
       if (executionTime > this.options.slowQueryThreshold) {
