@@ -331,14 +331,14 @@ class DataEncryptionService {
         keysNeedingRotation: []
       };
 
-      const now = new Date();
+      const now = Date.now();
 
       for (const [keyId, metadata] of this.keyMetadata) {
         switch (metadata.status) {
           case 'active':
             status.activeKeys++;
             // Check if key needs rotation
-            const createdAt = new Date(metadata.createdAt);
+            const createdAt = new Date(metadata.createdAt).getTime();
             const daysSinceCreation = (now - createdAt) / (1000 * 60 * 60 * 24);
 
             if (daysSinceCreation >= this.options.keyRotationDays) {
