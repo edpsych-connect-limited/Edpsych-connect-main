@@ -19,8 +19,15 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
       - name: Deploy to Vercel Production
-        run: npx vercel deploy --prod --confirm
+        run: |
+          echo "Deploying to Vercel..."
+          echo "Org ID: $VERCEL_ORG_ID"
+          echo "Project ID: $VERCEL_PROJECT_ID"
+          npx vercel deploy --prod --confirm --token $VERCEL_TOKEN
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
