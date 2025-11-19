@@ -74,7 +74,7 @@ class DataEncryptionService {
    * @param {Object} options - Encryption options
    * @returns {string} Encrypted data
    */
-  async encrypt(data, options = {}) {
+  async encrypt(data: any, options: any = {}) {
     try {
       if (!this.options.encryptionEnabled) {
         return data;
@@ -130,7 +130,7 @@ class DataEncryptionService {
    * @param {string} encryptedData - Encrypted data package
    * @returns {any} Decrypted data
    */
-  async decrypt(encryptedData) {
+  async decrypt(encryptedData: any) {
     try {
       if (!this.options.encryptionEnabled) {
         return encryptedData;
@@ -173,7 +173,7 @@ class DataEncryptionService {
    * @param {Array} fields - Fields to encrypt (optional)
    * @returns {Object} Object with encrypted fields
    */
-  async encryptFields(obj, fields = null) {
+  async encryptFields(obj: any, fields: string[] | null = null) {
     try {
       const fieldsToEncrypt = fields || Array.from(this.encryptedFields);
       const encryptedObj = { ...obj };
@@ -207,7 +207,7 @@ class DataEncryptionService {
    * @param {Array} fields - Fields to decrypt (optional)
    * @returns {Object} Object with decrypted fields
    */
-  async decryptFields(obj, fields = null) {
+  async decryptFields(obj: any, fields: string[] | null = null) {
     try {
       const fieldsToDecrypt = fields || Array.from(this.encryptedFields);
       const decryptedObj = { ...obj };
@@ -242,7 +242,7 @@ class DataEncryptionService {
    * @param {Object} options - Key options
    * @returns {string} Key ID
    */
-  async generateKey(keyId, options = {}) {
+  async generateKey(keyId: string, options: any = {}) {
     try {
       const {
         purpose = 'general',
@@ -286,7 +286,7 @@ class DataEncryptionService {
    * @param {string} keyId - Key to rotate
    * @returns {string} New key ID
    */
-  async rotateKey(keyId) {
+  async rotateKey(keyId: string) {
     try {
       // Mark old key as rotated
       if (this.keyMetadata.has(keyId)) {
@@ -630,7 +630,7 @@ class DataEncryptionService {
    * @param {string} keyId - Key identifier
    * @returns {Buffer} Encryption key
    */
-  async _getEncryptionKey(keyId) {
+  async _getEncryptionKey(keyId: string) {
     if (this.encryptionKeys.has(keyId)) {
       const metadata = this.keyMetadata.get(keyId);
 
@@ -659,7 +659,7 @@ class DataEncryptionService {
    * @param {Buffer} key - Encryption key
    * @param {Object} metadata - Key metadata
    */
-  async _persistKey(keyId, key, metadata) {
+  async _persistKey(keyId: string, key: any, metadata: any) {
     try {
       const keysDir = path.join(process.cwd(), 'keys', 'encryption');
       await fs.mkdir(keysDir, { recursive: true });
@@ -687,7 +687,7 @@ class DataEncryptionService {
    * @param {string} keyId - Key identifier
    * @param {Object} metadata - Key metadata
    */
-  async _persistKeyMetadata(keyId, metadata) {
+  async _persistKeyMetadata(keyId: string, metadata: any) {
     try {
       const keysDir = path.join(process.cwd(), 'keys', 'encryption');
       const metadataPath = path.join(keysDir, `${keyId}.meta`);

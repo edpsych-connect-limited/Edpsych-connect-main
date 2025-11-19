@@ -293,7 +293,7 @@ class PerformanceMonitoringService {
    *
    * @param {Object} alertData - Alert data
    */
-  async createAlert(alertData) {
+  async createAlert(alertData: any) {
     try {
       const alert = {
         id: crypto.randomUUID(),
@@ -337,7 +337,7 @@ class PerformanceMonitoringService {
    * @param {string} userId - User who acknowledged
    * @returns {boolean} Success status
    */
-  async acknowledgeAlert(alertId, userId) {
+  async acknowledgeAlert(alertId: string, userId: string) {
     try {
       const alert = this.alerts.find(a => a.id === alertId);
 
@@ -364,7 +364,7 @@ class PerformanceMonitoringService {
    * @param {string} resolution - Resolution details
    * @returns {boolean} Success status
    */
-  async resolveAlert(alertId, resolution = '') {
+  async resolveAlert(alertId: string, resolution: string = '') {
     try {
       const alert = this.alerts.find(a => a.id === alertId);
 
@@ -502,7 +502,7 @@ class PerformanceMonitoringService {
    * @param {string} endpoint - API endpoint
    * @param {number} responseTime - Response time
    */
-  async _checkResponseTimeThreshold(endpoint, responseTime) {
+  async _checkResponseTimeThreshold(endpoint: string, responseTime: number) {
     if (responseTime > this.options.alertThresholds.responseTime) {
       await this.createAlert({
         type: 'response_time',
@@ -524,7 +524,7 @@ class PerformanceMonitoringService {
    * @param {Object} memUsage - Memory usage
    * @param {Object} cpuUsage - CPU usage
    */
-  async _checkSystemThresholds(memUsage, cpuUsage) {
+  async _checkSystemThresholds(memUsage: number, cpuUsage: number) {
     // Memory threshold
     const memoryUsageRatio = memUsage.heapUsed / memUsage.heapTotal;
     if (memoryUsageRatio > this.options.alertThresholds.memoryUsage) {
@@ -834,7 +834,7 @@ class PerformanceMonitoringService {
    * @param {string} _period - Analysis period (unused)
    * @returns {Promise<Object>} Performance trends
    */
-  async _analyzePerformanceTrends(_period) {
+  async _analyzePerformanceTrends(_period: string) {
     // This would analyze historical data for trends
     // For demonstration, return mock trends
     return {
@@ -917,7 +917,7 @@ class PerformanceMonitoringService {
    * @private
    * @param {Object} alert - Alert data
    */
-  async _sendAlertNotification(alert) {
+  async _sendAlertNotification(alert: any) {
     // This would integrate with the notification service
     logger.info(`Sending alert notification: ${alert.title}`);
   }

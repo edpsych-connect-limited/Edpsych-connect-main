@@ -68,7 +68,7 @@ class PredictiveAnalyticsService {
    * @param {Object} context - Prediction context
    * @returns {Promise<Object>} Success prediction
    */
-  async predictStudentSuccess(studentId, context = {}) {
+  async predictStudentSuccess(studentId: string, context: any = {}) {
     try {
       const {
         courseId,
@@ -127,7 +127,7 @@ class PredictiveAnalyticsService {
    * @param {Object} options - Forecasting options
    * @returns {Promise<Object>} Completion forecast
    */
-  async forecastCourseCompletion(courseId, options = {}) {
+  async forecastCourseCompletion(courseId: string, options: any = {}) {
     try {
       const {
         forecastHorizon = 180, // days
@@ -173,7 +173,7 @@ class PredictiveAnalyticsService {
    * @param {Object} options - Analysis options
    * @returns {Promise<Object>} Engagement analysis
    */
-  async analyseEngagement(studentId, options = {}) {
+  async analyseEngagement(studentId: string, options: any = {}) {
     try {
       const {
         timeWindow = 30, // days
@@ -262,7 +262,7 @@ class PredictiveAnalyticsService {
    * @param {Object} prediction - Prediction data
    * @returns {Promise<Array>} Triggered interventions
    */
-  async triggerAutomatedInterventions(studentId, prediction) {
+  async triggerAutomatedInterventions(studentId: string, prediction: any) {
     try {
       const interventions = [];
 
@@ -298,7 +298,7 @@ class PredictiveAnalyticsService {
    * @param {Object} options - Optimisation options
    * @returns {Promise<Object>} Optimised learning path
    */
-  async optimiseLearningPath(studentId, options = {}) {
+  async optimiseLearningPath(studentId: string, options: any = {}) {
     try {
       const {
         currentPath,
@@ -422,7 +422,7 @@ class PredictiveAnalyticsService {
    * @param {string} courseId - Course identifier
    * @returns {Promise<Object>} Student data
    */
-  async _gatherStudentData(studentId, courseId) {
+  async _gatherStudentData(studentId: string, courseId: string) {
     // This would gather real student data from the database
     // For demonstration, return mock data
     return {
@@ -461,7 +461,7 @@ class PredictiveAnalyticsService {
    * @param {number} timeHorizon - Time horizon in days
    * @returns {Promise<Object>} Prediction result
    */
-  async _generatePrediction(data, _predictionType, _timeHorizon) {
+  async _generatePrediction(data: any, _predictionType: string, _timeHorizon: number) {
     // This would use actual ML models
     // For demonstration, return mock prediction
     const baseProbability = this._calculateBaseProbability(data);
@@ -568,7 +568,7 @@ class PredictiveAnalyticsService {
    * @param {string} riskLevel - Risk level
    * @returns {Promise<Array>} Recommendations
    */
-  async _generateRecommendations(studentId, prediction, riskLevel) {
+  async _generateRecommendations(studentId: string, prediction: any, riskLevel: string) {
     const recommendations = [];
 
     if (riskLevel === 'high') {
@@ -635,7 +635,7 @@ class PredictiveAnalyticsService {
    * @param {string} studentId - Student identifier
    * @param {Object} prediction - Prediction data
    */
-  async _triggerInterventions(studentId, prediction) {
+  async _triggerInterventions(studentId: string, prediction: any) {
     const interventions = await this.triggerAutomatedInterventions(studentId, prediction);
 
     for (const intervention of interventions) {

@@ -69,7 +69,7 @@ class SecurityMonitoringService {
    *
    * @param {Object} event - Security event data
    */
-  async logSecurityEvent(event) {
+  async logSecurityEvent(event: any) {
     try {
       const securityEvent = {
         id: crypto.randomUUID(),
@@ -169,7 +169,7 @@ class SecurityMonitoringService {
    *
    * @param {Object} alertData - Alert data
    */
-  async generateAlert(alertData) {
+  async generateAlert(alertData: any) {
     try {
       const alert = {
         id: crypto.randomUUID(),
@@ -213,7 +213,7 @@ class SecurityMonitoringService {
    * @param {string} userId - User who acknowledged
    * @returns {boolean} Success status
    */
-  async acknowledgeAlert(alertId, userId) {
+  async acknowledgeAlert(alertId: string, userId: string) {
     try {
       const alert = this.alerts.find(a => a.id === alertId);
 
@@ -240,7 +240,7 @@ class SecurityMonitoringService {
    * @param {string} resolution - Resolution details
    * @returns {boolean} Success status
    */
-  async resolveAlert(alertId, resolution = '') {
+  async resolveAlert(alertId: string, resolution: string = '') {
     try {
       const alert = this.alerts.find(a => a.id === alertId);
 
@@ -412,7 +412,7 @@ class SecurityMonitoringService {
    * @private
    * @param {Object} event - Security event
    */
-  async _checkForImmediateAlerts(event) {
+  async _checkForImmediateAlerts(event: any) {
     try {
       // Check for critical security events
       if (event.severity === 'critical') {
@@ -475,7 +475,7 @@ class SecurityMonitoringService {
    * @private
    * @param {Array} events - Recent events
    */
-  async _checkThresholdViolations(events) {
+  async _checkThresholdViolations(events: any) {
     try {
       const now = new Date();
       const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000);
@@ -782,7 +782,7 @@ class SecurityMonitoringService {
    * @private
    * @param {Object} alert - Alert data
    */
-  async _sendAlertNotifications(alert) {
+  async _sendAlertNotifications(alert: any) {
     try {
       // In a real implementation, integrate with NotificationService
       logger.info(`Sending alert notification: ${alert.title}`);

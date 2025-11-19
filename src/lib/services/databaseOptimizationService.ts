@@ -61,7 +61,7 @@ class DatabaseOptimizationService {
    * @param {Object} options - Query options
    * @returns {Promise<any>} Query result
    */
-  async executeOptimizedQuery(query, params = [], options = {}) {
+  async executeOptimizedQuery(query: string, params: any[] = [], options: any = {}) {
     const startTime = performance.now();
 
     try {
@@ -103,7 +103,7 @@ class DatabaseOptimizationService {
    * @param {Object} options - Index options
    * @returns {Promise<boolean>} Success status
    */
-  async createOptimizedIndex(table, columns, options = {}) {
+  async createOptimizedIndex(table: string, columns: string[], options: any = {}) {
     try {
       const {
         unique = false,
@@ -151,7 +151,7 @@ class DatabaseOptimizationService {
    * @param {Array} params - Query parameters
    * @returns {Promise<Object>} Analysis result
    */
-  async analyzeQueryPerformance(query, params = []) {
+  async analyzeQueryPerformance(query: string, params: any[] = []) {
     try {
       const analysis = {
         query,
@@ -598,7 +598,7 @@ class DatabaseOptimizationService {
    * @param {number} timeout - Timeout in milliseconds
    * @returns {Promise<any>} Query result
    */
-  async _executeWithTimeout(connection, query, params, timeout = 30000) {
+  async _executeWithTimeout(connection: any, query: string, params: any, timeout: number = 30000) {
     return new Promise(async (resolve, reject) => {
       const timeoutId = setTimeout(() => {
         reject(new Error('Query timeout'));
@@ -664,7 +664,7 @@ class DatabaseOptimizationService {
    * @param {Array} params - Query parameters
    * @returns {Promise<Object>} Execution plan
    */
-  async _getExecutionPlan(query, params) {
+  async _getExecutionPlan(query: string, params: any) {
     try {
       const explainQuery = `EXPLAIN (ANALYZE, BUFFERS) ${query}`;
       const result = await this.executeOptimizedQuery(explainQuery, params);
@@ -709,7 +709,7 @@ class DatabaseOptimizationService {
    * @param {Array} params - Query parameters
    * @returns {Promise<Array>} Missing indexes
    */
-  async _identifyMissingIndexes(_query, _params) {
+  async _identifyMissingIndexes(_query: string, _params: any) {
     // This would analyze the query and identify potential indexes
     // For demonstration, return mock recommendations
     const missingIndexes = [];
@@ -731,7 +731,7 @@ class DatabaseOptimizationService {
    * @param {string} table - Table name
    * @returns {Promise<Array>} Existing indexes
    */
-  async _getExistingIndexes(_table) {
+  async _getExistingIndexes(_table: string) {
     // This would query the database for existing indexes
     // For demonstration, return mock data
     return [
@@ -890,7 +890,7 @@ class DatabaseOptimizationService {
    * @private
    * @param {Object} optimization - Optimization to apply
    */
-  async _applyConfigurationChange(optimization) {
+  async _applyConfigurationChange(optimization: any) {
     // This would apply the configuration change to the database
     logger.info(`Applying configuration change: ${optimization.name}`);
   }
