@@ -16,7 +16,7 @@ import { logger } from '@/lib/logger';
 
 class PerformanceMonitoringService {
   options: any;
-  metrics: any[];
+  metrics: any;
   alerts: any[];
   observers: any[];
   performanceObserver: any;
@@ -83,7 +83,7 @@ class PerformanceMonitoringService {
    * @param {number} statusCode - HTTP status code
    * @param {Object} metadata - Additional metadata
    */
-  recordApiResponse(endpoint, responseTime, statusCode, metadata = {}) {
+  recordApiResponse(endpoint: string, responseTime: number, statusCode: number, metadata: any = {}) {
     try {
       const metric: Record<string, any> = {
         timestamp: new Date().toISOString(),
@@ -116,7 +116,7 @@ class PerformanceMonitoringService {
    * @param {number} value - Metric value
    * @param {Object} tags - Metric tags
    */
-  recordCustomMetric(name, value, tags = {}) {
+  recordCustomMetric(name: string, value: number, tags: any = {}): void {
     try {
       if (!this.metrics.customMetrics.has(name)) {
         this.metrics.customMetrics.set(name, []);
@@ -145,7 +145,7 @@ class PerformanceMonitoringService {
    * @param {Error} error - Error object
    * @param {Object} context - Error context
    */
-  recordError(error, context = {}) {
+  recordError(error: Error, context: any = {}): void {
     try {
       const errorMetric: Record<string, any> = {
         timestamp: new Date().toISOString(),
@@ -164,12 +164,12 @@ class PerformanceMonitoringService {
   }
 
   /**
-   * Start performance profiling
+   * Start profiling
    *
    * @param {string} name - Profile name
    * @returns {Function} Stop profiling function
    */
-  startProfiling(name) {
+  startProfiling(name: string): () => void {
     if (!this.options.enableProfiling) {
       return () => {};
     }
@@ -205,7 +205,7 @@ class PerformanceMonitoringService {
    * @param {Object} options - Query options
    * @returns {Promise<Object>} Performance metrics
    */
-  async getPerformanceMetrics(options = {}) {
+  async getPerformanceMetrics(options: any = {}): Promise<any> {
     try {
       const {
         startTime = new Date(Date.now() - 60 * 60 * 1000), // Last hour
@@ -242,7 +242,7 @@ class PerformanceMonitoringService {
    * @param {Object} options - Report options
    * @returns {Promise<Object>} Performance report
    */
-  async generatePerformanceReport(options = {}) {
+  async generatePerformanceReport(options: any = {}): Promise<any> {
     try {
       const {
         period = 'daily', // daily, weekly, monthly
