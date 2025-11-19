@@ -10,6 +10,7 @@
  */
 
 import Redis from 'redis';
+import { logger } from '@/lib/logger';
 
 class CachingService {
   options: any;
