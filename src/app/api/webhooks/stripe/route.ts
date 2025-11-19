@@ -24,14 +24,46 @@ import {
   STRIPE_WEBHOOK_EVENTS,
 } from '@/lib/stripe-config';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-10-29.clover',
-});
+/**
+ * Initialize Stripe client only when needed (not at module load time)
+ * This prevents build-time failures when STRIPE_SECRET_KEY is not set
+ */
+function getStripeClient(): Stripe {
+  const secretKey = process.env.STRIPE_SECRET_KEY;
+  if (!secretKey) {
+    throw new Error(
+      'STRIPE_SECRET_KEY environment variable is not set. ' +
+      'This is required for webhook processing. ' +
+      'Check your .env.local or Vercel environment variables.'
+    );
+  }
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+  return new Stripe(secretKey, {
+    apiVersion: '2025-10-29.clover',
+  });
+}
+
+/**
+ * Get webhook secret only when needed (not at module load time)
+ */
+function getWebhookSecret(): string {
+  const secret = process.env.STRIPE_WEBHOOK_SECRET;
+  if (!secret) {
+    throw new Error(
+      'STRIPE_WEBHOOK_SECRET environment variable is not set. ' +
+      'This is required for webhook signature verification. ' +
+      'Check your .env.local or Vercel environment variables.'
+    );
+  }
+  return secret;
+}
 
 export async function POST(request: NextRequest) {
   try {
+    // Initialize Stripe client and webhook secret only when webhook is called
+    const stripe = getStripeClient();
+    const webhookSecret = getWebhookSecret();
+
     const body = await request.text();
     const headersList = headers();
     const signature = headersList.get('stripe-signature');
