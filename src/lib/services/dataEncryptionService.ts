@@ -518,7 +518,20 @@ class DataEncryptionService {
    */
   async generateEncryptionReport() {
     try {
-      const report = {
+      const report: {
+        generatedAt: string;
+        encryptionEnabled: boolean;
+        algorithm: string;
+        keyStatus: {
+          totalKeys: number;
+          activeKeys: number;
+          expiredKeys: number;
+          rotatedKeys: number;
+        };
+        encryptedFields: string[];
+        keyRotationStatus: any;
+        recommendations: string[];
+      } = {
         generatedAt: new Date().toISOString(),
         encryptionEnabled: this.options.encryptionEnabled,
         algorithm: this.options.algorithm,
