@@ -400,7 +400,7 @@ class CourseCompletionForecastingEngine extends EventEmitter {
         if (forecast.riskScore >= riskThreshold) {
           atRiskStudents.push({
             studentId: String(student.id),
-            studentName: `${student.firstName} ${student.lastName}`,
+            studentName: `${student.first_name} ${student.last_name}`,
             riskScore: forecast.riskScore,
             riskLevel: forecast.riskLevel,
             completionProbability: forecast.completionProbability,
