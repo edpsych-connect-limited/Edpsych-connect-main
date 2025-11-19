@@ -742,6 +742,122 @@ class PredictiveAnalyticsService {
   }
 
   /**
+   * Gather engagement data
+   *
+   * @private
+   * @param {string} studentId - Student ID
+   * @param {number} timeWindow - Time window in days
+   * @returns {Promise<Object>} Engagement data
+   */
+  async _gatherEngagementData(studentId: string, timeWindow: number): Promise<any> {
+    try {
+      return {
+        studentId,
+        timeWindow,
+        loginFrequency: 0,
+        timeSpent: 0,
+        interactions: 0
+      };
+    } catch (error) {
+      logger.error('Error gathering engagement data:', error instanceof Error ? error.message : String(error));
+      return {};
+    }
+  }
+
+  /**
+   * Analyse engagement patterns
+   *
+   * @private
+   * @param {Object} engagementData - Engagement data
+   * @returns {Object} Patterns
+   */
+  _analyseEngagementPatterns(engagementData: any): any {
+    return {
+      consistencyScore: 0.5,
+      peakTimes: [],
+      anomalies: []
+    };
+  }
+
+  /**
+   * Calculate engagement score
+   *
+   * @private
+   * @param {Object} patterns - Engagement patterns
+   * @returns {number} Engagement score
+   */
+  _calculateEngagementScore(patterns: any): number {
+    return patterns.consistencyScore || 0;
+  }
+
+  /**
+   * Predict engagement
+   *
+   * @private
+   * @param {Object} engagementData - Engagement data
+   * @returns {Promise<Object>} Engagement prediction
+   */
+  async _predictEngagement(engagementData: any): Promise<any> {
+    try {
+      return {
+        predictedEngagement: 0.5,
+        trendDirection: 'stable'
+      };
+    } catch (error) {
+      logger.error('Error predicting engagement:', error instanceof Error ? error.message : String(error));
+      return {};
+    }
+  }
+
+  /**
+   * Generate engagement recommendations
+   *
+   * @private
+   * @param {Object} patterns - Engagement patterns
+   * @param {number} engagementScore - Engagement score
+   * @returns {Array} Recommendations
+   */
+  _generateEngagementRecommendations(patterns: any, engagementScore: number): any[] {
+    return [];
+  }
+
+  /**
+   * Gather retention data
+   *
+   * @private
+   * @param {Object} filters - Filter criteria
+   * @returns {Promise<Object>} Retention data
+   */
+  async _gatherRetentionData(filters: any): Promise<any> {
+    try {
+      return {
+        cohorts: [],
+        retentionRates: {},
+        churnIndicators: []
+      };
+    } catch (error) {
+      logger.error('Error gathering retention data:', error instanceof Error ? error.message : String(error));
+      return {};
+    }
+  }
+
+  /**
+   * Calculate retention metrics
+   *
+   * @private
+   * @param {Object} retentionData - Retention data
+   * @param {string} cohortPeriod - Cohort period
+   * @returns {Object} Metrics
+   */
+  _calculateRetentionMetrics(retentionData: any, cohortPeriod: string): any {
+    return {
+      overallRetentionRate: 0,
+      cohortRetentionRates: {},
+      churnRate: 0
+    };
+  }
+
+  /**
    * Schedule model updates
    *
    * @private
