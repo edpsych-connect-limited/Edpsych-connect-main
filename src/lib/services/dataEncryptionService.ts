@@ -323,7 +323,13 @@ class DataEncryptionService {
    */
   async getKeyRotationStatus() {
     try {
-      const status = {
+      const status: {
+        totalKeys: number;
+        activeKeys: number;
+        expiredKeys: number;
+        rotatedKeys: number;
+        keysNeedingRotation: Array<{ keyId: string; daysSinceCreation: number; createdAt: any }>;
+      } = {
         totalKeys: this.keyMetadata.size,
         activeKeys: 0,
         expiredKeys: 0,
