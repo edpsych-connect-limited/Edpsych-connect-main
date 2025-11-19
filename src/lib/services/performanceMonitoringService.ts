@@ -223,7 +223,7 @@ class PerformanceMonitoringService {
         api: this._calculateApiMetrics(startTime, endTime),
         system: includeSystem ? await this._getSystemMetrics() : null,
         custom: includeCustom ? this._getCustomMetrics(startTime, endTime) : null,
-        alerts: this.alerts.filter(alert =>
+        alerts: this.alerts.filter((alert: any) =>
           new Date(alert.timestamp) >= startTime &&
           new Date(alert.timestamp) <= endTime
         ),
@@ -465,7 +465,7 @@ class PerformanceMonitoringService {
 
       // Throughput (requests per minute)
       const recentRequests = this.metrics.responseTimes.filter(
-        r => new Date(r.timestamp) > new Date(Date.now() - 60000)
+        (r: any) => new Date(r.timestamp) > new Date(Date.now() - 60000)
       );
       this.metrics.throughput.push({
         timestamp,
@@ -569,7 +569,7 @@ class PerformanceMonitoringService {
     try {
       // Check error rate
       const recentResponses = this.metrics.responseTimes.slice(-100);
-      const errorCount = recentResponses.filter(r => !r.success).length;
+      const errorCount = recentResponses.filter((r: any) => !r.success).length;
       const errorRate = errorCount / recentResponses.length;
 
       if (errorRate > this.options.alertThresholds.errorRate) {
@@ -608,8 +608,8 @@ class PerformanceMonitoringService {
       const firstHalf = recentResponses.slice(0, midPoint);
       const secondHalf = recentResponses.slice(midPoint);
 
-      const firstHalfAvg = firstHalf.reduce((sum, r) => sum + r.responseTime, 0) / firstHalf.length;
-      const secondHalfAvg = secondHalf.reduce((sum, r) => sum + r.responseTime, 0) / secondHalf.length;
+      const firstHalfAvg = firstHalf.reduce((sum: number, r: any) => sum + r.responseTime, 0) / firstHalf.length;
+      const secondHalfAvg = secondHalf.reduce((sum: number, r: any) => sum + r.responseTime, 0) / secondHalf.length;
 
       const degradationPercent = ((secondHalfAvg - firstHalfAvg) / firstHalfAvg) * 100;
 
@@ -644,7 +644,7 @@ class PerformanceMonitoringService {
    */
   _calculateApiMetrics(startTime: Date, endTime: Date) {
     const relevantResponses = this.metrics.responseTimes.filter(
-      r => new Date(r.timestamp) >= startTime && new Date(r.timestamp) <= endTime
+      (r: any) => new Date(r.timestamp) >= startTime && new Date(r.timestamp) <= endTime
     );
 
     if (relevantResponses.length === 0) {
