@@ -47,6 +47,7 @@ class PerformanceMonitoringService {
     };
 
     this.alerts = [];
+    this.observers = [];
     this.performanceObserver = null;
     this.monitoringInterval = null;
 
