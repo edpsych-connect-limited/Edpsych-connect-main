@@ -55,7 +55,7 @@ class CachingService {
       });
 
       // Handle Redis events
-      this.redisClient.on('error', (err) => {
+      this.redisClient.on('error', (err: any) => {
         logger.error('Redis Client Error:', err);
       });
 
