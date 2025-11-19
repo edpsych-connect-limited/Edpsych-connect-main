@@ -5,8 +5,12 @@
   "framework": "nextjs",
   "env": {
     "NODE_ENV": "production",
-    "NEXT_TELEMETRY_DISABLED": "1"
+    "NEXT_TELEMETRY_DISABLED": "1",
+    "VERCEL_SKIP_OPTIMIZE": "true"
   },
+  "buildEnv": [
+    "VERCEL_SKIP_OPTIMIZE"
+  ],
   "headers": [
     {
       "source": "/api/:path*",
@@ -27,7 +31,8 @@
   "functions": {
     "api/**": {
       "excludeFiles": "**/*.{spec,test}.{js,ts}",
-      "maxDuration": 60
+      "maxDuration": 60,
+      "memory": 1024
     }
   },
   "crons": [
