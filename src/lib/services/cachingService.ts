@@ -24,7 +24,7 @@ class CachingService {
   redisClient: any;
   memoryCache: Map<string, any>;
   cacheStats: any;
-  invalidationPatterns: any;
+  invalidationPatterns: Record<string, string[]> | null;
 
   constructor(options: any = {}) {
     this.options = {
@@ -46,6 +46,7 @@ class CachingService {
       memoryUsage: 0,
       redisUsage: 0
     };
+    this.invalidationPatterns = null;
 
     this._initialize();
   }
@@ -367,7 +368,7 @@ class CachingService {
    *
    * @param {Object} patterns - Invalidation patterns
    */
-  setupInvalidationPatterns(patterns: any) {
+  setupInvalidationPatterns(patterns: Record<string, string[]>) {
     this.invalidationPatterns = patterns;
   }
 
