@@ -49,7 +49,7 @@ class DatabaseOptimizationService {
 
       logger.info('Database optimization service initialized');
     } catch (error) {
-      logger.error('Error initializing database optimization service:', error);
+      logger.error('Error initializing database optimization service:', error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -139,7 +139,7 @@ class DatabaseOptimizationService {
       logger.info(`Created index ${indexName} on ${table}(${columns.join(', ')})`);
       return true;
     } catch (error) {
-      logger.error('Error creating optimized index:', error);
+      logger.error('Error creating optimized index:', error instanceof Error ? error.message : String(error));
       return false;
     }
   }
@@ -186,7 +186,7 @@ class DatabaseOptimizationService {
 
       return analysis;
     } catch (error) {
-      logger.error('Error analyzing query performance:', error);
+      logger.error('Error analyzing query performance:', error instanceof Error ? error.message : String(error));
       throw error;
     }
   }
@@ -218,7 +218,7 @@ class DatabaseOptimizationService {
 
       return uniqueRecommendations;
     } catch (error) {
-      logger.error('Error getting index recommendations:', error);
+      logger.error('Error getting index recommendations:', error instanceof Error ? error.message : String(error));
       return [];
     }
   }
@@ -257,14 +257,14 @@ class DatabaseOptimizationService {
             await this._applyConfigurationChange(optimization);
             optimizations.applied.push(optimization);
           } catch (error) {
-            logger.error(`Failed to apply optimization ${optimization.name}:`, error);
+            logger.error(`Failed to apply optimization ${optimization.name}:`, error instanceof Error ? error.message : String(error));
           }
         }
       }
 
       return optimizations;
     } catch (error) {
-      logger.error('Error optimizing database configuration:', error);
+      logger.error('Error optimizing database configuration:', error instanceof Error ? error.message : String(error));
       throw error;
     }
   }
@@ -289,7 +289,7 @@ class DatabaseOptimizationService {
         await this.executeOptimizedQuery('VACUUM');
         maintenance.vacuum.success = true;
       } catch (error) {
-        logger.error('VACUUM failed:', error);
+        logger.error('VACUUM failed:', error instanceof Error ? error.message : String(error));
       }
       maintenance.vacuum.duration = performance.now() - vacuumStart;
 
@@ -299,7 +299,7 @@ class DatabaseOptimizationService {
         await this.executeOptimizedQuery('ANALYZE');
         maintenance.analyze.success = true;
       } catch (error) {
-        logger.error('ANALYZE failed:', error);
+        logger.error('ANALYZE failed:', error instanceof Error ? error.message : String(error));
       }
       maintenance.analyze.duration = performance.now() - analyzeStart;
 
@@ -309,7 +309,7 @@ class DatabaseOptimizationService {
         await this.executeOptimizedQuery('REINDEX DATABASE edpsych_connect');
         maintenance.reindex.success = true;
       } catch (error) {
-        logger.error('REINDEX failed:', error);
+        logger.error('REINDEX failed:', error instanceof Error ? error.message : String(error));
       }
       maintenance.reindex.duration = performance.now() - reindexStart;
 
@@ -319,14 +319,14 @@ class DatabaseOptimizationService {
         await this._cleanupOldData();
         maintenance.cleanup.success = true;
       } catch (error) {
-        logger.error('Cleanup failed:', error);
+        logger.error('Cleanup failed:', error instanceof Error ? error.message : String(error));
       }
       maintenance.cleanup.duration = performance.now() - cleanupStart;
 
       logger.info('Database maintenance completed:', maintenance);
       return maintenance;
     } catch (error) {
-      logger.error('Error performing database maintenance:', error);
+      logger.error('Error performing database maintenance:', error instanceof Error ? error.message : String(error));
       throw error;
     }
   }
@@ -388,7 +388,7 @@ class DatabaseOptimizationService {
 
       return metrics;
     } catch (error) {
-      logger.error('Error getting database performance metrics:', error);
+      logger.error('Error getting database performance metrics:', error instanceof Error ? error.message : String(error));
       throw error;
     }
   }
@@ -416,7 +416,7 @@ class DatabaseOptimizationService {
       try {
         await this.performDatabaseMaintenance();
       } catch (error) {
-        logger.error('Scheduled maintenance failed:', error);
+        logger.error('Scheduled maintenance failed:', error instanceof Error ? error.message : String(error));
       }
     }, this.options.maintenanceInterval);
   }
@@ -453,7 +453,7 @@ class DatabaseOptimizationService {
         }
       }
     } catch (error) {
-      logger.error('Error analyzing query patterns:', error);
+      logger.error('Error analyzing query patterns:', error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -670,7 +670,7 @@ class DatabaseOptimizationService {
       const result = await this.executeOptimizedQuery(explainQuery, params);
       return result;
     } catch (error) {
-      logger.error('Error getting execution plan:', error);
+      logger.error('Error getting execution plan:', error instanceof Error ? error.message : String(error));
       return null;
     }
   }

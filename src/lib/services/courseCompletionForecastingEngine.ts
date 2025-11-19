@@ -163,7 +163,7 @@ export class CourseCompletionForecastingEngine extends EventEmitter {
       this.emit('initialized', { timestamp: new Date() });
       logger.info('[CourseCompletion] Forecasting engine initialized');
     } catch (error) {
-      logger.error('[CourseCompletion] Initialization error:', error);
+      logger.error('[CourseCompletion] Initialization error:', error instanceof Error ? error.message : String(error));
       throw error;
     }
   }
@@ -265,7 +265,7 @@ export class CourseCompletionForecastingEngine extends EventEmitter {
 
       return result;
     } catch (error) {
-      logger.error('[CourseCompletion] Error generating forecast:', error);
+      logger.error('[CourseCompletion] Error generating forecast:', error instanceof Error ? error.message : String(error));
       throw error;
     }
   }
@@ -353,7 +353,7 @@ export class CourseCompletionForecastingEngine extends EventEmitter {
         recommendations,
       };
     } catch (error) {
-      logger.error('[CourseCompletion] Error generating cohort forecast:', error);
+      logger.error('[CourseCompletion] Error generating cohort forecast:', error instanceof Error ? error.message : String(error));
       throw error;
     }
   }
@@ -415,7 +415,7 @@ export class CourseCompletionForecastingEngine extends EventEmitter {
 
       return atRiskStudents.slice(0, limit);
     } catch (error) {
-      logger.error('[CourseCompletion] Error identifying at-risk students:', error);
+      logger.error('[CourseCompletion] Error identifying at-risk students:', error instanceof Error ? error.message : String(error));
       throw error;
     }
   }
@@ -468,7 +468,7 @@ export class CourseCompletionForecastingEngine extends EventEmitter {
         expectedImpact,
       };
     } catch (error) {
-      logger.error('[CourseCompletion] Error optimizing intervention:', error);
+      logger.error('[CourseCompletion] Error optimizing intervention:', error instanceof Error ? error.message : String(error));
       throw error;
     }
   }
@@ -658,7 +658,7 @@ Provide a concise 2-3 sentence analysis with specific, actionable recommendation
 
       return response.choices[0]?.message?.content || 'Analysis unavailable';
     } catch (error) {
-      logger.error('[CourseCompletion] Error generating AI insights:', error);
+      logger.error('[CourseCompletion] Error generating AI insights:', error instanceof Error ? error.message : String(error));
       return 'AI insights temporarily unavailable';
     }
   }

@@ -12,6 +12,13 @@
 import Redis from 'redis';
 import { logger } from '@/lib/logger';
 
+// Helper to safely extract error message
+function getErrorMessage(error: unknown): string {
+  if (error instanceof Error) return error.message;
+  if (typeof error === 'string') return error;
+  return String(error);
+}
+
 class CachingService {
   options: any;
   redisClient: any;
@@ -75,7 +82,7 @@ class CachingService {
 
       logger.info('Caching service initialized');
     } catch (error) {
-      logger.error('Error initializing caching service:', error);
+      logger.error('Error initializing caching service:', getErrorMessage(error));
       // Continue with memory-only caching if Redis fails
       logger.info('Falling back to memory-only caching');
     }
@@ -125,7 +132,7 @@ class CachingService {
       this.cacheStats.misses++;
       return null;
     } catch (error) {
-      logger.error('Error getting from cache:', error);
+      logger.error('Error getting from cache:', getErrorMessage(error));
       this.cacheStats.misses++;
       return null;
     }
@@ -172,7 +179,7 @@ class CachingService {
       this.cacheStats.sets++;
       return true;
     } catch (error) {
-      logger.error('Error setting cache:', error);
+      logger.error('Error setting cache:', getErrorMessage(error));
       return false;
     }
   }
@@ -207,7 +214,7 @@ class CachingService {
 
       return deleted;
     } catch (error) {
-      logger.error('Error deleting from cache:', error);
+      logger.error('Error deleting from cache:', getErrorMessage(error));
       return false;
     }
   }
@@ -251,7 +258,7 @@ class CachingService {
 
       return true;
     } catch (error) {
-      logger.error('Error clearing cache:', error);
+      logger.error('Error clearing cache:', getErrorMessage(error));
       return false;
     }
   }
@@ -284,7 +291,7 @@ class CachingService {
 
       return stats;
     } catch (error) {
-      logger.error('Error getting cache stats:', error);
+      logger.error('Error getting cache stats:', getErrorMessage(error));
       return this.cacheStats;
     }
   }
@@ -307,14 +314,14 @@ class CachingService {
             await this.set(key, data, { ttl: this.options.defaultTTL * 2 }); // Longer TTL for warmed data
           }
         } catch (error) {
-          logger.warn(`Failed to warm up cache for key ${key}:`, error.message);
+          logger.warn(`Failed to warm up cache for key ${key}:`, getErrorMessage(error));
         }
       }
 
       logger.info('Cache warm-up completed');
       return true;
     } catch (error) {
-      logger.error('Error warming up cache:', error);
+      logger.error('Error warming up cache:', getErrorMessage(error));
       return false;
     }
   }
@@ -349,7 +356,7 @@ class CachingService {
 
       return true;
     } catch (error) {
-      logger.error('Error prefetching data:', error);
+      logger.error('Error prefetching data:', getErrorMessage(error));
       return false;
     }
   }
@@ -389,7 +396,7 @@ class CachingService {
 
       return patternsToInvalidate.length > 0;
     } catch (error) {
-      logger.error('Error invalidating by pattern:', error);
+      logger.error('Error invalidating by pattern:', getErrorMessage(error));
       return false;
     }
   }
@@ -471,7 +478,7 @@ class CachingService {
         logger.info(`Cleaned ${cleaned} expired items from memory cache`);
       }
     } catch (error) {
-      logger.error('Error cleaning expired memory cache:', error);
+      logger.error('Error cleaning expired memory cache:', getErrorMessage(error));
     }
   }
 

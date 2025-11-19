@@ -57,7 +57,7 @@ class PredictiveAnalyticsService {
 
       logger.info('Predictive analytics service initialised');
     } catch (error) {
-      logger.error('Error initialising predictive analytics service:', error);
+      logger.error('Error initialising predictive analytics service:', error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -115,7 +115,7 @@ class PredictiveAnalyticsService {
       this.analytics.totalPredictions++;
       return result;
     } catch (error) {
-      logger.error('Error predicting student success:', error);
+      logger.error('Error predicting student success:', error instanceof Error ? error.message : String(error));
       throw error;
     }
   }
@@ -161,7 +161,7 @@ class PredictiveAnalyticsService {
 
       return result;
     } catch (error) {
-      logger.error('Error forecasting course completion:', error);
+      logger.error('Error forecasting course completion:', error instanceof Error ? error.message : String(error));
       throw error;
     }
   }
@@ -207,7 +207,7 @@ class PredictiveAnalyticsService {
 
       return result;
     } catch (error) {
-      logger.error('Error analysing engagement:', error);
+      logger.error('Error analysing engagement:', error instanceof Error ? error.message : String(error));
       throw error;
     }
   }
@@ -250,7 +250,7 @@ class PredictiveAnalyticsService {
 
       return result;
     } catch (error) {
-      logger.error('Error generating retention analytics:', error);
+      logger.error('Error generating retention analytics:', error instanceof Error ? error.message : String(error));
       throw error;
     }
   }
@@ -286,7 +286,7 @@ class PredictiveAnalyticsService {
 
       return interventions;
     } catch (error) {
-      logger.error('Error triggering automated interventions:', error);
+      logger.error('Error triggering automated interventions:', error instanceof Error ? error.message : String(error));
       throw error;
     }
   }
@@ -335,7 +335,7 @@ class PredictiveAnalyticsService {
 
       return result;
     } catch (error) {
-      logger.error('Error optimising learning path:', error);
+      logger.error('Error optimising learning path:', error instanceof Error ? error.message : String(error));
       throw error;
     }
   }
@@ -371,7 +371,7 @@ class PredictiveAnalyticsService {
 
       return dashboard;
     } catch (error) {
-      logger.error('Error getting analytics dashboard:', error);
+      logger.error('Error getting analytics dashboard:', error instanceof Error ? error.message : String(error));
       throw error;
     }
   }
@@ -409,7 +409,7 @@ class PredictiveAnalyticsService {
       logger.info('Model update completed:', updateResults);
       return updateResults;
     } catch (error) {
-      logger.error('Error updating models:', error);
+      logger.error('Error updating models:', error instanceof Error ? error.message : String(error));
       throw error;
     }
   }
@@ -671,7 +671,7 @@ class PredictiveAnalyticsService {
 
       logger.info('Loaded predictive models');
     } catch (error) {
-      logger.error('Error loading models:', error);
+      logger.error('Error loading models:', error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -685,7 +685,7 @@ class PredictiveAnalyticsService {
       try {
         await this.updateModels();
       } catch (error) {
-        logger.error('Scheduled model update failed:', error);
+        logger.error('Scheduled model update failed:', error instanceof Error ? error.message : String(error));
       }
     }, this.options.modelUpdateInterval);
   }
