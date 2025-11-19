@@ -421,9 +421,9 @@ class CachingService {
    * @param {string} info - Redis info string
    * @returns {Object} Parsed memory info
    */
-  _parseRedisMemory(info: string) {
+  _parseRedisMemory(info: string): Record<string, number> {
     const lines = info.split('\n');
-    const memory = {};
+    const memory: Record<string, number> = {};
 
     for (const line of lines) {
       if (line.startsWith('used_memory:')) {
