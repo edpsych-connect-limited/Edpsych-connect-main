@@ -1,6 +1,16 @@
 {
   "version": 2,
   "framework": "nextjs",
+  "functions": {
+    "src/app/api/api-docs/route.ts": {
+      "memory": 128,
+      "maxDuration": 30
+    },
+    "src/app/api/health/route.ts": {
+      "memory": 128,
+      "maxDuration": 10
+    }
+  },
   "crons": [
     {
       "path": "/api/blog/generate",
