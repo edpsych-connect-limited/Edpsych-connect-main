@@ -14,6 +14,11 @@ import { promises as fs } from 'fs';
 import path from 'path';
 
 class DataEncryptionService {
+  options: any;
+  masterKey: any;
+  keyVersions: Map<string, any>;
+  encryptedFields: Set<string>;
+
   constructor(options = {}) {
     this.options = {
       algorithm: options.algorithm || 'aes-256-gcm',

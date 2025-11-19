@@ -13,6 +13,12 @@
 import { performance } from 'perf_hooks';
 
 class DatabaseOptimizationService {
+  options: any;
+  queryStats: Map<string, any>;
+  indexRecommendations: Map<string, any>;
+  slowQueries: any[];
+  connectionPool: any;
+
   constructor(options = {}) {
     this.options = {
       slowQueryThreshold: options.slowQueryThreshold || 1000, // 1 second

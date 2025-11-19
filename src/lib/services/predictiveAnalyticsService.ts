@@ -12,6 +12,12 @@
 
 
 class PredictiveAnalyticsService {
+  options: any;
+  models: Map<string, any>;
+  predictions: Map<string, any>;
+  interventions: Map<string, any>;
+  analytics: any;
+
   constructor(options = {}) {
     this.options = {
       modelUpdateInterval: options.modelUpdateInterval || 24 * 60 * 60 * 1000, // 24 hours

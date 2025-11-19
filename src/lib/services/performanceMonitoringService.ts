@@ -14,6 +14,11 @@ import { performance, PerformanceObserver } from 'perf_hooks';
 import os from 'os';
 
 class PerformanceMonitoringService {
+  options: any;
+  metrics: any[];
+  alerts: any[];
+  observers: any[];
+
   constructor(options = {}) {
     this.options = {
       metricsInterval: options.metricsInterval || 60000, // 1 minute

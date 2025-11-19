@@ -12,6 +12,12 @@
 import crypto from 'crypto';
 
 class SecurityMonitoringService {
+  options: any;
+  logs: any[];
+  alerts: any[];
+  anomalies: any[];
+  eventCorrelations: Map<string, any>;
+
   constructor(options = {}) {
     this.options = {
       logAnalysisEnabled: options.logAnalysisEnabled || true,
