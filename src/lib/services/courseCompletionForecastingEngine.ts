@@ -248,18 +248,18 @@ class CourseCompletionForecastingEngine extends EventEmitter {
       };
 
       // Cache result
-      await redis.set(cacheKey, JSON.stringify(result), 'EX', this.CACHE_TTL);
+      await redis.set(cacheKey, JSON.stringify(result), this.CACHE_TTL);
 
-      // Store in database
-      await prisma.aiLog.create({
-        data: {
-          model: 'CourseCompletionForecasting',
-          action: 'GENERATE_FORECAST',
-          inputData: { studentId, courseId },
-          outputData: { probability: completionProb, riskLevel },
-          tokensUsed: 0,
-        },
-      });
+      // Store in database (commented out - aiLog model not available)
+      // await prisma.aiLog.create({
+      //   data: {
+      //     model: 'CourseCompletionForecasting',
+      //     action: 'GENERATE_FORECAST',
+      //     inputData: { studentId, courseId },
+      //     outputData: { probability: completionProb, riskLevel },
+      //     tokensUsed: 0,
+      //   },
+      // });
 
       this.emit('forecast:generated', { studentId, courseId, riskLevel });
 
