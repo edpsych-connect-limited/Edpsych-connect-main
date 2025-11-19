@@ -366,7 +366,7 @@ class CachingService {
    *
    * @param {Object} patterns - Invalidation patterns
    */
-  setupInvalidationPatterns(patterns) {
+  setupInvalidationPatterns(patterns: any) {
     this.invalidationPatterns = patterns;
   }
 
