@@ -658,12 +658,12 @@ class PerformanceMonitoringService {
       };
     }
 
-    const responseTimes = relevantResponses.map(r => r.responseTime).sort((a, b) => a - b);
-    const successCount = relevantResponses.filter(r => r.success).length;
+    const responseTimes = relevantResponses.map((r: any) => r.responseTime).sort((a: number, b: number) => a - b);
+    const successCount = relevantResponses.filter((r: any) => r.success).length;
 
     return {
       totalRequests: relevantResponses.length,
-      averageResponseTime: responseTimes.reduce((sum, time) => sum + time, 0) / responseTimes.length,
+      averageResponseTime: responseTimes.reduce((sum: number, time: number) => sum + time, 0) / responseTimes.length,
       successRate: successCount / relevantResponses.length,
       errorRate: 1 - (successCount / relevantResponses.length),
       p95ResponseTime: responseTimes[Math.floor(responseTimes.length * 0.95)],
@@ -724,10 +724,10 @@ class PerformanceMonitoringService {
       );
 
       if (relevantMetrics.length > 0) {
-        const values = relevantMetrics.map(m => m.value);
+        const values = relevantMetrics.map((m: any) => m.value);
         customMetrics[name] = {
           count: values.length,
-          average: values.reduce((sum, v) => sum + v, 0) / values.length,
+          average: values.reduce((sum: number, v: number) => sum + v, 0) / values.length,
           min: Math.min(...values),
           max: Math.max(...values),
           latest: values[values.length - 1]
@@ -826,7 +826,7 @@ class PerformanceMonitoringService {
       successRate: Math.round(metrics.api.successRate * 100),
       errorRate: Math.round(metrics.api.errorRate * 100),
       p95ResponseTime: Math.round(metrics.api.p95ResponseTime),
-      activeAlerts: metrics.alerts.filter(a => a.status === 'active').length,
+      activeAlerts: metrics.alerts.filter((a: any) => a.status === 'active').length,
       systemHealth: this._calculateSystemHealth(metrics.system)
     };
   }
