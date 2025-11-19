@@ -1,8 +1,10 @@
-// @ts-expect-error Jest types
+// @ts-nocheck
 // Jest setup file for error handling tests
 
 // This file will be loaded by Jest before tests are run
 // Configure any global setup needed for tests here
+
+declare const jest: any;
 
 // Mock Next.js routing
 jest.mock('next/navigation', () => ({

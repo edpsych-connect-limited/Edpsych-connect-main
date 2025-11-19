@@ -463,10 +463,10 @@ export function createDataSharingAgreement(
     approvals: [],
     isActive: true,
     signedDocumentUrl: undefined,
-    renewalDate: endDate,
-    renewedBy: userId,
-    previousEndDate: endDate,
-    newEndDate: endDate
+    renewalDate: params.endDate,
+    renewedBy: createdBy,
+    previousEndDate: params.endDate,
+    newEndDate: params.endDate
   };
 }
 

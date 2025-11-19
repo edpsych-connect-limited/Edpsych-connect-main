@@ -815,8 +815,8 @@ class SecurityMonitoringService {
    * @param {Date} since - Start date
    * @returns {Object} Security metrics
    */
-  _calculateSecurityMetrics(events, since) {
-    const metrics = {
+  _calculateSecurityMetrics(events: Record<string, any>[], since: Date): Record<string, any> {
+    const metrics: Record<string, any> = {
       totalEvents: events.length,
       byType: {},
       bySeverity: {},
@@ -827,7 +827,7 @@ class SecurityMonitoringService {
       averageEventsPerHour: 0
     };
 
-    events.forEach(event => {
+    events.forEach((event: Record<string, any>) => {
       // Count by type
       metrics.byType[event.type] = (metrics.byType[event.type] || 0) + 1;
 
@@ -849,7 +849,7 @@ class SecurityMonitoringService {
     });
 
     // Calculate failure rate
-    const totalResults = Object.values(metrics.byResult).reduce((sum, count) => sum + count, 0);
+    const totalResults = Object.values(metrics.byResult).reduce((sum: number, count: any) => sum + count, 0);
     if (totalResults > 0) {
       metrics.failureRate = (metrics.byResult.failure || 0) / totalResults;
     }
@@ -870,18 +870,18 @@ class SecurityMonitoringService {
    * @param {Array} events - Events to summarize
    * @returns {Object} Event summary
    */
-  _summarizeEvents(events) {
+  _summarizeEvents(events: Record<string, any>[]): Record<string, any> {
     return {
       total: events.length,
-      byType: events.reduce((acc, event) => {
+      byType: events.reduce((acc: Record<string, any>, event: Record<string, any>) => {
         acc[event.type] = (acc[event.type] || 0) + 1;
         return acc;
       }, {}),
-      bySeverity: events.reduce((acc, event) => {
+      bySeverity: events.reduce((acc: Record<string, any>, event: Record<string, any>) => {
         acc[event.severity] = (acc[event.severity] || 0) + 1;
         return acc;
       }, {}),
-      byResult: events.reduce((acc, event) => {
+      byResult: events.reduce((acc: Record<string, any>, event: Record<string, any>) => {
         acc[event.result] = (acc[event.result] || 0) + 1;
         return acc;
       }, {})
@@ -988,7 +988,7 @@ class SecurityMonitoringService {
    * @returns {string} Assessment text
    */
   _getRiskAssessmentText(riskLevel: string): string {
-    const assessments = {
+    const assessments: Record<string, string> = {
       low: 'Security posture is strong with minimal risks identified.',
       medium: 'Security posture is adequate but some improvements are recommended.',
       high: 'Security posture requires attention with several high-risk issues identified.',
@@ -1097,21 +1097,6 @@ class SecurityMonitoringService {
 }
 
 export default SecurityMonitoringService;
-
-/**
- * Autonomous Operations Extension
- * Adds self-healing and predictive maintenance capabilities
- */
-SecurityMonitoringService.prototype.enableAutonomousOperations = function () {
-  this.selfHealingEnabled = true;
-  this.predictiveMaintenanceEnabled = true;
-  logger.info('Autonomous Operations Layer activated: self-healing and predictive maintenance enabled');
-};
-
-/**
- * Self-healing mechanism: automatically resolves recurring anomalies
- */
-SecurityMonitoringService.prototype._selfHeal = async function () {
   try {
     const unresolvedAnomalies = this.anomalies.filter(a => a.status === 'detected');
     for (const anomaly of unresolvedAnomalies) {
