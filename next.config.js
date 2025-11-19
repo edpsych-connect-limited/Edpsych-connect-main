@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+// Rebuild trigger: 2025-11-19 - Fresh deployment build (9321ad1)
 const nextConfig = {
   reactStrictMode: true,
 
