@@ -335,7 +335,7 @@ export async function PUT(
       data: {
         ehcp_id: updatedEHCP.id,
         tenant_id: updatedEHCP.tenant_id,
-        created_by_id: user.id,
+        created_by_id: typeof user.id === 'string' ? parseInt(user.id, 10) : user.id,
         status: versionStatus,
         plan_details: planDetailsSnapshot,
         change_summary: changeSummary,
