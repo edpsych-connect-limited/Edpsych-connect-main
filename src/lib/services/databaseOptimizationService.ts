@@ -18,7 +18,6 @@ class DatabaseOptimizationService {
   indexRecommendations: Map<string, any>;
   slowQueries: any[];
   connectionPool: any;
-  connectionPool: any;
 
   constructor(options: any = {}) {
     this.options = {
