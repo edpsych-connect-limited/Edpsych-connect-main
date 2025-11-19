@@ -378,7 +378,7 @@ class DataEncryptionService {
    * @param {string} salt - Salt for hashing
    * @returns {string} Hashed data
    */
-  hashForPrivacy(data, salt = '') {
+  hashForPrivacy(data: string, salt: string = '') {
     try {
       const hash = crypto.createHash('sha256');
       hash.update(data + salt);
@@ -396,7 +396,7 @@ class DataEncryptionService {
    * @param {Object} options - Anonymization options
    * @returns {Object} Anonymized data
    */
-  anonymizeData(data, options = {}) {
+  anonymizeData(data: any, options: any = {}) {
     try {
       const {
         removeFields = ['name', 'email', 'phone', 'address'],
@@ -461,7 +461,7 @@ class DataEncryptionService {
    * @param {string} requiredLocation - Required data location
    * @returns {Object} Compliance check result
    */
-  checkDataResidencyCompliance(data, requiredLocation) {
+  checkDataResidencyCompliance(data: any, requiredLocation: string) {
     try {
       // This is a simplified implementation
       // In a real system, this would check data classification and storage location
