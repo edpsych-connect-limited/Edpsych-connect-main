@@ -50,8 +50,7 @@ class CachingService {
       this.redisClient = Redis.createClient({
         url: this.options.redisUrl,
         socket: {
-          connectTimeout: 60000,
-          lazyConnect: true
+          connectTimeout: 60000
         }
       });
 
