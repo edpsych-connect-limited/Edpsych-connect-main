@@ -715,8 +715,8 @@ class PerformanceMonitoringService {
    * @param {Date} endTime - End time
    * @returns {Object} Custom metrics
    */
-  _getCustomMetrics(startTime: Date, endTime: Date) {
-    const customMetrics = {};
+  _getCustomMetrics(startTime: Date, endTime: Date): Record<string, any> {
+    const customMetrics: Record<string, any> = {};
 
     for (const [name, metrics] of this.metrics.customMetrics) {
       const relevantMetrics = metrics.filter(
