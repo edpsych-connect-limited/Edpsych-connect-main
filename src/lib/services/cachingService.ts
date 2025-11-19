@@ -12,6 +12,11 @@
 import Redis from 'redis';
 
 class CachingService {
+  options: any;
+  redisClient: any;
+  memoryCache: Map<string, any>;
+  cacheStats: any;
+
   constructor(options = {}) {
     this.options = {
       redisUrl: options.redisUrl || process.env.REDIS_URL || 'redis://localhost:6379',
