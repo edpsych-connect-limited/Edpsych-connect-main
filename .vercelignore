@@ -3,6 +3,7 @@ node_modules
 .vercel
 .next/cache
 .next/server
+.next/standalone
 dist/
 *.map
 .env
@@ -10,3 +11,4 @@ dist/
 .env.*.local
 .next/static/development/
 coverage/
+.eslintcache
