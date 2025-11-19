@@ -1,23 +1,18 @@
 /** @type {import('next').NextConfig} */
-// Rebuild trigger: 2025-11-19 - Fix Vercel symlink collision (disable function optimization)
+// Rebuild trigger: 2025-11-19 - Fix symlink collision with proper config
 const nextConfig = {
   reactStrictMode: true,
 
-  // Disable Vercel function bundling optimization to prevent symlink collisions
-  // with dynamic routes in app router
+  // IP Protection: Disable source maps in production
+  productionBrowserSourceMaps: false,
+
   experimental: {
-    optimizeFonts: false,
-    optimizePackageImports: [
-      'react',
-      'react-dom',
-    ],
+    // Disable optimizations that cause symlink collisions with many dynamic routes
+    optimizePackageImports: [],
     serverActions: {
       bodySizeLimit: '2mb',
     },
   },
-
-  // IP Protection: Disable source maps in production
-  productionBrowserSourceMaps: false,
 
   // IP Protection: Remove console logs and minimize code in production
   compiler: {
@@ -28,7 +23,6 @@ const nextConfig = {
 
   eslint: {
     // Allow production builds to complete even with ESLint warnings/errors
-    // We'll fix these cosmetic issues in Phase 3+
     ignoreDuringBuilds: true,
   },
 
