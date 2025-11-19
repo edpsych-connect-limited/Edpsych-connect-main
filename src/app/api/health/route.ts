@@ -1,3 +1,7 @@
+/**
+ * Health check endpoint
+ * Build trigger: cf9fe33-force-build
+ */
 export const dynamic = 'force-dynamic';
 export const maxDuration = 10;
 
