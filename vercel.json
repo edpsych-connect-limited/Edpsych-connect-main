@@ -24,6 +24,12 @@
       "destination": "/:path*"
     }
   ],
+  "functions": {
+    "api/**": {
+      "excludeFiles": "**/*.{spec,test}.{js,ts}",
+      "maxDuration": 60
+    }
+  },
   "crons": [
     {
       "path": "/api/blog/generate",
