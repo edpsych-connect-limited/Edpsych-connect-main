@@ -1,7 +1,12 @@
 node_modules
 .git
-.vercel/output
+.vercel
 .next/cache
 .next/server
 dist/
 *.map
+.env
+.env.local
+.env.*.local
+.next/static/development/
+coverage/

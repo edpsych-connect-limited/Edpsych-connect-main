@@ -2,10 +2,8 @@
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
-  "public": true,
-  "env": {
-    "NEXT_TELEMETRY_DISABLED": "1"
-  },
+  "cleanUrls": true,
+  "trailingSlash": false,
   "headers": [
     {
       "source": "/api/:path*",
@@ -15,6 +13,12 @@
           "value": "no-cache, no-store, max-age=0, must-revalidate"
         }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
     }
   ],
   "crons": [
