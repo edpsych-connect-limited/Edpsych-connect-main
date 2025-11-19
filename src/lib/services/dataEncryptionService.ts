@@ -112,7 +112,7 @@ class DataEncryptionService {
       }
 
       // Create encrypted data package
-      const encryptedPackage = {
+      const encryptedPackage: Record<string, any> = {
         data: encrypted,
         iv: iv.toString('hex'),
         keyId,

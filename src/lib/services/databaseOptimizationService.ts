@@ -67,7 +67,7 @@ class DatabaseOptimizationService {
 
     try {
       // Analyze query before execution
-      const analysis = this._analyzeQuery(query, params);
+      const analysis: { estimatedCost: number; recommendations: Array<any>; parameters: number } = this._analyzeQuery(query, params);
 
       // Get database connection from pool
       const connection = await this._getConnection();
@@ -154,7 +154,7 @@ class DatabaseOptimizationService {
    */
   async analyzeQueryPerformance(query: string, params: any[] = []) {
     try {
-      const analysis = {
+      const analysis: Record<string, any> = {
         query,
         params,
         recommendations: [],
@@ -231,7 +231,7 @@ class DatabaseOptimizationService {
    */
   async optimizeDatabaseConfiguration() {
     try {
-      const optimizations = {
+      const optimizations: { applied: Array<any>; recommendations: Array<any> } = {
         applied: [],
         recommendations: []
       };
@@ -277,7 +277,7 @@ class DatabaseOptimizationService {
    */
   async performDatabaseMaintenance() {
     try {
-      const maintenance = {
+      const maintenance: Record<string, any> = {
         vacuum: { success: false, duration: 0 },
         analyze: { success: false, duration: 0 },
         reindex: { success: false, duration: 0 },
@@ -339,7 +339,7 @@ class DatabaseOptimizationService {
    */
   async getDatabasePerformanceMetrics() {
     try {
-      const metrics = {
+      const metrics: Record<string, any> = {
         timestamp: new Date().toISOString(),
         queryStats: {
           totalQueries: 0,
@@ -430,7 +430,7 @@ class DatabaseOptimizationService {
   async _analyzeQueryPatterns() {
     try {
       // Analyze query frequency and performance patterns
-      const patterns = {};
+      const patterns: Record<string, any> = {};
 
       for (const [query, stats] of this.queryStats) {
         const normalizedQuery = this._normalizeQuery(query);
@@ -724,7 +724,7 @@ class DatabaseOptimizationService {
    * @returns {Object} Plan analysis
    */
   _analyzeExecutionPlan(plan: any) {
-    const analysis = {
+    const analysis: Record<string, any> = {
       recommendations: []
     };
 

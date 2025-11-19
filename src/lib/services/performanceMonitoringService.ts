@@ -85,7 +85,7 @@ class PerformanceMonitoringService {
    */
   recordApiResponse(endpoint, responseTime, statusCode, metadata = {}) {
     try {
-      const metric = {
+      const metric: Record<string, any> = {
         timestamp: new Date().toISOString(),
         endpoint,
         responseTime,
@@ -147,7 +147,7 @@ class PerformanceMonitoringService {
    */
   recordError(error, context = {}) {
     try {
-      const errorMetric = {
+      const errorMetric: Record<string, any> = {
         timestamp: new Date().toISOString(),
         message: error.message,
         stack: error.stack,
@@ -183,7 +183,7 @@ class PerformanceMonitoringService {
       const endTime = performance.now();
       const endMemory = process.memoryUsage();
 
-      const profile = {
+      const profile: Record<string, any> = {
         name,
         duration: endTime - startTime,
         memoryDelta: {
@@ -214,7 +214,7 @@ class PerformanceMonitoringService {
         includeCustom = true
       } = options;
 
-      const metrics = {
+      const metrics: Record<string, any> = {
         period: {
           start: startTime.toISOString(),
           end: endTime.toISOString()
@@ -250,7 +250,7 @@ class PerformanceMonitoringService {
         includeRecommendations = true
       } = options;
 
-      const report = {
+      const report: Record<string, any> = {
         period,
         generatedAt: new Date().toISOString(),
         summary: {},

@@ -77,7 +77,7 @@ class SecurityMonitoringService {
    */
   async logSecurityEvent(event: any) {
     try {
-      const securityEvent = {
+      const securityEvent: Record<string, any> = {
         id: crypto.randomUUID(),
         timestamp: new Date().toISOString(),
         type: event.type,
@@ -147,7 +147,7 @@ class SecurityMonitoringService {
 
       // Store anomalies
       for (const anomaly of anomalies) {
-        const anomalyRecord = {
+        const anomalyRecord: Record<string, any> = {
           id: crypto.randomUUID(),
           timestamp: new Date().toISOString(),
           ...anomaly,
@@ -177,7 +177,7 @@ class SecurityMonitoringService {
    */
   async generateAlert(alertData: any) {
     try {
-      const alert = {
+      const alert: Record<string, any> = {
         id: crypto.randomUUID(),
         timestamp: new Date().toISOString(),
         type: alertData.type,
@@ -330,7 +330,7 @@ class SecurityMonitoringService {
         includeAlerts = true
       } = options;
 
-      const report = {
+      const report: Record<string, any> = {
         period: {
           start: startDate.toISOString(),
           end: endDate.toISOString()
@@ -487,8 +487,8 @@ class SecurityMonitoringService {
       const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000);
 
       // Count events by IP
-      const ipCounts = {};
-      const userCounts = {};
+      const ipCounts: Record<string, number> = {};
+      const userCounts: Record<string, number> = {};
 
       events.forEach(event => {
         if (new Date(event.timestamp) > oneHourAgo) {

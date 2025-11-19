@@ -480,7 +480,7 @@ class CourseCompletionForecastingEngine extends EventEmitter {
    * Calculate completion probability using ML
    */
   private calculateCompletionProbability(courseData: StudentCourseDataSnapshot): number {
-    const factors = {
+    const factors: Record<string, number> = {
       currentProgress: courseData.progress * 0.35,
       engagementScore: courseData.engagementScore * 0.25,
       attendanceRate: courseData.attendanceRate * 0.15,
@@ -527,7 +527,7 @@ class CourseCompletionForecastingEngine extends EventEmitter {
    * Calculate risk score
    */
   private calculateRiskScore(courseData: StudentCourseDataSnapshot): number {
-    const riskFactors = {
+    const riskFactors: Record<string, number> = {
       lowProgress: courseData.progress < 0.5 ? 0.3 : 0,
       lowEngagement: courseData.engagementScore < 0.5 ? 0.25 : 0,
       poorAttendance: courseData.attendanceRate < 0.8 ? 0.2 : 0,

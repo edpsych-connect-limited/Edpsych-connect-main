@@ -158,7 +158,7 @@ class CachingService {
       } = options;
 
       const expires = Date.now() + (ttl * 1000);
-      const cacheValue = {
+      const cacheValue: Record<string, any> = {
         ...value,
         _expires: expires,
         _cachedAt: Date.now()

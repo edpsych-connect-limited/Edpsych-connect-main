@@ -92,7 +92,7 @@ class PredictiveAnalyticsService {
       // Generate recommendations
       const recommendations = await this._generateRecommendations(studentId, prediction, riskLevel);
 
-      const result = {
+      const result: Record<string, any> = {
         studentId,
         courseId,
         predictionDate: new Date().toISOString(),
@@ -148,7 +148,7 @@ class PredictiveAnalyticsService {
         riskAnalysis = await this._analyseCompletionRisks(courseData, forecast);
       }
 
-      const result = {
+      const result: Record<string, any> = {
         courseId,
         forecastDate: new Date().toISOString(),
         forecastHorizon,
@@ -196,7 +196,7 @@ class PredictiveAnalyticsService {
         engagementPrediction = await this._predictEngagement(engagementData);
       }
 
-      const result = {
+      const result: Record<string, any> = {
         studentId,
         analysisDate: new Date().toISOString(),
         timeWindow,
@@ -239,7 +239,7 @@ class PredictiveAnalyticsService {
       // Generate retention insights
       const insights = this._generateRetentionInsights(metrics, atRiskStudents);
 
-      const result = {
+      const result: Record<string, any> = {
         analysisDate: new Date().toISOString(),
         cohortPeriod,
         timeRange,
@@ -324,7 +324,7 @@ class PredictiveAnalyticsService {
       // Calculate expected outcomes
       const expectedOutcomes = this._calculateExpectedOutcomes(recommendations);
 
-      const result = {
+      const result: Record<string, any> = {
         studentId,
         optimisationDate: new Date().toISOString(),
         currentPath,
@@ -355,7 +355,7 @@ class PredictiveAnalyticsService {
         includeInterventions = true
       } = filters;
 
-      const dashboard = {
+      const dashboard: Record<string, any> = {
         generatedAt: new Date().toISOString(),
         timeRange,
         summary: {
@@ -386,7 +386,7 @@ class PredictiveAnalyticsService {
     try {
       logger.info('Updating predictive models...');
 
-      const updateResults = {
+      const updateResults: Record<string, any> = {
         modelsUpdated: [],
         performanceMetrics: {},
         trainingDataSize: 0
