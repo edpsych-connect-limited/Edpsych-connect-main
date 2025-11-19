@@ -381,12 +381,11 @@ class CourseCompletionForecastingEngine extends EventEmitter {
       const { riskThreshold = this.config.riskThresholds.medium, limit = 50 } = options;
 
       // Get all students in course
-      const students = await prisma.student.findMany({
+      const students = await prisma.students.findMany({
         // Filter by course enrollment
         take: 200,
         include: {
           cases: true,
-          assessments: true,
         },
       });
 
