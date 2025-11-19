@@ -31,9 +31,24 @@ import {
   mapStripePriceToTier,
 } from '@/lib/stripe-config';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-10-29.clover',
-});
+/**
+ * Initialize Stripe client only when needed (not at module load time)
+ * This prevents build-time failures when STRIPE_SECRET_KEY is not set
+ */
+function getStripeClient(): Stripe {
+  const secretKey = process.env.STRIPE_SECRET_KEY;
+  if (!secretKey) {
+    throw new Error(
+      'STRIPE_SECRET_KEY environment variable is not set. ' +
+      'This is required for subscription operations. ' +
+      'Check your .env.local or Vercel environment variables.'
+    );
+  }
+
+  return new Stripe(secretKey, {
+    apiVersion: '2025-10-29.clover',
+  });
+}
 
 interface ChangeTierRequest {
   newTier: SubscriptionTier;
@@ -42,6 +57,9 @@ interface ChangeTierRequest {
 
 export async function POST(request: NextRequest) {
   try {
+    // Initialize Stripe client only when needed
+    const stripe = getStripeClient();
+
     // Verify authentication
     const session = await authService.getSessionFromRequest(request);
     if (!session) {
@@ -258,6 +276,9 @@ export async function POST(request: NextRequest) {
  */
 export async function GET(request: NextRequest) {
   try {
+    // Initialize Stripe client only when needed
+    const stripe = getStripeClient();
+
     // Verify authentication
     const session = await authService.getSessionFromRequest(request);
     if (!session) {

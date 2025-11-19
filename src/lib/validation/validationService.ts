@@ -9,6 +9,7 @@ import CodeValidator from './codeValidator';
 import { RuntimeTypeValidator } from './runtimeTypeValidator';
 import { DependencyChainValidator } from './dependencyChainValidator';
 import { AsyncAwaitValidator } from './asyncAwaitValidator';
+import { EnvironmentConfigValidator } from './environmentConfigValidator';
 import { logger } from './logger';
 
 /**
@@ -32,6 +33,7 @@ export class ValidationService {
   private runtimeTypeValidator: RuntimeTypeValidator;
   private dependencyValidator: DependencyChainValidator;
   private asyncValidator: AsyncAwaitValidator;
+  private envConfigValidator: EnvironmentConfigValidator;
   private options: Required<ValidationOptions>;
 
   constructor(options: ValidationOptions = {}) {
@@ -39,6 +41,7 @@ export class ValidationService {
     this.runtimeTypeValidator = new RuntimeTypeValidator();
     this.dependencyValidator = new DependencyChainValidator();
     this.asyncValidator = new AsyncAwaitValidator();
+    this.envConfigValidator = new EnvironmentConfigValidator('src');
     this.options = {
       strictMode: options.strictMode ?? true,
       failOnWarnings: options.failOnWarnings ?? false,
@@ -242,6 +245,22 @@ export class ValidationService {
     let totalErrors = 0;
 
     try {
+      // Layer 0: Environment configuration validation (new!)
+      logger.info('🔧 Layer 0: Environment Configuration Validation');
+      const envResult = await this.envConfigValidator.validateDirectory(sourceDir);
+      results.push({
+        layer: 'Environment Config',
+        passed: envResult.isValid,
+        errors: envResult.errors.length,
+        warnings: envResult.warnings.length,
+        missingVars: envResult.missingEnvVars
+      });
+      totalErrors += envResult.errors.length;
+      if (envResult.missingEnvVars.length > 0) {
+        logger.warn(`  ⚠ Missing env vars: ${envResult.missingEnvVars.join(', ')}`);
+      }
+      logger.info(`  ✓ Environment: ${envResult.isValid ? 'PASS' : 'FAIL'} (${envResult.errors.length} errors, ${envResult.warnings.length} warnings)\n`);
+
       // Layer 1: Semantic validation (methods, types)
       logger.info('📊 Layer 1: Semantic Validation');
       const semanticResult = await this.validator.validateDirectory(sourceDir);
