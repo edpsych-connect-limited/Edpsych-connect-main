@@ -2,6 +2,7 @@
 // Rebuild trigger: 2025-11-19 - Fix symlink collision with proper config
 const nextConfig = {
   reactStrictMode: true,
+  output: 'standalone',
 
   // IP Protection: Disable source maps in production
   productionBrowserSourceMaps: false,
