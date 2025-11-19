@@ -97,8 +97,9 @@ class DataEncryptionService {
       // Generate IV
       const iv = crypto.randomBytes(this.options.ivLength);
 
-      // Create cipher
-      const cipher = crypto.createCipher(this.options.algorithm, key);
+      // Create cipher with proper key and IV
+      const keyBuffer = Buffer.isBuffer(key) ? key : Buffer.from(key, 'utf8');
+      const cipher = crypto.createCipheriv(this.options.algorithm, keyBuffer, iv);
 
       // Encrypt data
       let encrypted = cipher.update(JSON.stringify(data), 'utf8', 'hex');
@@ -147,12 +148,12 @@ class DataEncryptionService {
       // Get decryption key
       const key = await this._getEncryptionKey(encryptedPackage.keyId);
 
-      // Create decipher
-      const decipher = crypto.createDecipher(this.options.algorithm, key);
-
       // Set IV
       const iv = Buffer.from(encryptedPackage.iv, 'hex');
-      decipher.setIV(iv);
+
+      // Create decipher with proper key and IV
+      const keyBuffer = Buffer.isBuffer(key) ? key : Buffer.from(key, 'utf8');
+      const decipher = crypto.createDecipheriv(this.options.algorithm, keyBuffer, iv);
 
       // Set auth tag for GCM mode
       if (encryptedPackage.authTag && this.options.algorithm.includes('gcm')) {
@@ -710,9 +711,11 @@ class DataEncryptionService {
    * @returns {Buffer} Encrypted data
    */
   _encryptWithMasterKey(data) {
-    const cipher = crypto.createCipher('aes-256-cbc', this.masterKey);
+    const iv = crypto.randomBytes(16);
+    const keyBuffer = Buffer.isBuffer(this.masterKey) ? this.masterKey : Buffer.from(this.masterKey, 'utf8');
+    const cipher = crypto.createCipheriv('aes-256-cbc', keyBuffer, iv);
     let encrypted = cipher.update(data);
-    encrypted = Buffer.concat([encrypted, cipher.final()]);
+    encrypted = Buffer.concat([iv, encrypted, cipher.final()]);
     return encrypted;
   }
 
@@ -724,8 +727,11 @@ class DataEncryptionService {
    * @returns {Buffer} Decrypted data
    */
   _decryptWithMasterKey(encryptedData) {
-    const decipher = crypto.createDecipher('aes-256-cbc', this.masterKey);
-    let decrypted = decipher.update(encryptedData);
+    const iv = encryptedData.slice(0, 16);
+    const encrypted = encryptedData.slice(16);
+    const keyBuffer = Buffer.isBuffer(this.masterKey) ? this.masterKey : Buffer.from(this.masterKey, 'utf8');
+    const decipher = crypto.createDecipheriv('aes-256-cbc', keyBuffer, iv);
+    let decrypted = decipher.update(encrypted);
     decrypted = Buffer.concat([decrypted, decipher.final()]);
     return decrypted;
   }
