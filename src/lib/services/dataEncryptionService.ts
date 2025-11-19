@@ -227,7 +227,7 @@ class DataEncryptionService {
               const decryptedValue = await this.decrypt(value);
               this._setNestedProperty(decryptedObj, field, decryptedValue);
             } catch (decryptError) {
-              logger.warn(`Failed to decrypt field ${field}:`, decryptError.message);
+              logger.warn(`Failed to decrypt field ${field}:`, decryptError instanceof Error ? decryptError.message : String(decryptError));
               // Keep encrypted value if decryption fails
             }
           }
@@ -613,7 +613,7 @@ class DataEncryptionService {
               const metadata = JSON.parse(metadataContent);
               this.keyMetadata.set(keyId, metadata);
             } catch (metadataError) {
-              logger.warn(`Could not load metadata for key ${keyId}:`, metadataError.message);
+              logger.warn(`Could not load metadata for key ${keyId}:`, metadataError instanceof Error ? metadataError.message : String(metadataError));
             }
           }
         }
