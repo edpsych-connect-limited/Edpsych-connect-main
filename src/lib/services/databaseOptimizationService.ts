@@ -581,7 +581,7 @@ class DatabaseOptimizationService {
     // This would integrate with the actual database connection pool
     // For demonstration, return a mock connection
       return {
-        query: async (_query, _params) => {
+        query: async (_query: string, _params?: any[]) => {
         // Simulate query execution
         await new Promise(resolve => setTimeout(resolve, Math.random() * 100));
         return { rowCount: Math.floor(Math.random() * 100) };

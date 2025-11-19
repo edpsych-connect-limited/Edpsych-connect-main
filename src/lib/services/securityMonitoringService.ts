@@ -339,8 +339,8 @@ class SecurityMonitoringService {
       };
 
       // Filter data by date range
-      const filterByDate = (items) => items.filter(
-        item => {
+      const filterByDate = (items: any[]) => items.filter(
+        (item: any) => {
           const itemDate = new Date(item.timestamp);
           return itemDate >= startDate && itemDate <= endDate;
         }
