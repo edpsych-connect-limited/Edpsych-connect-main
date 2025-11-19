@@ -408,14 +408,14 @@ class DataEncryptionService {
       const anonymized = { ...data };
 
       // Remove sensitive fields
-      removeFields.forEach(field => {
+      removeFields.forEach((field: string) => {
         if (this._hasNestedProperty(anonymized, field)) {
           this._deleteNestedProperty(anonymized, field);
         }
       });
 
       // Hash identifier fields
-      hashFields.forEach(field => {
+      hashFields.forEach((field: string) => {
         if (this._hasNestedProperty(anonymized, field)) {
           const value = this._getNestedProperty(anonymized, field);
           if (value) {
@@ -426,7 +426,7 @@ class DataEncryptionService {
       });
 
       // Generalize fields (e.g., age groups instead of exact ages)
-      Object.entries(generalizeFields).forEach(([field, generalizer]) => {
+      Object.entries(generalizeFields).forEach(([field, generalizer]: [string, any]) => {
         if (this._hasNestedProperty(anonymized, field)) {
           const value = this._getNestedProperty(anonymized, field);
           if (value && typeof generalizer === 'function') {
@@ -437,7 +437,7 @@ class DataEncryptionService {
       });
 
       // Add noise to fields
-      Object.entries(noiseFields).forEach(([field, noiseLevel]) => {
+      Object.entries(noiseFields).forEach(([field, noiseLevel]: [string, any]) => {
         if (this._hasNestedProperty(anonymized, field)) {
           const value = this._getNestedProperty(anonymized, field);
           if (typeof value === 'number') {
