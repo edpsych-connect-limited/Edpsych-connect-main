@@ -150,6 +150,12 @@ model tenants {
   automated_actions          AutomatedAction[]
   parent_teacher_messages    ParentTeacherMessage[]
 
+  // Relations - Tokenisation System
+  tokenisation_accounts  TokenisationAccount[]
+  tokenisation_transactions TokenisationTransaction[]
+  rewards                Reward[]
+  reward_claims          RewardClaim[]
+
   @@index([subdomain])
   @@index([tenant_type])
   @@index([status])
