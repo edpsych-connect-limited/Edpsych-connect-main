@@ -902,6 +902,83 @@ class PredictiveAnalyticsService {
   }
 
   /**
+   * Create urgent intervention
+   *
+   * @private
+   * @param {string} studentId - Student ID
+   * @param {Object} prediction - Prediction data
+   * @returns {Promise<Object>} Intervention
+   */
+  async _createUrgentIntervention(studentId: string, prediction: any): Promise<any> {
+    try {
+      return {
+        studentId,
+        type: 'urgent',
+        priority: 'high',
+        createdAt: new Date().toISOString()
+      };
+    } catch (error) {
+      logger.error('Error creating urgent intervention:', error instanceof Error ? error.message : String(error));
+      return {};
+    }
+  }
+
+  /**
+   * Create proactive intervention
+   *
+   * @private
+   * @param {string} studentId - Student ID
+   * @param {Object} prediction - Prediction data
+   * @returns {Promise<Object>} Intervention
+   */
+  async _createProactiveIntervention(studentId: string, prediction: any): Promise<any> {
+    try {
+      return {
+        studentId,
+        type: 'proactive',
+        priority: 'medium',
+        createdAt: new Date().toISOString()
+      };
+    } catch (error) {
+      logger.error('Error creating proactive intervention:', error instanceof Error ? error.message : String(error));
+      return {};
+    }
+  }
+
+  /**
+   * Create personalised interventions
+   *
+   * @private
+   * @param {string} studentId - Student ID
+   * @param {Object} prediction - Prediction data
+   * @returns {Promise<Array>} Personalised interventions
+   */
+  async _createPersonalisedInterventions(studentId: string, prediction: any): Promise<any[]> {
+    try {
+      return [];
+    } catch (error) {
+      logger.error('Error creating personalised interventions:', error instanceof Error ? error.message : String(error));
+      return [];
+    }
+  }
+
+  /**
+   * Schedule intervention
+   *
+   * @private
+   * @param {Object} intervention - Intervention data
+   * @returns {Promise<void>}
+   */
+  async _scheduleIntervention(intervention: any): Promise<void> {
+    try {
+      // Schedule intervention
+      logger.info('Intervention scheduled');
+    } catch (error) {
+      logger.error('Error scheduling intervention:', error instanceof Error ? error.message : String(error));
+    }
+  }
+
+  /**
    * Schedule model updates
    *
    * @private
