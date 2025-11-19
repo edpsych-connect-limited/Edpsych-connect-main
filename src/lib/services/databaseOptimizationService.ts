@@ -624,7 +624,13 @@ class DatabaseOptimizationService {
    * @param {Array} params - Query parameters
    * @returns {Object} Query analysis
    */
-  _analyzeQuery(query: string, params: any[] = {}): { estimatedCost: number; recommendations: Array<any>; parameters: number } {
+    /**
+   * @private
+   * @param {string} query - Query string
+   * @param {Array} params - Query parameters
+   * @returns {Object} Query analysis
+   */
+  _analyzeQuery(query: string, params: any[] = []): { estimatedCost: number; recommendations: Array<any>; parameters: number } {
     const analysis: { estimatedCost: number; recommendations: Array<any>; parameters: number } = {
       estimatedCost: 0,
       recommendations: [],
