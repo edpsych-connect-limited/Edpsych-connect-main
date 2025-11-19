@@ -31,6 +31,8 @@ class DataEncryptionService {
       ...options
     };
 
+    this.masterKey = null;
+    this.keyVersions = new Map();
     this.encryptionKeys = new Map();
     this.keyMetadata = new Map();
     this.encryptedFields = new Set([
