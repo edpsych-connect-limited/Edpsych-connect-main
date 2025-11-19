@@ -292,16 +292,16 @@ class CourseCompletionForecastingEngine extends EventEmitter {
         timeRange = 180,
       } = cohortCriteria;
 
-      // Get all students enrolled in course
-      const students = (await prisma.studentCase.findMany({
-        where: {
-          // Filter by course enrollment
-        },
+      // Get all students with their cases and assessments
+      const students = (await prisma.students.findMany({
         include: {
-          student: true,
-          assessments: true,
+          cases: {
+            include: {
+              assessments: true,
+            },
+          },
         },
-      })) as StudentCaseRecord[];
+      })) as unknown as StudentCaseRecord[];
 
       logger.debug('[CourseCompletion] Preparing cohort segments', { groupBy, timeRange, minGroupSize });
 
