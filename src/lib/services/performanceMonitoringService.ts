@@ -936,20 +936,20 @@ class PerformanceMonitoringService {
 
     // Clean up old metrics
     this.metrics.responseTimes = this.metrics.responseTimes.filter(
-      m => new Date(m.timestamp).getTime() > cutoffTime
+      (m: any) => new Date(m.timestamp).getTime() > cutoffTime
     );
 
     this.metrics.memoryUsage = this.metrics.memoryUsage.filter(
-      m => new Date(m.timestamp).getTime() > cutoffTime
+      (m: any) => new Date(m.timestamp).getTime() > cutoffTime
     );
 
     this.metrics.cpuUsage = this.metrics.cpuUsage.filter(
-      m => new Date(m.timestamp).getTime() > cutoffTime
+      (m: any) => new Date(m.timestamp).getTime() > cutoffTime
     );
 
     // Clean up old alerts
     this.alerts = this.alerts.filter(
-      alert => new Date(alert.timestamp).getTime() > cutoffTime
+      (alert: any) => new Date(alert.timestamp).getTime() > cutoffTime
     );
   }
 
