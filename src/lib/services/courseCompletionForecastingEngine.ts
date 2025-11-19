@@ -57,7 +57,7 @@ const CohortAnalysisSchema = z.object({
   size: z.number(),
   avgCompletionRate: z.number().min(0).max(1),
   avgTimeToComplete: z.number(), // days
-  riskDistribution: z.record(z.number()),
+  riskDistribution: z.record(z.string(), z.number()),
   topRiskFactors: z.array(RiskFactorSchema),
 });
 
