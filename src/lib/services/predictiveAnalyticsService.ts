@@ -10,6 +10,7 @@
  * - Performance trend analysis
  */
 
+import { logger } from '@/lib/logger';
 
 class PredictiveAnalyticsService {
   options: any;

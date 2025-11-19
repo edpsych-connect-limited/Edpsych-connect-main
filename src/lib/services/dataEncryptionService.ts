@@ -12,6 +12,8 @@
 import crypto from 'crypto';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { logger } from '@/lib/logger';
+import { logger } from '@/lib/logger';
 
 class DataEncryptionService {
   options: any;
