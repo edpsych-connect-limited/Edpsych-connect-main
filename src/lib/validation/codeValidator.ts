@@ -24,7 +24,7 @@ interface ValidationResult {
  * Validation error interface
  */
 interface ValidationError {
-  type: 'UNDEFINED_METHOD' | 'ORPHANED_METHOD' | 'TYPE_MISMATCH' | 'CIRCULAR_DEPENDENCY' | 'MISSING_IMPLEMENTATION';
+  type: 'UNDEFINED_METHOD' | 'ORPHANED_METHOD' | 'TYPE_MISMATCH' | 'CIRCULAR_DEPENDENCY' | 'MISSING_IMPLEMENTATION' | 'SYNTAX_ERROR' | 'COMPILER_ERROR';
   severity: 'critical' | 'high' | 'medium';
   file: string;
   line: number;
@@ -387,10 +387,78 @@ export class CodeValidator {
    * @param {string} className - Optional class name to filter
    */
   private performValidations(filePath?: string, className?: string): void {
+    this.validateSyntaxErrors();
     this.validateMethodExistence(filePath, className);
     this.validateOrphanedMethods(filePath, className);
     this.validateJSDoc();
     this.validateNamingConventions(filePath);
+  }
+
+  /**
+   * Validate syntax errors using TypeScript compiler
+   *
+   * @private
+   */
+  private validateSyntaxErrors(): void {
+    this.sourceFiles.forEach((sourceFile, filePath) => {
+      // Get all compiler diagnostics (syntax + semantic)
+      const diagnostics = ts.getPreEmitDiagnostics(
+        ts.createProgram([filePath], {}, {
+          getSourceFile: (fileName) => fileName === filePath ? sourceFile : undefined,
+          writeFile: () => {},
+          getCurrentDirectory: () => '',
+          getDirectories: () => [],
+          fileExists: () => true,
+          readFile: () => '',
+          getCanonicalFileName: (fileName) => fileName,
+          useCaseSensitiveFileNames: () => true,
+          getNewLine: () => '\n',
+          getDefaultLibFileName: () => 'lib.d.ts'
+        })
+      );
+
+      diagnostics.forEach(diagnostic => {
+        if (diagnostic.file && diagnostic.start !== undefined) {
+          const { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);
+          const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
+
+          // Map TypeScript error codes to validator types
+          const errorType = diagnostic.code === 1128 || diagnostic.code === 1126 
+            ? 'SYNTAX_ERROR' 
+            : 'COMPILER_ERROR';
+
+          this.errors.push({
+            type: errorType,
+            severity: diagnostic.category === ts.DiagnosticCategory.Error ? 'critical' : 'high',
+            file: filePath,
+            line: line + 1,
+            column: character + 1,
+            message: `TS${diagnostic.code}: ${message}`,
+            code: `TS${diagnostic.code}`,
+            suggestion: this.getSyntaxErrorSuggestion(diagnostic.code)
+          });
+        }
+      });
+    });
+  }
+
+  /**
+   * Get suggestion for syntax errors
+   *
+   * @private
+   * @param {number} code - TypeScript error code
+   * @returns {string} Suggestion
+   */
+  private getSyntaxErrorSuggestion(code: number): string {
+    const suggestions: { [key: number]: string } = {
+      1128: 'Check for orphaned code after export statements or class declarations',
+      1126: 'Ensure all statements are properly declared inside functions/classes',
+      1005: 'Missing closing brace or semicolon',
+      1004: 'Expected a semicolon',
+      1003: 'Expected an identifier',
+      1109: 'Expression expected - check for incomplete statements'
+    };
+    return suggestions[code] || 'Review the code structure and syntax';
   }
 
   /**
