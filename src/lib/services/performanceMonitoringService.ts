@@ -343,7 +343,7 @@ class PerformanceMonitoringService {
    */
   async acknowledgeAlert(alertId: string, userId: string) {
     try {
-      const alert = this.alerts.find(a => a.id === alertId);
+      const alert = this.alerts.find((a: any) => a.id === alertId);
 
       if (!alert) {
         return false;
@@ -370,7 +370,7 @@ class PerformanceMonitoringService {
    */
   async resolveAlert(alertId: string, resolution: string = '') {
     try {
-      const alert = this.alerts.find(a => a.id === alertId);
+      const alert = this.alerts.find((a: any) => a.id === alertId);
 
       if (!alert) {
         return false;
@@ -395,7 +395,7 @@ class PerformanceMonitoringService {
    */
   _setupPerformanceObserver() {
     if (typeof PerformanceObserver !== 'undefined') {
-      this.performanceObserver = new PerformanceObserver((list) => {
+      this.performanceObserver = new PerformanceObserver((list: any) => {
         for (const entry of list.getEntries()) {
           this._processPerformanceEntry(entry);
         }
@@ -720,7 +720,7 @@ class PerformanceMonitoringService {
 
     for (const [name, metrics] of this.metrics.customMetrics) {
       const relevantMetrics = metrics.filter(
-        m => new Date(m.timestamp) >= startTime && new Date(m.timestamp) <= endTime
+        (m: any) => new Date(m.timestamp) >= startTime && new Date(m.timestamp) <= endTime
       );
 
       if (relevantMetrics.length > 0) {
