@@ -1,6 +1,6 @@
 /**
  * Health check endpoint
- * Build trigger: cf9fe33-force-build
+ * Build trigger: 3dc28a5-vercel-consolidation
  */
 export const dynamic = 'force-dynamic';
 export const maxDuration = 10;
