@@ -18,7 +18,7 @@ class SecurityMonitoringService {
   anomalies: any[];
   eventCorrelations: Map<string, any>;
 
-  constructor(options = {}) {
+  constructor(options: any = {}) {
     this.options = {
       logAnalysisEnabled: options.logAnalysisEnabled || true,
       anomalyDetectionEnabled: options.anomalyDetectionEnabled || true,

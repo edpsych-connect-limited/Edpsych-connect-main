@@ -19,7 +19,7 @@ class PerformanceMonitoringService {
   alerts: any[];
   observers: any[];
 
-  constructor(options = {}) {
+  constructor(options: any = {}) {
     this.options = {
       metricsInterval: options.metricsInterval || 60000, // 1 minute
       alertThresholds: {

@@ -18,7 +18,7 @@ class PredictiveAnalyticsService {
   interventions: Map<string, any>;
   analytics: any;
 
-  constructor(options = {}) {
+  constructor(options: any = {}) {
     this.options = {
       modelUpdateInterval: options.modelUpdateInterval || 24 * 60 * 60 * 1000, // 24 hours
       predictionConfidenceThreshold: options.predictionConfidenceThreshold || 0.7,

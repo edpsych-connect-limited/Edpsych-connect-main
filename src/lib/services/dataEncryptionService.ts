@@ -19,7 +19,7 @@ class DataEncryptionService {
   keyVersions: Map<string, any>;
   encryptedFields: Set<string>;
 
-  constructor(options = {}) {
+  constructor(options: any = {}) {
     this.options = {
       algorithm: options.algorithm || 'aes-256-gcm',
       keyLength: options.keyLength || 32,

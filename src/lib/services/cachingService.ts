@@ -17,7 +17,7 @@ class CachingService {
   memoryCache: Map<string, any>;
   cacheStats: any;
 
-  constructor(options = {}) {
+  constructor(options: any = {}) {
     this.options = {
       redisUrl: options.redisUrl || process.env.REDIS_URL || 'redis://localhost:6379',
       defaultTTL: options.defaultTTL || 3600, // 1 hour

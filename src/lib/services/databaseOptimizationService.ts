@@ -19,7 +19,7 @@ class DatabaseOptimizationService {
   slowQueries: any[];
   connectionPool: any;
 
-  constructor(options = {}) {
+  constructor(options: any = {}) {
     this.options = {
       slowQueryThreshold: options.slowQueryThreshold || 1000, // 1 second
       enableQueryLogging: options.enableQueryLogging || true,
