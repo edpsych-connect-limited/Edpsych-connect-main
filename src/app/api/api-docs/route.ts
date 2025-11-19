@@ -5,12 +5,9 @@ import { NextResponse } from 'next/server';
  * Simplified for Vercel deployment compatibility
  */
 
-// Explicit route config to prevent bundling optimization conflicts
-export const config = {
-  api: {
-    responseLimit: '8mb',
-  },
-};
+// Route segment config for App Router
+export const maxDuration = 30;
+export const revalidate = 3600;
 
 // Static OpenAPI specification to avoid swagger-jsdoc dependency issues
 const swaggerSpec = {
