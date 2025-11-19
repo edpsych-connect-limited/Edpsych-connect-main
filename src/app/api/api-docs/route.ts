@@ -5,6 +5,13 @@ import { NextResponse } from 'next/server';
  * Simplified for Vercel deployment compatibility
  */
 
+// Explicit route config to prevent bundling optimization conflicts
+export const config = {
+  api: {
+    responseLimit: '8mb',
+  },
+};
+
 // Static OpenAPI specification to avoid swagger-jsdoc dependency issues
 const swaggerSpec = {
   openapi: '3.0.0',
