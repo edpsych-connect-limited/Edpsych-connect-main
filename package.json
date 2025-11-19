@@ -5,13 +5,18 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run validate:build && next build",
     "start": "next start",
     "lint": "eslint . --max-warnings=0",
     "type-check": "tsc --noEmit",
     "type-check:strict": "tsc --noEmit --strict",
     "type-enforce": "bash tools/enforce-types.sh check",
     "type-fix": "bash tools/enforce-types.sh fix",
+    "validate": "npx validate-code validate-dir src",
+    "validate:strict": "npx validate-code validate-dir src --strict",
+    "validate:build": "bash tools/build-validation.sh src true",
+    "validate:report": "npx validate-code report src",
+    "validate:setup": "bash tools/setup-validation.sh",
     "postinstall": "prisma generate"
   },
   "dependencies": {
