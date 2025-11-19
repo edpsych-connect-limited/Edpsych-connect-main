@@ -470,7 +470,7 @@ export async function DELETE(
       data: {
         ehcp_id: archivedEHCP.id,
         tenant_id: archivedEHCP.tenant_id,
-        created_by_id: user.id,
+        created_by_id: typeof user.id === 'string' ? parseInt(user.id, 10) : user.id,
         status: 'archived',
         plan_details: snapshotPlanDetails(archivedPlanDetails),
         change_summary: 'Recorded EHCP soft delete',
