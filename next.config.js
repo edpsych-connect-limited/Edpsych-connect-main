@@ -6,12 +6,6 @@ const nextConfig = {
   // IP Protection: Disable source maps in production
   productionBrowserSourceMaps: false,
 
-  // CRITICAL: Tell Vercel NOT to optimize function bundling
-  // This prevents symlink collisions with 40+ dynamic API routes
-  vercel: {
-    skipOptimize: true,
-  },
-
   experimental: {
     // Disable optimizations that cause symlink collisions with many dynamic routes
     optimizePackageImports: [],

@@ -2,8 +2,28 @@
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
-  "cleanUrls": true,
-  "trailingSlash": false,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": ".next/static"
+      }
+    },
+    {
+      "src": ".next/standalone/server.js",
+      "use": "@vercel/node",
+      "config": {
+        "maxDuration": 60,
+        "memory": 512,
+        "excludeFiles": ".vercel/output/**"
+      }
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "NEXT_TELEMETRY_DISABLED": "1"
+  },
   "headers": [
     {
       "source": "/api/:path*",
@@ -13,12 +33,6 @@
           "value": "no-cache, no-store, max-age=0, must-revalidate"
         }
       ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "/api/:path*"
     }
   ],
   "crons": [
