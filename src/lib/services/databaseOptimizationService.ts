@@ -116,7 +116,7 @@ class DatabaseOptimizationService {
       const indexName = name || `idx_${table}_${columns.join('_')}`;
 
       // Analyze existing indexes
-      const existingIndexes = await this._getExistingIndexes(table);
+      const existingIndexes: Array<any> = await this._getExistingIndexes(table);
 
       // Check if index already exists
       if (existingIndexes.some(idx => idx.columns.join('_') === columns.join('_'))) {
@@ -171,7 +171,7 @@ class DatabaseOptimizationService {
       analysis.recommendations.push(...planAnalysis.recommendations);
 
       // Check for missing indexes
-      const missingIndexes = await this._identifyMissingIndexes(query, params);
+      const missingIndexes: Array<any> = await this._identifyMissingIndexes(query, params);
       if (missingIndexes.length > 0) {
         analysis.recommendations.push({
           type: 'missing_indexes',
@@ -203,7 +203,7 @@ class DatabaseOptimizationService {
 
       // Analyze slow queries for missing indexes
       for (const slowQuery of this.slowQueries.slice(-50)) { // Last 50 slow queries
-        const missingIndexes = await this._identifyMissingIndexes(slowQuery.query, slowQuery.params);
+        const missingIndexes: Array<any> = await this._identifyMissingIndexes(slowQuery.query, slowQuery.params);
         for (const index of missingIndexes) {
           recommendations.push({
             table: index.table,
@@ -750,10 +750,10 @@ class DatabaseOptimizationService {
    * @param {Array} params - Query parameters
    * @returns {Promise<Array>} Missing indexes
    */
-  async _identifyMissingIndexes(_query: string, _params: any) {
+  async _identifyMissingIndexes(_query: string, _params: any): Promise<Array<any>> {
     // This would analyze the query and identify potential indexes
     // For demonstration, return mock recommendations
-    const missingIndexes = [];
+    const missingIndexes: Array<any> = [];
 
     if (_query.toLowerCase().includes('where user_id')) {
       missingIndexes.push({
@@ -772,7 +772,7 @@ class DatabaseOptimizationService {
    * @param {string} table - Table name
    * @returns {Promise<Array>} Existing indexes
    */
-  async _getExistingIndexes(_table: string) {
+  async _getExistingIndexes(_table: string): Promise<Array<any>> {
     // This would query the database for existing indexes
     // For demonstration, return mock data
     return [
