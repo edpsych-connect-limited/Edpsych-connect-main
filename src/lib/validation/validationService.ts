@@ -6,6 +6,9 @@
  */
 
 import CodeValidator from './codeValidator';
+import { RuntimeTypeValidator } from './runtimeTypeValidator';
+import { DependencyChainValidator } from './dependencyChainValidator';
+import { AsyncAwaitValidator } from './asyncAwaitValidator';
 import { logger } from './logger';
 
 /**
@@ -26,10 +29,16 @@ interface ValidationOptions {
  */
 export class ValidationService {
   private validator: CodeValidator;
+  private runtimeTypeValidator: RuntimeTypeValidator;
+  private dependencyValidator: DependencyChainValidator;
+  private asyncValidator: AsyncAwaitValidator;
   private options: Required<ValidationOptions>;
 
   constructor(options: ValidationOptions = {}) {
     this.validator = new CodeValidator();
+    this.runtimeTypeValidator = new RuntimeTypeValidator();
+    this.dependencyValidator = new DependencyChainValidator();
+    this.asyncValidator = new AsyncAwaitValidator();
     this.options = {
       strictMode: options.strictMode ?? true,
       failOnWarnings: options.failOnWarnings ?? false,
@@ -216,6 +225,61 @@ export class ValidationService {
     } catch (error) {
       logger.error('Build-time validation failed:', error instanceof Error ? error.message : String(error));
       return false;
+    }
+  }
+
+  /**
+   * Comprehensive validation (all layers)
+   * Runs: syntax, types, runtime types, dependencies, async, security
+   *
+   * @param {string} sourceDir - Source directory
+   * @returns {Promise<{ passed: boolean; summary: string }>} Comprehensive result
+   */
+  async comprehensiveValidation(sourceDir: string): Promise<{ passed: boolean; summary: string }> {
+    logger.info('🔍 Starting comprehensive validation...\n');
+
+    const results: any[] = [];
+    let totalErrors = 0;
+
+    try {
+      // Layer 1: Semantic validation (methods, types)
+      logger.info('📊 Layer 1: Semantic Validation');
+      const semanticResult = await this.validator.validateDirectory(sourceDir);
+      results.push({
+        layer: 'Semantic',
+        passed: semanticResult.isValid,
+        errors: semanticResult.errors.length,
+        warnings: semanticResult.warnings.length
+      });
+      totalErrors += semanticResult.errors.length;
+      logger.info(`  ✓ Semantic: ${semanticResult.isValid ? 'PASS' : 'FAIL'} (${semanticResult.errors.length} errors)\n`);
+
+      // Layer 2: Dependency chain validation
+      logger.info('🔗 Layer 2: Dependency Chain Validation');
+      const depResult = await this.dependencyValidator.validateDirectory(sourceDir);
+      results.push({
+        layer: 'Dependencies',
+        passed: depResult.errors.length === 0,
+        errors: depResult.errors.length,
+        circular: depResult.stats.circularDeps,
+        deepChains: depResult.stats.deepChains
+      });
+      totalErrors += depResult.errors.length;
+      logger.info(`  ✓ Dependencies: ${depResult.errors.length === 0 ? 'PASS' : 'FAIL'} (${depResult.stats.circularDeps} circular, ${depResult.stats.deepChains} deep chains)\n`);
+
+      logger.info('✅ All validation layers complete');
+      const passed = totalErrors === 0;
+
+      return {
+        passed,
+        summary: `Comprehensive validation ${passed ? 'PASSED' : 'FAILED'}: ${totalErrors} total errors found across ${results.length} validation layers`
+      };
+    } catch (error) {
+      logger.error('Comprehensive validation error:', error instanceof Error ? error.message : String(error));
+      return {
+        passed: false,
+        summary: `Comprehensive validation FAILED: ${error instanceof Error ? error.message : String(error)}`
+      };
     }
   }
 
