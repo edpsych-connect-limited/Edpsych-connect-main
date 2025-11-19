@@ -6,10 +6,12 @@
  *
  * This is a mock implementation for development/testing environments.
  */
+import { randomBytes } from 'crypto';
+
 /**
  * Quantum-Resistant Cryptography: Real implementations
  */
-// It uses crypto.randomBytes() to simulate the behavior of cryptographic operations
+// It uses randomBytes() to simulate the behavior of cryptographic operations
 // The real implementation in quantum-resistant-crypto.ts uses:
 // - ml_kem768 from '@noble/post-quantum/ml-kem.js'
 // - ml_dsa65 from '@noble/post-quantum/ml-dsa.js'
@@ -74,8 +76,8 @@ export class QuantumResistantCrypto {
    */
   public generateKyberKeyPair(): { publicKey: CryptoKey; privateKey: CryptoKey } {
     // Mock implementation
-    const publicKeyData = crypto.randomBytes(this.getKyberPublicKeySize());
-    const privateKeyData = crypto.randomBytes(this.getKyberPrivateKeySize());
+    const publicKeyData = randomBytes(this.getKyberPublicKeySize());
+    const privateKeyData = randomBytes(this.getKyberPrivateKeySize());
     
     return {
       publicKey: {
@@ -101,8 +103,8 @@ export class QuantumResistantCrypto {
    */
   public encapsulateKyber(_publicKey: CryptoKey): EncapsulatedKey {
     // Mock implementation
-    const sharedSecret = crypto.randomBytes(32); // 256-bit shared secret
-    const ciphertext = crypto.randomBytes(this.getKyberCiphertextSize());
+    const sharedSecret = randomBytes(32); // 256-bit shared secret
+    const ciphertext = randomBytes(this.getKyberCiphertextSize());
     
     return {
       ciphertext,
@@ -119,7 +121,7 @@ export class QuantumResistantCrypto {
    */
   public decapsulateKyber(_privateKey: CryptoKey, _ciphertext: Buffer): Buffer {
     // Mock implementation
-    return crypto.randomBytes(32); // 256-bit shared secret
+    return randomBytes(32); // 256-bit shared secret
   }
 
   /**
@@ -129,8 +131,8 @@ export class QuantumResistantCrypto {
    */
   public generateDilithiumKeyPair(): { publicKey: CryptoKey; privateKey: CryptoKey } {
     // Mock implementation
-    const publicKeyData = crypto.randomBytes(this.getDilithiumPublicKeySize());
-    const privateKeyData = crypto.randomBytes(this.getDilithiumPrivateKeySize());
+    const publicKeyData = randomBytes(this.getDilithiumPublicKeySize());
+    const privateKeyData = randomBytes(this.getDilithiumPrivateKeySize());
     
     return {
       publicKey: {
@@ -157,7 +159,7 @@ export class QuantumResistantCrypto {
    */
   public signDilithium(_message: Buffer, _privateKey: CryptoKey): Buffer {
     // Mock implementation
-    return crypto.randomBytes(this.getDilithiumSignatureSize());
+    return randomBytes(this.getDilithiumSignatureSize());
   }
 
   /**
@@ -180,8 +182,8 @@ export class QuantumResistantCrypto {
    */
   public generateSphincsKeyPair(): { publicKey: CryptoKey; privateKey: CryptoKey } {
     // Mock implementation
-    const publicKeyData = crypto.randomBytes(this.getSphincsPublicKeySize());
-    const privateKeyData = crypto.randomBytes(this.getSphincsPrivateKeySize());
+    const publicKeyData = randomBytes(this.getSphincsPublicKeySize());
+    const privateKeyData = randomBytes(this.getSphincsPrivateKeySize());
     
     return {
       publicKey: {
@@ -208,7 +210,7 @@ export class QuantumResistantCrypto {
    */
   public signSphincs(_message: Buffer, _privateKey: CryptoKey): Buffer {
     // Mock implementation
-    return crypto.randomBytes(this.getSphincsSignatureSize());
+    return randomBytes(this.getSphincsSignatureSize());
   }
 
   /**

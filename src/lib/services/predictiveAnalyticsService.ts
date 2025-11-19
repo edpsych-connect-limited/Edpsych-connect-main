@@ -314,12 +314,7 @@ class PredictiveAnalyticsService {
       const performanceAnalysis = this._analyseLearningPerformance(learningData);
 
       // Generate path recommendations
-      const recommendations = await this._generatePathRecommendations(
-        learningData,
-        performanceAnalysis,
-        availableCourses,
-        optimisationGoals
-      );
+      const recommendations = await this._generatePathRecommendations(performanceAnalysis, studentId);
 
       // Calculate expected outcomes
       const expectedOutcomes = this._calculateExpectedOutcomes(recommendations);

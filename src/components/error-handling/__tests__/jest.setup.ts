@@ -1,3 +1,4 @@
+// @ts-expect-error Jest types
 // Jest setup file for error handling tests
 
 // This file will be loaded by Jest before tests are run
@@ -40,7 +41,11 @@ console.warn = (...args) => {
 };
 
 // Cleanup mock console after all tests
-afterAll(() => {
-  console.error = originalConsoleError;
-  console.warn = originalConsoleWarn;
-});
+// @ts-expect-error Jest types
+if (typeof afterAll !== 'undefined') {
+  // @ts-expect-error Jest types
+  afterAll(() => {
+    console.error = originalConsoleError;
+    console.warn = originalConsoleWarn;
+  });
+}

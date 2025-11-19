@@ -14,15 +14,15 @@ import { logger } from '@/lib/logger';
 
 class SecurityMonitoringService {
   options: any;
-  logs: any[];
-  alerts: any[];
-  anomalies: any[];
-  eventCorrelations: Map<string, any>;
-  securityEvents: any[];
-  baselineMetrics: any;
-  monitoringInterval: any;
-  selfHealingEnabled: boolean;
-  predictiveMaintenanceEnabled: boolean;
+  logs: any[] = [];
+  alerts: any[] = [];
+  anomalies: any[] = [];
+  eventCorrelations: Map<string, any> = new Map();
+  securityEvents: any[] = [];
+  baselineMetrics: any = {};
+  monitoringInterval: any = null;
+  selfHealingEnabled: boolean = false;
+  predictiveMaintenanceEnabled: boolean = false;
 
   constructor(options: any = {}) {
     this.options = {
@@ -75,7 +75,7 @@ class SecurityMonitoringService {
    *
    * @param {Object} event - Security event data
    */
-  async logSecurityEvent(event: any) {
+  async logSecurityEvent(event: Record<string, any>) {
     try {
       const securityEvent: Record<string, any> = {
         id: crypto.randomUUID(),
@@ -490,7 +490,7 @@ class SecurityMonitoringService {
       const ipCounts: Record<string, number> = {};
       const userCounts: Record<string, number> = {};
 
-      events.forEach(event => {
+      events.forEach((event: Record<string, any>) => {
         if (new Date(event.timestamp) > oneHourAgo) {
           if (event.ipAddress) {
             ipCounts[event.ipAddress] = (ipCounts[event.ipAddress] || 0) + 1;
@@ -671,11 +671,11 @@ class SecurityMonitoringService {
    * @param {Object} patterns - Pattern analysis
    * @returns {Array} Behavioral anomalies
    */
-  _detectBehavioralAnomalies(events: any, _patterns: any): any[] {
-    const anomalies = [];
+  _detectBehavioralAnomalies(events: Record<string, any>[], _patterns: Record<string, any>): Record<string, any>[] {
+    const anomalies: Record<string, any>[] = [];
 
     // Check for unusual login times
-    const unusualLoginTimes = events.filter(event => {
+    const unusualLoginTimes = events.filter((event: Record<string, any>) => {
       if (event.type !== 'authentication' || event.result !== 'success') return false;
 
       const hour = new Date(event.timestamp).getHours();
@@ -683,7 +683,7 @@ class SecurityMonitoringService {
       return hour < 6 || hour > 22;
     });
 
-    if (unusualLoginTimes.length > events.filter(e => e.type === 'authentication').length * 0.1) {
+    if (unusualLoginTimes.length > events.filter((e: Record<string, any>) => e.type === 'authentication').length * 0.1) {
       anomalies.push({
         type: 'unusual_login_times',
         severity: 'low',
@@ -696,7 +696,7 @@ class SecurityMonitoringService {
           'Consider implementing time-based restrictions',
           'Monitor for suspicious activity'
         ],
-        events: unusualLoginTimes.map(e => e.id)
+        events: unusualLoginTimes.map((e: Record<string, any>) => e.id)
       });
     }
 
@@ -710,7 +710,7 @@ class SecurityMonitoringService {
    * @param {Array} events - Events to analyze
    * @returns {Array} Compliance violations
    */
-  _detectComplianceViolations(events) {
+  _detectComplianceViolations(events: Record<string, any>[]) {
     const violations = [];
 
     // Check for unauthorized data access
@@ -746,7 +746,7 @@ class SecurityMonitoringService {
    * @private
    * @param {Object} event - Security event
    */
-  _updateBaselineMetrics(event) {
+  _updateBaselineMetrics(event: Record<string, any>) {
     const hour = new Date(event.timestamp).getHours();
     const _day = new Date(event.timestamp).getDay();
 
@@ -895,14 +895,14 @@ class SecurityMonitoringService {
    * @param {Array} anomalies - Anomalies to summarize
    * @returns {Object} Anomaly summary
    */
-  _summarizeAnomalies(anomalies) {
+  _summarizeAnomalies(anomalies: Record<string, any>[]) {
     return {
       total: anomalies.length,
-      byType: anomalies.reduce((acc, anomaly) => {
+      byType: anomalies.reduce((acc: Record<string, any>, anomaly: Record<string, any>) => {
         acc[anomaly.type] = (acc[anomaly.type] || 0) + 1;
         return acc;
       }, {}),
-      bySeverity: anomalies.reduce((acc, anomaly) => {
+      bySeverity: anomalies.reduce((acc: Record<string, any>, anomaly: Record<string, any>) => {
         acc[anomaly.severity] = (acc[anomaly.severity] || 0) + 1;
         return acc;
       }, {})
@@ -916,18 +916,18 @@ class SecurityMonitoringService {
    * @param {Array} alerts - Alerts to summarize
    * @returns {Object} Alert summary
    */
-  _summarizeAlerts(alerts) {
+  _summarizeAlerts(alerts: Record<string, any>[]) {
     return {
       total: alerts.length,
-      byType: alerts.reduce((acc, alert) => {
+      byType: alerts.reduce((acc: Record<string, any>, alert: Record<string, any>) => {
         acc[alert.type] = (acc[alert.type] || 0) + 1;
         return acc;
       }, {}),
-      bySeverity: alerts.reduce((acc, alert) => {
+      bySeverity: alerts.reduce((acc: Record<string, any>, alert: Record<string, any>) => {
         acc[alert.severity] = (acc[alert.severity] || 0) + 1;
         return acc;
       }, {}),
-      byStatus: alerts.reduce((acc, alert) => {
+      byStatus: alerts.reduce((acc: Record<string, any>, alert: Record<string, any>) => {
         acc[alert.status] = (acc[alert.status] || 0) + 1;
         return acc;
       }, {})
@@ -941,7 +941,7 @@ class SecurityMonitoringService {
    * @param {Object} report - Security report data
    * @returns {Object} Security assessment
    */
-  _generateSecurityAssessment(report) {
+  _generateSecurityAssessment(report: Record<string, any>) {
     let riskLevel = 'low';
     let score = 100;
 
@@ -987,7 +987,7 @@ class SecurityMonitoringService {
    * @param {string} riskLevel - Risk level
    * @returns {string} Assessment text
    */
-  _getRiskAssessmentText(riskLevel) {
+  _getRiskAssessmentText(riskLevel: string): string {
     const assessments = {
       low: 'Security posture is strong with minimal risks identified.',
       medium: 'Security posture is adequate but some improvements are recommended.',
@@ -1005,8 +1005,8 @@ class SecurityMonitoringService {
    * @param {string} riskLevel - Risk level
    * @returns {Array} Security recommendations
    */
-  _getSecurityRecommendations(riskLevel) {
-    const recommendations = {
+  _getSecurityRecommendations(riskLevel: string): string[] {
+    const recommendations: Record<string, string[]> = {
       low: [
         'Continue monitoring security metrics',
         'Keep security patches up to date',
@@ -1077,7 +1077,26 @@ class SecurityMonitoringService {
     }
     logger.info('Security monitoring service shut down');
   }
+
+  /**
+   * Enable autonomous operations
+   */
+  enableAutonomousOperations() {
+    this.selfHealingEnabled = true;
+    this.predictiveMaintenanceEnabled = true;
+    logger.info('Autonomous Operations Layer activated: self-healing and predictive maintenance enabled');
+  }
+
+  /**
+   * Start autonomous operations cycle
+   */
+  startAutonomousCycle() {
+    if (!this.selfHealingEnabled) this.enableAutonomousOperations();
+    logger.info('Autonomous operations cycle started');
+  }
 }
+
+export default SecurityMonitoringService;
 
 /**
  * Autonomous Operations Extension

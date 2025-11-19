@@ -463,12 +463,10 @@ export function createDataSharingAgreement(
     approvals: [],
     isActive: true,
     signedDocumentUrl: undefined,
-    rejections: undefined,
-    renewals: undefined,
-    amendments: undefined,
-    terminationReason: undefined,
-    terminationDate: undefined,
-    terminatedBy: undefined
+    renewalDate: endDate,
+    renewedBy: userId,
+    previousEndDate: endDate,
+    newEndDate: endDate
   };
 }
 
