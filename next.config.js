@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-// Rebuild trigger: 2025-11-19 - Fix symlink collision with proper config
+// Rebuild trigger: 2025-11-19 22:30 - CSS styling fix + cache clear
 const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
