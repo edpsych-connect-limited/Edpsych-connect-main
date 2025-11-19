@@ -466,7 +466,11 @@ class DataEncryptionService {
       // This is a simplified implementation
       // In a real system, this would check data classification and storage location
 
-      const result = {
+      const result: {
+        compliant: boolean;
+        violations: Array<{ field: string; issue: string; severity: string }>;
+        recommendations: string[];
+      } = {
         compliant: true,
         violations: [],
         recommendations: []
