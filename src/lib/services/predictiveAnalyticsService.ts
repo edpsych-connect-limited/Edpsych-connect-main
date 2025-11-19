@@ -482,7 +482,7 @@ class PredictiveAnalyticsService {
    * @param {Object} data - Student data
    * @returns {number} Base probability
    */
-  _calculateBaseProbability(data) {
+  _calculateBaseProbability(data: any) {
     let probability = 0.5; // Base 50% probability
 
     // Academic factors
@@ -503,13 +503,13 @@ class PredictiveAnalyticsService {
   }
 
   /**
-   * Identify key factors
+   * Identify key success factors
    *
    * @private
    * @param {Object} data - Student data
    * @returns {Array} Key factors
    */
-  _identifyKeyFactors(data) {
+  _identifyKeyFactors(data: any) {
     const factors = [];
 
     if (data.academicHistory.gpa > 3.5) {
@@ -534,7 +534,7 @@ class PredictiveAnalyticsService {
    * @param {Object} prediction - Prediction data
    * @returns {number} Confidence score
    */
-  _calculateConfidence(prediction) {
+  _calculateConfidence(prediction: any) {
     // Calculate confidence based on data completeness and consistency
     let confidence = 0.5;
 
@@ -552,7 +552,7 @@ class PredictiveAnalyticsService {
    * @param {number} confidence - Confidence score
    * @returns {string} Risk level
    */
-  _assessRiskLevel(probability, confidence) {
+  _assessRiskLevel(probability: number, confidence: number) {
     const riskScore = (1 - probability) * confidence;
 
     if (riskScore > 0.7) return 'high';
@@ -615,7 +615,7 @@ class PredictiveAnalyticsService {
    * @param {string} studentId - Student identifier
    * @param {Object} prediction - Prediction data
    */
-  _storePrediction(studentId, prediction) {
+  _storePrediction(studentId: string, prediction: any) {
     if (!this.predictions.has(studentId)) {
       this.predictions.set(studentId, []);
     }

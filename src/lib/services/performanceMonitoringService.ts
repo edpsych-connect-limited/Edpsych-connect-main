@@ -413,7 +413,7 @@ class PerformanceMonitoringService {
    * @private
    * @param {PerformanceEntry} entry - Performance entry
    */
-  _processPerformanceEntry(entry) {
+  _processPerformanceEntry(entry: any) {
     try {
       if (entry.entryType === 'navigation') {
         // Page load performance
@@ -641,7 +641,7 @@ class PerformanceMonitoringService {
    * @param {Date} endTime - End time
    * @returns {Object} API metrics
    */
-  _calculateApiMetrics(startTime, endTime) {
+  _calculateApiMetrics(startTime: Date, endTime: Date) {
     const relevantResponses = this.metrics.responseTimes.filter(
       r => new Date(r.timestamp) >= startTime && new Date(r.timestamp) <= endTime
     );
@@ -714,7 +714,7 @@ class PerformanceMonitoringService {
    * @param {Date} endTime - End time
    * @returns {Object} Custom metrics
    */
-  _getCustomMetrics(startTime, endTime) {
+  _getCustomMetrics(startTime: Date, endTime: Date) {
     const customMetrics = {};
 
     for (const [name, metrics] of this.metrics.customMetrics) {
@@ -744,8 +744,8 @@ class PerformanceMonitoringService {
    * @param {Array} responses - API responses
    * @returns {Object} Slowest endpoint info
    */
-  _findSlowestEndpoint(responses) {
-    const endpointStats = {};
+  _findSlowestEndpoint(responses: any[]) {
+    const endpointStats: Record<string, any> = {};
 
     responses.forEach(response => {
       if (!endpointStats[response.endpoint]) {
@@ -790,7 +790,7 @@ class PerformanceMonitoringService {
    * @param {string} period - Period type
    * @returns {Object} Period dates
    */
-  _getPeriodDates(period) {
+  _getPeriodDates(period: string) {
     const now = new Date();
     let startDate;
 
@@ -818,7 +818,7 @@ class PerformanceMonitoringService {
    * @param {Object} metrics - Performance metrics
    * @returns {Object} Performance summary
    */
-  _generatePerformanceSummary(metrics) {
+  _generatePerformanceSummary(metrics: any) {
     return {
       totalRequests: metrics.api.totalRequests,
       averageResponseTime: Math.round(metrics.api.averageResponseTime),
@@ -855,7 +855,7 @@ class PerformanceMonitoringService {
    * @param {Object} metrics - Performance metrics
    * @returns {Array} Performance recommendations
    */
-  _generatePerformanceRecommendations(metrics) {
+  _generatePerformanceRecommendations(metrics: any) {
     const recommendations = [];
 
     if (metrics.api.averageResponseTime > 2000) {
@@ -898,7 +898,7 @@ class PerformanceMonitoringService {
    * @param {Object} systemMetrics - System metrics
    * @returns {string} System health status
    */
-  _calculateSystemHealth(systemMetrics) {
+  _calculateSystemHealth(systemMetrics: any) {
     if (!systemMetrics) return 'unknown';
 
     let score = 100;

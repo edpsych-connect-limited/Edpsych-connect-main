@@ -557,8 +557,8 @@ class SecurityMonitoringService {
    * @param {Array} events - Events to analyze
    * @returns {Object} Pattern analysis
    */
-  _analyzePatterns(events) {
-    const patterns = {
+  _analyzePatterns(events: any[]) {
+    const patterns: Record<string, any> = {
       byType: {},
       byResult: {},
       byHour: new Array(24).fill(0),
@@ -609,8 +609,8 @@ class SecurityMonitoringService {
    * @param {Array} events - Events to analyze
    * @returns {Array} Detected attack patterns
    */
-  _detectAttackPatterns(events) {
-    const attacks = [];
+  _detectAttackPatterns(events: any[]) {
+    const attacks: any[] = [];
 
     // SQL injection patterns
     const sqlInjectionEvents = events.filter(event => {
