@@ -6,6 +6,9 @@ const nextConfig = {
   // IP Protection: Disable source maps in production
   productionBrowserSourceMaps: false,
 
+  // Enable standalone mode for Vercel deployment
+  output: 'standalone',
+
   experimental: {
     // Disable optimizations that cause symlink collisions with many dynamic routes
     optimizePackageImports: [],

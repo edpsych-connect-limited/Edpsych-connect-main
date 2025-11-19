@@ -2,22 +2,10 @@
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
-  "builds": [
+  "rewrites": [
     {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": ".next/static"
-      }
-    },
-    {
-      "src": ".next/standalone/server.js",
-      "use": "@vercel/node",
-      "config": {
-        "maxDuration": 60,
-        "memory": 512,
-        "excludeFiles": ".vercel/output/**"
-      }
+      "source": "/:path*",
+      "destination": "/:path*"
     }
   ],
   "env": {
