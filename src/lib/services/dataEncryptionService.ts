@@ -733,7 +733,7 @@ class DataEncryptionService {
    * @param {Buffer} data - Data to encrypt
    * @returns {Buffer} Encrypted data
    */
-  _encryptWithMasterKey(data) {
+  _encryptWithMasterKey(data: any) {
     const iv = crypto.randomBytes(16);
     const keyBuffer = Buffer.isBuffer(this.masterKey) ? this.masterKey : Buffer.from(this.masterKey, 'utf8');
     const cipher = crypto.createCipheriv('aes-256-cbc', keyBuffer, iv);
@@ -749,7 +749,7 @@ class DataEncryptionService {
    * @param {Buffer} encryptedData - Data to decrypt
    * @returns {Buffer} Decrypted data
    */
-  _decryptWithMasterKey(encryptedData) {
+  _decryptWithMasterKey(encryptedData: any) {
     const iv = encryptedData.slice(0, 16);
     const encrypted = encryptedData.slice(16);
     const keyBuffer = Buffer.isBuffer(this.masterKey) ? this.masterKey : Buffer.from(this.masterKey, 'utf8');
@@ -787,7 +787,7 @@ class DataEncryptionService {
    * @param {string} data - Data to check
    * @returns {boolean} Whether data is encrypted
    */
-  _isEncryptedData(data) {
+  _isEncryptedData(data: string) {
     try {
       const parsed = JSON.parse(data);
       return parsed.data && parsed.iv && parsed.keyId && parsed.algorithm;
@@ -804,7 +804,7 @@ class DataEncryptionService {
    * @param {string} path - Property path
    * @returns {boolean} Whether property exists
    */
-  _hasNestedProperty(obj, path) {
+  _hasNestedProperty(obj: any, path: string) {
     const keys = path.split('.');
     let current = obj;
 
@@ -826,7 +826,7 @@ class DataEncryptionService {
    * @param {string} path - Property path
    * @returns {any} Property value
    */
-  _getNestedProperty(obj, path) {
+  _getNestedProperty(obj: any, path: string) {
     const keys = path.split('.');
     let current = obj;
 
@@ -848,7 +848,7 @@ class DataEncryptionService {
    * @param {string} path - Property path
    * @param {any} value - Value to set
    */
-  _setNestedProperty(obj, path, value) {
+  _setNestedProperty(obj: any, path: string, value: any) {
     const keys = path.split('.');
     let current = obj;
 
@@ -870,7 +870,7 @@ class DataEncryptionService {
    * @param {Object} obj - Object to modify
    * @param {string} path - Property path
    */
-  _deleteNestedProperty(obj, path) {
+  _deleteNestedProperty(obj: any, path: string) {
     const keys = path.split('.');
     let current = obj;
 
