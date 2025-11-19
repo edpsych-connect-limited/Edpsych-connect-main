@@ -1,16 +1,39 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": ".next",
-  "env": {
-    "NEXT_TELEMETRY_DISABLED": "1"
-  },
+  "builds": [
+    {
+      "src": "next.config.js",
+      "use": "@vercel/next@latest",
+      "config": {
+        "zeroConfig": true,
+        "maxLambdaSize": "50mb",
+        "cleanUrls": true
+      }
+    }
+  ],
   "functions": {
-    "api/**": {
-      "maxDuration": 30,
-      "memory": 1024
+    "src/app/api/**/*.ts": {
+      "memory": 512,
+      "maxDuration": 60,
+      "excludeFiles": ".vercel/output/**"
     }
   },
+  "env": {
+    "NEXT_TELEMETRY_DISABLED": "1",
+    "VERCEL_FUNCTIONS_CONSOLIDATION": "1",
+    "VERCEL_SKIP_OPTIMIZE": "1"
+  },
+  "headers": [
+    {
+      "source": "/api/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ],
   "crons": [
     {
       "path": "/api/blog/generate",
