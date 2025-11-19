@@ -5,6 +5,12 @@
   "env": {
     "NEXT_TELEMETRY_DISABLED": "1"
   },
+  "functions": {
+    "api/**": {
+      "maxDuration": 30,
+      "memory": 1024
+    }
+  },
   "crons": [
     {
       "path": "/api/blog/generate",
