@@ -21,6 +21,8 @@ import { prisma } from '@/lib/prisma';
 import { crossModuleIntelligenceService } from '@/lib/orchestration/cross-module-intelligence.service';
 import { z } from 'zod';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * Lesson assignment request schema
  */

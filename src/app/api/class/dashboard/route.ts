@@ -17,6 +17,8 @@ import { DataRouterService } from '@/lib/orchestration/data-router.service';
 import { getServerSession } from 'next-auth';
 import logger from '@/utils/logger';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   try {
     // Get session

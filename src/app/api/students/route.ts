@@ -17,6 +17,8 @@ import { authenticateRequest, authorizeRequest, Permission, canAccessTenant } fr
 import { apiRateLimit } from '@/lib/middleware/rate-limit';
 import { auditLogger, getIpAddress, getRequestId, getUserAgent } from '@/lib/security/audit-logger';
 
+export const dynamic = 'force-dynamic';
+
 const prisma = new PrismaClient();
 
 /**

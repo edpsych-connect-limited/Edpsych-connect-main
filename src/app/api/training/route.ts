@@ -21,6 +21,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import authService from '@/lib/auth/auth-service';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * Main router - all training endpoints
  */

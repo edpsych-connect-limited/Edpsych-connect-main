@@ -20,6 +20,8 @@ import authService from '@/lib/auth/auth-service';
 import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * Profile response structure
  */

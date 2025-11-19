@@ -21,6 +21,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
 import { prisma } from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * EP case summary structure
  */

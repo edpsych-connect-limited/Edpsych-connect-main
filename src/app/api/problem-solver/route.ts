@@ -10,6 +10,8 @@ import { z } from 'zod';
 import { aiService } from '@/services/ai/core';
 import { prisma } from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 // Request validation schema
 const ProblemSolverSchema = z.object({
   query: z.string().min(10, 'Query must be at least 10 characters').max(2000, 'Query too long'),

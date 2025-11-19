@@ -21,6 +21,8 @@ import { PrismaClient } from '@prisma/client';
 import authService from '@/lib/auth/auth-service';
 import { prisma } from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 const prismaInstance = new PrismaClient();
 
 // Request validation schemas

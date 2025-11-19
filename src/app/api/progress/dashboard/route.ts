@@ -24,6 +24,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prismaSafe';
 import authService from '@/lib/auth/auth-service';
 
+export const dynamic = 'force-dynamic';
+
 // ============================================================================
 // TYPES
 // ============================================================================

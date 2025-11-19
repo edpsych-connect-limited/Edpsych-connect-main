@@ -23,6 +23,8 @@ import { prisma } from '@/lib/prisma';
 import { VoiceCommandService } from '@/lib/orchestration/voice-command.service';
 import { z } from 'zod';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * Voice command request schema
  */

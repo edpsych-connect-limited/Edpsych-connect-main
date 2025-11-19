@@ -22,6 +22,8 @@ import { prisma } from '@/lib/prisma';
 import { assignmentEngineService } from '@/lib/orchestration/assignment-engine.service';
 import { z } from 'zod';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * Lesson differentiation request schema
  */

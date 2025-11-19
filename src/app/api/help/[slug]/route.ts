@@ -6,6 +6,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 // ============================================================================
 // GET /api/help/[slug]
 // Get article details and increment view count

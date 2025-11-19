@@ -19,6 +19,8 @@ import authService from '@/lib/auth/auth-service';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { getTenantSubscriptionStatus } from '@/lib/subscription/service';
+
+export const dynamic = 'force-dynamic';
 import {
   getStripePriceId,
   isUpgrade,

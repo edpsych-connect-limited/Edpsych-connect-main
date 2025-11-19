@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * API Documentation Route for EdPsych Connect World
  * Simplified for Vercel deployment compatibility

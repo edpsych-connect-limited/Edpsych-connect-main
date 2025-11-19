@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { advancedMonitoring } from '@/lib/monitoring/advanced-monitoring';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * Advanced Monitoring Dashboard API
  * Provides real-time monitoring data and alerts

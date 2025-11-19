@@ -20,6 +20,8 @@ import authService from '@/lib/auth/auth-service';
 import { prisma } from '@/lib/prisma';
 import { dataRouterService } from '@/lib/orchestration/data-router.service';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * Multi-agency view response structure
  */
