@@ -88,7 +88,7 @@ class CachingService {
    * @param {Object} options - Get options
    * @returns {Promise<any>} Cached value or null
    */
-  async get(key, options = {}) {
+  async get(key: string, options: any = {}) {
     try {
       const { useMemory = true, useRedis = true } = options;
 
@@ -139,7 +139,7 @@ class CachingService {
    * @param {Object} options - Set options
    * @returns {Promise<boolean>} Success status
    */
-  async set(key, value, options = {}) {
+  async set(key: string, value: any, options: any = {}) {
     try {
       const {
         ttl = this.options.defaultTTL,
@@ -178,12 +178,12 @@ class CachingService {
   }
 
   /**
-   * Delete from cache
+   * Delete value from cache
    *
    * @param {string} key - Cache key
    * @returns {Promise<boolean>} Success status
    */
-  async delete(key) {
+  async delete(key: string) {
     try {
       let deleted = false;
 
@@ -218,7 +218,7 @@ class CachingService {
    * @param {Object} options - Clear options
    * @returns {Promise<boolean>} Success status
    */
-  async clear(options = {}) {
+  async clear(options: any = {}) {
     try {
       const { pattern = '*', useMemory = true, useRedis = true } = options;
 
@@ -296,7 +296,7 @@ class CachingService {
    * @param {Function} dataLoader - Function to load data
    * @returns {Promise<boolean>} Success status
    */
-  async warmUp(keys, dataLoader) {
+  async warmUp(keys: string[], dataLoader: any) {
     try {
       logger.info(`Warming up cache with ${keys.length} keys`);
 
@@ -327,7 +327,7 @@ class CachingService {
    * @param {Function} dataLoader - Function to load data
    * @returns {Promise<boolean>} Success status
    */
-  async prefetch(currentKey, relatedKeys, dataLoader) {
+  async prefetch(currentKey: string, relatedKeys: string[], dataLoader: any) {
     try {
       // Prefetch related data in background
       setImmediate(async () => {
@@ -369,7 +369,7 @@ class CachingService {
    * @param {string} triggerKey - Key that triggered invalidation
    * @returns {Promise<boolean>} Success status
    */
-  async invalidateByPattern(triggerKey) {
+  async invalidateByPattern(triggerKey: string) {
     try {
       if (!this.invalidationPatterns) return false;
 
@@ -401,7 +401,7 @@ class CachingService {
    * @param {Object} cached - Cached item
    * @returns {boolean} Whether item is expired
    */
-  _isExpired(cached) {
+  _isExpired(cached: any) {
     return cached.expires && Date.now() > cached.expires;
   }
 
@@ -412,7 +412,7 @@ class CachingService {
    * @param {string} info - Redis info string
    * @returns {Object} Parsed memory info
    */
-  _parseRedisMemory(info) {
+  _parseRedisMemory(info: string) {
     const lines = info.split('\n');
     const memory = {};
 
