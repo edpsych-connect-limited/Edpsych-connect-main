@@ -11,7 +11,7 @@
  */
 
 import { performance, PerformanceObserver } from 'perf_hooks';
-import os from 'os';
+import * as os from 'os';
 import { logger } from '@/lib/logger';
 
 class PerformanceMonitoringService {
@@ -527,7 +527,7 @@ class PerformanceMonitoringService {
    * @param {Object} memUsage - Memory usage
    * @param {Object} cpuUsage - CPU usage
    */
-  async _checkSystemThresholds(memUsage: number, cpuUsage: number) {
+  async _checkSystemThresholds(memUsage: NodeJS.MemoryUsage, cpuUsage: NodeJS.CpuUsage): Promise<void> {
     // Memory threshold
     const memoryUsageRatio = memUsage.heapUsed / memUsage.heapTotal;
     if (memoryUsageRatio > this.options.alertThresholds.memoryUsage) {
