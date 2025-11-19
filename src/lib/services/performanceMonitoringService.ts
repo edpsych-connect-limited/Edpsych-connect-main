@@ -18,6 +18,8 @@ class PerformanceMonitoringService {
   metrics: any[];
   alerts: any[];
   observers: any[];
+  performanceObserver: any;
+  monitoringInterval: any;
 
   constructor(options: any = {}) {
     this.options = {

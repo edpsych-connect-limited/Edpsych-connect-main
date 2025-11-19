@@ -129,7 +129,7 @@ type ForecastResult = CompletionForecast & {
 // COURSE COMPLETION FORECASTING ENGINE
 // ============================================================================
 
-export class CourseCompletionForecastingEngine extends EventEmitter {
+class CourseCompletionForecastingEngine extends EventEmitter {
   private config: Required<ForecastingConfig>;
   private readonly CACHE_TTL = 3600; // 1 hour
   private forecastsCache = new Map<string, CompletionForecast>();

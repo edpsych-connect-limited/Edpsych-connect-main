@@ -24,6 +24,7 @@ class CachingService {
   redisClient: any;
   memoryCache: Map<string, any>;
   cacheStats: any;
+  invalidationPatterns: any;
 
   constructor(options: any = {}) {
     this.options = {

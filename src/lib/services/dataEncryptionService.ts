@@ -18,6 +18,8 @@ class DataEncryptionService {
   masterKey: any;
   keyVersions: Map<string, any>;
   encryptedFields: Set<string>;
+  encryptionKeys: Map<string, any>;
+  keyMetadata: Map<string, any>;
 
   constructor(options: any = {}) {
     this.options = {

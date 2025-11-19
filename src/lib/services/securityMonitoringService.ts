@@ -17,6 +17,11 @@ class SecurityMonitoringService {
   alerts: any[];
   anomalies: any[];
   eventCorrelations: Map<string, any>;
+  securityEvents: any[];
+  baselineMetrics: any;
+  monitoringInterval: any;
+  selfHealingEnabled: boolean;
+  predictiveMaintenanceEnabled: boolean;
 
   constructor(options: any = {}) {
     this.options = {
