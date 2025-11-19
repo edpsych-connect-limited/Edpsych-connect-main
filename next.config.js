@@ -6,12 +6,21 @@ const nextConfig = {
   // IP Protection: Disable source maps in production
   productionBrowserSourceMaps: false,
 
+  // Disable function bundling optimization to prevent symlink collisions
+  // See: VERCEL_SYMLINK_RESOLUTION.md for detailed analysis
+  onDemandEntries: {
+    maxInactiveAge: 25 * 1000,
+    pagesBufferLength: 5,
+  },
+
   experimental: {
     // Disable optimizations that cause symlink collisions with many dynamic routes
     optimizePackageImports: [],
     serverActions: {
       bodySizeLimit: '2mb',
     },
+    // Disable function bundling
+    bundlePagesExternals: false,
   },
 
   // IP Protection: Remove console logs and minimize code in production
