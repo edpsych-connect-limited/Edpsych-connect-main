@@ -314,7 +314,7 @@ class CourseCompletionForecastingEngine extends EventEmitter {
       for (const cohort of cohorts) {
         const forecasts = await Promise.all(
           cohort.students.map((student) =>
-            this.generateStudentForecast(student.id, courseId, { includeRiskAnalysis: true })
+            this.generateStudentForecast(String(student.id), courseId, { includeRiskAnalysis: true })
           )
         );
 
@@ -392,14 +392,14 @@ class CourseCompletionForecastingEngine extends EventEmitter {
       const atRiskStudents = [];
 
       for (const student of students) {
-        const forecast = await this.generateStudentForecast(student.id, courseId, {
+        const forecast = await this.generateStudentForecast(String(student.id), courseId, {
           includeRiskAnalysis: true,
           includeRecommendations: true,
         });
 
         if (forecast.riskScore >= riskThreshold) {
           atRiskStudents.push({
-            studentId: student.id,
+            studentId: String(student.id),
             studentName: `${student.firstName} ${student.lastName}`,
             riskScore: forecast.riskScore,
             riskLevel: forecast.riskLevel,
