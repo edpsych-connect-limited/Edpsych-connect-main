@@ -184,7 +184,7 @@ export async function GET(
       }),
       prisma.automatedAction.count({
         where: {
-          student_id: profile.id,
+          student_id: profile.student_id,
           action_type: 'profile_manual_adjustment',
         },
       }),
@@ -433,7 +433,7 @@ export async function PATCH(
     await prisma.automatedAction.create({
       data: {
         tenant_id: tenantId!,
-        student_id: updatedProfile.id,
+        student_id: updatedProfile.student_id,
         action_type: 'profile_manual_adjustment',
         triggered_by: updates.manualAdjustmentReason,
         target_type: 'student',

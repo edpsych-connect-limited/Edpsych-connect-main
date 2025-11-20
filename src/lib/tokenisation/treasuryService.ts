@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { logForensicEvent } from '@/lib/server/forensic';
+// import { logForensicEvent } from '@/lib/server/forensic';
 import crypto from 'crypto';
 
 export interface TreasuryEventMetadata {
@@ -18,6 +18,15 @@ export class TreasuryService {
   }
 
   private async getOrCreateAccount(tenantId: number, accountType: string = 'TREASURY') {
+    console.warn('TreasuryService.getOrCreateAccount: Tokenisation system is currently disabled.');
+    return {
+      id: 'mock-account-id',
+      tenant_id: tenantId,
+      account_type: accountType,
+      balance: BigInt(0),
+      locked_amount: BigInt(0),
+    };
+    /*
     return this.prisma.tokenisationAccount.upsert({
       where: {
         tenant_id_account_type: {
@@ -33,13 +42,17 @@ export class TreasuryService {
         locked_amount: BigInt(0),
       },
     });
+    */
   }
 
   async mintTokens(
-    tenantId: number,
-    amount: number,
-    metadata: TreasuryEventMetadata
+    _tenantId: number,
+    _amount: number,
+    _metadata: TreasuryEventMetadata
   ): Promise<string> {
+    console.warn('TreasuryService.mintTokens: Tokenisation system is currently disabled.');
+    return crypto.randomUUID();
+    /*
     const amountBigInt = BigInt(Math.floor(amount));
     const account = await this.getOrCreateAccount(tenantId, 'TREASURY');
     
@@ -84,13 +97,17 @@ export class TreasuryService {
     });
 
     return traceId;
+    */
   }
 
   async lockTokens(
-    tenantId: number,
-    amount: number,
-    metadata: TreasuryEventMetadata
+    _tenantId: number,
+    _amount: number,
+    _metadata: TreasuryEventMetadata
   ): Promise<string> {
+    console.warn('TreasuryService.lockTokens: Tokenisation system is currently disabled.');
+    return crypto.randomUUID();
+    /*
     const amountBigInt = BigInt(Math.floor(amount));
     const account = await this.getOrCreateAccount(tenantId, 'TREASURY');
 
@@ -141,13 +158,17 @@ export class TreasuryService {
     });
 
     return traceId;
+    */
   }
 
   async unlockTokens(
-    tenantId: number,
-    amount: number,
-    metadata: TreasuryEventMetadata
+    _tenantId: number,
+    _amount: number,
+    _metadata: TreasuryEventMetadata
   ): Promise<string> {
+    console.warn('TreasuryService.unlockTokens: Tokenisation system is currently disabled.');
+    return crypto.randomUUID();
+    /*
     const amountBigInt = BigInt(Math.floor(amount));
     const account = await this.getOrCreateAccount(tenantId, 'TREASURY');
 
@@ -198,14 +219,29 @@ export class TreasuryService {
     });
 
     return traceId;
+    */
   }
 
-  async getBalance(tenantId: number): Promise<number> {
+  async getBalance(_tenantId: number): Promise<number> {
+    console.warn('TreasuryService.getBalance: Tokenisation system is currently disabled.');
+    return 0;
+    /*
     const account = await this.getOrCreateAccount(tenantId, 'TREASURY');
     return Number(account.balance);
+    */
   }
 
   async getAccountDetails(tenantId: number) {
+    console.warn('TreasuryService.getAccountDetails: Tokenisation system is currently disabled.');
+    return {
+      id: 'mock-account-id',
+      tenant_id: tenantId,
+      account_type: 'TREASURY',
+      balance: BigInt(0),
+      locked_amount: BigInt(0),
+    };
+    /*
     return this.getOrCreateAccount(tenantId, 'TREASURY');
+    */
   }
 }

@@ -11,6 +11,43 @@ import { SubscriptionTier, Feature } from '@prisma/client';
 // ============================================================================
 
 export const FEATURE_ACCESS_MATRIX: Record<SubscriptionTier, Feature[]> = {
+  // FREE / TRAINEE
+  [SubscriptionTier.FREE]: [
+    Feature.PROBLEM_SOLVER,
+    Feature.LESSON_DIFFERENTIATION
+  ],
+  [SubscriptionTier.TRAINEE]: [
+    Feature.PROBLEM_SOLVER,
+    Feature.LESSON_DIFFERENTIATION,
+    Feature.EHCNA_SUPPORT
+  ],
+
+  // EP TIERS
+  [SubscriptionTier.EP_INDEPENDENT]: [
+    Feature.PROBLEM_SOLVER,
+    Feature.LESSON_DIFFERENTIATION,
+    Feature.EHCNA_SUPPORT,
+    Feature.BASIC_ANALYTICS,
+    Feature.CUSTOM_REPORTS
+  ],
+  [SubscriptionTier.EP_GROUP_SMALL]: [
+    Feature.PROBLEM_SOLVER,
+    Feature.LESSON_DIFFERENTIATION,
+    Feature.EHCNA_SUPPORT,
+    Feature.BASIC_ANALYTICS,
+    Feature.CUSTOM_REPORTS,
+    Feature.TEAM_COLLABORATION
+  ],
+  [SubscriptionTier.EP_GROUP_LARGE]: [
+    Feature.PROBLEM_SOLVER,
+    Feature.LESSON_DIFFERENTIATION,
+    Feature.EHCNA_SUPPORT,
+    Feature.ADVANCED_ANALYTICS,
+    Feature.CUSTOM_REPORTS,
+    Feature.TEAM_COLLABORATION,
+    Feature.PRIORITY_SUPPORT
+  ],
+
   // LOCAL AUTHORITY TIERS
   [SubscriptionTier.LA_TIER1]: [
     Feature.PROBLEM_SOLVER,
@@ -70,19 +107,6 @@ export const FEATURE_ACCESS_MATRIX: Record<SubscriptionTier, Feature[]> = {
     Feature.EMAIL_SUPPORT
   ],
   
-  [SubscriptionTier.SCHOOL_MEDIUM]: [
-    Feature.PROBLEM_SOLVER,
-    Feature.LESSON_DIFFERENTIATION,
-    Feature.EHCNA_SUPPORT,
-    Feature.BATTLE_ROYALE,
-    Feature.PROGRESS_MONITORING,
-    Feature.INTERVENTION_TRACKING,
-    Feature.ADVANCED_ANALYTICS,
-    Feature.TEAM_COLLABORATION,
-    Feature.PARENT_PORTAL,
-    Feature.PHONE_SUPPORT
-  ],
-  
   [SubscriptionTier.SCHOOL_LARGE]: [
     Feature.PROBLEM_SOLVER,
     Feature.LESSON_DIFFERENTIATION,
@@ -110,23 +134,6 @@ export const FEATURE_ACCESS_MATRIX: Record<SubscriptionTier, Feature[]> = {
     Feature.TEAM_COLLABORATION,
     Feature.MULTI_SCHOOL_SHARING,
     Feature.PHONE_SUPPORT
-  ],
-  
-  [SubscriptionTier.MAT_MEDIUM]: [
-    Feature.PROBLEM_SOLVER,
-    Feature.LESSON_DIFFERENTIATION,
-    Feature.EHCNA_SUPPORT,
-    Feature.BATTLE_ROYALE,
-    Feature.PROGRESS_MONITORING,
-    Feature.INTERVENTION_TRACKING,
-    Feature.ADVANCED_ANALYTICS,
-    Feature.CUSTOM_REPORTS,
-    Feature.DATA_EXPORT,
-    Feature.TEAM_COLLABORATION,
-    Feature.MULTI_SCHOOL_SHARING,
-    Feature.PARENT_PORTAL,
-    Feature.PRIORITY_SUPPORT,
-    Feature.API_ACCESS
   ],
   
   [SubscriptionTier.MAT_LARGE]: [
@@ -159,7 +166,7 @@ export const FEATURE_ACCESS_MATRIX: Record<SubscriptionTier, Feature[]> = {
     Feature.EMAIL_SUPPORT
   ],
   
-  [SubscriptionTier.RESEARCH_INSTITUTIONAL]: [
+  [SubscriptionTier.RESEARCH_INSTITUTION]: [
     Feature.PROBLEM_SOLVER,
     Feature.LESSON_DIFFERENTIATION,
     Feature.RESEARCH_API,
@@ -168,36 +175,9 @@ export const FEATURE_ACCESS_MATRIX: Record<SubscriptionTier, Feature[]> = {
     Feature.ADVANCED_ANALYTICS,
     Feature.PRIORITY_SUPPORT
   ],
-  
-  [SubscriptionTier.RESEARCH_PARTNERSHIP]: [
-    Feature.PROBLEM_SOLVER,
-    Feature.LESSON_DIFFERENTIATION,
-    Feature.RESEARCH_API,
-    Feature.RESEARCH_DATA_ACCESS,
-    Feature.RESEARCH_DOCUMENTATION,
-    Feature.CUSTOM_FEATURE_DEVELOPMENT,
-    Feature.ADVANCED_ANALYTICS,
-    Feature.DEDICATED_ACCOUNT_MANAGER,
-    Feature.API_ACCESS
-  ],
-  
-  // TRIAL/DEMO
-  [SubscriptionTier.TRIAL]: [
-    Feature.PROBLEM_SOLVER,
-    Feature.LESSON_DIFFERENTIATION,
-    Feature.BATTLE_ROYALE,
-    Feature.EMAIL_SUPPORT
-  ],
-  
-  [SubscriptionTier.DEMO]: [
-    Feature.PROBLEM_SOLVER,
-    Feature.LESSON_DIFFERENTIATION,
-    Feature.BATTLE_ROYALE,
-    Feature.EMAIL_SUPPORT
-  ],
-  
-  // LEGACY - Full access during migration
-  [SubscriptionTier.LEGACY]: [
+
+  // ENTERPRISE
+  [SubscriptionTier.ENTERPRISE_CUSTOM]: [
     Feature.PROBLEM_SOLVER,
     Feature.LESSON_DIFFERENTIATION,
     Feature.EHCNA_SUPPORT,
@@ -211,7 +191,17 @@ export const FEATURE_ACCESS_MATRIX: Record<SubscriptionTier, Feature[]> = {
     Feature.PARENT_PORTAL,
     Feature.MULTI_SCHOOL_SHARING,
     Feature.EMAIL_SUPPORT,
-    Feature.PHONE_SUPPORT
+    Feature.PHONE_SUPPORT,
+    Feature.PRIORITY_SUPPORT,
+    Feature.TRAINING_SESSIONS,
+    Feature.DEDICATED_ACCOUNT_MANAGER,
+    Feature.RESEARCH_API,
+    Feature.RESEARCH_DATA_ACCESS,
+    Feature.RESEARCH_DOCUMENTATION,
+    Feature.CUSTOM_FEATURE_DEVELOPMENT,
+    Feature.API_ACCESS,
+    Feature.MIS_INTEGRATION,
+    Feature.SINGLE_SIGN_ON
   ]
 };
 

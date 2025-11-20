@@ -1,5 +1,5 @@
 import { TreasuryService } from '@/lib/tokenisation/treasuryService';
-import { logForensicEvent } from '@/lib/server/forensic';
+// import { logForensicEvent } from '@/lib/server/forensic';
 import { PrismaClient } from '@prisma/client';
 import crypto from 'crypto';
 
@@ -17,7 +17,21 @@ export class RewardsService {
     this.prisma = new PrismaClient();
   }
 
-  async issueReward(metadata: RewardMetadata, amount: number, batchId?: string) {
+  async issueReward(metadata: RewardMetadata, amount: number, _batchId?: string) {
+    console.warn('RewardsService.issueReward: Tokenisation system is currently disabled.');
+    const traceId = crypto.randomUUID();
+    return {
+      record: {
+        id: 'mock-reward-id',
+        tenantId: metadata.tenantId,
+        issuedAt: new Date().toISOString(),
+        tier: metadata.rewardTier,
+        amount: amount,
+        claimed: false,
+      },
+      traceId,
+    };
+    /*
     const amountBigInt = BigInt(Math.floor(amount));
     const traceId = crypto.randomUUID();
 
@@ -67,9 +81,24 @@ export class RewardsService {
       },
       traceId,
     };
+    */
   }
 
   async claimReward(rewardId: string) {
+    console.warn('RewardsService.claimReward: Tokenisation system is currently disabled.');
+    const traceId = crypto.randomUUID();
+    return {
+      record: {
+        id: rewardId,
+        tenantId: 0,
+        issuedAt: new Date().toISOString(),
+        tier: 'MOCK_TIER',
+        amount: 0,
+        claimed: true,
+      },
+      traceId,
+    };
+    /*
     const reward = await this.prisma.reward.findUnique({
       where: { id: rewardId },
     });
@@ -149,9 +178,13 @@ export class RewardsService {
       },
       traceId,
     };
+    */
   }
 
-  async getLedger(tenantId?: number) {
+  async getLedger(_tenantId?: number) {
+    console.warn('RewardsService.getLedger: Tokenisation system is currently disabled.');
+    return [];
+    /*
     const rewards = await this.prisma.reward.findMany({
       where: tenantId ? { tenant_id: tenantId } : undefined,
     });
@@ -164,5 +197,6 @@ export class RewardsService {
       amount: Number(r.amount),
       status: r.status,
     }));
+    */
   }
 }

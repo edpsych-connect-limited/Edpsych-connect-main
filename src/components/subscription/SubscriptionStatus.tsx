@@ -12,22 +12,21 @@ import { SubscriptionTier } from '@prisma/client';
 
 // Tier display names
 const TIER_NAMES: Record<string, string> = {
+  [SubscriptionTier.FREE]: 'Free',
+  [SubscriptionTier.TRAINEE]: 'Trainee',
+  [SubscriptionTier.EP_INDEPENDENT]: 'EP Independent',
+  [SubscriptionTier.EP_GROUP_SMALL]: 'EP Group Small',
+  [SubscriptionTier.EP_GROUP_LARGE]: 'EP Group Large',
   [SubscriptionTier.LA_TIER1]: 'Local Authority Tier 1',
   [SubscriptionTier.LA_TIER2]: 'Local Authority Tier 2',
   [SubscriptionTier.LA_TIER3]: 'Local Authority Tier 3',
   [SubscriptionTier.SCHOOL_SMALL]: 'School Small',
-  [SubscriptionTier.SCHOOL_MEDIUM]: 'School Medium',
   [SubscriptionTier.SCHOOL_LARGE]: 'School Large',
   [SubscriptionTier.MAT_SMALL]: 'MAT Small',
-  [SubscriptionTier.MAT_MEDIUM]: 'MAT Medium',
   [SubscriptionTier.MAT_LARGE]: 'MAT Large',
   [SubscriptionTier.RESEARCH_INDIVIDUAL]: 'Research Individual',
-  [SubscriptionTier.RESEARCH_INSTITUTIONAL]: 'Research Institutional',
-  [SubscriptionTier.RESEARCH_PARTNERSHIP]: 'Research Partnership',
-  [SubscriptionTier.TRIAL]: 'Trial',
-  [SubscriptionTier.DEMO]: 'Demo',
-  [SubscriptionTier.LEGACY]: 'Legacy',
-  FREE: 'Free' // Add missing tier
+  [SubscriptionTier.RESEARCH_INSTITUTION]: 'Research Institution',
+  [SubscriptionTier.ENTERPRISE_CUSTOM]: 'Enterprise Custom'
 };
 
 // Tier colors for badges
@@ -36,9 +35,10 @@ const TIER_COLORS: Record<string, string> = {
   SCHOOL_: 'bg-blue-100 text-blue-800 border-blue-200',
   MAT_: 'bg-green-100 text-green-800 border-green-200',
   RESEARCH_: 'bg-orange-100 text-orange-800 border-orange-200',
-  TRIAL: 'bg-gray-100 text-gray-800 border-gray-200',
-  DEMO: 'bg-gray-100 text-gray-800 border-gray-200',
-  LEGACY: 'bg-yellow-100 text-yellow-800 border-yellow-200'
+  EP_: 'bg-teal-100 text-teal-800 border-teal-200',
+  FREE: 'bg-gray-100 text-gray-800 border-gray-200',
+  TRAINEE: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+  ENTERPRISE_: 'bg-indigo-100 text-indigo-800 border-indigo-200'
 };
 
 function getTierColor(tier: string): string {
@@ -47,7 +47,7 @@ function getTierColor(tier: string): string {
       return color;
     }
   }
-  return TIER_COLORS.TRIAL;
+  return TIER_COLORS.FREE;
 }
 
 /**

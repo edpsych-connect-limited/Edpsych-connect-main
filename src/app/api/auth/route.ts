@@ -49,7 +49,7 @@ const RefreshSchema = z.object({
  * Routes dispatcher - determines which handler to call based on pathname and method
  */
 async function routeRequest(request: NextRequest) {
-  const { pathname, searchParams } = new URL(request.url);
+  const { pathname, searchParams: _searchParams } = new URL(request.url);
   const method = request.method;
 
   // Extract action from pathname: /api/auth/login -> "login"
@@ -235,7 +235,7 @@ async function handleLogin(request: NextRequest) {
 /**
  * Handler: POST /api/auth/logout
  */
-async function handleLogout(request: NextRequest) {
+async function handleLogout(_request: NextRequest) {
   try {
     // Clear authentication cookie
     authService.clearAuthCookie();
@@ -382,7 +382,7 @@ async function handleSignup(request: NextRequest) {
       );
     }
 
-    const { firstName, lastName, email, password, organization, role, phone } =
+    const { firstName, lastName, email, password, organization, role, phone: _phone } =
       validation.data;
 
     // Check if user already exists

@@ -46,21 +46,21 @@ const FEATURE_NAMES: Record<Feature, string> = {
 
 // Tier display names
 const TIER_NAMES: Record<SubscriptionTier, string> = {
+  [SubscriptionTier.FREE]: 'Free',
+  [SubscriptionTier.TRAINEE]: 'Trainee',
+  [SubscriptionTier.EP_INDEPENDENT]: 'EP Independent',
+  [SubscriptionTier.EP_GROUP_SMALL]: 'EP Group Small',
+  [SubscriptionTier.EP_GROUP_LARGE]: 'EP Group Large',
   [SubscriptionTier.LA_TIER1]: 'Local Authority Tier 1',
   [SubscriptionTier.LA_TIER2]: 'Local Authority Tier 2',
   [SubscriptionTier.LA_TIER3]: 'Local Authority Tier 3',
   [SubscriptionTier.SCHOOL_SMALL]: 'School Small',
-  [SubscriptionTier.SCHOOL_MEDIUM]: 'School Medium',
   [SubscriptionTier.SCHOOL_LARGE]: 'School Large',
   [SubscriptionTier.MAT_SMALL]: 'MAT Small',
-  [SubscriptionTier.MAT_MEDIUM]: 'MAT Medium',
   [SubscriptionTier.MAT_LARGE]: 'MAT Large',
   [SubscriptionTier.RESEARCH_INDIVIDUAL]: 'Research Individual',
-  [SubscriptionTier.RESEARCH_INSTITUTIONAL]: 'Research Institutional',
-  [SubscriptionTier.RESEARCH_PARTNERSHIP]: 'Research Partnership',
-  [SubscriptionTier.TRIAL]: 'Trial',
-  [SubscriptionTier.DEMO]: 'Demo',
-  [SubscriptionTier.LEGACY]: 'Legacy'
+  [SubscriptionTier.RESEARCH_INSTITUTION]: 'Research Institution',
+  [SubscriptionTier.ENTERPRISE_CUSTOM]: 'Enterprise Custom'
 };
 
 /**

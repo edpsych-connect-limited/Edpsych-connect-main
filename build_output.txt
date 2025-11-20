@@ -1,0 +1,38 @@
+
+> edpsych-connect-web-v2@1.0.0 build
+> npm run validate:build && next build
+
+
+> edpsych-connect-web-v2@1.0.0 validate:build
+> bash tools/build-validation.sh src true
+
+[0;34m════════════════════════════════════════════════════════════[0m
+[0;34m  BUILD-TIME CODE VALIDATION[0m
+[0;34m════════════════════════════════════════════════════════════[0m
+
+[1;33mValidating source code...[0m
+
+[0;34m→ Running TypeScript type checking...[0m
+src/app/api/lessons/assign/route.ts(266,13): error TS2322: Type 'string' is not assignable to type 'Exact<number | null | undefined, number | null | undefined>'.
+src/app/api/marketplace/professionals/search/route.ts(110,15): error TS2353: Object literal may only specify known properties, and 'image' does not exist in type 'usersSelect<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }>'.
+src/app/api/parent/messages/route.ts(131,14): error TS2339: Property 'parentTeacherMessage' does not exist on type 'DynamicClientExtensionThis<TypeMap<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }, {}>, TypeMapCb<{ log: ("query" | "warn" | "error")[]; }>, { result: {}; model: {}; query: {}; client: {}; }>'.
+src/app/api/parent/messages/route.ts(141,14): error TS2339: Property 'parentTeacherMessage' does not exist on type 'DynamicClientExtensionThis<TypeMap<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }, {}>, TypeMapCb<{ log: ("query" | "warn" | "error")[]; }>, { result: {}; model: {}; query: {}; client: {}; }>'.
+src/app/api/parent/messages/route.ts(221,49): error TS7006: Parameter 'm' implicitly has an 'any' type.
+src/app/api/parent/messages/route.ts(378,34): error TS2339: Property 'parentTeacherMessage' does not exist on type 'DynamicClientExtensionThis<TypeMap<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }, {}>, TypeMapCb<{ log: ("query" | "warn" | "error")[]; }>, { result: {}; model: {}; query: {}; client: {}; }>'.
+src/app/api/parent/portal/[childId]/route.ts(239,41): error TS2339: Property 'parentTeacherMessage' does not exist on type 'DynamicClientExtensionThis<TypeMap<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }, {}>, TypeMapCb<{ log: ("query" | "warn" | "error")[]; }>, { result: {}; model: {}; query: {}; client: {}; }>'.
+src/app/api/parent/portal/[childId]/route.ts(246,38): error TS2339: Property 'parentTeacherMessage' does not exist on type 'DynamicClientExtensionThis<TypeMap<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }, {}>, TypeMapCb<{ log: ("query" | "warn" | "error")[]; }>, { result: {}; model: {}; query: {}; client: {}; }>'.
+src/app/api/voice/command/route.ts(243,9): error TS2322: Type 'string | undefined' is not assignable to type 'Exact<number | null | undefined, number | null | undefined>'.
+  Type 'string' is not assignable to type 'Exact<number | null | undefined, number | null | undefined>'.
+src/app/api/voice/quick-actions/route.ts(427,9): error TS2322: Type 'string' is not assignable to type 'Exact<number | null | undefined, number | null | undefined>'.
+src/lib/orchestration/assignment-engine.service.ts(855,11): error TS2322: Type 'string | undefined' is not assignable to type 'number | null | undefined'.
+  Type 'string' is not assignable to type 'number'.
+src/lib/orchestration/cross-module-intelligence.service.ts(182,11): error TS2322: Type 'string' is not assignable to type 'number'.
+src/lib/orchestration/cross-module-intelligence.service.ts(426,15): error TS2322: Type 'string' is not assignable to type 'number'.
+src/lib/orchestration/profile-builder.service.ts(793,11): error TS2322: Type 'string | undefined' is not assignable to type 'number | null | undefined'.
+  Type 'string' is not assignable to type 'number'.
+[0;31m  ✗ TypeScript compilation failed[0m
+
+[0;31m════════════════════════════════════════════════════════════[0m
+[0;31m✗ BUILD VALIDATION FAILED[0m
+[0;31m════════════════════════════════════════════════════════════[0m
+

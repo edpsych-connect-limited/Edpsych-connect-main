@@ -214,9 +214,8 @@ export async function GET(
 
     // Fetch student names for actions
     const actionStudentIds = actions
-      .filter(a => a.student_id)
-      .map(a => parseInt(a.student_id as string, 10))
-      .filter(id => !isNaN(id)); // Filter out invalid IDs
+      .filter(a => a.student_id !== null)
+      .map(a => a.student_id as number);
 
     const students = await prisma.students.findMany({
       where: {
@@ -254,8 +253,8 @@ export async function GET(
 
       return {
         actionId: action.id,
-        studentId: action.student_id,
-        studentName: action.student_id ? studentNameMap.get(action.student_id) || 'Unknown' : null,
+        studentId: action.student_id ? action.student_id.toString() : null,
+        studentName: action.student_id ? studentNameMap.get(action.student_id.toString()) || 'Unknown' : null,
         actionType: action.action_type as ActionType,
         triggerReason: action.triggered_by,
         actionTaken: actionTakenText,
