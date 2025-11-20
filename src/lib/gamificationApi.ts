@@ -49,8 +49,30 @@ const api = {
   
   // Get leaderboard
   getLeaderboard: async (): Promise<any[]> => {
-    logger.info('Getting leaderboard');
-    return [];
+    try {
+      const response = await fetch('/api/gamification/leaderboard');
+      if (!response.ok) return [];
+      const data = await response.json();
+      return data.leaderboard || [];
+    } catch (error) {
+      logger.error('Failed to fetch leaderboard', error);
+      return [];
+    }
+  },
+
+  // Join Battle Royale Queue
+  joinBattleRoyaleQueue: async (gameMode: string): Promise<any> => {
+    try {
+      const response = await fetch('/api/battle-royale/matchmaking/queue', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ gameMode })
+      });
+      return await response.json();
+    } catch (error) {
+      logger.error('Failed to join queue', error);
+      throw error;
+    }
   }
 };
 

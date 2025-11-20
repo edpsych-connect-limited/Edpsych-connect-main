@@ -161,6 +161,40 @@ export async function POST(
 
     // Parse and validate request body
     const body = await request.json();
+    
+    // Handle case where lessonId is provided instead of full lessonPlan
+    if (body.lessonId && !body.lessonPlan) {
+      const lesson = await prisma.lessonPlan.findUnique({
+        where: { id: body.lessonId.toString() },
+        include: { activities: true }
+      });
+
+      if (!lesson) {
+        return NextResponse.json({ error: 'Lesson plan not found' }, { status: 404 });
+      }
+
+      // Map DB lesson to schema format
+      body.lessonPlan = {
+        title: lesson.title,
+        subject: lesson.subject,
+        learningObjectives: lesson.learning_objectives,
+        activities: lesson.activities.map(a => ({
+          type: a.activity_type,
+          description: a.title,
+          duration: a.estimated_duration,
+          materials: [] // Default empty as not in DB model
+        })),
+        resources: [], // Default empty
+        assessmentCriteria: [], // Default empty
+        estimatedDuration: lesson.duration_minutes
+      };
+      
+      // Map classId to classRosterId if needed
+      if (body.classId && !body.classRosterId) {
+        body.classRosterId = body.classId.toString();
+      }
+    }
+
     const validation = differentiationRequestSchema.safeParse(body);
 
     if (!validation.success) {
