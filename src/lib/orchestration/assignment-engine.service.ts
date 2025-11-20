@@ -852,7 +852,7 @@ export class AssignmentEngineService {
       await prisma.automatedAction.create({
         data: {
           ...restData,
-          student_id: student_id?.toString(),
+          student_id: student_id,
           outcome_success: true,
         },
       });

@@ -263,7 +263,7 @@ export async function POST(
         await prisma.automatedAction.create({
           data: {
             tenant_id: tenantId,
-            student_id: assignment.studentId,
+            student_id: parseInt(assignment.studentId),
             action_type: 'lesson_assigned',
             triggered_by: `teacher_${userId}`,
             target_type: 'student_lesson',

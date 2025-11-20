@@ -240,7 +240,7 @@ export async function POST(
     await prisma.automatedAction.create({
       data: {
         tenant_id: tenantId,
-        student_id: studentContext || undefined,
+        student_id: studentContext ? parseInt(studentContext) : undefined,
         action_type: 'voice_command_processed',
         triggered_by: `voice_${inputType}_query`,
         target_type: 'student',

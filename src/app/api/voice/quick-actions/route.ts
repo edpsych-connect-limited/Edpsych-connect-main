@@ -424,7 +424,7 @@ export async function POST(
     await prisma.automatedAction.create({
       data: {
         tenant_id: tenantId,
-        student_id: studentId, // String field in AutomatedAction
+        student_id: studentId ? parseInt(studentId) : undefined, // Int field in AutomatedAction
         action_type: `quick_action_${actionType}`,
         triggered_by: voiceCommand || `quick_action_${actionType}`,
         target_type: targetType,
