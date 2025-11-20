@@ -3,7 +3,9 @@
  * AI-powered curriculum and lesson planning assistance
  */
 
-import { aiService } from './ai/core';
+import { aiService, AIRequest } from '@/lib/ai-integration';
+import prisma from '@/lib/prismaSafe';
+import { LessonPlan as PrismaLessonPlan, LessonActivity as PrismaLessonActivity } from '@prisma/client';
 
 export interface LearningObjective {
   id: string;
@@ -105,9 +107,7 @@ export interface StudentProfile {
 
 export class CurriculumService {
   private static instance: CurriculumService;
-  private constructor() {
-    // Using imported aiService singleton
-  }
+  private constructor() {}
 
   public static getInstance(): CurriculumService {
     if (!CurriculumService.instance) {
@@ -124,7 +124,9 @@ export class CurriculumService {
     yearGroup: string,
     topic: string,
     duration: number,
-    studentProfiles?: StudentProfile[]
+    studentProfiles?: StudentProfile[],
+    userId: string = 'system',
+    tenantId: string = 'system'
   ): Promise<LessonPlan> {
     try {
       // Generate learning objectives using AI
@@ -134,7 +136,15 @@ export class CurriculumService {
         Each objective should be SMART (Specific, Measurable, Achievable, Relevant, Time-bound).
       `;
 
-      // For now, use mock data - in production this would call AIService.analyzeChallenge()
+      const objectivesResponse = await aiService.processRequest({
+        prompt: objectivesPrompt,
+        id: userId,
+        subscriptionTier: 'professional',
+        useCase: 'lesson_planning',
+        maxTokens: 800
+      });
+      
+      // Parse objectives (Mock parsing for now, in real implementation would use structured output)
       const objectives: LearningObjective[] = [
         {
           id: `obj_${Date.now()}_1`,
@@ -145,16 +155,6 @@ export class CurriculumService {
           estimatedDuration: Math.floor(duration / 4),
           prerequisites: ['Basic knowledge of subject'],
           successCriteria: ['Can explain concepts', 'Can apply learning in context']
-        },
-        {
-          id: `obj_${Date.now()}_2`,
-          description: `Develop skills related to ${topic} through practical activities`,
-          subject,
-          yearGroup,
-          difficulty: 'medium',
-          estimatedDuration: Math.floor(duration / 3),
-          prerequisites: ['Understanding of basic concepts'],
-          successCriteria: ['Demonstrates skill application', 'Shows improvement']
         }
       ];
 
@@ -167,13 +167,14 @@ export class CurriculumService {
         Total duration: ${duration} minutes.
       `;
 
-      const activitiesResponse = await aiService.generateResponse({
+      const activitiesResponse = await aiService.processRequest({
         prompt: activitiesPrompt,
-        subscriptionTier: 'enterprise',
-        useCase: 'curriculum_planning',
+        id: userId,
+        subscriptionTier: 'professional',
+        useCase: 'lesson_planning',
         maxTokens: 1000
       });
-      const activities: LessonActivity[] = this.parseActivities(activitiesResponse.content);
+      const activities: LessonActivity[] = this.parseActivities(activitiesResponse.response);
 
       // Generate differentiation strategies
       const differentiationPrompt = `
@@ -185,13 +186,14 @@ export class CurriculumService {
         - Accessibility requirements
       `;
 
-      const differentiationResponse = await aiService.generateResponse({
+      const differentiationResponse = await aiService.processRequest({
         prompt: differentiationPrompt,
-        subscriptionTier: 'enterprise',
-        useCase: 'curriculum_planning',
+        id: userId,
+        subscriptionTier: 'professional',
+        useCase: 'lesson_planning',
         maxTokens: 800
       });
-      const differentiation: DifferentiationStrategy[] = this.parseDifferentiation(differentiationResponse.content);
+      const differentiation: DifferentiationStrategy[] = this.parseDifferentiation(differentiationResponse.response);
 
       // Generate assessment methods
       const assessmentPrompt = `
@@ -199,13 +201,14 @@ export class CurriculumService {
         Include success criteria and methods to track progress.
       `;
 
-      const assessmentResponse = await aiService.generateResponse({
+      const assessmentResponse = await aiService.processRequest({
         prompt: assessmentPrompt,
-        subscriptionTier: 'enterprise',
-        useCase: 'curriculum_planning',
+        id: userId,
+        subscriptionTier: 'professional',
+        useCase: 'lesson_planning',
         maxTokens: 800
       });
-      const assessment: AssessmentMethod[] = this.parseAssessment(assessmentResponse.content);
+      const assessment: AssessmentMethod[] = this.parseAssessment(assessmentResponse.response);
 
       // Personalize for specific students if profiles provided
       let personalizedElements = {};
@@ -213,7 +216,8 @@ export class CurriculumService {
         personalizedElements = await this.personalizeForStudents(
           objectives,
           activities,
-          studentProfiles
+          studentProfiles,
+          userId
         );
       }
 
@@ -242,12 +246,69 @@ export class CurriculumService {
   }
 
   /**
+   * Save lesson plan to database
+   */
+  async saveLessonPlan(lessonPlan: LessonPlan, teacherId: number, tenantId: number, classRosterId: string): Promise<PrismaLessonPlan> {
+    try {
+      // Create the main lesson plan record
+      const savedPlan = await prisma.lessonPlan.create({
+        data: {
+          tenant_id: tenantId,
+          teacher_id: teacherId,
+          class_roster_id: classRosterId,
+          title: lessonPlan.title,
+          subject: lessonPlan.subject,
+          year_group: lessonPlan.yearGroup,
+          duration_minutes: lessonPlan.duration,
+          learning_objectives: lessonPlan.objectives.map(o => o.description),
+          base_content: {
+            resources: lessonPlan.resources,
+            assessment: lessonPlan.assessment,
+            homework: lessonPlan.homework,
+            differentiation: lessonPlan.differentiation
+          },
+          has_differentiation: lessonPlan.differentiation.length > 0,
+          difficulty_levels: ['below', 'at', 'above'],
+          status: 'draft'
+        }
+      });
+
+      // Create activities
+      for (let i = 0; i < lessonPlan.activities.length; i++) {
+        const activity = lessonPlan.activities[i];
+        await prisma.lessonActivity.create({
+          data: {
+            lesson_plan_id: savedPlan.id,
+            title: activity.title,
+            activity_type: activity.type,
+            sequence_order: i,
+            estimated_duration: activity.duration,
+            base_content: {
+              description: activity.description,
+              instructions: activity.instructions,
+              resources: activity.resources
+            },
+            differentiated_content: activity.differentiation,
+            success_criteria: [] // Could be extracted from assessment
+          }
+        });
+      }
+
+      return savedPlan;
+    } catch (error) {
+      console.error('Error saving lesson plan:', error);
+      throw new Error('Failed to save lesson plan to database');
+    }
+  }
+
+  /**
    * Personalize lesson content for individual students
    */
   async personalizeForStudents(
     baseObjectives: LearningObjective[],
     baseActivities: LessonActivity[],
-    studentProfiles: StudentProfile[]
+    studentProfiles: StudentProfile[],
+    userId: string = 'system'
   ): Promise<any> {
     const personalizedContent = {
       studentAdaptations: [] as any[],
@@ -267,16 +328,17 @@ export class CurriculumService {
         Provide specific adaptations for activities and resources.
       `;
 
-      const personalizationResponse = await aiService.generateResponse({
+      const personalizationResponse = await aiService.processRequest({
         prompt: personalizationPrompt,
-        subscriptionTier: 'enterprise',
-        useCase: 'curriculum_planning',
+        id: userId,
+        subscriptionTier: 'professional',
+        useCase: 'lesson_planning',
         maxTokens: 800
       });
 
       personalizedContent.studentAdaptations.push({
         studentId: student.id,
-        adaptations: this.parsePersonalization(personalizationResponse.content),
+        adaptations: this.parsePersonalization(personalizationResponse.response),
         recommendedActivities: this.matchActivitiesToStudent(baseActivities, student),
         personalizedObjectives: this.adaptObjectivesForStudent(baseObjectives, student)
       });
@@ -292,7 +354,8 @@ export class CurriculumService {
     subject: string,
     topic: string,
     yearGroup: string,
-    learningObjectives: string[]
+    learningObjectives: string[],
+    userId: string = 'system'
   ): Promise<any> {
     const gamePrompt = `
       Design an exhilarating battle royale game mode for ${subject} - ${topic} that:
@@ -306,13 +369,14 @@ export class CurriculumService {
       Make it more engaging than any commercial game!
     `;
 
-    const gameResponse = await aiService.generateResponse({
+    const gameResponse = await aiService.processRequest({
       prompt: gamePrompt,
-      subscriptionTier: 'enterprise',
-      useCase: 'curriculum_planning',
+      id: userId,
+      subscriptionTier: 'professional',
+      useCase: 'gamification',
       maxTokens: 800
     });
-    return this.parseGameDesign(gameResponse.content);
+    return this.parseGameDesign(gameResponse.response);
   }
 
   /**
@@ -321,7 +385,8 @@ export class CurriculumService {
   async generateBlogContent(
     topic: string,
     targetAudience: 'teachers' | 'parents' | 'students' | 'researchers',
-    context: string
+    context: string,
+    userId: string = 'system'
   ): Promise<any> {
     const blogPrompt = `
       Generate engaging, professional blog content about "${topic}" for ${targetAudience}.
@@ -336,13 +401,14 @@ export class CurriculumService {
       - SEO-optimized structure
     `;
 
-    const blogResponse = await aiService.generateResponse({
+    const blogResponse = await aiService.processRequest({
       prompt: blogPrompt,
-      subscriptionTier: 'enterprise',
-      useCase: 'curriculum_planning',
+      id: userId,
+      subscriptionTier: 'professional',
+      useCase: 'content_creation',
       maxTokens: 800
     });
-    return this.parseBlogContent(blogResponse.content);
+    return this.parseBlogContent(blogResponse.response);
   }
 
   /**
@@ -351,7 +417,8 @@ export class CurriculumService {
   async generateResearchStudy(
     researchQuestion: string,
     dataPoints: string[],
-    methodology: string
+    methodology: string,
+    userId: string = 'system'
   ): Promise<any> {
     const researchPrompt = `
       Design a practice-based research study to investigate: "${researchQuestion}"
@@ -367,13 +434,14 @@ export class CurriculumService {
       - Expected outcomes and implications
     `;
 
-    const researchResponse = await aiService.generateResponse({
+    const researchResponse = await aiService.processRequest({
       prompt: researchPrompt,
-      subscriptionTier: 'enterprise',
-      useCase: 'curriculum_planning',
+      id: userId,
+      subscriptionTier: 'professional',
+      useCase: 'research',
       maxTokens: 800
     });
-    return this.parseResearchDesign(researchResponse.content);
+    return this.parseResearchDesign(researchResponse.response);
   }
 
   // Helper methods for parsing AI responses

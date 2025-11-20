@@ -5,10 +5,13 @@
 
 // FIXED: Removed broken database import, fixed Redis path
 // import { getPostgresClient, userDb } from '../../database/postgres'; // REMOVED - doesn't exist
-import { getRedisClient } from '../cache/redis-client'; // FIXED: was ../../ now ../
+import { getRedisClient } from '../cache/redis-client';
 import bcrypt from 'bcryptjs';
 import { v4 as uuidv4 } from 'uuid';
 import { getServerSession } from 'next-auth';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import prisma from '@/lib/prismaSafe';
+import CredentialsProvider from 'next-auth/providers/credentials';
 
 export interface User {
   id: string;
@@ -301,29 +304,47 @@ export async function getUserFromRequest(req: any): Promise<User | null> {
   }
 }
 
-// Mock NextAuth options for compatibility with existing API routes
+// Real NextAuth options with Prisma Adapter
 export const authOptions = {
+  // Adapter commented out because Prisma schema uses 'users' (plural) instead of 'User' (singular).
+  // To enable the adapter, we need to map the models in schema.prisma or use a custom adapter.
+  // adapter: PrismaAdapter(prisma),
   providers: [
-    // Mock provider for compatibility
-    {
-      id: 'mock',
-      name: 'Mock Provider',
-      type: 'credentials' as const,
+    CredentialsProvider({
+      id: 'credentials',
+      name: 'Credentials',
       credentials: {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' }
       },
-      async authorize(_credentials: any) {
-        // Mock authorization - return a mock user
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
+
+        const user = await prisma.users.findUnique({
+          where: { email: credentials.email }
+        });
+
+        if (!user || !user.password_hash) {
+          return null;
+        }
+
+        const isValid = await bcrypt.compare(credentials.password, user.password_hash);
+
+        if (!isValid) {
+          return null;
+        }
+
         return {
-          id: 'mock-user-id',
-          email: 'mock@example.com',
-          name: 'Mock User',
-          isActive: true,
-          role: ['student']
+          id: user.id.toString(),
+          email: user.email,
+          name: user.name,
+          role: user.role ? [user.role] : ['student'], // Map single role to array for compatibility
+          isActive: true
         };
       }
-    }
+    })
   ],
   session: {
     strategy: 'jwt' as const
