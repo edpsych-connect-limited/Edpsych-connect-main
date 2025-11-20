@@ -33,6 +33,7 @@ Use this structure for each run entry:
 ## Run history
 | Date | Focus | Severity 2 | Severity 1 | Notes |
 |------|-------|------------|------------|-------|
+| 2025-11-20 | lint (tools/run-all.sh) | 0 | 669 | Run blocked by `--max-warnings=0`; top rules: no-unused-vars (669) |
 | 2025-11-18 | lint (tools/run-all.sh) | 0 | 0 | Top rules: No warnings. |
 | 2025-11-18 | lint (`LINT_TARGET=src/lib/services`) | 0 | 0 | Confirmed `src/lib/services` emits zero warnings; artifacts feed `docs/ops/lint_cleanup_status.md` and the service cleanup section. |
 | 2025-11-18 | lint (tools/run-all.sh) | 0 | 1707 | `lint-report.json` + `lint-summary.txt` uploaded (`no-unused-vars` 1518, `react/no-unescaped-entities` 56, `react-hooks/exhaustive-deps` 36, `@next/next/no-img-element` 23, `@typescript-eslint/no-require-imports` 22). EHCP export telemetry logging now writes to `logs/forensic-events.log`; new `docs/ops/forensic_report.md` and `docs/ops/ehcp_export_qa.md` capture the workflow/QA checklist. |

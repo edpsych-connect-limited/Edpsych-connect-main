@@ -15,7 +15,7 @@ const MOCK_INSTITUTIONS = [
       { id: "dept-2", name: "Educational Sciences" },
     ],
     contacts: [
-      { id: "contact-1", name: "Dr. James Smith", email: "jsmith@example.edu", role: "Administrator" }
+      { id: "contact-1", name: "Dr. Scott Ighavongbe-Patrick", email: "scott@example.edu", role: "Administrator" }
     ],
     subscriptions: [
       {
@@ -36,7 +36,7 @@ const MOCK_INSTITUTIONS = [
       { id: "dept-4", name: "Educational Psychology" },
     ],
     contacts: [
-      { id: "contact-2", name: "Dr. Sarah Johnson", email: "sjohnson@example.edu", role: "Administrator" }
+      { id: "contact-2", name: "Dr. Scott Ighavongbe-Patrick", email: "scott@example.edu", role: "Administrator" }
     ],
     subscriptions: [
       {

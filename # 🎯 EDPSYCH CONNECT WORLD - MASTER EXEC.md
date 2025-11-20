@@ -1,10 +1,25 @@
-# 🎯 EDPSYCH CONNECT WORLD - MASTER EXECUTION DOCUMENT v3.0
+# 🎯 EDPSYCH CONNECT WORLD - MASTER EXECUTION DOCUMENT v3.1
 
-**Version:** 3.0 - PRODUCTION DEPLOYMENT SUCCESS
-**Last Updated:** November 2, 2025 - 18:10 GMT
+**Version:** 3.1 - VISION ALIGNED & PRODUCTION READY
+**Last Updated:** November 20, 2025 (Updated by Claude)
 **Status:** 70.5% COMPLETE - Phase 3/4 Substantially Complete, Production Live
 **Repository:** `C:\Users\scott\Desktop\package` (edpsych-connect-limited)
 **Production URL:** https://edpsych-connect-limited.vercel.app
+
+---
+
+## 0. 🧠 THE VISION: INVISIBLE INTELLIGENCE
+
+**Founder:** Dr. Scott Ighavongbe-Patrick DEdPsych CPsychol
+**Core Philosophy:** "Invisible Intelligence"
+
+EdPsych Connect World is not just a platform; it is a movement toward truly inclusive education. Born from Dr. Scott's research on excluded children, the platform operates on the principle that **systems, not children, are often the barrier**.
+
+*   **The "Why":** To orchestrate the educational ecosystem so that "No Child is Left Behind."
+*   **The "How":** Technology that "feels like magic, works like clockwork, and delivers like expertise multiplied."
+*   **The Promise:** Zero-Touch automation ("Reports that write themselves") that liberates teachers and EPs to focus on the human connection.
+
+*See `docs/FOUNDER_VISION_AND_PHILOSOPHY.md` for the full founder bio and philosophical manifesto.*
 
 ---
 
@@ -931,7 +946,17 @@ After **19 systematic fixes** across 24+ build attempts, the platform is now liv
 ### **Week 1: Complete Phase 3 Core Features (Target: 85% → 95%)**
 
 #### High Priority (Must Complete):
-1. **Real Database Integration** (3 days)
+1. **Landing Page Rearchitecture ("Invisible Intelligence")** (3 days)
+   - **Lead:** Claude (Project Lead)
+   - **Status:** ✅ COMPLETE
+   - **Objective:** Rebuild the landing page to reflect the *actual* backend capabilities (Marketplace, Training, ECCA) wrapped in the "Invisible Intelligence" narrative.
+   - **Tasks:**
+     - ✅ Implement `HeroOrchestration.tsx` (The "Magic" Hook).
+     - ✅ Build `FlagshipDifferentiation.tsx` (The "Engine").
+     - ✅ Expose the "Marketplace" and "Training" catalogs dynamically.
+     - ✅ **Strict Rule:** No "AI" hype. Focus on "Orchestration" and "Outcome".
+
+2. **Real Database Integration** (3 days)
    - Replace mock data with real Prisma queries across:
      - Assessment system (src/lib/assessments/)
      - Progress tracking (src/components/progress/)
@@ -939,7 +964,7 @@ After **19 systematic fixes** across 24+ build attempts, the platform is now liv
    - Test all CRUD operations end-to-end
    - Verify data persistence and retrieval
 
-2. **Stripe Webhook Integration** (2 days)
+3. **Stripe Webhook Integration** (2 days)
    - Implement webhook endpoint: `/src/app/api/webhooks/stripe/route.ts`
    - Handle subscription events (created, updated, cancelled)
    - Process payment events (succeeded, failed)

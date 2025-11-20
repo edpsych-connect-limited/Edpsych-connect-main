@@ -6,6 +6,7 @@ import ContactManagement from './ContactManagement';
 import SubscriptionManagement from './SubscriptionManagement';
 import PerformanceMetrics from './PerformanceMetrics';
 import ActivityLogs from './ActivityLogs';
+import SLAAnalytics from './SLAAnalytics';
 
 // Define types for our data structures
 interface Institution {
@@ -160,6 +161,19 @@ const InstitutionalDashboard: React.FC<{ id?: string }> = ({ id }) => {
           </div>
         </div>
       </div>
+
+      {/* SLA Analytics for Local Authorities */}
+      {institution.type === 'Local Authority' && (
+        <SLAAnalytics
+          metrics={{
+            averageCompletionWeeks: 18.5,
+            withinDeadlinePercent: 92,
+            activeCases: 145,
+            breachCount: 3,
+            upcomingDeadlines: 12,
+          }}
+        />
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
         <div className="bg-white p-4 rounded shadow">

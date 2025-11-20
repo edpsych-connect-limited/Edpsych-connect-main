@@ -25,7 +25,6 @@ import {
   Quiz,
   QuizQuestion,
   Resource,
-  getCourseById,
 } from '@/lib/training/course-catalog';
 
 // ============================================================================
@@ -83,11 +82,22 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
   // ============================================================================
 
   useEffect(() => {
-    const loadedCourse = getCourseById(courseId);
-    if (loadedCourse) {
-      setCourse(loadedCourse);
-      loadProgress(userId, courseId);
-    }
+    const fetchCourse = async () => {
+      try {
+        const response = await fetch(`/api/training/courses/${courseId}`);
+        if (response.ok) {
+          const data = await response.json();
+          setCourse(data);
+          loadProgress(userId, courseId);
+        } else {
+          console.error('Failed to load course');
+        }
+      } catch (error) {
+        console.error('Error loading course:', error);
+      }
+    };
+
+    fetchCourse();
   }, [courseId, userId]);
 
   // Auto-save progress every 30 seconds
@@ -109,17 +119,43 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
   // PROGRESS MANAGEMENT
   // ============================================================================
 
-  function loadProgress(userId: string, courseId: string) {
-    // TODO: Load from API
-    const savedProgress = localStorage.getItem(`course_progress_${userId}_${courseId}`);
-    if (savedProgress) {
-      setState(JSON.parse(savedProgress));
+  async function loadProgress(userId: string, courseId: string) {
+    try {
+      const response = await fetch(`/api/training/progress?courseId=${courseId}`);
+      if (response.ok) {
+        const data = await response.json();
+        if (data.state) {
+          setState((prev) => ({ ...prev, ...data.state }));
+        }
+      }
+    } catch (error) {
+      console.error('Error loading progress:', error);
     }
   }
 
-  function saveProgress(userId: string, courseId: string, currentState: PlayerState) {
-    // TODO: Save to API
-    localStorage.setItem(`course_progress_${userId}_${courseId}`, JSON.stringify(currentState));
+  async function saveProgress(userId: string, courseId: string, currentState: PlayerState) {
+    if (!course) return;
+    
+    const totalItems = course.modules.reduce((sum, m) => sum + m.lessons.length + (m.quiz ? 1 : 0), 0) || 1;
+    const completedItems = currentState.completed_lessons.length + currentState.completed_quizzes.length;
+    const progress = Math.round((completedItems / totalItems) * 100);
+
+    try {
+      await fetch('/api/training/progress', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          courseId,
+          progress,
+          timeSpent: 0, // TODO: Implement time tracking
+          state: currentState,
+        }),
+      });
+    } catch (error) {
+      console.error('Error saving progress:', error);
+    }
   }
 
   // ============================================================================
@@ -425,6 +461,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
             <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all duration-500"
+                // eslint-disable-next-line
                 style={{ width: `${progressPercentage}%` }}
               ></div>
             </div>
@@ -552,6 +589,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                             <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                               <div
                                 className="h-full bg-blue-600 transition-all"
+                                // eslint-disable-next-line
                                 style={{ width: `${state.video_progress}%` }}
                               ></div>
                             </div>

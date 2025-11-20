@@ -10,6 +10,8 @@ import { jwtVerify, SignJWT } from 'jose';
 import { nanoid } from 'nanoid';
 import { NextRequest } from 'next/server';
 import { redirect } from 'next/navigation';
+import prisma from '@/lib/prismaSafe';
+import bcrypt from 'bcryptjs';
 
 // Types
 export interface UserSession {
@@ -66,33 +68,20 @@ export default authService;
 
 export async function authenticateUser(email: string, password: string): Promise<AuthResult> {
   try {
-    // In production, this would verify against a database
-    // For now, implement a simple demo authentication
-    
-    // Demo accounts for testing
-    const demoUsers = [
-      {
-        id: 'admin-1',
-        email: 'admin@edpsych-connect.com',
-        password: 'admin123',
-        name: 'Admin User',
-        role: 'admin' as const,
-        permissions: ['manage_users', 'view_analytics', 'manage_content'],
-        subscriptionTier: 'enterprise' as const
-      },
-      {
-        id: 'teacher-1',
-        email: 'teacher@edpsych-connect.com',
-        password: 'teacher123',
-        name: 'Teacher User',
-        role: 'educator' as const,
-        organization: 'Sample School',
-        permissions: ['create_resources', 'view_resources'],
-        subscriptionTier: 'premium' as const
+    // Find user in database
+    const user = await prisma.users.findUnique({
+      where: { email },
+      include: {
+        tenants: {
+          include: {
+            subscriptions: {
+              where: { is_active: true },
+              take: 1
+            }
+          }
+        }
       }
-    ];
-    
-    const user = demoUsers.find(u => u.email === email && u.password === password);
+    });
     
     if (!user) {
       return {
@@ -100,17 +89,41 @@ export async function authenticateUser(email: string, password: string): Promise
         error: 'Invalid email or password'
       };
     }
+
+    // Verify password
+    const isValid = await bcrypt.compare(password, user.password_hash);
+
+    if (!isValid) {
+      return {
+        success: false,
+        error: 'Invalid email or password'
+      };
+    }
+
+    // Determine subscription tier from tenant
+    let subscriptionTier: 'free' | 'premium' | 'enterprise' = 'free';
+    const activeSubscription = user.tenants?.subscriptions?.[0];
+    
+    if (activeSubscription) {
+      const tier = activeSubscription.tier;
+      if (tier === 'ENTERPRISE_CUSTOM' || tier === 'LA_TIER3') {
+        subscriptionTier = 'enterprise';
+      } else if (tier !== 'FREE') {
+        subscriptionTier = 'premium';
+      }
+    }
     
     // Create user session
     const session: UserSession = {
-      id: user.id,
+      id: user.id.toString(),
       email: user.email,
       name: user.name,
-      role: user.role,
-      organization: user.organization,
+      role: (user.role as any) || 'student', // Cast to any to satisfy strict union type
+      organization: user.tenants?.name,
       permissions: user.permissions,
-      subscriptionTier: user.subscriptionTier,
+      subscriptionTier: subscriptionTier,
       sessionId: nanoid(),
+      tenant_id: user.tenant_id,
       iat: Math.floor(Date.now() / 1000),
       exp: Math.floor(Date.now() / 1000) + 60 * 60 * 8 // 8 hours
     };
@@ -307,7 +320,7 @@ export async function verifyAuth(request: NextRequest): Promise<VerifyAuthResult
         email: session.email,
         name: session.name,
         role: session.role,
-        tenant_id: undefined // Will be populated from database if needed
+        tenant_id: session.tenant_id
       }
     };
   } catch (error) {

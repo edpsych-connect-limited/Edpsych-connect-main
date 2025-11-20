@@ -150,7 +150,7 @@ async function demoLongTermDataStorage() {
     study: {
       id: 'EDU-2025-11',
       title: 'Longitudinal Analysis of Learning Patterns in UK Primary Schools',
-      investigators: ['Dr. Emily Johnson', 'Prof. Michael Chen'],
+      investigators: ['Dr. Scott Ighavongbe-Patrick'],
       period: '2023-2025',
       participants: 2500,
       ethicsApproval: 'UKRI-ETH-2023-456'

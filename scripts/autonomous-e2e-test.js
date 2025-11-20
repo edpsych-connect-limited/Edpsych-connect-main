@@ -30,10 +30,10 @@ const TEST_ACCOUNTS = {
     childId: 16
   },
   ep: {
-    email: 'dr.patel@test.edpsych.com',
+    email: 'dr.scott@test.edpsych.com',
     password: 'Test123!',
     role: 'Educational Psychologist',
-    name: 'Dr. Priya Patel'
+    name: 'Dr. Scott Ighavongbe-Patrick'
   }
 };
 

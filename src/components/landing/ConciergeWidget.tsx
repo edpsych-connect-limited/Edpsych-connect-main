@@ -10,20 +10,54 @@ export default function ConciergeWidget() {
     { role: 'assistant', text: 'Hello! I\'m your EdPsych Concierge. How can I help you transform your SEND provision today?' }
   ]);
   const [input, setInput] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const [sessionId, setSessionId] = useState<string | null>(null);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
     
-    setMessages(prev => [...prev, { role: 'user', text: input }]);
+    const userMessage = input;
+    setMessages(prev => [...prev, { role: 'user', text: userMessage }]);
     setInput('');
-    
-    // Simulate response
-    setTimeout(() => {
+    setIsTyping(true);
+
+    try {
+      const response = await fetch('/api/help/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          message: userMessage,
+          sessionId: sessionId
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.sessionId) {
+        setSessionId(data.sessionId);
+      }
+
+      if (data.response) {
+        setMessages(prev => [...prev, { 
+          role: 'assistant', 
+          text: data.response 
+        }]);
+      } else {
+        // Fallback error message
+        setMessages(prev => [...prev, { 
+          role: 'assistant', 
+          text: "I'm having trouble connecting to the server right now. Please try again later." 
+        }]);
+      }
+    } catch (error) {
+      console.error('Chat error:', error);
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        text: 'Thanks for your message! Our team is currently offline, but we\'ve logged your query and a specialist will be in touch shortly. In the meantime, have you checked our Problem Solver?' 
+        text: "I'm having trouble connecting. Please check your internet connection." 
       }]);
-    }, 1000);
+    } finally {
+      setIsTyping(false);
+    }
   };
 
   return (
@@ -78,6 +112,13 @@ export default function ConciergeWidget() {
                   </div>
                 </div>
               ))}
+              {isTyping && (
+                <div className="flex justify-start">
+                  <div className="bg-white text-slate-500 border border-slate-200 rounded-2xl rounded-bl-none shadow-sm p-3 text-xs italic">
+                    Typing...
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Input */}

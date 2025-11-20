@@ -52,7 +52,7 @@ export default function TrainingCataloguePage() {
       if (!response.ok) throw new Error('Failed to fetch courses');
       
       const data = await response.json();
-      setCourses(data);
+      setCourses(data.courses || []);
     } catch (error) {
       console.error('Error loading courses:', error);
     } finally {

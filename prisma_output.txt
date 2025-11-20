@@ -1,0 +1,63 @@
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+Error: Prisma schema validation - (get-dmmf wasm)
+Error code: P1012
+[1;91merror[0m: [1mThe model "TrainingProduct" cannot be defined because a model with that name already exists.[0m
+  [1;94m-->[0m  [4mprisma/schema.prisma:4640[0m
+[1;94m   | [0m
+[1;94m4639 | [0m
+[1;94m4640 | [0mmodel [1;91mTrainingProduct[0m {
+[1;94m   | [0m
+[1;91merror[0m: [1mThe model "TrainingPurchase" cannot be defined because a model with that name already exists.[0m
+  [1;94m-->[0m  [4mprisma/schema.prisma:4696[0m
+[1;94m   | [0m
+[1;94m4695 | [0m
+[1;94m4696 | [0mmodel [1;91mTrainingPurchase[0m {
+[1;94m   | [0m
+[1;91merror[0m: [1mThe model "DiscountCode" cannot be defined because a model with that name already exists.[0m
+  [1;94m-->[0m  [4mprisma/schema.prisma:4757[0m
+[1;94m   | [0m
+[1;94m4756 | [0m
+[1;94m4757 | [0mmodel [1;91mDiscountCode[0m {
+[1;94m   | [0m
+[1;91merror[0m: [1mThe model "InteractiveElement" cannot be defined because a model with that name already exists.[0m
+  [1;94m-->[0m  [4mprisma/schema.prisma:4811[0m
+[1;94m   | [0m
+[1;94m4810 | [0m
+[1;94m4811 | [0mmodel [1;91mInteractiveElement[0m {
+[1;94m   | [0m
+[1;91merror[0m: [1mThe model "InteractiveResponse" cannot be defined because a model with that name already exists.[0m
+  [1;94m-->[0m  [4mprisma/schema.prisma:4842[0m
+[1;94m   | [0m
+[1;94m4841 | [0m
+[1;94m4842 | [0mmodel [1;91mInteractiveResponse[0m {
+[1;94m   | [0m
+[1;91merror[0m: [1mThe model "LearningPath" cannot be defined because a model with that name already exists.[0m
+  [1;94m-->[0m  [4mprisma/schema.prisma:4876[0m
+[1;94m   | [0m
+[1;94m4875 | [0m
+[1;94m4876 | [0mmodel [1;91mLearningPath[0m {
+[1;94m   | [0m
+[1;91merror[0m: [1mThe model "LearningPathEnrollment" cannot be defined because a model with that name already exists.[0m
+  [1;94m-->[0m  [4mprisma/schema.prisma:4907[0m
+[1;94m   | [0m
+[1;94m4906 | [0m
+[1;94m4907 | [0mmodel [1;91mLearningPathEnrollment[0m {
+[1;94m   | [0m
+[1;91merror[0m: [1mThe model "CertificateTemplate" cannot be defined because a model with that name already exists.[0m
+  [1;94m-->[0m  [4mprisma/schema.prisma:4937[0m
+[1;94m   | [0m
+[1;94m4936 | [0m
+[1;94m4937 | [0mmodel [1;91mCertificateTemplate[0m {
+[1;94m   | [0m
+[1;91merror[0m: [1mThe model "CPDLog" cannot be defined because a model with that name already exists.[0m
+  [1;94m-->[0m  [4mprisma/schema.prisma:4981[0m
+[1;94m   | [0m
+[1;94m4980 | [0m
+[1;94m4981 | [0mmodel [1;91mCPDLog[0m {
+[1;94m   | [0m
+
+Validation Error Count: 9
+[Context: getDmmf]
+
+Prisma CLI Version : 6.19.0

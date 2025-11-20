@@ -533,25 +533,25 @@ export class BlogService {
   private initializeDefaultAuthors(): void {
     const defaultAuthors: BlogAuthor[] = [
       {
-        id: 'dr_smith',
-        name: 'Dr. Sarah Smith',
+        id: 'dr_scott',
+        name: 'Dr. Scott Ighavongbe-Patrick',
         bio: 'Educational Psychologist with 15+ years of experience in child development and learning strategies.',
-        credentials: ['PhD Educational Psychology', 'PGCE', 'NPQH'],
+        credentials: ['DEdPsych', 'CPsychol', 'HCPC Registered'],
         specializations: ['Child Development', 'Learning Strategies', 'Assessment'],
         socialLinks: {
-          linkedin: 'https://linkedin.com/in/drsarahsmith',
-          researchgate: 'https://researchgate.net/profile/Sarah-Smith'
+          linkedin: 'https://linkedin.com/in/drscott',
+          researchgate: 'https://researchgate.net/profile/Scott-Ighavongbe-Patrick'
         }
       },
       {
         id: 'research_lead',
-        name: 'Prof. Michael Johnson',
+        name: 'Dr. Scott Ighavongbe-Patrick',
         bio: 'Leading researcher in evidence-based educational practices and learning analytics.',
-        credentials: ['PhD Education', 'MSc Research Methods'],
+        credentials: ['DEdPsych', 'CPsychol', 'HCPC Registered'],
         specializations: ['Research Methodology', 'Learning Analytics', 'Evidence-Based Practice'],
         socialLinks: {
-          twitter: 'https://twitter.com/profjohnson',
-          researchgate: 'https://researchgate.net/profile/Michael-Johnson'
+          twitter: 'https://twitter.com/drscott',
+          researchgate: 'https://researchgate.net/profile/Scott-Ighavongbe-Patrick'
         }
       }
     ];

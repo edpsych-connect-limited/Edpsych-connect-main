@@ -87,6 +87,13 @@ interface EHCP {
   plan_details: EHCPPlanDetails;
   issued_at: string;
   updated_at: string;
+  versions?: Array<{
+    id: string;
+    created_at: string;
+    status: string;
+    change_summary: string;
+    created_by_id: number;
+  }>;
 }
 
 export default function EHCPDetailPage() {
@@ -100,6 +107,7 @@ export default function EHCPDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string>('overview');
+  const [exporting, setExporting] = useState(false);
 
   // Fetch EHCP
   const fetchEHCP = async () => {
@@ -147,6 +155,31 @@ export default function EHCPDetailPage() {
     return null;
   }
 
+  // Handle Export
+  const handleExport = async () => {
+    try {
+      setExporting(true);
+      const response = await fetch(`/api/ehcp/${ehcpId}/export`);
+      
+      if (!response.ok) throw new Error('Export failed');
+      
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `EHCP-${ehcpId}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      console.error('Export error:', err);
+      alert('Failed to export PDF');
+    } finally {
+      setExporting(false);
+    }
+  };
+
   // Format date
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-GB', {
@@ -188,6 +221,7 @@ export default function EHCPDetailPage() {
     { id: 'section_i', name: 'Section I: Placement' },
     { id: 'section_j', name: 'Section J: Personal Budget' },
     { id: 'section_k', name: 'Section K: Advice & Information' },
+    { id: 'versions', name: 'Version History' },
   ];
 
   if (loading) {
@@ -276,10 +310,13 @@ export default function EHCPDetailPage() {
                 Edit
               </button>
               <button
-                onClick={() => alert('Export to PDF - Coming soon')}
-                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
+                onClick={handleExport}
+                disabled={exporting}
+                className={`inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 ${
+                  exporting ? 'opacity-75 cursor-not-allowed' : ''
+                }`}
               >
-                Export PDF
+                {exporting ? 'Exporting...' : 'Export PDF'}
               </button>
             </div>
           </div>
@@ -576,6 +613,72 @@ export default function EHCPDetailPage() {
                       </dd>
                     </div>
                   </dl>
+                </div>
+              )}
+
+              {/* Version History */}
+              {activeSection === 'versions' && (
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                    Version History
+                  </h2>
+                  {ehcp.versions && ehcp.versions.length > 0 ? (
+                    <div className="flow-root">
+                      <ul className="-mb-8">
+                        {ehcp.versions.map((version, versionIdx) => (
+                          <li key={version.id}>
+                            <div className="relative pb-8">
+                              {versionIdx !== ehcp.versions!.length - 1 ? (
+                                <span
+                                  className="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200"
+                                  aria-hidden="true"
+                                />
+                              ) : null}
+                              <div className="relative flex space-x-3">
+                                <div>
+                                  <span
+                                    className={`h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white ${
+                                      version.status === 'final'
+                                        ? 'bg-green-500'
+                                        : 'bg-gray-400'
+                                    }`}
+                                  >
+                                    <svg
+                                      className="h-5 w-5 text-white"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      stroke="currentColor"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                                      />
+                                    </svg>
+                                  </span>
+                                </div>
+                                <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                  <div>
+                                    <p className="text-sm text-gray-500">
+                                      {version.change_summary || 'Updated'}
+                                    </p>
+                                  </div>
+                                  <div className="text-right text-sm whitespace-nowrap text-gray-500">
+                                    <time dateTime={version.created_at}>
+                                      {new Date(version.created_at).toLocaleString()}
+                                    </time>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : (
+                    <p className="text-gray-500">No version history available.</p>
+                  )}
                 </div>
               )}
 

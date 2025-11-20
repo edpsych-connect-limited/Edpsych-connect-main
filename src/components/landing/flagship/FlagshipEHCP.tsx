@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { FileText, Clock, ShieldCheck, ArrowRight } from 'lucide-react';
 
 export default function FlagshipEHCP() {
@@ -51,10 +52,10 @@ export default function FlagshipEHCP() {
               </div>
             </div>
 
-            <button className="px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-green-200 transition-all flex items-center justify-center gap-2 group">
+            <Link href="/signup" className="px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-green-200 transition-all flex items-center justify-center gap-2 group">
               Calculate Your ROI
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </Link>
           </motion.div>
 
           {/* Visual/Demo Placeholder */}
