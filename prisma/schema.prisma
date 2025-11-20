@@ -160,6 +160,11 @@ model tenants {
   // Relations - Marketplace
   service_contracts    ServiceContract[]
 
+  // Relations - System & Security
+  audit_logs          AuditLog[]
+  secure_documents    SecureDocument[]
+  claimed_beta_codes  BetaAccessCode[]
+
   @@index([subdomain])
   @@index([tenant_type])
   @@index([status])
@@ -297,6 +302,11 @@ model users {
   service_listings     ServiceListing[]
   contracts_as_ep      ServiceContract[] @relation("EPContracts")
   marketplace_reviews_written marketplace_reviews[]
+
+  // Relations - System & Security
+  audit_logs          AuditLog[]
+  secure_documents    SecureDocument[]
+  claimed_beta_codes  BetaAccessCode[]
 
   @@index([tenant_id])
   @@index([email])
@@ -1566,7 +1576,9 @@ model ParentTeacherMessage {
   senderId  Int
   receiverId Int
   content   String
+  subject   String?
   isRead    Boolean  @default(false)
+  readAt    DateTime?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
@@ -3036,6 +3048,12 @@ model marketplace_professionals {
   availability          Json?
   rating                Float    @default(0)
   reviewCount           Int      @default(0)
+  
+  // LA Panel Fields
+  la_panel_status       String   @default("NOT_APPLIED") // APPROVED, PENDING, REJECTED, NOT_APPLIED
+  la_panel_regions      String[] @default([])
+  commission_rate       Float    @default(15.0)
+  
   createdAt             DateTime @default(now())
   updatedAt             DateTime @default(now())
 
@@ -3190,4 +3208,77 @@ model LegalSignature {
 
   @@index([userId])
   @@index([documentId])
+}
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  userId      Int?
+  action      String
+  resource    String
+  details     Json?
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
+
+  user        users?   @relation(fields: [userId], references: [id])
+  tenantId    Int?
+  tenant      tenants? @relation(fields: [tenantId], references: [id])
+
+  @@index([userId])
+  @@index([tenantId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+model Waitlist {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  role      String?
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@index([email])
+}
+
+model BetaAccessCode {
+  id          String   @id @default(uuid())
+  code        String   @unique
+  description String?
+  maxUses     Int      @default(1)
+  usedCount   Int      @default(0)
+  expiresAt   DateTime?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+
+  claimedByUserId Int?
+  claimedByUser   users?   @relation(fields: [claimedByUserId], references: [id])
+  tenantId        Int?
+  tenant          tenants? @relation(fields: [tenantId], references: [id])
+
+  @@index([code])
+  @@index([claimedByUserId])
+  @@index([tenantId])
+}
+
+model SecureDocument {
+  id          String   @id @default(uuid())
+  userId      Int
+  title       String
+  documentType String
+  storageUrl  String
+  encryptionKeyId String?
+  mimeType    String?
+  sizeBytes   Int?
+  metadata    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+
+  user        users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenantId    Int?
+  tenant      tenants? @relation(fields: [tenantId], references: [id])
+
+  @@index([userId])
+  @@index([tenantId])
 }
