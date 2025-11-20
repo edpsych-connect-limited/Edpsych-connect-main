@@ -3,12 +3,16 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import './globals.css';
 import { AuthProvider, useAuth } from '@/lib/auth/hooks';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 function HeaderContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, logout } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
+
+  // Don't render header on landing page
+  if (pathname === '/') return null;
 
   const handleLogout = async () => {
     await logout();
@@ -161,6 +165,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isLandingPage = pathname === '/';
+
   return (
     <html lang="en">
       <head>
@@ -172,13 +179,15 @@ export default function RootLayout({
         name="content-security-policy"
         content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.vercel-insights.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self' data:; connect-src 'self' https://vercel.live https://*.vercel.app https://*.edpsychconnect.com https://*.edpsychconnect.app;"
       /></head>
-      <body className="min-h-screen bg-gray-50 text-gray-900">
+      <body className={`min-h-screen ${isLandingPage ? 'bg-slate-950' : 'bg-gray-50 text-gray-900'}`}>
         <AuthProvider>
           <HeaderContent />
-          <main className="p-6">{children}</main>
-          <footer className="bg-gray-100 text-center py-4 mt-10 text-sm text-gray-600">
-            © {new Date().getFullYear()} EdPsych Connect World. All rights reserved.
-          </footer>
+          <main className={isLandingPage ? '' : 'p-6'}>{children}</main>
+          {!isLandingPage && (
+            <footer className="bg-gray-100 text-center py-4 mt-10 text-sm text-gray-600">
+              © {new Date().getFullYear()} EdPsych Connect World. All rights reserved.
+            </footer>
+          )}
         </AuthProvider>
       </body>
     </html>
