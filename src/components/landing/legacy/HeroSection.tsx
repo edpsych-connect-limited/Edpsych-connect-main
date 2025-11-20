@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowRight, FaCalculator, FaChartLine, FaUsers, FaClock, FaCheckCircle, FaBrain, FaRocket } from 'react-icons/fa';
-import { AIService } from '../../services/ai-service';
+import { AIService } from '../../../services/ai-service';
 
 interface LiveMetrics {
   schools: number;
