@@ -56,7 +56,7 @@ export class DigitalSignatureService {
       const signatureRecord = await prisma.legalSignature.create({
         data: {
           id: signatureId,
-          userId: userId,
+          userId: parseInt(userId), // Parse string ID to Int
           agreementType,
           agreementVersion,
           signedAt: timestamp,
@@ -73,16 +73,16 @@ export class DigitalSignatureService {
         data: {
           id: generateUUID(),
           action: 'signature_created',
-          entityType: 'LegalSignature',
-          entityId: signatureId,
-          description: `Digital signature created for agreement ${agreementType}`,
-          performedById: userId,
-          metadata: {
+          resource: 'LegalSignature',
+          userId: parseInt(userId),
+          details: {
+            entityId: signatureId,
+            description: `Digital signature created for agreement ${agreementType}`,
             agreementType,
             agreementVersion,
             timestamp: timestamp.toISOString()
           },
-          timestamp: timestamp
+          createdAt: timestamp
         }
       });
       
@@ -156,13 +156,8 @@ export class DigitalSignatureService {
   }> {
     try {
       // Query for active signature
-      const signatureQuery: {
-        userId: string;
-        agreementType: AgreementTypes;
-        status: string;
-        agreementVersion?: string;
-      } = {
-        userId: userId,
+      const signatureQuery: any = {
+        userId: parseInt(userId),
         agreementType,
         status: 'active'
       };
@@ -188,16 +183,16 @@ export class DigitalSignatureService {
         data: {
           id: generateUUID(),
           action: 'signature_verified',
-          entityType: 'LegalSignature',
-          entityId: signature.id,
-          description: `Signature verified for agreement ${agreementType}`,
-          performedById: userId,
-          metadata: {
+          resource: 'LegalSignature',
+          userId: parseInt(userId),
+          details: {
+            entityId: signature.id,
+            description: `Signature verified for agreement ${agreementType}`,
             agreementType,
             agreementVersion: signature.agreementVersion,
             result: 'success'
           },
-          timestamp: getCurrentTimestamp()
+          createdAt: getCurrentTimestamp()
         }
       });
       
@@ -244,15 +239,15 @@ export class DigitalSignatureService {
         data: {
           id: generateUUID(),
           action: 'agreement_retrieved',
-          entityType: 'LegalSignature',
-          entityId: signatureId,
-          description: `Signed agreement retrieved`,
-          performedById: signature.userId,
-          metadata: {
+          resource: 'LegalSignature',
+          userId: signature.userId,
+          details: {
+            entityId: signatureId,
+            description: `Signed agreement retrieved`,
             agreementType: signature.agreementType,
             agreementVersion: signature.agreementVersion
           },
-          timestamp: getCurrentTimestamp()
+          createdAt: getCurrentTimestamp()
         }
       });
       
@@ -304,17 +299,17 @@ export class DigitalSignatureService {
         data: {
           id: generateUUID(),
           action: 'signature_revoked',
-          entityType: 'LegalSignature',
-          entityId: signatureId,
-          description: `Signature revoked: ${reason}`,
-          performedById: signature.userId,
-          metadata: {
+          resource: 'LegalSignature',
+          userId: signature.userId,
+          details: {
+            entityId: signatureId,
+            description: `Signature revoked: ${reason}`,
             agreementType: signature.agreementType,
             agreementVersion: signature.agreementVersion,
             reason,
             revokedAt: getCurrentTimestamp().toISOString()
           },
-          timestamp: getCurrentTimestamp()
+          createdAt: getCurrentTimestamp()
         }
       });
       
@@ -339,7 +334,7 @@ export class DigitalSignatureService {
   public static async getUserSignatures(userId: string): Promise<any[]> {
     try {
       const signatures = await prisma.legalSignature.findMany({
-        where: { userId: userId },
+        where: { userId: parseInt(userId) },
         orderBy: { signedAt: 'desc' }
       });
       
@@ -348,12 +343,14 @@ export class DigitalSignatureService {
         data: {
           id: generateUUID(),
           action: 'signatures_listed',
-          entityType: 'LegalSignature',
-          entityId: userId,
-          description: `User signatures listed (${signatures.length} signatures)`,
-          performedById: userId,
-          metadata: { count: signatures.length },
-          timestamp: getCurrentTimestamp()
+          resource: 'LegalSignature',
+          userId: parseInt(userId),
+          details: {
+            entityId: userId,
+            description: `User signatures listed (${signatures.length} signatures)`,
+            count: signatures.length
+          },
+          createdAt: getCurrentTimestamp()
         }
       });
       

@@ -164,11 +164,6 @@ model tenants {
   audit_logs          AuditLog[]
   secure_documents    SecureDocument[]
   claimed_beta_codes  BetaAccessCode[]
-
-  @@index([subdomain])
-  @@index([tenant_type])
-  @@index([status])
-  @@index([parent_tenant_id])
 }
 
 model users {
@@ -307,6 +302,7 @@ model users {
   audit_logs          AuditLog[]
   secure_documents    SecureDocument[]
   claimed_beta_codes  BetaAccessCode[]
+  beta_access_usages  BetaAccessCodeUsage[]
 
   @@index([tenant_id])
   @@index([email])
@@ -1797,7 +1793,7 @@ model StudentProfile {
   profile_confidence Float    @default(0)
   last_synced_at     DateTime @default(now())
   created_at         DateTime @default(now())
-  updated_at         DateTime @updatedAt
+  updated_at         DateTime @default(now())
 
   // Relations
   tenant              tenants                   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
@@ -2242,7 +2238,7 @@ model StudyBuddyRecommendation {
   generated_at       DateTime @default(now())
   expires_at         DateTime?
   created_at         DateTime @default(now())
-  updated_at         DateTime @updatedAt
+  updated_at         DateTime @default(now())
 
   // Relations
   user   users   @relation(fields: [user_id], references: [id], onDelete: Cascade)
@@ -2311,7 +2307,7 @@ model UserLearningProfile {
   profile_completeness Float    @default(0)
   last_updated_by_ai   DateTime @default(now())
   created_at           DateTime @default(now())
-  updated_at           DateTime @updatedAt
+  updated_at           DateTime @default(now())
 
   // Relations
   user   users   @relation(fields: [user_id], references: [id], onDelete: Cascade)
@@ -2465,8 +2461,12 @@ model ConversationalAISession {
   started_at    DateTime  @default(now())
   last_active   DateTime  @default(now())
   completed_at  DateTime?
-  created_at    DateTime  @default(now())
+  created_at                         DateTime  @default(now())
   updated_at    DateTime  @default(now())
+
+
+
+
 
   // Relations
   user     users                         @relation(fields: [user_id], references: [id], onDelete: Cascade)
@@ -3030,6 +3030,9 @@ model ProfessionalCompliance {
   insurancePolicyNo     String?
   insuranceDocUrl       String?
   insuranceExpiryDate   DateTime?
+  insuranceCoverageAmount Float?
+  dbsCertificateUrl     String?
+  hcpcExpiryDate        DateTime?
   verificationStatus    String   @default("pending")
   verifiedAt            DateTime?
   verifiedBy            Int?
@@ -3053,7 +3056,13 @@ model marketplace_professionals {
   la_panel_status       String   @default("NOT_APPLIED") // APPROVED, PENDING, REJECTED, NOT_APPLIED
   la_panel_regions      String[] @default([])
   commission_rate       Float    @default(15.0)
+  la_panel_approved_at  DateTime?
+  panel_membership_tier String?
   
+  qualifications_documents String[] @default([])
+  references              Json?
+  cv_document_url         String?
+
   createdAt             DateTime @default(now())
   updatedAt             DateTime @default(now())
 
@@ -3257,9 +3266,27 @@ model BetaAccessCode {
   tenantId        Int?
   tenant          tenants? @relation(fields: [tenantId], references: [id])
 
+  role        String?
+  features    String[] @default([])
+  metadata    Json?
+  usages      BetaAccessCodeUsage[]
+
   @@index([code])
   @@index([claimedByUserId])
   @@index([tenantId])
+}
+
+model BetaAccessCodeUsage {
+  id           String   @id @default(uuid())
+  accessCodeId String
+  userId       Int
+  usedAt       DateTime @default(now())
+
+  accessCode   BetaAccessCode @relation(fields: [accessCodeId], references: [id])
+  user         users          @relation(fields: [userId], references: [id])
+
+  @@index([accessCodeId])
+  @@index([userId])
 }
 
 model SecureDocument {
@@ -3278,7 +3305,16 @@ model SecureDocument {
   user        users    @relation(fields: [userId], references: [id], onDelete: Cascade)
   tenantId    Int?
   tenant      tenants? @relation(fields: [tenantId], references: [id])
+}
 
-  @@index([userId])
-  @@index([tenantId])
+model LegalDocument {
+  id        String   @id @default(uuid())
+  type      String
+  version   String
+  content   String   @db.Text
+  status    String   @default("active")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@unique([type, version])
 }

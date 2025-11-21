@@ -66,13 +66,15 @@ export class AuditLogService {
     await this.prisma.auditLog.create({
       data: {
         action: actionType,
-        entityType: 'Institution',
-        entityId: institutionId,
-        description: `Action: ${actionType}`,
-        performedById: userId,
-        institutionId: institutionId,
-        metadata: details,
-        timestamp: new Date(),
+        resource: 'Institution',
+        userId: parseInt(userId),
+        tenantId: parseInt(institutionId),
+        details: {
+          entityId: institutionId,
+          description: `Action: ${actionType}`,
+          ...details
+        },
+        createdAt: new Date(),
       }
     });
   }
@@ -100,31 +102,26 @@ export class AuditLogService {
 
     // Build filter conditions
     const whereConditions: any = {
-      // Use resource field with details that include institutionId
-      resource: 'institution',
-      // We'll use a 'contains' query on the details field since it's now a JSON string
-      details: {
-        contains: institutionId
-      }
+      tenantId: parseInt(institutionId)
     };
 
     if (options.actionType) {
-      whereConditions.action = options.actionType; // Use action instead of actionType
+      whereConditions.action = options.actionType;
     }
 
     if (options.userId) {
-      whereConditions.userId = options.userId; // This remains the same
+      whereConditions.userId = parseInt(options.userId);
     }
 
     if (options.startDate || options.endDate) {
-      whereConditions.timestamp = {};
+      whereConditions.createdAt = {};
 
       if (options.startDate) {
-        whereConditions.timestamp.gte = options.startDate;
+        whereConditions.createdAt.gte = options.startDate;
       }
 
       if (options.endDate) {
-        whereConditions.timestamp.lte = options.endDate;
+        whereConditions.createdAt.lte = options.endDate;
       }
     }
 
@@ -141,7 +138,7 @@ export class AuditLogService {
     const logs = await this.prisma.auditLog.findMany({
       where: whereConditions,
       orderBy: {
-        timestamp: 'desc'
+        createdAt: 'desc'
       },
       skip: offset,
       take: limit
@@ -153,10 +150,11 @@ export class AuditLogService {
       return {
         ...log,
         details: parsedDetails,
+        timestamp: log.createdAt, // Map createdAt to timestamp for compatibility
         // Extract institution data from details if available
-        institution: parsedDetails.institutionId ? {
-          id: parsedDetails.institutionId,
-          name: parsedDetails.institutionName || 'Unknown Institution'
+        institution: log.tenantId ? {
+          id: log.tenantId.toString(),
+          name: 'Institution' // We don't fetch tenant name here to avoid N+1
         } : null
       };
     });
@@ -185,28 +183,26 @@ export class AuditLogService {
     // Get user's recent activities
     const logs = await this.prisma.auditLog.findMany({
       where: {
-        userId: userId,
-        resource: 'institution' // Filter to only institutional logs
+        userId: parseInt(userId),
+        resource: 'Institution' // Filter to only institutional logs
       },
       orderBy: {
-        timestamp: 'desc'
+        createdAt: 'desc'
       },
       take: limit
     });
     
-    // Since we no longer have a direct relation to institution,
-    // we need to extract institution details from the details field
-
     // Safely parse details and extract institution info
     const logsWithParsedDetails = logs.map(log => {
       const parsedDetails = safeParseDetails(log.details);
       return {
         ...log,
         details: parsedDetails,
+        timestamp: log.createdAt, // Map createdAt to timestamp for compatibility
         // Extract institution data from details if available
-        institution: parsedDetails.institutionId ? {
-          id: parsedDetails.institutionId,
-          name: parsedDetails.institutionName || 'Unknown Institution'
+        institution: log.tenantId ? {
+          id: log.tenantId.toString(),
+          name: 'Institution'
         } : null
       };
     });

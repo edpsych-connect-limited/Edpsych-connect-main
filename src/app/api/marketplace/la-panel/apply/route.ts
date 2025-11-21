@@ -31,10 +31,15 @@ export async function POST(request: NextRequest) {
     const userId = parseInt(session.user.id);
     const data = await request.json();
 
-    // Get user's marketplace profile
-    const profile = await prisma.marketplace_professionals.findUnique({
-      where: { user_id: userId },
-    });
+    // Get user's marketplace profile and compliance data
+    const [profile, compliance] = await Promise.all([
+      prisma.marketplace_professionals.findUnique({
+        where: { userId: userId },
+      }),
+      prisma.professionalCompliance.findUnique({
+        where: { userId: userId },
+      })
+    ]);
 
     if (!profile) {
       return NextResponse.json(
@@ -62,30 +67,30 @@ export async function POST(request: NextRequest) {
     const validationErrors: string[] = [];
 
     // Must be verified first
-    if (profile.verification_status !== 'VERIFIED') {
+    if (compliance?.verificationStatus !== 'VERIFIED') {
       validationErrors.push('Your basic profile must be verified before applying to LA Panel');
     }
 
     // DBS check required
-    if (!profile.dbs_certificate_url || !profile.dbs_number || !profile.dbs_expiry_date) {
-      validationErrors.push('Enhanced DBS certificate with valid expiry date is required');
+    if (!compliance?.dbsCertificateUrl || !compliance?.dbsNumber) {
+      validationErrors.push('Enhanced DBS certificate is required');
     }
 
     // Insurance required (minimum £6M coverage)
-    if (!profile.insurance_certificate_url || !profile.insurance_coverage) {
+    if (!compliance?.insuranceDocUrl || !compliance?.insuranceCoverageAmount) {
       validationErrors.push('Professional indemnity insurance (minimum £6M coverage) is required');
     }
-    if (profile.insurance_coverage && parseFloat(profile.insurance_coverage.toString()) < 6000000) {
+    if (compliance?.insuranceCoverageAmount && compliance.insuranceCoverageAmount < 6000000) {
       validationErrors.push('Insurance coverage must be at least £6,000,000');
     }
 
     // HCPC Registration
-    if (!profile.hcpc_registration || !profile.hcpc_expiry_date) {
+    if (!compliance?.hcpcNumber || !compliance?.hcpcExpiryDate) {
       validationErrors.push('HCPC registration details are required');
     }
 
     // Qualifications
-    if (!profile.qualifications_documents || (profile.qualifications_documents as string[]).length === 0) {
+    if (!profile.qualifications_documents || profile.qualifications_documents.length === 0) {
       validationErrors.push('Proof of qualifications is required');
     }
 
@@ -123,7 +128,7 @@ export async function POST(request: NextRequest) {
         la_panel_regions: data.la_regions,
         panel_membership_tier: 'LA_PANEL',
         commission_rate: 18.00, // LA Panel commission
-        updated_at: new Date(),
+        updatedAt: new Date(),
       },
       include: {
         user: {
@@ -183,30 +188,26 @@ export async function GET() {
 
     const userId = parseInt(session.user.id);
 
-    // Get user's LA Panel application status
-    const profile = await prisma.marketplace_professionals.findUnique({
-      where: { user_id: userId },
-      select: {
-        id: true,
-        la_panel_status: true,
-        la_panel_regions: true,
-        la_panel_approved_at: true,
-        panel_membership_tier: true,
-        commission_rate: true,
-        verification_status: true,
-        // Requirement checklist
-        dbs_certificate_url: true,
-        dbs_expiry_date: true,
-        insurance_certificate_url: true,
-        insurance_coverage: true,
-        insurance_expiry_date: true,
-        hcpc_registration: true,
-        hcpc_expiry_date: true,
-        qualifications_documents: true,
-        cv_document_url: true,
-        references: true,
-      },
-    });
+    // Get user's LA Panel application status and compliance
+    const [profile, compliance] = await Promise.all([
+      prisma.marketplace_professionals.findUnique({
+        where: { userId: userId },
+        select: {
+          id: true,
+          la_panel_status: true,
+          la_panel_regions: true,
+          la_panel_approved_at: true,
+          panel_membership_tier: true,
+          commission_rate: true,
+          qualifications_documents: true,
+          cv_document_url: true,
+          references: true,
+        },
+      }),
+      prisma.professionalCompliance.findUnique({
+        where: { userId: userId },
+      })
+    ]);
 
     if (!profile) {
       return NextResponse.json(
@@ -217,12 +218,12 @@ export async function GET() {
 
     // Build requirements checklist
     const requirements = {
-      basic_verification: profile.verification_status === 'VERIFIED',
-      dbs_certificate: !!(profile.dbs_certificate_url && profile.dbs_expiry_date),
-      insurance_certificate: !!(profile.insurance_certificate_url && profile.insurance_coverage),
-      insurance_minimum_coverage: profile.insurance_coverage ? parseFloat(profile.insurance_coverage.toString()) >= 6000000 : false,
-      hcpc_registration: !!(profile.hcpc_registration && profile.hcpc_expiry_date),
-      qualifications: profile.qualifications_documents && (profile.qualifications_documents as string[]).length > 0,
+      basic_verification: compliance?.verificationStatus === 'VERIFIED',
+      dbs_certificate: !!(compliance?.dbsCertificateUrl && compliance?.dbsNumber),
+      insurance_certificate: !!(compliance?.insuranceDocUrl && compliance?.insuranceCoverageAmount),
+      insurance_minimum_coverage: compliance?.insuranceCoverageAmount ? compliance.insuranceCoverageAmount >= 6000000 : false,
+      hcpc_registration: !!(compliance?.hcpcNumber && compliance?.hcpcExpiryDate),
+      qualifications: profile.qualifications_documents && profile.qualifications_documents.length > 0,
       cv_uploaded: !!profile.cv_document_url,
       references_minimum: profile.references && (profile.references as any[]).length >= 2,
     };

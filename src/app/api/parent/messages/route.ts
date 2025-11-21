@@ -130,21 +130,21 @@ export async function GET(
     const [sentMessages, receivedMessages] = await Promise.all([
       prisma.parentTeacherMessage.findMany({
         where: {
-          sender_id: parseInt(userId as string),
-          tenant_id: tenantId,
-          ...(childId ? { student_id: parseInt(childId) } : {}),
+          senderId: parseInt(userId as string),
+          tenantId: tenantId,
+          ...(childId ? { studentId: parseInt(childId) } : {}),
         },
-        orderBy: { sent_at: 'desc' },
+        orderBy: { createdAt: 'desc' },
         take: limit,
         skip: offset,
       }),
       prisma.parentTeacherMessage.findMany({
         where: {
-          recipient_id: parseInt(userId as string),
-          tenant_id: tenantId,
-          ...(childId ? { student_id: parseInt(childId) } : {}),
+          receiverId: parseInt(userId as string),
+          tenantId: tenantId,
+          ...(childId ? { studentId: parseInt(childId) } : {}),
         },
-        orderBy: { sent_at: 'desc' },
+        orderBy: { createdAt: 'desc' },
         take: limit,
         skip: offset,
       }),
@@ -152,14 +152,14 @@ export async function GET(
 
     // Combine and sort all messages
     const allMessages = [...sentMessages, ...receivedMessages].sort(
-      (a, b) => new Date(b.sent_at).getTime() - new Date(a.sent_at).getTime()
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );
 
     // Fetch user details for all participants
     const userIds = new Set<number>();
     allMessages.forEach(msg => {
-      userIds.add(msg.sender_id);
-      userIds.add(msg.recipient_id);
+      userIds.add(msg.senderId);
+      userIds.add(msg.receiverId);
     });
 
     const users = await prisma.users.findMany({
@@ -177,7 +177,7 @@ export async function GET(
     );
 
     // Fetch student names if applicable
-    const studentIds = new Set(allMessages.filter(m => m.student_id).map(m => m.student_id!));
+    const studentIds = new Set(allMessages.filter(m => m.studentId).map(m => m.studentId!));
     const students = await prisma.students.findMany({
       where: { id: { in: Array.from(studentIds) } },
       select: {
@@ -193,32 +193,32 @@ export async function GET(
 
     // Map messages to response format
     const messageDetails: MessageDetail[] = allMessages.slice(0, limit).map(msg => {
-      const sender = userMap.get(msg.sender_id) || { name: 'Unknown', role: 'unknown' };
-      const recipient = userMap.get(msg.recipient_id) || { name: 'Unknown', role: 'unknown' };
+      const sender = userMap.get(msg.senderId) || { name: 'Unknown', role: 'unknown' };
+      const recipient = userMap.get(msg.receiverId) || { name: 'Unknown', role: 'unknown' };
 
       return {
         messageId: msg.id,
         from: {
-          userId: msg.sender_id.toString(),
+          userId: msg.senderId.toString(),
           name: sender.name,
           role: sender.role,
         },
         to: {
-          userId: msg.recipient_id.toString(),
+          userId: msg.receiverId.toString(),
           name: recipient.name,
           role: recipient.role,
         },
-        subject: msg.subject,
+        subject: msg.subject || '',
         body: msg.content,
-        sentAt: msg.sent_at,
-        isRead: msg.read_at !== null,
-        readAt: msg.read_at,
-        childName: msg.student_id ? studentMap.get(msg.student_id) : undefined,
+        sentAt: msg.createdAt,
+        isRead: msg.readAt !== null,
+        readAt: msg.readAt,
+        childName: msg.studentId ? studentMap.get(msg.studentId) : undefined,
       };
     });
 
     // Count unread messages
-    const unreadCount = receivedMessages.filter(m => m.read_at === null).length;
+    const unreadCount = receivedMessages.filter(m => m.readAt === null).length;
 
     const response: MessagesResponse = {
       totalMessages: allMessages.length,
@@ -229,10 +229,13 @@ export async function GET(
     // Log data access for GDPR audit trail
     await prisma.auditLog.create({
       data: {
-        userId: userId,
-        institutionId: tenantId?.toString(),
+        userId: parseInt(userId as string),
+        tenantId: tenantId,
+        resource: 'parent_messages',
         action: 'parent_messages_view',
-        description: `Parent viewed ${messageDetails.length} messages`,
+        details: {
+          description: `Parent viewed ${messageDetails.length} messages`
+        },
         ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
         userAgent: request.headers.get('user-agent') || 'unknown',
       },
@@ -318,12 +321,14 @@ export async function POST(
       // Log security violation
       await prisma.auditLog.create({
         data: {
-          userId: userId,
-          institutionId: tenantId?.toString(),
-          entityType: 'student',
-          entityId: childId,
+          userId: parseInt(userId as string),
+          tenantId: tenantId,
+          resource: 'student',
           action: 'unauthorized_parent_message_attempt',
-          description: 'BLOCKED: Attempted to message about unrelated child',
+          details: {
+            entityId: childId,
+            description: 'BLOCKED: Attempted to message about unrelated child'
+          },
           ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
           userAgent: request.headers.get('user-agent') || 'unknown',
         },
@@ -377,10 +382,10 @@ export async function POST(
     // Create message
     const message = await prisma.parentTeacherMessage.create({
       data: {
-        tenant_id: tenantId,
-        sender_id: parseInt(userId as string),
-        recipient_id: teacher.id,
-        student_id: parseInt(childId),
+        tenantId: tenantId,
+        senderId: parseInt(userId as string),
+        receiverId: teacher.id,
+        studentId: parseInt(childId),
         subject,
         content: messageBody,
       },
@@ -392,12 +397,14 @@ export async function POST(
     // Log message sent
     await prisma.auditLog.create({
       data: {
-        userId: userId,
-        institutionId: tenantId?.toString(),
-        entityType: 'student',
-        entityId: childId,
+        userId: parseInt(userId as string),
+        tenantId: tenantId,
+        resource: 'student',
         action: 'parent_message_sent',
-        description: `Parent sent message to teacher: "${subject}"`,
+        details: {
+          entityId: childId,
+          description: `Parent sent message to teacher: "${subject}"`
+        },
         ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
         userAgent: request.headers.get('user-agent') || 'unknown',
       },

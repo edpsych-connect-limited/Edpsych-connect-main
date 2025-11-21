@@ -39,7 +39,7 @@ export class BetaAccessService {
           code,
           expiresAt: options.expiresAt,
           maxUses: options.maxUses || 1,
-          remainingUses: options.maxUses || 1,
+          usedCount: 0,
           role: options.role || 'BETA_TESTER',
           features: options.features || [],
           metadata: options.metadata || {},
@@ -94,7 +94,8 @@ export class BetaAccessService {
       }
       
       // Check if the code has any uses remaining
-      if (accessCode.remainingUses <= 0) {
+      const remainingUses = accessCode.maxUses - accessCode.usedCount;
+      if (remainingUses <= 0) {
         return { valid: false, error: 'Access code has no remaining uses' };
       }
       
@@ -104,7 +105,7 @@ export class BetaAccessService {
           id: accessCode.id,
           code: accessCode.code,
           expiresAt: accessCode.expiresAt ?? undefined, // Convert null to undefined to match type
-          remainingUses: accessCode.remainingUses,
+          remainingUses: remainingUses,
           role: accessCode.role ?? 'BETA_TESTER', // Default role if null
           features: accessCode.features,
           metadata: accessCode.metadata as Record<string, any>
@@ -141,12 +142,12 @@ export class BetaAccessService {
         return { success: false, error: validation.error };
       }
       
-      // Update the code to decrement remaining uses
+      // Update the code to increment used count
       const updatedCode = await this.prisma.betaAccessCode.update({
         where: { code: code.toUpperCase() },
         data: {
-          remainingUses: {
-            decrement: 1
+          usedCount: {
+            increment: 1
           },
           updatedAt: new Date()
         }
@@ -156,7 +157,7 @@ export class BetaAccessService {
         success: true,
         code: {
           id: updatedCode.id,
-          remainingUses: updatedCode.remainingUses
+          remainingUses: updatedCode.maxUses - updatedCode.usedCount
         }
       };
     } catch (error) {
@@ -192,7 +193,7 @@ export class BetaAccessService {
         data: {
           id: crypto.randomUUID(),
           accessCodeId: useResult.code.id,
-          userId: id,
+          userId: parseInt(id), // Parse string ID to Int
           usedAt: new Date()
         }
       });
@@ -224,15 +225,19 @@ export class BetaAccessService {
       const now = new Date();
       
       // Find all active codes (not expired and have remaining uses)
-      const activeCodes = await this.prisma.betaAccessCode.findMany({
+      // Note: Prisma doesn't support field comparison in where clause directly for maxUses > usedCount
+      // So we fetch active/non-expired codes and filter in memory
+      const potentialCodes = await this.prisma.betaAccessCode.findMany({
         where: {
+          isActive: true,
           OR: [
             { expiresAt: null },
             { expiresAt: { gt: now } }
-          ],
-          remainingUses: { gt: 0 }
+          ]
         }
       });
+      
+      const activeCodes = potentialCodes.filter(code => code.maxUses > code.usedCount);
       
       return activeCodes;
     } catch (error) {
