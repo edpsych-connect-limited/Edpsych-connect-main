@@ -1,7 +1,37 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
+import TeacherClassDashboard from '@/components/orchestration/TeacherClassDashboard';
 
 export default function TeachersPage() {
+  const [showDashboard, setShowDashboard] = useState(false);
+
+  if (showDashboard) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              <div className="flex items-center">
+                <span className="text-xl font-bold text-indigo-600">Classroom Cockpit</span>
+              </div>
+              <button
+                onClick={() => setShowDashboard(false)}
+                className="text-sm text-gray-500 hover:text-gray-700"
+              >
+                Exit Demo
+              </button>
+            </div>
+          </div>
+        </div>
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <TeacherClassDashboard classId={1} teacherId={1} />
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -20,17 +50,17 @@ export default function TeachersPage() {
                 Automate administrative tasks, generate evidence-based interventions, and track student progress with AI-powered tools designed for modern educators.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link 
-                  href="/signup?role=teacher" 
+                <button 
+                  onClick={() => setShowDashboard(true)}
                   className="bg-indigo-600 text-white font-bold py-4 px-8 rounded-xl hover:bg-indigo-700 transition-all shadow-lg hover:shadow-xl text-center"
                 >
-                  Start Free Trial
-                </Link>
+                  Launch Dashboard Demo
+                </button>
                 <Link 
-                  href="/demo" 
+                  href="/signup?role=teacher" 
                   className="bg-white text-slate-700 font-bold py-4 px-8 rounded-xl border-2 border-slate-200 hover:border-indigo-200 hover:bg-indigo-50 transition-all text-center"
                 >
-                  View Demo
+                  Start Free Trial
                 </Link>
               </div>
             </div>

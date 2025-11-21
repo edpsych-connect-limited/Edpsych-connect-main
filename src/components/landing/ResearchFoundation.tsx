@@ -64,7 +64,7 @@ export default function ResearchFoundation() {
                       src="/images/Dr Scott.jpg" 
                       alt="Dr Scott Ighavongbe-Patrick"
                       fill
-                      className="object-cover"
+                      className="object-cover object-top"
                     />
                   </div>
                   <div>

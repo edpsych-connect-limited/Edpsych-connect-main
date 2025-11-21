@@ -1,10 +1,12 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { LeaderboardEntry } from '@/components/gamification/leaderboard/LeaderboardEntry';
+import BattleRoyalePreview from '@/components/battle-royale/BattleRoyalePreview';
 
 export default function GamificationPage() {
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState<'leaderboard' | 'battle-royale'>('leaderboard');
 
   useEffect(() => {
     async function fetchLeaderboard() {
@@ -24,27 +26,57 @@ export default function GamificationPage() {
   }, []);
 
   if (loading) {
-    return <div className="p-6">Loading leaderboard...</div>;
+    return <div className="p-6">Loading gamification data...</div>;
   }
 
   return (
     <main className="min-h-screen bg-slate-50 p-6 lg:p-12">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
           <div>
-            <h1 className="text-3xl font-black text-slate-900">Gamification Leaderboard</h1>
-            <p className="text-slate-600 mt-2">Compete with educators worldwide to improve student outcomes.</p>
+            <h1 className="text-3xl font-black text-slate-900">Gamification Hub</h1>
+            <p className="text-slate-600 mt-2">Compete, learn, and grow with the community.</p>
           </div>
-          <div className="hidden md:block">
-            <div className="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full font-bold flex items-center gap-2">
-              <span>🏆</span>
-              <span>Season 1 Active</span>
+          
+          <div className="flex items-center gap-4">
+            <div className="bg-white p-1 rounded-lg border border-slate-200 flex">
+              <button
+                onClick={() => setActiveTab('leaderboard')}
+                className={`px-4 py-2 rounded-md text-sm font-bold transition-all ${
+                  activeTab === 'leaderboard' 
+                    ? 'bg-blue-600 text-white shadow-sm' 
+                    : 'text-slate-600 hover:bg-slate-50'
+                }`}
+              >
+                Leaderboard
+              </button>
+              <button
+                onClick={() => setActiveTab('battle-royale')}
+                className={`px-4 py-2 rounded-md text-sm font-bold transition-all ${
+                  activeTab === 'battle-royale' 
+                    ? 'bg-purple-600 text-white shadow-sm' 
+                    : 'text-slate-600 hover:bg-slate-50'
+                }`}
+              >
+                Battle Royale
+              </button>
+            </div>
+            
+            <div className="hidden md:block">
+              <div className="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full font-bold flex items-center gap-2">
+                <span>🏆</span>
+                <span>Season 1 Active</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {leaderboard.length === 0 ? (
-          <div className="bg-white rounded-3xl shadow-xl p-12 text-center border border-slate-200">
+        {activeTab === 'battle-royale' ? (
+          <BattleRoyalePreview />
+        ) : (
+          <>
+            {leaderboard.length === 0 ? (
+              <div className="bg-white rounded-3xl shadow-xl p-12 text-center border border-slate-200">
             <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-4xl">🚀</span>
             </div>
@@ -86,6 +118,8 @@ export default function GamificationPage() {
               />
             ))}
           </div>
+        )}
+          </>
         )}
       </div>
     </main>
