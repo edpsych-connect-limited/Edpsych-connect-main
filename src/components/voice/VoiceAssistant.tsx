@@ -22,10 +22,33 @@ export const VoiceAssistant: React.FC = () => {
   // Speak function
   const speak = (text: string) => {
     if ('speechSynthesis' in window) {
+      // Cancel any ongoing speech to prevent queue buildup
+      window.speechSynthesis.cancel();
+
       const utterance = new SpeechSynthesisUtterance(text);
+      
+      // Attempt to set a clear English voice
+      const voices = window.speechSynthesis.getVoices();
+      const preferredVoice = voices.find(v => v.lang === 'en-GB') || voices.find(v => v.lang.startsWith('en'));
+      
+      if (preferredVoice) {
+        utterance.voice = preferredVoice;
+      }
+
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      utterance.volume = 1.0;
+
       window.speechSynthesis.speak(utterance);
     }
   };
+
+  // Ensure voices are loaded (Chrome quirk)
+  useEffect(() => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.getVoices();
+    }
+  }, []);
 
   // Command processing
   useEffect(() => {
@@ -37,35 +60,43 @@ export const VoiceAssistant: React.FC = () => {
     if (lowerTranscript.includes('go to dashboard') || lowerTranscript.includes('open dashboard')) {
       speak('Navigating to dashboard');
       router.push('/dashboard');
+      stopListening();
       resetTranscript();
       setTimeout(() => setLastCommand('Navigated to Dashboard'), 0);
     } else if (lowerTranscript.includes('go to settings') || lowerTranscript.includes('open settings')) {
       speak('Opening settings');
       router.push('/settings');
+      stopListening();
       resetTranscript();
       setTimeout(() => setLastCommand('Opened Settings'), 0);
     } else if (lowerTranscript.includes('go to blog') || lowerTranscript.includes('read blog')) {
       speak('Opening blog');
       router.push('/blog');
+      stopListening();
       resetTranscript();
       setTimeout(() => setLastCommand('Opened Blog'), 0);
     } else if (lowerTranscript.includes('go home') || lowerTranscript.includes('open home')) {
       speak('Going home');
       router.push('/');
+      stopListening();
       resetTranscript();
       setTimeout(() => setLastCommand('Went Home'), 0);
     } else if (lowerTranscript.includes('login') || lowerTranscript.includes('sign in')) {
       speak('Taking you to login');
       router.push('/login');
+      stopListening();
       resetTranscript();
       setTimeout(() => setLastCommand('Navigated to Login'), 0);
     } else if (lowerTranscript.includes('help')) {
       speak('You can say: Go to dashboard, Go to settings, Go to blog, or Go home.');
+      // Don't stop listening for help, maybe they want to try a command immediately?
+      // But to be safe and consistent, let's stop.
+      stopListening();
       resetTranscript();
       setTimeout(() => setLastCommand('Asked for Help'), 0);
     }
 
-  }, [transcript, router, resetTranscript]);
+  }, [transcript, router, resetTranscript, stopListening]);
 
   if (!browserSupportsSpeechRecognition) {
     return null;

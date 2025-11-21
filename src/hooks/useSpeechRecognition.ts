@@ -31,13 +31,9 @@ export const useSpeechRecognition = (): SpeechRecognitionHook => {
 
         recognitionInstance.onresult = (event: any) => {
           let currentTranscript = '';
-          for (let i = event.resultIndex; i < event.results.length; i++) {
-            const transcriptPart = event.results[i][0].transcript;
-            if (event.results[i].isFinal) {
-              currentTranscript += transcriptPart;
-            } else {
-              currentTranscript += transcriptPart;
-            }
+          // Iterate from 0 to ensure we get the full transcript of the current session
+          for (let i = 0; i < event.results.length; i++) {
+            currentTranscript += event.results[i][0].transcript;
           }
           setTranscript(currentTranscript);
         };
