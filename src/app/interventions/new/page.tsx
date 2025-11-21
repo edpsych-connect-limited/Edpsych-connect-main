@@ -10,14 +10,12 @@ export const dynamic = 'force-dynamic';
 
 import React, { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 import InterventionDesigner from '@/components/interventions/InterventionDesigner';
 
 function NewInterventionContent() {
   const router = useRouter();
-  const sessionResult = useSession();
-  const session = sessionResult?.data;
-  const status = sessionResult?.status;
+  const { user, isLoading: authLoading } = useAuth();
   const searchParams = useSearchParams();
 
   const [caseId, setCaseId] = useState<number | null>(null);
@@ -27,7 +25,7 @@ function NewInterventionContent() {
   const [templateData, setTemplateData] = useState<any>(null);
   useEffect(() => {
 
-    if (status === 'authenticated') {
+    if (user) {
       // Get case ID from query params if provided
       const caseIdParam = searchParams.get('caseId');
       if (caseIdParam) {
@@ -42,20 +40,25 @@ function NewInterventionContent() {
       }
 
       // Get tenant ID from session
-      const userTenantId = (session?.user as any)?.tenant_id;
+      const userTenantId = (user as any)?.tenant_id;
       if (userTenantId) {
         setTenantId(userTenantId);
       }
     }
-  }, [status, session, searchParams]);
+  }, [user, searchParams]);
 
   // Show loading during authentication check
-  if (!session) {
+  if (authLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-lg">Loading...</div>
       </div>
     );
+  }
+
+  if (!user) {
+    router.push('/login');
+    return null;
   }
 
   async function loadTemplateData(templateId: string) {

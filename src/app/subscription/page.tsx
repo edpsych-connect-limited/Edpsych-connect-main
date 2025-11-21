@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 import {
   getPlanById,
   formatPrice,
@@ -42,9 +42,7 @@ interface UsageData {
 
 export default function SubscriptionManagementPage() {
   const router = useRouter();
-  const sessionResult = useSession();
-  const session = sessionResult?.data;
-  const status = sessionResult?.status;
+  const { user, isLoading: authLoading } = useAuth();
 
   const [subscription, setSubscription] = useState<SubscriptionData | null>(null);
   const [usage, setUsage] = useState<UsageData | null>(null);
@@ -81,18 +79,23 @@ export default function SubscriptionManagementPage() {
   };
 
   useEffect(() => {
-    if (status === 'authenticated') {
+    if (user) {
       loadSubscriptionData();
     }
-  }, [status]);
+  }, [user]);
 
   // Show loading during authentication check
-  if (status === 'loading' || !session) {
+  if (authLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-lg">Loading...</div>
       </div>
     );
+  }
+
+  if (!user) {
+    router.push('/login');
+    return null;
   }
 
   const handleCancelSubscription = async () => {

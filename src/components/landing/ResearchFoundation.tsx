@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { GraduationCap, BookOpen, Scale, Award, ScrollText, University } from 'lucide-react';
+import Image from 'next/image';
+import { BookOpen, Scale, ScrollText, University } from 'lucide-react';
 
 export default function ResearchFoundation() {
   return (
@@ -58,8 +59,13 @@ export default function ResearchFoundation() {
               
               <div className="relative z-10">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg">
-                    <GraduationCap className="w-6 h-6" />
+                  <div className="w-20 h-20 relative rounded-xl overflow-hidden shadow-lg border-2 border-indigo-100">
+                    <Image 
+                      src="/images/Dr Scott.jpg" 
+                      alt="Dr Scott Ighavongbe-Patrick"
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-slate-900">Dr Scott Ighavongbe-Patrick</h3>
@@ -86,8 +92,13 @@ export default function ResearchFoundation() {
               
               <div className="relative z-10">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center text-white shadow-lg">
-                    <Award className="w-6 h-6" />
+                  <div className="w-20 h-20 relative rounded-xl overflow-hidden shadow-lg border-2 border-purple-100">
+                    <Image 
+                      src="/images/Dr Piers.jpg" 
+                      alt="Dr Piers Worth"
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-slate-900">Mentorship & Supervision</h3>

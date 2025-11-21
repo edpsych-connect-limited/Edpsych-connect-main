@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Loader2, BookOpen, Target, Lightbulb } from 'lucide-react';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 
 // Import UI components individually from their actual locations
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -51,7 +51,7 @@ interface TutoringResponse {
 }
 
 export default function TutoringInterface() {
-  const session = { user: { email: 'guest@edpsychconnect.app' } }; // fallback for SSR build
+  const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [loadingMessage, setLoadingMessage] = useState('Preparing your request...');
@@ -98,7 +98,7 @@ export default function TutoringInterface() {
   }, [isLoading]);
 
   const [formData, setFormData] = useState<TutoringRequest>({
-    studentId: session?.user?.email || '',
+    studentId: user?.email || '',
     subject: '',
     topic: '',
     currentLevel: 'developing',
@@ -107,6 +107,12 @@ export default function TutoringInterface() {
     preferredLearningStyle: 'visual',
     specialEducationalNeeds: []
   });
+
+  useEffect(() => {
+    if (user?.email) {
+      setFormData(prev => ({ ...prev, studentId: user.email || '' }));
+    }
+  }, [user]);
 
   const subjects = [
     'Mathematics', 'English', 'Science', 'History', 'Geography',

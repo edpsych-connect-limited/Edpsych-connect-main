@@ -1473,7 +1473,7 @@ interface StudentProfileCardProps {
 ```
 ┌─────────────────────────────────────────────────────────┐
 │ Educational Psychologist Dashboard                      │
-│ Dr. Sarah Williams                                      │
+│ Dr. Scott Ighavongbe-Patrick                                      │
 ├─────────────────────────────────────────────────────────┤
 │ ASSIGNED STUDENTS (24)        EHCPS DUE (6)             │
 │                                                          │

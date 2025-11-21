@@ -15,6 +15,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, CheckCircle, Target, Zap, Shield, Users, TrendingUp } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { useOnboarding } from '../OnboardingProvider';
 
 export function Step1Welcome() {
@@ -101,20 +102,55 @@ export function Step1Welcome() {
     return colors[color] || colors.indigo;
   };
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 }
+  };
+
   return (
-    <div className="space-y-8">
+    <motion.div 
+      className="space-y-8"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       {/* Welcome Message */}
       <div className="text-center">
-        <h2 className="text-4xl font-bold text-gray-900 mb-3">
+        <motion.h2 
+          className="text-4xl font-bold text-gray-900 mb-3"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
           Welcome! 👋
-        </h2>
-        <p className="text-lg text-gray-600">
+        </motion.h2>
+        <motion.p 
+          className="text-lg text-gray-600"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
           We're excited to have you join EdPsych Connect World - the UK's leading platform for educational psychology professionals.
-        </p>
+        </motion.p>
       </div>
 
       {/* Video Section */}
-      <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100">
+      <motion.div 
+        className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.4 }}
+      >
         <div className="flex items-start gap-4 mb-4">
           <div className="flex-shrink-0 w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center">
             <Play className="w-5 h-5 text-white" />
@@ -175,12 +211,16 @@ export function Step1Welcome() {
         </div>
 
         {videoStarted && videoWatchPercentage >= 80 && (
-          <div className="mt-4 flex items-center gap-2 text-green-700 bg-green-50 px-4 py-2 rounded-lg">
+          <motion.div 
+            className="mt-4 flex items-center gap-2 text-green-700 bg-green-50 px-4 py-2 rounded-lg"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
             <CheckCircle className="w-5 h-5" />
             <span className="text-sm font-medium">Great! You've completed the introduction video</span>
-          </div>
+          </motion.div>
         )}
-      </div>
+      </motion.div>
 
       {/* Key Benefits Grid */}
       <div>
@@ -191,15 +231,21 @@ export function Step1Welcome() {
           Trusted by 500+ educational psychologists, SENCOs, and schools across the UK
         </p>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-4"
+          variants={container}
+          initial="hidden"
+          animate="show"
+        >
           {benefits.map((benefit, index) => {
             const colors = getColorClasses(benefit.color);
             const Icon = benefit.icon;
 
             return (
-              <div
+              <motion.div
                 key={index}
-                className={`${colors.bg} border ${colors.border} rounded-xl p-5 transition-all hover:shadow-md`}
+                variants={item}
+                className={`${colors.bg} border ${colors.border} rounded-xl p-5 transition-all hover:shadow-md hover:scale-105`}
               >
                 <div className="flex items-start gap-3">
                   <div className={`flex-shrink-0 w-10 h-10 ${colors.bg} rounded-lg flex items-center justify-center border ${colors.border}`}>
@@ -214,14 +260,19 @@ export function Step1Welcome() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
 
       {/* Statistics */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-white">
+      <motion.div 
+        className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-white"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6 }}
+      >
         <div className="grid grid-cols-3 gap-6">
           <div className="text-center">
             <div className="text-3xl font-bold mb-1">500+</div>
@@ -236,22 +287,27 @@ export function Step1Welcome() {
             <div className="text-indigo-100 text-sm">User Satisfaction</div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* CTA Message */}
-      <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 text-center">
+      <motion.div 
+        className="bg-gray-50 border border-gray-200 rounded-xl p-6 text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}
+      >
         <p className="text-gray-700 mb-2">
           <strong>Ready to get started?</strong> Let's set up your account in just a few steps.
         </p>
         <p className="text-sm text-gray-600">
           It'll only take 3-4 minutes, and you can skip optional steps.
         </p>
-      </div>
+      </motion.div>
 
       {/* Screen Reader Instructions */}
       <div className="sr-only" aria-live="polite">
         This is step 1 of the onboarding process. You can watch an introduction video and learn about the key benefits of EdPsych Connect World. Click Next to continue to role selection.
       </div>
-    </div>
+    </motion.div>
   );
 }

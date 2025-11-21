@@ -7,7 +7,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 
 interface InterventionDetailProps {
   params: {
@@ -42,18 +42,19 @@ interface Intervention {
 
 export default function InterventionDetailPage({ params }: InterventionDetailProps) {
   const router = useRouter();
-  const { status } = useSession();
+  const { user, isLoading: authLoading } = useAuth();
 
   const [intervention, setIntervention] = useState<Intervention | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'overview' | 'progress' | 'fidelity'>('overview');
 
-  useEffect(() => {
+  useEffect(() => {
 
-    if (status === 'authenticated') {
+
+    if (user) {
       loadIntervention();
     }
-  }, [status, params.id]);
+  }, [user, params.id]);
 
   const loadIntervention = async () => {
     try {
@@ -89,6 +90,19 @@ export default function InterventionDetailPage({ params }: InterventionDetailPro
       console.error('Failed to update status:', error);
     }
   };
+
+  if (authLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    router.push('/login');
+    return null;
+  }
 
   if (loading) {
     return (

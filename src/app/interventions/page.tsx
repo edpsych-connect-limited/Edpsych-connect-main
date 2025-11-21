@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 
 interface Intervention {
   id: number;
@@ -31,9 +31,7 @@ interface Intervention {
 
 export default function InterventionsPage() {
   const router = useRouter();
-  const sessionResult = useSession();
-  const session = sessionResult?.data;
-  const status = sessionResult?.status;
+  const { user, isLoading: authLoading } = useAuth();
 
   const [interventions, setInterventions] = useState<Intervention[]>([]);
   const [loading, setLoading] = useState(true);
@@ -56,18 +54,23 @@ export default function InterventionsPage() {
   };
 
   useEffect(() => {
-    if (session) {
+    if (user) {
       loadInterventions();
     }
-  }, [session]);
+  }, [user]);
 
   // Show loading during authentication check
-  if (status === 'loading' || !session) {
+  if (authLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-lg">Loading...</div>
       </div>
     );
+  }
+
+  if (!user) {
+    router.push('/login');
+    return null;
   }
 
   const filteredInterventions = interventions.filter((intervention) => {

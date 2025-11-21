@@ -131,8 +131,8 @@ Generate LA-compliant PDF reports with:
 - Provision mapping
 
 **Ready to try ECCA?** Start your first assessment today.`,
-      author_name: 'Dr. Sarah Mitchell',
-      author_email: 'sarah.mitchell@edpsychconnect.world',
+      author_name: 'Dr. Scott Ighavongbe-Patrick',
+      author_email: 'scott.ighavongbe-patrick@edpsychconnect.world',
       author_bio: 'Lead Educational Psychologist and ECCA Framework Developer',
       reading_time: 5,
       is_published: true,

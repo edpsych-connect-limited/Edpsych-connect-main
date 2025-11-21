@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 import {
   SUBSCRIPTION_PLANS,
   formatPrice,
@@ -20,14 +20,12 @@ import {
 
 export default function PricingPage() {
   const router = useRouter();
-  const sessionResult = useSession();
-  const session = sessionResult?.data;
-  const status = sessionResult?.status;
+  const { user, isLoading: authLoading } = useAuth();
 
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
 
   // Show loading during authentication check
-  if (status === 'loading') {
+  if (authLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-lg">Loading...</div>
@@ -36,7 +34,7 @@ export default function PricingPage() {
   }
 
   const handleSelectPlan = (planId: string) => {
-    if (status === 'unauthenticated') {
+    if (!user) {
       router.push(`/register?plan=${planId}&billing=${billingPeriod}`);
     } else {
       router.push(`/subscription/checkout?plan=${planId}&billing=${billingPeriod}`);

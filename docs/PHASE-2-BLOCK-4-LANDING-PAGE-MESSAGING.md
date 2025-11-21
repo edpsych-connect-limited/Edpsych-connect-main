@@ -207,7 +207,7 @@ Button: "See How It Works"
 
 **BEFORE**:
 ```typescript
-Dr. Sarah Chen - Director of Research, Stanford University
+Dr. Scott Ighavongbe-Patrick - Director of Research, Stanford University
 "EdPsych Connect transformed our entire research workflow..."
 
 Prof. Michael Rodriguez - Department Chair, MIT

@@ -7,7 +7,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
@@ -29,7 +29,7 @@ export default function CheckoutPage({ params }: CheckoutPageProps) {
 
 function CheckoutForm({ productId }: { productId: string }) {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { user, isLoading: authLoading } = useAuth();
   const stripe = useStripe();
   const elements = useElements();
 
@@ -40,10 +40,11 @@ function CheckoutForm({ productId }: { productId: string }) {
   const [discountCode, setDiscountCode] = useState('');
   const [appliedDiscount, setAppliedDiscount] = useState<any>(null);
 
-  useEffect(() => {
+  useEffect(() => {
+
 
     loadProduct();
-  }, [productId, status]);
+  }, [productId]);
 
   const loadProduct = async () => {
     try {
@@ -136,7 +137,7 @@ function CheckoutForm({ productId }: { productId: string }) {
         payment_method: {
           card: cardElement,
           billing_details: {
-            email: session?.user?.email,
+            email: user?.email,
           },
         },
       });
@@ -153,6 +154,19 @@ function CheckoutForm({ productId }: { productId: string }) {
       setProcessing(false);
     }
   };
+
+  if (authLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    router.push('/login');
+    return null;
+  }
 
   if (loading) {
     return (

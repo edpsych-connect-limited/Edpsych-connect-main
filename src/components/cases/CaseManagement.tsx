@@ -165,7 +165,7 @@ export default function CaseManagement() {
           case_type: 'ehcp',
           priority: 'high',
           status: 'in_progress',
-          assigned_to: 'Dr. Sarah Mitchell',
+          assigned_to: 'Dr. Scott Ighavongbe-Patrick',
           created_by: 'John Smith',
           created_date: '2025-10-15',
           last_updated: '2025-11-01',
@@ -184,7 +184,7 @@ export default function CaseManagement() {
           case_type: 'assessment',
           priority: 'medium',
           status: 'awaiting_response',
-          assigned_to: 'Dr. Sarah Mitchell',
+          assigned_to: 'Dr. Scott Ighavongbe-Patrick',
           created_by: 'Jane Doe',
           created_date: '2025-10-20',
           last_updated: '2025-10-28',
@@ -220,7 +220,7 @@ export default function CaseManagement() {
           case_type: 'intervention',
           priority: 'urgent',
           status: 'new',
-          assigned_to: 'Dr. Sarah Mitchell',
+          assigned_to: 'Dr. Scott Ighavongbe-Patrick',
           created_by: 'Tom Roberts',
           created_date: '2025-11-02',
           last_updated: '2025-11-02',
@@ -722,7 +722,7 @@ function TimelineTab({ caseItem }: { caseItem: Case }) {
       type: 'note',
       title: 'Progress Update',
       description: 'Student showing improvement in reading fluency. Now at 81 WPM.',
-      author: 'Dr. Sarah Mitchell',
+      author: 'Dr. Scott Ighavongbe-Patrick',
     },
     {
       id: '2',
@@ -740,7 +740,7 @@ function TimelineTab({ caseItem }: { caseItem: Case }) {
       type: 'meeting',
       title: 'Team Review Meeting',
       description: 'Multidisciplinary team meeting to review progress and plan next steps.',
-      author: 'Dr. Sarah Mitchell',
+      author: 'Dr. Scott Ighavongbe-Patrick',
     },
     {
       id: '4',
@@ -934,7 +934,7 @@ function CollaboratorsTab({ caseItem }: { caseItem: Case }) {
   const mockCollaborators: Collaborator[] = [
     {
       id: '1',
-      name: 'Dr. Sarah Mitchell',
+      name: 'Dr. Scott Ighavongbe-Patrick',
       role: 'Educational Psychologist',
       organization: 'Local Authority EP Service',
       email: 's.mitchell@la.gov.uk',
@@ -1026,7 +1026,7 @@ function NotesTab({ caseItem }: { caseItem: Case }) {
     {
       id: '1',
       date: '2025-11-02',
-      author: 'Dr. Sarah Mitchell',
+      author: 'Dr. Scott Ighavongbe-Patrick',
       author_role: 'Educational Psychologist',
       content:
         'Met with parents today. They report Emily is more confident with reading at home. Starting to choose books independently. Continue current intervention plan.',
@@ -1046,7 +1046,7 @@ function NotesTab({ caseItem }: { caseItem: Case }) {
     {
       id: '3',
       date: '2025-10-25',
-      author: 'Dr. Sarah Mitchell',
+      author: 'Dr. Scott Ighavongbe-Patrick',
       author_role: 'Educational Psychologist',
       content:
         'CONFIDENTIAL: Family context - parents going through separation. May be impacting emotional wellbeing. Recommend pastoral support alongside academic intervention.',

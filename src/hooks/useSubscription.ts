@@ -1,22 +1,8 @@
-import { useSession } from 'next-auth/react';
-import type { Session } from 'next-auth';
+import { useAuth } from '@/lib/auth/hooks';
 import type { SubscriptionInfo, SubscriptionTier } from '../types';
 import { UserType, SubscriptionStatus } from '../types';
 import type { FeatureConfig } from '../lib/subscription';
 import { hasFeatureAccess, getAvailableFeatures } from '../lib/subscription';
-
-// Ensure type safety with Session type
-type SessionWithSubscription = Session & {
-  user: {
-    id?: string;
-    name?: string | null;
-    email?: string | null;
-    image?: string | null;
-    role?: UserType;
-    userType?: UserType;
-  };
-  subscription?: SubscriptionInfo;
-};
 
 interface UseSubscriptionReturn {
   /**
@@ -90,16 +76,17 @@ interface UseSubscriptionReturn {
  * Hook to access subscription information and check feature access
  */
 export const useSubscription = (): UseSubscriptionReturn => {
-  const sessionData = useSession();
-  const session = sessionData?.data as SessionWithSubscription | null;
-  const status = sessionData?.status ?? 'unauthenticated';
-  const typedSession = session;
-  const isLoading = status === 'loading';
-  const isAuthenticated = status === 'authenticated';
+  const { user, isLoading: authLoading } = useAuth();
   
-  // Extract subscription info from session
-  const subscription = typedSession?.subscription || null;
-  const userType = typedSession?.user?.userType || (UserType as any).SCHOOL_USER;
+  // Derive subscription info from user data
+  // Note: In a real implementation, this should come from a dedicated API or be part of the user object
+  const subscription: SubscriptionInfo | null = user ? {
+    tier: (user as any).subscriptionTier || 'FREE',
+    status: SubscriptionStatus.ACTIVE,
+    userType: (user.role as any) || UserType.SCHOOL_USER,
+  } : null;
+
+  const userType = (user?.role as any) || UserType.SCHOOL_USER;
   
   // Check if subscription is active
   const isActive = !!subscription && subscription.status === SubscriptionStatus.ACTIVE;
@@ -117,8 +104,8 @@ export const useSubscription = (): UseSubscriptionReturn => {
     hasAccess: (featureKey: string) => hasFeatureAccess(featureKey, subscription, userType),
     availableFeatures,
     capacityStatus: undefined, // TODO: Implement capacity tracking
-    isAuthenticated,
-    isLoading,
+    isAuthenticated: !!user,
+    isLoading: authLoading,
   };
 };
 

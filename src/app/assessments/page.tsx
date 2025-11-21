@@ -17,7 +17,7 @@ export const dynamic = 'force-dynamic';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 
 interface Assessment {
   id: number;
@@ -53,9 +53,7 @@ interface PaginationInfo {
 
 export default function AssessmentListPage() {
   const router = useRouter();
-  const sessionResult = useSession();
-  const session = sessionResult?.data;
-  const status = sessionResult?.status;
+  const { user, isLoading: authLoading } = useAuth();
 
   // State management
   const [assessments, setAssessments] = useState<Assessment[]>([]);
@@ -112,18 +110,23 @@ export default function AssessmentListPage() {
 
   // Fetch on mount and when filters/pagination change
   useEffect(() => {
-    if (status === 'authenticated') {
+    if (user) {
       fetchAssessments();
     }
-  }, [status, pagination.page, filters.case_id, filters.status, filters.assessment_type]);
+  }, [user, pagination.page, filters.case_id, filters.status, filters.assessment_type]);
 
   // Show loading during authentication check
-  if (status === 'loading' || !session) {
+  if (authLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-lg">Loading...</div>
       </div>
     );
+  }
+
+  if (!user) {
+    router.push('/login');
+    return null;
   }
 
 

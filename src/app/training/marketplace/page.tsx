@@ -17,7 +17,7 @@ export const dynamic = 'force-dynamic';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 
 interface TrainingProduct {
   id: string;
@@ -38,9 +38,7 @@ interface TrainingProduct {
 
 export default function TrainingMarketplace() {
   const router = useRouter();
-  const sessionResult = useSession();
-  const session = sessionResult?.data;
-  const status = sessionResult?.status;
+  const { user, isLoading: authLoading } = useAuth();
 
   const [products, setProducts] = useState<TrainingProduct[]>([]);
   const [filter, setFilter] = useState<string>('all'); // all, featured, bundles
@@ -65,12 +63,17 @@ export default function TrainingMarketplace() {
   }, []);
 
   // Show loading during authentication check
-  if (!session) {
+  if (authLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-lg">Loading...</div>
       </div>
     );
+  }
+
+  if (!user) {
+    router.push('/login');
+    return null;
   }
 
   const filteredProducts = products.filter((product) => {

@@ -13,7 +13,7 @@ export default function EnterpriseLanding() {
   const testimonials = [
     {
       quote: "EdPsych Connect transformed our entire research workflow. What used to take weeks now happens in hours.",
-      author: "Dr. Sarah Chen",
+      author: "Dr. Scott Ighavongbe-Patrick",
       role: "Director of Research",
       institution: "Stanford University",
       avatar: "/images/testimonials/sarah-chen.jpg"

@@ -10,14 +10,12 @@ export const dynamic = 'force-dynamic';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 import ProgressDashboard from '@/components/progress/ProgressDashboard';
 
 export default function ProgressPage() {
   const router = useRouter();
-  const sessionResult = useSession();
-  const session = sessionResult?.data;
-  const status = sessionResult?.status;
+  const { user, isLoading: authLoading } = useAuth();
 
   const [cases, setCases] = useState<any[]>([]);
   const [selectedCaseId, setSelectedCaseId] = useState<number | null>(null);
@@ -40,18 +38,23 @@ export default function ProgressPage() {
   };
 
   useEffect(() => {
-    if (status === 'authenticated') {
+    if (user) {
       loadCases();
     }
-  }, [status]);
+  }, [user]);
 
   // Show loading during authentication check
-  if (status === 'loading' || !session) {
+  if (authLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-lg">Loading...</div>
       </div>
     );
+  }
+
+  if (!user) {
+    router.push('/login');
+    return null;
   }
 
   if (loading) {
@@ -62,7 +65,7 @@ export default function ProgressPage() {
     );
   }
 
-  const tenantId = (session?.user as any)?.tenant_id || 1;
+  const tenantId = (user as any)?.tenant_id || 1;
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">

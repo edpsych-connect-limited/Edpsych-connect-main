@@ -68,7 +68,7 @@ export default function ConciergeWidget() {
         animate={{ scale: 1 }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        onClick={() => setIsOpen(true)}
+        onClick={() => setIsOpen(!isOpen)}
         className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-colors ${
           isOpen ? 'bg-slate-200 text-slate-600' : 'bg-indigo-600 text-white'
         }`}

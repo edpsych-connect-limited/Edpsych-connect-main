@@ -95,7 +95,7 @@ const ProfessionalNetwork: React.FC = () => {
           },
           {
             id: 'prof-3',
-            name: 'Dr. Sarah Williams',
+            name: 'Dr. Scott Ighavongbe-Patrick',
             title: 'Researcher',
             organization: 'Oxford University',
             specialty: 'Learning Disabilities',
