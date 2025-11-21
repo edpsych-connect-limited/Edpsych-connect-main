@@ -87,8 +87,8 @@ export async function GET(
     }
 
     const { id: studentId } = params;
-    const tenantId = session.tenant_id;
-    const userId = session.user_id;
+    const tenantId = parseInt(session.tenant_id);
+    const userId = parseInt(session.user_id);
 
     // Query parameters
     const { searchParams } = new URL(request.url);
@@ -261,13 +261,16 @@ export async function GET(
     await prisma.auditLog.create({
       data: {
         userId: userId,
-        institutionId: tenantId?.toString(),
-        entityId: studentId,
-        entityType: 'student',
+        tenantId: tenantId,
         action: 'student_lessons_view',
-        description: `Student lesson assignments (${assignments.length} lessons)`,
-        ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
-        userAgent: request.headers.get('user-agent') || 'unknown',
+        resource: 'student_lessons',
+        details: {
+          entityId: studentId,
+          entityType: 'student',
+          description: `Student lesson assignments (${assignments.length} lessons)`,
+          ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+          userAgent: request.headers.get('user-agent') || 'unknown',
+        },
       },
     });
 

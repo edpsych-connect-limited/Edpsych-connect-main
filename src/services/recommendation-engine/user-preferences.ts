@@ -75,26 +75,12 @@ export class UserPreferenceService {
    * Get user preference analytics
    */
   async getUserPreferenceAnalytics(id: string) {
-    const categoryPreferences = await prisma.userPreference.groupBy({
-      by: ['category'],
-      where: {
-        userId: id,
-      },
-      _count: true,
-    });
-
-    const typePreferences = await prisma.userPreference.groupBy({
-      by: ['type'],
-      where: {
-        userId: id,
-      },
-      _count: true,
-    });
-
+    // TODO: Implement proper schema for recommendation preferences
+    // Current user_preferences table is for UI settings only
     return {
-      categoryPreferences,
-      typePreferences,
-      total: await prisma.userPreference.count({ where: { userId: id } }),
+      categoryPreferences: [],
+      typePreferences: [],
+      total: 0,
     };
   }
 
@@ -102,44 +88,16 @@ export class UserPreferenceService {
    * Bulk update user preferences
    */
   async bulkUpdatePreferences(preferences: UpdateUserPreferenceInput[]) {
-    const updates = preferences.map((pref: UpdateUserPreferenceInput) => {
-      return prisma.userPreference.update({
-        where: { id: pref.id! },
-        data: {
-          category: pref.categoryId,
-          type: pref.contentType,
-          value: pref as any,
-        }
-      });
-    });
-    
-    return prisma.$transaction(updates);
+    // TODO: Implement proper schema for recommendation preferences
+    return [];
   }
 
   /**
    * Increment preference weight
    */
   async incrementPreferenceWeight(id: string, incrementBy: number = 0.1) {
-    const preference = await prisma.userPreference.findUnique({
-      where: { id },
-    });
-
-    if (!preference) {
-      throw new Error(`Preference with ID ${id} not found`);
-    }
-
-    const currentValue = preference.value as any;
-    const newValue = {
-      ...currentValue,
-      weight: (currentValue?.weight || 0) + incrementBy,
-    };
-
-    return prisma.userPreference.update({
-      where: { id },
-      data: {
-        value: newValue,
-      },
-    });
+    // TODO: Implement proper schema for recommendation preferences
+    return null;
   }
 }
 

@@ -640,14 +640,15 @@ export class DepartmentService {
     try {
       await prisma.auditLog.create({
         data: {
-          id: generateId('audit'),
-          performedById: data.performedById,
+          userId: parseInt(data.performedById) || 0,
+          tenantId: 0, // Default to 0 as Institution uses UUIDs
           action: data.action,
-          entityType: data.entityType,
-          entityId: data.entityId,
-          description: data.description,
-          metadata: data.metadata || {},
-          timestamp: new Date(),
+          resource: data.entityType,
+          details: {
+            entityId: data.entityId,
+            description: data.description,
+            metadata: data.metadata || {},
+          },
         },
       });
     } catch (error) {

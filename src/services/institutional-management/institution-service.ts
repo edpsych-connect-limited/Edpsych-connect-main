@@ -650,16 +650,17 @@ export class InstitutionService {
     try {
       await prisma.auditLog.create({
         data: {
-          id: generateId('audit'),
+          userId: parseInt(data.performedById) || 0,
+          tenantId: 0, // Default to 0
           action: data.action,
-          entityType: data.entityType,
-          entityId: data.entityId,
-          description: data.description,
-          performedById: data.performedById,
-          institutionId: data.institutionId,
-          subscriptionId: data.subscriptionId,
-          metadata: data.metadata,
-          createdAt: new Date(),
+          resource: data.entityType,
+          details: {
+            entityId: data.entityId,
+            description: data.description,
+            institutionId: data.institutionId,
+            subscriptionId: data.subscriptionId,
+            metadata: data.metadata,
+          },
         },
       });
     } catch (error) {

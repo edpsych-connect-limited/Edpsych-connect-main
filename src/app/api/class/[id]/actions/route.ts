@@ -118,7 +118,7 @@ export async function GET(
 
     const { id: classId } = params;
     const tenantId = session.tenant_id;
-    const userId = session.user_id;
+    const userId = parseInt(session.id);
 
     // Query parameters
     const { searchParams } = new URL(request.url);
@@ -302,9 +302,12 @@ export async function GET(
     await prisma.auditLog.create({
       data: {
         userId: userId,
-        institutionId: tenantId?.toString(),
+        tenantId: tenantId,
         action: 'class_actions_view',
-        description: `Class automated actions (${actions.length} actions)`,
+        resource: 'class_actions',
+        details: {
+          description: `Class automated actions (${actions.length} actions)`,
+        },
         ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
         userAgent: request.headers.get('user-agent') || 'unknown',
       },
@@ -357,7 +360,7 @@ export async function POST(
 
     const { id: classId } = params;
     const tenantId = session.tenant_id;
-    const userId = session.user_id;
+    const userId = parseInt(session.id);
 
     // Verify role (only teachers and admin can approve actions)
     if (!['teacher', 'admin', 'head_teacher'].includes(session.role)) {
@@ -498,9 +501,12 @@ export async function POST(
     await prisma.auditLog.create({
       data: {
         userId: userId,
-        institutionId: tenantId?.toString(),
+        tenantId: tenantId,
         action: 'action_approval',
-        description: `Action ${decision}: ${action.action_type}`,
+        resource: 'automated_action',
+        details: {
+          description: `Action ${decision}: ${action.action_type}`,
+        },
         ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
         userAgent: request.headers.get('user-agent') || 'unknown',
       },

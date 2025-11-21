@@ -115,12 +115,15 @@ export async function GET(
     // Log data access for GDPR audit trail
     await prisma.auditLog.create({
       data: {
-        userId: userId,
-        institutionId: tenantId?.toString(),
+        userId: parseInt(userId),
+        tenantId: parseInt(tenantId),
         action: 'multi_agency_view',
-        description: `Multi-agency view: ${userRole} accessed ${multiAgencyView.students?.length || 0} students`,
-        ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
-        userAgent: request.headers.get('user-agent') || 'unknown',
+        resource: 'multi_agency_view',
+        details: {
+          description: `Multi-agency view: ${userRole} accessed ${multiAgencyView.students?.length || 0} students`,
+          ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+          userAgent: request.headers.get('user-agent') || 'unknown',
+        },
       },
     });
 

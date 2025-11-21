@@ -3316,10 +3316,12 @@ model BetaAccessCodeUsage {
 
 model SecureDocument {
   id          String   @id @default(uuid())
-  userId      Int
-  title       String
-  documentType String
-  storageUrl  String
+  path        String?  @unique
+  content     String?  @db.Text
+  userId      Int?
+  title       String?
+  documentType String?
+  storageUrl  String?
   encryptionKeyId String?
   mimeType    String?
   sizeBytes   Int?
@@ -3327,7 +3329,7 @@ model SecureDocument {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
 
-  user        users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        users?   @relation(fields: [userId], references: [id], onDelete: Cascade)
   tenantId    Int?
   tenant      tenants? @relation(fields: [tenantId], references: [id])
 }

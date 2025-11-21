@@ -455,12 +455,15 @@ export async function GET(
     // Log data access for GDPR audit trail
     await prisma.auditLog.create({
       data: {
-        userId: userId,
-        institutionId: 'cross_tenant', // EP dashboard is cross-tenant
+        userId: parseInt(userId as string),
+        tenantId: 0, // Cross-tenant view
         action: 'ep_dashboard_view',
-        description: `EP dashboard: ${caseSummaries.length} students across ${Object.keys(casesBySchool).length} schools`,
-        ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
-        userAgent: request.headers.get('user-agent') || 'unknown',
+        resource: 'ep_dashboard',
+        details: {
+          description: `EP dashboard: ${caseSummaries.length} students across ${Object.keys(casesBySchool).length} schools`,
+          ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+          userAgent: request.headers.get('user-agent') || 'unknown',
+        },
       },
     });
 

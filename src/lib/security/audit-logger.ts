@@ -64,6 +64,7 @@ export interface AuditLogEntry {
   severity: AuditSeverity;
   performedBy: string; // User ID
   performedByEmail?: string;
+  tenantId?: number; // Added
   entityType?: string; // e.g., 'EHCP', 'Assessment', 'User'
   entityId?: string;
   details?: Record<string, any>;
@@ -83,23 +84,27 @@ class AuditLogger {
    */
   async log(entry: AuditLogEntry): Promise<void> {
     try {
+      const userId = parseInt(entry.performedBy);
+      const validUserId = isNaN(userId) ? 0 : userId;
+      const tenantId = entry.tenantId || 0;
+
       await prisma.auditLog.create({
         data: {
+          userId: validUserId,
+          tenantId: tenantId,
           action: entry.eventType,
-          performedById: entry.performedBy,
-          entityType: entry.entityType,
-          entityId: entry.entityId,
+          resource: entry.entityType || 'system',
           details: {
             ...(entry.details || {}),
+            entityId: entry.entityId,
             severity: entry.severity,
             performedByEmail: entry.performedByEmail,
             requestId: entry.requestId,
             success: entry.success,
             errorMessage: entry.errorMessage,
-          } as any,
-          ipAddress: entry.ipAddress,
-          userAgent: entry.userAgent,
-          timestamp: new Date(),
+            ipAddress: entry.ipAddress,
+            userAgent: entry.userAgent,
+          },
         },
       });
     } catch (error) {
@@ -119,7 +124,8 @@ class AuditLogger {
     entityId: string,
     details?: Record<string, any>,
     ipAddress?: string,
-    requestId?: string
+    requestId?: string,
+    tenantId?: number
   ): Promise<void> {
     const eventTypeMap = {
       READ: AuditEventType.DATA_READ,
@@ -133,6 +139,7 @@ class AuditLogger {
       severity: action === 'DELETE' ? AuditSeverity.WARNING : AuditSeverity.INFO,
       performedBy: userId,
       performedByEmail: userEmail,
+      tenantId,
       entityType,
       entityId,
       details,
@@ -152,7 +159,8 @@ class AuditLogger {
     ehcpId: string,
     details?: Record<string, any>,
     ipAddress?: string,
-    requestId?: string
+    requestId?: string,
+    tenantId?: number
   ): Promise<void> {
     const eventTypeMap = {
       CREATED: AuditEventType.EHCP_CREATED,
@@ -167,6 +175,7 @@ class AuditLogger {
       severity: action === 'DELETED' ? AuditSeverity.WARNING : AuditSeverity.INFO,
       performedBy: userId,
       performedByEmail: userEmail,
+      tenantId,
       entityType: 'EHCP',
       entityId: ehcpId,
       details,
@@ -186,13 +195,15 @@ class AuditLogger {
     count: number,
     filters?: Record<string, any>,
     ipAddress?: string,
-    requestId?: string
+    requestId?: string,
+    tenantId?: number
   ): Promise<void> {
     await this.log({
       eventType: AuditEventType.BULK_DATA_ACCESS,
       severity: AuditSeverity.INFO,
       performedBy: userId,
       performedByEmail: userEmail,
+      tenantId,
       entityType,
       details: { count, filters },
       ipAddress,
@@ -211,12 +222,14 @@ class AuditLogger {
     entityId?: string,
     ipAddress?: string,
     userAgent?: string,
-    requestId?: string
+    requestId?: string,
+    tenantId?: number
   ): Promise<void> {
     await this.log({
       eventType: AuditEventType.UNAUTHORIZED_ACCESS_ATTEMPT,
       severity: AuditSeverity.CRITICAL,
       performedBy: userId || 'anonymous',
+      tenantId,
       entityType,
       entityId,
       details: { attemptedAction },

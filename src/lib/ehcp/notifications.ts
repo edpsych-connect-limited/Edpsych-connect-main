@@ -96,19 +96,17 @@ async function logEHCPAction(payload: EHCPNotificationPayload): Promise<void> {
     // Create audit log using AuditLog model
     await prisma.auditLog.create({
       data: {
-        userId: payload.actor_id?.toString(),
-        performedById: payload.actor_id?.toString(),
+        userId: payload.actor_id || 0,
+        tenantId: payload.tenant_id,
         action: `ehcp_${payload.action}`,
         resource: 'ehcp',
-        entityType: 'ehcp',
-        entityId: payload.ehcp_id,
-        description: payload.change_summary || `EHCP ${payload.action}`,
-        metadata: {
-          tenant_id: payload.tenant_id,
+        details: {
+          entityType: 'ehcp',
+          entityId: payload.ehcp_id,
+          description: payload.change_summary || `EHCP ${payload.action}`,
           changed_sections: payload.changed_sections,
           actor_name: payload.actor_name,
         },
-        timestamp: new Date(),
       },
     });
   } catch (error) {

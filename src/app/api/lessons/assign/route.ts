@@ -132,8 +132,8 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const tenantId = session.tenant_id;
-    const userId = session.user_id;
+    const tenantId = parseInt(session.tenant_id);
+    const userId = parseInt(session.user_id);
 
     // Verify role (only teachers and admin can assign lessons)
     if (!['teacher', 'admin', 'head_teacher'].includes(session.role)) {
@@ -335,11 +335,14 @@ export async function POST(
     await prisma.auditLog.create({
       data: {
         userId: userId,
-        institutionId: tenantId?.toString(),
+        tenantId: tenantId,
         action: 'lesson_assignment_bulk',
-        description: `Bulk lesson assignment: ${successfulAssignments} students`,
-        ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
-        userAgent: request.headers.get('user-agent') || 'unknown',
+        resource: 'lesson_assignment',
+        details: {
+          description: `Bulk lesson assignment: ${successfulAssignments} students`,
+          ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+          userAgent: request.headers.get('user-agent') || 'unknown',
+        },
       },
     });
 
