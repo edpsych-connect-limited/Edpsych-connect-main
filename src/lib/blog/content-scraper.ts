@@ -25,6 +25,7 @@ interface ScrapedContent {
 interface ContentSource {
   name: string;
   baseUrl: string;
+  rssUrl?: string; // Added RSS URL
   type: 'news' | 'research' | 'policy' | 'practice';
   selectors: {
     articles: string;
@@ -42,6 +43,7 @@ const CONTENT_SOURCES: ContentSource[] = [
   {
     name: 'TES (Times Educational Supplement)',
     baseUrl: 'https://www.tes.com',
+    rssUrl: 'https://www.tes.com/news/feed', // Real RSS
     type: 'news',
     selectors: {
       articles: 'article',
@@ -53,6 +55,7 @@ const CONTENT_SOURCES: ContentSource[] = [
   {
     name: 'Education Week',
     baseUrl: 'https://www.edweek.org',
+    rssUrl: 'https://www.edweek.org/rss', // Real RSS
     type: 'news',
     selectors: {
       articles: '.article',
@@ -64,6 +67,7 @@ const CONTENT_SOURCES: ContentSource[] = [
   {
     name: 'British Psychological Society',
     baseUrl: 'https://www.bps.org.uk',
+    rssUrl: 'https://www.bps.org.uk/rss.xml', // Hypothetical, will fallback if fails
     type: 'research',
     selectors: {
       articles: '.news-item',
@@ -75,6 +79,7 @@ const CONTENT_SOURCES: ContentSource[] = [
   {
     name: 'GOV.UK Education',
     baseUrl: 'https://www.gov.uk/education',
+    rssUrl: 'https://www.gov.uk/search/all.atom?keywords=education&order=updated-newest', // Real Atom feed
     type: 'policy',
     selectors: {
       articles: '.document',
@@ -211,13 +216,90 @@ export class ContentScraper {
    * Fetch articles from source (using RSS/API)
    */
   private async fetchArticles(source: ContentSource): Promise<any[]> {
-    // Simulated fetch - in production would use actual RSS feeds or APIs
-    // Examples:
-    // - TES RSS: https://www.tes.com/rss
-    // - Education Week API
-    // - BPS RSS feeds
-    // - GOV.UK API
+    if (!source.rssUrl) {
+      return this.getSimulatedArticles(source);
+    }
 
+    try {
+      console.log(`[Content Scraper] Fetching RSS from ${source.rssUrl}`);
+      const response = await fetch(source.rssUrl, { next: { revalidate: 3600 } });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const xml = await response.text();
+      const articles = this.parseRSS(xml, source);
+      
+      if (articles.length === 0) {
+        console.warn(`[Content Scraper] No articles found in RSS for ${source.name}, falling back to simulation`);
+        return this.getSimulatedArticles(source);
+      }
+
+      return articles;
+    } catch (error) {
+      console.error(`[Content Scraper] Failed to fetch RSS for ${source.name}:`, error);
+      return this.getSimulatedArticles(source);
+    }
+  }
+
+  /**
+   * Parse RSS/Atom XML
+   */
+  private parseRSS(xml: string, source: ContentSource): any[] {
+    const items: any[] = [];
+    // Simple regex to find <item> or <entry> blocks
+    const itemRegex = /<(item|entry)>([\s\S]*?)<\/\1>/g;
+    let match;
+
+    while ((match = itemRegex.exec(xml)) !== null) {
+      const itemContent = match[2];
+      
+      const titleMatch = /<title[^>]*>([\s\S]*?)<\/title>/.exec(itemContent);
+      const linkMatch = /<link[^>]*href="([^"]*)"[^>]*>|<link>([\s\S]*?)<\/link>/.exec(itemContent);
+      const descMatch = /<description>([\s\S]*?)<\/description>|<summary>([\s\S]*?)<\/summary>|<content[^>]*>([\s\S]*?)<\/content>/.exec(itemContent);
+      const dateMatch = /<pubDate>([\s\S]*?)<\/pubDate>|<updated>([\s\S]*?)<\/updated>/.exec(itemContent);
+
+      if (titleMatch) {
+        const title = this.cleanText(titleMatch[1]);
+        const url = linkMatch ? (linkMatch[1] || linkMatch[2]) : source.baseUrl;
+        const excerpt = descMatch ? this.cleanText(descMatch[1] || descMatch[2] || descMatch[3]) : '';
+        const dateStr = dateMatch ? (dateMatch[1] || dateMatch[2]) : new Date().toISOString();
+
+        items.push({
+          title,
+          url,
+          excerpt: excerpt.substring(0, 200) + '...',
+          fullContent: excerpt, // RSS usually only has excerpt
+          publishedDate: dateStr,
+          source: source.name
+        });
+      }
+    }
+    return items;
+  }
+
+  /**
+   * Clean XML/HTML text
+   */
+  private cleanText(text: string): string {
+    if (!text) return '';
+    return text
+      .replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1') // Extract CDATA
+      .replace(/<[^>]*>/g, '') // Remove HTML tags
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .trim();
+  }
+
+  /**
+   * Get simulated articles (fallback)
+   */
+  private async getSimulatedArticles(source: ContentSource): Promise<any[]> {
     return [
       {
         title: 'New SEND strategy announced',

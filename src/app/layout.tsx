@@ -5,6 +5,7 @@ import './globals.css';
 import { AuthProvider, useAuth } from '@/lib/auth/hooks';
 import { useRouter, usePathname } from 'next/navigation';
 import FeatureExplainer from '@/components/onboarding/FeatureExplainer';
+import { VoiceAssistant } from '@/components/voice/VoiceAssistant';
 
 function HeaderContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -185,6 +186,7 @@ export default function RootLayout({
           <HeaderContent />
           <main className={isLandingPage ? '' : 'p-6'}>{children}</main>
           <FeatureExplainer key={pathname} />
+          <VoiceAssistant />
           {!isLandingPage && (
             <footer className="bg-gray-100 text-center py-4 mt-10 text-sm text-gray-600">
               © {new Date().getFullYear()} EdPsych Connect World. All rights reserved.

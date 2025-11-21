@@ -470,7 +470,7 @@ export class BlogService {
   }
 
   private getResearchAuthor(): BlogAuthor {
-    return this.authors.get('research_lead') || this.getRandomAuthor();
+    return this.authors.get('dr_scott') || this.getRandomAuthor();
   }
 
   private initializeDefaultCategories(): void {
@@ -540,17 +540,6 @@ export class BlogService {
         specializations: ['Child Development', 'Learning Strategies', 'Assessment'],
         socialLinks: {
           linkedin: 'https://linkedin.com/in/drscott',
-          researchgate: 'https://researchgate.net/profile/Scott-Ighavongbe-Patrick'
-        }
-      },
-      {
-        id: 'research_lead',
-        name: 'Dr. Scott Ighavongbe-Patrick',
-        bio: 'Leading researcher in evidence-based educational practices and learning analytics.',
-        credentials: ['DEdPsych', 'CPsychol', 'HCPC Registered'],
-        specializations: ['Research Methodology', 'Learning Analytics', 'Evidence-Based Practice'],
-        socialLinks: {
-          twitter: 'https://twitter.com/drscott',
           researchgate: 'https://researchgate.net/profile/Scott-Ighavongbe-Patrick'
         }
       }

@@ -124,8 +124,8 @@ async function handleLogin(request: NextRequest) {
     const { email, password } = validation.data;
 
     // Find user with tenant information
-    const user = await prismaInstance.users.findUnique({
-      where: { email },
+    const user = await prisma.users.findUnique({
+      where: { email: email.toLowerCase() },
       include: {
         tenants: true,
         professionals: true,

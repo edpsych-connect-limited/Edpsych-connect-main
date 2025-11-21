@@ -33,10 +33,11 @@ export const JWT_CONFIGURATION = {
 
 // Secret keys should be environment variables in production
 const getJwtSecretKey = (): Uint8Array => {
-  const secret = process.env.JWT_SECRET_KEY;
+  // Try NEXTAUTH_SECRET first (used by route.ts), then JWT_SECRET_KEY
+  const secret = process.env.NEXTAUTH_SECRET || process.env.JWT_SECRET_KEY || 'fallback-secret-key';
   
   if (!secret) {
-    throw new Error('JWT_SECRET_KEY environment variable is not set');
+    throw new Error('NEXTAUTH_SECRET or JWT_SECRET_KEY environment variable is not set');
   }
   
   return new TextEncoder().encode(secret);
@@ -129,7 +130,8 @@ export async function verifyRefreshToken<T>(token: string): Promise<T | null> {
  * @returns Decoded JWT payload or null
  */
 export async function getJwtFromRequest<T>(req: NextRequest): Promise<T | null> {
-  const token = req.cookies.get('auth_token')?.value;
+  // Check for 'auth-token' (used by route.ts) or 'auth_token' (legacy)
+  const token = req.cookies.get('auth-token')?.value || req.cookies.get('auth_token')?.value;
   
   if (!token) {
     return null;
@@ -150,7 +152,8 @@ export function setAuthCookie(
   token: string, 
   expirationTime: number = JWT_CONFIGURATION.ACCESS_TOKEN_EXPIRATION
 ): NextResponse {
-  res.cookies.set('auth_token', token, {
+  // Use 'auth-token' to match route.ts
+  res.cookies.set('auth-token', token, {
     ...JWT_CONFIGURATION.COOKIE_OPTIONS,
     maxAge: expirationTime,
   });

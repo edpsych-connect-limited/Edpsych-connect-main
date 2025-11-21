@@ -225,7 +225,7 @@ export class BlogPostGenerator {
       slug,
       excerpt,
       content,
-      author: 'EdPsych Connect Editorial Team',
+      author: 'Dr. Scott Ighavongbe-Patrick',
       category,
       tags,
       sources,
