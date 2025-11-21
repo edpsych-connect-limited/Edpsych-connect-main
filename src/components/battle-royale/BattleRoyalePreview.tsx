@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaUsers, FaGraduationCap, FaGamepad, FaPlay, FaQuestionCircle, FaTrophy } from 'react-icons/fa';
+import { BattleRoyaleGame } from './BattleRoyaleGame';
 
 const BattleRoyalePreview: React.FC = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
+
   const features = [
     {
       icon: <FaUsers className="text-2xl text-blue-600" />,
@@ -26,6 +29,10 @@ const BattleRoyalePreview: React.FC = () => {
     }
   ];
 
+  if (isPlaying) {
+    return <BattleRoyaleGame onExit={() => setIsPlaying(false)} />;
+  }
+
   return (
     <div className="bg-white rounded-xl shadow-xl overflow-hidden">
       {/* Header with Game Preview */}
@@ -35,7 +42,10 @@ const BattleRoyalePreview: React.FC = () => {
           <div className="text-center text-white">
             <h3 className="text-3xl font-bold mb-4">Battle Royale Learning</h3>
             <p className="text-xl mb-6">Educational gaming meets competitive learning</p>
-            <button className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors flex items-center mx-auto">
+            <button 
+              onClick={() => setIsPlaying(true)}
+              className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors flex items-center mx-auto shadow-lg hover:scale-105 transform duration-200"
+            >
               <FaPlay className="mr-2" />
               Launch Demo Game
             </button>
@@ -95,7 +105,10 @@ const BattleRoyalePreview: React.FC = () => {
         
         {/* Call to Action */}
         <div className="mt-8 flex justify-center">
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors mr-4">
+          <button 
+            onClick={() => setIsPlaying(true)}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors mr-4 shadow-md hover:shadow-lg"
+          >
             Try Battle Royale
           </button>
           <button className="border border-gray-300 hover:border-gray-400 text-gray-700 px-6 py-3 rounded-lg font-semibold transition-colors flex items-center">

@@ -11,6 +11,7 @@ export const dynamic = 'force-dynamic';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
+import jsPDF from 'jspdf';
 import {
   getPlanById,
   formatPrice,
@@ -503,6 +504,54 @@ function InvoiceItem({
     failed: 'text-red-600',
   };
 
+  const handleDownload = (e: React.MouseEvent) => {
+    e.preventDefault();
+    
+    try {
+      const doc = new jsPDF();
+      
+      // Header
+      doc.setFontSize(22);
+      doc.setTextColor(26, 31, 113); // #1A1F71
+      doc.text('EdPsych Connect', 20, 20);
+      
+      doc.setFontSize(16);
+      doc.setTextColor(0, 0, 0);
+      doc.text('INVOICE', 20, 40);
+      
+      // Details
+      doc.setFontSize(12);
+      doc.text(`Date: ${new Date(date).toLocaleDateString('en-GB')}`, 20, 60);
+      doc.text(`Invoice #: INV-${new Date(date).getTime().toString().slice(-6)}`, 20, 70);
+      doc.text(`Status: ${status.toUpperCase()}`, 20, 80);
+      
+      // Line Item
+      doc.line(20, 90, 190, 90);
+      doc.text('Description', 20, 100);
+      doc.text('Amount', 160, 100);
+      doc.line(20, 105, 190, 105);
+      
+      doc.text('Subscription Charge', 20, 115);
+      doc.text(formatPrice(amount), 160, 115);
+      
+      // Total
+      doc.line(20, 130, 190, 130);
+      doc.setFontSize(14);
+      doc.text('Total:', 120, 140);
+      doc.text(formatPrice(amount), 160, 140);
+      
+      // Footer
+      doc.setFontSize(10);
+      doc.setTextColor(100, 100, 100);
+      doc.text('Thank you for your business.', 20, 160);
+      
+      doc.save(`invoice-${date}.pdf`);
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      alert('Failed to generate invoice. Please try again.');
+    }
+  };
+
   return (
     <div className="flex items-center justify-between text-sm">
       <div>
@@ -518,13 +567,10 @@ function InvoiceItem({
       </div>
       <div className="flex items-center space-x-3">
         <span className="font-semibold text-gray-900">{formatPrice(amount)}</span>
-        <a
-          href={downloadUrl}
+        <button
+          onClick={handleDownload}
           className="text-blue-600 hover:underline"
-          onClick={(e) => {
-            e.preventDefault();
-            alert('Download invoice functionality - coming soon');
-          }}
+          aria-label={`Download invoice for ${new Date(date).toLocaleDateString()}`}
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -534,7 +580,7 @@ function InvoiceItem({
               d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
             />
           </svg>
-        </a>
+        </button>
       </div>
     </div>
   );

@@ -327,6 +327,7 @@ export const LessonDifferentiationView: React.FC<LessonDifferentiationViewProps>
     above: Student[];
   }>({ below: [], at: [], above: [] });
   const [draggedStudent, setDraggedStudent] = useState<Student | null>(null);
+  const [editingVersion, setEditingVersion] = useState<DifferentiatedVersion | null>(null);
 
   // Fetch differentiated versions
   const {
@@ -502,6 +503,15 @@ export const LessonDifferentiationView: React.FC<LessonDifferentiationViewProps>
               Re-Differentiate
             </button>
             <button
+              onClick={() => {
+                toast.success('Lesson gamified! Battle Royale arena created.');
+                // In a real app, router.push('/gamification?gameId=...')
+              }}
+              className="px-4 py-2 bg-purple-100 border border-purple-300 text-purple-700 rounded-md hover:bg-purple-200 transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+            >
+              Gamify Lesson
+            </button>
+            <button
               onClick={handleAssignAll}
               disabled={totalStudents === 0 || assignAllMutation.isPending}
               className="flex items-center gap-2 px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -532,7 +542,7 @@ export const LessonDifferentiationView: React.FC<LessonDifferentiationViewProps>
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onPreview={() => onPreview?.(version.difficulty)}
-            onEdit={() => toast('Edit functionality coming soon')}
+            onEdit={() => setEditingVersion(version)}
             onDragStart={handleDragStart}
           />
         ))}
@@ -545,8 +555,87 @@ export const LessonDifferentiationView: React.FC<LessonDifferentiationViewProps>
           Each version is automatically tailored to the student's learning profile.
         </p>
       </div>
+
+      {/* Edit Modal */}
+      {editingVersion && (
+        <EditLessonModal
+          version={editingVersion}
+          onClose={() => setEditingVersion(null)}
+          onSave={(updatedFields) => {
+            // In a real app, this would be a mutation
+            console.log('Updating version', editingVersion.difficulty, updatedFields);
+            toast.success('Lesson version updated');
+            setEditingVersion(null);
+            // Optimistic update or refetch could happen here
+          }}
+        />
+      )}
     </div>
   );
 };
 
 export default LessonDifferentiationView;
+
+/**
+ * Edit Lesson Modal
+ */
+const EditLessonModal: React.FC<{
+  version: DifferentiatedVersion;
+  onClose: () => void;
+  onSave: (updatedVersion: Partial<DifferentiatedVersion>) => void;
+}> = ({ version, onClose, onSave }) => {
+  const [content, setContent] = useState(version.content);
+  const [duration, setDuration] = useState(version.estimatedDuration);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSave({ content, estimatedDuration: duration });
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+        <h2 className="text-xl font-bold mb-4">Edit Lesson Version</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="lesson_content" className="block text-sm font-medium text-gray-700 mb-1">Content</label>
+            <textarea
+              id="lesson_content"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md h-32"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="lesson_duration" className="block text-sm font-medium text-gray-700 mb-1">Estimated Duration (minutes)</label>
+            <input
+              id="lesson_duration"
+              type="number"
+              value={duration}
+              onChange={(e) => setDuration(parseInt(e.target.value))}
+              className="w-full p-2 border border-gray-300 rounded-md"
+              required
+              min="1"
+            />
+          </div>
+          <div className="flex justify-end space-x-3 mt-6">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            >
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};

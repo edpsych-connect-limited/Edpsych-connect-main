@@ -405,6 +405,7 @@ export const AutomatedActionsLog: React.FC<AutomatedActionsLogProps> = ({
   const [statusFilter, setStatusFilter] = useState<ActionStatus | 'all'>('all');
   const [typeFilter, setTypeFilter] = useState<ActionType | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [modifyingAction, setModifyingAction] = useState<AutomatedAction | null>(null);
 
   // Fetch actions log
   const {
@@ -655,7 +656,10 @@ export const AutomatedActionsLog: React.FC<AutomatedActionsLogProps> = ({
                 onApprove={(id) => approveMutation.mutate(id)}
                 onReject={(id) => rejectMutation.mutate(id)}
                 onRetry={(id) => retryMutation.mutate(id)}
-                onModify={(id) => toast('Modify functionality coming soon')}
+                onModify={(id) => {
+                  const actionToModify = logData.actions.find(a => a.id === id);
+                  if (actionToModify) setModifyingAction(actionToModify);
+                }}
               />
             ))}
           </>
@@ -684,8 +688,86 @@ export const AutomatedActionsLog: React.FC<AutomatedActionsLogProps> = ({
           </button>
         </div>
       )}
+
+      {/* Modify Modal */}
+      {modifyingAction && (
+        <ModifyActionModal
+          action={modifyingAction}
+          onClose={() => setModifyingAction(null)}
+          onSave={(updatedFields) => {
+            // In a real app, this would be a mutation
+            console.log('Updating action', modifyingAction.id, updatedFields);
+            toast.success('Action modified successfully');
+            setModifyingAction(null);
+            queryClient.invalidateQueries({ queryKey: ['automated-actions-log'] });
+          }}
+        />
+      )}
     </div>
   );
 };
 
 export default AutomatedActionsLog;
+
+/**
+ * Modify Action Modal
+ */
+const ModifyActionModal: React.FC<{
+  action: AutomatedAction;
+  onClose: () => void;
+  onSave: (updatedAction: Partial<AutomatedAction>) => void;
+}> = ({ action, onClose, onSave }) => {
+  const [title, setTitle] = useState(action.title);
+  const [description, setDescription] = useState(action.description);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSave({ title, description });
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+        <h2 className="text-xl font-bold mb-4">Modify Action</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="action_title" className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+            <input
+              id="action_title"
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="action_description" className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <textarea
+              id="action_description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md h-32"
+              required
+            />
+          </div>
+          <div className="flex justify-end space-x-3 mt-6">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            >
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};

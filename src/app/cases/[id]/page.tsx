@@ -39,6 +39,14 @@ interface CaseDetail {
   metadata?: any;
   created_at: string;
   updated_at: string;
+  notes?: Note[];
+}
+
+interface Note {
+  id: number;
+  content: string;
+  author: string;
+  created_at: string;
 }
 
 export default function CaseDetailPage({ params }: CaseDetailProps) {
@@ -50,8 +58,11 @@ export default function CaseDetailPage({ params }: CaseDetailProps) {
   const [activeTab, setActiveTab] = useState<'overview' | 'interventions' | 'notes' | 'timeline'>(
     'overview'
   );
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showNoteModal, setShowNoteModal] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => {
+
 
     if (status === 'authenticated') {
       loadCase();
@@ -101,12 +112,43 @@ export default function CaseDetailPage({ params }: CaseDetailProps) {
         },
         created_at: '2025-09-15T10:00:00Z',
         updated_at: '2025-10-28T14:30:00Z',
+        notes: [
+          {
+            id: 1,
+            content: 'Initial consultation with class teacher completed.',
+            author: 'Dr. Sarah Jones',
+            created_at: '2025-09-16T14:00:00Z'
+          }
+        ]
       };
       setCaseDetail(mockCase);
     } catch (error) {
       console.error('Failed to load case:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleUpdateCase = (updatedFields: Partial<CaseDetail>) => {
+    if (caseDetail) {
+      setCaseDetail({ ...caseDetail, ...updatedFields });
+      setShowEditModal(false);
+    }
+  };
+
+  const handleAddNote = (content: string) => {
+    if (caseDetail) {
+      const newNote: Note = {
+        id: Date.now(),
+        content,
+        author: 'Current User', // In real app, get from session
+        created_at: new Date().toISOString(),
+      };
+      setCaseDetail({
+        ...caseDetail,
+        notes: [newNote, ...(caseDetail.notes || [])],
+      });
+      setShowNoteModal(false);
     }
   };
 
@@ -250,13 +292,13 @@ export default function CaseDetailPage({ params }: CaseDetailProps) {
               + New Assessment
             </button>
             <button
-              onClick={() => alert('Edit case functionality - coming soon')}
+              onClick={() => setShowEditModal(true)}
               className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
             >
               Edit Case
             </button>
             <button
-              onClick={() => alert('Add note functionality - coming soon')}
+              onClick={() => setShowNoteModal(true)}
               className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
             >
               Add Note
@@ -316,10 +358,25 @@ export default function CaseDetailPage({ params }: CaseDetailProps) {
             {activeTab === 'interventions' && (
               <InterventionsTab caseId={caseDetail.id} router={router} />
             )}
-            {activeTab === 'notes' && <NotesTab caseId={caseDetail.id} />}
+            {activeTab === 'notes' && <NotesTab notes={caseDetail.notes || []} onAddNote={() => setShowNoteModal(true)} />}
             {activeTab === 'timeline' && <TimelineTab caseDetail={caseDetail} />}
           </div>
         </div>
+
+        {/* Modals */}
+        {showEditModal && (
+          <EditCaseModal
+            caseDetail={caseDetail}
+            onClose={() => setShowEditModal(false)}
+            onSave={handleUpdateCase}
+          />
+        )}
+        {showNoteModal && (
+          <AddNoteModal
+            onClose={() => setShowNoteModal(false)}
+            onSave={handleAddNote}
+          />
+        )}
       </div>
     </div>
   );
@@ -454,15 +511,191 @@ function InterventionsTab({ caseId, router }: { caseId: number; router: any }) {
 // NOTES TAB
 // ============================================================================
 
-function NotesTab({ caseId }: { caseId: number }) {
+function NotesTab({ notes, onAddNote }: { notes: Note[]; onAddNote: () => void }) {
+  if (notes.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <div className="text-gray-400 text-6xl mb-4">📝</div>
+        <h3 className="text-xl font-semibold text-gray-900 mb-2">No Case Notes</h3>
+        <p className="text-gray-600 mb-6">Case notes will appear here</p>
+        <button 
+          onClick={onAddNote}
+          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
+        >
+          Add First Note
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <div className="text-center py-12">
-      <div className="text-gray-400 text-6xl mb-4">📝</div>
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">No Case Notes</h3>
-      <p className="text-gray-600 mb-6">Case notes will appear here</p>
-      <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold">
-        Add First Note
-      </button>
+    <div className="space-y-4">
+      {notes.map((note) => (
+        <div key={note.id} className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+          <div className="flex justify-between items-start mb-2">
+            <div className="font-semibold text-gray-900">{note.author}</div>
+            <div className="text-sm text-gray-500">
+              {new Date(note.created_at).toLocaleString()}
+            </div>
+          </div>
+          <p className="text-gray-700 whitespace-pre-wrap">{note.content}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ============================================================================
+// MODALS
+// ============================================================================
+
+function EditCaseModal({
+  caseDetail,
+  onClose,
+  onSave,
+}: {
+  caseDetail: CaseDetail;
+  onClose: () => void;
+  onSave: (data: Partial<CaseDetail>) => void;
+}) {
+  const [formData, setFormData] = useState({
+    student_name: caseDetail.student_name,
+    school: caseDetail.school,
+    status: caseDetail.status,
+    priority: caseDetail.priority,
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSave(formData);
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+        <h2 className="text-xl font-bold mb-4">Edit Case Details</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="student_name" className="block text-sm font-medium text-gray-700 mb-1">Student Name</label>
+            <input
+              id="student_name"
+              type="text"
+              value={formData.student_name}
+              onChange={(e) => setFormData({ ...formData, student_name: e.target.value })}
+              className="w-full p-2 border border-gray-300 rounded-md"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="school" className="block text-sm font-medium text-gray-700 mb-1">School</label>
+            <input
+              id="school"
+              type="text"
+              value={formData.school}
+              onChange={(e) => setFormData({ ...formData, school: e.target.value })}
+              className="w-full p-2 border border-gray-300 rounded-md"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+            <select
+              id="status"
+              value={formData.status}
+              onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
+              className="w-full p-2 border border-gray-300 rounded-md"
+            >
+              <option value="referral">Referral</option>
+              <option value="assessment">Assessment</option>
+              <option value="intervention">Intervention</option>
+              <option value="review">Review</option>
+              <option value="closed">Closed</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="priority" className="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+            <select
+              id="priority"
+              value={formData.priority}
+              onChange={(e) => setFormData({ ...formData, priority: e.target.value as any })}
+              className="w-full p-2 border border-gray-300 rounded-md"
+            >
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+              <option value="urgent">Urgent</option>
+            </select>
+          </div>
+          <div className="flex justify-end space-x-3 mt-6">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            >
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+function AddNoteModal({
+  onClose,
+  onSave,
+}: {
+  onClose: () => void;
+  onSave: (content: string) => void;
+}) {
+  const [content, setContent] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (content.trim()) {
+      onSave(content);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+        <h2 className="text-xl font-bold mb-4">Add Case Note</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="note_content" className="block text-sm font-medium text-gray-700 mb-1">Note Content</label>
+            <textarea
+              id="note_content"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md h-32"
+              placeholder="Enter your note here..."
+              required
+            />
+          </div>
+          <div className="flex justify-end space-x-3 mt-6">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            >
+              Add Note
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
