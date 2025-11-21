@@ -20,6 +20,7 @@ import {
   getUpgradeRecommendation,
   type SubscriptionPlan,
 } from '@/lib/subscription/plans';
+import { ProgressBar } from '@/components/ui/ProgressBar';
 
 interface SubscriptionData {
   id: number;
@@ -441,14 +442,6 @@ export default function SubscriptionManagementPage() {
 // USAGE BAR COMPONENT
 // ============================================================================
 
-// ...existing code...
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/lib/auth/hooks';
-import jsPDF from 'jspdf';
-import { ProgressBar } from '@/components/ui/ProgressBar';
-import {
-  getPlanById,
-// ...existing code...
 function UsageBar({
   label,
   current,
@@ -485,7 +478,6 @@ function UsageBar({
     </div>
   );
 }
-// ...existing code...
 
 // ============================================================================
 // INVOICE ITEM COMPONENT

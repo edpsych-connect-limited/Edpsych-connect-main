@@ -17,6 +17,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Play, CheckCircle, Target, Zap, Shield, Users, TrendingUp } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useOnboarding } from '../OnboardingProvider';
+import { ProgressBar } from '@/components/ui/ProgressBar';
 
 export function Step1Welcome() {
   const { state, updateStep } = useOnboarding();
@@ -194,15 +195,6 @@ export function Step1Welcome() {
             </div>
           )}
 
-          // ...existing code...
-import { Play, CheckCircle, Target, Zap, Shield, Users, TrendingUp } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { useOnboarding } from '../OnboardingProvider';
-import { ProgressBar } from '@/components/ui/ProgressBar';
-
-export function Step1Welcome() {
-  const { state, updateStep } = useOnboarding();
-// ...existing code...
           {/* Progress Indicator */}
           {videoStarted && videoWatchPercentage > 0 && (
             <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-700 bg-opacity-50">
@@ -216,10 +208,6 @@ export function Step1Welcome() {
               />
             </div>
           )}
-        </div>
-
-        {videoStarted && videoWatchPercentage >= 80 && (
-// ...existing code...
         </div>
 
         {videoStarted && videoWatchPercentage >= 80 && (

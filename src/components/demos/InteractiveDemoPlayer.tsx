@@ -13,6 +13,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { ProgressBar } from '@/components/ui/ProgressBar';
 
 interface DemoStep {
   id: string;
@@ -118,13 +119,6 @@ export default function InteractiveDemoPlayer({
 
         {/* Progress Bar */}
         <div className="mt-4">
-          // ...existing code...
-import React, { useState, useEffect } from 'react';
-import { ProgressBar } from '@/components/ui/ProgressBar';
-
-interface DemoStep {
-  id: string;
-// ...existing code...
           <div className="flex items-center justify-between text-sm mb-2">
             <span>Step {currentStep + 1} of {totalSteps}</span>
             <span>{Math.round(progress)}% complete</span>
@@ -135,11 +129,6 @@ interface DemoStep {
             colorClass="bg-white" 
             trackColorClass="bg-blue-400/30"
           />
-        </div>
-      </div>
-
-      {/* Step Navigation */}
-// ...existing code...
         </div>
       </div>
 
