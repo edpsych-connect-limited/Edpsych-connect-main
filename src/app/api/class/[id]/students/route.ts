@@ -156,8 +156,8 @@ export async function GET(
     }
 
     const { id: classId } = params;
-    const tenantId = parseInt(session.tenant_id);
-    const userId = parseInt(session.user_id);
+    const tenantId = session.tenant_id || 0;
+    const userId = parseInt(session.id);
 
     console.log(`[Class Students API] GET request - Class: ${classId}, User: ${userId}, Tenant: ${tenantId}`);
 

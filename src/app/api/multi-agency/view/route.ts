@@ -116,7 +116,7 @@ export async function GET(
     await prisma.auditLog.create({
       data: {
         userId: parseInt(userId),
-        tenantId: parseInt(tenantId),
+        tenantId: tenantId || 0,
         action: 'multi_agency_view',
         resource: 'multi_agency_view',
         details: {

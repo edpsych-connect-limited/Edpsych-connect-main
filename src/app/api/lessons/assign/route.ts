@@ -132,8 +132,8 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const tenantId = parseInt(session.tenant_id);
-    const userId = parseInt(session.user_id);
+    const tenantId = session.tenant_id || 0;
+    const userId = parseInt(session.id);
 
     // Verify role (only teachers and admin can assign lessons)
     if (!['teacher', 'admin', 'head_teacher'].includes(session.role)) {

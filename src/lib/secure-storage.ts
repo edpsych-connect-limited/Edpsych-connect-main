@@ -136,6 +136,9 @@ export async function getFromSecureStorage(path: string): Promise<string> {
 
     // Check if encrypted
     if (metadata.encryptionAlgorithm === ENCRYPTION_ALGORITHM) {
+      if (!document.content) {
+        throw new Error('Document content is empty');
+      }
       // Decrypt the content
       const iv = Buffer.from(metadata.iv, 'hex');
       const encryptedContent = Buffer.from(document.content, 'base64');
@@ -144,7 +147,7 @@ export async function getFromSecureStorage(path: string): Promise<string> {
     }
 
     // Return unencrypted content
-    return document.content;
+    return document.content || '';
   } catch (error) {
     const retrieveError = error as Error;
     logger.error(`Error retrieving document from secure storage: ${retrieveError.message}`, {

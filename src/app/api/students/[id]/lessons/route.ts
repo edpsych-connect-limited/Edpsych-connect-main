@@ -87,8 +87,8 @@ export async function GET(
     }
 
     const { id: studentId } = params;
-    const tenantId = parseInt(session.tenant_id);
-    const userId = parseInt(session.user_id);
+    const tenantId = session.tenant_id || 0;
+    const userId = parseInt(session.id);
 
     // Query parameters
     const { searchParams } = new URL(request.url);
