@@ -179,7 +179,7 @@ export function Step5QuickWins() {
           Get Your First Quick Wins! 🎯
         </h2>
         <p className="text-lg text-gray-600">
-          Complete these hands-on tasks to experience the platform's key workflows
+          Complete these hands-on tasks to experience the platform&apos;s key workflows
         </p>
       </div>
 
@@ -417,7 +417,7 @@ export function Step5QuickWins() {
           <AlertCircle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
           <div className="text-sm text-yellow-800">
             <p className="font-medium mb-1">Complete all tasks to continue</p>
-            <p>These quick wins will help you get familiar with the platform's core workflows.</p>
+            <p>These quick wins will help you get familiar with the platform&apos;s core workflows.</p>
           </div>
         </div>
       )}

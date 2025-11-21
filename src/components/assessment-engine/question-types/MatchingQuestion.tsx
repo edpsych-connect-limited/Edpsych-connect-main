@@ -66,7 +66,13 @@ const MatchingQuestion: React.FC<MatchingQuestionProps> = ({
 
   useEffect(() => {
     if (sortedPairs.length > 0) {
-      setShuffledResponses([...sortedPairs].sort(() => Math.random() - 0.5));
+      // Fisher-Yates shuffle
+      const shuffled = [...sortedPairs];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      setShuffledResponses(shuffled);
     }
   }, [sortedPairs]);
 

@@ -41,7 +41,7 @@ export default function ResearchFoundation() {
             transition={{ delay: 0.2 }}
             className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
           >
-            We don't just guess. Every feature in EdPsych Connect is grounded in peer-reviewed research, 
+            We don&apos;t just guess. Every feature in EdPsych Connect is grounded in peer-reviewed research, 
             developmental psychology, and over a decade of frontline clinical practice.
           </motion.p>
         </div>
@@ -107,8 +107,8 @@ export default function ResearchFoundation() {
                 </div>
                 
                 <p className="text-slate-600 leading-relaxed">
-                  Guided by one of the UK's leading voices in Positive Psychology. Our framework 
-                  isn't just about fixing deficits—it's about identifying and amplifying 
+                  Guided by one of the UK&apos;s leading voices in Positive Psychology. Our framework 
+                  isn&apos;t just about fixing deficits—it&apos;s about identifying and amplifying 
                   strengths using rigorous positive psychology interventions.
                 </p>
               </div>

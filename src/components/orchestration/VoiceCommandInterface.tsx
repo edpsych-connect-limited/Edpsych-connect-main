@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { Mic, MicOff, Send, Loader2, Volume2, AlertCircle, History } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -100,16 +100,23 @@ const isSpeechRecognitionSupported = (): boolean => {
  * Waveform visualization component for recording state
  */
 const WaveformVisualization: React.FC = () => {
+  const bars = useMemo(() => [1, 2, 3, 4, 5, 6, 7].map((i) => ({
+    id: i,
+    height: Math.random() * 60 + 40,
+    delay: i * 0.1,
+    duration: 0.5 + Math.random() * 0.5
+  })), []);
+
   return (
     <div className="flex items-center gap-1 h-8" role="img" aria-label="Recording in progress">
-      {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+      {bars.map((bar) => (
         <div
-          key={i}
+          key={bar.id}
           className="w-1 bg-blue-600 rounded-full animate-pulse"
           style={{
-            height: `${Math.random() * 60 + 40}%`,
-            animationDelay: `${i * 0.1}s`,
-            animationDuration: `${0.5 + Math.random() * 0.5}s`,
+            height: `${bar.height}%`,
+            animationDelay: `${bar.delay}s`,
+            animationDuration: `${bar.duration}s`,
           }}
           aria-hidden="true"
         />

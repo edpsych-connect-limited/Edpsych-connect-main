@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useMemo } from 'react';
 
 // Map of icon names to their dynamic imports
 const iconMap: Record<string, () => Promise<any>> = {
@@ -50,7 +50,7 @@ export const OptimizedIcon: React.FC<OptimizedIconProps> = ({
   }
   
   // Dynamically load the icon component
-  const IconComponent = lazy(iconMap[name]);
+  const IconComponent = useMemo(() => lazy(iconMap[name]), [name]);
   
   return (
     <Suspense fallback={<IconFallback />}>

@@ -121,12 +121,12 @@ export class BetaAccessService {
   }
 
   /**
-   * Use a beta access code (decrements remaining uses)
+   * Redeem a beta access code (decrements remaining uses)
    * 
    * @param code The access code to use
    * @returns Success status and updated code details
    */
-  public static async useAccessCode(code: string): Promise<{
+  public static async redeemAccessCode(code: string): Promise<{
     success: boolean;
     code?: {
       id: string;
@@ -182,7 +182,7 @@ export class BetaAccessService {
   ): Promise<{success: boolean}> {
     try {
       // First use the access code (decrements remaining uses)
-      const useResult = await this.useAccessCode(code);
+      const useResult = await this.redeemAccessCode(code);
       
       if (!useResult.success || !useResult.code) {
         throw new Error(useResult.error || 'Failed to use access code');
@@ -273,5 +273,5 @@ export function redeemBetaAccessCode(code: string): Promise<{
   success: boolean;
   error?: string;
 }> {
-  return BetaAccessService.useAccessCode(code);
+  return BetaAccessService.redeemAccessCode(code);
 }

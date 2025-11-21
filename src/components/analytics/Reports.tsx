@@ -236,14 +236,14 @@ function CreateReportModal({
   onClose: () => void;
   onCreate: (config: Omit<ReportConfig, 'id' | 'createdAt' | 'updatedAt'>) => void;
 }) {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState(() => ({
     name: '',
     type: 'user-activity' as ReportConfig['type'],
     dateRange: {
       start: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
       end: new Date()
     }
-  });
+  }));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

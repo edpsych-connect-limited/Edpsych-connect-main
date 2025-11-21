@@ -1,0 +1,11 @@
+  ▲ Next.js 14.2.33
+  - Environments: .env.local, .env
+  - Experiments (use with caution):
+    · cpus
+    · instrumentationHook
+
+   Creating an optimized production build ...
+SyntaxError: Expected double-quoted property name in JSON at position 327560
+    at JSON.parse (<anonymous>)
+    at patchIncorrectLockfile (/mnt/c/EdpsychConnect/node_modules/next/dist/lib/patch-incorrect-lockfile.js:94:33)
+Killed

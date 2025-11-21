@@ -129,11 +129,6 @@ export default function InterventionDesigner({
   const [selectedCategory, setSelectedCategory] =
     useState<InterventionCategory | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredInterventions, setFilteredInterventions] = useState<
-    InterventionTemplate[]
-  >(INTERVENTION_LIBRARY);
-  const [recommendations, setRecommendations] =
-    useState<RecommendationResponse | null>(null);
   const [selectedIntervention, setSelectedIntervention] =
     useState<InterventionTemplate | null>(null);
 
@@ -145,7 +140,9 @@ export default function InterventionDesigner({
   // RECOMMENDATION FUNCTIONS
   // ============================================================================
 
-  const loadRecommendations = () => {
+  const recommendations = React.useMemo(() => {
+    if (!initialData?.initialData?.targetNeeds || []?.length === 0) return null;
+
     const request: RecommendationRequest = {
       student_profile: {
         student_id: initialData?.studentId || "unknown",
@@ -159,12 +156,11 @@ export default function InterventionDesigner({
       priority_level: 'high',
     };
 
-    const response = generateRecommendations(request);
-    setRecommendations(response);
-  };
+    return generateRecommendations(request);
+  }, [initialData]);
 
   // Filter interventions
-  useEffect(() => {
+  const filteredInterventions = React.useMemo(() => {
     let filtered = [...INTERVENTION_LIBRARY];
 
     // Category filter
@@ -177,16 +173,8 @@ export default function InterventionDesigner({
       filtered = searchInterventions(searchQuery);
     }
 
-    setFilteredInterventions(filtered);
+    return filtered;
   }, [selectedCategory, searchQuery]);
-
-  // Load recommendations on mount
-  useEffect(() => {
-    // TODO: Load recommendations based on case data
-    if (initialData?.initialData?.targetNeeds || []?.length > 0) {
-      loadRecommendations();
-    }
-  }, [initialData]);
 
   // ============================================================================
   // PLAN MANAGEMENT

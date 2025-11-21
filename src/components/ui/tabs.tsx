@@ -59,7 +59,6 @@ const TabsTrigger = React.forwardRef<
   const a11yProps = { role: "tab" }
 
   return (
-    // eslint-disable-next-line jsx-a11y/aria-required-parent
     <button
       ref={ref}
       type="button"

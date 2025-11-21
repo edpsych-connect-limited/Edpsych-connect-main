@@ -32,10 +32,10 @@ const LongAnswerQuestion: React.FC<LongAnswerQuestionProps> = ({
 
   // Initialize from current answer if available
   useEffect(() => {
-    if (currentAnswer && currentAnswer.text) {
+    if (currentAnswer && currentAnswer.text && currentAnswer.text !== answer) {
       setAnswer(currentAnswer.text);
     }
-  }, [currentAnswer]);
+  }, [currentAnswer, answer]);
 
   // Handle textarea change
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

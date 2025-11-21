@@ -542,7 +542,7 @@ function QuizElement({ element, enrollmentId, onComplete }: InteractiveElementRe
           </div>
         </div>
         {score >= (element.passingScore || 70) ? (
-          <p className="text-green-800">Excellent work! You've passed this quiz.</p>
+          <p className="text-green-800">Excellent work! You&apos;ve passed this quiz.</p>
         ) : (
           <p className="text-yellow-800">You can retake this quiz to improve your score.</p>
         )}
@@ -617,7 +617,7 @@ function QuizElement({ element, enrollmentId, onComplete }: InteractiveElementRe
               <p className="font-bold text-lg mb-2">
                 {selectedAnswers[currentQuestionIndex] === currentQuestion.correct_answer
                   ? 'Excellent!'
-                  : 'Not quite, but you\'re learning!'}
+                  : 'Not quite, but you&apos;re learning!'}
               </p>
               <p className="text-sm text-gray-700">{currentQuestion.explanation}</p>
             </div>
@@ -702,7 +702,7 @@ function ScenarioElement({ element, enrollmentId, onComplete }: InteractiveEleme
       <div className="bg-purple-50 border border-purple-200 rounded-lg p-6">
         <h3 className="text-xl font-semibold text-purple-900 mb-4">Scenario Complete</h3>
         <p className="text-purple-800 mb-4">
-          You've worked through this scenario. Your decisions demonstrate {totalScore >= 70 ? 'excellent' : 'good'} professional judgment.
+          You&apos;ve worked through this scenario. Your decisions demonstrate {totalScore >= 70 ? 'excellent' : 'good'} professional judgment.
         </p>
         <div className="bg-white rounded p-4">
           <h4 className="font-semibold mb-2">Key Learning Points:</h4>
@@ -938,7 +938,7 @@ function InteractiveDiagramElement({ element, enrollmentId, onComplete }: Intera
 
       {allExplored && (
         <div className="mt-4 p-4 bg-green-50 rounded-lg">
-          <p className="text-green-800">✓ You've explored all areas of this diagram!</p>
+          <p className="text-green-800">✓ You&apos;ve explored all areas of this diagram!</p>
         </div>
       )}
     </div>

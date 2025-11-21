@@ -419,17 +419,17 @@ interface HotspotImageProps {
 export function HotspotImageElement({ element, onComplete }: HotspotImageProps) {
   const [selectedHotspots, setSelectedHotspots] = useState<string[]>([]);
   const [currentHotspot, setCurrentHotspot] = useState<any | null>(null);
-  const [isComplete, setIsComplete] = useState(false);
+  const completedRef = useRef(false);
 
   const hotspots = element.content.hotspots || [];
   const allExplored = selectedHotspots.length === hotspots.length;
 
   useEffect(() => {
-    if (allExplored && !isComplete) {
-      setIsComplete(true);
+    if (allExplored && !completedRef.current) {
+      completedRef.current = true;
       onComplete(100);
     }
-  }, [allExplored, isComplete, onComplete]);
+  }, [allExplored, onComplete]);
 
   const handleHotspotClick = (hotspot: any) => {
     if (!selectedHotspots.includes(hotspot.id)) {
