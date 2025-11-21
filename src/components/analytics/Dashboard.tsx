@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { analyticsService } from '../../lib/analytics';
 import type { Dashboard, DashboardWidget } from '../../lib/analytics';
 import { logError } from '../../lib/logger';
@@ -25,12 +25,7 @@ export default function Dashboard({ dashboardId = 'default' }: DashboardProps) {
   const [loading, setLoading] = useState(true);
   const [realTimeData, setRealTimeData] = useState<RealTimeDataState>({});
 
-  useEffect(() => {
-    loadDashboard();
-    setupRealTimeUpdates();
-  }, [dashboardId]);
-
-  const loadDashboard = async () => {
+  const loadDashboard = useCallback(async () => {
     try {
       const dashboardData = analyticsService.getDashboard(dashboardId);
       setDashboard(dashboardData);
@@ -39,9 +34,9 @@ export default function Dashboard({ dashboardId = 'default' }: DashboardProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [dashboardId]);
 
-  const setupRealTimeUpdates = () => {
+  const setupRealTimeUpdates = useCallback(() => {
     // In production, this would connect to WebSocket for real-time updates
     const interval = setInterval(async () => {
       const metrics = await analyticsService.getRealtimeMetrics();
@@ -49,7 +44,13 @@ export default function Dashboard({ dashboardId = 'default' }: DashboardProps) {
     }, 5000); // Update every 5 seconds
 
     return () => clearInterval(interval);
-  };
+  }, []);
+
+  useEffect(() => {
+    loadDashboard();
+    const cleanup = setupRealTimeUpdates();
+    return cleanup;
+  }, [loadDashboard, setupRealTimeUpdates]);
 
   const renderWidget = (widget: DashboardWidget) => {
     switch (widget.type) {
@@ -107,6 +108,7 @@ export default function Dashboard({ dashboardId = 'default' }: DashboardProps) {
           <div
             key={widget.id}
             className="bg-white shadow rounded-lg p-6"
+            // eslint-disable-next-line react/forbid-dom-props
             style={{
               gridColumn: `span ${widget.position.width}`,
               gridRow: `span ${widget.position.height}`
@@ -123,7 +125,7 @@ export default function Dashboard({ dashboardId = 'default' }: DashboardProps) {
 
 // Widget Components
 function MetricWidget({ widget, data }: { widget: DashboardWidget; data: RealTimeDataState }) {
-  const metric = data.metrics?.find((m: any) => m.name === widget.config.metric);
+  const metric = data.metrics?.find((m) => m.name === widget.config.metric);
 
   return (
     <div className="text-center">
@@ -184,7 +186,7 @@ function TableWidget({ widget }: { widget: DashboardWidget; data?: RealTimeDataS
   );
 }
 
-function HeatmapWidget({ }: { widget?: DashboardWidget; data?: RealTimeDataState }) {
+function HeatmapWidget(_props: { widget?: DashboardWidget; data?: RealTimeDataState }) {
   return (
     <div className="h-64 flex items-center justify-center bg-gray-50 rounded">
       <div className="text-center">
@@ -203,6 +205,7 @@ function FunnelWidget({ widget }: { widget: DashboardWidget; data?: RealTimeData
         <div key={step} className="relative">
           <div
             className="bg-primary-100 text-primary-800 px-4 py-2 rounded text-sm font-medium"
+            // eslint-disable-next-line react/forbid-dom-props
             style={{
               width: `${100 - (index * 10)}%`,
               marginLeft: `${(index * 10) / 2}%`

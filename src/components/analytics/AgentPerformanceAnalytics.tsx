@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FaRobot, FaChartBar, FaClock, FaDollarSign, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 
 interface AgentPerformanceData {
@@ -50,7 +50,7 @@ export default function AgentPerformanceAnalytics() {
   const [error, setError] = useState<string | null>(null);
   const [timeRange, setTimeRange] = useState<'hour' | 'day' | 'week' | 'month'>('day');
 
-  const fetchAgentPerformance = async () => {
+  const fetchAgentPerformance = useCallback(async () => {
     try {
       setLoading(true);
       const response = await fetch(`/api/analytics/agents?timeRange=${timeRange}`);
@@ -64,11 +64,11 @@ export default function AgentPerformanceAnalytics() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [timeRange]);
 
   useEffect(() => {
     fetchAgentPerformance();
-  }, [timeRange]);
+  }, [fetchAgentPerformance]);
 
   const getPerformanceColor = (value: number, type: 'responseTime' | 'successRate' | 'utilization') => {
     switch (type) {

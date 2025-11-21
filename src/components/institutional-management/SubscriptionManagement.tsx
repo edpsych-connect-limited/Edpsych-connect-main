@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-dom-props */
 import React, { useState, useEffect } from 'react';
 
 interface License {
@@ -49,6 +50,83 @@ interface SubscriptionManagementProps {
   initialSubscription?: Subscription;
 }
 
+// Mock available plans for demonstration
+const mockPlans: SubscriptionPlan[] = [
+  {
+    id: 'plan_basic',
+    name: 'Basic School',
+    description: 'Essential tools for small educational institutions',
+    pricePerLicense: 10,
+    currency: 'GBP',
+    features: [
+      'Assessment engine',
+      'Intervention framework',
+      'UK curriculum mapping',
+      'Basic reporting'
+    ]
+  },
+  {
+    id: 'plan_professional',
+    name: 'Professional',
+    description: 'Comprehensive toolkit for mid-sized institutions',
+    pricePerLicense: 20,
+    currency: 'GBP',
+    features: [
+      'All Basic features',
+      'Advanced analytics',
+      'Content management system',
+      'Resource library',
+      'Multi-department support'
+    ]
+  },
+  {
+    id: 'plan_enterprise',
+    name: 'Enterprise',
+    description: 'Complete solution for large educational organizations',
+    pricePerLicense: 30,
+    currency: 'GBP',
+    features: [
+      'All Professional features',
+      'Predictive analytics',
+      'Custom assessment templates',
+      'API access',
+      'Dedicated support',
+      'Professional development recommendations'
+    ]
+  }
+];
+
+// Mock invoices for demonstration
+const mockInvoices: Invoice[] = [
+  {
+    id: 'inv_001',
+    subscriptionId: 'sub_001',
+    date: '2025-08-01',
+    dueDate: '2025-08-15',
+    amount: 3000,
+    status: 'PAID',
+    paidDate: '2025-08-10'
+  },
+  {
+    id: 'inv_002',
+    subscriptionId: 'sub_001',
+    date: '2025-07-01',
+    dueDate: '2025-07-15',
+    amount: 3000,
+    status: 'PAID',
+    paidDate: '2025-07-08'
+  },
+  {
+    id: 'inv_003',
+    subscriptionId: 'sub_001',
+    date: '2025-06-01',
+    dueDate: '2025-06-15',
+    amount: 2500,
+    status: 'PAID',
+    paidDate: '2025-06-12'
+  }
+];
+
 const SubscriptionManagement: React.FC<SubscriptionManagementProps> = ({
   id,
   initialSubscription
@@ -63,99 +141,8 @@ const SubscriptionManagement: React.FC<SubscriptionManagementProps> = ({
   const [selectedPlan, setSelectedPlan] = useState<string>('');
   const [licenseCount, setLicenseCount] = useState<number>(0);
   const [billingCycle, setBillingCycle] = useState<'MONTHLY' | 'ANNUAL' | 'QUARTERLY'>('ANNUAL');
-  
-  // Mock available plans for demonstration
-  const mockPlans: SubscriptionPlan[] = [
-    {
-      id: 'plan_basic',
-      name: 'Basic School',
-      description: 'Essential tools for small educational institutions',
-      pricePerLicense: 10,
-      currency: 'GBP',
-      features: [
-        'Assessment engine',
-        'Intervention framework',
-        'UK curriculum mapping',
-        'Basic reporting'
-      ]
-    },
-    {
-      id: 'plan_professional',
-      name: 'Professional',
-      description: 'Comprehensive toolkit for mid-sized institutions',
-      pricePerLicense: 20,
-      currency: 'GBP',
-      features: [
-        'All Basic features',
-        'Advanced analytics',
-        'Content management system',
-        'Resource library',
-        'Multi-department support'
-      ]
-    },
-    {
-      id: 'plan_enterprise',
-      name: 'Enterprise',
-      description: 'Complete solution for large educational organizations',
-      pricePerLicense: 30,
-      currency: 'GBP',
-      features: [
-        'All Professional features',
-        'Predictive analytics',
-        'Custom assessment templates',
-        'API access',
-        'Dedicated support',
-        'Professional development recommendations'
-      ]
-    }
-  ];
-  
-  // Mock invoices for demonstration
-  const mockInvoices: Invoice[] = [
-    {
-      id: 'inv_001',
-      subscriptionId: 'sub_001',
-      date: '2025-08-01',
-      dueDate: '2025-08-15',
-      amount: 3000,
-      status: 'PAID',
-      paidDate: '2025-08-10'
-    },
-    {
-      id: 'inv_002',
-      subscriptionId: 'sub_001',
-      date: '2025-07-01',
-      dueDate: '2025-07-15',
-      amount: 3000,
-      status: 'PAID',
-      paidDate: '2025-07-08'
-    },
-    {
-      id: 'inv_003',
-      subscriptionId: 'sub_001',
-      date: '2025-06-01',
-      dueDate: '2025-06-15',
-      amount: 2500,
-      status: 'PAID',
-      paidDate: '2025-06-12'
-    }
-  ];
 
-  useEffect(() => {
-    if (!initialSubscription) {
-      fetchSubscription();
-    }
-    
-    // Use mock data for demo purposes
-    setAvailablePlans(mockPlans);
-    setInvoices(mockInvoices);
-    
-    // In a real implementation, you would fetch these from an API
-    // fetchPlans();
-    // fetchInvoices();
-  }, [id, initialSubscription]);
-
-  const fetchSubscription = async () => {
+  const fetchSubscription = React.useCallback(async () => {
     if (!id) return;
     
     try {
@@ -174,47 +161,27 @@ const SubscriptionManagement: React.FC<SubscriptionManagementProps> = ({
         setBillingCycle(data.billingCycle);
         setSelectedPlan(data.planId);
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching subscription:', err);
-      setError(err.message || 'An error occurred while loading subscription data');
+      setError(err instanceof Error ? err.message : 'An error occurred while loading subscription data');
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
 
-  const fetchPlans = async () => {
-    try {
-      const response = await fetch('/api/subscriptions/plans');
-      
-      if (!response.ok) {
-        throw new Error(`Error fetching plans: ${response.statusText}`);
-      }
-      
-      const data = await response.json();
-      setAvailablePlans(data);
-    } catch (err: any) {
-      console.error('Error fetching plans:', err);
-      setError(err.message || 'An error occurred while loading subscription plans');
+  useEffect(() => {
+    if (!initialSubscription) {
+      fetchSubscription();
     }
-  };
-
-  const fetchInvoices = async () => {
-    if (!subscription) return;
     
-    try {
-      const response = await fetch(`/api/subscriptions/${subscription.id}/invoices`);
-      
-      if (!response.ok) {
-        throw new Error(`Error fetching invoices: ${response.statusText}`);
-      }
-      
-      const data = await response.json();
-      setInvoices(data);
-    } catch (err: any) {
-      console.error('Error fetching invoices:', err);
-      setError(err.message || 'An error occurred while loading invoice data');
-    }
-  };
+    // Use mock data for demo purposes
+    setAvailablePlans(mockPlans);
+    setInvoices(mockInvoices);
+    
+    // In a real implementation, you would fetch these from an API
+    // fetchPlans();
+    // fetchInvoices();
+  }, [id, initialSubscription, fetchSubscription]);
 
   const handlePlanChange = (planId: string) => {
     setSelectedPlan(planId);
@@ -265,9 +232,9 @@ const SubscriptionManagement: React.FC<SubscriptionManagementProps> = ({
       setShowUpgradeModal(false);
       
       // Show success message
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error updating subscription:', err);
-      setError(err.message || 'An error occurred while updating the subscription');
+      setError(err instanceof Error ? err.message : 'An error occurred while updating the subscription');
     }
   };
 
@@ -780,6 +747,7 @@ const SubscriptionManagement: React.FC<SubscriptionManagementProps> = ({
               <button
                 onClick={() => setShowUpgradeModal(false)}
                 className="text-gray-400 hover:text-gray-500"
+                aria-label="Close modal"
               >
                 <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />

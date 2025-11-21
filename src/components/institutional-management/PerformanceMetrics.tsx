@@ -23,8 +23,7 @@ interface PerformanceMetricsProps {
   };
 }
 
-const PerformanceMetrics: React.FC<PerformanceMetricsProps> = ({ id, metrics }) => {
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
+const PerformanceMetrics: React.FC<PerformanceMetricsProps> = ({ metrics }) => {
   
   // Default data for when metrics are missing
   const performanceTrends = metrics.performanceTrends || [

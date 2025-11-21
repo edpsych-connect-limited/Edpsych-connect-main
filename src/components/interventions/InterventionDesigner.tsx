@@ -141,6 +141,28 @@ export default function InterventionDesigner({
   const [currentPlan, setCurrentPlan] = useState<InterventionPlan | null>(null);
   const [allPlans, setAllPlans] = useState<InterventionPlan[]>([]);
 
+  // ============================================================================
+  // RECOMMENDATION FUNCTIONS
+  // ============================================================================
+
+  const loadRecommendations = () => {
+    const request: RecommendationRequest = {
+      student_profile: {
+        student_id: initialData?.studentId || "unknown",
+        age: initialData?.studentAge || 10,
+        year_group: calculateYearGroup(initialData?.studentAge || 10),
+        current_setting: 'mainstream',
+        available_settings_for_intervention: ['classroom', 'small_group', 'one_to_one'],
+        specific_difficulties: initialData?.targetNeeds || [],
+      },
+      target_areas: initialData?.targetNeeds || [],
+      priority_level: 'high',
+    };
+
+    const response = generateRecommendations(request);
+    setRecommendations(response);
+  };
+
   // Filter interventions
   useEffect(() => {
     let filtered = [...INTERVENTION_LIBRARY];
@@ -165,28 +187,6 @@ export default function InterventionDesigner({
       loadRecommendations();
     }
   }, [initialData]);
-
-  // ============================================================================
-  // RECOMMENDATION FUNCTIONS
-  // ============================================================================
-
-  const loadRecommendations = () => {
-    const request: RecommendationRequest = {
-      student_profile: {
-        student_id: initialData?.studentId || "unknown",
-        age: initialData?.studentAge || 10,
-        year_group: calculateYearGroup(initialData?.studentAge || 10),
-        current_setting: 'mainstream',
-        available_settings_for_intervention: ['classroom', 'small_group', 'one_to_one'],
-        specific_difficulties: initialData?.targetNeeds || [],
-      },
-      target_areas: initialData?.targetNeeds || [],
-      priority_level: 'high',
-    };
-
-    const response = generateRecommendations(request);
-    setRecommendations(response);
-  };
 
   // ============================================================================
   // PLAN MANAGEMENT

@@ -26,8 +26,8 @@ const GameTemplateManager: React.FC = () => {
         if (!res.ok) throw new Error('Failed to fetch templates');
         const data = await res.json();
         setTemplates(data);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch templates');
       } finally {
         setLoading(false);
       }
@@ -49,8 +49,8 @@ const GameTemplateManager: React.FC = () => {
       });
       if (!res.ok) throw new Error('Failed to delete template');
       setTemplates((prev) => prev.filter((t) => t.id !== id));
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to delete template');
     }
   };
 

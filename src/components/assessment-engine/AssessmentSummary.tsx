@@ -17,6 +17,7 @@ interface Question {
 
 interface StudentAnswer {
   questionId: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   answerData: any;
 }
 

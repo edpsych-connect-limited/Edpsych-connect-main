@@ -25,7 +25,7 @@ interface Institution {
     resourceUtilization?: number;
     resourceUtilizationTrend?: number;
   };
-  subscription?: any;
+  subscription?: Record<string, unknown>;
   address?: {
     line1?: string;
     line2?: string;
@@ -87,9 +87,9 @@ const InstitutionalDashboard: React.FC<{ id?: string }> = ({ id }) => {
         const deptData = await deptResponse.json();
         setDepartments(deptData);
         
-      } catch (err: any) {
+      } catch (err) {
         console.error('Error fetching institution data:', err);
-        setError(err.message || 'An error occurred while loading institution data');
+        setError(err instanceof Error ? err.message : 'An error occurred while loading institution data');
       } finally {
         setLoading(false);
       }

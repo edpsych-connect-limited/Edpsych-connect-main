@@ -4,7 +4,7 @@
  */
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../packages/ui/card';
 import { Button } from '../../packages/ui/button';
 import { Badge } from '../../packages/ui/badge';
@@ -19,8 +19,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  LineChart,
-  Line,
   PieChart,
   Pie,
   Cell,
@@ -84,7 +82,7 @@ export default function AIAnalyticsDashboard() {
   const [error, setError] = useState<string | null>(null);
   const [timeframe, setTimeframe] = useState('day');
 
-  const fetchAnalytics = async (selectedTimeframe: string = timeframe) => {
+  const fetchAnalytics = useCallback(async (selectedTimeframe: string = timeframe) => {
     try {
       setLoading(true);
       setError(null);
@@ -102,15 +100,14 @@ export default function AIAnalyticsDashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [timeframe]);
 
   useEffect(() => {
     fetchAnalytics();
-  }, []);
+  }, [fetchAnalytics]);
 
   const handleTimeframeChange = (newTimeframe: string) => {
     setTimeframe(newTimeframe);
-    fetchAnalytics(newTimeframe);
   };
 
   const exportData = (format: 'json' | 'csv') => {

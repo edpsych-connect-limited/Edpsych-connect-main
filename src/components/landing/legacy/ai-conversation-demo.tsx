@@ -128,13 +128,13 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
   }, []);
 
   // Auto-scroll to bottom when messages change
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   // Handle preset question selection
   const handlePresetSelect = (presetId: string) => {

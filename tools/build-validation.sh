@@ -41,7 +41,7 @@ fi
 
 # Run ESLint
 echo -e "${BLUE}→ Running ESLint...${NC}"
-if npx eslint "$BUILD_DIR" --ext .ts,.tsx --quiet 2>/dev/null; then
+if npx eslint "$BUILD_DIR"; then
   echo -e "${GREEN}  ✓ ESLint passed${NC}\n"
 else
   echo -e "${YELLOW}  ⚠ ESLint warnings detected${NC}\n"

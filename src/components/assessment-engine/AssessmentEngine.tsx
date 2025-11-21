@@ -41,6 +41,7 @@ interface Question {
   timeLimit?: number; // in seconds
   options?: QuestionOption[];
   matchPairs?: MatchingPair[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   correctAnswer?: any;
   feedback?: string;
 }
@@ -83,6 +84,7 @@ type QuestionType =
 
 interface StudentAnswer {
   questionId: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   answerData: any;
   selectedOptionIds?: string[];
   textAnswer?: string;
@@ -166,59 +168,38 @@ const AssessmentEngine: React.FC<AssessmentEngineProps> = ({
     fetchAssessment();
   }, [assessmentId, previewMode]);
 
-  // Timer effect
-  useEffect(() => {
-    if (timeRemaining === null || isCompleted) return;
+  // Helper function to check if an answer is empty
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const isEmptyAnswer = (answerData: any, questionType: QuestionType): boolean => {
+    if (!answerData) return true;
     
-    const timer = setInterval(() => {
-      setTimeRemaining(prev => {
-        if (prev === null || prev <= 0) {
-          clearInterval(timer);
-          if (!isCompleted) {
-            handleTimeUp();
-          }
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    
-    return () => clearInterval(timer);
-  }, [timeRemaining, isCompleted]);
-
-  // Handle timer expiration
-  const handleTimeUp = () => {
-    toast.error('Time is up! Your assessment will be submitted.');
-    handleSubmit();
-  };
-
-  // Navigate to previous question
-  const handlePrevious = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    switch (questionType) {
+      case 'MULTIPLE_CHOICE':
+      case 'SINGLE_CHOICE':
+        return !answerData.selectedOptionIds || answerData.selectedOptionIds.length === 0;
+      case 'TRUE_FALSE':
+        return answerData.value === undefined || answerData.value === null;
+      case 'SHORT_ANSWER':
+      case 'LONG_ANSWER':
+      case 'FILL_IN_BLANK':
+        return !answerData.text || answerData.text.trim() === '';
+      case 'MATCHING':
+        return !answerData.pairs || Object.keys(answerData.pairs).length === 0;
+      case 'ORDERING':
+        return !answerData.order || answerData.order.length === 0;
+      case 'NUMERIC':
+        return answerData.value === undefined || answerData.value === null || isNaN(answerData.value);
+      case 'HOTSPOT':
+        return !answerData.coordinates || answerData.coordinates.length === 0;
+      case 'FILE_UPLOAD':
+        return !answerData.fileUrl;
+      default:
+        return true;
     }
-  };
-
-  // Navigate to next question
-  const handleNext = () => {
-    if (assessment && currentQuestionIndex < assessment.questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    }
-  };
-
-  // Handle answer changes
-  const handleAnswerChange = (questionId: string, answerData: any) => {
-    setAnswers(prev => ({
-      ...prev,
-      [questionId]: {
-        questionId,
-        answerData,
-      }
-    }));
   };
 
   // Submit assessment
-  const handleSubmit = async () => {
+  const handleSubmit = React.useCallback(async () => {
     if (!assessment) return;
     
     // Validate if all required questions are answered
@@ -288,35 +269,61 @@ const AssessmentEngine: React.FC<AssessmentEngineProps> = ({
     } finally {
       setIsSubmitting(false);
     }
+  }, [assessment, answers, previewMode, timeRemaining, router, assessmentId]);
+
+  // Handle timer expiration
+  const handleTimeUp = React.useCallback(() => {
+    toast.error('Time is up! Your assessment will be submitted.');
+    handleSubmit();
+  }, [handleSubmit]);
+
+  // Timer effect
+  useEffect(() => {
+    if (timeRemaining === null || isCompleted) return;
+    
+    const timer = setInterval(() => {
+      setTimeRemaining(prev => {
+        if (prev === null || prev <= 0) {
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    
+    return () => clearInterval(timer);
+  }, [isCompleted, timeRemaining === null]);
+
+  // Handle time up
+  useEffect(() => {
+    if (timeRemaining === 0 && !isCompleted) {
+      handleTimeUp();
+    }
+  }, [timeRemaining, isCompleted, handleTimeUp]);
+
+  // Navigate to previous question
+  const handlePrevious = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    }
   };
 
-  // Helper function to check if an answer is empty
-  const isEmptyAnswer = (answerData: any, questionType: QuestionType): boolean => {
-    if (!answerData) return true;
-    
-    switch (questionType) {
-      case 'MULTIPLE_CHOICE':
-      case 'SINGLE_CHOICE':
-        return !answerData.selectedOptionIds || answerData.selectedOptionIds.length === 0;
-      case 'TRUE_FALSE':
-        return answerData.value === undefined || answerData.value === null;
-      case 'SHORT_ANSWER':
-      case 'LONG_ANSWER':
-      case 'FILL_IN_BLANK':
-        return !answerData.text || answerData.text.trim() === '';
-      case 'MATCHING':
-        return !answerData.pairs || Object.keys(answerData.pairs).length === 0;
-      case 'ORDERING':
-        return !answerData.order || answerData.order.length === 0;
-      case 'NUMERIC':
-        return answerData.value === undefined || answerData.value === null || isNaN(answerData.value);
-      case 'HOTSPOT':
-        return !answerData.coordinates || answerData.coordinates.length === 0;
-      case 'FILE_UPLOAD':
-        return !answerData.fileUrl;
-      default:
-        return true;
+  // Navigate to next question
+  const handleNext = () => {
+    if (assessment && currentQuestionIndex < assessment.questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
+  };
+
+  // Handle answer changes
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleAnswerChange = (questionId: string, answerData: any) => {
+    setAnswers(prev => ({
+      ...prev,
+      [questionId]: {
+        questionId,
+        answerData,
+      }
+    }));
   };
 
   // Helper function to shuffle array

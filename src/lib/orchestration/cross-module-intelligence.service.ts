@@ -179,7 +179,7 @@ export class CrossModuleIntelligenceService {
           triggered_by: 'assessment_complete',
           target_type: 'student',
           target_id: student_id.toString(),
-          student_id: student_id,
+          student_id: student_id ? Number(student_id) : undefined,
           action_data: {
             assessment_id: entity_data.assessment_id,
             struggle_areas: struggleAnalysis.struggle_areas,
@@ -423,7 +423,7 @@ export class CrossModuleIntelligenceService {
               triggered_by: 'lesson_complete',
               target_type: 'student',
               target_id: student_id.toString(),
-              student_id: student_id,
+              student_id: student_id ? Number(student_id) : undefined,
               action_data: {
                 recommendation: recommendation.recommendation,
                 reasoning: recommendation.reasoning,

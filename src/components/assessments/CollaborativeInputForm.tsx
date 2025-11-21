@@ -52,15 +52,6 @@ export default function CollaborativeInputForm({
   const totalDomains = framework_domains.length;
   const isLastDomain = currentDomainIndex === totalDomains;
 
-  // Auto-save draft every 2 minutes
-  useEffect(() => {
-    const autoSaveInterval = setInterval(() => {
-      handleSaveDraft();
-    }, 120000); // 2 minutes
-
-    return () => clearInterval(autoSaveInterval);
-  }, [responses, narrativeInput, observationContext]);
-
   const handleSaveDraft = async () => {
     if (isSaving || isSubmitting) return;
 
@@ -71,6 +62,15 @@ export default function CollaborativeInputForm({
     }
     setIsSaving(false);
   };
+
+  // Auto-save draft every 2 minutes
+  useEffect(() => {
+    const autoSaveInterval = setInterval(() => {
+      handleSaveDraft();
+    }, 120000); // 2 minutes
+
+    return () => clearInterval(autoSaveInterval);
+  }, [responses, narrativeInput, observationContext]);
 
   const handleDomainResponse = (domainId: string, question: string, value: any) => {
     setResponses(prev => ({

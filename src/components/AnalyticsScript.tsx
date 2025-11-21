@@ -41,7 +41,7 @@ export default function AnalyticsScript() {
       {/* Cookie consent initialization - client-side only */}
       <Script
         id="cookie-consent"
-        strategy="beforeInteractive"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
             window.initCookieConsent = () => {

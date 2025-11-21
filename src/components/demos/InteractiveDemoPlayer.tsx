@@ -44,6 +44,18 @@ export default function InteractiveDemoPlayer({
   const totalSteps = steps.length;
   const progress = ((currentStep + 1) / totalSteps) * 100;
 
+  const handleNext = () => {
+    if (currentStep < totalSteps - 1) {
+      setCompletedSteps(prev => new Set(prev).add(currentStep));
+      setCurrentStep(prev => prev + 1);
+    } else {
+      // Demo complete
+      setCompletedSteps(prev => new Set(prev).add(currentStep));
+      setIsPlaying(false);
+      if (onComplete) onComplete();
+    }
+  };
+
   // Auto-play logic
   useEffect(() => {
     if (!isPlaying) return;
@@ -57,18 +69,6 @@ export default function InteractiveDemoPlayer({
 
     return () => clearTimeout(timer);
   }, [isPlaying, currentStep]);
-
-  const handleNext = () => {
-    if (currentStep < totalSteps - 1) {
-      setCompletedSteps(prev => new Set(prev).add(currentStep));
-      setCurrentStep(prev => prev + 1);
-    } else {
-      // Demo complete
-      setCompletedSteps(prev => new Set(prev).add(currentStep));
-      setIsPlaying(false);
-      if (onComplete) onComplete();
-    }
-  };
 
   const handlePrevious = () => {
     if (currentStep > 0) {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 interface QuestionOption {
   id: string;
@@ -17,7 +18,9 @@ interface Question {
 
 interface SingleChoiceQuestionProps {
   question: Question;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onAnswerChange: (answerData: any) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   currentAnswer?: any;
 }
 
@@ -78,11 +81,12 @@ const SingleChoiceQuestion: React.FC<SingleChoiceQuestionProps> = ({
                 
                 {/* Render option media if available */}
                 {option.mediaUrl && option.mediaType === 'IMAGE' && (
-                  <div className="mt-2">
-                    <img 
+                  <div className="mt-2 relative w-full h-32">
+                    <Image 
                       src={option.mediaUrl} 
                       alt={`Option ${option.orderIndex} visual`} 
-                      className="max-w-full h-auto rounded-md max-h-32 object-contain"
+                      fill
+                      className="object-contain rounded-md"
                     />
                   </div>
                 )}

@@ -4,6 +4,22 @@
 import { logger } from '../utils/logger';
 
 // Simple type definitions internal to this file
+export interface LeaderboardEntry {
+  id: string;
+  name: string;
+  points: number;
+  avatarUrl?: string;
+  rank: number;
+}
+
+export interface Achievement {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  unlockedAt?: string;
+}
+
 interface SimpleChallenge {
   id: string;
   title: string;
@@ -42,13 +58,13 @@ const api = {
   },
   
   // Get achievements
-  getAchievements: async (): Promise<any[]> => {
+  getAchievements: async (): Promise<Achievement[]> => {
     logger.info('Getting achievements');
     return [];
   },
   
   // Get leaderboard
-  getLeaderboard: async (): Promise<any[]> => {
+  getLeaderboard: async (): Promise<LeaderboardEntry[]> => {
     try {
       const response = await fetch('/api/gamification/leaderboard');
       if (!response.ok) return [];
@@ -61,7 +77,7 @@ const api = {
   },
 
   // Join Battle Royale Queue
-  joinBattleRoyaleQueue: async (gameMode: string): Promise<any> => {
+  joinBattleRoyaleQueue: async (gameMode: string): Promise<unknown> => {
     try {
       const response = await fetch('/api/battle-royale/matchmaking/queue', {
         method: 'POST',

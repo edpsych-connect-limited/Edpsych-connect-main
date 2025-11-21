@@ -65,7 +65,7 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchStudentData = async () => {
+  const fetchStudentData = React.useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams();
@@ -88,11 +88,11 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
     } finally {
       setLoading(false);
     }
-  };
+  }, [studentId, classId, timeRange]);
 
   useEffect(() => {
     fetchStudentData();
-  }, [studentId, classId, timeRange]);
+  }, [fetchStudentData]);
 
   const getRiskColor = (risk: number) => {
     if (risk >= 70) return 'text-red-600 bg-red-100';
@@ -250,6 +250,7 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div
                     className="bg-blue-600 h-2 rounded-full"
+                    // eslint-disable-next-line react/forbid-dom-props
                     style={{ width: `${selectedStudent.performanceMetrics.attendance.rate}%` }}
                   ></div>
                 </div>
@@ -334,6 +335,7 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
                     <div className="w-full bg-gray-200 rounded-full h-3">
                       <div
                         className={`h-3 rounded-full ${selectedStudent.predictions.engagement.predictedDropoutRisk >= 70 ? 'bg-red-600' : selectedStudent.predictions.engagement.predictedDropoutRisk >= 40 ? 'bg-yellow-600' : 'bg-green-600'}`}
+                        // eslint-disable-next-line react/forbid-dom-props
                         style={{ width: `${selectedStudent.predictions.engagement.predictedDropoutRisk}%` }}
                       ></div>
                     </div>

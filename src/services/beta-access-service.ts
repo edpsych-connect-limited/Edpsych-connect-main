@@ -269,7 +269,7 @@ export async function validateBetaAccessCode(code: string): Promise<{
  * @param code The access code to use
  * @returns Success status
  */
-export function useBetaAccessCode(code: string): Promise<{
+export function redeemBetaAccessCode(code: string): Promise<{
   success: boolean;
   error?: string;
 }> {

@@ -1,0 +1,19 @@
+[0;34m════════════════════════════════════════════════════════════[0m
+[0;34m  BUILD-TIME CODE VALIDATION[0m
+[0;34m════════════════════════════════════════════════════════════[0m
+
+[1;33mValidating source code...[0m
+
+[0;34m→ Running TypeScript type checking...[0m
+src/components/analytics/Reports.tsx(78,73): error TS2339: Property 'dateRange' does not exist on type '{}'.
+src/components/analytics/Reports.tsx(168,15): error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
+src/components/institutional-management/ActivityLogs.tsx(63,38): error TS2448: Block-scoped variable 'fetchLogs' used before its declaration.
+src/components/institutional-management/ActivityLogs.tsx(63,38): error TS2454: Variable 'fetchLogs' is used before being assigned.
+src/components/institutional-management/ContactManagement.tsx(43,28): error TS2448: Block-scoped variable 'fetchContacts' used before its declaration.
+src/components/institutional-management/ContactManagement.tsx(43,28): error TS2454: Variable 'fetchContacts' is used before being assigned.
+[0;31m  ✗ TypeScript compilation failed[0m
+
+[0;31m════════════════════════════════════════════════════════════[0m
+[0;31m✗ BUILD VALIDATION FAILED[0m
+[0;31m════════════════════════════════════════════════════════════[0m
+

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 interface OrderItem {
   id: string;
@@ -16,7 +17,9 @@ interface Question {
 
 interface OrderingQuestionProps {
   question: Question;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onAnswerChange: (answerData: any) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   currentAnswer?: any;
 }
 
@@ -118,11 +121,12 @@ const OrderingQuestion: React.FC<OrderingQuestionProps> = ({
                 <div className="text-gray-800">{item.text}</div>
                 
                 {item.mediaUrl && item.mediaType === 'IMAGE' && (
-                  <div className="mt-2">
-                    <img 
+                  <div className="mt-2 relative w-full h-32">
+                    <Image 
                       src={item.mediaUrl} 
                       alt={`Item ${index + 1}`}
-                      className="max-w-full h-auto rounded-md max-h-32 object-contain" 
+                      fill
+                      className="object-contain rounded-md" 
                     />
                   </div>
                 )}

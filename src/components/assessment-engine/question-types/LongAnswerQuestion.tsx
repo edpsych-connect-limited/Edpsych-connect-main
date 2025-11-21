@@ -13,7 +13,9 @@ interface Question {
 
 interface LongAnswerQuestionProps {
   question: Question;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onAnswerChange: (answerData: any) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   currentAnswer?: any;
 }
 

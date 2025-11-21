@@ -16,7 +16,7 @@ export default [
       'no-explicit-any': 'off',
       'no-unused-expressions': 'off',
       'no-var-requires': 'off',
-      'react/no-unescaped-entities': ['warn', { forbid: ['>', '"', '}'] }],
+      // 'react/no-unescaped-entities': ['warn', { forbid: ['>', '"', '}'] }],
       '@next/next/no-img-element': 'warn',
       '@next/next/no-assign-module-variable': 'warn',
       '@typescript-eslint/no-require-imports': 'warn',

@@ -38,6 +38,11 @@ export default function InterventionsPage() {
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [now, setNow] = useState<number | null>(null);
+
+  useEffect(() => {
+    setNow(Date.now());
+  }, []);
 
   const loadInterventions = async () => {
     try {
@@ -175,6 +180,7 @@ export default function InterventionsPage() {
             {/* Filters */}
             <div className="flex space-x-4">
               <select
+                aria-label="Filter by status"
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
                 className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
@@ -187,6 +193,7 @@ export default function InterventionsPage() {
               </select>
 
               <select
+                aria-label="Filter by type"
                 value={typeFilter}
                 onChange={(e) => setTypeFilter(e.target.value)}
                 className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
@@ -254,6 +261,7 @@ export default function InterventionsPage() {
               <InterventionCard
                 key={intervention.id}
                 intervention={intervention}
+                now={now}
                 onClick={() => router.push(`/interventions/${intervention.id}`)}
               />
             ))}
@@ -303,9 +311,10 @@ function StatCard({ title, value, icon, color }: StatCardProps) {
 interface InterventionCardProps {
   intervention: Intervention;
   onClick: () => void;
+  now: number | null;
 }
 
-function InterventionCard({ intervention, onClick }: InterventionCardProps) {
+function InterventionCard({ intervention, onClick, now }: InterventionCardProps) {
   const statusColors = {
     planned: 'bg-yellow-100 text-yellow-800 border-yellow-200',
     active: 'bg-green-100 text-green-800 border-green-200',
@@ -331,9 +340,9 @@ function InterventionCard({ intervention, onClick }: InterventionCardProps) {
     other: 'Other',
   };
 
-  const daysUntilReview = Math.ceil(
-    (new Date(intervention.review_date).getTime() - Date.now()) / (1000 * 60 * 60 * 24)
-  );
+  const daysUntilReview = now ? Math.ceil(
+    (new Date(intervention.review_date).getTime() - now) / (1000 * 60 * 60 * 24)
+  ) : null;
 
   return (
     <div
@@ -388,7 +397,7 @@ function InterventionCard({ intervention, onClick }: InterventionCardProps) {
               Started: {new Date(intervention.start_date).toLocaleDateString()}
             </div>
           </div>
-          {intervention.status === 'active' && (
+          {intervention.status === 'active' && daysUntilReview !== null && (
             <div
               className={`font-semibold ${
                 daysUntilReview <= 7

@@ -47,7 +47,7 @@ const BetaRegistrationForm: React.FC = () => {
         const documentPath = await fetchLegalDocument('BETA_CONFIDENTIALITY');
         setAgreementContent(documentPath);
         setAgreementVersion('v1.0');
-      } catch (err: any) {
+      } catch (err) {
         setError('Failed to load confidentiality agreement. Please try again later.');
         console.error('Error fetching agreement:', err);
       }
@@ -78,7 +78,7 @@ const BetaRegistrationForm: React.FC = () => {
         } else {
           setCodeError(result.error || 'Invalid access code');
         }
-      } catch (err) {
+      } catch (_err) {
         setCodeError('Error validating code');
       } finally {
         setValidatingCode(false);
@@ -139,8 +139,9 @@ const BetaRegistrationForm: React.FC = () => {
         router.push('/beta/dashboard');
       }, 2000);
       
-    } catch (err: any) {
-      setError(err.message || 'An error occurred during registration');
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'An error occurred during registration';
+      setError(message);
     } finally {
       setLoading(false);
     }

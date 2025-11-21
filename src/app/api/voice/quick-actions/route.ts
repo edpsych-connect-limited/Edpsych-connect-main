@@ -132,7 +132,7 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const tenantId = session.tenant_id;
+    const tenantId = Number(session.tenant_id) || 0;
     const userId = session.id;
 
     // Verify role (only teachers and admin can execute quick actions)

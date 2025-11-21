@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 
 interface Institution {
   id: string;
@@ -28,7 +27,6 @@ interface InstitutionOverviewProps {
 }
 
 const InstitutionOverview: React.FC<InstitutionOverviewProps> = ({ institution }) => {
-  const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     name: institution.name || '',
@@ -54,18 +52,20 @@ const InstitutionOverview: React.FC<InstitutionOverviewProps> = ({ institution }
     
     if (name.includes('.')) {
       const [parent, child] = name.split('.');
-      setFormData({
-        ...formData,
-        [parent]: {
-          ...formData[parent as keyof typeof formData] as any,
-          [child]: value
-        }
-      });
+      if (parent === 'address') {
+        setFormData(prev => ({
+          ...prev,
+          address: {
+            ...prev.address,
+            [child]: value
+          }
+        }));
+      }
     } else {
-      setFormData({
-        ...formData,
+      setFormData(prev => ({
+        ...prev,
         [name]: value
-      });
+      }));
     }
   };
 

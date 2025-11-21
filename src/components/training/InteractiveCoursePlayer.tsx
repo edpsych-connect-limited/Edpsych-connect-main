@@ -101,12 +101,6 @@ export default function InteractiveCoursePlayer({
   });
   const [showCelebration, setShowCelebration] = useState(false);
 
-  // Load course data
-  useEffect(() => {
-    loadCourse();
-    loadProgress();
-  }, [courseId]);
-
   const loadCourse = async () => {
     try {
       const response = await fetch(`/api/training/courses/${courseId}`);
@@ -130,6 +124,12 @@ export default function InteractiveCoursePlayer({
       console.error('Failed to load progress:', error);
     }
   };
+
+  // Load course data
+  useEffect(() => {
+    loadCourse();
+    loadProgress();
+  }, [courseId]);
 
   const saveProgress = async (updates: any) => {
     try {
@@ -461,9 +461,9 @@ function QuizElement({ element, enrollmentId, onComplete }: InteractiveElementRe
   const [showFeedback, setShowFeedback] = useState(false);
   const [quizComplete, setQuizComplete] = useState(false);
   const [score, setScore] = useState(0);
-  const [questionStartTime, setQuestionStartTime] = useState(Date.now());
+  const [questionStartTime, setQuestionStartTime] = useState(() => Date.now());
   const [attemptCounts, setAttemptCounts] = useState<number[]>([]);
-  const [scoringEngine] = useState(new ScoringEngine({
+  const [scoringEngine] = useState(() => new ScoringEngine({
     basePoints: 100,
     timeBonus: true,
     timeBonusMax: 20,

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface CourseModule {
   id: string;
@@ -58,26 +59,26 @@ export default function CourseDetailPage() {
   const [activeTab, setActiveTab] = useState<'overview' | 'curriculum' | 'instructor' | 'reviews'>('overview');
 
   useEffect(() => {
+    const loadCourse = async () => {
+      try {
+        setLoading(true);
+        
+        const response = await fetch(`/api/training/courses/${params.id}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch course');
+        }
+        
+        const courseData = await response.json();
+        setCourse(courseData);
+      } catch (error) {
+        console.error('Error loading course:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     loadCourse();
   }, [params.id]);
-
-  const loadCourse = async () => {
-    try {
-      setLoading(true);
-      
-      const response = await fetch(`/api/training/courses/${params.id}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch course');
-      }
-      
-      const courseData = await response.json();
-      setCourse(courseData);
-    } catch (error) {
-      console.error('Error loading course:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleEnroll = async () => {
     try {
@@ -177,9 +178,9 @@ export default function CourseDetailPage() {
             
             <div className="lg:col-span-1">
               <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="aspect-video bg-gray-200">
+                <div className="aspect-video bg-gray-200 relative">
                   {course.imageUrl ? (
-                    <img src={course.imageUrl} alt={course.title} className="w-full h-full object-cover" />
+                    <Image src={course.imageUrl} alt={course.title} fill className="object-cover" />
                   ) : (
                     <div className="w-full h-full flex items-centre justify-centre text-gray-400">
                       Course Preview
@@ -196,9 +197,10 @@ export default function CourseDetailPage() {
                             <span>Your Progress</span>
                             <span>{course.progress}%</span>
                           </div>
-                          <div className="w-full bg-gray-200 rounded-full h-2" role="progressbar" aria-valuenow={course.progress} aria-valuemin={0} aria-valuemax={100} aria-label="Course progress">
+                          <div className="w-full bg-gray-200 rounded-full h-2" aria-hidden="true">
                             <div
                               className="bg-blue-600 h-2 rounded-full"
+                              // eslint-disable-next-line react/forbid-dom-props
                               style={{ width: `${course.progress}%` }}
                             ></div>
                           </div>
@@ -281,6 +283,7 @@ export default function CourseDetailPage() {
                   <button
                     onClick={() => setActiveTab('overview')}
                     role="tab"
+                    // eslint-disable-next-line jsx-a11y/aria-proptypes
                     aria-selected={activeTab === 'overview'}
                     aria-controls="overview-panel"
                     className={`px-6 py-4 font-medium border-b-2 ${
@@ -294,6 +297,7 @@ export default function CourseDetailPage() {
                   <button
                     onClick={() => setActiveTab('curriculum')}
                     role="tab"
+                    // eslint-disable-next-line jsx-a11y/aria-proptypes
                     aria-selected={activeTab === 'curriculum'}
                     aria-controls="curriculum-panel"
                     className={`px-6 py-4 font-medium border-b-2 ${
@@ -307,6 +311,7 @@ export default function CourseDetailPage() {
                   <button
                     onClick={() => setActiveTab('instructor')}
                     role="tab"
+                    // eslint-disable-next-line jsx-a11y/aria-proptypes
                     aria-selected={activeTab === 'instructor'}
                     aria-controls="instructor-panel"
                     className={`px-6 py-4 font-medium border-b-2 ${
@@ -320,6 +325,7 @@ export default function CourseDetailPage() {
                   <button
                     onClick={() => setActiveTab('reviews')}
                     role="tab"
+                    // eslint-disable-next-line jsx-a11y/aria-proptypes
                     aria-selected={activeTab === 'reviews'}
                     aria-controls="reviews-panel"
                     className={`px-6 py-4 font-medium border-b-2 ${
@@ -423,9 +429,9 @@ export default function CourseDetailPage() {
                   <div role="tabpanel" id="instructor-panel" aria-labelledby="instructor-tab">
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Instructor</h2>
                     <div className="flex items-start gap-6">
-                      <div className="w-32 h-32 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden">
+                      <div className="w-32 h-32 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden relative">
                         {course.instructor.imageUrl ? (
-                          <img src={course.instructor.imageUrl} alt={course.instructor.name} className="w-full h-full object-cover" />
+                          <Image src={course.instructor.imageUrl} alt={course.instructor.name} fill className="object-cover" />
                         ) : (
                           <div className="w-full h-full flex items-centre justify-centre text-gray-400 text-3xl">
                             {course.instructor.name.charAt(0)}
@@ -478,9 +484,9 @@ export default function CourseDetailPage() {
                       className="block hover:bg-gray-50 rounded-lg transition-colours"
                     >
                       <div className="flex gap-3">
-                        <div className="w-20 h-20 bg-gray-200 rounded-md flex-shrink-0">
+                        <div className="w-20 h-20 bg-gray-200 rounded-md flex-shrink-0 relative">
                           {relatedCourse.imageUrl ? (
-                            <img src={relatedCourse.imageUrl} alt={relatedCourse.title} className="w-full h-full object-cover rounded-md" />
+                            <Image src={relatedCourse.imageUrl} alt={relatedCourse.title} fill className="object-cover rounded-md" />
                           ) : (
                             <div className="w-full h-full flex items-centre justify-centre text-gray-400 text-xs">
                               No Image

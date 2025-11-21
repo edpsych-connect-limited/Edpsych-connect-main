@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Course {
   id: string;
@@ -112,6 +113,7 @@ export default function TrainingCataloguePage() {
               />
             </div>
             <select
+              aria-label="Filter by category"
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
@@ -122,6 +124,7 @@ export default function TrainingCataloguePage() {
               ))}
             </select>
             <select
+              aria-label="Filter by level"
               value={selectedLevel}
               onChange={(e) => setSelectedLevel(e.target.value)}
               className="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
@@ -137,6 +140,7 @@ export default function TrainingCataloguePage() {
             <div className="flex items-centre gap-2">
               <span className="text-sm text-gray-600">Sort by:</span>
               <select
+                aria-label="Sort courses"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as SortOption)}
                 className="px-3 py-1 border border-gray-300 rounded-md text-sm"
@@ -183,7 +187,7 @@ export default function TrainingCataloguePage() {
               <div key={course.id} className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden">
                 <div className="h-48 bg-gray-200 relative">
                   {course.imageUrl ? (
-                    <img src={course.imageUrl} alt={course.title} className="w-full h-full object-cover" />
+                    <Image src={course.imageUrl} alt={course.title} fill className="object-cover" />
                   ) : (
                     <div className="w-full h-full flex items-centre justify-centre text-gray-400">
                       No Image
@@ -233,6 +237,7 @@ export default function TrainingCataloguePage() {
                       <div className="w-full bg-gray-200 rounded-full h-2">
                         <div 
                           className="bg-blue-600 h-2 rounded-full" 
+                          // eslint-disable-next-line react/forbid-dom-props
                           style={{ width: `${course.progress}%` }}
                         ></div>
                       </div>
@@ -257,9 +262,9 @@ export default function TrainingCataloguePage() {
             {filteredCourses.map((course) => (
               <div key={course.id} className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6">
                 <div className="flex gap-6">
-                  <div className="w-48 h-32 bg-gray-200 rounded-md flex-shrink-0">
+                  <div className="w-48 h-32 bg-gray-200 rounded-md flex-shrink-0 relative">
                     {course.imageUrl ? (
-                      <img src={course.imageUrl} alt={course.title} className="w-full h-full object-cover rounded-md" />
+                      <Image src={course.imageUrl} alt={course.title} fill className="object-cover rounded-md" />
                     ) : (
                       <div className="w-full h-full flex items-centre justify-centre text-gray-400">
                         No Image
@@ -323,6 +328,7 @@ export default function TrainingCataloguePage() {
                         <div className="w-full bg-gray-200 rounded-full h-2">
                           <div 
                             className="bg-blue-600 h-2 rounded-full" 
+                            // eslint-disable-next-line react/forbid-dom-props
                             style={{ width: `${course.progress}%` }}
                           ></div>
                         </div>

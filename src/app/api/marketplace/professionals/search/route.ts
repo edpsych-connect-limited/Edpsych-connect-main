@@ -94,7 +94,6 @@ export async function GET(request: NextRequest) {
             select: {
               id: true,
               name: true,
-              // image: true, // Avatar
               compliance: {
                 select: {
                   verificationStatus: true

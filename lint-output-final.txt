@@ -1,0 +1,16 @@
+
+> edpsych-connect-web-v2@1.0.0 lint
+> eslint . --max-warnings=0
+
+
+Oops! Something went wrong! :(
+
+ESLint: 9.39.1
+
+A configuration object specifies rule "react/no-unescaped-entities", but could not find plugin "react".
+
+Common causes of this problem include:
+
+1. The "react" plugin is not defined in your configuration file.
+2. The "react" plugin is not defined within the same configuration object in which the "react/no-unescaped-entities" rule is applied.
+

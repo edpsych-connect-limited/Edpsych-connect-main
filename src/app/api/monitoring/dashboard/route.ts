@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
  * Provides real-time monitoring data and alerts
  */
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const dashboardData = advancedMonitoring.getDashboardData();
     const summary = advancedMonitoring.getMonitoringSummary();
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
 
       case 'get_metrics':
         // Get specific metrics
-        const metrics = request.nextUrl.searchParams.get('metrics')?.split(',') || [];
+        const _metrics = request.nextUrl.searchParams.get('metrics')?.split(',') || [];
         return NextResponse.json({
           success: true,
           metrics: {} // Would return actual metrics

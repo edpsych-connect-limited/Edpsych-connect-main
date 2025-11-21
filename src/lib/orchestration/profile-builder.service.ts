@@ -790,7 +790,7 @@ export class ProfileBuilderService {
       await prisma.automatedAction.create({
         data: {
           ...restData,
-          student_id: student_id,
+          student_id: student_id ? Number(student_id) : undefined,
           outcome_success: true,
         },
       });

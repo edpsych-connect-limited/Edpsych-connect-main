@@ -53,16 +53,7 @@ const ActivityLogs: React.FC<ActivityLogsProps> = ({
 
   // No mock data as we're using real API connections
 
-  useEffect(() => {
-    if (initialLogs.length === 0) {
-      fetchLogs();
-    } else {
-      setLogs(initialLogs);
-      setTotalPages(Math.ceil(initialLogs.length / ITEMS_PER_PAGE) || 1);
-    }
-  }, [id, initialLogs, page, filter]);
-
-  const fetchLogs = async () => {
+  const fetchLogs = React.useCallback(async () => {
     if (!id) return;
     
     try {
@@ -107,13 +98,22 @@ const ActivityLogs: React.FC<ActivityLogsProps> = ({
       // Set logs and pagination info from API response
       setLogs(data.logs || []);
       setTotalPages(data.totalPages || 1);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching activity logs:', err);
-      setError(err.message || 'An error occurred while loading activity logs');
+      setError(err instanceof Error ? err.message : 'An error occurred while loading activity logs');
     } finally {
       setLoading(false);
     }
-  };
+  }, [id, filter, page]);
+
+  useEffect(() => {
+    if (initialLogs.length === 0) {
+      fetchLogs();
+    } else {
+      setLogs(initialLogs);
+      setTotalPages(Math.ceil(initialLogs.length / ITEMS_PER_PAGE) || 1);
+    }
+  }, [id, initialLogs, page, filter, fetchLogs]);
 
   // No need for processLogs function as we're using the API's pagination
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import MultipleChoiceQuestion from './question-types/MultipleChoiceQuestion';
 import SingleChoiceQuestion from './question-types/SingleChoiceQuestion';
 import TrueFalseQuestion from './question-types/TrueFalseQuestion';
@@ -22,6 +23,7 @@ interface Question {
   mediaType?: MediaType;
   options?: QuestionOption[];
   matchPairs?: MatchingPair[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   format?: any;
   feedback?: string;
   correctFeedback?: string;
@@ -66,7 +68,9 @@ type QuestionType =
 
 interface AssessmentQuestionProps {
   question: Question;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onAnswerChange: (answerData: any) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   currentAnswer?: any;
   questionNumber: number;
 }
@@ -85,10 +89,13 @@ const AssessmentQuestion: React.FC<AssessmentQuestionProps> = ({
       case 'IMAGE':
         return (
           <div className="mb-4">
-            <img 
+            <Image 
               src={question.mediaUrl} 
               alt="Question visual" 
-              className="max-w-full h-auto rounded-lg"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-full h-auto rounded-lg"
             />
           </div>
         );

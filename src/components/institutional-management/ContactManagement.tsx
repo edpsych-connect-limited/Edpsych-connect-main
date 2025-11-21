@@ -36,13 +36,7 @@ const ContactManagement: React.FC<ContactManagementProps> = ({
   });
   const [searchTerm, setSearchTerm] = useState('');
 
-  useEffect(() => {
-    if (initialContacts.length === 0) {
-      fetchContacts();
-    }
-  }, [id, initialContacts]);
-
-  const fetchContacts = async () => {
+  const fetchContacts = React.useCallback(async () => {
     if (!id) return;
     
     try {
@@ -55,13 +49,19 @@ const ContactManagement: React.FC<ContactManagementProps> = ({
       
       const data = await response.json();
       setContacts(data);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching contacts:', err);
-      setError(err.message || 'An error occurred while loading contacts');
+      setError(err instanceof Error ? err.message : 'An error occurred while loading contacts');
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    if (initialContacts.length === 0) {
+      fetchContacts();
+    }
+  }, [id, initialContacts, fetchContacts]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const value = e.target.type === 'checkbox' 
@@ -118,9 +118,9 @@ const ContactManagement: React.FC<ContactManagementProps> = ({
       
       setShowAddModal(false);
       resetFormData();
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error adding contact:', err);
-      setError(err.message || 'An error occurred while adding the contact');
+      setError(err instanceof Error ? err.message : 'An error occurred while adding the contact');
     }
   };
 
@@ -163,9 +163,9 @@ const ContactManagement: React.FC<ContactManagementProps> = ({
       
       setShowEditModal(false);
       setCurrentContact(null);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error updating contact:', err);
-      setError(err.message || 'An error occurred while updating the contact');
+      setError(err instanceof Error ? err.message : 'An error occurred while updating the contact');
     }
   };
 
@@ -185,9 +185,9 @@ const ContactManagement: React.FC<ContactManagementProps> = ({
 
       // Remove from state
       setContacts(prev => prev.filter(contact => contact.id !== id));
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error deleting contact:', err);
-      setError(err.message || 'An error occurred while deleting the contact');
+      setError(err instanceof Error ? err.message : 'An error occurred while deleting the contact');
     }
   };
 
@@ -206,9 +206,9 @@ const ContactManagement: React.FC<ContactManagementProps> = ({
         ...contact,
         isPrimary: contact.id === id
       })));
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error setting primary contact:', err);
-      setError(err.message || 'An error occurred while setting the primary contact');
+      setError(err instanceof Error ? err.message : 'An error occurred while setting the primary contact');
     }
   };
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 interface MatchingPair {
   id: string;
@@ -17,7 +18,9 @@ interface Question {
 
 interface MatchingQuestionProps {
   question: Question;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onAnswerChange: (answerData: any) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   currentAnswer?: any;
 }
 
@@ -54,14 +57,18 @@ const MatchingQuestion: React.FC<MatchingQuestionProps> = ({
   };
 
   // Sort match pairs by orderIndex
-  const sortedPairs = question.matchPairs 
+  const sortedPairs = React.useMemo(() => question.matchPairs 
     ? [...question.matchPairs].sort((a, b) => a.orderIndex - b.orderIndex) 
-    : [];
+    : [], [question.matchPairs]);
 
   // Create a shuffled array of responses for selection
-  const shuffledResponses = sortedPairs.length > 0
-    ? [...sortedPairs].sort(() => Math.random() - 0.5)
-    : [];
+  const [shuffledResponses, setShuffledResponses] = useState<MatchingPair[]>([]);
+
+  useEffect(() => {
+    if (sortedPairs.length > 0) {
+      setShuffledResponses([...sortedPairs].sort(() => Math.random() - 0.5));
+    }
+  }, [sortedPairs]);
 
   return (
     <div className="matching-question">
@@ -75,17 +82,19 @@ const MatchingQuestion: React.FC<MatchingQuestionProps> = ({
               <div className="mb-2 font-medium text-gray-800">{pair.promptText}</div>
               
               {pair.promptMediaUrl && (
-                <div className="mt-2">
-                  <img 
+                <div className="mt-2 relative w-full h-32">
+                  <Image 
                     src={pair.promptMediaUrl} 
                     alt="Prompt visual" 
-                    className="max-w-full h-auto rounded-md max-h-32 object-contain"
+                    fill
+                    className="object-contain rounded-md"
                   />
                 </div>
               )}
               
               <div className="mt-4">
                 <select
+                  aria-label={`Match for ${pair.promptText}`}
                   value={matches[pair.id] || ''}
                   onChange={(e) => handleMatchChange(pair.id, e.target.value)}
                   className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
@@ -112,11 +121,12 @@ const MatchingQuestion: React.FC<MatchingQuestionProps> = ({
               <div>{response.responseText}</div>
               
               {response.responseMediaUrl && (
-                <div className="mt-2">
-                  <img 
+                <div className="mt-2 relative w-full h-32">
+                  <Image 
                     src={response.responseMediaUrl} 
                     alt="Response visual" 
-                    className="max-w-full h-auto rounded-md max-h-32 object-contain"
+                    fill
+                    className="object-contain rounded-md"
                   />
                 </div>
               )}
