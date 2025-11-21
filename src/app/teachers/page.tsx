@@ -149,7 +149,7 @@ export default function TeachersPage() {
       <section className="py-20 bg-slate-900 text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl lg:text-4xl font-black mb-6">Join the Future of Education</h2>
-          <p className="text-xl text-slate-300 mb-10">Equip your classroom with the world's most advanced educational psychology platform.</p>
+          <p className="text-xl text-slate-300 mb-10">Equip your classroom with the world&apos;s most advanced educational psychology platform.</p>
           <Link 
             href="/signup?role=teacher" 
             className="inline-block bg-indigo-600 text-white font-bold py-4 px-12 rounded-xl hover:bg-indigo-700 transition-all shadow-lg hover:shadow-indigo-900/50"

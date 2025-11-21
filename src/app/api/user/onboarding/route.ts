@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic';
 // Get current onboarding status
 // ============================================================================
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const session = await getServerSession();
     if (!session?.user?.email) {
@@ -102,12 +102,12 @@ export async function POST(request: NextRequest) {
       onboarding_completed,
       onboarding_completed_at,
       onboarding_skipped,
-      role,
-      organization_type,
-      primary_focus,
-      preferred_features,
-      experience_level,
-      goals,
+      // role,
+      // organization_type,
+      // primary_focus,
+      // preferred_features,
+      // experience_level,
+      // goals,
     } = data;
 
     // Update user with onboarding completion and preferences

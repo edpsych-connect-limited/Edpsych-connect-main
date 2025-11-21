@@ -45,110 +45,112 @@ export interface StripeProductConfig {
  * TODO: Replace with actual product IDs from Stripe Dashboard after creation
  */
 export const STRIPE_PRODUCTS: Record<string, StripeProductConfig> = {
-  // Individual Research Subscription
   RESEARCH_INDIVIDUAL: {
-    productId: 'prod_research_individual', // TODO: Replace with actual Stripe product ID
+    productId: 'prod_TSywJjUNMWS5NG',
     tier: 'RESEARCH_INDIVIDUAL' as SubscriptionTier,
     name: 'Research Individual',
     description: 'Individual researcher access to platform',
-    monthlyPriceId: 'price_research_individual_monthly', // TODO: Replace
-    annualPriceId: 'price_research_individual_annual', // TODO: Replace
+    monthlyPriceId: 'price_1SW2ypBz14LFoqP2thXdwRua',
+    annualPriceId: 'price_1SW2yqBz14LFoqP2IMURIMx7',
   },
 
-  // School Tiers
   SCHOOL_SMALL: {
-    productId: 'prod_school_small',
+    productId: 'prod_TSyw8GzWToVUE8',
     tier: 'SCHOOL_SMALL' as SubscriptionTier,
     name: 'School Small',
     description: 'For schools with up to 200 students',
-    monthlyPriceId: 'price_school_small_monthly',
-    annualPriceId: 'price_school_small_annual',
+    monthlyPriceId: 'price_1SW2yrBz14LFoqP2tMznaWoV',
+    annualPriceId: 'price_1SW2yrBz14LFoqP2ZcjqndFV',
   },
+
   SCHOOL_MEDIUM: {
-    productId: 'prod_school_medium',
+    productId: 'prod_TSywiFH26oCz9O',
     tier: 'SCHOOL_MEDIUM' as SubscriptionTier,
     name: 'School Medium',
     description: 'For schools with 201-500 students',
-    monthlyPriceId: 'price_school_medium_monthly',
-    annualPriceId: 'price_school_medium_annual',
+    monthlyPriceId: 'price_1SW2ysBz14LFoqP2pZ9AScpZ',
+    annualPriceId: 'price_1SW2ytBz14LFoqP2IONXUfgL',
   },
+
   SCHOOL_LARGE: {
-    productId: 'prod_school_large',
+    productId: 'prod_TSywcDrFUuUe54',
     tier: 'SCHOOL_LARGE' as SubscriptionTier,
     name: 'School Large',
     description: 'For schools with 500+ students',
-    monthlyPriceId: 'price_school_large_monthly',
-    annualPriceId: 'price_school_large_annual',
+    monthlyPriceId: 'price_1SW2yuBz14LFoqP2wzQsbfSg',
+    annualPriceId: 'price_1SW2yuBz14LFoqP2tEiR2gsW',
   },
 
-  // Local Authority Tiers
   LA_TIER1: {
-    productId: 'prod_la_tier1',
+    productId: 'prod_TSyw6HrQ55fXSb',
     tier: 'LA_TIER1' as SubscriptionTier,
     name: 'Local Authority Tier 1',
     description: 'For small local authorities',
-    monthlyPriceId: 'price_la_tier1_monthly',
-    annualPriceId: 'price_la_tier1_annual',
+    monthlyPriceId: 'price_1SW2yvBz14LFoqP2SjN3MR4p',
+    annualPriceId: 'price_1SW2yvBz14LFoqP24pEmCQFi',
   },
+
   LA_TIER2: {
-    productId: 'prod_la_tier2',
+    productId: 'prod_TSywTNLxIbCFQ5',
     tier: 'LA_TIER2' as SubscriptionTier,
     name: 'Local Authority Tier 2',
     description: 'For medium local authorities',
-    monthlyPriceId: 'price_la_tier2_monthly',
-    annualPriceId: 'price_la_tier2_annual',
+    monthlyPriceId: 'price_1SW2ywBz14LFoqP29PbBTluu',
+    annualPriceId: 'price_1SW2yxBz14LFoqP2FJGEDgAb',
   },
+
   LA_TIER3: {
-    productId: 'prod_la_tier3',
+    productId: 'prod_TSywlm1rBxZVoQ',
     tier: 'LA_TIER3' as SubscriptionTier,
     name: 'Local Authority Tier 3',
     description: 'For large local authorities',
-    monthlyPriceId: 'price_la_tier3_monthly',
-    annualPriceId: 'price_la_tier3_annual',
+    monthlyPriceId: 'price_1SW2yyBz14LFoqP2t1ojEwyb',
+    annualPriceId: 'price_1SW2yyBz14LFoqP2ehx5i2pY',
   },
 
-  // MAT (Multi-Academy Trust) Tiers
   MAT_SMALL: {
-    productId: 'prod_mat_small',
+    productId: 'prod_TSywIOaf8Jg1sg',
     tier: 'MAT_SMALL' as SubscriptionTier,
     name: 'MAT Small',
     description: 'For MATs with 2-5 schools',
-    monthlyPriceId: 'price_mat_small_monthly',
-    annualPriceId: 'price_mat_small_annual',
+    monthlyPriceId: 'price_1SW2yzBz14LFoqP2E9hVMyn4',
+    annualPriceId: 'price_1SW2z0Bz14LFoqP2Eg94wh74',
   },
+
   MAT_MEDIUM: {
-    productId: 'prod_mat_medium',
+    productId: 'prod_TSywkIe3MvbcOW',
     tier: 'MAT_MEDIUM' as SubscriptionTier,
     name: 'MAT Medium',
     description: 'For MATs with 6-15 schools',
-    monthlyPriceId: 'price_mat_medium_monthly',
-    annualPriceId: 'price_mat_medium_annual',
+    monthlyPriceId: 'price_1SW2z1Bz14LFoqP2n4O1HCbJ',
+    annualPriceId: 'price_1SW2z1Bz14LFoqP2O1YstmZ4',
   },
+
   MAT_LARGE: {
-    productId: 'prod_mat_large',
+    productId: 'prod_TSyw5Pe8LKsMj3',
     tier: 'MAT_LARGE' as SubscriptionTier,
     name: 'MAT Large',
     description: 'For MATs with 15+ schools',
-    monthlyPriceId: 'price_mat_large_monthly',
-    annualPriceId: 'price_mat_large_annual',
+    monthlyPriceId: 'price_1SW2z2Bz14LFoqP2qk3WTrg4',
+    annualPriceId: 'price_1SW2z2Bz14LFoqP2HOhLq5Jl',
   },
 
-  // Research Tiers
   RESEARCH_INSTITUTIONAL: {
-    productId: 'prod_research_institutional',
+    productId: 'prod_TSywhGYPZPnXsS',
     tier: 'RESEARCH_INSTITUTIONAL' as SubscriptionTier,
     name: 'Research Institutional',
     description: 'For research institutions',
-    monthlyPriceId: 'price_research_institutional_monthly',
-    annualPriceId: 'price_research_institutional_annual',
+    monthlyPriceId: 'price_1SW2z3Bz14LFoqP2uEkJM7Ry',
+    annualPriceId: 'price_1SW2z4Bz14LFoqP2RyCljBjB',
   },
+
   RESEARCH_PARTNERSHIP: {
-    productId: 'prod_research_partnership',
+    productId: 'prod_TSywiDCYE93k5M',
     tier: 'RESEARCH_PARTNERSHIP' as SubscriptionTier,
     name: 'Research Partnership',
     description: 'For research partnerships',
-    monthlyPriceId: 'price_research_partnership_monthly',
-    annualPriceId: 'price_research_partnership_annual',
+    monthlyPriceId: 'price_1SW2z5Bz14LFoqP250XrwD3Y',
+    annualPriceId: 'price_1SW2z5Bz14LFoqP2SXLK0CSV',
   },
 };
 

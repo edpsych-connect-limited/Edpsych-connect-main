@@ -49,29 +49,27 @@ export default function InterventionDetailPage({ params }: InterventionDetailPro
   const [activeTab, setActiveTab] = useState<'overview' | 'progress' | 'fidelity'>('overview');
 
   useEffect(() => {
-
+    const loadIntervention = async () => {
+      try {
+        const response = await fetch(`/api/interventions/${params.id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setIntervention(data.intervention);
+        } else {
+          console.error('Failed to load intervention');
+          router.push('/interventions');
+        }
+      } catch (error) {
+        console.error('Failed to load intervention:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
     if (user) {
       loadIntervention();
     }
-  }, [user, params.id]);
-
-  const loadIntervention = async () => {
-    try {
-      const response = await fetch(`/api/interventions/${params.id}`);
-      if (response.ok) {
-        const data = await response.json();
-        setIntervention(data.intervention);
-      } else {
-        console.error('Failed to load intervention');
-        router.push('/interventions');
-      }
-    } catch (error) {
-      console.error('Failed to load intervention:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [user, params.id, router]);
 
   const updateStatus = async (newStatus: Intervention['status']) => {
     if (!intervention) return;

@@ -49,8 +49,20 @@ const TypingDot = ({ delay }: { delay: string }) => {
   );
 };
 
+// Helper for generating IDs
+const generateId = (prefix: string) => `${prefix}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+const getRandomPreset = (presets: any[]) => presets[Math.floor(Math.random() * presets.length)];
+
 const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '', onInteraction }) => {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(() => [{
+    id: 'welcome',
+    sender: 'ai',
+    content: "Welcome to EdPsych Connect World! I&apos;m your AI assistant powered by 13 specialized AI agents. How can I help you today?",
+    agentName: "AI Coordinator",
+    agentIcon: <FaRobot className="text-blue-500" />,
+    agentColor: 'bg-blue-100 border-blue-300',
+    timestamp: new Date(),
+  }]);
   const [inputValue, setInputValue] = useState('');
   const [isResponding, setIsResponding] = useState(false);
   const [selectedPreset, setSelectedPreset] = useState<string | null>(null);
@@ -132,19 +144,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
     }
   ];
 
-  // Initial welcome message
-  useEffect(() => {
-    const initialMessage: Message = {
-      id: 'welcome',
-      sender: 'ai',
-      content: "Welcome to EdPsych Connect World! I&apos;m your AI assistant powered by 13 specialized AI agents. How can I help you today?",
-      agentName: "AI Coordinator",
-      agentIcon: <FaRobot className="text-blue-500" />,
-      agentColor: 'bg-blue-100 border-blue-300',
-      timestamp: new Date(),
-    };
-    setMessages([initialMessage]);
-  }, []);
+  // Initial welcome message removed (moved to state initialization)
 
   // Auto-scroll to bottom when messages change
   const scrollToBottom = () => {
@@ -173,7 +173,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
   // Add a user message
   const addUserMessage = (content: string) => {
     const newMessage: Message = {
-      id: `user-${Date.now()}`,
+      id: generateId('user'),
       sender: 'user',
       content,
       timestamp: new Date(),
@@ -199,7 +199,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
     
     // Add typing indicator
     const typingMessage: Message = {
-      id: `typing-${Date.now()}`,
+      id: generateId('typing'),
       sender: 'ai',
       content: '',
       agentName: agent?.name || 'AI Assistant',
@@ -228,7 +228,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
       
       if (typingIndex !== -1) {
         newMessages[typingIndex] = {
-          id: `ai-${Date.now()}`,
+          id: generateId('ai'),
           sender: 'ai',
           content: responseData.content,
           agentName: agent?.name || 'AI Assistant',
@@ -262,7 +262,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
     addUserMessage(inputValue);
     
     // For custom input, choose a random preset response for demo purposes
-    const randomPreset = presetQuestions[Math.floor(Math.random() * presetQuestions.length)];
+    const randomPreset = getRandomPreset(presetQuestions);
     simulateAIResponse(randomPreset.response);
   };
 

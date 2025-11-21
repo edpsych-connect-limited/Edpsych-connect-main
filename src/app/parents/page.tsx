@@ -43,11 +43,11 @@ export default function ParentsPage() {
                 For Parents & Guardians
               </div>
               <h1 className="text-5xl lg:text-6xl font-black text-slate-900 mb-6 leading-tight">
-                Empower Your Child's <br />
+                Empower Your Child&apos;s <br />
                 <span className="text-rose-600">Learning Journey</span>
               </h1>
               <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-                Get real-time insights into your child's progress, access expert resources, and collaborate directly with teachers and educational psychologists.
+                Get real-time insights into your child&apos;s progress, access expert resources, and collaborate directly with teachers and educational psychologists.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <button 
@@ -70,7 +70,7 @@ export default function ParentsPage() {
                 <div className="flex items-center space-x-4 mb-6">
                   <div className="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center text-2xl">👶</div>
                   <div>
-                    <div className="font-bold text-slate-900">Leo's Progress</div>
+                    <div className="font-bold text-slate-900">Leo&apos;s Progress</div>
                     <div className="text-sm text-slate-500">Updated 2 hours ago</div>
                   </div>
                 </div>
@@ -140,7 +140,7 @@ export default function ParentsPage() {
       <section className="py-20 bg-slate-900 text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl lg:text-4xl font-black mb-6">Ready to get started?</h2>
-          <p className="text-xl text-slate-300 mb-10">Join thousands of parents who are actively participating in their child's educational success.</p>
+          <p className="text-xl text-slate-300 mb-10">Join thousands of parents who are actively participating in their child&apos;s educational success.</p>
           <Link 
             href="/signup?role=parent" 
             className="inline-block bg-rose-600 text-white font-bold py-4 px-12 rounded-xl hover:bg-rose-700 transition-all shadow-lg hover:shadow-rose-900/50"
