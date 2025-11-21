@@ -310,7 +310,7 @@ export class AIAnalyticsService {
     newestEntry: Date | null;
   } {
     const entries = Array.from(this.cache.entries());
-    const now = Date.now();
+    // const now = Date.now();
 
     return {
       totalEntries: entries.length,

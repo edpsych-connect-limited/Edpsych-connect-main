@@ -1,5 +1,4 @@
 import AlgorithmUsageService from '../services/AlgorithmUsageService';
-import LicenseService from '../services/LicenseService';
 import { getPerformanceMetrics } from '../../utils/performance';
 
 /**

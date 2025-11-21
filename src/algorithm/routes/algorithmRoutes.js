@@ -16,7 +16,7 @@ const router = express.Router();
  */
 router.get('/', async (req, res) => {
   try {
-    const { category, query, featured, sort, limit, page } = req.query;
+    const { category, query, featured, limit, page } = req.query;
     
     // Build search criteria
     const criteria = {};

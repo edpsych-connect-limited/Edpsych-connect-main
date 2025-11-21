@@ -25,13 +25,13 @@ import {
 export const dynamic = 'force-dynamic';
 
 // Singleton matchmaking engine instance
-let matchmakingEngine: MatchmakingEngine | null = null;
+let _matchmakingEngine: MatchmakingEngine | null = null;
 
-function getMatchmakingEngine(): MatchmakingEngine {
-  if (!matchmakingEngine) {
-    matchmakingEngine = new MatchmakingEngine();
+function _getMatchmakingEngine(): MatchmakingEngine {
+  if (!_matchmakingEngine) {
+    _matchmakingEngine = new MatchmakingEngine();
   }
-  return matchmakingEngine;
+  return _matchmakingEngine;
 }
 
 // ============================================================================

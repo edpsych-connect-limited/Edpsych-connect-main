@@ -140,7 +140,7 @@ export function Step1Welcome() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
         >
-          We're excited to have you join EdPsych Connect World - the UK's leading platform for educational psychology professionals.
+          We&apos;re excited to have you join EdPsych Connect World - the UK&apos;s leading platform for educational psychology professionals.
         </motion.p>
       </div>
 
@@ -194,20 +194,32 @@ export function Step1Welcome() {
             </div>
           )}
 
+          // ...existing code...
+import { Play, CheckCircle, Target, Zap, Shield, Users, TrendingUp } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useOnboarding } from '../OnboardingProvider';
+import { ProgressBar } from '@/components/ui/ProgressBar';
+
+export function Step1Welcome() {
+  const { state, updateStep } = useOnboarding();
+// ...existing code...
           {/* Progress Indicator */}
           {videoStarted && videoWatchPercentage > 0 && (
             <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-700 bg-opacity-50">
-              <div
-                className="h-full bg-indigo-600 transition-all duration-300"
-                style={{ width: `${videoWatchPercentage}%` }}
-                role="progressbar"
-                aria-valuenow={videoWatchPercentage}
-                aria-valuemin={0}
-                aria-valuemax={100}
-                aria-label={`Video watched ${videoWatchPercentage}%`}
+              <ProgressBar 
+                value={videoWatchPercentage} 
+                max={100} 
+                colorClass="bg-indigo-600" 
+                heightClass="h-full" 
+                className="rounded-none" 
+                trackColorClass="bg-transparent"
               />
             </div>
           )}
+        </div>
+
+        {videoStarted && videoWatchPercentage >= 80 && (
+// ...existing code...
         </div>
 
         {videoStarted && videoWatchPercentage >= 80 && (
@@ -217,7 +229,7 @@ export function Step1Welcome() {
             animate={{ opacity: 1, y: 0 }}
           >
             <CheckCircle className="w-5 h-5" />
-            <span className="text-sm font-medium">Great! You've completed the introduction video</span>
+            <span className="text-sm font-medium">Great! You&apos;ve completed the introduction video</span>
           </motion.div>
         )}
       </motion.div>
@@ -297,10 +309,10 @@ export function Step1Welcome() {
         transition={{ delay: 0.8 }}
       >
         <p className="text-gray-700 mb-2">
-          <strong>Ready to get started?</strong> Let's set up your account in just a few steps.
+          <strong>Ready to get started?</strong> Let&apos;s set up your account in just a few steps.
         </p>
         <p className="text-sm text-gray-600">
-          It'll only take 3-4 minutes, and you can skip optional steps.
+          It&apos;ll only take 3-4 minutes, and you can skip optional steps.
         </p>
       </motion.div>
 

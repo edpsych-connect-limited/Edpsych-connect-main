@@ -1,5 +1,4 @@
 import { User, UserSubscription, UserRole } from '../types/auth';
-import { SubscriptionTier } from './subscription-feature-service';
 import { logger } from '../lib/logger';
 
 /**

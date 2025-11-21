@@ -319,7 +319,7 @@ export class AIService {
   /**
    * Generate specific solutions based on challenge category
    */
-  private static generateSolutions(category: string, originalChallenge: string): string[] {
+  private static generateSolutions(category: string, _originalChallenge: string): string[] {
     const solutionTemplates: Record<string, string[]> = {
       report_automation: [
         'Automated report generation using natural classroom interactions',

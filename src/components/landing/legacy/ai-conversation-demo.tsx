@@ -30,6 +30,25 @@ interface AIAgent {
   color: string;
 }
 
+const TypingDot = ({ delay }: { delay: string }) => {
+  const id = React.useId().replace(/:/g, '');
+  return (
+    <>
+      <style>{`
+        @keyframes bounce-${id} {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-25%); }
+        }
+        .animate-bounce-${id} {
+          animation: bounce-${id} 1s infinite;
+          animation-delay: ${delay};
+        }
+      `}</style>
+      <div className={`w-2 h-2 bg-gray-400 rounded-full animate-bounce-${id}`} />
+    </>
+  );
+};
+
 const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '', onInteraction }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
@@ -278,6 +297,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
           onClick={handleReset}
           className="text-gray-400 hover:text-white"
           title="Reset conversation"
+          aria-label="Reset conversation"
         >
           <FaSyncAlt />
         </button>
@@ -314,9 +334,9 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
                 
                 {message.isTyping ? (
                   <div className="flex items-center space-x-1">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                    <TypingDot delay="0ms" />
+                    <TypingDot delay="150ms" />
+                    <TypingDot delay="300ms" />
                   </div>
                 ) : (
                   <div className="whitespace-pre-wrap text-sm">{message.content}</div>
@@ -398,6 +418,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
           type="submit"
           disabled={isResponding || !inputValue.trim()}
           className="bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          aria-label="Send message"
         >
           <FaPaperPlane />
         </button>

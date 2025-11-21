@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -49,6 +49,23 @@ interface Course {
   cpdHours: number;
   certificateAvailable: boolean;
 }
+
+// Helper component to avoid inline styles
+const ProgressBar = ({ progress }: { progress: number }) => {
+  const id = useId().replace(/:/g, '');
+  return (
+    <>
+      <style>{`
+        .progress-${id} {
+          width: ${progress}%;
+        }
+      `}</style>
+      <div
+        className={`bg-blue-600 h-2 rounded-full progress-${id}`}
+      />
+    </>
+  );
+};
 
 export default function CourseDetailPage() {
   const params = useParams();
@@ -198,11 +215,7 @@ export default function CourseDetailPage() {
                             <span>{course.progress}%</span>
                           </div>
                           <div className="w-full bg-gray-200 rounded-full h-2" aria-hidden="true">
-                            <div
-                              className="bg-blue-600 h-2 rounded-full"
-                              // eslint-disable-next-line react/forbid-dom-props
-                              style={{ width: `${course.progress}%` }}
-                            ></div>
+                            <ProgressBar progress={course.progress} />
                           </div>
                         </div>
                       )}
@@ -283,8 +296,7 @@ export default function CourseDetailPage() {
                   <button
                     onClick={() => setActiveTab('overview')}
                     role="tab"
-                    // eslint-disable-next-line jsx-a11y/aria-proptypes
-                    aria-selected={activeTab === 'overview'}
+                    {...(activeTab === 'overview' ? { 'aria-selected': 'true' } : { 'aria-selected': 'false' })}
                     aria-controls="overview-panel"
                     className={`px-6 py-4 font-medium border-b-2 ${
                       activeTab === 'overview'
@@ -297,8 +309,7 @@ export default function CourseDetailPage() {
                   <button
                     onClick={() => setActiveTab('curriculum')}
                     role="tab"
-                    // eslint-disable-next-line jsx-a11y/aria-proptypes
-                    aria-selected={activeTab === 'curriculum'}
+                    {...(activeTab === 'curriculum' ? { 'aria-selected': 'true' } : { 'aria-selected': 'false' })}
                     aria-controls="curriculum-panel"
                     className={`px-6 py-4 font-medium border-b-2 ${
                       activeTab === 'curriculum'
@@ -311,8 +322,7 @@ export default function CourseDetailPage() {
                   <button
                     onClick={() => setActiveTab('instructor')}
                     role="tab"
-                    // eslint-disable-next-line jsx-a11y/aria-proptypes
-                    aria-selected={activeTab === 'instructor'}
+                    {...(activeTab === 'instructor' ? { 'aria-selected': 'true' } : { 'aria-selected': 'false' })}
                     aria-controls="instructor-panel"
                     className={`px-6 py-4 font-medium border-b-2 ${
                       activeTab === 'instructor'
@@ -325,8 +335,7 @@ export default function CourseDetailPage() {
                   <button
                     onClick={() => setActiveTab('reviews')}
                     role="tab"
-                    // eslint-disable-next-line jsx-a11y/aria-proptypes
-                    aria-selected={activeTab === 'reviews'}
+                    {...(activeTab === 'reviews' ? { 'aria-selected': 'true' } : { 'aria-selected': 'false' })}
                     aria-controls="reviews-panel"
                     className={`px-6 py-4 font-medium border-b-2 ${
                       activeTab === 'reviews'

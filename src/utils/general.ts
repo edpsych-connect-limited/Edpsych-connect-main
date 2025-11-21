@@ -56,7 +56,7 @@ export function createSlug(str: string): string {
 export function safeJsonParse<T>(jsonString: string, fallback: T = null as unknown as T): T {
   try {
     return JSON.parse(jsonString) as T;
-  } catch (error) {
+  } catch (_error) {
     return fallback;
   }
 }
@@ -71,7 +71,7 @@ export function safeJsonParse<T>(jsonString: string, fallback: T = null as unkno
 export function safeJsonStringify(value: any, fallback: string = '{}'): string {
   try {
     return JSON.stringify(value);
-  } catch (error) {
+  } catch (_error) {
     return fallback;
   }
 }

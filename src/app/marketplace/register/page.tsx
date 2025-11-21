@@ -126,9 +126,10 @@ export default function ProfessionalRegistrationPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Location (Base)</label>
+                  <label htmlFor="location" className="block text-sm font-medium text-gray-700">Location (Base)</label>
                   <input
                     type="text"
+                    id="location"
                     name="location"
                     required
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -139,8 +140,9 @@ export default function ProfessionalRegistrationPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Professional Bio</label>
+                  <label htmlFor="bio" className="block text-sm font-medium text-gray-700">Professional Bio</label>
                   <textarea
+                    id="bio"
                     name="bio"
                     required
                     rows={4}
@@ -170,9 +172,10 @@ export default function ProfessionalRegistrationPage() {
 
                 <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Years of Experience</label>
+                    <label htmlFor="yearsExperience" className="block text-sm font-medium text-gray-700">Years of Experience</label>
                     <input
                       type="number"
+                      id="yearsExperience"
                       name="yearsExperience"
                       required
                       min="0"
@@ -182,9 +185,10 @@ export default function ProfessionalRegistrationPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Daily Rate (£)</label>
+                    <label htmlFor="dailyRate" className="block text-sm font-medium text-gray-700">Daily Rate (£)</label>
                     <input
                       type="number"
+                      id="dailyRate"
                       name="dailyRate"
                       required
                       min="0"
@@ -240,9 +244,10 @@ export default function ProfessionalRegistrationPage() {
                 </p>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">HCPC Registration Number</label>
+                  <label htmlFor="hcpcNumber" className="block text-sm font-medium text-gray-700">HCPC Registration Number</label>
                   <input
                     type="text"
+                    id="hcpcNumber"
                     name="hcpcNumber"
                     required
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -253,9 +258,10 @@ export default function ProfessionalRegistrationPage() {
 
                 <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Insurance Provider</label>
+                    <label htmlFor="insuranceProvider" className="block text-sm font-medium text-gray-700">Insurance Provider</label>
                     <input
                       type="text"
+                      id="insuranceProvider"
                       name="insuranceProvider"
                       required
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -264,9 +270,10 @@ export default function ProfessionalRegistrationPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Policy Number</label>
+                    <label htmlFor="insuranceNumber" className="block text-sm font-medium text-gray-700">Policy Number</label>
                     <input
                       type="text"
+                      id="insuranceNumber"
                       name="insuranceNumber"
                       required
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -278,9 +285,10 @@ export default function ProfessionalRegistrationPage() {
 
                 <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">DBS Certificate Number</label>
+                    <label htmlFor="dbsNumber" className="block text-sm font-medium text-gray-700">DBS Certificate Number</label>
                     <input
                       type="text"
+                      id="dbsNumber"
                       name="dbsNumber"
                       required
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -289,9 +297,10 @@ export default function ProfessionalRegistrationPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">DBS Expiry Date</label>
+                    <label htmlFor="dbsExpiry" className="block text-sm font-medium text-gray-700">DBS Expiry Date</label>
                     <input
                       type="date"
+                      id="dbsExpiry"
                       name="dbsExpiry"
                       required
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"

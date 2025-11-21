@@ -1,5 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 import { FaUser, FaChartLine, FaExclamationTriangle, FaTrophy, FaClock, FaBook } from 'react-icons/fa';
+
+const ProgressBar = ({ width, className }: { width: number, className?: string }) => {
+  const id = useId().replace(/:/g, '');
+  return (
+    <>
+      <style>{`
+        #pb-${id} {
+          width: ${width}%;
+        }
+      `}</style>
+      <div id={`pb-${id}`} className={className} />
+    </>
+  );
+};
 
 interface StudentData {
   studentId: string;
@@ -153,6 +167,7 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
           </div>
           <div className="flex items-center space-x-4">
             <select
+              aria-label="Time Range"
               value={timeRange}
               onChange={(e) => window.location.search = `?timeRange=${e.target.value}`}
               className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
@@ -248,11 +263,10 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
                   </div>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div
+                  <ProgressBar
+                    width={selectedStudent.performanceMetrics.attendance.rate}
                     className="bg-blue-600 h-2 rounded-full"
-                    // eslint-disable-next-line react/forbid-dom-props
-                    style={{ width: `${selectedStudent.performanceMetrics.attendance.rate}%` }}
-                  ></div>
+                  />
                 </div>
                 <div className="flex justify-between text-sm text-gray-600">
                   <span>{selectedStudent.performanceMetrics.attendance.absences} absences</span>
@@ -333,11 +347,10 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
                 <div className="flex items-center space-x-3">
                   <div className="flex-1">
                     <div className="w-full bg-gray-200 rounded-full h-3">
-                      <div
+                      <ProgressBar
+                        width={selectedStudent.predictions.engagement.predictedDropoutRisk}
                         className={`h-3 rounded-full ${selectedStudent.predictions.engagement.predictedDropoutRisk >= 70 ? 'bg-red-600' : selectedStudent.predictions.engagement.predictedDropoutRisk >= 40 ? 'bg-yellow-600' : 'bg-green-600'}`}
-                        // eslint-disable-next-line react/forbid-dom-props
-                        style={{ width: `${selectedStudent.predictions.engagement.predictedDropoutRisk}%` }}
-                      ></div>
+                      />
                     </div>
                   </div>
                   <span className={`font-semibold ${getRiskColor(selectedStudent.predictions.engagement.predictedDropoutRisk)}`}>

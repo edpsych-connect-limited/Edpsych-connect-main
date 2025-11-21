@@ -126,7 +126,7 @@ export class CurriculumService {
     duration: number,
     studentProfiles?: StudentProfile[],
     userId: string = 'system',
-    tenantId: string = 'system'
+    _tenantId: string = 'system'
   ): Promise<LessonPlan> {
     try {
       // Generate learning objectives using AI
@@ -353,7 +353,7 @@ export class CurriculumService {
   async generateBattleRoyaleGame(
     subject: string,
     topic: string,
-    yearGroup: string,
+    _yearGroup: string,
     learningObjectives: string[],
     userId: string = 'system'
   ): Promise<any> {
@@ -445,7 +445,7 @@ export class CurriculumService {
   }
 
   // Helper methods for parsing AI responses
-  private parseObjectives(response: string): LearningObjective[] {
+  private parseObjectives(_response: string): LearningObjective[] {
     // Parse AI response into structured objectives
     return [
       {
@@ -461,7 +461,7 @@ export class CurriculumService {
     ];
   }
 
-  private parseActivities(response: string): LessonActivity[] {
+  private parseActivities(_response: string): LessonActivity[] {
     return [
       {
         id: `activity_${Date.now()}_1`,
@@ -480,7 +480,7 @@ export class CurriculumService {
     ];
   }
 
-  private parseDifferentiation(response: string): DifferentiationStrategy[] {
+  private parseDifferentiation(_response: string): DifferentiationStrategy[] {
     return [
       {
         level: 'below',
@@ -491,7 +491,7 @@ export class CurriculumService {
     ];
   }
 
-  private parseAssessment(response: string): AssessmentMethod[] {
+  private parseAssessment(_response: string): AssessmentMethod[] {
     return [
       {
         type: 'formative',
@@ -502,7 +502,7 @@ export class CurriculumService {
     ];
   }
 
-  private async generateResources(subject: string, topic: string, yearGroup: string): Promise<Resource[]> {
+  private async generateResources(subject: string, _topic: string, _yearGroup: string): Promise<Resource[]> {
     return [
       {
         id: `resource_${Date.now()}_1`,
@@ -518,7 +518,7 @@ export class CurriculumService {
     ];
   }
 
-  private async generateHomework(subject: string, topic: string, yearGroup: string): Promise<HomeworkAssignment> {
+  private async generateHomework(subject: string, topic: string, _yearGroup: string): Promise<HomeworkAssignment> {
     return {
       type: 'practice',
       title: `${subject} - ${topic} Practice`,
@@ -532,7 +532,7 @@ export class CurriculumService {
     };
   }
 
-  private parsePersonalization(response: string): any {
+  private parsePersonalization(_response: string): any {
     return {
       adaptedActivities: [],
       personalizedResources: [],
@@ -540,17 +540,17 @@ export class CurriculumService {
     };
   }
 
-  private matchActivitiesToStudent(activities: LessonActivity[], student: StudentProfile): LessonActivity[] {
+  private matchActivitiesToStudent(activities: LessonActivity[], _student: StudentProfile): LessonActivity[] {
     // Match activities to student interests and learning style
     return activities;
   }
 
-  private adaptObjectivesForStudent(objectives: LearningObjective[], student: StudentProfile): LearningObjective[] {
+  private adaptObjectivesForStudent(objectives: LearningObjective[], _student: StudentProfile): LearningObjective[] {
     // Adapt objectives based on student profile
     return objectives;
   }
 
-  private parseGameDesign(response: string): any {
+  private parseGameDesign(_response: string): any {
     return {
       gameMode: 'battle_royale',
       title: 'Epic Learning Battle Royale',
@@ -568,7 +568,7 @@ export class CurriculumService {
     };
   }
 
-  private parseBlogContent(response: string): any {
+  private parseBlogContent(_response: string): any {
     return {
       title: 'Revolutionary Teaching Strategies for the Modern Classroom',
       content: 'Engaging, evidence-based content for educators',
@@ -578,7 +578,7 @@ export class CurriculumService {
     };
   }
 
-  private parseResearchDesign(response: string): any {
+  private parseResearchDesign(_response: string): any {
     return {
       title: 'Impact of AI-Powered Personalization on Student Outcomes',
       methodology: 'mixed_methods',

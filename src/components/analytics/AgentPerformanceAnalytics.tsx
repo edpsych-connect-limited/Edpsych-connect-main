@@ -141,6 +141,7 @@ export default function AgentPerformanceAnalytics() {
           </div>
           <div className="flex items-center space-x-4">
             <select
+              aria-label="Time range"
               value={timeRange}
               onChange={(e) => setTimeRange(e.target.value as any)}
               className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"

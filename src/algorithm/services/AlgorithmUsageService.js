@@ -29,7 +29,7 @@ class AlgorithmUsageService {
    * @param {Object} [filterOptions={}] - Additional filter options
    * @returns {Promise<Object>} - Paginated usage history
    */
-  async getUsageHistory(algorithmId, paginationOptions = {}, filterOptions = {}) {
+  async getUsageHistory(algorithmId, _paginationOptions = {}, _filterOptions = {}) {
     console.log('Getting usage history for algorithm:', algorithmId);
     return {
       items: [
@@ -56,7 +56,7 @@ class AlgorithmUsageService {
    * @param {Object} [filterOptions={}] - Filter options for the statistics
    * @returns {Promise<Object>} - Comprehensive usage statistics
    */
-  async getUsageStats(algorithmId, filterOptions = {}) {
+  async getUsageStats(algorithmId, _filterOptions = {}) {
     console.log('Getting usage stats for algorithm:', algorithmId);
     return {
       totalUsage: 150,
@@ -121,7 +121,7 @@ class AlgorithmUsageService {
    * @param {Object} [options={}] - Options for filtering royalty information
    * @returns {Promise<Object>} - Royalty information
    */
-  async getCreatorRoyalties(creatorId, options = {}) {
+  async getCreatorRoyalties(creatorId, _options = {}) {
     console.log('Getting creator royalties:', creatorId);
     return {
       creatorId,
@@ -140,7 +140,7 @@ class AlgorithmUsageService {
    * @param {Object} [options={}] - Options for filtering royalty information
    * @returns {Promise<Object>} - Detailed royalty breakdown
    */
-  async getAlgorithmRoyalties(algorithmId, options = {}) {
+  async getAlgorithmRoyalties(algorithmId, _options = {}) {
     console.log('Getting algorithm royalties:', algorithmId);
     return {
       algorithmId,

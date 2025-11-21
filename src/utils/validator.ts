@@ -1,4 +1,4 @@
-export function validate(data: any, schema?: any) {
+export function validate(data: any, _schema?: any) {
   // Placeholder validation logic
   if (!data) {
     throw new Error('Validation failed: no data provided');

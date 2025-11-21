@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -17,6 +17,27 @@ interface Course {
   instructor?: string;
   rating?: number;
   students?: number;
+}
+
+function ProgressBar({ value }: { value: number }) {
+  const id = useId();
+  const percentage = Math.min(100, Math.max(0, value));
+  const widthClass = `progress-${id.replace(/:/g, '')}`;
+
+  return (
+    <>
+      <style>{`
+        .${widthClass} {
+          width: ${percentage}%;
+        }
+      `}</style>
+      <div className="w-full bg-gray-200 rounded-full h-2">
+        <div 
+          className={`bg-blue-600 h-2 rounded-full ${widthClass}`}
+        ></div>
+      </div>
+    </>
+  );
 }
 
 type ViewMode = 'grid' | 'list';
@@ -234,13 +255,7 @@ export default function TrainingCataloguePage() {
                         <span>Progress</span>
                         <span>{course.progress}%</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div 
-                          className="bg-blue-600 h-2 rounded-full" 
-                          // eslint-disable-next-line react/forbid-dom-props
-                          style={{ width: `${course.progress}%` }}
-                        ></div>
-                      </div>
+                      <ProgressBar value={course.progress} />
                     </div>
                   )}
                   <Link
@@ -325,13 +340,7 @@ export default function TrainingCataloguePage() {
                           <span>Progress</span>
                           <span>{course.progress}%</span>
                         </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div 
-                            className="bg-blue-600 h-2 rounded-full" 
-                            // eslint-disable-next-line react/forbid-dom-props
-                            style={{ width: `${course.progress}%` }}
-                          ></div>
-                        </div>
+                        <ProgressBar value={course.progress} />
                       </div>
                     )}
                   </div>

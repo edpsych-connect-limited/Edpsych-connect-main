@@ -441,6 +441,14 @@ export default function SubscriptionManagementPage() {
 // USAGE BAR COMPONENT
 // ============================================================================
 
+// ...existing code...
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/lib/auth/hooks';
+import jsPDF from 'jspdf';
+import { ProgressBar } from '@/components/ui/ProgressBar';
+import {
+  getPlanById,
+// ...existing code...
 function UsageBar({
   label,
   current,
@@ -455,6 +463,12 @@ function UsageBar({
   const percentage = max ? Math.min((current / max) * 100, 100) : 0;
   const isUnlimited = max === undefined;
 
+  const colorClass = percentage >= 90
+    ? 'bg-red-600'
+    : percentage >= 70
+    ? 'bg-yellow-600'
+    : 'bg-green-600';
+
   return (
     <div>
       <div className="flex items-center justify-between mb-2">
@@ -466,22 +480,12 @@ function UsageBar({
         </span>
       </div>
       {!isUnlimited && (
-        <div className="w-full bg-gray-200 rounded-full h-2">
-          <div
-            className={`h-2 rounded-full transition-all ${
-              percentage >= 90
-                ? 'bg-red-600'
-                : percentage >= 70
-                ? 'bg-yellow-600'
-                : 'bg-green-600'
-            }`}
-            style={{ width: `${percentage}%` }}
-          ></div>
-        </div>
+        <ProgressBar value={current} max={max} colorClass={colorClass} />
       )}
     </div>
   );
 }
+// ...existing code...
 
 // ============================================================================
 // INVOICE ITEM COMPONENT

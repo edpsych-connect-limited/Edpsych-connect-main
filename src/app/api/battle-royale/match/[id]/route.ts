@@ -135,7 +135,7 @@ export async function PATCH(
       );
     }
 
-    const userId = parseInt(session.id);
+    const _userId = parseInt(session.id);
     const matchId = params.id;
     const body = await request.json();
     const { action, results } = body;

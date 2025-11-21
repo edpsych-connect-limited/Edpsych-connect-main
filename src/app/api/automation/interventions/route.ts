@@ -30,7 +30,7 @@ const mockInterventionService = {
     }
   ]),
 
-  getInterventionHistory: (studentId: string, limit: number) => ([
+  getInterventionHistory: (studentId: string, _limit: number) => ([
     {
       id: `int_${Date.now() - 86400000}`,
       studentId,

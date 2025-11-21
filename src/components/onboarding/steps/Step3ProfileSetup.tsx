@@ -197,6 +197,7 @@ export function Step3ProfileSetup() {
                 className="hidden"
                 id="photo-upload"
                 aria-describedby="photo-upload-description"
+                title="Upload profile photo"
               />
 
               {photoUploaded ? (

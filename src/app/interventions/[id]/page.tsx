@@ -434,8 +434,9 @@ function ProgressTab({ intervention }: { intervention: Intervention }) {
         <h3 className="font-semibold text-gray-900 mb-4">Log Progress Entry</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Date</label>
+            <label htmlFor="progress-date" className="block text-sm font-semibold text-gray-700 mb-2">Date</label>
             <input
+              id="progress-date"
               type="date"
               value={newEntry.date}
               onChange={(e) => setNewEntry({ ...newEntry, date: e.target.value })}
@@ -443,8 +444,9 @@ function ProgressTab({ intervention }: { intervention: Intervention }) {
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Value/Score</label>
+            <label htmlFor="progress-value" className="block text-sm font-semibold text-gray-700 mb-2">Value/Score</label>
             <input
+              id="progress-value"
               type="text"
               value={newEntry.value}
               onChange={(e) => setNewEntry({ ...newEntry, value: e.target.value })}
@@ -453,8 +455,9 @@ function ProgressTab({ intervention }: { intervention: Intervention }) {
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Notes (Optional)</label>
+            <label htmlFor="progress-notes" className="block text-sm font-semibold text-gray-700 mb-2">Notes (Optional)</label>
             <input
+              id="progress-notes"
               type="text"
               value={newEntry.notes}
               onChange={(e) => setNewEntry({ ...newEntry, notes: e.target.value })}
@@ -532,6 +535,7 @@ function FidelityTab({ intervention }: { intervention: Intervention }) {
               <div key={index} className="flex items-start bg-gray-50 rounded-lg p-4">
                 <input
                   type="checkbox"
+                  aria-label={`Fidelity check: ${item}`}
                   className="w-5 h-5 text-blue-600 border-gray-300 rounded mt-0.5 mr-3"
                 />
                 <span className="text-gray-900">{item}</span>

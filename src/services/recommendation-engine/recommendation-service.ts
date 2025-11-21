@@ -8,8 +8,6 @@ import {
   InteractionType
 } from "../../types/recommendation-engine-types";
 import db from "./database-adapter";
-import userPreferenceService from "./user-preferences";
-import contentInteractionService from "./content-interactions";
 import contentSimilarityService from "./content-similarity";
 
 /**

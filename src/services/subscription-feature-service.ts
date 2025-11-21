@@ -347,7 +347,7 @@ export class SubscriptionFeatureService {
 }
 
 // React hook for checking feature access
-export function useFeatureAccess(feature: FeatureFlag): boolean {
+export function useFeatureAccess(_feature: FeatureFlag): boolean {
   // This would normally use a user context or similar
   // For now, we'll just return true
   // In a real implementation, you would get the user from context

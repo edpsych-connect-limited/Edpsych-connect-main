@@ -122,10 +122,9 @@ async function main() {
     await prisma.parentChildLink.create({
       data: {
         tenant_id: demoTenant.id,
-        parent_user_id: parentUser.id,
-        student_id: leo.id,
-        relationship_type: 'Father',
-        access_level: 'Full'
+        parent_id: parentUser.id,
+        child_id: leo.id,
+        relationship_type: 'Father'
       }
     }).catch(() => {}); // Ignore if exists
   }

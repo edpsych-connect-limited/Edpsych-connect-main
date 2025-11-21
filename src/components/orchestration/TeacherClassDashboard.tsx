@@ -294,7 +294,7 @@ const StudentGrid: React.FC<{
                   isActive ? `${config.color} ring-2 ring-offset-2 ring-blue-500` : config.color
                 } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
                 aria-label={`Filter: ${config.label}`}
-                aria-pressed={isActive}
+                {...(isActive ? { 'aria-pressed': 'true' } : { 'aria-pressed': 'false' })}
               >
                 <Icon className="w-4 h-4" aria-hidden="true" />
                 {config.label}

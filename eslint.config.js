@@ -1,10 +1,22 @@
-import nextConfig from 'eslint-config-next';
+import { FlatCompat } from '@eslint/eslintrc';
+import js from '@eslint/js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import tsESLintPlugin from '@typescript-eslint/eslint-plugin';
 import tsESLintParser from '@typescript-eslint/parser';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+});
+
 export default [
-  ...nextConfig,
+  ...compat.extends('next/core-web-vitals'),
   {
+    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     plugins: {
       '@typescript-eslint': tsESLintPlugin,
     },
@@ -16,9 +28,8 @@ export default [
       'no-explicit-any': 'off',
       'no-unused-expressions': 'off',
       'no-var-requires': 'off',
-      // 'react/no-unescaped-entities': ['warn', { forbid: ['>', '"', '}'] }],
-      '@next/next/no-img-element': 'warn',
-      '@next/next/no-assign-module-variable': 'warn',
+      'next/no-img-element': 'warn',
+      'next/no-assign-module-variable': 'warn',
       '@typescript-eslint/no-require-imports': 'warn',
     },
   },

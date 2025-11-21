@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Loader2, BookOpen, Target, Lightbulb } from 'lucide-react';
 import { useAuth } from '@/lib/auth/hooks';
+import { ProgressBar } from '@/components/ui/ProgressBar';
 
 // Import UI components individually from their actual locations
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -434,14 +435,16 @@ export default function TutoringInterface() {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full relative"
+              className="w-full relative overflow-hidden"
             >
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   <span>{loadingMessage}</span>
                   {loadingProgress > 0 && (
-                    <div className="absolute bottom-0 left-0 h-1 bg-blue-500" style={{ width: `${loadingProgress}%` }} />
+                    <div className="absolute bottom-0 left-0 w-full">
+                       <ProgressBar value={loadingProgress} max={100} colorClass="bg-blue-500" heightClass="h-1" className="rounded-none" trackColorClass="bg-transparent" />
+                    </div>
                   )}
                 </>
               ) : (
@@ -557,12 +560,7 @@ export default function TutoringInterface() {
                     <span>Progress to Next Level</span>
                     <span>{response.masteryAssessment.progressToNextLevel}%</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div
-                      className="bg-blue-600 h-2 rounded-full"
-                      style={{ width: `${response.masteryAssessment.progressToNextLevel}%` }}
-                    ></div>
-                  </div>
+                  <ProgressBar value={response.masteryAssessment.progressToNextLevel} max={100} colorClass="bg-blue-600" />
                 </div>
                 <p className="text-sm text-muted-foreground">
                   Recommended practice time: {response.masteryAssessment.recommendedPracticeTime} minutes

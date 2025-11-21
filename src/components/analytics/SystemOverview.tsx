@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 import { FaServer, FaRobot, FaUsers, FaClock, FaExclamationTriangle, FaCheckCircle } from 'react-icons/fa';
 
 interface SystemMetrics {
@@ -44,6 +44,23 @@ interface SystemMetrics {
     timestamp: string;
   }>;
 }
+
+// Helper component to avoid inline styles
+const ProgressBar = ({ progress }: { progress: number }) => {
+  const id = useId().replace(/:/g, '');
+  return (
+    <>
+      <style>{`
+        .progress-${id} {
+          width: ${progress}%;
+        }
+      `}</style>
+      <div
+        className={`bg-blue-600 h-2 rounded-full progress-${id}`}
+      />
+    </>
+  );
+};
 
 export default function SystemOverview() {
   const [metrics, setMetrics] = useState<SystemMetrics | null>(null);
@@ -253,11 +270,7 @@ export default function SystemOverview() {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="w-16 bg-gray-200 rounded-full h-2 mr-2">
-                        <div
-                          className="bg-blue-600 h-2 rounded-full"
-                          // eslint-disable-next-line react/forbid-dom-props
-                          style={{ width: `${agent.loadFactor * 100}%` }}
-                        ></div>
+                        <ProgressBar progress={agent.loadFactor * 100} />
                       </div>
                       <span className="text-sm text-gray-900">{Math.round(agent.loadFactor * 100)}%</span>
                     </div>

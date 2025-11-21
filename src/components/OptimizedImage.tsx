@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 import Image from 'next/image';
 import type { ImageProps } from 'next/image';
 
@@ -9,6 +9,29 @@ interface OptimizedImageProps extends Omit<ImageProps, 'onError'> {
   fallbackComponent?: React.ReactNode;
   onLoad?: () => void;
 }
+
+// Helper component to avoid inline styles
+const FallbackDiv = ({ width, height, className, children }: { width: string | number | undefined, height: string | number | undefined, className: string, children: React.ReactNode }) => {
+  const id = useId().replace(/:/g, '');
+  const widthVal = typeof width === 'number' ? `${width}px` : width;
+  const heightVal = typeof height === 'number' ? `${height}px` : height;
+  
+  return (
+    <>
+      <style>{`
+        .fallback-${id} {
+          width: ${widthVal};
+          height: ${heightVal};
+        }
+      `}</style>
+      <div
+        className={`bg-gray-200 flex items-center justify-center ${className} fallback-${id}`}
+      >
+        {children}
+      </div>
+    </>
+  );
+};
 
 const OptimizedImage: React.FC<OptimizedImageProps> = ({
   src,
@@ -26,8 +49,11 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 }) => {
   const [error, setError] = useState<boolean>(false);
   const [loaded, setLoaded] = useState<boolean>(false);
-  const [_loadTime, setLoadTime] = useState<number>(0);
-  const startTime = React.useRef<number>(performance.now());
+  const startTime = React.useRef<number>(0);
+
+  useEffect(() => {
+    startTime.current = performance.now();
+  }, []);
 
   const defaultBlur = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHN0eWxlPSJmaWxsOiNlOWVhZWI7Ii8+PC9zdmc+';
 
@@ -43,7 +69,6 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   const handleLoad = () => {
     const endTime = performance.now();
     const loadDuration = endTime - startTime.current;
-    setLoadTime(loadDuration);
     setLoaded(true);
 
     console.info(`Image load time: ${loadDuration}ms`, {
@@ -75,10 +100,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
             {...props}
           />
         ) : (
-          <div
-            className={`bg-gray-200 flex items-center justify-center ${className}`}
-            style={{ width: typeof width === 'number' ? `${width}px` : width, height: typeof height === 'number' ? `${height}px` : height }}
-          >
+          <FallbackDiv width={width} height={height} className={className}>
             <svg
               className="w-10 h-10 text-gray-400"
               fill="currentColor"
@@ -91,7 +113,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
                 clipRule="evenodd"
               />
             </svg>
-          </div>
+          </FallbackDiv>
         )
       ) : (
         <Image

@@ -118,16 +118,28 @@ export default function InteractiveDemoPlayer({
 
         {/* Progress Bar */}
         <div className="mt-4">
+          // ...existing code...
+import React, { useState, useEffect } from 'react';
+import { ProgressBar } from '@/components/ui/ProgressBar';
+
+interface DemoStep {
+  id: string;
+// ...existing code...
           <div className="flex items-center justify-between text-sm mb-2">
             <span>Step {currentStep + 1} of {totalSteps}</span>
             <span>{Math.round(progress)}% complete</span>
           </div>
-          <div className="w-full bg-blue-400/30 rounded-full h-2">
-            <div
-              className="bg-white h-2 rounded-full transition-all duration-300"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
+          <ProgressBar 
+            value={progress} 
+            max={100} 
+            colorClass="bg-white" 
+            trackColorClass="bg-blue-400/30"
+          />
+        </div>
+      </div>
+
+      {/* Step Navigation */}
+// ...existing code...
         </div>
       </div>
 

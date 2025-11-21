@@ -177,10 +177,10 @@ export function Step2RoleSelection() {
       {/* Header */}
       <div className="text-center">
         <h2 className="text-4xl font-bold text-gray-900 mb-3">
-          What's your role?
+          What&apos;s your role?
         </h2>
         <p className="text-lg text-gray-600">
-          We'll personalize your experience based on your professional focus
+          We&apos;ll personalize your experience based on your professional focus
         </p>
       </div>
 
@@ -190,9 +190,10 @@ export function Step2RoleSelection() {
           const isSelected = selectedRole === role.id;
           const colors = getColorClasses(role.color);
           const Icon = role.icon;
+          const pressedValue = isSelected ? "true" : "false";
 
           return (
-            <button
+            <button // eslint-disable-line jsx-a11y/aria-proptypes
               key={role.id}
               onClick={() => handleRoleSelect(role.id)}
               className={`
@@ -204,7 +205,7 @@ export function Step2RoleSelection() {
                   : `${colors.bg} ${colors.border} hover:border-${role.color}-300`
                 }
               `}
-              aria-pressed={isSelected}
+              {...(isSelected ? { 'aria-pressed': 'true' } : { 'aria-pressed': 'false' })}
               aria-label={`Select role: ${role.name}`}
             >
               {/* Selection Indicator */}
@@ -260,7 +261,7 @@ export function Step2RoleSelection() {
                 Other Role
               </h3>
               <p className="text-sm text-gray-600">
-                Don't see your role? Click to enter a custom role
+                Don&apos;t see your role? Click to enter a custom role
               </p>
             </div>
           </button>
@@ -279,7 +280,7 @@ export function Step2RoleSelection() {
               <div className="flex-1 space-y-4">
                 <div>
                   <label htmlFor="custom-role" className="block text-sm font-medium text-gray-700 mb-2">
-                    What's your professional role?
+                    What&apos;s your professional role?
                   </label>
                   <input
                     type="text"
@@ -347,7 +348,7 @@ export function Step2RoleSelection() {
 
       {/* Help Text */}
       <div className="text-center text-sm text-gray-500">
-        <p>Don't worry - you can change this later in your settings</p>
+        <p>Don&apos;t worry - you can change this later in your settings</p>
       </div>
 
       {/* Screen Reader Instructions */}

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useId } from 'react';
 import { analyticsService } from '../../lib/analytics';
 import type { Dashboard, DashboardWidget } from '../../lib/analytics';
 import { logError } from '../../lib/logger';
@@ -13,6 +13,44 @@ interface RealTimeDataState {
     change?: number;
   }>;
   [key: string]: any;
+}
+
+function GridItem({ width, height, children, className }: { width: number; height: number; children: React.ReactNode; className?: string }) {
+  const id = useId();
+  const uniqueClass = `grid-item-${id.replace(/:/g, '')}`;
+  
+  return (
+    <>
+      <style>{`
+        .${uniqueClass} {
+          grid-column: span ${width};
+          grid-row: span ${height};
+        }
+      `}</style>
+      <div className={`${className} ${uniqueClass}`}>
+        {children}
+      </div>
+    </>
+  );
+}
+
+function FunnelBar({ width, marginLeft, children, className }: { width: number; marginLeft: number; children: React.ReactNode; className?: string }) {
+  const id = useId();
+  const uniqueClass = `funnel-bar-${id.replace(/:/g, '')}`;
+
+  return (
+    <>
+      <style>{`
+        .${uniqueClass} {
+          width: ${width}%;
+          margin-left: ${marginLeft}%;
+        }
+      `}</style>
+      <div className={`${className} ${uniqueClass}`}>
+        {children}
+      </div>
+    </>
+  );
 }
 
 interface DashboardProps {
@@ -105,18 +143,15 @@ export default function Dashboard({ dashboardId = 'default' }: DashboardProps) {
       {/* Dashboard Grid */}
       <div className="grid grid-cols-12 gap-6">
         {dashboard.widgets.map((widget) => (
-          <div
+          <GridItem
             key={widget.id}
+            width={widget.position.width}
+            height={widget.position.height}
             className="bg-white shadow rounded-lg p-6"
-            // eslint-disable-next-line react/forbid-dom-props
-            style={{
-              gridColumn: `span ${widget.position.width}`,
-              gridRow: `span ${widget.position.height}`
-            }}
           >
             <h3 className="text-lg font-medium text-gray-900 mb-4">{widget.title}</h3>
             {renderWidget(widget)}
-          </div>
+          </GridItem>
         ))}
       </div>
     </div>
@@ -147,7 +182,7 @@ function MetricWidget({ widget, data }: { widget: DashboardWidget; data: RealTim
   );
 }
 
-function ChartWidget({ widget }: { widget: DashboardWidget; data?: RealTimeDataState }) {
+function ChartWidget({ widget, data: _data }: { widget: DashboardWidget; data?: RealTimeDataState }) {
   // Placeholder for chart implementation
   return (
     <div className="h-64 flex items-center justify-center bg-gray-50 rounded">
@@ -160,7 +195,7 @@ function ChartWidget({ widget }: { widget: DashboardWidget; data?: RealTimeDataS
   );
 }
 
-function TableWidget({ widget }: { widget: DashboardWidget; data?: RealTimeDataState }) {
+function TableWidget({ widget, data: _data }: { widget: DashboardWidget; data?: RealTimeDataState }) {
   // Placeholder for table implementation
   return (
     <div className="overflow-x-auto">
@@ -199,21 +234,28 @@ function HeatmapWidget(_props: { widget?: DashboardWidget; data?: RealTimeDataSt
 }
 
 function FunnelWidget({ widget }: { widget: DashboardWidget; data?: RealTimeDataState }) {
+  // Use deterministic values for rendering to avoid hydration mismatches
+  const getStepValue = (step: string) => {
+    // Simple hash function to generate a stable number from the string
+    let hash = 0;
+    for (let i = 0; i < step.length; i++) {
+      hash = ((hash << 5) - hash) + step.charCodeAt(i);
+      hash |= 0; // Convert to 32bit integer
+    }
+    return Math.abs(hash % 1000);
+  };
+
   return (
     <div className="space-y-2">
       {widget.config.steps?.map((step: string, index: number) => (
-        <div key={step} className="relative">
-          <div
-            className="bg-primary-100 text-primary-800 px-4 py-2 rounded text-sm font-medium"
-            // eslint-disable-next-line react/forbid-dom-props
-            style={{
-              width: `${100 - (index * 10)}%`,
-              marginLeft: `${(index * 10) / 2}%`
-            }}
-          >
-            {step}: {Math.floor(Math.random() * 1000)} users
-          </div>
-        </div>
+        <FunnelBar
+          key={step}
+          width={100 - (index * 10)}
+          marginLeft={(index * 10) / 2}
+          className="bg-primary-100 text-primary-800 px-4 py-2 rounded text-sm font-medium"
+        >
+          {step}: {getStepValue(step)} users
+        </FunnelBar>
       ))}
     </div>
   );

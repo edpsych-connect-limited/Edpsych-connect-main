@@ -259,7 +259,7 @@ const ActionItem: React.FC<{
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className="w-full flex items-start gap-3 p-4 text-left hover:bg-gray-50 transition-colors"
-        aria-expanded={isExpanded}
+        {...(isExpanded ? { 'aria-expanded': 'true' } : { 'aria-expanded': 'false' })}
         aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
       >
         <div className="flex-shrink-0 mt-1">

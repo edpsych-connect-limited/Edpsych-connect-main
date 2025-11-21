@@ -316,8 +316,8 @@ export class GamificationService {
   private async generateQuestions(
     subject: string,
     topic: string,
-    yearGroup: string,
-    gameMode: string
+    _yearGroup: string,
+    _gameMode: string
   ): Promise<GameQuestion[]> {
     // Generate questions based on subject and topic
     const questions: GameQuestion[] = [
@@ -343,7 +343,7 @@ export class GamificationService {
   /**
    * Generate exciting game map with zones and elements
    */
-  private async generateGameMap(subject: string, topic: string, gameMode: string): Promise<GameMap> {
+  private async generateGameMap(subject: string, _topic: string, _gameMode: string): Promise<GameMap> {
     return {
       id: `map_${Date.now()}`,
       name: `${subject} Knowledge Arena`,
@@ -384,7 +384,7 @@ export class GamificationService {
   /**
    * Generate exciting power-ups
    */
-  private async generatePowerUps(subject: string, topic: string, gameMode: string): Promise<PowerUp[]> {
+  private async generatePowerUps(_subject: string, _topic: string, _gameMode: string): Promise<PowerUp[]> {
     return [
       {
         id: `powerup_${Date.now()}_1`,

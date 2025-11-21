@@ -350,7 +350,7 @@ export class NavigationService {
     return actions.filter(action => this.isActionRelevant(action, session, context));
   }
 
-  private predictNextSteps(session: UserSession, intent?: string): any[] {
+  private predictNextSteps(_session: UserSession, _intent?: string): any[] {
     // Predict likely next actions based on user behavior
     return [
       {
@@ -461,7 +461,7 @@ export class NavigationService {
     return 'low';
   }
 
-  private generateConfusionInterventions(session: UserSession, signals: ConfusionSignal[]): any[] {
+  private generateConfusionInterventions(_session: UserSession, _signals: ConfusionSignal[]): any[] {
     return [
       {
         type: 'proactive_guide',
@@ -472,7 +472,7 @@ export class NavigationService {
     ];
   }
 
-  private async executeWorkflowStep(step: WorkflowStep, session: UserSession, parameters: any): Promise<any> {
+  private async executeWorkflowStep(step: WorkflowStep, _session: UserSession, _parameters: any): Promise<any> {
     // Execute individual workflow step
     return {
       success: true,
@@ -486,7 +486,7 @@ export class NavigationService {
     return results.some(result => !result.success);
   }
 
-  private generateNextSteps(results: any[], needsEscalation: boolean): any[] {
+  private generateNextSteps(_results: any[], needsEscalation: boolean): any[] {
     if (needsEscalation) {
       return [
         {
@@ -521,15 +521,15 @@ export class NavigationService {
     return recentSignals.length / 10;
   }
 
-  private isGuideRelevant(guide: NavigationGuide, context: string, pattern: any): boolean {
+  private isGuideRelevant(guide: NavigationGuide, context: string, _pattern: any): boolean {
     return guide.tags.some(tag => context.toLowerCase().includes(tag.toLowerCase()));
   }
 
-  private isActionRelevant(action: any, session: UserSession, context: string): boolean {
+  private isActionRelevant(_action: any, _session: UserSession, _context: string): boolean {
     return true; // Simplified for now
   }
 
-  private findBestGuide(helpRequest: HelpRequest, session: UserSession): NavigationGuide | null {
+  private findBestGuide(helpRequest: HelpRequest, _session: UserSession): NavigationGuide | null {
     const relevantGuides = Array.from(this.navigationGuides.values()).filter(guide =>
       guide.tags.some(tag => helpRequest.question.toLowerCase().includes(tag.toLowerCase()))
     );
@@ -537,7 +537,7 @@ export class NavigationService {
     return relevantGuides[0] || null;
   }
 
-  private async generateAIResolution(helpRequest: HelpRequest, session: UserSession): Promise<any> {
+  private async generateAIResolution(_helpRequest: HelpRequest, _session: UserSession): Promise<any> {
     // Generate AI-powered resolution
     return {
       success: true,

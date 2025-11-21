@@ -320,7 +320,7 @@ export function Step4FeatureTour() {
                 key={feature.id}
                 onClick={() => handleFeatureView(feature.id)}
                 role="tab"
-                aria-selected={isActive}
+                {...(isActive ? { 'aria-selected': 'true' } : { 'aria-selected': 'false' })}
                 aria-controls={`panel-${feature.id}`}
                 className={`
                   relative flex items-center gap-2 px-4 py-3 border-b-2 font-medium text-sm transition-all

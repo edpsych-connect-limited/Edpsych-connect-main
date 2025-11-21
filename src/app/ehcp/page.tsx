@@ -412,36 +412,32 @@ export default function EHCPListPage() {
           <>
             <div className="bg-white shadow rounded-lg overflow-hidden">
               <table className="min-w-full divide-y divide-gray-200">
+                // ...existing code...
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left">
                       <input
                         type="checkbox"
+                        aria-label="Select all EHCPs"
                         checked={selectedEHCPs.size === ehcps.length && ehcps.length > 0}
                         onChange={toggleSelectAll}
                         className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                       />
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Student ID
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Primary Need
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Status
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Issue Date
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Last Updated
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
+// ...existing code...
+                    <tr key={ehcp.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <input
+                          type="checkbox"
+                          aria-label={`Select EHCP for student ${ehcp.student_id}`}
+                          checked={selectedEHCPs.has(ehcp.id)}
+                          onChange={() => toggleSelectEHCP(ehcp.id)}
+                          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                        />
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+// ...existing code...
                 <tbody className="bg-white divide-y divide-gray-200">
                   {ehcps.map((ehcp) => (
                     <tr key={ehcp.id} className="hover:bg-gray-50">

@@ -14,7 +14,7 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useId } from 'react';
 import {
   FolderPlus,
   ClipboardCheck,
@@ -27,6 +27,34 @@ import {
 import { useOnboarding } from '../OnboardingProvider';
 
 type QuickWinTask = 'case' | 'assessment' | 'goal';
+
+function ProgressBar({ value, max = 100 }: { value: number; max?: number }) {
+  const id = useId();
+  const percentage = Math.min(100, Math.max(0, (value / max) * 100));
+  const widthClass = `progress-${id.replace(/:/g, '')}`;
+
+  return (
+    <>
+      <style>{`
+        .${widthClass} {
+          width: ${percentage}%;
+        }
+      `}</style>
+      <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+        <div
+          className={`h-full bg-gradient-to-r from-indigo-600 to-purple-600 transition-all duration-500 ${widthClass}`}
+          role="progressbar"
+          {...{
+            'aria-valuenow': percentage,
+            'aria-valuemin': 0,
+            'aria-valuemax': 100
+          }}
+          aria-label="Task completion progress"
+        />
+      </div>
+    </>
+  );
+}
 
 export function Step5QuickWins() {
   const { state, updateStep } = useOnboarding();
@@ -192,16 +220,7 @@ export function Step5QuickWins() {
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-indigo-600 to-purple-600 transition-all duration-500"
-            style={{ width: `${(completedCount / 3) * 100}%` }}
-            role="progressbar"
-            aria-valuenow={(completedCount / 3) * 100}
-            aria-valuemin={0}
-            aria-valuemax={100}
-          />
-        </div>
+        <ProgressBar value={completedCount} max={3} />
       </div>
 
       {/* Task Cards */}

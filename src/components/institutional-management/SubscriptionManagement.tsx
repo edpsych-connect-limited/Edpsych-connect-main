@@ -1,5 +1,5 @@
 /* eslint-disable react/forbid-dom-props */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 
 interface License {
   id: string;
@@ -126,6 +126,23 @@ const mockInvoices: Invoice[] = [
     paidDate: '2025-06-12'
   }
 ];
+
+// Helper component to avoid inline styles
+const ProgressBar = ({ progress }: { progress: number }) => {
+  const id = useId().replace(/:/g, '');
+  return (
+    <>
+      <style>{`
+        .progress-${id} {
+          width: ${progress}%;
+        }
+      `}</style>
+      <div
+        className={`h-full bg-blue-600 rounded-full progress-${id}`}
+      />
+    </>
+  );
+};
 
 const SubscriptionManagement: React.FC<SubscriptionManagementProps> = ({
   id,
@@ -338,10 +355,7 @@ const SubscriptionManagement: React.FC<SubscriptionManagementProps> = ({
                   <p className="text-sm">{subscription.totalLicenses} total</p>
                 </div>
                 <div className="w-full mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-blue-600 rounded-full" 
-                    style={{ width: `${(subscription.assignedLicenses / subscription.totalLicenses) * 100}%` }} 
-                  />
+                  <ProgressBar progress={(subscription.assignedLicenses / subscription.totalLicenses) * 100} />
                 </div>
               </div>
               

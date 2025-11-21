@@ -119,7 +119,7 @@ class AlgorithmCreator {
    * @param {Object} sorting - Sorting options
    * @returns {Promise<Array<AlgorithmCreator>>} List of creators
    */
-  static async list(filters = {}, pagination = {}, sorting = {}) {
+  static async list(filters = {}, _pagination = {}, _sorting = {}) {
     // In a real implementation, this would query the database
     console.log('Listing algorithm creators with filters:', filters);
     return [new AlgorithmCreator()];

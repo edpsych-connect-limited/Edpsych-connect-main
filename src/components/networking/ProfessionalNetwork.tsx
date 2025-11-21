@@ -388,6 +388,7 @@ const ProfessionalNetwork: React.FC = () => {
                   <select
                     className="w-full p-2 border border-gray-300 rounded-md"
                     value={selectedSpecialties.length === 1 ? selectedSpecialties[0] : ''}
+                    aria-label="Filter by specialty"
                     onChange={(e) => {
                       if (e.target.value === '') {
                         setSelectedSpecialties([]);

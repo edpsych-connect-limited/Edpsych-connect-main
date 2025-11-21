@@ -23,7 +23,7 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   DragAndDropElement,
@@ -81,6 +81,23 @@ interface CoursePlayerProps {
 // ============================================================================
 // MAIN COMPONENT
 // ============================================================================
+
+// Helper component to avoid inline styles
+const ProgressBar = ({ progress }: { progress: number }) => {
+  const id = useId().replace(/:/g, '');
+  return (
+    <>
+      <style>{`
+        .progress-${id} {
+          width: ${progress}%;
+        }
+      `}</style>
+      <div
+        className={`bg-gradient-to-r from-blue-500 to-green-500 h-3 rounded-full transition-all duration-500 progress-${id}`}
+      />
+    </>
+  );
+};
 
 export default function InteractiveCoursePlayer({
   courseId,
@@ -269,10 +286,7 @@ export default function InteractiveCoursePlayer({
               <span className="text-sm text-gray-600">{overallProgress}% complete</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-3">
-              <div
-                className="bg-gradient-to-r from-blue-500 to-green-500 h-3 rounded-full transition-all duration-500"
-                style={{ width: `${overallProgress}%` }}
-              />
+              <ProgressBar progress={overallProgress} />
             </div>
           </div>
         </div>

@@ -165,6 +165,7 @@ export default function CasesPage() {
               <div className="relative">
                 <input
                   type="text"
+                  aria-label="Search cases"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search cases..."
@@ -189,6 +190,7 @@ export default function CasesPage() {
             {/* Filters */}
             <div className="flex space-x-4">
               <select
+                aria-label="Filter by status"
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
                 className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
@@ -202,6 +204,7 @@ export default function CasesPage() {
               </select>
 
               <select
+                aria-label="Filter by priority"
                 value={priorityFilter}
                 onChange={(e) => setPriorityFilter(e.target.value)}
                 className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"

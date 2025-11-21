@@ -93,7 +93,7 @@ class Algorithm {
    * @param {Object} sorting - Sorting options
    * @returns {Promise<Array<Algorithm>>} List of algorithms
    */
-  static async list(filters = {}, pagination = {}, sorting = {}) {
+  static async list(filters = {}, _pagination = {}, _sorting = {}) {
     // In a real implementation, this would query the database
     console.log('Listing algorithms with filters:', filters);
     return [new Algorithm()];
@@ -196,7 +196,7 @@ class Algorithm {
    * @param {string} comments - Review comments
    * @returns {Promise<Algorithm>} Updated algorithm
    */
-  async approve(reviewerId, comments = '') {
+  async approve(_reviewerId, _comments = '') {
     if (this.status === 'pending_review') {
       this.status = 'approved';
       this.updatedAt = new Date().toISOString();
@@ -211,7 +211,7 @@ class Algorithm {
    * @param {string} reason - Rejection reason
    * @returns {Promise<Algorithm>} Updated algorithm
    */
-  async reject(reviewerId, reason = '') {
+  async reject(_reviewerId, _reason = '') {
     if (this.status === 'pending_review') {
       this.status = 'rejected';
       this.updatedAt = new Date().toISOString();

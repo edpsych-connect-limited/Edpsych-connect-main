@@ -361,6 +361,7 @@ function CaseList({
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded"
+              aria-label="Filter by status"
             >
               <option value="all">All Statuses ({statusCounts.all})</option>
               <option value="new">New ({statusCounts.new})</option>
@@ -380,6 +381,7 @@ function CaseList({
               value={priorityFilter}
               onChange={(e) => setPriorityFilter(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded"
+              aria-label="Filter by priority"
             >
               <option value="all">All Priorities</option>
               <option value="urgent">Urgent</option>
@@ -398,6 +400,7 @@ function CaseList({
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded"
+              aria-label="Filter by case type"
             >
               <option value="all">All Types</option>
               <option value="ehcp">EHCP</option>

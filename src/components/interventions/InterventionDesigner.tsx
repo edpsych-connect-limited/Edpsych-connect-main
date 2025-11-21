@@ -464,10 +464,11 @@ function LibraryTab({
 
         {/* Category Filter */}
         <div>
-          <label className="block font-semibold text-gray-700 mb-2">
+          <label htmlFor="category-select" className="block font-semibold text-gray-700 mb-2">
             Category
           </label>
           <select
+            id="category-select"
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value as any)}
             className="w-full p-2 border border-gray-300 rounded"
@@ -483,9 +484,10 @@ function LibraryTab({
 
         {/* Search */}
         <div>
-          <label className="block font-semibold text-gray-700 mb-2">Search</label>
+          <label htmlFor="search-input" className="block font-semibold text-gray-700 mb-2">Search</label>
           <input
             type="text"
+            id="search-input"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search interventions..."
@@ -681,6 +683,7 @@ function PlanTab({
             </label>
             <input
               type="date"
+              aria-label="Start Date"
               value={plan.start_date}
               onChange={(e) =>
                 setPlan({ ...plan, start_date: e.target.value })
@@ -694,6 +697,7 @@ function PlanTab({
               Status
             </label>
             <select
+              aria-label="Status"
               value={plan.status}
               onChange={(e) => setPlan({ ...plan, status: e.target.value })}
               className="w-full p-2 border border-gray-300 rounded"
@@ -712,6 +716,7 @@ function PlanTab({
             </label>
             <input
               type="text"
+              aria-label="Setting"
               value={plan.setting}
               onChange={(e) => setPlan({ ...plan, setting: e.target.value })}
               className="w-full p-2 border border-gray-300 rounded"
@@ -724,6 +729,7 @@ function PlanTab({
             </label>
             <input
               type="text"
+              aria-label="Staff Responsible"
               value={plan.staff_responsible}
               onChange={(e) =>
                 setPlan({ ...plan, staff_responsible: e.target.value })
@@ -803,6 +809,7 @@ function SMARTGoalEditor({
         </h4>
         <div className="flex gap-2 items-center">
           <select
+            aria-label="Goal Status"
             value={goal.status}
             onChange={(e) => {
               e.stopPropagation();
@@ -963,6 +970,7 @@ function ProgressTab({ plan, onAddData, onUpdateData }: any) {
                   <td className="p-3">
                     <input
                       type="date"
+                      aria-label="Date"
                       value={data.date}
                       onChange={(e) =>
                         onUpdateData(index, { date: e.target.value })
@@ -973,6 +981,7 @@ function ProgressTab({ plan, onAddData, onUpdateData }: any) {
                   <td className="p-3">
                     <input
                       type="text"
+                      aria-label="Measure"
                       value={data.measure}
                       onChange={(e) =>
                         onUpdateData(index, { measure: e.target.value })
@@ -983,6 +992,7 @@ function ProgressTab({ plan, onAddData, onUpdateData }: any) {
                   <td className="p-3">
                     <input
                       type="number"
+                      aria-label="Value"
                       value={data.value}
                       onChange={(e) =>
                         onUpdateData(index, {
@@ -995,6 +1005,7 @@ function ProgressTab({ plan, onAddData, onUpdateData }: any) {
                   <td className="p-3">
                     <input
                       type="text"
+                      aria-label="Notes"
                       value={data.notes || ''}
                       onChange={(e) =>
                         onUpdateData(index, { notes: e.target.value })
@@ -1094,6 +1105,7 @@ function FidelityTab({ plan, setPlan }: any) {
             >
               <input
                 type="checkbox"
+                aria-label={`Check ${item.item}`}
                 checked={item.checked}
                 onChange={() => toggleFidelityItem(index)}
                 className="mt-1 w-5 h-5"

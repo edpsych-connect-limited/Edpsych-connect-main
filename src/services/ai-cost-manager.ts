@@ -372,7 +372,7 @@ export class AICostManager {
     return this.rateLimitTiers.find(tier => tier.name === tierName) || this.rateLimitTiers[0];
   }
 
-  private getUserTier(id: string): string {
+  private getUserTier(_id: string): string {
     // This would typically query user subscription data
     // For now, return default tier
     return 'standard';

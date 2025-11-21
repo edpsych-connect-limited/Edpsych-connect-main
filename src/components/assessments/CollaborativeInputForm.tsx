@@ -13,6 +13,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { ProgressBar } from '@/components/ui/ProgressBar';
 
 interface CollaborativeInputFormProps {
   formData: {
@@ -355,12 +356,11 @@ export default function CollaborativeInputForm({
                 {Math.round(((currentDomainIndex + 1) / (totalDomains + 1)) * 100)}% complete
               </span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div
-                className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                style={{ width: `${((currentDomainIndex + 1) / (totalDomains + 1)) * 100}%` }}
-              />
-            </div>
+            <ProgressBar 
+              value={(currentDomainIndex + 1)} 
+              max={totalDomains + 1} 
+              colorClass="bg-blue-600" 
+            />
           </div>
         </div>
       </div>

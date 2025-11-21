@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useId } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Html, Stars, PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
@@ -46,6 +46,20 @@ const MOCK_QUESTIONS: Question[] = [
   { id: '3', text: 'When does the concrete operational stage occur?', options: ['0-2 years', '2-7 years', '7-11 years', '11+ years'], correctIndex: 2, points: 200 }
 ];
 
+const ProgressBar = ({ width, color, className }: { width: number, color: string, className?: string }) => {
+  const id = useId().replace(/:/g, ''); // Remove colons for CSS selector
+  return (
+    <>
+      <style>{`
+        #pb-${id} {
+          width: ${width}%;
+        }
+      `}</style>
+      <div id={`pb-${id}`} className={`h-full ${color} ${className || ''}`} />
+    </>
+  );
+};
+
 // --- 3D Components ---
 
 const Arena = ({ size }: { size: number }) => (
@@ -85,7 +99,7 @@ const PlayerMesh = ({ player }: { player: Player }) => {
         <div className="flex flex-col items-center">
           <div className="bg-black/50 text-white text-xs px-1 rounded mb-1 whitespace-nowrap">{player.name}</div>
           <div className="w-12 h-1 bg-red-900 rounded overflow-hidden">
-            <div className="h-full bg-green-500" style={{ width: `${player.health}%` }} />
+            <ProgressBar width={player.health} color="bg-green-500" />
           </div>
         </div>
       </Html>
@@ -281,13 +295,13 @@ export const BattleRoyaleGame: React.FC = () => {
             <div className="flex items-center gap-2 mb-1">
               <FaHeart className="text-red-500" />
               <div className="w-32 h-2 bg-slate-700 rounded">
-                <div className="h-full bg-red-500 transition-all" style={{ width: `${selfPlayer?.health}%` }} />
+                <ProgressBar width={selfPlayer?.health || 0} color="bg-red-500" className="transition-all" />
               </div>
             </div>
             <div className="flex items-center gap-2">
               <FaShieldAlt className="text-blue-500" />
               <div className="w-32 h-2 bg-slate-700 rounded">
-                <div className="h-full bg-blue-500 transition-all" style={{ width: `${selfPlayer?.shield}%` }} />
+                <ProgressBar width={selfPlayer?.shield || 0} color="bg-blue-500" className="transition-all" />
               </div>
             </div>
           </div>

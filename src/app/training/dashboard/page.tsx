@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
@@ -53,6 +53,23 @@ interface Activity {
   timestamp: Date;
   courseTitle?: string;
 }
+
+// Helper component to avoid inline styles
+const ProgressBar = ({ progress }: { progress: number }) => {
+  const id = useId().replace(/:/g, '');
+  return (
+    <>
+      <style>{`
+        .progress-${id} {
+          width: ${progress}%;
+        }
+      `}</style>
+      <div
+        className={`bg-blue-600 h-2 rounded-full progress-${id}`}
+      />
+    </>
+  );
+};
 
 export default function TrainingDashboardPage() {
   const [enrolledCourses, setEnrolledCourses] = useState<EnrolledCourse[]>([]);
@@ -178,11 +195,7 @@ export default function TrainingDashboardPage() {
               <span className="text-lg text-gray-500">/{targetCpdHours}</span>
             </p>
             <div className="w-full bg-gray-200 rounded-full h-2 mt-2" aria-hidden="true">
-              <div
-                className="bg-blue-600 h-2 rounded-full"
-                // eslint-disable-next-line react/forbid-dom-props
-                style={{ width: `${progressValue}%` }}
-              ></div>
+              <ProgressBar progress={progressValue} />
             </div>
           </div>
 
@@ -257,11 +270,7 @@ export default function TrainingDashboardPage() {
                            <span className="text-xs">Time spent: {formatTimeSpent(course.timeSpent)}</span>
                          </div>
                          <div className="w-full bg-gray-200 rounded-full h-2" aria-hidden="true">
-                           <div
-                             className="bg-blue-600 h-2 rounded-full"
-                             // eslint-disable-next-line react/forbid-dom-props
-                             style={{ width: `${course.progress}%` }}
-                           ></div>
+                           <ProgressBar progress={course.progress} />
                          </div>
                        </div>
 

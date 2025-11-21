@@ -168,7 +168,7 @@ export function Step6Completion() {
           Congratulations! 🎉
         </h2>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          You've successfully completed the onboarding. You're now ready to transform your SEND practice with EdPsych Connect World!
+          You&apos;ve successfully completed the onboarding. You&apos;re now ready to transform your SEND practice with EdPsych Connect World!
         </p>
       </div>
 
@@ -241,7 +241,7 @@ export function Step6Completion() {
                   }
                   ${action.primary ? 'md:col-span-2' : ''}
                 `}
-                aria-pressed={isSelected}
+                {...(isSelected ? { 'aria-pressed': 'true' } : { 'aria-pressed': 'false' })}
               >
                 {isSelected && (
                   <div className="absolute top-4 right-4 w-6 h-6 bg-green-600 rounded-full flex items-center justify-center">

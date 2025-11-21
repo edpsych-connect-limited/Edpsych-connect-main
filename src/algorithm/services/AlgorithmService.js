@@ -63,7 +63,7 @@ class AlgorithmService {
    * @param {Object} pagination - Pagination options
    * @returns {Promise<Object>} Search results
    */
-  static async searchAlgorithms(criteria = {}, pagination = {}) {
+  static async searchAlgorithms(criteria = {}, _pagination = {}) {
     console.log('Searching algorithms:', criteria);
     return {
       items: [
@@ -95,7 +95,7 @@ class AlgorithmService {
    * @param {Object} purchaseData - Additional purchase data
    * @returns {Promise<Object>} Created license
    */
-  static async purchaseLicense(algorithmId, licenseId, institutionId, purchaserId, purchaseData = {}) {
+  static async purchaseLicense(algorithmId, licenseId, institutionId, purchaserId, _purchaseData = {}) {
     console.log('Purchasing license:', { algorithmId, licenseId, institutionId, purchaserId });
     return {
       id: `license-${Date.now()}`,

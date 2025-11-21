@@ -438,7 +438,7 @@ export class BlogService {
     return 'advanced';
   }
 
-  private generateStructuredData(content: any, request: BlogGenerationRequest): any {
+  private generateStructuredData(content: any, _request: BlogGenerationRequest): any {
     return {
       '@context': 'https://schema.org',
       '@type': 'BlogPosting',

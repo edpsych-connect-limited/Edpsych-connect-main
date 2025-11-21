@@ -1,8 +1,5 @@
 import { CreateUserPreferenceInput, UpdateUserPreferenceInput } from "../../types/recommendation-engine-types";
 import db from "./database-adapter";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
 
 /**
  * Service for managing user preferences for the recommendation engine
@@ -74,7 +71,7 @@ export class UserPreferenceService {
   /**
    * Get user preference analytics
    */
-  async getUserPreferenceAnalytics(id: string) {
+  async getUserPreferenceAnalytics(_id: string) {
     // TODO: Implement proper schema for recommendation preferences
     // Current user_preferences table is for UI settings only
     return {
@@ -87,7 +84,7 @@ export class UserPreferenceService {
   /**
    * Bulk update user preferences
    */
-  async bulkUpdatePreferences(preferences: UpdateUserPreferenceInput[]) {
+  async bulkUpdatePreferences(_preferences: UpdateUserPreferenceInput[]) {
     // TODO: Implement proper schema for recommendation preferences
     return [];
   }
@@ -95,7 +92,7 @@ export class UserPreferenceService {
   /**
    * Increment preference weight
    */
-  async incrementPreferenceWeight(id: string, incrementBy: number = 0.1) {
+  async incrementPreferenceWeight(_id: string, _incrementBy: number = 0.1) {
     // TODO: Implement proper schema for recommendation preferences
     return null;
   }

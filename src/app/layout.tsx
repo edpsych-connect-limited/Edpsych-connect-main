@@ -6,6 +6,17 @@ import { AuthProvider, useAuth } from '@/lib/auth/hooks';
 import { useRouter, usePathname } from 'next/navigation';
 import FeatureExplainer from '@/components/onboarding/FeatureExplainer';
 import { VoiceAssistant } from '@/components/voice/VoiceAssistant';
+import { Metadata, Viewport } from 'next';
+import LandingPage from '@/components/landing/LandingPage';
+
+export const viewport: Viewport = {
+  themeColor: '#2a5298',
+};
+
+export const metadata: Metadata = {
+  title: 'EdPsych Connect World',
+  description: 'A platform to connect and collaborate for educational psychologists.',
+};
 
 function HeaderContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -175,7 +186,6 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
         <link rel="icon" href="/favicon.ico" />
-        <meta name="theme-color" content="#2a5298" />
 
       <meta
         name="content-security-policy"

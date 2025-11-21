@@ -3,8 +3,6 @@
  * Comprehensive tenant management for schools, teachers, students, and parents
  */
 
-import { AIService } from './ai-service';
-
 export interface Tenant {
   id: string;
   name: string;

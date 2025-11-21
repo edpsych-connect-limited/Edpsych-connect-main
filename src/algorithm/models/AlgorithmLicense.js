@@ -97,7 +97,7 @@ class AlgorithmLicense {
    * @param {Object} sorting - Sorting options
    * @returns {Promise<Array<AlgorithmLicense>>} List of licenses
    */
-  static async list(filters = {}, pagination = {}, sorting = {}) {
+  static async list(filters = {}, _pagination = {}, _sorting = {}) {
     // In a real implementation, this would query the database
     console.log('Listing algorithm licenses with filters:', filters);
     return [new AlgorithmLicense()];

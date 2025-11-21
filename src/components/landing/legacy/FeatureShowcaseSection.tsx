@@ -316,8 +316,8 @@ const FeatureTab = memo(({
   return (
     <button
       onClick={onClick}
-      role="tab"
-      aria-selected={isSelected}
+      role="tab" // eslint-disable-line
+      {...(isSelected ? { 'aria-selected': 'true' } : { 'aria-selected': 'false' })}
       aria-controls={`feature-panel-${feature.id}`}
       id={`feature-tab-${feature.id}`}
       tabIndex={isSelected ? 0 : -1}
@@ -579,6 +579,7 @@ export default function FeatureShowcaseSection() {
         <div
           role="tablist"
           aria-label="Platform features"
+          aria-owns={features.map(f => `feature-tab-${f.id}`).join(' ')}
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-12"
           onKeyDown={(e) => handleKeyDown(e, selectedFeatureIndex)}
         >

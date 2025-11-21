@@ -846,7 +846,7 @@ export class DeploymentPipelineService {
   /**
    * Check deployment health
    */
-  private checkDeploymentHealth(deployment: DeploymentResult): void {
+  private checkDeploymentHealth(_deployment: DeploymentResult): void {
     // Monitor deployment metrics and create alerts if needed
     // This would integrate with actual monitoring systems
   }

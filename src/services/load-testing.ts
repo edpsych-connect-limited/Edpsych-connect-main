@@ -16,7 +16,7 @@ export const loadTesting = {
   }) {
     console.log('🚀 Running load test with configuration:', config);
 
-    const startTime = Date.now();
+    // const startTime = Date.now();
     const simulatedResults = Array.from({ length: config.concurrency }).map(() => ({
       responseTime: Math.random() * 150 + 50,
       success: Math.random() > 0.02,

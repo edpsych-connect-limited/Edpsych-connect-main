@@ -3,8 +3,6 @@
  * Practice-based, quality-driven studies using real anonymized data
  */
 
-import { AIService } from './ai-service';
-
 export interface ResearchStudy {
   id: string;
   title: string;
@@ -330,7 +328,7 @@ export class ResearchService {
     const study = this.studies.get(studyId);
     if (!study) throw new Error('Study not found');
 
-    const insightsPrompt = `
+    const _insightsPrompt = `
       Generate ${analysisType} research insights for the study: "${study.title}"
 
       Methodology: ${study.methodology.type}
@@ -376,7 +374,7 @@ export class ResearchService {
     const study = this.studies.get(studyId);
     if (!study) throw new Error('Study not found');
 
-    const reportPrompt = `
+    const _reportPrompt = `
       Generate a comprehensive research report for: "${study.title}"
 
       Include:

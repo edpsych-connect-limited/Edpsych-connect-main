@@ -111,8 +111,9 @@ export default function ProgressPage() {
             {/* Case Selector */}
             {viewMode === 'single' && (
               <div className="flex items-center space-x-3">
-                <label className="text-sm font-semibold text-gray-700">Select Case:</label>
+                <label htmlFor="case-selector" className="text-sm font-semibold text-gray-700">Select Case:</label>
                 <select
+                  id="case-selector"
                   value={selectedCaseId || ''}
                   onChange={(e) => setSelectedCaseId(parseInt(e.target.value))}
                   className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"

@@ -3,8 +3,6 @@
  * Keeping parents actively engaged in their child's educational journey
  */
 
-import { AIService } from './ai-service';
-
 export interface Parent {
   id: string;
   name: string;
