@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import * as Sentry from "@sentry/nextjs";
 import { Button } from '@/components/ui/button';
 import { RefreshCw } from 'lucide-react';
 
@@ -18,22 +19,19 @@ export default function GlobalError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  // Safely log the error to the console in development
-  try {
-    React.useEffect(() => {
-      if (error) console.error('Global Error:', error);
-    }, [error]);
-  } catch {
-    console.error('Global Error boundary failed to initialize');
-  }
+  React.useEffect(() => {
+    // Log the error to Sentry
+    Sentry.captureException(error);
+    if (error) console.error('Global Error:', error);
+  }, [error]);
 
   if (typeof window === 'undefined' || typeof React === 'undefined' || !React.useContext) {
     return (
       <html lang="en">
         <body>
-          <div style={{ textAlign: 'center', padding: '4rem' }}>
-            <h1>500</h1>
-            <p>Internal Server Error</p>
+          <div className="text-center p-16">
+            <h1 className="text-4xl font-bold mb-4">500</h1>
+            <p className="text-xl">Internal Server Error</p>
           </div>
         </body>
       </html>
@@ -68,13 +66,22 @@ export default function GlobalError({
               )}
             </div>
             
-            <Button 
-              onClick={reset}
-              className="gap-2 mx-auto"
-            >
-              <RefreshCw className="h-4 w-4" />
-              Try again
-            </Button>
+            <div className="flex justify-center gap-4">
+              <Button 
+                onClick={reset}
+                className="gap-2"
+              >
+                <RefreshCw className="h-4 w-4" />
+                Try again
+              </Button>
+              
+              <Button
+                variant="outline"
+                onClick={() => window.location.href = '/'}
+              >
+                Return Home
+              </Button>
+            </div>
           </div>
         </div>
       </body>

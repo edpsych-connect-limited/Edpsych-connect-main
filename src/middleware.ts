@@ -31,6 +31,15 @@ const PUBLIC_PATHS = [
   '/api/auth' // Auth API must be public
 ];
 
+// API paths that are public
+const PUBLIC_API_PATHS = [
+  '/api/auth',
+  '/api/webhooks',
+  '/api/waitlist',
+  '/api/status',
+  '/api/version'
+];
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -46,9 +55,20 @@ export async function middleware(request: NextRequest) {
       return new NextResponse(null, { status: 200, headers: response.headers });
     }
     
-    // If it's an auth route, let it pass
-    if (pathname.startsWith('/api/auth')) {
+    // Check if it's a public API route
+    const isPublicApi = PUBLIC_API_PATHS.some(path => pathname.startsWith(path));
+    
+    if (isPublicApi) {
       return response;
+    }
+
+    // Verify authentication for protected API routes
+    const payload = await getJwtFromRequest(request);
+    if (!payload) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401, headers: response.headers }
+      );
     }
 
     // For other API routes, we might want to verify the token here too

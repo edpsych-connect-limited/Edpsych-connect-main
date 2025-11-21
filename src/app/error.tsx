@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import * as Sentry from "@sentry/nextjs";
 import { ErrorDisplay } from '../components/error-handling/ErrorDisplay';
 import { Button } from '@/components/ui/button';
 import { RefreshCw } from 'lucide-react';
@@ -18,14 +19,11 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  // Safely log the error to the console in development
-  try {
-    React.useEffect(() => {
-      if (error) console.error('Route Error:', error);
-    }, [error]);
-  } catch {
-    console.error('Error boundary failed to initialize');
-  }
+  React.useEffect(() => {
+    // Log the error to Sentry
+    Sentry.captureException(error);
+    if (error) console.error('Route Error:', error);
+  }, [error]);
 
   return (
     <div className="container mx-auto p-8 flex flex-col items-center justify-center min-h-[50vh]">
@@ -39,13 +37,20 @@ export default function Error({
           className="mb-6"
         />
         
-        <div className="flex justify-center">
+        <div className="flex justify-center gap-4">
           <Button 
             onClick={reset}
             className="gap-2"
           >
             <RefreshCw className="h-4 w-4" />
             Try again
+          </Button>
+          
+          <Button
+            variant="outline"
+            onClick={() => window.location.href = '/'}
+          >
+            Return Home
           </Button>
         </div>
       </div>
