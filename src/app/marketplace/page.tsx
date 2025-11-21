@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -23,7 +23,7 @@ interface Professional {
   verified: boolean;
 }
 
-export default function MarketplaceSearchPage() {
+function MarketplaceSearchContent() {
   const searchParams = useSearchParams();
   const [professionals, setProfessionals] = useState<Professional[]>([]);
   const [loading, setLoading] = useState(true);
@@ -257,5 +257,17 @@ export default function MarketplaceSearchPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function MarketplaceSearchPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    }>
+      <MarketplaceSearchContent />
+    </Suspense>
   );
 }

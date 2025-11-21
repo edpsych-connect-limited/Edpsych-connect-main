@@ -8,17 +8,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     
     // Extract filters
     const query = searchParams.get('q') || '';
-    const location = searchParams.get('location');
+    const _location = searchParams.get('location');
     const specialisms = searchParams.get('specialisms')?.split(',') || [];
-    const availability = searchParams.get('availability'); // 'immediate', 'next_week', 'next_month'
+    const _availability = searchParams.get('availability'); // 'immediate', 'next_week', 'next_month'
     const maxRate = searchParams.get('max_rate') ? parseFloat(searchParams.get('max_rate')!) : undefined;
-    const laPanelOnly = searchParams.get('la_panel') === 'true';
+    const _laPanelOnly = searchParams.get('la_panel') === 'true';
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
     const skip = (page - 1) * limit;
