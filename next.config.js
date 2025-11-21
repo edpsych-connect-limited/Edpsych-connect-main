@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 // Rebuild trigger: 2025-11-19 22:30 - CSS styling fix + cache clear
-const { withSentryConfig } = require("@sentry/nextjs");
+import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig = {
   reactStrictMode: true,
@@ -96,7 +96,7 @@ const nextConfig = {
   },
 }
 
-module.exports = withSentryConfig(
+export default withSentryConfig(
   nextConfig,
   {
     // For all available options, see:
