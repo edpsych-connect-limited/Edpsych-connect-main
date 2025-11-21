@@ -79,7 +79,7 @@ export async function GET(
     }
 
     const tenantId = session.tenant_id;
-    const userId = session.user_id;
+    const userId = session.id;
     const userRole = session.role;
 
     // Query parameters
