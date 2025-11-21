@@ -5,9 +5,9 @@ CREATE TABLE "TokenisationAccount" (
     "account_type" TEXT NOT NULL DEFAULT 'TREASURY',
     "balance" BIGINT NOT NULL DEFAULT 0,
     "locked_amount" BIGINT NOT NULL DEFAULT 0,
-    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "last_verified" DATETIME,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "last_verified" TIMESTAMP(3),
     CONSTRAINT "TokenisationAccount_tenant_id_fkey" FOREIGN KEY ("tenant_id") REFERENCES "tenants" ("id") ON DELETE CASCADE
 );
 
@@ -22,8 +22,8 @@ CREATE TABLE "TokenisationTransaction" (
     "user_id" INTEGER,
     "related_user_id" INTEGER,
     "batch_id" TEXT,
-    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "recorded_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "recorded_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "trace_id" TEXT NOT NULL,
     CONSTRAINT "TokenisationTransaction_tenant_id_fkey" FOREIGN KEY ("tenant_id") REFERENCES "tenants" ("id") ON DELETE CASCADE,
     CONSTRAINT "TokenisationTransaction_account_id_fkey" FOREIGN KEY ("account_id") REFERENCES "TokenisationAccount" ("id") ON DELETE CASCADE
@@ -36,10 +36,10 @@ CREATE TABLE "Reward" (
     "reward_tier" TEXT NOT NULL,
     "amount" BIGINT NOT NULL,
     "description" TEXT,
-    "issued_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "issued_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "issued_by" INTEGER,
     "status" TEXT NOT NULL DEFAULT 'AVAILABLE',
-    "expires_at" DATETIME,
+    "expires_at" TIMESTAMP(3),
     CONSTRAINT "Reward_tenant_id_fkey" FOREIGN KEY ("tenant_id") REFERENCES "tenants" ("id") ON DELETE CASCADE
 );
 
@@ -50,7 +50,7 @@ CREATE TABLE "RewardClaim" (
     "reward_id" TEXT NOT NULL,
     "account_id" TEXT NOT NULL,
     "user_id" INTEGER NOT NULL,
-    "claimed_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "claimed_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "transaction_id" TEXT,
     "trace_id" TEXT NOT NULL,
     CONSTRAINT "RewardClaim_tenant_id_fkey" FOREIGN KEY ("tenant_id") REFERENCES "tenants" ("id") ON DELETE CASCADE,
