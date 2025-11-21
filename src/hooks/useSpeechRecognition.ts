@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 export interface SpeechRecognitionHook {
   isListening: boolean;
@@ -14,6 +14,9 @@ export const useSpeechRecognition = (): SpeechRecognitionHook => {
   const [transcript, setTranscript] = useState('');
   const [recognition, setRecognition] = useState<any>(null);
   const [browserSupportsSpeechRecognition, setBrowserSupportsSpeechRecognition] = useState(false);
+  
+  // Use a ref to track listening state synchronously for event handlers
+  const isListeningRef = useRef(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -30,6 +33,9 @@ export const useSpeechRecognition = (): SpeechRecognitionHook => {
         recognitionInstance.lang = 'en-US';
 
         recognitionInstance.onresult = (event: any) => {
+          // If we're not supposed to be listening, ignore results
+          if (!isListeningRef.current) return;
+
           let currentTranscript = '';
           // Iterate from 0 to ensure we get the full transcript of the current session
           for (let i = 0; i < event.results.length; i++) {
@@ -41,10 +47,12 @@ export const useSpeechRecognition = (): SpeechRecognitionHook => {
         recognitionInstance.onerror = (event: any) => {
           console.error('Speech recognition error', event.error);
           setIsListening(false);
+          isListeningRef.current = false;
         };
 
         recognitionInstance.onend = () => {
           setIsListening(false);
+          isListeningRef.current = false;
         };
 
         setTimeout(() => {
@@ -57,8 +65,11 @@ export const useSpeechRecognition = (): SpeechRecognitionHook => {
   const startListening = useCallback(() => {
     if (recognition && !isListening) {
       try {
+        // Reset transcript before starting
+        setTranscript('');
         recognition.start();
         setIsListening(true);
+        isListeningRef.current = true;
       } catch (error) {
         console.error('Error starting speech recognition:', error);
       }
@@ -69,6 +80,7 @@ export const useSpeechRecognition = (): SpeechRecognitionHook => {
     if (recognition && isListening) {
       recognition.stop();
       setIsListening(false);
+      isListeningRef.current = false;
     }
   }, [recognition, isListening]);
 

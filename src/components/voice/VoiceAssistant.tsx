@@ -18,6 +18,7 @@ export const VoiceAssistant: React.FC = () => {
 
   const [lastCommand, setLastCommand] = useState<string>('');
   const router = useRouter();
+  const isProcessingRef = React.useRef(false);
 
   // Speak function
   const speak = (text: string) => {
@@ -52,48 +53,39 @@ export const VoiceAssistant: React.FC = () => {
 
   // Command processing
   useEffect(() => {
-    if (!transcript) return;
+    if (!transcript || isProcessingRef.current) return;
 
     const lowerTranscript = transcript.toLowerCase();
     console.log('Transcript:', lowerTranscript);
 
+    const executeCommand = (command: string, action: () => void, responseText: string) => {
+      isProcessingRef.current = true;
+      stopListening(); // Stop listening immediately to prevent self-hearing
+      resetTranscript();
+      
+      speak(responseText);
+      action();
+      
+      setLastCommand(command);
+      
+      // Reset processing flag after a delay
+      setTimeout(() => {
+        isProcessingRef.current = false;
+      }, 2000);
+    };
+
     if (lowerTranscript.includes('go to dashboard') || lowerTranscript.includes('open dashboard')) {
-      speak('Navigating to dashboard');
-      router.push('/dashboard');
-      stopListening();
-      resetTranscript();
-      setTimeout(() => setLastCommand('Navigated to Dashboard'), 0);
+      executeCommand('Navigated to Dashboard', () => router.push('/dashboard'), 'Navigating to dashboard');
     } else if (lowerTranscript.includes('go to settings') || lowerTranscript.includes('open settings')) {
-      speak('Opening settings');
-      router.push('/settings');
-      stopListening();
-      resetTranscript();
-      setTimeout(() => setLastCommand('Opened Settings'), 0);
+      executeCommand('Opened Settings', () => router.push('/settings'), 'Opening settings');
     } else if (lowerTranscript.includes('go to blog') || lowerTranscript.includes('read blog')) {
-      speak('Opening blog');
-      router.push('/blog');
-      stopListening();
-      resetTranscript();
-      setTimeout(() => setLastCommand('Opened Blog'), 0);
+      executeCommand('Opened Blog', () => router.push('/blog'), 'Opening blog');
     } else if (lowerTranscript.includes('go home') || lowerTranscript.includes('open home')) {
-      speak('Going home');
-      router.push('/');
-      stopListening();
-      resetTranscript();
-      setTimeout(() => setLastCommand('Went Home'), 0);
+      executeCommand('Went Home', () => router.push('/'), 'Going home');
     } else if (lowerTranscript.includes('login') || lowerTranscript.includes('sign in')) {
-      speak('Taking you to login');
-      router.push('/login');
-      stopListening();
-      resetTranscript();
-      setTimeout(() => setLastCommand('Navigated to Login'), 0);
+      executeCommand('Navigated to Login', () => router.push('/login'), 'Taking you to login');
     } else if (lowerTranscript.includes('help')) {
-      speak('You can say: Go to dashboard, Go to settings, Go to blog, or Go home.');
-      // Don't stop listening for help, maybe they want to try a command immediately?
-      // But to be safe and consistent, let's stop.
-      stopListening();
-      resetTranscript();
-      setTimeout(() => setLastCommand('Asked for Help'), 0);
+      executeCommand('Asked for Help', () => {}, 'You can say: Go to dashboard, Go to settings, Go to blog, or Go home.');
     }
 
   }, [transcript, router, resetTranscript, stopListening]);
