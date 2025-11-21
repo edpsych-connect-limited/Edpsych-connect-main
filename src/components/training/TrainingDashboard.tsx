@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import OnboardingProgram from './OnboardingProgram';
+import { TRAINING_CONTENT, TrainingCurriculum } from '@/data/training-content';
+import { BookOpen, PlayCircle, FileText, Award, Download } from 'lucide-react';
 
 interface TrainingModule {
   id: string;
@@ -11,37 +13,92 @@ interface TrainingModule {
   isFeatured?: boolean;
 }
 
-const GenericTrainingModule: React.FC<{ title: string }> = ({ title }) => (
-  <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-    <div className="p-6 border-b border-gray-100">
-      <h3 className="text-lg font-semibold text-gray-800 mb-2">Course Curriculum</h3>
-      <p className="text-gray-600 text-sm">Complete the following modules to earn your certificate.</p>
-    </div>
-    <div className="divide-y divide-gray-100">
-      {[1, 2, 3, 4].map((i) => (
-        <div key={i} className="p-4 hover:bg-gray-50 transition-colors flex items-center justify-between group cursor-pointer">
-          <div className="flex items-center gap-4">
-            <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm">
-              {i}
-            </div>
-            <div>
-              <div className="font-medium text-gray-900">Module {i}: {title} Fundamentals Part {i}</div>
-              <div className="text-xs text-gray-500">Video • 15 mins</div>
-            </div>
+const GenericTrainingModule: React.FC<{ curriculumId: string }> = ({ curriculumId }) => {
+  const curriculum = TRAINING_CONTENT[curriculumId];
+
+  if (!curriculum) {
+    return <div className="p-6 text-center text-gray-500">Curriculum data not found.</div>;
+  }
+
+  return (
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+      <div className="p-6 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-white">
+        <div className="flex justify-between items-start">
+          <div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">{curriculum.title}</h3>
+            <p className="text-gray-600 text-sm max-w-2xl">{curriculum.description}</p>
           </div>
-          <button className="px-3 py-1 text-xs font-medium text-blue-600 border border-blue-200 rounded-full group-hover:bg-blue-600 group-hover:text-white transition-all">
-            Start
-          </button>
+          <div className="hidden md:block">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+              <Award className="w-4 h-4 mr-1" />
+              Certificate Course
+            </span>
+          </div>
         </div>
-      ))}
+      </div>
+
+      <div className="divide-y divide-gray-100">
+        {curriculum.lessons.map((lesson, index) => (
+          <div key={lesson.id} className="p-4 hover:bg-gray-50 transition-colors flex items-center justify-between group cursor-pointer">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm shrink-0">
+                {index + 1}
+              </div>
+              <div>
+                <div className="font-medium text-gray-900 flex items-center gap-2">
+                  {lesson.title}
+                  <span className={`text-[10px] px-2 py-0.5 rounded-full border ${
+                    lesson.type === 'Video' ? 'bg-red-50 text-red-700 border-red-200' :
+                    lesson.type === 'Workshop' ? 'bg-purple-50 text-purple-700 border-purple-200' :
+                    lesson.type === 'Quiz' ? 'bg-green-50 text-green-700 border-green-200' :
+                    'bg-gray-50 text-gray-700 border-gray-200'
+                  }`}>
+                    {lesson.type}
+                  </span>
+                </div>
+                <div className="text-xs text-gray-500 mt-0.5 flex items-center gap-3">
+                  <span className="flex items-center gap-1"><PlayCircle className="w-3 h-3" /> {lesson.duration}</span>
+                  <span className="hidden sm:inline text-gray-400">•</span>
+                  <span className="hidden sm:inline">{lesson.description}</span>
+                </div>
+              </div>
+            </div>
+            <button className="px-4 py-1.5 text-xs font-medium text-blue-600 border border-blue-200 rounded-full group-hover:bg-blue-600 group-hover:text-white transition-all shrink-0">
+              Start
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {curriculum.resources && curriculum.resources.length > 0 && (
+        <div className="p-6 bg-gray-50 border-t border-gray-100">
+          <h4 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
+            <BookOpen className="w-4 h-4" />
+            Course Resources
+          </h4>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {curriculum.resources.map((resource, idx) => (
+              <a 
+                key={idx} 
+                href={resource.url}
+                className="flex items-center p-3 bg-white rounded border border-gray-200 hover:border-blue-300 hover:shadow-sm transition-all group"
+              >
+                <div className="p-2 bg-gray-100 rounded text-gray-500 group-hover:text-blue-600 group-hover:bg-blue-50 transition-colors">
+                  <FileText className="w-4 h-4" />
+                </div>
+                <div className="ml-3">
+                  <div className="text-sm font-medium text-gray-700 group-hover:text-blue-700">{resource.title}</div>
+                  <div className="text-xs text-gray-400">{resource.type}</div>
+                </div>
+                <Download className="w-4 h-4 ml-auto text-gray-300 group-hover:text-blue-500" />
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
-    <div className="p-4 bg-gray-50 border-t border-gray-100 text-center">
-      <button className="text-sm font-medium text-blue-600 hover:text-blue-800">
-        View Full Syllabus
-      </button>
-    </div>
-  </div>
-);
+  );
+};
 
 const TrainingDashboard: React.FC = () => {
   const [selectedModuleId, setSelectedModuleId] = useState<string | null>(null);
@@ -61,7 +118,7 @@ const TrainingDashboard: React.FC = () => {
       title: 'Administrator Training',
       description: 'Learn how to manage users, permissions, and institutional settings',
       icon: '⚙️',
-      component: <GenericTrainingModule title="Administrator Training" />,
+      component: <GenericTrainingModule curriculumId="admin-training" />,
       isNew: true
     },
     {
@@ -69,28 +126,28 @@ const TrainingDashboard: React.FC = () => {
       title: 'Teacher Training',
       description: 'Resources for classroom teachers using the platform',
       icon: '👩‍🏫',
-      component: <GenericTrainingModule title="Teacher Training" />
+      component: <GenericTrainingModule curriculumId="teacher-training" />
     },
     {
       id: 'ep-training',
       title: 'Educational Psychologist Training',
       description: 'Specialized training for EPs on assessment and intervention features',
       icon: '🧠',
-      component: <GenericTrainingModule title="EP Training" />
+      component: <GenericTrainingModule curriculumId="ep-training" />
     },
     {
       id: 'researcher-training',
       title: 'Researcher Training',
       description: 'Learn how to use data collection and analysis tools',
       icon: '📊',
-      component: <GenericTrainingModule title="Researcher Training" />
+      component: <GenericTrainingModule curriculumId="researcher-training" />
     },
     {
       id: 'integration-training',
       title: 'System Integration',
       description: 'Technical training for IT staff on API integration and data management',
       icon: '🔌',
-      component: <GenericTrainingModule title="System Integration" />
+      component: <GenericTrainingModule curriculumId="integration-training" />
     },
   ];
 
