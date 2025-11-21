@@ -11,6 +11,38 @@ interface TrainingModule {
   isFeatured?: boolean;
 }
 
+const GenericTrainingModule: React.FC<{ title: string }> = ({ title }) => (
+  <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+    <div className="p-6 border-b border-gray-100">
+      <h3 className="text-lg font-semibold text-gray-800 mb-2">Course Curriculum</h3>
+      <p className="text-gray-600 text-sm">Complete the following modules to earn your certificate.</p>
+    </div>
+    <div className="divide-y divide-gray-100">
+      {[1, 2, 3, 4].map((i) => (
+        <div key={i} className="p-4 hover:bg-gray-50 transition-colors flex items-center justify-between group cursor-pointer">
+          <div className="flex items-center gap-4">
+            <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm">
+              {i}
+            </div>
+            <div>
+              <div className="font-medium text-gray-900">Module {i}: {title} Fundamentals Part {i}</div>
+              <div className="text-xs text-gray-500">Video • 15 mins</div>
+            </div>
+          </div>
+          <button className="px-3 py-1 text-xs font-medium text-blue-600 border border-blue-200 rounded-full group-hover:bg-blue-600 group-hover:text-white transition-all">
+            Start
+          </button>
+        </div>
+      ))}
+    </div>
+    <div className="p-4 bg-gray-50 border-t border-gray-100 text-center">
+      <button className="text-sm font-medium text-blue-600 hover:text-blue-800">
+        View Full Syllabus
+      </button>
+    </div>
+  </div>
+);
+
 const TrainingDashboard: React.FC = () => {
   const [selectedModuleId, setSelectedModuleId] = useState<string | null>(null);
 
@@ -29,7 +61,7 @@ const TrainingDashboard: React.FC = () => {
       title: 'Administrator Training',
       description: 'Learn how to manage users, permissions, and institutional settings',
       icon: '⚙️',
-      component: <div className="p-6 bg-yellow-50 rounded-lg text-center">Administrator Training Module (Coming Soon)</div>,
+      component: <GenericTrainingModule title="Administrator Training" />,
       isNew: true
     },
     {
@@ -37,28 +69,28 @@ const TrainingDashboard: React.FC = () => {
       title: 'Teacher Training',
       description: 'Resources for classroom teachers using the platform',
       icon: '👩‍🏫',
-      component: <div className="p-6 bg-yellow-50 rounded-lg text-center">Teacher Training Module (Coming Soon)</div>
+      component: <GenericTrainingModule title="Teacher Training" />
     },
     {
       id: 'ep-training',
       title: 'Educational Psychologist Training',
       description: 'Specialized training for EPs on assessment and intervention features',
       icon: '🧠',
-      component: <div className="p-6 bg-yellow-50 rounded-lg text-center">EP Training Module (Coming Soon)</div>
+      component: <GenericTrainingModule title="EP Training" />
     },
     {
       id: 'researcher-training',
       title: 'Researcher Training',
       description: 'Learn how to use data collection and analysis tools',
       icon: '📊',
-      component: <div className="p-6 bg-yellow-50 rounded-lg text-center">Researcher Training Module (Coming Soon)</div>
+      component: <GenericTrainingModule title="Researcher Training" />
     },
     {
       id: 'integration-training',
       title: 'System Integration',
       description: 'Technical training for IT staff on API integration and data management',
       icon: '🔌',
-      component: <div className="p-6 bg-yellow-50 rounded-lg text-center">System Integration Module (Coming Soon)</div>
+      component: <GenericTrainingModule title="System Integration" />
     },
   ];
 

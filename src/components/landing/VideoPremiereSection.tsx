@@ -8,19 +8,16 @@ export default function VideoPremiereSection() {
     {
       title: "The Differentiation Engine",
       duration: "3:45",
-      status: "Coming Soon",
       imageColor: "bg-indigo-100"
     },
     {
       title: "Battle Royale: Deep Dive",
       duration: "4:20",
-      status: "Coming Soon",
       imageColor: "bg-amber-100"
     },
     {
       title: "EHCP Automation Workflow",
       duration: "5:10",
-      status: "Coming Soon",
       imageColor: "bg-green-100"
     }
   ];
