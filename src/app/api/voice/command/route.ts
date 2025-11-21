@@ -104,7 +104,7 @@ export async function POST(
     }
 
     const tenantId = session.tenant_id;
-    const userId = session.user_id;
+    const userId = session.id;
     const userRole = session.role;
 
     console.log(`[Voice Command API] POST request - User: ${userId}, Tenant: ${tenantId}`);
@@ -186,7 +186,7 @@ export async function POST(
 
     // Process command using voice command service
     const voiceCommandRequest = {
-      user_id: parseInt(userId as string),
+      user_id: parseInt(userId),
       transcript: query,
       context: {
         current_screen: classContext || studentContext ? 'dashboard' : 'home',
@@ -220,12 +220,15 @@ export async function POST(
     // Log command for GDPR audit trail
     await prisma.auditLog.create({
       data: {
-        userId: userId,
-        institutionId: tenantId?.toString(),
-        entityId: studentContext || null,
-        entityType: 'student',
+        userId: parseInt(userId),
+        tenantId: tenantId,
+        resource: 'voice_command',
         action: 'voice_command',
-        description: `Voice query: "${query.substring(0, 100)}"`,
+        details: {
+          entityId: studentContext || null,
+          entityType: 'student',
+          description: `Voice query: "${query.substring(0, 100)}"`,
+        },
         ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
         userAgent: request.headers.get('user-agent') || 'unknown',
       },

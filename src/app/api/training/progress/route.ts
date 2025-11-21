@@ -1,10 +1,10 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import authService from '@/lib/auth/auth-service';
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const courseId = searchParams.get('courseId');
-  const userId = 'user-1'; // Mock user ID
 
   if (!courseId) {
     return NextResponse.json(
@@ -14,6 +14,15 @@ export async function GET(request: Request) {
   }
 
   try {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+    const userId = parseInt(session.id);
+
     const enrollment = await prisma.courseEnrollment.findUnique({
       where: {
         userId_courseId: {
@@ -41,11 +50,19 @@ export async function GET(request: Request) {
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+    const userId = parseInt(session.id);
+
     const body = await request.json();
     const { courseId, progress, timeSpent, state } = body;
-    const userId = 'user-1'; // Mock user ID
 
     if (!courseId) {
       return NextResponse.json(

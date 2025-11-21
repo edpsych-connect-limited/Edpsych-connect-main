@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
         assessments: {
           where: { status: 'completed' },
           take: 5,
-          orderBy: { date: 'desc' }
+          orderBy: { created_at: 'desc' }
         }
       }
     });
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
 
     // 5. Construct Prompt
     const student = caseData.students;
-    const assessments = caseData.assessments.map(a => `${a.type} (${a.date.toISOString().split('T')[0]}): ${a.summary || 'No summary'}`).join('\n');
+    const assessments = caseData.assessments.map(a => `${a.assessment_type} (${a.created_at.toISOString().split('T')[0]})`).join('\n');
     
     const prompt = `
       You are an expert Educational Psychologist.
@@ -68,7 +68,6 @@ export async function POST(request: NextRequest) {
       - Name: ${student.first_name} ${student.last_name}
       - Year Group: ${student.year_group}
       - SEN Status: ${student.sen_status || 'Unknown'}
-      - Needs: ${student.student_profile?.primary_need || 'Not specified'}
       
       Recent Assessments:
       ${assessments}

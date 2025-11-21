@@ -209,13 +209,15 @@ export async function GET(
       prisma.studentProfile.findMany({
         where: { student_id: { in: studentIds } },
       }),
-      prisma.assessment.findMany({
-        where: { studentId: { in: studentIds.map(String) } },
-        orderBy: { assessmentDate: 'desc' },
+      prisma.assessments.findMany({
+        where: { cases: { student_id: { in: studentIds } } },
+        orderBy: { created_at: 'desc' },
+        include: { cases: true },
       }),
       prisma.studentLessonAssignment.findMany({
         where: { student_id: { in: studentIds } },
         orderBy: { assigned_at: 'desc' },
+        include: { lesson_plan: true },
       }),
       prisma.cases.findMany({
         where: { student_id: { in: studentIds } },
@@ -244,7 +246,7 @@ export async function GET(
 
     // Map assessments by converting string IDs back to numbers for lookup
     assessments.forEach(a => {
-      const studentIdNum = parseInt(a.studentId, 10);
+      const studentIdNum = a.cases.student_id;
       if (!assessmentsByStudent.has(studentIdNum)) {
         assessmentsByStudent.set(studentIdNum, []);
       }
@@ -300,10 +302,11 @@ export async function GET(
       // Analyze struggling/excelling subjects
       const subjectPerformance = new Map<string, number[]>();
       completedLessons.forEach(lesson => {
-        if (!subjectPerformance.has(lesson.subject)) {
-          subjectPerformance.set(lesson.subject, []);
+        const subject = lesson.lesson_plan?.subject || 'Unknown';
+        if (!subjectPerformance.has(subject)) {
+          subjectPerformance.set(subject, []);
         }
-        subjectPerformance.get(lesson.subject)!.push(lesson.success_rate || 0);
+        subjectPerformance.get(subject)!.push(lesson.success_rate || 0);
       });
 
       const strugglingSubjects: string[] = [];
@@ -319,8 +322,8 @@ export async function GET(
       });
 
       // Calculate days since last assessment
-      const lastAssessmentDays = lastAssessment && lastAssessment.assessmentDate
-        ? Math.floor((now.getTime() - new Date(lastAssessment.assessmentDate).getTime()) / (1000 * 60 * 60 * 24))
+      const lastAssessmentDays = lastAssessment && lastAssessment.created_at
+        ? Math.floor((now.getTime() - new Date(lastAssessment.created_at).getTime()) / (1000 * 60 * 60 * 24))
         : null;
 
       // Determine urgency level
@@ -366,7 +369,7 @@ export async function GET(
         currentReadingLevel: learningProfile.readingLevel || null,
         currentMathLevel: learningProfile.mathLevel || null,
         recentActivity: {
-          lastAssessmentDate: lastAssessment?.assessmentDate || null,
+          lastAssessmentDate: lastAssessment?.created_at || null,
           lastLessonDate: lastLesson?.assigned_at || null,
           lastInterventionDate: lastIntervention?.start_date || null,
           pendingAssignments,
@@ -444,11 +447,14 @@ export async function GET(
     await prisma.auditLog.create({
       data: {
         userId: userId,
-        institutionId: tenantId?.toString(),
+        tenantId: tenantId,
         action: 'class_students_view',
-        description: `Class roster with ${studentSummaries.length} student profiles`,
-        ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
-        userAgent: request.headers.get('user-agent') || 'unknown',
+        resource: 'class_roster',
+        details: {
+          description: `Class roster with ${studentSummaries.length} student profiles`,
+          ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+          userAgent: request.headers.get('user-agent') || 'unknown',
+        },
       },
     });
 

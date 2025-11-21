@@ -38,7 +38,7 @@ export async function GET(
           },
         },
         enrollments: userId ? {
-          where: { userId: String(userId) }, // Assuming userId is string in Prisma schema for CourseEnrollment?
+          where: { userId: parseInt(userId) },
         } : false,
       },
     });

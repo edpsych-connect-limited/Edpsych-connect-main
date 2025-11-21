@@ -27,8 +27,8 @@ export async function GET(request: NextRequest) {
     const where: any = {
       // Check verification status via the relation to users -> ProfessionalCompliance
       user: {
-        professional_compliance: {
-          verificationStatus: 'verified'
+        compliance: {
+          verificationStatus: 'VERIFIED'
         }
       }
     };
@@ -85,7 +85,7 @@ export async function GET(request: NextRequest) {
     
     // Execute query with pagination
     const [professionals, total] = await Promise.all([
-      prisma.marketplace_professionals.findMany({
+      prisma.marketplaceProfessional.findMany({
         where,
         include: {
           user: {
@@ -93,7 +93,7 @@ export async function GET(request: NextRequest) {
               id: true,
               name: true,
               // image: true, // Avatar
-              professional_compliance: {
+              compliance: {
                 select: {
                   verificationStatus: true
                 }
@@ -112,7 +112,7 @@ export async function GET(request: NextRequest) {
         skip,
         take: limit,
       }),
-      prisma.marketplace_professionals.count({ where }),
+      prisma.marketplaceProfessional.count({ where }),
     ]);
 
     // Format response
@@ -128,10 +128,10 @@ export async function GET(request: NextRequest) {
       dailyRate: (p.hourlyRate || 0) * 7, // Convert back to daily for frontend
       rating: p.rating,
       reviewCount: p._count.reviews,
-      isLaPanel: p.user.professional_compliance?.verificationStatus === 'verified',
+      isLaPanel: p.user.compliance?.verificationStatus === 'VERIFIED',
       nextAvailable: null, // p.availability,
       yearsExperience: 5, // Default until added to schema
-      verified: p.user.professional_compliance?.verificationStatus === 'verified',
+      verified: p.user.compliance?.verificationStatus === 'VERIFIED',
     }));
 
     return NextResponse.json({

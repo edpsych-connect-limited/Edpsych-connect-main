@@ -148,7 +148,7 @@ export async function GET(
     // CRITICAL SECURITY CHECK: Verify parent-child relationship
     const parentChildLink = await prisma.parentChildLink.findFirst({
       where: {
-        parent_id: parseInt(userId as string),
+        parent_id: typeof userId === 'string' ? parseInt(userId) : userId,
         child_id: parseInt(childId),
       },
     });
@@ -159,14 +159,16 @@ export async function GET(
       // Log security violation
       await prisma.auditLog.create({
         data: {
-          userId: userId,
-          institutionId: tenantId?.toString(),
-          entityId: childId,
-          entityType: 'student',
+          userId: typeof userId === 'string' ? parseInt(userId) : userId,
+          tenantId: tenantId,
           action: 'unauthorized_parent_access_attempt',
-          description: 'BLOCKED: Attempted to access unrelated child data',
-          ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
-          userAgent: request.headers.get('user-agent') || 'unknown',
+          resource: 'student',
+          details: {
+            entityId: childId,
+            description: 'BLOCKED: Attempted to access unrelated child data',
+            ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+            userAgent: request.headers.get('user-agent') || 'unknown',
+          },
         },
       });
 
@@ -199,7 +201,7 @@ export async function GET(
 
     // Fetch parent name
     const parentUser = await prisma.users.findFirst({
-      where: { id: parseInt(userId as string) },
+      where: { id: typeof userId === 'string' ? parseInt(userId) : userId },
       select: { firstName: true, lastName: true },
     });
 
@@ -238,19 +240,19 @@ export async function GET(
     // Fetch message count
     const unreadMessages = await prisma.parentTeacherMessage.count({
       where: {
-        recipient_id: parseInt(userId as string),
-        read_at: null,
+        receiverId: typeof userId === 'string' ? parseInt(userId) : userId,
+        readAt: null,
       },
     });
 
     const lastMessage = await prisma.parentTeacherMessage.findFirst({
       where: {
         OR: [
-          { sender_id: parseInt(userId as string) },
-          { recipient_id: parseInt(userId as string) },
+          { senderId: typeof userId === 'string' ? parseInt(userId) : userId },
+          { receiverId: typeof userId === 'string' ? parseInt(userId) : userId },
         ],
       },
-      orderBy: { sent_at: 'desc' },
+      orderBy: { createdAt: 'desc' },
     });
 
     // Build progress summary in plain English
@@ -388,7 +390,7 @@ export async function GET(
       upcomingMilestones,
       teacherContact: {
         teacherName,
-        lastMessageDate: lastMessage?.sent_at || null,
+        lastMessageDate: lastMessage?.createdAt || null,
         unreadMessages,
       },
       lastUpdated: new Date(),
@@ -397,14 +399,16 @@ export async function GET(
     // Log data access for GDPR audit trail
     await prisma.auditLog.create({
       data: {
-        userId: userId,
-        institutionId: tenantId?.toString(),
-        entityId: childId,
-        entityType: 'student',
+        userId: typeof userId === 'string' ? parseInt(userId) : userId,
+        tenantId: tenantId,
         action: 'parent_portal_view',
-        description: 'Parent accessed child progress summary',
-        ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
-        userAgent: request.headers.get('user-agent') || 'unknown',
+        resource: 'student',
+        details: {
+          entityId: childId,
+          description: 'Parent accessed child progress summary',
+          ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+          userAgent: request.headers.get('user-agent') || 'unknown',
+        },
       },
     });
 

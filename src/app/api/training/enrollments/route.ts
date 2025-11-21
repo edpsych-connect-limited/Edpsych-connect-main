@@ -14,13 +14,13 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const userId = session.id;
+    const userId = parseInt(session.id);
 
     // Fetch enrollments from Prisma
     // Note: Using CourseEnrollment model (PascalCase) as per seed script
     const enrollments = await prisma.courseEnrollment.findMany({
       where: {
-        userId: String(userId),
+        userId: userId,
       },
       include: {
         course: {
@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const userId = String(session.id);
+    const userId = parseInt(session.id);
 
     // Check if already enrolled
     const existingEnrollment = await prisma.courseEnrollment.findUnique({

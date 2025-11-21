@@ -173,14 +173,14 @@ export async function GET(
 
     // Count data sources
     const [assessmentCount, lessonCount, interventionCount, manualAdjustmentCount] = await Promise.all([
-      prisma.assessment.count({
-        where: { studentId: studentId },
+      prisma.assessments.count({
+        where: { cases: { student_id: parseInt(studentId) } },
       }),
       prisma.studentLessonAssignment.count({
         where: { student_id: parseInt(studentId) },
       }),
-      prisma.assessmentInstance.count({
-        where: { student_id: parseInt(studentId) },
+      prisma.interventions.count({
+        where: { cases: { student_id: parseInt(studentId) } },
       }),
       prisma.automatedAction.count({
         where: {
@@ -192,10 +192,10 @@ export async function GET(
 
     // Get last activity dates
     const [lastAssessment, lastLesson] = await Promise.all([
-      prisma.assessment.findFirst({
-        where: { studentId: studentId },
-        orderBy: { createdAt: 'desc' },
-        select: { createdAt: true },
+      prisma.assessments.findFirst({
+        where: { cases: { student_id: parseInt(studentId) } },
+        orderBy: { created_at: 'desc' },
+        select: { created_at: true },
       }),
       prisma.studentLessonAssignment.findFirst({
         where: { student_id: parseInt(studentId) },
@@ -264,7 +264,7 @@ export async function GET(
           ? learningProfile.accommodations
           : [],
       },
-      lastAssessmentDate: lastAssessment?.createdAt || null,
+      lastAssessmentDate: lastAssessment?.created_at || null,
       lastLessonDate: lastLesson?.assigned_at || null,
       lastInterventionDate: null,
     };
@@ -272,14 +272,16 @@ export async function GET(
     // Log data access for GDPR audit trail
     await prisma.auditLog.create({
       data: {
-        userId: userId,
-        institutionId: tenantId?.toString(),
-        entityId: studentId,
-        entityType: 'student',
+        userId: typeof userId === 'string' ? parseInt(userId) : userId,
+        tenantId: tenantId,
         action: 'student_profile_view',
-        description: 'Student profile with learning data',
-        ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
-        userAgent: request.headers.get('user-agent') || 'unknown',
+        resource: 'student',
+        details: {
+          entityId: studentId,
+          description: 'Student profile with learning data',
+          ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+          userAgent: request.headers.get('user-agent') || 'unknown',
+        },
       },
     });
 
@@ -449,14 +451,16 @@ export async function PATCH(
     // Log data modification for GDPR audit trail
     await prisma.auditLog.create({
       data: {
-        userId: userId,
-        institutionId: tenantId?.toString(),
-        entityId: studentId,
-        entityType: 'student',
+        userId: typeof userId === 'string' ? parseInt(userId) : userId,
+        tenantId: tenantId,
         action: 'student_profile_update',
-        description: 'Student profile manual adjustment',
-        ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
-        userAgent: request.headers.get('user-agent') || 'unknown',
+        resource: 'student',
+        details: {
+          entityId: studentId,
+          description: 'Student profile manual adjustment',
+          ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+          userAgent: request.headers.get('user-agent') || 'unknown',
+        },
       },
     });
 

@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
 
     // Get user's marketplace profile and compliance data
     const [profile, compliance] = await Promise.all([
-      prisma.marketplace_professionals.findUnique({
+      prisma.marketplaceProfessional.findUnique({
         where: { userId: userId },
       }),
       prisma.professionalCompliance.findUnique({
@@ -121,7 +121,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Update profile to APPLIED status
-    const updatedProfile = await prisma.marketplace_professionals.update({
+    const updatedProfile = await prisma.marketplaceProfessional.update({
       where: { id: profile.id },
       data: {
         la_panel_status: 'APPLIED',
@@ -153,7 +153,7 @@ export async function POST(request: NextRequest) {
         regions: updatedProfile.la_panel_regions,
         commission_rate: updatedProfile.commission_rate,
         annual_fee: 99.00,
-        submitted_at: updatedProfile.updated_at,
+        submitted_at: updatedProfile.updatedAt,
         estimated_review_time: '5-7 working days',
         next_steps: [
           'Panel review team will verify all documents',
@@ -190,7 +190,7 @@ export async function GET() {
 
     // Get user's LA Panel application status and compliance
     const [profile, compliance] = await Promise.all([
-      prisma.marketplace_professionals.findUnique({
+      prisma.marketplaceProfessional.findUnique({
         where: { userId: userId },
         select: {
           id: true,

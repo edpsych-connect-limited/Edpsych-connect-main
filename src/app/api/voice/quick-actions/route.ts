@@ -133,7 +133,7 @@ export async function POST(
     }
 
     const tenantId = session.tenant_id;
-    const userId = session.user_id;
+    const userId = session.id;
 
     // Verify role (only teachers and admin can execute quick actions)
     if (!['teacher', 'admin', 'head_teacher'].includes(session.role)) {
@@ -442,12 +442,15 @@ export async function POST(
     // Log GDPR audit trail
     await prisma.auditLog.create({
       data: {
-        userId: userId,
-        institutionId: tenantId?.toString(),
-        entityId: studentId,
-        entityType: 'student',
+        userId: parseInt(userId),
+        tenantId: tenantId,
+        resource: 'quick_action',
         action: 'quick_action',
-        description: `Quick action: ${actionType} on ${targetType}`,
+        details: {
+          entityId: studentId,
+          entityType: 'student',
+          description: `Quick action: ${actionType} on ${targetType}`,
+        },
         ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
         userAgent: request.headers.get('user-agent') || 'unknown',
       },

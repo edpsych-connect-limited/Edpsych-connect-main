@@ -276,6 +276,7 @@ model users {
   training_purchases        TrainingPurchase[]
   interactive_responses     InteractiveResponse[]
   learning_path_enrollments LearningPathEnrollment[]
+  course_enrollments        CourseEnrollment[]
   cpd_logs                  CPDLog[]
   onboarding_progress       onboarding_progress?
   legal_signatures          LegalSignature[]
@@ -293,10 +294,10 @@ model users {
 
   // Relations - Marketplace
   compliance           ProfessionalCompliance?
-  marketplace_profile  marketplace_professionals?
+  marketplace_profile  MarketplaceProfessional?
   service_listings     ServiceListing[]
   contracts_as_ep      ServiceContract[] @relation("EPContracts")
-  marketplace_reviews_written marketplace_reviews[]
+  marketplace_reviews_written MarketplaceReview[]
 
   // Relations - System & Security
   audit_logs          AuditLog[]
@@ -2578,7 +2579,7 @@ model Course {
   enrollments  CourseEnrollment[]
   reviews      CourseReview[]
   certificates Certificate[]
-  CourseQuiz   CourseQuiz[]
+  quizzes      CourseQuiz[]
 
   @@index([category])
   @@index([status])
@@ -2612,6 +2613,7 @@ model CourseModule {
   // Relations
   course  Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
   lessons CourseLesson[]
+  quizzes CourseQuiz[]
 
   @@index([courseId])
   @@index([orderIndex])
@@ -2638,7 +2640,7 @@ model CourseLesson {
 model CourseEnrollment {
   id           String    @id @default(uuid())
   courseId     String
-  userId       String
+  userId       Int
   status       String    @default("active")
   progress     Int       @default(0)
   startedAt    DateTime  @default(now())
@@ -2652,10 +2654,17 @@ model CourseEnrollment {
   accessExpiresAt  DateTime?
   isLifetimeAccess Boolean @default(false)
 
+  // Progress tracking
+  timeSpent      Int       @default(0)
+  lastAccessedAt DateTime?
+  data           Json?
+
   // Relations
   course           Course            @relation(fields: [courseId], references: [id], onDelete: Cascade)
   trainingPurchase TrainingPurchase? @relation(fields: [purchaseId], references: [id])
+  user             users             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@unique([userId, courseId])
   @@index([courseId])
   @@index([userId])
   @@index([status])
@@ -2713,6 +2722,7 @@ model CourseQuiz {
 
   // Relations
   course    Course         @relation(fields: [courseId], references: [id])
+  module    CourseModule?  @relation(fields: [moduleId], references: [id])
   questions QuizQuestion[]
   attempts  QuizAttempt[]
 
@@ -3042,7 +3052,7 @@ model ProfessionalCompliance {
   user                  users    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model marketplace_professionals {
+model MarketplaceProfessional {
   id                    String   @id @default(uuid())
   userId                Int      @unique
   bio                   String?  @db.Text
@@ -3067,7 +3077,7 @@ model marketplace_professionals {
   updatedAt             DateTime @default(now())
 
   user                  users    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  reviews               marketplace_reviews[]
+  reviews               MarketplaceReview[]
 }
 
 model ServiceListing {
@@ -3106,7 +3116,7 @@ model ServiceContract {
   tenant                tenants         @relation(fields: [tenantId], references: [id])
 }
 
-model marketplace_reviews {
+model MarketplaceReview {
   id                    String   @id @default(uuid())
   professionalId        String
   authorId              Int
@@ -3114,7 +3124,7 @@ model marketplace_reviews {
   comment               String?  @db.Text
   createdAt             DateTime @default(now())
 
-  professional          marketplace_professionals @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+  professional          MarketplaceProfessional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
   author                users                     @relation(fields: [authorId], references: [id], onDelete: Cascade)
 }
 
@@ -3240,12 +3250,27 @@ model AuditLog {
 }
 
 model Waitlist {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  role      String?
-  status    String   @default("pending")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  id               String   @id @default(uuid())
+  email            String   @unique
+  name             String?
+  organization     String?
+  organization_type String?
+  role             String?
+  priority         String   @default("medium")
+  status           String   @default("pending")
+  
+  // Marketing & Tracking
+  beta_access      Boolean  @default(false)
+  referral_source  String?
+  notes            String?  @db.Text
+  last_contacted_at DateTime?
+  converted_at     DateTime?
+  utm_source       String?
+  utm_medium       String?
+  utm_campaign     String?
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @default(now())
 
   @@index([email])
 }

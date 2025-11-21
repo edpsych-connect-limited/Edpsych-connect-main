@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
           organization: organization || existingEntry.organization,
           role: role || existingEntry.role,
           organization_type: organizationType || existingEntry.organization_type,
-          updated_at: new Date(),
+          updatedAt: new Date(),
         },
       });
 
@@ -155,7 +155,7 @@ export async function GET(req: NextRequest) {
 
     const recentSignups = await prisma.waitlist.findMany({
       take: 10,
-      orderBy: { created_at: 'desc' },
+      orderBy: { createdAt: 'desc' },
       select: {
         id: true,
         email: true,
@@ -164,7 +164,7 @@ export async function GET(req: NextRequest) {
         role: true,
         status: true,
         priority: true,
-        created_at: true,
+        createdAt: true,
       },
     });
 
