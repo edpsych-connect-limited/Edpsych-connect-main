@@ -36,7 +36,7 @@ async function main() {
 
     // Hash password once for all users
     const hashedPassword = await bcrypt.hash(TEST_PASSWORD, 10);
-    const demoPassword = await bcrypt.hash('demo123', 10);
+    const demoPassword = await bcrypt.hash('Test123!', 10);
 
     // ========================================================================
     // 0. CREATE DEMO USERS (Requested by User)
@@ -60,7 +60,7 @@ async function main() {
         is_active: true,
       },
     });
-    console.log('✅ Demo Teacher created: teacher@demo.com / demo123');
+    console.log('✅ Demo Teacher created: teacher@demo.com / Test123!');
 
     // Demo Parent
     await prisma.users.upsert({
@@ -79,7 +79,7 @@ async function main() {
         is_active: true,
       },
     });
-    console.log('✅ Demo Parent created: parent@demo.com / demo123');
+    console.log('✅ Demo Parent created: parent@demo.com / Test123!');
 
     // ========================================================================
     // 1. CREATE TEACHER ACCOUNT

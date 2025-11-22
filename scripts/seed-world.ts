@@ -26,7 +26,7 @@ async function main() {
   console.log(`🏫 Tenant Ready: ${demoTenant.name}`);
 
   // 2. Create Teacher User
-  const teacherPassword = await hash('demo123', 12);
+  const teacherPassword = await hash('Test123!', 12);
   const teacher = await prisma.users.upsert({
     where: { email: 'teacher@demo.com' },
     update: {},
@@ -45,7 +45,7 @@ async function main() {
   console.log(`👩‍🏫 Teacher Ready: ${teacher.name}`);
 
   // 3. Create Parent User
-  const parentPassword = await hash('demo123', 12);
+  const parentPassword = await hash('Test123!', 12);
   const parentUser = await prisma.users.upsert({
     where: { email: 'parent@demo.com' },
     update: {},

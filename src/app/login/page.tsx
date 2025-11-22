@@ -128,8 +128,8 @@ export default function LoginPage() {
           <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-md text-sm text-blue-800">
             <p className="font-semibold mb-1">Demo Credentials:</p>
             <ul className="list-disc list-inside space-y-1">
-              <li>Teacher: <code className="bg-blue-100 px-1 rounded">teacher@demo.com</code> / <code className="bg-blue-100 px-1 rounded">demo123</code></li>
-              <li>Parent: <code className="bg-blue-100 px-1 rounded">parent@demo.com</code> / <code className="bg-blue-100 px-1 rounded">demo123</code></li>
+              <li>Teacher: <code className="bg-blue-100 px-1 rounded">teacher@demo.com</code> / <code className="bg-blue-100 px-1 rounded">Test123!</code></li>
+              <li>Parent: <code className="bg-blue-100 px-1 rounded">parent@demo.com</code> / <code className="bg-blue-100 px-1 rounded">Test123!</code></li>
             </ul>
           </div>
 

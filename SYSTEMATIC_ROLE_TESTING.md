@@ -63,3 +63,29 @@ Run the following command to execute the smoke test:
 ```bash
 npx cypress run --spec "cypress/e2e/auth/role-smoke-test.cy.ts"
 ```
+
+## 4. Automated Verification
+
+### Option A: Backend Smoke Test (Recommended)
+We have created a script to verify that all test users exist in the database with the correct roles and passwords. This does not require a browser.
+
+**Run the smoke test:**
+```bash
+npx tsx tools/smoke-test-api.ts
+```
+
+**Expected Output:**
+```
+✅ Login Validated: admin@demo.com is ready.
+✅ Login Validated: teacher@demo.com is ready.
+...
+✅ SYSTEM HEALTHY: All roles are configured correctly.
+```
+
+### Option B: Full E2E Test (Requires Cypress Dependencies)
+This test suite runs the same test scenarios as the smoke test but with full browser automation and user interaction. It is more comprehensive but requires additional setup.
+
+Run the following command to execute the full test suite:
+```bash
+npx cypress run --spec "cypress/e2e/auth/role-smoke-test.cy.ts"
+```
