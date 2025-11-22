@@ -1,0 +1,441 @@
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/admin/ethics/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/admin/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/ai-agents/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/algorithms/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/analytics/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/ai/adaptive/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/ai/demos/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/ai/matcher/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/api-docs/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/assessments/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/auth/forgot-password/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/auth/reset-password/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/auth/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/auth/signup/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/automation/analytics/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/automation/effectiveness/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/automation/interventions/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/automation/templates/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/battle-royale/match/[id]/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/battle-royale/matchmaking/queue/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/battle-royale/matchmaking/status/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/battle-royale/squad/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/blog/[slug]/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/blog/generate/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/blog/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/cases/[id]/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/cases/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/class/[id]/actions/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/class/[id]/students/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/class/dashboard/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/cpd/[id]/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/cpd/portfolio/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/cpd/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/cron/predictions/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/ehcp/[id]/export/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/ehcp/[id]/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/ehcp/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/ethics/analytics/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/ethics/assessments/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/ethics/incidents/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/ethics/monitors/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/gamification/leaderboard/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/gamification/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/health-dashboard/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/health/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/help/[slug]/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/help/chat/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/help/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/interventions/[id]/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/interventions/generate/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/interventions/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/legal/signatures/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/lessons/assign/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/lessons/differentiate/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/marketplace/dashboard/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/marketplace/la-panel/apply/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/marketplace/professionals/register/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/marketplace/professionals/search/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/marketplace/profile/status/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/monitoring/dashboard/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/multi-agency/ep-dashboard/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/multi-agency/view/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/onboarding/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/orchestrator/status/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/orchestrator/tutor/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/outcomes/track/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/parent/messages/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/parent/portal/[childId]/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/problem-solver/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/progress/dashboard/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/research/library/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/status/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/students/[id]/lessons/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/students/[id]/profile/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/students/[id]/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/students/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/study-buddy/chat/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/study-buddy/insights/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/study-buddy/profile/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/study-buddy/recommendations/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/subscription/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/tokenisation/rewards/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/tokenisation/treasury/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/training/courses/[id]/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/training/courses/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/training/create-payment-intent/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/training/discount-codes/validate/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/training/enrollments/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/training/products/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/training/progress/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/training/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/user/onboarding/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/version/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/voice/command/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/voice/quick-actions/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/waitlist/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/api/webhooks/stripe/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/assessments/new/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/assessments/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/blog/[slug]/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/blog/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/cases/[id]/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/cases/new/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/cases/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/collaborate/[token]/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/collaborate/thank-you/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/dashboard/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/diagnostic/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/ehcp/[id]/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/ehcp/new/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/ehcp/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/forgot-password/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/gamification/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/help/[slug]/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/help/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/institutional-management/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/interventions/[id]/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/interventions/library/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/interventions/new/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/interventions/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/landing/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/login/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/marketplace/dashboard/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/marketplace/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/marketplace/register/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/networking/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/onboarding/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/parents/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/pricing/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/privacy/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/progress/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/research/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/settings/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/signup/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/subscription/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/teachers/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/terms/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/test-auth/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/test-navigation/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/training/certificates/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/training/checkout/[productId]/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/training/courses/[id]/learn/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/training/courses/[id]/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/training/dashboard/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/training/marketplace/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
+error TS6053: File '/mnt/c/EdpsychConnect/.next/types/app/training/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in '/mnt/c/EdpsychConnect/tsconfig.json'
