@@ -126,6 +126,7 @@ function HelpCenterContent() {
                 />
                 <button
                   onClick={handleSearch}
+                  aria-label="Search"
                   className="absolute right-2 top-2 p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

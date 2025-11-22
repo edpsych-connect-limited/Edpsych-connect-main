@@ -24,7 +24,7 @@ async function main() {
   try {
     // Get the test-school tenant (where orchestration data was seeded)
     const tenant = await prisma.tenants.findFirst({
-      where: { subdomain: 'test-school' }
+      where: { subdomain: 'demo' }
     });
 
     if (!tenant) {
@@ -36,6 +36,50 @@ async function main() {
 
     // Hash password once for all users
     const hashedPassword = await bcrypt.hash(TEST_PASSWORD, 10);
+    const demoPassword = await bcrypt.hash('demo123', 10);
+
+    // ========================================================================
+    // 0. CREATE DEMO USERS (Requested by User)
+    // ========================================================================
+    console.log('🧪 Creating Requested Demo Users...');
+
+    // Demo Teacher
+    await prisma.users.upsert({
+      where: { email: 'teacher@demo.com' },
+      update: { password_hash: demoPassword },
+      create: {
+        tenant_id: tenant.id,
+        email: 'teacher@demo.com',
+        password_hash: demoPassword,
+        name: 'Demo Teacher',
+        firstName: 'Demo',
+        lastName: 'Teacher',
+        role: 'TEACHER',
+        permissions: ['VIEW_STUDENTS', 'MANAGE_LESSONS', 'VIEW_REPORTS', 'ASSIGN_WORK'],
+        isEmailVerified: true,
+        is_active: true,
+      },
+    });
+    console.log('✅ Demo Teacher created: teacher@demo.com / demo123');
+
+    // Demo Parent
+    await prisma.users.upsert({
+      where: { email: 'parent@demo.com' },
+      update: { password_hash: demoPassword },
+      create: {
+        tenant_id: tenant.id,
+        email: 'parent@demo.com',
+        password_hash: demoPassword,
+        name: 'Demo Parent',
+        firstName: 'Demo',
+        lastName: 'Parent',
+        role: 'PARENT',
+        permissions: ['VIEW_OWN_CHILD', 'MESSAGE_TEACHER', 'VIEW_CHILD_PROGRESS'],
+        isEmailVerified: true,
+        is_active: true,
+      },
+    });
+    console.log('✅ Demo Parent created: parent@demo.com / demo123');
 
     // ========================================================================
     // 1. CREATE TEACHER ACCOUNT

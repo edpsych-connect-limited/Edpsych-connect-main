@@ -105,7 +105,7 @@ async function main() {
 
   // Get or create test tenant
   let tenant = await prisma.tenants.findFirst({
-    where: { subdomain: 'test-school' }
+    where: { subdomain: 'demo' }
   });
 
   if (!tenant) {
@@ -113,7 +113,7 @@ async function main() {
     tenant = await prisma.tenants.create({
       data: {
         name: school.name,
-        subdomain: 'test-school',
+        subdomain: 'demo',
         tenant_type: 'SCHOOL',
         urn: school.urn,
         la_code: 'LA123',
@@ -600,7 +600,8 @@ async function main() {
         triggered_by: action.trigger,
         target_type: 'student',
         target_id: profile.student_id.toString(),
-        student_id: profile.id,
+        student_id: profile.student_id,
+        student_profile_id: profile.id,
         action_data: {
           details: `Automated ${action.type} triggered by ${action.trigger}`,
           timestamp: new Date(),

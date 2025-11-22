@@ -369,7 +369,7 @@ export const VoiceCommandInterface: React.FC<VoiceCommandInterfaceProps> = ({
                   : 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500'
               } disabled:opacity-50 disabled:cursor-not-allowed`}
               aria-label={isRecording ? 'Stop recording' : 'Start voice recording'}
-              aria-pressed={isRecording}
+              aria-pressed={isRecording ? "true" : "false"}
             >
               {isRecording ? (
                 <MicOff className="w-6 h-6 text-white" aria-hidden="true" />

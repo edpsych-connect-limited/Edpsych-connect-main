@@ -68,7 +68,7 @@ async function main() {
   const subscription = await prisma.subscriptions.create({
     data: {
       tenant_id: tenant.id,
-      tier: 'DEMO',
+      tier: 'SCHOOL_SMALL',
       plan_type: 'Demo Trial',
       payment_status: 'active',
       amount_paid: 0,

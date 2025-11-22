@@ -6,6 +6,7 @@ import { AuthProvider, useAuth } from '@/lib/auth/hooks';
 import { useRouter, usePathname } from 'next/navigation';
 import FeatureExplainer from '@/components/onboarding/FeatureExplainer';
 import { VoiceAssistant } from '@/components/voice/VoiceAssistant';
+import { ContextualHelp } from '@/components/help/ContextualHelp';
 
 function HeaderContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -177,6 +178,11 @@ export default function ClientLayout({
         <main className={isLandingPage ? '' : 'p-6'}>{children}</main>
         <FeatureExplainer key={pathname} />
         <VoiceAssistant />
+        {!isLandingPage && (
+          <div className="fixed bottom-6 right-24 z-50">
+            <ContextualHelp title="Help & Support" description="Get help with the current page." />
+          </div>
+        )}
         {!isLandingPage && (
           <footer className="bg-gray-100 text-center py-4 mt-10 text-sm text-gray-600">
             © {new Date().getFullYear()} EdPsych Connect World. All rights reserved.
