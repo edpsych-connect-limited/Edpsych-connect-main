@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     const pdfBuffer = await ReportGenerator.generateReport(data);
 
     // Create response with PDF
-    return new NextResponse(pdfBuffer, {
+    return new NextResponse(pdfBuffer as unknown as BodyInit, {
       headers: {
         'Content-Type': 'application/pdf',
         'Content-Disposition': `attachment; filename="report-${data.student.name.replace(/\s+/g, '-').toLowerCase()}.pdf"`,

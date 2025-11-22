@@ -31,6 +31,7 @@
     "@next-auth/prisma-adapter": "^1.0.7",
     "@noble/post-quantum": "^0.5.2",
     "@prisma/client": "^6.18.0",
+    "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-scroll-area": "^1.2.10",
     "@radix-ui/react-select": "^2.2.6",
     "@react-three/drei": "^9.122.0",
