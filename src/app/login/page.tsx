@@ -28,11 +28,24 @@ export default function LoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
 
+  // Helper to determine redirect path based on role
+  const getRedirectPath = (userRole?: string) => {
+    if (!userRole) return '/dashboard';
+    
+    const role = userRole.toUpperCase();
+    if (role === 'SUPER_ADMIN' || role === 'ADMIN' || role === 'SUPERADMIN') {
+      return '/admin';
+    }
+    
+    return '/dashboard';
+  };
+
   // Auto-redirect if already logged in
   useEffect(() => {
     if (!authLoading && user) {
-      logger.info('✅ User already authenticated, redirecting to admin');
-      router.push('/admin');
+      const path = getRedirectPath(user.role);
+      logger.info(`✅ User already authenticated, redirecting to ${path}`);
+      router.push(path);
     }
   }, [user, authLoading, router]);
 
@@ -57,20 +70,19 @@ export default function LoginPage() {
       const success = await login(email, password, rememberMe);
 
       if (success) {
-        logger.info('✅ Login successful, redirecting to admin');
-        
-        // Small delay to ensure state is fully updated
-        setTimeout(() => {
-          router.push('/admin');
-        }, 100);
+        // Note: user object might not be updated immediately in state, 
+        // but the useEffect above will handle the redirect once it is.
+        // We can also try to guess the redirect if we had the user object here,
+        // but relying on the useEffect is safer for state consistency.
+        logger.info('✅ Login successful, waiting for redirect...');
       } else {
         setError('Invalid email or password. Please try again.');
         logger.error('❌ Login failed: Invalid credentials');
+        setIsSubmitting(false);
       }
     } catch (err: any) {
       setError(err.message || 'An unexpected error occurred. Please try again.');
       logger.error('❌ Login error:', err);
-    } finally {
       setIsSubmitting(false);
     }
   };
@@ -93,7 +105,7 @@ export default function LoginPage() {
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="text-center">
           <div className="text-6xl mb-4">🔒</div>
-          <p className="text-gray-600 text-lg">Redirecting to admin panel...</p>
+          <p className="text-gray-600 text-lg">Redirecting to {getRedirectPath(user.role)}...</p>
         </div>
       </div>
     );
