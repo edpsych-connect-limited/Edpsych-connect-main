@@ -209,7 +209,7 @@ export const BattleRoyaleGame: React.FC = () => {
         // 3. Collisions
         let currentQ = activeQuestion;
         let duelId = prev.duelOpponentId;
-        let newLoot = [...prev.loot];
+        const newLoot = [...prev.loot];
 
         // Loot
         const lootIdx = newLoot.findIndex(l => l.position.distanceTo(newPos) < 1.5);

@@ -4,7 +4,8 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "next"
   ],
   "parser": "@typescript-eslint/parser",
   "rules": {
@@ -16,8 +17,6 @@
     "@typescript-eslint/no-unused-expressions": "off",
     "no-var-requires": "off",
     "@typescript-eslint/no-var-requires": "off",
-    "next/no-img-element": "warn",
-    "next/no-assign-module-variable": "warn",
     "@typescript-eslint/no-require-imports": "warn"
   }
 }

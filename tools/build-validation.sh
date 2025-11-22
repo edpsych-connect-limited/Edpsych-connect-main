@@ -41,7 +41,7 @@ fi
 
 # Run ESLint
 echo -e "${BLUE}→ Running ESLint...${NC}"
-if npx eslint "$BUILD_DIR"; then
+if npx next lint --dir "$BUILD_DIR"; then
   echo -e "${GREEN}  ✓ ESLint passed${NC}\n"
 else
   echo -e "${YELLOW}  ⚠ ESLint warnings detected${NC}\n"

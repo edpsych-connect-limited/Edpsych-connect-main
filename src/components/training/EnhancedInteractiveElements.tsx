@@ -513,8 +513,7 @@ export function HotspotImageElement({ element, onComplete }: HotspotImageProps) 
                 </div>
                 <div className="mt-2 w-full bg-yellow-200 rounded-full h-2">
                   <div
-                    className="bg-yellow-600 h-2 rounded-full transition-all duration-500"
-                    style={{ width: `${(selectedHotspots.length / hotspots.length) * 100}%` } as React.CSSProperties}
+                    className={`bg-yellow-600 h-2 rounded-full transition-all duration-500 w-[${(selectedHotspots.length / hotspots.length) * 100}%]`}
                   />
                 </div>
               </div>

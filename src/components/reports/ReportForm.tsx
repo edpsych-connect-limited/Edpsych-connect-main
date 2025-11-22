@@ -88,7 +88,6 @@ export function ReportForm() {
 
   const updateRecommendation = (index: number, field: keyof Recommendation, value: string) => {
     const newRecs = [...formData.recommendations];
-    // @ts-ignore
     newRecs[index] = { ...newRecs[index], [field]: value };
     setFormData(prev => ({ ...prev, recommendations: newRecs }));
   };

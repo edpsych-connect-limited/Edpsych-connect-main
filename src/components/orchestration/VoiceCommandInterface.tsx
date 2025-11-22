@@ -373,7 +373,6 @@ export const VoiceCommandInterface: React.FC<VoiceCommandInterfaceProps> = ({
                   : 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500'
               } disabled:opacity-50 disabled:cursor-not-allowed`}
               aria-label={isRecording ? 'Stop recording' : 'Start voice recording'}
-              // eslint-disable-next-line
               aria-pressed={isRecording}
             >
               {isRecording ? (

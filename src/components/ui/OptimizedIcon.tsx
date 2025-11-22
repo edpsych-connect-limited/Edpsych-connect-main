@@ -43,14 +43,19 @@ export const OptimizedIcon: React.FC<OptimizedIconProps> = ({
   className = '',
   ...rest
 }) => {
+  // Dynamically load the icon component
+  const IconComponent = useMemo(() => {
+    if (!iconMap[name]) {
+      return null;
+    }
+    return lazy(iconMap[name]);
+  }, [name]);
+
   // Check if the icon is in our map
-  if (!iconMap[name]) {
+  if (!IconComponent) {
     console.warn(`Icon "${name}" not found in icon map. Add it to the iconMap in OptimizedIcon.tsx`);
     return <IconFallback />;
   }
-  
-  // Dynamically load the icon component
-  const IconComponent = useMemo(() => lazy(iconMap[name]), [name]);
   
   return (
     <Suspense fallback={<IconFallback />}>
