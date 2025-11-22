@@ -18,6 +18,7 @@
 
 import { PrismaClient } from '@prisma/client';
 import { AIService } from '@/services/ai-service';
+import { aiService } from '@/lib/ai-integration';
 import logger from '@/utils/logger';
 import { DataRouterService } from './data-router.service';
 
@@ -358,15 +359,44 @@ export class VoiceCommandService {
     transcript: string,
     context?: VoiceCommandRequest['context']
   ): Promise<CommandIntent> {
-    // TODO: Integrate with AIService for sophisticated interpretation
-    // For now, return low-confidence generic query
+    try {
+      // Use the General Assistant agent to interpret the query
+      const response = await aiService.processRequest({
+        prompt: `
+          You are a helpful voice assistant for a teacher.
+          The teacher said: "${transcript}"
+          Context: ${JSON.stringify(context || {})}
+          
+          If this is a request for a lesson plan, explanation, or general help, provide a helpful, concise response (max 2-3 sentences for voice).
+          If it seems like a specific system command (like marking attendance) that you can't handle, explain what you can do.
+          
+          Respond directly to the teacher.
+        `,
+        id: 'voice-system',
+        subscriptionTier: 'professional',
+        useCase: 'content_creation', // Use general content creation/assistant agent
+        maxTokens: 150
+      });
 
-    return {
-      type: 'query',
-      command: 'unclear',
-      confidence: 0.3,
-      parameters: { transcript },
-    };
+      return {
+        type: 'query',
+        command: 'conversational_response',
+        confidence: 0.85,
+        parameters: { 
+          response_text: response.response,
+          original_transcript: transcript
+        },
+      };
+    } catch (error) {
+      logger.error('AI interpretation failed:', error as Error);
+      
+      return {
+        type: 'query',
+        command: 'unclear',
+        confidence: 0.3,
+        parameters: { transcript },
+      };
+    }
   }
 
   /**
@@ -389,6 +419,12 @@ export class VoiceCommandService {
         return {
           found: true,
           message: 'I can help you with student summaries, class progress, and urgent interventions. Try asking "Who needs help?" or "How is [Student Name] doing?".'
+        };
+
+      case 'conversational_response':
+        return {
+          found: true,
+          message: intent.parameters.response_text
         };
 
       default:
@@ -769,6 +805,9 @@ export class VoiceCommandService {
         return this.generateClassProgressResponse(data);
 
       case 'get_help':
+        return data.message;
+
+      case 'conversational_response':
         return data.message;
 
       case 'mark_complete':
