@@ -13,17 +13,20 @@ import { z } from 'zod';
 const EnvSchema = z.object({
   OPENAI_API_KEY: z.string().optional(),
   CLAUDE_API_KEY: z.string().optional(),
+  XAI_API_KEY: z.string().optional(),
 });
 
 // Validate environment variables
 const env: z.infer<typeof EnvSchema> = {
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   CLAUDE_API_KEY: process.env.CLAUDE_API_KEY,
+  XAI_API_KEY: process.env.XAI_API_KEY,
 };
 
 // Initialize API clients
 let openaiClient: OpenAI | null = null;
 let anthropicClient: Anthropic | null = null;
+let xaiClient: OpenAI | null = null;
 
 try {
   if (env.OPENAI_API_KEY) {
@@ -35,6 +38,13 @@ try {
   if (env.CLAUDE_API_KEY) {
     anthropicClient = new Anthropic({
       apiKey: env.CLAUDE_API_KEY,
+    });
+  }
+
+  if (env.XAI_API_KEY) {
+    xaiClient = new OpenAI({
+      apiKey: env.XAI_API_KEY,
+      baseURL: "https://api.x.ai/v1",
     });
   }
 } catch (error) {
@@ -50,7 +60,7 @@ export interface AIResponse {
     completionTokens: number;
     totalTokens: number;
   };
-  provider: 'openai' | 'anthropic';
+  provider: 'openai' | 'anthropic' | 'xai';
 }
 
 // Parameter interfaces
@@ -162,6 +172,41 @@ export async function callAnthropic(params: AnthropicParams): Promise<AIResponse
 }
 
 /**
+ * Call xAI API
+ */
+export async function callXAI(params: OpenAIParams): Promise<AIResponse> {
+  if (!xaiClient) {
+    throw new Error('xAI client not initialized. Check your API key.');
+  }
+
+  try {
+    const response = await xaiClient.chat.completions.create({
+      model: params.model,
+      messages: params.messages,
+      temperature: params.temperature ?? 0.7,
+      max_tokens: params.maxTokens,
+      top_p: params.topP,
+      frequency_penalty: params.frequencyPenalty,
+      presence_penalty: params.presencePenalty,
+    });
+
+    return {
+      text: response.choices[0]?.message?.content || '',
+      model: params.model,
+      usage: {
+        promptTokens: response.usage?.prompt_tokens || 0,
+        completionTokens: response.usage?.completion_tokens || 0,
+        totalTokens: response.usage?.total_tokens || 0,
+      },
+      provider: 'xai',
+    };
+  } catch (error) {
+    console.error('xAI API Error:', error);
+    throw error;
+  }
+}
+
+/**
  * Get available models
  */
 export function getAvailableModels() {
@@ -171,6 +216,9 @@ export function getAvailableModels() {
       : [],
     anthropic: anthropicClient 
       ? ['claude-3-opus-20240229', 'claude-3-sonnet-20240229', 'claude-3-haiku-20240307'] 
+      : [],
+    xai: xaiClient
+      ? ['grok-beta']
       : [],
   };
   
@@ -184,6 +232,7 @@ export function checkAIServicesAvailable() {
   return {
     openai: !!openaiClient,
     anthropic: !!anthropicClient,
+    xai: !!xaiClient,
   };
 }
 
@@ -226,6 +275,15 @@ export class AIService {
           temperature
         });
         
+        return { content: response.text };
+      } else if (xaiClient && useCase === 'research') {
+        // Use xAI (Grok) for research tasks if available
+        const response = await callXAI({
+          model: 'grok-beta',
+          messages: [{ role: 'user', content: prompt }],
+          maxTokens,
+          temperature
+        });
         return { content: response.text };
       } else if (openaiClient) {
         // Fall back to OpenAI

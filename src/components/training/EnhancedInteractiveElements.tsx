@@ -20,7 +20,8 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { ScoringEngine, AttemptResult, ScoreResult } from '@/lib/training/scoring-engine';
+import Image from 'next/image';
+// import { ScoringEngine, AttemptResult, ScoreResult } from '@/lib/training/scoring-engine';
 
 // ============================================================================
 // DRAG AND DROP ELEMENT
@@ -32,10 +33,10 @@ interface DragAndDropProps {
 }
 
 export function DragAndDropElement({ element, onComplete }: DragAndDropProps) {
-  const [items, setItems] = useState<Array<{ id: string; text: string; category: string }>>(
+  const [items, _setItems] = useState<Array<{ id: string; text: string; category: string }>>(
     element.content.items || []
   );
-  const [categories, setCategories] = useState<Array<{ id: string; label: string }>>(
+  const [categories, _setCategories] = useState<Array<{ id: string; label: string }>>(
     element.content.categories || []
   );
   const [assignments, setAssignments] = useState<{ [itemId: string]: string }>({});
@@ -64,7 +65,7 @@ export function DragAndDropElement({ element, onComplete }: DragAndDropProps) {
   };
 
   const handleSubmit = () => {
-    const timeSpent = Math.floor((Date.now() - startTime) / 1000);
+    const _timeSpent = Math.floor((Date.now() - startTime) / 1000);
     let correct = 0;
     const newFeedback: { [itemId: string]: boolean } = {};
 
@@ -202,7 +203,7 @@ export function SortingElement({ element, onComplete }: SortingProps) {
   };
 
   const handleSubmit = () => {
-    const timeSpent = Math.floor((Date.now() - startTime) / 1000);
+    const _timeSpent = Math.floor((Date.now() - startTime) / 1000);
 
     // Check if sequence is correct
     let correct = 0;
@@ -314,7 +315,7 @@ export function FillInTheBlankElement({ element, onComplete }: FillInTheBlankPro
   const blanks = element.content.blanks || [];
 
   const handleSubmit = () => {
-    const timeSpent = Math.floor((Date.now() - startTime) / 1000);
+    const _timeSpent = Math.floor((Date.now() - startTime) / 1000);
     let correct = 0;
     const newFeedback: { [blankId: string]: { correct: boolean; message: string } } = {};
 
@@ -449,10 +450,12 @@ export function HotspotImageElement({ element, onComplete }: HotspotImageProps) 
       <div className="grid grid-cols-2 gap-8">
         {/* Image with hotspots */}
         <div className="relative">
-          <img
+          <Image
             src={element.content.imageUrl}
             alt="Interactive diagram"
             className="w-full rounded-lg shadow-md"
+            width={800}
+            height={600}
           />
           {/* Hotspot markers */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none">
@@ -490,10 +493,12 @@ export function HotspotImageElement({ element, onComplete }: HotspotImageProps) 
               <h4 className="text-xl font-semibold text-yellow-900 mb-3">{currentHotspot.title}</h4>
               <p className="text-gray-700 leading-relaxed">{currentHotspot.content}</p>
               {currentHotspot.imageUrl && (
-                <img
+                <Image
                   src={currentHotspot.imageUrl}
                   alt={currentHotspot.title}
                   className="mt-4 w-full rounded-lg"
+                  width={400}
+                  height={300}
                 />
               )}
             </div>
@@ -509,8 +514,7 @@ export function HotspotImageElement({ element, onComplete }: HotspotImageProps) 
                 <div className="mt-2 w-full bg-yellow-200 rounded-full h-2">
                   <div
                     className="bg-yellow-600 h-2 rounded-full transition-all duration-500"
-                    // eslint-disable-next-line
-                    style={{ width: `${(selectedHotspots.length / hotspots.length) * 100}%` }}
+                    style={{ width: `${(selectedHotspots.length / hotspots.length) * 100}%` } as React.CSSProperties}
                   />
                 </div>
               </div>

@@ -31,7 +31,7 @@ export interface AgentConfig {
   name: string;
   description: string;
   capabilities: string[];
-  model: 'claude' | 'openai' | 'hybrid';
+  model: 'claude' | 'openai' | 'hybrid' | 'xai';
   maxTokens: number;
   temperature: number;
   systemPrompt: string;
@@ -40,6 +40,7 @@ export interface AgentConfig {
 class AIIntegrationService {
   private anthropic: any;
   private openai: any;
+  private xai: any;
   private redis: any;
   private dailyUsage: Map<string, number> = new Map();
   private dailyBudget: number;
@@ -51,6 +52,11 @@ class AIIntegrationService {
 
     this.openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
+    });
+
+    this.xai = new OpenAI({
+      apiKey: process.env.XAI_API_KEY,
+      baseURL: "https://api.x.ai/v1",
     });
 
     // Initialize Redis only if environment variables are present
@@ -180,7 +186,7 @@ class AIIntegrationService {
       name: 'Research Assistant Agent',
       description: 'Literature analysis and research support',
       capabilities: ['literature_review', 'methodology_advice', 'data_analysis'],
-      model: 'openai',
+      model: 'xai',
       maxTokens: 1200,
       temperature: 0.3,
       systemPrompt: `You are a research methodology expert and literature specialist. Provide:
@@ -558,38 +564,67 @@ class AIIntegrationService {
   }
 
   private async callAI(agent: AgentConfig, request: AIRequest): Promise<{ content: string; tokens: number }> {
-    const systemPrompt = agent.systemPrompt;
-    const userPrompt = request.prompt;
-
-    if (agent.model === 'claude' || agent.model === 'hybrid') {
-      try {
-        const response = await this.anthropic.messages.create({
-          model: 'claude-3-sonnet-20240229',
-          max_tokens: agent.maxTokens,
-          temperature: agent.temperature,
-          system: systemPrompt,
-          messages: [{ role: 'user', content: userPrompt }],
-        });
-
-        return {
-          content: response.content[0].type === 'text' ? response.content[0].text : '',
-          tokens: response.usage.output_tokens
-        };
-      } catch (error) {
-        if (agent.model === 'hybrid') {
-          // Fallback to OpenAI
-          return this.callOpenAI(agent, request);
-        }
-        throw error;
+    try {
+      if (agent.model === 'xai') {
+        return await this.callXAI(agent, request);
       }
-    }
 
-    return this.callOpenAI(agent, request);
+      if (agent.model === 'claude' || agent.model === 'hybrid') {
+        return await this.callAnthropic(agent, request);
+      }
+
+      return await this.callOpenAI(agent, request);
+    } catch (error) {
+      console.warn(`Primary model ${agent.model} failed, attempting failover to OpenAI...`, error);
+      
+      // If the failed model wasn't OpenAI, try OpenAI as fallback
+      if (agent.model !== 'openai') {
+        try {
+          return await this.callOpenAI(agent, request);
+        } catch (fallbackError) {
+          console.error('Fallback to OpenAI also failed:', fallbackError);
+          throw error; // Throw original error
+        }
+      }
+      throw error;
+    }
+  }
+
+  private async callAnthropic(agent: AgentConfig, request: AIRequest): Promise<{ content: string; tokens: number }> {
+    const response = await this.anthropic.messages.create({
+      model: 'claude-3-sonnet-20240229',
+      max_tokens: agent.maxTokens,
+      temperature: agent.temperature,
+      system: agent.systemPrompt,
+      messages: [{ role: 'user', content: request.prompt }],
+    });
+
+    return {
+      content: response.content[0].type === 'text' ? response.content[0].text : '',
+      tokens: response.usage.output_tokens
+    };
   }
 
   private async callOpenAI(agent: AgentConfig, request: AIRequest): Promise<{ content: string; tokens: number }> {
     const response = await this.openai.chat.completions.create({
       model: 'gpt-4-turbo-preview',
+      messages: [
+        { role: 'system', content: agent.systemPrompt },
+        { role: 'user', content: request.prompt }
+      ],
+      max_tokens: agent.maxTokens,
+      temperature: agent.temperature,
+    });
+
+    return {
+      content: response.choices[0].message.content || '',
+      tokens: response.usage?.total_tokens || 0
+    };
+  }
+
+  private async callXAI(agent: AgentConfig, request: AIRequest): Promise<{ content: string; tokens: number }> {
+    const response = await this.xai.chat.completions.create({
+      model: 'grok-beta',
       messages: [
         { role: 'system', content: agent.systemPrompt },
         { role: 'user', content: request.prompt }

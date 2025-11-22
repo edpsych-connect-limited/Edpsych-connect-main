@@ -109,19 +109,22 @@ const WaveformVisualization: React.FC = () => {
 
   return (
     <div className="flex items-center gap-1 h-8" role="img" aria-label="Recording in progress">
-      {bars.map((bar) => (
-        <div
-          key={bar.id}
-          className="w-1 bg-blue-600 rounded-full animate-pulse"
+      {bars.map((bar) => {
+        const barStyle = {
+          height: `${bar.height}%`,
+          animationDelay: `${bar.delay}s`,
+          animationDuration: `${bar.duration}s`,
+        };
+        return (
           // eslint-disable-next-line
-          style={{
-            height: `${bar.height}%`,
-            animationDelay: `${bar.delay}s`,
-            animationDuration: `${bar.duration}s`,
-          }}
-          aria-hidden="true"
-        />
-      ))}
+          <div
+            key={bar.id}
+            className="w-1 bg-blue-600 rounded-full animate-pulse"
+            style={barStyle}
+            aria-hidden="true"
+          />
+        );
+      })}
     </div>
   );
 };
@@ -371,7 +374,7 @@ export const VoiceCommandInterface: React.FC<VoiceCommandInterfaceProps> = ({
               } disabled:opacity-50 disabled:cursor-not-allowed`}
               aria-label={isRecording ? 'Stop recording' : 'Start voice recording'}
               // eslint-disable-next-line
-              aria-pressed={isRecording ? "true" : "false"}
+              aria-pressed={isRecording}
             >
               {isRecording ? (
                 <MicOff className="w-6 h-6 text-white" aria-hidden="true" />
