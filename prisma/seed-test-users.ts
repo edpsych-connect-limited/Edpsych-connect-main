@@ -46,7 +46,11 @@ async function main() {
     // Demo Teacher
     await prisma.users.upsert({
       where: { email: 'teacher@demo.com' },
-      update: { password_hash: demoPassword },
+      update: { 
+        password_hash: demoPassword,
+        tenant_id: tenant.id,
+        is_active: true
+      },
       create: {
         tenant_id: tenant.id,
         email: 'teacher@demo.com',
@@ -65,7 +69,11 @@ async function main() {
     // Demo Parent
     await prisma.users.upsert({
       where: { email: 'parent@demo.com' },
-      update: { password_hash: demoPassword },
+      update: { 
+        password_hash: demoPassword,
+        tenant_id: tenant.id,
+        is_active: true
+      },
       create: {
         tenant_id: tenant.id,
         email: 'parent@demo.com',
@@ -84,7 +92,11 @@ async function main() {
     // Demo Student
     await prisma.users.upsert({
       where: { email: 'student@demo.com' },
-      update: { password_hash: demoPassword },
+      update: { 
+        password_hash: demoPassword,
+        tenant_id: tenant.id,
+        is_active: true
+      },
       create: {
         tenant_id: tenant.id,
         email: 'student@demo.com',
@@ -103,7 +115,11 @@ async function main() {
     // Demo EP
     await prisma.users.upsert({
       where: { email: 'ep@demo.com' },
-      update: { password_hash: demoPassword },
+      update: { 
+        password_hash: demoPassword,
+        tenant_id: tenant.id,
+        is_active: true
+      },
       create: {
         tenant_id: tenant.id,
         email: 'ep@demo.com',
@@ -122,7 +138,11 @@ async function main() {
     // Demo Admin
     await prisma.users.upsert({
       where: { email: 'admin@demo.com' },
-      update: { password_hash: demoPassword },
+      update: { 
+        password_hash: demoPassword,
+        tenant_id: tenant.id,
+        is_active: true
+      },
       create: {
         tenant_id: tenant.id,
         email: 'admin@demo.com',
