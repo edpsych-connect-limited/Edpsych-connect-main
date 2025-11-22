@@ -17,11 +17,13 @@ export const VoiceAssistant: React.FC = () => {
   } = useSpeechRecognition();
 
   const [lastCommand, setLastCommand] = useState<string>('');
+  const [assistantResponse, setAssistantResponse] = useState<string>('');
   const router = useRouter();
   const isProcessingRef = React.useRef(false);
 
   // Speak function
   const speak = (text: string) => {
+    setAssistantResponse(text); // Show text in UI
     if ('speechSynthesis' in window) {
       // Cancel any ongoing speech to prevent queue buildup
       window.speechSynthesis.cancel();
@@ -84,7 +86,7 @@ export const VoiceAssistant: React.FC = () => {
       executeCommand('Went Home', () => router.push('/'), 'Going home');
     } else if (lowerTranscript.includes('login') || lowerTranscript.includes('sign in')) {
       executeCommand('Navigated to Login', () => router.push('/login'), 'Taking you to login');
-    } else if (lowerTranscript.includes('help')) {
+    } else if (lowerTranscript.includes('help') || lowerTranscript.includes('what can you do') || lowerTranscript.includes('commands')) {
       executeCommand('Asked for Help', () => {}, 'You can say: Go to dashboard, Go to settings, Go to blog, or Go home.');
     }
 
@@ -97,7 +99,7 @@ export const VoiceAssistant: React.FC = () => {
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
       <AnimatePresence>
-        {(isListening || lastCommand) && (
+        {(isListening || lastCommand || assistantResponse) && (
           <motion.div
             initial={{ opacity: 0, y: 10, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -105,10 +107,10 @@ export const VoiceAssistant: React.FC = () => {
             className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 mb-2 max-w-xs"
           >
             <div className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
-              {isListening ? 'Listening...' : 'Last Command'}
+              {isListening ? 'Listening...' : 'Assistant'}
             </div>
             <div className="text-slate-900 dark:text-white font-medium">
-              {transcript || lastCommand || 'Say "Help" for commands'}
+              {isListening ? (transcript || 'Listening...') : (assistantResponse || lastCommand || 'Say "Help" for commands')}
             </div>
           </motion.div>
         )}

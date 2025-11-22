@@ -333,6 +333,20 @@ export class VoiceCommandService {
       };
     }
 
+    // QUERY: "Help"
+    if (
+      lowerTranscript.match(/^help$/i) ||
+      lowerTranscript.match(/what can you do/i) ||
+      lowerTranscript.match(/show commands/i)
+    ) {
+      return {
+        type: 'query',
+        command: 'get_help',
+        confidence: 0.99,
+        parameters: {},
+      };
+    }
+
     // FALLBACK: Use AI for complex interpretation
     return await this.aiInterpretIntent(transcript, context);
   }
@@ -370,6 +384,12 @@ export class VoiceCommandService {
 
       case 'get_class_progress':
         return await this.getClassProgress(userId, intent.parameters.class_id);
+
+      case 'get_help':
+        return {
+          found: true,
+          message: 'I can help you with student summaries, class progress, and urgent interventions. Try asking "Who needs help?" or "How is [Student Name] doing?".'
+        };
 
       default:
         throw new Error(`Unknown query command: ${intent.command}`);
@@ -747,6 +767,9 @@ export class VoiceCommandService {
           return data.message;
         }
         return this.generateClassProgressResponse(data);
+
+      case 'get_help':
+        return data.message;
 
       case 'mark_complete':
         if (!data.success) {
