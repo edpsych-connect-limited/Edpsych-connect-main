@@ -378,7 +378,7 @@ function useAuthProvider(): AuthContextType {
         return false;
       }
 
-      const response = await fetch('/api/auth/password/reset', {
+      const response = await fetch('/api/auth/forgot-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -388,12 +388,13 @@ function useAuthProvider(): AuthContextType {
 
       const data = await response.json();
 
-      if (response.ok && data.success) {
+      // The API returns { message: ... } on success, not necessarily { success: true }
+      if (response.ok) {
         logger.info('✅ Password reset email sent');
         return true;
       }
 
-      logger.error('❌ Password reset request failed:', data.message || 'Unknown error');
+      logger.error('❌ Password reset request failed:', data.error || 'Unknown error');
       return false;
     } catch (error) {
       logger.error('❌ Password reset request error:', error);
@@ -426,15 +427,14 @@ function useAuthProvider(): AuthContextType {
         return false;
       }
 
-      const response = await fetch('/api/auth/password/reset', {
-        method: 'PUT',
+      const response = await fetch('/api/auth/reset-password', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           token,
           password,
-          confirmPassword,
         }),
       });
 
@@ -445,7 +445,7 @@ function useAuthProvider(): AuthContextType {
         return true;
       }
 
-      logger.error('❌ Password reset completion failed:', data.message || 'Unknown error');
+      logger.error('❌ Password reset completion failed:', data.error || 'Unknown error');
       return false;
     } catch (error) {
       logger.error('❌ Password reset completion error:', error);

@@ -1,0 +1,38 @@
+import { NextResponse } from 'next/server';
+import { signUp } from '@/lib/auth';
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    const { email, password, name, role, tenant_id } = body;
+
+    if (!email || !password) {
+      return NextResponse.json(
+        { error: 'Email and password are required' },
+        { status: 400 }
+      );
+    }
+
+    const session = await signUp(email, password, { name, role, tenant_id });
+
+    return NextResponse.json({
+      message: 'User registered successfully',
+      user: session?.user
+    });
+  } catch (error) {
+    console.error('Registration error:', error);
+    const message = error instanceof Error ? error.message : 'Registration failed';
+    
+    if (message === 'User already exists') {
+      return NextResponse.json(
+        { error: message },
+        { status: 409 }
+      );
+    }
+
+    return NextResponse.json(
+      { error: message },
+      { status: 500 }
+    );
+  }
+}

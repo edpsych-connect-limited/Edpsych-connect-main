@@ -45,39 +45,34 @@ export async function auth(): Promise<Session | null> {
 
 /* 
 =================================================================
-COMMENTED OUT - Functions requiring database/postgres (doesn't exist)
-These can be re-enabled once proper Prisma-based auth is implemented
+ACTIVE FUNCTIONS (Prisma-based)
 =================================================================
+*/
 
 export async function signIn(email: string, password: string): Promise<Session | null> {
   try {
-    const postgres = getPostgresClient();
-
     // Get user from database
-    const user = await postgres.query(
-      'SELECT id, email, password_hash, role, last_sign_in_at, created_at FROM users WHERE email = $1',
-      [email]
-    );
+    const user = await prisma.users.findUnique({
+      where: { email }
+    });
 
-    if (user.rows.length === 0) {
+    if (!user) {
       console.warn('Sign in failed - user not found', { email });
       throw new Error('Invalid credentials');
     }
 
-    const userData = user.rows[0];
-
     // Verify password
-    const isValidPassword = await bcrypt.compare(password, userData.password_hash);
+    const isValidPassword = await bcrypt.compare(password, user.password_hash);
     if (!isValidPassword) {
       console.warn('Sign in failed - invalid password', { email });
       throw new Error('Invalid credentials');
     }
 
     // Update last sign in time
-    await postgres.query(
-      'UPDATE users SET last_sign_in_at = NOW() WHERE id = $1',
-      [userData.id]
-    );
+    await prisma.users.update({
+      where: { id: user.id },
+      data: { last_login: new Date() }
+    });
 
     // Create session token (in production, use JWT)
     const sessionToken = uuidv4();
@@ -86,20 +81,20 @@ export async function signIn(email: string, password: string): Promise<Session |
     // Store session in Redis
     const redis = getRedisClient();
     await redis.set(`session:${sessionToken}`, JSON.stringify({
-      id: userData.id,
-      email: userData.email,
-      role: userData.role ? [userData.role] : []
+      id: user.id,
+      email: user.email,
+      role: user.role ? [user.role] : []
     }), 86400); // 24 hours
 
-    console.info('User signed in successfully', { id: userData.id, email });
+    console.info('User signed in successfully', { id: user.id, email });
 
     return {
       user: {
-        id: userData.id,
-        email: userData.email,
-        role: userData.role ? [userData.role] : [],
-        lastSignInAt: userData.last_sign_in_at,
-        createdAt: userData.created_at
+        id: user.id.toString(),
+        email: user.email,
+        role: user.role ? [user.role] : [],
+        lastSignInAt: user.last_login?.toISOString(),
+        createdAt: user.created_at.toISOString()
       },
       accessToken: sessionToken,
       refreshToken: sessionToken, // In production, use separate refresh token
@@ -113,15 +108,12 @@ export async function signIn(email: string, password: string): Promise<Session |
 
 export async function signUp(email: string, password: string, userData?: any): Promise<Session | null> {
   try {
-    const postgres = getPostgresClient();
-
     // Check if user already exists
-    const existingUser = await postgres.query(
-      'SELECT id FROM users WHERE email = $1',
-      [email]
-    );
+    const existingUser = await prisma.users.findUnique({
+      where: { email }
+    });
 
-    if (existingUser.rows.length > 0) {
+    if (existingUser) {
       throw new Error('User already exists');
     }
 
@@ -131,12 +123,22 @@ export async function signUp(email: string, password: string, userData?: any): P
 
     // Create user
     const role = userData?.role || 'student';
-    const userResult = await postgres.query(
-      'INSERT INTO users (email, name, password_hash, role, created_at) VALUES ($1, $2, $3, $4, NOW()) RETURNING id, email, role, created_at',
-      [email, userData?.name || email.split('@')[0], passwordHash, role]
-    );
-
-    const newUser = userResult.rows[0];
+    
+    // Ensure tenant exists or use default
+    let tenantId = userData?.tenant_id || 1;
+    
+    const newUser = await prisma.users.create({
+      data: {
+        email,
+        name: userData?.name || email.split('@')[0],
+        password_hash: passwordHash,
+        role,
+        tenant_id: tenantId,
+        created_at: new Date(),
+        updated_at: new Date(),
+        is_active: true
+      }
+    });
 
     // Create session token
     const sessionToken = uuidv4();
@@ -154,11 +156,11 @@ export async function signUp(email: string, password: string, userData?: any): P
 
     return {
       user: {
-        id: newUser.id,
+        id: newUser.id.toString(),
         email: newUser.email,
         role: [newUser.role],
         lastSignInAt: undefined,
-        createdAt: newUser.created_at
+        createdAt: newUser.created_at.toISOString()
       },
       accessToken: sessionToken,
       refreshToken: sessionToken,
@@ -172,17 +174,14 @@ export async function signUp(email: string, password: string, userData?: any): P
 
 export async function resetPassword(email: string): Promise<void> {
   try {
-    const postgres = getPostgresClient();
-
     // Check if user exists
-    const user = await postgres.query(
-      'SELECT id FROM users WHERE email = $1',
-      [email]
-    );
+    const user = await prisma.users.findUnique({
+      where: { email }
+    });
 
-    if (user.rows.length === 0) {
+    if (!user) {
       // Don't reveal if email exists or not for security
-      console.info('Password reset requested', { email });
+      console.info('Password reset requested for non-existent email', { email });
       return;
     }
 
@@ -191,39 +190,65 @@ export async function resetPassword(email: string): Promise<void> {
     const expiresAt = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
 
     // Store reset token in database
-    await postgres.query(
-      'INSERT INTO password_resets (user_id, token, expires_at) VALUES ($1, $2, $3)',
-      [user.rows[0].id, resetToken, expiresAt]
-    );
+    await prisma.users.update({
+      where: { id: user.id },
+      data: {
+        resetPasswordToken: resetToken,
+        resetPasswordExpires: expiresAt
+      }
+    });
 
     // In production, send email with reset link
-    console.info('Password reset token generated', { id: user.rows[0].id, email, token: resetToken });
+    console.info('Password reset token generated', { id: user.id, email, token: resetToken });
+    
+    // DEV MODE: Log the reset link
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    console.log('=================================================================');
+    console.log(`PASSWORD RESET LINK FOR ${email}:`);
+    console.log(`${appUrl}/auth/reset-password?token=${resetToken}&email=${encodeURIComponent(email)}`);
+    console.log('=================================================================');
 
     // TODO: Implement email sending service
-    console.warn('Password reset email sending not implemented yet');
+    // await sendEmail(email, 'Password Reset', `Click here to reset: ...`);
   } catch (error) {
     console.error('Password reset error', error instanceof Error ? error : new Error('Unknown error'), { email });
     throw error;
   }
 }
 
-export async function updatePassword(newPassword: string): Promise<void> {
+export async function updatePassword(newPassword: string, token?: string, email?: string): Promise<void> {
   try {
-    const postgres = getPostgresClient();
-
     // Hash new password
     const saltRounds = 12;
     const passwordHash = await bcrypt.hash(newPassword, saltRounds);
 
-    // Update password in database
-    // Note: In production, you would get user ID from session
-    const result = await postgres.query(
-      'UPDATE users SET password_hash = $1, updated_at = NOW() WHERE id = $2',
-      [passwordHash, 'current-user-id'] // TODO: Get actual user ID from session
-    );
+    if (token && email) {
+      // Reset flow
+      const user = await prisma.users.findFirst({
+        where: {
+          email,
+          resetPasswordToken: token,
+          resetPasswordExpires: { gt: new Date() }
+        }
+      });
 
-    if (result.rowCount === 0) {
-      throw new Error('User not found');
+      if (!user) {
+        throw new Error('Invalid or expired reset token');
+      }
+
+      await prisma.users.update({
+        where: { id: user.id },
+        data: {
+          password_hash: passwordHash,
+          resetPasswordToken: null,
+          resetPasswordExpires: null,
+          updated_at: new Date()
+        }
+      });
+    } else {
+      // Direct update (e.g. from profile) - requires user context which we don't have here easily
+      // This part would need the user ID passed in
+      throw new Error('Direct password update requires user context');
     }
 
     console.info('Password updated successfully');
@@ -232,11 +257,6 @@ export async function updatePassword(newPassword: string): Promise<void> {
     throw error;
   }
 }
-
-=================================================================
-END OF COMMENTED OUT FUNCTIONS
-=================================================================
-*/
 
 /**
  * Sign out current user

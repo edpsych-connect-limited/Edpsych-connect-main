@@ -92,6 +92,8 @@ model tenants {
   students      students[]
   professionals professionals[]
   assessments   assessments[]
+  assessment_instances AssessmentInstance[]
+  assessment_outcomes AssessmentOutcome[]
   cases         cases[]
   interventions interventions[]
   subscriptions subscriptions[]
@@ -202,6 +204,7 @@ model users {
 
   // Relations - Educational
   assessments               assessments[]
+  conducted_assessments     AssessmentInstance[]
   cases                     cases[]
   interventions_created     interventions[] @relation("interventions_created_byTousers")
   interventions_implemented interventions[] @relation("interventions_implemented_byTousers")
@@ -331,6 +334,8 @@ model students {
   // Relations
   tenants tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
   cases   cases[]
+  assessment_instances AssessmentInstance[]
+  assessment_outcomes AssessmentOutcome[]
 
   // Relations - Platform Orchestration Layer
   student_profile    StudentProfile?
@@ -365,6 +370,7 @@ model cases {
   students      students        @relation(fields: [student_id], references: [id], onDelete: Cascade)
   users         users?          @relation(fields: [assigned_to], references: [id])
   assessments   assessments[]
+  assessment_instances AssessmentInstance[]
   interventions interventions[]
 
   @@index([tenant_id])
@@ -3344,4 +3350,279 @@ model LegalDocument {
   updatedAt DateTime @default(now())
 
   @@unique([type, version])
+}
+
+// ============================================================================
+// EVIDENCE-BASED ASSESSMENT FRAMEWORKS
+// EdPsych Connect Limited - Proprietary Assessment Tools
+// ============================================================================
+
+model AssessmentFramework {
+  id                    String   @id @default(uuid())
+  name                  String
+  abbreviation          String   @unique
+  version               String   @default("1.0")
+  domain                String
+
+  description           String   @db.Text
+  purpose               String   @db.Text
+  age_range_min         Int?
+  age_range_max         Int?
+
+  evidence_base         Json
+  theoretical_frameworks String[]
+
+  administration_guide  Json
+  time_estimate_minutes Int?
+
+  interpretation_guide  Json
+  qualitative_descriptors Json
+
+  domains               AssessmentDomain[]
+
+  status                String   @default("active")
+  is_proprietary        Boolean  @default(true)
+  copyright_holder      String   @default("EdPsych Connect Limited")
+  created_at            DateTime @default(now())
+  updated_at            DateTime @default(now())
+
+  instances             AssessmentInstance[]
+
+  @@index([abbreviation])
+  @@index([domain])
+  @@index([status])
+}
+
+model AssessmentDomain {
+  id                    String   @id @default(uuid())
+  framework_id          String
+
+  name                  String
+  description           String   @db.Text
+  order_index           Int
+
+  observation_prompts   Json
+  task_suggestions      Json
+  key_indicators        Json
+
+  parent_questions      Json
+  teacher_questions     Json
+  child_prompts         Json?
+
+  interpretation_guidance Json
+  strength_descriptors   Json
+  need_descriptors       Json
+
+  suggested_interventions Json
+
+  framework             AssessmentFramework @relation(fields: [framework_id], references: [id], onDelete: Cascade)
+  observations          DomainObservation[]
+
+  @@index([framework_id])
+  @@index([order_index])
+}
+
+model AssessmentInstance {
+  id                    String    @id @default(uuid())
+  tenant_id             Int
+  framework_id          String
+  case_id               Int
+  student_id            Int
+
+  title                 String?
+  conducted_by          Int
+  assessment_date       DateTime?
+
+  status                String    @default("draft")
+  progress_percentage   Int       @default(0)
+
+  parent_input_requested Boolean  @default(false)
+  parent_input_received  Boolean  @default(false)
+  teacher_input_requested Boolean @default(false)
+  teacher_input_received Boolean  @default(false)
+  child_input_requested  Boolean  @default(false)
+  child_input_received   Boolean  @default(false)
+
+  ep_summary            String?   @db.Text
+  ep_interpretation     String?   @db.Text
+  ep_recommendations    Json?
+
+  linked_ehcp_id        String?
+  linked_report_id      String?
+
+  created_at            DateTime  @default(now())
+  updated_at            DateTime  @default(now())
+  completed_at          DateTime?
+
+  framework             AssessmentFramework @relation(fields: [framework_id], references: [id])
+  domain_observations   DomainObservation[]
+  collaborations        AssessmentCollaboration[]
+  
+  tenant                tenants   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  case                  cases     @relation(fields: [case_id], references: [id], onDelete: Cascade)
+  student               students  @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  conductor             users     @relation(fields: [conducted_by], references: [id])
+  assessment_outcomes   AssessmentOutcome[]
+
+  @@index([tenant_id])
+  @@index([framework_id])
+  @@index([case_id])
+  @@index([student_id])
+  @@index([conducted_by])
+  @@index([status])
+}
+
+model DomainObservation {
+  id                    String   @id @default(uuid())
+  instance_id           String
+  domain_id             String
+
+  observations          String   @db.Text
+  observed_strengths    Json
+  observed_needs        Json
+
+  observation_context   String?  @db.Text
+  tasks_used            Json?
+
+  strength_descriptors  String[]
+  need_descriptors      String[]
+
+  interpretation        String?  @db.Text
+  significance          String?  @db.Text
+
+  suggested_provisions  Json?
+
+  created_at            DateTime @default(now())
+  updated_at            DateTime @default(now())
+
+  instance              AssessmentInstance @relation(fields: [instance_id], references: [id], onDelete: Cascade)
+  domain                AssessmentDomain @relation(fields: [domain_id], references: [id])
+
+  @@index([instance_id])
+  @@index([domain_id])
+}
+
+model AssessmentCollaboration {
+  id                    String   @id @default(uuid())
+  instance_id           String
+
+  contributor_type      String
+  contributor_name      String?
+  contributor_email     String?
+  contributor_role      String?
+
+  responses             Json
+  narrative_input       String?  @db.Text
+
+  relationship_to_child String?
+  observation_context   String?
+
+  submitted_at          DateTime @default(now())
+  invitation_sent_at    DateTime?
+  invitation_method     String?
+
+  status                String   @default("pending")
+  integrated_at         DateTime?
+  integrated_by         Int?
+
+  created_at            DateTime @default(now())
+  updated_at            DateTime @default(now())
+
+  instance              AssessmentInstance @relation(fields: [instance_id], references: [id], onDelete: Cascade)
+
+  @@index([instance_id])
+  @@index([contributor_type])
+  @@index([status])
+}
+
+model AssessmentGuidance {
+  id                    String   @id @default(uuid())
+
+  category              String
+  topic                 String
+
+  title                 String
+  summary               String   @db.Text
+  detailed_content      String   @db.Text
+
+  research_citations    Json
+  evidence_strength     String?
+
+  practical_tips        Json?
+  example_scenarios     Json?
+  common_pitfalls       Json?
+
+  relevant_frameworks   String[]
+  relevant_domains      String[]
+
+  status                String   @default("published")
+  author                String?
+  reviewed_by           String?
+  review_date           DateTime?
+
+  created_at            DateTime @default(now())
+  updated_at            DateTime @default(now())
+
+  @@index([category])
+  @@index([topic])
+  @@index([status])
+}
+
+model AssessmentTemplate {
+  id                    String   @id @default(uuid())
+  framework_id          String
+
+  name                  String
+  description           String   @db.Text
+  use_case              String   @db.Text
+
+  age_range_min         Int?
+  age_range_max         Int?
+  year_group            String?
+
+  suggested_domains     String[]
+  observation_prompts   Json
+  task_suggestions      Json
+
+  usage_count           Int      @default(0)
+  created_by            String?
+
+  created_at            DateTime @default(now())
+  updated_at            DateTime @default(now())
+
+  @@index([framework_id])
+  @@index([age_range_min, age_range_max])
+}
+
+model AssessmentOutcome {
+  id                    String   @id @default(uuid())
+  tenant_id             Int
+  instance_id           String
+  student_id            Int
+
+  outcome_type          String
+  outcome_description   String   @db.Text
+
+  evidence_data         Json?
+  impact_rating         String?
+
+  baseline_date         DateTime?
+  outcome_date          DateTime
+  followup_date         DateTime?
+
+  contributed_to_research Boolean @default(false)
+  anonymized_data       Json?
+
+  created_at            DateTime @default(now())
+  updated_at            DateTime @default(now())
+
+  tenant                tenants   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  instance              AssessmentInstance @relation(fields: [instance_id], references: [id], onDelete: Cascade)
+  student               students  @relation(fields: [student_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id])
+  @@index([instance_id])
+  @@index([student_id])
+  @@index([outcome_type])
+  @@index([contributed_to_research])
 }

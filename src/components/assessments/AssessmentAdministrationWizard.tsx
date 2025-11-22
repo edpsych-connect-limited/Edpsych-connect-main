@@ -156,7 +156,24 @@ export default function AssessmentAdministrationWizard({
       });
 
       if (response.ok) {
+        const data = await response.json();
         setLastSaved(new Date());
+        
+        // If this was a new assessment (POST), update the ID so subsequent saves are updates (PUT)
+        if (!existingInstanceId && data.id) {
+          // We need to update the parent component or router if possible, 
+          // but for now let's update the local state and URL
+          // Note: In a real app we might want to use router.replace to update the URL
+          // to include the new ID
+          
+          // For now, we'll just update the assessmentData to include the ID
+          // This assumes the parent component passed existingInstanceId as a prop
+          // which we can't mutate. So we rely on assessmentData.id if we track it there.
+          // But the logic uses the prop 'existingInstanceId'.
+          
+          // Let's update the URL to include the new ID so a refresh works
+          router.replace(`/assessments/${caseId}/conduct?instanceId=${data.id}`);
+        }
       }
     } catch (error) {
       console.error('Failed to save draft:', error);

@@ -124,13 +124,13 @@ export default function LoginPage() {
 
         {/* Login Form Card */}
         <div className="bg-white rounded-lg shadow-lg p-8">
-          {/* Demo Credentials Hint */}
-          <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-md text-sm text-blue-800">
-            <p className="font-semibold mb-1">Demo Credentials:</p>
-            <ul className="list-disc list-inside space-y-1">
-              <li>Teacher: <code className="bg-blue-100 px-1 rounded">teacher@demo.com</code> / <code className="bg-blue-100 px-1 rounded">Test123!</code></li>
-              <li>Parent: <code className="bg-blue-100 px-1 rounded">parent@demo.com</code> / <code className="bg-blue-100 px-1 rounded">Test123!</code></li>
-            </ul>
+          {/* System Status Hint */}
+          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-md text-sm text-green-800">
+            <p className="font-semibold mb-1">System Update:</p>
+            <p>Authentication system is now live. You can sign in with your registered email or create a new account.</p>
+            <p className="mt-2 text-xs text-green-700">
+              Note: For password resets in development, check the server console for the reset link.
+            </p>
           </div>
 
           {/* Error Message */}
