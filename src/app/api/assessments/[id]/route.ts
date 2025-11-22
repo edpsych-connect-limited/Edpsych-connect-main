@@ -129,7 +129,7 @@ export async function PUT(
       data: {
         ...validation.data,
         scheduled_date: validation.data.scheduled_date ? new Date(validation.data.scheduled_date) : undefined,
-        completed_date: validation.data.completed_date ? new Date(validation.data.completed_date) : undefined,
+        completion_date: validation.data.completed_date ? new Date(validation.data.completed_date) : undefined,
         updated_at: new Date(),
       },
     });
