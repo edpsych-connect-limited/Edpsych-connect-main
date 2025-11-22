@@ -16,9 +16,9 @@ export default function Footer() {
               The UK's first SEND orchestration system. Empowering Educational Psychologists and SENCOs with invisible intelligence.
             </p>
             <div className="flex gap-4">
-              <a href="#" aria-label="Twitter" className="hover:text-white transition-colors"><Twitter className="w-5 h-5" /></a>
-              <a href="#" aria-label="LinkedIn" className="hover:text-white transition-colors"><Linkedin className="w-5 h-5" /></a>
-              <a href="#" aria-label="GitHub" className="hover:text-white transition-colors"><Github className="w-5 h-5" /></a>
+              <a href="https://twitter.com/edpsychconnect" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="hover:text-white transition-colors"><Twitter className="w-5 h-5" /></a>
+              <a href="https://linkedin.com/company/edpsychconnect" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-white transition-colors"><Linkedin className="w-5 h-5" /></a>
+              <a href="https://github.com/edpsych-connect-limited" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hover:text-white transition-colors"><Github className="w-5 h-5" /></a>
             </div>
           </div>
 

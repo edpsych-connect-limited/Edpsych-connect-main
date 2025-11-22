@@ -117,9 +117,12 @@ export default function MarketplacePreview() {
                   by {item.author}
                 </p>
                 
-                <button className="w-full py-3 rounded-xl border-2 border-slate-100 font-semibold text-slate-600 group-hover:border-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                <a 
+                  href="/marketplace"
+                  className="block w-full py-3 rounded-xl border-2 border-slate-100 font-semibold text-slate-600 group-hover:border-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all text-center"
+                >
                   View Details
-                </button>
+                </a>
               </div>
             </motion.div>
           ))}

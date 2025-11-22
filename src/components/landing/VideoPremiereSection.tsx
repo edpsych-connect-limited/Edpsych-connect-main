@@ -73,9 +73,12 @@ export default function VideoPremiereSection() {
         </div>
 
         <div className="mt-16 text-center">
-          <button className="px-8 py-4 bg-white text-slate-900 rounded-xl font-bold hover:bg-indigo-50 transition-colors">
+          <a 
+            href="/training"
+            className="inline-block px-8 py-4 bg-white text-slate-900 rounded-xl font-bold hover:bg-indigo-50 transition-colors"
+          >
             View Full Library
-          </button>
+          </a>
         </div>
       </div>
     </section>
