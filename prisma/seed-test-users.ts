@@ -81,6 +81,63 @@ async function main() {
     });
     console.log('✅ Demo Parent created: parent@demo.com / Test123!');
 
+    // Demo Student
+    await prisma.users.upsert({
+      where: { email: 'student@demo.com' },
+      update: { password_hash: demoPassword },
+      create: {
+        tenant_id: tenant.id,
+        email: 'student@demo.com',
+        password_hash: demoPassword,
+        name: 'Demo Student',
+        firstName: 'Demo',
+        lastName: 'Student',
+        role: 'STUDENT',
+        permissions: ['VIEW_OWN_WORK', 'SUBMIT_WORK', 'VIEW_OWN_PROGRESS'],
+        isEmailVerified: true,
+        is_active: true,
+      },
+    });
+    console.log('✅ Demo Student created: student@demo.com / Test123!');
+
+    // Demo EP
+    await prisma.users.upsert({
+      where: { email: 'ep@demo.com' },
+      update: { password_hash: demoPassword },
+      create: {
+        tenant_id: tenant.id,
+        email: 'ep@demo.com',
+        password_hash: demoPassword,
+        name: 'Demo EP',
+        firstName: 'Demo',
+        lastName: 'EP',
+        role: 'EP',
+        permissions: ['VIEW_ALL_STUDENTS', 'MANAGE_ASSESSMENTS', 'VIEW_EHCP'],
+        isEmailVerified: true,
+        is_active: true,
+      },
+    });
+    console.log('✅ Demo EP created: ep@demo.com / Test123!');
+
+    // Demo Admin
+    await prisma.users.upsert({
+      where: { email: 'admin@demo.com' },
+      update: { password_hash: demoPassword },
+      create: {
+        tenant_id: tenant.id,
+        email: 'admin@demo.com',
+        password_hash: demoPassword,
+        name: 'Demo Admin',
+        firstName: 'Demo',
+        lastName: 'Admin',
+        role: 'ADMIN',
+        permissions: ['ALL_ACCESS'],
+        isEmailVerified: true,
+        is_active: true,
+      },
+    });
+    console.log('✅ Demo Admin created: admin@demo.com / Test123!');
+
     // ========================================================================
     // 1. CREATE TEACHER ACCOUNT
     // ========================================================================
@@ -145,9 +202,39 @@ async function main() {
     });
 
     if (!student) {
-      console.log(`   ⚠️  Amara Smith not found in students table`);
-      console.log(`   💡 Run orchestration seed first: npx tsx prisma/seed-orchestration.ts`);
-      throw new Error('Student not found - run orchestration seed first');
+      console.log(`   ⚠️  Amara Singh not found in students table - Creating her now...`);
+      student = await prisma.students.create({
+        data: {
+          tenant_id: tenant.id,
+          unique_id: 'STU-AMARA-001',
+          first_name: 'Amara',
+          last_name: 'Singh',
+          date_of_birth: new Date('2017-05-15'), // Year 3 age approx
+          year_group: 'Year 3',
+          sen_status: 'SEN Support'
+        }
+      });
+      
+      // Create profile for her
+      await prisma.studentProfile.create({
+        data: {
+          tenant_id: tenant.id,
+          student_id: student.id,
+          learning_style: { visual: 0.8, auditory: 0.2, confidence: 0.9 },
+          pace_level: 'medium',
+          difficulty_preference: 'on_level',
+          current_strengths: ['creativity', 'collaboration'],
+          current_struggles: ['mathematics'],
+          engagement_score: 0.85,
+          persistence_score: 0.7,
+          collaboration_score: 0.9,
+          ready_to_level_up: true,
+          needs_intervention: false,
+          profile_confidence: 0.9,
+          last_synced_at: new Date()
+        }
+      });
+      console.log(`   ✅ Created student record for Amara Singh`);
     }
 
     const studentUser = await prisma.users.upsert({

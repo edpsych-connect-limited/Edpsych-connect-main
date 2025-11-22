@@ -120,7 +120,11 @@ const WaveformVisualization: React.FC = () => {
           <div
             key={bar.id}
             className="w-1 bg-blue-600 rounded-full animate-pulse"
-            style={barStyle}
+            style={{
+              height: `${bar.height}%`,
+              animationDelay: `${bar.delay}s`,
+              animationDuration: `${bar.duration}s`,
+            }}
             aria-hidden="true"
           />
         );
@@ -373,7 +377,7 @@ export const VoiceCommandInterface: React.FC<VoiceCommandInterfaceProps> = ({
                   : 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500'
               } disabled:opacity-50 disabled:cursor-not-allowed`}
               aria-label={isRecording ? 'Stop recording' : 'Start voice recording'}
-              aria-pressed={isRecording}
+              aria-pressed={!!isRecording}
             >
               {isRecording ? (
                 <MicOff className="w-6 h-6 text-white" aria-hidden="true" />
