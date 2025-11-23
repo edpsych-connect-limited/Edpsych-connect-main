@@ -94,6 +94,14 @@ export const VoiceAssistant: React.FC = () => {
         }),
       });
 
+      if (response.status === 401) {
+        speak("I'm sorry, you need to be logged in to use voice commands.");
+        toast.error('Session expired. Please log in again.');
+        // Optional: Redirect to login
+        // router.push('/auth/login');
+        return;
+      }
+
       if (!response.ok) {
         throw new Error('Failed to process command');
       }

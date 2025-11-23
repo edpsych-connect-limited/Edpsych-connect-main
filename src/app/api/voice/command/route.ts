@@ -100,6 +100,11 @@ export async function POST(
     const session = await authService.getSessionFromRequest(request);
     if (!session) {
       console.warn('[Voice Command API] Unauthorized access attempt');
+      // Log details for debugging
+      const authHeader = request.headers.get('Authorization');
+      const cookie = request.cookies.get('auth-token');
+      console.warn(`[Voice Command API] Auth Debug - Header: ${authHeader ? 'Present' : 'Missing'}, Cookie: ${cookie ? 'Present' : 'Missing'}`);
+      
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
