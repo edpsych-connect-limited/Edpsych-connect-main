@@ -28,6 +28,7 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { useOnboarding } from '../OnboardingProvider';
+import { InteractiveDemo } from '../InteractiveDemo';
 
 interface Feature {
   id: string;
@@ -458,10 +459,8 @@ export function Step4FeatureTour() {
               </button>
             </div>
 
-            <div className="aspect-video bg-gray-900 rounded-xl flex items-center justify-center mb-4">
-              <p className="text-white text-sm">
-                Demo content would be displayed here
-              </p>
+            <div className="mb-4">
+              <InteractiveDemo featureId={activeFeatureData.id} />
             </div>
 
             <button
