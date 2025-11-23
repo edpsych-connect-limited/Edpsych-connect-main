@@ -102,7 +102,7 @@ export default function FeatureExplainer() {
       {/* Trigger Button (always visible when guide available) */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 transition-all z-50 group"
+        className="fixed bottom-6 right-44 bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 transition-all z-50 group"
         aria-label="Show Feature Guide"
       >
         <HelpCircle className="w-6 h-6" />
@@ -118,7 +118,7 @@ export default function FeatureExplainer() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-20 right-6 w-80 bg-white rounded-xl shadow-2xl border border-indigo-100 z-50 overflow-hidden"
+            className="fixed bottom-20 right-44 w-80 bg-white rounded-xl shadow-2xl border border-indigo-100 z-50 overflow-hidden"
           >
             <div className="bg-indigo-600 p-4 flex justify-between items-center">
               <div className="flex items-center gap-2 text-white">

@@ -43,6 +43,8 @@ interface TeacherClassDashboardProps {
   teacherId: number;
   /** Additional CSS classes */
   className?: string;
+  /** Whether to run in demo mode with mock data */
+  isDemo?: boolean;
 }
 
 interface ClassDashboardData {
@@ -351,9 +353,43 @@ export const TeacherClassDashboard: React.FC<TeacherClassDashboardProps> = ({
   classId,
   teacherId,
   className = '',
+  isDemo = false,
 }) => {
   const [selectedStudentId, setSelectedStudentId] = useState<number | null>(null);
   const [voiceQuery, setVoiceQuery] = useState<string>('');
+
+  // Mock data for demo mode
+  const mockDashboardData: ClassDashboardData = {
+    classInfo: {
+      id: classId,
+      name: 'Year 4 - Oak Class',
+      yearGroup: 'Year 4',
+      totalStudents: 28,
+    },
+    automatedActionsSummary: {
+      lessonsAssigned: 12,
+      interventionsTriggered: 3,
+      actionsAwaitingApproval: 5,
+      notificationsSent: 8,
+    },
+    studentBreakdown: {
+      urgent: 2,
+      needsSupport: 5,
+      onTrack: 15,
+      exceeding: 6,
+    },
+    students: [
+      { id: 101, name: 'Leo Thompson', urgencyLevel: 'urgent' },
+      { id: 102, name: 'Mia Chen', urgencyLevel: 'urgent' },
+      { id: 103, name: 'Sam Wilson', urgencyLevel: 'needs_support' },
+      { id: 104, name: 'Ava Patel', urgencyLevel: 'needs_support' },
+      { id: 105, name: 'Noah Williams', urgencyLevel: 'on_track' },
+      { id: 106, name: 'Olivia Brown', urgencyLevel: 'exceeding' },
+      { id: 107, name: 'Lucas Davies', urgencyLevel: 'on_track' },
+      { id: 108, name: 'Isabella Evans', urgencyLevel: 'exceeding' },
+    ],
+    lastUpdated: new Date().toISOString(),
+  };
 
   // Fetch dashboard data with auto-refresh every 30 seconds
   const {
@@ -362,9 +398,15 @@ export const TeacherClassDashboard: React.FC<TeacherClassDashboardProps> = ({
     error,
     refetch,
   } = useQuery<ClassDashboardData>({
-    queryKey: ['class-dashboard', classId],
+    queryKey: ['class-dashboard', classId, isDemo],
     queryFn: async () => {
-      const response = await fetch(`/api/class/dashboard?classId=${classId}&teacherId=${teacherId}`);
+      if (isDemo) {
+        // Simulate network delay for realism
+        await new Promise(resolve => setTimeout(resolve, 800));
+        return mockDashboardData;
+      }
+
+      const response = await fetch(`/api/class/dashboard?classRosterId=${classId}&teacherId=${teacherId}`);
       if (!response.ok) {
         throw new Error(`Failed to fetch dashboard: ${response.status} ${response.statusText}`);
       }

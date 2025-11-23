@@ -26,7 +26,7 @@ export default function TeachersPage() {
           </div>
         </div>
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <TeacherClassDashboard classId={1} teacherId={1} />
+          <TeacherClassDashboard classId={1} teacherId={1} isDemo={true} />
         </main>
       </div>
     );
