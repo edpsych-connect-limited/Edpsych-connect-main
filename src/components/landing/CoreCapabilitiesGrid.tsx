@@ -42,8 +42,8 @@ export default function CoreCapabilitiesGrid() {
     },
     {
       icon: ShieldCheck,
-      title: "Research & Ethics Portal",
-      description: "Built on a foundation of rigorous academic standards and ethical compliance.",
+      title: "Data Sovereignty & Ethics",
+      description: "Built on rigorous standards. Enterprise clients can Bring Your Own Database (BYOD) for total data autonomy.",
       color: "text-purple-400",
       bg: "bg-purple-400/10"
     }

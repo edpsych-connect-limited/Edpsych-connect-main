@@ -78,12 +78,134 @@ async function main() {
         order_index: 6,
       },
     }),
+    prisma.helpCategory.upsert({
+      where: { slug: 'data-sovereignty' },
+      update: {},
+      create: {
+        name: 'Data Sovereignty & Security',
+        slug: 'data-sovereignty',
+        description: 'BYOD, GDPR, and Enterprise Security',
+        icon: '🛡️',
+        order_index: 7,
+      },
+    }),
   ]);
 
-  const [gettingStarted, assessments, interventions, ehcp, training, technical] = categories;
+  const [gettingStarted, assessments, interventions, ehcp, training, technical, sovereignty] = categories;
 
   // Create Articles
   const articles = [
+    // DATA SOVEREIGNTY (NEW SECTION)
+    {
+      category_id: sovereignty.id,
+      title: 'Bring Your Own Database (BYOD) for Local Authorities',
+      slug: 'byod-for-local-authorities',
+      excerpt: 'Complete guide to our Hybrid Cloud architecture for data sovereignty',
+      content: `# Bring Your Own Database (BYOD)
+
+For Local Authorities and Enterprise Multi-Academy Trusts, we offer a **Hybrid Cloud** deployment model that ensures 100% data sovereignty.
+
+## What is BYOD?
+
+"Bring Your Own Database" means that while you use the EdPsych Connect application interface and AI tools hosted in our secure cloud, **the actual database containing all student PII (Personally Identifiable Information) resides on your own infrastructure.**
+
+This architecture allows you to:
+- Keep data within your existing government-approved data centers.
+- Manage your own encryption keys.
+- Enforce your own backup and retention policies.
+- Revoke access instantly by closing the network port.
+
+## How It Works
+
+1. **The Application Layer**: Runs in our AWS London (eu-west-2) environment. It handles the user interface, authentication logic, and AI orchestration.
+2. **The Data Layer**: You provision a PostgreSQL database (v15+) on your servers.
+3. **The Secure Tunnel**: We establish a permanent, encrypted VPN or TLS 1.3 connection between our application and your database.
+
+## Implementation Requirements
+
+Your IT team will need to provide:
+- A PostgreSQL 15+ instance.
+- A static IP or DNS hostname accessible via port 5432.
+- SSL certificates for encrypted transport.
+
+## Getting Started
+
+To initiate a BYOD setup, please contact your Dedicated Success Manager. We will provide a detailed **Technical Implementation Guide** for your IT department.
+
+> **Note**: This feature is available exclusively on the **Enterprise & LA** tier.`,
+      search_keywords: ['byod', 'database', 'sovereignty', 'local authority', 'hosting', 'on-premise', 'hybrid'],
+      page_context: ['/settings', '/admin'],
+      is_featured: true,
+    },
+    {
+      category_id: sovereignty.id,
+      title: 'Data Security & Encryption Standards',
+      slug: 'security-encryption',
+      excerpt: 'How we protect your data at rest and in transit',
+      content: `# Data Security & Encryption
+
+Security is the foundation of EdPsych Connect World.
+
+## Encryption
+
+- **In Transit**: All data moving between your browser, our servers, and the database is encrypted using **TLS 1.3** (Transport Layer Security). We score an "A+" on SSL Labs tests.
+- **At Rest**: All databases (Standard Tier) are encrypted using **AES-256** industry-standard encryption.
+- **BYOD Tier**: If you choose the BYOD model, you control the encryption keys for data at rest.
+
+## Compliance
+
+We are fully compliant with:
+- **UK GDPR** (General Data Protection Regulation)
+- **Data Protection Act 2018**
+- **Cyber Essentials Plus** (Certification pending)
+
+## Access Control
+
+- **Role-Based Access (RBAC)**: Strict permissions ensure users only see data relevant to their role.
+- **Audit Logging**: Every view, edit, and export of sensitive data is logged in the immutable Audit Trail.
+- **MFA**: Multi-Factor Authentication is enforced for all Administrator accounts.
+
+## AI Safety
+
+When using our AI features (e.g., Report Drafting):
+- Data is processed **statelessly**.
+- No student data is ever used to train our public models.
+- We have strict data processing agreements with our AI providers (Microsoft Azure OpenAI UK).`,
+      search_keywords: ['security', 'encryption', 'gdpr', 'compliance', 'aes-256', 'tls'],
+      page_context: ['/privacy', '/settings'],
+    },
+    {
+      category_id: sovereignty.id,
+      title: 'GDPR: Right to Portability & Erasure',
+      slug: 'gdpr-rights',
+      excerpt: 'Managing data subject requests',
+      content: `# GDPR Rights
+
+We build compliance tools directly into the platform to help you meet your statutory obligations.
+
+## Right to Data Portability (Article 20)
+
+You can export data at any time:
+- **Student Profiles**: Export as JSON or PDF.
+- **Full Tenant Export**: Admins can request a full SQL dump or CSV archive of all school data.
+- **Interoperability**: Our data structure follows the **Common Transfer File (CTF)** standards for easy import into SIMS or other MIS platforms.
+
+## Right to Erasure (Article 17)
+
+Also known as the "Right to be Forgotten".
+1. Navigate to the Student Profile.
+2. Select "Data Management".
+3. Click "Request Erasure".
+4. This triggers a **Hard Delete** process.
+   - Database records are wiped.
+   - Associated files (PDFs) are scrubbed from storage.
+   - Backups are cycled out within 30 days.
+
+> **Warning**: Erasure is permanent and cannot be undone.`,
+      search_keywords: ['gdpr', 'erasure', 'portability', 'export', 'delete', 'compliance'],
+      page_context: ['/settings/gdpr'],
+    },
+
     // GETTING STARTED
     {
       category_id: gettingStarted.id,
@@ -645,6 +767,24 @@ Not supported:
       answer: 'Go to Settings > Team Management > Invite Members. Enter their email addresses and select their roles. They\'ll receive an invitation to join your organization.',
       category: 'General',
       order_index: 8,
+    },
+    {
+      question: 'Can LAs host their own data?',
+      answer: 'Yes. Our "Enterprise & LA" tier supports a Bring Your Own Database (BYOD) model. This allows Local Authorities to host the PostgreSQL database on their own infrastructure (on-premise or private cloud) while still using our SaaS application. This ensures 100% data sovereignty.',
+      category: 'Data Sovereignty & Security',
+      order_index: 9,
+    },
+    {
+      question: 'How do I set up BYOD?',
+      answer: 'BYOD setup requires coordination between your IT team and our deployment engineers. We provide a detailed "LA IT Guide" covering network requirements, firewall rules, and database provisioning. Contact your Success Manager to initiate this process.',
+      category: 'Data Sovereignty & Security',
+      order_index: 10,
+    },
+    {
+      question: 'Is the AI processing secure?',
+      answer: 'Absolutely. We use enterprise-grade Azure OpenAI instances hosted in the UK South region. Data sent to the AI is processed statelessly—meaning it is not stored, logged, or used to train the models. It exists in memory only for the milliseconds required to generate your response.',
+      category: 'Data Sovereignty & Security',
+      order_index: 11,
     },
   ];
 

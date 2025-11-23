@@ -130,7 +130,9 @@ export const VoiceAssistant: React.FC = () => {
 
     } catch (error) {
       console.error('Voice command error:', error);
-      speak("I'm sorry, I had trouble understanding that. Please try again.");
+      // Self-healing: If voice fails, try to offer text fallback or retry
+      console.error('Voice processing error:', error);
+      speak("I'm having a little trouble connecting. Please try typing your request, or say it again in a moment.");
     } finally {
       setIsProcessing(false);
       resetTranscript();

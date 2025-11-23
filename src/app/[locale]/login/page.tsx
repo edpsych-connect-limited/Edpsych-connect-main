@@ -124,13 +124,15 @@ export default function LoginPage() {
 
         {/* Login Form Card */}
         <div className="bg-white rounded-lg shadow-lg p-8">
-          {/* System Status Hint */}
-          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-md text-sm text-green-800">
-            <p className="font-semibold mb-1">System Update:</p>
-            <p>Authentication system is now live. You can sign in with your registered email or create a new account.</p>
-            <p className="mt-2 text-xs text-green-700">
-              Note: For password resets in development, check the server console for the reset link.
-            </p>
+          {/* Secure Environment Notice */}
+          <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-md text-sm text-blue-800">
+            <div className="flex items-center mb-1">
+              <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+              <p className="font-semibold">Secure Environment</p>
+            </div>
+            <p>You are accessing the secure EdPsych Connect platform. All data is encrypted and handled in accordance with GDPR.</p>
           </div>
 
           {/* Error Message */}

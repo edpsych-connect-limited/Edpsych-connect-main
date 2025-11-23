@@ -36,16 +36,16 @@ export default function PricingTiers() {
       highlight: true
     },
     {
-      name: "Multi-Academy Trust",
+      name: "Enterprise & LA",
       price: "Custom",
       period: "",
-      description: "Strategic oversight across multiple campuses.",
+      description: "Strategic oversight with total data autonomy.",
       features: [
         "Everything in School",
+        "Data Sovereignty (BYOD)",
+        "Hybrid Cloud Deployment",
         "Trust-wide Analytics",
-        "Custom Implementation",
-        "Dedicated Success Manager",
-        "API Access"
+        "Dedicated Success Manager"
       ],
       cta: "Contact Sales",
       highlight: false
