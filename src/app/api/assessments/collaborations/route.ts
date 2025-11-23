@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import { emailService } from '@/lib/email/email-service';
 
 export async function GET(req: Request) {
   const session = await getServerSession(authOptions);
@@ -46,6 +47,20 @@ export async function POST(req: Request) {
       message 
     } = body;
 
+    // Fetch assessment details to personalize email
+    const assessment = await prisma.assessmentInstance.findUnique({
+      where: { id: instance_id },
+      include: {
+        student: true,
+        conductor: true,
+        framework: true
+      }
+    });
+
+    if (!assessment) {
+      return NextResponse.json({ error: 'Assessment instance not found' }, { status: 404 });
+    }
+
     // Create the collaboration record
     const collaboration = await prisma.assessmentCollaboration.create({
       data: {
@@ -61,10 +76,36 @@ export async function POST(req: Request) {
       }
     });
 
-    // TODO: Send actual email here using a mail service
-    // For now, we'll just simulate it and return a "url"
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
     const invitation_url = `${appUrl}/collaborate/${collaboration.id}`;
+    
+    // Send invitation email
+    const studentName = `${assessment.student.first_name} ${assessment.student.last_name}`;
+    const epName = `${assessment.conductor.first_name} ${assessment.conductor.last_name}`;
+    
+    await emailService.sendEmail({
+      to: contributor_email,
+      subject: `Invitation to contribute to assessment for ${studentName}`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2>Assessment Contribution Invitation</h2>
+          <p>Dear ${contributor_name},</p>
+          <p>${epName} (Educational Psychologist) has invited you to contribute to an assessment for <strong>${studentName}</strong>.</p>
+          <p>Your perspective is valuable in building a holistic understanding of ${assessment.student.first_name}'s needs and strengths.</p>
+          
+          ${message ? `<div style="background-color: #f3f4f6; padding: 15px; border-radius: 5px; margin: 15px 0;"><strong>Message from EP:</strong><br/>${message}</div>` : ''}
+          
+          <p>Please click the button below to access the secure contribution form:</p>
+          <a href="${invitation_url}" style="display: inline-block; background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; margin: 16px 0;">Provide Input</a>
+          
+          <p>This form will take approximately 10-15 minutes to complete.</p>
+          <p>Thank you for your collaboration.</p>
+          <hr />
+          <p style="color: #666; font-size: 12px;">If the button doesn't work, copy this link: ${invitation_url}</p>
+        </div>
+      `,
+      text: `Dear ${contributor_name}, you have been invited by ${epName} to contribute to an assessment for ${studentName}. Please visit: ${invitation_url}`
+    });
 
     return NextResponse.json({ 
         collaboration,

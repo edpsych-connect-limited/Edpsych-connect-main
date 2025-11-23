@@ -18,9 +18,37 @@ export default function DashboardPage() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!isLoading && !user) {
-      router.push('/login');
-    }
+    const checkAuthAndOnboarding = async () => {
+      if (isLoading) return;
+
+      if (!user) {
+        router.push('/login');
+        return;
+      }
+
+      // Check onboarding status
+      if (user.onboardingCompleted || user.onboardingSkipped) {
+        return;
+      }
+
+      try {
+        // Verify with API to avoid stale session data
+        const res = await fetch('/api/onboarding/status');
+        const data = await res.json();
+        
+        if (data.success && data.data) {
+          const { onboardingCompleted, onboardingSkipped } = data.data;
+          
+          if (!onboardingCompleted && !onboardingSkipped) {
+            router.push('/onboarding');
+          }
+        }
+      } catch (error) {
+        console.error('Failed to check onboarding status', error);
+      }
+    };
+
+    checkAuthAndOnboarding();
   }, [user, isLoading, router]);
 
   if (isLoading || !user) {

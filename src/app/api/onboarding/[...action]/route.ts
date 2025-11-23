@@ -39,7 +39,15 @@ async function routeOnboardingRequest(request: NextRequest): Promise<NextRespons
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const userId = parseInt(session.id);
+    // Handle different session structures (auth-service vs login route token)
+    let userId: number;
+    if (session.id && !isNaN(parseInt(session.id))) {
+      userId = parseInt(session.id);
+    } else if ((session as any).userId) {
+      userId = (session as any).userId;
+    } else {
+      return NextResponse.json({ error: 'Invalid session' }, { status: 401 });
+    }
 
     switch (action) {
       case 'status':
@@ -54,6 +62,8 @@ async function routeOnboardingRequest(request: NextRequest): Promise<NextRespons
         return handleRestart(userId);
       case 'complete':
         return handleComplete(request, userId);
+      case 'skip-onboarding':
+        return handleSkipOnboarding(userId);
       default:
         return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
@@ -70,7 +80,10 @@ async function handleGetStatus(userId: number): Promise<NextResponse> {
 
   const user = await prisma.users.findUnique({
     where: { id: userId },
-    select: { onboarding_completed: true }
+    select: { 
+      onboarding_completed: true,
+      onboarding_skipped: true 
+    }
   });
 
   if (!progress) {
@@ -79,6 +92,7 @@ async function handleGetStatus(userId: number): Promise<NextResponse> {
       data: {
         userId,
         onboardingCompleted: user?.onboarding_completed || false,
+        onboardingSkipped: user?.onboarding_skipped || false,
         currentStep: 1,
         stepsCompleted: [],
         stepsSkipped: [],
@@ -112,6 +126,7 @@ async function handleGetStatus(userId: number): Promise<NextResponse> {
     data: {
       userId,
       onboardingCompleted: user?.onboarding_completed || false,
+      onboardingSkipped: user?.onboarding_skipped || false,
       currentStep: progress.current_step,
       stepsCompleted,
       stepsSkipped: progress.steps_skipped,
@@ -261,12 +276,24 @@ async function handleUpdateStep(request: NextRequest, userId: number): Promise<N
       break;
   }
 
+  // Create data cannot use atomic operations like increment or push
+  const createData = { ...updateData };
+  createData.total_time_spent_seconds = timeSpentSeconds || 0;
+  
+  // Handle array push operations for create
+  if (createData.step_4_features_viewed?.push) {
+    createData.step_4_features_viewed = [createData.step_4_features_viewed.push];
+  }
+  if (createData.step_4_demos_tried?.push) {
+    createData.step_4_demos_tried = [createData.step_4_demos_tried.push];
+  }
+
   const updated = await prisma.onboarding_progress.upsert({
     where: { user_id: userId },
     create: {
       user_id: userId,
       current_step: 1,
-      ...updateData
+      ...createData
     },
     update: updateData
   });
@@ -328,6 +355,22 @@ async function handleRestart(userId: number): Promise<NextResponse> {
     data: {
       message: 'Onboarding restarted',
       currentStep: 1,
+    }
+  });
+}
+
+async function handleSkipOnboarding(userId: number): Promise<NextResponse> {
+  await prisma.users.update({
+    where: { id: userId },
+    data: {
+      onboarding_skipped: true,
+    }
+  });
+
+  return NextResponse.json({
+    success: true,
+    data: {
+      message: 'Onboarding skipped',
     }
   });
 }

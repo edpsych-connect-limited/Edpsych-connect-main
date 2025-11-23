@@ -256,12 +256,23 @@ export default function AssessmentAdministrationWizard({
       const birthYear = today.getFullYear() - studentAge;
       const dateOfBirth = `${birthYear}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 
-      // Collect domain observations
+      // Collect domain observations and qualitative data
       const domainSummaries: string[] = [];
+      const allStrengths: string[] = [];
+      const allNeeds: string[] = [];
+
       framework.domains.forEach((domain: any) => {
         const domainData = assessmentData.domains[domain.id];
-        if (domainData?.observations) {
-          domainSummaries.push(`**${domain.name}**: ${domainData.observations}`);
+        if (domainData) {
+          if (domainData.observations) {
+            domainSummaries.push(`**${domain.name}**: ${domainData.observations}`);
+          }
+          if (domainData.observed_strengths) {
+            allStrengths.push(`${domain.name}: ${domainData.observed_strengths}`);
+          }
+          if (domainData.observed_needs) {
+            allNeeds.push(`${domain.name}: ${domainData.observed_needs}`);
+          }
         }
       });
 
@@ -290,7 +301,7 @@ export default function AssessmentAdministrationWizard({
           age_range: framework.age_range_min && framework.age_range_max ? `${framework.age_range_min}-${framework.age_range_max} years` : '4-18 years',
           administration_time: framework.time_estimate_minutes ? `${framework.time_estimate_minutes} minutes` : 'Variable',
           purpose: framework.purpose || 'Dynamic assessment of cognitive abilities',
-          domains: [] as any[],
+          domains: framework.domains.map((d: any) => d.name),
           qualification_required: 'ep',
           is_standardized: false,
           norm_referenced: false,
@@ -306,8 +317,8 @@ export default function AssessmentAdministrationWizard({
           percentiles: [],
           composite_scores: [],
           interpretation: assessmentData.ep_interpretation || 'See professional interpretation section.',
-          strengths: domainSummaries.filter((_, i) => i % 2 === 0),
-          weaknesses: domainSummaries.filter((_, i) => i % 2 === 1)
+          strengths: allStrengths,
+          weaknesses: allNeeds
         },
         behavioral_observations: domainSummaries.join('\n\n'),
         environmental_factors: assessmentData.environmental_factors || 'Standard testing environment',
@@ -315,7 +326,7 @@ export default function AssessmentAdministrationWizard({
 
         // Professional Summary
         reason_for_referral: assessmentData.reason_for_referral || 'Cognitive profile assessment to inform educational provision',
-        background_information: assessmentData.context_review || 'See case file for detailed background',
+        background_information: assessmentData.context_review?.referral_summary || 'See case file for detailed background',
         previous_assessments: assessmentData.previous_assessments || 'None documented',
 
         // Recommendations
@@ -333,9 +344,9 @@ export default function AssessmentAdministrationWizard({
 
       // Generate and download the report
       await downloadAssessmentReport(report, {
-        include_raw_scores: true,
-        include_score_tables: true,
-        include_visual_profile: true,
+        include_raw_scores: false,
+        include_score_tables: false,
+        include_visual_profile: false,
         include_interpretation_guidelines: true,
         include_recommendations: true,
         include_appendices: true,

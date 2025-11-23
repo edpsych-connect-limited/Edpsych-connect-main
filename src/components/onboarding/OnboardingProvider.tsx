@@ -183,6 +183,16 @@ function onboardingReducer(state: OnboardingState, action: OnboardingAction): On
         canAdvance: false
       };
 
+    case 'SKIP_ONBOARDING':
+      return {
+        ...state,
+        onboardingCompleted: true, // Treat as completed for UI purposes (redirect)
+        currentStep: 6,
+        canGoBack: false,
+        canSkip: false,
+        canAdvance: false
+      };
+
     case 'RESTART_ONBOARDING':
       return {
         ...initialState,
@@ -469,6 +479,32 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
   }, []);
 
   /**
+   * Skip onboarding entirely
+   */
+  const skipOnboarding = useCallback(async () => {
+    try {
+      dispatch({ type: 'SET_LOADING', payload: true });
+
+      const response = await fetch('/api/onboarding/skip-onboarding', {
+        method: 'POST'
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        dispatch({ type: 'SKIP_ONBOARDING' });
+      } else {
+        dispatch({ type: 'SET_ERROR', payload: result.error || 'Failed to skip onboarding' });
+      }
+    } catch (error) {
+      console.error('[OnboardingProvider] skipOnboarding error:', error);
+      dispatch({ type: 'SET_ERROR', payload: 'Network error. Please try again.' });
+    } finally {
+      dispatch({ type: 'SET_LOADING', payload: false });
+    }
+  }, []);
+
+  /**
    * Restart onboarding
    */
   const restartOnboarding = useCallback(async () => {
@@ -572,6 +608,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
     goToPreviousStep,
     skipCurrentStep,
     completeOnboarding,
+    skipOnboarding,
     restartOnboarding,
     getStepProgress,
     canCompleteStep,
@@ -584,6 +621,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
     goToPreviousStep,
     skipCurrentStep,
     completeOnboarding,
+    skipOnboarding,
     restartOnboarding,
     getStepProgress,
     canCompleteStep,

@@ -14,8 +14,8 @@ function HeaderContent() {
   const router = useRouter();
   const pathname = usePathname();
 
-  // Don't render header on landing page
-  if (pathname === '/') return null;
+  // Don't render header on landing page or demo page
+  if (pathname === '/' || pathname === '/demo') return null;
 
   const handleLogout = async () => {
     await logout();
@@ -169,7 +169,7 @@ export default function ClientLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isLandingPage = pathname === '/';
+  const isLandingPage = pathname === '/' || pathname === '/demo';
 
   return (
     <body className={`min-h-screen ${isLandingPage ? 'bg-slate-950' : 'bg-gray-50 text-gray-900'}`}>

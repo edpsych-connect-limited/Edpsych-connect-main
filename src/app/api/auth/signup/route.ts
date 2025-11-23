@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
+import { sign } from 'jsonwebtoken';
 
 export async function POST(req: Request) {
   try {
@@ -42,9 +43,9 @@ export async function POST(req: Request) {
     const subdomain = `${baseSlug}-${uniqueSuffix}`;
 
     // Transaction to ensure both tenant and user are created or neither
-    const result = await prisma.$transaction(async (tx) => {
+    const { user: newUser, tenant: newTenant } = await prisma.$transaction(async (tx) => {
       // Create Tenant
-      const newTenant = await tx.tenants.create({
+      const tenant = await tx.tenants.create({
         data: {
           name: tenantName,
           subdomain: subdomain,
@@ -56,7 +57,7 @@ export async function POST(req: Request) {
       });
 
       // Create User
-      const newUser = await tx.users.create({
+      const user = await tx.users.create({
         data: {
           email,
           password_hash: passwordHash,
@@ -64,23 +65,66 @@ export async function POST(req: Request) {
           firstName,
           lastName,
           role,
-          tenant_id: newTenant.id,
+          tenant_id: tenant.id,
           is_active: true,
           onboarding_completed: false,
           onboarding_step: 0,
         },
       });
 
-      return newUser;
+      return { user, tenant };
     });
+
+    // Generate Tokens
+    const accessToken = sign(
+      {
+        userId: newUser.id,
+        email: newUser.email,
+        name: newUser.name,
+        role: newUser.role,
+        tenantId: newUser.tenant_id,
+        permissions: newUser.permissions,
+      },
+      process.env.NEXTAUTH_SECRET || 'fallback-secret-key',
+      { expiresIn: '1d' }
+    );
+
+    const refreshToken = sign(
+      {
+        userId: newUser.id,
+        email: newUser.email,
+      },
+      process.env.NEXTAUTH_SECRET || 'fallback-secret-key',
+      { expiresIn: '7d' }
+    );
+
+    const userData = {
+      id: newUser.id,
+      email: newUser.email,
+      name: newUser.name,
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
+      role: newUser.role,
+      permissions: newUser.permissions,
+      tenantId: newUser.tenant_id,
+      tenant: {
+        id: newTenant.id,
+        name: newTenant.name,
+        subdomain: newTenant.subdomain,
+        tenantType: newTenant.tenant_type,
+      },
+      isEmailVerified: newUser.isEmailVerified,
+      onboardingCompleted: newUser.onboarding_completed,
+      onboardingSkipped: newUser.onboarding_skipped,
+      professional: null,
+    };
 
     return NextResponse.json({
       success: true,
-      user: {
-        id: result.id,
-        email: result.email,
-        name: result.name,
-        role: result.role,
+      data: {
+        user: userData,
+        accessToken,
+        refreshToken,
       },
     });
 

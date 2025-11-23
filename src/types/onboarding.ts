@@ -37,6 +37,7 @@ export interface OnboardingStatusResponse {
   data?: {
     userId: number;
     onboardingCompleted: boolean;
+    onboardingSkipped?: boolean; // Added
     currentStep: OnboardingStep;
     stepsCompleted: number[];
     progressPercentage: number;
@@ -303,6 +304,7 @@ export type OnboardingAction =
   | { type: 'MARK_STEP_SKIPPED'; payload: OnboardingStep }
   | { type: 'UPDATE_TIME'; payload: { step: OnboardingStep; seconds: number } }
   | { type: 'COMPLETE_ONBOARDING' }
+  | { type: 'SKIP_ONBOARDING' }
   | { type: 'RESTART_ONBOARDING' }
   | { type: 'RESET_STATE' };
 
@@ -324,6 +326,7 @@ export interface OnboardingContextValue {
   goToPreviousStep: () => void;
   skipCurrentStep: (reason?: string) => Promise<void>;
   completeOnboarding: (feedback?: { rating?: number; comment?: string; nextAction?: string }) => Promise<void>;
+  skipOnboarding: () => Promise<void>;
   restartOnboarding: () => Promise<void>;
 
   // Utility functions

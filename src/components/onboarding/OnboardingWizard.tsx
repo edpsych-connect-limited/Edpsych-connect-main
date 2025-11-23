@@ -46,7 +46,8 @@ export function OnboardingWizard({ className = '' }: OnboardingWizardProps) {
     goToPreviousStep,
     skipCurrentStep,
     canCompleteStep,
-    refreshStatus
+    refreshStatus,
+    skipOnboarding
   } = useOnboarding();
 
   const router = useRouter();
@@ -181,7 +182,7 @@ export function OnboardingWizard({ className = '' }: OnboardingWizardProps) {
 
             {/* Exit button (optional) */}
             <button
-              onClick={() => router.push('/dashboard')}
+              onClick={() => skipOnboarding()}
               className="text-sm text-gray-600 hover:text-gray-900 underline focus:outline-none focus:ring-2 focus:ring-gray-300 rounded px-2 py-1"
               aria-label="Exit onboarding and go to dashboard"
             >

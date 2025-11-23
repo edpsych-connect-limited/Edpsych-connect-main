@@ -36,25 +36,10 @@ if (app && app.document && !app.document.head.querySelector('[data-hide-command-
 }
 
 // Preserve cookies between tests to maintain session
-beforeEach(() => {
-  const baseUrl = Cypress.config('baseUrl') || 'http://localhost:3002';
-// Wait for login page to load before interacting
-  cy.visit(`${baseUrl}/login`, { failOnStatusCode: false });
-// Wait for login page to load before interacting
-  cy.visit(`${baseUrl}/login`, { failOnStatusCode: false });
-// Wait for login page to load before interacting
-  cy.visit(`${baseUrl}/login`, { failOnStatusCode: false });
-  cy.get('body', { timeout: 20000 }).then(($body) => {
-    if ($body.text().includes('Sign In')) {
-      cy.contains('Sign In').should('be.visible');
-      cy.get('input[type="email"], input[name="email"]').should('exist').type('test@example.com');
-      cy.get('input[type="password"], input[name="password"]').should('exist').type('password123');
-      cy.get('button[type="submit"]').should('exist').click();
-    } else {
-      cy.log('Login page not found, skipping login setup');
-    }
-  });
-});
+// beforeEach(() => {
+//   const baseUrl = Cypress.config('baseUrl') || 'http://localhost:3000';
+//   // ... login logic removed to allow per-test control ...
+// });
 
 // Log test name before each test
 beforeEach(function() {

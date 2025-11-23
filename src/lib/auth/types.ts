@@ -11,6 +11,8 @@ export interface AuthUser {
   lastSignInAt?: string;
   createdAt: string;
   updatedAt?: string;
+  onboardingCompleted?: boolean; // Added for onboarding flow
+  onboardingSkipped?: boolean; // Added for onboarding flow
 }
 
 export interface PasswordUpdateRequest {

@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create JWT token
-    const token = sign(
+    const accessToken = sign(
       {
         userId: user.id,
         email: user.email,
@@ -68,6 +68,15 @@ export async function POST(request: NextRequest) {
         role: user.role,
         tenantId: user.tenant_id,
         permissions: user.permissions,
+      },
+      process.env.NEXTAUTH_SECRET || 'fallback-secret-key',
+      { expiresIn: '1d' }
+    );
+
+    const refreshToken = sign(
+      {
+        userId: user.id,
+        email: user.email,
       },
       process.env.NEXTAUTH_SECRET || 'fallback-secret-key',
       { expiresIn: '7d' }
@@ -96,6 +105,8 @@ export async function POST(request: NextRequest) {
         tenantType: user.tenants.tenant_type,
       },
       isEmailVerified: user.isEmailVerified,
+      onboardingCompleted: user.onboarding_completed,
+      onboardingSkipped: user.onboarding_skipped,
       professional: user.professionals
         ? {
             id: user.professionals.id,
@@ -110,15 +121,19 @@ export async function POST(request: NextRequest) {
     const response = NextResponse.json({
       success: true,
       message: 'Login successful',
-      user: userData,
+      data: {
+        user: userData,
+        accessToken,
+        refreshToken,
+      },
     });
 
     // Set HTTP-only cookie with token
-    response.cookies.set('auth-token', token, {
+    response.cookies.set('auth-token', accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 60 * 60 * 24 * 7, // 7 days
+      maxAge: 60 * 60 * 24, // 1 day
       path: '/',
     });
 

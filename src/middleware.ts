@@ -65,8 +65,10 @@ export async function middleware(request: NextRequest) {
     // Verify authentication for protected API routes
     const payload = await getJwtFromRequest(request);
     if (!payload) {
+      console.log('[Middleware] Unauthorized API request:', pathname);
+      console.log('[Middleware] Cookies:', request.cookies.getAll());
       return NextResponse.json(
-        { error: 'Unauthorized' },
+        { error: 'Unauthorized (Middleware)' },
         { status: 401, headers: response.headers }
       );
     }

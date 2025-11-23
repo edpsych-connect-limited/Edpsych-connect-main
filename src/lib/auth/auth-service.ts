@@ -38,11 +38,11 @@ export interface AuthResult {
 
 // Constants
 const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || 'fallback_jwt_secret_for_development_only'
+  process.env.NEXTAUTH_SECRET || process.env.JWT_SECRET || 'fallback-secret-key'
 );
 
 const TOKEN_EXPIRY = '8h';
-const COOKIE_NAME = 'edpsych_auth_token';
+const COOKIE_NAME = 'auth-token';
 
 /**
  * Authenticate a user with email and password
@@ -168,13 +168,14 @@ export async function generateToken(session: UserSession): Promise<string> {
  */
 export async function verifyToken(token: string): Promise<UserSession | null> {
   try {
+    console.log('[AuthService] Verifying token:', token.substring(0, 20) + '...');
     const { payload } = await jwtVerify(token, JWT_SECRET, {
       algorithms: ['HS256']
     });
-
+    console.log('[AuthService] Token verified successfully');
     return payload as unknown as UserSession;
   } catch (error) {
-    console.error('Token verification error:', error);
+    console.error('[AuthService] Token verification error:', error);
     return null;
   }
 }
