@@ -80,6 +80,14 @@ async function handleListOrCreateAssessments(request: NextRequest): Promise<Next
     return NextResponse.json({
       success: true,
       assessments: [],
+      pagination: {
+        page: 1,
+        limit: 20,
+        totalCount: 0,
+        totalPages: 0,
+        hasNextPage: false,
+        hasPreviousPage: false,
+      },
       total: 0,
     });
   }

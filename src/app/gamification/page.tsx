@@ -71,6 +71,35 @@ export default function GamificationPage() {
           </div>
         </div>
 
+        {/* Teacher Context Section */}
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-8">
+          <h2 className="text-xl font-bold text-slate-900 mb-3">Gamification for Classroom Impact</h2>
+          <p className="text-slate-600 mb-4">
+            Our gamification system is designed to support your teaching practice, not just track usage.
+            Earn points by implementing evidence-based interventions and differentiating lessons for your students.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <h3 className="font-bold text-blue-900 mb-2">Curriculum Alignment</h3>
+              <p className="text-sm text-blue-800">
+                Unlock lesson plan templates tailored to specific cognitive profiles identified in your assessments.
+              </p>
+            </div>
+            <div className="bg-purple-50 p-4 rounded-lg">
+              <h3 className="font-bold text-purple-900 mb-2">Differentiation Strategies</h3>
+              <p className="text-sm text-purple-800">
+                Gain access to advanced differentiation guides for each student as you track their progress.
+              </p>
+            </div>
+            <div className="bg-green-50 p-4 rounded-lg">
+              <h3 className="font-bold text-green-900 mb-2">Resource Library</h3>
+              <p className="text-sm text-green-800">
+                Level up to access premium classroom resources and specialized intervention materials.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {activeTab === 'battle-royale' ? (
           <BattleRoyalePreview />
         ) : (

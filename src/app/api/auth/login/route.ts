@@ -62,11 +62,13 @@ export async function POST(request: NextRequest) {
     // Create JWT token
     const accessToken = jwt.sign(
       {
-        userId: user.id,
+        id: user.id.toString(), // Changed from userId to id to match authService
+        userId: user.id, // Keep for backward compatibility
         email: user.email,
         name: user.name,
         role: user.role,
-        tenantId: user.tenant_id,
+        tenant_id: user.tenant_id, // Changed from tenantId to tenant_id to match authService
+        tenantId: user.tenant_id, // Keep for backward compatibility
         permissions: user.permissions,
       },
       process.env.NEXTAUTH_SECRET || 'fallback-secret-key',

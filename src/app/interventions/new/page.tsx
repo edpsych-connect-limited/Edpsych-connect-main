@@ -40,7 +40,7 @@ function NewInterventionContent() {
       }
 
       // Get tenant ID from session
-      const userTenantId = (user as any)?.tenant_id;
+      const userTenantId = (user as any)?.tenant_id || 1; // Default to 1 for demo
       if (userTenantId) {
         setTenantId(userTenantId);
       }

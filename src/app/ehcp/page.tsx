@@ -225,10 +225,10 @@ export default function EHCPListPage() {
           <div className="flex justify-between items-center">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">
-                EHCP Management
+                EHCNA Request & Information
               </h1>
               <p className="mt-1 text-sm text-gray-600">
-                Education, Health and Care Plans - UK SEND Code of Practice
+                Gather and manage information for Education, Health and Care Needs Assessments
               </p>
             </div>
             <div className="flex gap-3">
@@ -269,7 +269,7 @@ export default function EHCPListPage() {
                     clipRule="evenodd"
                   />
                 </svg>
-                Create New EHCP
+                Start New Request
               </button>
             </div>
           </div>

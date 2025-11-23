@@ -7,7 +7,7 @@
 
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 import CaseManager from '@/components/cases/CaseManager';
 
 // Force dynamic rendering for auth-required pages
@@ -15,18 +15,16 @@ export const dynamic = 'force-dynamic';
 
 export default function NewCasePage() {
   const router = useRouter();
-  const sessionResult = useSession();
-  const session = sessionResult?.data;
-  const status = sessionResult?.status;
+  const { user, isLoading } = useAuth();
 
   useEffect(() => {
-    if (status === 'unauthenticated') {
+    if (!isLoading && !user) {
       router.push('/login');
     }
-  }, [status, router]);
+  }, [user, isLoading, router]);
 
   // Show loading during authentication check
-  if (status === 'loading' || !session) {
+  if (isLoading || !user) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-lg">Loading...</div>
@@ -41,7 +39,7 @@ export default function NewCasePage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...caseData,
-          tenant_id: (session?.user as any)?.tenant_id,
+          tenant_id: (user as any)?.tenant_id || 1,
         }),
       });
 
@@ -62,7 +60,7 @@ export default function NewCasePage() {
     router.push('/cases');
   };
 
-  const tenantId = (session?.user as any)?.tenant_id || 1;
+  const tenantId = (user as any)?.tenant_id || 1;
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
