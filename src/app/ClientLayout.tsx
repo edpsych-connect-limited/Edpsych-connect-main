@@ -45,6 +45,7 @@ function HeaderContent() {
         { href: '/ehcp', label: 'EHCP', group: 'core' },
         { href: '/cases', label: 'Cases', group: 'core' },
         { href: '/progress', label: 'Progress', group: 'core' },
+        { href: '/networking', label: 'Community', group: 'core' },
         { href: '/ai-agents', label: 'AI Agents', group: 'advanced' },
         { href: '/training', label: 'Training', group: 'advanced' },
         { href: '/gamification', label: 'Gamification', group: 'advanced' }
@@ -59,6 +60,7 @@ function HeaderContent() {
         { href: '/ehcp', label: 'EHCP', group: 'core' },
         { href: '/cases', label: 'Cases', group: 'core' },
         { href: '/progress', label: 'Progress', group: 'core' },
+        { href: '/networking', label: 'Community', group: 'core' },
         { href: '/ai-agents', label: 'AI Agents', group: 'advanced' },
         { href: '/training', label: 'Training', group: 'advanced' },
         { href: '/gamification', label: 'Gamification', group: 'advanced' }
@@ -97,7 +99,8 @@ function HeaderContent() {
        links.push(
         { href: '/assessments', label: 'Assessments', group: 'core' },
         { href: '/interventions', label: 'Interventions', group: 'core' },
-        { href: '/marketplace', label: 'Marketplace', group: 'core' }
+        { href: '/marketplace', label: 'Marketplace', group: 'core' },
+        { href: '/networking', label: 'Community', group: 'core' }
       );
     }
 

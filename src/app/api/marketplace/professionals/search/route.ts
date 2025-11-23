@@ -55,12 +55,14 @@ export async function GET(request: NextRequest) {
       ];
     }
 
-    // Location filter (simple string match for now, could be geospatial later)
-    // Note: 'location' field might need to be added to marketplace_professionals or fetched from user profile
-    // For now, we'll assume it's on the user or profile if it exists, but schema says marketplace_professionals doesn't have location.
-    // Checking schema... marketplace_professionals has bio, specialties, hourlyRate.
-    // Users table has address/location? Let's check.
-    // If not, we skip location filter for now to prevent crash.
+    // Location filter (using la_panel_regions as proxy)
+    if (_location) {
+      // Note: Prisma array filtering is exact match. For partial match we'd need raw query.
+      // For now, we'll check if the region list contains the search term.
+      where.la_panel_regions = {
+        has: _location
+      };
+    }
     
     // Specialisms filter (array overlap)
     if (specialisms.length > 0) {
@@ -76,10 +78,10 @@ export async function GET(request: NextRequest) {
       };
     }
 
-    // LA Panel filter -> Currently mapped to verification status, so if they want "LA Panel" specifically,
-    // we might need a specific tag in specialties or just rely on verification.
-    // For now, we'll ignore the specific 'la_panel' flag as it's not in the schema, 
-    // but we ensure they are verified above.
+    // LA Panel filter
+    if (_laPanelOnly) {
+      where.la_panel_status = 'APPROVED';
+    }
 
     // Availability filter logic
     // Schema has 'availability' as Json. Complex querying of Json is DB-specific.
@@ -124,12 +126,12 @@ export async function GET(request: NextRequest) {
       avatar: null, // p.user.image,
       title: 'Educational Psychologist', // Default title
       bio: p.bio,
-      location: 'United Kingdom', // Default location until added to schema
+      location: p.la_panel_regions?.[0] || 'United Kingdom', // Use first region or default
       specialisms: p.specialties,
       dailyRate: (p.hourlyRate || 0) * 7, // Convert back to daily for frontend
       rating: p.rating,
       reviewCount: p._count.reviews,
-      isLaPanel: p.user.compliance?.verificationStatus === 'VERIFIED',
+      isLaPanel: p.la_panel_status === 'APPROVED',
       nextAvailable: null, // p.availability,
       yearsExperience: 5, // Default until added to schema
       verified: p.user.compliance?.verificationStatus === 'VERIFIED',
