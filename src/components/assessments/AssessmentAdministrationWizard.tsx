@@ -461,10 +461,13 @@ export default function AssessmentAdministrationWizard({
               </div>
 
               <button
-                onClick={() => router.push(`/assessments/${caseId}`)}
-                className="text-gray-600 hover:text-gray-900"
+                onClick={async () => {
+                  await saveDraft();
+                  router.push(`/cases/${caseId}`);
+                }}
+                className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 text-sm font-medium"
               >
-                Exit
+                Save & Exit
               </button>
             </div>
           </div>
