@@ -286,7 +286,7 @@ export default function CaseDetailPage({ params }: CaseDetailProps) {
               + New Intervention
             </button>
             <button
-              onClick={() => router.push(`/assessments/new?caseId=${caseDetail.id}`)}
+              onClick={() => router.push(`/assessments/${caseDetail.id}/conduct`)}
               className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
             >
               + New Assessment

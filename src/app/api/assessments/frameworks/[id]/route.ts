@@ -14,16 +14,39 @@ export async function GET(
 
     const { id } = params;
 
-    const framework = await prisma.assessmentFramework.findUnique({
-      where: { id },
-      include: {
-        domains: {
-          orderBy: {
-            order_index: 'asc',
+    let framework;
+    
+    // Check if id is a UUID (simple regex check)
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+
+    if (isUuid) {
+      framework = await prisma.assessmentFramework.findUnique({
+        where: { id },
+        include: {
+          domains: {
+            orderBy: {
+              order_index: 'asc',
+            },
           },
         },
-      },
-    });
+      });
+    } else {
+      // Try finding by abbreviation (e.g., 'ECCA')
+      // Handle 'ecca-v1' by stripping version if needed, or just exact match if abbreviation is 'ECCA'
+      // Assuming abbreviation in DB is 'ECCA'
+      const abbreviation = id.split('-')[0].toUpperCase();
+      
+      framework = await prisma.assessmentFramework.findUnique({
+        where: { abbreviation },
+        include: {
+          domains: {
+            orderBy: {
+              order_index: 'asc',
+            },
+          },
+        },
+      });
+    }
 
     if (!framework) {
       return NextResponse.json({ error: 'Framework not found' }, { status: 404 });

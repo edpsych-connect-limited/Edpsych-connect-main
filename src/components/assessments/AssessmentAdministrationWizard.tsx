@@ -80,6 +80,12 @@ export default function AssessmentAdministrationWizard({
         if (response.ok) {
           const data = await response.json();
           setFramework(data.framework);
+          
+          // Update assessment data with the correct framework ID (UUID)
+          setAssessmentData((prev: any) => ({
+            ...prev,
+            framework_id: data.framework.id
+          }));
         } else {
           console.error('Failed to fetch framework');
         }
@@ -1238,7 +1244,7 @@ function ChecklistItem({ label, isComplete }: { label: string; isComplete: boole
         </svg>
       ) : (
         <svg className="w-5 h-5 text-gray-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12z" clipRule="evenodd" />
+          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM10 4a6 6 0 100 12 6 6 0 000-12z" clipRule="evenodd" />
         </svg>
       )}
       <span className={isComplete ? 'text-green-700 font-medium' : 'text-gray-600'}>
