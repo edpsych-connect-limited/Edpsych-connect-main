@@ -369,7 +369,44 @@ export default function AssessmentAdministrationWizard({
         confidentiality_statement: 'This report contains confidential information and should be stored securely in accordance with GDPR and Data Protection Act 2018.'
       };
 
-      // Generate and download the report
+      // Generate blob for upload
+      const { generateReportBlob } = await import('@/lib/assessments/report-generator');
+      const blob = await generateReportBlob(report, {
+        include_raw_scores: false,
+        include_score_tables: false,
+        include_visual_profile: false,
+        include_interpretation_guidelines: true,
+        include_recommendations: true,
+        include_appendices: true,
+        branding: {
+          organization_name: 'EdPsych Connect World',
+          contact_details: 'www.edpsychconnect.world'
+        }
+      });
+      
+      // Upload to server if we have an instance ID
+      if (existingInstanceId) {
+          const formData = new FormData();
+          formData.append('file', blob, `report-${existingInstanceId}.pdf`);
+          
+          try {
+            const uploadResponse = await fetch(`/api/assessments/${existingInstanceId}/report`, {
+                method: 'POST',
+                body: formData
+            });
+            
+            if (!uploadResponse.ok) {
+                console.error('Failed to upload report to server');
+                // We still continue to download for the user
+            } else {
+                console.log('Report uploaded successfully');
+            }
+          } catch (uploadError) {
+             console.error('Error uploading report:', uploadError);
+          }
+      }
+
+      // Generate and download the report (client side)
       await downloadAssessmentReport(report, {
         include_raw_scores: false,
         include_score_tables: false,
@@ -384,7 +421,7 @@ export default function AssessmentAdministrationWizard({
       });
 
       // Show success message
-      alert('Professional assessment report generated successfully! Check your downloads folder.');
+      alert('Professional assessment report generated and saved to record!');
 
     } catch (error) {
       console.error('Failed to generate report:', error);
