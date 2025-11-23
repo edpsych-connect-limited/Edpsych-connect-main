@@ -20,6 +20,8 @@ export default function IntegrationDashboard() {
   const [connectingProvider, setConnectingProvider] = useState<string | null>(null);
   const [apiKey, setApiKey] = useState('');
   const [connectionError, setConnectionError] = useState('');
+  const [showLogs, setShowLogs] = useState(false);
+  const [logs, setLogs] = useState<any[]>([]);
 
   // Fetch status on load
   useEffect(() => {
@@ -52,6 +54,17 @@ export default function IntegrationDashboard() {
     
     fetchStatus();
   }, []);
+
+  const fetchLogs = async () => {
+    try {
+      const res = await fetch('/api/integrations/logs');
+      const data = await res.json();
+      setLogs(data.logs);
+      setShowLogs(true);
+    } catch (err) {
+      console.error('Failed to fetch logs', err);
+    }
+  };
 
   const handleConnect = async (providerId: string) => {
     setConnectionError('');
@@ -142,6 +155,53 @@ export default function IntegrationDashboard() {
     <div className="min-h-screen bg-slate-50/50 p-8 relative">
       {/* Connection Modal */}
       <AnimatePresence>
+        {showLogs && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+          >
+            <motion.div 
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.95 }}
+              className="bg-white rounded-xl shadow-xl max-w-2xl w-full p-6 max-h-[80vh] overflow-hidden flex flex-col"
+            >
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-bold text-slate-900">Integration Sync Logs</h3>
+                <button 
+                  onClick={() => setShowLogs(false)} 
+                  className="text-slate-400 hover:text-slate-600"
+                  aria-label="Close logs"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              
+              <div className="overflow-y-auto flex-1 space-y-3 pr-2">
+                {logs.map((log) => (
+                  <div key={log.id} className="p-4 bg-slate-50 rounded-lg border border-slate-100">
+                    <div className="flex justify-between items-start mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className={`w-2 h-2 rounded-full ${log.status === 'success' ? 'bg-emerald-500' : 'bg-red-500'}`} />
+                        <span className="font-medium text-slate-900">{log.provider}</span>
+                      </div>
+                      <span className="text-xs text-slate-500">
+                        {new Date(log.timestamp).toLocaleString()}
+                      </span>
+                    </div>
+                    <p className="text-sm text-slate-600 mb-2">{log.details}</p>
+                    <div className="text-xs text-slate-400 font-mono">
+                      Records Processed: {log.recordsProcessed}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
         {connectingProvider && (
           <motion.div 
             initial={{ opacity: 0 }}
@@ -220,7 +280,10 @@ export default function IntegrationDashboard() {
             </p>
           </div>
           <div className="flex gap-3">
-            <button className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors font-medium text-sm">
+            <button 
+              onClick={fetchLogs}
+              className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors font-medium text-sm"
+            >
               <Activity className="w-4 h-4 text-slate-400" />
               View Sync Logs
             </button>
