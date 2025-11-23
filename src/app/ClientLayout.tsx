@@ -12,7 +12,7 @@ import { SupportChatbot } from '@/components/chat/SupportChatbot';
 
 function HeaderContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user, logout } = useAuth();
+  const { user, logout, hasRole } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -24,19 +24,90 @@ function HeaderContent() {
     router.push('/login');
   };
 
-  const navLinks = [
-    { href: '/assessments', label: 'Assessments', group: 'core' },
-    { href: '/interventions', label: 'Interventions', group: 'core' },
-    { href: '/ehcp', label: 'EHCP', group: 'core' },
-    { href: '/cases', label: 'Cases', group: 'core' },
-    { href: '/progress', label: 'Progress', group: 'core' },
-    { href: '/ai-agents', label: 'AI Agents', group: 'advanced' },
-    { href: '/training', label: 'Training', group: 'advanced' },
-    { href: '/gamification', label: 'Gamification', group: 'advanced' },
-    { href: '/help', label: 'Help', group: 'resources' },
-    { href: '/blog', label: 'Blog', group: 'resources' },
-    { href: '/admin', label: 'Admin', group: 'admin' },
-  ];
+  const getNavLinks = () => {
+    if (!user) return [];
+    
+    const role = user.role?.toUpperCase() || 'GUEST';
+    const links = [];
+
+    // Admin / Super Admin
+    if (role === 'ADMIN' || role === 'SUPERADMIN') {
+       if (role === 'SUPERADMIN') {
+         links.push({ href: '/institutional-management', label: 'Institutions', group: 'admin' });
+       }
+       links.push(
+        { href: '/admin', label: 'Admin', group: 'admin' },
+        { href: '/teachers', label: 'Classroom', group: 'core' },
+        { href: '/assessments', label: 'Assessments', group: 'core' },
+        { href: '/interventions', label: 'Interventions', group: 'core' },
+        { href: '/ehcp', label: 'EHCP', group: 'core' },
+        { href: '/cases', label: 'Cases', group: 'core' },
+        { href: '/progress', label: 'Progress', group: 'core' },
+        { href: '/ai-agents', label: 'AI Agents', group: 'advanced' },
+        { href: '/training', label: 'Training', group: 'advanced' },
+        { href: '/gamification', label: 'Gamification', group: 'advanced' }
+      );
+    } 
+    // Teacher
+    else if (role === 'TEACHER' || role === 'STAFF') {
+      links.push(
+        { href: '/teachers', label: 'Classroom', group: 'core' },
+        { href: '/assessments', label: 'Assessments', group: 'core' },
+        { href: '/interventions', label: 'Interventions', group: 'core' },
+        { href: '/ehcp', label: 'EHCP', group: 'core' },
+        { href: '/cases', label: 'Cases', group: 'core' },
+        { href: '/progress', label: 'Progress', group: 'core' },
+        { href: '/ai-agents', label: 'AI Agents', group: 'advanced' },
+        { href: '/training', label: 'Training', group: 'advanced' },
+        { href: '/gamification', label: 'Gamification', group: 'advanced' }
+      );
+    }
+    // Parent
+    else if (role === 'PARENT') {
+      links.push(
+        { href: '/parents', label: 'Parent Portal', group: 'core' },
+        { href: '/progress', label: 'Child Progress', group: 'core' }
+      );
+    }
+    // Student
+    else if (role === 'STUDENT') {
+      list.push(
+        { href: '/gamification', label: 'Gamification', group: 'core' },
+        { href: '/progress', label: 'My Progress', group: 'core' }
+      );
+    } 
+    // Researcher
+    else if (role === 'RESEARCHER') {
+      list.push(
+        { href: '/research', label: 'Research Hub', group: 'core' },
+        { href: '/research?tab=datasets', label: 'Data Enclave', group: 'core' }
+      );
+    }
+    // Local Authority (LAA)
+    else if (role === 'LAA' || role === 'LOCAL_AUTHORITY') {
+      list.push(
+        { href: '/marketplace/la-panel', label: 'LAA Dashboard', group: 'core' },
+        { href: '/ehcp', label: 'EHCP Review', group: 'core' }
+      );
+    }
+    else {
+      // Fallback for guests or unassigned roles (EPs)
+       list.push(
+        { href: '/assessments', label: 'Assessments', group: 'core' },
+        { href: '/interventions', label: 'Interventions', group: 'core' },
+        { href: '/marketplace', label: 'Marketplace', group: 'core' }
+      );
+    }
+
+    links.push(
+      { href: '/help', label: 'Help', group: 'resources' },
+      { href: '/blog', label: 'Blog', group: 'resources' }
+    );
+
+    return list;
+  };
+
+  const navLinks = getNavLinks();
 
   return (
     <header className="bg-white shadow-md border-b border-gray-200 sticky top-0 z-50">

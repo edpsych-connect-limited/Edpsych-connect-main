@@ -160,51 +160,79 @@ Click the **Customize Dashboard** button to:
       category_id: assessments.id,
       title: 'Conducting an ECCA Assessment',
       slug: 'conducting-ecca-assessment',
-      excerpt: 'Step-by-step guide to the ECCA framework',
+      excerpt: 'Comprehensive guide to the EdPsych Connect Cognitive Assessment framework',
       content: `# Conducting an ECCA Assessment
 
-The EdPsych Connect Cognitive Assessment (ECCA) is a dynamic, strengths-based framework.
+The EdPsych Connect Cognitive Assessment (ECCA) is a proprietary, dynamic, strengths-based framework designed to provide a holistic view of a child's cognitive profile. Unlike traditional static testing, ECCA emphasizes the *process* of learning and the potential for growth.
 
-## 4 Cognitive Domains
+## The 4 Core Cognitive Domains
 
-1. **Working Memory & Information Processing**
-   - Digit span tasks
-   - Visual-spatial memory
-   - Information manipulation
+The ECCA framework evaluates four distinct but interconnected cognitive domains. Understanding these is crucial for accurate interpretation.
 
-2. **Attention & Executive Function**
-   - Sustained attention
-   - Selective attention
-   - Executive control
+### 1. Working Memory & Information Processing
+*The "Workbench" of the Mind*
+- **Definition**: The ability to hold and manipulate information in the mind over short periods.
+- **Key Subtests**:
+    - **Digit Span (Forward/Backward)**: Auditory working memory.
+    - **Visual-Spatial Grid**: Visual working memory.
+    - **Instructional Recall**: Ability to follow multi-step directions.
+- **Clinical Significance**: Deficits here often manifest as difficulty following instructions, "forgetting" what to do, or trouble with mental arithmetic.
 
-3. **Processing Speed**
-   - Reaction time tasks
-   - Processing efficiency
-   - Cognitive fluency
+### 2. Attention & Executive Function
+*The "CEO" of the Brain*
+- **Definition**: The ability to focus, shift attention, inhibit impulses, and plan/organize behavior.
+- **Key Subtests**:
+    - **Sustained Attention Task**: Focusing on a boring task over time.
+    - **Go/No-Go**: Impulse control and inhibition.
+    - **Tower Planning**: Strategic planning and problem-solving.
+- **Clinical Significance**: Weaknesses affect task initiation, organization, emotional regulation, and focus in noisy environments.
 
-4. **Learning & Memory**
-   - Short-term retention
-   - Long-term consolidation
-   - Transfer of learning
+### 3. Processing Speed
+*The "Engine Speed"*
+- **Definition**: The efficiency and speed with which the brain processes simple information.
+- **Key Subtests**:
+    - **Symbol Search**: Rapid visual scanning and discrimination.
+    - **Coding**: Visual-motor coordination and speed.
+    - **Rapid Naming**: Retrieval speed from long-term memory.
+- **Clinical Significance**: Slow processing speed can make learners appear "slow" despite high intelligence, leading to fatigue and incomplete work.
 
-## Assessment Workflow
+### 4. Learning & Memory
+*The "Library" of Knowledge*
+- **Definition**: The ability to encode, store, and retrieve information over time.
+- **Key Subtests**:
+    - **List Learning**: Verbal learning curve and retention.
+    - **Story Recall**: Narrative memory and contextual understanding.
+    - **Visual Reproduction**: Memory for visual details.
+- **Clinical Significance**: Affects exam performance, vocabulary acquisition, and the ability to build on prior knowledge.
 
-1. **Overview**: Review framework and prepare
-2. **Context Review**: Understand background
-3. **Domain Observations**: Conduct tasks and record observations
-4. **Collaborative Input**: Invite parents, teachers, child
-5. **Interpretation**: Professional synthesis
-6. **Recommendations**: Evidence-based provisions
-7. **Report Generation**: Professional PDF report
+## The Assessment Workflow
 
-## Tips for Success
+1.  **Pre-Assessment Context**:
+    - Review referral information.
+    - Send "Collaborative Input" forms to parents and teachers via the dashboard.
 
-- Use suggested tasks as starting points
-- Adapt based on child's needs
-- Record both successes and challenges
-- Consider environmental factors
-- Integrate multiple perspectives`,
-      search_keywords: ['ecca', 'assessment', 'cognitive', 'framework', 'conducting'],
+2.  **Administration**:
+    - Ensure a quiet, distraction-free environment.
+    - Build rapport before starting.
+    - Administer subtests in the standard order (unless fatigue requires adaptation).
+    - **Dynamic Testing**: If a child fails a standard item, use the "Teach-Test-Retest" protocol to assess learning potential.
+
+3.  **Scoring & Interpretation**:
+    - Input raw scores into the ECCA dashboard.
+    - The system automatically calculates Standard Scores (Mean=100, SD=15).
+    - Look for **Discrepancies**: Is one domain significantly lower than others?
+    - Analyze **Error Patterns**: *Why* did they fail? (e.g., impulsivity vs. lack of knowledge).
+
+4.  **Reporting**:
+    - Use the "Generate Report" feature to synthesize findings.
+    - The system will suggest evidence-based interventions based on the lowest domain scores.
+
+## Best Practices
+
+- **Observe Behavior**: Anxiety, fatigue, and motivation significantly impact scores. Note these in the "Observations" section.
+- **Strengths-Based**: Always highlight what the child *can* do. Use strengths to support weaknesses.
+- **Cultural Fairness**: The ECCA is designed to be culturally neutral, but always consider language barriers and cultural background.`,
+      search_keywords: ['ecca', 'assessment', 'cognitive', 'framework', 'conducting', 'domains', 'working memory', 'processing speed'],
       page_context: ['/assessments', '/assessments/new'],
       is_featured: true,
     },

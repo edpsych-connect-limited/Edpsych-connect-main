@@ -11,12 +11,17 @@ import {
   GraduationCap, 
   Brain,
   Zap,
-  PlayCircle
+  PlayCircle,
+  LayoutDashboard,
+  Shield,
+  Home,
+  Trophy,
+  Building
 } from 'lucide-react';
 import { useDemo } from '@/components/demo/DemoProvider';
 
 export default function DashboardPage() {
-  const { user, isLoading } = useAuth();
+  const { user, isLoading, hasRole } = useAuth();
   const { startTour } = useDemo();
   const router = useRouter();
 
@@ -62,50 +67,240 @@ export default function DashboardPage() {
     );
   }
 
-  const features = [
-    {
-      title: 'Assessments',
-      description: 'Conduct cognitive assessments using the ECCA framework.',
-      icon: Brain,
-      href: '/assessments',
-      color: 'bg-purple-100 text-purple-600',
-    },
-    {
-      title: 'Interventions',
-      description: 'Access evidence-based interventions for your cases.',
-      icon: Zap,
-      href: '/interventions',
-      color: 'bg-blue-100 text-blue-600',
-    },
-    {
-      title: 'Cases',
-      description: 'Manage your student cases and profiles.',
-      icon: Users,
-      href: '/cases',
-      color: 'bg-green-100 text-green-600',
-    },
-    {
-      title: 'EHCP',
-      description: 'Generate and manage EHCP reports.',
-      icon: FileText,
-      href: '/ehcp',
-      color: 'bg-orange-100 text-orange-600',
-    },
-    {
-      title: 'Progress',
-      description: 'Track student progress and outcomes.',
-      icon: TrendingUp,
-      href: '/progress',
-      color: 'bg-indigo-100 text-indigo-600',
-    },
-    {
-      title: 'Training',
-      description: 'Professional development and training resources.',
-      icon: GraduationCap,
-      href: '/training',
-      color: 'bg-pink-100 text-pink-600',
-    },
-  ];
+  const getFeatures = () => {
+    const role = user.role?.toUpperCase() || 'GUEST';
+    const list = [];
+
+    // Admin / Super Admin
+    if (role === 'ADMIN' || role === 'SUPERADMIN') {
+      if (role === 'SUPERADMIN') {
+        list.push({
+          title: 'Institutional Management',
+          description: 'Manage multi-academy trusts and institutions.',
+          icon: Building,
+          href: '/institutional-management',
+          color: 'bg-slate-100 text-slate-600',
+        });
+      }
+      list.push(
+        {
+          title: 'Admin Dashboard',
+          description: 'Manage users, settings, and system configuration.',
+          icon: Shield,
+          href: '/admin',
+          color: 'bg-red-100 text-red-600',
+        },
+        {
+          title: 'Classroom Cockpit',
+          description: 'Manage your class, assign lessons, and track daily progress.',
+          icon: LayoutDashboard,
+          href: '/teachers',
+          color: 'bg-indigo-100 text-indigo-600',
+        },
+        {
+          title: 'Assessments',
+          description: 'Conduct cognitive assessments using the ECCA framework.',
+          icon: Brain,
+          href: '/assessments',
+          color: 'bg-purple-100 text-purple-600',
+        },
+        {
+          title: 'Interventions',
+          description: 'Access evidence-based interventions for your cases.',
+          icon: Zap,
+          href: '/interventions',
+          color: 'bg-blue-100 text-blue-600',
+        },
+        {
+          title: 'Cases',
+          description: 'Manage your student cases and profiles.',
+          icon: Users,
+          href: '/cases',
+          color: 'bg-green-100 text-green-600',
+        },
+        {
+          title: 'EHCP',
+          description: 'Generate and manage EHCP reports.',
+          icon: FileText,
+          href: '/ehcp',
+          color: 'bg-orange-100 text-orange-600',
+        },
+        {
+          title: 'Progress',
+          description: 'Track student progress and outcomes.',
+          icon: TrendingUp,
+          href: '/progress',
+          color: 'bg-indigo-100 text-indigo-600',
+        },
+        {
+          title: 'Training',
+          description: 'Professional development and training resources.',
+          icon: GraduationCap,
+          href: '/training',
+          color: 'bg-pink-100 text-pink-600',
+        }
+      );
+    }
+    // Teacher
+    else if (role === 'TEACHER' || role === 'STAFF') {
+      list.push(
+        {
+          title: 'Classroom Cockpit',
+          description: 'Manage your class, assign lessons, and track daily progress.',
+          icon: LayoutDashboard,
+          href: '/teachers',
+          color: 'bg-indigo-100 text-indigo-600',
+        },
+        {
+          title: 'Assessments',
+          description: 'Conduct cognitive assessments using the ECCA framework.',
+          icon: Brain,
+          href: '/assessments',
+          color: 'bg-purple-100 text-purple-600',
+        },
+        {
+          title: 'Interventions',
+          description: 'Access evidence-based interventions for your cases.',
+          icon: Zap,
+          href: '/interventions',
+          color: 'bg-blue-100 text-blue-600',
+        },
+        {
+          title: 'Cases',
+          description: 'Manage your student cases and profiles.',
+          icon: Users,
+          href: '/cases',
+          color: 'bg-green-100 text-green-600',
+        },
+        {
+          title: 'EHCP',
+          description: 'Generate and manage EHCP reports.',
+          icon: FileText,
+          href: '/ehcp',
+          color: 'bg-orange-100 text-orange-600',
+        },
+        {
+          title: 'Progress',
+          description: 'Track student progress and outcomes.',
+          icon: TrendingUp,
+          href: '/progress',
+          color: 'bg-indigo-100 text-indigo-600',
+        },
+        {
+          title: 'Training',
+          description: 'Professional development and training resources.',
+          icon: GraduationCap,
+          href: '/training',
+          color: 'bg-pink-100 text-pink-600',
+        }
+      );
+    }
+    // Parent
+    else if (role === 'PARENT') {
+      list.push(
+        {
+          title: 'Parent Portal',
+          description: 'View your child\'s progress and communicate with teachers.',
+          icon: Home,
+          href: '/parents',
+          color: 'bg-rose-100 text-rose-600',
+        },
+        {
+          title: 'Child Progress',
+          description: 'Detailed breakdown of your child\'s learning journey.',
+          icon: TrendingUp,
+          href: '/progress',
+          color: 'bg-blue-100 text-blue-600',
+        }
+      );
+    }
+    // Student
+    else if (role === 'STUDENT') {
+      list.push(
+        {
+          title: 'Gamification Hub',
+          description: 'Compete in Battle Royale and check the leaderboard.',
+          icon: Trophy,
+          href: '/gamification',
+          color: 'bg-yellow-100 text-yellow-600',
+        },
+        {
+          title: 'My Progress',
+          description: 'Track your own learning achievements.',
+          icon: TrendingUp,
+          href: '/progress',
+          color: 'bg-blue-100 text-blue-600',
+        }
+      );
+    } 
+    // Researcher
+    else if (role === 'RESEARCHER') {
+      list.push(
+        {
+          title: 'Research Hub',
+          description: 'Manage clinical trials and validate assessment frameworks.',
+          icon: Brain,
+          href: '/research',
+          color: 'bg-purple-100 text-purple-600',
+        },
+        {
+          title: 'Data Enclave',
+          description: 'Access anonymized datasets for analysis.',
+          icon: Shield,
+          href: '/research?tab=datasets',
+          color: 'bg-slate-100 text-slate-600',
+        }
+      );
+    }
+    // Local Authority (LAA)
+    else if (role === 'LAA' || role === 'LOCAL_AUTHORITY') {
+      list.push(
+        {
+          title: 'LAA Dashboard',
+          description: 'Manage SEND provision and professional panels.',
+          icon: Building,
+          href: '/marketplace/la-panel',
+          color: 'bg-blue-100 text-blue-600',
+        },
+        {
+          title: 'EHCP Review',
+          description: 'Review and approve EHCP applications.',
+          icon: FileText,
+          href: '/ehcp',
+          color: 'bg-orange-100 text-orange-600',
+        }
+      );
+    }
+    else {
+      // Fallback (EPs and others)
+      list.push(
+        {
+          title: 'Assessments',
+          description: 'Conduct cognitive assessments using the ECCA framework.',
+          icon: Brain,
+          href: '/assessments',
+          color: 'bg-purple-100 text-purple-600',
+        },
+        {
+          title: 'Interventions',
+          description: 'Access evidence-based interventions for your cases.',
+          icon: Zap,
+          href: '/interventions',
+          color: 'bg-blue-100 text-blue-600',
+        },
+        {
+          title: 'Professional Marketplace',
+          description: 'Find jobs and connect with Local Authorities.',
+          icon: Users,
+          href: '/marketplace',
+          color: 'bg-green-100 text-green-600',
+        }
+      );
+    }
+    return list;
+  };
+
+  const features = getFeatures();
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
