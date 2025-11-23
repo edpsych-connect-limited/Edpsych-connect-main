@@ -562,7 +562,7 @@ Not supported:
       update: {},
       create: {
         ...article,
-        author: 'EdPsych Connect Team',
+        author: 'Dr Scott I-Patrick',
         published_at: new Date(),
       },
     });
