@@ -15,6 +15,7 @@ import {
 
 export default function ResearchPage() {
   const [activeTab, setActiveTab] = useState('overview');
+  const [showEthicsModal, setShowEthicsModal] = useState(false);
 
   const researchStats = [
     { label: 'Active Studies', value: '12', icon: Beaker, color: 'blue' },
@@ -68,9 +69,12 @@ export default function ResearchPage() {
                 Manage clinical trials, validate assessment frameworks, and access anonymized datasets for educational psychology research.
               </p>
             </div>
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2 shadow-sm">
+            <button 
+              onClick={() => setShowEthicsModal(true)}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2 shadow-sm"
+            >
               <Plus className="w-4 h-4" />
-              New Study
+              New Study Proposal
             </button>
           </div>
 
@@ -92,6 +96,75 @@ export default function ResearchPage() {
           </div>
         </div>
       </div>
+
+      {/* Ethics Modal */}
+      {showEthicsModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl max-w-2xl w-full p-6 shadow-2xl">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-gray-900">New Study Proposal</h2>
+              <button onClick={() => setShowEthicsModal(false)} className="text-gray-500 hover:text-gray-700">
+                ✕
+              </button>
+            </div>
+            
+            <div className="space-y-6">
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <h3 className="font-bold text-yellow-800 mb-2">Ethics Committee Review Required</h3>
+                <p className="text-sm text-yellow-700">
+                  All research involving human participants must undergo ethical review. 
+                  Your proposal will be submitted to the EdPsych Connect Ethics Board (EPCEB).
+                  Expected review time: 10-14 days.
+                </p>
+              </div>
+
+              <div>
+                <label htmlFor="studyTitle" className="block text-sm font-medium text-gray-700 mb-1">Study Title</label>
+                <input id="studyTitle" type="text" className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="e.g., Impact of..." />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="principalInvestigator" className="block text-sm font-medium text-gray-700 mb-1">Principal Investigator</label>
+                  <input id="principalInvestigator" type="text" className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                </div>
+                <div>
+                  <label htmlFor="sampleSize" className="block text-sm font-medium text-gray-700 mb-1">Target Sample Size</label>
+                  <input id="sampleSize" type="number" className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="methodology" className="block text-sm font-medium text-gray-700 mb-1">Methodology Summary</label>
+                <textarea id="methodology" className="w-full border border-gray-300 rounded-lg px-4 py-2 h-32 focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Describe your research design..."></textarea>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <input type="checkbox" id="gdpr" className="rounded text-blue-600 focus:ring-blue-500" />
+                <label htmlFor="gdpr" className="text-sm text-gray-600">I confirm this study complies with GDPR and BPS Code of Ethics.</label>
+              </div>
+
+              <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
+                <button 
+                  onClick={() => setShowEthicsModal(false)}
+                  className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg font-medium"
+                >
+                  Cancel
+                </button>
+                <button 
+                  onClick={() => {
+                    alert('Proposal submitted for Ethics Review. Reference: ETH-2025-892');
+                    setShowEthicsModal(false);
+                  }}
+                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium shadow-sm"
+                >
+                  Submit for Review
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {activeTab === 'overview' && (
@@ -129,7 +202,9 @@ export default function ResearchPage() {
                 </div>
               </div>
               <div className="divide-y divide-gray-200">
-                {activeStudies.map((study) => (
+                {activeStudies.map((study) => {
+                  const progressStyle = { width: `${(study.participants / study.target) * 100}%` };
+                  return (
                   <div key={study.id} className="p-6 hover:bg-gray-50 transition-colors">
                     <div className="flex justify-between items-start">
                       <div>
@@ -161,12 +236,11 @@ export default function ResearchPage() {
                     <div className="mt-4 w-full bg-gray-200 rounded-full h-2">
                       <div 
                         className="bg-blue-600 h-2 rounded-full transition-all duration-500" 
-                        // eslint-disable-next-line react-dom/no-unsafe-inline-style
-                        style={{ width: `${(study.participants / study.target) * 100}%` }}
+                        style={progressStyle}
                       ></div>
                     </div>
                   </div>
-                ))}
+                )})}
               </div>
             </div>
 

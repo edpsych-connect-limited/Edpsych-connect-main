@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useAuth } from '@/lib/auth/hooks';
+import EHCPWorkflow from '@/components/la-panel/EHCPWorkflow';
 import { 
   Building, 
   Users, 
@@ -10,12 +10,15 @@ import {
   AlertCircle,
   Search,
   Filter,
-  Download
+  Download,
+  Clock,
+  BarChart2,
+  ShieldCheck
 } from 'lucide-react';
 
 export default function LAAPanelPage() {
-  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('overview');
+  const [selectedCase, setSelectedCase] = useState<{id: string, name: string} | null>(null);
 
   // Mock Data for LAA View
   const stats = [
@@ -30,6 +33,27 @@ export default function LAAPanelPage() {
     { id: 2, name: 'James Miller', type: 'Speech Therapist', status: 'approved', date: '2025-11-19' },
     { id: 3, name: 'Emma Thompson', type: 'Occupational Therapist', status: 'review', date: '2025-11-18' },
   ];
+
+  // 20-Week Statutory Timeline Data
+  const timelineCases = [
+    { id: 'EHCP-2025-001', student: 'Alice Smith', school: 'St. Mary\'s Primary', week: 18, status: 'Draft Plan', deadline: '2025-12-05', risk: 'high' },
+    { id: 'EHCP-2025-002', student: 'Bob Jones', school: 'North High', week: 12, status: 'Assessment', deadline: '2026-01-15', risk: 'low' },
+    { id: 'EHCP-2025-003', student: 'Charlie Brown', school: 'Westfield Academy', week: 5, status: 'Request', deadline: '2026-03-01', risk: 'medium' },
+  ];
+
+  if (selectedCase) {
+    return (
+      <div className="min-h-screen bg-gray-50 p-8">
+        <div className="max-w-7xl mx-auto">
+          <EHCPWorkflow 
+            caseId={selectedCase.id} 
+            studentName={selectedCase.name} 
+            onBack={() => setSelectedCase(null)} 
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
@@ -77,7 +101,7 @@ export default function LAAPanelPage() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <div className="border-b border-gray-200">
             <nav className="flex">
-              {['overview', 'professionals', 'schools', 'ehcp-review'].map((tab) => (
+              {['overview', 'ehcp-tracker', 'quality-assurance', 'professionals'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
@@ -87,7 +111,7 @@ export default function LAAPanelPage() {
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                   }`}
                 >
-                  {tab.charAt(0).toUpperCase() + tab.slice(1).replace('-', ' ')}
+                  {tab.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                 </button>
               ))}
             </nav>
@@ -143,6 +167,118 @@ export default function LAAPanelPage() {
                       ))}
                     </tbody>
                   </table>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'ehcp-tracker' && (
+              <div className="space-y-8">
+                <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 flex items-start gap-3">
+                  <Clock className="w-5 h-5 text-blue-600 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-blue-900">20-Week Statutory Timeline</h4>
+                    <p className="text-sm text-blue-800 mt-1">
+                      Monitor all active cases against the statutory 20-week deadline. 
+                      Cases approaching breach (Week 18+) are highlighted in red.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {timelineCases.map((c) => {
+                    const progressStyle = { width: `${(c.week / 20) * 100}%` };
+                    return (
+                    <div key={c.id} className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                      <div className="flex justify-between items-start mb-4">
+                        <div>
+                          <h4 className="text-lg font-bold text-gray-900">{c.student}</h4>
+                          <p className="text-sm text-gray-500">{c.id} • {c.school}</p>
+                        </div>
+                        <div className={`px-3 py-1 rounded-full text-sm font-bold ${
+                          c.risk === 'high' ? 'bg-red-100 text-red-800' :
+                          c.risk === 'medium' ? 'bg-yellow-100 text-yellow-800' :
+                          'bg-green-100 text-green-800'
+                        }`}>
+                          Week {c.week} / 20
+                        </div>
+                      </div>
+
+                      {/* Progress Bar */}
+                      <div className="relative pt-6 pb-2">
+                        <div className="flex mb-2 items-center justify-between text-xs font-semibold text-gray-600 uppercase tracking-wide">
+                          <span className={c.week >= 1 ? 'text-blue-600' : ''}>Request (Wk 1-6)</span>
+                          <span className={c.week >= 6 ? 'text-blue-600' : ''}>Assessment (Wk 6-16)</span>
+                          <span className={c.week >= 16 ? 'text-blue-600' : ''}>Draft Plan (Wk 16-20)</span>
+                        </div>
+                        <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
+                          <style>{`
+                            .progress-bar-${c.id} {
+                              width: ${(c.week / 20) * 100}%;
+                            }
+                          `}</style>
+                          <div 
+                            className={`shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center progress-bar-${c.id} ${
+                              c.risk === 'high' ? 'bg-red-500' : 'bg-blue-500'
+                            }`}
+                          ></div>
+                        </div>
+                      </div>
+
+                      <div className="flex justify-between items-center mt-2">
+                        <span className="text-sm text-gray-500">Current Stage: <strong>{c.status}</strong></span>
+                        <div className="flex items-center gap-4">
+                          <span className="text-sm text-gray-500">Deadline: <strong>{c.deadline}</strong></span>
+                          <button 
+                            onClick={() => setSelectedCase({ id: c.id, name: c.student })}
+                            className="text-sm bg-blue-50 text-blue-600 px-3 py-1 rounded-md font-medium hover:bg-blue-100"
+                          >
+                            Manage Workflow
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )})}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'quality-assurance' && (
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div className="flex items-center gap-3 mb-2">
+                      <ShieldCheck className="w-6 h-6 text-green-600" />
+                      <h3 className="font-bold text-gray-900">Audit Compliance</h3>
+                    </div>
+                    <p className="text-3xl font-bold text-gray-900">98.5%</p>
+                    <p className="text-sm text-gray-500">Last 30 days</p>
+                  </div>
+                  <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div className="flex items-center gap-3 mb-2">
+                      <Clock className="w-6 h-6 text-blue-600" />
+                      <h3 className="font-bold text-gray-900">Timeliness</h3>
+                    </div>
+                    <p className="text-3xl font-bold text-gray-900">92%</p>
+                    <p className="text-sm text-gray-500">Within 20 weeks</p>
+                  </div>
+                  <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div className="flex items-center gap-3 mb-2">
+                      <BarChart2 className="w-6 h-6 text-purple-600" />
+                      <h3 className="font-bold text-gray-900">Parent Satisfaction</h3>
+                    </div>
+                    <p className="text-3xl font-bold text-gray-900">4.8/5</p>
+                    <p className="text-sm text-gray-500">Based on feedback</p>
+                  </div>
+                </div>
+
+                <div className="bg-white p-8 rounded-lg border border-gray-200 text-center">
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">Quality Assurance Framework</h3>
+                  <p className="text-gray-600 max-w-2xl mx-auto mb-6">
+                    Our automated QA tools check every EHCP draft against the Code of Practice standards before finalization.
+                  </p>
+                  <button className="bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 font-medium">
+                    Run QA Audit Report
+                  </button>
                 </div>
               </div>
             )}
