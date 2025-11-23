@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { authenticateRequest } from '@/lib/middleware/auth';
 import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
@@ -11,10 +10,11 @@ export async function POST(
   { params }: { params: { id: string } }
 ) {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session) {
-      return new NextResponse('Unauthorized', { status: 401 });
+    const authResult = await authenticateRequest(req);
+    if (!authResult.success) {
+      return authResult.response;
     }
+    const { session } = authResult;
 
     const formData = await req.formData();
     const file = formData.get('file') as File;

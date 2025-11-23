@@ -1,13 +1,13 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { authenticateRequest } from '@/lib/middleware/auth';
 
-export async function POST(req: Request) {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+export async function POST(req: NextRequest) {
+  const authResult = await authenticateRequest(req);
+  if (!authResult.success) {
+    return authResult.response;
   }
+  const { session } = authResult;
 
   try {
     const body = await req.json();
@@ -60,11 +60,12 @@ export async function POST(req: Request) {
   }
 }
 
-export async function PUT(req: Request) {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+export async function PUT(req: NextRequest) {
+  const authResult = await authenticateRequest(req);
+  if (!authResult.success) {
+    return authResult.response;
   }
+  const { session } = authResult;
 
   try {
     const body = await req.json();
