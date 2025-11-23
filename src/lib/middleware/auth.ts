@@ -8,6 +8,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth';
+import { verifyToken } from '../auth/auth-service';
 import { auditLogger, getIpAddress, getUserAgent, getRequestId } from '../security/audit-logger';
 import { AuditEventType, AuditSeverity } from '../security/audit-logger';
 
@@ -131,6 +132,24 @@ const ROLE_PERMISSIONS: Record<string, Permission[]> = {
     Permission.EDIT_STUDENT_DATA,
   ],
 
+  EP: [
+    Permission.VIEW_OWN_DATA,
+    Permission.EDIT_OWN_PROFILE,
+    Permission.VIEW_EHCP,
+    Permission.CREATE_EHCP,
+    Permission.EDIT_EHCP,
+    Permission.EXPORT_EHCP,
+    Permission.VIEW_ASSESSMENTS,
+    Permission.CREATE_ASSESSMENTS,
+    Permission.EDIT_ASSESSMENTS,
+    Permission.SUBMIT_ASSESSMENTS,
+    Permission.VIEW_INTERVENTIONS,
+    Permission.CREATE_INTERVENTIONS,
+    Permission.EDIT_INTERVENTIONS,
+    Permission.VIEW_STUDENT_DATA,
+    Permission.EDIT_STUDENT_DATA,
+  ],
+
   TEACHER: [
     Permission.VIEW_OWN_DATA,
     Permission.EDIT_OWN_PROFILE,
@@ -215,7 +234,29 @@ export async function authenticateRequest(request: NextRequest): Promise<{
   success: false;
   response: NextResponse;
 }> {
-  const session = await getServerSession(authOptions);
+  let session = await getServerSession(authOptions);
+
+  // Fallback: Check for Bearer token if NextAuth session is missing
+  if (!session?.user) {
+    const authHeader = request.headers.get('Authorization');
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      const token = authHeader.substring(7);
+      const verifiedSession = await verifyToken(token);
+      
+      if (verifiedSession) {
+        // Construct a session object compatible with NextAuth structure
+        session = {
+          user: {
+            id: verifiedSession.id,
+            email: verifiedSession.email,
+            role: verifiedSession.role,
+            name: verifiedSession.name,
+            tenant_id: verifiedSession.tenant_id,
+          }
+        } as any;
+      }
+    }
+  }
 
   if (!session?.user) {
     const ipAddress = getIpAddress(request);

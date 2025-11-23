@@ -86,7 +86,7 @@ class AuditLogger {
     try {
       const userId = parseInt(entry.performedBy);
       const validUserId = isNaN(userId) ? 0 : userId;
-      const tenantId = entry.tenantId || 0;
+      const tenantId = entry.tenantId || null;
 
       await prisma.auditLog.create({
         data: {

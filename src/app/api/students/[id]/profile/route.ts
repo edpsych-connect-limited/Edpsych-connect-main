@@ -26,6 +26,7 @@ export const dynamic = 'force-dynamic';
  * Profile response structure
  */
 interface StudentProfileResponse {
+  // Existing fields
   profileId: string;
   studentId: string;
   studentName: string;
@@ -69,6 +70,23 @@ interface StudentProfileResponse {
   lastAssessmentDate: Date | null;
   lastLessonDate: Date | null;
   lastInterventionDate: Date | null;
+
+  // New fields for StudentProfileCard
+  id?: number;
+  name?: string;
+  learningStyle?: string;
+  performanceLevel?: 'above' | 'at' | 'below';
+  urgencyLevel?: 'urgent' | 'needs_support' | 'on_track' | 'exceeding';
+  todayLessons?: Array<{
+    id: string | number;
+    title: string;
+    subject: string;
+    status: 'completed' | 'in_progress' | 'pending';
+  }>;
+  // strengths and struggles are already there but with different types (string[] vs object array)
+  // I will add mapped versions
+  mappedStrengths?: Array<{ description: string; confidence: number }>;
+  mappedStruggles?: Array<{ description: string; severity: number }>;
 }
 
 /**
@@ -190,8 +208,13 @@ export async function GET(
       }),
     ]);
 
-    // Get last activity dates
-    const [lastAssessment, lastLesson] = await Promise.all([
+    // Calculate today's date range
+    const today = new Date();
+    const startOfDay = new Date(today.setHours(0, 0, 0, 0));
+    const endOfDay = new Date(today.setHours(23, 59, 59, 999));
+
+    // Get last activity dates and today's lessons
+    const [lastAssessment, lastLesson, todayLessons] = await Promise.all([
       prisma.assessments.findFirst({
         where: { cases: { student_id: parseInt(studentId) } },
         orderBy: { created_at: 'desc' },
@@ -201,6 +224,18 @@ export async function GET(
         where: { student_id: parseInt(studentId) },
         orderBy: { assigned_at: 'desc' },
         select: { assigned_at: true },
+      }),
+      prisma.studentLessonAssignment.findMany({
+        where: {
+          student_id: parseInt(studentId),
+          assigned_at: {
+            gte: startOfDay,
+            lte: endOfDay,
+          },
+        },
+        include: {
+          lesson_plan: true,
+        },
       }),
     ]);
 
@@ -267,6 +302,21 @@ export async function GET(
       lastAssessmentDate: lastAssessment?.created_at || null,
       lastLessonDate: lastLesson?.assigned_at || null,
       lastInterventionDate: null,
+
+      // New fields for StudentProfileCard
+      id: student.id,
+      name: `${student.first_name} ${student.last_name}`,
+      learningStyle: learningProfile.primaryLearningStyle || 'Visual',
+      performanceLevel: profile.profile_confidence > 0.7 ? 'above' : profile.profile_confidence > 0.4 ? 'at' : 'below',
+      urgencyLevel: profile.intervention_urgency === 'high' ? 'urgent' : profile.needs_intervention ? 'needs_support' : 'on_track',
+      todayLessons: todayLessons.map(l => ({
+        id: l.id,
+        title: l.lesson_plan.title,
+        subject: l.lesson_plan.subject,
+        status: (l.status === 'completed' || l.status === 'in_progress' || l.status === 'pending') ? l.status : 'pending',
+      })),
+      mappedStrengths: (Array.isArray(profile.current_strengths) ? profile.current_strengths as string[] : []).map(s => ({ description: s, confidence: 85 })),
+      mappedStruggles: (Array.isArray(profile.current_struggles) ? profile.current_struggles as string[] : []).map(s => ({ description: s, severity: 2 })),
     };
 
     // Log data access for GDPR audit trail

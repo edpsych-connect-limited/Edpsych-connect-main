@@ -186,7 +186,15 @@ export async function verifyToken(token: string): Promise<UserSession | null> {
  * @returns User session if authenticated, null otherwise
  */
 export async function getSessionFromRequest(req: NextRequest): Promise<UserSession | null> {
-  const token = req.cookies.get(COOKIE_NAME)?.value;
+  let token = req.cookies.get(COOKIE_NAME)?.value;
+  
+  // If no cookie, check Authorization header
+  if (!token) {
+    const authHeader = req.headers.get('Authorization');
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      token = authHeader.substring(7);
+    }
+  }
   
   if (!token) {
     return null;

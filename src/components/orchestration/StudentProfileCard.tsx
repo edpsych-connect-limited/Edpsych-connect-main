@@ -49,7 +49,7 @@ interface StudentProfile {
   struggles: Array<{ description: string; severity: number }>;
   confidenceScore: number;
   todayLessons: Array<{
-    id: number;
+    id: string | number;
     title: string;
     subject: string;
     status: 'completed' | 'in_progress' | 'pending';
@@ -190,7 +190,13 @@ export const StudentProfileCard: React.FC<StudentProfileCardProps> = ({
       if (!response.ok) {
         throw new Error(`Failed to fetch profile: ${response.status} ${response.statusText}`);
       }
-      return response.json();
+      const data = await response.json();
+      // Map API response to component state
+      return {
+        ...data,
+        strengths: data.mappedStrengths || [],
+        struggles: data.mappedStruggles || [],
+      };
     },
     staleTime: 5 * 60 * 1000, // 5 minutes
     retry: 2,

@@ -131,7 +131,15 @@ export async function verifyRefreshToken<T>(token: string): Promise<T | null> {
  */
 export async function getJwtFromRequest<T>(req: NextRequest): Promise<T | null> {
   // Check for 'auth-token' (used by route.ts) or 'auth_token' (legacy)
-  const token = req.cookies.get('auth-token')?.value || req.cookies.get('auth_token')?.value;
+  let token = req.cookies.get('auth-token')?.value || req.cookies.get('auth_token')?.value;
+  
+  // If no cookie, check Authorization header
+  if (!token) {
+    const authHeader = req.headers.get('Authorization');
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      token = authHeader.substring(7);
+    }
+  }
   
   if (!token) {
     return null;
