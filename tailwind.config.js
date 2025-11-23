@@ -9,13 +9,13 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          50: '#eff6ff',
+          50: 'rgb(var(--color-primary-50) / <alpha-value>)',
           100: '#dbeafe',
           200: '#bfdbfe',
           300: '#93c5fd',
           400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
+          500: 'rgb(var(--color-primary-500) / <alpha-value>)',
+          600: 'rgb(var(--color-primary-600) / <alpha-value>)',
           700: '#1d4ed8',
           800: '#1e40af',
           900: '#1e3a8a',

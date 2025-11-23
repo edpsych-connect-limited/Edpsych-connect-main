@@ -8,34 +8,34 @@ export default function ConductAssessmentPage() {
   const params = useParams();
   const searchParams = useSearchParams();
   const router = useRouter();
-  const caseId = params.id as string;
+  const assessmentId = params.id as string;
   const instanceId = searchParams.get('instanceId');
 
-  const [caseData, setCaseData] = useState<any>(null);
+  const [assessmentData, setAssessmentData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchCase = async () => {
+    const fetchAssessment = async () => {
       try {
-        const response = await fetch(`/api/cases/${caseId}`);
+        const response = await fetch(`/api/assessments/${assessmentId}`);
         if (response.ok) {
           const data = await response.json();
-          setCaseData(data.case);
+          setAssessmentData(data.assessment);
         } else {
-          setError('Case not found');
+          setError('Assessment not found');
         }
       } catch (err) {
-        setError('Failed to load case details');
+        setError('Failed to load assessment details');
       } finally {
         setLoading(false);
       }
     };
 
-    if (caseId) {
-      fetchCase();
+    if (assessmentId) {
+      fetchAssessment();
     }
-  }, [caseId]);
+  }, [assessmentId]);
 
   if (loading) {
     return (
@@ -45,17 +45,17 @@ export default function ConductAssessmentPage() {
     );
   }
 
-  if (error || !caseData) {
+  if (error || !assessmentData) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full text-center">
           <h1 className="text-xl font-bold text-red-600 mb-4">Error</h1>
-          <p className="text-gray-700 mb-4">{error || 'Case data unavailable'}</p>
+          <p className="text-gray-700 mb-4">{error || 'Assessment data unavailable'}</p>
           <button
-            onClick={() => router.push('/cases')}
+            onClick={() => router.push('/assessments')}
             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
-            Return to Cases
+            Return to Assessments
           </button>
         </div>
       </div>
@@ -63,18 +63,19 @@ export default function ConductAssessmentPage() {
   }
 
   // Calculate age
-  const birthDate = new Date(caseData.students.date_of_birth);
+  const birthDate = new Date(assessmentData.cases.students.date_of_birth);
   const ageDifMs = Date.now() - birthDate.getTime();
   const ageDate = new Date(ageDifMs); // miliseconds from epoch
   const age = Math.abs(ageDate.getUTCFullYear() - 1970);
 
   return (
     <AssessmentAdministrationWizard
-      caseId={parseInt(caseId)}
-      studentId={caseData.student_id}
-      studentName={`${caseData.students.first_name} ${caseData.students.last_name}`}
+      caseId={assessmentData.case_id}
+      studentId={assessmentData.cases.student_id}
+      studentName={`${assessmentData.cases.students.first_name} ${assessmentData.cases.students.last_name}`}
       studentAge={age}
       existingInstanceId={instanceId || undefined}
+      frameworkId={assessmentData.assessment_type === 'cognitive' ? 'ecca-v1' : undefined}
     />
   );
 }

@@ -212,6 +212,61 @@ export default function AssessmentListPage() {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        {/* Dashboard Widgets */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {/* ECCA Quick Start */}
+          <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg shadow-lg p-6 text-white">
+            <h3 className="text-lg font-bold mb-2">ECCA Framework</h3>
+            <p className="text-blue-100 text-sm mb-4">
+              EdPsych Connect Cognitive Assessment. Evidence-based, dynamic assessment workflow.
+            </p>
+            <button
+              onClick={() => router.push('/assessments/new?type=cognitive')}
+              className="w-full bg-white text-blue-600 font-medium py-2 px-4 rounded shadow hover:bg-blue-50 transition-colors"
+            >
+              Start New Assessment
+            </button>
+          </div>
+
+          {/* Recent Activity */}
+          <div className="bg-white rounded-lg shadow p-6 border border-gray-200">
+            <h3 className="text-lg font-bold text-gray-900 mb-2">Recent Activity</h3>
+            <div className="space-y-3">
+              {assessments.slice(0, 3).map(assessment => (
+                <div key={assessment.id} className="flex items-center justify-between text-sm">
+                  <span className="text-gray-600 truncate max-w-[120px]">
+                    {assessment.cases?.case_number || `#${assessment.case_id}`}
+                  </span>
+                  <span className={`px-2 py-0.5 rounded-full text-xs ${getStatusColor(assessment.status)}`}>
+                    {assessment.status.replace('_', ' ')}
+                  </span>
+                </div>
+              ))}
+              {assessments.length === 0 && (
+                <p className="text-gray-500 text-sm">No recent activity</p>
+              )}
+            </div>
+          </div>
+
+          {/* Pending Reports */}
+          <div className="bg-white rounded-lg shadow p-6 border border-gray-200">
+            <h3 className="text-lg font-bold text-gray-900 mb-2">Pending Reports</h3>
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-3xl font-bold text-gray-900">
+                {assessments.filter(a => a.status === 'completed' && !a.completion_date).length}
+              </span>
+              <span className="text-sm text-gray-500">Needs Review</span>
+            </div>
+            <button 
+              onClick={() => setFilters({...filters, status: 'completed'})}
+              className="text-blue-600 text-sm font-medium hover:underline"
+            >
+              View All Pending
+            </button>
+          </div>
+        </div>
+
         {/* Filters */}
         <div className="bg-white shadow rounded-lg p-6 mb-6">
           <h2 className="text-lg font-medium text-gray-900 mb-4">Filters</h2>

@@ -1,0 +1,41 @@
+{
+  "Common": {
+    "welcome": "Welcome to {portalName}",
+    "login": "Login",
+    "logout": "Logout",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "settings": "Settings",
+    "help": "Help",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success"
+  },
+  "Navigation": {
+    "home": "Home",
+    "classroom": "Classroom",
+    "assessments": "Assessments",
+    "interventions": "Interventions",
+    "ehcp": "EHCP",
+    "cases": "Cases",
+    "progress": "Progress",
+    "admin": "Admin",
+    "reports": "Reports"
+  },
+  "Onboarding": {
+    "title": "Welcome to EdPsych Connect",
+    "subtitle": "Let's get you set up",
+    "step1": "Role Selection",
+    "step2": "Organization",
+    "step3": "Profile Setup",
+    "step4": "Preferences",
+    "complete": "Setup Complete"
+  }
+}

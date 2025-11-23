@@ -20,24 +20,29 @@ export enum VerificationStatus {
 export interface InstitutionBase {
   name: string;
   type: string;
-  addressLine1: string;
-  addressLine2?: string;
-  city: string;
-  state?: string;
-  postalCode: string;
-  country: string;
+  size: string;
+  address?: string;
+  city?: string;
+  region?: string;
+  postcode?: string;
+  country?: string;
   phone?: string;
-  email?: string;
+  email: string;
   website?: string;
-  status: 'ACTIVE' | 'PENDING' | 'SUSPENDED' | 'INACTIVE';
-  verificationStatus: VerificationStatus;
+  logoUrl?: string;
+  notes?: string;
+  tags?: string[];
+  customFields?: any;
+  isActive: boolean;
+  verificationStatus: string;
+  verifiedAt?: Date | null;
+  createdBy?: string | null;
 }
 
 export interface Institution extends InstitutionBase {
   id: string;
   createdAt: Date;
   updatedAt: Date;
-  county?: string;
 }
 
 export interface User {
@@ -106,16 +111,16 @@ export enum UserRole {
 export interface DepartmentBase {
   name: string;
   description?: string;
-  parentDepartmentId?: string;
-  headOfDepartmentId?: string;
-  status: 'ACTIVE' | 'INACTIVE';
+  type: string;
+  parentDepartmentId?: string | null;
+  headOfDepartmentId?: string | null;
+  isActive: boolean;
+  status: string;
 }
 
 export interface Department extends DepartmentBase {
   id: string;
-  type: DepartmentType;
   institutionId: string;
-  isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
   createdBy: string;
@@ -147,6 +152,9 @@ export interface ContactBase {
   jobTitle?: string;
   notes?: string;
   id?: string;
+  institutionId: string;
+  departmentId?: string | null;
+  isActive: boolean;
 }
 
 export interface CreateContactInput extends ContactBase {

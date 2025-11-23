@@ -3,8 +3,10 @@ import { z } from 'zod';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { prisma } from '@/lib/prisma';
+import { AuditLogger } from '@/lib/audit/audit-logger';
 
 export const dynamic = 'force-dynamic';
+
 
 const LoginSchema = z.object({
   email: z.string().trim().toLowerCase().email('Invalid email address'),
@@ -88,6 +90,17 @@ export async function POST(request: NextRequest) {
     await prisma.users.update({
       where: { id: user.id },
       data: { last_login: new Date() },
+    });
+
+    // Log audit event
+    AuditLogger.log({
+      userId: user.id,
+      tenantId: user.tenant_id,
+      action: 'LOGIN',
+      resource: 'auth',
+      details: { method: 'password' },
+      ipAddress: request.headers.get('x-forwarded-for') || request.ip,
+      userAgent: request.headers.get('user-agent') || undefined,
     });
 
     // Prepare user data for response

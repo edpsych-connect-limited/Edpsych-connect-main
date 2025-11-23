@@ -136,7 +136,7 @@ export async function POST(
     const userId = session.id;
 
     // Verify role (only teachers and admin can execute quick actions)
-    if (!['teacher', 'admin', 'head_teacher'].includes(session.role)) {
+    if (!['educator', 'teacher', 'admin', 'head_teacher'].includes(session.role)) {
       console.warn(`[Quick Actions API] Insufficient permissions - User: ${userId}, Role: ${session.role}`);
       return NextResponse.json({
         error: 'Insufficient permissions. Only teachers and administrators can execute quick actions.'

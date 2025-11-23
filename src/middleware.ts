@@ -1,6 +1,10 @@
+import createMiddleware from 'next-intl/middleware';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { getJwtFromRequest } from '@/lib/auth/edge-auth-adapter/jwt';
+import { routing } from './navigation';
+
+const intlMiddleware = createMiddleware(routing);
 
 // Paths that require authentication
 const PROTECTED_PATHS = [
@@ -73,15 +77,15 @@ export async function middleware(request: NextRequest) {
       );
     }
 
-    // For other API routes, we might want to verify the token here too
-    // But for now, we'll rely on the route handlers to check auth
-    // or add a specific check for /api/protected/* if needed.
     return response;
   }
 
+  // Remove locale prefix for auth checking
+  const pathnameWithoutLocale = pathname.replace(/^\/(en|cy)/, '') || '/';
+
   // 2. Check if the path is protected
-  const isProtected = PROTECTED_PATHS.some(path => pathname.startsWith(path));
-  const isPublic = PUBLIC_PATHS.some(path => pathname.startsWith(path));
+  const isProtected = PROTECTED_PATHS.some(path => pathnameWithoutLocale.startsWith(path));
+  const isPublic = PUBLIC_PATHS.some(path => pathnameWithoutLocale.startsWith(path));
 
   if (isProtected && !isPublic) {
     // Verify authentication
@@ -90,36 +94,36 @@ export async function middleware(request: NextRequest) {
     if (!payload) {
       // User is not authenticated, redirect to login
       const url = request.nextUrl.clone();
-      url.pathname = '/login';
+      url.pathname = '/en/login'; // Default to en for login redirect
       url.searchParams.set('returnUrl', pathname);
       return NextResponse.redirect(url);
     }
 
     // Role-based access control (RBAC)
     // Example: /admin routes require ADMIN role
-    if (pathname.startsWith('/admin')) {
+    if (pathnameWithoutLocale.startsWith('/admin')) {
       const userRole = (payload as any).role;
       if (userRole !== 'ADMIN' && userRole !== 'SUPER_ADMIN') {
         // User does not have permission
         const url = request.nextUrl.clone();
-        url.pathname = '/dashboard'; // Redirect to user dashboard
+        url.pathname = '/en/dashboard'; // Redirect to user dashboard
         return NextResponse.redirect(url);
       }
     }
   }
 
   // 3. Redirect authenticated users away from auth pages
-  if (pathname === '/login' || pathname === '/register') {
+  if (pathnameWithoutLocale === '/login' || pathnameWithoutLocale === '/register') {
     const payload = await getJwtFromRequest(request);
     if (payload) {
       // User is already logged in, redirect to dashboard
       const url = request.nextUrl.clone();
-      url.pathname = '/dashboard';
+      url.pathname = '/en/dashboard';
       return NextResponse.redirect(url);
     }
   }
 
-  return NextResponse.next();
+  return intlMiddleware(request);
 }
 
 // Match everything except static files
@@ -135,3 +139,4 @@ export const config = {
     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 };
+

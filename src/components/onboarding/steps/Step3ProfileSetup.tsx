@@ -136,15 +136,30 @@ export function Step3ProfileSetup() {
     updateStep(3, { yearsExperience: value }, false);
   };
 
+  // Integration State
+  const [integrationStatus, setIntegrationStatus] = useState<Record<string, 'idle' | 'connecting' | 'connected'>>({
+    wonde: 'idle',
+    ctf: 'idle',
+    mis: 'idle'
+  });
+
+  const handleConnect = (type: string) => {
+    setIntegrationStatus(prev => ({ ...prev, [type]: 'connecting' }));
+    // Simulate connection delay
+    setTimeout(() => {
+      setIntegrationStatus(prev => ({ ...prev, [type]: 'connected' }));
+    }, 2000);
+  };
+
   return (
     <div className="space-y-8">
       {/* Header */}
       <div className="text-center">
         <h2 className="text-4xl font-bold text-gray-900 mb-3">
-          Complete Your Profile
+          Profile & Integrations
         </h2>
         <p className="text-lg text-gray-600">
-          Help colleagues recognize you and verify your credentials
+          Set up your profile and connect your existing school systems
         </p>
       </div>
 
@@ -344,6 +359,81 @@ export function Step3ProfileSetup() {
               <option value="16-20">16-20 years</option>
               <option value="20+">20+ years</option>
             </select>
+          </div>
+        </div>
+      </div>
+
+      {/* System Integrations Section */}
+      <div className="space-y-6 pt-6 border-t border-gray-200">
+        <h3 className="text-xl font-semibold text-gray-900">
+          System Integrations
+        </h3>
+        <p className="text-gray-600 text-sm">
+          Connect your existing Management Information Systems (MIS) to auto-import student data.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Wonde Integration */}
+          <div className="border border-gray-200 rounded-xl p-4 hover:border-indigo-300 transition-colors">
+            <div className="flex items-center justify-between mb-3">
+              <div className="font-bold text-gray-900">Wonde</div>
+              {integrationStatus.wonde === 'connected' && <Check className="w-5 h-5 text-green-600" />}
+            </div>
+            <p className="text-xs text-gray-500 mb-4">Sync student rosters and UPNs securely.</p>
+            <button 
+              onClick={() => handleConnect('wonde')}
+              disabled={integrationStatus.wonde !== 'idle'}
+              className={`w-full py-2 rounded-lg text-sm font-medium transition-all ${
+                integrationStatus.wonde === 'connected' ? 'bg-green-100 text-green-700' :
+                integrationStatus.wonde === 'connecting' ? 'bg-gray-100 text-gray-500' :
+                'bg-indigo-600 text-white hover:bg-indigo-700'
+              }`}
+            >
+              {integrationStatus.wonde === 'connected' ? 'Connected' : 
+               integrationStatus.wonde === 'connecting' ? 'Connecting...' : 'Connect'}
+            </button>
+          </div>
+
+          {/* CTF Import */}
+          <div className="border border-gray-200 rounded-xl p-4 hover:border-indigo-300 transition-colors">
+            <div className="flex items-center justify-between mb-3">
+              <div className="font-bold text-gray-900">CTF Import</div>
+              {integrationStatus.ctf === 'connected' && <Check className="w-5 h-5 text-green-600" />}
+            </div>
+            <p className="text-xs text-gray-500 mb-4">Upload Common Transfer Files (XML).</p>
+            <button 
+              onClick={() => handleConnect('ctf')}
+              disabled={integrationStatus.ctf !== 'idle'}
+              className={`w-full py-2 rounded-lg text-sm font-medium transition-all ${
+                integrationStatus.ctf === 'connected' ? 'bg-green-100 text-green-700' :
+                integrationStatus.ctf === 'connecting' ? 'bg-gray-100 text-gray-500' :
+                'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              {integrationStatus.ctf === 'connected' ? 'Uploaded' : 
+               integrationStatus.ctf === 'connecting' ? 'Uploading...' : 'Upload File'}
+            </button>
+          </div>
+
+          {/* Generic MIS */}
+          <div className="border border-gray-200 rounded-xl p-4 hover:border-indigo-300 transition-colors">
+            <div className="flex items-center justify-between mb-3">
+              <div className="font-bold text-gray-900">SIMS / Arbor</div>
+              {integrationStatus.mis === 'connected' && <Check className="w-5 h-5 text-green-600" />}
+            </div>
+            <p className="text-xs text-gray-500 mb-4">Direct API connection to your MIS.</p>
+            <button 
+              onClick={() => handleConnect('mis')}
+              disabled={integrationStatus.mis !== 'idle'}
+              className={`w-full py-2 rounded-lg text-sm font-medium transition-all ${
+                integrationStatus.mis === 'connected' ? 'bg-green-100 text-green-700' :
+                integrationStatus.mis === 'connecting' ? 'bg-gray-100 text-gray-500' :
+                'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              {integrationStatus.mis === 'connected' ? 'Linked' : 
+               integrationStatus.mis === 'connecting' ? 'Linking...' : 'Link Account'}
+            </button>
           </div>
         </div>
       </div>

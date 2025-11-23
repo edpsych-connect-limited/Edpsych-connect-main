@@ -1,18 +1,20 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
+import { Link, usePathname, useRouter } from '@/navigation';
 import { AuthProvider, useAuth } from '@/lib/auth/hooks';
-import { useRouter, usePathname } from 'next/navigation';
+
 import FeatureExplainer from '@/components/onboarding/FeatureExplainer';
 import { VoiceAssistant } from '@/components/voice/VoiceAssistant';
 import { ContextualHelp } from '@/components/help/ContextualHelp';
 import { DemoProvider } from '@/components/demo/DemoProvider';
 import { SupportChatbot } from '@/components/chat/SupportChatbot';
+import { BrandingProvider, useBranding } from '@/lib/branding/BrandingProvider';
 
 function HeaderContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, logout, hasRole } = useAuth();
+  const { config } = useBranding();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -28,7 +30,7 @@ function HeaderContent() {
     if (!user) return [];
     
     const role = user.role?.toUpperCase() || 'GUEST';
-    const links = [];
+    const links: { href: string; label: string; group: string }[] = [];
 
     // Admin / Super Admin
     if (role === 'ADMIN' || role === 'SUPERADMIN') {
@@ -71,28 +73,28 @@ function HeaderContent() {
     }
     // Student
     else if (role === 'STUDENT') {
-      list.push(
+      links.push(
         { href: '/gamification', label: 'Gamification', group: 'core' },
         { href: '/progress', label: 'My Progress', group: 'core' }
       );
     } 
     // Researcher
     else if (role === 'RESEARCHER') {
-      list.push(
+      links.push(
         { href: '/research', label: 'Research Hub', group: 'core' },
         { href: '/research?tab=datasets', label: 'Data Enclave', group: 'core' }
       );
     }
     // Local Authority (LAA)
     else if (role === 'LAA' || role === 'LOCAL_AUTHORITY') {
-      list.push(
+      links.push(
         { href: '/marketplace/la-panel', label: 'LAA Dashboard', group: 'core' },
         { href: '/ehcp', label: 'EHCP Review', group: 'core' }
       );
     }
     else {
       // Fallback for guests or unassigned roles (EPs)
-       list.push(
+       links.push(
         { href: '/assessments', label: 'Assessments', group: 'core' },
         { href: '/interventions', label: 'Interventions', group: 'core' },
         { href: '/marketplace', label: 'Marketplace', group: 'core' }
@@ -104,7 +106,7 @@ function HeaderContent() {
       { href: '/blog', label: 'Blog', group: 'resources' }
     );
 
-    return list;
+    return links;
   };
 
   const navLinks = getNavLinks();
@@ -114,8 +116,8 @@ function HeaderContent() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-bold text-blue-600 hover:text-blue-700">
-            EdPsych Connect World
+          <Link href="/" className="text-2xl font-bold text-primary-600 hover:text-primary-700">
+            {config.portalName}
           </Link>
 
           {/* Desktop Navigation */}
@@ -124,7 +126,7 @@ function HeaderContent() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 transition-colors"
               >
                 {link.label}
               </Link>
@@ -147,7 +149,7 @@ function HeaderContent() {
               ) : (
                 <Link
                   href="/login"
-                  className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-md transition-colors"
                 >
                   Login
                 </Link>
@@ -195,7 +197,7 @@ function HeaderContent() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                  className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -222,7 +224,7 @@ function HeaderContent() {
                   <Link
                     href="/login"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block px-3 py-2 rounded-md text-sm font-medium text-blue-600 hover:bg-blue-50 transition-colors"
+                    className="block px-3 py-2 rounded-md text-sm font-medium text-primary-600 hover:bg-primary-50 transition-colors"
                   >
                     Login
                   </Link>
@@ -247,23 +249,25 @@ export default function ClientLayout({
   return (
     <body className={`min-h-screen ${isLandingPage ? 'bg-slate-950' : 'bg-gray-50 text-gray-900'}`}>
       <AuthProvider>
-        <DemoProvider>
-          <HeaderContent />
-          <main className={isLandingPage ? '' : 'p-6'}>{children}</main>
-          <FeatureExplainer key={pathname} />
-          <VoiceAssistant />
-          <SupportChatbot />
-          {!isLandingPage && (
-            <div className="fixed bottom-6 right-24 z-50">
-              <ContextualHelp title="Help & Support" description="Get help with the current page." />
-            </div>
-          )}
-          {!isLandingPage && (
-            <footer className="bg-gray-100 text-center py-4 mt-10 text-sm text-gray-600">
-              © {new Date().getFullYear()} EdPsych Connect World. All rights reserved.
-            </footer>
-          )}
-        </DemoProvider>
+        <BrandingProvider>
+          <DemoProvider>
+            <HeaderContent />
+            <main className={isLandingPage ? '' : 'p-6'}>{children}</main>
+            <FeatureExplainer key={pathname} />
+            <VoiceAssistant />
+            <SupportChatbot />
+            {!isLandingPage && (
+              <div className="fixed bottom-6 right-24 z-50">
+                <ContextualHelp title="Help & Support" description="Get help with the current page." />
+              </div>
+            )}
+            {!isLandingPage && (
+              <footer className="bg-gray-100 text-center py-4 mt-10 text-sm text-gray-600">
+                © {new Date().getFullYear()} EdPsych Connect World. All rights reserved.
+              </footer>
+            )}
+          </DemoProvider>
+        </BrandingProvider>
       </AuthProvider>
     </body>
   );

@@ -4,9 +4,11 @@ import HeroOrchestration from './HeroOrchestration';
 import UserSegmentRouter from './UserSegmentRouter';
 import ResearchFoundation from './ResearchFoundation';
 import FlagshipDifferentiation from './flagship/FlagshipDifferentiation';
+import FlagshipECCA from './flagship/FlagshipECCA';
 import FlagshipGamification from './flagship/FlagshipGamification';
 import FlagshipEHCP from './flagship/FlagshipEHCP';
 import CoreCapabilitiesGrid from './CoreCapabilitiesGrid';
+import AssessmentLibraryPreview from './AssessmentLibraryPreview';
 import MarketplacePreview from './MarketplacePreview';
 import VideoPremiereSection from './VideoPremiereSection';
 import CommunityInsights from './CommunityInsights';
@@ -23,12 +25,14 @@ export default function LandingPage() {
       
       {/* Flagship Features */}
       <div id="features" className="space-y-0">
+        <FlagshipECCA />
         <FlagshipDifferentiation />
         <FlagshipGamification />
         <FlagshipEHCP />
       </div>
 
       <CoreCapabilitiesGrid />
+      <AssessmentLibraryPreview />
       <MarketplacePreview />
       <VideoPremiereSection />
       <CommunityInsights />

@@ -115,7 +115,7 @@ export default function AssessmentDetailPage() {
         <div className="flex space-x-4">
           {assessment.assessment_type === 'cognitive' && (
             <button
-              onClick={() => router.push(`/assessments/${assessment.case_id}/conduct`)}
+              onClick={() => router.push(`/assessments/${assessment.id}/conduct`)}
               className="flex-1 bg-blue-600 text-white px-4 py-3 rounded-lg shadow hover:bg-blue-700 font-medium text-center"
             >
               Launch Assessment Wizard

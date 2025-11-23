@@ -39,15 +39,35 @@ export async function POST(req: Request) {
       }, { status: 400 });
     }
 
-    const userId = parseInt(session.user.id);
-    const tenantId = parseInt(session.user.tenant_id);
+    const userId = session.user.id;
+
+    // Map Zod data to TutoringRequest interface
+    const requestData = validationResult.data;
+    
+    // Map learning style
+    let learningStyle: 'visual' | 'auditory' | 'kinaesthetic' | 'reading';
+    switch (requestData.preferredLearningStyle) {
+      case 'reading_writing':
+        learningStyle = 'reading';
+        break;
+      case 'kinesthetic':
+        learningStyle = 'kinaesthetic';
+        break;
+      default:
+        learningStyle = requestData.preferredLearningStyle as 'visual' | 'auditory';
+    }
 
     // 3. Delegate to Service
-    const result = await orchestratorService.processTutoringRequest(
-      validationResult.data,
-      userId,
-      tenantId
-    );
+    const result = await orchestratorService.processTutoringRequest({
+      studentId: userId,
+      subject: requestData.subject,
+      topic: requestData.topic,
+      currentLevel: requestData.currentLevel,
+      learningObjectives: requestData.learningObjectives,
+      timeAvailable: requestData.timeAvailable,
+      preferredLearningStyle: learningStyle,
+      specialEducationalNeeds: requestData.specialEducationalNeeds
+    });
 
     return NextResponse.json({ result });
 

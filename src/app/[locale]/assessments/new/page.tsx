@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
 
 import React from 'react';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import AssessmentForm from '@/components/assessments/AssessmentForm';
 
 export default function NewAssessmentPage() {
@@ -18,6 +18,9 @@ export default function NewAssessmentPage() {
   const session = sessionResult?.data;
   const status = sessionResult?.status;
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const type = searchParams.get('type');
+
   // Show loading during authentication check
   if (status === 'loading' || !session) {
     return (
@@ -62,7 +65,7 @@ export default function NewAssessmentPage() {
 
       {/* Form */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <AssessmentForm />
+        <AssessmentForm initialData={{ assessment_type: type || undefined }} />
       </div>
     </div>
   );

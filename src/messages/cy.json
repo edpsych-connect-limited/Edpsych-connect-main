@@ -1,0 +1,41 @@
+{
+  "Common": {
+    "welcome": "Croeso i {portalName}",
+    "login": "Mewngofnodi",
+    "logout": "Allgofnodi",
+    "dashboard": "Dangosfwrdd",
+    "profile": "Proffil",
+    "settings": "Gosodiadau",
+    "help": "Cymorth",
+    "save": "Cadw",
+    "cancel": "Canslo",
+    "delete": "Dileu",
+    "edit": "Golygu",
+    "back": "Yn ôl",
+    "next": "Nesaf",
+    "submit": "Cyflwyno",
+    "loading": "Llwytho...",
+    "error": "Digwyddodd gwall",
+    "success": "Llwyddiant"
+  },
+  "Navigation": {
+    "home": "Cartref",
+    "classroom": "Ystafell Ddosbarth",
+    "assessments": "Asesiadau",
+    "interventions": "Ymyriadau",
+    "ehcp": "EHCP",
+    "cases": "Achosion",
+    "progress": "Cynnydd",
+    "admin": "Gweinyddol",
+    "reports": "Adroddiadau"
+  },
+  "Onboarding": {
+    "title": "Croeso i EdPsych Connect",
+    "subtitle": "Gadewch i ni eich sefydlu",
+    "step1": "Dewis Rôl",
+    "step2": "Sefydliad",
+    "step3": "Sefydlu Proffil",
+    "step4": "Dewisiadau",
+    "complete": "Sefydlu Wedi'i Gwblhau"
+  }
+}

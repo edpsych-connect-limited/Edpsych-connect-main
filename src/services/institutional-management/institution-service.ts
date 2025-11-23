@@ -19,7 +19,7 @@ export interface CreateInstitutionInput {
   address?: string;
   city?: string;
   region?: string;
-  postalCode?: string;
+  postcode?: string;
   country?: string;
   phone?: string;
   email: string;
@@ -37,7 +37,7 @@ export interface UpdateInstitutionInput {
   address?: string;
   city?: string;
   region?: string;
-  postalCode?: string;
+  postcode?: string;
   country?: string;
   phone?: string;
   email?: string;
@@ -87,7 +87,7 @@ export class InstitutionService {
           address: data.address,
           city: data.city,
           region: data.region,
-          postcode: data.postalCode,
+          postcode: data.postcode,
           country: data.country,
           phone: data.phone,
           email: data.email,
@@ -265,7 +265,7 @@ export class InstitutionService {
           address: data.address,
           city: data.city,
           region: data.region,
-          postcode: data.postalCode,
+          postcode: data.postcode,
           country: data.country,
           phone: data.phone,
           email: data.email,
