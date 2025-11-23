@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import bcrypt from 'bcryptjs';
-import { sign } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create JWT token
-    const accessToken = sign(
+    const accessToken = jwt.sign(
       {
         userId: user.id,
         email: user.email,
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
       { expiresIn: '1d' }
     );
 
-    const refreshToken = sign(
+    const refreshToken = jwt.sign(
       {
         userId: user.id,
         email: user.email,
