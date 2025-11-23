@@ -81,7 +81,7 @@ export async function POST(req: Request) {
     
     // Send invitation email
     const studentName = `${assessment.student.first_name} ${assessment.student.last_name}`;
-    const epName = `${assessment.conductor.first_name} ${assessment.conductor.last_name}`;
+    const epName = `${assessment.conductor.firstName || 'EP'} ${assessment.conductor.lastName || ''}`.trim();
     
     await emailService.sendEmail({
       to: contributor_email,

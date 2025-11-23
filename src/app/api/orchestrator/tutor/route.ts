@@ -40,7 +40,7 @@ export async function POST(req: Request) {
     }
 
     const userId = parseInt(session.user.id);
-    const tenantId = parseInt(session.user.tenantId);
+    const tenantId = parseInt(session.user.tenant_id);
 
     // 3. Delegate to Service
     const result = await orchestratorService.processTutoringRequest(

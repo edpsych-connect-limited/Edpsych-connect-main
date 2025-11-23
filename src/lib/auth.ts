@@ -361,7 +361,8 @@ export const authOptions = {
           email: user.email,
           name: user.name,
           role: user.role ? [user.role] : ['student'], // Map single role to array for compatibility
-          isActive: true
+          isActive: true,
+          tenant_id: user.tenant_id
         };
       }
     })
@@ -374,6 +375,7 @@ export const authOptions = {
       if (token) {
         session.user.id = token.id;
         session.user.role = token.role;
+        session.user.tenant_id = token.tenant_id;
       }
       return session;
     },
@@ -381,6 +383,7 @@ export const authOptions = {
       if (user) {
         token.id = user.id;
         token.role = user.role;
+        token.tenant_id = user.tenant_id;
       }
       return token;
     }

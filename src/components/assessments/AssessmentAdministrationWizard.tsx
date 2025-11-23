@@ -16,7 +16,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { eccaFramework } from '@/lib/assessments/frameworks/ecca-framework';
 import { downloadAssessmentReport, type AssessmentReport } from '@/lib/assessments/report-generator';
 
 // ============================================================================
@@ -53,9 +52,10 @@ export default function AssessmentAdministrationWizard({
   existingInstanceId,
 }: AssessmentWizardProps) {
   const router = useRouter();
-  const framework = eccaFramework; // TODO: Load framework dynamically based on frameworkId
-
+  
   // State management
+  const [framework, setFramework] = useState<any>(null);
+  const [isLoadingFramework, setIsLoadingFramework] = useState(true);
   const [currentStep, setCurrentStep] = useState(0);
   const [assessmentData, setAssessmentData] = useState<any>({
     framework_id: frameworkId,
@@ -72,8 +72,29 @@ export default function AssessmentAdministrationWizard({
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [isGeneratingReport, setIsGeneratingReport] = useState(false);
 
+  // Fetch framework data
+  useEffect(() => {
+    const fetchFramework = async () => {
+      try {
+        const response = await fetch(`/api/assessments/frameworks/${frameworkId}`);
+        if (response.ok) {
+          const data = await response.json();
+          setFramework(data.framework);
+        } else {
+          console.error('Failed to fetch framework');
+        }
+      } catch (error) {
+        console.error('Error fetching framework:', error);
+      } finally {
+        setIsLoadingFramework(false);
+      }
+    };
+
+    fetchFramework();
+  }, [frameworkId]);
+
   // Wizard steps
-  const steps: WizardStep[] = [
+  const steps: WizardStep[] = framework ? [
     {
       id: 'overview',
       title: 'Assessment Overview',
@@ -123,7 +144,7 @@ export default function AssessmentAdministrationWizard({
       component: ReviewStep,
       isComplete: false,
     },
-  ];
+  ] : [];
 
   // Auto-save draft every 2 minutes
   useEffect(() => {
@@ -366,6 +387,37 @@ export default function AssessmentAdministrationWizard({
       setIsGeneratingReport(false);
     }
   };
+
+  if (isLoadingFramework) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent"></div>
+          <p className="mt-4 text-gray-600 font-medium">Loading assessment framework...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!framework) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center max-w-md mx-auto p-6 bg-white rounded-lg shadow-sm">
+          <svg className="mx-auto h-12 w-12 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <h3 className="mt-4 text-lg font-medium text-gray-900">Framework Not Found</h3>
+          <p className="mt-2 text-gray-600">The requested assessment framework could not be loaded. Please try again or contact support.</p>
+          <button
+            onClick={() => router.back()}
+            className="mt-6 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
+          >
+            Go Back
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   // Current step component
   const CurrentStepComponent = steps[currentStep].component;
