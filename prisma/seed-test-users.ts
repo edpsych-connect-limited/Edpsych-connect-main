@@ -44,7 +44,7 @@ async function main() {
     console.log('🧪 Creating Requested Demo Users...');
 
     // Demo Teacher
-    await prisma.users.upsert({
+    const demoTeacher = await prisma.users.upsert({
       where: { email: 'teacher@demo.com' },
       update: { 
         password_hash: demoPassword,
@@ -65,6 +65,40 @@ async function main() {
       },
     });
     console.log('✅ Demo Teacher created: teacher@demo.com / Test123!');
+
+    // Create Demo Class for Demo Teacher
+    const existingDemoClass = await prisma.classRoster.findFirst({
+      where: {
+        tenant_id: tenant.id,
+        class_name: 'Demo Class 1A'
+      }
+    });
+
+    let demoClass;
+    if (existingDemoClass) {
+      demoClass = await prisma.classRoster.update({
+        where: { id: existingDemoClass.id },
+        data: { teacher_id: demoTeacher.id }
+      });
+      console.log('✅ Demo Class updated and assigned to Demo Teacher');
+    } else {
+      demoClass = await prisma.classRoster.create({
+        data: {
+          tenant_id: tenant.id,
+          teacher_id: demoTeacher.id,
+          class_name: 'Demo Class 1A',
+          year_group: 'Year 1',
+          subject: 'General',
+          academic_year: '2024-2025',
+          urgent_students: [],
+          needs_support: [],
+          on_track: [],
+          exceeding: [],
+          voice_enabled: true
+        }
+      });
+      console.log('✅ Demo Class created and assigned to Demo Teacher');
+    }
 
     // Demo Parent
     await prisma.users.upsert({
