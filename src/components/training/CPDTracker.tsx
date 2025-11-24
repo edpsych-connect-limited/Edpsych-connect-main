@@ -313,6 +313,7 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
           <h3 className="text-lg font-semibold text-gray-900">Audit Trail</h3>
           <div className="flex items-centre gap-3">
             <select
+              aria-label="Export format"
               value={exportFormat}
               onChange={(e) => setExportFormat(e.target.value as 'csv' | 'pdf')}
               className="px-3 py-2 border border-gray-300 rounded-md text-sm"

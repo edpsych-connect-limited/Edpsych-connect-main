@@ -281,10 +281,11 @@ export default function StudentProgressDashboard({
 
           {/* Time Range Selector */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label htmlFor="time-range" className="block text-sm font-semibold text-gray-700 mb-2">
               Time Range
             </label>
             <select
+              id="time-range"
               value={timeRange}
               onChange={(e) => setTimeRange(e.target.value as any)}
               className="p-2 border border-gray-300 rounded"
@@ -555,7 +556,7 @@ function GoalProgressBar({ goal }: { goal: Goal }) {
               ? 'bg-yellow-600'
               : 'bg-red-600'
           }`}
-          style={{ width: `${goal.progress_percentage}%` }}
+          style={{ width: `${goal.progress_percentage}%` }} // eslint-disable-line
         />
       </div>
 

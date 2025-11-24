@@ -103,10 +103,10 @@ export function ProgressIndicator({
       {/* Progress Bar Container */}
       <div
         role="progressbar"
-        aria-valuenow={progressPercentage}
+        aria-valuenow={Math.round(progressPercentage)}
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-label={`Onboarding progress: ${progressPercentage}% complete, on step ${currentStep} of 6: ${STEP_NAMES[currentStep]}`}
+        aria-label={`Onboarding progress: ${Math.round(progressPercentage)}% complete, on step ${currentStep} of 6: ${STEP_NAMES[currentStep]}`}
         className="w-full"
       >
         {/* Overall Progress Bar */}
@@ -122,7 +122,7 @@ export function ProgressIndicator({
           <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-indigo-500 to-purple-600 transition-all duration-500 ease-out"
-              style={{ width: `${progressPercentage}%` }}
+              style={{ width: `${progressPercentage}%` }} // eslint-disable-line
               aria-hidden="true"
             />
           </div>
