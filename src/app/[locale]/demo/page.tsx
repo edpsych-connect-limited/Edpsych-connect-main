@@ -87,6 +87,90 @@ export default function DemoPage() {
                 </li>
               </ul>
             </div>
+
+            {/* New Assessment Demo Card */}
+            <div className="bg-gradient-to-br from-purple-900/50 to-indigo-900/50 border border-purple-500/30 rounded-xl p-6">
+              <h3 className="text-lg font-semibold mb-2 text-white">Assessment Sandbox</h3>
+              <p className="text-slate-300 text-sm mb-4">
+                Try our dynamic assessment workflow without creating an account. Generate a real PDF report.
+              </p>
+              <Link 
+                href="/demo/assessment" 
+                className="block w-full text-center px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-medium transition-colors"
+              >
+                Launch Sandbox
+              </Link>
+            </div>
+
+            {/* Intervention Demo Card */}
+            <div className="bg-gradient-to-br from-blue-900/50 to-cyan-900/50 border border-blue-500/30 rounded-xl p-6">
+              <h3 className="text-lg font-semibold mb-2 text-white">Intervention Library</h3>
+              <p className="text-slate-300 text-sm mb-4">
+                Explore our evidence-based intervention database. Filter by age, need, and evidence level.
+              </p>
+              <Link 
+                href="/demo/interventions" 
+                className="block w-full text-center px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition-colors"
+              >
+                Browse Library
+              </Link>
+            </div>
+
+            {/* Training Demo Card */}
+            <div className="bg-gradient-to-br from-emerald-900/50 to-teal-900/50 border border-emerald-500/30 rounded-xl p-6">
+              <h3 className="text-lg font-semibold mb-2 text-white">Training Platform</h3>
+              <p className="text-slate-300 text-sm mb-4">
+                Experience our CPD-accredited training courses. Try a sample module and quiz.
+              </p>
+              <Link 
+                href="/demo/training" 
+                className="block w-full text-center px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-medium transition-colors"
+              >
+                Start Learning
+              </Link>
+            </div>
+
+            {/* EHCP Demo Card */}
+            <div className="bg-gradient-to-br from-orange-900/50 to-amber-900/50 border border-orange-500/30 rounded-xl p-6">
+              <h3 className="text-lg font-semibold mb-2 text-white">EHCP Wizard</h3>
+              <p className="text-slate-300 text-sm mb-4">
+                Draft a compliant Education, Health and Care Plan in minutes using our guided workflow.
+              </p>
+              <Link 
+                href="/demo/ehcp" 
+                className="block w-full text-center px-4 py-2 bg-orange-600 hover:bg-orange-500 text-white rounded-lg font-medium transition-colors"
+              >
+                Draft EHCP
+              </Link>
+            </div>
+
+            {/* Gamification Demo Card */}
+            <div className="bg-gradient-to-br from-indigo-900/50 to-violet-900/50 border border-indigo-500/30 rounded-xl p-6">
+              <h3 className="text-lg font-semibold mb-2 text-white">Battle Royale</h3>
+              <p className="text-slate-300 text-sm mb-4">
+                Test your SEND knowledge against other SENCOs in our gamified learning arena.
+              </p>
+              <Link 
+                href="/demo/gamification" 
+                className="block w-full text-center px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors"
+              >
+                Enter Arena
+              </Link>
+            </div>
+
+            {/* Progress Tracking Demo Card */}
+            <div className="bg-gradient-to-br from-blue-900/50 to-cyan-900/50 border border-blue-500/30 rounded-xl p-6">
+              <h3 className="text-lg font-semibold mb-2 text-white">Progress Tracking</h3>
+              <p className="text-slate-300 text-sm mb-4">
+                Visualize student outcomes and measure intervention impact with our analytics dashboard.
+              </p>
+              <Link 
+                href="/demo/tracking" 
+                className="block w-full text-center px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition-colors"
+              >
+                View Dashboard
+              </Link>
+            </div>
           </div>
         </div>
       </main>

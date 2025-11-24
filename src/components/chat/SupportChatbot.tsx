@@ -44,25 +44,51 @@ export function SupportChatbot() {
       timestamp: new Date()
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    const newMessages = [...messages, userMessage];
+    setMessages(newMessages);
     setInputValue('');
     setIsTyping(true);
 
-    // Simulate API call
     try {
-      // In a real app, this would call /api/chat
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
+      const response = await fetch('/api/ai/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: newMessages.map(m => ({ role: m.role, content: m.content })),
+          agentId: 'general-assistant'
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success && data.data) {
+        const botResponse: Message = {
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: data.data.content,
+          timestamp: new Date()
+        };
+        setMessages(prev => [...prev, botResponse]);
+      } else {
+        console.error('API Error:', data.error);
+        // Fallback for demo if API fails (e.g. no API keys)
+        const botResponse: Message = {
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: "I'm currently running in offline mode. " + getMockResponse(userMessage.content),
+          timestamp: new Date()
+        };
+        setMessages(prev => [...prev, botResponse]);
+      }
+    } catch (error) {
+      console.error('Failed to send message:', error);
       const botResponse: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: getMockResponse(userMessage.content),
+        content: "I'm currently running in offline mode. " + getMockResponse(userMessage.content),
         timestamp: new Date()
       };
-
       setMessages(prev => [...prev, botResponse]);
-    } catch (error) {
-      console.error('Failed to send message:', error);
     } finally {
       setIsTyping(false);
     }
