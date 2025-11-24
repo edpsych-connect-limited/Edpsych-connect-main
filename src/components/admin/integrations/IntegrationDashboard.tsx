@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -12,6 +14,65 @@ import {
 } from 'lucide-react';
 import { ProviderCard, ProviderProps } from './ProviderCard';
 import { ConnectionStatus } from './IntegrationStatusBadge';
+
+// Static definitions
+const initialProviders: ProviderProps[] = [
+  {
+    id: 'wonde',
+    name: 'Wonde',
+    description: 'The standard for UK school data. Connects to SIMS, Arbor, Bromcom, and ScholarPack.',
+    logo: '⚡',
+    status: 'disconnected',
+    features: ['Real-time Student Sync', 'Staff Directory', 'Timetables', 'Attendance'],
+    onConnect: () => console.log('Connect Wonde'), // Placeholder, will be overridden
+    onConfigure: () => console.log('Config Wonde'),
+    helpText: 'You can find your API Token in the Wonde Portal under "API Settings". If you are unsure, please ask your IT Network Manager.'
+  },
+  {
+    id: 'sims-legacy',
+    name: 'SIMS (On-Premise)',
+    description: 'Direct connection for schools hosting SIMS locally via the Command Reporter gateway.',
+    logo: '🏢',
+    status: 'disconnected',
+    features: ['Nightly XML Sync', 'Student Records', 'Assessment Data'],
+    onConnect: () => console.log('Connect SIMS'),
+    onConfigure: () => console.log('Config SIMS'),
+    helpText: 'Enter the secure Gateway URL provided by your IT team after installing the EdPsych Connector.'
+  },
+  {
+    id: 'arbor',
+    name: 'Arbor MIS',
+    description: 'Cloud-native MIS integration for modern multi-academy trusts.',
+    logo: '🌳',
+    status: 'pending',
+    features: ['API V2 Support', 'Behavior Incidents', 'Assessment Write-back'],
+    onConnect: () => console.log('Connect Arbor'),
+    onConfigure: () => console.log('Config Arbor'),
+    helpText: 'Generate an API Key in Arbor under System > Partner Apps > EdPsych Connect.'
+  },
+  {
+    id: 'cpoms',
+    name: 'CPOMS',
+    description: 'Safeguarding and child protection software integration.',
+    logo: '🛡️',
+    status: 'disconnected',
+    features: ['Safeguarding Alerts', 'Incident Logging'],
+    onConnect: () => console.log('Connect CPOMS'),
+    onConfigure: () => console.log('Config CPOMS'),
+    helpText: 'Contact CPOMS support to request an API Key for EdPsych Connect.'
+  },
+  {
+    id: 'azure-ad',
+    name: 'Microsoft Entra ID',
+    description: 'Single Sign-On (SSO) and user provisioning for staff and students.',
+    logo: '🔑',
+    status: 'disconnected',
+    features: ['SAML 2.0 SSO', 'Group Sync', 'MFA Enforcement'],
+    onConnect: () => console.log('Connect Azure'),
+    onConfigure: () => console.log('Config Azure'),
+    helpText: 'You will need your Tenant ID and Client Secret from the Azure Portal.'
+  }
+];
 
 export default function IntegrationDashboard() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -34,20 +95,30 @@ export default function IntegrationDashboard() {
         // Merge API status with static definitions
         const updatedProviders = initialProviders.map(p => {
           const statusData = data.providers[p.id];
+          // Override onConnect to use local state
+          const providerWithHandler = {
+            ...p,
+            onConnect: () => setConnectingProvider(p.id)
+          };
+
           if (statusData) {
             return { 
-              ...p, 
+              ...providerWithHandler, 
               status: statusData.status as ConnectionStatus, 
               lastSync: statusData.lastSync ? new Date(statusData.lastSync) : undefined 
             };
           }
-          return p;
+          return providerWithHandler;
         });
         
         setProviders(updatedProviders);
-      } catch (err) {
-        console.error('Failed to fetch integration status', err);
-        setProviders(initialProviders);
+      } catch (_err) {
+        console.error('Failed to fetch integration status', _err);
+        // Initialize with handlers even on error
+        setProviders(initialProviders.map(p => ({
+          ...p,
+          onConnect: () => setConnectingProvider(p.id)
+        })));
       } finally {
         setLoading(false);
       }
@@ -67,7 +138,8 @@ export default function IntegrationDashboard() {
     }
   };
 
-  const handleConnect = async (providerId: string) => {
+  const handleConnect = async (providerId: string | null) => {
+    if (!providerId) return;
     setConnectionError('');
     try {
       const res = await fetch('/api/integrations/connect', {
@@ -88,69 +160,10 @@ export default function IntegrationDashboard() {
       } else {
         setConnectionError(data.error || 'Connection failed');
       }
-    } catch (err) {
+    } catch (_err) {
       setConnectionError('Network error occurred');
     }
   };
-
-  // Static definitions
-  const initialProviders: ProviderProps[] = [
-    {
-      id: 'wonde',
-      name: 'Wonde',
-      description: 'The standard for UK school data. Connects to SIMS, Arbor, Bromcom, and ScholarPack.',
-      logo: '⚡',
-      status: 'disconnected',
-      features: ['Real-time Student Sync', 'Staff Directory', 'Timetables', 'Attendance'],
-      onConnect: () => setConnectingProvider('wonde'),
-      onConfigure: () => console.log('Config Wonde'),
-      helpText: 'You can find your API Token in the Wonde Portal under "API Settings". If you are unsure, please ask your IT Network Manager.'
-    },
-    {
-      id: 'sims-legacy',
-      name: 'SIMS (On-Premise)',
-      description: 'Direct connection for schools hosting SIMS locally via the Command Reporter gateway.',
-      logo: '🏢',
-      status: 'disconnected',
-      features: ['Nightly XML Sync', 'Student Records', 'Assessment Data'],
-      onConnect: () => setConnectingProvider('sims-legacy'),
-      onConfigure: () => console.log('Config SIMS'),
-      helpText: 'Enter the secure Gateway URL provided by your IT team after installing the EdPsych Connector.'
-    },
-    {
-      id: 'arbor',
-      name: 'Arbor MIS',
-      description: 'Cloud-native MIS integration for modern multi-academy trusts.',
-      logo: '🌳',
-      status: 'pending',
-      features: ['API V2 Support', 'Behavior Incidents', 'Assessment Write-back'],
-      onConnect: () => setConnectingProvider('arbor'),
-      onConfigure: () => console.log('Config Arbor'),
-      helpText: 'Generate an API Key in Arbor under System > Partner Apps > EdPsych Connect.'
-    },
-    {
-      id: 'cpoms',
-      name: 'CPOMS',
-      description: 'Safeguarding and child protection software integration.',
-      logo: '🛡️',
-      status: 'disconnected',
-      features: ['Safeguarding Alerts', 'Incident Logging'],
-      onConnect: () => setConnectingProvider('cpoms'),
-      onConfigure: () => console.log('Config CPOMS'),
-      helpText: 'Contact CPOMS support to request an API Key for EdPsych Connect.'
-    },
-    {
-      id: 'azure-ad',
-      name: 'Microsoft Entra ID',
-      description: 'Single Sign-On (SSO) and user provisioning for staff and students.',
-      logo: '🔑',
-      status: 'disconnected',
-      features: ['SAML 2.0 SSO', 'Group Sync', 'MFA Enforcement'],
-      onConnect: () => setConnectingProvider('azure-ad'),
-      onConfigure: () => console.log('Config Azure'),
-      helpText: 'You will need your Tenant ID and Client Secret from the Azure Portal.'
-    }
-  ];
 
   const filteredProviders = providers.filter(p => 
     p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||

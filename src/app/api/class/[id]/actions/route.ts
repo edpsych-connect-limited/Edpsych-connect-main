@@ -301,8 +301,9 @@ export async function GET(
     // Log data access for GDPR audit trail
     await prisma.auditLog.create({
       data: {
-        userId: userId,
-        tenantId: tenantId,
+        userId: userId.toString(),
+        user_id_int: userId,
+        tenant_id: tenantId,
         action: 'class_actions_view',
         resource: 'class_actions',
         details: {
@@ -500,8 +501,9 @@ export async function POST(
     // Log approval decision
     await prisma.auditLog.create({
       data: {
-        userId: userId,
-        tenantId: tenantId,
+        userId: userId.toString(),
+        user_id_int: userId,
+        tenant_id: tenantId,
         action: 'action_approval',
         resource: 'automated_action',
         details: {
