@@ -4,8 +4,7 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "plugins": [
-    "@typescript-eslint",
-    "next"
+    "@typescript-eslint"
   ],
   "parser": "@typescript-eslint/parser",
   "rules": {

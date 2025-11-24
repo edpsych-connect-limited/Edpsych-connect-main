@@ -112,7 +112,6 @@
     "cypress-wait-until": "^3.0.2",
     "eslint": "8.57.1",
     "eslint-config-next": "14.1.0",
-    "eslint-plugin-next": "14.1.0",
     "terser-webpack-plugin": "^5.3.14",
     "tough-cookie": "^6.0.0",
     "typescript": "^5.0.0",
