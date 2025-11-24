@@ -159,7 +159,7 @@ export class DigitalSignatureService {
     try {
       // Query for active signature
       const signatureQuery: any = {
-        userId: parseInt(userId),
+        userId: userId,
         agreementType,
         status: 'active'
       };
@@ -186,7 +186,8 @@ export class DigitalSignatureService {
           id: generateUUID(),
           action: 'signature_verified',
           resource: 'LegalSignature',
-          userId: parseInt(userId),
+          userId: userId,
+          user_id_int: parseInt(userId),
           details: {
             entityId: signature.id,
             description: `Signature verified for agreement ${agreementType}`,
@@ -336,7 +337,7 @@ export class DigitalSignatureService {
   public static async getUserSignatures(userId: string): Promise<any[]> {
     try {
       const signatures = await prisma.legalSignature.findMany({
-        where: { userId: parseInt(userId) },
+        where: { userId: userId },
         orderBy: { signedAt: 'desc' }
       });
       
@@ -346,7 +347,8 @@ export class DigitalSignatureService {
           id: generateUUID(),
           action: 'signatures_listed',
           resource: 'LegalSignature',
-          userId: parseInt(userId),
+          userId: userId,
+          user_id_int: parseInt(userId),
           details: {
             entityId: userId,
             description: `User signatures listed (${signatures.length} signatures)`,

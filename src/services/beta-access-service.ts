@@ -157,7 +157,7 @@ export class BetaAccessService {
         success: true,
         code: {
           id: updatedCode.id,
-          remainingUses: updatedCode.maxUses - updatedCode.usedCount
+          remainingUses: updatedCode.maxUses - updatedCode.currentUses
         }
       };
     } catch (error) {
@@ -193,7 +193,8 @@ export class BetaAccessService {
         data: {
           id: crypto.randomUUID(),
           accessCodeId: useResult.code.id,
-          userId: parseInt(id), // Parse string ID to Int
+          user_id_int: parseInt(id), // Parse string ID to Int
+          userId: id,
           usedAt: new Date()
         }
       });
@@ -225,11 +226,10 @@ export class BetaAccessService {
       const now = new Date();
       
       // Find all active codes (not expired and have remaining uses)
-      // Note: Prisma doesn't support field comparison in where clause directly for maxUses > usedCount
+      // Note: Prisma doesn't support field comparison in where clause directly for maxUses > currentUses
       // So we fetch active/non-expired codes and filter in memory
       const potentialCodes = await this.prisma.betaAccessCode.findMany({
         where: {
-          isActive: true,
           OR: [
             { expiresAt: null },
             { expiresAt: { gt: now } }
@@ -237,7 +237,7 @@ export class BetaAccessService {
         }
       });
       
-      const activeCodes = potentialCodes.filter(code => code.maxUses > code.usedCount);
+      const activeCodes = potentialCodes.filter(code => code.maxUses > code.currentUses);
       
       return activeCodes;
     } catch (error) {

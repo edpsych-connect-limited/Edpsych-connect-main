@@ -103,7 +103,7 @@ export class AuditLogService {
 
     // Build filter conditions
     const whereConditions: any = {
-      tenantId: parseInt(institutionId)
+      tenant_id: parseInt(institutionId)
     };
 
     if (options.actionType) {
@@ -111,7 +111,7 @@ export class AuditLogService {
     }
 
     if (options.userId) {
-      whereConditions.userId = parseInt(options.userId);
+      whereConditions.user_id_int = parseInt(options.userId);
     }
 
     if (options.startDate || options.endDate) {
@@ -153,8 +153,8 @@ export class AuditLogService {
         details: parsedDetails,
         timestamp: log.createdAt, // Map createdAt to timestamp for compatibility
         // Extract institution data from details if available
-        institution: log.tenantId ? {
-          id: log.tenantId.toString(),
+        institution: log.tenant_id ? {
+          id: log.tenant_id.toString(),
           name: 'Institution' // We don't fetch tenant name here to avoid N+1
         } : null
       };
@@ -184,7 +184,7 @@ export class AuditLogService {
     // Get user's recent activities
     const logs = await this.prisma.auditLog.findMany({
       where: {
-        userId: parseInt(userId),
+        user_id_int: parseInt(userId),
         resource: 'Institution' // Filter to only institutional logs
       },
       orderBy: {
@@ -201,8 +201,8 @@ export class AuditLogService {
         details: parsedDetails,
         timestamp: log.createdAt, // Map createdAt to timestamp for compatibility
         // Extract institution data from details if available
-        institution: log.tenantId ? {
-          id: log.tenantId.toString(),
+        institution: log.tenant_id ? {
+          id: log.tenant_id.toString(),
           name: 'Institution'
         } : null
       };
