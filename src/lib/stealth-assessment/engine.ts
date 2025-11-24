@@ -43,21 +43,34 @@ export class StealthAssessmentEngine {
     // Fast correct answers boost processing speed
     if (correct && timeTaken < 2000) {
       this.updateMetric('ecca-domain-processing-speed', 5, 'Rapid accurate response detected');
-    } else if (timeTaken > 5000) {
+    } else if (timeTaken > 8000) {
       this.updateMetric('ecca-domain-processing-speed', -2, 'Extended processing time observed');
     }
 
     // 2. Working Memory Analysis
     // Complex questions (high difficulty) require holding more in mind
-    if (difficulty > 3 && correct) {
-      this.updateMetric('ecca-domain-working-memory', 10, 'Successfully handled high-load task');
+    if (difficulty >= 4 && correct) {
+      this.updateMetric('ecca-domain-working-memory', 8, 'Successfully handled high-load task');
+    } else if (difficulty >= 4 && !correct && timeTaken > 5000) {
+       // Struggled with complex task despite time taken
+       this.updateMetric('ecca-domain-working-memory', -3, 'Difficulty with high cognitive load');
     }
 
-    // 3. Attention Analysis
-    // Consistent performance implies sustained attention
-    // (This is a simple heuristic; real engine would look at variance)
+    // 3. Attention & Executive Function Analysis
     if (correct) {
       this.updateMetric('ecca-domain-attention-executive-function', 2, 'Maintained focus on task');
+    }
+
+    // Heuristic: Impulsivity (Fast + Incorrect)
+    if (!correct && timeTaken < 1500) {
+      this.updateMetric('ecca-domain-attention-executive-function', -6, 'Impulsive response detected (<1.5s)');
+    }
+
+    // Heuristic: Persistence vs. Giving Up (Long time + Incorrect)
+    if (!correct && timeTaken > 10000) {
+       // This might indicate they tried hard but failed (Persistence) OR they zoned out (Attention)
+       // We'll flag it as a need for scaffolding rather than just a penalty
+       this.updateMetric('ecca-domain-learning-memory', -2, 'Struggled to retrieve/process despite time');
     }
   }
 

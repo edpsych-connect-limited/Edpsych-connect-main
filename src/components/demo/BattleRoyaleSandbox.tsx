@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Star, Target, Zap, Shield, Crown, Users, Timer, Brain, Sparkles, BookOpen, Eye, Activity } from 'lucide-react';
 import { StealthAssessmentEngine } from '@/lib/stealth-assessment/engine';
 import { AssessmentSession } from '@/lib/stealth-assessment/types';
+import { StudentProfileService } from '@/lib/student-profile/service';
 
 // Enterprise-Grade Pedagogical Data (KS2/KS3 Transition Focus)
 const MOCK_LEADERBOARD = [
@@ -180,6 +181,10 @@ export default function BattleRoyaleSandbox() {
         nextQuestion();
       } else {
         setGameState('result');
+        // Save Session to Profile
+        if (engineRef.current) {
+          void StudentProfileService.saveSession('student-123', engineRef.current.getSession());
+        }
       }
     }, 2500); // Allow time to read explanation
   };
