@@ -1,7 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { Star, Target, Zap, Shield, Crown, Users, Timer, Brain, Sparkles, BookOpen } from 'lucide-react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { Star, Target, Zap, Shield, Crown, Users, Timer, Brain, Sparkles, BookOpen, Eye, Activity } from 'lucide-react';
+import { StealthAssessmentEngine } from '@/lib/stealth-assessment/engine';
+import { AssessmentSession } from '@/lib/stealth-assessment/types';
 
 // Enterprise-Grade Pedagogical Data (KS2/KS3 Transition Focus)
 const MOCK_LEADERBOARD = [
@@ -74,6 +76,27 @@ export default function BattleRoyaleSandbox() {
   const [timeLeft, setTimeLeft] = useState(45); // Increased for student accessibility
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  
+  // Stealth Assessment State
+  const [showTeacherView, setShowTeacherView] = useState(false);
+  const engineRef = useRef<StealthAssessmentEngine | null>(null);
+  const questionStartTime = useRef<number>(0);
+  const [sessionData, setSessionData] = useState<AssessmentSession | null>(null);
+
+  // Initialize Engine
+  useEffect(() => {
+    if (!engineRef.current) {
+      engineRef.current = new StealthAssessmentEngine('demo-session-1');
+      setSessionData(engineRef.current.getSession());
+    }
+  }, []);
+
+  // Track question start time
+  useEffect(() => {
+    if (gameState === 'playing' && selectedAnswer === null) {
+      questionStartTime.current = Date.now();
+    }
+  }, [gameState, currentQuestionIndex, selectedAnswer]);
 
   const nextQuestion = useCallback(() => {
     setCurrentQuestionIndex((prev) => prev + 1);
@@ -116,9 +139,32 @@ export default function BattleRoyaleSandbox() {
   const handleAnswer = (index: number) => {
     if (selectedAnswer !== null) return;
 
+    const timeTaken = Date.now() - questionStartTime.current;
     setSelectedAnswer(index);
     const correct = index === ADAPTIVE_QUESTIONS[currentQuestionIndex].correctAnswer;
     setIsCorrect(correct);
+
+    // Process Event in Stealth Engine
+    if (engineRef.current) {
+      const updatedSession = engineRef.current.processEvent({
+        id: crypto.randomUUID(),
+        timestamp: Date.now(),
+        type: 'RESPONSE',
+        data: {
+          questionId: ADAPTIVE_QUESTIONS[currentQuestionIndex].id,
+          correct,
+          timeTaken,
+          difficulty: 4, // Mock difficulty
+          selectedOption: index
+        },
+        context: {
+          gameId: 'battle-royale',
+          sessionId: 'demo-session-1',
+          difficultyLevel: 4
+        }
+      });
+      setSessionData({ ...updatedSession }); // Force re-render
+    }
 
     if (correct) {
       const timeBonus = Math.floor(timeLeft * 10);
@@ -140,7 +186,14 @@ export default function BattleRoyaleSandbox() {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <div className="mb-8 text-center">
+      <div className="mb-8 text-center relative">
+        <button
+          onClick={() => setShowTeacherView(!showTeacherView)}
+          className="absolute top-0 right-0 p-2 bg-slate-800 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700 transition-colors border border-slate-700"
+          title="Toggle Teacher/EP View"
+        >
+          {showTeacherView ? <Eye className="w-5 h-5 text-indigo-400" /> : <Eye className="w-5 h-5" />}
+        </button>
         <h1 className="text-3xl font-bold text-white mb-2 flex items-center justify-center gap-3">
           <Brain className="w-8 h-8 text-indigo-400" />
           Student Knowledge Arena
@@ -483,6 +536,59 @@ export default function BattleRoyaleSandbox() {
           </div>
         )}
       </div>
+      {/* Teacher / EP Dashboard Overlay */}
+      {showTeacherView && sessionData && (
+        <div className="mt-8 bg-slate-900 border border-indigo-500/30 rounded-xl p-6 animate-in slide-in-from-bottom-4">
+          <div className="flex items-center gap-3 mb-6 border-b border-slate-800 pb-4">
+            <Activity className="w-6 h-6 text-indigo-400" />
+            <div>
+              <h3 className="text-lg font-bold text-white">Real-Time Cognitive Analysis (ECCA Framework)</h3>
+              <p className="text-xs text-slate-400">Stealth Assessment Engine v1.0 • Session ID: {sessionData.sessionId}</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {Object.values(sessionData.metrics).map((metric) => (
+              <div key={metric.domainId} className="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
+                <div className="flex justify-between items-start mb-2">
+                  <h4 className="text-sm font-medium text-slate-300">
+                    {metric.domainId.replace('ecca-domain-', '').replace(/-/g, ' ').toUpperCase()}
+                  </h4>
+                  <span className={`text-xs font-bold px-2 py-1 rounded ${
+                    metric.score > 60 ? 'bg-emerald-900/30 text-emerald-400' : 
+                    metric.score < 40 ? 'bg-red-900/30 text-red-400' : 'bg-yellow-900/30 text-yellow-400'
+                  }`}>
+                    {Math.round(metric.score)}/100
+                  </span>
+                </div>
+                
+                {/* Progress Bar */}
+                <div className="h-2 bg-slate-700 rounded-full mb-3 overflow-hidden">
+                  <div 
+                    className={`h-full transition-all duration-500 ${
+                      metric.score > 60 ? 'bg-emerald-500' : 
+                      metric.score < 40 ? 'bg-red-500' : 'bg-yellow-500'
+                    }`}
+                    style={{ width: `${metric.score}%` }} // eslint-disable-line
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  {metric.observations.slice(-2).map((obs, idx) => (
+                    <div key={idx} className="text-xs text-slate-400 flex items-center gap-2">
+                      <div className="w-1 h-1 bg-indigo-400 rounded-full" />
+                      {obs}
+                    </div>
+                  ))}
+                  {metric.observations.length === 0 && (
+                    <div className="text-xs text-slate-600 italic">Awaiting data...</div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
