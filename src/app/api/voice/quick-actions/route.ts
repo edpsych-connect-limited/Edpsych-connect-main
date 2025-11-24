@@ -476,9 +476,9 @@ export async function POST(
     // Log GDPR audit trail
     await prisma.auditLog.create({
       data: {
-        userId: userId.toString(),
-        user_id_int: parseInt(userId),
-        tenantId: tenantId,
+        userId: userId?.toString() || 'unknown',
+        user_id_int: userId ? parseInt(userId) : undefined,
+        tenant_id: tenantId,
         resource: 'quick_action',
         action: 'quick_action',
         details: {

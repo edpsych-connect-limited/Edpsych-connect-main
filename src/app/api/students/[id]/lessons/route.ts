@@ -262,7 +262,7 @@ export async function GET(
       data: {
         userId: userId.toString(),
         user_id_int: userId,
-        tenantId: tenantId,
+        tenant_id: tenantId,
         action: 'student_lessons_view',
         resource: 'student_lessons',
         details: {
