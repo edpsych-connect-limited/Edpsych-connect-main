@@ -366,7 +366,7 @@ async function generateInterestBasedRecommendations(
 
 async function generateAssessmentBasedRecommendations(
   userId: number,
-  tenantId: number
+  _tenantId: number
 ): Promise<any[]> {
   const recommendations = [];
 
@@ -403,8 +403,8 @@ async function generateAssessmentBasedRecommendations(
 }
 
 async function generatePopularityBasedRecommendations(
-  userId: number,
-  tenantId: number
+  _userId: number,
+  _tenantId: number
 ): Promise<any[]> {
   const recommendations = [];
 
@@ -455,9 +455,9 @@ async function generatePopularityBasedRecommendations(
 }
 
 async function generateCompletionBasedRecommendations(
-  userId: number,
+  _userId: number,
   learningProfile: any,
-  tenantId: number
+  _tenantId: number
 ): Promise<any[]> {
   const recommendations = [];
 
@@ -506,9 +506,9 @@ async function generateCompletionBasedRecommendations(
 }
 
 async function generatePredictiveRecommendations(
-  userId: number,
+  _userId: number,
   learningProfile: any,
-  tenantId: number
+  _tenantId: number
 ): Promise<any[]> {
   const recommendations = [];
 
@@ -695,7 +695,7 @@ async function updateProfileFromRecommendationFeedback(
   userId: number,
   recommendation: any,
   status: string,
-  feedback: string | null
+  _feedback: string | null
 ): Promise<void> {
   const profile = await (prisma as any).userLearningProfile.findUnique({
     where: { user_id: userId },

@@ -18,7 +18,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
 import { prisma } from '@/lib/prisma';
-import { crossModuleIntelligenceService } from '@/lib/orchestration/cross-module-intelligence.service';
 import { z } from 'zod';
 
 export const dynamic = 'force-dynamic';

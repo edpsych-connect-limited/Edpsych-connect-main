@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-component-props, react/forbid-dom-props */
 /**
  * Student Progress Dashboard
  * Task 3.4: Comprehensive Progress Tracking & Visualization
@@ -69,16 +70,6 @@ interface Alert {
   message: string;
   date: string;
   resolved: boolean;
-}
-
-interface ChartData {
-  labels: string[];
-  datasets: Array<{
-    label: string;
-    data: number[];
-    borderColor?: string;
-    backgroundColor?: string;
-  }>;
 }
 
 // ============================================================================
@@ -555,10 +546,13 @@ function GoalProgressBar({ goal }: { goal: Goal }) {
               : goal.status === 'at_risk'
               ? 'bg-yellow-600'
               : 'bg-red-600'
-          }`}
-          // eslint-disable-next-line
-          style={{ width: `${goal.progress_percentage}%` }}
+          } progress-fill`}
         />
+        <style jsx>{`
+          .progress-fill {
+            width: ${goal.progress_percentage}%;
+          }
+        `}</style>
       </div>
 
       {/* Status Badge */}

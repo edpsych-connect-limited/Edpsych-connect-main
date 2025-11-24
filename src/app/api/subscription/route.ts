@@ -25,7 +25,6 @@ import {
   getStripePriceId,
   isUpgrade,
   isDowngrade,
-  mapStripePriceToTier,
 } from '@/lib/stripe-config';
 
 function getStripeClient(): Stripe {
@@ -134,7 +133,7 @@ async function handleGetCurrent(request: NextRequest) {
 /**
  * GET /api/subscription/status
  */
-async function handleGetStatus(request: NextRequest) {
+async function handleGetStatus(_request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -165,7 +164,7 @@ async function handleGetStatus(request: NextRequest) {
 /**
  * GET /api/subscription/check-feature
  */
-async function handleCheckFeature(request: NextRequest) {
+async function handleCheckFeature(_request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -447,6 +446,6 @@ export async function POST(request: NextRequest) {
   return routeRequest(request);
 }
 
-export async function OPTIONS(request: NextRequest) {
+export async function OPTIONS(_request: NextRequest) {
   return NextResponse.json({}, { status: 200 });
 }

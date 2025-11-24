@@ -130,7 +130,7 @@ async function main() {
     };
 
     const reportGenerator = new AssessmentReportGenerator();
-    // @ts-ignore - ignoring strict type checks for verification script
+    // @ts-expect-error - ignoring strict type checks for verification script
     const reportBlob = await reportGenerator.generateReport(reportData);
     
     // Convert Blob to Buffer to get size (Node.js environment)

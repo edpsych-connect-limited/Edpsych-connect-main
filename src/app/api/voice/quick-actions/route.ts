@@ -410,7 +410,7 @@ export async function POST(
 
       case 'extend_deadline':
         if (targetType === 'lesson' && parameters?.daysToExtend) {
-          const lesson = await prisma.studentLessonAssignment.findFirst({
+          const _lesson = await prisma.studentLessonAssignment.findFirst({
             where: {
               id: targetId,
               student_id: studentIdInt,

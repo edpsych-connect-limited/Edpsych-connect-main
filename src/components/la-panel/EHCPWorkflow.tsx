@@ -1,20 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   CheckCircle, 
   Clock, 
-  AlertTriangle, 
   FileText, 
   Users, 
-  ChevronRight,
   Send,
   Edit3,
   Eye
 } from 'lucide-react';
 
 export default function EHCPWorkflow({ caseId, studentName, onBack }: { caseId: string, studentName: string, onBack: () => void }) {
-  const [currentPhase, setCurrentPhase] = useState(2); // Default to Assessment phase for demo
-  const [activeTab, setActiveTab] = useState('advice');
-
   const phases = [
     { id: 1, name: 'Request & Triage', weeks: '1-6', status: 'completed' },
     { id: 2, name: 'Assessment & Advice', weeks: '6-12', status: 'active' },

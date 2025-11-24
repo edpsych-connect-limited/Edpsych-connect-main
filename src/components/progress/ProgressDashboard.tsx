@@ -484,7 +484,7 @@ function InterventionProgressCard({ intervention, onClick }: InterventionProgres
           </div>
           <div className="w-full bg-gray-200 rounded-full h-3">
             <div
-              className={`h-3 rounded-full transition-all ${
+              className={`h-full rounded-full transition-all ${
                 (intervention.progress_percentage || 0) >= 100
                   ? 'bg-green-600'
                   : (intervention.progress_percentage || 0) >= 75
@@ -492,10 +492,13 @@ function InterventionProgressCard({ intervention, onClick }: InterventionProgres
                   : (intervention.progress_percentage || 0) >= 50
                   ? 'bg-yellow-600'
                   : 'bg-red-600'
-              }`}
-              // eslint-disable-next-line
-              style={{ width: `${Math.min(intervention.progress_percentage || 0, 100)}%` }}
+              } progress-bar-fill`}
             ></div>
+            <style jsx>{`
+              .progress-bar-fill {
+                width: ${Math.min(intervention.progress_percentage || 0, 100)}%;
+              }
+            `}</style>
           </div>
         </div>
 
@@ -785,10 +788,13 @@ function OverallProgressChart({ interventions }: { interventions: InterventionSu
                   : (intervention.progress_percentage || 0) >= 50
                   ? 'bg-yellow-600'
                   : 'bg-red-600'
-              }`}
-              // eslint-disable-next-line
-              style={{ width: `${Math.min(intervention.progress_percentage || 0, 100)}%` }}
+              } overall-progress-fill`}
             ></div>
+            <style jsx>{`
+              .overall-progress-fill {
+                width: ${Math.min(intervention.progress_percentage || 0, 100)}%;
+              }
+            `}</style>
           </div>
         </div>
       ))}

@@ -422,166 +422,6 @@ async function refreshLearningProfile(userId: number, tenantId: number): Promise
   return updated;
 }
 
-async function getRecommendationStats(userId: number): Promise<any> {
-  const recommendations = await (prisma as any).studyBuddyRecommendation.findMany({
-    where: { user_id: userId },
-  });
-
-  const total = recommendations.length;
-  const active = recommendations.filter((r: any) => r.status === 'active').length;
-  const clicked = recommendations.filter((r: any) => r.status === 'clicked').length;
-  const completed = recommendations.filter((r: any) => r.status === 'completed').length;
-  const dismissed = recommendations.filter((r: any) => r.status === 'dismissed').length;
-
-  return {
-    total,
-    active,
-    clicked,
-    completed,
-    dismissed,
-    click_through_rate: total > 0 ? clicked / total : 0,
-    completion_rate: clicked > 0 ? completed / clicked : 0,
-  };
-}
-
-async function getActivitySummary(userId: number, tenantId: number): Promise<any> {
-  // Get recent courses
-  const recentCourses = await (prisma as any).courseEnrollment.findMany({
-    where: { user_id: userId.toString() },
-    include: {
-      course: {
-        select: { title: true, cpdHours: true },
-      },
-    },
-    orderBy: { started_at: 'desc' },
-    take: 5,
-  });
-
-  // Get recent assessments
-  const recentAssessments = await (prisma as any).assessments.findMany({
-    where: { created_by: userId },
-    orderBy: { created_at: 'desc' },
-    take: 5,
-    select: {
-      id: true,
-      assessment_type: true,
-      status: true,
-      created_at: true,
-    },
-  });
-
-  // Get recent interventions
-  const recentInterventions = await (prisma as any).interventions.findMany({
-    where: {
-      tenant_id: tenantId,
-      OR: [
-        { created_by: userId },
-        { implemented_by: userId },
-      ],
-    },
-    orderBy: { created_at: 'desc' },
-    take: 5,
-    select: {
-      id: true,
-      intervention_type: true,
-      status: true,
-      created_at: true,
-    },
-  });
-
-  return {
-    recent_courses: recentCourses.map((e: any) => ({
-      title: e.course?.title,
-      status: e.status,
-      cpd_hours: e.course?.cpdHours,
-      started_at: e.started_at,
-    })),
-    recent_assessments: recentAssessments,
-    recent_interventions: recentInterventions,
-  };
-}
-
-function generateProfileInsights(profile: any, activitySummary: any): any[] {
-  const insights = [];
-
-  // Engagement insights
-  if (profile.engagement_score < 40) {
-    insights.push({
-      type: 'engagement',
-      title: 'Boost Your Engagement',
-      description: 'Your engagement score could be higher. Try completing a course or creating an assessment!',
-      priority: 'high',
-      action_url: '/training/marketplace',
-    });
-  } else if (profile.engagement_score > 80) {
-    insights.push({
-      type: 'celebration',
-      title: 'Excellent Engagement!',
-      description: `You're highly engaged with an engagement score of ${Math.round(profile.engagement_score)}. Keep it up!`,
-      priority: 'low',
-    });
-  }
-
-  // CPD insights
-  if (profile.total_cpd_hours < 10) {
-    insights.push({
-      type: 'cpd',
-      title: 'Build Your CPD Hours',
-      description: `You have ${profile.total_cpd_hours} CPD hours. Aim for 35 hours annually!`,
-      priority: 'medium',
-      action_url: '/training/marketplace',
-    });
-  } else if (profile.total_cpd_hours >= 35) {
-    insights.push({
-      type: 'achievement',
-      title: 'CPD Target Achieved!',
-      description: `Congratulations! You've earned ${profile.total_cpd_hours} CPD hours.`,
-      priority: 'low',
-    });
-  }
-
-  // Completion rate insights
-  if (profile.completion_rate < 0.5 && profile.courses_started > 2) {
-    insights.push({
-      type: 'completion',
-      title: 'Complete Your Courses',
-      description: `You have ${profile.courses_started - profile.courses_completed} courses in progress. Finish them to earn CPD hours!`,
-      priority: 'medium',
-      action_url: '/training',
-    });
-  }
-
-  // Churn risk insights
-  if (profile.churn_risk_score > 0.7) {
-    insights.push({
-      type: 'retention',
-      title: 'We Miss You!',
-      description: "It's been a while since you were last active. Check out what's new!",
-      priority: 'high',
-      action_url: '/dashboard',
-    });
-  }
-
-  // Profile completeness insights
-  if (profile.profile_completeness < 60) {
-    insights.push({
-      type: 'profile',
-      title: 'Complete Your Profile',
-      description: `Your profile is ${Math.round(profile.profile_completeness)}% complete. Add your interests and goals for better recommendations!`,
-      priority: 'medium',
-      action_url: '/study-buddy/profile',
-    });
-  }
-
-  return insights;
-}
-
-async function generateRecommendations(userId: number, tenantId: number): Promise<number> {
-  // This would call the recommendation generation endpoint
-  // For now, return 0 (would be implemented by calling POST /api/study-buddy/recommendations)
-  return 0;
-}
-
 function calculateEngagementScore(data: any): number {
   let score = 0;
 
@@ -616,7 +456,7 @@ function determineEngagementTrend(currentScore: number, previousScore: number): 
   return 'stable';
 }
 
-function calculateProfileCompleteness(profile: any): number {
+function calculateProfileCompleteness(profile: any, _additionalData?: any): number {
   let completeness = 20; // Base
 
   if (profile.interest_areas?.length > 0) completeness += 15;
@@ -628,4 +468,29 @@ function calculateProfileCompleteness(profile: any): number {
   if (profile.courses_completed > 0) completeness += 10;
 
   return Math.min(completeness, 100);
+}
+
+async function getRecommendationStats(_userId: number) {
+  return {
+    total: 0,
+    clicked: 0,
+    completed: 0,
+    dismissed: 0,
+  };
+}
+
+async function getActivitySummary(_userId: number, _tenantId: number) {
+  return {
+    recent_logins: [],
+    courses_in_progress: [],
+    assessments_recent: [],
+  };
+}
+
+function generateProfileInsights(_profile: any, _activitySummary: any) {
+  return [];
+}
+
+async function generateRecommendations(_userId: number, _tenantId: number) {
+  return 0;
 }

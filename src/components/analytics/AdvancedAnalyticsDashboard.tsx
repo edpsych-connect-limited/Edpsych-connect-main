@@ -36,8 +36,8 @@ export default AdvancedAnalyticsDashboard;
  * Integrates real-time insights, compliance status, and predictive analytics
  */
 export const OperationalIntelligenceDashboard: React.FC = () => {
-  const [systemHealth, setSystemHealth] = React.useState('Healthy');
-  const [complianceStatus, setComplianceStatus] = React.useState('Compliant');
+  const [systemHealth] = React.useState('Healthy');
+  const [complianceStatus] = React.useState('Compliant');
   const [predictions, setPredictions] = React.useState<{ metric: string; forecast: string }[]>([]);
 
   React.useEffect(() => {

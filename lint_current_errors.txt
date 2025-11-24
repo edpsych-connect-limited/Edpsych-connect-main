@@ -1,0 +1,719 @@
+
+> edpsych-connect-web-v2@1.0.0 lint
+> next lint
+
+
+./src/algorithm/services/AlgorithmUsageService.js
+177:1  Warning: Assign instance to a variable before exporting as module default  import/no-anonymous-default-export
+
+./src/app/[locale]/assessments/[id]/conduct/page.tsx
+28:16  Warning: 'err' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/[locale]/assessments/[id]/page.tsx
+25:16  Warning: 'err' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/[locale]/assessments/page.tsx
+116:6  Warning: React Hook useEffect has a missing dependency: 'fetchAssessments'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/[locale]/blog/[slug]/page.tsx
+33:6  Warning: React Hook useEffect has a missing dependency: 'loadPost'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+223:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+381:21  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/[locale]/blog/page.tsx
+42:6  Warning: React Hook useEffect has missing dependencies: 'handleCategoryFilter', 'handleSearch', and 'handleTagFilter'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+274:25  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+345:25  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/[locale]/cases/[id]/page.tsx
+70:6  Warning: React Hook useEffect has a missing dependency: 'loadCase'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/[locale]/collaborate/[token]/page.tsx
+26:6  Warning: React Hook useEffect has a missing dependency: 'loadFormData'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/[locale]/dashboard/page.tsx
+24:28  Warning: 'hasRole' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/[locale]/ehcp/[id]/page.tsx
+102:17  Warning: 'session' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+139:6  Warning: React Hook useEffect has a missing dependency: 'fetchEHCP'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/[locale]/ehcp/page.tsx
+176:6  Warning: React Hook useEffect has a missing dependency: 'fetchEHCPs'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/[locale]/help/[slug]/page.tsx
+27:6  Warning: React Hook useEffect has a missing dependency: 'loadArticle'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/[locale]/help/page.tsx
+34:6  Warning: React Hook useEffect has a missing dependency: 'handleSearch'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/[locale]/interventions/new/page.tsx
+23:10  Warning: 'templateId' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+25:24  Warning: 'setTemplateData' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/[locale]/marketplace/la-panel/page.tsx
+9:3  Warning: 'CheckCircle' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+11:3  Warning: 'Search' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+12:3  Warning: 'Filter' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+189:27  Warning: 'progressStyle' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/[locale]/pricing/page.tsx
+243:9  Warning: 'price' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/[locale]/subscription/page.tsx
+21:8  Warning: 'SubscriptionPlan' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+490:3  Warning: 'downloadUrl' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/[locale]/test-navigation/page.tsx
+8:9  Warning: 'router' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/[locale]/training/checkout/[productId]/page.tsx
+47:6  Warning: React Hook useEffect has a missing dependency: 'loadProduct'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+82:14  Warning: 'error' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/[locale]/training/dashboard/page.tsx
+76:24  Warning: 'setAchievements' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+77:26  Warning: 'setRecentActivity' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/assessments/[id]/report/route.ts
+33:14  Warning: 'e' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/assessments/[id]/route.ts
+9:10  Warning: 'authenticateRequest' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+11:51  Warning: 'getUserAgent' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+33:9  Warning: 'ipAddress' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+34:9  Warning: 'requestId' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/assessments/instances/route.ts
+68:11  Warning: 'session' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+80:9  Warning: 'framework_id' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+81:9  Warning: 'case_id' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+82:9  Warning: 'student_id' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+83:9  Warning: 'tenant_id' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+84:9  Warning: 'conducted_by' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+85:9  Warning: 'created_at' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+86:9  Warning: 'collaborative_input' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/battle-royale/squad/route.ts
+22:3  Warning: 'MatchmakingPlayer' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/cases/[id]/route.ts
+21:10  Warning: 'authenticateRequest' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/cases/route.ts
+16:10  Warning: 'authenticateRequest' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/class/[id]/students/route.ts
+198:54  Warning: 'cases' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/class/dashboard/route.ts
+41:14  Warning: 'e' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/cpd/portfolio/route.ts
+35:11  Warning: 'format' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/cron/predictions/route.ts
+17:3  Warning: 'PredictiveAnalyticsEngine' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/interventions/[id]/route.ts
+21:10  Warning: 'authenticateRequest' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/interventions/route.ts
+16:10  Warning: 'authenticateRequest' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/lessons/assign/route.ts
+21:10  Warning: 'crossModuleIntelligenceService' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/lessons/differentiate/route.ts
+22:10  Warning: 'assignmentEngineService' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+208:40  Warning: 'differentiationFocus' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/multi-agency/view/route.ts
+21:10  Warning: 'dataRouterService' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+87:11  Warning: 'classId' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+90:11  Warning: 'studentId' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+95:11  Warning: 'context' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/orchestrator/status/route.ts
+9:27  Warning: 'req' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/progress/dashboard/route.ts
+24:8  Warning: 'prisma' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+99:10  Warning: 'calculateTrend' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+127:10  Warning: 'calculateProgressPercentage' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+249:11  Warning: 'caseId' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+250:11  Warning: 'studentId' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+252:11  Warning: 'domains' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/research/library/route.ts
+252:11  Warning: 'userLibraryEntry' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/students/[id]/profile/route.ts
+243:11  Warning: 'lastIntervention' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+247:11  Warning: 'behavioralPatterns' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+252:11  Warning: 'readinessIndicators' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/students/[id]/route.ts
+21:10  Warning: 'authenticateRequest' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/students/route.ts
+16:10  Warning: 'authenticateRequest' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/study-buddy/chat/route.ts
+187:11  Warning: 'userMessage' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+242:11  Warning: 'updatedSession' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/study-buddy/insights/route.ts
+310:63  Warning: 'tenantId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+369:65  Warning: 'tenantId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/study-buddy/profile/route.ts
+504:48  Warning: 'activitySummary' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+579:40  Warning: 'userId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+579:56  Warning: 'tenantId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/study-buddy/recommendations/route.ts
+327:3  Warning: 'tenantId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+369:3  Warning: 'tenantId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+406:3  Warning: 'userId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+407:3  Warning: 'tenantId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+460:3  Warning: 'tenantId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+511:3  Warning: 'tenantId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+698:3  Warning: 'feedback' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/subscription/route.ts
+28:3  Warning: 'mapStripePriceToTier' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+137:32  Warning: 'request' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+168:35  Warning: 'request' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+450:31  Warning: 'request' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/training/route.ts
+21:10  Warning: 'prisma' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+111:11  Warning: 'search' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+179:35  Warning: 'request' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/voice/command/route.ts
+214:64  Warning: 'index' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/voice/quick-actions/route.ts
+413:17  Warning: 'lesson' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/waitlist/route.ts
+141:27  Warning: 'req' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/api/webhooks/stripe/route.ts
+26:3  Warning: 'STRIPE_WEBHOOK_EVENTS' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/admin/integrations/IntegrationStatusBadge.tsx
+59:9  Warning: 'Icon' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/ai-agents/TutoringInterface.tsx
+197:18  Warning: 'jsonError' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+208:16  Warning: 'parseError' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/algorithms/FeaturedAlgorithms.jsx
+11:3  Warning: 'IconButton' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+17:21  Warning: 'NavigateBeforeIcon' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+18:19  Warning: 'NavigateNextIcon' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/algorithms/MarketplaceFilters.jsx
+1:17  Warning: 'useState' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/analytics/AdvancedAnalyticsDashboard.tsx
+39:24  Warning: 'setSystemHealth' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+40:28  Warning: 'setComplianceStatus' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/assessment-engine/AssessmentEngine.tsx
+294:6  Warning: React Hook useEffect has a missing dependency: 'timeRemaining'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+294:20  Warning: React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.  react-hooks/exhaustive-deps
+
+./src/components/assessments/AssessmentAdministration.tsx
+20:3  Warning: 'AssessmentSection' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+74:10  Warning: 'instance' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/assessments/AssessmentAdministrationWizard.tsx
+162:6  Warning: React Hook useEffect has a missing dependency: 'saveDraft'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+913:6  Warning: React Hook React.useEffect has a missing dependency: 'loadCollaborations'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/assessments/CollaborativeInputForm.tsx
+74:6  Warning: React Hook useEffect has a missing dependency: 'handleSaveDraft'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+249:47  Warning: 'index' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/assessments/ResultsAnalysis.tsx
+162:3  Warning: 'studentAge' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+431:3  Warning: 'studentName' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+432:3  Warning: 'studentAge' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+620:3  Warning: 'current' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+621:3  Warning: 'historical' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/cases/CaseManagement.tsx
+76:11  Warning: 'Milestone' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+863:25  Warning: 'caseItem' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+935:29  Warning: 'caseItem' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+1026:21  Warning: 'caseItem' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/cases/CaseManager.tsx
+71:3  Warning: 'tenantId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/demos/InteractiveDemoPlayer.tsx
+72:6  Warning: React Hook useEffect has missing dependencies: 'handleNext' and 'steps'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/ehcp/EHCPWizardForm.tsx
+148:9  Warning: 'updateField' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/ehcp/ReviewWorkflow.tsx
+154:6  Warning: React Hook useEffect has a missing dependency: 'fetchReviewData'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/ehcp/SENNeedsAssessment.tsx
+91:3  Warning: 'studentId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+92:3  Warning: 'ehcpId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+749:3  Warning: 'data' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+750:3  Warning: 'updateData' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/error-handling/__tests__/jest.setup.ts
+1:1  Error: Do not use "@ts-nocheck" because it alters compilation errors.  @typescript-eslint/ban-ts-comment
+
+./src/components/institutional-management/PerformanceMetrics.tsx
+124:33  Warning: 'value' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/institutional-management/__mocks__/PerformanceMetrics.tsx
+3:50  Warning: 'id' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/interventions/InterventionDesigner.tsx
+23:27  Warning: 'useEffect' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+34:3  Warning: 'RecommendationResponse' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+35:3  Warning: 'InterventionRecommendation' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+118:3  Warning: 'caseId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+119:3  Warning: 'tenantId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+121:3  Warning: 'onSave' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+122:3  Warning: 'onCancel' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/interventions/InterventionLibrary.tsx
+41:3  Warning: 'caseId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/landing/legacy/ECCAFrameworkShowcase.tsx
+3:40  Warning: 'TrendingUp' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/landing/legacy/FeatureShowcaseSection.tsx
+306:3  Warning: 'index' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/landing/legacy/HeroSection.tsx
+25:10  Warning: 'showProblemSolver' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+28:10  Warning: 'challengeAnalysis' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+56:6  Warning: React Hook useEffect has a missing dependency: 'headlines.length'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/landing/legacy/TrainingPlatformSection.tsx
+3:56  Warning: 'TrendingUp' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/networking/ProfessionalNetwork.tsx
+417:25  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+591:27  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/components/onboarding/OnboardingWizard.tsx
+71:6  Warning: React Hook useEffect has missing dependencies: 'refreshStatus', 'startOnboarding', 'state.currentStep', and 'state.timeStarted'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/onboarding/steps/Step2RoleSelection.tsx
+19:10  Warning: 'ROLE_CONFIGS' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+193:17  Warning: 'pressedValue' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/onboarding/steps/Step3ProfileSetup.tsx
+20:8  Warning: 'Image' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+178:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/components/onboarding/steps/Step6Completion.tsx
+24:3  Warning: 'FileText' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+35:9  Warning: 'router' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/orchestration/AutomatedActionsLog.tsx
+14:3  Warning: 'Filter' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+21:3  Warning: 'Loader2' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+519:14  Warning: 'error' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/orchestration/MultiAgencyView.tsx
+335:28  Warning: 'userRole' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+337:10  Warning: 'selectedStudentId' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/orchestration/ParentPortal.tsx
+351:5  Warning: 'refetch' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/orchestration/StudentProfileCard.tsx
+5:10  Warning: 'User' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/orchestration/TeacherClassDashboard.tsx
+11:3  Warning: 'Filter' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+226:19  Warning: 'selectedStudentId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/orchestration/VoiceCommandInterface.tsx
+113:15  Warning: 'barStyle' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/privacy/CookieBanner.tsx
+11:10  Warning: 'CookieCategory' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/privacy/CookieSettings.tsx
+21:10  Warning: 'activeCategory' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+21:26  Warning: 'setActiveCategory' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/progress/StudentProgressDashboard.tsx
+74:11  Warning: 'ChartData' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/recommendations/RecommendationDashboard.tsx
+124:6  Warning: React Hook useEffect has a missing dependency: 'fetchRecommendations'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/training/CPDTracker.tsx
+37:6  Warning: React Hook useEffect has a missing dependency: 'loadCPDEntries'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/training/CoursePlayer.tsx
+23:3  Warning: 'CourseModule' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+24:3  Warning: 'Lesson' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+25:3  Warning: 'Quiz' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+26:3  Warning: 'QuizQuestion' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+27:3  Warning: 'Resource' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+116:6  Warning: React Hook useEffect has a missing dependency: 'saveProgress'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/training/InteractiveCoursePlayer.tsx
+105:3  Warning: 'userId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+149:6  Warning: React Hook useEffect has missing dependencies: 'loadCourse' and 'loadProgress'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+368:68  Warning: 'index' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+472:33  Warning: 'enrollmentId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+675:37  Warning: 'enrollmentId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+892:47  Warning: 'enrollmentId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+903:6  Warning: React Hook useEffect has a missing dependency: 'onComplete'. Either include it or remove the dependency array. If 'onComplete' changes too often, find the parent component that defines it and wrap that definition in useCallback.  react-hooks/exhaustive-deps
+905:9  Warning: 'handleHotspotClick' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+918:11  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/components/training/TrainingDashboard.tsx
+3:28  Warning: 'TrainingCurriculum' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/components/training/TutorialCard.tsx
+99:11  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/components/voice/VoiceAssistant.tsx
+164:6  Warning: React Hook useEffect has a missing dependency: 'processCommand'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/contexts/AuthContext.tsx
+43:39  Warning: 'password' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/api/assessment-service.ts
+32:59  Warning: 'user' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+129:46  Warning: 'user' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/assessments/report-generator.ts
+111:7  Warning: 'include_raw_scores' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+113:7  Warning: 'include_visual_profile' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+114:7  Warning: 'include_interpretation_guidelines' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+198:50  Warning: 'branding' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+266:30  Warning: 'report' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/auth/hooks.tsx
+24:39  Warning: 'secureRemove' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+651:8  Warning: React Hook useEffect has unnecessary dependencies: 'requiredPermission' and 'requiredRole'. Either exclude them or remove the dependency array. Outer scope values like 'requiredPermission' aren't valid dependencies because mutating them doesn't re-render the component.  react-hooks/exhaustive-deps
+
+./src/lib/auth/server-auth.ts
+113:11  Warning: 'hashedPassword' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/auth.ts
+12:10  Warning: 'PrismaAdapter' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/blog/content-scraper.ts
+375:27  Warning: 'daysBack' is assigned a value but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/blog/post-generator.ts
+410:44  Warning: 'articles' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/cpd/portfolio-generator.ts
+76:5  Warning: 'yPos' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+298:35  Warning: 'index' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/ehcp/pdf-generator.ts
+200:40  Warning: 'branding' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+546:29  Warning: 'ehcp' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/ethics/services/EthicsAssessmentService.js
+8:7  Warning: 'EthicsAssessment' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+8:26  Warning: A `require()` style import is forbidden.  @typescript-eslint/no-require-imports
+
+./src/lib/ethics/services/EthicsIncidentService.js
+8:7  Warning: 'EthicsIncident' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+8:24  Warning: A `require()` style import is forbidden.  @typescript-eslint/no-require-imports
+
+./src/lib/ethics/services/EthicsMonitoringService.js
+8:7  Warning: 'EthicsMonitor' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+8:23  Warning: A `require()` style import is forbidden.  @typescript-eslint/no-require-imports
+9:24  Warning: A `require()` style import is forbidden.  @typescript-eslint/no-require-imports
+
+./src/lib/ethics/utils/EthicsAnomalyDetector.js
+91:43  Warning: 'options' is assigned a value but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+145:40  Warning: 'options' is assigned a value but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/gamification/battle-royale.ts
+483:64  Warning: 'victoryType' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/gamification/matchmaking-engine.ts
+107:9  Warning: 'K_FACTOR' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/gamification/squad-competitions.ts
+877:11  Warning: 'oldRank' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/gdpr-compliance.ts
+394:17  Warning: 'password' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+394:27  Warning: 'password_hash' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/integrations/sims.ts
+23:21  Warning: 'laCode' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+44:19  Warning: 'schoolId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/integrations/wonde.ts
+7:35  Warning: 'ExternalStudent' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+7:52  Warning: 'ExternalStaff' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/interventions/recommendation-engine.ts
+21:3  Warning: 'InterventionCategory' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+25:3  Warning: 'getRecommendedInterventions' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+702:59  Warning: 'priority_level' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/logger.ts
+4:7  Warning: 'isBrowser' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/monitoring/advanced-monitoring.ts
+6:10  Warning: 'performance' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/orchestration/assignment-engine.service.ts
+20:10  Warning: 'AIService' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+135:5  Warning: 'year_group' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/orchestration/cross-module-intelligence.service.ts
+25:10  Warning: 'DataRouterService' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+458:11  Warning: 'parentUpdate' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+626:25  Warning: 'entity_data' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/orchestration/data-router.service.ts
+683:5  Warning: 'tutorId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+684:5  Warning: 'formGroupId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+718:5  Warning: 'updateData' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+872:5  Warning: 'classRosterId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+919:46  Warning: 'studentId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+1021:5  Warning: 'studentIds' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+1038:45  Warning: 'studentIds' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/orchestration/profile-builder.service.ts
+371:27  Warning: 'speed_score' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+371:40  Warning: 'strategy_score' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/orchestration/query-client.tsx
+17:10  Warning: 'toast' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/orchestration/voice-command.service.ts
+20:10  Warning: 'AIService' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+765:5  Warning: 'userId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+766:5  Warning: 'lessonTopic' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+767:5  Warning: 'target' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/polyfills/enhanced-styled-jsx-patch.js
+25:24  Warning: 'rule' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+105:16  Warning: 'rule' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+258:18  Warning: 'err' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/polyfills/styled-jsx-patch.js
+28:15  Warning: 'options' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+41:14  Warning: 'rule' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+104:16  Warning: 'e' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+118:20  Warning: 'err' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/prisma.ts
+17:3  Error: Unexpected var, use let or const instead.  no-var
+
+./src/lib/secure-storage.ts
+201:11  Warning: 'result' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/services/cachingService.ts
+353:20  Warning: 'error' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/services/courseCompletionForecastingEngine.ts
+28:7  Warning: 'CompletionForecastSchema' is assigned a value but only used as a type. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+54:7  Warning: 'CohortAnalysisSchema' is assigned a value but only used as a type. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/services/dataEncryptionService.ts
+597:16  Warning: 'error' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+643:16  Warning: 'error' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+794:14  Warning: 'error' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/services/performanceMonitoringService.js
+14:22  Warning: A `require()` style import is forbidden.  @typescript-eslint/no-require-imports
+15:12  Warning: A `require()` style import is forbidden.  @typescript-eslint/no-require-imports
+16:18  Warning: A `require()` style import is forbidden.  @typescript-eslint/no-require-imports
+
+./src/lib/services/predictiveAnalyticsService.ts
+306:9  Warning: 'availableCourses' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+726:50  Warning: 'forecast' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+769:30  Warning: 'engagementData' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+795:28  Warning: 'engagementData' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+815:38  Warning: 'patterns' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+815:53  Warning: 'engagementScore' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+826:30  Warning: 'filters' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+847:30  Warning: 'retentionData' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+847:50  Warning: 'cohortPeriod' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+863:33  Warning: 'retentionData' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+863:53  Warning: 'riskThreshold' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+880:30  Warning: 'metrics' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+880:44  Warning: 'atRiskStudents' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+895:37  Warning: 'insights' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+907:54  Warning: 'prediction' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+929:57  Warning: 'prediction' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+951:42  Warning: 'studentId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+951:61  Warning: 'prediction' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+967:31  Warning: 'intervention' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+999:31  Warning: 'learningData' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+1011:38  Warning: 'performanceAnalysis' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+1011:64  Warning: 'studentId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+1027:30  Warning: 'recommendations' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+1038:36  Warning: 'recommendations' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+1049:31  Warning: 'timeRange' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+1065:33  Warning: 'timeRange' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+1081:24  Warning: 'timeRange' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/study-buddy/predictive-analytics.ts
+148:11  Warning: 'inProgress' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/subscription/plans.ts
+244:3  Warning: 'usageLimitHit' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/training/adaptive-learning.ts
+17:10  Warning: 'Course' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/lib/training/scoring-engine.ts
+157:3  Warning: 'totalOptions' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+161:9  Warning: 'missedCorrect' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/polyfills.ts
+416:16  Warning: 'e' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+479:14  Warning: 'e' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/research/foundation/data-sharing/services/institution-service.ts
+1394:14  Warning: 'error' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/research/foundation/double-blind/services/double-blind-service.ts
+2352:11  Warning: 'totalCount' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/research/foundation/governance/services/governance-service-extension.ts
+8:10  Warning: 'GovernanceService' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/research/foundation/security/quantum-resistant/quantum-resistant-crypto-real.ts
+352:47  Warning: 'privateKey' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+357:11  Warning: 'ciphertext' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/ai/core.ts
+13:7  Warning: 'EnvSchema' is assigned a value but only used as a type. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+248:5  Warning: 'id' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/ai-intelligent-cache.ts
+456:9  Warning: 'cloudflareHeaders' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+463:9  Warning: 'vercelEdgeConfig' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/blog-service.ts
+6:10  Warning: 'AIService' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+122:13  Warning: 'contentPrompt' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+217:11  Warning: 'trendingPrompt' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+246:11  Warning: 'researchPrompt' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+431:57  Warning: 'topic' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/curriculum-service.ts
+6:21  Warning: 'AIRequest' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+8:60  Warning: 'PrismaLessonActivity' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+139:13  Warning: 'objectivesResponse' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/deployment-validation.ts
+226:14  Warning: 'error' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/digital-signature-service.ts
+37:13  Warning: 'contentHash' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+56:13  Warning: 'signatureRecord' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/gamification-service.ts
+6:10  Warning: 'AIService' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+200:11  Warning: 'questions' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/institutional-management/audit-log-service.ts
+19:14  Warning: 'e' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/institutional-management/contact-service.ts
+12:40  Warning: 'userId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+12:56  Warning: 'institutionId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+13:38  Warning: 'userId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+13:54  Warning: 'institutionId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/institutional-management/department-service.ts
+8:3  Warning: 'UserRole' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/institutional-management/institution-service.ts
+10:3  Warning: 'User' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+11:3  Warning: 'UserRole' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+12:3  Warning: 'AuditLog' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/institutional-management/permission-service.ts
+2:27  Warning: 'AccessDeniedError' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/institutional-management/predictive-analytics-service.ts
+60:5  Warning: 'timeframe' is assigned a value but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+347:36  Warning: 'id' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+444:5  Warning: 'outcomeType' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+632:1  Warning: Assign instance to a variable before exporting as module default  import/no-anonymous-default-export
+
+./src/services/institutional-management/professional-development-service.ts
+204:13  Warning: 'institution' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+594:1  Warning: Assign instance to a variable before exporting as module default  import/no-anonymous-default-export
+
+./src/services/institutional-management/subscription-service.ts
+1:10  Warning: 'prisma' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+9:3  Warning: 'UserRole' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+506:32  Warning: 'userId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+638:39  Warning: 'options' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+638:74  Warning: 'page' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+638:88  Warning: 'limit' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+740:42  Warning: 'userId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+740:58  Warning: 'institutionId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+748:43  Warning: 'userId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+748:59  Warning: 'institutionId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/monitoring/cloudwatch-config.ts
+1:10  Warning: 'config' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/monitoring/monitoring-init.ts
+40:7  Warning: 'enableApiMonitoring' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/monitoring/system-metrics.ts
+2:8  Warning: 'fs' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/navigation-service.ts
+6:10  Warning: 'AIService' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/parental-service.ts
+389:57  Warning: 'parent' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/recommendation-engine/content-interactions.ts
+287:1  Warning: Assign instance to a variable before exporting as module default  import/no-anonymous-default-export
+
+./src/services/recommendation-engine/content-similarity.ts
+349:1  Warning: Assign instance to a variable before exporting as module default  import/no-anonymous-default-export
+
+./src/services/recommendation-engine/database-adapter.ts
+349:1  Warning: Assign instance to a variable before exporting as module default  import/no-anonymous-default-export
+
+./src/services/recommendation-engine/recommendation-service.ts
+658:1  Warning: Assign instance to a variable before exporting as module default  import/no-anonymous-default-export
+
+./src/services/recommendation-engine/user-preferences.ts
+101:1  Warning: Assign instance to a variable before exporting as module default  import/no-anonymous-default-export
+
+./src/services/research-service.ts
+298:5  Warning: 'dataTypes' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/tenant-service.ts
+736:11  Warning: 'keyStage' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/user-feedback-system.ts
+376:11  Warning: 'now' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/services/user-service.ts
+116:31  Warning: 'email' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules

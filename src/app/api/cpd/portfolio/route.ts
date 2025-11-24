@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
 
     const year = searchParams.get('year') ? parseInt(searchParams.get('year')!) : new Date().getFullYear();
-    const format = searchParams.get('format') || 'pdf';
+    // const format = searchParams.get('format') || 'pdf';
     const professionalBody = searchParams.get('professionalBody') || 'HCPC';
     const includeReflection = searchParams.get('includeReflection') !== 'false';
 

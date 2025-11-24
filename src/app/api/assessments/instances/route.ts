@@ -65,8 +65,8 @@ export async function PUT(req: NextRequest) {
   if (!authResult.success) {
     return authResult.response;
   }
-  const { session } = authResult;
-
+  // session is not used in PUT
+  
   try {
     const body = await req.json();
     const { id, domains, ...updateData } = body;
@@ -77,13 +77,13 @@ export async function PUT(req: NextRequest) {
 
     // Remove fields that shouldn't be updated directly or don't exist on the model
     const { 
-        framework_id, 
-        case_id, 
-        student_id, 
-        tenant_id, 
-        conducted_by, 
-        created_at,
-        collaborative_input, // Handled separately or ignored
+        framework_id: _framework_id, 
+        case_id: _case_id, 
+        student_id: _student_id, 
+        tenant_id: _tenant_id, 
+        conducted_by: _conducted_by, 
+        created_at: _created_at,
+        collaborative_input: _collaborative_input, // Handled separately or ignored
         ...validUpdateData 
     } = updateData;
 

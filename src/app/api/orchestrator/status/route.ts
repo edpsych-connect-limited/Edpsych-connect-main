@@ -6,7 +6,7 @@ import logger from '@/lib/logger';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(req: Request) {
+export async function GET(_req: Request) {
   try {
     // 1. Authentication Check
     const session = await getServerSession(authOptions);

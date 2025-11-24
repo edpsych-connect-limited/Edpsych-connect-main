@@ -184,7 +184,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Save user message
-    const userMessage = await (prisma as any).conversationalAIMessage.create({
+    await (prisma as any).conversationalAIMessage.create({
       data: {
         session_id: chatSession.id,
         role: 'user',
@@ -239,7 +239,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Update session
-    const updatedSession = await (prisma as any).conversationalAISession.update({
+    await (prisma as any).conversationalAISession.update({
       where: { id: chatSession.id },
       data: {
         message_count: chatSession.message_count + 2,

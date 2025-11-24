@@ -211,7 +211,7 @@ export async function POST(
         spoken: commandResult.response.text, // Use same text for spoken
         data: commandResult.response.data,
       },
-      actions: commandResult.response.actions.map((actionText, index) => ({
+      actions: commandResult.response.actions.map((actionText, _index) => ({
         type: commandResult.intent.type,
         description: actionText,
         executed: true,

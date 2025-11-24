@@ -113,7 +113,7 @@ export class UserService {
    * @param email User email
    * @returns Promise resolving to the user or null if not found
    */
-  static async getUserByEmail(email: string): Promise<User | null> {
+  static async getUserByEmail(_email: string): Promise<User | null> {
     try {
       // In a real implementation, this would query the database
       // For now, we'll return null to simulate a new user

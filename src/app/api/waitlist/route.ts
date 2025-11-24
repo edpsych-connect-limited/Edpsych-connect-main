@@ -138,7 +138,7 @@ export async function POST(req: NextRequest) {
 /**
  * GET endpoint - Retrieve waitlist statistics (admin only, add auth later)
  */
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest) {
   try {
     // TODO: Add authentication check for admin access
 

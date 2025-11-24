@@ -21,7 +21,6 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '@/lib/prismaSafe';
 import authService from '@/lib/auth/auth-service';
 
 export const dynamic = 'force-dynamic';
@@ -96,6 +95,7 @@ interface DashboardSummary {
 // HELPER FUNCTIONS
 // ============================================================================
 
+/*
 function calculateTrend(dataPoints: DataPoint[]): 'improving' | 'stable' | 'declining' | 'unknown' {
   if (dataPoints.length < 3) return 'unknown';
 
@@ -133,6 +133,7 @@ function calculateProgressPercentage(baseline: number | null, current: number | 
 
   return Math.min(100, Math.max(0, Math.round((progress / targetProgress) * 100)));
 }
+*/
 
 function generateAlerts(interventions: InterventionProgress[]): ProgressAlert[] {
   const alerts: ProgressAlert[] = [];
@@ -246,10 +247,10 @@ export async function GET(request: NextRequest) {
     }
 
     const { searchParams } = new URL(request.url);
-    const caseId = searchParams.get('caseId');
-    const studentId = searchParams.get('studentId');
+    // const caseId = searchParams.get('caseId');
+    // const studentId = searchParams.get('studentId');
     const timeRange = searchParams.get('timeRange') || 'month';
-    const domains = searchParams.get('domains')?.split(',');
+    // const domains = searchParams.get('domains')?.split(',');
 
     // Calculate date range based on timeRange
     const now = new Date();

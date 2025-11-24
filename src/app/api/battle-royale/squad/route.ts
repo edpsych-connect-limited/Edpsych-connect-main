@@ -19,7 +19,6 @@ import prisma from '@/lib/prismaSafe';
 import authService from '@/lib/auth/auth-service';
 import {
   MatchmakingEngine,
-  MatchmakingPlayer,
 } from '@/lib/gamification/matchmaking-engine';
 
 export const dynamic = 'force-dynamic';

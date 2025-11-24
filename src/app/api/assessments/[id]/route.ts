@@ -6,9 +6,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
-import { authenticateRequest, authorizeRequest, Permission, canAccessTenant } from '@/lib/middleware/auth';
+import { authorizeRequest, Permission, canAccessTenant } from '@/lib/middleware/auth';
 import { apiRateLimit } from '@/lib/middleware/rate-limit';
-import { auditLogger, getIpAddress, getRequestId, getUserAgent } from '@/lib/security/audit-logger';
+import { auditLogger, getIpAddress, getRequestId } from '@/lib/security/audit-logger';
 
 export const dynamic = 'force-dynamic';
 
@@ -30,8 +30,6 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const ipAddress = getIpAddress(request);
-  const requestId = getRequestId(request);
   const id = parseInt(params.id);
 
   if (isNaN(id)) {

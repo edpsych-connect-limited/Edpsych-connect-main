@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { User, Sparkles, AlertCircle, TrendingUp, TrendingDown, Mic, Eye, CheckCircle, Clock } from 'lucide-react';
+import { Sparkles, AlertCircle, TrendingUp, TrendingDown, Mic, Eye, CheckCircle, Clock } from 'lucide-react';
 
 /**
  * Student Profile Card Component

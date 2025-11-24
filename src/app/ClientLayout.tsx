@@ -13,7 +13,7 @@ import { BrandingProvider, useBranding } from '@/lib/branding/BrandingProvider';
 
 function HeaderContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user, logout, hasRole } = useAuth();
+  const { user, logout } = useAuth();
   const { config } = useBranding();
   const router = useRouter();
   const pathname = usePathname();

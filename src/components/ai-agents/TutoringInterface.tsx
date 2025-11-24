@@ -194,7 +194,7 @@ export default function TutoringInterface() {
         try {
           const errorData = await response.json();
           throw new Error(errorData.error || 'Failed to get tutoring assistance');
-        } catch (jsonError) {
+        } catch (_jsonError) {
           throw new Error(`Request failed with status ${response.status}`);
         }
       }
@@ -205,7 +205,7 @@ export default function TutoringInterface() {
           throw new Error('Invalid response format from server');
         }
         setResponse(data.result);
-      } catch (parseError) {
+      } catch (_parseError) {
         throw new Error('Failed to parse server response');
       }
     } catch (err) {

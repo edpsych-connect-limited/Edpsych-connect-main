@@ -14,7 +14,6 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import {
-  PredictiveAnalyticsEngine,
   BatchPredictionRunner,
 } from '@/lib/study-buddy/predictive-analytics';
 

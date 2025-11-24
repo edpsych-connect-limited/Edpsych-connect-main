@@ -20,7 +20,7 @@ export class SIMSIntegration implements MISProvider {
     return true;
   }
 
-  async syncSchools(laCode: string): Promise<SyncResult> {
+  async syncSchools(_laCode: string): Promise<SyncResult> {
     // SIMS is usually single-school, so this might just return the one school
     return {
       success: true,
@@ -41,7 +41,7 @@ export class SIMSIntegration implements MISProvider {
     };
   }
 
-  async syncStaff(schoolId: string): Promise<SyncResult> {
+  async syncStaff(_schoolId: string): Promise<SyncResult> {
     return {
       success: true,
       recordsProcessed: 30,

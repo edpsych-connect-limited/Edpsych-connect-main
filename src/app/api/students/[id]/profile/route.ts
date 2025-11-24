@@ -240,10 +240,11 @@ export async function GET(
     ]);
 
     // Interventions would require querying through cases - placeholder for now
-    const lastIntervention = null;
+    // const lastIntervention = null;
 
     // Parse profile data (stored as JSON)
     const learningProfile = profile.learning_style as any || {};
+    /*
     const behavioralPatterns = {
       engagement: profile.engagement_score,
       persistence: profile.persistence_score,
@@ -254,6 +255,7 @@ export async function GET(
       needs_intervention: profile.needs_intervention,
       intervention_urgency: profile.intervention_urgency,
     };
+    */
 
     // Build response
     const response: StudentProfileResponse = {

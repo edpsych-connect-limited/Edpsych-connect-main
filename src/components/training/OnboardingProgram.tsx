@@ -333,10 +333,13 @@ const OnboardingProgram: React.FC = () => {
         </div>
         <div className="w-full bg-blue-200 rounded-full h-2.5">
           <div 
-            className="bg-blue-600 h-2.5 rounded-full" 
-            // eslint-disable-next-line
-            style={{ width: `${calculateProgress()}%` }}
+            className="bg-blue-600 h-2.5 rounded-full progress-bar" 
           ></div>
+          <style jsx>{`
+            .progress-bar {
+              width: ${calculateProgress()}%;
+            }
+          `}</style>
         </div>
         <div className="mt-2 text-sm text-blue-700">
           {completedTutorials.length} of {categories.flatMap(cat => cat.tutorials).length} tutorials completed

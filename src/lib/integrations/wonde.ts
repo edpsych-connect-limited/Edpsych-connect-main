@@ -4,7 +4,7 @@
  * It connects to SIMS, Arbor, Bromcom, ScholarPack, etc.
  */
 
-import { MISProvider, SyncResult, ExternalStudent, ExternalStaff } from './types';
+import { MISProvider, SyncResult } from './types';
 import { prisma } from '@/lib/prisma';
 
 export class WondeIntegration implements MISProvider {

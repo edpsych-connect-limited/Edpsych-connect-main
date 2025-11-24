@@ -161,6 +161,7 @@ export const VoiceAssistant: React.FC = () => {
         clearTimeout(processingTimeoutRef.current);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transcript, isProcessing]);
 
   if (!browserSupportsSpeechRecognition) {

@@ -249,7 +249,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Add to user's library
-    const userLibraryEntry = await (prisma as any).userResearchLibrary.create({
+    await (prisma as any).userResearchLibrary.create({
       data: {
         userId: userId.toString(),
         articleId: article.id,

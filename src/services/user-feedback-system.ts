@@ -373,7 +373,7 @@ export class UserFeedbackSystem {
    * Check escalation rules
    */
   private checkEscalationRules(): void {
-    const now = Date.now();
+    // const now = Date.now();
 
     this.config.escalationRules.forEach(rule => {
       const matchingItems = this.feedbackItems.filter(item => {

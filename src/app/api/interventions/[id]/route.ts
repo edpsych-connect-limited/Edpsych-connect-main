@@ -18,7 +18,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
-import { authenticateRequest, authorizeRequest, Permission, canAccessTenant } from '@/lib/middleware/auth';
+import { authorizeRequest, Permission, canAccessTenant } from '@/lib/middleware/auth';
 import { apiRateLimit } from '@/lib/middleware/rate-limit';
 import { auditLogger, getIpAddress, getRequestId, getUserAgent } from '@/lib/security/audit-logger';
 

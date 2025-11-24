@@ -56,7 +56,6 @@ export const IntegrationStatusBadge: React.FC<Props> = ({ status, lastSync, clas
   };
 
   const config = getStatusConfig();
-  const Icon = config.icon;
 
   return (
     <div className={`flex flex-col items-start ${className}`}>

@@ -7,7 +7,6 @@
  */
 
 import { jwtVerify, SignJWT } from 'jose';
-import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
 // JWT Configuration Constants
@@ -201,7 +200,7 @@ export function clearAuthCookies(res: NextResponse): NextResponse {
   return res;
 }
 
-export default {
+const jwtUtils = {
   JWT_CONFIGURATION,
   signJwt,
   signRefreshToken,
@@ -212,3 +211,5 @@ export default {
   setRefreshCookie,
   clearAuthCookies
 };
+
+export default jwtUtils;

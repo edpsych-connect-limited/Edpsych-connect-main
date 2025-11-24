@@ -307,7 +307,7 @@ export async function PATCH(request: NextRequest) {
 // INSIGHT ANALYZERS
 // ============================================================================
 
-async function analyzeChurnRisk(userId: number, profile: any, tenantId: number): Promise<any[]> {
+async function analyzeChurnRisk(userId: number, profile: any, _tenantId: number): Promise<any[]> {
   const insights = [];
 
   // High churn risk
@@ -366,7 +366,7 @@ async function analyzeChurnRisk(userId: number, profile: any, tenantId: number):
   return insights;
 }
 
-async function analyzeInterventionOpportunities(userId: number, tenantId: number): Promise<any[]> {
+async function analyzeInterventionOpportunities(userId: number, _tenantId: number): Promise<any[]> {
   const insights = [];
 
   // Get recent assessments

@@ -6,10 +6,7 @@ import {
   InstitutionType, 
   InstitutionSize, 
   VerificationStatus,
-  Institution,
-  User,
-  UserRole,
-  AuditLog
+  Institution
 } from './types';
 
 export interface CreateInstitutionInput {

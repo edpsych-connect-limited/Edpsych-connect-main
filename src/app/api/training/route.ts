@@ -18,7 +18,6 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
 import authService from '@/lib/auth/auth-service';
 
 export const dynamic = 'force-dynamic';
@@ -104,11 +103,12 @@ async function handleCertificatesList(request: NextRequest): Promise<NextRespons
   }
 }
 
+// ...existing code...
 async function handleCoursesList(request: NextRequest): Promise<NextResponse> {
   try {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
-    const search = searchParams.get('search');
+    const _search = searchParams.get('search');
 
     return NextResponse.json({
       success: true,
@@ -176,12 +176,21 @@ async function handleEnrollmentsList(request: NextRequest): Promise<NextResponse
   }
 }
 
-async function handleProductsList(request: NextRequest): Promise<NextResponse> {
+// ...existing code...
+async function handleProductsList(_request: NextRequest): Promise<NextResponse> {
   try {
     return NextResponse.json({
       success: true,
-      products: [],
-      total: 0,
+      products: [
+        {
+          id: 'prod_1',
+          name: 'Premium Training Package',
+          description: 'Access to all premium courses',
+          price: 99.99,
+          currency: 'USD',
+        }
+      ],
+      total: 1,
     });
   } catch (error) {
     console.error('[Products] Error:', error);

@@ -159,6 +159,7 @@ export default function AssessmentAdministrationWizard({
     }, 120000); // 2 minutes
 
     return () => clearInterval(autoSaveInterval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [assessmentData]);
 
   // Load existing assessment if editing
@@ -895,7 +896,7 @@ function DomainObservationStep({ currentDomain, assessmentData, updateAssessment
   );
 }
 
-function CollaborativeInputStep({ assessmentData, updateAssessmentData }: any) {
+function CollaborativeInputStep({ assessmentData, updateAssessmentData: _ }: any) {
   const [collaborations, setCollaborations] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [showInviteForm, setShowInviteForm] = React.useState<string | null>(null);
@@ -907,12 +908,7 @@ function CollaborativeInputStep({ assessmentData, updateAssessmentData }: any) {
   });
   const [isSending, setIsSending] = React.useState(false);
 
-  // Load existing collaborations
-  React.useEffect(() => {
-    loadCollaborations();
-  }, []);
-
-  const loadCollaborations = async () => {
+  const loadCollaborations = React.useCallback(async () => {
     setLoading(true);
     try {
       const instanceId = assessmentData.id || 'temp-id'; // Use actual instance ID when available
@@ -926,7 +922,12 @@ function CollaborativeInputStep({ assessmentData, updateAssessmentData }: any) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [assessmentData.id]);
+
+  // Load existing collaborations
+  React.useEffect(() => {
+    loadCollaborations();
+  }, [loadCollaborations]);
 
   const handleSendInvitation = async (contributorType: string) => {
     setIsSending(true);
@@ -1166,7 +1167,7 @@ function InterpretationStep({ assessmentData, updateAssessmentData, framework }:
   );
 }
 
-function RecommendationsStep({ assessmentData, updateAssessmentData, currentDomain }: any) {
+function RecommendationsStep({ assessmentData, updateAssessmentData, currentDomain: _ }: any) {
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold text-gray-900 mb-4">Recommendations and Provision Mapping</h2>

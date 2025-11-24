@@ -30,7 +30,7 @@ export async function POST(
     const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'reports');
     try {
         await mkdir(uploadDir, { recursive: true });
-    } catch (e) {
+    } catch (_e) {
         // Ignore if exists
     }
     

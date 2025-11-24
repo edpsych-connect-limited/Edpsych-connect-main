@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 interface CPDEntry {
   id: string;
@@ -32,11 +32,7 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
     'Peer Learning'
   ];
 
-  useEffect(() => {
-    loadCPDEntries();
-  }, []);
-
-  const loadCPDEntries = async () => {
+  const loadCPDEntries = useCallback(async () => {
     const mockEntries: CPDEntry[] = [
       {
         id: 'cpd-1',
@@ -81,7 +77,11 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
     ];
 
     setEntries(mockEntries);
-  };
+  }, [currentYear]);
+
+  useEffect(() => {
+    loadCPDEntries();
+  }, [loadCPDEntries]);
 
   const totalHours = entries.reduce((sum, entry) => sum + entry.hours, 0);
   const progressPercentage = Math.min((totalHours / targetHours) * 100, 100);
@@ -148,10 +148,13 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
               progressPercentage >= 75 ? 'bg-blue-500' : 
               progressPercentage >= 50 ? 'bg-yellow-500' : 
               'bg-red-500'
-            }`}
-            // eslint-disable-next-line
-            style={{ width: `${progressPercentage}%` }}
+            } progress-bar-main`}
           ></div>
+          <style jsx>{`
+            .progress-bar-main {
+              width: ${progressPercentage}%;
+            }
+          `}</style>
         </div>
         {progressPercentage >= 100 && (
           <p className="text-sm text-green-600 mt-2 font-medium">
@@ -271,10 +274,13 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div 
-                    className="bg-blue-500 h-2 rounded-full" 
-                    // eslint-disable-next-line
-                    style={{ width: `${(item.hours / totalHours) * 100}%` }}
+                    className="bg-blue-500 h-2 rounded-full progress-bar-cat" 
                   ></div>
+                  <style jsx>{`
+                    .progress-bar-cat {
+                      width: ${(item.hours / totalHours) * 100}%;
+                    }
+                  `}</style>
                 </div>
               </div>
             ))}

@@ -18,7 +18,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
 import { prisma } from '@/lib/prisma';
-import { dataRouterService } from '@/lib/orchestration/data-router.service';
 
 export const dynamic = 'force-dynamic';
 
@@ -84,21 +83,21 @@ export async function GET(
 
     // Query parameters
     const { searchParams } = new URL(request.url);
-    const classId = searchParams.get('classId');
-    const schoolWide = searchParams.get('schoolWide') === 'true';
-    const assigned = searchParams.get('assigned') === 'true'; // For EPs
-    const studentId = searchParams.get('studentId'); // Single student view
+    // const classId = searchParams.get('classId');
+    // const schoolWide = searchParams.get('schoolWide') === 'true';
+    // const assigned = searchParams.get('assigned') === 'true'; // For EPs
+    // const studentId = searchParams.get('studentId'); // Single student view
 
     console.log(`[Multi-Agency View API] GET request - User: ${userId}, Role: ${userRole}, Tenant: ${tenantId}`);
 
     // Build context for data router
-    const context: any = {
-      userId,
-      tenantId,
-      userRole,
-      requestingSchoolWide: schoolWide,
-      requestingAssigned: assigned,
-    };
+    // const context: any = {
+    //   userId,
+    //   tenantId,
+    //   userRole,
+    //   requestingSchoolWide: schoolWide,
+    //   requestingAssigned: assigned,
+    // };
 
     // TODO: Implement generateMultiAgencyView service method
     // For now, return minimal response structure

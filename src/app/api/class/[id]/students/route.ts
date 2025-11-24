@@ -195,7 +195,7 @@ export async function GET(
     console.log(`[Class Students API] Processing ${studentIds.length} students in class: ${classRoster.class_name}`);
 
     // Fetch students and their associated data
-    const [students, profiles, assessments, lessons, cases, interventions] = await Promise.all([
+    const [students, profiles, assessments, lessons, _cases, interventions] = await Promise.all([
       prisma.students.findMany({
         where: { id: { in: studentIds } },
         select: {

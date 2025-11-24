@@ -8,14 +8,11 @@ import {
   CardContent,
   Grid,
   Skeleton,
-  IconButton,
   useMediaQuery,
   useTheme,
   Paper
 } from '@mui/material';
 import {
-  NavigateBefore as NavigateBeforeIcon,
-  NavigateNext as NavigateNextIcon,
   VerifiedUser as VerifiedUserIcon,
   School as SchoolIcon
 } from '@mui/icons-material';

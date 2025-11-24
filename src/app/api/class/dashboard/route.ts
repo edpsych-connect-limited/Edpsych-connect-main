@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
     try {
       const { searchParams } = new URL(request.url);
       classRosterId = searchParams.get('classRosterId');
-    } catch (e) {
+    } catch (_e) {
       // Fallback for relative URLs or other parsing errors
       const url = new URL(request.url, 'http://localhost:3000');
       classRosterId = url.searchParams.get('classRosterId');

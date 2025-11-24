@@ -19,7 +19,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
 import { prisma } from '@/lib/prisma';
-import { assignmentEngineService } from '@/lib/orchestration/assignment-engine.service';
 import { z } from 'zod';
 
 export const dynamic = 'force-dynamic';
@@ -205,7 +204,7 @@ export async function POST(
       }, { status: 400 });
     }
 
-    const { classRosterId, lessonPlan, differentiationFocus } = validation.data;
+    const { classRosterId, lessonPlan } = validation.data;
 
     // Verify class roster belongs to tenant
     const classRoster = await prisma.classRoster.findFirst({
