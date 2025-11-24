@@ -9,7 +9,8 @@ export async function POST(request: Request) {
     // In a real app, we'd get the tenantId from the session
     // const session = await getServerSession(authOptions);
     // const tenantId = session?.user?.tenantId;
-    const tenantId = 'demo-tenant-id'; 
+    const tenantId = '1'; // Demo tenant ID
+    const dbTenantId = 1;
 
     const service = IntegrationService.getInstance();
     
@@ -28,11 +29,11 @@ export async function POST(request: Request) {
     const isConnected = await provider.isConnected();
 
     if (isConnected) {
-        // In a real app, we would save the encrypted credentials to the database here
-        // await prisma.integration.create({ ... })
+        // Save credentials to database
+        await service.saveConnection(dbTenantId, providerId, { apiKey, url });
         
-        // Trigger an initial sync in the background
-        // service.runNightlySync(tenantId, { type, apiKey, url });
+        // Log the initial success
+        await service.logSync(dbTenantId, providerId, 'success', 'Initial connection established');
 
         return NextResponse.json({ success: true, status: 'connected' });
     } else {

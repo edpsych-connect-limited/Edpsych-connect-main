@@ -1,18 +1,32 @@
 import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
 
 export async function GET() {
-    // In a real app, fetch from DB
-    // const integrations = await prisma.integration.findMany({ where: { tenantId } });
-    
-    // Returning mock status for the dashboard to show "wired up" state
-    // This would be dynamic based on the DB in production
-    return NextResponse.json({
-        providers: {
-            'wonde': { status: 'connected', lastSync: new Date(Date.now() - 1000 * 60 * 15).toISOString() },
+    const tenantId = 1; // Demo tenant ID
+
+    try {
+        const settings = await prisma.integrationSettings.findUnique({
+            where: { tenant_id: tenantId }
+        });
+
+        const providers: Record<string, any> = {
+            'wonde': { status: 'disconnected' },
             'sims-legacy': { status: 'disconnected' },
-            'arbor': { status: 'pending' },
+            'arbor': { status: 'disconnected' },
             'cpoms': { status: 'disconnected' },
-            'azure-ad': { status: 'connected', lastSync: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString() }
+            'azure-ad': { status: 'disconnected' }
+        };
+
+        if (settings) {
+            providers[settings.provider] = {
+                status: settings.status,
+                lastSync: settings.last_sync?.toISOString()
+            };
         }
-    });
+
+        return NextResponse.json({ providers });
+    } catch (error) {
+        console.error('Failed to fetch integration status:', error);
+        return NextResponse.json({ providers: {} }, { status: 500 });
+    }
 }

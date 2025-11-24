@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { ProviderCard, ProviderProps } from './ProviderCard';
 import { ConnectionStatus } from './IntegrationStatusBadge';
+import { HelpCircle } from 'lucide-react';
 
 export default function IntegrationDashboard() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -102,7 +103,8 @@ export default function IntegrationDashboard() {
       status: 'disconnected',
       features: ['Real-time Student Sync', 'Staff Directory', 'Timetables', 'Attendance'],
       onConnect: () => setConnectingProvider('wonde'),
-      onConfigure: () => console.log('Config Wonde')
+      onConfigure: () => console.log('Config Wonde'),
+      helpText: 'You can find your API Token in the Wonde Portal under "API Settings". If you are unsure, please ask your IT Network Manager.'
     },
     {
       id: 'sims-legacy',
@@ -112,7 +114,8 @@ export default function IntegrationDashboard() {
       status: 'disconnected',
       features: ['Nightly XML Sync', 'Student Records', 'Assessment Data'],
       onConnect: () => setConnectingProvider('sims-legacy'),
-      onConfigure: () => console.log('Config SIMS')
+      onConfigure: () => console.log('Config SIMS'),
+      helpText: 'Enter the secure Gateway URL provided by your IT team after installing the EdPsych Connector.'
     },
     {
       id: 'arbor',
@@ -122,7 +125,8 @@ export default function IntegrationDashboard() {
       status: 'pending',
       features: ['API V2 Support', 'Behavior Incidents', 'Assessment Write-back'],
       onConnect: () => setConnectingProvider('arbor'),
-      onConfigure: () => console.log('Config Arbor')
+      onConfigure: () => console.log('Config Arbor'),
+      helpText: 'Generate an API Key in Arbor under System > Partner Apps > EdPsych Connect.'
     },
     {
       id: 'cpoms',
@@ -132,7 +136,8 @@ export default function IntegrationDashboard() {
       status: 'disconnected',
       features: ['Safeguarding Alerts', 'Incident Logging'],
       onConnect: () => setConnectingProvider('cpoms'),
-      onConfigure: () => console.log('Config CPOMS')
+      onConfigure: () => console.log('Config CPOMS'),
+      helpText: 'Contact CPOMS support to request an API Key for EdPsych Connect.'
     },
     {
       id: 'azure-ad',
@@ -142,7 +147,8 @@ export default function IntegrationDashboard() {
       status: 'disconnected',
       features: ['SAML 2.0 SSO', 'Group Sync', 'MFA Enforcement'],
       onConnect: () => setConnectingProvider('azure-ad'),
-      onConfigure: () => console.log('Config Azure')
+      onConfigure: () => console.log('Config Azure'),
+      helpText: 'You will need your Tenant ID and Client Secret from the Azure Portal.'
     }
   ];
 
@@ -229,6 +235,13 @@ export default function IntegrationDashboard() {
               <p className="text-sm text-slate-500 mb-4">
                 Enter your API credentials to establish a secure connection.
               </p>
+
+              {providers.find(p => p.id === connectingProvider)?.helpText && (
+                <div className="mb-4 p-3 bg-blue-50 text-blue-700 text-xs rounded-lg flex items-start gap-2">
+                  <HelpCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                  <p>{providers.find(p => p.id === connectingProvider)?.helpText}</p>
+                </div>
+              )}
 
               <div className="space-y-4">
                 <div>

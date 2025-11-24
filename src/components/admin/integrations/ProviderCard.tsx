@@ -13,6 +13,7 @@ export interface ProviderProps {
   features: string[];
   onConnect: () => void;
   onConfigure: () => void;
+  helpText?: string;
 }
 
 export const ProviderCard: React.FC<ProviderProps> = ({
@@ -69,7 +70,10 @@ export const ProviderCard: React.FC<ProviderProps> = ({
               <Settings className="w-4 h-4" />
               Configure
             </button>
-            <button className="p-2 text-slate-400 hover:text-indigo-600 transition-colors">
+            <button 
+              className="p-2 text-slate-400 hover:text-indigo-600 transition-colors"
+              aria-label="Open provider portal"
+            >
               <ExternalLink className="w-4 h-4" />
             </button>
           </>

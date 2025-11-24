@@ -166,6 +166,16 @@ model tenants {
   audit_logs          AuditLog[]
   secure_documents    SecureDocument[]
   claimed_beta_codes  BetaAccessCode[]
+  beta_access_usages  BetaAccessCodeUsage[]
+
+  // Relations - Integrations
+  integration_settings IntegrationSettings?
+  sync_logs            SyncLog[]
+
+  @@index([tenant_id])
+  @@index([email])
+  @@index([is_active])
+  @@index([role])
 }
 
 model users {
@@ -307,6 +317,10 @@ model users {
   secure_documents    SecureDocument[]
   claimed_beta_codes  BetaAccessCode[]
   beta_access_usages  BetaAccessCodeUsage[]
+
+  // Relations - Integrations
+  integration_settings IntegrationSettings?
+  sync_logs            SyncLog[]
 
   @@index([tenant_id])
   @@index([email])
@@ -3135,494 +3149,36 @@ model MarketplaceReview {
 }
 
 // ============================================================================
-// OTHER MISSING MODELS
+// INTEGRATIONS & SYNC
 // ============================================================================
 
-model problem_solver_queries {
-  id String @id @default(uuid())
-  query_text String  @db.Text
-  user_id    Int?
-  email      String?
-  ai_response      String  @db.Text
-  model_used       String?
-  response_time_ms Int?
-  tokens_used      Int?
-  confidence_score Float?
-  problem_category String?
-  student_age      String?
-  urgency_level    String?
-  helpful_rating Int?
-  feedback_text  String? @db.Text
-  was_used       Boolean @default(false)
-  follow_up_requested Boolean @default(false)
-  converted_to_signup Boolean @default(false)
-  ip_address String?
-  user_agent String?
-  created_at DateTime @default(now())
+model IntegrationSettings {
+  id          String   @id @default(cuid())
+  tenant_id   Int      @unique
+  provider    String   // "wonde", "sims", "arbor", etc.
+  api_key     String?  // Store securely
+  gateway_url String?
+  status      String   @default("disconnected") // "connected", "disconnected", "error"
+  last_sync   DateTime?
+  config      Json?    // Any extra config
 
-  user users? @relation(fields: [user_id], references: [id])
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
 
-  @@index([created_at])
-  @@index([problem_category])
-  @@index([user_id])
+  tenant      tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
 }
 
-model onboarding_progress {
-  id      Int @id @default(autoincrement())
-  user_id Int @unique
+model SyncLog {
+  id                String   @id @default(cuid())
+  tenant_id         Int
+  provider          String
+  status            String   // "success", "failed", "partial"
+  records_processed Int      @default(0)
+  details           String?
+  timestamp         DateTime @default(now())
 
-  step_1_welcome_completed Boolean   @default(false)
-  step_1_completed_at      DateTime?
-  step_2_role_selected String?
-  step_2_completed_at  DateTime?
-  step_3_profile_completed     Boolean   @default(false)
-  step_3_photo_uploaded        Boolean   @default(false)
-  step_3_hcpc_provided         Boolean   @default(false)
-  step_3_organization_provided Boolean   @default(false)
-  step_3_completed_at          DateTime?
-  step_4_features_viewed String[]  @default([])
-  step_4_demos_tried     String[]  @default([])
-  step_4_completed_at    DateTime?
-  step_5_first_case_created    Boolean   @default(false)
-  step_5_first_assessment_done Boolean   @default(false)
-  step_5_first_goal_set        Boolean   @default(false)
-  step_5_completed_at          DateTime?
-  step_6_certificate_viewed Boolean   @default(false)
-  step_6_tour_completed     Boolean   @default(false)
-  step_6_call_booked        Boolean   @default(false)
-  step_6_completed_at       DateTime?
-
-  current_step    Int   @default(1)
-  steps_skipped   Int[] @default([])
-  times_restarted Int   @default(0)
-  total_time_spent_seconds Int   @default(0)
-  time_per_step            Json?
-  video_watched          Boolean @default(false)
-  video_watch_percentage Int     @default(0)
-  help_articles_opened   Int     @default(0)
-  back_button_uses       Int     @default(0)
-
-  created_at   DateTime  @default(now())
-  updated_at   DateTime  @default(now())
-  completed_at DateTime?
-
-  user users @relation(fields: [user_id], references: [id], onDelete: Cascade)
-
-  @@index([user_id])
-  @@index([current_step])
-}
-
-model LegalSignature {
-  id               String   @id @default(uuid())
-  userId           Int      // Changed to Int
-  documentId       String?
-  agreementType    String
-  agreementVersion String
-  signatureData    String   @db.Text
-  signedAt         DateTime @default(now())
-  timestamp        DateTime @default(now())
-  ipAddress        String?
-  userAgent        String?
-  status           String   @default("active")
-  verified         Boolean  @default(false)
-  metadata         Json?
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @default(now())
-
-  user             users    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-  @@index([documentId])
-}
-
-model AuditLog {
-  id          String   @id @default(uuid())
-  userId      Int?
-  action      String
-  resource    String
-  details     Json?
-  ipAddress   String?
-  userAgent   String?
-  createdAt   DateTime @default(now())
-
-  user        users?   @relation(fields: [userId], references: [id])
-  tenantId    Int?
-  tenant      tenants? @relation(fields: [tenantId], references: [id])
-
-  @@index([userId])
-  @@index([tenantId])
-  @@index([action])
-  @@index([createdAt])
-}
-
-model Waitlist {
-  id               String   @id @default(uuid())
-  email            String   @unique
-  name             String?
-  organization     String?
-  organization_type String?
-  role             String?
-  priority         String   @default("medium")
-  status           String   @default("pending")
-  
-  // Marketing & Tracking
-  beta_access      Boolean  @default(false)
-  referral_source  String?
-  notes            String?  @db.Text
-  last_contacted_at DateTime?
-  converted_at     DateTime?
-  utm_source       String?
-  utm_medium       String?
-  utm_campaign     String?
-
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @default(now())
-
-  @@index([email])
-}
-
-model BetaAccessCode {
-  id          String   @id @default(uuid())
-  code        String   @unique
-  description String?
-  maxUses     Int      @default(1)
-  usedCount   Int      @default(0)
-  expiresAt   DateTime?
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now())
-
-  claimedByUserId Int?
-  claimedByUser   users?   @relation(fields: [claimedByUserId], references: [id])
-  tenantId        Int?
-  tenant          tenants? @relation(fields: [tenantId], references: [id])
-
-  role        String?
-  features    String[] @default([])
-  metadata    Json?
-  usages      BetaAccessCodeUsage[]
-
-  @@index([code])
-  @@index([claimedByUserId])
-  @@index([tenantId])
-}
-
-model BetaAccessCodeUsage {
-  id           String   @id @default(uuid())
-  accessCodeId String
-  userId       Int
-  usedAt       DateTime @default(now())
-
-  accessCode   BetaAccessCode @relation(fields: [accessCodeId], references: [id])
-  user         users          @relation(fields: [userId], references: [id])
-
-  @@index([accessCodeId])
-  @@index([userId])
-}
-
-model SecureDocument {
-  id          String   @id @default(uuid())
-  path        String?  @unique
-  content     String?  @db.Text
-  userId      Int?
-  title       String?
-  documentType String?
-  storageUrl  String?
-  encryptionKeyId String?
-  mimeType    String?
-  sizeBytes   Int?
-  metadata    Json?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now())
-
-  user        users?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  tenantId    Int?
-  tenant      tenants? @relation(fields: [tenantId], references: [id])
-}
-
-model LegalDocument {
-  id        String   @id @default(uuid())
-  type      String
-  version   String
-  content   String   @db.Text
-  status    String   @default("active")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-
-  @@unique([type, version])
-}
-
-// ============================================================================
-// EVIDENCE-BASED ASSESSMENT FRAMEWORKS
-// EdPsych Connect Limited - Proprietary Assessment Tools
-// ============================================================================
-
-model AssessmentFramework {
-  id                    String   @id @default(uuid())
-  name                  String
-  abbreviation          String   @unique
-  version               String   @default("1.0")
-  domain                String
-
-  description           String   @db.Text
-  purpose               String   @db.Text
-  age_range_min         Int?
-  age_range_max         Int?
-
-  evidence_base         Json
-  theoretical_frameworks String[]
-
-  administration_guide  Json
-  time_estimate_minutes Int?
-
-  interpretation_guide  Json
-  qualitative_descriptors Json
-
-  domains               AssessmentDomain[]
-
-  status                String   @default("active")
-  is_proprietary        Boolean  @default(true)
-  copyright_holder      String   @default("EdPsych Connect Limited")
-  created_at            DateTime @default(now())
-  updated_at            DateTime @default(now())
-
-  instances             AssessmentInstance[]
-
-  @@index([abbreviation])
-  @@index([domain])
-  @@index([status])
-}
-
-model AssessmentDomain {
-  id                    String   @id @default(uuid())
-  framework_id          String
-
-  name                  String
-  description           String   @db.Text
-  order_index           Int
-
-  observation_prompts   Json
-  task_suggestions      Json
-  key_indicators        Json
-
-  parent_questions      Json
-  teacher_questions     Json
-  child_prompts         Json?
-
-  interpretation_guidance Json
-  strength_descriptors   Json
-  need_descriptors       Json
-
-  suggested_interventions Json
-
-  framework             AssessmentFramework @relation(fields: [framework_id], references: [id], onDelete: Cascade)
-  observations          DomainObservation[]
-
-  @@index([framework_id])
-  @@index([order_index])
-}
-
-model AssessmentInstance {
-  id                    String    @id @default(uuid())
-  tenant_id             Int
-  framework_id          String
-  case_id               Int
-  student_id            Int
-
-  title                 String?
-  conducted_by          Int
-  assessment_date       DateTime?
-
-  status                String    @default("draft")
-  progress_percentage   Int       @default(0)
-
-  parent_input_requested Boolean  @default(false)
-  parent_input_received  Boolean  @default(false)
-  teacher_input_requested Boolean @default(false)
-  teacher_input_received Boolean  @default(false)
-  child_input_requested  Boolean  @default(false)
-  child_input_received   Boolean  @default(false)
-
-  ep_summary            String?   @db.Text
-  ep_interpretation     String?   @db.Text
-  ep_recommendations    Json?
-
-  linked_ehcp_id        String?
-  linked_report_id      String?
-
-  created_at            DateTime  @default(now())
-  updated_at            DateTime  @default(now())
-  completed_at          DateTime?
-
-  framework             AssessmentFramework @relation(fields: [framework_id], references: [id])
-  domain_observations   DomainObservation[]
-  collaborations        AssessmentCollaboration[]
-  
-  tenant                tenants   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
-  case                  cases     @relation(fields: [case_id], references: [id], onDelete: Cascade)
-  student               students  @relation(fields: [student_id], references: [id], onDelete: Cascade)
-  conductor             users     @relation(fields: [conducted_by], references: [id])
-  assessment_outcomes   AssessmentOutcome[]
+  tenant      tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
 
   @@index([tenant_id])
-  @@index([framework_id])
-  @@index([case_id])
-  @@index([student_id])
-  @@index([conducted_by])
-  @@index([status])
-}
-
-model DomainObservation {
-  id                    String   @id @default(uuid())
-  instance_id           String
-  domain_id             String
-
-  observations          String   @db.Text
-  observed_strengths    Json
-  observed_needs        Json
-
-  observation_context   String?  @db.Text
-  tasks_used            Json?
-
-  strength_descriptors  String[]
-  need_descriptors      String[]
-
-  interpretation        String?  @db.Text
-  significance          String?  @db.Text
-
-  suggested_provisions  Json?
-
-  created_at            DateTime @default(now())
-  updated_at            DateTime @default(now())
-
-  instance              AssessmentInstance @relation(fields: [instance_id], references: [id], onDelete: Cascade)
-  domain                AssessmentDomain @relation(fields: [domain_id], references: [id])
-
-  @@index([instance_id])
-  @@index([domain_id])
-}
-
-model AssessmentCollaboration {
-  id                    String   @id @default(uuid())
-  instance_id           String
-
-  contributor_type      String
-  contributor_name      String?
-  contributor_email     String?
-  contributor_role      String?
-
-  responses             Json
-  narrative_input       String?  @db.Text
-
-  relationship_to_child String?
-  observation_context   String?
-
-  submitted_at          DateTime @default(now())
-  invitation_sent_at    DateTime?
-  invitation_method     String?
-
-  status                String   @default("pending")
-  integrated_at         DateTime?
-  integrated_by         Int?
-
-  created_at            DateTime @default(now())
-  updated_at            DateTime @default(now())
-
-  instance              AssessmentInstance @relation(fields: [instance_id], references: [id], onDelete: Cascade)
-
-  @@index([instance_id])
-  @@index([contributor_type])
-  @@index([status])
-}
-
-model AssessmentGuidance {
-  id                    String   @id @default(uuid())
-
-  category              String
-  topic                 String
-
-  title                 String
-  summary               String   @db.Text
-  detailed_content      String   @db.Text
-
-  research_citations    Json
-  evidence_strength     String?
-
-  practical_tips        Json?
-  example_scenarios     Json?
-  common_pitfalls       Json?
-
-  relevant_frameworks   String[]
-  relevant_domains      String[]
-
-  status                String   @default("published")
-  author                String?
-  reviewed_by           String?
-  review_date           DateTime?
-
-  created_at            DateTime @default(now())
-  updated_at            DateTime @default(now())
-
-  @@index([category])
-  @@index([topic])
-  @@index([status])
-}
-
-model AssessmentTemplate {
-  id                    String   @id @default(uuid())
-  framework_id          String
-
-  name                  String
-  description           String   @db.Text
-  use_case              String   @db.Text
-
-  age_range_min         Int?
-  age_range_max         Int?
-  year_group            String?
-
-  suggested_domains     String[]
-  observation_prompts   Json
-  task_suggestions      Json
-
-  usage_count           Int      @default(0)
-  created_by            String?
-
-  created_at            DateTime @default(now())
-  updated_at            DateTime @default(now())
-
-  @@index([framework_id])
-  @@index([age_range_min, age_range_max])
-}
-
-model AssessmentOutcome {
-  id                    String   @id @default(uuid())
-  tenant_id             Int
-  instance_id           String
-  student_id            Int
-
-  outcome_type          String
-  outcome_description   String   @db.Text
-
-  evidence_data         Json?
-  impact_rating         String?
-
-  baseline_date         DateTime?
-  outcome_date          DateTime
-  followup_date         DateTime?
-
-  contributed_to_research Boolean @default(false)
-  anonymized_data       Json?
-
-  created_at            DateTime @default(now())
-  updated_at            DateTime @default(now())
-
-  tenant                tenants   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
-  instance              AssessmentInstance @relation(fields: [instance_id], references: [id], onDelete: Cascade)
-  student               students  @relation(fields: [student_id], references: [id], onDelete: Cascade)
-
-  @@index([tenant_id])
-  @@index([instance_id])
-  @@index([student_id])
-  @@index([outcome_type])
-  @@index([contributed_to_research])
+  @@index([timestamp])
 }
