@@ -109,6 +109,8 @@ export default function AssessmentSandboxWizard() {
     framework_id: 'ecca-demo',
     case_id: 'demo-case',
     student_id: 'demo-student',
+    student_name: 'Alex Demo',
+    date_of_birth: '2017-05-15',
     status: 'draft',
     domains: {},
     collaborative_input: {},
@@ -214,12 +216,11 @@ export default function AssessmentSandboxWizard() {
   const handleGenerateReport = async () => {
     setIsGeneratingReport(true);
     try {
-      // Mock student data
-      const studentName = "Alex Demo";
-      const studentAge = 8;
-      const today = new Date();
-      const birthYear = today.getFullYear() - studentAge;
-      const dateOfBirth = `${birthYear}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+      // Use state data for the report
+      const studentName = assessmentData.student_name || "Alex Demo";
+      const studentAge = assessmentData.date_of_birth ? 
+        new Date().getFullYear() - new Date(assessmentData.date_of_birth).getFullYear() : 8;
+      const dateOfBirth = assessmentData.date_of_birth || new Date().toISOString().split('T')[0];
 
       // Collect domain observations
       const domainSummaries: string[] = [];
@@ -247,7 +248,7 @@ export default function AssessmentSandboxWizard() {
         date_of_birth: dateOfBirth,
         chronological_age: `${studentAge} years`,
         academic_year: `Year ${Math.max(1, studentAge - 4)}`,
-        school: assessmentData.school_name,
+        school: assessmentData.school_name || "Demo Primary School",
 
         assessment_name: MOCK_FRAMEWORK.name,
         assessment_date: new Date().toLocaleDateString('en-GB'),
@@ -286,8 +287,8 @@ export default function AssessmentSandboxWizard() {
         environmental_factors: 'Demo environment',
         test_conditions: 'Simulated assessment',
 
-        reason_for_referral: assessmentData.reason_for_referral,
-        background_information: assessmentData.context_review?.referral_summary,
+        reason_for_referral: assessmentData.reason_for_referral || "Assessment of learning needs",
+        background_information: assessmentData.context_review?.referral_summary || "No background info provided",
         previous_assessments: 'None',
 
         recommendations: assessmentData.ep_recommendations_text?.split('\n').filter((r: string) => r.trim()) || ['Demo recommendation 1', 'Demo recommendation 2'],

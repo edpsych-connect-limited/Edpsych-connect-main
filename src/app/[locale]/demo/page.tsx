@@ -46,6 +46,29 @@ export default function DemoPage() {
 
           {/* Sidebar Info */}
           <div className="lg:col-span-4 space-y-6">
+            
+            {/* GOLDEN THREAD CARD - NEW FLAGSHIP DEMO */}
+            <div className="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-xl p-6 shadow-xl shadow-indigo-900/20 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
+              <div className="absolute -right-10 -top-10 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
+              
+              <div className="relative z-10">
+                <div className="inline-flex items-center gap-1 px-2 py-1 rounded bg-white/20 text-white text-xs font-bold mb-3 backdrop-blur-sm border border-white/10">
+                  <span className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse" /> NEW
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">The Golden Thread</h3>
+                <p className="text-indigo-100 text-sm mb-4 leading-relaxed">
+                  See the full autonomous loop: Audit → Assess → Act → Communicate. The future of education in one screen.
+                </p>
+                <Link 
+                  href="/demo/golden-thread" 
+                  className="block w-full text-center px-4 py-3 bg-white text-indigo-700 hover:bg-indigo-50 rounded-lg font-bold transition-all shadow-lg"
+                >
+                  Launch Full Experience
+                </Link>
+              </div>
+            </div>
+
             <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
@@ -204,6 +227,27 @@ export default function DemoPage() {
                 className="block w-full text-center px-4 py-2 bg-white text-slate-900 hover:bg-slate-200 rounded-lg font-bold transition-colors"
               >
                 Run Forensic Audit
+              </Link>
+            </div>
+
+            {/* Universal Translator Demo Card */}
+            <div className="bg-gradient-to-br from-indigo-900 to-purple-900 border border-indigo-500/50 rounded-xl p-6 relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-4 opacity-10">
+                <svg className="w-24 h-24 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold mb-2 text-white flex items-center gap-2">
+                <span className="text-purple-400">AI</span> Universal Translator
+              </h3>
+              <p className="text-slate-300 text-sm mb-4">
+                Convert complex educational jargon into clear, empathetic language for parents and students.
+              </p>
+              <Link 
+                href="/demo/translator" 
+                className="block w-full text-center px-4 py-2 bg-white text-indigo-900 hover:bg-indigo-50 rounded-lg font-bold transition-colors"
+              >
+                Try Translator
               </Link>
             </div>
           </div>

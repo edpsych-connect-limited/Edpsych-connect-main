@@ -6,11 +6,14 @@
 import Anthropic from '@anthropic-ai/sdk';
 import OpenAI from 'openai';
 import { Redis } from '@upstash/redis';
+import { aiAuditService } from './audit/ai-audit-service';
 
 export interface AIRequest {
   prompt: string;
   context?: any;
   id: string;
+  tenantId?: string; // Added for auditing
+  autonomyLevel?: 'advisory' | 'autonomous'; // Added for safety
   subscriptionTier: string;
   useCase: string;
   maxTokens?: number;
@@ -527,6 +530,19 @@ class AIIntegrationService {
         );
       }
 
+      // SAFETY NET: Log to Audit Service
+      await aiAuditService.logDecision({
+        agentId: agent.name,
+        userId: request.id,
+        tenantId: request.tenantId || 'unknown',
+        action: request.useCase,
+        input: request.prompt,
+        output: response.content,
+        confidenceScore: 0.95, // Mock confidence for now
+        autonomyLevel: request.autonomyLevel || 'advisory',
+        humanReviewRequired: request.autonomyLevel === 'advisory'
+      });
+
       return {
         response: response.content,
         model: agent.model,
@@ -909,6 +925,8 @@ class AIIntegration {
           agentId: request.agentId
         },
         id: request.userId.toString(),
+        tenantId: request.tenantId.toString(),
+        autonomyLevel: 'advisory', // Default to advisory for chat
         subscriptionTier: 'professional', // Default for educational psychologists
         useCase: useCase,
         maxTokens: request.maxTokens || 800,

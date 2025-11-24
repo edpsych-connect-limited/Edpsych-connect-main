@@ -33,6 +33,7 @@ export interface TenantSettings {
   features: FeatureFlags;
   integrations: ExternalIntegrations;
   compliance: ComplianceSettings;
+  autonomyLevel: 'advisory' | 'autonomous'; // Global safety toggle
   notifications: {
     email: boolean;
     sms: boolean;
@@ -430,6 +431,7 @@ export class TenantService {
           },
           auditLogging: true
         },
+        autonomyLevel: 'advisory', // Default to safe mode
         notifications: {
           email: true,
           sms: false,
@@ -732,8 +734,8 @@ export class TenantService {
   /**
    * Generate timetable for a year group
    */
-  private generateTimetable(yearGroup: string): Timetable {
-    const keyStage = this.getKeyStageForYearGroup(yearGroup);
+  private generateTimetable(_yearGroup: string): Timetable {
+    // const keyStage = this.getKeyStageForYearGroup(yearGroup);
 
     return {
       periods: [

@@ -295,7 +295,7 @@ export class ResearchService {
     researcherId: string,
     studyId: string,
     justification: string,
-    dataTypes: string[]
+    _dataTypes: string[]
   ): Promise<boolean> {
     const study = this.studies.get(studyId);
     if (!study) return false;
