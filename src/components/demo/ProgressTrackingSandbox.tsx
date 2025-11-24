@@ -3,20 +3,20 @@
 import React, { useState } from 'react';
 import { LineChart, BarChart, PieChart, TrendingUp, Users, Calendar, ArrowUpRight, ArrowDownRight, Filter, Download, Plus } from 'lucide-react';
 
-// Mock Data
+// Enterprise-Grade Pedagogical Data
 const MOCK_STUDENTS = [
-  { id: 1, name: "Leo Thompson", year: 4, need: "SEMH", progress: "Accelerated", intervention: "Lego Therapy", score: 85, trend: +12 },
-  { id: 2, name: "Mia Chen", year: 3, need: "C&L", progress: "Expected", intervention: "Precision Teaching", score: 62, trend: +5 },
-  { id: 3, name: "Noah Williams", year: 5, need: "C&I", progress: "Below", intervention: "Social Stories", score: 45, trend: -2 },
-  { id: 4, name: "Ava Patel", year: 2, need: "SEMH", progress: "Expected", intervention: "Boxall Profile", score: 58, trend: +8 },
-  { id: 5, name: "Lucas Brown", year: 6, need: "Sensory", progress: "Accelerated", intervention: "Sensory Circuits", score: 78, trend: +15 },
+  { id: 1, name: "Leo Thompson", year: 4, need: "SEMH", progress: "Accelerated", intervention: "ELSA Support", score: 94, trend: +8 },
+  { id: 2, name: "Mia Chen", year: 3, need: "C&L", progress: "Expected", intervention: "Precision Teaching", score: 88, trend: +4 },
+  { id: 3, name: "Noah Williams", year: 5, need: "C&I", progress: "Below", intervention: "Talkabout Social Skills", score: 76, trend: -2 },
+  { id: 4, name: "Ava Patel", year: 2, need: "SEMH", progress: "Expected", intervention: "Boxall Profile Targets", score: 91, trend: +5 },
+  { id: 5, name: "Lucas Brown", year: 6, need: "Sensory", progress: "Accelerated", intervention: "Sensory Circuits", score: 102, trend: +12 },
 ];
 
 const MOCK_INTERVENTIONS = [
-  { name: "Lego Therapy", students: 12, avgImpact: "+4.5 months", cost: "£150", rating: 4.8 },
-  { name: "Precision Teaching", students: 24, avgImpact: "+3.2 months", cost: "£0", rating: 4.2 },
-  { name: "Elklan", students: 8, avgImpact: "+5.1 months", cost: "£450", rating: 4.9 },
-  { name: "Zones of Regulation", students: 35, avgImpact: "+2.8 months", cost: "£200", rating: 4.5 },
+  { name: "ELSA Support", students: 12, avgImpact: "+6 SS Pts", cost: "£450", rating: 4.8 },
+  { name: "Precision Teaching", students: 24, avgImpact: "+4 SS Pts", cost: "£0", rating: 4.2 },
+  { name: "Talkabout", students: 8, avgImpact: "+5 SS Pts", cost: "£150", rating: 4.9 },
+  { name: "Zones of Regulation", students: 35, avgImpact: "+3 SS Pts", cost: "£200", rating: 4.5 },
 ];
 
 export default function ProgressTrackingSandbox() {
@@ -54,11 +54,11 @@ export default function ProgressTrackingSandbox() {
               <TrendingUp className="w-5 h-5" />
             </div>
             <span className="text-emerald-400 text-xs font-medium flex items-center gap-1">
-              <ArrowUpRight className="w-3 h-3" /> +3.2mo
+              <ArrowUpRight className="w-3 h-3" /> +4.5 SS
             </span>
           </div>
           <div className="text-2xl font-bold text-white">High</div>
-          <div className="text-xs text-slate-400">Avg. Intervention Impact</div>
+          <div className="text-xs text-slate-400">Avg. Standardised Score Gain</div>
         </div>
 
         <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
@@ -144,7 +144,7 @@ export default function ProgressTrackingSandbox() {
                     <th className="px-6 py-3">Primary Need</th>
                     <th className="px-6 py-3">Current Intervention</th>
                     <th className="px-6 py-3">Progress</th>
-                    <th className="px-6 py-3 text-right">Trend</th>
+                    <th className="px-6 py-3 text-right">SS Trend</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-700">
@@ -185,7 +185,7 @@ export default function ProgressTrackingSandbox() {
                           student.trend > 0 ? 'text-emerald-400' : 'text-red-400'
                         }`}>
                           {student.trend > 0 ? <ArrowUpRight className="w-4 h-4" /> : <ArrowDownRight className="w-4 h-4" />}
-                          {Math.abs(student.trend)}%
+                          {Math.abs(student.trend)} pts
                         </span>
                       </td>
                     </tr>
