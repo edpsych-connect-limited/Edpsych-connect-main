@@ -42,12 +42,15 @@ export async function POST(
     // Create SecureDocument record
     const secureDoc = await prisma.secureDocument.create({
       data: {
-        title: `Assessment Report - ${params.id}`,
-        documentType: 'ASSESSMENT_REPORT',
-        storageUrl: fileUrl,
-        mimeType: 'application/pdf',
-        sizeBytes: buffer.length,
-        userId: parseInt(session.user.id),
+        path: fileUrl,
+        content: 'Binary content stored on disk', // Placeholder as content is required
+        metadata: {
+          title: `Assessment Report - ${params.id}`,
+          documentType: 'ASSESSMENT_REPORT',
+          mimeType: 'application/pdf',
+          sizeBytes: buffer.length,
+        },
+        user_id: parseInt(session.user.id),
         // tenantId: session.user.tenantId // Assuming I can get tenantId from session or user
       }
     });

@@ -67,8 +67,9 @@ export class AuditLogService {
       data: {
         action: actionType,
         resource: 'Institution',
-        userId: parseInt(userId),
-        tenantId: parseInt(institutionId),
+        userId: userId,
+        user_id_int: parseInt(userId),
+        tenant_id: parseInt(institutionId),
         details: {
           entityId: institutionId,
           description: `Action: ${actionType}`,

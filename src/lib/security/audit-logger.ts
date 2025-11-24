@@ -90,8 +90,9 @@ class AuditLogger {
 
       await prisma.auditLog.create({
         data: {
-          userId: validUserId,
-          tenantId: tenantId,
+          userId: entry.performedBy,
+          user_id_int: validUserId,
+          tenant_id: tenantId,
           action: entry.eventType,
           resource: entry.entityType || 'system',
           details: {

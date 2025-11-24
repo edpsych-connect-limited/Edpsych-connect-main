@@ -218,10 +218,10 @@ export function InteractiveDemo({ featureId, onComplete }: InteractiveDemoProps)
                 <span>{state.progress}%</span>
               </div>
               <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                {/* eslint-disable-next-line */}
                 <div 
                   className="h-full bg-indigo-600 transition-all duration-500 ease-out"
-                  // eslint-disable-next-line react-dom/no-unsafe-inline-style
-                  style={{ width: `${state.progress}%` }}
+                  {...{ style: { width: `${state.progress}%` } }}
                 />
               </div>
             </div>

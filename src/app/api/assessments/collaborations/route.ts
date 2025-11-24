@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
       where: { id: instance_id },
       include: {
         student: true,
-        conductor: true,
+        user: true,
         framework: true
       }
     });
@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
     
     // Send invitation email
     const studentName = `${assessment.student.first_name} ${assessment.student.last_name}`;
-    const epName = `${assessment.conductor.firstName || 'EP'} ${assessment.conductor.lastName || ''}`.trim();
+    const epName = `${assessment.user.firstName || 'EP'} ${assessment.user.lastName || ''}`.trim();
     
     await emailService.sendEmail({
       to: contributor_email,

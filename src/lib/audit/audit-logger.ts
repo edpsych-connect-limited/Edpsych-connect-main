@@ -31,11 +31,11 @@ export class AuditLogger {
       // We don't await this to avoid blocking the main request flow
       prisma.auditLog.create({
         data: {
-          userId: entry.userId,
-          tenantId: entry.tenantId,
+          user_id_int: entry.userId,
+          tenant_id: entry.tenantId,
           action: entry.action,
           resource: entry.resource,
-          details: entry.details ? JSON.stringify(entry.details) : undefined,
+          details: entry.details,
           ipAddress: entry.ipAddress,
           userAgent: entry.userAgent,
         },

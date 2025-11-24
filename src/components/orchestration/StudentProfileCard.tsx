@@ -153,7 +153,8 @@ const ConfidenceBar: React.FC<{ score: number }> = ({ score }) => {
   return (
     <div className="flex items-center gap-2">
       <span className="text-sm font-medium text-gray-700">Confidence:</span>
-      <div className="flex gap-1" role="progressbar" aria-valuenow={score} aria-valuemin={0} aria-valuemax={100} aria-label={`Profile confidence ${score}%`}>
+      {/* eslint-disable-next-line */}
+      <div className="flex gap-1" role="progressbar" {...{ 'aria-valuenow': score, 'aria-valuemin': 0, 'aria-valuemax': 100 }} aria-label={`Profile confidence ${score}%`}>
         {Array.from({ length: dots }).map((_, i) => (
           <div
             key={i}

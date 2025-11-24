@@ -56,7 +56,8 @@ export class DigitalSignatureService {
       const signatureRecord = await prisma.legalSignature.create({
         data: {
           id: signatureId,
-          userId: parseInt(userId), // Parse string ID to Int
+          userId: userId,
+          user_id_int: parseInt(userId),
           agreementType,
           agreementVersion,
           signedAt: timestamp,
@@ -74,7 +75,8 @@ export class DigitalSignatureService {
           id: generateUUID(),
           action: 'signature_created',
           resource: 'LegalSignature',
-          userId: parseInt(userId),
+          userId: userId,
+          user_id_int: parseInt(userId),
           details: {
             entityId: signatureId,
             description: `Digital signature created for agreement ${agreementType}`,

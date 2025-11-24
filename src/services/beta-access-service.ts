@@ -39,7 +39,7 @@ export class BetaAccessService {
           code,
           expiresAt: options.expiresAt,
           maxUses: options.maxUses || 1,
-          usedCount: 0,
+          currentUses: 0,
           role: options.role || 'BETA_TESTER',
           features: options.features || [],
           metadata: options.metadata || {},
@@ -94,7 +94,7 @@ export class BetaAccessService {
       }
       
       // Check if the code has any uses remaining
-      const remainingUses = accessCode.maxUses - accessCode.usedCount;
+      const remainingUses = accessCode.maxUses - accessCode.currentUses;
       if (remainingUses <= 0) {
         return { valid: false, error: 'Access code has no remaining uses' };
       }
@@ -146,7 +146,7 @@ export class BetaAccessService {
       const updatedCode = await this.prisma.betaAccessCode.update({
         where: { code: code.toUpperCase() },
         data: {
-          usedCount: {
+          currentUses: {
             increment: 1
           },
           updatedAt: new Date()

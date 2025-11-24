@@ -88,15 +88,15 @@ model tenants {
   updated_at DateTime @default(now())
 
   // Relations - Core
-  users         users[]
-  students      students[]
-  professionals professionals[]
-  assessments   assessments[]
+  users                users[]
+  students             students[]
+  professionals        professionals[]
+  assessments          assessments[]
   assessment_instances AssessmentInstance[]
-  assessment_outcomes AssessmentOutcome[]
-  cases         cases[]
-  interventions interventions[]
-  subscriptions subscriptions[]
+  assessment_outcomes  AssessmentOutcome[]
+  cases                cases[]
+  interventions        interventions[]
+  subscriptions        subscriptions[]
 
   // Relations - Training
   courses             courses[]
@@ -151,7 +151,7 @@ model tenants {
   voice_commands             VoiceCommand[]
   automated_actions          AutomatedAction[]
   parent_teacher_messages    ParentTeacherMessage[]
-  feature_usage              feature_usage[]        @relation("TenantFeatureUsage")
+  feature_usage              feature_usage[]           @relation("TenantFeatureUsage")
 
   // Relations - Tokenisation System
   // tokenisation_accounts  TokenisationAccount[]
@@ -160,22 +160,22 @@ model tenants {
   // reward_claims          RewardClaim[]
 
   // Relations - Marketplace
-  service_contracts    ServiceContract[]
+  service_contracts ServiceContract[]
 
   // Relations - System & Security
-  audit_logs          AuditLog[]
-  secure_documents    SecureDocument[]
-  claimed_beta_codes  BetaAccessCode[]
-  beta_access_usages  BetaAccessCodeUsage[]
+  audit_logs         AuditLog[]
+  secure_documents   SecureDocument[]
+  claimed_beta_codes BetaAccessCode[]
+  beta_access_usages BetaAccessCodeUsage[]
 
   // Relations - Integrations
   integration_settings IntegrationSettings?
   sync_logs            SyncLog[]
+  squadMembers         SquadMember[]
 
-  @@index([tenant_id])
-  @@index([email])
-  @@index([is_active])
-  @@index([role])
+  @@index([subdomain])
+  @@index([tenant_type])
+  @@index([status])
 }
 
 model users {
@@ -209,15 +209,15 @@ model users {
   onboarding_skipped      Boolean   @default(false)
 
   // Relations - Tenant
-  tenants tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  tenants       tenants         @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
   ehcp_versions ehcp_versions[]
 
   // Relations - Educational
   assessments               assessments[]
   conducted_assessments     AssessmentInstance[]
   cases                     cases[]
-  interventions_created     interventions[] @relation("interventions_created_byTousers")
-  interventions_implemented interventions[] @relation("interventions_implemented_byTousers")
+  interventions_created     interventions[]      @relation("interventions_created_byTousers")
+  interventions_implemented interventions[]      @relation("interventions_implemented_byTousers")
 
   // Relations - Gamification
   gamification_achievements gamification_achievements[]
@@ -306,21 +306,23 @@ model users {
   received_messages ParentTeacherMessage[] @relation("ReceivedMessages")
 
   // Relations - Marketplace
-  compliance           ProfessionalCompliance?
-  marketplace_profile  MarketplaceProfessional?
-  service_listings     ServiceListing[]
-  contracts_as_ep      ServiceContract[] @relation("EPContracts")
+  compliance                  ProfessionalCompliance?
+  marketplace_profile         MarketplaceProfessional?
+  service_listings            ServiceListing[]
+  contracts_as_ep             ServiceContract[]        @relation("EPContracts")
   marketplace_reviews_written MarketplaceReview[]
 
   // Relations - System & Security
-  audit_logs          AuditLog[]
-  secure_documents    SecureDocument[]
-  claimed_beta_codes  BetaAccessCode[]
-  beta_access_usages  BetaAccessCodeUsage[]
+  audit_logs         AuditLog[]
+  secure_documents   SecureDocument[]
+  claimed_beta_codes BetaAccessCode[]
+  beta_access_usages BetaAccessCodeUsage[]
 
   // Relations - Integrations
-  integration_settings IntegrationSettings?
-  sync_logs            SyncLog[]
+  integration_settings  IntegrationSettings? @relation(fields: [integrationSettingsId], references: [id])
+  sync_logs             SyncLog[]
+  integrationSettingsId String?
+  squadMembers          SquadMember[]
 
   @@index([tenant_id])
   @@index([email])
@@ -346,10 +348,10 @@ model students {
   updated_at DateTime @default(now())
 
   // Relations
-  tenants tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
-  cases   cases[]
+  tenants              tenants              @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  cases                cases[]
   assessment_instances AssessmentInstance[]
-  assessment_outcomes AssessmentOutcome[]
+  assessment_outcomes  AssessmentOutcome[]
 
   // Relations - Platform Orchestration Layer
   student_profile    StudentProfile?
@@ -380,12 +382,12 @@ model cases {
   updated_at DateTime @default(now())
 
   // Relations
-  tenants       tenants         @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
-  students      students        @relation(fields: [student_id], references: [id], onDelete: Cascade)
-  users         users?          @relation(fields: [assigned_to], references: [id])
-  assessments   assessments[]
+  tenants              tenants              @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  students             students             @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  users                users?               @relation(fields: [assigned_to], references: [id])
+  assessments          assessments[]
   assessment_instances AssessmentInstance[]
-  interventions interventions[]
+  interventions        interventions[]
 
   @@index([tenant_id])
   @@index([student_id])
@@ -566,7 +568,7 @@ model enrollments {
   purchase_id        String?
   access_granted_via String? // "purchase", "subscription", "trial", "admin_grant"
   access_expires_at  DateTime?
-  is_lifetime_access Boolean @default(false)
+  is_lifetime_access Boolean   @default(false)
 
   // Relations
   tenants           tenants           @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
@@ -940,10 +942,10 @@ model ehcps {
   student_id   String
   plan_details Json
   issued_at    DateTime @default(now())
-  updated_at    DateTime @default(now())
+  updated_at   DateTime @default(now())
 
   // Relations
-  tenants tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  tenants  tenants         @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
   versions ehcp_versions[]
 
   @@index([tenant_id])
@@ -951,19 +953,19 @@ model ehcps {
 }
 
 model ehcp_versions {
-  id            String       @id @default(cuid())
-  ehcp_id       String
-  tenant_id     Int
-  created_by_id Int?
-  status        String
-  plan_details  Json
+  id             String   @id @default(cuid())
+  ehcp_id        String
+  tenant_id      Int
+  created_by_id  Int?
+  status         String
+  plan_details   Json
   change_summary String?
-  created_at    DateTime     @default(now())
+  created_at     DateTime @default(now())
 
   // Relations
-  ehcp    ehcps   @relation(fields: [ehcp_id], references: [id], onDelete: Cascade)
-  tenants tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
-  created_by users? @relation(fields: [created_by_id], references: [id])
+  ehcp       ehcps   @relation(fields: [ehcp_id], references: [id], onDelete: Cascade)
+  tenants    tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  created_by users?  @relation(fields: [created_by_id], references: [id])
 
   @@index([ehcp_id])
   @@index([tenant_id])
@@ -1588,20 +1590,20 @@ model feature_usage {
 }
 
 model ParentTeacherMessage {
-  id        String   @id @default(uuid())
-  tenantId  Int
-  senderId  Int
+  id         String    @id @default(uuid())
+  tenantId   Int
+  senderId   Int
   receiverId Int
-  content   String
-  subject   String?
-  isRead    Boolean  @default(false)
-  readAt    DateTime?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  content    String
+  subject    String?
+  isRead     Boolean   @default(false)
+  readAt     DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @default(now())
 
-  tenant    tenants @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  sender    users   @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
-  receiver  users   @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+  tenant    tenants   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  sender    users     @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver  users     @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
   studentId Int?
   student   students? @relation(fields: [studentId], references: [id])
 
@@ -1817,11 +1819,11 @@ model StudentProfile {
   updated_at         DateTime @default(now())
 
   // Relations
-  tenant              tenants                   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
-  student             students                  @relation(fields: [student_id], references: [id], onDelete: Cascade)
-  lesson_assignments  StudentLessonAssignment[]
-  progress_snapshots  StudentProgressSnapshot[]
-  automated_actions   AutomatedAction[]
+  tenant             tenants                   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  student            students                  @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  lesson_assignments StudentLessonAssignment[]
+  progress_snapshots StudentProgressSnapshot[]
+  automated_actions  AutomatedAction[]
 
   @@index([tenant_id])
   @@index([student_id])
@@ -1913,8 +1915,8 @@ model LessonActivity {
   lesson_plan_id String
 
   // Activity Details
-  title         String
-  activity_type String
+  title          String
+  activity_type  String
   sequence_order Int
 
   // Base Content
@@ -1935,8 +1937,8 @@ model LessonActivity {
   updated_at DateTime @default(now())
 
   // Relations
-  lesson_plan        LessonPlan                @relation(fields: [lesson_plan_id], references: [id], onDelete: Cascade)
-  student_responses  StudentActivityResponse[]
+  lesson_plan       LessonPlan                @relation(fields: [lesson_plan_id], references: [id], onDelete: Cascade)
+  student_responses StudentActivityResponse[]
 
   @@index([lesson_plan_id])
   @@index([sequence_order])
@@ -2063,9 +2065,9 @@ model StudentProgressSnapshot {
 }
 
 model MultiAgencyAccess {
-  id         String @id @default(cuid())
-  tenant_id  Int
-  user_id    Int
+  id        String @id @default(cuid())
+  tenant_id Int
+  user_id   Int
 
   // Access Scope
   role_type String
@@ -2106,18 +2108,18 @@ model MultiAgencyAccess {
 }
 
 model ParentChildLink {
-  id         String @id @default(cuid())
-  tenant_id  Int
-  parent_id  Int
-  child_id   Int
+  id        String @id @default(cuid())
+  tenant_id Int
+  parent_id Int
+  child_id  Int
 
   // Relationship
   relationship_type  String  @default("parent")
   is_primary_contact Boolean @default(false)
 
   // Permissions
-  can_view_progress  Boolean @default(true)
-  can_view_behavior  Boolean @default(true)
+  can_view_progress   Boolean @default(true)
+  can_view_behavior   Boolean @default(true)
   can_message_teacher Boolean @default(true)
   can_view_attendance Boolean @default(true)
 
@@ -2143,9 +2145,9 @@ model ParentChildLink {
 }
 
 model VoiceCommand {
-  id         String @id @default(cuid())
-  tenant_id  Int
-  user_id    Int
+  id        String @id @default(cuid())
+  tenant_id Int
+  user_id   Int
 
   // Command Details
   raw_transcript     String
@@ -2179,24 +2181,24 @@ model VoiceCommand {
 }
 
 model AutomatedAction {
-  id         String @id @default(cuid())
-  tenant_id  Int
+  id        String @id @default(cuid())
+  tenant_id Int
 
   // Action Details
   action_type  String
   triggered_by String
 
   // Target
-  target_type String
-  target_id   String
-  student_id  Int?
+  target_type        String
+  target_id          String
+  student_id         Int?
   student_profile_id String?
 
   // Action Data
   action_data Json
 
   // Human Review
-  requires_approval Boolean @default(false)
+  requires_approval Boolean   @default(false)
   approved_by       Int?
   approved_at       DateTime?
   rejected_at       DateTime?
@@ -2248,7 +2250,7 @@ model StudyBuddyRecommendation {
   strategy_details Json?
 
   // User interaction
-  status       String   @default("active")
+  status       String    @default("active")
   clicked_at   DateTime?
   dismissed_at DateTime?
   completed_at DateTime?
@@ -2256,10 +2258,10 @@ model StudyBuddyRecommendation {
 
   // Metadata
   generated_by_agent String?
-  generated_at       DateTime @default(now())
+  generated_at       DateTime  @default(now())
   expires_at         DateTime?
-  created_at         DateTime @default(now())
-  updated_at         DateTime @default(now())
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @default(now())
 
   // Relations
   user   users   @relation(fields: [user_id], references: [id], onDelete: Cascade)
@@ -2274,7 +2276,7 @@ model UserLearningProfile {
   id String @id @default(uuid())
 
   // User identification
-  user_id   Int      @unique
+  user_id   Int    @unique
   tenant_id Int
   role      String
 
@@ -2291,14 +2293,14 @@ model UserLearningProfile {
   current_projects String[] @default([])
 
   // Engagement patterns
-  avg_session_duration  Int      @default(0)
-  most_active_day       String?
-  most_active_hour      Int?
-  engagement_score      Float    @default(0)
-  last_active_at        DateTime?
-  total_logins          Int      @default(0)
-  consecutive_days      Int      @default(0)
-  longest_streak        Int      @default(0)
+  avg_session_duration Int       @default(0)
+  most_active_day      String?
+  most_active_hour     Int?
+  engagement_score     Float     @default(0)
+  last_active_at       DateTime?
+  total_logins         Int       @default(0)
+  consecutive_days     Int       @default(0)
+  longest_streak       Int       @default(0)
 
   // Learning behavior
   courses_started     Int   @default(0)
@@ -2310,19 +2312,19 @@ model UserLearningProfile {
   assessments_created Int   @default(0)
 
   // Study Buddy interaction history
-  recommendations_received  Int   @default(0)
-  recommendations_clicked   Int   @default(0)
-  recommendations_completed Int   @default(0)
-  recommendations_dismissed Int   @default(0)
-  total_buddy_interactions  Int   @default(0)
+  recommendations_received  Int     @default(0)
+  recommendations_clicked   Int     @default(0)
+  recommendations_completed Int     @default(0)
+  recommendations_dismissed Int     @default(0)
+  total_buddy_interactions  Int     @default(0)
   favorite_buddy_agent      String?
 
   // Predictive scores
-  churn_risk_score            Float    @default(0)
-  intervention_success_score  Float    @default(0)
-  cpd_completion_score        Float    @default(0)
-  engagement_trend            String   @default("stable")
-  predicted_next_interest     String?
+  churn_risk_score           Float   @default(0)
+  intervention_success_score Float   @default(0)
+  cpd_completion_score       Float   @default(0)
+  engagement_trend           String  @default("stable")
+  predicted_next_interest    String?
 
   // Metadata
   profile_completeness Float    @default(0)
@@ -2346,11 +2348,11 @@ model StudyBuddyInteraction {
   tenant_id Int
 
   // Interaction details
-  interaction_type  String
-  agent_used        String
-  user_input        String? @db.Text
-  agent_response    String? @db.Text
-  conversation_id   String?
+  interaction_type String
+  agent_used       String
+  user_input       String? @db.Text
+  agent_response   String? @db.Text
+  conversation_id  String?
 
   // Performance metrics
   response_time_ms Int?
@@ -2360,21 +2362,21 @@ model StudyBuddyInteraction {
 
   // User feedback
   satisfaction_rating Int?
-  was_helpful         Boolean  @default(true)
-  feedback_text       String?  @db.Text
-  reported_issue      Boolean  @default(false)
-  issue_description   String?  @db.Text
+  was_helpful         Boolean @default(true)
+  feedback_text       String? @db.Text
+  reported_issue      Boolean @default(false)
+  issue_description   String? @db.Text
 
   // Context
-  page_context   String?
-  feature_used   String?
-  success        Boolean  @default(true)
-  error_message  String?  @db.Text
+  page_context  String?
+  feature_used  String?
+  success       Boolean @default(true)
+  error_message String? @db.Text
 
   // Follow-up
-  led_to_action     Boolean  @default(false)
-  action_taken      String?
-  action_timestamp  DateTime?
+  led_to_action    Boolean   @default(false)
+  action_taken     String?
+  action_timestamp DateTime?
 
   // Metadata
   session_id String?
@@ -2397,42 +2399,42 @@ model PredictiveInsight {
   tenant_id Int
 
   // Insight details
-  insight_type   String
-  title          String
-  description    String  @db.Text
-  severity       String  @default("info")
-  priority       Int     @default(50)
+  insight_type String
+  title        String
+  description  String @db.Text
+  severity     String @default("info")
+  priority     Int    @default(50)
 
   // Prediction data
-  prediction_model     String
-  confidence_score     Float   @default(0.5)
-  predicted_outcome    String?
-  recommended_action   String  @db.Text
-  expected_impact      String?
+  prediction_model   String
+  confidence_score   Float   @default(0.5)
+  predicted_outcome  String?
+  recommended_action String  @db.Text
+  expected_impact    String?
 
   // Evidence
-  evidence_data    Json?
-  trend_direction  String?
-  comparison_data  Json?
+  evidence_data   Json?
+  trend_direction String?
+  comparison_data Json?
 
   // Actionability
-  is_actionable      Boolean  @default(true)
+  is_actionable      Boolean @default(true)
   action_button_text String?
   action_url         String?
   estimated_time     Int?
 
   // User response
-  status        String   @default("active")
-  viewed_at     DateTime?
-  acted_at      DateTime?
-  dismissed_at  DateTime?
-  feedback      String?
+  status       String    @default("active")
+  viewed_at    DateTime?
+  acted_at     DateTime?
+  dismissed_at DateTime?
+  feedback     String?
 
   // Metadata
-  generated_at DateTime @default(now())
+  generated_at DateTime  @default(now())
   expires_at   DateTime?
-  created_at   DateTime @default(now())
-  updated_at   DateTime @default(now())
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @default(now())
 
   // Relations
   user   users   @relation(fields: [user_id], references: [id], onDelete: Cascade)
@@ -2451,47 +2453,43 @@ model ConversationalAISession {
   tenant_id Int
 
   // Session details
-  session_title     String?
-  primary_agent     String
-  session_goal      String?
-  session_status    String  @default("active")
+  session_title  String?
+  primary_agent  String
+  session_goal   String?
+  session_status String  @default("active")
 
   // Conversation metadata
-  message_count     Int      @default(0)
-  total_tokens      Int      @default(0)
-  total_cost_usd    Float    @default(0)
-  avg_response_time Int      @default(0)
+  message_count     Int   @default(0)
+  total_tokens      Int   @default(0)
+  total_cost_usd    Float @default(0)
+  avg_response_time Int   @default(0)
 
   // Context preservation
-  context_summary   String?  @db.Text
-  user_preferences  Json?
-  referenced_docs   String[] @default([])
+  context_summary  String?  @db.Text
+  user_preferences Json?
+  referenced_docs  String[] @default([])
 
   // Outcomes
-  completed_task    Boolean   @default(false)
-  generated_content String?   @db.Text
-  exported          Boolean   @default(false)
+  completed_task    Boolean @default(false)
+  generated_content String? @db.Text
+  exported          Boolean @default(false)
   export_format     String?
 
   // Quality metrics
   user_satisfaction Int?
-  was_successful    Boolean  @default(true)
-  had_errors        Boolean  @default(false)
+  was_successful    Boolean @default(true)
+  had_errors        Boolean @default(false)
 
   // Timestamps
-  started_at    DateTime  @default(now())
-  last_active   DateTime  @default(now())
-  completed_at  DateTime?
-  created_at                         DateTime  @default(now())
-  updated_at    DateTime  @default(now())
-
-
-
-
+  started_at   DateTime  @default(now())
+  last_active  DateTime  @default(now())
+  completed_at DateTime?
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @default(now())
 
   // Relations
-  user     users                         @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  tenant   tenants                       @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  user     users                     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  tenant   tenants                   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
   messages ConversationalAIMessage[]
 
   @@index([user_id])
@@ -2506,26 +2504,26 @@ model ConversationalAIMessage {
   session_id String
 
   // Message details
-  role        String
-  content     String @db.Text
-  agent       String?
+  role    String
+  content String  @db.Text
+  agent   String?
 
   // Rendering
-  format              String   @default("text")
-  attachments         String[] @default([])
-  has_code            Boolean  @default(false)
-  has_tables          Boolean  @default(false)
-  contains_pii        Boolean  @default(false)
+  format       String   @default("text")
+  attachments  String[] @default([])
+  has_code     Boolean  @default(false)
+  has_tables   Boolean  @default(false)
+  contains_pii Boolean  @default(false)
 
   // Performance
-  tokens       Int?
-  cost_usd     Float?
+  tokens           Int?
+  cost_usd         Float?
   response_time_ms Int?
   model_used       String?
 
   // Context
   in_reply_to  String?
-  is_edited    Boolean  @default(false)
+  is_edited    Boolean @default(false)
   edit_history Json?
 
   // Metadata
@@ -2555,14 +2553,14 @@ model StudyBuddyAgentAnalytics {
   avg_response_time  Int   @default(0)
 
   // Quality metrics
-  avg_satisfaction  Float @default(0)
-  success_rate      Float @default(0)
-  error_rate        Float @default(0)
-  helpful_rate      Float @default(0)
+  avg_satisfaction Float @default(0)
+  success_rate     Float @default(0)
+  error_rate       Float @default(0)
+  helpful_rate     Float @default(0)
 
   // Popular features
-  most_used_feature  String?
-  feature_usage      Json?
+  most_used_feature String?
+  feature_usage     Json?
 
   // Metadata
   created_at DateTime @default(now())
@@ -2658,21 +2656,21 @@ model CourseLesson {
 }
 
 model CourseEnrollment {
-  id           String    @id @default(uuid())
-  courseId     String
-  userId       Int
-  status       String    @default("active")
-  progress     Int       @default(0)
-  startedAt    DateTime  @default(now())
-  completedAt  DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @default(now())
+  id          String    @id @default(uuid())
+  courseId    String
+  userId      Int
+  status      String    @default("active")
+  progress    Int       @default(0)
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
 
   // New fields for monetization
   purchaseId       String?
   accessGrantedVia String?
   accessExpiresAt  DateTime?
-  isLifetimeAccess Boolean @default(false)
+  isLifetimeAccess Boolean   @default(false)
 
   // Progress tracking
   timeSpent      Int       @default(0)
@@ -2707,7 +2705,7 @@ model CourseReview {
 
 model Certificate {
   id               String   @id @default(uuid())
-  userId           Int      // Changed to Int to match users.id
+  userId           Int // Changed to Int to match users.id
   courseId         String
   verificationCode String   @unique
   issueDate        DateTime @default(now())
@@ -2773,7 +2771,7 @@ model QuizQuestion {
 model QuizAttempt {
   id          String    @id @default(uuid())
   quizId      String
-  userId      String    // Keeping String if it's not linked to users directly or if users.id is Int. I should probably change to Int.
+  userId      String // Keeping String if it's not linked to users directly or if users.id is Int. I should probably change to Int.
   score       Int
   maxScore    Int
   isPassed    Boolean
@@ -2830,30 +2828,30 @@ model LessonProgress {
 // ============================================================================
 
 model TrainingProduct {
-  id                    String   @id @default(uuid())
-  type                  String
-  name                  String
-  description           String   @db.Text
-  slug                  String   @unique
-  price_gbp             Int
-  original_price_gbp    Int?
-  currency              String   @default("GBP")
-  cpd_hours             Float?
-  course_id             String?
-  included_course_ids   String[]
-  access_duration_days  Int?
-  stripe_product_id     String?  @unique
-  stripe_price_id       String?  @unique
-  status                String   @default("active")
-  is_featured           Boolean  @default(false)
-  sort_order            Int      @default(0)
-  promotional_text      String?
-  benefits              String[]
-  target_audience       String[]
-  created_at            DateTime @default(now())
-  updated_at            DateTime @default(now())
+  id                   String   @id @default(uuid())
+  type                 String
+  name                 String
+  description          String   @db.Text
+  slug                 String   @unique
+  price_gbp            Int
+  original_price_gbp   Int?
+  currency             String   @default("GBP")
+  cpd_hours            Float?
+  course_id            String?
+  included_course_ids  String[]
+  access_duration_days Int?
+  stripe_product_id    String?  @unique
+  stripe_price_id      String?  @unique
+  status               String   @default("active")
+  is_featured          Boolean  @default(false)
+  sort_order           Int      @default(0)
+  promotional_text     String?
+  benefits             String[]
+  target_audience      String[]
+  created_at           DateTime @default(now())
+  updated_at           DateTime @default(now())
 
-  purchases             TrainingPurchase[]
+  purchases TrainingPurchase[]
 
   @@index([type])
   @@index([status])
@@ -2861,39 +2859,39 @@ model TrainingProduct {
 }
 
 model TrainingPurchase {
-  id                    String    @id @default(uuid())
-  user_id               Int
-  email                 String
-  product_id            String
-  product_name          String
-  product_type          String
-  amount_paid_pence     Int
-  currency              String    @default("GBP")
-  discount_code         String?
-  discount_amount_pence Int?
-  course_ids            String[]
-  access_duration_days  Int?
-  access_granted_at     DateTime  @default(now())
-  access_expires_at     DateTime?
-  stripe_customer_id    String?
-  stripe_payment_intent_id String? @unique
-  stripe_invoice_id     String?
-  payment_method        String?
-  payment_status        String    @default("pending")
-  receipt_url           String?
-  invoice_number        String?   @unique
-  status                String    @default("active")
-  refunded_at           DateTime?
-  refund_amount_pence   Int?
-  refund_reason         String?
-  purchase_metadata     Json?
-  created_at            DateTime  @default(now())
-  updated_at            DateTime  @default(now())
+  id                       String    @id @default(uuid())
+  user_id                  Int
+  email                    String
+  product_id               String
+  product_name             String
+  product_type             String
+  amount_paid_pence        Int
+  currency                 String    @default("GBP")
+  discount_code            String?
+  discount_amount_pence    Int?
+  course_ids               String[]
+  access_duration_days     Int?
+  access_granted_at        DateTime  @default(now())
+  access_expires_at        DateTime?
+  stripe_customer_id       String?
+  stripe_payment_intent_id String?   @unique
+  stripe_invoice_id        String?
+  payment_method           String?
+  payment_status           String    @default("pending")
+  receipt_url              String?
+  invoice_number           String?   @unique
+  status                   String    @default("active")
+  refunded_at              DateTime?
+  refund_amount_pence      Int?
+  refund_reason            String?
+  purchase_metadata        Json?
+  created_at               DateTime  @default(now())
+  updated_at               DateTime  @default(now())
 
-  product               TrainingProduct    @relation(fields: [product_id], references: [id])
-  enrollments           CourseEnrollment[]
-  legacy_enrollments    enrollments[]
-  user                  users              @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  product            TrainingProduct    @relation(fields: [product_id], references: [id])
+  enrollments        CourseEnrollment[]
+  legacy_enrollments enrollments[]
+  user               users              @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
   @@index([product_id])
@@ -2901,101 +2899,116 @@ model TrainingPurchase {
 }
 
 model DiscountCode {
-  id                    String    @id @default(uuid())
-  code                  String    @unique
-  name                  String
-  description           String?
-  discount_type         String
-  discount_value        Int
-  applies_to            String
-  applicable_product_ids String[]
-  min_purchase_pence    Int?
-  max_uses              Int?
-  max_uses_per_user     Int       @default(1)
-  current_uses          Int       @default(0)
-  valid_from            DateTime  @default(now())
-  valid_until           DateTime?
-  is_active             Boolean   @default(true)
-  created_by            String?
-  created_at            DateTime  @default(now())
-  updated_at            DateTime  @default(now())
+  id String @id @default(uuid())
+
+  // Code identification
+  code        String  @unique // e.g., "LAUNCH25", "BPSEP2025"
+  name        String // Internal name
+  description String?
+
+  // Discount type
+  discount_type  String // "percentage", "fixed_amount"
+  discount_value Int // Percentage (e.g., 25) or pence (e.g., 2500 = £25)
+
+  // Applicability
+  applies_to             String // "all", "specific_products", "course_bundles"
+  applicable_product_ids String[] // Empty if applies_to = "all"
+  min_purchase_pence     Int? // Minimum purchase amount
+
+  // Usage limits
+  max_uses          Int? // NULL = unlimited
+  max_uses_per_user Int  @default(1)
+  current_uses      Int  @default(0)
+
+  // Validity period
+  valid_from  DateTime  @default(now())
+  valid_until DateTime?
+
+  // Status
+  is_active Boolean @default(true)
+
+  // Metadata
+  created_by String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   @@index([code])
   @@index([is_active])
+  @@index([valid_until])
 }
 
 model InteractiveElement {
-  id                    String   @id @default(uuid())
-  lesson_id             String
-  order_index           Int
-  type                  String
-  title                 String?
-  content               Json
-  is_required           Boolean  @default(false)
-  passing_score         Int?
-  max_attempts          Int?
-  created_at            DateTime @default(now())
-  updated_at            DateTime @default(now())
+  id            String   @id @default(uuid())
+  lesson_id     String
+  order_index   Int
+  type          String
+  title         String?
+  content       Json
+  is_required   Boolean  @default(false)
+  passing_score Int?
+  max_attempts  Int?
+  created_at    DateTime @default(now())
+  updated_at    DateTime @default(now())
 
-  responses             InteractiveResponse[]
+  responses InteractiveResponse[]
 
   @@index([lesson_id])
   @@index([type])
 }
 
 model InteractiveResponse {
-  id                    String   @id @default(uuid())
-  user_id               Int
-  element_id            String
-  enrollment_id         String
-  response_data         Json
-  score                 Float?
-  is_correct            Boolean?
-  attempt_number        Int      @default(1)
-  time_spent_seconds    Int?
-  submitted_at          DateTime @default(now())
-  feedback_shown        String?  @db.Text
+  id                 String   @id @default(uuid())
+  user_id            Int
+  element_id         String
+  enrollment_id      String
+  response_data      Json
+  score              Float?
+  is_correct         Boolean?
+  attempt_number     Int      @default(1)
+  time_spent_seconds Int?
+  submitted_at       DateTime @default(now())
+  feedback_shown     String?  @db.Text
 
-  element               InteractiveElement @relation(fields: [element_id], references: [id])
-  user                  users              @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  element InteractiveElement @relation(fields: [element_id], references: [id])
+  user    users              @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
   @@index([element_id])
 }
 
 model LearningPath {
-  id                    String   @id @default(uuid())
-  name                  String
-  description           String   @db.Text
-  slug                  String   @unique
-  course_ids            String[]
-  total_cpd_hours       Float
-  estimated_duration    Int
-  price_gbp             Int?
-  status                String   @default("active")
-  is_featured           Boolean  @default(false)
-  created_at            DateTime @default(now())
-  updated_at            DateTime @default(now())
+  id                 String   @id @default(uuid())
+  name               String
+  description        String   @db.Text
+  slug               String   @unique
+  course_ids         String[]
+  total_cpd_hours    Float
+  estimated_duration Int
+  price_gbp          Int?
+  status             String   @default("active")
+  is_featured        Boolean  @default(false)
+  created_at         DateTime @default(now())
+  updated_at         DateTime @default(now())
 
-  enrollments           LearningPathEnrollment[]
+  enrollments LearningPathEnrollment[]
 
   @@index([slug])
   @@index([status])
 }
 
 model LearningPathEnrollment {
-  id                    String   @id @default(uuid())
-  user_id               Int
-  path_id               String
-  current_course_index  Int      @default(0)
-  completed_course_ids  String[] @default([])
-  progress_percentage   Int      @default(0)
-  status                String   @default("active")
-  started_at            DateTime @default(now())
-  completed_at          DateTime?
+  id                   String    @id @default(uuid())
+  user_id              Int
+  path_id              String
+  current_course_index Int       @default(0)
+  completed_course_ids String[]  @default([])
+  progress_percentage  Int       @default(0)
+  status               String    @default("active")
+  started_at           DateTime  @default(now())
+  completed_at         DateTime?
 
-  path                  LearningPath @relation(fields: [path_id], references: [id])
-  user                  users        @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  path LearningPath @relation(fields: [path_id], references: [id])
+  user users        @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@unique([user_id, path_id])
   @@index([user_id])
@@ -3003,44 +3016,44 @@ model LearningPathEnrollment {
 }
 
 model CertificateTemplate {
-  id                    String   @id @default(uuid())
-  name                  String
-  template_type         String
-  background_image_url  String?
-  logo_url              String?
-  layout_config         Json
-  title_template        String
-  body_template         String   @db.Text
-  footer_text           String?
-  includes_qr_code      Boolean  @default(true)
-  includes_verification_url Boolean @default(true)
-  is_active             Boolean  @default(true)
-  created_at            DateTime @default(now())
-  updated_at            DateTime @default(now())
+  id                        String   @id @default(uuid())
+  name                      String
+  template_type             String
+  background_image_url      String?
+  logo_url                  String?
+  layout_config             Json
+  title_template            String
+  body_template             String   @db.Text
+  footer_text               String?
+  includes_qr_code          Boolean  @default(true)
+  includes_verification_url Boolean  @default(true)
+  is_active                 Boolean  @default(true)
+  created_at                DateTime @default(now())
+  updated_at                DateTime @default(now())
 
   @@index([template_type])
   @@index([is_active])
 }
 
 model CPDLog {
-  id                    String   @id @default(uuid())
-  user_id               Int
-  activity_type         String
-  activity_title        String
-  activity_description  String?  @db.Text
-  cpd_hours             Float
-  cpd_category          String
-  certificate_id        String?
-  evidence_urls         String[]
-  activity_date         DateTime
-  logged_at             DateTime @default(now())
-  status                String   @default("pending")
-  verified_by           String?
-  verified_at           DateTime?
-  created_at            DateTime @default(now())
-  updated_at            DateTime @default(now())
+  id                   String    @id @default(uuid())
+  user_id              Int
+  activity_type        String
+  activity_title       String
+  activity_description String?   @db.Text
+  cpd_hours            Float
+  cpd_category         String
+  certificate_id       String?
+  evidence_urls        String[]
+  activity_date        DateTime
+  logged_at            DateTime  @default(now())
+  status               String    @default("pending")
+  verified_by          String?
+  verified_at          DateTime?
+  created_at           DateTime  @default(now())
+  updated_at           DateTime  @default(now())
 
-  user                  users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user users @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
   @@index([activity_date])
@@ -3051,69 +3064,69 @@ model CPDLog {
 // ============================================================================
 
 model ProfessionalCompliance {
-  id                    String   @id @default(uuid())
-  userId                Int      @unique
-  hcpcNumber            String?
-  hcpcStatus            String?  @default("pending")
-  dbsNumber             String?
-  dbsUpdateServiceId    String?
-  insurancePolicyNo     String?
-  insuranceDocUrl       String?
-  insuranceExpiryDate   DateTime?
+  id                      String    @id @default(uuid())
+  userId                  Int       @unique
+  hcpcNumber              String?
+  hcpcStatus              String?   @default("pending")
+  dbsNumber               String?
+  dbsUpdateServiceId      String?
+  insurancePolicyNo       String?
+  insuranceDocUrl         String?
+  insuranceExpiryDate     DateTime?
   insuranceCoverageAmount Float?
-  dbsCertificateUrl     String?
-  hcpcExpiryDate        DateTime?
-  verificationStatus    String   @default("pending")
-  verifiedAt            DateTime?
-  verifiedBy            Int?
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @default(now())
+  dbsCertificateUrl       String?
+  hcpcExpiryDate          DateTime?
+  verificationStatus      String    @default("pending")
+  verifiedAt              DateTime?
+  verifiedBy              Int?
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @default(now())
 
-  user                  users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user users @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model MarketplaceProfessional {
-  id                    String   @id @default(uuid())
-  userId                Int      @unique
-  bio                   String?  @db.Text
-  specialties           String[]
-  hourlyRate            Float?
-  availability          Json?
-  rating                Float    @default(0)
-  reviewCount           Int      @default(0)
-  
+  id           String   @id @default(uuid())
+  userId       Int      @unique
+  bio          String?  @db.Text
+  specialties  String[]
+  hourlyRate   Float?
+  availability Json?
+  rating       Float    @default(0)
+  reviewCount  Int      @default(0)
+
   // LA Panel Fields
-  la_panel_status       String   @default("NOT_APPLIED") // APPROVED, PENDING, REJECTED, NOT_APPLIED
-  la_panel_regions      String[] @default([])
-  commission_rate       Float    @default(15.0)
+  la_panel_status       String    @default("NOT_APPLIED") // APPROVED, PENDING, REJECTED, NOT_APPLIED
+  la_panel_regions      String[]  @default([])
+  commission_rate       Float     @default(15.0)
   la_panel_approved_at  DateTime?
   panel_membership_tier String?
-  
+
   qualifications_documents String[] @default([])
-  references              Json?
-  cv_document_url         String?
+  references               Json?
+  cv_document_url          String?
 
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 
-  user                  users    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  reviews               MarketplaceReview[]
+  user    users               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reviews MarketplaceReview[]
 }
 
 model ServiceListing {
-  id                    String   @id @default(uuid())
-  userId                Int
-  title                 String
-  description           String   @db.Text
-  price                 Float
-  durationMinutes       Int?
-  serviceType           String
-  isActive              Boolean  @default(true)
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @default(now())
+  id              String   @id @default(uuid())
+  userId          Int
+  title           String
+  description     String   @db.Text
+  price           Float
+  durationMinutes Int?
+  serviceType     String
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now())
 
-  user                  users    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  contracts             ServiceContract[]
+  user      users             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contracts ServiceContract[]
 }
 
 model ServiceContract {
@@ -3131,21 +3144,21 @@ model ServiceContract {
   createdAt             DateTime @default(now())
   updatedAt             DateTime @default(now())
 
-  listing               ServiceListing? @relation(fields: [listingId], references: [id])
-  ep                    users           @relation("EPContracts", fields: [epId], references: [id])
-  tenant                tenants         @relation(fields: [tenantId], references: [id])
+  listing ServiceListing? @relation(fields: [listingId], references: [id])
+  ep      users           @relation("EPContracts", fields: [epId], references: [id])
+  tenant  tenants         @relation(fields: [tenantId], references: [id])
 }
 
 model MarketplaceReview {
-  id                    String   @id @default(uuid())
-  professionalId        String
-  authorId              Int
-  rating                Int
-  comment               String?  @db.Text
-  createdAt             DateTime @default(now())
+  id             String   @id @default(uuid())
+  professionalId String
+  authorId       Int
+  rating         Int
+  comment        String?  @db.Text
+  createdAt      DateTime @default(now())
 
-  professional          MarketplaceProfessional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
-  author                users                     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  professional MarketplaceProfessional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+  author       users                   @relation(fields: [authorId], references: [id], onDelete: Cascade)
 }
 
 // ============================================================================
@@ -3153,32 +3166,895 @@ model MarketplaceReview {
 // ============================================================================
 
 model IntegrationSettings {
-  id          String   @id @default(cuid())
-  tenant_id   Int      @unique
-  provider    String   // "wonde", "sims", "arbor", etc.
-  api_key     String?  // Store securely
+  id          String    @id @default(cuid())
+  tenant_id   Int       @unique
+  provider    String // "wonde", "sims", "arbor", etc.
+  api_key     String? // Store securely
   gateway_url String?
-  status      String   @default("disconnected") // "connected", "disconnected", "error"
+  status      String    @default("disconnected") // "connected", "disconnected", "error"
   last_sync   DateTime?
-  config      Json?    // Any extra config
+  config      Json? // Any extra config
 
-  created_at  DateTime @default(now())
-  updated_at  DateTime @default(now())
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
 
-  tenant      tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  tenant tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  users  users[]
 }
 
 model SyncLog {
   id                String   @id @default(cuid())
   tenant_id         Int
   provider          String
-  status            String   // "success", "failed", "partial"
+  status            String // "success", "failed", "partial"
   records_processed Int      @default(0)
   details           String?
   timestamp         DateTime @default(now())
 
-  tenant      tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  tenant  tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  users   users?  @relation(fields: [usersId], references: [id])
+  usersId Int?
 
   @@index([tenant_id])
   @@index([timestamp])
+}
+
+// ============================================================================
+// ASSESSMENT FRAMEWORKS EXTENSION
+// ============================================================================
+
+model AssessmentFramework {
+  id           String @id @default(uuid())
+  name         String
+  abbreviation String @unique
+  version      String @default("1.0")
+  domain       String
+
+  description   String @db.Text
+  purpose       String @db.Text
+  age_range_min Int?
+  age_range_max Int?
+
+  evidence_base          Json
+  theoretical_frameworks String[]
+
+  administration_guide  Json
+  time_estimate_minutes Int?
+
+  interpretation_guide    Json
+  qualitative_descriptors Json
+
+  domains AssessmentDomain[]
+
+  status           String   @default("active")
+  is_proprietary   Boolean  @default(true)
+  copyright_holder String   @default("EdPsych Connect Limited")
+  created_at       DateTime @default(now())
+  updated_at       DateTime @default(now())
+
+  instances AssessmentInstance[]
+
+  @@index([abbreviation])
+  @@index([domain])
+  @@index([status])
+}
+
+model AssessmentDomain {
+  id           String @id @default(uuid())
+  framework_id String
+
+  name        String
+  description String @db.Text
+  order_index Int
+
+  observation_prompts Json
+  task_suggestions    Json
+  key_indicators      Json
+
+  parent_questions  Json
+  teacher_questions Json
+  child_prompts     Json?
+
+  interpretation_guidance Json
+  strength_descriptors    Json
+  need_descriptors        Json
+
+  suggested_interventions Json
+
+  framework    AssessmentFramework @relation(fields: [framework_id], references: [id], onDelete: Cascade)
+  observations DomainObservation[]
+
+  @@index([framework_id])
+  @@index([order_index])
+}
+
+model AssessmentInstance {
+  id           String @id @default(uuid())
+  tenant_id    Int
+  framework_id String
+  case_id      Int
+  student_id   Int
+
+  title           String?
+  conducted_by    Int
+  assessment_date DateTime?
+
+  status              String @default("draft")
+  progress_percentage Int    @default(0)
+
+  parent_input_requested  Boolean @default(false)
+  parent_input_received   Boolean @default(false)
+  teacher_input_requested Boolean @default(false)
+  teacher_input_received  Boolean @default(false)
+  child_input_requested   Boolean @default(false)
+  child_input_received    Boolean @default(false)
+
+  ep_summary         String? @db.Text
+  ep_interpretation  String? @db.Text
+  ep_recommendations Json?
+
+  linked_ehcp_id   String?
+  linked_report_id String?
+
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @default(now())
+  completed_at DateTime?
+
+  framework           AssessmentFramework       @relation(fields: [framework_id], references: [id])
+  domain_observations DomainObservation[]
+  collaborations      AssessmentCollaboration[]
+
+  // Relations to core models
+  tenant   tenants             @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  case     cases               @relation(fields: [case_id], references: [id], onDelete: Cascade)
+  student  students            @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  user     users               @relation(fields: [conducted_by], references: [id])
+  outcomes AssessmentOutcome[]
+
+  @@index([tenant_id])
+  @@index([framework_id])
+  @@index([case_id])
+  @@index([student_id])
+  @@index([conducted_by])
+  @@index([status])
+}
+
+model DomainObservation {
+  id          String @id @default(uuid())
+  instance_id String
+  domain_id   String
+
+  observations       String @db.Text
+  observed_strengths Json
+  observed_needs     Json
+
+  observation_context String? @db.Text
+  tasks_used          Json?
+
+  strength_descriptors String[]
+  need_descriptors     String[]
+
+  interpretation String? @db.Text
+  significance   String? @db.Text
+
+  suggested_provisions Json?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  instance AssessmentInstance @relation(fields: [instance_id], references: [id], onDelete: Cascade)
+  domain   AssessmentDomain   @relation(fields: [domain_id], references: [id])
+
+  @@index([instance_id])
+  @@index([domain_id])
+}
+
+model AssessmentCollaboration {
+  id          String @id @default(uuid())
+  instance_id String
+
+  contributor_type  String
+  contributor_name  String?
+  contributor_email String?
+  contributor_role  String?
+
+  responses       Json
+  narrative_input String? @db.Text
+
+  relationship_to_child String?
+  observation_context   String?
+
+  submitted_at       DateTime  @default(now())
+  invitation_sent_at DateTime?
+  invitation_method  String?
+  invitation_token   String?   @unique
+  token_expires_at   DateTime?
+
+  status        String    @default("pending")
+  integrated_at DateTime?
+  integrated_by Int?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  instance AssessmentInstance @relation(fields: [instance_id], references: [id], onDelete: Cascade)
+
+  @@index([instance_id])
+  @@index([contributor_type])
+  @@index([status])
+}
+
+model AssessmentGuidance {
+  id String @id @default(uuid())
+
+  category String
+  topic    String
+
+  title            String
+  summary          String @db.Text
+  detailed_content String @db.Text
+
+  research_citations Json
+  evidence_strength  String?
+
+  practical_tips    Json?
+  example_scenarios Json?
+  common_pitfalls   Json?
+
+  relevant_frameworks String[]
+  relevant_domains    String[]
+
+  status      String    @default("published")
+  author      String?
+  reviewed_by String?
+  review_date DateTime?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  @@index([category])
+  @@index([topic])
+  @@index([status])
+}
+
+model AssessmentTemplate {
+  id           String @id @default(uuid())
+  framework_id String
+
+  name        String
+  description String @db.Text
+  use_case    String @db.Text
+
+  age_range_min Int?
+  age_range_max Int?
+  year_group    String?
+
+  suggested_domains   String[]
+  observation_prompts Json
+  task_suggestions    Json
+
+  usage_count Int     @default(0)
+  created_by  String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  @@index([framework_id])
+  @@index([age_range_min, age_range_max])
+}
+
+model AssessmentOutcome {
+  id          String @id @default(uuid())
+  tenant_id   Int
+  instance_id String
+  student_id  Int
+
+  outcome_type        String
+  outcome_description String @db.Text
+
+  evidence_data Json?
+  impact_rating String?
+
+  baseline_date DateTime?
+  outcome_date  DateTime
+  followup_date DateTime?
+
+  contributed_to_research Boolean @default(false)
+  anonymized_data         Json?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  // Relations
+  tenant   tenants            @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  instance AssessmentInstance @relation(fields: [instance_id], references: [id], onDelete: Cascade)
+  student  students           @relation(fields: [student_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id])
+  @@index([instance_id])
+  @@index([student_id])
+  @@index([outcome_type])
+  @@index([contributed_to_research])
+}
+
+model Assessment {
+  id             String    @id @default(uuid())
+  studentId      String
+  assessmentType String
+  title          String
+  description    String?   @db.Text
+  status         String    @default("draft")
+  assessedBy     String
+  assessmentDate DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @default(now())
+
+  results AssessmentResult[]
+
+  @@index([studentId])
+  @@index([status])
+  @@index([assessmentType])
+  @@index([assessmentDate])
+}
+
+model AssessmentResult {
+  id           String   @id @default(uuid())
+  assessmentId String
+  domain       String
+  score        Float
+  maxScore     Float
+  percentile   Float?
+  notes        String?  @db.Text
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
+
+  assessment Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+
+  @@index([assessmentId])
+  @@index([domain])
+}
+
+model SecureDocument {
+  id        String   @id @default(uuid())
+  path      String   @unique
+  content   String   @db.Text
+  metadata  Json?
+  encrypted Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  // Relations
+  tenant_id Int?
+  tenant    tenants? @relation(fields: [tenant_id], references: [id])
+  user_id   Int?
+  user      users?   @relation(fields: [user_id], references: [id])
+
+  @@index([path])
+  @@index([encrypted])
+}
+
+model BetaAccessCode {
+  id            String    @id @default(uuid())
+  code          String    @unique
+  email         String?
+  usedBy        String?
+  usedAt        DateTime?
+  maxUses       Int       @default(1)
+  currentUses   Int       @default(0)
+  remainingUses Int       @default(1)
+  role          String?
+  features      String[]  @default([])
+  metadata      Json?
+  expiresAt     DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now())
+
+  // Relations
+  tenant_id Int?
+  tenant    tenants? @relation(fields: [tenant_id], references: [id])
+  user_id   Int?
+  user      users?   @relation(fields: [user_id], references: [id])
+
+  @@index([code])
+  @@index([email])
+  @@index([usedBy])
+}
+
+model BetaAccessCodeUsage {
+  id           String   @id @default(uuid())
+  accessCodeId String
+  userId       String?
+  usedAt       DateTime @default(now())
+  ipAddress    String?
+  userAgent    String?
+  metadata     Json?
+  createdAt    DateTime @default(now())
+
+  // Relations
+  tenant_id   Int?
+  tenant      tenants? @relation(fields: [tenant_id], references: [id])
+  user_id_int Int?
+  user        users?   @relation(fields: [user_id_int], references: [id])
+
+  @@index([accessCodeId])
+  @@index([userId])
+  @@index([usedAt])
+}
+
+model LegalSignature {
+  id               String   @id @default(uuid())
+  userId           String
+  documentId       String?
+  agreementType    String
+  agreementVersion String
+  signatureData    String   @db.Text
+  signedAt         DateTime @default(now())
+  timestamp        DateTime @default(now())
+  ipAddress        String?
+  userAgent        String?
+  status           String   @default("active")
+  verified         Boolean  @default(false)
+  metadata         Json?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @default(now())
+
+  // Relations
+  user_id_int Int?
+  user        users? @relation(fields: [user_id_int], references: [id])
+
+  @@index([userId])
+  @@index([documentId])
+  @@index([timestamp])
+  @@index([signedAt])
+}
+
+model AuditLog {
+  id             String   @id @default(uuid())
+  userId         String?
+  performedById  String?
+  institutionId  String?
+  subscriptionId String?
+  action         String
+  resource       String?
+  description    String?
+  details        Json?
+  entityType     String?
+  entityId       String?
+  changes        Json?
+  metadata       Json?
+  ipAddress      String?
+  userAgent      String?
+  timestamp      DateTime @default(now())
+  createdAt      DateTime @default(now())
+
+  // Relations
+  tenant_id   Int?
+  tenant      tenants? @relation(fields: [tenant_id], references: [id])
+  user_id_int Int?
+  user        users?   @relation(fields: [user_id_int], references: [id])
+
+  @@index([userId])
+  @@index([performedById])
+  @@index([institutionId])
+  @@index([subscriptionId])
+  @@index([resource])
+  @@index([entityType, entityId])
+  @@index([timestamp])
+  @@index([action])
+  @@map("audit_logs")
+}
+
+model LegalDocument {
+  id            String   @id @default(uuid())
+  type          String
+  version       String
+  content       String   @db.Text
+  effectiveDate DateTime
+  status        String   @default("active")
+  metadata      Json?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now())
+
+  @@index([type])
+  @@index([version])
+  @@index([status])
+  @@index([effectiveDate])
+}
+
+model UserPreference {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  category        String?
+  type            String?
+  value           Json?
+  theme           String?  @default("light")
+  language        String?  @default("en")
+  notifications   Json?
+  accessibility   Json?
+  privacy         Json?
+  displaySettings Json?
+  metadata        Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now())
+
+  @@index([userId])
+  @@index([category])
+  @@index([type])
+}
+
+model VolumeDiscountTier {
+  id              String   @id @default(uuid())
+  tier            String
+  minQuantity     Int
+  maxQuantity     Int?
+  discountPercent Float
+  description     String?
+  isActive        Boolean  @default(true)
+  metadata        Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now())
+
+  @@index([tier])
+  @@index([minQuantity])
+  @@index([isActive])
+}
+
+model PowerUp {
+  id          String   @id @default(uuid())
+  name        String
+  description String   @db.Text
+  category    String
+  rarity      String
+  meritCost   Int
+  duration    Int?
+  effect      Json
+  imageUrl    String?
+  isActive    Boolean  @default(true)
+  stockLimit  Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+
+  purchases PowerUpPurchase[]
+
+  @@index([category])
+  @@index([rarity])
+  @@index([isActive])
+}
+
+model PowerUpPurchase {
+  id          String    @id @default(uuid())
+  userId      String
+  powerUpId   String
+  meritSpent  Int
+  purchasedAt DateTime  @default(now())
+  usedAt      DateTime?
+  expiresAt   DateTime?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+
+  powerUp PowerUp @relation(fields: [powerUpId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([powerUpId])
+  @@index([isActive])
+  @@index([expiresAt])
+}
+
+model Challenge {
+  id              String   @id @default(uuid())
+  title           String
+  description     String   @db.Text
+  type            String
+  difficulty      String
+  objective       Json
+  meritReward     Int
+  xpReward        Int
+  startDate       DateTime
+  endDate         DateTime
+  isActive        Boolean  @default(true)
+  maxParticipants Int?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now())
+
+  progress ChallengeProgress[]
+
+  @@index([type])
+  @@index([difficulty])
+  @@index([isActive])
+  @@index([startDate])
+  @@index([endDate])
+}
+
+model ChallengeProgress {
+  id          String    @id @default(uuid())
+  challengeId String
+  userId      String
+  progress    Int       @default(0)
+  target      Int
+  isCompleted Boolean   @default(false)
+  completedAt DateTime?
+  meritEarned Int       @default(0)
+  xpEarned    Int       @default(0)
+  startedAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+
+  challenge Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+
+  @@unique([challengeId, userId])
+  @@index([challengeId])
+  @@index([userId])
+  @@index([isCompleted])
+}
+
+model Leaderboard {
+  id          String    @id @default(uuid())
+  name        String
+  description String?   @db.Text
+  type        String
+  scope       String
+  scopeId     String?
+  period      String    @default("all_time")
+  isActive    Boolean   @default(true)
+  startDate   DateTime?
+  endDate     DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+
+  entries LeaderboardEntry[]
+
+  @@index([type])
+  @@index([scope])
+  @@index([scopeId])
+  @@index([period])
+  @@index([isActive])
+}
+
+model LeaderboardEntry {
+  id               String   @id @default(uuid())
+  leaderboardId    String
+  userId           String
+  rank             Int
+  score            Int
+  meritsEarned     Int      @default(0)
+  lessonsCompleted Int      @default(0)
+  quizzesPassed    Int      @default(0)
+  badgesUnlocked   Int      @default(0)
+  metadata         Json?
+  lastUpdated      DateTime @default(now())
+  createdAt        DateTime @default(now())
+
+  leaderboard Leaderboard @relation(fields: [leaderboardId], references: [id], onDelete: Cascade)
+
+  @@unique([leaderboardId, userId])
+  @@index([leaderboardId])
+  @@index([userId])
+  @@index([rank])
+  @@index([score])
+}
+
+model Squad {
+  id                String   @id @default(uuid())
+  name              String
+  description       String?  @db.Text
+  bannerUrl         String?
+  createdByUserId   String
+  memberLimit       Int      @default(5)
+  isPublic          Boolean  @default(true)
+  region            String   @default("UK")
+  division          String   @default("bronze")
+  totalMeritsEarned Int      @default(0)
+  competitionWins   Int      @default(0)
+  isActive          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now())
+
+  members      SquadMember[]
+  competitions SquadCompetitionEntry[]
+
+  @@index([createdByUserId])
+  @@index([division])
+  @@index([isPublic])
+  @@index([isActive])
+}
+
+model SquadMember {
+  id                String   @id @default(uuid())
+  squadId           String
+  userId            String
+  role              String   @default("member")
+  contributionScore Int      @default(0)
+  meritContribution Int      @default(0)
+  isActive          Boolean  @default(true)
+  joinedAt          DateTime @default(now())
+  lastActiveAt      DateTime @default(now())
+
+  squad Squad @relation(fields: [squadId], references: [id], onDelete: Cascade)
+
+  // Relations
+  tenant_id   Int?
+  tenant      tenants? @relation(fields: [tenant_id], references: [id])
+  user_id_int Int?
+  user        users?   @relation(fields: [user_id_int], references: [id])
+
+  @@unique([squadId, userId])
+  @@index([squadId])
+  @@index([userId])
+  @@index([role])
+  @@index([isActive])
+}
+
+model SquadCompetition {
+  id                   String   @id @default(uuid())
+  name                 String
+  description          String   @db.Text
+  type                 String
+  format               String
+  division             String?
+  status               String   @default("upcoming")
+  maxParticipants      Int
+  entryMeritCost       Int      @default(0)
+  prizePool            Json
+  objectives           Json
+  startDate            DateTime
+  endDate              DateTime
+  registrationDeadline DateTime
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @default(now())
+
+  entries SquadCompetitionEntry[]
+
+  @@index([type])
+  @@index([status])
+  @@index([division])
+  @@index([startDate])
+  @@index([endDate])
+}
+
+model SquadCompetitionEntry {
+  id                  String    @id @default(uuid())
+  competitionId       String
+  squadId             String
+  rank                Int?
+  totalPoints         Int       @default(0)
+  objectivesCompleted Int       @default(0)
+  registeredAt        DateTime  @default(now())
+  startedAt           DateTime?
+  completedAt         DateTime?
+  prizeClaimed        Boolean   @default(false)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @default(now())
+
+  competition SquadCompetition @relation(fields: [competitionId], references: [id], onDelete: Cascade)
+  squad       Squad            @relation(fields: [squadId], references: [id], onDelete: Cascade)
+
+  @@unique([competitionId, squadId])
+  @@index([competitionId])
+  @@index([squadId])
+  @@index([rank])
+}
+
+model onboarding_progress {
+  id      Int @id @default(autoincrement())
+  user_id Int @unique
+
+  step_1_welcome_completed Boolean   @default(false)
+  step_1_completed_at      DateTime?
+
+  step_2_role_selected String?
+  step_2_completed_at  DateTime?
+
+  step_3_profile_completed     Boolean   @default(false)
+  step_3_photo_uploaded        Boolean   @default(false)
+  step_3_hcpc_provided         Boolean   @default(false)
+  step_3_organization_provided Boolean   @default(false)
+  step_3_completed_at          DateTime?
+
+  step_4_features_viewed String[]  @default([])
+  step_4_demos_tried     String[]  @default([])
+  step_4_completed_at    DateTime?
+
+  step_5_first_case_created    Boolean   @default(false)
+  step_5_first_assessment_done Boolean   @default(false)
+  step_5_first_goal_set        Boolean   @default(false)
+  step_5_completed_at          DateTime?
+
+  step_6_certificate_viewed Boolean   @default(false)
+  step_6_tour_completed     Boolean   @default(false)
+  step_6_call_booked        Boolean   @default(false)
+  step_6_completed_at       DateTime?
+
+  current_step    Int   @default(1)
+  steps_skipped   Int[] @default([])
+  times_restarted Int   @default(0)
+
+  total_time_spent_seconds Int   @default(0)
+  time_per_step            Json?
+
+  video_watched          Boolean @default(false)
+  video_watch_percentage Int     @default(0)
+  help_articles_opened   Int     @default(0)
+  back_button_uses       Int     @default(0)
+
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @default(now())
+  completed_at DateTime?
+
+  user users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([current_step])
+}
+
+model waitlist {
+  id    String @id @default(uuid())
+  email String @unique
+
+  name              String?
+  organization      String?
+  role              String?
+  organization_type String?
+  phone             String?
+
+  interested_features String[]
+  use_case            String?  @db.Text
+  referral_source     String?
+
+  status       String    @default("pending")
+  priority     String    @default("medium")
+  beta_access  Boolean   @default(false)
+  invited_at   DateTime?
+  converted_at DateTime?
+
+  last_contacted_at DateTime?
+  contact_attempts  Int       @default(0)
+  notes             String?   @db.Text
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  utm_source   String?
+  utm_medium   String?
+  utm_campaign String?
+
+  @@index([email])
+  @@index([status])
+  @@index([priority])
+  @@index([created_at])
+  @@index([organization_type])
+}
+
+model problem_solver_queries {
+  id String @id @default(uuid())
+
+  query_text String  @db.Text
+  user_id    Int?
+  email      String?
+
+  ai_response      String  @db.Text
+  model_used       String?
+  response_time_ms Int?
+  tokens_used      Int?
+  confidence_score Float?
+
+  problem_category String?
+  student_age      String?
+  urgency_level    String?
+
+  helpful_rating Int?
+  feedback_text  String? @db.Text
+  was_used       Boolean @default(false)
+
+  follow_up_requested Boolean @default(false)
+  converted_to_signup Boolean @default(false)
+
+  ip_address String?
+  user_agent String?
+  created_at DateTime @default(now())
+
+  user users? @relation(fields: [user_id], references: [id])
+
+  @@index([created_at])
+  @@index([problem_category])
+  @@index([helpful_rating])
+  @@index([user_id])
 }

@@ -182,10 +182,11 @@ export default function AssessmentForm({
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="assessment-type" className="block text-sm font-medium text-gray-700 mb-2">
               Assessment Type *
             </label>
             <select
+              id="assessment-type"
               value={formData.assessment_type}
               onChange={(e) =>
                 setFormData({ ...formData, assessment_type: e.target.value })
@@ -202,10 +203,11 @@ export default function AssessmentForm({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="assessment-status" className="block text-sm font-medium text-gray-700 mb-2">
               Status *
             </label>
             <select
+              id="assessment-status"
               value={formData.status}
               onChange={(e) =>
                 setFormData({ ...formData, status: e.target.value })
@@ -222,10 +224,11 @@ export default function AssessmentForm({
           </div>
 
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="scheduled-date" className="block text-sm font-medium text-gray-700 mb-2">
               Scheduled Date
             </label>
             <input
+              id="scheduled-date"
               type="datetime-local"
               value={formData.scheduled_date}
               onChange={(e) =>

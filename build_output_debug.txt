@@ -1,6 +1,0 @@
-  ▲ Next.js 14.2.33
-  - Environments: .env.local, .env
-  - Experiments (use with caution):
-    · instrumentationHook
-
-   Creating an optimized production build ...

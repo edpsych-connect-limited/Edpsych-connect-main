@@ -650,8 +650,9 @@ export class InstitutionService {
     try {
       await prisma.auditLog.create({
         data: {
-          userId: parseInt(data.performedById) || 0,
-          tenantId: 0, // Default to 0
+          userId: data.performedById,
+          user_id_int: parseInt(data.performedById) || 0,
+          tenant_id: 0, // Default to 0
           action: data.action,
           resource: data.entityType,
           details: {
