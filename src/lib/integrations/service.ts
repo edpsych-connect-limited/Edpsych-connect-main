@@ -89,21 +89,29 @@ export class IntegrationService {
       await provider.syncStaff(tenantId);
       
       // 2. Sync Students
-      await provider.syncStudents(tenantId);
+      const studentResult = await provider.syncStudents(tenantId);
       
       console.log(`Sync completed for tenant ${tenantId}`);
       
       if (!isNaN(dbTenantId)) {
-        await this.logSync(dbTenantId, config.type, 'success', 'Nightly sync completed successfully', 100); // Mock count for now
+        await this.logSync(
+            dbTenantId, 
+            config.type, 
+            studentResult.success ? 'success' : 'failed', 
+            studentResult.success ? 'Nightly sync completed successfully' : `Errors: ${studentResult.errors.join(', ')}`, 
+            studentResult.recordsProcessed
+        );
         
         // Update last sync time
-        await prisma.integrationSettings.update({
-          where: { tenant_id: dbTenantId },
-          data: { last_sync: new Date() }
-        });
+        if (studentResult.success) {
+            await prisma.integrationSettings.update({
+            where: { tenant_id: dbTenantId },
+            data: { last_sync: new Date() }
+            });
+        }
       }
 
-      return { success: true };
+      return { success: studentResult.success, result: studentResult };
     } catch (error: any) {
       console.error(`Sync failed for tenant ${tenantId}:`, error);
       

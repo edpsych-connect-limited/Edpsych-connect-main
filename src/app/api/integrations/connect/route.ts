@@ -1,16 +1,19 @@
 import { NextResponse } from 'next/server';
 import { IntegrationService } from '@/lib/integrations/service';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 export async function POST(request: Request) {
   try {
+    const session = await getServerSession(authOptions);
+    
+    if (!session?.user?.tenant_id) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const tenantId = session.user.tenant_id;
     const body = await request.json();
     const { providerId, apiKey, url } = body;
-
-    // In a real app, we'd get the tenantId from the session
-    // const session = await getServerSession(authOptions);
-    // const tenantId = session?.user?.tenantId;
-    const tenantId = '1'; // Demo tenant ID
-    const dbTenantId = 1;
 
     const service = IntegrationService.getInstance();
     
@@ -30,10 +33,10 @@ export async function POST(request: Request) {
 
     if (isConnected) {
         // Save credentials to database
-        await service.saveConnection(dbTenantId, providerId, { apiKey, url });
+        await service.saveConnection(tenantId, providerId, { apiKey, url });
         
         // Log the initial success
-        await service.logSync(dbTenantId, providerId, 'success', 'Initial connection established');
+        await service.logSync(tenantId, providerId, 'success', 'Initial connection established');
 
         return NextResponse.json({ success: true, status: 'connected' });
     } else {

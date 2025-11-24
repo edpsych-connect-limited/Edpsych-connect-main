@@ -1,8 +1,16 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 export async function GET() {
-    const tenantId = 1; // Demo tenant ID
+    const session = await getServerSession(authOptions);
+    
+    if (!session?.user?.tenant_id) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const tenantId = session.user.tenant_id;
 
     try {
         const settings = await prisma.integrationSettings.findUnique({
