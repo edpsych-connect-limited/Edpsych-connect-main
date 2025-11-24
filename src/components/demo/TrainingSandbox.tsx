@@ -206,7 +206,7 @@ export default function TrainingSandbox() {
                             <span className="font-medium text-gray-700">{course.progress}% Complete</span>
                           </div>
                           <div className="w-full bg-gray-200 rounded-full h-2">
-                            <div className="bg-green-500 h-2 rounded-full" style={{ width: `${course.progress}%` }}></div>
+                            <div className={`bg-green-500 h-2 rounded-full ${course.progress === 35 ? 'w-[35%]' : 'w-0'}`}></div>
                           </div>
                         </div>
                       ) : (

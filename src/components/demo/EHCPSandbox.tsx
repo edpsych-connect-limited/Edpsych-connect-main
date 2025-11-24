@@ -201,8 +201,7 @@ export default function EHCPSandbox() {
                 {index < steps.length - 1 && (
                   <div className="absolute top-5 left-1/2 w-full h-0.5 -z-10 bg-gray-200">
                     <div 
-                      className="h-full bg-green-500 transition-all duration-300" 
-                      style={{ width: index < currentStep ? '100%' : '0%' }}
+                      className={`h-full bg-green-500 transition-all duration-300 ${index < currentStep ? 'w-full' : 'w-0'}`}
                     />
                   </div>
                 )}
@@ -222,6 +221,7 @@ export default function EHCPSandbox() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">Student Name</label>
                 <input
                   type="text"
+                  aria-label="Student Name"
                   value={formData.student_name}
                   onChange={(e) => setFormData({ ...formData, student_name: e.target.value })}
                   className="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -242,6 +242,7 @@ export default function EHCPSandbox() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Child's Views</label>
                 <textarea
+                  aria-label="Child's Views"
                   value={formData.plan_details.section_a.child_views}
                   onChange={(e) => updatePlanDetail('section_a', { ...formData.plan_details.section_a, child_views: e.target.value })}
                   rows={3}
@@ -251,6 +252,7 @@ export default function EHCPSandbox() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Parent's Views</label>
                 <textarea
+                  aria-label="Parent's Views"
                   value={formData.plan_details.section_a.parent_views}
                   onChange={(e) => updatePlanDetail('section_a', { ...formData.plan_details.section_a, parent_views: e.target.value })}
                   rows={3}
@@ -260,6 +262,7 @@ export default function EHCPSandbox() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Aspirations</label>
                 <textarea
+                  aria-label="Aspirations"
                   value={formData.plan_details.section_a.aspirations}
                   onChange={(e) => updatePlanDetail('section_a', { ...formData.plan_details.section_a, aspirations: e.target.value })}
                   rows={3}
@@ -276,6 +279,7 @@ export default function EHCPSandbox() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Primary Need</label>
                 <select
+                  aria-label="Primary Need"
                   value={formData.plan_details.section_b.primary_need}
                   onChange={(e) => updatePlanDetail('section_b', { ...formData.plan_details.section_b, primary_need: e.target.value })}
                   className="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
@@ -289,6 +293,7 @@ export default function EHCPSandbox() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Description of Needs</label>
                 <textarea
+                  aria-label="Description of Needs"
                   value={formData.plan_details.section_b.description}
                   onChange={(e) => updatePlanDetail('section_b', { ...formData.plan_details.section_b, description: e.target.value })}
                   rows={6}
@@ -317,6 +322,7 @@ export default function EHCPSandbox() {
                       <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Area</label>
                       <input
                         type="text"
+                        aria-label={`Outcome ${index + 1} Area`}
                         value={outcome.area}
                         onChange={(e) => updateOutcome(index, 'area', e.target.value)}
                         className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
@@ -326,6 +332,7 @@ export default function EHCPSandbox() {
                     <div>
                       <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Target</label>
                       <textarea
+                        aria-label={`Outcome ${index + 1} Target`}
                         value={outcome.target}
                         onChange={(e) => updateOutcome(index, 'target', e.target.value)}
                         rows={2}
@@ -336,6 +343,7 @@ export default function EHCPSandbox() {
                     <div>
                       <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Success Criteria</label>
                       <textarea
+                        aria-label={`Outcome ${index + 1} Success Criteria`}
                         value={outcome.success_criteria}
                         onChange={(e) => updateOutcome(index, 'success_criteria', e.target.value)}
                         rows={2}
@@ -365,6 +373,7 @@ export default function EHCPSandbox() {
                       <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Need</label>
                       <input
                         type="text"
+                        aria-label={`Provision ${index + 1} Need`}
                         value={prov.need}
                         onChange={(e) => updateProvision(index, 'need', e.target.value)}
                         className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500"
@@ -374,6 +383,7 @@ export default function EHCPSandbox() {
                       <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Provider</label>
                       <input
                         type="text"
+                        aria-label={`Provision ${index + 1} Provider`}
                         value={prov.provider}
                         onChange={(e) => updateProvision(index, 'provider', e.target.value)}
                         className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500"
@@ -382,6 +392,7 @@ export default function EHCPSandbox() {
                     <div className="col-span-2">
                       <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Provision Details</label>
                       <textarea
+                        aria-label={`Provision ${index + 1} Details`}
                         value={prov.provision}
                         onChange={(e) => updateProvision(index, 'provision', e.target.value)}
                         rows={2}
@@ -392,6 +403,7 @@ export default function EHCPSandbox() {
                       <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Frequency</label>
                       <input
                         type="text"
+                        aria-label={`Provision ${index + 1} Frequency`}
                         value={prov.frequency}
                         onChange={(e) => updateProvision(index, 'frequency', e.target.value)}
                         className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500"
@@ -410,6 +422,7 @@ export default function EHCPSandbox() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Placement Type</label>
                 <select
+                  aria-label="Placement Type"
                   value={formData.plan_details.section_i.placement_type}
                   onChange={(e) => updatePlanDetail('section_i', { ...formData.plan_details.section_i, placement_type: e.target.value })}
                   className="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
@@ -424,6 +437,7 @@ export default function EHCPSandbox() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">School Name</label>
                 <input
                   type="text"
+                  aria-label="School Name"
                   value={formData.plan_details.section_i.school_name}
                   onChange={(e) => updatePlanDetail('section_i', { ...formData.plan_details.section_i, school_name: e.target.value })}
                   className="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"

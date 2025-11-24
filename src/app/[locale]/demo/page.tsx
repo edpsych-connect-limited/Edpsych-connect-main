@@ -148,7 +148,7 @@ export default function DemoPage() {
             <div className="bg-gradient-to-br from-indigo-900/50 to-violet-900/50 border border-indigo-500/30 rounded-xl p-6">
               <h3 className="text-lg font-semibold mb-2 text-white">Battle Royale</h3>
               <p className="text-slate-300 text-sm mb-4">
-                Test your SEND knowledge against other SENCOs in our gamified learning arena.
+                Experience our adaptive student learning arena. Gamified lessons that adjust to each student's needs.
               </p>
               <Link 
                 href="/demo/gamification" 

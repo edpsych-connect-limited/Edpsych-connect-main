@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { LineChart, BarChart, PieChart, TrendingUp, Users, Calendar, ArrowUpRight, ArrowDownRight, Filter, Download, Plus } from 'lucide-react';
+import { TrendingUp, Users, Calendar, ArrowUpRight, ArrowDownRight, Download, Plus, PieChart } from 'lucide-react';
 
 // Enterprise-Grade Pedagogical Data
 const MOCK_STUDENTS = [
@@ -13,14 +13,13 @@ const MOCK_STUDENTS = [
 ];
 
 const MOCK_INTERVENTIONS = [
-  { name: "ELSA Support", students: 12, avgImpact: "+6 SS Pts", cost: "£450", rating: 4.8 },
-  { name: "Precision Teaching", students: 24, avgImpact: "+4 SS Pts", cost: "£0", rating: 4.2 },
-  { name: "Talkabout", students: 8, avgImpact: "+5 SS Pts", cost: "£150", rating: 4.9 },
-  { name: "Zones of Regulation", students: 35, avgImpact: "+3 SS Pts", cost: "£200", rating: 4.5 },
+  { name: "ELSA Support", students: 12, avgImpact: "+6 SS Pts", cost: "£450", rating: 4.8, height: "h-3/4" },
+  { name: "Precision Teaching", students: 24, avgImpact: "+4 SS Pts", cost: "£0", rating: 4.2, height: "h-1/2" },
+  { name: "Talkabout", students: 8, avgImpact: "+5 SS Pts", cost: "£150", rating: 4.9, height: "h-2/3" },
+  { name: "Zones of Regulation", students: 35, avgImpact: "+3 SS Pts", cost: "£200", rating: 4.5, height: "h-1/3" },
 ];
 
 export default function ProgressTrackingSandbox() {
-  const [selectedStudent, setSelectedStudent] = useState<number | null>(null);
   const [timeframe, setTimeframe] = useState('term');
 
   return (
@@ -93,6 +92,7 @@ export default function ProgressTrackingSandbox() {
               <h3 className="text-lg font-semibold text-white">Intervention Impact Analysis</h3>
               <div className="flex gap-2">
                 <select 
+                  aria-label="Select Timeframe"
                   value={timeframe}
                   onChange={(e) => setTimeframe(e.target.value)}
                   className="bg-slate-900 border border-slate-700 text-slate-300 text-sm rounded-lg px-3 py-1 focus:ring-2 focus:ring-blue-500 outline-none"
@@ -101,7 +101,10 @@ export default function ProgressTrackingSandbox() {
                   <option value="year">Academic Year</option>
                   <option value="all">All Time</option>
                 </select>
-                <button className="p-1.5 bg-slate-700 hover:bg-slate-600 rounded-lg text-slate-300 transition-colors">
+                <button 
+                  aria-label="Download Report"
+                  className="p-1.5 bg-slate-700 hover:bg-slate-600 rounded-lg text-slate-300 transition-colors"
+                >
                   <Download className="w-4 h-4" />
                 </button>
               </div>
@@ -113,8 +116,7 @@ export default function ProgressTrackingSandbox() {
                 <div key={idx} className="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
                   <div className="relative w-full bg-slate-700/30 rounded-t-lg h-full flex items-end overflow-hidden">
                     <div 
-                      className="w-full bg-blue-600/80 group-hover:bg-blue-500 transition-all relative"
-                      style={{ height: `${Math.random() * 60 + 20}%` }}
+                      className={`w-full bg-blue-600/80 group-hover:bg-blue-500 transition-all relative ${item.height}`}
                     >
                       <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-slate-700 z-10">
                         {item.avgImpact}
@@ -151,8 +153,7 @@ export default function ProgressTrackingSandbox() {
                   {MOCK_STUDENTS.map((student) => (
                     <tr 
                       key={student.id} 
-                      className="hover:bg-slate-700/30 transition-colors cursor-pointer"
-                      onClick={() => setSelectedStudent(student.id)}
+                      className="hover:bg-slate-700/30 transition-colors"
                     >
                       <td className="px-6 py-4 font-medium text-white">{student.name}</td>
                       <td className="px-6 py-4">Y{student.year}</td>
