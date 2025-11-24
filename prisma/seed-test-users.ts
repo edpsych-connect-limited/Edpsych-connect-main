@@ -192,6 +192,29 @@ async function main() {
     });
     console.log('✅ Demo Admin created: admin@demo.com / Test123!');
 
+    // Demo Researcher
+    await prisma.users.upsert({
+      where: { email: 'researcher@demo.com' },
+      update: { 
+        password_hash: demoPassword,
+        tenant_id: tenant.id,
+        is_active: true
+      },
+      create: {
+        tenant_id: tenant.id,
+        email: 'researcher@demo.com',
+        password_hash: demoPassword,
+        name: 'Demo Researcher',
+        firstName: 'Demo',
+        lastName: 'Researcher',
+        role: 'RESEARCHER',
+        permissions: ['VIEW_ANALYTICS', 'MANAGE_STUDIES', 'VIEW_DATASETS', 'ETHICS_SUBMISSION'],
+        isEmailVerified: true,
+        is_active: true,
+      },
+    });
+    console.log('✅ Demo Researcher created: researcher@demo.com / Test123!');
+
     // ========================================================================
     // 1. CREATE TEACHER ACCOUNT
     // ========================================================================

@@ -182,12 +182,12 @@ async function main() {
   }
 
   // ============================================================================
-  // 1. CREATE STUDENTS (50 students with varied profiles)
+  // 1. CREATE STUDENTS (1000 students with varied profiles)
   // ============================================================================
-  console.log('\n📚 Creating/fetching 50 students with varied profiles...');
+  console.log('\n📚 Creating/fetching 1000 students with varied profiles...');
 
   const students = [];
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 1000; i++) {
     const uniqueId = `STU${String(i + 1).padStart(5, '0')}`;
     const firstName = randomElement(UK_FIRST_NAMES);
     const lastName = randomElement(UK_LAST_NAMES);
@@ -265,14 +265,36 @@ async function main() {
   // ============================================================================
   console.log('\n🏫 Creating class rosters...');
 
-  const classes = [
-    { name: 'Year 3 Oak', subject: 'Mixed', year_group: 'Year 3', studentCount: 28 },
-    { name: 'Year 4 Willow', subject: 'Mixed', year_group: 'Year 4', studentCount: 22 }
-  ];
+  const classes = [];
+  const classNames = ['Oak', 'Willow', 'Birch', 'Maple', 'Cedar', 'Pine', 'Elm', 'Ash', 'Beech', 'Rowan', 'Yew', 'Hazel', 'Hawthorn', 'Holly', 'Sycamore'];
+  const yearGroupsList = ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5', 'Year 6'];
+  
+  let studentIndex = 0;
+  let classIndex = 0;
+  
+  // Create enough classes for all students
+  while (studentIndex < students.length) {
+    const yearGroup = yearGroupsList[classIndex % yearGroupsList.length];
+    const className = `${yearGroup} ${classNames[Math.floor(classIndex / yearGroupsList.length) % classNames.length]}`;
+    const studentCount = randomInt(25, 32); // Realistic class size
+    
+    classes.push({
+      name: className,
+      subject: 'Mixed',
+      year_group: yearGroup,
+      studentCount: Math.min(studentCount, students.length - studentIndex)
+    });
+    
+    studentIndex += studentCount;
+    classIndex++;
+  }
 
   const classRosters = [];
+  // Clone the students array so we can splice it without affecting the original if needed later
+  const studentsForClasses = [...students];
+
   for (const classData of classes) {
-    const classStudents = students.slice(0, classData.studentCount);
+    const classStudents = studentsForClasses.splice(0, classData.studentCount);
 
     const roster = await prisma.classRoster.create({
       data: {
@@ -300,7 +322,7 @@ async function main() {
     });
 
     classRosters.push(roster);
-    students.splice(0, classData.studentCount); // Remove used students
+    // studentsForClasses is already spliced above
   }
   console.log(`✓ Created ${classRosters.length} class rosters`);
 
@@ -383,10 +405,28 @@ async function main() {
   console.log('\n✍️  Creating student lesson assignments...');
 
   let assignmentCount = 0;
-  for (const lessonPlan of lessonPlans.slice(0, 20)) { // First 20 lessons
+  // Process all lesson plans
+  for (const lessonPlan of lessonPlans) { 
+    // Get the roster to find which students are in this class
+    const roster = await prisma.classRoster.findUnique({
+      where: { id: lessonPlan.class_roster_id }
+    });
+
+    if (!roster) continue;
+
+    // Combine all student IDs from the roster groups
+    const studentIds = [
+      ...roster.urgent_students,
+      ...roster.needs_support,
+      ...roster.on_track,
+      ...roster.exceeding
+    ];
+
+    // Fetch the actual student records
     const classStudents = await prisma.students.findMany({
-      where: { tenant_id: tenant.id },
-      take: 20
+      where: { 
+        id: { in: studentIds }
+      }
     });
 
     for (const student of classStudents) {
@@ -422,8 +462,10 @@ async function main() {
 
       assignmentCount++;
     }
+    // Log progress every 10 lessons
+    if (assignmentCount % 100 === 0) process.stdout.write('.');
   }
-  console.log(`✓ Created ${assignmentCount} student lesson assignments`);
+  console.log(`\n✓ Created ${assignmentCount} student lesson assignments`);
 
   // ============================================================================
   // 5. CREATE MULTI-AGENCY ACCESS RECORDS
@@ -437,8 +479,8 @@ async function main() {
       tenant_id: tenant.id,
       user_id: teacher.id,
       role_type: 'teacher',
-      accessible_student_ids: students.slice(0, 30).map(s => s.id),
-      owned_student_ids: students.slice(0, 30).map(s => s.id),
+      accessible_student_ids: students.map(s => s.id), // Teacher sees all students
+      owned_student_ids: students.map(s => s.id),
       can_view_academic: true,
       can_view_behavioral: true,
       can_view_ehcp: false,
@@ -460,7 +502,7 @@ async function main() {
       user_id: ep.id,
       role_type: 'ep',
       accessible_student_ids: students.map(s => s.id), // EP sees all students
-      owned_student_ids: students.slice(0, 10).map(s => s.id), // EP's caseload
+      owned_student_ids: students.slice(0, 50).map(s => s.id), // EP's caseload (50 students)
       can_view_academic: true,
       can_view_behavioral: true,
       can_view_ehcp: true,
@@ -483,7 +525,7 @@ async function main() {
   console.log('\n👨‍👩‍👧 Creating parent-child links...');
 
   let parentCount = 0;
-  for (let i = 0; i < Math.min(20, students.length); i++) { // Create up to 20 parents
+  for (let i = 0; i < Math.min(200, students.length); i++) { // Create up to 200 parents
     const student = students[i];
     if (!student) continue; // Skip if student doesn't exist
 
@@ -624,7 +666,7 @@ async function main() {
   console.log('\n📊 Creating student progress snapshots...');
 
   let snapshotCount = 0;
-  for (const student of students.slice(0, 30)) {
+  for (const student of students.slice(0, 500)) { // Create snapshots for 500 students
     const profile = await prisma.studentProfile.findUnique({
       where: { student_id: student.id }
     });

@@ -34,7 +34,12 @@ export default function SignupPage() {
     'Teacher',
     'Teaching Assistant',
     'Head Teacher',
+    'School Admin',
+    'Parent',
+    'Student',
     'Local Authority Officer',
+    'Speech and Language Therapist',
+    'Occupational Therapist',
     'Researcher',
     'Other',
   ];
