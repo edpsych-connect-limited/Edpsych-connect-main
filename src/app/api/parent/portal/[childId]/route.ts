@@ -159,7 +159,8 @@ export async function GET(
       // Log security violation
       await prisma.auditLog.create({
         data: {
-          userId: typeof userId === 'string' ? parseInt(userId) : userId,
+          userId: userId.toString(),
+          user_id_int: typeof userId === 'string' ? parseInt(userId) : userId,
           tenantId: tenantId,
           action: 'unauthorized_parent_access_attempt',
           resource: 'student',
@@ -399,7 +400,8 @@ export async function GET(
     // Log data access for GDPR audit trail
     await prisma.auditLog.create({
       data: {
-        userId: typeof userId === 'string' ? parseInt(userId) : userId,
+        userId: userId.toString(),
+        user_id_int: typeof userId === 'string' ? parseInt(userId) : userId,
         tenantId: tenantId,
         action: 'parent_portal_view',
         resource: 'student',

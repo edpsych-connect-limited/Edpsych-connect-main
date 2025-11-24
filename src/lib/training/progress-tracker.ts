@@ -119,10 +119,10 @@ export function calculateCourseProgress(progress: UserCourseProgress, course: Co
  * Calculate module progress percentage
  */
 export function calculateModuleProgress(progress: UserCourseProgress, moduleId: string, course: Course): number {
-  const module = course.modules.find((m) => m.id === moduleId);
-  if (!module) return 0;
+  const courseModule = course.modules.find((m) => m.id === moduleId);
+  if (!courseModule) return 0;
 
-  const totalItems = module.lessons.length + (module.quiz ? 1 : 0);
+  const totalItems = courseModule.lessons.length + (courseModule.quiz ? 1 : 0);
   const completedLessons = progress.completed_lessons.filter((l) => l.module_id === moduleId).length;
   const passedQuiz = progress.completed_quizzes.some((q) => q.module_id === moduleId && q.passed) ? 1 : 0;
   const completedItems = completedLessons + passedQuiz;
@@ -155,19 +155,19 @@ export function getNextLesson(
   course: Course
 ): { moduleIndex: number; lessonIndex: number } | null {
   for (let mIdx = 0; mIdx < course.modules.length; mIdx++) {
-    const module = course.modules[mIdx];
+    const courseModule = course.modules[mIdx];
 
-    for (let lIdx = 0; lIdx < module.lessons.length; lIdx++) {
-      const lesson = module.lessons[lIdx];
+    for (let lIdx = 0; lIdx < courseModule.lessons.length; lIdx++) {
+      const lesson = courseModule.lessons[lIdx];
       if (!progress.completed_lessons.some((cl) => cl.lesson_id === lesson.id)) {
         return { moduleIndex: mIdx, lessonIndex: lIdx };
       }
     }
 
     // Check if quiz needs to be completed
-    if (module.quiz && !progress.completed_quizzes.some((cq) => cq.module_id === module.id && cq.passed)) {
+    if (courseModule.quiz && !progress.completed_quizzes.some((cq) => cq.module_id === courseModule.id && cq.passed)) {
       // Return last lesson of module to trigger quiz view
-      return { moduleIndex: mIdx, lessonIndex: module.lessons.length - 1 };
+      return { moduleIndex: mIdx, lessonIndex: courseModule.lessons.length - 1 };
     }
   }
 

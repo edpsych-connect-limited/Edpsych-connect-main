@@ -322,7 +322,8 @@ export async function GET(
     // Log data access for GDPR audit trail
     await prisma.auditLog.create({
       data: {
-        userId: typeof userId === 'string' ? parseInt(userId) : userId,
+        userId: userId.toString(),
+        user_id_int: typeof userId === 'string' ? parseInt(userId) : userId,
         tenantId: tenantId,
         action: 'student_profile_view',
         resource: 'student',
@@ -501,7 +502,8 @@ export async function PATCH(
     // Log data modification for GDPR audit trail
     await prisma.auditLog.create({
       data: {
-        userId: typeof userId === 'string' ? parseInt(userId) : userId,
+        userId: userId.toString(),
+        user_id_int: typeof userId === 'string' ? parseInt(userId) : userId,
         tenantId: tenantId,
         action: 'student_profile_update',
         resource: 'student',

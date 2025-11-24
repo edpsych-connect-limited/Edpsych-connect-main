@@ -92,8 +92,8 @@ export function detectLearningStyle(progress: UserCourseProgress[]): LearningSty
       count +
       p.completed_lessons.filter((l) => {
         const course = getCourseById(p.course_id);
-        const module = course?.modules.find((m) => m.id === l.module_id);
-        const lesson = module?.lessons.find((ls) => ls.id === l.lesson_id);
+        const courseModule = course?.modules.find((m) => m.id === l.module_id);
+        const lesson = courseModule?.lessons.find((ls) => ls.id === l.lesson_id);
         return lesson?.type === 'video';
       }).length
     );
@@ -104,8 +104,8 @@ export function detectLearningStyle(progress: UserCourseProgress[]): LearningSty
       count +
       p.completed_lessons.filter((l) => {
         const course = getCourseById(p.course_id);
-        const module = course?.modules.find((m) => m.id === l.module_id);
-        const lesson = module?.lessons.find((ls) => ls.id === l.lesson_id);
+        const courseModule = course?.modules.find((m) => m.id === l.module_id);
+        const lesson = courseModule?.lessons.find((ls) => ls.id === l.lesson_id);
         return lesson?.type === 'reading';
       }).length
     );
@@ -116,8 +116,8 @@ export function detectLearningStyle(progress: UserCourseProgress[]): LearningSty
       count +
       p.completed_lessons.filter((l) => {
         const course = getCourseById(p.course_id);
-        const module = course?.modules.find((m) => m.id === l.module_id);
-        const lesson = module?.lessons.find((ls) => ls.id === l.lesson_id);
+        const courseModule = course?.modules.find((m) => m.id === l.module_id);
+        const lesson = courseModule?.lessons.find((ls) => ls.id === l.lesson_id);
         return lesson?.type === 'interactive' || lesson?.type === 'case_study';
       }).length
     );
