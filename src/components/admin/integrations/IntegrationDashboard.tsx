@@ -7,11 +7,11 @@ import {
   Activity, 
   Search,
   Plus,
-  X
+  X,
+  HelpCircle
 } from 'lucide-react';
 import { ProviderCard, ProviderProps } from './ProviderCard';
 import { ConnectionStatus } from './IntegrationStatusBadge';
-import { HelpCircle } from 'lucide-react';
 
 export default function IntegrationDashboard() {
   const [searchQuery, setSearchQuery] = useState('');

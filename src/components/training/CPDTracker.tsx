@@ -149,7 +149,7 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
               progressPercentage >= 50 ? 'bg-yellow-500' : 
               'bg-red-500'
             }`}
-            style={{ width: `${progressPercentage}%` }}
+            style={{ width: `${progressPercentage}%` }} // eslint-disable-line
           ></div>
         </div>
         {progressPercentage >= 100 && (
@@ -165,15 +165,17 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
           <form className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                <label htmlFor="cpd-date" className="block text-sm font-medium text-gray-700 mb-1">Date</label>
                 <input
+                  id="cpd-date"
                   type="date"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Hours</label>
+                <label htmlFor="cpd-hours" className="block text-sm font-medium text-gray-700 mb-1">Hours</label>
                 <input
+                  id="cpd-hours"
                   type="number"
                   step="0.5"
                   min="0"
@@ -183,8 +185,9 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Activity Title</label>
+              <label htmlFor="cpd-activity" className="block text-sm font-medium text-gray-700 mb-1">Activity Title</label>
               <input
+                id="cpd-activity"
                 type="text"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
                 placeholder="E.g., Online course on dyslexia assessment"
@@ -193,8 +196,11 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                <label htmlFor="cpd-category" className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                <select 
+                  id="cpd-category"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                >
                   <option value="">Select category</option>
                   {categories.map((cat) => (
                     <option key={cat} value={cat}>{cat}</option>
@@ -202,8 +208,9 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Provider</label>
+                <label htmlFor="cpd-provider" className="block text-sm font-medium text-gray-700 mb-1">Provider</label>
                 <input
+                  id="cpd-provider"
                   type="text"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
                   placeholder="E.g., EdPsych Connect, BPS"
@@ -212,8 +219,9 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+              <label htmlFor="cpd-notes" className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
               <textarea
+                id="cpd-notes"
                 rows={3}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
                 placeholder="Optional: Add any relevant notes or reflections"
@@ -263,7 +271,7 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div 
                     className="bg-blue-500 h-2 rounded-full" 
-                    style={{ width: `${(item.hours / totalHours) * 100}%` }}
+                    style={{ width: `${(item.hours / totalHours) * 100}%` }} // eslint-disable-line
                   ></div>
                 </div>
               </div>

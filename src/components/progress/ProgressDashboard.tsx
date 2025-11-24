@@ -493,7 +493,7 @@ function InterventionProgressCard({ intervention, onClick }: InterventionProgres
                   ? 'bg-yellow-600'
                   : 'bg-red-600'
               }`}
-              style={{ width: `${Math.min(intervention.progress_percentage || 0, 100)}%` }}
+              style={{ width: `${Math.min(intervention.progress_percentage || 0, 100)}%` }} // eslint-disable-line
             ></div>
           </div>
         </div>
@@ -785,7 +785,7 @@ function OverallProgressChart({ interventions }: { interventions: InterventionSu
                   ? 'bg-yellow-600'
                   : 'bg-red-600'
               }`}
-              style={{ width: `${Math.min(intervention.progress_percentage || 0, 100)}%` }}
+              style={{ width: `${Math.min(intervention.progress_percentage || 0, 100)}%` }} // eslint-disable-line
             ></div>
           </div>
         </div>
