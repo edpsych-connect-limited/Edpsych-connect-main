@@ -334,7 +334,8 @@ const OnboardingProgram: React.FC = () => {
         <div className="w-full bg-blue-200 rounded-full h-2.5">
           <div 
             className="bg-blue-600 h-2.5 rounded-full" 
-            style={{ width: `${calculateProgress()}%` }} // eslint-disable-line
+            // eslint-disable-next-line
+            style={{ width: `${calculateProgress()}%` }}
           ></div>
         </div>
         <div className="mt-2 text-sm text-blue-700">

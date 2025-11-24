@@ -1,5 +1,5 @@
 import { MongoClient, Db } from 'mongodb';
-import { connectToMongoDB, getDatabase, getMongoClient, closeMongoDBConnection, getConnectionStatistics } from './mongodb-pool';
+import { getDatabase, getMongoClient, closeMongoDBConnection, getConnectionStatistics } from './mongodb-pool';
 
 /**
  * Connect to MongoDB database with connection pooling

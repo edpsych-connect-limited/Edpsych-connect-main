@@ -149,7 +149,8 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
               progressPercentage >= 50 ? 'bg-yellow-500' : 
               'bg-red-500'
             }`}
-            style={{ width: `${progressPercentage}%` }} // eslint-disable-line
+            // eslint-disable-next-line
+            style={{ width: `${progressPercentage}%` }}
           ></div>
         </div>
         {progressPercentage >= 100 && (
@@ -271,7 +272,8 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div 
                     className="bg-blue-500 h-2 rounded-full" 
-                    style={{ width: `${(item.hours / totalHours) * 100}%` }} // eslint-disable-line
+                    // eslint-disable-next-line
+                    style={{ width: `${(item.hours / totalHours) * 100}%` }}
                   ></div>
                 </div>
               </div>

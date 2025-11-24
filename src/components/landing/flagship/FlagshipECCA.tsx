@@ -60,7 +60,6 @@ export default function FlagshipECCA() {
                                 <span>{d.val}</span>
                             </div>
                             <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-                                {/* eslint-disable-next-line react-dom/no-unsafe-inline-style */}
                                 <div className={`h-full bg-gradient-to-r from-blue-500 to-cyan-500 ${d.widthClass}`} />
                             </div>
                         </div>

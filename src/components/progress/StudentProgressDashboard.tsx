@@ -556,7 +556,8 @@ function GoalProgressBar({ goal }: { goal: Goal }) {
               ? 'bg-yellow-600'
               : 'bg-red-600'
           }`}
-          style={{ width: `${goal.progress_percentage}%` }} // eslint-disable-line
+          // eslint-disable-next-line
+          style={{ width: `${goal.progress_percentage}%` }}
         />
       </div>
 

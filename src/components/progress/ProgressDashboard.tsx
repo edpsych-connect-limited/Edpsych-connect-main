@@ -12,7 +12,7 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface ProgressDashboardProps {
@@ -55,7 +55,7 @@ interface ProgressAlert {
 
 export default function ProgressDashboard({
   caseId,
-  tenantId,
+  tenantId: _tenantId,
   studentName,
 }: ProgressDashboardProps) {
   const router = useRouter();
@@ -65,11 +65,7 @@ export default function ProgressDashboard({
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState<'week' | 'month' | 'term' | 'year'>('month');
 
-  useEffect(() => {
-    loadProgressData();
-  }, [caseId, timeRange]);
-
-  const loadProgressData = async () => {
+  const loadProgressData = useCallback(async () => {
     try {
       // Build query parameters
       const params = new URLSearchParams();
@@ -128,7 +124,11 @@ export default function ProgressDashboard({
     } finally {
       setLoading(false);
     }
-  };
+  }, [caseId, timeRange]);
+
+  useEffect(() => {
+    loadProgressData();
+  }, [loadProgressData]);
 
   const stats = {
     activeInterventions: interventions.filter((i) => i.status === 'active').length,
@@ -493,7 +493,8 @@ function InterventionProgressCard({ intervention, onClick }: InterventionProgres
                   ? 'bg-yellow-600'
                   : 'bg-red-600'
               }`}
-              style={{ width: `${Math.min(intervention.progress_percentage || 0, 100)}%` }} // eslint-disable-line
+              // eslint-disable-next-line
+              style={{ width: `${Math.min(intervention.progress_percentage || 0, 100)}%` }}
             ></div>
           </div>
         </div>
@@ -785,7 +786,8 @@ function OverallProgressChart({ interventions }: { interventions: InterventionSu
                   ? 'bg-yellow-600'
                   : 'bg-red-600'
               }`}
-              style={{ width: `${Math.min(intervention.progress_percentage || 0, 100)}%` }} // eslint-disable-line
+              // eslint-disable-next-line
+              style={{ width: `${Math.min(intervention.progress_percentage || 0, 100)}%` }}
             ></div>
           </div>
         </div>

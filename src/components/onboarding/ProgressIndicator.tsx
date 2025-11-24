@@ -103,7 +103,7 @@ export function ProgressIndicator({
       {/* Progress Bar Container */}
       <div
         role="progressbar"
-        aria-valuenow={Math.round(progressPercentage)}
+        aria-valuenow={Math.round(progressPercentage) || 0}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-label={`Onboarding progress: ${Math.round(progressPercentage)}% complete, on step ${currentStep} of 6: ${STEP_NAMES[currentStep]}`}
