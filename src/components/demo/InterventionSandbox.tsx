@@ -5,8 +5,11 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { StudentProfileService, InterventionRecommendation } from '@/lib/student-profile/service';
+import { SelfDrivingSencoAgent } from '@/lib/agents/senco-agent';
+import { Sparkles, Bot, Brain, AlertCircle } from 'lucide-react';
 
 // ============================================================================
 // MOCK DATA (Subset of Intervention Library)
@@ -93,9 +96,28 @@ const MOCK_INTERVENTIONS = [
 
 export default function InterventionSandbox() {
   const router = useRouter();
+  const [activeTab, setActiveTab] = useState<'library' | 'auto-agent'>('library');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedIntervention, setSelectedIntervention] = useState<any>(null);
+  
+  // Agent State
+  const [agentRecommendations, setAgentRecommendations] = useState<InterventionRecommendation[]>([]);
+  const [isAgentLoading, setIsAgentLoading] = useState(false);
+
+  useEffect(() => {
+    if (activeTab === 'auto-agent') {
+      setIsAgentLoading(true);
+      // Simulate fetching profile and running agent
+      const runAgent = async () => {
+        const profile = await StudentProfileService.getProfile('student-123');
+        const recs = SelfDrivingSencoAgent.analyzeAndPrescribe(profile);
+        setAgentRecommendations(recs);
+        setIsAgentLoading(false);
+      };
+      void runAgent();
+    }
+  }, [activeTab]);
 
   const filteredInterventions = MOCK_INTERVENTIONS.filter(intervention => {
     const matchesSearch = intervention.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -119,6 +141,25 @@ export default function InterventionSandbox() {
               </p>
             </div>
             <div className="flex items-center space-x-4">
+              <div className="flex bg-gray-100 p-1 rounded-lg mr-4">
+                <button
+                  onClick={() => setActiveTab('library')}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                    activeTab === 'library' ? 'bg-white shadow text-indigo-600' : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                >
+                  Library
+                </button>
+                <button
+                  onClick={() => setActiveTab('auto-agent')}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all flex items-center gap-2 ${
+                    activeTab === 'auto-agent' ? 'bg-indigo-600 shadow text-white' : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                >
+                  <Bot className="w-4 h-4" />
+                  Self-Driving SENCO
+                </button>
+              </div>
               <button
                 onClick={() => router.push('/demo')}
                 className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 text-sm font-medium"
@@ -132,6 +173,92 @@ export default function InterventionSandbox() {
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        {activeTab === 'auto-agent' ? (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="bg-indigo-900 rounded-2xl p-8 text-white mb-8 relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-12 opacity-10">
+                <Bot className="w-64 h-64" />
+              </div>
+              <div className="relative z-10 max-w-2xl">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 bg-indigo-500/30 rounded-lg backdrop-blur-sm border border-indigo-400/30">
+                    <Sparkles className="w-6 h-6 text-indigo-300" />
+                  </div>
+                  <span className="text-indigo-300 font-medium tracking-wider text-sm uppercase">Autonomous Intelligence</span>
+                </div>
+                <h2 className="text-3xl font-bold mb-4">Your AI SENCO Assistant</h2>
+                <p className="text-indigo-200 text-lg mb-6">
+                  I've analyzed the latest data from the <span className="font-bold text-white">Stealth Assessment Engine</span> and identified 
+                  immediate intervention opportunities. These recommendations are based on real-time cognitive profiling.
+                </p>
+                <div className="flex gap-4">
+                  <div className="px-4 py-2 bg-indigo-800/50 rounded-lg border border-indigo-500/30 flex items-center gap-2">
+                    <Brain className="w-4 h-4 text-indigo-400" />
+                    <span className="text-sm">Analyzing 4 Cognitive Domains</span>
+                  </div>
+                  <div className="px-4 py-2 bg-indigo-800/50 rounded-lg border border-indigo-500/30 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 text-indigo-400" />
+                    <span className="text-sm">3 Priority Actions Found</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {isAgentLoading ? (
+              <div className="text-center py-12">
+                <div className="animate-spin w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full mx-auto mb-4"></div>
+                <p className="text-gray-500">Analyzing student profile...</p>
+              </div>
+            ) : (
+              <div className="grid gap-6">
+                {agentRecommendations.map((rec) => (
+                  <div key={rec.id} className="bg-white rounded-xl shadow-sm border border-indigo-100 overflow-hidden hover:shadow-md transition-shadow">
+                    <div className="p-6 flex items-start gap-6">
+                      <div className={`p-4 rounded-full shrink-0 ${
+                        rec.priority === 'HIGH' ? 'bg-red-50 text-red-600' : 'bg-yellow-50 text-yellow-600'
+                      }`}>
+                        <Bot className="w-8 h-8" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex justify-between items-start mb-2">
+                          <div>
+                            <h3 className="text-xl font-bold text-gray-900">{rec.title}</h3>
+                            <p className="text-sm text-gray-500">Triggered by: Low {rec.domain} Score</p>
+                          </div>
+                          <span className={`px-3 py-1 rounded-full text-xs font-bold tracking-wide ${
+                            rec.priority === 'HIGH' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'
+                          }`}>
+                            {rec.priority} PRIORITY
+                          </span>
+                        </div>
+                        <p className="text-gray-700 mb-4">{rec.description}</p>
+                        <div className="flex items-center gap-3">
+                          <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors">
+                            Approve & Provision
+                          </button>
+                          <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
+                            Dismiss
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 px-6 py-3 border-t border-gray-100 flex justify-between items-center text-xs text-gray-500">
+                      <span>Generated automatically by Self-Driving SENCO Agent</span>
+                      <span>{new Date(rec.generatedAt).toLocaleTimeString()}</span>
+                    </div>
+                  </div>
+                ))}
+                
+                {agentRecommendations.length === 0 && (
+                  <div className="text-center py-12 bg-white rounded-xl border border-dashed border-gray-300">
+                    <p className="text-gray-500">No active recommendations. The student is performing within expected ranges.</p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        ) : (
         <div className="grid grid-cols-12 gap-8">
           {/* Sidebar Filters */}
           <div className="col-span-3">
@@ -198,6 +325,7 @@ export default function InterventionSandbox() {
             </div>
           </div>
         </div>
+        )}
       </div>
 
       {/* Detail Modal */}

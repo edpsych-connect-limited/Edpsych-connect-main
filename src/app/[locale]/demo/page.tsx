@@ -185,6 +185,27 @@ export default function DemoPage() {
                 Start Coding
               </Link>
             </div>
+
+            {/* Zero-Touch Onboarding Demo Card */}
+            <div className="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl p-6 relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-4 opacity-10">
+                <svg className="w-24 h-24 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold mb-2 text-white flex items-center gap-2">
+                <span className="text-indigo-400">AI</span> Zero-Touch Onboarding
+              </h3>
+              <p className="text-slate-300 text-sm mb-4">
+                Experience our "Forensic Audit" engine. Connect a mock MIS and find unclaimed funding in seconds.
+              </p>
+              <Link 
+                href="/demo/onboarding" 
+                className="block w-full text-center px-4 py-2 bg-white text-slate-900 hover:bg-slate-200 rounded-lg font-bold transition-colors"
+              >
+                Run Forensic Audit
+              </Link>
+            </div>
           </div>
         </div>
       </main>
