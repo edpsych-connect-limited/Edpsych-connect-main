@@ -171,6 +171,20 @@ export default function DemoPage() {
                 View Dashboard
               </Link>
             </div>
+
+            {/* Coding Curriculum Demo Card */}
+            <div className="bg-gradient-to-br from-green-900/50 to-emerald-900/50 border border-green-500/30 rounded-xl p-6">
+              <h3 className="text-lg font-semibold mb-2 text-white">Developers of Tomorrow</h3>
+              <p className="text-slate-300 text-sm mb-4">
+                Empower students to build their own tools. From block coding to React, integrated into the platform.
+              </p>
+              <Link 
+                href="/demo/coding" 
+                className="block w-full text-center px-4 py-2 bg-green-600 hover:bg-green-500 text-white rounded-lg font-medium transition-colors"
+              >
+                Start Coding
+              </Link>
+            </div>
           </div>
         </div>
       </main>
