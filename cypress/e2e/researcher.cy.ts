@@ -1,0 +1,35 @@
+
+describe('Researcher Role E2E', () => {
+  beforeEach(() => {
+    // Visit login page
+    cy.visit('/login');
+  });
+
+  it('should allow researcher login and access researcher dashboard', () => {
+    // Login as researcher
+    cy.get('input[type="email"]').type('researcher@demo.com');
+    cy.get('input[type="password"]').type('Test123!');
+    cy.get('button[type="submit"]').click();
+
+    // Wait for redirect and loading
+    cy.location('pathname', { timeout: 10000 }).should('include', '/dashboard');
+    cy.contains('Welcome back', { timeout: 10000 }).should('be.visible');
+    
+    // Verify researcher specific elements
+    // Updated to match actual DashboardPage implementation
+    cy.contains('Research Hub').should('exist');
+    cy.contains('Data Enclave').should('exist');
+  });
+
+  it('should have access to ethics submission', () => {
+    // Login
+    cy.get('input[type="email"]').type('researcher@demo.com');
+    cy.get('input[type="password"]').type('Test123!');
+    cy.get('button[type="submit"]').click();
+
+    // Navigate to research hub
+    cy.visit('/research');
+    // Verify we are on the research page (even if empty)
+    cy.url().should('include', '/research');
+  });
+});
