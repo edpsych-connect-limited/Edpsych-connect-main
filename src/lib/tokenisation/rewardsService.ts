@@ -1,6 +1,5 @@
 import { TreasuryService } from '@/lib/tokenisation/treasuryService';
 // import { logForensicEvent } from '@/lib/server/forensic';
-import { PrismaClient } from '@prisma/client';
 import crypto from 'crypto';
 
 export interface RewardMetadata {
@@ -11,10 +10,7 @@ export interface RewardMetadata {
 }
 
 export class RewardsService {
-  private prisma: PrismaClient;
-
   constructor(private _treasury: TreasuryService) {
-    this.prisma = new PrismaClient();
   }
 
   async issueReward(metadata: RewardMetadata, amount: number, _batchId?: string) {

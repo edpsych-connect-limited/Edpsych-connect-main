@@ -1,33 +1,3 @@
-import { AssessmentSession } from '@/lib/stealth-assessment/types';
-
-export interface StudentProfile {
-  id: string;
-  name: string;
-  yearGroup: number;
-  needs: string[]; // e.g., "Dyslexia", "ADHD"
-  
-  // Aggregated Cognitive Profile (0-100)
-  cognitiveProfile: {
-    processingSpeed: number;
-    workingMemory: number;
-    attention: number;
-    learningMemory: number;
-  };
-
-  recentSessions: AssessmentSession[];
-  interventions: InterventionRecommendation[];
-}
-
-export interface InterventionRecommendation {
-  id: string;
-  title: string;
-  description: string;
-  domain: string;
-  priority: 'HIGH' | 'MEDIUM' | 'LOW';
-  status: 'ACTIVE' | 'PENDING' | 'COMPLETED';
-  generatedAt: number;
-}
-
 import { prisma } from '@/lib/prisma';
 import { AssessmentSession } from '@/lib/stealth-assessment/types';
 
@@ -90,8 +60,8 @@ export class StudentProfileService {
       throw new Error(`Student profile not found for ID: ${studentId}`);
     }
 
-    // Parse cognitive profile
-    const cognitiveProfile = (profile.cognitive_profile as any) || {
+    // Parse cognitive profile from learning_style or default
+    const cognitiveProfile = (profile.learning_style as any) || {
       processingSpeed: 50,
       workingMemory: 50,
       attention: 50,
@@ -146,7 +116,7 @@ export class StudentProfileService {
     await prisma.studentProfile.update({
       where: { id: profile.id },
       data: {
-        cognitive_profile: newProfile as any
+        learning_style: newProfile as any
       }
     });
 

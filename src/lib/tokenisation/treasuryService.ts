@@ -1,4 +1,3 @@
-import { PrismaClient } from '@prisma/client';
 // import { logForensicEvent } from '@/lib/server/forensic';
 import crypto from 'crypto';
 
@@ -11,10 +10,7 @@ export interface TreasuryEventMetadata {
 }
 
 export class TreasuryService {
-  private prisma: PrismaClient;
-
   constructor() {
-    this.prisma = new PrismaClient();
   }
 
   private async getOrCreateAccount(tenantId: number, accountType: string = 'TREASURY') {

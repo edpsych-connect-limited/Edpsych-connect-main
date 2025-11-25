@@ -191,7 +191,7 @@ export class UserService {
    */
   static async updateUserSubscription(
     id: string,
-    subscription: Partial<UserSubscription>
+    _subscription: Partial<UserSubscription>
   ): Promise<User> {
     // Subscription is managed at tenant level or separate table usually.
     // For now, we just return the user as we don't have a direct user subscription field in users table

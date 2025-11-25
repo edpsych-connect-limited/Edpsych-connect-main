@@ -1,5 +1,4 @@
 import { prisma } from '../../lib/prisma';
-import { PrismaClient } from '@prisma/client';
 import { ValidationError } from './errors';
 
 /**
@@ -31,9 +30,9 @@ function safeParseDetails(details: any): any {
  * Provides a centralized mechanism to track all changes made within the system
  */
 export class AuditLogService {
-  private prisma: PrismaClient;
+  private prisma: any;
 
-  constructor(prisma: PrismaClient) {
+  constructor(prisma: any) {
     this.prisma = prisma;
   }
 
@@ -147,7 +146,7 @@ export class AuditLogService {
     });
 
     // Safely parse details and add user information when available
-    const logsWithParsedDetails = logs.map(log => {
+    const logsWithParsedDetails = logs.map((log: any) => {
       const parsedDetails = safeParseDetails(log.details);
       return {
         ...log,
@@ -195,7 +194,7 @@ export class AuditLogService {
     });
     
     // Safely parse details and extract institution info
-    const logsWithParsedDetails = logs.map(log => {
+    const logsWithParsedDetails = logs.map((log: any) => {
       const parsedDetails = safeParseDetails(log.details);
       return {
         ...log,

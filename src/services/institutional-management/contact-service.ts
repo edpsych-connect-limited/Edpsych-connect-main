@@ -1,5 +1,4 @@
 import { prisma } from '../../lib/prisma';
-import { PrismaClient } from '@prisma/client';
 import {
   ValidationError,
   NotFoundError,
@@ -37,9 +36,9 @@ export interface PrimaryContactOptions {
  * Service for managing institutional contacts
  */
 export class ContactService {
-  private prisma: PrismaClient;
+  private prisma: any;
 
-  constructor(prisma: PrismaClient) {
+  constructor(prisma: any) {
     this.prisma = prisma;
   }
 
@@ -440,7 +439,7 @@ export class ContactService {
     }
 
     // Start a transaction
-    return await this.prisma.$transaction(async (prisma) => {
+    return await this.prisma.$transaction(async (prisma: any) => {
       // If removeExistingPrimary is true, remove primary designation from other contacts with same role
       if (options.removeExistingPrimary) {
         const whereConditions: any = {

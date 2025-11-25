@@ -39,7 +39,7 @@ export class BetaAccessService {
           code,
           expiresAt: options.expiresAt,
           maxUses: options.maxUses || 1,
-          currentUses: 0,
+          current_uses: 0,
           role: options.role || 'BETA_TESTER',
           features: options.features || [],
           metadata: options.metadata || {},
@@ -94,7 +94,7 @@ export class BetaAccessService {
       }
       
       // Check if the code has any uses remaining
-      const remainingUses = accessCode.maxUses - accessCode.currentUses;
+      const remainingUses = accessCode.maxUses - accessCode.current_uses;
       if (remainingUses <= 0) {
         return { valid: false, error: 'Access code has no remaining uses' };
       }
@@ -146,7 +146,7 @@ export class BetaAccessService {
       const updatedCode = await this.prisma.betaAccessCode.update({
         where: { code: code.toUpperCase() },
         data: {
-          currentUses: {
+          current_uses: {
             increment: 1
           },
           updatedAt: new Date()
@@ -157,7 +157,7 @@ export class BetaAccessService {
         success: true,
         code: {
           id: updatedCode.id,
-          remainingUses: updatedCode.maxUses - updatedCode.currentUses
+          remainingUses: updatedCode.maxUses - updatedCode.current_uses
         }
       };
     } catch (error) {
@@ -237,7 +237,7 @@ export class BetaAccessService {
         }
       });
       
-      const activeCodes = potentialCodes.filter(code => code.maxUses > code.currentUses);
+      const activeCodes = potentialCodes.filter(code => code.maxUses > code.current_uses);
       
       return activeCodes;
     } catch (error) {
