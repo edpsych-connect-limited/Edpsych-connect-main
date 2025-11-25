@@ -19,27 +19,46 @@ import {
 export default function LAAPanelPage() {
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedCase, setSelectedCase] = useState<{id: string, name: string} | null>(null);
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Mock Data for LAA View
-  const stats = [
-    { label: 'Active EHCPs', value: '1,248', change: '+12%', icon: FileText, color: 'blue' },
-    { label: 'Pending Assessments', value: '45', change: '-5%', icon: AlertCircle, color: 'orange' },
-    { label: 'Registered Schools', value: '86', change: '+2', icon: Building, color: 'green' },
-    { label: 'Panel Professionals', value: '124', change: '+8', icon: Users, color: 'purple' },
-  ];
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/la/dashboard');
+        if (response.ok) {
+          const result = await response.json();
+          setData(result);
+        }
+      } catch (error) {
+        console.error('Failed to fetch dashboard data', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
-  const recentApplications = [
-    { id: 1, name: 'Dr. Sarah Wilson', type: 'Educational Psychologist', status: 'pending', date: '2025-11-20' },
-    { id: 2, name: 'James Miller', type: 'Speech Therapist', status: 'approved', date: '2025-11-19' },
-    { id: 3, name: 'Emma Thompson', type: 'Occupational Therapist', status: 'review', date: '2025-11-18' },
-  ];
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
 
-  // 20-Week Statutory Timeline Data
-  const timelineCases = [
-    { id: 'EHCP-2025-001', student: 'Alice Smith', school: 'St. Mary\'s Primary', week: 18, status: 'Draft Plan', deadline: '2025-12-05', risk: 'high' },
-    { id: 'EHCP-2025-002', student: 'Bob Jones', school: 'North High', week: 12, status: 'Assessment', deadline: '2026-01-15', risk: 'low' },
-    { id: 'EHCP-2025-003', student: 'Charlie Brown', school: 'Westfield Academy', week: 5, status: 'Request', deadline: '2026-03-01', risk: 'medium' },
-  ];
+  const stats = data?.stats || [];
+  const recentApplications = data?.recentApplications || [];
+  const timelineCases = data?.timelineCases || [];
+
+  // Map icon strings back to components
+  const iconMap: any = {
+    FileText,
+    AlertCircle,
+    Building,
+    Users
+  };
+
+  const mappedStats = stats.map((s: any) => ({
+    ...s,
+    icon: iconMap[s.icon] || FileText
+  }));
 
   if (selectedCase) {
     return (
@@ -78,7 +97,7 @@ export default function LAAPanelPage() {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {stats.map((stat, index) => {
+          {mappedStats.map((stat: any, index: number) => {
             const Icon = stat.icon;
             return (
               <div key={index} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">

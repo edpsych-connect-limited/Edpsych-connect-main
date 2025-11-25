@@ -3,6 +3,7 @@
  * AI-powered content generation for continuous professional development
  */
 
+import { prisma } from '@/lib/prisma';
 import { AIService } from './ai-service';
 
 export interface BlogPost {
@@ -96,15 +97,8 @@ export interface BlogGenerationRequest {
 
 export class BlogService {
   private static instance: BlogService;
-  private posts: Map<string, BlogPost> = new Map();
-  private categories: Map<string, BlogCategory> = new Map();
-  private authors: Map<string, BlogAuthor> = new Map();
 
-  private constructor() {
-    this.initializeDefaultCategories();
-    this.initializeDefaultAuthors();
-    this.initializeDefaultPosts();
-  }
+  private constructor() {}
 
   public static getInstance(): BlogService {
     if (!BlogService.instance) {
@@ -118,66 +112,65 @@ export class BlogService {
    */
   async generateAutomatedPost(request: BlogGenerationRequest): Promise<BlogPost> {
     try {
-      // Generate content using AI
-      const contentPrompt = `
-        Generate an engaging, educational blog post on "${request.topic}" for ${request.targetAudience.join(', ')}.
-
-        Requirements:
-        - Tone: ${request.tone}
-        - Length: ${request.length}
-        - Category: ${request.category}
-        - Include research: ${request.includeResearch}
-        - Include examples: ${request.includeExamples}
-        - Include actionable steps: ${request.includeActionable}
-
-        Structure the post with:
-        1. Compelling headline
-        2. Engaging introduction
-        3. Main content with evidence-based insights
-        4. Practical applications
-        5. Conclusion with key takeaways
-        6. Call-to-action
-      `;
-
-      // For now, use structured generation - in production this would call AIService
+      // Generate content using AI (Mock for now, would use AIService)
       const generatedContent = await this.generateBlogContent(request);
+      const slug = this.generateSlug(generatedContent.title);
 
-      const post: BlogPost = {
-        id: `post_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-        title: generatedContent.title,
-        slug: this.generateSlug(generatedContent.title),
-        excerpt: generatedContent.excerpt,
-        content: generatedContent.content,
-        category: this.categories.get(request.category) || this.categories.get('general')!,
-        tags: generatedContent.tags,
-        author: this.getRandomAuthor(),
-        publishedAt: new Date(),
-        lastModified: new Date(),
-        status: 'published',
-        featured: Math.random() > 0.7, // 30% chance of being featured
-        readTime: this.calculateReadTime(generatedContent.content),
-        difficulty: this.determineDifficulty(request.targetAudience, request.topic),
-        targetAudience: request.targetAudience,
-        seo: {
-          metaTitle: generatedContent.title,
-          metaDescription: generatedContent.excerpt,
-          keywords: generatedContent.tags,
-          structuredData: this.generateStructuredData(generatedContent, request)
-        },
-        engagement: {
-          views: 0,
-          likes: 0,
-          shares: 0,
-          comments: 0,
-          averageReadTime: 0,
-          bounceRate: 0
-        },
-        relatedPosts: [],
-        attachments: []
-      };
+      // Ensure category exists
+      let category = await prisma.blogCategory.findUnique({ where: { slug: request.category } });
+      if (!category) {
+        // Fallback or create default
+        category = await prisma.blogCategory.upsert({
+          where: { slug: 'general' },
+          update: {},
+          create: {
+            name: 'General Education',
+            slug: 'general',
+            description: 'General educational topics',
+            color: '#3b82f6'
+          }
+        });
+      }
 
-      this.posts.set(post.id, post);
-      return post;
+      const author = this.getRandomAuthor();
+
+      const post = await prisma.blogPost.create({
+        data: {
+          title: generatedContent.title,
+          slug: `${slug}-${Date.now()}`, // Ensure uniqueness
+          content: generatedContent.content,
+          excerpt: generatedContent.excerpt,
+          category_id: category.id,
+          author_name: author.name,
+          author_bio: author.bio,
+          is_published: true,
+          is_featured: Math.random() > 0.7,
+          published_at: new Date(),
+          reading_time: this.calculateReadTime(generatedContent.content),
+          meta_title: generatedContent.title,
+          meta_description: generatedContent.excerpt,
+          keywords: [...generatedContent.tags, ...request.targetAudience],
+        },
+        include: {
+          category: true,
+          tags: { include: { tag: true } }
+        }
+      });
+
+      // Create tags
+      for (const tagName of generatedContent.tags) {
+        const tagSlug = this.generateSlug(tagName);
+        const tag = await prisma.blogTag.upsert({
+          where: { slug: tagSlug },
+          update: {},
+          create: { name: tagName, slug: tagSlug }
+        });
+        await prisma.blogPostTag.create({
+          data: { post_id: post.id, tag_id: tag.id }
+        });
+      }
+
+      return this.mapPrismaPostToInterface(post, author);
     } catch (error) {
       console.error('Error generating blog post:', error);
       throw new Error('Failed to generate blog post');
@@ -192,13 +185,24 @@ export class BlogService {
     userInterests: string[],
     previousReads: string[] = []
   ): Promise<BlogPost[]> {
-    const allPosts = Array.from(this.posts.values())
-      .filter(post => post.status === 'published')
-      .filter(post => post.targetAudience.includes(userType))
-      .filter(post => !previousReads.includes(post.id));
+    // Fetch recent published posts
+    const posts = await prisma.blogPost.findMany({
+      where: {
+        is_published: true,
+        id: { notIn: previousReads }
+      },
+      include: {
+        category: true,
+        tags: { include: { tag: true } }
+      },
+      orderBy: { published_at: 'desc' },
+      take: 50
+    });
+
+    const mappedPosts = posts.map(p => this.mapPrismaPostToInterface(p));
 
     // Score posts based on relevance
-    const scoredPosts = allPosts.map(post => ({
+    const scoredPosts = mappedPosts.map(post => ({
       post,
       score: this.calculateRelevanceScore(post, userInterests, userType)
     }));
@@ -214,16 +218,6 @@ export class BlogService {
    * Generate trending topics for content creation
    */
   async generateTrendingTopics(): Promise<string[]> {
-    const trendingPrompt = `
-      Generate 10 trending topics in educational psychology and pedagogy that would be valuable for:
-      - Teachers seeking professional development
-      - Parents supporting their children's learning
-      - Students looking for study strategies
-      - Researchers exploring new methodologies
-
-      Focus on current challenges and innovative solutions in UK education.
-    `;
-
     // Mock trending topics - in production this would analyze real data
     return [
       'AI-Powered Personalized Learning: The Future of Education',
@@ -243,17 +237,6 @@ export class BlogService {
    * Generate research-backed content
    */
   async generateResearchContent(topic: string, researchFocus: string): Promise<BlogPost> {
-    const researchPrompt = `
-      Generate research-focused content on "${topic}" with emphasis on "${researchFocus}".
-
-      Include:
-      - Current research findings
-      - Evidence-based recommendations
-      - Practical implications for educators
-      - Future research directions
-      - References to key studies
-    `;
-
     const researchContent = await this.generateBlogContent({
       topic,
       category: 'research',
@@ -265,84 +248,108 @@ export class BlogService {
       includeActionable: true
     });
 
-    return {
-      id: `research_${Date.now()}`,
-      title: researchContent.title,
-      slug: this.generateSlug(researchContent.title),
-      excerpt: researchContent.excerpt,
-      content: researchContent.content,
-      category: this.categories.get('research')!,
-      tags: [...researchContent.tags, 'research', 'evidence-based'],
-      author: this.getResearchAuthor(),
-      publishedAt: new Date(),
-      lastModified: new Date(),
-      status: 'published',
-      featured: true,
-      readTime: this.calculateReadTime(researchContent.content),
-      difficulty: 'advanced',
-      targetAudience: ['researchers', 'teachers', 'administrators'],
-      seo: {
-        metaTitle: researchContent.title,
-        metaDescription: researchContent.excerpt,
-        keywords: researchContent.tags,
-        structuredData: this.generateStructuredData(researchContent, {
-          topic,
-          category: 'research',
-          targetAudience: ['researchers'],
-          tone: 'academic',
-          length: 'long',
-          includeResearch: true,
-          includeExamples: true,
-          includeActionable: true
-        })
+    let category = await prisma.blogCategory.findUnique({ where: { slug: 'research' } });
+    if (!category) {
+      category = await prisma.blogCategory.create({
+        data: {
+          name: 'Educational Research',
+          slug: 'research',
+          description: 'Latest findings and evidence-based practices',
+          color: '#06b6d4'
+        }
+      });
+    }
+
+    const author = this.getResearchAuthor();
+    const slug = this.generateSlug(researchContent.title);
+
+    const post = await prisma.blogPost.create({
+      data: {
+        title: researchContent.title,
+        slug: `${slug}-${Date.now()}`,
+        content: researchContent.content,
+        excerpt: researchContent.excerpt,
+        category_id: category.id,
+        author_name: author.name,
+        author_bio: author.bio,
+        is_published: true,
+        is_featured: true,
+        published_at: new Date(),
+        reading_time: this.calculateReadTime(researchContent.content),
+        meta_title: researchContent.title,
+        meta_description: researchContent.excerpt,
+        keywords: [...researchContent.tags, 'research', 'evidence-based'],
       },
-      engagement: {
-        views: 0,
-        likes: 0,
-        shares: 0,
-        comments: 0,
-        averageReadTime: 0,
-        bounceRate: 0
-      },
-      relatedPosts: [],
-      attachments: []
-    };
+      include: {
+        category: true,
+        tags: { include: { tag: true } }
+      }
+    });
+
+    return this.mapPrismaPostToInterface(post, author);
   }
 
   /**
    * Get blog posts by category
    */
-  getPostsByCategory(categorySlug: string): BlogPost[] {
-    return Array.from(this.posts.values())
-      .filter(post => post.category.slug === categorySlug && post.status === 'published')
-      .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime());
+  async getPostsByCategory(categorySlug: string): Promise<BlogPost[]> {
+    const posts = await prisma.blogPost.findMany({
+      where: {
+        category: { slug: categorySlug },
+        is_published: true
+      },
+      include: {
+        category: true,
+        tags: { include: { tag: true } }
+      },
+      orderBy: { published_at: 'desc' }
+    });
+
+    return posts.map(p => this.mapPrismaPostToInterface(p));
   }
 
   /**
    * Get featured posts
    */
-  getFeaturedPosts(): BlogPost[] {
-    return Array.from(this.posts.values())
-      .filter(post => post.featured && post.status === 'published')
-      .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime())
-      .slice(0, 6);
+  async getFeaturedPosts(): Promise<BlogPost[]> {
+    const posts = await prisma.blogPost.findMany({
+      where: {
+        is_featured: true,
+        is_published: true
+      },
+      include: {
+        category: true,
+        tags: { include: { tag: true } }
+      },
+      orderBy: { published_at: 'desc' },
+      take: 6
+    });
+
+    return posts.map(p => this.mapPrismaPostToInterface(p));
   }
 
   /**
    * Search blog posts
    */
-  searchPosts(query: string): BlogPost[] {
+  async searchPosts(query: string): Promise<BlogPost[]> {
     const searchTerm = query.toLowerCase();
+    const posts = await prisma.blogPost.findMany({
+      where: {
+        is_published: true,
+        OR: [
+          { title: { contains: searchTerm, mode: 'insensitive' } },
+          { excerpt: { contains: searchTerm, mode: 'insensitive' } },
+          { content: { contains: searchTerm, mode: 'insensitive' } }
+        ]
+      },
+      include: {
+        category: true,
+        tags: { include: { tag: true } }
+      },
+      orderBy: { published_at: 'desc' }
+    });
 
-    return Array.from(this.posts.values())
-      .filter(post =>
-        post.status === 'published' && (
-          post.title.toLowerCase().includes(searchTerm) ||
-          post.excerpt.toLowerCase().includes(searchTerm) ||
-          post.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-        )
-      )
-      .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime());
+    return posts.map(p => this.mapPrismaPostToInterface(p));
   }
 
   // Helper methods
@@ -428,139 +435,80 @@ export class BlogService {
     return Math.ceil(wordCount / wordsPerMinute);
   }
 
-  private determineDifficulty(audience: BlogAudience[], topic: string): 'beginner' | 'intermediate' | 'advanced' {
-    if (audience.includes('students') || audience.includes('parents')) {
-      return 'beginner';
-    }
-    if (audience.includes('teachers')) {
-      return 'intermediate';
-    }
-    return 'advanced';
-  }
-
-  private generateStructuredData(content: any, _request: BlogGenerationRequest): any {
+  private getRandomAuthor(): BlogAuthor {
     return {
-      '@context': 'https://schema.org',
-      '@type': 'BlogPosting',
-      headline: content.title,
-      description: content.excerpt,
-      author: {
-        '@type': 'Person',
-        name: 'EdPsych Connect World'
-      },
-      publisher: {
-        '@type': 'Organization',
-        name: 'EdPsych Connect World',
-        logo: {
-          '@type': 'ImageObject',
-          url: '/logo.png'
-        }
-      },
-      datePublished: new Date().toISOString(),
-      mainEntityOfPage: {
-        '@type': 'WebPage',
-        '@id': `https://edpsychconnect.app/blog/${this.generateSlug(content.title)}`
+      id: 'dr_scott',
+      name: 'Dr. Scott Ighavongbe-Patrick',
+      bio: 'Educational Psychologist with 15+ years of experience in child development and learning strategies.',
+      credentials: ['DEdPsych', 'CPsychol', 'HCPC Registered'],
+      specializations: ['Child Development', 'Learning Strategies', 'Assessment'],
+      socialLinks: {
+        linkedin: 'https://linkedin.com/in/drscott',
+        researchgate: 'https://researchgate.net/profile/Scott-Ighavongbe-Patrick'
       }
     };
   }
 
-  private getRandomAuthor(): BlogAuthor {
-    const authors = Array.from(this.authors.values());
-    return authors[Math.floor(Math.random() * authors.length)];
-  }
-
   private getResearchAuthor(): BlogAuthor {
-    return this.authors.get('dr_scott') || this.getRandomAuthor();
+    return this.getRandomAuthor();
   }
 
-  private initializeDefaultCategories(): void {
-    const defaultCategories: BlogCategory[] = [
-      {
-        id: 'teaching_strategies',
-        name: 'Teaching Strategies',
-        slug: 'teaching-strategies',
-        description: 'Evidence-based teaching methods and classroom strategies',
-        color: '#3b82f6',
+  private mapPrismaPostToInterface(prismaPost: any, authorOverride?: BlogAuthor): BlogPost {
+    const tags = prismaPost.tags?.map((t: any) => t.tag.name) || [];
+    
+    // Infer audience from keywords/tags
+    const audience: BlogAudience[] = [];
+    if (tags.includes('teachers') || prismaPost.keywords.includes('teachers')) audience.push('teachers');
+    if (tags.includes('parents') || prismaPost.keywords.includes('parents')) audience.push('parents');
+    if (tags.includes('students') || prismaPost.keywords.includes('students')) audience.push('students');
+    if (audience.length === 0) audience.push('teachers'); // Default
+
+    return {
+      id: prismaPost.id,
+      title: prismaPost.title,
+      slug: prismaPost.slug,
+      excerpt: prismaPost.excerpt || '',
+      content: prismaPost.content,
+      category: {
+        id: prismaPost.category.id,
+        name: prismaPost.category.name,
+        slug: prismaPost.category.slug,
+        description: prismaPost.category.description || '',
+        color: prismaPost.category.color || '#3b82f6',
         icon: '📚'
       },
-      {
-        id: 'student_engagement',
-        name: 'Student Engagement',
-        slug: 'student-engagement',
-        description: 'Strategies to increase student motivation and participation',
-        color: '#10b981',
-        icon: '🎯'
+      tags: tags,
+      author: authorOverride || {
+        id: 'unknown',
+        name: prismaPost.author_name,
+        bio: prismaPost.author_bio || '',
+        credentials: [],
+        specializations: [],
+        socialLinks: {}
       },
-      {
-        id: 'assessment',
-        name: 'Assessment & Feedback',
-        slug: 'assessment',
-        description: 'Effective assessment strategies and feedback mechanisms',
-        color: '#f59e0b',
-        icon: '📊'
+      publishedAt: prismaPost.published_at || new Date(),
+      lastModified: prismaPost.updated_at,
+      status: prismaPost.is_published ? 'published' : 'draft',
+      featured: prismaPost.is_featured,
+      readTime: prismaPost.reading_time || 5,
+      difficulty: 'intermediate', // Default
+      targetAudience: audience,
+      seo: {
+        metaTitle: prismaPost.meta_title || prismaPost.title,
+        metaDescription: prismaPost.meta_description || prismaPost.excerpt || '',
+        keywords: prismaPost.keywords,
+        structuredData: {}
       },
-      {
-        id: 'technology',
-        name: 'Educational Technology',
-        slug: 'edtech',
-        description: 'Technology integration and digital learning tools',
-        color: '#8b5cf6',
-        icon: '💻'
+      engagement: {
+        views: prismaPost.views,
+        likes: 0,
+        shares: 0,
+        comments: 0,
+        averageReadTime: 0,
+        bounceRate: 0
       },
-      {
-        id: 'wellbeing',
-        name: 'Student Wellbeing',
-        slug: 'wellbeing',
-        description: 'Supporting student mental health and emotional development',
-        color: '#ef4444',
-        icon: '❤️'
-      },
-      {
-        id: 'research',
-        name: 'Educational Research',
-        slug: 'research',
-        description: 'Latest findings and evidence-based practices',
-        color: '#06b6d4',
-        icon: '🔬'
-      }
-    ];
-
-    defaultCategories.forEach(category => {
-      this.categories.set(category.id, category);
-    });
-  }
-
-  private initializeDefaultAuthors(): void {
-    const defaultAuthors: BlogAuthor[] = [
-      {
-        id: 'dr_scott',
-        name: 'Dr. Scott Ighavongbe-Patrick',
-        bio: 'Educational Psychologist with 15+ years of experience in child development and learning strategies.',
-        credentials: ['DEdPsych', 'CPsychol', 'HCPC Registered'],
-        specializations: ['Child Development', 'Learning Strategies', 'Assessment'],
-        socialLinks: {
-          linkedin: 'https://linkedin.com/in/drscott',
-          researchgate: 'https://researchgate.net/profile/Scott-Ighavongbe-Patrick'
-        }
-      }
-    ];
-
-    defaultAuthors.forEach(author => {
-      this.authors.set(author.id, author);
-    });
-  }
-
-  private initializeDefaultPosts(): void {
-    // Initialize with some sample posts
-    this.generateAutomatedPost({
-      topic: 'Effective Classroom Management Strategies',
-      category: 'teaching_strategies',
-      targetAudience: ['teachers'],
-      tone: 'practical',
-      length: 'medium',
-      includeResearch: true,
-      includeExamples: true,
-      includeActionable: true
-    });
+      relatedPosts: [],
+      attachments: []
+    };
   }
 }

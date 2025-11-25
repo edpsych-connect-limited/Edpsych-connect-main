@@ -15,8 +15,13 @@ import CommunityInsights from './CommunityInsights';
 import PricingTiers from './PricingTiers';
 import Footer from './Footer';
 import ConciergeWidget from './ConciergeWidget';
+import { PricingTier } from '@/lib/stripe-pricing';
 
-export default function LandingPage() {
+interface LandingPageProps {
+  pricingData?: PricingTier[];
+}
+
+export default function LandingPage({ pricingData }: LandingPageProps) {
   return (
     <main className="min-h-screen bg-slate-950 text-white selection:bg-indigo-500/30">
       <HeroOrchestration />
@@ -36,7 +41,7 @@ export default function LandingPage() {
       <MarketplacePreview />
       <VideoPremiereSection />
       <CommunityInsights />
-      <PricingTiers />
+      <PricingTiers pricingData={pricingData} />
       <Footer />
       <ConciergeWidget />
     </main>

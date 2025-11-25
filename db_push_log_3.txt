@@ -1,0 +1,16 @@
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+Datasource "db": PostgreSQL database "neondb", schema "public" at "ep-steep-boat-abz9lg8e-pooler.eu-west-2.aws.neon.tech"
+
+⚠️  There might be data loss when applying the changes:
+
+  • The values [SCHOOL_MEDIUM,MAT_MEDIUM,RESEARCH_INSTITUTIONAL,RESEARCH_PARTNERSHIP,TRIAL,DEMO,LEGACY] on the enum `SubscriptionTier` will be removed. If these variants are still used in the database, this will fail.
+
+  • You are about to drop the column `price` on the `subscriptions` table, which still contains 1 non-null values.
+
+  • You are about to drop the column `research_discount_percentage` on the `subscriptions` table, which still contains 1 non-null values.
+
+
+
+[?25l[2K[1G[36m?[39m [1mDo you want to ignore the warning(s)?[22m [90m›[39m [90m(y/N)[39m[2K[1G[2K[1G[32m✔[39m [1mDo you want to ignore the warning(s)?[22m [90m…[39m no
+[?25hPush cancelled.

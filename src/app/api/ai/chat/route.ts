@@ -7,21 +7,14 @@ export async function POST(request: NextRequest) {
     // 1. Authenticate User
     const user = await serverAuth.getUserFromRequest(request);
     
-    // NOTE: For demo purposes, if no user is found (e.g. dev mode without proper cookies),
-    // we'll use a mock user to allow the chat to function.
-    // In production, this should be strict.
-    const activeUser = user || (process.env.NODE_ENV === 'development' ? {
-      id: 'dev-user',
-      tenantId: 'default',
-      email: 'dev@example.com'
-    } : null);
-
-    if (!activeUser) {
+    if (!user) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
       );
     }
+
+    const activeUser = user;
 
     // 2. Parse Request Body
     const body = await request.json();

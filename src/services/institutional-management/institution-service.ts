@@ -649,7 +649,8 @@ export class InstitutionService {
         data: {
           userId: data.performedById,
           user_id_int: parseInt(data.performedById) || 0,
-          tenant_id: 0, // Default to 0
+          tenant_id: 0, // Default to 0 for system/institution level events
+          institutionId: data.institutionId, // Use the dedicated institutionId field
           action: data.action,
           resource: data.entityType,
           details: {

@@ -3,7 +3,7 @@ import {
   UpdateContentSimilarityInput,
   SimilarityType
 } from "../../types/recommendation-engine-types";
-import db from "./database-adapter";
+import { prisma } from '@/lib/prisma';
 
 /**
  * Service for managing content similarity relationships
@@ -13,11 +13,13 @@ export class ContentSimilarityService {
    * Create a new content similarity record
    */
   async createSimilarity(data: CreateContentSimilarityInput) {
-    return db.createContentSimilarity({
-      contentIdA: data.contentIdA,
-      contentIdB: data.contentIdB,
-      similarityScore: data.similarityScore,
-      similarityType: data.similarityType
+    return prisma.contentSimilarity.create({
+      data: {
+        contentIdA: data.contentIdA,
+        contentIdB: data.contentIdB,
+        similarityScore: data.similarityScore,
+        similarityType: data.similarityType
+      }
     });
   }
   
@@ -25,66 +27,93 @@ export class ContentSimilarityService {
    * Get similar content for a specific content item
    */
   async getSimilarContent(contentId: string) {
-    return db.getContentSimilarities(contentId);
+    const similarities = await prisma.contentSimilarity.findMany({
+      where: {
+        OR: [
+          { contentIdA: contentId },
+          { contentIdB: contentId }
+        ]
+      },
+      include: {
+        contentA: true,
+        contentB: true
+      },
+      orderBy: {
+        similarityScore: 'desc'
+      }
+    });
+
+    // Map to a friendlier format
+    return similarities.map(sim => {
+      const isA = sim.contentIdA === contentId;
+      const relatedContent = isA ? sim.contentB : sim.contentA;
+      return {
+        ...sim,
+        relatedContentId: relatedContent.id,
+        relatedContentTitle: relatedContent.title,
+        relatedContentType: relatedContent.content_type
+      };
+    });
   }
 
   /**
    * Get similar content by similarity type
    */
   async getSimilarContentByType(contentId: string, similarityType: SimilarityType) {
-    const result = await db.executeQuery(
-      `SELECT cs.*, 
-        CASE 
-          WHEN cs."contentIdA" = $1 THEN cs."contentIdB" 
-          ELSE cs."contentIdA" 
-        END as "relatedContentId",
-        c.title as "relatedContentTitle",
-        c.type as "relatedContentType"
-      FROM "ContentSimilarity" cs
-      JOIN "Content" c ON c.id = 
-        CASE 
-          WHEN cs."contentIdA" = $1 THEN cs."contentIdB" 
-          ELSE cs."contentIdA" 
-        END
-      WHERE (cs."contentIdA" = $1 OR cs."contentIdB" = $1) AND cs."similarityType" = $2
-      ORDER BY cs."similarityScore" DESC`,
-      [contentId, similarityType]
-    );
-    return result.rows;
+    const similarities = await prisma.contentSimilarity.findMany({
+      where: {
+        AND: [
+          {
+            OR: [
+              { contentIdA: contentId },
+              { contentIdB: contentId }
+            ]
+          },
+          { similarityType: similarityType }
+        ]
+      },
+      include: {
+        contentA: true,
+        contentB: true
+      },
+      orderBy: {
+        similarityScore: 'desc'
+      }
+    });
+
+    return similarities.map(sim => {
+      const isA = sim.contentIdA === contentId;
+      const relatedContent = isA ? sim.contentB : sim.contentA;
+      return {
+        ...sim,
+        relatedContentId: relatedContent.id,
+        relatedContentTitle: relatedContent.title,
+        relatedContentType: relatedContent.content_type
+      };
+    });
   }
   
   /**
    * Update a similarity record
    */
   async updateSimilarity(id: string, data: UpdateContentSimilarityInput) {
-    const query = `
-      UPDATE "ContentSimilarity"
-      SET "similarityScore" = $1, "similarityType" = $2, "updatedAt" = $3
-      WHERE "id" = $4
-      RETURNING *;
-    `;
-    const values = [
-      data.similarityScore,
-      data.similarityType,
-      new Date(),
-      id
-    ];
-    
-    const result = await db.executeQuery(query, values);
-    return result.rows[0];
+    return prisma.contentSimilarity.update({
+      where: { id },
+      data: {
+        similarityScore: data.similarityScore,
+        similarityType: data.similarityType,
+        updatedAt: new Date()
+      }
+    });
   }
   
   /**
    * Delete a similarity record
    */
   async deleteSimilarity(id: string) {
-    const query = `
-      DELETE FROM "ContentSimilarity"
-      WHERE "id" = $1
-      RETURNING *;
-    `;
-    const result = await db.executeQuery(query, [id]);
-    return result.rows[0];
+    return prisma.contentSimilarity.delete({
+      where: { id }
+    });
   }
   
   /**
@@ -93,30 +122,27 @@ export class ContentSimilarityService {
    */
   async calculateContentBasedSimilarity(contentId: string) {
     // First, get the target content
-    const targetContentQuery = `
-      SELECT id, title, description, type FROM "Content"
-      WHERE id = $1;
-    `;
-    const targetContentResult = await db.executeQuery(targetContentQuery, [contentId]);
+    const targetContent = await prisma.content.findUnique({
+      where: { id: contentId }
+    });
     
-    if (targetContentResult.rows.length === 0) {
+    if (!targetContent) {
       throw new Error(`Content with ID ${contentId} not found`);
     }
     
-    const targetContent = targetContentResult.rows[0];
-    
     // Get other content of the same type to compare
-    const otherContentQuery = `
-      SELECT id, title, description, type FROM "Content"
-      WHERE id != $1 AND type = $2
-      LIMIT 100;
-    `;
-    const otherContentResult = await db.executeQuery(otherContentQuery, [contentId, targetContent.type]);
+    const otherContentList = await prisma.content.findMany({
+      where: {
+        id: { not: contentId },
+        content_type: targetContent.content_type
+      },
+      take: 100
+    });
     
     const similarityRecords = [];
     
     // Simple text similarity calculation based on word overlap
-    for (const otherContent of otherContentResult.rows) {
+    for (const otherContent of otherContentList) {
       const targetText = `${targetContent.title} ${targetContent.description || ''}`.toLowerCase();
       const otherText = `${otherContent.title} ${otherContent.description || ''}`.toLowerCase();
       
@@ -133,7 +159,7 @@ export class ContentSimilarityService {
       targetWords.forEach((word: string) => union.add(word));
       otherWords.forEach((word: string) => union.add(word));
       
-      const similarityScore = intersection.size / union.size;
+      const similarityScore = union.size > 0 ? intersection.size / union.size : 0;
       
       if (similarityScore > 0.1) { // Only store if similarity is above threshold
         similarityRecords.push({
@@ -148,21 +174,20 @@ export class ContentSimilarityService {
     // Store the similarity records
     for (const record of similarityRecords) {
       // Check if a record already exists
-      const existingQuery = `
-        SELECT id FROM "ContentSimilarity"
-        WHERE (("contentIdA" = $1 AND "contentIdB" = $2) OR ("contentIdA" = $2 AND "contentIdB" = $1))
-        AND "similarityType" = $3
-      `;
-      const existingResult = await db.executeQuery(existingQuery, [
-        record.contentIdA, 
-        record.contentIdB,
-        SimilarityType.CONTENT_BASED
-      ]);
+      const existingRecord = await prisma.contentSimilarity.findFirst({
+        where: {
+          OR: [
+            { contentIdA: record.contentIdA, contentIdB: record.contentIdB },
+            { contentIdA: record.contentIdB, contentIdB: record.contentIdA }
+          ],
+          similarityType: SimilarityType.CONTENT_BASED
+        }
+      });
       
-      if (existingResult.rows.length > 0) {
+      if (existingRecord) {
         // Update existing record
-        await this.updateSimilarity(existingResult.rows[0].id, {
-          id: existingResult.rows[0].id,
+        await this.updateSimilarity(existingRecord.id, {
+          id: existingRecord.id,
           similarityScore: record.similarityScore
         });
       } else {
@@ -179,70 +204,89 @@ export class ContentSimilarityService {
    */
   async calculateTagBasedSimilarity(contentId: string) {
     // First get the tags for this content
-    const contentTagsQuery = `
-      SELECT t.id, t.name
-      FROM "Tag" t
-      JOIN "ContentTag" ct ON t.id = ct."tagId"
-      WHERE ct."contentId" = $1
-    `;
-    const contentTagsResult = await db.executeQuery(contentTagsQuery, [contentId]);
+    const targetContent = await prisma.content.findUnique({
+      where: { id: contentId },
+      select: { id: true, tags: true }
+    });
     
-    if (contentTagsResult.rows.length === 0) {
+    if (!targetContent || !targetContent.tags) {
       return []; // No tags to compare
     }
     
-    const contentTags = contentTagsResult.rows;
-    const tagIds = contentTags.map((tag: any) => tag.id);
+    let targetTags: string[] = [];
+    try {
+      // Try parsing as JSON
+      targetTags = JSON.parse(targetContent.tags);
+    } catch (e) {
+      // Fallback to comma separated
+      targetTags = targetContent.tags.split(',').map(t => t.trim());
+    }
+
+    if (!Array.isArray(targetTags) || targetTags.length === 0) {
+      return [];
+    }
     
-    // Find other content with the same tags
-    const similarContentQuery = `
-      SELECT c.id, c.title, COUNT(ct."tagId") as tag_match_count
-      FROM "Content" c
-      JOIN "ContentTag" ct ON c.id = ct."contentId"
-      WHERE c.id != $1 AND ct."tagId" IN (${tagIds.map((_: any, i: number) => `$${i+2}`).join(',')})
-      GROUP BY c.id, c.title
-      HAVING COUNT(ct."tagId") > 0
-      ORDER BY tag_match_count DESC
-      LIMIT 50
-    `;
-    
-    const similarContentResult = await db.executeQuery(
-      similarContentQuery, 
-      [contentId, ...tagIds]
-    );
+    // Find other content
+    // Since tags are stored as string/json, we can't easily query "contains tag X" in Prisma without raw query or fetching all.
+    // For efficiency, we'll fetch content that might be relevant (e.g. same type or just recent) and filter in memory,
+    // or use a raw query if performance is critical. Here we'll fetch a batch.
+    const otherContentList = await prisma.content.findMany({
+      where: { id: { not: contentId } },
+      select: { id: true, title: true, tags: true },
+      take: 200 // Limit to avoid memory issues
+    });
     
     const similarityRecords = [];
     
-    for (const similarContent of similarContentResult.rows) {
-      // Calculate similarity score based on tag overlap
-      const similarityScore = similarContent.tag_match_count / contentTags.length;
+    for (const otherContent of otherContentList) {
+      if (!otherContent.tags) continue;
+
+      let otherTags: string[] = [];
+      try {
+        otherTags = JSON.parse(otherContent.tags);
+      } catch (e) {
+        otherTags = otherContent.tags.split(',').map(t => t.trim());
+      }
+
+      if (!Array.isArray(otherTags) || otherTags.length === 0) continue;
+
+      // Calculate intersection
+      const intersection = targetTags.filter(t => otherTags.includes(t));
       
-      similarityRecords.push({
-        contentIdA: contentId,
-        contentIdB: similarContent.id,
-        similarityScore,
-        similarityType: SimilarityType.TAG_BASED
-      });
+      if (intersection.length > 0) {
+        // Calculate similarity score based on tag overlap
+        const similarityScore = intersection.length / Math.max(targetTags.length, otherTags.length);
+        
+        similarityRecords.push({
+          contentIdA: contentId,
+          contentIdB: otherContent.id,
+          similarityScore,
+          similarityType: SimilarityType.TAG_BASED
+        });
+      }
     }
     
+    // Sort by score and take top 50
+    similarityRecords.sort((a, b) => b.similarityScore - a.similarityScore);
+    const topRecords = similarityRecords.slice(0, 50);
+
     // Store the similarity records
-    for (const record of similarityRecords) {
+    for (const record of topRecords) {
       // Check if a record already exists
-      const existingQuery = `
-        SELECT id FROM "ContentSimilarity"
-        WHERE (("contentIdA" = $1 AND "contentIdB" = $2) OR ("contentIdA" = $2 AND "contentIdB" = $1))
-        AND "similarityType" = $3
-      `;
-      const existingResult = await db.executeQuery(existingQuery, [
-        record.contentIdA, 
-        record.contentIdB,
-        SimilarityType.TAG_BASED
-      ]);
+      const existingRecord = await prisma.contentSimilarity.findFirst({
+        where: {
+          OR: [
+            { contentIdA: record.contentIdA, contentIdB: record.contentIdB },
+            { contentIdA: record.contentIdB, contentIdB: record.contentIdA }
+          ],
+          similarityType: SimilarityType.TAG_BASED
+        }
+      });
       
-      if (existingResult.rows.length > 0) {
+      if (existingRecord) {
         // Update existing record
-        await this.updateSimilarity(existingResult.rows[0].id, {
-          id: existingResult.rows[0].id,
+        await this.updateSimilarity(existingRecord.id, {
+          id: existingRecord.id,
           similarityScore: record.similarityScore
         });
       } else {
@@ -251,7 +295,7 @@ export class ContentSimilarityService {
       }
     }
     
-    return similarityRecords;
+    return topRecords;
   }
   
   /**
@@ -259,41 +303,43 @@ export class ContentSimilarityService {
    */
   async calculateCollaborativeSimilarity(contentId: string) {
     // Get users who interacted with this content
-    const usersQuery = `
-      SELECT DISTINCT "id" 
-      FROM "ContentInteraction"
-      WHERE "contentId" = $1
-    `;
-    const usersResult = await db.executeQuery(usersQuery, [contentId]);
+    const interactions = await prisma.contentInteraction.findMany({
+      where: { contentId },
+      select: { userId: true },
+      distinct: ['userId']
+    });
     
-    if (usersResult.rows.length === 0) {
+    if (interactions.length === 0) {
       return []; // No user interactions to use
     }
     
-    const userIds = usersResult.rows.map((row: any) => row.id);
+    const userIds = interactions.map(i => i.userId);
     
     // Find other content that these users interacted with
-    const otherContentQuery = `
-      SELECT ci."contentId", COUNT(DISTINCT ci."id") as user_overlap_count
-      FROM "ContentInteraction" ci
-      WHERE ci."id" IN (${userIds.map((_: any, i: number) => `$${i+1}`).join(',')})
-      AND ci."contentId" != $${userIds.length+1}
-      GROUP BY ci."contentId"
-      HAVING COUNT(DISTINCT ci."id") > 1
-      ORDER BY user_overlap_count DESC
-      LIMIT 50
-    `;
-    
-    const otherContentResult = await db.executeQuery(
-      otherContentQuery,
-      [...userIds, contentId]
-    );
+    // We need to group by contentId and count users
+    const otherInteractions = await prisma.contentInteraction.groupBy({
+      by: ['contentId'],
+      where: {
+        userId: { in: userIds },
+        contentId: { not: contentId }
+      },
+      _count: {
+        userId: true
+      },
+      orderBy: {
+        _count: {
+          userId: 'desc'
+        }
+      },
+      take: 50
+    });
     
     const similarityRecords = [];
     
-    for (const otherContent of otherContentResult.rows) {
+    for (const otherContent of otherInteractions) {
       // Calculate similarity score based on user overlap
-      const similarityScore = otherContent.user_overlap_count / userIds.length;
+      // Jaccard index would be better but simple overlap ratio is okay for now
+      const similarityScore = otherContent._count.userId / userIds.length;
       
       similarityRecords.push({
         contentIdA: contentId,
@@ -306,21 +352,20 @@ export class ContentSimilarityService {
     // Store the similarity records
     for (const record of similarityRecords) {
       // Check if a record already exists
-      const existingQuery = `
-        SELECT id FROM "ContentSimilarity"
-        WHERE (("contentIdA" = $1 AND "contentIdB" = $2) OR ("contentIdA" = $2 AND "contentIdB" = $1))
-        AND "similarityType" = $3
-      `;
-      const existingResult = await db.executeQuery(existingQuery, [
-        record.contentIdA, 
-        record.contentIdB,
-        SimilarityType.COLLABORATIVE
-      ]);
+      const existingRecord = await prisma.contentSimilarity.findFirst({
+        where: {
+          OR: [
+            { contentIdA: record.contentIdA, contentIdB: record.contentIdB },
+            { contentIdA: record.contentIdB, contentIdB: record.contentIdA }
+          ],
+          similarityType: SimilarityType.COLLABORATIVE
+        }
+      });
       
-      if (existingResult.rows.length > 0) {
+      if (existingRecord) {
         // Update existing record
-        await this.updateSimilarity(existingResult.rows[0].id, {
-          id: existingResult.rows[0].id,
+        await this.updateSimilarity(existingRecord.id, {
+          id: existingRecord.id,
           similarityScore: record.similarityScore
         });
       } else {

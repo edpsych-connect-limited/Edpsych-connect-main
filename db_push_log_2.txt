@@ -1,0 +1,13 @@
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+Datasource "db": PostgreSQL database "neondb", schema "public" at "ep-steep-boat-abz9lg8e-pooler.eu-west-2.aws.neon.tech"
+Error: P1012
+
+error: Type "string" is neither a built-in type, nor refers to another model, composite type, or enum. Did you mean "String"?
+  -->  prisma/schema.prisma:4620
+   | 
+4619 |   parentId    Int
+4620 |   activityType string  // login, read_tip, completed_task
+   | 
+
+

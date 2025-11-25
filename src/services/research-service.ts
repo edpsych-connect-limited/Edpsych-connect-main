@@ -3,6 +3,9 @@
  * Practice-based, quality-driven studies using real anonymized data
  */
 
+import { prisma } from '@/lib/prisma';
+import { Prisma } from '@prisma/client';
+
 export interface ResearchStudy {
   id: string;
   title: string;
@@ -204,9 +207,6 @@ export interface ImpactMeasurement {
 
 export class ResearchService {
   private static instance: ResearchService;
-  private studies: Map<string, ResearchStudy> = new Map();
-  private dataAccessLogs: DataAccessLog[] = [];
-  private anonymizedDatasets: Map<string, any> = new Map();
 
   private constructor() {}
 
@@ -220,31 +220,32 @@ export class ResearchService {
   /**
    * Create new research study with ethical oversight
    */
-  async createResearchStudy(studyData: Partial<ResearchStudy>): Promise<ResearchStudy> {
-    const study: ResearchStudy = {
-      id: `study_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      title: studyData.title!,
-      description: studyData.description!,
-      principalInvestigator: studyData.principalInvestigator!,
-      coInvestigators: studyData.coInvestigators || [],
-      methodology: studyData.methodology!,
-      participants: [],
-      dataCollection: studyData.dataCollection || [],
-      timeline: studyData.timeline!,
-      status: 'planning',
-      ethicalApproval: studyData.ethicalApproval!,
-      funding: studyData.funding!,
-      outputs: [],
-      impact: studyData.impact || {
-        academic: [],
-        practical: [],
-        societal: [],
-        measurement: []
+  async createResearchStudy(studyData: Partial<ResearchStudy>, tenantId: number, userId: number): Promise<ResearchStudy> {
+    const study = await prisma.research_studies.create({
+      data: {
+        tenant_id: tenantId,
+        creator_id: userId,
+        title: studyData.title || 'Untitled Study',
+        description: studyData.description || '',
+        objective: 'To be defined',
+        methodology: JSON.stringify(studyData.methodology || {}),
+        start_date: studyData.timeline?.startDate || new Date(),
+        end_date: studyData.timeline?.endDate,
+        status: studyData.status || 'planning',
+        ethics_approval: !!studyData.ethicalApproval,
+        ethics_reference: studyData.ethicalApproval?.approvalNumber,
+        is_public: false,
+      },
+      include: {
+        creator: true,
+        collaborators: { include: { user: true } },
+        participants: true,
+        datasets: true,
+        publications: true,
       }
-    };
+    });
 
-    this.studies.set(study.id, study);
-    return study;
+    return this.mapPrismaStudyToInterface(study);
   }
 
   /**
@@ -255,37 +256,34 @@ export class ResearchService {
     variables: DataVariable[],
     sampleSize: number
   ): Promise<string> {
-    const study = this.studies.get(studyId);
+    const study = await prisma.research_studies.findUnique({ where: { id: studyId } });
     if (!study) {
       throw new Error('Study not found');
     }
 
-    const datasetId = `dataset_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-
-    // Generate anonymized dataset based on platform data
-    const dataset = {
-      id: datasetId,
-      studyId,
-      variables,
-      sampleSize,
-      generatedAt: new Date(),
-      anonymizationLevel: 'high',
-      accessLevel: 'restricted',
-      data: this.generateMockAnonymizedData(variables, sampleSize)
-    };
-
-    this.anonymizedDatasets.set(datasetId, dataset);
-
-    // Log data access
-    this.logDataAccess({
-      timestamp: new Date(),
-      researcherId: study.principalInvestigator.id,
-      description: `Dataset ${datasetId} accessed for research`,
-      purpose: 'Research study data generation',
-      ipAddress: 'system'
+    const dataset = await prisma.research_datasets.create({
+      data: {
+        study_id: studyId,
+        name: `Dataset for ${study.title}`,
+        description: `Anonymized dataset with ${sampleSize} records`,
+        data_type: 'mixed',
+        format: 'json',
+        size: sampleSize,
+        location: 'secure_storage', // Placeholder
+        is_anonymized: true,
+      }
     });
 
-    return datasetId;
+    // Log data access
+    await this.logDataAccess({
+      timestamp: new Date(),
+      researcherId: study.creator_id.toString(),
+      description: `Dataset ${dataset.id} generated for research`,
+      purpose: 'Research study data generation',
+      ipAddress: 'system'
+    }, study.tenant_id);
+
+    return dataset.id;
   }
 
   /**
@@ -297,23 +295,26 @@ export class ResearchService {
     justification: string,
     _dataTypes: string[]
   ): Promise<boolean> {
-    const study = this.studies.get(studyId);
+    const study = await prisma.research_studies.findUnique({ 
+      where: { id: studyId },
+      include: { collaborators: true }
+    });
     if (!study) return false;
 
     // Check if researcher is authorized
-    const isAuthorized = study.principalInvestigator.id === researcherId ||
-                        study.coInvestigators.some(inv => inv.id === researcherId);
+    const isAuthorized = study.creator_id.toString() === researcherId ||
+                        study.collaborators.some(c => c.user_id.toString() === researcherId);
 
     if (!isAuthorized) return false;
 
     // Log the access request
-    this.logDataAccess({
+    await this.logDataAccess({
       timestamp: new Date(),
       researcherId,
       description: `Access requested for study_${studyId}_data`,
       purpose: justification,
       ipAddress: 'system'
-    });
+    }, study.tenant_id);
 
     return true;
   }
@@ -325,25 +326,11 @@ export class ResearchService {
     studyId: string,
     analysisType: 'descriptive' | 'correlational' | 'predictive' | 'qualitative'
   ): Promise<any> {
-    const study = this.studies.get(studyId);
+    const study = await prisma.research_studies.findUnique({ where: { id: studyId } });
     if (!study) throw new Error('Study not found');
 
-    const _insightsPrompt = `
-      Generate ${analysisType} research insights for the study: "${study.title}"
-
-      Methodology: ${study.methodology.type}
-      Data collection methods: ${study.dataCollection.map(dc => dc.type).join(', ')}
-      Analysis type: ${analysisType}
-
-      Provide:
-      - Key findings
-      - Statistical analysis (if applicable)
-      - Practical implications
-      - Recommendations for practice
-      - Future research directions
-    `;
-
     // Mock insights generation - in production this would use AIService
+    
     return {
       studyId,
       analysisType,
@@ -354,7 +341,7 @@ export class ResearchService {
         'Teacher experience moderates intervention effectiveness'
       ],
       statisticalAnalysis: {
-        sampleSize: study.participants.length,
+        sampleSize: 100, // Mock
         significance: 'p < 0.05',
         effectSize: 'medium',
         confidence: '95%'
@@ -371,38 +358,35 @@ export class ResearchService {
    * Generate automated research report
    */
   async generateResearchReport(studyId: string): Promise<ResearchOutput> {
-    const study = this.studies.get(studyId);
+    const study = await prisma.research_studies.findUnique({ where: { id: studyId } });
     if (!study) throw new Error('Study not found');
 
-    const _reportPrompt = `
-      Generate a comprehensive research report for: "${study.title}"
+    const report = await prisma.research_publications.create({
+      data: {
+        study_id: studyId,
+        title: `Research Report: ${study.title}`,
+        abstract: 'Comprehensive analysis of platform effectiveness and user outcomes',
+        publication_type: 'report',
+        status: 'draft',
+        authors: ['System AI'],
+      }
+    });
 
-      Include:
-      - Executive summary
-      - Methodology details
-      - Results and findings
-      - Discussion and implications
-      - Recommendations
-      - References
-      - Appendices
-    `;
-
-    const report: ResearchOutput = {
+    return {
       type: 'report',
-      title: `Research Report: ${study.title}`,
-      description: 'Comprehensive analysis of platform effectiveness and user outcomes',
-      status: 'draft'
+      title: report.title,
+      description: report.abstract,
+      status: report.status as any,
+      publicationDate: report.publication_date || undefined,
+      url: report.url || undefined
     };
-
-    study.outputs.push(report);
-    return report;
   }
 
   /**
    * Track research impact metrics
    */
   async trackResearchImpact(studyId: string): Promise<ResearchImpact> {
-    const study = this.studies.get(studyId);
+    const study = await prisma.research_studies.findUnique({ where: { id: studyId } });
     if (!study) throw new Error('Study not found');
 
     // Analyze real platform data for impact
@@ -447,7 +431,6 @@ export class ResearchService {
       ]
     };
 
-    study.impact = impact;
     return impact;
   }
 
@@ -455,7 +438,7 @@ export class ResearchService {
    * Generate ethical review documentation
    */
   async generateEthicalReview(studyId: string): Promise<any> {
-    const study = this.studies.get(studyId);
+    const study = await prisma.research_studies.findUnique({ where: { id: studyId } });
     if (!study) throw new Error('Study not found');
 
     return {
@@ -489,13 +472,13 @@ export class ResearchService {
     studyId: string,
     externalResearchers: Researcher[]
   ): Promise<any> {
-    const study = this.studies.get(studyId);
+    const study = await prisma.research_studies.findUnique({ where: { id: studyId } });
     if (!study) throw new Error('Study not found');
 
     return {
       studyId,
-      parties: [study.principalInvestigator, ...externalResearchers],
-      dataTypes: study.dataCollection.map(dc => dc.type),
+      parties: [study.creator_id, ...externalResearchers.map(r => r.id)],
+      dataTypes: ['mixed'],
       usageRestrictions: [
         'Research purposes only',
         'No commercial use',
@@ -514,86 +497,148 @@ export class ResearchService {
   }
 
   // Helper methods
-  private generateMockAnonymizedData(variables: DataVariable[], sampleSize: number): any[] {
-    const data = [];
-
-    for (let i = 0; i < sampleSize; i++) {
-      const record: any = {
-        id: `anon_${i}_${Date.now()}`,
-        timestamp: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000)
-      };
-
-      variables.forEach(variable => {
-        switch (variable.type) {
-          case 'quantitative':
-            record[variable.name] = Math.floor(Math.random() * 100);
-            break;
-          case 'categorical':
-            record[variable.name] = ['A', 'B', 'C', 'D'][Math.floor(Math.random() * 4)];
-            break;
-          case 'qualitative':
-            record[variable.name] = `Sample response ${i}`;
-            break;
-          default:
-            record[variable.name] = `Data point ${i}`;
-        }
-      });
-
-      data.push(record);
-    }
-
-    return data;
-  }
-
-  private logDataAccess(log: DataAccessLog): void {
-    this.dataAccessLogs.push(log);
-
-    // Keep only last 1000 logs for performance
-    if (this.dataAccessLogs.length > 1000) {
-      this.dataAccessLogs = this.dataAccessLogs.slice(-1000);
-    }
+  private async logDataAccess(log: DataAccessLog, tenantId: number): Promise<void> {
+    await prisma.audit_logs.create({
+      data: {
+        tenant_id: tenantId,
+        userId: log.researcherId,
+        action: 'DATA_ACCESS',
+        resource: 'RESEARCH_DATA',
+        description: log.description,
+        details: { purpose: log.purpose, ip: log.ipAddress },
+        timestamp: log.timestamp
+      }
+    });
   }
 
   /**
    * Get research studies by status
    */
-  getStudiesByStatus(status: ResearchStudy['status']): ResearchStudy[] {
-    return Array.from(this.studies.values()).filter(study => study.status === status);
+  async getStudiesByStatus(status: ResearchStudy['status']): Promise<ResearchStudy[]> {
+    const studies = await prisma.research_studies.findMany({
+      where: { status },
+      include: {
+        creator: true,
+        collaborators: { include: { user: true } },
+        participants: true,
+        datasets: true,
+        publications: true,
+      }
+    });
+    return studies.map(s => this.mapPrismaStudyToInterface(s));
   }
 
   /**
    * Get research data access audit trail
    */
-  getDataAccessAuditTrail(studyId?: string): DataAccessLog[] {
-    if (studyId) {
-      return this.dataAccessLogs.filter(log => log.description.includes(studyId));
-    }
-    return this.dataAccessLogs;
+  async getDataAccessAuditTrail(studyId?: string): Promise<DataAccessLog[]> {
+    const logs = await prisma.audit_logs.findMany({
+      where: {
+        resource: 'RESEARCH_DATA',
+        description: studyId ? { contains: studyId } : undefined
+      },
+      orderBy: { timestamp: 'desc' },
+      take: 1000
+    });
+
+    return logs.map(log => ({
+      timestamp: log.timestamp,
+      researcherId: log.userId || 'unknown',
+      description: log.description || '',
+      purpose: (log.details as any)?.purpose || '',
+      ipAddress: (log.details as any)?.ip || ''
+    }));
   }
 
   /**
    * Get anonymized dataset
    */
-  getAnonymizedDataset(datasetId: string): any | undefined {
-    return this.anonymizedDatasets.get(datasetId);
+  async getAnonymizedDataset(datasetId: string): Promise<any | undefined> {
+    const dataset = await prisma.research_datasets.findUnique({ where: { id: datasetId } });
+    return dataset;
   }
 
   /**
    * Validate research compliance
    */
   async validateResearchCompliance(studyId: string): Promise<any> {
-    const study = this.studies.get(studyId);
+    const study = await prisma.research_studies.findUnique({ where: { id: studyId } });
     if (!study) throw new Error('Study not found');
 
     return {
       studyId,
       gdprCompliance: true,
-      ethicalApproval: study.ethicalApproval.approvedAt < new Date(),
+      ethicalApproval: study.ethics_approval,
       dataAnonymization: 'validated',
       consentProcedures: 'compliant',
       securityMeasures: 'adequate',
       lastAudit: new Date(),
       nextAudit: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000) // 90 days
+    };
+  }
+
+  private mapPrismaStudyToInterface(prismaStudy: any): ResearchStudy {
+    let methodology: ResearchMethodology;
+    try {
+      methodology = JSON.parse(prismaStudy.methodology);
+    } catch {
+      methodology = { type: 'mixed_methods', design: 'unknown', sampling: { method: 'random', size: 0, criteria: [], demographics: { ageRanges: [], subjects: [], schoolTypes: [], regions: [], experienceLevels: [] } }, dataAnalysis: [], limitations: [], validity: [] };
+    }
+
+    return {
+      id: prismaStudy.id,
+      title: prismaStudy.title,
+      description: prismaStudy.description,
+      principalInvestigator: {
+        id: prismaStudy.creator?.id.toString() || '',
+        name: prismaStudy.creator?.name || 'Unknown',
+        institution: 'EdPsych Connect',
+        credentials: [],
+        specializations: [],
+        publications: 0
+      },
+      coInvestigators: prismaStudy.collaborators?.map((c: any) => ({
+        id: c.user.id.toString(),
+        name: c.user.name,
+        institution: 'EdPsych Connect',
+        credentials: [],
+        specializations: [],
+        publications: 0
+      })) || [],
+      methodology,
+      participants: prismaStudy.participants?.map((p: any) => ({
+        id: p.id,
+        type: 'student', // Default
+        demographics: { anonymizedId: p.participant_code },
+        consent: { consentedAt: p.consent_date || new Date(), consentVersion: '1.0', scope: [], withdrawn: !!p.withdrawal_date },
+        dataAccess: { level: 'anonymous', permissions: [], accessLog: [] }
+      })) || [],
+      dataCollection: [], // Not stored in DB currently
+      timeline: {
+        startDate: prismaStudy.start_date,
+        endDate: prismaStudy.end_date || new Date(),
+        milestones: [],
+        currentPhase: prismaStudy.status
+      },
+      status: prismaStudy.status as any,
+      ethicalApproval: {
+        board: 'Internal',
+        approvalNumber: prismaStudy.ethics_reference || '',
+        approvedAt: new Date(), // Mock
+        validUntil: new Date(), // Mock
+        conditions: [],
+        amendments: []
+      },
+      funding: { source: 'internal', currency: 'GBP', duration: 12, conditions: [] },
+      outputs: prismaStudy.publications?.map((p: any) => ({
+        type: p.publication_type as any,
+        title: p.title,
+        description: p.abstract,
+        status: p.status as any,
+        publicationDate: p.publication_date,
+        url: p.url
+      })) || [],
+      impact: { academic: [], practical: [], societal: [], measurement: [] }
     };
   }
 }

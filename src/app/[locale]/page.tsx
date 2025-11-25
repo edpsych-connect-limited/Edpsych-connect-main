@@ -3,6 +3,7 @@
 
 import { Metadata } from 'next';
 import LandingPage from '@/components/landing/LandingPage';
+import { getStripePrices } from '@/lib/stripe-pricing';
 
 export const metadata: Metadata = {
   title: 'EdPsych Connect World | Teaching That Adapts Itself - Platform Orchestration for UK Education',
@@ -48,10 +49,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const pricingData = await getStripePrices();
+
   return (
     <>
-      <LandingPage />
+      <LandingPage pricingData={pricingData} />
     </>
   );
 }

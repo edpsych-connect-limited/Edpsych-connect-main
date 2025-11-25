@@ -1,0 +1,81 @@
+
+// ============================================================================
+// ETHICS & COMPLIANCE
+// ============================================================================
+
+model EthicsAssessment {
+  id            String    @id @default(cuid())
+  title         String
+  description   String    @db.Text
+  componentId   String
+  componentType String
+  assessorId    Int
+  status        String    @default("draft") // draft, in_review, approved, rejected
+  version       Int       @default(1)
+  
+  questions     Json      // Array of { question, answer, category }
+  ethicalRisks  Json      // Array of { description, severity, category }
+  mitigations   Json      // Array of { riskIndex, description, status }
+  recommendedMonitors Json // Array of { monitorType, description, configuration }
+  tags          String[]
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  approvedAt    DateTime?
+
+  // Relations
+  assessor      users     @relation("Assessor", fields: [assessorId], references: [id])
+  reviewers     users[]   @relation("Reviewers")
+
+  @@index([status])
+  @@index([componentType])
+}
+
+model EthicsIncident {
+  id             String    @id @default(cuid())
+  title          String
+  description    String    @db.Text
+  monitorId      String?
+  metricId       String?
+  metricValue    Float?
+  thresholdValue Float?
+  
+  status         String    @default("open") // open, investigating, mitigating, resolved, dismissed
+  severity       String    @default("medium") // low, medium, high, critical
+  
+  resolutionSteps Json     // Array of { description, status, createdAt, completedAt }
+  tags           String[]
+
+  detectedAt     DateTime  @default(now())
+  resolvedAt     DateTime?
+  
+  assignedToId   Int?
+  assignedTo     users?    @relation("IncidentAssignee", fields: [assignedToId], references: [id])
+
+  monitor        EthicsMonitor? @relation(fields: [monitorId], references: [id])
+
+  @@index([status])
+  @@index([severity])
+}
+
+model EthicsMonitor {
+  id          String    @id @default(cuid())
+  name        String
+  description String    @db.Text
+  
+  metrics     Json      // Array of { id, name, category }
+  thresholds  Json      // Object of { metricId: { type, value } }
+  
+  enabled     Boolean   @default(true)
+  frequency   String    @default("daily")
+  severity    String    @default("medium")
+  tags        String[]
+  
+  lastRunAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  incidents   EthicsIncident[]
+
+  @@index([enabled])
+}

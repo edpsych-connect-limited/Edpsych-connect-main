@@ -4,7 +4,7 @@
  */
 
 import { aiService, AIRequest } from '@/lib/ai-integration';
-import prisma from '@/lib/prismaSafe';
+import { prisma } from '@/lib/prisma';
 import { LessonPlan as PrismaLessonPlan, LessonActivity as PrismaLessonActivity } from '@prisma/client';
 
 export interface LearningObjective {

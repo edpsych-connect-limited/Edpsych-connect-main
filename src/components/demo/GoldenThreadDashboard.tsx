@@ -11,7 +11,6 @@ import {
   AlertTriangle, 
   Zap
 } from 'lucide-react';
-import { StudentProfileService } from '@/lib/student-profile/service';
 
 // Mock Data for the "Golden Thread" Narrative
 const DEMO_STAGES = [
@@ -23,11 +22,6 @@ const DEMO_STAGES = [
 
 export default function GoldenThreadDashboard() {
   const [activeStage, setActiveStage] = useState(0);
-
-  useEffect(() => {
-    // Load initial profile (simulated)
-    StudentProfileService.getProfile('student-123');
-  }, []);
 
   const nextStage = () => {
     if (activeStage < DEMO_STAGES.length - 1) {

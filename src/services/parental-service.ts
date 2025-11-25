@@ -3,6 +3,8 @@
  * Keeping parents actively engaged in their child's educational journey
  */
 
+import { prisma } from '@/lib/prisma';
+
 export interface Parent {
   id: string;
   name: string;
@@ -114,15 +116,8 @@ export interface ParentEngagementActivity {
 
 export class ParentalService {
   private static instance: ParentalService;
-  private parents: Map<string, Parent> = new Map();
-  private communications: Map<string, ParentCommunication> = new Map();
-  private tips: ParentalTip[] = [];
-  private activities: ParentEngagementActivity[] = [];
 
-  private constructor() {
-    this.initializeDefaultTips();
-    this.initializeDefaultActivities();
-  }
+  private constructor() {}
 
   public static getInstance(): ParentalService {
     if (!ParentalService.instance) {
@@ -134,41 +129,33 @@ export class ParentalService {
   /**
    * Register a new parent and link their children
    */
-  async registerParent(parentData: Partial<Parent>): Promise<Parent> {
-    const parent: Parent = {
-      id: `parent_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      name: parentData.name!,
-      email: parentData.email!,
-      phone: parentData.phone,
-      relationship: parentData.relationship || 'guardian',
-      notificationPreferences: parentData.notificationPreferences || {
-        email: true,
-        sms: false,
-        push: true,
-        frequency: 'weekly',
-        categories: {
-          achievements: true,
-          progress: true,
-          behavior: false,
-          events: true,
-          tips: true
-        }
+  async registerParent(parentData: Partial<Parent>, userId: number): Promise<Parent> {
+    const parent = await prisma.parents.create({
+      data: {
+        user_id: userId,
+        child_ids: [], // Initially empty, linked via ParentChildLink
+        notification_preferences: parentData.notificationPreferences as any,
+        last_login: new Date(),
       },
-      engagementLevel: 'medium',
-      lastActive: new Date(),
-      children: parentData.children || []
-    };
+      include: {
+        users: true
+      }
+    });
 
-    this.parents.set(parent.id, parent);
-    return parent;
+    // Create ParentChildLink if children provided
+    if (parentData.children && parentData.children.length > 0) {
+      // Logic to link children would go here, assuming child IDs are known
+    }
+
+    return this.mapPrismaParentToInterface(parent, []);
   }
 
   /**
    * Send personalized progress update to parents
    */
   async sendProgressUpdate(childId: string, parentId: string): Promise<void> {
-    const child = this.findChildById(childId);
-    const parent = this.parents.get(parentId);
+    const child = await this.findChildById(childId);
+    const parent = await prisma.parents.findUnique({ where: { id: parseInt(parentId) }, include: { users: true } });
 
     if (!child || !parent) return;
 
@@ -181,17 +168,17 @@ export class ParentalService {
       recipientIds: [parentId]
     };
 
-    await this.sendCommunication(update);
+    await this.sendCommunication(update, parseInt(parentId));
   }
 
   /**
    * Send achievement notification to parents
    */
   async sendAchievementNotification(achievement: Achievement, childId: string): Promise<void> {
-    const child = this.findChildById(childId);
+    const child = await this.findChildById(childId);
     if (!child) return;
 
-    const parentIds = this.getParentIdsForChild(childId);
+    const parentIds = await this.getParentIdsForChild(childId);
 
     const notification: ParentCommunication = {
       id: `achievement_${Date.now()}`,
@@ -206,74 +193,138 @@ export class ParentalService {
       ]
     };
 
-    await this.sendCommunication(notification);
+    for (const pid of parentIds) {
+      await this.sendCommunication(notification, parseInt(pid));
+    }
   }
 
   /**
    * Generate personalized tips for parents
    */
   async generatePersonalizedTips(parentId: string, childId: string): Promise<ParentalTip[]> {
-    const parent = this.parents.get(parentId);
-    const child = this.findChildById(childId);
+    const parent = await prisma.parents.findUnique({ where: { id: parseInt(parentId) } });
+    const child = await this.findChildById(childId);
 
     if (!parent || !child) return [];
 
-    // Analyze child's current challenges and progress
-    const relevantTips = this.tips.filter(tip =>
-      this.isTipRelevant(tip, child, parent)
-    );
+    // Fetch tips from DB
+    const tips = await prisma.parentalTip.findMany({
+      where: { isActive: true }
+    });
 
-    // Sort by relevance and return top 3
-    return relevantTips.slice(0, 3);
+    // Map to interface and filter
+    return tips.map(t => ({
+      id: t.id,
+      title: t.title,
+      category: t.category as any,
+      ageGroup: t.ageRange || 'all',
+      content: t.content,
+      difficulty: 'medium' as const,
+      estimatedTime: 15,
+      resources: [],
+      evidence: 'Research backed'
+    })).filter(tip => this.isTipRelevant(tip, child));
   }
 
   /**
    * Create parent engagement activity
    */
-  async createEngagementActivity(activityData: Partial<ParentEngagementActivity>): Promise<ParentEngagementActivity> {
-    const activity: ParentEngagementActivity = {
-      id: `activity_${Date.now()}`,
-      title: activityData.title!,
-      description: activityData.description!,
-      type: activityData.type || 'workshop',
-      duration: activityData.duration || 60,
-      scheduledFor: activityData.scheduledFor || new Date(),
-      maxParticipants: activityData.maxParticipants,
-      currentParticipants: 0,
-      difficulty: activityData.difficulty || 'beginner',
-      topics: activityData.topics || [],
-      outcomes: activityData.outcomes || []
-    };
+  async createEngagementActivity(parentId: string, activityData: Partial<ParentEngagementActivity>): Promise<ParentEngagementActivity> {
+    const activity = await prisma.parentEngagementActivity.create({
+      data: {
+        parentId: parseInt(parentId),
+        activityType: activityData.type || 'workshop',
+        details: {
+          title: activityData.title,
+          description: activityData.description,
+          duration: activityData.duration,
+          scheduledFor: activityData.scheduledFor,
+          topics: activityData.topics,
+          outcomes: activityData.outcomes
+        }
+      }
+    });
 
-    this.activities.push(activity);
-    return activity;
+    const details = activity.details as any;
+    return {
+      id: activity.id,
+      title: details.title || 'Activity',
+      description: details.description || '',
+      type: activity.activityType as any,
+      duration: details.duration || 60,
+      scheduledFor: details.scheduledFor ? new Date(details.scheduledFor) : new Date(),
+      maxParticipants: 1,
+      currentParticipants: 1,
+      difficulty: 'beginner',
+      topics: details.topics || [],
+      outcomes: details.outcomes || []
+    };
   }
 
   /**
    * Get parent's dashboard data
    */
   async getParentDashboard(parentId: string): Promise<any> {
-    const parent = this.parents.get(parentId);
+    const parent = await prisma.parents.findUnique({ 
+      where: { id: parseInt(parentId) },
+      include: { users: true }
+    });
     if (!parent) throw new Error('Parent not found');
 
-    const children = parent.children;
-    const recentCommunications = Array.from(this.communications.values())
-      .filter(comm => comm.recipientIds.includes(parentId))
-      .sort((a, b) => new Date(b.sentAt!).getTime() - new Date(a.sentAt!).getTime())
-      .slice(0, 10);
+    // Fetch children linked to parent
+    const links = await prisma.parentChildLink.findMany({
+      where: { parent_id: parent.users.id },
+      include: { child: true }
+    });
 
-    const upcomingActivities = this.activities
-      .filter(activity => activity.scheduledFor > new Date())
-      .sort((a, b) => a.scheduledFor.getTime() - b.scheduledFor.getTime())
-      .slice(0, 5);
+    const children = await Promise.all(links.map(l => this.findChildById(l.child_id.toString())));
+    const validChildren = children.filter((c): c is Child => c !== undefined);
+
+    // Fetch recent communications
+    const messages = await prisma.parentTeacherMessage.findMany({
+      where: { receiverId: parent.users.id },
+      orderBy: { createdAt: 'desc' },
+      take: 10
+    });
+
+    // Fetch activities
+    const activities = await prisma.parentEngagementActivity.findMany({
+      where: { parentId: parseInt(parentId) },
+      orderBy: { createdAt: 'desc' },
+      take: 5
+    });
 
     return {
-      parent,
-      children,
-      recentCommunications,
-      upcomingActivities,
-      tips: await this.generatePersonalizedTips(parentId, children[0]?.id),
-      engagement: this.calculateEngagementMetrics(parent)
+      parent: this.mapPrismaParentToInterface(parent, validChildren),
+      children: validChildren,
+      recentCommunications: messages.map(m => ({
+        id: m.id,
+        type: 'update', // Default
+        title: m.subject || 'Message',
+        content: m.content,
+        priority: 'medium',
+        recipientIds: [parentId],
+        sentAt: m.createdAt,
+        readAt: m.readAt || undefined
+      })),
+      upcomingActivities: activities.map(a => {
+        const d = a.details as any;
+        return {
+          id: a.id,
+          title: d.title || 'Activity',
+          description: d.description || '',
+          type: a.activityType as any,
+          duration: d.duration || 60,
+          scheduledFor: d.scheduledFor ? new Date(d.scheduledFor) : new Date(),
+          maxParticipants: 1,
+          currentParticipants: 1,
+          difficulty: 'beginner',
+          topics: d.topics || [],
+          outcomes: d.outcomes || []
+        };
+      }),
+      tips: validChildren.length > 0 ? await this.generatePersonalizedTips(parentId, validChildren[0].id) : [],
+      engagement: { level: 'medium', score: 75 } // Mock
     };
   }
 
@@ -315,139 +366,86 @@ export class ParentalService {
   /**
    * Send communication to parents
    */
-  private async sendCommunication(communication: ParentCommunication): Promise<void> {
-    communication.sentAt = new Date();
-    this.communications.set(communication.id, communication);
+  private async sendCommunication(communication: ParentCommunication, parentId: number): Promise<void> {
+    const parent = await prisma.parents.findUnique({ where: { id: parentId }, include: { users: true } });
+    if (!parent) return;
 
-    // In production, this would integrate with email/SMS services
-    console.log('Sending communication:', communication);
-
-    // Update parent engagement metrics
-    for (const parentId of communication.recipientIds) {
-      const parent = this.parents.get(parentId);
-      if (parent) {
-        parent.lastActive = new Date();
-        this.updateEngagementLevel(parent);
+    await prisma.parentTeacherMessage.create({
+      data: {
+        tenantId: parent.users.tenant_id,
+        senderId: 1, // System user ID (placeholder)
+        receiverId: parent.users.id,
+        content: communication.content,
+        subject: communication.title,
+        isRead: false,
       }
-    }
+    });
+
+    // Update parent engagement metrics (mock logic)
+    // In real app, update a metrics table
   }
 
   /**
-   * Initialize default parental tips
+   * Check if tip is relevant for child
    */
-  private initializeDefaultTips(): void {
-    this.tips = [
-      {
-        id: 'tip_homework_help',
-        title: 'Effective Homework Support Strategies',
-        category: 'homework',
-        ageGroup: '7-11',
-        content: 'Learn how to support your child\'s homework without doing it for them...',
-        difficulty: 'easy',
-        estimatedTime: 15,
-        resources: ['homework_guide.pdf', 'video_tutorial'],
-        evidence: 'Based on research from the Education Endowment Foundation'
-      },
-      {
-        id: 'tip_reading_together',
-        title: 'Making Reading Fun at Home',
-        category: 'motivation',
-        ageGroup: '5-9',
-        content: 'Discover engaging ways to make reading a family activity...',
-        difficulty: 'easy',
-        estimatedTime: 10,
-        resources: ['reading_tips.pdf', 'book_recommendations'],
-        evidence: 'Supported by findings from the National Literacy Trust'
-      }
-    ];
-  }
-
-  /**
-   * Initialize default engagement activities
-   */
-  private initializeDefaultActivities(): void {
-    this.activities = [
-      {
-        id: 'activity_math_workshop',
-        title: 'Supporting Maths at Home Workshop',
-        description: 'Learn practical strategies to help your child with mathematics',
-        type: 'workshop',
-        duration: 90,
-        scheduledFor: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Next week
-        maxParticipants: 50,
-        currentParticipants: 0,
-        difficulty: 'beginner',
-        topics: ['math_strategies', 'home_learning', 'parental_support'],
-        outcomes: ['Increased confidence', 'Better support strategies', 'Improved communication']
-      }
-    ];
-  }
-
-  /**
-   * Check if tip is relevant for child and parent
-   */
-  private isTipRelevant(tip: ParentalTip, child: Child, parent: Parent): boolean {
+  private isTipRelevant(tip: ParentalTip, child: Child): boolean {
     // Match age group
     if (tip.ageGroup !== 'all' && !tip.ageGroup.includes(child.yearGroup)) {
       return false;
     }
-
-    // Match based on child's current challenges
-    if (child.currentChallenges.some(challenge =>
-      tip.content.toLowerCase().includes(challenge.toLowerCase())
-    )) {
-      return true;
-    }
-
-    return true; // Default to relevant
-  }
-
-  /**
-   * Calculate engagement metrics for parent
-   */
-  private calculateEngagementMetrics(parent: Parent): any {
-    const daysSinceActive = Math.floor(
-      (Date.now() - parent.lastActive.getTime()) / (1000 * 60 * 60 * 24)
-    );
-
-    return {
-      level: parent.engagementLevel,
-      daysSinceActive,
-      score: Math.max(0, 100 - daysSinceActive),
-      trend: daysSinceActive < 7 ? 'increasing' : daysSinceActive < 30 ? 'stable' : 'declining'
-    };
-  }
-
-  /**
-   * Update parent's engagement level based on activity
-   */
-  private updateEngagementLevel(parent: Parent): void {
-    const metrics = this.calculateEngagementMetrics(parent);
-
-    if (metrics.score >= 80) {
-      parent.engagementLevel = 'high';
-    } else if (metrics.score >= 50) {
-      parent.engagementLevel = 'medium';
-    } else {
-      parent.engagementLevel = 'low';
-    }
+    return true; 
   }
 
   // Helper methods
-  private findChildById(childId: string): Child | undefined {
-    for (const parent of this.parents.values()) {
-      const child = parent.children.find(c => c.id === childId);
-      if (child) return child;
-    }
-    return undefined;
+  private async findChildById(childId: string): Promise<Child | undefined> {
+    const student = await prisma.students.findUnique({ where: { id: parseInt(childId) } });
+    if (!student) return undefined;
+
+    return {
+      id: student.id.toString(),
+      name: `${student.first_name} ${student.last_name}`,
+      school: 'Unknown School', // Need tenant name
+      yearGroup: student.year_group,
+      subjects: [],
+      parentId: '', // Not directly on student
+      progressData: {
+        overall: 0,
+        subjects: {},
+        attendance: 0,
+        behavior: 0,
+        engagement: 0,
+        lastUpdated: new Date(),
+        trends: []
+      },
+      achievements: [],
+      currentChallenges: []
+    };
   }
 
-  private getParentIdsForChild(childId: string): string[] {
-    for (const parent of this.parents.values()) {
-      if (parent.children.some(c => c.id === childId)) {
-        return [parent.id];
-      }
-    }
-    return [];
+  private async getParentIdsForChild(childId: string): Promise<string[]> {
+    const links = await prisma.parentChildLink.findMany({
+      where: { child_id: parseInt(childId) },
+      include: { parent: { include: { parents: true } } }
+    });
+    
+    return links
+      .map(l => l.parent.parents?.id.toString())
+      .filter((id): id is string => id !== undefined);
+  }
+
+  private mapPrismaParentToInterface(prismaParent: any, children: Child[]): Parent {
+    return {
+      id: prismaParent.id.toString(),
+      name: prismaParent.users.name,
+      email: prismaParent.users.email,
+      phone: undefined,
+      relationship: 'guardian',
+      notificationPreferences: prismaParent.notification_preferences as any || {
+        email: true, sms: false, push: true, frequency: 'weekly', categories: { achievements: true, progress: true, behavior: false, events: true, tips: true }
+      },
+      engagementLevel: 'medium',
+      lastActive: prismaParent.last_login || new Date(),
+      children: children
+    };
   }
 }

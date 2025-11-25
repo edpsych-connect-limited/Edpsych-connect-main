@@ -1,6 +1,0 @@
-Seeding Marketplace Professionals...
-Seeded professional: Dr. Sarah Jenkins
-Seeded professional: Mark Thompson
-Seeded professional: Dr. Emily Chen
-Seeded professional: James Wilson
-Marketplace seeding completed.

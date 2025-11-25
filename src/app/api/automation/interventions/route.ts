@@ -8,39 +8,11 @@ import { getServerSession } from 'next-auth';
 
 export const dynamic = 'force-dynamic';
 
-// Mock data structure - in production, would use actual AutomatedInterventionService
-const mockInterventionService = {
-  triggerIntervention: async (studentId: string, triggerData: any) => ({
-    triggered: true,
-    interventionId: `int_${Date.now()}`,
-    type: triggerData.type,
-    deliveryMethod: 'email',
-    scheduledFor: new Date().toISOString(),
-    expectedImpact: 0.75
-  }),
+import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { prisma } from '@/lib/prisma';
 
-  getActiveInterventions: (studentId?: string) => ([
-    {
-      id: `int_${Date.now()}`,
-      studentId: studentId || 'student_123',
-      type: 'engagement',
-      status: 'scheduled',
-      scheduledFor: new Date(Date.now() + 3600000).toISOString(),
-      createdAt: new Date().toISOString()
-    }
-  ]),
-
-  getInterventionHistory: (studentId: string, _limit: number) => ([
-    {
-      id: `int_${Date.now() - 86400000}`,
-      studentId,
-      type: 'academic_support',
-      status: 'completed',
-      deliveredAt: new Date(Date.now() - 86400000).toISOString(),
-      effectiveness: 0.85
-    }
-  ])
-};
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
   try {
@@ -61,10 +33,43 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        const result = await mockInterventionService.triggerIntervention(studentId, triggerData);
+        // Find student to get tenant_id and internal ID
+        const student = await prisma.students.findFirst({
+            where: { unique_id: studentId }
+        });
+        
+        if (!student) {
+             return NextResponse.json({ error: 'Student not found' }, { status: 404 });
+        }
+
+        const intervention = await prisma.automatedAction.create({
+            data: {
+                tenant_id: student.tenant_id,
+                action_type: triggerData.type || 'intervention',
+                triggered_by: 'api_trigger',
+                target_type: 'student',
+                target_id: studentId,
+                student_id: student.id,
+                action_data: {
+                    ...triggerData,
+                    deliveryMethod: 'email',
+                    scheduledFor: new Date().toISOString(),
+                    expectedImpact: 0.75
+                },
+                outcome_success: false // Pending/Active
+            }
+        });
+
         return NextResponse.json({
           success: true,
-          intervention: result
+          intervention: {
+            triggered: true,
+            interventionId: intervention.id,
+            type: intervention.action_type,
+            deliveryMethod: 'email',
+            scheduledFor: (intervention.action_data as any).scheduledFor,
+            expectedImpact: (intervention.action_data as any).expectedImpact
+          }
         });
 
       default:
@@ -94,26 +99,41 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status'); // active, completed, all
     const limit = parseInt(searchParams.get('limit') || '10');
 
+    const whereClause: any = {
+        action_type: { in: ['intervention', 'academic_support', 'engagement'] }
+    };
+
+    if (studentId) {
+        // Resolve studentId (string) to internal ID if needed, or query by target_id
+        whereClause.target_id = studentId;
+    }
+
     if (status === 'active') {
-      const activeInterventions = mockInterventionService.getActiveInterventions(studentId || undefined);
-      return NextResponse.json({
-        interventions: activeInterventions,
-        count: activeInterventions.length
-      });
+        whereClause.outcome_success = false;
+    } else if (status === 'history' || status === 'completed') {
+        whereClause.outcome_success = true;
     }
 
-    if (status === 'history' && studentId) {
-      const history = mockInterventionService.getInterventionHistory(studentId, limit);
-      return NextResponse.json({
-        interventions: history,
-        count: history.length
-      });
-    }
+    const interventions = await prisma.automatedAction.findMany({
+        where: whereClause,
+        take: limit,
+        orderBy: { created_at: 'desc' }
+    });
 
-    // Return all interventions
+    const mappedInterventions = interventions.map(i => ({
+        id: i.id,
+        studentId: i.target_id,
+        type: i.action_type,
+        status: i.outcome_success ? 'completed' : 'scheduled',
+        scheduledFor: (i.action_data as any).scheduledFor || i.created_at.toISOString(),
+        createdAt: i.created_at.toISOString(),
+        deliveredAt: i.outcome_success ? i.updated_at?.toISOString() : undefined,
+        effectiveness: (i.outcome_data as any)?.effectiveness
+    }));
+
     return NextResponse.json({
-      interventions: mockInterventionService.getActiveInterventions(studentId || undefined),
-      count: 1
+      interventions: mappedInterventions,
+      count: mappedInterventions.length
     });
   } catch (error) {
     console.error('Automation Interventions API error:', error);

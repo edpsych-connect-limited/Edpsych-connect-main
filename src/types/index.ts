@@ -65,4 +65,5 @@ export interface SubscriptionInfo {
   startDate?: string;
   endDate?: string;
   renewalDate?: string;
+  features?: string[];
 }

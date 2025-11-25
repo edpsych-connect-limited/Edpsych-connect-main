@@ -400,128 +400,81 @@ export class ProfessionalDevelopmentService {
    */
   private async generateRecommendations(
     userData: any,
-    activityData: any,
+    _activityData: any,
     interestData: any,
     institutionalContext: any | null,
     limit: number
   ): Promise<ProfessionalDevelopmentRecommendation[]> {
-    // This is a simplified implementation that would be replaced with
-    // an actual AI-powered recommendation system in production
+    // Fetch real content from the database
+    // We'll filter in memory for now as the recommendation logic is complex
+    // In a production system with vector search, this would be a vector similarity search
     
-    // Mock implementation to simulate AI recommendations
-    // In a real system, this would call an ML model or API endpoint
-    
-    // Create mock content items that match user interests and specializations
-    const userTopics = [...interestData.map((i: any) => i.topic), ...(userData.specializations || [])];
-    
-    // Mock content library with various topics
-    const mockContentLibrary: ContentItem[] = [
-      {
-        id: 'content-1',
-        title: 'Advanced Cognitive Assessment Techniques',
-        description: 'Learn the latest evidence-based techniques for cognitive assessment',
-        contentType: 'course',
-        tags: ['Cognitive Assessment', 'Assessment', 'Professional Development'],
-        url: '/resources/cognitive-assessment-advanced',
-        imageUrl: '/images/cognitive-assessment.jpg',
-        createdAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000),
-        updatedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
-        authorId: 'author-1',
-        isPublic: true,
-        metadata: { difficulty: 'advanced', duration: '6 hours' }
+    const allContent = await prisma.content.findMany({
+      where: {
+        is_public: true
       },
-      {
-        id: 'content-2',
-        title: 'Early Intervention Strategies for ADHD',
-        description: 'Evidence-based intervention strategies for children with ADHD',
-        contentType: 'guide',
-        tags: ['ADHD', 'Early Intervention', 'Behavior Intervention'],
-        url: '/resources/adhd-interventions',
-        imageUrl: '/images/adhd-interventions.jpg',
-        createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000),
-        updatedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000),
-        authorId: 'author-2',
-        isPublic: true,
-        metadata: { audience: 'teachers, educational psychologists' }
-      },
-      {
-        id: 'content-3',
-        title: 'Supporting Students with Autism in Mainstream Education',
-        description: 'Practical strategies for supporting autistic students in mainstream settings',
-        contentType: 'webinar',
-        tags: ['Autism Spectrum Disorder', 'Inclusion', 'Special Educational Needs'],
-        url: '/resources/autism-support-mainstream',
-        imageUrl: '/images/autism-support.jpg',
-        createdAt: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000),
-        updatedAt: new Date(Date.now() - 18 * 24 * 60 * 60 * 1000),
-        authorId: 'author-3',
-        isPublic: true,
-        metadata: { duration: '90 minutes', recordingAvailable: true }
-      },
-      {
-        id: 'content-4',
-        title: 'Educational Assessment Best Practices',
-        description: 'Current best practices in educational assessment and reporting',
-        contentType: 'article',
-        tags: ['Educational Assessments', 'Assessment', 'Best Practices'],
-        url: '/resources/educational-assessment-practices',
-        imageUrl: '/images/assessment-practices.jpg',
-        createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
-        updatedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
-        authorId: 'author-1',
-        isPublic: true,
-        metadata: { readTime: '15 minutes', hasReferences: true }
-      },
-      {
-        id: 'content-5',
-        title: 'Cognitive Behavioral Interventions in Schools',
-        description: 'Implementing CBT-based interventions in school settings',
-        contentType: 'toolkit',
-        tags: ['Cognitive Intervention', 'CBT', 'School Psychology'],
-        url: '/resources/cbt-schools',
-        imageUrl: '/images/cbt-schools.jpg',
-        createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
-        updatedAt: new Date(Date.now() - 28 * 24 * 60 * 60 * 1000),
-        authorId: 'author-4',
-        isPublic: true,
-        metadata: { resources: 25, downloadable: true }
-      },
-      {
-        id: 'content-6',
-        title: 'Dyslexia Assessment and Intervention',
-        description: 'Comprehensive guide to identifying and supporting students with dyslexia',
-        contentType: 'course',
-        tags: ['Dyslexia', 'Assessment', 'Intervention'],
-        url: '/resources/dyslexia-guide',
-        imageUrl: '/images/dyslexia-guide.jpg',
-        createdAt: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000),
-        updatedAt: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000),
-        authorId: 'author-2',
-        isPublic: true,
-        metadata: { modules: 8, certification: true, duration: '12 hours' }
-      }
-    ];
-    
-    // Filter to relevant content based on user interests and specializations
-    const relevantContentItems = mockContentLibrary.filter(item => {
-      // Check if any tags match user topics
-      return item.tags?.some(tag => userTopics.includes(tag));
+      take: 100 // Limit to recent/relevant content
     });
     
+    const userTopics = [...interestData.map((i: any) => i.topic), ...(userData.specializations || [])];
+    
+    // Filter to relevant content based on user interests and specializations
+    const relevantContentItems = allContent.filter(item => {
+      // Parse tags
+      let tags: string[] = [];
+      try {
+        tags = typeof item.tags === 'string' ? JSON.parse(item.tags) : [];
+      } catch (e) {
+        // Fallback if tags are comma-separated
+        tags = item.tags ? item.tags.split(',').map(t => t.trim()) : [];
+      }
+      
+      // Check if any tags match user topics
+      // Case insensitive matching
+      return tags.some(tag => 
+        userTopics.some(topic => topic.toLowerCase() === tag.toLowerCase())
+      );
+    });
+    
+    // If no relevant content found, fall back to most recent content
+    const contentToRank = relevantContentItems.length > 0 
+      ? relevantContentItems 
+      : allContent.slice(0, 20);
+    
     // Calculate relevance scores
-    const recommendationsWithScores = relevantContentItems.map(item => {
+    const recommendationsWithScores = contentToRank.map(item => {
+      // Parse tags again for scoring
+      let tags: string[] = [];
+      try {
+        tags = typeof item.tags === 'string' ? JSON.parse(item.tags) : [];
+      } catch (e) {
+        tags = item.tags ? item.tags.split(',').map(t => t.trim()) : [];
+      }
+
       // Calculate a relevance score based on matching interests and specializations
       const interestMatch = interestData.filter((i: any) =>
-        item.tags?.includes(i.topic)
+        tags.some(t => t.toLowerCase() === i.topic.toLowerCase())
       ).reduce((sum: number, i: any) => sum + i.strength, 0);
       
       const specializationMatch = (userData.specializations || []).filter((s: string) =>
-        item.tags?.includes(s)
+        tags.some(t => t.toLowerCase() === s.toLowerCase())
       ).length;
       
       // Factor in institutional context if available
+      const contentItemForContext: ContentItem = {
+        ...item,
+        tags,
+        imageUrl: item.image_url,
+        contentType: item.content_type,
+        authorId: item.author_id,
+        createdAt: item.created_at,
+        updatedAt: item.updated_at,
+        isPublic: item.is_public,
+        metadata: item.metadata ? JSON.parse(item.metadata) : {}
+      };
+
       const institutionalRelevance = institutionalContext
-        ? this.calculateInstitutionalRelevance(item, institutionalContext)
+        ? this.calculateInstitutionalRelevance(contentItemForContext, institutionalContext)
         : 0;
       
       // Calculate final relevance score (simplified)
@@ -535,11 +488,11 @@ export class ProfessionalDevelopmentService {
         id: item.id,
         title: item.title,
         description: item.description,
-        contentType: item.contentType,
+        contentType: item.content_type,
         relevanceScore,
-        tags: item.tags || [],
+        tags,
         url: item.url,
-        imageUrl: item.imageUrl,
+        imageUrl: item.image_url,
         source: 'ai_recommendation'
       };
     });
@@ -591,4 +544,5 @@ export class ProfessionalDevelopmentService {
   }
 }
 
-export default new ProfessionalDevelopmentService();
+const professionalDevelopmentService = new ProfessionalDevelopmentService();
+export default professionalDevelopmentService;

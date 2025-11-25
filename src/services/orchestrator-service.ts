@@ -1,4 +1,5 @@
 import { aiService, AIRequest } from '@/lib/ai-integration';
+import { prisma } from '@/lib/prisma';
 
 export interface TutoringRequest {
   studentId: string;
@@ -108,21 +109,38 @@ class OrchestratorService {
   /**
    * Get system status metrics
    */
-  getSystemStatus() {
-    // In a real system, this would query the actual agent fleet status
-    // For now, we simulate a healthy system
+  async getSystemStatus() {
     const uptime = process.uptime();
     const memoryUsage = process.memoryUsage();
+
+    // Get real metrics from DB
+    const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+    
+    // Count active agents (unique models used in last 5 mins)
+    // Note: groupBy is not fully supported in all prisma versions/adapters in the same way, 
+    // but assuming standard usage. If fails, we'll use findMany distinct.
+    const activeAgentsEvents = await prisma.analyticsEvent.findMany({
+      where: { timestamp: { gte: fiveMinutesAgo } },
+      distinct: ['model'],
+      select: { model: true }
+    });
+
+    const recentActivityCount = await prisma.analyticsEvent.count({
+      where: { timestamp: { gte: fiveMinutesAgo } }
+    });
+
+    const agentHealth = await this.getAgentHealth();
+    const recentActivity = await this.getRecentActivity();
 
     return {
       orchestrator: {
         status: 'operational',
         totalAgents: 24,
-        activeAgents: Math.floor(Math.random() * 10) + 5, // Simulate activity
+        activeAgents: activeAgentsEvents.length,
         queueStatus: {
-          pending: Math.floor(Math.random() * 5),
-          active: Math.floor(Math.random() * 3),
-          total: 150 + Math.floor(Math.random() * 50),
+          pending: 0,
+          active: 0,
+          total: recentActivityCount,
         },
         systemInfo: {
           uptime,
@@ -133,67 +151,95 @@ class OrchestratorService {
       },
       agents: {
         registered: 24,
-        active: 12,
-        health: this.getAgentHealth(),
+        active: activeAgentsEvents.length,
+        health: agentHealth,
       },
-      recentActivity: this.getRecentActivity(),
+      recentActivity: recentActivity,
     };
   }
 
-  private getAgentHealth() {
+  private async getAgentHealth() {
     const agents = aiService.getAvailableAgents();
-    // Return a subset of agents with simulated metrics
-    return agents.slice(0, 8).map(agentId => ({
-      agentId,
-      name: aiService.getAgentConfig(agentId)?.name || agentId,
-      status: Math.random() > 0.9 ? 'busy' : 'operational',
-      loadFactor: Math.random() * 0.8,
-      performanceMetrics: {
-        averageResponseTime: 200 + Math.random() * 500,
-        successRate: 0.95 + Math.random() * 0.05,
-        totalTasksProcessed: 50 + Math.floor(Math.random() * 1000),
-        currentQueueSize: Math.floor(Math.random() * 3),
-      },
-      lastSeen: new Date().toISOString(),
+    const healthData = [];
+
+    for (const agentId of agents) {
+        // Get stats from DB
+        const stats = await prisma.analyticsEvent.aggregate({
+            where: { model: agentId },
+            _avg: { latencyMs: true },
+            _count: { id: true }
+        });
+        
+        healthData.push({
+            agentId,
+            name: aiService.getAgentConfig(agentId)?.name || agentId,
+            status: 'operational', // Default to operational if listed
+            loadFactor: 0, // specific to queue
+            performanceMetrics: {
+                averageResponseTime: stats._avg.latencyMs || 0,
+                successRate: 1, // Need to track errors to calc this
+                totalTasksProcessed: stats._count.id,
+                currentQueueSize: 0
+            },
+            lastSeen: new Date().toISOString()
+        });
+    }
+    return healthData;
+  }
+
+  private async getRecentActivity() {
+    const events = await prisma.analyticsEvent.findMany({
+        take: 5,
+        orderBy: { timestamp: 'desc' },
+        include: { user: true }
+    });
+    
+    return events.map(e => ({
+        id: e.id,
+        requestType: e.eventType,
+        studentId: e.userId ? `student_${e.userId}` : 'system',
+        strategy: 'ai_generated',
+        processingTime: e.latencyMs || 0,
+        timestamp: e.timestamp.toISOString()
     }));
   }
 
-  private getRecentActivity() {
-    return Array.from({ length: 5 }).map((_, i) => ({
-      id: `act_${Date.now()}_${i}`,
-      requestType: ['tutoring', 'assessment', 'report_generation'][Math.floor(Math.random() * 3)],
-      studentId: `student_${Math.floor(Math.random() * 100)}`,
-      strategy: ['direct_instruction', 'scaffolding', 'inquiry_based'][Math.floor(Math.random() * 3)],
-      processingTime: 500 + Math.floor(Math.random() * 1500),
-      timestamp: new Date(Date.now() - i * 60000).toISOString(),
-    }));
-  }
+  private async getFallbackResponse(request: TutoringRequest): Promise<TutoringResponse> {
+    // Try to fetch a relevant content piece from DB
+    const content = await prisma.content.findFirst({
+        where: { 
+            OR: [
+                { title: { contains: request.topic, mode: 'insensitive' } },
+                { description: { contains: request.topic, mode: 'insensitive' } }
+            ],
+            content_type: 'lesson_plan'
+        }
+    });
 
-  private getFallbackResponse(request: TutoringRequest): TutoringResponse {
+    if (content && content.metadata) {
+        // Assuming metadata contains the structured lesson
+        // This is a simplification, in reality we'd need strict schema for metadata
+        return content.metadata as unknown as TutoringResponse;
+    }
+
+    // If no content found, return a generated fallback (but still "connected" logic)
     return {
-      personalisedExplanation: `(Fallback) Here is a simplified explanation of ${request.topic} for your ${request.preferredLearningStyle} learning style.`,
+      personalisedExplanation: `(System) We are currently generating a personalized explanation for ${request.topic}. Please try again in a moment.`,
       interactiveExercise: {
         type: 'multiple_choice',
-        question: `What is a key concept of ${request.topic}?`,
-        options: ['Concept A', 'Concept B', 'Concept C', 'Concept D'],
-        correctAnswer: 'Concept A',
-        explanation: 'Concept A is correct because...'
+        question: `What is the main focus of ${request.topic}?`,
+        options: ['Option A', 'Option B', 'Option C'],
+        correctAnswer: 'Option A',
+        explanation: 'Placeholder explanation.'
       },
-      nextSteps: ['Review the basics', 'Practice more exercises'],
-      resources: [
-        {
-          type: 'video',
-          title: `Introduction to ${request.topic}`,
-          url: '#',
-          description: 'A helpful video overview.'
-        }
-      ],
+      nextSteps: ['Review topic', 'Check back later'],
+      resources: [],
       masteryAssessment: {
         currentLevel: request.currentLevel,
-        progressToNextLevel: 10,
-        recommendedPracticeTime: 15
+        progressToNextLevel: 0,
+        recommendedPracticeTime: 10
       },
-      motivationalMessage: "Keep going! You're doing great."
+      motivationalMessage: "Learning takes time. Keep at it!"
     };
   }
 }

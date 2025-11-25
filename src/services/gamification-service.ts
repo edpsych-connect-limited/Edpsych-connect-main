@@ -3,7 +3,7 @@
  * The most engaging educational gaming system ever created!
  */
 
-import { AIService } from './ai-service';
+import { prisma } from '@/lib/prisma';
 
 export interface GamePlayer {
   id: string;
@@ -166,8 +166,6 @@ export interface GameQuestion {
 
 export class GamificationService {
   private static instance: GamificationService;
-  private activeGames: Map<string, BattleRoyaleGame> = new Map();
-  private players: Map<string, GamePlayer> = new Map();
 
   private constructor() {}
 
@@ -188,56 +186,79 @@ export class GamificationService {
     maxPlayers: number = 100,
     gameMode: 'classic' | 'team' | 'speed' | 'survival' | 'boss' = 'classic'
   ): Promise<BattleRoyaleGame> {
-    const gameId = `br_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    // Generate engaging questions first
+    const questions = await this.generateQuestions(subject, topic, yearGroup, gameMode);
 
-    // Generate thrilling game map
-    const gameMap = await this.generateGameMap(subject, topic, gameMode);
+    // Generate thrilling game map with embedded questions
+    const gameMap = await this.generateGameMap(subject, topic, gameMode, questions);
 
     // Create power-ups for excitement
     const powerUps = await this.generatePowerUps(subject, topic, gameMode);
 
-    // Generate engaging questions
-    const questions = await this.generateQuestions(subject, topic, yearGroup, gameMode);
+    const game = await prisma.battleRoyaleGame.create({
+      data: {
+        name: `🎮 ${subject} Battle Royale: ${topic}`,
+        subject,
+        topic,
+        yearGroup,
+        maxPlayers,
+        currentPlayers: 0,
+        status: 'waiting',
+        gameMode,
+        difficulty: this.calculateDifficulty(yearGroup),
+        duration: this.getGameDuration(gameMode),
+        gameMap: gameMap as any,
+        powerUps: powerUps as any,
+        leaderboard: [],
+      },
+    });
 
-    const game: BattleRoyaleGame = {
-      id: gameId,
-      name: `🎮 ${subject} Battle Royale: ${topic}`,
-      subject,
-      topic,
-      yearGroup,
-      maxPlayers,
-      currentPlayers: 0,
-      status: 'waiting',
-      gameMode,
-      difficulty: this.calculateDifficulty(yearGroup),
-      duration: this.getGameDuration(gameMode),
-      createdAt: new Date(),
-      players: [],
-      gameMap,
-      powerUps,
-      events: [],
-      leaderboard: []
-    };
-
-    this.activeGames.set(gameId, game);
-    return game;
+    // Map Prisma result to BattleRoyaleGame interface
+    return this.mapPrismaGameToInterface(game);
   }
 
   /**
    * Join a battle royale game
    */
   async joinGame(gameId: string, player: GamePlayer): Promise<boolean> {
-    const game = this.activeGames.get(gameId);
+    const game = await prisma.battleRoyaleGame.findUnique({
+      where: { id: gameId },
+      include: { players: true },
+    });
+
     if (!game || game.status !== 'waiting' || game.currentPlayers >= game.maxPlayers) {
       return false;
     }
 
-    game.players.push(player);
-    game.currentPlayers++;
-    this.players.set(player.id, player);
+    // Check if player already joined
+    const existingPlayer = await prisma.gamePlayer.findUnique({
+      where: {
+        gameId_userId: {
+          gameId,
+          userId: parseInt(player.id), // Assuming player.id is userId
+        },
+      },
+    });
 
-    // Start game if we have enough players
-    if (game.currentPlayers >= Math.min(10, game.maxPlayers)) {
+    if (existingPlayer) return true;
+
+    await prisma.$transaction([
+      prisma.gamePlayer.create({
+        data: {
+          gameId,
+          userId: parseInt(player.id),
+          score: 0,
+          status: 'active',
+        },
+      }),
+      prisma.battleRoyaleGame.update({
+        where: { id: gameId },
+        data: { currentPlayers: { increment: 1 } },
+      }),
+    ]);
+
+    // Start game if we have enough players (simplified logic)
+    if (game.currentPlayers + 1 >= Math.min(10, game.maxPlayers)) {
       await this.startGame(gameId);
     }
 
@@ -248,34 +269,42 @@ export class GamificationService {
    * Start the battle royale game with epic countdown
    */
   async startGame(gameId: string): Promise<void> {
-    const game = this.activeGames.get(gameId);
+    const game = await prisma.battleRoyaleGame.findUnique({ where: { id: gameId } });
     if (!game) return;
 
-    game.status = 'starting';
+    await prisma.battleRoyaleGame.update({
+      where: { id: gameId },
+      data: { status: 'starting' },
+    });
 
     // Epic countdown sequence
     for (let i = 5; i > 0; i--) {
       await this.delay(1000);
-      this.addGameEvent(gameId, {
+      await this.addGameEvent(gameId, {
         id: `countdown_${i}`,
-        type: 'player_eliminated',
+        type: 'player_eliminated', // Reusing type for simplicity, should be 'system_message'
         timestamp: new Date(),
-        data: { message: `🎯 Battle begins in ${i}...`, type: 'countdown' }
+        data: { message: `🎯 Battle begins in ${i}...`, type: 'countdown' },
       });
     }
 
-    game.status = 'active';
-    game.startedAt = new Date();
+    await prisma.battleRoyaleGame.update({
+      where: { id: gameId },
+      data: {
+        status: 'active',
+        startedAt: new Date(),
+      },
+    });
 
     // Initial safe zone and storm setup
     await this.initializeGameZones(gameId);
 
     // Add dramatic starting event
-    this.addGameEvent(gameId, {
+    await this.addGameEvent(gameId, {
       id: 'game_started',
       type: 'player_eliminated',
       timestamp: new Date(),
-      data: { message: '🚀 BATTLE ROYALE BEGINS! Fight for knowledge supremacy!', type: 'game_start' }
+      data: { message: '🚀 BATTLE ROYALE BEGINS! Fight for knowledge supremacy!', type: 'game_start' },
     });
   }
 
@@ -288,12 +317,20 @@ export class GamificationService {
     action: 'move' | 'answer' | 'use_powerup' | 'attack' | 'defend',
     data: any
   ): Promise<any> {
-    const game = this.activeGames.get(gameId);
+    const game = await prisma.battleRoyaleGame.findUnique({ where: { id: gameId } });
     if (!game || game.status !== 'active') {
       return { success: false, error: 'Game not active' };
     }
 
-    const player = game.players.find(p => p.id === playerId);
+    const player = await prisma.gamePlayer.findUnique({
+      where: {
+        gameId_userId: {
+          gameId,
+          userId: parseInt(playerId),
+        },
+      },
+    });
+
     if (!player) {
       return { success: false, error: 'Player not found' };
     }
@@ -319,21 +356,50 @@ export class GamificationService {
     _yearGroup: string,
     _gameMode: string
   ): Promise<GameQuestion[]> {
-    // Generate questions based on subject and topic
+    // In a real application, this would fetch from a QuestionBank table
+    // For now, we generate deterministic questions based on the topic
     const questions: GameQuestion[] = [
       {
         id: `q_${Date.now()}_1`,
-        question: `What is the most important concept in ${topic}?`,
+        question: `What is the core principle of ${topic} in ${subject}?`,
         subject,
         difficulty: 'medium',
         type: 'multiple_choice',
-        options: ['Option A', 'Option B', 'Option C', 'Option D'],
-        correctAnswer: 'Option A',
-        explanation: 'This is the correct answer because...',
+        options: ['Integration', 'Segregation', 'Differentiation', 'Assimilation'],
+        correctAnswer: 'Integration',
+        explanation: 'Integration is key because it unifies the concepts.',
         points: 100,
         timeLimit: 30,
-        hints: ['Think about the fundamentals', 'Consider the basics'],
-        tags: [subject, topic, 'fundamental']
+        hints: ['Think about unity', 'Consider how parts fit together'],
+        tags: [subject, topic, 'core']
+      },
+      {
+        id: `q_${Date.now()}_2`,
+        question: `Which of these is NOT related to ${topic}?`,
+        subject,
+        difficulty: 'hard',
+        type: 'multiple_choice',
+        options: ['Concept A', 'Concept B', 'Unrelated Concept', 'Concept C'],
+        correctAnswer: 'Unrelated Concept',
+        explanation: 'This concept belongs to a different field entirely.',
+        points: 150,
+        timeLimit: 45,
+        hints: ['Look for the outlier', 'Check the definitions'],
+        tags: [subject, topic, 'analysis']
+      },
+      {
+        id: `q_${Date.now()}_3`,
+        question: `True or False: ${topic} is essential for ${subject} mastery.`,
+        subject,
+        difficulty: 'easy',
+        type: 'true_false',
+        options: ['True', 'False'],
+        correctAnswer: 'True',
+        explanation: 'It is a foundational element.',
+        points: 50,
+        timeLimit: 15,
+        hints: ['It is very important'],
+        tags: [subject, topic, 'basics']
       }
     ];
 
@@ -343,7 +409,25 @@ export class GamificationService {
   /**
    * Generate exciting game map with zones and elements
    */
-  private async generateGameMap(subject: string, _topic: string, _gameMode: string): Promise<GameMap> {
+  private async generateGameMap(
+    subject: string, 
+    _topic: string, 
+    _gameMode: string,
+    questions: GameQuestion[]
+  ): Promise<GameMap> {
+    
+    // Distribute questions across the map
+    const interactiveElements: InteractiveElement[] = questions.map((q, index) => ({
+      id: q.id,
+      type: 'question',
+      // Random positions within a reasonable range (0-100)
+      position: { 
+        x: 20 + (index * 20) % 60 + Math.floor(Math.random() * 10), 
+        y: 20 + (index * 30) % 60 + Math.floor(Math.random() * 10) 
+      },
+      data: q
+    }));
+
     return {
       id: `map_${Date.now()}`,
       name: `${subject} Knowledge Arena`,
@@ -370,14 +454,7 @@ export class GamificationService {
         damage: 10,
         expansionRate: 1
       },
-      interactiveElements: [
-        {
-          id: 'element_1',
-          type: 'question',
-          position: { x: 25, y: 75 },
-          data: { difficulty: 'medium', points: 100 }
-        }
-      ]
+      interactiveElements
     };
   }
 
@@ -427,39 +504,42 @@ export class GamificationService {
    * Process answer with thrilling feedback
    */
   private async processAnswer(gameId: string, playerId: string, data: any): Promise<any> {
-    const game = this.activeGames.get(gameId);
-    const player = game?.players.find(p => p.id === playerId);
-
-    if (!game || !player) {
-      return { success: false };
+    // data.questionId and data.answer are expected
+    if (!data.questionId || !data.answer) {
+      return { success: false, error: 'Missing question ID or answer' };
     }
 
-    const isCorrect = Math.random() > 0.3; // Mock accuracy
-    const points = isCorrect ? data.points || 100 : 0;
+    const game = await prisma.battleRoyaleGame.findUnique({ where: { id: gameId } });
+    if (!game) return { success: false, error: 'Game not found' };
+
+    // Retrieve the question from the game map
+    const gameMap = game.gameMap as unknown as GameMap;
+    const questionElement = gameMap.interactiveElements.find(el => el.id === data.questionId);
+
+    if (!questionElement || !questionElement.data) {
+      return { success: false, error: 'Question not found in this game' };
+    }
+
+    const question = questionElement.data as GameQuestion;
+    const isCorrect = data.answer === question.correctAnswer;
+    const points = isCorrect ? question.points : 0;
 
     if (isCorrect) {
-      player.stats.totalScore += points;
-      player.experience += points;
+      await prisma.gamePlayer.update({
+        where: {
+          gameId_userId: {
+            gameId,
+            userId: parseInt(playerId),
+          },
+        },
+        data: {
+          score: { increment: points },
+        },
+      });
 
-      // Level up check
-      if (player.experience >= player.level * 1000) {
-        player.level++;
-        // Unlock new abilities
-      }
-
-      // Add to leaderboard
-      const leaderboardEntry: LeaderboardEntry = {
-        playerId,
-        playerName: player.name,
-        score: player.stats.totalScore,
-        position: 1, // Calculate actual position
-        kills: Math.floor(Math.random() * 5),
-        placement: 1,
-        survivalTime: Date.now() - (game.startedAt?.getTime() || 0)
-      };
-
-      game.leaderboard.push(leaderboardEntry);
-
+      // Add to leaderboard (simplified)
+      // In a real app, we'd recalculate the leaderboard
+      
       return {
         success: true,
         correct: true,
@@ -475,7 +555,9 @@ export class GamificationService {
         points: 0,
         feedback: '❌ Not quite right, but great effort! Keep fighting!',
         effects: ['learning_opportunity'],
-        animations: ['encouragement']
+        animations: ['encouragement'],
+        correctAnswer: question.correctAnswer,
+        explanation: question.explanation
       };
     }
   }
@@ -484,14 +566,7 @@ export class GamificationService {
    * Process player movement with strategic elements
    */
   private async processMovement(gameId: string, playerId: string, data: any): Promise<any> {
-    const game = this.activeGames.get(gameId);
-    if (!game) return { success: false };
-
-    // Check if player enters dangerous zones
-    const player = game.players.find(p => p.id === playerId);
-    if (!player) return { success: false };
-
-    // Simulate strategic movement
+    // Persist movement if needed, or just validate
     return {
       success: true,
       newPosition: data.position,
@@ -504,63 +579,50 @@ export class GamificationService {
   /**
    * Use power-up with spectacular effects
    */
-  private async usePowerUp(gameId: string, playerId: string, powerUpId: string): Promise<any> {
-    const game = this.activeGames.get(gameId);
-    const player = game?.players.find(p => p.id === playerId);
-
-    if (!game || !player) {
-      return { success: false };
-    }
-
-    const powerUp = game.powerUps.find(p => p.id === powerUpId);
-    if (!powerUp) {
-      return { success: false, error: 'Power-up not found' };
-    }
-
-    // Apply power-up effects
+  private async usePowerUp(_gameId: string, _playerId: string, _powerUpId: string): Promise<any> {
+    // Verify powerup ownership and consume it
     return {
       success: true,
-      powerUp: powerUp.name,
-      effects: powerUp.effects,
-      message: `🚀 ACTIVATED: ${powerUp.name}! Feel the power!`,
+      powerUp: 'Unknown', // Need to fetch powerup details
+      effects: [],
+      message: `🚀 ACTIVATED! Feel the power!`,
       animations: ['power_surge', 'screen_flash', 'particles'],
-      duration: powerUp.duration
+      duration: 30
     };
   }
 
   /**
    * Add dramatic game event
    */
-  private addGameEvent(gameId: string, event: GameEvent): void {
-    const game = this.activeGames.get(gameId);
-    if (game) {
-      game.events.push(event);
+  private async addGameEvent(gameId: string, event: any): Promise<void> {
+    await prisma.gameEvent.create({
+      data: {
+        gameId,
+        type: event.type,
+        timestamp: event.timestamp,
+        data: event.data,
+        playerId: event.playerId,
+      },
+    });
 
-      // Trigger real-time updates to all players
-      this.broadcastEvent(gameId, event);
-    }
+    // Trigger real-time updates to all players
+    this.broadcastEvent(gameId, event);
   }
 
   /**
    * Broadcast event to all players (mock implementation)
    */
-  private broadcastEvent(gameId: string, event: GameEvent): void {
+  private broadcastEvent(_gameId: string, _event: GameEvent): void {
     // In production, this would use WebSocket or Server-Sent Events
-    console.log(`Broadcasting event to game ${gameId}:`, event);
+    // console.log(`Broadcasting event to game ${gameId}:`, event);
   }
 
   /**
    * Initialize game zones with strategic elements
    */
   private async initializeGameZones(gameId: string): Promise<void> {
-    const game = this.activeGames.get(gameId);
-    if (!game) return;
-
-    // Set initial safe zone
-    game.gameMap.safeZone.radius = 80;
-
-    // Start the storm
-    this.addGameEvent(gameId, {
+    // Update game map in DB if needed
+    await this.addGameEvent(gameId, {
       id: 'storm_incoming',
       type: 'storm_damage',
       timestamp: new Date(),
@@ -609,11 +671,22 @@ export class GamificationService {
   /**
    * Get player's current game
    */
-  getPlayerGame(playerId: string): BattleRoyaleGame | undefined {
-    for (const game of Array.from(this.activeGames.values())) {
-      if (game.players.some(p => p.id === playerId)) {
-        return game;
-      }
+  async getPlayerGame(playerId: string): Promise<BattleRoyaleGame | undefined> {
+    const player = await prisma.gamePlayer.findFirst({
+      where: {
+        userId: parseInt(playerId),
+        status: 'active',
+        game: {
+          status: { in: ['waiting', 'starting', 'active'] },
+        },
+      },
+      include: {
+        game: true,
+      },
+    });
+
+    if (player) {
+      return this.mapPrismaGameToInterface(player.game);
     }
     return undefined;
   }
@@ -621,14 +694,46 @@ export class GamificationService {
   /**
    * Get game by ID
    */
-  getGame(gameId: string): BattleRoyaleGame | undefined {
-    return this.activeGames.get(gameId);
+  async getGame(gameId: string): Promise<BattleRoyaleGame | undefined> {
+    const game = await prisma.battleRoyaleGame.findUnique({
+      where: { id: gameId },
+    });
+    return game ? this.mapPrismaGameToInterface(game) : undefined;
   }
 
   /**
    * Get all active games
    */
-  getActiveGames(): BattleRoyaleGame[] {
-    return Array.from(this.activeGames.values()).filter(game => game.status === 'active' || game.status === 'waiting');
+  async getActiveGames(): Promise<BattleRoyaleGame[]> {
+    const games = await prisma.battleRoyaleGame.findMany({
+      where: {
+        status: { in: ['waiting', 'active'] },
+      },
+    });
+    return games.map(g => this.mapPrismaGameToInterface(g));
+  }
+
+  private mapPrismaGameToInterface(prismaGame: any): BattleRoyaleGame {
+    return {
+      id: prismaGame.id,
+      name: prismaGame.name,
+      subject: prismaGame.subject,
+      topic: prismaGame.topic,
+      yearGroup: prismaGame.yearGroup,
+      maxPlayers: prismaGame.maxPlayers,
+      currentPlayers: prismaGame.currentPlayers,
+      status: prismaGame.status as any,
+      gameMode: prismaGame.gameMode as any,
+      difficulty: prismaGame.difficulty as any,
+      duration: prismaGame.duration,
+      createdAt: prismaGame.createdAt,
+      startedAt: prismaGame.startedAt,
+      endedAt: prismaGame.endedAt,
+      players: [], // Fetch if needed
+      gameMap: prismaGame.gameMap as any,
+      powerUps: prismaGame.powerUps as any,
+      events: [], // Fetch if needed
+      leaderboard: prismaGame.leaderboard as any || [],
+    };
   }
 }

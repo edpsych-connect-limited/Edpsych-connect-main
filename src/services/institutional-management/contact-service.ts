@@ -1,17 +1,12 @@
+import { prisma } from '../../lib/prisma';
 import { PrismaClient } from '@prisma/client';
 import {
   ValidationError,
   NotFoundError,
   AccessDeniedError
 } from './errors';
-// import { permissionService } from './permission-service'; // DISABLED - references non-existent Prisma models
+import { permissionService } from './permission-service';
 import { auditLogService } from './audit-log-service';
-
-// Temporary mock permission service until proper implementation
-const permissionService = {
-  canManageInstitutionContacts: async (userId: string, institutionId: string) => true,
-  canViewInstitutionContacts: async (userId: string, institutionId: string) => true
-};
 
 // Types for contact operations
 export interface ContactInput {
@@ -500,5 +495,4 @@ export class ContactService {
 }
 
 // Create and export instance
-const prisma = new PrismaClient();
 export const contactService = new ContactService(prisma);

@@ -3,27 +3,55 @@
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import Link from 'next/link';
+import { PricingTier } from '@/lib/stripe-pricing';
 
-export default function PricingTiers() {
+interface PricingTiersProps {
+  pricingData?: PricingTier[];
+}
+
+export default function PricingTiers({ pricingData = [] }: PricingTiersProps) {
+  // Helper to find price by tier
+  const getPrice = (tier: string, defaultPrice: string, defaultPeriod: string) => {
+    const found = pricingData.find(p => p.metadata.tier === tier);
+    if (found) {
+      const formatter = new Intl.NumberFormat('en-GB', {
+        style: 'currency',
+        currency: found.currency.toUpperCase(),
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      });
+      return {
+        price: formatter.format(found.price),
+        period: `/${found.interval}`
+      };
+    }
+    return { price: defaultPrice, period: defaultPeriod };
+  };
+
+  const proPrice = getPrice('PRO', '£49', '/month');
+  const instPrice = getPrice('INSTITUTIONAL', '£499', '/year');
+  const entPrice = getPrice('LA_ENTERPRISE', 'Custom', '');
+
   const tiers = [
     {
-      name: "Individual",
-      price: "£30",
-      period: "/month",
+      name: "Individual (Pro)",
+      price: proPrice.price,
+      period: proPrice.period,
       description: "For independent EPs and specialist teachers.",
       features: [
         "Full ECCA Framework Access",
         "Intervention Designer",
         "Basic Reporting Tools",
-        "CPD Tracking"
+        "CPD Tracking",
+        "Unlimited AI Reports"
       ],
       cta: "Start Free Trial",
       highlight: false
     },
     {
-      name: "School",
-      price: "£75",
-      period: "/month",
+      name: "School (Institutional)",
+      price: instPrice.price,
+      period: instPrice.period,
       description: "Complete orchestration for the whole SEN department.",
       features: [
         "Everything in Individual",
@@ -37,8 +65,8 @@ export default function PricingTiers() {
     },
     {
       name: "Enterprise & LA",
-      price: "Custom",
-      period: "",
+      price: entPrice.price,
+      period: entPrice.period,
       description: "Strategic oversight with total data autonomy.",
       features: [
         "Everything in School",

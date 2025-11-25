@@ -8,49 +8,11 @@ import { getServerSession } from 'next-auth';
 
 export const dynamic = 'force-dynamic';
 
-// Mock data - in production, would use EthicsMonitoringService
-const mockMonitors = [
-  {
-    id: 'mon_1',
-    name: 'Bias in AI Recommendations',
-    description: 'Monitors for potential bias in AI recommendations across different demographic groups',
-    metrics: [
-      { id: 'metric_1', name: 'Gender Recommendation Disparity', category: 'fairness' },
-      { id: 'metric_2', name: 'Age Group Recommendation Disparity', category: 'fairness' }
-    ],
-    thresholds: {
-      metric_1: { type: 'max', value: 0.05 },
-      metric_2: { type: 'max', value: 0.05 }
-    },
-    enabled: true,
-    frequency: 'daily',
-    severity: 'high',
-    tags: ['fairness', 'bias', 'recommendations'],
-    lastRunAt: new Date(Date.now() - 3600000).toISOString(),
-    createdAt: new Date(Date.now() - 86400000 * 30).toISOString(),
-    updatedAt: new Date(Date.now() - 86400000).toISOString()
-  },
-  {
-    id: 'mon_2',
-    name: 'Data Privacy Compliance',
-    description: 'Monitors for compliance with data privacy regulations and potential data leakage',
-    metrics: [
-      { id: 'metric_3', name: 'PII Access Rate', category: 'privacy' },
-      { id: 'metric_4', name: 'Data Retention Compliance', category: 'compliance' }
-    ],
-    thresholds: {
-      metric_3: { type: 'max', value: 10 },
-      metric_4: { type: 'min', value: 0.98 }
-    },
-    enabled: true,
-    frequency: 'hourly',
-    severity: 'critical',
-    tags: ['privacy', 'compliance', 'data'],
-    lastRunAt: new Date(Date.now() - 1800000).toISOString(),
-    createdAt: new Date(Date.now() - 86400000 * 25).toISOString(),
-    updatedAt: new Date(Date.now() - 86400000 * 2).toISOString()
-  }
-];
+import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { prisma } from '@/lib/prisma';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
@@ -63,18 +25,16 @@ export async function GET(request: NextRequest) {
     const enabled = searchParams.get('enabled');
     const severity = searchParams.get('severity');
 
-    let monitors = [...mockMonitors];
-
-    // Filter by enabled status
+    const whereClause: any = {};
     if (enabled !== null) {
-      const isEnabled = enabled === 'true';
-      monitors = monitors.filter(m => m.enabled === isEnabled);
+      whereClause.enabled = enabled === 'true';
     }
+    if (severity) whereClause.severity = severity;
 
-    // Filter by severity
-    if (severity) {
-      monitors = monitors.filter(m => m.severity === severity);
-    }
+    const monitors = await prisma.ethicsMonitor.findMany({
+        where: whereClause,
+        orderBy: { createdAt: 'desc' }
+    });
 
     return NextResponse.json({
       monitors,
@@ -107,7 +67,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate monitor configuration
     if (!Array.isArray(metrics) || metrics.length === 0) {
       return NextResponse.json(
         { error: 'Metrics must be a non-empty array' },
@@ -115,22 +74,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // In production, this would use EthicsMonitoringService.addMonitor()
-    const newMonitor = {
-      id: `mon_${Date.now()}`,
-      name,
-      description,
-      metrics,
-      thresholds,
-      enabled: true,
-      frequency: frequency || 'daily',
-      severity: severity || 'medium',
-      tags: [],
-      lastRunAt: null,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      notificationTargets: []
-    };
+    const newMonitor = await prisma.ethicsMonitor.create({
+        data: {
+            name,
+            description,
+            metrics,
+            thresholds,
+            enabled: true,
+            frequency: frequency || 'daily',
+            severity: severity || 'medium',
+            tags: [],
+            lastRunAt: null
+        }
+    });
 
     return NextResponse.json({
       success: true,
@@ -163,7 +119,11 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    // In production, would use EthicsMonitoringService.enableMonitor() or disableMonitor()
+    await prisma.ethicsMonitor.update({
+        where: { id },
+        data: { enabled }
+    });
+
     return NextResponse.json({
       success: true,
       message: `Monitor ${enabled ? 'enabled' : 'disabled'} successfully`

@@ -3,6 +3,8 @@
  * Comprehensive tenant management for schools, teachers, students, and parents
  */
 
+import { prisma } from '@/lib/prisma';
+
 export interface Tenant {
   id: string;
   name: string;
@@ -347,8 +349,6 @@ export interface AssessmentSchedule {
 
 export class TenantService {
   private static instance: TenantService;
-  private tenants: Map<string, Tenant> = new Map();
-  private users: Map<string, TenantUser> = new Map();
 
   private constructor() {}
 
@@ -363,110 +363,103 @@ export class TenantService {
    * Create new school tenant
    */
   async createTenant(tenantData: Partial<Tenant>): Promise<Tenant> {
-    const tenant: Tenant = {
-      id: `tenant_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      name: tenantData.name!,
-      type: tenantData.type || 'primary_school',
-      subscription: tenantData.subscription || {
-        tier: 'starter',
-        features: ['basic_curriculum', 'basic_assessment'],
-        userLimit: 100,
-        storageLimit: 10,
-        apiCalls: 10000,
-        supportLevel: 'basic',
-        price: 99,
-        currency: 'GBP',
-        billingCycle: 'monthly'
-      },
-      settings: tenantData.settings || {
-        branding: {
-          primaryColor: '#3b82f6',
-          secondaryColor: '#8b5cf6',
-          accentColor: '#10b981',
-          emailTemplate: {
-            footerText: 'Sent by EdPsych Connect World',
-            signature: 'The EdPsych Team',
-            colors: {
-              primary: '#3b82f6',
-              background: '#ffffff',
-              text: '#000000'
-            }
-          }
-        },
-        features: {
-          aiCurriculumPlanning: true,
-          battleRoyaleGames: true,
-          advancedAnalytics: false,
-          researchParticipation: true,
-          parentalPortal: true,
-          apiAccess: false,
-          customIntegrations: false,
-          prioritySupport: false
-        },
-        integrations: {
-          sis: [],
-          assessment: [],
-          communication: [],
-          calendar: []
-        },
-        compliance: {
-          gdpr: {
-            dataProcessingAgreement: true,
-            privacyNotices: [],
-            consentManagement: true,
-            dataSubjectRequests: true,
-            breachNotification: true
-          },
-          safeguarding: {
-            dbsChecks: true,
-            trainingRecords: true,
-            incidentReporting: true,
-            riskAssessments: true
-          },
-          dataRetention: {
-            studentData: 84, // 7 years
-            assessmentData: 36, // 3 years
-            communicationData: 24, // 2 years
-            systemLogs: 12 // 1 year
-          },
-          auditLogging: true
-        },
-        autonomyLevel: 'advisory', // Default to safe mode
-        notifications: {
-          email: true,
-          sms: false,
-          push: true,
-          frequency: 'weekly',
-          categories: {
-            achievements: true,
-            progress: true,
-            behavior: false,
-            events: true,
-            tips: true
+    const settings = tenantData.settings || {
+      branding: {
+        primaryColor: '#3b82f6',
+        secondaryColor: '#8b5cf6',
+        accentColor: '#10b981',
+        emailTemplate: {
+          footerText: 'Sent by EdPsych Connect World',
+          signature: 'The EdPsych Team',
+          colors: {
+            primary: '#3b82f6',
+            background: '#ffffff',
+            text: '#000000'
           }
         }
       },
-      users: [],
-      structure: tenantData.structure || {
-        departments: [],
-        yearGroups: [],
-        classes: [],
-        subjects: [],
-        leadership: {
-          headteacher: '',
-          deputyHeads: [],
-          seniorLeadership: [],
-          middleLeadership: [],
-          subjectLeads: {}
-        }
+      features: {
+        aiCurriculumPlanning: true,
+        battleRoyaleGames: true,
+        advancedAnalytics: false,
+        researchParticipation: true,
+        parentalPortal: true,
+        apiAccess: false,
+        customIntegrations: false,
+        prioritySupport: false
       },
-      createdAt: new Date(),
-      lastActive: new Date(),
-      status: 'trial'
+      integrations: {
+        sis: [],
+        assessment: [],
+        communication: [],
+        calendar: []
+      },
+      compliance: {
+        gdpr: {
+          dataProcessingAgreement: true,
+          privacyNotices: [],
+          consentManagement: true,
+          dataSubjectRequests: true,
+          breachNotification: true
+        },
+        safeguarding: {
+          dbsChecks: true,
+          trainingRecords: true,
+          incidentReporting: true,
+          riskAssessments: true
+        },
+        dataRetention: {
+          studentData: 84, // 7 years
+          assessmentData: 36, // 3 years
+          communicationData: 24, // 2 years
+          systemLogs: 12 // 1 year
+        },
+        auditLogging: true
+      },
+      autonomyLevel: 'advisory', // Default to safe mode
+      notifications: {
+        email: true,
+        sms: false,
+        push: true,
+        frequency: 'weekly',
+        categories: {
+          achievements: true,
+          progress: true,
+          behavior: false,
+          events: true,
+          tips: true
+        }
+      }
     };
 
-    this.tenants.set(tenant.id, tenant);
-    return tenant;
+    const structure = tenantData.structure || {
+      departments: [],
+      yearGroups: [],
+      classes: [],
+      subjects: [],
+      leadership: {
+        headteacher: '',
+        deputyHeads: [],
+        seniorLeadership: [],
+        middleLeadership: [],
+        subjectLeads: {}
+      }
+    };
+
+    const tenant = await prisma.tenants.create({
+      data: {
+        name: tenantData.name!,
+        subdomain: tenantData.name!.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+        tenant_type: (tenantData.type || 'primary_school').toUpperCase(),
+        status: 'trial',
+        settings: {
+          ...settings,
+          structure // Store structure in settings for now
+        } as any
+      }
+    });
+
+    return this.mapPrismaTenantToInterface(tenant);
   }
 
   /**
@@ -476,28 +469,27 @@ export class TenantService {
     tenantId: string,
     userData: Partial<TenantUser>
   ): Promise<TenantUser> {
-    const tenant = this.tenants.get(tenantId);
+    const tenant = await prisma.tenants.findUnique({ where: { id: parseInt(tenantId) } });
     if (!tenant) {
       throw new Error('Tenant not found');
     }
 
-    const user: TenantUser = {
-      id: `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      email: userData.email!,
-      role: userData.role || 'class_teacher',
-      permissions: this.generatePermissionsForRole(userData.role || 'class_teacher'),
-      profile: userData.profile || {
-        firstName: '',
-        lastName: ''
-      },
-      lastLogin: new Date(),
-      status: 'active',
-      tenantId
-    };
+    const user = await prisma.users.create({
+      data: {
+        tenant_id: parseInt(tenantId),
+        email: userData.email!,
+        name: `${userData.profile?.firstName} ${userData.profile?.lastName}`,
+        firstName: userData.profile?.firstName,
+        lastName: userData.profile?.lastName,
+        role: userData.role || 'class_teacher',
+        permissions: [], // Permissions logic handled by role usually
+        password_hash: 'temp_hash', // Should be handled properly
+        is_active: true,
+        onboarding_completed: false
+      }
+    });
 
-    tenant.users.push(user);
-    this.users.set(user.id, user);
-    return user;
+    return this.mapPrismaUserToInterface(user);
   }
 
   /**
@@ -508,7 +500,7 @@ export class TenantService {
     subjects: string[],
     yearGroups: string[]
   ): Promise<SchoolStructure> {
-    const tenant = this.tenants.get(tenantId);
+    const tenant = await prisma.tenants.findUnique({ where: { id: parseInt(tenantId) } });
     if (!tenant) throw new Error('Tenant not found');
 
     // Create subjects
@@ -585,7 +577,18 @@ export class TenantService {
       }
     };
 
-    tenant.structure = structure;
+    // Update tenant settings with new structure
+    const currentSettings = tenant.settings as any || {};
+    await prisma.tenants.update({
+      where: { id: parseInt(tenantId) },
+      data: {
+        settings: {
+          ...currentSettings,
+          structure
+        }
+      }
+    });
+
     return structure;
   }
 
@@ -804,58 +807,78 @@ export class TenantService {
   /**
    * Get tenant by ID
    */
-  getTenant(tenantId: string): Tenant | undefined {
-    return this.tenants.get(tenantId);
+  async getTenant(tenantId: string): Promise<Tenant | undefined> {
+    const tenant = await prisma.tenants.findUnique({ where: { id: parseInt(tenantId) } });
+    if (!tenant) return undefined;
+    return this.mapPrismaTenantToInterface(tenant);
   }
 
   /**
    * Get user by ID
    */
-  getUser(userId: string): TenantUser | undefined {
-    return this.users.get(userId);
+  async getUser(userId: string): Promise<TenantUser | undefined> {
+    const user = await prisma.users.findUnique({ where: { id: parseInt(userId) } });
+    if (!user) return undefined;
+    return this.mapPrismaUserToInterface(user);
   }
 
   /**
    * Get all tenants
    */
-  getAllTenants(): Tenant[] {
-    return Array.from(this.tenants.values());
+  async getAllTenants(): Promise<Tenant[]> {
+    const tenants = await prisma.tenants.findMany();
+    return tenants.map(t => this.mapPrismaTenantToInterface(t));
   }
 
   /**
    * Get users for a tenant
    */
-  getTenantUsers(tenantId: string): TenantUser[] {
-    return Array.from(this.users.values()).filter(user => user.tenantId === tenantId);
+  async getTenantUsers(tenantId: string): Promise<TenantUser[]> {
+    const users = await prisma.users.findMany({ where: { tenant_id: parseInt(tenantId) } });
+    return users.map(u => this.mapPrismaUserToInterface(u));
   }
 
   /**
    * Assign subject teacher to class
    */
-  assignSubjectTeacher(
+  async assignSubjectTeacher(
     tenantId: string,
     classId: string,
     subjectId: string,
     teacherId: string
-  ): boolean {
-    const tenant = this.tenants.get(tenantId);
+  ): Promise<boolean> {
+    const tenant = await prisma.tenants.findUnique({ where: { id: parseInt(tenantId) } });
     if (!tenant) return false;
 
-    const classObj = tenant.structure.classes.find(c => c.id === classId);
+    const settings = tenant.settings as any;
+    const structure = settings.structure as SchoolStructure;
+    if (!structure) return false;
+
+    const classObj = structure.classes.find(c => c.id === classId);
     if (!classObj) return false;
 
     classObj.subjectTeachers[subjectId] = teacherId;
+
+    await prisma.tenants.update({
+      where: { id: parseInt(tenantId) },
+      data: { settings }
+    });
+
     return true;
   }
 
   /**
    * Get teacher's classes and subjects
    */
-  getTeacherResponsibilities(tenantId: string, teacherId: string): any {
-    const tenant = this.tenants.get(tenantId);
+  async getTeacherResponsibilities(tenantId: string, teacherId: string): Promise<any> {
+    const tenant = await prisma.tenants.findUnique({ where: { id: parseInt(tenantId) } });
     if (!tenant) return null;
 
-    const classes = tenant.structure.classes.filter(c =>
+    const settings = tenant.settings as any;
+    const structure = settings.structure as SchoolStructure;
+    if (!structure) return null;
+
+    const classes = structure.classes.filter(c =>
       c.classTeacher === teacherId || Object.values(c.subjectTeachers).includes(teacherId)
     );
 
@@ -866,7 +889,7 @@ export class TenantService {
       }
       Object.entries(cls.subjectTeachers).forEach(([subjectId, teacher]) => {
         if (teacher === teacherId) {
-          const subject = tenant.structure.subjects.find(s => s.id === subjectId);
+          const subject = structure.subjects.find(s => s.id === subjectId);
           if (subject) subjects.add(subject.name);
         }
       });
@@ -883,16 +906,19 @@ export class TenantService {
    * Generate tenant-specific curriculum
    */
   async generateTenantCurriculum(tenantId: string): Promise<any> {
-    const tenant = this.tenants.get(tenantId);
+    const tenant = await prisma.tenants.findUnique({ where: { id: parseInt(tenantId) } });
     if (!tenant) throw new Error('Tenant not found');
+
+    const settings = tenant.settings as any;
+    const structure = settings.structure as SchoolStructure;
 
     // Generate curriculum based on tenant type and structure
     return {
       tenantId,
-      framework: tenant.structure.yearGroups[0]?.curriculum.framework || 'national_curriculum',
-      subjects: tenant.structure.subjects,
-      yearGroups: tenant.structure.yearGroups,
-      assessmentSchedule: tenant.structure.yearGroups[0]?.curriculum.assessmentSchedule || [],
+      framework: structure?.yearGroups[0]?.curriculum.framework || 'national_curriculum',
+      subjects: structure?.subjects || [],
+      yearGroups: structure?.yearGroups || [],
+      assessmentSchedule: structure?.yearGroups[0]?.curriculum.assessmentSchedule || [],
       generatedAt: new Date()
     };
   }
@@ -901,24 +927,27 @@ export class TenantService {
    * Get research data for tenant (anonymized)
    */
   async getTenantResearchData(tenantId: string, researcherId: string): Promise<any> {
-    const tenant = this.tenants.get(tenantId);
+    const tenant = await prisma.tenants.findUnique({ where: { id: parseInt(tenantId) } });
     if (!tenant) throw new Error('Tenant not found');
 
     // Check if researcher has access
-    const researcher = this.users.get(researcherId);
+    const researcher = await prisma.users.findUnique({ where: { id: parseInt(researcherId) } });
     if (!researcher || researcher.role !== 'researcher') {
       throw new Error('Unauthorized access to research data');
     }
 
+    const settings = tenant.settings as any;
+    const structure = settings.structure as SchoolStructure;
+
     // Return anonymized tenant data for research
     return {
       tenantId,
-      type: tenant.type,
+      type: tenant.tenant_type,
       structure: {
-        totalStudents: tenant.structure.classes.reduce((total, c) => total + c.currentCount, 0),
-        subjects: tenant.structure.subjects.length,
-        yearGroups: tenant.structure.yearGroups.length,
-        departments: tenant.structure.departments.length
+        totalStudents: structure?.classes.reduce((total, c) => total + c.currentCount, 0) || 0,
+        subjects: structure?.subjects.length || 0,
+        yearGroups: structure?.yearGroups.length || 0,
+        departments: structure?.departments.length || 0
       },
       anonymizedData: {
         engagement: Math.random() * 100,
@@ -927,6 +956,60 @@ export class TenantService {
       },
       accessedAt: new Date(),
       researcherId
+    };
+  }
+
+  private mapPrismaTenantToInterface(prismaTenant: any): Tenant {
+    const settings = prismaTenant.settings as any || {};
+    return {
+      id: prismaTenant.id.toString(),
+      name: prismaTenant.name,
+      type: prismaTenant.tenant_type.toLowerCase() as any,
+      subscription: {
+        tier: 'starter', // Default
+        features: [],
+        userLimit: 100,
+        storageLimit: 10,
+        apiCalls: 10000,
+        supportLevel: 'basic',
+        price: 0,
+        currency: 'GBP',
+        billingCycle: 'monthly'
+      },
+      settings: settings,
+      users: [], // Users are fetched separately
+      structure: settings.structure || {
+        departments: [],
+        yearGroups: [],
+        classes: [],
+        subjects: [],
+        leadership: {
+          headteacher: '',
+          deputyHeads: [],
+          seniorLeadership: [],
+          middleLeadership: [],
+          subjectLeads: {}
+        }
+      },
+      createdAt: prismaTenant.created_at,
+      lastActive: prismaTenant.updated_at,
+      status: prismaTenant.status as any
+    };
+  }
+
+  private mapPrismaUserToInterface(prismaUser: any): TenantUser {
+    return {
+      id: prismaUser.id.toString(),
+      email: prismaUser.email,
+      role: prismaUser.role as UserRole,
+      permissions: this.generatePermissionsForRole(prismaUser.role as UserRole),
+      profile: {
+        firstName: prismaUser.firstName || '',
+        lastName: prismaUser.lastName || ''
+      },
+      lastLogin: prismaUser.last_login || new Date(),
+      status: prismaUser.is_active ? 'active' : 'inactive',
+      tenantId: prismaUser.tenant_id.toString()
     };
   }
 }

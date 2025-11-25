@@ -5,11 +5,10 @@ import { generateId } from '../../utils/id-generator';
 import { 
   InstitutionSubscription,
   SubscriptionPlan,
-  SubscriptionStatus,
-  UserRole
+  SubscriptionStatus
 } from './types';
 
-// Mock implementation for volume discount tiers until the real database is connected
+// Business rules for volume discount tiers
 const VOLUME_DISCOUNT_TIERS = [
   { minLicenses: 1, maxLicenses: 9, discountPercentage: 0 },
   { minLicenses: 10, maxLicenses: 49, discountPercentage: 10 },
@@ -19,7 +18,7 @@ const VOLUME_DISCOUNT_TIERS = [
   { minLicenses: 1000, maxLicenses: null, discountPercentage: 30 }
 ];
 
-// Mock implementation for base prices until the real database is connected
+// Base prices for plans
 const BASE_PRICES = {
   [SubscriptionPlan.BASIC]: 9.99,
   [SubscriptionPlan.STANDARD]: 19.99,
@@ -29,7 +28,7 @@ const BASE_PRICES = {
 };
 
 export interface CreateSubscriptionInput {
-  id: string;
+  id: string; // Institution ID
   plan: SubscriptionPlan;
   licenseCount: number;
   startDate: Date;
@@ -55,7 +54,7 @@ export interface UpdateSubscriptionInput {
 }
 
 export interface SubscriptionQueryOptions {
-  id?: string;
+  id?: string; // Institution ID
   status?: SubscriptionStatus[];
   plan?: SubscriptionPlan[];
   isActive?: boolean;
@@ -84,7 +83,9 @@ export class SubscriptionService {
       this.validateSubscriptionInput(data);
       
       // Check if institution exists
-      const institution = await this.mockCheckInstitution(data.id);
+      const institution = await prisma.institution.findUnique({
+        where: { id: data.id },
+      });
       
       if (!institution) {
         throw new NotFoundError(`Institution with ID ${data.id} not found`);
@@ -105,30 +106,26 @@ export class SubscriptionService {
       const subscriptionId = generateId('sub');
       
       // Create the subscription
-      const subscription = {
-        id: subscriptionId,
-        institutionId: data.id,
-        plan: data.plan,
-        status: SubscriptionStatus.ACTIVE,
-        startDate: data.startDate,
-        endDate: data.endDate,
-        renewalDate: data.renewalDate || data.endDate,
-        licenseCount: data.licenseCount,
-        licenseUsed: 0,
-        pricePerLicense,
-        totalPrice,
-        discountApplied,
-        paymentMethod: data.paymentMethod || 'Invoice',
-        notes: data.notes || '',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
-      
-      // In a real implementation, this would be:
-      // const subscription = await prisma.institutionSubscription.create({ data: {...} });
+      const subscription = await prisma.institutionSubscription.create({
+        data: {
+          id: subscriptionId,
+          institutionId: data.id,
+          plan: data.plan,
+          status: SubscriptionStatus.ACTIVE,
+          startDate: data.startDate,
+          endDate: data.endDate,
+          licenseCount: data.licenseCount,
+          price: totalPrice, // Storing total price in 'price' field
+          paymentMethod: data.paymentMethod || 'Invoice',
+          notes: data.notes,
+          discountPercentage: discountApplied,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      });
       
       // Log the creation
-      await this.mockLogAuditEvent({
+      await this.logAuditEvent({
         action: 'SUBSCRIPTION_CREATED',
         entityType: 'InstitutionSubscription',
         entityId: subscription.id,
@@ -143,7 +140,7 @@ export class SubscriptionService {
         },
       });
       
-      return subscription as InstitutionSubscription;
+      return subscription as unknown as InstitutionSubscription;
     } catch (error) {
       logger.error('Error creating subscription', { error, data });
       throw error;
@@ -155,21 +152,17 @@ export class SubscriptionService {
    */
   async getSubscriptionById(userId: string, subscriptionId: string): Promise<InstitutionSubscription> {
     try {
-      // In a real implementation, this would be:
-      // const subscription = await prisma.institutionSubscription.findUnique({
-      //   where: { id: subscriptionId },
-      //   include: {
-      //     institution: {
-      //       select: {
-      //         id: true,
-      //         name: true,
-      //       },
-      //     },
-      //   },
-      // });
-      
-      // Mock implementation for development
-      const subscription = await this.mockGetSubscription(subscriptionId);
+      const subscription = await prisma.institutionSubscription.findUnique({
+        where: { id: subscriptionId },
+        include: {
+          institution: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      });
       
       if (!subscription) {
         throw new NotFoundError(`Subscription with ID ${subscriptionId} not found`);
@@ -178,7 +171,7 @@ export class SubscriptionService {
       // Verify user has access to view this subscription
       await this.verifySubscriptionAccess(subscription.institutionId, userId);
       
-      return subscription as InstitutionSubscription;
+      return subscription as unknown as InstitutionSubscription;
     } catch (error) {
       logger.error('Error fetching subscription', { error, subscriptionId });
       throw error;
@@ -193,22 +186,82 @@ export class SubscriptionService {
       // Default values
       const page = options.page || 1;
       const limit = options.limit || 20;
+      const skip = (page - 1) * limit;
       
-      // In a real implementation, this would query the database with filters
+      // Build where clause
+      const where: any = {};
       
-      // If institutionId is provided, verify access
+      // Filter by institution if provided
       if (options.id) {
+        where.institutionId = options.id;
+        // Verify access to this institution
         await this.verifySubscriptionAccess(options.id, userId);
       } else {
         // For listing all subscriptions, verify admin access
         await this.verifyAdminAccess(userId);
       }
       
-      // Mock implementation for development
-      const { subscriptions, total } = await this.mockListSubscriptions(options, page, limit);
+      // Filter by status
+      if (options.status && options.status.length > 0) {
+        where.status = { in: options.status };
+      }
+      
+      // Filter by plan
+      if (options.plan && options.plan.length > 0) {
+        where.plan = { in: options.plan };
+      }
+      
+      // Filter by active status (based on dates and status field)
+      if (options.isActive) {
+        const now = new Date();
+        where.status = 'ACTIVE';
+        where.startDate = { lte: now };
+        where.endDate = { gte: now };
+      }
+      
+      // Date range filters
+      if (options.startDateFrom || options.startDateTo) {
+        where.startDate = {};
+        if (options.startDateFrom) where.startDate.gte = options.startDateFrom;
+        if (options.startDateTo) where.startDate.lte = options.startDateTo;
+      }
+      
+      if (options.endDateFrom || options.endDateTo) {
+        where.endDate = {};
+        if (options.endDateFrom) where.endDate.gte = options.endDateFrom;
+        if (options.endDateTo) where.endDate.lte = options.endDateTo;
+      }
+      
+      // License count filters
+      if (options.minLicenseCount || options.maxLicenseCount) {
+        where.licenseCount = {};
+        if (options.minLicenseCount) where.licenseCount.gte = options.minLicenseCount;
+        if (options.maxLicenseCount) where.licenseCount.lte = options.maxLicenseCount;
+      }
+      
+      // Get subscriptions
+      const subscriptions = await prisma.institutionSubscription.findMany({
+        where,
+        include: {
+          institution: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+        orderBy: options.sortBy
+          ? { [options.sortBy]: options.sortDirection || 'asc' }
+          : { createdAt: 'desc' },
+        skip,
+        take: limit,
+      });
+      
+      // Get total count
+      const total = await prisma.institutionSubscription.count({ where });
       
       return {
-        data: subscriptions as InstitutionSubscription[],
+        data: subscriptions as unknown as InstitutionSubscription[],
         total,
         page,
         limit,
@@ -225,7 +278,9 @@ export class SubscriptionService {
   async updateSubscription(userId: string, data: UpdateSubscriptionInput, subscriptionId: string): Promise<InstitutionSubscription> {
     try {
       // Get the subscription
-      const subscription = await this.mockGetSubscription(subscriptionId);
+      const subscription = await prisma.institutionSubscription.findUnique({
+        where: { id: subscriptionId },
+      });
       
       if (!subscription) {
         throw new NotFoundError(`Subscription with ID ${subscriptionId} not found`);
@@ -235,22 +290,20 @@ export class SubscriptionService {
       await this.verifySubscriptionUpdateAccess(subscription.institutionId, userId);
       
       // Calculate new pricing if license count or plan changed
-      let pricePerLicense = subscription.pricePerLicense;
-      let totalPrice = subscription.totalPrice;
-      let discountApplied = subscription.discountApplied;
+      let totalPrice = subscription.price;
+      let discountApplied = subscription.discountPercentage || 0;
       
       if (data.licenseCount || data.plan) {
-        const plan = data.plan || subscription.plan;
+        const plan = (data.plan || subscription.plan) as SubscriptionPlan;
         const licenseCount = data.licenseCount || subscription.licenseCount;
         
         const pricing = this.calculatePricing(
           plan,
           licenseCount,
-          data.customDiscount !== undefined ? data.customDiscount : subscription.discountApplied,
-          data.customPricePerLicense !== undefined ? data.customPricePerLicense : subscription.pricePerLicense
+          data.customDiscount !== undefined ? data.customDiscount : (subscription.discountPercentage || 0),
+          data.customPricePerLicense // We don't store pricePerLicense in DB, so we can't default to existing
         );
         
-        pricePerLicense = pricing.pricePerLicense;
         totalPrice = pricing.totalPrice;
         discountApplied = pricing.discountApplied;
       }
@@ -263,23 +316,23 @@ export class SubscriptionService {
       }
       
       // Update the subscription
-      const updatedSubscription = {
-        ...subscription,
-        ...data,
-        pricePerLicense,
-        totalPrice,
-        discountApplied,
-        updatedAt: new Date(),
-      };
-      
-      // In a real implementation, this would be:
-      // const updatedSubscription = await prisma.institutionSubscription.update({
-      //   where: { id },
-      //   data: { ... },
-      // });
+      const updatedSubscription = await prisma.institutionSubscription.update({
+        where: { id: subscriptionId },
+        data: {
+          plan: data.plan,
+          status: data.status,
+          licenseCount: data.licenseCount,
+          endDate: data.endDate,
+          paymentMethod: data.paymentMethod,
+          notes: data.notes,
+          price: totalPrice,
+          discountPercentage: discountApplied,
+          updatedAt: new Date(),
+        },
+      });
       
       // Log the update
-      await this.mockLogAuditEvent({
+      await this.logAuditEvent({
         action: 'SUBSCRIPTION_UPDATED',
         entityType: 'InstitutionSubscription',
         entityId: subscriptionId,
@@ -296,7 +349,7 @@ export class SubscriptionService {
         },
       });
       
-      return updatedSubscription as InstitutionSubscription;
+      return updatedSubscription as unknown as InstitutionSubscription;
     } catch (error) {
       logger.error('Error updating subscription', { error, subscriptionId, data });
       throw error;
@@ -309,7 +362,9 @@ export class SubscriptionService {
   async cancelSubscription(userId: string, reason: string, subscriptionId: string): Promise<InstitutionSubscription> {
     try {
       // Get the subscription
-      const subscription = await this.mockGetSubscription(subscriptionId);
+      const subscription = await prisma.institutionSubscription.findUnique({
+        where: { id: subscriptionId },
+      });
       
       if (!subscription) {
         throw new NotFoundError(`Subscription with ID ${subscriptionId} not found`);
@@ -324,25 +379,17 @@ export class SubscriptionService {
       }
       
       // Update the subscription
-      const updatedSubscription = {
-        ...subscription,
-        status: SubscriptionStatus.CANCELLED,
-        cancelReason: reason,
-        updatedAt: new Date(),
-      };
-      
-      // In a real implementation, this would be:
-      // const updatedSubscription = await prisma.institutionSubscription.update({
-      //   where: { id },
-      //   data: {
-      //     status: SubscriptionStatus.CANCELLED,
-      //     cancelReason: reason,
-      //     updatedAt: new Date(),
-      //   },
-      // });
+      const updatedSubscription = await prisma.institutionSubscription.update({
+        where: { id: subscriptionId },
+        data: {
+          status: SubscriptionStatus.CANCELLED,
+          notes: reason ? `${subscription.notes ? subscription.notes + '\n' : ''}Cancellation reason (${new Date().toISOString()}): ${reason}` : subscription.notes,
+          updatedAt: new Date(),
+        },
+      });
       
       // Log the cancellation
-      await this.mockLogAuditEvent({
+      await this.logAuditEvent({
         action: 'SUBSCRIPTION_CANCELLED',
         entityType: 'InstitutionSubscription',
         entityId: subscriptionId,
@@ -353,7 +400,7 @@ export class SubscriptionService {
         metadata: { reason },
       });
       
-      return updatedSubscription as InstitutionSubscription;
+      return updatedSubscription as unknown as InstitutionSubscription;
     } catch (error) {
       logger.error('Error cancelling subscription', { error, subscriptionId });
       throw error;
@@ -366,7 +413,9 @@ export class SubscriptionService {
   async reactivateSubscription(userId: string, subscriptionId: string, notes?: string): Promise<InstitutionSubscription> {
     try {
       // Get the subscription
-      const subscription = await this.mockGetSubscription(subscriptionId);
+      const subscription = await prisma.institutionSubscription.findUnique({
+        where: { id: subscriptionId },
+      });
       
       if (!subscription) {
         throw new NotFoundError(`Subscription with ID ${subscriptionId} not found`);
@@ -381,27 +430,17 @@ export class SubscriptionService {
       }
       
       // Update the subscription
-      const updatedSubscription = {
-        ...subscription,
-        status: SubscriptionStatus.ACTIVE,
-        cancelReason: null,
-        notes: notes ? `${subscription.notes ? subscription.notes + '\n' : ''}Reactivation note (${new Date().toISOString()}): ${notes}` : subscription.notes,
-        updatedAt: new Date(),
-      };
-      
-      // In a real implementation, this would be:
-      // const updatedSubscription = await prisma.institutionSubscription.update({
-      //   where: { id },
-      //   data: {
-      //     status: SubscriptionStatus.ACTIVE,
-      //     cancelReason: null,
-      //     notes: notes ? `${subscription.notes ? subscription.notes + '\n' : ''}Reactivation note (${new Date().toISOString()}): ${notes}` : subscription.notes,
-      //     updatedAt: new Date(),
-      //   },
-      // });
+      const updatedSubscription = await prisma.institutionSubscription.update({
+        where: { id: subscriptionId },
+        data: {
+          status: SubscriptionStatus.ACTIVE,
+          notes: notes ? `${subscription.notes ? subscription.notes + '\n' : ''}Reactivation note (${new Date().toISOString()}): ${notes}` : subscription.notes,
+          updatedAt: new Date(),
+        },
+      });
       
       // Log the reactivation
-      await this.mockLogAuditEvent({
+      await this.logAuditEvent({
         action: 'SUBSCRIPTION_REACTIVATED',
         entityType: 'InstitutionSubscription',
         entityId: subscriptionId,
@@ -412,7 +451,7 @@ export class SubscriptionService {
         metadata: { notes },
       });
       
-      return updatedSubscription as InstitutionSubscription;
+      return updatedSubscription as unknown as InstitutionSubscription;
     } catch (error) {
       logger.error('Error reactivating subscription', { error, subscriptionId });
       throw error;
@@ -425,7 +464,9 @@ export class SubscriptionService {
   async adjustLicenseCount(userId: string, newLicenseCount: number, subscriptionId: string, notes?: string): Promise<InstitutionSubscription> {
     try {
       // Get the subscription
-      const subscription = await this.mockGetSubscription(subscriptionId);
+      const subscription = await prisma.institutionSubscription.findUnique({
+        where: { id: subscriptionId },
+      });
       
       if (!subscription) {
         throw new NotFoundError(`Subscription with ID ${subscriptionId} not found`);
@@ -435,48 +476,31 @@ export class SubscriptionService {
       await this.verifySubscriptionUpdateAccess(subscription.institutionId, userId);
       
       // Validate the new license count
-      if (newLicenseCount < subscription.licenseUsed) {
-        throw new ValidationError(`Cannot reduce license count below the number of licenses currently in use (${subscription.licenseUsed})`);
-      }
-      
       if (newLicenseCount < 1) {
         throw new ValidationError('License count must be at least 1');
       }
       
       // Calculate new pricing
-      const { pricePerLicense, totalPrice, discountApplied } = this.calculatePricing(
-        subscription.plan,
+      const { totalPrice, discountApplied } = this.calculatePricing(
+        subscription.plan as SubscriptionPlan,
         newLicenseCount,
-        subscription.discountApplied,
-        subscription.pricePerLicense
+        subscription.discountPercentage || 0
       );
       
       // Update the subscription
-      const updatedSubscription = {
-        ...subscription,
-        licenseCount: newLicenseCount,
-        pricePerLicense,
-        totalPrice,
-        discountApplied,
-        notes: notes ? `${subscription.notes ? subscription.notes + '\n' : ''}License adjustment (${new Date().toISOString()}): ${notes}` : subscription.notes,
-        updatedAt: new Date(),
-      };
-      
-      // In a real implementation, this would be:
-      // const updatedSubscription = await prisma.institutionSubscription.update({
-      //   where: { id },
-      //   data: {
-      //     licenseCount: newLicenseCount,
-      //     pricePerLicense,
-      //     totalPrice,
-      //     discountApplied,
-      //     notes: notes ? `${subscription.notes ? subscription.notes + '\n' : ''}License adjustment (${new Date().toISOString()}): ${notes}` : subscription.notes,
-      //     updatedAt: new Date(),
-      //   },
-      // });
+      const updatedSubscription = await prisma.institutionSubscription.update({
+        where: { id: subscriptionId },
+        data: {
+          licenseCount: newLicenseCount,
+          price: totalPrice,
+          discountPercentage: discountApplied,
+          notes: notes ? `${subscription.notes ? subscription.notes + '\n' : ''}License adjustment (${new Date().toISOString()}): ${notes}` : subscription.notes,
+          updatedAt: new Date(),
+        },
+      });
       
       // Log the license adjustment
-      await this.mockLogAuditEvent({
+      await this.logAuditEvent({
         action: 'SUBSCRIPTION_LICENSE_ADJUSTED',
         entityType: 'InstitutionSubscription',
         entityId: subscriptionId,
@@ -487,13 +511,13 @@ export class SubscriptionService {
         metadata: { 
           previousLicenseCount: subscription.licenseCount,
           newLicenseCount,
-          previousTotalPrice: subscription.totalPrice,
+          previousTotalPrice: subscription.price,
           newTotalPrice: totalPrice,
           notes
         },
       });
       
-      return updatedSubscription as InstitutionSubscription;
+      return updatedSubscription as unknown as InstitutionSubscription;
     } catch (error) {
       logger.error('Error adjusting license count', { error, subscriptionId, newLicenseCount });
       throw error;
@@ -504,18 +528,7 @@ export class SubscriptionService {
    * Get available volume discount tiers
    */
   async getVolumeDiscountTiers(userId: string): Promise<any[]> {
-    try {
-      // In a real implementation, this would fetch from the database
-      // const tiers = await prisma.volumeDiscountTier.findMany({
-      //   orderBy: { minLicenses: 'asc' },
-      // });
-      
-      // For now, return the mock tiers
-      return VOLUME_DISCOUNT_TIERS;
-    } catch (error) {
-      logger.error('Error fetching volume discount tiers', { error });
-      throw error;
-    }
+    return VOLUME_DISCOUNT_TIERS;
   }
 
   /**
@@ -597,79 +610,41 @@ export class SubscriptionService {
     }
   }
 
-  // Mock methods for development - these would be replaced by actual database calls
-
   /**
-   * Mock check if an institution exists
+   * Log an audit event
    */
-  private async mockCheckInstitution(id: string): Promise<any> {
-    // Simulate database lookup
-    return { id: id, name: 'Test Institution' };
-  }
-
-  /**
-   * Mock get subscription by ID
-   */
-  private async mockGetSubscription(subscriptionId: string): Promise<any> {
-    // Simulate database lookup
-    return {
-      id: subscriptionId,
-      institutionId: 'inst_12345',
-      plan: SubscriptionPlan.PROFESSIONAL,
-      status: SubscriptionStatus.ACTIVE,
-      startDate: new Date('2025-01-01'),
-      endDate: new Date('2025-12-31'),
-      renewalDate: new Date('2025-12-31'),
-      licenseCount: 50,
-      licenseUsed: 30,
-      pricePerLicense: 33.99,
-      totalPrice: 1699.50,
-      discountApplied: 15,
-      paymentMethod: 'Invoice',
-      notes: '',
-      createdAt: new Date('2024-12-15'),
-      updatedAt: new Date('2024-12-15'),
-    };
-  }
-
-  /**
-   * Mock list subscriptions
-   */
-  private async mockListSubscriptions(options: SubscriptionQueryOptions, page: number, limit: number): Promise<{ subscriptions: any[], total: number }> {
-    // Simulate database lookup
-    const subscriptions = [
-      {
-        id: 'sub_12345',
-        institutionId: 'inst_12345',
-        plan: SubscriptionPlan.PROFESSIONAL,
-        status: SubscriptionStatus.ACTIVE,
-        startDate: new Date('2025-01-01'),
-        endDate: new Date('2025-12-31'),
-        renewalDate: new Date('2025-12-31'),
-        licenseCount: 50,
-        licenseUsed: 30,
-        pricePerLicense: 33.99,
-        totalPrice: 1699.50,
-        discountApplied: 15,
-        paymentMethod: 'Invoice',
-        notes: '',
-        createdAt: new Date('2024-12-15'),
-        updatedAt: new Date('2024-12-15'),
-      }
-    ];
-    
-    return {
-      subscriptions,
-      total: 1,
-    };
-  }
-
-  /**
-   * Mock log audit event
-   */
-  private async mockLogAuditEvent(data: any): Promise<void> {
-    // In a real implementation, this would insert into the database
-    logger.info('Audit event logged', data);
+  private async logAuditEvent(data: {
+    action: string;
+    entityType: string;
+    entityId: string;
+    description: string;
+    performedById: string;
+    institutionId?: string;
+    subscriptionId?: string;
+    metadata?: any;
+  }): Promise<void> {
+    try {
+      await prisma.auditLog.create({
+        data: {
+          userId: data.performedById,
+          user_id_int: parseInt(data.performedById) || 0,
+          tenant_id: 0, // Default to 0 as Institution uses UUIDs
+          institutionId: data.institutionId, // Use the dedicated institutionId field
+          action: data.action,
+          resource: data.entityType,
+          details: {
+            entityId: data.entityId,
+            description: data.description,
+            institutionId: data.institutionId,
+            subscriptionId: data.subscriptionId,
+            metadata: data.metadata,
+          },
+        },
+      });
+    } catch (error) {
+      logger.error('Error logging audit event', { error, data });
+      // Don't throw, just log the error
+    }
   }
 
   /**
@@ -680,12 +655,49 @@ export class SubscriptionService {
     const isAdmin = await this.isSystemAdmin(userId);
     if (isAdmin) return;
     
-    // Check if user is associated with the institution
-    const userInstitution = await this.mockCheckUserInstitution(userId, institutionId);
-    
-    if (!userInstitution) {
-      throw new AccessDeniedError('You do not have permission to access subscriptions for this institution');
+    // Parse userId to Int since users table uses Int IDs
+    const userIdInt = parseInt(userId);
+    if (isNaN(userIdInt)) {
+      throw new ValidationError(`Invalid user ID: ${userId}`);
     }
+
+    // Check if user is an institution admin
+    const institutionAdmin = await prisma.institutionAdmin.findUnique({
+      where: {
+        institutionId_userId: {
+          institutionId,
+          userId: userIdInt,
+        },
+      },
+    });
+
+    if (institutionAdmin) return;
+
+    // Check if user is a member of any department in this institution
+    const departmentMembership = await prisma.departmentMember.findFirst({
+      where: {
+        userId: userIdInt,
+        department: {
+          institutionId,
+        },
+      },
+    });
+
+    if (departmentMembership) return;
+
+    // Check if user is a manager of any department in this institution
+    const departmentManagement = await prisma.departmentManager.findFirst({
+      where: {
+        userId: userIdInt,
+        department: {
+          institutionId,
+        },
+      },
+    });
+
+    if (departmentManagement) return;
+
+    throw new AccessDeniedError('You do not have permission to access subscriptions for this institution');
   }
 
   /**
@@ -696,10 +708,23 @@ export class SubscriptionService {
     const isAdmin = await this.isSystemAdmin(userId);
     if (isAdmin) return;
     
+    // Parse userId to Int since users table uses Int IDs
+    const userIdInt = parseInt(userId);
+    if (isNaN(userIdInt)) {
+      throw new ValidationError(`Invalid user ID: ${userId}`);
+    }
+
     // Check if user is an admin of the institution
-    const isInstitutionAdmin = await this.mockCheckInstitutionAdmin(userId, institutionId);
+    const institutionAdmin = await prisma.institutionAdmin.findUnique({
+      where: {
+        institutionId_userId: {
+          institutionId,
+          userId: userIdInt,
+        },
+      },
+    });
     
-    if (!isInstitutionAdmin) {
+    if (!institutionAdmin) {
       throw new AccessDeniedError('You do not have admin permission for this institution\'s subscriptions');
     }
   }
@@ -707,9 +732,7 @@ export class SubscriptionService {
   /**
    * Verify that a user has admin access to an institution
    */
-  private async verifyInstitutionAdminAccess(institutionId: string, userId: string): Promise<void>
-
- {
+  private async verifyInstitutionAdminAccess(institutionId: string, userId: string): Promise<void> {
     // Same as subscription update access
     await this.verifySubscriptionUpdateAccess(institutionId, userId);
   }
@@ -729,25 +752,19 @@ export class SubscriptionService {
    * Check if a user is a system admin
    */
   private async isSystemAdmin(userId: string): Promise<boolean> {
-    // Mock implementation
-    // In a real implementation, this would check the user's role in the database
-    return userId === 'admin_user_id';
-  }
+    // Parse userId to Int since users table uses Int IDs
+    const userIdInt = parseInt(userId);
+    if (isNaN(userIdInt)) {
+      return false; // Invalid ID is not admin
+    }
 
-  /**
-   * Mock check if user is associated with an institution
-   */
-  private async mockCheckUserInstitution(userId: string, institutionId: string): Promise<boolean> {
-    // Mock implementation
-    return true;
-  }
+    const user = await prisma.users.findUnique({
+      where: { id: userIdInt },
+      select: { role: true }, // users model has 'role' not 'roles'
+    });
 
-  /**
-   * Mock check if user is an admin of an institution
-   */
-  private async mockCheckInstitutionAdmin(userId: string, institutionId: string): Promise<boolean> {
-    // Mock implementation
-    return true;
+    // Check if user has ADMIN or SUPER_ADMIN role
+    return user?.role?.toUpperCase().includes('ADMIN') ?? false;
   }
 }
 

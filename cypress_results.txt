@@ -1,2 +1,0 @@
-
-DevTools listening on ws://127.0.0.1:35263/devtools/browser/00b62c0f-0eab-4a29-aa60-e122c0fe87eb

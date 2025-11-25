@@ -1,3 +1,4 @@
+import { prisma } from '../../lib/prisma';
 import { PrismaClient } from '@prisma/client';
 import { ValidationError } from './errors';
 
@@ -16,7 +17,7 @@ function safeParseDetails(details: any): any {
   if (typeof details === 'string') {
     try {
       return JSON.parse(details);
-    } catch (e) {
+    } catch (_e) {
       return { value: details };
     }
   }
@@ -69,7 +70,7 @@ export class AuditLogService {
         resource: 'Institution',
         userId: userId,
         user_id_int: parseInt(userId),
-        tenant_id: parseInt(institutionId),
+        institutionId: institutionId,
         details: {
           entityId: institutionId,
           description: `Action: ${actionType}`,
@@ -103,7 +104,7 @@ export class AuditLogService {
 
     // Build filter conditions
     const whereConditions: any = {
-      tenant_id: parseInt(institutionId)
+      institutionId: institutionId
     };
 
     if (options.actionType) {
@@ -153,8 +154,8 @@ export class AuditLogService {
         details: parsedDetails,
         timestamp: log.createdAt, // Map createdAt to timestamp for compatibility
         // Extract institution data from details if available
-        institution: log.tenant_id ? {
-          id: log.tenant_id.toString(),
+        institution: log.institutionId ? {
+          id: log.institutionId,
           name: 'Institution' // We don't fetch tenant name here to avoid N+1
         } : null
       };
@@ -201,8 +202,8 @@ export class AuditLogService {
         details: parsedDetails,
         timestamp: log.createdAt, // Map createdAt to timestamp for compatibility
         // Extract institution data from details if available
-        institution: log.tenant_id ? {
-          id: log.tenant_id.toString(),
+        institution: log.institutionId ? {
+          id: log.institutionId,
           name: 'Institution'
         } : null
       };
@@ -213,7 +214,6 @@ export class AuditLogService {
 }
 
 // Create and export instance
-const prisma = new PrismaClient();
 export const auditLogService = new AuditLogService(prisma);
 
 /**

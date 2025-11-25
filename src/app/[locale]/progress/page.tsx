@@ -24,12 +24,20 @@ export default function ProgressPage() {
 
   const loadCases = async () => {
     try {
-      const mockCases = [
-        { id: 1, student_name: 'Jamie Smith', year_group: 'Year 3', active_interventions: 3 },
-        { id: 2, student_name: 'Alex Johnson', year_group: 'Year 5', active_interventions: 2 },
-        { id: 3, student_name: 'Sam Williams', year_group: 'Year 7', active_interventions: 1 },
-      ];
-      setCases(mockCases);
+      const response = await fetch('/api/cases?limit=100');
+      if (!response.ok) {
+        throw new Error('Failed to fetch cases');
+      }
+      const data = await response.json();
+      
+      const mappedCases = data.cases.map((c: any) => ({
+        id: c.id,
+        student_name: `${c.students.first_name} ${c.students.last_name}`,
+        year_group: c.students.year_group || 'Unknown', // Assuming year_group is on student model, if not we might need to fetch it or it's missing from API response
+        active_interventions: c._count?.interventions || 0,
+      }));
+
+      setCases(mappedCases);
     } catch (error) {
       console.error('Failed to load cases:', error);
     } finally {

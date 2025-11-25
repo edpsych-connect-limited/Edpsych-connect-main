@@ -157,6 +157,7 @@ export async function GET(request: NextRequest) {
               first_name: true,
               last_name: true,
               date_of_birth: true,
+              year_group: true,
             },
           },
           users: {
@@ -165,6 +166,9 @@ export async function GET(request: NextRequest) {
               name: true,
               email: true,
             },
+          },
+          _count: {
+            select: { interventions: true },
           },
         },
       }),

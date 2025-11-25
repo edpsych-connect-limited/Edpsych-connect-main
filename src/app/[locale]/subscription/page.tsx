@@ -52,27 +52,13 @@ export default function SubscriptionManagementPage() {
 
   const loadSubscriptionData = async () => {
     try {
-      const mockSubscription: SubscriptionData = {
-        id: 1,
-        plan_id: 'individual-ep',
-        status: 'trial',
-        billing_period: 'monthly',
-        current_period_start: new Date().toISOString(),
-        current_period_end: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-        cancel_at_period_end: false,
-        trial_end: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
-      };
-
-      const mockUsage: UsageData = {
-        cases_count: 3,
-        interventions_count: 8,
-        assessments_count: 2,
-        storage_used_mb: 125,
-        ai_assessments_used: 5,
-      };
-
-      setSubscription(mockSubscription);
-      setUsage(mockUsage);
+      const response = await fetch('/api/subscription/current');
+      if (!response.ok) {
+        throw new Error('Failed to fetch subscription data');
+      }
+      const data = await response.json();
+      setSubscription(data.subscription);
+      setUsage(data.usage);
     } catch (error) {
       console.error('Failed to load subscription data:', error);
     } finally {

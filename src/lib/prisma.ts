@@ -14,6 +14,7 @@ type ExtendedPrismaClient = ReturnType<typeof createPrismaClient>;
 
 // Create a global variable to store the prisma instance
 declare global {
+  // eslint-disable-next-line no-var
   var prisma: ExtendedPrismaClient | undefined;
 }
 

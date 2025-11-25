@@ -1,0 +1,20 @@
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+Datasource "db": PostgreSQL database "neondb", schema "public" at "ep-steep-boat-abz9lg8e-pooler.eu-west-2.aws.neon.tech"
+
+⚠️  There might be data loss when applying the changes:
+
+  • The values [SCHOOL_MEDIUM,MAT_MEDIUM,RESEARCH_INSTITUTIONAL,RESEARCH_PARTNERSHIP,TRIAL,DEMO,LEGACY] on the enum `SubscriptionTier` will be removed. If these variants are still used in the database, this will fail.
+
+  • You are about to drop the column `price` on the `subscriptions` table, which still contains 1 non-null values.
+
+  • You are about to drop the column `research_discount_percentage` on the `subscriptions` table, which still contains 1 non-null values.
+
+
+
+🚀  Your database is now in sync with your Prisma schema. Done in 8.82s
+
+Running generate... (Use --skip-generate to skip the generators)
+[2K[1A[2K[GRunning generate... - Prisma Client
+[2K[1A[2K[G✔ Generated Prisma Client (v6.19.0) to ./node_modules/@prisma/client in 3.62s
+

@@ -173,6 +173,13 @@ model tenants {
   sync_logs            SyncLog[]
   squadMembers         SquadMember[]
 
+  // Relations - Data Sovereignty (BYOD)
+  database_config      TenantDatabaseConfig?
+
+  // Relations - Algorithm Marketplace
+  algorithmLicenses    AlgorithmLicense[]
+  algorithmUsages      AlgorithmUsage[]
+
   @@index([subdomain])
   @@index([tenant_type])
   @@index([status])
@@ -294,35 +301,58 @@ model users {
   onboarding_progress       onboarding_progress?
   legal_signatures          LegalSignature[]
 
-  // Relations - Platform Orchestration Layer
-  class_rosters_teaching ClassRoster[]
-  lesson_plans_created   LessonPlan[]
-  multi_agency_access    MultiAgencyAccess[]
-  parent_child_links     ParentChildLink[]
-  voice_commands         VoiceCommand[]
+  // Relations - AI & Feedback
+  recommendations         Recommendation[]
+  contentInteractions     ContentInteraction[]
+  feedback                Feedback[]
+  surveyResponses         SurveyResponse[]
+  userInterviews          UserInterview[]
+  analyticsEvents         AnalyticsEvent[]
+  
+  // Relations - Ethics
+  ethicsAssessments       EthicsAssessment[] @relation("Assessor")
+  ethicsReviews           EthicsAssessment[] @relation("Reviewers")
+  ethicsIncidents         EthicsIncident[]   @relation("IncidentAssignee")
+  
+  // Relations - Games
+  gamePlayers             GamePlayer[]
+  
+  // Relations - Algorithms
+  algorithms              Algorithm[]
+  algorithmUsages         AlgorithmUsage[]
+  
+  // Relations - Profiles
+  edPsychProfile          EdPsychProfile?
+  researcherProfile       ResearcherProfile?
 
-  // Relations - Parent-Teacher Messaging
+  // Relations - Messaging
   sent_messages     ParentTeacherMessage[] @relation("SentMessages")
   received_messages ParentTeacherMessage[] @relation("ReceivedMessages")
 
-  // Relations - Marketplace
-  compliance                  ProfessionalCompliance?
-  marketplace_profile         MarketplaceProfessional?
-  service_listings            ServiceListing[]
-  contracts_as_ep             ServiceContract[]        @relation("EPContracts")
-  marketplace_reviews_written MarketplaceReview[]
+  // Relations - Orchestration
+  class_rosters       ClassRoster[]
+  lesson_plans        LessonPlan[]
+  multi_agency_access MultiAgencyAccess[]
+  parent_child_links  ParentChildLink[]
+  voice_commands      VoiceCommand[]
 
-  // Relations - System & Security
-  audit_logs         AuditLog[]
-  secure_documents   SecureDocument[]
-  claimed_beta_codes BetaAccessCode[]
-  beta_access_usages BetaAccessCodeUsage[]
+  // Relations - Marketplace & Compliance
+  professional_compliance ProfessionalCompliance?
+  marketplace_profile     MarketplaceProfessional?
+  service_listings        ServiceListing[]
+  ep_contracts            ServiceContract[]        @relation("EPContracts")
+  marketplace_reviews     MarketplaceReview[]
 
-  // Relations - Integrations
-  integration_settings  IntegrationSettings? @relation(fields: [integrationSettingsId], references: [id])
-  sync_logs             SyncLog[]
-  integrationSettingsId String?
-  squadMembers          SquadMember[]
+  // Relations - System
+  integration_settings IntegrationSettings[]
+  sync_logs            SyncLog[]
+  secure_documents     SecureDocument[]
+  beta_access_codes    BetaAccessCode[]
+  beta_access_usages   BetaAccessCodeUsage[]
+  audit_logs           AuditLog[]
+  user_activities      UserActivity[]
+  user_interests       UserInterest[]
+  squad_memberships    SquadMember[]
 
   @@index([tenant_id])
   @@index([email])
@@ -361,6 +391,9 @@ model students {
 
   // Relations - Parent-Teacher Messaging
   parent_teacher_messages ParentTeacherMessage[]
+
+  // Relations - Institutional Management
+  studentOutcomePredictions StudentOutcomePrediction[]
 
   @@unique([tenant_id, unique_id])
   @@index([tenant_id])
@@ -498,6 +531,7 @@ model parents {
   users                    users                      @relation(fields: [user_id], references: [id], onDelete: Cascade)
   parent_portal_activities parent_portal_activities[]
   parent_permissions       parent_permissions[]
+  engagementActivities     ParentEngagementActivity[]
 }
 
 model parent_portal_activities {
@@ -942,7 +976,7 @@ model ehcps {
   student_id   String
   plan_details Json
   issued_at    DateTime @default(now())
-  updated_at   DateTime @default(now())
+  updated_at    DateTime @default(now())
 
   // Relations
   tenants  tenants         @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
@@ -2437,7 +2471,7 @@ model PredictiveInsight {
   updated_at   DateTime  @default(now())
 
   // Relations
-  user   users   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+   user   users   @relation(fields: [user_id], references: [id], onDelete: Cascade)
   tenant tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
@@ -2446,7 +2480,7 @@ model PredictiveInsight {
 }
 
 model ConversationalAISession {
-  id String @id @default(uuid())
+     id String @id @default(uuid())
 
   // User context
   user_id   Int
@@ -2930,7 +2964,7 @@ model DiscountCode {
   // Metadata
   created_by String?
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  updated_at DateTime @default(now())
 
   @@index([code])
   @@index([is_active])
@@ -2969,7 +3003,7 @@ model InteractiveResponse {
   submitted_at       DateTime @default(now())
   feedback_shown     String?  @db.Text
 
-  element InteractiveElement @relation(fields: [element_id], references: [id])
+  element InteractiveElement @relation(fields: [element_id], references: [id], onDelete: Cascade)
   user    users              @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
@@ -3502,13 +3536,14 @@ model AssessmentResult {
   assessmentId String
   domain       String
   score        Float
-  maxScore     Float
+  maxScore    Float
   percentile   Float?
   notes        String?  @db.Text
   createdAt    DateTime @default(now())
   updatedAt    DateTime @default(now())
 
   assessment Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  contentLinks AssessmentContentLink[]
 
   @@index([assessmentId])
   @@index([domain])
@@ -3540,7 +3575,7 @@ model BetaAccessCode {
   usedBy        String?
   usedAt        DateTime?
   maxUses       Int       @default(1)
-  currentUses   Int       @default(0)
+  current_uses   Int       @default(0)
   remainingUses Int       @default(1)
   role          String?
   features      String[]  @default([])
@@ -3580,6 +3615,8 @@ model BetaAccessCodeUsage {
   @@index([userId])
   @@index([usedAt])
 }
+
+
 
 model LegalSignature {
   id               String   @id @default(uuid())
@@ -3933,6 +3970,101 @@ model SquadCompetitionEntry {
   @@index([rank])
 }
 
+// ============================================================================
+// INSTITUTIONAL MANAGEMENT & ANALYTICS
+// ============================================================================
+
+model StudentOutcomePrediction {
+  id                       String   @id @default(cuid())
+  studentId                Int
+  targetOutcome            String
+  probabilityScore         Float
+  contributingFactors      Json     // Array of { factor, weight, description }
+  recommendedInterventions Json     // Array of { id, name, description, expectedImpact }
+  confidenceLevel          Float
+  predictionDate           DateTime @default(now())
+  
+  student                  students @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([studentId])
+  @@index([targetOutcome])
+}
+
+model UserActivity {
+  id                   String   @id @default(cuid())
+  userId               Int
+  content_type         String
+  content_id           String
+  action_type          String
+  duration             Int?
+  completion_percentage Float?
+  created_at           DateTime @default(now())
+  
+  user                 users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([content_id])
+  @@index([created_at])
+}
+
+model UserInterest {
+  id             String   @id @default(cuid())
+  userId         Int
+  category       String
+  topic          String
+  strength_score Float
+  last_updated   DateTime @default(now())
+  
+  user           users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([topic])
+}
+
+model Content {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  content_type String
+  tags        String?  // JSON string or comma separated
+  url         String?
+  image_url   String?
+  is_public   Boolean  @default(true)
+  authorId    String?
+  metadata    Json?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+
+  recommendations         Recommendation[]
+  interactions            ContentInteraction[]
+  similarContentA         ContentSimilarity[] @relation("ContentSimilarityA")
+  similarContentB         ContentSimilarity[] @relation("ContentSimilarityB")
+  assessmentLinks         AssessmentContentLink[]
+
+  @@index([content_type])
+  @@index([is_public])
+}
+
+model EdPsychProfile {
+  id                  String   @id @default(cuid())
+  userId              Int      @unique
+  years_of_experience Int?
+  specializations     String[]
+  qualifications      String[]
+  
+  user                users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ResearcherProfile {
+  id                      String   @id @default(cuid())
+  userId                  Int      @unique
+  years_of_experience     Int?
+  research_areas          String[]
+  academic_qualifications String[]
+  
+  user                    users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model onboarding_progress {
   id      Int @id @default(autoincrement())
   user_id Int @unique
@@ -4057,4 +4189,474 @@ model problem_solver_queries {
   @@index([problem_category])
   @@index([helpful_rating])
   @@index([user_id])
+}
+
+// ============================================================================
+// ETHICS & COMPLIANCE
+// ============================================================================
+
+model EthicsAssessment {
+  id            String    @id @default(cuid())
+  title         String
+  description   String    @db.Text
+  componentId   String
+  componentType String
+  assessorId    Int
+  status        String    @default("draft") // draft, in_review, approved, rejected, completed
+  version       Int       @default(1)
+  
+  questions     Json      // Array of { question, answer, category }
+  ethicalRisks  Json      // Array of { description, severity, category }
+  mitigations   Json      // Array of { riskIndex, description, status }
+  recommendedMonitors Json // Array of { monitorType, description, configuration }
+  tags          String[]
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now())
+  approvedAt    DateTime?
+
+  // Relations
+  assessor      users     @relation("Assessor", fields: [assessorId], references: [id])
+  reviewers     users[]   @relation("Reviewers")
+
+  @@index([status])
+  @@index([componentType])
+}
+
+model EthicsIncident {
+  id             String    @id @default(cuid())
+  title          String
+  description    String    @db.Text
+  monitorId      String?
+  metricId       String?
+  metricValue    Float?
+  thresholdValue Float?
+  
+  status         String    @default("open") // open, investigating, mitigating, resolved, dismissed
+  severity       String    @default("medium") // low, medium, high, critical
+  
+  resolutionSteps Json     // Array of { description, status, createdAt, completedAt }
+  tags           String[]
+
+  detectedAt     DateTime  @default(now())
+  resolvedAt     DateTime?
+  
+  assignedToId   Int?
+  assignedTo     users?    @relation("IncidentAssignee", fields: [assignedToId], references: [id])
+
+  monitor        EthicsMonitor? @relation(fields: [monitorId], references: [id])
+
+  @@index([status])
+  @@index([severity])
+}
+
+model EthicsMonitor {
+  id          String    @id @default(cuid())
+  name        String
+  description String    @db.Text
+  
+  metrics     Json      // Array of { id, name, category }
+  thresholds  Json      // Object of { metricId: { type, value } }
+  
+  enabled     Boolean   @default(true)
+  frequency   String    @default("daily")
+  severity    String    @default("medium")
+  tags        String[]
+  
+  lastRunAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+
+  incidents   EthicsIncident[]
+
+  @@index([enabled])
+}
+
+// ============================================================================
+// BATTLE ROYALE GAMIFICATION (REAL-TIME)
+// ============================================================================
+
+model BattleRoyaleGame {
+  id             String   @id @default(cuid())
+  name           String
+  subject        String
+  topic          String
+  yearGroup      String
+  maxPlayers     Int
+  currentPlayers Int      @default(0)
+  status         String   // waiting, starting, active, ending, completed
+  gameMode       String
+  difficulty     String
+  duration       Int
+  createdAt      DateTime @default(now())
+  startedAt      DateTime?
+  endedAt        DateTime?
+  
+  players        GamePlayer[]
+  events         GameEvent[]
+  
+  // Complex objects stored as JSON
+  gameMap        Json?
+  powerUps       Json?
+  leaderboard    Json?
+}
+
+model GamePlayer {
+  id             String   @id @default(cuid())
+  gameId         String
+  userId         Int
+  
+  // Game specific stats
+  score          Int      @default(0)
+  position       Int?
+  kills          Int      @default(0)
+  survivalTime   Int      @default(0)
+  status         String   @default("active") // active, eliminated
+  
+  game           BattleRoyaleGame @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  user           users            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([gameId, userId])
+  @@index([gameId])
+  @@index([userId])
+}
+
+model GameEvent {
+  id             String   @id @default(cuid())
+  gameId         String
+  type           String
+  timestamp      DateTime @default(now())
+  playerId       String?
+  data           Json?
+  
+  game           BattleRoyaleGame @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  
+  @@index([gameId])
+}
+
+// ============================================================================
+// ALGORITHM MARKETPLACE
+// ============================================================================
+
+model Algorithm {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  category    String
+  tags        String[]
+  price       Float
+  currency    String   @default("GBP")
+  
+  creatorId   Int
+  creator     users    @relation(fields: [creatorId], references: [id])
+  
+  versions    AlgorithmVersion[]
+  licenses    AlgorithmLicense[]
+  usages      AlgorithmUsage[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+  
+  @@index([creatorId])
+}
+
+model AlgorithmVersion {
+  id          String   @id @default(cuid())
+  algorithmId String
+  version     String
+  code        String?  // Or URL to code
+  changelog   String?
+  status      String   @default("draft") // draft, published, deprecated
+  
+  algorithm   Algorithm @relation(fields: [algorithmId], references: [id], onDelete: Cascade)
+  usages      AlgorithmUsage[]
+  
+  createdAt   DateTime @default(now())
+  
+  @@index([algorithmId])
+}
+
+model AlgorithmLicense {
+  id          String   @id @default(cuid())
+  algorithmId String
+  tenantId    Int
+  type        String   // subscription, perpetual, usage-based
+  status      String   @default("active")
+  
+  startsAt    DateTime @default(now())
+  expiresAt   DateTime?
+  
+  algorithm   Algorithm @relation(fields: [algorithmId], references: [id])
+  tenant      tenants   @relation(fields: [tenantId], references: [id])
+  
+  @@index([algorithmId])
+  @@index([tenantId])
+}
+
+model AlgorithmUsage {
+  id          String   @id @default(cuid())
+  algorithmId String
+  versionId   String?
+  tenantId    Int
+  userId      Int?
+  
+  executionTime Int    // ms
+  status      String   // success, failure
+  cost        Float    @default(0)
+  
+  timestamp   DateTime @default(now())
+  
+  algorithm   Algorithm @relation(fields: [algorithmId], references: [id])
+  version     AlgorithmVersion? @relation(fields: [versionId], references: [id])
+  tenant      tenants   @relation(fields: [tenantId], references: [id])
+  user        users?    @relation(fields: [userId], references: [id])
+  
+  @@index([algorithmId])
+  @@index([tenantId])
+  @@index([timestamp])
+}
+
+// ============================================================================
+// RECOMMENDATION ENGINE
+// ============================================================================
+
+model Recommendation {
+  id          String   @id @default(cuid())
+  userId      Int
+  contentId   String
+  score       Float
+  reason      String
+  status      String   @default("ACTIVE")
+  notes       String?
+  clickedAt   DateTime?
+  dismissedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+
+  user    users   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([contentId])
+  @@index([status])
+}
+
+model ContentInteraction {
+  id                   String   @id @default(cuid())
+  userId               Int
+  contentId            String
+  interactionType      String
+  durationSeconds      Int?
+  completionPercentage Float?
+  rating               Int?
+  bookmarked           Boolean  @default(false)
+  createdAt            DateTime @default(now())
+
+  user    users   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([contentId])
+  @@index([interactionType])
+}
+
+model ContentSimilarity {
+  id              String   @id @default(cuid())
+  contentIdA      String
+  contentIdB      String
+  similarityScore Float
+  similarityType  String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now())
+
+  contentA Content @relation("ContentSimilarityA", fields: [contentIdA], references: [id], onDelete: Cascade)
+  contentB Content @relation("ContentSimilarityB", fields: [contentIdB], references: [id], onDelete: Cascade)
+
+  @@index([contentIdA])
+  @@index([contentIdB])
+}
+
+model AssessmentContentLink {
+  id               String   @id @default(cuid())
+  assessmentResultId String
+  contentId        String
+  relevanceScore   Float
+  linkType         String
+  createdAt        DateTime @default(now())
+
+  assessmentResult AssessmentResult @relation(fields: [assessmentResultId], references: [id], onDelete: Cascade)
+  content          Content          @relation(fields: [contentId], references: [id], onDelete: Cascade)
+
+  @@index([assessmentResultId])
+  @@index([contentId])
+}
+
+// ============================================================================
+// SYSTEM CONFIGURATION & SUBSCRIPTIONS
+// ============================================================================
+
+model TierConfiguration {
+  id          String   @id @default(cuid())
+  tier        String   @unique // FREE, PRO, INSTITUTIONAL
+  
+  maxSchools  Int      @default(1)
+  maxUsers    Int      @default(1)
+  maxStorage  Int      @default(1024) // MB
+  
+  features    Json     // Array of enabled feature strings
+  limits      Json     // Object of specific limits (e.g. { "ai_requests_per_day": 100 })
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+}
+
+model SystemConfig {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       Json
+  description String?
+  updatedAt   DateTime @default(now())
+}
+
+// ============================================================================
+// USER FEEDBACK SYSTEM
+// ============================================================================
+
+model Feedback {
+  id          String   @id @default(cuid())
+  userId      Int?
+  type        String   // bug, feature_request, general
+  category    String?
+  message     String   @db.Text
+  rating      Int?
+  status      String   @default("new") // new, reviewing, accepted, rejected, completed
+  
+  metadata    Json?    // Browser info, page url, etc.
+  
+  user        users?   @relation(fields: [userId], references: [id])
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+
+  @@index([userId])
+  @@index([type])
+  @@index([status])
+}
+
+model SurveyResponse {
+  id          String   @id @default(cuid())
+  surveyId    String
+  userId      Int?
+  
+  answers     Json     // Object of { questionId: answer }
+  
+  user        users?   @relation(fields: [userId], references: [id])
+  
+  completedAt DateTime @default(now())
+
+  @@index([surveyId])
+  @@index([userId])
+}
+
+model UserInterview {
+  id          String   @id @default(cuid())
+  userId      Int
+  scheduledAt DateTime
+  status      String   // scheduled, completed, cancelled, no_show
+  notes       String?  @db.Text
+  recordingUrl String?
+  
+  user        users    @relation(fields: [userId], references: [id])
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+
+  @@index([userId])
+  @@index([status])
+}
+
+// ============================================================================
+// AI ANALYTICS
+// ============================================================================
+
+model AnalyticsEvent {
+  id          String   @id @default(cuid())
+  userId      Int?
+  eventType   String   // completion, error, feedback, latency
+  model       String?
+  tokensIn    Int?
+  tokensOut   Int?
+  latencyMs   Int?
+  cost        Float?
+  
+  metadata    Json?    // Prompt hash, error details, etc.
+  
+  user        users?   @relation(fields: [userId], references: [id])
+  
+  timestamp   DateTime @default(now())
+
+  @@index([userId])
+  @@index([eventType])
+  @@index([timestamp])
+}
+
+// ============================================================================
+// PARENTAL ENGAGEMENT
+// ============================================================================
+
+model ParentalTip {
+  id          String   @id @default(cuid())
+  title       String
+  content     String   @db.Text
+  category    String   // behavior, learning, emotional
+  ageRange    String?  // 5-7, 8-10, etc.
+  
+  isActive    Boolean  @default(true)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+}
+
+model ParentEngagementActivity {
+  id          String   @id @default(cuid())
+  parentId    Int
+  activityType String  // login, read_tip, completed_task
+  details     Json?
+  
+  parent      parents  @relation(fields: [parentId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+
+  @@index([parentId])
+}
+
+// ============================================================================
+// TENANT DATABASE CONFIGURATION (BYOD)
+// ============================================================================
+
+model TenantDatabaseConfig {
+  id          String   @id @default(cuid())
+  tenant_id   Int      @unique
+  
+  // Connection Details
+  provider    String   @default("postgresql") // postgresql, mysql, sqlserver
+  host        String
+  port        Int      @default(5432)
+  database    String
+  username    String
+  password    String   // Encrypted at rest
+  ssl_mode    String   @default("require")
+  
+  // Status
+  is_active   Boolean  @default(true)
+  last_check  DateTime?
+  status      String   @default("connected") // connected, error, maintenance
+  
+  // Metadata
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+  
+  tenant      tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  
+  @@index([tenant_id])
 }

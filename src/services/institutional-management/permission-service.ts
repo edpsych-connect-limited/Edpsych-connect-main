@@ -1,16 +1,10 @@
-import { PrismaClient } from '@prisma/client';
-import { ValidationError, AccessDeniedError } from './errors';
+import { prisma } from '../../lib/prisma';
+import { ValidationError } from './errors';
 
 /**
  * Service for managing permissions related to institutional management
  */
 export class PermissionService {
-  private prisma: PrismaClient;
-
-  constructor(prisma: PrismaClient) {
-    this.prisma = prisma;
-  }
-
   /**
    * Check if a user can create institutions
    * Only system admins can create institutions
@@ -27,7 +21,7 @@ export class PermissionService {
     }
 
     // Get the user
-    const user = await this.prisma.users.findUnique({
+    const user = await prisma.users.findUnique({
       where: { id: userIdInt },
       select: { role: true } // users model has 'role' not 'roles'
     });
@@ -58,7 +52,7 @@ export class PermissionService {
     }
 
     // Get the user
-    const user = await this.prisma.users.findUnique({
+    const user = await prisma.users.findUnique({
       where: { id: userIdInt },
       select: { role: true }
     });
@@ -74,7 +68,7 @@ export class PermissionService {
     }
 
     // Check InstitutionAdmin join table for institution-specific admin permissions
-    const institutionAdmin = await this.prisma.institutionAdmin.findUnique({
+    const institutionAdmin = await prisma.institutionAdmin.findUnique({
       where: {
         institutionId_userId: {
           institutionId,
@@ -102,7 +96,7 @@ export class PermissionService {
     }
 
     // Get the user
-    const user = await this.prisma.users.findUnique({
+    const user = await prisma.users.findUnique({
       where: { id: userIdInt },
       select: { role: true }
     });
@@ -118,7 +112,7 @@ export class PermissionService {
     }
 
     // Check if user is an institution admin
-    const institutionAdmin = await this.prisma.institutionAdmin.findUnique({
+    const institutionAdmin = await prisma.institutionAdmin.findUnique({
       where: {
         institutionId_userId: {
           institutionId,
@@ -132,7 +126,7 @@ export class PermissionService {
     }
 
     // Check if user is a member of any department in this institution
-    const departmentMembership = await this.prisma.departmentMember.findFirst({
+    const departmentMembership = await prisma.departmentMember.findFirst({
       where: {
         userId: userIdInt,
         department: {
@@ -146,7 +140,7 @@ export class PermissionService {
     }
 
     // Check if user is a manager of any department in this institution
-    const departmentManagement = await this.prisma.departmentManager.findFirst({
+    const departmentManagement = await prisma.departmentManager.findFirst({
       where: {
         userId: userIdInt,
         department: {
@@ -201,7 +195,7 @@ export class PermissionService {
     }
 
     // Get the user
-    const user = await this.prisma.users.findUnique({
+    const user = await prisma.users.findUnique({
       where: { id: userIdInt },
       select: { role: true }
     });
@@ -225,5 +219,4 @@ export class PermissionService {
 }
 
 // Create and export instance
-const prisma = new PrismaClient();
-export const permissionService = new PermissionService(prisma);
+export const permissionService = new PermissionService();

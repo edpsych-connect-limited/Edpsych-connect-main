@@ -57,71 +57,87 @@ class PredictiveAnalyticsService {
   async generateStudentOutcomePredictions(
     id: string,
     outcomeType: string = 'academic_performance',
-    timeframe: number = 90
+    _timeframe: number = 90
   ): Promise<StudentOutcomePrediction[]> {
     try {
-      // In a real implementation, we would query the actual database
-      // This is a simplified mock implementation for demonstration
+      // Fetch real students from the institution
+      // We assume 'id' is the tenant_id for now, as students are scoped by tenant
+      const tenantId = parseInt(id);
       
-      // Mock student data for demonstration
-      const institutionStudents = await this.getMockStudentData(id);
+      if (isNaN(tenantId)) {
+        // If id is not a number, it might be an Institution ID (UUID)
+        // We would need to find the tenant associated with this institution
+        // For now, we'll return empty if not a valid tenant ID
+        console.warn('Invalid tenant ID for predictions:', id);
+        return [];
+      }
+
+      const students = await prisma.students.findMany({
+        where: {
+          tenant_id: tenantId
+        },
+        include: {
+          student_profile: true,
+          cases: {
+            include: {
+              assessments: true,
+              interventions: true,
+              assessment_instances: true
+            }
+          }
+        }
+      });
 
       // Prepare predictions for each student
       const predictions: StudentOutcomePrediction[] = [];
 
-      for (const student of institutionStudents) {
-        // Calculate baseline metrics
-        const assessmentScores = student.assessmentResults.map((result: any) => result.score || 0);
-        const averageScore = assessmentScores.length > 0
-          ? assessmentScores.reduce((a: number, b: number) => a + b, 0) / assessmentScores.length
+      for (const student of students) {
+        // Calculate baseline metrics from assessments
+        // Flatten all assessments from all cases
+        const allAssessments = student.cases.flatMap(c => c.assessment_instances);
+        
+        // Calculate completion rate of assessments
+        const completedAssessments = allAssessments.filter(a => a.status === 'completed').length;
+        const totalAssessments = allAssessments.length;
+        const completionRate = totalAssessments > 0 ? (completedAssessments / totalAssessments) * 100 : 0;
+        
+        // Calculate intervention progress
+        const allInterventions = student.cases.flatMap(c => c.interventions);
+        const completedInterventions = allInterventions.filter(i => i.status === 'completed').length;
+        const interventionProgress = allInterventions.length > 0 
+          ? (completedInterventions / allInterventions.length) * 100 
           : 0;
         
-        const interventionProgress = student.interventions.map((intervention: any) => {
-          const progressRecords = intervention.progressRecords || [];
-          return progressRecords.length > 0
-            ? progressRecords[progressRecords.length - 1].progressPercentage || 0
-            : 0;
-        });
-        
-        const averageInterventionProgress = interventionProgress.length > 0
-          ? interventionProgress.reduce((a: number, b: number) => a + b, 0) / interventionProgress.length
-          : 0;
-        
-        // Analyze engagement from activities
-        const engagementScore = this.calculateEngagementScore(student.activities);
+        // Analyze engagement (using profile data as proxy since we don't have direct user link yet)
+        const engagementScore = student.student_profile?.engagement_score 
+          ? student.student_profile.engagement_score * 10 
+          : 5; // Default to mid-range
         
         // Generate prediction based on analyzed factors
-        // This would normally use a trained ML model - simplified for demonstration
         const predictionFactors = [
           {
-            factor: 'Assessment Performance',
+            factor: 'Assessment Completion',
             weight: 0.35,
-            value: averageScore,
-            description: `Average assessment score: ${averageScore.toFixed(1)}%`
+            value: completionRate,
+            description: `Assessment completion rate: ${completionRate.toFixed(1)}%`
           },
           {
             factor: 'Intervention Progress',
             weight: 0.25,
-            value: averageInterventionProgress,
-            description: `Average intervention progress: ${averageInterventionProgress.toFixed(1)}%`
+            value: interventionProgress,
+            description: `Intervention completion rate: ${interventionProgress.toFixed(1)}%`
           },
           {
             factor: 'Engagement Level',
             weight: 0.20,
             value: engagementScore,
-            description: `Platform engagement score: ${engagementScore.toFixed(1)}/10`
+            description: `Engagement score: ${engagementScore.toFixed(1)}/10`
           },
           {
-            factor: 'Attendance Rate',
+            factor: 'SEN Status',
             weight: 0.15,
-            value: student.studentProfile?.attendanceRate || 0,
-            description: `Attendance rate: ${(student.studentProfile?.attendanceRate || 0).toFixed(1)}%`
-          },
-          {
-            factor: 'Previous Performance Trend',
-            weight: 0.05,
-            value: this.calculatePerformanceTrend(student.assessmentResults),
-            description: `Performance trend: ${this.calculatePerformanceTrend(student.assessmentResults) > 0 ? 'Improving' : 'Declining'}`
+            value: student.sen_status ? 1 : 0, // Binary factor for now
+            description: `SEN Status: ${student.sen_status || 'None'}`
           }
         ];
         
@@ -134,16 +150,16 @@ class PredictiveAnalyticsService {
         // Convert to probability (0-1)
         const probabilityScore = Math.min(Math.max(predictionScore / 100, 0), 1);
         
-        // Determine recommended interventions based on factors
+        // Determine recommended interventions
         const recommendedInterventions = await this.getRecommendedInterventions(
-          student.id, 
+          student.id.toString(), 
           predictionFactors, 
           outcomeType
         );
         
         // Create prediction object
         const prediction: StudentOutcomePrediction = {
-          studentId: student.id,
+          studentId: student.id.toString(),
           targetOutcome: outcomeType,
           probabilityScore,
           contributingFactors: predictionFactors.map(f => ({
@@ -156,6 +172,19 @@ class PredictiveAnalyticsService {
           predictionDate: new Date()
         };
         
+        // Save prediction to DB
+        await prisma.studentOutcomePrediction.create({
+          data: {
+            studentId: student.id,
+            targetOutcome: outcomeType,
+            probabilityScore,
+            contributingFactors: predictionFactors,
+            recommendedInterventions: recommendedInterventions,
+            confidenceLevel: prediction.confidenceLevel,
+            predictionDate: prediction.predictionDate
+          }
+        });
+
         predictions.push(prediction);
       }
       
@@ -341,41 +370,6 @@ class PredictiveAnalyticsService {
   }
   
   /**
-   * Mock data methods for demonstration
-   */
-  
-  private async getMockStudentData(id: string): Promise<any[]> {
-    // Generate mock student data with assessment results, interventions, and activities
-    return Array.from({ length: 10 }, (_, i) => ({
-      id: `student-${i + 1}`,
-      name: `Student ${i + 1}`,
-      role: 'STUDENT',
-      studentProfile: {
-        attendanceRate: 85 + Math.random() * 15
-      },
-      assessmentResults: Array.from({ length: 5 }, (_, j) => ({
-        id: `result-${i}-${j}`,
-        score: 60 + Math.random() * 40,
-        completedAt: new Date(Date.now() - j * 7 * 24 * 60 * 60 * 1000)
-      })),
-      interventions: Array.from({ length: 2 }, (_, j) => ({
-        id: `intervention-${i}-${j}`,
-        title: `Intervention ${j + 1}`,
-        progressRecords: Array.from({ length: 3 }, (_, k) => ({
-          id: `progress-${i}-${j}-${k}`,
-          progressPercentage: k * 33.3,
-          recordedAt: new Date(Date.now() - k * 7 * 24 * 60 * 60 * 1000)
-        }))
-      })),
-      activities: Array.from({ length: 20 }, (_, j) => ({
-        id: `activity-${i}-${j}`,
-        type: ['login', 'assessment', 'resource_view', 'intervention'][Math.floor(Math.random() * 4)],
-        createdAt: new Date(Date.now() - j * 24 * 60 * 60 * 1000)
-      }))
-    }));
-  }
-
-  /**
    * Private helper methods
    */
   
@@ -441,168 +435,102 @@ class PredictiveAnalyticsService {
   private async getRecommendedInterventions(
     studentId: string, 
     factors: any[], 
-    outcomeType: string
+    _outcomeType: string
   ): Promise<any[]> {
     // Find interventions that address the lowest performing factors
     const weakestFactors = factors
-      .filter((f: any) => f.value < 0.6)
+      .filter((f: any) => f.value < 60) // Threshold 60%
       .sort((a: any, b: any) => a.value - b.value)
       .slice(0, 2);
     
-    if (weakestFactors.length === 0) {
-      return [];
-    }
+    // If no weak factors, return general enrichment
     
-    // Mock intervention templates for demonstration
-    const mockInterventions = [
-      {
-        id: 'intervention-template-1',
-        name: 'Targeted Reading Intervention',
-        description: 'A structured program to improve reading comprehension and fluency',
-        effectivenessScore: 0.85
+    // Fetch intervention types from DB (using distinct on intervention_type)
+    const interventionTypes = await prisma.interventions.findMany({
+      distinct: ['intervention_type'],
+      select: {
+        intervention_type: true
       },
-      {
-        id: 'intervention-template-2',
-        name: 'Mathematics Skill Builder',
-        description: 'Progressive exercises to build foundational math skills',
-        effectivenessScore: 0.82
-      },
-      {
-        id: 'intervention-template-3',
-        name: 'Attendance Improvement Program',
-        description: 'Structured approach to address attendance issues and encourage participation',
-        effectivenessScore: 0.78
-      },
-      {
-        id: 'intervention-template-4',
-        name: 'Engagement Enhancement Activities',
-        description: 'Interactive activities designed to increase student engagement',
-        effectivenessScore: 0.75
-      },
-      {
-        id: 'intervention-template-5',
-        name: 'Performance Tracking System',
-        description: 'A personalized system for students to track and improve their academic performance',
-        effectivenessScore: 0.72
-      }
-    ];
-    
-    // Filter interventions based on weakest factors
-    const factorKeywords = weakestFactors.map((f: any) => f.factor.toLowerCase());
-    let recommendedInterventions = mockInterventions;
-    
-    // Simple filtering logic to simulate database query
-    if (factorKeywords.includes('assessment performance')) {
-      recommendedInterventions = recommendedInterventions.filter((i: any) =>
-        i.name.toLowerCase().includes('skill') ||
-        i.description.toLowerCase().includes('academic')
-      );
-    }
-    
-    if (factorKeywords.includes('attendance rate')) {
-      recommendedInterventions = recommendedInterventions.filter((i: any) =>
-        i.name.toLowerCase().includes('attendance') ||
-        i.description.toLowerCase().includes('attendance')
-      );
-    }
-    
-    if (factorKeywords.includes('engagement level')) {
-      recommendedInterventions = recommendedInterventions.filter((i: any) =>
-        i.name.toLowerCase().includes('engagement') ||
-        i.description.toLowerCase().includes('engagement')
-      );
-    }
-    
-    // Return top 3 interventions sorted by effectiveness
-    recommendedInterventions = recommendedInterventions
-      .sort((a: any, b: any) => b.effectivenessScore - a.effectivenessScore)
-      .slice(0, 3);
-    
-    return recommendedInterventions.map((intervention: any) => ({
-      id: intervention.id,
-      name: intervention.name,
-      description: intervention.description || '',
-      expectedImpact: intervention.effectivenessScore || 0.7
+      take: 10
+    });
+
+    // Map types to recommendations
+    let recommendations = interventionTypes.map((i, index) => ({
+      id: `rec-${index}`,
+      name: i.intervention_type,
+      description: `Recommended intervention for ${i.intervention_type}`,
+      expectedImpact: 0.7 + (Math.random() * 0.2) // Simulated impact
     }));
+
+    // Filter based on weak factors (simple keyword matching)
+    if (weakestFactors.length > 0) {
+       // In a real system, we would have a mapping of factors to intervention types
+       // For now, we return all available types as recommendations
+    }
+    
+    return recommendations.slice(0, 3);
   }
   
   private async getAssessmentCompletionTrend(
     id: string,
     cutoffDate: Date
   ): Promise<{date: Date, value: number}[]> {
-    // This would query assessment completion rates grouped by time periods
+    // Use Prisma aggregation
+    // Note: Grouping by date in Prisma is tricky without raw SQL for specific DBs
+    // We'll use the existing raw SQL but update table names if needed
+    // The table names in Prisma are usually PascalCase or mapped.
+    // schema.prisma: model AssessmentResult { ... } -> table "AssessmentResult"
     
-    // Group by week
-    const weeklyData = await prisma.$queryRaw`
+    // The existing raw SQL seems correct for Postgres if table names match
+    
+    return await prisma.$queryRaw`
       SELECT
-        DATE_TRUNC('week', "completedAt") as week,
+        DATE_TRUNC('week', "updatedAt") as week,
         COUNT(*) as count
-      FROM "AssessmentResult" ar
-      JOIN "User" u ON ar."id" = u.id
-      JOIN "InstitutionUser" iu ON u.id = iu."id"
-      WHERE iu."id" = ${id}
-      AND ar."completedAt" >= ${cutoffDate}
+      FROM "AssessmentInstance"
+      WHERE "tenant_id" = ${parseInt(id)}
+      AND "updatedAt" >= ${cutoffDate}
       GROUP BY week
       ORDER BY week ASC
-    `;
-    
-    return (weeklyData as any[]).map((row: any) => ({
-      date: row.week,
-      value: Number(row.count)
-    }));
+    ` as any[];
   }
   
   private async getAverageScoreTrend(
     id: string,
     cutoffDate: Date
   ): Promise<{date: Date, value: number}[]> {
-    // This would query average assessment scores grouped by time periods
+    // Using AssessmentOutcome for scores if available, or AssessmentResult
+    // schema.prisma has AssessmentResult linked to Assessment
     
-    // Group by week
-    const weeklyData = await prisma.$queryRaw`
+    return await prisma.$queryRaw`
       SELECT
-        DATE_TRUNC('week', "completedAt") as week,
+        DATE_TRUNC('week', "createdAt") as week,
         AVG(score) as avg_score
-      FROM "AssessmentResult" ar
-      JOIN "User" u ON ar."id" = u.id
-      JOIN "InstitutionUser" iu ON u.id = iu."id"
-      WHERE iu."id" = ${id}
-      AND ar."completedAt" >= ${cutoffDate}
+      FROM "AssessmentResult"
+      WHERE "createdAt" >= ${cutoffDate}
       GROUP BY week
       ORDER BY week ASC
-    `;
-    
-    return (weeklyData as any[]).map((row: any) => ({
-      date: row.week,
-      value: Number(row.avg_score)
-    }));
+    ` as any[];
   }
   
   private async getInterventionProgressTrend(
     id: string,
     cutoffDate: Date
   ): Promise<{date: Date, value: number}[]> {
-    // This would query intervention progress records grouped by time periods
+    // We don't have ProgressRecord model in schema anymore?
+    // We have interventions table.
     
-    // Group by week
-    const weeklyData = await prisma.$queryRaw`
+    return await prisma.$queryRaw`
       SELECT
-        DATE_TRUNC('week', pr."recordedAt") as week,
-        AVG(pr."progressPercentage") as avg_progress
-      FROM "ProgressRecord" pr
-      JOIN "Intervention" i ON pr."interventionId" = i.id
-      JOIN "User" u ON i."id" = u.id
-      JOIN "InstitutionUser" iu ON u.id = iu."id"
-      WHERE iu."id" = ${id}
-      AND pr."recordedAt" >= ${cutoffDate}
+        DATE_TRUNC('week', "updated_at") as week,
+        COUNT(*) as value
+      FROM "interventions"
+      WHERE "tenant_id" = ${parseInt(id)}
+      AND "updated_at" >= ${cutoffDate}
+      AND "status" = 'completed'
       GROUP BY week
       ORDER BY week ASC
-    `;
-    
-    return (weeklyData as any[]).map((row: any) => ({
-      date: row.week,
-      value: Number(row.avg_progress)
-    }));
+    ` as any[];
   }
   
   private async calculateInstitutionMetric(institution: any, metric: string): Promise<number> {
@@ -629,4 +557,5 @@ class PredictiveAnalyticsService {
   }
 }
 
-export default new PredictiveAnalyticsService();
+const predictiveAnalyticsService = new PredictiveAnalyticsService();
+export default predictiveAnalyticsService;

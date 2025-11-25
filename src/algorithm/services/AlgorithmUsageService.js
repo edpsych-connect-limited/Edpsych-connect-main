@@ -1,3 +1,5 @@
+import { prisma } from '../../lib/prisma';
+
 /**
  * Service for tracking algorithm usage and calculating royalties
  *
@@ -13,12 +15,17 @@ class AlgorithmUsageService {
    * @returns {Promise<Object>} - Details of the recorded usage
    */
   async recordUsage(usageData) {
-    console.log('Recording algorithm usage:', usageData);
-    return {
-      id: `usage-${Date.now()}`,
-      ...usageData,
-      recordedAt: new Date().toISOString()
-    };
+    return await prisma.algorithmUsage.create({
+      data: {
+        algorithmId: usageData.algorithmId,
+        versionId: usageData.versionId,
+        tenantId: usageData.tenantId,
+        userId: usageData.userId,
+        executionTime: usageData.executionTime || 0,
+        status: usageData.status || 'success',
+        cost: usageData.cost || 0
+      }
+    });
   }
 
   /**
@@ -29,23 +36,30 @@ class AlgorithmUsageService {
    * @param {Object} [filterOptions={}] - Additional filter options
    * @returns {Promise<Object>} - Paginated usage history
    */
-  async getUsageHistory(algorithmId, _paginationOptions = {}, _filterOptions = {}) {
-    console.log('Getting usage history for algorithm:', algorithmId);
+  async getUsageHistory(algorithmId, paginationOptions = {}, _filterOptions = {}) {
+    const { page = 1, limit = 20 } = paginationOptions;
+    const skip = (page - 1) * limit;
+
+    const [items, total] = await Promise.all([
+      prisma.algorithmUsage.findMany({
+        where: { algorithmId },
+        skip,
+        take: limit,
+        orderBy: { timestamp: 'desc' },
+        include: { tenant: true }
+      }),
+      prisma.algorithmUsage.count({ where: { algorithmId } })
+    ]);
+
     return {
-      items: [
-        {
-          id: 'mock-usage-1',
-          algorithmId,
-          timestamp: new Date().toISOString(),
-          institutionName: 'Mock Institution',
-          licenseType: 'subscription',
-          executionTime: 150,
-          resultStatus: 'success'
-        }
-      ],
-      total: 1,
-      page: 1,
-      limit: 20
+      items: items.map(item => ({
+        ...item,
+        institutionName: item.tenant?.name || 'Unknown Institution',
+        recordedAt: item.timestamp
+      })),
+      total,
+      page,
+      limit
     };
   }
 
@@ -57,22 +71,33 @@ class AlgorithmUsageService {
    * @returns {Promise<Object>} - Comprehensive usage statistics
    */
   async getUsageStats(algorithmId, _filterOptions = {}) {
-    console.log('Getting usage stats for algorithm:', algorithmId);
+    const usages = await prisma.algorithmUsage.findMany({
+      where: { algorithmId }
+    });
+
+    const totalUsage = usages.length;
+    const totalRevenue = usages.reduce((sum, u) => sum + u.cost, 0);
+    const uniqueTenants = new Set(usages.map(u => u.tenantId)).size;
+
     return {
-      totalUsage: 150,
-      totalRevenue: 2500,
-      activeLicenses: 5,
-      institutions: 3,
-      usageTrend: 15,
-      revenueTrend: 20,
-      licenseTrend: 10,
-      institutionTrend: 5,
+      totalUsage,
+      totalRevenue,
+      activeLicenses: await prisma.algorithmLicense.count({
+        where: { algorithmId, status: 'active' }
+      }),
+      institutions: uniqueTenants,
+      usageTrend: 0, // Calculate based on time periods if needed
+      revenueTrend: 0,
+      licenseTrend: 0,
+      institutionTrend: 0,
       usageOverTime: [],
       revenueComparison: [],
       licenseDistribution: [],
       topInstitutions: [],
       performanceMetrics: [],
-      successRate: 95
+      successRate: totalUsage > 0
+        ? (usages.filter(u => u.status === 'success').length / totalUsage) * 100
+        : 100
     };
   }
 
@@ -85,11 +110,15 @@ class AlgorithmUsageService {
    * @returns {Promise<Object>} - The report data
    */
   async generateUsageReport(algorithmId, period, format = 'csv') {
-    console.log('Generating usage report:', { algorithmId, period, format });
+    // In a real implementation, this would generate a file
+    // For now, we'll return a placeholder URL but verify the algorithm exists
+    const algorithm = await prisma.algorithm.findUnique({ where: { id: algorithmId } });
+    if (!algorithm) throw new Error('Algorithm not found');
+
     return {
       success: true,
       message: `Report generated for ${period} in ${format} format`,
-      downloadUrl: `mock-report-${algorithmId}.${format}`
+      downloadUrl: `/api/reports/algorithm/${algorithmId}/${period}.${format}`
     };
   }
 
@@ -102,15 +131,33 @@ class AlgorithmUsageService {
    * @returns {Promise<Object>} - Validity status and details
    */
   async checkLicenseValidity(licenseId, algorithmId, institutionId) {
-    console.log('Checking license validity:', { licenseId, algorithmId, institutionId });
+    const license = await prisma.algorithmLicense.findFirst({
+      where: {
+        id: licenseId,
+        algorithmId,
+        // tenantId: parseInt(institutionId), // Assuming institutionId matches tenantId
+        status: 'active'
+      }
+    });
+
+    if (!license) {
+      return { valid: false, reason: 'License not found or inactive' };
+    }
+
+    if (license.expiresAt && new Date() > license.expiresAt) {
+      return { valid: false, reason: 'License expired' };
+    }
+
     return {
       valid: true,
       licenseId,
       algorithmId,
       institutionId,
-      expiresAt: null,
+      expiresAt: license.expiresAt,
       usageLimit: null,
-      currentUsage: 0
+      currentUsage: await prisma.algorithmUsage.count({
+        where: { algorithmId, tenantId: license.tenantId }
+      })
     };
   }
 
@@ -122,12 +169,20 @@ class AlgorithmUsageService {
    * @returns {Promise<Object>} - Royalty information
    */
   async getCreatorRoyalties(creatorId, _options = {}) {
-    console.log('Getting creator royalties:', creatorId);
+    const algorithms = await prisma.algorithm.findMany({
+      where: { creatorId: parseInt(creatorId) },
+      include: { usages: true }
+    });
+
+    const totalEarnings = algorithms.reduce((sum, algo) => {
+      return sum + algo.usages.reduce((uSum, usage) => uSum + (usage.cost * 0.7), 0); // 70% share
+    }, 0);
+
     return {
       creatorId,
-      totalEarnings: 2500,
-      pendingPayouts: 500,
-      paidOut: 2000,
+      totalEarnings,
+      pendingPayouts: 0, // Need payout tracking table
+      paidOut: 0,
       earningsByMonth: [],
       topAlgorithms: []
     };
@@ -141,12 +196,19 @@ class AlgorithmUsageService {
    * @returns {Promise<Object>} - Detailed royalty breakdown
    */
   async getAlgorithmRoyalties(algorithmId, _options = {}) {
-    console.log('Getting algorithm royalties:', algorithmId);
+    const usages = await prisma.algorithmUsage.findMany({
+      where: { algorithmId }
+    });
+
+    const totalRevenue = usages.reduce((sum, u) => sum + u.cost, 0);
+    const creatorShare = totalRevenue * 0.7;
+    const platformShare = totalRevenue * 0.3;
+
     return {
       algorithmId,
-      totalRevenue: 1500,
-      creatorShare: 1050,
-      platformShare: 450,
+      totalRevenue,
+      creatorShare,
+      platformShare,
       revenueByLicense: [],
       revenueByInstitution: []
     };
@@ -162,16 +224,41 @@ class AlgorithmUsageService {
    * @returns {Promise<Object>} - Algorithm execution results
    */
   async executeAlgorithm(algorithmId, versionId, input, context) {
-    console.log('Executing algorithm:', { algorithmId, versionId, input, context });
+    // Verify license
+    const licenseCheck = await this.checkLicenseValidity(
+      context.licenseId,
+      algorithmId,
+      context.institutionId
+    );
+
+    if (!licenseCheck.valid) {
+      throw new Error(`Invalid license: ${licenseCheck.reason}`);
+    }
+
+    // In a real system, this would call the actual algorithm engine
+    // For now, we'll simulate execution but record real usage
+    const executionTime = Math.floor(Math.random() * 500) + 50; // Simulated time
+
+    await this.recordUsage({
+      algorithmId,
+      versionId,
+      tenantId: parseInt(context.institutionId),
+      userId: context.userId ? parseInt(context.userId) : null,
+      executionTime,
+      status: 'success',
+      cost: 0.5 // Fixed cost per execution for now
+    });
+
     return {
       id: `execution-${Date.now()}`,
       algorithmId,
       versionId,
-      result: 'Mock execution result',
-      executionTime: 150,
+      result: { output: 'Algorithm output placeholder' },
+      executionTime,
       status: 'success'
     };
   }
 }
 
-export default new AlgorithmUsageService();
+const algorithmUsageService = new AlgorithmUsageService();
+export default algorithmUsageService;

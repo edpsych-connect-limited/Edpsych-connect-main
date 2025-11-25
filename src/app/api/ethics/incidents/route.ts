@@ -8,54 +8,11 @@ import { getServerSession } from 'next-auth';
 
 export const dynamic = 'force-dynamic';
 
-// Mock data - in production, would use EthicsIncidentService
-const mockIncidents = [
-  {
-    id: 'inc_1',
-    title: 'Gender bias detected in career recommendations',
-    description: 'Significant disparity in career recommendations between male and female users with similar profiles',
-    monitorId: 'mon_1',
-    metricId: 'metric_1',
-    metricValue: 0.083,
-    thresholdValue: 0.05,
-    detectedAt: new Date(Date.now() - 86400000).toISOString(),
-    status: 'investigating',
-    severity: 'high',
-    assignedTo: null,
-    resolutionSteps: [
-      {
-        description: 'Analyze recommendation algorithm for gender-related variables',
-        status: 'completed',
-        createdAt: new Date(Date.now() - 82800000).toISOString(),
-        completedAt: new Date(Date.now() - 79200000).toISOString()
-      },
-      {
-        description: 'Review training data for potential biases',
-        status: 'in_progress',
-        createdAt: new Date(Date.now() - 75600000).toISOString(),
-        completedAt: null
-      }
-    ],
-    resolvedAt: null,
-    tags: ['bias', 'gender', 'recommendations']
-  },
-  {
-    id: 'inc_2',
-    title: 'Elevated PII access rate detected',
-    description: 'The rate of PII data access has exceeded thresholds by 15%',
-    monitorId: 'mon_2',
-    metricId: 'metric_3',
-    metricValue: 11.5,
-    thresholdValue: 10,
-    detectedAt: new Date(Date.now() - 3600000).toISOString(),
-    status: 'open',
-    severity: 'critical',
-    assignedTo: null,
-    resolutionSteps: [],
-    resolvedAt: null,
-    tags: ['privacy', 'data-access', 'security']
-  }
-];
+import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { prisma } from '@/lib/prisma';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
@@ -69,36 +26,33 @@ export async function GET(request: NextRequest) {
     const severity = searchParams.get('severity');
     const limit = parseInt(searchParams.get('limit') || '50');
 
-    let incidents = [...mockIncidents];
-
-    // Filter by status
+    const whereClause: any = {};
     if (status) {
       if (status === 'active') {
-        incidents = incidents.filter(i =>
-          ['open', 'investigating', 'mitigating'].includes(i.status)
-        );
+        whereClause.status = { in: ['open', 'investigating', 'mitigating'] };
       } else {
-        incidents = incidents.filter(i => i.status === status);
+        whereClause.status = status;
       }
     }
+    if (severity) whereClause.severity = severity;
 
-    // Filter by severity
-    if (severity) {
-      incidents = incidents.filter(i => i.severity === severity);
-    }
+    const incidents = await prisma.ethicsIncident.findMany({
+        where: whereClause,
+        take: limit,
+        orderBy: { detectedAt: 'desc' }
+    });
 
-    // Apply limit
-    incidents = incidents.slice(0, limit);
+    const summary = {
+        total: await prisma.ethicsIncident.count(),
+        open: await prisma.ethicsIncident.count({ where: { status: 'open' } }),
+        investigating: await prisma.ethicsIncident.count({ where: { status: 'investigating' } }),
+        resolved: await prisma.ethicsIncident.count({ where: { status: 'resolved' } })
+    };
 
     return NextResponse.json({
       incidents,
       count: incidents.length,
-      summary: {
-        total: mockIncidents.length,
-        open: mockIncidents.filter(i => i.status === 'open').length,
-        investigating: mockIncidents.filter(i => i.status === 'investigating').length,
-        resolved: mockIncidents.filter(i => i.status === 'resolved').length
-      }
+      summary
     });
   } catch (error) {
     console.error('Ethics Incidents API error:', error);
@@ -136,22 +90,22 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        const newIncident = {
-          id: `inc_${Date.now()}`,
-          title,
-          description,
-          monitorId: monitorId || null,
-          metricId: metricId || null,
-          metricValue: null,
-          thresholdValue: null,
-          detectedAt: new Date().toISOString(),
-          status: 'open',
-          severity: severity || 'medium',
-          assignedTo: null,
-          resolutionSteps: [],
-          resolvedAt: null,
-          tags: []
-        };
+        const newIncident = await prisma.ethicsIncident.create({
+            data: {
+                title,
+                description,
+                monitorId: monitorId || null,
+                metricId: metricId || null,
+                metricValue: null,
+                thresholdValue: null,
+                detectedAt: new Date(),
+                status: 'open',
+                severity: severity || 'medium',
+                assignedToId: null,
+                resolutionSteps: [],
+                tags: []
+            }
+        });
 
         return NextResponse.json({
           success: true,
@@ -167,7 +121,11 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        // In production, would use EthicsIncidentService.assignIncident()
+        await prisma.ethicsIncident.update({
+            where: { id: incidentId },
+            data: { assignedToId: parseInt(data.assignedTo) || undefined }
+        });
+
         return NextResponse.json({
           success: true,
           message: 'Incident assigned successfully'
@@ -181,7 +139,20 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        // In production, would use EthicsIncidentService.addResolutionStep()
+        const incidentS = await prisma.ethicsIncident.findUnique({ where: { id: incidentId } });
+        if (!incidentS) return NextResponse.json({ error: 'Incident not found' }, { status: 404 });
+        const currentSteps = (incidentS.resolutionSteps as any[]) || [];
+        currentSteps.push({
+            description: data.description,
+            status: 'completed',
+            createdAt: new Date(),
+            completedAt: new Date()
+        });
+        await prisma.ethicsIncident.update({
+            where: { id: incidentId },
+            data: { resolutionSteps: currentSteps }
+        });
+
         return NextResponse.json({
           success: true,
           message: 'Resolution step added successfully'
@@ -195,7 +166,11 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        // In production, would use EthicsIncidentService.updateIncidentStatus()
+        await prisma.ethicsIncident.update({
+            where: { id: incidentId },
+            data: { status: data.status }
+        });
+
         return NextResponse.json({
           success: true,
           message: 'Incident status updated successfully'
@@ -209,7 +184,11 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        // In production, would use EthicsIncidentService.resolveIncident()
+        await prisma.ethicsIncident.update({
+            where: { id: incidentId },
+            data: { status: 'resolved', resolvedAt: new Date() }
+        });
+
         return NextResponse.json({
           success: true,
           message: 'Incident resolved successfully'
@@ -223,7 +202,11 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        // In production, would use EthicsIncidentService.dismissIncident()
+        await prisma.ethicsIncident.update({
+            where: { id: incidentId },
+            data: { status: 'dismissed', resolvedAt: new Date() }
+        });
+
         return NextResponse.json({
           success: true,
           message: 'Incident dismissed successfully'

@@ -8,90 +8,11 @@ import { getServerSession } from 'next-auth';
 
 export const dynamic = 'force-dynamic';
 
-// Mock data - in production, would use EthicsAssessmentService
-const mockAssessments = [
-  {
-    id: 'assess_1',
-    title: 'Ethics Assessment: New AI Recommendation Algorithm',
-    description: 'Ethics assessment for the new AI recommendation algorithm using advanced ML techniques',
-    componentId: 'ai-recommendation-v2',
-    componentType: 'algorithm',
-    assessorId: 'user_1',
-    reviewers: ['user_2', 'user_3'],
-    status: 'in_review',
-    version: 1,
-    createdAt: new Date(Date.now() - 86400000 * 7).toISOString(),
-    updatedAt: new Date(Date.now() - 86400000 * 2).toISOString(),
-    approvedAt: null,
-    questions: [
-      {
-        question: 'Does this algorithm process sensitive personal data?',
-        answer: 'Yes, it processes educational history and assessment scores',
-        category: 'privacy'
-      },
-      {
-        question: 'Are there potential biases in the training data?',
-        answer: 'Training data has been reviewed for demographic balance',
-        category: 'fairness'
-      }
-    ],
-    ethicalRisks: [
-      {
-        description: 'Potential for algorithmic bias in recommendations',
-        severity: 'high',
-        category: 'fairness'
-      },
-      {
-        description: 'Privacy concerns with personal data processing',
-        severity: 'medium',
-        category: 'privacy'
-      }
-    ],
-    mitigations: [
-      {
-        riskIndex: 0,
-        description: 'Implement continuous bias monitoring',
-        status: 'planned'
-      },
-      {
-        riskIndex: 1,
-        description: 'Add data anonymization layer',
-        status: 'implemented'
-      }
-    ],
-    recommendedMonitors: [
-      {
-        monitorType: 'bias_detection',
-        description: 'Monitor for demographic disparities in recommendations',
-        configuration: {
-          frequency: 'daily',
-          metrics: ['gender_disparity', 'age_disparity']
-        }
-      }
-    ],
-    tags: ['ai', 'algorithm', 'recommendations']
-  },
-  {
-    id: 'assess_2',
-    title: 'Ethics Assessment: Student Data Collection Enhancement',
-    description: 'Assessment of ethical implications for enhanced student data collection',
-    componentId: 'student-data-collection',
-    componentType: 'feature',
-    assessorId: 'user_2',
-    reviewers: ['user_1', 'user_3'],
-    status: 'approved',
-    version: 1,
-    createdAt: new Date(Date.now() - 86400000 * 15).toISOString(),
-    updatedAt: new Date(Date.now() - 86400000 * 5).toISOString(),
-    approvedAt: new Date(Date.now() - 86400000 * 5).toISOString(),
-    outcome: 'approved',
-    questions: [],
-    ethicalRisks: [],
-    mitigations: [],
-    recommendedMonitors: [],
-    tags: ['data-collection', 'privacy']
-  }
-];
+import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { prisma } from '@/lib/prisma';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
@@ -104,28 +25,27 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status');
     const componentType = searchParams.get('componentType');
 
-    let assessments = [...mockAssessments];
+    const whereClause: any = {};
+    if (status) whereClause.status = status;
+    if (componentType) whereClause.componentType = componentType;
 
-    // Filter by status
-    if (status) {
-      assessments = assessments.filter(a => a.status === status);
-    }
+    const assessments = await prisma.ethicsAssessment.findMany({
+        where: whereClause,
+        orderBy: { createdAt: 'desc' }
+    });
 
-    // Filter by component type
-    if (componentType) {
-      assessments = assessments.filter(a => a.componentType === componentType);
-    }
+    const summary = {
+        total: await prisma.ethicsAssessment.count(),
+        draft: await prisma.ethicsAssessment.count({ where: { status: 'draft' } }),
+        in_review: await prisma.ethicsAssessment.count({ where: { status: 'in_review' } }),
+        approved: await prisma.ethicsAssessment.count({ where: { status: 'approved' } }),
+        rejected: await prisma.ethicsAssessment.count({ where: { status: 'rejected' } })
+    };
 
     return NextResponse.json({
       assessments,
       count: assessments.length,
-      summary: {
-        total: mockAssessments.length,
-        draft: mockAssessments.filter(a => a.status === 'draft').length,
-        in_review: mockAssessments.filter(a => a.status === 'in_review').length,
-        approved: mockAssessments.filter(a => a.status === 'approved').length,
-        rejected: mockAssessments.filter(a => a.status === 'rejected').length
-      }
+      summary
     });
   } catch (error) {
     console.error('Ethics Assessments API error:', error);
@@ -163,25 +83,22 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        const newAssessment = {
-          id: `assess_${Date.now()}`,
-          title,
-          description,
-          componentId,
-          componentType,
-          assessorId: session.user.id || 'current_user',
-          reviewers: [],
-          status: 'draft',
-          version: 1,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-          approvedAt: null,
-          questions: [],
-          ethicalRisks: [],
-          mitigations: [],
-          recommendedMonitors: [],
-          tags: []
-        };
+        const newAssessment = await prisma.ethicsAssessment.create({
+            data: {
+                title,
+                description,
+                componentId,
+                componentType,
+                assessorId: parseInt(session.user.id) || 1,
+                status: 'draft',
+                version: 1,
+                questions: [],
+                ethicalRisks: [],
+                mitigations: [],
+                recommendedMonitors: [],
+                tags: []
+            }
+        });
 
         return NextResponse.json({
           success: true,
@@ -197,81 +114,85 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        // In production, would use EthicsAssessmentService.addQuestion()
+        const assessmentQ = await prisma.ethicsAssessment.findUnique({ where: { id: assessmentId } });
+        if (!assessmentQ) return NextResponse.json({ error: 'Assessment not found' }, { status: 404 });
+
+        const currentQuestions = (assessmentQ.questions as any[]) || [];
+        currentQuestions.push({
+            question: data.question,
+            answer: data.answer,
+            category: data.category || 'general'
+        });
+
+        await prisma.ethicsAssessment.update({
+            where: { id: assessmentId },
+            data: { questions: currentQuestions }
+        });
+
         return NextResponse.json({
           success: true,
           message: 'Question added successfully'
         });
 
       case 'add_risk':
-        if (!assessmentId || !data.description) {
-          return NextResponse.json(
-            { error: 'Missing required fields: assessmentId, description' },
-            { status: 400 }
-          );
-        }
-
-        // In production, would use EthicsAssessmentService.addEthicalRisk()
-        return NextResponse.json({
-          success: true,
-          message: 'Ethical risk added successfully'
-        });
+         if (!assessmentId || !data.description) {
+            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+         }
+         const assessmentR = await prisma.ethicsAssessment.findUnique({ where: { id: assessmentId } });
+         if (!assessmentR) return NextResponse.json({ error: 'Assessment not found' }, { status: 404 });
+         const currentRisks = (assessmentR.ethicalRisks as any[]) || [];
+         currentRisks.push({
+             description: data.description,
+             severity: data.severity || 'medium',
+             category: data.category || 'general'
+         });
+         await prisma.ethicsAssessment.update({
+             where: { id: assessmentId },
+             data: { ethicalRisks: currentRisks }
+         });
+         return NextResponse.json({ success: true, message: 'Ethical risk added successfully' });
 
       case 'add_mitigation':
-        if (!assessmentId || !data.riskIndex || !data.description) {
-          return NextResponse.json(
-            { error: 'Missing required fields: assessmentId, riskIndex, description' },
-            { status: 400 }
-          );
-        }
-
-        // In production, would use EthicsAssessmentService.addMitigation()
-        return NextResponse.json({
-          success: true,
-          message: 'Mitigation added successfully'
-        });
+          if (!assessmentId || !data.description) {
+            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+          }
+          const assessmentM = await prisma.ethicsAssessment.findUnique({ where: { id: assessmentId } });
+          if (!assessmentM) return NextResponse.json({ error: 'Assessment not found' }, { status: 404 });
+          const currentMitigations = (assessmentM.mitigations as any[]) || [];
+          currentMitigations.push({
+              riskIndex: data.riskIndex,
+              description: data.description,
+              status: 'planned'
+          });
+          await prisma.ethicsAssessment.update({
+              where: { id: assessmentId },
+              data: { mitigations: currentMitigations }
+          });
+          return NextResponse.json({ success: true, message: 'Mitigation added successfully' });
 
       case 'submit_for_review':
-        if (!assessmentId || !data.reviewers) {
-          return NextResponse.json(
-            { error: 'Missing required fields: assessmentId, reviewers' },
-            { status: 400 }
-          );
-        }
-
-        // In production, would use EthicsAssessmentService.submitForReview()
-        return NextResponse.json({
-          success: true,
-          message: 'Assessment submitted for review successfully'
-        });
+          if (!assessmentId) return NextResponse.json({ error: 'Missing ID' }, { status: 400 });
+          await prisma.ethicsAssessment.update({
+              where: { id: assessmentId },
+              data: { status: 'in_review' }
+          });
+          return NextResponse.json({ success: true, message: 'Assessment submitted for review successfully' });
 
       case 'approve':
-        if (!assessmentId) {
-          return NextResponse.json(
-            { error: 'Missing required field: assessmentId' },
-            { status: 400 }
-          );
-        }
-
-        // In production, would use EthicsAssessmentService.approveAssessment()
-        return NextResponse.json({
-          success: true,
-          message: 'Assessment approved successfully'
-        });
+          if (!assessmentId) return NextResponse.json({ error: 'Missing ID' }, { status: 400 });
+          await prisma.ethicsAssessment.update({
+              where: { id: assessmentId },
+              data: { status: 'approved', approvedAt: new Date() }
+          });
+          return NextResponse.json({ success: true, message: 'Assessment approved successfully' });
 
       case 'request_revisions':
-        if (!assessmentId || !data.feedback) {
-          return NextResponse.json(
-            { error: 'Missing required fields: assessmentId, feedback' },
-            { status: 400 }
-          );
-        }
-
-        // In production, would use EthicsAssessmentService.requestRevisions()
-        return NextResponse.json({
-          success: true,
-          message: 'Revisions requested successfully'
-        });
+          if (!assessmentId) return NextResponse.json({ error: 'Missing ID' }, { status: 400 });
+          await prisma.ethicsAssessment.update({
+              where: { id: assessmentId },
+              data: { status: 'draft' }
+          });
+          return NextResponse.json({ success: true, message: 'Revisions requested successfully' });
 
       default:
         return NextResponse.json(

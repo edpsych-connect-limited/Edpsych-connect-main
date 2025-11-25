@@ -35,6 +35,8 @@ export interface UserSubscription {
   inTrial?: boolean;
   cancelAtPeriodEnd?: boolean;
   metadata?: Record<string, any>;
+  features?: string[];
+  limits?: Record<string, number>;
 }
 
 /**

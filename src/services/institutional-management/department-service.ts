@@ -638,16 +638,29 @@ export class DepartmentService {
     metadata?: any;
   }): Promise<void> {
     try {
+      // Extract institutionId from metadata if available, or try to find it from the entity
+      let institutionId = data.metadata?.institutionId;
+      
+      if (!institutionId && data.entityType === 'Department') {
+        const dept = await prisma.department.findUnique({
+          where: { id: data.entityId },
+          select: { institutionId: true }
+        });
+        if (dept) institutionId = dept.institutionId;
+      }
+
       await prisma.auditLog.create({
         data: {
           userId: data.performedById,
           user_id_int: parseInt(data.performedById) || 0,
           tenant_id: 0, // Default to 0 as Institution uses UUIDs
+          institutionId: institutionId, // Use the dedicated institutionId field
           action: data.action,
           resource: data.entityType,
           details: {
             entityId: data.entityId,
             description: data.description,
+            institutionId: institutionId,
             metadata: data.metadata || {},
           },
         },
