@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Trophy, Target, Users, Zap } from 'lucide-react';
+import { FeatureSpotlightVideo } from '@/components/features/FeatureSpotlightVideo';
 
 export default function FlagshipGamification() {
   return (
@@ -19,44 +20,13 @@ export default function FlagshipGamification() {
             className="relative order-2 lg:order-1"
           >
             <div className="absolute inset-0 bg-gradient-to-bl from-amber-100 to-orange-100 rounded-3xl transform -rotate-3 scale-105 opacity-50 blur-2xl" />
-            <div className="relative bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden">
-              {/* Mock Leaderboard Header */}
-              <div className="bg-slate-900 text-white p-4 flex items-center justify-between">
-                <div className="font-bold flex items-center gap-2">
-                  <Trophy className="w-5 h-5 text-amber-400" />
-                  Battle Royale Season 4
-                </div>
-                <div className="text-xs bg-slate-800 px-2 py-1 rounded text-slate-300">Live Now</div>
-              </div>
-              
-              {/* Mock Leaderboard Content */}
-              <div className="p-0">
-                {[
-                  { rank: 1, name: "Squad Alpha", points: "12,450", change: "+450", color: "bg-amber-50" },
-                  { rank: 2, name: "Team Phoenix", points: "11,200", change: "+120", color: "bg-white" },
-                  { rank: 3, name: "Logic Legends", points: "10,890", change: "+300", color: "bg-white" },
-                ].map((team, idx) => (
-                  <div key={idx} className={`flex items-center justify-between p-4 border-b border-slate-100 ${team.color}`}>
-                    <div className="flex items-center gap-4">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${idx === 0 ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-600'}`}>
-                        {team.rank}
-                      </div>
-                      <div className="font-medium text-slate-900">{team.name}</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="font-bold text-slate-900">{team.points}</div>
-                      <div className="text-xs text-green-600 font-medium">{team.change}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              
-              {/* Storm Event Banner */}
-              <div className="bg-indigo-600 p-3 text-white text-center text-sm font-bold flex items-center justify-center gap-2">
-                <Zap className="w-4 h-4 text-yellow-300" />
-                STORM EVENT ACTIVE: Double Merits!
-              </div>
-            </div>
+            <FeatureSpotlightVideo
+              videoId="9171134a64dd4f98a7e1d77dee0c1fc6"
+              title="Gamification Integrity"
+              description="See how we turn assessment into adventure without compromising clinical data quality."
+              icon="gamification"
+              className="relative z-10"
+            />
           </motion.div>
 
           {/* Text Content */}

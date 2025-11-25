@@ -5,14 +5,11 @@ import path from 'path';
 // CONFIGURATION
 const API_KEY = process.env.HEYGEN_API_KEY || 'sk_V2_hgu_ky346mdR1EZ_sepM85TUnIexIOSuzpiVI5gXaqMhWDo1';
 const API_URL = 'https://api.heygen.com/v2/video/generate';
-// const AVATARS_API_URL = 'https://api.heygen.com/v2/avatars';
-// const VOICES_API_URL = 'https://api.heygen.com/v2/voices';
 const WEBHOOK_URL = 'https://edpsychconnect.com/webhook';
-const CSV_FILE = path.join(process.cwd(), 'video_scripts', 'all_scripts.csv');
-const OUTPUT_LOG = path.join(process.cwd(), 'video_scripts', 'generation_log.txt');
+const CSV_FILE = path.join(process.cwd(), 'video_scripts', 'premium_features', 'scripts.csv');
+const OUTPUT_LOG = path.join(process.cwd(), 'video_scripts', 'premium_features', 'generation_log.txt');
 
 // MAPPINGS
-// UK Voices and Professional Avatars
 const MALE_AVATARS = ['Aditya_public_4', 'Adrian_public_3_20240312'];
 const FEMALE_AVATARS = ['Abigail_expressive_2024112501', 'Adriana_BizTalk_Front_public'];
 
@@ -21,7 +18,6 @@ let VOICES: Record<string, string> = {
   'Female': '2d5b0e6cf36f460aa7fc47e3eee4ba54' // Sonia - Warm (UK)
 };
 
-// Helper to get random avatar
 function getRandomAvatar(gender: 'Male' | 'Female'): string {
     const list = gender === 'Male' ? MALE_AVATARS : FEMALE_AVATARS;
     return list[Math.floor(Math.random() * list.length)];
@@ -31,10 +27,6 @@ if (!API_KEY) {
   console.error('❌ Error: HEYGEN_API_KEY environment variable is not set.');
   process.exit(1);
 }
-
-// Removed unused fetch functions to clean up
-// async function fetchAvatars() { ... }
-// async function fetchVoices() { ... }
 
 async function generateVideo(script: string, gender: 'Male' | 'Female', title: string) {
   const avatarId = getRandomAvatar(gender);
@@ -55,7 +47,7 @@ async function generateVideo(script: string, gender: 'Male' | 'Female', title: s
         }
       }
     ],
-    test: false, // Changed to false to use paid credits and avoid trial limits
+    test: false,
     aspect_ratio: "16:9",
     title: title,
     callback_url: WEBHOOK_URL
@@ -79,57 +71,42 @@ async function generateVideo(script: string, gender: 'Male' | 'Female', title: s
 }
 
 async function main() {
-  console.log('🎬 Starting HeyGen Video Generation...');
+  console.log('🎬 Starting Premium Feature Video Generation...');
   
-  // Re-enabling dynamic fetch to get valid IDs for this account
-  // await fetchAvatars();
-  // await fetchVoices();
-
   if (!fs.existsSync(CSV_FILE)) {
     console.error(`❌ CSV file not found: ${CSV_FILE}`);
     process.exit(1);
   }
 
   const content = fs.readFileSync(CSV_FILE, 'utf-8');
-  const rows = content.split('\n').slice(1).filter(row => row.trim().length > 0);
+  const rows = content.split('\n').filter(row => row.trim().length > 0);
 
   console.log(`Found ${rows.length} scripts to process.`);
 
-  // LIMIT FOR TESTING
-  // const TEST_LIMIT = 1;
-  const rowsToProcess = rows; // Process all rows
-  console.log(`🚀 FULL MODE: Processing all ${rows.length} scripts.`);
-
-  for (const row of rowsToProcess) {
+  for (const row of rows) {
     const matches = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
     if (!matches || matches.length < 6) continue;
 
     const cleanMatches = matches.map(m => m.replace(/^"|"$/g, '').replace(/""/g, '"'));
     
-    const [course, module, lesson, instructor, gender, script] = cleanMatches;
-    const title = `${course} - ${module} - ${lesson}`;
+    const [category, feature, title, instructor, gender, script] = cleanMatches;
+    const fullTitle = `${category} - ${feature} - ${title}`;
 
-    console.log(`\n🎥 Generating: ${title}`);
+    console.log(`\n🎥 Generating: ${fullTitle}`);
     console.log(`   Instructor: ${instructor} (${gender})`);
 
     try {
-      const result: any = await generateVideo(script, gender as 'Male' | 'Female', title);
+      const result: any = await generateVideo(script, gender as 'Male' | 'Female', fullTitle);
       const videoId = result.data?.video_id || 'Unknown ID';
       console.log(`   ✅ Success! Video ID: ${videoId}`);
       
-      fs.appendFileSync(OUTPUT_LOG, `${new Date().toISOString()} | SUCCESS | ${videoId} | ${title}\n`);
+      fs.appendFileSync(OUTPUT_LOG, `${new Date().toISOString()} | SUCCESS | ${videoId} | ${fullTitle}\n`);
       
-      // Rate limiting protection - Increased to 5 seconds
-      // Moved to outside try/catch
-      // console.log('   ⏳ Waiting 5 seconds before next request...');
-      // await new Promise(resolve => setTimeout(resolve, 5000)); 
-
     } catch (error: any) {
       console.error(`   ❌ Failed: ${error.message}`);
-      fs.appendFileSync(OUTPUT_LOG, `${new Date().toISOString()} | FAILED | ${error.message} | ${title}\n`);
+      fs.appendFileSync(OUTPUT_LOG, `${new Date().toISOString()} | FAILED | ${error.message} | ${fullTitle}\n`);
     }
     
-    // Rate limiting protection - Increased to 5 seconds (Always wait)
     console.log('   ⏳ Waiting 5 seconds before next request...');
     await new Promise(resolve => setTimeout(resolve, 5000));
   }

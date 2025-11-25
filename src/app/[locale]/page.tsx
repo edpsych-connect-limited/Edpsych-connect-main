@@ -2,7 +2,8 @@
 // This ensures clean routing: edpsych-connect-limited.vercel.app/ shows the full landing experience
 
 import { Metadata } from 'next';
-import LandingPage from '@/components/landing/LandingPage';
+// import LandingPage from '@/components/landing/LandingPage';
+import ComingSoonPage from '@/components/landing/ComingSoonPage';
 import { getStripePrices } from '@/lib/stripe-pricing';
 
 export const metadata: Metadata = {
@@ -50,11 +51,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const pricingData = await getStripePrices();
+  // const pricingData = await getStripePrices();
 
   return (
     <>
-      <LandingPage pricingData={pricingData} />
+      {/* <LandingPage pricingData={pricingData} /> */}
+      <ComingSoonPage />
     </>
   );
 }

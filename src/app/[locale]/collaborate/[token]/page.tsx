@@ -20,42 +20,42 @@ export default function CollaboratePage() {
   const [formData, setFormData] = useState<any>(null);
 
   useEffect(() => {
+    const loadFormData = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch(`/api/assessments/collaborations/${token}`);
+
+        if (!response.ok) {
+          const errorData = await response.json();
+
+          if (response.status === 404) {
+            setError('This invitation link is not valid. Please check the link and try again.');
+          } else if (response.status === 410) {
+            setError('This invitation link has expired. Please contact the Educational Psychologist who sent it.');
+          } else if (response.status === 409) {
+            setError('This form has already been submitted. Thank you for your contribution.');
+          } else {
+            setError(errorData.error || 'Failed to load the form. Please try again.');
+          }
+          return;
+        }
+
+        const data = await response.json();
+        setFormData(data.formData);
+      } catch (err) {
+        console.error('Error loading form:', err);
+        setError('Failed to load the form. Please check your internet connection and try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
     if (token) {
       loadFormData();
     }
   }, [token]);
-
-  const loadFormData = async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch(`/api/assessments/collaborations/${token}`);
-
-      if (!response.ok) {
-        const errorData = await response.json();
-
-        if (response.status === 404) {
-          setError('This invitation link is not valid. Please check the link and try again.');
-        } else if (response.status === 410) {
-          setError('This invitation link has expired. Please contact the Educational Psychologist who sent it.');
-        } else if (response.status === 409) {
-          setError('This form has already been submitted. Thank you for your contribution.');
-        } else {
-          setError(errorData.error || 'Failed to load the form. Please try again.');
-        }
-        return;
-      }
-
-      const data = await response.json();
-      setFormData(data.formData);
-    } catch (err) {
-      console.error('Error loading form:', err);
-      setError('Failed to load the form. Please check your internet connection and try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleSubmit = async (responses: any, narrativeInput: string, observationContext: string) => {
     try {

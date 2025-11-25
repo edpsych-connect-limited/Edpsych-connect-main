@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { BookOpen, Scale, ScrollText, University } from 'lucide-react';
+import { FeatureSpotlightVideo } from '@/components/features/FeatureSpotlightVideo';
 
 export default function ResearchFoundation() {
   return (
@@ -87,32 +88,12 @@ export default function ResearchFoundation() {
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 shadow-xl border border-slate-100 relative overflow-hidden group hover:border-purple-200 transition-colors">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-purple-50 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110" />
-              
-              <div className="relative z-10">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-20 h-20 relative rounded-xl overflow-hidden shadow-lg border-2 border-purple-100">
-                    <Image 
-                      src="/images/Dr Piers.jpg" 
-                      alt="Dr Piers Worth"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-slate-900">Mentorship & Supervision</h3>
-                    <p className="text-purple-600 font-medium">Dr Piers Worth, PhD</p>
-                  </div>
-                </div>
-                
-                <p className="text-slate-600 leading-relaxed">
-                  Guided by one of the UK&apos;s leading voices in Positive Psychology. Our framework 
-                  isn&apos;t just about fixing deficits—it&apos;s about identifying and amplifying 
-                  strengths using rigorous positive psychology interventions.
-                </p>
-              </div>
-            </div>
+            <FeatureSpotlightVideo
+              videoId="45319bf849d4421d82cf31f980da214b"
+              title="Data Autonomy & Trust"
+              description="Your data sovereignty is paramount. Learn how our BYOD architecture keeps you in control."
+              icon="security"
+            />
           </motion.div>
 
           {/* Right: The Frameworks */}

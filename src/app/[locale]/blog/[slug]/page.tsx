@@ -27,37 +27,37 @@ export default function BlogPostPage() {
   const [commentSubmitted, setCommentSubmitted] = useState(false);
 
   useEffect(() => {
+    const loadPost = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch(`/api/blog/${slug}`);
+
+        if (!response.ok) {
+          if (response.status === 404) {
+            setError('Post not found');
+          } else {
+            setError('Failed to load post');
+          }
+          return;
+        }
+
+        const data = await response.json();
+        setPost(data.post);
+        setRelatedPosts(data.relatedPosts || []);
+      } catch (err) {
+        console.error('Failed to load post:', err);
+        setError('Failed to load post');
+      } finally {
+        setLoading(false);
+      }
+    };
+
     if (slug) {
       loadPost();
     }
   }, [slug]);
-
-  const loadPost = async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch(`/api/blog/${slug}`);
-
-      if (!response.ok) {
-        if (response.status === 404) {
-          setError('Post not found');
-        } else {
-          setError('Failed to load post');
-        }
-        return;
-      }
-
-      const data = await response.json();
-      setPost(data.post);
-      setRelatedPosts(data.relatedPosts || []);
-    } catch (err) {
-      console.error('Failed to load post:', err);
-      setError('Failed to load post');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleSubmitComment = async (e: React.FormEvent) => {
     e.preventDefault();

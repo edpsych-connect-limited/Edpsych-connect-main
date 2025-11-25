@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Sparkles, Wand2, Clock, CheckCircle2 } from 'lucide-react';
+import { FeatureSpotlightVideo } from '@/components/features/FeatureSpotlightVideo';
 
 export default function FlagshipDifferentiation() {
   return (
@@ -65,51 +66,13 @@ export default function FlagshipDifferentiation() {
             className="relative"
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-indigo-100 to-purple-100 rounded-3xl transform rotate-3 scale-105 opacity-50 blur-2xl" />
-            <div className="relative bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden">
-              {/* Mock UI Header */}
-              <div className="bg-slate-50 border-b border-slate-200 p-4 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-400" />
-                  <div className="w-3 h-3 rounded-full bg-amber-400" />
-                  <div className="w-3 h-3 rounded-full bg-green-400" />
-                </div>
-                <div className="text-xs font-mono text-slate-400">differentiation_engine.exe</div>
-              </div>
-              
-              {/* Mock UI Content */}
-              <div className="p-6 space-y-6">
-                <div className="space-y-2">
-                  <div className="h-4 bg-slate-100 rounded w-3/4" />
-                  <div className="h-4 bg-slate-100 rounded w-1/2" />
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="p-4 bg-indigo-50 rounded-xl border border-indigo-100">
-                    <div className="text-xs font-bold text-indigo-600 uppercase mb-2">Scaffolding</div>
-                    <div className="space-y-2">
-                      <div className="h-2 bg-indigo-200 rounded w-full" />
-                      <div className="h-2 bg-indigo-200 rounded w-5/6" />
-                      <div className="h-2 bg-indigo-200 rounded w-4/6" />
-                    </div>
-                  </div>
-                  <div className="p-4 bg-purple-50 rounded-xl border border-purple-100">
-                    <div className="text-xs font-bold text-purple-600 uppercase mb-2">Extension</div>
-                    <div className="space-y-2">
-                      <div className="h-2 bg-purple-200 rounded w-full" />
-                      <div className="h-2 bg-purple-200 rounded w-5/6" />
-                      <div className="h-2 bg-purple-200 rounded w-4/6" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-center pt-4">
-                  <div className="px-4 py-2 bg-green-100 text-green-700 rounded-lg text-sm font-medium flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4" />
-                    40 Profiles Adapted Successfully
-                  </div>
-                </div>
-              </div>
-            </div>
+            <FeatureSpotlightVideo
+              videoId="c22596d70c16427e87f9ab8bc9d1d8e5"
+              title="No Child Left Behind"
+              description="See how our engine instantly adapts one lesson plan for 30 unique student profiles."
+              icon="differentiation"
+              className="relative z-10"
+            />
           </motion.div>
 
         </div>

@@ -5,7 +5,7 @@
 
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, Suspense, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 function BlogPageContent() {
@@ -27,21 +27,7 @@ function BlogPageContent() {
   const [pagination, setPagination] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState(1);
 
-  useEffect(() => {
-    loadBlogContent();
-  }, []);
-
-  useEffect(() => {
-    if (initialQuery) {
-      handleSearch();
-    } else if (initialCategory) {
-      handleCategoryFilter(initialCategory);
-    } else if (initialTag) {
-      handleTagFilter(initialTag);
-    }
-  }, [initialQuery, initialCategory, initialTag]);
-
-  const loadBlogContent = async () => {
+  const loadBlogContent = useCallback(async () => {
     setLoading(true);
     try {
       const [postsRes, featuredRes, categoriesRes, tagsRes] = await Promise.all([
@@ -66,9 +52,9 @@ function BlogPageContent() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const handleSearch = async () => {
+  const handleSearch = useCallback(async () => {
     if (!searchQuery.trim()) return;
 
     setLoading(true);
@@ -86,9 +72,9 @@ function BlogPageContent() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [searchQuery, currentPage]);
 
-  const handleCategoryFilter = async (slug: string) => {
+  const handleCategoryFilter = useCallback(async (slug: string) => {
     setLoading(true);
     setSelectedCategory(slug);
     setSelectedTag(null);
@@ -105,9 +91,9 @@ function BlogPageContent() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage]);
 
-  const handleTagFilter = async (slug: string) => {
+  const handleTagFilter = useCallback(async (slug: string) => {
     setLoading(true);
     setSelectedTag(slug);
     setSelectedCategory(null);
@@ -124,7 +110,21 @@ function BlogPageContent() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage]);
+
+  useEffect(() => {
+    loadBlogContent();
+  }, [loadBlogContent]);
+
+  useEffect(() => {
+    if (initialQuery) {
+      handleSearch();
+    } else if (initialCategory) {
+      handleCategoryFilter(initialCategory);
+    } else if (initialTag) {
+      handleTagFilter(initialTag);
+    }
+  }, [initialQuery, initialCategory, initialTag, handleSearch, handleCategoryFilter, handleTagFilter]);
 
   const handleClearFilters = () => {
     setSelectedCategory(null);

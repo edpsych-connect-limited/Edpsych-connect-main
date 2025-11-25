@@ -15,7 +15,7 @@
 // Force dynamic rendering for auth-required pages
 export const dynamic = 'force-dynamic';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 
@@ -76,7 +76,7 @@ export default function AssessmentListPage() {
   });
 
   // Fetch assessments
-  const fetchAssessments = async () => {
+  const fetchAssessments = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -106,14 +106,14 @@ export default function AssessmentListPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [pagination.page, pagination.limit, filters.case_id, filters.status, filters.assessment_type]);
 
   // Fetch on mount and when filters/pagination change
   useEffect(() => {
     if (user) {
       fetchAssessments();
     }
-  }, [user, pagination.page, filters.case_id, filters.status, filters.assessment_type]);
+  }, [user, fetchAssessments]);
 
   // Show loading during authentication check
   if (authLoading) {

@@ -1,0 +1,231 @@
+2025-11-25T17:25:20.109Z | FAILED | API Error: 400 - {"data":null,"error":{"code":"invalid_parameter","message":"Voice not found: en-US-ChristopherNeural"}}
+ | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - What is Autism? Neurodiversity vs Medical Model
+2025-11-25T17:25:20.542Z | FAILED | API Error: 400 - {"data":null,"error":{"code":"invalid_parameter","message":"Voice not found: en-US-ChristopherNeural"}}
+ | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - The Autistic Experience: First-Person Perspectives
+2025-11-25T17:25:20.656Z | FAILED | API Error: 502 - <html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+</body>
+</html>
+ | Autism Spectrum Support: Complete Guide - Social Communication and Interaction Differences - Social Communication Differences in Autism
+2025-11-25T17:25:21.503Z | FAILED | API Error: 400 - {"data":null,"error":{"code":"invalid_parameter","message":"Voice not found: en-US-ChristopherNeural"}}
+ | Autism Spectrum Support: Complete Guide - Social Communication and Interaction Differences - Friendship and Peer Relationships
+2025-11-25T17:25:21.770Z | FAILED | API Error: 400 - <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<title>400 Bad Request</title>
+<h1>Bad Request</h1>
+<p>The browser (or proxy) sent a request that this server could not understand.</p>
+ | Autism Spectrum Support: Complete Guide - Sensory Processing Differences - Sensory Processing in Autism: Hyper- and Hypo-Sensitivity
+2025-11-25T17:25:21.775Z | FAILED | API Error: 400 - <html>
+<head><title>400 Bad Request</title></head>
+<body>
+<center><h1>400 Bad Request</h1></center>
+</body>
+</html>
+ | Autism Spectrum Support: Complete Guide - Sensory Processing Differences - Creating Sensory-Friendly Environments
+2025-11-25T17:25:25.629Z | FAILED | API Error: 400 - {"data":null,"error":{"code":"invalid_parameter","message":"Voice not found: en-US-ChristopherNeural"}}
+ | Autism Spectrum Support: Complete Guide - Visual Supports and Structured Approaches - Visual Supports: Making the Invisible Visible
+2025-11-25T17:25:28.292Z | FAILED | API Error: 400 - {"data":null,"error":{"code":"invalid_parameter","message":"Voice not found: en-US-ChristopherNeural"}}
+ | Autism Spectrum Support: Complete Guide - Visual Supports and Structured Approaches - Structure and Predictability
+2025-11-25T17:25:30.838Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | Autism Spectrum Support: Complete Guide - Anxiety and Emotional Regulation - Anxiety in Autism: Understanding the Constant Stress
+2025-11-25T17:25:32.485Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | Autism Spectrum Support: Complete Guide - Anxiety and Emotional Regulation - Emotional Regulation and Meltdown Support
+2025-11-25T17:25:34.729Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | Autism Spectrum Support: Complete Guide - Special Interests and Strengths-Based Approaches - Special Interests: Passion, Not Obsession
+2025-11-25T17:25:37.034Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | Autism Spectrum Support: Complete Guide - Special Interests and Strengths-Based Approaches - Strengths-Based Approach to Autism
+2025-11-25T17:25:38.592Z | FAILED | API Error: 400 - <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<title>400 Bad Request</title>
+<h1>Bad Request</h1>
+<p>The browser (or proxy) sent a request that this server could not understand.</p>
+ | Autism Spectrum Support: Complete Guide - Executive Function and Life Skills - Executive Function Difficulties in Autism
+2025-11-25T17:25:38.607Z | FAILED | API Error: 400 - <html>
+<head><title>400 Bad Request</title></head>
+<body>
+<center><h1>400 Bad Request</h1></center>
+</body>
+</html>
+ | Autism Spectrum Support: Complete Guide - Executive Function and Life Skills - Life Skills and Promoting Independence
+2025-11-25T17:25:40.660Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | Autism Spectrum Support: Complete Guide - Inclusive Education and Reasonable Adjustments - Inclusive Education for Autistic Students
+2025-11-25T17:25:42.854Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | Autism Spectrum Support: Complete Guide - Inclusive Education and Reasonable Adjustments - Legal Rights and Reasonable Adjustments
+2025-11-25T17:25:44.579Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | ADHD Understanding & Support - Understanding ADHD: Neurobiology and Diagnosis - ADHD Neurobiology: Dopamine, Norepinephrine, and Brain Development
+2025-11-25T17:25:48.585Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | ADHD Understanding & Support - Understanding ADHD: Neurobiology and Diagnosis - DSM-5 Diagnostic Criteria and Three Presentations
+2025-11-25T17:25:50.563Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | ADHD Understanding & Support - ADHD in the Classroom: Observable Behaviors - Inattentive Presentation: "The Daydreamer"
+2025-11-25T17:25:52.796Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | ADHD Understanding & Support - ADHD in the Classroom: Observable Behaviors - Hyperactive-Impulsive Presentation: "The Energizer Bunny"
+2025-11-25T17:25:53.658Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | ADHD Understanding & Support - Executive Function Difficulties in ADHD - The 8 Executive Functions Affected by ADHD
+2025-11-25T17:25:54.059Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | ADHD Understanding & Support - Executive Function Difficulties in ADHD - Impact on Academic Performance and Daily Functioning
+2025-11-25T17:25:54.417Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | ADHD Understanding & Support - Classroom Accommodations and Environmental Modifications - Seating, Layout, and Sensory Considerations
+2025-11-25T17:26:20.714Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - What is Autism? Neurodiversity vs Medical Model
+2025-11-25T17:29:10.371Z | FAILED | API Error: 502 - <html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+</body>
+</html>
+ | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - What is Autism? Neurodiversity vs Medical Model
+2025-11-25T17:29:10.589Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - The Autistic Experience: First-Person Perspectives
+2025-11-25T17:29:12.173Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | Autism Spectrum Support: Complete Guide - Social Communication and Interaction Differences - Social Communication Differences in Autism
+2025-11-25T17:31:22.091Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - What is Autism? Neurodiversity vs Medical Model
+2025-11-25T17:31:22.728Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - The Autistic Experience: First-Person Perspectives
+2025-11-25T17:31:38.042Z | FAILED | API Error: 429 - {"data":null,"error":{"code":"trial_video_limit_exceeded","message":"It seems you've reached your daily api trial limit 5."}}
+ | Autism Spectrum Support: Complete Guide - Social Communication and Interaction Differences - Social Communication Differences in Autism
+2025-11-25T17:34:54.202Z | FAILED | API Error: 404 - {"data":null,"error":{"code":"avatar_not_found","message":"Avatar Tyler-incasual-20220819 not found or no longer available."}}
+ | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - What is Autism? Neurodiversity vs Medical Model
+2025-11-25T17:35:10.794Z | FAILED | API Error: 404 - {"data":null,"error":{"code":"avatar_not_found","message":"Avatar 37f4d9a21430420690b8753098d9e951 not found or no longer available."}}
+ | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - What is Autism? Neurodiversity vs Medical Model
+2025-11-25T17:35:25.557Z | FAILED | API Error: 404 - {"data":null,"error":{"code":"avatar_not_found","message":"Avatar josh_lite_20230714 not found or no longer available."}}
+ | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - What is Autism? Neurodiversity vs Medical Model
+2025-11-25T17:35:41.357Z | FAILED | API Error: 404 - {"data":null,"error":{"code":"avatar_not_found","message":"Avatar ef0803965555413c9316468b41706484 not found or no longer available."}}
+ | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - What is Autism? Neurodiversity vs Medical Model
+2025-11-25T17:36:39.913Z | FAILED | API Error: 502 - <html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+</body>
+</html>
+ | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - What is Autism? Neurodiversity vs Medical Model
+2025-11-25T17:37:13.364Z | FAILED | API Error: 502 - <html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+</body>
+</html>
+ | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - What is Autism? Neurodiversity vs Medical Model
+2025-11-25T17:37:33.423Z | SUCCESS | 6148a4b84118470ea8ca7afbd64a110e | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - What is Autism? Neurodiversity vs Medical Model
+2025-11-25T17:39:00.716Z | SUCCESS | f498119a59da483dab6117c0457a10e9 | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - What is Autism? Neurodiversity vs Medical Model
+2025-11-25T17:39:06.537Z | SUCCESS | da78746b81ae4ccaa0169f18ebf24c40 | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - The Autistic Experience: First-Person Perspectives
+2025-11-25T17:39:18.303Z | SUCCESS | 8b895b4e6a764846b7a8408f7ed6b0c3 | Autism Spectrum Support: Complete Guide - Social Communication and Interaction Differences - Social Communication Differences in Autism
+2025-11-25T17:39:24.142Z | SUCCESS | 07d65b01015a438c9fe887590ba30b88 | Autism Spectrum Support: Complete Guide - Social Communication and Interaction Differences - Friendship and Peer Relationships
+2025-11-25T17:39:33.598Z | SUCCESS | 1ecba6d49edb490caf9d1f46d899d367 | Autism Spectrum Support: Complete Guide - Sensory Processing Differences - Sensory Processing in Autism: Hyper- and Hypo-Sensitivity
+2025-11-25T17:39:42.707Z | SUCCESS | 2fb91b05c12b44908eb033627714ed43 | Autism Spectrum Support: Complete Guide - Sensory Processing Differences - Creating Sensory-Friendly Environments
+2025-11-25T17:39:52.791Z | SUCCESS | 869e39f8384643578ce5dbc7a1a06870 | Autism Spectrum Support: Complete Guide - Visual Supports and Structured Approaches - Visual Supports: Making the Invisible Visible
+2025-11-25T17:40:07.038Z | SUCCESS | bedd7cfc58f4452d8ef7c6326a567c58 | Autism Spectrum Support: Complete Guide - Visual Supports and Structured Approaches - Structure and Predictability
+2025-11-25T17:40:13.061Z | SUCCESS | 470872bf3bf646a2afaa9a171327938a | Autism Spectrum Support: Complete Guide - Anxiety and Emotional Regulation - Anxiety in Autism: Understanding the Constant Stress
+2025-11-25T17:40:20.175Z | SUCCESS | 54f304f9be2e4c68b147914ced3d128e | Autism Spectrum Support: Complete Guide - Anxiety and Emotional Regulation - Emotional Regulation and Meltdown Support
+2025-11-25T17:40:26.105Z | SUCCESS | 8ff3293686ab40cdbb5376599d05a28a | Autism Spectrum Support: Complete Guide - Special Interests and Strengths-Based Approaches - Special Interests: Passion, Not Obsession
+2025-11-25T17:40:31.767Z | SUCCESS | 02851ef4e4d0471f9a43605f48385a4b | Autism Spectrum Support: Complete Guide - Special Interests and Strengths-Based Approaches - Strengths-Based Approach to Autism
+2025-11-25T17:40:37.530Z | SUCCESS | 19c5904e25054ffcae0675cdbdfd459f | Autism Spectrum Support: Complete Guide - Executive Function and Life Skills - Executive Function Difficulties in Autism
+2025-11-25T17:40:44.331Z | SUCCESS | e2e773173b364a81884ddef6f307eebd | Autism Spectrum Support: Complete Guide - Executive Function and Life Skills - Life Skills and Promoting Independence
+2025-11-25T17:40:50.009Z | SUCCESS | 0bf4a8cb4dee440e95037c051caf23a4 | Autism Spectrum Support: Complete Guide - Inclusive Education and Reasonable Adjustments - Inclusive Education for Autistic Students
+2025-11-25T17:40:55.680Z | SUCCESS | f171551aa11b4b45b27bf49e808e3a59 | Autism Spectrum Support: Complete Guide - Inclusive Education and Reasonable Adjustments - Legal Rights and Reasonable Adjustments
+2025-11-25T17:41:02.705Z | SUCCESS | 265ee0b568304a8ebd2e941161096966 | ADHD Understanding & Support - Understanding ADHD: Neurobiology and Diagnosis - ADHD Neurobiology: Dopamine, Norepinephrine, and Brain Development
+2025-11-25T17:41:29.706Z | SUCCESS | de48107d9f2b4122abad77aefe0b767d | ADHD Understanding & Support - Understanding ADHD: Neurobiology and Diagnosis - DSM-5 Diagnostic Criteria and Three Presentations
+2025-11-25T17:41:35.510Z | SUCCESS | aa8a3ba7b02049af8e66943c4f39424b | ADHD Understanding & Support - ADHD in the Classroom: Observable Behaviors - Inattentive Presentation: "The Daydreamer"
+2025-11-25T17:41:41.300Z | SUCCESS | fe3cbae748e94dfd81c8f993f4c53a49 | ADHD Understanding & Support - ADHD in the Classroom: Observable Behaviors - Hyperactive-Impulsive Presentation: "The Energizer Bunny"
+2025-11-25T17:41:47.130Z | SUCCESS | 483cedb4ba534b20b1b3c34f1a94328d | ADHD Understanding & Support - Executive Function Difficulties in ADHD - The 8 Executive Functions Affected by ADHD
+2025-11-25T17:41:53.249Z | SUCCESS | d674c5998494447a87fabeee5aa8c3d7 | ADHD Understanding & Support - Executive Function Difficulties in ADHD - Impact on Academic Performance and Daily Functioning
+2025-11-25T17:42:03.008Z | SUCCESS | 03f76342fd1240679c7c27b7763acae3 | ADHD Understanding & Support - Classroom Accommodations and Environmental Modifications - Seating, Layout, and Sensory Considerations
+2025-11-25T17:42:12.152Z | SUCCESS | bc2dee98d7944deb95587b74eac17cdf | ADHD Understanding & Support - Classroom Accommodations and Environmental Modifications - Instructional Accommodations and Task Modifications
+2025-11-25T17:42:17.868Z | SUCCESS | 127ff5c817154a98857754aaee3fb1b0 | ADHD Understanding & Support - Attention and Focus Strategies - Attention Cues and Focus Techniques
+2025-11-25T17:42:31.820Z | SUCCESS | 77eb820bc0024eb5936402d277cfc1d5 | ADHD Understanding & Support - Attention and Focus Strategies - Self-Monitoring and Attention Training
+2025-11-25T17:42:38.616Z | SUCCESS | a07b297848134560b18e54265a8003ea | ADHD Understanding & Support - Hyperactivity and Impulsivity Management - Channel Hyperactivity Productively
+2025-11-25T17:42:44.369Z | SUCCESS | 381de0c96cd04447a2398dcec50130c7 | ADHD Understanding & Support - Hyperactivity and Impulsivity Management - Impulse Control: Stop and Think Strategies
+2025-11-25T17:42:51.394Z | SUCCESS | fb080b5deb884743a4ffb2f87ba3b6fd | ADHD Understanding & Support - Academic Support for ADHD Students - Organization Systems and Time Management
+2025-11-25T17:42:58.025Z | SUCCESS | 0c88d85b05ad471492728e08e8fa5e48 | ADHD Understanding & Support - Academic Support for ADHD Students - Homework Strategies and Executive Function Support
+2025-11-25T17:43:03.751Z | SUCCESS | 3c0dcc1baba04264a97dd9463ef289eb | ADHD Understanding & Support - Medication, Multi-Agency Working, and Parent Partnership - ADHD Medication: What Teachers Need to Know
+2025-11-25T17:43:12.955Z | SUCCESS | 538be4f5048e4fd08ed90c8a4aec70a0 | ADHD Understanding & Support - Medication, Multi-Agency Working, and Parent Partnership - Multi-Agency Collaboration and Parent Partnership
+2025-11-25T17:43:19.866Z | SUCCESS | 003e6648ab79465984d1577ed9f77851 | Dyslexia Intervention Strategies - Understanding Dyslexia: Neurobiology and Identification - Dyslexia Neurobiology: The Phonological Deficit Hypothesis
+2025-11-25T17:43:25.624Z | SUCCESS | cc538091d22744aa9c4bc175223565df | Dyslexia Intervention Strategies - Understanding Dyslexia: Neurobiology and Identification - Identifying Dyslexia: Indicators Across Ages
+2025-11-25T17:43:38.420Z | SUCCESS | 8344ee8796da48cc80b2da7548c2bb91 | Dyslexia Intervention Strategies - Structured Literacy Approach: Principles and Framework - What is Structured Literacy? Orton-Gillingham Principles
+2025-11-25T17:43:43.791Z | FAILED | API Error: 502 - <html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+</body>
+</html>
+ | Dyslexia Intervention Strategies - Structured Literacy Approach: Principles and Framework - Multisensory Teaching: Engaging All Pathways
+2025-11-25T17:43:44.174Z | FAILED | API Error: 502 - <html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+</body>
+</html>
+ | Dyslexia Intervention Strategies - Phonological Awareness: Foundation for Reading - What is Phonological Awareness? Continuum of Skills
+2025-11-25T17:43:45.982Z | SUCCESS | e116f0466ef544d6a337a50e060c7410 | Dyslexia Intervention Strategies - Phonological Awareness: Foundation for Reading - Teaching Phonemic Awareness: Activities and Games
+2025-11-25T17:43:55.229Z | SUCCESS | 1310f8fbb95648a689c619e596a4506a | Dyslexia Intervention Strategies - Systematic Phonics: Sound-Symbol Correspondence - Teaching Phonics Systematically: Scope and Sequence
+2025-11-25T17:44:11.249Z | SUCCESS | 3afacaf3815c43c1ab94a4aaac466359 | Dyslexia Intervention Strategies - Systematic Phonics: Sound-Symbol Correspondence - Decodable Texts and Application
+2025-11-25T17:44:23.291Z | SUCCESS | a75b865e684c42a58afc6e68afc6827d | Dyslexia Intervention Strategies - Fluency Development: From Accurate to Automatic - What is Reading Fluency? Accuracy, Rate, Prosody
+2025-11-25T17:44:28.933Z | SUCCESS | b351af1e261842b68b971a01830f3fbe | Dyslexia Intervention Strategies - Fluency Development: From Accurate to Automatic - Fluency Interventions: Repeated Reading and Strategies
+2025-11-25T17:44:42.384Z | FAILED | API Error: 502 - <html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+</body>
+</html>
+ | Dyslexia Intervention Strategies - Reading Comprehension: Beyond Decoding - Simple View of Reading: Decoding × Comprehension
+2025-11-25T17:44:43.355Z | SUCCESS | dba04d2b3ea84209baad9c36fd6d87cd | Dyslexia Intervention Strategies - Reading Comprehension: Beyond Decoding - Comprehension Strategies for Dyslexic Readers
+2025-11-25T17:44:52.823Z | SUCCESS | 215e3ec206a448638a07f863d47a398f | Dyslexia Intervention Strategies - Spelling and Written Expression Support - Spelling Instruction: Patterns Not Memorization
+2025-11-25T17:45:03.649Z | SUCCESS | 54779e6f1f7c40e5a882ccbeb3a626e4 | Dyslexia Intervention Strategies - Spelling and Written Expression Support - Supporting Written Expression: Separating Transcription from Composition
+2025-11-25T17:45:15.521Z | SUCCESS | 0516258513024026ad8aea625f103487 | Dyslexia Intervention Strategies - Accommodations, Assistive Technology, and Progress Monitoring - Classroom Accommodations and Assistive Technology
+2025-11-25T17:45:21.207Z | SUCCESS | a6cc937f8a2545289e777b61e6792aad | Dyslexia Intervention Strategies - Accommodations, Assistive Technology, and Progress Monitoring - Progress Monitoring and Assessment
+2025-11-25T17:56:12.997Z | SUCCESS | 68e1ab7c7465435a9233bfa957071218 | Dyslexia Intervention Strategies - Structured Literacy Approach: Principles and Framework - Multisensory Teaching: Engaging All Pathways
+2025-11-25T17:56:18.874Z | SUCCESS | bba76116ee3c46e5a76983ef3dfbea6a | Dyslexia Intervention Strategies - Phonological Awareness: Foundation for Reading - What is Phonological Awareness? Continuum of Skills
+2025-11-25T17:56:24.826Z | SUCCESS | 331862538ab24da39d098df44afa1cbf | Dyslexia Intervention Strategies - Reading Comprehension: Beyond Decoding - Simple View of Reading: Decoding × Comprehension
+2025-11-25T18:27:07.630Z | SUCCESS | c9312f60d19842d3a3d1f11e1ba1280a | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - What is Autism? Neurodiversity vs Medical Model
+2025-11-25T18:27:13.199Z | SUCCESS | f1f8bc6724e34169a13f61024fd84c63 | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - The Autistic Experience: First-Person Perspectives
+2025-11-25T18:27:18.790Z | SUCCESS | 9efebb059d764eef8554503aeab13676 | Autism Spectrum Support: Complete Guide - Social Communication and Interaction Differences - Social Communication Differences in Autism
+2025-11-25T18:27:24.419Z | SUCCESS | 82285f268e6b4ec4bed234b2bd58247a | Autism Spectrum Support: Complete Guide - Social Communication and Interaction Differences - Friendship and Peer Relationships
+2025-11-25T18:27:29.958Z | SUCCESS | 2d7aba43283749d1828de0b7111ebcbc | Autism Spectrum Support: Complete Guide - Sensory Processing Differences - Sensory Processing in Autism: Hyper- and Hypo-Sensitivity
+2025-11-25T18:28:02.298Z | SUCCESS | c3fdd2d66fe84bc5803c3275fb384947 | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - What is Autism? Neurodiversity vs Medical Model
+2025-11-25T18:28:07.857Z | SUCCESS | b72bcc43293746848145489b069e0114 | Autism Spectrum Support: Complete Guide - Understanding Autism: Neurodiversity Perspective - The Autistic Experience: First-Person Perspectives
+2025-11-25T18:28:13.592Z | SUCCESS | 14d181b637a844b0b0214c3308bcc099 | Autism Spectrum Support: Complete Guide - Social Communication and Interaction Differences - Social Communication Differences in Autism
+2025-11-25T18:28:19.183Z | SUCCESS | d3d66283a46647289427ee0d16434923 | Autism Spectrum Support: Complete Guide - Social Communication and Interaction Differences - Friendship and Peer Relationships
+2025-11-25T18:28:24.714Z | SUCCESS | 15bb0088c7784f988635f796c40c8862 | Autism Spectrum Support: Complete Guide - Sensory Processing Differences - Sensory Processing in Autism: Hyper- and Hypo-Sensitivity
+2025-11-25T18:28:30.871Z | SUCCESS | a2167156f225462bab11effe199977ca | Autism Spectrum Support: Complete Guide - Sensory Processing Differences - Creating Sensory-Friendly Environments
+2025-11-25T18:28:36.480Z | SUCCESS | b753049ec4e64235a1bb97fdb166dd4d | Autism Spectrum Support: Complete Guide - Visual Supports and Structured Approaches - Visual Supports: Making the Invisible Visible
+2025-11-25T18:28:42.115Z | SUCCESS | 4f6f39146c0f4d43b3a05fba435f1aee | Autism Spectrum Support: Complete Guide - Visual Supports and Structured Approaches - Structure and Predictability
+2025-11-25T18:28:47.790Z | SUCCESS | 83de3ffdb9d6406ea6e1d0f6227d595b | Autism Spectrum Support: Complete Guide - Anxiety and Emotional Regulation - Anxiety in Autism: Understanding the Constant Stress
+2025-11-25T18:28:53.377Z | SUCCESS | c18b4bbde2b046a682d4f39b24286adc | Autism Spectrum Support: Complete Guide - Anxiety and Emotional Regulation - Emotional Regulation and Meltdown Support
+2025-11-25T18:28:59.043Z | SUCCESS | 87522d7a6d2c4356b3ae191a4028168b | Autism Spectrum Support: Complete Guide - Special Interests and Strengths-Based Approaches - Special Interests: Passion, Not Obsession
+2025-11-25T18:29:04.600Z | SUCCESS | 8327c2490c1d4f848526268932c91385 | Autism Spectrum Support: Complete Guide - Special Interests and Strengths-Based Approaches - Strengths-Based Approach to Autism
+2025-11-25T18:29:10.173Z | SUCCESS | 109f198dfd4f4b93a4eb46481c079410 | Autism Spectrum Support: Complete Guide - Executive Function and Life Skills - Executive Function Difficulties in Autism
+2025-11-25T18:29:15.741Z | SUCCESS | 9dfa84e974b94b10b558da84a8ae3c56 | Autism Spectrum Support: Complete Guide - Executive Function and Life Skills - Life Skills and Promoting Independence
+2025-11-25T18:29:21.341Z | SUCCESS | fcc14ca4d48043249f20033c33cf38a0 | Autism Spectrum Support: Complete Guide - Inclusive Education and Reasonable Adjustments - Inclusive Education for Autistic Students
+2025-11-25T18:29:26.974Z | SUCCESS | 3b568bf38bce402a83bf3d89d46ed773 | Autism Spectrum Support: Complete Guide - Inclusive Education and Reasonable Adjustments - Legal Rights and Reasonable Adjustments
+2025-11-25T18:29:32.626Z | SUCCESS | 2b2bcc8fe9c442248546eeb27dae483d | ADHD Understanding & Support - Understanding ADHD: Neurobiology and Diagnosis - ADHD Neurobiology: Dopamine, Norepinephrine, and Brain Development
+2025-11-25T18:29:38.282Z | SUCCESS | 02894404aabc40a58afc76b914fa7662 | ADHD Understanding & Support - Understanding ADHD: Neurobiology and Diagnosis - DSM-5 Diagnostic Criteria and Three Presentations
+2025-11-25T18:29:43.872Z | SUCCESS | fa846771ec4a4a77a91bb8ab9c9dae19 | ADHD Understanding & Support - ADHD in the Classroom: Observable Behaviors - Inattentive Presentation: "The Daydreamer"
+2025-11-25T18:29:49.468Z | SUCCESS | a7593f9664774bafbfd2317023a491c9 | ADHD Understanding & Support - ADHD in the Classroom: Observable Behaviors - Hyperactive-Impulsive Presentation: "The Energizer Bunny"
+2025-11-25T18:29:55.045Z | SUCCESS | 95c80d17408c4ced895a216aa2db2a83 | ADHD Understanding & Support - Executive Function Difficulties in ADHD - The 8 Executive Functions Affected by ADHD
+2025-11-25T18:30:01.022Z | SUCCESS | 6f0c87ad4f6d4471ab1c937276760ddf | ADHD Understanding & Support - Executive Function Difficulties in ADHD - Impact on Academic Performance and Daily Functioning
+2025-11-25T18:30:06.603Z | SUCCESS | cb6ba64ba1904807a3ed22acbb2a1f8b | ADHD Understanding & Support - Classroom Accommodations and Environmental Modifications - Seating, Layout, and Sensory Considerations
+2025-11-25T18:30:12.774Z | SUCCESS | 95a7ac3ea63842ca84beaaca451b47cb | ADHD Understanding & Support - Classroom Accommodations and Environmental Modifications - Instructional Accommodations and Task Modifications
+2025-11-25T18:30:18.532Z | SUCCESS | 672195c36d82471db47a97797e82bb94 | ADHD Understanding & Support - Attention and Focus Strategies - Attention Cues and Focus Techniques
+2025-11-25T18:30:24.322Z | SUCCESS | 118a59b354be4af68b7f80a079413bbe | ADHD Understanding & Support - Attention and Focus Strategies - Self-Monitoring and Attention Training
+2025-11-25T18:30:29.849Z | SUCCESS | a29d6635bf664f3a9350364c0b597295 | ADHD Understanding & Support - Hyperactivity and Impulsivity Management - Channel Hyperactivity Productively
+2025-11-25T18:30:35.519Z | SUCCESS | 6cf84351489c4a6a977077aa35ee6b92 | ADHD Understanding & Support - Hyperactivity and Impulsivity Management - Impulse Control: Stop and Think Strategies
+2025-11-25T18:30:41.223Z | SUCCESS | 48da796f19564548b4d1516e5c0b986d | ADHD Understanding & Support - Academic Support for ADHD Students - Organization Systems and Time Management
+2025-11-25T18:30:46.771Z | SUCCESS | 78253e63f05c4aa882a09d9b0a327972 | ADHD Understanding & Support - Academic Support for ADHD Students - Homework Strategies and Executive Function Support
+2025-11-25T18:30:52.366Z | SUCCESS | bffd0f8dcaec41bd8c57ab1f6c396c65 | ADHD Understanding & Support - Medication, Multi-Agency Working, and Parent Partnership - ADHD Medication: What Teachers Need to Know
+2025-11-25T18:30:58.034Z | SUCCESS | 655e71c5afdd43248c97c073c3d59c4a | ADHD Understanding & Support - Medication, Multi-Agency Working, and Parent Partnership - Multi-Agency Collaboration and Parent Partnership
+2025-11-25T18:31:03.661Z | SUCCESS | ff94ebbd50fd45108258fa253d76cbad | Dyslexia Intervention Strategies - Understanding Dyslexia: Neurobiology and Identification - Dyslexia Neurobiology: The Phonological Deficit Hypothesis
+2025-11-25T18:31:09.275Z | SUCCESS | e6405caa688f412c8879d5eecb270602 | Dyslexia Intervention Strategies - Understanding Dyslexia: Neurobiology and Identification - Identifying Dyslexia: Indicators Across Ages
+2025-11-25T18:31:15.188Z | SUCCESS | d2f7878a07814045924cdf5bc33b87cd | Dyslexia Intervention Strategies - Structured Literacy Approach: Principles and Framework - What is Structured Literacy? Orton-Gillingham Principles
+2025-11-25T18:31:20.885Z | SUCCESS | 180cbdea5d3b40bc91aaef9c453cfcdd | Dyslexia Intervention Strategies - Structured Literacy Approach: Principles and Framework - Multisensory Teaching: Engaging All Pathways
+2025-11-25T18:31:26.492Z | SUCCESS | ef581f56f4ee408892a459dd1d617c39 | Dyslexia Intervention Strategies - Phonological Awareness: Foundation for Reading - What is Phonological Awareness? Continuum of Skills
+2025-11-25T18:31:32.303Z | SUCCESS | 4c6b08d3a4544eae9f11930dad7b8390 | Dyslexia Intervention Strategies - Phonological Awareness: Foundation for Reading - Teaching Phonemic Awareness: Activities and Games
+2025-11-25T18:31:37.877Z | SUCCESS | b30cb6ca592f4e0a885e55b56cdea3a8 | Dyslexia Intervention Strategies - Systematic Phonics: Sound-Symbol Correspondence - Teaching Phonics Systematically: Scope and Sequence
+2025-11-25T18:31:43.625Z | SUCCESS | 9b1823df1c294d9ba7f78ee53915e0ac | Dyslexia Intervention Strategies - Systematic Phonics: Sound-Symbol Correspondence - Decodable Texts and Application
+2025-11-25T18:31:49.459Z | SUCCESS | 307e9a76447247a5b4b23f46e8070f6a | Dyslexia Intervention Strategies - Fluency Development: From Accurate to Automatic - What is Reading Fluency? Accuracy, Rate, Prosody
+2025-11-25T18:31:55.112Z | SUCCESS | fddebce2eaa04f11abef2577ef98c51a | Dyslexia Intervention Strategies - Fluency Development: From Accurate to Automatic - Fluency Interventions: Repeated Reading and Strategies
+2025-11-25T18:32:00.870Z | SUCCESS | 190f0b80e53b4d319dc5bc7a5789b45c | Dyslexia Intervention Strategies - Reading Comprehension: Beyond Decoding - Simple View of Reading: Decoding × Comprehension
+2025-11-25T18:32:06.600Z | SUCCESS | 0f546c70547342a0a8548fa0ac7aa4f7 | Dyslexia Intervention Strategies - Reading Comprehension: Beyond Decoding - Comprehension Strategies for Dyslexic Readers
+2025-11-25T18:32:12.394Z | SUCCESS | 4b4a17f17bc5448fb5bf7dcaacc37bfe | Dyslexia Intervention Strategies - Spelling and Written Expression Support - Spelling Instruction: Patterns Not Memorization
+2025-11-25T18:32:17.999Z | SUCCESS | 82d8b5bce85c4aa7b787093275216d5e | Dyslexia Intervention Strategies - Spelling and Written Expression Support - Supporting Written Expression: Separating Transcription from Composition
+2025-11-25T18:32:23.790Z | SUCCESS | 5baff17122374d549a199600b4ec044c | Dyslexia Intervention Strategies - Accommodations, Assistive Technology, and Progress Monitoring - Classroom Accommodations and Assistive Technology
+2025-11-25T18:32:29.537Z | SUCCESS | 4c7259f3a45b49f38a78e5d2c516f972 | Dyslexia Intervention Strategies - Accommodations, Assistive Technology, and Progress Monitoring - Progress Monitoring and Assessment

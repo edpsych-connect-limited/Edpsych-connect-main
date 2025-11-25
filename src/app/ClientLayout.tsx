@@ -10,6 +10,7 @@ import { ContextualHelp } from '@/components/help/ContextualHelp';
 import { DemoProvider } from '@/components/demo/DemoProvider';
 import { SupportChatbot } from '@/components/chat/SupportChatbot';
 import { BrandingProvider, useBranding } from '@/lib/branding/BrandingProvider';
+import { AICentralNervousSystem } from '@/components/ai/AICentralNervousSystem';
 
 function HeaderContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -258,6 +259,7 @@ export default function ClientLayout({
             <main className={isLandingPage ? '' : 'p-6'}>{children}</main>
             <FeatureExplainer key={pathname} />
             <VoiceAssistant />
+            <AICentralNervousSystem />
             <SupportChatbot />
             {!isLandingPage && (
               <div className="fixed bottom-6 right-24 z-50">

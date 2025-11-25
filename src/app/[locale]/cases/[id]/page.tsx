@@ -62,72 +62,70 @@ export default function CaseDetailPage({ params }: CaseDetailProps) {
   const [showNoteModal, setShowNoteModal] = useState(false);
 
   useEffect(() => {
-
+    const loadCase = async () => {
+      try {
+        // In production, fetch from API
+        // Mock data for now
+        const mockCase: CaseDetail = {
+          id: parseInt(params.id),
+          student_name: 'Jamie Smith',
+          date_of_birth: '2015-03-15',
+          year_group: 'Year 3',
+          school: 'Riverside Primary School',
+          upn: 'A123456789012',
+          referral_date: '2025-09-15',
+          referral_reason:
+            'Concerns about reading progress and working memory. Jamie is making slow progress despite Quality First Teaching and additional interventions.',
+          presenting_concerns: [
+            'Reading fluency below age expectation',
+            'Working memory difficulties',
+            'Difficulty following multi-step instructions',
+          ],
+          case_type: 'Cognitive Assessment',
+          priority: 'high',
+          status: 'assessment',
+          sen_support: true,
+          ehcp: false,
+          medical_needs: 'Wears glasses for myopia. No other medical needs.',
+          relevant_history:
+            'Jamie attended nursery from age 3. Speech and language development was typical. Parents report no concerns about early development.',
+          strengths:
+            'Strong visual-spatial skills, excellent at building/construction tasks, creative, kind and helpful, good sense of humor, loves animals.',
+          consent_obtained: true,
+          consent_date: '2025-09-20',
+          safeguarding_concerns: false,
+          metadata: {
+            parent_carers: [
+              { name: 'Sarah Smith', role: 'Mother', contact: 'sarah.smith@email.com', relationship: 'Parent' },
+            ],
+            school_staff: [
+              { name: 'Ms. Jones', role: 'Class Teacher', contact: 'jones@riverside.sch.uk', relationship: 'Class Teacher' },
+              { name: 'Mr. Brown', role: 'SENCO', contact: 'brown@riverside.sch.uk', relationship: 'SENCO' },
+            ],
+          },
+          created_at: '2025-09-15T10:00:00Z',
+          updated_at: '2025-10-28T14:30:00Z',
+          notes: [
+            {
+              id: 1,
+              content: 'Initial consultation with class teacher completed.',
+              author: 'Dr. Sarah Jones',
+              created_at: '2025-09-16T14:00:00Z'
+            }
+          ]
+        };
+        setCaseDetail(mockCase);
+      } catch (error) {
+        console.error('Failed to load case:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
     if (status === 'authenticated') {
       loadCase();
     }
   }, [status, params.id]);
-
-  const loadCase = async () => {
-    try {
-      // In production, fetch from API
-      // Mock data for now
-      const mockCase: CaseDetail = {
-        id: parseInt(params.id),
-        student_name: 'Jamie Smith',
-        date_of_birth: '2015-03-15',
-        year_group: 'Year 3',
-        school: 'Riverside Primary School',
-        upn: 'A123456789012',
-        referral_date: '2025-09-15',
-        referral_reason:
-          'Concerns about reading progress and working memory. Jamie is making slow progress despite Quality First Teaching and additional interventions.',
-        presenting_concerns: [
-          'Reading fluency below age expectation',
-          'Working memory difficulties',
-          'Difficulty following multi-step instructions',
-        ],
-        case_type: 'Cognitive Assessment',
-        priority: 'high',
-        status: 'assessment',
-        sen_support: true,
-        ehcp: false,
-        medical_needs: 'Wears glasses for myopia. No other medical needs.',
-        relevant_history:
-          'Jamie attended nursery from age 3. Speech and language development was typical. Parents report no concerns about early development.',
-        strengths:
-          'Strong visual-spatial skills, excellent at building/construction tasks, creative, kind and helpful, good sense of humor, loves animals.',
-        consent_obtained: true,
-        consent_date: '2025-09-20',
-        safeguarding_concerns: false,
-        metadata: {
-          parent_carers: [
-            { name: 'Sarah Smith', role: 'Mother', contact: 'sarah.smith@email.com', relationship: 'Parent' },
-          ],
-          school_staff: [
-            { name: 'Ms. Jones', role: 'Class Teacher', contact: 'jones@riverside.sch.uk', relationship: 'Class Teacher' },
-            { name: 'Mr. Brown', role: 'SENCO', contact: 'brown@riverside.sch.uk', relationship: 'SENCO' },
-          ],
-        },
-        created_at: '2025-09-15T10:00:00Z',
-        updated_at: '2025-10-28T14:30:00Z',
-        notes: [
-          {
-            id: 1,
-            content: 'Initial consultation with class teacher completed.',
-            author: 'Dr. Sarah Jones',
-            created_at: '2025-09-16T14:00:00Z'
-          }
-        ]
-      };
-      setCaseDetail(mockCase);
-    } catch (error) {
-      console.error('Failed to load case:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleUpdateCase = (updatedFields: Partial<CaseDetail>) => {
     if (caseDetail) {
