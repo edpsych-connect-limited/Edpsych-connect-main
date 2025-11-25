@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { generateMockSchoolData } from '@/lib/onboarding/mock-mis-data';
 import { SchoolAuditEngine, AuditFinding } from '@/lib/onboarding/audit-engine';
-import { Shield, Database, Search, FileText, CheckCircle, AlertTriangle, PoundSign, ArrowRight, Loader2 } from 'lucide-react';
+import { Shield, Database, Search, FileText, CheckCircle, AlertTriangle, PoundSterling, ArrowRight, Loader2 } from 'lucide-react';
 
 export default function OnboardingSandbox() {
   const [step, setStep] = useState<'connect' | 'scanning' | 'report'>('connect');
@@ -112,7 +112,7 @@ export default function OnboardingSandbox() {
                   <div>
                     <div className="text-indigo-300 text-sm mb-1">Potential Unclaimed Funding</div>
                     <div className="text-4xl font-bold text-emerald-400 flex items-center gap-1">
-                      <PoundSign className="w-6 h-6" />
+                      <PoundSterling className="w-6 h-6" />
                       {totalValue.toLocaleString()}
                     </div>
                   </div>
@@ -136,7 +136,7 @@ export default function OnboardingSandbox() {
                       finding.severity === 'MEDIUM' ? 'bg-orange-100 text-orange-600' :
                       'bg-blue-100 text-blue-600'
                     }`}>
-                      {finding.type === 'FUNDING_OPPORTUNITY' ? <PoundSign className="w-6 h-6" /> :
+                      {finding.type === 'FUNDING_OPPORTUNITY' ? <PoundSterling className="w-6 h-6" /> :
                        finding.type === 'COMPLIANCE_RISK' ? <AlertTriangle className="w-6 h-6" /> :
                        <FileText className="w-6 h-6" />}
                     </div>

@@ -1,7 +1,7 @@
 import Stripe from 'stripe';
 
 if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error('STRIPE_SECRET_KEY is not defined');
+  console.warn('STRIPE_SECRET_KEY is not defined');
 }
 
 // Define types matching the Prisma schema
@@ -28,7 +28,7 @@ export enum UserType {
   SYSTEM_ADMIN = 'SYSTEM_ADMIN'
 }
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy', {
   apiVersion: '2025-10-29.clover', // Latest Stripe API version
 });
 
