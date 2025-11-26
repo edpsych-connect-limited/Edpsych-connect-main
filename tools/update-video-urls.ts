@@ -1,42 +1,42 @@
 
 import fs from 'fs';
 import path from 'path';
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
-const API_KEY = 'sk_V2_hgu_ky346mdR1EZ_sepM85TUnIexIOSuzpiVI5gXaqMhWDo1';
+// const API_KEY = 'sk_V2_hgu_ky346mdR1EZ_sepM85TUnIexIOSuzpiVI5gXaqMhWDo1';
 const LOG_FILE = path.join(process.cwd(), 'video_scripts', 'generation_log.txt');
 
-async function getVideoStatus(videoId: string) {
-  const endpoints = [
-    `https://api.heygen.com/v1/video_status?video_id=${videoId}`,
-    `https://api.heygen.com/v2/video_status?video_id=${videoId}`,
-    `https://api.heygen.com/v2/video/status?video_id=${videoId}`,
-    `https://api.heygen.com/v2/videos/${videoId}`,
-    `https://api.heygen.com/v2/video/${videoId}`
-  ];
+// async function getVideoStatus(videoId: string) {
+//   const endpoints = [
+//     `https://api.heygen.com/v1/video_status?video_id=${videoId}`,
+//     `https://api.heygen.com/v2/video_status?video_id=${videoId}`,
+//     `https://api.heygen.com/v2/video/status?video_id=${videoId}`,
+//     `https://api.heygen.com/v2/videos/${videoId}`,
+//     `https://api.heygen.com/v2/video/${videoId}`
+//   ];
 
-  for (const url of endpoints) {
-    try {
-      const response = await fetch(url, {
-        headers: {
-          'X-Api-Key': API_KEY,
-          'Accept': 'application/json'
-        }
-      });
+//   for (const url of endpoints) {
+//     try {
+//       const response = await fetch(url, {
+//         headers: {
+//           'X-Api-Key': API_KEY,
+//           'Accept': 'application/json'
+//         }
+//       });
       
-      if (response.ok) {
-          return await response.json();
-      } else {
-          // console.log(`   ⚠️ API Error (${url}): ${response.status}`);
-      }
-    } catch (_error) {
-      // console.log(`   ⚠️ Fetch Error (${url})`);
-    }
-  }
-  return null;
-}
+//       if (response.ok) {
+//           return await response.json();
+//       } else {
+//           // console.log(`   ⚠️ API Error (${url}): ${response.status}`);
+//       }
+//     } catch (_error) {
+//       // console.log(`   ⚠️ Fetch Error (${url})`);
+//     }
+//   }
+//   return null;
+// }
 
 async function main() {
   if (!fs.existsSync(LOG_FILE)) {

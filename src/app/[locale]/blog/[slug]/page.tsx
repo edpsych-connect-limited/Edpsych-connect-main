@@ -3,8 +3,7 @@
  * Full post view with markdown rendering and comments
  */
 
-'use client';
-
+import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
@@ -168,7 +167,7 @@ export default function BlogPostPage() {
             <div className="flex items-center gap-3 mb-4">
               <span
                 className="px-3 py-1 text-sm font-medium rounded-full"
-                style={{ backgroundColor: post.category.color + '20', color: post.category.color }}
+                // style={{ backgroundColor: post.category.color + '20', color: post.category.color }}
               >
                 {post.category.name}
               </span>
@@ -220,11 +219,14 @@ export default function BlogPostPage() {
 
           {/* Featured Image */}
           {post.featured_image && (
-            <img
-              src={post.featured_image}
-              alt={post.title}
-              className="w-full h-96 object-cover rounded-lg mb-8"
-            />
+            <div className="relative w-full h-96 mb-8">
+              <Image
+                src={post.featured_image}
+                alt={post.title}
+                fill
+                className="object-cover rounded-lg"
+              />
+            </div>
           )}
 
           {/* Content */}
@@ -237,6 +239,7 @@ export default function BlogPostPage() {
                 p: ({ children }) => <p className="text-gray-700 leading-relaxed mb-4">{children}</p>,
                 ul: ({ children }) => <ul className="list-disc list-inside space-y-2 mb-4 text-gray-700">{children}</ul>,
                 ol: ({ children }) => <ol className="list-decimal list-inside space-y-2 mb-4 text-gray-700">{children}</ol>,
+                // eslint-disable-next-line
                 li: ({ children }) => <li className="ml-4">{children}</li>,
                 strong: ({ children }) => <strong className="font-semibold text-gray-900">{children}</strong>,
                 em: ({ children }) => <em className="italic text-gray-700">{children}</em>,
@@ -378,17 +381,20 @@ export default function BlogPostPage() {
                   className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden text-left"
                 >
                   {relatedPost.featured_image && (
-                    <img
-                      src={relatedPost.featured_image}
-                      alt={relatedPost.title}
-                      className="w-full h-48 object-cover"
-                    />
+                    <div className="relative w-full h-48">
+                      <Image
+                        src={relatedPost.featured_image}
+                        alt={relatedPost.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
                   )}
                   <div className="p-6">
                     <div className="flex items-center gap-2 mb-3">
                       <span
                         className="px-2 py-1 text-xs font-medium rounded"
-                        style={{ backgroundColor: relatedPost.category.color + '20', color: relatedPost.category.color }}
+                        // style={{ backgroundColor: relatedPost.category.color + '20', color: relatedPost.category.color }}
                       >
                         {relatedPost.category.name}
                       </span>

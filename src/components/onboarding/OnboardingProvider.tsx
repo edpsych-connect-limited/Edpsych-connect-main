@@ -93,29 +93,41 @@ function onboardingReducer(state: OnboardingState, action: OnboardingAction): On
 
     case 'LOAD_STATUS':
       if (!action.payload) return state;
+
+      // Check if payload is from API (has progress) or from localStorage (has step2Data directly)
+      const payload = action.payload as any;
+      
+      if (!payload.progress) {
+          // It's likely from localStorage (OnboardingState format)
+          return {
+              ...state,
+              ...payload
+          };
+      }
+
       return {
         ...state,
-        userId: action.payload.userId,
-        onboardingCompleted: action.payload.onboardingCompleted,
-        currentStep: action.payload.currentStep,
-        stepsCompleted: action.payload.stepsCompleted,
-        stepsSkipped: action.payload.stepsSkipped,
-        progressPercentage: action.payload.progressPercentage,
-        totalTimeSpent: action.payload.totalTimeSpentSeconds,
-        canResume: action.payload.canResume,
-        timesRestarted: action.payload.timesRestarted,
-        canGoBack: action.payload.currentStep > 1,
-        canSkip: action.payload.currentStep < 6,
+        userId: payload.userId,
+        onboardingCompleted: payload.onboardingCompleted,
+        currentStep: payload.currentStep,
+        stepsCompleted: payload.stepsCompleted,
+        stepsSkipped: payload.stepsSkipped,
+        progressPercentage: payload.progressPercentage,
+        totalTimeSpent: payload.totalTimeSpentSeconds,
+        canResume: payload.canResume,
+        timesRestarted: payload.timesRestarted,
+        canGoBack: payload.currentStep > 1,
+        canSkip: payload.currentStep < 6,
         // Load step-specific data
-        step2Data: action.payload.progress.step2.role ? { roleSelected: action.payload.progress.step2.role } : {},
+        step2Data: payload.progress.step2.role ? { roleSelected: payload.progress.step2.role } : {},
         step4Data: {
-          featuresViewed: action.payload.progress.step4.featuresViewed,
-          demosTried: action.payload.progress.step4.demosTried
+          featuresViewed: payload.progress.step4.featuresViewed,
+          demosTried: payload.progress.step4.demosTried
         },
         step5Data: {
-          caseCreated: action.payload.progress.step5.caseCreated,
-          assessmentDone: action.payload.progress.step5.assessmentDone,
-          goalSet: action.payload.progress.step5.goalSet
+          caseCreated: payload.progress.step5.caseCreated,
+          assessmentDone: payload.progress.step5.assessmentDone,
+          goalSet: payload.progress.step5.goalSet
         }
       };
 

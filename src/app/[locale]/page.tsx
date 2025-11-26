@@ -2,9 +2,8 @@
 // This ensures clean routing: edpsych-connect-limited.vercel.app/ shows the full landing experience
 
 import { Metadata } from 'next';
-// import LandingPage from '@/components/landing/LandingPage';
+import LandingPage from '@/components/landing/LandingPage';
 import ComingSoonPage from '@/components/landing/ComingSoonPage';
-import { getStripePrices } from '@/lib/stripe-pricing';
 
 export const metadata: Metadata = {
   title: 'EdPsych Connect World | Teaching That Adapts Itself - Platform Orchestration for UK Education',
@@ -50,12 +49,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Home() {
-  // const pricingData = await getStripePrices();
+export const dynamic = 'force-dynamic'; // Ensure searchParams are read correctly
+
+export default async function Home({
+  searchParams,
+}: {
+  params: { locale: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
+  const isPreview = searchParams?.preview === 'true';
+
+  if (isPreview) {
+    return <LandingPage pricingData={[]} />;
+  }
 
   return (
     <>
-      {/* <LandingPage pricingData={pricingData} /> */}
       <ComingSoonPage />
     </>
   );

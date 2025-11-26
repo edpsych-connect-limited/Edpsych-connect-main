@@ -3,8 +3,7 @@
  * Browse posts, filter by category/tag, search
  */
 
-'use client';
-
+import Image from 'next/image';
 import React, { useState, useEffect, Suspense, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -182,6 +181,7 @@ function BlogPageContent() {
                 />
                 <button
                   onClick={handleSearch}
+                  aria-label="Search"
                   className="absolute right-2 top-2 p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -271,17 +271,20 @@ function BlogPageContent() {
                       className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden text-left"
                     >
                       {post.featured_image && (
-                        <img
-                          src={post.featured_image}
-                          alt={post.title}
-                          className="w-full h-48 object-cover"
-                        />
+                        <div className="relative w-full h-48">
+                          <Image
+                            src={post.featured_image}
+                            alt={post.title}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
                       )}
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-3">
                           <span
                             className="px-2 py-1 text-xs font-medium rounded"
-                            style={{ backgroundColor: post.category.color + '20', color: post.category.color }}
+                            // style={{ backgroundColor: `${post.category.color}20`, color: post.category.color }}
                           >
                             {post.category.name}
                           </span>
@@ -342,17 +345,20 @@ function BlogPageContent() {
                   >
                     <div className="flex items-start gap-6">
                       {post.featured_image && (
-                        <img
-                          src={post.featured_image}
-                          alt={post.title}
-                          className="w-48 h-32 object-cover rounded-lg flex-shrink-0"
-                        />
+                        <div className="relative w-48 h-32 flex-shrink-0">
+                          <Image
+                            src={post.featured_image}
+                            alt={post.title}
+                            fill
+                            className="object-cover rounded-lg"
+                          />
+                        </div>
                       )}
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-3">
                           <span
                             className="px-3 py-1 text-sm font-medium rounded-full"
-                            style={{ backgroundColor: post.category.color + '20', color: post.category.color }}
+                            // style={{ backgroundColor: `${post.category.color}20`, color: post.category.color }}
                           >
                             {post.category.name}
                           </span>
