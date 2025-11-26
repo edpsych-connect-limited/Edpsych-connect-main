@@ -116,7 +116,7 @@ export default function CollaborativeInputForm({
       },
       teacher: {
         title: 'Teacher Input Form',
-        description: 'Your classroom observations and professional insights are essential. Please share what you observe about this student\'s learning, behavior, and interactions in the school environment.',
+        description: 'Your classroom observations and professional insights are essential. Please share what you observe about this student\'s learning, behaviour, and interactions in the school environment.',
       },
       child: {
         title: 'Your Views',
@@ -157,7 +157,7 @@ export default function CollaborativeInputForm({
         type: 'textarea',
         placeholder: contributor_type === 'child'
           ? 'Tell us about a time when this was tricky...'
-          : 'Describe specific situations and behaviors...',
+          : 'Describe specific situations and behaviours...',
       },
       {
         id: 'strengths',

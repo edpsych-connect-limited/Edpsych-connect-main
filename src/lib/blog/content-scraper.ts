@@ -116,7 +116,7 @@ const EDUCATIONAL_TOPICS = [
   // Educational Psychology
   'educational psychology',
   'cognitive development',
-  'behavior support',
+  'behaviour support',
   'mental health',
   'wellbeing',
   'trauma-informed practice',

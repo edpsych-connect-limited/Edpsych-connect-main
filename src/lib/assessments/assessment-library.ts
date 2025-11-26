@@ -40,7 +40,7 @@ export type AssessmentCategory =
   | 'literacy'
   | 'numeracy'
   | 'social_emotional'
-  | 'behavioral'
+  | 'behavioural'
   | 'adaptive'
   | 'developmental'
   | 'sensory'
@@ -65,7 +65,7 @@ export type AssessmentDomain =
   | 'impulsivity'
   | 'emotional_regulation'
   | 'social_skills'
-  | 'adaptive_behavior'
+  | 'adaptive_behaviour'
   | 'motor_skills'
   | 'sensory_processing';
 
@@ -576,11 +576,11 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
     id: 'sdq-teacher',
     name: 'Strengths and Difficulties Questionnaire (Teacher)',
     category: 'social_emotional',
-    subcategory: 'Behavioral Screening',
-    description: 'Brief behavioral screening questionnaire - teacher version',
+    subcategory: 'Behavioural Screening',
+    description: 'Brief behavioural screening questionnaire - teacher version',
     age_range: '4-17',
     administration_time: '5-10',
-    purpose: 'Screen for emotional and behavioral difficulties',
+    purpose: 'Screen for emotional and behavioural difficulties',
     domains: ['emotional_regulation', 'social_skills', 'attention', 'hyperactivity'],
     qualification_required: 'teacher',
     is_standardized: true,
@@ -642,7 +642,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       {
         section_id: 'sdq-conduct',
         title: 'Conduct Problems',
-        description: 'Questions about behavior',
+        description: 'Questions about behaviour',
         items: [
           {
             item_id: 'sdq-c1',
@@ -736,7 +736,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       'Compare teacher and parent ratings for consistency',
     ],
     references: ['Goodman, R. (1997). SDQ Manual', 'www.sdqinfo.org'],
-    tags: ['SEMH', 'behavioral', 'screening', 'SDQ'],
+    tags: ['behavioral', 'screening', 'SDQ'],
   },
 
   // ==========================================================================
@@ -835,8 +835,8 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
   // ==========================================================================
 
   {
-    id: 'adaptive-behavior-checklist',
-    name: 'Adaptive Behavior Skills Inventory',
+    id: 'adaptive-behaviour-checklist',
+    name: 'Adaptive Behaviour Skills Inventory',
     category: 'adaptive',
     subcategory: 'Daily Living Skills',
     description: 'Assessment of practical life skills and independence',
@@ -868,7 +868,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 4, label: 'Fully independent' },
               ],
             },
-            domain: 'adaptive_behavior',
+            domain: 'adaptive_behaviour',
           },
         ],
       },
@@ -897,11 +897,11 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       },
     ],
     interpretation_guidelines: [
-      'Adaptive behavior crucial for EHCP eligibility',
+      'Adaptive behaviour crucial for EHCP eligibility',
       'Compare across settings (home, school, community)',
       'Identify specific skill gaps for intervention planning',
     ],
-    references: ['Vineland Adaptive Behavior Scales framework'],
+    references: ['Vineland Adaptive Behaviour Scales framework'],
     tags: ['adaptive', 'independence', 'life-skills'],
   },
 
@@ -1147,12 +1147,12 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       'Conners 3rd Edition',
       'SNAP-IV Teacher and Parent Rating Scale',
     ],
-    tags: ['adhd', 'attention', 'hyperactivity', 'impulsivity', 'behavior'],
+    tags: ['adhd', 'attention', 'hyperactivity', 'impulsivity', 'behaviour'],
   },
 
   {
-    id: 'executive-function-behavioral-rating',
-    name: 'Executive Function Behavioral Rating Scale',
+    id: 'executive-function-behavioural-rating',
+    name: 'Executive Function Behavioural Rating Scale',
     category: 'executive_function',
     subcategory: 'Daily Functioning',
     description: 'Teacher/parent rating of executive function skills in real-world contexts (BRIEF framework)',
@@ -1166,8 +1166,8 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
     scoring_method: 'manual',
     sections: [
       {
-        section_id: 'behavior-regulation',
-        title: 'Behavioral Regulation Index',
+        section_id: 'behaviour-regulation',
+        title: 'Behavioural Regulation Index',
         description: 'Inhibitory control, flexibility, emotional control',
         items: [
           {
@@ -1509,7 +1509,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       {
         section_id: 'restricted-repetitive',
         title: 'Restricted, Repetitive Patterns of Behavior, Interests, or Activities',
-        description: 'Repetitive behaviors, insistence on sameness, fixed interests, sensory sensitivities',
+        description: 'Repetitive behaviours, insistence on sameness, fixed interests, sensory sensitivities',
         items: [
           {
             item_id: 'rr-repetitive',
@@ -1572,7 +1572,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'sensory_processing',
           },
         ],
-        scoring_instructions: 'Total score ≥4 indicates potential restricted/repetitive behaviors warranting further assessment',
+        scoring_instructions: 'Total score ≥4 indicates potential restricted/repetitive behaviours warranting further assessment',
       },
     ],
     interpretation_guidelines: [
@@ -2004,7 +2004,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
           },
           {
             item_id: 'reg-express',
-            question_text: 'Can express feelings in words rather than through behavior',
+            question_text: 'Can express feelings in words rather than through behaviour',
             item_type: 'rating_scale',
             rating_scale: {
               min: 1,
@@ -2753,7 +2753,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
     age_range: '0-5',
     administration_time: '30-40',
     purpose: 'Identify developmental delays across communication, motor, cognitive, and social-emotional domains',
-    domains: ['receptive_language', 'expressive_language', 'motor_skills', 'social_skills', 'adaptive_behavior'],
+    domains: ['adaptive_behavior'],
     qualification_required: 'teacher',
     is_standardized: false,
     norm_referenced: false,
@@ -2883,7 +2883,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 2, label: 'Age-appropriate' },
               ],
             },
-            domain: 'adaptive_behavior',
+            domain: 'adaptive_behaviour',
           },
         ],
       },
@@ -3953,10 +3953,10 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
     name: 'Conduct and Oppositional Behavior Assessment',
     category: 'behavioral',
     subcategory: 'Conduct Problems',
-    description: 'Assessment of oppositional, defiant, and conduct-related behaviors',
+    description: 'Assessment of oppositional, defiant, and conduct-related behaviours',
     age_range: '5-16',
     administration_time: '20-25',
-    purpose: 'Identify conduct difficulties to guide behavior support and intervention',
+    purpose: 'Identify conduct difficulties to guide behaviour support and intervention',
     domains: ['emotional_regulation', 'social_skills'],
     qualification_required: 'teacher',
     is_standardized: false,
@@ -3966,7 +3966,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       {
         section_id: 'oppositional-defiant',
         title: 'Oppositional Defiant Behaviors',
-        description: 'Argumentative, defiant behavior toward authority figures',
+        description: 'Argumentative, defiant behaviour toward authority figures',
         items: [
           {
             item_id: 'odd-argue',
@@ -4018,7 +4018,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
           },
           {
             item_id: 'odd-blame',
-            question_text: 'Blames others for own mistakes or misbehavior',
+            question_text: 'Blames others for own mistakes or misbehaviour',
             item_type: 'rating_scale',
             rating_scale: {
               min: 0,
@@ -4049,7 +4049,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'emotional_regulation',
           },
         ],
-        scoring_instructions: '≥4 symptoms rated Often/Very Often suggests clinically significant ODD behaviors',
+        scoring_instructions: '≥4 symptoms rated Often/Very Often suggests clinically significant ODD behaviours',
       },
       {
         section_id: 'conduct-violation',
@@ -4113,7 +4113,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       'Often co-occurs with ADHD (50% comorbidity)',
       'Early intervention critical - ODD can progress to conduct disorder',
       'Consider underlying causes: trauma, family stress, learning difficulties, unmet needs',
-      'Functional behavior assessment recommended',
+      'Functional behaviour assessment recommended',
       'Parent training and school-based interventions most effective',
     ],
     references: [
@@ -4121,18 +4121,18 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       'DSM-5 Conduct Disorder criteria',
       'NICE (2013) - Antisocial behaviour and conduct disorders',
     ],
-    tags: ['conduct', 'ODD', 'behavior', 'defiance', 'oppositional'],
+    tags: ['conduct', 'ODD', 'behaviour', 'defiance', 'oppositional'],
   },
 
   {
-    id: 'functional-behavior-assessment',
+    id: 'functional-behaviour-assessment',
     name: 'Functional Behavior Assessment (ABC Analysis)',
     category: 'behavioral',
     subcategory: 'Behavior Analysis',
-    description: 'Systematic analysis of antecedents, behaviors, and consequences to understand function of challenging behavior',
+    description: 'Systematic analysis of antecedents, behaviours, and consequences to understand function of challenging behaviour',
     age_range: '3-18',
     administration_time: '30-45',
-    purpose: 'Identify triggers, patterns, and functions of challenging behavior to inform intervention',
+    purpose: 'Identify triggers, patterns, and functions of challenging behaviour to inform intervention',
     domains: ['emotional_regulation', 'social_skills'],
     qualification_required: 'senco',
     is_standardized: false,
@@ -4140,31 +4140,31 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
     scoring_method: 'manual',
     sections: [
       {
-        section_id: 'behavior-description',
+        section_id: 'behaviour-description',
         title: 'Behavior Description',
-        description: 'Clear, observable description of the target behavior',
+        description: 'Clear, observable description of the target behaviour',
         items: [
           {
             item_id: 'beh-describe',
-            question_text: 'Description of behavior (observable, specific, measurable)',
+            question_text: 'Description of behaviour (observable, specific, measurable)',
             item_type: 'text',
             domain: 'emotional_regulation',
           },
           {
             item_id: 'beh-frequency',
-            question_text: 'Frequency of behavior (times per day/week)',
+            question_text: 'Frequency of behaviour (times per day/week)',
             item_type: 'text',
             domain: 'emotional_regulation',
           },
           {
             item_id: 'beh-duration',
-            question_text: 'Duration of behavior (how long does it last)',
+            question_text: 'Duration of behaviour (how long does it last)',
             item_type: 'text',
             domain: 'emotional_regulation',
           },
           {
             item_id: 'beh-intensity',
-            question_text: 'Intensity/severity of behavior',
+            question_text: 'Intensity/severity of behaviour',
             item_type: 'rating_scale',
             rating_scale: {
               min: 1,
@@ -4182,23 +4182,23 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       {
         section_id: 'antecedents',
         title: 'Antecedents (What happens before)',
-        description: 'Triggers and settings that predict the behavior',
+        description: 'Triggers and settings that predict the behaviour',
         items: [
           {
             item_id: 'ant-time',
-            question_text: 'Time of day when behavior most likely',
+            question_text: 'Time of day when behaviour most likely',
             item_type: 'text',
             domain: 'emotional_regulation',
           },
           {
             item_id: 'ant-setting',
-            question_text: 'Settings where behavior occurs (classroom, playground, transitions)',
+            question_text: 'Settings where behaviour occurs (classroom, playground, transitions)',
             item_type: 'text',
             domain: 'emotional_regulation',
           },
           {
             item_id: 'ant-activity',
-            question_text: 'Activities/tasks that trigger behavior',
+            question_text: 'Activities/tasks that trigger behaviour',
             item_type: 'text',
             domain: 'emotional_regulation',
           },
@@ -4213,23 +4213,23 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       {
         section_id: 'consequences',
         title: 'Consequences (What happens after)',
-        description: 'Responses to the behavior that may maintain it',
+        description: 'Responses to the behaviour that may maintain it',
         items: [
           {
             item_id: 'cons-adult',
-            question_text: 'How do adults respond to the behavior?',
+            question_text: 'How do adults respond to the behaviour?',
             item_type: 'text',
             domain: 'emotional_regulation',
           },
           {
             item_id: 'cons-peer',
-            question_text: 'How do peers respond to the behavior?',
+            question_text: 'How do peers respond to the behaviour?',
             item_type: 'text',
             domain: 'social_skills',
           },
           {
             item_id: 'cons-student',
-            question_text: 'What does the student get/avoid as result of behavior?',
+            question_text: 'What does the student get/avoid as result of behaviour?',
             item_type: 'text',
             domain: 'emotional_regulation',
           },
@@ -4238,7 +4238,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       {
         section_id: 'function-hypothesis',
         title: 'Function Hypothesis',
-        description: 'Hypothesized purpose/function of the behavior',
+        description: 'Hypothesized purpose/function of the behaviour',
         items: [
           {
             item_id: 'func-attention',
@@ -4304,11 +4304,11 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       },
     ],
     interpretation_guidelines: [
-      'All behavior is communication - behavior serves a function for the child',
+      'All behaviour is communication - behaviour serves a function for the child',
       'Four main functions: attention, escape, tangible, sensory/automatic',
-      'Effective intervention requires addressing the function, not just the behavior',
-      'Teach functionally equivalent replacement behaviors',
-      'Modify antecedents to prevent behavior; modify consequences to not reinforce',
+      'Effective intervention requires addressing the function, not just the behaviour',
+      'Teach functionally equivalent replacement behaviours',
+      'Modify antecedents to prevent behaviour; modify consequences to not reinforce',
       'Consider unmet needs: sensory, communication, skill deficits',
     ],
     references: [
@@ -4316,7 +4316,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       'Carr & Durand (1985) - Functional Communication Training',
       'BACB (2020) - Applied Behavior Analysis framework',
     ],
-    tags: ['behavior-analysis', 'ABC', 'functional-assessment', 'challenging-behavior'],
+    tags: ['behaviour-analysis', 'ABC', 'functional-assessment', 'challenging-behaviour'],
   },
 
   {
@@ -4324,7 +4324,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
     name: 'School Refusal and Avoidance Assessment',
     category: 'social_emotional',
     subcategory: 'School Attendance',
-    description: 'Assessment of emotionally-based school avoidance and refusal behaviors',
+    description: 'Assessment of emotionally-based school avoidance and refusal behaviours',
     age_range: '5-16',
     administration_time: '20-30',
     purpose: 'Differentiate school refusal from truancy and identify underlying causes',
@@ -4532,7 +4532,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
         items: [
           {
             item_id: 'trau-hypervigilance',
-            question_text: 'Shows heightened vigilance, watchfulness, or "on edge" behavior',
+            question_text: 'Shows heightened vigilance, watchfulness, or "on edge" behaviour',
             item_type: 'rating_scale',
             rating_scale: {
               min: 0,
@@ -4667,7 +4667,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       'Use only information already known to school or disclosed spontaneously',
       'Trauma-informed approach benefits ALL children, not just those with known trauma',
       'Key principles: safety, trustworthiness, choice, collaboration, empowerment',
-      'Consider trauma as possible factor when behavior doesn\'t respond to usual strategies',
+      'Consider trauma as possible factor when behaviour doesn\'t respond to usual strategies',
       'Refer to Educational Psychology Service or CAMHS for specialist trauma assessment',
     ],
     references: [
@@ -4801,11 +4801,11 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       {
         section_id: 'disorganized-indicators',
         title: 'Disorganized Attachment Indicators',
-        description: 'Contradictory behaviors, controlling, confusion about relationships',
+        description: 'Contradictory behaviours, controlling, confusion about relationships',
         items: [
           {
             item_id: 'dis-contradictory',
-            question_text: 'Contradictory behavior toward adults (seeks closeness then rejects)',
+            question_text: 'Contradictory behaviour toward adults (seeks closeness then rejects)',
             item_type: 'rating_scale',
             rating_scale: {
               min: 0,
@@ -5593,7 +5593,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       {
         section_id: 'social-emotional-concerns',
         title: 'Social-Emotional Concerns',
-        description: 'SEMH and behavior concerns',
+        description: 'SEMH and behaviour concerns',
         items: [
           {
             item_id: 'semh-anxiety',
@@ -5602,8 +5602,8 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'emotional_regulation',
           },
           {
-            item_id: 'semh-behavior',
-            question_text: 'Persistent behavioral difficulties',
+            item_id: 'semh-behaviour',
+            question_text: 'Persistent behavioural difficulties',
             item_type: 'yes_no',
             domain: 'emotional_regulation',
           },
@@ -6110,7 +6110,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       'Distinguished from conflict by power imbalance and repetition',
       'Can have lasting impact on mental health and wellbeing',
       'Whole-school approach essential (not just individual intervention)',
-      'Important to address both bullying behavior and victimization',
+      'Important to address both bullying behaviour and victimization',
       'Protected characteristics (race, disability, LGBTQ+) require specific consideration',
     ],
     references: [
@@ -6297,7 +6297,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 4, label: 'Fully independent' },
               ],
             },
-            domain: 'adaptive_behavior',
+            domain: 'adaptive_behaviour',
           },
           {
             item_id: 'trans-food',
@@ -6313,7 +6313,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 4, label: 'Independent' },
               ],
             },
-            domain: 'adaptive_behavior',
+            domain: 'adaptive_behaviour',
           },
           {
             item_id: 'trans-money',
@@ -6329,7 +6329,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 4, label: 'Independent' },
               ],
             },
-            domain: 'adaptive_behavior',
+            domain: 'adaptive_behaviour',
           },
         ],
       },
@@ -6352,7 +6352,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 4, label: 'Independent' },
               ],
             },
-            domain: 'adaptive_behavior',
+            domain: 'adaptive_behaviour',
           },
           {
             item_id: 'trans-safety',
@@ -6368,7 +6368,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 4, label: 'Full awareness' },
               ],
             },
-            domain: 'adaptive_behavior',
+            domain: 'adaptive_behaviour',
           },
         ],
       },
@@ -6391,11 +6391,11 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 4, label: 'Reliable' },
               ],
             },
-            domain: 'adaptive_behavior',
+            domain: 'adaptive_behaviour',
           },
           {
-            item_id: 'trans-work-behavior',
-            question_text: 'Demonstrates appropriate workplace behavior',
+            item_id: 'trans-work-behaviour',
+            question_text: 'Demonstrates appropriate workplace behaviour',
             item_type: 'rating_scale',
             rating_scale: {
               min: 1,
@@ -6420,7 +6420,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             item_id: 'trans-goals',
             question_text: 'Has clear goals for post-16 pathway',
             item_type: 'yes_no',
-            domain: 'adaptive_behavior',
+            domain: 'adaptive_behaviour',
           },
           {
             item_id: 'trans-advocate',
@@ -6645,13 +6645,13 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
         ],
       },
       {
-        section_id: 'parent-behavior-concerns',
+        section_id: 'parent-behaviour-concerns',
         title: 'Behavior and Emotional Wellbeing',
-        description: 'Parent observations of behavior',
+        description: 'Parent observations of behaviour',
         items: [
           {
-            item_id: 'par-behavior',
-            question_text: 'Do you have concerns about your child\'s behavior at home?',
+            item_id: 'par-behaviour',
+            question_text: 'Do you have concerns about your child\'s behaviour at home?',
             item_type: 'yes_no',
             domain: 'emotional_regulation',
           },
@@ -6703,13 +6703,13 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             item_id: 'par-other',
             question_text: 'Please describe any other concerns you have about your child\'s development or wellbeing',
             item_type: 'text',
-            domain: 'adaptive_behavior',
+            domain: 'adaptive_behaviour',
           },
           {
             item_id: 'par-strengths',
             question_text: 'What are your child\'s main strengths and interests?',
             item_type: 'text',
-            domain: 'adaptive_behavior',
+            domain: 'adaptive_behaviour',
           },
         ],
       },
@@ -6740,8 +6740,8 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
     description: 'Detailed assessment of sensory processing across all 7 sensory systems with functional impact analysis',
     age_range: '3-16',
     administration_time: '30-40',
-    purpose: 'Identify sensory processing differences affecting learning, behavior, and participation',
-    domains: ['sensory_processing', 'attention', 'adaptive_behavior'],
+    purpose: 'Identify sensory processing differences affecting learning, behaviour, and participation',
+    domains: ['adaptive_behavior'],
     qualification_required: 'senco',
     is_standardized: false,
     norm_referenced: false,
@@ -7166,7 +7166,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Severe impact' },
               ],
             },
-            domain: 'adaptive_behavior',
+            domain: 'adaptive_behaviour',
           },
           {
             item_id: 'func-social',
@@ -7182,7 +7182,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Severe impact' },
               ],
             },
-            domain: 'adaptive_behavior',
+            domain: 'adaptive_behaviour',
           },
           {
             item_id: 'func-self-care',
@@ -7198,11 +7198,11 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Severe impact' },
               ],
             },
-            domain: 'adaptive_behavior',
+            domain: 'adaptive_behaviour',
           },
           {
             item_id: 'func-emotional',
-            question_text: 'Sensory differences cause emotional distress or behavioral difficulties',
+            question_text: 'Sensory differences cause emotional distress or behavioural difficulties',
             item_type: 'rating_scale',
             rating_scale: {
               min: 0,
@@ -7214,7 +7214,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
                 { value: 3, label: 'Severe impact' },
               ],
             },
-            domain: 'adaptive_behavior',
+            domain: 'adaptive_behaviour',
           },
         ],
         scoring_instructions: 'Score 0-12. Score ≥6 indicates sensory differences are significantly impacting daily functioning.',
@@ -7223,13 +7223,13 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
     interpretation_guidelines: [
       'Sensory processing differences affect 5-16% of children (higher in autism, ADHD)',
       'Most children show mixed profile - both over-responsive and under-responsive patterns',
-      'Sensory seeking behavior often compensatory mechanism for under-responsivity',
+      'Sensory seeking behaviour often compensatory mechanism for under-responsivity',
       'Functional impact is key - same sensory profile may or may not cause difficulties',
       'Sensory differences are dimensional - not "disordered" unless causing significant distress/impairment',
       'Occupational Therapy assessment recommended if ≥3 sensory systems affected with functional impact',
       'Classroom accommodations can make substantial difference even without formal diagnosis',
       'Consider co-occurring conditions: autism (90%+ have sensory differences), ADHD (40-60%), anxiety',
-      'Sensory differences often explain "challenging behavior" - sensory-informed approach reduces meltdowns',
+      'Sensory differences often explain "challenging behaviour" - sensory-informed approach reduces meltdowns',
     ],
     references: [
       'Dunn (2014) - Sensory Profile 2 and neurological threshold model',
@@ -7838,7 +7838,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       {
         section_id: 'anxiety-indicators',
         title: 'Anxiety Indicators',
-        description: 'Physical and behavioral signs of anxiety around speaking',
+        description: 'Physical and behavioural signs of anxiety around speaking',
         items: [
           {
             item_id: 'sm-anx-physical',
@@ -7998,7 +7998,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       },
     ],
     interpretation_guidelines: [
-      'Selective mutism is an ANXIETY disorder - not oppositional or willful behavior',
+      'Selective mutism is an ANXIETY disorder - not oppositional or willful behaviour',
       'DSM-5 diagnostic criteria: consistent failure to speak in specific social situations (where speaking expected) for >1 month, interferes with functioning, not due to lack of language knowledge or another condition',
       'Onset typically 2-5 years, often identified when starting school',
       'More common in girls (2:1 ratio); prevalence ~0.7-0.8%',
@@ -8080,8 +8080,8 @@ export function getAssessmentCategories(): { category: AssessmentCategory; count
     { category: 'numeracy', count: 0, label: 'Numeracy' },
     { category: 'language_communication', count: 0, label: 'Language & Communication' },
     { category: 'social_emotional', count: 0, label: 'Social-Emotional' },
-    { category: 'behavioral', count: 0, label: 'Behavioral' },
-    { category: 'adaptive', count: 0, label: 'Adaptive Behavior' },
+    { category: 'behavioral', count: 0, label: 'Behavioural' },
+    { category: 'adaptive', count: 0, label: 'Adaptive Behaviour' },
     { category: 'developmental', count: 0, label: 'Developmental' },
     { category: 'sensory', count: 0, label: 'Sensory Processing' },
     { category: 'executive_function', count: 0, label: 'Executive Function' },

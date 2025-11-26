@@ -34,7 +34,7 @@ export default function DemoPage() {
             Experience the <span className="text-indigo-400">Invisible Brain</span>
           </h1>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            Interact with our multi-agent AI system. See how it plans lessons, writes reports, and analyzes behavior in real-time.
+            Interact with our multi-agent AI system. See how it plans lessons, writes reports, and analyses behaviour in real-time.
           </p>
         </div>
 

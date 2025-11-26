@@ -463,7 +463,7 @@ function LibraryTab({
           >
             <option value="all">All Categories</option>
             <option value="academic">📖 Academic</option>
-            <option value="behavioral">🎯 Behavioral</option>
+            <option value="behavioral">🎯 Behavioural</option>
             <option value="social_emotional">💙 Social-Emotional</option>
             <option value="communication">💬 Communication</option>
             <option value="sensory">🌈 Sensory</option>

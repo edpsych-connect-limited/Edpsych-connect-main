@@ -226,7 +226,7 @@ export default function CaseManagement() {
           last_updated: '2025-11-02',
           due_date: '2025-11-10',
           reason_for_referral:
-            'Escalating behavioral issues. Urgent intervention planning needed.',
+            'Escalating behavioural issues. Urgent intervention planning needed.',
           current_concerns: ['Aggression', 'Non-compliance', 'Peer relationships'],
           interventions_in_place: 0,
           assessments_completed: 0,

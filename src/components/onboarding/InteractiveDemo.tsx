@@ -46,7 +46,7 @@ const DEMO_CONFIG: Record<string, { type: string; input: any; title: string }> =
     input: {
       studentName: 'Jamie Smith',
       yearGroup: 'Year 8',
-      subject: 'Behavior Support',
+      subject: 'Behaviour Support',
       incidents: 'Frequent disruption in unstructured times',
       positiveBehaviors: 'Responds well to 1:1 support'
     }

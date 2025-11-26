@@ -14,7 +14,7 @@ async function main() {
     {
       title: 'Establishing a Routine',
       content: 'Consistency is key. Try to maintain a regular schedule for meals, homework, and bedtime to help your child feel secure.',
-      category: 'behavior',
+      category: 'behaviour',
       ageRange: '5-11',
       isActive: true
     },
@@ -35,7 +35,7 @@ async function main() {
     {
       title: 'Managing Screen Time',
       content: 'Set clear boundaries for screen time. Encourage offline activities like playing outside or board games.',
-      category: 'behavior',
+      category: 'behaviour',
       ageRange: 'all',
       isActive: true
     },

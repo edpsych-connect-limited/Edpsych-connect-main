@@ -91,7 +91,7 @@ const FEATURES: Feature[] = [
     icon: Target,
     name: 'Intervention Library',
     tagline: '69 Research-Backed Interventions',
-    description: 'Curated library of evidence-based interventions for literacy, numeracy, behavior, social-emotional learning, and executive function. Each with implementation guides and progress monitoring tools.',
+    description: 'Curated library of evidence-based interventions for literacy, numeracy, behaviour, social-emotional learning, and executive function. Each with implementation guides and progress monitoring tools.',
     highlights: [
       '69 evidence-based interventions',
       'Fidelity checklists',

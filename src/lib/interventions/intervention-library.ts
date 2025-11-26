@@ -19,7 +19,7 @@
 
 export type InterventionCategory =
   | 'academic'
-  | 'behavioral'
+  | 'behavioural'
   | 'social_emotional'
   | 'communication'
   | 'sensory';
@@ -5902,7 +5902,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Mental health support'
     ],
 
-    implementation_guide: 'MATHS ANXIETY = physiological response to maths (rapid heart rate, sweating, panic, avoidance). NOT lack of ability! Weeks 1-3: IDENTIFY anxiety (physical symptoms, negative thoughts, avoidance behaviors). Use anxiety scales. Discuss triggers. Normalize anxiety ("Many people feel this"). Weeks 4-8: CBT - challenge thoughts ("I\'m terrible at maths" → "I struggle with some areas but I\'m learning"). Evidence for/against. Growth mindset ("I can\'t do this YET"). Mistakes = learning. Weeks 9-14: ANXIETY MANAGEMENT - breathing (box breathing), grounding (5 senses), progressive relaxation. Practice before maths. Weeks 15-20: GRADUATED EXPOSURE - start with low-anxiety tasks, build success, gradually increase difficulty. Celebrate effort! Address test anxiety (practice tests, time management). CRITICAL: Safe environment, no pressure, focus on progress not perfection!',
+    implementation_guide: 'MATHS ANXIETY = physiological response to maths (rapid heart rate, sweating, panic, avoidance). NOT lack of ability! Weeks 1-3: IDENTIFY anxiety (physical symptoms, negative thoughts, avoidance behaviours). Use anxiety scales. Discuss triggers. Normalize anxiety ("Many people feel this"). Weeks 4-8: CBT - challenge thoughts ("I\'m terrible at maths" → "I struggle with some areas but I\'m learning"). Evidence for/against. Growth mindset ("I can\'t do this YET"). Mistakes = learning. Weeks 9-14: ANXIETY MANAGEMENT - breathing (box breathing), grounding (5 senses), progressive relaxation. Practice before maths. Weeks 15-20: GRADUATED EXPOSURE - start with low-anxiety tasks, build success, gradually increase difficulty. Celebrate effort! Address test anxiety (practice tests, time management). CRITICAL: Safe environment, no pressure, focus on progress not perfection!',
 
     parent_information: 'Maths anxiety is REAL - it\'s a physical and emotional response to maths that can interfere with learning and performance. Your child might experience rapid heartbeat, sweating, panic, or complete avoidance. The good news? It CAN be reduced! We\'re using CBT (Cognitive Behavioral Therapy) to challenge negative thoughts ("I\'m terrible at maths" becomes "I struggle with some topics but I\'m improving"), teaching anxiety management (breathing, relaxation), building GROWTH MINDSET ("I can\'t do this YET"), and creating success experiences. At home: NEVER say "I\'m bad at maths too", praise EFFORT not just results, normalize mistakes ("mistakes help us learn"), avoid time pressure, be patient. Your support is CRUCIAL! Reducing anxiety = unlocking mathematical potential!',
 
@@ -6670,17 +6670,17 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
 
 const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
   {
-    id: 'positive-behavior-support-plan',
-    name: 'Functional Behavior Assessment and Positive Behavior Support Plan',
+    id: 'positive-behaviour-support-plan',
+    name: 'Functional Behaviour Assessment and Positive Behaviour Support Plan',
     category: 'behavioral',
     subcategory: 'behavior_management',
-    description: 'Comprehensive assessment of challenging behavior to identify function, followed by individualized support plan with replacement behaviors, preventive strategies, and response protocols.',
-    targeted_needs: ['Challenging behavior', 'Aggression', 'Non-compliance', 'Self-injury', 'Disruptive classroom behavior', 'Behaviors interfering with learning'],
+    description: 'Comprehensive assessment of challenging behaviour to identify function, followed by individualised support plan with replacement behaviours, preventive strategies, and response protocols.',
+    targeted_needs: ['Challenging behaviour', 'Aggression', 'Non-compliance', 'Self-injury', 'Disruptive classroom behaviour', 'Behaviours interfering with learning'],
 
     evidence_level: 'tier_1',
-    research_sources: ['Positive Behavioral Interventions & Supports (PBIS)', 'Association for Positive Behavior Support', 'O\'Neill et al. Functional Assessment'],
+    research_sources: ['Positive Behavioural Interventions & Supports (PBIS)', 'Association for Positive Behaviour Support', 'O\'Neill et al. Functional Assessment'],
     effect_size: 0.68,
-    success_rate: '70-80% reduction in target behaviors',
+    success_rate: '70-80% reduction in target behaviours',
 
     age_range: ['early_years', 'primary', 'secondary', 'post_16'],
     setting: ['classroom', 'mixed'],
@@ -6694,9 +6694,9 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     cost_implications: '£100-£500 for assessment and materials',
 
     key_components: [
-      'Functional Behavior Assessment (FBA)',
-      'Hypothesis about function of behavior',
-      'Replacement behavior teaching',
+      'Functional Behaviour Assessment (FBA)',
+      'Hypothesis about function of behaviour',
+      'Replacement behaviour teaching',
       'Antecedent modifications (prevention)',
       'Consequence modifications (response)',
       'Data collection system',
@@ -6706,28 +6706,28 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
 
     fidelity_checklist: [
       'Complete thorough FBA before plan',
-      'Identify function of behavior (attention, escape, tangible, sensory)',
-      'Teach replacement behavior that serves same function',
+      'Identify function of behaviour (attention, escape, tangible, sensory)',
+      'Teach replacement behaviour that serves same function',
       'Modify environment to prevent triggers',
-      'Respond consistently to target behavior',
-      'Reinforce replacement behavior',
-      'Collect daily data on behavior',
+      'Respond consistently to target behaviour',
+      'Reinforce replacement behaviour',
+      'Collect daily data on behaviour',
       'Review data weekly and adjust plan',
       'All staff trained on plan implementation'
     ],
 
     progress_indicators: [
-      'Decreased frequency of target behavior',
-      'Increased use of replacement behavior',
+      'Decreased frequency of target behaviour',
+      'Increased use of replacement behaviour',
       'Longer periods without incidents',
-      'Reduced intensity of behaviors',
+      'Reduced intensity of behaviours',
       'Improved engagement in learning',
       'Better relationships with peers/adults'
     ],
 
     expected_outcomes: [
-      '50-80% reduction in target behavior',
-      'Increase in pro-social behaviors',
+      '50-80% reduction in target behaviour',
+      'Increase in pro-social behaviours',
       'Improved academic engagement',
       'Reduced need for crisis intervention',
       'Better quality of life for student'
@@ -6750,28 +6750,28 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
       'Sensory supports'
     ],
 
-    implementation_guide: 'Step 1: Conduct FBA - interview staff/parents, observe student, review records. Step 2: Analyze data to determine function (Why is this behavior happening? What is student getting/avoiding?). Step 3: Develop hypothesis statement ("When [antecedent], student [behavior] in order to [function]"). Step 4: Design plan - teach replacement behavior that achieves same function more appropriately, modify environment to prevent triggers, plan consistent response to behavior. Step 5: Train all staff. Step 6: Implement plan consistently. Step 7: Collect data. Step 8: Review weekly and adjust.',
+    implementation_guide: 'Step 1: Conduct FBA - interview staff/parents, observe student, review records. Step 2: Analyze data to determine function (Why is this behaviour happening? What is student getting/avoiding?). Step 3: Develop hypothesis statement ("When [antecedent], student [behaviour] in order to [function]"). Step 4: Design plan - teach replacement behaviour that achieves same function more appropriately, modify environment to prevent triggers, plan consistent response to behaviour. Step 5: Train all staff. Step 6: Implement plan consistently. Step 7: Collect data. Step 8: Review weekly and adjust.',
 
-    parent_information: 'Your child\'s challenging behavior is serving a purpose - it\'s their way of getting something they need or avoiding something difficult. We are working to understand WHY the behavior happens, then teach a better way to meet that need. The behavior support plan will include: preventing situations that trigger the behavior, teaching a new skill to replace the behavior, and responding consistently when the behavior happens. Your role: help us understand what works at home, use consistent strategies, celebrate progress, and stay positive - behavior change takes time.',
+    parent_information: 'Your child\'s challenging behaviour is serving a purpose - it\'s their way of getting something they need or avoiding something difficult. We are working to understand WHY the behaviour happens, then teach a better way to meet that need. The behaviour support plan will include: preventing situations that trigger the behaviour, teaching a new skill to replace the behaviour, and responding consistently when the behaviour happens. Your role: help us understand what works at home, use consistent strategies, celebrate progress, and stay positive - behaviour change takes time.',
 
     useful_links: [
       'https://www.pbis.org',
-      'https://www.behavior.org',
+      'https://www.behaviour.org',
       'https://www.challengingbehaviour.org.uk'
     ],
 
     created_at: '2025-11-01',
     updated_at: '2025-11-01',
-    tags: ['behavior', 'PBS', 'FBA', 'challenging_behavior', 'tier_1', 'evidence_based', 'individualized']
+    tags: ['behaviour', 'PBS', 'FBA', 'challenging_behaviour', 'tier_1', 'evidence_based', 'individualized']
   },
 
   {
     id: 'check-in-check-out',
-    name: 'Check In/Check Out (CICO) Behavior Support',
+    name: 'Check In/Check Out (CICO) Behaviour Support',
     category: 'behavioral',
     subcategory: 'behavior_management',
     description: 'Tier 2 intervention where student checks in daily with assigned adult, carries point card to all lessons for immediate feedback, and checks out at end of day. Provides structure, increased positive interactions, and frequent feedback.',
-    targeted_needs: ['Attention-seeking behavior', 'Low-level disruptive behavior', 'Lack of structure', 'Need for positive adult attention', 'ADHD'],
+    targeted_needs: ['Attention-seeking behaviour', 'Low-level disruptive behaviour', 'Lack of structure', 'Need for positive adult attention', 'ADHD'],
 
     evidence_level: 'tier_1',
     research_sources: ['PBIS research', 'EEF Behavior Interventions', 'Crone, Hawken, & Horner (2010)'],
@@ -6812,7 +6812,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
 
     progress_indicators: [
       'Increased daily point scores',
-      'Meeting behavior goal more consistently',
+      'Meeting behaviour goal more consistently',
       'Reduced office referrals',
       'Improved academic engagement',
       'More positive teacher feedback',
@@ -6820,11 +6820,11 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     ],
 
     expected_outcomes: [
-      '60-80% reduction in problem behaviors',
+      '60-80% reduction in problem behaviours',
       'Improved academic performance',
       'Better relationships with adults',
       'Increased school connectedness',
-      'Internalization of expected behaviors'
+      'Internalization of expected behaviours'
     ],
 
     adaptations: [
@@ -6837,7 +6837,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
 
     contraindications: [
       'Not suitable for students who find adult attention aversive',
-      'May not be sufficient for high-intensity behaviors'
+      'May not be sufficient for high-intensity behaviours'
     ],
 
     complementary_interventions: [
@@ -6847,19 +6847,19 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
       'Academic interventions if needed'
     ],
 
-    implementation_guide: 'Recruit mentor (often teaching assistant, pastoral staff). Create point card with 3-5 target behaviors. Student checks in each morning - mentor greets warmly, reviews goals, provides encouragement. Student carries card to lessons. After each lesson, teacher rates behavior (0-2 points per behavior). Brief positive feedback given. At end of day, student checks out with mentor - total points calculated, celebrate successes, troubleshoot challenges, send report home. If student meets daily goal (typically 80%), earn small reward. Review data weekly with team.',
+    implementation_guide: 'Recruit mentor (often teaching assistant, pastoral staff). Create point card with 3-5 target behaviours. Student checks in each morning - mentor greets warmly, reviews goals, provides encouragement. Student carries card to lessons. After each lesson, teacher rates behaviour (0-2 points per behaviour). Brief positive feedback given. At end of day, student checks out with mentor - total points calculated, celebrate successes, troubleshoot challenges, send report home. If student meets daily goal (typically 80%), earn small reward. Review data weekly with team.',
 
-    parent_information: 'Your child will check in with a mentor each morning, carry a card throughout the day to track behavior, and check out at the end of day. You\'ll receive daily feedback. This gives your child: more structure, positive adult attention, immediate feedback, and clear goals. At home, please: review the daily report positively, celebrate successes (don\'t just focus on problems), provide agreed home reward if daily goal met, and communicate with school if you have concerns.',
+    parent_information: 'Your child will check in with a mentor each morning, carry a card throughout the day to track behaviour, and check out at the end of day. You\'ll receive daily feedback. This gives your child: more structure, positive adult attention, immediate feedback, and clear goals. At home, please: review the daily report positively, celebrate successes (don\'t just focus on problems), provide agreed home reward if daily goal met, and communicate with school if you have concerns.',
 
     useful_links: [
       'https://www.pbis.org/resource/check-in-check-out',
       'https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/behaviour-interventions',
-      'https://www.interventioncentral.org/behavioral-interventions/schoolwide-classroommgt/check-check-out-intervention'
+      'https://www.interventioncentral.org/behavioural-interventions/schoolwide-classroommgt/check-check-out-intervention'
     ],
 
     created_at: '2025-11-01',
     updated_at: '2025-11-01',
-    tags: ['behavior', 'CICO', 'tier_2', 'evidence_based', 'ADHD', 'low_cost', 'structure']
+    tags: ['behaviour', 'CICO', 'tier_2', 'evidence_based', 'ADHD', 'low_cost', 'structure']
   },
 
   // Self-Regulation & Emotional Control
@@ -6919,7 +6919,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     expected_outcomes: [
       'Improved emotional awareness',
       'Better self-regulation',
-      'Reduced behavioral incidents',
+      'Reduced behavioural incidents',
       'Increased time engaged in learning',
       'Improved peer relationships'
     ],
@@ -6957,7 +6957,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
   },
 
   {
-    id: 'cognitive-behavioral-therapy-children',
+    id: 'cognitive-behavioural-therapy-children',
     name: 'Cognitive Behavioral Therapy (CBT) for Children and Adolescents',
     category: 'behavioral',
     subcategory: 'emotional_regulation',
@@ -6982,7 +6982,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     cost_implications: '£50-£200 for resources, specialist training required',
 
     key_components: [
-      'Psychoeducation about thoughts-feelings-behaviors link',
+      'Psychoeducation about thoughts-feelings-behaviours link',
       'Identifying negative automatic thoughts',
       'Cognitive restructuring (challenging thoughts)',
       'Behavioral activation',
@@ -7010,7 +7010,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
       'Reduced anxiety/depression scores',
       'Improved mood',
       'Better functioning',
-      'Fewer avoidance behaviors',
+      'Fewer avoidance behaviours',
       'Increased activity'
     ],
 
@@ -7027,7 +7027,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
       'Simplify language for younger children',
       'Use visual/creative methods',
       'Shorter sessions for younger ages',
-      'More behavioral focus for children',
+      'More behavioural focus for children',
       'Cultural adaptations',
       'Technology-enhanced (apps)',
       'Parent-involved for younger children'
@@ -7043,9 +7043,9 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
       'Medication (specialist decision)'
     ],
 
-    implementation_guide: 'SESSION STRUCTURE: 1) Mood check-in, 2) Review homework, 3) Session agenda, 4) New skill/concept, 5) Practice, 6) Homework setting, 7) Summary. CORE MODEL: Thoughts → Feelings → Behaviors. Weeks 1-2: Psychoeducation, engagement, goal-setting. Weeks 3-5: Thought identification (what am I thinking when anxious/sad?), introduce thought records. Weeks 6-8: Cognitive restructuring (is this thought helpful? is it true? what\'s the evidence? what would I tell a friend?). Develop balanced thoughts. Weeks 9-11: Behavioral experiments, exposure (face fears gradually), behavioral activation (do activities even when don\'t feel like it). Week 12: Relapse prevention, maintenance plan. CRITICAL: Homework is essential! Review every session.',
+    implementation_guide: 'SESSION STRUCTURE: 1) Mood check-in, 2) Review homework, 3) Session agenda, 4) New skill/concept, 5) Practice, 6) Homework setting, 7) Summary. CORE MODEL: Thoughts → Feelings → Behaviors. Weeks 1-2: Psychoeducation, engagement, goal-setting. Weeks 3-5: Thought identification (what am I thinking when anxious/sad?), introduce thought records. Weeks 6-8: Cognitive restructuring (is this thought helpful? is it true? what\'s the evidence? what would I tell a friend?). Develop balanced thoughts. Weeks 9-11: Behavioral experiments, exposure (face fears gradually), behavioural activation (do activities even when don\'t feel like it). Week 12: Relapse prevention, maintenance plan. CRITICAL: Homework is essential! Review every session.',
 
-    parent_information: 'Your child is receiving CBT - a talking therapy that helps them understand how thoughts, feelings, and behaviors are connected. They\'ll learn to spot unhelpful thoughts ("I\'m rubbish", "Everyone hates me", "Something terrible will happen") and challenge them with evidence. They\'ll learn coping strategies and face fears gradually. Your role: encourage homework completion, praise efforts, use CBT language at home ("what\'s the thought?"), support exposure activities. CBT is active - your child needs to practice skills between sessions. Progress takes time but CBT is highly effective for anxiety and depression in children!',
+    parent_information: 'Your child is receiving CBT - a talking therapy that helps them understand how thoughts, feelings, and behaviours are connected. They\'ll learn to spot unhelpful thoughts ("I\'m rubbish", "Everyone hates me", "Something terrible will happen") and challenge them with evidence. They\'ll learn coping strategies and face fears gradually. Your role: encourage homework completion, praise efforts, use CBT language at home ("what\'s the thought?"), support exposure activities. CBT is active - your child needs to practice skills between sessions. Progress takes time but CBT is highly effective for anxiety and depression in children!',
 
     useful_links: [
       'https://www.rcpsych.ac.uk/mental-health/treatments-and-wellbeing/cognitive-behavioural-therapy-(cbt)',
@@ -7162,11 +7162,11 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
   },
 
   {
-    id: 'trauma-informed-behavior-support',
-    name: 'Trauma-Informed Behavior Support and Regulation',
+    id: 'trauma-informed-behaviour-support',
+    name: 'Trauma-Informed Behaviour Support and Regulation',
     category: 'behavioral',
     subcategory: 'trauma_support',
-    description: 'Specialized approach recognizing impact of trauma on behavior, focusing on safety, relationships, emotion regulation, and reducing triggers rather than traditional behavioral consequences.',
+    description: 'Specialized approach recognizing impact of trauma on behaviour, focusing on safety, relationships, emotion regulation, and reducing triggers rather than traditional behavioural consequences.',
     targeted_needs: ['Trauma history', 'ACEs', 'Attachment difficulties', 'Dysregulation', 'Aggression', 'Avoidance', 'Hypervigilance', 'Looked-after children'],
 
     evidence_level: 'tier_2',
@@ -7186,7 +7186,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     cost_implications: '£500-£2000 for training, ongoing supervision costs',
 
     key_components: [
-      'Understanding trauma impact on brain/behavior',
+      'Understanding trauma impact on brain/behaviour',
       'Prioritize safety (physical and psychological)',
       'Build trustworthy relationships',
       'Regulate before educate',
@@ -7214,7 +7214,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
       'Trusts key adults',
       'Uses regulation strategies',
       'Reduced dysregulation frequency',
-      'Less aggressive/avoidant behavior',
+      'Less aggressive/avoidant behaviour',
       'Improved attendance',
       'More engaged in learning',
       'Better peer relationships'
@@ -7252,7 +7252,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
 
     implementation_guide: 'TRAUMA-INFORMED PRINCIPLES: Safety, Trustworthiness, Choice, Collaboration, Empowerment. UNDERSTANDING: Trauma changes brain development - fight/flight/freeze responses, hypervigilance, difficulty regulating. Behavior is COMMUNICATION not manipulation. ENVIRONMENT: Predictable routines, minimize transitions/changes, calm spaces, sensory tools available. RELATIONSHIPS: Key adult for each child, consistent, reliable, safe. Build trust slowly - may test. REGULATION: Co-regulate first (calm adult presence), teach strategies (breathing, movement, sensory), "regulate before educate" (can\'t learn when dysregulated). RESPONSES: Avoid punishment, isolation, confrontation. Use "What happened to you?" not "What\'s wrong with you?". Repair ruptures. STAFF: Supervision essential to prevent vicarious trauma.',
 
-    parent_information: 'Trauma-informed approach recognizes that traumatic experiences (abuse, neglect, loss, violence, ACEs) change how children\'s brains develop and how they respond to the world. Traumatized children may seem aggressive, avoidant, or shut down - these are survival responses, not "bad behavior". We focus on: SAFETY (feeling safe physically and emotionally), RELATIONSHIPS (trusted adults), REGULATION (helping them calm), and UNDERSTANDING (behavior as communication). We avoid punishment and shame. We respond with compassion, patience, and consistency. Your role: partner with us, share what helps your child feel safe, be patient with slow trust-building, use regulation strategies at home. Healing from trauma takes time but with the right support, children can recover and thrive.',
+    parent_information: 'Trauma-informed approach recognizes that traumatic experiences (abuse, neglect, loss, violence, ACEs) change how children\'s brains develop and how they respond to the world. Traumatized children may seem aggressive, avoidant, or shut down - these are survival responses, not "bad behaviour". We focus on: SAFETY (feeling safe physically and emotionally), RELATIONSHIPS (trusted adults), REGULATION (helping them calm), and UNDERSTANDING (behaviour as communication). We avoid punishment and shame. We respond with compassion, patience, and consistency. Your role: partner with us, share what helps your child feel safe, be patient with slow trust-building, use regulation strategies at home. Healing from trauma takes time but with the right support, children can recover and thrive.',
 
     useful_links: [
       'https://www.trauma-informed-schools.co.uk',
@@ -7358,7 +7358,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
 
     implementation_guide: 'ENVIRONMENT: Seat near teacher, away from distractions. Fidget tools available. Movement breaks every 20-30 mins. Calm corner for regulation. VISUAL SUPPORTS: Visual timetable, now-next boards, timers (Time Timer), task checklists. INSTRUCTIONS: Short, chunked, repeated. Check understanding. Written + verbal. One step at a time. ORGANIZATION: Color-coded folders, homework diary, locker system. Teach explicitly! Check regularly. TIME MANAGEMENT: Break tasks into steps with time for each. Use timers. Backwards planning. SELF-MONITORING: Charts for attention, task completion. Self-rating. Immediate feedback. BREAKS: Planned movement (jobs, walk, exercise). REINFORCEMENT: Frequent, immediate, specific praise. Token systems if needed. HOME: Daily communication (what went well, homework, reminders).',
 
-    parent_information: 'ADHD is a neurodevelopmental condition affecting self-regulation, attention, and impulsivity - it\'s NOT bad behavior or laziness! Your child\'s brain works differently. We\'re providing ADHD-friendly support: environmental changes (seating, movement breaks), visual supports (schedules, timers), explicit teaching of organization and time management, frequent positive feedback. At home: structured routines, visual schedules, timers, break tasks into small steps, movement breaks, praise effort, be patient! ADHD children often have amazing creativity, energy, and thinking - we help them harness their strengths. If medication is prescribed, school support + medication = best outcomes. Partner with us!',
+    parent_information: 'ADHD is a neurodevelopmental condition affecting self-regulation, attention, and impulsivity - it\'s NOT bad behaviour or laziness! Your child\'s brain works differently. We\'re providing ADHD-friendly support: environmental changes (seating, movement breaks), visual supports (schedules, timers), explicit teaching of organization and time management, frequent positive feedback. At home: structured routines, visual schedules, timers, break tasks into small steps, movement breaks, praise effort, be patient! ADHD children often have amazing creativity, energy, and thinking - we help them harness their strengths. If medication is prescribed, school support + medication = best outcomes. Partner with us!',
 
     useful_links: [
       'https://www.additudemag.com',
@@ -7484,8 +7484,8 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     name: 'Affect Script Theory & Compass of Shame Intervention',
     category: 'behavioral',
     subcategory: 'emotional_regulation',
-    description: 'Comprehensive intervention based on Tomkins\' Affect Script Theory and Nathanson\'s Compass of Shame. Helps children and adults understand that emotions are automatic biological responses (affects) that form scripts (patterns), and provides strategies to break negative affect-behavior loops and address shame responses.',
-    targeted_needs: ['Emotional dysregulation', 'Shame-based behaviors', 'Aggressive outbursts', 'Withdrawal', 'Task avoidance', 'Perfectionism', 'Emotional reactivity', 'Trauma responses'],
+    description: 'Comprehensive intervention based on Tomkins\' Affect Script Theory and Nathanson\'s Compass of Shame. Helps children and adults understand that emotions are automatic biological responses (affects) that form scripts (patterns), and provides strategies to break negative affect-behaviour loops and address shame responses.',
+    targeted_needs: ['Emotional dysregulation', 'Shame-based behaviours', 'Aggressive outbursts', 'Withdrawal', 'Task avoidance', 'Perfectionism', 'Emotional reactivity', 'Trauma responses'],
 
     evidence_level: 'tier_1',
     research_sources: ['Tomkins (1962-1992) Affect Script Theory', 'Nathanson (1992) Compass of Shame', 'Biological Basis of Emotions (Ighavongbe-Patrick)', 'Affective Neuroscience Research'],
@@ -7543,11 +7543,11 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
 
     expected_outcomes: [
       'Deep understanding of emotional processes',
-      'Reduced shame-based behaviors (70-80% reduction)',
+      'Reduced shame-based behaviours (70-80% reduction)',
       'Ability to interrupt automatic affect scripts',
       'Improved emotional literacy',
       'Better relationships (adults understand child\'s affects)',
-      'Reduced reactive behaviors',
+      'Reduced reactive behaviours',
       'Increased emotional resilience',
       'Formation of new, healthier affect scripts'
     ],
@@ -7574,7 +7574,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
 
     implementation_guide: 'PHASE 1 (Weeks 1-2): Psychoeducation - Teach 9 affects explicitly. Use visual charts. Explain: affects are BIOLOGICAL (automatic, in autonomic nervous system), not choices. Like reflexes - distress-anguish happens TO us, not because we\'re "naughty." PHASE 2 (Weeks 3-4): Script Identification - Help child identify their patterns. Example: "Every time there\'s a hard task (trigger), you feel distress-anguish (affect), which triggers shame-humiliation, and you attack others (Compass quadrant)." Name the script together. PHASE 3 (Weeks 5-8): Script Interrupters - Teach specific strategies. For task avoidance: "When distress comes, we\'ll do X before shame arrives." For aggression: "When anger-rage starts, we use Y to stop the loop." PHASE 4 (Weeks 9-12): New Scripts - Reinforce new patterns. Celebrate when child uses interrupter. "You felt distress but used your strategy - you\'re building a new script!" ONGOING: Adult Role - Model affect labeling. Stay regulated. Use affective attunement (match child\'s energy then gradually reduce). Break your own negative loops. Provide shame-free environment.',
 
-    parent_information: 'Your child\'s emotions are BIOLOGICAL RESPONSES, not bad behavior. We all have 9 affect scripts hardwired in our nervous system: 2 feel good (joy, interest), 1 is neutral (surprise), and 6 feel bad (distress, fear, shame, disgust, anger, contempt). When affects repeat in certain situations, they become SCRIPTS - automatic patterns. Example: homework triggers distress, which triggers shame, which triggers "attack others" (yelling). This isn\'t your child being difficult - it\'s an automatic script formed from past experiences. SHAME is the master emotion - when we feel shame, we respond in 4 ways: 1) Withdrawal (hide, isolate), 2) Avoidance (distract, deflect), 3) Attack Self (self-criticism, perfectionism), 4) Attack Others (blame, aggression). Your role: Learn the 9 affects, identify your child\'s scripts, teach interrupters, stay regulated yourself, create shame-free spaces. Remember: affects are AUTOMATIC. Your child isn\'t choosing to feel angry - anger is happening TO them. With support, new scripts form.',
+    parent_information: 'Your child\'s emotions are BIOLOGICAL RESPONSES, not bad behaviour. We all have 9 affect scripts hardwired in our nervous system: 2 feel good (joy, interest), 1 is neutral (surprise), and 6 feel bad (distress, fear, shame, disgust, anger, contempt). When affects repeat in certain situations, they become SCRIPTS - automatic patterns. Example: homework triggers distress, which triggers shame, which triggers "attack others" (yelling). This isn\'t your child being difficult - it\'s an automatic script formed from past experiences. SHAME is the master emotion - when we feel shame, we respond in 4 ways: 1) Withdrawal (hide, isolate), 2) Avoidance (distract, deflect), 3) Attack Self (self-criticism, perfectionism), 4) Attack Others (blame, aggression). Your role: Learn the 9 affects, identify your child\'s scripts, teach interrupters, stay regulated yourself, create shame-free spaces. Remember: affects are AUTOMATIC. Your child isn\'t choosing to feel angry - anger is happening TO them. With support, new scripts form.',
 
     useful_links: [
       'http://www.tomkins.org - Tomkins Institute',
@@ -7998,7 +7998,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
 
     contraindications: [
       'Very severe social anxiety may need individual work first',
-      'Significant disruptive behavior may interfere with group'
+      'Significant disruptive behaviour may interfere with group'
     ],
 
     complementary_interventions: [
@@ -8113,7 +8113,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
 
     implementation_guide: 'Sessions 1-2: Build rapport, psychoeducation about anxiety. Session 3-4: Teach relaxation techniques. Sessions 5-6: Identify and challenge anxious thoughts. Sessions 7-8: Create anxiety hierarchy. Sessions 9-14: Gradual exposure (start with least anxiety-provoking, progress up hierarchy). Sessions 15-16: Review progress, relapse prevention plan. Use FEAR acronym: Feeling frightened? Expecting bad things? Attitudes and Actions (challenge thoughts, face fears), Results and Rewards. Practice coping strategies weekly.',
 
-    parent_information: 'Your child is learning to manage their anxiety using proven techniques. They will learn: what happens in their body when anxious, how to calm down using breathing/relaxation, how thoughts affect feelings, how to challenge worried thoughts, and how to gradually face fears (not avoid them). This is called CBT (Cognitive Behavioral Therapy). Your role: encourage practice of techniques at home, don\'t accommodate avoidance (gently support facing fears), praise brave behavior, manage your own anxiety, attend parent sessions if offered. Anxiety improves with practice - be patient.',
+    parent_information: 'Your child is learning to manage their anxiety using proven techniques. They will learn: what happens in their body when anxious, how to calm down using breathing/relaxation, how thoughts affect feelings, how to challenge worried thoughts, and how to gradually face fears (not avoid them). This is called CBT (Cognitive Behavioral Therapy). Your role: encourage practice of techniques at home, don\'t accommodate avoidance (gently support facing fears), praise brave behaviour, manage your own anxiety, attend parent sessions if offered. Anxiety improves with practice - be patient.',
 
     useful_links: [
       'https://www.nice.org.uk/guidance/cg159',
@@ -8134,7 +8134,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     category: 'social_emotional',
     subcategory: 'restorative_justice',
     description: 'Structured restorative approach bringing together those affected by conflict/harm to dialogue, understand impact, repair relationships, and restore community. Includes proactive circles for building relationships and reactive circles for addressing harm.',
-    targeted_needs: ['Conflict resolution', 'Bullying', 'Relationship breakdown', 'Antisocial behavior', 'Reintegration after exclusion', 'Community building', 'Peer disputes'],
+    targeted_needs: ['Conflict resolution', 'Bullying', 'Relationship breakdown', 'Antisocial behaviour', 'Reintegration after exclusion', 'Community building', 'Peer disputes'],
 
     evidence_level: 'tier_1',
     research_sources: ['Restorative Justice Council UK', 'EEF Behavior interventions', 'Transforming Conflict (Morrison)', 'Dr. Patrick\'s doctoral research'],
@@ -8218,7 +8218,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
 
     implementation_guide: 'RESTORATIVE QUESTIONS: 1) What happened? (all perspectives), 2) What were you thinking at the time?, 3) Who has been affected? How?, 4) What needs to happen to make things right?, 5) What can we do to prevent this happening again? PROACTIVE CIRCLES (weekly): Build relationships, discuss issues, celebrate successes. RESTORATIVE CONVERSATIONS: Informal, daily practice. "I noticed... how did that affect...? what could repair...?" RESTORATIVE CONFERENCES: Formal, for significant harm. Preparation crucial - meet separately first. CONFERENCE STRUCTURE: Welcome, ground rules, harmer speaks (what happened? thinking? now?), affected speak (impact? feelings? needs?), supporters speak, agreement on repair, follow-up plan. CRITICAL: Voluntary, safe, focus on repair not punishment!',
 
-    parent_information: 'Restorative Justice is NOT "soft" - it\'s accountability through understanding harm and making amends. When conflict happens, instead of punishment (which often makes things worse), we bring people together to: understand what happened, hear how people were affected, repair the harm, and prevent it happening again. Your child will have a VOICE - they can explain their perspective, hear others\' perspectives, and be part of the solution. For those who caused harm: they face the real impact of their actions and must make amends. For those harmed: they\'re heard, their needs are met, relationships can be restored. Research shows RJ is more effective than punishment at preventing repeat behavior and improving relationships. You may be invited to participate!',
+    parent_information: 'Restorative Justice is NOT "soft" - it\'s accountability through understanding harm and making amends. When conflict happens, instead of punishment (which often makes things worse), we bring people together to: understand what happened, hear how people were affected, repair the harm, and prevent it happening again. Your child will have a VOICE - they can explain their perspective, hear others\' perspectives, and be part of the solution. For those who caused harm: they face the real impact of their actions and must make amends. For those harmed: they\'re heard, their needs are met, relationships can be restored. Research shows RJ is more effective than punishment at preventing repeat behaviour and improving relationships. You may be invited to participate!',
 
     useful_links: [
       'https://www.restorativejustice.org.uk',
@@ -8313,7 +8313,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Restorative circles',
       'Social skills training',
       'Emotional literacy',
-      'Whole-school positive behavior approach'
+      'Whole-school positive behaviour approach'
     ],
 
     implementation_guide: 'RECRUITMENT: Select diverse group of students (not just "good" students - range of backgrounds). TRAINING: 6-8 sessions covering: listening, empathy, neutrality, mediation steps, role-plays. MEDIATION PROCESS: 1) Introduction (roles, rules, confidentiality), 2) Story-telling (each person uninterrupted), 3) Identifying issues (what\'s the problem?), 4) Generating solutions (brainstorm together), 5) Agreement (specific, realistic, written), 6) Follow-up (check in later). SUPERVISION: Weekly meetings with mediators - debrief, support, ongoing training. AVAILABILITY: Known times/locations, visibility (badges). CRITICAL: Clear about what CAN\'T be mediated (bullying, serious issues). Mediators are facilitators, not judges!',
@@ -8728,7 +8728,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
 
     implementation_guide: 'EBSA ≠ TRUANCY. This is ANXIETY/DISTRESS about school, not refusal. ASSESSMENT: Why is school difficult? (bullying? academic pressure? transitions? sensory? social? separation anxiety? undiagnosed SEND?). What helps? What maintains avoidance? ANXIETY MANAGEMENT: Teach strategies (CBT, relaxation, mindfulness). ADDRESS TRIGGERS: Fix school factors (bullying, work pressure, transitions, sensory environment). GRADUATED REINTEGRATION: DO NOT force full return immediately! Start tiny (visit school briefly, safe room only, one lesson, morning only) → gradually increase. SAFE BASE: Key adult, safe room to retreat to when overwhelmed. PARENT PARTNERSHIP: Support parents - they\'re stressed too! Daily communication. FLEXIBILITY: Bad days will happen - don\'t punish. PATIENCE: This takes TIME! Weeks/months not days. MAINTAIN: Monitor long-term, be ready to support if attendance drops. CRITICAL: Punishment worsens EBSA!',
 
-    parent_information: 'EBSA (Emotionally Based School Avoidance) means your child WANTS to attend school but anxiety/distress prevents them - it\'s NOT truancy or naughty behavior! Morning distress, physical complaints (tummy ache, headache), panic, crying, pleading are signs. We will: understand WHY school is difficult (bullying? work stress? social? sensory? separation anxiety?), fix school problems where possible, teach anxiety management, create a graduated return plan (NOT forced immediate return - this makes it worse!), provide a safe base/person in school, work closely with you. This is HARD for everyone - you need support too! Be patient - improvement is gradual. Punishment doesn\'t work for EBSA. With the right support, children DO return to school! Contact us immediately if attendance drops - early intervention is key.',
+    parent_information: 'EBSA (Emotionally Based School Avoidance) means your child WANTS to attend school but anxiety/distress prevents them - it\'s NOT truancy or naughty behaviour! Morning distress, physical complaints (tummy ache, headache), panic, crying, pleading are signs. We will: understand WHY school is difficult (bullying? work stress? social? sensory? separation anxiety?), fix school problems where possible, teach anxiety management, create a graduated return plan (NOT forced immediate return - this makes it worse!), provide a safe base/person in school, work closely with you. This is HARD for everyone - you need support too! Be patient - improvement is gradual. Punishment doesn\'t work for EBSA. With the right support, children DO return to school! Contact us immediately if attendance drops - early intervention is key.',
 
     useful_links: [
       'https://www.gov.uk/government/publications/school-attendance/framework-for-securing-full-attendance-actions-for-schools-and-local-authorities',
@@ -8747,8 +8747,8 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     name: 'Anger Management and Self-Control Skills',
     category: 'social_emotional',
     subcategory: 'emotional_regulation',
-    description: 'Teaching anger recognition, triggers, calming strategies, problem-solving alternatives to aggression, and repairing after angry outbursts. Cognitive-behavioral approach.',
-    targeted_needs: ['Anger outbursts', 'Aggression', 'Poor self-control', 'Reactive behavior', 'Verbal/physical aggression', 'Difficulty calming down'],
+    description: 'Teaching anger recognition, triggers, calming strategies, problem-solving alternatives to aggression, and repairing after angry outbursts. Cognitive-behavioural approach.',
+    targeted_needs: ['Anger outbursts', 'Aggression', 'Poor self-control', 'Reactive behaviour', 'Verbal/physical aggression', 'Difficulty calming down'],
 
     evidence_level: 'tier_2',
     research_sources: ['Anger management research', 'EEF Behavior interventions', 'CBT for anger', 'Self-control training studies'],
@@ -8840,7 +8840,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
 
     created_at: '2025-11-02',
     updated_at: '2025-11-02',
-    tags: ['anger', 'aggression', 'self_control', 'emotional_regulation', 'tier_2', 'behavior_change']
+    tags: ['anger', 'aggression', 'self_control', 'emotional_regulation', 'tier_2', 'behaviour_change']
   },
 
   {
@@ -9050,7 +9050,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'EBSA intervention if school-averse'
     ],
 
-    implementation_guide: 'CRITICAL: POST-16 TRANSITION = THE CLIFF-EDGE. Most disaffected young people with SEND experience massive drop in support at 16, leading to NEET, isolation, mental health deterioration. THIS INTERVENTION PREVENTS THAT.\n\nYEAR 9 (Age 13-14): START PfA PLANNING NOW! Not Year 11! Annual Review becomes PfA-focused. Use person-centred planning - "What\'s important TO you?" "What\'s important FOR you?" Explore all four outcomes: 1) EMPLOYMENT - What job do you want? What are your strengths? 2) INDEPENDENT LIVING - Where will you live? What skills needed? 3) COMMUNITY - Friends? Hobbies? Activities? 4) HEALTH - Managing health needs independently? Discuss aspirations - dream big! Identify barriers - what support needed?\n\nYEAR 10-11 (Age 14-16): SKILLS BUILDING. EMPLOYMENT: Work experience (supported), careers exploration, CV/interview skills, workplace behavior, professional communication. INDEPENDENT LIVING: Cooking, budgeting, laundry, personal care, time management, using public services. COMMUNITY: Accessing leisure facilities, joining clubs, maintaining friendships, using local resources. HEALTH: Managing medication, appointments, understanding health conditions, healthy living. TRAVEL TRAINING: Independent travel is CRITICAL for employment and inclusion.\n\nYEAR 11: POST-16 OPTIONS EXPLORED AND SECURED. College? Apprenticeship? Supported internship? Specialist provision? DON\'T WAIT UNTIL JUNE! Visits arranged, applications supported, transitions planned. EHCP reviewed - does it continue post-16? Section F and I updated for post-16 setting.\n\nPOST-16 (Age 16-19 or 25): SUPPORT CONTINUES! Not a cliff-edge! College support arranged, work placements continued, community participation supported, mental health monitored, EHCP reviewed annually, progression pathway clear. Age 18 transition to adult services planned early.\n\nKEY PRINCIPLES: Student voice central. Aspirational (don\'t limit based on disability). Multi-agency (careers, social care, health, voluntary sector). Start early (Year 9). Four PfA outcomes always. Skills taught explicitly. Family involved but student leads. Ongoing post-16 support.\n\nDISAFFECTED STUDENTS: Often low aspirations, negative school experiences, don\'t see future. Use: strengths-based approach, alternative curriculum, work-based learning, mentoring, therapeutic support, flexible provision. Find what motivates them - often practical/vocational not academic.',
+    implementation_guide: 'CRITICAL: POST-16 TRANSITION = THE CLIFF-EDGE. Most disaffected young people with SEND experience massive drop in support at 16, leading to NEET, isolation, mental health deterioration. THIS INTERVENTION PREVENTS THAT.\n\nYEAR 9 (Age 13-14): START PfA PLANNING NOW! Not Year 11! Annual Review becomes PfA-focused. Use person-centred planning - "What\'s important TO you?" "What\'s important FOR you?" Explore all four outcomes: 1) EMPLOYMENT - What job do you want? What are your strengths? 2) INDEPENDENT LIVING - Where will you live? What skills needed? 3) COMMUNITY - Friends? Hobbies? Activities? 4) HEALTH - Managing health needs independently? Discuss aspirations - dream big! Identify barriers - what support needed?\n\nYEAR 10-11 (Age 14-16): SKILLS BUILDING. EMPLOYMENT: Work experience (supported), careers exploration, CV/interview skills, workplace behaviour, professional communication. INDEPENDENT LIVING: Cooking, budgeting, laundry, personal care, time management, using public services. COMMUNITY: Accessing leisure facilities, joining clubs, maintaining friendships, using local resources. HEALTH: Managing medication, appointments, understanding health conditions, healthy living. TRAVEL TRAINING: Independent travel is CRITICAL for employment and inclusion.\n\nYEAR 11: POST-16 OPTIONS EXPLORED AND SECURED. College? Apprenticeship? Supported internship? Specialist provision? DON\'T WAIT UNTIL JUNE! Visits arranged, applications supported, transitions planned. EHCP reviewed - does it continue post-16? Section F and I updated for post-16 setting.\n\nPOST-16 (Age 16-19 or 25): SUPPORT CONTINUES! Not a cliff-edge! College support arranged, work placements continued, community participation supported, mental health monitored, EHCP reviewed annually, progression pathway clear. Age 18 transition to adult services planned early.\n\nKEY PRINCIPLES: Student voice central. Aspirational (don\'t limit based on disability). Multi-agency (careers, social care, health, voluntary sector). Start early (Year 9). Four PfA outcomes always. Skills taught explicitly. Family involved but student leads. Ongoing post-16 support.\n\nDISAFFECTED STUDENTS: Often low aspirations, negative school experiences, don\'t see future. Use: strengths-based approach, alternative curriculum, work-based learning, mentoring, therapeutic support, flexible provision. Find what motivates them - often practical/vocational not academic.',
 
     parent_information: 'Your child is at a critical stage - planning for adult life after school. Research shows young people with SEND have much worse post-16 outcomes (higher unemployment, social isolation, mental health difficulties) WITHOUT good transition planning. We\'re using the "Preparing for Adulthood" approach looking at four areas: 1) EMPLOYMENT - What job/career? We\'ll arrange work experience, teach job skills, explore options. 2) INDEPENDENT LIVING - Where will they live? What skills needed? We\'ll teach cooking, budgeting, travel, self-care. 3) COMMUNITY INCLUSION - Friends, hobbies, activities. We\'ll support accessing clubs, leisure, social connections. 4) HEALTH - Managing their health independently. We start this planning in Year 9 (not Year 11!) because it takes time. Your child\'s voice is central - what do THEY want? Your role: support their aspirations (don\'t limit based on disability), help with skills practice at home, attend reviews, share your knowledge, but let your child lead. If your child has an EHCP, it can continue to 25 if needed. Post-16 support doesn\'t stop at 16 - we continue supporting progression. This is about ensuring your child has the skills, support, and opportunities for a fulfilling adult life.',
 
@@ -9095,7 +9095,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Real work placement (not simulated)',
       'Job coach support (initially intensive, faded)',
       'Explicit teaching of job tasks (task analysis, systematic instruction)',
-      'Workplace behavior and social skills',
+      'Workplace behaviour and social skills',
       'Travel training to/from workplace',
       'Personalised learning plan',
       'Employer engagement and partnership',
@@ -9170,7 +9170,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
 
     implementation_guide: 'SUPPORTED INTERNSHIPS = transformative for young people with SEND. NOT work experience (2 weeks). NOT volunteering. PROPER job role with proper job coach support.\n\nPHASE 1 - PREPARATION (Weeks 1-4): Assess student strengths, interests, support needs. Careers guidance. Identify suitable employers. Arrange workplace. Task analysis of job role. Plan support strategies. Travel training begins.\n\nPHASE 2 - INITIAL PLACEMENT (Weeks 5-12): Job coach works alongside student, teaching tasks explicitly using systematic instruction, modeling, practice, feedback. ALL tasks broken down (how to greet customers, how to stock shelves, how to use till, how to ask for help, how to take break, how to handle mistakes). Workplace social skills taught explicitly. Travel training continues.\n\nPHASE 3 - FADING SUPPORT (Weeks 13-30): Job coach gradually steps back as student becomes independent. From 1:1 all day → job coach nearby → check-ins only → occasional visits. BUT support always available if needed. Problem-solving work challenges. Employer feedback.\n\nPHASE 4 - PROGRESSION (Weeks 31+): Goal = PAID EMPLOYMENT. Options: 1) Employer offers job (best outcome!), 2) Use experience/reference for other jobs, 3) Extended internship if more time needed, 4) Further training/qualification then employment. Post-employment support continues (job coach check-ins, employer liaison, problem-solving).\n\nSTUDY PROGRAMME: Integrated English, maths, employability skills (CV, interview, rights at work, money management).\n\nEMPLOYER ENGAGEMENT: Educate about reasonable adjustments, benefits of diverse workforce, job coach role. Match student strengths to business needs. This is mutually beneficial - employers get reliable, motivated worker; student gets real job.\n\nCRITICAL SUCCESS FACTORS: 1) Job coach skilled and committed, 2) Employer genuinely engaged, 3) Tasks taught systematically, 4) Support faded not removed, 5) Student\'s interests/strengths matched to role, 6) Minimum 6 months, 7) Employment is the goal from the start.',
 
-    parent_information: 'A Supported Internship could be life-changing for your child. It\'s a proper job role in a real workplace (retail, hospitality, office, care, warehousing, etc.) with a job coach teaching your child the job. NOT work experience (2 weeks) or volunteering - this is 6-12 months working towards PAID EMPLOYMENT. Your child will learn actual job tasks, workplace behavior, travel independently, earn references, and build confidence. Research shows 30-40% of young people with learning disabilities on Supported Internships get paid jobs afterwards - compared to only 6% generally. This could be your child\'s route out of NEET and into economic independence. It\'s hard work - full working days, travel, new social situations - but SO worthwhile. Your role: support them through challenges, celebrate progress, liaise with job coach, help with evening routine/sleep (working is tiring!), encourage them. Many parents worry "Can my child really work?" - YES, with the right support and the right match, they absolutely can! This is about aspirations, inclusion, and economic participation.',
+    parent_information: 'A Supported Internship could be life-changing for your child. It\'s a proper job role in a real workplace (retail, hospitality, office, care, warehousing, etc.) with a job coach teaching your child the job. NOT work experience (2 weeks) or volunteering - this is 6-12 months working towards PAID EMPLOYMENT. Your child will learn actual job tasks, workplace behaviour, travel independently, earn references, and build confidence. Research shows 30-40% of young people with learning disabilities on Supported Internships get paid jobs afterwards - compared to only 6% generally. This could be your child\'s route out of NEET and into economic independence. It\'s hard work - full working days, travel, new social situations - but SO worthwhile. Your role: support them through challenges, celebrate progress, liaise with job coach, help with evening routine/sleep (working is tiring!), encourage them. Many parents worry "Can my child really work?" - YES, with the right support and the right match, they absolutely can! This is about aspirations, inclusion, and economic participation.',
 
     useful_links: [
       'https://www.gov.uk/topic/further-education-skills/supported-internships',
@@ -9189,7 +9189,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     name: 'Depression and Low Mood Support for Adolescents',
     category: 'social_emotional',
     subcategory: 'mental_health',
-    description: 'Evidence-based intervention for adolescents experiencing depression or persistent low mood, using CBT and behavioral activation approaches to improve mood, challenge negative thinking, increase activity, and develop coping strategies. Includes risk assessment and CAMHS liaison.',
+    description: 'Evidence-based intervention for adolescents experiencing depression or persistent low mood, using CBT and behavioural activation approaches to improve mood, challenge negative thinking, increase activity, and develop coping strategies. Includes risk assessment and CAMHS liaison.',
     targeted_needs: ['Depression', 'Low mood', 'Anhedonia (loss of pleasure)', 'Negative thinking', 'Social withdrawal', 'Hopelessness', 'Loss of motivation', 'Sleep/appetite changes', 'Self-neglect'],
 
     evidence_level: 'tier_1',
@@ -9286,9 +9286,9 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Peer support'
     ],
 
-    implementation_guide: 'DEPRESSION IN ADOLESCENTS = serious mental health condition, NOT "just a phase". Can severely impact education, relationships, development, and carries suicide risk. SCHOOLS CAN HELP but severe cases need CAMHS.\n\nASSESSMENT: How long? How severe? Triggering event or insidious onset? Suicidal thoughts? Self-harm? Functioning (school, friends, self-care)? Family history? Previous episodes? RISK ASSESSMENT - EVERY SESSION. If suicidal ideation → safeguarding procedures immediately.\n\nPSYCHOEDUCATION (Week 1-2): Depression is illness not weakness. Symptoms (low mood, anhedonia, negative thinking, fatigue, sleep/appetite changes, withdrawal). Explaining link between thoughts-feelings-behaviors. Treatment works! Mood monitoring.\n\nBEHAVIORAL ACTIVATION (Weeks 3-6): Depression = withdrawal from activities = more depression = VICIOUS CYCLE. BREAK IT by increasing pleasant/meaningful activities even if "don\'t feel like it". Activity scheduling - start tiny (10 min walk, text a friend, listen to music) → build up. Schedule daily. Achievement AND pleasure. Movement especially helpful.\n\nCOGNITIVE WORK (Weeks 7-10): Identify negative automatic thoughts ("I\'m worthless", "Nothing will get better", "Everyone hates me"). Challenge them - evidence? Alternative explanations? What would you tell a friend? Replace with balanced thoughts. Rumination vs problem-solving.\n\nPROBLEM-SOLVING (Weeks 11-12): Depression often linked to real problems (bullying, academic pressure, family issues, identity struggles). Systematic problem-solving approach. What CAN be changed? What support needed?\n\nSLEEP & ROUTINE (Throughout): Sleep hygiene critical. Regular sleep/wake times, limit screens, bedroom environment. Daily routine (depression loves chaos).\n\nRELAPSE PREVENTION (Weeks 13-15): Warning signs. Coping strategies. Support network. Maintenance plan. When to seek help again.\n\nFAMILY: Educate about depression, involvement in behavioral activation, reducing criticism, support without enabling withdrawal.\n\nCAMHS REFERRAL if: Severe depression, suicidal ideation/plans, self-harm, not responding to school-based intervention, psychotic symptoms, safeguarding concerns.',
+    implementation_guide: 'DEPRESSION IN ADOLESCENTS = serious mental health condition, NOT "just a phase". Can severely impact education, relationships, development, and carries suicide risk. SCHOOLS CAN HELP but severe cases need CAMHS.\n\nASSESSMENT: How long? How severe? Triggering event or insidious onset? Suicidal thoughts? Self-harm? Functioning (school, friends, self-care)? Family history? Previous episodes? RISK ASSESSMENT - EVERY SESSION. If suicidal ideation → safeguarding procedures immediately.\n\nPSYCHOEDUCATION (Week 1-2): Depression is illness not weakness. Symptoms (low mood, anhedonia, negative thinking, fatigue, sleep/appetite changes, withdrawal). Explaining link between thoughts-feelings-behaviours. Treatment works! Mood monitoring.\n\nBEHAVIORAL ACTIVATION (Weeks 3-6): Depression = withdrawal from activities = more depression = VICIOUS CYCLE. BREAK IT by increasing pleasant/meaningful activities even if "don\'t feel like it". Activity scheduling - start tiny (10 min walk, text a friend, listen to music) → build up. Schedule daily. Achievement AND pleasure. Movement especially helpful.\n\nCOGNITIVE WORK (Weeks 7-10): Identify negative automatic thoughts ("I\'m worthless", "Nothing will get better", "Everyone hates me"). Challenge them - evidence? Alternative explanations? What would you tell a friend? Replace with balanced thoughts. Rumination vs problem-solving.\n\nPROBLEM-SOLVING (Weeks 11-12): Depression often linked to real problems (bullying, academic pressure, family issues, identity struggles). Systematic problem-solving approach. What CAN be changed? What support needed?\n\nSLEEP & ROUTINE (Throughout): Sleep hygiene critical. Regular sleep/wake times, limit screens, bedroom environment. Daily routine (depression loves chaos).\n\nRELAPSE PREVENTION (Weeks 13-15): Warning signs. Coping strategies. Support network. Maintenance plan. When to seek help again.\n\nFAMILY: Educate about depression, involvement in behavioural activation, reducing criticism, support without enabling withdrawal.\n\nCAMHS REFERRAL if: Severe depression, suicidal ideation/plans, self-harm, not responding to school-based intervention, psychotic symptoms, safeguarding concerns.',
 
-    parent_information: 'Your child is experiencing depression - this is a real mental health condition, not "being difficult" or "a phase". Depression in teenagers looks different from adults - may be irritable not sad, withdrawn, loss of interest in everything, sleep changes, drop in grades, self-criticism. It\'s NOT your fault. Depression has many causes - biology, genetics, stress, trauma. We\'re providing evidence-based support using CBT and behavioral activation to help your child\'s mood improve. At home: encourage activities even if they "don\'t feel like it" (depression lies - doing nothing makes it worse), maintain routine, reduce criticism (they\'re suffering already), listen without trying to "fix" everything, look after yourself (supporting a depressed teen is exhausting), watch for risk (talk of suicide, self-harm → seek help immediately). Depression is treatable - most young people recover with the right support. If severe, CAMHS referral may be needed. You\'re not alone - we\'re here to support your whole family.',
+    parent_information: 'Your child is experiencing depression - this is a real mental health condition, not "being difficult" or "a phase". Depression in teenagers looks different from adults - may be irritable not sad, withdrawn, loss of interest in everything, sleep changes, drop in grades, self-criticism. It\'s NOT your fault. Depression has many causes - biology, genetics, stress, trauma. We\'re providing evidence-based support using CBT and behavioural activation to help your child\'s mood improve. At home: encourage activities even if they "don\'t feel like it" (depression lies - doing nothing makes it worse), maintain routine, reduce criticism (they\'re suffering already), listen without trying to "fix" everything, look after yourself (supporting a depressed teen is exhausting), watch for risk (talk of suicide, self-harm → seek help immediately). Depression is treatable - most young people recover with the right support. If severe, CAMHS referral may be needed. You\'re not alone - we\'re here to support your whole family.',
 
     useful_links: [
       'https://www.youngminds.org.uk/young-person/mental-health-conditions/depression',
@@ -9300,7 +9300,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
 
     created_at: '2025-11-02',
     updated_at: '2025-11-02',
-    tags: ['depression', 'low_mood', 'mental_health', 'adolescent', 'CBT', 'behavioral_activation', 'tier_1', 'CAMHS', 'risk', 'suicide_prevention']
+    tags: ['depression', 'low_mood', 'mental_health', 'adolescent', 'CBT', 'behavioural_activation', 'tier_1', 'CAMHS', 'risk', 'suicide_prevention']
   },
 
   {
@@ -9352,7 +9352,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Distress tolerance skills taught',
       'Alternative coping strategies identified and practiced',
       'Safety plan created collaboratively',
-      'Underlying issues addressed (not just self-harm behavior)',
+      'Underlying issues addressed (not just self-harm behaviour)',
       'Family involved appropriately',
       'CAMHS referral if suicidal or severe',
       'Regular risk reviews',
@@ -9486,7 +9486,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Increased reporting (initially may increase - good sign of trust!)',
       'Faster resolution of incidents',
       'Victims feel safe and supported',
-      'Perpetrators understand impact and change behavior',
+      'Perpetrators understand impact and change behaviour',
       'Positive school climate measures',
       'Reduced exclusions',
       'Better peer relationships',
@@ -9528,9 +9528,9 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Anti-bullying ambassadors'
     ],
 
-    implementation_guide: 'BULLYING = REPEATED, INTENTIONAL HARM with POWER IMBALANCE. NOT every conflict is bullying (peers falling out, one-off incident = not bullying, different response needed).\n\nWHOLE-SCHOOL APPROACH (Olweus model): 1) SCHOOL LEVEL - policy, training, supervision, monitoring. 2) CLASSROOM LEVEL - rules, curriculum, class meetings. 3) INDIVIDUAL LEVEL - victim support, perpetrator intervention, parent involvement.\n\nPREVENTION (Universal): PSHE lessons on bullying (definition, types, impact, bystander intervention, reporting). Assemblies. Positive behavior expectations. Anti-Bullying Week. Peer support systems. Staff supervision (playgrounds, corridors, toilets, online spaces). Culture of respect and inclusion.\n\nREPORTING: TRUST is critical. If students don\'t report, we can\'t help. Tell a trusted adult. Online reporting form. Worry boxes. Regular check-ins. "It\'s NEVER snitching to report bullying - it\'s protecting yourself and others."\n\nRESPONSE TO INCIDENTS: 1) IMMEDIATE - ensure victim\'s safety. 2) INVESTIGATE - what happened? Who? When? Where? Witnesses? Pattern or one-off? 3) RECORD - all incidents logged. 4) VICTIM SUPPORT - believe them, safety plan, counseling if needed, rebuild confidence, monitor ongoing. 5) PERPETRATOR CONSEQUENCES - sanctions (proportionate), AND intervention (WHY did you do this? Teach empathy, understand impact, make amends). 6) PARENTS - inform both sets, partnership in resolution. 7) MONITOR - has it stopped? Is victim safe? Has perpetrator changed?\n\nRESTORATIVE APPROACHES: Only when: victim feels safe, genuine remorse from perpetrator, no ongoing risk. Bring together, hear impact, make amends, repair relationship (if appropriate). NOT forced forgiveness!\n\nCYBER-BULLYING: Online safety education. Screenshot evidence. Report to platforms. Police if serious. Support victim (online harassment is relentless). Perpetrator - understand digital footprint and real-world consequences.\n\nPROTECTED CHARACTERISTICS: Bullying of SEND, LGBTQ+, racial, religious groups especially harmful. Specific monitoring. Hate incident recording. Explicit inclusion education. Targeted support.\n\nPERPETRATORS: Often have underlying issues - trauma, home problems, SEND, low empathy, learned behavior. Punishment alone doesn\'t work. Need: understand why, teach empathy, address underlying issues, reparation, behavior change support.\n\nVICTIMS: Immediate safety. Believe them. Trauma-informed support. Rebuild confidence and social skills. Peer support. Monitor mental health. DON\'T blame victim or suggest "standing up to bullies" (dangerous advice).\n\nMONITORING: Data on incidents (who, what, where, when, protected characteristics). Analyze patterns. Hotspots? Particular groups targeted? Times? Use data to target interventions.',
+    implementation_guide: 'BULLYING = REPEATED, INTENTIONAL HARM with POWER IMBALANCE. NOT every conflict is bullying (peers falling out, one-off incident = not bullying, different response needed).\n\nWHOLE-SCHOOL APPROACH (Olweus model): 1) SCHOOL LEVEL - policy, training, supervision, monitoring. 2) CLASSROOM LEVEL - rules, curriculum, class meetings. 3) INDIVIDUAL LEVEL - victim support, perpetrator intervention, parent involvement.\n\nPREVENTION (Universal): PSHE lessons on bullying (definition, types, impact, bystander intervention, reporting). Assemblies. Positive behaviour expectations. Anti-Bullying Week. Peer support systems. Staff supervision (playgrounds, corridors, toilets, online spaces). Culture of respect and inclusion.\n\nREPORTING: TRUST is critical. If students don\'t report, we can\'t help. Tell a trusted adult. Online reporting form. Worry boxes. Regular check-ins. "It\'s NEVER snitching to report bullying - it\'s protecting yourself and others."\n\nRESPONSE TO INCIDENTS: 1) IMMEDIATE - ensure victim\'s safety. 2) INVESTIGATE - what happened? Who? When? Where? Witnesses? Pattern or one-off? 3) RECORD - all incidents logged. 4) VICTIM SUPPORT - believe them, safety plan, counseling if needed, rebuild confidence, monitor ongoing. 5) PERPETRATOR CONSEQUENCES - sanctions (proportionate), AND intervention (WHY did you do this? Teach empathy, understand impact, make amends). 6) PARENTS - inform both sets, partnership in resolution. 7) MONITOR - has it stopped? Is victim safe? Has perpetrator changed?\n\nRESTORATIVE APPROACHES: Only when: victim feels safe, genuine remorse from perpetrator, no ongoing risk. Bring together, hear impact, make amends, repair relationship (if appropriate). NOT forced forgiveness!\n\nCYBER-BULLYING: Online safety education. Screenshot evidence. Report to platforms. Police if serious. Support victim (online harassment is relentless). Perpetrator - understand digital footprint and real-world consequences.\n\nPROTECTED CHARACTERISTICS: Bullying of SEND, LGBTQ+, racial, religious groups especially harmful. Specific monitoring. Hate incident recording. Explicit inclusion education. Targeted support.\n\nPERPETRATORS: Often have underlying issues - trauma, home problems, SEND, low empathy, learned behaviour. Punishment alone doesn\'t work. Need: understand why, teach empathy, address underlying issues, reparation, behaviour change support.\n\nVICTIMS: Immediate safety. Believe them. Trauma-informed support. Rebuild confidence and social skills. Peer support. Monitor mental health. DON\'T blame victim or suggest "standing up to bullies" (dangerous advice).\n\nMONITORING: Data on incidents (who, what, where, when, protected characteristics). Analyze patterns. Hotspots? Particular groups targeted? Times? Use data to target interventions.',
 
-    parent_information: 'Bullying is repeated, intentional harm where there\'s a power imbalance. Our school takes bullying seriously and has clear procedures. If your child is being bullied: 1) Report to school immediately, 2) We will investigate, ensure safety, and support your child, 3) We\'ll work with you to monitor and resolve. If your child is bullying others: 1) We will have consequences but also intervention to address WHY and teach better behavior, 2) Please work with us - often underlying issues at home or unmet needs, 3) Your child needs to understand impact and change behavior. PREVENTION: Talk about bullying at home, teach empathy and respect for differences, monitor online activity, model kind behavior, encourage reporting. CYBER-BULLYING: Screenshot evidence, don\'t retaliate online, report to school and platforms. Bullying affects mental health, learning, and safety - we all have responsibility to tackle it. Together we can create a safe, respectful school community.',
+    parent_information: 'Bullying is repeated, intentional harm where there\'s a power imbalance. Our school takes bullying seriously and has clear procedures. If your child is being bullied: 1) Report to school immediately, 2) We will investigate, ensure safety, and support your child, 3) We\'ll work with you to monitor and resolve. If your child is bullying others: 1) We will have consequences but also intervention to address WHY and teach better behaviour, 2) Please work with us - often underlying issues at home or unmet needs, 3) Your child needs to understand impact and change behaviour. PREVENTION: Talk about bullying at home, teach empathy and respect for differences, monitor online activity, model kind behaviour, encourage reporting. CYBER-BULLYING: Screenshot evidence, don\'t retaliate online, report to school and platforms. Bullying affects mental health, learning, and safety - we all have responsibility to tackle it. Together we can create a safe, respectful school community.',
 
     useful_links: [
       'https://www.anti-bullyingalliance.org.uk',
@@ -10198,7 +10198,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Breakfast/snack shared',
       'Relationships prioritized',
       'Developmental needs met (may need "younger" activities)',
-      'Trauma-informed responses to behavior',
+      'Trauma-informed responses to behaviour',
       'Part-time attendance (not full-time segregation)',
       'Transition to mainstream planned from start',
       'Regular supervision for staff',
@@ -10214,8 +10214,8 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Increased emotional vocabulary',
       'Better self-regulation',
       'Increased learning readiness',
-      'More secure attachment behaviors',
-      'Reduced challenging behavior',
+      'More secure attachment behaviours',
+      'Reduced challenging behaviour',
       'Increased mainstream time',
       'Academic progress',
       'Positive self-concept'
@@ -10258,7 +10258,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Virtual School support (LAC)'
     ],
 
-    implementation_guide: 'NURTURE GROUPS = evidence-based intervention for children whose early attachment and developmental experiences were disrupted. These children often: struggle with relationships, dysregulated emotions, can\'t access learning, chaotic behavior, stuck at early developmental stages. WHY? Trauma, neglect, insecure attachment, ACEs, LAC, inconsistent caregiving. NURTURE GROUPS provide safe, predictable, nurturing environment to "re-do" early developmental experiences.\n\nSIX PRINCIPLES OF NURTURE:\n1) Children\'s learning is understood developmentally\n2) The classroom offers a safe base\n3) Nurture is important for the development of wellbeing\n4) Language is understood as vital for communication and learning\n5) All behavior is communication\n6) Transitions are significant in children\'s lives\n\nASSESSMENT: Boxall Profile (diagnostic assessment of social-emotional development). Identifies developmental stage and gaps. Used for baseline and progress monitoring.\n\nENVIRONMENT: Homely, not clinical. Kitchen area, comfortable seating, toys, books, games. Predictable, organized. Two adults (secure attachments). Small group (6-12 max).\n\nROUTINE (Example): Arrival welcome, breakfast together (family meal - teaches social skills, conversation, turn-taking), morning activities (developmental play, social skills, learning tasks), snack, outdoor play, reflection time. PREDICTABILITY is key - routine never changes.\n\nDEVELOPMENTAL CURRICULUM: Meet child at their developmental stage, NOT chronological age. 7-year-old may need toddler-level emotional support. Activities: play, sensory, turn-taking, sharing, cooperation, emotional literacy, boundaries, cause-and-effect, language development, academic skills when ready.\n\nRELATIONSHIPS: Two key adults = secure base. Consistent, predictable, attuned, boundaried, warm. Children learn: adults are trustworthy, I am valued, relationships are safe, I can regulate with support.\n\nBEHAVIOR: Trauma-informed responses. "All behavior is communication" - what need is this behavior communicating? Co-regulate, teach alternative ways to meet needs, therapeutic not punitive.\n\nINTEGRATION WITH MAINSTREAM: Part-time nurture (mornings) + mainstream (afternoons) OR full days nurture initially then gradually increase mainstream time. Maintain links with class, celebrate successes, transition planning from day 1. Goal = successful return to mainstream.\n\nSTAFF WELLBEING: Nurture group work is emotionally demanding. Regular supervision, reflective practice, peer support essential.\n\nLAC: Nurture groups particularly effective for looked-after children - secure base at school, consistent adults, developmental reparation.',
+    implementation_guide: 'NURTURE GROUPS = evidence-based intervention for children whose early attachment and developmental experiences were disrupted. These children often: struggle with relationships, dysregulated emotions, can\'t access learning, chaotic behaviour, stuck at early developmental stages. WHY? Trauma, neglect, insecure attachment, ACEs, LAC, inconsistent caregiving. NURTURE GROUPS provide safe, predictable, nurturing environment to "re-do" early developmental experiences.\n\nSIX PRINCIPLES OF NURTURE:\n1) Children\'s learning is understood developmentally\n2) The classroom offers a safe base\n3) Nurture is important for the development of wellbeing\n4) Language is understood as vital for communication and learning\n5) All behaviour is communication\n6) Transitions are significant in children\'s lives\n\nASSESSMENT: Boxall Profile (diagnostic assessment of social-emotional development). Identifies developmental stage and gaps. Used for baseline and progress monitoring.\n\nENVIRONMENT: Homely, not clinical. Kitchen area, comfortable seating, toys, books, games. Predictable, organized. Two adults (secure attachments). Small group (6-12 max).\n\nROUTINE (Example): Arrival welcome, breakfast together (family meal - teaches social skills, conversation, turn-taking), morning activities (developmental play, social skills, learning tasks), snack, outdoor play, reflection time. PREDICTABILITY is key - routine never changes.\n\nDEVELOPMENTAL CURRICULUM: Meet child at their developmental stage, NOT chronological age. 7-year-old may need toddler-level emotional support. Activities: play, sensory, turn-taking, sharing, cooperation, emotional literacy, boundaries, cause-and-effect, language development, academic skills when ready.\n\nRELATIONSHIPS: Two key adults = secure base. Consistent, predictable, attuned, boundaried, warm. Children learn: adults are trustworthy, I am valued, relationships are safe, I can regulate with support.\n\nBEHAVIOR: Trauma-informed responses. "All behaviour is communication" - what need is this behaviour communicating? Co-regulate, teach alternative ways to meet needs, therapeutic not punitive.\n\nINTEGRATION WITH MAINSTREAM: Part-time nurture (mornings) + mainstream (afternoons) OR full days nurture initially then gradually increase mainstream time. Maintain links with class, celebrate successes, transition planning from day 1. Goal = successful return to mainstream.\n\nSTAFF WELLBEING: Nurture group work is emotionally demanding. Regular supervision, reflective practice, peer support essential.\n\nLAC: Nurture groups particularly effective for looked-after children - secure base at school, consistent adults, developmental reparation.',
 
     parent_information: 'Your child is attending our Nurture Group - a special small group providing extra support for social and emotional development. Some children need extra help learning how to manage feelings, make friends, and feel safe at school - that\'s what Nurture Group does. Your child will have consistent, caring adults, predictable routines, time to play and learn social skills, and support to be ready for learning. It\'s not punishment - it\'s extra nurture! Many children join Nurture Group if they\'ve had difficult early experiences, been in care, moved schools a lot, or just need more support. At home: keep routines predictable, provide consistent boundaries with warmth, validate feelings, be patient (progress takes time), communicate with nurture staff. Most children attend Nurture Group for 2-4 terms then transition back to their class full-time, with new skills and confidence. This is about giving your child the foundations they need to thrive.',
 
@@ -10285,7 +10285,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     evidence_level: 'tier_1',
     research_sources: ['Carol Gray Social Stories™ research', 'NICE Autism guidelines', 'National Autistic Society', 'NPDC Evidence-Based Practices', 'Autism-specific pedagogy'],
     effect_size: 0.64,
-    success_rate: '65-80% show improved understanding and behavior',
+    success_rate: '65-80% show improved understanding and behaviour',
 
     age_range: ['early_years', 'primary', 'secondary', 'post_16'],
     setting: ['one_to_one', 'small_group'],
@@ -10331,7 +10331,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     progress_indicators: [
       'Student understands situation better',
       'Reduced anxiety about situation',
-      'Appropriate behavior in target situation',
+      'Appropriate behaviour in target situation',
       'Increased confidence',
       'Fewer meltdowns/shutdowns',
       'Generalizing understanding to similar situations',
@@ -10344,13 +10344,13 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     expected_outcomes: [
       'Improved understanding of social situations',
       'Reduced anxiety',
-      'More appropriate behavior',
+      'More appropriate behaviour',
       'Better transitions',
       'Increased independence',
       'Perspective-taking skills',
       'Predictability and structure',
       'Confidence in new situations',
-      'Reduced challenging behavior',
+      'Reduced challenging behaviour',
       'Better coping with change'
     ],
 
@@ -10375,10 +10375,10 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Sensory support',
       'Anxiety management',
       'TEACCH strategies',
-      'Positive behavior support'
+      'Positive behaviour support'
     ],
 
-    implementation_guide: 'SOCIAL STORIES™ = Carol Gray\'s evidence-based intervention for AUTISM. Autistic students often struggle with: unpredictability, social expectations (unspoken rules), perspective-taking, anxiety about unknowns. Social Stories EXPLICITLY TEACH what to expect and how to respond.\n\nWHEN TO USE: New situations (starting school, assembly, fire drill), challenging situations (lunch hall, playground, transitions), behavior targets (taking turns, asking for help), anxiety-provoking events (dentist, school trip, change in routine).\n\nSTRUCTURE (Carol Gray\'s guidelines):\n1) DESCRIPTIVE sentences - objective facts about situation. "Sometimes at school we have fire drills."\n2) PERSPECTIVE sentences - others\' thoughts/feelings. "The teacher wants everyone to be safe."\n3) DIRECTIVE sentences - what student should do. "I will line up quietly."\n4) Ratio: More descriptive/perspective, fewer directive. (NOT just rules!)\n\nTONE: Positive, patient, reassuring. NOT threatening or punishing. "This is what happens, this is what you can do, you\'ll be OK."\n\nPERSONALIZATION: Use student\'s name, photo, interests. Photos of ACTUAL environment/people. First person ("I", "my"). Specific to student\'s needs.\n\nVISUALS: Photos >> symbols >> drawings. Real photos of school, teachers, situations most helpful. Match student\'s processing (some need words+pictures, others pictures only).\n\nLENGTH: Depends on student. Young/complex needs: 1-2 sentences + pictures. Older/able: full page. Keep it SHORT - long stories lose attention.\n\nIMPLEMENTATION:\n1) WRITE story (follow guidelines, personalize, visuals)\n2) INTRODUCE: Read together, discuss, answer questions\n3) PRACTICE: Read daily BEFORE relevant situation (e.g., read fire drill story every morning)\n4) AVAILABLE: Have story accessible during situation if needed\n5) REVIEW: Did it help? Adjust if needed\n6) FADE: As student internalizes, reduce frequency\n\nEXAMPLE - Fire Drill Story:\n"Sometimes at school we have fire drills. [PHOTO of school]\nThe fire alarm is loud. It helps everyone know to leave the building. [PHOTO of alarm]\nMy teacher, Miss Smith, will tell us to line up. [PHOTO of Miss Smith]\nI will line up quietly with my class. [PHOTO of student lining up]\nWe will walk outside to the playground. [PHOTO of playground]\nWe will wait until the drill is finished. [PHOTO of class waiting]\nThen we will go back inside. I will be safe. [PHOTO of student smiling]"\n\nCOMMON MISTAKES: Too long, too directive (just rules), punishing tone, not personalized, no visuals, not reading it regularly.',
+    implementation_guide: 'SOCIAL STORIES™ = Carol Gray\'s evidence-based intervention for AUTISM. Autistic students often struggle with: unpredictability, social expectations (unspoken rules), perspective-taking, anxiety about unknowns. Social Stories EXPLICITLY TEACH what to expect and how to respond.\n\nWHEN TO USE: New situations (starting school, assembly, fire drill), challenging situations (lunch hall, playground, transitions), behaviour targets (taking turns, asking for help), anxiety-provoking events (dentist, school trip, change in routine).\n\nSTRUCTURE (Carol Gray\'s guidelines):\n1) DESCRIPTIVE sentences - objective facts about situation. "Sometimes at school we have fire drills."\n2) PERSPECTIVE sentences - others\' thoughts/feelings. "The teacher wants everyone to be safe."\n3) DIRECTIVE sentences - what student should do. "I will line up quietly."\n4) Ratio: More descriptive/perspective, fewer directive. (NOT just rules!)\n\nTONE: Positive, patient, reassuring. NOT threatening or punishing. "This is what happens, this is what you can do, you\'ll be OK."\n\nPERSONALIZATION: Use student\'s name, photo, interests. Photos of ACTUAL environment/people. First person ("I", "my"). Specific to student\'s needs.\n\nVISUALS: Photos >> symbols >> drawings. Real photos of school, teachers, situations most helpful. Match student\'s processing (some need words+pictures, others pictures only).\n\nLENGTH: Depends on student. Young/complex needs: 1-2 sentences + pictures. Older/able: full page. Keep it SHORT - long stories lose attention.\n\nIMPLEMENTATION:\n1) WRITE story (follow guidelines, personalize, visuals)\n2) INTRODUCE: Read together, discuss, answer questions\n3) PRACTICE: Read daily BEFORE relevant situation (e.g., read fire drill story every morning)\n4) AVAILABLE: Have story accessible during situation if needed\n5) REVIEW: Did it help? Adjust if needed\n6) FADE: As student internalizes, reduce frequency\n\nEXAMPLE - Fire Drill Story:\n"Sometimes at school we have fire drills. [PHOTO of school]\nThe fire alarm is loud. It helps everyone know to leave the building. [PHOTO of alarm]\nMy teacher, Miss Smith, will tell us to line up. [PHOTO of Miss Smith]\nI will line up quietly with my class. [PHOTO of student lining up]\nWe will walk outside to the playground. [PHOTO of playground]\nWe will wait until the drill is finished. [PHOTO of class waiting]\nThen we will go back inside. I will be safe. [PHOTO of student smiling]"\n\nCOMMON MISTAKES: Too long, too directive (just rules), punishing tone, not personalized, no visuals, not reading it regularly.',
 
     parent_information: 'Social Stories are short, personalized stories helping your autistic child understand social situations and what to expect. Autistic children often find unpredictable situations confusing or anxiety-provoking because social "rules" aren\'t obvious. Social Stories explicitly teach: what will happen, why it happens, what your child can do, reassurance they\'ll be OK. We\'ve created a Social Story for your child about [situation]. Please read it together daily, especially before that situation. Use positive, calm tone. Answer questions. Have it available during the situation if helpful. Over time, your child will understand and the story may not be needed anymore. You can create your own Social Stories at home for other situations (dentist, family events, holidays) using the same structure. Social Stories should be positive and informative, never punishing. This is a respectful, autism-affirming way to teach social understanding and reduce anxiety.',
 
@@ -10401,8 +10401,8 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     name: 'Attachment-Informed Classroom Strategies for Different Attachment Styles',
     category: 'social_emotional',
     subcategory: 'attachment_trauma',
-    description: 'Differentiated classroom strategies tailored to specific attachment styles (Resistant/Ambivalent, Disorganized/Disoriented, Avoidant). Addresses attachment-related anxiety, hypervigilance, controlling behaviors, and relationship difficulties through trauma-informed, attachment-aware approaches.',
-    targeted_needs: ['Attachment difficulties', 'Trauma', 'LAC (Looked After Children)', 'Adoption', 'Early adversity', 'Anxiety', 'Hypervigilance', 'Controlling behavior', 'Relationship difficulties', 'Trust issues'],
+    description: 'Differentiated classroom strategies tailored to specific attachment styles (Resistant/Ambivalent, Disorganized/Disoriented, Avoidant). Addresses attachment-related anxiety, hypervigilance, controlling behaviours, and relationship difficulties through trauma-informed, attachment-aware approaches.',
+    targeted_needs: ['Attachment difficulties', 'Trauma', 'LAC (Looked After Children)', 'Adoption', 'Early adversity', 'Anxiety', 'Hypervigilance', 'Controlling behaviour', 'Relationship difficulties', 'Trust issues'],
 
     evidence_level: 'tier_2',
     research_sources: ['Ainsworth Attachment Theory', 'Bowlby Attachment Research', 'Bomber (2007) Inside I\'m Hurting', 'Geddes (2006) Attachment in the Classroom', 'Hughes Attachment-Focused Approaches', 'Trauma-Informed Schools Research'],
@@ -10451,7 +10451,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Reduced anxiety and hypervigilance',
       'Improved trust in key adults',
       'Better emotional regulation',
-      'Decreased controlling behaviors',
+      'Decreased controlling behaviours',
       'More appropriate help-seeking',
       'Improved peer relationships',
       'Better transitions',
@@ -10467,7 +10467,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Reduced anxiety and stress responses',
       'Improved relationships with adults and peers',
       'Better learning engagement',
-      'Reduced exclusion/behavioral incidents',
+      'Reduced exclusion/behavioural incidents',
       'Improved wellbeing and school belonging'
     ],
 
@@ -10475,7 +10475,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'RESISTANT/AMBIVALENT: High anxiety/uncertainty - Need to hold teacher attention, dependent on teacher. Strategies: Differentiated tasks, turn-taking for attention, holding special object, responsibility for tasks not people, explicit comments showing teacher thinking about them, proximity without constant 1:1',
       'DISORGANIZED/DISORIENTED: Extreme fear/anxiety expressed as controlling/omnipotent - Unexpected eruptions, persistent refusal, heightened stress state. Strategies: Connection before correction, acknowledge developmental age vs chronological age, safe spaces, worry box, permission cards for breaks, concrete/rhythmic activities, consistent responses (no shame)',
       'AVOIDANT: Indifference to uncertainty - Need to be autonomous, deny need for support, attention toward task rather than teacher. Strategies: Pairs/small groups for proximity, clear structured tasks, choice elements, peer mentors, stories about feelings, respect independence while being available',
-      'ALL STYLES: Predictable routines, transition warnings, key adult, safe spaces, co-regulation, relationship repair, developmental vs chronological age, no shame/punishment for attachment behaviors'
+      'ALL STYLES: Predictable routines, transition warnings, key adult, safe spaces, co-regulation, relationship repair, developmental vs chronological age, no shame/punishment for attachment behaviours'
     ],
 
     contraindications: ['Not appropriate if staff lack attachment training', 'Avoid during acute crisis without specialist support', 'Requires consistent key adult - won\'t work if frequent staff changes'],
@@ -10490,9 +10490,9 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Key person attachment relationship'
     ],
 
-    implementation_guide: 'STEP 1: UNDERSTAND ATTACHMENT - Train staff in Ainsworth\'s attachment styles: SECURE (50-60%): Trust adults, seek help, regulate emotions well. RESISTANT/AMBIVALENT (15%): High anxiety, clingy, need constant reassurance. AVOIDANT (15-20%): Independent, don\'t seek help, suppress emotions. DISORGANIZED/DISORIENTED (15%): Fearful, controlling, unpredictable responses. STEP 2: IDENTIFY CHILD\'S PROFILE - Which attachment style? What triggers dysregulation? What soothes? Developmental vs chronological age gap? STEP 3: DIFFERENTIATE STRATEGIES - See adaptations above for specific approaches. STEP 4: KEY ADULT - Assign consistent adult (not necessarily teacher - could be TA, pastoral lead). This person provides secure base. STEP 5: CONNECTION BEFORE CORRECTION - When behavior challenges, connect emotionally FIRST. "I see you\'re struggling. Let\'s figure this out together." BEFORE "You broke the rule, here\'s consequence." STEP 6: PREDICTABLE ENVIRONMENT - Visual schedules, transition warnings, consistent routines, warn of changes, safe spaces available. STEP 7: DEVELOPMENTAL AGE - Attachment trauma can mean child\'s emotional age lags behind. A 10-year-old may have 5-year-old emotional regulation. Adjust expectations accordingly. STEP 8: CO-REGULATION - Model calm, provide sensory tools (fidgets, weighted blanket, calm space), breathing together, validate emotions. STEP 9: RELATIONSHIP REPAIR - After ruptures (meltdowns, conflicts), REPAIR the relationship. "I\'m still here, we\'re OK, I care about you." Don\'t hold grudges. STEP 10: NO SHAME - Attachment difficulties are NOT naughty. Avoid shame-based discipline (humiliation, isolation, withdrawal of relationship).',
+    implementation_guide: 'STEP 1: UNDERSTAND ATTACHMENT - Train staff in Ainsworth\'s attachment styles: SECURE (50-60%): Trust adults, seek help, regulate emotions well. RESISTANT/AMBIVALENT (15%): High anxiety, clingy, need constant reassurance. AVOIDANT (15-20%): Independent, don\'t seek help, suppress emotions. DISORGANIZED/DISORIENTED (15%): Fearful, controlling, unpredictable responses. STEP 2: IDENTIFY CHILD\'S PROFILE - Which attachment style? What triggers dysregulation? What soothes? Developmental vs chronological age gap? STEP 3: DIFFERENTIATE STRATEGIES - See adaptations above for specific approaches. STEP 4: KEY ADULT - Assign consistent adult (not necessarily teacher - could be TA, pastoral lead). This person provides secure base. STEP 5: CONNECTION BEFORE CORRECTION - When behaviour challenges, connect emotionally FIRST. "I see you\'re struggling. Let\'s figure this out together." BEFORE "You broke the rule, here\'s consequence." STEP 6: PREDICTABLE ENVIRONMENT - Visual schedules, transition warnings, consistent routines, warn of changes, safe spaces available. STEP 7: DEVELOPMENTAL AGE - Attachment trauma can mean child\'s emotional age lags behind. A 10-year-old may have 5-year-old emotional regulation. Adjust expectations accordingly. STEP 8: CO-REGULATION - Model calm, provide sensory tools (fidgets, weighted blanket, calm space), breathing together, validate emotions. STEP 9: RELATIONSHIP REPAIR - After ruptures (meltdowns, conflicts), REPAIR the relationship. "I\'m still here, we\'re OK, I care about you." Don\'t hold grudges. STEP 10: NO SHAME - Attachment difficulties are NOT naughty. Avoid shame-based discipline (humiliation, isolation, withdrawal of relationship).',
 
-    parent_information: 'Your child\'s early experiences have shaped how they relate to others - their "attachment style." If early relationships were inconsistent, frightening, or unresponsive, your child may have developed insecure attachment patterns as a survival strategy. This isn\'t their fault or yours - it\'s their brain\'s way of coping. At school, we\'re using ATTACHMENT-INFORMED strategies: 1) Key Adult - consistent person your child can rely on. 2) Connection Before Correction - relationship first, behavior second. 3) Predictable Routines - reduces anxiety. 4) Safe Spaces - somewhere to regulate emotions. 5) Developmental Age Awareness - we understand your child\'s emotional age may be younger than chronological age. 6) Relationship Repair - after difficult moments, we repair the relationship. 7) No Shame - we never use shame-based discipline. Your role: Share what works at home, communicate about triggers, celebrate progress (even tiny steps), be patient - attachment healing takes time. Work with us consistently. With secure, consistent, warm relationships, attachment patterns CAN improve.',
+    parent_information: 'Your child\'s early experiences have shaped how they relate to others - their "attachment style." If early relationships were inconsistent, frightening, or unresponsive, your child may have developed insecure attachment patterns as a survival strategy. This isn\'t their fault or yours - it\'s their brain\'s way of coping. At school, we\'re using ATTACHMENT-INFORMED strategies: 1) Key Adult - consistent person your child can rely on. 2) Connection Before Correction - relationship first, behaviour second. 3) Predictable Routines - reduces anxiety. 4) Safe Spaces - somewhere to regulate emotions. 5) Developmental Age Awareness - we understand your child\'s emotional age may be younger than chronological age. 6) Relationship Repair - after difficult moments, we repair the relationship. 7) No Shame - we never use shame-based discipline. Your role: Share what works at home, communicate about triggers, celebrate progress (even tiny steps), be patient - attachment healing takes time. Work with us consistently. With secure, consistent, warm relationships, attachment patterns CAN improve.',
 
     useful_links: [
       'https://beaconhouse.org.uk - Beacon House attachment resources',
@@ -10509,16 +10509,16 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
 
   {
     id: 'positive-timetable-recording',
-    name: 'Positive Timetable Recording - Solution-Focused Behavior Tracking',
+    name: 'Positive Timetable Recording - Solution-Focused Behaviour Tracking',
     category: 'social_emotional',
     subcategory: 'behavior_monitoring',
-    description: 'Solution-focused behavior monitoring system that records and highlights "problem-free" times rather than focusing on difficulties. Uses timetable format to track when behavior is SUCCESSFUL, increasing child\'s awareness, responsibility, and self-regulation. Based on solution-focused brief therapy principles (Rowe, 2012).',
+    description: 'Solution-focused behaviour monitoring system that records and highlights "problem-free" times rather than focusing on difficulties. Uses timetable format to track when behaviour is SUCCESSFUL, increasing child\'s awareness, responsibility, and self-regulation. Based on solution-focused brief therapy principles (Rowe, 2012).',
     targeted_needs: ['Behavior difficulties', 'Self-regulation challenges', 'Need for positive feedback', 'Attention-seeking', 'Low self-esteem', 'Behavior change resistance', 'Solution-focused approaches'],
 
     evidence_level: 'tier_2',
     research_sources: ['Rowe (2012) Solution-Focused Practice', 'Solution-Focused Brief Therapy Research', 'Positive Psychology', 'Strength-Based Approaches'],
     effect_size: 0.58,
-    success_rate: '55-70% show improved self-regulation and behavior awareness',
+    success_rate: '55-70% show improved self-regulation and behaviour awareness',
 
     age_range: ['early_years', 'primary', 'secondary'],
     setting: ['classroom', 'home', 'mixed'],
@@ -10539,7 +10539,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Daily/twice-daily review with child',
       'Solution-focused questions (What helped? What can you do?)',
       'Attribution to child\'s own actions (not external factors)',
-      'Identifies patterns (when is behavior successful?)',
+      'Identifies patterns (when is behaviour successful?)',
       'No targets set (child leads progress)',
       'Celebrates problem-free times'
     ],
@@ -10572,7 +10572,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     ],
 
     expected_outcomes: [
-      'Improved behavior self-regulation',
+      'Improved behaviour self-regulation',
       'Increased awareness of successful strategies',
       'Positive focus (strengths not deficits)',
       'Better relationships with adults',
@@ -10580,7 +10580,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Improved self-esteem',
       'Sense of agency and control',
       'Pattern recognition skills',
-      'Reduced need for external behavior management'
+      'Reduced need for external behaviour management'
     ],
 
     adaptations: [
@@ -10589,7 +10589,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Secondary: Full week timetable, daily or weekly reviews, more student-led',
       'Home: Adapt for home routine (breakfast/morning/lunch/afternoon/dinner/bedtime)',
       'Whole class/group: Use for multiple students, celebrate patterns together',
-      'Very challenging behavior: Start with very short periods (15-minute segments)'
+      'Very challenging behaviour: Start with very short periods (15-minute segments)'
     ],
 
     contraindications: ['Ineffective if used punitively', 'Not appropriate if child lacks insight', 'Don\'t use if focus on problems continues despite tool'],
@@ -10603,9 +10603,9 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Motivational interviewing'
     ],
 
-    implementation_guide: 'RATIONALE: When behavior improves, FREQUENCY and DURATION change before INTENSITY. Traditional recording focuses on intensity ("How bad was it?"), missing early improvements. Positive Timetable Recording captures frequency/duration changes, showing progress sooner and motivating continued effort. STEP 1: Create Timetable - Blank timetable for child\'s week (or day). Include all periods (lessons, break, lunch, etc.). STEP 2: Introduce to Child - "We\'re going to use highlighters to record times when things go well for you. We\'ll meet to talk about ONLY the good times, not what went wrong." STEP 3: Recording System - SOLID LINE: Problem-free from adult\'s perspective. DOTTED LINE: Bit on/off, mixed. BLANK: Problems (but we don\'t record details). STEP 4: Review Meetings - Start frequent (after each period or twice-daily), phase to daily. Ask FOUR QUESTIONS: 1) "Was that problem-free for you too, or did you feel differently?" (Check perceptions). 2) "What helped that time be problem-free?" (Identify strategies - child\'s actions!). 3) "What was good about that time for you and others?" (Reflect on benefits). 4) "What will keep these good times going?" (Plan, but don\'t set targets or pressure). STEP 5: Attribution - Emphasize child\'s agency. NOT "The teacher was nice to you" BUT "You waited patiently/you asked for help/you took a break when needed." STEP 6: Pattern Analysis - "I notice lunchtimes are usually problem-free - what\'s different then?" "PE is always green - what helps?" STEP 7: Celebrate - Celebrate progress! Point out increases. NO PRESSURE to improve faster. STEP 8: Develop Independence - Move to child self-recording when ready.',
+    implementation_guide: 'RATIONALE: When behaviour improves, FREQUENCY and DURATION change before INTENSITY. Traditional recording focuses on intensity ("How bad was it?"), missing early improvements. Positive Timetable Recording captures frequency/duration changes, showing progress sooner and motivating continued effort. STEP 1: Create Timetable - Blank timetable for child\'s week (or day). Include all periods (lessons, break, lunch, etc.). STEP 2: Introduce to Child - "We\'re going to use highlighters to record times when things go well for you. We\'ll meet to talk about ONLY the good times, not what went wrong." STEP 3: Recording System - SOLID LINE: Problem-free from adult\'s perspective. DOTTED LINE: Bit on/off, mixed. BLANK: Problems (but we don\'t record details). STEP 4: Review Meetings - Start frequent (after each period or twice-daily), phase to daily. Ask FOUR QUESTIONS: 1) "Was that problem-free for you too, or did you feel differently?" (Check perceptions). 2) "What helped that time be problem-free?" (Identify strategies - child\'s actions!). 3) "What was good about that time for you and others?" (Reflect on benefits). 4) "What will keep these good times going?" (Plan, but don\'t set targets or pressure). STEP 5: Attribution - Emphasize child\'s agency. NOT "The teacher was nice to you" BUT "You waited patiently/you asked for help/you took a break when needed." STEP 6: Pattern Analysis - "I notice lunchtimes are usually problem-free - what\'s different then?" "PE is always green - what helps?" STEP 7: Celebrate - Celebrate progress! Point out increases. NO PRESSURE to improve faster. STEP 8: Develop Independence - Move to child self-recording when ready.',
 
-    parent_information: 'Positive Timetable Recording is a SOLUTION-FOCUSED tool. Instead of tracking every problem your child has, we track PROBLEM-FREE times. Why? Because research shows when behavior improves, small changes happen first (how often, how long) before big changes (how intense). By focusing on WHAT\'S WORKING, your child becomes more aware of successful strategies, takes ownership, and feels motivated. How it works: We create a timetable of your child\'s day/week. After each period, we highlight if it was problem-free (solid line), mixed (dotted line), or had problems (blank - we don\'t focus on this). We meet with your child to discuss: What helped? What was good? What can keep it going? We emphasize YOUR CHILD\'S actions, not luck or others being nice. Over time, your child recognizes their own power to self-regulate. At home: You can use the same approach! Create a home timetable (breakfast, morning, school run, after school, dinner, bedtime). Highlight problem-free times. Discuss with your child. Focus on THEIR strategies. Celebrate! NO targets, NO pressure - let progress happen naturally.',
+    parent_information: 'Positive Timetable Recording is a SOLUTION-FOCUSED tool. Instead of tracking every problem your child has, we track PROBLEM-FREE times. Why? Because research shows when behaviour improves, small changes happen first (how often, how long) before big changes (how intense). By focusing on WHAT\'S WORKING, your child becomes more aware of successful strategies, takes ownership, and feels motivated. How it works: We create a timetable of your child\'s day/week. After each period, we highlight if it was problem-free (solid line), mixed (dotted line), or had problems (blank - we don\'t focus on this). We meet with your child to discuss: What helped? What was good? What can keep it going? We emphasize YOUR CHILD\'S actions, not luck or others being nice. Over time, your child recognizes their own power to self-regulate. At home: You can use the same approach! Create a home timetable (breakfast, morning, school run, after school, dinner, bedtime). Highlight problem-free times. Discuss with your child. Focus on THEIR strategies. Celebrate! NO targets, NO pressure - let progress happen naturally.',
 
     useful_links: [
       'https://www.solutionfocusedschools.co.uk',
@@ -10615,16 +10615,16 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
 
     created_at: '2025-11-02',
     updated_at: '2025-11-02',
-    tags: ['solution_focused', 'behavior_monitoring', 'strengths_based', 'self_regulation', 'tier_2', 'positive_psychology', 'EP_tool']
+    tags: ['solution_focused', 'behaviour_monitoring', 'strengths_based', 'self_regulation', 'tier_2', 'positive_psychology', 'EP_tool']
   },
 
   {
-    id: 'abcc-functional-behavior-analysis',
-    name: 'ABCC Charts - Functional Behavior Analysis for Schools',
+    id: 'abcc-functional-behaviour-analysis',
+    name: 'ABCC Charts - Functional Behaviour Analysis for Schools',
     category: 'social_emotional',
     subcategory: 'behavior_assessment',
-    description: 'Systematic behavior recording tool analyzing Antecedent-Behavior-Consequence-Communication (ABCC). Helps identify WHY behavior happens (function/communication) to develop effective interventions. Based on positive behavior support model seeing behavior as purposeful communication of unmet needs.',
-    targeted_needs: ['Challenging behavior', 'Need to understand behavior function', 'Intervention planning', 'Pattern identification', 'Communication through behavior', 'Unmet needs'],
+    description: 'Systematic behaviour recording tool analyzing Antecedent-Behavior-Consequence-Communication (ABCC). Helps identify WHY behaviour happens (function/communication) to develop effective interventions. Based on positive behaviour support model seeing behaviour as purposeful communication of unmet needs.',
+    targeted_needs: ['Challenging behaviour', 'Need to understand behaviour function', 'Intervention planning', 'Pattern identification', 'Communication through behaviour', 'Unmet needs'],
 
     evidence_level: 'tier_1',
     research_sources: ['LaVigna & Willis (1995, 2005) Positive Behavioral Support', 'Dorado et al (2016) HEARTS Trauma-Informed Schools', 'Herbert (1985) Functional Analysis', 'Tim Cooke EP Practitioner Research'],
@@ -10673,15 +10673,15 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Hypothesis developed',
       'Intervention designed and implemented',
       'Behavior frequency/intensity decreasing',
-      'Replacement behavior increasing',
+      'Replacement behaviour increasing',
       'Child\'s needs met appropriately',
       'Staff feel more confident responding'
     ],
 
     expected_outcomes: [
-      'Understanding of behavior function',
+      'Understanding of behaviour function',
       'Effective, function-matched intervention',
-      'Reduced challenging behavior (70-80%)',
+      'Reduced challenging behaviour (70-80%)',
       'Increased appropriate communication',
       'Staff empathy and understanding increased',
       'Proactive rather than reactive responses',
@@ -10693,8 +10693,8 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Simplified version: ABC only (omit Communication initially)',
       'Digital: Use apps/forms for quick recording',
       'Whole-staff: Multiple staff record same child for comprehensive picture',
-      'Home: Parents can use same format for home behaviors',
-      'Specific behavior: Focus on one target behavior at a time',
+      'Home: Parents can use same format for home behaviours',
+      'Specific behaviour: Focus on one target behaviour at a time',
       'Visual: Add photos/symbols for non-readers'
     ],
 
@@ -10702,26 +10702,26 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
 
     complementary_interventions: [
       'Positive Behavior Support Plans',
-      'Communication intervention (especially if behavior is communication)',
+      'Communication intervention (especially if behaviour is communication)',
       'Environmental modifications',
-      'Teaching replacement behaviors',
+      'Teaching replacement behaviours',
       'Sensory assessment and support',
       'Relationship-building strategies'
     ],
 
     implementation_guide: 'PHILOSOPHY: "Children are trying to solve problems rather than be one" (Herbert, 1985). Behavior is COMMUNICATION - child is trying to tell us something or achieve something. Our job: understand the message, then teach better ways to communicate. "What problem is the child trying to solve right now?" ABCC STRUCTURE: ANTECEDENT (A): What was happening BEFORE? NOT "What triggered it?" (we may not see trigger). CONTEXT: Where? With whom? What activity? What just happened? Example: "During Maths, in classroom, working independently on worksheet, 10 mins into task." BEHAVIOR (B): What happened? OBJECTIVE description. NOT "disruptive," "naughty," "attention-seeking." WHAT DID YOU SEE? Example: "Threw pencil across room, shouted \'This is stupid\', refused to continue." CONSEQUENCE (C): What happened AFTER? What did child OBTAIN or AVOID? NOT just "I gave detention." What payoff? Example: "Removed from lesson to quiet room, completed easier work with TA 1:1." (Obtained: escape from hard task + adult attention + easier work). COMMUNICATION (C): Complete LATER after multiple incidents. What is child communicating? What legitimate need? Example: "I need help with this work" or "I find it hard to persevere when frustrated" or "I need adult attention." ANALYSIS: Collect 5-10 incidents. Look for PATTERNS: Same antecedents? Same consequences? Common functions? FOUR FUNCTIONS: 1) ESCAPE/AVOIDANCE (to get away from something), 2) ATTENTION (to get adult/peer attention), 3) TANGIBLE (to get object/activity), 4) SENSORY (feels good/relieves discomfort). INTERVENTION: Match intervention to FUNCTION. Escape function? → Make task easier, teach help-seeking, provide breaks. Attention function? → Increase positive attention, teach appropriate attention-seeking. NOT one-size-fits-all!',
 
-    parent_information: 'ABCC charts help us understand WHY your child behaves in challenging ways. We believe: "Children are trying to solve problems rather than be one." Your child\'s behavior is COMMUNICATION - they\'re trying to tell us something or achieve something, but in an unhelpful way. ABCC = Antecedent (what was happening before), Behavior (what happened), Consequence (what did they get/avoid), Communication (what were they trying to achieve?). Example: Antecedent = Difficult homework. Behavior = Shouting, refusal. Consequence = Sent to room (escape), homework not done. Communication = "I need help, this is too hard, I\'m frustrated." NOW WE UNDERSTAND! The intervention: Offer help earlier, break tasks down, teach \'I need help\' phrase, provide breaks. We\'re meeting the NEED (help with hard work) in an APPROPRIATE way. You can use ABCC at home too! When challenging behavior happens, note: What was happening before? What exactly happened? What did my child get or avoid? What might they be trying to communicate? Once you understand the function, you can meet that need in a better way.',
+    parent_information: 'ABCC charts help us understand WHY your child behaves in challenging ways. We believe: "Children are trying to solve problems rather than be one." Your child\'s behaviour is COMMUNICATION - they\'re trying to tell us something or achieve something, but in an unhelpful way. ABCC = Antecedent (what was happening before), Behavior (what happened), Consequence (what did they get/avoid), Communication (what were they trying to achieve?). Example: Antecedent = Difficult homework. Behavior = Shouting, refusal. Consequence = Sent to room (escape), homework not done. Communication = "I need help, this is too hard, I\'m frustrated." NOW WE UNDERSTAND! The intervention: Offer help earlier, break tasks down, teach \'I need help\' phrase, provide breaks. We\'re meeting the NEED (help with hard work) in an APPROPRIATE way. You can use ABCC at home too! When challenging behaviour happens, note: What was happening before? What exactly happened? What did my child get or avoid? What might they be trying to communicate? Once you understand the function, you can meet that need in a better way.',
 
     useful_links: [
       'https://www.challengingbehaviour.org.uk',
-      'https://www.pbis.org/resource/functional-behavioral-assessment',
-      'https://www.behavior.org'
+      'https://www.pbis.org/resource/functional-behavioural-assessment',
+      'https://www.behaviour.org'
     ],
 
     created_at: '2025-11-02',
     updated_at: '2025-11-02',
-    tags: ['functional_analysis', 'behavior_assessment', 'positive_behavior_support', 'ABC', 'function', 'tier_1', 'EP_tool', 'evidence_based']
+    tags: ['functional_analysis', 'behaviour_assessment', 'positive_behaviour_support', 'ABC', 'function', 'tier_1', 'EP_tool', 'evidence_based']
   },
 
   {
@@ -10844,7 +10844,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     category: 'social_emotional',
     subcategory: 'attachment_trauma',
     description: 'Comprehensive, evidence-based framework for identifying and supporting children with attachment difficulties in educational settings. Based on Ainsworth\'s attachment styles, Bowlby\'s attachment theory, and neuroscience research. Includes whole-school approaches, individual interventions, parent support, and multi-agency collaboration. Differentiates attachment difficulties from autism (Coventry Grid). Created by Dr. Scott Ighavongbe-Patrick CPsychol DEPsych MBPsS.',
-    targeted_needs: ['Attachment difficulties', 'Insecure attachment (Resistant/Ambivalent, Avoidant, Disorganized)', 'Trauma', 'Looked After Children (LAC)', 'Adopted children', 'Adverse Childhood Experiences (ACEs)', 'Relationship difficulties', 'Emotional dysregulation', 'Trust issues', 'Control-seeking behaviors', 'Hypervigilance', 'Developmental trauma'],
+    targeted_needs: ['Attachment difficulties', 'Insecure attachment (Resistant/Ambivalent, Avoidant, Disorganized)', 'Trauma', 'Looked After Children (LAC)', 'Adopted children', 'Adverse Childhood Experiences (ACEs)', 'Relationship difficulties', 'Emotional dysregulation', 'Trust issues', 'Control-seeking behaviours', 'Hypervigilance', 'Developmental trauma'],
 
     evidence_level: 'tier_1',
     research_sources: ['Bowlby Attachment Theory', 'Ainsworth Strange Situation & Attachment Styles', 'Perry (2009) Neuroscience of Trauma', 'Bomber (2007, 2011) Inside I\'m Hurting / Survival Book', 'Geddes (2006) Attachment in the Classroom', 'Hughes (2006) DDP Attachment-Focused Therapy', 'Coventry Grid (2010) Attachment vs Autism Differentiation', 'Dr. Scott Ighavongbe-Patrick (2025) Supporting Children with Attachment Needs'],
@@ -10865,7 +10865,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     key_components: [
       'ATTACHMENT THEORY FOUNDATION: Secure base (Bowlby), Internal Working Model (beliefs about self/others), Attachment styles (Secure, Resistant, Avoidant, Disorganized)',
       'KEY PERSON APPROACH: Designated trusted adult, consistent relationship, safe haven',
-      'RELATIONSHIP-FIRST PHILOSOPHY: Connection before correction, all behavior is communication',
+      'RELATIONSHIP-FIRST PHILOSOPHY: Connection before correction, all behaviour is communication',
       'UNDERSTANDING NEUROSCIENCE: Stress response systems (fight/flight/freeze/fawn), window of tolerance, brain development impact of trauma',
       'DIFFERENTIATED STRATEGIES: Tailored to attachment style (different needs for Avoidant vs Resistant vs Disorganized)',
       'WHOLE-SCHOOL TRAUMA-INFORMED APPROACH: All staff trained, consistent expectations, relational discipline',
@@ -10878,7 +10878,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     fidelity_checklist: [
       'All staff trained in attachment theory and trauma-informed practice',
       'Key Person assigned and relationship prioritized',
-      'Behavior understood through attachment lens (not just behavior management)',
+      'Behavior understood through attachment lens (not just behaviour management)',
       'Safe spaces available and accessible',
       'Visual supports and predictability provided',
       'Connection routines (morning greeting, transitions, end of day)',
@@ -10902,7 +10902,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'LEARNING ENGAGEMENT: Better focus (when emotionally regulated), reduced avoidance, can take risks',
       'PARENT-CHILD RELATIONSHIP: Improved warmth, reduced conflict, better attunement (if family work included)',
       'WINDOW OF TOLERANCE: Stays regulated more often, recovers from dysregulation faster',
-      'Note: Progress is NON-LINEAR - expect setbacks, regressions, "testing" behaviors (checking if adult is reliable)'
+      'Note: Progress is NON-LINEAR - expect setbacks, regressions, "testing" behaviours (checking if adult is reliable)'
     ],
 
     expected_outcomes: [
@@ -10911,7 +10911,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Stronger, healthier relationships (adults and peers)',
       'Increased trust in adults and reduced hypervigilance',
       'Better learning outcomes (when emotional needs met, learning becomes possible)',
-      'Reduced exclusions and behavior incidents',
+      'Reduced exclusions and behaviour incidents',
       'Improved mental health and wellbeing',
       'Stronger family relationships (if family work included)',
       'Reduced need for specialist services (early intervention)',
@@ -10927,10 +10927,10 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'SECONDARY: Modified Key Person (form tutor/mentor), respect need for autonomy, offer support without pressure, peer relationships increasingly important, transition support (primary to secondary is HIGH RISK for attachment difficulties)',
       'LOOKED AFTER CHILDREN (LAC): Virtual School involvement, PEP targets include attachment/emotional needs, Life Story Work, Theraplay, consistent adults (minimize placement moves), manage transitions carefully, trauma-informed',
       'ADOPTED CHILDREN: Recognize pre-adoption trauma, parent training (attachment parenting), school-home consistency, Life Story Work, Adoption Support Fund for therapy',
-      'AUTISM + ATTACHMENT DIFFICULTIES: Use Coventry Grid to differentiate (some behaviors overlap but different origins), visual supports, predictability, special interest connection, sensory needs, both attachment AND autism strategies needed'
+      'AUTISM + ATTACHMENT DIFFICULTIES: Use Coventry Grid to differentiate (some behaviours overlap but different origins), visual supports, predictability, special interest connection, sensory needs, both attachment AND autism strategies needed'
     ],
 
-    contraindications: ['Standard behavior management (detentions, isolation, exclusion) often worsens attachment difficulties - use relational approaches', 'Expecting quick fixes - attachment healing takes YEARS', 'Blaming parents - many parents have their own attachment difficulties and need support, not judgment', 'Removing child from Key Person as punishment - this breaks trust', 'Inconsistent adults - attachment children need CONSISTENCY', 'Dismissing "small" behaviors - for attachment children, sitting near you without running IS huge progress'],
+    contraindications: ['Standard behaviour management (detentions, isolation, exclusion) often worsens attachment difficulties - use relational approaches', 'Expecting quick fixes - attachment healing takes YEARS', 'Blaming parents - many parents have their own attachment difficulties and need support, not judgment', 'Removing child from Key Person as punishment - this breaks trust', 'Inconsistent adults - attachment children need CONSISTENCY', 'Dismissing "small" behaviours - for attachment children, sitting near you without running IS huge progress'],
 
     complementary_interventions: [
       'Theraplay (attachment-focused play therapy)',
@@ -10947,9 +10947,9 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Family therapy'
     ],
 
-    implementation_guide: 'COMPREHENSIVE FRAMEWORK FOR SUPPORTING ATTACHMENT NEEDS IN SCHOOLS (Dr. Scott Ighavongbe-Patrick). PART 1: UNDERSTANDING ATTACHMENT. ATTACHMENT THEORY (Bowlby): Child\'s first relationships create an "Internal Working Model" (IWM) - beliefs about: "Am I lovable?" "Are adults reliable?" "Is the world safe?" Secure Attachment (consistent, responsive care): IWM = "I\'m worthy of love, adults help me, world is safe". Result: Confident, emotionally regulated, seeks help when needed. Insecure Attachment (inconsistent/unresponsive care): IWM = "I\'m not worthy, adults let me down, world is dangerous". Result: Hypervigilance, control-seeking, emotional dysregulation, relationship difficulties. AINSWORTH ATTACHMENT STYLES: SECURE (60-70% general population, <10% LAC): Confident, seeks comfort, trusts adults, emotionally regulated, learns well. RESISTANT/AMBIVALENT (10-15%): Anxious, clingy, uncertain if adult will respond, hypervigilant to separation, hard to soothe, needs constant reassurance. AVOIDANT (15-20%): Appears independent, rejects comfort, doesn\'t ask for help (learned adults won\'t respond so "I\'ll do it myself"), suppresses emotions. DISORGANIZED/DISORIENTED (5-10% general, 50-80% LAC/abused children): Fear + confusion, no consistent strategy, fight/flight/freeze, trauma, most concerning. NEUROSCIENCE OF TRAUMA (Perry): Adverse experiences affect brain development - amygdala (threat detection) OVERACTIVE, prefrontal cortex (thinking/regulation) UNDERDEVELOPED. Result: "Always on alert" (hypervigilance), can\'t regulate emotions (needs co-regulation), behaviors = survival strategies. PART 2: KEY PERSON APPROACH. Assign ONE consistent trusted adult (Key Person). NOT a teaching assistant exclusively - could be teacher, TA, learning mentor, office staff. Role: Safe base, secure haven, consistent relationship, someone child can trust and turn to. Daily connection: Morning greeting (warm, predictable), check-ins throughout day, transition support, end-of-day positive goodbye. Child\'s "safe person" - if dysregulated, gets Key Person. Key Person provides: Co-regulation, unconditional positive regard, repair after difficulties, advocacy ("This child is MINE - I\'m looking after them"). PART 3: DIFFERENTIATED STRATEGIES BY ATTACHMENT STYLE. RESISTANT/AMBIVALENT (clingy, anxious): High reassurance ("You\'re safe, I\'m here"), predictable routines + visual timetables, frequent check-ins, teach to ASK for help (instead of anxiety escalating), turn-taking for attention (can\'t give unlimited but be consistent), allow proximity to Key Person, differentiated tasks (reduce overwhelm). AVOIDANT (independent, rejects help): Offer support WITHOUT pressure ("I\'m here if you need me"), pairs/small groups work (1:1 too intense initially), side-by-side activities (less direct eye contact), respect their independence but subtly scaffold, clear structured tasks, celebrate effort QUIETLY (not public praise), let them come to you, teach "It\'s OK to need help sometimes". DISORGANIZED (trauma, fear, confusion): CONNECTION BEFORE CORRECTION - relationship is everything. Safe spaces immediately accessible, warn before transitions, short-term targets, emotion coaching ("I can see you\'re really upset, let\'s take some breaths together"), co-regulation (they CAN\'T self-regulate yet), no surprises, consistent routine, worry box, "You\'re safe here" messages, relational discipline (repair, not punishment), staff supervision (this is emotionally demanding work). PART 4: WHOLE-SCHOOL TRAUMA-INFORMED APPROACH. Train ALL staff (not just Key Person) - teachers, office, lunchtime, bus drivers. Everyone understands: "Behavior is communication", "Connection before correction", "Children are doing their best with the skills they have". Relational discipline: Focus on REPAIR not punishment. "What happened? What were you feeling? What do you need? How can we fix this together?" Avoid: Detentions, isolation, exclusion (these WORSEN attachment - child feels rejected again). Consistent expectations but flexible responses (one-size-fits-all doesn\'t work). Sensory regulation tools: Fidgets, movement breaks, calm spaces, weighted blankets, music. Predictability: Visual timetables, warnings before changes, consistency in adults (don\'t keep changing Key Person). PART 5: EMOTIONAL REGULATION SUPPORT. Attachment children often CAN\'T self-regulate (their brain development affected by trauma). Co-regulation first: Adult stays calm, models regulation, "I can see you\'re upset, let\'s breathe together", proximity, calm voice. Teach window of tolerance: "Green zone" (calm, ready to learn), "Yellow zone" (getting wobbly), "Red zone" (meltdown). Help child recognize zones and ask for help in Yellow. Safe spaces: Calm corner, sensory room, Key Person\'s area - NOT punishment, but place to regulate. Emotion coaching: Name the feeling ("You look really angry"), validate ("That IS frustrating"), offer strategy ("Let\'s try..."), support through it. PART 6: WORKING WITH FAMILIES. Attachment difficulties often intergenerational - parents may have their own attachment trauma. Psychoeducation: Explain attachment to parents (not blaming, but understanding). Parent support: Parenting groups, Theraplay, Filial Therapy, practical strategies at home. School-home consistency: Same approaches, shared language, regular communication (positive contact, not just problems). Recognize parent strengths: Many parents are doing incredible work in difficult circumstances. Offer support, not judgment. PART 7: MULTI-AGENCY COLLABORATION. Attachment needs often require multi-agency response: Educational Psychology (assessment, consultation, intervention planning), Social Care (if safeguarding/LAC), CAMHS (if trauma therapy needed), Virtual School (if LAC - ensure PEP addresses attachment/emotional needs), Adoption Support (if adopted - can access Adoption Support Fund for therapy). TAF/TAC meetings: Coordinate support, share information, joint planning. PART 8: LIFE STORY WORK (for LAC/adopted children). Many LAC/adopted children have fragmented memories and confusion about their past. Life Story Work: Create coherent narrative of their life, photo books, timeline, "This is what happened and why", helps make sense of trauma and moves. Therapeutic tool: Process difficult feelings, build identity, understand "It wasn\'t my fault". Must be done carefully - trained staff, therapy support, parent/carer involvement. PART 9: DIFFERENTIATING ATTACHMENT FROM AUTISM (Coventry Grid). Some behaviors overlap: Poor eye contact, relationship difficulties, rigidity, sensory issues. BUT different origins: ATTACHMENT: Eye contact avoided due to FEAR/mistrust. Relationships avoided due to LEARNED UNRELIABILITY. Rigidity = need for CONTROL (world feels unsafe). AUTISM: Eye contact uncomfortable (sensory/social). Relationships confusing (social communication difficulty). Rigidity = need for PREDICTABILITY (anxiety). Use Coventry Grid to differentiate - ask: "Is this about FEAR/trust (attachment) or CONFUSION/sensory (autism)?" Some children have BOTH - need both attachment AND autism strategies. PART 10: REALISTIC EXPECTATIONS & SELF-CARE. Attachment healing takes YEARS, not weeks. Celebrate tiny progress: "Child sat near me without running" = huge step. Expect regressions: Child will "test" you ("Will you reject me too?"). Stay consistent. Non-linear progress: Good days and terrible days - this is normal. Staff self-care: Attachment work is emotionally exhausting. Supervision essential. Team approach - share the load. Remember: You\'re planting seeds. You may not see the full growth, but you\'re making a difference. SUMMARY: Supporting attachment needs = RELATIONSHIP-BASED, TRAUMA-INFORMED, LONG-TERM work. Key Person + whole-school approach + family support + differentiated strategies + realistic expectations = life-changing for vulnerable children.',
+    implementation_guide: 'COMPREHENSIVE FRAMEWORK FOR SUPPORTING ATTACHMENT NEEDS IN SCHOOLS (Dr. Scott Ighavongbe-Patrick). PART 1: UNDERSTANDING ATTACHMENT. ATTACHMENT THEORY (Bowlby): Child\'s first relationships create an "Internal Working Model" (IWM) - beliefs about: "Am I lovable?" "Are adults reliable?" "Is the world safe?" Secure Attachment (consistent, responsive care): IWM = "I\'m worthy of love, adults help me, world is safe". Result: Confident, emotionally regulated, seeks help when needed. Insecure Attachment (inconsistent/unresponsive care): IWM = "I\'m not worthy, adults let me down, world is dangerous". Result: Hypervigilance, control-seeking, emotional dysregulation, relationship difficulties. AINSWORTH ATTACHMENT STYLES: SECURE (60-70% general population, <10% LAC): Confident, seeks comfort, trusts adults, emotionally regulated, learns well. RESISTANT/AMBIVALENT (10-15%): Anxious, clingy, uncertain if adult will respond, hypervigilant to separation, hard to soothe, needs constant reassurance. AVOIDANT (15-20%): Appears independent, rejects comfort, doesn\'t ask for help (learned adults won\'t respond so "I\'ll do it myself"), suppresses emotions. DISORGANIZED/DISORIENTED (5-10% general, 50-80% LAC/abused children): Fear + confusion, no consistent strategy, fight/flight/freeze, trauma, most concerning. NEUROSCIENCE OF TRAUMA (Perry): Adverse experiences affect brain development - amygdala (threat detection) OVERACTIVE, prefrontal cortex (thinking/regulation) UNDERDEVELOPED. Result: "Always on alert" (hypervigilance), can\'t regulate emotions (needs co-regulation), behaviours = survival strategies. PART 2: KEY PERSON APPROACH. Assign ONE consistent trusted adult (Key Person). NOT a teaching assistant exclusively - could be teacher, TA, learning mentor, office staff. Role: Safe base, secure haven, consistent relationship, someone child can trust and turn to. Daily connection: Morning greeting (warm, predictable), check-ins throughout day, transition support, end-of-day positive goodbye. Child\'s "safe person" - if dysregulated, gets Key Person. Key Person provides: Co-regulation, unconditional positive regard, repair after difficulties, advocacy ("This child is MINE - I\'m looking after them"). PART 3: DIFFERENTIATED STRATEGIES BY ATTACHMENT STYLE. RESISTANT/AMBIVALENT (clingy, anxious): High reassurance ("You\'re safe, I\'m here"), predictable routines + visual timetables, frequent check-ins, teach to ASK for help (instead of anxiety escalating), turn-taking for attention (can\'t give unlimited but be consistent), allow proximity to Key Person, differentiated tasks (reduce overwhelm). AVOIDANT (independent, rejects help): Offer support WITHOUT pressure ("I\'m here if you need me"), pairs/small groups work (1:1 too intense initially), side-by-side activities (less direct eye contact), respect their independence but subtly scaffold, clear structured tasks, celebrate effort QUIETLY (not public praise), let them come to you, teach "It\'s OK to need help sometimes". DISORGANIZED (trauma, fear, confusion): CONNECTION BEFORE CORRECTION - relationship is everything. Safe spaces immediately accessible, warn before transitions, short-term targets, emotion coaching ("I can see you\'re really upset, let\'s take some breaths together"), co-regulation (they CAN\'T self-regulate yet), no surprises, consistent routine, worry box, "You\'re safe here" messages, relational discipline (repair, not punishment), staff supervision (this is emotionally demanding work). PART 4: WHOLE-SCHOOL TRAUMA-INFORMED APPROACH. Train ALL staff (not just Key Person) - teachers, office, lunchtime, bus drivers. Everyone understands: "Behavior is communication", "Connection before correction", "Children are doing their best with the skills they have". Relational discipline: Focus on REPAIR not punishment. "What happened? What were you feeling? What do you need? How can we fix this together?" Avoid: Detentions, isolation, exclusion (these WORSEN attachment - child feels rejected again). Consistent expectations but flexible responses (one-size-fits-all doesn\'t work). Sensory regulation tools: Fidgets, movement breaks, calm spaces, weighted blankets, music. Predictability: Visual timetables, warnings before changes, consistency in adults (don\'t keep changing Key Person). PART 5: EMOTIONAL REGULATION SUPPORT. Attachment children often CAN\'T self-regulate (their brain development affected by trauma). Co-regulation first: Adult stays calm, models regulation, "I can see you\'re upset, let\'s breathe together", proximity, calm voice. Teach window of tolerance: "Green zone" (calm, ready to learn), "Yellow zone" (getting wobbly), "Red zone" (meltdown). Help child recognize zones and ask for help in Yellow. Safe spaces: Calm corner, sensory room, Key Person\'s area - NOT punishment, but place to regulate. Emotion coaching: Name the feeling ("You look really angry"), validate ("That IS frustrating"), offer strategy ("Let\'s try..."), support through it. PART 6: WORKING WITH FAMILIES. Attachment difficulties often intergenerational - parents may have their own attachment trauma. Psychoeducation: Explain attachment to parents (not blaming, but understanding). Parent support: Parenting groups, Theraplay, Filial Therapy, practical strategies at home. School-home consistency: Same approaches, shared language, regular communication (positive contact, not just problems). Recognize parent strengths: Many parents are doing incredible work in difficult circumstances. Offer support, not judgment. PART 7: MULTI-AGENCY COLLABORATION. Attachment needs often require multi-agency response: Educational Psychology (assessment, consultation, intervention planning), Social Care (if safeguarding/LAC), CAMHS (if trauma therapy needed), Virtual School (if LAC - ensure PEP addresses attachment/emotional needs), Adoption Support (if adopted - can access Adoption Support Fund for therapy). TAF/TAC meetings: Coordinate support, share information, joint planning. PART 8: LIFE STORY WORK (for LAC/adopted children). Many LAC/adopted children have fragmented memories and confusion about their past. Life Story Work: Create coherent narrative of their life, photo books, timeline, "This is what happened and why", helps make sense of trauma and moves. Therapeutic tool: Process difficult feelings, build identity, understand "It wasn\'t my fault". Must be done carefully - trained staff, therapy support, parent/carer involvement. PART 9: DIFFERENTIATING ATTACHMENT FROM AUTISM (Coventry Grid). Some behaviours overlap: Poor eye contact, relationship difficulties, rigidity, sensory issues. BUT different origins: ATTACHMENT: Eye contact avoided due to FEAR/mistrust. Relationships avoided due to LEARNED UNRELIABILITY. Rigidity = need for CONTROL (world feels unsafe). AUTISM: Eye contact uncomfortable (sensory/social). Relationships confusing (social communication difficulty). Rigidity = need for PREDICTABILITY (anxiety). Use Coventry Grid to differentiate - ask: "Is this about FEAR/trust (attachment) or CONFUSION/sensory (autism)?" Some children have BOTH - need both attachment AND autism strategies. PART 10: REALISTIC EXPECTATIONS & SELF-CARE. Attachment healing takes YEARS, not weeks. Celebrate tiny progress: "Child sat near me without running" = huge step. Expect regressions: Child will "test" you ("Will you reject me too?"). Stay consistent. Non-linear progress: Good days and terrible days - this is normal. Staff self-care: Attachment work is emotionally exhausting. Supervision essential. Team approach - share the load. Remember: You\'re planting seeds. You may not see the full growth, but you\'re making a difference. SUMMARY: Supporting attachment needs = RELATIONSHIP-BASED, TRAUMA-INFORMED, LONG-TERM work. Key Person + whole-school approach + family support + differentiated strategies + realistic expectations = life-changing for vulnerable children.',
 
-    parent_information: 'ATTACHMENT - what is it? When your child was very young, their early relationships taught them about the world: "Am I safe?" "Can I trust adults?" "Am I lovable?" If those early experiences were consistent and loving, your child learned "Yes, I\'m safe, adults help me, I\'m worthy of love" (SECURE ATTACHMENT). But if early experiences were frightening, inconsistent, or neglectful (even if not your fault - illness, separation, trauma), your child might have learned "The world is scary, adults let me down, I have to cope alone" (INSECURE ATTACHMENT). This isn\'t your child\'s fault OR yours - it\'s what their brain learned to survive difficult early experiences. SIGNS YOUR CHILD MAY HAVE ATTACHMENT DIFFICULTIES: Very clingy and anxious OR very independent and won\'t ask for help. Extreme reactions to small things (meltdowns, aggression). Doesn\'t trust adults, always "on guard" (hypervigilant). Finds relationships really hard (adults and other children). Needs to be in control all the time. Can\'t calm down even with your support. WHAT HELPS: CONSISTENT, RELIABLE ADULTS: Your child needs to learn "This adult won\'t let me down" - but that takes TIME (months/years, not weeks). The school has assigned a KEY PERSON - one consistent adult your child can trust and turn to. CONNECTION BEFORE CORRECTION: When your child behaves badly, it\'s usually because they\'re scared, overwhelmed, or testing if you\'ll reject them. Stay calm, connect first ("I can see you\'re upset"), then address behavior. PATIENCE: Attachment healing is SLOW. Celebrate tiny progress ("Today you asked for help instead of throwing things - that\'s HUGE!"). Expect setbacks - they\'re normal. CO-REGULATION: Your child probably can\'t calm themselves down yet (their brain development was affected). YOU have to stay calm and help them regulate ("Let\'s take some deep breaths together"). PREDICTABILITY: Routines, warnings before changes, visual timetables - these help your child feel safe. Surprises feel threatening. REPAIR: When things go wrong, REPAIR the relationship. "I\'m sorry I shouted. You\'re safe. I\'m here. Let\'s try again." Models that relationships can be mended. WHAT YOU CAN DO AT HOME: Same strategies school is using - consistency between home and school is powerful. Prioritize relationship over behavior - connection is more important than compliance. Look after YOURSELF - parenting/caring for children with attachment difficulties is exhausting. You need support too. Access support: Parenting groups, therapeutic parenting training, counseling for you, respite. REMEMBER: Your child\'s difficult behaviors are NOT manipulation - they\'re communication. They\'re saying "I\'m scared, I don\'t trust this, I need help but I don\'t know how to ask". With time, patience, and consistent support, your child CAN learn that they\'re safe, adults are reliable, and they\'re worthy of love. It just takes longer than we\'d like. You\'re doing an amazing job - don\'t give up.',
+    parent_information: 'ATTACHMENT - what is it? When your child was very young, their early relationships taught them about the world: "Am I safe?" "Can I trust adults?" "Am I lovable?" If those early experiences were consistent and loving, your child learned "Yes, I\'m safe, adults help me, I\'m worthy of love" (SECURE ATTACHMENT). But if early experiences were frightening, inconsistent, or neglectful (even if not your fault - illness, separation, trauma), your child might have learned "The world is scary, adults let me down, I have to cope alone" (INSECURE ATTACHMENT). This isn\'t your child\'s fault OR yours - it\'s what their brain learned to survive difficult early experiences. SIGNS YOUR CHILD MAY HAVE ATTACHMENT DIFFICULTIES: Very clingy and anxious OR very independent and won\'t ask for help. Extreme reactions to small things (meltdowns, aggression). Doesn\'t trust adults, always "on guard" (hypervigilant). Finds relationships really hard (adults and other children). Needs to be in control all the time. Can\'t calm down even with your support. WHAT HELPS: CONSISTENT, RELIABLE ADULTS: Your child needs to learn "This adult won\'t let me down" - but that takes TIME (months/years, not weeks). The school has assigned a KEY PERSON - one consistent adult your child can trust and turn to. CONNECTION BEFORE CORRECTION: When your child behaves badly, it\'s usually because they\'re scared, overwhelmed, or testing if you\'ll reject them. Stay calm, connect first ("I can see you\'re upset"), then address behaviour. PATIENCE: Attachment healing is SLOW. Celebrate tiny progress ("Today you asked for help instead of throwing things - that\'s HUGE!"). Expect setbacks - they\'re normal. CO-REGULATION: Your child probably can\'t calm themselves down yet (their brain development was affected). YOU have to stay calm and help them regulate ("Let\'s take some deep breaths together"). PREDICTABILITY: Routines, warnings before changes, visual timetables - these help your child feel safe. Surprises feel threatening. REPAIR: When things go wrong, REPAIR the relationship. "I\'m sorry I shouted. You\'re safe. I\'m here. Let\'s try again." Models that relationships can be mended. WHAT YOU CAN DO AT HOME: Same strategies school is using - consistency between home and school is powerful. Prioritize relationship over behaviour - connection is more important than compliance. Look after YOURSELF - parenting/caring for children with attachment difficulties is exhausting. You need support too. Access support: Parenting groups, therapeutic parenting training, counseling for you, respite. REMEMBER: Your child\'s difficult behaviours are NOT manipulation - they\'re communication. They\'re saying "I\'m scared, I don\'t trust this, I need help but I don\'t know how to ask". With time, patience, and consistent support, your child CAN learn that they\'re safe, adults are reliable, and they\'re worthy of love. It just takes longer than we\'d like. You\'re doing an amazing job - don\'t give up.',
 
     useful_links: [
       'https://www.annafreud.org/schools-and-colleges/resources/trauma-informed-schools/ - Trauma-informed schools',
@@ -11031,13 +11031,13 @@ const COMMUNICATION_INTERVENTIONS: InterventionTemplate[] = [
       'Discrimination between multiple symbols',
       'Uses sentence strips',
       'Requests variety of items/activities',
-      'Decreased challenging behavior (due to communication)',
+      'Decreased challenging behaviour (due to communication)',
       'Possible emergence of spoken words'
     ],
 
     expected_outcomes: [
       'Functional communication system established',
-      'Reduced frustration and challenging behavior',
+      'Reduced frustration and challenging behaviour',
       'Increased independence',
       'Better participation in activities',
       'Some students develop speech alongside PECS'
@@ -11185,8 +11185,8 @@ const SENSORY_INTERVENTIONS: InterventionTemplate[] = [
     name: 'Sensory Integration Therapy (OT-led)',
     category: 'sensory',
     subcategory: 'sensory_processing',
-    description: 'Occupational therapy intervention using controlled sensory experiences to improve processing and integration of sensory information. Addresses over-responsivity, under-responsivity, and sensory-seeking behaviors.',
-    targeted_needs: ['Sensory processing disorder', 'Autism (sensory differences)', 'Over-sensitivity to sensory input', 'Sensory-seeking behavior', 'Poor body awareness', 'Coordination difficulties'],
+    description: 'Occupational therapy intervention using controlled sensory experiences to improve processing and integration of sensory information. Addresses over-responsivity, under-responsivity, and sensory-seeking behaviours.',
+    targeted_needs: ['Sensory processing disorder', 'Autism (sensory differences)', 'Over-sensitivity to sensory input', 'Sensory-seeking behaviour', 'Poor body awareness', 'Coordination difficulties'],
 
     evidence_level: 'tier_2',
     research_sources: ['Ayres Sensory Integration', 'AOTA Practice Guidelines', 'Emerging evidence base'],
@@ -11228,7 +11228,7 @@ const SENSORY_INTERVENTIONS: InterventionTemplate[] = [
 
     progress_indicators: [
       'Improved tolerance of sensory experiences',
-      'Reduced sensory-seeking/avoiding behaviors',
+      'Reduced sensory-seeking/avoiding behaviours',
       'Better self-regulation',
       'Improved attention and engagement',
       'Reduced meltdowns related to sensory overload',
@@ -11240,7 +11240,7 @@ const SENSORY_INTERVENTIONS: InterventionTemplate[] = [
       'Better sensory processing',
       'Improved regulation',
       'Increased participation in school activities',
-      'Reduced challenging behaviors',
+      'Reduced challenging behaviours',
       'Improved quality of life'
     ],
 
@@ -11285,7 +11285,7 @@ const SENSORY_INTERVENTIONS: InterventionTemplate[] = [
     category: 'sensory',
     subcategory: 'sensory_regulation',
     description: 'Regular, scheduled breaks throughout school day providing sensory and movement input. Prevents sensory overload and maintains optimal arousal level for learning. Includes heavy work, movement, and calming activities.',
-    targeted_needs: ['Attention difficulties', 'ADHD', 'Autism (sensory needs)', 'Hyperactivity', 'Difficulty sitting still', 'Sensory-seeking behavior', 'Low arousal/alertness'],
+    targeted_needs: ['Attention difficulties', 'ADHD', 'Autism (sensory needs)', 'Hyperactivity', 'Difficulty sitting still', 'Sensory-seeking behaviour', 'Low arousal/alertness'],
 
     evidence_level: 'tier_2',
     research_sources: ['OT research', 'ADHD intervention research', 'Teacher feedback evidence'],
@@ -11325,7 +11325,7 @@ const SENSORY_INTERVENTIONS: InterventionTemplate[] = [
     progress_indicators: [
       'Improved attention after breaks',
       'Reduced fidgeting/restlessness',
-      'Fewer behavioral incidents',
+      'Fewer behavioural incidents',
       'Better work completion',
       'Student self-advocates for breaks',
       'Improved self-regulation'
@@ -11333,9 +11333,9 @@ const SENSORY_INTERVENTIONS: InterventionTemplate[] = [
 
     expected_outcomes: [
       'Maintained optimal arousal for learning',
-      'Improved on-task behavior',
+      'Improved on-task behaviour',
       'Better academic performance',
-      'Reduced disruptive behavior',
+      'Reduced disruptive behaviour',
       'Increased independence in regulation'
     ],
 
@@ -11470,7 +11470,7 @@ export const INTERVENTION_STATS = {
   total: INTERVENTION_LIBRARY.length,
   by_category: {
     academic: ACADEMIC_INTERVENTIONS.length,
-    behavioral: BEHAVIORAL_INTERVENTIONS.length,
+    behavioural: BEHAVIORAL_INTERVENTIONS.length,
     social_emotional: SOCIAL_EMOTIONAL_INTERVENTIONS.length,
     communication: COMMUNICATION_INTERVENTIONS.length,
     sensory: SENSORY_INTERVENTIONS.length,

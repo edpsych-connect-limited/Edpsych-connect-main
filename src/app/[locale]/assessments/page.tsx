@@ -153,7 +153,7 @@ export default function AssessmentListPage() {
     const labels: Record<string, string> = {
       cognitive: 'Cognitive',
       educational: 'Educational',
-      behavioral: 'Behavioral',
+      behavioral: 'Behavioural',
       speech_language: 'Speech & Language',
       occupational_therapy: 'Occupational Therapy',
       psychological: 'Psychological',
@@ -330,7 +330,7 @@ export default function AssessmentListPage() {
                 <option value="">All Types</option>
                 <option value="cognitive">Cognitive</option>
                 <option value="educational">Educational</option>
-                <option value="behavioral">Behavioral</option>
+                <option value="behavioral">Behavioural</option>
                 <option value="speech_language">Speech & Language</option>
                 <option value="occupational_therapy">Occupational Therapy</option>
                 <option value="psychological">Psychological</option>

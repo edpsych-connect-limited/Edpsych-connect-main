@@ -302,7 +302,7 @@ The ECCA framework evaluates four distinct but interconnected cognitive domains.
 
 ### 2. Attention & Executive Function
 *The "CEO" of the Brain*
-- **Definition**: The ability to focus, shift attention, inhibit impulses, and plan/organize behavior.
+- **Definition**: The ability to focus, shift attention, inhibit impulses, and plan/organize behaviour.
 - **Key Subtests**:
     - **Sustained Attention Task**: Focusing on a boring task over time.
     - **Go/No-Go**: Impulse control and inhibition.
@@ -351,7 +351,7 @@ The ECCA framework evaluates four distinct but interconnected cognitive domains.
 
 ## Best Practices
 
-- **Observe Behavior**: Anxiety, fatigue, and motivation significantly impact scores. Note these in the "Observations" section.
+- **Observe Behaviour**: Anxiety, fatigue, and motivation significantly impact scores. Note these in the "Observations" section.
 - **Strengths-Based**: Always highlight what the child *can* do. Use strengths to support weaknesses.
 - **Cultural Fairness**: The ECCA is designed to be culturally neutral, but always consider language barriers and cultural background.`,
       search_keywords: ['ecca', 'assessment', 'cognitive', 'framework', 'conducting', 'domains', 'working memory', 'processing speed'],
@@ -460,7 +460,7 @@ Access 69 evidence-based interventions across literacy, numeracy, and wellbeing.
 
 - **Literacy** (30 interventions): Phonics, reading comprehension, writing
 - **Numeracy** (30 interventions): Number sense, calculation, problem-solving
-- **Wellbeing** (9 interventions): Anxiety, attention, behavior
+- **Wellbeing** (9 interventions): Anxiety, attention, behaviour
 
 ## Search & Filter
 
@@ -608,7 +608,7 @@ Browse courses on:
 - Dyslexia Intervention Strategies
 - Autism Spectrum Support
 - Working Memory Training
-- Behavior Management
+- Behaviour Management
 - And more...
 
 ## Course Features

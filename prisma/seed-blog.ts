@@ -483,10 +483,10 @@ Consider EP involvement when:
 ## Supporting Parents
 
 Help parents understand:
-- ADHD is neurobiological, not behavioral choice
+- ADHD is neurobiological, not behavioural choice
 - Consistency across settings is crucial
 - Medication works for 70-80% when indicated
-- Multimodal treatment (behavior + med) most effective
+- Multimodal treatment (behaviour + med) most effective
 
 **Training available**: Complete our ADHD CPD course for 12 accredited hours.`,
       author_name: 'Dr Scott I-Patrick DEdPsych CPsychol',
@@ -495,7 +495,7 @@ Help parents understand:
       reading_time: 7,
       is_published: true,
       published_at: new Date('2025-11-01'),
-      keywords: ['adhd', 'classroom strategies', 'behavior', 'attention'],
+      keywords: ['adhd', 'classroom strategies', 'behaviour', 'attention'],
       tags: [tags[4]],
     },
   ];

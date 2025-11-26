@@ -124,15 +124,15 @@ class AIIntegrationService {
     },
 
     behaviorAnalyst: {
-      name: 'Behavior Analyst Agent',
-      description: 'Pattern recognition and behavior analysis',
+      name: 'Behaviour Analyst Agent',
+      description: 'Pattern recognition and behaviour analysis',
       capabilities: ['pattern_recognition', 'behavior_analysis', 'intervention_planning'],
       model: 'claude',
       maxTokens: 1000,
       temperature: 0.6,
-      systemPrompt: `You are a specialist in educational psychology and behavior analysis. Analyze behavior patterns to:
+      systemPrompt: `You are a specialist in educational psychology and behaviour analysis. Analyse behaviour patterns to:
       - Identify triggers and underlying causes
-      - Recognize early warning signs
+      - Recognise early warning signs
       - Suggest evidence-based interventions
       - Focus on understanding and support over punishment
       - Recommend when to involve additional professionals`
@@ -462,7 +462,7 @@ class AIIntegrationService {
       maxTokens: 500,
       temperature: 0.5,
       systemPrompt: `You are a digital citizenship and online safety specialist. Educate about:
-      - Responsible digital behavior
+      - Responsible digital behaviour
       - Online safety and privacy
       - Digital communication ethics
       - Information verification skills

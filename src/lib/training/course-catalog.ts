@@ -390,17 +390,17 @@ export const COURSE_CATALOG: Course[] = [
   {
     id: 'evidence-based-interventions',
     title: 'Evidence-Based Interventions: Complete Toolkit',
-    subtitle: 'Research-backed strategies for reading, math, behavior, and social-emotional support',
+    subtitle: 'Research-backed strategies for reading, math, behaviour, and social-emotional support',
     category: 'intervention',
     level: 'intermediate',
     description:
-      'Comprehensive training in evidence-based interventions across academic, behavioral, and social-emotional domains. Learn to select, implement, and monitor interventions with fidelity. Covers Tier 1, 2, and 3 support.',
+      'Comprehensive training in evidence-based interventions across academic, behavioural, and social-emotional domains. Learn to select, implement, and monitor interventions with fidelity. Covers Tier 1, 2, and 3 support.',
     learning_outcomes: [
       'Select interventions based on evidence level and student needs',
       'Implement Tier 1, 2, and 3 interventions with fidelity',
       'Monitor intervention effectiveness using progress data',
       'Apply systematic phonics, fluency, and comprehension interventions',
-      'Use behavioral interventions including FBA and PBS',
+      'Use behavioural interventions including FBA and PBS',
       'Support social-emotional development effectively',
     ],
     cpd_hours: 15,
@@ -477,7 +477,7 @@ export const COURSE_CATALOG: Course[] = [
           },
         ],
       },
-      // Additional modules 3-10 (fluency, comprehension, math, writing, behavior, social-emotional)
+      // Additional modules 3-10 (fluency, comprehension, math, writing, behaviour, social-emotional)
     ],
     prerequisites: [],
     target_audience: ['Teachers', 'SENCOs', 'Teaching Assistants', 'EPs', 'Intervention Leads'],
@@ -596,7 +596,7 @@ export const COURSE_CATALOG: Course[] = [
             content_url: '/content/training_videos/autism-spectrum-support/autism-m1-l1.mp4',
             duration_minutes: 30,
             merits_earned: 10,
-            content_text: 'AUTISM: Neurological difference affecting social communication, sensory processing, information processing, and patterns of behavior/interests. NOT disease, NOT broken - different neurology. NEURODIVERSITY PERSPECTIVE: Autism is natural human variation (like left-handedness), strengths AND challenges, value autistic ways of being, focus on accommodations not "fixing". MEDICAL MODEL: Deficit-based, "disorder", focuses on what autistic people can\'t do, pathologizes difference. LANGUAGE: Identity-first ("autistic person" - most autistic adults prefer) vs person-first ("person with autism"). LISTEN to autistic voices! PREVALENCE: 1-2% population, more diagnosed in boys BUT girls often missed (camouflage/mask). LIFESPAN: Autism is lifelong - needs change across development.',
+            content_text: 'AUTISM: Neurological difference affecting social communication, sensory processing, information processing, and patterns of behaviour/interests. NOT disease, NOT broken - different neurology. NEURODIVERSITY PERSPECTIVE: Autism is natural human variation (like left-handedness), strengths AND challenges, value autistic ways of being, focus on accommodations not "fixing". MEDICAL MODEL: Deficit-based, "disorder", focuses on what autistic people can\'t do, pathologizes difference. LANGUAGE: Identity-first ("autistic person" - most autistic adults prefer) vs person-first ("person with autism"). LISTEN to autistic voices! PREVALENCE: 1-2% population, more diagnosed in boys BUT girls often missed (camouflage/mask). LIFESPAN: Autism is lifelong - needs change across development.',
             resources: [
               {
                 id: 'autism-res-1',
@@ -681,7 +681,7 @@ export const COURSE_CATALOG: Course[] = [
             type: 'reading',
             duration_minutes: 30,
             merits_earned: 10,
-            content_text: 'FRIENDSHIP: Many autistic people desire friends BUT find neurotypical social rules confusing. Autistic people often connect well with other neurodivergent people (shared communication style). CHALLENGES: Small talk (prefer deep conversations), group dynamics (overwhelming), unwritten rules, reciprocity expectations, maintaining friendships over time. SUPPORT: Facilitated social groups, shared-interest clubs (special interest = natural connection point), teach explicit friendship skills (without demanding "normal"), respect preference for solitary time (not loneliness!), support online friendships (valid and valuable!), educate neurotypical peers (two-way understanding), Circle of Friends, lunch clubs. DON\'T: Force eye contact, punish "odd" behavior, demand "fitting in" at expense of wellbeing. DO: Celebrate autistic friendships, value different social styles, reduce social pressure.',
+            content_text: 'FRIENDSHIP: Many autistic people desire friends BUT find neurotypical social rules confusing. Autistic people often connect well with other neurodivergent people (shared communication style). CHALLENGES: Small talk (prefer deep conversations), group dynamics (overwhelming), unwritten rules, reciprocity expectations, maintaining friendships over time. SUPPORT: Facilitated social groups, shared-interest clubs (special interest = natural connection point), teach explicit friendship skills (without demanding "normal"), respect preference for solitary time (not loneliness!), support online friendships (valid and valuable!), educate neurotypical peers (two-way understanding), Circle of Friends, lunch clubs. DON\'T: Force eye contact, punish "odd" behaviour, demand "fitting in" at expense of wellbeing. DO: Celebrate autistic friendships, value different social styles, reduce social pressure.',
             resources: [
               {
                 id: 'autism-res-3',
@@ -736,7 +736,7 @@ export const COURSE_CATALOG: Course[] = [
             content_url: '/content/training_videos/autism-spectrum-support/autism-m3-l1.mp4',
             duration_minutes: 30,
             merits_earned: 10,
-            content_text: 'SENSORY DIFFERENCES: Most autistic people have atypical sensory processing - world can be overwhelming OR under-stimulating. NOT "just sensitive" - neurological processing difference. EIGHT SENSES: Vision, hearing, smell, taste, touch, vestibular (balance), proprioception (body position), interoception (internal sensations). HYPERSENSITIVITY (over-responsive): Bright lights painful, sounds overwhelming, textures unbearable, smells overpowering, light touch irritating. Can cause meltdowns, avoidance, anxiety. HYPOSENSITIVITY (under-responsive): Seek sensory input, high pain threshold, constant movement, touch everything, strong tastes/smells. SENSORY SEEKING: Not misbehavior - neurological NEED for input. SENSORY OVERLOAD: Too much input → shutdown or meltdown. NOT tantrum - neurological overwhelm.',
+            content_text: 'SENSORY DIFFERENCES: Most autistic people have atypical sensory processing - world can be overwhelming OR under-stimulating. NOT "just sensitive" - neurological processing difference. EIGHT SENSES: Vision, hearing, smell, taste, touch, vestibular (balance), proprioception (body position), interoception (internal sensations). HYPERSENSITIVITY (over-responsive): Bright lights painful, sounds overwhelming, textures unbearable, smells overpowering, light touch irritating. Can cause meltdowns, avoidance, anxiety. HYPOSENSITIVITY (under-responsive): Seek sensory input, high pain threshold, constant movement, touch everything, strong tastes/smells. SENSORY SEEKING: Not misbehaviour - neurological NEED for input. SENSORY OVERLOAD: Too much input → shutdown or meltdown. NOT tantrum - neurological overwhelm.',
             resources: [
               {
                 id: 'autism-res-4',
@@ -776,9 +776,9 @@ export const COURSE_CATALOG: Course[] = [
               id: 'autism-q5',
               question: 'Sensory overload in autistic students can result in:',
               type: 'multiple_choice',
-              options: ['Deliberate misbehavior', 'Shutdown or meltdown (neurological overwhelm)', 'Manipulation to avoid work', 'Attention-seeking'],
+              options: ['Deliberate misbehaviour', 'Shutdown or meltdown (neurological overwhelm)', 'Manipulation to avoid work', 'Attention-seeking'],
               correct_answer: 'Shutdown or meltdown (neurological overwhelm)',
-              explanation: 'Sensory overload is neurological overwhelm, not behavioral. When sensory input exceeds processing capacity, it can cause shutdown (withdrawal) or meltdown (overwhelm response) - not deliberate or manipulative.',
+              explanation: 'Sensory overload is neurological overwhelm, not behavioural. When sensory input exceeds processing capacity, it can cause shutdown (withdrawal) or meltdown (overwhelm response) - not deliberate or manipulative.',
               points: 5
             },
             {
@@ -903,7 +903,7 @@ export const COURSE_CATALOG: Course[] = [
             type: 'interactive',
             duration_minutes: 30,
             merits_earned: 10,
-            content_text: 'MELTDOWN VS TANTRUM: Meltdown = loss of control (neurological overwhelm), Tantrum = goal-directed behavior. Autistic meltdowns are NOT manipulation. PREVENTING MELTDOWNS: Reduce demands, sensory accommodations, predictability, regulation breaks, teach early warning signs, respect "I need a break". ZONES OF REGULATION: Green (calm), Yellow (getting stressed), Orange (very stressed), Red (meltdown). Teach recognition of zones and strategies for each. REGULATION STRATEGIES: Movement breaks, deep pressure, quiet space, special interest time, sensory tools, breathing (if they can), reduce verbal input. DURING MELTDOWN: Safety first, reduce stimulation, give space, minimal talking, don\'t punish, wait it out. AFTER MELTDOWN: Rest, rebuild relationship, debrief later (not during), problem-solve triggers. INTEROCEPTION: Many autistic people struggle to identify internal states (tired, hungry, stressed) - teach explicitly.',
+            content_text: 'MELTDOWN VS TANTRUM: Meltdown = loss of control (neurological overwhelm), Tantrum = goal-directed behaviour. Autistic meltdowns are NOT manipulation. PREVENTING MELTDOWNS: Reduce demands, sensory accommodations, predictability, regulation breaks, teach early warning signs, respect "I need a break". ZONES OF REGULATION: Green (calm), Yellow (getting stressed), Orange (very stressed), Red (meltdown). Teach recognition of zones and strategies for each. REGULATION STRATEGIES: Movement breaks, deep pressure, quiet space, special interest time, sensory tools, breathing (if they can), reduce verbal input. DURING MELTDOWN: Safety first, reduce stimulation, give space, minimal talking, don\'t punish, wait it out. AFTER MELTDOWN: Rest, rebuild relationship, debrief later (not during), problem-solve triggers. INTEROCEPTION: Many autistic people struggle to identify internal states (tired, hungry, stressed) - teach explicitly.',
             resources: [
               {
                 id: 'autism-res-9',
@@ -926,7 +926,7 @@ export const COURSE_CATALOG: Course[] = [
               type: 'multiple_choice',
               options: ['Deliberate manipulation or attention-seeking', 'Loss of control from neurological overwhelm', 'Tantrums that can be ignored', 'Sign of poor parenting'],
               correct_answer: 'Loss of control from neurological overwhelm',
-              explanation: 'Autistic meltdowns are neurological overwhelm, not deliberate behavior. They represent loss of control when stress exceeds capacity - distinct from tantrums which are goal-directed.',
+              explanation: 'Autistic meltdowns are neurological overwhelm, not deliberate behaviour. They represent loss of control when stress exceeds capacity - distinct from tantrums which are goal-directed.',
               points: 5
             },
             {
@@ -1173,7 +1173,7 @@ export const COURSE_CATALOG: Course[] = [
     subtitle: 'Supporting attention, hyperactivity, and executive function',
     category: 'adhd',
     level: 'beginner',
-    description: 'Complete guide to understanding and supporting students with ADHD. Covers neurobiology, diagnosis criteria (DSM-5), executive function difficulties, evidence-based classroom strategies, and multi-agency collaboration. Learn to create ADHD-friendly environments and support academic, behavioral, and social-emotional needs.',
+    description: 'Complete guide to understanding and supporting students with ADHD. Covers neurobiology, diagnosis criteria (DSM-5), executive function difficulties, evidence-based classroom strategies, and multi-agency collaboration. Learn to create ADHD-friendly environments and support academic, behavioural, and social-emotional needs.',
     learning_outcomes: [
       'Understand ADHD neurobiology and neurochemistry (dopamine, norepinephrine)',
       'Recognize ADHD presentations: Inattentive, Hyperactive-Impulsive, Combined',
@@ -1208,7 +1208,7 @@ export const COURSE_CATALOG: Course[] = [
             content_url: '/content/training_videos/adhd-understanding-support/adhd-m1-l1.mp4',
             duration_minutes: 30,
             merits_earned: 10,
-            content_text: 'ADHD is a neurodevelopmental condition affecting executive function, attention regulation, and impulse control. Key neurobiological features: Dopamine and norepinephrine deficits in prefrontal cortex and basal ganglia, delayed cortical maturation (3-5 years), structural differences in brain regions responsible for executive function. Not a behavior problem - it\'s a neurological difference.',
+            content_text: 'ADHD is a neurodevelopmental condition affecting executive function, attention regulation, and impulse control. Key neurobiological features: Dopamine and norepinephrine deficits in prefrontal cortex and basal ganglia, delayed cortical maturation (3-5 years), structural differences in brain regions responsible for executive function. Not a behaviour problem - it\'s a neurological difference.',
             resources: [
               {
                 id: 'adhd-res-1',
@@ -1266,9 +1266,9 @@ export const COURSE_CATALOG: Course[] = [
               id: 'adhd-q3',
               question: 'ADHD is best described as a problem with which of the following?',
               type: 'multiple_choice',
-              options: ['Laziness and poor motivation', 'Deliberate misbehavior and defiance', 'Neurological differences affecting executive function', 'Poor parenting and lack of discipline'],
+              options: ['Laziness and poor motivation', 'Deliberate misbehaviour and defiance', 'Neurological differences affecting executive function', 'Poor parenting and lack of discipline'],
               correct_answer: 'Neurological differences affecting executive function',
-              explanation: 'ADHD is a neurodevelopmental condition with neurobiological basis - not a behavior problem, character flaw, or result of poor parenting. It affects executive function systems in the brain.',
+              explanation: 'ADHD is a neurodevelopmental condition with neurobiological basis - not a behaviour problem, character flaw, or result of poor parenting. It affects executive function systems in the brain.',
               points: 5
             }
           ],
@@ -1302,7 +1302,7 @@ export const COURSE_CATALOG: Course[] = [
             content_url: '/content/training_videos/adhd-understanding-support/adhd-m2-l2.mp4',
             duration_minutes: 30,
             merits_earned: 10,
-            content_text: 'Hyperactive-Impulsive ADHD in classroom: Fidgets, squirms, leaves seat, runs/climbs inappropriately, can\'t play quietly, "always on the go", talks excessively, blurts out answers, can\'t wait turn, interrupts others. MORE NOTICEABLE - often identified earlier due to behavior disruption. May be labelled "naughty" or "badly behaved" - actually struggling with neurological impulse control. Combined presentation shows both inattentive and hyperactive-impulsive symptoms - most common type (70%).',
+            content_text: 'Hyperactive-Impulsive ADHD in classroom: Fidgets, squirms, leaves seat, runs/climbs inappropriately, can\'t play quietly, "always on the go", talks excessively, blurts out answers, can\'t wait turn, interrupts others. MORE NOTICEABLE - often identified earlier due to behaviour disruption. May be labelled "naughty" or "badly behaved" - actually struggling with neurological impulse control. Combined presentation shows both inattentive and hyperactive-impulsive symptoms - most common type (70%).',
             resources: []
           }
         ],
@@ -1323,7 +1323,7 @@ export const COURSE_CATALOG: Course[] = [
               id: 'adhd-q5',
               question: 'A student who frequently interrupts, blurts out answers, and can\'t wait their turn is showing signs of which ADHD presentation?',
               type: 'multiple_choice',
-              options: ['Inattentive only', 'Hyperactive-Impulsive', 'Neither - this is oppositional behavior', 'Autism spectrum'],
+              options: ['Inattentive only', 'Hyperactive-Impulsive', 'Neither - this is oppositional behaviour', 'Autism spectrum'],
               correct_answer: 'Hyperactive-Impulsive',
               explanation: 'Interrupting, blurting out, and difficulty waiting turns are classic hyperactive-impulsive symptoms reflecting neurological difficulties with impulse control.',
               points: 5
@@ -1452,9 +1452,9 @@ export const COURSE_CATALOG: Course[] = [
               id: 'adhd-q9',
               question: 'Movement breaks every 20-30 minutes help ADHD students because:',
               type: 'multiple_choice',
-              options: ['They are tired from being hyperactive', 'Movement regulates the ADHD brain and improves focus', 'It rewards good behavior', 'It prevents disruption to other students'],
+              options: ['They are tired from being hyperactive', 'Movement regulates the ADHD brain and improves focus', 'It rewards good behaviour', 'It prevents disruption to other students'],
               correct_answer: 'Movement regulates the ADHD brain and improves focus',
-              explanation: 'Movement breaks help regulate the ADHD brain, providing sensory input and dopamine stimulation that actually IMPROVES focus when students return to tasks. It\'s neurological, not behavioral.',
+              explanation: 'Movement breaks help regulate the ADHD brain, providing sensory input and dopamine stimulation that actually IMPROVES focus when students return to tasks. It\'s neurological, not behavioural.',
               points: 5
             }
           ],
@@ -1517,7 +1517,7 @@ export const COURSE_CATALOG: Course[] = [
               id: 'adhd-q11',
               question: 'Doodling while listening can actually HELP ADHD students because:',
               type: 'multiple_choice',
-              options: ['It provides just enough sensory stimulation to maintain alertness', 'It distracts them from disruptive behavior', 'It improves artistic skills', 'It has no benefit and should be discouraged'],
+              options: ['It provides just enough sensory stimulation to maintain alertness', 'It distracts them from disruptive behaviour', 'It improves artistic skills', 'It has no benefit and should be discouraged'],
               correct_answer: 'It provides just enough sensory stimulation to maintain alertness',
               explanation: 'Doodling provides mild sensory stimulation that can help ADHD brains stay alert and focused during listening tasks. Counterintuitively, it improves attention - not distracts from it.',
               points: 5
@@ -1542,7 +1542,7 @@ export const COURSE_CATALOG: Course[] = [
             content_url: '/content/training_videos/adhd-understanding-support/adhd-m6-l1.mp4',
             duration_minutes: 30,
             merits_earned: 10,
-            content_text: 'MOVEMENT NEEDS: ADHD students NEED to move - it\'s neurological, not misbehavior. STRATEGIES: Classroom jobs (distribute papers, collect registers), standing desk, wobble cushion, stress balls/fidgets, "brain breaks" (jumping jacks, stretching), flexible seating. REFRAME: Hyperactivity = energy that can be channeled positively. OUTSIDE BREAKS: Recess is ESSENTIAL (not punishment removal!), physical education, active learning (move while learning). DON\'T: Force prolonged sitting - increases fidgeting and reduces attention.',
+            content_text: 'MOVEMENT NEEDS: ADHD students NEED to move - it\'s neurological, not misbehaviour. STRATEGIES: Classroom jobs (distribute papers, collect registers), standing desk, wobble cushion, stress balls/fidgets, "brain breaks" (jumping jacks, stretching), flexible seating. REFRAME: Hyperactivity = energy that can be channeled positively. OUTSIDE BREAKS: Recess is ESSENTIAL (not punishment removal!), physical education, active learning (move while learning). DON\'T: Force prolonged sitting - increases fidgeting and reduces attention.',
             resources: []
           },
           {
@@ -1672,7 +1672,7 @@ export const COURSE_CATALOG: Course[] = [
             content_url: '/content/training_videos/adhd-understanding-support/adhd-m8-l1.mp4',
             duration_minutes: 30,
             merits_earned: 10,
-            content_text: 'MEDICATION: Stimulants (methylphenidate/Ritalin, lisdexamfetamine/Elvanse) and non-stimulants (atomoxetine/Strattera, guanfacine). HOW THEY WORK: Increase dopamine/norepinephrine in prefrontal cortex - improve attention, impulse control, executive function. NOT: Sedatives, mind control, personality change. EFFECTS: 70-80% show significant improvement with medication. TEACHER ROLE: Observe and report effects (attention, behavior, appetite, mood), maintain confidentiality, no medication administration (usually parent/nurse), recognize medication isn\'t "fix" - still need accommodations and strategies. Medication + behavior support + accommodations = best outcomes.',
+            content_text: 'MEDICATION: Stimulants (methylphenidate/Ritalin, lisdexamfetamine/Elvanse) and non-stimulants (atomoxetine/Strattera, guanfacine). HOW THEY WORK: Increase dopamine/norepinephrine in prefrontal cortex - improve attention, impulse control, executive function. NOT: Sedatives, mind control, personality change. EFFECTS: 70-80% show significant improvement with medication. TEACHER ROLE: Observe and report effects (attention, behaviour, appetite, mood), maintain confidentiality, no medication administration (usually parent/nurse), recognize medication isn\'t "fix" - still need accommodations and strategies. Medication + behaviour support + accommodations = best outcomes.',
             resources: [
               {
                 id: 'adhd-res-8',
@@ -1712,7 +1712,7 @@ export const COURSE_CATALOG: Course[] = [
               id: 'adhd-q16',
               question: 'ADHD stimulant medication works by:',
               type: 'multiple_choice',
-              options: ['Sedating hyperactive children', 'Increasing dopamine and norepinephrine in the brain', 'Punishing impulsive behavior', 'Changing personality'],
+              options: ['Sedating hyperactive children', 'Increasing dopamine and norepinephrine in the brain', 'Punishing impulsive behaviour', 'Changing personality'],
               correct_answer: 'Increasing dopamine and norepinephrine in the brain',
               explanation: 'ADHD stimulant medication increases dopamine and norepinephrine in the prefrontal cortex, improving executive function, attention, and impulse control. It doesn\'t sedate - it helps the brain function more typically.',
               points: 5
@@ -1721,8 +1721,8 @@ export const COURSE_CATALOG: Course[] = [
               id: 'adhd-q17',
               question: 'The most effective approach to supporting ADHD students involves:',
               type: 'multiple_choice',
-              options: ['Medication only', 'Classroom accommodations only', 'Medication + accommodations + behavioral strategies + parent partnership', 'Stricter discipline'],
-              correct_answer: 'Medication + accommodations + behavioral strategies + parent partnership',
+              options: ['Medication only', 'Classroom accommodations only', 'Medication + accommodations + behavioural strategies + parent partnership', 'Stricter discipline'],
+              correct_answer: 'Medication + accommodations + behavioural strategies + parent partnership',
               explanation: 'Research shows the most effective ADHD support combines multiple approaches: medication (if appropriate), classroom accommodations, evidence-based strategies, and strong parent-school partnership. Multimodal treatment yields best outcomes.',
               points: 5
             }

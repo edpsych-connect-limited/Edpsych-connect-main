@@ -45,7 +45,7 @@ const MOCK_INTERVENTIONS = [
     name: 'CBT for Anxiety (School-Based)',
     category: 'social_emotional',
     subcategory: 'anxiety',
-    description: 'Cognitive Behavioral Therapy techniques adapted for school setting to help students manage anxiety.',
+    description: 'Cognitive Behavioural Therapy techniques adapted for school setting to help students manage anxiety.',
     evidence_level: 'tier_2',
     age_range: ['primary', 'secondary'],
     setting: ['one_to_one', 'small_group'],
@@ -74,7 +74,7 @@ const MOCK_INTERVENTIONS = [
     age_range: ['primary', 'secondary'],
     setting: ['classroom', 'small_group'],
     duration: 'Ongoing',
-    tags: ['emotional_regulation', 'behavior', 'autism']
+    tags: ['emotional_regulation', 'behaviour', 'autism']
   },
   {
     id: 'precision-teaching',

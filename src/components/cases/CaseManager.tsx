@@ -388,7 +388,7 @@ function Step2ReferralDetails({
   const caseTypes = [
     'Initial Consultation',
     'Cognitive Assessment',
-    'Behavioral Assessment',
+    'Behavioural Assessment',
     'EHCP Assessment',
     'EHCP Annual Review',
     'Intervention Support',

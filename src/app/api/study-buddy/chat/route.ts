@@ -404,9 +404,9 @@ function getAgentConfiguration(agentName: string): any {
       agentId: 'lesson-planner',
       systemPrompt: 'You are a Study Buddy that helps create differentiated lesson plans. Consider learning styles, SEND needs, curriculum requirements, and engagement strategies.',
     },
-    'Behavior Analyst': {
+    'Behaviour Analyst': {
       agentId: 'behavior-analyst',
-      systemPrompt: 'You are a Study Buddy specializing in behavior analysis. Help identify patterns, triggers, and evidence-based interventions using positive behavior support approaches.',
+      systemPrompt: 'You are a Study Buddy specialising in behaviour analysis. Help identify patterns, triggers, and evidence-based interventions using positive behaviour support approaches.',
     },
     'Parent Communication': {
       agentId: 'parent-communication',

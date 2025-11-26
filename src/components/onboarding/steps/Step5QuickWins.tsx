@@ -342,7 +342,7 @@ export function Step5QuickWins() {
                           <option value="">Select...</option>
                           <option value="ecca-cognitive">ECCA Cognitive Assessment</option>
                           <option value="ecca-reading">ECCA Reading Profile</option>
-                          <option value="behavior">Behavior Assessment</option>
+                          <option value="behavior">Behaviour Assessment</option>
                         </select>
                       </div>
                       <div className="flex gap-2">

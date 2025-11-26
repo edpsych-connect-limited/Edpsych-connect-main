@@ -491,11 +491,11 @@ the phonological loop, visuospatial sketchpad, episodic buffer, and central exec
       id: 'ecca-domain-attention-executive-function',
       name: 'Attention and Executive Function',
       description: `
-Executive functions are cognitive control processes that enable goal-directed behavior and
+Executive functions are cognitive control processes that enable goal-directed behaviour and
 self-regulation. Based on Diamond's (2013) framework, this domain assesses three core executive
 functions: inhibitory control (selective attention, response inhibition), working memory (covered
 in Domain 1), and cognitive flexibility (set-shifting, perspective-taking). These processes are
-foundational for learning, social interaction, and adaptive behavior across contexts.
+foundational for learning, social interaction, and adaptive behaviour across contexts.
       `.trim(),
       order_index: 2,
 
@@ -602,7 +602,7 @@ foundational for learning, social interaction, and adaptive behavior across cont
           prompts: ['Flexible or rigid?', 'Need warnings/preparation?'],
         },
         {
-          question: 'Does your child use any strategies to stay focused or manage their behavior?',
+          question: 'Does your child use any strategies to stay focused or manage their behaviour?',
           response_type: 'narrative',
           prompts: ['Fidget tools, timers, reminders, breaking tasks into steps?'],
         },
@@ -625,7 +625,7 @@ foundational for learning, social interaction, and adaptive behavior across cont
           prompts: ['Calling out, not waiting turn, rigidity with rules?'],
         },
         {
-          question: 'How does the child respond to behavioral supports already in place?',
+          question: 'How does the child respond to behavioural supports already in place?',
           response_type: 'narrative',
           prompts: ['Visual schedules, timers, movement breaks?'],
         },
@@ -673,7 +673,7 @@ foundational for learning, social interaction, and adaptive behavior across cont
 
         functional_implications: [
           'Classroom attention and participation',
-          'Following rules and behavioral expectations',
+          'Following rules and behavioural expectations',
           'Problem-solving and planning',
           'Social flexibility and perspective-taking',
           'Emotional regulation (related to inhibitory control)',

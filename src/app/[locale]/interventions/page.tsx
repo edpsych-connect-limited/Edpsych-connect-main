@@ -200,7 +200,7 @@ export default function InterventionsPage() {
               >
                 <option value="all">All Types</option>
                 <option value="academic_support">Academic Support</option>
-                <option value="behavioral_intervention">Behavioral</option>
+                <option value="behavioral_intervention">Behavioural</option>
                 <option value="social_emotional">Social-Emotional</option>
                 <option value="communication">Communication</option>
                 <option value="sensory_regulation">Sensory</option>
@@ -331,7 +331,7 @@ function InterventionCard({ intervention, onClick, now }: InterventionCardProps)
 
   const typeLabels: Record<string, string> = {
     academic_support: 'Academic Support',
-    behavioral_intervention: 'Behavioral',
+    behavioral_intervention: 'Behavioural',
     social_emotional: 'Social-Emotional',
     communication: 'Communication',
     sensory_regulation: 'Sensory',

@@ -120,7 +120,7 @@ export default function StudentProgressDashboard({
         },
         {
           id: '2',
-          area: 'Behavior',
+          area: 'Behaviour',
           description: 'Reduce calling-out incidents to <2 per day',
           target_date: '2025-11-30',
           progress_percentage: 90,
@@ -161,7 +161,7 @@ export default function StudentProgressDashboard({
           id: '1',
           date: '2025-11-02',
           type: 'goal_update',
-          title: 'Behavior goal updated',
+          title: 'Behaviour goal updated',
           description: 'Progress increased to 90% - excellent week!',
           severity: 'info',
         },
@@ -314,7 +314,7 @@ export default function StudentProgressDashboard({
           icon="📚"
         />
         <MetricCard
-          title="Behavioral Progress"
+          title="Behavioural Progress"
           value={metrics?.behavioral_progress || 0}
           unit="%"
           color="green"
@@ -363,7 +363,7 @@ export default function StudentProgressDashboard({
             <div className="text-center text-gray-400">
               <p className="text-lg mb-2">📈 Line Chart</p>
               <p className="text-sm">
-                Chart.js line graph showing academic, behavioral, and
+                Chart.js line graph showing academic, behavioural, and
                 <br />
                 social-emotional progress across selected time range
               </p>

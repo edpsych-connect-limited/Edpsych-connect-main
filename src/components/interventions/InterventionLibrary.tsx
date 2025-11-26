@@ -114,7 +114,7 @@ export default function InterventionLibrary({
     { value: 'all', label: 'All Categories', icon: '📚' },
     { value: 'favorites', label: 'Favorites', icon: '⭐' },
     { value: 'academic_support', label: 'Academic Support', icon: '📖' },
-    { value: 'behavioral_intervention', label: 'Behavioral', icon: '🎯' },
+    { value: 'behavioral_intervention', label: 'Behavioural', icon: '🎯' },
     { value: 'social_emotional', label: 'Social-Emotional', icon: '❤️' },
     { value: 'communication', label: 'Communication', icon: '💬' },
     { value: 'sensory_regulation', label: 'Sensory', icon: '🌈' },
@@ -494,10 +494,10 @@ const EVIDENCE_BASED_INTERVENTIONS: Intervention[] = [
     evidence_level: 'strong',
     effect_size: 0.82,
     description:
-      'Daily behavior support system with morning check-in, regular feedback, and afternoon check-out.',
-    target_population: ['Behavior difficulties', 'At-risk students', 'Ages 5-16'],
+      'Daily behaviour support system with morning check-in, regular feedback, and afternoon check-out.',
+    target_population: ['Behaviour difficulties', 'At-risk students', 'Ages 5-16'],
     expected_outcomes: [
-      'Reduced problem behaviors (ES 0.82)',
+      'Reduced problem behaviours (ES 0.82)',
       'Improved academic engagement',
       'Better adult relationships',
     ],
@@ -518,7 +518,7 @@ const EVIDENCE_BASED_INTERVENTIONS: Intervention[] = [
     expected_outcomes: [
       'Improved social understanding',
       'Reduced anxiety in social situations',
-      'Better behavioral responses',
+      'Better behavioural responses',
     ],
     implementation_difficulty: 'low',
     time_commitment: '5-10 minutes daily',
@@ -527,15 +527,15 @@ const EVIDENCE_BASED_INTERVENTIONS: Intervention[] = [
   },
   {
     id: 'good-behavior-game',
-    name: 'Good Behavior Game',
+    name: 'Good Behaviour Game',
     category: 'behavioral_intervention',
     evidence_level: 'strong',
     effect_size: 0.77,
     description:
-      'Team-based classroom management approach where groups earn rewards for meeting behavioral expectations.',
-    target_population: ['Whole class', 'Behavior prevention', 'Ages 5-12'],
+      'Team-based classroom management approach where groups earn rewards for meeting behavioural expectations.',
+    target_population: ['Whole class', 'Behaviour prevention', 'Ages 5-12'],
     expected_outcomes: [
-      'Reduced disruptive behavior (ES 0.77)',
+      'Reduced disruptive behaviour (ES 0.77)',
       'Improved peer relationships',
       'Better academic engagement',
       'Long-term effects on aggression',
@@ -552,10 +552,10 @@ const EVIDENCE_BASED_INTERVENTIONS: Intervention[] = [
     evidence_level: 'strong',
     effect_size: 0.72,
     description:
-      'Teaching students to observe and record their own behavior, increasing awareness and self-regulation.',
-    target_population: ['ADHD', 'Behavior difficulties', 'Ages 6-16'],
+      'Teaching students to observe and record their own behaviour, increasing awareness and self-regulation.',
+    target_population: ['ADHD', 'Behaviour difficulties', 'Ages 6-16'],
     expected_outcomes: [
-      'Improved on-task behavior (ES 0.72)',
+      'Improved on-task behaviour (ES 0.72)',
       'Better self-regulation',
       'Increased independence',
     ],
@@ -634,7 +634,7 @@ const EVIDENCE_BASED_INTERVENTIONS: Intervention[] = [
     target_population: ['Autism', 'Minimal verbal', 'Ages 2-12'],
     expected_outcomes: [
       'Increased functional communication',
-      'Reduced frustration behaviors',
+      'Reduced frustration behaviours',
       'Foundation for speech development',
     ],
     implementation_difficulty: 'high',
@@ -691,7 +691,7 @@ const EVIDENCE_BASED_INTERVENTIONS: Intervention[] = [
     expected_outcomes: [
       'Improved self-regulation',
       'Better attention and focus',
-      'Reduced sensory-seeking behaviors',
+      'Reduced sensory-seeking behaviours',
     ],
     implementation_difficulty: 'moderate',
     time_commitment: 'Multiple brief breaks',
@@ -708,7 +708,7 @@ const EVIDENCE_BASED_INTERVENTIONS: Intervention[] = [
       'Regular, scheduled physical activity breaks to improve attention and reduce hyperactivity.',
     target_population: ['ADHD', 'Concentration difficulties', 'Ages 5-14'],
     expected_outcomes: [
-      'Improved on-task behavior (ES 0.42)',
+      'Improved on-task behaviour (ES 0.42)',
       'Better attention after breaks',
       'Reduced fidgeting',
     ],

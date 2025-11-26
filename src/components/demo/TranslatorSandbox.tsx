@@ -10,7 +10,7 @@ const SAMPLE_TEXTS = [
     text: "Leo demonstrates significant deficits in phonological awareness, placing him in the 5th percentile rank. His working memory is also below average, which impacts his ability to follow multi-step instructions. This profile indicates a specific learning difficulty consistent with dyslexia."
   },
   {
-    label: 'Behavioral Report',
+    label: 'Behavioural Report',
     text: "The student exhibits executive function challenges, particularly in impulse control and emotional regulation. When dysregulated, he requires significant scaffolding to return to baseline. We recommend a dyad approach with a key adult."
   },
   {

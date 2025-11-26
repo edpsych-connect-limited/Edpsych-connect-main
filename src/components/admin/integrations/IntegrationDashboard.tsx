@@ -45,7 +45,7 @@ const initialProviders: ProviderProps[] = [
     description: 'Cloud-native MIS integration for modern multi-academy trusts.',
     logo: '🌳',
     status: 'pending',
-    features: ['API V2 Support', 'Behavior Incidents', 'Assessment Write-back'],
+    features: ['API V2 Support', 'Behaviour Incidents', 'Assessment Write-back'],
     onConnect: () => console.log('Connect Arbor'),
     onConfigure: () => console.log('Config Arbor'),
     helpText: 'Generate an API Key in Arbor under System > Partner Apps > EdPsych Connect.'

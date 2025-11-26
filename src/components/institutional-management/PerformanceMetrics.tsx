@@ -46,7 +46,7 @@ const PerformanceMetrics: React.FC<PerformanceMetricsProps> = ({ metrics }) => {
   const departmentData = metrics.departmentPerformance || [
     { name: 'Special Ed', value: 35, color: '#0088FE' },
     { name: 'Literacy', value: 25, color: '#00C49F' },
-    { name: 'Behavior', value: 20, color: '#FFBB28' },
+    { name: 'Behaviour', value: 20, color: '#FFBB28' },
     { name: 'General', value: 15, color: '#FF8042' },
     { name: 'Admin', value: 5, color: '#8884D8' }
   ];

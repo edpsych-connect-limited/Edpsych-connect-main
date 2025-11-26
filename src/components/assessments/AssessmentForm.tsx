@@ -51,7 +51,7 @@ export default function AssessmentForm({
   const assessmentTypes = [
     { value: 'cognitive', label: 'Cognitive Assessment' },
     { value: 'educational', label: 'Educational Assessment' },
-    { value: 'behavioral', label: 'Behavioral Assessment' },
+    { value: 'behavioral', label: 'Behavioural Assessment' },
     { value: 'speech_language', label: 'Speech & Language Assessment' },
     { value: 'occupational_therapy', label: 'Occupational Therapy Assessment' },
     { value: 'psychological', label: 'Psychological Assessment' },
