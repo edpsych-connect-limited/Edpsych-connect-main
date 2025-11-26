@@ -3,6 +3,8 @@
  * Browse posts, filter by category/tag, search
  */
 
+'use client';
+
 import Image from 'next/image';
 import React, { useState, useEffect, Suspense, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
