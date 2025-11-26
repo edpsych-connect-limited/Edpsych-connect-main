@@ -30,7 +30,7 @@ export const useSpeechRecognition = (): SpeechRecognitionHook => {
         const recognitionInstance = new SpeechRecognition();
         recognitionInstance.continuous = true;
         recognitionInstance.interimResults = true;
-        recognitionInstance.lang = 'en-US';
+        recognitionInstance.lang = 'en-GB'; // UK English for proper accent recognition
 
         recognitionInstance.onresult = (event: any) => {
           // If we're not supposed to be listening, ignore results
