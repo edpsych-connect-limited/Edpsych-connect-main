@@ -237,10 +237,8 @@ export default function BlogPostPage() {
                 h2: ({ children }) => <h3 className="text-2xl font-bold text-gray-900 mt-6 mb-3">{children}</h3>,
                 h3: ({ children }) => <h4 className="text-xl font-semibold text-gray-900 mt-4 mb-2">{children}</h4>,
                 p: ({ children }) => <p className="text-gray-700 leading-relaxed mb-4">{children}</p>,
-                ul: ({ children }) => <ul className="list-disc list-inside space-y-2 mb-4 text-gray-700">{children}</ul>,
-                ol: ({ children }) => <ol className="list-decimal list-inside space-y-2 mb-4 text-gray-700">{children}</ol>,
-                // eslint-disable-next-line
-                li: ({ children }) => <li className="ml-4">{children}</li>,
+                ul: ({ children }) => <ul className="list-disc list-inside space-y-2 mb-4 text-gray-700 ml-4">{children}</ul>,
+                ol: ({ children }) => <ol className="list-decimal list-inside space-y-2 mb-4 text-gray-700 ml-4">{children}</ol>,
                 strong: ({ children }) => <strong className="font-semibold text-gray-900">{children}</strong>,
                 em: ({ children }) => <em className="italic text-gray-700">{children}</em>,
                 code: ({ children }) => <code className="px-2 py-1 bg-gray-100 rounded text-sm font-mono text-gray-800">{children}</code>,
