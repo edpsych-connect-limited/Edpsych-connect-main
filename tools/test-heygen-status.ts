@@ -1,7 +1,13 @@
 
 import fetch from 'node-fetch';
 
-const API_KEY = process.env.HEYGEN_API_KEY || 'sk_V2_hgu_ky346mdR1EZ_sepM85TUnIexIOSuzpiVI5gXaqMhWDo1';
+// API key must be set via environment variable for security
+const API_KEY_RAW = process.env.HEYGEN_API_KEY;
+if (!API_KEY_RAW) {
+  console.error('❌ Error: HEYGEN_API_KEY environment variable is not set.');
+  process.exit(1);
+}
+const API_KEY: string = API_KEY_RAW;
 const VIDEO_ID = 'f498119a59da483dab6117c0457a10e9';
 
 async function checkStatus() {

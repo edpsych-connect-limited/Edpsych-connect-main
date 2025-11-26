@@ -3,7 +3,8 @@ import fs from 'fs';
 import path from 'path';
 
 // CONFIGURATION
-const API_KEY = process.env.HEYGEN_API_KEY || 'sk_V2_hgu_ky346mdR1EZ_sepM85TUnIexIOSuzpiVI5gXaqMhWDo1';
+// API key must be set via environment variable for security
+const API_KEY_RAW = process.env.HEYGEN_API_KEY;
 const API_URL = 'https://api.heygen.com/v2/video/generate';
 // const AVATARS_API_URL = 'https://api.heygen.com/v2/avatars';
 // const VOICES_API_URL = 'https://api.heygen.com/v2/voices';
@@ -27,10 +28,13 @@ function getRandomAvatar(gender: 'Male' | 'Female'): string {
     return list[Math.floor(Math.random() * list.length)];
 }
 
-if (!API_KEY) {
+if (!API_KEY_RAW) {
   console.error('❌ Error: HEYGEN_API_KEY environment variable is not set.');
   process.exit(1);
 }
+
+// Safe to use now - we've checked it exists
+const API_KEY: string = API_KEY_RAW;
 
 // Removed unused fetch functions to clean up
 // async function fetchAvatars() { ... }

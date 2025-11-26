@@ -50,9 +50,39 @@ export async function middleware(request: NextRequest) {
   // 1. Handle CORS for API routes
   if (pathname.startsWith('/api/')) {
     const response = NextResponse.next();
-    response.headers.set('Access-Control-Allow-Origin', '*');
+    
+    // Get allowed origins from environment (comma-separated list) or use defaults
+    const allowedOriginsEnv = process.env.CORS_ALLOWED_ORIGINS || '';
+    const defaultOrigins = [
+      'https://edpsych-connect.vercel.app',
+      'https://www.edpsychconnect.com',
+      'https://edpsychconnect.com'
+    ];
+    
+    // In development, allow localhost
+    const isDev = process.env.NODE_ENV === 'development';
+    if (isDev) {
+      defaultOrigins.push('http://localhost:3000', 'http://localhost:3001');
+    }
+    
+    const allowedOrigins = allowedOriginsEnv 
+      ? [...allowedOriginsEnv.split(',').map(o => o.trim()), ...defaultOrigins]
+      : defaultOrigins;
+    
+    const origin = request.headers.get('origin');
+    
+    // Set CORS headers based on allowed origins
+    if (origin && allowedOrigins.includes(origin)) {
+      response.headers.set('Access-Control-Allow-Origin', origin);
+    } else if (isDev) {
+      // In development, be more permissive
+      response.headers.set('Access-Control-Allow-Origin', origin || '*');
+    }
+    // If origin not allowed, don't set Access-Control-Allow-Origin (browser will block)
+    
     response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    response.headers.set('Access-Control-Allow-Credentials', 'true');
     
     // Handle preflight requests
     if (request.method === 'OPTIONS') {
