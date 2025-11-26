@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
 import { Mic, MicOff, Loader2, X, Minimize2, Maximize2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -65,7 +65,7 @@ export const VoiceAssistant: React.FC = () => {
   };
 
   // Hide the voice assistant completely
-  const hideAssistant = () => {
+  const hideAssistant = useCallback(() => {
     if (isListening) {
       stopListening();
     }
@@ -75,13 +75,13 @@ export const VoiceAssistant: React.FC = () => {
       icon: '🎙️',
       duration: 4000,
     });
-  };
+  }, [isListening, stopListening]);
 
   // Show the voice assistant
-  const showAssistant = () => {
+  const showAssistant = useCallback(() => {
     setIsHidden(false);
     localStorage.setItem('voiceAssistantHidden', 'false');
-  };
+  }, []);
 
   // Keyboard shortcut to show/hide voice assistant (Ctrl+Shift+V)
   useEffect(() => {
