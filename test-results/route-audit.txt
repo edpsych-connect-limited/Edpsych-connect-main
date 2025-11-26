@@ -1,0 +1,12 @@
+=== Quick Route Audit ===
+/: 307
+/en: 200
+/en/login: 200
+/en/signup: 200
+/en/dashboard: 200
+/en/training: 200
+/en/help: 200
+/en/blog: 200
+/en/pricing: 200
+/en/demo: 200
+/en/assessments: 000

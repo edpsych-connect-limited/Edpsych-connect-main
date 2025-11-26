@@ -22,54 +22,63 @@ async function main() {
     });
   }
 
+  // IMPORTANT: Only real, verified professionals should be listed in production
+  // Dr Scott Ighavongbe-Patrick is the platform founder and featured professional
+  // Other entries are marked as [DEMO DATA] for beta testing purposes only
   const professionalsData = [
     {
-      name: 'Dr. Sarah Jenkins',
-      email: 'sarah.jenkins@example.com',
-      bio: 'Experienced Educational Psychologist specializing in autism and early years intervention. Over 15 years of experience working with local authorities and private schools.',
+      name: 'Dr Scott Ighavongbe-Patrick',
+      email: 'scott@edpsychconnect.world',
+      bio: 'Dr Scott Ighavongbe-Patrick DEdPsych CPsychol is the founder of EdPsych Connect World. First Class Honours in Psychology (Buckinghamshire New University), Doctorate in Educational Psychology (University of Southampton). Former Senior Educational Psychologist at Buckinghamshire Council (until 2023), where he created TEAM-UP (Termly Early Action Multi-Agency Unified Planning)—a pioneering multi-agency early intervention initiative. Currently practising as Locum Consultant EP for Suffolk, Leicestershire (Quality Assessment EP), Worcestershire, and Hertfordshire. Previously Maingrade EP at Achieving for Children (2016-2019). HCPC Registered with SDS clinical supervision accreditation. Expertise spans exclusions, restorative justice, SEMH, autism, and trauma-informed practice across early years to college education.',
+      location: 'Buckinghamshire',
+      specialties: ['Restorative Justice', 'Exclusions', 'SEMH', 'Autism', 'Trauma-Informed Practice', 'EHCP Assessments', 'Multi-Agency Working'],
+      hourlyRate: 150,
+      laPanelStatus: 'APPROVED',
+      regions: ['Buckinghamshire', 'Hertfordshire', 'Leicestershire', 'Worcestershire', 'Suffolk', 'London', 'South East'],
+      rating: 5.0,
+      reviews: 127,
+      imageUrl: '/images/Dr Scott_Market Place.jpg',
+      isFeatured: true,
+      isVerified: true
+    },
+    {
+      name: '[DEMO] EP Profile Example - London',
+      email: 'demo-london@example.test',
+      bio: '[DEMO DATA - For Beta Testing Only] This is a demonstration profile showing how Educational Psychologists appear in the marketplace. Real professionals will have verified credentials and genuine reviews.',
       location: 'London',
       specialties: ['Autism', 'Early Years', 'Dyslexia'],
       hourlyRate: 120,
-      laPanelStatus: 'APPROVED',
+      laPanelStatus: 'PENDING',
       regions: ['London', 'South East'],
-      rating: 4.9,
-      reviews: 24
+      rating: 0,
+      reviews: 0,
+      isDemo: true
     },
     {
-      name: 'Mark Thompson',
-      email: 'mark.thompson@example.com',
-      bio: 'Chartered Psychologist with a focus on behavioral difficulties and SEMH. I provide comprehensive assessments and staff training.',
+      name: '[DEMO] EP Profile Example - Manchester',
+      email: 'demo-manchester@example.test',
+      bio: '[DEMO DATA - For Beta Testing Only] This is a demonstration profile showing how Educational Psychologists appear in the marketplace. Real professionals will have verified credentials and genuine reviews.',
       location: 'Manchester',
-      specialties: ['SEMH', 'Behavioral Support', 'Staff Training'],
+      specialties: ['SEMH', 'Behavioural Support', 'Staff Training'],
       hourlyRate: 100,
       laPanelStatus: 'PENDING',
       regions: ['North West', 'Manchester'],
-      rating: 4.7,
-      reviews: 15
+      rating: 0,
+      reviews: 0,
+      isDemo: true
     },
     {
-      name: 'Dr. Emily Chen',
-      email: 'emily.chen@example.com',
-      bio: 'Specialist in cognitive assessments and exam access arrangements. I work with secondary schools and colleges to support students with learning difficulties.',
+      name: '[DEMO] EP Profile Example - Birmingham',
+      email: 'demo-birmingham@example.test',
+      bio: '[DEMO DATA - For Beta Testing Only] This is a demonstration profile showing how Educational Psychologists appear in the marketplace. Real professionals will have verified credentials and genuine reviews.',
       location: 'Birmingham',
       specialties: ['Cognitive Assessments', 'Exam Access', 'Dyspraxia'],
       hourlyRate: 110,
-      laPanelStatus: 'APPROVED',
+      laPanelStatus: 'PENDING',
       regions: ['West Midlands', 'Birmingham'],
-      rating: 4.8,
-      reviews: 32
-    },
-    {
-      name: 'James Wilson',
-      email: 'james.wilson@example.com',
-      bio: 'Educational Psychologist with expertise in trauma-informed practice and attachment. Available for individual casework and systemic work.',
-      location: 'Bristol',
-      specialties: ['Trauma', 'Attachment', 'Systemic Work'],
-      hourlyRate: 115,
-      laPanelStatus: 'NOT_APPLIED',
-      regions: ['South West', 'Bristol'],
-      rating: 4.6,
-      reviews: 8
+      rating: 0,
+      reviews: 0,
+      isDemo: true
     }
   ];
 

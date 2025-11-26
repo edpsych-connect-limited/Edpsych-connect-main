@@ -17,10 +17,11 @@ export default function EHCPWorkflow({ caseId, studentName, onBack }: { caseId: 
     { id: 4, name: 'Consultation', weeks: '17-20', status: 'pending' },
   ];
 
+  // Demo data for demonstration purposes - real professionals will be populated from database
   const professionals = [
-    { id: 1, role: 'Educational Psychologist', name: 'Dr. Sarah Wilson', status: 'submitted', date: '2025-11-15' },
-    { id: 2, role: 'Speech & Language', name: 'James Miller', status: 'in-progress', deadline: '2 days left' },
-    { id: 3, role: 'Occupational Therapy', name: 'Emma Thompson', status: 'requested', deadline: '1 week left' },
+    { id: 1, role: 'Educational Psychologist', name: '[Demo] EP Assignment', status: 'submitted', date: '2025-11-15' },
+    { id: 2, role: 'Speech & Language', name: '[Demo] SALT Assignment', status: 'in-progress', deadline: '2 days left' },
+    { id: 3, role: 'Occupational Therapy', name: '[Demo] OT Assignment', status: 'requested', deadline: '1 week left' },
     { id: 4, role: 'Social Care', name: 'Pending Assignment', status: 'pending', deadline: '-' },
   ];
 
@@ -145,9 +146,9 @@ export default function EHCPWorkflow({ caseId, studentName, onBack }: { caseId: 
             <div className="p-6 bg-gray-50 min-h-[200px] text-sm text-gray-600 space-y-4">
               <div className="p-4 bg-white border border-gray-200 rounded shadow-sm">
                 <h4 className="font-bold text-gray-900 mb-2">Section B: Special Educational Needs</h4>
-                <p className="italic text-gray-400 mb-2">Amalgamating advice from EP (Dr. Wilson) and SALT (Pending)...</p>
+                <p className="italic text-gray-400 mb-2">Amalgamating advice from EP and SALT (Pending)...</p>
                 <div className="pl-4 border-l-2 border-green-500">
-                  <p className="text-gray-800">"Alice demonstrates significant difficulty with working memory..." <span className="text-xs text-green-600 font-bold">- Dr. Wilson (EP)</span></p>
+                  <p className="text-gray-800">"Alice demonstrates significant difficulty with working memory..." <span className="text-xs text-green-600 font-bold">- Educational Psychologist</span></p>
                 </div>
               </div>
               <div className="p-4 bg-white border border-gray-200 rounded shadow-sm opacity-60">

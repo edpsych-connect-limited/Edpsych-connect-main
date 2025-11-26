@@ -177,8 +177,9 @@ export default function PrivacyPolicyPage() {
             <p>For privacy-related questions or to exercise your rights:</p>
             <ul>
               <li><strong>Email:</strong> privacy@edpsychconnect.com</li>
-              <li><strong>Data Protection Officer:</strong> Dr. Scott Ighavongbe-Patrick</li>
-              <li><strong>Address:</strong> EdPsych Connect Limited, [Address]</li>
+              <li><strong>Data Protection Officer:</strong> Dr Scott Ighavongbe-Patrick</li>
+              <li><strong>Address:</strong> EdPsych Connect Limited, 38 Buckingham View, Chesham, Buckinghamshire, HP5 3HA</li>
+              <li><strong>Company Number:</strong> 14989115 (Registered in England and Wales)</li>
             </ul>
 
             <h2>14. Regulatory Authority</h2>

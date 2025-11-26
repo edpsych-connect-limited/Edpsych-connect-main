@@ -67,67 +67,68 @@ const ProfessionalNetwork: React.FC = () => {
         setLoading(true);
 
         // In a real implementation, these would be API calls
-        // For now, we're using mock data
+        // Demo data for demonstration purposes - real professionals will be populated from database
+        // Note: All entries marked with [Demo] are placeholders for beta testing
         const mockProfessionals: Professional[] = [
           {
             id: 'prof-1',
-            name: 'Dr. Jane Smith',
-            title: 'Educational Psychologist',
-            organization: 'London Schools Consortium',
-            specialty: 'Cognitive Assessment',
-            location: 'London, UK',
+            name: 'Dr Scott I-Patrick DEdPsych CPsychol',
+            title: 'Founder & Managing Director',
+            organization: 'EdPsych Connect Limited',
+            specialty: 'Restorative Justice, SEMH, Autism',
+            location: 'Buckinghamshire, UK',
             connectionStatus: 'connected',
-            profileImage: 'https://randomuser.me/api/portraits/women/1.jpg',
-            endorsements: 24,
-            mutualConnections: 5
+            profileImage: '/images/Dr Scott_Market Place.jpg',
+            endorsements: 127,
+            mutualConnections: 15
           },
           {
             id: 'prof-2',
-            name: 'Dr. Michael Johnson',
+            name: '[Demo] EP Profile - Birmingham',
             title: 'Educational Psychologist',
-            organization: 'Birmingham University',
+            organization: '[Demo Organisation]',
             specialty: 'Early Intervention',
             location: 'Birmingham, UK',
             connectionStatus: 'pending',
-            profileImage: 'https://randomuser.me/api/portraits/men/2.jpg',
-            endorsements: 18,
-            mutualConnections: 3
+            profileImage: '', // Uses initials fallback
+            endorsements: 0,
+            mutualConnections: 0
           },
           {
             id: 'prof-3',
-            name: 'Dr. Scott Ighavongbe-Patrick',
+            name: '[Demo] EP Profile - Oxford',
             title: 'Researcher',
-            organization: 'Oxford University',
+            organization: '[Demo Organisation]',
             specialty: 'Learning Disabilities',
             location: 'Oxford, UK',
             connectionStatus: 'none',
-            profileImage: 'https://randomuser.me/api/portraits/women/3.jpg',
-            endorsements: 32,
+            profileImage: '', // Uses initials fallback
+            endorsements: 0,
             mutualConnections: 0
           },
           {
             id: 'prof-4',
-            name: 'Prof. David Chen',
+            name: '[Demo] EP Profile - Manchester',
             title: 'Researcher',
-            organization: 'Manchester University',
+            organization: '[Demo Organisation]',
             specialty: 'Educational Interventions',
             location: 'Manchester, UK',
             connectionStatus: 'connected',
-            profileImage: 'https://randomuser.me/api/portraits/men/4.jpg',
-            endorsements: 45,
-            mutualConnections: 7
+            profileImage: '', // Uses initials fallback
+            endorsements: 0,
+            mutualConnections: 0
           },
           {
             id: 'prof-5',
-            name: 'Dr. Emily Brown',
+            name: '[Demo] EP Profile - Edinburgh',
             title: 'Educational Psychologist',
-            organization: 'Scotland EP Services',
+            organization: '[Demo Organisation]',
             specialty: 'Autism',
             location: 'Edinburgh, UK',
             connectionStatus: 'none',
-            profileImage: 'https://randomuser.me/api/portraits/women/5.jpg',
-            endorsements: 15,
-            mutualConnections: 2
+            profileImage: '', // Uses initials fallback
+            endorsements: 0,
+            mutualConnections: 0
           },
         ];
         
@@ -178,18 +179,18 @@ const ProfessionalNetwork: React.FC = () => {
           {
             id: 'msg-1',
             senderId: 'prof-1',
-            senderName: 'Dr. Jane Smith',
-            senderImage: 'https://randomuser.me/api/portraits/women/1.jpg',
-            content: 'Hi there! I saw your post about cognitive assessment techniques. Would love to discuss further.',
+            senderName: 'Dr Scott I-Patrick',
+            senderImage: '/images/Dr Scott_Market Place.jpg',
+            content: 'Welcome to EdPsych Connect! I saw your interest in our platform. Would love to discuss how we can support your practice.',
             timestamp: '2 hours ago',
             isRead: false
           },
           {
             id: 'msg-2',
             senderId: 'prof-4',
-            senderName: 'Prof. David Chen',
-            senderImage: 'https://randomuser.me/api/portraits/men/4.jpg',
-            content: "Thanks for sharing your research! I have incorporated some of your methods in my work.",
+            senderName: '[Demo] EP Profile',
+            senderImage: '', // Uses initials fallback
+            content: "[Demo Message] This is an example of how messages appear between professionals.",
             timestamp: '1 day ago',
             isRead: true
           },

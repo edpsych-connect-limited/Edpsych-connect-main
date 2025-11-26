@@ -90,17 +90,18 @@ export default function CaseDetailPage({ params }: CaseDetailProps) {
           relevant_history:
             'Jamie attended nursery from age 3. Speech and language development was typical. Parents report no concerns about early development.',
           strengths:
-            'Strong visual-spatial skills, excellent at building/construction tasks, creative, kind and helpful, good sense of humor, loves animals.',
+            'Strong visual-spatial skills, excellent at building/construction tasks, creative, kind and helpful, good sense of humour, loves animals.',
           consent_obtained: true,
           consent_date: '2025-09-20',
           safeguarding_concerns: false,
           metadata: {
+            // Demo data for demonstration purposes - real data will be populated from database
             parent_carers: [
-              { name: 'Sarah Smith', role: 'Mother', contact: 'sarah.smith@email.com', relationship: 'Parent' },
+              { name: '[Demo] Parent Contact', role: 'Mother', contact: 'demo@example.test', relationship: 'Parent' },
             ],
             school_staff: [
-              { name: 'Ms. Jones', role: 'Class Teacher', contact: 'jones@riverside.sch.uk', relationship: 'Class Teacher' },
-              { name: 'Mr. Brown', role: 'SENCO', contact: 'brown@riverside.sch.uk', relationship: 'SENCO' },
+              { name: '[Demo] Class Teacher', role: 'Class Teacher', contact: 'demo@school.test', relationship: 'Class Teacher' },
+              { name: '[Demo] SENCO', role: 'SENCO', contact: 'demo@school.test', relationship: 'SENCO' },
             ],
           },
           created_at: '2025-09-15T10:00:00Z',
@@ -109,7 +110,7 @@ export default function CaseDetailPage({ params }: CaseDetailProps) {
             {
               id: 1,
               content: 'Initial consultation with class teacher completed.',
-              author: 'Dr. Sarah Jones',
+              author: '[Demo] EP Note',
               created_at: '2025-09-16T14:00:00Z'
             }
           ]

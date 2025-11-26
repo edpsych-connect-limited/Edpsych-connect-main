@@ -131,9 +131,9 @@ Generate LA-compliant PDF reports with:
 - Provision mapping
 
 **Ready to try ECCA?** Start your first assessment today.`,
-      author_name: 'Dr. Scott Ighavongbe-Patrick',
-      author_email: 'scott.ighavongbe-patrick@edpsychconnect.world',
-      author_bio: 'Lead Educational Psychologist and ECCA Framework Developer',
+      author_name: 'Dr Scott I-Patrick DEdPsych CPsychol',
+      author_email: 'scott@edpsychconnect.world',
+      author_bio: 'Founder & Managing Director, EdPsych Connect Limited. Chartered Child and Adolescent Educational Psychologist with over a decade of experience across early years to college education.',
       reading_time: 5,
       is_published: true,
       is_featured: true,
@@ -199,9 +199,9 @@ Cogmed Working Memory Training shows:
 - Transfer: Near > far
 
 **Learn more**: Explore our intervention library for working memory support strategies.`,
-      author_name: 'Prof. James Richardson',
-      author_email: 'james.richardson@edpsychconnect.world',
-      author_bio: 'Professor of Cognitive Development, University of Manchester',
+      author_name: 'Dr Scott I-Patrick DEdPsych CPsychol',
+      author_email: 'scott@edpsychconnect.world',
+      author_bio: 'Founder & Managing Director, EdPsych Connect Limited. Chartered Child and Adolescent Educational Psychologist with over a decade of experience across early years to college education.',
       reading_time: 7,
       is_published: true,
       is_featured: true,
@@ -276,9 +276,9 @@ Best practice checklist:
 - ✓ Plan transitions early
 
 **Template available**: Download our EHCP quality checklist.`,
-      author_name: 'Emma Thompson',
-      author_email: 'emma.thompson@edpsychconnect.world',
-      author_bio: 'Senior EP and SEND Consultant with 15 years experience',
+      author_name: 'Dr Scott I-Patrick DEdPsych CPsychol',
+      author_email: 'scott@edpsychconnect.world',
+      author_bio: 'Founder & Managing Director, EdPsych Connect Limited. Chartered Child and Adolescent Educational Psychologist with over a decade of experience across early years to college education.',
       reading_time: 8,
       is_published: true,
       published_at: new Date('2025-10-25'),
@@ -377,9 +377,9 @@ Jake presented with:
 - Data-driven decision making prevents intervention drift
 
 **Access this intervention**: Browse our library for the full Phonics Intervention Programme with implementation guide.`,
-      author_name: 'Dr. Michael Chen',
-      author_email: 'michael.chen@edpsychconnect.world',
-      author_bio: 'Specialist EP for Literacy and Dyslexia',
+      author_name: 'Dr Scott I-Patrick DEdPsych CPsychol',
+      author_email: 'scott@edpsychconnect.world',
+      author_bio: 'Founder & Managing Director, EdPsych Connect Limited. Chartered Child and Adolescent Educational Psychologist with over a decade of experience across early years to college education.',
       reading_time: 6,
       is_published: true,
       is_featured: true,
@@ -489,9 +489,9 @@ Help parents understand:
 - Multimodal treatment (behavior + med) most effective
 
 **Training available**: Complete our ADHD CPD course for 12 accredited hours.`,
-      author_name: 'Dr. Lisa Patel',
-      author_email: 'lisa.patel@edpsychconnect.world',
-      author_bio: 'Specialist EP for ADHD and Executive Function',
+      author_name: 'Dr Scott I-Patrick DEdPsych CPsychol',
+      author_email: 'scott@edpsychconnect.world',
+      author_bio: 'Founder & Managing Director, EdPsych Connect Limited. Chartered Child and Adolescent Educational Psychologist with over a decade of experience across early years to college education.',
       reading_time: 7,
       is_published: true,
       published_at: new Date('2025-11-01'),

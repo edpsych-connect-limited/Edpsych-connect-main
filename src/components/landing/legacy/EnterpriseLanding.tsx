@@ -12,25 +12,26 @@ export default function EnterpriseLanding() {
 
   const testimonials = [
     {
-      quote: "EdPsych Connect transformed our entire research workflow. What used to take weeks now happens in hours.",
-      author: "Dr. Scott Ighavongbe-Patrick",
-      role: "Director of Research",
-      institution: "Stanford University",
-      avatar: "/images/testimonials/sarah-chen.jpg"
+      // Testimonials - Using real founder quote and demo placeholders for others
+      quote: "EdPsych Connect transforms how schools, families, and professionals collaborate. What used to take weeks now happens in hours.",
+      author: "Dr Scott I-Patrick DEdPsych CPsychol",
+      role: "Founder & Managing Director",
+      institution: "EdPsych Connect Limited",
+      avatar: "/images/Dr Scott_Landing.jpg"
     },
     {
-      quote: "The AI agents are like having a team of expert research assistants available 24/7.",
-      author: "Prof. Michael Rodriguez",
-      role: "Department Chair",
-      institution: "MIT",
-      avatar: "/images/testimonials/michael-rodriguez.jpg"
+      quote: "[Demo Testimonial] The AI agents are like having a team of expert research assistants available 24/7.",
+      author: "[Demo] Institution Name",
+      role: "[Demo] Role",
+      institution: "[Demo Organisation]",
+      avatar: ""
     },
     {
-      quote: "Our student engagement metrics improved by 340% after implementing the Battle Royale system.",
-      author: "Dr. Emily Watson",
-      role: "VP of Academic Innovation",
-      institution: "University of Toronto",
-      avatar: "/images/testimonials/emily-watson.jpg"
+      quote: "[Demo Testimonial] Student engagement metrics improved significantly after implementing the gamification system.",
+      author: "[Demo] Institution Name",
+      role: "[Demo] Role",
+      institution: "[Demo Organisation]",
+      avatar: ""
     }
   ];
 
