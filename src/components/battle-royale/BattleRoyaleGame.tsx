@@ -190,6 +190,10 @@ export const BattleRoyaleGame: React.FC = () => {
   const [feedback, setFeedback] = useState<{ message: string; type: 'success' | 'error' | 'streak'; points?: number } | null>(null);
   const [showTutorial, setShowTutorial] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [accessibleMode, setAccessibleMode] = useState(false);
+  const [textModeQuestion, setTextModeQuestion] = useState(0);
+  const [textModeScore, setTextModeScore] = useState(0);
+  const [textModeStreak, setTextModeStreak] = useState(0);
   const [_showLeaderboard, _setShowLeaderboard] = useState(false);
   const keysPressed = useRef<Set<string>>(new Set());
   const _audioRef = useRef<HTMLAudioElement | null>(null);
@@ -251,8 +255,57 @@ export const BattleRoyaleGame: React.FC = () => {
   // Start game from tutorial
   const startGame = (difficulty: 'easy' | 'medium' | 'hard') => {
     setShowTutorial(false);
-    setGameState(prev => ({ ...prev, status: 'countdown', difficulty }));
-    setTimeout(() => setGameState(prev => ({ ...prev, status: 'active' })), 3000);
+    if (accessibleMode) {
+      // Text-only mode
+      setTextModeQuestion(0);
+      setTextModeScore(0);
+      setTextModeStreak(0);
+      setGameState(prev => ({ ...prev, status: 'active', difficulty }));
+    } else {
+      // 3D mode
+      setGameState(prev => ({ ...prev, status: 'countdown', difficulty }));
+      setTimeout(() => setGameState(prev => ({ ...prev, status: 'active' })), 3000);
+    }
+  };
+
+  // Handle accessible mode answer
+  const handleAccessibleAnswer = (index: number) => {
+    const questions = getQuestionsByDifficulty(gameState.difficulty);
+    const currentQuestion = questions[textModeQuestion % questions.length];
+    const isCorrect = index === currentQuestion.correctIndex;
+    
+    if (isCorrect) {
+      playSound('correct');
+      const newStreak = textModeStreak + 1;
+      const streakBonus = newStreak >= 3 ? 50 : 0;
+      const totalPoints = currentQuestion.points + streakBonus;
+      setTextModeScore(prev => prev + totalPoints);
+      setTextModeStreak(newStreak);
+      
+      if (newStreak >= 3) {
+        playSound('streak');
+        setFeedback({ message: `🔥 ${newStreak}x STREAK! +${totalPoints} PTS`, type: 'streak' });
+      } else {
+        setFeedback({ message: `CORRECT! +${totalPoints} PTS 💥`, type: 'success' });
+      }
+    } else {
+      playSound('wrong');
+      setTextModeStreak(0);
+      setFeedback({ message: 'Incorrect. Keep trying! 💪', type: 'error' });
+    }
+    
+    // Move to next question after delay
+    setTimeout(() => {
+      setFeedback(null);
+      const nextQuestion = textModeQuestion + 1;
+      if (nextQuestion >= 10) {
+        // Game complete after 10 questions
+        playSound('victory');
+        setGameState(prev => ({ ...prev, status: 'victory' }));
+      } else {
+        setTextModeQuestion(nextQuestion);
+      }
+    }, 1500);
   };
 
   // Input Listeners
@@ -468,6 +521,43 @@ export const BattleRoyaleGame: React.FC = () => {
                 </div>
               </motion.div>
 
+              {/* Accessibility Mode Toggle */}
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                className="mb-6"
+              >
+                <button
+                  onClick={() => setAccessibleMode(!accessibleMode)}
+                  className={`w-full p-4 rounded-xl border-2 transition-all flex items-center justify-center gap-3 ${
+                    accessibleMode 
+                      ? 'bg-blue-600 border-blue-400 text-white' 
+                      : 'bg-slate-800/50 border-slate-600 text-slate-300 hover:border-blue-400'
+                  }`}
+                  aria-pressed={accessibleMode ? 'true' : 'false'}
+                  aria-label="Toggle accessible text-only mode"
+                >
+                  <svg 
+                    className="w-6 h-6" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  <span className="font-semibold">
+                    {accessibleMode ? '✓ Accessible Mode (Text-Only Quiz)' : 'Enable Accessible Mode'}
+                  </span>
+                </button>
+                <p className="text-slate-400 text-sm text-center mt-2">
+                  {accessibleMode 
+                    ? 'Text-based quiz without 3D graphics. Screen reader friendly.' 
+                    : 'Need a screen reader? Click to switch to text-only quiz mode.'}
+                </p>
+              </motion.div>
+
               {/* Difficulty Selection */}
               <motion.div
                 initial={{ y: 20, opacity: 0 }}
@@ -529,6 +619,131 @@ export const BattleRoyaleGame: React.FC = () => {
         )}
       </AnimatePresence>
 
+      {/* Accessible Text-Only Quiz Mode */}
+      {accessibleMode && gameState.status === 'active' && (
+        <div 
+          className="absolute inset-0 z-40 bg-slate-900 flex flex-col"
+          role="main"
+          aria-label="Accessible quiz mode"
+        >
+          {/* Header with score and progress */}
+          <div className="bg-slate-800 p-4 border-b border-slate-700">
+            <div className="max-w-2xl mx-auto flex justify-between items-center">
+              <div className="flex items-center gap-4">
+                <div className="text-white">
+                  <span className="text-slate-400 text-sm">Question</span>
+                  <p className="text-2xl font-bold" aria-live="polite">{textModeQuestion + 1} / 10</p>
+                </div>
+                <div className="text-white">
+                  <span className="text-slate-400 text-sm">Score</span>
+                  <p className="text-2xl font-bold text-green-400" aria-live="polite">{textModeScore} pts</p>
+                </div>
+                {textModeStreak >= 2 && (
+                  <div className="text-orange-400 flex items-center gap-1" aria-live="polite">
+                    <FaFire />
+                    <span className="font-bold">{textModeStreak}x Streak!</span>
+                  </div>
+                )}
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setSoundEnabled(!soundEnabled)}
+                  className="p-2 rounded-lg bg-slate-700 text-white hover:bg-slate-600"
+                  aria-label={soundEnabled ? 'Mute sound effects' : 'Enable sound effects'}
+                >
+                  {soundEnabled ? <FaVolumeUp /> : <FaVolumeMute />}
+                </button>
+                <button
+                  onClick={() => {
+                    setShowTutorial(true);
+                    setGameState(prev => ({ ...prev, status: 'tutorial' }));
+                  }}
+                  className="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-500"
+                >
+                  Exit Quiz
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Question Area */}
+          <div className="flex-1 flex items-center justify-center p-8">
+            <div className="max-w-2xl w-full">
+              {(() => {
+                const questions = getQuestionsByDifficulty(gameState.difficulty);
+                const currentQuestion = questions[textModeQuestion % questions.length];
+                return (
+                  <div role="region" aria-label="Current question">
+                    <div className="mb-2 flex items-center gap-2 text-slate-400">
+                      <span className="bg-slate-700 px-2 py-1 rounded text-sm">{currentQuestion.category}</span>
+                      <span className="bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded text-sm">+{currentQuestion.points} pts</span>
+                    </div>
+                    <h2 className="text-2xl font-bold text-white mb-6" id="question-text">
+                      {currentQuestion.text}
+                    </h2>
+                    <div 
+                      className="space-y-3"
+                      role="radiogroup"
+                      aria-labelledby="question-text"
+                    >
+                      {currentQuestion.options.map((option, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => handleAccessibleAnswer(idx)}
+                          disabled={feedback !== null}
+                          className={`w-full text-left p-4 rounded-xl border-2 transition-all font-medium flex items-center gap-4 ${
+                            feedback !== null
+                              ? idx === currentQuestion.correctIndex
+                                ? 'bg-green-600 border-green-400 text-white'
+                                : 'bg-slate-800 border-slate-600 text-slate-400'
+                              : 'bg-slate-800 border-slate-600 text-white hover:border-blue-400 hover:bg-slate-700 focus:ring-2 focus:ring-blue-500 focus:outline-none'
+                          }`}
+                          role="radio"
+                          aria-checked="false"
+                          aria-label={`Option ${String.fromCharCode(65 + idx)}: ${option}`}
+                        >
+                          <span className="w-8 h-8 rounded-full bg-slate-600 flex items-center justify-center font-bold text-sm">
+                            {String.fromCharCode(65 + idx)}
+                          </span>
+                          <span className="flex-1">{option}</span>
+                        </button>
+                      ))}
+                    </div>
+                    {currentQuestion.curriculumLink && (
+                      <p className="text-sm text-slate-500 mt-4">
+                        📚 Related to: {currentQuestion.curriculumLink}
+                      </p>
+                    )}
+                  </div>
+                );
+              })()}
+            </div>
+          </div>
+
+          {/* Feedback Toast */}
+          <AnimatePresence>
+            {feedback && (
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 px-8 py-4 rounded-2xl font-bold text-xl shadow-2xl flex items-center gap-3 ${
+                  feedback.type === 'success' 
+                    ? 'bg-green-500 text-white' 
+                    : feedback.type === 'streak'
+                      ? 'bg-orange-500 text-white'
+                      : 'bg-red-500 text-white'
+                }`}
+                role="alert"
+                aria-live="assertive"
+              >
+                {feedback.message}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
+
       {/* Victory Screen */}
       <AnimatePresence>
         {gameState.status === 'victory' && (
@@ -546,11 +761,16 @@ export const BattleRoyaleGame: React.FC = () => {
                 <FaTrophy className="text-yellow-400 text-8xl mx-auto mb-4" />
               </motion.div>
               <h2 className="text-5xl font-bold text-white mb-4">VICTORY ROYALE!</h2>
-              <p className="text-2xl text-yellow-300 mb-2">Final Score: {selfPlayer?.score || 0} pts</p>
-              <p className="text-lg text-white/80 mb-8">You eliminated all opponents!</p>
+              <p className="text-2xl text-yellow-300 mb-2">Final Score: {accessibleMode ? textModeScore : selfPlayer?.score || 0} pts</p>
+              <p className="text-lg text-white/80 mb-8">
+                {accessibleMode ? 'You completed the quiz!' : 'You eliminated all opponents!'}
+              </p>
               <button
                 onClick={() => {
                   setShowTutorial(true);
+                  setTextModeQuestion(0);
+                  setTextModeScore(0);
+                  setTextModeStreak(0);
                   setGameState(prev => ({ ...prev, status: 'tutorial' }));
                 }}
                 className="bg-white text-slate-900 px-8 py-3 rounded-xl font-bold hover:bg-yellow-300 transition-colors"
@@ -579,11 +799,14 @@ export const BattleRoyaleGame: React.FC = () => {
                 <FaHeart className="text-red-500 text-8xl mx-auto mb-4 opacity-50" />
               </motion.div>
               <h2 className="text-5xl font-bold text-white mb-4">ELIMINATED</h2>
-              <p className="text-2xl text-red-300 mb-2">Final Score: {selfPlayer?.score || 0} pts</p>
+              <p className="text-2xl text-red-300 mb-2">Final Score: {accessibleMode ? textModeScore : selfPlayer?.score || 0} pts</p>
               <p className="text-lg text-white/80 mb-8">Better luck next time!</p>
               <button
                 onClick={() => {
                   setShowTutorial(true);
+                  setTextModeQuestion(0);
+                  setTextModeScore(0);
+                  setTextModeStreak(0);
                   setGameState(prev => ({ ...prev, status: 'tutorial' }));
                 }}
                 className="bg-white text-slate-900 px-8 py-3 rounded-xl font-bold hover:bg-red-300 transition-colors"
