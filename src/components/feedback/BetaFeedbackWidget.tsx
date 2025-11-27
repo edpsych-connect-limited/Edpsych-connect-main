@@ -67,7 +67,7 @@ export function BetaFeedbackWidget() {
         setMessage('');
         setIsOpen(false);
       }
-    } catch (error) {
+    } catch (_error) {
       // Fallback: Log to console
       console.log('Beta Feedback:', feedbackData);
       toast.success('Feedback recorded. Thank you!');
