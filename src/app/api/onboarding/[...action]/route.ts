@@ -12,7 +12,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
-import { prisma } from '@/lib/prisma';
+import prisma from '@/lib/prismaSafe';
 
 export const dynamic = 'force-dynamic';
 
@@ -177,6 +177,13 @@ async function handleGetStatus(userId: number): Promise<NextResponse> {
 }
 
 async function handleStart(userId: number): Promise<NextResponse> {
+  // Check if user exists first to avoid foreign key errors
+  const user = await prisma.users.findUnique({ where: { id: userId } });
+  if (!user) {
+    console.error(`[Onboarding] User ${userId} not found during start`);
+    return NextResponse.json({ error: 'User not found' }, { status: 404 });
+  }
+
   // Check if exists
   const existing = await prisma.onboarding_progress.findUnique({
     where: { user_id: userId }
@@ -281,10 +288,10 @@ async function handleUpdateStep(request: NextRequest, userId: number): Promise<N
   createData.total_time_spent_seconds = timeSpentSeconds || 0;
   
   // Handle array push operations for create
-  if (createData.step_4_features_viewed?.push) {
+  if (createData.step_4_features_viewed && typeof createData.step_4_features_viewed === 'object' && 'push' in createData.step_4_features_viewed) {
     createData.step_4_features_viewed = [createData.step_4_features_viewed.push];
   }
-  if (createData.step_4_demos_tried?.push) {
+  if (createData.step_4_demos_tried && typeof createData.step_4_demos_tried === 'object' && 'push' in createData.step_4_demos_tried) {
     createData.step_4_demos_tried = [createData.step_4_demos_tried.push];
   }
 

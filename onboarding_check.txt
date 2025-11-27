@@ -1,0 +1,23 @@
+Checking onboarding_progress table...
+prisma:query SELECT COUNT(*) AS "_count$_all" FROM (SELECT "public"."onboarding_progress"."id" FROM "public"."onboarding_progress" WHERE 1=1 OFFSET $1) AS "sub"
+[2025-11-27T21:52:07.010Z] WARN: Slow query detected (297ms) {
+  model: 'onboarding_progress',
+  operation: 'count',
+  executionTime: 297
+}
+[2025-11-27T21:52:07.013Z] DEBUG: Prisma query: onboarding_progress.count {
+  model: 'onboarding_progress',
+  operation: 'count',
+  executionTime: 297
+}
+Found 0 onboarding_progress records.
+prisma:query SELECT "public"."users"."id", "public"."users"."tenant_id", "public"."users"."email", "public"."users"."password_hash", "public"."users"."name", "public"."users"."role", "public"."users"."firstName", "public"."users"."lastName", "public"."users"."permissions", "public"."users"."isEmailVerified", "public"."users"."emailVerificationToken", "public"."users"."resetPasswordToken", "public"."users"."resetPasswordExpires", "public"."users"."is_active", "public"."users"."last_login", "public"."users"."created_at", "public"."users"."updated_at", "public"."users"."onboarding_completed", "public"."users"."onboarding_step", "public"."users"."onboarding_started_at", "public"."users"."onboarding_completed_at", "public"."users"."onboarding_skipped", "public"."users"."beta_tester", "public"."users"."beta_code_used", "public"."users"."beta_joined_at", "public"."users"."beta_feedback_count" FROM "public"."users" WHERE 1=1 LIMIT $1 OFFSET $2
+[2025-11-27T21:52:07.040Z] DEBUG: Prisma query: users.findFirst { model: 'users', operation: 'findFirst', executionTime: 24 }
+Found user: scott@edpsychconnect.com (ID: 1)
+prisma:query SELECT "public"."onboarding_progress"."id", "public"."onboarding_progress"."user_id", "public"."onboarding_progress"."step_1_welcome_completed", "public"."onboarding_progress"."step_1_completed_at", "public"."onboarding_progress"."step_2_role_selected", "public"."onboarding_progress"."step_2_completed_at", "public"."onboarding_progress"."step_3_profile_completed", "public"."onboarding_progress"."step_3_photo_uploaded", "public"."onboarding_progress"."step_3_hcpc_provided", "public"."onboarding_progress"."step_3_organization_provided", "public"."onboarding_progress"."step_3_completed_at", "public"."onboarding_progress"."step_4_features_viewed", "public"."onboarding_progress"."step_4_demos_tried", "public"."onboarding_progress"."step_4_completed_at", "public"."onboarding_progress"."step_5_first_case_created", "public"."onboarding_progress"."step_5_first_assessment_done", "public"."onboarding_progress"."step_5_first_goal_set", "public"."onboarding_progress"."step_5_completed_at", "public"."onboarding_progress"."step_6_certificate_viewed", "public"."onboarding_progress"."step_6_tour_completed", "public"."onboarding_progress"."step_6_call_booked", "public"."onboarding_progress"."step_6_completed_at", "public"."onboarding_progress"."current_step", "public"."onboarding_progress"."steps_skipped", "public"."onboarding_progress"."times_restarted", "public"."onboarding_progress"."total_time_spent_seconds", "public"."onboarding_progress"."time_per_step", "public"."onboarding_progress"."video_watched", "public"."onboarding_progress"."video_watch_percentage", "public"."onboarding_progress"."help_articles_opened", "public"."onboarding_progress"."back_button_uses", "public"."onboarding_progress"."created_at", "public"."onboarding_progress"."updated_at", "public"."onboarding_progress"."completed_at" FROM "public"."onboarding_progress" WHERE ("public"."onboarding_progress"."user_id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+[2025-11-27T21:52:07.067Z] DEBUG: Prisma query: onboarding_progress.findUnique {
+  model: 'onboarding_progress',
+  operation: 'findUnique',
+  executionTime: 25
+}
+User progress: null
