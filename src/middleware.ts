@@ -41,7 +41,14 @@ const PUBLIC_API_PATHS = [
   '/api/webhooks',
   '/api/waitlist',
   '/api/status',
-  '/api/version'
+  '/api/version',
+  '/api/health',
+  '/api/help/categories',
+  '/api/help/chat',
+  '/api/blog',
+  '/api/training/courses',
+  '/api/feedback',
+  '/api/public'
 ];
 
 export async function middleware(request: NextRequest) {
