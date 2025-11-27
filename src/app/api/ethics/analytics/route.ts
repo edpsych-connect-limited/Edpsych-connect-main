@@ -1,10 +1,11 @@
 /**
  * Ethics Analytics API
- * Get analytics and metrics for the ethics monitoring system
+ * Get analytics and metrics for the ethics monitoring system - Database-backed
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
+import prisma from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,104 +19,157 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const timeRange = parseInt(searchParams.get('timeRange') || '30'); // days
 
-    // Mock analytics data - in production, would aggregate from services
+    // Calculate date range
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - timeRange);
+
+    // Fetch real data from database
+    const [
+      allMonitors,
+      enabledMonitors,
+      allIncidents,
+      allAssessments,
+      recentIncidents,
+    ] = await Promise.all([
+      // Total monitors
+      prisma.ethicsMonitor.count(),
+      // Active monitors
+      prisma.ethicsMonitor.count({
+        where: { enabled: true },
+      }),
+      // All incidents in timeframe
+      prisma.ethicsIncident.findMany({
+        where: {
+          detectedAt: { gte: startDate },
+        },
+        select: {
+          status: true,
+          severity: true,
+          detectedAt: true,
+          resolvedAt: true,
+        },
+      }),
+      // All assessments
+      prisma.ethicsAssessment.findMany({
+        where: {
+          createdAt: { gte: startDate },
+        },
+        select: {
+          status: true,
+          componentType: true,
+          createdAt: true,
+          approvedAt: true,
+        },
+      }),
+      // Recent incidents for trend
+      prisma.ethicsIncident.findMany({
+        where: {
+          detectedAt: { gte: startDate },
+        },
+        select: {
+          detectedAt: true,
+        },
+        orderBy: {
+          detectedAt: 'asc',
+        },
+      }),
+    ]);
+
+    // Calculate incident stats
+    const incidentsByStatus = allIncidents.reduce((acc, incident) => {
+      acc[incident.status] = (acc[incident.status] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const incidentsBySeverity = allIncidents.reduce((acc, incident) => {
+      acc[incident.severity] = (acc[incident.severity] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    // Calculate assessment stats
+    const assessmentsByStatus = allAssessments.reduce((acc, assessment) => {
+      acc[assessment.status] = (acc[assessment.status] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const assessmentsByComponent = allAssessments.reduce((acc, assessment) => {
+      acc[assessment.componentType] = (acc[assessment.componentType] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    // Calculate average resolution time
+    const resolvedIncidents = allIncidents.filter(i => i.resolvedAt);
+    let averageResolutionTime = 0;
+    if (resolvedIncidents.length > 0) {
+      const totalTime = resolvedIncidents.reduce((sum, incident) => {
+        const duration = incident.resolvedAt!.getTime() - incident.detectedAt.getTime();
+        return sum + duration;
+      }, 0);
+      averageResolutionTime = (totalTime / resolvedIncidents.length) / (1000 * 60 * 60); // hours
+    }
+
+    // Generate trend data
+    const trend = generateTrendFromIncidents(recentIncidents, timeRange);
+
+    // Generate recommendations based on real data
+    const recommendations = generateRecommendations(
+      incidentsByStatus,
+      assessmentsByStatus,
+      enabledMonitors,
+      allMonitors
+    );
+
     const analytics = {
       generatedAt: new Date().toISOString(),
       timeRange,
+      dataSource: 'database',
       summary: {
-        totalMonitors: 4,
-        activeMonitors: 3,
-        totalIncidents: 24,
-        activeIncidents: 2,
-        resolvedIncidents: 18,
-        dismissedIncidents: 4,
-        totalAssessments: 12,
-        approvedAssessments: 8,
-        averageResolutionTime: 36.5 // hours
+        totalMonitors: allMonitors,
+        activeMonitors: enabledMonitors,
+        totalIncidents: allIncidents.length,
+        activeIncidents: (incidentsByStatus['open'] || 0) + (incidentsByStatus['investigating'] || 0),
+        resolvedIncidents: incidentsByStatus['resolved'] || 0,
+        dismissedIncidents: incidentsByStatus['dismissed'] || 0,
+        totalAssessments: allAssessments.length,
+        approvedAssessments: assessmentsByStatus['approved'] || 0,
+        averageResolutionTime: Math.round(averageResolutionTime * 10) / 10
       },
       monitors: {
         byStatus: {
-          enabled: 3,
-          disabled: 1
+          enabled: enabledMonitors,
+          disabled: allMonitors - enabledMonitors
         },
-        bySeverity: {
-          low: 0,
-          medium: 2,
-          high: 1,
-          critical: 1
-        },
-        byCategory: {
-          fairness: 2,
-          privacy: 2,
-          transparency: 1,
-          compliance: 1
-        }
       },
       incidents: {
         byStatus: {
-          open: 1,
-          investigating: 1,
-          mitigating: 0,
-          resolved: 18,
-          dismissed: 4
+          open: incidentsByStatus['open'] || 0,
+          investigating: incidentsByStatus['investigating'] || 0,
+          mitigating: incidentsByStatus['mitigating'] || 0,
+          resolved: incidentsByStatus['resolved'] || 0,
+          dismissed: incidentsByStatus['dismissed'] || 0
         },
         bySeverity: {
-          low: 2,
-          medium: 8,
-          high: 10,
-          critical: 4
+          low: incidentsBySeverity['low'] || 0,
+          medium: incidentsBySeverity['medium'] || 0,
+          high: incidentsBySeverity['high'] || 0,
+          critical: incidentsBySeverity['critical'] || 0
         },
-        trend: generateTrendData(timeRange),
-        averageTimeToResolution: {
-          critical: 12.5,
-          high: 24.3,
-          medium: 48.7,
-          low: 72.1
-        }
+        trend
       },
       assessments: {
         byStatus: {
-          draft: 2,
-          in_review: 2,
-          approved: 8,
-          rejected: 0,
-          needs_revision: 0
+          draft: assessmentsByStatus['draft'] || 0,
+          in_review: assessmentsByStatus['in_review'] || 0,
+          approved: assessmentsByStatus['approved'] || 0,
+          rejected: assessmentsByStatus['rejected'] || 0,
+          needs_revision: assessmentsByStatus['needs_revision'] || 0
         },
-        byComponentType: {
-          algorithm: 5,
-          feature: 4,
-          data_process: 2,
-          module: 1
-        },
-        completionRate: 0.85,
-        averageReviewTime: 5.2 // days
+        byComponentType: assessmentsByComponent,
+        completionRate: allAssessments.length > 0 
+          ? (assessmentsByStatus['approved'] || 0) / allAssessments.length 
+          : 0
       },
-      metrics: {
-        totalMetricsMonitored: 18,
-        thresholdViolations: 3,
-        falsePositiveRate: 0.12,
-        detectionAccuracy: 0.88
-      },
-      recommendations: [
-        {
-          type: 'monitor_optimization',
-          priority: 'medium',
-          title: 'Increase Monitoring Frequency',
-          description: 'Consider increasing monitoring frequency for high-severity monitors to enable faster incident detection'
-        },
-        {
-          type: 'assessment_backlog',
-          priority: 'high',
-          title: 'Address Assessment Backlog',
-          description: '2 assessments are awaiting review. Assign reviewers to maintain compliance timeline'
-        },
-        {
-          type: 'incident_resolution',
-          priority: 'critical',
-          title: 'Resolve Critical Incidents',
-          description: '1 critical incident has been open for over 24 hours. Immediate attention required'
-        }
-      ]
+      recommendations
     };
 
     return NextResponse.json(analytics);
@@ -128,20 +182,80 @@ export async function GET(request: NextRequest) {
   }
 }
 
-function generateTrendData(days: number): Record<string, number> {
+function generateTrendFromIncidents(
+  incidents: Array<{ detectedAt: Date }>,
+  days: number
+): Record<string, number> {
   const trend: Record<string, number> = {};
   const now = new Date();
 
+  // Initialize all days with 0
   for (let i = days - 1; i >= 0; i--) {
     const date = new Date(now);
     date.setDate(date.getDate() - i);
     const key = date.toISOString().split('T')[0];
-
-    // Generate realistic incident trend
-    const baseIncidents = 1;
-    const variation = Math.floor(Math.random() * 3);
-    trend[key] = baseIncidents + variation;
+    trend[key] = 0;
   }
 
+  // Count incidents per day
+  incidents.forEach(incident => {
+    const key = incident.detectedAt.toISOString().split('T')[0];
+    if (trend[key] !== undefined) {
+      trend[key]++;
+    }
+  });
+
   return trend;
+}
+
+function generateRecommendations(
+  incidentsByStatus: Record<string, number>,
+  assessmentsByStatus: Record<string, number>,
+  enabledMonitors: number,
+  totalMonitors: number
+): Array<{ type: string; priority: string; title: string; description: string }> {
+  const recommendations = [];
+
+  // Check for open critical incidents
+  if ((incidentsByStatus['open'] || 0) > 0) {
+    recommendations.push({
+      type: 'incident_resolution',
+      priority: 'critical',
+      title: 'Resolve Open Incidents',
+      description: `${incidentsByStatus['open']} incident(s) require attention. Review and resolve to maintain ethical compliance.`
+    });
+  }
+
+  // Check for assessment backlog
+  const pendingAssessments = (assessmentsByStatus['draft'] || 0) + (assessmentsByStatus['in_review'] || 0);
+  if (pendingAssessments > 0) {
+    recommendations.push({
+      type: 'assessment_backlog',
+      priority: 'high',
+      title: 'Address Assessment Backlog',
+      description: `${pendingAssessments} assessment(s) are awaiting review. Complete reviews to maintain compliance timeline.`
+    });
+  }
+
+  // Check for disabled monitors
+  if (enabledMonitors < totalMonitors) {
+    recommendations.push({
+      type: 'monitor_optimization',
+      priority: 'medium',
+      title: 'Review Disabled Monitors',
+      description: `${totalMonitors - enabledMonitors} monitor(s) are disabled. Consider enabling them for comprehensive coverage.`
+    });
+  }
+
+  // If no data, suggest getting started
+  if (totalMonitors === 0) {
+    recommendations.push({
+      type: 'getting_started',
+      priority: 'high',
+      title: 'Set Up Ethics Monitoring',
+      description: 'No ethics monitors configured. Create monitors to track ethical compliance of AI systems.'
+    });
+  }
+
+  return recommendations;
 }

@@ -32,19 +32,34 @@ export async function GET() {
     const tenant = user.tenants;
     const subscription = tenant.subscriptions[0];
 
-    // Calculate usage
-    const [casesCount, interventionsCount, assessmentsCount] = await Promise.all([
+    // Calculate usage from database
+    const [
+      casesCount, 
+      interventionsCount, 
+      assessmentsCount,
+      attachmentsCount,
+      aiEventsCount,
+    ] = await Promise.all([
       prisma.cases.count({ where: { tenant_id: tenant.id } }),
       prisma.interventions.count({ where: { tenant_id: tenant.id } }),
       prisma.assessments.count({ where: { tenant_id: tenant.id } }),
+      // Count attachments for storage estimate
+      prisma.attachments.count({ where: { tenant_id: tenant.id } }),
+      // Count AI assessment events for this user
+      prisma.analyticsEvent.count({
+        where: {
+          userId: user.id,
+          eventType: { in: ['completion', 'assessment'] },
+        },
+      }),
     ]);
 
-    // Mock storage usage for now as we don't track file sizes in DB yet
-    // In a real scenario, we would sum up attachment sizes
-    const storageUsedMb = 125; 
+    // Estimate storage: assume average file size of 2MB per attachment
+    // This is a reasonable estimate until file_size tracking is added
+    const estimatedStorageMb = attachmentsCount * 2;
     
-    // Mock AI assessments used for now
-    const aiAssessmentsUsed = 5;
+    // AI assessments used from analytics events
+    const aiAssessmentsUsed = aiEventsCount;
 
     // Default to a free trial if no subscription found
     const subscriptionData = subscription ? {
@@ -72,8 +87,10 @@ export async function GET() {
       cases_count: casesCount,
       interventions_count: interventionsCount,
       assessments_count: assessmentsCount,
-      storage_used_mb: storageUsedMb,
+      attachments_count: attachmentsCount,
+      storage_used_mb: estimatedStorageMb,
       ai_assessments_used: aiAssessmentsUsed,
+      data_source: 'database',
     };
 
     return NextResponse.json({

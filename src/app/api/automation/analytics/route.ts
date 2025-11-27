@@ -1,10 +1,11 @@
 /**
  * Automation Analytics API
- * Get automation system analytics
+ * Get automation system analytics - Database-backed
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
+import prisma from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,70 +18,99 @@ export async function GET(request: NextRequest) {
 
     const { searchParams } = new URL(request.url);
     const timeRange = parseInt(searchParams.get('timeRange') || '30'); // days
-    const interventionType = searchParams.get('type');
+    // const interventionType = searchParams.get('type');
 
-    // Mock analytics data
+    // Calculate date range
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - timeRange);
+
+    // Fetch real analytics data from database
+    const [
+      interventionCount,
+      completedInterventions,
+      analyticsEvents,
+      userActivities,
+    ] = await Promise.all([
+      // Total interventions in period
+      prisma.interventions.count({
+        where: {
+          created_at: { gte: startDate },
+        },
+      }),
+      // Completed interventions
+      prisma.interventions.count({
+        where: {
+          created_at: { gte: startDate },
+          status: 'completed',
+        },
+      }),
+      // Analytics events (AI usage)
+      prisma.analyticsEvent.findMany({
+        where: {
+          timestamp: { gte: startDate },
+        },
+        select: {
+          eventType: true,
+          latencyMs: true,
+          cost: true,
+          timestamp: true,
+        },
+      }),
+      // User activities
+      prisma.userActivity.count({
+        where: {
+          created_at: { gte: startDate },
+        },
+      }),
+    ]);
+
+    // Calculate real metrics
+    const successRate = interventionCount > 0 
+      ? (completedInterventions / interventionCount) 
+      : 0;
+
+    const avgLatency = analyticsEvents.length > 0
+      ? analyticsEvents.reduce((sum, e) => sum + (e.latencyMs || 0), 0) / analyticsEvents.length
+      : 0;
+
+    const totalCost = analyticsEvents.reduce((sum, e) => sum + (e.cost || 0), 0);
+
+    // Group analytics events by type
+    const eventsByType = analyticsEvents.reduce((acc, event) => {
+      acc[event.eventType] = (acc[event.eventType] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    // Generate real trend data from analytics events
+    const dailyTrends = generateRealTrendData(analyticsEvents, timeRange);
+
     const analytics = {
       generatedAt: new Date().toISOString(),
       timeRange,
+      dataSource: 'database',
       summary: {
-        totalInterventions: 247,
-        successfulInterventions: 189,
-        averageEffectiveness: 0.765,
-        interventionTypes: {
-          engagement: 98,
-          academic_support: 72,
-          motivation: 77
-        }
+        totalInterventions: interventionCount,
+        successfulInterventions: completedInterventions,
+        averageEffectiveness: successRate,
+        totalActivities: userActivities,
+        interventionTypes: eventsByType,
       },
       trends: {
-        daily: generateTrendData(timeRange, 'daily'),
-        weekly: generateTrendData(Math.ceil(timeRange / 7), 'weekly')
+        daily: dailyTrends,
       },
       effectiveness: {
-        successRate: 0.765,
-        averageImpact: 0.68,
-        byType: {
-          engagement: { total: 98, successful: 72, rate: 0.73 },
-          academic_support: { total: 72, successful: 61, rate: 0.85 },
-          motivation: { total: 77, successful: 56, rate: 0.68 }
-        },
-        byRiskLevel: {
-          high: { total: 89, successful: 78, rate: 0.88 },
-          medium: { total: 124, successful: 89, rate: 0.72 },
-          low: { total: 34, successful: 22, rate: 0.65 }
-        }
+        successRate,
+        avgLatencyMs: Math.round(avgLatency),
+        byType: eventsByType,
       },
-      recommendations: [
-        {
-          type: 'optimization',
-          priority: 'medium',
-          title: 'Optimize Engagement Interventions',
-          description: 'Success rate below target. Consider reviewing timing and messaging.'
-        },
-        {
-          type: 'scaling',
-          priority: 'high',
-          title: 'Scale Academic Support Success',
-          description: 'High success rate (85%). Consider increasing usage for at-risk students.'
-        }
-      ],
-      timeSavings: {
-        hoursPerWeek: 12.5,
-        automatedTasks: 247,
-        manualEquivalent: 494 // hours
-      }
+      recommendations: generateRecommendations(successRate, interventionCount),
+      cost: {
+        totalCost: Math.round(totalCost * 100) / 100,
+        avgCostPerEvent: analyticsEvents.length > 0 
+          ? Math.round((totalCost / analyticsEvents.length) * 100) / 100 
+          : 0,
+      },
     };
-
-    // Filter by intervention type if specified
-    if (interventionType) {
-      const typeKey = interventionType as keyof typeof analytics.effectiveness.byType;
-      const typeData = analytics.effectiveness.byType[typeKey];
-      if (typeData) {
-        analytics.summary.totalInterventions = typeData.total;
-        analytics.summary.successfulInterventions = typeData.successful;
-      }
-    }
 
     return NextResponse.json(analytics);
   } catch (error) {
@@ -92,23 +122,74 @@ export async function GET(request: NextRequest) {
   }
 }
 
-function generateTrendData(periods: number, type: 'daily' | 'weekly'): Record<string, number> {
+interface AnalyticsEventData {
+  eventType: string;
+  latencyMs: number | null;
+  cost: number | null;
+  timestamp: Date;
+}
+
+function generateRealTrendData(
+  events: AnalyticsEventData[],
+  days: number
+): Record<string, number> {
   const trends: Record<string, number> = {};
   const now = new Date();
 
-  for (let i = 0; i < periods; i++) {
+  // Initialize all days with 0
+  for (let i = 0; i < days; i++) {
     const date = new Date(now);
-    if (type === 'daily') {
-      date.setDate(date.getDate() - i);
-      const key = date.toISOString().split('T')[0];
-      trends[key] = Math.floor(Math.random() * 15) + 3;
-    } else {
-      date.setDate(date.getDate() - (i * 7));
-      const week = Math.ceil((date.getDate() - date.getDay() + 1) / 7);
-      const key = `${date.getFullYear()}-W${week}`;
-      trends[key] = Math.floor(Math.random() * 50) + 20;
-    }
+    date.setDate(date.getDate() - i);
+    const key = date.toISOString().split('T')[0];
+    trends[key] = 0;
   }
 
+  // Count events per day
+  events.forEach(event => {
+    const key = event.timestamp.toISOString().split('T')[0];
+    if (trends[key] !== undefined) {
+      trends[key]++;
+    }
+  });
+
   return trends;
+}
+
+function generateRecommendations(
+  successRate: number,
+  totalInterventions: number
+): Array<{ type: string; priority: string; title: string; description: string }> {
+  const recommendations = [];
+
+  if (totalInterventions === 0) {
+    recommendations.push({
+      type: 'getting_started',
+      priority: 'high',
+      title: 'Create Your First Intervention',
+      description: 'No interventions recorded yet. Start by creating intervention plans for students who need support.',
+    });
+  } else if (successRate < 0.5) {
+    recommendations.push({
+      type: 'optimization',
+      priority: 'high',
+      title: 'Review Intervention Effectiveness',
+      description: 'Success rate is below 50%. Consider reviewing intervention strategies and implementation fidelity.',
+    });
+  } else if (successRate < 0.75) {
+    recommendations.push({
+      type: 'optimization',
+      priority: 'medium',
+      title: 'Optimize Current Interventions',
+      description: 'Success rate is improving. Consider fine-tuning intervention parameters for better outcomes.',
+    });
+  } else {
+    recommendations.push({
+      type: 'scaling',
+      priority: 'low',
+      title: 'Scale Successful Interventions',
+      description: 'High success rate achieved. Consider expanding successful intervention patterns to more students.',
+    });
+  }
+
+  return recommendations;
 }
