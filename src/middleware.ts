@@ -39,6 +39,7 @@ const PUBLIC_PATHS = [
 // API paths that are public
 const PUBLIC_API_PATHS = [
   '/api/auth',
+  '/api/beta',
   '/api/webhooks',
   '/api/waitlist',
   '/api/status',

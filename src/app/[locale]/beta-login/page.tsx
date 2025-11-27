@@ -27,9 +27,8 @@ export default function BetaLoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [showTerms, setShowTerms] = useState(false);
-
-  // Valid beta codes (in production, this would be in a database)
-  const validBetaCodes = ['BETA2025', 'EDPSYCH-BETA', 'FOUNDER-ACCESS', 'EP-BETA-UK'];
+  const [_codeValidated, setCodeValidated] = useState(false);
+  const [_codeFeatures, setCodeFeatures] = useState<string[]>([]);
 
   // Helper to determine redirect path based on role
   const getRedirectPath = (userRole?: string) => {
@@ -64,12 +63,6 @@ export default function BetaLoginPage() {
       return;
     }
 
-    // Validate beta code
-    if (!validBetaCodes.includes(betaCode.toUpperCase())) {
-      setError('Invalid beta access code. Please contact the EdPsych Connect team.');
-      return;
-    }
-
     // Ensure terms accepted
     if (!acceptedTerms) {
       setError('Please accept the beta programme terms to continue.');
@@ -81,12 +74,42 @@ export default function BetaLoginPage() {
     logger.info('🔐 Starting beta login process');
 
     try {
+      // Validate beta code via API
+      const codeResponse = await fetch('/api/beta/validate-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: betaCode }),
+      });
+      
+      const codeResult = await codeResponse.json();
+      
+      if (!codeResult.valid) {
+        setError(codeResult.error || 'Invalid beta access code. Please contact the EdPsych Connect team.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Store validated code features
+      setCodeValidated(true);
+      if (codeResult.features) {
+        setCodeFeatures(codeResult.features);
+      }
+
+      // Now attempt login
       const success = await login(email, password, true);
 
       if (success) {
+        // Record beta code usage
+        await fetch('/api/beta/validate-code', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code: betaCode, email }),
+        });
+        
         // Store beta tester flag in localStorage
         localStorage.setItem('isBetaTester', 'true');
         localStorage.setItem('betaCode', betaCode.toUpperCase());
+        localStorage.setItem('betaFeatures', JSON.stringify(codeResult.features || []));
         localStorage.setItem('betaAcceptedAt', new Date().toISOString());
         
         logger.info('✅ Beta login successful, waiting for redirect...');
