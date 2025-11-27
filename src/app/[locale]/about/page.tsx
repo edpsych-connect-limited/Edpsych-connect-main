@@ -38,6 +38,7 @@ interface TeamMember {
   credentials?: string;
   bio?: string;
   isFounder?: boolean;
+  imagePosition?: string; // Custom object-position for image cropping
 }
 
 const teamMembers: TeamMember[] = [
@@ -48,36 +49,42 @@ const teamMembers: TeamMember[] = [
     credentials: 'DEdPsych CPsychol | HCPC: PYL042340',
     bio: 'Dr Scott founded and developed EdPsych Connect after a distinguished career in educational psychology. Following his First Class Honours in Psychology from Buckinghamshire New University, he trained at the University of Southampton where his doctoral research explored children\'s experiences of school sanctions through restorative justice. As Senior Educational Psychologist at Buckinghamshire Council, he created TEAM-UP (Termly Early Action Multi-Agency Unified Planning)—a pioneering multi-agency early intervention initiative. He resigned in 2023 to focus full-time on EdPsych Connect, combining his clinical expertise with self-taught software development skills.',
     isFounder: true,
+    imagePosition: 'center top',
   },
   {
     name: 'Samantha Patrick',
     role: 'Business Administration Manager',
     image: '/images/samantha-patrick.jpg',
     bio: 'Oversees all business operations, ensuring smooth day-to-day running of EdPsych Connect Limited.',
+    imagePosition: 'center 20%', // Show more of head
   },
   {
     name: 'Emmanuel Oyerinde',
     role: 'Chief Technical Officer',
     image: '/images/emmanuel-oyerinde.jpg',
     bio: 'Leads technical strategy and architecture, ensuring our platform maintains enterprise-grade security and performance.',
+    imagePosition: 'center 15%', // Show more of head, less chin
   },
   {
     name: 'George Randall',
     role: 'Quality Assurance',
     image: '/images/george-randall.jpg',
     bio: 'Ensures every feature meets our rigorous standards for reliability, accessibility, and user experience.',
+    imagePosition: 'center top',
   },
   {
     name: 'Louis Young',
     role: 'Business Development Manager',
     image: '/images/louis-young.jpg',
     bio: 'Drives partnerships with Local Authorities, Multi-Academy Trusts, and educational institutions across the UK.',
+    imagePosition: 'center 10%', // Slightly lower to show top of head
   },
   {
     name: 'Hannah I-Patrick',
     role: 'Assistant Psychologist',
     image: '/images/hannah-i-patrick.jpg',
     bio: 'Provides psychological support and contributes to assessment development and research initiatives.',
+    imagePosition: 'center 15%', // Show more of head, less chin
   },
 ];
 
@@ -403,7 +410,8 @@ export default function AboutPage() {
                         src={member.image}
                         alt={member.name}
                         fill
-                        className="object-cover object-top"
+                        className="object-cover"
+                        style={{ objectPosition: member.imagePosition || 'center top' }}
                         sizes={member.isFounder ? '(max-width: 768px) 100vw, 33vw' : '(max-width: 768px) 100vw, 33vw'}
                       />
                     </div>

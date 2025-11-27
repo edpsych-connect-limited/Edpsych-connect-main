@@ -139,7 +139,7 @@ export default function PricingTiers({ pricingData = [] }: PricingTiersProps) {
               </ul>
 
               <Link
-                href="/signup"
+                href="/beta-register"
                 className={`w-full py-3 rounded-xl font-bold text-center transition-colors ${
                   tier.highlight
                     ? 'bg-indigo-600 hover:bg-indigo-500 text-white'

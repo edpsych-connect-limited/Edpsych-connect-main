@@ -61,17 +61,17 @@ export default function HeroOrchestration() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Link 
-            href="/signup"
+            href="/beta-register"
             className="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/25"
           >
             Start Orchestrating
             <ArrowRight className="w-5 h-5" />
           </Link>
           <Link 
-            href="#features"
+            href="/about"
             className="w-full sm:w-auto px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold text-lg transition-all border border-slate-700"
           >
-            Explore the System
+            Learn More
           </Link>
         </motion.div>
 
