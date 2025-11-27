@@ -6672,7 +6672,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
   {
     id: 'positive-behaviour-support-plan',
     name: 'Functional Behaviour Assessment and Positive Behaviour Support Plan',
-    category: 'behavioral',
+    category: 'behavioural',
     subcategory: 'behavior_management',
     description: 'Comprehensive assessment of challenging behaviour to identify function, followed by individualised support plan with replacement behaviours, preventive strategies, and response protocols.',
     targeted_needs: ['Challenging behaviour', 'Aggression', 'Non-compliance', 'Self-injury', 'Disruptive classroom behaviour', 'Behaviours interfering with learning'],
@@ -6768,7 +6768,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
   {
     id: 'check-in-check-out',
     name: 'Check In/Check Out (CICO) Behaviour Support',
-    category: 'behavioral',
+    category: 'behavioural',
     subcategory: 'behavior_management',
     description: 'Tier 2 intervention where student checks in daily with assigned adult, carries point card to all lessons for immediate feedback, and checks out at end of day. Provides structure, increased positive interactions, and frequent feedback.',
     targeted_needs: ['Attention-seeking behaviour', 'Low-level disruptive behaviour', 'Lack of structure', 'Need for positive adult attention', 'ADHD'],
@@ -6866,7 +6866,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
   {
     id: 'zones-of-regulation',
     name: 'Zones of Regulation',
-    category: 'behavioral',
+    category: 'behavioural',
     subcategory: 'self_regulation',
     description: 'Framework for teaching self-regulation using four colored zones to categorize emotional and arousal states. Students learn to identify their zone, understand the zones are all okay, and use strategies to regulate.',
     targeted_needs: ['Poor emotional regulation', 'Difficulty identifying emotions', 'Frequent meltdowns', 'Autism', 'ADHD', 'Anxiety', 'Trauma impact'],
@@ -6959,7 +6959,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
   {
     id: 'cognitive-behavioural-therapy-children',
     name: 'Cognitive Behavioral Therapy (CBT) for Children and Adolescents',
-    category: 'behavioral',
+    category: 'behavioural',
     subcategory: 'emotional_regulation',
     description: 'Evidence-based therapeutic approach teaching students to identify unhelpful thoughts, challenge them, and develop healthier thinking patterns and coping strategies for anxiety, depression, and emotional difficulties.',
     targeted_needs: ['Anxiety', 'Depression', 'Negative thinking', 'Emotional difficulties', 'Low mood', 'Worry', 'OCD', 'Trauma responses'],
@@ -7061,7 +7061,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
   {
     id: 'mindfulness-based-stress-reduction-youth',
     name: 'Mindfulness-Based Stress Reduction for Children and Adolescents',
-    category: 'behavioral',
+    category: 'behavioural',
     subcategory: 'emotional_regulation',
     description: 'Teaching mindfulness meditation and present-moment awareness to reduce stress, improve focus, regulate emotions, and enhance wellbeing through body scan, breathing, and mindful awareness practices.',
     targeted_needs: ['Stress', 'Anxiety', 'Poor attention', 'Emotional dysregulation', 'Rumination', 'ADHD', 'Trauma'],
@@ -7164,7 +7164,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
   {
     id: 'trauma-informed-behaviour-support',
     name: 'Trauma-Informed Behaviour Support and Regulation',
-    category: 'behavioral',
+    category: 'behavioural',
     subcategory: 'trauma_support',
     description: 'Specialized approach recognizing impact of trauma on behaviour, focusing on safety, relationships, emotion regulation, and reducing triggers rather than traditional behavioural consequences.',
     targeted_needs: ['Trauma history', 'ACEs', 'Attachment difficulties', 'Dysregulation', 'Aggression', 'Avoidance', 'Hypervigilance', 'Looked-after children'],
@@ -7269,7 +7269,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
   {
     id: 'adhd-self-regulation-executive-function',
     name: 'ADHD Self-Regulation and Executive Function Support',
-    category: 'behavioral',
+    category: 'behavioural',
     subcategory: 'ADHD_support',
     description: 'Comprehensive support program for students with ADHD targeting self-regulation, organization, time management, attention, impulsivity, and executive function skills through environmental modifications, explicit teaching, and self-monitoring.',
     targeted_needs: ['ADHD', 'Inattention', 'Hyperactivity', 'Impulsivity', 'Poor organization', 'Time management difficulties', 'Executive function deficits'],
@@ -7375,7 +7375,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
   {
     id: 'autism-social-communication-support',
     name: 'Autism-Specific Social Communication and Sensory Support',
-    category: 'behavioral',
+    category: 'behavioural',
     subcategory: 'autism_support',
     description: 'Comprehensive autism support addressing social communication, sensory needs, routine/predictability, anxiety, and special interests. Autism-affirming, neurodiversity-informed approach.',
     targeted_needs: ['Autism', 'Social communication difficulties', 'Sensory processing difficulties', 'Anxiety', 'Need for routine', 'Special interests'],
@@ -7482,7 +7482,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
   {
     id: 'biological-basis-emotions-intervention',
     name: 'Affect Script Theory & Compass of Shame Intervention',
-    category: 'behavioral',
+    category: 'behavioural',
     subcategory: 'emotional_regulation',
     description: 'Comprehensive intervention based on Tomkins\' Affect Script Theory and Nathanson\'s Compass of Shame. Helps children and adults understand that emotions are automatic biological responses (affects) that form scripts (patterns), and provides strategies to break negative affect-behaviour loops and address shame responses.',
     targeted_needs: ['Emotional dysregulation', 'Shame-based behaviours', 'Aggressive outbursts', 'Withdrawal', 'Task avoidance', 'Perfectionism', 'Emotional reactivity', 'Trauma responses'],
@@ -7591,7 +7591,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
   {
     id: 'circle-of-friends-intervention',
     name: 'Circle of Friends - Peer Support for Isolated Children',
-    category: 'behavioral',
+    category: 'behavioural',
     subcategory: 'social_inclusion',
     description: 'Structured peer support intervention for socially isolated, rejected, or vulnerable children. Establishes a volunteer friendship circle (6-8 peers) who meet weekly to support the focus child\'s social inclusion, problem-solve challenges, and build genuine relationships. Based on humanistic psychology and social learning theory.',
     targeted_needs: ['Social isolation', 'Peer rejection', 'Loneliness', 'Bullying', 'Social communication difficulties', 'Autism', 'Newcomer adjustment', 'Low self-esteem'],
@@ -7701,7 +7701,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
   {
     id: 'precision-monitoring-direct-instruction',
     name: 'Precision Monitoring with Direct Instruction',
-    category: 'behavioral',
+    category: 'behavioural',
     subcategory: 'academic_progress_monitoring',
     description: 'Precision Monitoring is an ASSESSMENT tool (not a teaching method) using daily probes and ratio chart graphing to track fluency development. Combined with Direct Instruction (Model-Lead-Test) teaching approach. Based on Haring & Eaton\'s Learning Hierarchy: Acquisition → Fluency → Maintenance → Generalization → Adaptation. Provides data-driven decision-making for intervention effectiveness.',
     targeted_needs: ['Slow learning progress', 'Lack of fluency', 'Skill retention difficulties', 'Need for data-driven intervention', 'Dyslexia', 'Dyscalculia', 'Learning difficulties', 'Monitoring intervention effectiveness'],
@@ -7810,7 +7810,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
   {
     id: 'learning-hierarchy-skills-development',
     name: 'Learning Hierarchy of Skills Development (Haring & Eaton Framework)',
-    category: 'behavioral',
+    category: 'behavioural',
     subcategory: 'skill_development',
     description: 'Framework for understanding and teaching skill progression through five hierarchical stages: Acquisition (learning new skills), Fluency (building speed/automaticity), Maintenance (retaining over time), Generalization (applying across contexts), and Adaptation (modifying for novel situations). Used to inform teaching strategies, assessment focus, and intervention planning. Essential for matching instruction to learner\'s current stage.',
     targeted_needs: ['New skill learning', 'Slow skill acquisition', 'Lack of automaticity/fluency', 'Difficulty retaining learned skills', 'Failure to generalize skills', 'Inflexibility in skill application', 'Need for targeted teaching strategies', 'Learning difficulties', 'Dyslexia', 'Dyscalculia'],

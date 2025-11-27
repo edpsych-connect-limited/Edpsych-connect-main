@@ -681,7 +681,7 @@ function analyzeCompatibility(
     compatibility.push('Can be combined with reading fluency and comprehension interventions');
   }
 
-  if (intervention.category === 'behavioral') {
+  if (intervention.category === 'behavioural') {
     compatibility.push('Should be implemented alongside any academic interventions');
   }
 
@@ -751,7 +751,7 @@ function determineImplementationOrder(
     }
 
     // Behavioral/regulation before academic (can't learn if not regulated)
-    if (a.intervention.category === 'behavioral' || a.intervention.category === 'sensory') {
+    if (a.intervention.category === 'behavioural' || a.intervention.category === 'sensory') {
       return -1;
     }
 

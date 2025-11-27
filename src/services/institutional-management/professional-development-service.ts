@@ -472,9 +472,9 @@ export class ProfessionalDevelopmentService {
       const contentItemForContext: ContentItem = {
         ...item,
         tags,
-        imageUrl: item.image_url,
+        imageUrl: item.image_url || undefined,
         contentType: item.content_type,
-        authorId: item.authorId || undefined,
+        authorId: item.authorId ?? undefined,
         createdAt: item.created_at,
         updatedAt: item.updated_at,
         isPublic: item.is_public,
@@ -499,8 +499,8 @@ export class ProfessionalDevelopmentService {
         contentType: item.content_type,
         relevanceScore,
         tags,
-        url: item.url,
-        imageUrl: item.image_url,
+        url: item.url || '',
+        imageUrl: item.image_url || undefined,
         source: 'ai_recommendation'
       };
     });
