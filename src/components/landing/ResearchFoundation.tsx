@@ -14,8 +14,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BookOpen, Scale, ScrollText, University, ChevronDown, ChevronUp, ExternalLink, Award, Users, Heart, Briefcase } from 'lucide-react';
-import { FeatureSpotlightVideo } from '@/components/features/FeatureSpotlightVideo';
+import { BookOpen, Scale, ScrollText, University, ChevronDown, ChevronUp, ExternalLink, Users, Heart, Briefcase } from 'lucide-react';
 
 export default function ResearchFoundation() {
   const [expandedBio, setExpandedBio] = useState(false);
@@ -213,13 +212,6 @@ export default function ResearchFoundation() {
                 </div>
               </div>
             </div>
-
-            <FeatureSpotlightVideo
-              videoId="45319bf849d4421d82cf31f980da214b"
-              title="Data Autonomy & Trust"
-              description="Your data sovereignty is paramount. Learn how our BYOD architecture keeps you in control."
-              icon="security"
-            />
           </motion.div>
 
           {/* Right: The Frameworks */}

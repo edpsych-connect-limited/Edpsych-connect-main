@@ -56,7 +56,7 @@ const teamMembers: TeamMember[] = [
     role: 'Business Administration Manager',
     image: '/images/samantha-patrick.jpg',
     bio: 'Oversees all business operations, ensuring smooth day-to-day running of EdPsych Connect Limited.',
-    imagePosition: 'center 20%', // Show more of head
+    imagePosition: 'center 10%', // Show more of top of head
   },
   {
     name: 'Emmanuel Oyerinde',
@@ -77,14 +77,14 @@ const teamMembers: TeamMember[] = [
     role: 'Business Development Manager',
     image: '/images/louis-young.jpg',
     bio: 'Drives partnerships with Local Authorities, Multi-Academy Trusts, and educational institutions across the UK.',
-    imagePosition: 'center 10%', // Slightly lower to show top of head
+    imagePosition: 'center 5%', // Show top of head
   },
   {
     name: 'Hannah I-Patrick',
     role: 'Assistant Psychologist',
     image: '/images/hannah-i-patrick.jpg',
     bio: 'Provides psychological support and contributes to assessment development and research initiatives.',
-    imagePosition: 'center 15%', // Show more of head, less chin
+    imagePosition: 'center 10%', // Show more of head
   },
 ];
 
@@ -135,7 +135,7 @@ const milestones = [
   {
     year: '2023',
     title: 'EdPsych Connect Founded',
-    description: 'Dr Scott resigned from the NHS to focus full-time on building EdPsych Connect.',
+    description: 'Dr Scott resigned from Buckinghamshire Council to focus full-time on building EdPsych Connect.',
   },
   {
     year: '2024',
@@ -438,7 +438,7 @@ export default function AboutPage() {
                       <div className="mt-6 space-y-4">
                         <div className="flex flex-wrap gap-3">
                           <a
-                            href="https://www.researchgate.net/publication/337070376"
+                            href="https://www.researchgate.net/publication/369982171_What_Can_Children_and_Young_People_Tell_Us_About_School_Sanctions_and_Social_Relationships_An_Exploration_of_Exclusionary_and_Restorative_Justice_Practices"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-700 text-sm font-medium"
