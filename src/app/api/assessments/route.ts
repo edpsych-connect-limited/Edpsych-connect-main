@@ -14,6 +14,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
+import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
@@ -49,7 +50,7 @@ async function routeAssessmentRequest(request: NextRequest): Promise<NextRespons
 
     // GET /api/assessments or POST /api/assessments
     if (segments.length === 0) {
-      return handleListOrCreateAssessments(request);
+      return handleListOrCreateAssessments(request, session);
     }
 
     // Check for specific paths
@@ -65,7 +66,7 @@ async function routeAssessmentRequest(request: NextRequest): Promise<NextRespons
 
     // GET /api/assessments/[id]
     if (segments.length === 1 && !isNaN(Number(segments[0]))) {
-      return handleAssessmentById(request, segments[0]);
+      return handleAssessmentById(request, segments[0], session);
     }
 
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
@@ -75,36 +76,120 @@ async function routeAssessmentRequest(request: NextRequest): Promise<NextRespons
   }
 }
 
-async function handleListOrCreateAssessments(request: NextRequest): Promise<NextResponse> {
+async function handleListOrCreateAssessments(request: NextRequest, session: any): Promise<NextResponse> {
   if (request.method === 'GET') {
-    return NextResponse.json({
-      success: true,
-      assessments: [],
-      pagination: {
-        page: 1,
-        limit: 20,
-        totalCount: 0,
-        totalPages: 0,
-        hasNextPage: false,
-        hasPreviousPage: false,
-      },
-      total: 0,
-    });
+    try {
+      const assessments = await prisma.assessments.findMany({
+        where: {
+          tenant_id: session.tenantId,
+        },
+        include: {
+          cases: {
+            include: {
+              students: true
+            }
+          }
+        },
+        orderBy: {
+          created_at: 'desc'
+        }
+      });
+
+      return NextResponse.json({
+        success: true,
+        assessments,
+        pagination: {
+          page: 1,
+          limit: 20,
+          totalCount: assessments.length,
+          totalPages: 1,
+          hasNextPage: false,
+          hasPreviousPage: false,
+        },
+        total: assessments.length,
+      });
+    } catch (error) {
+      console.error('Error fetching assessments:', error);
+      return NextResponse.json({ error: 'Failed to fetch assessments' }, { status: 500 });
+    }
   }
-  return NextResponse.json({
-    success: true,
-    assessment: { id: 'new' },
-  }, { status: 201 });
+  
+  if (request.method === 'POST') {
+    try {
+      const body = await request.json();
+      const { case_id, assessment_type, status = 'pending' } = body;
+
+      if (!case_id || !assessment_type) {
+        return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+      }
+
+      const assessment = await prisma.assessments.create({
+        data: {
+          tenant_id: session.tenantId,
+          case_id: parseInt(case_id),
+          assessment_type,
+          status,
+          created_by: session.userId
+        }
+      });
+
+      return NextResponse.json({
+        success: true,
+        assessment,
+      }, { status: 201 });
+    } catch (error) {
+      console.error('Error creating assessment:', error);
+      return NextResponse.json({ error: 'Failed to create assessment' }, { status: 500 });
+    }
+  }
+  return NextResponse.json({ error: 'Method not allowed' }, { status: 405 });
 }
 
-async function handleAssessmentById(request: NextRequest, id: string): Promise<NextResponse> {
+async function handleAssessmentById(request: NextRequest, id: string, session: any): Promise<NextResponse> {
+  const assessmentId = parseInt(id);
+  
   if (request.method === 'GET') {
-    return NextResponse.json({ success: true, assessment: { id } });
+    const assessment = await prisma.assessments.findFirst({
+      where: {
+        id: assessmentId,
+        tenant_id: session.tenantId
+      },
+      include: {
+        cases: {
+          include: {
+            students: true
+          }
+        }
+      }
+    });
+
+    if (!assessment) {
+      return NextResponse.json({ error: 'Assessment not found' }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true, assessment });
   }
+  
   if (request.method === 'PUT') {
-    return NextResponse.json({ success: true, assessment: { id } });
+    const body = await request.json();
+    const assessment = await prisma.assessments.update({
+      where: {
+        id: assessmentId,
+      },
+      data: {
+        ...body,
+        updated_at: new Date()
+      }
+    });
+    return NextResponse.json({ success: true, assessment });
   }
+  
   if (request.method === 'DELETE') {
+    await prisma.assessments.delete({
+      where: {
+        id: assessmentId,
+      }
+    });
     return NextResponse.json({ success: true, message: `Assessment ${id} deleted` });
   }
   return NextResponse.json({ error: 'Method not allowed' }, { status: 405 });
