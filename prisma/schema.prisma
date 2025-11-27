@@ -215,6 +215,12 @@ model users {
   onboarding_completed_at DateTime?
   onboarding_skipped      Boolean   @default(false)
 
+  // Beta programme
+  beta_tester      Boolean   @default(false)
+  beta_code_used   String?
+  beta_joined_at   DateTime?
+  beta_feedback_count Int    @default(0)
+
   // Relations - Tenant
   tenants       tenants         @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
   ehcp_versions ehcp_versions[]
