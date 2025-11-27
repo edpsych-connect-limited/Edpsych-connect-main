@@ -30,7 +30,7 @@ const BetaRegistrationSchema = z.object({
 export async function POST(request: NextRequest) {
   // Rate limiting
   const clientIP = getClientIP(request);
-  const rateLimitResult = checkRateLimit(clientIP, RATE_LIMITS.BETA);
+  const rateLimitResult = checkRateLimit(clientIP, RATE_LIMITS.BETA_CODE);
 
   if (!rateLimitResult.allowed) {
     return NextResponse.json(
@@ -84,29 +84,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if code is active
-    if (!betaAccessCode.isActive) {
-      return NextResponse.json(
-        { success: false, error: 'This beta access code is no longer active' },
-        { status: 400 }
-      );
-    }
-
-    // Check usage limit
-    if (betaAccessCode.maxUses && betaAccessCode.usedCount >= betaAccessCode.maxUses) {
+    // Check usage limit (current_uses vs maxUses)
+    if (betaAccessCode.maxUses > 0 && betaAccessCode.current_uses >= betaAccessCode.maxUses) {
       return NextResponse.json(
         { success: false, error: 'This beta access code has reached its usage limit' },
         { status: 400 }
       );
     }
 
-    // Check role restriction
+    // Check role restriction (using the role field)
     const userRole = role || 'TEACHER';
-    if (betaAccessCode.roleRestriction && betaAccessCode.roleRestriction !== userRole) {
+    if (betaAccessCode.role && betaAccessCode.role !== 'Any' && betaAccessCode.role !== userRole) {
       return NextResponse.json(
         { 
           success: false, 
-          error: `This beta code is restricted to ${betaAccessCode.roleRestriction} accounts only` 
+          error: `This beta code is restricted to ${betaAccessCode.role} accounts only` 
         },
         { status: 400 }
       );
@@ -126,13 +118,12 @@ export async function POST(request: NextRequest) {
           name: 'Beta Programme',
           subdomain: 'beta',
           tenant_type: 'SCHOOL',
-          is_active: true,
           settings: {},
         },
       });
     }
 
-    // Create user
+    // Create user with beta metadata
     const user = await prisma.users.create({
       data: {
         email: email.toLowerCase(),
@@ -145,18 +136,7 @@ export async function POST(request: NextRequest) {
         is_active: true,
         isEmailVerified: false,
         onboarding_completed: false,
-        // Beta fields - will be added after migration
-        // beta_tester: true,
-        // beta_code_used: betaCode.toUpperCase(),
-        // beta_joined_at: new Date(),
         permissions: [],
-        metadata: {
-          registeredAt: new Date().toISOString(),
-          registrationSource: 'beta-registration',
-          betaCodeUsed: betaCode.toUpperCase(),
-          organizationName: organizationName || null,
-          isBetaTester: true,
-        },
       },
     });
 
@@ -164,19 +144,37 @@ export async function POST(request: NextRequest) {
     await prisma.betaAccessCode.update({
       where: { id: betaAccessCode.id },
       data: {
-        usedCount: { increment: 1 },
-        lastUsedAt: new Date(),
+        current_uses: { increment: 1 },
+        remainingUses: betaAccessCode.remainingUses > 0 ? { decrement: 1 } : undefined,
+        usedBy: email.toLowerCase(),
+        usedAt: new Date(),
+      },
+    });
+
+    // Log beta code usage
+    await prisma.betaAccessCodeUsage.create({
+      data: {
+        accessCodeId: betaAccessCode.id,
+        userId: user.id.toString(),
+        ipAddress: clientIP,
+        userAgent: request.headers.get('user-agent') || undefined,
+        metadata: {
+          email: email.toLowerCase(),
+          role: userRole,
+          organizationName: organizationName || null,
+        },
       },
     });
 
     // Log the registration
     await prisma.auditLog.create({
       data: {
-        userId: user.id,
-        tenantId: tenant.id,
+        userId: user.id.toString(),
+        tenant_id: tenant.id,
         action: 'BETA_REGISTRATION',
         resource: 'user',
-        resourceId: user.id.toString(),
+        entityType: 'user',
+        entityId: user.id.toString(),
         details: {
           betaCode: betaCode.toUpperCase(),
           role: userRole,
