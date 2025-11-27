@@ -34,146 +34,186 @@ async function routeOnboardingRequest(request: NextRequest): Promise<NextRespons
     const segments = pathname.split('/').filter(Boolean).slice(2);
     const action = segments[0];
 
-    const session = await authService.getSessionFromRequest(request);
+    console.log(`[Onboarding] Request: ${request.method} ${action}`);
+
+    let session;
+    try {
+      session = await authService.getSessionFromRequest(request);
+    } catch (authError) {
+      console.error('[Onboarding] Auth error:', authError);
+      return NextResponse.json({ error: 'Authentication failed' }, { status: 401 });
+    }
+
     if (!session) {
+      console.log('[Onboarding] No session found');
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     // Handle different session structures (auth-service vs login route token)
     let userId: number;
-    if (session.id && !isNaN(parseInt(session.id))) {
-      userId = parseInt(session.id);
-    } else if ((session as any).userId) {
-      userId = (session as any).userId;
-    } else {
-      return NextResponse.json({ error: 'Invalid session' }, { status: 401 });
+    try {
+      if (session.id && !isNaN(parseInt(session.id))) {
+        userId = parseInt(session.id);
+      } else if ((session as any).userId) {
+        userId = (session as any).userId;
+      } else {
+        console.error('[Onboarding] Invalid session structure:', session);
+        return NextResponse.json({ error: 'Invalid session' }, { status: 401 });
+      }
+    } catch (parseError) {
+      console.error('[Onboarding] ID parse error:', parseError);
+      return NextResponse.json({ error: 'Invalid user ID' }, { status: 400 });
     }
+
+    console.log(`[Onboarding] User ID: ${userId}, Action: ${action}`);
 
     switch (action) {
       case 'status':
-        return handleGetStatus(userId);
+        return await handleGetStatus(userId);
       case 'start':
-        return handleStart(userId);
+        return await handleStart(userId);
       case 'update-step':
-        return handleUpdateStep(request, userId);
+        return await handleUpdateStep(request, userId);
       case 'skip-step':
-        return handleSkipStep(request, userId);
+        return await handleSkipStep(request, userId);
       case 'restart':
-        return handleRestart(userId);
+        return await handleRestart(userId);
       case 'complete':
-        return handleComplete(request, userId);
+        return await handleComplete(request, userId);
       case 'skip-onboarding':
-        return handleSkipOnboarding(userId);
+        return await handleSkipOnboarding(userId);
       default:
         return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
   } catch (error) {
-    console.error('[Onboarding] Error:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console.error('[Onboarding] Unhandled Error:', error);
+    // Return JSON even for unhandled errors to prevent "Network error" on client
+    return NextResponse.json({ 
+      error: 'Internal server error', 
+      details: error instanceof Error ? error.message : String(error) 
+    }, { status: 500 });
   }
 }
 
 async function handleGetStatus(userId: number): Promise<NextResponse> {
-  const progress = await prisma.onboarding_progress.findUnique({
-    where: { user_id: userId },
-  });
-
-  const user = await prisma.users.findUnique({
-    where: { id: userId },
-    select: { 
-      onboarding_completed: true,
-      onboarding_skipped: true 
+  try {
+    // Verify DB connection first
+    try {
+      await prisma.$queryRaw`SELECT 1`;
+    } catch (dbError) {
+      console.error('[Onboarding] DB Connection failed:', dbError);
+      throw new Error('Database connection failed');
     }
-  });
 
-  if (!progress) {
+    const progress = await prisma.onboarding_progress.findUnique({
+      where: { user_id: userId },
+    });
+
+    const user = await prisma.users.findUnique({
+      where: { id: userId },
+      select: { 
+        onboarding_completed: true,
+        onboarding_skipped: true 
+      }
+    });
+
+    if (!user) {
+       console.error(`[Onboarding] User ${userId} not found in DB`);
+       return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    }
+
+    if (!progress) {
+      return NextResponse.json({
+        success: true,
+        data: {
+          userId,
+          onboardingCompleted: user?.onboarding_completed || false,
+          onboardingSkipped: user?.onboarding_skipped || false,
+          currentStep: 1,
+          stepsCompleted: [],
+          stepsSkipped: [],
+          progressPercentage: 0,
+          progress: {
+            step1: { completed: false, completedAt: null },
+            step2: { completed: false, completedAt: null, role: null },
+            step3: { completed: false, completedAt: null, photoUploaded: false, hcpcProvided: false, organizationProvided: false },
+            step4: { completed: false, completedAt: null, featuresViewed: [], demosTried: [] },
+            step5: { completed: false, completedAt: null, caseCreated: false, assessmentDone: false, goalSet: false },
+            step6: { completed: false, completedAt: null, certificateViewed: false, tourCompleted: false, callBooked: false },
+          },
+          totalTimeSpentSeconds: 0,
+          canResume: false,
+          timesRestarted: 0,
+        }
+      });
+    }
+
+    // Map database model to API response
+    const stepsCompleted: number[] = [];
+    if (progress.step_1_welcome_completed) stepsCompleted.push(1);
+    if (progress.step_2_role_selected) stepsCompleted.push(2); // Assuming selection means completion
+    if (progress.step_3_profile_completed) stepsCompleted.push(3);
+    if (progress.step_4_completed_at) stepsCompleted.push(4);
+    if (progress.step_5_completed_at) stepsCompleted.push(5);
+    if (progress.step_6_completed_at) stepsCompleted.push(6);
+
     return NextResponse.json({
       success: true,
       data: {
         userId,
         onboardingCompleted: user?.onboarding_completed || false,
         onboardingSkipped: user?.onboarding_skipped || false,
-        currentStep: 1,
-        stepsCompleted: [],
-        stepsSkipped: [],
-        progressPercentage: 0,
+        currentStep: progress.current_step,
+        stepsCompleted,
+        stepsSkipped: progress.steps_skipped,
+        progressPercentage: Math.round((stepsCompleted.length / 6) * 100),
         progress: {
-          step1: { completed: false, completedAt: null },
-          step2: { completed: false, completedAt: null, role: null },
-          step3: { completed: false, completedAt: null, photoUploaded: false, hcpcProvided: false, organizationProvided: false },
-          step4: { completed: false, completedAt: null, featuresViewed: [], demosTried: [] },
-          step5: { completed: false, completedAt: null, caseCreated: false, assessmentDone: false, goalSet: false },
-          step6: { completed: false, completedAt: null, certificateViewed: false, tourCompleted: false, callBooked: false },
+          step1: { 
+            completed: progress.step_1_welcome_completed, 
+            completedAt: progress.step_1_completed_at?.toISOString() || null 
+          },
+          step2: { 
+            completed: !!progress.step_2_role_selected, 
+            completedAt: progress.step_2_completed_at?.toISOString() || null,
+            role: progress.step_2_role_selected 
+          },
+          step3: { 
+            completed: progress.step_3_profile_completed, 
+            completedAt: progress.step_3_completed_at?.toISOString() || null,
+            photoUploaded: progress.step_3_photo_uploaded,
+            hcpcProvided: progress.step_3_hcpc_provided,
+            organizationProvided: progress.step_3_organization_provided
+          },
+          step4: { 
+            completed: !!progress.step_4_completed_at, 
+            completedAt: progress.step_4_completed_at?.toISOString() || null,
+            featuresViewed: progress.step_4_features_viewed,
+            demosTried: progress.step_4_demos_tried
+          },
+          step5: { 
+            completed: !!progress.step_5_completed_at, 
+            completedAt: progress.step_5_completed_at?.toISOString() || null,
+            caseCreated: progress.step_5_first_case_created,
+            assessmentDone: progress.step_5_first_assessment_done,
+            goalSet: progress.step_5_first_goal_set
+          },
+          step6: { 
+            completed: !!progress.step_6_completed_at, 
+            completedAt: progress.step_6_completed_at?.toISOString() || null,
+            certificateViewed: progress.step_6_certificate_viewed,
+            tourCompleted: progress.step_6_tour_completed,
+            callBooked: progress.step_6_call_booked
+          },
         },
-        totalTimeSpentSeconds: 0,
-        canResume: false,
-        timesRestarted: 0,
+        totalTimeSpentSeconds: progress.total_time_spent_seconds,
+        canResume: true,
+        timesRestarted: progress.times_restarted,
       }
     });
+  } catch (error) {
+    console.error('[Onboarding] handleGetStatus error:', error);
+    throw error; // Re-throw to be caught by main handler
   }
-
-  // Map database model to API response
-  const stepsCompleted: number[] = [];
-  if (progress.step_1_welcome_completed) stepsCompleted.push(1);
-  if (progress.step_2_role_selected) stepsCompleted.push(2); // Assuming selection means completion
-  if (progress.step_3_profile_completed) stepsCompleted.push(3);
-  if (progress.step_4_completed_at) stepsCompleted.push(4);
-  if (progress.step_5_completed_at) stepsCompleted.push(5);
-  if (progress.step_6_completed_at) stepsCompleted.push(6);
-
-  return NextResponse.json({
-    success: true,
-    data: {
-      userId,
-      onboardingCompleted: user?.onboarding_completed || false,
-      onboardingSkipped: user?.onboarding_skipped || false,
-      currentStep: progress.current_step,
-      stepsCompleted,
-      stepsSkipped: progress.steps_skipped,
-      progressPercentage: Math.round((stepsCompleted.length / 6) * 100),
-      progress: {
-        step1: { 
-          completed: progress.step_1_welcome_completed, 
-          completedAt: progress.step_1_completed_at?.toISOString() || null 
-        },
-        step2: { 
-          completed: !!progress.step_2_role_selected, 
-          completedAt: progress.step_2_completed_at?.toISOString() || null,
-          role: progress.step_2_role_selected 
-        },
-        step3: { 
-          completed: progress.step_3_profile_completed, 
-          completedAt: progress.step_3_completed_at?.toISOString() || null,
-          photoUploaded: progress.step_3_photo_uploaded,
-          hcpcProvided: progress.step_3_hcpc_provided,
-          organizationProvided: progress.step_3_organization_provided
-        },
-        step4: { 
-          completed: !!progress.step_4_completed_at, 
-          completedAt: progress.step_4_completed_at?.toISOString() || null,
-          featuresViewed: progress.step_4_features_viewed,
-          demosTried: progress.step_4_demos_tried
-        },
-        step5: { 
-          completed: !!progress.step_5_completed_at, 
-          completedAt: progress.step_5_completed_at?.toISOString() || null,
-          caseCreated: progress.step_5_first_case_created,
-          assessmentDone: progress.step_5_first_assessment_done,
-          goalSet: progress.step_5_first_goal_set
-        },
-        step6: { 
-          completed: !!progress.step_6_completed_at, 
-          completedAt: progress.step_6_completed_at?.toISOString() || null,
-          certificateViewed: progress.step_6_certificate_viewed,
-          tourCompleted: progress.step_6_tour_completed,
-          callBooked: progress.step_6_call_booked
-        },
-      },
-      totalTimeSpentSeconds: progress.total_time_spent_seconds,
-      canResume: true,
-      timesRestarted: progress.times_restarted,
-    }
-  });
 }
 
 async function handleStart(userId: number): Promise<NextResponse> {
