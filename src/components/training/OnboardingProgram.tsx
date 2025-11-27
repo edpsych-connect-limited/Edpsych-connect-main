@@ -67,7 +67,7 @@ const OnboardingProgram: React.FC = () => {
           {
             id: 'dept-management',
             title: 'Department Management',
-            description: 'Create, edit, and organize departments within your institution',
+            description: 'Create, edit, and organise departments within your institution',
             category: 'beginner',
             duration: 12,
             format: 'interactive',
@@ -164,18 +164,18 @@ const OnboardingProgram: React.FC = () => {
       {
         id: 'content-management',
         name: 'Content Management',
-        description: 'Organize and share educational resources within your institution',
+        description: 'Organise and share educational resources within your institution',
         icon: 'folder-open',
         tutorials: [
           {
             id: 'content-basics',
             title: 'Content Management Basics',
-            description: 'Learn how to upload, organize, and share content',
+            description: 'Learn how to upload, organise, and share content',
             category: 'beginner',
             duration: 10,
             format: 'guide',
             thumbnailUrl: '/assets/training/content-basics.jpg',
-            tags: ['upload', 'organize', 'share'],
+            tags: ['upload', 'organise', 'share'],
             url: '/training/content-management/basics',
           },
           {
@@ -186,7 +186,7 @@ const OnboardingProgram: React.FC = () => {
             duration: 15,
             format: 'interactive',
             thumbnailUrl: '/assets/training/tagging-categorization.jpg',
-            tags: ['tags', 'categories', 'organization'],
+            tags: ['tags', 'categories', 'organisation'],
             url: '/training/content-management/tagging',
           },
         ]

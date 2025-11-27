@@ -99,7 +99,7 @@ const PerformanceMetrics: React.FC<PerformanceMetricsProps> = ({ metrics }) => {
       {/* Benchmark Comparison */}
       <div className="bg-white p-5 rounded shadow">
         <h3 className="text-lg font-semibold mb-4">Benchmark Comparison</h3>
-        <p className="text-sm text-gray-600 mb-4">How your institution compares to similar organizations</p>
+        <p className="text-sm text-gray-600 mb-4">How your institution compares to similar organisations</p>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart
             data={benchmarkData}

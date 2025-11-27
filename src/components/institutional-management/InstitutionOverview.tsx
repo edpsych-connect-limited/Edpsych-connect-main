@@ -278,7 +278,7 @@ const InstitutionOverview: React.FC<InstitutionOverviewProps> = ({ institution }
                 <option value="College">College</option>
                 <option value="University">University</option>
                 <option value="Research Institution">Research Institution</option>
-                <option value="Educational Organization">Educational Organization</option>
+                <option value="Educational Organisation">Educational Organisation</option>
                 <option value="Other">Other</option>
               </select>
             </div>

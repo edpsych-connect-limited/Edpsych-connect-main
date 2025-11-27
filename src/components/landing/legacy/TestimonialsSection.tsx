@@ -10,20 +10,20 @@ import React from 'react';
 
 const testimonials = [
   {
-    name: 'Sarah Mitchell',
-    role: 'Year 6 Teacher, Birmingham Primary',
+    name: 'Year 6 Teacher',
+    role: 'Primary School, West Midlands',
     quote:
       'I used to spend 12 hours every weekend planning differentiated lessons. Now the platform does it automatically, and I actually spend Sundays with my family.',
   },
   {
-    name: 'James Thompson',
-    role: 'SENCO, Manchester Academy',
+    name: 'SENCO',
+    role: 'Secondary Academy, North West',
     quote:
-      'The platform automatically builds profiles as students work. No more hunting through files wondering why a child is struggling - I just ask "How is Amara doing?" and get instant answers.',
+      'The platform automatically builds profiles as students work. No more hunting through files wondering why a child is struggling - I just ask "How is this student doing?" and get instant answers.',
   },
   {
-    name: 'Dr. Priya Patel',
-    role: 'Educational Psychologist, Leeds LA',
+    name: 'Educational Psychologist',
+    role: 'Local Authority EP Service',
     quote:
       'Multi-agency collaboration went from nightmare to seamless. Teachers, parents, and I all see exactly what we need. Parents finally understand their child\'s progress without jargon.',
   },
@@ -37,7 +37,7 @@ export default function TestimonialsSection() {
           Teachers Getting Their Time Back
         </h2>
         <p className="text-lg text-slate-600 mb-12">
-          Real educators sharing how the platform transformed their workload
+          Voices from the frontline of UK education*
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((t, i) => (

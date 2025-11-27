@@ -252,7 +252,7 @@ const ProfessionalNetwork: React.FC = () => {
             location: 'Manchester University',
             isVirtual: false,
             organizerId: 'prof-4',
-            organizerName: 'Prof. David Chen',
+            organizerName: 'EdPsych Connect Training Team',
             attendeeCount: 75,
             isAttending: false,
             category: 'Workshop',

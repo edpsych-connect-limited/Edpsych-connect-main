@@ -515,7 +515,7 @@ function FidelityTab({ intervention }: { intervention: Intervention }) {
       <div className="bg-yellow-50 rounded-lg p-6">
         <h3 className="font-semibold text-yellow-900 mb-2">Implementation Fidelity</h3>
         <p className="text-yellow-800">
-          Regular fidelity checks ensure the intervention is delivered as designed, maximizing effectiveness.
+          Regular fidelity checks ensure the intervention is delivered as designed, maximising effectiveness.
         </p>
         {intervention.fidelity_monitoring_frequency && (
           <p className="text-sm text-yellow-700 mt-2">

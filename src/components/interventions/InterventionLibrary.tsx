@@ -749,7 +749,7 @@ const EVIDENCE_BASED_INTERVENTIONS: Intervention[] = [
     target_population: ['Executive function difficulties', 'Ages 8-16'],
     expected_outcomes: [
       'Improved task completion (ES 0.57)',
-      'Better organization',
+      'Better organisation',
       'Enhanced independent learning',
     ],
     implementation_difficulty: 'low',

@@ -144,7 +144,7 @@ export function SupportChatbot() {
           <button 
             onClick={(e) => { e.stopPropagation(); setIsMinimized(!isMinimized); }}
             className="hover:text-blue-200"
-            aria-label={isMinimized ? "Maximize chat" : "Minimize chat"}
+            aria-label={isMinimized ? "Maximise chat" : "Minimise chat"}
           >
             {isMinimized ? <Maximize2 className="w-4 h-4" /> : <Minimize2 className="w-4 h-4" />}
           </button>
