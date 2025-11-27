@@ -214,7 +214,7 @@ export class RecommendationService {
             { description: { contains: interest.topic, mode: 'insensitive' } }
           ],
           NOT: {
-            Recommendation: {
+            recommendations: {
               some: { userId: parseInt(id) }
             }
           }

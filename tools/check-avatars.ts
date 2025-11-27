@@ -22,15 +22,15 @@ async function listAvatars() {
     if (data.data && data.data.avatars) {
         console.log(`Found ${data.data.avatars.length} avatars.`);
         // Filter for potential custom avatars (often don't have 'public' in the name, or we can just list names)
-        const customAvatars = data.data.avatars.filter(a => !a.avatar_id.includes('public'));
+        const customAvatars = data.data.avatars.filter((a: {avatar_id: string}) => !a.avatar_id.includes('public'));
         
         console.log('\n--- Potential Custom Avatars ---');
-        customAvatars.forEach(a => {
+        customAvatars.forEach((a: {avatar_name: string; avatar_id: string; gender: string}) => {
             console.log(`Name: ${a.avatar_name}, ID: ${a.avatar_id}, Gender: ${a.gender}`);
         });
 
         console.log('\n--- First 10 Avatars (All) ---');
-        data.data.avatars.slice(0, 10).forEach(a => {
+        data.data.avatars.slice(0, 10).forEach((a: {avatar_name: string; avatar_id: string}) => {
              console.log(`Name: ${a.avatar_name}, ID: ${a.avatar_id}`);
         });
     } else {

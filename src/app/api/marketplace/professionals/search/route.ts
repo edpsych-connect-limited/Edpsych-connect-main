@@ -96,11 +96,6 @@ export async function GET(request: NextRequest) {
             select: {
               id: true,
               name: true,
-              compliance: {
-                select: {
-                  verificationStatus: true
-                }
-              }
             },
           },
           _count: {

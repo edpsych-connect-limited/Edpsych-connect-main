@@ -5,7 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
@@ -76,23 +76,23 @@ export async function GET(request: NextRequest) {
     ]);
 
     // Calculate incident stats
-    const incidentsByStatus = allIncidents.reduce((acc, incident) => {
+    const incidentsByStatus = allIncidents.reduce((acc: Record<string, number>, incident) => {
       acc[incident.status] = (acc[incident.status] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-    const incidentsBySeverity = allIncidents.reduce((acc, incident) => {
+    const incidentsBySeverity = allIncidents.reduce((acc: Record<string, number>, incident) => {
       acc[incident.severity] = (acc[incident.severity] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
     // Calculate assessment stats
-    const assessmentsByStatus = allAssessments.reduce((acc, assessment) => {
+    const assessmentsByStatus = allAssessments.reduce((acc: Record<string, number>, assessment) => {
       acc[assessment.status] = (acc[assessment.status] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-    const assessmentsByComponent = allAssessments.reduce((acc, assessment) => {
+    const assessmentsByComponent = allAssessments.reduce((acc: Record<string, number>, assessment) => {
       acc[assessment.componentType] = (acc[assessment.componentType] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
@@ -101,7 +101,7 @@ export async function GET(request: NextRequest) {
     const resolvedIncidents = allIncidents.filter(i => i.resolvedAt);
     let averageResolutionTime = 0;
     if (resolvedIncidents.length > 0) {
-      const totalTime = resolvedIncidents.reduce((sum, incident) => {
+      const totalTime = resolvedIncidents.reduce((sum: number, incident) => {
         const duration = incident.resolvedAt!.getTime() - incident.detectedAt.getTime();
         return sum + duration;
       }, 0);

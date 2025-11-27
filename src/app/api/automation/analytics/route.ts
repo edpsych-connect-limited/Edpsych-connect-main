@@ -5,7 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
@@ -70,13 +70,13 @@ export async function GET(request: NextRequest) {
       : 0;
 
     const avgLatency = analyticsEvents.length > 0
-      ? analyticsEvents.reduce((sum, e) => sum + (e.latencyMs || 0), 0) / analyticsEvents.length
+      ? analyticsEvents.reduce((sum: number, e) => sum + (e.latencyMs || 0), 0) / analyticsEvents.length
       : 0;
 
-    const totalCost = analyticsEvents.reduce((sum, e) => sum + (e.cost || 0), 0);
+    const totalCost = analyticsEvents.reduce((sum: number, e) => sum + (e.cost || 0), 0);
 
     // Group analytics events by type
-    const eventsByType = analyticsEvents.reduce((acc, event) => {
+    const eventsByType = analyticsEvents.reduce((acc: Record<string, number>, event) => {
       acc[event.eventType] = (acc[event.eventType] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);

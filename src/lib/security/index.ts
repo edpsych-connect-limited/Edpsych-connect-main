@@ -13,10 +13,12 @@ export {
   validateRequestOrigin,
   embedWatermark,
   getSecurityHeaders,
-  logSecurityViolation,
-  type SecurityViolation,
-  type WatermarkData,
-  type IPProtectionConfig,
+  logIPViolation,
+  generateInstanceFingerprint,
+  validateLicense,
+  verifyDeployment,
+  protectApiResponse,
+  getViolationLogs,
 } from './ip-protection';
 
 // Legal Notice - Copyright, attribution, contact info

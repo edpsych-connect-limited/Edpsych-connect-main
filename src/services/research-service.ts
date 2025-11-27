@@ -498,7 +498,7 @@ export class ResearchService {
 
   // Helper methods
   private async logDataAccess(log: DataAccessLog, tenantId: number): Promise<void> {
-    await prisma.audit_logs.create({
+    await prisma.auditLog.create({
       data: {
         tenant_id: tenantId,
         userId: log.researcherId,
@@ -532,7 +532,7 @@ export class ResearchService {
    * Get research data access audit trail
    */
   async getDataAccessAuditTrail(studyId?: string): Promise<DataAccessLog[]> {
-    const logs = await prisma.audit_logs.findMany({
+    const logs = await prisma.auditLog.findMany({
       where: {
         resource: 'RESEARCH_DATA',
         description: studyId ? { contains: studyId } : undefined
@@ -541,12 +541,12 @@ export class ResearchService {
       take: 1000
     });
 
-    return logs.map(log => ({
+    return logs.map((log: typeof logs[number]) => ({
       timestamp: log.timestamp,
       researcherId: log.userId || 'unknown',
       description: log.description || '',
-      purpose: (log.details as any)?.purpose || '',
-      ipAddress: (log.details as any)?.ip || ''
+      purpose: (log.details as Record<string, unknown>)?.purpose as string || '',
+      ipAddress: (log.details as Record<string, unknown>)?.ip as string || ''
     }));
   }
 

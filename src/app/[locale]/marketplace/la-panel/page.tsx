@@ -54,8 +54,8 @@ export default function LAAPanelPage() {
   }
 
   const stats = data?.stats || [];
-  const recentApplications = data?.recentApplications || [];
-  const timelineCases = data?.timelineCases || [];
+  const recentApplications: Array<{id: string; name: string; type: string; date: string; status: string}> = data?.recentApplications || [];
+  const timelineCases: Array<{id: string; student: string; school: string; week: number; risk: string; status: string; deadline: string}> = data?.timelineCases || [];
 
   // Map icon strings back to components
   const iconMap: any = {

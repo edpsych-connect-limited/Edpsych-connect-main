@@ -5,7 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
@@ -142,7 +142,7 @@ export async function GET(request: NextRequest) {
     // Calculate average impact from effectiveness events
     let avgImpact = 0;
     if (effectivenessEvents.length > 0) {
-      const totalImpact = effectivenessEvents.reduce((sum, event) => {
+      const totalImpact = effectivenessEvents.reduce((sum: number, event) => {
         const metadata = event.metadata as { impact?: number } | null;
         return sum + (metadata?.impact || 0);
       }, 0);

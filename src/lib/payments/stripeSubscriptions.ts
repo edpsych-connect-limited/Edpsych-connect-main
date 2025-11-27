@@ -7,8 +7,9 @@
  */
 
 import Stripe from 'stripe';
-import { SubscriptionTier } from '@/lib/featureGate';
-// import { TIER_DEFINITIONS } from '@/lib/featureGate';
+
+// Local subscription tier type for Stripe integration
+type StripeTier = 'FREE' | 'BASIC' | 'PROFESSIONAL' | 'ENTERPRISE';
 
 // Initialize Stripe
 // Note: In a real app, you should ensure STRIPE_SECRET_KEY is set
@@ -91,9 +92,9 @@ export async function createPortalSession(customerId: string, returnUrl: string)
   });
 }
 
-// Map Stripe Price ID to SubscriptionTier
+// Map Stripe Price ID to StripeTier
 // These should match what's configured in Stripe
-export const PRICE_TIER_MAP: Record<string, SubscriptionTier> = {
+export const PRICE_TIER_MAP: Record<string, StripeTier> = {
   // Environment variable-based price IDs
   [process.env.STRIPE_PRICE_FREE || 'price_free']: 'FREE',
   [process.env.STRIPE_PRICE_BASIC || 'price_basic']: 'BASIC',
@@ -105,7 +106,7 @@ export const PRICE_TIER_MAP: Record<string, SubscriptionTier> = {
  * Get subscription tier from Stripe price ID
  * Looks up in environment-configured map first, then attempts to fetch from Stripe metadata
  */
-export async function getTierFromPriceId(priceId: string): Promise<SubscriptionTier | null> {
+export async function getTierFromPriceId(priceId: string): Promise<StripeTier | null> {
   // First check the static map
   if (PRICE_TIER_MAP[priceId]) {
     return PRICE_TIER_MAP[priceId];
@@ -120,13 +121,13 @@ export async function getTierFromPriceId(priceId: string): Promise<SubscriptionT
       
       // Check price metadata for tier
       if (price.metadata?.tier) {
-        return price.metadata.tier as SubscriptionTier;
+        return price.metadata.tier as StripeTier;
       }
       
       // Check product metadata for tier
       const product = price.product as Stripe.Product;
       if (product?.metadata?.tier) {
-        return product.metadata.tier as SubscriptionTier;
+        return product.metadata.tier as StripeTier;
       }
       
       // Try to infer from product name

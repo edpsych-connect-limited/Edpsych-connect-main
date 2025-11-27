@@ -474,11 +474,11 @@ export class ProfessionalDevelopmentService {
         tags,
         imageUrl: item.image_url,
         contentType: item.content_type,
-        authorId: item.author_id,
+        authorId: item.authorId || undefined,
         createdAt: item.created_at,
         updatedAt: item.updated_at,
         isPublic: item.is_public,
-        metadata: item.metadata ? JSON.parse(item.metadata) : {}
+        metadata: item.metadata ? JSON.parse(item.metadata as string) : {}
       };
 
       const institutionalRelevance = institutionalContext
@@ -495,7 +495,7 @@ export class ProfessionalDevelopmentService {
       return {
         id: item.id,
         title: item.title,
-        description: item.description,
+        description: item.description || '',
         contentType: item.content_type,
         relevanceScore,
         tags,

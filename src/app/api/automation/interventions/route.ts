@@ -122,7 +122,7 @@ export async function GET(request: NextRequest) {
         status: i.outcome_success ? 'completed' : 'scheduled',
         scheduledFor: (i.action_data as any).scheduledFor || i.created_at.toISOString(),
         createdAt: i.created_at.toISOString(),
-        deliveredAt: i.outcome_success ? i.updated_at?.toISOString() : undefined,
+        deliveredAt: i.outcome_success ? i.created_at.toISOString() : undefined,
         effectiveness: (i.outcome_data as any)?.effectiveness
     }));
 

@@ -73,9 +73,9 @@ interface UseSubscriptionReturn {
   hasAccess: (featureKey: string) => boolean;
 
   /**
-   * Get all features available to the user
+   * Get all features available to the user (feature keys)
    */
-  availableFeatures: FeatureConfig[];
+  availableFeatures: string[];
 
   /**
    * Current capacity status for usage limits
