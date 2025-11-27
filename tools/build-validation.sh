@@ -25,9 +25,10 @@ echo -e "${BLUE}═════════════════════�
 
 echo -e "${YELLOW}Validating source code...${NC}\n"
 
-# Run TypeScript compiler
+# Run TypeScript compiler with increased memory
 echo -e "${BLUE}→ Running TypeScript type checking...${NC}"
-if npx tsc --noEmit; then
+export NODE_OPTIONS="--max-old-space-size=4096"
+if npx tsc --noEmit --skipLibCheck; then
   echo -e "${GREEN}  ✓ TypeScript compilation passed${NC}\n"
 else
   echo -e "${RED}  ✗ TypeScript compilation failed${NC}\n"

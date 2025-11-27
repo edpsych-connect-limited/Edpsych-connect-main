@@ -425,21 +425,11 @@ export async function POST(
             },
           });
 
-          // TODO: Feature not yet implemented - due_date field doesn't exist in StudentLessonAssignment model
-          return NextResponse.json({
-            error: 'Deadline extension not yet supported. Add due_date field to StudentLessonAssignment model.'
-          }, { status: 501 });
-
-          // Unreachable code below - removed to fix TypeScript errors
-          // const currentDueDate = new Date(null);
-          // const newDueDate = new Date(currentDueDate.getTime() + parameters.daysToExtend * 24 * 60 * 60 * 1000);
-          // updatedData = await prisma.studentLessonAssignment.update({
-          //   where: { id: targetId },
-          //   data: { due_date: newDueDate },
-          // });
-          // message = `Extended deadline by ${parameters.daysToExtend} days for ${studentName}'s ${lesson.lesson_plan.title}`;
-          // confirmationSpoken = `Deadline extended by ${parameters.daysToExtend} days`;
-          // nextSuggestions.push(`Notify parent of extension`);
+          // Feature requires due_date field in StudentLessonAssignment model
+          // For now, return a helpful message that this feature is coming soon
+          message = `Deadline extension feature is coming soon. Please manually adjust deadlines for ${studentName} in the lesson management screen.`;
+          confirmationSpoken = `Deadline extension is not yet available. Please use the lesson management screen.`;
+          nextSuggestions.push('Open lesson management', 'View student assignments');
         }
         break;
 
