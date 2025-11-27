@@ -95,13 +95,13 @@ export default function CaseDetailPage({ params }: CaseDetailProps) {
           consent_date: '2025-09-20',
           safeguarding_concerns: false,
           metadata: {
-            // Demo data for demonstration purposes - real data will be populated from database
+            // Sample data for demonstration - real data populated from database
             parent_carers: [
-              { name: '[Demo] Parent Contact', role: 'Mother', contact: 'demo@example.test', relationship: 'Parent' },
+              { name: 'Sarah Smith', role: 'Mother', contact: 'parent@example.com', relationship: 'Parent' },
             ],
             school_staff: [
-              { name: '[Demo] Class Teacher', role: 'Class Teacher', contact: 'demo@school.test', relationship: 'Class Teacher' },
-              { name: '[Demo] SENCO', role: 'SENCO', contact: 'demo@school.test', relationship: 'SENCO' },
+              { name: 'Miss Johnson', role: 'Class Teacher', contact: 'teacher@school.edu', relationship: 'Class Teacher' },
+              { name: 'Mrs Williams', role: 'SENCO', contact: 'senco@school.edu', relationship: 'SENCO' },
             ],
           },
           created_at: '2025-09-15T10:00:00Z',
@@ -110,7 +110,7 @@ export default function CaseDetailPage({ params }: CaseDetailProps) {
             {
               id: 1,
               content: 'Initial consultation with class teacher completed.',
-              author: '[Demo] EP Note',
+              author: 'Dr Scott I-Patrick',
               created_at: '2025-09-16T14:00:00Z'
             }
           ]
