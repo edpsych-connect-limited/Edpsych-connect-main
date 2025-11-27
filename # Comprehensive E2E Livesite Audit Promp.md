@@ -710,10 +710,10 @@ If build fails, check:
 ### LP-001: Test Coverage
 | Task | Status | Notes |
 |------|--------|-------|
-| ⬜ Add unit tests for critical utils | Not Started | Auth, validation |
-| ⬜ Add E2E tests for login flow | Not Started | Cypress |
+| ⬜ Add unit tests for critical utils | Not Started | Auth, validation (Vitest setup blocked by WSL) |
+| ✅ Add E2E tests for login flow | Complete | `cypress/e2e/auth.cy.ts` created (commit d69508a) |
 | ⬜ Reach 60% coverage | Not Started | Currently ~30% |
-| ⬜ **Sign-off** | Not Started | Coverage report |
+| 🔄 **Sign-off** | Partial | E2E tests complete, unit tests pending |
 
 ### LP-002: Documentation Updates
 | Task | Status | Notes |
