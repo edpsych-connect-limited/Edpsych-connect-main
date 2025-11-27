@@ -417,16 +417,50 @@ export default function AboutPage() {
                       </p>
                     )}
                     {member.isFounder && (
-                      <div className="mt-6 flex flex-wrap gap-3">
-                        <a
-                          href="https://www.researchgate.net/publication/337070376"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-700 text-sm font-medium"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                          Doctoral Thesis on ResearchGate
-                        </a>
+                      <div className="mt-6 space-y-4">
+                        <div className="flex flex-wrap gap-3">
+                          <a
+                            href="https://www.researchgate.net/publication/337070376"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-700 text-sm font-medium"
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                            Doctoral Thesis on ResearchGate
+                          </a>
+                        </div>
+                        <div className="bg-indigo-50 rounded-lg p-4 border border-indigo-100">
+                          <h4 className="font-semibold text-slate-900 mb-2">Available for Speaking & Consulting</h4>
+                          <p className="text-slate-600 text-sm mb-3">
+                            Dr Scott is available for keynote speeches, workshops, and consulting engagements 
+                            on topics including AI in education, SEND assessment, restorative practices, and 
+                            educational technology innovation.
+                          </p>
+                          <div className="flex flex-wrap gap-2 mb-3">
+                            <span className="px-2 py-1 bg-white rounded text-xs text-slate-600 border border-slate-200">
+                              AI in Education
+                            </span>
+                            <span className="px-2 py-1 bg-white rounded text-xs text-slate-600 border border-slate-200">
+                              SEND Assessment
+                            </span>
+                            <span className="px-2 py-1 bg-white rounded text-xs text-slate-600 border border-slate-200">
+                              Restorative Practice
+                            </span>
+                            <span className="px-2 py-1 bg-white rounded text-xs text-slate-600 border border-slate-200">
+                              EdTech Innovation
+                            </span>
+                            <span className="px-2 py-1 bg-white rounded text-xs text-slate-600 border border-slate-200">
+                              TEAM-UP Model
+                            </span>
+                          </div>
+                          <a
+                            href="mailto:speaking@edpsychconnect.com"
+                            className="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-700 text-sm font-medium"
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                            Enquire about speaking engagements
+                          </a>
+                        </div>
                       </div>
                     )}
                   </div>

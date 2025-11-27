@@ -137,7 +137,7 @@ export default function LoginPage() {
 
           {/* Error Message */}
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-md">
+            <div id="login-error" className="mb-6 p-4 bg-red-50 border border-red-200 rounded-md" role="alert" aria-live="polite">
               <div className="flex items-start">
                 <div className="text-red-600 mr-3">⚠️</div>
                 <div>
@@ -148,7 +148,7 @@ export default function LoginPage() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6" aria-describedby={error ? "login-error" : undefined}>
             {/* Email Field */}
             <div>
               <label 
@@ -166,9 +166,12 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isSubmitting}
+                aria-describedby="email-hint"
+                aria-invalid={error ? true : false}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed transition-colors"
                 placeholder="scott@edpsychconnect.com"
               />
+              <p id="email-hint" className="sr-only">Enter your registered email address</p>
             </div>
 
             {/* Password Field */}
@@ -189,9 +192,12 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={isSubmitting}
                 enterKeyHint="go"
+                aria-describedby="password-hint"
+                aria-invalid={error ? true : false}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed transition-colors"
                 placeholder="••••••••"
               />
+              <p id="password-hint" className="sr-only">Enter your account password</p>
             </div>
 
             {/* Remember Me Checkbox */}

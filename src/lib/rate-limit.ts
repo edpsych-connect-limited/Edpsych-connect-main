@@ -1,19 +1,74 @@
 /**
  * Rate Limiting Utility
  * 
- * In-memory rate limiter for API routes
- * For production scale, consider Redis-based implementation
+ * Redis-backed rate limiter for API routes with in-memory fallback
+ * Uses Redis Cloud for distributed rate limiting across serverless functions
+ * 
+ * @copyright EdPsych Connect Limited 2025
  */
+
+import { createClient, RedisClientType } from 'redis';
 
 interface RateLimitEntry {
   count: number;
   resetTime: number;
 }
 
-// In-memory store (resets on server restart)
+// In-memory store (fallback when Redis unavailable)
 const rateLimitStore = new Map<string, RateLimitEntry>();
 
-// Clean up old entries every 5 minutes
+// Redis client singleton
+let redisClient: RedisClientType | null = null;
+let redisConnected = false;
+
+// Initialize Redis connection
+async function getRedisClient(): Promise<RedisClientType | null> {
+  if (redisClient && redisConnected) {
+    return redisClient;
+  }
+
+  const redisUrl = process.env.REDIS_URL;
+  if (!redisUrl) {
+    console.warn('REDIS_URL not configured - using in-memory rate limiting');
+    return null;
+  }
+
+  try {
+    redisClient = createClient({
+      url: redisUrl,
+      socket: {
+        connectTimeout: 5000,
+        reconnectStrategy: (retries) => {
+          if (retries > 3) {
+            console.warn('Redis connection failed after 3 retries, falling back to in-memory');
+            return false;
+          }
+          return Math.min(retries * 100, 3000);
+        }
+      }
+    });
+
+    redisClient.on('error', (err) => {
+      console.error('Redis Client Error:', err);
+      redisConnected = false;
+    });
+
+    redisClient.on('connect', () => {
+      console.log('Redis connected for rate limiting');
+      redisConnected = true;
+    });
+
+    await redisClient.connect();
+    redisConnected = true;
+    return redisClient;
+  } catch (error) {
+    console.warn('Failed to connect to Redis:', error);
+    redisConnected = false;
+    return null;
+  }
+}
+
+// Clean up old in-memory entries every 5 minutes (fallback only)
 setInterval(() => {
   const now = Date.now();
   for (const [key, entry] of rateLimitStore.entries()) {
@@ -40,9 +95,60 @@ export interface RateLimitResult {
 }
 
 /**
- * Check rate limit for a given identifier
+ * Check rate limit using Redis (with in-memory fallback)
  */
-export function checkRateLimit(
+export async function checkRateLimitAsync(
+  identifier: string,
+  config: RateLimitConfig
+): Promise<RateLimitResult> {
+  const { maxRequests, windowMs, prefix = 'default' } = config;
+  const key = `ratelimit:${prefix}:${identifier}`;
+  const now = Date.now();
+  const windowSecs = Math.ceil(windowMs / 1000);
+
+  try {
+    const redis = await getRedisClient();
+    
+    if (redis && redisConnected) {
+      // Use Redis INCR with EXPIRE for atomic rate limiting
+      const currentCount = await redis.incr(key);
+      
+      // Set expiry on first request in window
+      if (currentCount === 1) {
+        await redis.expire(key, windowSecs);
+      }
+
+      // Get TTL to calculate reset time
+      const ttl = await redis.ttl(key);
+      const resetTime = now + (ttl > 0 ? ttl * 1000 : windowMs);
+
+      if (currentCount > maxRequests) {
+        return {
+          allowed: false,
+          remaining: 0,
+          resetTime,
+          retryAfter: ttl > 0 ? ttl : windowSecs,
+        };
+      }
+
+      return {
+        allowed: true,
+        remaining: maxRequests - currentCount,
+        resetTime,
+      };
+    }
+  } catch (error) {
+    console.warn('Redis rate limit check failed, falling back to in-memory:', error);
+  }
+
+  // Fallback to in-memory
+  return checkRateLimitInMemory(identifier, config);
+}
+
+/**
+ * In-memory rate limit check (fallback)
+ */
+function checkRateLimitInMemory(
   identifier: string,
   config: RateLimitConfig
 ): RateLimitResult {
@@ -83,6 +189,16 @@ export function checkRateLimit(
     remaining: maxRequests - entry.count,
     resetTime: entry.resetTime,
   };
+}
+
+/**
+ * Synchronous rate limit check (in-memory only, for backwards compatibility)
+ */
+export function checkRateLimit(
+  identifier: string,
+  config: RateLimitConfig
+): RateLimitResult {
+  return checkRateLimitInMemory(identifier, config);
 }
 
 /**
@@ -133,6 +249,12 @@ export const RATE_LIMITS = {
     maxRequests: 3,
     windowMs: 60 * 60 * 1000,
     prefix: 'reset',
+  },
+  /** Registration: 3 per hour per IP */
+  REGISTRATION: {
+    maxRequests: 3,
+    windowMs: 60 * 60 * 1000,
+    prefix: 'register',
   },
 } as const;
 
