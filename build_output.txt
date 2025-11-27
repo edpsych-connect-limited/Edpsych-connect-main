@@ -1,0 +1,8 @@
+
+> edpsych-connect-web-v2@1.0.0 build:safe
+> NODE_OPTIONS='--max-old-space-size=8192' next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local, .env
+
+   Creating an optimized production build ...
