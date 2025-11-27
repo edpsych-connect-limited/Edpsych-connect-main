@@ -47,28 +47,110 @@ interface Question {
   curriculumLink?: string;
 }
 
-// Curriculum-aligned questions (UK Key Stage focused)
+// Achievement system
+interface Achievement {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  requirement: number;
+  type: 'streak' | 'wins' | 'score' | 'perfect';
+}
+
+const ACHIEVEMENTS: Achievement[] = [
+  { id: 'first-blood', name: 'First Blood', description: 'Win your first duel', icon: '⚔️', requirement: 1, type: 'wins' },
+  { id: 'streak-3', name: 'On Fire!', description: 'Get a 3x streak', icon: '🔥', requirement: 3, type: 'streak' },
+  { id: 'streak-5', name: 'Unstoppable!', description: 'Get a 5x streak', icon: '💥', requirement: 5, type: 'streak' },
+  { id: 'streak-10', name: 'LEGENDARY!', description: 'Get a 10x streak', icon: '👑', requirement: 10, type: 'streak' },
+  { id: 'score-500', name: 'Rising Star', description: 'Score 500 points', icon: '⭐', requirement: 500, type: 'score' },
+  { id: 'score-1000', name: 'Champion', description: 'Score 1000 points', icon: '🏆', requirement: 1000, type: 'score' },
+  { id: 'score-2000', name: 'Master', description: 'Score 2000 points', icon: '🎖️', requirement: 2000, type: 'score' },
+  { id: 'perfect-round', name: 'Perfect Round', description: 'Answer 10 questions without mistakes', icon: '💎', requirement: 10, type: 'perfect' },
+];
+
+// Expanded Curriculum-aligned questions (UK Key Stage focused)
 const CURRICULUM_QUESTIONS: Question[] = [
-  // Key Stage 1 - Easy
-  { id: 'ks1-1', text: 'What does 2 + 3 equal?', options: ['4', '5', '6', '7'], correctIndex: 1, points: 50, category: 'Maths KS1', difficulty: 'easy', curriculumLink: 'Addition within 10' },
-  { id: 'ks1-2', text: 'Which word rhymes with "cat"?', options: ['Dog', 'Hat', 'Cup', 'Sun'], correctIndex: 1, points: 50, category: 'English KS1', difficulty: 'easy', curriculumLink: 'Phonics and rhyming' },
-  { id: 'ks1-3', text: 'What colour do you get mixing red and yellow?', options: ['Green', 'Purple', 'Orange', 'Blue'], correctIndex: 2, points: 50, category: 'Art KS1', difficulty: 'easy', curriculumLink: 'Primary colours' },
+  // ========== KEY STAGE 1 - EASY (Ages 5-7) ==========
+  // Maths KS1
+  { id: 'ks1-m1', text: 'What does 2 + 3 equal?', options: ['4', '5', '6', '7'], correctIndex: 1, points: 50, category: 'Maths KS1', difficulty: 'easy', curriculumLink: 'Addition within 10' },
+  { id: 'ks1-m2', text: 'What does 5 + 2 equal?', options: ['6', '7', '8', '9'], correctIndex: 1, points: 50, category: 'Maths KS1', difficulty: 'easy', curriculumLink: 'Addition within 10' },
+  { id: 'ks1-m3', text: 'What does 8 - 3 equal?', options: ['4', '5', '6', '7'], correctIndex: 1, points: 50, category: 'Maths KS1', difficulty: 'easy', curriculumLink: 'Subtraction within 10' },
+  { id: 'ks1-m4', text: 'What shape has 4 equal sides?', options: ['Triangle', 'Circle', 'Square', 'Rectangle'], correctIndex: 2, points: 50, category: 'Maths KS1', difficulty: 'easy', curriculumLink: 'Shape recognition' },
+  { id: 'ks1-m5', text: 'How many sides does a triangle have?', options: ['2', '3', '4', '5'], correctIndex: 1, points: 50, category: 'Maths KS1', difficulty: 'easy', curriculumLink: 'Shape properties' },
+  { id: 'ks1-m6', text: 'What comes after 9?', options: ['8', '10', '11', '7'], correctIndex: 1, points: 50, category: 'Maths KS1', difficulty: 'easy', curriculumLink: 'Number sequence' },
   
-  // Key Stage 2 - Medium
-  { id: 'ks2-1', text: 'What is 7 × 8?', options: ['54', '56', '48', '63'], correctIndex: 1, points: 100, category: 'Maths KS2', difficulty: 'medium', curriculumLink: 'Times tables' },
-  { id: 'ks2-2', text: 'What type of word is "quickly"?', options: ['Noun', 'Verb', 'Adverb', 'Adjective'], correctIndex: 2, points: 100, category: 'English KS2', difficulty: 'medium', curriculumLink: 'Word classes' },
-  { id: 'ks2-3', text: 'What is the capital of France?', options: ['London', 'Berlin', 'Paris', 'Madrid'], correctIndex: 2, points: 100, category: 'Geography KS2', difficulty: 'medium', curriculumLink: 'European capitals' },
-  { id: 'ks2-4', text: 'Which planet is known as the Red Planet?', options: ['Venus', 'Jupiter', 'Mars', 'Saturn'], correctIndex: 2, points: 100, category: 'Science KS2', difficulty: 'medium', curriculumLink: 'Solar system' },
+  // English KS1
+  { id: 'ks1-e1', text: 'Which word rhymes with "cat"?', options: ['Dog', 'Hat', 'Cup', 'Sun'], correctIndex: 1, points: 50, category: 'English KS1', difficulty: 'easy', curriculumLink: 'Phonics and rhyming' },
+  { id: 'ks1-e2', text: 'Which word rhymes with "bed"?', options: ['Red', 'Big', 'Sat', 'Cup'], correctIndex: 0, points: 50, category: 'English KS1', difficulty: 'easy', curriculumLink: 'Phonics and rhyming' },
+  { id: 'ks1-e3', text: 'What letter does "apple" start with?', options: ['B', 'A', 'C', 'D'], correctIndex: 1, points: 50, category: 'English KS1', difficulty: 'easy', curriculumLink: 'Initial sounds' },
+  { id: 'ks1-e4', text: 'Which is a naming word (noun)?', options: ['Run', 'Dog', 'Happy', 'Fast'], correctIndex: 1, points: 50, category: 'English KS1', difficulty: 'easy', curriculumLink: 'Word types' },
   
-  // Key Stage 3 - Hard
-  { id: 'ks3-1', text: 'Solve for x: 2x + 5 = 15', options: ['x = 3', 'x = 5', 'x = 7', 'x = 10'], correctIndex: 1, points: 150, category: 'Maths KS3', difficulty: 'hard', curriculumLink: 'Linear equations' },
-  { id: 'ks3-2', text: 'What is the chemical symbol for water?', options: ['CO2', 'H2O', 'O2', 'NaCl'], correctIndex: 1, points: 150, category: 'Science KS3', difficulty: 'hard', curriculumLink: 'Chemical formulae' },
-  { id: 'ks3-3', text: 'Who wrote "Romeo and Juliet"?', options: ['Charles Dickens', 'William Shakespeare', 'Jane Austen', 'Mark Twain'], correctIndex: 1, points: 150, category: 'English KS3', difficulty: 'hard', curriculumLink: 'Shakespeare studies' },
+  // Science KS1
+  { id: 'ks1-s1', text: 'What do plants need to grow?', options: ['Toys', 'Water', 'Books', 'Cars'], correctIndex: 1, points: 50, category: 'Science KS1', difficulty: 'easy', curriculumLink: 'Plant needs' },
+  { id: 'ks1-s2', text: 'Which animal has feathers?', options: ['Fish', 'Dog', 'Bird', 'Cat'], correctIndex: 2, points: 50, category: 'Science KS1', difficulty: 'easy', curriculumLink: 'Animal classification' },
+  { id: 'ks1-s3', text: 'What season comes after winter?', options: ['Summer', 'Autumn', 'Spring', 'Winter'], correctIndex: 2, points: 50, category: 'Science KS1', difficulty: 'easy', curriculumLink: 'Seasons' },
   
-  // Educational Psychology Questions - Expert
+  // Art KS1
+  { id: 'ks1-a1', text: 'What colour do you get mixing red and yellow?', options: ['Green', 'Purple', 'Orange', 'Blue'], correctIndex: 2, points: 50, category: 'Art KS1', difficulty: 'easy', curriculumLink: 'Primary colours' },
+  { id: 'ks1-a2', text: 'What colour do you get mixing blue and yellow?', options: ['Orange', 'Green', 'Purple', 'Red'], correctIndex: 1, points: 50, category: 'Art KS1', difficulty: 'easy', curriculumLink: 'Primary colours' },
+  
+  // ========== KEY STAGE 2 - MEDIUM (Ages 7-11) ==========
+  // Maths KS2
+  { id: 'ks2-m1', text: 'What is 7 × 8?', options: ['54', '56', '48', '63'], correctIndex: 1, points: 100, category: 'Maths KS2', difficulty: 'medium', curriculumLink: 'Times tables' },
+  { id: 'ks2-m2', text: 'What is 9 × 6?', options: ['45', '54', '56', '63'], correctIndex: 1, points: 100, category: 'Maths KS2', difficulty: 'medium', curriculumLink: 'Times tables' },
+  { id: 'ks2-m3', text: 'What is 12 × 12?', options: ['124', '134', '144', '154'], correctIndex: 2, points: 100, category: 'Maths KS2', difficulty: 'medium', curriculumLink: 'Times tables' },
+  { id: 'ks2-m4', text: 'What is 1/2 + 1/4?', options: ['2/6', '3/4', '1/6', '2/4'], correctIndex: 1, points: 100, category: 'Maths KS2', difficulty: 'medium', curriculumLink: 'Fractions' },
+  { id: 'ks2-m5', text: 'What is 25% of 100?', options: ['20', '25', '30', '50'], correctIndex: 1, points: 100, category: 'Maths KS2', difficulty: 'medium', curriculumLink: 'Percentages' },
+  { id: 'ks2-m6', text: 'How many degrees in a right angle?', options: ['45°', '90°', '180°', '360°'], correctIndex: 1, points: 100, category: 'Maths KS2', difficulty: 'medium', curriculumLink: 'Angles' },
+  
+  // English KS2
+  { id: 'ks2-e1', text: 'What type of word is "quickly"?', options: ['Noun', 'Verb', 'Adverb', 'Adjective'], correctIndex: 2, points: 100, category: 'English KS2', difficulty: 'medium', curriculumLink: 'Word classes' },
+  { id: 'ks2-e2', text: 'What is the past tense of "run"?', options: ['Runned', 'Ran', 'Running', 'Runs'], correctIndex: 1, points: 100, category: 'English KS2', difficulty: 'medium', curriculumLink: 'Verb tenses' },
+  { id: 'ks2-e3', text: 'Which punctuation ends a question?', options: ['.', '!', '?', ','], correctIndex: 2, points: 100, category: 'English KS2', difficulty: 'medium', curriculumLink: 'Punctuation' },
+  { id: 'ks2-e4', text: 'What is a synonym for "happy"?', options: ['Sad', 'Angry', 'Joyful', 'Tired'], correctIndex: 2, points: 100, category: 'English KS2', difficulty: 'medium', curriculumLink: 'Vocabulary' },
+  
+  // Geography KS2
+  { id: 'ks2-g1', text: 'What is the capital of France?', options: ['London', 'Berlin', 'Paris', 'Madrid'], correctIndex: 2, points: 100, category: 'Geography KS2', difficulty: 'medium', curriculumLink: 'European capitals' },
+  { id: 'ks2-g2', text: 'What is the longest river in the UK?', options: ['Thames', 'Severn', 'Mersey', 'Trent'], correctIndex: 1, points: 100, category: 'Geography KS2', difficulty: 'medium', curriculumLink: 'UK rivers' },
+  { id: 'ks2-g3', text: 'Which continent is Egypt in?', options: ['Asia', 'Europe', 'Africa', 'America'], correctIndex: 2, points: 100, category: 'Geography KS2', difficulty: 'medium', curriculumLink: 'World geography' },
+  
+  // Science KS2
+  { id: 'ks2-s1', text: 'Which planet is known as the Red Planet?', options: ['Venus', 'Jupiter', 'Mars', 'Saturn'], correctIndex: 2, points: 100, category: 'Science KS2', difficulty: 'medium', curriculumLink: 'Solar system' },
+  { id: 'ks2-s2', text: 'What force pulls objects to Earth?', options: ['Magnetism', 'Friction', 'Gravity', 'Electricity'], correctIndex: 2, points: 100, category: 'Science KS2', difficulty: 'medium', curriculumLink: 'Forces' },
+  { id: 'ks2-s3', text: 'What organ pumps blood around the body?', options: ['Brain', 'Lungs', 'Heart', 'Stomach'], correctIndex: 2, points: 100, category: 'Science KS2', difficulty: 'medium', curriculumLink: 'Human body' },
+  { id: 'ks2-s4', text: 'What do herbivores eat?', options: ['Meat', 'Plants', 'Both', 'Neither'], correctIndex: 1, points: 100, category: 'Science KS2', difficulty: 'medium', curriculumLink: 'Food chains' },
+  
+  // History KS2
+  { id: 'ks2-h1', text: 'Who was the first Queen Elizabeth?', options: ['Tudor', 'Stuart', 'Victorian', 'Georgian'], correctIndex: 0, points: 100, category: 'History KS2', difficulty: 'medium', curriculumLink: 'Tudor history' },
+  { id: 'ks2-h2', text: 'When did World War II end?', options: ['1918', '1939', '1945', '1950'], correctIndex: 2, points: 100, category: 'History KS2', difficulty: 'medium', curriculumLink: 'World War II' },
+  
+  // ========== KEY STAGE 3 - HARD (Ages 11-14) ==========
+  // Maths KS3
+  { id: 'ks3-m1', text: 'Solve for x: 2x + 5 = 15', options: ['x = 3', 'x = 5', 'x = 7', 'x = 10'], correctIndex: 1, points: 150, category: 'Maths KS3', difficulty: 'hard', curriculumLink: 'Linear equations' },
+  { id: 'ks3-m2', text: 'What is the value of π (pi) to 2 decimal places?', options: ['3.12', '3.14', '3.16', '3.18'], correctIndex: 1, points: 150, category: 'Maths KS3', difficulty: 'hard', curriculumLink: 'Pi and circles' },
+  { id: 'ks3-m3', text: 'What is √144?', options: ['10', '11', '12', '13'], correctIndex: 2, points: 150, category: 'Maths KS3', difficulty: 'hard', curriculumLink: 'Square roots' },
+  { id: 'ks3-m4', text: 'What is 3² + 4²?', options: ['20', '25', '49', '12'], correctIndex: 1, points: 150, category: 'Maths KS3', difficulty: 'hard', curriculumLink: 'Pythagorean theorem' },
+  
+  // Science KS3
+  { id: 'ks3-s1', text: 'What is the chemical symbol for water?', options: ['CO2', 'H2O', 'O2', 'NaCl'], correctIndex: 1, points: 150, category: 'Science KS3', difficulty: 'hard', curriculumLink: 'Chemical formulae' },
+  { id: 'ks3-s2', text: 'What is the chemical symbol for table salt?', options: ['H2O', 'CO2', 'NaCl', 'Fe'], correctIndex: 2, points: 150, category: 'Science KS3', difficulty: 'hard', curriculumLink: 'Chemical formulae' },
+  { id: 'ks3-s3', text: 'What is the unit of electrical current?', options: ['Volt', 'Watt', 'Ohm', 'Ampere'], correctIndex: 3, points: 150, category: 'Science KS3', difficulty: 'hard', curriculumLink: 'Electricity' },
+  { id: 'ks3-s4', text: 'What type of cell contains a nucleus?', options: ['Prokaryotic', 'Eukaryotic', 'Bacterial', 'Viral'], correctIndex: 1, points: 150, category: 'Science KS3', difficulty: 'hard', curriculumLink: 'Cell biology' },
+  
+  // English KS3
+  { id: 'ks3-e1', text: 'Who wrote "Romeo and Juliet"?', options: ['Charles Dickens', 'William Shakespeare', 'Jane Austen', 'Mark Twain'], correctIndex: 1, points: 150, category: 'English KS3', difficulty: 'hard', curriculumLink: 'Shakespeare studies' },
+  { id: 'ks3-e2', text: 'What literary device compares using "like" or "as"?', options: ['Metaphor', 'Simile', 'Alliteration', 'Personification'], correctIndex: 1, points: 150, category: 'English KS3', difficulty: 'hard', curriculumLink: 'Literary devices' },
+  { id: 'ks3-e3', text: 'What is the main clause of a sentence?', options: ['The subject', 'The verb', 'The independent part', 'The conjunction'], correctIndex: 2, points: 150, category: 'English KS3', difficulty: 'hard', curriculumLink: 'Grammar' },
+  
+  // ========== EDUCATIONAL PSYCHOLOGY - EXPERT ==========
   { id: 'ep-1', text: 'What is the primary function of the prefrontal cortex?', options: ['Motor control', 'Executive function', 'Visual processing', 'Auditory processing'], correctIndex: 1, points: 200, category: 'Psychology', difficulty: 'hard', curriculumLink: 'Brain development' },
   { id: 'ep-2', text: 'Which neurotransmitter is primarily associated with reward?', options: ['Serotonin', 'Dopamine', 'GABA', 'Acetylcholine'], correctIndex: 1, points: 200, category: 'Psychology', difficulty: 'hard', curriculumLink: 'Neuroscience' },
-  { id: 'ep-3', text: 'In Piaget\'s theory, when does the concrete operational stage occur?', options: ['0-2 years', '2-7 years', '7-11 years', '11+ years'], correctIndex: 2, points: 200, category: 'Psychology', difficulty: 'hard', curriculumLink: 'Developmental psychology' }
+  { id: 'ep-3', text: 'In Piaget\'s theory, when does the concrete operational stage occur?', options: ['0-2 years', '2-7 years', '7-11 years', '11+ years'], correctIndex: 2, points: 200, category: 'Psychology', difficulty: 'hard', curriculumLink: 'Developmental psychology' },
+  { id: 'ep-4', text: 'What does "ZPD" stand for in Vygotsky\'s theory?', options: ['Zero Point Development', 'Zone of Proximal Development', 'Zone of Primary Development', 'Zero Proximal Distance'], correctIndex: 1, points: 200, category: 'Psychology', difficulty: 'hard', curriculumLink: 'Learning theories' },
+  { id: 'ep-5', text: 'What is "working memory" primarily used for?', options: ['Long-term storage', 'Temporary information processing', 'Emotional regulation', 'Motor coordination'], correctIndex: 1, points: 200, category: 'Psychology', difficulty: 'hard', curriculumLink: 'Cognitive psychology' },
+  { id: 'ep-6', text: 'What does ADHD stand for?', options: ['Attention Deficit Hyperactivity Disorder', 'Advanced Development Hyperactive Dysfunction', 'Attention Development Hypersensitivity Disorder', 'Active Deficit Hyper Dysfunction'], correctIndex: 0, points: 200, category: 'Psychology', difficulty: 'hard', curriculumLink: 'Neurodevelopmental conditions' },
+  { id: 'ep-7', text: 'What is "scaffolding" in educational terms?', options: ['Building furniture', 'Temporary support for learning', 'Permanent assistance', 'Testing methods'], correctIndex: 1, points: 200, category: 'Psychology', difficulty: 'hard', curriculumLink: 'Teaching strategies' },
+  { id: 'ep-8', text: 'What does SEND stand for?', options: ['Special Education Needs Division', 'Special Educational Needs and Disabilities', 'Student Education Needs Department', 'Supported Education Network Development'], correctIndex: 1, points: 200, category: 'Psychology', difficulty: 'hard', curriculumLink: 'UK SEND framework' },
 ];
 
 const ProgressBar = ({ width, color, className }: { width: number, color: string, className?: string }) => {
@@ -194,9 +276,74 @@ export const BattleRoyaleGame: React.FC = () => {
   const [textModeQuestion, setTextModeQuestion] = useState(0);
   const [textModeScore, setTextModeScore] = useState(0);
   const [textModeStreak, setTextModeStreak] = useState(0);
-  const [_showLeaderboard, _setShowLeaderboard] = useState(false);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [unlockedAchievements, setUnlockedAchievements] = useState<Achievement[]>([]);
+  const [newAchievement, setNewAchievement] = useState<Achievement | null>(null);
+  const [totalGamesPlayed, setTotalGamesPlayed] = useState(0);
+  const [totalWins, setTotalWins] = useState(0);
+  const [highScore, setHighScore] = useState(0);
+  const [bestStreak, setBestStreak] = useState(0);
   const keysPressed = useRef<Set<string>>(new Set());
-  const _audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  
+  // Check and unlock achievements
+  const checkAchievements = useCallback((score: number, streak: number, isWin: boolean) => {
+    const newUnlocks: Achievement[] = [];
+    
+    ACHIEVEMENTS.forEach(achievement => {
+      // Skip if already unlocked
+      if (unlockedAchievements.find(a => a.id === achievement.id)) return;
+      
+      let unlocked = false;
+      switch (achievement.id) {
+        case 'first_win':
+          unlocked = isWin && totalWins === 0;
+          break;
+        case 'streak_3':
+          unlocked = streak >= 3;
+          break;
+        case 'streak_5':
+          unlocked = streak >= 5;
+          break;
+        case 'streak_10':
+          unlocked = streak >= 10;
+          break;
+        case 'perfect_game':
+          unlocked = isWin && score >= 100;
+          break;
+        case 'score_500':
+          unlocked = score >= 500;
+          break;
+        case 'wins_10':
+          unlocked = totalWins >= 9 && isWin; // Will be 10 after this win
+          break;
+        case 'games_50':
+          unlocked = totalGamesPlayed >= 49; // Will be 50 after this game
+          break;
+      }
+      
+      if (unlocked) {
+        newUnlocks.push(achievement);
+      }
+    });
+    
+    if (newUnlocks.length > 0) {
+      setUnlockedAchievements(prev => [...prev, ...newUnlocks]);
+      // Show the first new achievement
+      setNewAchievement(newUnlocks[0]);
+      playSound('victory');
+      setTimeout(() => setNewAchievement(null), 4000);
+    }
+  }, [unlockedAchievements, totalWins, totalGamesPlayed, playSound]);
+  
+  // Update stats when game ends
+  const updateStats = useCallback((score: number, streak: number, isWin: boolean) => {
+    setTotalGamesPlayed(prev => prev + 1);
+    if (isWin) setTotalWins(prev => prev + 1);
+    if (score > highScore) setHighScore(score);
+    if (streak > bestStreak) setBestStreak(streak);
+    checkAchievements(score, streak, isWin);
+  }, [highScore, bestStreak, checkAchievements]);
 
   // Sound effects (using Web Audio API simulation)
   const playSound = useCallback((type: 'correct' | 'wrong' | 'pickup' | 'victory' | 'streak') => {
@@ -307,6 +454,21 @@ export const BattleRoyaleGame: React.FC = () => {
       }
     }, 1500);
   };
+
+  // Track game end and update stats
+  useEffect(() => {
+    if (gameState.status === 'victory') {
+      const score = accessibleMode ? textModeScore : (selfPlayer?.score || 0);
+      const streak = accessibleMode ? textModeStreak : (selfPlayer?.streak || 0);
+      updateStats(score, streak, true);
+    } else if (gameState.status === 'eliminated') {
+      const score = accessibleMode ? textModeScore : (selfPlayer?.score || 0);
+      const streak = accessibleMode ? textModeStreak : (selfPlayer?.streak || 0);
+      updateStats(score, streak, false);
+    }
+  // Only run once when status changes to victory or eliminated
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameState.status]);
 
   // Input Listeners
   useEffect(() => {
@@ -535,7 +697,7 @@ export const BattleRoyaleGame: React.FC = () => {
                       ? 'bg-blue-600 border-blue-400 text-white' 
                       : 'bg-slate-800/50 border-slate-600 text-slate-300 hover:border-blue-400'
                   }`}
-                  aria-pressed={accessibleMode ? 'true' : 'false'}
+                  aria-pressed={accessibleMode}
                   aria-label="Toggle accessible text-only mode"
                 >
                   <svg 
@@ -979,6 +1141,163 @@ export const BattleRoyaleGame: React.FC = () => {
           <span className="text-white/70">Controls:</span> WASD / Arrow Keys to Move • Approach Enemies to Duel
         </div>
       )}
+
+      {/* Achievement Popup */}
+      <AnimatePresence>
+        {newAchievement && (
+          <motion.div
+            initial={{ opacity: 0, y: -100, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -100, scale: 0.8 }}
+            className="absolute top-20 left-1/2 -translate-x-1/2 z-50"
+          >
+            <div className="bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 p-1 rounded-2xl shadow-2xl shadow-yellow-500/50">
+              <div className="bg-slate-900 rounded-xl px-8 py-4 flex items-center gap-4">
+                <div className="text-4xl">{newAchievement.icon}</div>
+                <div>
+                  <p className="text-yellow-400 text-sm font-semibold uppercase tracking-wider">Achievement Unlocked!</p>
+                  <h3 className="text-white text-xl font-bold">{newAchievement.title}</h3>
+                  <p className="text-slate-400 text-sm">{newAchievement.description}</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Leaderboard Button */}
+      {gameState.status === 'active' && (
+        <button
+          onClick={() => setShowLeaderboard(!showLeaderboard)}
+          className="absolute bottom-4 right-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white px-4 py-2 rounded-xl font-bold flex items-center gap-2 shadow-lg hover:shadow-indigo-500/30 transition-all pointer-events-auto"
+        >
+          <FaTrophy className="text-yellow-400" />
+          Leaderboard
+        </button>
+      )}
+
+      {/* Leaderboard Modal */}
+      <AnimatePresence>
+        {showLeaderboard && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={() => setShowLeaderboard(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-slate-800 border border-slate-600 rounded-2xl p-6 max-w-lg w-full shadow-2xl"
+            >
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                  <FaTrophy className="text-yellow-400" />
+                  Leaderboard
+                </h2>
+                <button
+                  onClick={() => setShowLeaderboard(false)}
+                  className="text-slate-400 hover:text-white transition-colors"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Current Game Rankings */}
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold text-slate-300 mb-3">Current Match</h3>
+                <div className="space-y-2">
+                  {gameState.players
+                    .sort((a, b) => b.score - a.score)
+                    .map((player, idx) => (
+                      <div 
+                        key={player.id}
+                        className={`flex items-center justify-between p-3 rounded-lg ${
+                          player.isSelf 
+                            ? 'bg-indigo-600/30 border border-indigo-500' 
+                            : 'bg-slate-700/50'
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
+                            idx === 0 ? 'bg-yellow-500 text-yellow-900' :
+                            idx === 1 ? 'bg-slate-400 text-slate-900' :
+                            idx === 2 ? 'bg-amber-700 text-amber-100' :
+                            'bg-slate-600 text-slate-300'
+                          }`}>
+                            {idx + 1}
+                          </span>
+                          <span className="font-medium text-white">
+                            {player.name} {player.isSelf && '(You)'}
+                          </span>
+                          {player.health <= 0 && (
+                            <span className="text-red-400 text-xs">💀 Eliminated</span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-4">
+                          {player.streak >= 2 && (
+                            <span className="text-orange-400 text-sm flex items-center gap-1">
+                              <FaFire /> {player.streak}x
+                            </span>
+                          )}
+                          <span className="text-yellow-400 font-bold">{player.score} pts</span>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+
+              {/* Your Stats */}
+              <div className="bg-slate-700/50 rounded-xl p-4">
+                <h3 className="text-lg font-semibold text-slate-300 mb-3">Your Career Stats</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center">
+                    <p className="text-slate-400 text-sm">Games Played</p>
+                    <p className="text-2xl font-bold text-white">{totalGamesPlayed}</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-slate-400 text-sm">Total Wins</p>
+                    <p className="text-2xl font-bold text-green-400">{totalWins}</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-slate-400 text-sm">High Score</p>
+                    <p className="text-2xl font-bold text-yellow-400">{highScore}</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-slate-400 text-sm">Best Streak</p>
+                    <p className="text-2xl font-bold text-orange-400">{bestStreak}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Achievements */}
+              {unlockedAchievements.length > 0 && (
+                <div className="mt-4">
+                  <h3 className="text-lg font-semibold text-slate-300 mb-3 flex items-center gap-2">
+                    <FaMedal className="text-yellow-400" />
+                    Achievements ({unlockedAchievements.length}/{ACHIEVEMENTS.length})
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {unlockedAchievements.map(achievement => (
+                      <div 
+                        key={achievement.id}
+                        className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/50 rounded-lg px-3 py-2 flex items-center gap-2"
+                        title={achievement.description}
+                      >
+                        <span className="text-xl">{achievement.icon}</span>
+                        <span className="text-white text-sm font-medium">{achievement.title}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
