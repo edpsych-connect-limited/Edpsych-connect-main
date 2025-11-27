@@ -309,8 +309,19 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
     try {
       dispatch({ type: 'SET_LOADING', payload: true });
 
-      const response = await fetch('/api/onboarding/status');
+      const response = await fetch('/api/onboarding/status', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       
+      // Handle 401 Unauthorized specifically
+      if (response.status === 401) {
+        console.log('[OnboardingProvider] Unauthorized, redirecting to login');
+        window.location.href = '/login?returnUrl=/onboarding';
+        return;
+      }
+
       // Handle non-JSON responses (e.g. 404 HTML, 500 HTML)
       const contentType = response.headers.get('content-type');
       if (!contentType || !contentType.includes('application/json')) {
@@ -347,8 +358,18 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
       dispatch({ type: 'SET_LOADING', payload: true });
 
       const response = await fetch('/api/onboarding/start', {
-        method: 'POST'
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+
+      // Handle 401 Unauthorized specifically
+      if (response.status === 401) {
+        console.log('[OnboardingProvider] Unauthorized, redirecting to login');
+        window.location.href = '/login?returnUrl=/onboarding';
+        return;
+      }
 
       // Handle non-JSON responses
       const contentType = response.headers.get('content-type');

@@ -121,7 +121,13 @@ export async function middleware(request: NextRequest) {
       console.log('[Middleware] Cookies:', request.cookies.getAll());
       return NextResponse.json(
         { error: 'Unauthorized (Middleware)' },
-        { status: 401, headers: response.headers }
+        { 
+          status: 401, 
+          headers: {
+            'Content-Type': 'application/json',
+            ...Object.fromEntries(response.headers.entries())
+          }
+        }
       );
     }
 
