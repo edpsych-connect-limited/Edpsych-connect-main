@@ -77,7 +77,7 @@ export default function ResearchFoundation() {
                 <div className="flex items-start gap-4 mb-6">
                   <div className="w-24 h-24 relative rounded-xl overflow-hidden shadow-lg border-2 border-indigo-100 flex-shrink-0">
                     <Image 
-                      src="/images/Dr Scott_Landing.jpg" 
+                      src="/images/dr-scott-landing.jpg" 
                       alt="Dr Scott Ighavongbe-Patrick DEdPsych CPsychol"
                       fill
                       className="object-cover object-top"

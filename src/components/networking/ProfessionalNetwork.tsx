@@ -86,7 +86,7 @@ const ProfessionalNetwork: React.FC = () => {
             specialty: 'Restorative Justice, SEMH, Autism',
             location: 'Buckinghamshire, UK',
             connectionStatus: 'connected',
-            profileImage: '/images/Dr Scott_Market Place.jpg',
+            profileImage: '/images/dr-scott-marketplace.jpg',
             endorsements: 127,
             mutualConnections: 15
           },
@@ -188,7 +188,7 @@ const ProfessionalNetwork: React.FC = () => {
             id: 'msg-1',
             senderId: 'prof-1',
             senderName: 'Dr Scott I-Patrick',
-            senderImage: '/images/Dr Scott_Market Place.jpg',
+            senderImage: '/images/dr-scott-marketplace.jpg',
             content: 'Welcome to EdPsych Connect! I saw your interest in our platform. Would love to discuss how we can support your practice.',
             timestamp: '2 hours ago',
             isRead: false

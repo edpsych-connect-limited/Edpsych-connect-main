@@ -37,7 +37,7 @@ async function main() {
       regions: ['Buckinghamshire', 'Hertfordshire', 'Leicestershire', 'Worcestershire', 'Suffolk', 'London', 'South East'],
       rating: 5.0,
       reviews: 127,
-      imageUrl: '/images/Dr Scott_Market Place.jpg',
+      imageUrl: '/images/dr-scott-marketplace.jpg',
       isFeatured: true,
       isVerified: true
     },

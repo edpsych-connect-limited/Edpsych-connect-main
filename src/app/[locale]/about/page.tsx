@@ -44,7 +44,7 @@ const teamMembers: TeamMember[] = [
   {
     name: 'Dr Scott I-Patrick',
     role: 'Founder & Developer',
-    image: '/images/Dr Scott_Landing.jpg',
+    image: '/images/dr-scott-landing.jpg',
     credentials: 'DEdPsych CPsychol | HCPC: PYL042340',
     bio: 'Dr Scott founded and developed EdPsych Connect after a distinguished career in educational psychology. Following his First Class Honours in Psychology from Buckinghamshire New University, he trained at the University of Southampton where his doctoral research explored children\'s experiences of school sanctions through restorative justice. As Senior Educational Psychologist at Buckinghamshire Council, he created TEAM-UP (Termly Early Action Multi-Agency Unified Planning)—a pioneering multi-agency early intervention initiative. He resigned in 2023 to focus full-time on EdPsych Connect, combining his clinical expertise with self-taught software development skills.',
     isFounder: true,
@@ -52,31 +52,31 @@ const teamMembers: TeamMember[] = [
   {
     name: 'Samantha Patrick',
     role: 'Business Administration Manager',
-    image: '/images/Samantha Patrick.JPG',
+    image: '/images/samantha-patrick.jpg',
     bio: 'Oversees all business operations, ensuring smooth day-to-day running of EdPsych Connect Limited.',
   },
   {
     name: 'Emmanuel Oyerinde',
     role: 'Chief Technical Officer',
-    image: '/images/Emmanuel Oyerinde.jpg',
+    image: '/images/emmanuel-oyerinde.jpg',
     bio: 'Leads technical strategy and architecture, ensuring our platform maintains enterprise-grade security and performance.',
   },
   {
     name: 'George Randall',
     role: 'Quality Assurance',
-    image: '/images/George Randall.jpg',
+    image: '/images/george-randall.jpg',
     bio: 'Ensures every feature meets our rigorous standards for reliability, accessibility, and user experience.',
   },
   {
     name: 'Louis Young',
     role: 'Business Development Manager',
-    image: '/images/Louis Young.jpg',
+    image: '/images/louis-young.jpg',
     bio: 'Drives partnerships with Local Authorities, Multi-Academy Trusts, and educational institutions across the UK.',
   },
   {
     name: 'Hannah I-Patrick',
     role: 'Assistant Psychologist',
-    image: '/images/Hannah I-Patrick.JPG',
+    image: '/images/hannah-i-patrick.jpg',
     bio: 'Provides psychological support and contributes to assessment development and research initiatives.',
   },
 ];
@@ -156,7 +156,7 @@ export default function AboutPage() {
             <Building2 className="w-8 h-8 text-indigo-600" />
             <h1 className="text-3xl font-bold text-slate-900">About EdPsych Connect</h1>
           </div>
-          <p className="text-slate-600 mt-2">The story behind our mission to transform educational psychology</p>
+          <p className="text-slate-600 mt-2">The story behind our mission to ensure no child is left behind</p>
         </div>
       </div>
 
@@ -403,7 +403,7 @@ export default function AboutPage() {
                         src={member.image}
                         alt={member.name}
                         fill
-                        className="object-cover"
+                        className="object-cover object-top"
                         sizes={member.isFounder ? '(max-width: 768px) 100vw, 33vw' : '(max-width: 768px) 100vw, 33vw'}
                       />
                     </div>
@@ -491,7 +491,7 @@ export default function AboutPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/signup"
+              href="/beta-register"
               className="inline-flex items-center justify-center gap-2 bg-white text-indigo-600 px-8 py-4 rounded-xl font-semibold hover:bg-indigo-50 transition-colors"
             >
               Get Started Free

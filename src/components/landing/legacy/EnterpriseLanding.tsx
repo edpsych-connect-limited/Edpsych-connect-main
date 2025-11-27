@@ -27,7 +27,7 @@ export default function EnterpriseLanding() {
       author: "Dr Scott I-Patrick DEdPsych CPsychol",
       role: "Founder & Managing Director",
       institution: "EdPsych Connect Limited",
-      avatar: "/images/Dr Scott_Landing.jpg"
+      avatar: "/images/dr-scott-landing.jpg"
     },
     {
       quote: "[Demo Testimonial] The AI agents are like having a team of expert research assistants available 24/7.",
