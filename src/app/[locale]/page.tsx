@@ -65,15 +65,13 @@ export default async function Home({
   params: { locale: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  const isPreview = searchParams?.preview === 'true';
+  // Beta launch: Show full platform by default
+  // Use ?maintenance=true to show coming soon page if needed
+  const isMaintenance = searchParams?.maintenance === 'true';
 
-  if (isPreview) {
-    return <LandingPage pricingData={[]} />;
+  if (isMaintenance) {
+    return <ComingSoonPage />;
   }
 
-  return (
-    <>
-      <ComingSoonPage />
-    </>
-  );
+  return <LandingPage pricingData={[]} />;
 }
