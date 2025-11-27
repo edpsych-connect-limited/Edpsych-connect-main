@@ -324,15 +324,23 @@ async function handleUpdateStep(request: NextRequest, userId: number): Promise<N
   }
 
   // Create data cannot use atomic operations like increment or push
-  const createData = { ...updateData };
+  const createData: any = { ...updateData };
   createData.total_time_spent_seconds = timeSpentSeconds || 0;
   
-  // Handle array push operations for create
+  // Handle array push operations for create - extract the value being pushed
   if (createData.step_4_features_viewed && typeof createData.step_4_features_viewed === 'object' && 'push' in createData.step_4_features_viewed) {
     createData.step_4_features_viewed = [createData.step_4_features_viewed.push];
   }
   if (createData.step_4_demos_tried && typeof createData.step_4_demos_tried === 'object' && 'push' in createData.step_4_demos_tried) {
     createData.step_4_demos_tried = [createData.step_4_demos_tried.push];
+  }
+  
+  // Remove any other atomic operations from createData if they exist
+  if (createData.total_time_spent_seconds && typeof createData.total_time_spent_seconds === 'object' && 'increment' in createData.total_time_spent_seconds) {
+      createData.total_time_spent_seconds = timeSpentSeconds || 0;
+  }
+  if (createData.times_restarted && typeof createData.times_restarted === 'object' && 'increment' in createData.times_restarted) {
+      createData.times_restarted = 0;
   }
 
   const updated = await prisma.onboarding_progress.upsert({

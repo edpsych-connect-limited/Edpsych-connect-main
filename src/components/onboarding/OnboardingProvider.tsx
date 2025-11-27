@@ -310,16 +310,30 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
       dispatch({ type: 'SET_LOADING', payload: true });
 
       const response = await fetch('/api/onboarding/status');
+      
+      // Handle non-JSON responses (e.g. 404 HTML, 500 HTML)
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text();
+        console.error('[OnboardingProvider] Non-JSON response:', text.substring(0, 200));
+        throw new Error(`Server returned ${response.status} (${response.statusText}). Please try logging in again.`);
+      }
+
       const data: OnboardingStatusResponse = await response.json();
 
       if (data.success && data.data) {
         dispatch({ type: 'LOAD_STATUS', payload: data.data });
       } else {
-        dispatch({ type: 'SET_ERROR', payload: data.error || 'Failed to load onboarding status' });
+        // If user not found, force logout/redirect might be better, but for now show error
+        if (response.status === 404 && data.error === 'User not found') {
+             dispatch({ type: 'SET_ERROR', payload: 'Session invalid. Please log out and log back in.' });
+        } else {
+             dispatch({ type: 'SET_ERROR', payload: data.error || 'Failed to load onboarding status' });
+        }
       }
     } catch (error) {
       console.error('[OnboardingProvider] refreshStatus error:', error);
-      dispatch({ type: 'SET_ERROR', payload: 'Network error. Please check your connection.' });
+      dispatch({ type: 'SET_ERROR', payload: error instanceof Error ? error.message : 'Network error. Please check your connection.' });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
@@ -336,6 +350,14 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         method: 'POST'
       });
 
+      // Handle non-JSON responses
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text();
+        console.error('[OnboardingProvider] startOnboarding Non-JSON response:', text.substring(0, 200));
+        throw new Error(`Server returned ${response.status} (${response.statusText}). Please try again.`);
+      }
+
       const data = await response.json();
 
       if (data.success && data.data) {
@@ -349,7 +371,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
       }
     } catch (error) {
       console.error('[OnboardingProvider] startOnboarding error:', error);
-      dispatch({ type: 'SET_ERROR', payload: 'Network error. Please try again.' });
+      dispatch({ type: 'SET_ERROR', payload: error instanceof Error ? error.message : 'Network error. Please try again.' });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
@@ -377,6 +399,14 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         })
       });
 
+      // Handle non-JSON responses
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text();
+        console.error('[OnboardingProvider] updateStep Non-JSON response:', text.substring(0, 200));
+        throw new Error(`Server returned ${response.status} (${response.statusText}). Please try again.`);
+      }
+
       const result: OnboardingUpdateStepResponse = await response.json();
 
       if (result.success && result.data) {
@@ -398,7 +428,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
       }
     } catch (error) {
       console.error('[OnboardingProvider] updateStep error:', error);
-      dispatch({ type: 'SET_ERROR', payload: 'Network error. Please try again.' });
+      dispatch({ type: 'SET_ERROR', payload: error instanceof Error ? error.message : 'Network error. Please try again.' });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
@@ -442,6 +472,14 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         })
       });
 
+      // Handle non-JSON responses
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text();
+        console.error('[OnboardingProvider] skipCurrentStep Non-JSON response:', text.substring(0, 200));
+        throw new Error(`Server returned ${response.status} (${response.statusText}). Please try again.`);
+      }
+
       const result: OnboardingSkipStepResponse = await response.json();
 
       if (result.success && result.data) {
@@ -455,7 +493,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
       }
     } catch (error) {
       console.error('[OnboardingProvider] skipCurrentStep error:', error);
-      dispatch({ type: 'SET_ERROR', payload: 'Network error. Please try again.' });
+      dispatch({ type: 'SET_ERROR', payload: error instanceof Error ? error.message : 'Network error. Please try again.' });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
@@ -474,6 +512,14 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         body: JSON.stringify(feedback || {})
       });
 
+      // Handle non-JSON responses
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text();
+        console.error('[OnboardingProvider] completeOnboarding Non-JSON response:', text.substring(0, 200));
+        throw new Error(`Server returned ${response.status} (${response.statusText}). Please try again.`);
+      }
+
       const result: OnboardingCompleteResponse = await response.json();
 
       if (result.success && result.data) {
@@ -484,7 +530,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
       }
     } catch (error) {
       console.error('[OnboardingProvider] completeOnboarding error:', error);
-      dispatch({ type: 'SET_ERROR', payload: 'Network error. Please try again.' });
+      dispatch({ type: 'SET_ERROR', payload: error instanceof Error ? error.message : 'Network error. Please try again.' });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
@@ -501,6 +547,14 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         method: 'POST'
       });
 
+      // Handle non-JSON responses
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text();
+        console.error('[OnboardingProvider] skipOnboarding Non-JSON response:', text.substring(0, 200));
+        throw new Error(`Server returned ${response.status} (${response.statusText}). Please try again.`);
+      }
+
       const result = await response.json();
 
       if (result.success) {
@@ -510,7 +564,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
       }
     } catch (error) {
       console.error('[OnboardingProvider] skipOnboarding error:', error);
-      dispatch({ type: 'SET_ERROR', payload: 'Network error. Please try again.' });
+      dispatch({ type: 'SET_ERROR', payload: error instanceof Error ? error.message : 'Network error. Please try again.' });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
@@ -527,6 +581,14 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         method: 'POST'
       });
 
+      // Handle non-JSON responses
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text();
+        console.error('[OnboardingProvider] restartOnboarding Non-JSON response:', text.substring(0, 200));
+        throw new Error(`Server returned ${response.status} (${response.statusText}). Please try again.`);
+      }
+
       const result: OnboardingRestartResponse = await response.json();
 
       if (result.success && result.data) {
@@ -539,7 +601,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
       }
     } catch (error) {
       console.error('[OnboardingProvider] restartOnboarding error:', error);
-      dispatch({ type: 'SET_ERROR', payload: 'Network error. Please try again.' });
+      dispatch({ type: 'SET_ERROR', payload: error instanceof Error ? error.message : 'Network error. Please try again.' });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
