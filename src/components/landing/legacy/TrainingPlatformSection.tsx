@@ -1,4 +1,14 @@
-'use client';
+'use client'
+
+/**
+ * @copyright EdPsych Connect Limited 2025
+ * @license Proprietary - All Rights Reserved
+ * 
+ * CONFIDENTIAL: This software contains proprietary algorithms and trade secrets.
+ * Unauthorized copying, modification, distribution, or use is strictly prohibited.
+ */
+
+;
 
 import { GraduationCap, BookOpen, Award, Clock, Users, TrendingUp, CheckCircle2, Play, FileText } from 'lucide-react';
 import { useState } from 'react';

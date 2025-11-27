@@ -1,3 +1,11 @@
+/**
+ * @copyright EdPsych Connect Limited 2025
+ * @license Proprietary - All Rights Reserved
+ * 
+ * CONFIDENTIAL: This software contains proprietary algorithms and trade secrets.
+ * Unauthorized copying, modification, distribution, or use is strictly prohibited.
+ */
+
 import React, { useState } from 'react';
 import { FaBookOpen, FaSpinner, FaCheckCircle } from 'react-icons/fa';
 import { useSession } from 'next-auth/react';

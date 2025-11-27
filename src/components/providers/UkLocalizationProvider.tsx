@@ -1,3 +1,11 @@
+/**
+ * @copyright EdPsych Connect Limited 2025
+ * @license Proprietary - All Rights Reserved
+ * 
+ * CONFIDENTIAL: This software contains proprietary algorithms and trade secrets.
+ * Unauthorized copying, modification, distribution, or use is strictly prohibited.
+ */
+
 import React, { createContext, useContext } from 'react';
 import type { ReactNode } from 'react';
 import ukLocalization from '../../utils/ukLocalization';

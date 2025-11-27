@@ -1,3 +1,11 @@
+/**
+ * @copyright EdPsych Connect Limited 2025
+ * @license Proprietary - All Rights Reserved
+ * 
+ * CONFIDENTIAL: This software contains proprietary algorithms and trade secrets.
+ * Unauthorized copying, modification, distribution, or use is strictly prohibited.
+ */
+
 import { PrismaClient } from '@prisma/client';
 import { initializeMonitoring } from './services/monitoring/monitoring-init';
 import { prisma } from './lib/prisma/client'; // Import the existing prisma client

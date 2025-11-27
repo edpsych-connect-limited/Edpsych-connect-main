@@ -1,3 +1,11 @@
+/**
+ * @copyright EdPsych Connect Limited 2025
+ * @license Proprietary - All Rights Reserved
+ * 
+ * CONFIDENTIAL: This software contains proprietary algorithms and trade secrets.
+ * Unauthorized copying, modification, distribution, or use is strictly prohibited.
+ */
+
 // Common query patterns optimized for the platform
 export const optimizedQueries = {
   // Placeholder functions - can be implemented as needed

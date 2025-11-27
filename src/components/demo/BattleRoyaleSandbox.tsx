@@ -1,4 +1,14 @@
-'use client';
+'use client'
+
+/**
+ * @copyright EdPsych Connect Limited 2025
+ * @license Proprietary - All Rights Reserved
+ * 
+ * CONFIDENTIAL: This software contains proprietary algorithms and trade secrets.
+ * Unauthorized copying, modification, distribution, or use is strictly prohibited.
+ */
+
+;
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Star, Target, Zap, Shield, Crown, Users, Timer, Brain, Sparkles, BookOpen, Eye, Activity } from 'lucide-react';

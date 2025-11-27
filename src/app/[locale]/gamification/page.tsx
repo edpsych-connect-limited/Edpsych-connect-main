@@ -1,4 +1,14 @@
-'use client';
+'use client'
+
+/**
+ * @copyright EdPsych Connect Limited 2025
+ * @license Proprietary - All Rights Reserved
+ * 
+ * CONFIDENTIAL: This software contains proprietary algorithms and trade secrets.
+ * Unauthorized copying, modification, distribution, or use is strictly prohibited.
+ */
+
+;
 import React, { useEffect, useState } from 'react';
 import { LeaderboardEntry } from '@/components/gamification/leaderboard/LeaderboardEntry';
 import BattleRoyalePreview from '@/components/battle-royale/BattleRoyalePreview';

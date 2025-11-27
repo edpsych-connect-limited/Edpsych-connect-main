@@ -1,3 +1,11 @@
+/**
+ * @copyright EdPsych Connect Limited 2025
+ * @license Proprietary - All Rights Reserved
+ * 
+ * CONFIDENTIAL: This software contains proprietary algorithms and trade secrets.
+ * Unauthorized copying, modification, distribution, or use is strictly prohibited.
+ */
+
 // src/lib/secrets-manager-real.ts
 // Production-ready secrets management using environment variables with AES-256-GCM encryption
 // Generated: September 16, 2025

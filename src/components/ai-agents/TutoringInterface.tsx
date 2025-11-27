@@ -1,3 +1,11 @@
+/**
+ * @copyright EdPsych Connect Limited 2025
+ * @license Proprietary - All Rights Reserved
+ * 
+ * CONFIDENTIAL: This software contains proprietary algorithms and trade secrets.
+ * Unauthorized copying, modification, distribution, or use is strictly prohibited.
+ */
+
 import React, { useState, useEffect } from 'react';
 import { Loader2, BookOpen, Target, Lightbulb } from 'lucide-react';
 import { useAuth } from '@/lib/auth/hooks';
