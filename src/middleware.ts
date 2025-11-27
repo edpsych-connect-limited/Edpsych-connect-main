@@ -23,6 +23,7 @@ const PROTECTED_PATHS = [
 // Paths that are always public (even if they match a protected pattern somehow)
 const PUBLIC_PATHS = [
   '/login',
+  '/beta-login',
   '/register',
   '/forgot-password',
   '/reset-password',
