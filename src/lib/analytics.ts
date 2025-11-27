@@ -633,10 +633,69 @@ class AnalyticsService {
   }
 
   private convertToCSV(events: AnalyticsEvent[]): string {
-    // Convert events to CSV format
-    console.info(`Converting ${events.length} events to CSV format`);
-    // TODO: Implement actual CSV conversion
-    return '';
+    if (events.length === 0) {
+      return '';
+    }
+
+    // Define CSV columns
+    const columns = [
+      'id',
+      'type',
+      'entityId',
+      'tenantId',
+      'sessionId',
+      'timestamp',
+      'page',
+      'duration',
+      'userAgent',
+      'referrer',
+    ];
+
+    // Helper to escape CSV values
+    const escapeCSV = (value: any): string => {
+      if (value === null || value === undefined) return '';
+      const str = String(value);
+      // Escape quotes and wrap in quotes if contains comma, quote, or newline
+      if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+        return `"${str.replace(/"/g, '""')}"`;
+      }
+      return str;
+    };
+
+    // Build header row
+    const header = columns.join(',');
+
+    // Build data rows
+    const rows = events.map(event => {
+      return columns.map(col => {
+        switch (col) {
+          case 'id':
+            return escapeCSV(event.id);
+          case 'type':
+            return escapeCSV(event.type);
+          case 'entityId':
+            return escapeCSV(event.entityId);
+          case 'tenantId':
+            return escapeCSV(event.tenantId);
+          case 'sessionId':
+            return escapeCSV(event.sessionId);
+          case 'timestamp':
+            return escapeCSV(event.timestamp instanceof Date ? event.timestamp.toISOString() : event.timestamp);
+          case 'page':
+            return escapeCSV(event.metadata?.page);
+          case 'duration':
+            return escapeCSV(event.metadata?.duration);
+          case 'userAgent':
+            return escapeCSV(event.metadata?.userAgent);
+          case 'referrer':
+            return escapeCSV(event.metadata?.referrer);
+          default:
+            return '';
+        }
+      }).join(',');
+    });
+
+    return [header, ...rows].join('\n');
   }
 
   private generatePDF(events: AnalyticsEvent[]): any {

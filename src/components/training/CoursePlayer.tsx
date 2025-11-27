@@ -48,6 +48,7 @@ interface PlayerState {
   completed_lessons: string[];
   completed_quizzes: string[];
   total_merits_earned: number;
+  time_spent: number; // Total time spent in seconds
 }
 
 type ViewMode = 'lesson' | 'quiz' | 'resources' | 'notes';
@@ -68,6 +69,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
     completed_lessons: [],
     completed_quizzes: [],
     total_merits_earned: 0,
+    time_spent: 0,
   });
   const [viewMode, setViewMode] = useState<ViewMode>('lesson');
   const [showMeritAnimation, setShowMeritAnimation] = useState(false);
@@ -76,6 +78,8 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const autoSaveTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const sessionStartTimeRef = useRef<number>(Date.now());
+  const lastSaveTimeRef = useRef<number>(Date.now());
 
   // ============================================================================
   // INITIALIZATION
@@ -139,6 +143,15 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
     const totalItems = course.modules.reduce((sum, m) => sum + m.lessons.length + (m.quiz ? 1 : 0), 0) || 1;
     const completedItems = currentState.completed_lessons.length + currentState.completed_quizzes.length;
     const progress = Math.round((completedItems / totalItems) * 100);
+    
+    // Calculate time spent since last save
+    const now = Date.now();
+    const sessionTime = Math.floor((now - lastSaveTimeRef.current) / 1000);
+    lastSaveTimeRef.current = now;
+    
+    // Update state with accumulated time
+    const newTimeSpent = currentState.time_spent + sessionTime;
+    setState(prev => ({ ...prev, time_spent: newTimeSpent }));
 
     try {
       await fetch('/api/training/progress', {
@@ -149,8 +162,8 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
         body: JSON.stringify({
           courseId,
           progress,
-          timeSpent: 0, // TODO: Implement time tracking
-          state: currentState,
+          timeSpent: newTimeSpent,
+          state: { ...currentState, time_spent: newTimeSpent },
         }),
       });
     } catch (error) {

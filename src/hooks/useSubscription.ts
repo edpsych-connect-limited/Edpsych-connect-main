@@ -1,8 +1,32 @@
 import { useAuth } from '@/lib/auth/hooks';
+import { useEffect, useState } from 'react';
 import type { SubscriptionInfo, SubscriptionTier } from '../types';
 import { UserType, SubscriptionStatus } from '../types';
 import type { FeatureConfig } from '../lib/subscription';
 import { hasFeatureAccess, getAvailableFeatures } from '../lib/subscription';
+
+interface CapacityStatus {
+  limits?: {
+    maxUsers?: number;
+    maxStudents?: number;
+    maxSchools?: number;
+    maxStorage?: number;
+    maxAICredits?: number;
+  };
+  current?: {
+    users?: number;
+    students?: number;
+    schools?: number;
+    storageUsed?: number;
+    aiCreditsUsed?: number;
+  };
+  percentage?: {
+    users?: number;
+    students?: number;
+    storage?: number;
+    aiCredits?: number;
+  };
+}
 
 interface UseSubscriptionReturn {
   /**
@@ -48,18 +72,7 @@ interface UseSubscriptionReturn {
   /**
    * Current capacity status for usage limits
    */
-  capacityStatus?: {
-    limits?: {
-      maxUsers?: number;
-      maxStudents?: number;
-      maxSchools?: number;
-    };
-    current?: {
-      users?: number;
-      students?: number;
-      schools?: number;
-    };
-  };
+  capacityStatus?: CapacityStatus;
 
   /**
    * Whether the user is authenticated
@@ -70,6 +83,11 @@ interface UseSubscriptionReturn {
    * Whether the subscription data is still loading
    */
   isLoading: boolean;
+  
+  /**
+   * Refresh subscription data
+   */
+  refresh: () => Promise<void>;
 }
 
 /**
@@ -77,12 +95,82 @@ interface UseSubscriptionReturn {
  */
 export const useSubscription = (): UseSubscriptionReturn => {
   const { user, isLoading: authLoading } = useAuth();
+  const [capacityStatus, setCapacityStatus] = useState<CapacityStatus | undefined>(undefined);
+  const [subscriptionData, setSubscriptionData] = useState<{
+    tier?: SubscriptionTier;
+    status?: SubscriptionStatus;
+    expiresAt?: string;
+  } | null>(null);
+  const [isLoadingSubscription, setIsLoadingSubscription] = useState(false);
   
-  // Derive subscription info from user data
-  // Note: In a real implementation, this should come from a dedicated API or be part of the user object
+  // Fetch subscription data from API
+  const fetchSubscriptionData = async () => {
+    if (!user) return;
+    
+    setIsLoadingSubscription(true);
+    try {
+      const response = await fetch('/api/subscription/current', {
+        credentials: 'include',
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        
+        // Update subscription tier and status
+        if (data.subscription) {
+          setSubscriptionData({
+            tier: data.subscription.tier,
+            status: data.subscription.status === 'active' ? SubscriptionStatus.ACTIVE : SubscriptionStatus.INACTIVE,
+            expiresAt: data.subscription.expiresAt,
+          });
+        }
+        
+        // Update capacity status
+        if (data.usage || data.limits) {
+          const limits = data.limits || {};
+          const usage = data.usage || {};
+          
+          setCapacityStatus({
+            limits: {
+              maxStorage: limits.maxStorage,
+              maxAICredits: limits.maxAICredits,
+              maxUsers: limits.maxUsers,
+              maxStudents: limits.maxStudents,
+            },
+            current: {
+              storageUsed: usage.storageUsed,
+              aiCreditsUsed: usage.aiCreditsUsed,
+              users: usage.users,
+              students: usage.students,
+            },
+            percentage: {
+              storage: limits.maxStorage ? Math.round((usage.storageUsed || 0) / limits.maxStorage * 100) : 0,
+              aiCredits: limits.maxAICredits ? Math.round((usage.aiCreditsUsed || 0) / limits.maxAICredits * 100) : 0,
+            },
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Failed to fetch subscription data:', error);
+    } finally {
+      setIsLoadingSubscription(false);
+    }
+  };
+  
+  // Fetch subscription data when user changes
+  useEffect(() => {
+    if (user) {
+      fetchSubscriptionData();
+    } else {
+      setSubscriptionData(null);
+      setCapacityStatus(undefined);
+    }
+  }, [user?.id]);
+  
+  // Derive subscription info from user data and API response
   const subscription: SubscriptionInfo | null = user ? {
-    tier: (user as any).subscriptionTier || 'FREE',
-    status: SubscriptionStatus.ACTIVE,
+    tier: subscriptionData?.tier || (user as any).subscriptionTier || 'FREE',
+    status: subscriptionData?.status || SubscriptionStatus.ACTIVE,
     userType: (user.role as any) || UserType.SCHOOL_USER,
   } : null;
 
@@ -103,9 +191,10 @@ export const useSubscription = (): UseSubscriptionReturn => {
     userType,
     hasAccess: (featureKey: string) => hasFeatureAccess(featureKey, subscription, userType),
     availableFeatures,
-    capacityStatus: undefined, // TODO: Implement capacity tracking
+    capacityStatus,
     isAuthenticated: !!user,
-    isLoading: authLoading,
+    isLoading: authLoading || isLoadingSubscription,
+    refresh: fetchSubscriptionData,
   };
 };
 

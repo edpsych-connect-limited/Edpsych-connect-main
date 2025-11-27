@@ -84,15 +84,54 @@ export async function createPortalSession(customerId: string, returnUrl: string)
 }
 
 // Map Stripe Price ID to SubscriptionTier
-// This would ideally be stored in DB or config, but hardcoding for now based on setup script
+// These should match what's configured in Stripe
 export const PRICE_TIER_MAP: Record<string, SubscriptionTier> = {
-  // These IDs will need to be populated from environment variables or DB
-  // after running the setup script
+  // Environment variable-based price IDs
+  [process.env.STRIPE_PRICE_FREE || 'price_free']: 'FREE',
+  [process.env.STRIPE_PRICE_BASIC || 'price_basic']: 'BASIC',
+  [process.env.STRIPE_PRICE_PROFESSIONAL || 'price_professional']: 'PROFESSIONAL',
+  [process.env.STRIPE_PRICE_ENTERPRISE || 'price_enterprise']: 'ENTERPRISE',
 };
 
-export function getTierFromPriceId(_priceId: string): SubscriptionTier | null {
-  // In a real app, we'd look this up in the DB where we stored the product/price mappings
-  // For now, we'll assume the price metadata contains the tier
-  // This requires fetching the price from Stripe or caching it
-  return null; // TODO: Implement lookup
+/**
+ * Get subscription tier from Stripe price ID
+ * Looks up in environment-configured map first, then attempts to fetch from Stripe metadata
+ */
+export async function getTierFromPriceId(priceId: string): Promise<SubscriptionTier | null> {
+  // First check the static map
+  if (PRICE_TIER_MAP[priceId]) {
+    return PRICE_TIER_MAP[priceId];
+  }
+  
+  // If not in static map and Stripe is configured, fetch from Stripe
+  if (process.env.STRIPE_SECRET_KEY) {
+    try {
+      const price = await stripe.prices.retrieve(priceId, {
+        expand: ['product'],
+      });
+      
+      // Check price metadata for tier
+      if (price.metadata?.tier) {
+        return price.metadata.tier as SubscriptionTier;
+      }
+      
+      // Check product metadata for tier
+      const product = price.product as Stripe.Product;
+      if (product?.metadata?.tier) {
+        return product.metadata.tier as SubscriptionTier;
+      }
+      
+      // Try to infer from product name
+      const productName = product?.name?.toLowerCase() || '';
+      if (productName.includes('enterprise')) return 'ENTERPRISE';
+      if (productName.includes('professional')) return 'PROFESSIONAL';
+      if (productName.includes('basic')) return 'BASIC';
+      if (productName.includes('free')) return 'FREE';
+    } catch (error) {
+      console.error('Failed to fetch price from Stripe:', error);
+    }
+  }
+  
+  // Default to BASIC if we can't determine the tier
+  return 'BASIC';
 }
