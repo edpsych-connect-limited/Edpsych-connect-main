@@ -54,3 +54,36 @@ npm run dev
 ```bash
 npx cypress run
 ```
+
+## 🚀 Beta Programme
+
+EdPsych Connect World is currently in **closed beta**. Beta testers help shape the future of educational psychology software.
+
+### Beta Access
+Access the beta programme at: [www.edpsychconnect.com/beta-login](https://www.edpsychconnect.com/beta-login)
+
+### Available Beta Codes
+| Code | Target Audience | Max Uses |
+|------|-----------------|----------|
+| `BETA2025` | General beta access | 100 |
+| `EDPSYCH-BETA` | Educational Psychologists | 50 |
+| `EP-BETA-UK` | UK Educational Psychologists | 200 |
+| `TEACHER-BETA` | Teachers | 500 |
+| `SENCO-BETA` | SENCOs/SEND Coordinators | 100 |
+| `RESEARCH-BETA` | Researchers | 30 |
+| `LA-BETA-2025` | Local Authorities | 25 |
+| `FOUNDER-ACCESS` | Key stakeholders | 10 |
+
+### Beta Features
+- ✅ Full platform access based on user role
+- ✅ Beta feedback widget for direct developer communication
+- ✅ Priority support for beta testers
+- ✅ Early access to new features
+
+### Beta Terms
+Beta testers agree to:
+- Provide constructive feedback
+- Report bugs and issues
+- Keep beta features confidential
+- Accept that features may change
+
