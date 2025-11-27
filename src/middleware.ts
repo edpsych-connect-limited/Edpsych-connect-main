@@ -25,7 +25,8 @@ const PROTECTED_PATHS = [
   '/clients',
   '/calendar',
   '/messages',
-  '/documents'
+  '/documents',
+  '/onboarding'
 ];
 
 // Paths that are always public (even if they match a protected pattern somehow)
