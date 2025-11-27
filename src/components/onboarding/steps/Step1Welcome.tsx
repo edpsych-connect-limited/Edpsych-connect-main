@@ -180,18 +180,12 @@ export function Step1Welcome() {
               </div>
             </button>
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center">
-              {/* Placeholder for actual video */}
-              <video
-                ref={videoRef}
-                className="w-full h-full object-cover"
-                controls
-                aria-label="Introduction video"
-              >
-                {/* In production, add actual video source */}
-                <source src="/videos/onboarding-intro.mp4" type="video/mp4" />
-                <p className="text-white">Your browser does not support the video tag.</p>
-              </video>
+            <div className="absolute inset-0 flex items-center justify-center bg-black">
+              {/* Fallback for missing video */}
+              <div className="text-center p-6">
+                 <p className="text-white mb-4">Video content is currently being updated for the Beta release.</p>
+                 <p className="text-gray-400 text-sm">Please proceed to the next step to explore the platform features directly.</p>
+              </div>
             </div>
           )}
 
