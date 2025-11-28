@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/steps/Step6Completion.tsx
  * PURPOSE: Step 6 - Completion screen with certificate and next steps
@@ -39,13 +40,13 @@ export function Step6Completion() {
   // Show confetti animation on mount
   useEffect(() => {
     // In production, trigger confetti animation here
-    console.log('🎉 Onboarding completed!');
+    logger.debug('🎉 Onboarding completed!');
   }, []);
 
   const handleDownloadCertificate = () => {
     setCertificateViewed(true);
     // TODO: In production, generate and download actual certificate
-    console.log('Downloading certificate...');
+    logger.debug('Downloading certificate...');
     alert('Certificate download would start here (feature in development)');
   };
 

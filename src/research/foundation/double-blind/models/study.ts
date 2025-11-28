@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Models for the Double-Blind Study Automation Framework
  * 

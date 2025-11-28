@@ -1,8 +1,8 @@
+import { logger } from "@/lib/logger";
 /**
  * Performance Monitoring Service
  * Comprehensive performance tracking and optimization for production deployment
  */
-import logger from '../lib/logger';
 
 export interface PerformanceMetric {
   name: string;

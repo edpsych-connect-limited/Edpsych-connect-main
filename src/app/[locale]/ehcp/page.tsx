@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * EHCP List Page - Enterprise-grade implementation
  * Phase 3.1: EHCP Support System

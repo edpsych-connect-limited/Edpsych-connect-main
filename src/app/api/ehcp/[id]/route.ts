@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * EHCP [id] API Routes
  * Handles individual EHCP operations with version tracking and notifications

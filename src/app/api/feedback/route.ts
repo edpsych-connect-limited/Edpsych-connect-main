@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -68,7 +69,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Log to console for immediate visibility during beta
-    console.log('📝 Beta Feedback Received:', {
+    logger.debug('📝 Beta Feedback Received:', {
       type,
       message: message.substring(0, 100) + (message.length > 100 ? '...' : ''),
       page: currentPage,

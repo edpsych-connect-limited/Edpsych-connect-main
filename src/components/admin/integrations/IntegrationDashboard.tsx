@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 "use client"
 
 /**
@@ -34,8 +35,8 @@ const initialProviders: ProviderProps[] = [
     logo: '⚡',
     status: 'disconnected',
     features: ['Real-time Student Sync', 'Staff Directory', 'Timetables', 'Attendance'],
-    onConnect: () => console.log('Connect Wonde'), // Placeholder, will be overridden
-    onConfigure: () => console.log('Config Wonde'),
+    onConnect: () => logger.debug('Connect Wonde'), // Placeholder, will be overridden
+    onConfigure: () => logger.debug('Config Wonde'),
     helpText: 'You can find your API Token in the Wonde Portal under "API Settings". If you are unsure, please ask your IT Network Manager.'
   },
   {
@@ -45,8 +46,8 @@ const initialProviders: ProviderProps[] = [
     logo: '🏢',
     status: 'disconnected',
     features: ['Nightly XML Sync', 'Student Records', 'Assessment Data'],
-    onConnect: () => console.log('Connect SIMS'),
-    onConfigure: () => console.log('Config SIMS'),
+    onConnect: () => logger.debug('Connect SIMS'),
+    onConfigure: () => logger.debug('Config SIMS'),
     helpText: 'Enter the secure Gateway URL provided by your IT team after installing the EdPsych Connector.'
   },
   {
@@ -56,8 +57,8 @@ const initialProviders: ProviderProps[] = [
     logo: '🌳',
     status: 'pending',
     features: ['API V2 Support', 'Behaviour Incidents', 'Assessment Write-back'],
-    onConnect: () => console.log('Connect Arbor'),
-    onConfigure: () => console.log('Config Arbor'),
+    onConnect: () => logger.debug('Connect Arbor'),
+    onConfigure: () => logger.debug('Config Arbor'),
     helpText: 'Generate an API Key in Arbor under System > Partner Apps > EdPsych Connect.'
   },
   {
@@ -67,8 +68,8 @@ const initialProviders: ProviderProps[] = [
     logo: '🛡️',
     status: 'disconnected',
     features: ['Safeguarding Alerts', 'Incident Logging'],
-    onConnect: () => console.log('Connect CPOMS'),
-    onConfigure: () => console.log('Config CPOMS'),
+    onConnect: () => logger.debug('Connect CPOMS'),
+    onConfigure: () => logger.debug('Config CPOMS'),
     helpText: 'Contact CPOMS support to request an API Key for EdPsych Connect.'
   },
   {
@@ -78,8 +79,8 @@ const initialProviders: ProviderProps[] = [
     logo: '🔑',
     status: 'disconnected',
     features: ['SAML 2.0 SSO', 'Group Sync', 'MFA Enforcement'],
-    onConnect: () => console.log('Connect Azure'),
-    onConfigure: () => console.log('Config Azure'),
+    onConnect: () => logger.debug('Connect Azure'),
+    onConfigure: () => logger.debug('Config Azure'),
     helpText: 'You will need your Tenant ID and Client Secret from the Azure Portal.'
   }
 ];

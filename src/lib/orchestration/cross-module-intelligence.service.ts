@@ -19,10 +19,10 @@
  */
 
 import { PrismaClient } from '@prisma/client';
-import logger from '@/utils/logger';
 import { ProfileBuilderService } from './profile-builder.service';
 import { AssignmentEngineService } from './assignment-engine.service';
 import { DataRouterService } from './data-router.service';
+import { logger } from "@/lib/logger";
 
 const prisma = new PrismaClient();
 

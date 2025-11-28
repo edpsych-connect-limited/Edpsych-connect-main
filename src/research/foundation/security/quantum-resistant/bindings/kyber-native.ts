@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Kyber WebAssembly Bindings
  * 
@@ -70,7 +71,7 @@ export class KyberNative {
 
     this.initializationPromise = new Promise<void>((resolve, _reject) => {
       // In a real implementation, this would load the WebAssembly module
-      console.log(`Loading Kyber WebAssembly module from ${WASM_MODULE_PATH}...`);
+      logger.debug(`Loading Kyber WebAssembly module from ${WASM_MODULE_PATH}...`);
       
       // Simulate loading time
       setTimeout(() => {
@@ -81,7 +82,7 @@ export class KyberNative {
         };
         
         this.isInitialized = true;
-        console.log('Kyber WebAssembly module loaded successfully');
+        logger.debug('Kyber WebAssembly module loaded successfully');
         resolve();
       }, 100);
     });

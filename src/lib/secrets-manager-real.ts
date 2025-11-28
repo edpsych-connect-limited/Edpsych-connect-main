@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -11,7 +12,6 @@
 // Generated: September 16, 2025
 // Compliance: GDPR, ISO 27001, SOC 2
 
-import { logger } from './logger';
 import crypto from 'crypto';
 
 interface SecretValue {

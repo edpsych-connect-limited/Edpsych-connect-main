@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -14,7 +15,6 @@
 // Temporary mock implementation for Phase 3 development
 // TODO: Replace with real AWS Secrets Manager implementation when AWS access is available
 
-import { logger } from './logger';
 
 interface SecretValue {
   [key: string]: string | number | boolean | null;

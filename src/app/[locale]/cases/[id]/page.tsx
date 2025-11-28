@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Case Detail Page
  * View and manage a specific case

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Unified API Route Handler
  * 

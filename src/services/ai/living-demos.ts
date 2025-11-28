@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * 🎬 LIVING DEMONSTRATIONS SYSTEM
  * Real-time AI capability demonstrations that show the "invisible brain" in action
@@ -37,7 +38,7 @@ export class LivingDemonstrationsSystem {
 
   constructor() {
     this.initializeDemoTemplates();
-    console.log('🎬 Living Demonstrations System initialized');
+    logger.debug('🎬 Living Demonstrations System initialized');
   }
 
   /**
@@ -61,7 +62,7 @@ export class LivingDemonstrationsSystem {
     // Start the demo generation
     this.runDemo(demoSession);
 
-    console.log(`🎬 Started ${type} demo: ${demoId}`);
+    logger.debug(`🎬 Started ${type} demo: ${demoId}`);
     return demoId;
   }
 
@@ -115,7 +116,7 @@ export class LivingDemonstrationsSystem {
         timestamp: new Date()
       });
 
-      console.log(`✅ Demo completed: ${demoSession.type} in ${demoSession.endTime.getTime() - demoSession.startTime.getTime()}ms`);
+      logger.debug(`✅ Demo completed: ${demoSession.type} in ${demoSession.endTime.getTime() - demoSession.startTime.getTime()}ms`);
 
     } catch (error) {
       console.error(`❌ Demo failed: ${demoSession.type}`, error);

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * EdPsych Connect World - GDPR Compliance Middleware
  *
@@ -447,7 +448,7 @@ class GDPRComplianceMiddleware {
       };
 
       // In a real implementation, you would store this in a secure audit log
-      console.log('GDPR Data Processing Log:', logEntry);
+      logger.debug('GDPR Data Processing Log:', logEntry);
     } catch (error) {
       console.error('Error logging data processing:', error);
     }
@@ -467,7 +468,7 @@ class GDPRComplianceMiddleware {
       };
 
       // In a real implementation, you would store this in a secure audit log
-      console.log('GDPR Consent Log:', logEntry);
+      logger.debug('GDPR Consent Log:', logEntry);
     } catch (error) {
       console.error('Error logging consent event:', error);
     }

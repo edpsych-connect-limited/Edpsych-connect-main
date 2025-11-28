@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Course Completion Forecasting Engine
  * ML-powered course completion prediction with risk assessment and intervention optimization
@@ -19,7 +20,6 @@ import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 import { redis } from '@/lib/redis';
 import { openai } from '@/lib/openai';
-import { logger } from '@/lib/logger';
 
 // ============================================================================
 // TYPE DEFINITIONS

@@ -13,26 +13,26 @@ const isBrowser = typeof window !== 'undefined';
 
 // Simple console-based logger that works everywhere
 const consoleLogger = {
-  error: (message: string, meta?: any) => {
+  error: (message: string, ...args: any[]) => {
     const timestamp = new Date().toISOString();
-    console.error(`[${timestamp}] ERROR: ${message}`, meta || '');
+    console.error(`[${timestamp}] ERROR: ${message}`, ...args);
   },
-  warn: (message: string, meta?: any) => {
+  warn: (message: string, ...args: any[]) => {
     const timestamp = new Date().toISOString();
-    console.warn(`[${timestamp}] WARN: ${message}`, meta || '');
+    console.warn(`[${timestamp}] WARN: ${message}`, ...args);
   },
-  info: (message: string, meta?: any) => {
+  info: (message: string, ...args: any[]) => {
     const timestamp = new Date().toISOString();
-    console.info(`[${timestamp}] INFO: ${message}`, meta || '');
+    console.info(`[${timestamp}] INFO: ${message}`, ...args);
   },
-  debug: (message: string, meta?: any) => {
+  debug: (message: string, ...args: any[]) => {
     const timestamp = new Date().toISOString();
-    console.debug(`[${timestamp}] DEBUG: ${message}`, meta || '');
+    console.debug(`[${timestamp}] DEBUG: ${message}`, ...args);
   },
-  log: (level: string, message: string, meta?: any) => {
+  log: (level: string, message: string, ...args: any[]) => {
     const timestamp = new Date().toISOString();
     const logMethod = (console as any)[level] || console.log;
-    logMethod(`[${timestamp}] ${level.toUpperCase()}: ${message}`, meta || '');
+    logMethod(`[${timestamp}] ${level.toUpperCase()}: ${message}`, ...args);
   }
 };
 

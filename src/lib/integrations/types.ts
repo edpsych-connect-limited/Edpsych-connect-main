@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Integration Interfaces
  * Standardized format for syncing data from any MIS (Management Information System)

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * User Onboarding API
  * Handles onboarding progress tracking and completion

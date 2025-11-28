@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Cookie Consent Banner Component for EdPsych Connect World
  * GDPR and CCPA compliant cookie consent interface

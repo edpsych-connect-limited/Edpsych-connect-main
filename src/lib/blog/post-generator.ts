@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/lib/blog/post-generator.ts
  * PURPOSE: AI-powered blog post generation from scraped content
@@ -96,7 +97,7 @@ export class BlogPostGenerator {
    * Generate daily blog post automatically
    */
   async generateDailyPost(): Promise<BlogPost> {
-    console.log('[Blog Generator] Starting daily post generation...');
+    logger.debug('[Blog Generator] Starting daily post generation...');
 
     // 1. Scrape latest educational content
     const scrapedContent = await contentScraper.scrapeAllSources();
@@ -105,7 +106,7 @@ export class BlogPostGenerator {
       throw new Error('No content scraped');
     }
 
-    console.log(`[Blog Generator] Scraped ${scrapedContent.length} articles`);
+    logger.debug(`[Blog Generator] Scraped ${scrapedContent.length} articles`);
 
     // 2. Identify trending topic
     const topicAnalysis = await this.analyzeTrendingTopic(scrapedContent);
@@ -121,7 +122,7 @@ export class BlogPostGenerator {
     // 5. Generate post content
     const post = await this.generatePost(topicAnalysis.topic, relevantArticles, template);
 
-    console.log(`[Blog Generator] Generated post: "${post.title}"`);
+    logger.debug(`[Blog Generator] Generated post: "${post.title}"`);
 
     return post;
   }

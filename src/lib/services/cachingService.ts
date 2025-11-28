@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Advanced Caching Service
  *
@@ -10,7 +11,6 @@
  */
 
 import Redis from 'redis';
-import { logger } from '@/lib/logger';
 
 // Helper to safely extract error message
 function getErrorMessage(error: unknown): string {

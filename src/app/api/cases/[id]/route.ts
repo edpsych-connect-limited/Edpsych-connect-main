@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Case Individual API Routes - Enterprise-grade implementation
  * Phase 3: Core SEND Functionality

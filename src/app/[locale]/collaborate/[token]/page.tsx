@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Collaborative Input Form Page
  * Public page for parents/teachers/children to provide assessment input

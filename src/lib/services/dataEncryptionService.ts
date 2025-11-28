@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Data Encryption Service
  *
@@ -12,7 +13,6 @@
 import crypto from 'crypto';
 import { promises as fs } from 'fs';
 import path from 'path';
-import { logger } from '@/lib/logger';
 
 class DataEncryptionService {
   options: any;

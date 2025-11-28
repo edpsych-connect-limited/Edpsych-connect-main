@@ -13,7 +13,7 @@
 
 // Flag to prevent multiple applications of the patch
 if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__) {
-  console.log('🔧 Applying ultra-aggressive styled-jsx SSR/SSG patch v3.0');
+  logger.debug('🔧 Applying ultra-aggressive styled-jsx SSR/SSG patch v3.0');
   
   // Step 1: Create a comprehensive document mock that handles all styled-jsx needs
   const createMockDocument = () => ({
@@ -129,7 +129,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
     // ALWAYS create our document mock - this is the key change for reliability
     // Even if document exists, we replace it to ensure consistency
     global.document = createMockDocument();
-    console.log('✅ Ultra-safe document mock created for SSR/SSG');
+    logger.debug('✅ Ultra-safe document mock created for SSR/SSG');
     
     // Make document non-configurable and non-writable to prevent deletion
     try {
@@ -138,7 +138,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
         writable: false,
         configurable: false
       });
-      console.log('✅ Made document non-configurable for maximum protection');
+      logger.debug('✅ Made document non-configurable for maximum protection');
     } catch (err) {
       console.warn('⚠️ Could not make document non-configurable:', err.message);
     }
@@ -195,7 +195,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
           if (filename.includes('styled-jsx') &&
               (filename.includes('/dist/') || filename.endsWith('index.js'))) {
             
-            console.log(`🔍 Intercepted styled-jsx file load: ${filename}`);
+            logger.debug(`🔍 Intercepted styled-jsx file load: ${filename}`);
             
             // Replace StyleSheet class in the content if possible
             if (content.includes('StyleSheet')) {
@@ -207,7 +207,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
                 '").UltraSafeStyleSheet;'
               );
               
-              console.log(`✅ Replaced StyleSheet implementation in ${filename}`);
+              logger.debug(`✅ Replaced StyleSheet implementation in ${filename}`);
             }
           }
           
@@ -215,7 +215,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
           return originalCompile.call(this, content, filename);
         };
         
-        console.log('✅ Successfully monkey-patched Node.js module system for styled-jsx interception');
+        logger.debug('✅ Successfully monkey-patched Node.js module system for styled-jsx interception');
       } catch (err) {
         console.warn('⚠️ Could not monkey-patch Node.js module system:', err.message);
       }
@@ -230,7 +230,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
         if (styledJsx && styledJsx.StyleSheet) {
           // Replace the StyleSheet implementation
           styledJsx.StyleSheet = UltraSafeStyleSheet;
-          console.log('✅ Successfully patched already loaded styled-jsx module');
+          logger.debug('✅ Successfully patched already loaded styled-jsx module');
         }
       } catch (err) {
         console.warn('⚠️ Could not patch already loaded styled-jsx module:', err.message);
@@ -253,7 +253,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
           if (styledJsx && styledJsx.StyleSheet) {
             // Replace the StyleSheet implementation
             styledJsx.StyleSheet = UltraSafeStyleSheet;
-            console.log(`✅ Successfully patched styled-jsx at path: ${path}`);
+            logger.debug(`✅ Successfully patched styled-jsx at path: ${path}`);
           }
         } catch (err) {
           // Continue trying paths
@@ -272,7 +272,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
           // Patch the StyleSheet if it exists
           if (result && result.StyleSheet) {
             result.StyleSheet = UltraSafeStyleSheet;
-            console.log(`✅ Patched styled-jsx during require: ${id}`);
+            logger.debug(`✅ Patched styled-jsx during require: ${id}`);
           }
         }
         
@@ -288,7 +288,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
   
   // Mark as applied to prevent duplicate application
   global.__STYLED_JSX_ULTRA_PATCH_APPLIED__ = true;
-  console.log('✅ Ultra-aggressive styled-jsx patch v3.0 applied successfully');
+  logger.debug('✅ Ultra-aggressive styled-jsx patch v3.0 applied successfully');
 }
 
 // Export UltraSafeStyleSheet for direct use

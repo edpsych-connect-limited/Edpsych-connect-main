@@ -2,6 +2,8 @@
  * Algorithm Model
  * Represents a proprietary algorithm in the licensing platform
  */
+import { logger } from '@/lib/logger';
+
 class Algorithm {
   constructor(data = {}) {
     this.id = data.id || null;
@@ -46,7 +48,7 @@ class Algorithm {
    */
   static async create(data) {
     // In a real implementation, this would create a record in the database
-    console.log('Creating algorithm:', data);
+    logger.debug('Creating algorithm:', data);
     return new Algorithm(data);
   }
 
@@ -57,7 +59,7 @@ class Algorithm {
    */
   async update(data) {
     // In a real implementation, this would update a record in the database
-    console.log('Updating algorithm:', this.id, data);
+    logger.debug('Updating algorithm:', this.id, data);
     Object.assign(this, data);
     this.updatedAt = new Date().toISOString();
     return this;
@@ -69,7 +71,7 @@ class Algorithm {
    */
   async delete() {
     // In a real implementation, this would mark the algorithm as archived
-    console.log('Deleting algorithm:', this.id);
+    logger.debug('Deleting algorithm:', this.id);
     this.status = 'archived';
     this.updatedAt = new Date().toISOString();
     return true;
@@ -82,7 +84,7 @@ class Algorithm {
    */
   static async getById(id) {
     // In a real implementation, this would fetch from the database
-    console.log('Getting algorithm by ID:', id);
+    logger.debug('Getting algorithm by ID:', id);
     return new Algorithm({ id });
   }
 
@@ -95,7 +97,7 @@ class Algorithm {
    */
   static async list(filters = {}, _pagination = {}, _sorting = {}) {
     // In a real implementation, this would query the database
-    console.log('Listing algorithms with filters:', filters);
+    logger.debug('Listing algorithms with filters:', filters);
     return [new Algorithm()];
   }
 
@@ -106,7 +108,7 @@ class Algorithm {
    */
   async addVersion(versionData) {
     // In a real implementation, this would create a new version record
-    console.log('Adding version to algorithm:', this.id, versionData);
+    logger.debug('Adding version to algorithm:', this.id, versionData);
     
     const version = {
       id: `v-${Date.now()}`,
@@ -144,7 +146,7 @@ class Algorithm {
    */
   async addLicense(licenseData) {
     // In a real implementation, this would create a new license record
-    console.log('Adding license to algorithm:', this.id, licenseData);
+    logger.debug('Adding license to algorithm:', this.id, licenseData);
     
     const license = {
       id: `lic-${Date.now()}`,

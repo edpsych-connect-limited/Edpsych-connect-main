@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Performance Monitoring Service
  *
@@ -12,7 +13,6 @@
 
 import { performance, PerformanceObserver } from 'perf_hooks';
 import * as os from 'os';
-import { logger } from '@/lib/logger';
 
 class PerformanceMonitoringService {
   options: any;

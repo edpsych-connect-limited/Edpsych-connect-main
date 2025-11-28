@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Subscription Management Page
  * Manage subscription, billing, and usage

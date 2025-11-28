@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Collaborative Input Form
  * Multi-informant assessment input form for parents, teachers, and children

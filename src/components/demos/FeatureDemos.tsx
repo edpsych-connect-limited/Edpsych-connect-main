@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Feature Demos Collection
  * Interactive demonstrations of all 6 key platform features

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Custom error types for the institutional management module
  */

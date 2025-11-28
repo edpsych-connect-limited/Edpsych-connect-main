@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -10,7 +11,6 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { orchestratorService } from '@/services/orchestrator-service';
-import logger from '@/lib/logger';
 import { z } from 'zod';
 
 // Schema for the tutoring request

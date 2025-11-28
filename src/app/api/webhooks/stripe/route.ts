@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/webhooks/stripe/route.ts
  * PURPOSE: Handle Stripe webhook events for subscription management
@@ -91,7 +92,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Log event for monitoring
-    console.log(`[Stripe Webhook] Event received: ${event.type}`);
+    logger.debug(`[Stripe Webhook] Event received: ${event.type}`);
 
     // Handle event based on type
     switch (event.type) {
@@ -120,7 +121,7 @@ export async function POST(request: NextRequest) {
         break;
 
       default:
-        console.log(`[Stripe Webhook] Unhandled event type: ${event.type}`);
+        logger.debug(`[Stripe Webhook] Unhandled event type: ${event.type}`);
     }
 
     return NextResponse.json({ success: true, received: true }, { status: 200 });
@@ -143,7 +144,7 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
   const status = subscription.status;
   const currentPeriodEnd = new Date((subscription as any).current_period_end * 1000);
 
-  console.log(`[Stripe] Subscription created: ${subscriptionId} for customer: ${customerId}`);
+  logger.debug(`[Stripe] Subscription created: ${subscriptionId} for customer: ${customerId}`);
 
   // Get tenant_id from Stripe metadata (should be set during checkout)
   const metadata = subscription.metadata || {};
@@ -196,7 +197,7 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
     }
   });
 
-  console.log(`[Stripe] Subscription record created/updated for tenant ${tenantId}`);
+  logger.debug(`[Stripe] Subscription record created/updated for tenant ${tenantId}`);
 }
 
 /**
@@ -206,7 +207,7 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
   const subscriptionId = subscription.id;
   const status = subscription.status;
 
-  console.log(`[Stripe] Subscription updated: ${subscriptionId}, status: ${status}`);
+  logger.debug(`[Stripe] Subscription updated: ${subscriptionId}, status: ${status}`);
 
   // Get price to determine tier (in case of upgrade/downgrade)
   const priceId = subscription.items.data[0]?.price.id;
@@ -228,7 +229,7 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
     }
   });
 
-  console.log(`[Stripe] Subscription updated in database`);
+  logger.debug(`[Stripe] Subscription updated in database`);
 }
 
 /**
@@ -237,7 +238,7 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
 async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
   const subscriptionId = subscription.id;
 
-  console.log(`[Stripe] Subscription deleted: ${subscriptionId}`);
+  logger.debug(`[Stripe] Subscription deleted: ${subscriptionId}`);
 
   // Mark subscription as canceled (multi-tenant architecture)
   await prisma.subscriptions.updateMany({
@@ -249,7 +250,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
     }
   });
 
-  console.log(`[Stripe] Subscription marked as canceled in database`);
+  logger.debug(`[Stripe] Subscription marked as canceled in database`);
 }
 
 /**
@@ -259,7 +260,7 @@ async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
   const subscriptionId = (invoice as any).subscription as string;
   const amountPaid = (invoice as any).amount_paid / 100; // Convert from cents
 
-  console.log(`[Stripe] Payment succeeded for subscription: ${subscriptionId}, amount: £${amountPaid}`);
+  logger.debug(`[Stripe] Payment succeeded for subscription: ${subscriptionId}, amount: £${amountPaid}`);
 
   // Update subscription status to active (multi-tenant architecture)
   await prisma.subscriptions.updateMany({
@@ -275,7 +276,7 @@ async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
   // TODO: Generate invoice PDF
   // TODO: Update usage tracking if needed
 
-  console.log(`[Stripe] Subscription activated after successful payment`);
+  logger.debug(`[Stripe] Subscription activated after successful payment`);
 }
 
 /**
@@ -285,7 +286,7 @@ async function handlePaymentFailed(invoice: Stripe.Invoice) {
   const subscriptionId = (invoice as any).subscription as string;
   const attemptCount = (invoice as any).attempt_count;
 
-  console.log(`[Stripe] Payment failed for subscription: ${subscriptionId}, attempt: ${attemptCount}`);
+  logger.debug(`[Stripe] Payment failed for subscription: ${subscriptionId}, attempt: ${attemptCount}`);
 
   // Update subscription status (multi-tenant architecture)
   await prisma.subscriptions.updateMany({
@@ -300,7 +301,7 @@ async function handlePaymentFailed(invoice: Stripe.Invoice) {
   // TODO: Send payment failed email
   // TODO: If final attempt, suspend access
 
-  console.log(`[Stripe] Subscription marked as past_due`);
+  logger.debug(`[Stripe] Subscription marked as past_due`);
 }
 
 /**
@@ -310,13 +311,13 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   const customerId = session.customer as string;
   const subscriptionId = session.subscription as string;
 
-  console.log(`[Stripe] Checkout completed for customer: ${customerId}`);
+  logger.debug(`[Stripe] Checkout completed for customer: ${customerId}`);
 
   // NOTE: Stripe customer ID is stored in subscriptions table (multi-tenant architecture)
   // The subscription.created webhook will handle linking customerId to tenant
   // via the subscriptions table. No need to update users table.
 
-  console.log(`[Stripe] Checkout complete. Subscription ${subscriptionId} will be processed by subscription.created webhook.`);
+  logger.debug(`[Stripe] Checkout complete. Subscription ${subscriptionId} will be processed by subscription.created webhook.`);
 
   // TODO: Send welcome email
   // TODO: Trigger onboarding flow

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/multi-agency/view/route.ts
  * PURPOSE: Role-based multi-agency data views with privacy transformations
@@ -88,7 +89,7 @@ export async function GET(
     // const assigned = searchParams.get('assigned') === 'true'; // For EPs
     // const studentId = searchParams.get('studentId'); // Single student view
 
-    console.log(`[Multi-Agency View API] GET request - User: ${userId}, Role: ${userRole}, Tenant: ${tenantId}`);
+    logger.debug(`[Multi-Agency View API] GET request - User: ${userId}, Role: ${userRole}, Tenant: ${tenantId}`);
 
     // Build context for data router
     // const context: any = {
@@ -140,7 +141,7 @@ export async function GET(
       allowedActions: multiAgencyView.allowedActions || [],
     };
 
-    console.log(`[Multi-Agency View API] Generated view - Role: ${userRole}, Students: ${response.students.length}, Access Level: ${response.accessLevel}`);
+    logger.debug(`[Multi-Agency View API] Generated view - Role: ${userRole}, Students: ${response.students.length}, Access Level: ${response.accessLevel}`);
 
     return NextResponse.json(response);
 

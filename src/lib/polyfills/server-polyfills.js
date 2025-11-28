@@ -4,21 +4,23 @@
  * This module provides polyfills for browser globals when running in server context.
  * These are needed for libraries that assume browser environment but are used in SSR.
  */
+import { logger } from '@/lib/logger';
+
 
 // Only apply polyfills in a Node.js environment (not in browser)
 if (typeof window === 'undefined') {
-  console.log('🔧 Applying server-side polyfills...');
+  logger.debug('🔧 Applying server-side polyfills...');
 
   // Polyfill global 'self'
   if (typeof self === 'undefined') {
     global.self = global;
-    console.log('✅ Polyfilled: self');
+    logger.debug('✅ Polyfilled: self');
   }
 
   // Polyfill window
   if (typeof window === 'undefined') {
     global.window = global;
-    console.log('✅ Polyfilled: window');
+    logger.debug('✅ Polyfilled: window');
   }
 
   // Polyfill document
@@ -45,7 +47,7 @@ if (typeof window === 'undefined') {
       addEventListener: () => {},
       removeEventListener: () => {}
     };
-    console.log('✅ Polyfilled: document');
+    logger.debug('✅ Polyfilled: document');
   }
 
   // Polyfill navigator
@@ -58,7 +60,7 @@ if (typeof window === 'undefined') {
       cookieEnabled: false,
       onLine: true
     };
-    console.log('✅ Polyfilled: navigator');
+    logger.debug('✅ Polyfilled: navigator');
   }
 
   // Polyfill localStorage
@@ -82,7 +84,7 @@ if (typeof window === 'undefined') {
     Object.defineProperty(global.localStorage, 'length', {
       get: () => global._localStorage ? Object.keys(global._localStorage).length : 0
     });
-    console.log('✅ Polyfilled: localStorage');
+    logger.debug('✅ Polyfilled: localStorage');
   }
 
   // Polyfill sessionStorage
@@ -106,7 +108,7 @@ if (typeof window === 'undefined') {
     Object.defineProperty(global.sessionStorage, 'length', {
       get: () => global._sessionStorage ? Object.keys(global._sessionStorage).length : 0
     });
-    console.log('✅ Polyfilled: sessionStorage');
+    logger.debug('✅ Polyfilled: sessionStorage');
   }
 
   // Polyfill some common browser APIs
@@ -120,14 +122,14 @@ if (typeof window === 'undefined') {
       status: 200,
       headers: new Map()
     });
-    console.log('✅ Polyfilled: fetch API stub');
+    logger.debug('✅ Polyfilled: fetch API stub');
   }
 
   // Request Animation Frame
   if (typeof requestAnimationFrame === 'undefined') {
     global.requestAnimationFrame = (callback) => setTimeout(callback, 0);
     global.cancelAnimationFrame = (id) => clearTimeout(id);
-    console.log('✅ Polyfilled: requestAnimationFrame/cancelAnimationFrame');
+    logger.debug('✅ Polyfilled: requestAnimationFrame/cancelAnimationFrame');
   }
 
   // Basic Event System
@@ -140,15 +142,15 @@ if (typeof window === 'undefined') {
         this.composed = !!options.composed;
       }
     };
-    console.log('✅ Polyfilled: Event');
+    logger.debug('✅ Polyfilled: Event');
   }
 
-  console.log('✅ Server-side polyfills applied successfully');
+  logger.debug('✅ Server-side polyfills applied successfully');
 }
 
 // Export a function to explicitly apply polyfills
 export function applyServerPolyfills() {
-  console.log('🔄 Explicitly applying server-side polyfills...');
+  logger.debug('🔄 Explicitly applying server-side polyfills...');
   // The polyfills are already applied when this module is imported
   return true;
 }

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 'use client'
 
 /**
@@ -33,8 +34,8 @@ export default function CourseLearnPage() {
     <CoursePlayer 
       courseId={courseId} 
       userId={user.id.toString()}
-      onComplete={() => console.log('Course completed!')}
-      onMeritEarned={(merits, reason) => console.log(`Earned ${merits} merits: ${reason}`)}
+      onComplete={() => logger.debug('Course completed!')}
+      onMeritEarned={(merits, reason) => logger.debug(`Earned ${merits} merits: ${reason}`)}
     />
   );
 }

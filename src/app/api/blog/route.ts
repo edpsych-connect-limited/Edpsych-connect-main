@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Blog API
  * Browse posts, search, filter by category/tag

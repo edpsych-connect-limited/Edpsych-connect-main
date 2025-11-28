@@ -1,9 +1,9 @@
+import { logger } from "@/lib/logger";
 /**
  * User Feedback System
  * Comprehensive feedback collection and analysis for beta testing
  * Critical component for understanding user experience and improving the platform
  */
-import logger from '../lib/logger';
 
 export interface FeedbackItem {
   id: string;

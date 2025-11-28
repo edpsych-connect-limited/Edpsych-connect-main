@@ -11,8 +11,8 @@
 // Environment: PRODUCTION
 // Compliance: GDPR, ISO 27001, SOC 2
 
-import { logger } from '../utils/logger';
 import { getPostgresClient } from '../../database/postgres';
+import { logger } from "@/lib/logger";
 
 export interface ConsentType {
   id: string;

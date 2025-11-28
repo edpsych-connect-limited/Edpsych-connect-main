@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * 🤖 INTELLIGENT PROBLEM MATCHER
  * Revolutionary AI system that analyzes educational challenges in real-time
@@ -50,14 +51,14 @@ export class IntelligentProblemMatcher {
   constructor() {
     this.initializeFeatureDatabase();
     this.initializeSolutionTemplates();
-    console.log('🎯 Intelligent Problem Matcher initialized');
+    logger.debug('🎯 Intelligent Problem Matcher initialized');
   }
 
   /**
    * Analyze a problem described in natural language
    */
   async analyzeProblem(problemDescription: string): Promise<ProblemAnalysis> {
-    console.log(`🔍 Analyzing problem: "${problemDescription}"`);
+    logger.debug(`🔍 Analyzing problem: "${problemDescription}"`);
 
     try {
       // Use AI to classify and analyze the problem

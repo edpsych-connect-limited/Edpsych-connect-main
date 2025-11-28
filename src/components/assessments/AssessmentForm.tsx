@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Assessment Form Component - Enterprise-grade implementation
  * Phase 3.2: Assessment Engine

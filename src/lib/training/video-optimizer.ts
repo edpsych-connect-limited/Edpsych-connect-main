@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/lib/training/video-optimizer.ts
  * PURPOSE: Video streaming and playback optimization
@@ -162,12 +163,12 @@ export function setupVideoBuffering(video: HTMLVideoElement): () => void {
 
       // If buffer is low (< 5 seconds), reduce quality temporarily
       if (bufferAhead < 5 && video.playbackRate === 1) {
-        console.log('[Video Optimizer] Low buffer detected, maintaining playback');
+        logger.debug('[Video Optimizer] Low buffer detected, maintaining playback');
       }
 
       // If buffer is healthy (> 20 seconds), can increase quality
       if (bufferAhead > 20) {
-        console.log('[Video Optimizer] Healthy buffer, quality can be increased');
+        logger.debug('[Video Optimizer] Healthy buffer, quality can be increased');
       }
     }
   };

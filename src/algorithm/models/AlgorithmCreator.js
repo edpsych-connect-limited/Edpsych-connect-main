@@ -3,6 +3,8 @@
  * Represents a creator of proprietary algorithms in the licensing platform
  * Manages creator profiles, earnings, payouts, and revenue sharing
  */
+import { logger } from '@/lib/logger';
+
 class AlgorithmCreator {
   constructor(data = {}) {
     this.id = data.id || null;
@@ -73,7 +75,7 @@ class AlgorithmCreator {
    */
   static async create(data) {
     // In a real implementation, this would create a record in the database
-    console.log('Creating algorithm creator:', data);
+    logger.debug('Creating algorithm creator:', data);
     return new AlgorithmCreator(data);
   }
 
@@ -84,7 +86,7 @@ class AlgorithmCreator {
    */
   async update(data) {
     // In a real implementation, this would update a record in the database
-    console.log('Updating algorithm creator:', this.id, data);
+    logger.debug('Updating algorithm creator:', this.id, data);
     Object.assign(this, data);
     this.updatedAt = new Date().toISOString();
     return this;
@@ -97,7 +99,7 @@ class AlgorithmCreator {
    */
   static async getById(id) {
     // In a real implementation, this would fetch from the database
-    console.log('Getting algorithm creator by ID:', id);
+    logger.debug('Getting algorithm creator by ID:', id);
     return new AlgorithmCreator({ id });
   }
 
@@ -108,7 +110,7 @@ class AlgorithmCreator {
    */
   static async getByUserId(userId) {
     // In a real implementation, this would fetch from the database
-    console.log('Getting algorithm creator by user ID:', userId);
+    logger.debug('Getting algorithm creator by user ID:', userId);
     return new AlgorithmCreator({ userId });
   }
 
@@ -121,7 +123,7 @@ class AlgorithmCreator {
    */
   static async list(filters = {}, _pagination = {}, _sorting = {}) {
     // In a real implementation, this would query the database
-    console.log('Listing algorithm creators with filters:', filters);
+    logger.debug('Listing algorithm creators with filters:', filters);
     return [new AlgorithmCreator()];
   }
 
@@ -195,7 +197,7 @@ class AlgorithmCreator {
     
     // In a real implementation, this would store the revenue record
     // and update the creator record in the database
-    console.log('Recording revenue for algorithm creator:', this.id, revenueRecord);
+    logger.debug('Recording revenue for algorithm creator:', this.id, revenueRecord);
     
     return {
       revenueRecord,
@@ -248,7 +250,7 @@ class AlgorithmCreator {
     
     // In a real implementation, this would store the payout record
     // and update the creator record in the database
-    console.log('Processing payout for algorithm creator:', this.id, payout);
+    logger.debug('Processing payout for algorithm creator:', this.id, payout);
     
     return payout;
   }
@@ -285,7 +287,7 @@ class AlgorithmCreator {
     
     // In a real implementation, this would store the agreement
     // and update the creator record in the database
-    console.log('Creating custom revenue share agreement:', agreement);
+    logger.debug('Creating custom revenue share agreement:', agreement);
     
     return agreement;
   }
@@ -370,7 +372,7 @@ class AlgorithmCreator {
     this.updatedAt = new Date().toISOString();
     
     // In a real implementation, this would update the creator record
-    console.log('Verifying algorithm creator:', this.id, verificationData);
+    logger.debug('Verifying algorithm creator:', this.id, verificationData);
     
     return this;
   }
@@ -385,7 +387,7 @@ class AlgorithmCreator {
     this.updatedAt = new Date().toISOString();
     
     // In a real implementation, this would update the creator record
-    console.log('Suspending algorithm creator:', this.id, suspensionData);
+    logger.debug('Suspending algorithm creator:', this.id, suspensionData);
     
     return this;
   }
@@ -399,7 +401,7 @@ class AlgorithmCreator {
     this.updatedAt = new Date().toISOString();
     
     // In a real implementation, this would update the creator record
-    console.log('Reactivating algorithm creator:', this.id);
+    logger.debug('Reactivating algorithm creator:', this.id);
     
     return this;
   }
@@ -435,7 +437,7 @@ class AlgorithmCreator {
     this.updatedAt = new Date().toISOString();
     
     // In a real implementation, this would update the creator record
-    console.log('Adding payment method for algorithm creator:', this.id, paymentMethod);
+    logger.debug('Adding payment method for algorithm creator:', this.id, paymentMethod);
     
     return paymentMethod;
   }

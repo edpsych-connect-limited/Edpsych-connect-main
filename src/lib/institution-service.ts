@@ -7,8 +7,8 @@
  */
 
 // Simple mock implementation of institution service
-import { logger } from '../utils/logger';
 import { performance } from 'perf_hooks';
+import { logger } from "@/lib/logger";
 
 // Mock institution data for fallback
 const MOCK_INSTITUTIONS = [

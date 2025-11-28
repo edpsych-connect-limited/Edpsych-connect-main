@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/voice/quick-actions/route.ts
  * PURPOSE: Quick action execution via voice commands for common teacher tasks
@@ -143,7 +144,7 @@ export async function POST(
       }, { status: 403 });
     }
 
-    console.log(`[Quick Actions API] POST request - User: ${userId}, Tenant: ${tenantId}`);
+    logger.debug(`[Quick Actions API] POST request - User: ${userId}, Tenant: ${tenantId}`);
 
     // Parse and validate request body
     const body = await request.json();
@@ -162,7 +163,7 @@ export async function POST(
     // Parse studentId to number for database queries
     const studentIdInt = parseInt(studentId);
 
-    console.log(`[Quick Actions API] Executing: ${actionType} on ${targetType} ${targetId}`);
+    logger.debug(`[Quick Actions API] Executing: ${actionType} on ${targetType} ${targetId}`);
 
     // Verify student belongs to tenant
     const student = await prisma.students.findFirst({
@@ -493,7 +494,7 @@ export async function POST(
       nextSuggestions,
     };
 
-    console.log(`[Quick Actions API] Action executed successfully: ${actionType} for ${studentName}`);
+    logger.debug(`[Quick Actions API] Action executed successfully: ${actionType} for ${studentName}`);
 
     return NextResponse.json(response);
 

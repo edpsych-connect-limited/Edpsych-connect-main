@@ -19,8 +19,8 @@
 import { PrismaClient } from '@prisma/client';
 import { AIService } from '@/services/ai-service';
 import { aiService } from '@/lib/ai-integration';
-import logger from '@/utils/logger';
 import { DataRouterService } from './data-router.service';
+import { logger } from "@/lib/logger";
 
 const prisma = new PrismaClient();
 

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -9,7 +10,6 @@
 // PHASE 1: Clean implementation with proper exports
 // This is a new file to bypass Vercel caching issues
 
-import { logger } from '../utils/logger';
 
 // Define simple interfaces to avoid relying on external types
 export interface SimpleChallenge {

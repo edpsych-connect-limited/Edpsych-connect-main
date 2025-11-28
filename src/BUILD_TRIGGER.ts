@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Build Trigger
  * Force Vercel rebuild with latest code

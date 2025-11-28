@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Enterprise-Grade Storage Utility
  * EdPsych Connect World - Authentication System
@@ -34,7 +35,7 @@ export const secureStore = (key: string, data: any, useSession = false): void =>
     const storage = useSession ? sessionStorage : localStorage;
     const serialized = typeof data === 'string' ? data : JSON.stringify(data);
     storage.setItem(key, serialized);
-    console.log(`✅ [Storage] Stored ${key} successfully`);
+    logger.debug(`✅ [Storage] Stored ${key} successfully`);
   } catch (error) {
     console.error(`❌ [Storage] Failed to store ${key}:`, error);
     throw error;
@@ -58,18 +59,18 @@ export const secureRetrieve = (key: string, useSession = false): any => {
     const data = storage.getItem(key);
 
     if (!data) {
-      console.log(`ℹ️ [Storage] No data found for ${key}`);
+      logger.debug(`ℹ️ [Storage] No data found for ${key}`);
       return null;
     }
 
     try {
       // Try to parse as JSON
       const parsed = JSON.parse(data);
-      console.log(`✅ [Storage] Retrieved ${key} successfully`);
+      logger.debug(`✅ [Storage] Retrieved ${key} successfully`);
       return parsed;
     } catch {
       // If not valid JSON, return as string
-      console.log(`✅ [Storage] Retrieved ${key} as string`);
+      logger.debug(`✅ [Storage] Retrieved ${key} as string`);
       return data;
     }
   } catch (error) {
@@ -92,7 +93,7 @@ export const secureRemove = (key: string, useSession = false): void => {
   try {
     const storage = useSession ? sessionStorage : localStorage;
     storage.removeItem(key);
-    console.log(`✅ [Storage] Removed ${key}`);
+    logger.debug(`✅ [Storage] Removed ${key}`);
   } catch (error) {
     console.error(`❌ [Storage] Failed to remove ${key}:`, error);
   }
@@ -132,7 +133,7 @@ export const clearAuthStorage = (useSession = false): void => {
     secureRemove('accessToken', useSession);
     secureRemove('refreshToken', useSession);
     secureRemove('userData', useSession);
-    console.log('✅ [Storage] Cleared all authentication data');
+    logger.debug('✅ [Storage] Cleared all authentication data');
   } catch (error) {
     console.error('❌ [Storage] Failed to clear authentication data:', error);
   }

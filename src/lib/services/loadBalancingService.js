@@ -9,6 +9,8 @@
  * - Session persistence
  * - Traffic shaping and rate limiting
  */
+import { logger } from '@/lib/logger';
+
 
 class LoadBalancingService {
   constructor(options = {}) {

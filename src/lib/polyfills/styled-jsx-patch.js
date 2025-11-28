@@ -46,7 +46,7 @@ class MockStyleSheet {
 // Set up a global registry flag to avoid duplicate patching
 if (typeof global !== 'undefined' && !global.__STYLED_JSX_PATCHED__) {
   if (typeof window === 'undefined') {
-    console.log('🔧 Setting up enhanced styled-jsx patch for SSR and SSG');
+    logger.debug('🔧 Setting up enhanced styled-jsx patch for SSR and SSG');
     
     // Comprehensive document mock that handles all styled-jsx needs
     if (typeof document === 'undefined') {
@@ -129,7 +129,7 @@ function applyPatch() {
           if (styledJsx && styledJsx.StyleSheet) {
             // Replace the actual StyleSheet implementation
             styledJsx.StyleSheet = MockStyleSheet;
-            console.log('Successfully monkey-patched styled-jsx StyleSheet');
+            logger.debug('Successfully monkey-patched styled-jsx StyleSheet');
           }
         } catch (err) {
           console.warn('Could not directly patch styled-jsx module:', err.message);

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 'use client'
 
 /**
@@ -42,7 +43,7 @@ const CookieConsentClientWrapper: React.FC<{ children: React.ReactNode }> = ({ c
 
       // Initialize Google Analytics only if consent is given
       if (hasAnalyticsConsent()) {
-        console.log('Google Analytics initialized with consent');
+        logger.debug('Google Analytics initialized with consent');
         // Google Analytics initialization would go here
         // Example: gtag('config', 'GA_MEASUREMENT_ID');
       }

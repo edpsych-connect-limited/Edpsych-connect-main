@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * LA FRAMEWORK PANEL - APPLICATION API
  * 

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Enterprise-grade rate limiting middleware
  * Prevents brute force attacks, DoS attacks, and API abuse

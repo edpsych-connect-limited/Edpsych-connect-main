@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * NHS Digital FHIR Integration Example
  * 
@@ -88,30 +89,30 @@ const exampleAssessment: MentalHealthAssessment = {
  * Main example function demonstrating NHS Digital integration
  */
 async function runNHSDigitalIntegrationExample() {
-  console.log('Starting NHS Digital FHIR Integration Example...');
+  logger.debug('Starting NHS Digital FHIR Integration Example...');
   
   try {
     // Initialize the FHIR service
     const fhirService = new FHIRService(nhsDigitalConfig);
-    console.log('FHIR Service initialized');
+    logger.debug('FHIR Service initialized');
     
     // Step 1: Map EdPsych student to FHIR Patient resource
-    console.log('Mapping student to FHIR Patient...');
+    logger.debug('Mapping student to FHIR Patient...');
     const patientResource = fhirMappers.mapStudentToPatient(exampleStudent);
-    console.log('Successfully mapped student to FHIR Patient');
+    logger.debug('Successfully mapped student to FHIR Patient');
     
     // Step 2: Create the patient record in the FHIR server
-    console.log('Creating patient record in FHIR server...');
+    logger.debug('Creating patient record in FHIR server...');
     try {
       const createdPatient = await fhirService.createResource(patientResource);
-      console.log(`Successfully created patient with ID: ${createdPatient.id}`);
+      logger.debug(`Successfully created patient with ID: ${createdPatient.id}`);
     } catch (error) {
       console.error('Error creating patient:', error);
-      console.log('Continuing with example using local patient resource...');
+      logger.debug('Continuing with example using local patient resource...');
     }
     
     // Step 3: Map mental health assessment to FHIR Observation
-    console.log('Mapping assessment to FHIR Observation...');
+    logger.debug('Mapping assessment to FHIR Observation...');
     const observationResource = {
       resourceType: 'Observation',
       status: 'final',
@@ -180,33 +181,33 @@ async function runNHSDigitalIntegrationExample() {
         }
       ]
     };
-    console.log('Successfully mapped assessment to FHIR Observation');
+    logger.debug('Successfully mapped assessment to FHIR Observation');
     
     // Step 4: Create the observation in the FHIR server
-    console.log('Creating observation in FHIR server...');
+    logger.debug('Creating observation in FHIR server...');
     try {
       const createdObservation = await fhirService.createResource(observationResource);
-      console.log(`Successfully created observation with ID: ${(createdObservation as any).id || 'N/A'}`);
+      logger.debug(`Successfully created observation with ID: ${(createdObservation as any).id || 'N/A'}`);
     } catch (error) {
       console.error('Error creating observation:', error);
-      console.log('Continuing with example using local observation resource...');
+      logger.debug('Continuing with example using local observation resource...');
     }
     
     // Step 5: Fetch a patient's NHS record using NHS Number
-    console.log('Fetching patient demographics from NHS Digital...');
+    logger.debug('Fetching patient demographics from NHS Digital...');
     try {
       const nhsPatient = await fhirService.getNHSPatientDemographics(exampleStudent.nhsNumber!);
-      console.log('Successfully retrieved NHS patient record:');
-      console.log(`Name: ${nhsPatient.name?.[0]?.given?.join(' ')} ${nhsPatient.name?.[0]?.family}`);
-      console.log(`NHS Number: ${nhsPatient.identifier?.find(id => id.system === 'https://fhir.nhs.uk/Id/nhs-number')?.value}`);
-      console.log(`Date of Birth: ${nhsPatient.birthDate}`);
+      logger.debug('Successfully retrieved NHS patient record:');
+      logger.debug(`Name: ${nhsPatient.name?.[0]?.given?.join(' ')} ${nhsPatient.name?.[0]?.family}`);
+      logger.debug(`NHS Number: ${nhsPatient.identifier?.find(id => id.system === 'https://fhir.nhs.uk/Id/nhs-number')?.value}`);
+      logger.debug(`Date of Birth: ${nhsPatient.birthDate}`);
     } catch (error) {
       console.error('Error fetching NHS patient demographics:', error);
-      console.log('This error is expected in this example as we are not using real NHS credentials');
+      logger.debug('This error is expected in this example as we are not using real NHS credentials');
     }
     
     // Step 6: Create an intervention plan (CarePlan)
-    console.log('Creating a care plan...');
+    logger.debug('Creating a care plan...');
     const carePlan = {
       resourceType: 'CarePlan',
       status: 'active',
@@ -240,13 +241,13 @@ async function runNHSDigitalIntegrationExample() {
     
     try {
       const createdCarePlan = await fhirService.createCarePlan(carePlan as any);
-      console.log(`Successfully created care plan with ID: ${(createdCarePlan as any).id || 'N/A'}`);
+      logger.debug(`Successfully created care plan with ID: ${(createdCarePlan as any).id || 'N/A'}`);
     } catch (error) {
       console.error('Error creating care plan:', error);
-      console.log('Continuing with example...');
+      logger.debug('Continuing with example...');
     }
     
-    console.log('NHS Digital FHIR Integration Example completed');
+    logger.debug('NHS Digital FHIR Integration Example completed');
   } catch (error) {
     console.error('Error in integration example:', error);
   }
@@ -255,7 +256,7 @@ async function runNHSDigitalIntegrationExample() {
 // Run the example if this file is executed directly
 if (require.main === module) {
   runNHSDigitalIntegrationExample()
-    .then(() => console.log('Example completed'))
+    .then(() => logger.debug('Example completed'))
     .catch(error => console.error('Example failed:', error));
 }
 

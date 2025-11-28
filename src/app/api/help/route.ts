@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Help Center API
  * Browse categories, articles, FAQs, and search

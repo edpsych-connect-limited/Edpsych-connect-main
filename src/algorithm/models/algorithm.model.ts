@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Represents an algorithm in the proprietary algorithm licensing platform.
  * This is the core entity that encapsulates the algorithm metadata, ownership,

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Training Checkout Page
  * Stripe-integrated payment for CPD courses

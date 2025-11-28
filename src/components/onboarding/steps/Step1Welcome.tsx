@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/steps/Step1Welcome.tsx
  * PURPOSE: Step 1 - Welcome screen with video and key benefits

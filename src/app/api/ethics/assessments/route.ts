@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Ethics Assessments API
  * Manage ethics assessments for platform features and components

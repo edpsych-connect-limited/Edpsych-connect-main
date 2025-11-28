@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Deployment Validation & Monitoring Service for EdPsych Connect World
  * Ensures flawless production deployment with comprehensive monitoring
@@ -98,7 +99,7 @@ export class DeploymentValidationService {
       this.cleanupOldData();
     }, interval);
 
-    console.log('🚀 Deployment monitoring started');
+    logger.debug('🚀 Deployment monitoring started');
   }
 
   /**

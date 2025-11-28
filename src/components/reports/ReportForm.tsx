@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 'use client'
 
 /**
@@ -144,7 +145,7 @@ export function ReportForm() {
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold tracking-tight">Report Generator</h2>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => console.log(formData)}>
+          <Button variant="outline" onClick={() => logger.debug('Form data:', formData)}>
             <Save className="mr-2 h-4 w-4" /> Save Draft
           </Button>
           <Button onClick={handleSubmit} disabled={isGenerating}>

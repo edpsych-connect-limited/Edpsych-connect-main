@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/steps/Step2RoleSelection.tsx
  * PURPOSE: Step 2 - Role selection with personalized paths

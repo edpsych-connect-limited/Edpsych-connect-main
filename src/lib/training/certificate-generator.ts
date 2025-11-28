@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Certificate Generation System
  * Generates PDF certificates for completed training courses
@@ -299,7 +300,7 @@ export class CertificateEmailer {
     };
 
     // Send email (implementation depends on email service)
-    console.log('Certificate email queued for:', userEmail);
+    logger.debug('Certificate email queued for:', userEmail);
     return emailContent;
   }
 }

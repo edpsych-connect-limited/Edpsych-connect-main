@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * EHCP Sandbox
  * A client-side only version of the EHCP Wizard for demos.

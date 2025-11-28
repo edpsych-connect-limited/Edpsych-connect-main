@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * AI Intelligent Problem Matcher API
  * Exposes natural language problem → solution matching

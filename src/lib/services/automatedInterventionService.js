@@ -9,6 +9,8 @@
  * - Multi-channel intervention delivery
  * - Intervention analytics and optimisation
  */
+import { logger } from '@/lib/logger';
+
 
 class AutomatedInterventionService {
   constructor(options = {}) {

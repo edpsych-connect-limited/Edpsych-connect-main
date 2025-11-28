@@ -7,7 +7,7 @@
  */
 
 import { AgreementTypes, LegalDocument } from '../types/legal';
-import { logger } from '../lib/logger';
+import { logger } from "@/lib/logger";
 
 /**
  * Service for handling legal documents and agreements

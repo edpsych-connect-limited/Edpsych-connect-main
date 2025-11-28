@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Assessment Library
  * Task 3.2.1: Comprehensive Assessment Templates

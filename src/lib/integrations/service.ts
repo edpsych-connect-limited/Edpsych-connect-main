@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Integration Service
  * The central manager that decides which provider to use.
@@ -77,7 +78,7 @@ export class IntegrationService {
    * Trigger a nightly sync for a tenant
    */
   async runNightlySync(tenantId: string, config: any) {
-    console.log(`Starting nightly sync for tenant ${tenantId}...`);
+    logger.debug(`Starting nightly sync for tenant ${tenantId}...`);
     // Convert string tenantId to number for DB operations if needed, 
     // but for now we assume the caller handles ID types correctly or we parse it.
     const dbTenantId = parseInt(tenantId); 
@@ -91,7 +92,7 @@ export class IntegrationService {
       // 2. Sync Students
       const studentResult = await provider.syncStudents(tenantId);
       
-      console.log(`Sync completed for tenant ${tenantId}`);
+      logger.debug(`Sync completed for tenant ${tenantId}`);
       
       if (!isNaN(dbTenantId)) {
         await this.logSync(

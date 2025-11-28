@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -23,7 +24,6 @@ export enum SubscriptionStatus {
 }
  
 
-import { logger } from '../utils/logger';
 
 // Mock subscription data
 const MOCK_SUBSCRIPTIONS = [

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 'use client'
 
 /**
@@ -80,7 +81,7 @@ export default function ContactPage() {
       
       // In production, you'd send this to your API endpoint
       // For now, we'll show success and provide mailto link
-      console.log('Form submitted:', { ...form, targetEmail });
+      logger.debug('Form submitted:', { ...form, targetEmail });
       
       setStatus('success');
       setForm(initialFormState);

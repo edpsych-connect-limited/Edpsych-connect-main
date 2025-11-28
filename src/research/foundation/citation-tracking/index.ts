@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * EdPsych Connect Citation Tracking and Academic Impact Metrics
  * 

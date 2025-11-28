@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * AI Audit Service
  * Provides forensic logging for all AI decisions to ensure "Zero-Oversight" safety.
@@ -52,7 +53,7 @@ class AIAuditService {
       this.logs.shift();
     }
 
-    console.log(`[AI AUDIT] ${log.agentId} performed ${log.action} (Confidence: ${log.confidenceScore})`);
+    logger.debug(`[AI AUDIT] ${log.agentId} performed ${log.action} (Confidence: ${log.confidenceScore})`);
     
     return log.id;
   }

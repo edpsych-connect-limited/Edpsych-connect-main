@@ -1,3 +1,4 @@
+import { logger, logUserAction } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -7,7 +8,6 @@
  */
 
 import React, { ReactNode, createContext, useContext, useEffect } from 'react';
-import { logUserAction } from '../logger';
 
 interface AnalyticsContextType {
   trackEvent: (event: string, properties?: Record<string, any>) => void;

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Runtime Type Validator
  * Validates type safety at runtime and catches type narrowing errors

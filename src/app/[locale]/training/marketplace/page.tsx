@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Training Marketplace
  * Browse and purchase CPD training courses

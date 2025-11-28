@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Cohort Service Interface
  * 

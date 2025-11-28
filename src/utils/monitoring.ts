@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * EdPsych Connect World - Real User Monitoring (RUM) Implementation
  *
@@ -110,7 +111,7 @@ class RealUserMonitoring {
       this.startSession();
 
       this.isInitialized = true;
-      console.log('✅ Real User Monitoring initialized successfully');
+      logger.debug('✅ Real User Monitoring initialized successfully');
     } catch (error) {
       console.error('❌ Failed to initialize Real User Monitoring:', error);
       // Don't throw - monitoring should not break the app
@@ -125,7 +126,7 @@ class RealUserMonitoring {
 
     try {
       // Sentry integration disabled - monitoring without external dependencies
-      console.log('ℹ️  Sentry monitoring disabled (optional dependency not installed)');
+      logger.debug('ℹ️  Sentry monitoring disabled (optional dependency not installed)');
     } catch (error) {
       console.warn('⚠️  Sentry not available:', (error instanceof Error ? error.message : String(error)));
     }
@@ -147,7 +148,7 @@ class RealUserMonitoring {
         send_page_view: false, // We'll handle page views manually
       });
 
-      console.log('✅ Google Analytics initialized');
+      logger.debug('✅ Google Analytics initialized');
     } catch (error) {
       console.warn('⚠️  Google Analytics not available:', (error instanceof Error ? error.message : String(error)));
     }

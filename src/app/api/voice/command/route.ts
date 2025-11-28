@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/voice/command/route.ts
  * PURPOSE: Natural language voice/text command processing for teachers
@@ -112,7 +113,7 @@ export async function POST(
     const userId = session.id;
     const userRole = session.role;
 
-    console.log(`[Voice Command API] POST request - User: ${userId}, Tenant: ${tenantId}`);
+    logger.debug(`[Voice Command API] POST request - User: ${userId}, Tenant: ${tenantId}`);
 
     // Parse and validate request body
     const body = await request.json();
@@ -128,7 +129,7 @@ export async function POST(
 
     const { query, inputType, classContext, studentContext, conversationId } = validation.data;
 
-    console.log(`[Voice Command API] Processing query: "${query}" (${inputType})`);
+    logger.debug(`[Voice Command API] Processing query: "${query}" (${inputType})`);
 
     // Build context for command processing
     const context: any = {
@@ -264,7 +265,7 @@ export async function POST(
       },
     });
 
-    console.log(`[Voice Command API] Command processed - Intent: ${commandResult.intent.type}, Success: ${commandResult.understood}, Time: ${response.processingTime}ms`);
+    logger.debug(`[Voice Command API] Command processed - Intent: ${commandResult.intent.type}, Success: ${commandResult.understood}, Time: ${response.processingTime}ms`);
 
     return NextResponse.json(response);
 

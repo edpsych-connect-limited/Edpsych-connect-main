@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Help Article Detail Page
  * Full article view with markdown rendering and feedback

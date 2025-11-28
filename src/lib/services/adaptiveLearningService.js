@@ -9,6 +9,8 @@
  * - Learning objective mastery tracking
  * - Adaptive assessment generation
  */
+import { logger } from '@/lib/logger';
+
 
 class AdaptiveLearningService {
   constructor(options = {}) {

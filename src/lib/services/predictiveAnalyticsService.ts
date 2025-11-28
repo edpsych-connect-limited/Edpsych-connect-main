@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Predictive Analytics Service
  *
@@ -10,7 +11,6 @@
  * - Performance trend analysis
  */
 
-import { logger } from '@/lib/logger';
 
 class PredictiveAnalyticsService {
   options: any;

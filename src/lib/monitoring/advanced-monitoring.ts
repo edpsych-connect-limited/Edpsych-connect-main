@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Advanced Production Monitoring System for EdPsych Connect World
  * Enterprise-grade monitoring, alerting, and observability
@@ -67,7 +68,7 @@ export class AdvancedMonitoringService {
    * Start comprehensive monitoring
    */
   startMonitoring(intervalMs: number = 10000): void {
-    console.log('🚀 Starting Advanced Production Monitoring...');
+    logger.debug('🚀 Starting Advanced Production Monitoring...');
 
     this.monitoringInterval = setInterval(() => {
       this.collectMetrics();
@@ -85,7 +86,7 @@ export class AdvancedMonitoringService {
     if (this.monitoringInterval) {
       clearInterval(this.monitoringInterval);
       this.monitoringInterval = undefined;
-      console.log('⏹️ Production Monitoring Stopped');
+      logger.debug('⏹️ Production Monitoring Stopped');
     }
   }
 
@@ -212,7 +213,7 @@ export class AdvancedMonitoringService {
    * Send alert notification
    */
   private sendAlertNotification(alert: Alert): void {
-    console.log(`🚨 ALERT [${alert.severity.toUpperCase()}]: ${alert.message}`);
+    logger.debug(`🚨 ALERT [${alert.severity.toUpperCase()}]: ${alert.message}`);
 
     // In production, this would integrate with:
     // - Slack notifications

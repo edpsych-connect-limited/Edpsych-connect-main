@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Interactive Demo Player
  * Container for all feature demos with navigation and controls

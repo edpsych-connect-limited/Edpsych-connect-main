@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * EdPsych Connect - Advanced AI Integration System
  * Claude + OpenAI integration for 24 autonomous agents

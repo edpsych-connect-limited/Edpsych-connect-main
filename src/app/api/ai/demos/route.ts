@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * AI Living Demonstrations API
  * Exposes interactive AI capability demonstrations

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/cron/predictions/route.ts
  * PURPOSE: Scheduled prediction runner (daily cron job)
@@ -35,7 +36,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
 
-    console.log('[Predictions Cron] Starting scheduled prediction run...');
+    logger.debug('[Predictions Cron] Starting scheduled prediction run...');
 
     const startTime = Date.now();
 
@@ -47,7 +48,7 @@ export async function POST(request: NextRequest) {
 
     const duration = Date.now() - startTime;
 
-    console.log('[Predictions Cron] Completed in', duration, 'ms');
+    logger.debug('[Predictions Cron] Completed in', duration, 'ms');
 
     return NextResponse.json({
       success: true,

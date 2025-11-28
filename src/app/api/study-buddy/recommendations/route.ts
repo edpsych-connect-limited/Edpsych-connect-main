@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/study-buddy/recommendations/route.ts
  * PURPOSE: Study Buddy intelligent recommendation system

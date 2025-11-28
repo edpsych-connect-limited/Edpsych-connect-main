@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * EHCP Review Workflow Component
  * Task 3.1.4: Annual Review & Amendment System

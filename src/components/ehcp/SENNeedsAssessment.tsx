@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * SEN Needs Assessment Component
  * Task 3.1.2: Complete needs assessment with provision mapping

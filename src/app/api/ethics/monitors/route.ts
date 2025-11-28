@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Ethics Monitors API
  * Manage ethics monitoring configurations

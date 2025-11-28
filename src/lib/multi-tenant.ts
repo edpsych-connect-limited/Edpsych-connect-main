@@ -1,9 +1,9 @@
+import { logger } from "@/lib/logger";
 /**
  * EdPsych Connect - Multi-Tenant White-Labeling System
  * Complete white-labeling and multi-tenant architecture
  */
 
-import { logger } from './logger';
 
 export interface TenantConfig {
   id: string;

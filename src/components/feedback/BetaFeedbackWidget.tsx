@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 'use client'
 
 /**
@@ -72,14 +73,14 @@ export function BetaFeedbackWidget() {
         setIsOpen(false);
       } else {
         // Fallback: Log to console if API fails
-        console.log('Beta Feedback:', feedbackData);
+        logger.debug('Beta Feedback:', feedbackData);
         toast.success('Feedback recorded. Thank you!');
         setMessage('');
         setIsOpen(false);
       }
     } catch (_error) {
       // Fallback: Log to console
-      console.log('Beta Feedback:', feedbackData);
+      logger.debug('Beta Feedback:', feedbackData);
       toast.success('Feedback recorded. Thank you!');
       setMessage('');
       setIsOpen(false);

@@ -1,9 +1,9 @@
+import { logger } from "@/lib/logger";
 /**
  * Deployment Pipeline Service
  * Comprehensive deployment automation and rollback strategy for production
  * Critical for ensuring safe and reliable production deployments
  */
-import logger from '../lib/logger';
 
 export interface DeploymentConfig {
   environments: DeploymentEnvironment[];

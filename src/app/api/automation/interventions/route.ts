@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Automation Interventions API
  * Exposes automated intervention system

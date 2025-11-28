@@ -39,7 +39,7 @@ export interface LeaderboardEntryProps {
 }
 
 import { aiService } from "./ai-integration";
-import { logger } from '../utils/logger';
+import { logger } from "@/lib/logger";
 
 // Use environment variable with fallback
 const API_BASE = process.env.NEXT_PUBLIC_API_URL

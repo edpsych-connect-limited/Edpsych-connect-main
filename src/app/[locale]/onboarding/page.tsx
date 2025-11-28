@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/onboarding/page.tsx
  * PURPOSE: Onboarding wizard entry page

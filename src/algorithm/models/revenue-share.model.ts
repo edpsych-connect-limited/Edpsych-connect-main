@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Represents a revenue sharing model for algorithms.
  * This model defines how revenue generated from algorithm sales or usage

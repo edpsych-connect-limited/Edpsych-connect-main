@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -6,7 +7,6 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-import { logger } from './logger';
 
 // Simple mock implementation focused on fallbacks
 class StripeInstitutionService {

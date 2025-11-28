@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 'use client'
 
 /**
@@ -188,7 +189,7 @@ export function DemoProvider({ children }: { children: ReactNode }) {
         steps: steps,
         onDestroyed: () => {
           // Optional: Save that user has seen the tour
-          console.log(`Tour ${tourId} finished`);
+          logger.debug(`Tour ${tourId} finished`);
         }
       });
       

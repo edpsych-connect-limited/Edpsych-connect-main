@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Multi-Tenant SaaS Architecture for EdPsych Connect World
  * Comprehensive tenant management for schools, teachers, students, and parents

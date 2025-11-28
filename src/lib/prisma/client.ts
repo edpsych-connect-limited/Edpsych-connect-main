@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Prisma Client Singleton
  * This file ensures we have a single Prisma Client instance across the application
@@ -41,8 +42,8 @@ if (process.env.NODE_ENV === 'production') {
 if (process.env.NODE_ENV === 'development') {
   // @ts-expect-error - Prisma client events are not properly typed in production builds
   prismaClient.$on('query', (e: any) => {
-    console.log('Query: ' + e.query);
-    console.log('Duration: ' + e.duration + 'ms');
+    logger.debug('Query: ' + e.query);
+    logger.debug('Duration: ' + e.duration + 'ms');
   });
 }
 

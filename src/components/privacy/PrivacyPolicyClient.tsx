@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Privacy Policy Client Component for EdPsych Connect World
  * Interactive privacy policy with cookie settings integration

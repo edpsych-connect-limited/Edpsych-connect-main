@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Consolidated EHCP API Routes - Reduces 5 routes to 1
  */

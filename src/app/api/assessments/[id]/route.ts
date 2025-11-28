@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Single Assessment API Route
  * Phase 3.2: Assessment Engine

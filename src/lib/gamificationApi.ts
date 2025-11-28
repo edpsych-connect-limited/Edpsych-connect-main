@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -9,7 +10,6 @@
 // PHASE 1: Simple implementation without reliance on external types
 // Complete rewrite to avoid Vercel caching issues
 
-import { logger } from '../utils/logger';
 
 // Simple type definitions internal to this file
 export interface LeaderboardEntry {

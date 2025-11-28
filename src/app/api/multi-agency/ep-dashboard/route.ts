@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/multi-agency/ep-dashboard/route.ts
  * PURPOSE: Educational Psychologist cross-school dashboard
@@ -182,7 +183,7 @@ export async function GET(
     const schoolFilter = searchParams.get('school'); // tenant_id
     const limit = parseInt(searchParams.get('limit') || '100');
 
-    console.log(`[EP Dashboard API] GET request - EP: ${userId}`);
+    logger.debug(`[EP Dashboard API] GET request - EP: ${userId}`);
 
     // Fetch EP details
     const epUser = await prisma.users.findFirst({
@@ -468,7 +469,7 @@ export async function GET(
       },
     });
 
-    console.log(`[EP Dashboard API] Dashboard generated - Cases: ${caseSummaries.length}, Urgent: ${casesByUrgency.urgent}, Schools: ${Object.keys(casesBySchool).length}`);
+    logger.debug(`[EP Dashboard API] Dashboard generated - Cases: ${caseSummaries.length}, Urgent: ${casesByUrgency.urgent}, Schools: ${Object.keys(casesBySchool).length}`);
 
     return NextResponse.json(response);
 

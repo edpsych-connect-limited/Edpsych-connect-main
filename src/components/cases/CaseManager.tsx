@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Case Management Component
  * Comprehensive case management for Educational Psychology work

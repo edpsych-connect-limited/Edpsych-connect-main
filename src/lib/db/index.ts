@@ -7,7 +7,7 @@
  */
 
 import { PrismaClient, Prisma } from '@prisma/client';
-import { logger } from '../utils/logger';
+import { logger } from "@/lib/logger";
 
 // Ensure we have a single instance of PrismaClient throughout the app
 const globalForPrisma = global as unknown as { prisma: PrismaClient };

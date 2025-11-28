@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/lessons/differentiate/route.ts
  * PURPOSE: Auto-differentiation engine for creating personalized lesson versions
@@ -156,7 +157,7 @@ export async function POST(
       }, { status: 403 });
     }
 
-    console.log(`[Lesson Differentiation API] POST request - User: ${userId}, Tenant: ${tenantId}`);
+    logger.debug(`[Lesson Differentiation API] POST request - User: ${userId}, Tenant: ${tenantId}`);
 
     // Parse and validate request body
     const body = await request.json();
@@ -244,7 +245,7 @@ export async function POST(
       }, { status: 400 });
     }
 
-    console.log(`[Lesson Differentiation API] Differentiating for ${studentIds.length} students in class: ${classRoster.class_name}`);
+    logger.debug(`[Lesson Differentiation API] Differentiating for ${studentIds.length} students in class: ${classRoster.class_name}`);
 
     // Fetch students and profiles
     const [students, studentProfiles] = await Promise.all([
@@ -426,8 +427,8 @@ export async function POST(
       },
     });
 
-    console.log(`[Lesson Differentiation API] Successfully differentiated for ${differentiatedVersions.length} students`);
-    console.log(`[Lesson Differentiation API] Difficulty distribution:`, difficultyDistribution);
+    logger.debug(`[Lesson Differentiation API] Successfully differentiated for ${differentiatedVersions.length} students`);
+    logger.debug(`[Lesson Differentiation API] Difficulty distribution:`, difficultyDistribution);
 
     return NextResponse.json(response);
 

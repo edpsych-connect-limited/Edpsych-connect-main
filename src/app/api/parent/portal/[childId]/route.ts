@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/parent/portal/[childId]/route.ts
  * PURPOSE: Scoped parent portal view providing access to their child's data only
@@ -143,7 +144,7 @@ export async function GET(
     // Note: Parent role functionality - 'parent' role will be added to the role type in the future
     // For now, authentication is sufficient (proper parent-child verification happens below)
 
-    console.log(`[Parent Portal API] GET request - Child: ${childId}, Parent: ${userId}, Tenant: ${tenantId}`);
+    logger.debug(`[Parent Portal API] GET request - Child: ${childId}, Parent: ${userId}, Tenant: ${tenantId}`);
 
     // CRITICAL SECURITY CHECK: Verify parent-child relationship
     const parentChildLink = await prisma.parentChildLink.findFirst({
@@ -414,7 +415,7 @@ export async function GET(
       },
     });
 
-    console.log(`[Parent Portal API] Parent ${parentName} accessed child ${student.first_name} ${student.last_name} progress`);
+    logger.debug(`[Parent Portal API] Parent ${parentName} accessed child ${student.first_name} ${student.last_name} progress`);
 
     return NextResponse.json(response);
 

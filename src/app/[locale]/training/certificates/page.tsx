@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 'use client'
 
 /**
@@ -53,7 +54,7 @@ export default function CertificatesPage() {
   };
 
   const handleDownloadPdf = (certificate: Certificate) => {
-    console.log('Downloading PDF for certificate:', certificate.id);
+    logger.debug('Downloading PDF for certificate:', certificate.id);
     const message = 'PDF generation functionality would be implemented here';
     if (typeof window !== 'undefined') {
       const alertDiv = document.createElement('div');
@@ -67,7 +68,7 @@ export default function CertificatesPage() {
   };
 
   const handlePrint = (certificate: Certificate) => {
-    console.log('Printing certificate:', certificate.id);
+    logger.debug('Printing certificate:', certificate.id);
     window.print();
   };
 
@@ -79,7 +80,7 @@ export default function CertificatesPage() {
         title: `Certificate: ${certificate.courseTitle}`,
         text: `I've completed ${certificate.courseTitle} and earned ${certificate.cpdHours} CPD hours!`,
         url: shareUrl
-      }).catch((error) => console.log('Error sharing', error));
+      }).catch((error) => logger.debug('Error sharing', error));
     } else {
       navigator.clipboard.writeText(shareUrl);
       const message = 'Verification link copied to clipboard!';

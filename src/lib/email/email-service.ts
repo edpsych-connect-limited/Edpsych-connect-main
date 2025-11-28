@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -52,20 +53,20 @@ export class EmailService {
         html: options.html,
       });
 
-      console.log(`[EmailService] Email sent: ${info.messageId}`);
+      logger.debug(`[EmailService] Email sent: ${info.messageId}`);
       return true;
     } catch (error) {
       console.error('[EmailService] Failed to send email:', error);
       
       // Fallback to console log in development if sending fails
       if (process.env.NODE_ENV !== 'production') {
-        console.log('=================================================================');
-        console.log('📧 [EMAIL SERVICE - FALLBACK LOG]');
-        console.log(`To: ${options.to}`);
-        console.log(`Subject: ${options.subject}`);
-        console.log('-----------------------------------------------------------------');
-        console.log(options.text || options.html.replace(/<[^>]*>/g, ''));
-        console.log('=================================================================');
+        logger.debug('=================================================================');
+        logger.debug('📧 [EMAIL SERVICE - FALLBACK LOG]');
+        logger.debug(`To: ${options.to}`);
+        logger.debug(`Subject: ${options.subject}`);
+        logger.debug('-----------------------------------------------------------------');
+        logger.debug(options.text || options.html.replace(/<[^>]*>/g, ''));
+        logger.debug('=================================================================');
         return true; // Return true so the UI shows success
       }
       

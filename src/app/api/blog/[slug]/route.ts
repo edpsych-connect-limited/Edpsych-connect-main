@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Blog Post Detail API
  * Get individual post, track views, handle comments

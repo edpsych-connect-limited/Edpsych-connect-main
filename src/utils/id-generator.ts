@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Utility functions for generating unique IDs
  */

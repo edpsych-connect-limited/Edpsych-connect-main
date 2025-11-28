@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/steps/Step3ProfileSetup.tsx
  * PURPOSE: Step 3 - Profile setup with photo upload and professional details

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Tenant Context Provider
  * This file provides multi-tenancy support for the application
@@ -88,7 +89,7 @@ export const TenantProvider: React.FC<TenantProviderProps> = ({
         // For subdomains like tenant1.edpsych-connect.com
         const subdomain = hostname.split('.')[0];
         if (subdomain && subdomain !== 'www') {
-          console.log(`Detected tenant: ${subdomain}`);
+          logger.debug(`Detected tenant: ${subdomain}`);
           
           // In a real implementation, we would fetch tenant details from API
           const detectedTenant: Tenant = {

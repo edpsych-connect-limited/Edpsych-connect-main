@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Federated Learning Integration Module
  * 
@@ -133,8 +134,8 @@ export async function exportToFederatedPipeline(
   const { training, validation, metadata } = prepareFederatedDataset(dataset, config);
   
   // For now, just log the integration (would be replaced with actual API calls)
-  console.log(`Exporting synthetic dataset to federated pipeline project ${config.projectId}`);
-  console.log(`Training samples: ${training.length}, Validation samples: ${validation.length}`);
+  logger.debug(`Exporting synthetic dataset to federated pipeline project ${config.projectId}`);
+  logger.debug(`Training samples: ${training.length}, Validation samples: ${validation.length}`);
   
   // This would be where we'd call the federated learning API
   // For now, just return a mock dataset ID

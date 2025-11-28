@@ -10,8 +10,8 @@ import { prisma } from '../lib/prisma';
 import { createHash } from 'crypto';
 import { getCurrentTimestamp, generateUUID } from '../utils/general';
 import { uploadToSecureStorage, getFromSecureStorage } from '../lib/secure-storage';
-import { logger } from '../lib/logger';
 import { AgreementTypes } from '../types/legal';
+import { logger } from "@/lib/logger";
 
 /**
  * Service for handling digital signatures for legal documents

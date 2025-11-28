@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 'use client'
 
 /**
@@ -29,7 +30,7 @@ import { Sparkles, AlertCircle, TrendingUp, TrendingDown, Mic, Eye, CheckCircle,
  * ```tsx
  * <StudentProfileCard
  *   studentId={42}
- *   onVoiceQuery={(query) => console.log('Voice query:', query)}
+ *   onVoiceQuery={(query) => logger.debug('Voice query:', query)}
  *   onViewDetails={() => setSelectedStudent(42)}
  *   compact={false}
  * />

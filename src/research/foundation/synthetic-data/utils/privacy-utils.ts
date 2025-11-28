@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Privacy Utilities Module
  * 
@@ -122,7 +123,7 @@ function applyDifferentialPrivacy(
   options: PrivacyOptions
 ): void {
   const { epsilon, delta } = params;
-  console.log(`Applying differential privacy (ε=${epsilon}, δ=${delta})`);
+  logger.debug(`Applying differential privacy (ε=${epsilon}, δ=${delta})`);
   
   // Get numeric fields from schema
   const numericFields = dataset.schema.fields
@@ -170,7 +171,7 @@ function applyKAnonymity(
   options: PrivacyOptions
 ): void {
   const { k, quasiIdentifiers } = params;
-  console.log(`Applying k-anonymity (k=${k})`);
+  logger.debug(`Applying k-anonymity (k=${k})`);
   
   // If no quasi-identifiers specified, use all categorical fields
   const identifiers = quasiIdentifiers.length > 0 
@@ -238,7 +239,7 @@ function applyTCloseness(
   options: PrivacyOptions
 ): void {
   const { t, sensitiveAttributes } = params;
-  console.log(`Applying t-closeness (t=${t})`);
+  logger.debug(`Applying t-closeness (t=${t})`);
   
   // Simplified implementation for synthetic data
   // For a complete implementation, would need to calculate Earth Mover's Distance
@@ -276,7 +277,7 @@ function applyLDiversity(
   options: PrivacyOptions
 ): void {
   const { l, sensitiveAttributes } = params;
-  console.log(`Applying l-diversity (l=${l})`);
+  logger.debug(`Applying l-diversity (l=${l})`);
   
   // Simplified implementation
   // In a full implementation, would need to identify equivalence classes
@@ -349,7 +350,7 @@ function applyNoiseAddition(
   options: PrivacyOptions
 ): void {
   const { mean, stdDev } = params;
-  console.log(`Applying noise addition (mean=${mean}, stdDev=${stdDev})`);
+  logger.debug(`Applying noise addition (mean=${mean}, stdDev=${stdDev})`);
   
   // Get numeric fields from schema
   const numericFields = dataset.schema.fields
@@ -396,7 +397,7 @@ function applyMicroaggregation(
   options: PrivacyOptions
 ): void {
   const { groupSize, attributes } = params;
-  console.log(`Applying microaggregation (groupSize=${groupSize})`);
+  logger.debug(`Applying microaggregation (groupSize=${groupSize})`);
   
   // Get fields to aggregate
   const fieldsToAggregate = attributes.length > 0

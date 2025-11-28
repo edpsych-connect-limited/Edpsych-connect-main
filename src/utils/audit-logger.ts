@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -8,5 +9,5 @@
 
 export function logAudit(event: string, details: any) {
   // Placeholder audit logging
-  console.log(`[AUDIT] ${event}`, details);
+  logger.debug(`[AUDIT] ${event}`, details);
 }

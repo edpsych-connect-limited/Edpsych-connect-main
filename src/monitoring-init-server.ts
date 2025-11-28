@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -18,12 +19,12 @@ import { prisma } from './lib/prisma/client'; // Import the existing prisma clie
  * system metrics collection, and database performance tracking.
  */
 export async function initializeServerMonitoring(): Promise<void> {
-  console.log('Initializing server monitoring services...');
+  logger.debug('Initializing server monitoring services...');
 
   try {
     // Skip initialization in development mode unless explicitly enabled
     if (process.env.NODE_ENV === 'development' && process.env.ENABLE_MONITORING_IN_DEV !== 'true') {
-      console.log('Monitoring services disabled in development mode');
+      logger.debug('Monitoring services disabled in development mode');
       return;
     }
 
@@ -75,11 +76,11 @@ export async function initializeServerMonitoring(): Promise<void> {
         2000, // 2s in development
     });
 
-    console.log('Server monitoring services initialized successfully');
+    logger.debug('Server monitoring services initialized successfully');
     
     // Register shutdown handler for clean termination
     process.on('SIGTERM', () => {
-      console.log('SIGTERM signal received, shutting down monitoring services...');
+      logger.debug('SIGTERM signal received, shutting down monitoring services...');
       import('./services/monitoring/monitoring-init').then(({ MonitoringInitializer }) => {
         MonitoringInitializer.shutdown();
       }).catch(err => {

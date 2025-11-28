@@ -9,6 +9,8 @@
  * - Recommendation engine optimisation
  * - A/B testing for recommendation strategies
  */
+import { logger } from '@/lib/logger';
+
 
 class PersonalisedContentService {
   constructor(options = {}) {

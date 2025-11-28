@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Progress Tracking Dashboard
  * Comprehensive view of student progress across all interventions

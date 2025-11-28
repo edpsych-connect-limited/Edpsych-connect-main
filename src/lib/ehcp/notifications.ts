@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * EHCP Notification Service
  * Handles notifications for EHCP updates, version tracking, and stakeholder alerts
@@ -54,7 +55,7 @@ export async function createEHCPVersion(payload: {
       },
     });
 
-    console.log(`[EHCP Notifications] Version created for EHCP ${payload.ehcp_id}`);
+    logger.debug(`[EHCP Notifications] Version created for EHCP ${payload.ehcp_id}`);
   } catch (error) {
     console.error('[EHCP Notifications] Failed to create version:', error);
     throw error;
@@ -81,7 +82,7 @@ export async function sendEHCPNotification(
       // Future: sendPushNotifications(payload, recipients),
     ]);
 
-    console.log(`[EHCP Notifications] Sent ${payload.action} notifications for EHCP ${payload.ehcp_id} to ${recipients.length} users`);
+    logger.debug(`[EHCP Notifications] Sent ${payload.action} notifications for EHCP ${payload.ehcp_id} to ${recipients.length} users`);
   } catch (error) {
     console.error('[EHCP Notifications] Failed to send notifications:', error);
     // Don't throw - notifications are non-critical
@@ -152,7 +153,7 @@ async function sendInAppNotifications(
     // Store notification in user preferences (as JSON)
     // Note: In a full implementation, you'd have a dedicated notifications table
     // For now, we'll just log the notification intent
-    console.log(`[EHCP Notifications] In-app notification for ${recipients.length} users:`, {
+    logger.debug(`[EHCP Notifications] In-app notification for ${recipients.length} users:`, {
       type: 'ehcp_update',
       title: `EHCP ${payload.action.toUpperCase()}`,
       message: notificationMessage,
@@ -191,7 +192,7 @@ async function sendEmailNotifications(
 
     // TODO: Integrate with email service (SendGrid, AWS SES, etc.)
     // For now, just log
-    console.log(`[EHCP Notifications] Would send email to ${users.length} users:`, {
+    logger.debug(`[EHCP Notifications] Would send email to ${users.length} users:`, {
       subject: `EHCP ${payload.action.toUpperCase()}: ${payload.ehcp_id}`,
       message,
       recipients: users.map(u => u.email),

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Assessment Report Generator
  * Task 3.2.4: Professional Assessment Reports

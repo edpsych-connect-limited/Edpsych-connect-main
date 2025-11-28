@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * New Intervention Page
  * Create a new intervention plan
@@ -67,7 +68,7 @@ function NewInterventionContent() {
       // In production, fetch template data from API
       // For now, we'll use the library data
       // The template data would pre-fill the intervention designer
-      console.log('Loading template:', templateId);
+      logger.debug('Loading template:', templateId);
       // This would be expanded to fetch actual template data
     } catch (error) {
       console.error('Failed to load template:', error);

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Utility functions for EdPsych Connect Web V2
  * This file was previously corrupted with text content and caused a fatal parsing error.

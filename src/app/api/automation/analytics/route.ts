@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Automation Analytics API
  * Get automation system analytics - Database-backed

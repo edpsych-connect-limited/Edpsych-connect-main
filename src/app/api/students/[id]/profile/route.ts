@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/students/[id]/profile/route.ts
  * PURPOSE: Auto-built student profile management with teacher override capabilities
@@ -144,7 +145,7 @@ export async function GET(
     const tenantId = session.tenant_id;
     const userId = session.user_id;
 
-    console.log(`[Student Profile API] GET request - Student: ${studentId}, User: ${userId}, Tenant: ${tenantId}`);
+    logger.debug(`[Student Profile API] GET request - Student: ${studentId}, User: ${userId}, Tenant: ${tenantId}`);
 
     // Verify student belongs to tenant
     const student = await prisma.students.findFirst({
@@ -176,7 +177,7 @@ export async function GET(
 
     // If no profile exists, create initial one
     if (!profile) {
-      console.log(`[Student Profile API] Creating initial profile for student: ${studentId}`);
+      logger.debug(`[Student Profile API] Creating initial profile for student: ${studentId}`);
       profile = await prisma.studentProfile.create({
         data: {
           tenant_id: tenantId!,
@@ -338,7 +339,7 @@ export async function GET(
       },
     });
 
-    console.log(`[Student Profile API] Profile retrieved successfully - Student: ${studentId}, Confidence: ${profile.profile_confidence}`);
+    logger.debug(`[Student Profile API] Profile retrieved successfully - Student: ${studentId}, Confidence: ${profile.profile_confidence}`);
 
     return NextResponse.json(response);
 
@@ -400,7 +401,7 @@ export async function PATCH(
       }, { status: 403 });
     }
 
-    console.log(`[Student Profile API] PATCH request - Student: ${studentId}, User: ${userId}, Tenant: ${tenantId}`);
+    logger.debug(`[Student Profile API] PATCH request - Student: ${studentId}, User: ${userId}, Tenant: ${tenantId}`);
 
     // Verify student belongs to tenant
     const student = await prisma.students.findFirst({
@@ -518,7 +519,7 @@ export async function PATCH(
       },
     });
 
-    console.log(`[Student Profile API] Profile updated successfully - Student: ${studentId}, New Confidence: ${newConfidenceScore}`);
+    logger.debug(`[Student Profile API] Profile updated successfully - Student: ${studentId}, New Confidence: ${newConfidenceScore}`);
 
     // Return updated profile (reuse GET logic structure)
     const response: StudentProfileResponse = {

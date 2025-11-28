@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Dilithium Digital Signature Algorithm Implementation
  * 

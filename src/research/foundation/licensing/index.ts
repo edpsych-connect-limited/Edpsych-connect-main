@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * EdPsych Connect - Tiered Research Licensing Module
  * 
@@ -86,8 +87,8 @@ if (require.main === module) {
   const PORT = process.env.PORT || 3000;
   
   app.listen(PORT, () => {
-    console.log(`EdPsych Connect Licensing Module server running on port ${PORT}`);
-    console.log(`API documentation available at http://localhost:${PORT}/`);
+    logger.debug(`EdPsych Connect Licensing Module server running on port ${PORT}`);
+    logger.debug(`API documentation available at http://localhost:${PORT}/`);
   });
 }
 

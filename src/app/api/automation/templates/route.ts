@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Automation Templates API
  * Manage intervention templates

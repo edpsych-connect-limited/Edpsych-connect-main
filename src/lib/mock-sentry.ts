@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -9,7 +10,6 @@
 // Mock implementation of Sentry for Phase 1
 // Will be replaced with real @sentry/nextjs in Phase 2
 
-import { logger } from './logger';
 
 // Mock Sentry object with no-op functions
 const Sentry = {

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -451,13 +452,13 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
 // Add offline detection
 if (typeof window !== 'undefined') {
   window.addEventListener('online', () => {
-    console.log('Application is online');
+    logger.debug('Application is online');
     (window as any).__APP_ONLINE = true;
     window.dispatchEvent(new CustomEvent('app:online'));
   });
 
   window.addEventListener('offline', () => {
-    console.log('Application is offline');
+    logger.debug('Application is offline');
     (window as any).__APP_ONLINE = false;
     window.dispatchEvent(new CustomEvent('app:offline'));
   });

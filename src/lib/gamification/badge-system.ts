@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Badge & Achievement System
  * Task 4.2.3: 50+ Badges for Player Progression

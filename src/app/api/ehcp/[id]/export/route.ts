@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * EHCP Export API
  * Generates LA-compliant EHCP PDF documents

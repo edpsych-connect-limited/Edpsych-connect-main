@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FHIR Integration Service for EdPsych Connect
  * 
@@ -406,7 +407,7 @@ export class FHIRService {
     // then the patient from NHS Digital, and creating/updating a mapping
     
     // For now, this is a stub implementation
-    console.log(`Mapping student ${studentId} to NHS patient ${nhsNumber}`);
+    logger.debug(`Mapping student ${studentId} to NHS patient ${nhsNumber}`);
     
     // Return a mock patient
     return {

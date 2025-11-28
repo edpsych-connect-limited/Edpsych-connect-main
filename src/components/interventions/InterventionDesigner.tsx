@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Intervention Designer Component
  * Task 3.3: Comprehensive Intervention Planning & Progress Tracking

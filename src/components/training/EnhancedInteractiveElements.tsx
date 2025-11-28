@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/training/EnhancedInteractiveElements.tsx
  * PURPOSE: Enhanced interactive learning elements with animations and advanced features

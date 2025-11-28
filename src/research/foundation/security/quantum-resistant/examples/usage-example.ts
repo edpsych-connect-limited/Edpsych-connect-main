@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Quantum-Resistant Cryptography Usage Examples
  * 
@@ -13,13 +14,13 @@ import { QuantumResistantCrypto, SecurityLevel } from '../quantum-resistant-cryp
  * using quantum-resistant cryptography.
  */
 async function demoSecureDataExchange() {
-  console.log('====== Secure Data Exchange Example ======');
+  logger.debug('====== Secure Data Exchange Example ======');
   
   // Initialize the cryptography service
   const crypto = new QuantumResistantCrypto(SecurityLevel.HIGH);
   
   // ===== Step 1: Generate key pairs for both parties =====
-  console.log('\n1. Generating key pairs for Research Institution and Healthcare Provider...');
+  logger.debug('\n1. Generating key pairs for Research Institution and Healthcare Provider...');
   
   // Generate encryption key pairs for both parties
   const researcherEncKeys = await crypto.generateKyberKeyPair();
@@ -27,10 +28,10 @@ async function demoSecureDataExchange() {
   // Generate signing key pairs for both parties
   const healthcareSignKeys = await crypto.generateDilithiumKeyPair();
   
-  console.log('Key pairs generated successfully.');
+  logger.debug('Key pairs generated successfully.');
   
   // ===== Step 2: Healthcare provider prepares sensitive patient data =====
-  console.log('\n2. Healthcare provider preparing sensitive patient data...');
+  logger.debug('\n2. Healthcare provider preparing sensitive patient data...');
   
   // Sample patient data (in a real scenario, this would be FHIR-formatted)
   const patientData = new TextEncoder().encode(JSON.stringify({
@@ -61,24 +62,24 @@ async function demoSecureDataExchange() {
   }));
   
   // ===== Step 3: Healthcare provider signs the data to prove authenticity =====
-  console.log('\n3. Healthcare provider signing the data...');
+  logger.debug('\n3. Healthcare provider signing the data...');
   
   const signature = crypto.signDilithium(Buffer.from(patientData), healthcareSignKeys.privateKey);
   
-  console.log('Data signed with Dilithium signature.');
+  logger.debug('Data signed with Dilithium signature.');
   
   // ===== Step 4: Healthcare provider encrypts the data for the researcher =====
-  console.log('\n4. Healthcare provider encrypting the data for the researcher...');
+  logger.debug('\n4. Healthcare provider encrypting the data for the researcher...');
   
   const encryptedData = crypto.hybridEncrypt(
     Buffer.from(patientData),
     researcherEncKeys.publicKey
   );
   
-  console.log('Data encrypted successfully.');
+  logger.debug('Data encrypted successfully.');
   
   // ===== Step 5: Healthcare provider sends encrypted data and signature to researcher =====
-  console.log('\n5. Healthcare provider sending encrypted data and signature to researcher...');
+  logger.debug('\n5. Healthcare provider sending encrypted data and signature to researcher...');
   
   // In a real application, this would be sent over a network
   // For this example, we're just passing the variables
@@ -88,20 +89,20 @@ async function demoSecureDataExchange() {
     healthcarePublicSignKey: healthcareSignKeys.publicKey
   };
   
-  console.log('Data package transmitted successfully.');
+  logger.debug('Data package transmitted successfully.');
   
   // ===== Step 6: Researcher decrypts the data =====
-  console.log('\n6. Researcher decrypting the received data...');
+  logger.debug('\n6. Researcher decrypting the received data...');
   
   const decryptedData = crypto.hybridDecrypt(
     transmittedPackage.encryptedData,
     researcherEncKeys.privateKey
   );
   
-  console.log('Data decrypted successfully.');
+  logger.debug('Data decrypted successfully.');
   
   // ===== Step 7: Researcher verifies the signature =====
-  console.log('\n7. Researcher verifying the data signature...');
+  logger.debug('\n7. Researcher verifying the data signature...');
   
   const isSignatureValid = crypto.verifySignature(
     decryptedData,
@@ -111,12 +112,12 @@ async function demoSecureDataExchange() {
   );
   
   if (isSignatureValid) {
-    console.log('Signature verified - data is authentic and unmodified.');
+    logger.debug('Signature verified - data is authentic and unmodified.');
     
     // Convert the data back to a readable format
     const decodedData = new TextDecoder().decode(decryptedData);
-    console.log('\nDecoded patient data:');
-    console.log(decodedData);
+    logger.debug('\nDecoded patient data:');
+    logger.debug(decodedData);
   } else {
     console.error('Signature verification failed - data may be tampered or corrupted!');
   }
@@ -126,13 +127,13 @@ async function demoSecureDataExchange() {
  * Example demonstrating long-term data storage with quantum-resistant security.
  */
 async function demoLongTermDataStorage() {
-  console.log('\n\n====== Long-Term Data Storage Example ======');
+  logger.debug('\n\n====== Long-Term Data Storage Example ======');
   
   // Initialize the cryptography service
   const crypto = new QuantumResistantCrypto();
   
   // ===== Step 1: Generate key pairs for data encryption and signing =====
-  console.log('\n1. Generating key pairs for long-term storage...');
+  logger.debug('\n1. Generating key pairs for long-term storage...');
   
   // For long-term storage, we use both Dilithium and SPHINCS+ signatures
   // This provides defense-in-depth if one algorithm is broken
@@ -140,10 +141,10 @@ async function demoLongTermDataStorage() {
   const dilithiumKeys = crypto.generateDilithiumKeyPair();
   const sphincsKeys = crypto.generateSphincsKeyPair();
   
-  console.log('Key pairs generated successfully.');
+  logger.debug('Key pairs generated successfully.');
   
   // ===== Step 2: Prepare research data for archiving =====
-  console.log('\n2. Preparing research data for long-term archiving...');
+  logger.debug('\n2. Preparing research data for long-term archiving...');
   
   // Sample research data
   const researchData = new TextEncoder().encode(JSON.stringify({
@@ -171,7 +172,7 @@ async function demoLongTermDataStorage() {
   }));
   
   // ===== Step 3: Sign the data with both signature algorithms =====
-  console.log('\n3. Signing the data with multiple quantum-resistant algorithms...');
+  logger.debug('\n3. Signing the data with multiple quantum-resistant algorithms...');
 
   void crypto.signDilithium(
     Buffer.from(researchData),
@@ -183,26 +184,26 @@ async function demoLongTermDataStorage() {
     sphincsKeys.privateKey
   );
 
-  console.log('Data signed with both Dilithium and SPHINCS+ signatures.');
+  logger.debug('Data signed with both Dilithium and SPHINCS+ signatures.');
   
   // ===== Step 4: Encrypt the data for long-term storage =====
-  console.log('\n4. Encrypting the data for long-term storage...');
+  logger.debug('\n4. Encrypting the data for long-term storage...');
 
   void crypto.hybridEncrypt(
     Buffer.from(researchData),
     kyberKeys.publicKey
   );
 
-  console.log('Data encrypted successfully.');
+  logger.debug('Data encrypted successfully.');
   
   // ===== Step 5: Store the encrypted data and signatures =====
-  console.log('\n5. Storing the encrypted data and signatures...');
+  logger.debug('\n5. Storing the encrypted data and signatures...');
   
   // In a real application, this would be stored in a secure database
   // For this example, we're just noting that the data is archived
   
-  console.log('Data archived successfully with quantum-resistant protection.');
-  console.log('This data will remain secure even against future quantum computers.');
+  logger.debug('Data archived successfully with quantum-resistant protection.');
+  logger.debug('This data will remain secure even against future quantum computers.');
   
   // The private keys would be stored in a secure key management system
   // Regular key rotation would also be implemented for active data
@@ -219,7 +220,7 @@ async function main() {
     // Example 2: Long-term data storage
     await demoLongTermDataStorage();
     
-    console.log('\n\nAll examples completed successfully.');
+    logger.debug('\n\nAll examples completed successfully.');
   } catch (error) {
     console.error('Error running examples:', error);
   }

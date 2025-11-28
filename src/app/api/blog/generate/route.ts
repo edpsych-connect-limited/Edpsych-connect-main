@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/blog/generate/route.ts
  * PURPOSE: Autonomous blog generation endpoint (triggered by cron)
@@ -35,12 +36,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
 
-    console.log('[Blog Generate] Starting automated blog generation...');
+    logger.debug('[Blog Generate] Starting automated blog generation...');
 
     // Generate blog post
     const post = await blogPostGenerator.generateDailyPost();
 
-    console.log('[Blog Generate] Post generated:', post.title);
+    logger.debug('[Blog Generate] Post generated:', post.title);
 
     // Store in database
     const savedPost = await (prisma as any).blogPost.create({
@@ -64,7 +65,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    console.log('[Blog Generate] Post saved to database:', savedPost.id);
+    logger.debug('[Blog Generate] Post saved to database:', savedPost.id);
 
     // Send notification to admin (optional)
     await notifyAdmin(post);
@@ -145,7 +146,7 @@ export async function GET(request: NextRequest) {
 async function notifyAdmin(post: any): Promise<void> {
   try {
     // In production, would send email or Slack notification
-    console.log('[Blog Generate] Admin notification:', {
+    logger.debug('[Blog Generate] Admin notification:', {
       title: post.title,
       category: post.category,
       cpdValue: post.cpdValue,

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Final Deployment Validation Script for EdPsych Connect World
  * Comprehensive validation before production deployment
@@ -25,7 +26,7 @@ export class FinalDeploymentValidator {
    * Run complete final validation
    */
   async runFinalValidation(): Promise<FinalValidationReport> {
-    console.log('🚀 Starting Final Deployment Validation...');
+    logger.debug('🚀 Starting Final Deployment Validation...');
 
     const timestamp = new Date();
 
@@ -297,13 +298,13 @@ if (isDirectRun) {
   const validator = new FinalDeploymentValidator();
   validator.generateValidationReport()
     .then(report => {
-      console.log('✅ Final validation completed. Writing report...');
+      logger.debug('✅ Final validation completed. Writing report...');
       const reportsDir = path.resolve(process.cwd(), 'reports');
       mkdirSync(reportsDir, { recursive: true });
       const reportPath = path.join(reportsDir, 'final-validation-report.md');
       writeFileSync(reportPath, report, 'utf8');
-      console.log(`📄 Report saved to: ${reportPath}`);
-      console.log('🛑 Terminating after one validation cycle.');
+      logger.debug(`📄 Report saved to: ${reportPath}`);
+      logger.debug('🛑 Terminating after one validation cycle.');
       process.exit(0);
     })
     .catch(error => {

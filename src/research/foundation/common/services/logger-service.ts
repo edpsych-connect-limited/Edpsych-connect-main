@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Logger Service
  * 
@@ -197,7 +198,7 @@ export class LoggerService {
   private writeToFile(entry: LogEntry): void {
     // Implementation would write to a log file
     // Placeholder implementation
-    console.log(`[FILE] Would write to log file: ${entry.level} ${entry.message}`);
+    logger.debug(`[FILE] Would write to log file: ${entry.level} ${entry.message}`);
   }
 
   /**
@@ -206,7 +207,7 @@ export class LoggerService {
   private writeToDatabase(entry: LogEntry): void {
     // Implementation would write to a database
     // Placeholder implementation
-    console.log(`[DB] Would write to database: ${entry.level} ${entry.message}`);
+    logger.debug(`[DB] Would write to database: ${entry.level} ${entry.message}`);
   }
 
   /**
@@ -215,6 +216,6 @@ export class LoggerService {
   private writeToMonitoring(entry: LogEntry): void {
     // Implementation would send to a monitoring system
     // Placeholder implementation
-    console.log(`[MONITORING] Would send to monitoring: ${entry.level} ${entry.message}`);
+    logger.debug(`[MONITORING] Would send to monitoring: ${entry.level} ${entry.message}`);
   }
 }

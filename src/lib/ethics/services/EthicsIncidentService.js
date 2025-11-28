@@ -4,6 +4,8 @@
  * Service responsible for managing the lifecycle of ethics incidents,
  * from creation to resolution, including assignment, tracking, and reporting.
  */
+import { logger } from '@/lib/logger';
+
 
 import EthicsIncident from '../models/EthicsIncident';
 

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -26,7 +27,7 @@ export async function GET(request: Request) {
       where: { status: 'connected' }
     });
 
-    console.log(`[Cron] Found ${activeIntegrations.length} active integrations to sync.`);
+    logger.debug(`[Cron] Found ${activeIntegrations.length} active integrations to sync.`);
 
     const service = IntegrationService.getInstance();
     const results = [];

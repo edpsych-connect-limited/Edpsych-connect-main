@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * AI Adaptive Intelligence API
  * Exposes real-time user behavior adaptation capabilities

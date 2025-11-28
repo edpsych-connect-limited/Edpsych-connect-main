@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Assessment Sandbox Wizard
  * A client-side only version of the Assessment Wizard for demos.

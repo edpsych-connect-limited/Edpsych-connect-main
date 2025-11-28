@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Rate Limiting Utility
  * 
@@ -54,7 +55,7 @@ async function getRedisClient(): Promise<RedisClientType | null> {
     });
 
     redisClient.on('connect', () => {
-      console.log('Redis connected for rate limiting');
+      logger.debug('Redis connected for rate limiting');
       redisConnected = true;
     });
 

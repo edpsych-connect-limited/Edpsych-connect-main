@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 'use client'
 
 /**
@@ -706,7 +707,7 @@ export const AutomatedActionsLog: React.FC<AutomatedActionsLogProps> = ({
           onClose={() => setModifyingAction(null)}
           onSave={(updatedFields) => {
             // In a real app, this would be a mutation
-            console.log('Updating action', modifyingAction.id, updatedFields);
+            logger.debug('Updating action', modifyingAction.id, updatedFields);
             toast.success('Action modified successfully');
             setModifyingAction(null);
             queryClient.invalidateQueries({ queryKey: ['automated-actions-log'] });

@@ -1,3 +1,4 @@
+import { logger, logSecurityEvent } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -7,7 +8,6 @@
  */
 
 import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
-import { logSecurityEvent } from '../logger';
 
 interface SecurityContextType {
   isSecureContext: boolean;
