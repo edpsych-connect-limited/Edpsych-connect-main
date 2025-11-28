@@ -12,7 +12,8 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import { useDemo } from '@/components/demo/DemoProvider';
-import { HelpCircle } from 'lucide-react';
+import { HelpCircle, Target } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 interface Intervention {
   id: number;
@@ -241,33 +242,19 @@ export default function InterventionsPage() {
 
         {/* Interventions List */}
         {filteredInterventions.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-md p-12 text-center">
-            <div className="text-gray-400 text-6xl mb-4">🎯</div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              No interventions found
-            </h3>
-            <p className="text-gray-600 mb-6">
-              {searchQuery || statusFilter !== 'all' || typeFilter !== 'all'
-                ? 'Try adjusting your search or filters'
-                : 'Get started by creating your first intervention'}
-            </p>
-            {interventions.length === 0 && (
-              <div className="space-x-3">
-                <button
-                  onClick={() => router.push('/interventions/library')}
-                  className="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 font-semibold"
-                >
-                  Browse Evidence-Based Interventions
-                </button>
-                <button
-                  onClick={() => router.push('/interventions/new')}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
-                >
-                  Create Custom Intervention
-                </button>
-              </div>
-            )}
-          </div>
+          <EmptyState
+            title="No interventions found"
+            description={
+              searchQuery || statusFilter !== 'all' || typeFilter !== 'all'
+                ? 'Try adjusting your search or filters to find what you are looking for.'
+                : 'Get started by creating your first intervention. You can browse our evidence-based library or create a custom one.'
+            }
+            icon={<Target className="w-8 h-8 text-blue-500" />}
+            actionLabel={interventions.length === 0 ? "Create Custom Intervention" : undefined}
+            actionHref={interventions.length === 0 ? "/interventions/new" : undefined}
+            secondaryActionLabel={interventions.length === 0 ? "Browse Library" : undefined}
+            secondaryActionHref={interventions.length === 0 ? "/interventions/library" : undefined}
+          />
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {filteredInterventions.map((intervention) => (

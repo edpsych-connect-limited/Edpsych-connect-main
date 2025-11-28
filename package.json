@@ -15,7 +15,7 @@
     "type-fix": "bash tools/enforce-types.sh fix",
     "validate": "npx validate-code validate-dir src",
     "validate:strict": "npx validate-code validate-dir src --strict",
-    "validate:build": "bash tools/build-validation.sh src false",
+    "validate:build": "bash tools/build-validation.sh . false",
     "validate:report": "npx validate-code report src",
     "validate:setup": "bash tools/setup-validation.sh",
     "postinstall": "prisma generate"
