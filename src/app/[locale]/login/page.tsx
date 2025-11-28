@@ -177,7 +177,7 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isSubmitting}
                 aria-describedby="email-hint"
-                aria-invalid={error ? true : false}
+                {...{'aria-invalid': error ? "true" : "false"}}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed transition-colors"
                 placeholder="scott@edpsychconnect.com"
               />
@@ -203,7 +203,7 @@ export default function LoginPage() {
                 disabled={isSubmitting}
                 enterKeyHint="go"
                 aria-describedby="password-hint"
-                aria-invalid={error ? true : false}
+                {...{'aria-invalid': error ? "true" : "false"}}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed transition-colors"
                 placeholder="••••••••"
               />

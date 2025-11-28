@@ -705,7 +705,7 @@ export const BattleRoyaleGame: React.FC = () => {
                       ? 'bg-blue-600 border-blue-400 text-white' 
                       : 'bg-slate-800/50 border-slate-600 text-slate-300 hover:border-blue-400'
                   }`}
-                  aria-pressed={accessibleMode}
+                  {...{'aria-pressed': accessibleMode ? "true" : "false"}}
                   aria-label="Toggle accessible text-only mode"
                 >
                   <svg 

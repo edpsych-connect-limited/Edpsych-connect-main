@@ -26,13 +26,26 @@ async function main() {
           name: 'EdPsych Connect Demo',
           subdomain: 'demo',
           tenant_type: 'SCHOOL',
-          is_active: true,
-          subscription_tier: 'Enterprise',
+          status: 'active',
           settings: {},
-          features_enabled: ['all'],
         }
       });
       console.log('✅ Created demo tenant');
+
+      // Create subscription
+      await prisma.subscriptions.create({
+        data: {
+          tenant_id: tenant.id,
+          tier: 'ENTERPRISE_CUSTOM',
+          start_date: new Date(),
+          end_date: new Date(new Date().setFullYear(new Date().getFullYear() + 100)), // Lifetime
+          is_active: true,
+          plan_type: 'founder_lifetime',
+          payment_status: 'active',
+          amount_paid: 0,
+        }
+      });
+      console.log('✅ Created founder subscription');
     }
 
     // Hash password

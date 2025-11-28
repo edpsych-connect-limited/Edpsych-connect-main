@@ -10,7 +10,8 @@
 
 ;
 
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useId } from 'react';
+import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import { Mic, MicOff, Send, Loader2, Volume2, AlertCircle, History } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -106,6 +107,25 @@ const isSpeechRecognitionSupported = (): boolean => {
   return 'webkitSpeechRecognition' in window || 'SpeechRecognition' in window;
 };
 
+const WaveformBar = ({ height, delay, duration }: { height: number, delay: number, duration: number }) => {
+  const id = useId().replace(/:/g, '');
+  return (
+    <>
+      <style>{`
+        .bar-${id} {
+          height: ${height}%;
+          animation-delay: ${delay}s;
+          animation-duration: ${duration}s;
+        }
+      `}</style>
+      <div
+        className={`w-1 bg-blue-600 rounded-full animate-pulse bar-${id}`}
+        aria-hidden="true"
+      />
+    </>
+  );
+};
+
 /**
  * Waveform visualization component for recording state
  */
@@ -119,26 +139,14 @@ const WaveformVisualization: React.FC = () => {
 
   return (
     <div className="flex items-center gap-1 h-8" role="img" aria-label="Recording in progress">
-      {bars.map((bar) => {
-        const barStyle = {
-          height: `${bar.height}%`,
-          animationDelay: `${bar.delay}s`,
-          animationDuration: `${bar.duration}s`,
-        };
-        return (
-          // eslint-disable-next-line
-          <div
-            key={bar.id}
-            className="w-1 bg-blue-600 rounded-full animate-pulse"
-            style={{
-              height: `${bar.height}%`,
-              animationDelay: `${bar.delay}s`,
-              animationDuration: `${bar.duration}s`,
-            }}
-            aria-hidden="true"
-          />
-        );
-      })}
+      {bars.map((bar) => (
+        <WaveformBar
+          key={bar.id}
+          height={bar.height}
+          delay={bar.delay}
+          duration={bar.duration}
+        />
+      ))}
     </div>
   );
 };
@@ -186,6 +194,8 @@ export const VoiceCommandInterface: React.FC<VoiceCommandInterfaceProps> = ({
   initialQuery = '',
   className = '',
 }) => {
+  const router = useRouter();
+
   // State management
   const [inputValue, setInputValue] = useState(initialQuery);
   const [isRecording, setIsRecording] = useState(false);
@@ -267,6 +277,33 @@ export const VoiceCommandInterface: React.FC<VoiceCommandInterfaceProps> = ({
   // Execute command mutation
   const commandMutation = useMutation({
     mutationFn: async (request: VoiceCommandRequest) => {
+      // Client-side navigation handling for "Go to..." commands
+      const lowerQuery = request.query.toLowerCase();
+      if (lowerQuery.startsWith('go to') || lowerQuery.startsWith('open') || lowerQuery.startsWith('navigate to')) {
+        const target = lowerQuery.replace(/go to|open|navigate to/g, '').trim();
+        
+        let path = '';
+        if (target.includes('assessment')) path = '/assessments';
+        else if (target.includes('dashboard')) path = '/dashboard';
+        else if (target.includes('intervention')) path = '/interventions';
+        else if (target.includes('student') || target.includes('case')) path = '/cases';
+        else if (target.includes('ehcp')) path = '/ehcp';
+        else if (target.includes('setting') || target.includes('profile')) path = '/settings';
+        else if (target.includes('training')) path = '/training';
+        else if (target.includes('report')) path = '/reports';
+        else if (target.includes('help') || target.includes('support')) path = '/help';
+        else if (target.includes('new assessment') || target.includes('schedule')) path = '/assessments/new';
+
+        if (path) {
+          router.push(path);
+          return {
+            response: `Navigating to ${target}...`,
+            actions: [{ type: 'navigation', description: `Redirected to ${path}`, executed: true }],
+            confidence: 1.0
+          };
+        }
+      }
+
       const response = await fetch('/api/voice/command', {
         method: 'POST',
         headers: {
@@ -387,7 +424,7 @@ export const VoiceCommandInterface: React.FC<VoiceCommandInterfaceProps> = ({
                   : 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500'
               } disabled:opacity-50 disabled:cursor-not-allowed`}
               aria-label={isRecording ? 'Stop recording' : 'Start voice recording'}
-              aria-pressed={!!isRecording}
+              {...{'aria-pressed': isRecording ? "true" : "false"}}
             >
               {isRecording ? (
                 <MicOff className="w-6 h-6 text-white" aria-hidden="true" />

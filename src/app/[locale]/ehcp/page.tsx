@@ -20,6 +20,9 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import { downloadEHCPPDF } from '@/lib/ehcp/pdf-generator';
+import { useDemo } from '@/components/demo/DemoProvider';
+import { EHCP } from '@/components/ui/GlossaryTerm';
+import { HelpCircle } from 'lucide-react';
 
 interface EHCP {
   id: number;
@@ -52,6 +55,7 @@ interface PaginationInfo {
 export default function EHCPListPage() {
   const router = useRouter();
   const { user, isLoading: authLoading } = useAuth();
+  const { startTour } = useDemo();
 
   // State management
   const [ehcps, setEhcps] = useState<EHCP[]>([]);
@@ -232,6 +236,13 @@ export default function EHCPListPage() {
               </p>
             </div>
             <div className="flex gap-3">
+              <button
+                onClick={() => startTour('ehcp')}
+                className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-blue-700 bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                <HelpCircle className="w-4 h-4 mr-2" />
+                Take Tour
+              </button>
               {selectedEHCPs.size > 0 && (
                 <button
                   onClick={handleBulkExport}
@@ -380,10 +391,10 @@ export default function EHCPListPage() {
                 />
               </svg>
               <h3 className="mt-2 text-sm font-medium text-gray-900">
-                No EHCPs found
+                No <EHCP>EHCPs</EHCP> found
               </h3>
               <p className="mt-1 text-sm text-gray-500">
-                Get started by creating a new EHCP.
+                Get started by creating a new <EHCP>EHCP</EHCP>.
               </p>
               <div className="mt-6">
                 <button
@@ -410,7 +421,7 @@ export default function EHCPListPage() {
         ) : (
           /* EHCP List */
           <>
-            <div className="bg-white shadow rounded-lg overflow-hidden">
+            <div className="bg-white shadow rounded-lg overflow-hidden" data-tour="ehcp-timeline">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>

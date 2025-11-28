@@ -9,6 +9,9 @@
  * Usage: Rename to next.config.js for production builds
  */
 
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -184,4 +187,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withBundleAnalyzer(nextConfig);
+export default withBundleAnalyzer(nextConfig);

@@ -25,6 +25,7 @@
 
 import React, { useState, useEffect, useId } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import {
   DragAndDropElement,
   SortingElement,
@@ -915,7 +916,13 @@ function InteractiveDiagramElement({ element, enrollmentId, onComplete }: Intera
 
       <div className="grid grid-cols-2 gap-6">
         <div className="relative">
-          <img src={diagram.diagram_url} alt="Interactive diagram" className="w-full rounded-lg" />
+          <Image 
+            src={diagram.diagram_url} 
+            alt="Interactive diagram" 
+            width={600}
+            height={400}
+            className="w-full rounded-lg" 
+          />
           {/* Hotspots would be absolutely positioned SVG elements */}
         </div>
 

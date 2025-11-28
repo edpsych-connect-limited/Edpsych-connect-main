@@ -44,6 +44,16 @@ export default function DashboardPage() {
         return;
       }
 
+      // Auto-start tour for first-time visitors
+      const hasSeenTour = localStorage.getItem('hasSeenDashboardTour');
+      if (!hasSeenTour) {
+        // Small delay to ensure UI is ready
+        setTimeout(() => {
+          startTour('dashboard');
+          localStorage.setItem('hasSeenDashboardTour', 'true');
+        }, 1000);
+      }
+
       // Check onboarding status
       if (user.onboardingCompleted || user.onboardingSkipped) {
         return;

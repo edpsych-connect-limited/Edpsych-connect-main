@@ -11,6 +11,8 @@ export const dynamic = 'force-dynamic';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
+import { useDemo } from '@/components/demo/DemoProvider';
+import { HelpCircle } from 'lucide-react';
 
 interface Intervention {
   id: number;
@@ -32,6 +34,7 @@ interface Intervention {
 export default function InterventionsPage() {
   const router = useRouter();
   const { user, isLoading: authLoading } = useAuth();
+  const { startTour } = useDemo();
 
   const [interventions, setInterventions] = useState<Intervention[]>([]);
   const [loading, setLoading] = useState(true);
@@ -113,11 +116,20 @@ export default function InterventionsPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Interventions</h1>
-          <p className="text-gray-600">
-            Design, implement, and monitor evidence-based interventions
-          </p>
+        <div className="mb-8 flex justify-between items-start">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Interventions</h1>
+            <p className="text-gray-600">
+              Design, implement, and monitor evidence-based interventions
+            </p>
+          </div>
+          <button
+            onClick={() => startTour('interventions')}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+          >
+            <HelpCircle className="w-4 h-4" />
+            Take Tour
+          </button>
         </div>
 
         {/* Stats Cards */}
@@ -178,7 +190,7 @@ export default function InterventionsPage() {
             </div>
 
             {/* Filters */}
-            <div className="flex space-x-4">
+            <div className="flex space-x-4" data-tour="intervention-filters">
               <select
                 aria-label="Filter by status"
                 value={statusFilter}
@@ -218,6 +230,7 @@ export default function InterventionsPage() {
               </button>
               <button
                 onClick={() => router.push('/interventions/new')}
+                data-tour="create-intervention"
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
               >
                 + Create Custom

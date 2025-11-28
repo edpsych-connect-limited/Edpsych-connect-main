@@ -7,6 +7,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 interface Professional {
   id: string;
@@ -421,12 +422,13 @@ const ProfessionalNetwork: React.FC = () => {
               {filteredProfessionals.map((professional) => (
                 <div key={professional.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
                   <div className="flex items-center mb-4">
-                    <div className="w-16 h-16 rounded-full overflow-hidden mr-3">
+                    <div className="relative w-16 h-16 rounded-full overflow-hidden mr-3">
                       {professional.profileImage ? (
-                        <img 
+                        <Image 
                           src={professional.profileImage} 
                           alt={professional.name} 
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
                         />
                       ) : (
                         <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
@@ -595,12 +597,13 @@ const ProfessionalNetwork: React.FC = () => {
                     onClick={() => handleReadMessage(message.id)}
                   >
                     <div className="flex items-start">
-                      <div className="w-10 h-10 rounded-full overflow-hidden mr-3 flex-shrink-0">
+                      <div className="relative w-10 h-10 rounded-full overflow-hidden mr-3 flex-shrink-0">
                         {message.senderImage ? (
-                          <img 
+                          <Image 
                             src={message.senderImage} 
                             alt={message.senderName} 
-                            className="w-full h-full object-cover"
+                            fill
+                            className="object-cover"
                           />
                         ) : (
                           <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-600 text-xs">

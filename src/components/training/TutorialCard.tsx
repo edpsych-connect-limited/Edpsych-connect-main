@@ -7,6 +7,7 @@
  */
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 interface TutorialProps {
   tutorial: {
@@ -104,10 +105,11 @@ const TutorialCard: React.FC<TutorialProps> = ({ tutorial, onComplete }) => {
       {/* Tutorial Thumbnail */}
       <div className="relative h-40 bg-gray-200">
         {tutorial.thumbnailUrl ? (
-          <img 
+          <Image 
             src={tutorial.thumbnailUrl} 
             alt={tutorial.title} 
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gray-300">
@@ -183,6 +185,7 @@ const TutorialCard: React.FC<TutorialProps> = ({ tutorial, onComplete }) => {
               <button 
                 onClick={() => setIsModalOpen(false)}
                 className="text-gray-500 hover:text-gray-700"
+                aria-label="Close modal"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

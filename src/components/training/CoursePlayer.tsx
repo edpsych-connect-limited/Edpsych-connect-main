@@ -17,14 +17,9 @@
 
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useId, useCallback } from 'react';
 import {
   Course,
-  CourseModule,
-  Lesson,
-  Quiz,
-  QuizQuestion,
-  Resource,
 } from '@/lib/training/course-catalog';
 
 // ============================================================================
@@ -53,6 +48,22 @@ interface PlayerState {
 
 type ViewMode = 'lesson' | 'quiz' | 'resources' | 'notes';
 
+const DynamicProgressBar = ({ progress, className }: { progress: number, className?: string }) => {
+  const id = useId().replace(/:/g, '');
+  return (
+    <>
+      <style>{`
+        .progress-${id} {
+          width: ${progress}%;
+        }
+      `}</style>
+      <div
+        className={`${className} progress-${id}`}
+      />
+    </>
+  );
+};
+
 // ============================================================================
 // MAIN COMPONENT
 // ============================================================================
@@ -78,8 +89,59 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const autoSaveTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const sessionStartTimeRef = useRef<number>(Date.now());
   const lastSaveTimeRef = useRef<number>(Date.now());
+
+  // ============================================================================
+  // PROGRESS MANAGEMENT
+  // ============================================================================
+
+  async function loadProgress(userId: string, courseId: string) {
+    try {
+      const response = await fetch(`/api/training/progress?courseId=${courseId}`);
+      if (response.ok) {
+        const data = await response.json();
+        if (data.state) {
+          setState((prev) => ({ ...prev, ...data.state }));
+        }
+      }
+    } catch (error) {
+      console.error('Error loading progress:', error);
+    }
+  }
+
+  const saveProgress = useCallback(async (userId: string, courseId: string, currentState: PlayerState) => {
+    if (!course) return;
+    
+    const totalItems = course.modules.reduce((sum, m) => sum + m.lessons.length + (m.quiz ? 1 : 0), 0) || 1;
+    const completedItems = currentState.completed_lessons.length + currentState.completed_quizzes.length;
+    const progress = Math.round((completedItems / totalItems) * 100);
+    
+    // Calculate time spent since last save
+    const now = Date.now();
+    const sessionTime = Math.floor((now - lastSaveTimeRef.current) / 1000);
+    lastSaveTimeRef.current = now;
+    
+    // Update state with accumulated time
+    const newTimeSpent = currentState.time_spent + sessionTime;
+    setState(prev => ({ ...prev, time_spent: newTimeSpent }));
+
+    try {
+      await fetch('/api/training/progress', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          courseId,
+          progress,
+          timeSpent: newTimeSpent,
+          state: { ...currentState, time_spent: newTimeSpent },
+        }),
+      });
+    } catch (error) {
+      console.error('Error saving progress:', error);
+    }
+  }, [course]);
 
   // ============================================================================
   // INITIALIZATION
@@ -117,59 +179,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
       // Save on unmount
       saveProgress(userId, courseId, state);
     };
-  }, [state, userId, courseId]);
-
-  // ============================================================================
-  // PROGRESS MANAGEMENT
-  // ============================================================================
-
-  async function loadProgress(userId: string, courseId: string) {
-    try {
-      const response = await fetch(`/api/training/progress?courseId=${courseId}`);
-      if (response.ok) {
-        const data = await response.json();
-        if (data.state) {
-          setState((prev) => ({ ...prev, ...data.state }));
-        }
-      }
-    } catch (error) {
-      console.error('Error loading progress:', error);
-    }
-  }
-
-  async function saveProgress(userId: string, courseId: string, currentState: PlayerState) {
-    if (!course) return;
-    
-    const totalItems = course.modules.reduce((sum, m) => sum + m.lessons.length + (m.quiz ? 1 : 0), 0) || 1;
-    const completedItems = currentState.completed_lessons.length + currentState.completed_quizzes.length;
-    const progress = Math.round((completedItems / totalItems) * 100);
-    
-    // Calculate time spent since last save
-    const now = Date.now();
-    const sessionTime = Math.floor((now - lastSaveTimeRef.current) / 1000);
-    lastSaveTimeRef.current = now;
-    
-    // Update state with accumulated time
-    const newTimeSpent = currentState.time_spent + sessionTime;
-    setState(prev => ({ ...prev, time_spent: newTimeSpent }));
-
-    try {
-      await fetch('/api/training/progress', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          courseId,
-          progress,
-          timeSpent: newTimeSpent,
-          state: { ...currentState, time_spent: newTimeSpent },
-        }),
-      });
-    } catch (error) {
-      console.error('Error saving progress:', error);
-    }
-  }
+  }, [state, userId, courseId, saveProgress]);
 
   // ============================================================================
   // NAVIGATION
@@ -472,11 +482,10 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
           {/* Progress Bar */}
           <div className="relative">
             <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
-              <div
+              <DynamicProgressBar
+                progress={progressPercentage}
                 className="h-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all duration-500"
-                // eslint-disable-next-line
-                style={{ width: `${progressPercentage}%` }}
-              ></div>
+              />
             </div>
             <div className="text-right text-sm font-semibold text-blue-600 mt-1">
               {Math.round(progressPercentage)}% Complete
@@ -600,11 +609,10 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                         {state.video_progress > 0 && state.video_progress < 100 && (
                           <div className="mt-3">
                             <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                              <div
+                              <DynamicProgressBar
+                                progress={state.video_progress}
                                 className="h-full bg-blue-600 transition-all"
-                                // eslint-disable-next-line
-                                style={{ width: `${state.video_progress}%` }}
-                              ></div>
+                              />
                             </div>
                           </div>
                         )}

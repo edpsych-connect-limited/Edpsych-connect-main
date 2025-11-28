@@ -14,6 +14,8 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useDemo } from '@/components/demo/DemoProvider';
+import { PlayCircle } from 'lucide-react';
 
 interface AssessmentFormData {
   tenant_id: number;
@@ -35,6 +37,7 @@ export default function AssessmentForm({
   assessmentId,
 }: AssessmentFormProps) {
   const router = useRouter();
+  const { startTour } = useDemo();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -121,9 +124,22 @@ export default function AssessmentForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Error Message */}
-      {error && (
+    <div>
+      {/* Tour Button */}
+      <div className="mb-4 flex justify-end">
+        <button
+          type="button"
+          onClick={() => startTour('assessment-wizard')}
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+        >
+          <PlayCircle className="w-4 h-4" />
+          Take a Quick Tour
+        </button>
+      </div>
+
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Error Message */}
+        {error && (
         <div className="bg-red-50 border-l-4 border-red-400 p-4">
           <p className="text-sm text-red-700">{error}</p>
         </div>
@@ -176,12 +192,12 @@ export default function AssessmentForm({
       </div>
 
       {/* Assessment Details */}
-      <div className="bg-white shadow rounded-lg p-6">
+      <div className="bg-white shadow rounded-lg p-6" data-tour="assessment-type-section">
         <h3 className="text-lg font-medium text-gray-900 mb-4">
           Assessment Details
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
+          <div data-tour="domain-selector">
             <label htmlFor="assessment-type" className="block text-sm font-medium text-gray-700 mb-2">
               Assessment Type *
             </label>
@@ -271,7 +287,7 @@ export default function AssessmentForm({
       </div>
 
       {/* Action Buttons */}
-      <div className="flex justify-end space-x-3">
+      <div className="flex justify-end space-x-3" data-tour="generate-report">
         <button
           type="button"
           onClick={() => router.back()}
@@ -293,5 +309,6 @@ export default function AssessmentForm({
         </button>
       </div>
     </form>
+    </div>
   );
 }

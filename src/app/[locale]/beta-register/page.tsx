@@ -357,6 +357,7 @@ export default function BetaRegisterPage() {
               onChange={(e) => setRole(e.target.value)}
               disabled={!!codeRole}
               className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500"
+              aria-label="Your Role"
             >
               {roleOptions.map((option) => (
                 <option key={option.value} value={option.value} className="bg-slate-800">

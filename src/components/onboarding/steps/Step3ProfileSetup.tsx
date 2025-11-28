@@ -173,12 +173,13 @@ export function Step3ProfileSetup() {
         <div className="flex flex-col sm:flex-row gap-6 items-start">
           {/* Photo Preview */}
           <div className="flex-shrink-0">
-            <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-100 border-4 border-white shadow-lg">
+            <div className="relative w-32 h-32 rounded-full overflow-hidden bg-gray-100 border-4 border-white shadow-lg">
               {photoUrl ? (
-                <img
+                <Image
                   src={photoUrl}
                   alt="Profile photo preview"
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-100 to-purple-100">

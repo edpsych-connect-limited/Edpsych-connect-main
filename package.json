@@ -67,6 +67,7 @@
     "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
     "dompurify": "^3.3.0",
+    "driver.js": "^1.4.0",
     "express": "^5.1.0",
     "framer-motion": "^12.23.24",
     "jose": "^6.1.0",

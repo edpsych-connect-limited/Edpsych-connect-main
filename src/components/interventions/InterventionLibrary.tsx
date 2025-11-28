@@ -196,6 +196,7 @@ export default function InterventionLibrary({
             value={evidenceFilter}
             onChange={(e) => setEvidenceFilter(e.target.value)}
             className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            aria-label="Filter by Evidence Level"
           >
             {evidenceLevels.map((level) => (
               <option key={level.value} value={level.value}>
