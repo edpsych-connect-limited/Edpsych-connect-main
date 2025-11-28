@@ -229,4 +229,4 @@ class EthicsIncident {
   }
 }
 
-module.exports = EthicsIncident;
+export default EthicsIncident;
