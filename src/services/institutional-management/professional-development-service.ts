@@ -470,8 +470,11 @@ export class ProfessionalDevelopmentService {
       
       // Factor in institutional context if available
       const contentItemForContext: ContentItem = {
-        ...item,
+        id: item.id,
+        title: item.title,
+        description: item.description || '',
         tags,
+        url: item.url,
         imageUrl: item.image_url || undefined,
         contentType: item.content_type,
         authorId: item.authorId ?? undefined,

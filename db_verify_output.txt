@@ -1,0 +1,3 @@
+Connecting to database...
+Successfully connected! Found 213 users.
+Verified: Connected to Neon DB (Production/Staging).

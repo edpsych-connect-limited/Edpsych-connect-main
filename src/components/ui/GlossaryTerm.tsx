@@ -75,26 +75,26 @@ export const glossaryDefinitions: Record<string, string> = {
 };
 
 // Quick helper component for common terms
-export const EHCP: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
-  <GlossaryTerm term="EHCP" definition={glossaryDefinitions.EHCP}>
+export const EHCP: React.FC<{ children?: React.ReactNode; className?: string }> = ({ children, className }) => (
+  <GlossaryTerm term="EHCP" definition={glossaryDefinitions.EHCP} className={className}>
     {children || 'EHCP'}
   </GlossaryTerm>
 );
 
-export const SEND: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
-  <GlossaryTerm term="SEND" definition={glossaryDefinitions.SEND}>
+export const SEND: React.FC<{ children?: React.ReactNode; className?: string }> = ({ children, className }) => (
+  <GlossaryTerm term="SEND" definition={glossaryDefinitions.SEND} className={className}>
     {children || 'SEND'}
   </GlossaryTerm>
 );
 
-export const SENCO: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
-  <GlossaryTerm term="SENCO" definition={glossaryDefinitions.SENCO}>
+export const SENCO: React.FC<{ children?: React.ReactNode; className?: string }> = ({ children, className }) => (
+  <GlossaryTerm term="SENCO" definition={glossaryDefinitions.SENCO} className={className}>
     {children || 'SENCO'}
   </GlossaryTerm>
 );
 
-export const ECCA: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
-  <GlossaryTerm term="ECCA" definition={glossaryDefinitions.ECCA}>
+export const ECCA: React.FC<{ children?: React.ReactNode; className?: string }> = ({ children, className }) => (
+  <GlossaryTerm term="ECCA" definition={glossaryDefinitions.ECCA} className={className}>
     {children || 'ECCA'}
   </GlossaryTerm>
 );

@@ -220,7 +220,11 @@ export default function AssessmentListPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {/* ECCA Quick Start */}
           <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg shadow-lg p-6 text-white">
-            <h3 className="text-lg font-bold mb-2"><ECCA className="text-white border-white/50">ECCA Framework</ECCA></h3>
+            <h3 className="text-lg font-bold mb-2">
+              <span className="text-white border-white/50">
+                <ECCA>ECCA Framework</ECCA>
+              </span>
+            </h3>
             <p className="text-blue-100 text-sm mb-4">
               EdPsych Connect Cognitive Assessment. Evidence-based, dynamic assessment workflow.
             </p>
