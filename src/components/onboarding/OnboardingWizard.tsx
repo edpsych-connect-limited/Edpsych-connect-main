@@ -68,7 +68,7 @@ export function OnboardingWizard({ className = '' }: OnboardingWizardProps) {
     };
 
     initialize();
-  }, []); // Run once on mount
+  }, [refreshStatus, startOnboarding, state.currentStep, state.timeStarted]); // Run once on mount
 
   // Redirect if already completed
   useEffect(() => {

@@ -77,7 +77,7 @@ export default function DashboardPage() {
     };
 
     checkAuthAndOnboarding();
-  }, [user, isLoading, router]);
+  }, [user, isLoading, router, startTour]);
 
   if (isLoading || !user) {
     return (
