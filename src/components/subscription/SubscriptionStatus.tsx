@@ -16,7 +16,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useSubscription } from '@/hooks/useSubscription';
-import { SubscriptionTier } from '@prisma/client';
+import { SubscriptionTier } from '@/types/prisma-enums';
 
 // Tier display names
 const TIER_NAMES: Record<string, string> = {

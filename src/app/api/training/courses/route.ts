@@ -8,11 +8,15 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import authService from '@/lib/auth/auth-service';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
+    const session = await authService.getSessionFromRequest(request);
+    const userId = session?.id;
+
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
     const search = searchParams.get('search');
@@ -46,6 +50,13 @@ export async function GET(request: NextRequest) {
               reviews: true,
             },
           },
+          enrollments: userId ? {
+            where: { userId: userId },
+            select: { progress: true, status: true }
+          } : false,
+          reviews: {
+            select: { rating: true }
+          }
         },
         take: limit,
         skip: offset,
@@ -63,6 +74,15 @@ export async function GET(request: NextRequest) {
         ? `${hours}h ${minutes > 0 ? `${minutes}m` : ''}`
         : `${minutes}m`;
 
+      // Calculate average rating
+      const totalRating = course.reviews.reduce((acc, review) => acc + review.rating, 0);
+      const avgRating = course.reviews.length > 0 
+        ? Math.round((totalRating / course.reviews.length) * 10) / 10 
+        : 0;
+
+      // Check enrollment
+      const enrollment = course.enrollments?.[0];
+
       return {
         id: course.id,
         title: course.title,
@@ -70,11 +90,11 @@ export async function GET(request: NextRequest) {
         category: course.category,
         duration: durationString,
         level: course.level,
-        enrolled: false, // TODO: Check enrollment status if user is logged in
-        progress: 0,
+        enrolled: !!enrollment,
+        progress: enrollment?.progress || 0,
         imageUrl: course.imageUrl,
         instructor: course.instructor?.name || 'Unknown Instructor',
-        rating: 0, // TODO: Calculate rating
+        rating: avgRating,
         students: course._count.enrollments,
       };
     });

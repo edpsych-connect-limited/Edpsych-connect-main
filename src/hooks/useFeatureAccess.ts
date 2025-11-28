@@ -15,7 +15,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { Feature, SubscriptionTier } from '@prisma/client';
+import { Feature, SubscriptionTier } from '@/types/prisma-enums';
 
 /**
  * Hook to check if current user's tenant has access to a feature

@@ -14,7 +14,7 @@
 'use client';
 
 import React from 'react';
-import { Feature } from '@prisma/client';
+import { Feature } from '@/types/prisma-enums';
 import { useFeatureAccess } from '@/hooks/useFeatureAccess';
 import { UpgradePrompt } from './UpgradePrompt';
 

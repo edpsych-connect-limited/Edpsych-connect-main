@@ -15,7 +15,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Feature, SubscriptionTier } from '@prisma/client';
+import { Feature, SubscriptionTier } from '@/types/prisma-enums';
 
 interface UpgradePromptProps {
   feature: Feature;
