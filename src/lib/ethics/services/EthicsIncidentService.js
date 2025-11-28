@@ -5,7 +5,7 @@
  * from creation to resolution, including assignment, tracking, and reporting.
  */
 
-const EthicsIncident = require('../models/EthicsIncident');
+import EthicsIncident from '../models/EthicsIncident';
 
 class EthicsIncidentService {
   constructor({
@@ -939,4 +939,4 @@ Please review this update.`;
   }
 }
 
-module.exports = EthicsIncidentService;
+export default EthicsIncidentService;

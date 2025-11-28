@@ -187,4 +187,5 @@ export class UserPreferenceService {
   }
 }
 
-export default new UserPreferenceService();
+const userPreferenceService = new UserPreferenceService();
+export default userPreferenceService;

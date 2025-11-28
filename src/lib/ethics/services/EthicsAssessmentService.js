@@ -5,7 +5,7 @@
  * updates, reviews, approvals, and generating assessment documentation.
  */
 
-const EthicsAssessment = require('../models/EthicsAssessment');
+import EthicsAssessment from '../models/EthicsAssessment';
 
 class EthicsAssessmentService {
   constructor({
@@ -765,4 +765,4 @@ Please review this update.`;
   }
 }
 
-module.exports = EthicsAssessmentService;
+export default EthicsAssessmentService;

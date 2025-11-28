@@ -5,8 +5,8 @@
  * detecting anomalies, and generating incidents when thresholds are exceeded.
  */
 
-const EthicsMonitor = require('../models/EthicsMonitor');
-const EthicsIncident = require('../models/EthicsIncident');
+import EthicsMonitor from '../models/EthicsMonitor';
+import EthicsIncident from '../models/EthicsIncident';
 
 class EthicsMonitoringService {
   constructor({
@@ -439,4 +439,4 @@ Please review this incident in the ethics dashboard.
   }
 }
 
-module.exports = EthicsMonitoringService;
+export default EthicsMonitoringService;

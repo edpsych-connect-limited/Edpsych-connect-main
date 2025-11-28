@@ -399,4 +399,5 @@ export class ContentSimilarityService {
   }
 }
 
-export default new ContentSimilarityService();
+const contentSimilarityService = new ContentSimilarityService();
+export default contentSimilarityService;

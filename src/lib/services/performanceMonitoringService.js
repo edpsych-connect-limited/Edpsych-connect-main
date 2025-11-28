@@ -6,7 +6,6 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-"use strict";
 /**
  * Performance Monitoring Service
  *
@@ -18,10 +17,11 @@
  * - Real-time alerting and notifications
  * - Performance trend analysis
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-const perf_hooks_1 = require("perf_hooks");
-const os = require("os");
-const logger_1 = require("@/lib/logger");
+
+import { performance, PerformanceObserver } from "perf_hooks";
+import * as os from "os";
+import { logger } from "@/lib/logger";
+
 class PerformanceMonitoringService {
     constructor(options = {}) {
         this.options = {
@@ -63,10 +63,10 @@ class PerformanceMonitoringService {
             }, this.options.metricsInterval);
             // Start alerting
             this._startAlerting();
-            logger_1.logger.info('Performance monitoring service initialized');
+            logger.info('Performance monitoring service initialized');
         }
         catch (error) {
-            logger_1.logger.error('Error initializing performance monitoring service:', error instanceof Error ? error.message : String(error));
+            logger.error('Error initializing performance monitoring service:', error instanceof Error ? error.message : String(error));
         }
     }
     /**
@@ -96,7 +96,7 @@ class PerformanceMonitoringService {
             this._checkResponseTimeThreshold(endpoint, responseTime);
         }
         catch (error) {
-            logger_1.logger.error('Error recording API response:', error instanceof Error ? error.message : String(error));
+            logger.error('Error recording API response:', error instanceof Error ? error.message : String(error));
         }
     }
     /**
@@ -123,7 +123,7 @@ class PerformanceMonitoringService {
             }
         }
         catch (error) {
-            logger_1.logger.error('Error recording custom metric:', error instanceof Error ? error.message : String(error));
+            logger.error('Error recording custom metric:', error instanceof Error ? error.message : String(error));
         }
     }
     /**
@@ -142,10 +142,10 @@ class PerformanceMonitoringService {
                 context
             };
             // This would be stored in a separate error tracking system
-            logger_1.logger.error('Error recorded:', errorMetric);
+            logger.error('Error recorded:', errorMetric);
         }
         catch (recordError) {
-            logger_1.logger.error('Error recording error:', recordError);
+            logger.error('Error recording error:', recordError);
         }
     }
     /**
@@ -158,11 +158,11 @@ class PerformanceMonitoringService {
         if (!this.options.enableProfiling) {
             return () => { };
         }
-        const startTime = perf_hooks_1.performance.now();
+        const startTime = performance.now();
         const startMemory = process.memoryUsage();
-        logger_1.logger.info(`Started profiling: ${name}`);
+        logger.info(`Started profiling: ${name}`);
         return () => {
-            const endTime = perf_hooks_1.performance.now();
+            const endTime = performance.now();
             const endMemory = process.memoryUsage();
             const profile = {
                 name,
@@ -174,7 +174,7 @@ class PerformanceMonitoringService {
                 },
                 timestamp: new Date().toISOString()
             };
-            logger_1.logger.info(`Profile completed: ${name}`, profile);
+            logger.info(`Profile completed: ${name}`, profile);
             return profile;
         };
     }
@@ -203,7 +203,7 @@ class PerformanceMonitoringService {
             return metrics;
         }
         catch (error) {
-            logger_1.logger.error('Error getting performance metrics:', error instanceof Error ? error.message : String(error));
+            logger.error('Error getting performance metrics:', error instanceof Error ? error.message : String(error));
             throw error;
         }
     }
@@ -247,7 +247,7 @@ class PerformanceMonitoringService {
             return report;
         }
         catch (error) {
-            logger_1.logger.error('Error generating performance report:', error instanceof Error ? error.message : String(error));
+            logger.error('Error generating performance report:', error instanceof Error ? error.message : String(error));
             throw error;
         }
     }
@@ -278,13 +278,13 @@ class PerformanceMonitoringService {
             if (this.alerts.length > 1000) {
                 this.alerts = this.alerts.slice(-500);
             }
-            logger_1.logger.info(`Performance alert created: ${alert.title} (${alert.severity})`);
+            logger.info(`Performance alert created: ${alert.title} (${alert.severity})`);
             // Send notification (would integrate with notification service)
             await this._sendAlertNotification(alert);
             return alert.id;
         }
         catch (error) {
-            logger_1.logger.error('Error creating performance alert:', error instanceof Error ? error.message : String(error));
+            logger.error('Error creating performance alert:', error instanceof Error ? error.message : String(error));
             throw error;
         }
     }
@@ -304,11 +304,11 @@ class PerformanceMonitoringService {
             alert.acknowledged = true;
             alert.acknowledgedBy = userId;
             alert.acknowledgedAt = new Date().toISOString();
-            logger_1.logger.info(`Alert ${alertId} acknowledged by ${userId}`);
+            logger.info(`Alert ${alertId} acknowledged by ${userId}`);
             return true;
         }
         catch (error) {
-            logger_1.logger.error('Error acknowledging alert:', error instanceof Error ? error.message : String(error));
+            logger.error('Error acknowledging alert:', error instanceof Error ? error.message : String(error));
             return false;
         }
     }
@@ -328,11 +328,11 @@ class PerformanceMonitoringService {
             alert.resolved = true;
             alert.resolvedAt = new Date().toISOString();
             alert.resolution = resolution;
-            logger_1.logger.info(`Alert ${alertId} resolved: ${resolution}`);
+            logger.info(`Alert ${alertId} resolved: ${resolution}`);
             return true;
         }
         catch (error) {
-            logger_1.logger.error('Error resolving alert:', error instanceof Error ? error.message : String(error));
+            logger.error('Error resolving alert:', error instanceof Error ? error.message : String(error));
             return false;
         }
     }
@@ -342,8 +342,8 @@ class PerformanceMonitoringService {
      * @private
      */
     _setupPerformanceObserver() {
-        if (typeof perf_hooks_1.PerformanceObserver !== 'undefined') {
-            this.performanceObserver = new perf_hooks_1.PerformanceObserver((list) => {
+        if (typeof PerformanceObserver !== 'undefined') {
+            this.performanceObserver = new PerformanceObserver((list) => {
                 for (const entry of list.getEntries()) {
                     this._processPerformanceEntry(entry);
                 }
@@ -381,7 +381,7 @@ class PerformanceMonitoringService {
             }
         }
         catch (error) {
-            logger_1.logger.error('Error processing performance entry:', error instanceof Error ? error.message : String(error));
+            logger.error('Error processing performance entry:', error instanceof Error ? error.message : String(error));
         }
     }
     /**
@@ -420,7 +420,7 @@ class PerformanceMonitoringService {
             await this._checkSystemThresholds(memUsage, cpuUsage);
         }
         catch (error) {
-            logger_1.logger.error('Error collecting metrics:', error instanceof Error ? error.message : String(error));
+            logger.error('Error collecting metrics:', error instanceof Error ? error.message : String(error));
         }
     }
     /**
@@ -435,7 +435,7 @@ class PerformanceMonitoringService {
                 await this._checkForAlerts();
             }
             catch (error) {
-                logger_1.logger.error('Error checking for alerts:', error instanceof Error ? error.message : String(error));
+                logger.error('Error checking for alerts:', error instanceof Error ? error.message : String(error));
             }
         }, 5 * 60 * 1000);
     }
@@ -524,7 +524,7 @@ class PerformanceMonitoringService {
             await this._checkPerformanceTrends();
         }
         catch (error) {
-            logger_1.logger.error('Error checking for alerts:', error instanceof Error ? error.message : String(error));
+            logger.error('Error checking for alerts:', error instanceof Error ? error.message : String(error));
         }
     }
     /**
@@ -561,7 +561,7 @@ class PerformanceMonitoringService {
             }
         }
         catch (error) {
-            logger_1.logger.error('Error checking performance trends:', error instanceof Error ? error.message : String(error));
+            logger.error('Error checking performance trends:', error instanceof Error ? error.message : String(error));
         }
     }
     /**
@@ -626,7 +626,7 @@ class PerformanceMonitoringService {
             };
         }
         catch (error) {
-            logger_1.logger.error('Error getting system metrics:', error instanceof Error ? error.message : String(error));
+            logger.error('Error getting system metrics:', error instanceof Error ? error.message : String(error));
             return null;
         }
     }
@@ -823,7 +823,7 @@ class PerformanceMonitoringService {
      */
     async _sendAlertNotification(alert) {
         // This would integrate with the notification service
-        logger_1.logger.info(`Sending alert notification: ${alert.title}`);
+        logger.info(`Sending alert notification: ${alert.title}`);
     }
     /**
      * Clean up old metrics
@@ -849,7 +849,7 @@ class PerformanceMonitoringService {
         if (this.performanceObserver) {
             this.performanceObserver.disconnect();
         }
-        logger_1.logger.info('Performance monitoring service shut down');
+        logger.info('Performance monitoring service shut down');
     }
 }
 exports.default = PerformanceMonitoringService;

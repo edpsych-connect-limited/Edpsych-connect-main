@@ -537,4 +537,5 @@ export class RecommendationService {
   }
 }
 
-export default new RecommendationService();
+const recommendationService = new RecommendationService();
+export default recommendationService;

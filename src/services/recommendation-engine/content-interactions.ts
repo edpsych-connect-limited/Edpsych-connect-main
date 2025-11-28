@@ -305,4 +305,5 @@ export class ContentInteractionService {
   }
 }
 
-export default new ContentInteractionService();
+const contentInteractionService = new ContentInteractionService();
+export default contentInteractionService;
