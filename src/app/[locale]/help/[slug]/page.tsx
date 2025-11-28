@@ -20,13 +20,7 @@ export default function HelpArticlePage() {
   const [error, setError] = useState<string | null>(null);
   const [feedbackGiven, setFeedbackGiven] = useState(false);
 
-  useEffect(() => {
-    if (slug) {
-      loadArticle();
-    }
-  }, [slug]);
-
-  const loadArticle = async () => {
+  const loadArticle = React.useCallback(async () => {
     setLoading(true);
     setError(null);
 
@@ -51,7 +45,7 @@ export default function HelpArticlePage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [slug]);
 
   const handleFeedback = async (helpful: boolean) => {
     try {
@@ -66,6 +60,12 @@ export default function HelpArticlePage() {
       console.error('Failed to submit feedback:', err);
     }
   };
+
+  useEffect(() => {
+    if (slug) {
+      loadArticle();
+    }
+  }, [slug, loadArticle]);
 
   if (loading) {
     return (

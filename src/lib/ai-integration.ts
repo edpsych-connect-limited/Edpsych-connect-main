@@ -44,6 +44,7 @@ class AIIntegrationService {
   private anthropic: any;
   private openai: any;
   private xai: any;
+  private gemini: any;
   private redis: any;
   private dailyUsage: Map<string, number> = new Map();
   private dailyBudget: number;
@@ -55,7 +56,7 @@ class AIIntegrationService {
         apiKey: process.env.CLAUDE_API_KEY,
       });
     } else {
-      console.warn('CLAUDE_API_KEY not found - AI features will use mock responses');
+      // console.warn('CLAUDE_API_KEY not found - AI features will use mock responses');
     }
 
     // Initialize OpenAI client if API key is available
@@ -64,7 +65,7 @@ class AIIntegrationService {
         apiKey: process.env.OPENAI_API_KEY,
       });
     } else {
-      console.warn('OPENAI_API_KEY not found - AI features will use mock responses');
+      // console.warn('OPENAI_API_KEY not found - AI features will use mock responses');
     }
 
     // Initialize xAI client if API key is available
@@ -75,17 +76,25 @@ class AIIntegrationService {
       });
     }
 
+    // Initialize Gemini client if API key is available
+    if (process.env.GEMINI_API_KEY) {
+      this.gemini = new OpenAI({
+        apiKey: process.env.GEMINI_API_KEY,
+        baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
+      });
+    }
+
     // Initialize Redis only if environment variables are present
     try {
       if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
         this.redis = Redis.fromEnv();
       } else {
         this.redis = null;
-        console.warn('Redis not configured - AI caching and rate limiting disabled');
+        // console.warn('Redis not configured - AI caching and rate limiting disabled');
       }
     } catch (error) {
       this.redis = null;
-      console.warn('Failed to initialize Redis:', error);
+      // console.warn('Failed to initialize Redis:', error);
     }
     
     this.dailyBudget = parseFloat(process.env.AI_DAILY_BUDGET_USD || '50');
@@ -594,7 +603,7 @@ class AIIntegrationService {
 
   private async callAI(agent: AgentConfig, request: AIRequest): Promise<{ content: string; tokens: number }> {
     // Check if any API clients are available
-    if (!this.anthropic && !this.openai && !this.xai) {
+    if (!this.anthropic && !this.openai && !this.xai && !this.gemini) {
       console.warn('No AI clients available - returning mock response');
       return this.getMockResponse(agent, request);
     }
@@ -615,6 +624,7 @@ class AIIntegrationService {
       // If we get here, the requested model client isn't available, try any available client
       if (this.anthropic) return await this.callAnthropic(agent, request);
       if (this.openai) return await this.callOpenAI(agent, request);
+      if (this.gemini) return await this.callGemini(agent, request);
       
       return this.getMockResponse(agent, request);
     } catch (error) {
@@ -626,8 +636,15 @@ class AIIntegrationService {
           return await this.callOpenAI(agent, request);
         } catch (fallbackError) {
           console.error('Fallback to OpenAI also failed:', fallbackError);
-          // Don't throw, return mock response instead of crashing
-          return this.getMockResponse(agent, request);
+        }
+      }
+
+      // Try failover to Gemini if available
+      if (this.gemini) {
+        try {
+          return await this.callGemini(agent, request);
+        } catch (fallbackError) {
+          console.error('Fallback to Gemini also failed:', fallbackError);
         }
       }
       
@@ -684,6 +701,25 @@ class AIIntegrationService {
 
     const response = await this.xai.chat.completions.create({
       model: 'grok-beta',
+      messages: [
+        { role: 'system', content: agent.systemPrompt },
+        { role: 'user', content: request.prompt }
+      ],
+      max_tokens: agent.maxTokens,
+      temperature: agent.temperature,
+    });
+
+    return {
+      content: response.choices[0].message.content || '',
+      tokens: response.usage?.total_tokens || 0
+    };
+  }
+
+  private async callGemini(agent: AgentConfig, request: AIRequest): Promise<{ content: string; tokens: number }> {
+    if (!this.gemini) throw new Error('Gemini client not initialized');
+
+    const response = await this.gemini.chat.completions.create({
+      model: 'gemini-1.5-flash',
       messages: [
         { role: 'system', content: agent.systemPrompt },
         { role: 'user', content: request.prompt }

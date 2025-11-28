@@ -40,25 +40,23 @@ function CheckoutForm({ productId }: { productId: string }) {
   const [discountCode, setDiscountCode] = useState('');
   const [appliedDiscount, setAppliedDiscount] = useState<any>(null);
 
-  useEffect(() => {
-
-
-    loadProduct();
-  }, [productId]);
-
-  const loadProduct = async () => {
+  const loadProduct = React.useCallback(async () => {
     try {
       const response = await fetch(`/api/training/products/${productId}`);
       if (response.ok) {
         const data = await response.json();
         setProduct(data.product);
       }
-    } catch (error) {
-      console.error('Failed to load product:', error);
+    } catch (_error) {
+      console.error('Failed to load product:', _error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [productId]);
+
+  useEffect(() => {
+    loadProduct();
+  }, [loadProduct]);
 
   const applyDiscountCode = async () => {
     try {

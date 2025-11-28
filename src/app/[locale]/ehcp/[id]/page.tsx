@@ -110,7 +110,7 @@ export default function EHCPDetailPage() {
   const [exporting, setExporting] = useState(false);
 
   // Fetch EHCP
-  const fetchEHCP = async () => {
+  const fetchEHCP = React.useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -130,13 +130,13 @@ export default function EHCPDetailPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [ehcpId]);
 
   useEffect(() => {
     if (status === 'authenticated' && ehcpId) {
       fetchEHCP();
     }
-  }, [status, ehcpId]);
+  }, [status, ehcpId, fetchEHCP]);
 
   // Authentication check
   if (status === 'loading') {

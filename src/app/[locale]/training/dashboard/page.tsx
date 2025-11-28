@@ -83,8 +83,8 @@ const ProgressBar = ({ progress }: { progress: number }) => {
 
 export default function TrainingDashboardPage() {
   const [enrolledCourses, setEnrolledCourses] = useState<EnrolledCourse[]>([]);
-  const [achievements, setAchievements] = useState<Achievement[]>([]);
-  const [recentActivity, setRecentActivity] = useState<Activity[]>([]);
+  const [achievements, _setAchievements] = useState<Achievement[]>([]);
+  const [recentActivity, _setRecentActivity] = useState<Activity[]>([]);
   const [loading, setLoading] = useState(true);
   const [totalCpdHours, setTotalCpdHours] = useState(0);
   const [targetCpdHours] = useState(30);

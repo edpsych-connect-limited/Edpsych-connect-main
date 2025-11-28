@@ -240,11 +240,6 @@ interface PricingCardProps {
 }
 
 function PricingCard({ plan, billingPeriod, onSelect, isCurrentPlan }: PricingCardProps) {
-  const price =
-    billingPeriod === 'annual' && plan.price_annual_gbp
-      ? plan.price_annual_gbp
-      : plan.price_monthly_gbp;
-
   const displayPrice =
     billingPeriod === 'annual' && plan.price_annual_gbp
       ? formatPrice(plan.price_annual_gbp / 12, 'month')

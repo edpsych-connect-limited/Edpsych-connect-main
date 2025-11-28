@@ -31,7 +31,7 @@ import {
 import { useDemo } from '@/components/demo/DemoProvider';
 
 export default function DashboardPage() {
-  const { user, isLoading, hasRole } = useAuth();
+  const { user, isLoading } = useAuth();
   const { startTour } = useDemo();
   const router = useRouter();
 

@@ -140,7 +140,7 @@ export default function EHCPListPage() {
   };
 
   // Fetch EHCPs
-  const fetchEHCPs = async () => {
+  const fetchEHCPs = React.useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -170,14 +170,14 @@ export default function EHCPListPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [pagination.page, pagination.limit, filters.student_id, filters.tenant_id]);
 
   // Fetch on mount and when filters/pagination change
   useEffect(() => {
     if (user) {
       fetchEHCPs();
     }
-  }, [user, pagination.page, filters.student_id, filters.tenant_id]);
+  }, [user, fetchEHCPs]);
 
   // Show loading during authentication check
   if (authLoading) {

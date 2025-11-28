@@ -20,9 +20,9 @@ function NewInterventionContent() {
 
   const [caseId, setCaseId] = useState<number | null>(null);
   const [tenantId, setTenantId] = useState<number | null>(null);
-  const [templateId, setTemplateId] = useState<string | null>(null);
+  const [_templateId, setTemplateId] = useState<string | null>(null);
   const [loadingTemplate, setLoadingTemplate] = useState(false);
-  const [templateData, setTemplateData] = useState<any>(null);
+  const [templateData, _setTemplateData] = useState<any>(null);
   useEffect(() => {
 
     if (user) {

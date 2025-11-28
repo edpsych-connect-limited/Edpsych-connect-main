@@ -15,7 +15,6 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function NavigationTest() {
-  const router = useRouter();
   const [testResults, setTestResults] = useState<any[]>([]);
 
   const routes = [
