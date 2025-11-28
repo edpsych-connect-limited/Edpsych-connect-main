@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Browser/Server detection utilities
  * Safely handle code that should only run in browser or server

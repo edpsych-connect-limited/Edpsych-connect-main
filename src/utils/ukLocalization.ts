@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * UK Localization Utilities
  *
