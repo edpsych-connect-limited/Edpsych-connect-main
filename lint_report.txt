@@ -337,33 +337,14 @@
 24:18  Warning: A `require()` style import is forbidden.  @typescript-eslint/no-require-imports
 
 ./src/lib/services/predictiveAnalyticsService.ts
-306:9  Warning: 'availableCourses' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
-726:50  Warning: 'forecast' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-769:30  Warning: 'engagementData' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-795:28  Warning: 'engagementData' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-815:38  Warning: 'patterns' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-815:53  Warning: 'engagementScore' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-826:30  Warning: 'filters' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-847:30  Warning: 'retentionData' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-847:50  Warning: 'cohortPeriod' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-863:33  Warning: 'retentionData' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-863:53  Warning: 'riskThreshold' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-880:30  Warning: 'metrics' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-880:44  Warning: 'atRiskStudents' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-895:37  Warning: 'insights' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-907:54  Warning: 'prediction' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-929:57  Warning: 'prediction' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-951:42  Warning: 'studentId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-951:61  Warning: 'prediction' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-967:31  Warning: 'intervention' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-999:31  Warning: 'learningData' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-1011:38  Warning: 'performanceAnalysis' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-1011:64  Warning: 'studentId' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-1027:30  Warning: 'recommendations' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-1038:36  Warning: 'recommendations' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-1049:31  Warning: 'timeRange' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-1065:33  Warning: 'timeRange' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
-1081:24  Warning: 'timeRange' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+768:30  Warning: 'engagementData' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+825:30  Warning: 'filters' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+846:30  Warning: 'retentionData' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+846:50  Warning: 'cohortPeriod' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+906:54  Warning: 'prediction' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+928:57  Warning: 'prediction' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+966:31  Warning: 'intervention' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+998:31  Warning: 'learningData' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
 
 ./src/lib/study-buddy/predictive-analytics.ts
 148:11  Warning: 'inProgress' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
@@ -421,11 +402,6 @@
 
 ./src/services/institutional-management/department-service.ts
 16:3  Warning: 'UserRole' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
-
-./src/services/institutional-management/professional-development-service.ts
-212:13  Warning: 'institution' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
-435:16  Warning: 'e' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
-458:16  Warning: 'e' is defined but never used. Allowed unused caught errors must match /^_/u.  @typescript-eslint/no-unused-vars
 
 ./src/services/institutional-management/subscription-service.ts
 106:15  Warning: 'pricePerLicense' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars

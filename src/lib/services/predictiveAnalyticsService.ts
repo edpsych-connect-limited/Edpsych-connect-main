@@ -303,7 +303,6 @@ class PredictiveAnalyticsService {
     try {
       const {
         currentPath,
-        availableCourses,
         optimisationGoals = ['completion', 'engagement', 'performance']
       } = options;
 
@@ -723,7 +722,7 @@ class PredictiveAnalyticsService {
    * @param {Object} forecast - Forecast data
    * @returns {Promise<Object>} Risk analysis
    */
-  async _analyseCompletionRisks(courseData: any, forecast: any): Promise<any> {
+  async _analyseCompletionRisks(courseData: any, _forecast: any): Promise<any> {
     try {
       return {
         courseId: courseData.courseId,
@@ -792,7 +791,7 @@ class PredictiveAnalyticsService {
    * @param {Object} engagementData - Engagement data
    * @returns {Promise<Object>} Engagement prediction
    */
-  async _predictEngagement(engagementData: any): Promise<any> {
+  async _predictEngagement(_engagementData: any): Promise<any> {
     try {
       return {
         predictedEngagement: 0.5,
@@ -812,7 +811,7 @@ class PredictiveAnalyticsService {
    * @param {number} engagementScore - Engagement score
    * @returns {Array} Recommendations
    */
-  _generateEngagementRecommendations(patterns: any, engagementScore: number): any[] {
+  _generateEngagementRecommendations(_patterns: any, _engagementScore: number): any[] {
     return [];
   }
 
@@ -860,7 +859,7 @@ class PredictiveAnalyticsService {
    * @param {number} riskThreshold - Risk threshold
    * @returns {Promise<Array>} At-risk students
    */
-  async _identifyAtRiskStudents(retentionData: any, riskThreshold: number): Promise<any[]> {
+  async _identifyAtRiskStudents(_retentionData: any, _riskThreshold: number): Promise<any[]> {
     try {
       return [];
     } catch (error) {
@@ -877,7 +876,7 @@ class PredictiveAnalyticsService {
    * @param {Array} atRiskStudents - At-risk students
    * @returns {Object} Insights
    */
-  _generateRetentionInsights(metrics: any, atRiskStudents: any[]): any {
+  _generateRetentionInsights(_metrics: any, _atRiskStudents: any[]): any {
     return {
       keyFindings: [],
       trends: [],
@@ -892,7 +891,7 @@ class PredictiveAnalyticsService {
    * @param {Object} insights - Retention insights
    * @returns {Array} Recommendations
    */
-  _generateRetentionRecommendations(insights: any): any[] {
+  _generateRetentionRecommendations(_insights: any): any[] {
     return [];
   }
 
@@ -948,7 +947,7 @@ class PredictiveAnalyticsService {
    * @param {Object} prediction - Prediction data
    * @returns {Promise<Array>} Personalised interventions
    */
-  async _createPersonalisedInterventions(studentId: string, prediction: any): Promise<any[]> {
+  async _createPersonalisedInterventions(_studentId: string, _prediction: any): Promise<any[]> {
     try {
       return [];
     } catch (error) {
@@ -1008,7 +1007,7 @@ class PredictiveAnalyticsService {
    * @param {string} studentId - Student ID
    * @returns {Promise<Array>} Path recommendations
    */
-  async _generatePathRecommendations(performanceAnalysis: any, studentId: string): Promise<any[]> {
+  async _generatePathRecommendations(_performanceAnalysis: any, _studentId: string): Promise<any[]> {
     try {
       return [];
     } catch (error) {
@@ -1024,7 +1023,7 @@ class PredictiveAnalyticsService {
    * @param {Array} recommendations - Recommendations
    * @returns {Object} Expected outcomes
    */
-  _calculateExpectedOutcomes(recommendations: any[]): any {
+  _calculateExpectedOutcomes(_recommendations: any[]): any {
     return { successProbability: 0.5 };
   }
 
@@ -1035,7 +1034,7 @@ class PredictiveAnalyticsService {
    * @param {Array} recommendations - Recommendations
    * @returns {number} Confidence score
    */
-  _calculateOptimisationConfidence(recommendations: any[]): number {
+  _calculateOptimisationConfidence(_recommendations: any[]): number {
     return 0.5;
   }
 
@@ -1046,7 +1045,7 @@ class PredictiveAnalyticsService {
    * @param {number} timeRange - Time range in days
    * @returns {Promise<Array>} Recent predictions
    */
-  async _getRecentPredictions(timeRange: number): Promise<any[]> {
+  async _getRecentPredictions(_timeRange: number): Promise<any[]> {
     try {
       return [];
     } catch (error) {
@@ -1062,7 +1061,7 @@ class PredictiveAnalyticsService {
    * @param {number} timeRange - Time range in days
    * @returns {Promise<Array>} Recent interventions
    */
-  async _getRecentInterventions(timeRange: number): Promise<any[]> {
+  async _getRecentInterventions(_timeRange: number): Promise<any[]> {
     try {
       return [];
     } catch (error) {
@@ -1078,7 +1077,7 @@ class PredictiveAnalyticsService {
    * @param {number} timeRange - Time range in days
    * @returns {Promise<Object>} Trends analysis
    */
-  async _analyseTrends(timeRange: number): Promise<any> {
+  async _analyseTrends(_timeRange: number): Promise<any> {
     try {
       return { trends: [] };
     } catch (error) {

@@ -209,8 +209,6 @@ export class ProfessionalDevelopmentService {
         throw new Error('Institution not found');
       }
       
-      const institution = institutionResult[0];
-      
       // Fetch users associated with this institution
       const institutionUsersQuery = `
         SELECT
@@ -432,7 +430,7 @@ export class ProfessionalDevelopmentService {
       let tags: string[] = [];
       try {
         tags = typeof item.tags === 'string' ? JSON.parse(item.tags) : [];
-      } catch (e) {
+      } catch {
         // Fallback if tags are comma-separated
         tags = item.tags ? item.tags.split(',').map(t => t.trim()) : [];
       }
@@ -455,7 +453,7 @@ export class ProfessionalDevelopmentService {
       let tags: string[] = [];
       try {
         tags = typeof item.tags === 'string' ? JSON.parse(item.tags) : [];
-      } catch (e) {
+      } catch {
         tags = item.tags ? item.tags.split(',').map(t => t.trim()) : [];
       }
 
@@ -474,7 +472,7 @@ export class ProfessionalDevelopmentService {
         title: item.title,
         description: item.description || '',
         tags,
-        url: item.url,
+        url: item.url || '',
         imageUrl: item.image_url || undefined,
         contentType: item.content_type,
         authorId: item.authorId ?? undefined,
