@@ -180,13 +180,13 @@ export function Step1Welcome() {
               </div>
             </button>
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center bg-black">
-              {/* Fallback for missing video */}
-              <div className="text-center p-6">
-                 <p className="text-white mb-4">Video content is currently being updated for the Beta release.</p>
-                 <p className="text-gray-400 text-sm">Please proceed to the next step to explore the platform features directly.</p>
-              </div>
-            </div>
+            <video
+              ref={videoRef}
+              src="/content/training_videos/send-fundamentals/send-fund-m1-l1.mp4"
+              className="w-full h-full object-cover"
+              controls
+              autoPlay
+            />
           )}
 
           {/* Progress Indicator */}

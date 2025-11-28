@@ -120,5 +120,8 @@
     "tough-cookie": "^6.0.0",
     "typescript": "^5.0.0",
     "wait-on": "^9.0.3"
+  },
+  "overrides": {
+    "glob": "^10.4.6"
   }
 }
