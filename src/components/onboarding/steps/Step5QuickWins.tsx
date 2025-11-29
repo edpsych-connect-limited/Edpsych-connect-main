@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/steps/Step5QuickWins.tsx
  * PURPOSE: Step 5 - Quick wins setup (first case, assessment, goal)
@@ -14,6 +13,8 @@ import { logger } from "@/lib/logger";
  */
 
 'use client';
+
+import { logger } from "@/lib/logger";
 
 import React, { useState, useId } from 'react';
 import {

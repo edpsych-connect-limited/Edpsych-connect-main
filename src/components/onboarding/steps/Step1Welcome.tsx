@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/steps/Step1Welcome.tsx
  * PURPOSE: Step 1 - Welcome screen with video and key benefits
@@ -13,6 +12,8 @@ import { logger } from "@/lib/logger";
  */
 
 'use client';
+
+import { logger } from "@/lib/logger";
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, CheckCircle, Target, Zap, Shield, Users, TrendingUp } from 'lucide-react';

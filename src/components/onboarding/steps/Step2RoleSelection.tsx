@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/steps/Step2RoleSelection.tsx
  * PURPOSE: Step 2 - Role selection with personalized paths
@@ -13,6 +12,8 @@ import { logger } from "@/lib/logger";
  */
 
 'use client';
+
+import { logger } from "@/lib/logger";
 
 import React, { useState } from 'react';
 import { GraduationCap, School, BookOpen, Building, Search, Edit3, Check } from 'lucide-react';

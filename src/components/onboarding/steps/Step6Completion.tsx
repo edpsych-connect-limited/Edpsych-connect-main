@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/steps/Step6Completion.tsx
  * PURPOSE: Step 6 - Completion screen with certificate and next steps
@@ -14,6 +13,7 @@ import { logger } from "@/lib/logger";
 
 'use client';
 
+import { logger } from "@/lib/logger";
 import React, { useState, useEffect } from 'react';
 import {
   PartyPopper,

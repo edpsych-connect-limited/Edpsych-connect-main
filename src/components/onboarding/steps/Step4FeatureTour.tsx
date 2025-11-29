@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/steps/Step4FeatureTour.tsx
  * PURPOSE: Step 4 - Interactive feature tour with 6 key features
@@ -14,6 +13,8 @@ import { logger } from "@/lib/logger";
  */
 
 'use client';
+
+import { logger } from "@/lib/logger";
 
 import React, { useState } from 'react';
 import {
