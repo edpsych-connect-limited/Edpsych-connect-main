@@ -1,10 +1,10 @@
+'use client';
+
 import { logger } from "@/lib/logger";
 /**
  * New Intervention Page
  * Create a new intervention plan
  */
-
-'use client';
 
 // Force dynamic rendering for auth-required pages
 export const dynamic = 'force-dynamic';
