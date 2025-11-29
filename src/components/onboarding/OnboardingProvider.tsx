@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/OnboardingProvider.tsx
  * PURPOSE: React Context provider for onboarding state management
@@ -22,6 +21,7 @@ import { logger } from "@/lib/logger";
 
 'use client';
 
+import { logger } from "@/lib/logger";
 import { createContext, useContext, useReducer, useEffect, useCallback, useMemo, useRef } from 'react';
 import {
   OnboardingState,

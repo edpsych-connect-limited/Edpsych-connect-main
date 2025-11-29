@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/OnboardingWizard.tsx
  * PURPOSE: Main container for onboarding wizard
@@ -20,6 +19,7 @@ import { logger } from "@/lib/logger";
 
 'use client';
 
+import { logger } from "@/lib/logger";
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { AlertCircle, Loader2, PartyPopper } from 'lucide-react';
