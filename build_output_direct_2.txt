@@ -1,5 +1,0 @@
-[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
- ⚠ `eslint` configuration in next.config.js is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
- ⚠ Invalid next.config.js options detected: 
- ⚠     Unrecognized key(s) in object: 'eslint'
- ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
