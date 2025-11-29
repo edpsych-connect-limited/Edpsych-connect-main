@@ -1,11 +1,11 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Assessment Sandbox Wizard
  * A client-side only version of the Assessment Wizard for demos.
  * No data is saved to the server.
  */
-
-'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';

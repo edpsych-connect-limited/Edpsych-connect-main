@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Interactive Demo Player
@@ -10,8 +12,6 @@ import { logger } from "@/lib/logger";
  * - Progress tracking
  * - Demo completion tracking
  */
-
-'use client';
 
 import React, { useState, useEffect } from 'react';
 import { ProgressBar } from '@/components/ui/ProgressBar';

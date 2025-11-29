@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * PROFESSIONAL MARKETPLACE - PROFESSIONAL DASHBOARD
@@ -5,8 +7,6 @@ import { logger } from "@/lib/logger";
  * Manage your marketplace profile, bookings, earnings, and reviews
  * Crystal-clear overview of your professional marketplace activity
  */
-
-'use client';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';

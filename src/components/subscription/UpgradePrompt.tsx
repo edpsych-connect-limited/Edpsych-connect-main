@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
@@ -11,8 +13,6 @@ import { logger } from "@/lib/logger";
 // REACT COMPONENT: UpgradePrompt
 // File: components/subscription/UpgradePrompt.tsx
 // ============================================================================
-
-'use client';
 
 import React from 'react';
 import Link from 'next/link';

@@ -1,10 +1,10 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Progress Tracking Page
  * View comprehensive progress across all cases and interventions
  */
-
-'use client';
 
 // Force dynamic rendering for auth-required pages
 export const dynamic = 'force-dynamic';

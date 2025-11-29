@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/training/EnhancedInteractiveElements.tsx
@@ -17,8 +19,6 @@ import { logger } from "@/lib/logger";
  * - Time tracking and bonuses
  * - Accessibility (keyboard navigation, ARIA labels)
  */
-
-'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';

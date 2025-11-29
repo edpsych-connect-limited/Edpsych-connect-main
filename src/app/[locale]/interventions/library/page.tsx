@@ -1,10 +1,10 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Intervention Library Page
  * Browse 100+ evidence-based interventions
  */
-
-'use client';
 
 // Force dynamic rendering for auth-required pages
 export const dynamic = 'force-dynamic';

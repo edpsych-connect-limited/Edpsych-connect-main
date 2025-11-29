@@ -1,10 +1,10 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Cases Management Page
  * List and manage all EP cases
  */
-
-'use client';
 
 // Force dynamic rendering for auth-required pages
 export const dynamic = 'force-dynamic';

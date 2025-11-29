@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Intervention Library Component
@@ -9,8 +11,6 @@ import { logger } from "@/lib/logger";
  * - Sutton Trust EEF Toolkit (2023)
  * - BPS Educational Psychology Practice (2017)
  */
-
-'use client';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';

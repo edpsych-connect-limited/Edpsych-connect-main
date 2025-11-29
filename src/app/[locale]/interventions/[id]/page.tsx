@@ -1,10 +1,10 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Intervention Detail Page
  * View and manage a specific intervention
  */
-
-'use client';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';

@@ -1,10 +1,10 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Help Article Detail Page
  * Full article view with markdown rendering and feedback
  */
-
-'use client';
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';

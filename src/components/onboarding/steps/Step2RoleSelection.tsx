@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * FILE: src/components/onboarding/steps/Step2RoleSelection.tsx
  * PURPOSE: Step 2 - Role selection with personalized paths
@@ -10,8 +12,6 @@
  * - WCAG 2.1 AA compliant
  * - Responsive grid layout
  */
-
-'use client';
 
 import { logger } from "@/lib/logger";
 

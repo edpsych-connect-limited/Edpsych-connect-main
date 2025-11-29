@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Training Marketplace
@@ -10,8 +12,6 @@ import { logger } from "@/lib/logger";
  * - Course bundles: 20-25% discount
  * - Annual unlimited: £599
  */
-
-'use client';
 
 // Force dynamic rendering for auth-required pages
 export const dynamic = 'force-dynamic';

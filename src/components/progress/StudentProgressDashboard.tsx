@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
@@ -27,8 +29,6 @@ import { logger } from "@/lib/logger";
  * - Radar charts: Profile visualization
  * - Progress bars: Goal completion
  */
-
-'use client';
 
 import React, { useState, useEffect } from 'react';
 

@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * FILE: src/components/onboarding/OnboardingProvider.tsx
  * PURPOSE: React Context provider for onboarding state management
@@ -18,8 +20,6 @@
  * - localStorage sync
  * - Memory leak prevention
  */
-
-'use client';
 
 import { logger } from "@/lib/logger";
 import { createContext, useContext, useReducer, useEffect, useCallback, useMemo, useRef } from 'react';

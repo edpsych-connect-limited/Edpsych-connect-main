@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * FILE: src/components/onboarding/steps/Step1Welcome.tsx
  * PURPOSE: Step 1 - Welcome screen with video and key benefits
@@ -10,8 +12,6 @@
  * - WCAG 2.1 AA compliant
  * - Responsive design
  */
-
-'use client';
 
 import { logger } from "@/lib/logger";
 

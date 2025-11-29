@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Assessment Results Analysis Component
@@ -13,8 +15,6 @@ import { logger } from "@/lib/logger";
  * - Confidence intervals
  * - Historical progress tracking
  */
-
-'use client';
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';

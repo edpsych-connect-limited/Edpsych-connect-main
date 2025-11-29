@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * EHCP Detail Page - Enterprise-grade implementation
@@ -10,8 +12,6 @@ import { logger } from "@/lib/logger";
  * - Export to PDF
  * - Edit and delete actions
  */
-
-'use client';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';

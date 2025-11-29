@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Interactive Course Player
@@ -21,8 +23,6 @@ import { logger } from "@/lib/logger";
  * - Self-paced with clear milestones
  * - Evidence-based content throughout
  */
-
-'use client';
 
 import React, { useState, useEffect, useId } from 'react';
 import { useRouter } from 'next/navigation';

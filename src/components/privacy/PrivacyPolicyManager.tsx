@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
@@ -11,8 +13,6 @@ import { logger } from "@/lib/logger";
 // Generated: August 29, 2025
 // Environment: PRODUCTION
 // Compliance: GDPR, ISO 27001, SOC 2
-
-'use client';
 
 import React, { useState, useEffect } from 'react';
 import DOMPurify from 'dompurify';

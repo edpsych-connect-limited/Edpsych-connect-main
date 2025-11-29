@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Case Management Component
@@ -12,8 +14,6 @@ import { logger } from "@/lib/logger";
  * - Document attachment
  * - Case status workflow
  */
-
-'use client';
 
 import React, { useState } from 'react';
 

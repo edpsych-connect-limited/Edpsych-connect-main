@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * FILE: src/components/onboarding/steps/Step5QuickWins.tsx
  * PURPOSE: Step 5 - Quick wins setup (first case, assessment, goal)
@@ -11,8 +13,6 @@
  * - Success animations
  * - WCAG 2.1 AA compliant
  */
-
-'use client';
 
 import { logger } from "@/lib/logger";
 

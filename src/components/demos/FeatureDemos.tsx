@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Feature Demos Collection
@@ -10,8 +12,6 @@ import { logger } from "@/lib/logger";
  * 5. Battle Royale Demo
  * 6. Progress Tracking Demo
  */
-
-'use client';
 
 import React from 'react';
 import InteractiveDemoPlayer from './InteractiveDemoPlayer';

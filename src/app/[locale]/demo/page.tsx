@@ -1,10 +1,10 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Interactive Demo Page
  * Showcase the AI capabilities of the platform
  */
-
-'use client';
 
 import React from 'react';
 import AIConversationDemo from '@/components/landing/legacy/ai-conversation-demo';

@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * FILE: src/components/onboarding/steps/Step6Completion.tsx
  * PURPOSE: Step 6 - Completion screen with certificate and next steps
@@ -10,8 +12,6 @@
  * - Success metrics recap
  * - WCAG 2.1 AA compliant
  */
-
-'use client';
 
 import { logger } from "@/lib/logger";
 import React, { useState, useEffect } from 'react';

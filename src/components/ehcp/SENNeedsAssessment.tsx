@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * SEN Needs Assessment Component
@@ -8,8 +10,6 @@ import { logger } from "@/lib/logger";
  * - Four broad areas of need
  * - Graduated approach (Assess, Plan, Do, Review)
  */
-
-'use client';
 
 import React, { useState } from 'react';
 

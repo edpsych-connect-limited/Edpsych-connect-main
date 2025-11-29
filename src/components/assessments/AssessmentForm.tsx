@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Assessment Form Component - Enterprise-grade implementation
@@ -10,8 +12,6 @@ import { logger } from "@/lib/logger";
  * - Date scheduling
  * - Status management
  */
-
-'use client';
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';

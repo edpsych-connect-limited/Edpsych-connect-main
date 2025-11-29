@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * EHCP Review Workflow Component
@@ -10,8 +12,6 @@ import { logger } from "@/lib/logger";
  * - Stakeholder notifications
  * - Progress monitoring
  */
-
-'use client';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';

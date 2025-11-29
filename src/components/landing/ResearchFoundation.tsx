@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 'use client'
 
 /**
@@ -9,13 +8,11 @@ import { logger } from "@/lib/logger";
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BookOpen, Scale, ScrollText, University, ChevronDown, ChevronUp, ExternalLink, Users, Heart, Briefcase } from 'lucide-react';
+import { BookOpen, Scale, ScrollText, GraduationCap, ChevronDown, ChevronUp, ExternalLink, Users, Heart, Briefcase } from 'lucide-react';
 
 export default function ResearchFoundation() {
   const [expandedBio, setExpandedBio] = useState(false);
@@ -35,7 +32,7 @@ export default function ResearchFoundation() {
             viewport={{ once: true }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-100 text-indigo-800 text-sm font-semibold mb-6"
           >
-            <University className="w-4 h-4" />
+            <GraduationCap className="w-4 h-4" />
             Academic Rigour Meets Innovation
           </motion.div>
           

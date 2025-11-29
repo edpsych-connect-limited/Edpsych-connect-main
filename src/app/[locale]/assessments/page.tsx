@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Assessment List Page - Enterprise-grade implementation
@@ -10,8 +12,6 @@ import { logger } from "@/lib/logger";
  * - Role-based action buttons
  * - Responsive design
  */
-
-'use client';
 
 // Force dynamic rendering for auth-required pages
 export const dynamic = 'force-dynamic';

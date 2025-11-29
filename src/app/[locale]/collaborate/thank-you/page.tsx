@@ -1,10 +1,10 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Collaboration Thank You Page
  * Shown after successful submission of collaborative input
  */
-
-'use client';
 
 export default function ThankYouPage() {
   return (

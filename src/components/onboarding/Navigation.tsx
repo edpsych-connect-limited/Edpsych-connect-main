@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/Navigation.tsx
@@ -17,8 +19,6 @@ import { logger } from "@/lib/logger";
  * - Focus management
  * - 4.5:1 color contrast
  */
-
-'use client';
 
 import React from 'react';
 import { ChevronLeft, ChevronRight, SkipForward, Loader2 } from 'lucide-react';

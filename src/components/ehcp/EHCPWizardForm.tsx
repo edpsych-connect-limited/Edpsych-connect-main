@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * EHCP Wizard Form Component - Enterprise-grade implementation
@@ -10,8 +12,6 @@ import { logger } from "@/lib/logger";
  * - Progress tracking
  * - Responsive design
  */
-
-'use client';
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';

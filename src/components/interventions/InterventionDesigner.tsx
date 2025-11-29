@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Intervention Designer Component
@@ -18,8 +20,6 @@ import { logger } from "@/lib/logger";
  * 3. Progress Tracking
  * 4. Fidelity & Review
  */
-
-'use client';
 
 import React, { useState, useEffect } from 'react';
 import {

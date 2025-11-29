@@ -1,10 +1,10 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Cookie Consent Context for EdPsych Connect World
  * Provides centralized cookie consent management across the application
  */
-
-'use client';
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import {

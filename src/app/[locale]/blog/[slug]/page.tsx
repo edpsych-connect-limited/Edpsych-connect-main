@@ -1,10 +1,10 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Blog Post Detail Page
  * Full post view with markdown rendering and comments
  */
-
-'use client';
 
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';

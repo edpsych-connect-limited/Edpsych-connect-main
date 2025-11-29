@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Case Management System
@@ -18,8 +20,6 @@ import { logger } from "@/lib/logger";
  * 2. CaseDetail - Detailed case view with tabs
  * 3. CaseTimeline - Visual timeline of events
  */
-
-'use client';
 
 import React, { useState, useEffect } from 'react';
 

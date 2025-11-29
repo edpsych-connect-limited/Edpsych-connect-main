@@ -1,10 +1,10 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * EHCP Sandbox
  * A client-side only version of the EHCP Wizard for demos.
  */
-
-'use client';
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';

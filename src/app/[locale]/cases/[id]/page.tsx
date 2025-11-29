@@ -1,10 +1,10 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Case Detail Page
  * View and manage a specific case
  */
-
-'use client';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';

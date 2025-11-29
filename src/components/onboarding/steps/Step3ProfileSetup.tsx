@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * FILE: src/components/onboarding/steps/Step3ProfileSetup.tsx
  * PURPOSE: Step 3 - Profile setup with photo upload and professional details
@@ -11,8 +13,6 @@
  * - WCAG 2.1 AA compliant
  * - Responsive design
  */
-
-'use client';
 
 import { logger } from "@/lib/logger";
 

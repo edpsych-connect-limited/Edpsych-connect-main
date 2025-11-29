@@ -1,10 +1,10 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * AI Analytics Dashboard Component
  * Comprehensive dashboard for monitoring AI service performance, costs, and usage
  */
-'use client';
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../packages/ui/card';
 import { Button } from '../../packages/ui/button';

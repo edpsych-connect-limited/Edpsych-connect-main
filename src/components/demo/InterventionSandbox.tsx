@@ -1,10 +1,10 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Intervention Sandbox
  * A client-side only version of the Intervention Library for demos.
  */
-
-'use client';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';

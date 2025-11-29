@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
@@ -7,8 +9,6 @@ import { logger } from "@/lib/logger";
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-
-'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Minimize2, Maximize2, Loader2 } from 'lucide-react';

@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * EHCP List Page - Enterprise-grade implementation
@@ -11,8 +13,6 @@ import { logger } from "@/lib/logger";
  * - PDF Export (individual & bulk)
  * - Responsive design
  */
-
-'use client';
 
 // Force dynamic rendering for auth-required pages
 export const dynamic = 'force-dynamic';

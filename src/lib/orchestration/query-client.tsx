@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * ORCHESTRATION LAYER - REACT QUERY PROVIDER
@@ -9,8 +11,6 @@ import { logger } from "@/lib/logger";
  * - Error handling and logging
  * - Multi-tenant data isolation
  */
-
-'use client';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';

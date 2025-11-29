@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Course Player Component
@@ -15,8 +17,6 @@ import { logger } from "@/lib/logger";
  * - "Next lesson" auto-progression for flow state
  * - Celebration animations on completion
  */
-
-'use client';
 
 import React, { useState, useEffect, useRef, useId, useCallback } from 'react';
 import {

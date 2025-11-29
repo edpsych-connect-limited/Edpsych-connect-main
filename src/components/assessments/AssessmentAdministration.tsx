@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Assessment Administration Component
@@ -11,8 +13,6 @@ import { logger } from "@/lib/logger";
  * - Save/resume functionality
  * - Export results
  */
-
-'use client';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';

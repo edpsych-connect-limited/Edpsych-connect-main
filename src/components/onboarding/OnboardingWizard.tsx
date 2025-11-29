@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * FILE: src/components/onboarding/OnboardingWizard.tsx
  * PURPOSE: Main container for onboarding wizard
@@ -16,8 +18,6 @@
  *   <OnboardingWizard />
  * </OnboardingProvider>
  */
-
-'use client';
 
 import { logger } from "@/lib/logger";
 import React, { useEffect } from 'react';

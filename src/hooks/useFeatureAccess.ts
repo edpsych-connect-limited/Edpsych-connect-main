@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
@@ -11,8 +13,6 @@ import { logger } from "@/lib/logger";
 // REACT HOOK: useFeatureAccess
 // File: hooks/useFeatureAccess.ts
 // ============================================================================
-
-'use client';
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';

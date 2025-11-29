@@ -1,10 +1,10 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * New Case Page
  * Create a new EP case
  */
-
-'use client';
 
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';

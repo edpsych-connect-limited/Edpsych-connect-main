@@ -1,11 +1,11 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Collaborative Input Form Page
  * Public page for parents/teachers/children to provide assessment input
  * Access via secure token from email invitation
  */
-
-'use client';
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';

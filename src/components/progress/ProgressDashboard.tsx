@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * Progress Tracking Dashboard
@@ -10,8 +12,6 @@ import { logger } from "@/lib/logger";
  * - Intervention effectiveness comparison
  * - Alert system for interventions requiring attention
  */
-
-'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';

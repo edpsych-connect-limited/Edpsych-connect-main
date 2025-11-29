@@ -1,3 +1,5 @@
+'use client'
+
 import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/ProgressIndicator.tsx
@@ -17,8 +19,6 @@ import { logger } from "@/lib/logger";
  * - Semantic HTML
  * - 4.5:1 color contrast
  */
-
-'use client';
 
 import React from 'react';
 import { Check, Minus } from 'lucide-react';
