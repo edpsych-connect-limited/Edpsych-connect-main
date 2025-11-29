@@ -1,3 +1,5 @@
+'use client';
+
 import { logger } from "@/lib/logger";
 /**
  * Assessment Administration Wizard
@@ -12,8 +14,6 @@ import { logger } from "@/lib/logger";
  * - Evidence-to-provision mapping
  * - Draft saving throughout
  */
-
-'use client';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
