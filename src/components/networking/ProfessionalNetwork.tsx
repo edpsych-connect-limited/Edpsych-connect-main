@@ -82,7 +82,7 @@ const ProfessionalNetwork: React.FC = () => {
         const mockProfessionals: Professional[] = [
           {
             id: 'prof-1',
-            name: 'Dr Scott I-Patrick DEdPsych CPsychol',
+            name: 'Dr Scott I-Patrick D.Ed.Psych CPsychol',
             title: 'Founder & Managing Director',
             organization: 'EdPsych Connect Limited',
             specialty: 'Restorative Justice, SEMH, Autism',

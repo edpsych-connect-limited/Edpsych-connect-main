@@ -1,0 +1,16 @@
+ ⨯ Failed to load next.config.js, see more info here https://nextjs.org/docs/messages/next-config-error
+
+> Build error occurred
+Error: Invalid package config /mnt/e/EdpsychConnect/package.json.
+    at getPackageScopeConfig (node:internal/modules/package_json_reader:208:33)
+    at Object.getFileProtocolModuleFormat [as file:] (node:internal/modules/esm/get_format:118:72)
+    at defaultGetFormatWithoutErrors (node:internal/modules/esm/get_format:198:36)
+    at defaultResolve (node:internal/modules/esm/resolve:1014:13)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:737:20)
+    at ModuleLoader.resolve (node:internal/modules/esm/loader:714:38)
+    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:293:38)
+    at onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:665:36)
+    at TracingChannel.tracePromise (node:diagnostics_channel:350:14)
+    at ModuleLoader.import (node:internal/modules/esm/loader:664:21) {
+  code: 'ERR_INVALID_PACKAGE_CONFIG'
+}

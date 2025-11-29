@@ -13,7 +13,7 @@ import { logger } from "@/lib/logger";
 
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { PricingTier } from '@/lib/stripe-pricing';
 
 interface PricingTiersProps {
@@ -140,7 +140,7 @@ export default function PricingTiers({ pricingData = [] }: PricingTiersProps) {
               </ul>
 
               <Link
-                href="/beta-register"
+                href="/signup"
                 className={`w-full py-3 rounded-xl font-bold text-center transition-colors ${
                   tier.highlight
                     ? 'bg-indigo-600 hover:bg-indigo-500 text-white'

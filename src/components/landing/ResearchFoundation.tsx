@@ -78,14 +78,14 @@ export default function ResearchFoundation() {
                   <div className="w-24 h-24 relative rounded-xl overflow-hidden shadow-lg border-2 border-indigo-100 flex-shrink-0">
                     <Image 
                       src="/images/dr-scott-landing.jpg" 
-                      alt="Dr Scott Ighavongbe-Patrick DEdPsych CPsychol"
+                      alt="Dr Scott Ighavongbe-Patrick D.Ed.Psych CPsychol"
                       fill
                       className="object-cover object-top"
                     />
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-slate-900">Dr Scott Ighavongbe-Patrick</h3>
-                    <p className="text-indigo-600 font-medium">DEdPsych CPsychol</p>
+                    <p className="text-indigo-600 font-medium">D.Ed.Psych CPsychol</p>
                     <p className="text-slate-500 text-sm">Founder & Managing Director</p>
                     <p className="text-slate-500 text-sm">EdPsych Connect Limited</p>
                   </div>
@@ -206,7 +206,7 @@ export default function ResearchFoundation() {
 
                 {/* Credentials Badges */}
                 <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
-                  <span className="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded-md uppercase tracking-wide">DEdPsych</span>
+                  <span className="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded-md uppercase tracking-wide">D.Ed.Psych</span>
                   <span className="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded-md uppercase tracking-wide">CPsychol</span>
                   <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-md uppercase tracking-wide">HCPC Registered</span>
                   <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-md uppercase tracking-wide">SDS Clinical Supervisor</span>

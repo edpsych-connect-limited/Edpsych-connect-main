@@ -326,7 +326,11 @@ function PricingCard({ plan, billingPeriod, onSelect, isCurrentPlan }: PricingCa
               : 'bg-gray-900 text-white hover:bg-gray-800'
           }`}
         >
-          {isCurrentPlan ? 'Current Plan' : `Start ${plan.trial_days}-Day Trial`}
+          {isCurrentPlan 
+            ? 'Current Plan' 
+            : plan.trial_days 
+              ? `Start ${plan.trial_days}-Day Trial` 
+              : 'Get Started'}
         </button>
       </div>
 

@@ -12,7 +12,7 @@ import { logger } from "@/lib/logger";
 ;
 
 import React, { useState } from 'react';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import TeacherClassDashboard from '@/components/orchestration/TeacherClassDashboard';
 
 export default function TeachersPage() {

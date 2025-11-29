@@ -12,6 +12,7 @@ import { logger } from "@/lib/logger";
 ;
 
 import React, { useState, useEffect } from 'react';
+import { Link } from '@/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowRight, FaCalculator, FaChartLine, FaUsers, FaClock, FaCheckCircle, FaBrain, FaRocket } from 'react-icons/fa';
 import { AIService } from '../../../services/ai-service';
@@ -338,6 +339,7 @@ const HeroSection: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
             >
+              <Link href="/signup">
               <motion.button
                 className="group relative bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white px-10 py-5 rounded-2xl font-bold text-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center space-x-3 overflow-hidden"
                 whileHover={{ scale: 1.05, y: -2 }}
@@ -366,6 +368,7 @@ const HeroSection: React.FC = () => {
                   transition={{ duration: 0.8 }}
                 />
               </motion.button>
+              </Link>
 
               <motion.button
                 className="group relative border-2 border-blue-600 text-blue-600 dark:text-blue-400 px-10 py-5 rounded-2xl font-bold text-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 flex items-center justify-center space-x-3"
