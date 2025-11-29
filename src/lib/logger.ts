@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
