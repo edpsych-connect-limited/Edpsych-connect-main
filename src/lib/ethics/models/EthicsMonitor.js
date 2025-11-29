@@ -119,4 +119,4 @@ class EthicsMonitor {
   }
 }
 
-module.exports = EthicsMonitor;
+export default EthicsMonitor;

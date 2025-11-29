@@ -15,6 +15,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
+import { logger } from '@/lib/logger';
 
 // ============================================================================
 // CODE OBFUSCATION & FINGERPRINTING
@@ -277,7 +278,7 @@ export function logIPViolation(
   violationLogs.push(violation);
   
   // In production, this would send to a secure logging service
-  console.warn('🚨 IP Violation Detected:', JSON.stringify(violation));
+  logger.warn('🚨 IP Violation Detected:', JSON.stringify(violation));
 }
 
 /**

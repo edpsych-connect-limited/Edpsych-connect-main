@@ -28,7 +28,15 @@ echo -e "${YELLOW}Validating source code...${NC}\n"
 # Run TypeScript compiler with increased memory
 echo -e "${BLUE}→ Running TypeScript type checking...${NC}"
 export NODE_OPTIONS="--max-old-space-size=4096"
-if npx tsc --noEmit --skipLibCheck; then
+# Use direct path to avoid npx lookup issues in WSL
+TSC_PATH="node_modules/typescript/bin/tsc"
+if [ -f "$TSC_PATH" ]; then
+  CMD="node $TSC_PATH"
+else
+  CMD="npx tsc"
+fi
+
+if $CMD --noEmit --skipLibCheck; then
   echo -e "${GREEN}  ✓ TypeScript compilation passed${NC}\n"
 else
   echo -e "${RED}  ✗ TypeScript compilation failed${NC}\n"
@@ -42,7 +50,15 @@ fi
 
 # Run ESLint
 echo -e "${BLUE}→ Running ESLint...${NC}"
-if npx next lint --dir "$BUILD_DIR"; then
+# Use direct path to avoid npx lookup issues in WSL
+NEXT_PATH="node_modules/next/dist/bin/next"
+if [ -f "$NEXT_PATH" ]; then
+  LINT_CMD="node $NEXT_PATH lint"
+else
+  LINT_CMD="npx next lint"
+fi
+
+if $LINT_CMD --dir "$BUILD_DIR"; then
   echo -e "${GREEN}  ✓ ESLint passed${NC}\n"
 else
   echo -e "${YELLOW}  ⚠ ESLint warnings detected${NC}\n"

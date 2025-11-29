@@ -11,7 +11,7 @@
  */
 
 import { MongoClient, Db, MongoClientOptions } from 'mongodb';
-import { logger } from './logger';
+import { logger } from '@/lib/logger';
 
 /**
  * Connection pool configuration

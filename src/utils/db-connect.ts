@@ -8,12 +8,14 @@
 
 import { MongoClient, Db } from 'mongodb';
 import { getDatabase, getMongoClient } from './mongodb-pool';
+import { logger } from '@/lib/logger';
 
 /**
  * Connect to database with connection pooling
  * @returns MongoDB database instance
  */
 export async function dbConnect(): Promise<Db> {
+  logger.debug('Connecting to database via dbConnect utility');
   return getDatabase();
 }
 

@@ -1,0 +1,59 @@
+
+> edpsych-connect-web-v2@1.0.0 build:safe
+> NODE_OPTIONS='--max-old-space-size=8192' next build
+
+   ▲ Next.js 15.2.4
+   - Environments: .env.local, .env
+
+   Creating an optimized production build ...
+Failed to compile.
+
+./node_modules/@sentry/nextjs/build/cjs/common/captureRequestError.js
+Module not found: Can't resolve '@sentry/core'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/@sentry/nextjs/build/cjs/index.server.js
+./src/app/global-error.tsx
+
+./node_modules/@sentry/nextjs/build/cjs/common/devErrorSymbolicationEventProcessor.js
+Module not found: Can't resolve '@sentry/core'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/@sentry/nextjs/build/cjs/server/index.js
+./node_modules/@sentry/nextjs/build/cjs/index.server.js
+./src/app/global-error.tsx
+
+./node_modules/@sentry/nextjs/build/cjs/common/nextNavigationErrorUtils.js
+Module not found: Can't resolve '@sentry/core'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/@sentry/nextjs/build/cjs/common/wrapServerComponentWithSentry.js
+./node_modules/@sentry/nextjs/build/cjs/index.server.js
+./src/app/global-error.tsx
+
+./node_modules/@sentry/nextjs/build/cjs/common/pages-router-instrumentation/_error.js
+Module not found: Can't resolve '@sentry/core'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/@sentry/nextjs/build/cjs/index.server.js
+./src/app/global-error.tsx
+
+./node_modules/@sentry/nextjs/build/cjs/common/pages-router-instrumentation/wrapApiHandlerWithSentry.js
+Module not found: Can't resolve '@sentry/core'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/@sentry/nextjs/build/cjs/index.server.js
+./src/app/global-error.tsx
+
+
+> Build failed because of webpack errors

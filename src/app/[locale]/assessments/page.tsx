@@ -18,9 +18,10 @@ export const dynamic = 'force-dynamic';
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
+import { useDemo } from '@/components/demo/DemoProvider';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { ECCA } from '@/components/ui/GlossaryTerm';
-import { Brain } from 'lucide-react';
+import { Brain, HelpCircle } from 'lucide-react';
 
 interface Assessment {
   id: number;
@@ -57,6 +58,7 @@ interface PaginationInfo {
 export default function AssessmentListPage() {
   const router = useRouter();
   const { user, isLoading: authLoading } = useAuth();
+  const { startTour } = useDemo();
 
   // State management
   const [assessments, setAssessments] = useState<Assessment[]>([]);
@@ -191,24 +193,34 @@ export default function AssessmentListPage() {
                 Schedule, track, and manage student assessments
               </p>
             </div>
-            <button
-              onClick={() => router.push('/assessments/new')}
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              <svg
-                className="-ml-1 mr-2 h-5 w-5"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => startTour('assessments')}
+                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              Schedule Assessment
-            </button>
+                <HelpCircle className="w-4 h-4" />
+                Take Tour
+              </button>
+              <button
+                onClick={() => router.push('/assessments/new')}
+                data-tour="schedule-assessment"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                <svg
+                  className="-ml-1 mr-2 h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                Schedule Assessment
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -219,7 +231,7 @@ export default function AssessmentListPage() {
         {/* Dashboard Widgets */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {/* ECCA Quick Start */}
-          <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg shadow-lg p-6 text-white">
+          <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg shadow-lg p-6 text-white" data-tour="ecca-widget">
             <h3 className="text-lg font-bold mb-2">
               <span className="text-white border-white/50">
                 <ECCA>ECCA Framework</ECCA>
@@ -275,7 +287,7 @@ export default function AssessmentListPage() {
         </div>
 
         {/* Filters */}
-        <div className="bg-white shadow rounded-lg p-6 mb-6">
+        <div className="bg-white shadow rounded-lg p-6 mb-6" data-tour="assessment-filters">
           <h2 className="text-lg font-medium text-gray-900 mb-4">Filters</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>

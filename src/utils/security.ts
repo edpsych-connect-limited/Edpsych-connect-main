@@ -1,3 +1,5 @@
+import { logger } from "@/lib/logger";
+
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -49,7 +51,7 @@ export const safePrint = (content: string, title = 'Print'): void => {
   const printWindow = window.open('', '_blank', 'width=800,height=600');
 
   if (!printWindow) {
-    console.error('Failed to open print window');
+    logger.error('Failed to open print window');
     return;
   }
 
@@ -108,7 +110,7 @@ export const parseSafeStyles = (cssString: string): React.CSSProperties => {
       }
     });
   } catch (error) {
-    console.error('Failed to parse CSS:', error);
+    logger.error('Failed to parse CSS:', error);
   }
 
   return styles;

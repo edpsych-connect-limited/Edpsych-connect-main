@@ -59,6 +59,44 @@ const TOURS: Record<string, DriveStep[]> = {
       }
     }
   ],
+  'assessments': [
+    {
+      element: 'h1',
+      popover: {
+        title: 'Assessment Management',
+        description: 'Track and manage all student assessments in one place.',
+        side: 'bottom',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="assessment-filters"]',
+      popover: {
+        title: 'Filter & Search',
+        description: 'Find specific assessments by case ID, status, or type.',
+        side: 'bottom',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="ecca-widget"]',
+      popover: {
+        title: 'ECCA Framework',
+        description: 'Quickly start a new cognitive assessment using our evidence-based framework.',
+        side: 'right',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="schedule-assessment"]',
+      popover: {
+        title: 'Schedule New',
+        description: 'Book a new assessment for a student.',
+        side: 'left',
+        align: 'start'
+      }
+    }
+  ],
   'assessment-wizard': [
     {
       element: '[data-tour="assessment-type-section"]',

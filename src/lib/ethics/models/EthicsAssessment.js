@@ -364,4 +364,4 @@ class EthicsAssessment {
   }
 }
 
-module.exports = EthicsAssessment;
+export default EthicsAssessment;

@@ -1,3 +1,5 @@
+import { logger } from "@/lib/logger";
+
 /**
  * Browser/Server detection utilities
  * Safely handle code that should only run in browser or server
@@ -14,7 +16,7 @@ export function browserOnly(fn: BrowserFunction, fallback?: FallbackValue): unkn
     try {
       return fn();
     } catch (error) {
-      console.error('Error in browserOnly function:', error);
+      logger.error('Error in browserOnly function:', error);
       return fallback;
     }
   }
@@ -26,7 +28,7 @@ export function serverOnly(fn: ServerFunction, fallback?: FallbackValue): unknow
     try {
       return fn();
     } catch (error) {
-      console.error('Error in serverOnly function:', error);
+      logger.error('Error in serverOnly function:', error);
       return fallback;
     }
   }
