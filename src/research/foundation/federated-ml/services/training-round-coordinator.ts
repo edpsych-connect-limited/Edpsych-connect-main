@@ -536,7 +536,7 @@ export class TrainingRoundCoordinator {
       }
       
       return round;
-    } catch (error) {
+    } catch (_error) {
       // Handle aggregation failure
       round.status = TrainingRoundStatus.FAILED;
       
@@ -719,7 +719,7 @@ export class TrainingRoundCoordinator {
         
         // Complete the round
         await this.completeTrainingRound(roundId, coordinatorId);
-      } catch (error) {
+      } catch (_error) {
         this.logger.error('Failed to auto-complete expired round', {
           component: 'TrainingRoundCoordinator',
           roundId,

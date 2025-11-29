@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Intervention Library Component
  * Browse 100+ evidence-based interventions
@@ -39,7 +38,7 @@ interface InterventionLibraryProps {
 export default function InterventionLibrary({
   onSelect,
   mode = 'browse',
-  caseId,
+  caseId: _caseId,
 }: InterventionLibraryProps) {
   const router = useRouter();
 
@@ -60,7 +59,7 @@ export default function InterventionLibrary({
       // In production, this would fetch from API
       // For now, using comprehensive evidence-based library
       setInterventions(EVIDENCE_BASED_INTERVENTIONS);
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to load interventions:', error);
     } finally {
       setLoading(false);

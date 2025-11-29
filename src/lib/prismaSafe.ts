@@ -32,7 +32,7 @@ function createPrismaClient() {
             }
 
             return result;
-          } catch (error) {
+          } catch (_error) {
             logger.error(`Query failed: ${model}.${operation}`, {
               error: error instanceof Error ? error.message : String(error),
             });
@@ -50,7 +50,7 @@ try {
     (global as any).prismaSafe = createPrismaClient();
   }
   prisma = (global as any).prismaSafe;
-} catch (err) {
+} catch (_err) {
   logger.error('❌ Prisma client failed to initialize. Database connectivity required for production.', err);
   throw new Error('Critical: Prisma client initialization failed. Check DATABASE_URL and Prisma configuration.');
 }

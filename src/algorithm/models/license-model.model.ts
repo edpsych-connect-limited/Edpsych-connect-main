@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Represents a licensing model for algorithms in the platform.
  * Defines the terms, conditions, and pricing under which algorithms

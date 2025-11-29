@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Create New EHCP Page - Enterprise-grade implementation
  * Phase 3.1: EHCP Support System
@@ -27,7 +26,6 @@ export default function NewEHCPPage() {
       </div>
     );
   }
-
 
   return (
     <div className="min-h-screen bg-gray-50">

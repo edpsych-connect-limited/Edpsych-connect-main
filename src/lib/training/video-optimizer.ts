@@ -124,7 +124,7 @@ export function saveVideoProgress(videoId: string, currentTime: number, duration
     };
 
     localStorage.setItem(`${VIDEO_PROGRESS_KEY}_${videoId}`, JSON.stringify(progress));
-  } catch (error) {
+  } catch (_error) {
     console.error('Failed to save video progress:', error);
   }
 }
@@ -142,7 +142,7 @@ export function getVideoProgress(videoId: string): VideoProgress | null {
     }
 
     return progress;
-  } catch (error) {
+  } catch (_error) {
     console.error('Failed to retrieve video progress:', error);
     return null;
   }
@@ -291,7 +291,7 @@ export class VideoAnalyticsTracker {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.analytics),
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to save video analytics:', error);
     }
   }

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -42,7 +41,7 @@ export async function GET() {
         }
 
         return NextResponse.json({ providers });
-    } catch (error) {
+    } catch (_error) {
         console.error('Failed to fetch integration status:', error);
         return NextResponse.json({ providers: {} }, { status: 500 });
     }

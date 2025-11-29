@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Consolidated Subscription API Routes
  * 
@@ -156,7 +155,7 @@ async function handleGetStatus(_request: NextRequest) {
 
     const status = await getTenantSubscriptionStatus(user.tenant_id);
     return NextResponse.json(status);
-  } catch (error) {
+  } catch (_error) {
     console.error('[API] Error fetching subscription status:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
@@ -187,7 +186,7 @@ async function handleCheckFeature(_request: NextRequest) {
 
     const status = await getTenantSubscriptionStatus(user.tenant_id);
     return NextResponse.json(status);
-  } catch (error) {
+  } catch (_error) {
     console.error('[API] Error checking feature:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }

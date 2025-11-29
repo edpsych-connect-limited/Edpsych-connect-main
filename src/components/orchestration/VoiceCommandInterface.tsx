@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -220,7 +219,7 @@ export const VoiceCommandInterface: React.FC<VoiceCommandInterfaceProps> = ({
             timestamp: new Date(item.timestamp),
           }))
         );
-      } catch (error) {
+      } catch (_error) {
         console.error('Failed to parse command history:', error);
       }
     }
@@ -359,7 +358,7 @@ export const VoiceCommandInterface: React.FC<VoiceCommandInterfaceProps> = ({
         recognitionRef.current?.start();
         setIsRecording(true);
         toast.success('Listening... Speak now');
-      } catch (error) {
+      } catch (_error) {
         console.error('Failed to start recognition:', error);
         toast.error('Failed to start voice recognition');
         setIsRecording(false);

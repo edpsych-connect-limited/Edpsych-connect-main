@@ -6,7 +6,6 @@
  */
 import { logger } from '@/lib/logger';
 
-
 class EthicsAnomalyDetector {
   constructor({
     method = 'zscore', // 'zscore', 'iqr', 'moving_average', 'ml'
@@ -67,7 +66,7 @@ class EthicsAnomalyDetector {
       }
       
       return result;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error('Error detecting anomaly', error);
       return {
         isAnomaly: false,

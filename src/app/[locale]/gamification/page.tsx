@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -27,7 +26,7 @@ export default function GamificationPage() {
         if (data.leaderboard) {
           setLeaderboard(data.leaderboard);
         }
-      } catch (error) {
+      } catch (_error) {
         console.error('Failed to load leaderboard', error);
       } finally {
         setLoading(false);

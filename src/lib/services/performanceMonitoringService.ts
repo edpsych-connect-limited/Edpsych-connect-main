@@ -71,7 +71,7 @@ class PerformanceMonitoringService {
       this._startAlerting();
 
       logger.info('Performance monitoring service initialized');
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error initializing performance monitoring service:', error instanceof Error ? error.message : String(error));
     }
   }
@@ -105,7 +105,7 @@ class PerformanceMonitoringService {
       // Check for performance degradation
       this._checkResponseTimeThreshold(endpoint, responseTime);
 
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error recording API response:', error instanceof Error ? error.message : String(error));
     }
   }
@@ -135,7 +135,7 @@ class PerformanceMonitoringService {
         this.metrics.customMetrics.set(name, metrics.slice(-2500));
       }
 
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error recording custom metric:', error instanceof Error ? error.message : String(error));
     }
   }
@@ -231,7 +231,7 @@ class PerformanceMonitoringService {
       };
 
       return metrics;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error getting performance metrics:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -286,7 +286,7 @@ class PerformanceMonitoringService {
       report.alerts = metrics.alerts.slice(-10);
 
       return report;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error generating performance report:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -328,7 +328,7 @@ class PerformanceMonitoringService {
       await this._sendAlertNotification(alert);
 
       return alert.id;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error creating performance alert:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -355,7 +355,7 @@ class PerformanceMonitoringService {
 
       logger.info(`Alert ${alertId} acknowledged by ${userId}`);
       return true;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error acknowledging alert:', error instanceof Error ? error.message : String(error));
       return false;
     }
@@ -382,7 +382,7 @@ class PerformanceMonitoringService {
 
       logger.info(`Alert ${alertId} resolved: ${resolution}`);
       return true;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error resolving alert:', error instanceof Error ? error.message : String(error));
       return false;
     }
@@ -431,7 +431,7 @@ class PerformanceMonitoringService {
         // Custom measurements
         this.recordCustomMetric(entry.name, entry.duration);
       }
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error processing performance entry:', error instanceof Error ? error.message : String(error));
     }
   }
@@ -478,7 +478,7 @@ class PerformanceMonitoringService {
       // Check thresholds
       await this._checkSystemThresholds(memUsage, cpuUsage);
 
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error collecting metrics:', error instanceof Error ? error.message : String(error));
     }
   }
@@ -493,7 +493,7 @@ class PerformanceMonitoringService {
     setInterval(async () => {
       try {
         await this._checkForAlerts();
-      } catch (error) {
+      } catch (_error) {
         logger.error('Error checking for alerts:', error instanceof Error ? error.message : String(error));
       }
     }, 5 * 60 * 1000);
@@ -588,7 +588,7 @@ class PerformanceMonitoringService {
       // Check for performance degradation trends
       await this._checkPerformanceTrends();
 
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error checking for alerts:', error instanceof Error ? error.message : String(error));
     }
   }
@@ -629,7 +629,7 @@ class PerformanceMonitoringService {
         });
       }
 
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error checking performance trends:', error instanceof Error ? error.message : String(error));
     }
   }
@@ -701,7 +701,7 @@ class PerformanceMonitoringService {
         platform: os.platform(),
         arch: os.arch()
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error getting system metrics:', error instanceof Error ? error.message : String(error));
       return null;
     }

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -255,7 +254,7 @@ export async function checkTenantFeatureAccess(
         ? undefined 
         : `Feature "${feature}" not included in ${subscription.tier} tier`
     };
-  } catch (error) {
+  } catch (_error) {
     console.error('[Subscription] Error checking feature access:', error);
     return {
       hasAccess: false,
@@ -424,7 +423,7 @@ export async function logTenantFeatureUsage(
         metadata: metadata || undefined
       }
     });
-  } catch (error) {
+  } catch (_error) {
     // Don't block request on analytics failure
     console.error('[Analytics] Failed to log feature usage:', error);
   }

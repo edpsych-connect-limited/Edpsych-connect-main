@@ -66,7 +66,7 @@ export class FinalDeploymentValidator {
       this.validationService.stopMonitoring();
 
       return report;
-    } catch (error) {
+    } catch (_error) {
       this.validationService.stopMonitoring();
       throw error;
     }
@@ -188,7 +188,7 @@ export class FinalDeploymentValidator {
         deploymentUrl: 'https://edpsych-connect-world.vercel.app', // This would be extracted from deployment result
         validationReport: await this.generateValidationReport()
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         validationReport: await this.generateValidationReport(),

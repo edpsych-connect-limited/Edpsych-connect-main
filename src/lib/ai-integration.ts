@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * EdPsych Connect - Advanced AI Integration System
  * Claude + OpenAI integration for 24 autonomous agents
@@ -93,7 +92,7 @@ class AIIntegrationService {
         this.redis = null;
         // console.warn('Redis not configured - AI caching and rate limiting disabled');
       }
-    } catch (error) {
+    } catch (_error) {
       this.redis = null;
       // console.warn('Failed to initialize Redis:', error);
     }
@@ -562,7 +561,7 @@ class AIIntegrationService {
         processingTime: performance.now() - startTime
       };
 
-    } catch (error) {
+    } catch (_error) {
       // Fallback to alternative provider
       return this.handleFailover(request, error);
     }
@@ -628,7 +627,7 @@ class AIIntegrationService {
       if (this.gemini) return await this.callGemini(agent, request);
       
       return this.getMockResponse(agent, request);
-    } catch (error) {
+    } catch (_error) {
       console.warn(`Primary model ${agent.model} failed, attempting failover...`, error);
       
       // Try failover to OpenAI if available and not already tried
@@ -982,7 +981,7 @@ class AIIntegration {
         model: response.model,
         responseTime: responseTime
       };
-    } catch (error) {
+    } catch (_error) {
       console.error('[aiIntegration] Chat error:', error);
 
       // Return graceful error response

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Publication model for the citation tracking system
  * 

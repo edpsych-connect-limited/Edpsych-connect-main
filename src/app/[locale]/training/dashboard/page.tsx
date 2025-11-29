@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -111,7 +110,7 @@ export default function TrainingDashboardPage() {
       }, 0);
       setTotalCpdHours(Math.round(completedCpdHours * 10) / 10);
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Error loading dashboard data:', error);
     } finally {
       setLoading(false);

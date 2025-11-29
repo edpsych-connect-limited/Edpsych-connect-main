@@ -56,7 +56,7 @@ export async function createEHCPVersion(payload: {
     });
 
     logger.debug(`[EHCP Notifications] Version created for EHCP ${payload.ehcp_id}`);
-  } catch (error) {
+  } catch (_error) {
     console.error('[EHCP Notifications] Failed to create version:', error);
     throw error;
   }
@@ -83,7 +83,7 @@ export async function sendEHCPNotification(
     ]);
 
     logger.debug(`[EHCP Notifications] Sent ${payload.action} notifications for EHCP ${payload.ehcp_id} to ${recipients.length} users`);
-  } catch (error) {
+  } catch (_error) {
     console.error('[EHCP Notifications] Failed to send notifications:', error);
     // Don't throw - notifications are non-critical
   }
@@ -111,7 +111,7 @@ async function logEHCPAction(payload: EHCPNotificationPayload): Promise<void> {
         },
       },
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[EHCP Notifications] Failed to create audit log:', error);
   }
 }
@@ -134,7 +134,7 @@ async function getDefaultRecipients(ehcp_id: string, tenant_id: number): Promise
     });
 
     return users.map(u => u.id);
-  } catch (error) {
+  } catch (_error) {
     console.error('[EHCP Notifications] Failed to get recipients:', error);
     return [];
   }
@@ -163,7 +163,7 @@ async function sendInAppNotifications(
     // TODO: Implement dedicated notifications table or use third-party service
     // await prisma.notifications.createMany({ ... });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('[EHCP Notifications] Failed to send in-app notifications:', error);
   }
 }
@@ -205,7 +205,7 @@ async function sendEmailNotifications(
     //   body: message,
     //   template: 'ehcp-notification',
     // });
-  } catch (error) {
+  } catch (_error) {
     console.error('[EHCP Notifications] Failed to send email notifications:', error);
   }
 }

@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -77,7 +76,7 @@ export default function ProfessionalRegistrationPage() {
       if (!response.ok) throw new Error('Registration failed');
 
       router.push('/marketplace/dashboard?welcome=true');
-    } catch (error) {
+    } catch (_error) {
       console.error('Error registering:', error);
       alert('Failed to register. Please try again.');
     } finally {

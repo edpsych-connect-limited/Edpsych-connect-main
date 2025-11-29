@@ -15,7 +15,7 @@ export function browserOnly(fn: BrowserFunction, fallback?: FallbackValue): unkn
   if (isBrowser) {
     try {
       return fn();
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error in browserOnly function:', error);
       return fallback;
     }
@@ -27,7 +27,7 @@ export function serverOnly(fn: ServerFunction, fallback?: FallbackValue): unknow
   if (isServer) {
     try {
       return fn();
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error in serverOnly function:', error);
       return fallback;
     }

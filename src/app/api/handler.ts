@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Unified API Route Handler
  * 
@@ -59,7 +58,7 @@ export async function handleApiRequest(req: NextRequest): Promise<Response> {
       { error: 'Route not found', path },
       { status: 404 }
     );
-  } catch (error) {
+  } catch (_error) {
     console.error('[API Handler] Error:', error);
     return NextResponse.json(
       { error: 'Internal server error', message: error instanceof Error ? error.message : 'Unknown error' },

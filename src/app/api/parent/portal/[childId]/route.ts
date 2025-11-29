@@ -419,7 +419,7 @@ export async function GET(
 
     return NextResponse.json(response);
 
-  } catch (error) {
+  } catch (_error) {
     console.error('[Parent Portal API] Error retrieving child progress:', error);
     return NextResponse.json({
       error: 'Internal server error',

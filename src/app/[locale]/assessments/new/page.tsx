@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Create New Assessment Page - Enterprise-grade implementation
  * Phase 3.2: Assessment Engine

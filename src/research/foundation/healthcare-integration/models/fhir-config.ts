@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FHIR Service Configuration Models
  * 

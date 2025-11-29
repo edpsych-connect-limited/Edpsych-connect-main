@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -137,7 +136,7 @@ export async function POST(req: Request) {
       },
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Signup error:', error);
     return NextResponse.json(
       { success: false, error: 'Internal server error' },

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -56,7 +55,7 @@ const BetaRegistrationForm: React.FC = () => {
         const documentPath = await fetchLegalDocument('BETA_CONFIDENTIALITY');
         setAgreementContent(documentPath);
         setAgreementVersion('v1.0');
-      } catch (err) {
+      } catch (_err) {
         setError('Failed to load confidentiality agreement. Please try again later.');
         console.error('Error fetching agreement:', err);
       }
@@ -148,7 +147,7 @@ const BetaRegistrationForm: React.FC = () => {
         router.push('/beta/dashboard');
       }, 2000);
       
-    } catch (err) {
+    } catch (_err) {
       const message = err instanceof Error ? err.message : 'An error occurred during registration';
       setError(message);
     } finally {

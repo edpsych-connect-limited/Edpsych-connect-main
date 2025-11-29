@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Case Detail Page
  * View and manage a specific case
@@ -117,7 +116,7 @@ export default function CaseDetailPage({ params }: CaseDetailProps) {
           ]
         };
         setCaseDetail(mockCase);
-      } catch (error) {
+      } catch (_error) {
         console.error('Failed to load case:', error);
       } finally {
         setLoading(false);

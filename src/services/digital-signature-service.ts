@@ -134,7 +134,7 @@ export class DigitalSignatureService {
         signatureId,
         timestamp
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error(`Error creating digital signature for user ${userId}`, {
         error,
         agreementType,
@@ -215,7 +215,7 @@ export class DigitalSignatureService {
           signedAt: signature.signedAt
         }
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error(`Error verifying signature for user ${userId}`, {
         error,
         agreementType
@@ -263,7 +263,7 @@ export class DigitalSignatureService {
       });
       
       return JSON.parse(signedDocument);
-    } catch (error) {
+    } catch (_error) {
       logger.error(`Error retrieving signed agreement ${signatureId}`, { error });
       throw new Error(`Failed to retrieve signed agreement: ${error instanceof Error ? error.message : String(error)}`);
     }
@@ -330,7 +330,7 @@ export class DigitalSignatureService {
       });
       
       return { success: true };
-    } catch (error) {
+    } catch (_error) {
       logger.error(`Error revoking signature ${signatureId}`, { error });
       throw new Error(`Failed to revoke signature: ${error instanceof Error ? error.message : String(error)}`);
     }
@@ -373,7 +373,7 @@ export class DigitalSignatureService {
         signedAt: sig.signedAt,
         status: sig.status
       }));
-    } catch (error) {
+    } catch (_error) {
       logger.error(`Error getting signatures for user ${userId}`, { error });
       throw new Error(`Failed to get user signatures: ${error instanceof Error ? error.message : String(error)}`);
     }
@@ -407,7 +407,7 @@ export class DigitalSignatureService {
       }
       
       return agreementContent.content;
-    } catch (error) {
+    } catch (_error) {
       logger.error(`Error retrieving agreement content`, {
         error,
         agreementType,

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * AI Living Demonstrations API
  * Exposes interactive AI capability demonstrations
@@ -29,7 +28,7 @@ export async function POST(request: NextRequest) {
       demoId,
       message: 'Demo started successfully'
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('AI Demos API error:', error);
     return NextResponse.json(
       { error: 'Failed to start demonstration' },
@@ -80,7 +79,7 @@ export async function GET(request: NextRequest) {
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (_error) {
     console.error('AI Demos API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve demonstration data' },

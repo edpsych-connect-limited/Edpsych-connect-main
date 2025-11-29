@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Problem Solver API Endpoint
  *
@@ -134,7 +133,7 @@ Please try again in a few moments, or contact us directly for personalized suppo
       },
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Problem Solver API Error:', error);
 
     return NextResponse.json(

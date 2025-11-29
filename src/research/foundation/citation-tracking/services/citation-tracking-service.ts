@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Citation Tracking Service
  * 
@@ -114,7 +113,7 @@ export class CitationTrackingService {
         success: true,
         data: citation
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -178,7 +177,7 @@ export class CitationTrackingService {
         success: true,
         data: citation
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -213,7 +212,7 @@ export class CitationTrackingService {
       return {
         success: true
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -301,7 +300,7 @@ export class CitationTrackingService {
           limit
         }
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -340,7 +339,7 @@ export class CitationTrackingService {
           outgoingCitations
         }
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -378,7 +377,7 @@ export class CitationTrackingService {
         success: true,
         data: citation
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -456,7 +455,7 @@ export class CitationTrackingService {
           extractedCitations
         }
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -507,7 +506,7 @@ export class CitationTrackingService {
         success: true,
         data: analysis
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -642,7 +641,7 @@ export class CitationTrackingService {
           data
         }
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -687,7 +686,7 @@ export class CitationTrackingService {
           citationsByType
         }
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',

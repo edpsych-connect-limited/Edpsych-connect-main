@@ -63,7 +63,7 @@ export function OnboardingWizard({ className = '' }: OnboardingWizardProps) {
         if (state.currentStep === 1 && !state.timeStarted) {
           await startOnboarding();
         }
-      } catch (error) {
+      } catch (_error) {
         console.error('[OnboardingWizard] Initialization error:', error);
       }
     };

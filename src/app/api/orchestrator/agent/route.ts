@@ -73,7 +73,7 @@ export async function POST(req: Request) {
       }
     });
 
-  } catch (error) {
+  } catch (_error) {
     logger.error('[Orchestrator] Error processing agent request:', error as Error);
     return NextResponse.json(
       { error: 'Internal Server Error', details: error instanceof Error ? error.message : String(error) },

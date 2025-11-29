@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -43,7 +42,7 @@ const SubscriptionManager: React.FC<SubscriptionManagerProps> = ({ className = '
       
       const { url } = await response.json();
       window.location.href = url;
-    } catch (err) {
+    } catch (_err) {
       console.error('Error creating portal session:', err);
       setError('There was an error opening the subscription management portal. Please try again.');
     } finally {

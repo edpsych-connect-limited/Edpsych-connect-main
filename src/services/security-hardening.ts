@@ -459,7 +459,7 @@ export class SecurityHardeningService {
       } else {
         logger.info('Security audit completed successfully:', audit);
       }
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error performing initial security audit:', error as Error);
     }
   }

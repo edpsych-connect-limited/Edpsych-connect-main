@@ -70,7 +70,7 @@ function NewInterventionContent() {
       // The template data would pre-fill the intervention designer
       logger.debug('Loading template:', templateId);
       // This would be expanded to fetch actual template data
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to load template:', error);
     } finally {
       setLoadingTemplate(false);

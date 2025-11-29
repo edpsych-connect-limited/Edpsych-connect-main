@@ -88,7 +88,7 @@ export class IntelligentProblemMatcher {
         implementationComplexity: this.assessComplexity(solutions)
       };
 
-    } catch (error) {
+    } catch (_error) {
       console.error('❌ Problem analysis failed:', error);
       throw new Error('Unable to analyze problem. Please try rephrasing your challenge.');
     }
@@ -176,7 +176,7 @@ export class IntelligentProblemMatcher {
       // Generate AI-powered custom solutions
       const customSolutions = await this.generateCustomSolutions(analysis, features);
       solutions.push(...customSolutions);
-    } catch (error) {
+    } catch (_error) {
       console.warn('Error generating custom solutions:', error);
       // Continue with template solutions only
     }
@@ -446,7 +446,7 @@ export class IntelligentProblemMatcher {
       });
 
       return JSON.parse(response.content);
-    } catch (error) {
+    } catch (_error) {
       console.warn('Failed to generate custom solutions:', error);
       return [];
     }

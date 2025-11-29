@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -66,7 +65,7 @@ const RecommendationDashboard: React.FC = () => {
       } else {
         throw new Error(data.message || 'Failed to fetch recommendations');
       }
-    } catch (err) {
+    } catch (_err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
       setToast({
         message: err instanceof Error ? err.message : 'An unknown error occurred',
@@ -108,7 +107,7 @@ const RecommendationDashboard: React.FC = () => {
       } else {
         throw new Error(data.message || 'Failed to generate recommendations');
       }
-    } catch (err) {
+    } catch (_err) {
       setToast({
         message: err instanceof Error ? err.message : 'An unknown error occurred',
         type: 'error'

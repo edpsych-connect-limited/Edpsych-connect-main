@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Async/Await Validator
  * Detects Promise handling errors and async/await misuse
@@ -72,7 +71,7 @@ export class AsyncAwaitValidator {
           raceConditions: this.errors.filter(e => e.type === 'RACE_CONDITION').length
         }
       };
-    } catch (error) {
+    } catch (_error) {
       const msg = error instanceof Error ? error.message : String(error);
       this.errors.push({
         type: 'MISSING_AWAIT',

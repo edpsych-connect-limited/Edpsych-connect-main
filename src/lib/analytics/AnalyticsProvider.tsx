@@ -192,7 +192,7 @@ export class AnalyticsTracker {
         });
 
         lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
-      } catch (error) {
+      } catch (_error) {
         console.warn('LCP tracking not supported:', error);
       }
 
@@ -211,7 +211,7 @@ export class AnalyticsTracker {
         });
 
         fidObserver.observe({ entryTypes: ['first-input'] });
-      } catch (error) {
+      } catch (_error) {
         console.warn('FID tracking not supported:', error);
       }
 
@@ -234,7 +234,7 @@ export class AnalyticsTracker {
         });
 
         clsObserver.observe({ entryTypes: ['layout-shift'] });
-      } catch (error) {
+      } catch (_error) {
         console.warn('CLS tracking not supported:', error);
       }
     }

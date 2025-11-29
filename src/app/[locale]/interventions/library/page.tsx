@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Intervention Library Page
  * Browse 100+ evidence-based interventions

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * LA FRAMEWORK PANEL - APPLICATION API
  * 
@@ -168,7 +167,7 @@ export async function POST(request: NextRequest) {
       user: updatedProfile.user,
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('LA Panel application error:', error);
     return NextResponse.json(
       { 
@@ -242,7 +241,7 @@ export async function GET() {
       canApply: profile.la_panel_status === 'NOT_APPLIED' && allRequirementsMet,
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Get LA Panel status error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch LA Panel status' },

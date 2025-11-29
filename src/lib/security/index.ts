@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * EdPsych Connect World - Security Module
  * 

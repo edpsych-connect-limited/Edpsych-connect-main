@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Double-Blind Study Service
  * 

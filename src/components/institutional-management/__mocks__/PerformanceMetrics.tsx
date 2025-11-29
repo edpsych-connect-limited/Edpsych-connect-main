@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -9,7 +8,7 @@ import { logger } from "@/lib/logger";
 
 import React from 'react';
 
-const MockPerformanceMetrics: React.FC<any> = ({ id, metrics, isLoading, error }) => {
+const MockPerformanceMetrics: React.FC<any> = ({ id: _id, metrics, isLoading, error }) => {
   if (isLoading) {
     return <div>Loading performance data...</div>;
   }

@@ -92,7 +92,7 @@ export class GDPRComplianceService {
         required: type.required,
         version: type.version
       }));
-    } catch (error) {
+    } catch (_error) {
       logger.error('Failed to get consent types', error as Error);
       throw new Error('Failed to retrieve consent types');
     }
@@ -123,7 +123,7 @@ export class GDPRComplianceService {
         validUntil: record.valid_until,
         consentVersion: record.consent_version
       }));
-    } catch (error) {
+    } catch (_error) {
       logger.error('Failed to get user consents', error as Error);
       throw new Error('Failed to retrieve user consents');
     }
@@ -218,7 +218,7 @@ export class GDPRComplianceService {
           consentVersion: data.consent_version
         };
       }
-    } catch (error) {
+    } catch (_error) {
       logger.error('Failed to grant consent', error as Error);
       throw new Error('Failed to process consent');
     }
@@ -269,7 +269,7 @@ export class GDPRComplianceService {
         reason
       );
 
-    } catch (error) {
+    } catch (_error) {
       logger.error('Failed to withdraw consent', error as Error);
       throw new Error('Failed to withdraw consent');
     }
@@ -301,7 +301,7 @@ export class GDPRComplianceService {
         performedBy,
         reason || null
       ]);
-    } catch (error) {
+    } catch (_error) {
       logger.error('Failed to log consent change', error as Error);
     }
   }
@@ -332,7 +332,7 @@ export class GDPRComplianceService {
         publishedAt: data.published_at,
         requiresReconsent: data.requires_reconsent
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Failed to get current privacy policy', error as Error);
       throw new Error('Failed to retrieve privacy policy');
     }
@@ -364,7 +364,7 @@ export class GDPRComplianceService {
 
       // Check if user's consent version is older than current policy version
       return latestConsent.consent_version < currentPolicy.version;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Failed to check reconsent requirement', error as Error);
       return true; // Default to requiring reconsent on error
     }
@@ -418,7 +418,7 @@ export class GDPRComplianceService {
       }
 
       return exportData;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Failed to export user data', error as Error);
       throw new Error('Failed to export user data');
     }
@@ -476,7 +476,7 @@ export class GDPRComplianceService {
         submittedAt: data.submitted_at,
         expiresAt: data.expires_at
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Failed to submit data subject request', error as Error);
       throw new Error('Failed to submit data subject request');
     }

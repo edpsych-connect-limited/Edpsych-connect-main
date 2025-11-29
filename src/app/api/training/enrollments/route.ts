@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -72,7 +71,7 @@ export async function GET(request: NextRequest) {
     });
 
     return NextResponse.json(mappedEnrollments);
-  } catch (error) {
+  } catch (_error) {
     console.error('[Enrollments API] Error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch enrollments' },
@@ -129,7 +128,7 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(enrollment);
-  } catch (error) {
+  } catch (_error) {
     console.error('[Enrollments API] Error:', error);
     return NextResponse.json(
       { error: 'Failed to enroll in course' },

@@ -66,7 +66,7 @@ class DataEncryptionService {
       this._scheduleKeyRotation();
 
       logger.info('Data encryption service initialized');
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error initializing data encryption service:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -124,7 +124,7 @@ class DataEncryptionService {
       };
 
       return JSON.stringify(encryptedPackage);
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error encrypting data:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -166,7 +166,7 @@ class DataEncryptionService {
 
       // Parse and return original data
       return JSON.parse(decrypted);
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error decrypting data:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -200,7 +200,7 @@ class DataEncryptionService {
       }
 
       return encryptedObj;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error encrypting object fields:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -235,7 +235,7 @@ class DataEncryptionService {
       }
 
       return decryptedObj;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error decrypting object fields:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -280,7 +280,7 @@ class DataEncryptionService {
 
       logger.info(`Generated new encryption key: ${keyId}`);
       return keyId;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error generating encryption key:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -310,7 +310,7 @@ class DataEncryptionService {
 
       logger.info(`Rotated encryption key: ${keyId} -> ${newKeyId}`);
       return newKeyId;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error rotating encryption key:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -365,7 +365,7 @@ class DataEncryptionService {
       }
 
       return status;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error getting key rotation status:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -383,7 +383,7 @@ class DataEncryptionService {
       const hash = crypto.createHash('sha256');
       hash.update(data + salt);
       return hash.digest('hex');
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error hashing data for privacy:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -448,7 +448,7 @@ class DataEncryptionService {
       });
 
       return anonymized;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error anonymizing data:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -505,7 +505,7 @@ class DataEncryptionService {
       }
 
       return result;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error checking data residency compliance:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -575,7 +575,7 @@ class DataEncryptionService {
       }
 
       return report;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error generating encryption report:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -594,14 +594,14 @@ class DataEncryptionService {
 
       try {
         this.masterKey = await fs.readFile(masterKeyPath);
-      } catch (error) {
+      } catch (_error) {
         // Generate new master key
         this.masterKey = crypto.randomBytes(32);
         await fs.mkdir(path.dirname(masterKeyPath), { recursive: true });
         await fs.writeFile(masterKeyPath, this.masterKey);
         logger.info('Generated new master key');
       }
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error loading master key:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -640,13 +640,13 @@ class DataEncryptionService {
             }
           }
         }
-      } catch (error) {
+      } catch (_error) {
         // Keys directory doesn't exist, create default key
         await this.generateKey('default');
       }
 
       logger.info(`Loaded ${this.encryptionKeys.size} encryption keys`);
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error loading encryption keys:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -703,7 +703,7 @@ class DataEncryptionService {
       // Save metadata
       const metadataPath = path.join(keysDir, `${keyId}.meta`);
       await fs.writeFile(metadataPath, JSON.stringify(metadata, null, 2));
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error persisting encryption key:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -721,7 +721,7 @@ class DataEncryptionService {
       const keysDir = path.join(process.cwd(), 'keys', 'encryption');
       const metadataPath = path.join(keysDir, `${keyId}.meta`);
       await fs.writeFile(metadataPath, JSON.stringify(metadata, null, 2));
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error persisting key metadata:', error instanceof Error ? error.message : String(error));
     }
   }
@@ -774,7 +774,7 @@ class DataEncryptionService {
           logger.info(`Rotating encryption key: ${keyInfo.keyId}`);
           await this.rotateKey(keyInfo.keyId);
         }
-      } catch (error) {
+      } catch (_error) {
         logger.error('Error during key rotation:', error instanceof Error ? error.message : String(error));
       }
     }, 24 * 60 * 60 * 1000); // Check daily
@@ -791,7 +791,7 @@ class DataEncryptionService {
     try {
       const parsed = JSON.parse(data);
       return parsed.data && parsed.iv && parsed.keyId && parsed.algorithm;
-    } catch (error) {
+    } catch (_error) {
       return false;
     }
   }

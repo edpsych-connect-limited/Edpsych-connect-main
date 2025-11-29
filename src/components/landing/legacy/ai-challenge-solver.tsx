@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -169,7 +168,7 @@ const AIChallengeSolver: React.FC = () => {
       };
 
       setSolution(mockSolution);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error generating solution:', error);
     } finally {
       setIsLoading(false);
@@ -207,7 +206,7 @@ const AIChallengeSolver: React.FC = () => {
       };
 
       setSolution(mockSolution);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error generating custom solution:', error);
     } finally {
       setIsLoading(false);

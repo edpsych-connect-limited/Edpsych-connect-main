@@ -118,7 +118,7 @@ export class LivingDemonstrationsSystem {
 
       logger.debug(`✅ Demo completed: ${demoSession.type} in ${demoSession.endTime.getTime() - demoSession.startTime.getTime()}ms`);
 
-    } catch (error) {
+    } catch (_error) {
       console.error(`❌ Demo failed: ${demoSession.type}`, error);
 
       demoSession.status = 'error';

@@ -94,7 +94,7 @@ export class MonitoringInitializer {
         'System',
         1
       );
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to initialize monitoring services:', error);
       // Attempt to record initialization failure
       try {

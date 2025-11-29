@@ -6,7 +6,6 @@
  */
 import { logger } from '@/lib/logger';
 
-
 import EthicsIncident from '../models/EthicsIncident';
 
 class EthicsIncidentService {
@@ -32,7 +31,7 @@ class EthicsIncidentService {
   async getIncident(incidentId) {
     try {
       return await this.dataAccessService.getIncidentById(incidentId);
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to get incident ${incidentId}`, error);
       throw error;
     }
@@ -48,7 +47,7 @@ class EthicsIncidentService {
   async getIncidents(filters = {}, pagination = {}, sort = {}) {
     try {
       return await this.dataAccessService.getIncidents(filters, pagination, sort);
-    } catch (error) {
+    } catch (_error) {
       this.logger.error('Failed to get incidents', error);
       throw error;
     }
@@ -75,7 +74,7 @@ class EthicsIncidentService {
       await this.sendIncidentNotifications(createdIncident, 'created');
       
       return createdIncident;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error('Failed to create ethics incident', error);
       throw error;
     }
@@ -119,7 +118,7 @@ class EthicsIncidentService {
       }
       
       return updatedIncident;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to update ethics incident ${incident.id}`, error);
       throw error;
     }
@@ -173,7 +172,7 @@ class EthicsIncidentService {
       });
       
       return updatedIncident;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to assign ethics incident ${incidentId}`, error);
       throw error;
     }
@@ -211,7 +210,7 @@ class EthicsIncidentService {
       });
       
       return updatedIncident;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to add resolution step to ethics incident ${incidentId}`, error);
       throw error;
     }
@@ -254,7 +253,7 @@ class EthicsIncidentService {
       }
       
       return updatedIncident;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to update resolution step for incident ${incidentId}`, error);
       throw error;
     }
@@ -321,7 +320,7 @@ class EthicsIncidentService {
       }
       
       return resolvedIncident;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to resolve ethics incident ${incidentId}`, error);
       throw error;
     }
@@ -361,7 +360,7 @@ class EthicsIncidentService {
       });
       
       return dismissedIncident;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to dismiss ethics incident ${incidentId}`, error);
       throw error;
     }
@@ -415,7 +414,7 @@ class EthicsIncidentService {
       });
       
       return updatedIncident;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to update status for ethics incident ${incidentId}`, error);
       throw error;
     }
@@ -465,7 +464,7 @@ class EthicsIncidentService {
       
       this.logger.info(`Added affected users to ethics incident ${incidentId}`);
       return updatedIncident;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to add affected users to ethics incident ${incidentId}`, error);
       throw error;
     }
@@ -495,7 +494,7 @@ class EthicsIncidentService {
       
       this.logger.info(`Added affected components to ethics incident ${incidentId}`);
       return updatedIncident;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to add affected components to ethics incident ${incidentId}`, error);
       throw error;
     }
@@ -540,7 +539,7 @@ class EthicsIncidentService {
       
       this.logger.info(`Linked incident ${incidentId} with related incident ${relatedIncidentId}`);
       return updatedIncident;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to link related incident ${relatedIncidentId} to incident ${incidentId}`, error);
       throw error;
     }
@@ -588,7 +587,7 @@ class EthicsIncidentService {
         groups: results,
         timeFrame
       };
-    } catch (error) {
+    } catch (_error) {
       this.logger.error('Failed to generate incident analytics', error);
       throw error;
     }
@@ -783,7 +782,7 @@ class EthicsIncidentService {
       }
       
       this.logger.info(`Sent ${eventType} notifications for incident ${incident.id}`);
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to send notifications for incident ${incident.id}`, error);
       // Don't throw here to avoid disrupting the main flow
     }

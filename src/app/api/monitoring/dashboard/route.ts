@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -31,7 +30,7 @@ export async function GET(_request: NextRequest) {
         version: '1.0.0'
       }
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Monitoring dashboard error:', error);
     return NextResponse.json(
       {
@@ -81,7 +80,7 @@ export async function POST(request: NextRequest) {
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json(
       {
         success: false,

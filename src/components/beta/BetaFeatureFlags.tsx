@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 import React, { useState, useEffect } from 'react';
 import { FaFlask, FaToggleOn, FaToggleOff, FaExclamationTriangle, FaRocket, FaBrain, FaGamepad, FaMicrophone, FaChartLine, FaShieldAlt } from 'react-icons/fa';
 

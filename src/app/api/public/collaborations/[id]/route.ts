@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -38,7 +37,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
     };
 
     return NextResponse.json(safeData);
-  } catch (error) {
+  } catch (_error) {
     console.error('Error fetching public collaboration:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
@@ -60,7 +59,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     });
 
     return NextResponse.json(collaboration);
-  } catch (error) {
+  } catch (_error) {
     console.error('Error updating public collaboration:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }

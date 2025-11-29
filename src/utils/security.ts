@@ -109,7 +109,7 @@ export const parseSafeStyles = (cssString: string): React.CSSProperties => {
         (styles as any)[camelProperty] = value;
       }
     });
-  } catch (error) {
+  } catch (_error) {
     logger.error('Failed to parse CSS:', error);
   }
 

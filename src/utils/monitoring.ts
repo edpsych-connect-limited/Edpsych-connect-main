@@ -112,7 +112,7 @@ class RealUserMonitoring {
 
       this.isInitialized = true;
       logger.debug('✅ Real User Monitoring initialized successfully');
-    } catch (error) {
+    } catch (_error) {
       console.error('❌ Failed to initialize Real User Monitoring:', error);
       // Don't throw - monitoring should not break the app
     }
@@ -127,7 +127,7 @@ class RealUserMonitoring {
     try {
       // Sentry integration disabled - monitoring without external dependencies
       logger.debug('ℹ️  Sentry monitoring disabled (optional dependency not installed)');
-    } catch (error) {
+    } catch (_error) {
       console.warn('⚠️  Sentry not available:', (error instanceof Error ? error.message : String(error)));
     }
   }
@@ -149,7 +149,7 @@ class RealUserMonitoring {
       });
 
       logger.debug('✅ Google Analytics initialized');
-    } catch (error) {
+    } catch (_error) {
       console.warn('⚠️  Google Analytics not available:', (error instanceof Error ? error.message : String(error)));
     }
   }
@@ -225,7 +225,7 @@ class RealUserMonitoring {
       }).catch(() => {
         console.warn('⚠️  web-vitals library not available');
       });
-    } catch (error) {
+    } catch (_error) {
       console.warn('⚠️  Core Web Vitals monitoring not available:', (error instanceof Error ? error.message : String(error)));
     }
   }
@@ -451,7 +451,7 @@ class RealUserMonitoring {
             extra: event.data,
           });
       }
-    } catch (error) {
+    } catch (_error) {
       console.warn('⚠️  Failed to send event to Sentry:', error);
     }
   }
@@ -500,7 +500,7 @@ class RealUserMonitoring {
             ...event.data,
           });
       }
-    } catch (error) {
+    } catch (_error) {
       console.warn('⚠️  Failed to send event to Google Analytics:', error);
     }
   }

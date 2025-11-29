@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Help Article Detail Page
  * Full article view with markdown rendering and feedback
@@ -40,7 +39,7 @@ export default function HelpArticlePage() {
       const data = await response.json();
       setArticle(data.article);
       setRelated(data.relatedArticles || []);
-    } catch (err) {
+    } catch (_err) {
       console.error('Failed to load article:', err);
       setError('Failed to load article');
     } finally {
@@ -57,7 +56,7 @@ export default function HelpArticlePage() {
       });
 
       setFeedbackGiven(true);
-    } catch (err) {
+    } catch (_err) {
       console.error('Failed to submit feedback:', err);
     }
   };

@@ -84,7 +84,7 @@ export async function GET(request: NextRequest) {
     };
 
     return NextResponse.json(frontendData);
-  } catch (error) {
+  } catch (_error) {
     logger.error('Error in GET /api/class/dashboard:', error as Error);
 
     if ((error as Error).message.includes('Unauthorized')) {

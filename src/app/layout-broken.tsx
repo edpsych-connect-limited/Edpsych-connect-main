@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -51,7 +50,7 @@ export default function RootLayout({
                     const parsed = JSON.parse(settings);
                     return parsed.consents && parsed.consents.analytics && parsed.consents.analytics.granted;
                   }
-                } catch (e) {}
+                } catch (_e) {}
                 return false;
               }
 

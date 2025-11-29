@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/cpd/portfolio/route.ts
  * PURPOSE: Generate professional CPD portfolio PDF

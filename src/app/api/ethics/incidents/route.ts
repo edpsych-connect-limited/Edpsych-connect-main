@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Ethics Incidents API
  * Manage ethics incidents and resolutions
@@ -50,7 +49,7 @@ export async function GET(request: NextRequest) {
       count: incidents.length,
       summary
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Ethics Incidents API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve incidents' },
@@ -214,7 +213,7 @@ export async function POST(request: NextRequest) {
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (_error) {
     console.error('Incident action error:', error);
     return NextResponse.json(
       { error: 'Failed to perform incident action' },

@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * PROFESSIONAL MARKETPLACE - PROFESSIONAL DASHBOARD
  * 
@@ -82,7 +81,7 @@ export default function ProfessionalDashboard() {
         setProfile(data.profile);
         setBookings(data.bookings);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to fetch dashboard data:', error);
     } finally {
       setLoading(false);
@@ -100,7 +99,7 @@ export default function ProfessionalDashboard() {
       if (response.ok) {
         setProfile({ ...profile, is_accepting_bookings: !profile.is_accepting_bookings });
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to update status:', error);
     }
   };
@@ -111,7 +110,7 @@ export default function ProfessionalDashboard() {
         method: 'POST',
       });
       fetchDashboardData();
-    } catch (error) {
+    } catch (_error) {
       console.error(`Failed to ${action} booking:`, error);
     }
   };

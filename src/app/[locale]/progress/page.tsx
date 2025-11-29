@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Progress Tracking Page
  * View comprehensive progress across all cases and interventions
@@ -39,7 +38,7 @@ export default function ProgressPage() {
       }));
 
       setCases(mappedCases);
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to load cases:', error);
     } finally {
       setLoading(false);

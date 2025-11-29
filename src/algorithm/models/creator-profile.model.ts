@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Represents a creator profile in the algorithm licensing platform.
  * This model contains information about algorithm creators, their expertise,

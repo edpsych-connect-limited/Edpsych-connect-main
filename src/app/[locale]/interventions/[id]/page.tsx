@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Intervention Detail Page
  * View and manage a specific intervention
@@ -60,7 +59,7 @@ export default function InterventionDetailPage({ params }: InterventionDetailPro
           console.error('Failed to load intervention');
           router.push('/interventions');
         }
-      } catch (error) {
+      } catch (_error) {
         console.error('Failed to load intervention:', error);
       } finally {
         setLoading(false);
@@ -85,7 +84,7 @@ export default function InterventionDetailPage({ params }: InterventionDetailPro
       if (response.ok) {
         setIntervention({ ...intervention, status: newStatus });
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to update status:', error);
     }
   };

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * License Types for Research Platform
  * 

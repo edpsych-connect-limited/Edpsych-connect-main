@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -89,7 +88,7 @@ export function SupportChatbot() {
         };
         setMessages(prev => [...prev, botResponse]);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to send message:', error);
       const botResponse: Message = {
         id: (Date.now() + 1).toString(),

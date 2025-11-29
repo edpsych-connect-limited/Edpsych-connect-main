@@ -83,7 +83,7 @@ export async function GET(
     const userRole = session.role;
 
     // Query parameters
-    const { searchParams } = new URL(request.url);
+    const { searchParams: _searchParams } = new URL(request.url);
     // const classId = searchParams.get('classId');
     // const schoolWide = searchParams.get('schoolWide') === 'true';
     // const assigned = searchParams.get('assigned') === 'true'; // For EPs
@@ -145,7 +145,7 @@ export async function GET(
 
     return NextResponse.json(response);
 
-  } catch (error) {
+  } catch (_error) {
     console.error('[Multi-Agency View API] Error generating view:', error);
     return NextResponse.json({
       error: 'Internal server error',

@@ -31,7 +31,7 @@ export function getCookieSettings(): CookieSettings {
     }
 
     return settings;
-  } catch (error) {
+  } catch (_error) {
     console.error('Error reading cookie settings:', error);
     return DEFAULT_COOKIE_SETTINGS;
   }
@@ -49,7 +49,7 @@ export function saveCookieSettings(settings: CookieSettings): void {
     settings.lastUpdated = new Date();
     settings.version = CONSENT_VERSION;
     localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(settings));
-  } catch (error) {
+  } catch (_error) {
     console.error('Error saving cookie settings:', error);
   }
 }

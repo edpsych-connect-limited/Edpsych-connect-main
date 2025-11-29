@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * ORCHESTRATION LAYER - REACT QUERY HOOKS
  *

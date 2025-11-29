@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/cpd/[id]/route.ts
  * PURPOSE: Individual CPD entry management

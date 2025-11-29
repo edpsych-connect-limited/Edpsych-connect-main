@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -67,7 +66,7 @@ export async function POST(request: NextRequest) {
       message: 'If an account exists with this email, you will receive password reset instructions.',
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Forgot Password Error:', error);
     return NextResponse.json(
       { error: 'An unexpected error occurred. Please try again later.' },

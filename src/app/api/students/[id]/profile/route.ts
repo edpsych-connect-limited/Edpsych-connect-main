@@ -343,7 +343,7 @@ export async function GET(
 
     return NextResponse.json(response);
 
-  } catch (error) {
+  } catch (_error) {
     console.error('[Student Profile API] Error retrieving profile:', error);
     return NextResponse.json({
       error: 'Internal server error',
@@ -574,7 +574,7 @@ export async function PATCH(
 
     return NextResponse.json(response);
 
-  } catch (error) {
+  } catch (_error) {
     console.error('[Student Profile API] Error updating profile:', error);
     return NextResponse.json({
       error: 'Internal server error',

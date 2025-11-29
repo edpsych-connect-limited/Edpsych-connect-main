@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -43,7 +42,7 @@ export async function POST(request: NextRequest) {
         },
       }
     );
-  } catch (error) {
+  } catch (_error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json({ error: message }, { status: 500 });
   }
@@ -71,7 +70,7 @@ export async function PATCH(request: NextRequest) {
         },
       }
     );
-  } catch (error) {
+  } catch (_error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json({ error: message }, { status: 500 });
   }

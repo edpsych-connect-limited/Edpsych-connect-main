@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Cookie Consent Context for EdPsych Connect World
  * Provides centralized cookie consent management across the application

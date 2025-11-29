@@ -730,7 +730,7 @@ export class DeploymentPipelineService {
       logger.info(`Deployment completed successfully: ${deployment.id}`);
 
       return deployment;
-    } catch (error) {
+    } catch (_error) {
       deployment.status = 'failed';
       deployment.endTime = new Date();
       deployment.duration = deployment.endTime.getTime() - deployment.startTime.getTime();
@@ -788,7 +788,7 @@ export class DeploymentPipelineService {
         if (deployment.status === 'failed') {
           break;
         }
-      } catch (error) {
+      } catch (_error) {
         logger.error(`Stage ${stage.name} failed:`, error as Error);
 
         deployment.issues.push({

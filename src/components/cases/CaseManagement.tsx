@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Case Management System
  * Task 3.5: Comprehensive Case Tracking & Collaboration
@@ -74,7 +73,7 @@ interface Attachment {
   uploaded_date: string;
 }
 
-interface Milestone {
+interface _Milestone {
   id: string;
   title: string;
   description: string;
@@ -236,7 +235,7 @@ export default function CaseManagement() {
 
       setCases(mockCases);
       setFilteredCases(mockCases);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error loading cases:', error);
     } finally {
       setLoading(false);
@@ -861,7 +860,7 @@ function TimelineEventCard({
   );
 }
 
-function DocumentsTab({ caseItem }: { caseItem: Case }) {
+function DocumentsTab({ caseItem: _caseItem }: { caseItem: Case }) {
   // Mock documents
   const mockDocuments: Attachment[] = [
     {
@@ -933,7 +932,7 @@ function DocumentsTab({ caseItem }: { caseItem: Case }) {
   );
 }
 
-function CollaboratorsTab({ caseItem }: { caseItem: Case }) {
+function CollaboratorsTab({ caseItem: _caseItem }: { caseItem: Case }) {
   // Mock collaborators
   const mockCollaborators: Collaborator[] = [
     {
@@ -1024,7 +1023,7 @@ function CollaboratorsTab({ caseItem }: { caseItem: Case }) {
   );
 }
 
-function NotesTab({ caseItem }: { caseItem: Case }) {
+function NotesTab({ caseItem: _caseItem }: { caseItem: Case }) {
   // Mock notes
   const mockNotes: CaseNote[] = [
     {

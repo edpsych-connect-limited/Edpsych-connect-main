@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -108,7 +107,7 @@ class OrchestratorService {
       const parsedResponse = JSON.parse(cleanResponse) as TutoringResponse;
       return parsedResponse;
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Orchestrator Service Error:', error);
       // Fallback mock response if AI fails
       return this.getFallbackResponse(request);

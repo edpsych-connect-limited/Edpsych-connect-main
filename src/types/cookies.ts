@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Cookie Consent Types for EdPsych Connect World
  * GDPR and CCPA compliant cookie management system

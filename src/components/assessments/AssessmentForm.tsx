@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Assessment Form Component - Enterprise-grade implementation
  * Phase 3.2: Assessment Engine
@@ -116,7 +115,7 @@ export default function AssessmentForm({
           : 'Assessment created successfully!'
       );
       router.push(`/assessments/${result.assessment.id}`);
-    } catch (err) {
+    } catch (_err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
       console.error('Error saving assessment:', err);
     } finally {

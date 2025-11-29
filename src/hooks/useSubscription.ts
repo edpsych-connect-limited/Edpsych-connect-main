@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -159,7 +158,7 @@ export const useSubscription = (): UseSubscriptionReturn => {
           });
         }
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to fetch subscription data:', error);
     } finally {
       setIsLoadingSubscription(false);

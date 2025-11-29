@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/study-buddy/recommendations/route.ts
  * PURPOSE: Study Buddy intelligent recommendation system
@@ -325,7 +324,7 @@ export async function PATCH(request: NextRequest) {
 async function generateInterestBasedRecommendations(
   userId: number,
   learningProfile: any,
-  tenantId: number
+  _tenantId: number
 ): Promise<any[]> {
   const recommendations = [];
   const interestAreas = learningProfile.interest_areas || [];

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -40,7 +39,7 @@ export async function GET() {
     }));
 
     return NextResponse.json({ leaderboard: formattedLeaderboard });
-  } catch (error) {
+  } catch (_error) {
     console.error('Failed to fetch leaderboard:', error);
     return NextResponse.json(
       { error: 'Failed to fetch leaderboard' },

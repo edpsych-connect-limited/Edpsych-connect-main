@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Help Article Detail API
  * Get individual article, track views, handle feedback
@@ -62,7 +61,7 @@ export async function GET(
       },
       relatedArticles,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Failed to fetch article:', error);
     return NextResponse.json(
       { error: 'Failed to fetch article' },
@@ -112,7 +111,7 @@ export async function POST(
       helpful_yes: updated.helpful_yes,
       helpful_no: updated.helpful_no,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Failed to record feedback:', error);
     return NextResponse.json(
       { error: 'Failed to record feedback' },

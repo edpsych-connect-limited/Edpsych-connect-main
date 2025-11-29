@@ -14,8 +14,6 @@
  * - Responsive design
  */
 
-import { logger } from "@/lib/logger";
-
 import React, { useState } from 'react';
 import {
   Brain,

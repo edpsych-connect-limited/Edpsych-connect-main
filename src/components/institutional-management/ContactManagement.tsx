@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -58,7 +57,7 @@ const ContactManagement: React.FC<ContactManagementProps> = ({
       
       const data = await response.json();
       setContacts(data);
-    } catch (err) {
+    } catch (_err) {
       console.error('Error fetching contacts:', err);
       setError(err instanceof Error ? err.message : 'An error occurred while loading contacts');
     } finally {
@@ -127,7 +126,7 @@ const ContactManagement: React.FC<ContactManagementProps> = ({
       
       setShowAddModal(false);
       resetFormData();
-    } catch (err) {
+    } catch (_err) {
       console.error('Error adding contact:', err);
       setError(err instanceof Error ? err.message : 'An error occurred while adding the contact');
     }
@@ -172,7 +171,7 @@ const ContactManagement: React.FC<ContactManagementProps> = ({
       
       setShowEditModal(false);
       setCurrentContact(null);
-    } catch (err) {
+    } catch (_err) {
       console.error('Error updating contact:', err);
       setError(err instanceof Error ? err.message : 'An error occurred while updating the contact');
     }
@@ -194,7 +193,7 @@ const ContactManagement: React.FC<ContactManagementProps> = ({
 
       // Remove from state
       setContacts(prev => prev.filter(contact => contact.id !== id));
-    } catch (err) {
+    } catch (_err) {
       console.error('Error deleting contact:', err);
       setError(err instanceof Error ? err.message : 'An error occurred while deleting the contact');
     }
@@ -215,7 +214,7 @@ const ContactManagement: React.FC<ContactManagementProps> = ({
         ...contact,
         isPrimary: contact.id === id
       })));
-    } catch (err) {
+    } catch (_err) {
       console.error('Error setting primary contact:', err);
       setError(err instanceof Error ? err.message : 'An error occurred while setting the primary contact');
     }

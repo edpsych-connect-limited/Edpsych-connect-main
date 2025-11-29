@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -66,7 +65,7 @@ export async function POST(request: NextRequest) {
       message: 'Password has been reset successfully. You can now login with your new password.',
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Reset Password Error:', error);
     return NextResponse.json(
       { error: 'An unexpected error occurred. Please try again later.' },

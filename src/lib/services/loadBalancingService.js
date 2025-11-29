@@ -64,7 +64,7 @@ class LoadBalancingService {
       }
 
       logger.info('Load balancing service initialized');
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error initializing load balancing service:', error);
     }
   }
@@ -119,7 +119,7 @@ class LoadBalancingService {
 
       logger.info(`Added server: ${serverId} (${host}:${port})`);
       return serverId;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error adding server:', error);
       throw error;
     }
@@ -157,7 +157,7 @@ class LoadBalancingService {
       }, 300000); // 5 minutes
 
       return true;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error removing server:', error);
       return false;
     }
@@ -227,7 +227,7 @@ class LoadBalancingService {
       this.activeConnections.set(selectedServer.id, activeConns + 1);
 
       return selectedServer;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error selecting server:', error);
       return null;
     }
@@ -266,7 +266,7 @@ class LoadBalancingService {
         }
       }
 
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error releasing connection:', error);
     }
   }
@@ -308,7 +308,7 @@ class LoadBalancingService {
       };
 
       return stats;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error getting statistics:', error);
       throw error;
     }
@@ -341,7 +341,7 @@ class LoadBalancingService {
       }
 
       return addedServers;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error scaling up:', error);
       throw error;
     }
@@ -369,7 +369,7 @@ class LoadBalancingService {
       }
 
       return removedServers;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error scaling down:', error);
       throw error;
     }
@@ -394,7 +394,7 @@ class LoadBalancingService {
       }
 
       logger.info(`Set up ${defaultServers.length} default servers`);
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error setting up default servers:', error);
     }
   }
@@ -410,7 +410,7 @@ class LoadBalancingService {
         .map(server => this._checkServerHealth(server));
 
       await Promise.allSettled(healthCheckPromises);
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error performing health checks:', error);
     }
   }
@@ -445,7 +445,7 @@ class LoadBalancingService {
         }
       }
 
-    } catch (error) {
+    } catch (_error) {
       logger.error(`Health check failed for server ${server.id}:`, error);
       server.consecutiveFailures++;
       server.status = server.consecutiveFailures >= 3 ? 'unhealthy' : server.status;
@@ -498,7 +498,7 @@ class LoadBalancingService {
         }
       }
 
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error checking scaling needs:', error);
     }
   }
@@ -516,7 +516,7 @@ class LoadBalancingService {
       this.geoRoutes.set('AS', ['ap-southeast-1', 'ap-northeast-1']); // Asia
 
       logger.info('Geo-routing configured');
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error setting up geo-routing:', error);
     }
   }

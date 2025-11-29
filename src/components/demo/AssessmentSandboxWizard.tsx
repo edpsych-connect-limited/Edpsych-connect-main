@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Assessment Sandbox Wizard
  * A client-side only version of the Assessment Wizard for demos.
@@ -317,7 +316,7 @@ export default function AssessmentSandboxWizard() {
 
       alert('Demo report generated! Check your downloads.');
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to generate report:', error);
       alert('Failed to generate report.');
     } finally {

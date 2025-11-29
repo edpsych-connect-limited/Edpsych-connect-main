@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Blog Post Detail API
  * Get individual post, track views, handle comments
@@ -75,7 +74,7 @@ export async function GET(
       },
       relatedPosts,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Failed to fetch blog post:', error);
     return NextResponse.json(
       { error: 'Failed to fetch blog post' },
@@ -133,7 +132,7 @@ export async function POST(
         created_at: comment.created_at,
       },
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Failed to submit comment:', error);
     return NextResponse.json(
       { error: 'Failed to submit comment' },

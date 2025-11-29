@@ -145,7 +145,7 @@ export default function IntegrationDashboard() {
       const data = await res.json();
       setLogs(data.logs);
       setShowLogs(true);
-    } catch (err) {
+    } catch (_err) {
       console.error('Failed to fetch logs', err);
     }
   };

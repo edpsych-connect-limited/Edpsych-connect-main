@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Assessment Administration Component
  * Task 3.2.2: Assessment Administration Interface
@@ -18,7 +17,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   AssessmentTemplate,
-  AssessmentSection,
+  AssessmentSection as _AssessmentSection,
   AssessmentItem,
   getAssessmentById,
   ASSESSMENT_LIBRARY,
@@ -72,7 +71,7 @@ export default function AssessmentAdministration({
 
   // State
   const [template, setTemplate] = useState<AssessmentTemplate | null>(null);
-  const [instance, setInstance] = useState<AssessmentInstance | null>(null);
+  const [_instance, setInstance] = useState<AssessmentInstance | null>(null);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [responses, setResponses] = useState<Map<string, AssessmentResponse>>(new Map());
   const [startTime, setStartTime] = useState<Date | null>(null);
@@ -130,7 +129,7 @@ export default function AssessmentAdministration({
         setEnvironmentalFactors(data.instance.environmental_factors || '');
         setBehavioralObservations(data.instance.behavioral_observations || '');
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error loading instance:', error);
     } finally {
       setLoading(false);
@@ -236,7 +235,7 @@ export default function AssessmentAdministration({
         const error = await response.json();
         alert(`Failed to save: ${error.message}`);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error saving assessment:', error);
       alert('An error occurred while saving');
     } finally {

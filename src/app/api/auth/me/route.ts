@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -41,7 +40,7 @@ export async function GET(request: NextRequest) {
         sessionId: session.sessionId,
       },
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('User verification error:', error);
     return NextResponse.json(
       {

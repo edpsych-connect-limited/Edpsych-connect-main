@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * AI Service Core Module
  * 
@@ -48,7 +47,7 @@ try {
       baseURL: "https://api.x.ai/v1",
     });
   }
-} catch (error) {
+} catch (_error) {
   console.error('Error initializing AI clients:', error);
 }
 
@@ -120,7 +119,7 @@ export async function callOpenAI(params: OpenAIParams): Promise<AIResponse> {
       },
       provider: 'openai',
     };
-  } catch (error) {
+  } catch (_error) {
     console.error('OpenAI API Error:', error);
     throw error;
   }
@@ -166,7 +165,7 @@ export async function callAnthropic(params: AnthropicParams): Promise<AIResponse
       },
       provider: 'anthropic',
     };
-  } catch (error) {
+  } catch (_error) {
     console.error('Anthropic API Error:', error);
     throw error;
   }
@@ -201,7 +200,7 @@ export async function callXAI(params: OpenAIParams): Promise<AIResponse> {
       },
       provider: 'xai',
     };
-  } catch (error) {
+  } catch (_error) {
     console.error('xAI API Error:', error);
     throw error;
   }
@@ -304,7 +303,7 @@ export class AIService {
       
       // Fallback if no clients are available
       throw new Error('No AI service providers are available');
-    } catch (error) {
+    } catch (_error) {
       console.error('Error generating AI response:', error);
       return { content: 'Error generating response. Please try again later.' };
     }

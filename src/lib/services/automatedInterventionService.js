@@ -46,7 +46,7 @@ class AutomatedInterventionService {
       this._scheduleEffectivenessAnalysis();
 
       logger.info('Automated intervention service initialised');
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error initialising automated intervention service:', error);
     }
   }
@@ -97,7 +97,7 @@ class AutomatedInterventionService {
         scheduledFor: scheduledIntervention.scheduledFor,
         expectedImpact: scheduledIntervention.expectedImpact
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error triggering intervention:', error);
       throw error;
     }
@@ -149,7 +149,7 @@ class AutomatedInterventionService {
 
       logger.info(`Created intervention template: ${templateId}`);
       return templateId;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error creating intervention template:', error);
       throw error;
     }
@@ -191,7 +191,7 @@ class AutomatedInterventionService {
         actionsExecuted: deliveryResult.actionsExecuted,
         followUpScheduled: intervention.followUpRequired
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error delivering intervention:', error);
       throw error;
     }
@@ -226,7 +226,7 @@ class AutomatedInterventionService {
         insights,
         recommendations: this._generateEffectivenessRecommendations(effectiveness)
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error tracking intervention effectiveness:', error);
       throw error;
     }
@@ -272,7 +272,7 @@ class AutomatedInterventionService {
       analytics.recommendations = this._generateInterventionRecommendations(analytics);
 
       return analytics;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error getting intervention analytics:', error);
       throw error;
     }
@@ -313,7 +313,7 @@ class AutomatedInterventionService {
       };
 
       return result;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error optimising intervention strategies:', error);
       throw error;
     }
@@ -379,7 +379,7 @@ class AutomatedInterventionService {
       }
 
       logger.info(`Loaded ${defaultTemplates.length} intervention templates`);
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error loading intervention templates:', error);
     }
   }
@@ -406,7 +406,7 @@ class AutomatedInterventionService {
     setInterval(async () => {
       try {
         await this._analyseInterventionEffectiveness();
-      } catch (error) {
+      } catch (_error) {
         logger.error('Scheduled effectiveness analysis failed:', error);
       }
     }, 24 * 60 * 60 * 1000); // Daily
@@ -562,7 +562,7 @@ class AutomatedInterventionService {
           results.errors.push(actionResult.error);
           results.success = false;
         }
-      } catch (error) {
+      } catch (_error) {
         results.errors.push(error.message);
         results.success = false;
       }

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -68,7 +67,7 @@ export default function AgentPerformanceAnalytics() {
       }
       const data = await response.json();
       setAgents(data.agents || []);
-    } catch (err) {
+    } catch (_err) {
       setError(err instanceof Error ? err.message : 'Unknown error');
     } finally {
       setLoading(false);

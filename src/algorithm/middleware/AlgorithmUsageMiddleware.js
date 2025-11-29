@@ -99,7 +99,7 @@ class AlgorithmUsageMiddleware {
       // License is valid
       this.licenseValidated = true;
       return true;
-    } catch (error) {
+    } catch (_error) {
       this.executionStatus.resultStatus = 'error';
       this.executionStatus.errorMessage = error.message;
       this.executionStatus.errorType = 'LicenseValidationError';
@@ -220,7 +220,7 @@ class AlgorithmUsageMiddleware {
 
       // Record usage via the service
       return await AlgorithmUsageService.recordUsage(usageData);
-    } catch (error) {
+    } catch (_error) {
       // Log but don't throw errors from usage recording
       console.error('Failed to record algorithm usage:', error);
       return null;
@@ -244,7 +244,7 @@ class AlgorithmUsageMiddleware {
 
         // Run post-execution middleware
         return await this.afterExecution(result);
-      } catch (error) {
+      } catch (_error) {
         // Handle any errors
         await this.handleError(error);
       }
@@ -309,7 +309,7 @@ class AlgorithmUsageMiddleware {
 
         // Continue to the next middleware
         next();
-      } catch (error) {
+      } catch (_error) {
         // Handle errors in the middleware itself
         await this.handleError(error);
         res.status(403).json({ error: error.message });
@@ -384,7 +384,7 @@ export function withUsageTracking(fn, options) {
       await middleware.beforeExecution();
       const result = await fn(...args);
       return await middleware.afterExecution(result);
-    } catch (error) {
+    } catch (_error) {
       await middleware.handleError(error);
     }
   };

@@ -171,7 +171,7 @@ export class AICostManager {
       }
 
       return { allowed: true };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error checking cost limits:', error as Error);
       // Allow request on error to avoid blocking legitimate usage
       return { allowed: true };
@@ -214,7 +214,7 @@ export class AICostManager {
         }
       });
 
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error recording AI request:', error as Error);
     }
   }

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/lib/reports/report-generator.ts
  * PURPOSE: Professional report generation for Educational Psychologists

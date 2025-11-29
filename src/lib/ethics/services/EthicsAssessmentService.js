@@ -6,7 +6,6 @@
  */
 import { logger } from '@/lib/logger';
 
-
 import EthicsAssessment from '../models/EthicsAssessment';
 
 class EthicsAssessmentService {
@@ -34,7 +33,7 @@ class EthicsAssessmentService {
   async getAssessment(assessmentId) {
     try {
       return await this.dataAccessService.getAssessmentById(assessmentId);
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to get assessment ${assessmentId}`, error);
       throw error;
     }
@@ -50,7 +49,7 @@ class EthicsAssessmentService {
   async getAssessments(filters = {}, pagination = {}, sort = {}) {
     try {
       return await this.dataAccessService.getAssessments(filters, pagination, sort);
-    } catch (error) {
+    } catch (_error) {
       this.logger.error('Failed to get assessments', error);
       throw error;
     }
@@ -86,7 +85,7 @@ class EthicsAssessmentService {
       await this.notifyAssessmentParticipants(createdAssessment, 'created');
       
       return createdAssessment;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error('Failed to create ethics assessment', error);
       throw error;
     }
@@ -121,7 +120,7 @@ class EthicsAssessmentService {
       }
       
       return updatedAssessment;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to update ethics assessment ${assessment.id}`, error);
       throw error;
     }
@@ -170,7 +169,7 @@ class EthicsAssessmentService {
       await this.notifyAssessmentParticipants(updatedAssessment, 'submitted_for_review');
       
       return updatedAssessment;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to submit ethics assessment ${assessmentId} for review`, error);
       throw error;
     }
@@ -246,7 +245,7 @@ class EthicsAssessmentService {
       }
       
       return approvedAssessment;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to approve ethics assessment ${assessmentId}`, error);
       throw error;
     }
@@ -292,7 +291,7 @@ class EthicsAssessmentService {
       });
       
       return updatedAssessment;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to request revisions for ethics assessment ${assessmentId}`, error);
       throw error;
     }
@@ -330,7 +329,7 @@ class EthicsAssessmentService {
       });
       
       return createdVersion;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to create new version of ethics assessment ${assessmentId}`, error);
       throw error;
     }
@@ -365,7 +364,7 @@ class EthicsAssessmentService {
       
       this.logger.info(`Added question to ethics assessment ${assessmentId}`);
       return updatedAssessment;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to add question to ethics assessment ${assessmentId}`, error);
       throw error;
     }
@@ -400,7 +399,7 @@ class EthicsAssessmentService {
       
       this.logger.info(`Added ethical risk to ethics assessment ${assessmentId}`);
       return updatedAssessment;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to add ethical risk to ethics assessment ${assessmentId}`, error);
       throw error;
     }
@@ -438,7 +437,7 @@ class EthicsAssessmentService {
       
       this.logger.info(`Added mitigation to ethics assessment ${assessmentId}`);
       return updatedAssessment;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to add mitigation to ethics assessment ${assessmentId}`, error);
       throw error;
     }
@@ -470,7 +469,7 @@ class EthicsAssessmentService {
       
       this.logger.info(`Updated mitigation status in ethics assessment ${assessmentId}`);
       return updatedAssessment;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to update mitigation status in ethics assessment ${assessmentId}`, error);
       throw error;
     }
@@ -505,7 +504,7 @@ class EthicsAssessmentService {
       
       this.logger.info(`Added recommended monitor to ethics assessment ${assessmentId}`);
       return updatedAssessment;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to add recommended monitor to ethics assessment ${assessmentId}`, error);
       throw error;
     }
@@ -562,7 +561,7 @@ class EthicsAssessmentService {
       }
       
       return createdMonitors;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to create recommended monitors for assessment ${assessment.id}`, error);
       // Don't throw here to avoid disrupting the main flow
       return [];
@@ -592,7 +591,7 @@ class EthicsAssessmentService {
       
       this.logger.info(`Generated ${format} report ${reportId} for ethics assessment ${assessmentId}`);
       return reportId;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to generate report for ethics assessment ${assessmentId}`, error);
       throw error;
     }
@@ -634,7 +633,7 @@ class EthicsAssessmentService {
       }
       
       this.logger.info(`Sent ${eventType} notifications for assessment ${assessment.id}`);
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to send notifications for assessment ${assessment.id}`, error);
       // Don't throw here to avoid disrupting the main flow
     }

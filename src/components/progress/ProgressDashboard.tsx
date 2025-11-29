@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Progress Tracking Dashboard
  * Comprehensive view of student progress across all interventions
@@ -117,7 +116,7 @@ export default function ProgressDashboard({
 
         setAlerts(mappedAlerts);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to load progress data:', error);
       // Keep using empty arrays on error
       setInterventions([]);

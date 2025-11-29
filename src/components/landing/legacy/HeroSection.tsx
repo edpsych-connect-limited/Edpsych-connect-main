@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -81,7 +80,7 @@ const HeroSection: React.FC = () => {
       setTimeSavings(analysis.timeSavings.hoursPerMonth);
       setIsCalculating(false);
       setShowProblemSolver(true);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error analyzing challenge:', error);
       setIsCalculating(false);
       const mockAnalysis = {

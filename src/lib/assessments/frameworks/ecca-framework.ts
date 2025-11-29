@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * EdPsych Connect Cognitive Assessment (ECCA)
  * Version 1.0

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * License Controller
  * 
@@ -46,7 +45,7 @@ router.post('/licenses', async (req: Request, res: Response) => {
       success: true,
       data: license
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Create license error:', error);
     return res.status(500).json({
       success: false,
@@ -80,7 +79,7 @@ router.post('/licenses/validate', async (req: Request, res: Response) => {
         valid: isValid
       }
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Validate license error:', error);
     return res.status(500).json({
       success: false,
@@ -115,7 +114,7 @@ router.get('/licenses/:id',
         success: true,
         data: license
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Get license error:', error);
       return res.status(500).json({
         success: false,
@@ -156,7 +155,7 @@ router.put('/licenses/:id',
         success: true,
         data: license
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Update license error:', error);
       return res.status(500).json({
         success: false,
@@ -195,7 +194,7 @@ router.post('/licenses/:id/deactivate',
         success: true,
         message: 'License deactivated successfully'
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Deactivate license error:', error);
       return res.status(500).json({
         success: false,
@@ -242,7 +241,7 @@ router.post('/licenses/:id/renew',
         success: true,
         data: license
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Renew license error:', error);
       return res.status(500).json({
         success: false,
@@ -289,7 +288,7 @@ router.post('/licenses/:id/upgrade',
         success: true,
         data: license
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Upgrade license error:', error);
       return res.status(500).json({
         success: false,
@@ -321,7 +320,7 @@ router.get('/organizations/:organizationId/licenses',
         success: true,
         data: licenses
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Get organization licenses error:', error);
       return res.status(500).json({
         success: false,
@@ -351,7 +350,7 @@ router.get('/licenses/report',
         success: true,
         data: report
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Generate license report error:', error);
       return res.status(500).json({
         success: false,
@@ -384,7 +383,7 @@ router.get('/research/data',
           timestamp: new Date()
         }
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Research data access error:', error);
       return res.status(500).json({
         success: false,
@@ -420,7 +419,7 @@ router.post('/research/ml/run',
           }
         }
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Run machine learning model error:', error);
       return res.status(500).json({
         success: false,
@@ -451,7 +450,7 @@ router.get('/research/nhs-digital/data',
           timestamp: new Date()
         }
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('NHS Digital data access error:', error);
       return res.status(500).json({
         success: false,
@@ -483,7 +482,7 @@ router.post('/research/data/export',
           timestamp: new Date()
         }
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Export research data error:', error);
       return res.status(500).json({
         success: false,
@@ -516,7 +515,7 @@ router.post('/research/ai/train',
           timestamp: new Date()
         }
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Train custom AI model error:', error);
       return res.status(500).json({
         success: false,

@@ -76,7 +76,7 @@ const fetchWithTimeout = async (url: string, options: RequestInit = {}) => {
     const response = await fetch(url, { ...options, signal });
     clearTimeout(timeout);
     return response;
-  } catch (error) {
+  } catch (_error) {
     clearTimeout(timeout);
     throw error;
   }
@@ -97,7 +97,7 @@ const retryFetch = async <T>(
     try {
       const res = await fetchFn();
       return await handleResponse(res, endpoint);
-    } catch (error) {
+    } catch (_error) {
       lastError = error;
       retries++;
 
@@ -122,7 +122,7 @@ export const GamificationInterface = {
         endpoint,
         () => fetchWithTimeout(endpoint, { credentials: "include" })
       );
-    } catch (error) {
+    } catch (_error) {
       logger.warn("Falling back to AI-generated challenges", { error });
       const response = await aiService.processRequest({
         prompt: "Generate 3 personalized gamification challenges for educational psychology learners.",
@@ -149,7 +149,7 @@ export const GamificationInterface = {
         endpoint,
         () => fetchWithTimeout(endpoint, { credentials: "include" })
       );
-    } catch (error) {
+    } catch (_error) {
       logger.warn("Falling back to AI-generated achievements", { error });
       const response = await aiService.processRequest({
         prompt: "Generate 3 educational gamification achievements with title, description, icon, and rarity.",
@@ -172,7 +172,7 @@ export const GamificationInterface = {
         endpoint,
         () => fetchWithTimeout(endpoint, { credentials: "include" })
       );
-    } catch (error) {
+    } catch (_error) {
       logger.warn("Falling back to AI-generated leaderboard", { error });
       const response = await aiService.processRequest({
         prompt: "Generate a leaderboard with 5 fictional educational psychology learners including id, username, score, level, institution, and rank.",
@@ -201,7 +201,7 @@ export const GamificationInterface = {
           }
         })
       );
-    } catch (error) {
+    } catch (_error) {
       logger.error(`Failed to complete challenge ${id}`, { error });
       throw new Error("Unable to complete challenge. Please try again later.");
     }
@@ -215,7 +215,7 @@ export const GamificationInterface = {
         credentials: "include"
       });
       return res.ok;
-    } catch (error) {
+    } catch (_error) {
       logger.error("Gamification API health check failed", { error });
       return false;
     }

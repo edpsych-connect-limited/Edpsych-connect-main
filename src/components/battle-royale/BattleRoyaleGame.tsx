@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -293,7 +292,7 @@ export const BattleRoyaleGame: React.FC = () => {
   const [highScore, setHighScore] = useState(0);
   const [bestStreak, setBestStreak] = useState(0);
   const keysPressed = useRef<Set<string>>(new Set());
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const _audioRef = useRef<HTMLAudioElement | null>(null);
   
   // Sound effects (using Web Audio API simulation) - defined first as it's used by checkAchievements
   const playSound = useCallback((type: 'correct' | 'wrong' | 'pickup' | 'victory' | 'streak') => {

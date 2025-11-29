@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -51,7 +50,7 @@ export class AuditLogger {
       }).catch(err => {
         console.error('Failed to write audit log:', err);
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to initiate audit log:', error);
     }
   }

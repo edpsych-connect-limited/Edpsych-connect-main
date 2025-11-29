@@ -57,7 +57,7 @@ export class BetaAccessService {
       });
       
       return code;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error generating beta access code');
       throw new Error(`Failed to generate beta access code: ${String(error)}`);
     }
@@ -119,7 +119,7 @@ export class BetaAccessService {
           metadata: accessCode.metadata as Record<string, any>
         }
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error validating beta access code', {
         code,
         error: error instanceof Error ? error.message : String(error)
@@ -168,7 +168,7 @@ export class BetaAccessService {
           remainingUses: updatedCode.maxUses - updatedCode.current_uses
         }
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error using beta access code', {
         code,
         error: error instanceof Error ? error.message : String(error)
@@ -214,7 +214,7 @@ export class BetaAccessService {
       });
       
       return { success: true };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error recording access code usage', {
         code,
         id,
@@ -248,7 +248,7 @@ export class BetaAccessService {
       const activeCodes = potentialCodes.filter(code => code.maxUses > code.current_uses);
       
       return activeCodes;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error fetching active beta access codes', {
         error: error instanceof Error ? error.message : String(error)
       });

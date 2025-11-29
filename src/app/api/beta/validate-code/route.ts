@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -92,7 +91,7 @@ export async function POST(request: NextRequest) {
       role: betaCode.role,
       message: 'Beta code validated successfully',
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Beta code validation error:', error);
     return NextResponse.json(
       { valid: false, error: 'Failed to validate beta code' },
@@ -159,7 +158,7 @@ export async function PUT(request: NextRequest) {
       message: 'Beta code usage recorded',
       remainingUses: betaCode.remainingUses - 1,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Beta code usage recording error:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to record usage' },

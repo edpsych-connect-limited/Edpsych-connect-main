@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Runtime Type Validator
  * Validates type safety at runtime and catches type narrowing errors
@@ -74,7 +73,7 @@ export class RuntimeTypeValidator {
           typeGuardFailures: this.errors.filter(e => e.type === 'TYPE_GUARD_FAILURE').length
         }
       };
-    } catch (error) {
+    } catch (_error) {
       const msg = error instanceof Error ? error.message : String(error);
       this.errors.push({
         type: 'UNSAFE_CAST',

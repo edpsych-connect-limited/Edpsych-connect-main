@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -38,7 +37,7 @@ export default function LAAPanelPage() {
           const result = await response.json();
           setData(result);
         }
-      } catch (error) {
+      } catch (_error) {
         console.error('Failed to fetch dashboard data', error);
       } finally {
         setLoading(false);
@@ -213,7 +212,7 @@ export default function LAAPanelPage() {
 
                 <div className="space-y-4">
                   {timelineCases.map((c) => {
-                    const progressStyle = { width: `${(c.week / 20) * 100}%` };
+                    const _progressStyle = { width: `${(c.week / 20) * 100}%` };
                     return (
                     <div key={c.id} className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
                       <div className="flex justify-between items-start mb-4">

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -35,7 +34,7 @@ const GameTemplateManager: React.FC = () => {
         if (!res.ok) throw new Error('Failed to fetch templates');
         const data = await res.json();
         setTemplates(data);
-      } catch (err) {
+      } catch (_err) {
         setError(err instanceof Error ? err.message : 'Failed to fetch templates');
       } finally {
         setLoading(false);
@@ -58,7 +57,7 @@ const GameTemplateManager: React.FC = () => {
       });
       if (!res.ok) throw new Error('Failed to delete template');
       setTemplates((prev) => prev.filter((t) => t.id !== id));
-    } catch (err) {
+    } catch (_err) {
       setError(err instanceof Error ? err.message : 'Failed to delete template');
     }
   };

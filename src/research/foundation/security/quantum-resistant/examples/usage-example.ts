@@ -221,7 +221,7 @@ async function main() {
     await demoLongTermDataStorage();
     
     logger.debug('\n\nAll examples completed successfully.');
-  } catch (error) {
+  } catch (_error) {
     console.error('Error running examples:', error);
   }
 }

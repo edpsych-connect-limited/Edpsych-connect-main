@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Beta Registration API
  * 
@@ -197,7 +196,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Beta registration error:', error);
     return NextResponse.json(
       { success: false, error: 'Registration failed. Please try again.' },

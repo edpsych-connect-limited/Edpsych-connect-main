@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Intervention Recommendation Engine
  * Task 3.3.2: AI-Powered Recommendations (Backend Only - Never Exposed to UI)

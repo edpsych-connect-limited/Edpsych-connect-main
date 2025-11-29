@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Case Management Component
  * Comprehensive case management for Educational Psychology work
@@ -69,7 +68,7 @@ interface StakeholderInfo {
 
 export default function CaseManager({
   caseId,
-  tenantId,
+  tenantId: _tenantId,
   onSave,
   onCancel,
   initialData,
@@ -99,7 +98,7 @@ export default function CaseManager({
     setSaving(true);
     try {
       await onSave(caseData as CaseData);
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to save case:', error);
       alert('Failed to save case. Please try again.');
     } finally {

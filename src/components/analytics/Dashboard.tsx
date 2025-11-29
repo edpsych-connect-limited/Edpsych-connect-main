@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -78,7 +77,7 @@ export default function Dashboard({ dashboardId = 'default' }: DashboardProps) {
     try {
       const dashboardData = analyticsService.getDashboard(dashboardId);
       setDashboard(dashboardData);
-    } catch (error) {
+    } catch (_error) {
       logError(error as Error, { component: 'Dashboard', operation: 'loadDashboard' });
     } finally {
       setLoading(false);

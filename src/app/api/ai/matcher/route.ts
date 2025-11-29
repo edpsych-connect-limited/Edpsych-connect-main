@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * AI Intelligent Problem Matcher API
  * Exposes natural language problem → solution matching
@@ -28,7 +27,7 @@ export async function POST(request: NextRequest) {
       success: true,
       analysis
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('AI Problem Matcher API error:', error);
     return NextResponse.json(
       { error: 'Failed to analyze problem' },
@@ -57,7 +56,7 @@ export async function GET(request: NextRequest) {
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (_error) {
     console.error('AI Problem Matcher API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve problem matcher data' },

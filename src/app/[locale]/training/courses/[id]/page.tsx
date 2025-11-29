@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -98,7 +97,7 @@ export default function CourseDetailPage() {
         
         const courseData = await response.json();
         setCourse(courseData);
-      } catch (error) {
+      } catch (_error) {
         console.error('Error loading course:', error);
       } finally {
         setLoading(false);
@@ -128,7 +127,7 @@ export default function CourseDetailPage() {
       if (course) {
         setCourse({ ...course, enrolled: true, progress: 0 });
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error enrolling in course:', error);
       alert('Failed to enroll in course. Please try again.');
     } finally {

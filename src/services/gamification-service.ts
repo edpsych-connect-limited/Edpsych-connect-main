@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Revolutionary Battle Royale Gamification Service for EdPsych Connect World
  * The most engaging educational gaming system ever created!

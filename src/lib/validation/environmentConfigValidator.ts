@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/lib/validation/environmentConfigValidator.ts
  * PURPOSE: Validate environment variables and build-time configuration
@@ -122,7 +121,7 @@ export class EnvironmentConfigValidator {
         missingEnvVars,
         unsafePatterns
       );
-    } catch (error) {
+    } catch (_error) {
       console.error(`Error validating ${filePath}:`, error);
     }
 

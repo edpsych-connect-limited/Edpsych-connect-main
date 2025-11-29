@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Security Scanner
  * Detects security vulnerabilities in TypeScript code
@@ -131,7 +130,7 @@ export class SecurityScanner {
       this.filesScanned++;
 
       return this.generateReport();
-    } catch (error) {
+    } catch (_error) {
       const msg = error instanceof Error ? error.message : String(error);
       this.issues.push({
         type: 'SCAN_ERROR',
@@ -167,7 +166,7 @@ export class SecurityScanner {
 
       this.walkDirectory(dirPath, extensions);
       return this.generateReport();
-    } catch (error) {
+    } catch (_error) {
       const msg = error instanceof Error ? error.message : String(error);
       this.issues.push({
         type: 'SCAN_ERROR',

@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FHIR Resource Mappers for EdPsych Connect
  * 

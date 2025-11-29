@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Intelligent Navigation & Support Service for EdPsych Connect World
  * Makes the platform effortless to use with AI-powered guidance

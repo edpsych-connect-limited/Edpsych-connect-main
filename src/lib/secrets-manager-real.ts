@@ -67,7 +67,7 @@ class SecretsManagerService {
         throw new Error('Encryption key must be 32 bytes (256 bits) for AES-256');
       }
       this.logger.info('Encryption key initialized successfully');
-    } catch (error) {
+    } catch (_error) {
       this.logger.error('Failed to initialize encryption key:', error);
       this.config.encryptionEnabled = false;
     }
@@ -112,7 +112,7 @@ class SecretsManagerService {
 
       return processedValue;
 
-    } catch (error) {
+    } catch (_error) {
       this.logger.error('Failed to retrieve secret', {
         secretName,
         error: error instanceof Error ? error.message : 'Unknown error'
@@ -300,7 +300,7 @@ class SecretsManagerService {
 
       return isValid;
 
-    } catch (error) {
+    } catch (_error) {
       this.logger.error('Secret validation failed', {
         secretName,
         error: error instanceof Error ? error.message : 'Unknown error'
@@ -359,7 +359,7 @@ class SecretsManagerService {
       if (typeof value === 'string') {
         try {
           decrypted[key] = this.decryptData(value);
-        } catch (error) {
+        } catch (_error) {
           this.logger.warn(`Failed to decrypt ${key}, using raw value:`, error);
           decrypted[key] = value; // Fallback to raw value
         }
@@ -406,7 +406,7 @@ class SecretsManagerService {
       decrypted += decipher.final('utf8');
 
       return decrypted;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error('Decryption failed:', error);
       throw new Error('Failed to decrypt data');
     }
@@ -440,7 +440,7 @@ class SecretsManagerService {
         }
       };
 
-    } catch (error) {
+    } catch (_error) {
       return {
         status: 'unhealthy',
         details: {
@@ -464,7 +464,7 @@ class SecretsManagerService {
         user: process.env.USER || 'system',
         details
       });
-    } catch (error) {
+    } catch (_error) {
       logger.error('Audit logging failed:', error);
     }
   }
@@ -511,7 +511,7 @@ export async function initializeSecretsManager(): Promise<void> {
       encryptionKeyStatus: secretsManager['encryptionKey'] ? 'initialized' : 'not found'
     });
 
-  } catch (error) {
+  } catch (_error) {
     const err = error instanceof Error ? error : new Error('Unknown error');
     logger.error('Failed to initialize environment-based secrets manager', err);
 
@@ -559,7 +559,7 @@ export async function loadSecretsToEnvironment(): Promise<void> {
       process.env.MONGODB_URI = mongoUrl;
     }
 
-  } catch (error) {
+  } catch (_error) {
     logger.error('Failed to load secrets to environment:', error);
     throw new Error('Secrets loading failed');
   }

@@ -78,7 +78,7 @@ const api = {
       if (!response.ok) return [];
       const data = await response.json();
       return data.leaderboard || [];
-    } catch (error) {
+    } catch (_error) {
       logger.error('Failed to fetch leaderboard', error);
       return [];
     }
@@ -93,7 +93,7 @@ const api = {
         body: JSON.stringify({ gameMode })
       });
       return await response.json();
-    } catch (error) {
+    } catch (_error) {
       logger.error('Failed to join queue', error);
       throw error;
     }

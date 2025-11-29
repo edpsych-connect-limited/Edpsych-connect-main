@@ -8,8 +8,8 @@
 
 // Universal logger that works in both browser and server environments
 
-// Check if we're in a browser environment
-const isBrowser = typeof window !== 'undefined';
+// Check if we're in a browser environment (reserved for future use)
+const _isBrowser = typeof window !== 'undefined';
 
 // Simple console-based logger that works everywhere
 const consoleLogger = {

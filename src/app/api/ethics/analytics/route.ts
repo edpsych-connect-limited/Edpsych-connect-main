@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Ethics Analytics API
  * Get analytics and metrics for the ethics monitoring system - Database-backed
@@ -174,7 +173,7 @@ export async function GET(request: NextRequest) {
     };
 
     return NextResponse.json(analytics);
-  } catch (error) {
+  } catch (_error) {
     console.error('Ethics Analytics API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve analytics' },

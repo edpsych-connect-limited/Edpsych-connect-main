@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * User role types for the platform
  */

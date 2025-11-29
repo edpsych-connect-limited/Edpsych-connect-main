@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Interventions Management Page
  * List, filter, and manage all interventions
@@ -56,7 +55,7 @@ export default function InterventionsPage() {
         const data = await response.json();
         setInterventions(data.interventions || []);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to load interventions:', error);
     } finally {
       setLoading(false);

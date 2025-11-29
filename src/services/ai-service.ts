@@ -251,7 +251,7 @@ export class AIService {
         insights: parsedResponse.insights || [response.response],
         rawAnalysis: response.response
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error analyzing assessment results:', error as Error);
       throw new Error('Failed to analyze assessment results');
     }
@@ -305,7 +305,7 @@ export class AIService {
         recommendations: [response.response],
         resources: resources
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error generating recommendations:', error as Error);
       throw new Error('Failed to generate recommendations');
     }
@@ -343,7 +343,7 @@ export class AIService {
         trajectory: response.response,
         confidence: dataCompleteness
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error predicting student trajectory:', error as Error);
       throw new Error('Failed to predict student trajectory');
     }
@@ -390,7 +390,7 @@ export class AIService {
         analysis: response.response,
         confidence: student ? 0.85 : 0.6
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error identifying learning difficulties:', error as Error);
       throw new Error('Failed to identify learning difficulties');
     }
@@ -436,7 +436,7 @@ export class AIService {
         plan: response.response,
         resources: resources
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error generating intervention plan:', error as Error);
       throw new Error('Failed to generate intervention plan');
     }
@@ -505,7 +505,7 @@ export class AIService {
       });
 
       return result;
-    } catch (err) {
+    } catch (_err) {
       const error = err instanceof Error ? err.message : 'Unknown error';
       logger.error('Error analyzing challenge:', err as Error);
 

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -48,7 +47,7 @@ export async function GET(request: NextRequest) {
         expires: session.exp ? new Date(session.exp * 1000).toISOString() : null,
       },
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Session check error:', error);
     return NextResponse.json(
       {

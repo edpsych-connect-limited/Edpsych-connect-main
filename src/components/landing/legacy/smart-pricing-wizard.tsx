@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -276,7 +275,7 @@ const SmartPricingWizard: React.FC = () => {
         savings,
         confidence: 0.87
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Error calculating recommendation:', error);
     } finally {
       setIsCalculating(false);

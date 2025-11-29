@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -80,7 +79,7 @@ export class SystemMetricsCollector {
       if (diskUsage !== null) {
         await monitoringService.trackResourceUsage('Disk', diskUsage, MetricUnit.PERCENT);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error collecting system metrics:', error);
     }
   }
@@ -113,7 +112,7 @@ export class SystemMetricsCollector {
       const cpuUsage = 100 - (idleDifference / totalDifference) * 100;
       
       return parseFloat(cpuUsage.toFixed(2));
-    } catch (error) {
+    } catch (_error) {
       console.error('Error calculating CPU usage from os module:', error);
       
       // Fallback: try platform-specific command
@@ -182,7 +181,7 @@ export class SystemMetricsCollector {
         const { stdout } = await execPromise("df -k / | grep -v Filesystem | awk '{print $5}'");
         return parseFloat(stdout.trim().replace('%', ''));
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error calculating disk usage:', error);
     }
     

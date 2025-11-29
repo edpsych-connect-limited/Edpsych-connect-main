@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/lib/training/scoring-engine.ts
  * PURPOSE: Advanced scoring algorithms for interactive learning elements

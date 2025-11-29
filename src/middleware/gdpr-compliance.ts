@@ -240,7 +240,7 @@ class GDPRComplianceMiddleware {
       await this.logConsentEvent('granted', consent);
 
       return response;
-    } catch (error) {
+    } catch (_error) {
       console.error('Error processing consent request:', error);
       return NextResponse.json({ error: 'Invalid consent data' }, { status: 400 });
     }
@@ -307,7 +307,7 @@ class GDPRComplianceMiddleware {
         default:
           return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error processing data subject request:', error);
       return NextResponse.json({ error: 'Failed to process request' }, { status: 500 });
     }
@@ -356,7 +356,7 @@ class GDPRComplianceMiddleware {
       // In a real implementation, you would use a geo-IP service
       // For now, we'll skip geo-blocking
       return false;
-    } catch (error) {
+    } catch (_error) {
       console.error('Error checking geo-blocking:', error);
       return false;
     }
@@ -396,7 +396,7 @@ class GDPRComplianceMiddleware {
 
       // Check if necessary consent is given
       return consent.consent.necessary;
-    } catch (error) {
+    } catch (_error) {
       console.error('Error parsing consent cookie:', error);
       return false;
     }
@@ -449,7 +449,7 @@ class GDPRComplianceMiddleware {
 
       // In a real implementation, you would store this in a secure audit log
       logger.debug('GDPR Data Processing Log:', logEntry);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error logging data processing:', error);
     }
   }
@@ -469,7 +469,7 @@ class GDPRComplianceMiddleware {
 
       // In a real implementation, you would store this in a secure audit log
       logger.debug('GDPR Consent Log:', logEntry);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error logging consent event:', error);
     }
   }

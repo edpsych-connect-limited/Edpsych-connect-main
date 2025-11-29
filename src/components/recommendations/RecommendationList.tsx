@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -44,7 +43,7 @@ const RecommendationList: React.FC<RecommendationListProps> = ({
       if (response.ok) {
         onStatusChange();
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error updating recommendation status:', error);
     }
   };

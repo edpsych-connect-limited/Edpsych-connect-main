@@ -47,7 +47,7 @@ class PersonalisedContentService {
       this._scheduleModelUpdates();
 
       logger.info('Personalised content service initialised');
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error initialising personalised content service:', error);
     }
   }
@@ -130,7 +130,7 @@ class PersonalisedContentService {
         generatedAt: new Date().toISOString(),
         context: context
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error generating recommendations:', error);
       throw error;
     }
@@ -183,7 +183,7 @@ class PersonalisedContentService {
       await this._updateContentProfile(contentId, interactionRecord);
 
       return true;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error recording interaction:', error);
       return false;
     }
@@ -228,7 +228,7 @@ class PersonalisedContentService {
       similarities.sort((a, b) => b.similarity - a.similarity);
 
       return similarities;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error calculating content similarity:', error);
       throw error;
     }
@@ -279,7 +279,7 @@ class PersonalisedContentService {
         testConfig,
         estimatedCompletion: testConfig.endDate
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error optimising recommendation algorithm:', error);
       throw error;
     }
@@ -322,7 +322,7 @@ class PersonalisedContentService {
       analytics.trends = this._analyseRecommendationTrends(relevantHistory, timeRange);
 
       return analytics;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error getting recommendation analytics:', error);
       throw error;
     }
@@ -869,7 +869,7 @@ class PersonalisedContentService {
     setInterval(async () => {
       try {
         await this._updateRecommendationModels();
-      } catch (error) {
+      } catch (_error) {
         logger.error('Scheduled model update failed:', error);
       }
     }, this.options.updateInterval);

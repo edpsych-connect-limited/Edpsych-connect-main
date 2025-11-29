@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * ORCHESTRATION LAYER - REACT QUERY PROVIDER
  *

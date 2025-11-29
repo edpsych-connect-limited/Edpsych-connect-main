@@ -357,7 +357,7 @@ export class DataRouterService {
         today_actions: todayActions,
         voice_enabled: classRoster.voice_enabled,
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error getting teacher dashboard view:', error as Error);
       throw error;
     }
@@ -497,7 +497,7 @@ export class DataRouterService {
           view_full_reports: true,
         },
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error getting parent portal view:', error as Error);
       throw error;
     }
@@ -566,7 +566,7 @@ export class DataRouterService {
         ehcps,
         cross_school_trends: crossSchoolTrends,
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error getting EP multi-agency view:', error as Error);
       throw error;
     }
@@ -663,7 +663,7 @@ export class DataRouterService {
           staff_actions: [],
         },
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error getting head teacher school view:', error as Error);
       throw error;
     }
@@ -697,7 +697,7 @@ export class DataRouterService {
         pastoral_concerns: [],
         attendance_overview: [],
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error getting secondary form tutor view:', error as Error);
       throw error;
     }
@@ -755,7 +755,7 @@ export class DataRouterService {
       }
 
       logger.info(`Progress update routed for student ${studentId}: ${updateType}`);
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error routing progress update:', error as Error);
       throw error;
     }
@@ -1058,7 +1058,7 @@ export class DataRouterService {
     try {
       // TODO: Implement data access audit log table
       logger.info(`Data access logged: ${data.access_type} by user ${data.user_id}`);
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error logging data access:', error as Error);
       // Don't throw - logging failure shouldn't break the flow
     }

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -63,7 +62,7 @@ export async function POST(request: NextRequest) {
         },
       },
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Token refresh error:', error);
     return NextResponse.json(
       {

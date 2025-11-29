@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * EHCP Detail Page - Enterprise-grade implementation
  * Phase 3.1: EHCP Support System
@@ -100,7 +99,7 @@ interface EHCP {
 export default function EHCPDetailPage() {
   const router = useRouter();
   const params = useParams();
-  const { data: session, status } = useSession();
+  const { data: _session, status } = useSession();
   const ehcpId = params?.id as string;
 
   // State management
@@ -125,7 +124,7 @@ export default function EHCPDetailPage() {
 
       const data = await response.json();
       setEhcp(data.ehcp);
-    } catch (err) {
+    } catch (_err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
       console.error('Error fetching EHCP:', err);
     } finally {
@@ -173,7 +172,7 @@ export default function EHCPDetailPage() {
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
-    } catch (err) {
+    } catch (_err) {
       console.error('Export error:', err);
       alert('Failed to export PDF');
     } finally {

@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -12,7 +11,7 @@ import { logger } from "@/lib/logger";
 ;
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter as _useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function NavigationTest() {
@@ -42,7 +41,7 @@ export default function NavigationTest() {
         ok: response.ok,
         error: null
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         path,
         status: 0,

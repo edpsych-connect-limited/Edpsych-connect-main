@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Assessment Results Analysis Component
  * Task 3.2.3: Visual Analytics & Interpretation
@@ -160,7 +159,7 @@ export default function ResultsAnalysis({
 function OverviewTab({
   scores,
   template,
-  studentAge,
+  studentAge: _studentAge,
 }: {
   scores: ScoreResult;
   template: AssessmentTemplate;
@@ -429,8 +428,8 @@ function VisualProfileTab({
 function InterpretationTab({
   scores,
   template,
-  studentName,
-  studentAge,
+  studentName: _studentName,
+  studentAge: _studentAge,
 }: {
   scores: ScoreResult;
   template: AssessmentTemplate;
@@ -618,8 +617,8 @@ function PercentileChart({ percentiles }: { percentiles: DomainScore[] }) {
 }
 
 function ProgressChart({
-  current,
-  historical,
+  current: _current,
+  historical: _historical,
   isStandardScore,
 }: {
   current: ScoreResult;

@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/Navigation.tsx
  * PURPOSE: Navigation buttons for onboarding wizard

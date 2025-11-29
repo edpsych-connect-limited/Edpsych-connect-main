@@ -432,7 +432,7 @@ export async function POST(
 
     return NextResponse.json(response);
 
-  } catch (error) {
+  } catch (_error) {
     console.error('[Lesson Differentiation API] Error differentiating lesson:', error);
     return NextResponse.json({
       error: 'Internal server error',

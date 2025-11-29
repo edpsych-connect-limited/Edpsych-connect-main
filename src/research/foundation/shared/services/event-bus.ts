@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Event Bus Service
  * 
@@ -32,7 +31,7 @@ export class EventBusService {
     for (const callback of callbacks) {
       try {
         callback(payload);
-      } catch (error) {
+      } catch (_error) {
         console.error(`Error in event subscriber for '${eventName}':`, error);
       }
     }

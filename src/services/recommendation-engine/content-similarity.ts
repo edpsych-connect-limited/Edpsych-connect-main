@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -226,7 +225,7 @@ export class ContentSimilarityService {
     try {
       // Try parsing as JSON
       targetTags = JSON.parse(targetContent.tags);
-    } catch (e) {
+    } catch (_e) {
       // Fallback to comma separated
       targetTags = targetContent.tags.split(',').map(t => t.trim());
     }
@@ -253,7 +252,7 @@ export class ContentSimilarityService {
       let otherTags: string[] = [];
       try {
         otherTags = JSON.parse(otherContent.tags);
-      } catch (e) {
+      } catch (_e) {
         otherTags = otherContent.tags.split(',').map(t => t.trim());
       }
 

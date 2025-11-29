@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/battle-royale/match/[id]/route.ts
  * PURPOSE: Battle Royale match details and results

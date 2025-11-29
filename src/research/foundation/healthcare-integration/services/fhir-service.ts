@@ -100,7 +100,7 @@ export class FHIRService {
       );
 
       return response.data;
-    } catch (error) {
+    } catch (_error) {
       this.handleError(error, `Error creating ${resource.resourceType}`);
       throw error;
     }
@@ -119,7 +119,7 @@ export class FHIRService {
     try {
       const response = await this.client.get<T>(`/${resourceType}/${id}`);
       return response.data;
-    } catch (error) {
+    } catch (_error) {
       this.handleError(error, `Error reading ${resourceType}/${id}`);
       throw error;
     }
@@ -142,7 +142,7 @@ export class FHIRService {
       );
 
       return response.data;
-    } catch (error) {
+    } catch (_error) {
       this.handleError(error, `Error updating ${resource.resourceType}/${resource.id}`);
       throw error;
     }
@@ -158,7 +158,7 @@ export class FHIRService {
     try {
       await this.client.delete(`/${resourceType}/${id}`);
       return true;
-    } catch (error) {
+    } catch (_error) {
       this.handleError(error, `Error deleting ${resourceType}/${id}`);
       throw error;
     }
@@ -183,7 +183,7 @@ export class FHIRService {
         total: response.data.total || 0,
         entry: response.data.entry || []
       };
-    } catch (error) {
+    } catch (_error) {
       this.handleError(error, `Error searching ${resourceType}`);
       throw error;
     }
@@ -234,7 +234,7 @@ export class FHIRService {
       }
 
       return searchResult.entry[0].resource;
-    } catch (error) {
+    } catch (_error) {
       this.handleError(error, `Error fetching NHS patient demographics for ${nhsNumber}`);
       throw error;
     }
@@ -276,7 +276,7 @@ export class FHIRService {
       );
 
       return observationsSearch.entry.map(entry => entry.resource);
-    } catch (error) {
+    } catch (_error) {
       this.handleError(error, `Error fetching mental health records for ${nhsNumber}`);
       throw error;
     }
@@ -390,7 +390,7 @@ export class FHIRService {
       );
 
       return carePlansSearch.entry.map(entry => entry.resource);
-    } catch (error) {
+    } catch (_error) {
       this.handleError(error, `Error fetching care plans for ${nhsNumber}`);
       throw error;
     }

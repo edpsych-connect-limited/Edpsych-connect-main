@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Assessment Scoring Engine
  * Task 3.2.2: Automatic Scoring Algorithms

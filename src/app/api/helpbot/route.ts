@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';

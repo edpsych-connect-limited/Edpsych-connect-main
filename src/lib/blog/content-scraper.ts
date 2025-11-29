@@ -162,7 +162,7 @@ export class ContentScraper {
       try {
         const content = await this.scrapeSource(source);
         allContent.push(...content);
-      } catch (error) {
+      } catch (_error) {
         console.error(`[Content Scraper] Error scraping ${source.name}:`, error);
       }
     }
@@ -206,7 +206,7 @@ export class ContentScraper {
 
         content.push(scrapedContent);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error(`[Content Scraper] Error processing ${source.name}:`, error);
     }
 
@@ -238,7 +238,7 @@ export class ContentScraper {
       }
 
       return articles;
-    } catch (error) {
+    } catch (_error) {
       console.error(`[Content Scraper] Failed to fetch RSS for ${source.name}:`, error);
       return this.getSimulatedArticles(source);
     }
@@ -402,7 +402,7 @@ export class ContentScraper {
         topics: ['education', 'teaching'],
         relevanceScore: 0.8,
       };
-    } catch (error) {
+    } catch (_error) {
       console.error(`[Content Scraper] Error scraping ${url}:`, error);
       return null;
     }

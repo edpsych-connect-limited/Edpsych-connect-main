@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Consolidated Training API Routes
  * 
@@ -74,7 +73,7 @@ async function routeTrainingRequest(request: NextRequest): Promise<NextResponse>
       { error: 'Not found', path: pathname },
       { status: 404 }
     );
-  } catch (error) {
+  } catch (_error) {
     console.error('[Training API] Error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -98,7 +97,7 @@ async function handleCertificatesList(request: NextRequest): Promise<NextRespons
       certificates: [],
       total: 0,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[Certificates] Error:', error);
     return NextResponse.json({ error: 'Failed to fetch certificates' }, { status: 500 });
   }
@@ -126,7 +125,7 @@ async function handleCoursesList(request: NextRequest): Promise<NextResponse> {
       ],
       total: 1,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[Courses] Error:', error);
     return NextResponse.json({ error: 'Failed to fetch courses' }, { status: 500 });
   }
@@ -150,7 +149,7 @@ async function handleCPDList(request: NextRequest): Promise<NextResponse> {
         remaining: 30,
       },
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[CPD] Error:', error);
     return NextResponse.json({ error: 'Failed to fetch CPD data' }, { status: 500 });
   }
@@ -171,7 +170,7 @@ async function handleEnrollmentsList(request: NextRequest): Promise<NextResponse
       enrollments: [],
       total: 0,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[Enrollments] Error:', error);
     return NextResponse.json({ error: 'Failed to fetch enrollments' }, { status: 500 });
   }
@@ -193,7 +192,7 @@ async function handleProductsList(_request: NextRequest): Promise<NextResponse> 
       ],
       total: 1,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[Products] Error:', error);
     return NextResponse.json({ error: 'Failed to fetch products' }, { status: 500 });
   }

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/lib/cpd/portfolio-generator.ts
  * PURPOSE: Generate professional CPD portfolio PDFs for audit requirements

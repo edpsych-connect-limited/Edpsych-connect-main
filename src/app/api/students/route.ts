@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Students API Routes - Enterprise-grade implementation
  * Phase 3: Core SEND Functionality
@@ -189,7 +188,7 @@ export async function GET(request: NextRequest) {
         hasPreviousPage: page > 1,
       },
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[Student API] Error fetching students:', error);
     return NextResponse.json(
       {
@@ -326,7 +325,7 @@ export async function POST(request: NextRequest) {
       { student, message: 'Student created successfully' },
       { status: 201 }
     );
-  } catch (error) {
+  } catch (_error) {
     console.error('[Student API] Error creating student:', error);
     return NextResponse.json(
       {

@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * SEN Needs Assessment Component
  * Task 3.1.2: Complete needs assessment with provision mapping
@@ -89,8 +88,8 @@ interface GraduatedStage {
 }
 
 export default function SENNeedsAssessment({
-  studentId,
-  ehcpId,
+  studentId: _studentId,
+  ehcpId: _ehcpId,
   initialData,
   onSave,
   onCancel,
@@ -117,7 +116,7 @@ export default function SENNeedsAssessment({
     setSaving(true);
     try {
       await onSave(data as SENAssessmentData);
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to save assessment:', error);
       alert('Failed to save. Please try again.');
     } finally {
@@ -747,8 +746,8 @@ function Step4Outcomes({
 // ============================================================================
 
 function Step5Evidence({
-  data,
-  updateData,
+  data: _data,
+  updateData: _updateData,
 }: {
   data: Partial<SENAssessmentData>;
   updateData: (updates: Partial<SENAssessmentData>) => void;

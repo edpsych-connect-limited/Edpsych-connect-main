@@ -22,18 +22,18 @@ import {
   ArrowRight,
   Check,
   Brain,
-  FileText,
+  FileText as _FileText,
   Target,
   TrendingUp,
   GraduationCap,
   BookOpen
 } from 'lucide-react';
 import { useOnboarding } from '../OnboardingProvider';
-import { useRouter } from 'next/navigation';
+import { useRouter as _useRouter } from 'next/navigation';
 
 export function Step6Completion() {
   const { state, completeOnboarding } = useOnboarding();
-  const router = useRouter();
+  const _router = _useRouter();
   const [certificateViewed, setCertificateViewed] = useState(state.step6Data.certificateViewed || false);
   const [selectedNextAction, setSelectedNextAction] = useState<string | null>(null);
 
@@ -56,7 +56,7 @@ export function Step6Completion() {
         nextAction: selectedNextAction || 'dashboard'
       });
       // Redirect handled by OnboardingWizard
-    } catch (error) {
+    } catch (_error) {
       console.error('Error completing onboarding:', error);
     }
   };

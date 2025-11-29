@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -107,7 +106,7 @@ const ActivityLogs: React.FC<ActivityLogsProps> = ({
       // Set logs and pagination info from API response
       setLogs(data.logs || []);
       setTotalPages(data.totalPages || 1);
-    } catch (err) {
+    } catch (_err) {
       console.error('Error fetching activity logs:', err);
       setError(err instanceof Error ? err.message : 'An error occurred while loading activity logs');
     } finally {

@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Training Marketplace
  * Browse and purchase CPD training courses
@@ -52,7 +51,7 @@ export default function TrainingMarketplace() {
         const data = await response.json();
         setProducts(data.products);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to load products:', error);
     } finally {
       setLoading(false);

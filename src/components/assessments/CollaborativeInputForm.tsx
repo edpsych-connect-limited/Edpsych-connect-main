@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Collaborative Input Form
  * Multi-informant assessment input form for parents, teachers, and children
@@ -13,7 +12,7 @@ import { logger } from "@/lib/logger";
  * - Progress tracking
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 
 interface CollaborativeInputFormProps {
@@ -54,7 +53,7 @@ export default function CollaborativeInputForm({
   const totalDomains = framework_domains.length;
   const isLastDomain = currentDomainIndex === totalDomains;
 
-  const handleSaveDraft = async () => {
+  const handleSaveDraft = useCallback(async () => {
     if (isSaving || isSubmitting) return;
 
     setIsSaving(true);
@@ -63,7 +62,7 @@ export default function CollaborativeInputForm({
       setLastSaved(new Date());
     }
     setIsSaving(false);
-  };
+  }, [isSaving, isSubmitting, onSaveDraft, responses, narrativeInput, observationContext]);
 
   // Auto-save draft every 2 minutes
   useEffect(() => {
@@ -72,7 +71,7 @@ export default function CollaborativeInputForm({
     }, 120000); // 2 minutes
 
     return () => clearInterval(autoSaveInterval);
-  }, [responses, narrativeInput, observationContext]);
+  }, [handleSaveDraft]);
 
   const handleDomainResponse = (domainId: string, question: string, value: any) => {
     setResponses(prev => ({
@@ -247,7 +246,7 @@ export default function CollaborativeInputForm({
               You've completed all sections. Please review your responses and submit when ready.
             </p>
             <div className="space-y-2">
-              {framework_domains.map((domain, index) => (
+              {framework_domains.map((domain, _index) => (
                 <div key={domain.id} className="flex items-center justify-between">
                   <span className="text-blue-800">{domain.name}</span>
                   <span className="text-blue-600 text-sm">

@@ -172,7 +172,7 @@ export class ProfileBuilderService {
       logger.info(
         `Profile updated for student ${student_id} from assessment ${assessmentResult.assessment_id}`
       );
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error updating profile from assessment:', error as Error);
       throw error;
     }
@@ -280,7 +280,7 @@ export class ProfileBuilderService {
       }
 
       logger.info(`Profile updated for student ${student_id} from lesson activity`);
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error updating profile from lesson activity:', error as Error);
       throw error;
     }
@@ -349,7 +349,7 @@ export class ProfileBuilderService {
           logger.info(`Struggle area resolved for student ${student_id}: ${target_area}`);
         }
       }
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error updating profile from intervention:', error as Error);
       throw error;
     }
@@ -395,7 +395,7 @@ export class ProfileBuilderService {
       });
 
       logger.info(`Profile updated for student ${student_id} from Battle Royale performance`);
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error updating profile from Battle Royale:', error as Error);
       throw error;
     }
@@ -456,7 +456,7 @@ export class ProfileBuilderService {
         confidence,
         reasoning,
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error predicting readiness to progress:', error as Error);
       throw error;
     }
@@ -529,7 +529,7 @@ export class ProfileBuilderService {
         struggle_areas: profile.current_struggles,
         recommendations,
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error identifying struggle patterns:', error as Error);
       throw error;
     }
@@ -794,7 +794,7 @@ export class ProfileBuilderService {
           outcome_success: true,
         },
       });
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error logging automated action:', error as Error);
       // Don't throw - logging failure shouldn't break the flow
     }

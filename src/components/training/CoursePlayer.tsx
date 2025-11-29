@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Course Player Component
  * Task 4.1.2: Interactive Course Player with Merit System
@@ -105,7 +104,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
           setState((prev) => ({ ...prev, ...data.state }));
         }
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error loading progress:', error);
     }
   }
@@ -139,7 +138,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
           state: { ...currentState, time_spent: newTimeSpent },
         }),
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Error saving progress:', error);
     }
   }, [course]);
@@ -159,7 +158,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
         } else {
           console.error('Failed to load course');
         }
-      } catch (error) {
+      } catch (_error) {
         console.error('Error loading course:', error);
       }
     };

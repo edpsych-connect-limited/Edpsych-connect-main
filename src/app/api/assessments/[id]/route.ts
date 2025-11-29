@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Single Assessment API Route
  * Phase 3.2: Assessment Engine
@@ -71,7 +70,7 @@ export async function GET(
     }
 
     return NextResponse.json({ assessment });
-  } catch (error) {
+  } catch (_error) {
     console.error('Error fetching assessment:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
@@ -145,7 +144,7 @@ export async function PUT(
     );
 
     return NextResponse.json({ assessment: updatedAssessment });
-  } catch (error) {
+  } catch (_error) {
     console.error('Error updating assessment:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }

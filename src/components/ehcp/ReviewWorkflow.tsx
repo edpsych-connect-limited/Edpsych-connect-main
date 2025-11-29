@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * EHCP Review Workflow Component
  * Task 3.1.4: Annual Review & Amendment System
@@ -13,7 +12,7 @@ import { logger } from "@/lib/logger";
  * - Progress monitoring
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
 // ============================================================================
@@ -149,12 +148,7 @@ export default function ReviewWorkflow({
   // Checklist state
   const [checklistProgress, setChecklistProgress] = useState<Record<string, boolean>>({});
 
-  // Fetch reviews and amendments
-  useEffect(() => {
-    fetchReviewData();
-  }, [ehcpId]);
-
-  const fetchReviewData = async () => {
+  const fetchReviewData = useCallback(async () => {
     try {
       setLoading(true);
 
@@ -171,12 +165,17 @@ export default function ReviewWorkflow({
         const amendmentsData = await amendmentsResponse.json();
         setAmendments(amendmentsData.amendments || []);
       }
-    } catch (error) {
-      console.error('Error fetching review data:', error);
+    } catch (_error) {
+      console.error('Error fetching review data:', _error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [ehcpId]);
+
+  // Fetch reviews and amendments
+  useEffect(() => {
+    fetchReviewData();
+  }, [fetchReviewData]);
 
   // Schedule new review
   const handleScheduleReview = async () => {
@@ -195,7 +194,7 @@ export default function ReviewWorkflow({
         const error = await response.json();
         alert(`Failed to schedule review: ${error.message}`);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error scheduling review:', error);
       alert('An error occurred while scheduling the review');
     }
@@ -222,7 +221,7 @@ export default function ReviewWorkflow({
         const error = await response.json();
         alert(`Failed to submit amendment: ${error.message}`);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error requesting amendment:', error);
       alert('An error occurred while requesting the amendment');
     }

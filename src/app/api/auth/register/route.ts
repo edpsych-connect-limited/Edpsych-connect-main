@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -28,7 +27,7 @@ export async function POST(request: Request) {
       message: 'User registered successfully',
       user: session?.user
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Registration error:', error);
     const message = error instanceof Error ? error.message : 'Registration failed';
     

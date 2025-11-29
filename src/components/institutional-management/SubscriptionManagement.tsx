@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -186,7 +185,7 @@ const SubscriptionManagement: React.FC<SubscriptionManagementProps> = ({
         setBillingCycle(data.billingCycle);
         setSelectedPlan(data.planId);
       }
-    } catch (err) {
+    } catch (_err) {
       console.error('Error fetching subscription:', err);
       setError(err instanceof Error ? err.message : 'An error occurred while loading subscription data');
     } finally {
@@ -257,7 +256,7 @@ const SubscriptionManagement: React.FC<SubscriptionManagementProps> = ({
       setShowUpgradeModal(false);
       
       // Show success message
-    } catch (err) {
+    } catch (_err) {
       console.error('Error updating subscription:', err);
       setError(err instanceof Error ? err.message : 'An error occurred while updating the subscription');
     }

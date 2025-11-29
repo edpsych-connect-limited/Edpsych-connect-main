@@ -527,7 +527,7 @@ export const AutomatedActionsLog: React.FC<AutomatedActionsLogProps> = ({
       window.URL.revokeObjectURL(url);
 
       toast.success(`Log exported as ${format.toUpperCase()}`);
-    } catch (error) {
+    } catch (_error) {
       toast.error('Export failed');
     }
   };

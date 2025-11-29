@@ -59,7 +59,7 @@ export const prismaUtils = {
   async executeWithErrorHandling<T>(dbOperation: () => Promise<T>): Promise<T> {
     try {
       return await dbOperation();
-    } catch (error) {
+    } catch (_error) {
       console.error('Database operation error:', error);
       
       // Check for specific Prisma errors and throw appropriate errors

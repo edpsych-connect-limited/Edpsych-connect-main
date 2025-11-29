@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Automation Analytics API
  * Get automation system analytics - Database-backed
@@ -114,7 +113,7 @@ export async function GET(request: NextRequest) {
     };
 
     return NextResponse.json(analytics);
-  } catch (error) {
+  } catch (_error) {
     console.error('Automation Analytics API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve analytics' },

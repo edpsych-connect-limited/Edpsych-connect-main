@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Cookie Settings Modal Component for EdPsych Connect World
  * Detailed cookie consent management interface

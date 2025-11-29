@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * EdPsych Connect - Comprehensive Routing Audit System
  * Ensures 100% flawless routing for all 535+ features

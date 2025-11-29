@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -66,7 +65,7 @@ export function useFeatureAccess(feature: Feature) {
         setHasAccess(data.hasAccess);
         setTier(data.tier);
         setError(data.reason);
-      } catch (err) {
+      } catch (_err) {
         console.error('Error checking feature access:', err);
         setHasAccess(false);
         setError('Failed to verify access');

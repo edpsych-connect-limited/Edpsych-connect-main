@@ -73,7 +73,7 @@ if (typeof Promise === 'undefined') {
 
       try {
         executor(resolve, reject);
-      } catch (error) {
+      } catch (_error) {
         reject(error);
       }
     }
@@ -87,7 +87,7 @@ if (typeof Promise === 'undefined') {
             try {
               const result = onFulfilled ? onFulfilled(this._value) : this._value;
               resolve(result);
-            } catch (error) {
+            } catch (_error) {
               reject(error);
             }
           }, 0);
@@ -96,7 +96,7 @@ if (typeof Promise === 'undefined') {
             try {
               const result = onRejected ? onRejected(this._value) : this._value;
               reject(result);
-            } catch (error) {
+            } catch (_error) {
               reject(error);
             }
           }, 0);
@@ -422,7 +422,7 @@ if (typeof window !== 'undefined') {
     if (process.env.NODE_ENV === 'production' && typeof window.__MONITORING_SERVICE !== 'undefined') {
       try {
         window.__MONITORING_SERVICE.logError(event.reason);
-      } catch (e) {
+      } catch (_e) {
         // Silently fail if monitoring is unavailable
       }
     }
@@ -485,7 +485,7 @@ if (typeof window !== 'undefined') {
         isDedicated: false,
         hostname: hostname
       };
-    } catch (e) {
+    } catch (_e) {
       return {
         id: 'default',
         isDedicated: false,

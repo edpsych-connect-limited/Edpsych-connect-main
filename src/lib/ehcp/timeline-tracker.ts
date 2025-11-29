@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/lib/ehcp/timeline-tracker.ts
  * PURPOSE: 20-week statutory EHCP timeline tracking

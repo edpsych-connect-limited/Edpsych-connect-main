@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -72,7 +71,7 @@ export default function DashboardPage() {
             router.push('/onboarding');
           }
         }
-      } catch (error) {
+      } catch (_error) {
         console.error('Failed to check onboarding status', error);
       }
     };

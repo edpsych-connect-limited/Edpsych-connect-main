@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Enterprise-grade audit logging system
  * GDPR-compliant audit trail for all data access and modifications
@@ -109,7 +108,7 @@ class AuditLogger {
           },
         },
       });
-    } catch (error) {
+    } catch (_error) {
       // Log to console if database logging fails (don't throw to prevent cascading failures)
       console.error('[AUDIT LOG] Failed to write audit log:', error);
     }

@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Interactive Demo Player
  * Container for all feature demos with navigation and controls
@@ -13,7 +12,7 @@ import { logger } from "@/lib/logger";
  * - Demo completion tracking
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 
 interface DemoStep {
@@ -46,7 +45,7 @@ export default function InteractiveDemoPlayer({
   const totalSteps = steps.length;
   const progress = ((currentStep + 1) / totalSteps) * 100;
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (currentStep < totalSteps - 1) {
       setCompletedSteps(prev => new Set(prev).add(currentStep));
       setCurrentStep(prev => prev + 1);
@@ -56,7 +55,7 @@ export default function InteractiveDemoPlayer({
       setIsPlaying(false);
       if (onComplete) onComplete();
     }
-  };
+  }, [currentStep, totalSteps, onComplete]);
 
   // Auto-play logic
   useEffect(() => {
@@ -70,7 +69,7 @@ export default function InteractiveDemoPlayer({
     }, duration);
 
     return () => clearTimeout(timer);
-  }, [isPlaying, currentStep]);
+  }, [isPlaying, currentStep, steps, handleNext]);
 
   const handlePrevious = () => {
     if (currentStep > 0) {

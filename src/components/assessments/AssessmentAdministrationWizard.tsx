@@ -90,7 +90,7 @@ export default function AssessmentAdministrationWizard({
         } else {
           console.error('Failed to fetch framework');
         }
-      } catch (error) {
+      } catch (_error) {
         console.error('Error fetching framework:', error);
       } finally {
         setIsLoadingFramework(false);
@@ -204,7 +204,7 @@ export default function AssessmentAdministrationWizard({
           router.replace(`/assessments/${caseId}/conduct?instanceId=${data.id}`);
         }
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to save draft:', error);
     } finally {
       setIsSaving(false);
@@ -219,7 +219,7 @@ export default function AssessmentAdministrationWizard({
         const data = await response.json();
         setAssessmentData(data.assessment);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to load assessment:', error);
     }
   };
@@ -269,7 +269,7 @@ export default function AssessmentAdministrationWizard({
       if (response.ok) {
         router.push(`/assessments/${caseId}`);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to complete assessment:', error);
     } finally {
       setIsSaving(false);
@@ -425,7 +425,7 @@ export default function AssessmentAdministrationWizard({
       // Show success message
       alert('Professional assessment report generated and saved to record!');
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to generate report:', error);
       alert('Failed to generate report. Please ensure all required sections are completed and try again.');
     } finally {
@@ -918,7 +918,7 @@ function CollaborativeInputStep({ assessmentData, updateAssessmentData: _ }: any
         const data = await response.json();
         setCollaborations(data.collaborations || []);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to load collaborations:', error);
     } finally {
       setLoading(false);
@@ -964,7 +964,7 @@ function CollaborativeInputStep({ assessmentData, updateAssessmentData: _ }: any
         const errorData = await response.json();
         alert(`Failed to send invitation: ${errorData.error}`);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to send invitation:', error);
       alert('Failed to send invitation. Please try again.');
     } finally {

@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -231,7 +230,7 @@ export default function StudentProgressDashboard({
       setGoals(mockGoals);
       setActivities(mockActivities);
       setAlerts(mockAlerts.filter((a) => !a.resolved));
-    } catch (error) {
+    } catch (_error) {
       console.error('Error loading dashboard data:', error);
     } finally {
       setLoading(false);

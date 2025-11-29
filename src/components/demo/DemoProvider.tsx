@@ -1,7 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
-
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -12,7 +10,7 @@ import { logger } from "@/lib/logger";
 
 ;
 
-import React, { createContext, useContext, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useEffect as _useEffect, ReactNode } from 'react';
 import { driver, DriveStep } from 'driver.js';
 import 'driver.js/dist/driver.css';
 

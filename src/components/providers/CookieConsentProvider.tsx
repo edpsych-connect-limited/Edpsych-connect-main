@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -63,7 +62,7 @@ export const CookieConsentProvider: React.FC<{ children: React.ReactNode }> = ({
           // No saved settings, show consent banner
           setShowBanner(true);
         }
-      } catch (error) {
+      } catch (_error) {
         console.warn('Error loading cookie consent settings:', error);
         setShowBanner(true);
       }
@@ -75,7 +74,7 @@ export const CookieConsentProvider: React.FC<{ children: React.ReactNode }> = ({
     if (settings && typeof window !== 'undefined') {
       try {
         localStorage.setItem('edpsych_cookie_consent', JSON.stringify(settings));
-      } catch (error) {
+      } catch (_error) {
         console.warn('Error saving cookie consent settings:', error);
       }
     }

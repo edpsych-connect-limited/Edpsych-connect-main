@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Blog Post Detail Page
  * Full post view with markdown rendering and comments
@@ -48,7 +47,7 @@ export default function BlogPostPage() {
         const data = await response.json();
         setPost(data.post);
         setRelatedPosts(data.relatedPosts || []);
-      } catch (err) {
+      } catch (_err) {
         console.error('Failed to load post:', err);
         setError('Failed to load post');
       } finally {
@@ -88,7 +87,7 @@ export default function BlogPostPage() {
       setTimeout(() => {
         setCommentSubmitted(false);
       }, 5000);
-    } catch (err) {
+    } catch (_err) {
       console.error('Failed to submit comment:', err);
       alert('Failed to submit comment. Please try again.');
     } finally {

@@ -366,7 +366,7 @@ export class AdaptiveIntelligenceSystem {
       // Store intervention for delivery
       logger.debug(`💬 Generated intervention: ${response.content.substring(0, 100)}...`);
 
-    } catch (error) {
+    } catch (_error) {
       console.warn('Failed to generate hesitation intervention:', error);
     }
   }
@@ -428,7 +428,7 @@ export class AdaptiveIntelligenceSystem {
       });
 
       return JSON.parse(response.content);
-    } catch (error) {
+    } catch (_error) {
       console.warn('Failed to generate navigation optimization:', error);
       return this.getDefaultNavigation();
     }

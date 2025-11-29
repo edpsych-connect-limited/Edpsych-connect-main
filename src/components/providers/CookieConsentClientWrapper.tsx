@@ -35,7 +35,7 @@ const CookieConsentClientWrapper: React.FC<{ children: React.ReactNode }> = ({ c
             const parsed: any = JSON.parse(settings);
             return parsed.consents?.analytics === true;
           }
-        } catch (e) {
+        } catch (_e) {
           console.warn('Error checking analytics consent:', e);
         }
         return false;

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -108,7 +107,7 @@ export async function GET() {
       subscription: subscriptionData,
       usage: usageData,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Error fetching subscription:', error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }

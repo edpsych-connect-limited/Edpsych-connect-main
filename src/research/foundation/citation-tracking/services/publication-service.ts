@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Publication Service
  * 
@@ -140,7 +139,7 @@ export class PublicationService {
         success: true,
         data: publication
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -256,7 +255,7 @@ export class PublicationService {
         success: true,
         data: publication
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -303,7 +302,7 @@ export class PublicationService {
       return {
         success: true
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -424,7 +423,7 @@ export class PublicationService {
           limit
         }
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -450,7 +449,7 @@ export class PublicationService {
         success: true,
         data: publications
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -519,7 +518,7 @@ export class PublicationService {
         success: true,
         data: publication
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -557,7 +556,7 @@ export class PublicationService {
         success: true,
         data: publication.citationCount
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -594,7 +593,7 @@ export class PublicationService {
         success: true,
         data: publication.downloads
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -631,7 +630,7 @@ export class PublicationService {
         success: true,
         data: publication.views
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -676,7 +675,7 @@ export class PublicationService {
         success: true,
         data: metrics
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -739,7 +738,7 @@ export class PublicationService {
           publicationsByYear
         }
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -892,7 +891,7 @@ export class PublicationService {
           data
         }
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',

@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Intervention Sandbox
  * A client-side only version of the Intervention Library for demos.

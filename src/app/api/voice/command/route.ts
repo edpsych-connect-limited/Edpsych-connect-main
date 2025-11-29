@@ -269,7 +269,7 @@ export async function POST(
 
     return NextResponse.json(response);
 
-  } catch (error) {
+  } catch (_error) {
     console.error('[Voice Command API] Error processing command:', error);
 
     // Return user-friendly error response

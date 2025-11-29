@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Cases API Routes - Enterprise-grade implementation
  * Phase 3: Core SEND Functionality
@@ -201,7 +200,7 @@ export async function GET(request: NextRequest) {
         hasPreviousPage: page > 1,
       },
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[Case API] Error fetching cases:', error);
     return NextResponse.json(
       {
@@ -349,7 +348,7 @@ export async function POST(request: NextRequest) {
       { case: caseRecord, message: 'Case created successfully' },
       { status: 201 }
     );
-  } catch (error) {
+  } catch (_error) {
     console.error('[Case API] Error creating case:', error);
     return NextResponse.json(
       {

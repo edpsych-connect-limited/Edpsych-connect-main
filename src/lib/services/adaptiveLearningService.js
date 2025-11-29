@@ -48,7 +48,7 @@ class AdaptiveLearningService {
       this._scheduleProfileUpdates();
 
       logger.info('Adaptive learning service initialised');
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error initialising adaptive learning service:', error);
     }
   }
@@ -105,7 +105,7 @@ class AdaptiveLearningService {
       this._storeAssessmentHistory(studentId, assessmentData);
 
       return profile;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error assessing learning profile:', error);
       throw error;
     }
@@ -170,7 +170,7 @@ class AdaptiveLearningService {
       };
 
       return assessment;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error generating adaptive assessment:', error);
       throw error;
     }
@@ -267,7 +267,7 @@ class AdaptiveLearningService {
         profileUsed: profile,
         timestamp: new Date().toISOString()
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error adapting content delivery:', error);
       throw error;
     }
@@ -322,7 +322,7 @@ class AdaptiveLearningService {
         confidence: this._calculateSequenceConfidence(optimalSequence, profile),
         alternatives: this._generateSequenceAlternatives(optimalSequence, contentGraph)
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error optimising learning sequence:', error);
       throw error;
     }
@@ -395,7 +395,7 @@ class AdaptiveLearningService {
         insights,
         recommendations: this._generateMasteryRecommendations(newMastery, prerequisiteStatus)
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error tracking objective mastery:', error);
       throw error;
     }
@@ -445,7 +445,7 @@ class AdaptiveLearningService {
       }
 
       return analytics;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error getting learning analytics:', error);
       throw error;
     }

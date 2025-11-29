@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -56,7 +55,7 @@ export async function getStripePrices(): Promise<PricingTier[]> {
 
     // Sort by price to ensure correct order (Free -> Pro -> Institutional -> Enterprise)
     return pricingTiers.sort((a, b) => a.price - b.price);
-  } catch (error) {
+  } catch (_error) {
     console.error('Error fetching Stripe prices:', error);
     return [];
   }

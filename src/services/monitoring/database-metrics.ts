@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -156,7 +155,7 @@ export class DatabaseMetricsCollector {
 
       // Clear metrics for next interval
       this.queryMetrics.clear();
-    } catch (error) {
+    } catch (_error) {
       console.error('Error publishing database metrics:', error);
     }
   }
@@ -211,7 +210,7 @@ export class DatabaseMetricsCollector {
           }
         }
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error tracking connection pool metrics:', error);
     }
   }

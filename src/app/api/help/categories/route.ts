@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -60,7 +59,7 @@ export async function GET() {
       categories: formattedCategories,
       total: formattedCategories.length,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Help categories error:', error);
     return NextResponse.json(
       {

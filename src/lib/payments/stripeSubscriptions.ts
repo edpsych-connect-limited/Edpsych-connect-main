@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -137,7 +136,7 @@ export async function getTierFromPriceId(priceId: string): Promise<StripeTier | 
       if (productName.includes('professional')) return 'PROFESSIONAL';
       if (productName.includes('basic')) return 'BASIC';
       if (productName.includes('free')) return 'FREE';
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to fetch price from Stripe:', error);
     }
   }

@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Subscription Management Page
  * Manage subscription, billing, and usage
@@ -19,7 +18,7 @@ import {
   isInTrialPeriod,
   getDaysRemainingInTrial,
   getUpgradeRecommendation,
-  type SubscriptionPlan,
+  type SubscriptionPlan as _SubscriptionPlan,
 } from '@/lib/subscription/plans';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 
@@ -60,7 +59,7 @@ export default function SubscriptionManagementPage() {
       const data = await response.json();
       setSubscription(data.subscription);
       setUsage(data.usage);
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to load subscription data:', error);
     } finally {
       setLoading(false);
@@ -101,7 +100,7 @@ export default function SubscriptionManagementPage() {
       alert('Subscription canceled. You will retain access until the end of your billing period.');
       // Reload data
       await loadSubscriptionData();
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to cancel subscription:', error);
       alert('Failed to cancel subscription. Please try again.');
     }
@@ -112,7 +111,7 @@ export default function SubscriptionManagementPage() {
       // API call to reactivate subscription
       alert('Subscription reactivated!');
       await loadSubscriptionData();
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to reactivate subscription:', error);
       alert('Failed to reactivate subscription. Please try again.');
     }
@@ -474,7 +473,7 @@ function InvoiceItem({
   date,
   amount,
   status,
-  downloadUrl,
+  downloadUrl: _downloadUrl,
 }: {
   date: string;
   amount: number;
@@ -529,7 +528,7 @@ function InvoiceItem({
       doc.text('Thank you for your business.', 20, 160);
       
       doc.save(`invoice-${date}.pdf`);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error generating PDF:', error);
       alert('Failed to generate invoice. Please try again.');
     }

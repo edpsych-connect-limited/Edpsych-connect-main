@@ -68,7 +68,7 @@ export class LegalService {
       });
       
       return document;
-    } catch (error) {
+    } catch (_error) {
       logger.error(`Error fetching legal document`, {
         type,
         version,
@@ -125,7 +125,7 @@ export async function verifyUserSignature(
     }
     
     return await response.json();
-  } catch (error) {
+  } catch (_error) {
     logger.error(`Error verifying signature`, {
       agreementType,
       version,
@@ -149,7 +149,7 @@ export async function getUserSignatures(): Promise<any[]> {
     }
     
     return await response.json();
-  } catch (error) {
+  } catch (_error) {
     logger.error(`Error fetching user signatures`, {
       error: error instanceof Error ? error.message : String(error)
     });

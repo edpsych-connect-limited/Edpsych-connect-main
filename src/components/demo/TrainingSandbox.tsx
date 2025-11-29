@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Training Sandbox
  * A client-side only version of the Training Platform for demos.

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Comprehensive Parental Involvement Service for EdPsych Connect World
  * Keeping parents actively engaged in their child's educational journey

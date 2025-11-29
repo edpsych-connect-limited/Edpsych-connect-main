@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -153,7 +152,7 @@ export async function GET(
     };
 
     return NextResponse.json(mappedCourse);
-  } catch (error) {
+  } catch (_error) {
     console.error('[Course Detail API] Error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch course details' },

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Base Generator Interface
  * 

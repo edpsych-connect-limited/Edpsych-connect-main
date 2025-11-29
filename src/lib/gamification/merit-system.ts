@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Merit System - Battle Royale Currency
  * Task 4.2.2: Comprehensive Merit Economy

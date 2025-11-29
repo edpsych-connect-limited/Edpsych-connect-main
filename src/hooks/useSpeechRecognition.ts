@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -79,7 +78,7 @@ export const useSpeechRecognition = (): SpeechRecognitionHook => {
         recognition.start();
         setIsListening(true);
         isListeningRef.current = true;
-      } catch (error) {
+      } catch (_error) {
         console.error('Error starting speech recognition:', error);
       }
     }

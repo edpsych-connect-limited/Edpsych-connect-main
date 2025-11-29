@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -51,7 +50,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     };
 
     return NextResponse.json(responseData);
-  } catch (error) {
+  } catch (_error) {
     console.error('Error fetching assessment instance:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }

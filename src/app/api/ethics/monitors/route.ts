@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Ethics Monitors API
  * Manage ethics monitoring configurations
@@ -37,7 +36,7 @@ export async function GET(request: NextRequest) {
       count: monitors.length,
       categories: ['fairness', 'privacy', 'transparency', 'compliance']
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Ethics Monitors API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve monitors' },
@@ -89,7 +88,7 @@ export async function POST(request: NextRequest) {
       monitor: newMonitor,
       message: 'Monitor created successfully'
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Create monitor error:', error);
     return NextResponse.json(
       { error: 'Failed to create monitor' },
@@ -124,7 +123,7 @@ export async function PUT(request: NextRequest) {
       success: true,
       message: `Monitor ${enabled ? 'enabled' : 'disabled'} successfully`
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Update monitor error:', error);
     return NextResponse.json(
       { error: 'Failed to update monitor' },

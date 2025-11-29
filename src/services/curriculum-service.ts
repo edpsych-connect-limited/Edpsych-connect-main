@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -248,7 +247,7 @@ export class CurriculumService {
       };
 
       return lessonPlan;
-    } catch (error) {
+    } catch (_error) {
       console.error('Error generating lesson plan:', error);
       throw new Error('Failed to generate lesson plan');
     }
@@ -304,7 +303,7 @@ export class CurriculumService {
       }
 
       return savedPlan;
-    } catch (error) {
+    } catch (_error) {
       console.error('Error saving lesson plan:', error);
       throw new Error('Failed to save lesson plan to database');
     }

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 import { UserRole } from '@edpsych-connect-world/auth';
 import 'next-auth';
 import 'next-auth/jwt';

@@ -75,7 +75,7 @@ class SecretsManagerService {
       this.logger.info('Successfully retrieved secret (AWS)', { secretName });
       return secretValue;
 
-    } catch (error) {
+    } catch (_error) {
       this.logger.error('Failed to retrieve secret (mock)', {
         secretName,
         error: error instanceof Error ? error.message : 'Unknown error'
@@ -159,7 +159,7 @@ class SecretsManagerService {
 
       return isValid;
 
-    } catch (error) {
+    } catch (_error) {
       this.logger.error('Secret validation failed (mock)', {
         secretName,
         error: error instanceof Error ? error.message : 'Unknown error'
@@ -242,7 +242,7 @@ class SecretsManagerService {
         }
       };
 
-    } catch (error) {
+    } catch (_error) {
       return {
         status: 'unhealthy',
         details: {
@@ -267,7 +267,7 @@ class SecretsManagerService {
         user: process.env.USER || 'system',
         details
       });
-    } catch (error) {
+    } catch (_error) {
       // Don't fail the main operation if audit logging fails
       logger.error('Audit logging failed:', error);
     }
@@ -313,7 +313,7 @@ export async function initializeSecretsManager(): Promise<void> {
       cacheEnabled: secretsManager['config'].cacheEnabled
     });
 
-  } catch (error) {
+  } catch (_error) {
     const err = error instanceof Error ? error : new Error('Unknown error');
     logger.error('Failed to initialize AWS Secrets Manager (mock mode)', err);
 
@@ -361,7 +361,7 @@ export async function loadSecretsToEnvironment(): Promise<void> {
       process.env.MONGODB_URI = mongoUrl;
     }
 
-  } catch (error) {
+  } catch (_error) {
     logger.error('Failed to load secrets to environment (mock):', error);
     throw new Error('Secrets loading failed');
   }

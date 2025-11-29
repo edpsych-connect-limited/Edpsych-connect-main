@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -76,7 +75,7 @@ export async function POST(
 
     return NextResponse.json({ success: true, url: fileUrl, documentId: secureDoc.id });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Error uploading report:', error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }

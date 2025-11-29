@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -11,7 +10,7 @@ import { logger } from "@/lib/logger";
 
 ;
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect as _useEffect } from 'react';
 import { 
   Search, 
   Activity, 

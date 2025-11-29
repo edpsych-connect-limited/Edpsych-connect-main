@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Waitlist API Endpoint
  *
@@ -110,7 +109,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Waitlist API Error:', error);
 
     // Check for specific database errors
@@ -180,7 +179,7 @@ export async function GET(_req: NextRequest) {
       recentSignups,
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Waitlist GET Error:', error);
     return NextResponse.json(
       {

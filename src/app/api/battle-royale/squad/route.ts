@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/battle-royale/squad/route.ts
  * PURPOSE: Squad formation and management for team-based competitions

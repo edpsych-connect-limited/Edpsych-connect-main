@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -58,7 +57,7 @@ const DepartmentManagement: React.FC<DepartmentManagementProps> = ({
         
         const data = await response.json();
         setDepartments(data);
-      } catch (err) {
+      } catch (_err) {
         console.error('Error fetching departments:', err);
         setError(err instanceof Error ? err.message : 'Failed to load departments');
       } finally {
@@ -88,7 +87,7 @@ const DepartmentManagement: React.FC<DepartmentManagementProps> = ({
         description: '',
       });
       setShowAddModal(false);
-    } catch (err) {
+    } catch (_err) {
       console.error('Error adding department:', err);
       setError('Failed to add department');
     } finally {
@@ -109,7 +108,7 @@ const DepartmentManagement: React.FC<DepartmentManagementProps> = ({
       setDepartments(updatedDepartments);
       setShowEditModal(false);
       setCurrentDepartment(null);
-    } catch (err) {
+    } catch (_err) {
       console.error('Error updating department:', err);
       setError('Failed to update department');
     } finally {
@@ -128,7 +127,7 @@ const DepartmentManagement: React.FC<DepartmentManagementProps> = ({
       setDepartments(filteredDepartments);
       setShowDeleteModal(false);
       setCurrentDepartment(null);
-    } catch (err) {
+    } catch (_err) {
       console.error('Error deleting department:', err);
       setError('Failed to delete department');
     } finally {

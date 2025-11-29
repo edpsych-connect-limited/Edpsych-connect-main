@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -62,7 +61,7 @@ export async function GET(
     }
 
     return NextResponse.json({ framework });
-  } catch (error) {
+  } catch (_error) {
     console.error('Error fetching framework:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

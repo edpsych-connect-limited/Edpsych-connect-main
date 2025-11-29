@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Dependency Chain Validator
  * Detects circular dependencies, deep import chains, and version mismatches
@@ -67,7 +66,7 @@ export class DependencyChainValidator {
           brokenImports: this.issues.filter(i => i.type === 'BROKEN_IMPORT').length
         }
       };
-    } catch (error) {
+    } catch (_error) {
       const msg = error instanceof Error ? error.message : String(error);
       return {
         errors: [{

@@ -109,7 +109,7 @@ function startConnectionMonitoring() {
         connectionStats.poolStats = await connection.client.db().admin().serverStatus();
         // Cast to any for deprecated topology property
         connectionStats.isConnected = (connection.client as any).topology?.isConnected() || false;
-      } catch (error) {
+      } catch (_error) {
         logger.warn('Failed to update MongoDB connection statistics', error);
       }
     }
@@ -187,7 +187,7 @@ export async function connectToMongoDB(): Promise<MongoDBConnection> {
     startConnectionMonitoring();
     
     return connection;
-  } catch (error) {
+  } catch (_error) {
     // Update error statistics
     connectionStats.connectionErrors += 1;
     connectionStats.lastErrorTime = new Date();

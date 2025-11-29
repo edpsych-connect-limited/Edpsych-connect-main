@@ -135,7 +135,7 @@ function useAuthProvider(): AuthContextType {
           clearAuthStorage();
           setUser(null);
         }
-      } catch (error) {
+      } catch (_error) {
         logger.error('❌ Authentication check failed:', error);
         setUser(null);
         clearAuthStorage();
@@ -212,7 +212,7 @@ function useAuthProvider(): AuthContextType {
       });
 
       return true;
-    } catch (error) {
+    } catch (_error) {
       logger.error('❌ Login error:', error);
       return false;
     } finally {
@@ -265,7 +265,7 @@ function useAuthProvider(): AuthContextType {
         email: data.data.user.email
       });
       return true;
-    } catch (error) {
+    } catch (_error) {
       logger.error('❌ Signup error:', error);
       return false;
     } finally {
@@ -293,7 +293,7 @@ function useAuthProvider(): AuthContextType {
               'Authorization': `Bearer ${token}`,
             },
           });
-        } catch (error) {
+        } catch (_error) {
           // Log but don't prevent logout
           logger.warn('⚠️ Server logout failed, continuing with local logout:', error);
         }
@@ -308,7 +308,7 @@ function useAuthProvider(): AuthContextType {
       // Redirect to login page
       logger.info('✅ User logged out successfully');
       router.push('/login');
-    } catch (error) {
+    } catch (_error) {
       logger.error('❌ Logout error:', error);
       // Still try to clear local state
       clearAuthStorage();
@@ -357,7 +357,7 @@ function useAuthProvider(): AuthContextType {
 
       logger.info('✅ Token refreshed successfully');
       return true;
-    } catch (error) {
+    } catch (_error) {
       logger.error('❌ Token refresh error:', error);
       clearAuthStorage();
       setUser(null);
@@ -396,7 +396,7 @@ function useAuthProvider(): AuthContextType {
 
       logger.error('❌ Password reset request failed:', data.error || 'Unknown error');
       return false;
-    } catch (error) {
+    } catch (_error) {
       logger.error('❌ Password reset request error:', error);
       return false;
     }
@@ -447,7 +447,7 @@ function useAuthProvider(): AuthContextType {
 
       logger.error('❌ Password reset completion failed:', data.error || 'Unknown error');
       return false;
-    } catch (error) {
+    } catch (_error) {
       logger.error('❌ Password reset completion error:', error);
       return false;
     }
@@ -492,7 +492,7 @@ function useAuthProvider(): AuthContextType {
 
       logger.error('❌ Password change failed:', responseData.message || 'Unknown error');
       return false;
-    } catch (error) {
+    } catch (_error) {
       logger.error('❌ Password change error:', error);
       return false;
     }

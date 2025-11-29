@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -39,7 +38,7 @@ export async function POST(req: NextRequest) {
         'Content-Disposition': `attachment; filename="report-${data.student.name.replace(/\s+/g, '-').toLowerCase()}.pdf"`,
       },
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Error generating report:', error);
     return NextResponse.json(
       { error: 'Failed to generate report' },

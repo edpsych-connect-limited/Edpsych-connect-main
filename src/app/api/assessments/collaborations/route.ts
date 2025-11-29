@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -32,7 +31,7 @@ export async function GET(req: NextRequest) {
     });
 
     return NextResponse.json({ collaborations });
-  } catch (error) {
+  } catch (_error) {
     console.error('Error fetching collaborations:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
@@ -119,7 +118,7 @@ export async function POST(req: NextRequest) {
         collaboration,
         invitation_url 
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Error creating collaboration:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }

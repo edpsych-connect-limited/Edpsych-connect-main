@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Type definitions for quantum-resistant cryptography implementation
  */

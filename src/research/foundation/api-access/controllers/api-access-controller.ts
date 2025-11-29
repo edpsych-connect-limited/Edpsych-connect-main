@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * API Access Controller
  * 
@@ -39,7 +38,7 @@ router.get('/pricing-plans',
         success: true,
         data: plans
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Get pricing plans error:', error);
       return res.status(500).json({
         success: false,
@@ -83,7 +82,7 @@ router.get('/pricing-plans/:id',
         success: true,
         data: plan
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Get pricing plan error:', error);
       return res.status(500).json({
         success: false,
@@ -127,7 +126,7 @@ router.post('/keys',
         data: apiKey,
         message: 'API key created successfully. This is the only time you will see the full key. Make sure to store it securely.'
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Create API key error:', error);
       return res.status(500).json({
         success: false,
@@ -162,7 +161,7 @@ router.get('/keys',
         success: true,
         data: sanitizedKeys
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Get API keys error:', error);
       return res.status(500).json({
         success: false,
@@ -204,7 +203,7 @@ router.get('/keys/:id',
         success: true,
         data: sanitizedKey
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Get API key error:', error);
       return res.status(500).json({
         success: false,
@@ -278,7 +277,7 @@ router.put('/keys/:id',
         success: true,
         data: sanitizedKey
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Update API key error:', error);
       return res.status(500).json({
         success: false,
@@ -315,7 +314,7 @@ router.post('/keys/:id/deactivate',
         success: true,
         message: 'API key deactivated successfully'
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Deactivate API key error:', error);
       return res.status(500).json({
         success: false,
@@ -353,7 +352,7 @@ router.post('/keys/:id/rotate',
         data: apiKey,
         message: 'API key rotated successfully. This is the only time you will see the full new key. Make sure to store it securely.'
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Rotate API key error:', error);
       return res.status(500).json({
         success: false,
@@ -403,7 +402,7 @@ router.get('/usage',
           usagePatterns: []
         }
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Get usage summary error:', error);
       return res.status(500).json({
         success: false,
@@ -447,7 +446,7 @@ router.get('/usage/report',
         success: true,
         data: report
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Generate usage report error:', error);
       return res.status(500).json({
         success: false,
@@ -474,7 +473,7 @@ router.get('/quotas',
         success: true,
         data: []
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Get quota consumption error:', error);
       return res.status(500).json({
         success: false,
@@ -502,7 +501,7 @@ router.get('/alerts',
         success: true,
         data: alerts
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Get usage alerts error:', error);
       return res.status(500).json({
         success: false,
@@ -543,7 +542,7 @@ router.get('/billing/invoice',
         success: true,
         data: invoice
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Generate invoice error:', error);
       return res.status(500).json({
         success: false,

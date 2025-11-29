@@ -65,7 +65,7 @@ class SecurityMonitoringService {
       }
 
       logger.info('Security monitoring service initialized');
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error initializing security monitoring service:', error instanceof Error ? error.message : String(error));
     }
   }
@@ -113,7 +113,7 @@ class SecurityMonitoringService {
       this._updateBaselineMetrics(securityEvent);
 
       return securityEvent.id;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error logging security event:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -164,7 +164,7 @@ class SecurityMonitoringService {
       }
 
       return anomalies;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error detecting anomalies:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -206,7 +206,7 @@ class SecurityMonitoringService {
       logger.info(`Security alert generated: ${alert.title} (${alert.severity})`);
 
       return alert.id;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error generating alert:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -233,7 +233,7 @@ class SecurityMonitoringService {
 
       logger.info(`Alert ${alertId} acknowledged by ${userId}`);
       return true;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error acknowledging alert:', error instanceof Error ? error.message : String(error));
       return false;
     }
@@ -260,7 +260,7 @@ class SecurityMonitoringService {
 
       logger.info(`Alert ${alertId} resolved`);
       return true;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error resolving alert:', error instanceof Error ? error.message : String(error));
       return false;
     }
@@ -308,7 +308,7 @@ class SecurityMonitoringService {
         recentAnomalies: recentAnomalies.slice(-20),
         timestamp: now.toISOString()
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error getting security dashboard:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -365,7 +365,7 @@ class SecurityMonitoringService {
       report.assessment = this._generateSecurityAssessment(report);
 
       return report;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error generating security report:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -407,7 +407,7 @@ class SecurityMonitoringService {
       // Check for threshold violations
       await this._checkThresholdViolations(recentEvents);
 
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error performing security analysis:', error instanceof Error ? error.message : String(error));
     }
   }
@@ -470,7 +470,7 @@ class SecurityMonitoringService {
         }
       }
 
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error checking for immediate alerts:', error instanceof Error ? error.message : String(error));
     }
   }
@@ -545,7 +545,7 @@ class SecurityMonitoringService {
         }
       }
 
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error checking threshold violations:', error instanceof Error ? error.message : String(error));
     }
   }
@@ -777,7 +777,7 @@ class SecurityMonitoringService {
           }
         };
       }
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error loading baseline metrics:', error instanceof Error ? error.message : String(error));
     }
   }
@@ -802,7 +802,7 @@ class SecurityMonitoringService {
       //   data: alert
       // });
 
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error sending alert notifications:', error instanceof Error ? error.message : String(error));
     }
   }
@@ -1063,7 +1063,7 @@ class SecurityMonitoringService {
       );
 
       logger.info('Security monitoring data cleaned up');
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error cleaning up security monitoring data:', error instanceof Error ? error.message : String(error));
     }
   }

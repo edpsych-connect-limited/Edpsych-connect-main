@@ -27,7 +27,7 @@ export async function GET(_req: Request) {
 
     return NextResponse.json(status);
 
-  } catch (error) {
+  } catch (_error) {
     logger.error('[Orchestrator] Error fetching system status:', error as Error);
     return NextResponse.json(
       { error: 'Internal Server Error', details: error instanceof Error ? error.message : String(error) },

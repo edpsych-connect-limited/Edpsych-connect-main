@@ -139,7 +139,7 @@ export class DatabaseOptimizer {
         });
 
         return result;
-      } catch (error) {
+      } catch (_error) {
         const duration = Date.now() - startTime;
 
         this.recordQueryMetrics({

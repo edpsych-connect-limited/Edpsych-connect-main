@@ -498,7 +498,7 @@ export async function POST(
 
     return NextResponse.json(response);
 
-  } catch (error) {
+  } catch (_error) {
     console.error('[Quick Actions API] Error executing action:', error);
     return NextResponse.json({
       error: 'Internal server error',

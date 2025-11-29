@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * AI Adaptive Intelligence API
  * Exposes real-time user behavior adaptation capabilities
@@ -41,7 +40,7 @@ export async function POST(request: NextRequest) {
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (_error) {
     console.error('AI Adaptive API error:', error);
     return NextResponse.json(
       { error: 'Failed to process adaptive intelligence request' },
@@ -70,7 +69,7 @@ export async function GET(request: NextRequest) {
       { error: 'Invalid action or missing sessionId' },
       { status: 400 }
     );
-  } catch (error) {
+  } catch (_error) {
     console.error('AI Adaptive API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve adaptive intelligence data' },

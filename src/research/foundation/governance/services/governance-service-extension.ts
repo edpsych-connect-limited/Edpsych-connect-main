@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Governance Service Extensions for Data Sharing
  *

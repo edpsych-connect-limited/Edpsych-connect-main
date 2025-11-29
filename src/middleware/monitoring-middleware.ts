@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -72,7 +71,7 @@ export const monitoringMiddleware = async (
   try {
     // Continue processing the request
     await next();
-  } catch (error) {
+  } catch (_error) {
     // If an error occurs during processing, track it
     const errorType = error instanceof Error ? error.name : 'UnknownError';
     const errorStatusCode = statusCode >= 400 ? statusCode : 500;

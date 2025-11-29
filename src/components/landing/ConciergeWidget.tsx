@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -60,7 +59,7 @@ export default function ConciergeWidget() {
           text: "I'm having trouble connecting to the server right now. Please try again later." 
         }]);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Chat error:', error);
       setMessages(prev => [...prev, { 
         role: 'assistant', 

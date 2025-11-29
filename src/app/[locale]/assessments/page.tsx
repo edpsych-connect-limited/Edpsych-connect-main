@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Assessment List Page - Enterprise-grade implementation
  * Phase 3.2: Assessment Engine
@@ -106,7 +105,7 @@ export default function AssessmentListPage() {
       const data = await response.json();
       setAssessments(data.assessments || []);
       setPagination(data.pagination);
-    } catch (err) {
+    } catch (_err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
       console.error('Error fetching assessments:', err);
     } finally {
@@ -134,7 +133,6 @@ export default function AssessmentListPage() {
     router.push('/login');
     return null;
   }
-
 
   // Status badge color
   const getStatusColor = (status: string) => {

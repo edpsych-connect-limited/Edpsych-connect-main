@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * User Onboarding API
  * Handles onboarding progress tracking and completion
@@ -38,7 +37,7 @@ export async function GET(_request: NextRequest) {
     }
 
     return NextResponse.json({ onboarding: user });
-  } catch (error) {
+  } catch (_error) {
     console.error('Failed to fetch onboarding status:', error);
     return NextResponse.json(
       { error: 'Failed to fetch onboarding status' },
@@ -77,7 +76,7 @@ export async function PUT(request: NextRequest) {
     });
 
     return NextResponse.json({ success: true, onboarding: user });
-  } catch (error) {
+  } catch (_error) {
     console.error('Failed to update onboarding progress:', error);
     return NextResponse.json(
       { error: 'Failed to update onboarding progress' },
@@ -149,7 +148,7 @@ export async function POST(request: NextRequest) {
         : 'Onboarding completed successfully',
       user,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Failed to complete onboarding:', error);
     return NextResponse.json(
       { error: 'Failed to complete onboarding' },

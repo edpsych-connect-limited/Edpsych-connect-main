@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -12,7 +11,7 @@ import { logger } from "@/lib/logger";
 ;
 
 import Link from 'next/link';
-import { Github, Twitter, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { Github, Twitter, Linkedin, Mail, Phone as _Phone, MapPin } from 'lucide-react';
 
 export default function Footer() {
   return (

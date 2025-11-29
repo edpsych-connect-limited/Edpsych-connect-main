@@ -14,8 +14,6 @@
  * - Responsive design
  */
 
-import { logger } from "@/lib/logger";
-
 import React, { useState, useRef, useCallback } from 'react';
 import { Upload, Camera, Check, AlertCircle, Building2, Briefcase, Calendar } from 'lucide-react';
 import { useOnboarding } from '../OnboardingProvider';

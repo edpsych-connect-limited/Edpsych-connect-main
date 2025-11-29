@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -66,7 +65,7 @@ function MarketplaceSearchContent() {
       const res = await fetch(`/api/marketplace/professionals/search?${queryParams.toString()}`);
       const data = await res.json();
       setProfessionals(data.results || []);
-    } catch (error) {
+    } catch (_error) {
       console.error('Search failed:', error);
     } finally {
       setLoading(false);

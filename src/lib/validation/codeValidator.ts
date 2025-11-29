@@ -136,7 +136,7 @@ export class CodeValidator {
       this.performValidations(filePath);
 
       return this.generateReport();
-    } catch (error) {
+    } catch (_error) {
       const errorMsg = error instanceof Error ? error.message : String(error);
       this.errors.push({
         type: 'MISSING_IMPLEMENTATION',
@@ -171,7 +171,7 @@ export class CodeValidator {
       this.performValidations();
 
       return this.generateReport();
-    } catch (error) {
+    } catch (_error) {
       const errorMsg = error instanceof Error ? error.message : String(error);
       this.errors.push({
         type: 'MISSING_IMPLEMENTATION',
@@ -212,7 +212,7 @@ export class CodeValidator {
       this.performValidations(filePath, className);
 
       return this.generateReport();
-    } catch (error) {
+    } catch (_error) {
       const errorMsg = error instanceof Error ? error.message : String(error);
       this.errors.push({
         type: 'MISSING_IMPLEMENTATION',
@@ -249,7 +249,7 @@ export class CodeValidator {
     try {
       // TODO: Implement ${methodName}
       throw new Error('Method not yet implemented: ${methodName}');
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error in ${methodName}:', error instanceof Error ? error.message : String(error));
       throw error;
     }

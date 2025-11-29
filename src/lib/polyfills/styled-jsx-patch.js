@@ -101,7 +101,7 @@ function applyPatch() {
          
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         styledJsxPath = require.resolve('styled-jsx/dist/index');
-      } catch (e) {
+      } catch (_e) {
         // Fallback paths in case require.resolve fails
         const possiblePaths = [
           'node_modules/styled-jsx/dist/index/index.js',
@@ -115,7 +115,7 @@ function applyPatch() {
             require(path);
             styledJsxPath = path;
             break;
-          } catch (err) {
+          } catch (_err) {
             // Continue trying paths
           }
         }
@@ -131,13 +131,13 @@ function applyPatch() {
             styledJsx.StyleSheet = MockStyleSheet;
             logger.debug('Successfully monkey-patched styled-jsx StyleSheet');
           }
-        } catch (err) {
+        } catch (_err) {
           console.warn('Could not directly patch styled-jsx module:', err.message);
         }
       }
       
       return true;
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to apply styled-jsx patch:', error);
       return false;
     }

@@ -473,7 +473,7 @@ export async function GET(
 
     return NextResponse.json(response);
 
-  } catch (error) {
+  } catch (_error) {
     console.error('[EP Dashboard API] Error generating dashboard:', error);
     return NextResponse.json({
       error: 'Internal server error',

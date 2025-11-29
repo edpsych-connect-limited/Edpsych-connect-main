@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -79,7 +78,7 @@ export class PerformanceMonitorService {
         });
 
         this.observer.observe({ entryTypes: ['largest-contentful-paint'] });
-      } catch (error) {
+      } catch (_error) {
         console.warn('PerformanceObserver not supported:', error);
       }
     }
@@ -97,7 +96,7 @@ export class PerformanceMonitorService {
         });
 
         fidObserver.observe({ entryTypes: ['first-input'] });
-      } catch (error) {
+      } catch (_error) {
         console.warn('FID PerformanceObserver not supported:', error);
       }
     }
@@ -121,7 +120,7 @@ export class PerformanceMonitorService {
         });
 
         clsObserver.observe({ entryTypes: ['layout-shift'] });
-      } catch (error) {
+      } catch (_error) {
         console.warn('CLS PerformanceObserver not supported:', error);
       }
     }

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/battle-royale/matchmaking/status/route.ts
  * PURPOSE: Check matchmaking queue status

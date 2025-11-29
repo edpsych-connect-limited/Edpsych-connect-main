@@ -109,7 +109,7 @@ export class DepartmentService {
       });
       
       return department as Department;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error creating department', { error, data });
       throw error;
     }
@@ -160,7 +160,7 @@ export class DepartmentService {
       await this.verifyDepartmentAccess(department.institutionId, userId);
       
       return department as unknown as Department;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error fetching department', { error, departmentId });
       throw error;
     }
@@ -249,7 +249,7 @@ export class DepartmentService {
         page,
         limit,
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error fetching departments', { error, options });
       throw error;
     }
@@ -283,7 +283,7 @@ export class DepartmentService {
       const hierarchy = await this.buildDepartmentHierarchy(topLevelDepartments);
       
       return hierarchy;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error fetching department hierarchy', { error, institutionId });
       throw error;
     }
@@ -357,7 +357,7 @@ export class DepartmentService {
       });
       
       return updatedDepartment as Department;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error updating department', { error, departmentId, data });
       throw error;
     }
@@ -400,7 +400,7 @@ export class DepartmentService {
       });
       
       return updatedDepartment as Department;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error deactivating department', { error, departmentId });
       throw error;
     }
@@ -442,7 +442,7 @@ export class DepartmentService {
       });
       
       return updatedDepartment as Department;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error reactivating department', { error, departmentId });
       throw error;
     }
@@ -498,7 +498,7 @@ export class DepartmentService {
         performedById: userId,
         metadata: { managerId },
       });
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error adding department manager', { error, departmentId, managerId });
       throw error;
     }
@@ -554,7 +554,7 @@ export class DepartmentService {
         performedById: userId,
         metadata: { managerId },
       });
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error removing department manager', { error, departmentId, managerId });
       throw error;
     }
@@ -673,7 +673,7 @@ export class DepartmentService {
           },
         },
       });
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error logging audit event', { error, data });
       // Don't throw, just log the error
     }

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Server-side Authentication Service
  * Enterprise-grade authentication with multi-tenant support
@@ -165,7 +164,7 @@ class ServerAuthService {
       const tokens = this.generateTokens(user);
 
       return { user, tokens };
-    } catch (error) {
+    } catch (_error) {
       console.error('Authentication error:', error);
       return null;
     }
@@ -259,7 +258,7 @@ class ServerAuthService {
       this.refreshTokens.delete(refreshToken);
 
       return tokens;
-    } catch (error) {
+    } catch (_error) {
       console.error('Token refresh error:', error);
       return null;
     }
@@ -281,7 +280,7 @@ class ServerAuthService {
       }
 
       return user;
-    } catch (error) {
+    } catch (_error) {
       console.error('Token verification error:', error);
       return null;
     }
@@ -369,7 +368,7 @@ class ServerAuthService {
       }
 
       return await this.verifyToken(token);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting user from request:', error);
       return null;
     }

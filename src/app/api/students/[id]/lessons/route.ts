@@ -280,7 +280,7 @@ export async function GET(
 
     return NextResponse.json(response);
 
-  } catch (error) {
+  } catch (_error) {
     console.error('[Student Lessons API] Error retrieving lessons:', error);
     return NextResponse.json({
       error: 'Internal server error',

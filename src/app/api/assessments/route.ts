@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Consolidated Assessment API Routes
  * 
@@ -71,7 +70,7 @@ async function routeAssessmentRequest(request: NextRequest): Promise<NextRespons
     }
 
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
-  } catch (error) {
+  } catch (_error) {
     console.error('[Assessment] Error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
@@ -109,7 +108,7 @@ async function handleListOrCreateAssessments(request: NextRequest, session: any)
         },
         total: assessments.length,
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Error fetching assessments:', error);
       return NextResponse.json({ error: 'Failed to fetch assessments' }, { status: 500 });
     }
@@ -138,7 +137,7 @@ async function handleListOrCreateAssessments(request: NextRequest, session: any)
         success: true,
         assessment,
       }, { status: 201 });
-    } catch (error) {
+    } catch (_error) {
       console.error('Error creating assessment:', error);
       return NextResponse.json({ error: 'Failed to create assessment' }, { status: 500 });
     }

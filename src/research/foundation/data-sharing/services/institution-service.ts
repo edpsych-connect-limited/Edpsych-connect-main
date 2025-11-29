@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Institution Service
  * 
@@ -129,7 +128,7 @@ export class InstitutionService {
       await this.notifyAdminsOfNewInstitution(institution);
 
       return institution;
-    } catch (error) {
+    } catch (_error) {
       if (error instanceof InstitutionError) {
         throw error;
       }
@@ -181,7 +180,7 @@ export class InstitutionService {
       });
       
       return institution;
-    } catch (error) {
+    } catch (_error) {
       if (error instanceof InstitutionError) {
         throw error;
       }
@@ -242,7 +241,7 @@ export class InstitutionService {
       });
       
       return result;
-    } catch (error) {
+    } catch (_error) {
       this.loggingService.log({
         level: 'error',
         message: 'Failed to search institutions',
@@ -323,7 +322,7 @@ export class InstitutionService {
       });
       
       return updatedInstitution;
-    } catch (error) {
+    } catch (_error) {
       if (error instanceof InstitutionError) {
         throw error;
       }
@@ -416,7 +415,7 @@ export class InstitutionService {
       }
       
       return verifiedInstitution;
-    } catch (error) {
+    } catch (_error) {
       if (error instanceof InstitutionError) {
         throw error;
       }
@@ -509,7 +508,7 @@ export class InstitutionService {
       }
       
       return rejectedInstitution;
-    } catch (error) {
+    } catch (_error) {
       if (error instanceof InstitutionError) {
         throw error;
       }
@@ -603,7 +602,7 @@ export class InstitutionService {
       });
       
       return newContact;
-    } catch (error) {
+    } catch (_error) {
       if (error instanceof InstitutionError) {
         throw error;
       }
@@ -716,7 +715,7 @@ export class InstitutionService {
       });
       
       return updatedContact;
-    } catch (error) {
+    } catch (_error) {
       if (error instanceof InstitutionError) {
         throw error;
       }
@@ -825,7 +824,7 @@ export class InstitutionService {
           userId
         }
       });
-    } catch (error) {
+    } catch (_error) {
       if (error instanceof InstitutionError) {
         throw error;
       }
@@ -913,7 +912,7 @@ export class InstitutionService {
       await this.notifyAdminsOfNewCertification(institution, newCertification);
       
       return newCertification;
-    } catch (error) {
+    } catch (_error) {
       if (error instanceof InstitutionError) {
         throw error;
       }
@@ -1029,7 +1028,7 @@ export class InstitutionService {
       }
       
       return verifiedCertification;
-    } catch (error) {
+    } catch (_error) {
       if (error instanceof InstitutionError) {
         throw error;
       }
@@ -1112,7 +1111,7 @@ export class InstitutionService {
       });
       
       return newPolicy;
-    } catch (error) {
+    } catch (_error) {
       if (error instanceof InstitutionError) {
         throw error;
       }
@@ -1205,7 +1204,7 @@ export class InstitutionService {
       }
       
       return deactivatedInstitution;
-    } catch (error) {
+    } catch (_error) {
       if (error instanceof InstitutionError) {
         throw error;
       }
@@ -1303,7 +1302,7 @@ export class InstitutionService {
       }
       
       return reactivatedInstitution;
-    } catch (error) {
+    } catch (_error) {
       if (error instanceof InstitutionError) {
         throw error;
       }
@@ -1392,7 +1391,7 @@ export class InstitutionService {
     // Validate website URL format
     try {
       new URL(params.website.startsWith('http') ? params.website : `https://${params.website}`);
-    } catch (error) {
+    } catch (_error) {
       throw new InstitutionError(
         InstitutionErrorType.INVALID_INPUT,
         'Invalid website URL format',

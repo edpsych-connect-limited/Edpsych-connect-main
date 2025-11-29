@@ -247,7 +247,7 @@ export async function GET(
 
     return NextResponse.json(response);
 
-  } catch (error) {
+  } catch (_error) {
     console.error('[Parent Messages API] Error retrieving messages:', error);
     return NextResponse.json({
       error: 'Internal server error',
@@ -428,7 +428,7 @@ export async function POST(
 
     return NextResponse.json(response);
 
-  } catch (error) {
+  } catch (_error) {
     console.error('[Parent Messages API] Error sending message:', error);
     return NextResponse.json({
       error: 'Internal server error',

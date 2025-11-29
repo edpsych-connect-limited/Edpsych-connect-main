@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Consolidated EHCP API Routes - Reduces 5 routes to 1
  */
@@ -69,7 +68,7 @@ async function routeEhcp(request: NextRequest): Promise<NextResponse> {
     }
 
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
-  } catch (error) {
+  } catch (_error) {
     console.error('[EHCP]', error);
     return NextResponse.json({ error: 'Internal error' }, { status: 500 });
   }

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Authentication types for EdPsych Connect
  */

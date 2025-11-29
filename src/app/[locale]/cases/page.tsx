@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Cases Management Page
  * List and manage all EP cases
@@ -85,7 +84,7 @@ export default function CasesPage() {
         },
       ];
       setCases(mockCases);
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to load cases:', error);
     } finally {
       setLoading(false);

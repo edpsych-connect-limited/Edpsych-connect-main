@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Adaptive Learning Engine
  * Task 4.1.4: Personalized Learning Pathways & Difficulty Adjustment

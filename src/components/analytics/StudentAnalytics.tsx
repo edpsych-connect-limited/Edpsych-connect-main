@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -106,7 +105,7 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
       if (studentId && data.students?.length > 0) {
         setSelectedStudent(data.students[0]);
       }
-    } catch (err) {
+    } catch (_err) {
       setError(err instanceof Error ? err.message : 'Unknown error');
     } finally {
       setLoading(false);

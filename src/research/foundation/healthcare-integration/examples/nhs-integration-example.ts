@@ -106,7 +106,7 @@ async function runNHSDigitalIntegrationExample() {
     try {
       const createdPatient = await fhirService.createResource(patientResource);
       logger.debug(`Successfully created patient with ID: ${createdPatient.id}`);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error creating patient:', error);
       logger.debug('Continuing with example using local patient resource...');
     }
@@ -188,7 +188,7 @@ async function runNHSDigitalIntegrationExample() {
     try {
       const createdObservation = await fhirService.createResource(observationResource);
       logger.debug(`Successfully created observation with ID: ${(createdObservation as any).id || 'N/A'}`);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error creating observation:', error);
       logger.debug('Continuing with example using local observation resource...');
     }
@@ -201,7 +201,7 @@ async function runNHSDigitalIntegrationExample() {
       logger.debug(`Name: ${nhsPatient.name?.[0]?.given?.join(' ')} ${nhsPatient.name?.[0]?.family}`);
       logger.debug(`NHS Number: ${nhsPatient.identifier?.find(id => id.system === 'https://fhir.nhs.uk/Id/nhs-number')?.value}`);
       logger.debug(`Date of Birth: ${nhsPatient.birthDate}`);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error fetching NHS patient demographics:', error);
       logger.debug('This error is expected in this example as we are not using real NHS credentials');
     }
@@ -242,13 +242,13 @@ async function runNHSDigitalIntegrationExample() {
     try {
       const createdCarePlan = await fhirService.createCarePlan(carePlan as any);
       logger.debug(`Successfully created care plan with ID: ${(createdCarePlan as any).id || 'N/A'}`);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error creating care plan:', error);
       logger.debug('Continuing with example...');
     }
     
     logger.debug('NHS Digital FHIR Integration Example completed');
-  } catch (error) {
+  } catch (_error) {
     console.error('Error in integration example:', error);
   }
 }

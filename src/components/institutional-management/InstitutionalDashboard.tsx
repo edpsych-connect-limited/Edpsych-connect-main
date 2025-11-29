@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -96,7 +95,7 @@ const InstitutionalDashboard: React.FC<{ id?: string }> = ({ id }) => {
         const deptData = await deptResponse.json();
         setDepartments(deptData);
         
-      } catch (err) {
+      } catch (_err) {
         console.error('Error fetching institution data:', err);
         setError(err instanceof Error ? err.message : 'An error occurred while loading institution data');
       } finally {

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Case Individual API Routes - Enterprise-grade implementation
  * Phase 3: Core SEND Functionality
@@ -174,7 +173,7 @@ export async function GET(
       case: caseRecord,
       message: 'Case retrieved successfully',
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[Case API] Error fetching case:', error);
     return NextResponse.json(
       {
@@ -322,7 +321,7 @@ export async function PATCH(
       case: updatedCase,
       message: 'Case updated successfully',
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[Case API] Error updating case:', error);
     return NextResponse.json(
       {
@@ -437,7 +436,7 @@ export async function DELETE(
       message: 'Case closed successfully',
       case: closedCase,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[Case API] Error closing case:', error);
     return NextResponse.json(
       {

@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -111,7 +110,7 @@ export function InteractiveDemo({ featureId, onComplete }: InteractiveDemoProps)
       const demoId = data.demoId;
       pollStatus(demoId);
 
-    } catch (error) {
+    } catch (_error) {
       setState(prev => ({
         ...prev,
         status: 'error',
@@ -146,7 +145,7 @@ export function InteractiveDemo({ featureId, onComplete }: InteractiveDemoProps)
           }
         }
 
-      } catch (error) {
+      } catch (_error) {
         console.error('Polling error:', error);
         // Don't stop polling immediately on transient errors, but maybe limit retries?
         // For now, we'll just let it continue or user can retry

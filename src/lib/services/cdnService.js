@@ -56,7 +56,7 @@ class CDNService {
       this._startAnalyticsCollection();
 
       logger.info('CDN service initialized');
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error initializing CDN service:', error);
     }
   }
@@ -109,7 +109,7 @@ class CDNService {
 
       logger.info(`Created CDN distribution: ${distributionId}`);
       return distributionId;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error creating distribution:', error);
       throw error;
     }
@@ -147,7 +147,7 @@ class CDNService {
 
       logger.info(`Submitted cache invalidation: ${invalidationId} for ${paths.length} paths`);
       return invalidationId;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error invalidating cache:', error);
       throw error;
     }
@@ -199,7 +199,7 @@ class CDNService {
       }
 
       return optimizedUrls;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error optimizing video:', error);
       throw error;
     }
@@ -240,7 +240,7 @@ class CDNService {
       }
 
       return optimizedUrls;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error optimizing image:', error);
       throw error;
     }
@@ -287,7 +287,7 @@ class CDNService {
 
       logger.info(`Deployed edge function: ${functionId}`);
       return functionId;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error deploying edge function:', error);
       throw error;
     }
@@ -338,7 +338,7 @@ class CDNService {
       analytics.topContent = await this._getTopContent(startDate, endDate);
 
       return analytics;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error getting CDN analytics:', error);
       throw error;
     }
@@ -372,7 +372,7 @@ class CDNService {
 
       logger.info(`Purged content from distribution: ${distributionId}`);
       return true;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error purging content:', error);
       throw error;
     }
@@ -403,7 +403,7 @@ class CDNService {
       }
 
       logger.info(`Initialized CDN provider: ${this.options.provider}`);
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error initializing CDN provider:', error);
       throw error;
     }
@@ -418,7 +418,7 @@ class CDNService {
     try {
       // This would configure edge locations with the CDN provider
       logger.info(`Setting up ${this.options.regions.length} edge locations`);
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error setting up edge locations:', error);
     }
   }
@@ -453,7 +453,7 @@ class CDNService {
       await this._applyCachingRules(defaultRules);
 
       logger.info('Configured CDN caching rules');
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error configuring caching rules:', error);
     }
   }
@@ -496,7 +496,7 @@ class CDNService {
         this.analytics.errors += Math.floor(Math.random() * 5) + 1;
       }
 
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error collecting analytics:', error);
     }
   }

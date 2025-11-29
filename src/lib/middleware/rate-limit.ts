@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Enterprise-grade rate limiting middleware
  * Prevents brute force attacks, DoS attacks, and API abuse
@@ -236,7 +235,7 @@ export function createRateLimit(config: RateLimitConfig): (
         remaining: result.remaining,
         resetTime: result.resetTime,
       };
-    } catch (error) {
+    } catch (_error) {
       // If rate limiting fails, allow the request (fail open)
       // This ensures rate limiting failures don't break the application
       console.error('[RATE LIMIT] Error:', error);

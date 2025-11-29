@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -36,7 +35,7 @@ import { useState, useCallback, useEffect } from 'react';
  *     <button onClick={() => {
  *       try {
  *         riskyOperation();
- *       } catch (err) {
+ *       } catch (_err) {
  *         handleError(err);
  *       }
  *     }}>

@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Interactive Course Player
  * Self-service, engaging training delivery - NO human facilitators
@@ -127,7 +126,7 @@ export default function InteractiveCoursePlayer({
         const data = await response.json();
         setCourse(data.course);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to load course:', error);
     }
   };
@@ -139,7 +138,7 @@ export default function InteractiveCoursePlayer({
         const data = await response.json();
         setProgress(data.progress);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to load progress:', error);
     }
   };
@@ -157,7 +156,7 @@ export default function InteractiveCoursePlayer({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updates),
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to save progress:', error);
     }
   };
@@ -222,7 +221,7 @@ export default function InteractiveCoursePlayer({
         // Redirect to certificate page
         router.push(`/training/certificates/${data.certificateId}`);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to complete course:', error);
     }
   };
@@ -772,7 +771,7 @@ function ReflectionElement({ element, enrollmentId, onComplete }: InteractiveEle
 
       setSubmitted(true);
       onComplete(100); // Reflection always gets full points for completion
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to save reflection:', error);
     }
   };
@@ -837,7 +836,7 @@ function CaseStudyElement({ element, enrollmentId, onComplete }: InteractiveElem
 
       setSubmitted(true);
       onComplete(100);
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to save case study responses:', error);
     }
   };

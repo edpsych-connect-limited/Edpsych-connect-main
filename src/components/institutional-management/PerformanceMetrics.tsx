@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -130,7 +129,7 @@ const PerformanceMetrics: React.FC<PerformanceMetricsProps> = ({ metrics }) => {
                 cy="50%"
                 labelLine={false}
                 label={(props: PieLabelRenderProps) => {
-                  const { name, value, percent } = props;
+                  const { name, value: _value, percent } = props;
                   if (typeof percent === 'number') {
                     return `${name}: ${(percent * 100).toFixed(0)}%`;
                   }

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * License Verification Middleware
  * 
@@ -61,7 +60,7 @@ export const verifyLicense = (requiresActive = true) => {
       req.licenseId = licenseId;
       
       next();
-    } catch (error) {
+    } catch (_error) {
       console.error('License verification error:', error);
       res.status(500).json({
         success: false,
@@ -144,7 +143,7 @@ export const requireCapability = (
       }
       
       next();
-    } catch (error) {
+    } catch (_error) {
       console.error('License capability verification error:', error);
       res.status(500).json({
         success: false,
@@ -192,7 +191,7 @@ export const checkQuota = (
       }
       
       next();
-    } catch (error) {
+    } catch (_error) {
       console.error('License quota verification error:', error);
       res.status(500).json({
         success: false,

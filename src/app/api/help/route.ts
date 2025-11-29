@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Help Center API
  * Browse categories, articles, FAQs, and search
@@ -128,7 +127,7 @@ export async function GET(request: NextRequest) {
     }
 
     return NextResponse.json({ error: 'Invalid type parameter' }, { status: 400 });
-  } catch (error) {
+  } catch (_error) {
     console.error('Failed to fetch help content:', error);
     return NextResponse.json(
       { error: 'Failed to fetch help content' },

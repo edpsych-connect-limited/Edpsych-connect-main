@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Evidence-Based Intervention Library
  * Task 3.3.1: Intervention Designer - Comprehensive Intervention Database

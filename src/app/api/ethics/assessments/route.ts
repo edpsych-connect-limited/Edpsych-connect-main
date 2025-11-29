@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Ethics Assessments API
  * Manage ethics assessments for platform features and components
@@ -43,7 +42,7 @@ export async function GET(request: NextRequest) {
       count: assessments.length,
       summary
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Ethics Assessments API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve assessments' },
@@ -196,7 +195,7 @@ export async function POST(request: NextRequest) {
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (_error) {
     console.error('Assessment action error:', error);
     return NextResponse.json(
       { error: 'Failed to perform assessment action' },

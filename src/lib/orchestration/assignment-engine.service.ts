@@ -121,7 +121,7 @@ export class AssignmentEngineService {
       logger.info(`Lesson differentiated successfully: ${lessonPlan.title}`);
 
       return differentiated;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error differentiating lesson content:', error as Error);
       throw error;
     }
@@ -364,7 +364,7 @@ export class AssignmentEngineService {
         teacher_review_needed: needsReview,
         notifications_queued: autoAssign ? notificationsQueued : 0,
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error assigning lessons to class:', error as Error);
       throw error;
     }
@@ -450,7 +450,7 @@ export class AssignmentEngineService {
         reasoning,
         profile_confidence: profile.profile_confidence,
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error determining difficulty level:', error as Error);
       throw error;
     }
@@ -541,7 +541,7 @@ export class AssignmentEngineService {
         mismatch_detected: false,
         reasoning: ['Difficulty level appropriate - student progressing well'],
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error detecting mismatch during lesson:', error as Error);
       throw error;
     }
@@ -650,7 +650,7 @@ export class AssignmentEngineService {
           'Additional practice time',
         ],
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error triggering intervention on struggle:', error as Error);
       throw error;
     }
@@ -711,7 +711,7 @@ export class AssignmentEngineService {
         reasoning,
         requires_teacher_approval: recommendation !== 'stay',
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error recommending level change:', error as Error);
       throw error;
     }
@@ -824,7 +824,7 @@ export class AssignmentEngineService {
         areas_to_support,
         home_activities,
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error generating parent update:', error as Error);
       throw error;
     }
@@ -856,7 +856,7 @@ export class AssignmentEngineService {
           outcome_success: true,
         },
       });
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error logging automated action:', error as Error);
       // Don't throw - logging failure shouldn't break the flow
     }

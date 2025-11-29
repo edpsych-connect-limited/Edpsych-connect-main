@@ -349,7 +349,7 @@ export async function POST(
 
     return NextResponse.json(response);
 
-  } catch (error) {
+  } catch (_error) {
     console.error('[Lesson Assignment API] Error assigning lessons:', error);
     return NextResponse.json({
       error: 'Internal server error',

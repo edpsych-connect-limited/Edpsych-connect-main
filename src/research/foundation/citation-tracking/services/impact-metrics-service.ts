@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Impact Metrics Service
  * 
@@ -311,7 +310,7 @@ export class ImpactMetricsService {
         success: true,
         data: result
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -353,7 +352,7 @@ export class ImpactMetricsService {
           comparisonDate: new Date()
         }
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -415,7 +414,7 @@ export class ImpactMetricsService {
           history
         }
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -498,7 +497,7 @@ export class ImpactMetricsService {
           researcherCitations
         }
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -574,7 +573,7 @@ export class ImpactMetricsService {
           sources
         }
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -662,7 +661,7 @@ export class ImpactMetricsService {
           citationClusters
         }
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -771,7 +770,7 @@ export class ImpactMetricsService {
           }
         }
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -844,7 +843,7 @@ export class ImpactMetricsService {
           });
           
           imported++;
-        } catch (error) {
+        } catch (_error) {
           results.push({
             entityId: item.entityId,
             entityType: item.entityType,
@@ -864,7 +863,7 @@ export class ImpactMetricsService {
           results
         }
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',

@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -199,7 +198,7 @@ export const VoiceAssistant: React.FC = () => {
         }
       }
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Voice command error:', error);
       // Self-healing: If voice fails, try to offer text fallback or retry
       console.error('Voice processing error:', error);

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Performance Profiler
  * Analyzes code performance and detects bottlenecks
@@ -92,7 +91,7 @@ export class PerformanceProfiler {
       this.filesScanned++;
 
       return this.generateReport();
-    } catch (error) {
+    } catch (_error) {
       const msg = error instanceof Error ? error.message : String(error);
       this.issues.push({
         type: 'SCAN_ERROR',
@@ -124,7 +123,7 @@ export class PerformanceProfiler {
 
       this.walkDirectory(dirPath);
       return this.generateReport();
-    } catch (error) {
+    } catch (_error) {
       const msg = error instanceof Error ? error.message : String(error);
       this.issues.push({
         type: 'SCAN_ERROR',

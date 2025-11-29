@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/research/library/route.ts
  * PURPOSE: Research library management for Educational Psychologists

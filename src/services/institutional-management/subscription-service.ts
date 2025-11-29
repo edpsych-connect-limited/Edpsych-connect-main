@@ -149,7 +149,7 @@ export class SubscriptionService {
       });
       
       return subscription as unknown as InstitutionSubscription;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error creating subscription', { error, data });
       throw error;
     }
@@ -180,7 +180,7 @@ export class SubscriptionService {
       await this.verifySubscriptionAccess(subscription.institutionId, userId);
       
       return subscription as unknown as InstitutionSubscription;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error fetching subscription', { error, subscriptionId });
       throw error;
     }
@@ -274,7 +274,7 @@ export class SubscriptionService {
         page,
         limit,
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error fetching subscriptions', { error, options });
       throw error;
     }
@@ -358,7 +358,7 @@ export class SubscriptionService {
       });
       
       return updatedSubscription as unknown as InstitutionSubscription;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error updating subscription', { error, subscriptionId, data });
       throw error;
     }
@@ -409,7 +409,7 @@ export class SubscriptionService {
       });
       
       return updatedSubscription as unknown as InstitutionSubscription;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error cancelling subscription', { error, subscriptionId });
       throw error;
     }
@@ -460,7 +460,7 @@ export class SubscriptionService {
       });
       
       return updatedSubscription as unknown as InstitutionSubscription;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error reactivating subscription', { error, subscriptionId });
       throw error;
     }
@@ -526,7 +526,7 @@ export class SubscriptionService {
       });
       
       return updatedSubscription as unknown as InstitutionSubscription;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error adjusting license count', { error, subscriptionId, newLicenseCount });
       throw error;
     }
@@ -649,7 +649,7 @@ export class SubscriptionService {
           },
         },
       });
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error logging audit event', { error, data });
       // Don't throw, just log the error
     }

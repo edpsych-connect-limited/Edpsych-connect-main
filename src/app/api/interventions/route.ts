@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Intervention API Routes - Enterprise-grade implementation
  * Phase 3.3: Intervention Designer
@@ -158,7 +157,7 @@ export async function GET(request: NextRequest) {
         hasPreviousPage: page > 1,
       },
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[Intervention API] Error fetching interventions:', error);
     return NextResponse.json(
       {
@@ -266,7 +265,7 @@ export async function POST(request: NextRequest) {
       { intervention, message: 'Intervention created successfully' },
       { status: 201 }
     );
-  } catch (error) {
+  } catch (_error) {
     console.error('[Intervention API] Error creating intervention:', error);
     return NextResponse.json(
       {

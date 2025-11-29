@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -142,7 +141,7 @@ export class ProfessionalDevelopmentService {
             focusAreas = typeof institution.focusAreas === 'string'
               ? JSON.parse(institution.focusAreas)
               : (institution.focusAreas || []);
-          } catch (e) {
+          } catch (_e) {
             console.warn('Failed to parse focus areas', e);
             focusAreas = [];
           }
@@ -174,7 +173,7 @@ export class ProfessionalDevelopmentService {
       );
       
       return recommendations;
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting professional development recommendations:', error);
       throw new Error('Failed to generate professional development recommendations');
     }
@@ -314,7 +313,7 @@ export class ProfessionalDevelopmentService {
           tags = typeof content.tags === 'string'
             ? JSON.parse(content.tags)
             : (content.tags || []);
-        } catch (e) {
+        } catch (_e) {
           console.warn('Failed to parse content tags', e);
           tags = [];
         }
@@ -338,7 +337,7 @@ export class ProfessionalDevelopmentService {
       return recommendations
         .sort((a, b) => b.relevanceScore - a.relevanceScore)
         .slice(0, limit);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting trending recommendations:', error);
       throw new Error('Failed to generate trending recommendations');
     }

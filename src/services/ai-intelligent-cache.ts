@@ -153,7 +153,7 @@ export class AIIntelligentCache {
         similarity: 1.0
       };
 
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error retrieving from cache:', error as Error);
       return null;
     }
@@ -213,7 +213,7 @@ export class AIIntelligentCache {
         }
       });
 
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error storing in cache:', error as Error);
     }
   }

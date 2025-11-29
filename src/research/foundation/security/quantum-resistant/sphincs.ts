@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * SPHINCS+ Digital Signature Algorithm Implementation
  * 

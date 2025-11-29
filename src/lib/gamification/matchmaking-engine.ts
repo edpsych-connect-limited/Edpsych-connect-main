@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/lib/gamification/matchmaking-engine.ts
  * PURPOSE: Intelligent matchmaking system for Battle Royale competitions

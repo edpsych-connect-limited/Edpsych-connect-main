@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Automation Templates API
  * Manage intervention templates
@@ -91,7 +90,7 @@ export async function GET(request: NextRequest) {
       count: templates.length,
       categories: ['engagement', 'academic_support', 'motivation']
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Automation Templates API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve templates' },
@@ -138,7 +137,7 @@ export async function POST(request: NextRequest) {
       template: newTemplate,
       message: 'Template created successfully'
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Create template error:', error);
     return NextResponse.json(
       { error: 'Failed to create template' },

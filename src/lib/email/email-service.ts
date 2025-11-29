@@ -55,7 +55,7 @@ export class EmailService {
 
       logger.debug(`[EmailService] Email sent: ${info.messageId}`);
       return true;
-    } catch (error) {
+    } catch (_error) {
       console.error('[EmailService] Failed to send email:', error);
       
       // Fallback to console log in development if sending fails

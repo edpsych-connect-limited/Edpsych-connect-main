@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Usage Tracking Service
  * 

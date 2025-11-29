@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Collaborative Input Form Page
  * Public page for parents/teachers/children to provide assessment input
@@ -45,7 +44,7 @@ export default function CollaboratePage() {
 
         const data = await response.json();
         setFormData(data.formData);
-      } catch (err) {
+      } catch (_err) {
         console.error('Error loading form:', err);
         setError('Failed to load the form. Please check your internet connection and try again.');
       } finally {
@@ -99,7 +98,7 @@ export default function CollaboratePage() {
       }
 
       return true;
-    } catch (err) {
+    } catch (_err) {
       console.error('Failed to save draft:', err);
       return false;
     }

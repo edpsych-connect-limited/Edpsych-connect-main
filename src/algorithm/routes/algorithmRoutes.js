@@ -37,7 +37,7 @@ router.get('/', async (req, res) => {
     
     const algorithms = await AlgorithmService.searchAlgorithms(criteria, pagination);
     res.json(algorithms);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -51,7 +51,7 @@ router.get('/popular', async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;
     const algorithms = await AlgorithmService.getPopularAlgorithms(limit);
     res.json(algorithms);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -65,7 +65,7 @@ router.get('/featured', async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;
     const algorithms = await AlgorithmService.getFeaturedAlgorithms(limit);
     res.json(algorithms);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -88,7 +88,7 @@ router.get('/:id', async (req, res) => {
     }
     
     res.json(algorithm);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -108,7 +108,7 @@ router.post('/', requireAuth, async (req, res) => {
     
     const algorithm = await AlgorithmService.createAlgorithm(algorithmData, creatorId);
     res.status(201).json(algorithm);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -130,7 +130,7 @@ router.put('/:id', requireAuth, async (req, res) => {
     
     const algorithm = await AlgorithmService.updateAlgorithm(algorithmId, updatedData, userId);
     res.json(algorithm);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -146,7 +146,7 @@ router.post('/:id/submit-review', requireAuth, async (req, res) => {
     
     const algorithm = await AlgorithmService.submitAlgorithmForReview(algorithmId, userId);
     res.json(algorithm);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -163,7 +163,7 @@ router.post('/:id/approve', requireReviewer, async (req, res) => {
     
     const algorithm = await AlgorithmService.approveAlgorithm(algorithmId, reviewerId, comments);
     res.json(algorithm);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -180,7 +180,7 @@ router.post('/:id/reject', requireReviewer, async (req, res) => {
     
     const algorithm = await AlgorithmService.rejectAlgorithm(algorithmId, reviewerId, reason);
     res.json(algorithm);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -196,7 +196,7 @@ router.post('/:id/publish', requireAuth, async (req, res) => {
     
     const algorithm = await AlgorithmService.publishAlgorithm(algorithmId, userId);
     res.json(algorithm);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -213,7 +213,7 @@ router.post('/:id/versions', requireAuth, async (req, res) => {
     
     const version = await AlgorithmService.addAlgorithmVersion(algorithmId, versionData, userId);
     res.status(201).json(version);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -235,7 +235,7 @@ router.post('/:id/licenses', requireAuth, async (req, res) => {
     
     const license = await AlgorithmService.addAlgorithmLicense(algorithmId, licenseData, userId);
     res.status(201).json(license);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -269,7 +269,7 @@ router.post('/:id/purchase', requireAuth, async (req, res) => {
     );
     
     res.status(201).json(license);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -307,7 +307,7 @@ router.get('/licenses', requireAuth, async (req, res) => {
     
     const licenses = await AlgorithmLicense.list(filters, pagination, sorting);
     res.json(licenses);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -331,7 +331,7 @@ router.get('/licenses/:id', requireAuth, async (req, res) => {
     }
     
     res.json(license);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -352,7 +352,7 @@ router.post('/licenses/:id/usage', requireAuth, async (req, res) => {
     
     const usageResult = await AlgorithmService.recordAlgorithmUsage(licenseId, usageData);
     res.json(usageResult);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -379,7 +379,7 @@ router.post('/licenses/:id/renew', requireAuth, async (req, res) => {
     const renewedLicense = await license.renew(renewalData);
     
     res.json(renewedLicense);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -406,7 +406,7 @@ router.post('/licenses/:id/cancel', requireAuth, async (req, res) => {
     const cancelledLicense = await license.cancel(cancellationData);
     
     res.json(cancelledLicense);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -442,7 +442,7 @@ router.get('/creators', async (req, res) => {
     
     const creators = await AlgorithmCreator.list(filters, pagination, sorting);
     res.json(creators);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -461,7 +461,7 @@ router.get('/creators/:id', async (req, res) => {
     }
     
     res.json(creator);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -481,7 +481,7 @@ router.post('/creators', requireAuth, async (req, res) => {
     
     const creator = await AlgorithmService.createCreator(creatorData);
     res.status(201).json(creator);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -503,7 +503,7 @@ router.put('/creators/:id', requireAuth, async (req, res) => {
     
     const creator = await AlgorithmService.updateCreator(creatorId, updatedData, userId);
     res.json(creator);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -525,7 +525,7 @@ router.post('/creators/:id/verify', requireAdmin, async (req, res) => {
     const verifiedCreator = await creator.verify(verificationData);
     
     res.json(verifiedCreator);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -552,7 +552,7 @@ router.get('/creators/:id/earnings', requireAuth, async (req, res) => {
     const earnings = await AlgorithmService.getCreatorEarnings(creatorId, period);
     
     res.json(earnings);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -577,7 +577,7 @@ router.post('/creators/:id/revenue-agreements', requireAdmin, async (req, res) =
     );
     
     res.status(201).json(agreement);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -599,7 +599,7 @@ router.post('/creators/:id/payouts', requireAdmin, async (req, res) => {
     );
     
     res.status(201).json(payout);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: error.message });
   }
 });

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * JWT Configuration and Utilities for Edge Auth Adapter
  * 
@@ -102,7 +101,7 @@ export async function verifyJwt<T>(token: string): Promise<T | null> {
     const secretKey = getJwtSecretKey();
     const { payload } = await jwtVerify(token, secretKey);
     return payload as T;
-  } catch (error) {
+  } catch (_error) {
     console.error('JWT verification failed:', error);
     return null;
   }
@@ -118,7 +117,7 @@ export async function verifyRefreshToken<T>(token: string): Promise<T | null> {
     const secretKey = getRefreshTokenSecretKey();
     const { payload } = await jwtVerify(token, secretKey);
     return payload as T;
-  } catch (error) {
+  } catch (_error) {
     console.error('Refresh token verification failed:', error);
     return null;
   }

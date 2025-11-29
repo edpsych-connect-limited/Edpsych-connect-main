@@ -224,7 +224,7 @@ export class DeploymentValidationService {
         lastCheck: new Date(),
         dependencies: this.getServiceDependencies(serviceName)
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         name: serviceName,
         status: 'major_outage',

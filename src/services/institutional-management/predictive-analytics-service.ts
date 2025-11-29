@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -199,7 +198,7 @@ class PredictiveAnalyticsService {
       
       return predictions;
       
-    } catch (error) {
+    } catch (_error) {
       console.error('Error generating student outcome predictions:', error);
       throw new Error('Failed to generate student outcome predictions');
     }
@@ -271,7 +270,7 @@ class PredictiveAnalyticsService {
       
       return trends;
       
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting performance trends:', error);
       throw new Error('Failed to get performance trends');
     }
@@ -372,7 +371,7 @@ class PredictiveAnalyticsService {
       
       return benchmarks;
       
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting institutional benchmarks:', error);
       throw new Error('Failed to get institutional benchmarks');
     }

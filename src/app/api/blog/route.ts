@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Blog API
  * Browse posts, search, filter by category/tag
@@ -176,7 +175,7 @@ export async function GET(request: NextRequest) {
         pages: Math.ceil(total / limit),
       },
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Failed to fetch blog posts:', error);
     return NextResponse.json(
       { error: 'Failed to fetch blog posts' },

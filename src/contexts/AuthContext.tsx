@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -73,7 +72,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       }
       return null;
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to fetch current user:', error);
       return null;
     }
@@ -99,7 +98,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             }
           }
         }
-      } catch (error) {
+      } catch (_error) {
         console.error('Auth check failed:', error);
       } finally {
         setLoading(false);
@@ -155,7 +154,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       return { success: false, error: 'Invalid response from server' };
-    } catch (error) {
+    } catch (_error) {
       console.error('Login error:', error);
       return { 
         success: false, 
@@ -174,7 +173,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         method: 'POST',
         credentials: 'include',
       });
-    } catch (error) {
+    } catch (_error) {
       console.error('Logout API error:', error);
       // Continue with client-side logout even if API fails
     } finally {

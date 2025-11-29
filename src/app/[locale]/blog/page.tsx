@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Blog Main Page
  * Browse posts, filter by category/tag, search
@@ -49,7 +48,7 @@ function BlogPageContent() {
       setFeatured(featuredData.featured || []);
       setCategories(categoriesData.categories || []);
       setTags(tagsData.tags || []);
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to load blog content:', error);
     } finally {
       setLoading(false);
@@ -69,7 +68,7 @@ function BlogPageContent() {
       const data = await response.json();
       setPosts(data.posts || []);
       setPagination(data.pagination);
-    } catch (error) {
+    } catch (_error) {
       console.error('Search failed:', error);
     } finally {
       setLoading(false);
@@ -88,7 +87,7 @@ function BlogPageContent() {
       const data = await response.json();
       setPosts(data.posts || []);
       setPagination(data.pagination);
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to filter by category:', error);
     } finally {
       setLoading(false);
@@ -107,7 +106,7 @@ function BlogPageContent() {
       const data = await response.json();
       setPosts(data.posts || []);
       setPagination(data.pagination);
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to filter by tag:', error);
     } finally {
       setLoading(false);

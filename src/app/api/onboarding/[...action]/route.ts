@@ -86,7 +86,7 @@ async function routeOnboardingRequest(request: NextRequest): Promise<NextRespons
       default:
         return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
-  } catch (error) {
+  } catch (_error) {
     console.error('[Onboarding] Unhandled Error:', error);
     // Return JSON even for unhandled errors to prevent "Network error" on client
     return NextResponse.json({ 
@@ -211,7 +211,7 @@ async function handleGetStatus(userId: number): Promise<NextResponse> {
         timesRestarted: progress.times_restarted,
       }
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[Onboarding] handleGetStatus error:', error);
     throw error; // Re-throw to be caught by main handler
   }

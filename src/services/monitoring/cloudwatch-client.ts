@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -150,7 +149,7 @@ export class CloudWatchClient {
       });
 
       await this.client.send(command);
-    } catch (error) {
+    } catch (_error) {
       console.error(`Failed to create alarm for ${metricName}:`, error);
     }
   }
@@ -234,7 +233,7 @@ export class CloudWatchClient {
       });
 
       await this.client.send(command);
-    } catch (error) {
+    } catch (_error) {
       console.error(`Failed to publish metric ${metricDatum.MetricName}:`, error);
     }
   }

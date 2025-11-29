@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -120,7 +119,7 @@ const FileUploadQuestion: React.FC<FileUploadQuestionProps> = ({
 
       // Simulate upload delay
       await new Promise(resolve => setTimeout(resolve, 500));
-    } catch (err) {
+    } catch (_err) {
       console.error('Error handling file:', err);
       setError('Failed to process file. Please try again.');
     } finally {

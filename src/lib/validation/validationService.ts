@@ -74,7 +74,7 @@ export class ValidationService {
 
       logger.info('Service layer validation complete', result.stats);
       return result;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Service layer validation error:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -105,7 +105,7 @@ export class ValidationService {
       }
 
       return result;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Service validation error:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -149,7 +149,7 @@ export class ValidationService {
       logger.info(`Pre-commit validation ${passed ? 'PASSED' : 'FAILED'}`);
 
       return passed;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Pre-commit validation error:', error instanceof Error ? error.message : String(error));
       return false;
     }
@@ -178,7 +178,7 @@ export class ValidationService {
           errors: result.errors.length
         });
       }
-    } catch (error) {
+    } catch (_error) {
       logger.error('Continuous validation error:', error instanceof Error ? error.message : String(error));
       onResult({
         isValid: false,
@@ -225,7 +225,7 @@ export class ValidationService {
       }
 
       return result.isValid;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Build-time validation failed:', error instanceof Error ? error.message : String(error));
       return false;
     }
@@ -293,7 +293,7 @@ export class ValidationService {
         passed,
         summary: `Comprehensive validation ${passed ? 'PASSED' : 'FAILED'}: ${totalErrors} total errors found across ${results.length} validation layers`
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Comprehensive validation error:', error instanceof Error ? error.message : String(error));
       return {
         passed: false,
@@ -312,7 +312,7 @@ export class ValidationService {
     try {
       const result = await this.validator.validateDirectory(sourceDir);
       return this.validator.formatReport(result);
-    } catch (error) {
+    } catch (_error) {
       logger.error('Report generation failed:', error instanceof Error ? error.message : String(error));
       throw error;
     }

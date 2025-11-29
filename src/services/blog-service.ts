@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Automated Educational Blog Service for EdPsych Connect World
  * AI-powered content generation for continuous professional development
@@ -172,7 +171,7 @@ export class BlogService {
       }
 
       return this.mapPrismaPostToInterface(post, author);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error generating blog post:', error);
       throw new Error('Failed to generate blog post');
     }

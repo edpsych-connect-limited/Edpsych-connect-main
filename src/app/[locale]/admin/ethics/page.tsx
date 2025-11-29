@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -45,7 +44,7 @@ export default function EthicsAdminPage() {
         setMonitors(monitorsData.monitors || []);
         setIncidents(incidentsData.incidents || []);
         setAssessments(assessmentsData.assessments || []);
-      } catch (error) {
+      } catch (_error) {
         console.error('Failed to load ethics data:', error);
       } finally {
         setLoading(false);

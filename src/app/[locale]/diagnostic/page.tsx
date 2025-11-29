@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -47,7 +46,7 @@ export default function DiagnosticPage() {
           },
           apiStatus: statusData
         });
-      } catch (error) {
+      } catch (_error) {
         setDiagnosticData({
           status: 'Error',
           error: error instanceof Error ? error.message : String(error)

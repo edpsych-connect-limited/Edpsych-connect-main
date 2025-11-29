@@ -120,7 +120,7 @@ export class InstitutionService {
       });
 
       return institution as unknown as Institution;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error creating institution', { error, data });
       throw error;
     }
@@ -155,7 +155,7 @@ export class InstitutionService {
       await this.verifyInstitutionAccess(userId, institutionId);
 
       return institution as unknown as Institution;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error fetching institution', { error, institutionId });
       throw error;
     }
@@ -239,7 +239,7 @@ export class InstitutionService {
         page,
         limit,
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error fetching institutions', { error, options });
       throw error;
     }
@@ -298,7 +298,7 @@ export class InstitutionService {
       });
       
       return updatedInstitution as unknown as Institution;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error updating institution', { error, institutionId, data });
       throw error;
     }
@@ -342,7 +342,7 @@ export class InstitutionService {
       });
       
       return updatedInstitution as unknown as Institution;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error verifying institution', { error, institutionId, status });
       throw error;
     }
@@ -385,7 +385,7 @@ export class InstitutionService {
       });
       
       return updatedInstitution as unknown as Institution;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error deactivating institution', { error, institutionId });
       throw error;
     }
@@ -428,7 +428,7 @@ export class InstitutionService {
       });
       
       return updatedInstitution as unknown as Institution;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error reactivating institution', { error, institutionId });
       throw error;
     }
@@ -485,7 +485,7 @@ export class InstitutionService {
         active: await prisma.institution.count({ where: { isActive: true } }),
         verified: await prisma.institution.count({ where: { verificationStatus: VerificationStatus.VERIFIED } }),
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error fetching institution statistics', { error });
       throw error;
     }
@@ -540,7 +540,7 @@ export class InstitutionService {
         institutionId: institutionId,
         metadata: { adminId },
       });
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error adding institution admin', { error, institutionId, adminId });
       throw error;
     }
@@ -595,7 +595,7 @@ export class InstitutionService {
         institutionId: institutionId,
         metadata: { adminId },
       });
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error removing institution admin', { error, institutionId, adminId });
       throw error;
     }
@@ -670,7 +670,7 @@ export class InstitutionService {
           },
         },
       });
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error logging audit event', { error, data });
       // Don't throw, just log the error
     }

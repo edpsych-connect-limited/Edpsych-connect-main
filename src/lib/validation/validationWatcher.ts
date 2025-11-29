@@ -114,7 +114,7 @@ export class ValidationWatcher {
       });
 
       this.watchers.set(dir, watcher);
-    } catch (error) {
+    } catch (_error) {
       logger.error(`Error setting up watcher for ${dir}:`, error instanceof Error ? error.message : String(error));
     }
   }
@@ -159,7 +159,7 @@ export class ValidationWatcher {
     const timer = setTimeout(async () => {
       try {
         await this.validateFile(filePath);
-      } catch (error) {
+      } catch (_error) {
         logger.error(`Validation error for ${filePath}:`, error instanceof Error ? error.message : String(error));
       } finally {
         this.debounceTimers.delete(filePath);

@@ -79,7 +79,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ result });
 
-  } catch (error) {
+  } catch (_error) {
     logger.error('[Orchestrator] Error processing tutor request:', error as Error);
     return NextResponse.json(
       { error: 'Internal Server Error', details: error instanceof Error ? error.message : String(error) },

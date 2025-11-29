@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -167,7 +166,7 @@ const AssessmentEngine: React.FC<AssessmentEngineProps> = ({
         }
         
         setLoading(false);
-      } catch (err) {
+      } catch (_err) {
         console.error('Error fetching assessment:', err);
         setError('Failed to load the assessment. Please try again.');
         setLoading(false);
@@ -272,7 +271,7 @@ const AssessmentEngine: React.FC<AssessmentEngineProps> = ({
       setTimeout(() => {
         router.push(`/assessments/${assessmentId}/results/${result.resultId}`);
       }, 2000);
-    } catch (err) {
+    } catch (_err) {
       console.error('Error submitting assessment:', err);
       toast.error('Failed to submit assessment. Please try again.');
     } finally {
@@ -300,7 +299,7 @@ const AssessmentEngine: React.FC<AssessmentEngineProps> = ({
     }, 1000);
     
     return () => clearInterval(timer);
-  }, [isCompleted, timeRemaining === null]);
+  }, [isCompleted, timeRemaining]);
 
   // Handle time up
   useEffect(() => {

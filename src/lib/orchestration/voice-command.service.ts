@@ -163,7 +163,7 @@ export class VoiceCommandService {
         suggestions,
         processing_time_ms: Date.now() - startTime,
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error processing voice command:', error as Error);
 
       // Log error
@@ -387,7 +387,7 @@ export class VoiceCommandService {
           original_transcript: transcript
         },
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('AI interpretation failed:', error as Error);
       
       return {
@@ -1105,7 +1105,7 @@ export class VoiceCommandService {
           error_message: data.error_message,
         },
       });
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error logging voice command:', error as Error);
       // Don't throw - logging failure shouldn't break the flow
     }

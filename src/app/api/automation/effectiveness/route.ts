@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Automation Effectiveness API
  * Track and measure intervention effectiveness - Database-backed
@@ -83,7 +82,7 @@ export async function POST(request: NextRequest) {
       recommendations,
       message: 'Effectiveness tracked successfully'
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Track effectiveness error:', error);
     return NextResponse.json(
       { error: 'Failed to track effectiveness' },
@@ -207,7 +206,7 @@ export async function GET(request: NextRequest) {
     };
 
     return NextResponse.json(effectivenessData);
-  } catch (error) {
+  } catch (_error) {
     console.error('Get effectiveness error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve effectiveness data' },

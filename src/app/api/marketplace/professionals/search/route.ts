@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * MARKETPLACE SEARCH API
  * 
@@ -143,7 +142,7 @@ export async function GET(request: NextRequest) {
       },
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Marketplace search error:', error);
     return NextResponse.json(
       { error: 'Failed to search professionals' },

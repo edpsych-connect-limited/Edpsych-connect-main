@@ -139,7 +139,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
         configurable: false
       });
       logger.debug('✅ Made document non-configurable for maximum protection');
-    } catch (err) {
+    } catch (_err) {
       console.warn('⚠️ Could not make document non-configurable:', err.message);
     }
     
@@ -157,7 +157,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
         writable: false,
         configurable: false
       });
-    } catch (err) {
+    } catch (_err) {
       console.warn('⚠️ Could not make window non-configurable:', err.message);
     }
     
@@ -216,7 +216,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
         };
         
         logger.debug('✅ Successfully monkey-patched Node.js module system for styled-jsx interception');
-      } catch (err) {
+      } catch (_err) {
         console.warn('⚠️ Could not monkey-patch Node.js module system:', err.message);
       }
       
@@ -232,7 +232,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
           styledJsx.StyleSheet = UltraSafeStyleSheet;
           logger.debug('✅ Successfully patched already loaded styled-jsx module');
         }
-      } catch (err) {
+      } catch (_err) {
         console.warn('⚠️ Could not patch already loaded styled-jsx module:', err.message);
       }
       
@@ -255,7 +255,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
             styledJsx.StyleSheet = UltraSafeStyleSheet;
             logger.debug(`✅ Successfully patched styled-jsx at path: ${path}`);
           }
-        } catch (err) {
+        } catch (_err) {
           // Continue trying paths
         }
       }
@@ -279,7 +279,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
         return result;
       };
     }
-  } catch (error) {
+  } catch (_error) {
     console.warn('⚠️ Error during ultra-aggressive styled-jsx patching:', error.message);
   }
   

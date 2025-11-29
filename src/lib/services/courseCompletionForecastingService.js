@@ -51,7 +51,7 @@ class CourseCompletionForecastingService {
       this._scheduleForecastUpdates();
 
       logger.info('Course completion forecasting service initialised');
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error initialising course completion forecasting service:', error);
     }
   }
@@ -112,7 +112,7 @@ class CourseCompletionForecastingService {
       this.forecasts.set(courseId, forecast);
 
       return forecast;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error generating completion forecast:', error);
       throw error;
     }
@@ -151,7 +151,7 @@ class CourseCompletionForecastingService {
       };
 
       return status;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error monitoring completion progress:', error);
       throw error;
     }
@@ -201,7 +201,7 @@ class CourseCompletionForecastingService {
       };
 
       return result;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error generating cohort forecast:', error);
       throw error;
     }
@@ -249,7 +249,7 @@ class CourseCompletionForecastingService {
       atRiskStudents.sort((a, b) => b.riskScore - a.riskScore);
 
       return atRiskStudents;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error identifying at-risk students:', error);
       throw error;
     }
@@ -287,7 +287,7 @@ class CourseCompletionForecastingService {
       };
 
       return result;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error optimising intervention timing:', error);
       throw error;
     }
@@ -347,7 +347,7 @@ class CourseCompletionForecastingService {
       };
 
       return report;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error generating completion analytics report:', error);
       throw error;
     }
@@ -643,7 +643,7 @@ class CourseCompletionForecastingService {
         for (const courseId of this.forecasts.keys()) {
           await this.generateCompletionForecast(courseId);
         }
-      } catch (error) {
+      } catch (_error) {
         logger.error('Scheduled forecast update failed:', error);
       }
     }, this.options.updateInterval);

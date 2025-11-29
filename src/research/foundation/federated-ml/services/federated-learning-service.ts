@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Federated Learning Service
  * 
@@ -151,7 +150,7 @@ export class FederatedLearningService {
       });
       
       return project;
-    } catch (error) {
+    } catch (_error) {
       this.loggingService.log({
         level: 'error',
         message: `Failed to create federated learning project: ${(error as Error).message}`,
@@ -224,7 +223,7 @@ export class FederatedLearningService {
       });
       
       return updatedProject;
-    } catch (error) {
+    } catch (_error) {
       this.loggingService.log({
         level: 'error',
         message: `Failed to update federated learning project: ${(error as Error).message}`,
@@ -330,7 +329,7 @@ export class FederatedLearningService {
       });
       
       return updatedProject;
-    } catch (error) {
+    } catch (_error) {
       this.loggingService.log({
         level: 'error',
         message: `Failed to add participant to federated learning project: ${(error as Error).message}`,
@@ -444,7 +443,7 @@ export class FederatedLearningService {
       this.notifyParticipantsAboutRound(round);
       
       return updatedProject;
-    } catch (error) {
+    } catch (_error) {
       this.loggingService.log({
         level: 'error',
         message: `Failed to start federated learning project: ${(error as Error).message}`,
@@ -569,7 +568,7 @@ export class FederatedLearningService {
       this.checkRoundCompletion(updatedRound);
       
       return updatedRound;
-    } catch (error) {
+    } catch (_error) {
       this.loggingService.log({
         level: 'error',
         message: `Failed to submit trained model: ${(error as Error).message}`,
@@ -731,7 +730,7 @@ export class FederatedLearningService {
       }
       
       return aggregatedModelVersion;
-    } catch (error) {
+    } catch (_error) {
       this.loggingService.log({
         level: 'error',
         message: `Failed to aggregate models: ${(error as Error).message}`,
@@ -855,7 +854,7 @@ export class FederatedLearningService {
       });
       
       return updatedModelVersion;
-    } catch (error) {
+    } catch (_error) {
       this.loggingService.log({
         level: 'error',
         message: `Failed to evaluate model: ${(error as Error).message}`,
@@ -1079,7 +1078,7 @@ export class FederatedLearningService {
         completedRounds: project.completedRounds,
         bestModelVersionId: project.bestModelVersionId
       });
-    } catch (error) {
+    } catch (_error) {
       this.loggingService.log({
         level: 'error',
         message: `Failed to complete project: ${(error as Error).message}`,
@@ -1157,7 +1156,7 @@ export class FederatedLearningService {
       
       // Notify participants about the round
       this.notifyParticipantsAboutRound(round);
-    } catch (error) {
+    } catch (_error) {
       this.loggingService.log({
         level: 'error',
         message: `Failed to start next round: ${(error as Error).message}`,

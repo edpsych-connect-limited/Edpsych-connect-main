@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/outcomes/track/route.ts
  * PURPOSE: Outcome tracking system for interventions and support

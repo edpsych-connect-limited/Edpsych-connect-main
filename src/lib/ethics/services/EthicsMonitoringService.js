@@ -6,7 +6,6 @@
  */
 import { logger } from '@/lib/logger';
 
-
 import EthicsMonitor from '../models/EthicsMonitor';
 import EthicsIncident from '../models/EthicsIncident';
 
@@ -46,7 +45,7 @@ class EthicsMonitoringService {
       }
       
       this.logger.info(`Initialized ${monitors.length} ethics monitors`);
-    } catch (error) {
+    } catch (_error) {
       this.logger.error('Failed to initialize Ethics Monitoring Service', error);
       throw error;
     }
@@ -82,7 +81,7 @@ class EthicsMonitoringService {
       
       this.logger.info(`Scheduled monitor ${monitor.id} with frequency ${monitor.frequency}`);
       return true;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to schedule monitor ${monitor.id}`, error);
       return false;
     }
@@ -133,7 +132,7 @@ class EthicsMonitoringService {
       
       this.logger.info(`Completed ethics monitor ${monitorId}, created ${incidents.length} incidents`);
       return incidents;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Error running ethics monitor ${monitorId}`, error);
       throw error;
     }
@@ -166,7 +165,7 @@ class EthicsMonitoringService {
       
       this.logger.info(`Created ethics incident ${savedIncident.id} for monitor ${monitor.id}`);
       return savedIncident;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error('Failed to create ethics incident', error);
       throw error;
     }
@@ -213,7 +212,7 @@ Please review this incident in the ethics dashboard.
       }
       
       this.logger.info(`Sent notifications for incident ${incident.id}`);
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to send notifications for incident ${incident.id}`, error);
       // Don't throw here, as we don't want the monitor run to fail if notifications fail
     }
@@ -241,7 +240,7 @@ Please review this incident in the ethics dashboard.
       
       this.logger.info(`Added ethics monitor ${savedMonitor.id}`);
       return savedMonitor;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error('Failed to add ethics monitor', error);
       throw error;
     }
@@ -282,7 +281,7 @@ Please review this incident in the ethics dashboard.
       
       this.logger.info(`Updated ethics monitor ${updatedMonitor.id}`);
       return updatedMonitor;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to update ethics monitor ${monitor.id}`, error);
       throw error;
     }
@@ -307,7 +306,7 @@ Please review this incident in the ethics dashboard.
       
       this.logger.info(`Deleted ethics monitor ${monitorId}`);
       return true;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to delete ethics monitor ${monitorId}`, error);
       throw error;
     }
@@ -337,7 +336,7 @@ Please review this incident in the ethics dashboard.
       
       this.logger.info(`Enabled ethics monitor ${monitorId}`);
       return updatedMonitor;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to enable ethics monitor ${monitorId}`, error);
       throw error;
     }
@@ -371,7 +370,7 @@ Please review this incident in the ethics dashboard.
       
       this.logger.info(`Disabled ethics monitor ${monitorId}`);
       return updatedMonitor;
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to disable ethics monitor ${monitorId}`, error);
       throw error;
     }
@@ -385,7 +384,7 @@ Please review this incident in the ethics dashboard.
   async runMonitorNow(monitorId) {
     try {
       return await this.runMonitor(monitorId);
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to run ethics monitor ${monitorId} immediately`, error);
       throw error;
     }
@@ -399,7 +398,7 @@ Please review this incident in the ethics dashboard.
   async getActiveIncidents(filters = {}) {
     try {
       return await this.dataAccessService.getActiveIncidents(filters);
-    } catch (error) {
+    } catch (_error) {
       this.logger.error('Failed to get active incidents', error);
       throw error;
     }
@@ -413,7 +412,7 @@ Please review this incident in the ethics dashboard.
   async getIncidentsByMonitor(monitorId) {
     try {
       return await this.dataAccessService.getIncidentsByMonitor(monitorId);
-    } catch (error) {
+    } catch (_error) {
       this.logger.error(`Failed to get incidents for monitor ${monitorId}`, error);
       throw error;
     }

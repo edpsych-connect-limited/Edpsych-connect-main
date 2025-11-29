@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Intervention Individual API Routes - Enterprise-grade implementation
  * Phase 3.3: Intervention Designer
@@ -154,7 +153,7 @@ export async function GET(
       intervention,
       message: 'Intervention retrieved successfully',
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[Intervention API] Error fetching intervention:', error);
     return NextResponse.json(
       {
@@ -303,7 +302,7 @@ export async function PATCH(
       intervention: updatedIntervention,
       message: 'Intervention updated successfully',
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[Intervention API] Error updating intervention:', error);
     return NextResponse.json(
       {
@@ -418,7 +417,7 @@ export async function DELETE(
       message: 'Intervention discontinued successfully',
       intervention: discontinuedIntervention,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[Intervention API] Error discontinuing intervention:', error);
     return NextResponse.json(
       {

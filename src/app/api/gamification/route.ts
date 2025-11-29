@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Consolidated Gamification API Routes
  * 
@@ -53,7 +52,7 @@ async function routeGamificationRequest(request: NextRequest): Promise<NextRespo
       default:
         return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
-  } catch (error) {
+  } catch (_error) {
     console.error('[Gamification] Error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }

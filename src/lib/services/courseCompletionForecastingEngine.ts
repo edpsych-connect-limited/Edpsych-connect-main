@@ -162,7 +162,7 @@ class CourseCompletionForecastingEngine extends EventEmitter {
 
       this.emit('initialized', { timestamp: new Date() });
       logger.info('[CourseCompletion] Forecasting engine initialized');
-    } catch (error) {
+    } catch (_error) {
       logger.error('[CourseCompletion] Initialization error:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -264,7 +264,7 @@ class CourseCompletionForecastingEngine extends EventEmitter {
       this.emit('forecast:generated', { studentId, courseId, riskLevel });
 
       return result;
-    } catch (error) {
+    } catch (_error) {
       logger.error('[CourseCompletion] Error generating forecast:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -352,7 +352,7 @@ class CourseCompletionForecastingEngine extends EventEmitter {
         insights,
         recommendations,
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('[CourseCompletion] Error generating cohort forecast:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -413,7 +413,7 @@ class CourseCompletionForecastingEngine extends EventEmitter {
       atRiskStudents.sort((a, b) => b.riskScore - a.riskScore);
 
       return atRiskStudents.slice(0, limit);
-    } catch (error) {
+    } catch (_error) {
       logger.error('[CourseCompletion] Error identifying at-risk students:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -466,7 +466,7 @@ class CourseCompletionForecastingEngine extends EventEmitter {
         reasoning,
         expectedImpact,
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('[CourseCompletion] Error optimizing intervention:', error instanceof Error ? error.message : String(error));
       throw error;
     }
@@ -656,7 +656,7 @@ Provide a concise 2-3 sentence analysis with specific, actionable recommendation
       });
 
       return response.choices[0]?.message?.content || 'Analysis unavailable';
-    } catch (error) {
+    } catch (_error) {
       logger.error('[CourseCompletion] Error generating AI insights:', error instanceof Error ? error.message : String(error));
       return 'AI insights temporarily unavailable';
     }

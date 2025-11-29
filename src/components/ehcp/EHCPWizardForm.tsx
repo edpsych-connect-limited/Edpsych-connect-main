@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * EHCP Wizard Form Component - Enterprise-grade implementation
  * Phase 3.1: EHCP Support System
@@ -146,7 +145,7 @@ export default function EHCPWizardForm({
   ];
 
   // Update form field
-  const updateField = (section: string, field: string, value: any) => {
+  const _updateField = (section: string, field: string, value: any) => {
     setFormData((prev) => ({
       ...prev,
       [section]: {
@@ -247,7 +246,7 @@ export default function EHCPWizardForm({
       }
 
       alert('Draft saved successfully!');
-    } catch (err) {
+    } catch (_err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
       console.error('Error saving draft:', err);
     } finally {
@@ -287,7 +286,7 @@ export default function EHCPWizardForm({
       const result = await response.json();
       alert('EHCP submitted successfully!');
       router.push(`/ehcp/${result.ehcp.id}`);
-    } catch (err) {
+    } catch (_err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
       console.error('Error submitting EHCP:', err);
     } finally {

@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -80,7 +79,7 @@ export const PrivacyPolicyManager: React.FC = () => {
       setUserConsents(consents);
       setReconsentRequired(needsReconsent);
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to load privacy data', error instanceof Error ? error : new Error(String(error)));
       setError('Failed to load privacy information');
     } finally {
@@ -117,7 +116,7 @@ export const PrivacyPolicyManager: React.FC = () => {
       const stillNeedsReconsent = await gdprCompliance.checkReconsentRequired('current-user');
       setReconsentRequired(stillNeedsReconsent);
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to update consent', error instanceof Error ? error : new Error(String(error)), { consentTypeId, consented });
       setError('Failed to update consent');
     } finally {
@@ -147,7 +146,7 @@ export const PrivacyPolicyManager: React.FC = () => {
 
       setSuccess('Data export completed successfully');
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to export data', error instanceof Error ? error : new Error(String(error)));
       setError('Failed to export data');
     } finally {
@@ -172,7 +171,7 @@ export const PrivacyPolicyManager: React.FC = () => {
 
       setSuccess('Data deletion request submitted successfully');
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to submit deletion request', error instanceof Error ? error : new Error(String(error)));
       setError('Failed to submit deletion request');
     } finally {

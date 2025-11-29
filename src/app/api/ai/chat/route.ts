@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -51,7 +50,7 @@ export async function POST(request: NextRequest) {
       data: response
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('[API] Chat error:', error);
     return NextResponse.json(
       { error: 'Internal Server Error' },

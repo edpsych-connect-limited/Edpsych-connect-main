@@ -83,7 +83,7 @@ class CachingService {
       this._startCacheMonitoring();
 
       logger.info('Caching service initialized');
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error initializing caching service:', getErrorMessage(error));
       // Continue with memory-only caching if Redis fails
       logger.info('Falling back to memory-only caching');
@@ -133,7 +133,7 @@ class CachingService {
 
       this.cacheStats.misses++;
       return null;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error getting from cache:', getErrorMessage(error));
       this.cacheStats.misses++;
       return null;
@@ -180,7 +180,7 @@ class CachingService {
 
       this.cacheStats.sets++;
       return true;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error setting cache:', getErrorMessage(error));
       return false;
     }
@@ -215,7 +215,7 @@ class CachingService {
       }
 
       return deleted;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error deleting from cache:', getErrorMessage(error));
       return false;
     }
@@ -259,7 +259,7 @@ class CachingService {
       }
 
       return true;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error clearing cache:', getErrorMessage(error));
       return false;
     }
@@ -292,7 +292,7 @@ class CachingService {
       stats.hitRate = totalRequests > 0 ? (stats.hits / totalRequests) * 100 : 0;
 
       return stats;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error getting cache stats:', getErrorMessage(error));
       return this.cacheStats;
     }
@@ -315,14 +315,14 @@ class CachingService {
           if (data) {
             await this.set(key, data, { ttl: this.options.defaultTTL * 2 }); // Longer TTL for warmed data
           }
-        } catch (error) {
+        } catch (_error) {
           logger.warn(`Failed to warm up cache for key ${key}:`, getErrorMessage(error));
         }
       }
 
       logger.info('Cache warm-up completed');
       return true;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error warming up cache:', getErrorMessage(error));
       return false;
     }
@@ -350,14 +350,14 @@ class CachingService {
                 await this.set(key, data);
               }
             }
-          } catch (error) {
+          } catch (_error) {
             // Ignore prefetch errors
           }
         }
       });
 
       return true;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error prefetching data:', getErrorMessage(error));
       return false;
     }
@@ -397,7 +397,7 @@ class CachingService {
       }
 
       return patternsToInvalidate.length > 0;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error invalidating by pattern:', getErrorMessage(error));
       return false;
     }
@@ -479,7 +479,7 @@ class CachingService {
       if (cleaned > 0) {
         logger.info(`Cleaned ${cleaned} expired items from memory cache`);
       }
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error cleaning expired memory cache:', getErrorMessage(error));
     }
   }

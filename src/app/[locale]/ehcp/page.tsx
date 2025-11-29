@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * EHCP List Page - Enterprise-grade implementation
  * Phase 3.1: EHCP Support System
@@ -88,7 +87,7 @@ export default function EHCPListPage() {
     try {
       setIsExporting(true);
       await downloadEHCPPDF(ehcp as any);
-    } catch (err) {
+    } catch (_err) {
       console.error('Error exporting PDF:', err);
       setError('Failed to export EHCP as PDF');
     } finally {
@@ -114,7 +113,7 @@ export default function EHCPListPage() {
 
       setSelectedEHCPs(new Set());
       alert(`Successfully exported ${selectedEHCPsArray.length} EHCP(s)`);
-    } catch (err) {
+    } catch (_err) {
       console.error('Error bulk exporting PDFs:', err);
       setError('Failed to export selected EHCPs');
     } finally {
@@ -165,7 +164,7 @@ export default function EHCPListPage() {
       const data = await response.json();
       setEhcps(data.ehcps || []);
       setPagination(data.pagination);
-    } catch (err) {
+    } catch (_err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
       console.error('Error fetching EHCPs:', err);
     } finally {
@@ -193,7 +192,6 @@ export default function EHCPListPage() {
     router.push('/login');
     return null;
   }
-
 
   // Status badge color
   const getStatusColor = (status?: string) => {

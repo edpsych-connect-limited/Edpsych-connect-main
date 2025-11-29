@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * EHCP Export API
  * Generates LA-compliant EHCP PDF documents
@@ -75,7 +74,7 @@ export async function GET(
         'Content-Length': buffer.length.toString(),
       },
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[EHCP Export API] Error:', error);
     return NextResponse.json(
       { error: 'Failed to generate EHCP export' },

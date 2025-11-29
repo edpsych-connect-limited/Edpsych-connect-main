@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Get current environment name
  */

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -24,7 +23,7 @@ export async function POST(_request: NextRequest) {
       },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (_error) {
     console.error('Logout error:', error);
     return NextResponse.json(
       {

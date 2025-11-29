@@ -137,7 +137,7 @@ export async function authenticateUser(email: string, password: string): Promise
       user: session,
       token
     };
-  } catch (error) {
+  } catch (_error) {
     console.error('Authentication error:', error);
     return {
       success: false,
@@ -175,7 +175,7 @@ export async function verifyToken(token: string): Promise<UserSession | null> {
     });
     logger.debug('[AuthService] Token verified successfully');
     return payload as unknown as UserSession;
-  } catch (error) {
+  } catch (_error) {
     console.error('[AuthService] Token verification error:', error);
     return null;
   }
@@ -333,7 +333,7 @@ export async function verifyAuth(request: NextRequest): Promise<VerifyAuthResult
         tenant_id: session.tenant_id
       }
     };
-  } catch (error) {
+  } catch (_error) {
     console.error('[verifyAuth] Authentication error:', error);
     return {
       isValid: false,

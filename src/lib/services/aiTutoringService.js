@@ -48,7 +48,7 @@ class AITutoringService {
       this._setupSessionManagement();
 
       logger.info('AI tutoring service initialised');
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error initialising AI tutoring service:', error);
     }
   }
@@ -115,7 +115,7 @@ class AITutoringService {
         session,
         initialInteraction
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error starting tutoring session:', error);
       throw error;
     }
@@ -196,7 +196,7 @@ class AITutoringService {
           misconceptions: analysis.misconceptions
         }
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error processing student response:', error);
       throw error;
     }
@@ -240,7 +240,7 @@ class AITutoringService {
       feedback.personalisedContent = await this._personaliseFeedback(feedback, studentProfile);
 
       return feedback;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error generating personalised feedback:', error);
       throw error;
     }
@@ -279,7 +279,7 @@ class AITutoringService {
         remediationPlan,
         estimatedTimeToCloseGaps: this._estimateTimeToCloseGaps(prioritisedGaps)
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error assessing learning gaps:', error);
       throw error;
     }
@@ -334,7 +334,7 @@ class AITutoringService {
         hintType,
         usageCount: session.hintUsage.length
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error providing hint:', error);
       throw error;
     }
@@ -381,7 +381,7 @@ class AITutoringService {
       analytics.effectiveness = this._calculateEffectivenessMetrics(relevantSessions);
 
       return analytics;
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error getting tutoring analytics:', error);
       throw error;
     }
@@ -418,7 +418,7 @@ class AITutoringService {
         summary,
         finalAssessment: session.assessment
       };
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error ending tutoring session:', error);
       throw error;
     }

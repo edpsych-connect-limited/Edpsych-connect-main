@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Types for legal documents and signatures
  */

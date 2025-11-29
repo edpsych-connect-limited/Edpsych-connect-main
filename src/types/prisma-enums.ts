@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 export enum Feature {
   PROBLEM_SOLVER = 'PROBLEM_SOLVER',
   LESSON_DIFFERENTIATION = 'LESSON_DIFFERENTIATION',

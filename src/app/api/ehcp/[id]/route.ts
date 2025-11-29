@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * EHCP [id] API Routes
  * Handles individual EHCP operations with version tracking and notifications
@@ -50,7 +49,7 @@ export async function GET(
       success: true,
       plan: ehcp,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[EHCP API] GET error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch EHCP' },
@@ -134,7 +133,7 @@ export async function PUT(
       plan: updatedEHCP,
       changed_sections: changedSections,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[EHCP API] PUT error:', error);
     return NextResponse.json(
       { error: 'Failed to update EHCP' },
@@ -197,7 +196,7 @@ export async function DELETE(
       success: true,
       message: `EHCP ${params.id} deleted and archived`,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[EHCP API] DELETE error:', error);
     return NextResponse.json(
       { error: 'Failed to delete EHCP' },

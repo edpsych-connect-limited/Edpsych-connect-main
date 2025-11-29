@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -86,7 +85,7 @@ export default function TrainingCataloguePage() {
       
       const data = await response.json();
       setCourses(data.courses || []);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error loading courses:', error);
     } finally {
       setLoading(false);

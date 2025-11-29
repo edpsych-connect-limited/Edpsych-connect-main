@@ -8,7 +8,6 @@
 import { logger } from '@/lib/logger';
 
 
-
 /**
  * Global Document Mock for Server-Side Rendering
  * 

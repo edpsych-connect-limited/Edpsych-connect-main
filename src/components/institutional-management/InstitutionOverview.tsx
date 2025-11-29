@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -97,7 +96,7 @@ const InstitutionOverview: React.FC<InstitutionOverviewProps> = ({ institution }
 
       setIsEditing(false);
       // You might want to refresh the data or show a success message
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to update institution:', error);
       // Show error message to user
     }

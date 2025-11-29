@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Represents a specific version of an algorithm in the licensing platform.
  * Each algorithm can have multiple versions that track changes, improvements,

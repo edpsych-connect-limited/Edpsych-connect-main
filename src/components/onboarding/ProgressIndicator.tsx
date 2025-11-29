@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/ProgressIndicator.tsx
  * PURPOSE: Visual progress indicator for onboarding wizard

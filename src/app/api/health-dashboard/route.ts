@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -83,7 +82,7 @@ export async function GET() {
         hours: (now.getTime() - deployTime.getTime()) / (1000 * 60 * 60),
         days: (now.getTime() - deployTime.getTime()) / (1000 * 60 * 60 * 24)
       };
-    } catch (error) {
+    } catch (_error) {
       console.error('Error calculating deployment age:', error);
     }
   }
@@ -117,12 +116,12 @@ export async function GET() {
         try {
           const content = fs.readFileSync(path.join(dataDir, file), 'utf-8');
           reports.push(JSON.parse(content));
-        } catch (error) {
+        } catch (_error) {
           console.error(`Error reading file ${file}:`, error);
         }
       }
     }
-  } catch (error) {
+  } catch (_error) {
     console.error('Error reading verification reports:', error);
   }
   

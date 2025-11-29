@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -47,7 +46,7 @@ export async function POST(req: Request) {
       sessionId: currentSessionId,
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Concierge chat error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

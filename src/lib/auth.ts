@@ -18,7 +18,7 @@ import { getRedisClient } from '../cache/redis-client';
 import bcrypt from 'bcryptjs';
 import { v4 as uuidv4 } from 'uuid';
 import { getServerSession } from 'next-auth';
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { PrismaAdapter as _PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from '@/lib/prismaSafe';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
@@ -46,7 +46,7 @@ export async function auth(): Promise<Session | null> {
     // This would typically check for JWT tokens or session cookies
     console.warn('auth() function needs Railway Postgres session implementation');
     return null;
-  } catch (error) {
+  } catch (_error) {
     console.error('Auth service error', error instanceof Error ? error : new Error('Unknown error'));
     return null;
   }
@@ -109,7 +109,7 @@ export async function signIn(email: string, password: string): Promise<Session |
       refreshToken: sessionToken, // In production, use separate refresh token
       expiresAt: expiresAt
     };
-  } catch (error) {
+  } catch (_error) {
     console.error('Sign in error', error instanceof Error ? error : new Error('Unknown error'), { email });
     throw error;
   }
@@ -175,7 +175,7 @@ export async function signUp(email: string, password: string, userData?: any): P
       refreshToken: sessionToken,
       expiresAt: expiresAt
     };
-  } catch (error) {
+  } catch (_error) {
     console.error('Sign up error', error instanceof Error ? error : new Error('Unknown error'), { email });
     throw error;
   }
@@ -219,7 +219,7 @@ export async function resetPassword(email: string): Promise<void> {
 
     // TODO: Implement email sending service
     // await sendEmail(email, 'Password Reset', `Click here to reset: ...`);
-  } catch (error) {
+  } catch (_error) {
     console.error('Password reset error', error instanceof Error ? error : new Error('Unknown error'), { email });
     throw error;
   }
@@ -261,7 +261,7 @@ export async function updatePassword(newPassword: string, token?: string, email?
     }
 
     console.info('Password updated successfully');
-  } catch (error) {
+  } catch (_error) {
     console.error('Password update error', error instanceof Error ? error : new Error('Unknown error'));
     throw error;
   }
@@ -283,7 +283,7 @@ export async function signOut(): Promise<void> {
     // For now, just log the sign out
     // TODO: Implement proper session management
     console.warn('signOut() function needs proper session token handling implementation');
-  } catch (error) {
+  } catch (_error) {
     console.error('Sign out error', error instanceof Error ? error : new Error('Unknown error'));
     throw error;
   }
@@ -327,7 +327,7 @@ export async function getUserFromRequest(req: any): Promise<User | null> {
       lastSignInAt: undefined,
       createdAt: new Date().toISOString()
     };
-  } catch (error) {
+  } catch (_error) {
     console.error('Failed to get user from request', error instanceof Error ? error : new Error('Unknown error'));
     return null;
   }

@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Automation Interventions API
  * Exposes automated intervention system
@@ -74,7 +73,7 @@ export async function POST(request: NextRequest) {
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (_error) {
     console.error('Automation Interventions API error:', error);
     return NextResponse.json(
       { error: 'Failed to process intervention request' },
@@ -131,7 +130,7 @@ export async function GET(request: NextRequest) {
       interventions: mappedInterventions,
       count: mappedInterventions.length
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Automation Interventions API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve interventions' },

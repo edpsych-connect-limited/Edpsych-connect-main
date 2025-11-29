@@ -102,7 +102,7 @@ export class AIAnalyticsService {
       // In production, you would also send to external monitoring service
       // await this.sendToMonitoringService(fullEvent);
 
-    } catch (error) {
+    } catch (_error) {
       logger.error('Error tracking AI analytics event:', error as Error);
     }
   }

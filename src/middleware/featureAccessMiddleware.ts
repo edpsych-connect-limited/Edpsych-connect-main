@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -40,7 +39,7 @@ async function getUserFromRequest(req: NextApiRequest): Promise<User | null> {
       };
       
       return mockUser;
-    } catch (error) {
+    } catch (_error) {
       console.error('Error decoding user token:', error);
       return null;
     }
@@ -86,7 +85,7 @@ export function requireFeatureAccess(requiredFeature: FeatureFlag) {
       
       // User has access, proceed to the API handler
       next();
-    } catch (error) {
+    } catch (_error) {
       console.error('Error in feature access middleware:', error);
       return res.status(500).json({
         error: 'Internal Server Error',
@@ -134,7 +133,7 @@ export function withFeatureAccess(
       
       // User has access, proceed to the API handler
       return handler(req, res);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error in feature access middleware:', error);
       return res.status(500).json({
         error: 'Internal Server Error',

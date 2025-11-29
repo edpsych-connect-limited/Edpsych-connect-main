@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -50,7 +49,7 @@ export async function GET(request: NextRequest) {
       timeSpent: enrollment.timeSpent,
       state: enrollment.data,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Error fetching progress:', error);
     return NextResponse.json(
       { error: 'Failed to fetch progress' },
@@ -109,7 +108,7 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(enrollment);
-  } catch (error) {
+  } catch (_error) {
     console.error('Error saving progress:', error);
     return NextResponse.json(
       { error: 'Failed to save progress' },

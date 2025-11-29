@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Integrated Research Platform for EdPsych Connect World
  * Practice-based, quality-driven studies using real anonymized data

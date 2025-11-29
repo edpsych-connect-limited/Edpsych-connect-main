@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Student Individual API Routes - Enterprise-grade implementation
  * Phase 3: Core SEND Functionality
@@ -147,7 +146,7 @@ export async function GET(
       student,
       message: 'Student retrieved successfully',
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[Student API] Error fetching student:', error);
     return NextResponse.json(
       {
@@ -289,7 +288,7 @@ export async function PATCH(
       student: updatedStudent,
       message: 'Student updated successfully',
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[Student API] Error updating student:', error);
     return NextResponse.json(
       {
@@ -421,7 +420,7 @@ export async function DELETE(
       message: 'Student deleted successfully',
       student_id: id,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('[Student API] Error deleting student:', error);
     return NextResponse.json(
       {

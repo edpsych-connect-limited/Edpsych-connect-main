@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -47,7 +46,7 @@ export async function logForensicEvent(event: ForensicEventPayload): Promise<str
     await fs.mkdir(path.dirname(FORENSIC_LOG_FILE), { recursive: true });
     await fs.appendFile(FORENSIC_LOG_FILE, JSON.stringify(record) + os.EOL, { encoding: 'utf-8' });
     console.debug(`[Forensic] ${record.type}:${record.action} tenant=${record.tenantId ?? 'unknown'} trace=${traceId}`);
-  } catch (error) {
+  } catch (_error) {
     console.warn('[Forensic] Failed to persist event', (error as Error).message);
   }
 

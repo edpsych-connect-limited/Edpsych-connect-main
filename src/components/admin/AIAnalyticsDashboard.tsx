@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * AI Analytics Dashboard Component
  * Comprehensive dashboard for monitoring AI service performance, costs, and usage
@@ -96,7 +95,7 @@ export default function AIAnalyticsDashboard() {
 
       const analyticsData = await response.json();
       setData(analyticsData);
-    } catch (err) {
+    } catch (_err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch analytics data');
     } finally {
       setLoading(false);

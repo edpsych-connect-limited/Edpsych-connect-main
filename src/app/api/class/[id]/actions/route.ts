@@ -319,7 +319,7 @@ export async function GET(
 
     return NextResponse.json(response);
 
-  } catch (error) {
+  } catch (_error) {
     console.error('[Class Actions API] Error retrieving actions:', error);
     return NextResponse.json({
       error: 'Internal server error',
@@ -527,7 +527,7 @@ export async function POST(
 
     return NextResponse.json(response);
 
-  } catch (error) {
+  } catch (_error) {
     console.error('[Class Actions API] Error processing approval:', error);
     return NextResponse.json({
       error: 'Internal server error',

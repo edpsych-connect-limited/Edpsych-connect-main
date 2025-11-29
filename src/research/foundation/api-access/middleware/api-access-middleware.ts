@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * API Access Middleware
  * 
@@ -96,7 +95,7 @@ export const verifyApiKey = () => {
 
       next();
       return;
-    } catch (error) {
+    } catch (_error) {
       console.error('API key verification error:', error);
       res.status(500).json({
         success: false,
@@ -151,7 +150,7 @@ export const checkApiQuota = (
 
       next();
       return;
-    } catch (error) {
+    } catch (_error) {
       console.error('API quota check error:', error);
       res.status(500).json({
         success: false,
@@ -216,7 +215,7 @@ export const trackApiUsage = (
         ).catch(error => {
           console.error('Error tracking API usage:', error);
         });
-      } catch (error) {
+      } catch (_error) {
         console.error('Error tracking API usage:', error);
       }
       
@@ -253,7 +252,7 @@ export const setRateLimitHeaders = () => {
       
       next();
       return;
-    } catch (error) {
+    } catch (_error) {
       // Don't fail the request if we can't set rate limit headers
       console.error('Error setting rate limit headers:', error);
       next();
@@ -341,7 +340,7 @@ export const apiAccessControl = (options: {
         }
       });
       return;
-    } catch (error) {
+    } catch (_error) {
       console.error('API access control error:', error);
       res.status(500).json({
         success: false,

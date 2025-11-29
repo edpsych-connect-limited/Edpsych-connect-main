@@ -85,7 +85,7 @@ export class PerformanceMonitor {
         });
         navObserver.observe({ entryTypes: ['navigation'] });
         this.observers.push(navObserver);
-      } catch (error) {
+      } catch (_error) {
         logger.error('Error initializing navigation observer:', error as Error);
       }
 
@@ -98,7 +98,7 @@ export class PerformanceMonitor {
         });
         paintObserver.observe({ entryTypes: ['paint'] });
         this.observers.push(paintObserver);
-      } catch (error) {
+      } catch (_error) {
         logger.error('Error initializing paint observer:', error as Error);
       }
 
@@ -111,7 +111,7 @@ export class PerformanceMonitor {
         });
         resourceObserver.observe({ entryTypes: ['resource'] });
         this.observers.push(resourceObserver);
-      } catch (error) {
+      } catch (_error) {
         logger.error('Error initializing resource observer:', error as Error);
       }
 
@@ -124,7 +124,7 @@ export class PerformanceMonitor {
         });
         layoutObserver.observe({ entryTypes: ['layout-shift'] });
         this.observers.push(layoutObserver);
-      } catch (error) {
+      } catch (_error) {
         logger.error('Error initializing layout observer:', error as Error);
       }
     }
@@ -247,7 +247,7 @@ export class PerformanceMonitor {
         });
         observer.observe({ entryTypes: [eventType] });
         this.observers.push(observer);
-      } catch (error) {
+      } catch (_error) {
         logger.error(`Error tracking ${name}:`, error as Error);
       }
     }

@@ -13,12 +13,10 @@
  * - Responsive grid layout
  */
 
-import { logger } from "@/lib/logger";
-
 import React, { useState } from 'react';
 import { GraduationCap, School, BookOpen, Building, Search, Edit3, Check } from 'lucide-react';
 import { useOnboarding } from '../OnboardingProvider';
-import { ROLE_CONFIGS } from '@/types/onboarding';
+import { ROLE_CONFIGS as _ROLE_CONFIGS } from '@/types/onboarding';
 
 export function Step2RoleSelection() {
   const { state, updateStep } = useOnboarding();
@@ -192,7 +190,7 @@ export function Step2RoleSelection() {
           const isSelected = selectedRole === role.id;
           const colors = getColorClasses(role.color);
           const Icon = role.icon;
-          const pressedValue = isSelected ? "true" : "false";
+          const _pressedValue = isSelected ? "true" : "false";
 
           return (
             <button // eslint-disable-line jsx-a11y/aria-proptypes

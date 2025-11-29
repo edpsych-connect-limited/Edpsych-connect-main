@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Intervention Designer Component
  * Task 3.3: Comprehensive Intervention Planning & Progress Tracking
@@ -21,7 +20,7 @@ import { logger } from "@/lib/logger";
  * 4. Fidelity & Review
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect as _useEffect } from 'react';
 import {
   INTERVENTION_LIBRARY,
   InterventionTemplate,
@@ -32,8 +31,8 @@ import {
 import {
   generateRecommendations,
   RecommendationRequest,
-  RecommendationResponse,
-  InterventionRecommendation,
+  RecommendationResponse as _RecommendationResponse,
+  InterventionRecommendation as _InterventionRecommendation,
 } from '@/lib/interventions/recommendation-engine';
 
 // ============================================================================
@@ -116,11 +115,11 @@ interface ReviewNote {
 // ============================================================================
 
 export default function InterventionDesigner({
-  caseId,
-  tenantId,
+  caseId: _caseId,
+  tenantId: _tenantId,
   initialData,
-  onSave,
-  onCancel,
+  onSave: _onSave,
+  onCancel: _onCancel,
 }: InterventionDesignerProps) {
   const [activeTab, setActiveTab] = useState<
     'library' | 'plan' | 'progress' | 'fidelity'

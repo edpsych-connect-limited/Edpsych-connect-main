@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Assessment Framework Type Definitions
  * EdPsych Connect World - Phase 3

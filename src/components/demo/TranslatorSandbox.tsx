@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -47,7 +46,7 @@ export default function TranslatorSandbox() {
         redactPII: true
       });
       setResult(translation);
-    } catch (error) {
+    } catch (_error) {
       console.error(error);
     } finally {
       setIsProcessing(false);

@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
       success: true,
       message: 'Feedback submitted successfully. Thank you!',
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Feedback submission error:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to submit feedback' },
@@ -127,7 +127,7 @@ export async function GET(request: NextRequest) {
       })),
       count: feedback.length,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Feedback fetch error:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to fetch feedback' },

@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * Training Checkout Page
  * Stripe-integrated payment for CPD courses
@@ -78,7 +77,7 @@ function CheckoutForm({ productId }: { productId: string }) {
         setError('Invalid discount code');
         setAppliedDiscount(null);
       }
-    } catch (error) {
+    } catch (_error) {
       setError('Failed to apply discount code');
     }
   };

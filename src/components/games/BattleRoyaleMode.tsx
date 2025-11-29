@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -37,7 +36,7 @@ export const BattleRoyaleMode: React.FC = () => {
           health: 100,
         }));
         setPlayers(enriched);
-      } catch (err) {
+      } catch (_err) {
         console.error("Failed to load players", err);
       } finally {
         setLoading(false);

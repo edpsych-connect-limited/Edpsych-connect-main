@@ -1,6 +1,5 @@
 'use client'
 
-import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -117,7 +116,7 @@ export default function SignupPage() {
       } else {
         setError(data.error || 'Failed to create account. Please try again.');
       }
-    } catch (err) {
+    } catch (_err) {
       console.error('Signup Error:', err);
       setError('An error occurred. Please try again later.');
     } finally {

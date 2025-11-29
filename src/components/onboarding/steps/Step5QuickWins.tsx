@@ -14,8 +14,6 @@
  * - WCAG 2.1 AA compliant
  */
 
-import { logger } from "@/lib/logger";
-
 import React, { useState, useId } from 'react';
 import {
   FolderPlus,
