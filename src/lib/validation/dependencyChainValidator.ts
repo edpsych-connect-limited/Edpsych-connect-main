@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Dependency Chain Validator
  * Detects circular dependencies, deep import chains, and version mismatches

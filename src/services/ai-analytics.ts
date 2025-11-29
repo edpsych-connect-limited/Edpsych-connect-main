@@ -1,8 +1,8 @@
+import { logger } from "@/lib/logger";
 /**
  * AI Analytics Service - Comprehensive monitoring and analytics for AI services
  * Tracks performance, costs, usage patterns, and provides intelligent caching
  */
-import logger from '../lib/logger';
 
 export interface AIAnalyticsEvent {
   timestamp: Date;

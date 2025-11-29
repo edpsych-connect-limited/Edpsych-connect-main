@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Represents a purchase of an algorithm license in the platform.
  * Tracks the details of algorithm license purchases, including buyer information,

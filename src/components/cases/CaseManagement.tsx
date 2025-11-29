@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Case Management System
  * Task 3.5: Comprehensive Case Tracking & Collaboration

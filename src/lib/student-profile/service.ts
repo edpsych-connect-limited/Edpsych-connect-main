@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -128,7 +129,7 @@ export class StudentProfileService {
       }
     });
 
-    console.log('Session saved for', studentId);
+    logger.debug('Session saved for', studentId);
   }
 
   private static mapDomainToKey(domainId: string): keyof StudentProfile['cognitiveProfile'] | null {

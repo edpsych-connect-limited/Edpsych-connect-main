@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Blog Post Detail Page
  * Full post view with markdown rendering and comments

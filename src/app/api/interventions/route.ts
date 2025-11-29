@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Intervention API Routes - Enterprise-grade implementation
  * Phase 3.3: Intervention Designer

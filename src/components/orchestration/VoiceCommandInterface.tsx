@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 'use client'
 
 /**
@@ -34,7 +35,7 @@ import toast from 'react-hot-toast';
  * <VoiceCommandInterface
  *   classId={5}
  *   contextType="dashboard"
- *   onCommandExecuted={(result) => console.log('Command result:', result)}
+ *   onCommandExecuted={(result) => logger.debug('Command result:', result)}
  *   compact={false}
  * />
  * ```

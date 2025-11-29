@@ -1,8 +1,8 @@
+import { logger } from "@/lib/logger";
 /**
  * Security Hardening Service
  * Comprehensive security implementation for production deployment
  */
-import logger from '../lib/logger';
 
 export interface SecurityHeaders {
   'Content-Security-Policy'?: string;

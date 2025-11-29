@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Cookie Management Utilities for EdPsych Connect World
  * GDPR and CCPA compliant cookie handling
@@ -228,7 +229,7 @@ function getCategoryDisplayName(category: CookieCategory): string {
 export function initializeAnalytics(): void {
   if (hasAnalyticsConsent()) {
     // Initialize Google Analytics, Sentry, etc.
-    console.log('Analytics initialized with user consent');
+    logger.debug('Analytics initialized with user consent');
   }
 }
 
@@ -238,6 +239,6 @@ export function initializeAnalytics(): void {
 export function initializeMarketing(): void {
   if (hasMarketingConsent()) {
     // Initialize Facebook Pixel, LinkedIn Insight Tag, etc.
-    console.log('Marketing trackers initialized with user consent');
+    logger.debug('Marketing trackers initialized with user consent');
   }
 }

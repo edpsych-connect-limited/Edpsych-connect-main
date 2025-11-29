@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Assessment Results Analysis Component
  * Task 3.2.3: Visual Analytics & Interpretation

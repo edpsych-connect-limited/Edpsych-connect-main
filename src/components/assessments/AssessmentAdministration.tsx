@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Assessment Administration Component
  * Task 3.2.2: Assessment Administration Interface

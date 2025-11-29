@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Validation Service
  * Orchestrates code validation across the enterprise platform
@@ -10,7 +11,6 @@ import { RuntimeTypeValidator } from './runtimeTypeValidator';
 import { DependencyChainValidator } from './dependencyChainValidator';
 import { AsyncAwaitValidator } from './asyncAwaitValidator';
 import { EnvironmentConfigValidator } from './environmentConfigValidator';
-import { logger } from './logger';
 
 /**
  * Validation options

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/parent/messages/route.ts
  * PURPOSE: Parent-teacher messaging system for secure communication
@@ -107,7 +108,7 @@ export async function GET(
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = parseInt(searchParams.get('offset') || '0');
 
-    console.log(`[Parent Messages API] GET request - Parent: ${userId}, Tenant: ${tenantId}`);
+    logger.debug(`[Parent Messages API] GET request - Parent: ${userId}, Tenant: ${tenantId}`);
 
     // If childId provided, verify parent-child relationship
     if (childId) {
@@ -242,7 +243,7 @@ export async function GET(
       },
     });
 
-    console.log(`[Parent Messages API] Retrieved ${messageDetails.length} messages - Unread: ${unreadCount}`);
+    logger.debug(`[Parent Messages API] Retrieved ${messageDetails.length} messages - Unread: ${unreadCount}`);
 
     return NextResponse.json(response);
 
@@ -292,7 +293,7 @@ export async function POST(
     // Note: Parent role functionality - 'parent' role will be added to the role type in the future
     // For now, authentication is sufficient (proper parent-child verification happens below)
 
-    console.log(`[Parent Messages API] POST request - User: ${userId}, Tenant: ${tenantId}`);
+    logger.debug(`[Parent Messages API] POST request - User: ${userId}, Tenant: ${tenantId}`);
 
     // Parse and validate request body
     const body = await request.json();
@@ -423,7 +424,7 @@ export async function POST(
       message: `Your message has been sent to ${teacher.firstName} ${teacher.lastName}. They will respond as soon as possible.`,
     };
 
-    console.log(`[Parent Messages API] Message sent successfully - To: ${teacher.firstName} ${teacher.lastName}, Subject: ${subject}`);
+    logger.debug(`[Parent Messages API] Message sent successfully - To: ${teacher.firstName} ${teacher.lastName}, Subject: ${subject}`);
 
     return NextResponse.json(response);
 

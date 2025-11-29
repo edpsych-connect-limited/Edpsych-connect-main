@@ -9,6 +9,8 @@
  * - CDN analytics and monitoring
  * - Multi-CDN support
  */
+import { logger } from '@/lib/logger';
+
 
 class CDNService {
   constructor(options = {}) {

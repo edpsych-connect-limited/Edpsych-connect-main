@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/lib/stripe-config.ts
  * PURPOSE: Centralized Stripe product and price configuration
@@ -331,7 +332,7 @@ export function logStripeConfigStatus(): void {
   const { valid, missingVars } = validateStripeConfig();
 
   if (valid) {
-    console.log('[Stripe Config] ✓ All required environment variables are set');
+    logger.debug('[Stripe Config] ✓ All required environment variables are set');
   } else {
     console.error(
       `[Stripe Config] ✗ Missing environment variables: ${missingVars.join(', ')}`
@@ -339,7 +340,7 @@ export function logStripeConfigStatus(): void {
   }
 
   const configuredProducts = Object.keys(STRIPE_PRODUCTS).length;
-  console.log(`[Stripe Config] Configured ${configuredProducts} product tiers`);
+  logger.debug(`[Stripe Config] Configured ${configuredProducts} product tiers`);
 
   // Check if using placeholder price IDs
   const hasPlaceholders = Object.values(STRIPE_PRODUCTS).some(

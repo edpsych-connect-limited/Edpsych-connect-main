@@ -4,6 +4,8 @@
  * Service responsible for managing ethics assessments, including creation,
  * updates, reviews, approvals, and generating assessment documentation.
  */
+import { logger } from '@/lib/logger';
+
 
 import EthicsAssessment from '../models/EthicsAssessment';
 

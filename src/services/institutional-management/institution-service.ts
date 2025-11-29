@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -7,7 +8,6 @@
  */
 
 import { prisma } from '@/lib/prisma';
-import { logger } from '@/lib/logger';
 import { NotFoundError, ValidationError, AccessDeniedError } from './errors';
 import { generateId } from '../../utils/id-generator';
 import { 

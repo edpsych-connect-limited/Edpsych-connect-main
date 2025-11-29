@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Automated Educational Blog Service for EdPsych Connect World
  * AI-powered content generation for continuous professional development

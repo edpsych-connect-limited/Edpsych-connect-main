@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * EHCP PDF Generator
  * Task 3.1.3: Document Generation

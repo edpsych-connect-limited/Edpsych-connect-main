@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Assessment Administration Wizard
  * EP-Controlled Assessment Workflow for Evidence-Based Frameworks (ECCA, ECCP, etc.)
@@ -400,7 +401,7 @@ export default function AssessmentAdministrationWizard({
                 console.error('Failed to upload report to server');
                 // We still continue to download for the user
             } else {
-                console.log('Report uploaded successfully');
+                logger.debug('Report uploaded successfully');
             }
           } catch (uploadError) {
              console.error('Error uploading report:', uploadError);

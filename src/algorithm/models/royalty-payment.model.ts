@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Represents a royalty payment made to algorithm creators.
  * This model tracks the distribution of revenue from algorithm sales

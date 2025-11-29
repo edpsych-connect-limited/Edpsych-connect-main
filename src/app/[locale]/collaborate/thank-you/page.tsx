@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Collaboration Thank You Page
  * Shown after successful submission of collaborative input

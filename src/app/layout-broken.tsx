@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -57,7 +58,7 @@ export default function RootLayout({
               // Initialize Google Analytics only if consent is given
               if (hasAnalyticsConsent()) {
                 // Google Analytics initialization would go here
-                console.log('Google Analytics initialized with consent');
+                logger.debug('Google Analytics initialized with consent');
               }
             `
           }}

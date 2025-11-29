@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 > edpsych-connect-web-v2@1.0.0 build:safe
 > NODE_OPTIONS='--max-old-space-size=8192' next build
 
@@ -57,3 +58,19 @@ Import trace for requested module:
 
 
 > Build failed because of webpack errors
+=======
+> edpsych-connect-web-v2@1.0.0 build
+> npm run validate:build && NODE_OPTIONS='--max-old-space-size=4096' next build
+
+
+> edpsych-connect-web-v2@1.0.0 validate:build
+> bash tools/build-validation.sh src false
+
+[0;34m════════════════════════════════════════════════════════════[0m
+[0;34m  BUILD-TIME CODE VALIDATION[0m
+[0;34m════════════════════════════════════════════════════════════[0m
+
+[1;33mValidating source code...[0m
+
+[0;34m→ Running TypeScript type checking...[0m
+>>>>>>> bb81e2ee63fdae53ae03162751986938e3dba36b

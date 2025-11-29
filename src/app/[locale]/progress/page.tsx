@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Progress Tracking Page
  * View comprehensive progress across all cases and interventions

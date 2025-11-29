@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Represents usage metrics for algorithms in the platform.
  * Tracks various performance and usage statistics for algorithms and their versions.

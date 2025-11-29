@@ -9,6 +9,8 @@
  * - Automated assessment and grading
  * - Conversational tutoring interfaces
  */
+import { logger } from '@/lib/logger';
+
 
 class AITutoringService {
   constructor(options = {}) {

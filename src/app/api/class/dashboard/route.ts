@@ -15,14 +15,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { DataRouterService } from '@/lib/orchestration/data-router.service';
 import { getServerSession } from 'next-auth';
-import logger from '@/utils/logger';
+import { logger } from "@/lib/logger";
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
-    console.log('GET /api/class/dashboard called');
-    console.log('Request URL:', request.url);
+    logger.debug('GET /api/class/dashboard called');
+    logger.debug('Request URL:', request.url);
 
     // Get session
     const session = await getServerSession();

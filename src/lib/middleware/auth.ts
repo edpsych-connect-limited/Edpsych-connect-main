@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Enterprise-grade authentication and authorization middleware
  * Enforces session-based access control on all API routes

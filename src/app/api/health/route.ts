@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Health check endpoint
  * Build trigger: 3dc28a5-vercel-consolidation

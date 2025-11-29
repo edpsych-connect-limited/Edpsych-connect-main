@@ -18,8 +18,8 @@
 
 import { PrismaClient } from '@prisma/client';
 import { AIService } from '@/services/ai-service';
-import logger from '@/utils/logger';
 import { ProfileBuilderService } from './profile-builder.service';
+import { logger } from "@/lib/logger";
 
 const prisma = new PrismaClient();
 

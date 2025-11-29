@@ -10,7 +10,7 @@
 // All implementations should reference this file
 
 import { GamificationImpl } from './gamificationImpl';
-import { logger } from '../utils/logger';
+import { logger } from "@/lib/logger";
 
 // Add the methods needed by AdvancedAnalyticsDashboard
 const enhancedApi = {

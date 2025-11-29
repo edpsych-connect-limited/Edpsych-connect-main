@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * JWT Configuration and Utilities for Edge Auth Adapter
  * 

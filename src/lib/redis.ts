@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Redis Module
  * Provides Redis client instance for caching operations

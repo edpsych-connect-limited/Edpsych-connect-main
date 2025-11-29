@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * TeamMemberCard Component - Enterprise-Grade Team Member Display
  *

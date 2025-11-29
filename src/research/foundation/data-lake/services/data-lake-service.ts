@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Data Lake Service
  * 
@@ -14,7 +15,7 @@ export class DataLakeService {
    */
   async archiveCohortData(cohortId: string): Promise<void> {
     // Implementation would move data to archival storage
-    console.log(`Archiving data for cohort: ${cohortId}`);
+    logger.debug(`Archiving data for cohort: ${cohortId}`);
   }
 
   /**
@@ -23,7 +24,7 @@ export class DataLakeService {
   async storeCohortAnalytics(_cohortId: string, _analytics: CohortAnalytics): Promise<void> {
     void(_analytics);
     // Implementation would store analytics in the appropriate layer
-    console.log(`Storing analytics for cohort: ${_cohortId}`);
+    logger.debug(`Storing analytics for cohort: ${_cohortId}`);
   }
 
   /**
@@ -32,7 +33,7 @@ export class DataLakeService {
   async generateCsvExport(_cohortId: string, _data: any[]): Promise<string> {
     void(_data);
     // Implementation would generate CSV and return a download URL
-    console.log(`Generating CSV export for cohort: ${_cohortId}`);
+    logger.debug(`Generating CSV export for cohort: ${_cohortId}`);
     return `https://edpsych-research.example.com/exports/${_cohortId}/export.csv`;
   }
 
@@ -42,7 +43,7 @@ export class DataLakeService {
   async generateJsonExport(_cohortId: string, _data: any[]): Promise<string> {
     void(_data);
     // Implementation would generate JSON and return a download URL
-    console.log(`Generating JSON export for cohort: ${_cohortId}`);
+    logger.debug(`Generating JSON export for cohort: ${_cohortId}`);
     return `https://edpsych-research.example.com/exports/${_cohortId}/export.json`;
   }
 
@@ -52,7 +53,7 @@ export class DataLakeService {
   async generateSpssExport(cohortId: string, _data: any[]): Promise<string> {
     void(_data);
     // Implementation would generate SPSS file and return a download URL
-    console.log(`Generating SPSS export for cohort: ${cohortId}`);
+    logger.debug(`Generating SPSS export for cohort: ${cohortId}`);
     return `https://edpsych-research.example.com/exports/${cohortId}/export.sav`;
   }
 
@@ -62,7 +63,7 @@ export class DataLakeService {
   async generateStataExport(cohortId: string, _data: any[]): Promise<string> {
     void(_data);
     // Implementation would generate Stata file and return a download URL
-    console.log(`Generating Stata export for cohort: ${cohortId}`);
+    logger.debug(`Generating Stata export for cohort: ${cohortId}`);
     return `https://edpsych-research.example.com/exports/${cohortId}/export.dta`;
   }
 
@@ -78,7 +79,7 @@ export class DataLakeService {
     void(_data);
     void(_metadata);
     // Implementation would store data in the bronze layer
-    console.log(`Storing raw data from ${source} of type ${dataType}`);
+    logger.debug(`Storing raw data from ${source} of type ${dataType}`);
     return `bronze://${source}/${dataType}/${new Date().getTime()}`;
   }
 
@@ -88,7 +89,7 @@ export class DataLakeService {
   async processToSilver(bronzePath: string, _transformations: string[]): Promise<string> {
     void(_transformations);
     // Implementation would process data from bronze to silver
-    console.log(`Processing data from ${bronzePath} to silver`);
+    logger.debug(`Processing data from ${bronzePath} to silver`);
     return `silver://${bronzePath.split('//')[1]}`;
   }
 
@@ -98,7 +99,7 @@ export class DataLakeService {
   async processToGold(silverPath: string, _aggregations: string[]): Promise<string> {
     void(_aggregations);
     // Implementation would process data from silver to gold
-    console.log(`Processing data from ${silverPath} to gold`);
+    logger.debug(`Processing data from ${silverPath} to gold`);
     return `gold://${silverPath.split('//')[1]}`;
   }
 
@@ -112,7 +113,7 @@ export class DataLakeService {
   ): Promise<any[]> {
     void(_parameters);
     // Implementation would query data from the specified layer
-    console.log(`Querying ${layer} layer: ${query}`);
+    logger.debug(`Querying ${layer} layer: ${query}`);
     return [];
   }
 }

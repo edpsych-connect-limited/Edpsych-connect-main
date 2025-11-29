@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -8,7 +9,6 @@
 
 import { prisma } from './prisma';
 import { createCipheriv, createDecipheriv, randomBytes, createHash } from 'crypto';
-import { logger } from './logger';
 
 /**
  * Secure storage service for sensitive legal documents

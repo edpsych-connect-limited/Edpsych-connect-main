@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 'use client'
 
 /**
@@ -105,19 +106,19 @@ export default function AdminPage() {
 
     // Redirect to login if not authenticated
     if (!user) {
-      console.log('❌ No user found, redirecting to login');
+      logger.debug('❌ No user found, redirecting to login');
       router.push('/login');
       return;
     }
 
     // Check for admin role
     if (!hasRole('admin')) {
-      console.log('❌ User lacks admin role, redirecting to home');
+      logger.debug('❌ User lacks admin role, redirecting to home');
       router.push('/');
       return;
     }
 
-    console.log('✅ User authenticated and authorized for admin');
+    logger.debug('✅ User authenticated and authorized for admin');
   }, [user, isLoading, hasRole, router]);
 
   // Show loading state while checking authentication

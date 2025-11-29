@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Course Catalog Library
  * Task 4.1.1: Complete Course Catalog with 10+ Professional Development Courses

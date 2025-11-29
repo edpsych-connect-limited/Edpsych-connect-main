@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Synthetic Data Generator Service
  * 
@@ -110,7 +111,7 @@ export class SyntheticDataGenerator {
     if (!this.config.privacyMethod) return;
 
     // Implementation will depend on the selected privacy method
-    console.log(`Applying ${this.config.privacyMethod} to dataset...`);
+    logger.debug(`Applying ${this.config.privacyMethod} to dataset...`);
     
     // Add implementation of privacy methods here
     // For now, we just update the metadata to indicate privacy was applied
@@ -128,7 +129,7 @@ export class SyntheticDataGenerator {
    * @param dataset The dataset to validate
    */
   private async validateDataset(dataset: SyntheticDataset): Promise<void> {
-    console.log('Validating dataset...');
+    logger.debug('Validating dataset...');
     
     // Basic validation - ensure we have the expected number of records
     if (dataset.records.length !== this.config.recordCount) {
@@ -193,7 +194,7 @@ export class SyntheticDataGenerator {
     
     // Write to file
     await fs.writeFile(filePath, csv, 'utf8');
-    console.log(`Dataset exported to ${filePath}`);
+    logger.debug(`Dataset exported to ${filePath}`);
     
     // Also save metadata to a JSON file
     const metadataPath = filePath.replace(/\.csv$/, '.metadata.json');
@@ -202,7 +203,7 @@ export class SyntheticDataGenerator {
       JSON.stringify(dataToExport.metadata, null, 2),
       'utf8'
     );
-    console.log(`Metadata exported to ${metadataPath}`);
+    logger.debug(`Metadata exported to ${metadataPath}`);
   }
 
   /**
@@ -223,7 +224,7 @@ export class SyntheticDataGenerator {
       JSON.stringify(dataToExport, null, 2),
       'utf8'
     );
-    console.log(`Dataset exported to ${filePath}`);
+    logger.debug(`Dataset exported to ${filePath}`);
   }
 
   /**

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/lessons/assign/route.ts
  * PURPOSE: Auto-assignment of differentiated lessons to students
@@ -142,7 +143,7 @@ export async function POST(
       }, { status: 403 });
     }
 
-    console.log(`[Lesson Assignment API] POST request - User: ${userId}, Tenant: ${tenantId}`);
+    logger.debug(`[Lesson Assignment API] POST request - User: ${userId}, Tenant: ${tenantId}`);
 
     // Parse and validate request body
     const body = await request.json();
@@ -177,7 +178,7 @@ export async function POST(
       }, { status: 404 });
     }
 
-    console.log(`[Lesson Assignment API] Assigning ${assignments.length} lessons to class: ${classRoster.class_name}`);
+    logger.debug(`[Lesson Assignment API] Assigning ${assignments.length} lessons to class: ${classRoster.class_name}`);
 
     // Process assignments with partial failure handling
     const results: AssignmentResult[] = [];
@@ -233,7 +234,7 @@ export async function POST(
         // TODO: Implement parent notification when service method is available
         let parentNotified = false;
         if (assignment.notifyParent) {
-          console.log(`[Lesson Assignment API] Parent notification requested for student ${assignment.studentId} - pending implementation`);
+          logger.debug(`[Lesson Assignment API] Parent notification requested for student ${assignment.studentId} - pending implementation`);
           // Parent notification service method triggerParentNotification needs to be implemented
         }
 
@@ -292,7 +293,7 @@ export async function POST(
           parentNotified,
         });
 
-        console.log(`[Lesson Assignment API] Successfully assigned lesson to ${student.first_name} ${student.last_name} (${processingTime}ms)`);
+        logger.debug(`[Lesson Assignment API] Successfully assigned lesson to ${student.first_name} ${student.last_name} (${processingTime}ms)`);
 
       } catch (assignmentError) {
         console.error(`[Lesson Assignment API] Assignment failed for student ${assignment.studentId}:`, assignmentError);
@@ -328,7 +329,7 @@ export async function POST(
     };
 
     const totalTime = Date.now() - startTime;
-    console.log(`[Lesson Assignment API] Completed: ${successfulAssignments} successful, ${failedAssignments} failed (${totalTime}ms total)`);
+    logger.debug(`[Lesson Assignment API] Completed: ${successfulAssignments} successful, ${failedAssignments} failed (${totalTime}ms total)`);
 
     // Log GDPR audit trail
     await prisma.auditLog.create({

@@ -7,8 +7,8 @@
  */
 
 import { PrismaClient } from '@prisma/client';
-import { logger } from '../lib/logger';
 import crypto from 'crypto';
+import { logger } from "@/lib/logger";
 
 /**
  * Service for managing beta access codes and validation

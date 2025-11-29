@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Problem Solver API Endpoint
  *

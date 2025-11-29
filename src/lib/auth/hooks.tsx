@@ -22,7 +22,7 @@ import type { ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { AuthUser, PasswordUpdateRequest } from './types';
 import { secureStore, secureRetrieve, secureRemove, clearAuthStorage } from '../../utils/encryption';
-import { logger } from '../../utils/logger';
+import { logger } from "@/lib/logger";
 
 /**
  * Authentication Context Type Definition

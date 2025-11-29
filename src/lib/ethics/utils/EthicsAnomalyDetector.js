@@ -4,6 +4,8 @@
  * Utility for detecting anomalies in ethical metrics using various
  * statistical methods and machine learning techniques.
  */
+import { logger } from '@/lib/logger';
+
 
 class EthicsAnomalyDetector {
   constructor({

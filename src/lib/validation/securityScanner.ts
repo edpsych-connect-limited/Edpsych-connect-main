@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Security Scanner
  * Detects security vulnerabilities in TypeScript code

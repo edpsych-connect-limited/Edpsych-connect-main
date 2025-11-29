@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FHIR Resource Definitions for EdPsych Connect
  * 

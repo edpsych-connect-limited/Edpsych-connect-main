@@ -5,6 +5,8 @@
  * CONFIDENTIAL: This software contains proprietary algorithms and trade secrets.
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
+import { logger } from '@/lib/logger';
+
 
 
 /**
@@ -49,7 +51,7 @@ if (typeof global !== 'undefined' && typeof global.document === 'undefined') {
     userAgent: 'node'
   };
 
-  console.log('✅ Successfully created server-side document mock');
+  logger.debug('✅ Successfully created server-side document mock');
 }
 
 module.exports = {

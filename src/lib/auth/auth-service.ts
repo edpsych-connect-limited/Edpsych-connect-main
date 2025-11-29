@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Authentication Service
  * 
@@ -168,11 +169,11 @@ export async function generateToken(session: UserSession): Promise<string> {
  */
 export async function verifyToken(token: string): Promise<UserSession | null> {
   try {
-    console.log('[AuthService] Verifying token:', token.substring(0, 20) + '...');
+    logger.debug('[AuthService] Verifying token:', token.substring(0, 20) + '...');
     const { payload } = await jwtVerify(token, JWT_SECRET, {
       algorithms: ['HS256']
     });
-    console.log('[AuthService] Token verified successfully');
+    logger.debug('[AuthService] Token verified successfully');
     return payload as unknown as UserSession;
   } catch (error) {
     console.error('[AuthService] Token verification error:', error);

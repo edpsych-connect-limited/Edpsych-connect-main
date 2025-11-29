@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Performance Profiler
  * Analyzes code performance and detects bottlenecks

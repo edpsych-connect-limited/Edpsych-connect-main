@@ -1,8 +1,8 @@
+import { logger } from "@/lib/logger";
 /**
  * Database Optimization Service
  * Comprehensive database query optimization and connection management
  */
-import logger from '../lib/logger';
 
 export interface QueryMetrics {
   query: string;

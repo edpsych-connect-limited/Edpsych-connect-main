@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Squad Competition System - Battle Royale Team Battles
  * Task 4.2.4: Squad Competitions & Leaderboards

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Continuous Validation Watcher
  * Watches for file changes and validates in real-time during development
@@ -7,7 +8,6 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { logger } from './logger';
 import ValidationService from './validationService';
 
 /**

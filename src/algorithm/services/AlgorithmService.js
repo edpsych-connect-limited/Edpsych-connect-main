@@ -2,6 +2,8 @@
  * Algorithm Service
  * Provides business logic and API for interacting with algorithms, licenses, and creators
  */
+import { logger } from '@/lib/logger';
+
 
 // Mock implementations to avoid import issues during build
 class AlgorithmService {
@@ -29,7 +31,7 @@ class AlgorithmService {
    * @returns {Promise<Object>} Created algorithm
    */
   static async createAlgorithm(algorithmData, creatorId) {
-    console.log('Creating algorithm:', algorithmData, creatorId);
+    logger.debug('Creating algorithm:', algorithmData, creatorId);
     return {
       id: `alg-${Date.now()}`,
       ...algorithmData,
@@ -46,7 +48,7 @@ class AlgorithmService {
    * @returns {Promise<Object|null>} Algorithm data
    */
   static async getById(id) {
-    console.log('Getting algorithm by ID:', id);
+    logger.debug('Getting algorithm by ID:', id);
     return {
       id,
       name: 'Mock Algorithm',
@@ -64,7 +66,7 @@ class AlgorithmService {
    * @returns {Promise<Object>} Search results
    */
   static async searchAlgorithms(criteria = {}, _pagination = {}) {
-    console.log('Searching algorithms:', criteria);
+    logger.debug('Searching algorithms:', criteria);
     return {
       items: [
         {
@@ -96,7 +98,7 @@ class AlgorithmService {
    * @returns {Promise<Object>} Created license
    */
   static async purchaseLicense(algorithmId, licenseId, institutionId, purchaserId, _purchaseData = {}) {
-    console.log('Purchasing license:', { algorithmId, licenseId, institutionId, purchaserId });
+    logger.debug('Purchasing license:', { algorithmId, licenseId, institutionId, purchaserId });
     return {
       id: `license-${Date.now()}`,
       algorithmId,
@@ -125,7 +127,7 @@ class AlgorithmService {
    * @returns {Promise<Array<Object>>} List of featured algorithms
    */
   static async getFeaturedAlgorithms(limit = 4) {
-    console.log('Getting featured algorithms, limit:', limit);
+    logger.debug('Getting featured algorithms, limit:', limit);
     return [
       {
         id: 'featured-1',
@@ -150,7 +152,7 @@ class AlgorithmService {
    * @returns {Promise<Object>} Updated algorithm
    */
   static async updateAlgorithm(id, data) {
-    console.log('Updating algorithm:', id, data);
+    logger.debug('Updating algorithm:', id, data);
     return {
       id,
       ...data,
@@ -165,7 +167,7 @@ class AlgorithmService {
    * @returns {Promise<Object>} Created version
    */
   static async addAlgorithmVersion(algorithmId, versionData) {
-    console.log('Adding algorithm version:', algorithmId, versionData);
+    logger.debug('Adding algorithm version:', algorithmId, versionData);
     return {
       id: `version-${Date.now()}`,
       algorithmId,
@@ -180,7 +182,7 @@ class AlgorithmService {
    * @returns {Promise<Object>} Created creator profile
    */
   static async createAlgorithmCreator(creatorData) {
-    console.log('Creating algorithm creator:', creatorData);
+    logger.debug('Creating algorithm creator:', creatorData);
     return {
       id: `creator-${Date.now()}`,
       ...creatorData,

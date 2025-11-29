@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Basic Usage Example
  * 
@@ -31,15 +32,15 @@ import {
 } from '../index';
 
 async function runExample() {
-  console.log('=== EdPsych Connect Citation Tracking System ===');
-  console.log('Basic Usage Example\n');
+  logger.debug('=== EdPsych Connect Citation Tracking System ===');
+  logger.debug('Basic Usage Example\n');
   
   // Initialize services
   const citationService = new CitationTrackingService();
   const publicationService = new PublicationService();
   const impactMetricsService = new ImpactMetricsService();
   
-  console.log('1. Creating researchers...');
+  logger.debug('1. Creating researchers...');
   
   // Create researchers
   const researcher1 = new Researcher({
@@ -82,9 +83,9 @@ async function runExample() {
     ]
   });
   
-  console.log(`Created researchers: ${researcher1.name} and ${researcher2.name}`);
+  logger.debug(`Created researchers: ${researcher1.name} and ${researcher2.name}`);
   
-  console.log('\n2. Creating publications...');
+  logger.debug('\n2. Creating publications...');
   
   // Create publications
   const publication1 = new Publication({
@@ -180,7 +181,7 @@ async function runExample() {
     id: publication2.id
   });
   
-  console.log(`Created publications: "${publication1.title}" and "${publication2.title}"`);
+  logger.debug(`Created publications: "${publication1.title}" and "${publication2.title}"`);
   
   // Add publications to researchers
   researcher1.addPublication(publication1.id);
@@ -191,7 +192,7 @@ async function runExample() {
   impactMetricsService.setResearcherPublications(researcher1.id, [publication1.id, publication2.id]);
   impactMetricsService.setResearcherPublications(researcher2.id, [publication2.id]);
   
-  console.log('\n3. Tracking citations...');
+  logger.debug('\n3. Tracking citations...');
   
   // Create a citation
   const citation = new Citation({
@@ -221,7 +222,7 @@ async function runExample() {
   });
   
   if (citationResult.success) {
-    console.log(`Created citation from "${publication2.title}" to "${publication1.title}"`);
+    logger.debug(`Created citation from "${publication2.title}" to "${publication1.title}"`);
     
     // Update publication citation count
     await publicationService.incrementCitationCount(publication1.id);
@@ -233,7 +234,7 @@ async function runExample() {
     console.error('Failed to create citation:', citationResult.error);
   }
   
-  console.log('\n4. Calculating impact metrics...');
+  logger.debug('\n4. Calculating impact metrics...');
   
   // Calculate researcher metrics
   const metricsResult = await impactMetricsService.calculateResearcherMetrics(researcher1.id, {
@@ -246,25 +247,25 @@ async function runExample() {
   
   if (metricsResult.success) {
     const metrics = metricsResult.data!;
-    console.log(`Metrics for ${researcher1.name}:`);
-    console.log(`- Publications: ${metrics.publicationCount}`);
-    console.log(`- Citations: ${metrics.citationCount}`);
-    console.log(`- H-index: ${metrics.hIndex}`);
-    console.log(`- G-index: ${metrics.gIndex}`);
-    console.log(`- i10-index: ${metrics.i10Index}`);
+    logger.debug(`Metrics for ${researcher1.name}:`);
+    logger.debug(`- Publications: ${metrics.publicationCount}`);
+    logger.debug(`- Citations: ${metrics.citationCount}`);
+    logger.debug(`- H-index: ${metrics.hIndex}`);
+    logger.debug(`- G-index: ${metrics.gIndex}`);
+    logger.debug(`- i10-index: ${metrics.i10Index}`);
     
     if (metrics.fieldNormalizedCitationImpact) {
-      console.log(`- Field-normalized citation impact: ${metrics.fieldNormalizedCitationImpact.toFixed(2)}`);
+      logger.debug(`- Field-normalized citation impact: ${metrics.fieldNormalizedCitationImpact.toFixed(2)}`);
     }
     
     if (metrics.altmetricScore) {
-      console.log(`- Altmetric score: ${metrics.altmetricScore.toFixed(1)}`);
+      logger.debug(`- Altmetric score: ${metrics.altmetricScore.toFixed(1)}`);
     }
   } else {
     console.error('Failed to calculate metrics:', metricsResult.error);
   }
   
-  console.log('\n5. Calculating field-normalized impact...');
+  logger.debug('\n5. Calculating field-normalized impact...');
   
   // Calculate field-normalized impact
   const fieldResult = await impactMetricsService.calculateFieldNormalizedImpact(
@@ -274,33 +275,33 @@ async function runExample() {
   
   if (fieldResult.success) {
     const fieldMetrics = fieldResult.data!;
-    console.log(`Field-normalized metrics for ${researcher1.name} in ${fieldMetrics.field}:`);
-    console.log(`- Field-normalized citation impact: ${fieldMetrics.fieldNormalizedCitationImpact.toFixed(2)}`);
-    console.log(`- Percentile rank: ${fieldMetrics.percentileRank}`);
-    console.log(`- Field average citations: ${fieldMetrics.fieldAverageCitations}`);
-    console.log(`- Researcher citations: ${fieldMetrics.researcherCitations}`);
+    logger.debug(`Field-normalized metrics for ${researcher1.name} in ${fieldMetrics.field}:`);
+    logger.debug(`- Field-normalized citation impact: ${fieldMetrics.fieldNormalizedCitationImpact.toFixed(2)}`);
+    logger.debug(`- Percentile rank: ${fieldMetrics.percentileRank}`);
+    logger.debug(`- Field average citations: ${fieldMetrics.fieldAverageCitations}`);
+    logger.debug(`- Researcher citations: ${fieldMetrics.researcherCitations}`);
   } else {
     console.error('Failed to calculate field-normalized impact:', fieldResult.error);
   }
   
-  console.log('\n6. Calculating publication altmetrics...');
+  logger.debug('\n6. Calculating publication altmetrics...');
   
   // Calculate publication altmetrics
   const altmetricsResult = await impactMetricsService.calculatePublicationAltmetrics(publication1.id);
   
   if (altmetricsResult.success) {
     const altmetrics = altmetricsResult.data!;
-    console.log(`Altmetrics for "${publication1.title}":`);
-    console.log(`- Altmetric score: ${altmetrics.altmetricScore.toFixed(1)}`);
-    console.log(`- Social media mentions: ${altmetrics.socialMediaMentions}`);
-    console.log(`- News media mentions: ${altmetrics.newsMediaMentions}`);
-    console.log(`- Policy document citations: ${altmetrics.policyDocumentCitations}`);
-    console.log(`- Sources: ${altmetrics.sources.map(s => `${s.source} (${s.count})`).join(', ')}`);
+    logger.debug(`Altmetrics for "${publication1.title}":`);
+    logger.debug(`- Altmetric score: ${altmetrics.altmetricScore.toFixed(1)}`);
+    logger.debug(`- Social media mentions: ${altmetrics.socialMediaMentions}`);
+    logger.debug(`- News media mentions: ${altmetrics.newsMediaMentions}`);
+    logger.debug(`- Policy document citations: ${altmetrics.policyDocumentCitations}`);
+    logger.debug(`- Sources: ${altmetrics.sources.map(s => `${s.source} (${s.count})`).join(', ')}`);
   } else {
     console.error('Failed to calculate altmetrics:', altmetricsResult.error);
   }
   
-  console.log('\n7. Searching for publications...');
+  logger.debug('\n7. Searching for publications...');
   
   // Search for publications
   const searchResult = await publicationService.searchPublications({
@@ -312,15 +313,15 @@ async function runExample() {
   
   if (searchResult.success) {
     const searchData = searchResult.data!;
-    console.log(`Found ${searchData.total} publications matching search criteria:`);
+    logger.debug(`Found ${searchData.total} publications matching search criteria:`);
     searchData.publications.forEach((pub, index) => {
-      console.log(`${index + 1}. "${pub.title}" (${pub.publicationYear}) - Citations: ${pub.citationCount}`);
+      logger.debug(`${index + 1}. "${pub.title}" (${pub.publicationYear}) - Citations: ${pub.citationCount}`);
     });
   } else {
     console.error('Failed to search publications:', searchResult.error);
   }
   
-  console.log('\n8. Exporting publications in BibTeX format...');
+  logger.debug('\n8. Exporting publications in BibTeX format...');
   
   // Export publications
   const exportResult = await publicationService.exportPublications(
@@ -329,13 +330,13 @@ async function runExample() {
   );
   
   if (exportResult.success) {
-    console.log('BibTeX export:');
-    console.log(exportResult.data!.data);
+    logger.debug('BibTeX export:');
+    logger.debug(exportResult.data!.data);
   } else {
     console.error('Failed to export publications:', exportResult.error);
   }
   
-  console.log('\nExample completed successfully!');
+  logger.debug('\nExample completed successfully!');
 }
 
 // Run the example

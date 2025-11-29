@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * SIMS (Legacy) Integration
  * Direct integration for schools hosting SIMS on-premise without Wonde.
@@ -31,7 +32,7 @@ export class SIMSIntegration implements MISProvider {
   }
 
   async syncStudents(schoolId: string): Promise<SyncResult> {
-    console.log(`[SIMS] Parsing Command Reporter XML for school: ${schoolId}`);
+    logger.debug(`[SIMS] Parsing Command Reporter XML for school: ${schoolId}`);
     // Logic to parse CTF (Common Transfer File) or XML exports
     return {
       success: true,

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * New Case Page
  * Create a new EP case

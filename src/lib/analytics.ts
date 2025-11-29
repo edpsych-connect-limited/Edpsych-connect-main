@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * EdPsych Connect - Advanced Analytics and Reporting System
  * Comprehensive analytics, reporting, and data visualization

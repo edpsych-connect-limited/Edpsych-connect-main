@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Wonde Integration
  * Wonde is the UK's leading API aggregator for school data.
@@ -24,7 +25,7 @@ export class WondeIntegration implements MISProvider {
   }
 
   async syncSchools(laCode: string): Promise<SyncResult> {
-    console.log(`[Wonde] Syncing schools for LA: ${laCode}`);
+    logger.debug(`[Wonde] Syncing schools for LA: ${laCode}`);
     // Mock implementation
     return {
       success: true,
@@ -35,7 +36,7 @@ export class WondeIntegration implements MISProvider {
   }
 
   async syncStudents(tenantId: string): Promise<SyncResult> {
-    console.log(`[Wonde] Syncing students for tenant: ${tenantId}`);
+    logger.debug(`[Wonde] Syncing students for tenant: ${tenantId}`);
     
     // 1. Simulate Fetching from Wonde
     // In reality: const response = await fetch(`${this.baseUrl}/schools/${schoolId}/students`, ...);
@@ -98,7 +99,7 @@ export class WondeIntegration implements MISProvider {
   }
 
   async syncStaff(tenantId: string): Promise<SyncResult> {
-    console.log(`[Wonde] Syncing staff for tenant: ${tenantId}`);
+    logger.debug(`[Wonde] Syncing staff for tenant: ${tenantId}`);
     // Similar implementation for staff would go here
     return {
       success: true,

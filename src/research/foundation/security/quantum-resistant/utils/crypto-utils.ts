@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Cryptographic Utility Functions for Quantum-Resistant Encryption
  * 

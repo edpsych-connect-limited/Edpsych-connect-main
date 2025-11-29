@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/lib/blog/content-scraper.ts
  * PURPOSE: Autonomous web scraping for educational content
@@ -221,7 +222,7 @@ export class ContentScraper {
     }
 
     try {
-      console.log(`[Content Scraper] Fetching RSS from ${source.rssUrl}`);
+      logger.debug(`[Content Scraper] Fetching RSS from ${source.rssUrl}`);
       const response = await fetch(source.rssUrl, { next: { revalidate: 3600 } });
       
       if (!response.ok) {

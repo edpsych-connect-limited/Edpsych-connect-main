@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/battle-royale/matchmaking/queue/route.ts
  * PURPOSE: Battle Royale matchmaking queue management

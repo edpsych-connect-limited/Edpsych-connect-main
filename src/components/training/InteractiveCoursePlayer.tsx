@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Interactive Course Player
  * Self-service, engaging training delivery - NO human facilitators

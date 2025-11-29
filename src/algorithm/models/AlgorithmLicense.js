@@ -2,6 +2,8 @@
  * AlgorithmLicense Model
  * Represents a license acquisition by an institution or user for a specific algorithm
  */
+import { logger } from '@/lib/logger';
+
 class AlgorithmLicense {
   constructor(data = {}) {
     this.id = data.id || null;
@@ -62,7 +64,7 @@ class AlgorithmLicense {
    */
   static async create(data) {
     // In a real implementation, this would create a record in the database
-    console.log('Creating algorithm license:', data);
+    logger.debug('Creating algorithm license:', data);
     return new AlgorithmLicense(data);
   }
 
@@ -73,7 +75,7 @@ class AlgorithmLicense {
    */
   async update(data) {
     // In a real implementation, this would update a record in the database
-    console.log('Updating algorithm license:', this.id, data);
+    logger.debug('Updating algorithm license:', this.id, data);
     Object.assign(this, data);
     this.updatedAt = new Date().toISOString();
     return this;
@@ -86,7 +88,7 @@ class AlgorithmLicense {
    */
   static async getById(id) {
     // In a real implementation, this would fetch from the database
-    console.log('Getting algorithm license by ID:', id);
+    logger.debug('Getting algorithm license by ID:', id);
     return new AlgorithmLicense({ id });
   }
 
@@ -99,7 +101,7 @@ class AlgorithmLicense {
    */
   static async list(filters = {}, _pagination = {}, _sorting = {}) {
     // In a real implementation, this would query the database
-    console.log('Listing algorithm licenses with filters:', filters);
+    logger.debug('Listing algorithm licenses with filters:', filters);
     return [new AlgorithmLicense()];
   }
 
@@ -198,7 +200,7 @@ class AlgorithmLicense {
     
     // In a real implementation, this would store the usage record
     // and update the license record in the database
-    console.log('Recording algorithm usage:', usage);
+    logger.debug('Recording algorithm usage:', usage);
     
     return {
       usageRecord: usage,
@@ -250,7 +252,7 @@ class AlgorithmLicense {
     
     // In a real implementation, this would update the license record
     // and create a renewal record in the database
-    console.log('Renewing algorithm license:', this.id, { startDate, endDate });
+    logger.debug('Renewing algorithm license:', this.id, { startDate, endDate });
     
     return this;
   }
@@ -269,7 +271,7 @@ class AlgorithmLicense {
     
     // In a real implementation, this would update the license record
     // and create a cancellation record in the database
-    console.log('Cancelling algorithm license:', this.id, {
+    logger.debug('Cancelling algorithm license:', this.id, {
       date: this.cancellationDate,
       reason: this.cancellationReason
     });
@@ -288,7 +290,7 @@ class AlgorithmLicense {
     
     // In a real implementation, this would update the license record
     // and create a suspension record in the database
-    console.log('Suspending algorithm license:', this.id, suspensionData);
+    logger.debug('Suspending algorithm license:', this.id, suspensionData);
     
     return this;
   }
@@ -302,7 +304,7 @@ class AlgorithmLicense {
     this.updatedAt = new Date().toISOString();
     
     // In a real implementation, this would update the license record
-    console.log('Reactivating algorithm license:', this.id);
+    logger.debug('Reactivating algorithm license:', this.id);
     
     return this;
   }
@@ -325,7 +327,7 @@ class AlgorithmLicense {
     this.updatedAt = new Date().toISOString();
     
     // In a real implementation, this would update the license record
-    console.log('Generating access key for algorithm license:', this.id, key);
+    logger.debug('Generating access key for algorithm license:', this.id, key);
     
     return key;
   }
@@ -343,7 +345,7 @@ class AlgorithmLicense {
       this.updatedAt = new Date().toISOString();
       
       // In a real implementation, this would update the license record
-      console.log('Revoking access key for algorithm license:', this.id, key);
+      logger.debug('Revoking access key for algorithm license:', this.id, key);
       
       return true;
     }

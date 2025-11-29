@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Battle Royale Gamification System
  * Task 4.2.1: Core Battle Royale Mechanics

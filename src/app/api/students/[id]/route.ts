@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Student Individual API Routes - Enterprise-grade implementation
  * Phase 3: Core SEND Functionality

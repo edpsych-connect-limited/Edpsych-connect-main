@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * OpenAI Module
  * Provides OpenAI API client instance for AI operations

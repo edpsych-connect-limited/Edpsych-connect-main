@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Platform Orchestration Layer - UI Components
  *
@@ -72,7 +73,7 @@ export { AutomatedActionsLog } from './AutomatedActionsLog';
  *     <VoiceCommandInterface
  *       classId={5}
  *       contextType="dashboard"
- *       onCommandExecuted={(result) => console.log('Command executed:', result)}
+ *       onCommandExecuted={(result) => logger.debug('Command executed:', result)}
  *     />
  *   );
  * }

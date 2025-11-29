@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Server-side Authentication Service
  * Enterprise-grade authentication with multi-tenant support

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Core data models for the synthetic data generation system
  * 

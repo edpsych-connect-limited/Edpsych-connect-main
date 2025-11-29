@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Course Player Component
  * Task 4.1.2: Interactive Course Player with Merit System

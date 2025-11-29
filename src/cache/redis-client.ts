@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Redis Cache Client
  * Universal implementation supporting:
@@ -28,7 +29,7 @@ export function getRedisClient(): RedisClient {
 
   if (kvUrl && kvToken) {
     if (!upstashInstance) {
-      console.log('Initializing Vercel KV (Upstash) client...');
+      logger.debug('Initializing Vercel KV (Upstash) client...');
       try {
         upstashInstance = new Redis({
           url: kvUrl,
@@ -73,7 +74,7 @@ export function getRedisClient(): RedisClient {
   
   if (redisUrl) {
     if (!redisInstance) {
-      console.log('Initializing Standard Redis client...');
+      logger.debug('Initializing Standard Redis client...');
       redisInstance = createClient({
         url: redisUrl
       });
@@ -82,7 +83,7 @@ export function getRedisClient(): RedisClient {
       
       // Connect asynchronously
       redisInstance.connect().then(() => {
-        console.log('Redis client connected successfully');
+        logger.debug('Redis client connected successfully');
       }).catch((err) => {
         console.error('Failed to connect to Redis', err);
       });

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Subscription Plans Configuration
  * EdPsych Connect World Subscription Tiers

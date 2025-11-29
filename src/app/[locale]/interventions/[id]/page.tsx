@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Intervention Detail Page
  * View and manage a specific intervention

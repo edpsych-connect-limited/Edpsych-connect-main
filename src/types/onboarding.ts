@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/types/onboarding.ts
  * PURPOSE: TypeScript type definitions for onboarding system

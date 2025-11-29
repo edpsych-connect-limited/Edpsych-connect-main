@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Load Testing Utility for EdPsych Connect World
  * Simulates concurrent user load and measures performance metrics.
@@ -14,7 +15,7 @@ export const loadTesting = {
       minRequestsPerSecond: number;
     };
   }) {
-    console.log('🚀 Running load test with configuration:', config);
+    logger.debug('🚀 Running load test with configuration:', config);
 
     // const startTime = Date.now();
     const simulatedResults = Array.from({ length: config.concurrency }).map(() => ({
@@ -50,7 +51,7 @@ export const loadTesting = {
       peakResponseTime,
     };
 
-    console.log('✅ Load test completed successfully.');
+    logger.debug('✅ Load test completed successfully.');
     return { summary, passed, recommendations };
   },
 };

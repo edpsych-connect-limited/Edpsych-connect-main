@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Consolidated Onboarding API Routes
  * 
@@ -34,7 +35,7 @@ async function routeOnboardingRequest(request: NextRequest): Promise<NextRespons
     const segments = pathname.split('/').filter(Boolean).slice(2);
     const action = segments[0];
 
-    console.log(`[Onboarding] Request: ${request.method} ${action}`);
+    logger.debug(`[Onboarding] Request: ${request.method} ${action}`);
 
     let session;
     try {
@@ -45,7 +46,7 @@ async function routeOnboardingRequest(request: NextRequest): Promise<NextRespons
     }
 
     if (!session) {
-      console.log('[Onboarding] No session found');
+      logger.debug('[Onboarding] No session found');
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -65,7 +66,7 @@ async function routeOnboardingRequest(request: NextRequest): Promise<NextRespons
       return NextResponse.json({ error: 'Invalid user ID' }, { status: 400 });
     }
 
-    console.log(`[Onboarding] User ID: ${userId}, Action: ${action}`);
+    logger.debug(`[Onboarding] User ID: ${userId}, Action: ${action}`);
 
     switch (action) {
       case 'status':

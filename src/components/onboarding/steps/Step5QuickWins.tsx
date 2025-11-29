@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/steps/Step5QuickWins.tsx
  * PURPOSE: Step 5 - Quick wins setup (first case, assessment, goal)

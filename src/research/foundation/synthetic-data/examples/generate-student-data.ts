@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Synthetic Data Generation Example
  * 
@@ -16,7 +17,7 @@ import path from 'path';
  * Example showing how to generate, validate, and export synthetic student data
  */
 async function generateStudentDataExample() {
-  console.log('Starting synthetic data generation...');
+  logger.debug('Starting synthetic data generation...');
   
   // Create a generator for student performance data
   const generator = new SyntheticDataGenerator({
@@ -42,14 +43,14 @@ async function generateStudentDataExample() {
     validateOutput: true
   });
   
-  console.log('Generating synthetic dataset...');
+  logger.debug('Generating synthetic dataset...');
   const dataset = await generator.generateDataset();
   
-  console.log(`Generated ${dataset.records.length} synthetic student records`);
-  console.log(`Dataset ID: ${dataset.metadata.id}`);
+  logger.debug(`Generated ${dataset.records.length} synthetic student records`);
+  logger.debug(`Dataset ID: ${dataset.metadata.id}`);
   
   // Validate the dataset
-  console.log('Validating dataset...');
+  logger.debug('Validating dataset...');
   const validator = new DataValidator({
     strictness: 'high',
     validateStatistics: true,
@@ -60,7 +61,7 @@ async function generateStudentDataExample() {
   const validationResult = validator.validate(dataset);
   
   if (validationResult.valid) {
-    console.log('Dataset validation passed!');
+    logger.debug('Dataset validation passed!');
   } else {
     console.warn('Dataset validation found issues:');
     validationResult.issues.forEach(issue => {
@@ -69,20 +70,20 @@ async function generateStudentDataExample() {
   }
   
   // Export to different formats
-  console.log('Exporting dataset...');
+  logger.debug('Exporting dataset...');
   
   // CSV export
   const csvPath = path.join('./output', 'student-performance.csv');
   await generator.exportToCsv(csvPath, dataset);
-  console.log(`Exported to CSV: ${csvPath}`);
+  logger.debug(`Exported to CSV: ${csvPath}`);
   
   // JSON export
   const jsonPath = path.join('./output', 'student-performance.json');
   await generator.exportToJson(jsonPath, dataset);
-  console.log(`Exported to JSON: ${jsonPath}`);
+  logger.debug(`Exported to JSON: ${jsonPath}`);
   
   // Export to federated learning pipeline
-  console.log('Integrating with federated learning pipeline...');
+  logger.debug('Integrating with federated learning pipeline...');
   const federatedDatasetId = await exportToFederatedPipeline(dataset, {
     projectId: 'educational-analytics-uk',
     trainSplit: 0.8,
@@ -90,12 +91,12 @@ async function generateStudentDataExample() {
     applyPrivacy: true
   });
   
-  console.log(`Dataset exported to federated learning pipeline with ID: ${federatedDatasetId}`);
+  logger.debug(`Dataset exported to federated learning pipeline with ID: ${federatedDatasetId}`);
   
   // Output dataset statistics
-  console.log('\nDataset Statistics:');
+  logger.debug('\nDataset Statistics:');
   Object.entries(dataset.metadata.statistics.fieldStats).forEach(([field, stats]) => {
-    console.log(`${field}:`, stats);
+    logger.debug(`${field}:`, stats);
   });
   
   return {
@@ -108,7 +109,7 @@ async function generateStudentDataExample() {
 // Run the example if this file is executed directly
 if (require.main === module) {
   generateStudentDataExample()
-    .then(() => console.log('Example completed successfully'))
+    .then(() => logger.debug('Example completed successfully'))
     .catch(error => console.error('Example failed:', error));
 }
 

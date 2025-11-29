@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Type declarations for department service
  * This file is used to prevent type checking errors during build

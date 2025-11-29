@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/study-buddy/profile/route.ts
  * PURPOSE: User Learning Profile Management

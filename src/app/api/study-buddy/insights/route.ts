@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/study-buddy/insights/route.ts
  * PURPOSE: Automated Insights & Predictive Alerts System

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * AI Analytics Dashboard Component
  * Comprehensive dashboard for monitoring AI service performance, costs, and usage

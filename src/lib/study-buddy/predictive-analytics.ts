@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/lib/study-buddy/predictive-analytics.ts
  * PURPOSE: Predictive Analytics Engine for Study Buddy
@@ -363,7 +364,7 @@ export class BatchPredictionRunner {
       select: { user_id: true, tenant_id: true },
     });
 
-    console.log(`[Batch Predictions] Running for ${profiles.length} users...`);
+    logger.debug(`[Batch Predictions] Running for ${profiles.length} users...`);
 
     const results = [];
 
@@ -390,7 +391,7 @@ export class BatchPredictionRunner {
     }
 
     const successCount = results.filter((r) => r.success).length;
-    console.log(`[Batch Predictions] Completed: ${successCount}/${profiles.length} successful`);
+    logger.debug(`[Batch Predictions] Completed: ${successCount}/${profiles.length} successful`);
 
     return {
       total: profiles.length,
@@ -415,7 +416,7 @@ export class BatchPredictionRunner {
       select: { user_id: true, tenant_id: true, churn_risk_score: true },
     });
 
-    console.log(`[High Risk Predictions] Found ${profiles.length} high-risk users`);
+    logger.debug(`[High Risk Predictions] Found ${profiles.length} high-risk users`);
 
     const results = [];
 
@@ -537,7 +538,7 @@ export class ABTestingFramework {
     value?: number
   ): Promise<void> {
     // Would integrate with analytics system
-    console.log(`[A/B Test] ${testName} - ${variant} - ${outcome}:`, value);
+    logger.debug(`[A/B Test] ${testName} - ${variant} - ${outcome}:`, value);
   }
 
   /**

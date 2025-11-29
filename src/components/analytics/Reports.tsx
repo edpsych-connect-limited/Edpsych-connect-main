@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 'use client'
 
 /**
@@ -95,7 +96,7 @@ export default function Reports({ }: ReportsProps) {
     try {
       const data = await analyticsService.exportData(format, reportData.dateRange);
       // Handle export based on format
-      console.log(`Exporting report as ${format}:`, data);
+      logger.debug(`Exporting report as ${format}:`, data);
     } catch (error) {
       logError(error as Error, { component: 'Reports', operation: 'exportReport', format });
     }

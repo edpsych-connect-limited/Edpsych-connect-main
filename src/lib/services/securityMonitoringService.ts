@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Security Monitoring Service
  *
@@ -10,7 +11,6 @@
  */
 
 import crypto from 'crypto';
-import { logger } from '@/lib/logger';
 
 class SecurityMonitoringService {
   options: any;

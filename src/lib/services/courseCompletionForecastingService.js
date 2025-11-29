@@ -9,6 +9,8 @@
  * - Cohort-based forecasting
  * - Real-time completion monitoring
  */
+import { logger } from '@/lib/logger';
+
 
 class CourseCompletionForecastingService {
   constructor(options = {}) {

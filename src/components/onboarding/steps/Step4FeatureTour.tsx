@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/steps/Step4FeatureTour.tsx
  * PURPOSE: Step 4 - Interactive feature tour with 6 key features

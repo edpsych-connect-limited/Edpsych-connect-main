@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Automation Effectiveness API
  * Track and measure intervention effectiveness - Database-backed

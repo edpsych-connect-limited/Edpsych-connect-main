@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Types for the Recommendation Engine
  * These types represent the data models for the recommendation engine, including

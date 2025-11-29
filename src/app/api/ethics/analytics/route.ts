@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Ethics Analytics API
  * Get analytics and metrics for the ethics monitoring system - Database-backed

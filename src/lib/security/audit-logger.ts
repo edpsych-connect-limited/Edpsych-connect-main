@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Enterprise-grade audit logging system
  * GDPR-compliant audit trail for all data access and modifications

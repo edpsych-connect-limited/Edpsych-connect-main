@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 'use client'
 
 /**
@@ -45,8 +46,8 @@ import toast from 'react-hot-toast';
  * <LessonDifferentiationView
  *   lessonPlan={{ id: 42, title: 'Fractions - Year 5', subject: 'Maths' }}
  *   classId={5}
- *   onAssignAll={(assignments) => console.log('Assigned:', assignments)}
- *   onPreview={(difficulty) => console.log('Preview:', difficulty)}
+ *   onAssignAll={(assignments) => logger.debug('Assigned:', assignments)}
+ *   onPreview={(difficulty) => logger.debug('Preview:', difficulty)}
  * />
  * ```
  */
@@ -573,7 +574,7 @@ export const LessonDifferentiationView: React.FC<LessonDifferentiationViewProps>
           onClose={() => setEditingVersion(null)}
           onSave={(updatedFields) => {
             // In a real app, this would be a mutation
-            console.log('Updating version', editingVersion.difficulty, updatedFields);
+            logger.debug('Updating version', editingVersion.difficulty, updatedFields);
             toast.success('Lesson version updated');
             setEditingVersion(null);
             // Optimistic update or refetch could happen here

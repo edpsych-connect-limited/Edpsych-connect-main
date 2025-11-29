@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 'use client'
 
 /**
@@ -429,7 +430,7 @@ export const TeacherClassDashboard: React.FC<TeacherClassDashboardProps> = ({
 
   // Handle voice command execution
   const handleCommandExecuted = (result: any) => {
-    console.log('Voice command executed:', result);
+    logger.debug('Voice command executed:', result);
     // Optionally refresh dashboard data after certain commands
     if (result.actions?.some((a: any) => a.type === 'lesson_assignment' || a.type === 'intervention')) {
       refetch();

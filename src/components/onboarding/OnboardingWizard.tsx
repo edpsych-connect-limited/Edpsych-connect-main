@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/OnboardingWizard.tsx
  * PURPOSE: Main container for onboarding wizard
@@ -73,7 +74,7 @@ export function OnboardingWizard({ className = '' }: OnboardingWizardProps) {
   // Redirect if already completed
   useEffect(() => {
     if (state.onboardingCompleted) {
-      console.log('[OnboardingWizard] Onboarding already completed, redirecting to dashboard');
+      logger.debug('[OnboardingWizard] Onboarding already completed, redirecting to dashboard');
       router.push('/dashboard');
     }
   }, [state.onboardingCompleted, router]);

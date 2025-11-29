@@ -2,8 +2,8 @@
  * AI Cost Management Service
  * Monitors and controls AI service costs with intelligent budgeting and rate limiting
  */
-import logger from '../lib/logger';
 import { aiAnalytics } from './ai-analytics';
+import { logger } from "@/lib/logger";
 
 export interface CostBudget {
   daily: number;

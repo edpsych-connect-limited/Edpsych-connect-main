@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/class/[id]/students/route.ts
  * PURPOSE: Full student list management for class with auto-built profiles
@@ -159,7 +160,7 @@ export async function GET(
     const tenantId = session.tenant_id || 0;
     const userId = parseInt(session.id);
 
-    console.log(`[Class Students API] GET request - Class: ${classId}, User: ${userId}, Tenant: ${tenantId}`);
+    logger.debug(`[Class Students API] GET request - Class: ${classId}, User: ${userId}, Tenant: ${tenantId}`);
 
     // Verify class roster belongs to tenant
     const classRoster = await prisma.classRoster.findFirst({
@@ -192,7 +193,7 @@ export async function GET(
       ...classRoster.exceeding
     ];
 
-    console.log(`[Class Students API] Processing ${studentIds.length} students in class: ${classRoster.class_name}`);
+    logger.debug(`[Class Students API] Processing ${studentIds.length} students in class: ${classRoster.class_name}`);
 
     // Fetch students and their associated data
     const [students, profiles, assessments, lessons, _cases, interventions] = await Promise.all([
@@ -459,7 +460,7 @@ export async function GET(
       },
     });
 
-    console.log(`[Class Students API] Retrieved ${studentSummaries.length} students - Urgent: ${urgencyBreakdown.urgent}, Needs Support: ${urgencyBreakdown.needs_support}`);
+    logger.debug(`[Class Students API] Retrieved ${studentSummaries.length} students - Urgent: ${urgencyBreakdown.urgent}, Needs Support: ${urgencyBreakdown.needs_support}`);
 
     return NextResponse.json(response);
 

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Ethics Incidents API
  * Manage ethics incidents and resolutions

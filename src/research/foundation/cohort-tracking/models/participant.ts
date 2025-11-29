@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Models related to research participants in the EdPsych Research Foundation
  */

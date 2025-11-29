@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/class/[id]/actions/route.ts
  * PURPOSE: Automated action management for class - view and approve/modify actions
@@ -129,7 +130,7 @@ export async function GET(
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = parseInt(searchParams.get('offset') || '0');
 
-    console.log(`[Class Actions API] GET request - Class: ${classId}, User: ${userId}, Tenant: ${tenantId}`);
+    logger.debug(`[Class Actions API] GET request - Class: ${classId}, User: ${userId}, Tenant: ${tenantId}`);
 
     // Verify class roster belongs to tenant
     const classRoster = await prisma.classRoster.findFirst({
@@ -314,7 +315,7 @@ export async function GET(
       },
     });
 
-    console.log(`[Class Actions API] Retrieved ${actions.length} actions - Pending Approvals: ${pendingApprovals}`);
+    logger.debug(`[Class Actions API] Retrieved ${actions.length} actions - Pending Approvals: ${pendingApprovals}`);
 
     return NextResponse.json(response);
 
@@ -371,7 +372,7 @@ export async function POST(
       }, { status: 403 });
     }
 
-    console.log(`[Class Actions API] POST request - Class: ${classId}, User: ${userId}, Tenant: ${tenantId}`);
+    logger.debug(`[Class Actions API] POST request - Class: ${classId}, User: ${userId}, Tenant: ${tenantId}`);
 
     // Verify class roster belongs to tenant
     const classRoster = await prisma.classRoster.findFirst({
@@ -463,7 +464,7 @@ export async function POST(
 
     // If approved, execute the action
     if (decision === 'approve' || decision === 'modify') {
-      console.log(`[Class Actions API] Executing approved action: ${action.action_type}`);
+      logger.debug(`[Class Actions API] Executing approved action: ${action.action_type}`);
 
       try {
         // Execute based on action type
@@ -487,7 +488,7 @@ export async function POST(
             executedAction = { status: 'no_action_required', message: 'Action type does not require execution' };
         }
 
-        console.log(`[Class Actions API] Action executed successfully: ${actionId}`);
+        logger.debug(`[Class Actions API] Action executed successfully: ${actionId}`);
 
       } catch (executionError) {
         console.error(`[Class Actions API] Error executing action:`, executionError);
@@ -522,7 +523,7 @@ export async function POST(
       executedAction,
     };
 
-    console.log(`[Class Actions API] Action ${decision} - Action: ${actionId}`);
+    logger.debug(`[Class Actions API] Action ${decision} - Action: ${actionId}`);
 
     return NextResponse.json(response);
 

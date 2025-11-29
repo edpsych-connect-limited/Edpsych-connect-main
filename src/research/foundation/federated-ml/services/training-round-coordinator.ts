@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Training Round Coordinator for Federated Learning
  * 

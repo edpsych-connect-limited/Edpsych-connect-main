@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Async/Await Validator
  * Detects Promise handling errors and async/await misuse

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/progress/dashboard/route.ts
  * PURPOSE: Progress dashboard data API - Database-backed

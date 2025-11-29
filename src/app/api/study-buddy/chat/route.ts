@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/study-buddy/chat/route.ts
  * PURPOSE: Conversational AI Interface for Study Buddies

@@ -7,8 +7,8 @@
  */
 
 import { User, UserSubscription, UserRole } from '../types/auth';
-import { logger } from '../lib/logger';
 import { prisma } from '@/lib/prisma';
+import { logger } from "@/lib/logger";
 
 /**
  * User creation options

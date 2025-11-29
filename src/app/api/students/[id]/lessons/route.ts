@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/app/api/students/[id]/lessons/route.ts
  * PURPOSE: Student lesson assignment management and progress tracking
@@ -97,7 +98,7 @@ export async function GET(
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = parseInt(searchParams.get('offset') || '0');
 
-    console.log(`[Student Lessons API] GET request - Student: ${studentId}, User: ${userId}, Tenant: ${tenantId}`);
+    logger.debug(`[Student Lessons API] GET request - Student: ${studentId}, User: ${userId}, Tenant: ${tenantId}`);
 
     // Verify student belongs to tenant
     const student = await prisma.students.findFirst({
@@ -275,7 +276,7 @@ export async function GET(
       },
     });
 
-    console.log(`[Student Lessons API] Retrieved ${assignments.length} lessons - Student: ${studentId}, Avg Success: ${averageSuccessRate}%`);
+    logger.debug(`[Student Lessons API] Retrieved ${assignments.length} lessons - Student: ${studentId}, Avg Success: ${averageSuccessRate}%`);
 
     return NextResponse.json(response);
 

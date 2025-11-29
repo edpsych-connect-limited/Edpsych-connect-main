@@ -2,7 +2,6 @@
  * Intelligent AI Response Caching System
  * Advanced caching with content similarity detection, usage pattern analysis, and smart TTL
  */
-import logger from '../lib/logger';
 import { aiAnalytics } from './ai-analytics';
 
 export interface CacheEntry {
@@ -446,11 +445,12 @@ export const aiIntelligentCache = AIIntelligentCache.getInstance();
  * Integrates Cloudflare CDN, Vercel Edge Network, and Redis edge caching for sub-200ms global delivery.
  */
 import { getRedisClient } from '../cache/redis-client';
+import { logger } from "@/lib/logger";
 
 export async function optimizeGlobalCDNAndCaching(): Promise<void> {
   const redis = getRedisClient();
 
-  console.log('🌍 Initializing global CDN and caching optimization...');
+  logger.debug('🌍 Initializing global CDN and caching optimization...');
 
   // Configure Cloudflare cache headers
   const cloudflareHeaders = {
@@ -478,7 +478,7 @@ export async function optimizeGlobalCDNAndCaching(): Promise<void> {
     await redis.set(`edge_cache:${asset}`, 'preloaded', 3600);
   }
 
-  console.log('✅ Redis edge cache preloaded with critical assets');
-  console.log('✅ Cloudflare and Vercel Edge caching strategies applied');
-  console.log('✅ Global CDN optimization complete');
+  logger.debug('✅ Redis edge cache preloaded with critical assets');
+  logger.debug('✅ Cloudflare and Vercel Edge caching strategies applied');
+  logger.debug('✅ Global CDN optimization complete');
 }

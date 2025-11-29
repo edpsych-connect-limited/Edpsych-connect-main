@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Help Article Detail API
  * Get individual article, track views, handle feedback

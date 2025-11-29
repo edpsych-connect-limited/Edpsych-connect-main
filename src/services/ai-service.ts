@@ -2,10 +2,10 @@
  * Service for connecting to the AI engines used in the EdPsych Connect platform
  * Integrated with the central AI Integration Service
  */
-import logger from '../lib/logger';
 import { aiAnalytics } from './ai-analytics';
 import { aiService } from '@/lib/ai-integration';
 import { prisma } from '@/lib/prisma';
+import { logger } from "@/lib/logger";
 
 interface ChallengeConfig {
   solutionTemplates: Record<string, string[]>;

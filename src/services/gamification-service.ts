@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Revolutionary Battle Royale Gamification Service for EdPsych Connect World
  * The most engaging educational gaming system ever created!
@@ -614,7 +615,7 @@ export class GamificationService {
    */
   private broadcastEvent(_gameId: string, _event: GameEvent): void {
     // In production, this would use WebSocket or Server-Sent Events
-    // console.log(`Broadcasting event to game ${gameId}:`, event);
+    // logger.debug(`Broadcasting event to game ${gameId}:`, event);
   }
 
   /**

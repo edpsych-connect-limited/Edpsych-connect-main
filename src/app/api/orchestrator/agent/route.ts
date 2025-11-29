@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -11,7 +12,6 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { aiService, AIRequest } from '@/lib/ai-integration';
-import logger from '@/lib/logger';
 import { z } from 'zod';
 
 // Schema for the agent request

@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * FILE: src/components/onboarding/OnboardingProvider.tsx
  * PURPOSE: React Context provider for onboarding state management
@@ -317,7 +318,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
       
       // Handle 401 Unauthorized specifically
       if (response.status === 401) {
-        console.log('[OnboardingProvider] Unauthorized, redirecting to login');
+        logger.debug('[OnboardingProvider] Unauthorized, redirecting to login');
         window.location.href = '/login?returnUrl=/onboarding';
         return;
       }
@@ -366,7 +367,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
 
       // Handle 401 Unauthorized specifically
       if (response.status === 401) {
-        console.log('[OnboardingProvider] Unauthorized, redirecting to login');
+        logger.debug('[OnboardingProvider] Unauthorized, redirecting to login');
         window.location.href = '/login?returnUrl=/onboarding';
         return;
       }

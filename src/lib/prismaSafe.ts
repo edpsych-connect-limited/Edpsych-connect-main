@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -7,7 +8,6 @@
  */
 
 import { PrismaClient } from '@prisma/client';
-import { logger } from './logger';
 
 let prisma: ReturnType<typeof createPrismaClient>;
 

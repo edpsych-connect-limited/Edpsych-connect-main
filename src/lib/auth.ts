@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -211,10 +212,10 @@ export async function resetPassword(email: string): Promise<void> {
     
     // DEV MODE: Log the reset link
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-    console.log('=================================================================');
-    console.log(`PASSWORD RESET LINK FOR ${email}:`);
-    console.log(`${appUrl}/auth/reset-password?token=${resetToken}&email=${encodeURIComponent(email)}`);
-    console.log('=================================================================');
+    logger.debug('=================================================================');
+    logger.debug(`PASSWORD RESET LINK FOR ${email}:`);
+    logger.debug(`${appUrl}/auth/reset-password?token=${resetToken}&email=${encodeURIComponent(email)}`);
+    logger.debug('=================================================================');
 
     // TODO: Implement email sending service
     // await sendEmail(email, 'Password Reset', `Click here to reset: ...`);

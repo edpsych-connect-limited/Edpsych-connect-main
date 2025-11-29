@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Interactive Demo Page
  * Showcase the AI capabilities of the platform

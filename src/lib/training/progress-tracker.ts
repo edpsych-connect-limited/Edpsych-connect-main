@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 /**
  * Progress Tracking Library
  * Task 4.1.3: Progress Tracking & CPD Hour Tracking
@@ -375,7 +376,7 @@ export async function saveCompletedLesson(
   lesson: CompletedLesson
 ): Promise<void> {
   // TODO: API call to save lesson completion
-  console.log('Saving lesson completion:', { userId, courseId, lesson });
+  logger.debug('Saving lesson completion:', { userId, courseId, lesson });
 }
 
 /**
@@ -383,7 +384,7 @@ export async function saveCompletedLesson(
  */
 export async function saveCompletedQuiz(userId: string, courseId: string, quiz: CompletedQuiz): Promise<void> {
   // TODO: API call to save quiz completion
-  console.log('Saving quiz completion:', { userId, courseId, quiz });
+  logger.debug('Saving quiz completion:', { userId, courseId, quiz });
 }
 
 /**
@@ -391,7 +392,7 @@ export async function saveCompletedQuiz(userId: string, courseId: string, quiz: 
  */
 export async function updateCourseProgress(progress: UserCourseProgress): Promise<void> {
   // TODO: API call to update course progress
-  console.log('Updating course progress:', progress);
+  logger.debug('Updating course progress:', progress);
 }
 
 /**
@@ -403,7 +404,7 @@ export async function markCourseComplete(
   certificateId: string
 ): Promise<void> {
   // TODO: API call to mark course complete and generate certificate
-  console.log('Marking course complete:', { userId, courseId, certificateId });
+  logger.debug('Marking course complete:', { userId, courseId, certificateId });
 }
 
 // ============================================================================
