@@ -13,10 +13,6 @@ const nextConfig = {
     // Only ignore errors if build checks are disabled
     ignoreBuildErrors: !enableBuildChecks,
   },
-  eslint: {
-    // Only ignore lint errors if build checks are disabled
-    ignoreDuringBuilds: !enableBuildChecks,
-  },
   productionBrowserSourceMaps: false,
   images: {
     remotePatterns: [
@@ -37,6 +33,16 @@ const nextConfig = {
         hostname: 'lh3.googleusercontent.com',
       },
     ],
+  },
+  webpack: (config) => {
+    // Force memory cache to avoid external drive filesystem errors
+    config.cache = { type: 'memory' };
+    config.resolve.symlinks = false;
+    config.snapshot = {
+      managedPaths: [],
+      immutablePaths: [],
+    };
+    return config;
   },
 }
 
