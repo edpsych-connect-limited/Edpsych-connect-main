@@ -13,32 +13,72 @@
  * - Responsive design
  */
 
-import React, { useState, useRef, useEffect } from 'react';
-import { Play, CheckCircle, Target, Zap, Shield, Users, TrendingUp } from 'lucide-react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { Play, CheckCircle, Target, Zap, Shield, Users, TrendingUp, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useOnboarding } from '../OnboardingProvider';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { LOCAL_VIDEO_PATHS } from '@/lib/training/heygen-video-urls';
 
-// Local video path for onboarding welcome - prefer local over HeyGen embed
+// Local video path for onboarding welcome - prefer local over HeyGen API
 const LOCAL_WELCOME_VIDEO = LOCAL_VIDEO_PATHS['onboarding-welcome'] || '/content/training_videos/onboarding/onboarding-welcome.mp4';
 
 export function Step1Welcome() {
   const { state, updateStep } = useOnboarding();
   const [videoStarted, setVideoStarted] = useState(false);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [isLoadingVideo, setIsLoadingVideo] = useState(false);
   const [videoWatchPercentage, setVideoWatchPercentage] = useState(state.step1Data.videoWatchPercentage || 0);
-  // Video ref kept for potential future local video fallback
-  const _videoRef = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Note: For HeyGen iframe embeds, we use manual progress tracking
-  // The useEffect below is kept for potential local video fallback
-  useEffect(() => {
-    // HeyGen iframe videos don't support progress tracking via events
-    // Progress is tracked via the "Mark as Watched" button
+  // Fetch video URL when play is clicked
+  const fetchVideoUrl = useCallback(async () => {
+    setIsLoadingVideo(true);
+
+    // 1. Try local file first
+    try {
+      const response = await fetch(LOCAL_WELCOME_VIDEO, { method: 'HEAD' });
+      if (response.ok) {
+        setVideoUrl(LOCAL_WELCOME_VIDEO);
+        setIsLoadingVideo(false);
+        return;
+      }
+    } catch {
+      // Local file doesn't exist, continue
+    }
+
+    // 2. Try HeyGen API
+    try {
+      const response = await fetch('/api/video/heygen-url?key=onboarding-welcome');
+      if (response.ok) {
+        const data = await response.json();
+        if (data.url) {
+          setVideoUrl(data.url);
+          setIsLoadingVideo(false);
+          return;
+        }
+      }
+    } catch {
+      // HeyGen API failed
+    }
+
+    // Fallback - just use local path and let it error naturally
+    setVideoUrl(LOCAL_WELCOME_VIDEO);
+    setIsLoadingVideo(false);
   }, []);
+
+  // Auto-play when video URL is loaded
+  useEffect(() => {
+    if (videoUrl && videoStarted && videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  }, [videoUrl, videoStarted]);
 
   const handleVideoPlay = () => {
     setVideoStarted(true);
+    if (!videoUrl) {
+      fetchVideoUrl();
+    }
   };
 
   const benefits = [
@@ -156,7 +196,7 @@ export function Step1Welcome() {
         </div>
 
         {/* Video Player Placeholder */}
-        {/* NOTE: In production, replace with actual video embed */}
+        {/* NOTE: Uses HeyGen API with local file fallback */}
         <div className="relative aspect-video bg-gray-900 rounded-xl overflow-hidden shadow-lg">
           {!videoStarted ? (
             <button
@@ -174,14 +214,22 @@ export function Step1Welcome() {
                 <p className="text-sm text-white/70">2 minutes • AI Presenter</p>
               </div>
             </button>
+          ) : isLoadingVideo ? (
+            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-indigo-600 to-purple-700">
+              <div className="text-center">
+                <Loader2 className="w-12 h-12 text-white animate-spin mx-auto mb-3" />
+                <p className="text-white text-sm">Loading video...</p>
+              </div>
+            </div>
           ) : (
             <>
-              {/* Video Player - Using local MP4 for reliability (HeyGen embeds fail with 'refused to connect') */}
+              {/* Video Player - Using HeyGen API with local fallback */}
               <video
-                ref={_videoRef}
-                src={LOCAL_WELCOME_VIDEO}
+                ref={videoRef}
+                src={videoUrl || undefined}
                 className="w-full h-full object-cover"
                 controls
+                autoPlay
                 controlsList="nodownload"
                 playsInline
                 poster="/images/video-poster-welcome.jpg"
@@ -212,8 +260,7 @@ export function Step1Welcome() {
                   }, false);
                 }}
                 onError={() => {
-                  // Fallback to HeyGen embed if local video fails to load
-                  console.warn('Local video failed, falling back to HeyGen embed');
+                  console.warn('Video failed to load');
                 }}
               >
                 {/* Fallback message */}

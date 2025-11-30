@@ -8,14 +8,14 @@
  * 
  * Video Priority System for 100% Uptime:
  * 1. Local MP4 files (public/content/training_videos/marketing/)
- * 2. Cloudinary CDN (if configured)
- * 3. HeyGen embed as last resort
+ * 2. HeyGen API (direct MP4 URLs)
+ * 3. Cloudinary CDN as last resort
  * 
  * This ensures videos ALWAYS play, even if external services are down.
  */
 
-import React, { useRef } from 'react';
-import { Play, Shield, Users, Gamepad2, AlertCircle } from 'lucide-react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { Play, Shield, Users, Gamepad2, AlertCircle, Loader2 } from 'lucide-react';
 
 /**
  * Local video paths for marketing videos
@@ -54,8 +54,10 @@ export const FeatureSpotlightVideo: React.FC<FeatureSpotlightVideoProps> = ({
   icon = 'security',
   className = '',
 }) => {
-  const [isPlaying, setIsPlaying] = React.useState(false);
-  const [videoError, setVideoError] = React.useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [videoError, setVideoError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const getIcon = () => {
@@ -67,27 +69,66 @@ export const FeatureSpotlightVideo: React.FC<FeatureSpotlightVideoProps> = ({
     }
   };
 
-  // Get video source - local file first (100% uptime), HeyGen embed as fallback
-  const localVideoPath = LOCAL_VIDEO_PATHS[videoId];
-  const heygenEmbedUrl = `https://app.heygen.com/embed/${videoId}`;
-  
-  // Use local video if available, otherwise fall back to HeyGen
-  const useLocalVideo = !!localVideoPath && !videoError;
+  // Fetch video URL when play is clicked
+  const fetchVideoUrl = useCallback(async () => {
+    setIsLoading(true);
+    setVideoError(false);
+
+    // 1. Try local file first
+    const localPath = LOCAL_VIDEO_PATHS[videoId];
+    if (localPath) {
+      try {
+        const response = await fetch(localPath, { method: 'HEAD' });
+        if (response.ok) {
+          setVideoUrl(localPath);
+          setIsLoading(false);
+          return;
+        }
+      } catch {
+        // Local file doesn't exist, continue
+      }
+    }
+
+    // 2. Try HeyGen API for direct MP4 URL
+    try {
+      const response = await fetch(`/api/video/heygen-url?key=${videoId}`);
+      if (response.ok) {
+        const data = await response.json();
+        if (data.url) {
+          setVideoUrl(data.url);
+          setIsLoading(false);
+          return;
+        }
+      }
+    } catch {
+      // HeyGen API failed
+    }
+
+    // No video available
+    setVideoError(true);
+    setIsLoading(false);
+  }, [videoId]);
 
   const handleVideoError = () => {
-    console.warn(`Local video failed for ${videoId}, falling back to HeyGen embed`);
+    console.warn(`Video failed for ${videoId}`);
     setVideoError(true);
   };
 
   const handlePlay = () => {
     setIsPlaying(true);
-    // Auto-play local videos
-    if (useLocalVideo && videoRef.current) {
-      videoRef.current.play().catch(() => {
-        // If autoplay fails, user can click play button
-      });
+    if (!videoUrl) {
+      fetchVideoUrl();
+    } else if (videoRef.current) {
+      videoRef.current.play().catch(() => {});
     }
   };
+
+  // Auto-play when video URL is loaded
+  useEffect(() => {
+    if (videoUrl && isPlaying && videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  }, [videoUrl, isPlaying]);
 
   return (
     <div className={`bg-white rounded-xl shadow-lg overflow-hidden border border-slate-200 ${className}`}>
@@ -111,8 +152,16 @@ export const FeatureSpotlightVideo: React.FC<FeatureSpotlightVideoProps> = ({
                 </p>
               </div>
             </div>
-          ) : useLocalVideo ? (
-            // LOCAL VIDEO PLAYER - 100% uptime, no external dependency
+          ) : isLoading ? (
+            // LOADING STATE
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center">
+                <Loader2 className="w-12 h-12 text-indigo-400 animate-spin mx-auto mb-3" />
+                <p className="text-slate-400 text-sm">Loading video...</p>
+              </div>
+            </div>
+          ) : videoUrl && !videoError ? (
+            // VIDEO PLAYER
             <video
               ref={videoRef}
               className="absolute inset-0 w-full h-full"
@@ -120,24 +169,17 @@ export const FeatureSpotlightVideo: React.FC<FeatureSpotlightVideoProps> = ({
               autoPlay
               playsInline
               onError={handleVideoError}
-              src={localVideoPath}
+              src={videoUrl}
             >
               Your browser does not support the video tag.
             </video>
           ) : (
-            // HEYGEN EMBED FALLBACK - requires their server
-            <div className="relative w-full h-full">
-              <iframe
-                title={`Feature Spotlight: ${title}`}
-                src={heygenEmbedUrl}
-                className="absolute inset-0 w-full h-full"
-                allow="autoplay; fullscreen"
-                allowFullScreen
-              />
-              {/* Warning that video depends on external service */}
-              <div className="absolute top-2 right-2 bg-yellow-500/90 text-yellow-900 text-xs px-2 py-1 rounded flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" />
-                External Service
+            // ERROR STATE
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center">
+                <AlertCircle className="w-12 h-12 text-amber-500 mx-auto mb-3" />
+                <p className="text-slate-400 text-sm">Video unavailable</p>
+                <p className="text-slate-500 text-xs mt-1">Please try again later</p>
               </div>
             </div>
           )}
