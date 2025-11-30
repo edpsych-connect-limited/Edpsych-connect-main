@@ -4,7 +4,7 @@ import path from 'path';
 
 // CONFIGURATION
 // API key must be set via environment variable for security
-const API_KEY_RAW = process.env.HEYGEN_API_KEY;
+const API_KEY_RAW: string = process.env.HEYGEN_API_KEY || '';
 const API_URL = 'https://api.heygen.com/v2/video/generate';
 const WEBHOOK_URL = 'https://edpsychconnect.com/webhook';
 const CSV_FILE = path.join(process.cwd(), 'video_scripts', 'premium_features', 'scripts.csv');

@@ -108,7 +108,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
           setState((prev) => ({ ...prev, ...data.state }));
         }
       }
-    } catch (_error) {
+    } catch (error) {
       console.error('Error loading progress:', error);
     }
   }
@@ -142,7 +142,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
           state: { ...currentState, time_spent: newTimeSpent },
         }),
       });
-    } catch (_error) {
+    } catch (error) {
       console.error('Error saving progress:', error);
     }
   }, [course]);
@@ -162,7 +162,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
         } else {
           console.error('Failed to load course');
         }
-      } catch (_error) {
+      } catch (error) {
         console.error('Error loading course:', error);
       }
     };

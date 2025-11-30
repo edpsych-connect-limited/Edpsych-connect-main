@@ -7,6 +7,7 @@ cypress
 INSTRUCTION-FILES
 scripts
 prisma
+tools
 *.config.js
 *.config.ts
 *.config.cjs
@@ -15,3 +16,5 @@ scan-dependencies.js
 test-db-connection.js
 analyze-lint.cjs
 check_prisma_model.cjs
+*.py
+video_scripts

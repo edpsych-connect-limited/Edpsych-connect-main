@@ -2,7 +2,7 @@
 import fetch from 'node-fetch';
 
 // API key must be set via environment variable for security
-const API_KEY_RAW = process.env.HEYGEN_API_KEY;
+const API_KEY_RAW: string = process.env.HEYGEN_API_KEY || '';
 if (!API_KEY_RAW) {
   console.error('❌ Error: HEYGEN_API_KEY environment variable is not set.');
   process.exit(1);

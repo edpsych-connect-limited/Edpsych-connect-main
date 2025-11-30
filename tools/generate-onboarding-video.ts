@@ -12,7 +12,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const API_KEY = process.env.HEYGEN_API_KEY;
+const API_KEY: string = process.env.HEYGEN_API_KEY || '';
 if (!API_KEY) {
   console.error('❌ Error: HEYGEN_API_KEY environment variable is not set.');
   console.log('Usage: HEYGEN_API_KEY=your_key npx tsx tools/generate-onboarding-video.ts');

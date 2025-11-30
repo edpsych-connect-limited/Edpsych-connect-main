@@ -20,8 +20,16 @@
     "@typescript-eslint/no-unused-expressions": "off",
     "no-var-requires": "off",
     "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/no-require-imports": "warn",
+    "@typescript-eslint/no-require-imports": "off",
     "react/no-unescaped-entities": "off",
-    "prefer-const": "off"
-  }
+    "prefer-const": "off",
+    "@next/next/no-img-element": "off"
+  },
+  "ignorePatterns": [
+    "tools/**/*",
+    "scripts/**/*",
+    "*.cjs",
+    "*.mjs",
+    "video_scripts/**/*"
+  ]
 }

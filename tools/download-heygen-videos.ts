@@ -12,7 +12,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const API_KEY = process.env.HEYGEN_API_KEY;
+const API_KEY: string = process.env.HEYGEN_API_KEY || '';
 if (!API_KEY) {
   console.error('❌ Error: HEYGEN_API_KEY environment variable is not set.');
   process.exit(1);
