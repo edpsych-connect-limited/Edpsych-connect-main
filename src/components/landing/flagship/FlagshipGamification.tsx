@@ -31,7 +31,7 @@ export default function FlagshipGamification() {
           >
             <div className="absolute inset-0 bg-gradient-to-bl from-amber-100 to-orange-100 rounded-3xl transform -rotate-3 scale-105 opacity-50 blur-2xl" />
             <FeatureSpotlightVideo
-              videoId="9171134a64dd4f98a7e1d77dee0c1fc6"
+              videoId="810c3c4bdd644530b498f2dff546409a"
               title="Gamification Integrity"
               description="See how we turn assessment into adventure without compromising clinical data quality."
               icon="gamification"

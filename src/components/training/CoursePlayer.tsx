@@ -21,6 +21,10 @@ import React, { useState, useEffect, useRef, useId, useCallback } from 'react';
 import {
   Course,
 } from '@/lib/training/course-catalog';
+import {
+  getHeyGenEmbedUrl,
+  extractLessonIdFromUrl,
+} from '@/lib/training/heygen-video-urls';
 
 // ============================================================================
 // TYPES
@@ -595,16 +599,46 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                     {currentLesson.type === 'video' && (
                       <div className="mb-6">
                         <div className="bg-black rounded-xl overflow-hidden shadow-2xl">
-                          <video
-                            ref={videoRef}
-                            className="w-full aspect-video"
-                            controls
-                            onTimeUpdate={handleVideoProgress}
-                            onEnded={handleVideoEnded}
-                            src={currentLesson.content_url || '/videos/placeholder.mp4'}
-                          >
-                            Your browser does not support the video tag.
-                          </video>
+                          {/* Check for HeyGen video first */}
+                          {(() => {
+                            const lessonId = currentLesson.content_url 
+                              ? extractLessonIdFromUrl(currentLesson.content_url)
+                              : undefined;
+                            const heygenEmbedUrl = lessonId ? getHeyGenEmbedUrl(lessonId) : undefined;
+                            
+                            if (heygenEmbedUrl) {
+                              // Use HeyGen iframe embed for AI-generated videos
+                              return (
+                                <iframe
+                                  src={heygenEmbedUrl}
+                                  className="w-full aspect-video"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                  allowFullScreen
+                                  title={currentLesson.title}
+                                  onLoad={() => {
+                                    // Mark video as started for progress tracking
+                                    if (state.video_progress === 0) {
+                                      setState(prev => ({ ...prev, video_progress: 10 }));
+                                    }
+                                  }}
+                                />
+                              );
+                            }
+                            
+                            // Fallback to local video player
+                            return (
+                              <video
+                                ref={videoRef}
+                                className="w-full aspect-video"
+                                controls
+                                onTimeUpdate={handleVideoProgress}
+                                onEnded={handleVideoEnded}
+                                src={currentLesson.content_url || '/videos/placeholder.mp4'}
+                              >
+                                Your browser does not support the video tag.
+                              </video>
+                            );
+                          })()}
                         </div>
                         {state.video_progress > 0 && state.video_progress < 100 && (
                           <div className="mt-3">
@@ -616,6 +650,33 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                             </div>
                           </div>
                         )}
+                        {/* HeyGen video completion button */}
+                        {(() => {
+                          const lessonId = currentLesson.content_url 
+                            ? extractLessonIdFromUrl(currentLesson.content_url)
+                            : undefined;
+                          const heygenEmbedUrl = lessonId ? getHeyGenEmbedUrl(lessonId) : undefined;
+                          
+                          if (heygenEmbedUrl && state.video_progress < 100) {
+                            return (
+                              <div className="mt-4 text-center">
+                                <button
+                                  onClick={() => {
+                                    setState(prev => ({ ...prev, video_progress: 100 }));
+                                    handleVideoEnded();
+                                  }}
+                                  className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                                >
+                                  ✅ Mark Video as Complete
+                                </button>
+                                <p className="text-sm text-gray-500 mt-2">
+                                  Click when you&apos;ve finished watching
+                                </p>
+                              </div>
+                            );
+                          }
+                          return null;
+                        })()}
                       </div>
                     )}
 

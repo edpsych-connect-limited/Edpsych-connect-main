@@ -6,41 +6,47 @@
  * 
  * CONFIDENTIAL: This software contains proprietary algorithms and trade secrets.
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
+ * 
+ * See The Magic In Action - Premium Feature Video Showcase
+ * Features AI-generated HeyGen videos showcasing core platform capabilities
  */
-
-;
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Play, X } from 'lucide-react';
+
+// HeyGen video IDs for premium feature videos
+// Updated: World Class Edition with storytelling scripts
+const PREMIUM_VIDEO_IDS = {
+  'data-autonomy': '99735ae8bf3d410fb73ee651d8fac4f7',
+  'no-child-left-behind': '70ec101b44744460a79c70cee1573bb0',
+  'gamification-integrity': '810c3c4bdd644530b498f2dff546409a',
+};
 
 export default function VideoPremiereSection() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   const videos = [
     {
-      id: 'demo-1',
+      id: 'data-autonomy',
       title: "Data Autonomy & Trust",
-      description: "See how we protect sensitive student data with NHS-level encryption.",
-      thumbnailColor: "bg-indigo-100",
-      iconColor: "text-blue-600",
-      videoUrl: "/content/training_videos/ehcp-mastery/ehcp-m1-l1.mp4"
+      description: "See how we protect sensitive student data with NHS-level encryption and BYOD architecture.",
+      thumbnailColor: "bg-gradient-to-br from-indigo-500 to-blue-600",
+      heygenId: PREMIUM_VIDEO_IDS['data-autonomy'],
     },
     {
-      id: 'demo-2',
+      id: 'no-child-left-behind',
       title: "No Child Left Behind",
       description: "Watch our orchestration engine differentiate lessons for 40 students instantly.",
-      thumbnailColor: "bg-amber-100",
-      iconColor: "text-purple-600",
-      videoUrl: "/content/training_videos/send-fundamentals/send-fund-m1-l1.mp4"
+      thumbnailColor: "bg-gradient-to-br from-amber-500 to-orange-600",
+      heygenId: PREMIUM_VIDEO_IDS['no-child-left-behind'],
     },
     {
-      id: 'demo-3',
+      id: 'gamification-integrity',
       title: "Gamification Integrity",
       description: "Experience how we make assessments engaging without compromising validity.",
-      thumbnailColor: "bg-green-100",
-      iconColor: "text-emerald-600",
-      videoUrl: "/content/training_videos/assessment-essentials/assess-m1-l1.mp4"
+      thumbnailColor: "bg-gradient-to-br from-emerald-500 to-green-600",
+      heygenId: PREMIUM_VIDEO_IDS['gamification-integrity'],
     }
   ];
 
@@ -63,7 +69,7 @@ export default function VideoPremiereSection() {
             transition={{ delay: 0.1 }}
             className="text-slate-400 max-w-2xl mx-auto"
           >
-            Explore our comprehensive video library demonstrating the power of the platform.
+            Experience our AI-powered platform through these short demonstrations of core capabilities.
           </motion.p>
         </div>
 
@@ -76,13 +82,18 @@ export default function VideoPremiereSection() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
               className="group relative rounded-2xl overflow-hidden bg-slate-800 border border-slate-700 hover:border-indigo-500 transition-all cursor-pointer"
-              onClick={() => setActiveVideo(video.videoUrl)}
+              onClick={() => setActiveVideo(video.heygenId)}
             >
-              <div className={`aspect-video ${video.thumbnailColor} relative opacity-50 group-hover:opacity-70 transition-opacity`}>
+              <div className={`aspect-video ${video.thumbnailColor} relative`}>
+                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform">
+                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30 group-hover:scale-110 group-hover:bg-white/30 transition-all shadow-lg">
                     <Play className="w-8 h-8 text-white fill-white ml-1" />
                   </div>
+                </div>
+                {/* AI Avatar badge */}
+                <div className="absolute top-3 right-3 px-2 py-1 bg-black/50 backdrop-blur-sm rounded-full text-xs font-medium text-white/80">
+                  🤖 AI Presenter
                 </div>
               </div>
               <div className="p-6">
@@ -97,7 +108,7 @@ export default function VideoPremiereSection() {
         </div>
       </div>
 
-      {/* Video Modal */}
+      {/* Video Modal with HeyGen Embed */}
       {activeVideo && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4">
           <div className="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
@@ -108,11 +119,12 @@ export default function VideoPremiereSection() {
             >
               <X className="w-6 h-6" />
             </button>
-            <video 
-              src={activeVideo} 
-              controls 
-              autoPlay 
+            <iframe
+              src={`https://app.heygen.com/embed/${activeVideo}`}
               className="w-full h-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title="Premium Feature Demo"
             />
           </div>
         </div>

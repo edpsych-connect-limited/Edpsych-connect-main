@@ -18,38 +18,24 @@ import { Play, CheckCircle, Target, Zap, Shield, Users, TrendingUp } from 'lucid
 import { motion } from 'framer-motion';
 import { useOnboarding } from '../OnboardingProvider';
 import { ProgressBar } from '@/components/ui/ProgressBar';
+import { getHeyGenEmbedUrl } from '@/lib/training/heygen-video-urls';
 
 export function Step1Welcome() {
   const { state, updateStep } = useOnboarding();
   const [videoStarted, setVideoStarted] = useState(false);
   const [videoWatchPercentage, setVideoWatchPercentage] = useState(state.step1Data.videoWatchPercentage || 0);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  // Video ref kept for potential future local video fallback
+  const _videoRef = useRef<HTMLVideoElement>(null);
 
-  // Track video watch percentage
+  // Note: For HeyGen iframe embeds, we use manual progress tracking
+  // The useEffect below is kept for potential local video fallback
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const handleTimeUpdate = () => {
-      const percentage = Math.round((video.currentTime / video.duration) * 100);
-      setVideoWatchPercentage(percentage);
-
-      // Update context state
-      updateStep(1, {
-        videoWatchPercentage: percentage,
-        videoWatched: percentage >= 80 // Consider "watched" if 80%+ viewed
-      }, false);
-    };
-
-    video.addEventListener('timeupdate', handleTimeUpdate);
-    return () => video.removeEventListener('timeupdate', handleTimeUpdate);
-  }, [updateStep]);
+    // HeyGen iframe videos don't support progress tracking via events
+    // Progress is tracked via the "Mark as Watched" button
+  }, []);
 
   const handleVideoPlay = () => {
     setVideoStarted(true);
-    if (videoRef.current) {
-      videoRef.current.play();
-    }
   };
 
   const benefits = [
@@ -175,18 +161,51 @@ export function Step1Welcome() {
               className="absolute inset-0 flex items-center justify-center group cursor-pointer"
               aria-label="Play introduction video"
             >
-              <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
-                <Play className="w-10 h-10 text-indigo-600 ml-1" />
+              {/* Gradient background for visual appeal */}
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 to-purple-700 opacity-80" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+                <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform border border-white/30">
+                  <Play className="w-10 h-10 text-white fill-white ml-1" />
+                </div>
+                <p className="mt-4 text-lg font-medium">Watch Introduction</p>
+                <p className="text-sm text-white/70">2 minutes • AI Presenter</p>
               </div>
             </button>
           ) : (
-            <video
-              ref={videoRef}
-              src="/content/training_videos/send-fundamentals/send-fund-m1-l1.mp4"
-              className="w-full h-full object-cover"
-              controls
-              autoPlay
-            />
+            <>
+              {/* HeyGen Embed - using premium video until dedicated onboarding video */}
+              <iframe
+                src={getHeyGenEmbedUrl('onboarding-welcome') || 'https://app.heygen.com/embed/c3fdd2d66fe84bc5803c3275fb384947'}
+                className="w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title="Platform Introduction"
+                onLoad={() => {
+                  // Start tracking when iframe loads
+                  if (videoWatchPercentage < 10) {
+                    setVideoWatchPercentage(10);
+                    updateStep(1, { videoWatchPercentage: 10 }, false);
+                  }
+                }}
+              />
+              {/* Manual completion button for iframe videos */}
+              {videoWatchPercentage < 80 && (
+                <div className="absolute bottom-4 right-4">
+                  <button
+                    onClick={() => {
+                      setVideoWatchPercentage(100);
+                      updateStep(1, { 
+                        videoWatchPercentage: 100,
+                        videoWatched: true 
+                      }, false);
+                    }}
+                    className="px-4 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition-colors shadow-lg"
+                  >
+                    ✅ Mark as Watched
+                  </button>
+                </div>
+              )}
+            </>
           )}
 
           {/* Progress Indicator */}

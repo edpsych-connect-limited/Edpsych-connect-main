@@ -77,7 +77,7 @@ export default function FlagshipDifferentiation() {
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-indigo-100 to-purple-100 rounded-3xl transform rotate-3 scale-105 opacity-50 blur-2xl" />
             <FeatureSpotlightVideo
-              videoId="c22596d70c16427e87f9ab8bc9d1d8e5"
+              videoId="70ec101b44744460a79c70cee1573bb0"
               title="No Child Left Behind"
               description="See how our engine instantly adapts one lesson plan for 30 unique student profiles."
               icon="differentiation"
