@@ -229,19 +229,19 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // ============================================================================
   // HELP CENTRE VIDEOS
   // ============================================================================
-  'help-getting-started': '/content/training_videos/help-centre/getting-started.mp4',
-  'help-first-assessment': '/content/training_videos/help-centre/first-assessment.mp4',
-  'help-data-security': '/content/training_videos/help-centre/data-security.mp4',
-  'help-finding-interventions': '/content/training_videos/help-centre/finding-interventions.mp4',
-  'help-technical-support': '/content/training_videos/help-centre/technical-support.mp4',
+  'help-getting-started': '/content/training_videos/help-centre/help-getting-started.mp4',
+  'help-first-assessment': '/content/training_videos/help-centre/help-first-assessment.mp4',
+  'help-data-security': '/content/training_videos/help-centre/help-data-security.mp4',
+  'help-finding-interventions': '/content/training_videos/help-centre/help-finding-interventions.mp4',
+  'help-technical-support': '/content/training_videos/help-centre/help-technical-support.mp4',
   
   // ============================================================================
   // EHCP PROCESS VIDEOS
   // ============================================================================
-  'ehcp-application-journey': '/content/training_videos/ehcp/application-journey.mp4',
-  'ehcp-evidence-gathering': '/content/training_videos/ehcp/evidence-gathering.mp4',
-  'ehcp-annual-review': '/content/training_videos/ehcp/annual-review.mp4',
-  'ehcp-appeals-process': '/content/training_videos/ehcp/appeals-process.mp4',
+  'ehcp-application-journey': '/content/training_videos/ehcp/ehcp-application-journey.mp4',
+  'ehcp-evidence-gathering': '/content/training_videos/ehcp/ehcp-evidence-gathering.mp4',
+  'ehcp-annual-review': '/content/training_videos/ehcp/ehcp-annual-review.mp4',
+  'ehcp-appeals-process': '/content/training_videos/ehcp/ehcp-appeals-process.mp4',
   
   // ============================================================================
   // PARENT PORTAL VIDEOS

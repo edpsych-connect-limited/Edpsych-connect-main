@@ -114,3 +114,6 @@ nul
 *.pfx
 credentials.json
 service-account.json
+
+# Training videos (served locally or via Cloudinary CDN - too large for git)
+public/content/training_videos/
