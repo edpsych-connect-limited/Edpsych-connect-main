@@ -1,0 +1,29 @@
+{
+  "video_inputs": [
+    {
+      "character": {
+        "type": "avatar",
+        "avatar_id": "Adrian_public_3_20240312",
+        "avatar_style": "normal"
+      },
+      "voice": {
+        "type": "text",
+        "input_text": "Welcome to the EdPsych Connect LA EHCP Support Portal. Every Local Authority in England faces the same challenge: coordinating EHCP assessments within the statutory 20-week timeline while ensuring every child receives the comprehensive support they need. EdPsych Connect's LA EHCP Support Portal changes everything. The EHCP assessment process involves coordination across multiple agencies and professionals. Our platform brings every element of the assessment process into one unified platform. From the moment a school submits an EHCP request, through professional assessments, to final plan generation, everything is tracked, coordinated, and visible in real-time. Your dashboard shows every active application at a glance. Applications approaching their 20-week deadline are automatically flagged. No more spreadsheet tracking. No more missed deadlines. EdPsych Connect. Assessment Redefined.",
+        "voice_id": "aba5ce361bfa433480f4bf281cc4c4f9",
+        "speed": 1.0
+      },
+      "background": {
+        "type": "color",
+        "value": "#1e293b"
+      }
+    }
+  ],
+  "dimension": {
+    "width": 1920,
+    "height": 1080
+  },
+  "aspect_ratio": "16:9",
+  "test": false,
+  "title": "LA EHCP Portal Introduction",
+  "callback_url": "https://edpsychconnect.com/webhook"
+}

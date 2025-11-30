@@ -128,6 +128,12 @@ model tenants {
   ehcp_versions ehcp_versions[]
   sen_details   sen_details[]
   attachments   attachments[]
+  
+  // Relations - LA EHCP System (Enterprise)
+  la_ehcp_applications      EHCPApplication[]        @relation("LAApplications")
+  school_ehcp_applications  EHCPApplication[]        @relation("SchoolApplications")
+  la_compliance_metrics     LAComplianceMetrics[]    @relation("LAMetrics")
+  la_notification_templates EHCPNotificationTemplate[] @relation("LANotificationTemplates")
 
   // Relations - Research
   research_studies research_studies[]
@@ -341,6 +347,20 @@ model users {
   multi_agency_access MultiAgencyAccess[]
   parent_child_links  ParentChildLink[]
   voice_commands      VoiceCommand[]
+  
+  // Relations - LA EHCP System (Enterprise)
+  caseworker_applications    EHCPApplication[]    @relation("CaseworkerApplications")
+  ep_applications            EHCPApplication[]    @relation("EPApplications")
+  health_applications        EHCPApplication[]    @relation("HealthApplications")
+  social_applications        EHCPApplication[]    @relation("SocialApplications")
+  decision_applications      EHCPApplication[]    @relation("DecisionMaker")
+  created_applications       EHCPApplication[]    @relation("ApplicationCreator")
+  ehcp_contributions         EHCPContribution[]   @relation("Contributor")
+  ehcp_qa_reviews            EHCPContribution[]   @relation("QAReviewer")
+  ehcp_timeline_events       EHCPTimelineEvent[]  @relation("TimelineActor")
+  ehcp_messages_sent         EHCPCommunication[]  @relation("MessageSender")
+  ehcp_documents_uploaded    EHCPDocument[]       @relation("DocumentUploader")
+  ehcp_panels_chaired        EHCPPanelDecision[]  @relation("PanelChair")
 
   // Relations - Marketplace & Compliance
   professional_compliance ProfessionalCompliance?
@@ -973,7 +993,569 @@ model friendships {
 }
 
 // ============================================================================
-// EHCP & SEND SUPPORT (TENANT-SCOPED)
+// EHCP & SEND SUPPORT (TENANT-SCOPED) - ENTERPRISE LA SYSTEM
+// ============================================================================
+// UK SEND Code of Practice 2015 compliant
+// Full statutory 20-week timeline management
+// Multi-agency professional contribution workflow
+// LA-centric dashboard with compliance monitoring
+// ============================================================================
+
+// Application Status Enum - Full statutory journey
+enum EHCPApplicationStatus {
+  // Initial Stage (Weeks 0-6)
+  SUBMITTED                     // School/Parent submitted request
+  EVIDENCE_GATHERING            // LA gathering initial evidence
+  PANEL_REVIEW_PENDING          // Awaiting LA SEND Panel review
+  
+  // Decision Stage (Week 6 deadline)
+  DECISION_TO_ASSESS            // LA agreed to statutory assessment
+  DECISION_NOT_TO_ASSESS        // LA declined - not meeting threshold
+  
+  // Assessment Stage (Weeks 6-16)
+  PROFESSIONAL_REFERRALS_SENT   // Advice requests sent to professionals
+  AWAITING_EP_ASSESSMENT        // Waiting for Educational Psychologist
+  AWAITING_HEALTH_ASSESSMENT    // Waiting for Health professional
+  AWAITING_SOCIAL_CARE          // Waiting for Social Care
+  AWAITING_SCHOOL_ADVICE        // Waiting for School/Setting
+  ALL_ADVICE_RECEIVED           // All professional contributions in
+  
+  // Drafting Stage (Week 16 deadline)
+  DRAFT_IN_PROGRESS             // LA drafting EHCP document
+  DRAFT_QUALITY_CHECK           // Internal QA review
+  DRAFT_READY                   // Draft completed
+  
+  // Consultation Stage (Weeks 16-20)
+  CONSULTATION_PARENT_SENT      // Sent to parent (15 calendar days minimum)
+  CONSULTATION_SCHOOL_SENT      // Sent to proposed school
+  CONSULTATION_FEEDBACK_RECEIVED // Responses received
+  AMENDMENTS_IN_PROGRESS        // Making requested changes
+  
+  // Final Stage (Week 20 deadline)
+  FINAL_REVIEW                  // Final checks before issue
+  FINAL_EHCP_ISSUED             // Complete - plan issued
+  
+  // Exception Pathways
+  MEDIATION_REQUESTED           // Parent requested mediation
+  TRIBUNAL_LODGED               // Appeal to SEND Tribunal
+  TRANSFERRED_IN                // Transfer from another LA (8 week timeline)
+  CEASED                        // EHCP ceased
+  ANNUAL_REVIEW_DUE             // Active plan - review approaching
+}
+
+// Urgency levels for prioritisation
+enum EHCPUrgency {
+  STANDARD                      // Normal 20-week process
+  URGENT_SAFEGUARDING           // Safeguarding concerns - expedite
+  URGENT_TRIBUNAL_DEADLINE      // Tribunal deadline approaching
+  URGENT_SCHOOL_PLACEMENT       // Placement breakdown
+  EMERGENCY_TRANSFER            // Emergency school transfer
+}
+
+// Primary Need Categories (DfE SEN2 Categories)
+enum SENPrimaryNeed {
+  SPLD                          // Specific Learning Difficulty
+  MLD                           // Moderate Learning Difficulty
+  SLD                           // Severe Learning Difficulty
+  PMLD                          // Profound and Multiple Learning Difficulty
+  SEMH                          // Social, Emotional and Mental Health
+  SLCN                          // Speech, Language and Communication Needs
+  HI                            // Hearing Impairment
+  VI                            // Visual Impairment
+  MSI                           // Multi-Sensory Impairment
+  PD                            // Physical Disability
+  ASD                           // Autism Spectrum Disorder
+  OTH                           // Other Difficulty/Disability
+}
+
+// ============================================================================
+// CORE EHCP APPLICATION MODEL - The Statutory Journey Tracker
+// ============================================================================
+
+model EHCPApplication {
+  id                    String               @id @default(cuid())
+  
+  // Reference Numbers
+  la_reference          String               @unique // LA's internal reference (e.g., "LA-2025-00123")
+  dfe_reference         String?              // DfE unique identifier if applicable
+  
+  // Tenant Hierarchy
+  la_tenant_id          Int                  // Local Authority tenant
+  school_tenant_id      Int                  // Originating school/setting tenant
+  
+  // Child/Young Person Details
+  student_id            String               // Link to student record
+  child_name            String               // For quick reference
+  child_dob             DateTime             // Date of birth
+  child_upn             String?              // Unique Pupil Number
+  nhs_number            String?              // NHS number (for health liaison)
+  
+  // Primary Need
+  primary_need          SENPrimaryNeed
+  secondary_needs       SENPrimaryNeed[]     @default([])
+  
+  // Request Details
+  request_type          String               @default("initial") // initial, transfer_in, reassessment
+  requested_by          String               // "parent", "school", "other_professional"
+  requester_name        String
+  requester_email       String
+  requester_phone       String?
+  request_reason        String               @db.Text
+  
+  // ============================================================================
+  // STATUTORY TIMELINE (SEND Code of Practice 2015)
+  // ============================================================================
+  
+  // Key Dates - Auto-calculated from referral_date
+  referral_date         DateTime             @default(now())
+  decision_due_date     DateTime             // Week 6: 42 days from referral
+  draft_due_date        DateTime             // Week 16: 112 days from referral
+  final_due_date        DateTime             // Week 20: 140 days from referral
+  
+  // Actual Completion Dates
+  decision_actual_date  DateTime?
+  draft_actual_date     DateTime?
+  final_actual_date     DateTime?
+  
+  // Timeline Status
+  status                EHCPApplicationStatus @default(SUBMITTED)
+  urgency               EHCPUrgency          @default(STANDARD)
+  current_week          Int                  @default(0)
+  is_overdue            Boolean              @default(false)
+  days_overdue          Int                  @default(0)
+  
+  // Decision to Assess
+  decision_to_assess    Boolean?             // null = pending, true = yes, false = no
+  decision_reason       String?              @db.Text
+  decision_made_by_id   Int?
+  
+  // ============================================================================
+  // ASSIGNED PROFESSIONALS (Multi-Agency)
+  // ============================================================================
+  
+  caseworker_id         Int                  // LA SEND Caseworker (primary owner)
+  assigned_ep_id        Int?                 // Educational Psychologist
+  assigned_health_id    Int?                 // Health Professional (NHS)
+  assigned_social_id    Int?                 // Social Worker
+  panel_chair_id        Int?                 // SEND Panel Chair
+  
+  // ============================================================================
+  // PROFESSIONAL CONTRIBUTIONS (Sections B-K)
+  // ============================================================================
+  
+  // School Contribution (Section A + supporting evidence)
+  school_contribution_id      String?        @unique
+  school_contribution_status  String         @default("pending") // pending, in_progress, submitted, accepted
+  school_contribution_due     DateTime?
+  school_submitted_at         DateTime?
+  
+  // EP Contribution (Sections B, E, F primarily)
+  ep_contribution_id          String?        @unique
+  ep_contribution_status      String         @default("pending")
+  ep_contribution_due         DateTime?
+  ep_submitted_at             DateTime?
+  
+  // Health Contribution (Sections C, G)
+  health_contribution_id      String?        @unique
+  health_contribution_status  String         @default("pending")
+  health_contribution_due     DateTime?
+  health_submitted_at         DateTime?
+  
+  // Social Care Contribution (Sections D, H)
+  social_contribution_id      String?        @unique
+  social_contribution_status  String         @default("pending")
+  social_contribution_due     DateTime?
+  social_submitted_at         DateTime?
+  
+  // Other Professional Contributions (optional)
+  other_contributions         Json?          // Array of {type, contributor, status, content}
+  
+  // ============================================================================
+  // FINAL EHCP OUTPUT
+  // ============================================================================
+  
+  // Draft EHCP
+  draft_ehcp_id         String?
+  draft_created_at      DateTime?
+  draft_sent_to_parent  DateTime?
+  
+  // Consultation Responses
+  parent_response       Json?                // {agreed: bool, comments: string, date: datetime}
+  school_response       Json?                // {can_meet_needs: bool, comments: string}
+  
+  // Final EHCP
+  final_ehcp_id         String?              // Links to ehcps table
+  final_issued_at       DateTime?
+  named_school_urn      String?              // DfE school URN
+  named_school_name     String?
+  placement_type        String?              // mainstream, special, independent, resourced
+  
+  // ============================================================================
+  // EXCEPTIONS & EXTENSIONS
+  // ============================================================================
+  
+  has_exception         Boolean              @default(false)
+  exception_type        String?              // mediation, tribunal, transfer, other
+  exception_reason      String?              @db.Text
+  extension_weeks       Int                  @default(0)
+  extension_approved_by Int?
+  extension_approved_at DateTime?
+  
+  // ============================================================================
+  // AUDIT & COMPLIANCE
+  // ============================================================================
+  
+  // Compliance Flags
+  statutory_compliant   Boolean              @default(true)
+  breach_type           String?              // decision_breach, draft_breach, final_breach
+  breach_reported_at    DateTime?
+  breach_reason         String?              @db.Text
+  
+  // Audit Trail
+  created_at            DateTime             @default(now())
+  updated_at            DateTime             @default(now())
+  created_by_id         Int
+  last_updated_by_id    Int?
+  
+  // ============================================================================
+  // RELATIONS
+  // ============================================================================
+  
+  la_tenant             tenants              @relation("LAApplications", fields: [la_tenant_id], references: [id])
+  school_tenant         tenants              @relation("SchoolApplications", fields: [school_tenant_id], references: [id])
+  caseworker            users                @relation("CaseworkerApplications", fields: [caseworker_id], references: [id])
+  assigned_ep           users?               @relation("EPApplications", fields: [assigned_ep_id], references: [id])
+  assigned_health       users?               @relation("HealthApplications", fields: [assigned_health_id], references: [id])
+  assigned_social       users?               @relation("SocialApplications", fields: [assigned_social_id], references: [id])
+  decision_made_by      users?               @relation("DecisionMaker", fields: [decision_made_by_id], references: [id])
+  created_by            users                @relation("ApplicationCreator", fields: [created_by_id], references: [id])
+  
+  // Child Relations
+  contributions         EHCPContribution[]
+  timeline_events       EHCPTimelineEvent[]
+  communications        EHCPCommunication[]
+  documents             EHCPDocument[]
+  panel_decisions       EHCPPanelDecision[]
+  
+  @@index([la_tenant_id, status])
+  @@index([school_tenant_id])
+  @@index([student_id])
+  @@index([referral_date])
+  @@index([status])
+  @@index([caseworker_id])
+  @@index([is_overdue])
+  @@index([la_reference])
+}
+
+// ============================================================================
+// PROFESSIONAL CONTRIBUTIONS - Multi-Agency Section Submissions
+// ============================================================================
+
+model EHCPContribution {
+  id                    String               @id @default(cuid())
+  application_id        String
+  
+  // Contributor Details
+  contributor_type      String               // school, ep, health, social_care, other
+  contributor_id        Int                  // User ID
+  contributor_name      String
+  contributor_role      String               // e.g., "SENCO", "Educational Psychologist", "Paediatrician"
+  contributor_org       String               // e.g., "Oakwood Primary School", "NHS Trust"
+  
+  // Contribution Content
+  section_type          String               // A, B, C, D, E, F, G, H, I, J, K
+  content               Json                 // Structured content per section
+  
+  // Supporting Evidence
+  evidence_summary      String?              @db.Text
+  assessment_date       DateTime?            // Date of assessment (if applicable)
+  
+  // Status
+  status                String               @default("draft") // draft, submitted, revision_requested, accepted, rejected
+  revision_notes        String?              @db.Text
+  
+  // Quality Assurance
+  qa_reviewed           Boolean              @default(false)
+  qa_reviewed_by_id     Int?
+  qa_reviewed_at        DateTime?
+  qa_score              Int?                 // 1-5 quality score
+  qa_feedback           String?              @db.Text
+  
+  // Timestamps
+  requested_at          DateTime             @default(now())
+  due_date              DateTime
+  submitted_at          DateTime?
+  accepted_at           DateTime?
+  
+  // Relations
+  application           EHCPApplication      @relation(fields: [application_id], references: [id], onDelete: Cascade)
+  contributor           users                @relation("Contributor", fields: [contributor_id], references: [id])
+  qa_reviewer           users?               @relation("QAReviewer", fields: [qa_reviewed_by_id], references: [id])
+  
+  @@index([application_id])
+  @@index([contributor_id])
+  @@index([status])
+  @@index([due_date])
+}
+
+// ============================================================================
+// TIMELINE EVENTS - Comprehensive Audit Trail
+// ============================================================================
+
+model EHCPTimelineEvent {
+  id                    String               @id @default(cuid())
+  application_id        String
+  
+  // Event Details
+  event_type            String               // status_change, document_uploaded, professional_assigned, etc.
+  event_category        String               // administrative, assessment, consultation, decision, compliance
+  event_description     String
+  
+  // Actor
+  triggered_by_id       Int?
+  triggered_by_system   Boolean              @default(false)
+  
+  // Status Change Details (if applicable)
+  previous_status       String?
+  new_status            String?
+  
+  // Additional Data
+  metadata              Json?                // Any additional event-specific data
+  
+  // Timestamp
+  occurred_at           DateTime             @default(now())
+  
+  // Relations
+  application           EHCPApplication      @relation(fields: [application_id], references: [id], onDelete: Cascade)
+  triggered_by          users?               @relation("TimelineActor", fields: [triggered_by_id], references: [id])
+  
+  @@index([application_id])
+  @@index([occurred_at])
+  @@index([event_type])
+}
+
+// ============================================================================
+// INTER-AGENCY COMMUNICATIONS - Secure Messaging
+// ============================================================================
+
+model EHCPCommunication {
+  id                    String               @id @default(cuid())
+  application_id        String
+  
+  // Message Details
+  message_type          String               // internal_note, parent_communication, professional_request, escalation
+  subject               String
+  body                  String               @db.Text
+  
+  // Sender/Recipients
+  sender_id             Int
+  recipient_ids         Int[]                @default([])
+  recipient_external    String?              // For external communications (email)
+  
+  // Status
+  is_read               Boolean              @default(false)
+  read_at               DateTime?
+  requires_response     Boolean              @default(false)
+  response_due          DateTime?
+  
+  // Threading
+  parent_message_id     String?
+  
+  // Timestamps
+  sent_at               DateTime             @default(now())
+  
+  // Relations
+  application           EHCPApplication      @relation(fields: [application_id], references: [id], onDelete: Cascade)
+  sender                users                @relation("MessageSender", fields: [sender_id], references: [id])
+  parent_message        EHCPCommunication?   @relation("MessageThread", fields: [parent_message_id], references: [id])
+  child_messages        EHCPCommunication[]  @relation("MessageThread")
+  
+  @@index([application_id])
+  @@index([sender_id])
+  @@index([sent_at])
+}
+
+// ============================================================================
+// DOCUMENTS - Evidence & Attachments
+// ============================================================================
+
+model EHCPDocument {
+  id                    String               @id @default(cuid())
+  application_id        String
+  
+  // Document Details
+  document_type         String               // assessment_report, school_evidence, health_report, draft_ehcp, final_ehcp, correspondence
+  title                 String
+  description           String?
+  
+  // File Storage
+  file_name             String
+  file_type             String               // pdf, docx, etc.
+  file_size             Int                  // bytes
+  file_url              String
+  
+  // Source
+  uploaded_by_id        Int
+  source_type           String               // school, la, ep, health, social_care, parent
+  
+  // Versioning
+  version               Int                  @default(1)
+  previous_version_id   String?
+  is_current            Boolean              @default(true)
+  
+  // Sensitivity
+  is_confidential       Boolean              @default(false)
+  access_restricted_to  String[]             @default([]) // Role types that can view
+  
+  // Timestamps
+  uploaded_at           DateTime             @default(now())
+  
+  // Relations
+  application           EHCPApplication      @relation(fields: [application_id], references: [id], onDelete: Cascade)
+  uploaded_by           users                @relation("DocumentUploader", fields: [uploaded_by_id], references: [id])
+  
+  @@index([application_id])
+  @@index([document_type])
+  @@index([uploaded_at])
+}
+
+// ============================================================================
+// PANEL DECISIONS - LA SEND Panel Records
+// ============================================================================
+
+model EHCPPanelDecision {
+  id                    String               @id @default(cuid())
+  application_id        String
+  
+  // Panel Details
+  panel_date            DateTime
+  panel_type            String               // initial_decision, placement, annual_review, amendment
+  
+  // Attendees
+  chair_id              Int
+  panel_members         Json                 // Array of {id, name, role}
+  
+  // Decision
+  decision              String               // agree_to_assess, decline_to_assess, issue_plan, etc.
+  decision_rationale    String               @db.Text
+  conditions            String?              @db.Text // Any conditions attached to decision
+  
+  // Voting (for transparency)
+  votes_for             Int                  @default(0)
+  votes_against         Int                  @default(0)
+  votes_abstain         Int                  @default(0)
+  
+  // Documentation
+  minutes_url           String?
+  
+  // Timestamps
+  recorded_at           DateTime             @default(now())
+  
+  // Relations
+  application           EHCPApplication      @relation(fields: [application_id], references: [id], onDelete: Cascade)
+  chair                 users                @relation("PanelChair", fields: [chair_id], references: [id])
+  
+  @@index([application_id])
+  @@index([panel_date])
+}
+
+// ============================================================================
+// LA COMPLIANCE METRICS - Aggregated Statistics
+// ============================================================================
+
+model LAComplianceMetrics {
+  id                    String               @id @default(cuid())
+  la_tenant_id          Int
+  
+  // Period
+  period_start          DateTime
+  period_end            DateTime
+  period_type           String               // monthly, quarterly, annual
+  
+  // Volume Metrics
+  total_applications    Int                  @default(0)
+  new_applications      Int                  @default(0)
+  completed_applications Int                 @default(0)
+  
+  // Timeline Compliance
+  decisions_on_time     Int                  @default(0)
+  decisions_late        Int                  @default(0)
+  decision_compliance_rate Float             @default(0)
+  
+  drafts_on_time        Int                  @default(0)
+  drafts_late           Int                  @default(0)
+  draft_compliance_rate Float                @default(0)
+  
+  finals_on_time        Int                  @default(0)
+  finals_late           Int                  @default(0)
+  final_compliance_rate Float                @default(0)
+  
+  // Overall
+  overall_compliance_rate Float              @default(0)
+  
+  // Average Processing Times (days)
+  avg_decision_time     Float                @default(0)
+  avg_draft_time        Float                @default(0)
+  avg_total_time        Float                @default(0)
+  
+  // Exception Metrics
+  mediations_requested  Int                  @default(0)
+  tribunals_lodged      Int                  @default(0)
+  tribunal_success_rate Float                @default(0)
+  
+  // Need Distribution (for planning)
+  need_distribution     Json?                // {ASD: 45, SEMH: 30, SLCN: 25, ...}
+  
+  // Calculated at
+  calculated_at         DateTime             @default(now())
+  
+  // Relations
+  la_tenant             tenants              @relation("LAMetrics", fields: [la_tenant_id], references: [id])
+  
+  @@unique([la_tenant_id, period_start, period_type])
+  @@index([la_tenant_id])
+  @@index([period_start])
+}
+
+// ============================================================================
+// NOTIFICATION TEMPLATES - Automated Communications
+// ============================================================================
+
+model EHCPNotificationTemplate {
+  id                    String               @id @default(cuid())
+  la_tenant_id          Int?                 // null = system default
+  
+  // Template Details
+  template_code         String               @unique // e.g., "DECISION_REMINDER_7_DAYS"
+  template_name         String
+  trigger_event         String               // status_change, deadline_approaching, etc.
+  
+  // Content
+  subject_template      String
+  body_template         String               @db.Text // Supports {{placeholders}}
+  
+  // Delivery
+  delivery_channels     String[]             @default(["email"]) // email, sms, in_app
+  
+  // Timing (for automated triggers)
+  days_before_deadline  Int?                 // For reminder notifications
+  
+  // Status
+  is_active             Boolean              @default(true)
+  
+  // Timestamps
+  created_at            DateTime             @default(now())
+  updated_at            DateTime             @default(now())
+  
+  // Relations
+  la_tenant             tenants?             @relation("LANotificationTemplates", fields: [la_tenant_id], references: [id])
+  
+  @@index([la_tenant_id])
+  @@index([trigger_event])
+}
+
+// ============================================================================
+// ORIGINAL EHCP MODELS (Enhanced)
 // ============================================================================
 
 model ehcps {
@@ -982,14 +1564,22 @@ model ehcps {
   student_id   String
   plan_details Json
   issued_at    DateTime @default(now())
-  updated_at    DateTime @default(now())
-
+  updated_at   DateTime @default(now())
+  
+  // New: Link to application
+  application_id String? @unique
+  
+  // New: Status tracking
+  status       String   @default("active") // active, under_review, ceased
+  next_review_due DateTime?
+  
   // Relations
-  tenants  tenants         @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
-  versions ehcp_versions[]
+  tenants      tenants         @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  versions     ehcp_versions[]
 
   @@index([tenant_id])
   @@index([student_id])
+  @@index([status])
 }
 
 model ehcp_versions {
@@ -1001,6 +1591,10 @@ model ehcp_versions {
   plan_details   Json
   change_summary String?
   created_at     DateTime @default(now())
+  
+  // New: Version type
+  version_type   String   @default("amendment") // initial, amendment, annual_review
+  version_number Int      @default(1)
 
   // Relations
   ehcp       ehcps   @relation(fields: [ehcp_id], references: [id], onDelete: Cascade)
@@ -1014,8 +1608,13 @@ model ehcp_versions {
 model sen_details {
   id           String   @id @default(cuid())
   tenant_id    Int
+  student_id   String?  // New: Link to student
   description  String
   support_plan Json?
+  
+  // New: SEN Support Stage
+  support_stage String  @default("sen_support") // monitoring, sen_support, ehcp_request, ehcp_active
+  
   created_at   DateTime @default(now())
   updated_at   DateTime @default(now())
 
@@ -1023,6 +1622,7 @@ model sen_details {
   tenants tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
 
   @@index([tenant_id])
+  @@index([student_id])
 }
 
 model attachments {
@@ -1031,12 +1631,18 @@ model attachments {
   file_name  String
   file_type  String
   file_url   String
+  
+  // New: Categorisation
+  category   String?  // evidence, report, correspondence
+  related_to String?  // ehcp_application_id, student_id, etc.
+  
   created_at DateTime @default(now())
 
   // Relations
   tenants tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
 
   @@index([tenant_id])
+  @@index([category])
 }
 
 // ============================================================================

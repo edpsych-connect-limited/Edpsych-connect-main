@@ -102,8 +102,33 @@ function HeaderContent() {
     // Local Authority (LAA)
     else if (role === 'LAA' || role === 'LOCAL_AUTHORITY') {
       links.push(
-        { href: '/marketplace/la-panel', label: 'LAA Dashboard', group: 'core' },
-        { href: '/ehcp', label: 'EHCP Review', group: 'core' }
+        { href: '/la/dashboard', label: 'EHCP Portal', group: 'core' },
+        { href: '/marketplace/la-panel', label: 'EP Marketplace', group: 'core' },
+        { href: '/la/compliance', label: 'Compliance', group: 'core' },
+        { href: '/ehcp', label: 'EHCP Templates', group: 'core' }
+      );
+    }
+    // Educational Psychologist
+    else if (role === 'EP' || role === 'EDUCATIONAL_PSYCHOLOGIST') {
+      links.push(
+        { href: '/professional/portal', label: 'Contribution Portal', group: 'core' },
+        { href: '/assessments', label: 'Assessments', group: 'core' },
+        { href: '/cases', label: 'Cases', group: 'core' },
+        { href: '/interventions', label: 'Interventions', group: 'core' },
+        { href: '/marketplace', label: 'Marketplace', group: 'core' },
+        { href: '/networking', label: 'Community', group: 'core' }
+      );
+    }
+    // SENCO / School Staff with EHCP access
+    else if (role === 'SENCO') {
+      links.push(
+        { href: '/school/ehcp-request', label: 'EHCP Requests', group: 'core' },
+        { href: '/teachers', label: 'Classroom', group: 'core' },
+        { href: '/assessments', label: 'Assessments', group: 'core' },
+        { href: '/interventions', label: 'Interventions', group: 'core' },
+        { href: '/ehcp', label: 'EHCP', group: 'core' },
+        { href: '/cases', label: 'Cases', group: 'core' },
+        { href: '/progress', label: 'Progress', group: 'core' }
       );
     }
     else {
