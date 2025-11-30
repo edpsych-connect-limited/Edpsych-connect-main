@@ -115,5 +115,7 @@ nul
 credentials.json
 service-account.json
 
-# Training videos (served locally or via Cloudinary CDN - too large for git)
-public/content/training_videos/
+# Training videos - NOW TRACKED VIA GIT LFS (see .gitattributes)
+# Git LFS stores large files (*.mp4) efficiently with pointers in git
+# Actual video content is stored on GitHub LFS servers
+# public/content/training_videos/  # REMOVED - now using Git LFS
