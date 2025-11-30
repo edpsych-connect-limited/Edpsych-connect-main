@@ -29,7 +29,7 @@ export class AssessmentService {
   /**
    * Get assessments with filtering and pagination
    */
-  static async getAssessments(filters: AssessmentFilters, user: any) {
+  static async getAssessments(filters: AssessmentFilters, _user: any) {
     // Build filter object
     const filter: any = {};
 
@@ -126,7 +126,7 @@ export class AssessmentService {
   /**
    * Get assessment by ID
    */
-  static async getAssessmentById(id: string, user: any) {
+  static async getAssessmentById(id: string, _user: any) {
     const assessment = await (prisma as any).assessment.findUnique({
       where: { id }
     });

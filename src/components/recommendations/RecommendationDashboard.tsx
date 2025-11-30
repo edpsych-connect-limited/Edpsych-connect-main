@@ -129,6 +129,7 @@ const RecommendationDashboard: React.FC = () => {
   // Initial fetch on component mount and when filters change
   useEffect(() => {
     fetchRecommendations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
   
   return (

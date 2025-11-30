@@ -60,6 +60,7 @@ export const PrivacyPolicyManager: React.FC = () => {
 
   useEffect(() => {
     loadPrivacyData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadPrivacyData = async () => {

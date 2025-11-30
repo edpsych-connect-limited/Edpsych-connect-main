@@ -103,7 +103,7 @@ const ProgressBar = ({ progress }: { progress: number }) => {
 export default function InteractiveCoursePlayer({
   courseId,
   enrollmentId,
-  userId,
+  userId: _userId,
 }: CoursePlayerProps) {
   const router = useRouter();
 
@@ -366,7 +366,7 @@ export default function InteractiveCoursePlayer({
               {/* Interactive Elements */}
               {currentLesson.interactiveElements && currentLesson.interactiveElements.length > 0 && (
                 <div className="space-y-8">
-                  {currentLesson.interactiveElements.map((element, index) => (
+                  {currentLesson.interactiveElements.map((element, _index) => (
                     <InteractiveElementRenderer
                       key={element.id}
                       element={element}
@@ -470,7 +470,7 @@ function InteractiveElementRenderer({
 // QUIZ ELEMENT (Interactive Quiz with Immediate Feedback)
 // ============================================================================
 
-function QuizElement({ element, enrollmentId, onComplete }: InteractiveElementRendererProps) {
+function QuizElement({ element, enrollmentId: _enrollmentId, onComplete }: InteractiveElementRendererProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
   const [showFeedback, setShowFeedback] = useState(false);
@@ -673,7 +673,7 @@ if (typeof document !== 'undefined' && !document.getElementById('quiz-styles')) 
 // SCENARIO ELEMENT (Branching Scenario-Based Learning)
 // ============================================================================
 
-function ScenarioElement({ element, enrollmentId, onComplete }: InteractiveElementRendererProps) {
+function ScenarioElement({ element, enrollmentId: _enrollmentId, onComplete }: InteractiveElementRendererProps) {
   const [currentDecisionIndex, setCurrentDecisionIndex] = useState(0);
   const [decisions, setDecisions] = useState<number[]>([]);
   const [totalScore, setTotalScore] = useState(0);
@@ -890,7 +890,7 @@ function CaseStudyElement({ element, enrollmentId, onComplete }: InteractiveElem
 // INTERACTIVE DIAGRAM ELEMENT
 // ============================================================================
 
-function InteractiveDiagramElement({ element, enrollmentId, onComplete }: InteractiveElementRendererProps) {
+function InteractiveDiagramElement({ element, enrollmentId: _enrollmentId, onComplete }: InteractiveElementRendererProps) {
   const [clickedHotspots, setClickedHotspots] = useState<string[]>([]);
   const [selectedHotspot, setSelectedHotspot] = useState<any>(null);
 

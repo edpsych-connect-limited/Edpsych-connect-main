@@ -18,7 +18,7 @@ import { Play, CheckCircle, Target, Zap, Shield, Users, TrendingUp } from 'lucid
 import { motion } from 'framer-motion';
 import { useOnboarding } from '../OnboardingProvider';
 import { ProgressBar } from '@/components/ui/ProgressBar';
-import { getHeyGenEmbedUrl, LOCAL_VIDEO_PATHS } from '@/lib/training/heygen-video-urls';
+import { LOCAL_VIDEO_PATHS } from '@/lib/training/heygen-video-urls';
 
 // Local video path for onboarding welcome - prefer local over HeyGen embed
 const LOCAL_WELCOME_VIDEO = LOCAL_VIDEO_PATHS['onboarding-welcome'] || '/content/training_videos/onboarding/onboarding-welcome.mp4';

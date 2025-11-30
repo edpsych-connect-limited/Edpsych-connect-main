@@ -110,7 +110,7 @@ class ServerAuthService {
     this.tenants.set('default', defaultTenant);
 
     // Create default admin user
-    const hashedPassword = bcrypt.hashSync('admin123', 12);
+    const _hashedPassword = bcrypt.hashSync('admin123', 12);
     const adminUser: User = {
       id: 'admin-001',
       email: 'admin@edpsychconnect.app',

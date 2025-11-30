@@ -8,7 +8,7 @@
 
 import React, { useState } from 'react';
 import OnboardingProgram from './OnboardingProgram';
-import { TRAINING_CONTENT, TrainingCurriculum } from '@/data/training-content';
+import { TRAINING_CONTENT, type TrainingCurriculum as _TrainingCurriculum } from '@/data/training-content';
 import { BookOpen, PlayCircle, FileText, Award, Download } from 'lucide-react';
 
 interface TrainingModule {

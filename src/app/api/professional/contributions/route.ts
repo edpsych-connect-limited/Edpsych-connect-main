@@ -65,7 +65,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Fetch contributions assigned to this professional
-    const contributions = await prisma.ehcp_contributions.findMany({
+    const contributions = await prisma.eHCPContribution.findMany({
       where,
       include: {
         application: {

@@ -313,7 +313,7 @@ const FeatureTab = memo(({
   feature,
   isSelected,
   onClick,
-  index
+  index: _index
 }: {
   feature: Feature;
   isSelected: boolean;

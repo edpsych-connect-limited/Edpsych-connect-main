@@ -18,7 +18,7 @@ interface CookieSettingsProps {
 
 export default function CookieSettings({ isOpen, onClose }: CookieSettingsProps) {
   const { settings, updateConsent, acceptAll, rejectAll } = useCookieConsent();
-  const [activeCategory, setActiveCategory] = useState<CookieCategory | null>(null);
+  const [_activeCategory, _setActiveCategory] = useState<CookieCategory | null>(null);
 
   if (!isOpen) return null;
 

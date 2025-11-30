@@ -22,14 +22,12 @@ import {
   ChevronDown,
   ChevronRight,
   Download,
-  Filter,
   Search,
   RefreshCw,
   ThumbsUp,
   ThumbsDown,
   Edit3,
   X,
-  Loader2,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 

@@ -8,7 +8,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCookieConsent } from '@/contexts/CookieConsentContext';
-import { CookieCategory } from '@/types/cookies';
+import type { CookieCategory as _CookieCategory } from '@/types/cookies';
 import { X, Settings, Check, X as XIcon } from 'lucide-react';
 
 interface CookieBannerProps {

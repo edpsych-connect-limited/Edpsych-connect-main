@@ -10,7 +10,7 @@
 
 ;
 
-import { GraduationCap, BookOpen, Award, Clock, Users, TrendingUp, CheckCircle2, Play, FileText } from 'lucide-react';
+import { GraduationCap, BookOpen, Award, Clock, Users, CheckCircle2, Play, FileText } from 'lucide-react';
 import { useState } from 'react';
 
 export default function TrainingPlatformSection() {

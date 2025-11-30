@@ -358,7 +358,7 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ childId, parentId, c
     data: portalData,
     isLoading,
     error,
-    refetch,
+    refetch: _refetch,
   } = useQuery<ParentPortalData>({
     queryKey: ['parent-portal', childId, parentId],
     queryFn: async () => {

@@ -325,7 +325,7 @@ function identifyBottlenecks(applications: any[], now: Date) {
     if (app.contributions) {
       app.contributions.forEach((c: any) => {
         if (c.status === 'REQUESTED' || c.status === 'IN_PROGRESS') {
-          const isOverdue = new Date(c.deadline) < now;
+          const _isOverdue = new Date(c.deadline) < now;
           if (c.contribution_type === 'EDUCATIONAL_PSYCHOLOGY') {
             bottlenecks.awaiting_ep_advice++;
           } else if (c.contribution_type === 'HEALTH_ADVICE') {

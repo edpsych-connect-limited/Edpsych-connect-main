@@ -108,10 +108,10 @@ export class AssessmentReportGenerator {
     options: ReportOptions = {}
   ): Promise<Blob> {
     const {
-      include_raw_scores = true,
+      include_raw_scores: _include_raw_scores = true,
       include_score_tables = true,
-      include_visual_profile = false,
-      include_interpretation_guidelines = true,
+      include_visual_profile: _include_visual_profile = false,
+      include_interpretation_guidelines: _include_interpretation_guidelines = true,
       include_recommendations = true,
       include_appendices = false,
       branding,
@@ -195,7 +195,7 @@ export class AssessmentReportGenerator {
   // COVER PAGE
   // ==========================================================================
 
-  private addCoverPage(report: AssessmentReport, branding?: ReportOptions['branding']) {
+  private addCoverPage(report: AssessmentReport, _branding?: ReportOptions['branding']) {
     // Header with branding
     this.doc.setFillColor(...this.PRIMARY_COLOR);
     this.doc.rect(0, 0, this.PAGE_WIDTH, 60, 'F');
@@ -263,7 +263,7 @@ export class AssessmentReportGenerator {
   // TABLE OF CONTENTS
   // ==========================================================================
 
-  private addTableOfContents(report: AssessmentReport) {
+  private addTableOfContents(_report: AssessmentReport) {
     this.addSectionHeader('Contents');
 
     const contents = [

@@ -10,7 +10,7 @@
 
 ;
 
-import { Brain, Target, Zap, BookOpen, TrendingUp, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Brain, Target, Zap, BookOpen, CheckCircle2, ArrowRight } from 'lucide-react';
 
 export default function ECCAFrameworkShowcase() {
   const domains = [

@@ -20,7 +20,6 @@ import {
   TrendingUp,
   CheckCircle,
   Clock,
-  Filter,
   Search,
   X,
   RefreshCw,
@@ -235,7 +234,7 @@ const StudentGrid: React.FC<{
   selectedStudentId: number | null;
   onStudentSelect: (id: number | null) => void;
   onVoiceQuery: (query: string) => void;
-}> = ({ students, selectedStudentId, onStudentSelect, onVoiceQuery }) => {
+}> = ({ students, selectedStudentId: _selectedStudentId, onStudentSelect, onVoiceQuery }) => {
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
   const [searchQuery, setSearchQuery] = useState('');
 

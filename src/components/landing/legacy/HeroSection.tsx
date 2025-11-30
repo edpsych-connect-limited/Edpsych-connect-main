@@ -33,10 +33,10 @@ interface EvidenceData {
 const HeroSection: React.FC = () => {
   const [currentHeadline, setCurrentHeadline] = useState(0);
   const [userChallenge, setUserChallenge] = useState('');
-  const [showProblemSolver, setShowProblemSolver] = useState(false);
+  const [_showProblemSolver, setShowProblemSolver] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
   const [timeSavings, setTimeSavings] = useState(0);
-  const [challengeAnalysis, setChallengeAnalysis] = useState<any>(null);
+  const [_challengeAnalysis, setChallengeAnalysis] = useState<any>(null);
 
   const headlines = [
     "Teaching That Adapts Itself. No Child Left Behind. Ever.",
@@ -64,7 +64,7 @@ const HeroSection: React.FC = () => {
       setCurrentHeadline((prev) => (prev + 1) % headlines.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [headlines.length]);
 
   const handleChallengeSubmit = async () => {
     if (!userChallenge.trim()) return;

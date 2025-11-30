@@ -10,7 +10,7 @@ import { useAuth } from '@/lib/auth/hooks';
 import { useEffect, useState } from 'react';
 import type { SubscriptionInfo, SubscriptionTier } from '../types';
 import { UserType, SubscriptionStatus } from '../types';
-import type { FeatureConfig } from '../lib/subscription';
+import type { FeatureConfig as _FeatureConfig } from '../lib/subscription';
 import { hasFeatureAccess, getAvailableFeatures } from '../lib/subscription';
 
 interface CapacityStatus {
@@ -173,6 +173,7 @@ export const useSubscription = (): UseSubscriptionReturn => {
       setSubscriptionData(null);
       setCapacityStatus(undefined);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id]);
   
   // Derive subscription info from user data and API response

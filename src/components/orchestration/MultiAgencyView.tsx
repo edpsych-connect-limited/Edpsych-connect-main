@@ -342,9 +342,9 @@ const StudentGrid: React.FC<{
   students: Student[];
   schools: Array<{ id: number; name: string }>;
   userRole: string;
-}> = ({ students, schools, userRole }) => {
+}> = ({ students, schools, userRole: _userRole }) => {
   const [selectedSchool, setSelectedSchool] = useState<number | 'all'>('all');
-  const [selectedStudentId, setSelectedStudentId] = useState<number | null>(null);
+  const [_selectedStudentId, setSelectedStudentId] = useState<number | null>(null);
 
   const filteredStudents = useMemo(() => {
     if (selectedSchool === 'all') return students;

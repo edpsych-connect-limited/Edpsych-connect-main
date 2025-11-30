@@ -21,7 +21,7 @@ import { useState, useEffect, useContext, createContext } from 'react';
 import type { ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { AuthUser, PasswordUpdateRequest } from './types';
-import { secureStore, secureRetrieve, secureRemove, clearAuthStorage } from '../../utils/encryption';
+import { secureStore, secureRetrieve, secureRemove as _secureRemove, clearAuthStorage } from '../../utils/encryption';
 import { logger } from "@/lib/logger";
 
 /**
@@ -648,7 +648,8 @@ export function withAuth<P extends object>(
         });
         router.push('/');
       }
-    }, [user, isLoading, router, hasPermission, hasRole, requiredPermission, requiredRole]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user, isLoading, router, hasPermission, hasRole]);
 
     // Show loading state
     if (isLoading) {

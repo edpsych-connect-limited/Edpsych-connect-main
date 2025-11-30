@@ -1,4 +1,4 @@
-import { logger, logUserAction } from "@/lib/logger";
+import { logger as _logger, logUserAction } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
