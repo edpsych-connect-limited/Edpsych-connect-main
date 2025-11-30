@@ -454,10 +454,11 @@ export default function EHCPWizardForm({
         {currentStep === 2 && (
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="primary-need-select">
                 Primary Need *
               </label>
               <select
+                id="primary-need-select"
                 value={formData.plan_details.section_b?.primary_need || ''}
                 onChange={(e) =>
                   updatePlanDetail('section_b', {
@@ -466,6 +467,7 @@ export default function EHCPWizardForm({
                   })
                 }
                 className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                aria-label="Select primary need"
               >
                 <option value="">Select primary need</option>
                 <option value="Cognition and Learning">
@@ -615,42 +617,48 @@ export default function EHCPWizardForm({
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor={`provision-${index}-need`}>
                         Need
                       </label>
                       <input
+                        id={`provision-${index}-need`}
                         type="text"
                         value={provision.need}
                         onChange={(e) =>
                           updateProvision(index, 'need', e.target.value)
                         }
                         className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Describe need"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor={`provision-${index}-provider`}>
                         Provider
                       </label>
                       <input
+                        id={`provision-${index}-provider`}
                         type="text"
                         value={provision.provider}
                         onChange={(e) =>
                           updateProvision(index, 'provider', e.target.value)
                         }
                         className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Provider name"
                       />
                     </div>
                     <div className="col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor={`provision-${index}-details`}>
                         Provision Details
                       </label>
                       <textarea
+                        id={`provision-${index}-details`}
                         value={provision.provision}
                         onChange={(e) =>
                           updateProvision(index, 'provision', e.target.value)
                         }
                         rows={2}
                         className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Describe provision details"
                       />
                     </div>
                     <div className="col-span-2">
@@ -684,10 +692,11 @@ export default function EHCPWizardForm({
         {currentStep === 5 && (
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="placement-type-select">
                 Placement Type *
               </label>
               <select
+                id="placement-type-select"
                 value={formData.plan_details.section_i?.placement_type || ''}
                 onChange={(e) =>
                   updatePlanDetail('section_i', {
@@ -696,6 +705,7 @@ export default function EHCPWizardForm({
                   })
                 }
                 className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                aria-label="Select placement type"
               >
                 <option value="mainstream">Mainstream</option>
                 <option value="special">Special School</option>
@@ -704,10 +714,11 @@ export default function EHCPWizardForm({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="school-name-input">
                 School Name
               </label>
               <input
+                id="school-name-input"
                 type="text"
                 value={formData.plan_details.section_i?.school_name || ''}
                 onChange={(e) =>
@@ -717,13 +728,15 @@ export default function EHCPWizardForm({
                   })
                 }
                 className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter school name"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="school-urn-input">
                 URN (Unique Reference Number)
               </label>
               <input
+                id="school-urn-input"
                 type="text"
                 value={formData.plan_details.section_i?.urn || ''}
                 onChange={(e) =>
@@ -733,6 +746,7 @@ export default function EHCPWizardForm({
                   })
                 }
                 className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter URN"
               />
             </div>
           </div>

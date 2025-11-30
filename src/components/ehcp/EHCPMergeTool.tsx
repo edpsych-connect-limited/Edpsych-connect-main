@@ -571,7 +571,8 @@ export default function EHCPMergeTool({ applicationId, application, onBack, onSa
   };
   
   const { total, completed, withContributions } = getCompletionStatus();
-  
+  const progressPercent = total > 0 ? Math.round((completed / total) * 100) : 0;
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-96">
@@ -588,6 +589,8 @@ export default function EHCPMergeTool({ applicationId, application, onBack, onSa
           <button
             onClick={onBack}
             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            title="Go back"
+            aria-label="Go back to previous page"
           >
             <ArrowLeft className="w-5 h-5 text-gray-600" />
           </button>
@@ -647,10 +650,20 @@ export default function EHCPMergeTool({ applicationId, application, onBack, onSa
         </div>
         
         {/* Progress Bar */}
-        <div className="mt-4 h-2 bg-indigo-400/30 rounded-full overflow-hidden">
+        <div 
+          className="mt-4 h-2 bg-indigo-400/30 rounded-full overflow-hidden" 
+          role="progressbar" 
+          aria-label={`Progress: ${progressPercent}% complete - ${completed} of ${total} sections completed`}
+        >
           <div
-            className="h-full bg-white transition-all duration-500"
-            style={{ width: `${(completed / total) * 100}%` }}
+            className={`h-full bg-white transition-all duration-500 ${
+              completed === 0 ? 'w-0' :
+              completed === total ? 'w-full' :
+              completed <= total * 0.25 ? 'w-1/4' :
+              completed <= total * 0.5 ? 'w-1/2' :
+              completed <= total * 0.75 ? 'w-3/4' :
+              'w-[90%]'
+            }`}
           />
         </div>
       </div>
@@ -759,15 +772,17 @@ export default function EHCPMergeTool({ applicationId, application, onBack, onSa
               <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
                 <h2 className="text-xl font-semibold text-gray-900">EHCP Preview</h2>
                 <div className="flex items-center gap-2">
-                  <button className="p-2 hover:bg-gray-100 rounded-lg">
+                  <button className="p-2 hover:bg-gray-100 rounded-lg" title="Print" aria-label="Print EHCP document">
                     <Printer className="w-5 h-5 text-gray-600" />
                   </button>
-                  <button className="p-2 hover:bg-gray-100 rounded-lg">
+                  <button className="p-2 hover:bg-gray-100 rounded-lg" title="Download" aria-label="Download EHCP document">
                     <Download className="w-5 h-5 text-gray-600" />
                   </button>
                   <button
                     onClick={() => setShowPreview(false)}
                     className="p-2 hover:bg-gray-100 rounded-lg"
+                    title="Close preview"
+                    aria-label="Close preview modal"
                   >
                     <X className="w-5 h-5 text-gray-600" />
                   </button>

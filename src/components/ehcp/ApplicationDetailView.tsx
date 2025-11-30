@@ -465,6 +465,8 @@ export default function ApplicationDetailView({ applicationId, onBack, onRefresh
           <button
             onClick={onBack}
             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            title="Go back"
+            aria-label="Go back to previous page"
           >
             <ArrowLeft className="w-5 h-5 text-gray-600" />
           </button>
@@ -548,15 +550,12 @@ export default function ApplicationDetailView({ applicationId, onBack, onRefresh
           </div>
           <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-500"
-              style={{
-                width: `${
-                  currentPhase === 'week6' ? 20 :
-                  currentPhase === 'week16' ? 50 :
-                  currentPhase === 'week20' ? 80 :
-                  100
-                }%`
-              }}
+              className={`h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-500 ${
+                currentPhase === 'week6' ? 'w-1/5' :
+                currentPhase === 'week16' ? 'w-1/2' :
+                currentPhase === 'week20' ? 'w-4/5' :
+                'w-full'
+              }`}
             />
           </div>
         </div>
@@ -884,6 +883,8 @@ export default function ApplicationDetailView({ applicationId, onBack, onRefresh
                 <button
                   onClick={() => setShowAssignModal(false)}
                   className="p-2 hover:bg-gray-100 rounded-lg"
+                  title="Close modal"
+                  aria-label="Close assign professional modal"
                 >
                   <X className="w-5 h-5 text-gray-500" />
                 </button>
@@ -891,10 +892,10 @@ export default function ApplicationDetailView({ applicationId, onBack, onRefresh
               
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="professional-role-select">
                     Professional Role
                   </label>
-                  <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                  <select id="professional-role-select" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" aria-label="Select professional role">
                     <option value="">Select role...</option>
                     <option value="EDUCATIONAL_PSYCHOLOGIST">Educational Psychologist</option>
                     <option value="HEALTH_PROFESSIONAL">Health Professional</option>
@@ -904,10 +905,10 @@ export default function ApplicationDetailView({ applicationId, onBack, onRefresh
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="section-select">
                     Section to Complete
                   </label>
-                  <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                  <select id="section-select" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" aria-label="Select section to complete">
                     <option value="">Select section...</option>
                     <option value="SECTION_B">Section B - Special Educational Needs</option>
                     <option value="SECTION_C">Section C - Health Needs</option>
@@ -918,10 +919,10 @@ export default function ApplicationDetailView({ applicationId, onBack, onRefresh
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="professional-select">
                     Professional
                   </label>
-                  <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                  <select id="professional-select" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" aria-label="Select professional">
                     <option value="">Select professional...</option>
                     {/* Would be populated from API */}
                   </select>
@@ -971,6 +972,8 @@ export default function ApplicationDetailView({ applicationId, onBack, onRefresh
                 <button
                   onClick={() => setShowDecisionModal(false)}
                   className="p-2 hover:bg-gray-100 rounded-lg"
+                  title="Close modal"
+                  aria-label="Close decision modal"
                 >
                   <X className="w-5 h-5 text-gray-500" />
                 </button>

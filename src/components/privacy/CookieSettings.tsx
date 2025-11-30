@@ -143,13 +143,16 @@ export default function CookieSettings({ isOpen, onClose }: CookieSettingsProps)
                         </div>
                       </div>
 
-                      <label className="relative inline-flex items-center cursor-pointer">
+                      <label className="relative inline-flex items-center cursor-pointer" htmlFor={`cookie-toggle-${category}`}>
+                        <span className="sr-only">Toggle {category} cookies</span>
                         <input
+                          id={`cookie-toggle-${category}`}
                           type="checkbox"
                           checked={isGranted}
                           disabled={isRequired}
                           onChange={(e) => updateConsent(category, e.target.checked)}
                           className="sr-only peer"
+                          aria-label={`Toggle ${category} cookies ${isRequired ? '(required)' : ''}`}
                         />
                         <div className={`w-11 h-6 rounded-full peer transition-all duration-200 ${
                           isRequired

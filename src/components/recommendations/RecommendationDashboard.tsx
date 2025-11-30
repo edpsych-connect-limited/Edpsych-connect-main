@@ -171,10 +171,13 @@ const RecommendationDashboard: React.FC = () => {
               <p className="font-medium">
                 Showing {recommendations.length} of {totalCount} recommendations
               </p>
+              <label className="sr-only" htmlFor="items-per-page">Items per page</label>
               <select 
+                id="items-per-page"
                 className="max-w-[200px] p-2 border border-gray-300 rounded-md"
                 value={filters.limit.toString()}
                 onChange={(e) => handleFilterChange({ limit: Number(e.target.value) })}
+                aria-label="Select items per page"
               >
                 <option value="6">6 per page</option>
                 <option value="12">12 per page</option>

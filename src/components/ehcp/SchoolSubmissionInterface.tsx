@@ -176,8 +176,9 @@ const ParentCard: React.FC<{
     <div className="flex items-center justify-between mb-4">
       <h4 className="font-medium text-gray-900">Parent/Carer {index + 1}</h4>
       <div className="flex items-center gap-2">
-        <label className="flex items-center gap-2 text-sm">
+        <label className="flex items-center gap-2 text-sm" htmlFor={`parent-${index}-main-contact`}>
           <input
+            id={`parent-${index}-main-contact`}
             type="checkbox"
             checked={parent.isMainContact}
             onChange={(e) => onChange(index, 'isMainContact', e.target.checked)}
@@ -189,6 +190,8 @@ const ParentCard: React.FC<{
           <button
             onClick={() => onRemove(index)}
             className="p-1 text-red-500 hover:bg-red-50 rounded"
+            title="Remove parent/carer"
+            aria-label={`Remove parent/carer ${index + 1}`}
           >
             <Trash2 className="w-4 h-4" />
           </button>
@@ -198,8 +201,9 @@ const ParentCard: React.FC<{
     
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor={`parent-${index}-firstname`}>First Name *</label>
         <input
+          id={`parent-${index}-firstname`}
           type="text"
           value={parent.firstName}
           onChange={(e) => onChange(index, 'firstName', e.target.value)}
@@ -208,8 +212,9 @@ const ParentCard: React.FC<{
         />
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor={`parent-${index}-lastname`}>Last Name *</label>
         <input
+          id={`parent-${index}-lastname`}
           type="text"
           value={parent.lastName}
           onChange={(e) => onChange(index, 'lastName', e.target.value)}
@@ -218,11 +223,13 @@ const ParentCard: React.FC<{
         />
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Relationship *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor={`parent-${index}-relationship`}>Relationship *</label>
         <select
+          id={`parent-${index}-relationship`}
           value={parent.relationship}
           onChange={(e) => onChange(index, 'relationship', e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+          aria-label="Select relationship"
           required
         >
           <option value="">Select...</option>
@@ -235,11 +242,12 @@ const ParentCard: React.FC<{
         </select>
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor={`parent-${index}-email`}>
           <Mail className="w-3 h-3 inline mr-1" />
           Email *
         </label>
         <input
+          id={`parent-${index}-email`}
           type="email"
           value={parent.email}
           onChange={(e) => onChange(index, 'email', e.target.value)}
@@ -248,11 +256,12 @@ const ParentCard: React.FC<{
         />
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor={`parent-${index}-phone`}>
           <Phone className="w-3 h-3 inline mr-1" />
           Phone *
         </label>
         <input
+          id={`parent-${index}-phone`}
           type="tel"
           value={parent.phone}
           onChange={(e) => onChange(index, 'phone', e.target.value)}
@@ -261,11 +270,12 @@ const ParentCard: React.FC<{
         />
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor={`parent-${index}-address`}>
           <MapPin className="w-3 h-3 inline mr-1" />
           Address
         </label>
         <input
+          id={`parent-${index}-address`}
           type="text"
           value={parent.address}
           onChange={(e) => onChange(index, 'address', e.target.value)}
@@ -289,6 +299,8 @@ const SENSupportCard: React.FC<{
       <button
         onClick={() => onRemove(index)}
         className="p-1 text-red-500 hover:bg-red-50 rounded"
+        title="Remove support episode"
+        aria-label={`Remove support episode ${index + 1}`}
       >
         <Trash2 className="w-4 h-4" />
       </button>
@@ -296,11 +308,13 @@ const SENSupportCard: React.FC<{
     
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Type of Support</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor={`support-${index}-type`}>Type of Support</label>
         <select
+          id={`support-${index}-type`}
           value={support.type}
           onChange={(e) => onChange(index, 'type', e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+          aria-label="Select type of support"
         >
           <option value="">Select...</option>
           <option value="SEN Support">SEN Support</option>
@@ -313,8 +327,9 @@ const SENSupportCard: React.FC<{
         </select>
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor={`support-${index}-startdate`}>Start Date</label>
         <input
+          id={`support-${index}-startdate`}
           type="date"
           value={support.startDate}
           onChange={(e) => onChange(index, 'startDate', e.target.value)}
@@ -322,8 +337,9 @@ const SENSupportCard: React.FC<{
         />
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Duration</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor={`support-${index}-duration`}>Duration</label>
         <input
+          id={`support-${index}-duration`}
           type="text"
           value={support.duration}
           onChange={(e) => onChange(index, 'duration', e.target.value)}
@@ -332,11 +348,13 @@ const SENSupportCard: React.FC<{
         />
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Outcome</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor={`support-${index}-outcome`}>Outcome</label>
         <select
+          id={`support-${index}-outcome`}
           value={support.outcome}
           onChange={(e) => onChange(index, 'outcome', e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+          aria-label="Select outcome"
         >
           <option value="">Select...</option>
           <option value="Good Progress">Good Progress</option>
@@ -346,8 +364,9 @@ const SENSupportCard: React.FC<{
         </select>
       </div>
       <div className="md:col-span-2">
-        <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor={`support-${index}-description`}>Description</label>
         <textarea
+          id={`support-${index}-description`}
           value={support.description}
           onChange={(e) => onChange(index, 'description', e.target.value)}
           rows={2}
@@ -689,8 +708,9 @@ export default function SchoolSubmissionInterface({
                   <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="child-firstName">First Name *</label>
                         <input
+                          id="child-firstName"
                           type="text"
                           value={formData.child.firstName}
                           onChange={(e) => handleChildChange('firstName', e.target.value)}
@@ -703,8 +723,9 @@ export default function SchoolSubmissionInterface({
                         )}
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="child-lastName">Last Name *</label>
                         <input
+                          id="child-lastName"
                           type="text"
                           value={formData.child.lastName}
                           onChange={(e) => handleChildChange('lastName', e.target.value)}
@@ -717,8 +738,9 @@ export default function SchoolSubmissionInterface({
                         )}
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Date of Birth *</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="child-dateOfBirth">Date of Birth *</label>
                         <input
+                          id="child-dateOfBirth"
                           type="date"
                           value={formData.child.dateOfBirth}
                           onChange={(e) => handleChildChange('dateOfBirth', e.target.value)}
@@ -728,11 +750,13 @@ export default function SchoolSubmissionInterface({
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="child-gender">Gender</label>
                         <select
+                          id="child-gender"
                           value={formData.child.gender}
                           onChange={(e) => handleChildChange('gender', e.target.value)}
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                          aria-label="Select gender"
                         >
                           <option value="">Select...</option>
                           <option value="Male">Male</option>
@@ -742,13 +766,15 @@ export default function SchoolSubmissionInterface({
                         </select>
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Year Group *</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="child-currentYear">Year Group *</label>
                         <select
+                          id="child-currentYear"
                           value={formData.child.currentYear}
                           onChange={(e) => handleChildChange('currentYear', e.target.value)}
                           className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 ${
                             errors['child.currentYear'] ? 'border-red-500' : 'border-gray-300'
                           }`}
+                          aria-label="Select year group"
                         >
                           <option value="">Select...</option>
                           {YEAR_GROUPS.map((year) => (
@@ -757,26 +783,31 @@ export default function SchoolSubmissionInterface({
                         </select>
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">ULN (if known)</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="child-uln">ULN (if known)</label>
                         <input
+                          id="child-uln"
                           type="text"
                           value={formData.child.uln}
                           onChange={(e) => handleChildChange('uln', e.target.value)}
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                          placeholder="Unique Learner Number"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">NHS Number (if known)</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="child-nhsNumber">NHS Number (if known)</label>
                         <input
+                          id="child-nhsNumber"
                           type="text"
                           value={formData.child.nhsNumber}
                           onChange={(e) => handleChildChange('nhsNumber', e.target.value)}
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                          placeholder="NHS Number"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Current School</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="child-currentSchool">Current School</label>
                         <input
+                          id="child-currentSchool"
                           type="text"
                           value={formData.child.currentSchool}
                           disabled
@@ -784,21 +815,25 @@ export default function SchoolSubmissionInterface({
                         />
                       </div>
                       <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="child-address">Address</label>
                         <input
+                          id="child-address"
                           type="text"
                           value={formData.child.address}
                           onChange={(e) => handleChildChange('address', e.target.value)}
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                          placeholder="Street address"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Postcode</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="child-postcode">Postcode</label>
                         <input
+                          id="child-postcode"
                           type="text"
                           value={formData.child.postcode}
                           onChange={(e) => handleChildChange('postcode', e.target.value)}
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                          placeholder="Postcode"
                         />
                       </div>
                     </div>
@@ -1024,7 +1059,7 @@ export default function SchoolSubmissionInterface({
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-3">Supporting Documents</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-3" htmlFor="supporting-documents">Supporting Documents</label>
                       <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-indigo-400 transition-colors">
                         <Upload className="w-10 h-10 text-gray-400 mx-auto mb-3" />
                         <p className="text-sm text-gray-600 mb-2">
@@ -1033,7 +1068,13 @@ export default function SchoolSubmissionInterface({
                         <p className="text-xs text-gray-500">
                           PDF, Word documents, or images up to 10MB
                         </p>
-                        <input type="file" className="hidden" multiple />
+                        <input 
+                          id="supporting-documents" 
+                          type="file" 
+                          className="hidden" 
+                          multiple 
+                          aria-label="Upload supporting documents"
+                        />
                       </div>
                     </div>
                   </div>
