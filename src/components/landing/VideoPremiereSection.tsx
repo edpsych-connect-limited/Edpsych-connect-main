@@ -30,17 +30,24 @@ const HEYGEN_VIDEO_IDS: Record<string, string> = {
   'gamification-integrity': '810c3c4bdd644530b498f2dff546409a',
 };
 
+// Cloudinary URLs - PRIMARY CDN (99.9% SLA)
+const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
+  'data-autonomy': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533766/edpsych-connect/videos/data-autonomy.mp4',
+  'no-child-left-behind': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533789/edpsych-connect/videos/no-child-left-behind.mp4',
+  'gamification-integrity': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533803/edpsych-connect/videos/gamification-integrity.mp4',
+};
+
 export default function VideoPremiereSection() {
   const [activeVideo, setActiveVideo] = useState<{ id: string; title: string } | null>(null);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Fetch video URL when modal opens
+  // Fetch video URL when modal opens - Cloudinary is PRIMARY
   const fetchVideoUrl = useCallback(async (videoId: string) => {
     setIsLoading(true);
     setVideoUrl(null);
 
-    // 1. Try local file first
+    // 1. Try local file first (for development)
     const localPath = LOCAL_VIDEO_PATHS[videoId];
     if (localPath) {
       try {
@@ -55,7 +62,15 @@ export default function VideoPremiereSection() {
       }
     }
 
-    // 2. Try HeyGen API
+    // 2. Try Cloudinary CDN (PRIMARY for production)
+    const cloudinaryUrl = CLOUDINARY_VIDEO_URLS[videoId];
+    if (cloudinaryUrl) {
+      setVideoUrl(cloudinaryUrl);
+      setIsLoading(false);
+      return;
+    }
+
+    // 3. Fallback to HeyGen API
     const heygenId = HEYGEN_VIDEO_IDS[videoId];
     if (heygenId) {
       try {

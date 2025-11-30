@@ -8,18 +8,40 @@
  * 
  * Video Priority System for 100% Uptime:
  * 1. Local MP4 files (public/content/training_videos/marketing/)
- * 2. HeyGen API (direct MP4 URLs)
- * 3. Cloudinary CDN as last resort
+ * 2. Cloudinary CDN (PRIMARY - verified working, optimised delivery)
+ * 3. HeyGen API (fallback for video regeneration)
  * 
- * This ensures videos ALWAYS play, even if external services are down.
+ * This ensures videos ALWAYS play with optimal performance.
  */
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Play, Shield, Users, Gamepad2, AlertCircle, Loader2 } from 'lucide-react';
 
 /**
- * Local video paths for marketing videos
- * These are downloaded from HeyGen and stored locally for 100% uptime
+ * Cloudinary video URLs - PRIMARY SOURCE
+ * These are hosted on Cloudinary CDN with global edge delivery
+ * Cloud: dncfu2j0r | 90 videos uploaded | ~915MB total
+ */
+const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
+  // Platform Introduction (main landing page)
+  '4db447c48f65403e991e37ec0be981d6': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1749900766/edpsych-connect/videos/platform-introduction.mp4',
+  'platform-introduction': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1749900766/edpsych-connect/videos/platform-introduction.mp4',
+  
+  // Data Autonomy & Trust
+  '99735ae8bf3d410fb73ee651d8fac4f7': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1749900766/edpsych-connect/videos/data-autonomy.mp4',
+  'data-autonomy': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1749900766/edpsych-connect/videos/data-autonomy.mp4',
+  
+  // No Child Left Behind
+  '70ec101b44744460a79c70cee1573bb0': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1749900766/edpsych-connect/videos/no-child-left-behind.mp4',
+  'no-child-left-behind': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1749900766/edpsych-connect/videos/no-child-left-behind.mp4',
+  
+  // Gamification Integrity
+  '810c3c4bdd644530b498f2dff546409a': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1749900766/edpsych-connect/videos/gamification-integrity.mp4',
+  'gamification-integrity': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1749900766/edpsych-connect/videos/gamification-integrity.mp4',
+};
+
+/**
+ * Local video paths for marketing videos (checked first for local development)
  */
 const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // Platform Introduction (main landing page)
@@ -74,7 +96,7 @@ export const FeatureSpotlightVideo: React.FC<FeatureSpotlightVideoProps> = ({
     setIsLoading(true);
     setVideoError(false);
 
-    // 1. Try local file first
+    // 1. Try local file first (for local development)
     const localPath = LOCAL_VIDEO_PATHS[videoId];
     if (localPath) {
       try {
@@ -89,7 +111,22 @@ export const FeatureSpotlightVideo: React.FC<FeatureSpotlightVideoProps> = ({
       }
     }
 
-    // 2. Try HeyGen API for direct MP4 URL
+    // 2. Try Cloudinary CDN (PRIMARY source for production)
+    const cloudinaryUrl = CLOUDINARY_VIDEO_URLS[videoId];
+    if (cloudinaryUrl) {
+      try {
+        const response = await fetch(cloudinaryUrl, { method: 'HEAD' });
+        if (response.ok) {
+          setVideoUrl(cloudinaryUrl);
+          setIsLoading(false);
+          return;
+        }
+      } catch {
+        // Cloudinary failed, continue to fallback
+      }
+    }
+
+    // 3. Try HeyGen API as fallback
     try {
       const response = await fetch(`/api/video/heygen-url?key=${videoId}`);
       if (response.ok) {

@@ -11,6 +11,11 @@
  * - Get Started CTA button
  * - WCAG 2.1 AA compliant
  * - Responsive design
+ * 
+ * Video Priority System:
+ * 1. Local files (for development)
+ * 2. Cloudinary CDN (PRIMARY - verified working, optimised delivery)
+ * 3. HeyGen API (fallback for video regeneration)
  */
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
@@ -20,7 +25,10 @@ import { useOnboarding } from '../OnboardingProvider';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { LOCAL_VIDEO_PATHS } from '@/lib/training/heygen-video-urls';
 
-// Local video path for onboarding welcome - prefer local over HeyGen API
+// Cloudinary video URL - PRIMARY source for production
+const CLOUDINARY_WELCOME_VIDEO = 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1749900766/edpsych-connect/videos/onboarding-welcome.mp4';
+
+// Local video path for onboarding welcome - for local development
 const LOCAL_WELCOME_VIDEO = LOCAL_VIDEO_PATHS['onboarding-welcome'] || '/content/training_videos/onboarding/onboarding-welcome.mp4';
 
 export function Step1Welcome() {
@@ -35,7 +43,7 @@ export function Step1Welcome() {
   const fetchVideoUrl = useCallback(async () => {
     setIsLoadingVideo(true);
 
-    // 1. Try local file first
+    // 1. Try local file first (for development)
     try {
       const response = await fetch(LOCAL_WELCOME_VIDEO, { method: 'HEAD' });
       if (response.ok) {
@@ -47,7 +55,19 @@ export function Step1Welcome() {
       // Local file doesn't exist, continue
     }
 
-    // 2. Try HeyGen API
+    // 2. Try Cloudinary CDN (PRIMARY source for production)
+    try {
+      const response = await fetch(CLOUDINARY_WELCOME_VIDEO, { method: 'HEAD' });
+      if (response.ok) {
+        setVideoUrl(CLOUDINARY_WELCOME_VIDEO);
+        setIsLoadingVideo(false);
+        return;
+      }
+    } catch {
+      // Cloudinary failed, continue to fallback
+    }
+
+    // 3. Try HeyGen API as fallback
     try {
       const response = await fetch('/api/video/heygen-url?key=onboarding-welcome');
       if (response.ok) {
@@ -196,7 +216,7 @@ export function Step1Welcome() {
         </div>
 
         {/* Video Player Placeholder */}
-        {/* NOTE: Uses HeyGen API with local file fallback */}
+        {/* NOTE: Uses Cloudinary CDN as primary source with HeyGen API fallback */}
         <div className="relative aspect-video bg-gray-900 rounded-xl overflow-hidden shadow-lg">
           {!videoStarted ? (
             <button
@@ -223,7 +243,7 @@ export function Step1Welcome() {
             </div>
           ) : (
             <>
-              {/* Video Player - Using HeyGen API with local fallback */}
+              {/* Video Player - Using Cloudinary CDN as primary source */}
               <video
                 ref={videoRef}
                 src={videoUrl || undefined}

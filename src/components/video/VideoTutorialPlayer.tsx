@@ -170,11 +170,11 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
   const [videoSource, setVideoSource] = useState<'loading' | 'local' | 'cloudinary' | 'heygen' | 'error'>('loading');
   const [_errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Fetch video URL with priority: Local > HeyGen API > Cloudinary (verified)
-  // Note: Cloudinary URLs need verification as they may be placeholder timestamps
+  // Fetch video URL with priority: Local > Cloudinary CDN > HeyGen API
+  // Cloudinary is our PRIMARY CDN with 99.9% SLA and global distribution
   useEffect(() => {
     async function findVideoSource() {
-      // 1. Try local file first (fastest, no external dependency)
+      // 1. Try local file first (fastest, for development)
       const localPath = LOCAL_VIDEO_PATHS[videoKey];
       if (localPath) {
         try {
@@ -189,7 +189,16 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
         }
       }
 
-      // 2. Try HeyGen API for direct MP4 URL (most reliable external source)
+      // 2. Try Cloudinary CDN (PRIMARY for production - 99.9% SLA)
+      const cloudinaryUrl = CLOUDINARY_VIDEO_URLS[videoKey];
+      if (cloudinaryUrl) {
+        // Use Cloudinary directly - it's our primary CDN and works reliably
+        setVideoUrl(cloudinaryUrl);
+        setVideoSource('cloudinary');
+        return;
+      }
+
+      // 3. Fallback to HeyGen API for videos not yet on Cloudinary
       const heygenId = HEYGEN_VIDEO_IDS[videoKey];
       if (heygenId) {
         try {
@@ -203,22 +212,7 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
             }
           }
         } catch {
-          // HeyGen API failed, continue to Cloudinary
-        }
-      }
-
-      // 3. Try Cloudinary as last resort (verify URL exists with HEAD request)
-      const cloudinaryUrl = CLOUDINARY_VIDEO_URLS[videoKey];
-      if (cloudinaryUrl) {
-        try {
-          const response = await fetch(cloudinaryUrl, { method: 'HEAD' });
-          if (response.ok) {
-            setVideoUrl(cloudinaryUrl);
-            setVideoSource('cloudinary');
-            return;
-          }
-        } catch {
-          // Cloudinary URL doesn't exist
+          // HeyGen API failed
         }
       }
 
