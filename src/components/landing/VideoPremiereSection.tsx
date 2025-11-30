@@ -140,7 +140,6 @@ export default function VideoPremiereSection() {
             >
               Your browser does not support the video tag.
             </video>
-            </video>
           </div>
         </div>
       )}
