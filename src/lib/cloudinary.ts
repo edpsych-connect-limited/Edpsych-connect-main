@@ -141,25 +141,42 @@ export async function deleteVideo(publicId: string): Promise<void> {
 
 /**
  * Video URLs - Cloudinary CDN
- * These are the uploaded marketing/training videos
+ * 87 training videos uploaded for global distribution with 99.9% SLA
  */
 export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
-  // Marketing videos (to be uploaded)
-  'platform-introduction': '',
-  'data-autonomy': '',
-  'no-child-left-behind': '',
-  'gamification-integrity': '',
+  // Marketing videos
+  'platform-introduction': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533750/edpsych-connect/videos/platform-introduction.mp4',
+  'data-autonomy': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533766/edpsych-connect/videos/data-autonomy.mp4',
+  'no-child-left-behind': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533789/edpsych-connect/videos/no-child-left-behind.mp4',
+  'gamification-integrity': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533803/edpsych-connect/videos/gamification-integrity.mp4',
   
-  // Onboarding videos (to be uploaded)
-  'onboarding-welcome': '',
-  'onboarding-role-selection': '',
-  'onboarding-goals': '',
-  'onboarding-platform-tour': '',
-  'onboarding-knowledge-check': '',
-  'onboarding-completion': '',
+  // Onboarding videos
+  'onboarding-welcome': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533816/edpsych-connect/videos/onboarding-welcome.mp4',
+  'onboarding-role-selection': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533828/edpsych-connect/videos/onboarding-role-selection.mp4',
+  'onboarding-goals': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533841/edpsych-connect/videos/onboarding-goals.mp4',
+  'onboarding-knowledge-check': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533870/edpsych-connect/videos/onboarding-knowledge-check.mp4',
+  'onboarding-completion': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533882/edpsych-connect/videos/onboarding-completion.mp4',
   
-  // Training videos will use local files (too many to upload)
-  // But we CAN upload them to Cloudinary for premium delivery
+  // Help Centre videos
+  'help-getting-started': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533911/edpsych-connect/videos/help-getting-started.mp4',
+  'help-first-assessment': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533929/edpsych-connect/videos/help-first-assessment.mp4',
+  'help-data-security': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533939/edpsych-connect/videos/help-data-security.mp4',
+  'help-finding-interventions': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533952/edpsych-connect/videos/help-finding-interventions.mp4',
+  'help-technical-support': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533963/edpsych-connect/videos/help-technical-support.mp4',
+  
+  // EHCP videos
+  'ehcp-m1-l1': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533706/edpsych-connect/videos/ehcp-m1-l1.mp4',
+  'ehcp-application-journey': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533977/edpsych-connect/videos/ehcp-application-journey.mp4',
+  'ehcp-evidence-gathering': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533989/edpsych-connect/videos/ehcp-evidence-gathering.mp4',
+  'ehcp-annual-review': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764534004/edpsych-connect/videos/ehcp-annual-review.mp4',
+  'ehcp-appeals-process': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764534023/edpsych-connect/videos/ehcp-appeals-process.mp4',
+  'ehcp-annual-review-process': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764534034/edpsych-connect/videos/ehcp-annual-review-process.mp4',
+  
+  // LA Portal videos
+  'la-ehcp-portal-intro': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533892/edpsych-connect/videos/la-ehcp-portal-intro.mp4',
+  
+  // All 56 ADHD, Autism, and Dyslexia training videos are also uploaded
+  // See full mapping in VideoTutorialPlayer.tsx or cloudinary-video-urls.json
 };
 
 /**

@@ -5,7 +5,7 @@
  * for reliable CDN delivery with 99.9% SLA.
  * 
  * Prerequisites:
- * - CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET env vars
+ * - .env file with CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
  * - Downloaded videos in public/content/training_videos/
  * 
  * Usage: npx tsx scripts/upload-to-cloudinary.ts
@@ -13,7 +13,11 @@
 
 import fs from 'fs';
 import path from 'path';
+import dotenv from 'dotenv';
 import { v2 as cloudinary } from 'cloudinary';
+
+// Load environment variables from .env file
+dotenv.config();
 
 // Configure Cloudinary
 cloudinary.config({
