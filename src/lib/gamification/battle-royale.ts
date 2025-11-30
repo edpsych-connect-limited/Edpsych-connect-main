@@ -480,7 +480,7 @@ interface VictoryCondition {
 /**
  * Award Victory Royale rewards
  */
-export function awardVictoryRoyale(player: BattleRoyalePlayer, victoryType: string): void {
+export function awardVictoryRoyale(player: BattleRoyalePlayer, _victoryType: string): void {
   player.victories += 1;
   player.win_rate = player.victories / player.games_played;
 

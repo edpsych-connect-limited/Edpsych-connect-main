@@ -5,7 +5,7 @@
  * the cross-institutional data sharing platform.
  */
 
-import { GovernanceService } from './governance-service';
+import { type GovernanceService as _GovernanceService } from './governance-service';
 
 /**
  * Extensions to the GovernanceService for handling institution-related operations

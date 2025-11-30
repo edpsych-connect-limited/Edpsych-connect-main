@@ -13,7 +13,7 @@ import { generateId } from '../../utils/id-generator';
 import { 
   Department,
   DepartmentType,
-  UserRole
+  type UserRole as _UserRole
 } from './types';
 
 export interface CreateDepartmentInput {

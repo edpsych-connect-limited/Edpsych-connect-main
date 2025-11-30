@@ -1,0 +1,5 @@
+
+> edpsych-connect-web-v2@1.0.0 lint
+> node node_modules/next/dist/bin/next lint
+
+Ô£ö No ESLint warnings or errors

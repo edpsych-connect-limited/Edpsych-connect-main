@@ -1,0 +1,66 @@
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   src/lib/blog/content-scraper.ts
+	modified:   src/lib/blog/post-generator.ts
+	modified:   src/lib/cpd/portfolio-generator.ts
+	modified:   src/lib/ehcp/la-ehcp-service.ts
+	modified:   src/lib/ehcp/pdf-generator.ts
+	modified:   src/lib/ethics/services/EthicsAssessmentService.js
+	modified:   src/lib/ethics/services/EthicsIncidentService.js
+	modified:   src/lib/ethics/services/EthicsMonitoringService.js
+	modified:   src/lib/ethics/utils/EthicsAnomalyDetector.js
+	modified:   src/lib/gamification/battle-royale.ts
+	modified:   src/lib/gamification/matchmaking-engine.ts
+	modified:   src/lib/gamification/squad-competitions.ts
+	modified:   src/lib/gdpr-compliance.ts
+	modified:   src/lib/interventions/recommendation-engine.ts
+	modified:   src/lib/monitoring/advanced-monitoring.ts
+	modified:   src/lib/orchestration/assignment-engine.service.ts
+	modified:   src/lib/orchestration/cross-module-intelligence.service.ts
+	modified:   src/lib/orchestration/data-router.service.ts
+	modified:   src/lib/orchestration/profile-builder.service.ts
+	modified:   src/lib/orchestration/query-client.tsx
+	modified:   src/lib/orchestration/voice-command.service.ts
+	modified:   src/lib/polyfills/enhanced-styled-jsx-patch.js
+	modified:   src/lib/polyfills/styled-jsx-patch.js
+	modified:   src/lib/secure-storage.ts
+	modified:   src/lib/security/SecurityProvider.tsx
+	modified:   src/lib/services/courseCompletionForecastingEngine.ts
+	modified:   src/lib/services/predictiveAnalyticsService.ts
+	modified:   src/lib/study-buddy/predictive-analytics.ts
+	modified:   src/lib/subscription/plans.ts
+	modified:   src/lib/training/adaptive-learning.ts
+	modified:   src/lib/training/scoring-engine.ts
+	modified:   src/lib/validation/codeValidator.ts
+	modified:   src/research/foundation/data-sharing/services/data-sharing-service.ts
+	modified:   src/research/foundation/double-blind/services/double-blind-service.ts
+	modified:   src/research/foundation/federated-ml/services/training-round-coordinator.ts
+	modified:   src/research/foundation/federated-ml/utils/model-aggregation.ts
+	modified:   src/research/foundation/governance/services/governance-service-extension.ts
+	modified:   src/research/foundation/grant-proposals/services/proposal-service.ts
+	modified:   src/research/foundation/security/quantum-resistant/quantum-resistant-crypto-real.ts
+	modified:   src/services/ai-intelligent-cache.ts
+	modified:   src/services/ai/core.ts
+	modified:   src/services/blog-service.ts
+	modified:   src/services/curriculum-service.ts
+	modified:   src/services/digital-signature-service.ts
+	modified:   src/services/institutional-management/department-service.ts
+	modified:   src/services/institutional-management/subscription-service.ts
+	modified:   src/services/monitoring/cloudwatch-config.ts
+	modified:   src/services/monitoring/monitoring-init.ts
+	modified:   src/services/monitoring/system-metrics.ts
+	modified:   src/services/navigation-service.ts
+	modified:   src/services/recommendation-engine/recommendation-service.ts
+	modified:   src/services/research-service.ts
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	git_status_final.txt
+	lint_final_check.txt
+	lint_fresh_check.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")

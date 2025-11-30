@@ -11,9 +11,9 @@
  * AI-powered curriculum and lesson planning assistance
  */
 
-import { aiService, AIRequest } from '@/lib/ai-integration';
+import { aiService, type AIRequest as _AIRequest } from '@/lib/ai-integration';
 import { prisma } from '@/lib/prisma';
-import { LessonPlan as PrismaLessonPlan, LessonActivity as PrismaLessonActivity } from '@prisma/client';
+import { LessonPlan as PrismaLessonPlan, type LessonActivity as _PrismaLessonActivity } from '@prisma/client';
 
 export interface LearningObjective {
   id: string;
@@ -144,7 +144,7 @@ export class CurriculumService {
         Each objective should be SMART (Specific, Measurable, Achievable, Relevant, Time-bound).
       `;
 
-      const objectivesResponse = await aiService.processRequest({
+      const _objectivesResponse = await aiService.processRequest({
         prompt: objectivesPrompt,
         id: userId,
         subscriptionTier: 'professional',

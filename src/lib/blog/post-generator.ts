@@ -408,7 +408,7 @@ export class BlogPostGenerator {
   /**
    * Determine target audience
    */
-  private determineAudience(topic: string, articles: any[]): string[] {
+  private determineAudience(topic: string, _articles: any[]): string[] {
     const audiences = new Set<string>();
 
     // Always include teachers

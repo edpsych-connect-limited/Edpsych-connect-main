@@ -453,14 +453,14 @@ export async function optimizeGlobalCDNAndCaching(): Promise<void> {
   logger.debug('🌍 Initializing global CDN and caching optimization...');
 
   // Configure Cloudflare cache headers
-  const cloudflareHeaders = {
+  const _cloudflareHeaders = {
     'Cache-Control': 'public, max-age=31536000, immutable',
     'CF-Cache-Status': 'HIT',
     'Edge-Cache-Tag': 'edpsych-global'
   };
 
   // Apply Vercel Edge revalidation strategy
-  const vercelEdgeConfig = {
+  const _vercelEdgeConfig = {
     revalidate: 60, // 1 minute revalidation
     staleWhileRevalidate: 300, // 5 minutes
     edgeRegions: ['fra1', 'iad1', 'sin1'] // EU, US, APAC

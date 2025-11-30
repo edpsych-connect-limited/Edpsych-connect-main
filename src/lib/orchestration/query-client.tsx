@@ -14,7 +14,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React, { useState, type ReactNode } from 'react';
-import { toast } from 'react-hot-toast';
+import { toast as _toast } from 'react-hot-toast';
 
 // ============================================================================
 // QUERY CLIENT CONFIGURATION

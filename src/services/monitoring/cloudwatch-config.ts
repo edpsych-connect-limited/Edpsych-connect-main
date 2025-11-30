@@ -6,7 +6,7 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-import { config } from '../../config';
+import { config as _config } from '../../config';
 
 export interface CloudWatchConfig {
   region: string;

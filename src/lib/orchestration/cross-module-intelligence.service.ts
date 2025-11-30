@@ -21,7 +21,7 @@
 import { PrismaClient } from '@prisma/client';
 import { ProfileBuilderService } from './profile-builder.service';
 import { AssignmentEngineService } from './assignment-engine.service';
-import { DataRouterService } from './data-router.service';
+import { DataRouterService as _DataRouterService } from './data-router.service';
 import { logger } from "@/lib/logger";
 
 const prisma = new PrismaClient();
@@ -455,7 +455,7 @@ export class CrossModuleIntelligenceService {
     }
 
     // STEP 3: Generate parent update
-    const parentUpdate = await AssignmentEngineService.generateParentUpdate(
+    const _parentUpdate = await AssignmentEngineService.generateParentUpdate(
       entity_data.assignment_id
     );
 
@@ -623,7 +623,7 @@ export class CrossModuleIntelligenceService {
    * 6. Notify EP with one-click review access
    */
   private static async handleEHCPDue(event: TriggerEvent): Promise<TriggerResult> {
-    const { student_id, entity_data } = event;
+    const { student_id, entity_data: _entity_data } = event;
 
     if (!student_id) {
       throw new Error('Student ID required for EHCP due event');

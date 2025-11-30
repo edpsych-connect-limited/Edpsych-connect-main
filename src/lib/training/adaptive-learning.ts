@@ -14,7 +14,7 @@
  * - Customized content paths
  */
 
-import { Course, getCourseById, COURSE_CATALOG } from './course-catalog';
+import { type Course as _Course, getCourseById, COURSE_CATALOG } from './course-catalog';
 import { UserCourseProgress } from './progress-tracker';
 
 // ============================================================================

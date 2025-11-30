@@ -399,7 +399,7 @@ export class GDPRComplianceService {
       if (userDataResult.rows.length > 0) {
         const userData = userDataResult.rows[0];
         // Remove sensitive fields like passwords
-        const { password, password_hash, ...sanitizedData } = userData;
+        const { password: _password, password_hash: _password_hash, ...sanitizedData } = userData;
         exportData.personalData = sanitizedData;
       }
 

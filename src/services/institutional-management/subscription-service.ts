@@ -103,7 +103,7 @@ export class SubscriptionService {
       await this.verifyInstitutionAdminAccess(data.id, userId);
       
       // Calculate pricing
-      const { pricePerLicense, totalPrice, discountApplied } = this.calculatePricing(
+      const { pricePerLicense: _pricePerLicense, totalPrice, discountApplied } = this.calculatePricing(
         data.plan,
         data.licenseCount,
         data.customDiscount,
@@ -535,7 +535,7 @@ export class SubscriptionService {
   /**
    * Get available volume discount tiers
    */
-  async getVolumeDiscountTiers(userId: string): Promise<any[]> {
+  async getVolumeDiscountTiers(_userId: string): Promise<any[]> {
     return VOLUME_DISCOUNT_TIERS;
   }
 

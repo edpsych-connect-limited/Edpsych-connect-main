@@ -1,4 +1,4 @@
-import { logger } from "@/lib/logger";
+import { logger as _logger } from "@/lib/logger";
 /**
  * Enterprise-grade code validation framework
  * Validates TypeScript code for completeness, consistency, and correctness

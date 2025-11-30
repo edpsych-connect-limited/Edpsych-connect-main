@@ -10,14 +10,14 @@ import Anthropic from '@anthropic-ai/sdk';
 import { z } from 'zod';
 
 // Environment validation schema
-const EnvSchema = z.object({
+const _EnvSchema = z.object({
   OPENAI_API_KEY: z.string().optional(),
   CLAUDE_API_KEY: z.string().optional(),
   XAI_API_KEY: z.string().optional(),
 });
 
 // Validate environment variables
-const env: z.infer<typeof EnvSchema> = {
+const env: z.infer<typeof _EnvSchema> = {
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   CLAUDE_API_KEY: process.env.CLAUDE_API_KEY,
   XAI_API_KEY: process.env.XAI_API_KEY,
@@ -245,7 +245,7 @@ export class AIService {
    */
   async generateResponse({
     prompt,
-    id,
+    id: _id,
     subscriptionTier = 'standard',
     useCase = 'general',
     maxTokens = 500,

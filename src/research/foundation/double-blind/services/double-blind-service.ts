@@ -2347,9 +2347,9 @@ export class DoubleBlindService {
         const weight = factor.weight || 1;
         
         // Sum counts across all arms for this factor value
-        let totalCount = 0;
+        let _totalCount = 0;
         for (const armId in armFactorCounts) {
-          totalCount += armFactorCounts[armId][factor.factor][factorValue] || 0;
+          _totalCount += armFactorCounts[armId][factor.factor][factorValue] || 0;
         }
         
         // Current count for this arm

@@ -4,7 +4,7 @@ import { logger } from "@/lib/logger";
  * Enterprise-grade monitoring, alerting, and observability
  */
 
-import { performance } from 'perf_hooks';
+import { performance as _performance } from 'perf_hooks';
 
 export interface MonitoringMetrics {
   timestamp: Date;

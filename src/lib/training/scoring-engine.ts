@@ -154,11 +154,11 @@ export class ScoringEngine {
 export function calculateMultipleChoicePartialCredit(
   selectedAnswers: number[],
   correctAnswers: number[],
-  totalOptions: number
+  _totalOptions: number
 ): number {
   const correctSelections = selectedAnswers.filter(a => correctAnswers.includes(a)).length;
   const incorrectSelections = selectedAnswers.filter(a => !correctAnswers.includes(a)).length;
-  const missedCorrect = correctAnswers.filter(a => !selectedAnswers.includes(a)).length;
+  const _missedCorrect = correctAnswers.filter(a => !selectedAnswers.includes(a)).length;
 
   // Score: (correct - incorrect) / total correct
   const score = (correctSelections - incorrectSelections) / correctAnswers.length;

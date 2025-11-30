@@ -206,7 +206,7 @@ export async function getSignedStorageUrl(
  */
 export async function deleteFromSecureStorage(path: string): Promise<boolean> {
   try {
-    const result = await prisma.secureDocument.delete({
+    await prisma.secureDocument.delete({
       where: { path }
     });
 

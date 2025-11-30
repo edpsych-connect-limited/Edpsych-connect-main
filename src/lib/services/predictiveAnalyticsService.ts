@@ -762,10 +762,10 @@ class PredictiveAnalyticsService {
    * Analyse engagement patterns
    *
    * @private
-   * @param {Object} engagementData - Engagement data
+   * @param {Object} _engagementData - Engagement data
    * @returns {Object} Patterns
    */
-  _analyseEngagementPatterns(engagementData: any): any {
+  _analyseEngagementPatterns(_engagementData: any): any {
     return {
       consistencyScore: 0.5,
       peakTimes: [],
@@ -819,10 +819,10 @@ class PredictiveAnalyticsService {
    * Gather retention data
    *
    * @private
-   * @param {Object} filters - Filter criteria
+   * @param {Object} _filters - Filter criteria
    * @returns {Promise<Object>} Retention data
    */
-  async _gatherRetentionData(filters: any): Promise<any> {
+  async _gatherRetentionData(_filters: any): Promise<any> {
     try {
       return {
         cohorts: [],
@@ -839,11 +839,11 @@ class PredictiveAnalyticsService {
    * Calculate retention metrics
    *
    * @private
-   * @param {Object} retentionData - Retention data
-   * @param {string} cohortPeriod - Cohort period
+   * @param {Object} _retentionData - Retention data
+   * @param {string} _cohortPeriod - Cohort period
    * @returns {Object} Metrics
    */
-  _calculateRetentionMetrics(retentionData: any, cohortPeriod: string): any {
+  _calculateRetentionMetrics(_retentionData: any, _cohortPeriod: string): any {
     return {
       overallRetentionRate: 0,
       cohortRetentionRates: {},
@@ -900,10 +900,10 @@ class PredictiveAnalyticsService {
    *
    * @private
    * @param {string} studentId - Student ID
-   * @param {Object} prediction - Prediction data
+   * @param {Object} _prediction - Prediction data
    * @returns {Promise<Object>} Intervention
    */
-  async _createUrgentIntervention(studentId: string, prediction: any): Promise<any> {
+  async _createUrgentIntervention(studentId: string, _prediction: any): Promise<any> {
     try {
       return {
         studentId,
@@ -922,10 +922,10 @@ class PredictiveAnalyticsService {
    *
    * @private
    * @param {string} studentId - Student ID
-   * @param {Object} prediction - Prediction data
+   * @param {Object} _prediction - Prediction data
    * @returns {Promise<Object>} Intervention
    */
-  async _createProactiveIntervention(studentId: string, prediction: any): Promise<any> {
+  async _createProactiveIntervention(studentId: string, _prediction: any): Promise<any> {
     try {
       return {
         studentId,
@@ -960,10 +960,10 @@ class PredictiveAnalyticsService {
    * Schedule intervention
    *
    * @private
-   * @param {Object} intervention - Intervention data
+   * @param {Object} _intervention - Intervention data
    * @returns {Promise<void>}
    */
-  async _scheduleIntervention(intervention: any): Promise<void> {
+  async _scheduleIntervention(_intervention: any): Promise<void> {
     try {
       // Schedule intervention
       logger.info('Intervention scheduled');
@@ -992,10 +992,10 @@ class PredictiveAnalyticsService {
    * Analyse learning performance
    *
    * @private
-   * @param {Object} learningData - Learning data
+   * @param {Object} _learningData - Learning data
    * @returns {Object} Performance analysis
    */
-  _analyseLearningPerformance(learningData: any): any {
+  _analyseLearningPerformance(_learningData: any): any {
     return { performanceScore: 0, trends: [] };
   }
 

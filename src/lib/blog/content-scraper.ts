@@ -373,7 +373,7 @@ export class ContentScraper {
   /**
    * Get trending topics from recent scrapes
    */
-  async getTrendingTopics(daysBack: number = 7): Promise<Record<string, number>> {
+  async getTrendingTopics(_daysBack: number = 7): Promise<Record<string, number>> {
     // In production, would analyze recent scrapes from database
     const topicCounts: Record<string, number> = {};
 

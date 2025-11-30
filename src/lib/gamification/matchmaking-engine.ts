@@ -104,7 +104,7 @@ export function calculateMMR(
     seasonMerits: number;
   }
 ): number {
-  const K_FACTOR = 32; // How much each match affects MMR
+  const _K_FACTOR = 32; // How much each match affects MMR (reserved for future ELO implementation)
   const baseMMR = 1000;
 
   // Win rate component

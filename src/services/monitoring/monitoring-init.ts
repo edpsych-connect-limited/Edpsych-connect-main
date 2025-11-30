@@ -46,7 +46,7 @@ export class MonitoringInitializer {
     const {
       enableSystemMetrics = true,
       enableDatabaseMetrics = true,
-      enableApiMonitoring = true,
+      enableApiMonitoring: _enableApiMonitoring = true,
       setupAlarms = true,
       systemMetricsIntervalMs = 60000,
       databaseMetricsIntervalMs = 60000,

@@ -874,7 +874,7 @@ export function updateLeaderboard(
 
   if (existingEntry) {
     // Update existing entry
-    const oldRank = existingEntry.rank;
+    const _oldRank = existingEntry.rank; // Preserved for future rank change tracking
     existingEntry.total_points += pointsToAdd;
     if (objectiveCompleted) {
       existingEntry.objectives_completed += 1;

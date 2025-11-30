@@ -17,7 +17,7 @@
  */
 
 import { PrismaClient } from '@prisma/client';
-import { AIService } from '@/services/ai-service';
+import { AIService as _AIService } from '@/services/ai-service';
 import { ProfileBuilderService } from './profile-builder.service';
 import { logger } from "@/lib/logger";
 
@@ -132,7 +132,7 @@ export class AssignmentEngineService {
    */
   private static async differentiateActivity(
     activity: ActivityBase,
-    year_group: string
+    _year_group: string
   ): Promise<{
     below: any;
     at: any;

@@ -7,7 +7,7 @@
  */
 
 import os from 'os';
-import fs from 'fs';
+import * as _fs from 'fs';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import { monitoringService } from './monitoring-service';

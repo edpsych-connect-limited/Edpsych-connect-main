@@ -4,9 +4,10 @@
  * Service responsible for managing ethics assessments, including creation,
  * updates, reviews, approvals, and generating assessment documentation.
  */
-import { logger } from '@/lib/logger';
+// Logger available for future use: import { logger } from '@/lib/logger';
 
-import EthicsAssessment from '../models/EthicsAssessment';
+// EthicsAssessment model available for future use
+// import EthicsAssessment from '../models/EthicsAssessment';
 
 class EthicsAssessmentService {
   constructor({

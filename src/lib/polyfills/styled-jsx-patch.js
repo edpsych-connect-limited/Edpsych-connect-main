@@ -25,7 +25,7 @@ const createMockRegistry = () => {
 
 // Global StyleSheet replacement for styled-jsx
 class MockStyleSheet {
-  constructor(options) {
+  constructor(_options) {
     this.tags = [];
     this.ctr = 0;
     this.sheet = null;
@@ -38,7 +38,7 @@ class MockStyleSheet {
   flush() {}
   getSheet() { return { cssRules: [] }; }
   getRules() { return ""; }
-  insertRule(rule) { return 0; }
+  insertRule(_rule) { return 0; }
   deleteRule() {}
   replaceRule() {}
 }

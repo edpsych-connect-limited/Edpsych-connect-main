@@ -197,7 +197,7 @@ export class EHCPPDFGenerator {
   // COVER PAGE
   // ==========================================================================
 
-  private addCoverPage(ehcp: EHCPData, branding?: PDFOptions['branding']) {
+  private addCoverPage(ehcp: EHCPData, _branding?: PDFOptions['branding']) {
     // Header with LA branding
     this.doc.setFillColor(...this.PRIMARY_COLOR);
     this.doc.rect(0, 0, this.PAGE_WIDTH, 60, 'F');
@@ -543,7 +543,7 @@ export class EHCPPDFGenerator {
   // SIGNATURES PAGE
   // ==========================================================================
 
-  private addSignaturesPage(ehcp: EHCPData) {
+  private addSignaturesPage(_ehcp: EHCPData) {
     this.addPage();
     this.addSectionHeader('Signatures and Approvals');
 

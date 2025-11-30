@@ -18,11 +18,11 @@
 import {
   INTERVENTION_LIBRARY,
   InterventionTemplate,
-  InterventionCategory,
+  InterventionCategory as _InterventionCategory,
   AgeRange,
   Setting,
   EvidenceLevel,
-  getRecommendedInterventions,
+  getRecommendedInterventions as _getRecommendedInterventions,
 } from './intervention-library';
 
 // ============================================================================
@@ -699,7 +699,7 @@ function generateRationale(
   request: RecommendationRequest,
   recommendations: InterventionRecommendation[]
 ): string {
-  const { student_profile, assessment_data, target_areas, priority_level } = request;
+  const { student_profile, assessment_data, target_areas, priority_level: _priority_level } = request;
 
   let rationale = '';
 

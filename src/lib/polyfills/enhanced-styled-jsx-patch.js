@@ -22,7 +22,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
         style: {},
         sheet: {
           cssRules: [],
-          insertRule: (rule) => 0,
+          insertRule: (_rule) => 0,
           deleteRule: () => {}
         },
         setAttribute: () => {},
@@ -102,7 +102,7 @@ if (typeof global !== 'undefined' && !global.__STYLED_JSX_ULTRA_PATCH_APPLIED__)
     flush() {}
     getSheet() { return { cssRules: [] }; }
     getRules() { return ""; }
-    insertRule(rule) { return 0; }
+    insertRule(_rule) { return 0; }
     deleteRule() {}
     replaceRule() {}
     cssRules() { return []; }

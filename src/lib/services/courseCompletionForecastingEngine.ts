@@ -25,7 +25,7 @@ import { openai } from '@/lib/openai';
 // TYPE DEFINITIONS
 // ============================================================================
 
-const CompletionForecastSchema = z.object({
+const _CompletionForecastSchema = z.object({
   courseId: z.string().uuid(),
   studentId: z.string().uuid().optional(),
   currentCompletionRate: z.number().min(0).max(1),
@@ -51,7 +51,7 @@ const RiskFactorSchema = z.object({
   recommendation: z.string(),
 });
 
-const CohortAnalysisSchema = z.object({
+const _CohortAnalysisSchema = z.object({
   cohortId: z.string(),
   cohortName: z.string(),
   size: z.number(),
@@ -61,9 +61,9 @@ const CohortAnalysisSchema = z.object({
   topRiskFactors: z.array(RiskFactorSchema),
 });
 
-type CompletionForecast = z.infer<typeof CompletionForecastSchema>;
+type CompletionForecast = z.infer<typeof _CompletionForecastSchema>;
 type RiskFactor = z.infer<typeof RiskFactorSchema>;
-type CohortAnalysis = z.infer<typeof CohortAnalysisSchema>;
+type CohortAnalysis = z.infer<typeof _CohortAnalysisSchema>;
 
 interface ForecastingConfig {
   forecastHorizon?: number; // days

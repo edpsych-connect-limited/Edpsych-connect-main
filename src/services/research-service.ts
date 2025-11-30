@@ -4,7 +4,7 @@
  */
 
 import { prisma } from '@/lib/prisma';
-import { Prisma } from '@prisma/client';
+import { type Prisma as _Prisma } from '@prisma/client';
 
 export interface ResearchStudy {
   id: string;

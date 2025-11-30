@@ -352,7 +352,7 @@ export class RecommendationService {
    * Generate assessment-based recommendations
    * This recommends content based on recent assessment results
    */
-  async generateAssessmentBasedRecommendations(id: string, limit: number = 5) {
+  async generateAssessmentBasedRecommendations(id: string, _limit: number = 5) {
     // Get the user's recent assessment results
     // Assuming AssessmentResult is linked to Assessment which is linked to Student which is linked to User?
     // Or AssessmentResult has userId? The schema says AssessmentResult -> Assessment -> Student.
@@ -524,7 +524,7 @@ export class RecommendationService {
   /**
    * Process recommendation feedback
    */
-  async processRecommendationFeedback(id: string, recommendationId: string, isRelevant: boolean, feedbackText?: string) {
+  async processRecommendationFeedback(id: string, recommendationId: string, isRelevant: boolean, _feedbackText?: string) {
     // Record the feedback - Assuming RecommendationFeedback model exists or we just update status
     // The schema didn't have RecommendationFeedback, so I'll just update status for now
     

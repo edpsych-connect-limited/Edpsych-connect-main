@@ -346,15 +346,15 @@ export class QuantumResistantCrypto {
   /**
    * Hybrid decrypt data using Kyber for key decapsulation and AES for decryption
    * @param encryptedData The encrypted data
-   * @param privateKey The recipient's Kyber private key
+   * @param _privateKey The recipient's Kyber private key
    * @returns The decrypted data
    */
-  public hybridDecrypt(encryptedData: Buffer, privateKey: CryptoKey): Buffer {
+  public hybridDecrypt(encryptedData: Buffer, _privateKey: CryptoKey): Buffer {
     // Get the ciphertext size
     const ciphertextSize = this.getKyberCiphertextSize();
 
     // Extract the ciphertext and data
-    const ciphertext = encryptedData.slice(0, ciphertextSize);
+    const _ciphertext = encryptedData.slice(0, ciphertextSize);
     const data = encryptedData.slice(ciphertextSize);
 
     // Mock decapsulation - just return the data

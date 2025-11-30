@@ -4,7 +4,7 @@
  */
 
 import { prisma } from '@/lib/prisma';
-import { AIService } from './ai-service';
+import { type AIService as _AIService } from './ai-service';
 
 export interface BlogPost {
   id: string;
@@ -236,7 +236,7 @@ export class BlogService {
   /**
    * Generate research-backed content
    */
-  async generateResearchContent(topic: string, researchFocus: string): Promise<BlogPost> {
+  async generateResearchContent(topic: string, _researchFocus: string): Promise<BlogPost> {
     const researchContent = await this.generateBlogContent({
       topic,
       category: 'research',

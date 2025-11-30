@@ -210,7 +210,7 @@ function addWeeks(date: Date, weeks: number): Date {
   return result;
 }
 
-function addDays(date: Date, days: number): Date {
+function _addDays(date: Date, days: number): Date {
   const result = new Date(date);
   result.setDate(result.getDate() + days);
   return result;

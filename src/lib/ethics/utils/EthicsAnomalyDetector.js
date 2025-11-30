@@ -4,7 +4,7 @@
  * Utility for detecting anomalies in ethical metrics using various
  * statistical methods and machine learning techniques.
  */
-import { logger } from '@/lib/logger';
+// Logger available for future use: import { logger } from '@/lib/logger';
 
 class EthicsAnomalyDetector {
   constructor({
@@ -89,7 +89,7 @@ class EthicsAnomalyDetector {
    * @returns {Object} Detection result with anomaly status and details
    * @private
    */
-  detectWithZScore(history, currentValue, options = {}) {
+  detectWithZScore(history, currentValue, _options = {}) {
     // Calculate mean and standard deviation
     const mean = this.calculateMean(history);
     const stdDev = this.calculateStandardDeviation(history, mean);
@@ -143,7 +143,7 @@ class EthicsAnomalyDetector {
    * @returns {Object} Detection result with anomaly status and details
    * @private
    */
-  detectWithIQR(history, currentValue, options = {}) {
+  detectWithIQR(history, currentValue, _options = {}) {
     // Sort the history
     const sortedHistory = [...history].sort((a, b) => a - b);
     

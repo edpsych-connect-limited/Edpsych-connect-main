@@ -69,11 +69,11 @@ export class CPDPortfolioGenerator {
 
     // Reflection Statement
     if (data.reflectionStatement) {
-      yPos = this.addReflectionStatement(doc, data, yPos);
+      this.addReflectionStatement(doc, data, yPos);
     }
 
     // Professional Standards Compliance
-    yPos = this.addComplianceStatement(doc, data, yPos);
+    this.addComplianceStatement(doc, data, yPos);
 
     // Footer on all pages
     const pageCount = doc.getNumberOfPages();
@@ -295,7 +295,7 @@ export class CPDPortfolioGenerator {
     // Sort entries by date
     const sortedEntries = [...data.entries].sort((a, b) => a.date.getTime() - b.date.getTime());
 
-    sortedEntries.forEach((entry, index) => {
+    sortedEntries.forEach((entry, _index) => {
       // Check if we need a new page
       if (yPos > this.PAGE_HEIGHT - 50) {
         doc.addPage();

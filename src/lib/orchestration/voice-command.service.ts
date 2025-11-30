@@ -17,7 +17,7 @@
  */
 
 import { PrismaClient } from '@prisma/client';
-import { AIService } from '@/services/ai-service';
+import { AIService as _AIService } from '@/services/ai-service';
 import { aiService } from '@/lib/ai-integration';
 import { DataRouterService } from './data-router.service';
 import { logger } from "@/lib/logger";
@@ -762,9 +762,9 @@ export class VoiceCommandService {
    * Assign lesson
    */
   private static async assignLesson(
-    userId: number,
-    lessonTopic: string,
-    target: string
+    _userId: number,
+    _lessonTopic: string,
+    _target: string
   ): Promise<any> {
     // TODO: Implement lesson assignment via voice
     return {

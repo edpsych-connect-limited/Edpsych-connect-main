@@ -241,7 +241,7 @@ export function isWithinLimit(
  */
 export function getUpgradeRecommendation(
   currentPlanId: string,
-  usageLimitHit?: keyof PlanLimits
+  _usageLimitHit?: keyof PlanLimits
 ): SubscriptionPlan | null {
   const currentPlan = getPlanById(currentPlanId);
   if (!currentPlan) return null;

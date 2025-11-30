@@ -680,8 +680,8 @@ export class DataRouterService {
    * @returns Cross-subject holistic profiles
    */
   static async getSecondaryFormTutorView(
-    tutorId: number,
-    formGroupId: string
+    _tutorId: number,
+    _formGroupId: string
   ): Promise<SecondaryFormTutorView> {
     try {
       // TODO: Implement form group model
@@ -715,7 +715,7 @@ export class DataRouterService {
   static async routeProgressUpdate(
     studentId: number,
     updateType: string,
-    updateData: any
+    _updateData: any
   ): Promise<void> {
     try {
       // Get student and profile
@@ -869,7 +869,7 @@ export class DataRouterService {
    */
   private static async getTodayActionsSummary(
     tenantId: number,
-    classRosterId: string
+    _classRosterId: string
   ): Promise<{
     lessons_assigned: number;
     interventions_triggered: number;
@@ -916,7 +916,7 @@ export class DataRouterService {
   /**
    * Get recent celebrations for student
    */
-  private static async getRecentCelebrations(studentId: number): Promise<Celebration[]> {
+  private static async getRecentCelebrations(_studentId: number): Promise<Celebration[]> {
     // TODO: Implement celebration tracking
     return [];
   }
@@ -1018,7 +1018,7 @@ export class DataRouterService {
    * Get EHCP data for EP view
    */
   private static async getEHCPData(
-    studentIds: number[]
+    _studentIds: number[]
   ): Promise<{
     due_for_review: EHCPReview[];
     new_requests: EHCPRequest[];
@@ -1035,7 +1035,7 @@ export class DataRouterService {
   /**
    * Get cross-school trends
    */
-  private static async getCrossSchoolTrends(studentIds: number[]): Promise<TrendData> {
+  private static async getCrossSchoolTrends(_studentIds: number[]): Promise<TrendData> {
     // TODO: Implement trend analysis
     return {
       intervention_effectiveness: [],

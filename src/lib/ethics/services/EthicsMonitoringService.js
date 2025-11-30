@@ -4,9 +4,10 @@
  * Service responsible for continuous monitoring of ethical metrics,
  * detecting anomalies, and generating incidents when thresholds are exceeded.
  */
-import { logger } from '@/lib/logger';
+// Logger available for future use: import { logger } from '@/lib/logger';
 
-import EthicsMonitor from '../models/EthicsMonitor';
+// EthicsMonitor model available for future use
+// import EthicsMonitor from '../models/EthicsMonitor';
 import EthicsIncident from '../models/EthicsIncident';
 
 class EthicsMonitoringService {

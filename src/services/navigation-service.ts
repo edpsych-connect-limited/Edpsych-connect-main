@@ -3,7 +3,7 @@
  * Makes the platform effortless to use with AI-powered guidance
  */
 
-import { AIService } from './ai-service';
+import { type AIService as _AIService } from './ai-service';
 
 export interface UserSession {
   id: string;

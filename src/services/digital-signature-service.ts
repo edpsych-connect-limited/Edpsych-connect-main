@@ -42,7 +42,7 @@ export class DigitalSignatureService {
       
       // Create a hash of the agreement content for verification
       const agreementContent = await this.getAgreementContent(agreementType, agreementVersion);
-      const contentHash = this.createContentHash(agreementContent);
+      const _contentHash = this.createContentHash(agreementContent);
       
       // Create the signature record
       // Extract browser information
@@ -61,7 +61,7 @@ export class DigitalSignatureService {
       });
 
       // Create the signature record with required signatureData field
-      const signatureRecord = await prisma.legalSignature.create({
+      const _signatureRecord = await prisma.legalSignature.create({
         data: {
           id: signatureId,
           userId: userId,

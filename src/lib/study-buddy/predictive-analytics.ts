@@ -146,7 +146,7 @@ export class PredictiveAnalyticsEngine {
 
     // Calculate success rate from historical data
     const completed = interventions.filter((i: any) => i.status === 'completed').length;
-    const inProgress = interventions.filter((i: any) => i.status === 'in_progress').length;
+    const _inProgress = interventions.filter((i: any) => i.status === 'in_progress').length;
     const total = interventions.length;
 
     // Historical success rate

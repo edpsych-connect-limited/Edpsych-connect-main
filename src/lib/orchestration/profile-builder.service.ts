@@ -368,7 +368,7 @@ export class ProfileBuilderService {
     performance: BattleRoyalePerformance
   ): Promise<void> {
     try {
-      const { student_id, speed_score, strategy_score, persistence_score, preferred_game_types } =
+      const { student_id, speed_score: _speed_score, strategy_score: _strategy_score, persistence_score, preferred_game_types } =
         performance;
 
       const profile = await this.getOrCreateProfile(student_id);
