@@ -2,6 +2,7 @@
 // Generated: 2025-11-29T22:07:06.571Z
 // Updated: 2025-11-30 - Added LA EHCP Portal video
 // Updated: 2025-11-30 - Added comprehensive Help Centre, EHCP, Parent Portal, Feature, and Error Recovery videos
+// Updated: 2025-12-01 - Added Admin/IT, Student, Conditions, Marketplace, Mobile, Accessibility, Crisis videos
 
 // Video IDs for HeyGen embed
 export const HEYGEN_VIDEO_IDS: Record<string, string> = {
@@ -41,6 +42,7 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   'ehcp-evidence-gathering': 'aad5f91743b042a29b5b86264aeefbca',
   'ehcp-annual-review': 'f80c4070477943bc8b2dd924271c0def',
   'ehcp-appeals-process': '6d355128bd27475b8f68860908196551',
+  'ehcp-annual-review-process': '5ae440cc160640de96065ce6a277aff1',
   
   // ============================================================================
   // LA (LOCAL AUTHORITY) SPECIFIC VIDEOS
@@ -66,6 +68,7 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   'feature-interventions': 'd82d21fa04734f879055a1da6e46beda',
   'feature-collaboration': '9fde657e5998446db4354ce8ab2f2460',
   'feature-senco-analytics': '9077ac27c7ff42e9b59520acfe296de0',
+  'feature-team-collaboration': 'e39745a9386c4284a061611baabe127e',
   
   // ============================================================================
   // ERROR RECOVERY VIDEOS
@@ -80,6 +83,60 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   // ============================================================================
   'compliance-data-protection': '697a99ea2d3446858a85d4e23732aaf2',
   'safeguarding-features': '5b8a90fd262b4c24ae26c1ce6c75f009',
+  
+  // ============================================================================
+  // ADMIN/IT SETUP VIDEOS - For School Administrators
+  // ============================================================================
+  'admin-dashboard-guide': 'd8b92f9868d64bac9b0f5b664ec4b21a',
+  'admin-sso-configuration': '53f35b9386694148a0dd0d1d9bb3bd1f',
+  'admin-mis-integration': 'abeffdc712e84aea935389930c76e45e',
+  
+  // ============================================================================
+  // STUDENT SELF-SERVICE VIDEOS
+  // ============================================================================
+  'student-portal-welcome': '0c7f1127b73f4b25874f789d9ecae72c',
+  
+  // ============================================================================
+  // SPECIFIC CONDITIONS / SEND TOPICS VIDEOS
+  // ============================================================================
+  'understanding-dyscalculia': 'dd83f850f65446c7abc1ea066e75b1d1',
+  'understanding-slcn': '705218aa65a64fd097c52e67b7aa27fe',
+  'understanding-semh': 'f62bd93387f648c799a4529bcfe06fae',
+  'understanding-adhd': 'b2e033acde9a458982448f078586d9bd',
+  'understanding-autism': '149737e4e3674a13b27b05e2efa7ca47',
+  'understanding-physical-medical': '555197fa85c544b188ded57778228b13',
+  
+  // ============================================================================
+  // MARKETPLACE VIDEOS
+  // ============================================================================
+  'marketplace-navigation': '530f3ba1d35446b6a57cef2879e02a23',
+  
+  // ============================================================================
+  // MOBILE & ACCESSIBILITY VIDEOS
+  // ============================================================================
+  'mobile-app-guide': '9899c0ef90d54a66a58b253ec59a9a9f',
+  'accessibility-features': '99f6ecf897cc4b859f45a6348b7af6bc',
+  
+  // ============================================================================
+  // CRISIS & URGENT ESCALATION VIDEOS
+  // ============================================================================
+  'safeguarding-immediate-escalation': '8c826541563d4e318adeacc29595092c',
+  'emergency-contact-protocols': '9d6cfd0cb0c743a8ac43c69e8a70306e',
+  
+  // ============================================================================
+  // DATA MANAGEMENT VIDEOS
+  // ============================================================================
+  'data-export-portability': '0422f489c00f4fe5a05e2c1ad627f791',
+  
+  // ============================================================================
+  // BILLING & SUBSCRIPTION VIDEOS
+  // ============================================================================
+  'subscription-billing-management': '2b537d5182364db8af67caa7a8bb8fbc',
+  
+  // ============================================================================
+  // PLATFORM SUMMARY & WELCOME
+  // ============================================================================
+  'platform-summary-welcome': '1d8c7bf00cde4aa2bca002d825f814f0',
   
   // ============================================================================
   // ONBOARDING VIDEO - Placeholder until dedicated video is generated
@@ -218,6 +275,66 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // ============================================================================
   'compliance-data-protection': '/content/training_videos/compliance/data-protection.mp4',
   'safeguarding-features': '/content/training_videos/compliance/safeguarding.mp4',
+  'safeguarding-immediate-escalation': '/content/training_videos/compliance/immediate-escalation.mp4',
+  'emergency-contact-protocols': '/content/training_videos/compliance/emergency-protocols.mp4',
+  
+  // ============================================================================
+  // ADMIN/IT SETUP VIDEOS
+  // ============================================================================
+  'admin-dashboard-guide': '/content/training_videos/admin/dashboard-guide.mp4',
+  'admin-sso-configuration': '/content/training_videos/admin/sso-configuration.mp4',
+  'admin-mis-integration': '/content/training_videos/admin/mis-integration.mp4',
+  
+  // ============================================================================
+  // STUDENT SELF-SERVICE VIDEOS
+  // ============================================================================
+  'student-portal-welcome': '/content/training_videos/student/portal-welcome.mp4',
+  
+  // ============================================================================
+  // SPECIFIC CONDITIONS / SEND TOPICS VIDEOS
+  // ============================================================================
+  'understanding-dyscalculia': '/content/training_videos/conditions/dyscalculia.mp4',
+  'understanding-slcn': '/content/training_videos/conditions/slcn.mp4',
+  'understanding-semh': '/content/training_videos/conditions/semh.mp4',
+  'understanding-adhd': '/content/training_videos/conditions/adhd.mp4',
+  'understanding-autism': '/content/training_videos/conditions/autism.mp4',
+  'understanding-physical-medical': '/content/training_videos/conditions/physical-medical.mp4',
+  
+  // ============================================================================
+  // MARKETPLACE VIDEOS
+  // ============================================================================
+  'marketplace-navigation': '/content/training_videos/marketplace/navigation.mp4',
+  
+  // ============================================================================
+  // MOBILE & ACCESSIBILITY VIDEOS
+  // ============================================================================
+  'mobile-app-guide': '/content/training_videos/mobile/app-guide.mp4',
+  'accessibility-features': '/content/training_videos/accessibility/features.mp4',
+  
+  // ============================================================================
+  // DATA MANAGEMENT VIDEOS
+  // ============================================================================
+  'data-export-portability': '/content/training_videos/data/export-portability.mp4',
+  
+  // ============================================================================
+  // BILLING & SUBSCRIPTION VIDEOS
+  // ============================================================================
+  'subscription-billing-management': '/content/training_videos/billing/subscription-management.mp4',
+  
+  // ============================================================================
+  // PLATFORM SUMMARY & WELCOME
+  // ============================================================================
+  'platform-summary-welcome': '/content/training_videos/marketing/platform-summary.mp4',
+  
+  // ============================================================================
+  // EHCP ANNUAL REVIEW PROCESS
+  // ============================================================================
+  'ehcp-annual-review-process': '/content/training_videos/ehcp/annual-review-process.mp4',
+  
+  // ============================================================================
+  // TEAM COLLABORATION
+  // ============================================================================
+  'feature-team-collaboration': '/content/training_videos/features/team-collaboration.mp4',
   
   // ============================================================================
   // ONBOARDING VIDEOS
