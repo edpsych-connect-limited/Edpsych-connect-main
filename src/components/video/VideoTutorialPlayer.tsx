@@ -119,6 +119,7 @@ const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   
   // LA Portal Videos (2 videos)
   'la-ehcp-portal-intro': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533892/edpsych-connect/videos/la-ehcp-portal-intro.mp4',
+  'la-dashboard-overview': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764534507/edpsych-connect/videos/la-dashboard-overview.mp4',
   
   // Help Centre Videos (5 videos)
   'help-getting-started': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533911/edpsych-connect/videos/help-getting-started.mp4',

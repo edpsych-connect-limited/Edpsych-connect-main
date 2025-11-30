@@ -174,6 +174,7 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   
   // LA Portal videos
   'la-ehcp-portal-intro': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533892/edpsych-connect/videos/la-ehcp-portal-intro.mp4',
+  'la-dashboard-overview': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764534507/edpsych-connect/videos/la-dashboard-overview.mp4',
   
   // All 56 ADHD, Autism, and Dyslexia training videos are also uploaded
   // See full mapping in VideoTutorialPlayer.tsx or cloudinary-video-urls.json
