@@ -56,14 +56,14 @@ const teamMembers: TeamMember[] = [
     role: 'Business Administration Manager',
     image: '/images/samantha-patrick.jpg',
     bio: 'Oversees all business operations, ensuring smooth day-to-day running of EdPsych Connect Limited.',
-    imagePosition: 'center 10%', // Show more of top of head
+    imagePosition: 'center 25%', // Show head and upper torso, include chin
   },
   {
     name: 'Emmanuel Oyerinde',
     role: 'Chief Technical Officer',
     image: '/images/emmanuel-oyerinde.jpg',
     bio: 'Leads technical strategy and architecture, ensuring our platform maintains enterprise-grade security and performance.',
-    imagePosition: 'center 15%', // Show more of head, less chin
+    imagePosition: 'center 20%', // Professional headshot framing
   },
   {
     name: 'George Randall',
@@ -84,7 +84,7 @@ const teamMembers: TeamMember[] = [
     role: 'Assistant Psychologist',
     image: '/images/hannah-i-patrick.jpg',
     bio: 'Provides psychological support and contributes to assessment development and research initiatives.',
-    imagePosition: 'center 10%', // Show more of head
+    imagePosition: 'center 30%', // Show head and torso properly framed
   },
 ];
 
