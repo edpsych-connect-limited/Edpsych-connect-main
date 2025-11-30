@@ -77,17 +77,9 @@ export async function GET(
     const applicationId = params.id;
 
     // Get the application
-    const application = await prisma.ehcp_applications.findUnique({
+    const application = await prisma.eHCPApplication.findUnique({
       where: { id: applicationId },
       include: {
-        child: {
-          select: {
-            id: true,
-            first_name: true,
-            last_name: true,
-            date_of_birth: true,
-          },
-        },
         school_tenant: {
           select: {
             id: true,
@@ -102,37 +94,41 @@ export async function GET(
     }
 
     // Calculate Week 6 deadline
-    const submittedDate = new Date(application.submitted_at);
+    const submittedDate = new Date(application.referral_date);
     const week6Deadline = new Date(submittedDate);
     week6Deadline.setDate(week6Deadline.getDate() + 42); // 6 weeks = 42 days
 
     const now = new Date();
     const daysUntilDeadline = Math.floor((week6Deadline.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-    const isOverdue = now > week6Deadline && !application.decision_date;
+    const isOverdue = now > week6Deadline && !application.decision_actual_date;
 
     // Get decision timeline events
-    const decisionEvents = await prisma.ehcp_timeline_events.findMany({
+    const decisionEvents = await prisma.eHCPTimelineEvent.findMany({
       where: {
         application_id: applicationId,
         event_type: {
           in: ['DECISION_TO_ASSESS', 'DECISION_REFUSED', 'PANEL_SCHEDULED', 'PANEL_COMPLETE'],
         },
       },
-      orderBy: { created_at: 'desc' },
+      orderBy: { occurred_at: 'desc' },
     });
 
     return NextResponse.json({
       application_id: applicationId,
-      child: application.child,
+      child: {
+        name: application.child_name,
+        dob: application.child_dob,
+        upn: application.child_upn,
+      },
       school: application.school_tenant,
       decision_status: {
-        has_decision: !!application.decision_date,
-        decision: application.decision_outcome,
-        decision_date: application.decision_date,
-        decision_by: application.decision_by_id,
+        has_decision: !!application.decision_actual_date,
+        decision: application.decision_to_assess,
+        decision_date: application.decision_actual_date,
+        decision_by: application.decision_made_by_id,
       },
       statutory_compliance: {
-        submitted_at: application.submitted_at,
+        submitted_at: application.referral_date,
         week_6_deadline: week6Deadline.toISOString(),
         days_until_deadline: daysUntilDeadline,
         is_overdue: isOverdue,
@@ -197,10 +193,9 @@ export async function POST(
     const data = validationResult.data;
 
     // Get the application
-    const application = await prisma.ehcp_applications.findUnique({
+    const application = await prisma.eHCPApplication.findUnique({
       where: { id: applicationId },
       include: {
-        child: true,
         school_tenant: true,
         la_tenant: true,
       },
@@ -211,7 +206,7 @@ export async function POST(
     }
 
     // Check if decision already made
-    if (application.decision_date) {
+    if (application.decision_actual_date) {
       return NextResponse.json(
         { error: 'Decision has already been recorded for this application' },
         { status: 400 }
@@ -231,35 +226,34 @@ export async function POST(
 
     const decisionDate = new Date();
     const newStatus = data.decision === 'AGREE_TO_ASSESS' 
-      ? 'ASSESSMENT_AGREED' 
-      : 'ASSESSMENT_REFUSED';
+      ? 'DECISION_TO_ASSESS' 
+      : 'DECISION_NOT_TO_ASSESS';
 
     // Update application with decision
-    const updatedApplication = await prisma.ehcp_applications.update({
+    const updatedApplication = await prisma.eHCPApplication.update({
       where: { id: applicationId },
       data: {
         status: newStatus,
-        decision_date: decisionDate,
-        decision_outcome: data.decision,
-        decision_by_id: user.id,
-        decision_reasons: data.reasons,
-        decision_rationale: data.detailed_rationale,
-        panel_date: data.panel_date ? new Date(data.panel_date) : null,
-        panel_members: data.panel_members as any,
+        decision_actual_date: decisionDate,
+        decision_to_assess: data.decision === 'AGREE_TO_ASSESS',
+        decision_made_by_id: user.id,
+        decision_reason: data.detailed_rationale,
         updated_at: decisionDate,
       },
     });
 
     // Create comprehensive timeline event
-    await prisma.ehcp_timeline_events.create({
+    await prisma.eHCPTimelineEvent.create({
       data: {
         application_id: applicationId,
         event_type: data.decision === 'AGREE_TO_ASSESS' ? 'DECISION_TO_ASSESS' : 'DECISION_REFUSED',
-        description: data.decision === 'AGREE_TO_ASSESS'
+        event_category: 'decision',
+        event_description: data.decision === 'AGREE_TO_ASSESS'
           ? 'LA agreed to conduct EHC needs assessment'
           : 'LA refused to conduct EHC needs assessment',
-        performed_by_id: user.id,
-        is_statutory_milestone: true,
+        triggered_by_id: user.id,
+        previous_status: application.status,
+        new_status: newStatus,
         metadata: {
           decision: data.decision,
           reasons: data.reasons,
@@ -267,7 +261,7 @@ export async function POST(
           panel_date: data.panel_date,
           panel_members: data.panel_members,
           evidence_reviewed: data.supporting_evidence_reviewed,
-          statutory_deadline_met: isWithinStatutoryTimeline(application.submitted_at, decisionDate),
+          statutory_deadline_met: isWithinStatutoryTimeline(application.referral_date, decisionDate),
         },
       },
     });
@@ -276,31 +270,34 @@ export async function POST(
     if (data.decision === 'AGREE_TO_ASSESS') {
       // Create mandatory contribution requests
       const mandatoryContributions = [
-        { type: 'EDUCATIONAL_PSYCHOLOGY', deadline_days: 42 },
-        { type: 'HEALTH_ADVICE', deadline_days: 42 },
-        { type: 'SCHOOL_SETTING', deadline_days: 28 },
+        { type: 'ep', section: 'B', deadline_days: 42 },
+        { type: 'health', section: 'C', deadline_days: 42 },
+        { type: 'school', section: 'A', deadline_days: 28 },
       ];
 
       for (const contrib of mandatoryContributions) {
         const deadline = new Date(decisionDate);
         deadline.setDate(deadline.getDate() + contrib.deadline_days);
 
-        await prisma.ehcp_contributions.create({
+        await prisma.eHCPContribution.create({
           data: {
             application_id: applicationId,
-            contribution_type: contrib.type,
-            status: 'REQUESTED',
-            deadline,
-            is_mandatory: true,
-            assigned_by_id: user.id,
-            assigned_at: decisionDate,
+            contributor_type: contrib.type,
+            contributor_id: user.id,
+            contributor_name: 'To be assigned',
+            contributor_role: contrib.type,
+            contributor_org: 'Pending',
+            section_type: contrib.section,
+            content: {},
+            status: 'draft',
+            due_date: deadline,
           },
         });
       }
     }
 
     // Calculate compliance
-    const week6Deadline = new Date(application.submitted_at);
+    const week6Deadline = new Date(application.referral_date);
     week6Deadline.setDate(week6Deadline.getDate() + 42);
     const withinTimeline = decisionDate <= week6Deadline;
 

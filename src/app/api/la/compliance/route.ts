@@ -62,23 +62,22 @@ export async function GET(request: NextRequest) {
     startDate.setMonth(startDate.getMonth() - periodMonths);
 
     // Fetch all applications for this LA
-    const applications = await prisma.ehcp_applications.findMany({
+    const applications = await prisma.eHCPApplication.findMany({
       where: {
         la_tenant_id: laTenantId!,
-        submitted_at: { gte: startDate },
+        referral_date: { gte: startDate },
       },
       include: {
         school_tenant: {
-          select: { id: true, name: true, urn: true },
+          select: { id: true, name: true },
         },
         contributions: {
           select: {
             id: true,
-            contribution_type: true,
+            contributor_type: true,
             status: true,
-            deadline: true,
+            due_date: true,
             submitted_at: true,
-            is_mandatory: true,
           },
         },
       },
@@ -149,36 +148,36 @@ export async function GET(request: NextRequest) {
 // ===== HELPER FUNCTIONS =====
 
 function calculateComplianceMetrics(applications: any[], now: Date) {
-  const completed = applications.filter(a => a.status === 'FINAL_EHCP_ISSUED' || a.status === 'CASE_CLOSED');
-  const active = applications.filter(a => !['FINAL_EHCP_ISSUED', 'CASE_CLOSED', 'CEASED', 'ASSESSMENT_REFUSED'].includes(a.status));
+  const completed = applications.filter(a => a.status === 'FINAL_EHCP_ISSUED' || a.status === 'CEASED');
+  const active = applications.filter(a => !['FINAL_EHCP_ISSUED', 'CEASED', 'DECISION_NOT_TO_ASSESS'].includes(a.status));
   const overdue = active.filter(a => {
-    const deadline = new Date(a.submitted_at);
+    const deadline = new Date(a.referral_date);
     deadline.setDate(deadline.getDate() + 140); // 20 weeks
     return now > deadline;
   });
 
   // Calculate compliance for completed cases
   const completedOnTime = completed.filter(a => {
-    if (!a.final_ehcp_date) return false;
-    const deadline = new Date(a.submitted_at);
+    if (!a.final_actual_date) return false;
+    const deadline = new Date(a.referral_date);
     deadline.setDate(deadline.getDate() + 140);
-    return new Date(a.final_ehcp_date) <= deadline;
+    return new Date(a.final_actual_date) <= deadline;
   });
 
   // Week 6 decision compliance
-  const decisionsMade = applications.filter(a => a.decision_date);
+  const decisionsMade = applications.filter(a => a.decision_actual_date);
   const decisionsOnTime = decisionsMade.filter(a => {
-    const deadline = new Date(a.submitted_at);
+    const deadline = new Date(a.referral_date);
     deadline.setDate(deadline.getDate() + 42);
-    return new Date(a.decision_date) <= deadline;
+    return new Date(a.decision_actual_date) <= deadline;
   });
 
   // Week 16 draft compliance
-  const draftsMade = applications.filter(a => a.draft_ehcp_date);
+  const draftsMade = applications.filter(a => a.draft_actual_date);
   const draftsOnTime = draftsMade.filter(a => {
-    const deadline = new Date(a.submitted_at);
+    const deadline = new Date(a.referral_date);
     deadline.setDate(deadline.getDate() + 112);
-    return new Date(a.draft_ehcp_date) <= deadline;
+    return new Date(a.draft_actual_date) <= deadline;
   });
 
   return {
@@ -195,14 +194,14 @@ function calculateComplianceMetrics(applications: any[], now: Date) {
     active_cases: active.length,
     completed_cases: completed.length,
     overdue_cases: overdue.length,
-    refused_cases: applications.filter(a => a.status === 'ASSESSMENT_REFUSED').length,
+    refused_cases: applications.filter(a => a.status === 'DECISION_NOT_TO_ASSESS').length,
     average_completion_days: calculateAverageCompletionDays(completed),
   };
 }
 
 function calculateTimelineBreakdown(applications: any[], now: Date) {
   const active = applications.filter(a => 
-    !['FINAL_EHCP_ISSUED', 'CASE_CLOSED', 'CEASED', 'ASSESSMENT_REFUSED'].includes(a.status)
+    !['FINAL_EHCP_ISSUED', 'CEASED', 'DECISION_NOT_TO_ASSESS'].includes(a.status)
   );
 
   const breakdown = {
@@ -213,10 +212,10 @@ function calculateTimelineBreakdown(applications: any[], now: Date) {
   };
 
   active.forEach(app => {
-    const weekNum = Math.floor((now.getTime() - new Date(app.submitted_at).getTime()) / (7 * 24 * 60 * 60 * 1000));
+    const weekNum = Math.floor((now.getTime() - new Date(app.referral_date).getTime()) / (7 * 24 * 60 * 60 * 1000));
     const caseInfo = {
       id: app.id,
-      child_id: app.child_id,
+      student_id: app.student_id,
       school: app.school_tenant?.name,
       week: weekNum,
       status: app.status,
@@ -250,31 +249,31 @@ function analyseBreaches(applications: any[], now: Date) {
   };
 
   applications.forEach(app => {
-    const submittedDate = new Date(app.submitted_at);
+    const referralDate = new Date(app.referral_date);
     
     // Week 6 breach
-    const week6Deadline = new Date(submittedDate);
+    const week6Deadline = new Date(referralDate);
     week6Deadline.setDate(week6Deadline.getDate() + 42);
-    if (now > week6Deadline && !app.decision_date) {
+    if (now > week6Deadline && !app.decision_actual_date) {
       breaches.week_6_breaches.push({
         id: app.id,
         school: app.school_tenant?.name,
         days_overdue: Math.floor((now.getTime() - week6Deadline.getTime()) / (24 * 60 * 60 * 1000)),
       });
-    } else if (app.decision_date && new Date(app.decision_date) > week6Deadline) {
+    } else if (app.decision_actual_date && new Date(app.decision_actual_date) > week6Deadline) {
       breaches.week_6_breaches.push({
         id: app.id,
         school: app.school_tenant?.name,
-        days_overdue: Math.floor((new Date(app.decision_date).getTime() - week6Deadline.getTime()) / (24 * 60 * 60 * 1000)),
+        days_overdue: Math.floor((new Date(app.decision_actual_date).getTime() - week6Deadline.getTime()) / (24 * 60 * 60 * 1000)),
         resolved: true,
       });
     }
 
     // Week 16 breach (only if decision was to assess)
-    if (app.decision_outcome === 'AGREE_TO_ASSESS') {
-      const week16Deadline = new Date(submittedDate);
+    if (app.decision_to_assess === true) {
+      const week16Deadline = new Date(referralDate);
       week16Deadline.setDate(week16Deadline.getDate() + 112);
-      if (now > week16Deadline && !app.draft_ehcp_date) {
+      if (now > week16Deadline && !app.draft_actual_date) {
         breaches.week_16_breaches.push({
           id: app.id,
           school: app.school_tenant?.name,
@@ -284,10 +283,10 @@ function analyseBreaches(applications: any[], now: Date) {
     }
 
     // Week 20 breach
-    if (app.decision_outcome === 'AGREE_TO_ASSESS') {
-      const week20Deadline = new Date(submittedDate);
+    if (app.decision_to_assess === true) {
+      const week20Deadline = new Date(referralDate);
       week20Deadline.setDate(week20Deadline.getDate() + 140);
-      if (now > week20Deadline && !app.final_ehcp_date) {
+      if (now > week20Deadline && !app.final_actual_date) {
         breaches.week_20_breaches.push({
           id: app.id,
           school: app.school_tenant?.name,
@@ -309,30 +308,30 @@ function analyseBreaches(applications: any[], now: Date) {
 function identifyBottlenecks(applications: any[], now: Date) {
   const bottlenecks = {
     awaiting_decision: applications.filter(a => 
-      a.status === 'SUBMITTED' || a.status === 'UNDER_REVIEW' || a.status === 'DECISION_PENDING'
+      a.status === 'SUBMITTED' || a.status === 'EVIDENCE_GATHERING' || a.status === 'PANEL_REVIEW_PENDING'
     ).length,
     awaiting_ep_advice: 0,
     awaiting_health_advice: 0,
     awaiting_social_care: 0,
     awaiting_school_input: 0,
-    draft_in_progress: applications.filter(a => a.status === 'DRAFT_EHCP_IN_PROGRESS').length,
-    in_consultation: applications.filter(a => a.status === 'CONSULTATION_PERIOD').length,
-    awaiting_panel: applications.filter(a => a.status === 'PANEL_REVIEW_SCHEDULED').length,
+    draft_in_progress: applications.filter(a => a.status === 'DRAFT_IN_PROGRESS').length,
+    in_consultation: applications.filter(a => a.status === 'CONSULTATION_PARENT_SENT' || a.status === 'CONSULTATION_SCHOOL_SENT').length,
+    awaiting_panel: applications.filter(a => a.status === 'PANEL_REVIEW_PENDING').length,
   };
 
   // Count professional contribution delays
   applications.forEach(app => {
     if (app.contributions) {
       app.contributions.forEach((c: any) => {
-        if (c.status === 'REQUESTED' || c.status === 'IN_PROGRESS') {
-          const _isOverdue = new Date(c.deadline) < now;
-          if (c.contribution_type === 'EDUCATIONAL_PSYCHOLOGY') {
+        if (c.status === 'draft') {
+          const _isOverdue = new Date(c.due_date) < now;
+          if (c.contributor_type === 'ep') {
             bottlenecks.awaiting_ep_advice++;
-          } else if (c.contribution_type === 'HEALTH_ADVICE') {
+          } else if (c.contributor_type === 'health') {
             bottlenecks.awaiting_health_advice++;
-          } else if (c.contribution_type === 'SOCIAL_CARE') {
+          } else if (c.contributor_type === 'social_care') {
             bottlenecks.awaiting_social_care++;
-          } else if (c.contribution_type === 'SCHOOL_SETTING') {
+          } else if (c.contributor_type === 'school') {
             bottlenecks.awaiting_school_input++;
           }
         }
@@ -356,7 +355,7 @@ function analyseSchoolPerformance(applications: any[]) {
   const schoolStats: Record<string, any> = {};
 
   applications.forEach(app => {
-    const schoolId = app.school_tenant?.id || 'unknown';
+    const schoolId = app.school_tenant?.id?.toString() || 'unknown';
     const schoolName = app.school_tenant?.name || 'Unknown School';
 
     if (!schoolStats[schoolId]) {
@@ -373,7 +372,7 @@ function analyseSchoolPerformance(applications: any[]) {
 
     schoolStats[schoolId].total_applications++;
     if (app.status === 'FINAL_EHCP_ISSUED') schoolStats[schoolId].completed++;
-    else if (app.status === 'ASSESSMENT_REFUSED') schoolStats[schoolId].refused++;
+    else if (app.status === 'DECISION_NOT_TO_ASSESS') schoolStats[schoolId].refused++;
     else schoolStats[schoolId].in_progress++;
   });
 
@@ -382,25 +381,25 @@ function analyseSchoolPerformance(applications: any[]) {
 
 function analyseProfessionalResponseTimes(applications: any[]) {
   const professionalStats: Record<string, any> = {
-    EDUCATIONAL_PSYCHOLOGY: { count: 0, total_days: 0, on_time: 0, overdue: 0 },
-    HEALTH_ADVICE: { count: 0, total_days: 0, on_time: 0, overdue: 0 },
-    SOCIAL_CARE: { count: 0, total_days: 0, on_time: 0, overdue: 0 },
-    SCHOOL_SETTING: { count: 0, total_days: 0, on_time: 0, overdue: 0 },
+    ep: { count: 0, total_days: 0, on_time: 0, overdue: 0 },
+    health: { count: 0, total_days: 0, on_time: 0, overdue: 0 },
+    social_care: { count: 0, total_days: 0, on_time: 0, overdue: 0 },
+    school: { count: 0, total_days: 0, on_time: 0, overdue: 0 },
   };
 
   applications.forEach(app => {
     if (app.contributions) {
       app.contributions.forEach((c: any) => {
-        if (c.status === 'SUBMITTED' || c.status === 'ACCEPTED') {
-          const type = c.contribution_type;
+        if (c.status === 'submitted' || c.status === 'accepted') {
+          const type = c.contributor_type;
           if (professionalStats[type]) {
             professionalStats[type].count++;
-            if (c.submitted_at && c.assigned_at) {
+            if (c.submitted_at && c.requested_at) {
               const days = Math.floor(
-                (new Date(c.submitted_at).getTime() - new Date(c.assigned_at).getTime()) / (24 * 60 * 60 * 1000)
+                (new Date(c.submitted_at).getTime() - new Date(c.requested_at).getTime()) / (24 * 60 * 60 * 1000)
               );
               professionalStats[type].total_days += days;
-              if (new Date(c.submitted_at) <= new Date(c.deadline)) {
+              if (new Date(c.submitted_at) <= new Date(c.due_date)) {
                 professionalStats[type].on_time++;
               } else {
                 professionalStats[type].overdue++;
@@ -430,12 +429,12 @@ function calculateMonthlyTrends(applications: any[], months: number) {
     const monthEnd = new Date(now.getFullYear(), now.getMonth() - i + 1, 0);
 
     const monthApps = applications.filter(a => {
-      const submitted = new Date(a.submitted_at);
-      return submitted >= monthStart && submitted <= monthEnd;
+      const referral = new Date(a.referral_date);
+      return referral >= monthStart && referral <= monthEnd;
     });
 
     const completed = monthApps.filter(a => a.status === 'FINAL_EHCP_ISSUED');
-    const refused = monthApps.filter(a => a.status === 'ASSESSMENT_REFUSED');
+    const refused = monthApps.filter(a => a.status === 'DECISION_NOT_TO_ASSESS');
 
     trends.push({
       month: monthStart.toISOString().slice(0, 7),
@@ -455,26 +454,26 @@ function prepareSEN2Data(applications: any[]) {
   const censusDate = new Date(currentYear, 0, 19); // Third Thursday of January approximation
 
   const activeOnCensus = applications.filter(a => {
-    const submitted = new Date(a.submitted_at);
-    return submitted <= censusDate && 
-      !['CASE_CLOSED', 'CEASED', 'TRANSFERRED'].includes(a.status);
+    const referral = new Date(a.referral_date);
+    return referral <= censusDate && 
+      !['CEASED', 'TRANSFERRED'].includes(a.status);
   });
 
   return {
     census_date: censusDate.toISOString(),
     ehc_plans_maintained: activeOnCensus.filter(a => a.status === 'FINAL_EHCP_ISSUED').length,
     new_ehc_plans_issued: applications.filter(a => {
-      const issued = a.final_ehcp_date ? new Date(a.final_ehcp_date) : null;
+      const issued = a.final_actual_date ? new Date(a.final_actual_date) : null;
       return issued && issued.getFullYear() === currentYear;
     }).length,
     initial_requests: applications.filter(a => {
-      const submitted = new Date(a.submitted_at);
-      return submitted.getFullYear() === currentYear;
+      const referral = new Date(a.referral_date);
+      return referral.getFullYear() === currentYear;
     }).length,
     assessments_completed_20_weeks: applications.filter(a => {
-      if (!a.final_ehcp_date) return false;
+      if (!a.final_actual_date) return false;
       const weeks = Math.floor(
-        (new Date(a.final_ehcp_date).getTime() - new Date(a.submitted_at).getTime()) / (7 * 24 * 60 * 60 * 1000)
+        (new Date(a.final_actual_date).getTime() - new Date(a.referral_date).getTime()) / (7 * 24 * 60 * 60 * 1000)
       );
       return weeks <= 20;
     }).length,
@@ -487,17 +486,17 @@ function buildRiskRegister(applications: any[], now: Date) {
   const lowRisk: any[] = [];
 
   applications.forEach(app => {
-    if (['FINAL_EHCP_ISSUED', 'CASE_CLOSED', 'CEASED', 'ASSESSMENT_REFUSED'].includes(app.status)) {
+    if (['FINAL_EHCP_ISSUED', 'CEASED', 'DECISION_NOT_TO_ASSESS'].includes(app.status)) {
       return;
     }
 
     const weekNum = Math.floor(
-      (now.getTime() - new Date(app.submitted_at).getTime()) / (7 * 24 * 60 * 60 * 1000)
+      (now.getTime() - new Date(app.referral_date).getTime()) / (7 * 24 * 60 * 60 * 1000)
     );
 
     const riskItem = {
       id: app.id,
-      child_id: app.child_id,
+      student_id: app.student_id,
       school: app.school_tenant?.name,
       week: weekNum,
       status: app.status,
@@ -511,10 +510,10 @@ function buildRiskRegister(applications: any[], now: Date) {
     } else if (weekNum > 18) {
       riskItem.risk_factors.push('Within 2 weeks of deadline');
       highRisk.push(riskItem);
-    } else if (weekNum > 14 && !app.draft_ehcp_date) {
+    } else if (weekNum > 14 && !app.draft_actual_date) {
       riskItem.risk_factors.push('No draft EHCP after week 14');
       highRisk.push(riskItem);
-    } else if (weekNum > 6 && !app.decision_date) {
+    } else if (weekNum > 6 && !app.decision_actual_date) {
       riskItem.risk_factors.push('No decision after week 6');
       highRisk.push(riskItem);
     } else if (weekNum > 12) {
@@ -540,9 +539,9 @@ function calculateAverageCompletionDays(completed: any[]): number {
   if (completed.length === 0) return 0;
   
   const totalDays = completed.reduce((sum, app) => {
-    if (app.final_ehcp_date) {
+    if (app.final_actual_date) {
       const days = Math.floor(
-        (new Date(app.final_ehcp_date).getTime() - new Date(app.submitted_at).getTime()) / (24 * 60 * 60 * 1000)
+        (new Date(app.final_actual_date).getTime() - new Date(app.referral_date).getTime()) / (24 * 60 * 60 * 1000)
       );
       return sum + days;
     }

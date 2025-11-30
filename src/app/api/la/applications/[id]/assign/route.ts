@@ -80,7 +80,7 @@ export async function GET(
     const applicationId = params.id;
 
     // Get the application with its contributions
-    const application = await prisma.ehcp_applications.findUnique({
+    const application = await prisma.eHCPApplication.findUnique({
       where: { id: applicationId },
       include: {
         contributions: {
@@ -113,10 +113,10 @@ export async function GET(
 
     // Group contributions by type
     const contributionsByType = application.contributions.reduce((acc, c) => {
-      if (!acc[c.contribution_type]) {
-        acc[c.contribution_type] = [];
+      if (!acc[c.contributor_type]) {
+        acc[c.contributor_type] = [];
       }
-      acc[c.contribution_type].push(c);
+      acc[c.contributor_type].push(c);
       return acc;
     }, {} as Record<string, typeof application.contributions>);
 
@@ -262,7 +262,7 @@ export async function DELETE(
     }
 
     // Get the contribution
-    const contribution = await prisma.ehcp_contributions.findUnique({
+    const contribution = await prisma.eHCPContribution.findUnique({
       where: { id: contributionId },
     });
 
@@ -279,19 +279,20 @@ export async function DELETE(
     }
 
     // Delete the contribution request
-    await prisma.ehcp_contributions.delete({
+    await prisma.eHCPContribution.delete({
       where: { id: contributionId },
     });
 
     // Record timeline event
-    await prisma.ehcp_timeline_events.create({
+    await prisma.eHCPTimelineEvent.create({
       data: {
         application_id: params.id,
         event_type: 'ASSIGNMENT_REMOVED',
-        description: `Professional assignment removed: ${contribution.contribution_type}`,
-        performed_by_id: user.id,
+        event_category: 'administrative',
+        event_description: `Professional assignment removed: ${contribution.contributor_type}`,
+        triggered_by_id: user.id,
         metadata: {
-          contribution_type: contribution.contribution_type,
+          contributor_type: contribution.contributor_type,
           contributor_id: contribution.contributor_id,
         },
       },
@@ -316,21 +317,53 @@ async function assignProfessional(
   data: z.infer<typeof assignProfessionalSchema>,
   assignedById: number
 ) {
-  const deadline = new Date();
-  deadline.setDate(deadline.getDate() + data.deadline_days);
+  const dueDate = new Date();
+  dueDate.setDate(dueDate.getDate() + data.deadline_days);
+
+  // Get professional details
+  const professional = await prisma.users.findUnique({
+    where: { id: data.professional_id },
+    select: { id: true, name: true, email: true, role: true },
+  });
+
+  if (!professional) {
+    throw new Error('Professional not found');
+  }
+
+  // Map contribution_type to contributor_type
+  const contributorTypeMap: Record<string, string> = {
+    'EDUCATIONAL_PSYCHOLOGY': 'ep',
+    'HEALTH_ADVICE': 'health',
+    'SOCIAL_CARE': 'social_care',
+    'SCHOOL_SETTING': 'school',
+    'SPEECH_LANGUAGE': 'other',
+    'OCCUPATIONAL_THERAPY': 'other',
+    'PHYSIOTHERAPY': 'other',
+    'VISUAL_IMPAIRMENT': 'other',
+    'HEARING_IMPAIRMENT': 'other',
+    'SPECIALIST_TEACHER': 'other',
+    'CAMHS': 'health',
+    'PAEDIATRIC': 'health',
+    'OTHER': 'other',
+  };
 
   // Create the contribution request
-  const contribution = await prisma.ehcp_contributions.create({
+  const contribution = await prisma.eHCPContribution.create({
     data: {
       application_id: applicationId,
+      contributor_type: contributorTypeMap[data.contribution_type] || 'other',
       contributor_id: data.professional_id,
-      contribution_type: data.contribution_type,
-      status: 'REQUESTED',
-      deadline,
-      priority: data.priority,
-      notes: data.notes,
-      assigned_by_id: assignedById,
-      assigned_at: new Date(),
+      contributor_name: professional.name || 'Unknown',
+      contributor_role: professional.role || 'Professional',
+      contributor_org: 'Assigned Professional',
+      section_type: 'B', // Default section, will be updated by contributor
+      content: {
+        notes: data.notes || '',
+        priority: data.priority,
+        contribution_type: data.contribution_type,
+      },
+      status: 'draft',
+      due_date: dueDate,
     },
     include: {
       contributor: {
@@ -345,17 +378,18 @@ async function assignProfessional(
   });
 
   // Record timeline event
-  await prisma.ehcp_timeline_events.create({
+  await prisma.eHCPTimelineEvent.create({
     data: {
       application_id: applicationId,
       event_type: 'PROFESSIONAL_ASSIGNED',
-      description: `${data.contribution_type} professional assigned`,
-      performed_by_id: assignedById,
+      event_category: 'assessment',
+      event_description: `${data.contribution_type} professional assigned`,
+      triggered_by_id: assignedById,
       metadata: {
         contribution_id: contribution.id,
         contribution_type: data.contribution_type,
         professional_id: data.professional_id,
-        deadline: deadline.toISOString(),
+        deadline: dueDate.toISOString(),
         priority: data.priority,
       },
     },

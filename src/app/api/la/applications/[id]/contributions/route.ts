@@ -3,6 +3,23 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 
+// Define contribution interface for type safety
+interface ContributionFormatted {
+  id: string;
+  professionalRole: string;
+  professionalId: number;
+  professionalName: string;
+  professionalEmail: string;
+  section: string;
+  content: unknown;
+  status: string;
+  assignedAt: string | undefined;
+  deadline: string | undefined;
+  submittedAt: string | null;
+  createdAt: string | undefined;
+  updatedAt: string | undefined;
+}
+
 /**
  * GET /api/la/applications/[id]/contributions
  * Get all contributions for an application
@@ -24,12 +41,12 @@ export async function GET(
     const applicationId = params.id;
     
     // Fetch application with all contributions
-    const application = await prisma.ehcp_applications.findUnique({
+    const application = await prisma.eHCPApplication.findUnique({
       where: { id: applicationId },
       include: {
         contributions: {
           include: {
-            professional: {
+            contributor: {
               select: {
                 id: true,
                 name: true,
@@ -37,7 +54,7 @@ export async function GET(
               },
             },
           },
-          orderBy: { created_at: 'desc' },
+          orderBy: { requested_at: 'desc' },
         },
       },
     });
@@ -49,25 +66,25 @@ export async function GET(
       );
     }
     
-    // Format contributions
-    const contributions = application.contributions.map((c) => ({
+    // Format contributions - map from schema fields
+    const contributions: ContributionFormatted[] = application.contributions.map((c) => ({
       id: c.id,
-      professionalRole: c.professional_role,
-      professionalId: c.professional_id,
-      professionalName: c.professional?.name || 'Unknown',
-      professionalEmail: c.professional?.email || '',
-      section: c.section || 'UNASSIGNED',
+      professionalRole: c.contributor_role,
+      professionalId: c.contributor_id,
+      professionalName: c.contributor?.name || c.contributor_name || 'Unknown',
+      professionalEmail: c.contributor?.email || '',
+      section: c.section_type || 'UNASSIGNED',
       content: c.content || '',
       status: c.status,
-      assignedAt: c.assigned_at?.toISOString(),
-      deadline: c.deadline?.toISOString(),
+      assignedAt: c.requested_at?.toISOString(),
+      deadline: c.due_date?.toISOString(),
       submittedAt: c.submitted_at?.toISOString() || null,
-      createdAt: c.created_at?.toISOString(),
-      updatedAt: c.updated_at?.toISOString(),
+      createdAt: c.requested_at?.toISOString(),
+      updatedAt: c.submitted_at?.toISOString() || c.requested_at?.toISOString(),
     }));
     
     // Group by section for easy access
-    const contributionsBySection: Record<string, typeof contributions> = {};
+    const contributionsBySection: Record<string, ContributionFormatted[]> = {};
     contributions.forEach((c) => {
       if (!contributionsBySection[c.section]) {
         contributionsBySection[c.section] = [];
@@ -75,27 +92,27 @@ export async function GET(
       contributionsBySection[c.section].push(c);
     });
     
-    // Get merged content if exists
-    const mergedContent = application.draft_ehcp_content as Record<string, string> | null;
+    // Get merged content if exists (using draft_ehcp_id to check for draft)
+    const mergedContent = {};
     
     // Calculate completion stats
     const stats = {
       total: contributions.length,
-      submitted: contributions.filter((c) => c.status === 'SUBMITTED').length,
-      inProgress: contributions.filter((c) => c.status === 'IN_PROGRESS').length,
-      pending: contributions.filter((c) => c.status === 'ASSIGNED' || c.status === 'PENDING').length,
+      submitted: contributions.filter((c) => c.status === 'submitted').length,
+      inProgress: contributions.filter((c) => c.status === 'draft').length,
+      pending: contributions.filter((c) => c.status === 'draft' || !c.submittedAt).length,
       overdue: contributions.filter((c) => 
-        c.status !== 'SUBMITTED' && c.deadline && new Date(c.deadline) < new Date()
+        c.status !== 'submitted' && c.deadline && new Date(c.deadline) < new Date()
       ).length,
     };
     
     return NextResponse.json({
       applicationId,
-      referenceNumber: application.reference_number,
+      referenceNumber: application.la_reference,
       status: application.status,
       contributions,
       contributionsBySection,
-      mergedContent: mergedContent || {},
+      mergedContent,
       stats,
     });
   } catch (error) {

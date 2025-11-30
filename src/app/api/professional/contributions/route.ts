@@ -70,48 +70,37 @@ export async function GET(request: NextRequest) {
       include: {
         application: {
           include: {
-            child: {
-              select: {
-                id: true,
-                first_name: true,
-                last_name: true,
-                date_of_birth: true,
-                year_group: true,
-              },
-            },
             school_tenant: {
               select: {
                 id: true,
                 name: true,
-                urn: true,
               },
             },
             la_tenant: {
               select: {
                 id: true,
                 name: true,
-                la_code: true,
               },
             },
           },
         },
       },
       orderBy: {
-        [sortBy === 'deadline' ? 'deadline' : sortBy === 'priority' ? 'priority' : 'created_at']: sortOrder,
+        [sortBy === 'deadline' ? 'due_date' : sortBy === 'priority' ? 'status' : 'requested_at']: sortOrder,
       },
     });
 
     // Categorise contributions
     const now = new Date();
     const categorised = {
-      pending: contributions.filter(c => c.status === 'REQUESTED' && new Date(c.deadline) > now),
-      in_progress: contributions.filter(c => c.status === 'IN_PROGRESS'),
+      pending: contributions.filter(c => c.status === 'draft' && new Date(c.due_date) > now),
+      in_progress: contributions.filter(c => c.status === 'submitted' && !c.accepted_at),
       overdue: contributions.filter(c => 
-        (c.status === 'REQUESTED' || c.status === 'IN_PROGRESS') && new Date(c.deadline) < now
+        (c.status === 'draft') && new Date(c.due_date) < now
       ),
-      submitted: contributions.filter(c => c.status === 'SUBMITTED'),
-      revision_requested: contributions.filter(c => c.status === 'REVISION_REQUESTED'),
-      accepted: contributions.filter(c => c.status === 'ACCEPTED'),
+      submitted: contributions.filter(c => c.status === 'submitted'),
+      revision_requested: contributions.filter(c => c.status === 'revision_requested'),
+      accepted: contributions.filter(c => c.status === 'accepted'),
     };
 
     // Calculate statistics
@@ -130,8 +119,8 @@ export async function GET(request: NextRequest) {
 
     // Add urgency indicators
     const urgentCases = contributions.filter(c => {
-      if (c.status === 'ACCEPTED' || c.status === 'SUBMITTED') return false;
-      const daysToDeadline = Math.floor((new Date(c.deadline).getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+      if (c.status === 'accepted' || c.status === 'submitted') return false;
+      const daysToDeadline = Math.floor((new Date(c.due_date).getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
       return daysToDeadline <= 7;
     });
 
@@ -142,10 +131,10 @@ export async function GET(request: NextRequest) {
       urgent_count: urgentCases.length,
       urgent_cases: urgentCases.map(c => ({
         id: c.id,
-        child_name: `${c.application.child.first_name} ${c.application.child.last_name}`,
-        school: c.application.school_tenant.name,
-        deadline: c.deadline,
-        days_remaining: Math.floor((new Date(c.deadline).getTime() - now.getTime()) / (1000 * 60 * 60 * 24)),
+        child_name: c.application.child_name,
+        school: c.application.school_tenant?.name || 'Unknown',
+        deadline: c.due_date,
+        days_remaining: Math.floor((new Date(c.due_date).getTime() - now.getTime()) / (1000 * 60 * 60 * 24)),
       })),
       professional: {
         id: user.id,

@@ -5,7 +5,7 @@
  * Run with: npx tsx prisma/seed-la-ehcp.ts
  */
 
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, SENPrimaryNeed } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -46,7 +46,13 @@ const SCHOOLS = [
   'St Mary\'s C of E Primary',
   'Hillside Community School',
 ];
-const PRIMARY_NEEDS: string[] = ['SPLD', 'SLCN', 'SEMH', 'ASD', 'MLD'];
+const PRIMARY_NEEDS: SENPrimaryNeed[] = [
+  SENPrimaryNeed.SPLD,
+  SENPrimaryNeed.SLCN,
+  SENPrimaryNeed.SEMH,
+  SENPrimaryNeed.ASD,
+  SENPrimaryNeed.MLD
+];
 
 async function main() {
   console.log('🏛️ Seeding LA EHCP Demo Data...\n');

@@ -63,16 +63,15 @@ export async function GET(
     }
 
     const applicationId = params.id;
-    const laEHCPService = new LAEHCPService(user.tenant_id!);
 
-    const application = await laEHCPService.getApplicationById(applicationId);
+    const application = await LAEHCPService.getApplicationById(applicationId);
 
     if (!application) {
       return NextResponse.json({ error: 'Application not found' }, { status: 404 });
     }
 
     // Calculate timeline metrics
-    const submittedDate = new Date(application.submitted_at);
+    const submittedDate = new Date(application.referral_date);
     const now = new Date();
     const daysElapsed = Math.floor((now.getTime() - submittedDate.getTime()) / (1000 * 60 * 60 * 24));
     const weeksElapsed = Math.floor(daysElapsed / 7);
@@ -98,7 +97,7 @@ export async function GET(
     const response = {
       application,
       timeline: {
-        submitted_at: application.submitted_at,
+        submitted_at: application.referral_date,
         days_elapsed: daysElapsed,
         weeks_elapsed: weeksElapsed,
         current_phase: currentPhase,
@@ -106,20 +105,20 @@ export async function GET(
           week_6_decision: {
             deadline: week6Deadline.toISOString(),
             days_remaining: Math.max(0, Math.floor((week6Deadline.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))),
-            status: application.decision_date ? 'completed' : (now > week6Deadline ? 'overdue' : 'pending'),
-            completed_at: application.decision_date,
+            status: application.decision_actual_date ? 'completed' : (now > week6Deadline ? 'overdue' : 'pending'),
+            completed_at: application.decision_actual_date,
           },
           week_16_draft: {
             deadline: week16Deadline.toISOString(),
             days_remaining: Math.max(0, Math.floor((week16Deadline.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))),
-            status: application.draft_ehcp_date ? 'completed' : (now > week16Deadline ? 'overdue' : 'pending'),
-            completed_at: application.draft_ehcp_date,
+            status: application.draft_actual_date ? 'completed' : (now > week16Deadline ? 'overdue' : 'pending'),
+            completed_at: application.draft_actual_date,
           },
           week_20_final: {
             deadline: week20Deadline.toISOString(),
             days_remaining: Math.max(0, Math.floor((week20Deadline.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))),
-            status: application.final_ehcp_date ? 'completed' : (now > week20Deadline ? 'overdue' : 'pending'),
-            completed_at: application.final_ehcp_date,
+            status: application.final_actual_date ? 'completed' : (now > week20Deadline ? 'overdue' : 'pending'),
+            completed_at: application.final_actual_date,
           },
         },
         is_overdue: application.is_overdue,
@@ -185,33 +184,33 @@ export async function PATCH(
     const data = validationResult.data;
 
     // Update the application
-    const updatedApplication = await prisma.ehcp_applications.update({
+    const updatedApplication = await prisma.eHCPApplication.update({
       where: { id: applicationId },
       data: {
-        status: data.status,
-        urgency_level: data.urgency_level,
-        notes: data.notes,
-        additional_info: data.additional_info as any,
+        status: data.status as any,
+        urgency: data.urgency_level as any,
         updated_at: new Date(),
+        last_updated_by_id: user.id,
       },
       include: {
-        child: true,
         school_tenant: true,
-        assigned_caseworker: true,
+        caseworker: true,
       },
     });
 
     // Record timeline event for status changes
     if (data.status) {
-      await prisma.ehcp_timeline_events.create({
+      await prisma.eHCPTimelineEvent.create({
         data: {
           application_id: applicationId,
           event_type: 'STATUS_CHANGE',
-          description: `Status changed to ${data.status}`,
-          performed_by_id: user.id,
+          event_category: 'administrative',
+          event_description: `Status changed to ${data.status}`,
+          triggered_by_id: user.id,
+          new_status: data.status,
           metadata: {
-            previous_status: updatedApplication.status,
             new_status: data.status,
+            notes: data.notes,
           },
         },
       });
@@ -262,22 +261,22 @@ export async function DELETE(
     const applicationId = params.id;
 
     // Soft delete by setting status to CEASED
-    const archivedApplication = await prisma.ehcp_applications.update({
+    const archivedApplication = await prisma.eHCPApplication.update({
       where: { id: applicationId },
       data: {
         status: 'CEASED',
         updated_at: new Date(),
-        archived_at: new Date(),
       },
     });
 
     // Record timeline event
-    await prisma.ehcp_timeline_events.create({
+    await prisma.eHCPTimelineEvent.create({
       data: {
         application_id: applicationId,
         event_type: 'APPLICATION_ARCHIVED',
-        description: 'Application archived by LA manager',
-        performed_by_id: user.id,
+        event_category: 'administrative',
+        event_description: 'Application archived by LA manager',
+        triggered_by_id: user.id,
         metadata: {
           archived_by: user.email,
           archived_at: new Date().toISOString(),

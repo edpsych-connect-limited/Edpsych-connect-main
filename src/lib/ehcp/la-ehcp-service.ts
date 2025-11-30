@@ -490,17 +490,17 @@ export class LAEHCPService {
     
     switch (input.professional_type) {
       case 'ep':
-        updateData.assigned_ep_id = input.professional_id;
+        updateData.assigned_ep = { connect: { id: input.professional_id } };
         updateData.ep_contribution_status = 'pending';
         updateData.ep_contribution_due = dueDate;
         break;
       case 'health':
-        updateData.assigned_health_id = input.professional_id;
+        updateData.assigned_health = { connect: { id: input.professional_id } };
         updateData.health_contribution_status = 'pending';
         updateData.health_contribution_due = dueDate;
         break;
       case 'social_care':
-        updateData.assigned_social_id = input.professional_id;
+        updateData.assigned_social = { connect: { id: input.professional_id } };
         updateData.social_contribution_status = 'pending';
         updateData.social_contribution_due = dueDate;
         break;
@@ -544,7 +544,7 @@ export class LAEHCPService {
     const updateData: Prisma.EHCPApplicationUpdateInput = {
       decision_to_assess: input.decision,
       decision_reason: input.reason,
-      decision_made_by_id: input.decision_maker_id,
+      decision_made_by: { connect: { id: input.decision_maker_id } },
       decision_actual_date: now,
       status: input.decision ? 'DECISION_TO_ASSESS' : 'DECISION_NOT_TO_ASSESS',
     };

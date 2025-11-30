@@ -327,7 +327,7 @@ const TimelineEventItem: React.FC<{ event: TimelineEvent; isLast: boolean }> = (
       <div className={`pb-6 ${isLast ? '' : ''}`}>
         <div className="font-medium text-gray-900">{event.description}</div>
         <div className="text-sm text-gray-500 mt-1">
-          {event.createdBy.name} • {formatDistanceToNow(new Date(event.eventDate), { addSuffix: true })}
+          {event.createdBy.name} • {formatDistanceToNow(new Date(event.eventDate))}
         </div>
       </div>
     </div>
