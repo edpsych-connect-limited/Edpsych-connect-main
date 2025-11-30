@@ -292,18 +292,18 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
   };
 
   return (
-    <div className={`flex flex-col h-[500px] bg-gray-800/80 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden ${className}`}>
+    <div className={`flex flex-col h-[500px] bg-slate-900/95 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden ${className}`}>
       {/* Header */}
-      <div className="bg-gray-900 p-4 flex items-center justify-between border-b border-gray-700">
+      <div className="bg-slate-950 p-4 flex items-center justify-between border-b border-slate-700">
         <div className="flex items-center space-x-2">
           <div className="w-3 h-3 bg-red-500 rounded-full"></div>
           <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
           <div className="w-3 h-3 bg-green-500 rounded-full"></div>
         </div>
-        <div className="text-gray-400 text-sm font-mono">AI Assistant Terminal</div>
+        <div className="text-slate-200 text-sm font-mono font-semibold">AI Assistant Terminal</div>
         <button 
           onClick={handleReset}
-          className="text-gray-400 hover:text-white"
+          className="text-slate-300 hover:text-white transition-colors"
           title="Reset conversation"
           aria-label="Reset conversation"
         >
@@ -312,7 +312,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
       </div>
       
       {/* Messages Container */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-gray-900 to-gray-800">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-slate-900 to-slate-800">
         <AnimatePresence>
           {messages.map((message) => (
             <motion.div
@@ -325,16 +325,16 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
               <div 
                 className={`max-w-[80%] rounded-lg p-3 ${
                   message.sender === 'user'
-                    ? 'bg-blue-600 text-white rounded-tr-none'
-                    : `${message.agentColor || 'bg-gray-700'} text-gray-100 rounded-tl-none border`
+                    ? 'bg-indigo-600 text-white rounded-tr-none shadow-lg'
+                    : `${message.agentColor || 'bg-slate-700'} text-white rounded-tl-none border shadow-lg`
                 }`}
               >
                 {message.sender === 'ai' && (
                   <div className="flex items-center space-x-2 mb-1">
-                    <div className="p-1 rounded-full bg-gray-800/40">
-                      {message.agentIcon || <FaRobot className="text-blue-500" />}
+                    <div className="p-1 rounded-full bg-slate-800/60">
+                      {message.agentIcon || <FaRobot className="text-indigo-400" />}
                     </div>
-                    <span className="font-medium text-sm text-gray-200">
+                    <span className="font-semibold text-sm text-white">
                       {message.agentName || 'AI Assistant'}
                     </span>
                   </div>
@@ -347,7 +347,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
                     <TypingDot delay="300ms" />
                   </div>
                 ) : (
-                  <div className="whitespace-pre-wrap text-sm">{message.content}</div>
+                  <div className="whitespace-pre-wrap text-sm text-white/95">{message.content}</div>
                 )}
               </div>
             </motion.div>
@@ -363,12 +363,12 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="bg-gray-900 border-t border-gray-700 overflow-hidden"
+            className="bg-slate-900 border-t border-slate-700 overflow-hidden"
           >
             <div className="p-3">
-              <div className="flex items-center space-x-2 text-xs text-gray-400 mb-2">
-                <FaBrain className="text-yellow-500" />
-                <span>{currentAgent.name} thinking process:</span>
+              <div className="flex items-center space-x-2 text-xs text-slate-300 mb-2">
+                <FaBrain className="text-yellow-400" />
+                <span className="font-medium">{currentAgent.name} thinking process:</span>
               </div>
               <div className="space-y-1 font-mono text-xs">
                 {messages.at(-1)?.thinking?.map((thought, index) => (
@@ -377,7 +377,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: index * 0.5 }}
-                    className="text-gray-400"
+                    className="text-slate-300"
                   >
                     <span className="text-green-500">{'>'}</span> {thought}
                   </motion.div>
@@ -389,8 +389,8 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
       </AnimatePresence>
       
       {/* Quick Questions */}
-      <div className="bg-gray-900 p-3 border-t border-gray-700">
-        <p className="text-xs text-gray-400 mb-2">Quick questions:</p>
+      <div className="bg-slate-900 p-3 border-t border-slate-700">
+        <p className="text-xs text-slate-300 mb-2 font-medium">Quick questions:</p>
         <div className="flex flex-wrap gap-2">
           {presetQuestions.map((preset) => (
             <button
@@ -399,8 +399,8 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
               disabled={isResponding}
               className={`text-xs px-3 py-1.5 rounded-full transition-colors ${
                 selectedPreset === preset.id
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                  ? 'bg-indigo-600 text-white font-medium'
+                  : 'bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-600'
               } disabled:opacity-50 disabled:cursor-not-allowed`}
             >
               {preset.text}
@@ -410,22 +410,22 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
       </div>
       
       {/* Input Form */}
-      <form onSubmit={handleSubmit} className="bg-gray-900 p-3 border-t border-gray-700 flex items-center space-x-2">
-        <div className="flex-1 bg-gray-800 rounded-lg flex items-center">
+      <form onSubmit={handleSubmit} className="bg-slate-950 p-3 border-t border-slate-700 flex items-center space-x-2">
+        <div className="flex-1 bg-slate-800 rounded-lg flex items-center border border-slate-600">
           <input
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="Type your question here..."
             disabled={isResponding}
-            className="flex-1 bg-transparent text-white placeholder-gray-500 p-3 focus:outline-none"
+            className="flex-1 bg-transparent text-white placeholder-slate-400 p-3 focus:outline-none"
           />
-          {isResponding && <FaSpinner className="animate-spin text-gray-500 mr-3" />}
+          {isResponding && <FaSpinner className="animate-spin text-indigo-400 mr-3" />}
         </div>
         <button
           type="submit"
           disabled={isResponding || !inputValue.trim()}
-          className="bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-indigo-600 text-white p-3 rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           aria-label="Send message"
         >
           <FaPaperPlane />

@@ -90,7 +90,94 @@ export const HEYGEN_VIDEO_URLS: Record<string, string> = Object.fromEntries(
 );
 
 /**
- * Get the HeyGen embed URL for a lesson
+ * Local video paths - these are the downloaded MP4 files
+ * PRIORITY: Use local files first, HeyGen embed as fallback
+ */
+export const LOCAL_VIDEO_PATHS: Record<string, string> = {
+  // ============================================================================
+  // MARKETING VIDEOS - Landing page feature spotlights
+  // ============================================================================
+  'platform-introduction': '/content/training_videos/marketing/platform-introduction.mp4',
+  'data-autonomy': '/content/training_videos/marketing/data-autonomy.mp4',
+  'no-child-left-behind': '/content/training_videos/marketing/no-child-left-behind.mp4',
+  'gamification-integrity': '/content/training_videos/marketing/gamification-integrity.mp4',
+  
+  // ============================================================================
+  // ONBOARDING VIDEOS
+  // ============================================================================
+  'onboarding-welcome': '/content/training_videos/onboarding/onboarding-welcome.mp4',
+  'onboarding-role-selection': '/content/training_videos/onboarding/onboarding-role-selection.mp4',
+  'onboarding-goals': '/content/training_videos/onboarding/onboarding-goals.mp4',
+  'onboarding-platform-tour': '/content/training_videos/onboarding/onboarding-platform-tour.mp4',
+  'onboarding-knowledge-check': '/content/training_videos/onboarding/onboarding-knowledge-check.mp4',
+  'onboarding-completion': '/content/training_videos/onboarding/onboarding-completion.mp4',
+  
+  // ============================================================================
+  // AUTISM COURSE VIDEOS
+  // ============================================================================
+  'autism-m1-l1': '/content/training_videos/autism-spectrum-support/autism-m1-l1.mp4',
+  'autism-m1-l2': '/content/training_videos/autism-spectrum-support/autism-m1-l2.mp4',
+  'autism-m2-l1': '/content/training_videos/autism-spectrum-support/autism-m2-l1.mp4',
+  'autism-m2-l2': '/content/training_videos/autism-spectrum-support/autism-m2-l2.mp4',
+  'autism-m3-l1': '/content/training_videos/autism-spectrum-support/autism-m3-l1.mp4',
+  'autism-m3-l2': '/content/training_videos/autism-spectrum-support/autism-m3-l2.mp4',
+  'autism-m4-l1': '/content/training_videos/autism-spectrum-support/autism-m4-l1.mp4',
+  'autism-m4-l2': '/content/training_videos/autism-spectrum-support/autism-m4-l2.mp4',
+  'autism-m5-l1': '/content/training_videos/autism-spectrum-support/autism-m5-l1.mp4',
+  'autism-m5-l2': '/content/training_videos/autism-spectrum-support/autism-m5-l2.mp4',
+  'autism-m6-l1': '/content/training_videos/autism-spectrum-support/autism-m6-l1.mp4',
+  'autism-m6-l2': '/content/training_videos/autism-spectrum-support/autism-m6-l2.mp4',
+  'autism-m7-l1': '/content/training_videos/autism-spectrum-support/autism-m7-l1.mp4',
+  'autism-m7-l2': '/content/training_videos/autism-spectrum-support/autism-m7-l2.mp4',
+  'autism-m8-l1': '/content/training_videos/autism-spectrum-support/autism-m8-l1.mp4',
+  'autism-m8-l2': '/content/training_videos/autism-spectrum-support/autism-m8-l2.mp4',
+  // ADHD course videos
+  'adhd-m1-l1': '/content/training_videos/adhd-understanding-support/adhd-m1-l1.mp4',
+  'adhd-m1-l2': '/content/training_videos/adhd-understanding-support/adhd-m1-l2.mp4',
+  'adhd-m2-l1': '/content/training_videos/adhd-understanding-support/adhd-m2-l1.mp4',
+  'adhd-m2-l2': '/content/training_videos/adhd-understanding-support/adhd-m2-l2.mp4',
+  'adhd-m3-l1': '/content/training_videos/adhd-understanding-support/adhd-m3-l1.mp4',
+  'adhd-m3-l2': '/content/training_videos/adhd-understanding-support/adhd-m3-l2.mp4',
+  'adhd-m4-l1': '/content/training_videos/adhd-understanding-support/adhd-m4-l1.mp4',
+  'adhd-m4-l2': '/content/training_videos/adhd-understanding-support/adhd-m4-l2.mp4',
+  'adhd-m5-l1': '/content/training_videos/adhd-understanding-support/adhd-m5-l1.mp4',
+  'adhd-m5-l2': '/content/training_videos/adhd-understanding-support/adhd-m5-l2.mp4',
+  'adhd-m6-l1': '/content/training_videos/adhd-understanding-support/adhd-m6-l1.mp4',
+  'adhd-m6-l2': '/content/training_videos/adhd-understanding-support/adhd-m6-l2.mp4',
+  'adhd-m7-l1': '/content/training_videos/adhd-understanding-support/adhd-m7-l1.mp4',
+  'adhd-m7-l2': '/content/training_videos/adhd-understanding-support/adhd-m7-l2.mp4',
+  'adhd-m8-l1': '/content/training_videos/adhd-understanding-support/adhd-m8-l1.mp4',
+  'adhd-m8-l2': '/content/training_videos/adhd-understanding-support/adhd-m8-l2.mp4',
+  // Dyslexia course videos
+  'dyslexia-m1-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m1-l1.mp4',
+  'dyslexia-m1-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m1-l2.mp4',
+  'dyslexia-m2-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m2-l1.mp4',
+  'dyslexia-m2-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m2-l2.mp4',
+  'dyslexia-m3-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m3-l1.mp4',
+  'dyslexia-m3-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m3-l2.mp4',
+  'dyslexia-m4-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m4-l1.mp4',
+  'dyslexia-m4-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m4-l2.mp4',
+  'dyslexia-m5-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m5-l1.mp4',
+  'dyslexia-m5-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m5-l2.mp4',
+  'dyslexia-m6-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m6-l1.mp4',
+  'dyslexia-m6-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m6-l2.mp4',
+  'dyslexia-m7-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m7-l1.mp4',
+  'dyslexia-m7-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m7-l2.mp4',
+  'dyslexia-m8-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m8-l1.mp4',
+  'dyslexia-m8-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m8-l2.mp4',
+};
+
+/**
+ * Get the LOCAL video path for a lesson (PREFERRED - no external dependencies)
+ * @param lessonId - The lesson ID (e.g., 'autism-m1-l1')
+ * @returns The local video path or undefined if not found
+ */
+export function getLocalVideoPath(lessonId: string): string | undefined {
+  return LOCAL_VIDEO_PATHS[lessonId];
+}
+
+/**
+ * Get the HeyGen embed URL for a lesson (FALLBACK - requires HeyGen server)
  * @param lessonId - The lesson ID (e.g., 'autism-m1-l1')
  * @returns The embed URL or undefined if not found
  */
@@ -98,6 +185,28 @@ export function getHeyGenEmbedUrl(lessonId: string): string | undefined {
   const videoId = HEYGEN_VIDEO_IDS[lessonId];
   if (!videoId) return undefined;
   return `https://app.heygen.com/embed/${videoId}`;
+}
+
+/**
+ * Get the best available video source for a lesson
+ * Priority: Local MP4 > HeyGen Embed
+ * @param lessonId - The lesson ID
+ * @returns Object with videoUrl and isLocal flag
+ */
+export function getBestVideoSource(lessonId: string): { url: string; isLocal: boolean } | undefined {
+  // First try local file (no external dependency!)
+  const localPath = getLocalVideoPath(lessonId);
+  if (localPath) {
+    return { url: localPath, isLocal: true };
+  }
+  
+  // Fallback to HeyGen embed
+  const embedUrl = getHeyGenEmbedUrl(lessonId);
+  if (embedUrl) {
+    return { url: embedUrl, isLocal: false };
+  }
+  
+  return undefined;
 }
 
 /**

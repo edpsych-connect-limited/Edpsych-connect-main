@@ -22,7 +22,7 @@ import {
   Course,
 } from '@/lib/training/course-catalog';
 import {
-  getHeyGenEmbedUrl,
+  getBestVideoSource,
   extractLessonIdFromUrl,
 } from '@/lib/training/heygen-video-urls';
 
@@ -599,24 +599,40 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                     {currentLesson.type === 'video' && (
                       <div className="mb-6">
                         <div className="bg-black rounded-xl overflow-hidden shadow-2xl">
-                          {/* Check for HeyGen video first */}
+                          {/* Use local video files first, HeyGen embed as fallback */}
                           {(() => {
                             const lessonId = currentLesson.content_url 
                               ? extractLessonIdFromUrl(currentLesson.content_url)
                               : undefined;
-                            const heygenEmbedUrl = lessonId ? getHeyGenEmbedUrl(lessonId) : undefined;
+                            const videoSource = lessonId ? getBestVideoSource(lessonId) : undefined;
                             
-                            if (heygenEmbedUrl) {
-                              // Use HeyGen iframe embed for AI-generated videos
+                            // If we have a local video file, use native HTML5 video player
+                            if (videoSource?.isLocal) {
+                              return (
+                                <video
+                                  ref={videoRef}
+                                  className="w-full aspect-video"
+                                  controls
+                                  onTimeUpdate={handleVideoProgress}
+                                  onEnded={handleVideoEnded}
+                                  src={videoSource.url}
+                                  poster={`/content/training_videos/thumbnails/${lessonId}.jpg`}
+                                >
+                                  Your browser does not support the video tag.
+                                </video>
+                              );
+                            }
+                            
+                            // Fallback to HeyGen embed (requires their server)
+                            if (videoSource && !videoSource.isLocal) {
                               return (
                                 <iframe
-                                  src={heygenEmbedUrl}
+                                  src={videoSource.url}
                                   className="w-full aspect-video"
                                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                   allowFullScreen
                                   title={currentLesson.title}
                                   onLoad={() => {
-                                    // Mark video as started for progress tracking
                                     if (state.video_progress === 0) {
                                       setState(prev => ({ ...prev, video_progress: 10 }));
                                     }
@@ -625,7 +641,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                               );
                             }
                             
-                            // Fallback to local video player
+                            // Ultimate fallback to content_url or placeholder
                             return (
                               <video
                                 ref={videoRef}
@@ -650,14 +666,15 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                             </div>
                           </div>
                         )}
-                        {/* HeyGen video completion button */}
+                        {/* Video completion button for HeyGen embeds (local videos have native controls) */}
                         {(() => {
                           const lessonId = currentLesson.content_url 
                             ? extractLessonIdFromUrl(currentLesson.content_url)
                             : undefined;
-                          const heygenEmbedUrl = lessonId ? getHeyGenEmbedUrl(lessonId) : undefined;
+                          const videoSource = lessonId ? getBestVideoSource(lessonId) : undefined;
                           
-                          if (heygenEmbedUrl && state.video_progress < 100) {
+                          // Only show manual completion for HeyGen embeds (local videos track progress automatically)
+                          if (videoSource && !videoSource.isLocal && state.video_progress < 100) {
                             return (
                               <div className="mt-4 text-center">
                                 <button

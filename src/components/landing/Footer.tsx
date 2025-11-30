@@ -71,6 +71,7 @@ export default function Footer() {
               <li><Link href="/privacy" className="hover:text-indigo-400 transition-colors">Privacy Policy</Link></li>
               <li><Link href="/terms" className="hover:text-indigo-400 transition-colors">Terms of Service</Link></li>
               <li><Link href="/gdpr" className="hover:text-indigo-400 transition-colors">GDPR Compliance</Link></li>
+              <li><a href="mailto:dpo@edpsychconnect.com" className="hover:text-indigo-400 transition-colors">Contact DPO</a></li>
               <li><Link href="/accessibility" className="hover:text-indigo-400 transition-colors">Accessibility</Link></li>
               <li><Link href="/cookies" className="hover:text-indigo-400 transition-colors">Cookie Policy</Link></li>
             </ul>

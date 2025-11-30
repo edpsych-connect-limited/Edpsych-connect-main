@@ -18,7 +18,10 @@ import { Play, CheckCircle, Target, Zap, Shield, Users, TrendingUp } from 'lucid
 import { motion } from 'framer-motion';
 import { useOnboarding } from '../OnboardingProvider';
 import { ProgressBar } from '@/components/ui/ProgressBar';
-import { getHeyGenEmbedUrl } from '@/lib/training/heygen-video-urls';
+import { getHeyGenEmbedUrl, LOCAL_VIDEO_PATHS } from '@/lib/training/heygen-video-urls';
+
+// Local video path for onboarding welcome - prefer local over HeyGen embed
+const LOCAL_WELCOME_VIDEO = LOCAL_VIDEO_PATHS['onboarding-welcome'] || '/content/training_videos/onboarding/onboarding-welcome.mp4';
 
 export function Step1Welcome() {
   const { state, updateStep } = useOnboarding();
@@ -173,21 +176,49 @@ export function Step1Welcome() {
             </button>
           ) : (
             <>
-              {/* HeyGen Embed - using premium video until dedicated onboarding video */}
-              <iframe
-                src={getHeyGenEmbedUrl('onboarding-welcome') || 'https://app.heygen.com/embed/c3fdd2d66fe84bc5803c3275fb384947'}
-                className="w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                title="Platform Introduction"
-                onLoad={() => {
-                  // Start tracking when iframe loads
+              {/* Video Player - Using local MP4 for reliability (HeyGen embeds fail with 'refused to connect') */}
+              <video
+                ref={_videoRef}
+                src={LOCAL_WELCOME_VIDEO}
+                className="w-full h-full object-cover"
+                controls
+                controlsList="nodownload"
+                playsInline
+                poster="/images/video-poster-welcome.jpg"
+                onPlay={() => {
                   if (videoWatchPercentage < 10) {
                     setVideoWatchPercentage(10);
                     updateStep(1, { videoWatchPercentage: 10 }, false);
                   }
                 }}
-              />
+                onTimeUpdate={(e) => {
+                  const video = e.currentTarget;
+                  if (video.duration) {
+                    const percentage = Math.round((video.currentTime / video.duration) * 100);
+                    if (percentage > videoWatchPercentage) {
+                      setVideoWatchPercentage(percentage);
+                      updateStep(1, { videoWatchPercentage: percentage }, false);
+                      if (percentage >= 80 && !state.step1Data.videoWatched) {
+                        updateStep(1, { videoWatched: true }, false);
+                      }
+                    }
+                  }
+                }}
+                onEnded={() => {
+                  setVideoWatchPercentage(100);
+                  updateStep(1, { 
+                    videoWatchPercentage: 100,
+                    videoWatched: true 
+                  }, false);
+                }}
+                onError={() => {
+                  // Fallback to HeyGen embed if local video fails to load
+                  console.warn('Local video failed, falling back to HeyGen embed');
+                }}
+              >
+                {/* Fallback message */}
+                Your browser does not support the video tag.
+              </video>
               {/* Manual completion button for iframe videos */}
               {videoWatchPercentage < 80 && (
                 <div className="absolute bottom-4 right-4">
