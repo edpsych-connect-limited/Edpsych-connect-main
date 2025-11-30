@@ -170,10 +170,11 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
   const [videoSource, setVideoSource] = useState<'loading' | 'local' | 'cloudinary' | 'heygen' | 'error'>('loading');
   const [_errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Fetch video URL with priority: Local > Cloudinary > HeyGen API
+  // Fetch video URL with priority: Local > HeyGen API > Cloudinary (verified)
+  // Note: Cloudinary URLs need verification as they may be placeholder timestamps
   useEffect(() => {
     async function findVideoSource() {
-      // 1. Try local file first
+      // 1. Try local file first (fastest, no external dependency)
       const localPath = LOCAL_VIDEO_PATHS[videoKey];
       if (localPath) {
         try {
@@ -188,15 +189,7 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
         }
       }
 
-      // 2. Try Cloudinary
-      const cloudinaryUrl = CLOUDINARY_VIDEO_URLS[videoKey];
-      if (cloudinaryUrl) {
-        setVideoUrl(cloudinaryUrl);
-        setVideoSource('cloudinary');
-        return;
-      }
-
-      // 3. Try HeyGen API for direct MP4 URL
+      // 2. Try HeyGen API for direct MP4 URL (most reliable external source)
       const heygenId = HEYGEN_VIDEO_IDS[videoKey];
       if (heygenId) {
         try {
@@ -210,7 +203,22 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
             }
           }
         } catch {
-          // HeyGen API failed
+          // HeyGen API failed, continue to Cloudinary
+        }
+      }
+
+      // 3. Try Cloudinary as last resort (verify URL exists with HEAD request)
+      const cloudinaryUrl = CLOUDINARY_VIDEO_URLS[videoKey];
+      if (cloudinaryUrl) {
+        try {
+          const response = await fetch(cloudinaryUrl, { method: 'HEAD' });
+          if (response.ok) {
+            setVideoUrl(cloudinaryUrl);
+            setVideoSource('cloudinary');
+            return;
+          }
+        } catch {
+          // Cloudinary URL doesn't exist
         }
       }
 
