@@ -62,8 +62,8 @@ export interface Tenant {
 }
 
 class ServerAuthService {
-  private readonly JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-jwt-key-change-in-production';
-  private readonly JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'your-super-secret-refresh-key-change-in-production';
+  private readonly JWT_SECRET: string;
+  private readonly JWT_REFRESH_SECRET: string;
   private readonly JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '1h';
   private readonly JWT_REFRESH_EXPIRES_IN = process.env.JWT_REFRESH_EXPIRES_IN || '7d';
 
@@ -73,6 +73,17 @@ class ServerAuthService {
   private refreshTokens: Map<string, { userId: string; tenantId: string; expiresAt: Date }> = new Map();
 
   constructor() {
+    // Require JWT secrets in production
+    const jwtSecret = process.env.JWT_SECRET || process.env.NEXTAUTH_SECRET;
+    const refreshSecret = process.env.JWT_REFRESH_SECRET || process.env.NEXTAUTH_SECRET;
+    
+    if (!jwtSecret && process.env.NODE_ENV === 'production') {
+      throw new Error('JWT_SECRET or NEXTAUTH_SECRET must be set in production');
+    }
+    
+    this.JWT_SECRET = jwtSecret || 'dev-secret-key-not-for-production';
+    this.JWT_REFRESH_SECRET = refreshSecret || 'dev-refresh-key-not-for-production';
+    
     this.initializeDefaultData();
   }
 

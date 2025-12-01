@@ -21,6 +21,12 @@ export class EmailService {
   private transporter: nodemailer.Transporter;
 
   private constructor() {
+    // Validate required environment variable
+    const sendgridApiKey = process.env.SENDGRID_API_KEY;
+    if (!sendgridApiKey) {
+      logger.warn('SENDGRID_API_KEY not configured - email service will not function');
+    }
+    
     // Initialize Nodemailer with SendGrid
     this.transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST || 'smtp.sendgrid.net',
@@ -28,7 +34,7 @@ export class EmailService {
       secure: false, // true for 465, false for other ports
       auth: {
         user: 'apikey', // SendGrid requires 'apikey' as the user
-        pass: process.env.SENDGRID_API_KEY || 'SG.edpsych-connect-sendgrid-key-5f4e3d2c1b0a',
+        pass: sendgridApiKey || '',
       },
     });
   }

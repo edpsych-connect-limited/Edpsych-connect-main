@@ -33,13 +33,13 @@ export const JWT_CONFIGURATION = {
 // Secret keys should be environment variables in production
 const getJwtSecretKey = (): Uint8Array => {
   // Try NEXTAUTH_SECRET first (used by route.ts), then JWT_SECRET_KEY
-  const secret = process.env.NEXTAUTH_SECRET || process.env.JWT_SECRET_KEY || 'fallback-secret-key';
+  const secret = process.env.NEXTAUTH_SECRET || process.env.JWT_SECRET_KEY;
   
-  if (!secret) {
-    throw new Error('NEXTAUTH_SECRET or JWT_SECRET_KEY environment variable is not set');
+  if (!secret && process.env.NODE_ENV === 'production') {
+    throw new Error('NEXTAUTH_SECRET or JWT_SECRET_KEY environment variable must be set in production');
   }
   
-  return new TextEncoder().encode(secret);
+  return new TextEncoder().encode(secret || 'dev-secret-key-not-for-production');
 };
 
 const getRefreshTokenSecretKey = (): Uint8Array => {

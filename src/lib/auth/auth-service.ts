@@ -38,9 +38,15 @@ export interface AuthResult {
 }
 
 // Constants
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.NEXTAUTH_SECRET || process.env.JWT_SECRET || 'fallback-secret-key'
-);
+const getJwtSecret = (): Uint8Array => {
+  const secret = process.env.NEXTAUTH_SECRET || process.env.JWT_SECRET;
+  if (!secret && process.env.NODE_ENV === 'production') {
+    throw new Error('NEXTAUTH_SECRET or JWT_SECRET must be set in production');
+  }
+  return new TextEncoder().encode(secret || 'dev-secret-key-not-for-production');
+};
+
+const JWT_SECRET = getJwtSecret();
 
 const TOKEN_EXPIRY = '8h';
 const COOKIE_NAME = 'auth-token';
