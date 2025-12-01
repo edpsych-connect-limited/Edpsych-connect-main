@@ -19,6 +19,7 @@
  */
 
 import React, { useState } from 'react';
+import { ProgressBar } from '@/components/ui/ProgressBar';
 import { 
   Beaker, 
   Database, 
@@ -508,10 +509,11 @@ export default function EnhancedResearchHub() {
                         </div>
                         <div className="text-right">
                           <div className="text-sm text-gray-500 mb-1">Progress</div>
-                          <div className="w-32 bg-gray-200 rounded-full h-2">
-                            <div 
-                              className="bg-indigo-600 h-2 rounded-full transition-all duration-500" 
-                              style={{ '--progress-width': `${progressPercent}%`, width: 'var(--progress-width)' } as React.CSSProperties}
+                          <div className="w-32">
+                            <ProgressBar 
+                              value={progressPercent}
+                              colorClass="bg-indigo-600"
+                              trackColorClass="bg-gray-200"
                             />
                           </div>
                           <div className="text-xs text-gray-400 mt-1">{Math.round(progressPercent)}%</div>
@@ -608,16 +610,16 @@ export default function EnhancedResearchHub() {
                                 <span className="text-gray-500">Participants</span>
                                 <span className="font-semibold">{study.participants} / {study.target}</span>
                               </div>
-                              <div className="w-full bg-gray-200 rounded-full h-3">
-                                <div 
-                                  className={`h-3 rounded-full transition-all duration-500 ${
-                                    progressPercent >= 100 ? 'bg-green-500' :
-                                    progressPercent >= 50 ? 'bg-indigo-600' :
-                                    'bg-yellow-500'
-                                  }`}
-                                  style={{ '--progress-width': `${Math.min(100, progressPercent)}%`, width: 'var(--progress-width)' } as React.CSSProperties}
-                                />
-                              </div>
+                              <ProgressBar 
+                                value={Math.min(100, progressPercent)}
+                                colorClass={
+                                  progressPercent >= 100 ? 'bg-green-500' :
+                                  progressPercent >= 50 ? 'bg-indigo-600' :
+                                  'bg-yellow-500'
+                                }
+                                trackColorClass="bg-gray-200"
+                                heightClass="h-3"
+                              />
                             </div>
                             <div className="text-sm text-gray-500 flex items-center gap-1">
                               <Clock className="w-4 h-4" />

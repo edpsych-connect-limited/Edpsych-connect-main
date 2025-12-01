@@ -19,6 +19,7 @@
  */
 
 import React, { useState } from 'react';
+import { ProgressBar } from '@/components/ui/ProgressBar';
 import { 
   Play, 
   RefreshCw, 
@@ -626,12 +627,11 @@ export default function EnhancedCodingCurriculum() {
                 <div className={`mt-2 text-sm font-medium ${rank.color}`}>
                   {rank.icon} {rank.name}
                 </div>
-                <div className="mt-4 w-full bg-slate-700 rounded-full h-2">
-                  <div 
-                    className="bg-gradient-to-r from-yellow-400 to-orange-500 h-2 rounded-full transition-all"
-                    style={{ '--progress-width': `${Math.min(100, (totalXP / 2000) * 100)}%`, width: 'var(--progress-width)' } as React.CSSProperties}
-                  />
-                </div>
+                <ProgressBar 
+                  value={Math.min(100, (totalXP / 2000) * 100)} 
+                  colorClass="bg-gradient-to-r from-yellow-400 to-orange-500"
+                  trackColorClass="bg-slate-700"
+                />
                 <div className="text-xs text-slate-500 mt-1">{totalXP} / 2000 XP to Master</div>
               </div>
             </div>
@@ -905,12 +905,12 @@ export default function EnhancedCodingCurriculum() {
                           <span className="font-semibold text-white">{track.name}</span>
                           <span className="text-slate-400 text-sm">{completed}/{trackLevels.length} levels</span>
                         </div>
-                        <div className="w-full bg-slate-700 rounded-full h-3">
-                          <div 
-                            className={`h-3 rounded-full bg-gradient-to-r from-${track.color}-500 to-${track.color}-400 transition-all`}
-                            style={{ '--progress-width': `${progress}%`, width: 'var(--progress-width)' } as React.CSSProperties}
-                          />
-                        </div>
+                        <ProgressBar 
+                          value={progress}
+                          colorClass={`bg-gradient-to-r from-${track.color}-500 to-${track.color}-400`}
+                          trackColorClass="bg-slate-700"
+                          heightClass="h-3"
+                        />
                       </div>
                     </div>
                   );
