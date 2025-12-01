@@ -8,13 +8,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { HEYGEN_VIDEO_IDS } from '@/lib/training/heygen-video-urls';
 
-const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY || 'sk_V2_hgu_kCXZPri8zVW_USKActgMJqFGEFzXfxRhYB1F5Jm9MqUz';
+const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
 
 // Cache video URLs for 1 hour (they expire after ~24 hours from HeyGen)
 const urlCache = new Map<string, { url: string; expires: number }>();
 const CACHE_DURATION = 60 * 60 * 1000; // 1 hour
 
 export async function GET(request: NextRequest) {
+  // Validate API key is configured
+  if (!HEYGEN_API_KEY) {
+    console.error('HEYGEN_API_KEY environment variable is not set');
+    return NextResponse.json({ error: 'Video service not configured' }, { status: 503 });
+  }
+
   const { searchParams } = new URL(request.url);
   const videoKey = searchParams.get('key');
 
@@ -44,7 +50,7 @@ export async function GET(request: NextRequest) {
       `https://api.heygen.com/v1/video_status.get?video_id=${videoId}`,
       {
         headers: {
-          'X-Api-Key': HEYGEN_API_KEY,
+          'X-Api-Key': HEYGEN_API_KEY as string,
         },
       }
     );
