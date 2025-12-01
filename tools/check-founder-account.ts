@@ -1,13 +1,14 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
-const prisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: 'postgres://neondb_owner:npg_zkQMGCh0ZO8L@ep-steep-boat-abz9lg8e-pooler.eu-west-2.aws.neon.tech/neondb?connect_timeout=15&sslmode=require'
-    }
-  }
-});
+// Use DATABASE_URL environment variable (set it before running this script)
+if (!process.env.DATABASE_URL) {
+  console.error('ERROR: DATABASE_URL environment variable is not set');
+  console.error('Set it using: export DATABASE_URL="your-connection-string"');
+  process.exit(1);
+}
+
+const prisma = new PrismaClient();
 
 async function main() {
   console.log('Checking founder account...\n');
