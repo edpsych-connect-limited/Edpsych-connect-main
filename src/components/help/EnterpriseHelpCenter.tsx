@@ -20,7 +20,7 @@
  * @license Proprietary - All Rights Reserved
  */
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/lib/auth/hooks';
 import { 
   Search, 
@@ -41,9 +41,7 @@ import {
   Users,
   Building,
   Shield,
-  Zap,
   Target,
-  Award,
   HelpCircle,
   Video,
   Headphones,
@@ -51,10 +49,7 @@ import {
   Lightbulb,
   ThumbsUp,
   ThumbsDown,
-  ExternalLink,
   Clock,
-  CheckCircle,
-  AlertCircle,
   Star,
   TrendingUp
 } from 'lucide-react';

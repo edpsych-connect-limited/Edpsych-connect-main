@@ -18,15 +18,12 @@
  * - Educational psychology integration
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Play, 
   RefreshCw, 
   Trophy, 
   Terminal, 
-  Cpu, 
-  ChevronRight,
-  ChevronLeft,
   Star,
   Zap,
   Code,
@@ -37,14 +34,10 @@ import {
   Award,
   Target,
   Lightbulb,
-  GraduationCap,
   Sparkles,
-  Heart,
-  Clock,
   CheckCircle,
   X,
   Lock,
-  Unlock,
   ArrowRight,
   Gamepad2,
   Blocks,

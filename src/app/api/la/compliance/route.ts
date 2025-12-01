@@ -72,22 +72,6 @@ interface TimelineBreakdown {
   beyond_week_20: { count: number; cases: CaseInfo[] };
 }
 
-interface SchoolStats {
-  school_id: number;
-  school_name: string;
-  total_applications: number;
-  on_time: number;
-  late: number;
-  compliance_rate: number;
-}
-
-interface ProfessionalStats {
-  role: string;
-  total_contributions: number;
-  total_response_days: number;
-  average_response_days: number;
-}
-
 // Additional interfaces for compliance functions
 interface ContributionData {
   id: string;
