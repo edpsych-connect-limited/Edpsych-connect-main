@@ -83,9 +83,9 @@ export async function POST(request: NextRequest) {
       message: 'Effectiveness tracked successfully'
     });
   } catch (_error) {
-    console._error('Track effectiveness _error:', _error);
+    console.error('Track effectiveness error:', _error);
     return NextResponse.json(
-      { _error: 'Failed to track effectiveness' },
+      { error: 'Failed to track effectiveness' },
       { status: 500 }
     );
   }
@@ -207,9 +207,9 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(effectivenessData);
   } catch (_error) {
-    console._error('Get effectiveness _error:', _error);
+    console.error('Get effectiveness error:', _error);
     return NextResponse.json(
-      { _error: 'Failed to retrieve effectiveness data' },
+      { error: 'Failed to retrieve effectiveness data' },
       { status: 500 }
     );
   }

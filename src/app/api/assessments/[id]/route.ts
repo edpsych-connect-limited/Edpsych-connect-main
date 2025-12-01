@@ -71,8 +71,8 @@ export async function GET(
 
     return NextResponse.json({ assessment });
   } catch (_error) {
-    console._error('Error fetching assessment:', _error);
-    return NextResponse.json({ _error: 'Internal Server Error' }, { status: 500 });
+    console.error('Error fetching assessment:', _error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
 
@@ -145,7 +145,7 @@ export async function PUT(
 
     return NextResponse.json({ assessment: updatedAssessment });
   } catch (_error) {
-    console._error('Error updating assessment:', _error);
-    return NextResponse.json({ _error: 'Internal Server Error' }, { status: 500 });
+    console.error('Error updating assessment:', _error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

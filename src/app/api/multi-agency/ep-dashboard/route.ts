@@ -474,9 +474,9 @@ export async function GET(
     return NextResponse.json(response);
 
   } catch (_error) {
-    console._error('[EP Dashboard API] Error generating dashboard:', _error);
+    console.error('[EP Dashboard API] Error generating dashboard:', _error);
     return NextResponse.json({
-      _error: 'Internal server _error',
+      error: 'Internal server _error',
       message: _error instanceof Error ? _error.message : 'Unknown _error'
     }, { status: 500 });
   }

@@ -60,7 +60,7 @@ export const prismaUtils = {
     try {
       return await dbOperation();
     } catch (_error) {
-      console._error('Database operation _error:', _error);
+      console.error('Database operation error:', _error);
       
       // Check for specific Prisma errors and throw appropriate errors
       if ((_error as any).code === 'P2025') {

@@ -67,11 +67,11 @@ function createPrismaClient() {
             const after = Date.now();
             const executionTime = after - before;
 
-            logger._error(`Query failed: ${model}.${operation}`, {
+            logger.error(`Query failed: ${model}.${operation}`, {
               model,
               operation,
               executionTime,
-              _error: _error instanceof Error ? _error.message : String(_error),
+              error: _error instanceof Error ? _error.message : String(_error),
             });
 
             throw _error;
@@ -108,7 +108,7 @@ export async function prismaOperation<T>(
     return await operation();
   } catch (_error) {
     const err = _error as Error;
-    logger._error(`${errorMessage}: ${err.message}`, {
+    logger.error(`${errorMessage}: ${err.message}`, {
       stack: err.stack,
     });
 
@@ -128,7 +128,7 @@ export async function initializeDatabase(): Promise<void> {
     logger.info('Database connection established successfully');
   } catch (_error) {
     const err = _error as Error;
-    logger._error(`Failed to connect to database: ${err.message}`, {
+    logger.error(`Failed to connect to database: ${err.message}`, {
       stack: err.stack,
     });
     throw new Error('Database connection failed');

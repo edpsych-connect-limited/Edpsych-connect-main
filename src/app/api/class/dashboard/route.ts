@@ -85,14 +85,14 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(frontendData);
   } catch (_error) {
-    logger._error('Error in GET /api/class/dashboard:', _error as Error);
+    logger.error('Error in GET /api/class/dashboard:', _error as Error);
 
     if ((_error as Error).message.includes('Unauthorized')) {
-      return NextResponse.json({ _error: 'Unauthorized access' }, { status: 403 });
+      return NextResponse.json({ error: 'Unauthorized access' }, { status: 403 });
     }
 
     return NextResponse.json(
-      { _error: 'Internal server _error', message: (_error as Error).message },
+      { error: 'Internal server _error', message: (_error as Error).message },
       { status: 500 }
     );
   }

@@ -42,7 +42,7 @@ export async function GET() {
 
         return NextResponse.json({ providers });
     } catch (_error) {
-        console._error('Failed to fetch integration status:', _error);
+        console.error('Failed to fetch integration status:', _error);
         return NextResponse.json({ providers: {} }, { status: 500 });
     }
 }

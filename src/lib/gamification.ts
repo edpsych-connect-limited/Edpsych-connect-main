@@ -203,7 +203,7 @@ export const GamificationSystem = {
         })
       );
     } catch (_error) {
-      logger._error(`Failed to complete challenge ${id}`, { _error });
+      logger.error(`Failed to complete challenge ${id}`, { _error });
       throw new Error("Unable to complete challenge. Please try again later.");
     }
   },
@@ -217,7 +217,7 @@ export const GamificationSystem = {
       });
       return res.ok;
     } catch (_error) {
-      logger._error("Gamification API health check failed", { _error });
+      logger.error("Gamification API health check failed", { _error });
       return false;
     }
   }

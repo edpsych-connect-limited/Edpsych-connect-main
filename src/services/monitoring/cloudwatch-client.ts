@@ -150,7 +150,7 @@ export class CloudWatchClient {
 
       await this.client.send(command);
     } catch (_error) {
-      console._error(`Failed to create alarm for ${metricName}:`, _error);
+      console.error(`Failed to create alarm for ${metricName}:`, _error);
     }
   }
 
@@ -234,7 +234,7 @@ export class CloudWatchClient {
 
       await this.client.send(command);
     } catch (_error) {
-      console._error(`Failed to publish metric ${metricDatum.MetricName}:`, _error);
+      console.error(`Failed to publish metric ${metricDatum.MetricName}:`, _error);
     }
   }
 

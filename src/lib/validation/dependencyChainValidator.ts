@@ -74,7 +74,7 @@ export class DependencyChainValidator {
           severity: 'critical',
           file: dirPath,
           line: 0,
-          message: `Dependency validation _error: ${msg}`,
+          message: `Dependency validation error: ${msg}`,
           suggestion: 'Check directory path and file permissions'
         }],
         stats: { totalFiles: 0, circularDeps: 0, deepChains: 0, brokenImports: 0 }

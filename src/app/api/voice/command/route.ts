@@ -270,14 +270,14 @@ export async function POST(
     return NextResponse.json(response);
 
   } catch (_error) {
-    console._error('[Voice Command API] Error processing command:', _error);
+    console.error('[Voice Command API] Error processing command:', _error);
 
     // Return user-friendly _error response
     const processingTime = Date.now() - startTime;
     return NextResponse.json({
       success: false,
       query: '',
-      intent: '_error',
+      intent: 'error',
       response: {
         text: 'I apologize, but I encountered an _error processing your request. Please try rephrasing your question or contact support if the issue persists.',
         spoken: 'Sorry, I encountered an _error. Please try again.',

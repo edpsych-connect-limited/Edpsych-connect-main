@@ -68,7 +68,7 @@ class SecretsManagerService {
       }
       this.logger.info('Encryption key initialized successfully');
     } catch (_error) {
-      this.logger._error('Failed to initialize encryption key:', _error);
+      this.logger.error('Failed to initialize encryption key:', _error);
       this.config.encryptionEnabled = false;
     }
   }
@@ -113,14 +113,14 @@ class SecretsManagerService {
       return processedValue;
 
     } catch (_error) {
-      this.logger._error('Failed to retrieve secret', {
+      this.logger.error('Failed to retrieve secret', {
         secretName,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error'
+        error: _error instanceof Error ? _error.message : 'Unknown _error'
       });
 
       // Audit log failure
       await this.auditLog('SECRET_ACCESS_FAILED', secretName, {
-        _error: _error instanceof Error ? _error.message : 'Unknown _error'
+        error: _error instanceof Error ? _error.message : 'Unknown _error'
       });
 
       throw new Error(`Failed to retrieve secret: ${secretName}`);
@@ -301,9 +301,9 @@ class SecretsManagerService {
       return isValid;
 
     } catch (_error) {
-      this.logger._error('Secret validation failed', {
+      this.logger.error('Secret validation failed', {
         secretName,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error'
+        error: _error instanceof Error ? _error.message : 'Unknown _error'
       });
       return false;
     }
@@ -407,7 +407,7 @@ class SecretsManagerService {
 
       return decrypted;
     } catch (_error) {
-      this.logger._error('Decryption failed:', _error);
+      this.logger.error('Decryption failed:', _error);
       throw new Error('Failed to decrypt data');
     }
   }
@@ -444,7 +444,7 @@ class SecretsManagerService {
       return {
         status: 'unhealthy',
         details: {
-          _error: _error instanceof Error ? _error.message : 'Unknown _error',
+          error: _error instanceof Error ? _error.message : 'Unknown _error',
           region: this.config.region,
           implementation: 'environment-based'
         }
@@ -465,7 +465,7 @@ class SecretsManagerService {
         details
       });
     } catch (_error) {
-      logger._error('Audit logging failed:', _error);
+      logger.error('Audit logging failed:', _error);
     }
   }
 }
@@ -513,7 +513,7 @@ export async function initializeSecretsManager(): Promise<void> {
 
   } catch (_error) {
     const err = _error instanceof Error ? _error : new Error('Unknown _error');
-    logger._error('Failed to initialize environment-based secrets manager', err);
+    logger.error('Failed to initialize environment-based secrets manager', err);
 
     // In production, this should cause the application to exit
     if (process.env.NODE_ENV === 'production') {
@@ -560,7 +560,7 @@ export async function loadSecretsToEnvironment(): Promise<void> {
     }
 
   } catch (_error) {
-    logger._error('Failed to load secrets to environment:', _error);
+    logger.error('Failed to load secrets to environment:', _error);
     throw new Error('Secrets loading failed');
   }
 }

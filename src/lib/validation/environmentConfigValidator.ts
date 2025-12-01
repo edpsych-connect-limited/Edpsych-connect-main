@@ -122,7 +122,7 @@ export class EnvironmentConfigValidator {
         unsafePatterns
       );
     } catch (_error) {
-      console._error(`Error validating ${filePath}:`, _error);
+      console.error(`Error validating ${filePath}:`, _error);
     }
 
     return {

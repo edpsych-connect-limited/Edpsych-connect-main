@@ -53,6 +53,11 @@ interface CacheStats {
   deletes: number;
   memoryUsage: number;
   redisUsage: number;
+  hitRate?: number;
+  memoryItems?: number;
+  redisConnected?: boolean;
+  redisKeys?: number;
+  redisMemory?: Record<string, number>;
 }
 
 interface CachedItem<T = unknown> {
@@ -127,7 +132,7 @@ class CachingService {
 
       logger.info('Caching service initialized');
     } catch (_error) {
-      logger._error('Error initializing caching service:', getErrorMessage(_error));
+      logger.error('Error initializing caching service:', getErrorMessage(_error));
       // Continue with memory-only caching if Redis fails
       logger.info('Falling back to memory-only caching');
     }
@@ -147,11 +152,11 @@ class CachingService {
       // Try memory cache first
       if (useMemory && this.memoryCache.has(key)) {
         const cached = this.memoryCache.get(key);
-        if (this._isExpired(cached)) {
+        if (cached && this._isExpired(cached)) {
           this.memoryCache.delete(key);
-        } else {
+        } else if (cached) {
           this.cacheStats.hits++;
-          return cached.value;
+          return cached.value as T;
         }
       }
 
@@ -177,7 +182,7 @@ class CachingService {
       this.cacheStats.misses++;
       return null;
     } catch (_error) {
-      logger._error('Error getting from cache:', getErrorMessage(_error));
+      logger.error('Error getting from cache:', getErrorMessage(_error));
       this.cacheStats.misses++;
       return null;
     }
@@ -224,7 +229,7 @@ class CachingService {
       this.cacheStats.sets++;
       return true;
     } catch (_error) {
-      logger._error('Error setting cache:', getErrorMessage(_error));
+      logger.error('Error setting cache:', getErrorMessage(_error));
       return false;
     }
   }
@@ -259,7 +264,7 @@ class CachingService {
 
       return deleted;
     } catch (_error) {
-      logger._error('Error deleting from cache:', getErrorMessage(_error));
+      logger.error('Error deleting from cache:', getErrorMessage(_error));
       return false;
     }
   }
@@ -303,7 +308,7 @@ class CachingService {
 
       return true;
     } catch (_error) {
-      logger._error('Error clearing cache:', getErrorMessage(_error));
+      logger.error('Error clearing cache:', getErrorMessage(_error));
       return false;
     }
   }
@@ -313,9 +318,9 @@ class CachingService {
    *
    * @returns {Object} Cache statistics
    */
-  async getStats() {
+  async getStats(): Promise<CacheStats> {
     try {
-      const stats = { ...this.cacheStats };
+      const stats: CacheStats = { ...this.cacheStats };
 
       // Get memory usage
       stats.memoryItems = this.memoryCache.size;
@@ -336,7 +341,7 @@ class CachingService {
 
       return stats;
     } catch (_error) {
-      logger._error('Error getting cache stats:', getErrorMessage(_error));
+      logger.error('Error getting cache stats:', getErrorMessage(_error));
       return this.cacheStats;
     }
   }
@@ -366,7 +371,7 @@ class CachingService {
       logger.info('Cache warm-up completed');
       return true;
     } catch (_error) {
-      logger._error('Error warming up cache:', getErrorMessage(_error));
+      logger.error('Error warming up cache:', getErrorMessage(_error));
       return false;
     }
   }
@@ -401,7 +406,7 @@ class CachingService {
 
       return true;
     } catch (_error) {
-      logger._error('Error prefetching data:', getErrorMessage(_error));
+      logger.error('Error prefetching data:', getErrorMessage(_error));
       return false;
     }
   }
@@ -441,7 +446,7 @@ class CachingService {
 
       return patternsToInvalidate.length > 0;
     } catch (_error) {
-      logger._error('Error invalidating by pattern:', getErrorMessage(_error));
+      logger.error('Error invalidating by pattern:', getErrorMessage(_error));
       return false;
     }
   }
@@ -453,8 +458,9 @@ class CachingService {
    * @param {Object} cached - Cached item
    * @returns {boolean} Whether item is expired
    */
-  _isExpired(cached: CachedItem): boolean {
-    return cached.expires && Date.now() > cached.expires;
+  _isExpired(cached: CachedItem | undefined): boolean {
+    if (!cached) return true;
+    return cached.expires ? Date.now() > cached.expires : false;
   }
 
   /**
@@ -496,10 +502,10 @@ class CachingService {
     setInterval(async () => {
       const stats = await this.getStats();
       logger.info('Cache Stats:', {
-        hitRate: `${stats.hitRate.toFixed(2)}%`,
-        memoryItems: stats.memoryItems,
-        redisConnected: stats.redisConnected,
-        redisKeys: stats.redisKeys
+        hitRate: `${(stats.hitRate ?? 0).toFixed(2)}%`,
+        memoryItems: stats.memoryItems ?? 0,
+        redisConnected: stats.redisConnected ?? false,
+        redisKeys: stats.redisKeys ?? 0
       });
     }, 60 * 60 * 1000);
   }
@@ -523,7 +529,7 @@ class CachingService {
         logger.info(`Cleaned ${cleaned} expired items from memory cache`);
       }
     } catch (_error) {
-      logger._error('Error cleaning expired memory cache:', getErrorMessage(_error));
+      logger.error('Error cleaning expired memory cache:', getErrorMessage(_error));
     }
   }
 

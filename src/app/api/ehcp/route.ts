@@ -69,7 +69,7 @@ async function routeEhcp(request: NextRequest): Promise<NextResponse> {
 
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   } catch (_error) {
-    console._error('[EHCP]', _error);
-    return NextResponse.json({ _error: 'Internal _error' }, { status: 500 });
+    console.error('[EHCP]', _error);
+    return NextResponse.json({ error: 'Internal _error' }, { status: 500 });
   }
 }

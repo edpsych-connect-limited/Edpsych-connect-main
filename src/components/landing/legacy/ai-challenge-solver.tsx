@@ -169,7 +169,7 @@ const AIChallengeSolver: React.FC = () => {
 
       setSolution(mockSolution);
     } catch (_error) {
-      console._error('Error generating solution:', _error);
+      console.error('Error generating solution:', _error);
     } finally {
       setIsLoading(false);
     }
@@ -207,7 +207,7 @@ const AIChallengeSolver: React.FC = () => {
 
       setSolution(mockSolution);
     } catch (_error) {
-      console._error('Error generating custom solution:', _error);
+      console.error('Error generating custom solution:', _error);
     } finally {
       setIsLoading(false);
     }

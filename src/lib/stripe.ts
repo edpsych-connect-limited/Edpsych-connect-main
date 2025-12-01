@@ -37,7 +37,7 @@ export enum UserType {
 }
 
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy', {
-  apiVersion: '2025-10-29.clover', // Latest Stripe API version
+  apiVersion: '2025-10-29.clover' as Stripe.LatestApiVersion, // Latest Stripe API version
 });
 
 // Export the Stripe constructor for type checking

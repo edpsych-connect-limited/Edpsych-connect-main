@@ -629,7 +629,7 @@ export default function EnhancedCodingCurriculum() {
                 <div className="mt-4 w-full bg-slate-700 rounded-full h-2">
                   <div 
                     className="bg-gradient-to-r from-yellow-400 to-orange-500 h-2 rounded-full transition-all"
-                    style={{ width: `${Math.min(100, (totalXP / 2000) * 100)}%` }}
+                    style={{ '--progress-width': `${Math.min(100, (totalXP / 2000) * 100)}%`, width: 'var(--progress-width)' } as React.CSSProperties}
                   />
                 </div>
                 <div className="text-xs text-slate-500 mt-1">{totalXP} / 2000 XP to Master</div>
@@ -908,7 +908,7 @@ export default function EnhancedCodingCurriculum() {
                         <div className="w-full bg-slate-700 rounded-full h-3">
                           <div 
                             className={`h-3 rounded-full bg-gradient-to-r from-${track.color}-500 to-${track.color}-400 transition-all`}
-                            style={{ width: `${progress}%` }}
+                            style={{ '--progress-width': `${progress}%`, width: 'var(--progress-width)' } as React.CSSProperties}
                           />
                         </div>
                       </div>

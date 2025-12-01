@@ -117,7 +117,7 @@ export default function ProgressDashboard({
         setAlerts(mappedAlerts);
       }
     } catch (_error) {
-      console._error('Failed to load progress data:', _error);
+      console.error('Failed to load progress data:', _error);
       // Keep using empty arrays on _error
       setInterventions([]);
       setAlerts([]);

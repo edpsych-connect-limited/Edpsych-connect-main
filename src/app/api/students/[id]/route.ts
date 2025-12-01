@@ -147,10 +147,10 @@ export async function GET(
       message: 'Student retrieved successfully',
     });
   } catch (_error) {
-    console._error('[Student API] Error fetching student:', _error);
+    console.error('[Student API] Error fetching student:', _error);
     return NextResponse.json(
       {
-        _error: 'Failed to retrieve student',
+        error: 'Failed to retrieve student',
         message: _error instanceof Error ? _error.message : 'Unknown _error',
         requestId,
       },
@@ -289,10 +289,10 @@ export async function PATCH(
       message: 'Student updated successfully',
     });
   } catch (_error) {
-    console._error('[Student API] Error updating student:', _error);
+    console.error('[Student API] Error updating student:', _error);
     return NextResponse.json(
       {
-        _error: 'Failed to update student',
+        error: 'Failed to update student',
         message: _error instanceof Error ? _error.message : 'Unknown _error',
         requestId,
       },
@@ -421,10 +421,10 @@ export async function DELETE(
       student_id: id,
     });
   } catch (_error) {
-    console._error('[Student API] Error deleting student:', _error);
+    console.error('[Student API] Error deleting student:', _error);
     return NextResponse.json(
       {
-        _error: 'Failed to delete student',
+        error: 'Failed to delete student',
         message: _error instanceof Error ? _error.message : 'Unknown _error',
         requestId,
       },

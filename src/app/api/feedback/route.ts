@@ -82,9 +82,9 @@ export async function POST(request: NextRequest) {
       message: 'Feedback submitted successfully. Thank you!',
     });
   } catch (_error) {
-    console._error('Feedback submission _error:', _error);
+    console.error('Feedback submission error:', _error);
     return NextResponse.json(
-      { success: false, _error: 'Failed to submit feedback' },
+      { success: false, error: 'Failed to submit feedback' },
       { status: 500 }
     );
   }
@@ -128,9 +128,9 @@ export async function GET(request: NextRequest) {
       count: feedback.length,
     });
   } catch (_error) {
-    console._error('Feedback fetch _error:', _error);
+    console.error('Feedback fetch error:', _error);
     return NextResponse.json(
-      { success: false, _error: 'Failed to fetch feedback' },
+      { success: false, error: 'Failed to fetch feedback' },
       { status: 500 }
     );
   }

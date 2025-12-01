@@ -82,7 +82,7 @@ export default function ProfessionalDashboard() {
         setBookings(data.bookings);
       }
     } catch (_error) {
-      console._error('Failed to fetch dashboard data:', _error);
+      console.error('Failed to fetch dashboard data:', _error);
     } finally {
       setLoading(false);
     }
@@ -100,7 +100,7 @@ export default function ProfessionalDashboard() {
         setProfile({ ...profile, is_accepting_bookings: !profile.is_accepting_bookings });
       }
     } catch (_error) {
-      console._error('Failed to update status:', _error);
+      console.error('Failed to update status:', _error);
     }
   };
 
@@ -111,7 +111,7 @@ export default function ProfessionalDashboard() {
       });
       fetchDashboardData();
     } catch (_error) {
-      console._error(`Failed to ${action} booking:`, _error);
+      console.error(`Failed to ${action} booking:`, _error);
     }
   };
 

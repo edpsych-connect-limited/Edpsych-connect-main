@@ -18,7 +18,7 @@ interface WatchConfig {
   extensions: string[];
   debounceMs: number;
   excludePatterns: string[];
-  onError?: (_error: Error, _file: string) => void;
+  onError?: (error: Error, _file: string) => void;
   onSuccess?: (_file: string) => void;
 }
 
@@ -115,7 +115,7 @@ export class ValidationWatcher {
 
       this.watchers.set(dir, watcher);
     } catch (_error) {
-      logger._error(`Error setting up watcher for ${dir}:`, _error instanceof Error ? _error.message : String(_error));
+      logger.error(`Error setting up watcher for ${dir}:`, _error instanceof Error ? _error.message : String(_error));
     }
   }
 
@@ -160,7 +160,7 @@ export class ValidationWatcher {
       try {
         await this.validateFile(filePath);
       } catch (_error) {
-        logger._error(`Validation _error for ${filePath}:`, _error instanceof Error ? _error.message : String(_error));
+        logger.error(`Validation _error for ${filePath}:`, _error instanceof Error ? _error.message : String(_error));
       } finally {
         this.debounceTimers.delete(filePath);
       }

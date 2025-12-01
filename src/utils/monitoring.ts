@@ -113,7 +113,7 @@ class RealUserMonitoring {
       this.isInitialized = true;
       logger.debug('✅ Real User Monitoring initialized successfully');
     } catch (_error) {
-      console._error('❌ Failed to initialize Real User Monitoring:', _error);
+      console.error('❌ Failed to initialize Real User Monitoring:', _error);
       // Don't throw - monitoring should not break the app
     }
   }

@@ -98,7 +98,7 @@ export default function CourseDetailPage() {
         const courseData = await response.json();
         setCourse(courseData);
       } catch (_error) {
-        console._error('Error loading course:', _error);
+        console.error('Error loading course:', _error);
       } finally {
         setLoading(false);
       }
@@ -128,7 +128,7 @@ export default function CourseDetailPage() {
         setCourse({ ...course, enrolled: true, progress: 0 });
       }
     } catch (_error) {
-      console._error('Error enrolling in course:', _error);
+      console.error('Error enrolling in course:', _error);
       alert('Failed to enroll in course. Please try again.');
     } finally {
       setEnrolling(false);

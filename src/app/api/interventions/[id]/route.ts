@@ -154,10 +154,10 @@ export async function GET(
       message: 'Intervention retrieved successfully',
     });
   } catch (_error) {
-    console._error('[Intervention API] Error fetching intervention:', _error);
+    console.error('[Intervention API] Error fetching intervention:', _error);
     return NextResponse.json(
       {
-        _error: 'Failed to retrieve intervention',
+        error: 'Failed to retrieve intervention',
         message: _error instanceof Error ? _error.message : 'Unknown _error',
         requestId,
       },
@@ -303,10 +303,10 @@ export async function PATCH(
       message: 'Intervention updated successfully',
     });
   } catch (_error) {
-    console._error('[Intervention API] Error updating intervention:', _error);
+    console.error('[Intervention API] Error updating intervention:', _error);
     return NextResponse.json(
       {
-        _error: 'Failed to update intervention',
+        error: 'Failed to update intervention',
         message: _error instanceof Error ? _error.message : 'Unknown _error',
         requestId,
       },
@@ -418,10 +418,10 @@ export async function DELETE(
       intervention: discontinuedIntervention,
     });
   } catch (_error) {
-    console._error('[Intervention API] Error discontinuing intervention:', _error);
+    console.error('[Intervention API] Error discontinuing intervention:', _error);
     return NextResponse.json(
       {
-        _error: 'Failed to discontinue intervention',
+        error: 'Failed to discontinue intervention',
         message: _error instanceof Error ? _error.message : 'Unknown _error',
         requestId,
       },

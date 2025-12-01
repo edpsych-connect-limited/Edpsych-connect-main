@@ -158,10 +158,10 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (_error) {
-    console._error('[Intervention API] Error fetching interventions:', _error);
+    console.error('[Intervention API] Error fetching interventions:', _error);
     return NextResponse.json(
       {
-        _error: 'Failed to retrieve interventions',
+        error: 'Failed to retrieve interventions',
         message: _error instanceof Error ? _error.message : 'Unknown _error',
         requestId,
       },
@@ -266,10 +266,10 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
   } catch (_error) {
-    console._error('[Intervention API] Error creating intervention:', _error);
+    console.error('[Intervention API] Error creating intervention:', _error);
     return NextResponse.json(
       {
-        _error: 'Failed to create intervention',
+        error: 'Failed to create intervention',
         message: _error instanceof Error ? _error.message : 'Unknown _error',
         requestId,
       },

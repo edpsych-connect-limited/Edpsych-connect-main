@@ -493,7 +493,7 @@ export const MultiAgencyView: React.FC<MultiAgencyViewProps> = ({
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
     } catch (_error) {
-      console._error('Export _error:', _error);
+      console.error('Export error:', _error);
     }
   };
 

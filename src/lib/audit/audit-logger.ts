@@ -51,7 +51,7 @@ export class AuditLogger {
         console.error('Failed to write audit log:', err);
       });
     } catch (_error) {
-      console._error('Failed to initiate audit log:', _error);
+      console.error('Failed to initiate audit log:', _error);
     }
   }
 }

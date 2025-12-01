@@ -36,7 +36,7 @@ export function getRedisClient(): RedisClient {
           token: kvToken,
         });
       } catch (_error) {
-        console._error('Failed to initialize Vercel KV client:', _error);
+        console.error('Failed to initialize Vercel KV client:', _error);
       }
     }
 

@@ -89,7 +89,7 @@ export class IntelligentProblemMatcher {
       };
 
     } catch (_error) {
-      console._error('❌ Problem analysis failed:', _error);
+      console.error('❌ Problem analysis failed:', _error);
       throw new Error('Unable to analyze problem. Please try rephrasing your challenge.');
     }
   }

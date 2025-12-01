@@ -26,7 +26,7 @@ export async function executeQuery<T>(
   try {
     return await queryFn(db);
   } catch (_error) {
-    logger._error(`${errorMessage}:`, _error as Error);
+    logger.error(`${errorMessage}:`, _error as Error);
     throw new Error(errorMessage);
   }
 }
@@ -38,7 +38,7 @@ export async function transaction<T>(
   try {
     return await db.$transaction(txFn);
   } catch (_error) {
-    logger._error(`${errorMessage}:`, _error as Error);
+    logger.error(`${errorMessage}:`, _error as Error);
     throw new Error(errorMessage);
   }
 }

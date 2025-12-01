@@ -60,7 +60,7 @@ export default function InterventionDetailPage({ params }: InterventionDetailPro
           router.push('/interventions');
         }
       } catch (_error) {
-        console._error('Failed to load intervention:', _error);
+        console.error('Failed to load intervention:', _error);
       } finally {
         setLoading(false);
       }
@@ -85,7 +85,7 @@ export default function InterventionDetailPage({ params }: InterventionDetailPro
         setIntervention({ ...intervention, status: newStatus });
       }
     } catch (_error) {
-      console._error('Failed to update status:', _error);
+      console.error('Failed to update status:', _error);
     }
   };
 

@@ -37,7 +37,7 @@ export const secureStore = (key: string, data: any, useSession = false): void =>
     storage.setItem(key, serialized);
     logger.debug(`✅ [Storage] Stored ${key} successfully`);
   } catch (_error) {
-    console._error(`❌ [Storage] Failed to store ${key}:`, _error);
+    console.error(`❌ [Storage] Failed to store ${key}:`, _error);
     throw _error;
   }
 };
@@ -74,7 +74,7 @@ export const secureRetrieve = (key: string, useSession = false): any => {
       return data;
     }
   } catch (_error) {
-    console._error(`❌ [Storage] Failed to retrieve ${key}:`, _error);
+    console.error(`❌ [Storage] Failed to retrieve ${key}:`, _error);
     return null;
   }
 };
@@ -95,7 +95,7 @@ export const secureRemove = (key: string, useSession = false): void => {
     storage.removeItem(key);
     logger.debug(`✅ [Storage] Removed ${key}`);
   } catch (_error) {
-    console._error(`❌ [Storage] Failed to remove ${key}:`, _error);
+    console.error(`❌ [Storage] Failed to remove ${key}:`, _error);
   }
 };
 
@@ -135,7 +135,7 @@ export const clearAuthStorage = (useSession = false): void => {
     secureRemove('userData', useSession);
     logger.debug('✅ [Storage] Cleared all authentication data');
   } catch (_error) {
-    console._error('❌ [Storage] Failed to clear authentication data:', _error);
+    console.error('❌ [Storage] Failed to clear authentication data:', _error);
   }
 };
 

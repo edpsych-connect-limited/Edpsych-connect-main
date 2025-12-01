@@ -511,7 +511,7 @@ export default function EnhancedResearchHub() {
                           <div className="w-32 bg-gray-200 rounded-full h-2">
                             <div 
                               className="bg-indigo-600 h-2 rounded-full transition-all duration-500" 
-                              style={{ width: `${progressPercent}%` }}
+                              style={{ '--progress-width': `${progressPercent}%`, width: 'var(--progress-width)' } as React.CSSProperties}
                             />
                           </div>
                           <div className="text-xs text-gray-400 mt-1">{Math.round(progressPercent)}%</div>
@@ -615,7 +615,7 @@ export default function EnhancedResearchHub() {
                                     progressPercent >= 50 ? 'bg-indigo-600' :
                                     'bg-yellow-500'
                                   }`}
-                                  style={{ width: `${Math.min(100, progressPercent)}%` }}
+                                  style={{ '--progress-width': `${Math.min(100, progressPercent)}%`, width: 'var(--progress-width)' } as React.CSSProperties}
                                 />
                               </div>
                             </div>

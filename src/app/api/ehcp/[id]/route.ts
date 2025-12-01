@@ -50,9 +50,9 @@ export async function GET(
       plan: ehcp,
     });
   } catch (_error) {
-    console._error('[EHCP API] GET _error:', _error);
+    console.error('[EHCP API] GET error:', _error);
     return NextResponse.json(
-      { _error: 'Failed to fetch EHCP' },
+      { error: 'Failed to fetch EHCP' },
       { status: 500 }
     );
   }
@@ -134,9 +134,9 @@ export async function PUT(
       changed_sections: changedSections,
     });
   } catch (_error) {
-    console._error('[EHCP API] PUT _error:', _error);
+    console.error('[EHCP API] PUT error:', _error);
     return NextResponse.json(
-      { _error: 'Failed to update EHCP' },
+      { error: 'Failed to update EHCP' },
       { status: 500 }
     );
   }
@@ -197,9 +197,9 @@ export async function DELETE(
       message: `EHCP ${params.id} deleted and archived`,
     });
   } catch (_error) {
-    console._error('[EHCP API] DELETE _error:', _error);
+    console.error('[EHCP API] DELETE error:', _error);
     return NextResponse.json(
-      { _error: 'Failed to delete EHCP' },
+      { error: 'Failed to delete EHCP' },
       { status: 500 }
     );
   }

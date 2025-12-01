@@ -14,7 +14,7 @@ type StripeTier = 'FREE' | 'BASIC' | 'PROFESSIONAL' | 'ENTERPRISE';
 // Initialize Stripe
 // Note: In a real app, you should ensure STRIPE_SECRET_KEY is set
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2025-10-29.clover',
+  apiVersion: '2025-10-29.clover' as Stripe.LatestApiVersion,
 });
 
 export async function createStripeCustomer(email: string, name: string) {
@@ -137,7 +137,7 @@ export async function getTierFromPriceId(priceId: string): Promise<StripeTier | 
       if (productName.includes('basic')) return 'BASIC';
       if (productName.includes('free')) return 'FREE';
     } catch (_error) {
-      console._error('Failed to fetch price from Stripe:', _error);
+      console.error('Failed to fetch price from Stripe:', _error);
     }
   }
   

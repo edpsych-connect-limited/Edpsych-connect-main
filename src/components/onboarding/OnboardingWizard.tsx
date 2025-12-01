@@ -64,7 +64,7 @@ export function OnboardingWizard({ className = '' }: OnboardingWizardProps) {
           await startOnboarding();
         }
       } catch (_error) {
-        console._error('[OnboardingWizard] Initialization _error:', _error);
+        console.error('[OnboardingWizard] Initialization error:', _error);
       }
     };
 

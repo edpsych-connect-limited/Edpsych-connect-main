@@ -113,7 +113,7 @@ export class CrossModuleIntelligenceService {
           throw new Error(`Unknown event type: ${event.event_type}`);
       }
     } catch (_error) {
-      logger._error('Error processing trigger event:', _error as Error);
+      logger.error('Error processing trigger event:', _error as Error);
       throw _error;
     }
   }
@@ -756,7 +756,7 @@ export class CrossModuleIntelligenceService {
 
       logger.info(`Automated action approved: ${actionId} by user ${approvedBy}`);
     } catch (_error) {
-      logger._error('Error approving automated action:', _error as Error);
+      logger.error('Error approving automated action:', _error as Error);
       throw _error;
     }
   }
@@ -784,7 +784,7 @@ export class CrossModuleIntelligenceService {
 
       logger.info(`Automated action rejected: ${actionId} by user ${rejectedBy}`);
     } catch (_error) {
-      logger._error('Error rejecting automated action:', _error as Error);
+      logger.error('Error rejecting automated action:', _error as Error);
       throw _error;
     }
   }
@@ -847,7 +847,7 @@ export class CrossModuleIntelligenceService {
         aggregatedResult.notifications_queued += result.notifications_queued;
         aggregatedResult.approvals_needed.push(...result.approvals_needed);
       } catch (_error) {
-        logger._error(`Error processing batch event ${event.event_type}:`, _error as Error);
+        logger.error(`Error processing batch event ${event.event_type}:`, _error as Error);
         // Continue processing other events
       }
     }
@@ -910,7 +910,7 @@ export class CrossModuleIntelligenceService {
 
       return approvals;
     } catch (_error) {
-      logger._error('Error getting pending approvals:', _error as Error);
+      logger.error('Error getting pending approvals:', _error as Error);
       throw _error;
     }
   }

@@ -143,9 +143,9 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (_error) {
-    console._error('Marketplace search _error:', _error);
+    console.error('Marketplace search error:', _error);
     return NextResponse.json(
-      { _error: 'Failed to search professionals' },
+      { error: 'Failed to search professionals' },
       { status: 500 }
     );
   }

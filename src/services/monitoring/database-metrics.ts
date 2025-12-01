@@ -156,7 +156,7 @@ export class DatabaseMetricsCollector {
       // Clear metrics for next interval
       this.queryMetrics.clear();
     } catch (_error) {
-      console._error('Error publishing database metrics:', _error);
+      console.error('Error publishing database metrics:', _error);
     }
   }
 
@@ -211,7 +211,7 @@ export class DatabaseMetricsCollector {
         }
       }
     } catch (_error) {
-      console._error('Error tracking connection pool metrics:', _error);
+      console.error('Error tracking connection pool metrics:', _error);
     }
   }
 

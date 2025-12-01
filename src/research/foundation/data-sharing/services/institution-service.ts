@@ -134,10 +134,10 @@ export class InstitutionService {
       }
       
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: 'Failed to register institution',
         context: {
-          _error: _error instanceof Error ? _error.message : String(_error),
+          error: _error instanceof Error ? _error.message : String(_error),
           institutionName: params.name,
           userId
         }
@@ -186,10 +186,10 @@ export class InstitutionService {
       }
       
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: 'Failed to retrieve institution',
         context: {
-          _error: _error instanceof Error ? _error.message : String(_error),
+          error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           userId
         }
@@ -243,10 +243,10 @@ export class InstitutionService {
       return result;
     } catch (_error) {
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: 'Failed to search institutions',
         context: {
-          _error: _error instanceof Error ? _error.message : String(_error),
+          error: _error instanceof Error ? _error.message : String(_error),
           searchParams: params,
           userId
         }
@@ -328,10 +328,10 @@ export class InstitutionService {
       }
       
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: 'Failed to update institution',
         context: {
-          _error: _error instanceof Error ? _error.message : String(_error),
+          error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           updates: Object.keys(updates),
           userId
@@ -421,10 +421,10 @@ export class InstitutionService {
       }
       
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: 'Failed to verify institution',
         context: {
-          _error: _error instanceof Error ? _error.message : String(_error),
+          error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           verifierUserId
         }
@@ -514,10 +514,10 @@ export class InstitutionService {
       }
       
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: 'Failed to reject institution',
         context: {
-          _error: _error instanceof Error ? _error.message : String(_error),
+          error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           reviewerUserId,
           rejectionReason
@@ -608,10 +608,10 @@ export class InstitutionService {
       }
       
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: 'Failed to add institution contact',
         context: {
-          _error: _error instanceof Error ? _error.message : String(_error),
+          error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           contactName: contact.name,
           userId
@@ -721,10 +721,10 @@ export class InstitutionService {
       }
       
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: 'Failed to update institution contact',
         context: {
-          _error: _error instanceof Error ? _error.message : String(_error),
+          error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           contactId,
           userId
@@ -830,10 +830,10 @@ export class InstitutionService {
       }
       
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: 'Failed to remove institution contact',
         context: {
-          _error: _error instanceof Error ? _error.message : String(_error),
+          error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           contactId,
           userId
@@ -918,10 +918,10 @@ export class InstitutionService {
       }
       
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: 'Failed to add compliance certification',
         context: {
-          _error: _error instanceof Error ? _error.message : String(_error),
+          error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           framework: certification.framework,
           userId
@@ -1034,10 +1034,10 @@ export class InstitutionService {
       }
       
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: 'Failed to verify compliance certification',
         context: {
-          _error: _error instanceof Error ? _error.message : String(_error),
+          error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           certificationId,
           verifierUserId
@@ -1117,10 +1117,10 @@ export class InstitutionService {
       }
       
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: 'Failed to add data governance policy',
         context: {
-          _error: _error instanceof Error ? _error.message : String(_error),
+          error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           policyTitle: policy.title,
           userId
@@ -1210,10 +1210,10 @@ export class InstitutionService {
       }
       
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: 'Failed to deactivate institution',
         context: {
-          _error: _error instanceof Error ? _error.message : String(_error),
+          error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           reason,
           userId
@@ -1308,10 +1308,10 @@ export class InstitutionService {
       }
       
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: 'Failed to reactivate institution',
         context: {
-          _error: _error instanceof Error ? _error.message : String(_error),
+          error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           userId
         }

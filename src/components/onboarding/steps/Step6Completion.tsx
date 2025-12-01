@@ -57,7 +57,7 @@ export function Step6Completion() {
       });
       // Redirect handled by OnboardingWizard
     } catch (_error) {
-      console._error('Error completing onboarding:', _error);
+      console.error('Error completing onboarding:', _error);
     }
   };
 

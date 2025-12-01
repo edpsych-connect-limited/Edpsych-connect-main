@@ -433,9 +433,9 @@ export async function POST(
     return NextResponse.json(response);
 
   } catch (_error) {
-    console._error('[Lesson Differentiation API] Error differentiating lesson:', _error);
+    console.error('[Lesson Differentiation API] Error differentiating lesson:', _error);
     return NextResponse.json({
-      _error: 'Internal server _error',
+      error: 'Internal server _error',
       message: _error instanceof Error ? _error.message : 'Unknown _error'
     }, { status: 500 });
   }

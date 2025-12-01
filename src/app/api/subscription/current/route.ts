@@ -108,7 +108,7 @@ export async function GET() {
       usage: usageData,
     });
   } catch (_error) {
-    console._error('Error fetching subscription:', _error);
+    console.error('Error fetching subscription:', _error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 }

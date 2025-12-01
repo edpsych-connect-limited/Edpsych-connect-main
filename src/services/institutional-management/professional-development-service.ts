@@ -142,7 +142,7 @@ export class ProfessionalDevelopmentService {
               ? JSON.parse(institution.focusAreas)
               : (institution.focusAreas || []);
           } catch (_e) {
-            console.warn('Failed to parse focus areas', e);
+            console.warn('Failed to parse focus areas', _e);
             focusAreas = [];
           }
           
@@ -174,7 +174,7 @@ export class ProfessionalDevelopmentService {
       
       return recommendations;
     } catch (_error) {
-      console._error('Error getting professional development recommendations:', _error);
+      console.error('Error getting professional development recommendations:', _error);
       throw new Error('Failed to generate professional development recommendations');
     }
   }
@@ -314,7 +314,7 @@ export class ProfessionalDevelopmentService {
             ? JSON.parse(content.tags)
             : (content.tags || []);
         } catch (_e) {
-          console.warn('Failed to parse content tags', e);
+          console.warn('Failed to parse content tags', _e);
           tags = [];
         }
         
@@ -338,7 +338,7 @@ export class ProfessionalDevelopmentService {
         .sort((a, b) => b.relevanceScore - a.relevanceScore)
         .slice(0, limit);
     } catch (_error) {
-      console._error('Error getting trending recommendations:', _error);
+      console.error('Error getting trending recommendations:', _error);
       throw new Error('Failed to generate trending recommendations');
     }
   }

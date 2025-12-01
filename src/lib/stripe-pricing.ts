@@ -56,7 +56,7 @@ export async function getStripePrices(): Promise<PricingTier[]> {
     // Sort by price to ensure correct order (Free -> Pro -> Institutional -> Enterprise)
     return pricingTiers.sort((a, b) => a.price - b.price);
   } catch (_error) {
-    console._error('Error fetching Stripe prices:', _error);
+    console.error('Error fetching Stripe prices:', _error);
     return [];
   }
 }

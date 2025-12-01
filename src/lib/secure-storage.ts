@@ -115,7 +115,7 @@ export async function uploadToSecureStorage(
     return path;
   } catch (_error) {
     const storageError = _error as Error;
-    logger._error(`Error storing document securely: ${storageError.message}`, {
+    logger.error(`Error storing document securely: ${storageError.message}`, {
       path
     });
     throw new Error(`Failed to store document securely: ${storageError.message}`);
@@ -158,7 +158,7 @@ export async function getFromSecureStorage(path: string): Promise<string> {
     return document.content || '';
   } catch (_error) {
     const retrieveError = _error as Error;
-    logger._error(`Error retrieving document from secure storage: ${retrieveError.message}`, {
+    logger.error(`Error retrieving document from secure storage: ${retrieveError.message}`, {
       path
     });
     throw new Error(`Failed to retrieve document from secure storage: ${retrieveError.message}`);
@@ -191,7 +191,7 @@ export async function getSignedStorageUrl(
     return apiUrl;
   } catch (_error) {
     const urlError = _error as Error;
-    logger._error(`Error generating access URL: ${urlError.message}`, {
+    logger.error(`Error generating access URL: ${urlError.message}`, {
       path
     });
     throw new Error(`Failed to generate access URL: ${urlError.message}`);
@@ -214,7 +214,7 @@ export async function deleteFromSecureStorage(path: string): Promise<boolean> {
     return true;
   } catch (_error) {
     const deleteError = _error as Error;
-    logger._error(`Error deleting document from secure storage: ${deleteError.message}`, {
+    logger.error(`Error deleting document from secure storage: ${deleteError.message}`, {
       path
     });
     throw new Error(`Failed to delete document from secure storage: ${deleteError.message}`);

@@ -1,0 +1,213 @@
+src/app/[locale]/admin/ethics/page.tsx(48,17): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/blog/page.tsx(52,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/blog/page.tsx(72,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/blog/page.tsx(91,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/blog/page.tsx(110,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/cases/[id]/page.tsx(120,17): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/cases/page.tsx(88,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/dashboard/page.tsx(75,17): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/gamification/page.tsx(30,17): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/interventions/[id]/page.tsx(63,17): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/interventions/[id]/page.tsx(88,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/interventions/new/page.tsx(74,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/interventions/page.tsx(59,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/marketplace/dashboard/page.tsx(85,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/marketplace/dashboard/page.tsx(103,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/marketplace/dashboard/page.tsx(114,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/marketplace/la-panel/page.tsx(41,17): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/marketplace/page.tsx(69,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/marketplace/register/page.tsx(80,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/progress/page.tsx(42,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/school/ehcp-request/page.tsx(54,31): error TS2339: Property 'tenantId' does not exist on type '{ id?: string; role: UserRole; organizationId?: string | undefined; permissions?: string[] | undefined; isActive: boolean; name?: string | null | undefined; email?: string | null | undefined; image?: string | ... 1 more ... | undefined; }'.
+src/app/[locale]/school/ehcp-request/page.tsx(55,33): error TS2339: Property 'tenantName' does not exist on type '{ id?: string; role: UserRole; organizationId?: string | undefined; permissions?: string[] | undefined; isActive: boolean; name?: string | null | undefined; email?: string | null | undefined; image?: string | ... 1 more ... | undefined; }'.
+src/app/[locale]/subscription/page.tsx(63,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/subscription/page.tsx(104,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/subscription/page.tsx(115,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/subscription/page.tsx(532,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/training/certificates/page.tsx(51,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/training/checkout/[productId]/page.tsx(51,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/training/courses/[id]/page.tsx(101,17): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/training/courses/[id]/page.tsx(131,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/training/dashboard/page.tsx(114,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/training/marketplace/page.tsx(55,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/[locale]/training/page.tsx(89,15): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/assessments/[id]/report/route.ts(79,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/assessments/[id]/route.ts(74,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/assessments/[id]/route.ts(148,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/assessments/collaborations/[id]/route.ts(67,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/assessments/collaborations/[id]/route.ts(96,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/assessments/collaborations/[id]/route.ts(124,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/assessments/frameworks/[id]/route.ts(65,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/assessments/instances/[id]/route.ts(54,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/blog/[slug]/route.ts(78,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/blog/[slug]/route.ts(136,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/cases/[id]/route.ts(177,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/cases/[id]/route.ts(325,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/cases/[id]/route.ts(440,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/class/[id]/actions/route.ts(323,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/class/[id]/actions/route.ts(324,5): error TS2322: Type 'NextResponse<{ _error: string; message: string; }>' is not assignable to type 'NextResponse<ClassActionsResponse | { error: string; message?: string | undefined; }>'.
+  Type '{ _error: string; message: string; }' is not assignable to type 'ClassActionsResponse | { error: string; message?: string | undefined; }'.
+    Property 'error' is missing in type '{ _error: string; message: string; }' but required in type '{ error: string; message?: string | undefined; }'.
+src/app/api/class/[id]/actions/route.ts(531,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/class/[id]/actions/route.ts(532,5): error TS2322: Type 'NextResponse<{ _error: string; message: string; }>' is not assignable to type 'NextResponse<ActionApprovalResponse | { error: string; message?: string | undefined; errors?: any; }>'.
+  Type '{ _error: string; message: string; }' is not assignable to type 'ActionApprovalResponse | { error: string; message?: string | undefined; errors?: any; }'.
+    Property 'error' is missing in type '{ _error: string; message: string; }' but required in type '{ error: string; message?: string | undefined; errors?: any; }'.
+src/app/api/class/[id]/students/route.ts(468,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/class/[id]/students/route.ts(469,5): error TS2322: Type 'NextResponse<{ _error: string; message: string; }>' is not assignable to type 'NextResponse<ClassStudentsResponse | { error: string; message?: string | undefined; }>'.
+  Type '{ _error: string; message: string; }' is not assignable to type 'ClassStudentsResponse | { error: string; message?: string | undefined; }'.
+    Property 'error' is missing in type '{ _error: string; message: string; }' but required in type '{ error: string; message?: string | undefined; }'.
+src/app/api/ehcp/[id]/export/route.ts(78,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/ehcp/[id]/route.ts(53,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/ehcp/[id]/route.ts(137,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/ehcp/[id]/route.ts(200,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/help/[slug]/route.ts(65,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/help/[slug]/route.ts(115,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/interventions/[id]/route.ts(157,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/interventions/[id]/route.ts(306,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/interventions/[id]/route.ts(421,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/lessons/assign/route.ts(354,5): error TS2322: Type 'NextResponse<{ _error: string; message: string; }>' is not assignable to type 'NextResponse<AssignmentResponse | { error: string; message?: string | undefined; errors?: any; }>'.
+  Type '{ _error: string; message: string; }' is not assignable to type 'AssignmentResponse | { error: string; message?: string | undefined; errors?: any; }'.
+    Property 'error' is missing in type '{ _error: string; message: string; }' but required in type '{ error: string; message?: string | undefined; errors?: any; }'.
+src/app/api/lessons/differentiate/route.ts(437,5): error TS2322: Type 'NextResponse<{ _error: string; message: string; }>' is not assignable to type 'NextResponse<DifferentiationResponse | { error: string; message?: string | undefined; errors?: any; }>'.
+  Type '{ _error: string; message: string; }' is not assignable to type 'DifferentiationResponse | { error: string; message?: string | undefined; errors?: any; }'.
+    Property 'error' is missing in type '{ _error: string; message: string; }' but required in type '{ error: string; message?: string | undefined; errors?: any; }'.
+src/app/api/multi-agency/ep-dashboard/route.ts(478,5): error TS2322: Type 'NextResponse<{ _error: string; message: string; }>' is not assignable to type 'NextResponse<EPDashboardResponse | { error: string; message?: string | undefined; }>'.
+  Type '{ _error: string; message: string; }' is not assignable to type 'EPDashboardResponse | { error: string; message?: string | undefined; }'.
+    Property 'error' is missing in type '{ _error: string; message: string; }' but required in type '{ error: string; message?: string | undefined; }'.
+src/app/api/multi-agency/view/route.ts(150,5): error TS2322: Type 'NextResponse<{ _error: string; message: string; }>' is not assignable to type 'NextResponse<MultiAgencyViewResponse | { error: string; message?: string | undefined; }>'.
+  Type '{ _error: string; message: string; }' is not assignable to type 'MultiAgencyViewResponse | { error: string; message?: string | undefined; }'.
+    Property 'error' is missing in type '{ _error: string; message: string; }' but required in type '{ error: string; message?: string | undefined; }'.
+src/app/api/onboarding/[...action]/route.ts(90,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/onboarding/[...action]/route.ts(215,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/parent/messages/route.ts(252,5): error TS2322: Type 'NextResponse<{ _error: string; message: string; }>' is not assignable to type 'NextResponse<MessagesResponse | { error: string; message?: string | undefined; }>'.
+  Type '{ _error: string; message: string; }' is not assignable to type 'MessagesResponse | { error: string; message?: string | undefined; }'.
+    Property 'error' is missing in type '{ _error: string; message: string; }' but required in type '{ error: string; message?: string | undefined; }'.
+src/app/api/parent/messages/route.ts(433,5): error TS2322: Type 'NextResponse<{ _error: string; message: string; }>' is not assignable to type 'NextResponse<SendMessageResponse | { error: string; message?: string | undefined; errors?: any; }>'.
+  Type '{ _error: string; message: string; }' is not assignable to type 'SendMessageResponse | { error: string; message?: string | undefined; errors?: any; }'.
+    Property 'error' is missing in type '{ _error: string; message: string; }' but required in type '{ error: string; message?: string | undefined; errors?: any; }'.
+src/app/api/parent/portal/[childId]/route.ts(423,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/parent/portal/[childId]/route.ts(424,5): error TS2322: Type 'NextResponse<{ _error: string; message: string; }>' is not assignable to type 'NextResponse<ParentPortalResponse | { error: string; message?: string | undefined; }>'.
+  Type '{ _error: string; message: string; }' is not assignable to type 'ParentPortalResponse | { error: string; message?: string | undefined; }'.
+    Property 'error' is missing in type '{ _error: string; message: string; }' but required in type '{ error: string; message?: string | undefined; }'.
+src/app/api/public/collaborations/[id]/route.ts(41,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/public/collaborations/[id]/route.ts(63,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/students/[id]/lessons/route.ts(284,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/students/[id]/lessons/route.ts(285,5): error TS2322: Type 'NextResponse<{ _error: string; message: string; }>' is not assignable to type 'NextResponse<StudentLessonResponse | { error: string; message?: string | undefined; }>'.
+  Type '{ _error: string; message: string; }' is not assignable to type 'StudentLessonResponse | { error: string; message?: string | undefined; }'.
+    Property 'error' is missing in type '{ _error: string; message: string; }' but required in type '{ error: string; message?: string | undefined; }'.
+src/app/api/students/[id]/profile/route.ts(347,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/students/[id]/profile/route.ts(348,5): error TS2322: Type 'NextResponse<{ _error: string; message: string; }>' is not assignable to type 'NextResponse<StudentProfileResponse | { error: string; message?: string | undefined; }>'.
+  Type '{ _error: string; message: string; }' is not assignable to type 'StudentProfileResponse | { error: string; message?: string | undefined; }'.
+    Property 'error' is missing in type '{ _error: string; message: string; }' but required in type '{ error: string; message?: string | undefined; }'.
+src/app/api/students/[id]/profile/route.ts(578,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/students/[id]/profile/route.ts(579,5): error TS2322: Type 'NextResponse<{ _error: string; message: string; }>' is not assignable to type 'NextResponse<StudentProfileResponse | { error: string; message?: string | undefined; errors?: any; }>'.
+  Type '{ _error: string; message: string; }' is not assignable to type 'StudentProfileResponse | { error: string; message?: string | undefined; errors?: any; }'.
+    Property 'error' is missing in type '{ _error: string; message: string; }' but required in type '{ error: string; message?: string | undefined; errors?: any; }'.
+src/app/api/students/[id]/route.ts(150,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/students/[id]/route.ts(292,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/students/[id]/route.ts(424,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/subscription/route.ts(40,5): error TS2322: Type '"2025-10-29.clover"' is not assignable to type '"2023-10-16"'.
+src/app/api/training/courses/[id]/route.ts(156,13): error TS2551: Property '_error' does not exist on type 'Console'. Did you mean 'error'?
+src/app/api/voice/quick-actions/route.ts(503,5): error TS2322: Type 'NextResponse<{ _error: string; message: string; }>' is not assignable to type 'NextResponse<QuickActionResponse | { error: string; message?: string | undefined; errors?: any; }>'.
+  Type '{ _error: string; message: string; }' is not assignable to type 'QuickActionResponse | { error: string; message?: string | undefined; errors?: any; }'.
+    Property 'error' is missing in type '{ _error: string; message: string; }' but required in type '{ error: string; message?: string | undefined; errors?: any; }'.
+src/app/api/webhooks/stripe/route.ts(45,5): error TS2322: Type '"2025-10-29.clover"' is not assignable to type '"2023-10-16"'.
+src/components/beta/BetaRegistrationForm.tsx(161,12): error TS2590: Expression produces a union type that is too complex to represent.
+src/components/demo/DemoProvider.tsx(191,11): error TS2304: Cannot find name 'logger'.
+src/components/onboarding/InteractiveDemo.tsx(114,16): error TS2345: Argument of type '(prev: DemoState) => { status: "_error"; _error: string; progress: number; output: any; error?: string | undefined; }' is not assignable to parameter of type 'SetStateAction<DemoState>'.
+  Type '(prev: DemoState) => { status: "_error"; _error: string; progress: number; output: any; error?: string | undefined; }' is not assignable to type '(prevState: DemoState) => DemoState'.
+    Call signature return types '{ status: "_error"; _error: string; progress: number; output: any; error?: string | undefined; }' and 'DemoState' are incompatible.
+      The types of 'status' are incompatible between these types.
+        Type '"_error"' is not assignable to type '"error" | "idle" | "generating" | "complete"'. Did you mean '"error"'?
+src/components/orchestration/AutomatedActionsLog.tsx(529,13): error TS2551: Property '_error' does not exist on type '{ (message: Message, opts?: Partial<Pick<Toast, "style" | "className" | "id" | "icon" | "duration" | "position" | "ariaProps" | "iconTheme" | "toasterId" | "removeDelay">> | undefined): string; ... 8 more ...; promise<T>(promise: Promise<...> | (() => Promise<...>), msgs: { ...; }, opts?: DefaultToastOptions | undef...'. Did you mean 'error'?
+src/components/orchestration/VoiceCommandInterface.tsx(363,15): error TS2551: Property '_error' does not exist on type '{ (message: Message, opts?: Partial<Pick<Toast, "style" | "className" | "id" | "icon" | "duration" | "position" | "ariaProps" | "iconTheme" | "toasterId" | "removeDelay">> | undefined): string; ... 8 more ...; promise<T>(promise: Promise<...> | (() => Promise<...>), msgs: { ...; }, opts?: DefaultToastOptions | undef...'. Did you mean 'error'?
+src/components/providers/CookieConsentClientWrapper.tsx(39,61): error TS2304: Cannot find name 'e'.
+src/contexts/AuthContext.tsx(161,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type '{ success: boolean; error?: string | undefined; }'. Did you mean to write 'error'?
+src/lib/ai-integration.ts(501,9): error TS2322: Type '{}' is not assignable to type 'string'.
+src/lib/ai-integration.ts(566,43): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'Error'.
+src/lib/ai-integration.ts(817,9): error TS2322: Type '{}' is not assignable to type 'string'.
+src/lib/auth/auth-service.ts(150,7): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'AuthResult'. Did you mean to write 'error'?
+src/lib/auth/auth-service.ts(346,7): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'VerifyAuthResult'. Did you mean to write 'error'?
+src/lib/payments/stripeSubscriptions.ts(17,3): error TS2322: Type '"2025-10-29.clover"' is not assignable to type '"2023-10-16"'.
+src/lib/services/cachingService.ts(150,29): error TS2345: Argument of type 'CachedItem<unknown> | undefined' is not assignable to parameter of type 'CachedItem<unknown>'.
+  Type 'undefined' is not assignable to type 'CachedItem<unknown>'.
+src/lib/services/cachingService.ts(154,11): error TS2322: Type 'unknown' is not assignable to type 'T | null'.
+src/lib/services/cachingService.ts(154,18): error TS18048: 'cached' is possibly 'undefined'.
+src/lib/services/cachingService.ts(321,13): error TS2339: Property 'memoryItems' does not exist on type '{ hits: number; misses: number; sets: number; deletes: number; memoryUsage: number; redisUsage: number; }'.
+src/lib/services/cachingService.ts(326,15): error TS2339: Property 'redisConnected' does not exist on type '{ hits: number; misses: number; sets: number; deletes: number; memoryUsage: number; redisUsage: number; }'.
+src/lib/services/cachingService.ts(327,15): error TS2339: Property 'redisMemory' does not exist on type '{ hits: number; misses: number; sets: number; deletes: number; memoryUsage: number; redisUsage: number; }'.
+src/lib/services/cachingService.ts(328,15): error TS2339: Property 'redisKeys' does not exist on type '{ hits: number; misses: number; sets: number; deletes: number; memoryUsage: number; redisUsage: number; }'.
+src/lib/services/cachingService.ts(330,15): error TS2339: Property 'redisConnected' does not exist on type '{ hits: number; misses: number; sets: number; deletes: number; memoryUsage: number; redisUsage: number; }'.
+src/lib/services/cachingService.ts(335,13): error TS2339: Property 'hitRate' does not exist on type '{ hits: number; misses: number; sets: number; deletes: number; memoryUsage: number; redisUsage: number; }'.
+src/lib/services/cachingService.ts(457,5): error TS2322: Type 'number | boolean' is not assignable to type 'boolean'.
+  Type 'number' is not assignable to type 'boolean'.
+src/lib/services/cachingService.ts(499,27): error TS2339: Property 'hitRate' does not exist on type 'CacheStats'.
+src/lib/services/cachingService.ts(500,28): error TS2339: Property 'memoryItems' does not exist on type 'CacheStats'.
+src/lib/services/cachingService.ts(501,31): error TS2339: Property 'redisConnected' does not exist on type 'CacheStats'.
+src/lib/services/cachingService.ts(502,26): error TS2339: Property 'redisKeys' does not exist on type 'CacheStats'.
+src/lib/stripe.ts(40,3): error TS2322: Type '"2025-10-29.clover"' is not assignable to type '"2023-10-16"'.
+src/research/foundation/citation-tracking/services/citation-tracking-service.ts(119,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'CitationResponse<Citation>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/citation-tracking-service.ts(183,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'CitationResponse<Citation>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/citation-tracking-service.ts(218,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'CitationResponse<any>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/citation-tracking-service.ts(306,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'CitationResponse<{ citations: Citation[]; total: number; page: number; limit: number; }>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/citation-tracking-service.ts(345,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'CitationResponse<{ incomingCitations: Citation[]; outgoingCitations: Citation[]; }>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/citation-tracking-service.ts(383,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'CitationResponse<Citation>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/citation-tracking-service.ts(461,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'CitationResponse<{ extractedCitations: { text: string; type: CitationType; position: { start: number; end: number; }; }[]; }>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/citation-tracking-service.ts(512,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'CitationResponse<CitationSemanticAnalysis>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/citation-tracking-service.ts(647,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'CitationResponse<{ format: string; data: string; }>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/citation-tracking-service.ts(692,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'CitationResponse<{ totalCitations: number; verifiedCitations: number; unverifiedCitations: number; citationsByType: Record<CitationType, number>; }>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/impact-metrics-service.ts(316,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'ImpactMetricsResponse<ResearcherMetricsResult>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/impact-metrics-service.ts(358,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'ImpactMetricsResponse<{ researchers: ResearcherMetricsResult[]; comparisonDate: Date; }>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/impact-metrics-service.ts(420,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'ImpactMetricsResponse<{ entityId: string; entityType: string; metricType: MetricType; history: { date: Date; value: number; source: MetricSource; }[]; }>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/impact-metrics-service.ts(503,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'ImpactMetricsResponse<{ researcherId: string; field: ResearchField; fieldNormalizedCitationImpact: number; percentileRank: number; fieldAverageCitations: number; researcherCitations: number; }>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/impact-metrics-service.ts(579,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'ImpactMetricsResponse<{ publicationId: string; altmetricScore: number; socialMediaMentions: number; newsMediaMentions: number; blogMentions: number; policyDocumentCitations: number; wikipediaCitations: number; sources: { ...; }[]; }>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/impact-metrics-service.ts(667,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'ImpactMetricsResponse<{ researcherId: string; collaborationIndex: number; internationalCollaborationRatio: number; topCollaborators: { researcherId: string; name: string; jointPublications: number; totalCitations: number; }[]; citationClusters: { ...; }[]; }>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/impact-metrics-service.ts(776,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'ImpactMetricsResponse<{ entityId: string; entityType: string; timeSeries: { metricType: MetricType; data: { date: Date; value: number; }[]; }[]; radar: { categories: string[]; values: number[]; benchmark?: number[] | undefined; }; }>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/impact-metrics-service.ts(851,13): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type '{ entityId: string; entityType: string; success: boolean; error?: string | undefined; }'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/impact-metrics-service.ts(869,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'ImpactMetricsResponse<{ imported: number; failed: number; results: { entityId: string; entityType: string; success: boolean; error?: string | undefined; }[]; }>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/publication-service.ts(145,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'PublicationResponse<Publication>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/publication-service.ts(261,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'PublicationResponse<Publication>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/publication-service.ts(308,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'PublicationResponse<any>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/publication-service.ts(429,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'PublicationResponse<{ publications: Publication[]; total: number; page: number; limit: number; }>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/publication-service.ts(455,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'PublicationResponse<Publication[]>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/publication-service.ts(524,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'PublicationResponse<Publication>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/publication-service.ts(562,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'PublicationResponse<number>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/publication-service.ts(599,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'PublicationResponse<number>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/publication-service.ts(636,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'PublicationResponse<number>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/publication-service.ts(681,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'PublicationResponse<PublicationImpactMetrics>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/publication-service.ts(744,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'PublicationResponse<{ totalPublications: number; publicationsByType: Record<PublicationType, number>; publicationsByStatus: Record<PublicationStatus, number>; publicationsByAccessType: Record<...>; publicationsByYear: Record<...>; }>'. Did you mean to write 'error'?
+src/research/foundation/citation-tracking/services/publication-service.ts(897,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type 'PublicationResponse<{ format: string; data: string; }>'. Did you mean to write 'error'?
+src/research/foundation/data-sharing/services/institution-service.ts(137,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/data-sharing/services/institution-service.ts(189,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/data-sharing/services/institution-service.ts(246,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/data-sharing/services/institution-service.ts(331,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/data-sharing/services/institution-service.ts(424,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/data-sharing/services/institution-service.ts(517,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/data-sharing/services/institution-service.ts(611,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/data-sharing/services/institution-service.ts(724,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/data-sharing/services/institution-service.ts(833,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/data-sharing/services/institution-service.ts(921,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/data-sharing/services/institution-service.ts(1037,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/data-sharing/services/institution-service.ts(1120,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/data-sharing/services/institution-service.ts(1213,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/data-sharing/services/institution-service.ts(1311,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/federated-ml/services/federated-learning-service.ts(155,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/federated-ml/services/federated-learning-service.ts(228,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/federated-ml/services/federated-learning-service.ts(334,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/federated-ml/services/federated-learning-service.ts(448,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/federated-ml/services/federated-learning-service.ts(573,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/federated-ml/services/federated-learning-service.ts(735,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/federated-ml/services/federated-learning-service.ts(859,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/federated-ml/services/federated-learning-service.ts(1083,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/research/foundation/federated-ml/services/federated-learning-service.ts(1161,9): error TS2820: Type '"_error"' is not assignable to type 'LogLevel'. Did you mean '"error"'?
+src/scripts/final-deployment-validation.ts(195,9): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type '{ success: boolean; deploymentUrl?: string | undefined; validationReport: string; error?: string | undefined; }'. Did you mean to write 'error'?
+src/services/ai/living-demos.ts(124,7): error TS2820: Type '"_error"' is not assignable to type '"error" | "idle" | "generating" | "complete"'. Did you mean '"error"'?
+src/services/beta-access-service.ts(127,30): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type '{ valid: boolean; code?: { id: string; code: string; expiresAt?: Date | undefined; remainingUses: number; role: string; features: string[]; metadata: Record<string, any>; } | undefined; error?: string | undefined; }'. Did you mean to write 'error'?
+src/services/beta-access-service.ts(176,32): error TS2561: Object literal may only specify known properties, but '_error' does not exist in type '{ success: boolean; code?: { id: string; remainingUses: number; } | undefined; error?: string | undefined; }'. Did you mean to write 'error'?
+src/services/institutional-management/audit-log-service.ts(24,5): error TS2322: Type 'object' is not assignable to type 'AuditDetails'.
+  Index signature for type 'string' is missing in type '{}'.
+src/services/institutional-management/audit-log-service.ts(117,35): error TS2724: '"E:/EdpsychConnect/node_modules/.prisma/client/index".Prisma' has no exported member named 'auditLogWhereInput'. Did you mean 'AuditLogWhereInput'?
+src/services/institutional-management/audit-log-service.ts(228,52): error TS2345: Argument of type 'DynamicClientExtensionThis<TypeMap<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }, {}>, TypeMapCb<{ log: ("error" | "warn" | "query")[]; }>, { result: {}; model: {}; query: {}; client: {}; }>' is not assignable to parameter of type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+  Property '$on' is missing in type 'DynamicClientExtensionThis<TypeMap<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }, {}>, TypeMapCb<{ log: ("error" | "warn" | "query")[]; }>, { result: {}; model: {}; query: {}; client: {}; }>' but required in type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/services/institutional-management/professional-development-service.ts(145,57): error TS2304: Cannot find name 'e'.
+src/services/institutional-management/professional-development-service.ts(317,56): error TS2304: Cannot find name 'e'.

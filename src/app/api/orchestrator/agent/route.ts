@@ -74,9 +74,9 @@ export async function POST(req: Request) {
     });
 
   } catch (_error) {
-    logger._error('[Orchestrator] Error processing agent request:', _error as Error);
+    logger.error('[Orchestrator] Error processing agent request:', _error as Error);
     return NextResponse.json(
-      { _error: 'Internal Server Error', details: _error instanceof Error ? _error.message : String(_error) },
+      { error: 'Internal Server Error', details: _error instanceof Error ? _error.message : String(_error) },
       { status: 500 }
     );
   }

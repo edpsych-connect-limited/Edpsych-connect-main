@@ -95,7 +95,7 @@ export class MonitoringInitializer {
         1
       );
     } catch (_error) {
-      console._error('Failed to initialize monitoring services:', _error);
+      console.error('Failed to initialize monitoring services:', _error);
       // Attempt to record initialization failure
       try {
         await monitoringService.trackApiError(
@@ -104,7 +104,7 @@ export class MonitoringInitializer {
           500
         );
       } catch (logError) {
-        console._error('Failed to log monitoring initialization _error:', logError);
+        console.error('Failed to log monitoring initialization error:', logError);
       }
     }
   }

@@ -72,7 +72,7 @@ export default function DashboardPage() {
           }
         }
       } catch (_error) {
-        console._error('Failed to check onboarding status', _error);
+        console.error('Failed to check onboarding status', _error);
       }
     };
 

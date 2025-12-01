@@ -121,7 +121,7 @@ export class InstitutionService {
 
       return institution as unknown as Institution;
     } catch (_error) {
-      logger._error('Error creating institution', { _error, data });
+      logger.error('Error creating institution', { _error, data });
       throw _error;
     }
   }
@@ -156,7 +156,7 @@ export class InstitutionService {
 
       return institution as unknown as Institution;
     } catch (_error) {
-      logger._error('Error fetching institution', { _error, institutionId });
+      logger.error('Error fetching institution', { _error, institutionId });
       throw _error;
     }
   }
@@ -240,7 +240,7 @@ export class InstitutionService {
         limit,
       };
     } catch (_error) {
-      logger._error('Error fetching institutions', { _error, options });
+      logger.error('Error fetching institutions', { _error, options });
       throw _error;
     }
   }
@@ -299,7 +299,7 @@ export class InstitutionService {
       
       return updatedInstitution as unknown as Institution;
     } catch (_error) {
-      logger._error('Error updating institution', { _error, institutionId, data });
+      logger.error('Error updating institution', { _error, institutionId, data });
       throw _error;
     }
   }
@@ -343,7 +343,7 @@ export class InstitutionService {
       
       return updatedInstitution as unknown as Institution;
     } catch (_error) {
-      logger._error('Error verifying institution', { _error, institutionId, status });
+      logger.error('Error verifying institution', { _error, institutionId, status });
       throw _error;
     }
   }
@@ -386,7 +386,7 @@ export class InstitutionService {
       
       return updatedInstitution as unknown as Institution;
     } catch (_error) {
-      logger._error('Error deactivating institution', { _error, institutionId });
+      logger.error('Error deactivating institution', { _error, institutionId });
       throw _error;
     }
   }
@@ -429,7 +429,7 @@ export class InstitutionService {
       
       return updatedInstitution as unknown as Institution;
     } catch (_error) {
-      logger._error('Error reactivating institution', { _error, institutionId });
+      logger.error('Error reactivating institution', { _error, institutionId });
       throw _error;
     }
   }
@@ -486,7 +486,7 @@ export class InstitutionService {
         verified: await prisma.institution.count({ where: { verificationStatus: VerificationStatus.VERIFIED } }),
       };
     } catch (_error) {
-      logger._error('Error fetching institution statistics', { _error });
+      logger.error('Error fetching institution statistics', { _error });
       throw _error;
     }
   }
@@ -541,7 +541,7 @@ export class InstitutionService {
         metadata: { adminId },
       });
     } catch (_error) {
-      logger._error('Error adding institution admin', { _error, institutionId, adminId });
+      logger.error('Error adding institution admin', { _error, institutionId, adminId });
       throw _error;
     }
   }
@@ -596,7 +596,7 @@ export class InstitutionService {
         metadata: { adminId },
       });
     } catch (_error) {
-      logger._error('Error removing institution admin', { _error, institutionId, adminId });
+      logger.error('Error removing institution admin', { _error, institutionId, adminId });
       throw _error;
     }
   }
@@ -671,7 +671,7 @@ export class InstitutionService {
         },
       });
     } catch (_error) {
-      logger._error('Error logging audit event', { _error, data });
+      logger.error('Error logging audit event', { _error, data });
       // Don't throw, just log the _error
     }
   }

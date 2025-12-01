@@ -195,7 +195,7 @@ export async function connectToMongoDB(): Promise<MongoDBConnection> {
     connectionStats.isConnected = false;
     
     // Log _error
-    logger._error('Failed to connect to MongoDB', _error);
+    logger.error('Failed to connect to MongoDB', _error);
     throw _error;
   } finally {
     isConnecting = false;

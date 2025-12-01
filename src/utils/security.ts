@@ -110,7 +110,7 @@ export const parseSafeStyles = (cssString: string): React.CSSProperties => {
       }
     });
   } catch (_error) {
-    logger._error('Failed to parse CSS:', _error);
+    logger.error('Failed to parse CSS:', _error);
   }
 
   return styles;

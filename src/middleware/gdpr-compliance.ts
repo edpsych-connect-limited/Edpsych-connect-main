@@ -241,8 +241,8 @@ class GDPRComplianceMiddleware {
 
       return response;
     } catch (_error) {
-      console._error('Error processing consent request:', _error);
-      return NextResponse.json({ _error: 'Invalid consent data' }, { status: 400 });
+      console.error('Error processing consent request:', _error);
+      return NextResponse.json({ error: 'Invalid consent data' }, { status: 400 });
     }
   }
 
@@ -308,8 +308,8 @@ class GDPRComplianceMiddleware {
           return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
       }
     } catch (_error) {
-      console._error('Error processing data subject request:', _error);
-      return NextResponse.json({ _error: 'Failed to process request' }, { status: 500 });
+      console.error('Error processing data subject request:', _error);
+      return NextResponse.json({ error: 'Failed to process request' }, { status: 500 });
     }
   }
 
@@ -357,7 +357,7 @@ class GDPRComplianceMiddleware {
       // For now, we'll skip geo-blocking
       return false;
     } catch (_error) {
-      console._error('Error checking geo-blocking:', _error);
+      console.error('Error checking geo-blocking:', _error);
       return false;
     }
   }
@@ -397,7 +397,7 @@ class GDPRComplianceMiddleware {
       // Check if necessary consent is given
       return consent.consent.necessary;
     } catch (_error) {
-      console._error('Error parsing consent cookie:', _error);
+      console.error('Error parsing consent cookie:', _error);
       return false;
     }
   }
@@ -450,7 +450,7 @@ class GDPRComplianceMiddleware {
       // In a real implementation, you would store this in a secure audit log
       logger.debug('GDPR Data Processing Log:', logEntry);
     } catch (_error) {
-      console._error('Error logging data processing:', _error);
+      console.error('Error logging data processing:', _error);
     }
   }
 
@@ -470,7 +470,7 @@ class GDPRComplianceMiddleware {
       // In a real implementation, you would store this in a secure audit log
       logger.debug('GDPR Consent Log:', logEntry);
     } catch (_error) {
-      console._error('Error logging consent event:', _error);
+      console.error('Error logging consent event:', _error);
     }
   }
 

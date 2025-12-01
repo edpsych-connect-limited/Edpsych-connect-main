@@ -75,9 +75,9 @@ export async function GET(
       },
     });
   } catch (_error) {
-    console._error('[EHCP Export API] Error:', _error);
+    console.error('[EHCP Export API] Error:', _error);
     return NextResponse.json(
-      { _error: 'Failed to generate EHCP export' },
+      { error: 'Failed to generate EHCP export' },
       { status: 500 }
     );
   }

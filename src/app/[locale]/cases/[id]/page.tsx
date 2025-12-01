@@ -117,7 +117,7 @@ export default function CaseDetailPage({ params }: CaseDetailProps) {
         };
         setCaseDetail(mockCase);
       } catch (_error) {
-        console._error('Failed to load case:', _error);
+        console.error('Failed to load case:', _error);
       } finally {
         setLoading(false);
       }

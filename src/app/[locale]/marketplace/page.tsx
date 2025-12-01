@@ -66,7 +66,7 @@ function MarketplaceSearchContent() {
       const data = await res.json();
       setProfessionals(data.results || []);
     } catch (_error) {
-      console._error('Search failed:', _error);
+      console.error('Search failed:', _error);
     } finally {
       setLoading(false);
     }

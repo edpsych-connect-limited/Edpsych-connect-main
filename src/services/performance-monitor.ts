@@ -86,7 +86,7 @@ export class PerformanceMonitor {
         navObserver.observe({ entryTypes: ['navigation'] });
         this.observers.push(navObserver);
       } catch (_error) {
-        logger._error('Error initializing navigation observer:', _error as Error);
+        logger.error('Error initializing navigation observer:', _error as Error);
       }
 
       // Paint timing
@@ -99,7 +99,7 @@ export class PerformanceMonitor {
         paintObserver.observe({ entryTypes: ['paint'] });
         this.observers.push(paintObserver);
       } catch (_error) {
-        logger._error('Error initializing paint observer:', _error as Error);
+        logger.error('Error initializing paint observer:', _error as Error);
       }
 
       // Resource timing
@@ -112,7 +112,7 @@ export class PerformanceMonitor {
         resourceObserver.observe({ entryTypes: ['resource'] });
         this.observers.push(resourceObserver);
       } catch (_error) {
-        logger._error('Error initializing resource observer:', _error as Error);
+        logger.error('Error initializing resource observer:', _error as Error);
       }
 
       // Layout shift
@@ -125,7 +125,7 @@ export class PerformanceMonitor {
         layoutObserver.observe({ entryTypes: ['layout-shift'] });
         this.observers.push(layoutObserver);
       } catch (_error) {
-        logger._error('Error initializing layout observer:', _error as Error);
+        logger.error('Error initializing layout observer:', _error as Error);
       }
     }
   }
@@ -248,7 +248,7 @@ export class PerformanceMonitor {
         observer.observe({ entryTypes: [eventType] });
         this.observers.push(observer);
       } catch (_error) {
-        logger._error(`Error tracking ${name}:`, _error as Error);
+        logger.error(`Error tracking ${name}:`, _error as Error);
       }
     }
   }

@@ -252,7 +252,7 @@ export class AIService {
         rawAnalysis: response.response
       };
     } catch (_error) {
-      logger._error('Error analyzing assessment results:', _error as Error);
+      logger.error('Error analyzing assessment results:', _error as Error);
       throw new Error('Failed to analyze assessment results');
     }
   }
@@ -306,7 +306,7 @@ export class AIService {
         resources: resources
       };
     } catch (_error) {
-      logger._error('Error generating recommendations:', _error as Error);
+      logger.error('Error generating recommendations:', _error as Error);
       throw new Error('Failed to generate recommendations');
     }
   }
@@ -344,7 +344,7 @@ export class AIService {
         confidence: dataCompleteness
       };
     } catch (_error) {
-      logger._error('Error predicting student trajectory:', _error as Error);
+      logger.error('Error predicting student trajectory:', _error as Error);
       throw new Error('Failed to predict student trajectory');
     }
   }
@@ -391,7 +391,7 @@ export class AIService {
         confidence: student ? 0.85 : 0.6
       };
     } catch (_error) {
-      logger._error('Error identifying learning difficulties:', _error as Error);
+      logger.error('Error identifying learning difficulties:', _error as Error);
       throw new Error('Failed to identify learning difficulties');
     }
   }
@@ -437,7 +437,7 @@ export class AIService {
         resources: resources
       };
     } catch (_error) {
-      logger._error('Error generating intervention plan:', _error as Error);
+      logger.error('Error generating intervention plan:', _error as Error);
       throw new Error('Failed to generate intervention plan');
     }
   }

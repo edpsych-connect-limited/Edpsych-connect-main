@@ -172,7 +172,7 @@ export class BlogService {
 
       return this.mapPrismaPostToInterface(post, author);
     } catch (_error) {
-      console._error('Error generating blog post:', _error);
+      console.error('Error generating blog post:', _error);
       throw new Error('Failed to generate blog post');
     }
   }

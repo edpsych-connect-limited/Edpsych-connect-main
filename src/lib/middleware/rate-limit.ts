@@ -238,7 +238,7 @@ export function createRateLimit(config: RateLimitConfig): (
     } catch (_error) {
       // If rate limiting fails, allow the request (fail open)
       // This ensures rate limiting failures don't break the application
-      console._error('[RATE LIMIT] Error:', _error);
+      console.error('[RATE LIMIT] Error:', _error);
 
       return {
         allowed: true,

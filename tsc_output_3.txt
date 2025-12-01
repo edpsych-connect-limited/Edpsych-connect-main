@@ -1,0 +1,35 @@
+src/app/[locale]/school/ehcp-request/page.tsx(54,31): error TS2339: Property 'tenantId' does not exist on type '{ id?: string; role: UserRole; organizationId?: string | undefined; permissions?: string[] | undefined; isActive: boolean; name?: string | null | undefined; email?: string | null | undefined; image?: string | ... 1 more ... | undefined; }'.
+src/app/[locale]/school/ehcp-request/page.tsx(55,33): error TS2339: Property 'tenantName' does not exist on type '{ id?: string; role: UserRole; organizationId?: string | undefined; permissions?: string[] | undefined; isActive: boolean; name?: string | null | undefined; email?: string | null | undefined; image?: string | ... 1 more ... | undefined; }'.
+src/app/api/subscription/route.ts(40,5): error TS2322: Type '"2025-10-29.clover"' is not assignable to type '"2023-10-16"'.
+src/app/api/webhooks/stripe/route.ts(45,5): error TS2322: Type '"2025-10-29.clover"' is not assignable to type '"2023-10-16"'.
+src/components/beta/BetaRegistrationForm.tsx(161,12): error TS2590: Expression produces a union type that is too complex to represent.
+src/components/demo/DemoProvider.tsx(191,11): error TS2304: Cannot find name 'logger'.
+src/components/providers/CookieConsentClientWrapper.tsx(39,61): error TS2304: Cannot find name 'e'.
+src/lib/ai-integration.ts(501,9): error TS2322: Type '{}' is not assignable to type 'string'.
+src/lib/ai-integration.ts(566,43): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'Error'.
+src/lib/ai-integration.ts(817,9): error TS2322: Type '{}' is not assignable to type 'string'.
+src/lib/payments/stripeSubscriptions.ts(17,3): error TS2322: Type '"2025-10-29.clover"' is not assignable to type '"2023-10-16"'.
+src/lib/services/cachingService.ts(150,29): error TS2345: Argument of type 'CachedItem<unknown> | undefined' is not assignable to parameter of type 'CachedItem<unknown>'.
+  Type 'undefined' is not assignable to type 'CachedItem<unknown>'.
+src/lib/services/cachingService.ts(154,11): error TS2322: Type 'unknown' is not assignable to type 'T | null'.
+src/lib/services/cachingService.ts(154,18): error TS18048: 'cached' is possibly 'undefined'.
+src/lib/services/cachingService.ts(321,13): error TS2339: Property 'memoryItems' does not exist on type '{ hits: number; misses: number; sets: number; deletes: number; memoryUsage: number; redisUsage: number; }'.
+src/lib/services/cachingService.ts(326,15): error TS2339: Property 'redisConnected' does not exist on type '{ hits: number; misses: number; sets: number; deletes: number; memoryUsage: number; redisUsage: number; }'.
+src/lib/services/cachingService.ts(327,15): error TS2339: Property 'redisMemory' does not exist on type '{ hits: number; misses: number; sets: number; deletes: number; memoryUsage: number; redisUsage: number; }'.
+src/lib/services/cachingService.ts(328,15): error TS2339: Property 'redisKeys' does not exist on type '{ hits: number; misses: number; sets: number; deletes: number; memoryUsage: number; redisUsage: number; }'.
+src/lib/services/cachingService.ts(330,15): error TS2339: Property 'redisConnected' does not exist on type '{ hits: number; misses: number; sets: number; deletes: number; memoryUsage: number; redisUsage: number; }'.
+src/lib/services/cachingService.ts(335,13): error TS2339: Property 'hitRate' does not exist on type '{ hits: number; misses: number; sets: number; deletes: number; memoryUsage: number; redisUsage: number; }'.
+src/lib/services/cachingService.ts(457,5): error TS2322: Type 'number | boolean' is not assignable to type 'boolean'.
+  Type 'number' is not assignable to type 'boolean'.
+src/lib/services/cachingService.ts(499,27): error TS2339: Property 'hitRate' does not exist on type 'CacheStats'.
+src/lib/services/cachingService.ts(500,28): error TS2339: Property 'memoryItems' does not exist on type 'CacheStats'.
+src/lib/services/cachingService.ts(501,31): error TS2339: Property 'redisConnected' does not exist on type 'CacheStats'.
+src/lib/services/cachingService.ts(502,26): error TS2339: Property 'redisKeys' does not exist on type 'CacheStats'.
+src/lib/stripe.ts(40,3): error TS2322: Type '"2025-10-29.clover"' is not assignable to type '"2023-10-16"'.
+src/services/institutional-management/audit-log-service.ts(24,5): error TS2322: Type 'object' is not assignable to type 'AuditDetails'.
+  Index signature for type 'string' is missing in type '{}'.
+src/services/institutional-management/audit-log-service.ts(117,35): error TS2724: '"E:/EdpsychConnect/node_modules/.prisma/client/index".Prisma' has no exported member named 'auditLogWhereInput'. Did you mean 'AuditLogWhereInput'?
+src/services/institutional-management/audit-log-service.ts(228,52): error TS2345: Argument of type 'DynamicClientExtensionThis<TypeMap<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }, {}>, TypeMapCb<{ log: ("query" | "warn" | "error")[]; }>, { result: {}; model: {}; query: {}; client: {}; }>' is not assignable to parameter of type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+  Property '$on' is missing in type 'DynamicClientExtensionThis<TypeMap<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }, {}>, TypeMapCb<{ log: ("query" | "warn" | "error")[]; }>, { result: {}; model: {}; query: {}; client: {}; }>' but required in type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/services/institutional-management/professional-development-service.ts(145,57): error TS2304: Cannot find name 'e'.
+src/services/institutional-management/professional-development-service.ts(317,56): error TS2304: Cannot find name 'e'.

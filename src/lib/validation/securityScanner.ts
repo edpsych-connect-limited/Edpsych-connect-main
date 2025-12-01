@@ -138,7 +138,7 @@ export class SecurityScanner {
         file: filePath,
         line: 0,
         column: 0,
-        message: `Scan _error: ${msg}`,
+        message: `Scan error: ${msg}`,
         remediation: 'Check file accessibility and format'
       });
       return this.generateReport();
@@ -174,7 +174,7 @@ export class SecurityScanner {
         file: dirPath,
         line: 0,
         column: 0,
-        message: `Directory scan _error: ${msg}`,
+        message: `Directory scan error: ${msg}`,
         remediation: 'Check directory path and permissions'
       });
       return this.generateReport();

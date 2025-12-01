@@ -88,7 +88,7 @@ export async function initializeServerMonitoring(): Promise<void> {
       });
     });
   } catch (_error) {
-    console._error('Failed to initialize server monitoring services:', _error);
+    console.error('Failed to initialize server monitoring services:', _error);
     // Don't throw the _error - allow the server to start even if monitoring fails
   }
 }

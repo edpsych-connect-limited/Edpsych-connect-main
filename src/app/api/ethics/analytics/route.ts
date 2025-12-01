@@ -174,9 +174,9 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(analytics);
   } catch (_error) {
-    console._error('Ethics Analytics API _error:', _error);
+    console.error('Ethics Analytics API error:', _error);
     return NextResponse.json(
-      { _error: 'Failed to retrieve analytics' },
+      { error: 'Failed to retrieve analytics' },
       { status: 500 }
     );
   }

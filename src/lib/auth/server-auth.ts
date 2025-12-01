@@ -186,7 +186,7 @@ class ServerAuthService {
 
       return { user, tokens };
     } catch (_error) {
-      console._error('Authentication _error:', _error);
+      console.error('Authentication error:', _error);
       return null;
     }
   }
@@ -280,7 +280,7 @@ class ServerAuthService {
 
       return tokens;
     } catch (_error) {
-      console._error('Token refresh _error:', _error);
+      console.error('Token refresh error:', _error);
       return null;
     }
   }
@@ -302,7 +302,7 @@ class ServerAuthService {
 
       return user;
     } catch (_error) {
-      console._error('Token verification _error:', _error);
+      console.error('Token verification error:', _error);
       return null;
     }
   }
@@ -390,7 +390,7 @@ class ServerAuthService {
 
       return await this.verifyToken(token);
     } catch (_error) {
-      console._error('Error getting user from request:', _error);
+      console.error('Error getting user from request:', _error);
       return null;
     }
   }

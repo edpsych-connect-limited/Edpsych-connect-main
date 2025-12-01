@@ -358,7 +358,7 @@ export class DataRouterService {
         voice_enabled: classRoster.voice_enabled,
       };
     } catch (_error) {
-      logger._error('Error getting teacher dashboard view:', _error as Error);
+      logger.error('Error getting teacher dashboard view:', _error as Error);
       throw _error;
     }
   }
@@ -498,7 +498,7 @@ export class DataRouterService {
         },
       };
     } catch (_error) {
-      logger._error('Error getting parent portal view:', _error as Error);
+      logger.error('Error getting parent portal view:', _error as Error);
       throw _error;
     }
   }
@@ -567,7 +567,7 @@ export class DataRouterService {
         cross_school_trends: crossSchoolTrends,
       };
     } catch (_error) {
-      logger._error('Error getting EP multi-agency view:', _error as Error);
+      logger.error('Error getting EP multi-agency view:', _error as Error);
       throw _error;
     }
   }
@@ -664,7 +664,7 @@ export class DataRouterService {
         },
       };
     } catch (_error) {
-      logger._error('Error getting head teacher school view:', _error as Error);
+      logger.error('Error getting head teacher school view:', _error as Error);
       throw _error;
     }
   }
@@ -698,7 +698,7 @@ export class DataRouterService {
         attendance_overview: [],
       };
     } catch (_error) {
-      logger._error('Error getting secondary form tutor view:', _error as Error);
+      logger.error('Error getting secondary form tutor view:', _error as Error);
       throw _error;
     }
   }
@@ -756,7 +756,7 @@ export class DataRouterService {
 
       logger.info(`Progress update routed for student ${studentId}: ${updateType}`);
     } catch (_error) {
-      logger._error('Error routing progress update:', _error as Error);
+      logger.error('Error routing progress update:', _error as Error);
       throw _error;
     }
   }
@@ -1059,7 +1059,7 @@ export class DataRouterService {
       // TODO: Implement data access audit log table
       logger.info(`Data access logged: ${data.access_type} by user ${data.user_id}`);
     } catch (_error) {
-      logger._error('Error logging data access:', _error as Error);
+      logger.error('Error logging data access:', _error as Error);
       // Don't throw - logging failure shouldn't break the flow
     }
   }

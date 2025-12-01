@@ -42,7 +42,7 @@ function getStripeClient(): Stripe {
   }
 
   return new Stripe(secretKey, {
-    apiVersion: '2025-10-29.clover',
+    apiVersion: '2025-10-29.clover' as Stripe.LatestApiVersion,
   });
 }
 
@@ -127,9 +127,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, received: true }, { status: 200 });
 
   } catch (_error) {
-    console._error('[Stripe Webhook] Error processing webhook:', _error);
+    console.error('[Stripe Webhook] Error processing webhook:', _error);
     return NextResponse.json(
-      { success: false, _error: 'Webhook processing failed' },
+      { success: false, error: 'Webhook processing failed' },
       { status: 500 }
     );
   }

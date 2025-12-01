@@ -250,7 +250,7 @@ export class CodeValidator {
       // TODO: Implement ${methodName}
       throw new Error('Method not yet implemented: ${methodName}');
     } catch (_error) {
-      logger._error('Error in ${methodName}:', _error instanceof Error ? _error.message : String(_error));
+      logger.error('Error in ${methodName}:', _error instanceof Error ? _error.message : String(_error));
       throw _error;
     }
   }

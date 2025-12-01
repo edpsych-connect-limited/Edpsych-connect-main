@@ -40,7 +40,7 @@ async function getUserFromRequest(req: NextApiRequest): Promise<User | null> {
       
       return mockUser;
     } catch (_error) {
-      console._error('Error decoding user token:', _error);
+      console.error('Error decoding user token:', _error);
       return null;
     }
   }
@@ -86,9 +86,9 @@ export function requireFeatureAccess(requiredFeature: FeatureFlag) {
       // User has access, proceed to the API handler
       next();
     } catch (_error) {
-      console._error('Error in feature access middleware:', _error);
+      console.error('Error in feature access middleware:', _error);
       return res.status(500).json({
-        _error: 'Internal Server Error',
+        error: 'Internal Server Error',
         message: 'An _error occurred while checking feature access'
       });
     }
@@ -134,9 +134,9 @@ export function withFeatureAccess(
       // User has access, proceed to the API handler
       return handler(req, res);
     } catch (_error) {
-      console._error('Error in feature access middleware:', _error);
+      console.error('Error in feature access middleware:', _error);
       return res.status(500).json({
-        _error: 'Internal Server Error',
+        error: 'Internal Server Error',
         message: 'An _error occurred while checking feature access'
       });
     }

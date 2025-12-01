@@ -153,9 +153,9 @@ export async function GET(
 
     return NextResponse.json(mappedCourse);
   } catch (_error) {
-    console._error('[Course Detail API] Error:', _error);
+    console.error('[Course Detail API] Error:', _error);
     return NextResponse.json(
-      { _error: 'Failed to fetch course details' },
+      { error: 'Failed to fetch course details' },
       { status: 500 }
     );
   }

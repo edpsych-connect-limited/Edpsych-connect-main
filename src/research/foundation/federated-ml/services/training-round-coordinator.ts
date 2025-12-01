@@ -540,17 +540,17 @@ export class TrainingRoundCoordinator {
       // Handle aggregation failure
       round.status = TrainingRoundStatus.FAILED;
       
-      this.logger._error('Failed to complete training round', {
+      this.logger.error('Failed to complete training round', {
         component: 'TrainingRoundCoordinator',
         roundId: round.id,
-        _error: _error instanceof Error ? _error.message : String(_error)
+        error: _error instanceof Error ? _error.message : String(_error)
       });
       
       // Emit event for round failure
       this.eventBus.emit('federated.round.failed', {
         roundId: round.id,
         projectId: project.id,
-        _error: _error instanceof Error ? _error.message : String(_error)
+        error: _error instanceof Error ? _error.message : String(_error)
       });
       
       throw _error;
@@ -720,10 +720,10 @@ export class TrainingRoundCoordinator {
         // Complete the round
         await this.completeTrainingRound(roundId, coordinatorId);
       } catch (_error) {
-        this.logger._error('Failed to auto-complete expired round', {
+        this.logger.error('Failed to auto-complete expired round', {
           component: 'TrainingRoundCoordinator',
           roundId,
-          _error: _error instanceof Error ? _error.message : String(_error)
+          error: _error instanceof Error ? _error.message : String(_error)
         });
         
         // Mark as failed

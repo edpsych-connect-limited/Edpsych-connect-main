@@ -113,8 +113,8 @@ export function InteractiveDemo({ featureId, onComplete }: InteractiveDemoProps)
     } catch (_error) {
       setState(prev => ({
         ...prev,
-        status: '_error',
-        _error: _error instanceof Error ? _error.message : 'An _error occurred'
+        status: 'error',
+        error: _error instanceof Error ? _error.message : 'An _error occurred'
       }));
     }
   };
@@ -146,7 +146,7 @@ export function InteractiveDemo({ featureId, onComplete }: InteractiveDemoProps)
         }
 
       } catch (_error) {
-        console._error('Polling _error:', _error);
+        console.error('Polling error:', _error);
         // Don't stop polling immediately on transient errors, but maybe limit retries?
         // For now, we'll just let it continue or user can retry
       }

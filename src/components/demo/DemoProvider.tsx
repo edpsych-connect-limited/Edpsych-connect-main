@@ -8,7 +8,7 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
+import { logger } from "@/lib/logger";
 
 import React, { createContext, useContext, useEffect as _useEffect, ReactNode } from 'react';
 import { driver, DriveStep } from 'driver.js';

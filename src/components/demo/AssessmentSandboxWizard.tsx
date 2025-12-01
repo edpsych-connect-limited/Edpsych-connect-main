@@ -317,7 +317,7 @@ export default function AssessmentSandboxWizard() {
       alert('Demo report generated! Check your downloads.');
 
     } catch (_error) {
-      console._error('Failed to generate report:', _error);
+      console.error('Failed to generate report:', _error);
       alert('Failed to generate report.');
     } finally {
       setIsGeneratingReport(false);

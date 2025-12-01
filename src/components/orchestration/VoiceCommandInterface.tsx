@@ -220,7 +220,7 @@ export const VoiceCommandInterface: React.FC<VoiceCommandInterfaceProps> = ({
           }))
         );
       } catch (_error) {
-        console._error('Failed to parse command history:', _error);
+        console.error('Failed to parse command history:', _error);
       }
     }
   }, []);
@@ -359,8 +359,8 @@ export const VoiceCommandInterface: React.FC<VoiceCommandInterfaceProps> = ({
         setIsRecording(true);
         toast.success('Listening... Speak now');
       } catch (_error) {
-        console._error('Failed to start recognition:', _error);
-        toast._error('Failed to start voice recognition');
+        console.error('Failed to start recognition:', _error);
+        toast.error('Failed to start voice recognition');
         setIsRecording(false);
       }
     }

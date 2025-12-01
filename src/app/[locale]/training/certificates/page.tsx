@@ -48,7 +48,7 @@ export default function CertificatesPage() {
       const certificatesData = await response.json();
       setCertificates(certificatesData);
     } catch (_error) {
-      console._error('Error loading certificates:', _error);
+      console.error('Error loading certificates:', _error);
     } finally {
       setLoading(false);
     }

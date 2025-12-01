@@ -74,9 +74,9 @@ async function routeTrainingRequest(request: NextRequest): Promise<NextResponse>
       { status: 404 }
     );
   } catch (_error) {
-    console._error('[Training API] Error:', _error);
+    console.error('[Training API] Error:', _error);
     return NextResponse.json(
-      { _error: 'Internal server _error' },
+      { error: 'Internal server _error' },
       { status: 500 }
     );
   }
@@ -98,8 +98,8 @@ async function handleCertificatesList(request: NextRequest): Promise<NextRespons
       total: 0,
     });
   } catch (_error) {
-    console._error('[Certificates] Error:', _error);
-    return NextResponse.json({ _error: 'Failed to fetch certificates' }, { status: 500 });
+    console.error('[Certificates] Error:', _error);
+    return NextResponse.json({ error: 'Failed to fetch certificates' }, { status: 500 });
   }
 }
 
@@ -126,8 +126,8 @@ async function handleCoursesList(request: NextRequest): Promise<NextResponse> {
       total: 1,
     });
   } catch (_error) {
-    console._error('[Courses] Error:', _error);
-    return NextResponse.json({ _error: 'Failed to fetch courses' }, { status: 500 });
+    console.error('[Courses] Error:', _error);
+    return NextResponse.json({ error: 'Failed to fetch courses' }, { status: 500 });
   }
 }
 
@@ -150,8 +150,8 @@ async function handleCPDList(request: NextRequest): Promise<NextResponse> {
       },
     });
   } catch (_error) {
-    console._error('[CPD] Error:', _error);
-    return NextResponse.json({ _error: 'Failed to fetch CPD data' }, { status: 500 });
+    console.error('[CPD] Error:', _error);
+    return NextResponse.json({ error: 'Failed to fetch CPD data' }, { status: 500 });
   }
 }
 
@@ -171,8 +171,8 @@ async function handleEnrollmentsList(request: NextRequest): Promise<NextResponse
       total: 0,
     });
   } catch (_error) {
-    console._error('[Enrollments] Error:', _error);
-    return NextResponse.json({ _error: 'Failed to fetch enrollments' }, { status: 500 });
+    console.error('[Enrollments] Error:', _error);
+    return NextResponse.json({ error: 'Failed to fetch enrollments' }, { status: 500 });
   }
 }
 
@@ -193,7 +193,7 @@ async function handleProductsList(_request: NextRequest): Promise<NextResponse> 
       total: 1,
     });
   } catch (_error) {
-    console._error('[Products] Error:', _error);
-    return NextResponse.json({ _error: 'Failed to fetch products' }, { status: 500 });
+    console.error('[Products] Error:', _error);
+    return NextResponse.json({ error: 'Failed to fetch products' }, { status: 500 });
   }
 }

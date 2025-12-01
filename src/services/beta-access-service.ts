@@ -58,7 +58,7 @@ export class BetaAccessService {
       
       return code;
     } catch (_error) {
-      logger._error('Error generating beta access code');
+      logger.error('Error generating beta access code');
       throw new Error(`Failed to generate beta access code: ${String(_error)}`);
     }
   }
@@ -120,11 +120,11 @@ export class BetaAccessService {
         }
       };
     } catch (_error) {
-      logger._error('Error validating beta access code', {
+      logger.error('Error validating beta access code', {
         code,
-        _error: _error instanceof Error ? _error.message : String(_error)
+        error: _error instanceof Error ? _error.message : String(_error)
       });
-      return { valid: false, _error: `Failed to validate access code: ${String(_error)}` };
+      return { valid: false, error: `Failed to validate access code: ${String(_error)}` };
     }
   }
 
@@ -169,11 +169,11 @@ export class BetaAccessService {
         }
       };
     } catch (_error) {
-      logger._error('Error using beta access code', {
+      logger.error('Error using beta access code', {
         code,
-        _error: _error instanceof Error ? _error.message : String(_error)
+        error: _error instanceof Error ? _error.message : String(_error)
       });
-      return { success: false, _error: `Failed to use access code: ${String(_error)}` };
+      return { success: false, error: `Failed to use access code: ${String(_error)}` };
     }
   }
 
@@ -215,10 +215,10 @@ export class BetaAccessService {
       
       return { success: true };
     } catch (_error) {
-      logger._error('Error recording access code usage', {
+      logger.error('Error recording access code usage', {
         code,
         id,
-        _error: _error instanceof Error ? _error.message : String(_error)
+        error: _error instanceof Error ? _error.message : String(_error)
       });
       throw new Error(`Failed to record access code usage: ${_error instanceof Error ? _error.message : String(_error)}`);
     }
@@ -249,8 +249,8 @@ export class BetaAccessService {
       
       return activeCodes;
     } catch (_error) {
-      logger._error('Error fetching active beta access codes', {
-        _error: _error instanceof Error ? _error.message : String(_error)
+      logger.error('Error fetching active beta access codes', {
+        error: _error instanceof Error ? _error.message : String(_error)
       });
       throw new Error(`Failed to fetch active beta access codes: ${_error instanceof Error ? _error.message : String(_error)}`);
     }

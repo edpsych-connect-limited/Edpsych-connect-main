@@ -71,7 +71,7 @@ function NewInterventionContent() {
       logger.debug('Loading template:', templateId);
       // This would be expanded to fetch actual template data
     } catch (_error) {
-      console._error('Failed to load template:', _error);
+      console.error('Failed to load template:', _error);
     } finally {
       setLoadingTemplate(false);
     }

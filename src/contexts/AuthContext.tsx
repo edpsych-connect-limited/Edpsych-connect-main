@@ -73,7 +73,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       return null;
     } catch (_error) {
-      console._error('Failed to fetch current user:', _error);
+      console.error('Failed to fetch current user:', _error);
       return null;
     }
   }, []);
@@ -99,7 +99,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           }
         }
       } catch (_error) {
-        console._error('Auth check failed:', _error);
+        console.error('Auth check failed:', _error);
       } finally {
         setLoading(false);
       }
@@ -155,10 +155,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       return { success: false, error: 'Invalid response from server' };
     } catch (_error) {
-      console._error('Login _error:', _error);
+      console.error('Login error:', _error);
       return { 
         success: false, 
-        _error: 'Network _error. Please check your connection and try again.' 
+        error: 'Network _error. Please check your connection and try again.' 
       };
     } finally {
       setLoading(false);
@@ -174,7 +174,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         credentials: 'include',
       });
     } catch (_error) {
-      console._error('Logout API _error:', _error);
+      console.error('Logout API error:', _error);
       // Continue with client-side logout even if API fails
     } finally {
       // Always clear client-side state

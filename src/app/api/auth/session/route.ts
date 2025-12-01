@@ -48,12 +48,12 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (_error) {
-    console._error('Session check _error:', _error);
+    console.error('Session check error:', _error);
     return NextResponse.json(
       {
         authenticated: false,
         session: null,
-        _error: 'Session check failed',
+        error: 'Session check failed',
       },
       { status: 200 }
     );

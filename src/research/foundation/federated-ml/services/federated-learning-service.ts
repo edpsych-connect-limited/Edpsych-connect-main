@@ -152,13 +152,13 @@ export class FederatedLearningService {
       return project;
     } catch (_error) {
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: `Failed to create federated learning project: ${(_error as Error).message}`,
         component: 'FederatedLearningService',
         context: {
           params,
           id,
-          _error: (_error as Error).stack
+          error: (_error as Error).stack
         }
       });
       
@@ -225,14 +225,14 @@ export class FederatedLearningService {
       return updatedProject;
     } catch (_error) {
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: `Failed to update federated learning project: ${(_error as Error).message}`,
         component: 'FederatedLearningService',
         context: {
           projectId,
           id,
           updates: Object.keys(updates),
-          _error: (_error as Error).stack
+          error: (_error as Error).stack
         }
       });
       
@@ -331,14 +331,14 @@ export class FederatedLearningService {
       return updatedProject;
     } catch (_error) {
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: `Failed to add participant to federated learning project: ${(_error as Error).message}`,
         component: 'FederatedLearningService',
         context: {
           projectId,
           institutionId: params.id,
           userId: id,
-          _error: (_error as Error).stack
+          error: (_error as Error).stack
         }
       });
       
@@ -445,13 +445,13 @@ export class FederatedLearningService {
       return updatedProject;
     } catch (_error) {
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: `Failed to start federated learning project: ${(_error as Error).message}`,
         component: 'FederatedLearningService',
         context: {
           projectId,
           id,
-          _error: (_error as Error).stack
+          error: (_error as Error).stack
         }
       });
       
@@ -570,14 +570,14 @@ export class FederatedLearningService {
       return updatedRound;
     } catch (_error) {
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: `Failed to submit trained model: ${(_error as Error).message}`,
         component: 'FederatedLearningService',
         context: {
           roundId,
           participantId,
           id,
-          _error: (_error as Error).stack
+          error: (_error as Error).stack
         }
       });
       
@@ -732,13 +732,13 @@ export class FederatedLearningService {
       return aggregatedModelVersion;
     } catch (_error) {
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: `Failed to aggregate models: ${(_error as Error).message}`,
         component: 'FederatedLearningService',
         context: {
           roundId,
           id,
-          _error: (_error as Error).stack
+          error: (_error as Error).stack
         }
       });
       
@@ -856,13 +856,13 @@ export class FederatedLearningService {
       return updatedModelVersion;
     } catch (_error) {
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: `Failed to evaluate model: ${(_error as Error).message}`,
         component: 'FederatedLearningService',
         context: {
           modelVersionId,
           id,
-          _error: (_error as Error).stack
+          error: (_error as Error).stack
         }
       });
       
@@ -1080,13 +1080,13 @@ export class FederatedLearningService {
       });
     } catch (_error) {
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: `Failed to complete project: ${(_error as Error).message}`,
         component: 'FederatedLearningService',
         context: {
           projectId,
           reason,
-          _error: (_error as Error).stack
+          error: (_error as Error).stack
         }
       });
     }
@@ -1158,13 +1158,13 @@ export class FederatedLearningService {
       this.notifyParticipantsAboutRound(round);
     } catch (_error) {
       this.loggingService.log({
-        level: '_error',
+        level: 'error',
         message: `Failed to start next round: ${(_error as Error).message}`,
         component: 'FederatedLearningService',
         context: {
           projectId: project.id,
           baseModelVersionId,
-          _error: (_error as Error).stack
+          error: (_error as Error).stack
         }
       });
     }

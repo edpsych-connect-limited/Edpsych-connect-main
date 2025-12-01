@@ -47,9 +47,9 @@ export async function POST(req: Request) {
     });
 
   } catch (_error) {
-    console._error('Concierge chat _error:', _error);
+    console.error('Concierge chat error:', _error);
     return NextResponse.json(
-      { _error: 'Internal server _error' },
+      { error: 'Internal server _error' },
       { status: 500 }
     );
   }

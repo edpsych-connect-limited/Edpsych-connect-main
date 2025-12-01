@@ -498,7 +498,7 @@ class AIIntegrationService {
     const cached = this.redis ? await this.redis.get(cacheKey) : null;
     if (cached && this.shouldUseCache(request.subscriptionTier)) {
       return {
-        response: cached,
+        response: cached as string,
         model: 'cache',
         cost: 0,
         tokens: 0,
@@ -563,7 +563,7 @@ class AIIntegrationService {
 
     } catch (_error) {
       // Fallback to alternative provider
-      return this.handleFailover(request, _error);
+      return this.handleFailover(request, _error instanceof Error ? _error : new Error(String(_error)));
     }
   }
 
@@ -635,7 +635,7 @@ class AIIntegrationService {
         try {
           return await this.callOpenAI(agent, request);
         } catch (fallbackError) {
-          console._error('Fallback to OpenAI also failed:', fallbackError);
+          console.error('Fallback to OpenAI also failed:', fallbackError);
         }
       }
 
@@ -644,7 +644,7 @@ class AIIntegrationService {
         try {
           return await this.callGemini(agent, request);
         } catch (fallbackError) {
-          console._error('Fallback to Gemini also failed:', fallbackError);
+          console.error('Fallback to Gemini also failed:', fallbackError);
         }
       }
       
@@ -814,7 +814,7 @@ class AIIntegrationService {
 
       if (cached) {
       return {
-        response: cached,
+        response: cached as string,
         model: 'cache',
         cost: 0,
         tokens: 0,
@@ -982,14 +982,14 @@ class AIIntegration {
         responseTime: responseTime
       };
     } catch (_error) {
-      console._error('[aiIntegration] Chat _error:', _error);
+      console.error('[aiIntegration] Chat error:', _error);
 
       // Return graceful _error response
       return {
         content: "I'm experiencing technical difficulties. Please try again in a moment, or contact support if the issue persists.",
         tokensUsed: 0,
         estimatedCost: 0,
-        model: '_error',
+        model: 'error',
         responseTime: performance.now() - startTime
       };
     }

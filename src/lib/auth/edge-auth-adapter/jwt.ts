@@ -102,7 +102,7 @@ export async function verifyJwt<T>(token: string): Promise<T | null> {
     const { payload } = await jwtVerify(token, secretKey);
     return payload as T;
   } catch (_error) {
-    console._error('JWT verification failed:', _error);
+    console.error('JWT verification failed:', _error);
     return null;
   }
 }
@@ -118,7 +118,7 @@ export async function verifyRefreshToken<T>(token: string): Promise<T | null> {
     const { payload } = await jwtVerify(token, secretKey);
     return payload as T;
   } catch (_error) {
-    console._error('Refresh token verification failed:', _error);
+    console.error('Refresh token verification failed:', _error);
     return null;
   }
 }

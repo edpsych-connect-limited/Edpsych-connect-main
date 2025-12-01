@@ -62,9 +62,9 @@ export async function GET(
 
     return NextResponse.json({ framework });
   } catch (_error) {
-    console._error('Error fetching framework:', _error);
+    console.error('Error fetching framework:', _error);
     return NextResponse.json(
-      { _error: 'Internal server _error' },
+      { error: 'Internal server _error' },
       { status: 500 }
     );
   }

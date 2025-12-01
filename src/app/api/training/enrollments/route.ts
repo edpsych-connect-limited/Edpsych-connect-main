@@ -72,9 +72,9 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(mappedEnrollments);
   } catch (_error) {
-    console._error('[Enrollments API] Error:', _error);
+    console.error('[Enrollments API] Error:', _error);
     return NextResponse.json(
-      { _error: 'Failed to fetch enrollments' },
+      { error: 'Failed to fetch enrollments' },
       { status: 500 }
     );
   }
@@ -129,9 +129,9 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(enrollment);
   } catch (_error) {
-    console._error('[Enrollments API] Error:', _error);
+    console.error('[Enrollments API] Error:', _error);
     return NextResponse.json(
-      { _error: 'Failed to enroll in course' },
+      { error: 'Failed to enroll in course' },
       { status: 500 }
     );
   }

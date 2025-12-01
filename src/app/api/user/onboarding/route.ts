@@ -38,9 +38,9 @@ export async function GET(_request: NextRequest) {
 
     return NextResponse.json({ onboarding: user });
   } catch (_error) {
-    console._error('Failed to fetch onboarding status:', _error);
+    console.error('Failed to fetch onboarding status:', _error);
     return NextResponse.json(
-      { _error: 'Failed to fetch onboarding status' },
+      { error: 'Failed to fetch onboarding status' },
       { status: 500 }
     );
   }
@@ -77,9 +77,9 @@ export async function PUT(request: NextRequest) {
 
     return NextResponse.json({ success: true, onboarding: user });
   } catch (_error) {
-    console._error('Failed to update onboarding progress:', _error);
+    console.error('Failed to update onboarding progress:', _error);
     return NextResponse.json(
-      { _error: 'Failed to update onboarding progress' },
+      { error: 'Failed to update onboarding progress' },
       { status: 500 }
     );
   }
@@ -149,9 +149,9 @@ export async function POST(request: NextRequest) {
       user,
     });
   } catch (_error) {
-    console._error('Failed to complete onboarding:', _error);
+    console.error('Failed to complete onboarding:', _error);
     return NextResponse.json(
-      { _error: 'Failed to complete onboarding' },
+      { error: 'Failed to complete onboarding' },
       { status: 500 }
     );
   }

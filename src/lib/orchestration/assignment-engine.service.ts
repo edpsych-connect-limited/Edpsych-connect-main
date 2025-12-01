@@ -122,7 +122,7 @@ export class AssignmentEngineService {
 
       return differentiated;
     } catch (_error) {
-      logger._error('Error differentiating lesson content:', _error as Error);
+      logger.error('Error differentiating lesson content:', _error as Error);
       throw _error;
     }
   }
@@ -365,7 +365,7 @@ export class AssignmentEngineService {
         notifications_queued: autoAssign ? notificationsQueued : 0,
       };
     } catch (_error) {
-      logger._error('Error assigning lessons to class:', _error as Error);
+      logger.error('Error assigning lessons to class:', _error as Error);
       throw _error;
     }
   }
@@ -451,7 +451,7 @@ export class AssignmentEngineService {
         profile_confidence: profile.profile_confidence,
       };
     } catch (_error) {
-      logger._error('Error determining difficulty level:', _error as Error);
+      logger.error('Error determining difficulty level:', _error as Error);
       throw _error;
     }
   }
@@ -542,7 +542,7 @@ export class AssignmentEngineService {
         reasoning: ['Difficulty level appropriate - student progressing well'],
       };
     } catch (_error) {
-      logger._error('Error detecting mismatch during lesson:', _error as Error);
+      logger.error('Error detecting mismatch during lesson:', _error as Error);
       throw _error;
     }
   }
@@ -651,7 +651,7 @@ export class AssignmentEngineService {
         ],
       };
     } catch (_error) {
-      logger._error('Error triggering intervention on struggle:', _error as Error);
+      logger.error('Error triggering intervention on struggle:', _error as Error);
       throw _error;
     }
   }
@@ -712,7 +712,7 @@ export class AssignmentEngineService {
         requires_teacher_approval: recommendation !== 'stay',
       };
     } catch (_error) {
-      logger._error('Error recommending level change:', _error as Error);
+      logger.error('Error recommending level change:', _error as Error);
       throw _error;
     }
   }
@@ -825,7 +825,7 @@ export class AssignmentEngineService {
         home_activities,
       };
     } catch (_error) {
-      logger._error('Error generating parent update:', _error as Error);
+      logger.error('Error generating parent update:', _error as Error);
       throw _error;
     }
   }
@@ -857,7 +857,7 @@ export class AssignmentEngineService {
         },
       });
     } catch (_error) {
-      logger._error('Error logging automated action:', _error as Error);
+      logger.error('Error logging automated action:', _error as Error);
       // Don't throw - logging failure shouldn't break the flow
     }
   }

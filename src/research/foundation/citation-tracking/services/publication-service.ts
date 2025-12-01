@@ -142,7 +142,7 @@ export class PublicationService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'PUBLICATION_CREATION_FAILED'
       };
     }
@@ -258,7 +258,7 @@ export class PublicationService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'PUBLICATION_UPDATE_FAILED'
       };
     }
@@ -305,7 +305,7 @@ export class PublicationService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'PUBLICATION_DELETION_FAILED'
       };
     }
@@ -426,7 +426,7 @@ export class PublicationService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'PUBLICATION_SEARCH_FAILED'
       };
     }
@@ -452,7 +452,7 @@ export class PublicationService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'AUTHOR_PUBLICATIONS_FAILED'
       };
     }
@@ -521,7 +521,7 @@ export class PublicationService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'IDENTIFIER_ADDITION_FAILED'
       };
     }
@@ -559,7 +559,7 @@ export class PublicationService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'CITATION_INCREMENT_FAILED'
       };
     }
@@ -596,7 +596,7 @@ export class PublicationService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'DOWNLOAD_TRACKING_FAILED'
       };
     }
@@ -633,7 +633,7 @@ export class PublicationService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'VIEW_TRACKING_FAILED'
       };
     }
@@ -678,7 +678,7 @@ export class PublicationService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'METRICS_RETRIEVAL_FAILED'
       };
     }
@@ -741,7 +741,7 @@ export class PublicationService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'PUBLICATION_STATISTICS_FAILED'
       };
     }
@@ -894,7 +894,7 @@ export class PublicationService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'PUBLICATION_EXPORT_FAILED'
       };
     }

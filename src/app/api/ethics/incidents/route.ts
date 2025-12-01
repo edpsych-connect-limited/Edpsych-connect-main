@@ -50,9 +50,9 @@ export async function GET(request: NextRequest) {
       summary
     });
   } catch (_error) {
-    console._error('Ethics Incidents API _error:', _error);
+    console.error('Ethics Incidents API error:', _error);
     return NextResponse.json(
-      { _error: 'Failed to retrieve incidents' },
+      { error: 'Failed to retrieve incidents' },
       { status: 500 }
     );
   }
@@ -214,9 +214,9 @@ export async function POST(request: NextRequest) {
         );
     }
   } catch (_error) {
-    console._error('Incident action _error:', _error);
+    console.error('Incident action error:', _error);
     return NextResponse.json(
-      { _error: 'Failed to perform incident action' },
+      { error: 'Failed to perform incident action' },
       { status: 500 }
     );
   }

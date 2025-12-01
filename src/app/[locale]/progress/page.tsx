@@ -39,7 +39,7 @@ export default function ProgressPage() {
 
       setCases(mappedCases);
     } catch (_error) {
-      console._error('Failed to load cases:', _error);
+      console.error('Failed to load cases:', _error);
     } finally {
       setLoading(false);
     }

@@ -74,9 +74,9 @@ export async function POST(request: NextRequest) {
         );
     }
   } catch (_error) {
-    console._error('Automation Interventions API _error:', _error);
+    console.error('Automation Interventions API error:', _error);
     return NextResponse.json(
-      { _error: 'Failed to process intervention request' },
+      { error: 'Failed to process intervention request' },
       { status: 500 }
     );
   }
@@ -131,9 +131,9 @@ export async function GET(request: NextRequest) {
       count: mappedInterventions.length
     });
   } catch (_error) {
-    console._error('Automation Interventions API _error:', _error);
+    console.error('Automation Interventions API error:', _error);
     return NextResponse.json(
-      { _error: 'Failed to retrieve interventions' },
+      { error: 'Failed to retrieve interventions' },
       { status: 500 }
     );
   }

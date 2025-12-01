@@ -86,7 +86,7 @@ export default function TrainingCataloguePage() {
       const data = await response.json();
       setCourses(data.courses || []);
     } catch (_error) {
-      console._error('Error loading courses:', _error);
+      console.error('Error loading courses:', _error);
     } finally {
       setLoading(false);
     }

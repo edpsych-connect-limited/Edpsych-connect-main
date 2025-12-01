@@ -99,7 +99,7 @@ export default function CaseManager({
     try {
       await onSave(caseData as CaseData);
     } catch (_error) {
-      console._error('Failed to save case:', _error);
+      console.error('Failed to save case:', _error);
       alert('Failed to save case. Please try again.');
     } finally {
       setSaving(false);

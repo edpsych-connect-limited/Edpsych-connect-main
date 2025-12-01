@@ -158,6 +158,7 @@ const BetaRegistrationForm: React.FC = () => {
   // Display loading state while fetching agreement
   if (!agreementContent && !error) {
     return (
+      // @ts-expect-error - MUI sx prop has overly complex union type
       <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
         <CircularProgress />
       </Box>

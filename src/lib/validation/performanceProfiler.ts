@@ -98,7 +98,7 @@ export class PerformanceProfiler {
         severity: 'high',
         file: filePath,
         line: 0,
-        message: `Scan _error: ${msg}`,
+        message: `Scan error: ${msg}`,
         impact: 'Unable to analyze file',
         recommendation: 'Check file accessibility and format'
       });
@@ -130,7 +130,7 @@ export class PerformanceProfiler {
         severity: 'high',
         file: dirPath,
         line: 0,
-        message: `Directory scan _error: ${msg}`,
+        message: `Directory scan error: ${msg}`,
         impact: 'Unable to scan directory',
         recommendation: 'Check directory path and permissions'
       });

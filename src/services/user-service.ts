@@ -79,7 +79,7 @@ export class UserService {
       
       return this.mapPrismaUserToAuthUser(newUser);
     } catch (_error) {
-      logger._error('Error creating user:', _error as Error);
+      logger.error('Error creating user:', _error as Error);
       throw _error;
     }
   }
@@ -112,7 +112,7 @@ export class UserService {
       
       return user ? this.mapPrismaUserToAuthUser(user) : null;
     } catch (_error) {
-      logger._error('Error getting user by ID:', _error as Error);
+      logger.error('Error getting user by ID:', _error as Error);
       return null;
     }
   }
@@ -142,7 +142,7 @@ export class UserService {
       
       return user ? this.mapPrismaUserToAuthUser(user) : null;
     } catch (_error) {
-      logger._error('Error getting user by email:', _error as Error);
+      logger.error('Error getting user by email:', _error as Error);
       return null;
     }
   }
@@ -185,7 +185,7 @@ export class UserService {
       
       return this.mapPrismaUserToAuthUser(updatedUser);
     } catch (_error) {
-      logger._error('Error updating user:', _error as Error);
+      logger.error('Error updating user:', _error as Error);
       throw _error;
     }
   }
@@ -228,7 +228,7 @@ export class UserService {
       
       return true;
     } catch (_error) {
-      logger._error('Error deleting user:', _error as Error);
+      logger.error('Error deleting user:', _error as Error);
       return false;
     }
   }

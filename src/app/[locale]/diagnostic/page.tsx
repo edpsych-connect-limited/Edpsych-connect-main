@@ -49,7 +49,7 @@ export default function DiagnosticPage() {
       } catch (_error) {
         setDiagnosticData({
           status: 'Error',
-          _error: _error instanceof Error ? _error.message : String(_error)
+          error: _error instanceof Error ? _error.message : String(_error)
         });
       }
     }

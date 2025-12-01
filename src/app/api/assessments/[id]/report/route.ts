@@ -76,7 +76,7 @@ export async function POST(
     return NextResponse.json({ success: true, url: fileUrl, documentId: secureDoc.id });
 
   } catch (_error) {
-    console._error('Error uploading report:', _error);
+    console.error('Error uploading report:', _error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 }

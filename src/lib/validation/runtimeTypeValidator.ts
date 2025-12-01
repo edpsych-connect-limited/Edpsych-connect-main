@@ -81,7 +81,7 @@ export class RuntimeTypeValidator {
         file: filePath,
         line: 0,
         column: 0,
-        message: `Validation _error: ${msg}`,
+        message: `Validation error: ${msg}`,
         suggestion: 'Check file format and ensure it is valid TypeScript'
       });
 

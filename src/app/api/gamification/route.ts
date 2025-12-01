@@ -53,8 +53,8 @@ async function routeGamificationRequest(request: NextRequest): Promise<NextRespo
         return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
   } catch (_error) {
-    console._error('[Gamification] Error:', _error);
-    return NextResponse.json({ _error: 'Internal server _error' }, { status: 500 });
+    console.error('[Gamification] Error:', _error);
+    return NextResponse.json({ error: 'Internal server _error' }, { status: 500 });
   }
 }
 

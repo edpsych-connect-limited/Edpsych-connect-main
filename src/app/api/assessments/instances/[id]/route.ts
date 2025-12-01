@@ -51,7 +51,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 
     return NextResponse.json(responseData);
   } catch (_error) {
-    console._error('Error fetching assessment instance:', _error);
-    return NextResponse.json({ _error: 'Internal Server Error' }, { status: 500 });
+    console.error('Error fetching assessment instance:', _error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

@@ -32,7 +32,7 @@ export class EventBusService {
       try {
         callback(payload);
       } catch (_error) {
-        console._error(`Error in event subscriber for '${eventName}':`, _error);
+        console.error(`Error in event subscriber for '${eventName}':`, _error);
       }
     }
   }

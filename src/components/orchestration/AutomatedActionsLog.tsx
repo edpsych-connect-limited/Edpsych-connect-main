@@ -526,7 +526,7 @@ export const AutomatedActionsLog: React.FC<AutomatedActionsLogProps> = ({
 
       toast.success(`Log exported as ${format.toUpperCase()}`);
     } catch (_error) {
-      toast._error('Export failed');
+      toast.error('Export failed');
     }
   };
 

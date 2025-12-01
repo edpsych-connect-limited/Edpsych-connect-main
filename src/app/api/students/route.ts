@@ -189,10 +189,10 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (_error) {
-    console._error('[Student API] Error fetching students:', _error);
+    console.error('[Student API] Error fetching students:', _error);
     return NextResponse.json(
       {
-        _error: 'Failed to retrieve students',
+        error: 'Failed to retrieve students',
         message: _error instanceof Error ? _error.message : 'Unknown _error',
         requestId,
       },
@@ -326,10 +326,10 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
   } catch (_error) {
-    console._error('[Student API] Error creating student:', _error);
+    console.error('[Student API] Error creating student:', _error);
     return NextResponse.json(
       {
-        _error: 'Failed to create student',
+        error: 'Failed to create student',
         message: _error instanceof Error ? _error.message : 'Unknown _error',
         requestId,
       },

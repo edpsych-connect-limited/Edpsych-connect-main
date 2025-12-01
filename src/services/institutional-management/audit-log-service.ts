@@ -8,10 +8,13 @@
 
 import { prisma } from '../../lib/prisma';
 import { ValidationError } from './errors';
-import { PrismaClient, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
 // Types for audit log details
 type AuditDetails = Record<string, unknown>;
+
+// Type for the prisma client (matches extended client from lib/prisma)
+type PrismaClientType = typeof prisma;
 
 /**
  * Helper function to safely parse details regardless of type
@@ -21,7 +24,7 @@ function safeParseDetails(details: unknown): AuditDetails {
   
   // If it's already an object, return it
   if (typeof details === 'object' && !Array.isArray(details)) {
-    return details;
+    return details as AuditDetails;
   }
   
   // If it's a string, try to parse it
@@ -42,9 +45,9 @@ function safeParseDetails(details: unknown): AuditDetails {
  * Provides a centralized mechanism to track all changes made within the system
  */
 export class AuditLogService {
-  private prismaClient: PrismaClient;
+  private prismaClient: PrismaClientType;
 
-  constructor(prismaClient: PrismaClient) {
+  constructor(prismaClient: PrismaClientType) {
     this.prismaClient = prismaClient;
   }
 
@@ -114,7 +117,7 @@ export class AuditLogService {
     }
 
     // Build filter conditions
-    const whereConditions: Prisma.auditLogWhereInput = {
+    const whereConditions: Prisma.AuditLogWhereInput = {
       institutionId: institutionId
     };
 

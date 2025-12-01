@@ -38,7 +38,7 @@ export default function LAAPanelPage() {
           setData(result);
         }
       } catch (_error) {
-        console._error('Failed to fetch dashboard data', _error);
+        console.error('Failed to fetch dashboard data', _error);
       } finally {
         setLoading(false);
       }

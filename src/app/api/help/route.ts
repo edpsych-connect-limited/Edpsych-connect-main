@@ -128,9 +128,9 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ error: 'Invalid type parameter' }, { status: 400 });
   } catch (_error) {
-    console._error('Failed to fetch help content:', _error);
+    console.error('Failed to fetch help content:', _error);
     return NextResponse.json(
-      { _error: 'Failed to fetch help content' },
+      { error: 'Failed to fetch help content' },
       { status: 500 }
     );
   }

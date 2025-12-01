@@ -174,10 +174,10 @@ export async function GET(
       message: 'Case retrieved successfully',
     });
   } catch (_error) {
-    console._error('[Case API] Error fetching case:', _error);
+    console.error('[Case API] Error fetching case:', _error);
     return NextResponse.json(
       {
-        _error: 'Failed to retrieve case',
+        error: 'Failed to retrieve case',
         message: _error instanceof Error ? _error.message : 'Unknown _error',
         requestId,
       },
@@ -322,10 +322,10 @@ export async function PATCH(
       message: 'Case updated successfully',
     });
   } catch (_error) {
-    console._error('[Case API] Error updating case:', _error);
+    console.error('[Case API] Error updating case:', _error);
     return NextResponse.json(
       {
-        _error: 'Failed to update case',
+        error: 'Failed to update case',
         message: _error instanceof Error ? _error.message : 'Unknown _error',
         requestId,
       },
@@ -437,10 +437,10 @@ export async function DELETE(
       case: closedCase,
     });
   } catch (_error) {
-    console._error('[Case API] Error closing case:', _error);
+    console.error('[Case API] Error closing case:', _error);
     return NextResponse.json(
       {
-        _error: 'Failed to close case',
+        error: 'Failed to close case',
         message: _error instanceof Error ? _error.message : 'Unknown _error',
         requestId,
       },

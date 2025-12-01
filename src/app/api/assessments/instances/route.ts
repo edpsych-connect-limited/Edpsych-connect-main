@@ -63,8 +63,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(instance);
   } catch (_error) {
-    console._error('Error creating assessment instance:', _error);
-    return NextResponse.json({ _error: 'Internal Server Error' }, { status: 500 });
+    console.error('Error creating assessment instance:', _error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
 
@@ -145,7 +145,7 @@ export async function PUT(req: NextRequest) {
 
     return NextResponse.json(instance);
   } catch (_error) {
-    console._error('Error updating assessment instance:', _error);
-    return NextResponse.json({ _error: 'Internal Server Error' }, { status: 500 });
+    console.error('Error updating assessment instance:', _error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

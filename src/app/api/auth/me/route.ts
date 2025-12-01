@@ -41,11 +41,11 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (_error) {
-    console._error('User verification _error:', _error);
+    console.error('User verification error:', _error);
     return NextResponse.json(
       {
         success: false,
-        _error: 'Internal server _error',
+        error: 'Internal server _error',
       },
       { status: 500 }
     );

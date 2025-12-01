@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
     );
   } catch (_error) {
     const message = _error instanceof Error ? _error.message : 'Unknown _error';
-    return NextResponse.json({ _error: message }, { status: 500 });
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
@@ -63,6 +63,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ balance });
   } catch (_error) {
     const message = _error instanceof Error ? _error.message : 'Unknown _error';
-    return NextResponse.json({ _error: message }, { status: 500 });
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

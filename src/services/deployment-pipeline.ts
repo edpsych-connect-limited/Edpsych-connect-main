@@ -735,7 +735,7 @@ export class DeploymentPipelineService {
       deployment.endTime = new Date();
       deployment.duration = deployment.endTime.getTime() - deployment.startTime.getTime();
 
-      logger._error(`Deployment failed: ${deployment.id}`, _error as Error);
+      logger.error(`Deployment failed: ${deployment.id}`, _error as Error);
 
       // Check if rollback is needed
       if (this.shouldRollback(deployment)) {
@@ -789,7 +789,7 @@ export class DeploymentPipelineService {
           break;
         }
       } catch (_error) {
-        logger._error(`Stage ${stage.name} failed:`, _error as Error);
+        logger.error(`Stage ${stage.name} failed:`, _error as Error);
 
         deployment.issues.push({
           id: `issue-${Date.now()}`,

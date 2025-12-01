@@ -1,0 +1,4 @@
+src/components/beta/BetaRegistrationForm.tsx(161,12): error TS2590: Expression produces a union type that is too complex to represent.
+src/lib/services/cachingService.ts(505,21): error TS18048: 'stats.hitRate' is possibly 'undefined'.
+src/services/institutional-management/audit-log-service.ts(27,5): error TS2322: Type 'object' is not assignable to type 'AuditDetails'.
+  Index signature for type 'string' is missing in type '{}'.

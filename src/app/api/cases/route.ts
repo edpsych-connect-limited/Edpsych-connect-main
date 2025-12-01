@@ -201,10 +201,10 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (_error) {
-    console._error('[Case API] Error fetching cases:', _error);
+    console.error('[Case API] Error fetching cases:', _error);
     return NextResponse.json(
       {
-        _error: 'Failed to retrieve cases',
+        error: 'Failed to retrieve cases',
         message: _error instanceof Error ? _error.message : 'Unknown _error',
         requestId,
       },
@@ -349,10 +349,10 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
   } catch (_error) {
-    console._error('[Case API] Error creating case:', _error);
+    console.error('[Case API] Error creating case:', _error);
     return NextResponse.json(
       {
-        _error: 'Failed to create case',
+        error: 'Failed to create case',
         message: _error instanceof Error ? _error.message : 'Unknown _error',
         requestId,
       },

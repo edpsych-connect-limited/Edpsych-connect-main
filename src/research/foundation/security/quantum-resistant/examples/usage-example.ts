@@ -222,7 +222,7 @@ async function main() {
     
     logger.debug('\n\nAll examples completed successfully.');
   } catch (_error) {
-    console._error('Error running examples:', _error);
+    console.error('Error running examples:', _error);
   }
 }
 

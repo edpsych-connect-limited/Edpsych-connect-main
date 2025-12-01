@@ -60,7 +60,7 @@ export default function InterventionLibrary({
       // For now, using comprehensive evidence-based library
       setInterventions(EVIDENCE_BASED_INTERVENTIONS);
     } catch (_error) {
-      console._error('Failed to load interventions:', _error);
+      console.error('Failed to load interventions:', _error);
     } finally {
       setLoading(false);
     }

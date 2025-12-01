@@ -37,9 +37,9 @@ export async function GET(request: NextRequest) {
       categories: ['fairness', 'privacy', 'transparency', 'compliance']
     });
   } catch (_error) {
-    console._error('Ethics Monitors API _error:', _error);
+    console.error('Ethics Monitors API error:', _error);
     return NextResponse.json(
-      { _error: 'Failed to retrieve monitors' },
+      { error: 'Failed to retrieve monitors' },
       { status: 500 }
     );
   }
@@ -89,9 +89,9 @@ export async function POST(request: NextRequest) {
       message: 'Monitor created successfully'
     });
   } catch (_error) {
-    console._error('Create monitor _error:', _error);
+    console.error('Create monitor error:', _error);
     return NextResponse.json(
-      { _error: 'Failed to create monitor' },
+      { error: 'Failed to create monitor' },
       { status: 500 }
     );
   }
@@ -124,9 +124,9 @@ export async function PUT(request: NextRequest) {
       message: `Monitor ${enabled ? 'enabled' : 'disabled'} successfully`
     });
   } catch (_error) {
-    console._error('Update monitor _error:', _error);
+    console.error('Update monitor error:', _error);
     return NextResponse.json(
-      { _error: 'Failed to update monitor' },
+      { error: 'Failed to update monitor' },
       { status: 500 }
     );
   }

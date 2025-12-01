@@ -116,7 +116,7 @@ export class CitationTrackingService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'CITATION_CREATION_FAILED'
       };
     }
@@ -180,7 +180,7 @@ export class CitationTrackingService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'CITATION_UPDATE_FAILED'
       };
     }
@@ -215,7 +215,7 @@ export class CitationTrackingService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'CITATION_DELETION_FAILED'
       };
     }
@@ -303,7 +303,7 @@ export class CitationTrackingService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'CITATION_SEARCH_FAILED'
       };
     }
@@ -342,7 +342,7 @@ export class CitationTrackingService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'PUBLICATION_CITATIONS_FAILED'
       };
     }
@@ -380,7 +380,7 @@ export class CitationTrackingService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'CITATION_VERIFICATION_FAILED'
       };
     }
@@ -458,7 +458,7 @@ export class CitationTrackingService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'CITATION_EXTRACTION_FAILED'
       };
     }
@@ -509,7 +509,7 @@ export class CitationTrackingService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'CITATION_ANALYSIS_FAILED'
       };
     }
@@ -644,7 +644,7 @@ export class CitationTrackingService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'CITATION_EXPORT_FAILED'
       };
     }
@@ -689,7 +689,7 @@ export class CitationTrackingService {
     } catch (_error) {
       return {
         success: false,
-        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
+        error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'CITATION_STATISTICS_FAILED'
       };
     }

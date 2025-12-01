@@ -176,9 +176,9 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (_error) {
-    console._error('Failed to fetch blog posts:', _error);
+    console.error('Failed to fetch blog posts:', _error);
     return NextResponse.json(
-      { _error: 'Failed to fetch blog posts' },
+      { error: 'Failed to fetch blog posts' },
       { status: 500 }
     );
   }

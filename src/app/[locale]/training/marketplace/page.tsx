@@ -52,7 +52,7 @@ export default function TrainingMarketplace() {
         setProducts(data.products);
       }
     } catch (_error) {
-      console._error('Failed to load products:', _error);
+      console.error('Failed to load products:', _error);
     } finally {
       setLoading(false);
     }

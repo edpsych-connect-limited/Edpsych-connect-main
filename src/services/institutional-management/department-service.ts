@@ -110,7 +110,7 @@ export class DepartmentService {
       
       return department as Department;
     } catch (_error) {
-      logger._error('Error creating department', { _error, data });
+      logger.error('Error creating department', { _error, data });
       throw _error;
     }
   }
@@ -161,7 +161,7 @@ export class DepartmentService {
       
       return department as unknown as Department;
     } catch (_error) {
-      logger._error('Error fetching department', { _error, departmentId });
+      logger.error('Error fetching department', { _error, departmentId });
       throw _error;
     }
   }
@@ -250,7 +250,7 @@ export class DepartmentService {
         limit,
       };
     } catch (_error) {
-      logger._error('Error fetching departments', { _error, options });
+      logger.error('Error fetching departments', { _error, options });
       throw _error;
     }
   }
@@ -284,7 +284,7 @@ export class DepartmentService {
       
       return hierarchy;
     } catch (_error) {
-      logger._error('Error fetching department hierarchy', { _error, institutionId });
+      logger.error('Error fetching department hierarchy', { _error, institutionId });
       throw _error;
     }
   }
@@ -358,7 +358,7 @@ export class DepartmentService {
       
       return updatedDepartment as Department;
     } catch (_error) {
-      logger._error('Error updating department', { _error, departmentId, data });
+      logger.error('Error updating department', { _error, departmentId, data });
       throw _error;
     }
   }
@@ -401,7 +401,7 @@ export class DepartmentService {
       
       return updatedDepartment as Department;
     } catch (_error) {
-      logger._error('Error deactivating department', { _error, departmentId });
+      logger.error('Error deactivating department', { _error, departmentId });
       throw _error;
     }
   }
@@ -443,7 +443,7 @@ export class DepartmentService {
       
       return updatedDepartment as Department;
     } catch (_error) {
-      logger._error('Error reactivating department', { _error, departmentId });
+      logger.error('Error reactivating department', { _error, departmentId });
       throw _error;
     }
   }
@@ -499,7 +499,7 @@ export class DepartmentService {
         metadata: { managerId },
       });
     } catch (_error) {
-      logger._error('Error adding department manager', { _error, departmentId, managerId });
+      logger.error('Error adding department manager', { _error, departmentId, managerId });
       throw _error;
     }
   }
@@ -555,7 +555,7 @@ export class DepartmentService {
         metadata: { managerId },
       });
     } catch (_error) {
-      logger._error('Error removing department manager', { _error, departmentId, managerId });
+      logger.error('Error removing department manager', { _error, departmentId, managerId });
       throw _error;
     }
   }
@@ -674,7 +674,7 @@ export class DepartmentService {
         },
       });
     } catch (_error) {
-      logger._error('Error logging audit event', { _error, data });
+      logger.error('Error logging audit event', { _error, data });
       // Don't throw, just log the _error
     }
   }

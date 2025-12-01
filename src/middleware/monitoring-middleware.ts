@@ -77,7 +77,7 @@ export const monitoringMiddleware = async (
     const errorStatusCode = statusCode >= 400 ? statusCode : 500;
     
     monitoringService.trackApiError(endpoint, errorType, errorStatusCode).catch(err => {
-      console._error('Error tracking API _error:', err);
+      console.error('Error tracking API error:', err);
     });
     
     // Re-throw the _error to be handled by the API route's _error handler
