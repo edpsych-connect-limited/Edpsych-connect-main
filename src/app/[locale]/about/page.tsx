@@ -47,7 +47,7 @@ const teamMembers: TeamMember[] = [
     role: 'Founder & Developer',
     image: '/images/dr-scott-landing.jpg',
     credentials: 'DEdPsych CPsychol | HCPC: PYL042340',
-    bio: 'Dr Scott founded and developed EdPsych Connect after a distinguished career in educational psychology. Following his First Class Honours in Psychology from Buckinghamshire New University, he trained at the University of Southampton where his doctoral research explored children\'s experiences of school sanctions through restorative justice. As Senior Educational Psychologist at Buckinghamshire Council, he created TEAM-UP (Termly Early Action Multi-Agency Unified Planning)—a pioneering multi-agency early intervention initiative. He resigned in 2023 to focus full-time on EdPsych Connect, combining his clinical expertise with self-taught software development skills.',
+    bio: 'Dr Scott founded and developed EdPsych Connect after a distinguished career in educational psychology. Following his First Class Honours in Psychology from Buckinghamshire New University, he trained at the University of Southampton where his doctoral research explored children\'s experiences of school sanctions through restorative justice. As Senior Educational Psychologist at Buckinghamshire Council, he conceived and named TEAM-UP (Termly Early Action Multi-Agency Unified Planning)—a pioneering early intervention initiative that was developed and implemented through collaborative multi-agency effort with the Head of Children\'s Services and partners. He resigned in 2023 to focus full-time on EdPsych Connect, combining his clinical expertise with self-taught software development skills.',
     isFounder: true,
     imagePosition: 'center top',
   },

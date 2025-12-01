@@ -43,10 +43,18 @@ export default function LoginPage() {
     if (!userRole) return '/dashboard';
     
     const role = userRole.toUpperCase();
+    
+    // Super Admin / Admin - Admin dashboard
     if (role === 'SUPER_ADMIN' || role === 'ADMIN' || role === 'SUPERADMIN') {
       return '/admin';
     }
     
+    // LA roles - LA Dashboard
+    if (role === 'LA_ADMIN' || role === 'LA_MANAGER' || role === 'LA_CASEWORKER') {
+      return '/la/dashboard';
+    }
+    
+    // Default - general dashboard
     return '/dashboard';
   };
 
