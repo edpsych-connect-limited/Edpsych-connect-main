@@ -160,7 +160,7 @@ async function notifyAdmin(post: any): Promise<void> {
     //   body: `A new blog post has been automatically generated and published.\n\nTitle: ${post.title}\nCategory: ${post.category}\nCPD Value: ${post.cpdValue}`,
     // });
   } catch (_error) {
-    console.error('[Blog Generate] Failed to send admin notification:', error);
+    console._error('[Blog Generate] Failed to send admin notification:', _error);
     // Don't throw - notification failure shouldn't block post generation
   }
 }

@@ -34,7 +34,7 @@ export async function initializeServerMonitoring(): Promise<void> {
       // Use the existing prisma client instance
       prismaClient = prisma;
     } catch (_error) {
-      console.warn('Failed to use Prisma client for monitoring:', error);
+      console.warn('Failed to use Prisma client for monitoring:', _error);
       // Continue initialization without database monitoring
     }
 
@@ -88,7 +88,7 @@ export async function initializeServerMonitoring(): Promise<void> {
       });
     });
   } catch (_error) {
-    console.error('Failed to initialize server monitoring services:', error);
-    // Don't throw the error - allow the server to start even if monitoring fails
+    console._error('Failed to initialize server monitoring services:', _error);
+    // Don't throw the _error - allow the server to start even if monitoring fails
   }
 }

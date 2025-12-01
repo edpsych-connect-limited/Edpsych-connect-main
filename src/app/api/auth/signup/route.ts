@@ -137,9 +137,9 @@ export async function POST(req: Request) {
     });
 
   } catch (_error) {
-    console.error('Signup error:', error);
+    console._error('Signup _error:', _error);
     return NextResponse.json(
-      { success: false, error: 'Internal server error' },
+      { success: false, _error: 'Internal server _error' },
       { status: 500 }
     );
   }

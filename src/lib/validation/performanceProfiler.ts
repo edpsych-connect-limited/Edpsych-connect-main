@@ -92,13 +92,13 @@ export class PerformanceProfiler {
 
       return this.generateReport();
     } catch (_error) {
-      const msg = error instanceof Error ? error.message : String(error);
+      const msg = _error instanceof Error ? _error.message : String(_error);
       this.issues.push({
         type: 'SCAN_ERROR',
         severity: 'high',
         file: filePath,
         line: 0,
-        message: `Scan error: ${msg}`,
+        message: `Scan _error: ${msg}`,
         impact: 'Unable to analyze file',
         recommendation: 'Check file accessibility and format'
       });
@@ -124,13 +124,13 @@ export class PerformanceProfiler {
       this.walkDirectory(dirPath);
       return this.generateReport();
     } catch (_error) {
-      const msg = error instanceof Error ? error.message : String(error);
+      const msg = _error instanceof Error ? _error.message : String(_error);
       this.issues.push({
         type: 'SCAN_ERROR',
         severity: 'high',
         file: dirPath,
         line: 0,
-        message: `Directory scan error: ${msg}`,
+        message: `Directory scan _error: ${msg}`,
         impact: 'Unable to scan directory',
         recommendation: 'Check directory path and permissions'
       });

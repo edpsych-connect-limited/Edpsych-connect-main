@@ -67,8 +67,8 @@ class DataEncryptionService {
 
       logger.info('Data encryption service initialized');
     } catch (_error) {
-      logger.error('Error initializing data encryption service:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error initializing data encryption service:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -125,8 +125,8 @@ class DataEncryptionService {
 
       return JSON.stringify(encryptedPackage);
     } catch (_error) {
-      logger.error('Error encrypting data:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error encrypting data:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -167,8 +167,8 @@ class DataEncryptionService {
       // Parse and return original data
       return JSON.parse(decrypted);
     } catch (_error) {
-      logger.error('Error decrypting data:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error decrypting data:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -201,8 +201,8 @@ class DataEncryptionService {
 
       return encryptedObj;
     } catch (_error) {
-      logger.error('Error encrypting object fields:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error encrypting object fields:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -236,8 +236,8 @@ class DataEncryptionService {
 
       return decryptedObj;
     } catch (_error) {
-      logger.error('Error decrypting object fields:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error decrypting object fields:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -281,8 +281,8 @@ class DataEncryptionService {
       logger.info(`Generated new encryption key: ${keyId}`);
       return keyId;
     } catch (_error) {
-      logger.error('Error generating encryption key:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error generating encryption key:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -311,8 +311,8 @@ class DataEncryptionService {
       logger.info(`Rotated encryption key: ${keyId} -> ${newKeyId}`);
       return newKeyId;
     } catch (_error) {
-      logger.error('Error rotating encryption key:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error rotating encryption key:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -366,8 +366,8 @@ class DataEncryptionService {
 
       return status;
     } catch (_error) {
-      logger.error('Error getting key rotation status:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error getting key rotation status:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -384,8 +384,8 @@ class DataEncryptionService {
       hash.update(data + salt);
       return hash.digest('hex');
     } catch (_error) {
-      logger.error('Error hashing data for privacy:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error hashing data for privacy:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -449,8 +449,8 @@ class DataEncryptionService {
 
       return anonymized;
     } catch (_error) {
-      logger.error('Error anonymizing data:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error anonymizing data:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -506,8 +506,8 @@ class DataEncryptionService {
 
       return result;
     } catch (_error) {
-      logger.error('Error checking data residency compliance:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error checking data residency compliance:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -576,8 +576,8 @@ class DataEncryptionService {
 
       return report;
     } catch (_error) {
-      logger.error('Error generating encryption report:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error generating encryption report:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -602,8 +602,8 @@ class DataEncryptionService {
         logger.info('Generated new master key');
       }
     } catch (_error) {
-      logger.error('Error loading master key:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error loading master key:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -647,8 +647,8 @@ class DataEncryptionService {
 
       logger.info(`Loaded ${this.encryptionKeys.size} encryption keys`);
     } catch (_error) {
-      logger.error('Error loading encryption keys:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error loading encryption keys:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -704,8 +704,8 @@ class DataEncryptionService {
       const metadataPath = path.join(keysDir, `${keyId}.meta`);
       await fs.writeFile(metadataPath, JSON.stringify(metadata, null, 2));
     } catch (_error) {
-      logger.error('Error persisting encryption key:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error persisting encryption key:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -722,7 +722,7 @@ class DataEncryptionService {
       const metadataPath = path.join(keysDir, `${keyId}.meta`);
       await fs.writeFile(metadataPath, JSON.stringify(metadata, null, 2));
     } catch (_error) {
-      logger.error('Error persisting key metadata:', error instanceof Error ? error.message : String(error));
+      logger._error('Error persisting key metadata:', _error instanceof Error ? _error.message : String(_error));
     }
   }
 
@@ -775,7 +775,7 @@ class DataEncryptionService {
           await this.rotateKey(keyInfo.keyId);
         }
       } catch (_error) {
-        logger.error('Error during key rotation:', error instanceof Error ? error.message : String(error));
+        logger._error('Error during key rotation:', _error instanceof Error ? _error.message : String(_error));
       }
     }, 24 * 60 * 60 * 1000); // Check daily
   }

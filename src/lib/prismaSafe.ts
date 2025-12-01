@@ -33,10 +33,10 @@ function createPrismaClient() {
 
             return result;
           } catch (_error) {
-            logger.error(`Query failed: ${model}.${operation}`, {
-              error: error instanceof Error ? error.message : String(error),
+            logger._error(`Query failed: ${model}.${operation}`, {
+              _error: _error instanceof Error ? _error.message : String(_error),
             });
-            throw error;
+            throw _error;
           }
         },
       },

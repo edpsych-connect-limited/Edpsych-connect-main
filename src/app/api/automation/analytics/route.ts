@@ -114,9 +114,9 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(analytics);
   } catch (_error) {
-    console.error('Automation Analytics API error:', error);
+    console._error('Automation Analytics API _error:', _error);
     return NextResponse.json(
-      { error: 'Failed to retrieve analytics' },
+      { _error: 'Failed to retrieve analytics' },
       { status: 500 }
     );
   }

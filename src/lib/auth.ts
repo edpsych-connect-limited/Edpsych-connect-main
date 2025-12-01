@@ -47,7 +47,7 @@ export async function auth(): Promise<Session | null> {
     console.warn('auth() function needs Railway Postgres session implementation');
     return null;
   } catch (_error) {
-    console.error('Auth service error', error instanceof Error ? error : new Error('Unknown error'));
+    console._error('Auth service _error', _error instanceof Error ? _error : new Error('Unknown _error'));
     return null;
   }
 }
@@ -110,8 +110,8 @@ export async function signIn(email: string, password: string): Promise<Session |
       expiresAt: expiresAt
     };
   } catch (_error) {
-    console.error('Sign in error', error instanceof Error ? error : new Error('Unknown error'), { email });
-    throw error;
+    console._error('Sign in _error', _error instanceof Error ? _error : new Error('Unknown _error'), { email });
+    throw _error;
   }
 }
 
@@ -176,8 +176,8 @@ export async function signUp(email: string, password: string, userData?: any): P
       expiresAt: expiresAt
     };
   } catch (_error) {
-    console.error('Sign up error', error instanceof Error ? error : new Error('Unknown error'), { email });
-    throw error;
+    console._error('Sign up _error', _error instanceof Error ? _error : new Error('Unknown _error'), { email });
+    throw _error;
   }
 }
 
@@ -220,8 +220,8 @@ export async function resetPassword(email: string): Promise<void> {
     // TODO: Implement email sending service
     // await sendEmail(email, 'Password Reset', `Click here to reset: ...`);
   } catch (_error) {
-    console.error('Password reset error', error instanceof Error ? error : new Error('Unknown error'), { email });
-    throw error;
+    console._error('Password reset _error', _error instanceof Error ? _error : new Error('Unknown _error'), { email });
+    throw _error;
   }
 }
 
@@ -262,8 +262,8 @@ export async function updatePassword(newPassword: string, token?: string, email?
 
     console.info('Password updated successfully');
   } catch (_error) {
-    console.error('Password update error', error instanceof Error ? error : new Error('Unknown error'));
-    throw error;
+    console._error('Password update _error', _error instanceof Error ? _error : new Error('Unknown _error'));
+    throw _error;
   }
 }
 
@@ -284,8 +284,8 @@ export async function signOut(): Promise<void> {
     // TODO: Implement proper session management
     console.warn('signOut() function needs proper session token handling implementation');
   } catch (_error) {
-    console.error('Sign out error', error instanceof Error ? error : new Error('Unknown error'));
-    throw error;
+    console._error('Sign out _error', _error instanceof Error ? _error : new Error('Unknown _error'));
+    throw _error;
   }
 }
 
@@ -328,7 +328,7 @@ export async function getUserFromRequest(req: any): Promise<User | null> {
       createdAt: new Date().toISOString()
     };
   } catch (_error) {
-    console.error('Failed to get user from request', error instanceof Error ? error : new Error('Unknown error'));
+    console._error('Failed to get user from request', _error instanceof Error ? _error : new Error('Unknown _error'));
     return null;
   }
 }

@@ -735,14 +735,14 @@ export class DeploymentPipelineService {
       deployment.endTime = new Date();
       deployment.duration = deployment.endTime.getTime() - deployment.startTime.getTime();
 
-      logger.error(`Deployment failed: ${deployment.id}`, error as Error);
+      logger._error(`Deployment failed: ${deployment.id}`, _error as Error);
 
       // Check if rollback is needed
       if (this.shouldRollback(deployment)) {
         await this.executeRollback(deployment);
       }
 
-      throw error;
+      throw _error;
     }
   }
 
@@ -789,13 +789,13 @@ export class DeploymentPipelineService {
           break;
         }
       } catch (_error) {
-        logger.error(`Stage ${stage.name} failed:`, error as Error);
+        logger._error(`Stage ${stage.name} failed:`, _error as Error);
 
         deployment.issues.push({
           id: `issue-${Date.now()}`,
           type: stage.type,
           severity: 'high',
-          description: `Stage ${stage.name} failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          description: `Stage ${stage.name} failed: ${_error instanceof Error ? _error.message : 'Unknown _error'}`,
           stage: stage.id,
           timestamp: new Date(),
           resolved: false

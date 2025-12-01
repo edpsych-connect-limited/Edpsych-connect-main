@@ -67,9 +67,9 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (_error) {
-    console.error('Forgot Password Error:', error);
+    console._error('Forgot Password Error:', _error);
     return NextResponse.json(
-      { error: 'An unexpected error occurred. Please try again later.' },
+      { _error: 'An unexpected _error occurred. Please try again later.' },
       { status: 500 }
     );
   }

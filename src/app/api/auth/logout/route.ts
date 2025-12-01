@@ -24,11 +24,11 @@ export async function POST(_request: NextRequest) {
       { status: 200 }
     );
   } catch (_error) {
-    console.error('Logout error:', error);
+    console._error('Logout _error:', _error);
     return NextResponse.json(
       {
         success: false,
-        error: 'Internal server error',
+        _error: 'Internal server _error',
       },
       { status: 500 }
     );

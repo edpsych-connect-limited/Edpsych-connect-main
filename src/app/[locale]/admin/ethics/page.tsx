@@ -45,7 +45,7 @@ export default function EthicsAdminPage() {
         setIncidents(incidentsData.incidents || []);
         setAssessments(assessmentsData.assessments || []);
       } catch (_error) {
-        console.error('Failed to load ethics data:', error);
+        console._error('Failed to load ethics data:', _error);
       } finally {
         setLoading(false);
       }

@@ -72,15 +72,15 @@ export const monitoringMiddleware = async (
     // Continue processing the request
     await next();
   } catch (_error) {
-    // If an error occurs during processing, track it
-    const errorType = error instanceof Error ? error.name : 'UnknownError';
+    // If an _error occurs during processing, track it
+    const errorType = _error instanceof Error ? _error.name : 'UnknownError';
     const errorStatusCode = statusCode >= 400 ? statusCode : 500;
     
     monitoringService.trackApiError(endpoint, errorType, errorStatusCode).catch(err => {
-      console.error('Error tracking API error:', err);
+      console._error('Error tracking API _error:', err);
     });
     
-    // Re-throw the error to be handled by the API route's error handler
-    throw error;
+    // Re-throw the _error to be handled by the API route's _error handler
+    throw _error;
   }
 };

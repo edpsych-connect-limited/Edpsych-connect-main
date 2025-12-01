@@ -134,11 +134,11 @@ Please try again in a few moments, or contact us directly for personalized suppo
     });
 
   } catch (_error) {
-    console.error('Problem Solver API Error:', error);
+    console._error('Problem Solver API Error:', _error);
 
     return NextResponse.json(
       {
-        error: 'An unexpected error occurred',
+        _error: 'An unexpected _error occurred',
         message: 'Please try again later or contact support if the issue persists.'
       },
       { status: 500 }

@@ -193,7 +193,7 @@ export class AnalyticsTracker {
 
         lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
       } catch (_error) {
-        console.warn('LCP tracking not supported:', error);
+        console.warn('LCP tracking not supported:', _error);
       }
 
       // First Input Delay
@@ -212,7 +212,7 @@ export class AnalyticsTracker {
 
         fidObserver.observe({ entryTypes: ['first-input'] });
       } catch (_error) {
-        console.warn('FID tracking not supported:', error);
+        console.warn('FID tracking not supported:', _error);
       }
 
       // Cumulative Layout Shift
@@ -235,7 +235,7 @@ export class AnalyticsTracker {
 
         clsObserver.observe({ entryTypes: ['layout-shift'] });
       } catch (_error) {
-        console.warn('CLS tracking not supported:', error);
+        console.warn('CLS tracking not supported:', _error);
       }
     }
   }

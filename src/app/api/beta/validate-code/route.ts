@@ -92,9 +92,9 @@ export async function POST(request: NextRequest) {
       message: 'Beta code validated successfully',
     });
   } catch (_error) {
-    console.error('Beta code validation error:', error);
+    console._error('Beta code validation _error:', _error);
     return NextResponse.json(
-      { valid: false, error: 'Failed to validate beta code' },
+      { valid: false, _error: 'Failed to validate beta code' },
       { status: 500 }
     );
   }
@@ -159,9 +159,9 @@ export async function PUT(request: NextRequest) {
       remainingUses: betaCode.remainingUses - 1,
     });
   } catch (_error) {
-    console.error('Beta code usage recording error:', error);
+    console._error('Beta code usage recording _error:', _error);
     return NextResponse.json(
-      { success: false, error: 'Failed to record usage' },
+      { success: false, _error: 'Failed to record usage' },
       { status: 500 }
     );
   }

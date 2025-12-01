@@ -156,8 +156,8 @@ async function handleGetStatus(_request: NextRequest) {
     const status = await getTenantSubscriptionStatus(user.tenant_id);
     return NextResponse.json(status);
   } catch (_error) {
-    console.error('[API] Error fetching subscription status:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console._error('[API] Error fetching subscription status:', _error);
+    return NextResponse.json({ _error: 'Internal Server Error' }, { status: 500 });
   }
 }
 
@@ -187,8 +187,8 @@ async function handleCheckFeature(_request: NextRequest) {
     const status = await getTenantSubscriptionStatus(user.tenant_id);
     return NextResponse.json(status);
   } catch (_error) {
-    console.error('[API] Error checking feature:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console._error('[API] Error checking feature:', _error);
+    return NextResponse.json({ _error: 'Internal Server Error' }, { status: 500 });
   }
 }
 

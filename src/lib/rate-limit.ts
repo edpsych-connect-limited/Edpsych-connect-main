@@ -63,7 +63,7 @@ async function getRedisClient(): Promise<RedisClientType | null> {
     redisConnected = true;
     return redisClient;
   } catch (_error) {
-    console.warn('Failed to connect to Redis:', error);
+    console.warn('Failed to connect to Redis:', _error);
     redisConnected = false;
     return null;
   }
@@ -139,7 +139,7 @@ export async function checkRateLimitAsync(
       };
     }
   } catch (_error) {
-    console.warn('Redis rate limit check failed, falling back to in-memory:', error);
+    console.warn('Redis rate limit check failed, falling back to in-memory:', _error);
   }
 
   // Fallback to in-memory

@@ -79,7 +79,7 @@ const api = {
       const data = await response.json();
       return data.leaderboard || [];
     } catch (_error) {
-      logger.error('Failed to fetch leaderboard', error);
+      logger._error('Failed to fetch leaderboard', _error);
       return [];
     }
   },
@@ -94,8 +94,8 @@ const api = {
       });
       return await response.json();
     } catch (_error) {
-      logger.error('Failed to join queue', error);
-      throw error;
+      logger._error('Failed to join queue', _error);
+      throw _error;
     }
   }
 };

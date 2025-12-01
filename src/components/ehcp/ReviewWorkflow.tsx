@@ -166,7 +166,7 @@ export default function ReviewWorkflow({
         setAmendments(amendmentsData.amendments || []);
       }
     } catch (_error) {
-      console.error('Error fetching review data:', _error);
+      console._error('Error fetching review data:', _error);
     } finally {
       setLoading(false);
     }
@@ -195,8 +195,8 @@ export default function ReviewWorkflow({
         alert(`Failed to schedule review: ${error.message}`);
       }
     } catch (_error) {
-      console.error('Error scheduling review:', error);
-      alert('An error occurred while scheduling the review');
+      console._error('Error scheduling review:', _error);
+      alert('An _error occurred while scheduling the review');
     }
   };
 
@@ -222,8 +222,8 @@ export default function ReviewWorkflow({
         alert(`Failed to submit amendment: ${error.message}`);
       }
     } catch (_error) {
-      console.error('Error requesting amendment:', error);
-      alert('An error occurred while requesting the amendment');
+      console._error('Error requesting amendment:', _error);
+      alert('An _error occurred while requesting the amendment');
     }
   };
 

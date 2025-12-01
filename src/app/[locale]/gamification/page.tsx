@@ -27,7 +27,7 @@ export default function GamificationPage() {
           setLeaderboard(data.leaderboard);
         }
       } catch (_error) {
-        console.error('Failed to load leaderboard', _error);
+        console._error('Failed to load leaderboard', _error);
       } finally {
         setLoading(false);
       }

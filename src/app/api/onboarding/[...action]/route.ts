@@ -87,11 +87,11 @@ async function routeOnboardingRequest(request: NextRequest): Promise<NextRespons
         return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
   } catch (_error) {
-    console.error('[Onboarding] Unhandled Error:', error);
-    // Return JSON even for unhandled errors to prevent "Network error" on client
+    console._error('[Onboarding] Unhandled Error:', _error);
+    // Return JSON even for unhandled errors to prevent "Network _error" on client
     return NextResponse.json({ 
-      error: 'Internal server error', 
-      details: error instanceof Error ? error.message : String(error) 
+      _error: 'Internal server _error', 
+      details: _error instanceof Error ? _error.message : String(_error) 
     }, { status: 500 });
   }
 }
@@ -212,8 +212,8 @@ async function handleGetStatus(userId: number): Promise<NextResponse> {
       }
     });
   } catch (_error) {
-    console.error('[Onboarding] handleGetStatus error:', error);
-    throw error; // Re-throw to be caught by main handler
+    console._error('[Onboarding] handleGetStatus _error:', _error);
+    throw _error; // Re-throw to be caught by main handler
   }
 }
 

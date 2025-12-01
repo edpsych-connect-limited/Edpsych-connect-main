@@ -49,7 +49,7 @@ function BlogPageContent() {
       setCategories(categoriesData.categories || []);
       setTags(tagsData.tags || []);
     } catch (_error) {
-      console.error('Failed to load blog content:', error);
+      console._error('Failed to load blog content:', _error);
     } finally {
       setLoading(false);
     }
@@ -69,7 +69,7 @@ function BlogPageContent() {
       setPosts(data.posts || []);
       setPagination(data.pagination);
     } catch (_error) {
-      console.error('Search failed:', error);
+      console._error('Search failed:', _error);
     } finally {
       setLoading(false);
     }
@@ -88,7 +88,7 @@ function BlogPageContent() {
       setPosts(data.posts || []);
       setPagination(data.pagination);
     } catch (_error) {
-      console.error('Failed to filter by category:', error);
+      console._error('Failed to filter by category:', _error);
     } finally {
       setLoading(false);
     }
@@ -107,7 +107,7 @@ function BlogPageContent() {
       setPosts(data.posts || []);
       setPagination(data.pagination);
     } catch (_error) {
-      console.error('Failed to filter by tag:', error);
+      console._error('Failed to filter by tag:', _error);
     } finally {
       setLoading(false);
     }

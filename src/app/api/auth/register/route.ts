@@ -28,18 +28,18 @@ export async function POST(request: Request) {
       user: session?.user
     });
   } catch (_error) {
-    console.error('Registration error:', error);
-    const message = error instanceof Error ? error.message : 'Registration failed';
+    console._error('Registration _error:', _error);
+    const message = _error instanceof Error ? _error.message : 'Registration failed';
     
     if (message === 'User already exists') {
       return NextResponse.json(
-        { error: message },
+        { _error: message },
         { status: 409 }
       );
     }
 
     return NextResponse.json(
-      { error: message },
+      { _error: message },
       { status: 500 }
     );
   }

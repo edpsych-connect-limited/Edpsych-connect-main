@@ -80,7 +80,7 @@ export class SystemMetricsCollector {
         await monitoringService.trackResourceUsage('Disk', diskUsage, MetricUnit.PERCENT);
       }
     } catch (_error) {
-      console.error('Error collecting system metrics:', error);
+      console._error('Error collecting system metrics:', _error);
     }
   }
 
@@ -113,7 +113,7 @@ export class SystemMetricsCollector {
       
       return parseFloat(cpuUsage.toFixed(2));
     } catch (_error) {
-      console.error('Error calculating CPU usage from os module:', error);
+      console._error('Error calculating CPU usage from os module:', _error);
       
       // Fallback: try platform-specific command
       try {
@@ -126,7 +126,7 @@ export class SystemMetricsCollector {
           return parseFloat(stdout.trim());
         }
       } catch (fallbackError) {
-        console.error('Error calculating CPU usage with fallback method:', fallbackError);
+        console._error('Error calculating CPU usage with fallback method:', fallbackError);
       }
       
       return null;
@@ -182,7 +182,7 @@ export class SystemMetricsCollector {
         return parseFloat(stdout.trim().replace('%', ''));
       }
     } catch (_error) {
-      console.error('Error calculating disk usage:', error);
+      console._error('Error calculating disk usage:', _error);
     }
     
     return null;

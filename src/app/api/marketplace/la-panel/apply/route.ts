@@ -168,11 +168,11 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (_error) {
-    console.error('LA Panel application error:', error);
+    console._error('LA Panel application _error:', _error);
     return NextResponse.json(
       { 
-        error: 'Failed to submit LA Panel application',
-        details: error instanceof Error ? error.message : 'Unknown error',
+        _error: 'Failed to submit LA Panel application',
+        details: _error instanceof Error ? _error.message : 'Unknown _error',
       },
       { status: 500 }
     );
@@ -242,9 +242,9 @@ export async function GET() {
     });
 
   } catch (_error) {
-    console.error('Get LA Panel status error:', error);
+    console._error('Get LA Panel status _error:', _error);
     return NextResponse.json(
-      { error: 'Failed to fetch LA Panel status' },
+      { _error: 'Failed to fetch LA Panel status' },
       { status: 500 }
     );
   }

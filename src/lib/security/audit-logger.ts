@@ -110,7 +110,7 @@ class AuditLogger {
       });
     } catch (_error) {
       // Log to console if database logging fails (don't throw to prevent cascading failures)
-      console.error('[AUDIT LOG] Failed to write audit log:', error);
+      console._error('[AUDIT LOG] Failed to write audit log:', _error);
     }
   }
 

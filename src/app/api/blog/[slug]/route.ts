@@ -75,9 +75,9 @@ export async function GET(
       relatedPosts,
     });
   } catch (_error) {
-    console.error('Failed to fetch blog post:', error);
+    console._error('Failed to fetch blog post:', _error);
     return NextResponse.json(
-      { error: 'Failed to fetch blog post' },
+      { _error: 'Failed to fetch blog post' },
       { status: 500 }
     );
   }
@@ -133,9 +133,9 @@ export async function POST(
       },
     });
   } catch (_error) {
-    console.error('Failed to submit comment:', error);
+    console._error('Failed to submit comment:', _error);
     return NextResponse.json(
-      { error: 'Failed to submit comment' },
+      { _error: 'Failed to submit comment' },
       { status: 500 }
     );
   }

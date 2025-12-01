@@ -150,8 +150,8 @@ export class SubscriptionService {
       
       return subscription as unknown as InstitutionSubscription;
     } catch (_error) {
-      logger.error('Error creating subscription', { error, data });
-      throw error;
+      logger._error('Error creating subscription', { _error, data });
+      throw _error;
     }
   }
 
@@ -181,8 +181,8 @@ export class SubscriptionService {
       
       return subscription as unknown as InstitutionSubscription;
     } catch (_error) {
-      logger.error('Error fetching subscription', { error, subscriptionId });
-      throw error;
+      logger._error('Error fetching subscription', { _error, subscriptionId });
+      throw _error;
     }
   }
 
@@ -275,8 +275,8 @@ export class SubscriptionService {
         limit,
       };
     } catch (_error) {
-      logger.error('Error fetching subscriptions', { error, options });
-      throw error;
+      logger._error('Error fetching subscriptions', { _error, options });
+      throw _error;
     }
   }
 
@@ -359,8 +359,8 @@ export class SubscriptionService {
       
       return updatedSubscription as unknown as InstitutionSubscription;
     } catch (_error) {
-      logger.error('Error updating subscription', { error, subscriptionId, data });
-      throw error;
+      logger._error('Error updating subscription', { _error, subscriptionId, data });
+      throw _error;
     }
   }
 
@@ -410,8 +410,8 @@ export class SubscriptionService {
       
       return updatedSubscription as unknown as InstitutionSubscription;
     } catch (_error) {
-      logger.error('Error cancelling subscription', { error, subscriptionId });
-      throw error;
+      logger._error('Error cancelling subscription', { _error, subscriptionId });
+      throw _error;
     }
   }
 
@@ -461,8 +461,8 @@ export class SubscriptionService {
       
       return updatedSubscription as unknown as InstitutionSubscription;
     } catch (_error) {
-      logger.error('Error reactivating subscription', { error, subscriptionId });
-      throw error;
+      logger._error('Error reactivating subscription', { _error, subscriptionId });
+      throw _error;
     }
   }
 
@@ -527,8 +527,8 @@ export class SubscriptionService {
       
       return updatedSubscription as unknown as InstitutionSubscription;
     } catch (_error) {
-      logger.error('Error adjusting license count', { error, subscriptionId, newLicenseCount });
-      throw error;
+      logger._error('Error adjusting license count', { _error, subscriptionId, newLicenseCount });
+      throw _error;
     }
   }
 
@@ -650,8 +650,8 @@ export class SubscriptionService {
         },
       });
     } catch (_error) {
-      logger.error('Error logging audit event', { error, data });
-      // Don't throw, just log the error
+      logger._error('Error logging audit event', { _error, data });
+      // Don't throw, just log the _error
     }
   }
 

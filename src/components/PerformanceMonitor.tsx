@@ -79,7 +79,7 @@ export class PerformanceMonitorService {
 
         this.observer.observe({ entryTypes: ['largest-contentful-paint'] });
       } catch (_error) {
-        console.warn('PerformanceObserver not supported:', error);
+        console.warn('PerformanceObserver not supported:', _error);
       }
     }
 
@@ -97,7 +97,7 @@ export class PerformanceMonitorService {
 
         fidObserver.observe({ entryTypes: ['first-input'] });
       } catch (_error) {
-        console.warn('FID PerformanceObserver not supported:', error);
+        console.warn('FID PerformanceObserver not supported:', _error);
       }
     }
 
@@ -121,7 +121,7 @@ export class PerformanceMonitorService {
 
         clsObserver.observe({ entryTypes: ['layout-shift'] });
       } catch (_error) {
-        console.warn('CLS PerformanceObserver not supported:', error);
+        console.warn('CLS PerformanceObserver not supported:', _error);
       }
     }
 

@@ -76,14 +76,14 @@ class SecretsManagerService {
       return secretValue;
 
     } catch (_error) {
-      this.logger.error('Failed to retrieve secret (mock)', {
+      this.logger._error('Failed to retrieve secret (mock)', {
         secretName,
-        error: error instanceof Error ? error.message : 'Unknown error'
+        _error: _error instanceof Error ? _error.message : 'Unknown _error'
       });
 
       // Audit log failure
       await this.auditLog('SECRET_ACCESS_FAILED', secretName, {
-        error: error instanceof Error ? error.message : 'Unknown error'
+        _error: _error instanceof Error ? _error.message : 'Unknown _error'
       });
 
       throw new Error(`Failed to retrieve secret: ${secretName}`);
@@ -160,9 +160,9 @@ class SecretsManagerService {
       return isValid;
 
     } catch (_error) {
-      this.logger.error('Secret validation failed (mock)', {
+      this.logger._error('Secret validation failed (mock)', {
         secretName,
-        error: error instanceof Error ? error.message : 'Unknown error'
+        _error: _error instanceof Error ? _error.message : 'Unknown _error'
       });
       return false;
     }
@@ -246,7 +246,7 @@ class SecretsManagerService {
       return {
         status: 'unhealthy',
         details: {
-          error: error instanceof Error ? error.message : 'Unknown error',
+          _error: _error instanceof Error ? _error.message : 'Unknown _error',
           region: this.config.region,
           implementation: 'mock'
         }
@@ -269,7 +269,7 @@ class SecretsManagerService {
       });
     } catch (_error) {
       // Don't fail the main operation if audit logging fails
-      logger.error('Audit logging failed:', error);
+      logger._error('Audit logging failed:', _error);
     }
   }
 }
@@ -314,15 +314,15 @@ export async function initializeSecretsManager(): Promise<void> {
     });
 
   } catch (_error) {
-    const err = error instanceof Error ? error : new Error('Unknown error');
-    logger.error('Failed to initialize AWS Secrets Manager (mock mode)', err);
+    const err = _error instanceof Error ? _error : new Error('Unknown _error');
+    logger._error('Failed to initialize AWS Secrets Manager (mock mode)', err);
 
     // In production, this should cause the application to exit
     if (process.env.NODE_ENV === 'production') {
       process.exit(1);
     }
 
-    throw error;
+    throw _error;
   }
 }
 
@@ -362,7 +362,7 @@ export async function loadSecretsToEnvironment(): Promise<void> {
     }
 
   } catch (_error) {
-    logger.error('Failed to load secrets to environment (mock):', error);
+    logger._error('Failed to load secrets to environment (mock):', _error);
     throw new Error('Secrets loading failed');
   }
 }

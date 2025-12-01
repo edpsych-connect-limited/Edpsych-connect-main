@@ -60,7 +60,7 @@ export default function SubscriptionManagementPage() {
       setSubscription(data.subscription);
       setUsage(data.usage);
     } catch (_error) {
-      console.error('Failed to load subscription data:', error);
+      console._error('Failed to load subscription data:', _error);
     } finally {
       setLoading(false);
     }
@@ -101,7 +101,7 @@ export default function SubscriptionManagementPage() {
       // Reload data
       await loadSubscriptionData();
     } catch (_error) {
-      console.error('Failed to cancel subscription:', error);
+      console._error('Failed to cancel subscription:', _error);
       alert('Failed to cancel subscription. Please try again.');
     }
   };
@@ -112,7 +112,7 @@ export default function SubscriptionManagementPage() {
       alert('Subscription reactivated!');
       await loadSubscriptionData();
     } catch (_error) {
-      console.error('Failed to reactivate subscription:', error);
+      console._error('Failed to reactivate subscription:', _error);
       alert('Failed to reactivate subscription. Please try again.');
     }
   };
@@ -529,7 +529,7 @@ function InvoiceItem({
       
       doc.save(`invoice-${date}.pdf`);
     } catch (_error) {
-      console.error('Error generating PDF:', error);
+      console._error('Error generating PDF:', _error);
       alert('Failed to generate invoice. Please try again.');
     }
   };

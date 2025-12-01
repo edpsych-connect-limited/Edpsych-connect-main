@@ -83,7 +83,7 @@ export async function GET() {
         days: (now.getTime() - deployTime.getTime()) / (1000 * 60 * 60 * 24)
       };
     } catch (_error) {
-      console.error('Error calculating deployment age:', error);
+      console._error('Error calculating deployment age:', _error);
     }
   }
   
@@ -117,12 +117,12 @@ export async function GET() {
           const content = fs.readFileSync(path.join(dataDir, file), 'utf-8');
           reports.push(JSON.parse(content));
         } catch (_error) {
-          console.error(`Error reading file ${file}:`, error);
+          console._error(`Error reading file ${file}:`, _error);
         }
       }
     }
   } catch (_error) {
-    console.error('Error reading verification reports:', error);
+    console._error('Error reading verification reports:', _error);
   }
   
   // Performance metrics - just placeholders for now

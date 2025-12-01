@@ -36,7 +36,7 @@ import { useState, useCallback, useEffect } from 'react';
  *       try {
  *         riskyOperation();
  *       } catch (_err) {
- *         handleError(err);
+ *         handleError(_err);
  *       }
  *     }}>
  *       Perform Risky Operation

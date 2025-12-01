@@ -281,10 +281,10 @@ export async function GET(
     return NextResponse.json(response);
 
   } catch (_error) {
-    console.error('[Student Lessons API] Error retrieving lessons:', error);
+    console._error('[Student Lessons API] Error retrieving lessons:', _error);
     return NextResponse.json({
-      error: 'Internal server error',
-      message: error instanceof Error ? error.message : 'Unknown error'
+      _error: 'Internal server _error',
+      message: _error instanceof Error ? _error.message : 'Unknown _error'
     }, { status: 500 });
   }
 }

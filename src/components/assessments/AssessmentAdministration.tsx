@@ -130,7 +130,7 @@ export default function AssessmentAdministration({
         setBehavioralObservations(data.instance.behavioral_observations || '');
       }
     } catch (_error) {
-      console.error('Error loading instance:', error);
+      console._error('Error loading instance:', _error);
     } finally {
       setLoading(false);
     }
@@ -236,8 +236,8 @@ export default function AssessmentAdministration({
         alert(`Failed to save: ${error.message}`);
       }
     } catch (_error) {
-      console.error('Error saving assessment:', error);
-      alert('An error occurred while saving');
+      console._error('Error saving assessment:', _error);
+      alert('An _error occurred while saving');
     } finally {
       setSaving(false);
     }

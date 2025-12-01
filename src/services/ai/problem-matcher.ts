@@ -89,7 +89,7 @@ export class IntelligentProblemMatcher {
       };
 
     } catch (_error) {
-      console.error('❌ Problem analysis failed:', error);
+      console._error('❌ Problem analysis failed:', _error);
       throw new Error('Unable to analyze problem. Please try rephrasing your challenge.');
     }
   }
@@ -177,7 +177,7 @@ export class IntelligentProblemMatcher {
       const customSolutions = await this.generateCustomSolutions(analysis, features);
       solutions.push(...customSolutions);
     } catch (_error) {
-      console.warn('Error generating custom solutions:', error);
+      console.warn('Error generating custom solutions:', _error);
       // Continue with template solutions only
     }
 
@@ -447,7 +447,7 @@ export class IntelligentProblemMatcher {
 
       return JSON.parse(response.content);
     } catch (_error) {
-      console.warn('Failed to generate custom solutions:', error);
+      console.warn('Failed to generate custom solutions:', _error);
       return [];
     }
   }

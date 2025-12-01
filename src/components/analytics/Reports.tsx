@@ -85,7 +85,7 @@ export default function Reports({ }: ReportsProps) {
       const data = await analyticsService.generateReport(reportId);
       setReportData(data as ReportResult);
     } catch (_error) {
-      logError(error as Error, { component: 'Reports', operation: 'generateReport' });
+      logError(_error as Error, { component: 'Reports', operation: 'generateReport' });
     } finally {
       setLoading(false);
     }
@@ -99,7 +99,7 @@ export default function Reports({ }: ReportsProps) {
       // Handle export based on format
       logger.debug(`Exporting report as ${format}:`, data);
     } catch (_error) {
-      logError(error as Error, { component: 'Reports', operation: 'exportReport', format });
+      logError(_error as Error, { component: 'Reports', operation: 'exportReport', format });
     }
   };
 
@@ -109,7 +109,7 @@ export default function Reports({ }: ReportsProps) {
       setReports(prev => [...prev, newReport]);
       setShowCreateForm(false);
     } catch (_error) {
-      logError(error as Error, { component: 'Reports', operation: 'createReport' });
+      logError(_error as Error, { component: 'Reports', operation: 'createReport' });
     }
   };
 

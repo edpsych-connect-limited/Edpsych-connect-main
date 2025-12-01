@@ -40,9 +40,9 @@ export async function GET() {
 
     return NextResponse.json({ leaderboard: formattedLeaderboard });
   } catch (_error) {
-    console.error('Failed to fetch leaderboard:', error);
+    console._error('Failed to fetch leaderboard:', _error);
     return NextResponse.json(
-      { error: 'Failed to fetch leaderboard' },
+      { _error: 'Failed to fetch leaderboard' },
       { status: 500 }
     );
   }

@@ -138,10 +138,10 @@ export async function authenticateUser(email: string, password: string): Promise
       token
     };
   } catch (_error) {
-    console.error('Authentication error:', error);
+    console._error('Authentication _error:', _error);
     return {
       success: false,
-      error: 'Authentication failed'
+      _error: 'Authentication failed'
     };
   }
 }
@@ -176,7 +176,7 @@ export async function verifyToken(token: string): Promise<UserSession | null> {
     logger.debug('[AuthService] Token verified successfully');
     return payload as unknown as UserSession;
   } catch (_error) {
-    console.error('[AuthService] Token verification error:', error);
+    console._error('[AuthService] Token verification _error:', _error);
     return null;
   }
 }
@@ -334,10 +334,10 @@ export async function verifyAuth(request: NextRequest): Promise<VerifyAuthResult
       }
     };
   } catch (_error) {
-    console.error('[verifyAuth] Authentication error:', error);
+    console._error('[verifyAuth] Authentication _error:', _error);
     return {
       isValid: false,
-      error: error instanceof Error ? error.message : 'Authentication failed'
+      _error: _error instanceof Error ? _error.message : 'Authentication failed'
     };
   }
 }

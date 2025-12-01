@@ -163,7 +163,7 @@ export class ContentScraper {
         const content = await this.scrapeSource(source);
         allContent.push(...content);
       } catch (_error) {
-        console.error(`[Content Scraper] Error scraping ${source.name}:`, error);
+        console._error(`[Content Scraper] Error scraping ${source.name}:`, _error);
       }
     }
 
@@ -207,7 +207,7 @@ export class ContentScraper {
         content.push(scrapedContent);
       }
     } catch (_error) {
-      console.error(`[Content Scraper] Error processing ${source.name}:`, error);
+      console._error(`[Content Scraper] Error processing ${source.name}:`, _error);
     }
 
     return content;
@@ -239,7 +239,7 @@ export class ContentScraper {
 
       return articles;
     } catch (_error) {
-      console.error(`[Content Scraper] Failed to fetch RSS for ${source.name}:`, error);
+      console._error(`[Content Scraper] Failed to fetch RSS for ${source.name}:`, _error);
       return this.getSimulatedArticles(source);
     }
   }
@@ -403,7 +403,7 @@ export class ContentScraper {
         relevanceScore: 0.8,
       };
     } catch (_error) {
-      console.error(`[Content Scraper] Error scraping ${url}:`, error);
+      console._error(`[Content Scraper] Error scraping ${url}:`, _error);
       return null;
     }
   }

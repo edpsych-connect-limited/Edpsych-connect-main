@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (_error) {
-    console.error('Intervention Generation Error:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console._error('Intervention Generation Error:', _error);
+    return NextResponse.json({ _error: 'Internal Server Error' }, { status: 500 });
   }
 }

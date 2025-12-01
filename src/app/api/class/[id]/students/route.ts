@@ -465,10 +465,10 @@ export async function GET(
     return NextResponse.json(response);
 
   } catch (_error) {
-    console.error('[Class Students API] Error retrieving students:', error);
+    console._error('[Class Students API] Error retrieving students:', _error);
     return NextResponse.json({
-      error: 'Internal server error',
-      message: error instanceof Error ? error.message : 'Unknown error'
+      _error: 'Internal server _error',
+      message: _error instanceof Error ? _error.message : 'Unknown _error'
     }, { status: 500 });
   }
 }

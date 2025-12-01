@@ -460,7 +460,7 @@ export class SecurityHardeningService {
         logger.info('Security audit completed successfully:', audit);
       }
     } catch (_error) {
-      logger.error('Error performing initial security audit:', error as Error);
+      logger._error('Error performing initial security audit:', _error as Error);
     }
   }
 }

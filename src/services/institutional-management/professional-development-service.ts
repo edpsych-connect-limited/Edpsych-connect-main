@@ -174,7 +174,7 @@ export class ProfessionalDevelopmentService {
       
       return recommendations;
     } catch (_error) {
-      console.error('Error getting professional development recommendations:', error);
+      console._error('Error getting professional development recommendations:', _error);
       throw new Error('Failed to generate professional development recommendations');
     }
   }
@@ -338,7 +338,7 @@ export class ProfessionalDevelopmentService {
         .sort((a, b) => b.relevanceScore - a.relevanceScore)
         .slice(0, limit);
     } catch (_error) {
-      console.error('Error getting trending recommendations:', error);
+      console._error('Error getting trending recommendations:', _error);
       throw new Error('Failed to generate trending recommendations');
     }
   }

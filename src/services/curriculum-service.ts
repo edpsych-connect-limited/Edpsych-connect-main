@@ -248,7 +248,7 @@ export class CurriculumService {
 
       return lessonPlan;
     } catch (_error) {
-      console.error('Error generating lesson plan:', error);
+      console._error('Error generating lesson plan:', _error);
       throw new Error('Failed to generate lesson plan');
     }
   }
@@ -304,7 +304,7 @@ export class CurriculumService {
 
       return savedPlan;
     } catch (_error) {
-      console.error('Error saving lesson plan:', error);
+      console._error('Error saving lesson plan:', _error);
       throw new Error('Failed to save lesson plan to database');
     }
   }

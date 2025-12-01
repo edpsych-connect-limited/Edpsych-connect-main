@@ -63,11 +63,11 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (_error) {
-    console.error('Token refresh error:', error);
+    console._error('Token refresh _error:', _error);
     return NextResponse.json(
       {
         success: false,
-        error: 'Internal server error',
+        _error: 'Internal server _error',
       },
       { status: 500 }
     );

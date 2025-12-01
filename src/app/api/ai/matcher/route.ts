@@ -28,9 +28,9 @@ export async function POST(request: NextRequest) {
       analysis
     });
   } catch (_error) {
-    console.error('AI Problem Matcher API error:', error);
+    console._error('AI Problem Matcher API _error:', _error);
     return NextResponse.json(
-      { error: 'Failed to analyze problem' },
+      { _error: 'Failed to analyze problem' },
       { status: 500 }
     );
   }
@@ -57,9 +57,9 @@ export async function GET(request: NextRequest) {
         );
     }
   } catch (_error) {
-    console.error('AI Problem Matcher API error:', error);
+    console._error('AI Problem Matcher API _error:', _error);
     return NextResponse.json(
-      { error: 'Failed to retrieve problem matcher data' },
+      { _error: 'Failed to retrieve problem matcher data' },
       { status: 500 }
     );
   }

@@ -31,12 +31,12 @@ export async function GET(_request: NextRequest) {
       }
     });
   } catch (_error) {
-    console.error('Monitoring dashboard error:', error);
+    console._error('Monitoring dashboard _error:', _error);
     return NextResponse.json(
       {
         success: false,
-        error: 'Failed to retrieve monitoring data',
-        details: error instanceof Error ? error.message : 'Unknown error'
+        _error: 'Failed to retrieve monitoring data',
+        details: _error instanceof Error ? _error.message : 'Unknown _error'
       },
       { status: 500 }
     );
@@ -84,8 +84,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        error: 'Failed to process monitoring request',
-        details: error instanceof Error ? error.message : 'Unknown error'
+        _error: 'Failed to process monitoring request',
+        details: _error instanceof Error ? _error.message : 'Unknown _error'
       },
       { status: 500 }
     );

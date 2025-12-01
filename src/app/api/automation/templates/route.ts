@@ -91,9 +91,9 @@ export async function GET(request: NextRequest) {
       categories: ['engagement', 'academic_support', 'motivation']
     });
   } catch (_error) {
-    console.error('Automation Templates API error:', error);
+    console._error('Automation Templates API _error:', _error);
     return NextResponse.json(
-      { error: 'Failed to retrieve templates' },
+      { _error: 'Failed to retrieve templates' },
       { status: 500 }
     );
   }
@@ -138,9 +138,9 @@ export async function POST(request: NextRequest) {
       message: 'Template created successfully'
     });
   } catch (_error) {
-    console.error('Create template error:', error);
+    console._error('Create template _error:', _error);
     return NextResponse.json(
-      { error: 'Failed to create template' },
+      { _error: 'Failed to create template' },
       { status: 500 }
     );
   }

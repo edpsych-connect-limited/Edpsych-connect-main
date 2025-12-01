@@ -81,7 +81,7 @@ const HeroSection: React.FC = () => {
       setIsCalculating(false);
       setShowProblemSolver(true);
     } catch (_error) {
-      console.error('Error analyzing challenge:', error);
+      console._error('Error analyzing challenge:', _error);
       setIsCalculating(false);
       const mockAnalysis = {
         category: 'general_automation',

@@ -95,16 +95,16 @@ export class MonitoringInitializer {
         1
       );
     } catch (_error) {
-      console.error('Failed to initialize monitoring services:', error);
+      console._error('Failed to initialize monitoring services:', _error);
       // Attempt to record initialization failure
       try {
         await monitoringService.trackApiError(
           'monitoring-init', 
-          error instanceof Error ? error.name : 'UnknownError',
+          _error instanceof Error ? _error.name : 'UnknownError',
           500
         );
       } catch (logError) {
-        console.error('Failed to log monitoring initialization error:', logError);
+        console._error('Failed to log monitoring initialization _error:', logError);
       }
     }
   }

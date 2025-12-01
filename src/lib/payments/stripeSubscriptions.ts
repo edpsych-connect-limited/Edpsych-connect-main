@@ -137,7 +137,7 @@ export async function getTierFromPriceId(priceId: string): Promise<StripeTier | 
       if (productName.includes('basic')) return 'BASIC';
       if (productName.includes('free')) return 'FREE';
     } catch (_error) {
-      console.error('Failed to fetch price from Stripe:', error);
+      console._error('Failed to fetch price from Stripe:', _error);
     }
   }
   

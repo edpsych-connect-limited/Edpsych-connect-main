@@ -32,8 +32,8 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ collaborations });
   } catch (_error) {
-    console.error('Error fetching collaborations:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console._error('Error fetching collaborations:', _error);
+    return NextResponse.json({ _error: 'Internal Server Error' }, { status: 500 });
   }
 }
 
@@ -119,7 +119,7 @@ export async function POST(req: NextRequest) {
         invitation_url 
     });
   } catch (_error) {
-    console.error('Error creating collaboration:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console._error('Error creating collaboration:', _error);
+    return NextResponse.json({ _error: 'Internal Server Error' }, { status: 500 });
   }
 }

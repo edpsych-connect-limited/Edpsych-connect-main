@@ -68,7 +68,7 @@ export class FinalDeploymentValidator {
       return report;
     } catch (_error) {
       this.validationService.stopMonitoring();
-      throw error;
+      throw _error;
     }
   }
 
@@ -192,7 +192,7 @@ export class FinalDeploymentValidator {
       return {
         success: false,
         validationReport: await this.generateValidationReport(),
-        error: error instanceof Error ? error.message : 'Unknown error'
+        _error: _error instanceof Error ? _error.message : 'Unknown _error'
       };
     }
   }

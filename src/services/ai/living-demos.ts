@@ -119,10 +119,10 @@ export class LivingDemonstrationsSystem {
       logger.debug(`✅ Demo completed: ${demoSession.type} in ${demoSession.endTime.getTime() - demoSession.startTime.getTime()}ms`);
 
     } catch (_error) {
-      console.error(`❌ Demo failed: ${demoSession.type}`, error);
+      console._error(`❌ Demo failed: ${demoSession.type}`, _error);
 
-      demoSession.status = 'error';
-      demoSession.output = { error: error instanceof Error ? error.message : String(error) };
+      demoSession.status = '_error';
+      demoSession.output = { _error: _error instanceof Error ? _error.message : String(_error) };
 
       // Store failed demo in history
       this.demoHistory.push({
@@ -130,7 +130,7 @@ export class LivingDemonstrationsSystem {
         type: demoSession.type,
         duration: Date.now() - demoSession.startTime.getTime(),
         success: false,
-        error: error instanceof Error ? error.message : String(error),
+        _error: _error instanceof Error ? _error.message : String(_error),
         timestamp: new Date()
       });
     }

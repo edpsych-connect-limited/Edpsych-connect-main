@@ -101,8 +101,8 @@ export class FHIRService {
 
       return response.data;
     } catch (_error) {
-      this.handleError(error, `Error creating ${resource.resourceType}`);
-      throw error;
+      this.handleError(_error, `Error creating ${resource.resourceType}`);
+      throw _error;
     }
   }
 
@@ -120,8 +120,8 @@ export class FHIRService {
       const response = await this.client.get<T>(`/${resourceType}/${id}`);
       return response.data;
     } catch (_error) {
-      this.handleError(error, `Error reading ${resourceType}/${id}`);
-      throw error;
+      this.handleError(_error, `Error reading ${resourceType}/${id}`);
+      throw _error;
     }
   }
 
@@ -143,8 +143,8 @@ export class FHIRService {
 
       return response.data;
     } catch (_error) {
-      this.handleError(error, `Error updating ${resource.resourceType}/${resource.id}`);
-      throw error;
+      this.handleError(_error, `Error updating ${resource.resourceType}/${resource.id}`);
+      throw _error;
     }
   }
 
@@ -159,8 +159,8 @@ export class FHIRService {
       await this.client.delete(`/${resourceType}/${id}`);
       return true;
     } catch (_error) {
-      this.handleError(error, `Error deleting ${resourceType}/${id}`);
-      throw error;
+      this.handleError(_error, `Error deleting ${resourceType}/${id}`);
+      throw _error;
     }
   }
 
@@ -184,8 +184,8 @@ export class FHIRService {
         entry: response.data.entry || []
       };
     } catch (_error) {
-      this.handleError(error, `Error searching ${resourceType}`);
-      throw error;
+      this.handleError(_error, `Error searching ${resourceType}`);
+      throw _error;
     }
   }
 
@@ -235,8 +235,8 @@ export class FHIRService {
 
       return searchResult.entry[0].resource;
     } catch (_error) {
-      this.handleError(error, `Error fetching NHS patient demographics for ${nhsNumber}`);
-      throw error;
+      this.handleError(_error, `Error fetching NHS patient demographics for ${nhsNumber}`);
+      throw _error;
     }
   }
 
@@ -277,8 +277,8 @@ export class FHIRService {
 
       return observationsSearch.entry.map(entry => entry.resource);
     } catch (_error) {
-      this.handleError(error, `Error fetching mental health records for ${nhsNumber}`);
-      throw error;
+      this.handleError(_error, `Error fetching mental health records for ${nhsNumber}`);
+      throw _error;
     }
   }
 
@@ -391,8 +391,8 @@ export class FHIRService {
 
       return carePlansSearch.entry.map(entry => entry.resource);
     } catch (_error) {
-      this.handleError(error, `Error fetching care plans for ${nhsNumber}`);
-      throw error;
+      this.handleError(_error, `Error fetching care plans for ${nhsNumber}`);
+      throw _error;
     }
   }
 

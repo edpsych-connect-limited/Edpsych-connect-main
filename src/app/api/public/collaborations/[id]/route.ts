@@ -38,8 +38,8 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 
     return NextResponse.json(safeData);
   } catch (_error) {
-    console.error('Error fetching public collaboration:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console._error('Error fetching public collaboration:', _error);
+    return NextResponse.json({ _error: 'Internal Server Error' }, { status: 500 });
   }
 }
 
@@ -60,7 +60,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 
     return NextResponse.json(collaboration);
   } catch (_error) {
-    console.error('Error updating public collaboration:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console._error('Error updating public collaboration:', _error);
+    return NextResponse.json({ _error: 'Internal Server Error' }, { status: 500 });
   }
 }

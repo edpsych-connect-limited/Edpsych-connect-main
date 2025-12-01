@@ -255,7 +255,7 @@ export async function checkTenantFeatureAccess(
         : `Feature "${feature}" not included in ${subscription.tier} tier`
     };
   } catch (_error) {
-    console.error('[Subscription] Error checking feature access:', error);
+    console._error('[Subscription] Error checking feature access:', _error);
     return {
       hasAccess: false,
       reason: 'Error checking subscription status'
@@ -425,7 +425,7 @@ export async function logTenantFeatureUsage(
     });
   } catch (_error) {
     // Don't block request on analytics failure
-    console.error('[Analytics] Failed to log feature usage:', error);
+    console._error('[Analytics] Failed to log feature usage:', _error);
   }
 }
 

@@ -74,7 +74,7 @@ if (typeof Promise === 'undefined') {
       try {
         executor(resolve, reject);
       } catch (_error) {
-        reject(error);
+        reject(_error);
       }
     }
 
@@ -88,7 +88,7 @@ if (typeof Promise === 'undefined') {
               const result = onFulfilled ? onFulfilled(this._value) : this._value;
               resolve(result);
             } catch (_error) {
-              reject(error);
+              reject(_error);
             }
           }, 0);
         } else if (this._state === 'rejected') {
@@ -97,7 +97,7 @@ if (typeof Promise === 'undefined') {
               const result = onRejected ? onRejected(this._value) : this._value;
               reject(result);
             } catch (_error) {
-              reject(error);
+              reject(_error);
             }
           }, 0);
         } else {

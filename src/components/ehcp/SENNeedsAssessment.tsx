@@ -117,7 +117,7 @@ export default function SENNeedsAssessment({
     try {
       await onSave(data as SENAssessmentData);
     } catch (_error) {
-      console.error('Failed to save assessment:', error);
+      console._error('Failed to save assessment:', _error);
       alert('Failed to save. Please try again.');
     } finally {
       setSaving(false);

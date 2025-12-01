@@ -154,7 +154,7 @@ export class DatabaseOptimizer {
           recommendations: ['Query failed - check syntax and permissions']
         });
 
-        throw error;
+        throw _error;
       }
     };
   }

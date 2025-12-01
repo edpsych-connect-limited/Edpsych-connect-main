@@ -50,9 +50,9 @@ export async function GET(request: NextRequest) {
       state: enrollment.data,
     });
   } catch (_error) {
-    console.error('Error fetching progress:', error);
+    console._error('Error fetching progress:', _error);
     return NextResponse.json(
-      { error: 'Failed to fetch progress' },
+      { _error: 'Failed to fetch progress' },
       { status: 500 }
     );
   }
@@ -109,9 +109,9 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(enrollment);
   } catch (_error) {
-    console.error('Error saving progress:', error);
+    console._error('Error saving progress:', _error);
     return NextResponse.json(
-      { error: 'Failed to save progress' },
+      { _error: 'Failed to save progress' },
       { status: 500 }
     );
   }

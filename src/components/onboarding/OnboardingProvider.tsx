@@ -255,7 +255,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         const mergedState = { ...initialState, ...parsed };
         dispatch({ type: 'LOAD_STATUS', payload: mergedState as any });
       } catch (_error) {
-        console.error('[OnboardingProvider] Error loading from localStorage:', error);
+        console._error('[OnboardingProvider] Error loading from localStorage:', _error);
       }
     }
   }, []);
@@ -265,7 +265,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch (_error) {
-      console.error('[OnboardingProvider] Error saving to localStorage:', error);
+      console._error('[OnboardingProvider] Error saving to localStorage:', _error);
     }
   }, [state]);
 
@@ -344,8 +344,8 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         }
       }
     } catch (_error) {
-      console.error('[OnboardingProvider] refreshStatus error:', error);
-      dispatch({ type: 'SET_ERROR', payload: error instanceof Error ? error.message : 'Network error. Please check your connection.' });
+      console._error('[OnboardingProvider] refreshStatus _error:', _error);
+      dispatch({ type: 'SET_ERROR', payload: _error instanceof Error ? _error.message : 'Network _error. Please check your connection.' });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
@@ -392,8 +392,8 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         dispatch({ type: 'SET_ERROR', payload: data.error || 'Failed to start onboarding' });
       }
     } catch (_error) {
-      console.error('[OnboardingProvider] startOnboarding error:', error);
-      dispatch({ type: 'SET_ERROR', payload: error instanceof Error ? error.message : 'Network error. Please try again.' });
+      console._error('[OnboardingProvider] startOnboarding _error:', _error);
+      dispatch({ type: 'SET_ERROR', payload: _error instanceof Error ? _error.message : 'Network _error. Please try again.' });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
@@ -449,8 +449,8 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         dispatch({ type: 'SET_ERROR', payload: result.error || 'Failed to update step' });
       }
     } catch (_error) {
-      console.error('[OnboardingProvider] updateStep error:', error);
-      dispatch({ type: 'SET_ERROR', payload: error instanceof Error ? error.message : 'Network error. Please try again.' });
+      console._error('[OnboardingProvider] updateStep _error:', _error);
+      dispatch({ type: 'SET_ERROR', payload: _error instanceof Error ? _error.message : 'Network _error. Please try again.' });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
@@ -514,8 +514,8 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         dispatch({ type: 'SET_ERROR', payload: result.error || 'Failed to skip step' });
       }
     } catch (_error) {
-      console.error('[OnboardingProvider] skipCurrentStep error:', error);
-      dispatch({ type: 'SET_ERROR', payload: error instanceof Error ? error.message : 'Network error. Please try again.' });
+      console._error('[OnboardingProvider] skipCurrentStep _error:', _error);
+      dispatch({ type: 'SET_ERROR', payload: _error instanceof Error ? _error.message : 'Network _error. Please try again.' });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
@@ -551,8 +551,8 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         dispatch({ type: 'SET_ERROR', payload: result.error || 'Failed to complete onboarding' });
       }
     } catch (_error) {
-      console.error('[OnboardingProvider] completeOnboarding error:', error);
-      dispatch({ type: 'SET_ERROR', payload: error instanceof Error ? error.message : 'Network error. Please try again.' });
+      console._error('[OnboardingProvider] completeOnboarding _error:', _error);
+      dispatch({ type: 'SET_ERROR', payload: _error instanceof Error ? _error.message : 'Network _error. Please try again.' });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
@@ -585,8 +585,8 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         dispatch({ type: 'SET_ERROR', payload: result.error || 'Failed to skip onboarding' });
       }
     } catch (_error) {
-      console.error('[OnboardingProvider] skipOnboarding error:', error);
-      dispatch({ type: 'SET_ERROR', payload: error instanceof Error ? error.message : 'Network error. Please try again.' });
+      console._error('[OnboardingProvider] skipOnboarding _error:', _error);
+      dispatch({ type: 'SET_ERROR', payload: _error instanceof Error ? _error.message : 'Network _error. Please try again.' });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
@@ -622,8 +622,8 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         dispatch({ type: 'SET_ERROR', payload: result.error || 'Failed to restart onboarding' });
       }
     } catch (_error) {
-      console.error('[OnboardingProvider] restartOnboarding error:', error);
-      dispatch({ type: 'SET_ERROR', payload: error instanceof Error ? error.message : 'Network error. Please try again.' });
+      console._error('[OnboardingProvider] restartOnboarding _error:', _error);
+      dispatch({ type: 'SET_ERROR', payload: _error instanceof Error ? _error.message : 'Network _error. Please try again.' });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }

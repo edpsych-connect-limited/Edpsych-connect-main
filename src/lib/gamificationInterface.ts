@@ -78,7 +78,7 @@ const fetchWithTimeout = async (url: string, options: RequestInit = {}) => {
     return response;
   } catch (_error) {
     clearTimeout(timeout);
-    throw error;
+    throw _error;
   }
 };
 
@@ -98,12 +98,12 @@ const retryFetch = async <T>(
       const res = await fetchFn();
       return await handleResponse(res, endpoint);
     } catch (_error) {
-      lastError = error;
+      lastError = _error;
       retries++;
 
       if (retries <= MAX_RETRIES) {
         const delay = Math.pow(2, retries - 1) * 1000;
-        logger.warn(`Retrying ${endpoint} (attempt ${retries}/${MAX_RETRIES}) after ${delay}ms`, { error });
+        logger.warn(`Retrying ${endpoint} (attempt ${retries}/${MAX_RETRIES}) after ${delay}ms`, { _error });
         await new Promise(resolve => setTimeout(resolve, delay));
       }
     }
@@ -123,7 +123,7 @@ export const GamificationInterface = {
         () => fetchWithTimeout(endpoint, { credentials: "include" })
       );
     } catch (_error) {
-      logger.warn("Falling back to AI-generated challenges", { error });
+      logger.warn("Falling back to AI-generated challenges", { _error });
       const response = await aiService.processRequest({
         prompt: "Generate 3 personalized gamification challenges for educational psychology learners.",
         id: "system",
@@ -150,7 +150,7 @@ export const GamificationInterface = {
         () => fetchWithTimeout(endpoint, { credentials: "include" })
       );
     } catch (_error) {
-      logger.warn("Falling back to AI-generated achievements", { error });
+      logger.warn("Falling back to AI-generated achievements", { _error });
       const response = await aiService.processRequest({
         prompt: "Generate 3 educational gamification achievements with title, description, icon, and rarity.",
         id: "system",
@@ -173,7 +173,7 @@ export const GamificationInterface = {
         () => fetchWithTimeout(endpoint, { credentials: "include" })
       );
     } catch (_error) {
-      logger.warn("Falling back to AI-generated leaderboard", { error });
+      logger.warn("Falling back to AI-generated leaderboard", { _error });
       const response = await aiService.processRequest({
         prompt: "Generate a leaderboard with 5 fictional educational psychology learners including id, username, score, level, institution, and rank.",
         id: "system",
@@ -202,7 +202,7 @@ export const GamificationInterface = {
         })
       );
     } catch (_error) {
-      logger.error(`Failed to complete challenge ${id}`, { error });
+      logger._error(`Failed to complete challenge ${id}`, { _error });
       throw new Error("Unable to complete challenge. Please try again later.");
     }
   },
@@ -216,7 +216,7 @@ export const GamificationInterface = {
       });
       return res.ok;
     } catch (_error) {
-      logger.error("Gamification API health check failed", { error });
+      logger._error("Gamification API health check failed", { _error });
       return false;
     }
   }

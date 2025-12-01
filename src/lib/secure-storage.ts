@@ -114,8 +114,8 @@ export async function uploadToSecureStorage(
     // Return the path as the identifier
     return path;
   } catch (_error) {
-    const storageError = error as Error;
-    logger.error(`Error storing document securely: ${storageError.message}`, {
+    const storageError = _error as Error;
+    logger._error(`Error storing document securely: ${storageError.message}`, {
       path
     });
     throw new Error(`Failed to store document securely: ${storageError.message}`);
@@ -157,8 +157,8 @@ export async function getFromSecureStorage(path: string): Promise<string> {
     // Return unencrypted content
     return document.content || '';
   } catch (_error) {
-    const retrieveError = error as Error;
-    logger.error(`Error retrieving document from secure storage: ${retrieveError.message}`, {
+    const retrieveError = _error as Error;
+    logger._error(`Error retrieving document from secure storage: ${retrieveError.message}`, {
       path
     });
     throw new Error(`Failed to retrieve document from secure storage: ${retrieveError.message}`);
@@ -190,8 +190,8 @@ export async function getSignedStorageUrl(
     
     return apiUrl;
   } catch (_error) {
-    const urlError = error as Error;
-    logger.error(`Error generating access URL: ${urlError.message}`, {
+    const urlError = _error as Error;
+    logger._error(`Error generating access URL: ${urlError.message}`, {
       path
     });
     throw new Error(`Failed to generate access URL: ${urlError.message}`);
@@ -213,8 +213,8 @@ export async function deleteFromSecureStorage(path: string): Promise<boolean> {
     logger.info(`Deleted document from secure storage: ${path}`);
     return true;
   } catch (_error) {
-    const deleteError = error as Error;
-    logger.error(`Error deleting document from secure storage: ${deleteError.message}`, {
+    const deleteError = _error as Error;
+    logger._error(`Error deleting document from secure storage: ${deleteError.message}`, {
       path
     });
     throw new Error(`Failed to delete document from secure storage: ${deleteError.message}`);

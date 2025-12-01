@@ -201,11 +201,11 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (_error) {
-    console.error('[Case API] Error fetching cases:', error);
+    console._error('[Case API] Error fetching cases:', _error);
     return NextResponse.json(
       {
-        error: 'Failed to retrieve cases',
-        message: error instanceof Error ? error.message : 'Unknown error',
+        _error: 'Failed to retrieve cases',
+        message: _error instanceof Error ? _error.message : 'Unknown _error',
         requestId,
       },
       { status: 500 }
@@ -349,11 +349,11 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
   } catch (_error) {
-    console.error('[Case API] Error creating case:', error);
+    console._error('[Case API] Error creating case:', _error);
     return NextResponse.json(
       {
-        error: 'Failed to create case',
-        message: error instanceof Error ? error.message : 'Unknown error',
+        _error: 'Failed to create case',
+        message: _error instanceof Error ? _error.message : 'Unknown _error',
         requestId,
       },
       { status: 500 }

@@ -94,7 +94,7 @@ export async function GET() {
       timelineCases,
     });
   } catch (_error) {
-    console.error('Error fetching LA dashboard data:', error);
+    console._error('Error fetching LA dashboard data:', _error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 }

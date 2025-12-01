@@ -60,7 +60,7 @@ export default function ConciergeWidget() {
         }]);
       }
     } catch (_error) {
-      console.error('Chat error:', error);
+      console._error('Chat _error:', _error);
       setMessages(prev => [...prev, { 
         role: 'assistant', 
         text: "I'm having trouble connecting. Please check your internet connection." 

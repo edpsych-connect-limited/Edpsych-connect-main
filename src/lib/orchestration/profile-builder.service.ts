@@ -173,8 +173,8 @@ export class ProfileBuilderService {
         `Profile updated for student ${student_id} from assessment ${assessmentResult.assessment_id}`
       );
     } catch (_error) {
-      logger.error('Error updating profile from assessment:', error as Error);
-      throw error;
+      logger._error('Error updating profile from assessment:', _error as Error);
+      throw _error;
     }
   }
 
@@ -281,8 +281,8 @@ export class ProfileBuilderService {
 
       logger.info(`Profile updated for student ${student_id} from lesson activity`);
     } catch (_error) {
-      logger.error('Error updating profile from lesson activity:', error as Error);
-      throw error;
+      logger._error('Error updating profile from lesson activity:', _error as Error);
+      throw _error;
     }
   }
 
@@ -350,8 +350,8 @@ export class ProfileBuilderService {
         }
       }
     } catch (_error) {
-      logger.error('Error updating profile from intervention:', error as Error);
-      throw error;
+      logger._error('Error updating profile from intervention:', _error as Error);
+      throw _error;
     }
   }
 
@@ -396,8 +396,8 @@ export class ProfileBuilderService {
 
       logger.info(`Profile updated for student ${student_id} from Battle Royale performance`);
     } catch (_error) {
-      logger.error('Error updating profile from Battle Royale:', error as Error);
-      throw error;
+      logger._error('Error updating profile from Battle Royale:', _error as Error);
+      throw _error;
     }
   }
 
@@ -457,8 +457,8 @@ export class ProfileBuilderService {
         reasoning,
       };
     } catch (_error) {
-      logger.error('Error predicting readiness to progress:', error as Error);
-      throw error;
+      logger._error('Error predicting readiness to progress:', _error as Error);
+      throw _error;
     }
   }
 
@@ -530,8 +530,8 @@ export class ProfileBuilderService {
         recommendations,
       };
     } catch (_error) {
-      logger.error('Error identifying struggle patterns:', error as Error);
-      throw error;
+      logger._error('Error identifying struggle patterns:', _error as Error);
+      throw _error;
     }
   }
 
@@ -795,7 +795,7 @@ export class ProfileBuilderService {
         },
       });
     } catch (_error) {
-      logger.error('Error logging automated action:', error as Error);
+      logger._error('Error logging automated action:', _error as Error);
       // Don't throw - logging failure shouldn't break the flow
     }
   }

@@ -63,7 +63,7 @@ export const CookieConsentProvider: React.FC<{ children: React.ReactNode }> = ({
           setShowBanner(true);
         }
       } catch (_error) {
-        console.warn('Error loading cookie consent settings:', error);
+        console.warn('Error loading cookie consent settings:', _error);
         setShowBanner(true);
       }
     }
@@ -75,7 +75,7 @@ export const CookieConsentProvider: React.FC<{ children: React.ReactNode }> = ({
       try {
         localStorage.setItem('edpsych_cookie_consent', JSON.stringify(settings));
       } catch (_error) {
-        console.warn('Error saving cookie consent settings:', error);
+        console.warn('Error saving cookie consent settings:', _error);
       }
     }
   }, [settings]);

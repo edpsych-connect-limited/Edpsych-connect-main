@@ -47,7 +47,7 @@ export async function logForensicEvent(event: ForensicEventPayload): Promise<str
     await fs.appendFile(FORENSIC_LOG_FILE, JSON.stringify(record) + os.EOL, { encoding: 'utf-8' });
     console.debug(`[Forensic] ${record.type}:${record.action} tenant=${record.tenantId ?? 'unknown'} trace=${traceId}`);
   } catch (_error) {
-    console.warn('[Forensic] Failed to persist event', (error as Error).message);
+    console.warn('[Forensic] Failed to persist event', (_error as Error).message);
   }
 
   return traceId;

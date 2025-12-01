@@ -60,14 +60,14 @@ export const prismaUtils = {
     try {
       return await dbOperation();
     } catch (_error) {
-      console.error('Database operation error:', error);
+      console._error('Database operation _error:', _error);
       
       // Check for specific Prisma errors and throw appropriate errors
-      if ((error as any).code === 'P2025') {
+      if ((_error as any).code === 'P2025') {
         throw new Error('Record not found');
       }
       
-      throw error;
+      throw _error;
     }
   },
 

@@ -108,7 +108,7 @@ class OrchestratorService {
       return parsedResponse;
 
     } catch (_error) {
-      console.error('Orchestrator Service Error:', error);
+      console._error('Orchestrator Service Error:', _error);
       // Fallback mock response if AI fails
       return this.getFallbackResponse(request);
     }

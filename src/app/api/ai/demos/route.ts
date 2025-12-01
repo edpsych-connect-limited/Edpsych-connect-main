@@ -29,9 +29,9 @@ export async function POST(request: NextRequest) {
       message: 'Demo started successfully'
     });
   } catch (_error) {
-    console.error('AI Demos API error:', error);
+    console._error('AI Demos API _error:', _error);
     return NextResponse.json(
-      { error: 'Failed to start demonstration' },
+      { _error: 'Failed to start demonstration' },
       { status: 500 }
     );
   }
@@ -80,9 +80,9 @@ export async function GET(request: NextRequest) {
         );
     }
   } catch (_error) {
-    console.error('AI Demos API error:', error);
+    console._error('AI Demos API _error:', _error);
     return NextResponse.json(
-      { error: 'Failed to retrieve demonstration data' },
+      { _error: 'Failed to retrieve demonstration data' },
       { status: 500 }
     );
   }

@@ -57,8 +57,8 @@ export async function createEHCPVersion(payload: {
 
     logger.debug(`[EHCP Notifications] Version created for EHCP ${payload.ehcp_id}`);
   } catch (_error) {
-    console.error('[EHCP Notifications] Failed to create version:', error);
-    throw error;
+    console._error('[EHCP Notifications] Failed to create version:', _error);
+    throw _error;
   }
 }
 
@@ -84,7 +84,7 @@ export async function sendEHCPNotification(
 
     logger.debug(`[EHCP Notifications] Sent ${payload.action} notifications for EHCP ${payload.ehcp_id} to ${recipients.length} users`);
   } catch (_error) {
-    console.error('[EHCP Notifications] Failed to send notifications:', error);
+    console._error('[EHCP Notifications] Failed to send notifications:', _error);
     // Don't throw - notifications are non-critical
   }
 }
@@ -112,7 +112,7 @@ async function logEHCPAction(payload: EHCPNotificationPayload): Promise<void> {
       },
     });
   } catch (_error) {
-    console.error('[EHCP Notifications] Failed to create audit log:', error);
+    console._error('[EHCP Notifications] Failed to create audit log:', _error);
   }
 }
 
@@ -135,7 +135,7 @@ async function getDefaultRecipients(ehcp_id: string, tenant_id: number): Promise
 
     return users.map(u => u.id);
   } catch (_error) {
-    console.error('[EHCP Notifications] Failed to get recipients:', error);
+    console._error('[EHCP Notifications] Failed to get recipients:', _error);
     return [];
   }
 }
@@ -164,7 +164,7 @@ async function sendInAppNotifications(
     // await prisma.notifications.createMany({ ... });
 
   } catch (_error) {
-    console.error('[EHCP Notifications] Failed to send in-app notifications:', error);
+    console._error('[EHCP Notifications] Failed to send in-app notifications:', _error);
   }
 }
 
@@ -206,7 +206,7 @@ async function sendEmailNotifications(
     //   template: 'ehcp-notification',
     // });
   } catch (_error) {
-    console.error('[EHCP Notifications] Failed to send email notifications:', error);
+    console._error('[EHCP Notifications] Failed to send email notifications:', _error);
   }
 }
 

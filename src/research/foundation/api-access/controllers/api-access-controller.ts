@@ -39,7 +39,7 @@ router.get('/pricing-plans',
         data: plans
       });
     } catch (_error) {
-      console.error('Get pricing plans error:', error);
+      console._error('Get pricing plans _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to get pricing plans'
@@ -83,7 +83,7 @@ router.get('/pricing-plans/:id',
         data: plan
       });
     } catch (_error) {
-      console.error('Get pricing plan error:', error);
+      console._error('Get pricing plan _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to get pricing plan'
@@ -127,7 +127,7 @@ router.post('/keys',
         message: 'API key created successfully. This is the only time you will see the full key. Make sure to store it securely.'
       });
     } catch (_error) {
-      console.error('Create API key error:', error);
+      console._error('Create API key _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to create API key'
@@ -162,7 +162,7 @@ router.get('/keys',
         data: sanitizedKeys
       });
     } catch (_error) {
-      console.error('Get API keys error:', error);
+      console._error('Get API keys _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to get API keys'
@@ -204,7 +204,7 @@ router.get('/keys/:id',
         data: sanitizedKey
       });
     } catch (_error) {
-      console.error('Get API key error:', error);
+      console._error('Get API key _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to get API key'
@@ -278,7 +278,7 @@ router.put('/keys/:id',
         data: sanitizedKey
       });
     } catch (_error) {
-      console.error('Update API key error:', error);
+      console._error('Update API key _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to update API key'
@@ -315,7 +315,7 @@ router.post('/keys/:id/deactivate',
         message: 'API key deactivated successfully'
       });
     } catch (_error) {
-      console.error('Deactivate API key error:', error);
+      console._error('Deactivate API key _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to deactivate API key'
@@ -353,7 +353,7 @@ router.post('/keys/:id/rotate',
         message: 'API key rotated successfully. This is the only time you will see the full new key. Make sure to store it securely.'
       });
     } catch (_error) {
-      console.error('Rotate API key error:', error);
+      console._error('Rotate API key _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to rotate API key'
@@ -403,7 +403,7 @@ router.get('/usage',
         }
       });
     } catch (_error) {
-      console.error('Get usage summary error:', error);
+      console._error('Get usage summary _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to get usage summary'
@@ -447,7 +447,7 @@ router.get('/usage/report',
         data: report
       });
     } catch (_error) {
-      console.error('Generate usage report error:', error);
+      console._error('Generate usage report _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to generate usage report'
@@ -474,7 +474,7 @@ router.get('/quotas',
         data: []
       });
     } catch (_error) {
-      console.error('Get quota consumption error:', error);
+      console._error('Get quota consumption _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to get quota consumption'
@@ -502,7 +502,7 @@ router.get('/alerts',
         data: alerts
       });
     } catch (_error) {
-      console.error('Get usage alerts error:', error);
+      console._error('Get usage alerts _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to get usage alerts'
@@ -543,7 +543,7 @@ router.get('/billing/invoice',
         data: invoice
       });
     } catch (_error) {
-      console.error('Generate invoice error:', error);
+      console._error('Generate invoice _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to generate invoice'

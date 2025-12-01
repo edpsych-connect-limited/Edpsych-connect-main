@@ -154,7 +154,7 @@ export class AIIntelligentCache {
       };
 
     } catch (_error) {
-      logger.error('Error retrieving from cache:', error as Error);
+      logger._error('Error retrieving from cache:', _error as Error);
       return null;
     }
   }
@@ -214,7 +214,7 @@ export class AIIntelligentCache {
       });
 
     } catch (_error) {
-      logger.error('Error storing in cache:', error as Error);
+      logger._error('Error storing in cache:', _error as Error);
     }
   }
 

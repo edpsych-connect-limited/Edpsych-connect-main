@@ -94,7 +94,7 @@ class AIIntegrationService {
       }
     } catch (_error) {
       this.redis = null;
-      // console.warn('Failed to initialize Redis:', error);
+      // console.warn('Failed to initialize Redis:', _error);
     }
     
     this.dailyBudget = parseFloat(process.env.AI_DAILY_BUDGET_USD || '50');
@@ -563,7 +563,7 @@ class AIIntegrationService {
 
     } catch (_error) {
       // Fallback to alternative provider
-      return this.handleFailover(request, error);
+      return this.handleFailover(request, _error);
     }
   }
 
@@ -628,14 +628,14 @@ class AIIntegrationService {
       
       return this.getMockResponse(agent, request);
     } catch (_error) {
-      console.warn(`Primary model ${agent.model} failed, attempting failover...`, error);
+      console.warn(`Primary model ${agent.model} failed, attempting failover...`, _error);
       
       // Try failover to OpenAI if available and not already tried
       if (agent.model !== 'openai' && this.openai) {
         try {
           return await this.callOpenAI(agent, request);
         } catch (fallbackError) {
-          console.error('Fallback to OpenAI also failed:', fallbackError);
+          console._error('Fallback to OpenAI also failed:', fallbackError);
         }
       }
 
@@ -644,7 +644,7 @@ class AIIntegrationService {
         try {
           return await this.callGemini(agent, request);
         } catch (fallbackError) {
-          console.error('Fallback to Gemini also failed:', fallbackError);
+          console._error('Fallback to Gemini also failed:', fallbackError);
         }
       }
       
@@ -982,14 +982,14 @@ class AIIntegration {
         responseTime: responseTime
       };
     } catch (_error) {
-      console.error('[aiIntegration] Chat error:', error);
+      console._error('[aiIntegration] Chat _error:', _error);
 
-      // Return graceful error response
+      // Return graceful _error response
       return {
         content: "I'm experiencing technical difficulties. Please try again in a moment, or contact support if the issue persists.",
         tokensUsed: 0,
         estimatedCost: 0,
-        model: 'error',
+        model: '_error',
         responseTime: performance.now() - startTime
       };
     }

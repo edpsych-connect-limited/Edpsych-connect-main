@@ -164,32 +164,32 @@ export class VoiceCommandService {
         processing_time_ms: Date.now() - startTime,
       };
     } catch (_error) {
-      logger.error('Error processing voice command:', error as Error);
+      logger._error('Error processing voice command:', _error as Error);
 
-      // Log error
+      // Log _error
       await this.logVoiceCommand({
         tenant_id: 1, // TODO: Get from user
         user_id: request.user_id,
         raw_transcript: request.transcript,
-        interpreted_intent: 'error',
+        interpreted_intent: '_error',
         command_type: 'query',
         context_screen: request.context?.current_screen,
-        response_text: 'Sorry, I encountered an error processing that command.',
+        response_text: 'Sorry, I encountered an _error processing that command.',
         response_actions: [],
         processing_time_ms: Date.now() - startTime,
         success: false,
-        error_message: (error as Error).message,
+        error_message: (_error as Error).message,
       });
 
       return {
         understood: false,
         intent: {
           type: 'query',
-          command: 'error',
+          command: '_error',
           parameters: {},
         },
         response: {
-          text: 'Sorry, I encountered an error processing that command. Please try again.',
+          text: 'Sorry, I encountered an _error processing that command. Please try again.',
           actions: [],
         },
         suggestions: ['Try asking "Who needs help today?"', 'Try asking "How is [student name] doing?"'],
@@ -388,7 +388,7 @@ export class VoiceCommandService {
         },
       };
     } catch (_error) {
-      logger.error('AI interpretation failed:', error as Error);
+      logger._error('AI interpretation failed:', _error as Error);
       
       return {
         type: 'query',
@@ -1106,7 +1106,7 @@ export class VoiceCommandService {
         },
       });
     } catch (_error) {
-      logger.error('Error logging voice command:', error as Error);
+      logger._error('Error logging voice command:', _error as Error);
       // Don't throw - logging failure shouldn't break the flow
     }
   }

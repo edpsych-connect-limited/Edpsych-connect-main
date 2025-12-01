@@ -110,14 +110,14 @@ export async function POST(req: NextRequest) {
     });
 
   } catch (_error) {
-    console.error('Waitlist API Error:', error);
+    console._error('Waitlist API Error:', _error);
 
     // Check for specific database errors
-    if (error instanceof Error) {
-      if (error.message.includes('Unique constraint')) {
+    if (_error instanceof Error) {
+      if (_error.message.includes('Unique constraint')) {
         return NextResponse.json(
           {
-            error: 'Email already registered',
+            _error: 'Email already registered',
             message: 'This email is already on our waitlist.'
           },
           { status: 409 }
@@ -127,7 +127,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       {
-        error: 'An unexpected error occurred',
+        _error: 'An unexpected _error occurred',
         message: 'Please try again later or contact support if the issue persists.'
       },
       { status: 500 }
@@ -180,10 +180,10 @@ export async function GET(_req: NextRequest) {
     });
 
   } catch (_error) {
-    console.error('Waitlist GET Error:', error);
+    console._error('Waitlist GET Error:', _error);
     return NextResponse.json(
       {
-        error: 'Failed to retrieve waitlist data'
+        _error: 'Failed to retrieve waitlist data'
       },
       { status: 500 }
     );

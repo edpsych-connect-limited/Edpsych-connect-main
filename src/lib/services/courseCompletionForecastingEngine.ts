@@ -163,8 +163,8 @@ class CourseCompletionForecastingEngine extends EventEmitter {
       this.emit('initialized', { timestamp: new Date() });
       logger.info('[CourseCompletion] Forecasting engine initialized');
     } catch (_error) {
-      logger.error('[CourseCompletion] Initialization error:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('[CourseCompletion] Initialization _error:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -265,8 +265,8 @@ class CourseCompletionForecastingEngine extends EventEmitter {
 
       return result;
     } catch (_error) {
-      logger.error('[CourseCompletion] Error generating forecast:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('[CourseCompletion] Error generating forecast:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -353,8 +353,8 @@ class CourseCompletionForecastingEngine extends EventEmitter {
         recommendations,
       };
     } catch (_error) {
-      logger.error('[CourseCompletion] Error generating cohort forecast:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('[CourseCompletion] Error generating cohort forecast:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -414,8 +414,8 @@ class CourseCompletionForecastingEngine extends EventEmitter {
 
       return atRiskStudents.slice(0, limit);
     } catch (_error) {
-      logger.error('[CourseCompletion] Error identifying at-risk students:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('[CourseCompletion] Error identifying at-risk students:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -467,8 +467,8 @@ class CourseCompletionForecastingEngine extends EventEmitter {
         expectedImpact,
       };
     } catch (_error) {
-      logger.error('[CourseCompletion] Error optimizing intervention:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('[CourseCompletion] Error optimizing intervention:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -657,7 +657,7 @@ Provide a concise 2-3 sentence analysis with specific, actionable recommendation
 
       return response.choices[0]?.message?.content || 'Analysis unavailable';
     } catch (_error) {
-      logger.error('[CourseCompletion] Error generating AI insights:', error instanceof Error ? error.message : String(error));
+      logger._error('[CourseCompletion] Error generating AI insights:', _error instanceof Error ? _error.message : String(_error));
       return 'AI insights temporarily unavailable';
     }
   }

@@ -41,9 +41,9 @@ export async function POST(request: NextRequest) {
         );
     }
   } catch (_error) {
-    console.error('AI Adaptive API error:', error);
+    console._error('AI Adaptive API _error:', _error);
     return NextResponse.json(
-      { error: 'Failed to process adaptive intelligence request' },
+      { _error: 'Failed to process adaptive intelligence request' },
       { status: 500 }
     );
   }
@@ -70,9 +70,9 @@ export async function GET(request: NextRequest) {
       { status: 400 }
     );
   } catch (_error) {
-    console.error('AI Adaptive API error:', error);
+    console._error('AI Adaptive API _error:', _error);
     return NextResponse.json(
-      { error: 'Failed to retrieve adaptive intelligence data' },
+      { _error: 'Failed to retrieve adaptive intelligence data' },
       { status: 500 }
     );
   }

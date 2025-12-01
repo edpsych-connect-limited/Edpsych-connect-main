@@ -74,14 +74,14 @@ export class RuntimeTypeValidator {
         }
       };
     } catch (_error) {
-      const msg = error instanceof Error ? error.message : String(error);
+      const msg = _error instanceof Error ? _error.message : String(_error);
       this.errors.push({
         type: 'UNSAFE_CAST',
         severity: 'critical',
         file: filePath,
         line: 0,
         column: 0,
-        message: `Validation error: ${msg}`,
+        message: `Validation _error: ${msg}`,
         suggestion: 'Check file format and ensure it is valid TypeScript'
       });
 

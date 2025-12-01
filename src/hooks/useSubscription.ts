@@ -159,7 +159,7 @@ export const useSubscription = (): UseSubscriptionReturn => {
         }
       }
     } catch (_error) {
-      console.error('Failed to fetch subscription data:', error);
+      console._error('Failed to fetch subscription data:', _error);
     } finally {
       setIsLoadingSubscription(false);
     }

@@ -60,11 +60,11 @@ export async function GET() {
       total: formattedCategories.length,
     });
   } catch (_error) {
-    console.error('Help categories error:', error);
+    console._error('Help categories _error:', _error);
     return NextResponse.json(
       {
         success: false,
-        error: 'Failed to fetch help categories',
+        _error: 'Failed to fetch help categories',
         categories: [],
       },
       { status: 500 }

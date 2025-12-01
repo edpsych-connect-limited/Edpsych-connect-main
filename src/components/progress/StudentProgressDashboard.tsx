@@ -231,7 +231,7 @@ export default function StudentProgressDashboard({
       setActivities(mockActivities);
       setAlerts(mockAlerts.filter((a) => !a.resolved));
     } catch (_error) {
-      console.error('Error loading dashboard data:', error);
+      console._error('Error loading dashboard data:', _error);
     } finally {
       setLoading(false);
     }

@@ -48,7 +48,7 @@ function CheckoutForm({ productId }: { productId: string }) {
         setProduct(data.product);
       }
     } catch (_error) {
-      console.error('Failed to load product:', _error);
+      console._error('Failed to load product:', _error);
     } finally {
       setLoading(false);
     }

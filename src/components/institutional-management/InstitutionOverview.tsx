@@ -97,8 +97,8 @@ const InstitutionOverview: React.FC<InstitutionOverviewProps> = ({ institution }
       setIsEditing(false);
       // You might want to refresh the data or show a success message
     } catch (_error) {
-      console.error('Failed to update institution:', error);
-      // Show error message to user
+      console._error('Failed to update institution:', _error);
+      // Show _error message to user
     }
   };
 

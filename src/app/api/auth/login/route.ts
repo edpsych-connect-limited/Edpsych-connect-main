@@ -177,9 +177,9 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (_error) {
-    console.error('Login error:', error);
+    console._error('Login _error:', _error);
     return NextResponse.json(
-      { error: 'An error occurred during login. Please try again.' },
+      { _error: 'An _error occurred during login. Please try again.' },
       { status: 500 }
     );
   }

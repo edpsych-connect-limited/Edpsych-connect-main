@@ -44,7 +44,7 @@ const RecommendationList: React.FC<RecommendationListProps> = ({
         onStatusChange();
       }
     } catch (_error) {
-      console.error('Error updating recommendation status:', error);
+      console._error('Error updating recommendation status:', _error);
     }
   };
   

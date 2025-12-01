@@ -48,7 +48,7 @@ try {
     });
   }
 } catch (_error) {
-  console.error('Error initializing AI clients:', error);
+  console._error('Error initializing AI clients:', _error);
 }
 
 // Response type definitions
@@ -120,8 +120,8 @@ export async function callOpenAI(params: OpenAIParams): Promise<AIResponse> {
       provider: 'openai',
     };
   } catch (_error) {
-    console.error('OpenAI API Error:', error);
-    throw error;
+    console._error('OpenAI API Error:', _error);
+    throw _error;
   }
 }
 
@@ -166,8 +166,8 @@ export async function callAnthropic(params: AnthropicParams): Promise<AIResponse
       provider: 'anthropic',
     };
   } catch (_error) {
-    console.error('Anthropic API Error:', error);
-    throw error;
+    console._error('Anthropic API Error:', _error);
+    throw _error;
   }
 }
 
@@ -201,8 +201,8 @@ export async function callXAI(params: OpenAIParams): Promise<AIResponse> {
       provider: 'xai',
     };
   } catch (_error) {
-    console.error('xAI API Error:', error);
-    throw error;
+    console._error('xAI API Error:', _error);
+    throw _error;
   }
 }
 
@@ -304,7 +304,7 @@ export class AIService {
       // Fallback if no clients are available
       throw new Error('No AI service providers are available');
     } catch (_error) {
-      console.error('Error generating AI response:', error);
+      console._error('Error generating AI response:', _error);
       return { content: 'Error generating response. Please try again later.' };
     }
   }

@@ -58,7 +58,7 @@ class PredictiveAnalyticsService {
 
       logger.info('Predictive analytics service initialised');
     } catch (_error) {
-      logger.error('Error initialising predictive analytics service:', error instanceof Error ? error.message : String(error));
+      logger._error('Error initialising predictive analytics service:', _error instanceof Error ? _error.message : String(_error));
     }
   }
 
@@ -116,8 +116,8 @@ class PredictiveAnalyticsService {
       this.analytics.totalPredictions++;
       return result;
     } catch (_error) {
-      logger.error('Error predicting student success:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error predicting student success:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -162,8 +162,8 @@ class PredictiveAnalyticsService {
 
       return result;
     } catch (_error) {
-      logger.error('Error forecasting course completion:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error forecasting course completion:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -208,8 +208,8 @@ class PredictiveAnalyticsService {
 
       return result;
     } catch (_error) {
-      logger.error('Error analysing engagement:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error analysing engagement:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -251,8 +251,8 @@ class PredictiveAnalyticsService {
 
       return result;
     } catch (_error) {
-      logger.error('Error generating retention analytics:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error generating retention analytics:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -287,8 +287,8 @@ class PredictiveAnalyticsService {
 
       return interventions;
     } catch (_error) {
-      logger.error('Error triggering automated interventions:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error triggering automated interventions:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -330,8 +330,8 @@ class PredictiveAnalyticsService {
 
       return result;
     } catch (_error) {
-      logger.error('Error optimising learning path:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error optimising learning path:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -366,8 +366,8 @@ class PredictiveAnalyticsService {
 
       return dashboard;
     } catch (_error) {
-      logger.error('Error getting analytics dashboard:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error getting analytics dashboard:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -404,8 +404,8 @@ class PredictiveAnalyticsService {
       logger.info('Model update completed:', updateResults);
       return updateResults;
     } catch (_error) {
-      logger.error('Error updating models:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Error updating models:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -666,7 +666,7 @@ class PredictiveAnalyticsService {
 
       logger.info('Loaded predictive models');
     } catch (_error) {
-      logger.error('Error loading models:', error instanceof Error ? error.message : String(error));
+      logger._error('Error loading models:', _error instanceof Error ? _error.message : String(_error));
     }
   }
 
@@ -686,7 +686,7 @@ class PredictiveAnalyticsService {
         completionRate: 0
       };
     } catch (_error) {
-      logger.error('Error gathering course data:', error instanceof Error ? error.message : String(error));
+      logger._error('Error gathering course data:', _error instanceof Error ? _error.message : String(_error));
       return {};
     }
   }
@@ -709,7 +709,7 @@ class PredictiveAnalyticsService {
         projections: []
       };
     } catch (_error) {
-      logger.error('Error generating forecast:', error instanceof Error ? error.message : String(error));
+      logger._error('Error generating forecast:', _error instanceof Error ? _error.message : String(_error));
       return {};
     }
   }
@@ -730,7 +730,7 @@ class PredictiveAnalyticsService {
         riskFactors: []
       };
     } catch (_error) {
-      logger.error('Error analysing completion risks:', error instanceof Error ? error.message : String(error));
+      logger._error('Error analysing completion risks:', _error instanceof Error ? _error.message : String(_error));
       return {};
     }
   }
@@ -753,7 +753,7 @@ class PredictiveAnalyticsService {
         interactions: 0
       };
     } catch (_error) {
-      logger.error('Error gathering engagement data:', error instanceof Error ? error.message : String(error));
+      logger._error('Error gathering engagement data:', _error instanceof Error ? _error.message : String(_error));
       return {};
     }
   }
@@ -798,7 +798,7 @@ class PredictiveAnalyticsService {
         trendDirection: 'stable'
       };
     } catch (_error) {
-      logger.error('Error predicting engagement:', error instanceof Error ? error.message : String(error));
+      logger._error('Error predicting engagement:', _error instanceof Error ? _error.message : String(_error));
       return {};
     }
   }
@@ -830,7 +830,7 @@ class PredictiveAnalyticsService {
         churnIndicators: []
       };
     } catch (_error) {
-      logger.error('Error gathering retention data:', error instanceof Error ? error.message : String(error));
+      logger._error('Error gathering retention data:', _error instanceof Error ? _error.message : String(_error));
       return {};
     }
   }
@@ -863,7 +863,7 @@ class PredictiveAnalyticsService {
     try {
       return [];
     } catch (_error) {
-      logger.error('Error identifying at-risk students:', error instanceof Error ? error.message : String(error));
+      logger._error('Error identifying at-risk students:', _error instanceof Error ? _error.message : String(_error));
       return [];
     }
   }
@@ -912,7 +912,7 @@ class PredictiveAnalyticsService {
         createdAt: new Date().toISOString()
       };
     } catch (_error) {
-      logger.error('Error creating urgent intervention:', error instanceof Error ? error.message : String(error));
+      logger._error('Error creating urgent intervention:', _error instanceof Error ? _error.message : String(_error));
       return {};
     }
   }
@@ -934,7 +934,7 @@ class PredictiveAnalyticsService {
         createdAt: new Date().toISOString()
       };
     } catch (_error) {
-      logger.error('Error creating proactive intervention:', error instanceof Error ? error.message : String(error));
+      logger._error('Error creating proactive intervention:', _error instanceof Error ? _error.message : String(_error));
       return {};
     }
   }
@@ -951,7 +951,7 @@ class PredictiveAnalyticsService {
     try {
       return [];
     } catch (_error) {
-      logger.error('Error creating personalised interventions:', error instanceof Error ? error.message : String(error));
+      logger._error('Error creating personalised interventions:', _error instanceof Error ? _error.message : String(_error));
       return [];
     }
   }
@@ -968,7 +968,7 @@ class PredictiveAnalyticsService {
       // Schedule intervention
       logger.info('Intervention scheduled');
     } catch (_error) {
-      logger.error('Error scheduling intervention:', error instanceof Error ? error.message : String(error));
+      logger._error('Error scheduling intervention:', _error instanceof Error ? _error.message : String(_error));
     }
   }
 
@@ -983,7 +983,7 @@ class PredictiveAnalyticsService {
     try {
       return { studentId, progress: 0, assessments: [] };
     } catch (_error) {
-      logger.error('Error gathering learning data:', error instanceof Error ? error.message : String(error));
+      logger._error('Error gathering learning data:', _error instanceof Error ? _error.message : String(_error));
       return {};
     }
   }
@@ -1011,7 +1011,7 @@ class PredictiveAnalyticsService {
     try {
       return [];
     } catch (_error) {
-      logger.error('Error generating path recommendations:', error instanceof Error ? error.message : String(error));
+      logger._error('Error generating path recommendations:', _error instanceof Error ? _error.message : String(_error));
       return [];
     }
   }
@@ -1049,7 +1049,7 @@ class PredictiveAnalyticsService {
     try {
       return [];
     } catch (_error) {
-      logger.error('Error getting recent predictions:', error instanceof Error ? error.message : String(error));
+      logger._error('Error getting recent predictions:', _error instanceof Error ? _error.message : String(_error));
       return [];
     }
   }
@@ -1065,7 +1065,7 @@ class PredictiveAnalyticsService {
     try {
       return [];
     } catch (_error) {
-      logger.error('Error getting recent interventions:', error instanceof Error ? error.message : String(error));
+      logger._error('Error getting recent interventions:', _error instanceof Error ? _error.message : String(_error));
       return [];
     }
   }
@@ -1081,7 +1081,7 @@ class PredictiveAnalyticsService {
     try {
       return { trends: [] };
     } catch (_error) {
-      logger.error('Error analysing trends:', error instanceof Error ? error.message : String(error));
+      logger._error('Error analysing trends:', _error instanceof Error ? _error.message : String(_error));
       return {};
     }
   }
@@ -1096,7 +1096,7 @@ class PredictiveAnalyticsService {
     try {
       return [];
     } catch (_error) {
-      logger.error('Error generating analytics alerts:', error instanceof Error ? error.message : String(error));
+      logger._error('Error generating analytics alerts:', _error instanceof Error ? _error.message : String(_error));
       return [];
     }
   }
@@ -1111,7 +1111,7 @@ class PredictiveAnalyticsService {
     try {
       return { updated: true };
     } catch (_error) {
-      logger.error('Error updating success prediction model:', error instanceof Error ? error.message : String(error));
+      logger._error('Error updating success prediction model:', _error instanceof Error ? _error.message : String(_error));
       return {};
     }
   }
@@ -1126,7 +1126,7 @@ class PredictiveAnalyticsService {
     try {
       return { updated: true };
     } catch (_error) {
-      logger.error('Error updating engagement model:', error instanceof Error ? error.message : String(error));
+      logger._error('Error updating engagement model:', _error instanceof Error ? _error.message : String(_error));
       return {};
     }
   }
@@ -1141,7 +1141,7 @@ class PredictiveAnalyticsService {
     try {
       return { updated: true };
     } catch (_error) {
-      logger.error('Error updating retention model:', error instanceof Error ? error.message : String(error));
+      logger._error('Error updating retention model:', _error instanceof Error ? _error.message : String(_error));
       return {};
     }
   }
@@ -1167,7 +1167,7 @@ class PredictiveAnalyticsService {
     try {
       return { factor, recommendation: '' };
     } catch (_error) {
-      logger.error('Error generating factor-specific recommendation:', error instanceof Error ? error.message : String(error));
+      logger._error('Error generating factor-specific recommendation:', _error instanceof Error ? _error.message : String(_error));
       return {};
     }
   }
@@ -1182,7 +1182,7 @@ class PredictiveAnalyticsService {
       try {
         await this.updateModels();
       } catch (_error) {
-        logger.error('Scheduled model update failed:', error instanceof Error ? error.message : String(error));
+        logger._error('Scheduled model update failed:', _error instanceof Error ? _error.message : String(_error));
       }
     }, this.options.modelUpdateInterval);
   }

@@ -5,7 +5,12 @@ const scripts = [
   'seed-admin.ts',
   'seed-system-config.ts',
   'seed-content.ts',
-  'seed-orchestration.ts'
+  'seed-orchestration.ts',
+  'seed-help-center.ts',
+  'seed-blog.ts',
+  'seed-courses-from-csv.ts',
+  'seed-assessments.ts',
+  'seed-marketplace.ts'
 ];
 
 console.log('🚀 Starting Comprehensive Database Seeding...\n');

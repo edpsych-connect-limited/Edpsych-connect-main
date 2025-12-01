@@ -78,7 +78,7 @@ export default function Dashboard({ dashboardId = 'default' }: DashboardProps) {
       const dashboardData = analyticsService.getDashboard(dashboardId);
       setDashboard(dashboardData);
     } catch (_error) {
-      logError(error as Error, { component: 'Dashboard', operation: 'loadDashboard' });
+      logError(_error as Error, { component: 'Dashboard', operation: 'loadDashboard' });
     } finally {
       setLoading(false);
     }

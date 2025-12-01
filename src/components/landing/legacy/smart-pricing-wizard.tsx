@@ -276,7 +276,7 @@ const SmartPricingWizard: React.FC = () => {
         confidence: 0.87
       });
     } catch (_error) {
-      console.error('Error calculating recommendation:', error);
+      console._error('Error calculating recommendation:', _error);
     } finally {
       setIsCalculating(false);
     }

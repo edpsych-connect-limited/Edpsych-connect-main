@@ -47,7 +47,7 @@ export default function TranslatorSandbox() {
       });
       setResult(translation);
     } catch (_error) {
-      console.error(error);
+      console._error(_error);
     } finally {
       setIsProcessing(false);
     }

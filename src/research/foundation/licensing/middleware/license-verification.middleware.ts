@@ -61,7 +61,7 @@ export const verifyLicense = (requiresActive = true) => {
       
       next();
     } catch (_error) {
-      console.error('License verification error:', error);
+      console._error('License verification _error:', _error);
       res.status(500).json({
         success: false,
         message: 'License verification failed'
@@ -144,7 +144,7 @@ export const requireCapability = (
       
       next();
     } catch (_error) {
-      console.error('License capability verification error:', error);
+      console._error('License capability verification _error:', _error);
       res.status(500).json({
         success: false,
         message: 'License capability verification failed'
@@ -192,7 +192,7 @@ export const checkQuota = (
       
       next();
     } catch (_error) {
-      console.error('License quota verification error:', error);
+      console._error('License quota verification _error:', _error);
       res.status(500).json({
         success: false,
         message: 'License quota verification failed'

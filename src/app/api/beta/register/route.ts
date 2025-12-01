@@ -197,9 +197,9 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (_error) {
-    console.error('Beta registration error:', error);
+    console._error('Beta registration _error:', _error);
     return NextResponse.json(
-      { success: false, error: 'Registration failed. Please try again.' },
+      { success: false, _error: 'Registration failed. Please try again.' },
       { status: 500 }
     );
   }

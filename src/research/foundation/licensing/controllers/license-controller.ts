@@ -46,7 +46,7 @@ router.post('/licenses', async (req: Request, res: Response) => {
       data: license
     });
   } catch (_error) {
-    console.error('Create license error:', error);
+    console._error('Create license _error:', _error);
     return res.status(500).json({
       success: false,
       message: 'Failed to create license'
@@ -80,7 +80,7 @@ router.post('/licenses/validate', async (req: Request, res: Response) => {
       }
     });
   } catch (_error) {
-    console.error('Validate license error:', error);
+    console._error('Validate license _error:', _error);
     return res.status(500).json({
       success: false,
       message: 'Failed to validate license'
@@ -115,7 +115,7 @@ router.get('/licenses/:id',
         data: license
       });
     } catch (_error) {
-      console.error('Get license error:', error);
+      console._error('Get license _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to get license'
@@ -156,7 +156,7 @@ router.put('/licenses/:id',
         data: license
       });
     } catch (_error) {
-      console.error('Update license error:', error);
+      console._error('Update license _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to update license'
@@ -195,7 +195,7 @@ router.post('/licenses/:id/deactivate',
         message: 'License deactivated successfully'
       });
     } catch (_error) {
-      console.error('Deactivate license error:', error);
+      console._error('Deactivate license _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to deactivate license'
@@ -242,7 +242,7 @@ router.post('/licenses/:id/renew',
         data: license
       });
     } catch (_error) {
-      console.error('Renew license error:', error);
+      console._error('Renew license _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to renew license'
@@ -289,7 +289,7 @@ router.post('/licenses/:id/upgrade',
         data: license
       });
     } catch (_error) {
-      console.error('Upgrade license error:', error);
+      console._error('Upgrade license _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to upgrade license'
@@ -321,7 +321,7 @@ router.get('/organizations/:organizationId/licenses',
         data: licenses
       });
     } catch (_error) {
-      console.error('Get organization licenses error:', error);
+      console._error('Get organization licenses _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to get organization licenses'
@@ -351,7 +351,7 @@ router.get('/licenses/report',
         data: report
       });
     } catch (_error) {
-      console.error('Generate license report error:', error);
+      console._error('Generate license report _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to generate license report'
@@ -384,7 +384,7 @@ router.get('/research/data',
         }
       });
     } catch (_error) {
-      console.error('Research data access error:', error);
+      console._error('Research data access _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to access research data'
@@ -420,7 +420,7 @@ router.post('/research/ml/run',
         }
       });
     } catch (_error) {
-      console.error('Run machine learning model error:', error);
+      console._error('Run machine learning model _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to run machine learning model'
@@ -451,7 +451,7 @@ router.get('/research/nhs-digital/data',
         }
       });
     } catch (_error) {
-      console.error('NHS Digital data access error:', error);
+      console._error('NHS Digital data access _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to access NHS Digital data'
@@ -483,7 +483,7 @@ router.post('/research/data/export',
         }
       });
     } catch (_error) {
-      console.error('Export research data error:', error);
+      console._error('Export research data _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to export research data'
@@ -516,7 +516,7 @@ router.post('/research/ai/train',
         }
       });
     } catch (_error) {
-      console.error('Train custom AI model error:', error);
+      console._error('Train custom AI model _error:', _error);
       return res.status(500).json({
         success: false,
         message: 'Failed to train custom AI model'

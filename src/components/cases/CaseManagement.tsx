@@ -236,7 +236,7 @@ export default function CaseManagement() {
       setCases(mockCases);
       setFilteredCases(mockCases);
     } catch (_error) {
-      console.error('Error loading cases:', error);
+      console._error('Error loading cases:', _error);
     } finally {
       setLoading(false);
     }

@@ -199,7 +199,7 @@ class PredictiveAnalyticsService {
       return predictions;
       
     } catch (_error) {
-      console.error('Error generating student outcome predictions:', error);
+      console._error('Error generating student outcome predictions:', _error);
       throw new Error('Failed to generate student outcome predictions');
     }
   }
@@ -271,7 +271,7 @@ class PredictiveAnalyticsService {
       return trends;
       
     } catch (_error) {
-      console.error('Error getting performance trends:', error);
+      console._error('Error getting performance trends:', _error);
       throw new Error('Failed to get performance trends');
     }
   }
@@ -372,7 +372,7 @@ class PredictiveAnalyticsService {
       return benchmarks;
       
     } catch (_error) {
-      console.error('Error getting institutional benchmarks:', error);
+      console._error('Error getting institutional benchmarks:', _error);
       throw new Error('Failed to get institutional benchmarks');
     }
   }

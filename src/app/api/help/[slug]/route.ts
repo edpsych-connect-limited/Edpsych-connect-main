@@ -62,9 +62,9 @@ export async function GET(
       relatedArticles,
     });
   } catch (_error) {
-    console.error('Failed to fetch article:', error);
+    console._error('Failed to fetch article:', _error);
     return NextResponse.json(
-      { error: 'Failed to fetch article' },
+      { _error: 'Failed to fetch article' },
       { status: 500 }
     );
   }
@@ -112,9 +112,9 @@ export async function POST(
       helpful_no: updated.helpful_no,
     });
   } catch (_error) {
-    console.error('Failed to record feedback:', error);
+    console._error('Failed to record feedback:', _error);
     return NextResponse.json(
-      { error: 'Failed to record feedback' },
+      { _error: 'Failed to record feedback' },
       { status: 500 }
     );
   }

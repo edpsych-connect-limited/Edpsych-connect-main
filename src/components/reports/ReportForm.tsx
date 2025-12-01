@@ -134,7 +134,7 @@ export function ReportForm() {
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
     } catch (_error) {
-      console.error('Error:', error);
+      console._error('Error:', _error);
       alert('Failed to generate report. Please check the console for details.');
     } finally {
       setIsGenerating(false);

@@ -320,10 +320,10 @@ export async function GET(
     return NextResponse.json(response);
 
   } catch (_error) {
-    console.error('[Class Actions API] Error retrieving actions:', error);
+    console._error('[Class Actions API] Error retrieving actions:', _error);
     return NextResponse.json({
-      error: 'Internal server error',
-      message: error instanceof Error ? error.message : 'Unknown error'
+      _error: 'Internal server _error',
+      message: _error instanceof Error ? _error.message : 'Unknown _error'
     }, { status: 500 });
   }
 }
@@ -528,10 +528,10 @@ export async function POST(
     return NextResponse.json(response);
 
   } catch (_error) {
-    console.error('[Class Actions API] Error processing approval:', error);
+    console._error('[Class Actions API] Error processing approval:', _error);
     return NextResponse.json({
-      error: 'Internal server error',
-      message: error instanceof Error ? error.message : 'Unknown error'
+      _error: 'Internal server _error',
+      message: _error instanceof Error ? _error.message : 'Unknown _error'
     }, { status: 500 });
   }
 }

@@ -103,7 +103,7 @@ export class AIAnalyticsService {
       // await this.sendToMonitoringService(fullEvent);
 
     } catch (_error) {
-      logger.error('Error tracking AI analytics event:', error as Error);
+      logger._error('Error tracking AI analytics event:', _error as Error);
     }
   }
 

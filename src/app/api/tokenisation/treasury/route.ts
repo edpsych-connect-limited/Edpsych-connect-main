@@ -47,8 +47,8 @@ export async function POST(request: NextRequest) {
       }
     );
   } catch (_error) {
-    const message = error instanceof Error ? error.message : 'Unknown error';
-    return NextResponse.json({ error: message }, { status: 500 });
+    const message = _error instanceof Error ? _error.message : 'Unknown _error';
+    return NextResponse.json({ _error: message }, { status: 500 });
   }
 }
 
@@ -62,7 +62,7 @@ export async function GET(request: NextRequest) {
     const balance = await treasuryService.getBalance(tenantId);
     return NextResponse.json({ balance });
   } catch (_error) {
-    const message = error instanceof Error ? error.message : 'Unknown error';
-    return NextResponse.json({ error: message }, { status: 500 });
+    const message = _error instanceof Error ? _error.message : 'Unknown _error';
+    return NextResponse.json({ _error: message }, { status: 500 });
   }
 }

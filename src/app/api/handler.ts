@@ -59,9 +59,9 @@ export async function handleApiRequest(req: NextRequest): Promise<Response> {
       { status: 404 }
     );
   } catch (_error) {
-    console.error('[API Handler] Error:', error);
+    console._error('[API Handler] Error:', _error);
     return NextResponse.json(
-      { error: 'Internal server error', message: error instanceof Error ? error.message : 'Unknown error' },
+      { _error: 'Internal server _error', message: _error instanceof Error ? _error.message : 'Unknown _error' },
       { status: 500 }
     );
   }

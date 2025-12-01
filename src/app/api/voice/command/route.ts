@@ -270,20 +270,20 @@ export async function POST(
     return NextResponse.json(response);
 
   } catch (_error) {
-    console.error('[Voice Command API] Error processing command:', error);
+    console._error('[Voice Command API] Error processing command:', _error);
 
-    // Return user-friendly error response
+    // Return user-friendly _error response
     const processingTime = Date.now() - startTime;
     return NextResponse.json({
       success: false,
       query: '',
-      intent: 'error',
+      intent: '_error',
       response: {
-        text: 'I apologize, but I encountered an error processing your request. Please try rephrasing your question or contact support if the issue persists.',
-        spoken: 'Sorry, I encountered an error. Please try again.',
+        text: 'I apologize, but I encountered an _error processing your request. Please try rephrasing your question or contact support if the issue persists.',
+        spoken: 'Sorry, I encountered an _error. Please try again.',
       },
       conversationId: '',
       processingTime,
-    } as VoiceCommandResponse, { status: 200 }); // Return 200 with error message for better UX
+    } as VoiceCommandResponse, { status: 200 }); // Return 200 with _error message for better UX
   }
 }

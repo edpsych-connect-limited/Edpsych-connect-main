@@ -71,8 +71,8 @@ async function routeAssessmentRequest(request: NextRequest): Promise<NextRespons
 
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   } catch (_error) {
-    console.error('[Assessment] Error:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console._error('[Assessment] Error:', _error);
+    return NextResponse.json({ _error: 'Internal server _error' }, { status: 500 });
   }
 }
 
@@ -109,8 +109,8 @@ async function handleListOrCreateAssessments(request: NextRequest, session: any)
         total: assessments.length,
       });
     } catch (_error) {
-      console.error('Error fetching assessments:', error);
-      return NextResponse.json({ error: 'Failed to fetch assessments' }, { status: 500 });
+      console._error('Error fetching assessments:', _error);
+      return NextResponse.json({ _error: 'Failed to fetch assessments' }, { status: 500 });
     }
   }
   
@@ -138,8 +138,8 @@ async function handleListOrCreateAssessments(request: NextRequest, session: any)
         assessment,
       }, { status: 201 });
     } catch (_error) {
-      console.error('Error creating assessment:', error);
-      return NextResponse.json({ error: 'Failed to create assessment' }, { status: 500 });
+      console._error('Error creating assessment:', _error);
+      return NextResponse.json({ _error: 'Failed to create assessment' }, { status: 500 });
     }
   }
   return NextResponse.json({ error: 'Method not allowed' }, { status: 405 });

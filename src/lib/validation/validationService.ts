@@ -75,8 +75,8 @@ export class ValidationService {
       logger.info('Service layer validation complete', result.stats);
       return result;
     } catch (_error) {
-      logger.error('Service layer validation error:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Service layer validation _error:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -106,8 +106,8 @@ export class ValidationService {
 
       return result;
     } catch (_error) {
-      logger.error('Service validation error:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Service validation _error:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 
@@ -150,7 +150,7 @@ export class ValidationService {
 
       return passed;
     } catch (_error) {
-      logger.error('Pre-commit validation error:', error instanceof Error ? error.message : String(error));
+      logger._error('Pre-commit validation _error:', _error instanceof Error ? _error.message : String(_error));
       return false;
     }
   }
@@ -179,7 +179,7 @@ export class ValidationService {
         });
       }
     } catch (_error) {
-      logger.error('Continuous validation error:', error instanceof Error ? error.message : String(error));
+      logger._error('Continuous validation _error:', _error instanceof Error ? _error.message : String(_error));
       onResult({
         isValid: false,
         errors: [{
@@ -188,7 +188,7 @@ export class ValidationService {
           file: filePath,
           line: 0,
           column: 0,
-          message: error instanceof Error ? error.message : String(error)
+          message: _error instanceof Error ? _error.message : String(_error)
         }],
         warnings: [],
         stats: {
@@ -226,7 +226,7 @@ export class ValidationService {
 
       return result.isValid;
     } catch (_error) {
-      logger.error('Build-time validation failed:', error instanceof Error ? error.message : String(error));
+      logger._error('Build-time validation failed:', _error instanceof Error ? _error.message : String(_error));
       return false;
     }
   }
@@ -294,10 +294,10 @@ export class ValidationService {
         summary: `Comprehensive validation ${passed ? 'PASSED' : 'FAILED'}: ${totalErrors} total errors found across ${results.length} validation layers`
       };
     } catch (_error) {
-      logger.error('Comprehensive validation error:', error instanceof Error ? error.message : String(error));
+      logger._error('Comprehensive validation _error:', _error instanceof Error ? _error.message : String(_error));
       return {
         passed: false,
-        summary: `Comprehensive validation FAILED: ${error instanceof Error ? error.message : String(error)}`
+        summary: `Comprehensive validation FAILED: ${_error instanceof Error ? _error.message : String(_error)}`
       };
     }
   }
@@ -313,8 +313,8 @@ export class ValidationService {
       const result = await this.validator.validateDirectory(sourceDir);
       return this.validator.formatReport(result);
     } catch (_error) {
-      logger.error('Report generation failed:', error instanceof Error ? error.message : String(error));
-      throw error;
+      logger._error('Report generation failed:', _error instanceof Error ? _error.message : String(_error));
+      throw _error;
     }
   }
 }

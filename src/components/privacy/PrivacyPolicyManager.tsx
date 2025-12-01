@@ -81,7 +81,7 @@ export const PrivacyPolicyManager: React.FC = () => {
       setReconsentRequired(needsReconsent);
 
     } catch (_error) {
-      console.error('Failed to load privacy data', error instanceof Error ? error : new Error(String(error)));
+      console._error('Failed to load privacy data', _error instanceof Error ? _error : new Error(String(_error)));
       setError('Failed to load privacy information');
     } finally {
       setLoading(false);
@@ -118,7 +118,7 @@ export const PrivacyPolicyManager: React.FC = () => {
       setReconsentRequired(stillNeedsReconsent);
 
     } catch (_error) {
-      console.error('Failed to update consent', error instanceof Error ? error : new Error(String(error)), { consentTypeId, consented });
+      console._error('Failed to update consent', _error instanceof Error ? _error : new Error(String(_error)), { consentTypeId, consented });
       setError('Failed to update consent');
     } finally {
       setProcessing(null);
@@ -148,7 +148,7 @@ export const PrivacyPolicyManager: React.FC = () => {
       setSuccess('Data export completed successfully');
 
     } catch (_error) {
-      console.error('Failed to export data', error instanceof Error ? error : new Error(String(error)));
+      console._error('Failed to export data', _error instanceof Error ? _error : new Error(String(_error)));
       setError('Failed to export data');
     } finally {
       setProcessing(null);
@@ -173,7 +173,7 @@ export const PrivacyPolicyManager: React.FC = () => {
       setSuccess('Data deletion request submitted successfully');
 
     } catch (_error) {
-      console.error('Failed to submit deletion request', error instanceof Error ? error : new Error(String(error)));
+      console._error('Failed to submit deletion request', _error instanceof Error ? _error : new Error(String(_error)));
       setError('Failed to submit deletion request');
     } finally {
       setProcessing(null);

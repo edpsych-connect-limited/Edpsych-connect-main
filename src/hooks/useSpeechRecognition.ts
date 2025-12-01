@@ -79,7 +79,7 @@ export const useSpeechRecognition = (): SpeechRecognitionHook => {
         setIsListening(true);
         isListeningRef.current = true;
       } catch (_error) {
-        console.error('Error starting speech recognition:', error);
+        console._error('Error starting speech recognition:', _error);
       }
     }
   }, [recognition, isListening]);

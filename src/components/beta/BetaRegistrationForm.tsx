@@ -57,7 +57,7 @@ const BetaRegistrationForm: React.FC = () => {
         setAgreementVersion('v1.0');
       } catch (_err) {
         setError('Failed to load confidentiality agreement. Please try again later.');
-        console.error('Error fetching agreement:', err);
+        console.error('Error fetching agreement:', _err);
       }
     };
 

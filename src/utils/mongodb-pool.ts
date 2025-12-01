@@ -110,7 +110,7 @@ function startConnectionMonitoring() {
         // Cast to any for deprecated topology property
         connectionStats.isConnected = (connection.client as any).topology?.isConnected() || false;
       } catch (_error) {
-        logger.warn('Failed to update MongoDB connection statistics', error);
+        logger.warn('Failed to update MongoDB connection statistics', _error);
       }
     }
   }, MONGODB_POOL_CONFIG.HEARTBEAT_FREQUENCY_MS);
@@ -188,15 +188,15 @@ export async function connectToMongoDB(): Promise<MongoDBConnection> {
     
     return connection;
   } catch (_error) {
-    // Update error statistics
+    // Update _error statistics
     connectionStats.connectionErrors += 1;
     connectionStats.lastErrorTime = new Date();
-    connectionStats.lastError = error as Error;
+    connectionStats.lastError = _error as Error;
     connectionStats.isConnected = false;
     
-    // Log error
-    logger.error('Failed to connect to MongoDB', error);
-    throw error;
+    // Log _error
+    logger._error('Failed to connect to MongoDB', _error);
+    throw _error;
   } finally {
     isConnecting = false;
   }

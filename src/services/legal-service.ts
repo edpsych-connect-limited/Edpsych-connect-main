@@ -69,12 +69,12 @@ export class LegalService {
       
       return document;
     } catch (_error) {
-      logger.error(`Error fetching legal document`, {
+      logger._error(`Error fetching legal document`, {
         type,
         version,
-        error: error instanceof Error ? error.message : String(error)
+        _error: _error instanceof Error ? _error.message : String(_error)
       });
-      throw new Error(`Failed to fetch legal document: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to fetch legal document: ${_error instanceof Error ? _error.message : String(_error)}`);
     }
   }
 }
@@ -126,12 +126,12 @@ export async function verifyUserSignature(
     
     return await response.json();
   } catch (_error) {
-    logger.error(`Error verifying signature`, {
+    logger._error(`Error verifying signature`, {
       agreementType,
       version,
-      error: error instanceof Error ? error.message : String(error)
+      _error: _error instanceof Error ? _error.message : String(_error)
     });
-    throw new Error(`Failed to verify signature: ${error instanceof Error ? error.message : String(error)}`);
+    throw new Error(`Failed to verify signature: ${_error instanceof Error ? _error.message : String(_error)}`);
   }
 }
 
@@ -150,9 +150,9 @@ export async function getUserSignatures(): Promise<any[]> {
     
     return await response.json();
   } catch (_error) {
-    logger.error(`Error fetching user signatures`, {
-      error: error instanceof Error ? error.message : String(error)
+    logger._error(`Error fetching user signatures`, {
+      _error: _error instanceof Error ? _error.message : String(_error)
     });
-    throw new Error(`Failed to fetch signatures: ${error instanceof Error ? error.message : String(error)}`);
+    throw new Error(`Failed to fetch signatures: ${_error instanceof Error ? _error.message : String(_error)}`);
   }
 }

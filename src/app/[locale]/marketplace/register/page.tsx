@@ -77,7 +77,7 @@ export default function ProfessionalRegistrationPage() {
 
       router.push('/marketplace/dashboard?welcome=true');
     } catch (_error) {
-      console.error('Error registering:', error);
+      console._error('Error registering:', _error);
       alert('Failed to register. Please try again.');
     } finally {
       setIsSubmitting(false);

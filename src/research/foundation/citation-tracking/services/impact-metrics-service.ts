@@ -313,7 +313,7 @@ export class ImpactMetricsService {
     } catch (_error) {
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error occurred',
+        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'RESEARCHER_METRICS_CALCULATION_FAILED'
       };
     }
@@ -355,7 +355,7 @@ export class ImpactMetricsService {
     } catch (_error) {
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error occurred',
+        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'RESEARCHER_COMPARISON_FAILED'
       };
     }
@@ -417,7 +417,7 @@ export class ImpactMetricsService {
     } catch (_error) {
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error occurred',
+        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'METRIC_HISTORY_FAILED'
       };
     }
@@ -500,7 +500,7 @@ export class ImpactMetricsService {
     } catch (_error) {
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error occurred',
+        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'FIELD_NORMALIZED_IMPACT_FAILED'
       };
     }
@@ -576,7 +576,7 @@ export class ImpactMetricsService {
     } catch (_error) {
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error occurred',
+        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'PUBLICATION_ALTMETRICS_FAILED'
       };
     }
@@ -664,7 +664,7 @@ export class ImpactMetricsService {
     } catch (_error) {
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error occurred',
+        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'CITATION_NETWORK_METRICS_FAILED'
       };
     }
@@ -773,7 +773,7 @@ export class ImpactMetricsService {
     } catch (_error) {
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error occurred',
+        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'VISUALIZATION_DATA_FAILED'
       };
     }
@@ -848,7 +848,7 @@ export class ImpactMetricsService {
             entityId: item.entityId,
             entityType: item.entityType,
             success: false,
-            error: error instanceof Error ? error.message : 'Unknown error'
+            _error: _error instanceof Error ? _error.message : 'Unknown _error'
           });
           
           failed++;
@@ -866,7 +866,7 @@ export class ImpactMetricsService {
     } catch (_error) {
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error occurred',
+        _error: _error instanceof Error ? _error.message : 'Unknown _error occurred',
         code: 'METRICS_IMPORT_FAILED'
       };
     }

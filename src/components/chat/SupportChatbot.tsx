@@ -89,7 +89,7 @@ export function SupportChatbot() {
         setMessages(prev => [...prev, botResponse]);
       }
     } catch (_error) {
-      console.error('Failed to send message:', error);
+      console._error('Failed to send message:', _error);
       const botResponse: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',

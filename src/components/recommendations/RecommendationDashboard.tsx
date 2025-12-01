@@ -68,7 +68,7 @@ const RecommendationDashboard: React.FC = () => {
     } catch (_err) {
       setError(_err instanceof Error ? _err.message : 'An unknown error occurred');
       setToast({
-        message: err instanceof Error ? err.message : 'An unknown error occurred',
+        message: _err instanceof Error ? _err.message : 'An unknown error occurred',
         type: 'error'
       });
     } finally {
@@ -109,7 +109,7 @@ const RecommendationDashboard: React.FC = () => {
       }
     } catch (_err) {
       setToast({
-        message: err instanceof Error ? err.message : 'An unknown error occurred',
+        message: _err instanceof Error ? _err.message : 'An unknown error occurred',
         type: 'error'
       });
       setIsLoading(false);

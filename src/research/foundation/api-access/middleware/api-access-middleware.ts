@@ -96,7 +96,7 @@ export const verifyApiKey = () => {
       next();
       return;
     } catch (_error) {
-      console.error('API key verification error:', error);
+      console._error('API key verification _error:', _error);
       res.status(500).json({
         success: false,
         message: 'API key verification failed'
@@ -151,7 +151,7 @@ export const checkApiQuota = (
       next();
       return;
     } catch (_error) {
-      console.error('API quota check error:', error);
+      console._error('API quota check _error:', _error);
       res.status(500).json({
         success: false,
         message: 'API quota check failed'
@@ -216,7 +216,7 @@ export const trackApiUsage = (
           console.error('Error tracking API usage:', error);
         });
       } catch (_error) {
-        console.error('Error tracking API usage:', error);
+        console._error('Error tracking API usage:', _error);
       }
       
       return this;
@@ -254,7 +254,7 @@ export const setRateLimitHeaders = () => {
       return;
     } catch (_error) {
       // Don't fail the request if we can't set rate limit headers
-      console.error('Error setting rate limit headers:', error);
+      console._error('Error setting rate limit headers:', _error);
       next();
       return;
     }
@@ -341,7 +341,7 @@ export const apiAccessControl = (options: {
       });
       return;
     } catch (_error) {
-      console.error('API access control error:', error);
+      console._error('API access control _error:', _error);
       res.status(500).json({
         success: false,
         message: 'API access control failed'

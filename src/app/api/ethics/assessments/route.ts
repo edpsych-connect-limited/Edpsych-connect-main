@@ -43,9 +43,9 @@ export async function GET(request: NextRequest) {
       summary
     });
   } catch (_error) {
-    console.error('Ethics Assessments API error:', error);
+    console._error('Ethics Assessments API _error:', _error);
     return NextResponse.json(
-      { error: 'Failed to retrieve assessments' },
+      { _error: 'Failed to retrieve assessments' },
       { status: 500 }
     );
   }
@@ -196,9 +196,9 @@ export async function POST(request: NextRequest) {
         );
     }
   } catch (_error) {
-    console.error('Assessment action error:', error);
+    console._error('Assessment action _error:', _error);
     return NextResponse.json(
-      { error: 'Failed to perform assessment action' },
+      { _error: 'Failed to perform assessment action' },
       { status: 500 }
     );
   }

@@ -67,14 +67,14 @@ export class DependencyChainValidator {
         }
       };
     } catch (_error) {
-      const msg = error instanceof Error ? error.message : String(error);
+      const msg = _error instanceof Error ? _error.message : String(_error);
       return {
         errors: [{
           type: 'BROKEN_IMPORT',
           severity: 'critical',
           file: dirPath,
           line: 0,
-          message: `Dependency validation error: ${msg}`,
+          message: `Dependency validation _error: ${msg}`,
           suggestion: 'Check directory path and file permissions'
         }],
         stats: { totalFiles: 0, circularDeps: 0, deepChains: 0, brokenImports: 0 }

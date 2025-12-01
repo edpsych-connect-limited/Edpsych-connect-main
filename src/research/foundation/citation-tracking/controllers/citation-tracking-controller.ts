@@ -50,7 +50,7 @@ router.post('/citations', async (req: Request, res: Response) => {
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -69,7 +69,7 @@ router.get('/citations/:id', async (req: Request, res: Response) => {
       res.status(404).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -89,7 +89,7 @@ router.put('/citations/:id', async (req: Request, res: Response) => {
       res.status(result.code === 'CITATION_NOT_FOUND' ? 404 : 400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -108,7 +108,7 @@ router.delete('/citations/:id', async (req: Request, res: Response) => {
       res.status(result.code === 'CITATION_NOT_FOUND' ? 404 : 400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -152,7 +152,7 @@ router.get('/citations/search', async (req: Request, res: Response) => {
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -171,7 +171,7 @@ router.get('/citations/publication/:id', async (req: Request, res: Response) => 
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -201,7 +201,7 @@ router.post('/citations/:id/verify', async (req: Request, res: Response) => {
       res.status(result.code === 'CITATION_NOT_FOUND' ? 404 : 400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -230,7 +230,7 @@ router.post('/citations/extract', async (req: Request, res: Response) => {
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -259,7 +259,7 @@ router.post('/citations/import', async (req: Request, res: Response) => {
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -297,7 +297,7 @@ router.post('/citations/export', async (req: Request, res: Response) => {
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -316,7 +316,7 @@ router.get('/citations/statistics', async (_req: Request, res: Response) => {
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -337,7 +337,7 @@ router.post('/publications', async (req: Request, res: Response) => {
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -356,7 +356,7 @@ router.get('/publications/:id', async (req: Request, res: Response) => {
       res.status(404).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -376,7 +376,7 @@ router.put('/publications/:id', async (req: Request, res: Response) => {
       res.status(result.code === 'PUBLICATION_NOT_FOUND' ? 404 : 400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -395,7 +395,7 @@ router.delete('/publications/:id', async (req: Request, res: Response) => {
       res.status(result.code === 'PUBLICATION_NOT_FOUND' ? 404 : 400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -452,7 +452,7 @@ router.get('/publications/search', async (req: Request, res: Response) => {
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -471,7 +471,7 @@ router.get('/publications/author/:id', async (req: Request, res: Response) => {
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -490,7 +490,7 @@ router.get('/publications/identifier/:type/:value', async (req: Request, res: Re
       res.status(404).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -509,7 +509,7 @@ router.post('/publications/:id/download', async (req: Request, res: Response) =>
       res.status(result.code === 'PUBLICATION_NOT_FOUND' ? 404 : 400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -528,7 +528,7 @@ router.post('/publications/:id/view', async (req: Request, res: Response) => {
       res.status(result.code === 'PUBLICATION_NOT_FOUND' ? 404 : 400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -547,7 +547,7 @@ router.get('/publications/:id/metrics', async (req: Request, res: Response) => {
       res.status(result.code === 'PUBLICATION_NOT_FOUND' ? 404 : 400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -566,7 +566,7 @@ router.get('/publications/statistics', async (_req: Request, res: Response) => {
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -607,7 +607,7 @@ router.post('/publications/export', async (req: Request, res: Response) => {
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -646,7 +646,7 @@ router.get('/metrics/researcher/:id', async (req: Request, res: Response) => {
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -675,7 +675,7 @@ router.post('/metrics/researchers/compare', async (req: Request, res: Response) 
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -708,7 +708,7 @@ router.get('/metrics/history/:entityType/:entityId/:metricType', async (req: Req
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -740,7 +740,7 @@ router.get('/metrics/researcher/:id/field-normalized/:field', async (req: Reques
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -759,7 +759,7 @@ router.get('/metrics/publication/:id/altmetrics', async (req: Request, res: Resp
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -778,7 +778,7 @@ router.get('/metrics/researcher/:id/network', async (req: Request, res: Response
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -829,7 +829,7 @@ router.post('/metrics/visualization', async (req: Request, res: Response) => {
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 
@@ -867,7 +867,7 @@ router.post('/metrics/import', async (req: Request, res: Response) => {
       res.status(400).json(result);
     }
   } catch (_error) {
-    handleError(res, error);
+    handleError(res, _error);
   }
 });
 

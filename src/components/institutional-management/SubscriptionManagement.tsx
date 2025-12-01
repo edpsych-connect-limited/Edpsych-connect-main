@@ -258,7 +258,7 @@ const SubscriptionManagement: React.FC<SubscriptionManagementProps> = ({
       // Show success message
     } catch (_err) {
       console.error('Error updating subscription:', _err);
-      setError(err instanceof Error ? err.message : 'An error occurred while updating the subscription');
+      setError(_err instanceof Error ? _err.message : 'An error occurred while updating the subscription');
     }
   };
 

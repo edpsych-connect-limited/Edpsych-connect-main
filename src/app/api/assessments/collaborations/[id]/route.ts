@@ -64,8 +64,8 @@ export async function GET(
     return NextResponse.json({ formData });
 
   } catch (_error) {
-    console.error('Error fetching collaboration:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console._error('Error fetching collaboration:', _error);
+    return NextResponse.json({ _error: 'Internal server _error' }, { status: 500 });
   }
 }
 
@@ -93,8 +93,8 @@ export async function POST(
     return NextResponse.json({ success: true, collaboration });
 
   } catch (_error) {
-    console.error('Error submitting collaboration:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console._error('Error submitting collaboration:', _error);
+    return NextResponse.json({ _error: 'Internal server _error' }, { status: 500 });
   }
 }
 
@@ -121,7 +121,7 @@ export async function PUT(
     return NextResponse.json({ success: true, collaboration });
 
   } catch (_error) {
-    console.error('Error saving draft:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console._error('Error saving draft:', _error);
+    return NextResponse.json({ _error: 'Internal server _error' }, { status: 500 });
   }
 }

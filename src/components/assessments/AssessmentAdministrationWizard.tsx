@@ -91,7 +91,7 @@ export default function AssessmentAdministrationWizard({
           console.error('Failed to fetch framework');
         }
       } catch (_error) {
-        console.error('Error fetching framework:', error);
+        console._error('Error fetching framework:', _error);
       } finally {
         setIsLoadingFramework(false);
       }
@@ -205,7 +205,7 @@ export default function AssessmentAdministrationWizard({
         }
       }
     } catch (_error) {
-      console.error('Failed to save draft:', error);
+      console._error('Failed to save draft:', _error);
     } finally {
       setIsSaving(false);
     }
@@ -220,7 +220,7 @@ export default function AssessmentAdministrationWizard({
         setAssessmentData(data.assessment);
       }
     } catch (_error) {
-      console.error('Failed to load assessment:', error);
+      console._error('Failed to load assessment:', _error);
     }
   };
 
@@ -270,7 +270,7 @@ export default function AssessmentAdministrationWizard({
         router.push(`/assessments/${caseId}`);
       }
     } catch (_error) {
-      console.error('Failed to complete assessment:', error);
+      console._error('Failed to complete assessment:', _error);
     } finally {
       setIsSaving(false);
     }
@@ -426,7 +426,7 @@ export default function AssessmentAdministrationWizard({
       alert('Professional assessment report generated and saved to record!');
 
     } catch (_error) {
-      console.error('Failed to generate report:', error);
+      console._error('Failed to generate report:', _error);
       alert('Failed to generate report. Please ensure all required sections are completed and try again.');
     } finally {
       setIsGeneratingReport(false);
@@ -919,7 +919,7 @@ function CollaborativeInputStep({ assessmentData, updateAssessmentData: _ }: any
         setCollaborations(data.collaborations || []);
       }
     } catch (_error) {
-      console.error('Failed to load collaborations:', error);
+      console._error('Failed to load collaborations:', _error);
     } finally {
       setLoading(false);
     }
@@ -965,7 +965,7 @@ function CollaborativeInputStep({ assessmentData, updateAssessmentData: _ }: any
         alert(`Failed to send invitation: ${errorData.error}`);
       }
     } catch (_error) {
-      console.error('Failed to send invitation:', error);
+      console._error('Failed to send invitation:', _error);
       alert('Failed to send invitation. Please try again.');
     } finally {
       setIsSending(false);

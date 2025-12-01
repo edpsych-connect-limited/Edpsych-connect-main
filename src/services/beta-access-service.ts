@@ -58,8 +58,8 @@ export class BetaAccessService {
       
       return code;
     } catch (_error) {
-      logger.error('Error generating beta access code');
-      throw new Error(`Failed to generate beta access code: ${String(error)}`);
+      logger._error('Error generating beta access code');
+      throw new Error(`Failed to generate beta access code: ${String(_error)}`);
     }
   }
 
@@ -120,11 +120,11 @@ export class BetaAccessService {
         }
       };
     } catch (_error) {
-      logger.error('Error validating beta access code', {
+      logger._error('Error validating beta access code', {
         code,
-        error: error instanceof Error ? error.message : String(error)
+        _error: _error instanceof Error ? _error.message : String(_error)
       });
-      return { valid: false, error: `Failed to validate access code: ${String(error)}` };
+      return { valid: false, _error: `Failed to validate access code: ${String(_error)}` };
     }
   }
 
@@ -169,11 +169,11 @@ export class BetaAccessService {
         }
       };
     } catch (_error) {
-      logger.error('Error using beta access code', {
+      logger._error('Error using beta access code', {
         code,
-        error: error instanceof Error ? error.message : String(error)
+        _error: _error instanceof Error ? _error.message : String(_error)
       });
-      return { success: false, error: `Failed to use access code: ${String(error)}` };
+      return { success: false, _error: `Failed to use access code: ${String(_error)}` };
     }
   }
 
@@ -215,12 +215,12 @@ export class BetaAccessService {
       
       return { success: true };
     } catch (_error) {
-      logger.error('Error recording access code usage', {
+      logger._error('Error recording access code usage', {
         code,
         id,
-        error: error instanceof Error ? error.message : String(error)
+        _error: _error instanceof Error ? _error.message : String(_error)
       });
-      throw new Error(`Failed to record access code usage: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to record access code usage: ${_error instanceof Error ? _error.message : String(_error)}`);
     }
   }
 
@@ -249,10 +249,10 @@ export class BetaAccessService {
       
       return activeCodes;
     } catch (_error) {
-      logger.error('Error fetching active beta access codes', {
-        error: error instanceof Error ? error.message : String(error)
+      logger._error('Error fetching active beta access codes', {
+        _error: _error instanceof Error ? _error.message : String(_error)
       });
-      throw new Error(`Failed to fetch active beta access codes: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to fetch active beta access codes: ${_error instanceof Error ? _error.message : String(_error)}`);
     }
   }
 }

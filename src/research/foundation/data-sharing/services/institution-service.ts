@@ -129,15 +129,15 @@ export class InstitutionService {
 
       return institution;
     } catch (_error) {
-      if (error instanceof InstitutionError) {
-        throw error;
+      if (_error instanceof InstitutionError) {
+        throw _error;
       }
       
       this.loggingService.log({
-        level: 'error',
+        level: '_error',
         message: 'Failed to register institution',
         context: {
-          error: error instanceof Error ? error.message : String(error),
+          _error: _error instanceof Error ? _error.message : String(_error),
           institutionName: params.name,
           userId
         }
@@ -147,7 +147,7 @@ export class InstitutionService {
         InstitutionErrorType.INTERNAL_ERROR,
         'Failed to register institution',
         { 
-          cause: error instanceof Error ? error.message : String(error)
+          cause: _error instanceof Error ? _error.message : String(_error)
         }
       );
     }
@@ -181,15 +181,15 @@ export class InstitutionService {
       
       return institution;
     } catch (_error) {
-      if (error instanceof InstitutionError) {
-        throw error;
+      if (_error instanceof InstitutionError) {
+        throw _error;
       }
       
       this.loggingService.log({
-        level: 'error',
+        level: '_error',
         message: 'Failed to retrieve institution',
         context: {
-          error: error instanceof Error ? error.message : String(error),
+          _error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           userId
         }
@@ -199,7 +199,7 @@ export class InstitutionService {
         InstitutionErrorType.INTERNAL_ERROR,
         'Failed to retrieve institution',
         { 
-          cause: error instanceof Error ? error.message : String(error)
+          cause: _error instanceof Error ? _error.message : String(_error)
         }
       );
     }
@@ -243,10 +243,10 @@ export class InstitutionService {
       return result;
     } catch (_error) {
       this.loggingService.log({
-        level: 'error',
+        level: '_error',
         message: 'Failed to search institutions',
         context: {
-          error: error instanceof Error ? error.message : String(error),
+          _error: _error instanceof Error ? _error.message : String(_error),
           searchParams: params,
           userId
         }
@@ -256,7 +256,7 @@ export class InstitutionService {
         InstitutionErrorType.INTERNAL_ERROR,
         'Failed to search institutions',
         { 
-          cause: error instanceof Error ? error.message : String(error)
+          cause: _error instanceof Error ? _error.message : String(_error)
         }
       );
     }
@@ -323,15 +323,15 @@ export class InstitutionService {
       
       return updatedInstitution;
     } catch (_error) {
-      if (error instanceof InstitutionError) {
-        throw error;
+      if (_error instanceof InstitutionError) {
+        throw _error;
       }
       
       this.loggingService.log({
-        level: 'error',
+        level: '_error',
         message: 'Failed to update institution',
         context: {
-          error: error instanceof Error ? error.message : String(error),
+          _error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           updates: Object.keys(updates),
           userId
@@ -342,7 +342,7 @@ export class InstitutionService {
         InstitutionErrorType.INTERNAL_ERROR,
         'Failed to update institution',
         { 
-          cause: error instanceof Error ? error.message : String(error)
+          cause: _error instanceof Error ? _error.message : String(_error)
         }
       );
     }
@@ -416,15 +416,15 @@ export class InstitutionService {
       
       return verifiedInstitution;
     } catch (_error) {
-      if (error instanceof InstitutionError) {
-        throw error;
+      if (_error instanceof InstitutionError) {
+        throw _error;
       }
       
       this.loggingService.log({
-        level: 'error',
+        level: '_error',
         message: 'Failed to verify institution',
         context: {
-          error: error instanceof Error ? error.message : String(error),
+          _error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           verifierUserId
         }
@@ -434,7 +434,7 @@ export class InstitutionService {
         InstitutionErrorType.INTERNAL_ERROR,
         'Failed to verify institution',
         { 
-          cause: error instanceof Error ? error.message : String(error)
+          cause: _error instanceof Error ? _error.message : String(_error)
         }
       );
     }
@@ -509,15 +509,15 @@ export class InstitutionService {
       
       return rejectedInstitution;
     } catch (_error) {
-      if (error instanceof InstitutionError) {
-        throw error;
+      if (_error instanceof InstitutionError) {
+        throw _error;
       }
       
       this.loggingService.log({
-        level: 'error',
+        level: '_error',
         message: 'Failed to reject institution',
         context: {
-          error: error instanceof Error ? error.message : String(error),
+          _error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           reviewerUserId,
           rejectionReason
@@ -528,7 +528,7 @@ export class InstitutionService {
         InstitutionErrorType.INTERNAL_ERROR,
         'Failed to reject institution',
         { 
-          cause: error instanceof Error ? error.message : String(error)
+          cause: _error instanceof Error ? _error.message : String(_error)
         }
       );
     }
@@ -603,15 +603,15 @@ export class InstitutionService {
       
       return newContact;
     } catch (_error) {
-      if (error instanceof InstitutionError) {
-        throw error;
+      if (_error instanceof InstitutionError) {
+        throw _error;
       }
       
       this.loggingService.log({
-        level: 'error',
+        level: '_error',
         message: 'Failed to add institution contact',
         context: {
-          error: error instanceof Error ? error.message : String(error),
+          _error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           contactName: contact.name,
           userId
@@ -622,7 +622,7 @@ export class InstitutionService {
         InstitutionErrorType.INTERNAL_ERROR,
         'Failed to add institution contact',
         {
-          cause: error instanceof Error ? error.message : String(error)
+          cause: _error instanceof Error ? _error.message : String(_error)
         }
       );
     }
@@ -716,15 +716,15 @@ export class InstitutionService {
       
       return updatedContact;
     } catch (_error) {
-      if (error instanceof InstitutionError) {
-        throw error;
+      if (_error instanceof InstitutionError) {
+        throw _error;
       }
       
       this.loggingService.log({
-        level: 'error',
+        level: '_error',
         message: 'Failed to update institution contact',
         context: {
-          error: error instanceof Error ? error.message : String(error),
+          _error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           contactId,
           userId
@@ -735,7 +735,7 @@ export class InstitutionService {
         InstitutionErrorType.INTERNAL_ERROR,
         'Failed to update institution contact',
         { 
-          cause: error instanceof Error ? error.message : String(error)
+          cause: _error instanceof Error ? _error.message : String(_error)
         }
       );
     }
@@ -825,15 +825,15 @@ export class InstitutionService {
         }
       });
     } catch (_error) {
-      if (error instanceof InstitutionError) {
-        throw error;
+      if (_error instanceof InstitutionError) {
+        throw _error;
       }
       
       this.loggingService.log({
-        level: 'error',
+        level: '_error',
         message: 'Failed to remove institution contact',
         context: {
-          error: error instanceof Error ? error.message : String(error),
+          _error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           contactId,
           userId
@@ -844,7 +844,7 @@ export class InstitutionService {
         InstitutionErrorType.INTERNAL_ERROR,
         'Failed to remove institution contact',
         { 
-          cause: error instanceof Error ? error.message : String(error)
+          cause: _error instanceof Error ? _error.message : String(_error)
         }
       );
     }
@@ -913,15 +913,15 @@ export class InstitutionService {
       
       return newCertification;
     } catch (_error) {
-      if (error instanceof InstitutionError) {
-        throw error;
+      if (_error instanceof InstitutionError) {
+        throw _error;
       }
       
       this.loggingService.log({
-        level: 'error',
+        level: '_error',
         message: 'Failed to add compliance certification',
         context: {
-          error: error instanceof Error ? error.message : String(error),
+          _error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           framework: certification.framework,
           userId
@@ -932,7 +932,7 @@ export class InstitutionService {
         InstitutionErrorType.INTERNAL_ERROR,
         'Failed to add compliance certification',
         { 
-          cause: error instanceof Error ? error.message : String(error)
+          cause: _error instanceof Error ? _error.message : String(_error)
         }
       );
     }
@@ -1029,15 +1029,15 @@ export class InstitutionService {
       
       return verifiedCertification;
     } catch (_error) {
-      if (error instanceof InstitutionError) {
-        throw error;
+      if (_error instanceof InstitutionError) {
+        throw _error;
       }
       
       this.loggingService.log({
-        level: 'error',
+        level: '_error',
         message: 'Failed to verify compliance certification',
         context: {
-          error: error instanceof Error ? error.message : String(error),
+          _error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           certificationId,
           verifierUserId
@@ -1048,7 +1048,7 @@ export class InstitutionService {
         InstitutionErrorType.INTERNAL_ERROR,
         'Failed to verify compliance certification',
         { 
-          cause: error instanceof Error ? error.message : String(error)
+          cause: _error instanceof Error ? _error.message : String(_error)
         }
       );
     }
@@ -1112,15 +1112,15 @@ export class InstitutionService {
       
       return newPolicy;
     } catch (_error) {
-      if (error instanceof InstitutionError) {
-        throw error;
+      if (_error instanceof InstitutionError) {
+        throw _error;
       }
       
       this.loggingService.log({
-        level: 'error',
+        level: '_error',
         message: 'Failed to add data governance policy',
         context: {
-          error: error instanceof Error ? error.message : String(error),
+          _error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           policyTitle: policy.title,
           userId
@@ -1131,7 +1131,7 @@ export class InstitutionService {
         InstitutionErrorType.INTERNAL_ERROR,
         'Failed to add data governance policy',
         { 
-          cause: error instanceof Error ? error.message : String(error)
+          cause: _error instanceof Error ? _error.message : String(_error)
         }
       );
     }
@@ -1205,15 +1205,15 @@ export class InstitutionService {
       
       return deactivatedInstitution;
     } catch (_error) {
-      if (error instanceof InstitutionError) {
-        throw error;
+      if (_error instanceof InstitutionError) {
+        throw _error;
       }
       
       this.loggingService.log({
-        level: 'error',
+        level: '_error',
         message: 'Failed to deactivate institution',
         context: {
-          error: error instanceof Error ? error.message : String(error),
+          _error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           reason,
           userId
@@ -1224,7 +1224,7 @@ export class InstitutionService {
         InstitutionErrorType.INTERNAL_ERROR,
         'Failed to deactivate institution',
         { 
-          cause: error instanceof Error ? error.message : String(error)
+          cause: _error instanceof Error ? _error.message : String(_error)
         }
       );
     }
@@ -1303,15 +1303,15 @@ export class InstitutionService {
       
       return reactivatedInstitution;
     } catch (_error) {
-      if (error instanceof InstitutionError) {
-        throw error;
+      if (_error instanceof InstitutionError) {
+        throw _error;
       }
       
       this.loggingService.log({
-        level: 'error',
+        level: '_error',
         message: 'Failed to reactivate institution',
         context: {
-          error: error instanceof Error ? error.message : String(error),
+          _error: _error instanceof Error ? _error.message : String(_error),
           institutionId,
           userId
         }
@@ -1321,7 +1321,7 @@ export class InstitutionService {
         InstitutionErrorType.INTERNAL_ERROR,
         'Failed to reactivate institution',
         { 
-          cause: error instanceof Error ? error.message : String(error)
+          cause: _error instanceof Error ? _error.message : String(_error)
         }
       );
     }
