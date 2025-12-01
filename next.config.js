@@ -35,6 +35,16 @@ const nextConfig = {
     ],
   },
   webpack: (config, { isServer }) => {
+    // Suppress 'Critical dependency' warning from require-in-the-middle (used by Sentry/OpenTelemetry)
+    // This is expected behavior for dynamic instrumentation and does not affect functionality
+    config.ignoreWarnings = [
+      ...(config.ignoreWarnings || []),
+      {
+        module: /require-in-the-middle/,
+        message: /Critical dependency/,
+      },
+    ];
+    
     // Force memory cache to avoid external drive filesystem errors
     config.cache = { type: 'memory' };
     
