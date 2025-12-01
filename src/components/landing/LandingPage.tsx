@@ -11,6 +11,7 @@
 ;
 
 import HeroOrchestration from './HeroOrchestration';
+import ExpressionOfInterest from './ExpressionOfInterest';
 import CoreCapabilitiesGrid from './CoreCapabilitiesGrid';
 import ResearchFoundation from './ResearchFoundation';
 import VideoPremiereSection from './VideoPremiereSection';
@@ -27,6 +28,9 @@ export default function LandingPage({ pricingData }: LandingPageProps) {
     <main className="min-h-screen bg-slate-950 text-white selection:bg-indigo-500/30">
       {/* Hero: No Child Left Behind - The UK's First SEND Orchestration System */}
       <HeroOrchestration />
+      
+      {/* Expression of Interest: Capture leads from social media campaigns */}
+      <ExpressionOfInterest />
       
       {/* Core Capabilities: Full Inventory of Platform Features */}
       <CoreCapabilitiesGrid />
