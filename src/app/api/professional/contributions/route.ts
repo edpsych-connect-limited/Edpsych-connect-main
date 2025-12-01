@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
     const sortOrder = searchParams.get('order') || 'asc';
 
     // Build filter
-    const where: any = {
+    const where: { contributor_id: number; status?: string; priority?: string } = {
       contributor_id: user.id,
     };
 

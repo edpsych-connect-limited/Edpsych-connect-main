@@ -38,6 +38,41 @@ import {
 } from 'lucide-react';
 
 // Types
+interface CaseInfo {
+  id: string;
+  student_id: string;
+  school?: string;
+  week: number;
+  status: string;
+}
+
+interface RiskItem {
+  id: string;
+  student_id: string;
+  school?: string;
+  week: number;
+  status: string;
+  risk_factors: string[];
+}
+
+interface SchoolPerformance {
+  id: string;
+  name: string;
+  total_applications: number;
+  completed: number;
+  in_progress: number;
+  refused: number;
+  average_quality_score: number;
+}
+
+interface MonthlyTrend {
+  month: string;
+  month_name: string;
+  new_applications: number;
+  completed: number;
+  refused: number;
+}
+
 interface DashboardData {
   summary: {
     total_applications: number;
@@ -47,10 +82,10 @@ interface DashboardData {
     cases_overdue: number;
   };
   timeline_breakdown: {
-    week_0_to_6: { count: number; cases: any[] };
-    week_6_to_16: { count: number; cases: any[] };
-    week_16_to_20: { count: number; cases: any[] };
-    beyond_week_20: { count: number; cases: any[] };
+    week_0_to_6: { count: number; cases: CaseInfo[] };
+    week_6_to_16: { count: number; cases: CaseInfo[] };
+    week_16_to_20: { count: number; cases: CaseInfo[] };
+    beyond_week_20: { count: number; cases: CaseInfo[] };
   };
   compliance_metrics: {
     overall_compliance_rate: number;
@@ -62,9 +97,9 @@ interface DashboardData {
     average_completion_days: number;
   };
   risk_register: {
-    high_risk: any[];
-    medium_risk: any[];
-    low_risk: any[];
+    high_risk: RiskItem[];
+    medium_risk: RiskItem[];
+    low_risk: RiskItem[];
   };
   bottlenecks: {
     awaiting_decision: number;
@@ -73,8 +108,8 @@ interface DashboardData {
     primary_bottleneck: { stage: string; count: number } | null;
     recommendations: string[];
   };
-  school_performance: any[];
-  monthly_trends: any[];
+  school_performance: SchoolPerformance[];
+  monthly_trends: MonthlyTrend[];
 }
 
 // Compliance indicator component
@@ -554,7 +589,7 @@ export default function LAEHCPDashboard() {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                      {data.school_performance.slice(0, 5).map((school: any) => (
+                      {data.school_performance.slice(0, 5).map((school) => (
                         <tr key={school.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                           <td className="py-3">
                             <div className="flex items-center gap-2">

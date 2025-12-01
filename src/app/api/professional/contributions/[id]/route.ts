@@ -20,6 +20,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { Prisma } from '@prisma/client';
 import { z } from 'zod';
 
 export const dynamic = 'force-dynamic';
@@ -159,6 +160,59 @@ const statusUpdateSchema = z.object({
   status: z.enum(['IN_PROGRESS', 'SUBMITTED']),
   notes: z.string().optional(),
 });
+
+// Type for validated contribution content (from Zod schema)
+type ContributionContent = z.infer<typeof contributionContentSchema>;
+
+// Type for contribution guidance
+interface ContributionGuidance {
+  title: string;
+  sections: string[];
+  legal_reference: string;
+  deadline_guidance: string;
+}
+
+// Type for contribution template
+interface ContributionTemplate {
+  special_educational_needs?: {
+    primary_area: string | null;
+    secondary_areas: string[];
+    detailed_description: string;
+    strengths: string;
+    barriers_to_learning: string;
+  };
+  cognitive_profile?: {
+    assessment_tool: string;
+    verbal_comprehension: number | null;
+    visual_spatial: number | null;
+    fluid_reasoning: number | null;
+    working_memory: number | null;
+    processing_speed: number | null;
+    full_scale_iq: number | null;
+    narrative: string;
+  };
+  recommended_outcomes?: unknown[];
+  recommended_provision?: unknown[];
+  placement_recommendation?: {
+    recommended_setting: string | null;
+    rationale: string;
+  };
+  health_needs?: {
+    medical_conditions: string[];
+    medications: string[];
+    physical_needs: string;
+    mental_health_needs: string;
+    sensory_needs: string;
+    health_provision_required: string;
+  };
+  social_care_needs?: {
+    family_circumstances: string;
+    safeguarding_concerns: boolean;
+    social_care_involvement: string;
+    respite_needs: string;
+    transition_support: string;
+  };
+}
 
 /**
  * GET /api/professional/contributions/[id]
@@ -376,7 +430,7 @@ export async function PATCH(
       const updatedContribution = await prisma.eHCPContribution.update({
         where: { id: contributionId },
         data: {
-          content: contentResult.data as any,
+          content: contentResult.data as Prisma.InputJsonValue,
           // Auto-set to in_progress if still draft
           status: contribution.status === 'draft' ? 'submitted' : contribution.status,
         },
@@ -547,8 +601,8 @@ export async function POST(
 }
 
 // Helper: Get guidance based on contribution type
-function getContributionGuidance(type: string): any {
-  const guidance: Record<string, any> = {
+function getContributionGuidance(type: string): ContributionGuidance {
+  const guidance: Record<string, ContributionGuidance> = {
     EDUCATIONAL_PSYCHOLOGY: {
       title: 'Educational Psychology Advice',
       sections: [
@@ -608,8 +662,8 @@ function getContributionGuidance(type: string): any {
 }
 
 // Helper: Get template structure for contribution type
-function getContributionTemplate(type: string): any {
-  const templates: Record<string, any> = {
+function getContributionTemplate(type: string): ContributionTemplate {
+  const templates: Record<string, ContributionTemplate> = {
     EDUCATIONAL_PSYCHOLOGY: {
       special_educational_needs: {
         primary_area: null,
@@ -660,7 +714,7 @@ function getContributionTemplate(type: string): any {
 }
 
 // Helper: Validate contribution completeness
-function validateCompleteness(type: string, content: any): { isComplete: boolean; missingFields: string[] } {
+function validateCompleteness(type: string, content: ContributionContent): { isComplete: boolean; missingFields: string[] } {
   const missingFields: string[] = [];
 
   if (type === 'EDUCATIONAL_PSYCHOLOGY') {

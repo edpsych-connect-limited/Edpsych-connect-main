@@ -8,11 +8,15 @@
 
 import { prisma } from '../../lib/prisma';
 import { ValidationError } from './errors';
+import { PrismaClient, Prisma } from '@prisma/client';
+
+// Types for audit log details
+type AuditDetails = Record<string, unknown>;
 
 /**
  * Helper function to safely parse details regardless of type
  */
-function safeParseDetails(details: any): any {
+function safeParseDetails(details: unknown): AuditDetails {
   if (!details) return {};
   
   // If it's already an object, return it
@@ -38,10 +42,10 @@ function safeParseDetails(details: any): any {
  * Provides a centralized mechanism to track all changes made within the system
  */
 export class AuditLogService {
-  private prisma: any;
+  private prismaClient: PrismaClient;
 
-  constructor(prisma: any) {
-    this.prisma = prisma;
+  constructor(prismaClient: PrismaClient) {
+    this.prismaClient = prismaClient;
   }
 
   /**
@@ -56,7 +60,7 @@ export class AuditLogService {
     actionType: string,
     userId: string,
     institutionId: string,
-    details: any = {}
+    details: AuditDetails = {}
   ) {
     if (!actionType) {
       throw new ValidationError('Action type is required');
@@ -71,7 +75,7 @@ export class AuditLogService {
     }
 
     // Create audit log entry
-    await this.prisma.auditLog.create({
+    await this.prismaClient.auditLog.create({
       data: {
         action: actionType,
         resource: 'Institution',
@@ -110,7 +114,7 @@ export class AuditLogService {
     }
 
     // Build filter conditions
-    const whereConditions: any = {
+    const whereConditions: Prisma.auditLogWhereInput = {
       institutionId: institutionId
     };
 
@@ -135,7 +139,7 @@ export class AuditLogService {
     }
 
     // Get total count for pagination
-    const totalCount = await this.prisma.auditLog.count({
+    const totalCount = await this.prismaClient.auditLog.count({
       where: whereConditions
     });
 
@@ -144,7 +148,7 @@ export class AuditLogService {
     const offset = options.offset || 0;
 
     // Get audit logs
-    const logs = await this.prisma.auditLog.findMany({
+    const logs = await this.prismaClient.auditLog.findMany({
       where: whereConditions,
       orderBy: {
         createdAt: 'desc'
@@ -154,7 +158,7 @@ export class AuditLogService {
     });
 
     // Safely parse details and add user information when available
-    const logsWithParsedDetails = logs.map((log: any) => {
+    const logsWithParsedDetails = logs.map((log) => {
       const parsedDetails = safeParseDetails(log.details);
       return {
         ...log,
@@ -190,7 +194,7 @@ export class AuditLogService {
     }
 
     // Get user's recent activities
-    const logs = await this.prisma.auditLog.findMany({
+    const logs = await this.prismaClient.auditLog.findMany({
       where: {
         user_id_int: parseInt(userId),
         resource: 'Institution' // Filter to only institutional logs
@@ -202,7 +206,7 @@ export class AuditLogService {
     });
     
     // Safely parse details and extract institution info
-    const logsWithParsedDetails = logs.map((log: any) => {
+    const logsWithParsedDetails = logs.map((log) => {
       const parsedDetails = safeParseDetails(log.details);
       return {
         ...log,
@@ -227,6 +231,13 @@ export const auditLogService = new AuditLogService(prisma);
  * AI Governance and Compliance Layer
  * Adds explainability, bias detection, and automated compliance validation
  */
+
+// Type for AI model output used in bias detection
+interface AIModelOutput {
+  group?: string;
+  [key: string]: unknown;
+}
+
 export class AIGovernanceLayer {
   constructor(private auditService: AuditLogService) {}
 
@@ -245,7 +256,7 @@ export class AIGovernanceLayer {
   /**
    * Detect bias in AI model outputs
    */
-  async detectBias(modelOutputs: any[]): Promise<{ biasDetected: boolean; biasScore: number }> {
+  async detectBias(modelOutputs: AIModelOutput[]): Promise<{ biasDetected: boolean; biasScore: number }> {
     const biasScore = this._calculateBiasScore(modelOutputs);
     const biasDetected = biasScore > 0.2;
     if (biasDetected) {
@@ -259,7 +270,7 @@ export class AIGovernanceLayer {
     return { biasDetected, biasScore };
   }
 
-  private _calculateBiasScore(outputs: any[]): number {
+  private _calculateBiasScore(outputs: AIModelOutput[]): number {
     const groupCounts: Record<string, number> = {};
     outputs.forEach(o => {
       const group = o.group || 'unknown';

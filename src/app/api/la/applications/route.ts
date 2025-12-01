@@ -11,7 +11,7 @@ import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { LAEHCPService } from '@/lib/ehcp/la-ehcp-service';
+import { LAEHCPService, EHCPApplicationStatus, EHCPUrgency, SENPrimaryNeed, LADashboardFilters } from '@/lib/ehcp/la-ehcp-service';
 import { z } from 'zod';
 
 // Schema for GET query parameters
@@ -82,15 +82,15 @@ export async function GET(request: NextRequest) {
       );
     }
     
-    // Build filters
-    const filters = {
+    // Build filters with proper typing
+    const filters: LADashboardFilters = {
       la_tenant_id: userTenantId,
-      status: parsed.data.status?.split(',') as any[],
-      urgency: parsed.data.urgency?.split(',') as any[],
+      status: parsed.data.status?.split(',') as EHCPApplicationStatus[] | undefined,
+      urgency: parsed.data.urgency?.split(',') as EHCPUrgency[] | undefined,
       caseworker_id: parsed.data.caseworker_id ? parseInt(parsed.data.caseworker_id) : undefined,
       is_overdue: parsed.data.is_overdue === 'true' ? true : parsed.data.is_overdue === 'false' ? false : undefined,
       school_tenant_id: parsed.data.school_tenant_id ? parseInt(parsed.data.school_tenant_id) : undefined,
-      primary_need: parsed.data.primary_need?.split(',') as any[],
+      primary_need: parsed.data.primary_need?.split(',') as SENPrimaryNeed[] | undefined,
       date_from: parsed.data.date_from ? new Date(parsed.data.date_from) : undefined,
       date_to: parsed.data.date_to ? new Date(parsed.data.date_to) : undefined,
       search: parsed.data.search,

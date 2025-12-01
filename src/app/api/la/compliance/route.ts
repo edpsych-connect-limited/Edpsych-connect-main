@@ -29,6 +29,122 @@ import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
+// Type definitions for compliance analytics
+interface EHCPApplicationForAnalytics {
+  id: string;
+  student_id: string;
+  status: string;
+  referral_date: Date;
+  decision_actual_date?: Date | null;
+  draft_actual_date?: Date | null;
+  final_actual_date?: Date | null;
+  decision_to_assess?: boolean | null;
+  school_tenant?: { id: number; name: string } | null;
+  contributions?: Array<{
+    id: string;
+    contributor_type: string;
+    status: string;
+    due_date: Date;
+    submitted_at?: Date | null;
+    requested_at?: Date | null;
+  }>;
+}
+
+interface CaseInfo {
+  id: string;
+  student_id: string;
+  school?: string;
+  week: number;
+  status: string;
+}
+
+interface BreachInfo {
+  id: string;
+  school?: string;
+  days_overdue: number;
+  resolved?: boolean;
+}
+
+interface TimelineBreakdown {
+  week_0_to_6: { count: number; cases: CaseInfo[] };
+  week_6_to_16: { count: number; cases: CaseInfo[] };
+  week_16_to_20: { count: number; cases: CaseInfo[] };
+  beyond_week_20: { count: number; cases: CaseInfo[] };
+}
+
+interface SchoolStats {
+  school_id: number;
+  school_name: string;
+  total_applications: number;
+  on_time: number;
+  late: number;
+  compliance_rate: number;
+}
+
+interface ProfessionalStats {
+  role: string;
+  total_contributions: number;
+  total_response_days: number;
+  average_response_days: number;
+}
+
+// Additional interfaces for compliance functions
+interface ContributionData {
+  id: string;
+  contributor_type: string;
+  status: string;
+  due_date: Date;
+  submitted_at?: Date | null;
+  requested_at?: Date | null;
+}
+
+interface BottleneckStats {
+  awaiting_decision: number;
+  awaiting_ep_advice: number;
+  awaiting_health_advice: number;
+  awaiting_social_care: number;
+  awaiting_school_input: number;
+  draft_in_progress: number;
+  in_consultation: number;
+  awaiting_panel: number;
+}
+
+interface SchoolStatsRecord {
+  id: string;
+  name: string;
+  total_applications: number;
+  completed: number;
+  in_progress: number;
+  refused: number;
+  average_quality_score: number;
+}
+
+interface ProfessionalStatsRecord {
+  count: number;
+  total_days: number;
+  on_time: number;
+  overdue: number;
+  average_response_days?: number;
+  on_time_rate?: number;
+}
+
+interface MonthlyTrend {
+  month: string;
+  month_name: string;
+  new_applications: number;
+  completed: number;
+  refused: number;
+}
+
+interface RiskItem {
+  id: string;
+  student_id: string;
+  school?: string;
+  week: number;
+  status: string;
+  risk_factors: string[];
+}
+
 /**
  * GET /api/la/compliance
  * Comprehensive compliance and analytics dashboard data
@@ -148,7 +264,7 @@ export async function GET(request: NextRequest) {
 
 // ===== HELPER FUNCTIONS =====
 
-function calculateComplianceMetrics(applications: any[], now: Date) {
+function calculateComplianceMetrics(applications: EHCPApplicationForAnalytics[], now: Date) {
   const completed = applications.filter(a => a.status === 'FINAL_EHCP_ISSUED' || a.status === 'CEASED');
   const active = applications.filter(a => !['FINAL_EHCP_ISSUED', 'CEASED', 'DECISION_NOT_TO_ASSESS'].includes(a.status));
   const overdue = active.filter(a => {
@@ -170,7 +286,7 @@ function calculateComplianceMetrics(applications: any[], now: Date) {
   const decisionsOnTime = decisionsMade.filter(a => {
     const deadline = new Date(a.referral_date);
     deadline.setDate(deadline.getDate() + 42);
-    return new Date(a.decision_actual_date) <= deadline;
+    return new Date(a.decision_actual_date!) <= deadline;
   });
 
   // Week 16 draft compliance
@@ -178,7 +294,7 @@ function calculateComplianceMetrics(applications: any[], now: Date) {
   const draftsOnTime = draftsMade.filter(a => {
     const deadline = new Date(a.referral_date);
     deadline.setDate(deadline.getDate() + 112);
-    return new Date(a.draft_actual_date) <= deadline;
+    return new Date(a.draft_actual_date!) <= deadline;
   });
 
   return {
@@ -200,21 +316,21 @@ function calculateComplianceMetrics(applications: any[], now: Date) {
   };
 }
 
-function calculateTimelineBreakdown(applications: any[], now: Date) {
+function calculateTimelineBreakdown(applications: EHCPApplicationForAnalytics[], now: Date): TimelineBreakdown {
   const active = applications.filter(a => 
     !['FINAL_EHCP_ISSUED', 'CEASED', 'DECISION_NOT_TO_ASSESS'].includes(a.status)
   );
 
-  const breakdown = {
-    week_0_to_6: { count: 0, cases: [] as any[] },
-    week_6_to_16: { count: 0, cases: [] as any[] },
-    week_16_to_20: { count: 0, cases: [] as any[] },
-    beyond_week_20: { count: 0, cases: [] as any[] },
+  const breakdown: TimelineBreakdown = {
+    week_0_to_6: { count: 0, cases: [] },
+    week_6_to_16: { count: 0, cases: [] },
+    week_16_to_20: { count: 0, cases: [] },
+    beyond_week_20: { count: 0, cases: [] },
   };
 
   active.forEach(app => {
     const weekNum = Math.floor((now.getTime() - new Date(app.referral_date).getTime()) / (7 * 24 * 60 * 60 * 1000));
-    const caseInfo = {
+    const caseInfo: CaseInfo = {
       id: app.id,
       student_id: app.student_id,
       school: app.school_tenant?.name,
@@ -240,11 +356,17 @@ function calculateTimelineBreakdown(applications: any[], now: Date) {
   return breakdown;
 }
 
-function analyseBreaches(applications: any[], now: Date) {
-  const breaches = {
-    week_6_breaches: [] as any[],
-    week_16_breaches: [] as any[],
-    week_20_breaches: [] as any[],
+function analyseBreaches(applications: EHCPApplicationForAnalytics[], now: Date) {
+  const breaches: {
+    week_6_breaches: BreachInfo[];
+    week_16_breaches: BreachInfo[];
+    week_20_breaches: BreachInfo[];
+    total_breach_count: number;
+    breach_rate: number;
+  } = {
+    week_6_breaches: [],
+    week_16_breaches: [],
+    week_20_breaches: [],
     total_breach_count: 0,
     breach_rate: 0,
   };
@@ -306,8 +428,8 @@ function analyseBreaches(applications: any[], now: Date) {
   return breaches;
 }
 
-function identifyBottlenecks(applications: any[], now: Date) {
-  const bottlenecks = {
+function identifyBottlenecks(applications: EHCPApplicationForAnalytics[], now: Date) {
+  const bottlenecks: BottleneckStats = {
     awaiting_decision: applications.filter(a => 
       a.status === 'SUBMITTED' || a.status === 'EVIDENCE_GATHERING' || a.status === 'PANEL_REVIEW_PENDING'
     ).length,
@@ -323,7 +445,7 @@ function identifyBottlenecks(applications: any[], now: Date) {
   // Count professional contribution delays
   applications.forEach(app => {
     if (app.contributions) {
-      app.contributions.forEach((c: any) => {
+      app.contributions.forEach((c: ContributionData) => {
         if (c.status === 'draft') {
           const _isOverdue = new Date(c.due_date) < now;
           if (c.contributor_type === 'ep') {
@@ -352,8 +474,8 @@ function identifyBottlenecks(applications: any[], now: Date) {
   };
 }
 
-function analyseSchoolPerformance(applications: any[]) {
-  const schoolStats: Record<string, any> = {};
+function analyseSchoolPerformance(applications: EHCPApplicationForAnalytics[]): SchoolStatsRecord[] {
+  const schoolStats: Record<string, SchoolStatsRecord> = {};
 
   applications.forEach(app => {
     const schoolId = app.school_tenant?.id?.toString() || 'unknown';
@@ -377,11 +499,11 @@ function analyseSchoolPerformance(applications: any[]) {
     else schoolStats[schoolId].in_progress++;
   });
 
-  return Object.values(schoolStats).sort((a: any, b: any) => b.total_applications - a.total_applications);
+  return Object.values(schoolStats).sort((a, b) => b.total_applications - a.total_applications);
 }
 
-function analyseProfessionalResponseTimes(applications: any[]) {
-  const professionalStats: Record<string, any> = {
+function analyseProfessionalResponseTimes(applications: EHCPApplicationForAnalytics[]): Record<string, ProfessionalStatsRecord> {
+  const professionalStats: Record<string, ProfessionalStatsRecord> = {
     ep: { count: 0, total_days: 0, on_time: 0, overdue: 0 },
     health: { count: 0, total_days: 0, on_time: 0, overdue: 0 },
     social_care: { count: 0, total_days: 0, on_time: 0, overdue: 0 },
@@ -390,7 +512,7 @@ function analyseProfessionalResponseTimes(applications: any[]) {
 
   applications.forEach(app => {
     if (app.contributions) {
-      app.contributions.forEach((c: any) => {
+      app.contributions.forEach((c) => {
         if (c.status === 'submitted' || c.status === 'accepted') {
           const type = c.contributor_type;
           if (professionalStats[type]) {
@@ -413,7 +535,7 @@ function analyseProfessionalResponseTimes(applications: any[]) {
   });
 
   // Calculate averages
-  Object.values(professionalStats).forEach((stats: any) => {
+  Object.values(professionalStats).forEach((stats) => {
     stats.average_response_days = stats.count > 0 ? Math.round(stats.total_days / stats.count) : 0;
     stats.on_time_rate = stats.count > 0 ? Math.round((stats.on_time / stats.count) * 100) : 100;
   });
@@ -421,8 +543,8 @@ function analyseProfessionalResponseTimes(applications: any[]) {
   return professionalStats;
 }
 
-function calculateMonthlyTrends(applications: any[], months: number) {
-  const trends: any[] = [];
+function calculateMonthlyTrends(applications: EHCPApplicationForAnalytics[], months: number): MonthlyTrend[] {
+  const trends: MonthlyTrend[] = [];
   const now = new Date();
 
   for (let i = months - 1; i >= 0; i--) {
@@ -449,7 +571,7 @@ function calculateMonthlyTrends(applications: any[], months: number) {
   return trends;
 }
 
-function prepareSEN2Data(applications: any[]) {
+function prepareSEN2Data(applications: EHCPApplicationForAnalytics[]) {
   // SEN2 census data preparation
   const currentYear = new Date().getFullYear();
   const censusDate = new Date(currentYear, 0, 19); // Third Thursday of January approximation
@@ -481,10 +603,10 @@ function prepareSEN2Data(applications: any[]) {
   };
 }
 
-function buildRiskRegister(applications: any[], now: Date) {
-  const highRisk: any[] = [];
-  const mediumRisk: any[] = [];
-  const lowRisk: any[] = [];
+function buildRiskRegister(applications: EHCPApplicationForAnalytics[], now: Date) {
+  const highRisk: RiskItem[] = [];
+  const mediumRisk: RiskItem[] = [];
+  const lowRisk: RiskItem[] = [];
 
   applications.forEach(app => {
     if (['FINAL_EHCP_ISSUED', 'CEASED', 'DECISION_NOT_TO_ASSESS'].includes(app.status)) {
@@ -495,13 +617,13 @@ function buildRiskRegister(applications: any[], now: Date) {
       (now.getTime() - new Date(app.referral_date).getTime()) / (7 * 24 * 60 * 60 * 1000)
     );
 
-    const riskItem = {
+    const riskItem: RiskItem = {
       id: app.id,
       student_id: app.student_id,
       school: app.school_tenant?.name,
       week: weekNum,
       status: app.status,
-      risk_factors: [] as string[],
+      risk_factors: [],
     };
 
     // Determine risk level
@@ -536,7 +658,7 @@ function buildRiskRegister(applications: any[], now: Date) {
   };
 }
 
-function calculateAverageCompletionDays(completed: any[]): number {
+function calculateAverageCompletionDays(completed: EHCPApplicationForAnalytics[]): number {
   if (completed.length === 0) return 0;
   
   const totalDays = completed.reduce((sum, app) => {
@@ -552,7 +674,7 @@ function calculateAverageCompletionDays(completed: any[]): number {
   return Math.round(totalDays / completed.length);
 }
 
-function generateBottleneckRecommendations(bottlenecks: any): string[] {
+function generateBottleneckRecommendations(bottlenecks: BottleneckStats): string[] {
   const recommendations: string[] = [];
 
   if (bottlenecks.awaiting_ep_advice > 5) {

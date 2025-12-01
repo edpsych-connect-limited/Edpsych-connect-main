@@ -19,7 +19,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
-import { LAEHCPService } from '@/lib/ehcp/la-ehcp-service';
+import { LAEHCPService, EHCPApplicationStatus, EHCPUrgency } from '@/lib/ehcp/la-ehcp-service';
 
 export const dynamic = 'force-dynamic';
 
@@ -188,8 +188,8 @@ export async function PATCH(
     const updatedApplication = await prisma.eHCPApplication.update({
       where: { id: applicationId },
       data: {
-        status: data.status as any,
-        urgency: data.urgency_level as any,
+        status: data.status as EHCPApplicationStatus,
+        urgency: data.urgency_level as EHCPUrgency,
         updated_at: new Date(),
         last_updated_by_id: user.id,
       },

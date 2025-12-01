@@ -10,7 +10,7 @@ import { aiAuditService } from './audit/ai-audit-service';
 
 export interface AIRequest {
   prompt: string;
-  context?: any;
+  context?: Record<string, unknown>;
   id: string;
   tenantId?: string; // Added for auditing
   autonomyLevel?: 'advisory' | 'autonomous'; // Added for safety
@@ -41,11 +41,11 @@ export interface AgentConfig {
 }
 
 class AIIntegrationService {
-  private anthropic: any;
-  private openai: any;
-  private xai: any;
-  private gemini: any;
-  private redis: any;
+  private anthropic: Anthropic | null = null;
+  private openai: OpenAI | null = null;
+  private xai: OpenAI | null = null;
+  private gemini: OpenAI | null = null;
+  private redis: Redis | null = null;
   private dailyUsage: Map<string, number> = new Map();
   private dailyBudget: number;
 
@@ -791,7 +791,7 @@ class AIIntegrationService {
     return tokens * costPerToken;
   }
 
-  private calculateCost(response: any, model: string): number {
+  private calculateCost(response: { tokens?: number }, model: string): number {
     const tokens = response.tokens || 0;
     const costPerToken = model.includes('claude') ? 0.000015 : 0.00003;
     return tokens * costPerToken;
@@ -835,8 +835,8 @@ class AIIntegrationService {
     };
   }
 
-  private async handleFailover(request: AIRequest, error: any): Promise<AIResponse> {
-    console.error('AI service error for request:', { useCase: request.useCase, id: request.id }, error);
+  private async handleFailover(request: AIRequest, error: Error): Promise<AIResponse> {
+    console.error('AI service error for request:', { useCase: request.useCase, id: request.id }, error.message);
 
     return {
       response: "I'm experiencing technical difficulties. Please try again in a moment, or contact support if the issue persists.",
