@@ -13,6 +13,7 @@
  * - Week 20: Final EHCP issued
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -133,7 +134,7 @@ export async function GET(
 
     return NextResponse.json(response);
   } catch (error) {
-    console.error('Error fetching application:', error);
+    logger.error('Error fetching application:', error);
     return NextResponse.json(
       { error: 'Failed to fetch application' },
       { status: 500 }
@@ -221,7 +222,7 @@ export async function PATCH(
       application: updatedApplication,
     });
   } catch (error) {
-    console.error('Error updating application:', error);
+    logger.error('Error updating application:', error);
     return NextResponse.json(
       { error: 'Failed to update application' },
       { status: 500 }
@@ -290,7 +291,7 @@ export async function DELETE(
       application_id: archivedApplication.id,
     });
   } catch (error) {
-    console.error('Error archiving application:', error);
+    logger.error('Error archiving application:', error);
     return NextResponse.json(
       { error: 'Failed to archive application' },
       { status: 500 }

@@ -15,6 +15,7 @@
  * - SEND Code of Practice compliance
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prismaSafe';
 import authService from '@/lib/auth/auth-service';
@@ -108,7 +109,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('[Outcomes Track] POST Error:', error);
+    logger.error('[Outcomes Track] POST Error:', error);
     return NextResponse.json(
       {
         success: false,
@@ -222,7 +223,7 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('[Outcomes Track] GET Error:', error);
+    logger.error('[Outcomes Track] GET Error:', error);
     return NextResponse.json(
       {
         success: false,

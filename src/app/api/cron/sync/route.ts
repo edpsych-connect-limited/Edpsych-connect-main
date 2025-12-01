@@ -45,7 +45,7 @@ export async function GET(request: Request) {
 
     return NextResponse.json({ success: true, results });
   } catch (error: any) {
-    console.error('[Cron] Sync job failed:', error);
+    logger.error('[Cron] Sync job failed:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }

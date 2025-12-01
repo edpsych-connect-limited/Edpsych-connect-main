@@ -15,6 +15,7 @@
  * their statutory advice for EHCP assessments.
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -274,7 +275,7 @@ export async function GET(
       template: getContributionTemplate(contribution.contributor_type),
     });
   } catch (error) {
-    console.error('Error fetching contribution:', error);
+    logger.error('Error fetching contribution:', error);
     return NextResponse.json(
       { error: 'Failed to fetch contribution' },
       { status: 500 }
@@ -393,7 +394,7 @@ export async function PATCH(
       { status: 400 }
     );
   } catch (error) {
-    console.error('Error updating contribution:', error);
+    logger.error('Error updating contribution:', error);
     return NextResponse.json(
       { error: 'Failed to update contribution' },
       { status: 500 }
@@ -537,7 +538,7 @@ export async function POST(
         : 'Awaiting other professional contributions',
     });
   } catch (error) {
-    console.error('Error submitting contribution:', error);
+    logger.error('Error submitting contribution:', error);
     return NextResponse.json(
       { error: 'Failed to submit contribution' },
       { status: 500 }

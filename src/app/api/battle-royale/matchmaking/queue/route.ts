@@ -13,6 +13,7 @@
  * - Automatic match formation
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prismaSafe';
 import authService from '@/lib/auth/auth-service';
@@ -201,7 +202,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('[Matchmaking Queue] POST Error:', error);
+    logger.error('[Matchmaking Queue] POST Error:', error);
     return NextResponse.json(
       {
         success: false,
@@ -266,7 +267,7 @@ export async function DELETE(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('[Matchmaking Queue] DELETE Error:', error);
+    logger.error('[Matchmaking Queue] DELETE Error:', error);
     return NextResponse.json(
       {
         success: false,

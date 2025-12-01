@@ -17,6 +17,7 @@
  * This is the zero-touch interface for multi-agency collaboration.
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -144,7 +145,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error fetching professional contributions:', error);
+    logger.error('Error fetching professional contributions:', error);
     return NextResponse.json(
       { error: 'Failed to fetch contributions' },
       { status: 500 }

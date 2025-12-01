@@ -8,6 +8,7 @@
  * - DELETE: Delete CPD entry
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prismaSafe';
 import authService from '@/lib/auth/auth-service';
@@ -59,7 +60,7 @@ export async function GET(
     });
 
   } catch (error: any) {
-    console.error('[CPD API] GET Error:', error);
+    logger.error('[CPD API] GET Error:', error);
     return NextResponse.json(
       {
         success: false,
@@ -165,7 +166,7 @@ export async function PATCH(
     });
 
   } catch (error: any) {
-    console.error('[CPD API] PATCH Error:', error);
+    logger.error('[CPD API] PATCH Error:', error);
     return NextResponse.json(
       {
         success: false,
@@ -227,7 +228,7 @@ export async function DELETE(
     });
 
   } catch (error: any) {
-    console.error('[CPD API] DELETE Error:', error);
+    logger.error('[CPD API] DELETE Error:', error);
     return NextResponse.json(
       {
         success: false,

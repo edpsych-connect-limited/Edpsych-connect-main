@@ -21,6 +21,7 @@
  * - Resource allocation decisions
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -137,7 +138,7 @@ export async function GET(request: NextRequest) {
       risk_register: riskRegister,
     });
   } catch (error) {
-    console.error('Error generating compliance report:', error);
+    logger.error('Error generating compliance report:', error);
     return NextResponse.json(
       { error: 'Failed to generate compliance report' },
       { status: 500 }

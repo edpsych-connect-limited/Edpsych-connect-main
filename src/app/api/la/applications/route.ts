@@ -7,6 +7,7 @@
  * @author EdPsych Connect Limited
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -99,7 +100,7 @@ export async function GET(request: NextRequest) {
     
     return NextResponse.json(result);
   } catch (error) {
-    console.error('Error fetching LA applications:', error);
+    logger.error('Error fetching LA applications:', error);
     return NextResponse.json(
       { error: 'Failed to fetch applications' },
       { status: 500 }
@@ -175,7 +176,7 @@ export async function POST(request: NextRequest) {
       message: 'EHCP application created successfully',
     }, { status: 201 });
   } catch (error) {
-    console.error('Error creating application:', error);
+    logger.error('Error creating application:', error);
     return NextResponse.json(
       { error: 'Failed to create application' },
       { status: 500 }

@@ -491,7 +491,7 @@ export async function POST(
         logger.debug(`[Class Actions API] Action executed successfully: ${actionId}`);
 
       } catch (executionError) {
-        console.error(`[Class Actions API] Error executing action:`, executionError);
+        logger.error(`[Class Actions API] Error executing action:`, executionError);
         executedAction = {
           status: 'execution_failed',
           error: executionError instanceof Error ? executionError.message : 'Unknown error',

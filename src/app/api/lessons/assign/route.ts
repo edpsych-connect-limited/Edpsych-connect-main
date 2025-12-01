@@ -296,7 +296,7 @@ export async function POST(
         logger.debug(`[Lesson Assignment API] Successfully assigned lesson to ${student.first_name} ${student.last_name} (${processingTime}ms)`);
 
       } catch (assignmentError) {
-        console.error(`[Lesson Assignment API] Assignment failed for student ${assignment.studentId}:`, assignmentError);
+        logger.error(`[Lesson Assignment API] Assignment failed for student ${assignment.studentId}:`, assignmentError);
         results.push({
           studentId: assignment.studentId,
           studentName: 'Unknown',

@@ -41,7 +41,7 @@ async function routeOnboardingRequest(request: NextRequest): Promise<NextRespons
     try {
       session = await authService.getSessionFromRequest(request);
     } catch (authError) {
-      console.error('[Onboarding] Auth error:', authError);
+      logger.error('[Onboarding] Auth error:', authError);
       return NextResponse.json({ error: 'Authentication failed' }, { status: 401 });
     }
 
@@ -58,11 +58,11 @@ async function routeOnboardingRequest(request: NextRequest): Promise<NextRespons
       } else if ((session as any).userId) {
         userId = (session as any).userId;
       } else {
-        console.error('[Onboarding] Invalid session structure:', session);
+        logger.error('[Onboarding] Invalid session structure:', session);
         return NextResponse.json({ error: 'Invalid session' }, { status: 401 });
       }
     } catch (parseError) {
-      console.error('[Onboarding] ID parse error:', parseError);
+      logger.error('[Onboarding] ID parse error:', parseError);
       return NextResponse.json({ error: 'Invalid user ID' }, { status: 400 });
     }
 
@@ -102,7 +102,7 @@ async function handleGetStatus(userId: number): Promise<NextResponse> {
     try {
       await prisma.$queryRaw`SELECT 1`;
     } catch (dbError) {
-      console.error('[Onboarding] DB Connection failed:', dbError);
+      logger.error('[Onboarding] DB Connection failed:', dbError);
       throw new Error('Database connection failed');
     }
 
@@ -119,7 +119,7 @@ async function handleGetStatus(userId: number): Promise<NextResponse> {
     });
 
     if (!user) {
-       console.error(`[Onboarding] User ${userId} not found in DB`);
+       logger.error(`[Onboarding] User ${userId} not found in DB`);
        return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
@@ -221,7 +221,7 @@ async function handleStart(userId: number): Promise<NextResponse> {
   // Check if user exists first to avoid foreign key errors
   const user = await prisma.users.findUnique({ where: { id: userId } });
   if (!user) {
-    console.error(`[Onboarding] User ${userId} not found during start`);
+    logger.error(`[Onboarding] User ${userId} not found during start`);
     return NextResponse.json({ error: 'User not found' }, { status: 404 });
   }
 

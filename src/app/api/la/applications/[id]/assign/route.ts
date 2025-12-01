@@ -18,6 +18,7 @@
  * This API supports automatic notifications and deadline tracking.
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -135,7 +136,7 @@ export async function GET(
       ready_for_draft: contributionStats.total_completed >= contributionStats.total_required,
     });
   } catch (error) {
-    console.error('Error fetching assignments:', error);
+    logger.error('Error fetching assignments:', error);
     return NextResponse.json(
       { error: 'Failed to fetch assignments' },
       { status: 500 }
@@ -215,7 +216,7 @@ export async function POST(
       });
     }
   } catch (error) {
-    console.error('Error assigning professional:', error);
+    logger.error('Error assigning professional:', error);
     return NextResponse.json(
       { error: 'Failed to assign professional' },
       { status: 500 }
@@ -303,7 +304,7 @@ export async function DELETE(
       message: 'Assignment removed successfully',
     });
   } catch (error) {
-    console.error('Error removing assignment:', error);
+    logger.error('Error removing assignment:', error);
     return NextResponse.json(
       { error: 'Failed to remove assignment' },
       { status: 500 }

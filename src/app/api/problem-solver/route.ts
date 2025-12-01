@@ -5,6 +5,7 @@
  * and uses AI (Claude/OpenAI) to generate intelligent solutions.
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { aiService } from '@/services/ai/core';
@@ -82,7 +83,7 @@ Please provide a comprehensive solution addressing this challenge.`;
       problemCategory = categorizeProblem(query);
 
     } catch (aiError) {
-      console.error('AI Service Error:', aiError);
+      logger.error('AI Service Error:', aiError);
 
       // Fallback response if AI fails
       aiResponse = `Thank you for sharing this challenge. Our AI service is temporarily unavailable, but here's what we recommend:
@@ -118,7 +119,7 @@ Please try again in a few moments, or contact us directly for personalized suppo
         },
       });
     } catch (dbError) {
-      console.error('Database Error (non-blocking):', dbError);
+      logger.error('Database Error (non-blocking):', dbError);
       // Don't fail the request if database save fails
     }
 

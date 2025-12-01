@@ -6,6 +6,7 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
+import { logger } from "@/lib/logger";
 import { NextResponse } from 'next/server';
 import { IntegrationService } from '@/lib/integrations/service';
 import { getServerSession } from 'next-auth';
@@ -51,7 +52,7 @@ export async function POST(request: Request) {
         return NextResponse.json({ success: false, error: 'Connection failed: Invalid credentials or unreachable host' }, { status: 400 });
     }
   } catch (error: any) {
-    console.error('Integration connect error:', error);
+    logger.error('Integration connect error:', error);
     return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
   }
 }

@@ -12,6 +12,7 @@
  * - Player statistics
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prismaSafe';
 import authService from '@/lib/auth/auth-service';
@@ -163,7 +164,7 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('[Matchmaking Status] GET Error:', error);
+    logger.error('[Matchmaking Status] GET Error:', error);
     return NextResponse.json(
       {
         success: false,

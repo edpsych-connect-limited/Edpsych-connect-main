@@ -5,6 +5,7 @@
  * This provides a working video solution while local files are being downloaded
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import { HEYGEN_VIDEO_IDS } from '@/lib/training/heygen-video-urls';
 
@@ -17,7 +18,7 @@ const CACHE_DURATION = 60 * 60 * 1000; // 1 hour
 export async function GET(request: NextRequest) {
   // Validate API key is configured
   if (!HEYGEN_API_KEY) {
-    console.error('HEYGEN_API_KEY environment variable is not set');
+    logger.error('HEYGEN_API_KEY environment variable is not set');
     return NextResponse.json({ error: 'Video service not configured' }, { status: 503 });
   }
 
@@ -78,7 +79,7 @@ export async function GET(request: NextRequest) {
       cached: false,
     });
   } catch (error) {
-    console.error('HeyGen API error:', error);
+    logger.error('HeyGen API error:', error);
     return NextResponse.json({ error: 'Failed to fetch video URL' }, { status: 500 });
   }
 }

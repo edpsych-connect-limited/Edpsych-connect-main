@@ -11,6 +11,7 @@
  * - Ready for audit submission
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prismaSafe';
 import authService from '@/lib/auth/auth-service';
@@ -113,7 +114,7 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('[CPD Portfolio] Error:', error);
+    logger.error('[CPD Portfolio] Error:', error);
     return NextResponse.json(
       {
         success: false,

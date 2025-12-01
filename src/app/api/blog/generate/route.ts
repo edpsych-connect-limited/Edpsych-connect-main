@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     const cronSecret = process.env.CRON_SECRET || 'development-secret';
 
     if (authHeader !== `Bearer ${cronSecret}`) {
-      console.error('[Blog Generate] Unauthorized cron attempt');
+      logger.error('[Blog Generate] Unauthorized cron attempt');
       return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('[Blog Generate] Error:', error);
+    logger.error('[Blog Generate] Error:', error);
 
     // Log error to database for monitoring
     try {
@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
         },
       });
     } catch (logError) {
-      console.error('[Blog Generate] Failed to log error:', logError);
+      logger.error('[Blog Generate] Failed to log error:', logError);
     }
 
     return NextResponse.json(

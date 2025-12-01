@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -116,7 +117,7 @@ export async function GET(
       stats,
     });
   } catch (error) {
-    console.error('Error fetching contributions:', error);
+    logger.error('Error fetching contributions:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

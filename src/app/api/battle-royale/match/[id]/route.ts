@@ -13,6 +13,7 @@
  * - Merit distribution
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prismaSafe';
 import authService from '@/lib/auth/auth-service';
@@ -106,7 +107,7 @@ export async function GET(
     });
 
   } catch (error: any) {
-    console.error('[Battle Royale Match] GET Error:', error);
+    logger.error('[Battle Royale Match] GET Error:', error);
     return NextResponse.json(
       {
         success: false,
@@ -334,7 +335,7 @@ export async function PATCH(
     );
 
   } catch (error: any) {
-    console.error('[Battle Royale Match] PATCH Error:', error);
+    logger.error('[Battle Royale Match] PATCH Error:', error);
     return NextResponse.json(
       {
         success: false,

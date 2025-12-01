@@ -11,6 +11,7 @@
  * Routes are dispatched based on URL pathname.
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { SubscriptionTier } from '@prisma/client';
@@ -122,7 +123,7 @@ async function handleGetCurrent(request: NextRequest) {
       },
     });
   } catch (error: any) {
-    console.error('[Subscription Current] Error:', error);
+    logger.error('[Subscription Current] Error:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to retrieve subscription', details: error.message },
       { status: 500 }
@@ -325,7 +326,7 @@ async function handleChangeTierPost(request: NextRequest) {
       },
     });
   } catch (error: any) {
-    console.error('[Subscription Change] Error:', error);
+    logger.error('[Subscription Change] Error:', error);
     if (error.type === 'StripeInvalidRequestError') {
       return NextResponse.json(
         { success: false, error: 'Invalid request to payment processor', details: error.message },
@@ -427,7 +428,7 @@ async function handleChangeTierGet(request: NextRequest) {
       },
     });
   } catch (error: any) {
-    console.error('[Subscription Preview] Error:', error);
+    logger.error('[Subscription Preview] Error:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to preview tier change', details: error.message },
       { status: 500 }

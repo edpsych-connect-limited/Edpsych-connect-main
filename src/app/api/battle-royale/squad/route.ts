@@ -14,6 +14,7 @@
  * - Squad size limits (2-4 players)
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prismaSafe';
 import authService from '@/lib/auth/auth-service';
@@ -310,7 +311,7 @@ export async function POST(request: NextRequest) {
     );
 
   } catch (error: any) {
-    console.error('[Battle Royale Squad] POST Error:', error);
+    logger.error('[Battle Royale Squad] POST Error:', error);
     return NextResponse.json(
       {
         success: false,
@@ -461,7 +462,7 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('[Battle Royale Squad] GET Error:', error);
+    logger.error('[Battle Royale Squad] GET Error:', error);
     return NextResponse.json(
       {
         success: false,
@@ -578,7 +579,7 @@ export async function DELETE(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('[Battle Royale Squad] DELETE Error:', error);
+    logger.error('[Battle Royale Squad] DELETE Error:', error);
     return NextResponse.json(
       {
         success: false,

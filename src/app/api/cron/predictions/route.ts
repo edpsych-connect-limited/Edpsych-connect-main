@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     const cronSecret = process.env.CRON_SECRET || 'development-secret';
 
     if (authHeader !== `Bearer ${cronSecret}`) {
-      console.error('[Predictions Cron] Unauthorized attempt');
+      logger.error('[Predictions Cron] Unauthorized attempt');
       return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('[Predictions Cron] Error:', error);
+    logger.error('[Predictions Cron] Error:', error);
 
     return NextResponse.json(
       {

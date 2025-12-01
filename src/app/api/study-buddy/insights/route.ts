@@ -17,6 +17,7 @@
  * - Evidence-based recommendations
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prismaSafe';
 import authService from '@/lib/auth/auth-service';
@@ -93,7 +94,7 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('[Study Buddy Insights] GET Error:', error);
+    logger.error('[Study Buddy Insights] GET Error:', error);
     return NextResponse.json(
       {
         success: false,
@@ -215,7 +216,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('[Study Buddy Insights] POST Error:', error);
+    logger.error('[Study Buddy Insights] POST Error:', error);
     return NextResponse.json(
       {
         success: false,
@@ -291,7 +292,7 @@ export async function PATCH(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('[Study Buddy Insights] PATCH Error:', error);
+    logger.error('[Study Buddy Insights] PATCH Error:', error);
     return NextResponse.json(
       {
         success: false,

@@ -16,6 +16,7 @@
  * This API enforces statutory compliance and generates audit trails.
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -138,7 +139,7 @@ export async function GET(
       valid_refusal_reasons: VALID_REFUSAL_REASONS,
     });
   } catch (error) {
-    console.error('Error fetching decision status:', error);
+    logger.error('Error fetching decision status:', error);
     return NextResponse.json(
       { error: 'Failed to fetch decision status' },
       { status: 500 }
@@ -334,7 +335,7 @@ export async function POST(
 
     return NextResponse.json(response);
   } catch (error) {
-    console.error('Error recording decision:', error);
+    logger.error('Error recording decision:', error);
     return NextResponse.json(
       { error: 'Failed to record decision' },
       { status: 500 }

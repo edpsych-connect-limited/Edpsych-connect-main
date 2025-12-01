@@ -444,7 +444,7 @@ export async function PATCH(
     });
 
     if (!currentProfile) {
-      console.error(`[Student Profile API] Profile not found for student: ${studentId}`);
+      logger.error(`[Student Profile API] Profile not found for student: ${studentId}`);
       return NextResponse.json({
         error: 'Student profile not found. Please generate profile first.'
       }, { status: 404 });

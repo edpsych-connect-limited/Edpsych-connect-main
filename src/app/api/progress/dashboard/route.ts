@@ -20,6 +20,7 @@
  * }
  */
 
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
 import { prisma } from '@/lib/prisma';
@@ -389,7 +390,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error: any) {
-    console.error('[Progress Dashboard API] Error:', error);
+    logger.error('[Progress Dashboard API] Error:', error);
     return NextResponse.json(
       {
         success: false,

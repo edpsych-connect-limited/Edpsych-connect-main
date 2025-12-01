@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
     const signature = headersList.get('stripe-signature');
 
     if (!signature) {
-      console.error('[Stripe Webhook] Missing signature');
+      logger.error('[Stripe Webhook] Missing signature');
       return NextResponse.json(
         { success: false, error: 'Missing signature' },
         { status: 400 }
@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
     try {
       event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
     } catch (err: any) {
-      console.error('[Stripe Webhook] Signature verification failed:', err.message);
+      logger.error('[Stripe Webhook] Signature verification failed:', err.message);
       return NextResponse.json(
         { success: false, error: `Webhook signature verification failed: ${err.message}` },
         { status: 400 }
@@ -151,14 +151,14 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
   const tenantId = metadata.tenant_id ? parseInt(metadata.tenant_id) : null;
 
   if (!tenantId) {
-    console.error(`[Stripe] tenant_id not found in subscription metadata for customer: ${customerId}`);
+    logger.error(`[Stripe] tenant_id not found in subscription metadata for customer: ${customerId}`);
     // Try to find existing subscription to get tenant_id
     const existingSub = await prisma.subscriptions.findFirst({
       where: { stripe_customer_id: customerId }
     });
 
     if (!existingSub) {
-      console.error(`[Stripe] No existing subscription found to determine tenant_id`);
+      logger.error(`[Stripe] No existing subscription found to determine tenant_id`);
       return;
     }
   }

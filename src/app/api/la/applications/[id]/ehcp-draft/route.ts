@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -97,7 +98,7 @@ export async function GET(
       lastUpdated: application.updated_at?.toISOString(),
     });
   } catch (error) {
-    console.error('Error fetching EHCP draft:', error);
+    logger.error('Error fetching EHCP draft:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -187,7 +188,7 @@ export async function POST(
       status: updatedApplication.status,
     });
   } catch (error) {
-    console.error('Error saving EHCP draft:', error);
+    logger.error('Error saving EHCP draft:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -276,7 +277,7 @@ export async function PUT(
       status: updatedApplication.status,
     });
   } catch (error) {
-    console.error('Error finalizing EHCP draft:', error);
+    logger.error('Error finalizing EHCP draft:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
