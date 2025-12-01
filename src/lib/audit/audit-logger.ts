@@ -25,7 +25,7 @@ export interface AuditLogEntry {
   tenantId?: number;
   action: AuditAction;
   resource: string;
-  details?: any;
+  details?: Record<string, unknown>;
   ipAddress?: string;
   userAgent?: string;
 }

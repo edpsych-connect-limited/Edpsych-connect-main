@@ -10,7 +10,7 @@ import { logger } from "@/lib/logger";
  * - Distributed cache management
  */
 
-import Redis from 'redis';
+import Redis, { RedisClientType } from 'redis';
 
 // Helper to safely extract error message
 function getErrorMessage(error: unknown): string {
@@ -19,14 +19,57 @@ function getErrorMessage(error: unknown): string {
   return String(error);
 }
 
+// Type definitions for caching service
+interface CacheOptions {
+  redisUrl?: string;
+  defaultTTL?: number;
+  maxMemory?: string;
+  compression?: boolean;
+  clustering?: boolean;
+}
+
+interface GetOptions {
+  useMemory?: boolean;
+  useRedis?: boolean;
+}
+
+interface SetOptions {
+  ttl?: number;
+  useMemory?: boolean;
+  useRedis?: boolean;
+  _compress?: boolean;
+}
+
+interface ClearOptions {
+  pattern?: string;
+  useMemory?: boolean;
+  useRedis?: boolean;
+}
+
+interface CacheStats {
+  hits: number;
+  misses: number;
+  sets: number;
+  deletes: number;
+  memoryUsage: number;
+  redisUsage: number;
+}
+
+interface CachedItem<T = unknown> {
+  value: T;
+  expires: number;
+}
+
+type DataLoader<T = unknown> = (key: string) => Promise<T>;
+
 class CachingService {
-  options: any;
-  redisClient: any;
-  memoryCache: Map<string, any>;
-  cacheStats: any;
+  options: Required<CacheOptions>;
+  redisClient: RedisClientType | null;
+  memoryCache: Map<string, CachedItem>;
+  cacheStats: CacheStats;
   invalidationPatterns: Record<string, string[]> | null;
 
-  constructor(options: any = {}) {
+  constructor(options: CacheOptions = {}) {
     this.options = {
       redisUrl: options.redisUrl || process.env.REDIS_URL || 'redis://localhost:6379',
       defaultTTL: options.defaultTTL || 3600, // 1 hour
@@ -65,7 +108,7 @@ class CachingService {
       });
 
       // Handle Redis events
-      this.redisClient.on('error', (err: any) => {
+      this.redisClient.on('error', (err: Error) => {
         logger.error('Redis Client Error:', err);
       });
 
@@ -97,7 +140,7 @@ class CachingService {
    * @param {Object} options - Get options
    * @returns {Promise<any>} Cached value or null
    */
-  async get(key: string, options: any = {}) {
+  async get<T = unknown>(key: string, options: GetOptions = {}): Promise<T | null> {
     try {
       const { useMemory = true, useRedis = true } = options;
 
@@ -148,7 +191,7 @@ class CachingService {
    * @param {Object} options - Set options
    * @returns {Promise<boolean>} Success status
    */
-  async set(key: string, value: any, options: any = {}) {
+  async set<T = unknown>(key: string, value: T, options: SetOptions = {}): Promise<boolean> {
     try {
       const {
         ttl = this.options.defaultTTL,
@@ -227,7 +270,7 @@ class CachingService {
    * @param {Object} options - Clear options
    * @returns {Promise<boolean>} Success status
    */
-  async clear(options: any = {}) {
+  async clear(options: ClearOptions = {}): Promise<boolean> {
     try {
       const { pattern = '*', useMemory = true, useRedis = true } = options;
 
@@ -305,7 +348,7 @@ class CachingService {
    * @param {Function} dataLoader - Function to load data
    * @returns {Promise<boolean>} Success status
    */
-  async warmUp(keys: string[], dataLoader: any) {
+  async warmUp<T = unknown>(keys: string[], dataLoader: DataLoader<T>): Promise<boolean> {
     try {
       logger.info(`Warming up cache with ${keys.length} keys`);
 
@@ -336,7 +379,7 @@ class CachingService {
    * @param {Function} dataLoader - Function to load data
    * @returns {Promise<boolean>} Success status
    */
-  async prefetch(currentKey: string, relatedKeys: string[], dataLoader: any) {
+  async prefetch<T = unknown>(currentKey: string, relatedKeys: string[], dataLoader: DataLoader<T>): Promise<boolean> {
     try {
       // Prefetch related data in background
       setImmediate(async () => {
@@ -410,7 +453,7 @@ class CachingService {
    * @param {Object} cached - Cached item
    * @returns {boolean} Whether item is expired
    */
-  _isExpired(cached: any) {
+  _isExpired(cached: CachedItem): boolean {
     return cached.expires && Date.now() > cached.expires;
   }
 

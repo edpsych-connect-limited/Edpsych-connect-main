@@ -18,7 +18,7 @@ export interface User {
     firstName: string;
     lastName: string;
     avatar?: string;
-    preferences: Record<string, any>;
+    preferences: Record<string, unknown>;
   };
   metadata: {
     createdAt: Date;
@@ -28,6 +28,16 @@ export interface User {
     isActive: boolean;
     requiresPasswordChange: boolean;
   };
+}
+
+// JWT Payload types
+interface JWTPayload {
+  sub: string;
+  type: 'access' | 'refresh';
+  tenantId?: string;
+  roles?: string[];
+  iat?: number;
+  exp?: number;
 }
 
 export interface AuthTokens {
@@ -245,7 +255,7 @@ class ServerAuthService {
   async refreshToken(refreshToken: string): Promise<AuthTokens | null> {
     try {
       // Verify refresh token
-      const decoded = jwt.verify(refreshToken, this.JWT_REFRESH_SECRET) as any;
+      const decoded = jwt.verify(refreshToken, this.JWT_REFRESH_SECRET) as JWTPayload;
       if (decoded.type !== 'refresh') {
         return null;
       }
@@ -280,7 +290,7 @@ class ServerAuthService {
    */
   async verifyToken(token: string): Promise<User | null> {
     try {
-      const decoded = jwt.verify(token, this.JWT_SECRET) as any;
+      const decoded = jwt.verify(token, this.JWT_SECRET) as JWTPayload;
       if (decoded.type !== 'access') {
         return null;
       }
@@ -388,7 +398,7 @@ class ServerAuthService {
   /**
    * Create API response with authentication
    */
-  createAuthResponse(user: User, tokens: AuthTokens, options: { status?: number; data?: any } = {}): NextResponse {
+  createAuthResponse(user: User, tokens: AuthTokens, options: { status?: number; data?: Record<string, unknown> } = {}): NextResponse {
     const cookies = this.createAuthCookies(tokens);
 
     const response = NextResponse.json({
