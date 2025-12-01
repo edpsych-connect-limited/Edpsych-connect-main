@@ -7,13 +7,14 @@
  */
 
 import React from 'react';
-import HelpCenter from '@/components/help/HelpCenter';
+import EnterpriseHelpCenter from '@/components/help/EnterpriseHelpCenter';
 
 export const metadata = {
-  title: 'Help Center | EdPsych Connect',
-  description: 'Guides, tutorials, and support for EdPsych Connect.',
+  title: 'Help Centre | EdPsych Connect World',
+  description: 'Enterprise-grade support centre with AI-powered assistance, comprehensive guides, video tutorials, and 24/7 help for EdPsych Connect World platform.',
+  keywords: ['help', 'support', 'tutorials', 'guides', 'FAQ', 'EdPsych Connect', 'AI assistant'],
 };
 
 export default function HelpPage() {
-  return <HelpCenter />;
+  return <EnterpriseHelpCenter />;
 }
