@@ -56,7 +56,7 @@ export default function InterventionsPage() {
         setInterventions(data.interventions || []);
       }
     } catch (_error) {
-      console.error('Failed to load interventions:', error);
+      console.error('Failed to load interventions:', _error);
     } finally {
       setLoading(false);
     }

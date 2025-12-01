@@ -102,8 +102,8 @@ export const TenantProvider: React.FC<TenantProviderProps> = ({
           setTenant(detectedTenant);
         }
       } catch (_err) {
-        console.error('Error detecting tenant:', err);
-        setError(err instanceof Error ? err : new Error('Unknown error detecting tenant'));
+        console.error('Error detecting tenant:', _err);
+        setError(_err instanceof Error ? _err : new Error('Unknown error detecting tenant'));
       } finally {
         setLoading(false);
       }

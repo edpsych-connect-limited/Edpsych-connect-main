@@ -148,7 +148,7 @@ const BetaRegistrationForm: React.FC = () => {
       }, 2000);
       
     } catch (_err) {
-      const message = err instanceof Error ? err.message : 'An error occurred during registration';
+      const message = _err instanceof Error ? _err.message : 'An error occurred during registration';
       setError(message);
     } finally {
       setLoading(false);

@@ -37,7 +37,7 @@ export const BattleRoyaleMode: React.FC = () => {
         }));
         setPlayers(enriched);
       } catch (_err) {
-        console.error("Failed to load players", err);
+        console.error("Failed to load players", _err);
       } finally {
         setLoading(false);
       }

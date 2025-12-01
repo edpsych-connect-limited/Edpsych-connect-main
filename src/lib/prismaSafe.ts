@@ -51,7 +51,7 @@ try {
   }
   prisma = (global as any).prismaSafe;
 } catch (_err) {
-  logger.error('❌ Prisma client failed to initialize. Database connectivity required for production.', err);
+  logger.error('❌ Prisma client failed to initialize. Database connectivity required for production.', _err);
   throw new Error('Critical: Prisma client initialization failed. Check DATABASE_URL and Prisma configuration.');
 }
 

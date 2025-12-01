@@ -117,7 +117,7 @@ export default function SignupPage() {
         setError(data.error || 'Failed to create account. Please try again.');
       }
     } catch (_err) {
-      console.error('Signup Error:', err);
+      console.error('Signup Error:', _err);
       setError('An error occurred. Please try again later.');
     } finally {
       setIsLoading(false);

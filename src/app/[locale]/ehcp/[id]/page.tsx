@@ -125,8 +125,8 @@ export default function EHCPDetailPage() {
       const data = await response.json();
       setEhcp(data.ehcp);
     } catch (_err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-      console.error('Error fetching EHCP:', err);
+      setError(_err instanceof Error ? _err.message : 'An error occurred');
+      console.error('Error fetching EHCP:', _err);
     } finally {
       setLoading(false);
     }
@@ -173,7 +173,7 @@ export default function EHCPDetailPage() {
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
     } catch (_err) {
-      console.error('Export error:', err);
+      console.error('Export error:', _err);
       alert('Failed to export PDF');
     } finally {
       setExporting(false);

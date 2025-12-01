@@ -107,7 +107,7 @@ const ActivityLogs: React.FC<ActivityLogsProps> = ({
       setLogs(data.logs || []);
       setTotalPages(data.totalPages || 1);
     } catch (_err) {
-      console.error('Error fetching activity logs:', err);
+      console.error('Error fetching activity logs:', _err);
       setError(err instanceof Error ? err.message : 'An error occurred while loading activity logs');
     } finally {
       setLoading(false);

@@ -88,7 +88,7 @@ export default function EHCPListPage() {
       setIsExporting(true);
       await downloadEHCPPDF(ehcp as any);
     } catch (_err) {
-      console.error('Error exporting PDF:', err);
+      console.error('Error exporting PDF:', _err);
       setError('Failed to export EHCP as PDF');
     } finally {
       setIsExporting(false);
@@ -114,7 +114,7 @@ export default function EHCPListPage() {
       setSelectedEHCPs(new Set());
       alert(`Successfully exported ${selectedEHCPsArray.length} EHCP(s)`);
     } catch (_err) {
-      console.error('Error bulk exporting PDFs:', err);
+      console.error('Error bulk exporting PDFs:', _err);
       setError('Failed to export selected EHCPs');
     } finally {
       setIsExporting(false);
@@ -165,8 +165,8 @@ export default function EHCPListPage() {
       setEhcps(data.ehcps || []);
       setPagination(data.pagination);
     } catch (_err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-      console.error('Error fetching EHCPs:', err);
+      setError(_err instanceof Error ? _err.message : 'An error occurred');
+      console.error('Error fetching EHCPs:', _err);
     } finally {
       setLoading(false);
     }

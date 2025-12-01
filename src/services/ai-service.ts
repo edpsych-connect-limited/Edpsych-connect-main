@@ -506,8 +506,8 @@ export class AIService {
 
       return result;
     } catch (_err) {
-      const error = err instanceof Error ? err.message : 'Unknown error';
-      logger.error('Error analyzing challenge:', err as Error);
+      const error = _err instanceof Error ? _err.message : 'Unknown error';
+      logger.error('Error analyzing challenge:', _err as Error);
 
       // Track failed analytics event
       await aiAnalytics.trackEvent({

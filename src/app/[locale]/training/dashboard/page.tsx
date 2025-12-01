@@ -111,7 +111,7 @@ export default function TrainingDashboardPage() {
       setTotalCpdHours(Math.round(completedCpdHours * 10) / 10);
 
     } catch (_error) {
-      console.error('Error loading dashboard data:', error);
+      console.error('Error loading dashboard data:', _error);
     } finally {
       setLoading(false);
     }

@@ -86,7 +86,7 @@ export default function TutoringInterfaceSimple() {
       const data = await response.json();
       setResponse(data.result);
     } catch (_err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(_err instanceof Error ? _err.message : 'An error occurred');
     } finally {
       setIsLoading(false);
     }

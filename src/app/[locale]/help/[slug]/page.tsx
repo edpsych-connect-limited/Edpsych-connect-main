@@ -40,7 +40,7 @@ export default function HelpArticlePage() {
       setArticle(data.article);
       setRelated(data.relatedArticles || []);
     } catch (_err) {
-      console.error('Failed to load article:', err);
+      console.error('Failed to load article:', _err);
       setError('Failed to load article');
     } finally {
       setLoading(false);
@@ -57,7 +57,7 @@ export default function HelpArticlePage() {
 
       setFeedbackGiven(true);
     } catch (_err) {
-      console.error('Failed to submit feedback:', err);
+      console.error('Failed to submit feedback:', _err);
     }
   };
 

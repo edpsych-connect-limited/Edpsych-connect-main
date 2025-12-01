@@ -43,7 +43,7 @@ const SubscriptionManager: React.FC<SubscriptionManagerProps> = ({ className = '
       const { url } = await response.json();
       window.location.href = url;
     } catch (_err) {
-      console.error('Error creating portal session:', err);
+      console.error('Error creating portal session:', _err);
       setError('There was an error opening the subscription management portal. Please try again.');
     } finally {
       setIsLoading(false);

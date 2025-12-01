@@ -66,7 +66,7 @@ const RecommendationDashboard: React.FC = () => {
         throw new Error(data.message || 'Failed to fetch recommendations');
       }
     } catch (_err) {
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      setError(_err instanceof Error ? _err.message : 'An unknown error occurred');
       setToast({
         message: err instanceof Error ? err.message : 'An unknown error occurred',
         type: 'error'

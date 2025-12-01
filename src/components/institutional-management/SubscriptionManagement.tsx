@@ -186,8 +186,8 @@ const SubscriptionManagement: React.FC<SubscriptionManagementProps> = ({
         setSelectedPlan(data.planId);
       }
     } catch (_err) {
-      console.error('Error fetching subscription:', err);
-      setError(err instanceof Error ? err.message : 'An error occurred while loading subscription data');
+      console.error('Error fetching subscription:', _err);
+      setError(_err instanceof Error ? _err.message : 'An error occurred while loading subscription data');
     } finally {
       setLoading(false);
     }
@@ -257,7 +257,7 @@ const SubscriptionManagement: React.FC<SubscriptionManagementProps> = ({
       
       // Show success message
     } catch (_err) {
-      console.error('Error updating subscription:', err);
+      console.error('Error updating subscription:', _err);
       setError(err instanceof Error ? err.message : 'An error occurred while updating the subscription');
     }
   };

@@ -111,7 +111,7 @@ export async function GET(request: NextRequest) {
       total,
     });
   } catch (_error) {
-    console.error('[Courses API] Error:', error);
+    console.error('[Courses API] Error:', _error);
     return NextResponse.json(
       { error: 'Failed to fetch courses' },
       { status: 500 }

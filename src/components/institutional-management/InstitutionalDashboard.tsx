@@ -96,8 +96,8 @@ const InstitutionalDashboard: React.FC<{ id?: string }> = ({ id }) => {
         setDepartments(deptData);
         
       } catch (_err) {
-        console.error('Error fetching institution data:', err);
-        setError(err instanceof Error ? err.message : 'An error occurred while loading institution data');
+        console.error('Error fetching institution data:', _err);
+        setError(_err instanceof Error ? _err.message : 'An error occurred while loading institution data');
       } finally {
         setLoading(false);
       }

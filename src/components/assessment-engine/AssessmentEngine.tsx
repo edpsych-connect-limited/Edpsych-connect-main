@@ -167,7 +167,7 @@ const AssessmentEngine: React.FC<AssessmentEngineProps> = ({
         
         setLoading(false);
       } catch (_err) {
-        console.error('Error fetching assessment:', err);
+        console.error('Error fetching assessment:', _err);
         setError('Failed to load the assessment. Please try again.');
         setLoading(false);
       }
@@ -272,7 +272,7 @@ const AssessmentEngine: React.FC<AssessmentEngineProps> = ({
         router.push(`/assessments/${assessmentId}/results/${result.resultId}`);
       }, 2000);
     } catch (_err) {
-      console.error('Error submitting assessment:', err);
+      console.error('Error submitting assessment:', _err);
       toast.error('Failed to submit assessment. Please try again.');
     } finally {
       setIsSubmitting(false);

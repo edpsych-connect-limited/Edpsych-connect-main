@@ -247,8 +247,8 @@ export default function EHCPWizardForm({
 
       alert('Draft saved successfully!');
     } catch (_err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-      console.error('Error saving draft:', err);
+      setError(_err instanceof Error ? _err.message : 'An error occurred');
+      console.error('Error saving draft:', _err);
     } finally {
       setSaving(false);
     }
@@ -287,8 +287,8 @@ export default function EHCPWizardForm({
       alert('EHCP submitted successfully!');
       router.push(`/ehcp/${result.ehcp.id}`);
     } catch (_err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-      console.error('Error submitting EHCP:', err);
+      setError(_err instanceof Error ? _err.message : 'An error occurred');
+      console.error('Error submitting EHCP:', _err);
     } finally {
       setSaving(false);
     }

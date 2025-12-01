@@ -48,7 +48,7 @@ export default function BlogPostPage() {
         setPost(data.post);
         setRelatedPosts(data.relatedPosts || []);
       } catch (_err) {
-        console.error('Failed to load post:', err);
+        console.error('Failed to load post:', _err);
         setError('Failed to load post');
       } finally {
         setLoading(false);
@@ -88,7 +88,7 @@ export default function BlogPostPage() {
         setCommentSubmitted(false);
       }, 5000);
     } catch (_err) {
-      console.error('Failed to submit comment:', err);
+      console.error('Failed to submit comment:', _err);
       alert('Failed to submit comment. Please try again.');
     } finally {
       setSubmittingComment(false);

@@ -96,7 +96,7 @@ export default function AIAnalyticsDashboard() {
       const analyticsData = await response.json();
       setData(analyticsData);
     } catch (_err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch analytics data');
+      setError(_err instanceof Error ? _err.message : 'Failed to fetch analytics data');
     } finally {
       setLoading(false);
     }

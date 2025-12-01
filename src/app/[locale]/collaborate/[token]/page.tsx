@@ -45,7 +45,7 @@ export default function CollaboratePage() {
         const data = await response.json();
         setFormData(data.formData);
       } catch (_err) {
-        console.error('Error loading form:', err);
+        console.error('Error loading form:', _err);
         setError('Failed to load the form. Please check your internet connection and try again.');
       } finally {
         setLoading(false);
@@ -99,7 +99,7 @@ export default function CollaboratePage() {
 
       return true;
     } catch (_err) {
-      console.error('Failed to save draft:', err);
+      console.error('Failed to save draft:', _err);
       return false;
     }
   };

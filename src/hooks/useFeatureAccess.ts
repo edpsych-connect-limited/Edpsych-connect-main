@@ -66,7 +66,7 @@ export function useFeatureAccess(feature: Feature) {
         setTier(data.tier);
         setError(data.reason);
       } catch (_err) {
-        console.error('Error checking feature access:', err);
+        console.error('Error checking feature access:', _err);
         setHasAccess(false);
         setError('Failed to verify access');
       } finally {

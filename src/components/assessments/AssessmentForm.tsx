@@ -116,7 +116,7 @@ export default function AssessmentForm({
       );
       router.push(`/assessments/${result.assessment.id}`);
     } catch (_err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(_err instanceof Error ? _err.message : 'An error occurred');
       console.error('Error saving assessment:', err);
     } finally {
       setSaving(false);

@@ -106,7 +106,7 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
         setSelectedStudent(data.students[0]);
       }
     } catch (_err) {
-      setError(err instanceof Error ? err.message : 'Unknown error');
+      setError(_err instanceof Error ? _err.message : 'Unknown error');
     } finally {
       setLoading(false);
     }

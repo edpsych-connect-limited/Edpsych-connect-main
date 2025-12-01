@@ -146,7 +146,7 @@ export default function IntegrationDashboard() {
       setLogs(data.logs);
       setShowLogs(true);
     } catch (_err) {
-      console.error('Failed to fetch logs', err);
+      console.error('Failed to fetch logs', _err);
     }
   };
 

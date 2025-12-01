@@ -58,8 +58,8 @@ const DepartmentManagement: React.FC<DepartmentManagementProps> = ({
         const data = await response.json();
         setDepartments(data);
       } catch (_err) {
-        console.error('Error fetching departments:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load departments');
+        console.error('Error fetching departments:', _err);
+        setError(_err instanceof Error ? _err.message : 'Failed to load departments');
       } finally {
         setLoading(false);
       }
@@ -88,7 +88,7 @@ const DepartmentManagement: React.FC<DepartmentManagementProps> = ({
       });
       setShowAddModal(false);
     } catch (_err) {
-      console.error('Error adding department:', err);
+      console.error('Error adding department:', _err);
       setError('Failed to add department');
     } finally {
       setLoading(false);
@@ -109,7 +109,7 @@ const DepartmentManagement: React.FC<DepartmentManagementProps> = ({
       setShowEditModal(false);
       setCurrentDepartment(null);
     } catch (_err) {
-      console.error('Error updating department:', err);
+      console.error('Error updating department:', _err);
       setError('Failed to update department');
     } finally {
       setLoading(false);
@@ -128,7 +128,7 @@ const DepartmentManagement: React.FC<DepartmentManagementProps> = ({
       setShowDeleteModal(false);
       setCurrentDepartment(null);
     } catch (_err) {
-      console.error('Error deleting department:', err);
+      console.error('Error deleting department:', _err);
       setError('Failed to delete department');
     } finally {
       setLoading(false);

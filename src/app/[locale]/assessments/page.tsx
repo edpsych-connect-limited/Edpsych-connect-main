@@ -106,8 +106,8 @@ export default function AssessmentListPage() {
       setAssessments(data.assessments || []);
       setPagination(data.pagination);
     } catch (_err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-      console.error('Error fetching assessments:', err);
+      setError(_err instanceof Error ? _err.message : 'An error occurred');
+      console.error('Error fetching assessments:', _err);
     } finally {
       setLoading(false);
     }

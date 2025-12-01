@@ -68,7 +68,7 @@ export default function AgentPerformanceAnalytics() {
       const data = await response.json();
       setAgents(data.agents || []);
     } catch (_err) {
-      setError(err instanceof Error ? err.message : 'Unknown error');
+      setError(_err instanceof Error ? _err.message : 'Unknown error');
     } finally {
       setLoading(false);
     }

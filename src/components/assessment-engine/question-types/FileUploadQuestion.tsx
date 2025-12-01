@@ -120,7 +120,7 @@ const FileUploadQuestion: React.FC<FileUploadQuestionProps> = ({
       // Simulate upload delay
       await new Promise(resolve => setTimeout(resolve, 500));
     } catch (_err) {
-      console.error('Error handling file:', err);
+      console.error('Error handling file:', _err);
       setError('Failed to process file. Please try again.');
     } finally {
       setLoading(false);
