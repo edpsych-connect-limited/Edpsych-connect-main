@@ -61,12 +61,21 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
   const [videoSource, setVideoSource] = useState<'loading' | 'local' | 'heygen' | 'error'>('loading');
   const [_errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Fetch video URL with priority: Local MP4 > HeyGen Embed
-  // In production (Vercel), local files may not be available (size limits)
-  // So we check if the local file is accessible, fall back to HeyGen if not
+  // Fetch video URL with priority: HeyGen Embed > Local MP4
+  // In production (Vercel), local files are NOT available (100+ MP4s exceed limits)
+  // So we ALWAYS try HeyGen first - these are reliable CDN-hosted videos
   useEffect(() => {
     async function findVideoSource() {
-      // 1. Try local file FIRST (these are in public/content/training_videos/)
+      // 1. Try HeyGen FIRST (reliable, CDN-hosted, works on Vercel)
+      const heygenId = HEYGEN_VIDEO_IDS[videoKey];
+      if (heygenId) {
+        // Use HeyGen share URL (more reliable than embed for iframes)
+        setVideoUrl(`https://app.heygen.com/share/${heygenId}`);
+        setVideoSource('heygen');
+        return;
+      }
+
+      // 2. Fallback to local file (only works in dev, not on Vercel)
       const localPath = LOCAL_VIDEO_PATHS[videoKey];
       if (localPath) {
         // Check if local file actually exists (HEAD request to avoid downloading)
@@ -78,18 +87,9 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
             return;
           }
         } catch {
-          // Local file not accessible, will try HeyGen fallback
-          console.log(`Local video not accessible: ${localPath}, trying HeyGen fallback`);
+          // Local file not accessible
+          console.log(`Local video not accessible: ${localPath}`);
         }
-      }
-
-      // 2. Fallback to HeyGen embed URL (for videos not available locally)
-      const heygenId = HEYGEN_VIDEO_IDS[videoKey];
-      if (heygenId) {
-        // Use HeyGen embed directly - reliable CDN-hosted videos
-        setVideoUrl(`https://app.heygen.com/embed/${heygenId}`);
-        setVideoSource('heygen');
-        return;
       }
 
       // No video source available
@@ -174,9 +174,9 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
             </button>
           ) : videoSource === 'heygen' ? (
             <iframe
-              className="absolute inset-0 w-full h-full"
+              className="absolute inset-0 w-full h-full border-0"
               src={videoUrl || ''}
-              allow="autoplay; encrypted-media"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
               allowFullScreen
               title={title}
             />
@@ -232,9 +232,9 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
         ) : videoSource === 'heygen' ? (
           <>
             <iframe
-              className="absolute inset-0 w-full h-full"
+              className="absolute inset-0 w-full h-full border-0"
               src={videoUrl || ''}
-              allow="autoplay; encrypted-media"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
               allowFullScreen
               title={title}
             />
