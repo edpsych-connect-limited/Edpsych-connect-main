@@ -11,12 +11,43 @@
  * - Visual selection feedback
  * - WCAG 2.1 AA compliant
  * - Responsive grid layout
+ * - Role-specific welcome videos
  */
 
 import React, { useState } from 'react';
-import { GraduationCap, School, BookOpen, Building, Search, Edit3, Check } from 'lucide-react';
+import { GraduationCap, School, BookOpen, Building, Search, Edit3, Check, Play } from 'lucide-react';
 import { useOnboarding } from '../OnboardingProvider';
 import { ROLE_CONFIGS as _ROLE_CONFIGS } from '@/types/onboarding';
+import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
+
+// Role-specific video configuration - mapped to actual video IDs
+const ROLE_VIDEOS: Record<string, { id: string; title: string; subtitle: string }> = {
+  'educational-psychologist': {
+    id: 'onboard-ep-welcome',
+    title: 'Welcome, Educational Psychologist',
+    subtitle: 'Discover how EdPsych Connect streamlines your assessment workflow'
+  },
+  'senco': {
+    id: 'onboard-senco-welcome',
+    title: 'Welcome, SENCO',
+    subtitle: 'Your complete SEND provision management toolkit'
+  },
+  'teacher': {
+    id: 'onboard-teacher-welcome',
+    title: 'Welcome, Teacher',
+    subtitle: 'Simple tools to support every learner in your classroom'
+  },
+  'local-authority': {
+    id: 'onboard-la-welcome',
+    title: 'Welcome, LA Officer',
+    subtitle: 'Multi-school oversight and compliance made effortless'
+  },
+  'researcher': {
+    id: 'tier-researcher', // Uses pricing tier video as fallback
+    title: 'Welcome, Researcher',
+    subtitle: 'Ethical data access and research-grade analytics'
+  }
+};
 
 export function Step2RoleSelection() {
   const { state, updateStep } = useOnboarding();
@@ -337,12 +368,42 @@ export function Step2RoleSelection() {
               </p>
               <p className="text-sm text-gray-600">
                 {selectedRole.startsWith('custom:')
-                  ? `We'll customize your experience for ${customRole}.`
-                  : `Your dashboard will be optimized for ${roles.find(r => r.id === selectedRole)?.name.toLowerCase()} workflows.`
+                  ? `We'll customise your experience for ${customRole}.`
+                  : `Your dashboard will be optimised for ${roles.find(r => r.id === selectedRole)?.name.toLowerCase()} workflows.`
                 }
               </p>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Role-Specific Welcome Video */}
+      {selectedRole && !selectedRole.startsWith('custom:') && ROLE_VIDEOS[selectedRole] && (
+        <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
+              <Play className="w-5 h-5 text-indigo-600" aria-hidden="true" />
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">
+                {ROLE_VIDEOS[selectedRole].title}
+              </h3>
+              <p className="text-sm text-gray-600">
+                {ROLE_VIDEOS[selectedRole].subtitle}
+              </p>
+            </div>
+          </div>
+          <div className="rounded-lg overflow-hidden">
+            <VideoTutorialPlayer
+              videoKey={ROLE_VIDEOS[selectedRole].id}
+              title={ROLE_VIDEOS[selectedRole].title}
+              autoPlay={false}
+              className="w-full"
+            />
+          </div>
+          <p className="mt-3 text-xs text-gray-500 text-center">
+            Watch this 2-minute introduction to see what&apos;s tailored for your role
+          </p>
         </div>
       )}
 

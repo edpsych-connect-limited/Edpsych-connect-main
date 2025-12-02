@@ -22,6 +22,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/lib/auth/hooks';
+import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
 import { 
   Search, 
   Book, 
@@ -910,39 +911,46 @@ const HELP_CATEGORIES = [
 
 const FEATURED_VIDEOS = [
   {
-    id: 'platform-intro',
+    id: 'onboarding-welcome',
+    videoKey: 'onboarding-welcome', // Maps to HEYGEN_VIDEO_IDS
     title: 'Welcome to EdPsych Connect World',
-    duration: '5:30',
-    thumbnail: '/images/thumbnails/welcome.jpg',
+    duration: '3:30',
     category: 'Getting Started'
   },
   {
-    id: 'stealth-assessment',
-    title: 'Running Your First Stealth Assessment',
-    duration: '8:45',
-    thumbnail: '/images/thumbnails/stealth.jpg',
-    category: 'Assessments'
+    id: 'value-enterprise-platform',
+    videoKey: 'value-enterprise-platform',
+    title: 'The Complete Platform Overview',
+    duration: '5:00',
+    category: 'Getting Started'
   },
   {
-    id: 'self-driving-senco',
-    title: 'The Self-Driving SENCO Explained',
-    duration: '10:20',
-    thumbnail: '/images/thumbnails/senco.jpg',
+    id: 'feature-nclb-engine',
+    videoKey: 'feature-nclb-engine',
+    title: 'No Child Left Behind Engine',
+    duration: '4:30',
+    category: 'Features'
+  },
+  {
+    id: 'addon-ehcp-accelerator',
+    videoKey: 'addon-ehcp-accelerator',
+    title: 'EHCP Accelerator Explained',
+    duration: '4:00',
+    category: 'EHCP'
+  },
+  {
+    id: 'feature-intervention-library',
+    videoKey: 'feature-intervention-library',
+    title: 'Evidence-Based Intervention Library',
+    duration: '3:45',
     category: 'Interventions'
   },
   {
-    id: 'research-foundation',
-    title: 'The Science Behind Our Platform',
-    duration: '15:00',
-    thumbnail: '/images/thumbnails/research.jpg',
-    category: 'Research'
-  },
-  {
-    id: 'coding-curriculum',
-    title: 'Coding Curriculum for Neurodiverse Learners',
-    duration: '12:30',
-    thumbnail: '/images/thumbnails/coding.jpg',
-    category: 'Coding'
+    id: 'trust-security',
+    videoKey: 'trust-security',
+    title: 'Enterprise Security & GDPR',
+    duration: '3:30',
+    category: 'Security'
   }
 ];
 
@@ -1321,17 +1329,36 @@ function ArticleCard({ article }: { article: typeof POPULAR_ARTICLES[0] }) {
 }
 
 function VideoCard({ video }: { video: typeof FEATURED_VIDEOS[0] }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+
   return (
-    <div className="bg-slate-800/50 backdrop-blur-lg border border-slate-700 hover:border-indigo-500/50 rounded-xl overflow-hidden transition-all group cursor-pointer">
+    <div className="bg-slate-800/50 backdrop-blur-lg border border-slate-700 hover:border-indigo-500/50 rounded-xl overflow-hidden transition-all group">
       <div className="aspect-video bg-slate-700 relative">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-16 h-16 bg-indigo-600/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-            <Play className="w-6 h-6 text-white ml-1" />
+        {isPlaying ? (
+          <VideoTutorialPlayer
+            videoKey={video.videoKey}
+            title={video.title}
+            duration={video.duration}
+            autoPlay={true}
+            compact={true}
+            className="w-full h-full"
+          />
+        ) : (
+          <button
+            onClick={() => setIsPlaying(true)}
+            className="absolute inset-0 flex items-center justify-center cursor-pointer"
+            aria-label={`Play ${video.title}`}
+          >
+            <div className="w-16 h-16 bg-indigo-600/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+              <Play className="w-6 h-6 text-white ml-1" />
+            </div>
+          </button>
+        )}
+        {!isPlaying && (
+          <div className="absolute bottom-2 right-2 bg-black/70 px-2 py-1 rounded text-xs text-white">
+            {video.duration}
           </div>
-        </div>
-        <div className="absolute bottom-2 right-2 bg-black/70 px-2 py-1 rounded text-xs text-white">
-          {video.duration}
-        </div>
+        )}
       </div>
       <div className="p-4">
         <span className="text-xs text-indigo-400 mb-2 block">{video.category}</span>

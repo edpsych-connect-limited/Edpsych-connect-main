@@ -1,8 +1,20 @@
 'use client'
 
 /**
- * Pricing Page
- * Display subscription plans and pricing
+ * Pricing Page - Enterprise-Grade with Video Integration
+ * 
+ * Features:
+ * - Hero video explaining platform value
+ * - Tier-specific explainer videos
+ * - Add-on feature videos
+ * - Feature deep-dive videos
+ * - Trust & comparison videos
+ * - Role-specific pricing for all user types
+ * 
+ * Video Integration (December 2025):
+ * - 39 professionally produced HeyGen videos
+ * - UK professional avatar (Adrian) with Oliver Bennett voice
+ * - Serves as "sales team" - zero-touch self-service
  */
 
 // Force dynamic rendering for auth-required pages
@@ -17,12 +29,62 @@ import {
   getAnnualSavingsPercentage,
   type SubscriptionPlan,
 } from '@/lib/subscription/plans';
+import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
+import { Play, Shield, Zap, Users, ArrowRight, CheckCircle, Star, Building2, GraduationCap, Heart, Briefcase, FlaskConical } from 'lucide-react';
+
+// Video configuration for pricing page
+const PRICING_VIDEOS = {
+  // Hero/Value Proposition
+  hero: { key: 'value-enterprise-platform', title: 'The £2.35 Million Platform', duration: '2:30' },
+  problem: { key: 'value-edtech-problem', title: 'The EdTech Problem', duration: '1:45' },
+  solution: { key: 'value-complete-solution', title: 'The Complete Solution', duration: '2:00' },
+  
+  // Tier Videos
+  tiers: {
+    'parent-plus': { key: 'tier-parent-plus', title: 'Parent Plus Plan', duration: '1:15' },
+    'teacher-individual': { key: 'tier-teacher-individual', title: 'Teacher Individual Plan', duration: '1:30' },
+    'schools': { key: 'tier-schools-overview', title: 'Schools Overview', duration: '2:00' },
+    'mat-enterprise': { key: 'tier-mat-enterprise', title: 'MAT Enterprise', duration: '2:15' },
+    'local-authority': { key: 'tier-local-authority', title: 'Local Authority', duration: '2:30' },
+    'researcher': { key: 'tier-researcher', title: 'Research Access', duration: '1:45' },
+    'trainee-ep': { key: 'tier-trainee-ep', title: 'Trainee EP Plan', duration: '1:30' },
+  },
+  
+  // Add-ons
+  addons: [
+    { key: 'addon-ai-power-pack', title: 'AI Power Pack', duration: '1:30', price: '£49/mo' },
+    { key: 'addon-ehcp-accelerator', title: 'EHCP Accelerator', duration: '1:45', price: '£79/mo' },
+    { key: 'addon-cpd-library', title: 'Unlimited CPD Library', duration: '1:15', price: '£29/mo' },
+    { key: 'addon-api-access', title: 'API Access', duration: '1:30', price: '£199/mo' },
+    { key: 'addon-white-label', title: 'White Label', duration: '1:45', price: '£499/mo' },
+    { key: 'addon-priority-support', title: 'Priority Support', duration: '1:00', price: '£99/mo' },
+  ],
+  
+  // Features
+  features: [
+    { key: 'feature-nclb-engine', title: 'No Child Left Behind Engine', duration: '2:00' },
+    { key: 'feature-battle-royale-pricing', title: 'Battle Royale Learning', duration: '1:45' },
+    { key: 'feature-byod-architecture', title: 'BYOD Architecture', duration: '2:15' },
+    { key: 'feature-intervention-library', title: '535+ Intervention Library', duration: '1:30' },
+  ],
+  
+  // Trust & Comparison
+  trust: [
+    { key: 'trust-security', title: 'Security & Compliance', duration: '1:30' },
+    { key: 'trust-built-by-practitioners', title: 'Built by Practitioners', duration: '1:45' },
+  ],
+  comparison: [
+    { key: 'compare-true-cost', title: 'True Cost Analysis', duration: '2:00' },
+    { key: 'compare-switching', title: 'Easy Switching', duration: '1:30' },
+  ],
+};
 
 export default function PricingPage() {
   const router = useRouter();
   const { user, isLoading: authLoading } = useAuth();
-
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const [selectedTier, setSelectedTier] = useState<string | null>(null);
 
   // Show loading during authentication check
   if (authLoading) {
@@ -42,44 +104,191 @@ export default function PricingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Choose Your Plan
-          </h1>
-          <p className="text-xl text-gray-600 mb-8">
-            Professional tools for Educational Psychologists
-          </p>
-
-          {/* Billing Period Toggle */}
-          <div className="inline-flex items-center bg-white rounded-lg shadow-md p-1">
-            <button
-              onClick={() => setBillingPeriod('monthly')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
-                billingPeriod === 'monthly'
-                  ? 'bg-blue-600 text-white'
-                  : 'text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              Monthly
-            </button>
-            <button
-              onClick={() => setBillingPeriod('annual')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
-                billingPeriod === 'annual'
-                  ? 'bg-blue-600 text-white'
-                  : 'text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              Annual
-              <span className="ml-2 px-2 py-1 bg-green-100 text-green-700 rounded text-xs">
-                Save 17%
-              </span>
-            </button>
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      {/* ================================================================== */}
+      {/* HERO SECTION WITH VIDEO */}
+      {/* ================================================================== */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-indigo-900 via-purple-900 to-indigo-800 text-white">
+        <div className="absolute inset-0 bg-[url('/images/grid-pattern.svg')] opacity-10" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 relative">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Text Content */}
+            <div>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm mb-6">
+                <Star className="w-4 h-4 text-yellow-400" />
+                <span>Enterprise-grade platform, accessible pricing</span>
+              </div>
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+                Professional Tools for{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">
+                  Every Budget
+                </span>
+              </h1>
+              <p className="text-xl text-indigo-100 mb-8 leading-relaxed">
+                From individual teachers to Local Authorities - we have a plan that fits. 
+                Watch our 2-minute overview to see what £2.35M of development delivers.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <button
+                  onClick={() => setActiveVideo('hero')}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-indigo-900 rounded-lg font-semibold hover:bg-indigo-50 transition-colors"
+                >
+                  <Play className="w-5 h-5" />
+                  Watch Platform Overview
+                </button>
+                <a
+                  href="#pricing"
+                  className="inline-flex items-center gap-2 px-6 py-3 border-2 border-white/30 rounded-lg font-semibold hover:bg-white/10 transition-colors"
+                >
+                  View Plans
+                  <ArrowRight className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+            
+            {/* Hero Video */}
+            <div className="relative">
+              {activeVideo === 'hero' ? (
+                <VideoTutorialPlayer
+                  videoKey={PRICING_VIDEOS.hero.key}
+                  title={PRICING_VIDEOS.hero.title}
+                  duration={PRICING_VIDEOS.hero.duration}
+                  description="Discover the enterprise platform built by practitioners, for practitioners"
+                  autoPlay
+                />
+              ) : (
+                <button
+                  onClick={() => setActiveVideo('hero')}
+                  className="relative w-full aspect-video bg-gradient-to-br from-indigo-800 to-purple-800 rounded-2xl overflow-hidden group shadow-2xl"
+                >
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                      <Play className="w-8 h-8 text-indigo-600 ml-1" />
+                    </div>
+                  </div>
+                  <div className="absolute bottom-4 left-4 right-4 text-left">
+                    <p className="text-white/90 font-semibold">{PRICING_VIDEOS.hero.title}</p>
+                    <p className="text-white/60 text-sm">{PRICING_VIDEOS.hero.duration} • AI Presenter</p>
+                  </div>
+                </button>
+              )}
+            </div>
           </div>
         </div>
+      </section>
+
+      {/* ================================================================== */}
+      {/* PROBLEM/SOLUTION VIDEO SECTION */}
+      {/* ================================================================== */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Why EdPsych Connect World?
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Watch these short videos to understand the problem we solve and how we deliver value
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            <VideoTutorialPlayer
+              videoKey={PRICING_VIDEOS.problem.key}
+              title={PRICING_VIDEOS.problem.title}
+              duration={PRICING_VIDEOS.problem.duration}
+              description="The fragmented EdTech landscape is failing SEND professionals. Here's why."
+            />
+            <VideoTutorialPlayer
+              videoKey={PRICING_VIDEOS.solution.key}
+              title={PRICING_VIDEOS.solution.title}
+              duration={PRICING_VIDEOS.solution.duration}
+              description="One platform, every tool you need. See how we bring it all together."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================== */}
+      {/* ROLE-BASED PRICING NAVIGATION */}
+      {/* ================================================================== */}
+      <section id="pricing" className="py-16 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Pricing for Every Role
+            </h2>
+            <p className="text-xl text-gray-600 mb-8">
+              Select your role to see tailored pricing and watch the explainer video
+            </p>
+            
+            {/* Role Selection Pills */}
+            <div className="flex flex-wrap justify-center gap-3 mb-8">
+              {[
+                { id: 'parent-plus', label: 'Parent', icon: Heart },
+                { id: 'teacher-individual', label: 'Teacher', icon: GraduationCap },
+                { id: 'schools', label: 'School', icon: Building2 },
+                { id: 'mat-enterprise', label: 'MAT', icon: Building2 },
+                { id: 'local-authority', label: 'Local Authority', icon: Briefcase },
+                { id: 'researcher', label: 'Researcher', icon: FlaskConical },
+                { id: 'trainee-ep', label: 'Trainee EP', icon: Users },
+              ].map(({ id, label, icon: Icon }) => (
+                <button
+                  key={id}
+                  onClick={() => setSelectedTier(selectedTier === id ? null : id)}
+                  className={`inline-flex items-center gap-2 px-5 py-3 rounded-full font-medium transition-all ${
+                    selectedTier === id
+                      ? 'bg-indigo-600 text-white shadow-lg scale-105'
+                      : 'bg-white text-gray-700 hover:bg-indigo-50 border border-gray-200'
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          {/* Selected Tier Video */}
+          {selectedTier && PRICING_VIDEOS.tiers[selectedTier as keyof typeof PRICING_VIDEOS.tiers] && (
+            <div className="max-w-3xl mx-auto mb-12">
+              <VideoTutorialPlayer
+                videoKey={PRICING_VIDEOS.tiers[selectedTier as keyof typeof PRICING_VIDEOS.tiers].key}
+                title={PRICING_VIDEOS.tiers[selectedTier as keyof typeof PRICING_VIDEOS.tiers].title}
+                duration={PRICING_VIDEOS.tiers[selectedTier as keyof typeof PRICING_VIDEOS.tiers].duration}
+                description={`Everything you need to know about the ${PRICING_VIDEOS.tiers[selectedTier as keyof typeof PRICING_VIDEOS.tiers].title}`}
+                autoPlay
+              />
+            </div>
+          )}
+
+          {/* Billing Period Toggle */}
+          <div className="flex justify-center mb-8">
+            <div className="inline-flex items-center bg-white rounded-lg shadow-md p-1">
+              <button
+                onClick={() => setBillingPeriod('monthly')}
+                className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                  billingPeriod === 'monthly'
+                    ? 'bg-indigo-600 text-white'
+                    : 'text-gray-700 hover:bg-gray-100'
+                }`}
+              >
+                Monthly
+              </button>
+              <button
+                onClick={() => setBillingPeriod('annual')}
+                className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                  billingPeriod === 'annual'
+                    ? 'bg-indigo-600 text-white'
+                    : 'text-gray-700 hover:bg-gray-100'
+                }`}
+              >
+                Annual
+                <span className="ml-2 px-2 py-1 bg-green-100 text-green-700 rounded text-xs">
+                  Save 17%
+                </span>
+              </button>
+            </div>
+          </div>
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
@@ -93,8 +302,122 @@ export default function PricingPage() {
             />
           ))}
         </div>
+        </div>
+      </section>
+
+      {/* ================================================================== */}
+      {/* ADD-ON FEATURES WITH VIDEOS */}
+      {/* ================================================================== */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Powerful Add-Ons
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Extend your platform with premium capabilities. Watch each video to see exactly what you get.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {PRICING_VIDEOS.addons.map((addon) => (
+              <div key={addon.key} className="bg-slate-50 rounded-xl overflow-hidden border border-slate-200 hover:border-indigo-300 transition-colors">
+                <VideoTutorialPlayer
+                  videoKey={addon.key}
+                  title={addon.title}
+                  duration={addon.duration}
+                  compact
+                />
+                <div className="p-4 border-t border-slate-200 flex items-center justify-between">
+                  <span className="font-bold text-indigo-600">{addon.price}</span>
+                  <button className="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
+                    Add to plan →
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================== */}
+      {/* FEATURE DEEP DIVES WITH VIDEOS */}
+      {/* ================================================================== */}
+      <section className="py-16 bg-gradient-to-br from-indigo-50 to-purple-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Feature Deep Dives
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Explore our most powerful features in detail. These videos show you exactly how they work.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            {PRICING_VIDEOS.features.map((feature) => (
+              <VideoTutorialPlayer
+                key={feature.key}
+                videoKey={feature.key}
+                title={feature.title}
+                duration={feature.duration}
+                description={`Deep dive into ${feature.title} and see how it transforms your workflow`}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================== */}
+      {/* TRUST & COMPARISON SECTION */}
+      {/* ================================================================== */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Trust Videos */}
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <Shield className="w-6 h-6 text-green-600" />
+                Trust & Security
+              </h3>
+              <div className="space-y-6">
+                {PRICING_VIDEOS.trust.map((video) => (
+                  <VideoTutorialPlayer
+                    key={video.key}
+                    videoKey={video.key}
+                    title={video.title}
+                    duration={video.duration}
+                    compact
+                  />
+                ))}
+              </div>
+            </div>
+            
+            {/* Comparison Videos */}
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <Zap className="w-6 h-6 text-amber-600" />
+                Make the Switch
+              </h3>
+              <div className="space-y-6">
+                {PRICING_VIDEOS.comparison.map((video) => (
+                  <VideoTutorialPlayer
+                    key={video.key}
+                    videoKey={video.key}
+                    title={video.title}
+                    duration={video.duration}
+                    compact
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
         {/* Features Comparison */}
+        <section className="py-16 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-lg shadow-md p-8 mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
             Detailed Feature Comparison
@@ -219,10 +542,12 @@ export default function PricingPage() {
               >
                 <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
               </svg>
-              <span className="font-semibold">UK Data Centers</span>
+              <span className="font-semibold">UK Data Centres</span>
             </div>
           </div>
         </div>
+        </div>
+        </section>
       </div>
     </div>
   );
