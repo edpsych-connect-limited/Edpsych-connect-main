@@ -8,22 +8,40 @@
  * Run this script to set up the complete pricing structure in Stripe.
  * 
  * USAGE:
- * 1. Ensure STRIPE_SECRET_KEY is set in environment
+ * 1. Ensure STRIPE_SECRET_KEY is set in .env or environment
  * 2. Run: npx tsx tools/stripe-setup-2025.ts
  * 
  * IMPORTANT: This will create NEW products. Archive old products in Stripe Dashboard.
  */
 
 import Stripe from 'stripe';
+import * as dotenv from 'dotenv';
+import * as path from 'path';
+
+// Load environment variables from .env file
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
 
 // Check for Stripe key
-if (!process.env.STRIPE_SECRET_KEY) {
+const stripeKey = process.env.STRIPE_SECRET_KEY;
+if (!stripeKey) {
   console.error('❌ STRIPE_SECRET_KEY environment variable is required');
+  console.error('');
+  console.error('Please ensure one of the following:');
+  console.error('1. STRIPE_SECRET_KEY is set in your .env or .env.local file');
+  console.error('2. Or run with: STRIPE_SECRET_KEY=sk_test_xxx npx tsx tools/stripe-setup-2025.ts');
+  console.error('');
+  console.error('You can find your Stripe secret key at:');
+  console.error('https://dashboard.stripe.com/apikeys');
   process.exit(1);
 }
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2025-10-29.clover' as Stripe.LatestApiVersion,
+console.log('🔑 Stripe key loaded successfully');
+console.log(`   Using key: ${stripeKey.substring(0, 8)}...${stripeKey.substring(stripeKey.length - 4)}`);
+console.log('');
+
+const stripe = new Stripe(stripeKey, {
+  apiVersion: '2024-11-20.acacia' as Stripe.LatestApiVersion,
 });
 
 // ============================================================================

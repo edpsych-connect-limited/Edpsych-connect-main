@@ -53,215 +53,215 @@ export interface StripeProductConfig {
 export const STRIPE_PRODUCTS: Record<string, StripeProductConfig> = {
   // PARENT TIER
   PARENT_PLUS: {
-    productId: 'prod_PARENT_PLUS', // TODO: Update after running Stripe setup
+    productId: 'prod_TWl5rBsQ6hIxnk',
     tier: 'PARENT_PLUS' as SubscriptionTier,
     name: 'Parent Plus',
     description: 'Enhanced parent access with progress tracking',
-    monthlyPriceId: null, // TODO: Update after Stripe setup
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZ0Bz14LFoqP2JqzOZQAe',
+    annualPriceId: 'price_1SZhZ0Bz14LFoqP2p1qF2Lhe',
     priceMonthlyPence: 999,
     priceAnnualPence: 9900,
   },
 
   // INDIVIDUAL PROFESSIONALS
   TEACHER_INDIVIDUAL: {
-    productId: 'prod_TEACHER_INDIVIDUAL',
+    productId: 'prod_TWl5hMazmUBNZi',
     tier: 'TEACHER_INDIVIDUAL' as SubscriptionTier,
     name: 'Teacher Individual',
     description: 'Complete toolkit for classroom teachers and SENCOs',
-    monthlyPriceId: null,
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZ1Bz14LFoqP2f70DUTlY',
+    annualPriceId: 'price_1SZhZ2Bz14LFoqP2v5gr7nSV',
     priceMonthlyPence: 2900,
     priceAnnualPence: 29000,
   },
 
   TRAINEE_EP: {
-    productId: 'prod_TRAINEE_EP',
+    productId: 'prod_TWl5uqPrmljrCP',
     tier: 'TRAINEE' as SubscriptionTier, // Maps to legacy enum
     name: 'Trainee EP',
     description: 'Discounted rate for verified EP trainees',
-    monthlyPriceId: null,
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZ3Bz14LFoqP2SmA8xxPr',
+    annualPriceId: 'price_1SZhZ3Bz14LFoqP2vkeuuwCC',
     priceMonthlyPence: 1900,
     priceAnnualPence: 19000,
   },
 
   INDIVIDUAL_EP: {
-    productId: 'prod_INDIVIDUAL_EP',
+    productId: 'prod_TWl52g2YO9YAQ0',
     tier: 'EP_INDEPENDENT' as SubscriptionTier, // Maps to legacy enum
     name: 'Individual EP',
     description: 'Everything an independent EP needs to run a modern practice',
-    monthlyPriceId: null,
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZ4Bz14LFoqP28Zaq8NVa',
+    annualPriceId: 'price_1SZhZ5Bz14LFoqP2GJ2SCOEl',
     priceMonthlyPence: 7900,
     priceAnnualPence: 79000,
   },
 
   // SCHOOLS
   SCHOOL_STARTER: {
-    productId: 'prod_SCHOOL_STARTER',
+    productId: 'prod_TWl5ahp4MucRRE',
     tier: 'SCHOOL_SMALL' as SubscriptionTier, // Maps to legacy enum
     name: 'School Starter',
     description: 'Perfect for primary schools with up to 200 pupils',
-    monthlyPriceId: null,
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZ6Bz14LFoqP2LccQcp9o',
+    annualPriceId: 'price_1SZhZ6Bz14LFoqP2T34AwQpJ',
     priceMonthlyPence: 14900,
     priceAnnualPence: 149000,
   },
 
   SCHOOL_STANDARD: {
-    productId: 'prod_SCHOOL_STANDARD',
+    productId: 'prod_TWl5QThyYDnq0p',
     tier: 'SCHOOL_MEDIUM' as SubscriptionTier,
     name: 'School Standard',
     description: 'For medium schools with 200-500 pupils',
-    monthlyPriceId: null,
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZ7Bz14LFoqP2pvt7nFyp',
+    annualPriceId: 'price_1SZhZ7Bz14LFoqP2JrjHYDiS',
     priceMonthlyPence: 29900,
     priceAnnualPence: 299000,
   },
 
   SCHOOL_PREMIUM: {
-    productId: 'prod_SCHOOL_PREMIUM',
+    productId: 'prod_TWl50XMHywvwDG',
     tier: 'SCHOOL_LARGE' as SubscriptionTier, // Maps to legacy enum
     name: 'School Premium',
     description: 'For secondary schools with 500+ pupils',
-    monthlyPriceId: null,
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZ8Bz14LFoqP2NBiqXj4I',
+    annualPriceId: 'price_1SZhZ9Bz14LFoqP2KBipiXsC',
     priceMonthlyPence: 49900,
     priceAnnualPence: 499000,
   },
 
   SCHOOL_SPECIAL: {
-    productId: 'prod_SCHOOL_SPECIAL',
+    productId: 'prod_TWl5PjSRbdX3cI',
     tier: 'SCHOOL_SPECIAL' as SubscriptionTier,
     name: 'Special School',
     description: 'Enhanced features for special schools and PRUs',
-    monthlyPriceId: null,
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZABz14LFoqP2QYktdzxh',
+    annualPriceId: 'price_1SZhZABz14LFoqP2k0zFh530',
     priceMonthlyPence: 59900,
     priceAnnualPence: 599000,
   },
 
   // MATs
   MAT_SMALL: {
-    productId: 'prod_MAT_SMALL',
+    productId: 'prod_TWl5inlTqZWUPv',
     tier: 'MAT_SMALL' as SubscriptionTier,
     name: 'MAT Small',
     description: 'For MATs with 2-5 schools',
-    monthlyPriceId: null,
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZBBz14LFoqP2gjZHV0y9',
+    annualPriceId: 'price_1SZhZBBz14LFoqP2omRlWUrB',
     priceMonthlyPence: 79900,
     priceAnnualPence: 799000,
   },
 
   MAT_MEDIUM: {
-    productId: 'prod_MAT_MEDIUM',
+    productId: 'prod_TWl5xywNWeqMA9',
     tier: 'MAT_MEDIUM' as SubscriptionTier,
     name: 'MAT Medium',
     description: 'For MATs with 6-15 schools',
-    monthlyPriceId: null,
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZCBz14LFoqP2eB5gdShi',
+    annualPriceId: 'price_1SZhZDBz14LFoqP2PlPSYIX4',
     priceMonthlyPence: 149900,
     priceAnnualPence: 1499000,
   },
 
   MAT_LARGE: {
-    productId: 'prod_MAT_LARGE',
+    productId: 'prod_TWl5gSObcxAJpO',
     tier: 'MAT_LARGE' as SubscriptionTier,
     name: 'MAT Large',
     description: 'For MATs with 16-30 schools',
-    monthlyPriceId: null,
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZEBz14LFoqP2nnvxVKsO',
+    annualPriceId: 'price_1SZhZEBz14LFoqP20YgRXuip',
     priceMonthlyPence: 249900,
     priceAnnualPence: 2499000,
   },
 
   MAT_ENTERPRISE: {
-    productId: 'prod_MAT_ENTERPRISE',
+    productId: 'prod_TWl5LMqRyYa1N6',
     tier: 'MAT_ENTERPRISE' as SubscriptionTier,
     name: 'MAT Enterprise',
     description: 'For MATs with 31+ schools',
-    monthlyPriceId: null,
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZFBz14LFoqP2yVW9mMlN',
+    annualPriceId: 'price_1SZhZGBz14LFoqP2lw6GkDkQ',
     priceMonthlyPence: 399900,
     priceAnnualPence: 3999000,
   },
 
   // LOCAL AUTHORITIES
   LA_ESSENTIALS: {
-    productId: 'prod_LA_ESSENTIALS',
+    productId: 'prod_TWl5gilha47A0X',
     tier: 'LA_TIER1' as SubscriptionTier, // Maps to legacy enum
     name: 'LA Essentials',
     description: 'For LAs with up to 50 maintained schools',
-    monthlyPriceId: null,
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZHBz14LFoqP2Ebr5tGqJ',
+    annualPriceId: 'price_1SZhZHBz14LFoqP2VTDawXgc',
     priceMonthlyPence: 349900,
     priceAnnualPence: 3499000,
   },
 
   LA_PROFESSIONAL: {
-    productId: 'prod_LA_PROFESSIONAL',
+    productId: 'prod_TWl56qs1rasx8Q',
     tier: 'LA_TIER2' as SubscriptionTier, // Maps to legacy enum
     name: 'LA Professional',
     description: 'For LAs with 50-150 maintained schools',
-    monthlyPriceId: null,
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZIBz14LFoqP2KYV1lKqh',
+    annualPriceId: 'price_1SZhZIBz14LFoqP2YU5Oe5R3',
     priceMonthlyPence: 699900,
     priceAnnualPence: 6999000,
   },
 
   LA_ENTERPRISE: {
-    productId: 'prod_LA_ENTERPRISE',
+    productId: 'prod_TUKyLTTuQ5mQ8U',
     tier: 'LA_TIER3' as SubscriptionTier, // Maps to legacy enum
     name: 'LA Enterprise',
     description: 'For LAs with 150-300 maintained schools',
-    monthlyPriceId: null,
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZJBz14LFoqP2snRKFQGq',
+    annualPriceId: 'price_1SZhZKBz14LFoqP2BdvvhPQ2',
     priceMonthlyPence: 1499900,
     priceAnnualPence: 14999000,
   },
 
   LA_METROPOLITAN: {
-    productId: 'prod_LA_METROPOLITAN',
+    productId: 'prod_TWl5kmdJ49Kxf2',
     tier: 'LA_METROPOLITAN' as SubscriptionTier,
     name: 'LA Metropolitan',
     description: 'For LAs with 300+ maintained schools',
-    monthlyPriceId: null,
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZLBz14LFoqP2I9JIGBPD',
+    annualPriceId: 'price_1SZhZLBz14LFoqP2FHJST61U',
     priceMonthlyPence: 2999900,
     priceAnnualPence: 29999000,
   },
 
   // RESEARCH
   RESEARCH_INDIVIDUAL: {
-    productId: 'prod_RESEARCH_INDIVIDUAL',
+    productId: 'prod_TWl5IDi3jAf23G',
     tier: 'RESEARCH_INDIVIDUAL' as SubscriptionTier,
     name: 'Research Individual',
     description: 'For doctoral and independent researchers',
-    monthlyPriceId: null,
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZMBz14LFoqP27GvjbqfH',
+    annualPriceId: 'price_1SZhZNBz14LFoqP2tAUqEsSj',
     priceMonthlyPence: 3900,
     priceAnnualPence: 39000,
   },
 
   RESEARCH_TEAM: {
-    productId: 'prod_RESEARCH_TEAM',
+    productId: 'prod_TWl5tDryp4GPk5',
     tier: 'RESEARCH_TEAM' as SubscriptionTier,
     name: 'Research Team',
     description: 'For university research groups',
-    monthlyPriceId: null,
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZOBz14LFoqP2Uk5RIsS1',
+    annualPriceId: 'price_1SZhZOBz14LFoqP2RkqdHkkZ',
     priceMonthlyPence: 19900,
     priceAnnualPence: 199000,
   },
 
   RESEARCH_INSTITUTION: {
-    productId: 'prod_RESEARCH_INSTITUTION',
+    productId: 'prod_TWl5yFv16TZUOH',
     tier: 'RESEARCH_INSTITUTIONAL' as SubscriptionTier,
     name: 'Research Institution',
     description: 'University-wide license',
-    monthlyPriceId: null,
-    annualPriceId: null,
+    monthlyPriceId: 'price_1SZhZPBz14LFoqP27mbtCaWy',
+    annualPriceId: 'price_1SZhZPBz14LFoqP2MjJ5CZug',
     priceMonthlyPence: 99900,
     priceAnnualPence: 999000,
   },
