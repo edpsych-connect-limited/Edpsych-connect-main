@@ -2,15 +2,17 @@ import { logger } from "@/lib/logger";
 /**
  * FILE: src/lib/stripe-config.ts
  * PURPOSE: Centralized Stripe product and price configuration
+ * 
+ * UPDATED: December 2025 - New Enterprise Pricing Structure
  *
  * IMPORTANT: This file maps Stripe products/prices to database SubscriptionTier enum values
  * After creating products in Stripe Dashboard, update the price IDs here
  *
  * SETUP INSTRUCTIONS:
- * 1. Create products in Stripe Dashboard (https://dashboard.stripe.com/products)
- * 2. Create prices for each product (monthly and annual)
- * 3. Copy the price IDs (e.g., price_1ABC123...) and paste them below
- * 4. Update STRIPE_WEBHOOK_SECRET in environment variables
+ * 1. Run: npx tsx tools/stripe-setup-2025.ts
+ * 2. Copy the price IDs from the output and paste them below
+ * 3. Update STRIPE_WEBHOOK_SECRET in environment variables
+ * 4. Update webhook URL in Stripe Dashboard to: https://edpsych-connect-limited.vercel.app/api/webhooks/stripe
  */
 
 import { SubscriptionTier } from '@prisma/client';
@@ -35,123 +37,233 @@ export interface StripeProductConfig {
   description: string;
   monthlyPriceId: string | null;
   annualPriceId: string | null;
+  priceMonthlyPence: number;
+  priceAnnualPence: number;
 }
 
 // ============================================================================
-// STRIPE PRODUCT CONFIGURATION
+// STRIPE PRODUCT CONFIGURATION - December 2025 Pricing
 // ============================================================================
 
 /**
- * Stripe Product IDs
- * TODO: Replace with actual product IDs from Stripe Dashboard after creation
+ * Stripe Product IDs - Updated December 2025
+ * Run tools/stripe-setup-2025.ts to create these in Stripe
+ * Then update the productId and price IDs here
  */
 export const STRIPE_PRODUCTS: Record<string, StripeProductConfig> = {
-  RESEARCH_INDIVIDUAL: {
-    productId: 'prod_TSywJjUNMWS5NG',
-    tier: 'RESEARCH_INDIVIDUAL' as SubscriptionTier,
-    name: 'Research Individual',
-    description: 'Individual researcher access to platform',
-    monthlyPriceId: 'price_1SW2ypBz14LFoqP2thXdwRua',
-    annualPriceId: 'price_1SW2yqBz14LFoqP2IMURIMx7',
+  // PARENT TIER
+  PARENT_PLUS: {
+    productId: 'prod_PARENT_PLUS', // TODO: Update after running Stripe setup
+    tier: 'PARENT_PLUS' as SubscriptionTier,
+    name: 'Parent Plus',
+    description: 'Enhanced parent access with progress tracking',
+    monthlyPriceId: null, // TODO: Update after Stripe setup
+    annualPriceId: null,
+    priceMonthlyPence: 999,
+    priceAnnualPence: 9900,
   },
 
-  SCHOOL_SMALL: {
-    productId: 'prod_TSyw8GzWToVUE8',
-    tier: 'SCHOOL_SMALL' as SubscriptionTier,
-    name: 'School Small',
-    description: 'For schools with up to 200 students',
-    monthlyPriceId: 'price_1SW2yrBz14LFoqP2tMznaWoV',
-    annualPriceId: 'price_1SW2yrBz14LFoqP2ZcjqndFV',
+  // INDIVIDUAL PROFESSIONALS
+  TEACHER_INDIVIDUAL: {
+    productId: 'prod_TEACHER_INDIVIDUAL',
+    tier: 'TEACHER_INDIVIDUAL' as SubscriptionTier,
+    name: 'Teacher Individual',
+    description: 'Complete toolkit for classroom teachers and SENCOs',
+    monthlyPriceId: null,
+    annualPriceId: null,
+    priceMonthlyPence: 2900,
+    priceAnnualPence: 29000,
   },
 
-  SCHOOL_MEDIUM: {
-    productId: 'prod_TSywiFH26oCz9O',
+  TRAINEE_EP: {
+    productId: 'prod_TRAINEE_EP',
+    tier: 'TRAINEE' as SubscriptionTier, // Maps to legacy enum
+    name: 'Trainee EP',
+    description: 'Discounted rate for verified EP trainees',
+    monthlyPriceId: null,
+    annualPriceId: null,
+    priceMonthlyPence: 1900,
+    priceAnnualPence: 19000,
+  },
+
+  INDIVIDUAL_EP: {
+    productId: 'prod_INDIVIDUAL_EP',
+    tier: 'EP_INDEPENDENT' as SubscriptionTier, // Maps to legacy enum
+    name: 'Individual EP',
+    description: 'Everything an independent EP needs to run a modern practice',
+    monthlyPriceId: null,
+    annualPriceId: null,
+    priceMonthlyPence: 7900,
+    priceAnnualPence: 79000,
+  },
+
+  // SCHOOLS
+  SCHOOL_STARTER: {
+    productId: 'prod_SCHOOL_STARTER',
+    tier: 'SCHOOL_SMALL' as SubscriptionTier, // Maps to legacy enum
+    name: 'School Starter',
+    description: 'Perfect for primary schools with up to 200 pupils',
+    monthlyPriceId: null,
+    annualPriceId: null,
+    priceMonthlyPence: 14900,
+    priceAnnualPence: 149000,
+  },
+
+  SCHOOL_STANDARD: {
+    productId: 'prod_SCHOOL_STANDARD',
     tier: 'SCHOOL_MEDIUM' as SubscriptionTier,
-    name: 'School Medium',
-    description: 'For schools with 201-500 students',
-    monthlyPriceId: 'price_1SW2ysBz14LFoqP2pZ9AScpZ',
-    annualPriceId: 'price_1SW2ytBz14LFoqP2IONXUfgL',
+    name: 'School Standard',
+    description: 'For medium schools with 200-500 pupils',
+    monthlyPriceId: null,
+    annualPriceId: null,
+    priceMonthlyPence: 29900,
+    priceAnnualPence: 299000,
   },
 
-  SCHOOL_LARGE: {
-    productId: 'prod_TSywcDrFUuUe54',
-    tier: 'SCHOOL_LARGE' as SubscriptionTier,
-    name: 'School Large',
-    description: 'For schools with 500+ students',
-    monthlyPriceId: 'price_1SW2yuBz14LFoqP2wzQsbfSg',
-    annualPriceId: 'price_1SW2yuBz14LFoqP2tEiR2gsW',
+  SCHOOL_PREMIUM: {
+    productId: 'prod_SCHOOL_PREMIUM',
+    tier: 'SCHOOL_LARGE' as SubscriptionTier, // Maps to legacy enum
+    name: 'School Premium',
+    description: 'For secondary schools with 500+ pupils',
+    monthlyPriceId: null,
+    annualPriceId: null,
+    priceMonthlyPence: 49900,
+    priceAnnualPence: 499000,
   },
 
-  LA_TIER1: {
-    productId: 'prod_TSyw6HrQ55fXSb',
-    tier: 'LA_TIER1' as SubscriptionTier,
-    name: 'Local Authority Tier 1',
-    description: 'For small local authorities',
-    monthlyPriceId: 'price_1SW2yvBz14LFoqP2SjN3MR4p',
-    annualPriceId: 'price_1SW2yvBz14LFoqP24pEmCQFi',
+  SCHOOL_SPECIAL: {
+    productId: 'prod_SCHOOL_SPECIAL',
+    tier: 'SCHOOL_SPECIAL' as SubscriptionTier,
+    name: 'Special School',
+    description: 'Enhanced features for special schools and PRUs',
+    monthlyPriceId: null,
+    annualPriceId: null,
+    priceMonthlyPence: 59900,
+    priceAnnualPence: 599000,
   },
 
-  LA_TIER2: {
-    productId: 'prod_TSywTNLxIbCFQ5',
-    tier: 'LA_TIER2' as SubscriptionTier,
-    name: 'Local Authority Tier 2',
-    description: 'For medium local authorities',
-    monthlyPriceId: 'price_1SW2ywBz14LFoqP29PbBTluu',
-    annualPriceId: 'price_1SW2yxBz14LFoqP2FJGEDgAb',
-  },
-
-  LA_TIER3: {
-    productId: 'prod_TSywlm1rBxZVoQ',
-    tier: 'LA_TIER3' as SubscriptionTier,
-    name: 'Local Authority Tier 3',
-    description: 'For large local authorities',
-    monthlyPriceId: 'price_1SW2yyBz14LFoqP2t1ojEwyb',
-    annualPriceId: 'price_1SW2yyBz14LFoqP2ehx5i2pY',
-  },
-
+  // MATs
   MAT_SMALL: {
-    productId: 'prod_TSywIOaf8Jg1sg',
+    productId: 'prod_MAT_SMALL',
     tier: 'MAT_SMALL' as SubscriptionTier,
     name: 'MAT Small',
     description: 'For MATs with 2-5 schools',
-    monthlyPriceId: 'price_1SW2yzBz14LFoqP2E9hVMyn4',
-    annualPriceId: 'price_1SW2z0Bz14LFoqP2Eg94wh74',
+    monthlyPriceId: null,
+    annualPriceId: null,
+    priceMonthlyPence: 79900,
+    priceAnnualPence: 799000,
   },
 
   MAT_MEDIUM: {
-    productId: 'prod_TSywkIe3MvbcOW',
+    productId: 'prod_MAT_MEDIUM',
     tier: 'MAT_MEDIUM' as SubscriptionTier,
     name: 'MAT Medium',
     description: 'For MATs with 6-15 schools',
-    monthlyPriceId: 'price_1SW2z1Bz14LFoqP2n4O1HCbJ',
-    annualPriceId: 'price_1SW2z1Bz14LFoqP2O1YstmZ4',
+    monthlyPriceId: null,
+    annualPriceId: null,
+    priceMonthlyPence: 149900,
+    priceAnnualPence: 1499000,
   },
 
   MAT_LARGE: {
-    productId: 'prod_TSyw5Pe8LKsMj3',
+    productId: 'prod_MAT_LARGE',
     tier: 'MAT_LARGE' as SubscriptionTier,
     name: 'MAT Large',
-    description: 'For MATs with 15+ schools',
-    monthlyPriceId: 'price_1SW2z2Bz14LFoqP2qk3WTrg4',
-    annualPriceId: 'price_1SW2z2Bz14LFoqP2HOhLq5Jl',
+    description: 'For MATs with 16-30 schools',
+    monthlyPriceId: null,
+    annualPriceId: null,
+    priceMonthlyPence: 249900,
+    priceAnnualPence: 2499000,
   },
 
-  RESEARCH_INSTITUTIONAL: {
-    productId: 'prod_TSywhGYPZPnXsS',
+  MAT_ENTERPRISE: {
+    productId: 'prod_MAT_ENTERPRISE',
+    tier: 'MAT_ENTERPRISE' as SubscriptionTier,
+    name: 'MAT Enterprise',
+    description: 'For MATs with 31+ schools',
+    monthlyPriceId: null,
+    annualPriceId: null,
+    priceMonthlyPence: 399900,
+    priceAnnualPence: 3999000,
+  },
+
+  // LOCAL AUTHORITIES
+  LA_ESSENTIALS: {
+    productId: 'prod_LA_ESSENTIALS',
+    tier: 'LA_TIER1' as SubscriptionTier, // Maps to legacy enum
+    name: 'LA Essentials',
+    description: 'For LAs with up to 50 maintained schools',
+    monthlyPriceId: null,
+    annualPriceId: null,
+    priceMonthlyPence: 349900,
+    priceAnnualPence: 3499000,
+  },
+
+  LA_PROFESSIONAL: {
+    productId: 'prod_LA_PROFESSIONAL',
+    tier: 'LA_TIER2' as SubscriptionTier, // Maps to legacy enum
+    name: 'LA Professional',
+    description: 'For LAs with 50-150 maintained schools',
+    monthlyPriceId: null,
+    annualPriceId: null,
+    priceMonthlyPence: 699900,
+    priceAnnualPence: 6999000,
+  },
+
+  LA_ENTERPRISE: {
+    productId: 'prod_LA_ENTERPRISE',
+    tier: 'LA_TIER3' as SubscriptionTier, // Maps to legacy enum
+    name: 'LA Enterprise',
+    description: 'For LAs with 150-300 maintained schools',
+    monthlyPriceId: null,
+    annualPriceId: null,
+    priceMonthlyPence: 1499900,
+    priceAnnualPence: 14999000,
+  },
+
+  LA_METROPOLITAN: {
+    productId: 'prod_LA_METROPOLITAN',
+    tier: 'LA_METROPOLITAN' as SubscriptionTier,
+    name: 'LA Metropolitan',
+    description: 'For LAs with 300+ maintained schools',
+    monthlyPriceId: null,
+    annualPriceId: null,
+    priceMonthlyPence: 2999900,
+    priceAnnualPence: 29999000,
+  },
+
+  // RESEARCH
+  RESEARCH_INDIVIDUAL: {
+    productId: 'prod_RESEARCH_INDIVIDUAL',
+    tier: 'RESEARCH_INDIVIDUAL' as SubscriptionTier,
+    name: 'Research Individual',
+    description: 'For doctoral and independent researchers',
+    monthlyPriceId: null,
+    annualPriceId: null,
+    priceMonthlyPence: 3900,
+    priceAnnualPence: 39000,
+  },
+
+  RESEARCH_TEAM: {
+    productId: 'prod_RESEARCH_TEAM',
+    tier: 'RESEARCH_TEAM' as SubscriptionTier,
+    name: 'Research Team',
+    description: 'For university research groups',
+    monthlyPriceId: null,
+    annualPriceId: null,
+    priceMonthlyPence: 19900,
+    priceAnnualPence: 199000,
+  },
+
+  RESEARCH_INSTITUTION: {
+    productId: 'prod_RESEARCH_INSTITUTION',
     tier: 'RESEARCH_INSTITUTIONAL' as SubscriptionTier,
-    name: 'Research Institutional',
-    description: 'For research institutions',
-    monthlyPriceId: 'price_1SW2z3Bz14LFoqP2uEkJM7Ry',
-    annualPriceId: 'price_1SW2z4Bz14LFoqP2RyCljBjB',
-  },
-
-  RESEARCH_PARTNERSHIP: {
-    productId: 'prod_TSywiDCYE93k5M',
-    tier: 'RESEARCH_PARTNERSHIP' as SubscriptionTier,
-    name: 'Research Partnership',
-    description: 'For research partnerships',
-    monthlyPriceId: 'price_1SW2z5Bz14LFoqP250XrwD3Y',
-    annualPriceId: 'price_1SW2z5Bz14LFoqP2SXLK0CSV',
+    name: 'Research Institution',
+    description: 'University-wide license',
+    monthlyPriceId: null,
+    annualPriceId: null,
+    priceMonthlyPence: 99900,
+    priceAnnualPence: 999000,
   },
 };
 
@@ -221,7 +333,7 @@ export function getBillingIntervalFromPriceId(priceId: string): 'month' | 'year'
 }
 
 // ============================================================================
-// TIER UPGRADE/DOWNGRADE LOGIC
+// TIER UPGRADE/DOWNGRADE LOGIC - Updated December 2025
 // ============================================================================
 
 /**
@@ -231,18 +343,27 @@ export function getBillingIntervalFromPriceId(priceId: string): 'month' | 'year'
 const TIER_HIERARCHY: SubscriptionTier[] = [
   'TRIAL' as SubscriptionTier,
   'DEMO' as SubscriptionTier,
+  'PARENT_PLUS' as SubscriptionTier,
+  'TRAINEE' as SubscriptionTier, // Legacy
+  'TEACHER_INDIVIDUAL' as SubscriptionTier,
   'RESEARCH_INDIVIDUAL' as SubscriptionTier,
-  'SCHOOL_SMALL' as SubscriptionTier,
-  'SCHOOL_MEDIUM' as SubscriptionTier,
-  'SCHOOL_LARGE' as SubscriptionTier,
+  'EP_INDEPENDENT' as SubscriptionTier, // Legacy - maps to INDIVIDUAL_EP
+  'SCHOOL_SMALL' as SubscriptionTier, // Legacy - maps to SCHOOL_STARTER
+  'SCHOOL_MEDIUM' as SubscriptionTier, // Maps to SCHOOL_STANDARD
+  'SCHOOL_LARGE' as SubscriptionTier, // Legacy - maps to SCHOOL_PREMIUM
+  'SCHOOL_SPECIAL' as SubscriptionTier,
   'MAT_SMALL' as SubscriptionTier,
   'MAT_MEDIUM' as SubscriptionTier,
   'MAT_LARGE' as SubscriptionTier,
-  'LA_TIER1' as SubscriptionTier,
-  'LA_TIER2' as SubscriptionTier,
-  'LA_TIER3' as SubscriptionTier,
+  'MAT_ENTERPRISE' as SubscriptionTier,
+  'RESEARCH_TEAM' as SubscriptionTier,
   'RESEARCH_INSTITUTIONAL' as SubscriptionTier,
   'RESEARCH_PARTNERSHIP' as SubscriptionTier,
+  'LA_TIER1' as SubscriptionTier, // Legacy - maps to LA_ESSENTIALS
+  'LA_TIER2' as SubscriptionTier, // Legacy - maps to LA_PROFESSIONAL
+  'LA_TIER3' as SubscriptionTier, // Legacy - maps to LA_ENTERPRISE
+  'LA_METROPOLITAN' as SubscriptionTier,
+  'ENTERPRISE_CUSTOM' as SubscriptionTier,
 ];
 
 /**
