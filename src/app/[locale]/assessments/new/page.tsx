@@ -8,10 +8,11 @@
 // Force dynamic rendering for auth-required pages
 export const dynamic = 'force-dynamic';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import AssessmentForm from '@/components/assessments/AssessmentForm';
+import { Loader2 } from 'lucide-react';
 
 export default function NewAssessmentPage() {
   const sessionResult = useSession();
@@ -21,11 +22,33 @@ export default function NewAssessmentPage() {
   const searchParams = useSearchParams();
   const type = searchParams.get('type');
 
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/login?returnUrl=/assessments/new');
+    }
+  }, [status, router]);
+
   // Show loading during authentication check
-  if (status === 'loading' || !session) {
+  if (status === 'loading') {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg">Loading...</div>
+      <div className="flex items-center justify-center min-h-screen bg-slate-50">
+        <div className="text-center">
+          <Loader2 className="w-10 h-10 text-indigo-600 animate-spin mx-auto mb-4" />
+          <p className="text-slate-600">Verifying access...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If not authenticated, show redirecting message
+  if (!session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-slate-50">
+        <div className="text-center">
+          <Loader2 className="w-10 h-10 text-indigo-600 animate-spin mx-auto mb-4" />
+          <p className="text-slate-600">Redirecting to login...</p>
+        </div>
       </div>
     );
   }

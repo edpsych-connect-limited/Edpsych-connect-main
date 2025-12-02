@@ -23,6 +23,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/lib/auth/hooks';
 import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
+import Link from 'next/link';
 import { 
   Search, 
   Book, 
@@ -1232,10 +1233,13 @@ export default function EnterpriseHelpCenter() {
               <MessageCircle className="w-5 h-5" />
               Chat with AI Assistant
             </button>
-            <button className="bg-white/10 border border-white/30 text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition-colors inline-flex items-center gap-2">
+            <Link 
+              href="/contact"
+              className="bg-white/10 border border-white/30 text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition-colors inline-flex items-center gap-2"
+            >
               <Headphones className="w-5 h-5" />
               Contact Human Support
-            </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -62,22 +62,31 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
   const [_errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Fetch video URL with priority: Local MP4 > HeyGen Embed
-  // Local files are served directly by Next.js from public/ - most reliable!
+  // In production (Vercel), local files may not be available (size limits)
+  // So we check if the local file is accessible, fall back to HeyGen if not
   useEffect(() => {
-    function findVideoSource() {
+    async function findVideoSource() {
       // 1. Try local file FIRST (these are in public/content/training_videos/)
-      // No HEAD request needed - just use the path directly, video element handles errors
       const localPath = LOCAL_VIDEO_PATHS[videoKey];
       if (localPath) {
-        setVideoUrl(localPath);
-        setVideoSource('local');
-        return;
+        // Check if local file actually exists (HEAD request to avoid downloading)
+        try {
+          const response = await fetch(localPath, { method: 'HEAD' });
+          if (response.ok) {
+            setVideoUrl(localPath);
+            setVideoSource('local');
+            return;
+          }
+        } catch {
+          // Local file not accessible, will try HeyGen fallback
+          console.log(`Local video not accessible: ${localPath}, trying HeyGen fallback`);
+        }
       }
 
-      // 2. Fallback to HeyGen embed URL (for videos not yet downloaded locally)
+      // 2. Fallback to HeyGen embed URL (for videos not available locally)
       const heygenId = HEYGEN_VIDEO_IDS[videoKey];
       if (heygenId) {
-        // Use HeyGen embed directly - more reliable than API
+        // Use HeyGen embed directly - reliable CDN-hosted videos
         setVideoUrl(`https://app.heygen.com/embed/${heygenId}`);
         setVideoSource('heygen');
         return;
@@ -163,6 +172,14 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
                 <Play className="w-5 h-5 text-indigo-600 ml-0.5" />
               </div>
             </button>
+          ) : videoSource === 'heygen' ? (
+            <iframe
+              className="absolute inset-0 w-full h-full"
+              src={videoUrl || ''}
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              title={title}
+            />
           ) : (
             <video
               ref={videoRef}
@@ -173,7 +190,7 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
               onError={handleVideoError}
               onTimeUpdate={handleTimeUpdate}
               onEnded={handleEnded}
-              src={videoUrl}
+              src={videoUrl || ''}
             />
           )}
         </div>
@@ -212,6 +229,21 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
               )}
             </div>
           </button>
+        ) : videoSource === 'heygen' ? (
+          <>
+            <iframe
+              className="absolute inset-0 w-full h-full"
+              src={videoUrl || ''}
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              title={title}
+            />
+            {/* HeyGen indicator */}
+            <div className="absolute top-2 right-2 bg-indigo-500/90 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
+              <CheckCircle className="w-3 h-3" />
+              Streaming
+            </div>
+          </>
         ) : (
           <>
             <video
@@ -225,13 +257,6 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
               onEnded={handleEnded}
               src={videoUrl || undefined}
             />
-            {/* Video Source Indicator */}
-            {videoSource === 'heygen' && (
-              <div className="absolute top-2 right-2 bg-yellow-500/90 text-yellow-900 text-xs px-2 py-1 rounded flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" />
-                External
-              </div>
-            )}
             {/* Completion badge overlay */}
             {isComplete && (
               <div className="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded flex items-center gap-1">

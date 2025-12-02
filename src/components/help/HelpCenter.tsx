@@ -12,6 +12,7 @@
 
 import React, { useState } from 'react';
 import { Search, Book, FileText, MessageCircle, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 
 const CATEGORIES = [
   { id: 'getting-started', title: 'Getting Started', icon: Book, count: 5 },
@@ -102,9 +103,12 @@ export default function HelpCenter() {
         {/* Contact Support */}
         <div className="mt-12 text-center">
           <p className="text-slate-600 mb-4">Can't find what you're looking for?</p>
-          <button className="px-6 py-2 bg-white border border-slate-300 rounded-lg font-medium text-slate-700 hover:bg-slate-50 transition-colors inline-flex items-center gap-2">
+          <Link 
+            href="/contact"
+            className="px-6 py-2 bg-white border border-slate-300 rounded-lg font-medium text-slate-700 hover:bg-slate-50 transition-colors inline-flex items-center gap-2"
+          >
             <MessageCircle className="w-4 h-4" /> Contact Support
-          </button>
+          </Link>
         </div>
 
       </div>
