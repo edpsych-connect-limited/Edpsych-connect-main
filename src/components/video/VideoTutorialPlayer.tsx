@@ -69,8 +69,8 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
       // 1. Try HeyGen FIRST (reliable, CDN-hosted, works on Vercel)
       const heygenId = HEYGEN_VIDEO_IDS[videoKey];
       if (heygenId) {
-        // Use HeyGen share URL (more reliable than embed for iframes)
-        setVideoUrl(`https://app.heygen.com/share/${heygenId}`);
+        // Use HeyGen /embeds/ URL (designed for iframe embedding with full player)
+        setVideoUrl(`https://app.heygen.com/embeds/${heygenId}`);
         setVideoSource('heygen');
         return;
       }
