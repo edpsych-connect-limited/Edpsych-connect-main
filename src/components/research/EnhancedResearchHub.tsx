@@ -20,6 +20,7 @@
 
 import React, { useState } from 'react';
 import { ProgressBar } from '@/components/ui/ProgressBar';
+import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
 import { 
   Beaker, 
   Database, 
@@ -47,8 +48,7 @@ import {
   Clock,
   Calendar,
   ChevronRight,
-  X,
-  Volume2
+  X
 } from 'lucide-react';
 
 interface VideoTutorial {
@@ -1018,17 +1018,15 @@ export default function EnhancedResearchHub() {
       {selectedVideo && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl">
-            <div className="aspect-video bg-gradient-to-br from-indigo-900 to-purple-900 flex items-center justify-center relative">
-              <div className="text-center text-white">
-                <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Play className="w-12 h-12 text-white ml-1" />
-                </div>
-                <p className="text-2xl font-bold">{selectedVideo.title}</p>
-                <p className="text-indigo-200 mt-2">{selectedVideo.duration}</p>
-              </div>
+            <div className="aspect-video bg-gradient-to-br from-indigo-900 to-purple-900 relative">
+              <VideoTutorialPlayer
+                videoKey={selectedVideo.id}
+                title={selectedVideo.title}
+                autoPlay={false}
+              />
               <button 
                 onClick={() => setSelectedVideo(null)}
-                className="absolute top-4 right-4 p-2 bg-black/50 rounded-lg hover:bg-black/70 transition-colors"
+                className="absolute top-4 right-4 p-2 bg-black/50 rounded-lg hover:bg-black/70 transition-colors z-10"
                 aria-label="Close video"
               >
                 <X className="w-6 h-6 text-white" />
@@ -1041,10 +1039,7 @@ export default function EnhancedResearchHub() {
                 <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium">
                   {selectedVideo.category}
                 </span>
-                <button className="flex items-center gap-2 text-indigo-600 font-medium hover:underline">
-                  <Volume2 className="w-4 h-4" />
-                  Enable Voice Guide
-                </button>
+                <span className="text-sm text-gray-500">{selectedVideo.duration}</span>
               </div>
             </div>
           </div>

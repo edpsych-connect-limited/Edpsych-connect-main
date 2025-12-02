@@ -275,6 +275,16 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   'onboard-la-welcome': 'e67669e51e8541afaf5298ba4590e945',
   'onboard-la-merge-tool': '43c797d441114299aaa1d48539e1a7e4',
   'onboard-la-analytics': 'dde9cfa221aa4ae1893eabcdb384fdb9',
+  
+  // ============================================================================
+  // DECEMBER 2025 - RESEARCH PORTAL VIDEOS
+  // ============================================================================
+  'research-methodology': 'a99bdbf8796a4983bb0b2174eecad23e',
+  'ecca-validation': '479040a5c26042d1ae7b6b73ca4eccb6',
+  'data-ethics': '18f2383def8d4249be2bd031814856c1',
+  'intervention-research': '61d54c8ff2a44c488cbb0d70847614b3',
+  'longitudinal-studies': 'd0225477f9ab4af89916bcd4b004d5d3',
+  'clinical-trials': 'bfeef7f343e34134a71db8256c9fc3fe',
 };
 
 // Share URLs (for linking)
@@ -557,6 +567,16 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   'onboard-la-welcome': '/content/training_videos/onboarding/la/welcome.mp4',
   'onboard-la-merge-tool': '/content/training_videos/onboarding/la/merge-tool.mp4',
   'onboard-la-analytics': '/content/training_videos/onboarding/la/analytics.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - RESEARCH PORTAL VIDEOS
+  // ============================================================================
+  'research-methodology': '/content/training_videos/research-methodology.mp4',
+  'ecca-validation': '/content/training_videos/ecca-validation.mp4',
+  'data-ethics': '/content/training_videos/data-ethics.mp4',
+  'intervention-research': '/content/training_videos/intervention-research.mp4',
+  'longitudinal-studies': '/content/training_videos/longitudinal-studies.mp4',
+  'clinical-trials': '/content/training_videos/clinical-trials.mp4',
 };
 
 /**

@@ -176,6 +176,14 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   'la-ehcp-portal-intro': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533892/edpsych-connect/videos/la-ehcp-portal-intro.mp4',
   'la-dashboard-overview': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764534507/edpsych-connect/videos/la-dashboard-overview.mp4',
   
+  // Research Portal videos (December 2025)
+  'research-methodology': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764646966/edpsych-connect/videos/research-methodology.mp4',
+  'ecca-validation': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764646973/edpsych-connect/videos/ecca-validation.mp4',
+  'data-ethics': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764646979/edpsych-connect/videos/data-ethics.mp4',
+  'intervention-research': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764646986/edpsych-connect/videos/intervention-research.mp4',
+  'longitudinal-studies': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764646993/edpsych-connect/videos/longitudinal-studies.mp4',
+  'clinical-trials': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764646999/edpsych-connect/videos/clinical-trials.mp4',
+  
   // All 56 ADHD, Autism, and Dyslexia training videos are also uploaded
   // See full mapping in VideoTutorialPlayer.tsx or cloudinary-video-urls.json
 };
