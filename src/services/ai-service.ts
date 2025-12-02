@@ -57,8 +57,8 @@ export class AIService {
         ],
         behavior_analysis: [
           'Pattern recognition and early intervention',
-          'Predictive behavior modeling',
-          'Personalized intervention strategies',
+          'Predictive behaviour modelling',
+          'Personalised intervention strategies',
           'Progress tracking and adjustment'
         ],
         student_engagement: [
@@ -98,7 +98,7 @@ export class AIService {
         behavior_analysis: {
           hoursPerWeek: 7,
           hoursPerMonth: 30,
-          description: 'hours saved on behavior tracking and intervention planning'
+          description: 'hours saved on behaviour tracking and intervention planning'
         },
         student_engagement: {
           hoursPerWeek: 3,
@@ -162,9 +162,9 @@ export class AIService {
         ],
         behavior_analysis: [
           {
-            name: 'Behavior Pattern Recognition',
-            description: 'Early identification of behavioral patterns and needs',
-            impact: '65% reduction in behavioral incidents'
+            name: 'Behaviour Pattern Recognition',
+            description: 'Early identification of behavioural patterns and needs',
+            impact: '65% reduction in behavioural incidents'
           },
           {
             name: 'Intervention Planning',
@@ -457,7 +457,7 @@ export class AIService {
         Analyze this educational challenge: "${challenge}"
         
         Provide:
-        1. Category of the challenge (e.g., Report Writing, Lesson Planning, Behavior)
+        1. Category of the challenge (e.g., Report Writing, Lesson Planning, Behaviour)
         2. 3-4 specific, actionable solutions using AI technology
         3. Estimated time savings (hours per week/month)
         4. Relevant platform features that can help

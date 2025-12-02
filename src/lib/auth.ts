@@ -1,10 +1,11 @@
 import { logger } from "@/lib/logger";
+import { emailService } from "@/lib/email/email-service";
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
  * 
  * CONFIDENTIAL: This software contains proprietary algorithms and trade secrets.
- * Unauthorized copying, modification, distribution, or use is strictly prohibited.
+ * Unauthorised copying, modification, distribution, or use is strictly prohibited.
  */
 
 // EdPsych Connect World - Authentication Service
@@ -217,8 +218,13 @@ export async function resetPassword(email: string): Promise<void> {
     logger.debug(`${appUrl}/auth/reset-password?token=${resetToken}&email=${encodeURIComponent(email)}`);
     logger.debug('=================================================================');
 
-    // TODO: Implement email sending service
-    // await sendEmail(email, 'Password Reset', `Click here to reset: ...`);
+    // Send password reset email
+    const emailSent = await emailService.sendPasswordResetEmail(email, resetToken);
+    if (emailSent) {
+      logger.info(`Password reset email sent to ${email}`);
+    } else {
+      logger.warn(`Failed to send password reset email to ${email}`);
+    }
   } catch (_error) {
     console.error('Password reset _error', _error instanceof Error ? _error : new Error('Unknown _error'), { email });
     throw _error;

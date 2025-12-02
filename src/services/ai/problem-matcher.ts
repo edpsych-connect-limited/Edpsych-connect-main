@@ -226,9 +226,9 @@ export class IntelligentProblemMatcher {
       },
       {
         id: 'behavior-analyzer',
-        name: 'Behavior Pattern Analysis',
+        name: 'Behaviour Pattern Analysis',
         category: 'behavior',
-        description: 'AI system that identifies patterns in student behavior and suggests interventions',
+        description: 'AI system that identifies patterns in student behaviour and suggests interventions',
         userRoles: ['teacher', 'admin'],
         subscriptionTiers: ['professional', 'enterprise'],
         url: '/features/behavior-analysis'

@@ -148,7 +148,7 @@ export default function ProgressDashboard({
     const headers = [
       'Intervention Name',
       'Status',
-      'Target Behavior',
+      'Target Behaviour',
       'Baseline',
       'Current',
       'Target',

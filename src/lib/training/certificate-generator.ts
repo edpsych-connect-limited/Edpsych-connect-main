@@ -244,63 +244,72 @@ export class CertificateEmailer {
     certificatePdfBuffer: Buffer,
     certificateId: string
   ) {
-    // TODO: Integrate with email service (SendGrid, AWS SES, etc.)
-    const emailContent = {
+    const { emailService } = await import('@/lib/email/email-service');
+    
+    const emailHtml = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <div style="background: linear-gradient(to right, #2563eb, #7c3aed); padding: 30px; text-align: center;">
+          <h1 style="color: white; margin: 0;">Congratulations, ${userName}!</h1>
+        </div>
+
+        <div style="padding: 30px; background: white;">
+          <p style="font-size: 18px; color: #1e293b;">
+            You've successfully completed <strong>${courseName}</strong>!
+          </p>
+
+          <p style="color: #475569;">
+            Your certificate is attached to this email. You can also download it anytime from your account:
+          </p>
+
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://www.edpsychconnect.com'}/training/certificates/${certificateId}"
+               style="background: #2563eb; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; display: inline-block;">
+              View Certificate Online
+            </a>
+          </div>
+
+          <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="margin-top: 0; color: #1e293b;">What's Next?</h3>
+            <ul style="color: #475569;">
+              <li>Add your CPD hours to your log</li>
+              <li>Share your achievement on LinkedIn</li>
+              <li>Explore more courses in your dashboard</li>
+              <li>Apply your new skills in practice</li>
+            </ul>
+          </div>
+
+          <p style="color: #64748b; font-size: 14px; margin-top: 30px;">
+            Questions? Contact us at support@edpsychconnect.com
+          </p>
+        </div>
+
+        <div style="background: #f1f5f9; padding: 20px; text-align: center; font-size: 12px; color: #64748b;">
+          <p>© 2025 EdPsych Connect Limited. All rights reserved.</p>
+        </div>
+      </div>
+    `;
+
+    // Send certificate email via email service
+    const sent = await emailService.sendEmail({
       to: userEmail,
       subject: `🎉 Your Certificate for ${courseName}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <div style="background: linear-gradient(to right, #2563eb, #7c3aed); padding: 30px; text-align: center;">
-            <h1 style="color: white; margin: 0;">Congratulations, ${userName}!</h1>
-          </div>
+      html: emailHtml,
+      text: `Congratulations ${userName}! You've successfully completed ${courseName}. View your certificate at: ${process.env.NEXT_PUBLIC_APP_URL || 'https://www.edpsychconnect.com'}/training/certificates/${certificateId}`,
+    });
 
-          <div style="padding: 30px; background: white;">
-            <p style="font-size: 18px; color: #1e293b;">
-              You've successfully completed <strong>${courseName}</strong>!
-            </p>
+    if (sent) {
+      logger.info(`Certificate email sent to ${userEmail} for certificate ${certificateId}`);
+    } else {
+      logger.warn(`Failed to send certificate email to ${userEmail}`);
+    }
 
-            <p style="color: #475569;">
-              Your certificate is attached to this email. You can also download it anytime from your account:
-            </p>
-
-            <div style="text-align: center; margin: 30px 0;">
-              <a href="https://edpsychconnect.com/training/certificates/${certificateId}"
-                 style="background: #2563eb; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; display: inline-block;">
-                View Certificate Online
-              </a>
-            </div>
-
-            <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <h3 style="margin-top: 0; color: #1e293b;">What's Next?</h3>
-              <ul style="color: #475569;">
-                <li>Add your CPD hours to your log</li>
-                <li>Share your achievement on LinkedIn</li>
-                <li>Explore more courses in your dashboard</li>
-                <li>Apply your new skills in practice</li>
-              </ul>
-            </div>
-
-            <p style="color: #64748b; font-size: 14px; margin-top: 30px;">
-              Questions? Contact us at support@edpsychconnect.com
-            </p>
-          </div>
-
-          <div style="background: #f1f5f9; padding: 20px; text-align: center; font-size: 12px; color: #64748b;">
-            <p>© 2025 EdPsych Connect Limited. All rights reserved.</p>
-          </div>
-        </div>
-      `,
-      attachments: [
-        {
-          filename: `Certificate_${certificateId}.pdf`,
-          content: certificatePdfBuffer,
-          contentType: 'application/pdf',
-        },
-      ],
+    // Return email content for logging/debugging purposes
+    return {
+      to: userEmail,
+      subject: `🎉 Your Certificate for ${courseName}`,
+      html: emailHtml,
+      certificateId,
+      sent,
     };
-
-    // Send email (implementation depends on email service)
-    logger.debug('Certificate email queued for:', userEmail);
-    return emailContent;
   }
 }

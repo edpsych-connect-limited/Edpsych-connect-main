@@ -1,4 +1,5 @@
 import { logger } from "@/lib/logger";
+import { emailService } from "@/lib/email/email-service";
 /**
  * FILE: src/app/api/webhooks/stripe/route.ts
  * PURPOSE: Handle Stripe webhook events for subscription management
@@ -272,9 +273,52 @@ async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
     }
   });
 
-  // TODO: Send payment success email
-  // TODO: Generate invoice PDF
-  // TODO: Update usage tracking if needed
+  // Get tenant and user details for email
+  const subscription = await prisma.subscriptions.findFirst({
+    where: { stripe_subscription_id: subscriptionId },
+    include: {
+      tenant: {
+        include: {
+          users: {
+            where: { role: { in: ['admin', 'owner', 'head_teacher'] } },
+            take: 1,
+          },
+        },
+      },
+    },
+  });
+
+  if (subscription?.tenant?.users?.[0]) {
+    const user = subscription.tenant.users[0];
+    const tenantName = subscription.tenant.name;
+    
+    // Send payment success email
+    await emailService.sendEmail({
+      to: user.email,
+      subject: 'Payment Successful - EdPsych Connect',
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2>Payment Received</h2>
+          <p>Dear ${user.firstName || user.name},</p>
+          <p>Thank you for your payment of <strong>£${amountPaid.toFixed(2)}</strong> for ${tenantName}.</p>
+          <p>Your subscription is now active and you have full access to all features.</p>
+          <h3>Invoice Details</h3>
+          <ul>
+            <li>Amount: £${amountPaid.toFixed(2)}</li>
+            <li>Tier: ${subscription.tier}</li>
+            <li>Date: ${new Date().toLocaleDateString('en-GB')}</li>
+            <li>Invoice Number: ${invoice.number || invoice.id}</li>
+          </ul>
+          <p>You can view your invoices at any time from your account settings.</p>
+          <hr />
+          <p style="color: #666; font-size: 12px;">EdPsych Connect Limited - Supporting educational psychology excellence</p>
+        </div>
+      `,
+      text: `Payment of £${amountPaid.toFixed(2)} received. Your subscription is now active.`,
+    });
+    
+    logger.info(`[Stripe] Payment success email sent to ${user.email}`);
+  }
 
   logger.debug(`[Stripe] Subscription activated after successful payment`);
 }
@@ -293,13 +337,66 @@ async function handlePaymentFailed(invoice: Stripe.Invoice) {
     where: { stripe_subscription_id: subscriptionId },
     data: {
       payment_status: 'past_due',
-      is_active: false,
+      is_active: attemptCount >= 3 ? false : true, // Suspend access after 3 failed attempts
       updated_at: new Date()
     }
   });
 
-  // TODO: Send payment failed email
-  // TODO: If final attempt, suspend access
+  // Get tenant and user details for email
+  const subscription = await prisma.subscriptions.findFirst({
+    where: { stripe_subscription_id: subscriptionId },
+    include: {
+      tenant: {
+        include: {
+          users: {
+            where: { role: { in: ['admin', 'owner', 'head_teacher'] } },
+            take: 1,
+          },
+        },
+      },
+    },
+  });
+
+  if (subscription?.tenant?.users?.[0]) {
+    const user = subscription.tenant.users[0];
+    const tenantName = subscription.tenant.name;
+    const isFinalAttempt = attemptCount >= 3;
+    
+    // Send payment failed email
+    await emailService.sendEmail({
+      to: user.email,
+      subject: isFinalAttempt 
+        ? 'URGENT: Subscription Suspended - Payment Failed' 
+        : 'Payment Failed - Action Required',
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: ${isFinalAttempt ? '#dc2626' : '#f59e0b'};">
+            ${isFinalAttempt ? 'Subscription Suspended' : 'Payment Failed'}
+          </h2>
+          <p>Dear ${user.firstName || user.name},</p>
+          ${isFinalAttempt ? `
+            <p style="color: #dc2626;"><strong>Your subscription for ${tenantName} has been suspended due to repeated payment failures.</strong></p>
+            <p>To restore access to your account, please update your payment details immediately.</p>
+          ` : `
+            <p>We were unable to process your payment for ${tenantName}.</p>
+            <p>This was attempt ${attemptCount} of 3. Please update your payment details to avoid service interruption.</p>
+          `}
+          <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://www.edpsychconnect.com'}/settings/billing" 
+             style="display: inline-block; background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; margin: 16px 0;">
+            Update Payment Details
+          </a>
+          <p>If you believe this is an error, please contact support.</p>
+          <hr />
+          <p style="color: #666; font-size: 12px;">EdPsych Connect Limited</p>
+        </div>
+      `,
+      text: isFinalAttempt 
+        ? `Your subscription has been suspended due to payment failure. Please update your payment details.`
+        : `Payment failed (attempt ${attemptCount}/3). Please update your payment details.`,
+    });
+    
+    logger.info(`[Stripe] Payment failure email sent to ${user.email} (attempt ${attemptCount})`);
+  }
 
   logger.debug(`[Stripe] Subscription marked as past_due`);
 }
@@ -319,8 +416,70 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
 
   logger.debug(`[Stripe] Checkout complete. Subscription ${subscriptionId} will be processed by subscription.created webhook.`);
 
-  // TODO: Send welcome email
-  // TODO: Trigger onboarding flow
+  // Get tenant and user details for welcome email
+  const metadata = session.metadata || {};
+  const tenantId = metadata.tenant_id ? parseInt(metadata.tenant_id) : null;
+  
+  if (tenantId) {
+    const tenant = await prisma.tenants.findUnique({
+      where: { id: tenantId },
+      include: {
+        users: {
+          where: { role: { in: ['admin', 'owner', 'head_teacher', 'teacher'] } },
+          take: 1,
+        },
+      },
+    });
+
+    if (tenant?.users?.[0]) {
+      const user = tenant.users[0];
+      
+      // Send welcome email
+      await emailService.sendEmail({
+        to: user.email,
+        subject: 'Welcome to EdPsych Connect! 🎉',
+        html: `
+          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #2563eb;">Welcome to EdPsych Connect!</h2>
+            <p>Dear ${user.firstName || user.name},</p>
+            <p>Thank you for subscribing to EdPsych Connect. Your account for <strong>${tenant.name}</strong> is now active!</p>
+            
+            <h3>Getting Started</h3>
+            <ul>
+              <li><strong>Dashboard:</strong> Access your personalised dashboard with insights and recommendations</li>
+              <li><strong>Training:</strong> Explore our evidence-based CPD courses</li>
+              <li><strong>Assessments:</strong> Use our comprehensive assessment library</li>
+              <li><strong>Interventions:</strong> Browse 109+ evidence-based intervention strategies</li>
+            </ul>
+
+            <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://www.edpsychconnect.com'}/dashboard" 
+               style="display: inline-block; background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; margin: 16px 0;">
+              Go to Dashboard
+            </a>
+
+            <p>If you need any help, our support team is here for you.</p>
+            
+            <hr />
+            <p style="color: #666; font-size: 12px;">EdPsych Connect Limited - Supporting educational psychology excellence across the UK</p>
+          </div>
+        `,
+        text: `Welcome to EdPsych Connect! Your account is now active. Visit your dashboard to get started.`,
+      });
+      
+      logger.info(`[Stripe] Welcome email sent to ${user.email}`);
+
+      // Update user onboarding status to trigger onboarding flow
+      await prisma.users.update({
+        where: { id: user.id },
+        data: {
+          onboarding_started_at: new Date(),
+          onboarding_step: 0,
+        },
+      });
+      
+      logger.info(`[Stripe] Onboarding flow triggered for user ${user.id}`);
+    }
+  }
 }
 
 /**

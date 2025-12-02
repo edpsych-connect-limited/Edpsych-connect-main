@@ -324,7 +324,7 @@ class GDPRComplianceMiddleware {
         required: true,
       },
       analytics: {
-        purpose: 'Cookies used to analyze website traffic and user behavior',
+        purpose: 'Cookies used to analyse website traffic and user behaviour',
         retention: '2 years',
         required: false,
       },

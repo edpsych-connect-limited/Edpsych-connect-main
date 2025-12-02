@@ -1,4 +1,5 @@
 import { logger } from "@/lib/logger";
+import { emailService } from "@/lib/email/email-service";
 /**
  * EHCP Notification Service
  * Handles notifications for EHCP updates, version tracking, and stakeholder alerts
@@ -169,7 +170,7 @@ async function sendInAppNotifications(
 }
 
 /**
- * Send email notifications (stubbed for now)
+ * Send email notifications for EHCP updates
  */
 async function sendEmailNotifications(
   payload: EHCPNotificationPayload,
@@ -185,26 +186,54 @@ async function sendEmailNotifications(
         id: true,
         email: true,
         name: true,
+        firstName: true,
+        lastName: true,
       },
     });
 
     const message = formatNotificationMessage(payload);
+    const subject = `EHCP ${payload.action.charAt(0).toUpperCase() + payload.action.slice(1)}: ${payload.ehcp_id}`;
 
-    // TODO: Integrate with email service (SendGrid, AWS SES, etc.)
-    // For now, just log
-    logger.debug(`[EHCP Notifications] Would send email to ${users.length} users:`, {
-      subject: `EHCP ${payload.action.toUpperCase()}: ${payload.ehcp_id}`,
-      message,
-      recipients: users.map(u => u.email),
-    });
+    // Send emails to all recipients
+    const emailPromises = users.map(user => 
+      emailService.sendEmail({
+        to: user.email,
+        subject,
+        html: `
+          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #2563eb;">EHCP Update Notification</h2>
+            <p>Dear ${user.firstName || user.name || 'Colleague'},</p>
+            <p>${message}</p>
+            ${payload.changed_sections && payload.changed_sections.length > 0 ? `
+              <h3>Changed Sections</h3>
+              <ul>
+                ${payload.changed_sections.map(s => `<li>${s}</li>`).join('')}
+              </ul>
+            ` : ''}
+            ${payload.change_summary ? `
+              <h3>Summary of Changes</h3>
+              <p>${payload.change_summary}</p>
+            ` : ''}
+            <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://www.edpsychconnect.com'}/ehcp/${payload.ehcp_id}" 
+               style="display: inline-block; background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; margin: 16px 0;">
+              View EHCP
+            </a>
+            <hr />
+            <p style="color: #666; font-size: 12px;">
+              This notification was triggered by ${payload.actor_name || 'a team member'}.
+              <br />
+              EdPsych Connect Limited - EHCP Management System
+            </p>
+          </div>
+        `,
+        text: message,
+      })
+    );
 
-    // Future implementation:
-    // await emailService.sendBulk({
-    //   to: users.map(u => u.email),
-    //   subject: `EHCP ${payload.action.toUpperCase()}: ${payload.ehcp_id}`,
-    //   body: message,
-    //   template: 'ehcp-notification',
-    // });
+    const results = await Promise.allSettled(emailPromises);
+    const successful = results.filter(r => r.status === 'fulfilled').length;
+    
+    logger.info(`[EHCP Notifications] Sent ${successful}/${users.length} emails for EHCP ${payload.ehcp_id}`);
   } catch (_error) {
     console.error('[EHCP Notifications] Failed to send email notifications:', _error);
   }
