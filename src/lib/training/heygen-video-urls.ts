@@ -196,6 +196,85 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   'dyslexia-m7-l2': '82d8b5bce85c4aa7b787093275216d5e',
   'dyslexia-m8-l1': '5baff17122374d549a199600b4ec044c',
   'dyslexia-m8-l2': '4c7259f3a45b49f38a78e5d2c516f972',
+  
+  // ============================================================================
+  // DECEMBER 2025 - PRICING & VALUE PROPOSITION VIDEOS
+  // ============================================================================
+  'value-enterprise-platform': '52e39fee2f98437fb2a8a67c840c0836',
+  'value-edtech-problem': 'f8411531c5fb4031898957be38e6b168',
+  'value-complete-solution': '2e088cf41f434059b6cf0be15a42134a',
+  
+  // ============================================================================
+  // DECEMBER 2025 - TIER PRICING VIDEOS
+  // ============================================================================
+  'tier-parent-plus': '79bd4e006d504aed947ef24c7e2dcab8',
+  'tier-teacher-individual': '174b9257fe1044cb9295777d68fe4e80',
+  'tier-schools-overview': 'd65eb31cbe9c4c018362b5ff71b4baee',
+  'tier-mat-enterprise': '636e4a41cf0a43b38e90020d4eb2defb',
+  'tier-local-authority': '1201be5f79c04a9d9c46dcc4053d524e',
+  'tier-researcher': '72635bd2217d41d9b3a88680c292ba5a',
+  'tier-trainee-ep': 'cf96e5128cfb4af8bb4bce4f76ff372c',
+  
+  // ============================================================================
+  // DECEMBER 2025 - ADD-ON FEATURE VIDEOS
+  // ============================================================================
+  'addon-ai-power-pack': '585ec6706d7349c6b42e363ee0655d5a',
+  'addon-ehcp-accelerator': '06bf1fcb7aa04476abf0db827b5e6c6e',
+  'addon-cpd-library': '88582eef95634801b88c0dd76c7523f6',
+  'addon-api-access': '49faa010b2864d539969227b7b6d81de',
+  'addon-white-label': '6132f8ab6d4246b7a184db10c9a49c9e',
+  'addon-priority-support': 'e90201fbba1a4f789186c4d8b58dcc72',
+  
+  // ============================================================================
+  // DECEMBER 2025 - FEATURE DEEP DIVE VIDEOS
+  // ============================================================================
+  'feature-nclb-engine': '738bbcfaa87541aeb36e061c00db5ece',
+  'feature-battle-royale-pricing': 'b9fa6820015c4d10971fbb9a8263cc12',
+  'feature-byod-architecture': '9a6b8abfac524086a84d3ce64c8c5df3',
+  'feature-intervention-library': '70ae2bd8eb3e41cab5dfdeb8a771fc8a',
+  
+  // ============================================================================
+  // DECEMBER 2025 - COMPARISON & TRUST VIDEOS
+  // ============================================================================
+  'compare-true-cost': '80f6551b669a4a4c804d6d19726d626e',
+  'compare-switching': '35fc14cae23d4323a08150b6625dea35',
+  'trust-security': 'caa20295f1164b3cb796c1e04c348c77',
+  'trust-built-by-practitioners': '81e7ef1a1d1449a2a65187820cff7bac',
+  
+  // ============================================================================
+  // DECEMBER 2025 - ROLE-BASED ONBOARDING: TEACHERS
+  // ============================================================================
+  'onboard-teacher-welcome': '2a4360fa476c49ddbba8740ffa010536',
+  'onboard-teacher-differentiation': 'c0b9a101cfd5449d87efcac0fa00267e',
+  'onboard-teacher-assessment': '094207aaf81b442d993a21b716e49f8e',
+  
+  // ============================================================================
+  // DECEMBER 2025 - ROLE-BASED ONBOARDING: SENCOs
+  // ============================================================================
+  'onboard-senco-welcome': '3d15dfb87ce343498808f5100e276800',
+  'onboard-senco-provision-mapping': '476c8c1e9a1148d7972af4058fd727c8',
+  'onboard-senco-ehcp-workflow': '98dd9dd96a564399ba2c379e2226a2c8',
+  
+  // ============================================================================
+  // DECEMBER 2025 - ROLE-BASED ONBOARDING: EDUCATIONAL PSYCHOLOGISTS
+  // ============================================================================
+  'onboard-ep-welcome': '11508bd5211b41d1b58d74cd2bf114fe',
+  'onboard-ep-assessment-suite': 'ffd5a9a625e94fb295e1ceee17d13f06',
+  'onboard-ep-report-writing': '99cfe04692a441cfa1d5b4c4389f1917',
+  
+  // ============================================================================
+  // DECEMBER 2025 - ROLE-BASED ONBOARDING: PARENTS
+  // ============================================================================
+  'onboard-parent-welcome': '7a23f6e01c974fbebb3ccf015a8096cf',
+  'onboard-parent-understanding-reports': 'e3f23d81d1e9488bbd3cd4301d7dc9ac',
+  'onboard-parent-contributing': 'f5fc230f548447dba95ca6eaf465868a',
+  
+  // ============================================================================
+  // DECEMBER 2025 - ROLE-BASED ONBOARDING: LOCAL AUTHORITY
+  // ============================================================================
+  'onboard-la-welcome': 'e67669e51e8541afaf5298ba4590e945',
+  'onboard-la-merge-tool': '43c797d441114299aaa1d48539e1a7e4',
+  'onboard-la-analytics': 'dde9cfa221aa4ae1893eabcdb384fdb9',
 };
 
 // Share URLs (for linking)
@@ -399,6 +478,85 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   'dyslexia-m7-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m7-l2.mp4',
   'dyslexia-m8-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m8-l1.mp4',
   'dyslexia-m8-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m8-l2.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - PRICING & VALUE PROPOSITION VIDEOS
+  // ============================================================================
+  'value-enterprise-platform': '/content/training_videos/pricing/value-enterprise-platform.mp4',
+  'value-edtech-problem': '/content/training_videos/pricing/value-edtech-problem.mp4',
+  'value-complete-solution': '/content/training_videos/pricing/value-complete-solution.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - TIER PRICING VIDEOS
+  // ============================================================================
+  'tier-parent-plus': '/content/training_videos/pricing/tier-parent-plus.mp4',
+  'tier-teacher-individual': '/content/training_videos/pricing/tier-teacher-individual.mp4',
+  'tier-schools-overview': '/content/training_videos/pricing/tier-schools-overview.mp4',
+  'tier-mat-enterprise': '/content/training_videos/pricing/tier-mat-enterprise.mp4',
+  'tier-local-authority': '/content/training_videos/pricing/tier-local-authority.mp4',
+  'tier-researcher': '/content/training_videos/pricing/tier-researcher.mp4',
+  'tier-trainee-ep': '/content/training_videos/pricing/tier-trainee-ep.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - ADD-ON FEATURE VIDEOS
+  // ============================================================================
+  'addon-ai-power-pack': '/content/training_videos/pricing/addon-ai-power-pack.mp4',
+  'addon-ehcp-accelerator': '/content/training_videos/pricing/addon-ehcp-accelerator.mp4',
+  'addon-cpd-library': '/content/training_videos/pricing/addon-cpd-library.mp4',
+  'addon-api-access': '/content/training_videos/pricing/addon-api-access.mp4',
+  'addon-white-label': '/content/training_videos/pricing/addon-white-label.mp4',
+  'addon-priority-support': '/content/training_videos/pricing/addon-priority-support.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - FEATURE DEEP DIVE VIDEOS
+  // ============================================================================
+  'feature-nclb-engine': '/content/training_videos/features/feature-nclb-engine.mp4',
+  'feature-battle-royale-pricing': '/content/training_videos/features/feature-battle-royale-pricing.mp4',
+  'feature-byod-architecture': '/content/training_videos/features/feature-byod-architecture.mp4',
+  'feature-intervention-library': '/content/training_videos/features/feature-intervention-library.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - COMPARISON & TRUST VIDEOS
+  // ============================================================================
+  'compare-true-cost': '/content/training_videos/pricing/compare-true-cost.mp4',
+  'compare-switching': '/content/training_videos/pricing/compare-switching.mp4',
+  'trust-security': '/content/training_videos/pricing/trust-security.mp4',
+  'trust-built-by-practitioners': '/content/training_videos/pricing/trust-built-by-practitioners.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - ROLE-BASED ONBOARDING: TEACHERS
+  // ============================================================================
+  'onboard-teacher-welcome': '/content/training_videos/onboarding/teacher/welcome.mp4',
+  'onboard-teacher-differentiation': '/content/training_videos/onboarding/teacher/differentiation.mp4',
+  'onboard-teacher-assessment': '/content/training_videos/onboarding/teacher/assessment.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - ROLE-BASED ONBOARDING: SENCOs
+  // ============================================================================
+  'onboard-senco-welcome': '/content/training_videos/onboarding/senco/welcome.mp4',
+  'onboard-senco-provision-mapping': '/content/training_videos/onboarding/senco/provision-mapping.mp4',
+  'onboard-senco-ehcp-workflow': '/content/training_videos/onboarding/senco/ehcp-workflow.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - ROLE-BASED ONBOARDING: EDUCATIONAL PSYCHOLOGISTS
+  // ============================================================================
+  'onboard-ep-welcome': '/content/training_videos/onboarding/ep/welcome.mp4',
+  'onboard-ep-assessment-suite': '/content/training_videos/onboarding/ep/assessment-suite.mp4',
+  'onboard-ep-report-writing': '/content/training_videos/onboarding/ep/report-writing.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - ROLE-BASED ONBOARDING: PARENTS
+  // ============================================================================
+  'onboard-parent-welcome': '/content/training_videos/onboarding/parent/welcome.mp4',
+  'onboard-parent-understanding-reports': '/content/training_videos/onboarding/parent/understanding-reports.mp4',
+  'onboard-parent-contributing': '/content/training_videos/onboarding/parent/contributing.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - ROLE-BASED ONBOARDING: LOCAL AUTHORITY
+  // ============================================================================
+  'onboard-la-welcome': '/content/training_videos/onboarding/la/welcome.mp4',
+  'onboard-la-merge-tool': '/content/training_videos/onboarding/la/merge-tool.mp4',
+  'onboard-la-analytics': '/content/training_videos/onboarding/la/analytics.mp4',
 };
 
 /**

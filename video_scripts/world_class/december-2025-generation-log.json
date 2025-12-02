@@ -1,0 +1,301 @@
+{
+  "generatedAt": "2025-12-02T01:48:54.928Z",
+  "config": {
+    "avatar": {
+      "id": "Adrian_public_3_20240312",
+      "style": "normal"
+    },
+    "voice": {
+      "id": "aba5ce361bfa433480f4bf281cc4c4f9",
+      "speed": 1
+    },
+    "background": {
+      "type": "color",
+      "value": "#1e293b"
+    },
+    "dimension": {
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  "summary": {
+    "total": 39,
+    "submitted": 39,
+    "failed": 0
+  },
+  "results": [
+    {
+      "id": "value-enterprise-platform",
+      "title": "The £2.35 Million Platform",
+      "videoId": "52e39fee2f98437fb2a8a67c840c0836",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:45:21.751Z"
+    },
+    {
+      "id": "value-edtech-problem",
+      "title": "Why Most Educational Software Fails",
+      "videoId": "f8411531c5fb4031898957be38e6b168",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:45:27.811Z"
+    },
+    {
+      "id": "value-complete-solution",
+      "title": "One Platform, Everything Connected",
+      "videoId": "2e088cf41f434059b6cf0be15a42134a",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:45:33.634Z"
+    },
+    {
+      "id": "tier-parent-plus",
+      "title": "Parent Plus: Supporting Your Child's Learning Journey",
+      "videoId": "79bd4e006d504aed947ef24c7e2dcab8",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:45:39.143Z"
+    },
+    {
+      "id": "tier-teacher-individual",
+      "title": "Teacher Individual: Professional Tools, Personal Budget",
+      "videoId": "174b9257fe1044cb9295777d68fe4e80",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:45:44.731Z"
+    },
+    {
+      "id": "tier-schools-overview",
+      "title": "Schools: From Starter to Premium",
+      "videoId": "d65eb31cbe9c4c018362b5ff71b4baee",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:45:50.346Z"
+    },
+    {
+      "id": "tier-mat-enterprise",
+      "title": "Multi-Academy Trusts: Consistency at Scale",
+      "videoId": "636e4a41cf0a43b38e90020d4eb2defb",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:45:55.889Z"
+    },
+    {
+      "id": "tier-local-authority",
+      "title": "Local Authorities: Enterprise EHCP Transformation",
+      "videoId": "1201be5f79c04a9d9c46dcc4053d524e",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:46:01.469Z"
+    },
+    {
+      "id": "tier-researcher",
+      "title": "Researchers: Evidence Without Exploitation",
+      "videoId": "72635bd2217d41d9b3a88680c292ba5a",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:46:07.025Z"
+    },
+    {
+      "id": "tier-trainee-ep",
+      "title": "Trainee EPs: Building Your Professional Toolkit",
+      "videoId": "cf96e5128cfb4af8bb4bce4f76ff372c",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:46:12.565Z"
+    },
+    {
+      "id": "addon-ai-power-pack",
+      "title": "AI Power Pack: Intelligence That Helps",
+      "videoId": "585ec6706d7349c6b42e363ee0655d5a",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:46:18.106Z"
+    },
+    {
+      "id": "addon-ehcp-accelerator",
+      "title": "EHCP Accelerator: Statutory Compliance Made Manageable",
+      "videoId": "06bf1fcb7aa04476abf0db827b5e6c6e",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:46:23.663Z"
+    },
+    {
+      "id": "addon-cpd-library",
+      "title": "CPD Library Plus: Professional Development That Fits Your Life",
+      "videoId": "88582eef95634801b88c0dd76c7523f6",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:46:29.332Z"
+    },
+    {
+      "id": "addon-api-access",
+      "title": "API Access: Integration Freedom",
+      "videoId": "49faa010b2864d539969227b7b6d81de",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:46:34.903Z"
+    },
+    {
+      "id": "addon-white-label",
+      "title": "White Label: Your Brand, Our Platform",
+      "videoId": "6132f8ab6d4246b7a184db10c9a49c9e",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:46:40.492Z"
+    },
+    {
+      "id": "addon-priority-support",
+      "title": "Priority Support: When You Need Help Now",
+      "videoId": "e90201fbba1a4f789186c4d8b58dcc72",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:46:46.125Z"
+    },
+    {
+      "id": "feature-nclb-engine",
+      "title": "No Child Left Behind: The Differentiation Revolution",
+      "videoId": "738bbcfaa87541aeb36e061c00db5ece",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:46:51.767Z"
+    },
+    {
+      "id": "feature-battle-royale",
+      "title": "Battle Royale: Assessment They Actually Want to Do",
+      "videoId": "b9fa6820015c4d10971fbb9a8263cc12",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:46:57.365Z"
+    },
+    {
+      "id": "feature-byod-architecture",
+      "title": "Bring Your Own Database: Data Sovereignty Explained",
+      "videoId": "9a6b8abfac524086a84d3ce64c8c5df3",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:47:02.969Z"
+    },
+    {
+      "id": "feature-intervention-library",
+      "title": "The Intervention Library: 535 Evidence-Based Strategies",
+      "videoId": "70ae2bd8eb3e41cab5dfdeb8a771fc8a",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:47:08.597Z"
+    },
+    {
+      "id": "compare-true-cost",
+      "title": "The True Cost of Educational Software",
+      "videoId": "80f6551b669a4a4c804d6d19726d626e",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:47:14.141Z"
+    },
+    {
+      "id": "compare-switching",
+      "title": "Switching Platforms Without the Pain",
+      "videoId": "35fc14cae23d4323a08150b6625dea35",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:47:19.651Z"
+    },
+    {
+      "id": "trust-security",
+      "title": "Security for Sensitive Data",
+      "videoId": "caa20295f1164b3cb796c1e04c348c77",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:47:25.189Z"
+    },
+    {
+      "id": "trust-built-by-practitioners",
+      "title": "Built by Someone Who Actually Does This Work",
+      "videoId": "81e7ef1a1d1449a2a65187820cff7bac",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:47:30.768Z"
+    },
+    {
+      "id": "onboard-teacher-welcome",
+      "title": "Welcome, Teacher! Your First Five Minutes",
+      "videoId": "2a4360fa476c49ddbba8740ffa010536",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:47:36.322Z"
+    },
+    {
+      "id": "onboard-teacher-differentiation",
+      "title": "Teachers: The Differentiation Engine in 3 Minutes",
+      "videoId": "c0b9a101cfd5449d87efcac0fa00267e",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:47:41.951Z"
+    },
+    {
+      "id": "onboard-teacher-assessment",
+      "title": "Teachers: Running Your First Assessment",
+      "videoId": "094207aaf81b442d993a21b716e49f8e",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:47:47.514Z"
+    },
+    {
+      "id": "onboard-senco-welcome",
+      "title": "Welcome, SENCO! Your Command Centre Awaits",
+      "videoId": "3d15dfb87ce343498808f5100e276800",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:47:53.073Z"
+    },
+    {
+      "id": "onboard-senco-provision-mapping",
+      "title": "SENCOs: Provision Mapping That Actually Works",
+      "videoId": "476c8c1e9a1148d7972af4058fd727c8",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:47:58.752Z"
+    },
+    {
+      "id": "onboard-senco-ehcp-workflow",
+      "title": "SENCOs: Managing EHCPs Without the Chaos",
+      "videoId": "98dd9dd96a564399ba2c379e2226a2c8",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:48:04.294Z"
+    },
+    {
+      "id": "onboard-ep-welcome",
+      "title": "Welcome, Educational Psychologist",
+      "videoId": "11508bd5211b41d1b58d74cd2bf114fe",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:48:09.835Z"
+    },
+    {
+      "id": "onboard-ep-assessment-suite",
+      "title": "EPs: The Assessment Suite Deep Dive",
+      "videoId": "ffd5a9a625e94fb295e1ceee17d13f06",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:48:15.359Z"
+    },
+    {
+      "id": "onboard-ep-report-writing",
+      "title": "EPs: Report Writing Transformed",
+      "videoId": "99cfe04692a441cfa1d5b4c4389f1917",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:48:20.960Z"
+    },
+    {
+      "id": "onboard-parent-welcome",
+      "title": "Welcome, Parent - You Belong Here",
+      "videoId": "7a23f6e01c974fbebb3ccf015a8096cf",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:48:26.538Z"
+    },
+    {
+      "id": "onboard-parent-understanding-reports",
+      "title": "Parents: Understanding Your Child's Reports",
+      "videoId": "e3f23d81d1e9488bbd3cd4301d7dc9ac",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:48:32.168Z"
+    },
+    {
+      "id": "onboard-parent-contributing",
+      "title": "Parents: Making Your Voice Count",
+      "videoId": "f5fc230f548447dba95ca6eaf465868a",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:48:37.681Z"
+    },
+    {
+      "id": "onboard-la-welcome",
+      "title": "Welcome, LA Professional: Your EHCP Command Centre",
+      "videoId": "e67669e51e8541afaf5298ba4590e945",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:48:43.201Z"
+    },
+    {
+      "id": "onboard-la-merge-tool",
+      "title": "LA Professionals: The EHCP Merge Tool",
+      "videoId": "43c797d441114299aaa1d48539e1a7e4",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:48:48.754Z"
+    },
+    {
+      "id": "onboard-la-analytics",
+      "title": "LA Professionals: Compliance Analytics",
+      "videoId": "dde9cfa221aa4ae1893eabcdb384fdb9",
+      "status": "pending",
+      "timestamp": "2025-12-02T01:48:54.381Z"
+    }
+  ]
+}
