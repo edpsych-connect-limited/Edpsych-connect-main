@@ -50,14 +50,14 @@ const PRICING_VIDEOS = {
     'trainee-ep': { key: 'tier-trainee-ep', title: 'Trainee EP Plan', duration: '1:30' },
   },
   
-  // Add-ons
+  // Add-ons - December 2025 Pricing (aligned with stripe-setup-2025.ts)
   addons: [
-    { key: 'addon-ai-power-pack', title: 'AI Power Pack', duration: '1:30', price: '£49/mo' },
-    { key: 'addon-ehcp-accelerator', title: 'EHCP Accelerator', duration: '1:45', price: '£79/mo' },
-    { key: 'addon-cpd-library', title: 'Unlimited CPD Library', duration: '1:15', price: '£29/mo' },
+    { key: 'addon-ai-power-pack', title: 'AI Power Pack', duration: '1:30', price: '£29/mo' },
+    { key: 'addon-ehcp-accelerator', title: 'EHCP Accelerator', duration: '1:45', price: '£49/mo' },
+    { key: 'addon-cpd-library', title: 'Unlimited CPD Library', duration: '1:15', price: '£99/mo' },
     { key: 'addon-api-access', title: 'API Access', duration: '1:30', price: '£199/mo' },
     { key: 'addon-white-label', title: 'White Label', duration: '1:45', price: '£499/mo' },
-    { key: 'addon-priority-support', title: 'Priority Support', duration: '1:00', price: '£99/mo' },
+    { key: 'addon-priority-support', title: 'Priority Support', duration: '1:00', price: '£79/mo' },
   ],
   
   // Features

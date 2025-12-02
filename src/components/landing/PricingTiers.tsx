@@ -38,54 +38,55 @@ export default function PricingTiers({ pricingData = [] }: PricingTiersProps) {
     return { price: defaultPrice, period: defaultPeriod };
   };
 
-  const proPrice = getPrice('PRO', '£49', '/month');
-  const instPrice = getPrice('INSTITUTIONAL', '£499', '/year');
-  const entPrice = getPrice('LA_ENTERPRISE', 'Custom', '');
+  // December 2025 Pricing - aligned with subscription/plans.ts
+  const individualPrice = getPrice('INDIVIDUAL_EP', '£79', '/month');
+  const schoolPrice = getPrice('SCHOOL_STANDARD', '£299', '/month');
+  const enterprisePrice = getPrice('LA_ESSENTIALS', '£2,999', '/month');
 
   const tiers = [
     {
-      name: "Individual (Pro)",
-      price: proPrice.price,
-      period: proPrice.period,
-      description: "For independent EPs and specialist teachers.",
+      name: "Individual EP",
+      price: individualPrice.price,
+      period: individualPrice.period,
+      description: "Everything an independent EP needs to run a modern practice.",
       features: [
-        "Full ECCA Framework Access",
-        "Intervention Designer",
-        "Basic Reporting Tools",
-        "CPD Tracking",
-        "Unlimited AI Reports"
+        "Unlimited Cases & ECCA Framework",
+        "AI-Powered Report Drafting",
+        "EHCP Support Tools",
+        "500 AI calls/month",
+        "20GB Secure Storage"
       ],
-      cta: "Start Free Trial",
+      cta: "Start 14-Day Free Trial",
       highlight: false
     },
     {
-      name: "School (Institutional)",
-      price: instPrice.price,
-      period: instPrice.period,
-      description: "Complete orchestration for the whole SEN department.",
+      name: "School Standard",
+      price: schoolPrice.price,
+      period: schoolPrice.period,
+      description: "Complete SEND platform for schools with 200-500 pupils.",
       features: [
         "Everything in Individual",
-        "Unlimited Student Profiles",
-        "Battle Royale Gamification",
-        "EHCP Automation Suite",
-        "Priority Support"
+        "25 Staff Accounts",
+        "AI Adaptive Learning",
+        "Coding Curriculum",
+        "SSO Integration"
       ],
-      cta: "Get School Access",
+      cta: "Start 30-Day Free Trial",
       highlight: true
     },
     {
-      name: "Enterprise & LA",
-      price: entPrice.price,
-      period: entPrice.period,
-      description: "Strategic oversight with total data autonomy.",
+      name: "Local Authority",
+      price: enterprisePrice.price,
+      period: enterprisePrice.period,
+      description: "Transform your LA EP service with full data sovereignty.",
       features: [
         "Everything in School",
-        "Data Sovereignty (BYOD)",
-        "Hybrid Cloud Deployment",
-        "Trust-wide Analytics",
-        "Dedicated Success Manager"
+        "Multi-Agency Working",
+        "BYOD Architecture",
+        "Cross-School Analytics",
+        "API Access & Dedicated Support"
       ],
-      cta: "Contact Sales",
+      cta: "Request Demo",
       highlight: false
     }
   ];
