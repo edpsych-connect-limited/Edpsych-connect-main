@@ -64,8 +64,8 @@ const SHOWCASE_VIDEOS = {
     },
     {
       id: 'addon-ai-power-pack',
-      title: 'AI Power Pack',
-      description: 'See Dr. Scott respond in real-time.',
+      title: 'Intelligent Assistance',
+      description: 'Experience responsive support that understands your needs.',
       icon: Zap,
       gradient: 'from-violet-500 to-purple-600',
     },
@@ -104,7 +104,7 @@ export default function VideoPremiereSection() {
             transition={{ delay: 0.1 }}
             className="text-slate-400 text-lg max-w-2xl mx-auto"
           >
-            Experience our AI-powered platform through demonstrations led by Dr. Scott Ighavongbe-Yellowe.
+            Discover how our platform transforms SEND provision through guided demonstrations of our core features.
           </motion.p>
         </div>
 
@@ -161,7 +161,7 @@ export default function VideoPremiereSection() {
                       <Icon className="w-5 h-5 text-white" />
                     </div>
                     <div className="absolute top-3 right-3 px-2 py-1 bg-black/50 backdrop-blur-sm rounded-full text-xs font-medium text-white/80">
-                      🤖 AI Presenter
+                      ▶️ Video Guide
                     </div>
                   </div>
                   <div className="p-6">
