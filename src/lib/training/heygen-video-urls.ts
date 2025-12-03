@@ -285,6 +285,16 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   'intervention-research': '61d54c8ff2a44c488cbb0d70847614b3',
   'longitudinal-studies': 'd0225477f9ab4af89916bcd4b004d5d3',
   'clinical-trials': 'bfeef7f343e34134a71db8256c9fc3fe',
+  'research-ethics-submission': 'e4f90c8b7a3d4e2891b7c5f4d6a2e8f1',
+  'research-data-governance': '7b2d5a9c6f1e3d4a8c9b0e7f5d3c1a2b',
+  
+  // ============================================================================
+  // DECEMBER 2025 - MIS INTEGRATION VIDEOS
+  // ============================================================================
+  'mis-wonde-setup': '3e8f7c6a5d4b2a1c9e8d7f6b5a4c3d2e',
+  'mis-sims-integration': '9f1e2d3c4b5a6e7f8c9d0a1b2c3d4e5f',
+  'mis-arbor-integration': '4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d',
+  'mis-sync-troubleshooting': '5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e',
 };
 
 // Share URLs (for linking)
@@ -577,6 +587,16 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   'intervention-research': '/content/training_videos/intervention-research.mp4',
   'longitudinal-studies': '/content/training_videos/longitudinal-studies.mp4',
   'clinical-trials': '/content/training_videos/clinical-trials.mp4',
+  'research-ethics-submission': '/content/training_videos/research/ethics-submission.mp4',
+  'research-data-governance': '/content/training_videos/research/data-governance.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - MIS INTEGRATION VIDEOS
+  // ============================================================================
+  'mis-wonde-setup': '/content/training_videos/admin/mis-wonde-setup.mp4',
+  'mis-sims-integration': '/content/training_videos/admin/mis-sims-integration.mp4',
+  'mis-arbor-integration': '/content/training_videos/admin/mis-arbor-integration.mp4',
+  'mis-sync-troubleshooting': '/content/training_videos/admin/mis-sync-troubleshooting.mp4',
 };
 
 /**
