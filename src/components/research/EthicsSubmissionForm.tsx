@@ -272,7 +272,7 @@ export default function EthicsSubmissionForm() {
         <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
           <div
             className="h-full bg-indigo-600 transition-all duration-500"
-            style={{ width: `${progress}%` } as React.CSSProperties}
+            style={{ '--progress-width': `${progress}%`, width: 'var(--progress-width)' } as React.CSSProperties}
           />
         </div>
         <div className="mt-4 grid grid-cols-5 gap-2">
