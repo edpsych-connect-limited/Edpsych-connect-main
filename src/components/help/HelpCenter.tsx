@@ -11,8 +11,17 @@
 ;
 
 import React, { useState } from 'react';
-import { Search, Book, FileText, MessageCircle, ChevronRight } from 'lucide-react';
+import { Search, Book, FileText, MessageCircle, ChevronRight, Play, Video } from 'lucide-react';
 import Link from 'next/link';
+import { VideoModal } from '@/components/video/VideoTutorialPlayer';
+
+// Featured video tutorials
+const FEATURED_VIDEOS = [
+  { key: 'help-getting-started', title: 'Platform Overview', duration: '3:45' },
+  { key: 'help-first-assessment', title: 'Your First Assessment', duration: '4:20' },
+  { key: 'feature-interventions', title: 'Intervention Library', duration: '3:30' },
+  { key: 'help-data-security', title: 'Data Security', duration: '4:00' },
+];
 
 const CATEGORIES = [
   { id: 'getting-started', title: 'Getting Started', icon: Book, count: 5 },
@@ -30,6 +39,7 @@ const ARTICLES = [
 
 export default function HelpCenter() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedVideo, setSelectedVideo] = useState<typeof FEATURED_VIDEOS[0] | null>(null);
 
   const filteredArticles = ARTICLES.filter(article => 
     article.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -56,6 +66,47 @@ export default function HelpCenter() {
 
       <div className="max-w-6xl mx-auto px-4 py-12">
         
+        {/* Video Tutorials Grid */}
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <Video className="w-6 h-6 text-indigo-600" />
+              <h2 className="text-xl font-bold text-slate-900">Video Tutorials</h2>
+            </div>
+            <Link 
+              href="/help/videos"
+              className="text-sm text-indigo-600 hover:underline"
+            >
+              View all videos →
+            </Link>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {FEATURED_VIDEOS.map((video) => (
+              <button
+                key={video.key}
+                onClick={() => setSelectedVideo(video)}
+                className="bg-white rounded-xl border border-slate-200 overflow-hidden hover:border-indigo-300 hover:shadow-md transition-all text-left group"
+              >
+                <div className="relative aspect-video bg-gradient-to-br from-indigo-900 to-purple-900">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                      <Play className="w-5 h-5 text-indigo-600 ml-0.5" />
+                    </div>
+                  </div>
+                  <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                    {video.duration}
+                  </div>
+                </div>
+                <div className="p-3">
+                  <h4 className="font-medium text-slate-900 group-hover:text-indigo-700 transition-colors text-sm">
+                    {video.title}
+                  </h4>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Categories Grid */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           {CATEGORIES.map(cat => {
@@ -112,6 +163,16 @@ export default function HelpCenter() {
         </div>
 
       </div>
+
+      {/* Video Modal */}
+      {selectedVideo && (
+        <VideoModal
+          videoKey={selectedVideo.key}
+          title={selectedVideo.title}
+          isOpen={true}
+          onClose={() => setSelectedVideo(null)}
+        />
+      )}
     </div>
   );
 }

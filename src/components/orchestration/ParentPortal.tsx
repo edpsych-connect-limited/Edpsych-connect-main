@@ -24,8 +24,19 @@ import {
   CheckCircle,
   Clock,
   User,
+  Play,
+  Video,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { VideoTutorialPlayer, VideoModal } from '@/components/video/VideoTutorialPlayer';
+
+// Parent-facing video tutorials
+const PARENT_VIDEOS = [
+  { key: 'parent-portal-welcome', title: 'Welcome to Your Portal', duration: '3:00' },
+  { key: 'parent-support-plan', title: 'Understanding Support Plans', duration: '4:30' },
+  { key: 'parent-home-support', title: 'Home Support Strategies', duration: '5:00' },
+  { key: 'parent-communication', title: 'Communicating with School', duration: '3:15' },
+];
 
 /**
  * Parent Portal Component
@@ -525,6 +536,9 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ childId, parentId, c
         />
       </div>
 
+      {/* Video Tutorials for Parents */}
+      <ParentVideoTutorials />
+
       {/* Security notice */}
       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
         <div className="flex items-start gap-3">
@@ -538,6 +552,50 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ childId, parentId, c
           </div>
         </div>
       </div>
+    </div>
+  );
+};
+
+// Parent Video Tutorials Section
+const ParentVideoTutorials: React.FC = () => {
+  const [selectedVideo, setSelectedVideo] = useState<typeof PARENT_VIDEOS[0] | null>(null);
+
+  return (
+    <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
+      <div className="flex items-center gap-3 mb-4">
+        <Video className="w-6 h-6 text-purple-600" aria-hidden="true" />
+        <div>
+          <h3 className="text-xl font-bold text-gray-900">Video Guides</h3>
+          <p className="text-sm text-gray-600">Learn how to make the most of your portal</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {PARENT_VIDEOS.map((video) => (
+          <button
+            key={video.key}
+            onClick={() => setSelectedVideo(video)}
+            className="flex items-center gap-3 p-4 bg-gray-50 hover:bg-purple-50 rounded-lg transition-colors text-left group"
+          >
+            <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center group-hover:bg-purple-200 transition-colors">
+              <Play className="w-5 h-5 text-purple-600" />
+            </div>
+            <div className="flex-1">
+              <p className="font-medium text-gray-900 group-hover:text-purple-700">{video.title}</p>
+              <p className="text-sm text-gray-500">{video.duration}</p>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      {selectedVideo && (
+        <VideoModal
+          videoKey={selectedVideo.key}
+          title={selectedVideo.title}
+          isOpen={true}
+          onClose={() => setSelectedVideo(null)}
+        />
+      )}
     </div>
   );
 };

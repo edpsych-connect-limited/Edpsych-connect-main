@@ -22,6 +22,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import { useDemo } from '@/components/demo/DemoProvider';
+import { VideoTutorialPlayer, VideoModal } from '@/components/video/VideoTutorialPlayer';
 import { 
   AlertTriangle, 
   CheckCircle, 
@@ -35,7 +36,17 @@ import {
   RefreshCw,
   Download,
   Filter,
+  Play,
+  Video,
 } from 'lucide-react';
+
+// LA-specific video tutorials
+const LA_TUTORIAL_VIDEOS = [
+  { key: 'la-dashboard-overview', title: 'Dashboard Overview', duration: '4:00', description: 'Navigate the compliance dashboard' },
+  { key: 'la-ehcp-portal-intro', title: 'EHCP Portal Guide', duration: '5:30', description: 'Managing applications and timelines' },
+  { key: 'ehcp-application-journey', title: 'Application Journey', duration: '6:00', description: 'Full EHCP process walkthrough' },
+  { key: 'compliance-data-protection', title: 'Data & Compliance', duration: '5:15', description: 'GDPR and statutory requirements' },
+];
 
 // Types
 interface CaseInfo {
@@ -718,9 +729,69 @@ export default function LAEHCPDashboard() {
                 </div>
               </div>
             </div>
+
+            {/* Video Tutorials Section */}
+            <LAVideoTutorials />
           </>
         )}
       </div>
+    </div>
+  );
+}
+
+// LA Video Tutorials Component
+function LAVideoTutorials() {
+  const [selectedVideo, setSelectedVideo] = useState<typeof LA_TUTORIAL_VIDEOS[0] | null>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center">
+            <Video className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+          </div>
+          <div>
+            <h3 className="font-semibold text-gray-900 dark:text-white">Video Tutorials</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Quick guides for LA staff</p>
+          </div>
+        </div>
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline"
+        >
+          {isExpanded ? 'Show less' : 'Show all'}
+        </button>
+      </div>
+
+      <div className={`grid grid-cols-1 md:grid-cols-2 gap-3 ${!isExpanded ? 'max-h-32 overflow-hidden' : ''}`}>
+        {LA_TUTORIAL_VIDEOS.map((video) => (
+          <button
+            key={video.key}
+            onClick={() => setSelectedVideo(video)}
+            className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg transition-colors text-left group"
+          >
+            <div className="w-8 h-8 bg-indigo-100 dark:bg-indigo-800 rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-indigo-200 dark:group-hover:bg-indigo-700 transition-colors">
+              <Play className="w-4 h-4 text-indigo-600 dark:text-indigo-300" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-medium text-gray-900 dark:text-white text-sm truncate group-hover:text-indigo-700 dark:group-hover:text-indigo-300">
+                {video.title}
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">{video.duration}</p>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      {selectedVideo && (
+        <VideoModal
+          videoKey={selectedVideo.key}
+          title={selectedVideo.title}
+          isOpen={true}
+          onClose={() => setSelectedVideo(null)}
+        />
+      )}
     </div>
   );
 }
