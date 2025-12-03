@@ -78,8 +78,25 @@ export default function MISIntegrationSettings() {
   const [isTesting, setIsTesting] = useState(false);
   const [syncLogs, setSyncLogs] = useState<SyncLog[]>([]);
   const [showVideoHelp, setShowVideoHelp] = useState(false);
+  const [videoHelpKey, setVideoHelpKey] = useState('admin-mis-integration');
+  const [videoHelpTitle, setVideoHelpTitle] = useState('MIS Integration Setup Guide');
   const [autoSyncEnabled, setAutoSyncEnabled] = useState(true);
   const [syncSchedule, setSyncSchedule] = useState('daily');
+
+  // Provider-specific video mapping
+  const providerVideos: Record<string, { key: string; title: string }> = {
+    wonde: { key: 'mis-wonde-setup', title: 'Wonde MIS Integration Setup' },
+    sims: { key: 'mis-sims-integration', title: 'SIMS Integration Guide' },
+    arbor: { key: 'mis-arbor-integration', title: 'Arbor MIS Integration' },
+    troubleshooting: { key: 'mis-sync-troubleshooting', title: 'MIS Sync Troubleshooting' },
+  };
+
+  const showProviderVideo = (providerId: string) => {
+    const video = providerVideos[providerId] || { key: 'admin-mis-integration', title: 'MIS Integration Setup Guide' };
+    setVideoHelpKey(video.key);
+    setVideoHelpTitle(video.title);
+    setShowVideoHelp(true);
+  };
 
   // Load existing configuration
   useEffect(() => {
@@ -446,13 +463,20 @@ export default function MISIntegrationSettings() {
 
               {/* Connect Button */}
               {provider.status === 'disconnected' && selectedProvider !== provider.id && (
-                <div className="mt-4">
+                <div className="mt-4 flex gap-3">
                   <button
                     onClick={() => setSelectedProvider(provider.id)}
                     className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
                   >
                     <Database className="w-4 h-4" />
                     Connect {provider.name}
+                  </button>
+                  <button
+                    onClick={() => showProviderVideo(provider.id)}
+                    className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                  >
+                    <Video className="w-4 h-4" />
+                    Watch Setup Guide
                   </button>
                 </div>
               )}
@@ -464,7 +488,16 @@ export default function MISIntegrationSettings() {
       {/* Sync History */}
       {syncLogs.length > 0 && (
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Recent Sync History</h3>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-semibold text-gray-900 dark:text-white">Recent Sync History</h3>
+            <button
+              onClick={() => showProviderVideo('troubleshooting')}
+              className="flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 hover:underline"
+            >
+              <HelpCircle className="w-4 h-4" />
+              Troubleshooting Guide
+            </button>
+          </div>
           <div className="space-y-3">
             {syncLogs.map((log) => (
               <div
@@ -530,8 +563,8 @@ export default function MISIntegrationSettings() {
       {/* Video Help Modal */}
       {showVideoHelp && (
         <VideoModal
-          videoKey="admin-mis-integration"
-          title="MIS Integration Setup Guide"
+          videoKey={videoHelpKey}
+          title={videoHelpTitle}
           isOpen={showVideoHelp}
           onClose={() => setShowVideoHelp(false)}
         />

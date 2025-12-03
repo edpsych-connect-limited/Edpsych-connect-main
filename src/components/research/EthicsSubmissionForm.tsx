@@ -683,7 +683,7 @@ export default function EthicsSubmissionForm() {
       {/* Video Help Modal */}
       {showVideoHelp && (
         <VideoModal
-          videoKey="compliance-data-protection"
+          videoKey="research-ethics-submission"
           title="Research Ethics Submission Guide"
           isOpen={showVideoHelp}
           onClose={() => setShowVideoHelp(false)}
