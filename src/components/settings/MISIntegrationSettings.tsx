@@ -17,7 +17,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Database, RefreshCw, CheckCircle, AlertCircle, Clock, 
-  Shield, Settings, Loader2, Play, Pause, Trash2,
+  Shield, Settings, Loader2, Play, Trash2,
   ExternalLink, HelpCircle, Video
 } from 'lucide-react';
 import { VideoModal } from '@/components/video/VideoTutorialPlayer';
@@ -139,7 +139,7 @@ export default function MISIntegrationSettings() {
       } else {
         toast.error(data.error || 'Failed to connect');
       }
-    } catch (error) {
+    } catch (_error) {
       toast.error('Connection failed. Please check your credentials.');
     } finally {
       setIsLoading(false);
@@ -162,7 +162,7 @@ export default function MISIntegrationSettings() {
       } else {
         toast.error(data.error || 'Connection test failed');
       }
-    } catch (error) {
+    } catch (_error) {
       toast.error('Test failed. Please check your connection.');
     } finally {
       setIsTesting(false);
@@ -209,7 +209,7 @@ export default function MISIntegrationSettings() {
           p.id === providerId ? { ...p, status: 'error' } : p
         ));
       }
-    } catch (error) {
+    } catch (_error) {
       toast.error('Sync failed. Please try again.');
       setProviders(prev => prev.map(p => 
         p.id === providerId ? { ...p, status: 'error' } : p
@@ -237,7 +237,7 @@ export default function MISIntegrationSettings() {
             : p
         ));
       }
-    } catch (error) {
+    } catch (_error) {
       toast.error('Failed to disconnect');
     }
   };
@@ -317,6 +317,8 @@ export default function MISIntegrationSettings() {
               value={syncSchedule}
               onChange={(e) => setSyncSchedule(e.target.value)}
               className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              aria-label="Sync schedule frequency"
+              title="Select sync frequency"
             >
               <option value="hourly">Every hour</option>
               <option value="daily">Daily (overnight)</option>

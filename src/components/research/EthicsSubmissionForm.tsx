@@ -14,11 +14,11 @@
  * - Amendment requests
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   FileText, Upload, CheckCircle, Clock, AlertCircle, 
   Send, Save, Trash2, Plus, ChevronDown, ChevronUp,
-  Shield, Users, Calendar, Building, Video, HelpCircle
+  Shield, Users, Building, Video, HelpCircle
 } from 'lucide-react';
 import { VideoModal } from '@/components/video/VideoTutorialPlayer';
 import toast from 'react-hot-toast';
@@ -39,8 +39,7 @@ interface FormSection {
 }
 
 export default function EthicsSubmissionForm() {
-  const [applications, setApplications] = useState<EthicsApplication[]>([]);
-  const [activeApplication, setActiveApplication] = useState<string | null>(null);
+  const [_applications, _setApplications] = useState<EthicsApplication[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showVideoHelp, setShowVideoHelp] = useState(false);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['project-info']));
@@ -150,7 +149,7 @@ export default function EthicsSubmissionForm() {
       } else {
         toast.error('Failed to save draft');
       }
-    } catch (error) {
+    } catch (_error) {
       toast.error('Failed to save draft');
     } finally {
       setIsLoading(false);
@@ -188,7 +187,7 @@ export default function EthicsSubmissionForm() {
       } else {
         toast.error('Failed to submit application');
       }
-    } catch (error) {
+    } catch (_error) {
       toast.error('Submission failed. Please try again.');
     } finally {
       setIsLoading(false);
@@ -356,25 +355,31 @@ export default function EthicsSubmissionForm() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" htmlFor="start-date">
                     Start Date
                   </label>
                   <input
+                    id="start-date"
                     type="date"
                     value={formData.startDate}
                     onChange={(e) => handleInputChange('startDate', e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800"
+                    aria-label="Start date"
+                    title="Select start date"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" htmlFor="end-date">
                     End Date
                   </label>
                   <input
+                    id="end-date"
                     type="date"
                     value={formData.endDate}
                     onChange={(e) => handleInputChange('endDate', e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800"
+                    aria-label="End date"
+                    title="Select end date"
                   />
                 </div>
               </div>
@@ -626,6 +631,8 @@ export default function EthicsSubmissionForm() {
                       <button
                         onClick={() => removeDocument(index)}
                         className="text-red-500 hover:text-red-600"
+                        aria-label={`Remove ${file.name}`}
+                        title={`Remove ${file.name}`}
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>

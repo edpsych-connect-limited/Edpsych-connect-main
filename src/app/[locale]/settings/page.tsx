@@ -76,6 +76,8 @@ export default function SettingsPage() {
                     className={`relative inline-block w-12 h-6 transition duration-200 ease-in-out rounded-full cursor-pointer ${
                       voiceEnabled ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-600'
                     }`}
+                    aria-label="Toggle voice assistant"
+                    title="Toggle voice assistant"
                   >
                     <span className={`absolute top-1 bg-white w-4 h-4 rounded-full transition-transform duration-200 ease-in-out ${
                       voiceEnabled ? 'left-6' : 'left-1'
@@ -184,6 +186,8 @@ export default function SettingsPage() {
                     className={`relative inline-block w-12 h-6 transition duration-200 ease-in-out rounded-full cursor-pointer ${
                       notifications.email ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-600'
                     }`}
+                    aria-label="Toggle email notifications"
+                    title="Toggle email notifications"
                   >
                     <span className={`absolute top-1 bg-white w-4 h-4 rounded-full transition-transform duration-200 ease-in-out ${
                       notifications.email ? 'left-6' : 'left-1'
@@ -201,6 +205,8 @@ export default function SettingsPage() {
                     className={`relative inline-block w-12 h-6 transition duration-200 ease-in-out rounded-full cursor-pointer ${
                       notifications.push ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-600'
                     }`}
+                    aria-label="Toggle push notifications"
+                    title="Toggle push notifications"
                   >
                     <span className={`absolute top-1 bg-white w-4 h-4 rounded-full transition-transform duration-200 ease-in-out ${
                       notifications.push ? 'left-6' : 'left-1'
@@ -218,6 +224,8 @@ export default function SettingsPage() {
                     className={`relative inline-block w-12 h-6 transition duration-200 ease-in-out rounded-full cursor-pointer ${
                       notifications.weekly ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-600'
                     }`}
+                    aria-label="Toggle weekly summary"
+                    title="Toggle weekly summary"
                   >
                     <span className={`absolute top-1 bg-white w-4 h-4 rounded-full transition-transform duration-200 ease-in-out ${
                       notifications.weekly ? 'left-6' : 'left-1'
