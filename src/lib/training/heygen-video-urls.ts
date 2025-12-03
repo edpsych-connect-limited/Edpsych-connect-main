@@ -279,22 +279,22 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   // ============================================================================
   // DECEMBER 2025 - RESEARCH PORTAL VIDEOS
   // ============================================================================
-  'research-methodology': 'a99bdbf8796a4983bb0b2174eecad23e',
-  'ecca-validation': '479040a5c26042d1ae7b6b73ca4eccb6',
-  'data-ethics': '18f2383def8d4249be2bd031814856c1',
-  'intervention-research': '61d54c8ff2a44c488cbb0d70847614b3',
-  'longitudinal-studies': 'd0225477f9ab4af89916bcd4b004d5d3',
-  'clinical-trials': 'bfeef7f343e34134a71db8256c9fc3fe',
-  'research-ethics-submission': 'e4f90c8b7a3d4e2891b7c5f4d6a2e8f1',
-  'research-data-governance': '7b2d5a9c6f1e3d4a8c9b0e7f5d3c1a2b',
+  'research-methodology': '1a892b3ce9ba4500b79b34481bb36cef',
+  'ecca-validation': 'b32982234022418c98611017303ed274',
+  'data-ethics': '980e56a44ba94c2a8e382596b0dab563',
+  'intervention-research': '5ee53b994f5843eea146af5e9d7614bc',
+  'longitudinal-studies': 'e349ea72a6844faaa85cf96b1cbbdfa2',
+  'clinical-trials': '6bf60aa65978470ca84ce41858fa080a',
+  'research-ethics-submission': '9eb5f44cfc624df19ab05afd56901a78',
+  'research-data-governance': 'a832750765404afbbdcc3a66e62b434e',
   
   // ============================================================================
   // DECEMBER 2025 - MIS INTEGRATION VIDEOS
   // ============================================================================
-  'mis-wonde-setup': '3e8f7c6a5d4b2a1c9e8d7f6b5a4c3d2e',
-  'mis-sims-integration': '9f1e2d3c4b5a6e7f8c9d0a1b2c3d4e5f',
-  'mis-arbor-integration': '4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d',
-  'mis-sync-troubleshooting': '5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e',
+  'mis-wonde-setup': 'f0c382055b9748c9ad147b7fe1b975db',
+  'mis-sims-integration': '3af26eb1cce149bebbee652c1246a667',
+  'mis-arbor-integration': '72b5f5e334834b1da1d8e9131d63c635',
+  'mis-sync-troubleshooting': '1a3684cf67254ae58db09a68d8eb9e5a',
 };
 
 // Share URLs (for linking)
