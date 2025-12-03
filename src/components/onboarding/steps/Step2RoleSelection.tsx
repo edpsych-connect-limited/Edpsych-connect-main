@@ -211,7 +211,7 @@ export function Step2RoleSelection() {
           What&apos;s your role?
         </h2>
         <p className="text-lg text-gray-600">
-          We&apos;ll personalize your experience based on your professional focus
+          We&apos;ll personalise your experience based on your professional focus
         </p>
       </div>
 

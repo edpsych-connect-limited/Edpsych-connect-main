@@ -52,7 +52,7 @@ const DEMO_CONFIG: Record<string, { type: string; input: any; title: string }> =
   },
   interventions: {
     type: 'behavior-analysis',
-    title: 'Analyze Intervention Needs',
+    title: 'Analyse Intervention Needs',
     input: {
       studentName: 'Jamie Smith',
       yearGroup: 'Year 8',

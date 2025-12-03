@@ -88,8 +88,8 @@ export async function POST(request: NextRequest) {
       knowledgeContext += `\n\nRELATED TOPICS:\n${relatedEntries.map(e => `- ${e.title}: ${e.content.substring(0, 200)}...`).join('\n')}`;
     }
 
-    // Build conversation history
-    const conversationHistory = context?.previousMessages || [];
+    // Build conversation history for context (used in AI prompt building)
+    const _conversationHistory = context?.previousMessages || [];
     
     // Try AI service for enhanced response
     let response: string;

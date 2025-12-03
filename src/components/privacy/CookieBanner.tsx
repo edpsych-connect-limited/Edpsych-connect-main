@@ -50,8 +50,8 @@ export default function CookieBanner({ className = '' }: CookieBannerProps) {
               </div>
 
               <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                We use cookies to enhance your experience, analyze usage, and provide personalized content.
-                Essential cookies are required for the platform to function. You can customize your preferences
+                We use cookies to enhance your experience, analyse usage, and provide personalised content.
+                Essential cookies are required for the platform to function. You can customise your preferences
                 or learn more in our{' '}
                 <button
                   onClick={openSettings}
@@ -82,7 +82,7 @@ export default function CookieBanner({ className = '' }: CookieBannerProps) {
                 className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md transition-colors duration-200"
               >
                 <Settings className="w-4 h-4 mr-2" />
-                Customize
+                Customise
               </button>
 
               <div className="flex gap-2">

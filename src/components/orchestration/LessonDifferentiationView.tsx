@@ -562,7 +562,7 @@ export const LessonDifferentiationView: React.FC<LessonDifferentiationViewProps>
       {/* Help text */}
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
         <p className="text-sm text-blue-900">
-          <strong>Tip:</strong> Drag and drop students between difficulty levels to customize assignments before sending.
+          <strong>Tip:</strong> Drag and drop students between difficulty levels to customise assignments before sending.
           Each version is automatically tailored to the student's learning profile.
         </p>
       </div>

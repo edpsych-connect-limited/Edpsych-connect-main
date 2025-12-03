@@ -15,9 +15,9 @@ interface PageHeaderProps {
 
 const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle }) => {
   return (
-    <header style={{ padding: '1rem', borderBottom: '1px solid #ccc' }}>
-      <h1>{title}</h1>
-      {subtitle && <p>{subtitle}</p>}
+    <header className="p-4 border-b border-gray-300">
+      <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
+      {subtitle && <p className="text-gray-600 mt-1">{subtitle}</p>}
     </header>
   );
 };
