@@ -277,7 +277,7 @@ async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
   const subscription = await prisma.subscriptions.findFirst({
     where: { stripe_subscription_id: subscriptionId },
     include: {
-      tenant: {
+      tenants: {
         include: {
           users: {
             where: { role: { in: ['admin', 'owner', 'head_teacher'] } },
@@ -288,9 +288,9 @@ async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
     },
   });
 
-  if (subscription?.tenant?.users?.[0]) {
-    const user = subscription.tenant.users[0];
-    const tenantName = subscription.tenant.name;
+  if (subscription?.tenants?.users?.[0]) {
+    const user = subscription.tenants.users[0];
+    const tenantName = subscription.tenants.name;
     
     // Send payment success email
     await emailService.sendEmail({
@@ -346,7 +346,7 @@ async function handlePaymentFailed(invoice: Stripe.Invoice) {
   const subscription = await prisma.subscriptions.findFirst({
     where: { stripe_subscription_id: subscriptionId },
     include: {
-      tenant: {
+      tenants: {
         include: {
           users: {
             where: { role: { in: ['admin', 'owner', 'head_teacher'] } },
@@ -357,9 +357,9 @@ async function handlePaymentFailed(invoice: Stripe.Invoice) {
     },
   });
 
-  if (subscription?.tenant?.users?.[0]) {
-    const user = subscription.tenant.users[0];
-    const tenantName = subscription.tenant.name;
+  if (subscription?.tenants?.users?.[0]) {
+    const user = subscription.tenants.users[0];
+    const tenantName = subscription.tenants.name;
     const isFinalAttempt = attemptCount >= 3;
     
     // Send payment failed email

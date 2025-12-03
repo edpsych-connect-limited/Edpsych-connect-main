@@ -185,18 +185,20 @@ function MarketplaceSearchContent() {
               <div className="grid gap-6">
                 {professionals.map((pro) => (
                   <div key={pro.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex gap-6 hover:shadow-md transition-shadow">
-                    {/* Avatar */}
+                    {/* Avatar - Professional photo with proper centering */}
                     <div className="flex-shrink-0">
-                      <div className="h-24 w-24 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden relative">
+                      <div className="h-24 w-24 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center overflow-hidden relative ring-2 ring-white shadow-lg">
                         {pro.avatar ? (
                           <Image 
                             src={pro.avatar} 
                             alt={pro.name} 
                             fill
-                            className="object-cover"
+                            sizes="96px"
+                            className="object-cover object-top"
+                            style={{ objectPosition: 'center 20%' }}
                           />
                         ) : (
-                          <span className="text-2xl font-bold text-gray-400">{pro.name.charAt(0)}</span>
+                          <span className="text-2xl font-bold text-indigo-400">{pro.name.charAt(0)}</span>
                         )}
                       </div>
                     </div>

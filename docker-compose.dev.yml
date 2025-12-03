@@ -1,0 +1,57 @@
+# EdPsych Connect - Development Docker Compose
+# Lightweight setup for local development
+
+version: '3.8'
+
+services:
+  # ================================
+  # PostgreSQL Database
+  # ================================
+  postgres:
+    image: postgres:15-alpine
+    container_name: edpsych-dev-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=edpsych
+      - POSTGRES_PASSWORD=edpsych_dev_password
+      - POSTGRES_DB=edpsych_connect
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U edpsych -d edpsych_connect"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ================================
+  # Redis Cache (Optional - for session caching)
+  # ================================
+  redis:
+    image: redis:7-alpine
+    container_name: edpsych-dev-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_dev_data:/data
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  # ================================
+  # Adminer (Database UI)
+  # ================================
+  adminer:
+    image: adminer
+    container_name: edpsych-dev-adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+volumes:
+  postgres_dev_data:
+    driver: local
+  redis_dev_data:
+    driver: local

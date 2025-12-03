@@ -234,7 +234,8 @@ const StudentGrid: React.FC<{
   selectedStudentId: number | null;
   onStudentSelect: (id: number | null) => void;
   onVoiceQuery: (query: string) => void;
-}> = ({ students, selectedStudentId: _selectedStudentId, onStudentSelect, onVoiceQuery }) => {
+  isDemo?: boolean;
+}> = ({ students, selectedStudentId: _selectedStudentId, onStudentSelect, onVoiceQuery, isDemo = false }) => {
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -348,6 +349,8 @@ const StudentGrid: React.FC<{
                 onVoiceQuery={onVoiceQuery}
                 onViewDetails={() => onStudentSelect(student.id)}
                 compact={false}
+                isDemo={isDemo}
+                demoData={{ name: student.name, urgencyLevel: student.urgencyLevel }}
               />
             </div>
           ))}
@@ -486,6 +489,7 @@ export const TeacherClassDashboard: React.FC<TeacherClassDashboardProps> = ({
         selectedStudentId={selectedStudentId}
         onStudentSelect={setSelectedStudentId}
         onVoiceQuery={handleVoiceQuery}
+        isDemo={isDemo}
       />
 
       {/* Last updated timestamp */}

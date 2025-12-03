@@ -176,6 +176,12 @@ export default function TutoringInterface() {
       // Use a safer approach for CSRF protection
       const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
       
+      // Include isDemo flag when user is not authenticated
+      const requestBody = {
+        ...formData,
+        isDemo: !user, // Enable demo mode if user is not logged in
+      };
+      
       const response = await fetch('/api/orchestrator/tutor', {
         method: 'POST',
         headers: {
@@ -183,7 +189,7 @@ export default function TutoringInterface() {
           'X-Request-ID': requestId,
           'X-CSRF-Token': csrfToken,
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(requestBody),
         credentials: 'include', // Include cookies for authentication
         signal: AbortSignal.timeout(30000), // 30 second timeout
       });

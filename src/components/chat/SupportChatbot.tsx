@@ -4,13 +4,13 @@
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
  * 
- * CONFIDENTIAL: This software contains proprietary algorithms and trade secrets.
- * Unauthorized copying, modification, distribution, or use is strictly prohibited.
+ * Enterprise-Grade AI Support Chatbot
+ * Comprehensive platform knowledge with intelligent response generation
  */
-
 
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Minimize2, Maximize2, Loader2 } from 'lucide-react';
+import { findBestMatch, findRelevantEntries } from '@/lib/knowledge/platform-knowledge';
 
 interface Message {
   id: string;
@@ -102,71 +102,119 @@ export function SupportChatbot() {
     }
   };
 
+  /**
+   * Enterprise-grade response generation using comprehensive knowledge base
+   */
   const getMockResponse = (input: string): string => {
     const lowerInput = input.toLowerCase();
     
-    // Password & Account
-    if (lowerInput.includes('reset') || lowerInput.includes('password') || lowerInput.includes('forgot')) {
-      return 'To reset your password, go to the login page and click "Forgot Password". You\'ll receive an email with reset instructions within a few minutes.';
+    // First, try to find a match in the comprehensive knowledge base
+    const bestMatch = findBestMatch(input);
+    
+    if (bestMatch) {
+      // Format the knowledge base response with links
+      let response = bestMatch.content;
+      
+      // Add helpful links if available
+      if (bestMatch.links && bestMatch.links.length > 0) {
+        response += '\n\n**Quick Links:**\n';
+        bestMatch.links.forEach(link => {
+          response += `• [${link.text}](${link.url})\n`;
+        });
+      }
+      
+      // Add related topics suggestion
+      const relatedEntries = findRelevantEntries(input, 3).filter(e => e.id !== bestMatch.id);
+      if (relatedEntries.length > 0) {
+        response += '\n**Related Topics:** ';
+        response += relatedEntries.map(e => e.title).join(' • ');
+      }
+      
+      return response;
     }
     
-    // Login issues
-    if (lowerInput.includes('login') || lowerInput.includes('sign in') || lowerInput.includes('can\'t access')) {
-      return 'If you\'re having trouble logging in, please check: 1) Your email is correct, 2) Caps Lock is off, 3) Try "Forgot Password" if needed. For demo access, use teacher@demo.com with password Test123!';
+    // Fallback greeting handling
+    if (lowerInput.match(/^(hi|hello|hey|good\s*(morning|afternoon|evening)|howdy|hiya)/)) {
+      return `👋 Hello! I'm your EdPsych Connect assistant.
+
+**I can help with:**
+• 🧭 **Navigation** - "How do I get to the dashboard?"
+• 📊 **Assessments** - "How do I start an ECCA assessment?"
+• 📋 **EHCP** - "How do I create an EHCP?"
+• 🎯 **Interventions** - "What interventions are available?"
+• 🎓 **Training** - "How do I access CPD courses?"
+• ⚙️ **Account** - "How do I reset my password?"
+• 🔒 **Security** - "How is my data protected?"
+
+What would you like to know about?`;
     }
     
-    // Reports & PDF
-    if (lowerInput.includes('report') || lowerInput.includes('pdf') || lowerInput.includes('download')) {
-      return 'To generate reports: 1) Complete an assessment, 2) Go to the "Review & Complete" step, 3) Click "Generate Report" to download a PDF. Reports include all observations, interpretations, and recommendations.';
+    // Thank you responses
+    if (lowerInput.match(/(thank|thanks|cheers|brilliant|perfect|great|awesome)/)) {
+      return `😊 You're welcome! I'm here whenever you need help.
+
+**Quick Tips:**
+• Press **Cmd/Ctrl + K** for global search
+• Visit **/help** for detailed guides
+• Email **support@edpsychconnect.world** for complex issues
+
+Is there anything else I can assist with?`;
     }
     
-    // Assessment & ECCA
-    if (lowerInput.includes('assessment') || lowerInput.includes('ecca') || lowerInput.includes('cognitive')) {
-      return 'The ECCA Framework is our evidence-based cognitive assessment covering 4 domains: Working Memory, Attention & Executive Function, Processing Speed, and Learning & Memory. Navigate to Assessments > Start New Assessment to begin.';
+    // What can you do
+    if (lowerInput.match(/(what can you|help with|what do you|capabilities)/)) {
+      return `🤖 **I'm your comprehensive EdPsych Connect guide!**
+
+**I can help with:**
+
+📍 **Navigation**
+• Finding features and pages
+• Understanding the menu structure
+• Keyboard shortcuts
+
+📊 **Core Features**
+• Assessments & ECCA framework
+• Case management
+• EHCP creation & reviews
+• Interventions library
+• Progress tracking
+
+🎓 **Learning**
+• Training courses & CPD
+• Video tutorials
+• Best practices
+
+⚙️ **Technical Support**
+• Account settings
+• Password issues
+• Integrations
+• Data & privacy
+
+💡 **Just ask naturally!** For example:
+• "How do I create an assessment?"
+• "Where is the EHCP module?"
+• "How do I add a student?"`;
     }
     
-    // Lesson plans
-    if (lowerInput.includes('lesson') || lowerInput.includes('plan') || lowerInput.includes('planning')) {
-      return 'To create a lesson plan: 1) Go to your Dashboard, 2) Click "Lesson Plans" in the sidebar, 3) Select "Create New", 4) Choose a template or start from scratch. Our AI can help generate differentiated activities!';
-    }
-    
-    // EHCP
-    if (lowerInput.includes('ehcp') || lowerInput.includes('education health care')) {
-      return 'The EHCP module helps you create compliant plans with: Section-by-section guidance, SMART outcome writing assistance, provision mapping, and annual review tracking. Access it from EHCP in the main menu.';
-    }
-    
-    // Interventions
-    if (lowerInput.includes('intervention') || lowerInput.includes('strategy') || lowerInput.includes('support')) {
-      return 'Our Intervention Library contains 500+ evidence-based strategies organised by need (e.g., reading, attention, anxiety). Each intervention includes implementation steps, resources, and progress monitoring tools.';
-    }
-    
-    // Student/Child
-    if (lowerInput.includes('student') || lowerInput.includes('child') || lowerInput.includes('pupil')) {
-      return 'To manage students: 1) Go to Cases or Students section, 2) Add new students or view existing profiles, 3) Link assessments, interventions, and track progress over time.';
-    }
-    
-    // Parent access
-    if (lowerInput.includes('parent') || lowerInput.includes('family') || lowerInput.includes('guardian')) {
-      return 'Parents can access their child\'s progress, view reports, and communicate with school staff through the Parent Portal. They receive their own login credentials when added to the system.';
-    }
-    
-    // Pricing/subscription
-    if (lowerInput.includes('price') || lowerInput.includes('cost') || lowerInput.includes('subscription') || lowerInput.includes('free')) {
-      return 'We offer flexible pricing from FREE (basic features) to Enterprise tiers. Visit edpsychconnect.com/pricing for full details, or contact us for a custom quote for your organisation.';
-    }
-    
-    // Contact/support
-    if (lowerInput.includes('contact') || lowerInput.includes('support') || lowerInput.includes('help') || lowerInput.includes('email')) {
-      return 'For support: 1) Check our Help Centre at /help, 2) Email support@edpsychconnect.world, 3) Use this chat for quick questions. We typically respond within 24 hours on weekdays.';
-    }
-    
-    // Training/CPD
-    if (lowerInput.includes('training') || lowerInput.includes('cpd') || lowerInput.includes('course') || lowerInput.includes('learn')) {
-      return 'Our Training Marketplace offers CPD courses for educators and EPs. Topics include assessment techniques, intervention strategies, and SEND best practices. Visit Training in the main menu to browse courses.';
-    }
-    
-    // Default helpful response
-    return 'I can help you with: assessments, lesson planning, EHCPs, interventions, student management, reports, and more. What would you like to know about? For specific technical issues, please email support@edpsychconnect.world.';
+    // Enhanced default response with suggestions
+    return `🤔 I'm not certain about that specific topic, but I'd love to help!
+
+**Try asking about:**
+• **Navigation**: "How do I get to the dashboard?"
+• **Assessments**: "How do I start a cognitive assessment?"
+• **EHCP**: "How do I create an Education Health Care Plan?"
+• **Cases**: "How do I add a new student?"
+• **Training**: "What CPD courses are available?"
+• **Reports**: "How do I generate a PDF report?"
+• **Account**: "How do I reset my password?"
+• **Security**: "How is student data protected?"
+
+**Additional Resources:**
+• 📚 Help Centre: **/help**
+• 📧 Email: support@edpsychconnect.world
+• 🎪 Try demos: **/demo**
+
+Could you rephrase your question, or pick one of the topics above?`;
   };
 
   if (!isOpen) {

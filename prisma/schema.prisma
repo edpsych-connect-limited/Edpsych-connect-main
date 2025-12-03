@@ -198,6 +198,7 @@ model users {
   password_hash String
   name          String
   role          String
+  avatar_url    String?  // Profile photo/avatar URL
 
   // Additional auth fields
   firstName              String?

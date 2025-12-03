@@ -88,7 +88,9 @@ async function main() {
     // Create or update user
     const user = await prisma.users.upsert({
       where: { email: pro.email },
-      update: {},
+      update: {
+        avatar_url: pro.imageUrl || null,
+      },
       create: {
         email: pro.email,
         name: pro.name,
@@ -96,7 +98,8 @@ async function main() {
         role: 'PROFESSIONAL',
         tenant_id: tenant.id,
         is_active: true,
-        onboarding_completed: true
+        onboarding_completed: true,
+        avatar_url: pro.imageUrl || null,
       }
     });
 

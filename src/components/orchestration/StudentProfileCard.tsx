@@ -47,6 +47,13 @@ interface StudentProfileCardProps {
   compact?: boolean;
   /** Additional CSS classes */
   className?: string;
+  /** Demo mode - uses mock data instead of API */
+  isDemo?: boolean;
+  /** Demo data for the student */
+  demoData?: {
+    name: string;
+    urgencyLevel: 'urgent' | 'needs_support' | 'on_track' | 'exceeding';
+  };
 }
 
 interface StudentProfile {
@@ -187,10 +194,47 @@ export const StudentProfileCard: React.FC<StudentProfileCardProps> = ({
   onViewDetails,
   compact = false,
   className = '',
+  isDemo = false,
+  demoData,
 }) => {
-  // Fetch student profile data
+  // Generate demo profile data
+  const generateDemoProfile = (): StudentProfile => {
+    const demoStrengths = [
+      { description: 'Strong problem-solving skills', confidence: 92 },
+      { description: 'Excellent verbal communication', confidence: 88 },
+      { description: 'Creative thinking', confidence: 85 },
+    ];
+    const demoStruggles = [
+      { description: 'Written expression needs support', severity: 2 },
+      { description: 'Time management', severity: 1 },
+    ];
+    
+    const urgencyToPerformance: Record<string, 'above' | 'at' | 'below'> = {
+      exceeding: 'above',
+      on_track: 'at',
+      needs_support: 'below',
+      urgent: 'below',
+    };
+
+    return {
+      id: studentId,
+      name: demoData?.name || `Student ${studentId}`,
+      learningStyle: 'Visual-Kinesthetic',
+      performanceLevel: urgencyToPerformance[demoData?.urgencyLevel || 'on_track'],
+      urgencyLevel: demoData?.urgencyLevel || 'on_track',
+      strengths: demoStrengths,
+      struggles: demoStruggles,
+      confidenceScore: 78,
+      todayLessons: [
+        { id: 1, title: 'Maths - Fractions', subject: 'Mathematics', status: 'completed' },
+        { id: 2, title: 'English - Creative Writing', subject: 'English', status: 'in_progress' },
+      ],
+    };
+  };
+
+  // Fetch student profile data (skip in demo mode)
   const {
-    data: profile,
+    data: fetchedProfile,
     isLoading,
     error,
     refetch,
@@ -211,16 +255,25 @@ export const StudentProfileCard: React.FC<StudentProfileCardProps> = ({
     },
     staleTime: 5 * 60 * 1000, // 5 minutes
     retry: 2,
+    enabled: !isDemo, // Disable query in demo mode
   });
 
-  // Handle loading state
-  if (isLoading) {
+  // Use demo data or fetched data
+  const profile = isDemo ? generateDemoProfile() : fetchedProfile;
+
+  // Handle loading state (not applicable in demo mode)
+  if (!isDemo && isLoading) {
     return <StudentProfileCardSkeleton compact={compact} />;
   }
 
-  // Handle error state
-  if (error || !profile) {
+  // Handle error state (not applicable in demo mode)
+  if (!isDemo && (error || !profile)) {
     return <StudentProfileCardError onRetry={() => refetch()} studentId={studentId} />;
+  }
+
+  // Safety check for profile
+  if (!profile) {
+    return <StudentProfileCardSkeleton compact={compact} />;
   }
 
   const urgencyConfig = URGENCY_CONFIG[profile.urgencyLevel];

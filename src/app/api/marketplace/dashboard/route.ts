@@ -73,9 +73,9 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    // Get verified professional count
+    // Get verified professional count (approved on LA panel)
     const verifiedProfessionals = await prisma.marketplaceProfessional.count({
-      where: { verificationStatus: 'verified' },
+      where: { la_panel_status: 'APPROVED' },
     });
 
     // Get recent reviews

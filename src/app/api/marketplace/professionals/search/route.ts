@@ -96,6 +96,7 @@ export async function GET(request: NextRequest) {
             select: {
               id: true,
               name: true,
+              avatar_url: true,
             },
           },
           _count: {
@@ -118,7 +119,7 @@ export async function GET(request: NextRequest) {
       id: p.id,
       userId: p.user.id,
       name: p.user.name,
-      avatar: null, // p.user.image,
+      avatar: p.user.avatar_url || null,
       title: 'Educational Psychologist', // Default title
       bio: p.bio,
       location: p.la_panel_regions?.[0] || 'United Kingdom', // Use first region or default

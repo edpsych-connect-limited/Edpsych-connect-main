@@ -1,0 +1,119 @@
+# EdPsych Connect - Docker Compose Configuration
+# For local development and production deployment
+
+version: '3.8'
+
+services:
+  # ================================
+  # Next.js Application
+  # ================================
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: edpsych-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost:3000}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - STRIPE_PUBLISHABLE_KEY=${STRIPE_PUBLISHABLE_KEY}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - edpsych-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ================================
+  # PostgreSQL Database (Development)
+  # ================================
+  postgres:
+    image: postgres:15-alpine
+    container_name: edpsych-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=edpsych
+      - POSTGRES_PASSWORD=edpsych_dev_password
+      - POSTGRES_DB=edpsych_connect
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./prisma/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    restart: unless-stopped
+    networks:
+      - edpsych-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U edpsych -d edpsych_connect"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ================================
+  # Redis Cache (Optional)
+  # ================================
+  redis:
+    image: redis:7-alpine
+    container_name: edpsych-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - edpsych-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+
+  # ================================
+  # Nginx Reverse Proxy (Production)
+  # ================================
+  nginx:
+    image: nginx:alpine
+    container_name: edpsych-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - app
+    restart: unless-stopped
+    networks:
+      - edpsych-network
+    profiles:
+      - production
+
+# ================================
+# Networks
+# ================================
+networks:
+  edpsych-network:
+    driver: bridge
+
+# ================================
+# Volumes
+# ================================
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local

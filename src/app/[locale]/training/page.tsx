@@ -214,14 +214,50 @@ export default function TrainingCataloguePage() {
 
         {viewMode === 'grid' ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredCourses.map((course) => (
-              <div key={course.id} className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-                <div className="h-48 bg-gray-200 relative">
+            {filteredCourses.map((course) => {
+              // Generate a gradient based on course category
+              const categoryGradients: Record<string, string> = {
+                'Cognitive Assessment': 'from-blue-500 to-indigo-600',
+                'Behavioural Intervention': 'from-amber-500 to-orange-600',
+                'Special Educational Needs': 'from-purple-500 to-violet-600',
+                'Research Methods': 'from-teal-500 to-cyan-600',
+                'Professional Skills': 'from-rose-500 to-pink-600',
+                'Compliance & Ethics': 'from-slate-500 to-gray-600',
+                'autism': 'from-blue-400 to-blue-600',
+                'adhd': 'from-amber-400 to-amber-600',
+                'dyslexia': 'from-green-400 to-green-600',
+                'mental_health': 'from-purple-400 to-purple-600',
+                'ehcp': 'from-indigo-400 to-indigo-600',
+                'send': 'from-teal-400 to-teal-600',
+              };
+              const gradient = categoryGradients[course.category] || 'from-gray-400 to-gray-600';
+              
+              // Category icons
+              const categoryIcons: Record<string, string> = {
+                'Cognitive Assessment': '🧠',
+                'Behavioural Intervention': '🎯',
+                'Special Educational Needs': '⭐',
+                'Research Methods': '📊',
+                'Professional Skills': '💼',
+                'Compliance & Ethics': '📋',
+                'autism': '🧩',
+                'adhd': '⚡',
+                'dyslexia': '📖',
+                'mental_health': '💚',
+                'ehcp': '📝',
+                'send': '🎓',
+              };
+              const icon = categoryIcons[course.category] || '📚';
+              
+              return (
+                <div key={course.id} className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                <div className="h-48 relative">
                   {course.imageUrl ? (
                     <Image src={course.imageUrl} alt={course.title} fill className="object-cover" />
                   ) : (
-                    <div className="w-full h-full flex items-centre justify-centre text-gray-400">
-                      No Image
+                    <div className={`w-full h-full bg-gradient-to-br ${gradient} flex flex-col items-center justify-center text-white`}>
+                      <span className="text-5xl mb-2">{icon}</span>
+                      <span className="text-sm font-medium opacity-90">{course.category}</span>
                     </div>
                   )}
                   {course.enrolled && (
@@ -279,8 +315,9 @@ export default function TrainingCataloguePage() {
                     {course.enrolled ? 'Continue Learning' : 'View Course'}
                   </Link>
                 </div>
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </div>
         ) : (
           <div className="space-y-4">
