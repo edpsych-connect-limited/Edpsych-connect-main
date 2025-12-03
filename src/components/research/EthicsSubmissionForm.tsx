@@ -14,9 +14,9 @@
  * - Amendment requests
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
-  FileText, Upload, CheckCircle, Clock, AlertCircle, 
+  FileText, Upload, CheckCircle, Clock,
   Send, Save, Trash2, Plus, ChevronDown, ChevronUp,
   Shield, Users, Building, Video, HelpCircle
 } from 'lucide-react';
@@ -39,7 +39,7 @@ interface FormSection {
 }
 
 export default function EthicsSubmissionForm() {
-  const [_applications, _setApplications] = useState<EthicsApplication[]>([]);
+  const [applications, setApplications] = useState<EthicsApplication[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showVideoHelp, setShowVideoHelp] = useState(false);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['project-info']));
@@ -272,7 +272,7 @@ export default function EthicsSubmissionForm() {
         <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
           <div
             className="h-full bg-indigo-600 transition-all duration-500"
-            style={{ width: `${progress}%` }}
+            style={{ width: `${progress}%` } as React.CSSProperties}
           />
         </div>
         <div className="mt-4 grid grid-cols-5 gap-2">

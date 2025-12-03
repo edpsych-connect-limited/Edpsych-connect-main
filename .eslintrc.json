@@ -23,7 +23,8 @@
     "@typescript-eslint/no-require-imports": "off",
     "react/no-unescaped-entities": "off",
     "prefer-const": "off",
-    "@next/next/no-img-element": "off"
+    "@next/next/no-img-element": "off",
+    "react/forbid-dom-props": "off"
   },
   "ignorePatterns": [
     "tools/**/*",

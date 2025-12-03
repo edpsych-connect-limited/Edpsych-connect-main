@@ -221,54 +221,54 @@ const PRODUCTS: ProductDefinition[] = [
   }
 ];
 
-// ADD-ONS
+// ADD-ONS - Prices aligned with video scripts
 const ADD_ONS: ProductDefinition[] = [
   {
     id: 'ADDON_AI_POWER',
     name: 'EdPsych Connect - AI Power Pack',
     description: '500 additional AI calls per month',
-    priceMonthlyPence: 2900,
-    priceAnnualPence: 29000,
+    priceMonthlyPence: 4999,
+    priceAnnualPence: 49990,
     metadata: { type: 'addon', category: 'ai' }
   },
   {
     id: 'ADDON_EHCP_ACCELERATOR',
     name: 'EdPsych Connect - EHCP Accelerator',
     description: 'Advanced EHCP tools and templates',
-    priceMonthlyPence: 4900,
-    priceAnnualPence: 49000,
+    priceMonthlyPence: 7999,
+    priceAnnualPence: 79990,
     metadata: { type: 'addon', category: 'ehcp' }
   },
   {
     id: 'ADDON_CPD_UNLIMITED',
     name: 'EdPsych Connect - CPD Library Unlimited',
     description: 'Unlimited access to all CPD courses',
-    priceMonthlyPence: 9900,
-    priceAnnualPence: 99000,
+    priceMonthlyPence: 2999,
+    priceAnnualPence: 29990,
     metadata: { type: 'addon', category: 'cpd' }
   },
   {
     id: 'ADDON_API_ACCESS',
     name: 'EdPsych Connect - API Access',
     description: 'Developer API for custom integrations',
-    priceMonthlyPence: 19900,
-    priceAnnualPence: 199000,
+    priceMonthlyPence: 19999,
+    priceAnnualPence: 199990,
     metadata: { type: 'addon', category: 'api' }
   },
   {
     id: 'ADDON_WHITE_LABEL',
     name: 'EdPsych Connect - White Label',
     description: 'Remove EdPsych Connect branding',
-    priceMonthlyPence: 49900,
-    priceAnnualPence: 499000,
+    priceMonthlyPence: 49999,
+    priceAnnualPence: 499990,
     metadata: { type: 'addon', category: 'branding' }
   },
   {
     id: 'ADDON_PRIORITY_SUPPORT',
     name: 'EdPsych Connect - Priority Support',
     description: '4-hour response SLA',
-    priceMonthlyPence: 7900,
-    priceAnnualPence: 79000,
+    priceMonthlyPence: 9999,
+    priceAnnualPence: 99990,
     metadata: { type: 'addon', category: 'support' }
   }
 ];

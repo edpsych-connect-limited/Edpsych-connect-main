@@ -30,7 +30,7 @@ import {
   type SubscriptionPlan,
 } from '@/lib/subscription/plans';
 import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
-import { Play, Shield, Zap, Users, ArrowRight, CheckCircle, Star, Building2, GraduationCap, Heart, Briefcase, FlaskConical } from 'lucide-react';
+import { Play, Shield, Zap, Users, ArrowRight, Star, Building2, GraduationCap, Heart, Briefcase, FlaskConical } from 'lucide-react';
 
 // Video configuration for pricing page
 const PRICING_VIDEOS = {
@@ -50,14 +50,14 @@ const PRICING_VIDEOS = {
     'trainee-ep': { key: 'tier-trainee-ep', title: 'Trainee EP Plan', duration: '1:30' },
   },
   
-  // Add-ons - December 2025 Pricing (aligned with stripe-setup-2025.ts)
+  // Add-ons - December 2025 Pricing (aligned with video scripts)
   addons: [
-    { key: 'addon-ai-power-pack', title: 'AI Power Pack', duration: '1:30', price: '£29/mo' },
-    { key: 'addon-ehcp-accelerator', title: 'EHCP Accelerator', duration: '1:45', price: '£49/mo' },
-    { key: 'addon-cpd-library', title: 'Unlimited CPD Library', duration: '1:15', price: '£99/mo' },
-    { key: 'addon-api-access', title: 'API Access', duration: '1:30', price: '£199/mo' },
-    { key: 'addon-white-label', title: 'White Label', duration: '1:45', price: '£499/mo' },
-    { key: 'addon-priority-support', title: 'Priority Support', duration: '1:00', price: '£79/mo' },
+    { key: 'addon-ai-power-pack', title: 'AI Power Pack', duration: '1:30', price: '£49.99/mo', stripeAddonId: 'ADDON_AI_POWER' },
+    { key: 'addon-ehcp-accelerator', title: 'EHCP Accelerator', duration: '1:45', price: '£79.99/mo', stripeAddonId: 'ADDON_EHCP_ACCELERATOR' },
+    { key: 'addon-cpd-library', title: 'Unlimited CPD Library', duration: '1:15', price: '£29.99/mo', stripeAddonId: 'ADDON_CPD_UNLIMITED' },
+    { key: 'addon-api-access', title: 'API Access', duration: '1:30', price: '£199.99/mo', stripeAddonId: 'ADDON_API_ACCESS' },
+    { key: 'addon-white-label', title: 'White Label', duration: '1:45', price: '£499.99/mo', stripeAddonId: 'ADDON_WHITE_LABEL' },
+    { key: 'addon-priority-support', title: 'Priority Support', duration: '1:00', price: '£99.99/mo', stripeAddonId: 'ADDON_PRIORITY_SUPPORT' },
   ],
   
   // Features
@@ -100,6 +100,16 @@ export default function PricingPage() {
       router.push(`/register?plan=${planId}&billing=${billingPeriod}`);
     } else {
       router.push(`/subscription/checkout?plan=${planId}&billing=${billingPeriod}`);
+    }
+  };
+
+  const handleAddAddon = (addonId: string) => {
+    if (!user) {
+      // Redirect to register with addon in query
+      router.push(`/register?addon=${addonId}`);
+    } else {
+      // Redirect to subscription page to add addon
+      router.push(`/subscription/addon?id=${addonId}`);
     }
   };
 
@@ -330,7 +340,10 @@ export default function PricingPage() {
                 />
                 <div className="p-4 border-t border-slate-200 flex items-center justify-between">
                   <span className="font-bold text-indigo-600">{addon.price}</span>
-                  <button className="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
+                  <button 
+                    onClick={() => handleAddAddon(addon.stripeAddonId)}
+                    className="text-sm bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 font-medium transition-colors"
+                  >
                     Add to plan →
                   </button>
                 </div>

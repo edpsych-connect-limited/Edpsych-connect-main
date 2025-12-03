@@ -295,6 +295,43 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   'mis-sims-integration': '3af26eb1cce149bebbee652c1246a667',
   'mis-arbor-integration': '72b5f5e334834b1da1d8e9131d63c635',
   'mis-sync-troubleshooting': '1a3684cf67254ae58db09a68d8eb9e5a',
+  
+  // ============================================================================
+  // DECEMBER 2025 - ASSESSMENT ESSENTIALS VIDEOS
+  // ============================================================================
+  'assess-m1-l1': 'e0e20ff57d26468ba37e58eb28a59b39',
+  'assess-m2-l1': '5e8ad9299ac2491cb1d37c7efae5a782',
+  'assess-m2-l2': '2c4f2677d31a4705a58e57b6c732ddc5',
+  
+  // ============================================================================
+  // DECEMBER 2025 - DYSLEXIA INTERVENTION STRATEGIES
+  // ============================================================================
+  'dys-m1-l1': 'b9625a27b554403a98bf5b47f5f47aa6',
+  'dys-m2-l1': 'b500df32bc5a41c2b27234953e5c5cc5',
+  'dys-m3-l1': 'a6eebf76695c4054b1d9948ced31b2c8',
+  'dys-m4-l1': '414da24c898c436eaaf9822064e46634',
+  'dys-m5-l1': '9ac4c93c38d340ce8cc89b5bf4bc3678',
+  'dys-m6-l2': 'cb7866b5c35141cfb00c6c619fdff623',
+  'dys-m7-l1': 'cdc2a5baa7374d17ba9d5edb8b0d67cf',
+  'dys-m8-l1': 'f175dacee45e4b85bf666dcd997745b4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - EHCP MASTERY
+  // ============================================================================
+  'ehcp-m1-l1': 'c69ee15cf8684ff1b68bbc83b7ddc847',
+  
+  // ============================================================================
+  // DECEMBER 2025 - EVIDENCE-BASED INTERVENTIONS
+  // ============================================================================
+  'int-m1-l1': '81c1723b29cc4e06aed06980e0c2723f',
+  'int-m2-l1': '3f614f3731bc4026a1ad3ef79b9d8c2c',
+  
+  // ============================================================================
+  // DECEMBER 2025 - SEND FUNDAMENTALS
+  // ============================================================================
+  'send-fund-m1-l1': '0911aab193a841d1a97974536e750f78',
+  'send-fund-m2-l1': '13d2d0260b2449abb4322455578fd8b7',
+  'send-fund-m2-l2': '796bfa38398d4404a1d1d4a1da442b33',
 };
 
 // Share URLs (for linking)
@@ -317,6 +354,9 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   'data-autonomy': '/content/training_videos/marketing/data-autonomy.mp4',
   'no-child-left-behind': '/content/training_videos/marketing/no-child-left-behind.mp4',
   'gamification-integrity': '/content/training_videos/marketing/gamification-integrity.mp4',
+  'premium-data-autonomy': '/content/training_videos/marketing/data-autonomy.mp4',
+  'premium-no-child-left-behind': '/content/training_videos/marketing/no-child-left-behind.mp4',
+  'premium-gamification-integrity': '/content/training_videos/marketing/gamification-integrity.mp4',
   
   // ============================================================================
   // LA EHCP PORTAL VIDEOS - For Local Authority marketing
@@ -581,12 +621,12 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // ============================================================================
   // DECEMBER 2025 - RESEARCH PORTAL VIDEOS
   // ============================================================================
-  'research-methodology': '/content/training_videos/research-methodology.mp4',
-  'ecca-validation': '/content/training_videos/ecca-validation.mp4',
-  'data-ethics': '/content/training_videos/data-ethics.mp4',
-  'intervention-research': '/content/training_videos/intervention-research.mp4',
-  'longitudinal-studies': '/content/training_videos/longitudinal-studies.mp4',
-  'clinical-trials': '/content/training_videos/clinical-trials.mp4',
+  'research-methodology': '/content/training_videos/research/research-methodology.mp4',
+  'ecca-validation': '/content/training_videos/research/ecca-validation.mp4',
+  'data-ethics': '/content/training_videos/research/data-ethics.mp4',
+  'intervention-research': '/content/training_videos/research/intervention-research.mp4',
+  'longitudinal-studies': '/content/training_videos/research/longitudinal-studies.mp4',
+  'clinical-trials': '/content/training_videos/research/clinical-trials.mp4',
   'research-ethics-submission': '/content/training_videos/research/ethics-submission.mp4',
   'research-data-governance': '/content/training_videos/research/data-governance.mp4',
   
@@ -597,6 +637,43 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   'mis-sims-integration': '/content/training_videos/admin/mis-sims-integration.mp4',
   'mis-arbor-integration': '/content/training_videos/admin/mis-arbor-integration.mp4',
   'mis-sync-troubleshooting': '/content/training_videos/admin/mis-sync-troubleshooting.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - ASSESSMENT ESSENTIALS VIDEOS
+  // ============================================================================
+  'assess-m1-l1': '/content/training_videos/assessment-essentials/assess-m1-l1.mp4',
+  'assess-m2-l1': '/content/training_videos/assessment-essentials/assess-m2-l1.mp4',
+  'assess-m2-l2': '/content/training_videos/assessment-essentials/assess-m2-l2.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - DYSLEXIA INTERVENTION STRATEGIES
+  // ============================================================================
+  'dys-m1-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m1-l1.mp4',
+  'dys-m2-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m2-l1.mp4',
+  'dys-m3-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m3-l1.mp4',
+  'dys-m4-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m4-l1.mp4',
+  'dys-m5-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m5-l1.mp4',
+  'dys-m6-l2': '/content/training_videos/dyslexia-intervention-strategies/dys-m6-l2.mp4',
+  'dys-m7-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m7-l1.mp4',
+  'dys-m8-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m8-l1.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - EHCP MASTERY
+  // ============================================================================
+  'ehcp-m1-l1': '/content/training_videos/ehcp-mastery/ehcp-m1-l1.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - EVIDENCE-BASED INTERVENTIONS
+  // ============================================================================
+  'int-m1-l1': '/content/training_videos/evidence-based-interventions/int-m1-l1.mp4',
+  'int-m2-l1': '/content/training_videos/evidence-based-interventions/int-m2-l1.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - SEND FUNDAMENTALS
+  // ============================================================================
+  'send-fund-m1-l1': '/content/training_videos/send-fundamentals/send-fund-m1-l1.mp4',
+  'send-fund-m2-l1': '/content/training_videos/send-fundamentals/send-fund-m2-l1.mp4',
+  'send-fund-m2-l2': '/content/training_videos/send-fundamentals/send-fund-m2-l2.mp4',
 };
 
 /**

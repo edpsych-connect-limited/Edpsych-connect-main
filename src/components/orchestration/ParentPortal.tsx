@@ -28,7 +28,7 @@ import {
   Video,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { VideoTutorialPlayer, VideoModal } from '@/components/video/VideoTutorialPlayer';
+import { VideoModal } from '@/components/video/VideoTutorialPlayer';
 
 // Parent-facing video tutorials
 const PARENT_VIDEOS = [

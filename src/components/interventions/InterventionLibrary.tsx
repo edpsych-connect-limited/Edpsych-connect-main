@@ -59,11 +59,6 @@ export default function InterventionLibrary({
   const [evidenceFilter, setEvidenceFilter] = useState<string>('all');
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
-  useEffect(() => {
-    loadInterventions();
-    loadFavorites();
-  }, []);
-
   // Transform library interventions to component format
   const transformedInterventions = useMemo(() => {
     return INTERVENTION_LIBRARY.map((i: InterventionTemplate): Intervention => ({
@@ -84,24 +79,19 @@ export default function InterventionLibrary({
     }));
   }, []);
 
-  const loadInterventions = async () => {
-    try {
-      // Using comprehensive evidence-based library (535+ interventions)
-      setInterventions(transformedInterventions);
-      console.log(`Loaded ${transformedInterventions.length} evidence-based interventions`);
-    } catch (_error) {
-      console.error('Failed to load interventions:', _error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const loadFavorites = () => {
+  // Load interventions and favorites on mount
+  useEffect(() => {
+    // Load interventions from comprehensive evidence-based library (535+ interventions)
+    setInterventions(transformedInterventions);
+    console.log(`Loaded ${transformedInterventions.length} evidence-based interventions`);
+    setLoading(false);
+    
+    // Load favorites from localStorage
     const stored = localStorage.getItem('intervention_favorites');
     if (stored) {
       setFavorites(new Set(JSON.parse(stored)));
     }
-  };
+  }, [transformedInterventions]);
 
   const toggleFavorite = (interventionId: string) => {
     const newFavorites = new Set(favorites);

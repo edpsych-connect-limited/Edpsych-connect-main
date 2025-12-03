@@ -22,7 +22,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import { useDemo } from '@/components/demo/DemoProvider';
-import { VideoTutorialPlayer, VideoModal } from '@/components/video/VideoTutorialPlayer';
+import { VideoModal } from '@/components/video/VideoTutorialPlayer';
 import { 
   AlertTriangle, 
   CheckCircle, 

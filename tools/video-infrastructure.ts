@@ -420,6 +420,777 @@ Still stuck? Our support team can access sync logs with your permission. We'll i
 Thank you for your patience. Most issues resolve within one support ticket.`,
     localPath: 'admin/mis-sync-troubleshooting.mp4',
     cloudinaryId: 'training_videos/admin/mis-sync-troubleshooting'
+  },
+  // ============================================================================
+  // ASSESSMENT ESSENTIALS VIDEOS - December 2025
+  // ============================================================================
+  {
+    id: 'assess-m1-l1',
+    title: 'Assessment Essentials: Understanding Learning Profiles',
+    script: `Hello, I'm Dr Adrian, and welcome to Assessment Essentials Module One, Lesson One: Understanding Learning Profiles.
+
+Every learner is unique. As educational practitioners, our role is to understand the individual profile of each child and use that understanding to inform our support.
+
+A learning profile is more than just a list of strengths and difficulties. It's a comprehensive picture of how a child thinks, learns, processes information, and engages with their environment.
+
+In this lesson, we'll explore the key components of a learning profile:
+
+Cognitive Processing: How does the child take in, store, and retrieve information? Are there differences in verbal versus visual processing? What about working memory capacity?
+
+Learning Style Preferences: While we must be careful not to oversimplify, understanding whether a child benefits from auditory, visual, or kinaesthetic approaches helps us differentiate instruction effectively.
+
+Attention and Executive Function: Can the child sustain focus? How well do they plan, organise, and self-monitor? These skills underpin all academic learning.
+
+Social and Emotional Factors: Learning doesn't happen in isolation. A child's emotional state, self-concept, and social relationships profoundly impact their educational progress.
+
+Sensory Considerations: Some children have sensory processing differences that affect how they experience the classroom environment.
+
+On EdPsych Connect, our assessment tools help you build comprehensive learning profiles systematically. The platform guides you through each domain, ensuring no important aspect is overlooked.
+
+Remember, assessment is not about labelling children—it's about understanding them deeply so we can teach them effectively.
+
+In our next lesson, we'll explore how to use these profiles to match interventions precisely to need.
+
+Thank you for joining me. See you in Lesson Two.`,
+    localPath: 'assessment-essentials/assess-m1-l1.mp4',
+    cloudinaryId: 'training_videos/assessment-essentials/assess-m1-l1'
+  },
+  {
+    id: 'assess-m2-l1',
+    title: 'Assessment Essentials: Formative Assessment Strategies',
+    script: `Welcome back. I'm Dr Adrian, and this is Assessment Essentials Module Two, Lesson One: Formative Assessment Strategies.
+
+Formative assessment is the heartbeat of effective teaching. Unlike summative assessment, which measures what students have learned, formative assessment guides what we do next.
+
+Think of it as assessment FOR learning, not just assessment OF learning.
+
+Effective formative assessment has several key characteristics:
+
+First, it's ongoing. We're not waiting for the end of a unit to discover students are struggling. We're checking understanding continuously.
+
+Second, it informs instruction. The data we gather immediately shapes our teaching decisions. If students don't understand, we adjust our approach.
+
+Third, it involves students. When learners understand what success looks like and can assess their own progress, they become partners in the learning process.
+
+Let me share some powerful formative assessment strategies:
+
+Exit Tickets: At the end of each lesson, students respond to a quick question. You immediately see who needs additional support.
+
+Think-Pair-Share: Students think individually, discuss with a partner, then share with the class. This gives you insight into collective understanding.
+
+Mini Whiteboards: Students show answers simultaneously. No one can hide, and you get instant whole-class data.
+
+Hinge Questions: Multiple-choice questions where each wrong answer reveals a specific misconception. Brilliant for diagnostic purposes.
+
+Traffic Light Self-Assessment: Students rate their confidence using red, amber, green. Those showing amber often need small-group intervention.
+
+On EdPsych Connect, our formative assessment tools automate data collection while preserving these interactive strategies. You can see patterns across your class instantly.
+
+For students with SEND, formative assessment is especially crucial. Their learning trajectories may not follow typical patterns, so continuous monitoring ensures we catch difficulties early and celebrate progress immediately.
+
+In Lesson Two, we'll explore how to use formative data to differentiate instruction effectively.
+
+Until then, try implementing one new formative strategy this week. Notice what you learn about your students.`,
+    localPath: 'assessment-essentials/assess-m2-l1.mp4',
+    cloudinaryId: 'training_videos/assessment-essentials/assess-m2-l1'
+  },
+  {
+    id: 'assess-m2-l2',
+    title: 'Assessment Essentials: Differentiation Through Data',
+    script: `Hello again. I'm Dr Adrian, continuing Assessment Essentials Module Two with Lesson Two: Differentiation Through Data.
+
+You've gathered formative assessment data. Now what? This lesson connects assessment to action through data-driven differentiation.
+
+Differentiation isn't about creating thirty different lesson plans. It's about making strategic adjustments based on what your assessment data tells you.
+
+Let's explore three dimensions of differentiation:
+
+Content Differentiation: Adjusting what students learn. If assessment shows some students have already mastered prerequisite skills, they can access more challenging content. Those still developing foundations need scaffolded material.
+
+Process Differentiation: Adjusting how students learn. Your formative data might reveal that some students benefit from collaborative work while others need quiet, focused time. Some need hands-on activities; others prefer written explanations.
+
+Product Differentiation: Adjusting how students demonstrate learning. Not everyone needs to write an essay. Assessment data helps you identify appropriate ways for each student to show what they know.
+
+Here's a practical framework for using data:
+
+Step One: Analyse patterns. Look across your class data. Are there clusters of students with similar needs?
+
+Step Two: Form flexible groups. Based on current data, group students who need similar support. Remember, these groups should change as students progress.
+
+Step Three: Plan targeted interventions. For each group, what specific teaching will move them forward?
+
+Step Four: Monitor and adjust. Use ongoing formative assessment to check your interventions are working. Be ready to change course.
+
+EdPsych Connect excels at this process. Our analytics identify patterns you might miss. Our intervention library suggests evidence-based approaches for specific learning gaps. Our progress monitoring tracks whether differentiation is effective.
+
+For students with SEND, differentiation is not optional—it's essential. Their Individual Education Plans should reflect data-informed decisions, not assumptions.
+
+One crucial point: differentiation should provide appropriate challenge for everyone, including high-attaining students. It's not just about supporting struggling learners.
+
+In our next module, we'll explore summative assessment and how it complements the formative strategies we've discussed.
+
+Thank you for your commitment to data-informed teaching. Your students are fortunate to have such thoughtful educators.`,
+    localPath: 'assessment-essentials/assess-m2-l2.mp4',
+    cloudinaryId: 'training_videos/assessment-essentials/assess-m2-l2'
+  },
+  // ============================================================================
+  // DYSLEXIA INTERVENTION STRATEGIES - 8 videos
+  // ============================================================================
+  {
+    id: 'dys-m1-l1',
+    title: 'Dyslexia Module 1: Understanding Dyslexia',
+    script: `Hello, I'm Dr Sarah Chen, and welcome to our Dyslexia Intervention Strategies course. This is Module One: Understanding Dyslexia.
+
+Dyslexia affects approximately ten percent of the population, making it one of the most common specific learning difficulties. Yet it remains widely misunderstood.
+
+Let's start with what dyslexia actually is.
+
+Dyslexia is a neurological difference that primarily affects reading, spelling, and writing. It's not about intelligence—many individuals with dyslexia have average or above-average cognitive abilities.
+
+The core difficulty lies in phonological processing—the ability to identify and manipulate the sound structures of language. This affects how the brain maps sounds to letters and words.
+
+Key characteristics include:
+
+Difficulty with phoneme awareness—distinguishing individual sounds in words.
+Slow or inaccurate word reading, particularly unfamiliar words.
+Poor spelling, often with phonetically plausible but incorrect attempts.
+Reading that requires significant effort and concentration.
+Difficulty with rapid automatic naming of letters, numbers, or colours.
+
+Importantly, dyslexia exists on a spectrum. Some individuals have mild difficulties; others face significant challenges. The expression varies based on the language being learned, the quality of instruction received, and individual compensatory strategies.
+
+On EdPsych Connect, our dyslexia screening tools help identify these patterns early. Early identification leads to early intervention, which significantly improves outcomes.
+
+In our next lesson, we'll explore evidence-based screening approaches you can implement immediately.
+
+Thank you for beginning this important learning journey.`,
+    localPath: 'dyslexia-intervention-strategies/dys-m1-l1.mp4',
+    cloudinaryId: 'training_videos/dyslexia-intervention-strategies/dys-m1-l1'
+  },
+  {
+    id: 'dys-m2-l1',
+    title: 'Dyslexia Module 2: Phonological Awareness Interventions',
+    script: `Welcome back. I'm Dr Sarah Chen, continuing our Dyslexia Intervention Strategies course with Module Two: Phonological Awareness Interventions.
+
+Phonological awareness is the foundation of reading. For students with dyslexia, explicit instruction in this area is essential.
+
+Phonological awareness encompasses several skills:
+
+Rhyme recognition—hearing that "cat" and "hat" share an ending sound.
+Syllable segmentation—breaking "elephant" into "el-e-phant."
+Onset-rime awareness—recognising that "cat" starts with "c" and ends with "at."
+Phoneme isolation—identifying that "fish" starts with the "f" sound.
+Phoneme manipulation—changing "cat" to "bat" by substituting the first sound.
+
+For students with dyslexia, these skills don't develop automatically. They need explicit, systematic instruction.
+
+Effective interventions include:
+
+Elkonin boxes—using visual boxes to represent sounds in words. Students push tokens into boxes as they segment words.
+
+Sound sorting activities—categorising pictures or words by initial, medial, or final sounds.
+
+Phoneme manipulation games—"What word do we get if we change the 'm' in 'mat' to 's'?"
+
+Multisensory approaches—combining visual, auditory, and kinaesthetic elements. Tracing letters in sand while saying sounds, for example.
+
+Research shows that phonological awareness intervention should be:
+Explicit—directly teaching the skill, not hoping students discover it.
+Systematic—following a logical progression from easier to harder skills.
+Intensive—frequent, focused sessions rather than occasional practice.
+Multisensory—engaging multiple pathways to the brain.
+
+EdPsych Connect's intervention library includes structured phonological awareness programmes with progress monitoring built in.
+
+In Module Three, we'll explore how to build from phonological awareness to phonics instruction.`,
+    localPath: 'dyslexia-intervention-strategies/dys-m2-l1.mp4',
+    cloudinaryId: 'training_videos/dyslexia-intervention-strategies/dys-m2-l1'
+  },
+  {
+    id: 'dys-m3-l1',
+    title: 'Dyslexia Module 3: Structured Literacy Approaches',
+    script: `Hello again. I'm Dr Sarah Chen with Module Three of our Dyslexia Intervention Strategies course: Structured Literacy Approaches.
+
+Structured Literacy is the gold standard for teaching reading to students with dyslexia. It's also highly effective for all learners.
+
+Structured Literacy has several defining characteristics:
+
+Systematic and cumulative—skills are taught in a logical sequence, building on previously mastered content.
+
+Explicit—nothing is left to chance. Teachers directly explain concepts and model strategies.
+
+Diagnostic—instruction responds to individual student needs, identified through ongoing assessment.
+
+The content of Structured Literacy includes:
+
+Phonology—the sound system of language.
+Sound-symbol association—mapping sounds to letters and letter patterns.
+Syllable instruction—teaching the six syllable types and how to decode multisyllabic words.
+Morphology—understanding meaningful word parts like prefixes, suffixes, and roots.
+Syntax—grammar and sentence structure.
+Semantics—meaning at word, sentence, and text levels.
+
+Popular Structured Literacy programmes include Orton-Gillingham, Wilson Reading System, and Barton Reading and Spelling.
+
+Key instructional principles:
+
+Teach one concept at a time and ensure mastery before moving on.
+Provide extensive practice with immediate corrective feedback.
+Use decodable texts that align with taught skills.
+Incorporate multisensory techniques consistently.
+Review previously taught material regularly.
+
+For teachers, implementing Structured Literacy requires specific training. It's not intuitive—it's a learned skill set.
+
+EdPsych Connect provides Structured Literacy resources and progress monitoring tools aligned with these principles.
+
+Next, we'll examine fluency building strategies for dyslexic learners.`,
+    localPath: 'dyslexia-intervention-strategies/dys-m3-l1.mp4',
+    cloudinaryId: 'training_videos/dyslexia-intervention-strategies/dys-m3-l1'
+  },
+  {
+    id: 'dys-m4-l1',
+    title: 'Dyslexia Module 4: Building Reading Fluency',
+    script: `Welcome to Module Four: Building Reading Fluency. I'm Dr Sarah Chen.
+
+Fluency is often called the bridge between decoding and comprehension. For students with dyslexia, building fluency requires intentional, sustained effort.
+
+Reading fluency has three components:
+
+Accuracy—reading words correctly.
+Rate—reading at an appropriate speed.
+Prosody—reading with expression that reflects understanding.
+
+Students with dyslexia often struggle with all three. They may decode accurately but so slowly that comprehension suffers. Or they may read quickly but make frequent errors.
+
+Evidence-based fluency interventions include:
+
+Repeated reading—reading the same passage multiple times until fluency criteria are met. Research shows this transfers to new texts.
+
+Partner reading—pairing students to take turns reading aloud, providing immediate feedback.
+
+Audio-assisted reading—students read along with a recorded model. This builds correct phrasing and expression.
+
+Phrase-cued reading—marking text to show natural phrase boundaries, helping students chunk appropriately.
+
+Reader's theatre—practising scripts for performance motivates repeated reading naturally.
+
+Critical considerations for dyslexic learners:
+
+Ensure the text is at an appropriate level. Frustration-level text won't build fluency.
+Focus on accuracy first. Speed without accuracy isn't true fluency.
+Celebrate progress. Fluency development is slow but steady with consistent practice.
+Use progress monitoring. Graph words correct per minute to show growth visually.
+
+EdPsych Connect's fluency tools include timed reading passages, progress graphs, and audio recording features for self-assessment.
+
+In Module Five, we'll address reading comprehension strategies.`,
+    localPath: 'dyslexia-intervention-strategies/dys-m4-l1.mp4',
+    cloudinaryId: 'training_videos/dyslexia-intervention-strategies/dys-m4-l1'
+  },
+  {
+    id: 'dys-m5-l1',
+    title: 'Dyslexia Module 5: Comprehension Strategies',
+    script: `Hello. I'm Dr Sarah Chen with Module Five: Comprehension Strategies for Students with Dyslexia.
+
+A common misconception is that dyslexia only affects decoding. In reality, comprehension often suffers too—not because of thinking difficulties, but because so much cognitive energy goes to word reading.
+
+When students with dyslexia are given text at their listening comprehension level, they often understand brilliantly. The barrier is accessing the text, not understanding it.
+
+Strategies to support comprehension include:
+
+Pre-reading activities—build background knowledge before reading. Discuss the topic, review key vocabulary, set a purpose for reading.
+
+Graphic organisers—provide visual frameworks for organising information. Story maps, Venn diagrams, and concept webs reduce cognitive load.
+
+Think-alouds—model your own comprehension processes. "I'm confused here, so I'm going to reread this paragraph."
+
+Questioning strategies—teach students to generate their own questions before, during, and after reading.
+
+Summarisation—practise identifying main ideas and condensing information into key points.
+
+Monitoring comprehension—help students recognise when understanding breaks down and what to do about it.
+
+Accommodations that support comprehension:
+
+Audiobooks and text-to-speech allow access to grade-level content while decoding skills develop.
+Extended time reduces the pressure that interferes with comprehension.
+Reduced reading volume focuses energy on fewer, more deeply understood texts.
+Discussion-based assessment reveals understanding that written responses might miss.
+
+Remember, comprehension is the goal of reading. We must ensure decoding difficulties don't prevent students from developing higher-order thinking skills.
+
+Module Six will cover writing support strategies.`,
+    localPath: 'dyslexia-intervention-strategies/dys-m5-l1.mp4',
+    cloudinaryId: 'training_videos/dyslexia-intervention-strategies/dys-m5-l1'
+  },
+  {
+    id: 'dys-m6-l2',
+    title: 'Dyslexia Module 6: Writing and Spelling Support',
+    script: `Welcome to Module Six: Writing and Spelling Support. I'm Dr Sarah Chen.
+
+For students with dyslexia, writing presents unique challenges. The same phonological processing difficulties that affect reading also impact spelling and written expression.
+
+Spelling difficulties manifest as:
+
+Phonetically plausible but incorrect spellings—"enuff" for "enough."
+Inconsistent spelling of the same word.
+Letter reversals and transpositions beyond the developmental stage.
+Difficulty with irregular or exception words.
+
+Effective spelling instruction for dyslexic learners:
+
+Teach spelling patterns explicitly alongside reading instruction.
+Use multisensory techniques—trace words, use letter tiles, spell aloud.
+Focus on high-frequency words that appear often in writing.
+Teach morphological awareness—understanding prefixes, suffixes, and roots helps with spelling.
+Allow spell-checkers and word prediction software as tools, not crutches.
+
+Written expression challenges include:
+
+Getting ideas onto paper—the mechanics are so demanding that content suffers.
+Organisation—sequencing ideas logically.
+Revision—reading their own writing to improve it.
+
+Strategies to support writing:
+
+Separate the writing process into distinct stages—planning, drafting, revising, editing. Don't expect all at once.
+Use graphic organisers for planning before writing begins.
+Allow dictation for initial drafts to capture ideas without mechanical barriers.
+Provide explicit instruction in sentence and paragraph structure.
+Use assistive technology—speech-to-text, word prediction, and grammar checkers.
+
+EdPsych Connect includes writing scaffolds and progress monitoring tools specifically designed for dyslexic learners.
+
+Module Seven will address technology tools and accommodations.`,
+    localPath: 'dyslexia-intervention-strategies/dys-m6-l2.mp4',
+    cloudinaryId: 'training_videos/dyslexia-intervention-strategies/dys-m6-l2'
+  },
+  {
+    id: 'dys-m7-l1',
+    title: 'Dyslexia Module 7: Technology and Accommodations',
+    script: `Hello. I'm Dr Sarah Chen with Module Seven: Technology and Accommodations for Students with Dyslexia.
+
+Technology has transformed what's possible for dyslexic learners. Used well, it removes barriers while building skills.
+
+Text-to-speech software reads digital text aloud, allowing students to access content at their intellectual level. Popular options include Natural Reader, Voice Dream, and built-in features on most devices.
+
+Speech-to-text technology converts spoken words to written text. This allows students to capture ideas without the mechanical barrier of typing or handwriting. Dragon NaturallySpeaking and built-in dictation tools work well.
+
+Audiobooks provide access to literature and informational text. Services like Learning Ally offer human-narrated audiobooks specifically for learning differences.
+
+Reading pens scan and read printed text aloud. Useful when digital text isn't available.
+
+Word prediction software suggests words as students type, reducing spelling demands. Co:Writer and built-in prediction features help.
+
+Mind mapping software like MindMeister or Coggle supports planning and organisation visually.
+
+Accommodations versus modifications:
+
+Accommodations level the playing field without changing what's being measured. Extended time, audiobooks, and spell-checkers are accommodations.
+
+Modifications change the expectations. Reduced word counts or simplified content are modifications.
+
+Students with dyslexia typically need accommodations, not modifications. Their cognitive abilities match their peers; they just need different access routes.
+
+Classroom accommodations to consider:
+
+Preferential seating to reduce distractions.
+Copies of notes or slides before lessons.
+Alternative ways to demonstrate learning—oral presentations, projects, discussions.
+Chunked assignments with check-in points.
+Clear, consistent routines that reduce cognitive load.
+
+Module Eight will address working with families and building self-advocacy.`,
+    localPath: 'dyslexia-intervention-strategies/dys-m7-l1.mp4',
+    cloudinaryId: 'training_videos/dyslexia-intervention-strategies/dys-m7-l1'
+  },
+  {
+    id: 'dys-m8-l1',
+    title: 'Dyslexia Module 8: Family Partnership and Self-Advocacy',
+    script: `Welcome to our final module: Family Partnership and Self-Advocacy. I'm Dr Sarah Chen.
+
+Supporting students with dyslexia requires a team approach. Families are essential partners.
+
+Communicating with families:
+
+Use clear, jargon-free language. Explain what dyslexia means in practical terms.
+Focus on strengths alongside challenges. Dyslexic individuals often excel in creative thinking, problem-solving, and big-picture analysis.
+Provide specific strategies families can use at home. Reading together, audiobooks, and word games all help.
+Share progress regularly. Families need to see that intervention is working.
+
+Supporting home practice:
+
+Keep sessions short—ten to fifteen minutes of focused practice is more effective than longer, frustrating sessions.
+Make it enjoyable. Games and apps can provide practice without feeling like work.
+Celebrate effort, not just outcomes. The journey matters.
+
+Building self-advocacy:
+
+Students need to understand their own learning profile. This isn't about labelling—it's about self-knowledge.
+
+Teach students to:
+Explain their strengths and challenges.
+Request accommodations appropriately.
+Use their tools independently.
+Advocate for themselves in new situations.
+
+As students mature, they should lead their own IEP or support plan meetings. This builds ownership and prepares them for post-school success.
+
+The emotional dimension:
+
+Dyslexia impacts self-esteem. Years of struggle can lead to anxiety, avoidance, and negative self-perception.
+
+Build in success experiences. Ensure students have opportunities to shine.
+Normalise the difficulty. Many successful people are dyslexic—Richard Branson, Steven Spielberg, Keira Knightley.
+Provide emotional support alongside academic intervention.
+
+Thank you for completing this course. Your commitment to understanding and supporting dyslexic learners will change lives.`,
+    localPath: 'dyslexia-intervention-strategies/dys-m8-l1.mp4',
+    cloudinaryId: 'training_videos/dyslexia-intervention-strategies/dys-m8-l1'
+  },
+  // ============================================================================
+  // EHCP MASTERY - 1 video
+  // ============================================================================
+  {
+    id: 'ehcp-m1-l1',
+    title: 'EHCP Mastery: Understanding the EHCP Process',
+    script: `Hello, I'm Marcus, and welcome to EHCP Mastery Module One: Understanding the EHCP Process.
+
+An Education, Health and Care Plan—or EHCP—is a legal document for children and young people aged zero to twenty-five who need more support than is available through standard SEN provision.
+
+Understanding the process is essential for everyone involved—schools, families, and professionals.
+
+The EHCP journey begins with identification.
+
+Schools should identify and support children with SEN through their graduated approach—assess, plan, do, review. If a child isn't making adequate progress despite quality-first teaching and targeted interventions, an EHCP assessment may be appropriate.
+
+Requesting an assessment:
+
+Parents, schools, or other professionals can request an EHC needs assessment from the Local Authority. The request must demonstrate that the child may need provision beyond what's normally available.
+
+The Local Authority has six weeks to decide whether to assess. They must consider whether the child has, or may have, SEN, and whether they may need provision through an EHCP.
+
+The assessment process:
+
+If assessment proceeds, the Local Authority gathers advice from:
+Parents and the child or young person.
+The school or educational setting.
+An educational psychologist.
+Health services.
+Social care.
+Any other relevant professionals.
+
+This phase takes up to sixteen weeks. All advice should be completed within six weeks of being requested.
+
+Drafting the plan:
+
+The Local Authority drafts the EHCP based on all advice received. The draft is shared with parents, who have fifteen days to comment and express a preference for educational placement.
+
+Finalising the plan:
+
+The final EHCP must be issued within twenty weeks of the initial request. It must include:
+Section A: Views of the child and parents.
+Section B: Special educational needs.
+Section C: Health needs related to SEN.
+Section D: Social care needs related to SEN.
+Section E: Outcomes sought.
+Section F: Special educational provision.
+Sections G, H, I, J: Health provision, social care provision, and placement.
+
+EdPsych Connect's EHCP tools guide you through each stage with templates and timelines.
+
+In the next lesson, we'll explore how to write effective EHCP sections.`,
+    localPath: 'ehcp-mastery/ehcp-m1-l1.mp4',
+    cloudinaryId: 'training_videos/ehcp-mastery/ehcp-m1-l1'
+  },
+  // ============================================================================
+  // EVIDENCE-BASED INTERVENTIONS - 2 videos
+  // ============================================================================
+  {
+    id: 'int-m1-l1',
+    title: 'Evidence-Based Interventions Module 1: What Works in SEND',
+    script: `Hello, I'm Dr Adrian, and welcome to our Evidence-Based Interventions course. This is Module One: What Works in SEND.
+
+In education, we're surrounded by programmes, approaches, and products claiming to help students with special educational needs. How do we know what actually works?
+
+Evidence-based practice means using interventions that have been rigorously tested and shown to be effective through research.
+
+The hierarchy of evidence:
+
+At the top are randomised controlled trials—where students are randomly assigned to receive an intervention or not, and outcomes are compared.
+
+Below that are quasi-experimental studies—comparing groups without random assignment.
+
+Then observational studies, case studies, and expert opinion.
+
+The strongest evidence comes from meta-analyses—studies that combine results from multiple trials to identify overall effects.
+
+Where to find evidence:
+
+The Education Endowment Foundation's Teaching and Learning Toolkit synthesises research on various approaches and reports effect sizes.
+
+What Works Clearinghouse in the United States evaluates intervention programmes.
+
+The SEND Review of Research from the Department for Education summarises evidence specific to special educational needs.
+
+Red flags for weak evidence:
+
+Claims that seem too good to be true.
+Reliance on testimonials rather than data.
+Small sample sizes or lack of control groups.
+Commercial interests driving the research.
+Lack of peer review.
+
+Implementing evidence-based interventions:
+
+Fidelity matters. Programmes work when implemented as designed. Modifications may reduce effectiveness.
+
+Context matters. What works in one setting may need adaptation for another.
+
+Monitoring matters. Even evidence-based interventions don't work for every child. Progress monitoring identifies who's responding and who needs adjustment.
+
+EdPsych Connect's intervention library rates programmes by evidence strength and provides implementation guidance.
+
+Module Two will explore specific high-impact interventions across SEND categories.`,
+    localPath: 'evidence-based-interventions/int-m1-l1.mp4',
+    cloudinaryId: 'training_videos/evidence-based-interventions/int-m1-l1'
+  },
+  {
+    id: 'int-m2-l1',
+    title: 'Evidence-Based Interventions Module 2: High-Impact Strategies',
+    script: `Welcome back. I'm Dr Adrian with Module Two: High-Impact Strategies Across SEND.
+
+Let's examine interventions with strong evidence bases across different areas of need.
+
+For literacy difficulties:
+
+Phonics instruction shows strong evidence, with effect sizes around plus zero point four. Systematic synthetic phonics is particularly effective.
+
+Reading comprehension strategies—including prediction, questioning, and summarisation—show effect sizes of plus zero point six.
+
+One-to-one tutoring delivers significant gains, especially when delivered by trained teaching assistants using structured programmes.
+
+For mathematics difficulties:
+
+Explicit instruction with worked examples outperforms discovery-based approaches for struggling learners.
+
+Concrete-pictorial-abstract progression builds conceptual understanding alongside procedural fluency.
+
+Mastery learning—ensuring students fully understand one concept before moving on—prevents gaps from compounding.
+
+For behaviour and attention:
+
+Self-regulation strategies show strong evidence. Teaching students to monitor and manage their own behaviour is highly effective.
+
+Cognitive behavioural approaches help students understand the connections between thoughts, feelings, and actions.
+
+Environmental modifications—reducing distractions, providing movement breaks, using visual schedules—support attention difficulties.
+
+For speech and language:
+
+Explicit vocabulary instruction with multiple exposures in context builds word knowledge.
+
+Narrative intervention strengthens story comprehension and production.
+
+Collaborative approaches between speech therapists and teachers ensure consistency.
+
+For social and emotional needs:
+
+Social skills training delivered in structured programmes shows moderate effects.
+
+Emotion coaching helps students identify and manage their feelings.
+
+Peer-mediated interventions leverage the power of positive peer relationships.
+
+Key principles across all areas:
+
+Intensity matters. More frequent, focused sessions generally produce better outcomes than occasional, lengthy ones.
+
+Expertise matters. Well-trained staff implementing programmes with fidelity achieve better results.
+
+Responsiveness matters. Adjust interventions based on progress monitoring data.
+
+EdPsych Connect helps you match learner profiles to evidence-based interventions and track their effectiveness.`,
+    localPath: 'evidence-based-interventions/int-m2-l1.mp4',
+    cloudinaryId: 'training_videos/evidence-based-interventions/int-m2-l1'
+  },
+  // ============================================================================
+  // SEND FUNDAMENTALS - 3 videos
+  // ============================================================================
+  {
+    id: 'send-fund-m1-l1',
+    title: 'SEND Fundamentals Module 1: Understanding the SEND Code of Practice',
+    script: `Hello, I'm Dr Adrian, and welcome to SEND Fundamentals. This is Module One: Understanding the SEND Code of Practice.
+
+The SEND Code of Practice is the statutory guidance that governs how schools, Local Authorities, and health services identify and support children with special educational needs and disabilities.
+
+Published in 2015, it replaced the previous 2001 Code and introduced significant changes.
+
+Key principles of the Code:
+
+The views, wishes and feelings of children, young people, and their parents must be considered.
+
+Children and young people should participate in decisions about their support.
+
+Information and support should enable participation in decisions.
+
+Provision should support the best possible educational and other outcomes.
+
+Who does the Code apply to?
+
+All maintained schools, academies, and free schools.
+All early years providers.
+Further education colleges.
+Local Authorities.
+Health services.
+Anyone providing services under the Equality Act.
+
+The four areas of need:
+
+Communication and interaction—including autism spectrum conditions and speech, language, and communication needs.
+
+Cognition and learning—including specific learning difficulties like dyslexia, and moderate, severe, or profound learning difficulties.
+
+Social, emotional, and mental health—including anxiety, depression, attention difficulties, and attachment disorders.
+
+Sensory and physical—including hearing impairment, visual impairment, and physical disabilities.
+
+These categories help with planning, but remember that many children have needs across multiple areas.
+
+The graduated approach:
+
+Schools must follow a cycle of assess, plan, do, review. This means:
+Assessing what the child can and cannot do.
+Planning targeted support.
+Implementing the plan.
+Reviewing whether it's working and adjusting accordingly.
+
+This cycle continues, with increasing intensity if needed, before considering an EHCP assessment.
+
+EdPsych Connect's tools support every stage of the graduated approach with assessment templates, intervention libraries, and review frameworks.
+
+Module Two will explore identification and assessment in more depth.`,
+    localPath: 'send-fundamentals/send-fund-m1-l1.mp4',
+    cloudinaryId: 'training_videos/send-fundamentals/send-fund-m1-l1'
+  },
+  {
+    id: 'send-fund-m2-l1',
+    title: 'SEND Fundamentals Module 2: Identification and Assessment',
+    script: `Welcome back. I'm Dr Adrian with Module Two of SEND Fundamentals: Identification and Assessment.
+
+Early identification of special educational needs leads to better outcomes. But how do we identify needs accurately and fairly?
+
+Starting points for identification:
+
+Concerns raised by teachers who notice a child struggling despite quality-first teaching.
+Concerns from parents who observe differences in their child's development.
+Developmental screenings that flag potential difficulties.
+Transfer information from previous settings.
+Progress monitoring data showing lack of expected growth.
+
+The importance of not labelling too quickly:
+
+Some children develop at different rates. What looks like a difficulty at age five may resolve with maturation.
+
+Environmental factors—including poverty, trauma, and English as an additional language—can affect learning without indicating SEN.
+
+Quality of teaching matters. We must ensure children have received appropriate instruction before concluding they have intrinsic difficulties.
+
+Assessment should be:
+
+Purposeful—conducted to answer specific questions that inform intervention.
+Contextual—considering the child's environment, history, and culture.
+Holistic—examining strengths as well as difficulties across all developmental areas.
+Ongoing—not a one-off event but continuous monitoring.
+
+Types of assessment:
+
+Standardised assessments compare a child's performance to age-related norms. Useful for identifying where a child sits relative to peers.
+
+Criterion-referenced assessments check whether a child has mastered specific skills. Useful for planning next steps.
+
+Dynamic assessment examines how a child learns with support. Reveals potential that static tests might miss.
+
+Observation in natural contexts shows how difficulties manifest in real situations.
+
+Involving specialists:
+
+When school-based assessment isn't sufficient, external specialists may be needed.
+
+Educational psychologists bring expertise in cognitive assessment, learning difficulties, and intervention.
+
+Speech and language therapists assess communication needs.
+
+Occupational therapists assess sensory and motor needs.
+
+Specialist teachers provide expertise in specific areas like vision or hearing.
+
+EdPsych Connect connects you with specialist assessment tools and helps coordinate multi-agency assessment.`,
+    localPath: 'send-fundamentals/send-fund-m2-l1.mp4',
+    cloudinaryId: 'training_videos/send-fundamentals/send-fund-m2-l1'
+  },
+  {
+    id: 'send-fund-m2-l2',
+    title: 'SEND Fundamentals Module 2 Lesson 2: Working with Families',
+    script: `Hello again. I'm Dr Adrian, continuing Module Two with a focus on Working with Families.
+
+Parents are experts on their own children. Effective SEND support requires genuine partnership with families.
+
+Building positive relationships:
+
+Start with listening. Parents have often been advocating for their child for years. They have valuable insights.
+
+Avoid jargon. Educational terminology can be alienating. Use clear, accessible language.
+
+Be honest but compassionate. Share concerns directly while acknowledging the emotional impact.
+
+Focus on the child as a whole person, not just their difficulties.
+
+Sharing difficult news:
+
+When assessment reveals significant needs, families experience a range of emotions—grief, denial, anger, guilt, and eventually acceptance.
+
+Allow time and space for emotional responses.
+
+Provide written information to supplement verbal discussions. Parents may not retain everything when upset.
+
+Connect families with support networks—parent groups, charities, and local services.
+
+Involving families in planning:
+
+Co-production means families are equal partners, not passive recipients of professional decisions.
+
+Invite parents to contribute to assessments. Nobody knows a child's home functioning better than the family.
+
+Share draft plans and genuinely incorporate feedback.
+
+Schedule meetings at times families can attend. Provide childcare if needed.
+
+Use formats families can engage with—not everyone communicates best in formal meetings.
+
+Supporting families at home:
+
+Provide specific, practical strategies families can implement.
+
+Be realistic about family capacity. Exhausted parents can't deliver intensive programmes alongside daily life.
+
+Celebrate home successes. When families report progress, acknowledge their contribution.
+
+Respecting diversity:
+
+Different cultures have different understandings of disability and different expectations for family involvement.
+
+Use interpreters when needed—professional interpreters, not family members.
+
+Be sensitive to family structures. Not all children live with two biological parents.
+
+EdPsych Connect includes parent portal features that facilitate communication and co-production while respecting family preferences.
+
+Thank you for your commitment to true partnership with families.`
+,
+    localPath: 'send-fundamentals/send-fund-m2-l2.mp4',
+    cloudinaryId: 'training_videos/send-fundamentals/send-fund-m2-l2'
   }
 ];
 

@@ -634,7 +634,6 @@ export class DataRouterService {
       );
 
       // Get compliance data
-      const now = new Date();
       const thirtyDaysFromNow = new Date();
       thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
 
