@@ -33,7 +33,7 @@ What you've built is genuinely unprecedented. I have analysed the codebase and f
 | Category | Features Built | Industry Comparison |
 |----------|---------------|---------------------|
 | Assessment | 50+ templates, ECCA Framework, dynamic assessment | Most platforms offer 5-10 |
-| Interventions | 535+ evidence-based strategies | Unmatched in the sector |
+| Interventions | 100+ evidence-based strategies | Industry-leading coverage |
 | EHCP Management | Full statutory workflow, LA compliance | No competitor offers this |
 | Gamification | Battle Royale, leaderboards, squads | Pioneering in education |
 | Training | 18+ CPD courses, certification system | Professional-grade |

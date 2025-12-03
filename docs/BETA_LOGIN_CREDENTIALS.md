@@ -74,7 +74,7 @@ See detailed guide: `docs/PATHFINDER_PILOT_GUIDE_CAROLINE.md`
 ```
 1. Login as teacher@demo.com
 2. View Dashboard → See class overview
-3. Navigate to Interventions → Browse 535+ interventions
+3. Navigate to Interventions → Browse 100+ interventions
 4. Create Assessment → Use ECCA framework
 5. View Reports → Generate progress reports
 ```
@@ -120,7 +120,7 @@ See detailed guide: `docs/PATHFINDER_PILOT_GUIDE_CAROLINE.md`
 - [ ] Report generation (PDF)
 
 ### Interventions Library
-- [ ] Browse 535+ evidence-based interventions
+- [ ] Browse 100+ evidence-based interventions
 - [ ] Filter by category, evidence level
 - [ ] Create custom intervention plans
 
@@ -181,7 +181,7 @@ npx tsx prisma/seed-courses-from-csv.ts
 | Classes | 6 | Full year group coverage |
 | Cases | 5+ | Active SEND cases |
 | Assessments | 3+ | Sample assessments |
-| Interventions | 535+ | Evidence-based library |
+| Interventions | 100+ | Evidence-based library |
 | Blog Posts | 10+ | Platform & research content |
 | CPD Courses | 12+ | Professional development |
 
