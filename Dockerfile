@@ -4,7 +4,7 @@
 # ================================
 # Stage 1: Dependencies
 # ================================
-FROM node:20-alpine AS deps
+FROM node:22-alpine AS deps
 WORKDIR /app
 
 # Install dependencies needed for node-gyp
@@ -23,7 +23,7 @@ RUN npx prisma generate
 # ================================
 # Stage 2: Builder
 # ================================
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
 
 # Copy dependencies from deps stage
@@ -34,13 +34,22 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 
+# Build-time placeholder secrets (real values injected at runtime)
+ARG NEXTAUTH_SECRET=build-time-placeholder-secret-replace-at-runtime
+ARG DATABASE_URL=postgresql://placeholder:placeholder@localhost:5432/placeholder
+ENV NEXTAUTH_SECRET=$NEXTAUTH_SECRET
+ENV DATABASE_URL=$DATABASE_URL
+
+# Skip linting during Docker build (already done in CI)
+ENV NEXT_LINT_SKIP=1
+
 # Build the application
 RUN npm run build
 
 # ================================
 # Stage 3: Production Runner
 # ================================
-FROM node:20-alpine AS runner
+FROM node:22-alpine AS runner
 WORKDIR /app
 
 # Set environment

@@ -9,9 +9,14 @@ const enableBuildChecks = process.env.ENABLE_BUILD_CHECKS === 'true';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  output: 'standalone', // Required for Docker deployment
   typescript: {
     // Only ignore errors if build checks are disabled
     ignoreBuildErrors: !enableBuildChecks,
+  },
+  eslint: {
+    // Skip ESLint during Docker build (linting done in CI/locally)
+    ignoreDuringBuilds: !enableBuildChecks,
   },
   productionBrowserSourceMaps: false,
   images: {
