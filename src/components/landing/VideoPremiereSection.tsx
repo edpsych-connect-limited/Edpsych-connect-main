@@ -18,26 +18,27 @@ import { Play, X, ArrowRight, Sparkles, Shield, Users, Brain, Target, Zap } from
 import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
 
 // Video configuration - maps to centralized HEYGEN_VIDEO_IDS
+// UPDATED: January 2025 - V3 Featured Introduction with comprehensive platform overview
 const SHOWCASE_VIDEOS = {
   hero: {
-    id: 'value-enterprise-platform',
-    title: 'EdPsych Connect World',
-    subtitle: 'The UK\'s first SEND orchestration platform',
+    id: 'platform-introduction-featured',
+    title: 'EdPsych Connect: Complete Platform Overview',
+    subtitle: 'Evidence-based SEND orchestration with citations from DfE, BPS & IPSEA',
   },
   featured: [
+    {
+      id: 'ehcp-modules-hub-overview',
+      title: 'EHCP Management Suite',
+      description: 'Complete EHCP lifecycle management with AI-powered compliance tracking.',
+      icon: Shield,
+      gradient: 'from-blue-500 to-indigo-600',
+    },
     {
       id: 'value-edtech-problem',
       title: 'The EdTech Problem We Solve',
       description: 'Why existing tools fail schools and how orchestration changes everything.',
       icon: Target,
       gradient: 'from-amber-500 to-orange-600',
-    },
-    {
-      id: 'value-complete-solution',
-      title: 'The Complete Solution',
-      description: 'See how every component works together seamlessly.',
-      icon: Sparkles,
-      gradient: 'from-indigo-500 to-purple-600',
     },
     {
       id: 'feature-nclb-engine',
@@ -48,6 +49,13 @@ const SHOWCASE_VIDEOS = {
     },
   ],
   secondary: [
+    {
+      id: 'value-enterprise-platform',
+      title: 'Enterprise Platform Overview',
+      description: 'See the full scope of the SEND orchestration system.',
+      icon: Sparkles,
+      gradient: 'from-indigo-500 to-purple-600',
+    },
     {
       id: 'trust-security',
       title: 'Enterprise Security',
@@ -61,13 +69,6 @@ const SHOWCASE_VIDEOS = {
       description: 'Your data never leaves your control.',
       icon: Brain,
       gradient: 'from-cyan-500 to-blue-600',
-    },
-    {
-      id: 'addon-ai-power-pack',
-      title: 'Intelligent Assistance',
-      description: 'Experience responsive support that understands your needs.',
-      icon: Zap,
-      gradient: 'from-violet-500 to-purple-600',
     },
   ]
 };

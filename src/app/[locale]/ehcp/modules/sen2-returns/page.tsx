@@ -22,6 +22,7 @@ import {
   Send,
   RefreshCw
 } from 'lucide-react';
+import { EHCPModuleVideoIntro } from '@/components/ehcp/EHCPModuleVideoIntro';
 
 interface SEN2Return {
   id: string;
@@ -143,6 +144,15 @@ export default function SEN2ReturnsPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Video Introduction */}
+        <EHCPModuleVideoIntro
+          videoKey="sen2-returns-automation"
+          title="SEN2 Returns Automation"
+          description="Automate your statutory SEN2 data collection with intelligent extraction and validation for accurate DfE submissions."
+          duration="4 min"
+          gradient="from-teal-600 to-emerald-600"
+        />
+
         {/* SEN2 Info Banner */}
         <div className="bg-teal-50 border border-teal-200 rounded-xl p-4 mb-6">
           <div className="flex items-start gap-3">

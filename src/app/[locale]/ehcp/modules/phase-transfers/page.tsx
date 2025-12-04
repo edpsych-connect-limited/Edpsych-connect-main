@@ -22,6 +22,7 @@ import {
   Plus,
   ChevronRight
 } from 'lucide-react';
+import { EHCPModuleVideoIntro } from '@/components/ehcp/EHCPModuleVideoIntro';
 
 interface PhaseTransfer {
   id: string;
@@ -153,6 +154,15 @@ export default function PhaseTransfersPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Video Introduction */}
+        <EHCPModuleVideoIntro
+          videoKey="phase-transfers-mastery"
+          title="Phase Transfers Mastery"
+          description="Navigate educational transitions smoothly with preparation checklists, timeline management, and school consultation workflows."
+          duration="4 min"
+          gradient="from-green-600 to-emerald-600"
+        />
+
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="bg-white rounded-xl shadow-sm border p-5">

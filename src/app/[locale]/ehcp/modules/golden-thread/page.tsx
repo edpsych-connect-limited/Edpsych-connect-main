@@ -21,6 +21,7 @@ import {
   Eye,
   RefreshCw
 } from 'lucide-react';
+import { EHCPModuleVideoIntro } from '@/components/ehcp/EHCPModuleVideoIntro';
 
 // Custom LinkBreak icon since it may not exist in lucide
 const LinkBreakIcon = ({ className }: { className?: string }) => (
@@ -154,6 +155,15 @@ export default function GoldenThreadPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Video Introduction */}
+        <EHCPModuleVideoIntro
+          videoKey="golden-thread-coherence"
+          title="Golden Thread Coherence"
+          description="Visualise and strengthen the connections between assessed needs, outcomes, and provisions in EHCPs with AI-powered analysis."
+          duration="4 min"
+          gradient="from-indigo-600 to-purple-600"
+        />
+
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="bg-white rounded-xl shadow-sm border p-5">

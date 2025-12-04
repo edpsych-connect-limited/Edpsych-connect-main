@@ -16,7 +16,7 @@
 
 export const dynamic = 'force-dynamic';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/lib/auth/hooks';
 import { useRouter } from 'next/navigation';
@@ -30,8 +30,11 @@ import {
   FileSpreadsheet,
   LayoutDashboard,
   Shield,
-  TrendingUp
+  TrendingUp,
+  Play,
+  X
 } from 'lucide-react';
+import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
 
 const modules = [
   {
@@ -109,6 +112,7 @@ const quickStats = [
 export default function EHCPModulesHub() {
   const { user, isLoading } = useAuth();
   const router = useRouter();
+  const [showVideo, setShowVideo] = useState(false);
 
   if (isLoading) {
     return (
@@ -181,6 +185,45 @@ export default function EHCPModulesHub() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Video Introduction Section */}
+        <div className="mb-8 bg-gradient-to-br from-indigo-900 to-blue-900 rounded-xl shadow-lg overflow-hidden">
+          <div className="p-6 md:p-8">
+            <div className="flex flex-col md:flex-row md:items-center gap-6">
+              <div className="flex-1">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full text-indigo-200 text-sm font-medium mb-3">
+                  <Play className="w-3 h-3" />
+                  Video Guide
+                </div>
+                <h2 className="text-2xl font-bold text-white mb-2">EHCP Management Suite Overview</h2>
+                <p className="text-indigo-200 mb-4">
+                  Watch our comprehensive guide to the EHCP Management Suite and discover how to streamline 
+                  annual reviews, phase transfers, compliance tracking, and more.
+                </p>
+                <button
+                  onClick={() => setShowVideo(true)}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-indigo-900 font-semibold rounded-lg hover:bg-indigo-100 transition"
+                >
+                  <Play className="w-4 h-4 fill-current" />
+                  Watch Introduction Video
+                </button>
+              </div>
+              <div 
+                className="relative w-full md:w-80 aspect-video bg-black/30 rounded-lg overflow-hidden cursor-pointer group"
+                onClick={() => setShowVideo(true)}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/50 to-purple-600/50 flex items-center justify-center">
+                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30 group-hover:scale-110 transition">
+                    <Play className="w-8 h-8 text-white fill-white ml-1" />
+                  </div>
+                </div>
+                <div className="absolute bottom-3 left-3 px-2 py-1 bg-black/60 backdrop-blur-sm rounded text-xs text-white">
+                  4 min
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* UK SEND Code Compliance Banner */}
@@ -271,6 +314,32 @@ export default function EHCPModulesHub() {
           </div>
         </div>
       </div>
+
+      {/* Video Modal */}
+      {showVideo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4">
+          <div className="relative w-full max-w-4xl bg-black rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
+            <div className="flex items-center justify-between p-4 border-b border-slate-800">
+              <h3 className="text-lg font-semibold text-white">EHCP Management Suite Overview</h3>
+              <button 
+                onClick={() => setShowVideo(false)}
+                className="p-2 hover:bg-slate-800 rounded-lg transition-colors text-white"
+                aria-label="Close video"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="aspect-video">
+              <VideoTutorialPlayer
+                videoKey="ehcp-modules-hub-overview"
+                title="EHCP Management Suite Overview"
+                autoPlay={true}
+                className="w-full h-full"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

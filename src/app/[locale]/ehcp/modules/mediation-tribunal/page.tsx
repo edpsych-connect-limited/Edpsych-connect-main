@@ -21,6 +21,7 @@ import {
   Calendar,
   Users
 } from 'lucide-react';
+import { EHCPModuleVideoIntro } from '@/components/ehcp/EHCPModuleVideoIntro';
 
 interface MediationCase {
   id: string;
@@ -165,6 +166,15 @@ export default function MediationTribunalPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Video Introduction */}
+        <EHCPModuleVideoIntro
+          videoKey="mediation-tribunal-navigation"
+          title="Mediation & Tribunal Navigation"
+          description="Master the dispute resolution process with comprehensive guidance on SENDIST procedures, mediation strategies, and tribunal preparation."
+          duration="4 min"
+          gradient="from-purple-600 to-indigo-600"
+        />
+
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="bg-white rounded-xl shadow-sm border p-5">

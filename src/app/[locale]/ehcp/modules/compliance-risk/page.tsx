@@ -21,6 +21,7 @@ import {
   XCircle,
   RefreshCw
 } from 'lucide-react';
+import { EHCPModuleVideoIntro } from '@/components/ehcp/EHCPModuleVideoIntro';
 
 interface ComplianceRisk {
   id: string;
@@ -150,6 +151,15 @@ export default function ComplianceRiskPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Video Introduction */}
+        <EHCPModuleVideoIntro
+          videoKey="compliance-risk-ai"
+          title="Compliance & Risk AI"
+          description="Leverage AI-powered risk prediction to stay ahead of compliance issues with proactive alerts and recommendations."
+          duration="4 min"
+          gradient="from-red-600 to-orange-600"
+        />
+
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="bg-white rounded-xl shadow-sm border p-5">

@@ -20,6 +20,7 @@ import {
   FileText,
   Download
 } from 'lucide-react';
+import { EHCPModuleVideoIntro } from '@/components/ehcp/EHCPModuleVideoIntro';
 
 interface FundingBand {
   id: string;
@@ -175,6 +176,15 @@ export default function ResourceCostingPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Video Introduction */}
+        <EHCPModuleVideoIntro
+          videoKey="resource-costing-funding"
+          title="Resource Costing & Funding"
+          description="Calculate provision costs, understand funding bands, and generate budget projections with our comprehensive costing tools."
+          duration="4 min"
+          gradient="from-amber-600 to-orange-600"
+        />
+
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="bg-white rounded-xl shadow-sm border p-5">
