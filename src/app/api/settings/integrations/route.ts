@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
+// Force dynamic rendering - this route uses headers via getServerSession
+export const dynamic = 'force-dynamic';
+
 /**
  * GET /api/settings/integrations
  * Fetch current integration settings for the user's tenant

@@ -18,6 +18,15 @@ export { default as SchoolSubmissionInterface } from './SchoolSubmissionInterfac
 // EHCP Document Tools
 export { default as EHCPMergeTool } from './EHCPMergeTool';
 
+// Enhanced LA Management Modules (2025)
+export { default as SEN2ReturnGenerator } from './SEN2ReturnGenerator';
+export { default as MediationTribunalTracker } from './MediationTribunalTracker';
+export { default as PhaseTransferWorkflow } from './PhaseTransferWorkflow';
+export { default as AnnualReviewScheduler } from './AnnualReviewScheduler';
+export { default as ComplianceRiskPredictor } from './ComplianceRiskPredictor';
+export { default as ResourceCostingModule } from './ResourceCostingModule';
+export { default as GoldenThreadVisualisation } from './GoldenThreadVisualisation';
+
 // Type exports for external use
 export type {
   // These would be exported from individual component files
@@ -40,6 +49,7 @@ export type {
  *    - Compliance tracking with Week 6/16/20 deadlines
  *    - At-risk applications highlighting
  *    - School-level analytics
+ *    - Integrated access to all enhanced modules via tabs
  * 
  * 2. ApplicationDetailView
  *    - Individual application management
@@ -74,6 +84,51 @@ export type {
  *    - Evidence upload
  *    - Views and aspirations
  *    - Consent and declaration
+ * 
+ * ENHANCED MODULES (2025):
+ * ------------------------
+ * 
+ * 6. SEN2ReturnGenerator
+ *    - DfE statutory annual returns
+ *    - All 11 SEN2 tables automated
+ *    - Data validation and preview
+ *    - XML export for submission
+ * 
+ * 7. MediationTribunalTracker
+ *    - Mediation request tracking
+ *    - SENDIST tribunal management
+ *    - Cost analysis and outcomes
+ *    - Settlement recommendations
+ * 
+ * 8. PhaseTransferWorkflow
+ *    - EYFS → KS1 → KS2 → KS3 → KS4 → KS5 → Post-19
+ *    - School consultation management
+ *    - Parent preference tracking
+ *    - Risk identification
+ * 
+ * 9. AnnualReviewScheduler
+ *    - Smart scheduling with holiday avoidance
+ *    - Auto-reminders to all parties
+ *    - Preparation task tracking
+ *    - Outcome recording
+ * 
+ * 10. ComplianceRiskPredictor (AI-POWERED)
+ *     - Breach probability scoring
+ *     - Multi-factor risk analysis
+ *     - Mitigation recommendations
+ *     - Historical accuracy tracking
+ * 
+ * 11. ResourceCostingModule
+ *     - Funding bands A-F + Exceptional
+ *     - Provision cost breakdown
+ *     - Budget vs actual tracking
+ *     - Value-for-money analysis
+ * 
+ * 12. GoldenThreadVisualisation (FLAGSHIP)
+ *     - Needs → Outcomes → Provision coherence
+ *     - Gap analysis and recommendations
+ *     - Legally defensible EHCPs
+ *     - Section-by-section breakdown
  * 
  * Statutory Workflow:
  * -------------------

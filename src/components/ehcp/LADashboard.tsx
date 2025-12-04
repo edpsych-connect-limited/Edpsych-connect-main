@@ -14,15 +14,23 @@
  * - At-risk case alerts
  * - School application overview
  * - Quick actions for caseworkers
+ * - SEN2 Return Generator (DfE statutory)
+ * - Mediation & Tribunal Tracking
+ * - Phase Transfer Workflow
+ * - Annual Review Scheduling
+ * - AI Compliance Risk Predictor
+ * - Resource Costing Module
+ * - Golden Thread Visualisation
  * 
  * Designed for Zero-Touch self-service with guided tours.
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import { useDemo } from '@/components/demo/DemoProvider';
 import { VideoModal } from '@/components/video/VideoTutorialPlayer';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   AlertTriangle, 
   CheckCircle, 
@@ -38,7 +46,46 @@ import {
   Filter,
   Play,
   Video,
+  BarChart3,
+  Scale,
+  GraduationCap,
+  CalendarCheck,
+  ShieldAlert,
+  PoundSterling,
+  Network,
+  LayoutDashboard,
 } from 'lucide-react';
+
+// Lazy load enhanced modules for performance
+const SEN2ReturnGenerator = lazy(() => import('./SEN2ReturnGenerator'));
+const MediationTribunalTracker = lazy(() => import('./MediationTribunalTracker'));
+const PhaseTransferWorkflow = lazy(() => import('./PhaseTransferWorkflow'));
+const AnnualReviewScheduler = lazy(() => import('./AnnualReviewScheduler'));
+const ComplianceRiskPredictor = lazy(() => import('./ComplianceRiskPredictor'));
+const ResourceCostingModule = lazy(() => import('./ResourceCostingModule'));
+const GoldenThreadVisualisation = lazy(() => import('./GoldenThreadVisualisation'));
+
+// Tab configuration for modular dashboard
+type TabId = 'overview' | 'sen2' | 'mediation' | 'transfers' | 'reviews' | 'risk' | 'costing' | 'golden-thread';
+
+interface TabConfig {
+  id: TabId;
+  label: string;
+  icon: React.ReactNode;
+  description: string;
+  badge?: string;
+}
+
+const DASHBOARD_TABS: TabConfig[] = [
+  { id: 'overview', label: 'Overview', icon: <LayoutDashboard className="w-4 h-4" />, description: 'Dashboard summary' },
+  { id: 'golden-thread', label: 'Golden Thread', icon: <Network className="w-4 h-4" />, description: 'Needs-Outcomes coherence', badge: 'NEW' },
+  { id: 'risk', label: 'Risk Predictor', icon: <ShieldAlert className="w-4 h-4" />, description: 'AI breach prediction', badge: 'AI' },
+  { id: 'sen2', label: 'SEN2 Return', icon: <BarChart3 className="w-4 h-4" />, description: 'DfE statutory returns' },
+  { id: 'mediation', label: 'Mediation', icon: <Scale className="w-4 h-4" />, description: 'Disputes & tribunals' },
+  { id: 'transfers', label: 'Phase Transfers', icon: <GraduationCap className="w-4 h-4" />, description: 'Educational transitions' },
+  { id: 'reviews', label: 'Annual Reviews', icon: <CalendarCheck className="w-4 h-4" />, description: 'Review scheduling' },
+  { id: 'costing', label: 'Resource Costing', icon: <PoundSterling className="w-4 h-4" />, description: 'Financial planning' },
+];
 
 // LA-specific video tutorials
 const LA_TUTORIAL_VIDEOS = [
@@ -256,6 +303,18 @@ function AlertCard({
   );
 }
 
+// Loading component for lazy-loaded modules
+function ModuleLoader() {
+  return (
+    <div className="flex items-center justify-center py-20">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4" />
+        <p className="text-gray-600 dark:text-gray-400">Loading module...</p>
+      </div>
+    </div>
+  );
+}
+
 // Main Dashboard Component
 export default function LAEHCPDashboard() {
   const router = useRouter();
@@ -267,6 +326,7 @@ export default function LAEHCPDashboard() {
   const [error, setError] = useState<string | null>(null);
   const [selectedPhase, setSelectedPhase] = useState<string | null>(null);
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date());
+  const [activeTab, setActiveTab] = useState<TabId>('overview');
 
   // Fetch dashboard data
   const fetchDashboard = async () => {
@@ -325,7 +385,7 @@ export default function LAEHCPDashboard() {
                 EHCP Management Dashboard
               </h1>
               <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
-                Statutory 20-week timeline compliance monitoring
+                Comprehensive SEND management with AI-powered insights
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -357,6 +417,37 @@ export default function LAEHCPDashboard() {
             Last updated: {lastRefresh.toLocaleTimeString('en-GB')}
           </p>
         </div>
+
+        {/* Tab Navigation */}
+        <div className="border-t border-gray-200 dark:border-gray-700">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="flex overflow-x-auto gap-1 py-2 -mb-px" aria-label="Dashboard modules">
+              {DASHBOARD_TABS.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`relative flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-t-lg transition-all whitespace-nowrap ${
+                    activeTab === tab.id
+                      ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-b-2 border-blue-600'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
+                  }`}
+                >
+                  {tab.icon}
+                  <span className="hidden sm:inline">{tab.label}</span>
+                  {tab.badge && (
+                    <span className={`text-xs px-1.5 py-0.5 rounded-full ${
+                      tab.badge === 'AI' 
+                        ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-300'
+                        : 'bg-green-100 text-green-700 dark:bg-green-900/50 dark:text-green-300'
+                    }`}>
+                      {tab.badge}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </nav>
+          </div>
+        </div>
       </div>
 
       {/* Main Content */}
@@ -367,17 +458,107 @@ export default function LAEHCPDashboard() {
           </div>
         )}
 
-        {loading && !data ? (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {[...Array(8)].map((_, i) => (
-              <div key={i} className="bg-white dark:bg-gray-800 rounded-lg p-6 animate-pulse">
-                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2 mb-4" />
-                <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/3" />
-              </div>
-            ))}
-          </div>
-        ) : data && (
-          <>
+        {/* Tab Content with Animation */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+          >
+            {/* Overview Tab - Original Dashboard */}
+            {activeTab === 'overview' && (
+              <>
+                {loading && !data ? (
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    {[...Array(8)].map((_, i) => (
+                      <div key={i} className="bg-white dark:bg-gray-800 rounded-lg p-6 animate-pulse">
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2 mb-4" />
+                        <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/3" />
+                      </div>
+                    ))}
+                  </div>
+                ) : data && (
+                  <OverviewContent 
+                    data={data} 
+                    selectedPhase={selectedPhase}
+                    setSelectedPhase={setSelectedPhase}
+                    router={router}
+                  />
+                )}
+              </>
+            )}
+
+            {/* SEN2 Return Tab */}
+            {activeTab === 'sen2' && (
+              <Suspense fallback={<ModuleLoader />}>
+                <SEN2ReturnGenerator />
+              </Suspense>
+            )}
+
+            {/* Mediation/Tribunal Tab */}
+            {activeTab === 'mediation' && (
+              <Suspense fallback={<ModuleLoader />}>
+                <MediationTribunalTracker />
+              </Suspense>
+            )}
+
+            {/* Phase Transfers Tab */}
+            {activeTab === 'transfers' && (
+              <Suspense fallback={<ModuleLoader />}>
+                <PhaseTransferWorkflow />
+              </Suspense>
+            )}
+
+            {/* Annual Reviews Tab */}
+            {activeTab === 'reviews' && (
+              <Suspense fallback={<ModuleLoader />}>
+                <AnnualReviewScheduler />
+              </Suspense>
+            )}
+
+            {/* Risk Predictor Tab */}
+            {activeTab === 'risk' && (
+              <Suspense fallback={<ModuleLoader />}>
+                <ComplianceRiskPredictor />
+              </Suspense>
+            )}
+
+            {/* Resource Costing Tab */}
+            {activeTab === 'costing' && (
+              <Suspense fallback={<ModuleLoader />}>
+                <ResourceCostingModule />
+              </Suspense>
+            )}
+
+            {/* Golden Thread Tab */}
+            {activeTab === 'golden-thread' && (
+              <Suspense fallback={<ModuleLoader />}>
+                <GoldenThreadVisualisation />
+              </Suspense>
+            )}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
+
+// Overview Content Component (extracted from original)
+function OverviewContent({ 
+  data, 
+  selectedPhase, 
+  setSelectedPhase, 
+  router 
+}: { 
+  data: DashboardData; 
+  selectedPhase: string | null;
+  setSelectedPhase: (phase: string | null) => void;
+  router: ReturnType<typeof useRouter>;
+}) {
+  return (
+    <>
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8" data-tour="la-dashboard-stats">
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
@@ -733,11 +914,8 @@ export default function LAEHCPDashboard() {
             {/* Video Tutorials Section */}
             <LAVideoTutorials />
           </>
-        )}
-      </div>
-    </div>
-  );
-}
+        );
+      }
 
 // LA Video Tutorials Component
 function LAVideoTutorials() {
