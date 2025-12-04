@@ -11,7 +11,7 @@
 ;
 
 import { motion } from 'framer-motion';
-import { Brain, Library, GraduationCap, Trophy, Clock, ShieldCheck, FileCheck, Code, MessageSquareText, Users, Search, Heart } from 'lucide-react';
+import { Brain, Library, GraduationCap, Trophy, Clock, ShieldCheck, FileCheck, Code, MessageSquareText, Users, Search, Heart, Mic, BookOpen } from 'lucide-react';
 
 export default function CoreCapabilitiesGrid() {
   const capabilities = [
@@ -44,6 +44,13 @@ export default function CoreCapabilitiesGrid() {
       bg: "bg-rose-400/10"
     },
     {
+      icon: Mic,
+      title: "Voice Command System",
+      description: "Hands-free operation with UK accent recognition. 'Show me Year 3 progress' or 'Who needs help today?' Teaching shouldn't require typing.",
+      color: "text-sky-400",
+      bg: "bg-sky-400/10"
+    },
+    {
       icon: MessageSquareText,
       title: "Universal Translator",
       description: "Converts complex educational jargon into plain English. Parents understand reports. Teachers save hours of explanation.",
@@ -56,6 +63,13 @@ export default function CoreCapabilitiesGrid() {
       description: "Real-time progress tracking for families. Direct messaging with support teams. Resources tailored to your child's needs.",
       color: "text-red-400",
       bg: "bg-red-400/10"
+    },
+    {
+      icon: BookOpen,
+      title: "Knowledge Hub & Blog",
+      description: "AI-curated research insights, breaking EdTech news, and evidence-based articles. Your daily dose of professional growth.",
+      color: "text-lime-400",
+      bg: "bg-lime-400/10"
     },
     {
       icon: Search,
