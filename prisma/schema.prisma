@@ -186,6 +186,19 @@ model tenants {
   algorithmLicenses    AlgorithmLicense[]
   algorithmUsages      AlgorithmUsage[]
 
+  // Relations - EHCP Module Extensions
+  la_mediation_cases        MediationCase[]              @relation("LAMediationCases")
+  la_tribunal_cases         TribunalCase[]               @relation("LATribunalCases")
+  la_phase_transfers        PhaseTransfer[]              @relation("LAPhaseTransfers")
+  la_annual_reviews         AnnualReview[]               @relation("LAAnnualReviews")
+  la_risk_predictions       ComplianceRiskPrediction[]   @relation("LARiskPredictions")
+  la_compliance_alerts      ComplianceAlert[]            @relation("LAComplianceAlerts")
+  la_provision_costs        ProvisionCost[]              @relation("LAProvisionCosts")
+  la_funding_bands          FundingBand[]                @relation("LAFundingBands")
+  la_ehcp_costs             EHCPCostCalculation[]        @relation("LAEHCPCosts")
+  la_golden_thread_analyses GoldenThreadAnalysis[]       @relation("LAGoldenThreadAnalyses")
+  la_sen2_returns           SEN2ReturnData[]             @relation("LASEN2Returns")
+
   @@index([subdomain])
   @@index([tenant_type])
   @@index([status])
@@ -380,6 +393,18 @@ model users {
   user_activities      UserActivity[]
   user_interests       UserInterest[]
   squad_memberships    SquadMember[]
+
+  // Relations - EHCP Module Extensions
+  mediation_cases_officer     MediationCase[]             @relation("MediationCaseOfficer")
+  tribunal_cases_lead         TribunalCase[]              @relation("TribunalLeadOfficer")
+  tribunal_docs_submitted     TribunalDocument[]          @relation("TribunalDocSubmitter")
+  phase_transfers_officer     PhaseTransfer[]             @relation("PhaseTransferOfficer")
+  phase_transfer_events       PhaseTransferEvent[]        @relation("PhaseTransferEventRecorder")
+  annual_reviews_officer      AnnualReview[]              @relation("AnnualReviewOfficer")
+  annual_review_contributions AnnualReviewContribution[]  @relation("AnnualReviewContributor")
+  compliance_alerts_ack       ComplianceAlert[]           @relation("ComplianceAlertAcknowledger")
+  ehcp_costs_approved         EHCPCostCalculation[]       @relation("CostApprover")
+  golden_thread_reviews       GoldenThreadAnalysis[]      @relation("GoldenThreadReviewer")
 
   @@index([tenant_id])
   @@index([email])
@@ -1553,6 +1578,715 @@ model EHCPNotificationTemplate {
   
   @@index([la_tenant_id])
   @@index([trigger_event])
+}
+
+// ============================================================================
+// MEDIATION & TRIBUNAL TRACKING
+// ============================================================================
+
+model MediationCase {
+  id                    String               @id @default(cuid())
+  la_tenant_id          Int
+  ehcp_application_id   String?
+  
+  // Case Details
+  case_reference        String               @unique
+  child_name            String
+  parent_guardian_name  String
+  parent_email          String?
+  parent_phone          String?
+  
+  // Mediation Type
+  mediation_type        String               // ehcp_decision, ehcp_content, provision, placement
+  requested_by          String               // parent, advocate, solicitor
+  
+  // Key Dates
+  request_date          DateTime
+  certificate_due_date  DateTime?            // 30 days from request
+  certificate_issued    DateTime?
+  mediation_date        DateTime?
+  
+  // Status
+  status                String               @default("requested") // requested, certificate_issued, scheduled, completed, withdrawn, escalated_to_tribunal
+  outcome               String?              // resolved, unresolved, partial_agreement, withdrawn
+  resolution_summary    String?              @db.Text
+  
+  // Mediator Details
+  mediation_service     String?
+  mediator_name         String?
+  
+  // Agreement Details (if resolved)
+  agreements            Json?                // Array of agreed changes
+  implementation_deadline DateTime?
+  implementation_status String?              @default("pending") // pending, in_progress, completed
+  
+  // LA Case Officer
+  case_officer_id       Int?
+  
+  // Costs
+  mediation_cost        Float?
+  
+  // Timestamps
+  created_at            DateTime             @default(now())
+  updated_at            DateTime             @default(now())
+  
+  // Relations
+  la_tenant             tenants              @relation("LAMediationCases", fields: [la_tenant_id], references: [id])
+  case_officer          users?               @relation("MediationCaseOfficer", fields: [case_officer_id], references: [id])
+  tribunal_case         TribunalCase?        @relation("MediationToTribunal")
+  
+  @@index([la_tenant_id])
+  @@index([status])
+  @@index([request_date])
+}
+
+model TribunalCase {
+  id                    String               @id @default(cuid())
+  la_tenant_id          Int
+  mediation_case_id     String?              @unique
+  ehcp_application_id   String?
+  
+  // Case Details
+  tribunal_reference    String               @unique
+  sendist_reference     String?              // SEND Tribunal reference
+  child_name            String
+  
+  // Appeal Type
+  appeal_type           String               // refusal_to_assess, refusal_to_issue, ehcp_content, placement, ceasing
+  grounds_for_appeal    String               @db.Text
+  
+  // Key Dates (SEND Tribunal timeline)
+  registration_date     DateTime
+  response_due_date     DateTime             // 30 days from registration
+  response_submitted    DateTime?
+  
+  // Working Document
+  working_document_due  DateTime?
+  working_document_sent DateTime?
+  
+  // Hearing
+  hearing_date          DateTime?
+  hearing_location      String?
+  hearing_type          String?              // in_person, video, paper
+  
+  // Decision
+  decision_date         DateTime?
+  decision_outcome      String?              // upheld, partially_upheld, dismissed
+  decision_summary      String?              @db.Text
+  
+  // Implementation
+  ordered_changes       Json?                // Required changes from tribunal
+  implementation_deadline DateTime?
+  implementation_status String?
+  
+  // Status
+  status                String               @default("registered") // registered, response_submitted, hearing_scheduled, decision_pending, closed
+  
+  // Legal Representation
+  la_legal_rep          String?
+  parent_legal_rep      String?
+  
+  // Costs
+  legal_costs           Float?
+  tribunal_costs        Float?
+  total_costs           Float?
+  
+  // LA Team
+  lead_officer_id       Int?
+  
+  // Timestamps
+  created_at            DateTime             @default(now())
+  updated_at            DateTime             @default(now())
+  
+  // Relations
+  la_tenant             tenants              @relation("LATribunalCases", fields: [la_tenant_id], references: [id])
+  mediation_case        MediationCase?       @relation("MediationToTribunal", fields: [mediation_case_id], references: [id])
+  lead_officer          users?               @relation("TribunalLeadOfficer", fields: [lead_officer_id], references: [id])
+  documents             TribunalDocument[]
+  
+  @@index([la_tenant_id])
+  @@index([status])
+  @@index([hearing_date])
+}
+
+model TribunalDocument {
+  id                    String               @id @default(cuid())
+  tribunal_case_id      String
+  
+  // Document Details
+  document_type         String               // response, working_document, bundle, evidence, decision
+  document_name         String
+  file_url              String
+  file_size             Int?
+  
+  // Submission
+  submitted_by_id       Int?
+  submitted_at          DateTime             @default(now())
+  
+  // Status
+  status                String               @default("draft") // draft, submitted, accepted, rejected
+  
+  // Relations
+  tribunal_case         TribunalCase         @relation(fields: [tribunal_case_id], references: [id], onDelete: Cascade)
+  submitted_by          users?               @relation("TribunalDocSubmitter", fields: [submitted_by_id], references: [id])
+  
+  @@index([tribunal_case_id])
+}
+
+// ============================================================================
+// PHASE TRANSFER WORKFLOW
+// ============================================================================
+
+model PhaseTransfer {
+  id                    String               @id @default(cuid())
+  la_tenant_id          Int
+  ehcp_id               String?
+  
+  // Child Details
+  child_id              String
+  child_name            String
+  date_of_birth         DateTime
+  
+  // Current Placement
+  current_phase         String               // early_years, primary, secondary, post_16, post_19
+  current_setting_id    Int?
+  current_setting_name  String
+  
+  // Transfer Details
+  target_phase          String
+  transfer_year         Int                  // Academic year of transfer
+  transfer_date         DateTime             // Expected transfer date
+  
+  // Key Deadlines
+  consultation_start    DateTime             // When consultations should begin
+  final_plan_deadline   DateTime             // When amended EHCP must be finalised
+  placement_confirmed   DateTime?
+  
+  // Consultation Status
+  consultation_status   String               @default("not_started") // not_started, in_progress, completed
+  settings_consulted    Json?                // Array of setting IDs/responses
+  
+  // Preferred Settings (ranked)
+  parent_preferences    Json?                // [{rank: 1, setting_id: x, setting_name: y, reason: z}]
+  
+  // Proposed Placement
+  proposed_setting_id   Int?
+  proposed_setting_name String?
+  placement_decision_date DateTime?
+  placement_agreed      Boolean?
+  
+  // Plan Amendments
+  ehcp_amendments_required Json?             // Changes needed for new phase
+  amended_plan_sent     DateTime?
+  
+  // Status
+  status                String               @default("identified") // identified, consultations_sent, consultations_complete, placement_proposed, placement_agreed, plan_amended, transfer_complete
+  risk_level            String               @default("standard") // standard, at_risk, high_risk
+  
+  // Case Officer
+  case_officer_id       Int?
+  
+  // Notes
+  notes                 String?              @db.Text
+  
+  // Timestamps
+  created_at            DateTime             @default(now())
+  updated_at            DateTime             @default(now())
+  
+  // Relations
+  la_tenant             tenants              @relation("LAPhaseTransfers", fields: [la_tenant_id], references: [id])
+  case_officer          users?               @relation("PhaseTransferOfficer", fields: [case_officer_id], references: [id])
+  timeline_events       PhaseTransferEvent[]
+  
+  @@index([la_tenant_id])
+  @@index([transfer_year])
+  @@index([status])
+  @@index([current_setting_id])
+}
+
+model PhaseTransferEvent {
+  id                    String               @id @default(cuid())
+  phase_transfer_id     String
+  
+  // Event Details
+  event_type            String               // consultation_sent, response_received, meeting_scheduled, placement_offered, etc.
+  event_date            DateTime
+  description           String
+  
+  // Related Data
+  related_setting_id    Int?
+  related_document_url  String?
+  
+  // Recorded By
+  recorded_by_id        Int?
+  
+  // Timestamps
+  created_at            DateTime             @default(now())
+  
+  // Relations
+  phase_transfer        PhaseTransfer        @relation(fields: [phase_transfer_id], references: [id], onDelete: Cascade)
+  recorded_by           users?               @relation("PhaseTransferEventRecorder", fields: [recorded_by_id], references: [id])
+  
+  @@index([phase_transfer_id])
+  @@index([event_date])
+}
+
+// ============================================================================
+// ANNUAL REVIEW SCHEDULER
+// ============================================================================
+
+model AnnualReview {
+  id                    String               @id @default(cuid())
+  la_tenant_id          Int
+  ehcp_id               String
+  
+  // Child Details
+  child_id              String
+  child_name            String
+  
+  // Review Period
+  review_period_start   DateTime
+  review_period_end     DateTime
+  
+  // Scheduling
+  scheduled_date        DateTime?
+  review_type           String               @default("standard") // standard, phase_transfer, early_review, emergency
+  
+  // Setting Details
+  setting_id            Int?
+  setting_name          String?
+  setting_senco_id      Int?
+  
+  // Key Deadlines
+  paperwork_due         DateTime?            // 2 weeks before review
+  decision_due          DateTime?            // 4 weeks after review meeting
+  final_plan_due        DateTime?            // 8 weeks after review meeting
+  
+  // Invitees
+  invitees              Json?                // Array of {role, name, email, invited, attending}
+  
+  // Meeting Details
+  meeting_location      String?
+  meeting_format        String?              // in_person, video, hybrid
+  
+  // Status
+  status                String               @default("scheduled") // scheduled, paperwork_requested, paperwork_received, meeting_held, decision_made, plan_amended, completed
+  
+  // Review Outcome
+  outcome               String?              // maintain, amend, cease, request_early_review
+  outcome_date          DateTime?
+  outcome_summary       String?              @db.Text
+  
+  // Parent Views
+  parent_views_received Boolean              @default(false)
+  child_views_received  Boolean              @default(false)
+  setting_advice_received Boolean            @default(false)
+  
+  // Amendments
+  amendments_required   Json?                // Specific changes required
+  amended_plan_issued   DateTime?
+  
+  // Case Officer
+  case_officer_id       Int?
+  
+  // Timestamps
+  created_at            DateTime             @default(now())
+  updated_at            DateTime             @default(now())
+  
+  // Relations
+  la_tenant             tenants              @relation("LAAnnualReviews", fields: [la_tenant_id], references: [id])
+  case_officer          users?               @relation("AnnualReviewOfficer", fields: [case_officer_id], references: [id])
+  contributions         AnnualReviewContribution[]
+  
+  @@index([la_tenant_id])
+  @@index([scheduled_date])
+  @@index([status])
+  @@index([setting_id])
+}
+
+model AnnualReviewContribution {
+  id                    String               @id @default(cuid())
+  annual_review_id      String
+  
+  // Contributor Details
+  contributor_type      String               // parent, child, school, health, social_care, ep, other
+  contributor_name      String?
+  contributor_email     String?
+  contributor_id        Int?                 // If a registered user
+  
+  // Contribution
+  contribution_type     String               // views, report, advice
+  content               String?              @db.Text
+  file_url              String?
+  
+  // Status
+  status                String               @default("requested") // requested, submitted, reviewed
+  requested_date        DateTime?
+  submitted_date        DateTime?
+  
+  // Relations
+  annual_review         AnnualReview         @relation(fields: [annual_review_id], references: [id], onDelete: Cascade)
+  contributor           users?               @relation("AnnualReviewContributor", fields: [contributor_id], references: [id])
+  
+  @@index([annual_review_id])
+}
+
+// ============================================================================
+// COMPLIANCE RISK PREDICTION
+// ============================================================================
+
+model ComplianceRiskPrediction {
+  id                    String               @id @default(cuid())
+  la_tenant_id          Int
+  ehcp_application_id   String?
+  
+  // Prediction Details
+  risk_score            Float                // 0-100
+  risk_level            String               // low, medium, high, critical
+  
+  // Risk Factors (weights and scores)
+  risk_factors          Json                 // [{factor: "time_elapsed", weight: 0.3, score: 75, contribution: 22.5}]
+  
+  // Individual Factor Scores
+  timeline_risk         Float                @default(0) // Days remaining vs required
+  complexity_risk       Float                @default(0) // Based on needs profile
+  resource_risk         Float                @default(0) // EP availability, etc.
+  historical_risk       Float                @default(0) // Past LA performance
+  
+  // Contributing Factors (human readable)
+  primary_risk_factors  String[]             // Top 3 risk factors
+  mitigation_actions    Json?                // Suggested actions
+  
+  // Prediction Confidence
+  confidence            Float                @default(0.8) // Model confidence
+  
+  // Breach Probability
+  decision_breach_prob  Float?               // Probability of missing 6-week decision
+  draft_breach_prob     Float?               // Probability of missing 16-week draft
+  final_breach_prob     Float?               // Probability of missing 20-week final
+  
+  // Model Version
+  model_version         String               @default("v1")
+  
+  // Timestamps
+  predicted_at          DateTime             @default(now())
+  expires_at            DateTime?            // When prediction should be recalculated
+  
+  // Relations
+  la_tenant             tenants              @relation("LARiskPredictions", fields: [la_tenant_id], references: [id])
+  
+  @@index([la_tenant_id])
+  @@index([risk_level])
+  @@index([predicted_at])
+}
+
+model ComplianceAlert {
+  id                    String               @id @default(cuid())
+  la_tenant_id          Int
+  ehcp_application_id   String?
+  
+  // Alert Details
+  alert_type            String               // deadline_approaching, deadline_breached, risk_escalated, resource_issue
+  severity              String               // info, warning, critical
+  
+  // Content
+  title                 String
+  message               String
+  
+  // Related Data
+  deadline_date         DateTime?
+  days_remaining        Int?
+  
+  // Status
+  status                String               @default("active") // active, acknowledged, resolved, expired
+  acknowledged_by_id    Int?
+  acknowledged_at       DateTime?
+  resolved_at           DateTime?
+  
+  // Actions Taken
+  actions_taken         Json?
+  
+  // Timestamps
+  created_at            DateTime             @default(now())
+  
+  // Relations
+  la_tenant             tenants              @relation("LAComplianceAlerts", fields: [la_tenant_id], references: [id])
+  acknowledged_by       users?               @relation("ComplianceAlertAcknowledger", fields: [acknowledged_by_id], references: [id])
+  
+  @@index([la_tenant_id])
+  @@index([status])
+  @@index([severity])
+}
+
+// ============================================================================
+// RESOURCE COSTING MODULE
+// ============================================================================
+
+model ProvisionCost {
+  id                    String               @id @default(cuid())
+  la_tenant_id          Int
+  
+  // Provision Details
+  provision_type        String               // ep_assessment, salt, ot, specialist_teaching, 1to1_support, etc.
+  provision_name        String
+  description           String?
+  
+  // Cost Structure
+  cost_model            String               // hourly, daily, annual, per_session, block
+  unit_cost             Float                // Cost per unit
+  currency              String               @default("GBP")
+  
+  // Typical Allocations
+  min_units             Float?               // Minimum typical allocation
+  max_units             Float?               // Maximum typical allocation
+  typical_units         Float?               // Most common allocation
+  
+  // Funding Band (if applicable)
+  funding_band_id       String?
+  
+  // Provider Information
+  provider_type         String?              // la_internal, external_commissioned, health, social_care
+  typical_providers     String[]             // List of typical provider types
+  
+  // Active Period
+  effective_from        DateTime
+  effective_to          DateTime?
+  is_active             Boolean              @default(true)
+  
+  // Timestamps
+  created_at            DateTime             @default(now())
+  updated_at            DateTime             @default(now())
+  
+  // Relations
+  la_tenant             tenants              @relation("LAProvisionCosts", fields: [la_tenant_id], references: [id])
+  funding_band          FundingBand?         @relation(fields: [funding_band_id], references: [id])
+  
+  @@index([la_tenant_id])
+  @@index([provision_type])
+  @@index([is_active])
+}
+
+model FundingBand {
+  id                    String               @id @default(cuid())
+  la_tenant_id          Int
+  
+  // Band Details
+  band_code             String               // A, B, C, D, E or descriptive
+  band_name             String
+  description           String?
+  
+  // Financial Values
+  annual_value          Float                // Total annual funding
+  element_1             Float                @default(0) // Core schools budget
+  element_2             Float                @default(0) // Notional SEN budget (up to £6k)
+  element_3             Float                @default(0) // Top-up funding
+  
+  // Need Profile Indicators
+  typical_needs         String[]             // Need types typically in this band
+  complexity_level      String               // low, medium, high, very_high
+  
+  // Active Period
+  academic_year         String               // 2024-25
+  is_active             Boolean              @default(true)
+  
+  // Timestamps
+  created_at            DateTime             @default(now())
+  updated_at            DateTime             @default(now())
+  
+  // Relations
+  la_tenant             tenants              @relation("LAFundingBands", fields: [la_tenant_id], references: [id])
+  provision_costs       ProvisionCost[]
+  cost_calculations     EHCPCostCalculation[]
+  
+  @@unique([la_tenant_id, band_code, academic_year])
+  @@index([la_tenant_id])
+}
+
+model EHCPCostCalculation {
+  id                    String               @id @default(cuid())
+  la_tenant_id          Int
+  ehcp_id               String?
+  ehcp_application_id   String?
+  
+  // Child Details
+  child_id              String
+  child_name            String
+  
+  // Calculation Details
+  calculation_type      String               // estimate, actual, forecast
+  academic_year         String
+  
+  // Funding Band
+  funding_band_id       String?
+  funding_band_code     String?
+  
+  // Cost Breakdown
+  provisions            Json                 // [{provision_type, units, unit_cost, total, funded_by}]
+  
+  // Totals by Funder
+  education_total       Float                @default(0)
+  health_total          Float                @default(0)
+  social_care_total     Float                @default(0)
+  
+  // Grand Total
+  total_annual_cost     Float                @default(0)
+  
+  // Placement Costs
+  placement_type        String?              // mainstream, resourced_provision, special_school, independent
+  placement_cost        Float                @default(0)
+  transport_cost        Float                @default(0)
+  
+  // Comparison to Average
+  la_average_cost       Float?
+  variance_from_average Float?
+  
+  // Status
+  status                String               @default("draft") // draft, submitted, approved
+  approved_by_id        Int?
+  approved_at           DateTime?
+  
+  // Timestamps
+  calculated_at         DateTime             @default(now())
+  updated_at            DateTime             @default(now())
+  
+  // Relations
+  la_tenant             tenants              @relation("LAEHCPCosts", fields: [la_tenant_id], references: [id])
+  funding_band          FundingBand?         @relation(fields: [funding_band_id], references: [id])
+  approved_by           users?               @relation("CostApprover", fields: [approved_by_id], references: [id])
+  
+  @@index([la_tenant_id])
+  @@index([child_id])
+  @@index([academic_year])
+}
+
+// ============================================================================
+// GOLDEN THREAD ANALYSIS
+// ============================================================================
+
+model GoldenThreadAnalysis {
+  id                    String               @id @default(cuid())
+  la_tenant_id          Int?
+  ehcp_id               String
+  
+  // Analysis Details
+  analysis_version      Int                  @default(1)
+  analysis_date         DateTime             @default(now())
+  
+  // Overall Scores
+  overall_coherence     Float                // 0-100
+  overall_quality       Float                // 0-100
+  
+  // Section Scores
+  section_scores        Json                 // {needs: 85, outcomes: 72, provision: 68, ...}
+  
+  // Needs Analysis
+  needs_identified      Json                 // Array of identified needs
+  needs_categories      Json                 // Breakdown by category (SEMH, SLCN, etc.)
+  needs_clarity_score   Float                // How clearly needs are described
+  
+  // Outcomes Analysis
+  outcomes_extracted    Json                 // Array of outcomes
+  outcomes_smart_score  Float                // How SMART the outcomes are
+  outcomes_linked_to_needs Boolean           @default(false)
+  
+  // Provision Analysis
+  provisions_mapped     Json                 // Array of provisions
+  provisions_linked     Boolean              @default(false) // All linked to needs/outcomes
+  provision_gaps        Json?                // Identified gaps
+  
+  // Linkage Analysis
+  need_outcome_links    Json                 // Links between needs and outcomes
+  outcome_provision_links Json               // Links between outcomes and provisions
+  broken_links          Json?                // Identified broken links
+  
+  // Recommendations
+  recommendations       Json                 // Suggested improvements
+  priority_issues       String[]             // Top issues to address
+  
+  // AI Analysis (if used)
+  ai_model_used         String?
+  ai_confidence         Float?
+  
+  // Status
+  status                String               @default("completed") // in_progress, completed, reviewed
+  reviewed_by_id        Int?
+  reviewed_at           DateTime?
+  
+  // Timestamps
+  created_at            DateTime             @default(now())
+  updated_at            DateTime             @default(now())
+  
+  // Relations
+  la_tenant             tenants?             @relation("LAGoldenThreadAnalyses", fields: [la_tenant_id], references: [id])
+  reviewed_by           users?               @relation("GoldenThreadReviewer", fields: [reviewed_by_id], references: [id])
+  
+  @@index([la_tenant_id])
+  @@index([ehcp_id])
+  @@index([analysis_date])
+}
+
+// ============================================================================
+// SEN2 RETURN DATA
+// ============================================================================
+
+model SEN2ReturnData {
+  id                    String               @id @default(cuid())
+  la_tenant_id          Int
+  
+  // Return Period
+  academic_year         String               // 2024-25
+  census_date           DateTime             // January census date
+  submission_deadline   DateTime
+  
+  // Return Status
+  status                String               @default("draft") // draft, validated, submitted, accepted
+  submitted_at          DateTime?
+  dfe_reference         String?
+  
+  // Summary Statistics (SEN2 Tables)
+  // Table 1: EHCPs by age
+  ehcps_by_age          Json                 // {under5: x, 5to10: y, 11to15: z, 16to19: a, 20plus: b}
+  
+  // Table 2: Primary need type
+  ehcps_by_need         Json                 // {ASD: x, SEMH: y, SLCN: z, MLD: a, ...}
+  
+  // Table 3: Placement type
+  ehcps_by_placement    Json                 // {mainstream: x, resourced: y, special: z, independent: a}
+  
+  // Table 4: New EHCPs in year
+  new_ehcps_in_year     Int
+  initial_requests      Int
+  requests_refused      Int
+  
+  // Table 5: Timeliness
+  assessments_completed_20_weeks Int
+  assessments_completed_over_20  Int
+  timeliness_percentage Float
+  
+  // Table 6: Mediations and Tribunals
+  mediations_held       Int
+  tribunals_registered  Int
+  tribunals_decided     Int
+  
+  // Table 7: Personal Budgets
+  personal_budgets_active Int
+  direct_payments_active Int
+  
+  // Validation
+  validation_errors     Json?                // Array of validation issues
+  validation_warnings   Json?
+  last_validated        DateTime?
+  
+  // Timestamps
+  created_at            DateTime             @default(now())
+  updated_at            DateTime             @default(now())
+  
+  // Relations
+  la_tenant             tenants              @relation("LASEN2Returns", fields: [la_tenant_id], references: [id])
+  
+  @@unique([la_tenant_id, academic_year])
+  @@index([la_tenant_id])
+  @@index([academic_year])
 }
 
 // ============================================================================

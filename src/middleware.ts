@@ -13,8 +13,6 @@ import type { NextRequest } from 'next/server';
 import { getJwtFromRequest } from '@/lib/auth/edge-auth-adapter/jwt';
 import { routing } from './navigation';
 
-const intlMiddleware = createMiddleware(routing);
-
 // =============================================================================
 // MAINTENANCE MODE CONFIGURATION
 // =============================================================================
