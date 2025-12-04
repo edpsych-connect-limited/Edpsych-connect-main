@@ -95,27 +95,34 @@ export async function middleware(request: NextRequest) {
       const devParam = request.nextUrl.searchParams.get('dev');
       const devCookie = request.cookies.get(DEV_COOKIE_NAME)?.value;
       
-      // If they have the correct bypass key, set cookie and continue
-      if (devParam === DEV_BYPASS_KEY) {
-        const response = NextResponse.redirect(request.nextUrl.clone());
-        // Remove the ?dev= param from URL for cleanliness
+      // DEBUG: Log the check
+      console.log('[Maintenance] Path:', pathname, 'DevParam:', devParam, 'DevCookie:', devCookie);
+      
+      // If they have the dev cookie, allow through immediately
+      if (devCookie === 'true') {
+        console.log('[Maintenance] Dev cookie found, allowing through');
+        // Continue to normal middleware flow - do nothing here
+      }
+      // If they have the correct bypass key, set cookie and redirect to clean URL
+      else if (devParam === DEV_BYPASS_KEY) {
+        console.log('[Maintenance] Dev param matched, setting cookie');
+        // Clone URL and remove dev param for clean redirect
+        const cleanUrl = request.nextUrl.clone();
+        cleanUrl.searchParams.delete('dev');
+        const response = NextResponse.redirect(cleanUrl);
+        // Set the bypass cookie
         response.cookies.set(DEV_COOKIE_NAME, 'true', {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'lax',
           maxAge: 60 * 60 * 24 * 30, // 30 days
+          path: '/', // Ensure cookie is available site-wide
         });
-        // Clone URL and remove dev param
-        const cleanUrl = request.nextUrl.clone();
-        cleanUrl.searchParams.delete('dev');
-        return NextResponse.redirect(cleanUrl);
+        return response;
       }
-      
-      // If they have the dev cookie, allow through
-      if (devCookie === 'true') {
-        // Continue to normal middleware flow
-      } else {
-        // Redirect to maintenance page
+      // No bypass - redirect to maintenance page
+      else {
+        console.log('[Maintenance] No bypass, redirecting to maintenance');
         const maintenanceUrl = new URL('/maintenance', request.url);
         return NextResponse.rewrite(maintenanceUrl);
       }
