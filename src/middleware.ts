@@ -15,6 +15,26 @@ import { routing } from './navigation';
 
 const intlMiddleware = createMiddleware(routing);
 
+// =============================================================================
+// MAINTENANCE MODE CONFIGURATION
+// =============================================================================
+// Set to true to enable site-wide maintenance mode
+// Users can bypass with ?dev=edpsych2025 parameter (sets a cookie)
+const MAINTENANCE_MODE = true;
+const DEV_BYPASS_KEY = 'edpsych2025';
+const DEV_COOKIE_NAME = 'edpsych_dev_access';
+
+// Paths that should NEVER show maintenance page (even in maintenance mode)
+const MAINTENANCE_EXEMPT_PATHS = [
+  '/maintenance',
+  '/api',
+  '/_next',
+  '/favicon.ico',
+];
+// =============================================================================
+
+const intlMiddleware = createMiddleware(routing);
+
 // Paths that require authentication
 const PROTECTED_PATHS = [
   '/dashboard',
@@ -65,6 +85,45 @@ const PUBLIC_API_PATHS = [
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // =============================================================================
+  // MAINTENANCE MODE CHECK (runs first, before anything else)
+  // =============================================================================
+  if (MAINTENANCE_MODE) {
+    const isExemptPath = MAINTENANCE_EXEMPT_PATHS.some(path => pathname.startsWith(path));
+    
+    if (!isExemptPath) {
+      // Check for dev bypass parameter
+      const devParam = request.nextUrl.searchParams.get('dev');
+      const devCookie = request.cookies.get(DEV_COOKIE_NAME)?.value;
+      
+      // If they have the correct bypass key, set cookie and continue
+      if (devParam === DEV_BYPASS_KEY) {
+        const response = NextResponse.redirect(request.nextUrl.clone());
+        // Remove the ?dev= param from URL for cleanliness
+        response.cookies.set(DEV_COOKIE_NAME, 'true', {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+          maxAge: 60 * 60 * 24 * 30, // 30 days
+        });
+        // Clone URL and remove dev param
+        const cleanUrl = request.nextUrl.clone();
+        cleanUrl.searchParams.delete('dev');
+        return NextResponse.redirect(cleanUrl);
+      }
+      
+      // If they have the dev cookie, allow through
+      if (devCookie === 'true') {
+        // Continue to normal middleware flow
+      } else {
+        // Redirect to maintenance page
+        const maintenanceUrl = new URL('/maintenance', request.url);
+        return NextResponse.rewrite(maintenanceUrl);
+      }
+    }
+  }
+  // =============================================================================
 
   // 1. Handle CORS for API routes
   if (pathname.startsWith('/api/')) {
