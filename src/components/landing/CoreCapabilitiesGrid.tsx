@@ -11,7 +11,7 @@
 ;
 
 import { motion } from 'framer-motion';
-import { Brain, Library, GraduationCap, Trophy, Clock, ShieldCheck } from 'lucide-react';
+import { Brain, Library, GraduationCap, Trophy, Clock, ShieldCheck, FileCheck, Code, MessageSquareText, Users, Search, Heart } from 'lucide-react';
 
 export default function CoreCapabilitiesGrid() {
   const capabilities = [
@@ -28,6 +28,48 @@ export default function CoreCapabilitiesGrid() {
       description: "Access 100+ evidence-based strategies. The system suggests the perfect intervention before you even ask.",
       color: "text-pink-400",
       bg: "bg-pink-400/10"
+    },
+    {
+      icon: FileCheck,
+      title: "EHCP Management Suite",
+      description: "Complete EHCP lifecycle management. Annual reviews, compliance risk AI, golden thread coherence, and automated SEN2 returns.",
+      color: "text-cyan-400",
+      bg: "bg-cyan-400/10"
+    },
+    {
+      icon: Code,
+      title: "Developers of Tomorrow",
+      description: "Proprietary coding curriculum designed for neurodiversity. Block coding to Python to React—with cognitive load management built in.",
+      color: "text-rose-400",
+      bg: "bg-rose-400/10"
+    },
+    {
+      icon: MessageSquareText,
+      title: "Universal Translator",
+      description: "Converts complex educational jargon into plain English. Parents understand reports. Teachers save hours of explanation.",
+      color: "text-teal-400",
+      bg: "bg-teal-400/10"
+    },
+    {
+      icon: Heart,
+      title: "Parent Portal",
+      description: "Real-time progress tracking for families. Direct messaging with support teams. Resources tailored to your child's needs.",
+      color: "text-red-400",
+      bg: "bg-red-400/10"
+    },
+    {
+      icon: Search,
+      title: "EP Marketplace",
+      description: "Find vetted Educational Psychologists instantly. LA Panel approved, DBS checked, £6M insured. Book assessments in minutes.",
+      color: "text-orange-400",
+      bg: "bg-orange-400/10"
+    },
+    {
+      icon: Users,
+      title: "Professional Forum",
+      description: "Connect with 2,300+ EPs, SENCOs, and educators. Share evidence-based practices. Learn from expert contributors.",
+      color: "text-violet-400",
+      bg: "bg-violet-400/10"
     },
     {
       icon: GraduationCap,
@@ -69,21 +111,21 @@ export default function CoreCapabilitiesGrid() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {capabilities.map((cap, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="p-8 rounded-2xl bg-slate-900 border border-slate-800 hover:border-indigo-500/50 transition-all group"
+              transition={{ duration: 0.5, delay: idx * 0.05 }}
+              className="p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-indigo-500/50 transition-all group"
             >
-              <div className={`w-12 h-12 rounded-xl ${cap.bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                <cap.icon className={`w-6 h-6 ${cap.color}`} />
+              <div className={`w-10 h-10 rounded-xl ${cap.bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                <cap.icon className={`w-5 h-5 ${cap.color}`} />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-slate-100">{cap.title}</h3>
-              <p className="text-slate-400 leading-relaxed">
+              <h3 className="text-lg font-bold mb-2 text-slate-100">{cap.title}</h3>
+              <p className="text-slate-400 leading-relaxed text-sm">
                 {cap.description}
               </p>
             </motion.div>
