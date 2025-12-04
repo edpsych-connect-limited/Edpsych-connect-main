@@ -1,5 +1,93 @@
 [
   {
+    "videoId": "pending-ehcp-hub-overview",
+    "shareUrl": "",
+    "course": "EHCP Mastery Professional Suite",
+    "module": "EHCP Management Modules",
+    "lesson": "Overview - Your Complete EHCP Management Toolkit",
+    "localPath": "/content/training_videos/ehcp-management-modules/ehcp-modules-m1-l1.mp4",
+    "lessonId": "ehcp-modules-m1-l1",
+    "status": "pending",
+    "scriptPath": "/video_scripts/ehcp_management_modules/01_ehcp_modules_hub_overview.md"
+  },
+  {
+    "videoId": "pending-annual-reviews",
+    "shareUrl": "",
+    "course": "EHCP Mastery Professional Suite",
+    "module": "EHCP Management Modules",
+    "lesson": "Mastering the Annual Review Cycle",
+    "localPath": "/content/training_videos/ehcp-management-modules/ehcp-modules-m1-l2.mp4",
+    "lessonId": "ehcp-modules-m1-l2",
+    "status": "pending",
+    "scriptPath": "/video_scripts/ehcp_management_modules/02_annual_reviews_mastery.md"
+  },
+  {
+    "videoId": "pending-mediation-tribunal",
+    "shareUrl": "",
+    "course": "EHCP Mastery Professional Suite",
+    "module": "EHCP Management Modules",
+    "lesson": "Navigating Disputes with Confidence",
+    "localPath": "/content/training_videos/ehcp-management-modules/ehcp-modules-m1-l3.mp4",
+    "lessonId": "ehcp-modules-m1-l3",
+    "status": "pending",
+    "scriptPath": "/video_scripts/ehcp_management_modules/03_mediation_tribunal_navigation.md"
+  },
+  {
+    "videoId": "pending-phase-transfers",
+    "shareUrl": "",
+    "course": "EHCP Mastery Professional Suite",
+    "module": "EHCP Management Modules",
+    "lesson": "Supporting Children Through Educational Transitions",
+    "localPath": "/content/training_videos/ehcp-management-modules/ehcp-modules-m1-l4.mp4",
+    "lessonId": "ehcp-modules-m1-l4",
+    "status": "pending",
+    "scriptPath": "/video_scripts/ehcp_management_modules/04_phase_transfers_transitions.md"
+  },
+  {
+    "videoId": "pending-compliance-risk",
+    "shareUrl": "",
+    "course": "EHCP Mastery Professional Suite",
+    "module": "EHCP Management Modules",
+    "lesson": "Predicting Problems Before They Become Crises",
+    "localPath": "/content/training_videos/ehcp-management-modules/ehcp-modules-m1-l5.mp4",
+    "lessonId": "ehcp-modules-m1-l5",
+    "status": "pending",
+    "scriptPath": "/video_scripts/ehcp_management_modules/05_compliance_risk_ai.md"
+  },
+  {
+    "videoId": "pending-resource-costing",
+    "shareUrl": "",
+    "course": "EHCP Mastery Professional Suite",
+    "module": "EHCP Management Modules",
+    "lesson": "UK Funding Elements and EHCP Financial Management",
+    "localPath": "/content/training_videos/ehcp-management-modules/ehcp-modules-m1-l6.mp4",
+    "lessonId": "ehcp-modules-m1-l6",
+    "status": "pending",
+    "scriptPath": "/video_scripts/ehcp_management_modules/06_resource_costing_funding.md"
+  },
+  {
+    "videoId": "pending-golden-thread",
+    "shareUrl": "",
+    "course": "EHCP Mastery Professional Suite",
+    "module": "EHCP Management Modules",
+    "lesson": "The Coherence That Transforms EHCPs",
+    "localPath": "/content/training_videos/ehcp-management-modules/ehcp-modules-m1-l7.mp4",
+    "lessonId": "ehcp-modules-m1-l7",
+    "status": "pending",
+    "scriptPath": "/video_scripts/ehcp_management_modules/07_golden_thread_coherence.md"
+  },
+  {
+    "videoId": "pending-sen2-returns",
+    "shareUrl": "",
+    "course": "EHCP Mastery Professional Suite",
+    "module": "EHCP Management Modules",
+    "lesson": "Automating Statutory Statistical Returns",
+    "localPath": "/content/training_videos/ehcp-management-modules/ehcp-modules-m1-l8.mp4",
+    "lessonId": "ehcp-modules-m1-l8",
+    "status": "pending",
+    "scriptPath": "/video_scripts/ehcp_management_modules/08_sen2_returns_automation.md"
+  },
+  {
     "videoId": "c3fdd2d66fe84bc5803c3275fb384947",
     "shareUrl": "https://app.heygen.com/share/c3fdd2d66fe84bc5803c3275fb384947",
     "course": "Autism Spectrum Support: Complete Guide",
