@@ -22,35 +22,35 @@ cloudinary.config({
   api_secret: 'J2CdOE3wHop90Vz0mS99biVHbnU'
 });
 
-const INTRO_V3_SCRIPT = `Welcome to EdPsych Connect World. I'm Dr Scott I-Patrick, and over the next few minutes, I'll show you why this platform represents a fundamental shift in how we support children with special educational needs.
+const INTRO_V3_SCRIPT = `Welcome to EdPsych Connect World. Over the next few minutes, I'll show you why this platform represents a fundamental shift in how we support children with special educational needs.
 
 Let me start with the reality we're facing.
 
 According to the Department for Education's SEN2 returns, there are now over six hundred thousand children in England with Education, Health and Care Plans. That's six hundred thousand families depending on a system that's struggling. The same government data shows that over half of Local Authorities breach the statutory twenty-week timeline. According to IPSEA and the Council for Disabled Children, tribunal costs now exceed five hundred million pounds annually. And perhaps most concerning, British Psychological Society workforce data reveals a ratio of just one Educational Psychologist for every five thousand children.
 
-This isn't sustainable. And that's exactly why we built EdPsych Connect.
+This isn't sustainable. And that's exactly why Dr Scott Ighavongbe-Patrick and his team built EdPsych Connect.
 
-Let me show you what makes us different.
+Let me show you what makes this platform different.
 
 First: The No Child Left Behind engine. When you create one lesson plan, our AI automatically generates differentiated versions for every learner profile. Dyslexia-friendly fonts for Sam. Chunked instructions for Mia. Visual supports for Leo. One plan becomes thirty personalised experiences in seconds. No child slips through the cracks.
 
-Second: Complete EHCP Management. Our suite handles the entire lifecycle. Annual review scheduling with automatic deadline tracking. AI-powered compliance risk monitoring that alerts you before statutory breaches occur. Golden thread coherence analysis ensuring needs, outcomes, and provisions align perfectly. And automated SEN2 returns that transform days of data collection into minutes.
+Second: Complete EHCP Management. The suite handles the entire lifecycle. Annual review scheduling with automatic deadline tracking. AI-powered compliance risk monitoring that alerts you before statutory breaches occur. Golden thread coherence analysis ensuring needs, outcomes, and provisions align perfectly. And automated SEN2 returns that transform days of data collection into minutes.
 
-Third: Developers of Tomorrow. Our proprietary coding curriculum designed specifically for neurodiverse learners. Children progress from visual block coding, to Python, to professional React development. Each lesson includes cognitive load management, multi-sensory instruction, and differentiated pathways. We're not just supporting children with SEND. We're preparing them to build the future.
+Third: Developers of Tomorrow. A proprietary coding curriculum designed specifically for neurodiverse learners. Children progress from visual block coding, to Python, to professional React development. Each lesson includes cognitive load management, multi-sensory instruction, and differentiated pathways. This platform isn't just supporting children with SEND. It's preparing them to build the future.
 
-Fourth: Voice command accessibility. Simply say "Show me Year 3's progress" or "Who needs help today?" Our system understands natural language with UK accent recognition. Teaching shouldn't require typing. This is true hands-free operation for busy professionals.
+Fourth: Voice command accessibility. Simply say "Show me Year 3's progress" or "Who needs help today?" The system understands natural language with UK accent recognition. Teaching shouldn't require typing. This is true hands-free operation for busy professionals.
 
 Fifth: The Universal Translator. Complex educational jargon converted to plain English instantly. Parents finally understand reports. Teachers save hours of explanation. Communication barriers disappear.
 
-Sixth: Our Knowledge Hub. AI-curated research insights, breaking EdTech news, and evidence-based articles delivered daily. Your professional growth happens automatically.
+Sixth: The Knowledge Hub. AI-curated research insights, breaking EdTech news, and evidence-based articles delivered daily. Your professional growth happens automatically.
 
-And underpinning everything: Data sovereignty. Enterprise clients can Bring Your Own Database. Your Local Authority retains complete control. We process; we never hoard. NHS-level encryption, full GDPR compliance, and you keep the keys to your data.
+And underpinning everything: Data sovereignty. Enterprise clients can Bring Your Own Database. Your Local Authority retains complete control. The platform processes; it never hoards. NHS-level encryption, full GDPR compliance, and you keep the keys to your data.
 
-The result? According to our pilot data, tasks that took hours now take minutes. Assessment reports that required three days? Generated in thirty seconds. EHCP compliance that caused sleepless nights? Monitored automatically.
+The result? According to pilot data, tasks that took hours now take minutes. Assessment reports that required three days? Generated in thirty seconds. EHCP compliance that caused sleepless nights? Monitored automatically.
 
 More time with students. More impact per case. More families supported. More children thriving.
 
-This isn't just software. It's a movement to transform educational psychology practice. Built by a registered Educational Psychologist, HCPC number PYL042340, with over a decade of frontline experience.
+This isn't just software. It's a movement to transform educational psychology practice. Built by Dr Scott Ighavongbe-Patrick, a registered Educational Psychologist with HCPC number PYL042340, and over a decade of frontline experience.
 
 Ready to explore? Your personalised dashboard is waiting. Click 'Start Orchestrating' to begin.
 

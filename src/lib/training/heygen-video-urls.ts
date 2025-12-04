@@ -689,10 +689,11 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   
   // ============================================================================
   // DECEMBER 2025 - V3 FEATURED INTRO VIDEO (Cloudinary-hosted)
+  // CORRECTED: Avatar does NOT claim to be Dr Scott - credits him appropriately
   // ============================================================================
   'platform-introduction-v2': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764863218/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v2.mp4',
-  'platform-introduction-v3': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764867022/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3-featured.mp4',
-  'platform-introduction-featured': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764867022/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3-featured.mp4',
+  'platform-introduction-v3': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764875111/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
+  'platform-introduction-featured': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764875111/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
 };
 
 /**

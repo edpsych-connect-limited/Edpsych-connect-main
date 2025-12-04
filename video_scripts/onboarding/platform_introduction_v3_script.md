@@ -3,19 +3,21 @@
 
 **Video ID:** `platform-introduction-v3`  
 **Duration:** ~3:30 minutes (Target)  
-**Presenter:** Dr Scott I-Patrick (Male, Professional UK accent)  
+**Presenter:** Professional UK Male Avatar (NOT Dr Scott Ighavongbe-Patrick)  
 **Avatar:** Adrian_public_3_20240312  
 **Voice:** Oliver Bennett (UK) - aba5ce361bfa433480f4bf281cc4c4f9  
 
+**IMPORTANT NOTE:** The avatar is NOT the founder. Dr Scott Ighavongbe-Patrick is credited appropriately in the script but the presenter should NOT claim to BE him.
+
 ---
 
-## 🎬 SCRIPT (Final V3)
+## 🎬 SCRIPT (Final V3 - CORRECTED)
 
-Welcome to EdPsych Connect World. I'm Dr Scott I-Patrick, and in the next few minutes, I'm going to show you something that will fundamentally change how you think about educational psychology practice in the UK.
+Welcome to EdPsych Connect World. Over the next few minutes, I'm going to show you something that will fundamentally change how you think about educational psychology practice in the UK.
 
 Let me start with the reality we all know but rarely say out loud. Over 600,000 children in England have Education, Health and Care Plans. More than half of Local Authorities miss the statutory 20-week deadline. Over 500 million pounds is spent annually on tribunal appeals. 44 percent of teachers leave within five years, crushed by paperwork they shouldn't be doing. And there is one educational psychologist for every 5,000 children, when there should be one for every 1,500.
 
-This is not sustainable. This is a crisis. And we built EdPsych Connect to solve it.
+This is not sustainable. This is a crisis. And that's exactly why Dr Scott Ighavongbe-Patrick and his team built EdPsych Connect to solve it.
 
 So what does the platform actually do? Let me show you.
 
