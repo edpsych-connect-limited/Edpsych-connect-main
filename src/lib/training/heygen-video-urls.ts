@@ -674,6 +674,25 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   'send-fund-m1-l1': '/content/training_videos/send-fundamentals/send-fund-m1-l1.mp4',
   'send-fund-m2-l1': '/content/training_videos/send-fundamentals/send-fund-m2-l1.mp4',
   'send-fund-m2-l2': '/content/training_videos/send-fundamentals/send-fund-m2-l2.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - EHCP MANAGEMENT SUITE VIDEOS (Cloudinary-hosted)
+  // ============================================================================
+  'ehcp-modules-hub-overview': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860056/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/ehcp-modules-hub-overview.mp4',
+  'annual-reviews-mastery': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860087/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/annual-reviews-mastery.mp4',
+  'mediation-tribunal-navigation': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860119/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/mediation-tribunal-navigation.mp4',
+  'phase-transfers-mastery': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860151/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/phase-transfers-mastery.mp4',
+  'compliance-risk-ai': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860193/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/compliance-risk-ai.mp4',
+  'resource-costing-funding': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860225/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/resource-costing-funding.mp4',
+  'sen2-returns-automation': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860684/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/sen2-returns-automation.mp4',
+  'golden-thread-coherence': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764861076/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/golden-thread-coherence.mp4',
+  
+  // ============================================================================
+  // DECEMBER 2025 - V3 FEATURED INTRO VIDEO (Cloudinary-hosted)
+  // ============================================================================
+  'platform-introduction-v2': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764863218/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v2.mp4',
+  'platform-introduction-v3': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764867022/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3-featured.mp4',
+  'platform-introduction-featured': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764867022/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3-featured.mp4',
 };
 
 /**

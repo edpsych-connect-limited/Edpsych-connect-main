@@ -61,7 +61,7 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
   const [videoSource, setVideoSource] = useState<'loading' | 'local' | 'heygen' | 'error'>('loading');
   const [_errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Fetch video URL with priority: HeyGen Embed > Local MP4
+  // Fetch video URL with priority: HeyGen Embed > Local/Cloudinary MP4
   // In production (Vercel), local files are NOT available (100+ MP4s exceed limits)
   // So we ALWAYS try HeyGen first - these are reliable CDN-hosted videos
   useEffect(() => {
@@ -75,10 +75,17 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
         return;
       }
 
-      // 2. Fallback to local file (only works in dev, not on Vercel)
+      // 2. Fallback to local file or Cloudinary URL
       const localPath = LOCAL_VIDEO_PATHS[videoKey];
       if (localPath) {
-        // Check if local file actually exists (HEAD request to avoid downloading)
+        // If it's an external URL (Cloudinary, etc.), use it directly without HEAD check
+        if (localPath.startsWith('http://') || localPath.startsWith('https://')) {
+          setVideoUrl(localPath);
+          setVideoSource('local');
+          return;
+        }
+        
+        // For local files, check if they exist (HEAD request to avoid downloading)
         try {
           const response = await fetch(localPath, { method: 'HEAD' });
           if (response.ok) {
