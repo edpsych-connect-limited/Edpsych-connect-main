@@ -22,7 +22,7 @@
     "validate:build": "bash tools/build-validation.sh . false",
     "validate:report": "npx validate-code report src",
     "validate:setup": "bash tools/setup-validation.sh",
-    "postinstall": "prisma generate"
+    "postinstall": "test $SKIP_POSTINSTALL || npx prisma generate"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.14.0",

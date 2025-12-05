@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "buildCommand": "rm -rf node_modules package-lock.json && npm install --force && npm run build",
+  "buildCommand": "npm run build",
   "outputDirectory": ".next",
   "framework": "nextjs",
   "env": {
     "NODE_ENV": "production",
     "NEXT_TELEMETRY_DISABLED": "1",
-    "VERCEL_SKIP_OPTIMIZE": "true"
+    "VERCEL_SKIP_OPTIMIZE": "true",
+    "SKIP_POSTINSTALL": "true"
   },
   "headers": [
     {
