@@ -6,16 +6,18 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-export async function register() {
-  // Sentry initialization is controlled via SENTRY_ENABLED environment variable
-  // This prevents initialization during Next.js build which causes "self is not defined"
-  // 
-  // In production environment (Vercel), set SENTRY_ENABLED=true to activate error tracking
-  if (process.env.NEXT_RUNTIME === 'nodejs' && process.env.SENTRY_ENABLED === 'true') {
-    try {
-      await import('../sentry.server.config');
-    } catch (error) {
-      console.debug('Sentry initialization failed, continuing without error tracking');
-    }
-  }
-}
+// COMPLETELY DISABLED: Instrumentation causes "self is not defined" during build
+// The Sentry SDK in sentry.server.config.ts has dependencies that reference browser globals
+// during the build process, causing the build to fail.
+//
+// Error tracking will be re-enabled post-launch with proper build infrastructure.
+// 
+// export async function register() {
+//   if (process.env.NEXT_RUNTIME === 'nodejs' && process.env.SENTRY_ENABLED === 'true') {
+//     try {
+//       await import('../sentry.server.config');
+//     } catch (error) {
+//       console.debug('Sentry initialization failed, continuing without error tracking');
+//     }
+//   }
+// }

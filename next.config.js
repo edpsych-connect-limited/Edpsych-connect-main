@@ -40,6 +40,20 @@ const nextConfig = {
     ],
   },
   webpack: (config, { isServer }) => {
+    // CRITICAL: Exclude Sentry from bundling to prevent "self is not defined" error
+    // Sentry SDK tries to access browser globals during server-side build
+    // This external prevents it from being included in the bundle
+    if (isServer) {
+      config.externals = [
+        ...(Array.isArray(config.externals) ? config.externals : [config.externals]).filter(Boolean),
+        {
+          '@sentry/nextjs': '@sentry/nextjs',
+          '@sentry/node': '@sentry/node',
+          '@sentry/integrations': '@sentry/integrations',
+        },
+      ];
+    }
+    
     // Suppress 'Critical dependency' warning from require-in-the-middle (used by Sentry/OpenTelemetry)
     // This is expected behavior for dynamic instrumentation and does not affect functionality
     config.ignoreWarnings = [
@@ -50,8 +64,27 @@ const nextConfig = {
       },
     ];
     
-    // Force memory cache to avoid external drive filesystem errors
-    config.cache = { type: 'memory' };
+    // Optimize cache for large projects to avoid OOM
+    // Use filesystem cache on server-side (less memory), disable on client (faster)
+    if (isServer) {
+      config.cache = {
+        type: 'filesystem',
+        hashAlgorithm: 'md4',
+        name: 'webpack-server',
+        version: '1',
+        cacheDirectory: '.next/cache/webpack-server',
+      };
+    } else {
+      // Client-side: use memory cache but with strict limits
+      config.cache = {
+        type: 'filesystem',
+        hashAlgorithm: 'md4',
+        name: 'webpack-client',
+        version: '1',
+        cacheDirectory: '.next/cache/webpack-client',
+        maxMemoryGenerations: 1,
+      };
+    }
     
     // Disable symlink resolution to avoid EISDIR errors on external drives
     config.resolve.symlinks = false;
