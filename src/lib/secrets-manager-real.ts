@@ -143,8 +143,7 @@ class SecretsManagerService {
         STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY || '',
         CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY || '',
         CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET || '',
-        OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
-        SENTRY_DSN: process.env.SENTRY_DSN || ''
+        OPENAI_API_KEY: process.env.OPENAI_API_KEY || ''
       }),
       'edpsych-connect-world/database-credentials': () => ({
         username: this.extractFromDatabaseUrl('username'),

@@ -56,7 +56,6 @@ export class EnvironmentConfigValidator {
 
     this.optionalEnvVars = new Set([
       'REDIS_URL',
-      'SENTRY_DSN',
       'ANALYTICS_KEY',
       'NEXT_PUBLIC_API_URL',
     ]);

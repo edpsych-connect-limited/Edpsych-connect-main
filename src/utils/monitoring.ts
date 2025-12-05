@@ -532,13 +532,8 @@ class RealUserMonitoring {
   }
 }
 
-// Default configuration
+// Default configuration - Sentry disabled due to build issues
 const defaultConfig: MonitoringConfig = {
-  sentry: {
-    dsn: process.env.NEXT_PUBLIC_SENTRY_DSN || '',
-    environment: process.env.NODE_ENV || 'development',
-    sampleRate: 1.0,
-  },
   analytics: {
     measurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || '',
     debug: process.env.NODE_ENV === 'development',
