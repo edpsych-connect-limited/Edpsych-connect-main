@@ -22,6 +22,7 @@ import { DemoProvider } from '@/components/demo/DemoProvider';
 import { SupportChatbot } from '@/components/chat/SupportChatbot';
 import { BrandingProvider, useBranding } from '@/lib/branding/BrandingProvider';
 import { AICentralNervousSystem } from '@/components/ai/AICentralNervousSystem';
+import AccessibilityPanel from '@/components/accessibility/AccessibilityPanel';
 
 function HeaderContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -293,6 +294,7 @@ export default function ClientLayout({
       <AuthProvider>
         <BrandingProvider>
           <DemoProvider>
+            <AccessibilityPanel />
             <Toaster 
               position="top-right"
               toastOptions={{

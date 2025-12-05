@@ -3,6 +3,7 @@
 > **Transforming Educational Psychology Practice Through AI-Powered Innovation**
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://vercel.com)
+[![Audit Certified](https://img.shields.io/badge/Audit-100%25_Certified-success)](docs/reports/RIGOROUS_TECHNICAL_INSPECTION_CERTIFICATE.md)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org/)
 [![License](https://img.shields.io/badge/license-proprietary-red)](LICENSE)
