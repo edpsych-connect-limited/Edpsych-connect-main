@@ -173,8 +173,7 @@ const ParticleNetworkBackground: React.FC = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 w-full h-full -z-10 bg-transparent"
-      style={{ pointerEvents: 'none' }}
+      className="fixed inset-0 w-full h-full -z-10 bg-transparent pointer-events-none"
     />
   );
 };

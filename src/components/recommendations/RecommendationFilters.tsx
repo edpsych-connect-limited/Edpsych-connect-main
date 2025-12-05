@@ -76,6 +76,7 @@ const RecommendationFilters: React.FC<RecommendationFiltersProps> = ({
             <select
               value={filters.status}
               onChange={handleStatusChange}
+              aria-label="Filter by status"
               className="w-full p-2 border border-gray-300 rounded-md"
             >
               <option value={RecommendationStatus.ACTIVE}>Active</option>
@@ -92,6 +93,7 @@ const RecommendationFilters: React.FC<RecommendationFiltersProps> = ({
             <select
               value={filters.reason}
               onChange={handleReasonChange}
+              aria-label="Filter by recommendation reason"
               className="w-full p-2 border border-gray-300 rounded-md"
             >
               <option value="">All Reasons</option>
@@ -111,6 +113,7 @@ const RecommendationFilters: React.FC<RecommendationFiltersProps> = ({
             <select
               value={filters.contentType}
               onChange={handleContentTypeChange}
+              aria-label="Filter by content type"
               className="w-full p-2 border border-gray-300 rounded-md"
             >
               <option value="">All Types</option>
@@ -134,6 +137,7 @@ const RecommendationFilters: React.FC<RecommendationFiltersProps> = ({
               step="0.1"
               value={filters.minScore}
               onChange={handleMinScoreChange}
+              aria-label="Minimum recommendation score"
               className="w-full"
             />
             <div className="text-sm text-gray-500 text-right">

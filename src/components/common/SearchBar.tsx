@@ -26,13 +26,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ placeholder = 'Search...', onSear
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '0.5rem' }}>
+    <form onSubmit={handleSubmit} className="flex gap-2">
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder={placeholder}
-        style={{ flex: 1, padding: '0.5rem' }}
+        className="flex-1 p-2 border border-gray-300 rounded-md"
       />
       <button type="submit">Search</button>
     </form>

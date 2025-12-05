@@ -239,6 +239,7 @@ export default function SEN2ReturnsPage() {
                         <span className="font-medium">{count}</span>
                       </div>
                       <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                        {/* eslint-disable-next-line @next/next/no-inline-styles */}
                         <div 
                           className="h-full bg-teal-500"
                           style={{ width: `${(count / currentReturn.total_ehcps) * 100}%` }}
@@ -265,6 +266,7 @@ export default function SEN2ReturnsPage() {
                         <span className="font-medium">{count}</span>
                       </div>
                       <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                        {/* eslint-disable-next-line @next/next/no-inline-styles */}
                         <div 
                           className="h-full bg-emerald-500"
                           style={{ width: `${(count / currentReturn.total_ehcps) * 100}%` }}
@@ -291,6 +293,7 @@ export default function SEN2ReturnsPage() {
                         <span className="font-medium">{count}</span>
                       </div>
                       <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                        {/* eslint-disable-next-line @next/next/no-inline-styles */}
                         <div 
                           className="h-full bg-blue-500"
                           style={{ width: `${(count / currentReturn.total_ehcps) * 100}%` }}
