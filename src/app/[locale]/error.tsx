@@ -8,10 +8,9 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 import React from 'react';
-import * as Sentry from "@sentry/nextjs";
+// DISABLED: Sentry causes build error - will be re-enabled after build infrastructure is fixed
+// import * as Sentry from "@sentry/nextjs";
 import { ErrorDisplay } from '@/components/error-handling/ErrorDisplay';
 import { Button } from '@/components/ui/button';
 import { RefreshCw } from 'lucide-react';

@@ -8,10 +8,9 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 import React from 'react';
-import * as Sentry from "@sentry/nextjs";
+// DISABLED: Sentry causes build error - will be re-enabled after build infrastructure is fixed
+// import * as Sentry from "@sentry/nextjs";
 import { Button } from '@/components/ui/button';
 import { RefreshCw } from 'lucide-react';
 
@@ -30,8 +29,8 @@ export default function GlobalError({
   reset: () => void;
 }) {
   React.useEffect(() => {
-    // Log the error to Sentry
-    Sentry.captureException(error);
+    // Log the error to console (Sentry disabled during build phase)
+    // Sentry.captureException(error);
     if (error) console.error('Global Error:', error);
   }, [error]);
 
