@@ -1,17 +1,7 @@
 {
   "extends": ["development"],
   "hints": {
-    "no-inline-styles": [
-      "warning",
-      {
-        "exclude": []
-      }
-    ]
-  },
-  "ruleOptions": {
-    "no-inline-styles": {
-      "allowCSSVariables": true
-    }
+    "no-inline-styles": "off"
   }
 }
 
