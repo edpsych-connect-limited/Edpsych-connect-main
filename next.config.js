@@ -66,22 +66,23 @@ const nextConfig = {
     
     // Optimize cache for large projects to avoid OOM
     // Use filesystem cache on server-side (less memory), disable on client (faster)
+    // Must use absolute paths for webpack cache configuration
     if (isServer) {
       config.cache = {
         type: 'filesystem',
         hashAlgorithm: 'md4',
         name: 'webpack-server',
         version: '1',
-        cacheDirectory: '.next/cache/webpack-server',
+        cacheDirectory: require('path').join(process.cwd(), '.next/cache/webpack-server'),
       };
     } else {
-      // Client-side: use memory cache but with strict limits
+      // Client-side: use filesystem cache with strict limits
       config.cache = {
         type: 'filesystem',
         hashAlgorithm: 'md4',
         name: 'webpack-client',
         version: '1',
-        cacheDirectory: '.next/cache/webpack-client',
+        cacheDirectory: require('path').join(process.cwd(), '.next/cache/webpack-client'),
         maxMemoryGenerations: 1,
       };
     }
