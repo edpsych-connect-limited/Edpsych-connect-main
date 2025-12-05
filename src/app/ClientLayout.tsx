@@ -60,7 +60,8 @@ function HeaderContent() {
         { href: '/networking', label: 'Community', group: 'core' },
         { href: '/ai-agents', label: 'AI Agents', group: 'advanced' },
         { href: '/training', label: 'Training', group: 'advanced' },
-        { href: '/gamification', label: 'Gamification', group: 'advanced' }
+        { href: '/gamification', label: 'Gamification', group: 'advanced' },
+        { href: '/tokenisation', label: 'Tokenisation', group: 'advanced' }
       );
     } 
     // Teacher
@@ -75,7 +76,8 @@ function HeaderContent() {
         { href: '/networking', label: 'Community', group: 'core' },
         { href: '/ai-agents', label: 'AI Agents', group: 'advanced' },
         { href: '/training', label: 'Training', group: 'advanced' },
-        { href: '/gamification', label: 'Gamification', group: 'advanced' }
+        { href: '/gamification', label: 'Gamification', group: 'advanced' },
+        { href: '/tokenisation', label: 'Tokenisation', group: 'advanced' }
       );
     }
     // Parent
