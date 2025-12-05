@@ -14,6 +14,10 @@ const enableBuildChecks = process.env.ENABLE_BUILD_CHECKS === 'true';
 const nextConfig = {
   reactStrictMode: true,
   output: 'standalone', // Required for Docker deployment
+  experimental: {
+    // Disable instrumentation hook to prevent module-level side effects
+    instrumentationHook: false,
+  },
   typescript: {
     // Only ignore errors if build checks are disabled
     ignoreBuildErrors: !enableBuildChecks,
@@ -121,33 +125,17 @@ const nextConfig = {
       ...config.optimization,
       moduleIds: 'deterministic',
       chunkIds: 'deterministic',
-      // Reduce memory usage
+      // Simplify chunk splitting to avoid complex webpack behavior
       splitChunks: {
         chunks: 'all',
-        maxInitialRequests: 10,
         minSize: 20000,
-        cacheGroups: {
-          default: false,
-          vendors: false,
-          // Only create essential chunks
-          framework: {
-            name: 'framework',
-            test: /[\\/]node_modules[\\/](react|react-dom|next)[\\/]/,
-            priority: 40,
-            chunks: 'all',
-            enforce: true,
-          },
-          commons: {
-            name: 'commons',
-            minChunks: 2,
-            priority: 20,
-          },
-        },
       },
     };
     
-    // Reduce memory by limiting parallelism
-    config.parallelism = 2;
+    // Limit parallelism to reduce memory usage
+    if (process.env.NODE_ENV === 'production') {
+      config.parallelism = 1;
+    }
     
     // Set infrastructure logging to see what's happening
     config.infrastructureLogging = {
