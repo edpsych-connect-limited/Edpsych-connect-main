@@ -20,6 +20,7 @@
 
 import React, { useState } from 'react';
 import { ProgressBar } from '@/components/ui/ProgressBar';
+import CloudinaryVideoPlayer from '@/components/ui/CloudinaryVideoPlayer';
 import { 
   Play, 
   RefreshCw, 
@@ -925,17 +926,23 @@ export default function EnhancedCodingCurriculum() {
       {selectedVideo && (
         <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
           <div className="bg-slate-900 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl border border-slate-700">
-            <div className="aspect-video bg-gradient-to-br from-indigo-900 to-purple-900 flex items-center justify-center relative">
-              <div className="text-center text-white">
-                <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Play className="w-12 h-12 text-white ml-1" />
-                </div>
-                <p className="text-2xl font-bold">{selectedVideo.title}</p>
-                <p className="text-purple-200 mt-2">{selectedVideo.duration}</p>
-              </div>
+            {/* Video Player - Using Cloudinary */}
+            <div className="relative">
+              <CloudinaryVideoPlayer
+                videoId={selectedVideo.id}
+                title={selectedVideo.title}
+                description={selectedVideo.description}
+                autoPlay={true}
+                showControls={true}
+                className="aspect-video"
+                onComplete={() => {
+                  // Mark video as complete, add XP, etc.
+                  console.log('Video completed:', selectedVideo.title);
+                }}
+              />
               <button 
                 onClick={() => setSelectedVideo(null)}
-                className="absolute top-4 right-4 p-2 bg-black/50 rounded-lg hover:bg-black/70 transition-colors"
+                className="absolute top-4 right-4 p-2 bg-black/50 rounded-lg hover:bg-black/70 transition-colors z-10"
                 aria-label="Close video"
               >
                 <X className="w-6 h-6 text-white" />

@@ -95,7 +95,33 @@ const nextConfig = {
       ...config.optimization,
       moduleIds: 'deterministic',
       chunkIds: 'deterministic',
+      // Reduce memory usage
+      splitChunks: {
+        chunks: 'all',
+        maxInitialRequests: 10,
+        minSize: 20000,
+        cacheGroups: {
+          default: false,
+          vendors: false,
+          // Only create essential chunks
+          framework: {
+            name: 'framework',
+            test: /[\\/]node_modules[\\/](react|react-dom|next)[\\/]/,
+            priority: 40,
+            chunks: 'all',
+            enforce: true,
+          },
+          commons: {
+            name: 'commons',
+            minChunks: 2,
+            priority: 20,
+          },
+        },
+      },
     };
+    
+    // Reduce memory by limiting parallelism
+    config.parallelism = 2;
     
     // Set infrastructure logging to see what's happening
     config.infrastructureLogging = {

@@ -8,13 +8,38 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Star, Target, Zap, Shield, Crown, Users, Timer, Brain, Sparkles, BookOpen, Eye, Activity } from 'lucide-react';
 import { StealthAssessmentEngine } from '@/lib/stealth-assessment/engine';
 import { AssessmentSession } from '@/lib/stealth-assessment/types';
-import { StudentProfileService } from '@/lib/student-profile/service';
+
+// Progress bar component with proper accessibility
+function ProgressBar({ score, name }: { score: number; name: string }) {
+  const normalizedScore = Math.min(100, Math.max(0, Math.round(score)));
+  const widthClass = normalizedScore >= 90 ? 'w-[90%]' :
+    normalizedScore >= 80 ? 'w-[80%]' :
+    normalizedScore >= 70 ? 'w-[70%]' :
+    normalizedScore >= 60 ? 'w-[60%]' :
+    normalizedScore >= 50 ? 'w-[50%]' :
+    normalizedScore >= 40 ? 'w-[40%]' :
+    normalizedScore >= 30 ? 'w-[30%]' :
+    normalizedScore >= 20 ? 'w-[20%]' :
+    normalizedScore >= 10 ? 'w-[10%]' : 'w-[5%]';
+  const colorClass = score > 60 ? 'bg-emerald-500' : score < 40 ? 'bg-red-500' : 'bg-yellow-500';
+  
+  return (
+    <div 
+      className="h-2 bg-slate-700 rounded-full mb-3 overflow-hidden"
+      title={`${name}: ${normalizedScore}%`}
+    >
+      <div 
+        className={`h-full transition-all duration-500 ${colorClass} ${widthClass}`}
+        aria-hidden="true"
+      />
+      <span className="sr-only">{name} progress: {normalizedScore} percent</span>
+    </div>
+  );
+}
 
 // Enterprise-Grade Pedagogical Data (KS2/KS3 Transition Focus)
 const MOCK_LEADERBOARD = [
@@ -191,9 +216,9 @@ export default function BattleRoyaleSandbox() {
         nextQuestion();
       } else {
         setGameState('result');
-        // Save Session to Profile
+        // In demo mode, we just log the session (no database save)
         if (engineRef.current) {
-          void StudentProfileService.saveSession('student-123', engineRef.current.getSession());
+          console.log('Demo session completed:', engineRef.current.getSession());
         }
       }
     }, 2500); // Allow time to read explanation
@@ -578,15 +603,7 @@ export default function BattleRoyaleSandbox() {
                 </div>
                 
                 {/* Progress Bar */}
-                <div className="h-2 bg-slate-700 rounded-full mb-3 overflow-hidden">
-                  <div 
-                    className={`h-full transition-all duration-500 ${
-                      metric.score > 60 ? 'bg-emerald-500' : 
-                      metric.score < 40 ? 'bg-red-500' : 'bg-yellow-500'
-                    }`}
-                    style={{ width: `${metric.score}%` }} // eslint-disable-line
-                  />
-                </div>
+                <ProgressBar score={metric.score} name={metric.name} />
 
                 <div className="space-y-1">
                   {metric.observations.slice(-2).map((obs, idx) => (

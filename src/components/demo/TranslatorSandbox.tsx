@@ -202,7 +202,11 @@ export default function TranslatorSandbox() {
                     Readability improved by {result.readabilityScore.translated - result.readabilityScore.original}%
                   </div>
                   <div className="flex gap-2">
-                    <button className="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
+                    <button 
+                      className="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                      aria-label="Copy translated text"
+                      title="Copy to clipboard"
+                    >
                       <Copy className="w-5 h-5" />
                     </button>
                     <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors flex items-center gap-2">

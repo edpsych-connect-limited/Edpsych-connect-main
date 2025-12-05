@@ -64,8 +64,13 @@ export default function GoldenThreadDashboard() {
             {/* Connecting Line */}
             <div className="absolute top-1/2 left-0 w-full h-1 bg-slate-200 -z-10 rounded-full" />
             <div 
-              className="absolute top-1/2 left-0 h-1 bg-indigo-600 -z-10 rounded-full transition-all duration-700 ease-in-out" 
-              style={{ width: `${(activeStage / (DEMO_STAGES.length - 1)) * 100}%` }}
+              className={`absolute top-1/2 left-0 h-1 bg-indigo-600 -z-10 rounded-full transition-all duration-700 ease-in-out ${
+                activeStage === 0 ? 'w-0' :
+                activeStage === 1 ? 'w-1/4' :
+                activeStage === 2 ? 'w-1/2' :
+                activeStage === 3 ? 'w-3/4' :
+                'w-full'
+              }`} 
             />
 
             {DEMO_STAGES.map((stage, idx) => {
@@ -354,17 +359,29 @@ function LogItem({ active, title, time, desc }: { active: boolean, title: string
 }
 
 function MetricBar({ label, value, color }: { label: string, value: number, color: string }) {
+  const widthClass = value >= 100 ? 'w-full' :
+    value >= 90 ? 'w-[90%]' :
+    value >= 80 ? 'w-[80%]' :
+    value >= 70 ? 'w-[70%]' :
+    value >= 60 ? 'w-[60%]' :
+    value >= 50 ? 'w-[50%]' :
+    value >= 40 ? 'w-[40%]' :
+    value >= 30 ? 'w-[30%]' :
+    value >= 20 ? 'w-[20%]' :
+    value >= 10 ? 'w-[10%]' : 'w-[5%]';
+    
   return (
     <div>
       <div className="flex justify-between text-sm mb-1">
         <span className="font-medium text-slate-700">{label}</span>
         <span className="font-bold text-slate-900">{value}/100</span>
       </div>
-      <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+      <div className="h-2 bg-slate-100 rounded-full overflow-hidden" title={`${label}: ${value}%`}>
         <div 
-          className={`h-full ${color} transition-all duration-1000 ease-out`} 
-          style={{ width: `${value}%` }} 
+          className={`h-full ${color} transition-all duration-1000 ease-out ${widthClass}`}
+          aria-hidden="true"
         />
+        <span className="sr-only">{label}: {value}%</span>
       </div>
     </div>
   );

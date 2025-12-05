@@ -199,6 +199,22 @@ model tenants {
   la_golden_thread_analyses GoldenThreadAnalysis[]       @relation("LAGoldenThreadAnalyses")
   la_sen2_returns           SEN2ReturnData[]             @relation("LASEN2Returns")
 
+  // Relations - SEN2 Statutory Returns (NEW)
+  sen2_returns              SEN2Return[]                 @relation("LASen2Returns")
+  
+  // Relations - Time Savings Metrics (NEW)
+  time_savings_reports      TimeSavingsReport[]          @relation("TenantTimeSavingsReports")
+  time_savings_metrics      TimeSavingsMetric[]          @relation("TenantTimeSavingsMetrics")
+  
+  // Relations - EP Marketplace Bookings (NEW)
+  school_ep_bookings        EPBooking[]                  @relation("SchoolBookings")
+
+  // Relations - Coding Curriculum (Zero Gap Project)
+  nc_curricula              NCCurriculum[]               @relation("TenantCodingCurricula")
+  nc_lessons                NCLesson[]                   @relation("TenantCodingLessons")
+  nc_exercises              NCExercise[]                 @relation("TenantCodingExercises")
+  lesson_personalizations   LessonPersonalization[]      @relation("TenantLessonPersonalizations")
+
   @@index([subdomain])
   @@index([tenant_type])
   @@index([status])
@@ -406,6 +422,29 @@ model users {
   ehcp_costs_approved         EHCPCostCalculation[]       @relation("CostApprover")
   golden_thread_reviews       GoldenThreadAnalysis[]      @relation("GoldenThreadReviewer")
 
+  // Relations - SEN2 Returns (Zero Gap Project)
+  sen2_returns_submitted      SEN2Return[]                @relation("Sen2Submitter")
+  sen2_audit_entries          SEN2AuditEntry[]            @relation("Sen2AuditUser")
+  outcome_reviews             OutcomeProgressReview[]     @relation("OutcomeReviewer")
+
+  // Relations - Coding Curriculum (Zero Gap Project)
+  nc_curricula_created        NCCurriculum[]              @relation("CodingCurriculumCreator")
+  nc_lessons_created          NCLesson[]                  @relation("CodingLessonCreator")
+  nc_exercises_created        NCExercise[]                @relation("CodingExerciseCreator")
+  nc_submissions_graded       NCSubmission[]              @relation("CodingSubmissionGrader")
+  lesson_personalizations     LessonPersonalization[]     @relation("LessonPersonalizationCreator")
+
+  // Relations - Knowledge Hub and CPD
+  knowledge_interactions      KnowledgeInteraction[]      @relation("KnowledgeUser")
+  cpd_digests                 DailyCPDDigest[]            @relation("CPDDigests")
+
+  // Relations - EP Marketplace
+  ep_verifications            EPVerification[]            @relation("EPVerifier")
+  ep_bookings_created         EPBooking[]                 @relation("BookingCreator")
+
+  // Relations - Time Savings
+  time_savings_metrics        TimeSavingsMetric[]         @relation("UserTimeSavingsMetrics")
+
   @@index([tenant_id])
   @@index([email])
   @@index([is_active])
@@ -446,6 +485,26 @@ model students {
 
   // Relations - Institutional Management
   studentOutcomePredictions StudentOutcomePrediction[]
+
+  // Relations - SEN2 Returns (Zero Gap Project)
+  sen2_child_records        SEN2ChildRecord[]
+
+  // Relations - Existing Coding Curriculum
+  coding_enrollments        CodingEnrollment[]          @relation("CodingStudent")
+  coding_lesson_completions CodingLessonCompletion[]    @relation("CodingCompletions")
+
+  // Relations - Enhanced Coding Curriculum (Zero Gap Project)
+  nc_submissions            NCSubmission[]              @relation("CodingStudentSubmissions")
+  nc_progress               NCProgress[]
+  student_adaptive_profile  StudentAdaptiveProfile?
+  student_learning_adaptations StudentLearningAdaptation[]
+
+  // Relations - Learning Profiles and Differentiation
+  student_learning_profile    StudentLearningProfile?     @relation("LearningProfile")
+  differentiated_lessons      DifferentiatedLessonVersion[] @relation("DifferentiatedLessons")
+
+  // Relations - EP Marketplace Bookings
+  ep_bookings                 EPBooking[]                 @relation("StudentBookings")
 
   @@unique([tenant_id, unique_id])
   @@index([tenant_id])
@@ -549,6 +608,10 @@ model professionals {
   users                       users                         @relation(fields: [user_id], references: [id], onDelete: Cascade)
   tenants                     tenants                       @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
   professional_portal_metrics professional_portal_metrics[]
+
+  // Relations - EP Marketplace
+  ep_verification             EPVerification?
+  ep_bookings                 EPBooking[]                   @relation("EPBookings")
 
   @@index([tenant_id])
   @@index([professional_type])
@@ -2312,6 +2375,12 @@ model ehcps {
   tenants      tenants         @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
   versions     ehcp_versions[]
 
+  // Relations - Golden Thread (Zero Gap Project)
+  needs               EHCPNeed[]
+  provisions          EHCPProvision[]
+  outcomes            EHCPOutcome[]
+  coherence_analysis  EHCPCoherenceAnalysis?
+
   @@index([tenant_id])
   @@index([student_id])
   @@index([status])
@@ -3284,6 +3353,9 @@ model LessonPlan {
   teacher             users                     @relation(fields: [teacher_id], references: [id], onDelete: Cascade)
   activities          LessonActivity[]
   student_assignments StudentLessonAssignment[]
+
+  // Relations - Differentiated Versions (Zero Gap Project)
+  differentiated_versions DifferentiatedLessonVersion[]
 
   @@index([tenant_id])
   @@index([class_roster_id])
@@ -5994,10 +6066,15 @@ model TenantDatabaseConfig {
   password    String   // Encrypted at rest
   ssl_mode    String   @default("require")
   
+  // Customer-Managed Encryption Keys
+  encryption_key_provider String?  @default("platform") // platform, azure_kms, aws_kms, customer
+  encryption_key_id       String?  // External key reference
+  
   // Status
   is_active   Boolean  @default(true)
   last_check  DateTime?
   status      String   @default("connected") // connected, error, maintenance
+  error_message String?
   
   // Metadata
   created_at  DateTime @default(now())
@@ -6006,4 +6083,1517 @@ model TenantDatabaseConfig {
   tenant      tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
   
   @@index([tenant_id])
+}
+
+// ============================================================================
+// SEN2 STATUTORY RETURNS (DfE Compliance)
+// ============================================================================
+
+enum SEN2PrimaryNeed {
+  SPLD    // Specific Learning Difficulty
+  MLD     // Moderate Learning Difficulty
+  SLD     // Severe Learning Difficulty
+  PMLD    // Profound & Multiple Learning Difficulty
+  SEMH    // Social, Emotional and Mental Health
+  SLCN    // Speech, Language and Communication Needs
+  HI      // Hearing Impairment
+  VI      // Visual Impairment
+  MSI     // Multi-Sensory Impairment
+  PD      // Physical Disability
+  ASD     // Autistic Spectrum Disorder
+  OTH     // Other Difficulty/Disability
+  NSA     // No Specialist Assessment of Need
+}
+
+enum SEN2PlacementType {
+  MAINSTREAM_MAINTAINED
+  MAINSTREAM_ACADEMY
+  MAINTAINED_SPECIAL
+  ACADEMY_SPECIAL
+  NON_MAINTAINED_SPECIAL
+  INDEPENDENT_SPECIAL
+  INDEPENDENT_MAINSTREAM
+  HOSPITAL_SCHOOL
+  ALTERNATIVE_PROVISION
+  POST_16_FE
+  POST_16_SPECIALIST
+  ELECTIVE_HOME_EDUCATION
+  AWAITING_PLACEMENT
+  OTHER
+}
+
+model SEN2Return {
+  id              String   @id @default(cuid())
+  la_tenant_id    Int
+  
+  // Collection Period
+  collection_year Int              // e.g., 2025
+  reference_date  DateTime         // Census date (usually January)
+  
+  // Submission Details
+  submission_status String @default("draft") // draft, validated, submitted, accepted
+  submitted_at      DateTime?
+  submitted_by_id   Int?
+  dfe_submission_id String?        // DfE confirmation reference
+  
+  // Summary Statistics (auto-calculated)
+  total_ehcps             Int @default(0)
+  new_ehcps_issued        Int @default(0)
+  ehcps_ceased            Int @default(0)
+  ehcps_transferred_in    Int @default(0)
+  ehcps_transferred_out   Int @default(0)
+  
+  // Timeline Compliance
+  assessments_within_20_weeks    Int @default(0)
+  assessments_exceeding_20_weeks Int @default(0)
+  timeline_compliance_rate       Float @default(0)
+  
+  // Metadata
+  generated_at    DateTime @default(now())
+  created_at      DateTime @default(now())
+  updated_at      DateTime @default(now())
+  
+  // Relations
+  la_tenant       tenants  @relation("LASen2Returns", fields: [la_tenant_id], references: [id])
+  submitted_by    users?   @relation("Sen2Submitter", fields: [submitted_by_id], references: [id])
+  
+  // Breakdowns
+  need_breakdowns       SEN2NeedBreakdown[]
+  placement_breakdowns  SEN2PlacementBreakdown[]
+  age_breakdowns        SEN2AgeBreakdown[]
+  timeline_details      SEN2TimelineDetail[]
+  validation_results    SEN2ValidationResult[]
+  audit_trail           SEN2AuditEntry[]
+  
+  // Historical Comparison
+  previous_year_return_id String?
+  previous_year_return    SEN2Return? @relation("YearOverYear", fields: [previous_year_return_id], references: [id])
+  next_year_returns       SEN2Return[] @relation("YearOverYear")
+  
+  @@unique([la_tenant_id, collection_year])
+  @@index([la_tenant_id])
+  @@index([collection_year])
+}
+
+model SEN2NeedBreakdown {
+  id              String   @id @default(cuid())
+  sen2_return_id  String
+  
+  primary_need    SEN2PrimaryNeed
+  count           Int      @default(0)
+  percentage      Float    @default(0)
+  
+  // Year-over-year change
+  previous_count  Int?
+  change_count    Int?
+  change_percent  Float?
+  
+  // Source data (for audit trail)
+  source_ehcp_ids String[] // Array of EHCP IDs contributing to this count
+  
+  sen2_return     SEN2Return @relation(fields: [sen2_return_id], references: [id], onDelete: Cascade)
+  
+  @@unique([sen2_return_id, primary_need])
+  @@index([sen2_return_id])
+}
+
+model SEN2PlacementBreakdown {
+  id              String   @id @default(cuid())
+  sen2_return_id  String
+  
+  placement_type  SEN2PlacementType
+  count           Int      @default(0)
+  percentage      Float    @default(0)
+  
+  // Year-over-year change
+  previous_count  Int?
+  change_count    Int?
+  change_percent  Float?
+  
+  // Source data
+  source_ehcp_ids String[]
+  
+  sen2_return     SEN2Return @relation(fields: [sen2_return_id], references: [id], onDelete: Cascade)
+  
+  @@unique([sen2_return_id, placement_type])
+  @@index([sen2_return_id])
+}
+
+model SEN2AgeBreakdown {
+  id              String   @id @default(cuid())
+  sen2_return_id  String
+  
+  age_band        String   // "Under 5", "5-10", "11-15", "16-19", "20-25"
+  count           Int      @default(0)
+  percentage      Float    @default(0)
+  
+  // Year-over-year
+  previous_count  Int?
+  change_percent  Float?
+  
+  source_ehcp_ids String[]
+  
+  sen2_return     SEN2Return @relation(fields: [sen2_return_id], references: [id], onDelete: Cascade)
+  
+  @@unique([sen2_return_id, age_band])
+  @@index([sen2_return_id])
+}
+
+model SEN2TimelineDetail {
+  id              String   @id @default(cuid())
+  sen2_return_id  String
+  ehcp_id         String
+  
+  // EHCP Details
+  child_name      String
+  referral_date   DateTime
+  final_date      DateTime?
+  
+  // Timeline Calculation
+  working_days_taken Int?
+  within_20_weeks    Boolean @default(false)
+  exception_applied  Boolean @default(false)
+  exception_reason   String?
+  
+  sen2_return     SEN2Return @relation(fields: [sen2_return_id], references: [id], onDelete: Cascade)
+  
+  @@index([sen2_return_id])
+  @@index([ehcp_id])
+}
+
+model SEN2ValidationResult {
+  id              String   @id @default(cuid())
+  sen2_return_id  String
+  
+  validation_type String   // category_check, date_logic, totals_match, anomaly_detection
+  status          String   // pass, warning, error
+  field           String?  // Which field failed
+  message         String
+  
+  // For anomalies
+  expected_value  String?
+  actual_value    String?
+  threshold       Float?
+  
+  validated_at    DateTime @default(now())
+  
+  sen2_return     SEN2Return @relation(fields: [sen2_return_id], references: [id], onDelete: Cascade)
+  
+  @@index([sen2_return_id])
+}
+
+model SEN2AuditEntry {
+  id              String   @id @default(cuid())
+  sen2_return_id  String
+  
+  action          String   // generated, validated, edited, submitted, exported
+  details         Json?
+  
+  performed_by_id Int
+  performed_at    DateTime @default(now())
+  
+  sen2_return     SEN2Return @relation(fields: [sen2_return_id], references: [id], onDelete: Cascade)
+  performed_by    users    @relation("Sen2AuditUser", fields: [performed_by_id], references: [id])
+  
+  @@index([sen2_return_id])
+  @@index([performed_by_id])
+}
+
+// ============================================================================
+// GOLDEN THREAD COHERENCE ANALYSIS
+// ============================================================================
+
+model EHCPNeed {
+  id          String   @id @default(cuid())
+  ehcp_id     String
+  
+  // Need Details
+  section     String   @default("B") // B, C, D (EHCP sections)
+  need_type   String   // cognition_learning, communication, sensory, social_emotional, physical
+  description String   @db.Text
+  severity    String   @default("moderate") // mild, moderate, severe
+  
+  // Evidence Base
+  evidence_sources String[] // Assessment IDs that support this need
+  
+  // Ordering
+  display_order Int @default(0)
+  
+  // Audit
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+  created_by  Int?
+  
+  // Relations
+  ehcp        ehcps    @relation(fields: [ehcp_id], references: [id], onDelete: Cascade)
+  
+  // Links to provisions
+  provision_links NeedProvisionLink[]
+  
+  @@index([ehcp_id])
+}
+
+model EHCPProvision {
+  id          String   @id @default(cuid())
+  ehcp_id     String
+  
+  // Provision Details
+  section     String   @default("F") // F, G, H (EHCP sections)
+  provision_type String // educational, health, social_care
+  description String   @db.Text
+  
+  // Quantification
+  hours_per_week  Float?
+  frequency       String? // daily, weekly, termly, annually
+  delivered_by    String? // TA, Teacher, SALT, OT, etc.
+  location        String? // classroom, withdrawal, home, clinic
+  
+  // Costing (for Element 3 calculations)
+  annual_cost     Float?
+  funding_source  String? // element_2, element_3, high_needs, health
+  
+  // Status
+  status          String @default("active") // active, proposed, ceased
+  start_date      DateTime?
+  end_date        DateTime?
+  
+  // Audit
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+  created_by  Int?
+  
+  // Relations
+  ehcp        ehcps    @relation(fields: [ehcp_id], references: [id], onDelete: Cascade)
+  
+  // Links
+  need_links    NeedProvisionLink[]
+  outcome_links ProvisionOutcomeLink[]
+  
+  @@index([ehcp_id])
+}
+
+model EHCPOutcome {
+  id          String   @id @default(cuid())
+  ehcp_id     String
+  
+  // Outcome Details
+  section     String   @default("E") // E = Outcomes
+  outcome_area String  // communication, cognition, social, independence, academic, life_skills
+  description  String  @db.Text
+  
+  // SMART Criteria
+  is_specific     Boolean @default(false)
+  is_measurable   Boolean @default(false)
+  is_achievable   Boolean @default(false)
+  is_relevant     Boolean @default(false)
+  is_timebound    Boolean @default(false)
+  smart_score     Int     @default(0) // 0-5
+  
+  // Timeline
+  target_date     DateTime?
+  review_date     DateTime?
+  
+  // Progress Tracking
+  baseline_level  String?
+  current_level   String?
+  target_level    String?
+  progress_status String @default("not_started") // not_started, in_progress, achieved, not_achieved
+  
+  // Evidence
+  evidence_notes  String? @db.Text
+  
+  // Audit
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+  created_by  Int?
+  
+  // Relations
+  ehcp        ehcps    @relation(fields: [ehcp_id], references: [id], onDelete: Cascade)
+  
+  // Links
+  provision_links ProvisionOutcomeLink[]
+  progress_reviews OutcomeProgressReview[]
+  
+  @@index([ehcp_id])
+}
+
+model NeedProvisionLink {
+  id              String   @id @default(cuid())
+  
+  need_id         String
+  provision_id    String
+  
+  // Link Quality
+  strength        String @default("moderate") // weak, moderate, strong
+  evidence_based  Boolean @default(false) // Is this an evidence-based intervention?
+  
+  // Justification
+  rationale       String? @db.Text
+  
+  created_at      DateTime @default(now())
+  
+  need            EHCPNeed      @relation(fields: [need_id], references: [id], onDelete: Cascade)
+  provision       EHCPProvision @relation(fields: [provision_id], references: [id], onDelete: Cascade)
+  
+  @@unique([need_id, provision_id])
+  @@index([need_id])
+  @@index([provision_id])
+}
+
+model ProvisionOutcomeLink {
+  id              String   @id @default(cuid())
+  
+  provision_id    String
+  outcome_id      String
+  
+  // Link Quality
+  strength        String @default("moderate")
+  
+  // Expected Impact
+  expected_impact String? @db.Text
+  
+  created_at      DateTime @default(now())
+  
+  provision       EHCPProvision @relation(fields: [provision_id], references: [id], onDelete: Cascade)
+  outcome         EHCPOutcome   @relation(fields: [outcome_id], references: [id], onDelete: Cascade)
+  
+  @@unique([provision_id, outcome_id])
+  @@index([provision_id])
+  @@index([outcome_id])
+}
+
+model OutcomeProgressReview {
+  id          String   @id @default(cuid())
+  outcome_id  String
+  
+  review_date DateTime
+  reviewer_id Int
+  
+  // Progress Assessment
+  previous_level String?
+  current_level  String?
+  progress_made  String   // significant, some, none, regression
+  
+  // Evidence
+  evidence       String?  @db.Text
+  
+  // Next Steps
+  recommendations String? @db.Text
+  
+  created_at     DateTime @default(now())
+  
+  outcome        EHCPOutcome @relation(fields: [outcome_id], references: [id], onDelete: Cascade)
+  reviewer       users       @relation("OutcomeReviewer", fields: [reviewer_id], references: [id])
+  
+  @@index([outcome_id])
+  @@index([reviewer_id])
+}
+
+model EHCPCoherenceAnalysis {
+  id          String   @id @default(cuid())
+  ehcp_id     String   @unique
+  
+  // Analysis Results
+  overall_score       Float   @default(0) // 0-100
+  needs_coverage      Float   @default(0) // % of needs with provisions
+  provisions_justified Float  @default(0) // % of provisions linked to needs
+  outcomes_measurable Float   @default(0) // % of outcomes that are SMART
+  
+  // Issue Counts
+  unlinked_needs      Int     @default(0)
+  unlinked_provisions Int     @default(0)
+  weak_links          Int     @default(0)
+  unmeasurable_outcomes Int   @default(0)
+  
+  // Recommendations
+  recommendations     Json?   // Array of improvement suggestions
+  
+  // Analysis Metadata
+  analyzed_at         DateTime @default(now())
+  analysis_version    String   @default("1.0")
+  
+  ehcp                ehcps    @relation(fields: [ehcp_id], references: [id], onDelete: Cascade)
+  
+  @@index([ehcp_id])
+}
+
+// ============================================================================
+// STUDENT LEARNING PROFILES (Enhanced Differentiation)
+// ============================================================================
+
+model StudentLearningProfile {
+  id          String   @id @default(cuid())
+  student_id  Int      @unique
+  
+  // Learning Preferences
+  visual_learner      Boolean @default(false)
+  auditory_learner    Boolean @default(false)
+  kinesthetic_learner Boolean @default(false)
+  reading_preference  Boolean @default(false)
+  
+  // SEND Indicators
+  has_dyslexia        Boolean @default(false)
+  dyslexia_severity   String? // mild, moderate, severe
+  preferred_font      String? // OpenDyslexic, Lexie, Arial, default
+  
+  has_dyscalculia     Boolean @default(false)
+  has_dyspraxia       Boolean @default(false)
+  
+  has_adhd            Boolean @default(false)
+  adhd_type           String? // inattentive, hyperactive, combined
+  chunk_size_preference Int @default(3) // Number of steps before break
+  
+  has_asd             Boolean @default(false)
+  sensory_sensitivities Json? // {visual: [], auditory: [], tactile: []}
+  
+  // Cognitive Profile
+  working_memory_level    String @default("average") // below, average, above
+  processing_speed_level  String @default("average")
+  verbal_comprehension    String @default("average")
+  perceptual_reasoning    String @default("average")
+  
+  // Reading Level
+  reading_age_months      Int?   // Reading age in months
+  reading_level           String @default("age_appropriate") // below, age_appropriate, above
+  vocabulary_tier         Int    @default(2) // 1=basic, 2=academic, 3=advanced
+  
+  // Time Accommodations
+  time_multiplier         Float  @default(1.0) // 1.5 = 50% extra time
+  needs_breaks            Boolean @default(false)
+  break_frequency_minutes Int?   // Minutes between breaks
+  
+  // Visual Accommodations
+  preferred_bg_color      String? // cream, blue, yellow, white
+  preferred_text_size     String @default("medium") // small, medium, large, xlarge
+  needs_visual_supports   Boolean @default(false)
+  
+  // Audio Accommodations
+  needs_text_to_speech    Boolean @default(false)
+  tts_speed               Float   @default(1.0)
+  
+  // Engagement Profile
+  gamification_response   String @default("positive") // positive, neutral, negative
+  competition_response    String @default("positive")
+  collaboration_preference Boolean @default(true)
+  
+  // Confidence & Anxiety
+  anxiety_triggers        String[]  @default([])
+  confidence_level        String @default("average")
+  
+  // Profile Metadata
+  profile_completeness    Float @default(0) // 0-100%
+  last_assessment_date    DateTime?
+  next_review_date        DateTime?
+  
+  // Audit
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+  created_by  Int?
+  
+  student     students @relation("LearningProfile", fields: [student_id], references: [id], onDelete: Cascade)
+  
+  @@index([student_id])
+}
+
+// ============================================================================
+// INDIVIDUAL LESSON DIFFERENTIATION
+// ============================================================================
+
+model DifferentiatedLessonVersion {
+  id              String   @id @default(cuid())
+  lesson_plan_id  String
+  student_id      Int
+  
+  // Differentiation Applied
+  difficulty_level String  // below, at, above, well_above
+  
+  // Content Adaptations
+  adapted_content  Json    // Full lesson content with adaptations
+  
+  // Specific Adaptations Applied
+  font_adaptation     String?  // OpenDyslexic, etc.
+  color_adaptation    String?  // Background color
+  text_size           String?
+  chunking_applied    Boolean @default(false)
+  visual_supports     Json?   // Array of {type, location, description}
+  vocabulary_simplified Boolean @default(false)
+  time_adjustment     Float   @default(1.0) // Multiplier
+  
+  // Generated Text Versions
+  instructions_original String? @db.Text
+  instructions_adapted  String? @db.Text
+  
+  // Generation Metadata
+  generated_at    DateTime @default(now())
+  generation_time_ms Int?
+  ai_model_used   String?
+  
+  // Teacher Review
+  teacher_reviewed Boolean @default(false)
+  teacher_modified Boolean @default(false)
+  modifications    Json?
+  
+  // Assignment Status
+  assigned_at     DateTime?
+  completed_at    DateTime?
+  success_rate    Float?
+  
+  // Relations
+  lesson_plan     LessonPlan @relation(fields: [lesson_plan_id], references: [id], onDelete: Cascade)
+  student         students   @relation("DifferentiatedLessons", fields: [student_id], references: [id], onDelete: Cascade)
+  
+  @@unique([lesson_plan_id, student_id])
+  @@index([lesson_plan_id])
+  @@index([student_id])
+}
+
+// ============================================================================
+// COMMUNICATION SENTIMENT ANALYSIS (Risk Prediction)
+// ============================================================================
+
+model CommunicationSentimentAnalysis {
+  id              String   @id @default(cuid())
+  
+  // Source
+  source_type     String   // email, message, note, call_log
+  source_id       String?  // Reference to original communication
+  
+  // Context
+  ehcp_id         String?
+  student_id      Int?
+  parent_id       Int?
+  
+  // Analysis Results
+  sentiment_score Float    // -1.0 (very negative) to 1.0 (very positive)
+  sentiment_label String   // very_negative, negative, neutral, positive, very_positive
+  
+  // Escalation Indicators
+  urgency_detected     Boolean @default(false)
+  frustration_detected Boolean @default(false)
+  legal_language       Boolean @default(false)
+  complaint_indicators Boolean @default(false)
+  
+  // Key Phrases
+  concerning_phrases   String[]
+  
+  // Risk Score
+  escalation_risk     Float   @default(0) // 0-100
+  
+  // Analysis Metadata
+  analyzed_at         DateTime @default(now())
+  model_version       String
+  confidence          Float   @default(0)
+  
+  @@index([ehcp_id])
+  @@index([student_id])
+  @@index([parent_id])
+  @@index([sentiment_label])
+}
+
+// ============================================================================
+// CODING CURRICULUM (Developers of Tomorrow)
+// ============================================================================
+
+model CodingCourse {
+  id              String   @id @default(cuid())
+  
+  // Course Info
+  title           String
+  description     String   @db.Text
+  level           String   // blocks, python, react
+  difficulty      Int      @default(1) // 1-5
+  
+  // Target Audience
+  min_age         Int      @default(7)
+  max_age         Int      @default(18)
+  
+  // SEND-Specific Design
+  cognitive_load_rating    Int    @default(2) // 1-5
+  multi_sensory_elements   String[] @default([])
+  neurodiverse_adaptations Json?
+  
+  // Course Structure
+  total_lessons   Int      @default(0)
+  estimated_hours Float    @default(0)
+  
+  // Status
+  is_published    Boolean  @default(false)
+  
+  // Audit
+  created_at      DateTime @default(now())
+  updated_at      DateTime @default(now())
+  
+  // Relations
+  lessons         CodingLesson[]
+  enrollments     CodingEnrollment[]
+  
+  @@index([level])
+}
+
+model CodingLesson {
+  id              String   @id @default(cuid())
+  course_id       String
+  
+  // Lesson Info
+  title           String
+  description     String   @db.Text
+  lesson_order    Int
+  
+  // Content
+  introduction    String   @db.Text
+  instructions    Json     // Step-by-step with cognitive load markers
+  starter_code    String?  @db.Text
+  solution_code   String?  @db.Text
+  
+  // SEND Adaptations Available
+  has_audio_version     Boolean @default(false)
+  has_visual_guide      Boolean @default(false)
+  has_simplified_version Boolean @default(false)
+  
+  // Assessment
+  success_criteria String[]
+  hints           String[]
+  
+  // Metadata
+  estimated_minutes Int    @default(15)
+  cognitive_load    Int    @default(2) // 1-5
+  
+  // Audit
+  created_at      DateTime @default(now())
+  updated_at      DateTime @default(now())
+  
+  // Relations
+  course          CodingCourse @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  completions     CodingLessonCompletion[]
+  
+  @@index([course_id])
+}
+
+model CodingEnrollment {
+  id              String   @id @default(cuid())
+  student_id      Int
+  course_id       String
+  
+  // Progress
+  started_at      DateTime @default(now())
+  last_activity   DateTime @default(now())
+  lessons_completed Int    @default(0)
+  current_lesson_id String?
+  
+  // Performance
+  average_attempts Float   @default(1)
+  total_time_minutes Int   @default(0)
+  
+  // Certificate
+  completed_at    DateTime?
+  certificate_id  String?
+  
+  // Relations
+  student         students     @relation("CodingStudent", fields: [student_id], references: [id], onDelete: Cascade)
+  course          CodingCourse @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  
+  @@unique([student_id, course_id])
+  @@index([student_id])
+  @@index([course_id])
+}
+
+model CodingLessonCompletion {
+  id              String   @id @default(cuid())
+  student_id      Int
+  lesson_id       String
+  
+  // Attempt Details
+  started_at      DateTime
+  completed_at    DateTime?
+  attempts        Int      @default(1)
+  
+  // Code Submitted
+  final_code      String?  @db.Text
+  passed          Boolean  @default(false)
+  
+  // Feedback
+  feedback        Json?    // Automated feedback
+  hints_used      Int      @default(0)
+  
+  // Time Tracking
+  time_taken_minutes Int?
+  breaks_taken    Int      @default(0)
+  
+  // Relations
+  student         students      @relation("CodingCompletions", fields: [student_id], references: [id], onDelete: Cascade)
+  lesson          CodingLesson  @relation(fields: [lesson_id], references: [id], onDelete: Cascade)
+  
+  @@unique([student_id, lesson_id])
+  @@index([student_id])
+  @@index([lesson_id])
+}
+
+// ============================================================================
+// KNOWLEDGE HUB AI CURATION
+// ============================================================================
+
+model KnowledgeArticle {
+  id              String   @id @default(cuid())
+  
+  // Source
+  source_type     String   // pubmed, eric, journal, news, internal
+  source_url      String?
+  source_id       String?  // External ID (e.g., PubMed ID)
+  
+  // Content
+  title           String
+  abstract        String?  @db.Text
+  full_text       String?  @db.Text
+  authors         String[]
+  publication_date DateTime?
+  
+  // Categorization
+  topics          String[] // dyslexia, autism, assessment, intervention, etc.
+  relevance_roles String[] // teacher, senco, ep, parent
+  
+  // AI Processing
+  ai_summary      String?  @db.Text
+  key_takeaways   String[]
+  relevance_score Float    @default(0) // 0-100
+  
+  // Status
+  is_curated      Boolean  @default(false)
+  is_featured     Boolean  @default(false)
+  
+  // Engagement
+  view_count      Int      @default(0)
+  bookmark_count  Int      @default(0)
+  
+  // Audit
+  imported_at     DateTime @default(now())
+  curated_at      DateTime?
+  updated_at      DateTime @default(now())
+  
+  // Relations
+  user_interactions KnowledgeInteraction[]
+  
+  @@index([source_type])
+  @@index([is_curated])
+  @@index([is_featured])
+}
+
+model KnowledgeInteraction {
+  id              String   @id @default(cuid())
+  user_id         Int
+  article_id      String
+  
+  interaction_type String  // view, bookmark, share, complete_cpd
+  
+  // CPD Tracking
+  reading_time_seconds Int?
+  completed_reflection Boolean @default(false)
+  reflection_notes    String? @db.Text
+  
+  created_at      DateTime @default(now())
+  
+  user            users             @relation("KnowledgeUser", fields: [user_id], references: [id], onDelete: Cascade)
+  article         KnowledgeArticle  @relation(fields: [article_id], references: [id], onDelete: Cascade)
+  
+  @@index([user_id])
+  @@index([article_id])
+}
+
+model DailyCPDDigest {
+  id              String   @id @default(cuid())
+  user_id         Int
+  
+  digest_date     DateTime @db.Date
+  
+  // Curated Content
+  article_ids     String[]
+  topics_covered  String[]
+  
+  // Delivery
+  sent_at         DateTime?
+  opened_at       DateTime?
+  
+  created_at      DateTime @default(now())
+  
+  user            users    @relation("CPDDigests", fields: [user_id], references: [id], onDelete: Cascade)
+  
+  @@unique([user_id, digest_date])
+  @@index([user_id])
+}
+
+// ============================================================================
+// EP MARKETPLACE VERIFICATION
+// ============================================================================
+
+model EPVerification {
+  id              String   @id @default(cuid())
+  professional_id Int      @unique
+  
+  // DBS Check
+  dbs_certificate_number String?
+  dbs_issue_date        DateTime?
+  dbs_expiry_date       DateTime?
+  dbs_update_service    Boolean @default(false)
+  dbs_verified          Boolean @default(false)
+  dbs_verified_at       DateTime?
+  dbs_document_url      String?  // Secure storage reference
+  
+  // Insurance
+  insurance_provider    String?
+  insurance_policy_number String?
+  insurance_coverage_amount Float? // In GBP millions
+  insurance_expiry_date DateTime?
+  insurance_verified    Boolean @default(false)
+  insurance_verified_at DateTime?
+  insurance_document_url String?
+  
+  // LA Panel Approval
+  la_panel_approved     Boolean @default(false)
+  la_panel_authorities  String[] // LA codes where approved
+  la_panel_verified_at  DateTime?
+  la_panel_document_url String?
+  
+  // HCPC Registration
+  hcpc_registration_number String?
+  hcpc_verified         Boolean @default(false)
+  hcpc_verified_at      DateTime?
+  
+  // Professional Qualifications
+  qualifications        Json?    // Array of {type, institution, year, verified}
+  
+  // Overall Status
+  verification_status   String  @default("pending") // pending, partial, verified, expired, suspended
+  last_verification_check DateTime?
+  next_verification_due DateTime?
+  
+  // Admin
+  verified_by_id        Int?
+  verification_notes    String? @db.Text
+  
+  // Audit
+  created_at            DateTime @default(now())
+  updated_at            DateTime @default(now())
+  
+  professional          professionals @relation(fields: [professional_id], references: [id], onDelete: Cascade)
+  verified_by           users?        @relation("EPVerifier", fields: [verified_by_id], references: [id])
+  
+  @@index([professional_id])
+  @@index([verification_status])
+}
+
+model EPBooking {
+  id              String   @id @default(cuid())
+  
+  // Parties
+  professional_id Int
+  school_tenant_id Int
+  student_id      Int?
+  
+  // Booking Details
+  booking_type    String   // assessment, consultation, review, training
+  booking_status  String   @default("pending") // pending, confirmed, completed, cancelled
+  
+  // Scheduling
+  requested_date  DateTime
+  confirmed_date  DateTime?
+  duration_hours  Float    @default(3)
+  location_type   String   // school, clinic, virtual
+  location_details String?
+  
+  // Payment
+  hourly_rate     Float?
+  total_cost      Float?
+  payment_status  String   @default("pending") // pending, paid, refunded
+  invoice_id      String?
+  
+  // Communication
+  messages        Json?    // Chat history
+  
+  // Outcomes
+  report_due_date DateTime?
+  report_delivered_at DateTime?
+  
+  // Audit
+  created_at      DateTime @default(now())
+  updated_at      DateTime @default(now())
+  created_by_id   Int
+  
+  professional    professionals @relation("EPBookings", fields: [professional_id], references: [id])
+  school_tenant   tenants       @relation("SchoolBookings", fields: [school_tenant_id], references: [id])
+  student         students?     @relation("StudentBookings", fields: [student_id], references: [id])
+  created_by      users         @relation("BookingCreator", fields: [created_by_id], references: [id])
+  
+  @@index([professional_id])
+  @@index([school_tenant_id])
+  @@index([booking_status])
+}
+
+// ============================================================================
+// PERFORMANCE METRICS TRACKING
+// ============================================================================
+
+model PerformanceMetric {
+  id              String   @id @default(cuid())
+  
+  // Context
+  tenant_id       Int?
+  user_id         Int?
+  feature         String   // report_generation, lesson_differentiation, sen2_export, etc.
+  
+  // Timing
+  operation       String   // generate, load, export, etc.
+  start_time      DateTime
+  end_time        DateTime?
+  duration_ms     Int?
+  
+  // Outcome
+  success         Boolean  @default(true)
+  error_message   String?
+  
+  // Comparison
+  baseline_ms     Int?     // Expected/baseline time
+  improvement_pct Float?   // Percentage improvement vs baseline
+  
+  // Metadata
+  input_size      Int?     // e.g., number of students, records
+  output_size     Int?     // e.g., pages generated
+  
+  created_at      DateTime @default(now())
+  
+  @@index([feature])
+  @@index([tenant_id])
+  @@index([user_id])
+  @@index([created_at])
+}
+
+// ============================================================================
+// TIME SAVINGS METRICS (Zero Gap Project)
+// Individual time savings records for each automated action
+// ============================================================================
+
+model TimeSavingsMetric {
+  id                      Int      @id @default(autoincrement())
+  tenantId                Int      @map("tenant_id")
+  userId                  Int?     @map("user_id")
+  
+  // Feature Classification
+  featureCategory         String   @map("feature_category") // ehcp, iep, assessment, etc.
+  featureName             String   @map("feature_name")     // Human readable name
+  actionType              String   @map("action_type")      // document_generation, report_creation, etc.
+  
+  // Time Measurements
+  traditionalTimeMinutes  Int      @map("traditional_time_minutes") // Industry benchmark
+  automatedTimeMinutes    Int      @map("automated_time_minutes")   // Actual time with automation
+  timeSavedMinutes        Int      @map("time_saved_minutes")       // Difference
+  
+  // Evidence
+  evidenceType            String   @map("evidence_type") // measured, estimated, reported, calculated
+  metadata                String?  @db.Text              // JSON with additional context
+  
+  recordedAt              DateTime @default(now()) @map("recorded_at")
+  
+  tenant                  tenants  @relation("TenantTimeSavingsMetrics", fields: [tenantId], references: [id])
+  user                    users?   @relation("UserTimeSavingsMetrics", fields: [userId], references: [id])
+  
+  @@index([tenantId])
+  @@index([userId])
+  @@index([featureCategory])
+  @@index([recordedAt])
+  @@map("time_savings_metrics")
+}
+
+// ============================================================================
+// TIME SAVINGS REPORTS (Zero Gap Project)
+// Aggregated time savings reports for periods
+// ============================================================================
+
+model TimeSavingsReport {
+  id                   Int      @id @default(autoincrement())
+  tenantId             Int      @map("tenant_id")
+  
+  // Report Type
+  reportType           String   @default("comprehensive") @map("report_type")
+  
+  // Period
+  periodStart          DateTime @map("period_start")
+  periodEnd            DateTime @map("period_end")
+  
+  // Aggregated Metrics
+  totalSavedMinutes    Int      @default(0) @map("total_saved_minutes")
+  totalSavedHours      Int      @default(0) @map("total_saved_hours")
+  projectedAnnualHours Int      @default(0) @map("projected_annual_hours")
+  
+  // Cost Savings
+  costSavings          Float    @default(0) @map("cost_savings")
+  currency             String   @default("GBP")
+  
+  // Full Report Data
+  reportData           String?  @db.Text @map("report_data") // JSON with full breakdown
+  
+  generatedAt          DateTime @default(now()) @map("generated_at")
+  
+  tenant               tenants  @relation("TenantTimeSavingsReports", fields: [tenantId], references: [id])
+  
+  @@index([tenantId])
+  @@index([periodStart])
+  @@index([generatedAt])
+  @@map("time_savings_reports")
+}
+
+// ============================================================================
+// DEVELOPERS OF TOMORROW - CODING CURRICULUM (Zero Gap Project)
+// Complete coding curriculum supporting visual, block-based, and text-based
+// programming from Reception through Year 11, aligned with UK Computing curriculum.
+// ============================================================================
+
+enum CodingLanguage {
+  SCRATCH_JR     // Ages 4-7, visual drag-drop
+  SCRATCH        // Ages 7-11, block-based
+  PYTHON         // Ages 9+, text-based beginner
+  JAVASCRIPT     // Ages 10+, web development
+  HTML_CSS       // Ages 8+, web structure/styling
+  SQL            // Ages 12+, database queries
+  MICRO_BIT      // Ages 8+, physical computing
+  ARDUINO        // Ages 11+, electronics
+}
+
+enum CodingDifficulty {
+  FOUNDATION     // Pre-readers, purely visual
+  EMERGING       // Early readers, supported text
+  DEVELOPING     // Confident readers
+  SECURE         // Independent coders
+  ADVANCED       // Extension and challenge
+}
+
+enum CodingSkillArea {
+  ALGORITHMS
+  PROGRAMMING
+  DATA_STRUCTURES
+  DEBUGGING
+  DECOMPOSITION
+  ABSTRACTION
+  PATTERN_RECOGNITION
+  LOGICAL_REASONING
+  EVALUATION
+  COLLABORATION
+}
+
+model NCCurriculum {
+  id              String   @id @default(cuid())
+  tenant_id       Int
+  
+  // Curriculum Details
+  name            String
+  description     String   @db.Text
+  
+  // Target Audience
+  key_stage       String   // EYFS, KS1, KS2, KS3, KS4
+  year_groups     String[] // ["Reception", "Year 1"] etc.
+  age_range_min   Int
+  age_range_max   Int
+  
+  // UK Computing NC Alignment
+  nc_objectives   String[] // National Curriculum objective codes
+  
+  // Progression
+  prerequisite_id String?
+  
+  // Status
+  status          String   @default("draft") // draft, published, archived
+  published_at    DateTime?
+  
+  // Metadata
+  created_at      DateTime @default(now())
+  updated_at      DateTime @default(now())
+  created_by_id   Int?
+  
+  // Relations
+  tenant          tenants  @relation("TenantCodingCurricula", fields: [tenant_id], references: [id])
+  created_by      users?   @relation("CodingCurriculumCreator", fields: [created_by_id], references: [id])
+  lessons         NCLesson[]
+  prerequisite    NCCurriculum? @relation("CurriculumPrerequisite", fields: [prerequisite_id], references: [id])
+  dependents      NCCurriculum[] @relation("CurriculumPrerequisite")
+  
+  @@index([tenant_id])
+  @@index([key_stage])
+}
+
+model NCLesson {
+  id              String   @id @default(cuid())
+  curriculum_id   String
+  tenant_id       Int
+  
+  // Lesson Details
+  title           String
+  description     String   @db.Text
+  learning_objectives String[] // Specific learning outcomes
+  
+  // Content
+  lesson_number   Int      // Order within curriculum
+  duration_minutes Int     @default(45)
+  
+  // Language and Approach
+  language        CodingLanguage
+  skill_areas     CodingSkillArea[]
+  
+  // Differentiation
+  base_difficulty CodingDifficulty
+  
+  // Resources
+  teacher_notes   String?  @db.Text
+  resources_urls  String[] // Links to starter files, worksheets
+  video_url       String?  // Demo video
+  
+  // Status
+  status          String   @default("draft")
+  
+  // Metadata
+  created_at      DateTime @default(now())
+  updated_at      DateTime @default(now())
+  created_by_id   Int?
+  
+  // Relations
+  curriculum      NCCurriculum @relation(fields: [curriculum_id], references: [id], onDelete: Cascade)
+  tenant          tenants  @relation("TenantCodingLessons", fields: [tenant_id], references: [id])
+  created_by      users?   @relation("CodingLessonCreator", fields: [created_by_id], references: [id])
+  exercises       NCExercise[]
+  personalizations LessonPersonalization[]
+  
+  @@index([curriculum_id])
+  @@index([tenant_id])
+}
+
+model NCExercise {
+  id              String   @id @default(cuid())
+  lesson_id       String
+  tenant_id       Int
+  
+  // Exercise Details
+  title           String
+  instructions    String   @db.Text
+  exercise_number Int      // Order within lesson
+  
+  // Type
+  exercise_type   String   // guided, independent, challenge, debugging, peer_review
+  difficulty      CodingDifficulty
+  
+  // Code Content
+  starter_code    String?  @db.Text
+  solution_code   String?  @db.Text
+  test_cases      Json?    // [{input: "", expected_output: ""}]
+  
+  // Hints (graduated support)
+  hints           String[] // Progressive hints
+  
+  // Points and Assessment
+  max_points      Int      @default(10)
+  
+  // Accessibility Adaptations Available
+  has_audio_instructions    Boolean @default(false)
+  has_visual_supports       Boolean @default(false)
+  has_simplified_version    Boolean @default(false)
+  
+  // Metadata
+  created_at      DateTime @default(now())
+  updated_at      DateTime @default(now())
+  created_by_id   Int?
+  
+  // Relations
+  lesson          NCLesson @relation(fields: [lesson_id], references: [id], onDelete: Cascade)
+  tenant          tenants  @relation("TenantCodingExercises", fields: [tenant_id], references: [id])
+  created_by      users?   @relation("CodingExerciseCreator", fields: [created_by_id], references: [id])
+  submissions     NCSubmission[]
+  
+  @@index([lesson_id])
+  @@index([tenant_id])
+}
+
+model NCSubmission {
+  id              String   @id @default(cuid())
+  exercise_id     String
+  student_id      Int
+  tenant_id       Int
+  
+  // Submission Content
+  submitted_code  String   @db.Text
+  
+  // Auto-grading Results
+  test_results    Json?    // [{test_case: 1, passed: true, output: ""}]
+  tests_passed    Int      @default(0)
+  tests_total     Int      @default(0)
+  auto_score      Float?
+  
+  // Teacher Grading
+  teacher_score   Float?
+  teacher_feedback String? @db.Text
+  graded_by_id    Int?
+  graded_at       DateTime?
+  
+  // Final Score
+  final_score     Float?
+  
+  // Attempt Tracking
+  attempt_number  Int      @default(1)
+  
+  // Timing
+  time_spent_seconds Int?
+  
+  // Metadata
+  submitted_at    DateTime @default(now())
+  
+  // Relations
+  exercise        NCExercise @relation(fields: [exercise_id], references: [id], onDelete: Cascade)
+  student         students @relation("CodingStudentSubmissions", fields: [student_id], references: [id])
+  graded_by       users?   @relation("CodingSubmissionGrader", fields: [graded_by_id], references: [id])
+  
+  @@index([exercise_id])
+  @@index([student_id])
+  @@index([submitted_at])
+}
+
+model NCProgress {
+  id              String   @id @default(cuid())
+  student_id      Int
+  tenant_id       Int
+  
+  // Overall Progress
+  total_lessons_completed Int @default(0)
+  total_exercises_completed Int @default(0)
+  total_points_earned Int @default(0)
+  
+  // Current Level
+  current_language CodingLanguage?
+  current_difficulty CodingDifficulty @default(FOUNDATION)
+  
+  // Skill Mastery (0-100 for each area)
+  algorithms_mastery      Int @default(0)
+  programming_mastery     Int @default(0)
+  data_structures_mastery Int @default(0)
+  debugging_mastery       Int @default(0)
+  decomposition_mastery   Int @default(0)
+  
+  // Badges Earned
+  badges_earned   String[] // ["first_program", "bug_squasher", "algorithm_ace"]
+  
+  // Streak
+  current_streak_days Int @default(0)
+  longest_streak_days Int @default(0)
+  last_activity_date  DateTime?
+  
+  // Metadata
+  updated_at      DateTime @default(now())
+  
+  // Relations
+  student         students @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  
+  @@unique([student_id])
+  @@index([student_id])
+}
+
+// ============================================================================
+// LESSON PERSONALISATION ENGINE (Zero Gap Project)
+// Supporting "30+ personalized versions" claim through adaptive content delivery
+// ============================================================================
+
+model LessonPersonalization {
+  id              String   @id @default(cuid())
+  lesson_id       String
+  tenant_id       Int
+  
+  // Personalization Dimension
+  dimension       String   // difficulty, learning_style, pace, support_level, language_complexity
+  variant_name    String   // e.g., "Visual Learner - Foundation"
+  
+  // Content Modifications
+  modified_instructions String? @db.Text
+  modified_content      Json?   // Structured content changes
+  
+  // Visual Adaptations
+  font_family     String?  // OpenDyslexic, Lexie, default
+  font_size_increase Float? // 1.0 = normal, 1.5 = 50% larger
+  line_spacing    Float?   // 1.0 = normal, 2.0 = double
+  color_scheme    String?  // high_contrast, dyslexia_friendly, default
+  
+  // Audio Support
+  has_text_to_speech Boolean @default(false)
+  tts_voice       String?  // UK English voice ID
+  tts_speed       Float?   // 0.5 = slow, 1.0 = normal, 2.0 = fast
+  
+  // Scaffolding
+  extra_hints     String[]
+  worked_examples String[] // Additional step-by-step examples
+  sentence_starters String[]
+  visual_aids_urls String[]
+  
+  // Timing
+  extended_time_multiplier Float @default(1.0) // 1.5 = 50% extra time
+  break_reminders Boolean @default(false)
+  break_interval_minutes Int?
+  
+  // Complexity Adjustments
+  simplified_vocabulary Boolean @default(false)
+  reduced_question_count Boolean @default(false)
+  chunked_content Boolean @default(false)
+  
+  // Metadata
+  created_at      DateTime @default(now())
+  updated_at      DateTime @default(now())
+  created_by_id   Int?
+  
+  // Relations
+  lesson          NCLesson @relation(fields: [lesson_id], references: [id], onDelete: Cascade)
+  tenant          tenants  @relation("TenantLessonPersonalizations", fields: [tenant_id], references: [id])
+  created_by      users?   @relation("LessonPersonalizationCreator", fields: [created_by_id], references: [id])
+  
+  @@unique([lesson_id, dimension, variant_name])
+  @@index([lesson_id])
+  @@index([tenant_id])
+}
+
+model StudentAdaptiveProfile {
+  id              String   @id @default(cuid())
+  student_id      Int      @unique
+  tenant_id       Int
+  
+  // Learning Style Indicators (0-100)
+  visual_preference       Int @default(50)
+  auditory_preference     Int @default(50)
+  kinesthetic_preference  Int @default(50)
+  reading_preference      Int @default(50)
+  
+  // Cognitive Profile
+  processing_speed       String @default("average") // slow, average, fast
+  working_memory         String @default("average") // low, average, high
+  attention_span_minutes Int    @default(20)
+  
+  // SEND Accommodations
+  dyslexia_support       Boolean @default(false)
+  dyscalculia_support    Boolean @default(false)
+  adhd_support           Boolean @default(false)
+  asd_support            Boolean @default(false)
+  visual_impairment      Boolean @default(false)
+  hearing_impairment     Boolean @default(false)
+  
+  // Preferred Settings
+  preferred_font         String?
+  preferred_font_size    Float   @default(1.0)
+  preferred_color_scheme String?
+  preferred_tts_voice    String?
+  preferred_tts_speed    Float   @default(1.0)
+  
+  // Engagement Patterns
+  best_time_of_day      String? // morning, afternoon, evening
+  optimal_session_length Int?   // minutes
+  prefers_breaks        Boolean @default(false)
+  
+  // Performance History
+  average_score         Float   @default(0)
+  completion_rate       Float   @default(0)
+  struggle_areas        String[] // Areas needing extra support
+  strength_areas        String[] // Areas of proficiency
+  
+  // Last Assessment
+  last_profile_update   DateTime @default(now())
+  profile_confidence    Float   @default(0) // 0-1, how confident are we in this profile
+  
+  // Relations
+  student               students @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  learning_adaptations  StudentLearningAdaptation[]
+  
+  @@index([student_id])
+}
+
+model StudentLearningAdaptation {
+  id              String   @id @default(cuid())
+  student_id      Int
+  profile_id      String
+  
+  // What was adapted
+  content_type    String   // lesson, exercise, assessment
+  content_id      String
+  
+  // Adaptation Applied
+  personalization_dimension String
+  personalization_variant   String
+  
+  // Outcome
+  engagement_score Float?  // 0-100, based on time on task, completion
+  performance_score Float? // 0-100, based on correctness
+  
+  // Feedback
+  student_rating  Int?     // 1-5 stars
+  helpful         Boolean?
+  
+  // Metadata
+  applied_at      DateTime @default(now())
+  
+  // Relations
+  student         students @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  profile         StudentAdaptiveProfile @relation(fields: [profile_id], references: [id], onDelete: Cascade)
+  
+  @@index([student_id])
+  @@index([profile_id])
+  @@index([content_type, content_id])
+}
+
+// ============================================================================
+// SEN2 CHILD RECORDS (Zero Gap Project)
+// Individual child records for SEN2 return data extraction
+// ============================================================================
+
+model SEN2ChildRecord {
+  id              String   @id @default(cuid())
+  tenant_id       Int
+  student_id      Int
+  
+  // SEN2 Collection Data
+  collection_year Int
+  reference_date  DateTime
+  
+  // DfE Required Fields
+  upn             String   // Unique Pupil Number
+  forename        String
+  surname         String
+  dob             DateTime
+  gender          String   // M, F
+  ethnicity       String?  // DfE ethnicity codes
+  
+  // EHCP Status
+  ehcp_id         String?
+  ehcp_status     String   // new_this_year, continuing, ceased, transferred_in, transferred_out
+  
+  // Primary Need (SEN2 Category)
+  primary_need    SEN2PrimaryNeed
+  secondary_need  SEN2PrimaryNeed?
+  
+  // Placement
+  placement_type  SEN2PlacementType
+  setting_name    String?
+  setting_urn     String?  // School URN
+  
+  // Timeline Data
+  referral_date           DateTime?
+  assessment_request_date DateTime?
+  assessment_complete_date DateTime?
+  ehcp_issued_date        DateTime?
+  working_days_to_issue   Int?
+  within_20_weeks         Boolean @default(false)
+  
+  // Exception Data
+  exception_applied       Boolean @default(false)
+  exception_type          String? // awaiting_provision, parental_request, etc.
+  
+  // Validation
+  validation_status       String  @default("pending") // pending, valid, invalid
+  validation_errors       String[]
+  
+  // Metadata
+  extracted_at    DateTime @default(now())
+  
+  // Relations
+  student         students @relation(fields: [student_id], references: [id])
+  
+  @@unique([student_id, collection_year])
+  @@index([tenant_id])
+  @@index([collection_year])
+  @@index([primary_need])
 }

@@ -7,9 +7,39 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { StudentProfileService, InterventionRecommendation } from '@/lib/student-profile/service';
-import { SelfDrivingSencoAgent } from '@/lib/agents/senco-agent';
+import { InterventionRecommendation } from '@/lib/student-profile/service';
 import { Sparkles, Bot, Brain, AlertCircle } from 'lucide-react';
+
+// Mock recommendations for demo mode - no database dependency
+const MOCK_RECOMMENDATIONS: InterventionRecommendation[] = [
+  {
+    id: 'rec-1',
+    title: 'Precision Teaching: Working Memory',
+    description: 'Daily 10-minute n-back exercises to strengthen working memory capacity. Evidence-based approach with measurable progress tracking.',
+    domain: 'Working Memory',
+    priority: 'HIGH',
+    status: 'PENDING',
+    generatedAt: Date.now() - 1000 * 60 * 5 // 5 mins ago
+  },
+  {
+    id: 'rec-2', 
+    title: 'Colourful Semantics Programme',
+    description: 'Structured language intervention using colour-coded sentence building. Recommended for verbal reasoning support.',
+    domain: 'Verbal Reasoning',
+    priority: 'MEDIUM',
+    status: 'PENDING',
+    generatedAt: Date.now() - 1000 * 60 * 10 // 10 mins ago
+  },
+  {
+    id: 'rec-3',
+    title: 'Visual Timetable & Task Breakdown',
+    description: 'Implement visual supports and chunked instructions to reduce cognitive load and support executive function.',
+    domain: 'Processing Speed',
+    priority: 'HIGH',
+    status: 'PENDING',
+    generatedAt: Date.now() - 1000 * 60 * 15 // 15 mins ago
+  }
+];
 
 // ============================================================================
 // MOCK DATA (Subset of Intervention Library)
@@ -108,11 +138,11 @@ export default function InterventionSandbox() {
   useEffect(() => {
     if (activeTab === 'auto-agent') {
       setIsAgentLoading(true);
-      // Simulate fetching profile and running agent
+      // Simulate AI analysis with mock data (no database dependency)
       const runAgent = async () => {
-        const profile = await StudentProfileService.getProfile('student-123');
-        const recs = SelfDrivingSencoAgent.analyzeAndPrescribe(profile);
-        setAgentRecommendations(recs);
+        // Simulate network delay for realistic UX
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        setAgentRecommendations(MOCK_RECOMMENDATIONS);
         setIsAgentLoading(false);
       };
       void runAgent();

@@ -3,13 +3,22 @@
 /**
  * Interactive Demo Page
  * Showcase the AI capabilities of the platform
+ * 
+ * @copyright EdPsych Connect Limited 2025
  */
 
 import React from 'react';
-import AIConversationDemo from '@/components/landing/legacy/ai-conversation-demo';
+import AIAssistant from '@/components/ai/AIAssistant';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function DemoPage() {
+  const router = useRouter();
+  
+  const handleNavigate = (path: string) => {
+    router.push(path);
+  };
+  
   return (
     <div className="min-h-screen bg-slate-950 text-white">
       {/* Header */}
@@ -36,12 +45,24 @@ export default function DemoPage() {
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
             Interact with our multi-agent AI system. See how it plans lessons, writes reports, and analyses behaviour in real-time.
           </p>
+          <div className="flex items-center justify-center gap-4 mt-6">
+            <span className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 text-emerald-400 rounded-full text-sm font-medium">
+              <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+              Voice Enabled
+            </span>
+            <span className="flex items-center gap-2 px-3 py-1.5 bg-indigo-500/10 text-indigo-400 rounded-full text-sm font-medium">
+              13 AI Agents Active
+            </span>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-8 items-start">
-          {/* Demo Interface */}
+          {/* AI Assistant Interface */}
           <div className="lg:col-span-8">
-            <AIConversationDemo className="h-[600px] border border-slate-700 shadow-2xl shadow-indigo-500/10" />
+            <AIAssistant 
+              className="border border-slate-700 shadow-2xl shadow-indigo-500/10" 
+              onNavigate={handleNavigate}
+            />
           </div>
 
           {/* Sidebar Info */}
