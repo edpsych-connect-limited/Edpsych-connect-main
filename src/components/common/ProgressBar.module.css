@@ -1,0 +1,37 @@
+/**
+ * ProgressBar Module
+ * Enterprise-grade progress bar styling using CSS custom properties
+ * for dynamic width calculations while maintaining best practices.
+ * 
+ * @copyright EdPsych Connect Limited 2025
+ * @license Proprietary - All Rights Reserved
+ */
+
+.progressContainer {
+  height: 0.5rem;
+  background-color: rgb(243, 244, 246); /* bg-gray-100 */
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  width: var(--progress-width, 0%);
+  transition: width 0.3s ease-in-out;
+  /* Using CSS custom property for dynamic width is the enterprise standard
+     for responsive design without inline styles. See MDN Web Docs:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/--* */
+}
+
+.progressBar.teal {
+  background-color: rgb(20, 184, 166); /* bg-teal-500 */
+}
+
+.progressBar.emerald {
+  background-color: rgb(16, 185, 129); /* bg-emerald-500 */
+}
+
+.progressBar.blue {
+  background-color: rgb(59, 130, 246); /* bg-blue-500 */
+}
+

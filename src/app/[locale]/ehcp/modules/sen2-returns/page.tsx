@@ -11,6 +11,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/auth/hooks';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { ProgressBar } from '@/components/common/ProgressBar.component';
 import {
   ArrowLeft,
   FileSpreadsheet,
@@ -238,13 +239,12 @@ export default function SEN2ReturnsPage() {
                         <span className="text-gray-600">{need}</span>
                         <span className="font-medium">{count}</span>
                       </div>
-                      <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                        {/* eslint-disable-next-line @next/next/no-inline-styles */}
-                        <div 
-                          className="h-full bg-teal-500"
-                          style={{ width: `${(count / currentReturn.total_ehcps) * 100}%` }}
-                        />
-                      </div>
+                      <ProgressBar 
+                        value={count} 
+                        max={currentReturn.total_ehcps} 
+                        variant="teal"
+                        ariaLabel={`${need}: ${count} out of ${currentReturn.total_ehcps}`}
+                      />
                     </div>
                   ))}
                 </div>
@@ -265,13 +265,12 @@ export default function SEN2ReturnsPage() {
                         <span className="text-gray-600">{age}</span>
                         <span className="font-medium">{count}</span>
                       </div>
-                      <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                        {/* eslint-disable-next-line @next/next/no-inline-styles */}
-                        <div 
-                          className="h-full bg-emerald-500"
-                          style={{ width: `${(count / currentReturn.total_ehcps) * 100}%` }}
-                        />
-                      </div>
+                      <ProgressBar 
+                        value={count} 
+                        max={currentReturn.total_ehcps} 
+                        variant="emerald"
+                        ariaLabel={`Age ${age}: ${count} out of ${currentReturn.total_ehcps}`}
+                      />
                     </div>
                   ))}
                 </div>
@@ -292,15 +291,14 @@ export default function SEN2ReturnsPage() {
                         <span className="text-gray-600">{placement}</span>
                         <span className="font-medium">{count}</span>
                       </div>
-                      <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                        {/* eslint-disable-next-line @next/next/no-inline-styles */}
-                        <div 
-                          className="h-full bg-blue-500"
-                          style={{ width: `${(count / currentReturn.total_ehcps) * 100}%` }}
-                        />
-                      </div>
+                      <ProgressBar 
+                        value={count} 
+                        max={currentReturn.total_ehcps} 
+                        variant="blue"
+                        ariaLabel={`${placement}: ${count} out of ${currentReturn.total_ehcps}`}
+                      />
                     </div>
-                  ))}
+                  ))}}
                 </div>
               </div>
             )}
