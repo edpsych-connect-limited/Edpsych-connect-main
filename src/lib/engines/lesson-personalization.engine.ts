@@ -19,7 +19,7 @@
  * Zero Gap Project - Sprint 3
  */
 
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { logger } from '@/lib/logger';
 
 // ============================================================================

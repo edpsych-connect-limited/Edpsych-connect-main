@@ -729,6 +729,10 @@ export async function downloadEHCPPDF(
   ehcp: EHCPData,
   options?: PDFOptions
 ): Promise<void> {
+  if (typeof window === 'undefined') {
+    throw new Error('downloadEHCPPDF can only be called on the client side');
+  }
+
   const generator = new EHCPPDFGenerator();
   const blob = await generator.generateEHCPPDF(ehcp, options);
 
@@ -763,6 +767,10 @@ export async function downloadSectionPDF(
   ehcp: EHCPData,
   section: 'A' | 'B' | 'E' | 'F' | 'I'
 ): Promise<void> {
+  if (typeof window === 'undefined') {
+    throw new Error('downloadSectionPDF can only be called on the client side');
+  }
+
   const generator = new EHCPPDFGenerator();
   const blob = await generator.generateSectionPDF(ehcp, section);
 
