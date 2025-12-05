@@ -4,9 +4,8 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import PageHeader from '@/components/shared/PageHeader';
-import LoadingState from '@/components/shared/LoadingState';
-import ErrorState from '@/components/shared/ErrorState';
+import PageHeader from '@/components/layout/PageHeader';
+import { ErrorDisplay } from '@/components/error-handling';
 
 interface RewardsData {
   totalRewards: number;
@@ -82,23 +81,28 @@ export default function TokenisationPage() {
   }, [status]);
 
   if (loading) {
-    return <LoadingState message="Loading tokenisation data..." />;
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-400 mx-auto mb-4"></div>
+          <p className="text-slate-300">Loading tokenisation data...</p>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
     return (
-      <ErrorState
-        title="Error Loading Tokenisation"
-        message={error}
-        action={
-          <button
-            onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            Try Again
-          </button>
-        }
-      />
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+        <PageHeader title="Error" description="Failed to load tokenisation data" />
+        <div className="container mx-auto px-4 py-8">
+          <ErrorDisplay
+            title="Error Loading Tokenisation"
+            error={error}
+            retry={() => window.location.reload()}
+          />
+        </div>
+      </div>
     );
   }
 
@@ -182,7 +186,7 @@ export default function TokenisationPage() {
                       <div className="w-full bg-slate-700 rounded-full h-2 overflow-hidden">
                         <div
                           className="bg-gradient-to-r from-blue-500 to-cyan-400 h-full transition-all duration-300"
-                          style={{ width: `${category.percentage}%` }}
+                          style={{ width: `${category.percentage}%` } as React.CSSProperties}
                         />
                       </div>
                     </div>
@@ -238,7 +242,7 @@ export default function TokenisationPage() {
                       className="bg-orange-500 h-full transition-all duration-300"
                       style={{
                         width: `${(treasury.allocatedFunds / treasury.totalFunds) * 100}%`,
-                      }}
+                      } as React.CSSProperties}
                     />
                   </div>
                 </div>
@@ -252,7 +256,7 @@ export default function TokenisationPage() {
                       className="bg-lime-500 h-full transition-all duration-300"
                       style={{
                         width: `${(treasury.availableFunds / treasury.totalFunds) * 100}%`,
-                      }}
+                      } as React.CSSProperties}
                     />
                   </div>
                 </div>
