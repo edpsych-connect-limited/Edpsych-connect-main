@@ -1,6 +1,10 @@
 import createNextIntlPlugin from 'next-intl/plugin';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n.ts');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Build validation can be enabled via environment variable
 // Set ENABLE_BUILD_CHECKS=true to enable TypeScript and ESLint during build
@@ -73,7 +77,7 @@ const nextConfig = {
         hashAlgorithm: 'md4',
         name: 'webpack-server',
         version: '1',
-        cacheDirectory: require('path').join(process.cwd(), '.next/cache/webpack-server'),
+        cacheDirectory: path.join(__dirname, '.next/cache/webpack-server'),
       };
     } else {
       // Client-side: use filesystem cache with strict limits
@@ -82,7 +86,7 @@ const nextConfig = {
         hashAlgorithm: 'md4',
         name: 'webpack-client',
         version: '1',
-        cacheDirectory: require('path').join(process.cwd(), '.next/cache/webpack-client'),
+        cacheDirectory: path.join(__dirname, '.next/cache/webpack-client'),
         maxMemoryGenerations: 1,
       };
     }
