@@ -55,11 +55,10 @@ const nextConfig = {
     ];
     
     // Optimize cache for large projects to avoid OOM
-    // Use filesystem cache on server-side (less memory), disable on client (faster)
-    // Must use absolute paths for webpack cache configuration
+    // Disable caching during production builds to avoid OOM from cached Sentry packages
     if (isServer) {
       config.cache = {
-        type: 'filesystem',
+        type: process.env.NODE_ENV === 'production' ? false : 'filesystem',
         hashAlgorithm: 'md4',
         name: 'webpack-server',
         version: '1',
@@ -68,7 +67,7 @@ const nextConfig = {
     } else {
       // Client-side: use filesystem cache with strict limits
       config.cache = {
-        type: 'filesystem',
+        type: process.env.NODE_ENV === 'production' ? false : 'filesystem',
         hashAlgorithm: 'md4',
         name: 'webpack-client',
         version: '1',
