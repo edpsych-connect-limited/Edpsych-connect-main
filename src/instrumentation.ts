@@ -7,19 +7,15 @@
  */
 
 export async function register() {
-  // Only initialize Sentry in Node.js runtime, NOT during build
-  // process.env.NEXT_RUNTIME is 'nodejs' for server/build context
-  // Check for Node.js explicitly and avoid loading in build context
-  if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'development') {
+  // Sentry initialization is controlled via SENTRY_ENABLED environment variable
+  // This prevents initialization during Next.js build which causes "self is not defined"
+  // 
+  // In production environment (Vercel), set SENTRY_ENABLED=true to activate error tracking
+  if (process.env.NEXT_RUNTIME === 'nodejs' && process.env.SENTRY_ENABLED === 'true') {
     try {
-      // Defer Sentry initialization to avoid blocking build
-      if (process.env.NEXT_RUNTIME === 'nodejs') {
-        const { default: initSentry } = await import('../sentry.server.config');
-        // Server config initializes Sentry if DSN is present
-      }
+      await import('../sentry.server.config');
     } catch (error) {
-      // Sentry initialization is not critical - log and continue
-      console.debug('Sentry initialization deferred or skipped');
+      console.debug('Sentry initialization failed, continuing without error tracking');
     }
   }
 }

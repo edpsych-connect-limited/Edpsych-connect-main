@@ -1,9 +1,14 @@
 import * as Sentry from "@sentry/nextjs";
 
-// Skip Sentry initialization during Next.js build process
-// Sentry can cause "self is not defined" errors during server-side build
-// Only initialize in runtime (not during build)
-if (process.env.NEXT_PHASE === undefined) {
+// Only initialize Sentry if explicitly enabled via environment variable
+// This prevents the SDK from loading during Next.js build when it tries to access
+// browser globals like 'self', causing "ReferenceError: self is not defined"
+// 
+// Sentry initializes normally at runtime because SENTRY_ENABLED will be set in 
+// production environment variables on the hosting platform.
+const shouldInitSentry = process.env.SENTRY_ENABLED === 'true';
+
+if (shouldInitSentry) {
   Sentry.init({
     dsn: "https://1739f1ab3c214b6600646650f89e2643@o4509879738826752.ingest.de.sentry.io/4509879781883984",
 
