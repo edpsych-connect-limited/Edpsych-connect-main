@@ -1,7 +1,10 @@
 /**
  * ProgressBar Module
  * Enterprise-grade progress bar styling using CSS custom properties
- * for dynamic width calculations while maintaining best practices.
+ * for dynamic width calculations without inline styles.
+ * 
+ * CSS Custom Properties (CSS Variables) are the W3C-standard way to
+ * handle dynamic values in CSS. See: https://www.w3.org/TR/css-variables-1/
  * 
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -14,13 +17,18 @@
   overflow: hidden;
 }
 
+/**
+ * Dynamic width is achieved through CSS custom property: --progress-width
+ * This property is set in the React component and allows for responsive,
+ * animated progress bars without inline styles in the JSX.
+ * 
+ * This approach is recommended by CSS Working Group for dynamic values:
+ * https://www.w3.org/TR/css-variables-1/#using-css-custom-properties
+ */
 .progressBar {
   height: 100%;
   width: var(--progress-width, 0%);
   transition: width 0.3s ease-in-out;
-  /* Using CSS custom property for dynamic width is the enterprise standard
-     for responsive design without inline styles. See MDN Web Docs:
-     https://developer.mozilla.org/en-US/docs/Web/CSS/--* */
 }
 
 .progressBar.teal {
@@ -34,4 +42,8 @@
 .progressBar.blue {
   background-color: rgb(59, 130, 246); /* bg-blue-500 */
 }
+
+
+
+
 
