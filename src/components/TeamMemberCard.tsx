@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * TeamMemberCard Component - Enterprise-Grade Team Member Display
  *
