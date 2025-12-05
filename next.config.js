@@ -55,10 +55,13 @@ const nextConfig = {
     ];
     
     // Optimize cache for large projects to avoid OOM
-    // Disable caching during production builds to avoid OOM from cached Sentry packages
-    if (isServer) {
+    // Disable caching entirely during production builds to avoid memory issues from stale cache
+    // Development builds use filesystem cache for faster rebuilds
+    if (process.env.NODE_ENV === 'production') {
+      config.cache = false; // Disable all caching in production
+    } else if (isServer) {
       config.cache = {
-        type: process.env.NODE_ENV === 'production' ? false : 'filesystem',
+        type: 'filesystem',
         hashAlgorithm: 'md4',
         name: 'webpack-server',
         version: '1',
@@ -67,7 +70,7 @@ const nextConfig = {
     } else {
       // Client-side: use filesystem cache with strict limits
       config.cache = {
-        type: process.env.NODE_ENV === 'production' ? false : 'filesystem',
+        type: 'filesystem',
         hashAlgorithm: 'md4',
         name: 'webpack-client',
         version: '1',
