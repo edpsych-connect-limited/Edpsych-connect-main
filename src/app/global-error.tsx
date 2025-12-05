@@ -9,10 +9,9 @@
  */
 
 import React from 'react';
-// DISABLED: Sentry causes build error - will be re-enabled after build infrastructure is fixed
-// import * as Sentry from "@sentry/nextjs";
 import { Button } from '@/components/ui/button';
 import { RefreshCw } from 'lucide-react';
+import { reportErrorBoundaryError } from '@/lib/error-reporting';
 
 /**
  * Global Error page for App Router
@@ -29,9 +28,12 @@ export default function GlobalError({
   reset: () => void;
 }) {
   React.useEffect(() => {
-    // Log the error to console (Sentry disabled during build phase)
-    // Sentry.captureException(error);
-    if (error) console.error('Global Error:', error);
+    // Report error to our API-based error tracking
+    if (error) {
+      reportErrorBoundaryError(error, { componentStack: 'Global Error Boundary' }).catch(() => {
+        // Silently fail - error reporting should not break the app
+      });
+    }
   }, [error]);
 
   if (typeof window === 'undefined' || typeof React === 'undefined' || !React.useContext) {

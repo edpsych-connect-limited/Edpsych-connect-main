@@ -9,11 +9,10 @@
  */
 
 import React from 'react';
-// DISABLED: Sentry causes build error - will be re-enabled after build infrastructure is fixed
-// import * as Sentry from "@sentry/nextjs";
 import { ErrorDisplay } from '@/components/error-handling/ErrorDisplay';
 import { Button } from '@/components/ui/button';
 import { RefreshCw } from 'lucide-react';
+import { reportErrorBoundaryError } from '@/lib/error-reporting';
 
 /**
  * Error page for App Router
@@ -29,9 +28,12 @@ export default function Error({
   reset: () => void;
 }) {
   React.useEffect(() => {
-    // Log the error to Sentry
-    Sentry.captureException(error);
-    if (error) console.error('Route Error:', error);
+    // Report error to our API-based error tracking
+    if (error) {
+      reportErrorBoundaryError(error, { componentStack: 'Route Error Boundary' }).catch(() => {
+        // Silently fail - error reporting should not break the app
+      });
+    }
   }, [error]);
 
   return (

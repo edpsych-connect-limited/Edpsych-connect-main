@@ -44,19 +44,7 @@ const nextConfig = {
     ],
   },
   webpack: (config, { isServer }) => {
-    // CRITICAL: Replace @sentry/nextjs with stub during server-side build
-    // to prevent "ReferenceError: self is not defined" error
-    // Sentry SDK has dependencies that try to access browser globals during compilation
-    if (isServer) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        '@sentry/nextjs': path.join(__dirname, 'src/lib/sentry-stub.ts'),
-        '@sentry/node': path.join(__dirname, 'src/lib/sentry-stub.ts'),
-        '@sentry/integrations': path.join(__dirname, 'src/lib/sentry-stub.ts'),
-      };
-    }
-    
-    // Suppress 'Critical dependency' warning from require-in-the-middle (used by Sentry/OpenTelemetry)
+    // Suppress 'Critical dependency' warning from require-in-the-middle
     // This is expected behavior for dynamic instrumentation and does not affect functionality
     config.ignoreWarnings = [
       ...(config.ignoreWarnings || []),
