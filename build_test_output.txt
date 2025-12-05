@@ -1,0 +1,6 @@
+
+> edpsych-connect-web-v2@1.0.0 build
+> NODE_OPTIONS='--max-old-space-size=2560' node node_modules/next/dist/bin/next build
+
+'NODE_OPTIONS' is not recognized as an internal or external command,
+operable program or batch file.

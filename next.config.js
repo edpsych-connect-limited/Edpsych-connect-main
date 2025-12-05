@@ -44,18 +44,16 @@ const nextConfig = {
     ],
   },
   webpack: (config, { isServer }) => {
-    // CRITICAL: Exclude Sentry from bundling to prevent "self is not defined" error
-    // Sentry SDK tries to access browser globals during server-side build
-    // This external prevents it from being included in the bundle
+    // CRITICAL: Replace @sentry/nextjs with stub during server-side build
+    // to prevent "ReferenceError: self is not defined" error
+    // Sentry SDK has dependencies that try to access browser globals during compilation
     if (isServer) {
-      config.externals = [
-        ...(Array.isArray(config.externals) ? config.externals : [config.externals]).filter(Boolean),
-        {
-          '@sentry/nextjs': '@sentry/nextjs',
-          '@sentry/node': '@sentry/node',
-          '@sentry/integrations': '@sentry/integrations',
-        },
-      ];
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@sentry/nextjs': path.join(__dirname, 'src/lib/sentry-stub.ts'),
+        '@sentry/node': path.join(__dirname, 'src/lib/sentry-stub.ts'),
+        '@sentry/integrations': path.join(__dirname, 'src/lib/sentry-stub.ts'),
+      };
     }
     
     // Suppress 'Critical dependency' warning from require-in-the-middle (used by Sentry/OpenTelemetry)
