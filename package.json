@@ -10,6 +10,7 @@
     "dev": "node node_modules/next/dist/bin/next dev",
     "build": "NODE_OPTIONS='--max-old-space-size=8192' node node_modules/next/dist/bin/next build",
     "build:safe": "NODE_OPTIONS='--max-old-space-size=8192' node node_modules/next/dist/bin/next build",
+    "prebuild": "rm -rf node_modules/@sentry 2>/dev/null || true",
     "start": "node node_modules/next/dist/bin/next start",
     "lint": "node node_modules/next/dist/bin/next lint",
     "type-check": "NODE_OPTIONS='--max-old-space-size=4096' node node_modules/typescript/bin/tsc --noEmit --skipLibCheck",
