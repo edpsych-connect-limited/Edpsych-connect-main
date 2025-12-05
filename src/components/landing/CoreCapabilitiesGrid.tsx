@@ -87,8 +87,7 @@ export default function CoreCapabilitiesGrid() {
       color: "text-sky-400",
       bg: "bg-sky-400/10",
       href: "/settings",
-      tier: "professional",
-      comingSoon: true
+      tier: "professional"
     },
     {
       icon: MessageSquareText,
