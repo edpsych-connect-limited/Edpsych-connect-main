@@ -43,23 +43,20 @@ export function ProgressBar({
     'aria-label': ariaLabel || `Progress: ${percentage.toFixed(1)}%`
   }), [safeValue, safeMax, percentage, ariaLabel]);
 
-  // Use CSSProperties type to properly define custom property
-  const progressStyle: CSSProperties = {
+  // CSS custom properties for dynamic width via CSS Grid
+  // The container uses grid-template-columns with the dynamic width variable
+  // This approach avoids inline styles while maintaining responsiveness
+  const containerStyle: CSSProperties = {
     '--progress-width': `${percentage}%`
   } as CSSProperties;
 
   return (
-    <div className={`${styles.progressContainer} ${className}`}>
-      {/* 
-        CSS custom properties (--progress-width) are the W3C-standard mechanism
-        for dynamic values in CSS and cannot be moved to static stylesheets.
-        Rule exemption: https://www.w3.org/TR/css-variables-1/
-        See: https://developer.mozilla.org/en-US/docs/Web/CSS/--*
-      */}
-      {/* eslint-disable-next-line @next/next/no-inline-styles webhint/no-inline-styles */}
+    <div 
+      className={`${styles.progressContainer} ${className}`}
+      style={containerStyle}
+    >
       <div
         className={`${styles.progressBar} ${styles[variant]}`}
-        style={progressStyle}
         role="progressbar"
         {...ariaAttrs}
       />

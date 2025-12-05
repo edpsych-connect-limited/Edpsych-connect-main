@@ -298,7 +298,7 @@ export default function SEN2ReturnsPage() {
                         ariaLabel={`${placement}: ${count} out of ${currentReturn.total_ehcps}`}
                       />
                     </div>
-                  ))}}
+                  ))}
                 </div>
               </div>
             )}

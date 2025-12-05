@@ -1,11 +1,18 @@
 {
   "extends": ["development"],
   "hints": {
+    "no-inline-styles": [
+      "warning",
+      {
+        "exclude": []
+      }
+    ]
+  },
+  "ruleOptions": {
     "no-inline-styles": {
-      "severity": "warning",
-      "ignore": [
-        "CSS custom properties (CSS variables) are excluded from this rule as they are the W3C-standard mechanism for dynamic values in CSS. References: https://www.w3.org/TR/css-variables-1/"
-      ]
+      "allowCSSVariables": true
     }
   }
 }
+
+
