@@ -164,7 +164,7 @@ export class EmailService {
    * Notify admin of new waitlist signup
    */
   async notifyAdminNewWaitlistSignup(entry: any): Promise<boolean> {
-    const adminEmail = process.env.ADMIN_EMAIL || 'scott.ipatrick@edpsychconnect.com';
+    const adminEmail = process.env.ADMIN_EMAIL || 'admin@edpsychconnect.com';
     
     return this.sendEmail({
       to: adminEmail,

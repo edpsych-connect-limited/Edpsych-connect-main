@@ -41,6 +41,7 @@ export const VoiceAssistant: React.FC = () => {
     stopListening,
     resetTranscript,
     browserSupportsSpeechRecognition,
+    isProcessingServerSide,
   } = useSpeechRecognition();
 
   const [assistantResponse, setAssistantResponse] = useState<string>('');
@@ -320,7 +321,12 @@ export const VoiceAssistant: React.FC = () => {
             </div>
 
             <div className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1 flex items-center gap-2 pr-12">
-              {isProcessing ? (
+              {isProcessingServerSide ? (
+                <>
+                  <Loader2 className="w-3 h-3 animate-spin" />
+                  Transcribing...
+                </>
+              ) : isProcessing ? (
                 <>
                   <Loader2 className="w-3 h-3 animate-spin" />
                   Thinking...
@@ -332,11 +338,13 @@ export const VoiceAssistant: React.FC = () => {
               )}
             </div>
             <div className="text-slate-900 dark:text-white font-medium">
-              {isProcessing 
-                ? 'Processing your request...' 
-                : isListening 
-                  ? (transcript || 'Listening...') 
-                  : (assistantResponse || 'How can I help?')}
+              {isProcessingServerSide
+                ? 'Transcribing audio...'
+                : isProcessing 
+                  ? 'Processing your request...' 
+                  : isListening 
+                    ? (transcript || 'Listening...') 
+                    : (assistantResponse || 'How can I help?')}
             </div>
           </motion.div>
         )}

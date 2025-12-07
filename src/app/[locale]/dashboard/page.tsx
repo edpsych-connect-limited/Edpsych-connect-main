@@ -12,7 +12,7 @@
 
 import { useAuth } from '@/lib/auth/hooks';
 import { useRouter } from '@/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from '@/navigation';
 import { 
   Users, 
@@ -26,14 +26,17 @@ import {
   Shield,
   Home,
   Trophy,
-  Building
+  Building,
+  Bot
 } from 'lucide-react';
 import { useDemo } from '@/components/demo/DemoProvider';
+import { StreamingAvatar } from '@/components/features/StreamingAvatar';
 
 export default function DashboardPage() {
   const { user, isLoading } = useAuth();
   const { startTour } = useDemo();
   const router = useRouter();
+  const [showAvatar, setShowAvatar] = useState(false);
 
   useEffect(() => {
     const checkAuthAndOnboarding = async () => {
@@ -330,13 +333,22 @@ export default function DashboardPage() {
             <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
             <p className="mt-2 text-gray-600">Welcome back, {user.name || user.email}</p>
           </div>
-          <button
-            onClick={() => startTour('dashboard')}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            <PlayCircle className="w-4 h-4" />
-            Start Tour
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={() => setShowAvatar(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm"
+            >
+              <Bot className="w-4 h-4" />
+              AI Concierge
+            </button>
+            <button
+              onClick={() => startTour('dashboard')}
+              className="flex items-center gap-2 px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              <PlayCircle className="w-4 h-4" />
+              Start Tour
+            </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -385,6 +397,7 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
+      <StreamingAvatar isOpen={showAvatar} onClose={() => setShowAvatar(false)} />
     </div>
   );
 }
