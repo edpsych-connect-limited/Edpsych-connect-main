@@ -18,7 +18,7 @@ import styles from './ProgressBar.module.css';
 interface ProgressBarProps {
   value: number;
   max: number;
-  variant?: 'teal' | 'emerald' | 'blue';
+  variant?: 'teal' | 'emerald' | 'blue' | 'orange' | 'lime' | 'gradient';
   className?: string;
   ariaLabel?: string;
 }

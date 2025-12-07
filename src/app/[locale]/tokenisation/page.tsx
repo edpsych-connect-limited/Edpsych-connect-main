@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import PageHeader from '@/components/layout/PageHeader';
 import { ErrorDisplay } from '@/components/error-handling';
+import { ProgressBar } from '@/components/common/ProgressBar.component';
 
 interface RewardsData {
   totalRewards: number;
@@ -183,12 +184,12 @@ export default function TokenisationPage() {
                         <span className="text-slate-300">{category.name}</span>
                         <span className="text-blue-400 font-bold">{category.amount}</span>
                       </div>
-                      <div className="w-full bg-slate-700 rounded-full h-2 overflow-hidden">
-                        <div
-                          className="bg-gradient-to-r from-blue-500 to-cyan-400 h-full transition-all duration-300"
-                          style={{ width: `${category.percentage}%` } as React.CSSProperties}
-                        />
-                      </div>
+                      <ProgressBar
+                        value={category.percentage}
+                        max={100}
+                        variant="gradient"
+                        className="h-2 bg-slate-700"
+                      />
                     </div>
                     <span className="text-slate-400 text-sm w-12 text-right">{category.percentage}%</span>
                   </div>
@@ -237,28 +238,24 @@ export default function TokenisationPage() {
                     <span className="text-slate-300">Allocated</span>
                     <span className="text-orange-400">${treasury.allocatedFunds.toFixed(2)}</span>
                   </div>
-                  <div className="w-full bg-slate-700 rounded-full h-3 overflow-hidden">
-                    <div
-                      className="bg-orange-500 h-full transition-all duration-300"
-                      style={{
-                        width: `${(treasury.allocatedFunds / treasury.totalFunds) * 100}%`,
-                      } as React.CSSProperties}
-                    />
-                  </div>
+                  <ProgressBar
+                    value={treasury.allocatedFunds}
+                    max={treasury.totalFunds}
+                    variant="orange"
+                    className="h-3 bg-slate-700"
+                  />
                 </div>
                 <div>
                   <div className="flex justify-between mb-2">
                     <span className="text-slate-300">Available</span>
                     <span className="text-lime-400">${treasury.availableFunds.toFixed(2)}</span>
                   </div>
-                  <div className="w-full bg-slate-700 rounded-full h-3 overflow-hidden">
-                    <div
-                      className="bg-lime-500 h-full transition-all duration-300"
-                      style={{
-                        width: `${(treasury.availableFunds / treasury.totalFunds) * 100}%`,
-                      } as React.CSSProperties}
-                    />
-                  </div>
+                  <ProgressBar
+                    value={treasury.availableFunds}
+                    max={treasury.totalFunds}
+                    variant="lime"
+                    className="h-3 bg-slate-700"
+                  />
                 </div>
               </div>
             </div>

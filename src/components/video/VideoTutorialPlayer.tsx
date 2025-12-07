@@ -15,7 +15,7 @@
 
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { Play, AlertCircle, CheckCircle, Clock, X, Loader2 } from 'lucide-react';
-import { HEYGEN_VIDEO_IDS, LOCAL_VIDEO_PATHS } from '@/lib/training/heygen-video-urls';
+import { HEYGEN_VIDEO_IDS, LOCAL_VIDEO_PATHS, VIDEO_OVERLAYS } from '@/lib/training/heygen-video-urls';
 
 // Note: Cloudinary URLs removed - all videos are served locally from public/content/training_videos/
 // Local serving is more reliable and doesn't depend on external CDN
@@ -165,6 +165,8 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
     );
   }
 
+  const overlayImage = VIDEO_OVERLAYS[videoKey];
+
   if (compact) {
     return (
       <div className={`bg-white rounded-lg border border-slate-200 overflow-hidden ${className}`}>
@@ -217,62 +219,84 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
   return (
     <div className={`bg-white rounded-xl shadow-lg overflow-hidden border border-slate-200 ${className}`}>
       {/* Video Container */}
-      <div className="relative aspect-video bg-slate-900">
-        {!hasStarted ? (
-          <button
-            onClick={handlePlay}
-            className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-indigo-900/80 to-purple-900/80 group"
-            aria-label={`Play ${title}`}
-          >
-            <div className="text-center">
-              <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform mx-auto mb-4">
-                <Play className="w-8 h-8 text-indigo-600 ml-1" />
-              </div>
-              <p className="text-white font-medium text-lg">{title}</p>
-              {duration && (
-                <p className="text-white/70 text-sm mt-1 flex items-center justify-center gap-1">
-                  <Clock className="w-4 h-4" /> {duration}
-                </p>
-              )}
-            </div>
-          </button>
-        ) : videoSource === 'heygen' ? (
-          <>
-            <iframe
-              className="absolute inset-0 w-full h-full border-0"
-              src={videoUrl || ''}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-              allowFullScreen
-              title={title}
-            />
-            {/* HeyGen indicator */}
-            <div className="absolute top-2 right-2 bg-indigo-500/90 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
-              <CheckCircle className="w-3 h-3" />
-              Streaming
-            </div>
-          </>
-        ) : (
-          <>
-            <video
-              ref={videoRef}
-              className="absolute inset-0 w-full h-full"
-              autoPlay
-              playsInline
-              controls
-              onError={handleVideoError}
-              onTimeUpdate={handleTimeUpdate}
-              onEnded={handleEnded}
-              src={videoUrl || undefined}
-            />
-            {/* Completion badge overlay */}
-            {isComplete && (
-              <div className="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
-                <CheckCircle className="w-3 h-3" />
-                Complete
-              </div>
-            )}
-          </>
+      <div className="relative aspect-video bg-slate-900 group">
+        
+        {/* Snapshot Overlay (Walkthrough Mode) */}
+        {overlayImage && (
+            <>
+                <img 
+                    src={overlayImage} 
+                    alt="Lesson Snapshot" 
+                    className="absolute inset-0 w-full h-full object-contain opacity-90 z-0"
+                />
+                <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm backdrop-blur-sm z-10">
+                    📸 Interactive Walkthrough
+                </div>
+            </>
         )}
+
+        {/* Video Player Wrapper */}
+        <div className={overlayImage ? "absolute bottom-4 right-4 w-1/3 aspect-video shadow-2xl rounded-lg overflow-hidden border-2 border-white bg-black z-10 transition-transform hover:scale-105" : "absolute inset-0 w-full h-full"}>
+            {!hasStarted ? (
+            <button
+                onClick={handlePlay}
+                className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-indigo-900/80 to-purple-900/80 group"
+                aria-label={`Play ${title}`}
+            >
+                <div className="text-center">
+                <div className={`${overlayImage ? 'w-12 h-12' : 'w-20 h-20'} bg-white/90 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform mx-auto mb-4`}>
+                    <Play className={`${overlayImage ? 'w-5 h-5' : 'w-8 h-8'} text-indigo-600 ml-1`} />
+                </div>
+                {!overlayImage && (
+                    <>
+                        <p className="text-white font-medium text-lg">{title}</p>
+                        {duration && (
+                            <p className="text-white/70 text-sm mt-1 flex items-center justify-center gap-1">
+                            <Clock className="w-4 h-4" /> {duration}
+                            </p>
+                        )}
+                    </>
+                )}
+                </div>
+            </button>
+            ) : videoSource === 'heygen' ? (
+            <>
+                <iframe
+                className="absolute inset-0 w-full h-full border-0"
+                src={videoUrl || ''}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                allowFullScreen
+                title={title}
+                />
+                {/* HeyGen indicator */}
+                <div className="absolute top-2 right-2 bg-indigo-500/90 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
+                <CheckCircle className="w-3 h-3" />
+                Streaming
+                </div>
+            </>
+            ) : (
+            <>
+                <video
+                ref={videoRef}
+                className="absolute inset-0 w-full h-full"
+                autoPlay
+                playsInline
+                controls
+                onError={handleVideoError}
+                onTimeUpdate={handleTimeUpdate}
+                onEnded={handleEnded}
+                src={videoUrl || undefined}
+                />
+                {/* Completion badge overlay */}
+                {isComplete && (
+                <div className="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
+                    <CheckCircle className="w-3 h-3" />
+                    Complete
+                </div>
+                )}
+            </>
+            )}
+        </div>
       </div>
 
       {/* Info Section */}

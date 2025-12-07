@@ -67,9 +67,15 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (_error) {
-    console.error('Forgot Password Error:', _error);
+    console.error('[Forgot Password API] Critical Error:', _error);
+    
+    // Return a generic error to the user, but ensure we don't crash the client
     return NextResponse.json(
-      { error: 'An unexpected _error occurred. Please try again later.' },
+      { 
+        success: false,
+        error: 'An unexpected error occurred. Our team has been notified.',
+        code: 'AUTH_RESET_ERROR' 
+      },
       { status: 500 }
     );
   }

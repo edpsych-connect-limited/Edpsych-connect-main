@@ -25,6 +25,7 @@ import {
   getBestVideoSource,
   extractLessonIdFromUrl,
   getSpeakerForVideo,
+  VIDEO_OVERLAYS,
 } from '@/lib/training/heygen-video-urls';
 
 // ============================================================================
@@ -617,16 +618,63 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                     {/* Video Player */}
                     {currentLesson.type === 'video' && (
                       <div className="mb-6">
-                        <div className="bg-black rounded-xl overflow-hidden shadow-2xl">
+                        <div className="bg-black rounded-xl overflow-hidden shadow-2xl relative">
                           {/* Use local video files first, HeyGen embed as fallback */}
                           {(() => {
                             const lessonId = currentLesson.content_url 
                               ? extractLessonIdFromUrl(currentLesson.content_url)
                               : undefined;
                             const videoSource = lessonId ? getBestVideoSource(lessonId) : undefined;
+                            const overlayImage = lessonId ? VIDEO_OVERLAYS[lessonId] : undefined;
                             
-                            // If we have a local video file, use native HTML5 video player
-                            if (videoSource?.isLocal) {
+                            // Helper to render the video element
+                            const renderVideo = (isSmall = false) => {
+                              // If we have a local video file, use native HTML5 video player
+                              if (videoSource?.isLocal) {
+                                return (
+                                  <video
+                                    ref={videoRef}
+                                    className={`w-full h-full object-cover ${isSmall ? '' : 'aspect-video'}`}
+                                    controls
+                                    preload="auto"
+                                    playsInline
+                                    crossOrigin="anonymous"
+                                    onTimeUpdate={handleVideoProgress}
+                                    onEnded={handleVideoEnded}
+                                    src={videoSource.url}
+                                    poster={`/content/training_videos/thumbnails/${lessonId}.jpg`}
+                                  >
+                                    <track 
+                                      kind="captions" 
+                                      src={`/content/training_videos/captions/${lessonId}.vtt`} 
+                                      srcLang="en" 
+                                      label="English" 
+                                      default 
+                                    />
+                                    Your browser does not support the video tag.
+                                  </video>
+                                );
+                              }
+                              
+                              // Fallback to HeyGen embed (requires their server)
+                              if (videoSource && !videoSource.isLocal) {
+                                return (
+                                  <iframe
+                                    src={videoSource.url}
+                                    className={`w-full h-full ${isSmall ? '' : 'aspect-video'}`}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                    title={currentLesson.title}
+                                    onLoad={() => {
+                                      if (state.video_progress === 0) {
+                                        setState(prev => ({ ...prev, video_progress: 10 }));
+                                      }
+                                    }}
+                                  />
+                                );
+                              }
+                              
+                              // Ultimate fallback to content_url or placeholder
                               return (
                                 <video
                                   ref={videoRef}
@@ -637,55 +685,40 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                                   crossOrigin="anonymous"
                                   onTimeUpdate={handleVideoProgress}
                                   onEnded={handleVideoEnded}
-                                  src={videoSource.url}
-                                  poster={`/content/training_videos/thumbnails/${lessonId}.jpg`}
+                                  src={currentLesson.content_url || '/videos/placeholder.mp4'}
                                 >
-                                  <track 
-                                    kind="captions" 
-                                    src={`/content/training_videos/captions/${lessonId}.vtt`} 
-                                    srcLang="en" 
-                                    label="English" 
-                                    default 
-                                  />
                                   Your browser does not support the video tag.
                                 </video>
                               );
-                            }
-                            
-                            // Fallback to HeyGen embed (requires their server)
-                            if (videoSource && !videoSource.isLocal) {
+                            };
+
+                            // LAYOUT 1: Walkthrough Mode (Snapshot + Avatar)
+                            // Used when we have a static screenshot of the UI to show while the avatar talks
+                            if (overlayImage) {
                               return (
-                                <iframe
-                                  src={videoSource.url}
-                                  className="w-full aspect-video"
-                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                  allowFullScreen
-                                  title={currentLesson.title}
-                                  onLoad={() => {
-                                    if (state.video_progress === 0) {
-                                      setState(prev => ({ ...prev, video_progress: 10 }));
-                                    }
-                                  }}
-                                />
+                                <div className="relative w-full aspect-video bg-gray-900 group">
+                                  {/* Main Content: Snapshot */}
+                                  <img 
+                                    src={overlayImage} 
+                                    alt="Lesson Snapshot" 
+                                    className="w-full h-full object-contain opacity-90"
+                                  />
+                                  
+                                  {/* Floating Avatar (Dr. Scott / Adrian) */}
+                                  <div className="absolute bottom-4 right-4 w-1/3 aspect-video shadow-2xl rounded-lg overflow-hidden border-2 border-white bg-black transition-transform hover:scale-105 z-10">
+                                    {renderVideo(true)}
+                                  </div>
+
+                                  {/* Label */}
+                                  <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm backdrop-blur-sm z-10">
+                                    📸 Interactive Walkthrough
+                                  </div>
+                                </div>
                               );
                             }
-                            
-                            // Ultimate fallback to content_url or placeholder
-                            return (
-                              <video
-                                ref={videoRef}
-                                className="w-full aspect-video"
-                                controls
-                                preload="auto"
-                                playsInline
-                                crossOrigin="anonymous"
-                                onTimeUpdate={handleVideoProgress}
-                                onEnded={handleVideoEnded}
-                                src={currentLesson.content_url || '/videos/placeholder.mp4'}
-                              >
-                                Your browser does not support the video tag.
-                              </video>
-                            );
+
+                            // LAYOUT 2: Standard Full Screen Video
+                            return renderVideo(false);
                           })()}
                         </div>
                         {state.video_progress > 0 && state.video_progress < 100 && (

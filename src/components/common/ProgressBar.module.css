@@ -44,6 +44,18 @@
   background-color: rgb(59, 130, 246); /* bg-blue-500 */
 }
 
+.progressBar.orange {
+  background-color: rgb(249, 115, 22); /* bg-orange-500 */
+}
+
+.progressBar.lime {
+  background-color: rgb(132, 204, 22); /* bg-lime-500 */
+}
+
+.progressBar.gradient {
+  background: linear-gradient(to right, rgb(59, 130, 246), rgb(34, 211, 238)); /* from-blue-500 to-cyan-400 */
+}
+
 
 
 
