@@ -61,7 +61,7 @@ export default function HeroOrchestration() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Link 
-            href="/onboarding"
+            href="/signup"
             className="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/25"
           >
             Start Orchestrating
