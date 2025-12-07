@@ -24,6 +24,7 @@ import {
 import {
   getBestVideoSource,
   extractLessonIdFromUrl,
+  getSpeakerForVideo,
 } from '@/lib/training/heygen-video-urls';
 
 // ============================================================================
@@ -592,6 +593,24 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                         <span>⏱️ {currentLesson.duration_minutes} minutes</span>
                         <span>🏆 {currentLesson.merits_earned} merits</span>
                         <span className="capitalize">📋 {currentLesson.type}</span>
+                        {(() => {
+                          const lessonId = currentLesson.content_url 
+                            ? extractLessonIdFromUrl(currentLesson.content_url)
+                            : undefined;
+                          const speaker = lessonId ? getSpeakerForVideo(lessonId) : undefined;
+                          if (speaker) {
+                            return (
+                              <span className={`px-2 py-1 rounded-full text-xs font-bold ${
+                                speaker === 'Dr. Scott' 
+                                  ? 'bg-blue-100 text-blue-800' 
+                                  : 'bg-purple-100 text-purple-800'
+                              }`}>
+                                {speaker === 'Dr. Scott' ? '👨‍⚕️' : '👨‍💻'} {speaker}
+                              </span>
+                            );
+                          }
+                          return null;
+                        })()}
                       </div>
                     </div>
 
@@ -613,11 +632,21 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                                   ref={videoRef}
                                   className="w-full aspect-video"
                                   controls
+                                  preload="auto"
+                                  playsInline
+                                  crossOrigin="anonymous"
                                   onTimeUpdate={handleVideoProgress}
                                   onEnded={handleVideoEnded}
                                   src={videoSource.url}
                                   poster={`/content/training_videos/thumbnails/${lessonId}.jpg`}
                                 >
+                                  <track 
+                                    kind="captions" 
+                                    src={`/content/training_videos/captions/${lessonId}.vtt`} 
+                                    srcLang="en" 
+                                    label="English" 
+                                    default 
+                                  />
                                   Your browser does not support the video tag.
                                 </video>
                               );
@@ -647,6 +676,9 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                                 ref={videoRef}
                                 className="w-full aspect-video"
                                 controls
+                                preload="auto"
+                                playsInline
+                                crossOrigin="anonymous"
                                 onTimeUpdate={handleVideoProgress}
                                 onEnded={handleVideoEnded}
                                 src={currentLesson.content_url || '/videos/placeholder.mp4'}

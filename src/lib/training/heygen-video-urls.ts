@@ -4,6 +4,18 @@
 // Updated: 2025-11-30 - Added comprehensive Help Centre, EHCP, Parent Portal, Feature, and Error Recovery videos
 // Updated: 2025-12-01 - Added Admin/IT, Student, Conditions, Marketplace, Mobile, Accessibility, Crisis videos
 
+// ============================================================================
+// CASTING STRATEGY (Dr. Scott vs. Adrian)
+// ============================================================================
+// 👨‍⚕️ Dr. Scott (The Visionary):
+// - Welcome & Onboarding, Parent Portal, Clinical Concepts, Crisis & Safeguarding.
+// - Tone: Empathetic, Authoritative, Strategic.
+//
+// 👨‍💻 Adrian (The Architect):
+// - Feature Walkthroughs, Admin & IT, Gamification Logic, Error Recovery.
+// - Tone: Precise, Efficient, Technical.
+// ============================================================================
+
 // Video IDs for HeyGen embed
 export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   // ============================================================================
@@ -787,4 +799,41 @@ export function hasHeyGenVideo(lessonId: string): boolean {
 export function extractLessonIdFromUrl(contentUrl: string): string | undefined {
   const match = contentUrl.match(/(autism|adhd|dyslexia)-m\d+-l\d+/);
   return match ? match[0] : undefined;
+}
+
+/**
+ * Get the speaker for a given video ID
+ * @param lessonId - The lesson ID
+ * @returns 'Dr. Scott' | 'Adrian' | undefined
+ */
+export function getSpeakerForVideo(lessonId: string): 'Dr. Scott' | 'Adrian' | undefined {
+  // Dr. Scott (Visionary/Clinical)
+  if (
+    lessonId.includes('welcome') ||
+    lessonId.includes('parent') ||
+    lessonId.includes('clinical') ||
+    lessonId.includes('crisis') ||
+    lessonId.includes('safeguarding') ||
+    lessonId.includes('autism') ||
+    lessonId.includes('adhd') ||
+    lessonId.includes('dyslexia') ||
+    lessonId.includes('platform-introduction')
+  ) {
+    return 'Dr. Scott';
+  }
+
+  // Adrian (Architect/Technical)
+  if (
+    lessonId.includes('feature') ||
+    lessonId.includes('admin') ||
+    lessonId.includes('gamification') ||
+    lessonId.includes('error') ||
+    lessonId.includes('technical') ||
+    lessonId.includes('data') ||
+    lessonId.includes('dashboard')
+  ) {
+    return 'Adrian';
+  }
+
+  return undefined;
 }
