@@ -417,8 +417,8 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // FEATURE WALKTHROUGH VIDEOS
   // ============================================================================
   'feature-dashboard': '/content/training_videos/features/dashboard.mp4',
-  'feature-no-child-engine': '/content/training_videos/features/no-child-engine.mp4',
-  'feature-battle-royale': '/content/training_videos/features/battle-royale.mp4',
+  'feature-no-child-engine': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111358/edpsych-connect/videos/no-child-left-behind.mp4',
+  'feature-battle-royale': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111361/edpsych-connect/videos/gamification-integrity.mp4',
   'feature-reports': '/content/training_videos/features/reports.mp4',
   'feature-interventions': '/content/training_videos/features/interventions.mp4',
   'feature-collaboration': '/content/training_videos/features/collaboration.mp4',
@@ -501,12 +501,12 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // ============================================================================
   // ONBOARDING VIDEOS
   // ============================================================================
-  'onboarding-welcome': '/content/training_videos/onboarding/onboarding-welcome.mp4',
-  'onboarding-role-selection': '/content/training_videos/onboarding/onboarding-role-selection.mp4',
-  'onboarding-goals': '/content/training_videos/onboarding/onboarding-goals.mp4',
-  'onboarding-platform-tour': '/content/training_videos/onboarding/onboarding-platform-tour.mp4',
-  'onboarding-knowledge-check': '/content/training_videos/onboarding/onboarding-knowledge-check.mp4',
-  'onboarding-completion': '/content/training_videos/onboarding/onboarding-completion.mp4',
+  'onboarding-welcome': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110926/edpsych-connect/videos/onboarding-welcome.mp4',
+  'onboarding-role-selection': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110966/edpsych-connect/videos/onboarding-role-selection.mp4',
+  'onboarding-goals': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110985/edpsych-connect/videos/onboarding-goals.mp4',
+  'onboarding-platform-tour': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111289/edpsych-connect/videos/onboarding-platform-tour.mp4',
+  'onboarding-knowledge-check': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111043/edpsych-connect/videos/onboarding-knowledge-check.mp4',
+  'onboarding-completion': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111046/edpsych-connect/videos/onboarding-completion.mp4',
   
   // ============================================================================
   // AUTISM COURSE VIDEOS
@@ -593,9 +593,9 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // ============================================================================
   // DECEMBER 2025 - FEATURE DEEP DIVE VIDEOS
   // ============================================================================
-  'feature-nclb-engine': '/content/training_videos/features/feature-nclb-engine.mp4',
-  'feature-battle-royale-pricing': '/content/training_videos/features/feature-battle-royale-pricing.mp4',
-  'feature-byod-architecture': '/content/training_videos/features/feature-byod-architecture.mp4',
+  'feature-nclb-engine': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111358/edpsych-connect/videos/no-child-left-behind.mp4',
+  'feature-battle-royale-pricing': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111361/edpsych-connect/videos/gamification-integrity.mp4',
+  'feature-byod-architecture': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111354/edpsych-connect/videos/data-autonomy.mp4',
   'feature-intervention-library': '/content/training_videos/features/feature-intervention-library.mp4',
   
   // ============================================================================
@@ -715,8 +715,8 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // CORRECTED: Avatar does NOT claim to be Dr Scott - credits him appropriately
   // ============================================================================
   'platform-introduction-v2': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764863218/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v2.mp4',
-  'platform-introduction-v3': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764875111/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
-  'platform-introduction-featured': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764875111/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
+  'platform-introduction-v3': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
+  'platform-introduction-featured': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
 };
 
 /**
