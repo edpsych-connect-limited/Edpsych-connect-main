@@ -136,10 +136,15 @@ export async function POST(req: Request) {
       },
     });
 
-  } catch (_error) {
-    console.error('Signup error:', _error);
+  } catch (error: any) {
+    console.error('Signup error:', error);
     return NextResponse.json(
-      { success: false, error: 'Internal server _error' },
+      { 
+        success: false, 
+        error: 'Internal server error',
+        details: error.message,
+        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      },
       { status: 500 }
     );
   }
