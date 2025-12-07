@@ -48,6 +48,10 @@
   background-color: rgb(249, 115, 22); /* bg-orange-500 */
 }
 
+.progressBar.red {
+  background-color: rgb(239, 68, 68); /* bg-red-500 */
+}
+
 .progressBar.lime {
   background-color: rgb(132, 204, 22); /* bg-lime-500 */
 }

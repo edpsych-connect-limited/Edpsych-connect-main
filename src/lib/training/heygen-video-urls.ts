@@ -365,11 +365,8 @@ export const HEYGEN_VIDEO_URLS: Record<string, string> = Object.fromEntries(
 // ============================================================================
 // Map lesson IDs to screenshot URLs to overlay during the video.
 // This enhances the narration by showing the actual platform UI.
-export const VIDEO_OVERLAYS: Record<string, string> = {
-  'platform-introduction': '/images/dr-scott-landing.jpg',
-  'marketplace-navigation': '/images/dr-scott-marketplace.jpg',
-  // Add more screenshots here as they are created
-};
+// MOVED TO BOTTOM OF FILE TO AVOID DUPLICATE IDENTIFIER
+// ============================================================================
 
 /**
  * Local video paths - these are the downloaded MP4 files
@@ -522,14 +519,14 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // 'feature-team-collaboration': '/content/training_videos/features/team-collaboration.mp4',
   
   // ============================================================================
-  // ONBOARDING VIDEOS
+  // ONBOARDING VIDEOS (Moved to top of file)
   // ============================================================================
-  'onboarding-welcome': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110926/edpsych-connect/videos/onboarding-welcome.mp4',
-  'onboarding-role-selection': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110966/edpsych-connect/videos/onboarding-role-selection.mp4',
-  'onboarding-goals': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110985/edpsych-connect/videos/onboarding-goals.mp4',
-  'onboarding-platform-tour': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111289/edpsych-connect/videos/onboarding-platform-tour.mp4',
-  'onboarding-knowledge-check': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111043/edpsych-connect/videos/onboarding-knowledge-check.mp4',
-  'onboarding-completion': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111046/edpsych-connect/videos/onboarding-completion.mp4',
+  // 'onboarding-welcome': ...,
+  // 'onboarding-role-selection': ...,
+  // 'onboarding-goals': ...,
+  // 'onboarding-platform-tour': ...,
+  // 'onboarding-knowledge-check': ...,
+  // 'onboarding-completion': ...,
   
   // ============================================================================
   // AUTISM COURSE VIDEOS
@@ -739,7 +736,7 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // ============================================================================
   'platform-introduction-v2': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764863218/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v2.mp4',
   'platform-introduction-v3': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
-  'platform-introduction-featured': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
+  // 'platform-introduction-featured': MOVED TO TOP
 };
 
 /**
@@ -869,6 +866,10 @@ export function getSpeakerForVideo(lessonId: string): 'Dr. Scott' | 'Adrian' | u
 // - The video player floats in the corner (Picture-in-Picture style).
 // ============================================================================
 export const VIDEO_OVERLAYS: Record<string, string> = {
+  // Platform Intro -> Landing Page Snapshot
+  'platform-introduction': '/images/dr-scott-landing.jpg',
+  'marketplace-navigation': '/images/dr-scott-marketplace.jpg',
+
   // NCLB Engine -> Dashboard Snapshot
   'feature-no-child-engine': '/images/walkthroughs/nclb-dashboard.svg',
   'no-child-left-behind': '/images/walkthroughs/nclb-dashboard.svg',

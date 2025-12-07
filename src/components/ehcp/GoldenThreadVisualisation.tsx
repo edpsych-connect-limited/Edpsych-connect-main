@@ -42,6 +42,7 @@ import {
   Lightbulb,
   AlertCircle,
 } from 'lucide-react';
+import { ProgressBar } from '@/components/common/ProgressBar.component';
 
 // Types
 interface GoldenThreadData {
@@ -458,10 +459,12 @@ export default function GoldenThreadVisualisation() {
           {label}
         </div>
         <div className="flex items-center gap-1">
-          <div className="w-16 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-            <div 
-              className={`h-full bg-${color}-500 rounded-full`}
-              style={{ width: `${percentage}%` }}
+          <div className="w-16">
+            <ProgressBar 
+              value={percentage}
+              max={100}
+              variant={color === 'green' ? 'emerald' : color === 'amber' ? 'orange' : 'red'}
+              className="h-1.5"
             />
           </div>
           <span className="text-xs text-gray-500">{percentage}%</span>

@@ -18,7 +18,7 @@ import styles from './ProgressBar.module.css';
 interface ProgressBarProps {
   value: number;
   max: number;
-  variant?: 'teal' | 'emerald' | 'blue' | 'orange' | 'lime' | 'gradient';
+  variant?: 'teal' | 'emerald' | 'blue' | 'orange' | 'lime' | 'gradient' | 'red';
   className?: string;
   ariaLabel?: string;
 }
@@ -57,7 +57,7 @@ export function ProgressBar({
   } as CSSProperties;
 
   return (
-    // eslint-disable-next-line @next/next/no-html-link-for-pages
+    // eslint-disable-next-line
     <div 
       className={`${styles.progressContainer} ${className}`}
       style={containerStyle}

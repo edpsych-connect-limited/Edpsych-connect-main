@@ -19,6 +19,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ScoreResult, DomainScore, CompositeScore } from '@/lib/assessments/scoring-engine';
 import { AssessmentTemplate } from '@/lib/assessments/assessment-library';
+import { ProgressBar } from '@/components/common/ProgressBar.component';
 
 // ============================================================================
 // TYPES
@@ -543,12 +544,12 @@ function DomainScoreBar({ domainScore, isStandardScore }: { domainScore: DomainS
           {isStandardScore ? domainScore.score : `${domainScore.score}/${domainScore.max_possible}`}
         </span>
       </div>
-      <div className="w-full bg-gray-200 rounded-full h-3">
-        <div
-          className={`h-3 rounded-full transition-all ${color}`}
-          style={{ width: `${Math.min(100, Math.max(0, percentage))}%` }}
-        />
-      </div>
+      <ProgressBar 
+        value={percentage}
+        max={100}
+        variant={color.includes('green') ? 'emerald' : color.includes('amber') ? 'orange' : color.includes('red') ? 'red' : 'blue'}
+        className="h-3"
+      />
     </div>
   );
 }
@@ -560,7 +561,7 @@ function ScoreProfileChart({ scores, isStandardScore }: { scores: DomainScore[];
 
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-6">
-      <div className="relative" style={{ height: '400px' }}>
+      <div className="relative h-[400px]">
         {/* Y-axis labels */}
         <div className="absolute left-0 top-0 bottom-0 w-12 flex flex-col justify-between text-xs text-gray-600">
           <span>{maxScore}</span>
@@ -572,7 +573,7 @@ function ScoreProfileChart({ scores, isStandardScore }: { scores: DomainScore[];
         <div className="absolute left-14 right-0 top-0 bottom-0">
           {/* Average line */}
           {isStandardScore && (
-            <div className="absolute left-0 right-0 border-t-2 border-dashed border-gray-400" style={{ top: '50%' }}>
+            <div className="absolute left-0 right-0 border-t-2 border-dashed border-gray-400 top-1/2">
               <span className="absolute -top-2 right-0 text-xs text-gray-600">Average (100)</span>
             </div>
           )}
@@ -582,8 +583,9 @@ function ScoreProfileChart({ scores, isStandardScore }: { scores: DomainScore[];
             {scores.map((score) => {
               const height = ((score.score - minScore) / range) * 100;
               return (
-                <div key={score.domain} className="flex flex-col items-center" style={{ width: '12%' }}>
+                <div key={score.domain} className="flex flex-col items-center w-[12%]">
                   <div className="relative flex-1 w-full flex items-end justify-center">
+                    {/* eslint-disable-next-line */}
                     <div
                       className="w-full bg-blue-600 rounded-t hover:bg-blue-700 transition-colors flex items-start justify-center pt-2"
                       style={{ height: `${height}%` }}

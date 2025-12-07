@@ -35,6 +35,7 @@ import {
   Lightbulb,
   ArrowRight,
 } from 'lucide-react';
+import { ProgressBar } from '@/components/common/ProgressBar.component';
 
 // Types
 interface RiskPrediction {
@@ -581,15 +582,15 @@ export default function ComplianceRiskPredictor() {
                     {prediction.breachProbability}%
                   </span>
                 </div>
-                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                  <div 
-                    className={`h-2 rounded-full transition-all ${
-                      prediction.breachProbability >= 70 ? 'bg-red-500' : 
-                      prediction.breachProbability >= 40 ? 'bg-orange-500' : 'bg-green-500'
-                    }`}
-                    style={{ width: `${prediction.breachProbability}%` }}
-                  />
-                </div>
+                <ProgressBar 
+                  value={prediction.breachProbability}
+                  max={100}
+                  variant={
+                    prediction.breachProbability >= 70 ? 'red' : 
+                    prediction.breachProbability >= 40 ? 'orange' : 'emerald'
+                  }
+                  className="h-2"
+                />
               </div>
 
               {/* Expanded Details */}
@@ -705,10 +706,12 @@ export default function ComplianceRiskPredictor() {
             <div key={month.month} className="text-center">
               <div className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">{month.month}</div>
               <div className="relative h-32 bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">
+                {/* eslint-disable-next-line */}
                 <div 
                   className="absolute bottom-0 left-0 right-0 bg-red-400 transition-all"
                   style={{ height: `${(month.breaches / month.predicted) * 100}%` }}
                 />
+                {/* eslint-disable-next-line */}
                 <div 
                   className="absolute bottom-0 left-0 right-0 bg-green-400 transition-all"
                   style={{ height: `${(month.prevented / month.predicted) * 100}%`, opacity: 0.7 }}
@@ -744,12 +747,12 @@ export default function ComplianceRiskPredictor() {
             <div key={indicator.id} className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm">
               <div className="text-2xl font-bold text-indigo-600">{Math.round(indicator.weight * 100)}%</div>
               <div className="text-sm font-medium text-gray-900 dark:text-white">{indicator.name}</div>
-              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1 mt-2">
-                <div 
-                  className="bg-indigo-600 h-1 rounded-full"
-                  style={{ width: `${indicator.weight * 100}%` }}
-                />
-              </div>
+              <ProgressBar 
+                value={indicator.weight * 100}
+                max={100}
+                variant="blue"
+                className="h-1 mt-2"
+              />
             </div>
           ))}
         </div>

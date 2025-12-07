@@ -67,8 +67,8 @@ export class EmailService {
       logger.debug(`[EmailService] Email processed: ${info.messageId}`);
 
       // If using JSON transport (no API key), log the email content for debugging/admin use
-      // @ts-expect-error - info.message exists on JSON transport response
-      if (this.transporter.transporter.name === 'JSON' || info.message) {
+      // info.message exists on JSON transport response
+      if (this.transporter.transporter.name === 'JSON' || (info as any).message) {
         logger.info('=================================================================');
         logger.info('📧 [EMAIL SERVICE - MOCK MODE]');
         logger.info(`To: ${options.to}`);
