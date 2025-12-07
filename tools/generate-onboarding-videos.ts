@@ -20,9 +20,9 @@ if (!API_KEY) {
   process.exit(1);
 }
 
-// Configuration - Same as marketing videos for consistency
-const AVATAR_ID = 'Adrian_public_2_20240312'; // Adrian in Blue Suit
-const VOICE_ID = '453c20e1525a429080e2ad9e4b26f2cd'; // Archer - full ID
+// Configuration - Dr. Scott Ighavongbe-Patrick
+const AVATAR_ID = '0d10345ca99840cdbd3103692ba55e27';
+const VOICE_ID = '50d2a2a531d049719a0debbf82e1cf4c';
 const VOICE_LOCALE = 'en-GB';
 const VIDEO_WIDTH = 1920;
 const VIDEO_HEIGHT = 1080;
@@ -35,7 +35,7 @@ const ONBOARDING_SCRIPTS: Record<string, { title: string; script: string }> = {
 
 You know that feeling when you walk into a new building for the first time? Everything looks a bit unfamiliar, you're not quite sure which corridor leads where, and you just want someone friendly to show you around? That's exactly what I'm here for.
 
-EdPsych Connect World was built by educational professionals for educational professionals. Dr Scott Ighavongbe-Patrick created this platform because he watched too many brilliant colleagues drowning in paperwork when they should have been doing what they do best: transforming children's lives.
+EdPsych Connect World was built by educational professionals for educational professionals. I created this platform because I watched too many brilliant colleagues drowning in paperwork when they should have been doing what they do best: transforming children's lives.
 
 Over the next few minutes, I'll walk you through everything you need to know. We'll set up your profile, explore the tools that'll save you hours every week, and show you exactly how to hit the ground running.
 

@@ -27,11 +27,11 @@ if (!API_KEY) {
 // CONFIGURATION
 // ============================================================================
 
-// Professional male avatar in business attire
-const AVATAR_ID = 'Adrian_public_2_20240312'; // Adrian in Blue Suit - professional, warm
+// Dr. Scott Ighavongbe-Patrick
+const AVATAR_ID = '0d10345ca99840cdbd3103692ba55e27';
 
 // Voice with British English locale support
-const VOICE_ID = '453c20e1525a429080e2ad9e4b26f2cd'; // Archer - male, supports locale (full ID)
+const VOICE_ID = '50d2a2a531d049719a0debbf82e1cf4c';
 const VOICE_LOCALE = 'en-GB'; // British English
 
 // Video settings
@@ -52,7 +52,7 @@ You know that feeling when you're drowning in paperwork? When you've got thirty 
 
 I've been there. Every educational psychologist, every SENCO, every teacher supporting children with special educational needs has been there. And honestly? It's exhausting.
 
-That's exactly why EdPsych Connect World was created. Not by a tech company trying to sell you another tool you don't need. But by Dr Scott Ighavongbe-Patrick, an educational psychologist who got tired of watching brilliant professionals burn out doing admin when they should be changing children's lives.
+That's exactly why I created EdPsych Connect World. Not as a tech company trying to sell you another tool you don't need. But as an educational psychologist who got tired of watching brilliant professionals burn out doing admin when they should be changing children's lives.
 
 So what actually is this platform? Think of it like having an incredibly organised, infinitely patient colleague who never sleeps. Someone who remembers every assessment, knows every intervention, and can write a first draft of that report while you're having your morning coffee.
 

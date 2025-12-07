@@ -61,12 +61,20 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
   const [videoSource, setVideoSource] = useState<'loading' | 'local' | 'heygen' | 'error'>('loading');
   const [_errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Fetch video URL with priority: HeyGen Embed > Local/Cloudinary MP4
+  // Fetch video URL with priority: Cloudinary URL > HeyGen Embed > Local MP4
   // In production (Vercel), local files are NOT available (100+ MP4s exceed limits)
-  // So we ALWAYS try HeyGen first - these are reliable CDN-hosted videos
+  // So we prioritize Cloudinary CDN URLs, then HeyGen Embeds
   useEffect(() => {
     async function findVideoSource() {
-      // 1. Try HeyGen FIRST (reliable, CDN-hosted, works on Vercel)
+      // 1. Check for Cloudinary/External URL in LOCAL_VIDEO_PATHS (Primary Source)
+      const localPath = LOCAL_VIDEO_PATHS[videoKey];
+      if (localPath && (localPath.startsWith('http://') || localPath.startsWith('https://'))) {
+        setVideoUrl(localPath);
+        setVideoSource('local'); // Treat as local/direct source
+        return;
+      }
+
+      // 2. Try HeyGen Embed (Secondary Source)
       const heygenId = HEYGEN_VIDEO_IDS[videoKey];
       if (heygenId) {
         // Use HeyGen /embeds/ URL (designed for iframe embedding with full player)
@@ -75,16 +83,8 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
         return;
       }
 
-      // 2. Fallback to local file or Cloudinary URL
-      const localPath = LOCAL_VIDEO_PATHS[videoKey];
+      // 3. Fallback to local file path
       if (localPath) {
-        // If it's an external URL (Cloudinary, etc.), use it directly without HEAD check
-        if (localPath.startsWith('http://') || localPath.startsWith('https://')) {
-          setVideoUrl(localPath);
-          setVideoSource('local');
-          return;
-        }
-        
         // For local files, check if they exist (HEAD request to avoid downloading)
         try {
           const response = await fetch(localPath, { method: 'HEAD' });

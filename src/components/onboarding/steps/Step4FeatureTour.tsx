@@ -14,7 +14,7 @@
  * - Responsive design
  */
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import {
   Brain,
   FileText,
@@ -25,10 +25,18 @@ import {
   Check,
   Play,
   X,
-  ExternalLink
+  ExternalLink,
+  Loader2
 } from 'lucide-react';
 import { useOnboarding } from '../OnboardingProvider';
 import { InteractiveDemo } from '../InteractiveDemo';
+import { LOCAL_VIDEO_PATHS } from '@/lib/training/heygen-video-urls';
+
+// Cloudinary video URL - PRIMARY source for production
+const CLOUDINARY_PLATFORM_TOUR_VIDEO = 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111289/edpsych-connect/videos/onboarding-platform-tour.mp4';
+
+// Local video path for onboarding platform tour - for local development
+const LOCAL_PLATFORM_TOUR_VIDEO = LOCAL_VIDEO_PATHS['onboarding-platform-tour'] || '/content/training_videos/onboarding/onboarding-platform-tour.mp4';
 
 interface Feature {
   id: string;
@@ -179,6 +187,76 @@ export function Step4FeatureTour() {
   const [triedDemos, setTriedDemos] = useState<string[]>(state.step4Data.demosTried || []);
   const [showDemoModal, setShowDemoModal] = useState(false);
 
+  // Video state
+  const [videoStarted, setVideoStarted] = useState(false);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [isLoadingVideo, setIsLoadingVideo] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Fetch video URL when play is clicked
+  const fetchVideoUrl = useCallback(async () => {
+    setIsLoadingVideo(true);
+
+    // 1. Try local file first (for development)
+    try {
+      const response = await fetch(LOCAL_PLATFORM_TOUR_VIDEO, { method: 'HEAD' });
+      if (response.ok) {
+        setVideoUrl(LOCAL_PLATFORM_TOUR_VIDEO);
+        setIsLoadingVideo(false);
+        return;
+      }
+    } catch {
+      // Local file doesn't exist, continue
+    }
+
+    // 2. Try Cloudinary CDN (PRIMARY source for production)
+    try {
+      const response = await fetch(CLOUDINARY_PLATFORM_TOUR_VIDEO, { method: 'HEAD' });
+      if (response.ok) {
+        setVideoUrl(CLOUDINARY_PLATFORM_TOUR_VIDEO);
+        setIsLoadingVideo(false);
+        return;
+      }
+    } catch {
+      // Cloudinary failed, continue to fallback
+    }
+
+    // 3. Try HeyGen API as fallback
+    try {
+      const response = await fetch('/api/video/heygen-url?key=onboarding-platform-tour');
+      if (response.ok) {
+        const data = await response.json();
+        if (data.url) {
+          setVideoUrl(data.url);
+          setIsLoadingVideo(false);
+          return;
+        }
+      }
+    } catch {
+      // HeyGen API failed
+    }
+
+    // Fallback - just use local path and let it error naturally
+    setVideoUrl(LOCAL_PLATFORM_TOUR_VIDEO);
+    setIsLoadingVideo(false);
+  }, []);
+
+  // Auto-play when video URL is loaded
+  useEffect(() => {
+    if (videoUrl && videoStarted && videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  }, [videoUrl, videoStarted]);
+
+  const handleVideoPlay = () => {
+    setVideoStarted(true);
+    if (!videoUrl) {
+      fetchVideoUrl();
+    } else if (videoRef.current) {
+      videoRef.current.play();
+    }
+  };
+
   const handleFeatureView = (featureId: string) => {
     setActiveFeature(featureId);
 
@@ -283,6 +361,49 @@ export function Step4FeatureTour() {
         <p className="text-lg text-gray-600">
           Discover the tools that will transform your SEND practice
         </p>
+      </div>
+
+      {/* Video Player */}
+      <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 max-w-4xl mx-auto mb-8">
+        <div className="relative aspect-video bg-gray-900">
+          {!videoStarted ? (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 to-purple-900 opacity-50" />
+              <button
+                onClick={handleVideoPlay}
+                className="relative z-10 group"
+                aria-label="Play platform tour video"
+              >
+                <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all duration-300 ring-1 ring-white/50 group-hover:ring-white">
+                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    <Play className="w-8 h-8 text-indigo-600 ml-1" fill="currentColor" />
+                  </div>
+                </div>
+                <span className="absolute -bottom-12 left-1/2 -translate-x-1/2 text-white font-medium tracking-wide text-sm uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                  Watch Tour
+                </span>
+              </button>
+            </div>
+          ) : (
+            <div className="w-full h-full">
+              {isLoadingVideo && (
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-900 z-10">
+                  <Loader2 className="w-10 h-10 text-white animate-spin" />
+                </div>
+              )}
+              <video
+                ref={videoRef}
+                src={videoUrl || ''}
+                className="w-full h-full object-cover"
+                controls
+                playsInline
+              >
+                <track kind="captions" src="/captions/onboarding-platform-tour.vtt" label="English" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Progress Indicator */}

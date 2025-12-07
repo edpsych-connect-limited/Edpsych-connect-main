@@ -1,9 +1,9 @@
 // Auto-generated HeyGen video IDs
-// Generated: 2025-11-30T00:16:29.221Z
+// Generated: 2025-12-07T12:32:20.433Z
 
 export const WORLD_CLASS_VIDEO_IDS = {
-  'platform-introduction': '4db447c48f65403e991e37ec0be981d6',
-  'data-autonomy': '99735ae8bf3d410fb73ee651d8fac4f7',
-  'no-child-left-behind': '70ec101b44744460a79c70cee1573bb0',
-  'gamification-integrity': '810c3c4bdd644530b498f2dff546409a',
+  'platform-introduction': '4918ba69dc8641c79f7f649874c01d10',
+  'data-autonomy': '7aaa131e10de45808d643665167a1ed8',
+  'no-child-left-behind': 'd3d3ba5658ff4ff4915a6456902c8d4a',
+  'gamification-integrity': '8466dedc0abc453fad7fd74073931652',
 };

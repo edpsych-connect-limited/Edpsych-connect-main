@@ -11,9 +11,9 @@ import * as path from 'path';
 import fetch from 'node-fetch';
 
 // Configuration
-const HEYGEN_API_KEY = 'sk_V2_hgu_kIsPOKnUIeM_Nvtt8QLs3osJMx3nQi5fYEytQNjhR4qM';
-const AVATAR_ID = 'Adrian_public_3_20240312';
-const VOICE_ID = 'aba5ce361bfa433480f4bf281cc4c4f9'; // Oliver Bennett UK
+const HEYGEN_API_KEY = 'sk_V2_hgu_knMBHTR5eZS_Fh7oPDiRF6jLhvQXFPVXnNlMNG7PkjRj';
+const AVATAR_ID = '0d10345ca99840cdbd3103692ba55e27'; // Dr. Scott Ighavongbe-Patrick
+const VOICE_ID = '50d2a2a531d049719a0debbf82e1cf4c'; // Scott Ighavongbe-Patrick
 
 // Cloudinary configuration
 cloudinary.config({
@@ -28,7 +28,7 @@ Let me start with the reality we're facing.
 
 According to the Department for Education's SEN2 returns, there are now over six hundred thousand children in England with Education, Health and Care Plans. That's six hundred thousand families depending on a system that's struggling. The same government data shows that over half of Local Authorities breach the statutory twenty-week timeline. According to IPSEA and the Council for Disabled Children, tribunal costs now exceed five hundred million pounds annually. And perhaps most concerning, British Psychological Society workforce data reveals a ratio of just one Educational Psychologist for every five thousand children.
 
-This isn't sustainable. And that's exactly why Dr Scott Ighavongbe-Patrick and his team built EdPsych Connect.
+This isn't sustainable. And that's exactly why I built EdPsych Connect.
 
 Let me show you what makes this platform different.
 
@@ -50,7 +50,7 @@ The result? According to pilot data, tasks that took hours now take minutes. Ass
 
 More time with students. More impact per case. More families supported. More children thriving.
 
-This isn't just software. It's a movement to transform educational psychology practice. Built by Dr Scott Ighavongbe-Patrick, a registered Educational Psychologist with HCPC number PYL042340, and over a decade of frontline experience.
+This isn't just software. It's a movement to transform educational psychology practice. Built by me, Dr Scott Ighavongbe-Patrick, a registered Educational Psychologist with HCPC number PYL042340, and over a decade of frontline experience.
 
 Ready to explore? Your personalised dashboard is waiting. Click 'Start Orchestrating' to begin.
 

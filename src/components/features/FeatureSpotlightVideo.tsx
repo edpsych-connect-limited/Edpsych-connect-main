@@ -24,41 +24,42 @@ import { Play, Shield, Users, Gamepad2, AlertCircle, Loader2 } from 'lucide-reac
  */
 const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   // Platform Introduction (main landing page)
-  '4db447c48f65403e991e37ec0be981d6': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1749900766/edpsych-connect/videos/platform-introduction.mp4',
-  'platform-introduction': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1749900766/edpsych-connect/videos/platform-introduction.mp4',
+  '700652dcbd134ad281da2126e37560e2': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
+  'platform-introduction': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
   
   // Data Autonomy & Trust
-  '99735ae8bf3d410fb73ee651d8fac4f7': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1749900766/edpsych-connect/videos/data-autonomy.mp4',
-  'data-autonomy': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1749900766/edpsych-connect/videos/data-autonomy.mp4',
+  '7aaa131e10de45808d643665167a1ed8': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111354/edpsych-connect/videos/data-autonomy.mp4',
+  'data-autonomy': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111354/edpsych-connect/videos/data-autonomy.mp4',
   
   // No Child Left Behind
-  '70ec101b44744460a79c70cee1573bb0': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1749900766/edpsych-connect/videos/no-child-left-behind.mp4',
-  'no-child-left-behind': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1749900766/edpsych-connect/videos/no-child-left-behind.mp4',
+  'd3d3ba5658ff4ff4915a6456902c8d4a': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111358/edpsych-connect/videos/no-child-left-behind.mp4',
+  'no-child-left-behind': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111358/edpsych-connect/videos/no-child-left-behind.mp4',
   
   // Gamification Integrity
-  '810c3c4bdd644530b498f2dff546409a': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1749900766/edpsych-connect/videos/gamification-integrity.mp4',
-  'gamification-integrity': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1749900766/edpsych-connect/videos/gamification-integrity.mp4',
+  '8466dedc0abc453fad7fd74073931652': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111361/edpsych-connect/videos/gamification-integrity.mp4',
+  'gamification-integrity': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111361/edpsych-connect/videos/gamification-integrity.mp4',
 };
 
 /**
  * Local video paths for marketing videos (checked first for local development)
+ * UPDATED: Pointing to Cloudinary for consistent experience across envs
  */
 const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // Platform Introduction (main landing page)
-  '4db447c48f65403e991e37ec0be981d6': '/content/training_videos/marketing/platform-introduction.mp4',
-  'platform-introduction': '/content/training_videos/marketing/platform-introduction.mp4',
+  '700652dcbd134ad281da2126e37560e2': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
+  'platform-introduction': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
   
   // Data Autonomy & Trust
-  '99735ae8bf3d410fb73ee651d8fac4f7': '/content/training_videos/marketing/data-autonomy.mp4',
-  'data-autonomy': '/content/training_videos/marketing/data-autonomy.mp4',
+  '7aaa131e10de45808d643665167a1ed8': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111354/edpsych-connect/videos/data-autonomy.mp4',
+  'data-autonomy': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111354/edpsych-connect/videos/data-autonomy.mp4',
   
   // No Child Left Behind
-  '70ec101b44744460a79c70cee1573bb0': '/content/training_videos/marketing/no-child-left-behind.mp4',
-  'no-child-left-behind': '/content/training_videos/marketing/no-child-left-behind.mp4',
+  'd3d3ba5658ff4ff4915a6456902c8d4a': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111358/edpsych-connect/videos/no-child-left-behind.mp4',
+  'no-child-left-behind': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111358/edpsych-connect/videos/no-child-left-behind.mp4',
   
   // Gamification Integrity
-  '810c3c4bdd644530b498f2dff546409a': '/content/training_videos/marketing/gamification-integrity.mp4',
-  'gamification-integrity': '/content/training_videos/marketing/gamification-integrity.mp4',
+  '8466dedc0abc453fad7fd74073931652': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111361/edpsych-connect/videos/gamification-integrity.mp4',
+  'gamification-integrity': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111361/edpsych-connect/videos/gamification-integrity.mp4',
 };
 
 interface FeatureSpotlightVideoProps {

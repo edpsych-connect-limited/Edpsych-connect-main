@@ -1,15 +1,4 @@
-2025-11-30T00:16:20.012Z | SUCCESS | 4db447c48f65403e991e37ec0be981d6 | Welcome to EdPsych Connect World
-2025-11-30T00:16:22.350Z | SUCCESS | 99735ae8bf3d410fb73ee651d8fac4f7 | Data Autonomy & Trust
-2025-11-30T00:16:24.726Z | SUCCESS | 70ec101b44744460a79c70cee1573bb0 | No Child Left Behind
-2025-11-30T00:16:27.132Z | SUCCESS | 810c3c4bdd644530b498f2dff546409a | Gamification Integrity
-
-Onboarding Video Generation - 2025-11-30T00:25:48.128Z
-========================================
-onboarding-welcome: c66df7ae0048468b943488729aa8320b (Welcome to Your EdPsych Connect Journey)
-onboarding-role-selection: 0286cbb4759e4c1d9a8714782d2fd5d2 (Choosing Your Role)
-onboarding-goals: b9b5ddb775774d708f9fc3455bec5f97 (Setting Your Goals)
-onboarding-platform-tour: 47bb7f76c29c4cdfadfbf4fa7cfe624c (Your Platform Tour)
-onboarding-knowledge-check: c6ca50ba25044e65b0d789e54d193f0a (Quick Knowledge Check)
-onboarding-completion: 264e3124a1154aaca4efd96f139732c4 (You're All Set!)
-
-n========================================n
+2025-12-07T12:32:10.565Z | SUCCESS | 4918ba69dc8641c79f7f649874c01d10 | Welcome to EdPsych Connect World
+2025-12-07T12:32:13.582Z | SUCCESS | 7aaa131e10de45808d643665167a1ed8 | Data Autonomy & Trust
+2025-12-07T12:32:15.968Z | SUCCESS | d3d3ba5658ff4ff4915a6456902c8d4a | No Child Left Behind
+2025-12-07T12:32:18.408Z | SUCCESS | 8466dedc0abc453fad7fd74073931652 | Gamification Integrity

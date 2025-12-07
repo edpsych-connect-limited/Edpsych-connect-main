@@ -11,12 +11,13 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   // ============================================================================
   
   // Platform Introduction - Main landing page hero video
-  'platform-introduction': '4db447c48f65403e991e37ec0be981d6',
+  'platform-introduction': '700652dcbd134ad281da2126e37560e2',
+  'platform-introduction-featured': '700652dcbd134ad281da2126e37560e2', // Alias for VideoPremiereSection
   
   // Premium Feature Videos - "See The Magic In Action" section
-  'data-autonomy': '99735ae8bf3d410fb73ee651d8fac4f7',
-  'no-child-left-behind': '70ec101b44744460a79c70cee1573bb0',
-  'gamification-integrity': '810c3c4bdd644530b498f2dff546409a',
+  'data-autonomy': '7aaa131e10de45808d643665167a1ed8',
+  'no-child-left-behind': 'd3d3ba5658ff4ff4915a6456902c8d4a',
+  'gamification-integrity': '8466dedc0abc453fad7fd74073931652',
   
   // LA EHCP Portal - For Local Authority marketing
   'la-ehcp-portal-intro': 'c96239e50f494303a529dcf7ce066f2e',
@@ -139,9 +140,14 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   'platform-summary-welcome': '1d8c7bf00cde4aa2bca002d825f814f0',
   
   // ============================================================================
-  // ONBOARDING VIDEO - Placeholder until dedicated video is generated
+  // ONBOARDING VIDEOS - Dr. Scott Ighavongbe-Patrick
   // ============================================================================
-  'onboarding-welcome': 'c3fdd2d66fe84bc5803c3275fb384947',
+  'onboarding-welcome': '7869c62290c745c6a6d8e9de697c12f4',
+  'onboarding-role-selection': '116a08d99ac34e999eb6160bc7f8343a',
+  'onboarding-goals': 'b98afd8bd6314db3a5fa91721f9180a5',
+  'onboarding-platform-tour': 'ceff11f1f59349229e89ede540df3f6a',
+  'onboarding-knowledge-check': '9611eaa21c044c69b75ee0e971688b15',
+  'onboarding-completion': '2a43ec77883b459db0dffbc62c555291',
   
   // ============================================================================
   // TRAINING COURSE VIDEOS - To be regenerated with storytelling format
@@ -348,12 +354,29 @@ export const HEYGEN_VIDEO_URLS: Record<string, string> = Object.fromEntries(
  */
 export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // ============================================================================
+  // CLOUDINARY HOSTED VIDEOS (Primary Source - Dr. Scott Ighavongbe-Patrick)
+  // ============================================================================
+  'platform-introduction': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
+  'platform-introduction-featured': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
+  
+  'onboarding-welcome': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110926/edpsych-connect/videos/onboarding-welcome.mp4',
+  'onboarding-role-selection': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110966/edpsych-connect/videos/onboarding-role-selection.mp4',
+  'onboarding-goals': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110985/edpsych-connect/videos/onboarding-goals.mp4',
+  'onboarding-platform-tour': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111289/edpsych-connect/videos/onboarding-platform-tour.mp4',
+  'onboarding-knowledge-check': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111043/edpsych-connect/videos/onboarding-knowledge-check.mp4',
+  'onboarding-completion': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111046/edpsych-connect/videos/onboarding-completion.mp4',
+  
+  'data-autonomy': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111354/edpsych-connect/videos/data-autonomy.mp4',
+  'no-child-left-behind': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111358/edpsych-connect/videos/no-child-left-behind.mp4',
+  'gamification-integrity': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111361/edpsych-connect/videos/gamification-integrity.mp4',
+
+  // ============================================================================
   // MARKETING VIDEOS - Landing page feature spotlights
   // ============================================================================
-  'platform-introduction': '/content/training_videos/marketing/platform-introduction.mp4',
-  'data-autonomy': '/content/training_videos/marketing/data-autonomy.mp4',
-  'no-child-left-behind': '/content/training_videos/marketing/no-child-left-behind.mp4',
-  'gamification-integrity': '/content/training_videos/marketing/gamification-integrity.mp4',
+  'platform-introduction-legacy': '/content/training_videos/marketing/platform-introduction.mp4',
+  'data-autonomy-legacy': '/content/training_videos/marketing/data-autonomy.mp4',
+  'no-child-left-behind-legacy': '/content/training_videos/marketing/no-child-left-behind.mp4',
+  'gamification-integrity-legacy': '/content/training_videos/marketing/gamification-integrity.mp4',
   'premium-data-autonomy': '/content/training_videos/marketing/data-autonomy.mp4',
   'premium-no-child-left-behind': '/content/training_videos/marketing/no-child-left-behind.mp4',
   'premium-gamification-integrity': '/content/training_videos/marketing/gamification-integrity.mp4',

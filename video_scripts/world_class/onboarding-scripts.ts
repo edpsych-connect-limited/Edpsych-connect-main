@@ -14,7 +14,7 @@ export const ONBOARDING_SCRIPTS = {
 
 You know that feeling when you walk into a new building for the first time? Everything looks a bit unfamiliar, you're not quite sure which corridor leads where, and you just want someone friendly to show you around? That's exactly what I'm here for.
 
-EdPsych Connect World was built by educational professionals for educational professionals. Dr Scott Ighavongbe-Patrick created this platform because he watched too many brilliant colleagues drowning in paperwork when they should have been doing what they do best: transforming children's lives.
+EdPsych Connect World was built by educational professionals for educational professionals. I created this platform because I watched too many brilliant colleagues drowning in paperwork when they should have been doing what they do best: transforming children's lives.
 
 Over the next few minutes, I'll walk you through everything you need to know. We'll set up your profile, explore the tools that'll save you hours every week, and show you exactly how to hit the ground running.
 

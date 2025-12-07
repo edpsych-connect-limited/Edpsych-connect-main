@@ -10,8 +10,8 @@
  * - The avatar speaks EVERYTHING in the script - no headings or stage directions
  * 
  * PRESENTER NOTE:
- * Dr Scott Ighavongbe-Patrick developed this platform but is NOT the presenter.
- * The presenter is a warm, enthusiastic educational professional sharing the vision.
+ * Dr Scott Ighavongbe-Patrick IS the presenter (via AI Avatar).
+ * The tone should be personal, authoritative, and empathetic.
  */
 
 export const MARKETING_VIDEOS = {
@@ -29,13 +29,13 @@ You know that feeling when you're drowning in paperwork? When you've got thirty 
 
 I've been there. Every educational psychologist, every SENCO, every teacher supporting children with special educational needs has been there. And honestly? It's exhausting.
 
-That's exactly why EdPsych Connect World was created. Not by a tech company trying to sell you another tool you don't need. But by Dr Scott Ighavongbe-Patrick, an educational psychologist who got tired of watching brilliant professionals burn out doing admin when they should be changing children's lives.
+That's exactly why I created EdPsych Connect World. Not as a tech company trying to sell you another tool you don't need. But as an educational psychologist who got tired of watching brilliant professionals burn out doing admin when they should be changing children's lives.
 
 So what actually is this platform? Think of it like having an incredibly organised, infinitely patient colleague who never sleeps. Someone who remembers every assessment, knows every intervention, and can write a first draft of that report while you're having your morning coffee.
 
 Let me show you three things that make this different.
 
-First, evidence-based practice at your fingertips. We've got over fifty validated assessment templates and nearly seventy research-backed interventions. All adapted for the UK context. All ready to use. No more reinventing the wheel for every child.
+First, evidence-based practice at your fingertips. We've got comprehensive validated assessment templates and over 100 research-backed interventions. All adapted for the UK context. All ready to use. No more reinventing the wheel for every child.
 
 Second, and this is the bit that gets me excited, the No Child Left Behind engine. You create one lesson plan. One. And our system automatically generates thirty different versions, each tailored to a specific student's needs. Dyslexia-friendly fonts for Sam. Chunked instructions for Mia. Visual supports for Leo. What used to take hours happens in seconds.
 

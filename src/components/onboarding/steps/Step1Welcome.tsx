@@ -26,7 +26,7 @@ import { ProgressBar } from '@/components/ui/ProgressBar';
 import { LOCAL_VIDEO_PATHS } from '@/lib/training/heygen-video-urls';
 
 // Cloudinary video URL - PRIMARY source for production
-const CLOUDINARY_WELCOME_VIDEO = 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1749900766/edpsych-connect/videos/onboarding-welcome.mp4';
+const CLOUDINARY_WELCOME_VIDEO = 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110926/edpsych-connect/videos/onboarding-welcome.mp4';
 
 // Local video path for onboarding welcome - for local development
 const LOCAL_WELCOME_VIDEO = LOCAL_VIDEO_PATHS['onboarding-welcome'] || '/content/training_videos/onboarding/onboarding-welcome.mp4';

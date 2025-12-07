@@ -46,7 +46,7 @@ That's what we built. Over one hundred database tables. Two hundred React compon
 
 The development invoice for building this from scratch? £2,348,489. That's not a made-up number. That's what a professional agency would charge at current UK market rates.
 
-But we didn't build this to sell to the highest bidder. We built it because Dr Scott Ighavongbe-Patrick, an educational psychologist, got tired of watching colleagues burn out doing admin when they should be changing children's lives.
+But we didn't build this to sell to the highest bidder. I built it because I got tired of watching colleagues burn out doing admin when they should be changing children's lives.
 
 So here's the deal. Individual teachers can access core features from under ten pounds a month. That's less than two coffees a week. Schools get comprehensive tools from under two hundred pounds. Even enterprise Local Authority deployments, with dedicated support and custom integrations, cost a fraction of what comparable systems demand.
 
@@ -624,7 +624,7 @@ That's what Bring Your Own Database means. That's the enterprise standard for se
   // ---------------------------------------------------------------------------
   'feature-intervention-library': {
     id: 'feature-intervention-library',
-    title: 'The Intervention Library: 535 Evidence-Based Strategies',
+    title: 'The Intervention Library: Over 100 Evidence-Based Strategies',
     duration: '90 seconds',
     audience: 'SENCOs, teachers, EPs',
     placement: ['features-page', 'intervention-demo'],
@@ -634,7 +634,7 @@ And you're thinking: what was that intervention I heard about at that conference
 
 The Intervention Library exists so you never have that moment again.
 
-Five hundred and thirty-five interventions. Every single one evidence-rated. Every one mapped to specific need areas. Every one searchable by age group, resource requirements, delivery format, and time commitment.
+Over one hundred interventions. Every single one evidence-rated. Every one mapped to specific need areas. Every one searchable by age group, resource requirements, delivery format, and time commitment.
 
 You're not just getting names and descriptions. You're getting implementation guides that tell you exactly how to deliver the intervention. Progress monitoring frameworks that tell you how to measure whether it's working. Research summaries that tell you why we believe it's effective.
 
@@ -644,7 +644,7 @@ We've done the translation work. We've mapped interventions to UK educational fr
 
 When someone asks "what should we try?", you'll have five genuinely appropriate suggestions before they finish the question.
 
-That's the power of having five hundred and thirty-five evidence-based strategies at your fingertips.
+That's the power of having over one hundred evidence-based strategies at your fingertips.
 
 That's the Intervention Library.`
   },
@@ -772,7 +772,7 @@ Your data protection officer can contact us directly. We welcome scrutiny. Organ
 
 Then teachers and EPs spend years requesting the features that should have been obvious from the start.
 
-EdPsych Connect was built by Dr Scott Ighavongbe-Patrick. An actual educational psychologist. Someone who's written the reports. Attended the meetings. Felt the frustration of software that works against you instead of with you.
+EdPsych Connect was built by me. An actual educational psychologist. Someone who's written the reports. Attended the meetings. Felt the frustration of software that works against you instead of with you.
 
 The difference shows in details that developers wouldn't think to include.
 
