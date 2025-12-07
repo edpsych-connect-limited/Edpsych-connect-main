@@ -24,8 +24,16 @@ export class EmailService {
     // Validate required environment variable
     const sendgridApiKey = process.env.SENDGRID_API_KEY;
     
+    // In production, we want to be stricter about email configuration
+    const isProduction = process.env.NODE_ENV === 'production';
+    
     if (!sendgridApiKey) {
-      logger.warn('SENDGRID_API_KEY not configured - email service will use console logging only');
+      if (isProduction) {
+        logger.error('CRITICAL: SENDGRID_API_KEY missing in production environment. Emails will fail.');
+      } else {
+        logger.warn('SENDGRID_API_KEY not configured - email service will use console logging only');
+      }
+      
       // Initialize with a JSON transport for testing/logging purposes
       this.transporter = nodemailer.createTransport({
         jsonTransport: true
@@ -41,6 +49,8 @@ export class EmailService {
           pass: sendgridApiKey,
         },
       });
+      
+      logger.info('EmailService initialized with SendGrid transport');
     }
   }
 
@@ -124,6 +134,54 @@ export class EmailService {
         </div>
       `,
       text: `Reset your password here: ${resetLink}`
+    });
+  }
+
+  /**
+   * Send waitlist confirmation email
+   */
+  async sendWaitlistConfirmationEmail(email: string, name?: string): Promise<boolean> {
+    return this.sendEmail({
+      to: email,
+      subject: 'Welcome to the EdPsych Connect Waitlist',
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2>You're on the list!</h2>
+          <p>Hi ${name || 'there'},</p>
+          <p>Thanks for expressing interest in EdPsych Connect. We've added you to our priority waitlist.</p>
+          <p>We're building the future of educational psychology support, and we're excited to have you join us on this journey.</p>
+          <p>We'll be in touch soon with updates and early access information.</p>
+          <br/>
+          <p>Best regards,</p>
+          <p>The EdPsych Connect Team</p>
+        </div>
+      `,
+      text: `Hi ${name || 'there'},\n\nThanks for expressing interest in EdPsych Connect. We've added you to our priority waitlist.\n\nWe'll be in touch soon with updates and early access information.\n\nBest regards,\nThe EdPsych Connect Team`
+    });
+  }
+
+  /**
+   * Notify admin of new waitlist signup
+   */
+  async notifyAdminNewWaitlistSignup(entry: any): Promise<boolean> {
+    const adminEmail = process.env.ADMIN_EMAIL || 'scott.ipatrick@edpsychconnect.com';
+    
+    return this.sendEmail({
+      to: adminEmail,
+      subject: `New Waitlist Signup: ${entry.email}`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2>New Waitlist Signup</h2>
+          <p><strong>Email:</strong> ${entry.email}</p>
+          <p><strong>Name:</strong> ${entry.name || 'N/A'}</p>
+          <p><strong>Organization:</strong> ${entry.organization || 'N/A'}</p>
+          <p><strong>Role:</strong> ${entry.role || 'N/A'}</p>
+          <p><strong>Type:</strong> ${entry.organization_type || 'N/A'}</p>
+          <p><strong>Priority:</strong> ${entry.priority}</p>
+          <p><strong>Source:</strong> ${entry.referral_source}</p>
+        </div>
+      `,
+      text: `New Waitlist Signup\n\nEmail: ${entry.email}\nName: ${entry.name || 'N/A'}\nOrganization: ${entry.organization || 'N/A'}\nRole: ${entry.role || 'N/A'}\nType: ${entry.organization_type || 'N/A'}\nPriority: ${entry.priority}\nSource: ${entry.referral_source}`
     });
   }
 }

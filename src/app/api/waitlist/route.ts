@@ -8,6 +8,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
+import { emailService } from '@/lib/email/email-service';
 
 export const dynamic = 'force-dynamic';
 
@@ -93,11 +94,11 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // TODO: Send welcome email via email service (Phase 2)
-    // await sendWaitlistConfirmationEmail(email, name);
+    // Send welcome email via email service
+    await emailService.sendWaitlistConfirmationEmail(email, name);
 
-    // TODO: Notify admin via email (Phase 2)
-    // await notifyAdminNewWaitlistSignup(waitlistEntry);
+    // Notify admin via email
+    await emailService.notifyAdminNewWaitlistSignup(waitlistEntry);
 
     return NextResponse.json({
       success: true,

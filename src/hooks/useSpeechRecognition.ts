@@ -15,6 +15,7 @@ export interface SpeechRecognitionHook {
   stopListening: () => void;
   resetTranscript: () => void;
   browserSupportsSpeechRecognition: boolean;
+  isProcessingServerSide: boolean;
 }
 
 export const useSpeechRecognition = (): SpeechRecognitionHook => {
@@ -22,15 +23,25 @@ export const useSpeechRecognition = (): SpeechRecognitionHook => {
   const [transcript, setTranscript] = useState('');
   const [recognition, setRecognition] = useState<any>(null);
   const [browserSupportsSpeechRecognition, setBrowserSupportsSpeechRecognition] = useState(false);
+  const [isProcessingServerSide, setIsProcessingServerSide] = useState(false);
   
   // Use a ref to track listening state synchronously for event handlers
   const isListeningRef = useRef(false);
+  
+  // MediaRecorder for server-side fallback/enhancement
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-      if (SpeechRecognition) {
-        // Use a timeout to avoid synchronous state update warning
+      
+      // Check if we should use server-side transcription (e.g. for Safari/Firefox)
+      // or if the user prefers high-fidelity mode
+      const useServerSide = !SpeechRecognition || localStorage.getItem('useServerSideVoice') === 'true';
+      
+      if (SpeechRecognition && !useServerSide) {
+        // BROWSER NATIVE MODE
         setTimeout(() => {
           setBrowserSupportsSpeechRecognition(true);
         }, 0);
@@ -41,11 +52,9 @@ export const useSpeechRecognition = (): SpeechRecognitionHook => {
         recognitionInstance.lang = 'en-GB'; // UK English for proper accent recognition
 
         recognitionInstance.onresult = (event: any) => {
-          // If we're not supposed to be listening, ignore results
           if (!isListeningRef.current) return;
 
           let currentTranscript = '';
-          // Iterate from 0 to ensure we get the full transcript of the current session
           for (let i = 0; i < event.results.length; i++) {
             currentTranscript += event.results[i][0].transcript;
           }
@@ -66,14 +75,22 @@ export const useSpeechRecognition = (): SpeechRecognitionHook => {
         setTimeout(() => {
           setRecognition(recognitionInstance);
         }, 0);
+      } else {
+        // SERVER-SIDE MODE (MediaRecorder)
+        // We still report "browserSupportsSpeechRecognition" as true if we can use the fallback
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          setBrowserSupportsSpeechRecognition(true);
+        }
       }
     }
   }, []);
 
-  const startListening = useCallback(() => {
-    if (recognition && !isListening) {
+  const startListening = useCallback(async () => {
+    if (isListening) return;
+
+    // Check if we are using native recognition
+    if (recognition) {
       try {
-        // Reset transcript before starting
         setTranscript('');
         recognition.start();
         setIsListening(true);
@@ -81,12 +98,67 @@ export const useSpeechRecognition = (): SpeechRecognitionHook => {
       } catch (_error) {
         console.error('Error starting speech recognition:', _error);
       }
+    } else {
+      // Fallback to MediaRecorder (Server-Side)
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const mediaRecorder = new MediaRecorder(stream);
+        mediaRecorderRef.current = mediaRecorder;
+        audioChunksRef.current = [];
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data.size > 0) {
+            audioChunksRef.current.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstop = async () => {
+          setIsProcessingServerSide(true);
+          const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+          
+          // Send to API
+          const formData = new FormData();
+          formData.append('file', audioBlob);
+
+          try {
+            const response = await fetch('/api/voice/transcribe', {
+              method: 'POST',
+              body: formData,
+            });
+            
+            if (response.ok) {
+              const data = await response.json();
+              setTranscript(data.text);
+            } else {
+              console.error('Transcription failed');
+            }
+          } catch (e) {
+            console.error('Error sending audio to server:', e);
+          } finally {
+            setIsProcessingServerSide(false);
+            // Stop all tracks
+            stream.getTracks().forEach(track => track.stop());
+          }
+        };
+
+        mediaRecorder.start();
+        setIsListening(true);
+        isListeningRef.current = true;
+        setTranscript('Listening...'); // Placeholder
+      } catch (err) {
+        console.error('Error accessing microphone:', err);
+      }
     }
   }, [recognition, isListening]);
 
   const stopListening = useCallback(() => {
-    if (recognition && isListening) {
-      recognition.stop();
+    if (isListening) {
+      if (recognition) {
+        recognition.stop();
+      } else if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+        mediaRecorderRef.current.stop();
+      }
+      
       setIsListening(false);
       isListeningRef.current = false;
     }
@@ -103,5 +175,6 @@ export const useSpeechRecognition = (): SpeechRecognitionHook => {
     stopListening,
     resetTranscript,
     browserSupportsSpeechRecognition,
+    isProcessingServerSide
   };
 };
