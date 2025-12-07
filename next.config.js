@@ -9,6 +9,12 @@ const nextConfig = {
   typescript: { ignoreBuildErrors: true },
   webpack: (config) => {
     config.cache = false;
+    config.watchOptions = {
+      poll: 1000,
+      aggregateTimeout: 300,
+    };
+    // Fix for EISDIR on Windows mapped drives
+    config.resolve.symlinks = false;
     return config;
   }
 };
