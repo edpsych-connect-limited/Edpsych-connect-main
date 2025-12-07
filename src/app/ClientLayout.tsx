@@ -322,7 +322,8 @@ export default function ClientLayout({
             <HeaderContent />
             <main className={isLandingPage ? '' : 'p-6'}>{children}</main>
             <FeatureExplainer key={pathname} />
-            <VoiceAssistant />
+            {/* VoiceAssistant is now integrated into SupportChatbot */}
+            {/* <VoiceAssistant /> */}
             <AICentralNervousSystem />
             <SupportChatbot />
             {!isLandingPage && (

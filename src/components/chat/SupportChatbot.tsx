@@ -9,8 +9,9 @@
  */
 
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Minimize2, Maximize2, Loader2 } from 'lucide-react';
+import { MessageCircle, X, Send, Minimize2, Maximize2, Loader2, Mic, MicOff } from 'lucide-react';
 import { findBestMatch, findRelevantEntries } from '@/lib/knowledge/platform-knowledge';
+import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
 
 interface Message {
   id: string;
@@ -33,6 +34,22 @@ export function SupportChatbot() {
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const {
+    isListening,
+    transcript,
+    startListening,
+    stopListening,
+    resetTranscript,
+    isProcessingServerSide
+  } = useSpeechRecognition();
+
+  // Sync voice transcript with input
+  useEffect(() => {
+    if (transcript) {
+      setInputValue(transcript);
+    }
+  }, [transcript]);
 
   useEffect(() => {
     scrollToBottom();
@@ -297,9 +314,21 @@ Could you rephrase your question, or pick one of the topics above?`;
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                placeholder="Type a message..."
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                placeholder={isListening ? "Listening..." : "Type a message..."}
+                className={`flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm ${isListening ? 'bg-red-50 border-red-200 placeholder-red-400' : ''}`}
               />
+              <button
+                onClick={isListening ? stopListening : startListening}
+                className={`p-2 rounded-full transition-colors ${
+                  isListening 
+                    ? 'bg-red-500 hover:bg-red-600 text-white animate-pulse' 
+                    : 'bg-gray-100 hover:bg-gray-200 text-gray-600'
+                }`}
+                aria-label={isListening ? "Stop recording" : "Start voice input"}
+                title={isListening ? "Stop recording" : "Start voice input"}
+              >
+                {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+              </button>
               <button
                 onClick={handleSendMessage}
                 disabled={!inputValue.trim() || isTyping}
