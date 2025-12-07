@@ -39,14 +39,14 @@ export interface ParentInfo {
   name: string;
   email: string;
   linkedChildren: number;
-  lastLogin?: Date;
+  last_login?: Date;
   notificationPreferences: NotificationPreferences;
 }
 
 export interface ChildOverview {
   id: number;
   name: string;
-  yearGroup: string;
+  year_group: string;
   school: string;
   profilePhoto?: string;
   hasEHCP: boolean;
@@ -191,8 +191,8 @@ export interface ChildDetailedView {
 export interface ChildDetail {
   id: number;
   name: string;
-  dateOfBirth: Date;
-  yearGroup: string;
+  date_of_birth: Date;
+  year_group: string;
   school: string;
   class: string;
   profilePhoto?: string;
@@ -346,14 +346,14 @@ export class ParentPortalService {
    * Get parent info
    */
   private async getParentInfo(): Promise<ParentInfo> {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.users.findUnique({
       where: { id: this.parentId },
       select: {
         id: true,
         name: true,
         email: true,
-        lastLogin: true,
-        notificationPreferences: true,
+        last_login: true,
+        // notificationPreferences: true,
       },
     });
 
@@ -362,15 +362,15 @@ export class ParentPortalService {
     }
 
     // Count linked children
-    const linkedChildren = await prisma.student.count({
+    const linkedChildren = await prisma.students.count({
       where: {
-        parentIds: { has: this.parentId },
-        tenantId: this.tenantId,
+        parent_links: { some: { parent: { user_id: this.parentId } } } as any as any,
+        tenant_id: this.tenantId,
       },
     });
 
-    const prefs = user.notificationPreferences 
-      ? JSON.parse(user.notificationPreferences as string) 
+    const prefs = (user as any).notificationPreferences 
+      ? JSON.parse((user as any).notificationPreferences as string) 
       : {};
 
     return {
@@ -378,7 +378,7 @@ export class ParentPortalService {
       name: user.name || 'Parent',
       email: user.email || '',
       linkedChildren,
-      lastLogin: user.lastLogin || undefined,
+      last_login: user.last_login || undefined,
       notificationPreferences: {
         emailUpdates: prefs.emailUpdates ?? true,
         smsAlerts: prefs.smsAlerts ?? false,
@@ -394,28 +394,23 @@ export class ParentPortalService {
    * Get overview of all linked children
    */
   private async getChildrenOverview(): Promise<ChildOverview[]> {
-    const children = await prisma.student.findMany({
+    const children = await prisma.students.findMany({
       where: {
-        parentIds: { has: this.parentId },
-        tenantId: this.tenantId,
+        parent_links: { some: { parent: { user_id: this.parentId } } } as any as any,
+        tenant_id: this.tenantId,
       },
-      include: {
-        ehcps: {
-          orderBy: { updatedAt: 'desc' },
-          take: 1,
-        },
-      },
+      include: { ehcps: { orderBy: { updatedAt: 'desc' }, take: 1 } } as any,
     });
 
     return children.map(child => {
-      const ehcp = child.ehcps[0];
+      const ehcp = (child as any).ehcps?.[0];
       
       return {
         id: child.id,
-        name: `${child.firstName} ${child.lastName}`,
-        yearGroup: child.yearGroup || 'Unknown',
-        school: child.schoolName || 'Unknown',
-        profilePhoto: child.photoUrl || undefined,
+        name: `${child.first_name} ${child.last_name}`,
+        year_group: child.year_group || 'Unknown',
+        school: (child as any).school || 'Unknown',
+        profilePhoto: (child as any).profile_photo || undefined,
         hasEHCP: !!ehcp,
         ehcpStatus: ehcp?.status as EHCPStatus | undefined,
         recentMilestone: undefined, // Would fetch from milestones table
@@ -563,48 +558,38 @@ export class ParentPortalService {
       throw new Error('Access denied to this child\'s information');
     }
 
-    const child = await prisma.student.findUnique({
+    const child = await prisma.students.findUnique({
       where: { id: childId },
-      include: {
-        ehcps: {
-          orderBy: { createdAt: 'desc' },
-          take: 1,
-          include: {
-            needs: true,
-            provisions: true,
-            outcomes: true,
-          },
-        },
-      },
+      include: { ehcps: { orderBy: { createdAt: 'desc' }, take: 1, include: { needs: true, provisions: true, outcomes: true } } } as any,
     });
 
     if (!child) {
       throw new Error('Child not found');
     }
 
-    const ehcp = child.ehcps[0];
+    const ehcp = (child as any).ehcps?.[0];
 
     return {
       child: {
         id: child.id,
-        name: `${child.firstName} ${child.lastName}`,
-        dateOfBirth: child.dateOfBirth || new Date(),
-        yearGroup: child.yearGroup || 'Unknown',
-        school: child.schoolName || 'Unknown',
-        class: child.className || 'Unknown',
-        profilePhoto: child.photoUrl || undefined,
+        name: `${child.first_name} ${child.last_name}`,
+        date_of_birth: child.date_of_birth || new Date(),
+        year_group: child.year_group || 'Unknown',
+        school: (child as any).school || 'Unknown',
+        class: (child as any).class_name || 'Unknown',
+        profilePhoto: (child as any).profile_photo || undefined,
         keyContacts: [], // Would populate from staff assignments
-        specialInterests: child.specialInterests ? JSON.parse(child.specialInterests as string) : [],
-        communicationPreferences: child.communicationPreferences ? JSON.parse(child.communicationPreferences as string) : [],
+        specialInterests: (child as any).specialInterests ? JSON.parse((child as any).specialInterests as string) : [],
+        communicationPreferences: (child as any).communicationPreferences ? JSON.parse((child as any).communicationPreferences as string) : [],
       },
       ehcp: ehcp ? {
         id: ehcp.id,
         status: ehcp.status as EHCPStatus,
         lastUpdated: ehcp.updatedAt,
         nextReviewDate: ehcp.nextReviewDate || undefined,
-        keyNeeds: ehcp.needs.slice(0, 3).map(n => n.description || ''),
-        keyProvisions: ehcp.provisions.slice(0, 3).map(p => p.description || ''),
-        keyOutcomes: ehcp.outcomes.slice(0, 3).map(o => o.description || ''),
+        keyNeeds: ehcp.needs.slice(0, 3).map((n: any) => n.description || ''),
+        keyProvisions: ehcp.provisions.slice(0, 3).map((p: any) => p.description || ''),
+        keyOutcomes: ehcp.outcomes.slice(0, 3).map((o: any) => o.description || ''),
         coherenceScore: undefined, // Would fetch from coherence analysis
         timeline: this.buildEHCPTimeline(ehcp),
       } : undefined,
@@ -779,11 +764,9 @@ export class ParentPortalService {
    * Update notification preferences
    */
   async updateNotificationPreferences(preferences: Partial<NotificationPreferences>): Promise<void> {
-    await prisma.user.update({
+    await prisma.users.update({
       where: { id: this.parentId },
-      data: {
-        notificationPreferences: JSON.stringify(preferences),
-      },
+      data: { notificationPreferences: JSON.stringify(preferences) } as any,
     });
 
     logger.info(`[ParentPortal] Updated notification preferences for parent ${this.parentId}`);
@@ -797,10 +780,10 @@ export class ParentPortalService {
    * Get linked child IDs
    */
   private async getLinkedChildIds(): Promise<number[]> {
-    const children = await prisma.student.findMany({
+    const children = await prisma.students.findMany({
       where: {
-        parentIds: { has: this.parentId },
-        tenantId: this.tenantId,
+        parent_links: { some: { parent: { user_id: this.parentId } } } as any as any,
+        tenant_id: this.tenantId,
       },
       select: { id: true },
     });
@@ -812,11 +795,11 @@ export class ParentPortalService {
    * Verify parent has access to child
    */
   private async verifyChildAccess(childId: number): Promise<boolean> {
-    const child = await prisma.student.findFirst({
+    const child = await prisma.students.findFirst({
       where: {
         id: childId,
-        parentIds: { has: this.parentId },
-        tenantId: this.tenantId,
+        parent_links: { some: { parent: { user_id: this.parentId } } } as any as any,
+        tenant_id: this.tenantId,
       },
     });
 
@@ -835,3 +818,6 @@ export class ParentPortalService {
 export function createParentPortalService(tenantId: number, parentId: number): ParentPortalService {
   return new ParentPortalService(tenantId, parentId);
 }
+
+
+

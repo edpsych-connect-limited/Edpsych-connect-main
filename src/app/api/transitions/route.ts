@@ -24,7 +24,7 @@ import { z } from 'zod';
 
 // Validation schemas
 const transitionPlanSchema = z.object({
-  studentId: z.string().uuid(),
+  studentId: z.union([z.string(), z.number()]).transform(val => Number(val)),
   transitionType: z.enum(['EYFS_KS1', 'KS1_KS2', 'KS2_KS3', 'KS3_KS4', 'KS4_POST16', 'POST16_ADULT', 'SCHOOL_CHANGE', 'SPECIALIST_PROVISION']),
   currentSettingId: z.string().uuid().optional(),
   targetSettingId: z.string().uuid().optional(),
@@ -107,11 +107,10 @@ export async function GET(request: NextRequest) {
           student: {
             select: {
               id: true,
-              firstName: true,
-              lastName: true,
-              dateOfBirth: true,
-              yearGroup: true,
-              currentSetting: true
+              first_name: true,
+              last_name: true,
+              date_of_birth: true,
+              year_group: true
             }
           },
           meetings: true,
@@ -158,7 +157,7 @@ export async function GET(request: NextRequest) {
     // List transition plans with filters
     const whereClause: Record<string, unknown> = {};
     
-    if (studentId) whereClause.studentId = studentId;
+    if (studentId) whereClause.studentId = parseInt(studentId);
     if (transitionType) whereClause.transitionType = transitionType;
     if (status) whereClause.status = status;
 
@@ -168,9 +167,9 @@ export async function GET(request: NextRequest) {
         student: {
           select: {
             id: true,
-            firstName: true,
-            lastName: true,
-            yearGroup: true
+            first_name: true,
+            last_name: true,
+            year_group: true
           }
         },
         _count: {
@@ -235,7 +234,7 @@ export async function POST(request: NextRequest) {
         },
         include: {
           student: {
-            select: { firstName: true, lastName: true }
+            select: { first_name: true, last_name: true }
           }
         }
       });
@@ -430,7 +429,7 @@ export async function PUT(request: NextRequest) {
       const meeting = await prisma.transitionMeeting.update({
         where: { id: meetingId },
         data: {
-          outcomes: outcomes as Record<string, unknown>[],
+          outcomes: outcomes as string[],
           actions: actions as Record<string, unknown>[],
           nextSteps,
           actualAttendees: attendees,
@@ -673,7 +672,7 @@ function getChecklistTemplate(transitionType: string): Record<string, unknown> {
 
 async function getTransitionTimeline(studentId: string): Promise<Record<string, unknown>[]> {
   const plans = await prisma.transitionPlan.findMany({
-    where: { studentId },
+    where: { studentId: parseInt(studentId) },
     include: {
       meetings: {
         select: { scheduledDate: true, meetingType: true, status: true }
@@ -685,7 +684,7 @@ async function getTransitionTimeline(studentId: string): Promise<Record<string, 
   const timeline: Record<string, unknown>[] = [];
 
   plans.forEach(plan => {
-    const phases = plan.phases as Record<string, unknown>[];
+    const phases = (plan.phases as Record<string, unknown>[]) || [];
     phases.forEach((phase: Record<string, unknown>) => {
       timeline.push({
         type: 'phase',

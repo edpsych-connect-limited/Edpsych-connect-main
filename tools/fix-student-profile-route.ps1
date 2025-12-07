@@ -1,0 +1,1 @@
+$path = "src/app/api/students/[id]/profile/route.ts"; $content = Get-Content -LiteralPath $path | Out-String; $content = $content -replace "studentsLessonAssignment", "studentLessonAssignment"; Set-Content -LiteralPath $path -Value $content -NoNewline

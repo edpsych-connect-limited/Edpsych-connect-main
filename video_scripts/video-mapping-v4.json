@@ -1,0 +1,177 @@
+[
+  {
+    "videoId": "ehcp-application-journey-v4",
+    "title": "Your EHCP Application Journey",
+    "category": "ehcp",
+    "scriptPath": "/video_scripts/v4_generated/ehcp/ehcp-application-journey.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "ehcp-evidence-gathering-v4",
+    "title": "Gathering Strong EHCP Evidence",
+    "category": "ehcp",
+    "scriptPath": "/video_scripts/v4_generated/ehcp/ehcp-evidence-gathering.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "ehcp-professional-contributions-v4",
+    "title": "Understanding Professional EHCP Contributions",
+    "category": "ehcp",
+    "scriptPath": "/video_scripts/v4_generated/ehcp/ehcp-professional-contributions.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "ehcp-annual-review-v4",
+    "title": "The EHCP Annual Review Process",
+    "category": "ehcp",
+    "scriptPath": "/video_scripts/v4_generated/ehcp/ehcp-annual-review.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "ehcp-appeals-v4",
+    "title": "Understanding EHCP Appeals",
+    "category": "ehcp",
+    "scriptPath": "/video_scripts/v4_generated/ehcp/ehcp-appeals.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "help-getting-started-v4",
+    "title": "Getting Started with EdPsych Connect",
+    "category": "helpCentre",
+    "scriptPath": "/video_scripts/v4_generated/helpCentre/help-getting-started.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "help-first-assessment-v4",
+    "title": "Running Your First Assessment",
+    "category": "helpCentre",
+    "scriptPath": "/video_scripts/v4_generated/helpCentre/help-first-assessment.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "help-finding-interventions-v4",
+    "title": "Finding the Right Intervention",
+    "category": "helpCentre",
+    "scriptPath": "/video_scripts/v4_generated/helpCentre/help-finding-interventions.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "help-data-security-v4",
+    "title": "How We Protect Your Data",
+    "category": "helpCentre",
+    "scriptPath": "/video_scripts/v4_generated/helpCentre/help-data-security.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "help-collaboration-v4",
+    "title": "Collaborating with Your Team",
+    "category": "helpCentre",
+    "scriptPath": "/video_scripts/v4_generated/helpCentre/help-collaboration.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "help-generating-reports-v4",
+    "title": "Generating Professional Reports",
+    "category": "helpCentre",
+    "scriptPath": "/video_scripts/v4_generated/helpCentre/help-generating-reports.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "help-cpd-tracking-v4",
+    "title": "Tracking Your Professional Development",
+    "category": "helpCentre",
+    "scriptPath": "/video_scripts/v4_generated/helpCentre/help-cpd-tracking.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "help-troubleshooting-v4",
+    "title": "Troubleshooting Common Issues",
+    "category": "helpCentre",
+    "scriptPath": "/video_scripts/v4_generated/helpCentre/help-troubleshooting.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "la-dashboard-overview-v4",
+    "title": "Your LA Dashboard Overview",
+    "category": "laPortal",
+    "scriptPath": "/video_scripts/v4_generated/laPortal/la-dashboard-overview.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "la-professional-requests-v4",
+    "title": "Managing Professional Requests",
+    "category": "laPortal",
+    "scriptPath": "/video_scripts/v4_generated/laPortal/la-professional-requests.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "la-ehcp-merge-tool-v4",
+    "title": "The EHCP Merge Tool Explained",
+    "category": "laPortal",
+    "scriptPath": "/video_scripts/v4_generated/laPortal/la-ehcp-merge-tool.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "parent-portal-welcome-v4",
+    "title": "Welcome to the Parent Portal",
+    "category": "parentPortal",
+    "scriptPath": "/video_scripts/v4_generated/parentPortal/parent-portal-welcome.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "parent-contributing-views-v4",
+    "title": "Contributing Your Views",
+    "category": "parentPortal",
+    "scriptPath": "/video_scripts/v4_generated/parentPortal/parent-contributing-views.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "compliance-data-protection-v4",
+    "title": "Data Protection for Educators",
+    "category": "compliance",
+    "scriptPath": "/video_scripts/v4_generated/compliance/compliance-data-protection.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "compliance-consent-v4",
+    "title": "Managing Consent Properly",
+    "category": "compliance",
+    "scriptPath": "/video_scripts/v4_generated/compliance/compliance-consent.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "assessment-choosing-v4",
+    "title": "Choosing the Right Assessment",
+    "category": "assessment",
+    "scriptPath": "/video_scripts/v4_generated/assessment/assessment-choosing.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "assessment-interpreting-v4",
+    "title": "Interpreting Assessment Results",
+    "category": "assessment",
+    "scriptPath": "/video_scripts/v4_generated/assessment/assessment-interpreting.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "dyslexia-neurobiology-v4",
+    "title": "The Neurobiology of Dyslexia",
+    "category": "dyslexia",
+    "scriptPath": "/video_scripts/v4_generated/dyslexia/dyslexia-neurobiology.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "dyslexia-indicators-v4",
+    "title": "Identifying Dyslexia: Indicators Across Ages",
+    "category": "dyslexia",
+    "scriptPath": "/video_scripts/v4_generated/dyslexia/dyslexia-indicators.md",
+    "status": "pending_generation"
+  },
+  {
+    "videoId": "dyslexia-structured-literacy-v4",
+    "title": "What is Structured Literacy?",
+    "category": "dyslexia",
+    "scriptPath": "/video_scripts/v4_generated/dyslexia/dyslexia-structured-literacy.md",
+    "status": "pending_generation"
+  }
+]

@@ -202,7 +202,7 @@ export class OutcomeTrackingService {
   async createOutcome(data: CreateOutcomeData, createdById: string): Promise<Outcome> {
     const nextReview = this.calculateNextReviewDate(data.reviewSchedule);
 
-    const outcome = await this.prisma.outcome.create({
+    const outcome = await (this.prisma as any).outcome.create({
       data: {
         studentId: data.studentId,
         title: data.title,
@@ -237,11 +237,11 @@ export class OutcomeTrackingService {
    * Get outcome by ID
    */
   async getOutcome(outcomeId: string): Promise<Outcome | null> {
-    const outcome = await this.prisma.outcome.findUnique({
+    const outcome = await (this.prisma as any).outcome.findUnique({
       where: { id: outcomeId },
       include: {
         student: {
-          select: { firstName: true, lastName: true }
+          select: { first_name: true, last_name: true }
         }
       }
     });
@@ -258,7 +258,7 @@ export class OutcomeTrackingService {
     page: number = 1,
     limit: number = 50
   ): Promise<{ outcomes: Outcome[]; total: number }> {
-    const where: Prisma.OutcomeWhereInput = {
+    const where: any = {
       student: { schoolId }
     };
 
@@ -270,11 +270,11 @@ export class OutcomeTrackingService {
     if (filters.reviewDue) where.nextReviewDate = { lte: new Date() };
 
     const [outcomes, total] = await Promise.all([
-      this.prisma.outcome.findMany({
+      (this.prisma as any).outcome.findMany({
         where,
         include: {
           student: {
-            select: { firstName: true, lastName: true, yearGroup: true }
+            select: { first_name: true, last_name: true, yearGroup: true }
           }
         },
         skip: (page - 1) * limit,
@@ -284,7 +284,7 @@ export class OutcomeTrackingService {
           { nextReviewDate: 'asc' }
         ]
       }),
-      this.prisma.outcome.count({ where })
+      (this.prisma as any).outcome.count({ where })
     ]);
 
     return {
@@ -297,7 +297,7 @@ export class OutcomeTrackingService {
    * Get student's outcomes
    */
   async getStudentOutcomes(studentId: string): Promise<Outcome[]> {
-    const outcomes = await this.prisma.outcome.findMany({
+    const outcomes = await (this.prisma as any).outcome.findMany({
       where: { 
         studentId,
         status: { not: 'DISCONTINUED' }
@@ -330,7 +330,7 @@ export class OutcomeTrackingService {
     },
     recordedBy: string
   ): Promise<Outcome> {
-    const outcome = await this.prisma.outcome.findUnique({
+    const outcome = await (this.prisma as any).outcome.findUnique({
       where: { id: outcomeId }
     });
 
@@ -362,7 +362,7 @@ export class OutcomeTrackingService {
     // Determine status
     const status = this.calculateStatus(progress, outcome.timeBound);
 
-    const updated = await this.prisma.outcome.update({
+    const updated = await (this.prisma as any).outcome.update({
       where: { id: outcomeId },
       data: {
         currentLevel: data.level,
@@ -404,7 +404,7 @@ export class OutcomeTrackingService {
     trend: 'IMPROVING' | 'STABLE' | 'DECLINING';
     averageProgress: number;
   }> {
-    const outcome = await this.prisma.outcome.findUnique({
+    const outcome = await (this.prisma as any).outcome.findUnique({
       where: { id: outcomeId }
     });
 
@@ -450,16 +450,16 @@ export class OutcomeTrackingService {
     periodStart: Date,
     periodEnd: Date
   ): Promise<OutcomeReport> {
-    const student = await this.prisma.student.findUnique({
-      where: { id: studentId },
-      select: { firstName: true, lastName: true }
+    const student = await this.prisma.students.findUnique({
+      where: { id: parseInt(studentId) },
+      select: { first_name: true, last_name: true }
     });
 
     if (!student) {
       throw new Error('Student not found');
     }
 
-    const outcomes = await this.prisma.outcome.findMany({
+    const outcomes = await (this.prisma as any).outcome.findMany({
       where: {
         studentId,
         status: { not: 'DISCONTINUED' },
@@ -471,14 +471,14 @@ export class OutcomeTrackingService {
     });
 
     // Calculate summary stats
-    const onTrack = outcomes.filter(o => ['ON_TRACK', 'IN_PROGRESS'].includes(o.status as string)).length;
-    const achieved = outcomes.filter(o => ['ACHIEVED', 'PARTIALLY_ACHIEVED'].includes(o.status as string)).length;
-    const atRisk = outcomes.filter(o => o.status === 'AT_RISK').length;
-    const notAchieved = outcomes.filter(o => o.status === 'NOT_ACHIEVED').length;
+    const onTrack = outcomes.filter((o: any) => ['ON_TRACK', 'IN_PROGRESS'].includes(o.status as string)).length;
+    const achieved = outcomes.filter((o: any) => ['ACHIEVED', 'PARTIALLY_ACHIEVED'].includes(o.status as string)).length;
+    const atRisk = outcomes.filter((o: any) => o.status === 'AT_RISK').length;
+    const notAchieved = outcomes.filter((o: any) => o.status === 'NOT_ACHIEVED').length;
 
     // Group by category
     const byCategory: OutcomeReport['byCategory'] = {};
-    outcomes.forEach(outcome => {
+    outcomes.forEach((outcome: any) => {
       const cat = outcome.category as string;
       if (!byCategory[cat]) {
         byCategory[cat] = { total: 0, onTrack: 0, progress: 0 };
@@ -496,7 +496,7 @@ export class OutcomeTrackingService {
     });
 
     // Create outcome summaries
-    const outcomeSummaries: OutcomeSummary[] = outcomes.map(outcome => {
+    const outcomeSummaries: OutcomeSummary[] = outcomes.map((outcome: any) => {
       const entries = outcome.progressEntries as unknown as ProgressEntry[] || [];
       const baseline = (outcome.baseline as unknown as Outcome['baseline']).level;
       const target = (outcome.target as unknown as Outcome['target']).level;
@@ -530,7 +530,7 @@ export class OutcomeTrackingService {
 
     return {
       studentId,
-      studentName: `${student.firstName} ${student.lastName}`,
+      studentName: `${student.first_name} ${student.last_name}`,
       reportPeriod: {
         start: periodStart,
         end: periodEnd
@@ -562,29 +562,29 @@ export class OutcomeTrackingService {
     const twoWeeksFromNow = new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000);
 
     const [overdue, dueThisWeek, dueNextWeek] = await Promise.all([
-      this.prisma.outcome.findMany({
+      (this.prisma as any).outcome.findMany({
         where: {
           student: { schoolId },
           nextReviewDate: { lt: now },
           status: { notIn: ['ACHIEVED', 'DISCONTINUED', 'NOT_ACHIEVED'] }
         },
-        include: { student: { select: { firstName: true, lastName: true } } }
+        include: { student: { select: { first_name: true, last_name: true } } }
       }),
-      this.prisma.outcome.findMany({
+      (this.prisma as any).outcome.findMany({
         where: {
           student: { schoolId },
           nextReviewDate: { gte: now, lt: weekFromNow },
           status: { notIn: ['ACHIEVED', 'DISCONTINUED', 'NOT_ACHIEVED'] }
         },
-        include: { student: { select: { firstName: true, lastName: true } } }
+        include: { student: { select: { first_name: true, last_name: true } } }
       }),
-      this.prisma.outcome.findMany({
+      (this.prisma as any).outcome.findMany({
         where: {
           student: { schoolId },
           nextReviewDate: { gte: weekFromNow, lt: twoWeeksFromNow },
           status: { notIn: ['ACHIEVED', 'DISCONTINUED', 'NOT_ACHIEVED'] }
         },
-        include: { student: { select: { firstName: true, lastName: true } } }
+        include: { student: { select: { first_name: true, last_name: true } } }
       })
     ]);
 
@@ -606,12 +606,12 @@ export class OutcomeTrackingService {
     category?: string,
     needType?: string
   ): Promise<OutcomeTemplate[]> {
-    const where: Prisma.OutcomeTemplateWhereInput = {};
+    const where: any = {};
     
     if (category) where.category = category;
     if (needType) where.needType = needType;
 
-    const templates = await this.prisma.outcomeTemplate.findMany({
+    const templates = await (this.prisma as any).outcomeTemplate.findMany({
       where,
       orderBy: [
         { usageCount: 'desc' },
@@ -631,7 +631,7 @@ export class OutcomeTrackingService {
     customisations: Partial<CreateOutcomeData>,
     createdById: string
   ): Promise<Outcome> {
-    const template = await this.prisma.outcomeTemplate.findUnique({
+    const template = await (this.prisma as any).outcomeTemplate.findUnique({
       where: { id: templateId }
     });
 
@@ -663,7 +663,7 @@ export class OutcomeTrackingService {
     const outcome = await this.createOutcome(outcomeData, createdById);
 
     // Update template usage
-    await this.prisma.outcomeTemplate.update({
+    await (this.prisma as any).outcomeTemplate.update({
       where: { id: templateId },
       data: { usageCount: { increment: 1 } }
     });
@@ -701,7 +701,7 @@ export class OutcomeTrackingService {
       newOutcomes: number;
     }[];
   }> {
-    const outcomes = await this.prisma.outcome.findMany({
+    const outcomes = await (this.prisma as any).outcome.findMany({
       where: {
         student: { schoolId },
         status: { notIn: ['DISCONTINUED'] }
@@ -718,14 +718,14 @@ export class OutcomeTrackingService {
     });
 
     // Summary stats
-    const active = outcomes.filter(o => !['ACHIEVED', 'NOT_ACHIEVED'].includes(o.status as string));
-    const achieved = outcomes.filter(o => o.status === 'ACHIEVED');
-    const onTrack = outcomes.filter(o => ['ON_TRACK', 'IN_PROGRESS'].includes(o.status as string));
-    const avgProgress = outcomes.reduce((sum, o) => sum + (o.progressPercentage || 0), 0) / outcomes.length;
+    const active = outcomes.filter((o: any) => !['ACHIEVED', 'NOT_ACHIEVED'].includes(o.status as string));
+    const achieved = outcomes.filter((o: any) => o.status === 'ACHIEVED');
+    const onTrack = outcomes.filter((o: any) => ['ON_TRACK', 'IN_PROGRESS'].includes(o.status as string));
+    const avgProgress = outcomes.reduce((sum: number, o: any) => sum + (o.progressPercentage || 0), 0) / outcomes.length;
 
     // By category
     const byCategory: Record<string, { count: number; achieved: number; onTrack: number; atRisk: number }> = {};
-    outcomes.forEach(outcome => {
+    outcomes.forEach((outcome: any) => {
       const cat = outcome.category as string;
       if (!byCategory[cat]) {
         byCategory[cat] = { count: 0, achieved: 0, onTrack: 0, atRisk: 0 };
@@ -738,7 +738,7 @@ export class OutcomeTrackingService {
 
     // By need type
     const byNeedType: Record<string, { count: number; achievementRate: number }> = {};
-    outcomes.forEach(outcome => {
+    outcomes.forEach((outcome: any) => {
       const need = (outcome as unknown as { student: { sendRegister: { primaryNeed: string } | null } }).student?.sendRegister?.primaryNeed || 'Unknown';
       if (!byNeedType[need]) {
         byNeedType[need] = { count: 0, achievementRate: 0 };
@@ -747,7 +747,7 @@ export class OutcomeTrackingService {
     });
 
     // Calculate achievement rates by need
-    outcomes.filter(o => o.status === 'ACHIEVED').forEach(outcome => {
+    outcomes.filter((o: any) => o.status === 'ACHIEVED').forEach((outcome: any) => {
       const need = (outcome as unknown as { student: { sendRegister: { primaryNeed: string } | null } }).student?.sendRegister?.primaryNeed || 'Unknown';
       if (byNeedType[need]) {
         byNeedType[need].achievementRate++;
@@ -768,13 +768,13 @@ export class OutcomeTrackingService {
       const monthEnd = new Date(monthStart);
       monthEnd.setMonth(monthEnd.getMonth() + 1);
 
-      const achievedThisMonth = outcomes.filter(o => 
+      const achievedThisMonth = outcomes.filter((o: any) => 
         o.status === 'ACHIEVED' && 
         o.updatedAt >= monthStart && 
         o.updatedAt < monthEnd
       ).length;
 
-      const newThisMonth = outcomes.filter(o =>
+      const newThisMonth = outcomes.filter((o: any) =>
         o.createdAt >= monthStart && 
         o.createdAt < monthEnd
       ).length;
@@ -920,3 +920,6 @@ export class OutcomeTrackingService {
     return recommendations;
   }
 }
+
+
+

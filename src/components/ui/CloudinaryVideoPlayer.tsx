@@ -244,6 +244,9 @@ export default function CloudinaryVideoPlayer({
     }
   };
 
+  // Caption URL derivation
+  const captionUrl = videoUrl ? videoUrl.replace(/\.mp4$/, '.vtt') : null;
+
   if (!videoUrl) {
     return (
       <div className={`bg-slate-900 rounded-xl flex items-center justify-center aspect-video ${className}`}>
@@ -270,7 +273,18 @@ export default function CloudinaryVideoPlayer({
         autoPlay={autoPlay}
         playsInline
         onClick={togglePlay}
-      />
+        crossOrigin="anonymous"
+      >
+        {captionUrl && (
+          <track 
+            kind="captions" 
+            src={captionUrl} 
+            srcLang="en" 
+            label="English" 
+            default 
+          />
+        )}
+      </video>
 
       {/* Loading Overlay */}
       {isLoading && (

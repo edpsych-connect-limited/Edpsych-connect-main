@@ -1,0 +1,231 @@
+src/app/[locale]/tokenisation/page.tsx(97,35): error TS2322: Type '{ title: string; description: string; }' is not assignable to type 'IntrinsicAttributes & PageHeaderProps'.
+  Property 'description' does not exist on type 'IntrinsicAttributes & PageHeaderProps'.
+src/app/[locale]/tokenisation/page.tsx(113,9): error TS2322: Type '{ title: string; description: string; }' is not assignable to type 'IntrinsicAttributes & PageHeaderProps'.
+  Property 'description' does not exist on type 'IntrinsicAttributes & PageHeaderProps'.
+src/app/api/ehcp/provision-costs/route.ts(49,11): error TS2353: Object literal may only specify known properties, and 'provider_name' does not exist in type 'ProvisionCostOrderByWithRelationInput'.
+src/app/api/ehcp/provision-costs/route.ts(64,16): error TS2538: Type 'null' cannot be used as an index type.
+src/app/api/ehcp/provision-costs/route.ts(64,31): error TS2538: Type 'null' cannot be used as an index type.
+src/app/api/ehcp/provision-costs/route.ts(65,11): error TS2538: Type 'null' cannot be used as an index type.
+src/app/api/ehcp/provision-costs/route.ts(134,40): error TS2551: Property 'provisionsCost' does not exist on type 'DynamicClientExtensionThis<TypeMap<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }, {}>, TypeMapCb<{ log: ("query" | "warn" | "error")[]; }>, { result: {}; model: {}; query: {}; client: {}; }>'. Did you mean 'provisionCost'?
+src/app/api/network/route.ts(453,76): error TS2345: Argument of type '{ tags: string[]; sendTypes: string[]; thumbnailUrl: any; title: string; type: "ASSESSMENT" | "RESEARCH" | "DOCUMENT" | "TEMPLATE" | "LESSON_PLAN" | "PRESENTATION" | "VIDEO" | "AUDIO" | "LINK" | "CASE_STUDY"; ... 10 more ...; subjects?: string[] | undefined; }' is not assignable to parameter of type 'Omit<SharedResource, "id" | "status" | "createdAt" | "updatedAt" | "rating" | "authorId" | "viewCount" | "downloadCount" | "likeCount" | "commentCount" | "ratingCount" | "qualityScore">'.
+  Types of property 'keyStages' are incompatible.
+    Type 'string[] | undefined' is not assignable to type 'string[]'.
+      Type 'undefined' is not assignable to type 'string[]'.
+src/app/api/students/[id]/profile/route.ts(198,14): error TS2551: Property 'studentsLessonAssignment' does not exist on type 'DynamicClientExtensionThis<TypeMap<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }, {}>, TypeMapCb<{ log: ("query" | "warn" | "error")[]; }>, { result: {}; model: {}; query: {}; client: {}; }>'. Did you mean 'studentLessonAssignment'?
+src/app/api/students/[id]/profile/route.ts(224,14): error TS2551: Property 'studentsLessonAssignment' does not exist on type 'DynamicClientExtensionThis<TypeMap<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }, {}>, TypeMapCb<{ log: ("query" | "warn" | "error")[]; }>, { result: {}; model: {}; query: {}; client: {}; }>'. Did you mean 'studentLessonAssignment'?
+src/app/api/students/[id]/profile/route.ts(315,38): error TS7006: Parameter 'l' implicitly has an 'any' type.
+src/components/common/ProgressBar.component.tsx(66,8): error TS2322: Type '{ 'aria-valuenow': string; 'aria-valuemin': string; 'aria-valuemax': string; 'aria-label': string; className: string; role: "progressbar"; }' is not assignable to type 'DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>'.
+  Type '{ 'aria-valuenow': string; 'aria-valuemin': string; 'aria-valuemax': string; 'aria-label': string; className: string; role: "progressbar"; }' is not assignable to type 'HTMLAttributes<HTMLDivElement>'.
+    Types of property '"aria-valuemax"' are incompatible.
+      Type 'string' is not assignable to type 'number'.
+src/components/demo/BattleRoyaleSandbox.tsx(606,64): error TS2339: Property 'name' does not exist on type 'AssessmentMetric'.
+src/components/demo/TrainingSandbox.tsx(535,23): error TS2322: Type '{ src: string; title: string; onEnded: () => void; autoPlay: false; showControls: true; }' is not assignable to type 'IntrinsicAttributes & CloudinaryVideoPlayerProps'.
+  Property 'src' does not exist on type 'IntrinsicAttributes & CloudinaryVideoPlayerProps'.
+src/components/subscription/UpgradePrompt.tsx(27,7): error TS2740: Type '{ PROBLEM_SOLVER: string; LESSON_DIFFERENTIATION: string; EHCNA_SUPPORT: string; BATTLE_ROYALE: string; PROGRESS_MONITORING: string; INTERVENTION_TRACKING: string; BASIC_ANALYTICS: string; ... 17 more ...; SINGLE_SIGN_ON: string; }' is missing the following properties from type 'Record<Feature, string>': EHCP_MANAGEMENT, SENCO_DASHBOARD, OUTCOME_TRACKING, PROVISION_MAPPING, and 6 more.
+src/lib/network/professional-network.service.ts(637,25): error TS7006: Parameter 'conn' implicitly has an 'any' type.
+src/lib/network/professional-network.service.ts(795,28): error TS7006: Parameter 'm' implicitly has an 'any' type.
+src/lib/network/professional-network.service.ts(865,25): error TS2724: '"E:/EdpsychConnect/node_modules/.prisma/client/index".Prisma' has no exported member named 'DiscussionWhereInput'. Did you mean 'NCLessonWhereInput'?
+src/lib/network/professional-network.service.ts(890,25): error TS2724: '"E:/EdpsychConnect/node_modules/.prisma/client/index".Prisma' has no exported member named 'DiscussionOrderByWithRelationInput'. Did you mean 'NCLessonOrderByWithRelationInput'?
+src/lib/network/professional-network.service.ts(974,44): error TS2339: Property 'helpfulVote' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/lib/network/professional-network.service.ts(985,23): error TS2339: Property 'helpfulVote' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/lib/network/professional-network.service.ts(1050,25): error TS2694: Namespace '"E:/EdpsychConnect/node_modules/.prisma/client/index".Prisma' has no exported member 'SharedResourceWhereInput'.
+src/lib/network/professional-network.service.ts(1129,44): error TS2339: Property 'mentoringRelationship' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/lib/network/professional-network.service.ts(1165,44): error TS2339: Property 'mentoringRelationship' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/lib/network/professional-network.service.ts(1173,39): error TS2339: Property 'mentoringRelationship' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/lib/network/professional-network.service.ts(1197,44): error TS2339: Property 'mentoringRelationship' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/lib/network/professional-network.service.ts(1210,23): error TS2339: Property 'mentoringSession' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/lib/network/professional-network.service.ts(1223,39): error TS2339: Property 'mentoringRelationship' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/lib/network/professional-network.service.ts(1300,37): error TS2339: Property 'networkEvent' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/lib/network/professional-network.service.ts(1331,37): error TS2339: Property 'networkEvent' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/lib/network/professional-network.service.ts(1345,23): error TS2339: Property 'eventRegistration' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/lib/network/professional-network.service.ts(1355,23): error TS2339: Property 'networkEvent' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/lib/network/professional-network.service.ts(1475,19): error TS2339: Property 'mentoringRelationship' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/lib/orchestration/assignment-engine.service.ts(318,24): error TS2551: Property 'studentsLessonAssignment' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'studentLessonAssignment'?
+src/lib/orchestration/assignment-engine.service.ts(473,39): error TS2551: Property 'studentsLessonAssignment' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'studentLessonAssignment'?
+src/lib/orchestration/assignment-engine.service.ts(495,51): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/orchestration/assignment-engine.service.ts(506,12): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/orchestration/assignment-engine.service.ts(509,12): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/orchestration/assignment-engine.service.ts(525,22): error TS2551: Property 'studentsLessonAssignment' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'studentLessonAssignment'?
+src/lib/orchestration/assignment-engine.service.ts(566,39): error TS2551: Property 'studentsLessonAssignment' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'studentLessonAssignment'?
+src/lib/orchestration/assignment-engine.service.ts(583,10): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/orchestration/assignment-engine.service.ts(585,45): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/orchestration/assignment-engine.service.ts(586,52): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/orchestration/assignment-engine.service.ts(608,20): error TS2551: Property 'studentsLessonAssignment' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'studentLessonAssignment'?
+src/lib/orchestration/assignment-engine.service.ts(734,39): error TS2551: Property 'studentsLessonAssignment' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'studentLessonAssignment'?
+src/lib/orchestration/assignment-engine.service.ts(753,27): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/orchestration/assignment-engine.service.ts(753,59): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/lib/orchestration/assignment-engine.service.ts(753,64): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/orchestration/assignment-engine.service.ts(754,27): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/orchestration/assignment-engine.service.ts(777,29): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/orchestration/assignment-engine.service.ts(789,29): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(418,46): error TS2551: Property 'studentsLessonAssignment' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'studentLessonAssignment'?
+src/lib/orchestration/data-router.service.ts(438,24): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(439,24): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(439,29): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(755,44): error TS2551: Property 'studentsLessonAssignment' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'studentLessonAssignment'?
+src/lib/orchestration/data-router.service.ts(811,48): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(811,82): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(816,48): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(816,51): error TS7006: Parameter 'b' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(817,50): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(817,53): error TS7006: Parameter 'b' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(987,44): error TS2551: Property 'studentsLessonAssignment' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'studentLessonAssignment'?
+src/lib/orchestration/data-router.service.ts(993,57): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(1002,22): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(1003,22): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(1003,27): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(1007,50): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(1021,27): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(1021,66): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(1021,71): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(1024,28): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(1024,67): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(1024,72): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(1255,46): error TS2551: Property 'studentsLessonAssignment' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'studentLessonAssignment'?
+src/lib/orchestration/data-router.service.ts(1269,37): error TS7006: Parameter 'assignment' implicitly has an 'any' type.
+src/lib/orchestration/data-router.service.ts(1630,44): error TS2551: Property 'studentsProgressSnapshot' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'studentProgressSnapshot'?
+src/lib/orchestration/profile-builder.service.ts(200,46): error TS2551: Property 'studentsLessonAssignment' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'studentLessonAssignment'?
+src/lib/orchestration/profile-builder.service.ts(208,18): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/profile-builder.service.ts(209,15): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/profile-builder.service.ts(213,40): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/profile-builder.service.ts(213,43): error TS7006: Parameter 'b' implicitly has an 'any' type.
+src/lib/orchestration/profile-builder.service.ts(421,46): error TS2551: Property 'studentsLessonAssignment' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'studentLessonAssignment'?
+src/lib/orchestration/profile-builder.service.ts(483,46): error TS2551: Property 'studentsLessonAssignment' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'studentLessonAssignment'?
+src/lib/orchestration/voice-command.service.ts(506,44): error TS2551: Property 'studentsLessonAssignment' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'studentLessonAssignment'?
+src/lib/orchestration/voice-command.service.ts(517,22): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/voice-command.service.ts(518,22): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/lib/orchestration/voice-command.service.ts(518,27): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/orchestration/voice-command.service.ts(638,37): error TS2551: Property 'studentsLessonAssignment' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'studentLessonAssignment'?
+src/lib/orchestration/voice-command.service.ts(660,18): error TS2551: Property 'studentsLessonAssignment' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'studentLessonAssignment'?
+src/lib/outcomes/outcome-tracking.service.ts(474,37): error TS7006: Parameter 'o' implicitly has an 'any' type.
+src/lib/outcomes/outcome-tracking.service.ts(475,38): error TS7006: Parameter 'o' implicitly has an 'any' type.
+src/lib/outcomes/outcome-tracking.service.ts(476,36): error TS7006: Parameter 'o' implicitly has an 'any' type.
+src/lib/outcomes/outcome-tracking.service.ts(477,41): error TS7006: Parameter 'o' implicitly has an 'any' type.
+src/lib/outcomes/outcome-tracking.service.ts(481,22): error TS7006: Parameter 'outcome' implicitly has an 'any' type.
+src/lib/outcomes/outcome-tracking.service.ts(499,61): error TS7006: Parameter 'outcome' implicitly has an 'any' type.
+src/lib/outcomes/outcome-tracking.service.ts(721,36): error TS7006: Parameter 'o' implicitly has an 'any' type.
+src/lib/outcomes/outcome-tracking.service.ts(722,38): error TS7006: Parameter 'o' implicitly has an 'any' type.
+src/lib/outcomes/outcome-tracking.service.ts(723,37): error TS7006: Parameter 'o' implicitly has an 'any' type.
+src/lib/outcomes/outcome-tracking.service.ts(724,42): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/lib/outcomes/outcome-tracking.service.ts(724,47): error TS7006: Parameter 'o' implicitly has an 'any' type.
+src/lib/outcomes/outcome-tracking.service.ts(728,22): error TS7006: Parameter 'outcome' implicitly has an 'any' type.
+src/lib/outcomes/outcome-tracking.service.ts(741,22): error TS7006: Parameter 'outcome' implicitly has an 'any' type.
+src/lib/outcomes/outcome-tracking.service.ts(750,21): error TS7006: Parameter 'o' implicitly has an 'any' type.
+src/lib/outcomes/outcome-tracking.service.ts(750,59): error TS7006: Parameter 'outcome' implicitly has an 'any' type.
+src/lib/outcomes/outcome-tracking.service.ts(771,49): error TS7006: Parameter 'o' implicitly has an 'any' type.
+src/lib/outcomes/outcome-tracking.service.ts(777,44): error TS7006: Parameter 'o' implicitly has an 'any' type.
+src/lib/portal/parent-portal.service.ts(367,43): error TS2353: Object literal may only specify known properties, and 'user_id' does not exist in type '(Without<UsersScalarRelationFilter, usersWhereInput> & usersWhereInput) | (Without<usersWhereInput, UsersScalarRelationFilter> & UsersScalarRelationFilter)'.
+src/lib/portal/parent-portal.service.ts(372,24): error TS2339: Property 'notificationPreferences' does not exist on type '{ name: string; id: number; email: string; last_login: Date | null; }'.
+src/lib/portal/parent-portal.service.ts(373,25): error TS2339: Property 'notificationPreferences' does not exist on type '{ name: string; id: number; email: string; last_login: Date | null; }'.
+src/lib/portal/parent-portal.service.ts(381,23): error TS2551: Property 'lastLogin' does not exist on type '{ name: string; id: number; email: string; last_login: Date | null; }'. Did you mean 'last_login'?
+src/lib/portal/parent-portal.service.ts(399,43): error TS2353: Object literal may only specify known properties, and 'user_id' does not exist in type '(Without<UsersScalarRelationFilter, usersWhereInput> & usersWhereInput) | (Without<usersWhereInput, UsersScalarRelationFilter> & UsersScalarRelationFilter)'.
+src/lib/portal/parent-portal.service.ts(403,9): error TS2353: Object literal may only specify known properties, and 'ehcps' does not exist in type 'studentsInclude<DefaultArgs>'.
+src/lib/portal/parent-portal.service.ts(411,26): error TS2339: Property 'ehcps' does not exist on type '{ id: number; tenant_id: number; created_at: Date; updated_at: Date; unique_id: string; first_name: string; last_name: string; date_of_birth: Date; year_group: string; sen_status: string | null; }'.
+src/lib/portal/parent-portal.service.ts(415,24): error TS2551: Property 'firstName' does not exist on type '{ id: number; tenant_id: number; created_at: Date; updated_at: Date; unique_id: string; first_name: string; last_name: string; date_of_birth: Date; year_group: string; sen_status: string | null; }'. Did you mean 'first_name'?
+src/lib/portal/parent-portal.service.ts(415,43): error TS2551: Property 'lastName' does not exist on type '{ id: number; tenant_id: number; created_at: Date; updated_at: Date; unique_id: string; first_name: string; last_name: string; date_of_birth: Date; year_group: string; sen_status: string | null; }'. Did you mean 'last_name'?
+src/lib/portal/parent-portal.service.ts(416,26): error TS2551: Property 'yearGroup' does not exist on type '{ id: number; tenant_id: number; created_at: Date; updated_at: Date; unique_id: string; first_name: string; last_name: string; date_of_birth: Date; year_group: string; sen_status: string | null; }'. Did you mean 'year_group'?
+src/lib/portal/parent-portal.service.ts(417,23): error TS2339: Property 'schoolName' does not exist on type '{ id: number; tenant_id: number; created_at: Date; updated_at: Date; unique_id: string; first_name: string; last_name: string; date_of_birth: Date; year_group: string; sen_status: string | null; }'.
+src/lib/portal/parent-portal.service.ts(418,29): error TS2339: Property 'photoUrl' does not exist on type '{ id: number; tenant_id: number; created_at: Date; updated_at: Date; unique_id: string; first_name: string; last_name: string; date_of_birth: Date; year_group: string; sen_status: string | null; }'.
+src/lib/portal/parent-portal.service.ts(569,9): error TS2353: Object literal may only specify known properties, and 'ehcps' does not exist in type 'studentsInclude<DefaultArgs>'.
+src/lib/portal/parent-portal.service.ts(585,24): error TS2339: Property 'ehcps' does not exist on type '{ id: number; tenant_id: number; created_at: Date; updated_at: Date; unique_id: string; first_name: string; last_name: string; date_of_birth: Date; year_group: string; sen_status: string | null; }'.
+src/lib/portal/parent-portal.service.ts(590,24): error TS2551: Property 'firstName' does not exist on type '{ id: number; tenant_id: number; created_at: Date; updated_at: Date; unique_id: string; first_name: string; last_name: string; date_of_birth: Date; year_group: string; sen_status: string | null; }'. Did you mean 'first_name'?
+src/lib/portal/parent-portal.service.ts(590,43): error TS2551: Property 'lastName' does not exist on type '{ id: number; tenant_id: number; created_at: Date; updated_at: Date; unique_id: string; first_name: string; last_name: string; date_of_birth: Date; year_group: string; sen_status: string | null; }'. Did you mean 'last_name'?
+src/lib/portal/parent-portal.service.ts(591,28): error TS2551: Property 'dateOfBirth' does not exist on type '{ id: number; tenant_id: number; created_at: Date; updated_at: Date; unique_id: string; first_name: string; last_name: string; date_of_birth: Date; year_group: string; sen_status: string | null; }'. Did you mean 'date_of_birth'?
+src/lib/portal/parent-portal.service.ts(592,26): error TS2551: Property 'yearGroup' does not exist on type '{ id: number; tenant_id: number; created_at: Date; updated_at: Date; unique_id: string; first_name: string; last_name: string; date_of_birth: Date; year_group: string; sen_status: string | null; }'. Did you mean 'year_group'?
+src/lib/portal/parent-portal.service.ts(593,23): error TS2339: Property 'schoolName' does not exist on type '{ id: number; tenant_id: number; created_at: Date; updated_at: Date; unique_id: string; first_name: string; last_name: string; date_of_birth: Date; year_group: string; sen_status: string | null; }'.
+src/lib/portal/parent-portal.service.ts(594,22): error TS2339: Property 'className' does not exist on type '{ id: number; tenant_id: number; created_at: Date; updated_at: Date; unique_id: string; first_name: string; last_name: string; date_of_birth: Date; year_group: string; sen_status: string | null; }'.
+src/lib/portal/parent-portal.service.ts(595,29): error TS2339: Property 'photoUrl' does not exist on type '{ id: number; tenant_id: number; created_at: Date; updated_at: Date; unique_id: string; first_name: string; last_name: string; date_of_birth: Date; year_group: string; sen_status: string | null; }'.
+src/lib/portal/parent-portal.service.ts(597,33): error TS2339: Property 'specialInterests' does not exist on type '{ id: number; tenant_id: number; created_at: Date; updated_at: Date; unique_id: string; first_name: string; last_name: string; date_of_birth: Date; year_group: string; sen_status: string | null; }'.
+src/lib/portal/parent-portal.service.ts(597,69): error TS2339: Property 'specialInterests' does not exist on type '{ id: number; tenant_id: number; created_at: Date; updated_at: Date; unique_id: string; first_name: string; last_name: string; date_of_birth: Date; year_group: string; sen_status: string | null; }'.
+src/lib/portal/parent-portal.service.ts(598,41): error TS2339: Property 'communicationPreferences' does not exist on type '{ id: number; tenant_id: number; created_at: Date; updated_at: Date; unique_id: string; first_name: string; last_name: string; date_of_birth: Date; year_group: string; sen_status: string | null; }'.
+src/lib/portal/parent-portal.service.ts(598,85): error TS2339: Property 'communicationPreferences' does not exist on type '{ id: number; tenant_id: number; created_at: Date; updated_at: Date; unique_id: string; first_name: string; last_name: string; date_of_birth: Date; year_group: string; sen_status: string | null; }'.
+src/lib/portal/parent-portal.service.ts(605,46): error TS7006: Parameter 'n' implicitly has an 'any' type.
+src/lib/portal/parent-portal.service.ts(606,56): error TS7006: Parameter 'p' implicitly has an 'any' type.
+src/lib/portal/parent-portal.service.ts(607,52): error TS7006: Parameter 'o' implicitly has an 'any' type.
+src/lib/portal/parent-portal.service.ts(785,9): error TS2353: Object literal may only specify known properties, and 'notificationPreferences' does not exist in type '(Without<usersUpdateInput, usersUncheckedUpdateInput> & usersUncheckedUpdateInput) | (Without<...> & usersUpdateInput)'.
+src/lib/portal/parent-portal.service.ts(802,43): error TS2353: Object literal may only specify known properties, and 'user_id' does not exist in type '(Without<UsersScalarRelationFilter, usersWhereInput> & usersWhereInput) | (Without<usersWhereInput, UsersScalarRelationFilter> & UsersScalarRelationFilter)'.
+src/lib/portal/parent-portal.service.ts(818,43): error TS2353: Object literal may only specify known properties, and 'user_id' does not exist in type '(Without<UsersScalarRelationFilter, usersWhereInput> & usersWhereInput) | (Without<usersWhereInput, UsersScalarRelationFilter> & UsersScalarRelationFilter)'.
+src/lib/provision/provision-mapping.service.ts(295,9): error TS2322: Type 'string' is not assignable to type 'number'.
+src/lib/provision/provision-mapping.service.ts(319,7): error TS2322: Type '{ allocations: { where: { status: string; }; include: { student: { select: { firstName: true; lastName: true; yearGroup: true; }; }; }; }; }' is not assignable to type 'never'.
+src/lib/provision/provision-mapping.service.ts(343,25): error TS2724: '"E:/EdpsychConnect/node_modules/.prisma/client/index".Prisma' has no exported member named 'ProvisionWhereInput'. Did you mean 'provisionsWhereInput'?
+src/lib/provision/provision-mapping.service.ts(411,9): error TS2353: Object literal may only specify known properties, and 'sessionsAllocated' does not exist in type '(Without<ProvisionAllocationCreateInput, ProvisionAllocationUncheckedCreateInput> & ProvisionAllocationUncheckedCreateInput) | (Without<...> & ProvisionAllocationCreateInput)'.
+src/lib/provision/provision-mapping.service.ts(428,15): error TS2353: Object literal may only specify known properties, and 'currentEnrolment' does not exist in type '(Without<provisionsUpdateInput, provisionsUncheckedUpdateInput> & provisionsUncheckedUpdateInput) | (Without<...> & provisionsUpdateInput)'.
+src/lib/provision/provision-mapping.service.ts(443,7): error TS2322: Type '{ provision: { select: { id: true; name: true; category: true; wave: true; deliveredBy: true; frequency: true; }; }; }' is not assignable to type 'never'.
+src/lib/provision/provision-mapping.service.ts(485,38): error TS2339: Property 'progressNotes' does not exist on type '{ id: string; status: string; createdAt: Date; updatedAt: Date; studentId: string; startDate: Date; endDate: Date | null; provisionId: string; }'.
+src/lib/provision/provision-mapping.service.ts(493,41): error TS2339: Property 'sessionsAttended' does not exist on type '{ id: string; status: string; createdAt: Date; updatedAt: Date; studentId: string; startDate: Date; endDate: Date | null; provisionId: string; }'.
+src/lib/provision/provision-mapping.service.ts(494,38): error TS2339: Property 'sessionsAllocated' does not exist on type '{ id: string; status: string; createdAt: Date; updatedAt: Date; studentId: string; startDate: Date; endDate: Date | null; provisionId: string; }'.
+src/lib/provision/provision-mapping.service.ts(502,9): error TS2353: Object literal may only specify known properties, and 'progressNotes' does not exist in type '(Without<ProvisionAllocationUpdateInput, ProvisionAllocationUncheckedUpdateInput> & ProvisionAllocationUncheckedUpdateInput) | (Without<...> & ProvisionAllocationUpdateInput)'.
+src/lib/provision/provision-mapping.service.ts(531,9): error TS2353: Object literal may only specify known properties, and 'exitReason' does not exist in type '(Without<ProvisionAllocationUpdateInput, ProvisionAllocationUncheckedUpdateInput> & ProvisionAllocationUncheckedUpdateInput) | (Without<...> & ProvisionAllocationUpdateInput)'.
+src/lib/provision/provision-mapping.service.ts(539,15): error TS2353: Object literal may only specify known properties, and 'currentEnrolment' does not exist in type '(Without<provisionsUpdateInput, provisionsUncheckedUpdateInput> & provisionsUncheckedUpdateInput) | (Without<...> & provisionsUpdateInput)'.
+src/lib/provision/provision-mapping.service.ts(555,26): error TS2353: Object literal may only specify known properties, and 'status' does not exist in type 'provisionsWhereInput'.
+src/lib/provision/provision-mapping.service.ts(590,10): error TS2339: Property 'targetNeeds' does not exist on type '{ id: string; name: string; description: string | null; frequency: string | null; createdAt: Date; updatedAt: Date; duration: number | null; schoolId: string; areaOfNeed: string; ... 8 more ...; academicYear: string; }'.
+src/lib/provision/provision-mapping.service.ts(598,10): error TS2339: Property 'targetYearGroups' does not exist on type '{ id: string; name: string; description: string | null; frequency: string | null; createdAt: Date; updatedAt: Date; duration: number | null; schoolId: string; areaOfNeed: string; ... 8 more ...; academicYear: string; }'.
+src/lib/provision/provision-mapping.service.ts(616,9): error TS2353: Object literal may only specify known properties, and 'schoolId_academicYear_term' does not exist in type 'ProvisionMapWhereUniqueInput'.
+src/lib/provision/provision-mapping.service.ts(620,9): error TS2353: Object literal may only specify known properties, and 'name' does not exist in type '(Without<ProvisionMapCreateInput, ProvisionMapUncheckedCreateInput> & ProvisionMapUncheckedCreateInput) | (Without<...> & ProvisionMapCreateInput)'.
+src/lib/provision/provision-mapping.service.ts(636,9): error TS2353: Object literal may only specify known properties, and 'totalProvisions' does not exist in type '(Without<ProvisionMapUpdateInput, ProvisionMapUncheckedUpdateInput> & ProvisionMapUncheckedUpdateInput) | (Without<...> & ProvisionMapUpdateInput)'.
+src/lib/provision/provision-mapping.service.ts(679,9): error TS2353: Object literal may only specify known properties, and 'status' does not exist in type 'SchoolStaffWhereInput'.
+src/lib/provision/provision-mapping.service.ts(726,19): error TS2339: Property 'status' does not exist on type '{ id: string; name: string; role: string; email: string; createdAt: Date; updatedAt: Date; schoolId: string; }'.
+src/lib/provision/provision-mapping.service.ts(743,26): error TS2353: Object literal may only specify known properties, and 'year' does not exist in type 'SchoolBudgetWhereInput'.
+src/lib/provision/provision-mapping.service.ts(748,26): error TS2353: Object literal may only specify known properties, and 'status' does not exist in type 'provisionsWhereInput'.
+src/lib/provision/provision-mapping.service.ts(763,23): error TS2339: Property 'type' does not exist on type '{ id: string; createdAt: Date; totalAmount: number; schoolId: string; academicYear: string; }'.
+src/lib/provision/provision-mapping.service.ts(764,90): error TS2339: Property 'amount' does not exist on type '{ id: string; createdAt: Date; totalAmount: number; schoolId: string; academicYear: string; }'.
+src/lib/provision/provision-mapping.service.ts(765,95): error TS2339: Property 'amount' does not exist on type '{ id: string; createdAt: Date; totalAmount: number; schoolId: string; academicYear: string; }'.
+src/lib/provision/provision-mapping.service.ts(766,95): error TS2339: Property 'amount' does not exist on type '{ id: string; createdAt: Date; totalAmount: number; schoolId: string; academicYear: string; }'.
+src/lib/provision/provision-mapping.service.ts(767,73): error TS2339: Property 'amount' does not exist on type '{ id: string; createdAt: Date; totalAmount: number; schoolId: string; academicYear: string; }'.
+src/lib/provision/provision-mapping.service.ts(768,97): error TS2339: Property 'amount' does not exist on type '{ id: string; createdAt: Date; totalAmount: number; schoolId: string; academicYear: string; }'.
+src/lib/provision/provision-mapping.service.ts(769,71): error TS2339: Property 'amount' does not exist on type '{ id: string; createdAt: Date; totalAmount: number; schoolId: string; academicYear: string; }'.
+src/lib/provision/provision-mapping.service.ts(770,31): error TS2339: Property 'amount' does not exist on type '{ id: string; createdAt: Date; totalAmount: number; schoolId: string; academicYear: string; }'.
+src/lib/provision/provision-mapping.service.ts(787,17): error TS2339: Property 'category' does not exist on type '{ id: string; name: string; description: string | null; frequency: string | null; createdAt: Date; updatedAt: Date; duration: number | null; schoolId: string; areaOfNeed: string; ... 8 more ...; academicYear: string; }'.
+src/lib/provision/provision-mapping.service.ts(819,5): error TS2740: Type '{ totalExpenditure: number; remaining: number; projectedYearEnd: number; averageCostPerSENStudent: number; averageCostPerEHCP: number; totalFunding: number; schoolId: string; academicYear: string; }' is missing the following properties from type 'BudgetSummary': element1, element2, element3, highNeedsTopUp, and 9 more.
+src/lib/provision/provision-mapping.service.ts(843,7): error TS2322: Type '{ allocations: { include: { student: { include: { outcomes: { where: { status: { not: string; }; }; }; }; }; }; }; }' is not assignable to type 'never'.
+src/lib/provision/provision-mapping.service.ts(950,7): error TS2322: Type '{ student: { select: { yearGroup: true; }; }; }' is not assignable to type 'never'.
+src/lib/provision/provision-mapping.service.ts(964,28): error TS2538: Type 'null' cannot be used as an index type.
+src/lib/provision/provision-mapping.service.ts(964,58): error TS2538: Type 'null' cannot be used as an index type.
+src/lib/reviews/annual-review.service.ts(787,38): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/reviews/annual-review.service.ts(788,36): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/reviews/annual-review.service.ts(792,37): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/reviews/annual-review.service.ts(799,46): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/reviews/annual-review.service.ts(807,37): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/reviews/annual-review.service.ts(811,40): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/lib/reviews/annual-review.service.ts(811,43): error TS7006: Parameter 'b' implicitly has an 'any' type.
+src/lib/reviews/annual-review.service.ts(815,44): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/reviews/annual-review.service.ts(824,21): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/reviews/annual-review.service.ts(835,45): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/reviews/annual-review.service.ts(841,45): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/lib/senco/senco-dashboard.service.ts(261,7): error TS2322: Type '{ student: { select: { yearGroup: true; }; }; }' is not assignable to type 'never'.
+src/lib/senco/senco-dashboard.service.ts(365,9): error TS2322: Type 'any' is not assignable to type 'never'.
+src/lib/senco/senco-dashboard.service.ts(422,9): error TS2353: Object literal may only specify known properties, and 'needLevel' does not exist in type '(Without<SENDRegisterUpdateInput, SENDRegisterUncheckedUpdateInput> & SENDRegisterUncheckedUpdateInput) | (Without<...> & SENDRegisterUpdateInput)'.
+src/lib/senco/senco-dashboard.service.ts(464,9): error TS2353: Object literal may only specify known properties, and 'needLevel' does not exist in type '(Without<SENDRegisterCreateInput, SENDRegisterUncheckedCreateInput> & SENDRegisterUncheckedCreateInput) | (Without<...> & SENDRegisterCreateInput)'.
+src/lib/senco/senco-dashboard.service.ts(498,7): error TS2322: Type 'any' is not assignable to type 'never'.
+src/lib/senco/senco-dashboard.service.ts(528,7): error TS2322: Type 'any' is not assignable to type 'never'.
+src/lib/senco/senco-dashboard.service.ts(609,7): error TS2322: Type 'any' is not assignable to type 'never'.
+src/lib/senco/senco-dashboard.service.ts(635,7): error TS2322: Type 'any' is not assignable to type 'never'.
+src/lib/senco/senco-dashboard.service.ts(686,7): error TS2322: Type 'any' is not assignable to type 'never'.
+src/lib/senco/senco-dashboard.service.ts(773,7): error TS2322: Type 'any' is not assignable to type 'never'.
+src/lib/senco/senco-dashboard.service.ts(807,7): error TS2322: Type '{ trainingRecords: { orderBy: { completedDate: string; }; take: number; }; assignedStudents: { include: { sendRegister: { select: { primaryNeed: true; }; }; }; }; }' is not assignable to type 'never'.
+src/lib/senco/senco-dashboard.service.ts(897,18): error TS2353: Object literal may only specify known properties, and 'schoolId' does not exist in type 'ReviewMeetingWhereInput'.
+src/lib/senco/senco-dashboard.service.ts(901,18): error TS2353: Object literal may only specify known properties, and 'schoolId' does not exist in type 'ParentPortalSessionWhereInput'.
+src/lib/senco/senco-dashboard.service.ts(905,11): error TS2353: Object literal may only specify known properties, and 'schoolId' does not exist in type 'ParentMessageWhereInput'.
+src/lib/senco/senco-dashboard.service.ts(912,11): error TS2353: Object literal may only specify known properties, and 'schoolId' does not exist in type 'DocumentViewWhereInput'.
+src/lib/senco/senco-dashboard.service.ts(922,7): error TS2322: Type '{ student: { include: { parentContacts: { orderBy: { date: string; }; take: number; }; }; }; }' is not assignable to type 'never'.
+src/lib/senco/senco-dashboard.service.ts(951,26): error TS2339: Property '_avg' does not exist on type 'GetReviewMeetingAggregateType<ReviewMeetingAggregateArgs<DefaultArgs>>'.
+src/lib/senco/senco-dashboard.service.ts(959,56): error TS2339: Property '_avg' does not exist on type 'GetReviewMeetingAggregateType<ReviewMeetingAggregateArgs<DefaultArgs>>'.
+src/lib/senco/senco-dashboard.service.ts(1029,18): error TS2353: Object literal may only specify known properties, and 'schoolId' does not exist in type 'ReviewMeetingWhereInput'.
+src/lib/senco/senco-dashboard.service.ts(1032,18): error TS2353: Object literal may only specify known properties, and 'schoolId' does not exist in type 'MeetingWhereInput'.
+src/lib/senco/senco-dashboard.service.ts(1035,18): error TS2353: Object literal may only specify known properties, and 'schoolId' does not exist in type 'MeetingWhereInput'.
+src/lib/senco/senco-dashboard.service.ts(1038,18): error TS2353: Object literal may only specify known properties, and 'schoolId' does not exist in type 'DocumentWhereInput'.
+src/lib/senco/senco-dashboard.service.ts(1041,18): error TS2353: Object literal may only specify known properties, and 'schoolId' does not exist in type 'interventionsWhereInput'.
+src/lib/senco/senco-dashboard.service.ts(1057,28): error TS2353: Object literal may only specify known properties, and 'status' does not exist in type 'provisionsWhereInput'.
+src/lib/senco/senco-dashboard.service.ts(1061,18): error TS2353: Object literal may only specify known properties, and 'schoolId' does not exist in type 'StaffAllocationWhereInput'.
+src/lib/senco/senco-dashboard.service.ts(1062,17): error TS2353: Object literal may only specify known properties, and 'hoursPerWeek' does not exist in type 'StaffAllocationSumAggregateInputType'.
+src/lib/senco/senco-dashboard.service.ts(1065,18): error TS2353: Object literal may only specify known properties, and 'schoolId' does not exist in type 'ExternalSpecialistWhereInput'.
+src/lib/senco/senco-dashboard.service.ts(1066,17): error TS2353: Object literal may only specify known properties, and 'hoursPerWeek' does not exist in type 'ExternalSpecialistSumAggregateInputType'.
+src/lib/senco/senco-dashboard.service.ts(1072,26): error TS2353: Object literal may only specify known properties, and 'type' does not exist in type 'SchoolBudgetWhereInput'.
+src/lib/senco/senco-dashboard.service.ts(1075,24): error TS18048: 'provisionCost._sum' is possibly 'undefined'.
+src/lib/senco/senco-dashboard.service.ts(1076,39): error TS2339: Property 'amount' does not exist on type '{ id: string; createdAt: Date; totalAmount: number; schoolId: string; academicYear: string; }'.
+src/lib/senco/senco-dashboard.service.ts(1076,68): error TS2339: Property 'amount' does not exist on type '{ id: string; createdAt: Date; totalAmount: number; schoolId: string; academicYear: string; }'.
+src/lib/senco/senco-dashboard.service.ts(1079,27): error TS18048: 'provisionCost._sum' is possibly 'undefined'.
+src/lib/senco/senco-dashboard.service.ts(1080,28): error TS18048: 'staffHours._sum' is possibly 'undefined'.
+src/lib/senco/senco-dashboard.service.ts(1080,44): error TS2339: Property 'hoursPerWeek' does not exist on type '{ hours?: number | null | undefined; }'.
+src/lib/senco/senco-dashboard.service.ts(1081,32): error TS18048: 'externalHours._sum' is possibly 'undefined'.
+src/lib/senco/senco-dashboard.service.ts(1081,51): error TS2339: Property 'hoursPerWeek' does not exist on type '{ cost?: number | null | undefined; }'.

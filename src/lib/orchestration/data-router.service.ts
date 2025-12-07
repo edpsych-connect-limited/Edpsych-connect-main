@@ -435,8 +435,8 @@ export class DataRouterService {
       const avgSuccessRate =
         recentAssignments.length > 0
           ? recentAssignments
-              .filter((a) => a.success_rate !== null)
-              .reduce((sum, a) => sum + (a.success_rate || 0), 0) / lessonsCompleted
+              .filter((a: any) => a.success_rate !== null)
+              .reduce((sum: number, a: any) => sum + (a.success_rate || 0), 0) / lessonsCompleted
           : 0;
 
       let overallPerformance = 'Making good progress';
@@ -990,7 +990,7 @@ export class DataRouterService {
       take: 10,
     });
 
-    const completedThisWeek = recentAssignments.filter((a) => {
+    const completedThisWeek = recentAssignments.filter((a: any) => {
       const weekAgo = new Date();
       weekAgo.setDate(weekAgo.getDate() - 7);
       return a.completed_at && a.completed_at >= weekAgo;
@@ -999,8 +999,8 @@ export class DataRouterService {
     const avgSuccessRate =
       recentAssignments.length > 0
         ? recentAssignments
-            .filter((a) => a.success_rate !== null)
-            .reduce((sum, a) => sum + (a.success_rate || 0), 0) / recentAssignments.length
+            .filter((a: any) => a.success_rate !== null)
+            .reduce((sum: number, a: any) => sum + (a.success_rate || 0), 0) / recentAssignments.length
         : 0.5;
 
     // Calculate days since last struggle
@@ -1018,10 +1018,10 @@ export class DataRouterService {
       const secondHalf = recentAssignments.slice(Math.floor(recentAssignments.length / 2));
 
       const firstAvg =
-        firstHalf.filter((a) => a.success_rate !== null).reduce((sum, a) => sum + (a.success_rate || 0), 0) /
+        firstHalf.filter((a: any) => a.success_rate !== null).reduce((sum: number, a: any) => sum + (a.success_rate || 0), 0) /
         firstHalf.length;
       const secondAvg =
-        secondHalf.filter((a) => a.success_rate !== null).reduce((sum, a) => sum + (a.success_rate || 0), 0) /
+        secondHalf.filter((a: any) => a.success_rate !== null).reduce((sum: number, a: any) => sum + (a.success_rate || 0), 0) /
         secondHalf.length;
 
       if (secondAvg > firstAvg + 0.1) trend = 'improving';
@@ -1122,7 +1122,7 @@ export class DataRouterService {
       },
     });
 
-    const lessonsAssigned = todayActions.filter((a) => a.action_type === 'lesson_assigned').length;
+    const lessonsAssigned = todayActions.filter((a: any) => a.action_type === 'lesson_assigned').length;
     const interventionsTriggered = todayActions.filter(
       (a) => a.action_type === 'intervention_triggered'
     ).length;
@@ -1132,7 +1132,7 @@ export class DataRouterService {
 
     const approvalsNeeded: ApprovalAction[] = await Promise.all(
       todayActions
-        .filter((a) => a.requires_approval && !a.approved_at && !a.rejected_at)
+        .filter((a: any) => a.requires_approval && !a.approved_at && !a.rejected_at)
         .map(async (a) => {
           // Get student name from action data or lookup
           let studentName = 'Unknown Student';
@@ -1266,7 +1266,7 @@ export class DataRouterService {
       take: 5,
     });
 
-    return upcomingAssignments.map((assignment) => ({
+    return upcomingAssignments.map((assignment: any) => ({
       title: assignment.lesson_plan.title,
       subject: assignment.lesson_plan.subject,
       when: assignment.lesson_plan.scheduled_for || new Date(),
@@ -1909,3 +1909,4 @@ export class DataRouterService {
 
 // Export singleton instance for use in API routes
 export const dataRouterService = new DataRouterService();
+

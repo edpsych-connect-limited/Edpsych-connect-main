@@ -39,8 +39,8 @@ interface UploadResult {
 
 const VIDEO_BASE_PATH = 'public/content/training_videos';
 
-async function getAllVideoFiles(): Promise<{ key: string; localPath: string }[]> {
-  const videos: { key: string; localPath: string }[] = [];
+async function getAllVideoFiles(): Promise<{ key: string; localPath: string; captionPath?: string }[]> {
+  const videos: { key: string; localPath: string; captionPath?: string }[] = [];
   
   function scanDirectory(dir: string, prefix: string = '') {
     if (!fs.existsSync(dir)) return;
@@ -55,7 +55,16 @@ async function getAllVideoFiles(): Promise<{ key: string; localPath: string }[]>
       } else if (item.endsWith('.mp4')) {
         // Generate key from filename (remove .mp4)
         const key = item.replace('.mp4', '');
-        videos.push({ key, localPath: fullPath });
+        
+        // Check for caption file
+        const captionPath = fullPath.replace(/\.mp4$/, '.vtt');
+        const hasCaption = fs.existsSync(captionPath);
+
+        videos.push({ 
+          key, 
+          localPath: fullPath,
+          captionPath: hasCaption ? captionPath : undefined
+        });
       }
     }
   }
@@ -64,7 +73,7 @@ async function getAllVideoFiles(): Promise<{ key: string; localPath: string }[]>
   return videos;
 }
 
-async function uploadVideo(localPath: string, key: string): Promise<UploadResult> {
+async function uploadVideo(localPath: string, key: string, captionPath?: string): Promise<UploadResult> {
   try {
     // Create public ID based on key
     const publicId = `edpsych-connect/videos/${key}`;
@@ -73,6 +82,16 @@ async function uploadVideo(localPath: string, key: string): Promise<UploadResult
     try {
       const existing = await cloudinary.api.resource(publicId, { resource_type: 'video' });
       if (existing) {
+        // Even if video exists, check/upload caption
+        if (captionPath) {
+           await cloudinary.uploader.upload(captionPath, {
+            resource_type: 'raw',
+            public_id: publicId + '.vtt',
+            overwrite: true,
+            tags: ['edpsych-connect', 'caption'],
+          });
+        }
+
         return {
           key,
           publicId: existing.public_id,
@@ -91,7 +110,7 @@ async function uploadVideo(localPath: string, key: string): Promise<UploadResult
     const result = await cloudinary.uploader.upload(localPath, {
       resource_type: 'video',
       public_id: publicId,
-      overwrite: false,
+      overwrite: true, // Force overwrite to ensure new version
       // Optimize for web delivery
       eager: [
         { format: 'mp4', quality: 'auto:good' },
@@ -100,6 +119,17 @@ async function uploadVideo(localPath: string, key: string): Promise<UploadResult
       // Tags for organization
       tags: ['edpsych-connect', 'training-video'],
     });
+
+    // Upload Caption (if exists)
+    if (captionPath) {
+      console.log(`   📝 Uploading caption for ${key}...`);
+      await cloudinary.uploader.upload(captionPath, {
+        resource_type: 'raw',
+        public_id: publicId + '.vtt',
+        overwrite: true,
+        tags: ['edpsych-connect', 'caption'],
+      });
+    }
     
     return {
       key,
@@ -157,7 +187,7 @@ async function main() {
   for (const video of videos) {
     process.stdout.write(`Processing ${video.key}... `);
     
-    const result = await uploadVideo(video.localPath, video.key);
+    const result = await uploadVideo(video.localPath, video.key, video.captionPath);
     results.push(result);
     
     if (result.status === 'uploaded') {

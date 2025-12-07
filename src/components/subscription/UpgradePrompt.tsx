@@ -49,7 +49,17 @@ const FEATURE_NAMES: Record<Feature, string> = {
   [Feature.CUSTOM_FEATURE_DEVELOPMENT]: 'Custom Feature Development',
   [Feature.API_ACCESS]: 'API Access',
   [Feature.MIS_INTEGRATION]: 'MIS Integration',
-  [Feature.SINGLE_SIGN_ON]: 'Single Sign-On'
+  [Feature.SINGLE_SIGN_ON]: 'Single Sign-On',
+  [Feature.EHCP_MANAGEMENT]: 'EHCP Management',
+  [Feature.SENCO_DASHBOARD]: 'SENCO Dashboard',
+  [Feature.OUTCOME_TRACKING]: 'Outcome Tracking',
+  [Feature.PROVISION_MAPPING]: 'Provision Mapping',
+  [Feature.TRANSITION_PLANNING]: 'Transition Planning',
+  [Feature.SAFEGUARDING]: 'Safeguarding',
+  [Feature.MULTI_AGENCY_COLLABORATION]: 'Multi-Agency Collaboration',
+  [Feature.ANNUAL_REVIEWS]: 'Annual Reviews',
+  [Feature.GOLDEN_THREAD]: 'Golden Thread Analysis',
+  [Feature.TIME_SAVINGS_ANALYTICS]: 'Time Savings Analytics',
 };
 
 // Tier display names

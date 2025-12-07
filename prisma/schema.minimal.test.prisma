@@ -1,0 +1,20 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model tenants {
+  id        Int    @id @default(autoincrement())
+  User      User[]
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  tenant_id Int
+  tenants   tenants  @relation(fields: [tenant_id], references: [id])
+  @@map("users")
+}

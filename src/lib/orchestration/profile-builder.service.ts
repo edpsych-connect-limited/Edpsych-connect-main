@@ -205,12 +205,12 @@ export class ProfileBuilderService {
 
       // Calculate recent success rate
       const recentSuccessRates = recentAssignments
-        .filter((a) => a.success_rate !== null)
-        .map((a) => a.success_rate as number);
+        .filter((a: any) => a.success_rate !== null)
+        .map((a: any) => a.success_rate as number);
 
       const avgRecentSuccess =
         recentSuccessRates.length > 0
-          ? recentSuccessRates.reduce((a, b) => a + b, 0) / recentSuccessRates.length
+          ? recentSuccessRates.reduce((a: number, b: number) => a + b, 0) / recentSuccessRates.length
           : 0.5;
 
       // Determine if ready to level up (5+ consecutive lessons with 80%+ success)
@@ -654,7 +654,7 @@ export class ProfileBuilderService {
   private static calculateCompletionRate(assignments: any[]): number {
     if (assignments.length === 0) return 0.5;
 
-    const completed = assignments.filter((a) => a.status === 'completed').length;
+    const completed = assignments.filter((a: any) => a.status === 'completed').length;
     return completed / assignments.length;
   }
 
@@ -800,3 +800,4 @@ export class ProfileBuilderService {
     }
   }
 }
+

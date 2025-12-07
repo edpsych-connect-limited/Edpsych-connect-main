@@ -293,7 +293,7 @@ export async function POST(request: NextRequest) {
     // Update profile
     if (action === 'updateProfile') {
       const validated = profileUpdateSchema.parse(body);
-      const profile = await networkService.updateProfile(session.user.id, validated);
+      const profile = await networkService.updateProfile(session.user.id, validated as any);
 
       return NextResponse.json({
         success: true,
@@ -356,6 +356,7 @@ export async function POST(request: NextRequest) {
       const validated = communitySchema.parse(body);
       const community = await networkService.createCommunity(session.user.id, {
         ...validated,
+        tags: validated.tags || [],
         moderatorIds: [],
         maxMembers: body.maxMembers,
         imageUrl: body.imageUrl
@@ -451,6 +452,10 @@ export async function POST(request: NextRequest) {
       const validated = resourceSchema.parse(body);
       const resource = await networkService.shareResource(session.user.id, {
         ...validated,
+        tags: validated.tags || [],
+        sendTypes: validated.sendTypes || [],
+        keyStages: validated.keyStages || [],
+        subjects: validated.subjects || [],
         thumbnailUrl: body.thumbnailUrl
       });
 
@@ -577,6 +582,7 @@ export async function POST(request: NextRequest) {
       const validated = eventSchema.parse(body);
       const event = await networkService.createEvent(session.user.id, {
         ...validated,
+        speakers: validated.speakers || [],
         startDate: new Date(validated.startDate),
         endDate: new Date(validated.endDate),
         registrationDeadline: validated.registrationDeadline ? new Date(validated.registrationDeadline) : undefined,

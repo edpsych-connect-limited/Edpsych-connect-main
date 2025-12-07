@@ -31,8 +31,8 @@ export async function GET(request: NextRequest) {
     };
 
     if (status) where.status = status;
-    if (reviewType) where.review_type = reviewType;
-    if (academicYear) where.academic_year = academicYear;
+    if (reviewType) where.reviewType = reviewType;
+    // if (academicYear) where.academic_year = academicYear; // academic_year not in model
 
     const annualReviews = await prisma.annualReview.findMany({
       where,
@@ -49,17 +49,17 @@ export async function GET(request: NextRequest) {
           },
         },
       },
-      orderBy: { scheduled_date: 'asc' },
+      orderBy: { scheduledDate: 'asc' },
     });
 
     const allReviews = await prisma.annualReview.findMany({
       where: { la_tenant_id: laTenantId },
     });
 
-    // Calculate overdue status dynamically based on scheduled_date
+    // Calculate overdue status dynamically based on scheduledDate
     const now = new Date();
-    const isOverdue = (r: { status: string; scheduled_date: Date | null }) =>
-      r.scheduled_date && new Date(r.scheduled_date) < now && r.status !== 'completed';
+    const isOverdue = (r: { status: string; scheduledDate: Date | null }) =>
+      r.scheduledDate && new Date(r.scheduledDate) < now && r.status !== 'completed';
 
     const stats = {
       total: allReviews.length,
@@ -72,10 +72,10 @@ export async function GET(request: NextRequest) {
         completed: allReviews.filter(r => r.status === 'completed').length,
       },
       byReviewType: {
-        standard: allReviews.filter(r => r.review_type === 'standard').length,
-        phase_transfer: allReviews.filter(r => r.review_type === 'phase_transfer').length,
-        emergency: allReviews.filter(r => r.review_type === 'emergency').length,
-        early: allReviews.filter(r => r.review_type === 'early').length,
+        standard: allReviews.filter(r => r.reviewType === 'standard').length,
+        phase_transfer: allReviews.filter(r => r.reviewType === 'phase_transfer').length,
+        emergency: allReviews.filter(r => r.reviewType === 'emergency').length,
+        early: allReviews.filter(r => r.reviewType === 'early').length,
       },
       byOutcome: {
         maintain: allReviews.filter(r => r.outcome === 'maintain').length,
@@ -95,8 +95,8 @@ export async function GET(request: NextRequest) {
 
     const upcomingReviews = annualReviews
       .filter(r => 
-        r.scheduled_date && 
-        new Date(r.scheduled_date) <= thirtyDaysFromNow &&
+        r.scheduledDate && 
+        new Date(r.scheduledDate) <= thirtyDaysFromNow &&
         r.status !== 'completed'
       )
       .slice(0, 10);
@@ -175,13 +175,13 @@ export async function POST(request: NextRequest) {
     const annualReview = await prisma.annualReview.create({
       data: {
         la_tenant: { connect: { id: session.tenant_id! } },
-        ehcp_id,
+        ehcpId: ehcp_id,
         child_id,
         child_name,
         review_period_start: reviewStart,
         review_period_end: reviewEnd,
-        review_type,
-        scheduled_date: scheduledDateParsed,
+        reviewType: review_type,
+        scheduledDate: scheduledDateParsed,
         setting_name: setting_name || undefined,
         setting_id: setting_id || undefined,
         case_officer_id: case_officer_id || undefined,

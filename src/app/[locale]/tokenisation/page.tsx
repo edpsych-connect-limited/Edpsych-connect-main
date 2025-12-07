@@ -94,7 +94,7 @@ export default function TokenisationPage() {
   if (error) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
-        <PageHeader title="Error" description="Failed to load tokenisation data" />
+        <PageHeader title="Error" subtitle="Failed to load tokenisation data" />
         <div className="container mx-auto px-4 py-8">
           <ErrorDisplay
             title="Error Loading Tokenisation"
@@ -110,7 +110,7 @@ export default function TokenisationPage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
       <PageHeader
         title="Tokenisation System"
-        description="Manage your rewards, treasury, and earn-to-learn incentives"
+        subtitle="Manage your rewards, treasury, and earn-to-learn incentives"
       />
 
       <div className="container mx-auto px-4 py-8">

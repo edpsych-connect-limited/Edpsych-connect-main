@@ -1,0 +1,26 @@
+---
+id: autism-m5-l1
+title: Anxiety in Autism
+duration: 75 seconds
+audience: Teachers, Parents
+category: autism-spectrum-support
+speaker: Dr. Scott Ighavongbe-Patrick
+---
+
+# Anxiety in Autism
+
+**Speaker:** Dr. Scott Ighavongbe-Patrick
+**Duration:** 75 seconds
+**Audience:** Teachers, Parents
+
+---
+
+## Script
+
+For many autistic students, anxiety is their baseline state. They are living in a world that feels chaotic and intense.
+
+We often see 'masking'—holding it together at school, being the perfect student, and then exploding the moment they get home. This is the 'coke bottle effect'.
+
+If a child is quiet, it doesn't mean they are fine. They might be in shutdown.
+
+We need to recognise the early signs of dysregulation—the pacing, the echolalia, the withdrawal—before the explosion happens.

@@ -372,7 +372,7 @@ export class ProfessionalNetworkService {
    * Get professional profile by user ID
    */
   async getProfile(userId: string): Promise<ProfessionalProfile | null> {
-    const profile = await this.prisma.professionalProfile.findUnique({
+    const profile = await (this.prisma as any).professionalProfile.findUnique({
       where: { userId },
       include: {
         qualifications: true,
@@ -401,7 +401,7 @@ export class ProfessionalNetworkService {
    * Create or update professional profile
    */
   async updateProfile(userId: string, data: ProfileUpdateData): Promise<ProfessionalProfile> {
-    const profile = await this.prisma.professionalProfile.upsert({
+    const profile = await (this.prisma as any).professionalProfile.upsert({
       where: { userId },
       create: {
         userId,
@@ -435,7 +435,7 @@ export class ProfessionalNetworkService {
     page: number;
     totalPages: number;
   }> {
-    const where: Prisma.ProfessionalProfileWhereInput = {
+    const where: any = {
       profileVisibility: 'PUBLIC'
     };
 
@@ -472,13 +472,13 @@ export class ProfessionalNetworkService {
     }
 
     const [profiles, total] = await Promise.all([
-      this.prisma.professionalProfile.findMany({
+      (this.prisma as any).professionalProfile.findMany({
         where,
         skip: (page - 1) * limit,
         take: limit,
         orderBy: { endorsementsCount: 'desc' }
       }),
-      this.prisma.professionalProfile.count({ where })
+      (this.prisma as any).professionalProfile.count({ where })
     ]);
 
     return {
@@ -500,7 +500,7 @@ export class ProfessionalNetworkService {
     helpfulResponses: number;
   }> {
     const [connections, endorsements, resources, discussions, replies] = await Promise.all([
-      this.prisma.professionalConnection.count({
+      (this.prisma as any).professionalConnection.count({
         where: {
           OR: [
             { requesterId: userId },
@@ -509,16 +509,16 @@ export class ProfessionalNetworkService {
           status: 'ACCEPTED'
         }
       }),
-      this.prisma.endorsement.count({
+      (this.prisma as any).endorsement.count({
         where: { toUserId: userId }
       }),
-      this.prisma.sharedResource.count({
+      (this.prisma as any).sharedResource.count({
         where: { authorId: userId, status: 'PUBLISHED' }
       }),
-      this.prisma.discussion.count({
+      (this.prisma as any).discussion.count({
         where: { authorId: userId, status: 'PUBLISHED' }
       }),
-      this.prisma.discussionReply.count({
+      (this.prisma as any).discussionReply.count({
         where: { authorId: userId, isHelpful: true }
       })
     ]);
@@ -546,7 +546,7 @@ export class ProfessionalNetworkService {
     message?: string
   ): Promise<Connection> {
     // Check if connection already exists
-    const existing = await this.prisma.professionalConnection.findFirst({
+    const existing = await (this.prisma as any).professionalConnection.findFirst({
       where: {
         OR: [
           { requesterId, receiverId },
@@ -559,7 +559,7 @@ export class ProfessionalNetworkService {
       throw new Error('Connection already exists or pending');
     }
 
-    const connection = await this.prisma.professionalConnection.create({
+    const connection = await (this.prisma as any).professionalConnection.create({
       data: {
         requesterId,
         receiverId,
@@ -583,7 +583,7 @@ export class ProfessionalNetworkService {
     userId: string,
     accept: boolean
   ): Promise<Connection> {
-    const connection = await this.prisma.professionalConnection.findUnique({
+    const connection = await (this.prisma as any).professionalConnection.findUnique({
       where: { id: connectionId }
     });
 
@@ -591,7 +591,7 @@ export class ProfessionalNetworkService {
       throw new Error('Connection not found or unauthorised');
     }
 
-    const updated = await this.prisma.professionalConnection.update({
+    const updated = await (this.prisma as any).professionalConnection.update({
       where: { id: connectionId },
       data: {
         status: accept ? 'ACCEPTED' : 'DECLINED',
@@ -615,7 +615,7 @@ export class ProfessionalNetworkService {
     userId: string,
     status: Connection['status'] = 'ACCEPTED'
   ): Promise<{ connections: Connection[]; profiles: ProfessionalProfile[] }> {
-    const connections = await this.prisma.professionalConnection.findMany({
+    const connections = await (this.prisma as any).professionalConnection.findMany({
       where: {
         OR: [
           { requesterId: userId },
@@ -634,7 +634,7 @@ export class ProfessionalNetworkService {
     });
 
     const profiles: ProfessionalProfile[] = [];
-    connections.forEach(conn => {
+    connections.forEach((conn: any) => {
       const otherProfile = conn.requesterId === userId
         ? (conn as unknown as { receiver: { profile: ProfessionalProfile } }).receiver?.profile
         : (conn as unknown as { requester: { profile: ProfessionalProfile } }).requester?.profile;
@@ -660,7 +660,7 @@ export class ProfessionalNetworkService {
     ownerId: string,
     data: Omit<ProfessionalLearningCommunity, 'id' | 'ownerId' | 'memberCount' | 'lastActivityAt' | 'postsCount' | 'resourcesCount' | 'eventsCount' | 'createdAt'>
   ): Promise<ProfessionalLearningCommunity> {
-    const community = await this.prisma.professionalLearningCommunity.create({
+    const community = await (this.prisma as any).professionalLearningCommunity.create({
       data: {
         ...data,
         ownerId,
@@ -674,7 +674,7 @@ export class ProfessionalNetworkService {
     });
 
     // Add owner as first member
-    await this.prisma.communityMembership.create({
+    await (this.prisma as any).communityMembership.create({
       data: {
         communityId: community.id,
         userId: ownerId,
@@ -693,7 +693,7 @@ export class ProfessionalNetworkService {
     communities: ProfessionalLearningCommunity[];
     total: number;
   }> {
-    const where: Prisma.ProfessionalLearningCommunityWhereInput = {
+    const where: any = {
       OR: [
         { visibility: 'PUBLIC' },
         { type: { in: ['OPEN', 'REQUEST_TO_JOIN'] } }
@@ -719,7 +719,7 @@ export class ProfessionalNetworkService {
     }
 
     const [communities, total] = await Promise.all([
-      this.prisma.professionalLearningCommunity.findMany({
+      (this.prisma as any).professionalLearningCommunity.findMany({
         where,
         skip: (page - 1) * limit,
         take: limit,
@@ -728,7 +728,7 @@ export class ProfessionalNetworkService {
           { lastActivityAt: 'desc' }
         ]
       }),
-      this.prisma.professionalLearningCommunity.count({ where })
+      (this.prisma as any).professionalLearningCommunity.count({ where })
     ]);
 
     return {
@@ -741,7 +741,7 @@ export class ProfessionalNetworkService {
    * Join a community
    */
   async joinCommunity(userId: string, communityId: string): Promise<{ success: boolean; status: 'JOINED' | 'PENDING' }> {
-    const community = await this.prisma.professionalLearningCommunity.findUnique({
+    const community = await (this.prisma as any).professionalLearningCommunity.findUnique({
       where: { id: communityId }
     });
 
@@ -755,7 +755,7 @@ export class ProfessionalNetworkService {
 
     const membershipStatus = community.type === 'REQUEST_TO_JOIN' ? 'PENDING' : 'ACTIVE';
 
-    await this.prisma.communityMembership.create({
+    await (this.prisma as any).communityMembership.create({
       data: {
         communityId,
         userId,
@@ -766,7 +766,7 @@ export class ProfessionalNetworkService {
     });
 
     if (membershipStatus === 'ACTIVE') {
-      await this.prisma.professionalLearningCommunity.update({
+      await (this.prisma as any).professionalLearningCommunity.update({
         where: { id: communityId },
         data: { memberCount: { increment: 1 } }
       });
@@ -782,7 +782,7 @@ export class ProfessionalNetworkService {
    * Get user's communities
    */
   async getUserCommunities(userId: string): Promise<ProfessionalLearningCommunity[]> {
-    const memberships = await this.prisma.communityMembership.findMany({
+    const memberships = await (this.prisma as any).communityMembership.findMany({
       where: {
         userId,
         status: 'ACTIVE'
@@ -792,7 +792,7 @@ export class ProfessionalNetworkService {
       }
     });
 
-    return memberships.map(m => m.community as unknown as ProfessionalLearningCommunity);
+    return memberships.map((m: any) => m.community as unknown as ProfessionalLearningCommunity);
   }
 
   // ========================================
@@ -813,7 +813,7 @@ export class ProfessionalNetworkService {
     }
   ): Promise<Discussion> {
     // Verify membership
-    const membership = await this.prisma.communityMembership.findFirst({
+    const membership = await (this.prisma as any).communityMembership.findFirst({
       where: { communityId, userId: authorId, status: 'ACTIVE' }
     });
 
@@ -821,11 +821,11 @@ export class ProfessionalNetworkService {
       throw new Error('Must be a community member to post');
     }
 
-    const community = await this.prisma.professionalLearningCommunity.findUnique({
+    const community = await (this.prisma as any).professionalLearningCommunity.findUnique({
       where: { id: communityId }
     });
 
-    const discussion = await this.prisma.discussion.create({
+    const discussion = await (this.prisma as any).discussion.create({
       data: {
         communityId,
         authorId,
@@ -844,7 +844,7 @@ export class ProfessionalNetworkService {
     });
 
     // Update community stats
-    await this.prisma.professionalLearningCommunity.update({
+    await (this.prisma as any).professionalLearningCommunity.update({
       where: { id: communityId },
       data: {
         postsCount: { increment: 1 },
@@ -862,7 +862,7 @@ export class ProfessionalNetworkService {
     discussions: Discussion[];
     total: number;
   }> {
-    const where: Prisma.DiscussionWhereInput = {
+    const where: any = {
       status: 'PUBLISHED',
       moderationStatus: 'APPROVED'
     };
@@ -887,7 +887,7 @@ export class ProfessionalNetworkService {
       where.isPinned = filters.isPinned;
     }
 
-    let orderBy: Prisma.DiscussionOrderByWithRelationInput = { createdAt: 'desc' };
+    let orderBy: any = { createdAt: 'desc' };
     
     if (filters.sortBy === 'popular') {
       orderBy = { likeCount: 'desc' };
@@ -896,7 +896,7 @@ export class ProfessionalNetworkService {
     }
 
     const [discussions, total] = await Promise.all([
-      this.prisma.discussion.findMany({
+      (this.prisma as any).discussion.findMany({
         where,
         skip: (page - 1) * limit,
         take: limit,
@@ -910,7 +910,7 @@ export class ProfessionalNetworkService {
           }
         }
       }),
-      this.prisma.discussion.count({ where })
+      (this.prisma as any).discussion.count({ where })
     ]);
 
     return {
@@ -928,7 +928,7 @@ export class ProfessionalNetworkService {
     content: string,
     parentReplyId?: string
   ): Promise<DiscussionReply> {
-    const discussion = await this.prisma.discussion.findUnique({
+    const discussion = await (this.prisma as any).discussion.findUnique({
       where: { id: discussionId }
     });
 
@@ -936,7 +936,7 @@ export class ProfessionalNetworkService {
       throw new Error('Discussion not found or locked');
     }
 
-    const reply = await this.prisma.discussionReply.create({
+    const reply = await (this.prisma as any).discussionReply.create({
       data: {
         discussionId,
         authorId,
@@ -949,7 +949,7 @@ export class ProfessionalNetworkService {
     });
 
     // Update discussion stats
-    await this.prisma.discussion.update({
+    await (this.prisma as any).discussion.update({
       where: { id: discussionId },
       data: {
         replyCount: { increment: 1 },
@@ -958,7 +958,7 @@ export class ProfessionalNetworkService {
     });
 
     // Update community activity
-    await this.prisma.professionalLearningCommunity.update({
+    await (this.prisma as any).professionalLearningCommunity.update({
       where: { id: discussion.communityId },
       data: { lastActivityAt: new Date() }
     });
@@ -971,7 +971,7 @@ export class ProfessionalNetworkService {
    */
   async markReplyHelpful(replyId: string, userId: string): Promise<DiscussionReply> {
     // Check if already voted
-    const existingVote = await this.prisma.helpfulVote.findUnique({
+    const existingVote = await (this.prisma as any).helpfulVote.findUnique({
       where: {
         userId_replyId: { userId, replyId }
       }
@@ -982,12 +982,12 @@ export class ProfessionalNetworkService {
     }
 
     // Record vote
-    await this.prisma.helpfulVote.create({
+    await (this.prisma as any).helpfulVote.create({
       data: { userId, replyId }
     });
 
     // Update reply
-    const reply = await this.prisma.discussionReply.update({
+    const reply = await (this.prisma as any).discussionReply.update({
       where: { id: replyId },
       data: {
         helpfulVotes: { increment: 1 },
@@ -1009,7 +1009,7 @@ export class ProfessionalNetworkService {
     authorId: string,
     data: Omit<SharedResource, 'id' | 'authorId' | 'viewCount' | 'downloadCount' | 'likeCount' | 'commentCount' | 'rating' | 'ratingCount' | 'qualityScore' | 'status' | 'createdAt' | 'updatedAt'>
   ): Promise<SharedResource> {
-    const resource = await this.prisma.sharedResource.create({
+    const resource = await (this.prisma as any).sharedResource.create({
       data: {
         ...data,
         authorId,
@@ -1025,7 +1025,7 @@ export class ProfessionalNetworkService {
     });
 
     // Update author stats
-    await this.prisma.professionalProfile.update({
+    await (this.prisma as any).professionalProfile.update({
       where: { userId: authorId },
       data: { resourcesShared: { increment: 1 } }
     });
@@ -1047,7 +1047,7 @@ export class ProfessionalNetworkService {
     page: number = 1,
     limit: number = 20
   ): Promise<{ resources: SharedResource[]; total: number }> {
-    const where: Prisma.SharedResourceWhereInput = {
+    const where: any = {
       status: 'PUBLISHED',
       visibility: 'PUBLIC'
     };
@@ -1077,7 +1077,7 @@ export class ProfessionalNetworkService {
     }
 
     const [resources, total] = await Promise.all([
-      this.prisma.sharedResource.findMany({
+      (this.prisma as any).sharedResource.findMany({
         where,
         skip: (page - 1) * limit,
         take: limit,
@@ -1091,7 +1091,7 @@ export class ProfessionalNetworkService {
           }
         }
       }),
-      this.prisma.sharedResource.count({ where })
+      (this.prisma as any).sharedResource.count({ where })
     ]);
 
     return {
@@ -1118,7 +1118,7 @@ export class ProfessionalNetworkService {
     }
   ): Promise<MentoringRelationship> {
     // Check mentor availability
-    const mentor = await this.prisma.professionalProfile.findUnique({
+    const mentor = await (this.prisma as any).professionalProfile.findUnique({
       where: { userId: mentorId }
     });
 
@@ -1126,7 +1126,7 @@ export class ProfessionalNetworkService {
       throw new Error('Mentor is not currently available for mentoring');
     }
 
-    const relationship = await this.prisma.mentoringRelationship.create({
+    const relationship = await (this.prisma as any).mentoringRelationship.create({
       data: {
         mentorId,
         menteeId,
@@ -1162,7 +1162,7 @@ export class ProfessionalNetworkService {
     mentorId: string,
     accept: boolean
   ): Promise<MentoringRelationship> {
-    const relationship = await this.prisma.mentoringRelationship.findUnique({
+    const relationship = await (this.prisma as any).mentoringRelationship.findUnique({
       where: { id: relationshipId }
     });
 
@@ -1170,7 +1170,7 @@ export class ProfessionalNetworkService {
       throw new Error('Relationship not found or unauthorised');
     }
 
-    const updated = await this.prisma.mentoringRelationship.update({
+    const updated = await (this.prisma as any).mentoringRelationship.update({
       where: { id: relationshipId },
       data: {
         status: accept ? 'ACTIVE' : 'TERMINATED'
@@ -1194,7 +1194,7 @@ export class ProfessionalNetworkService {
       nextSteps: string[];
     }
   ): Promise<MentoringRelationship> {
-    const relationship = await this.prisma.mentoringRelationship.findUnique({
+    const relationship = await (this.prisma as any).mentoringRelationship.findUnique({
       where: { id: relationshipId }
     });
 
@@ -1207,7 +1207,7 @@ export class ProfessionalNetworkService {
     }
 
     // Record session
-    await this.prisma.mentoringSession.create({
+    await (this.prisma as any).mentoringSession.create({
       data: {
         relationshipId,
         date: data.date,
@@ -1220,7 +1220,7 @@ export class ProfessionalNetworkService {
     });
 
     // Update relationship stats
-    const updated = await this.prisma.mentoringRelationship.update({
+    const updated = await (this.prisma as any).mentoringRelationship.update({
       where: { id: relationshipId },
       data: {
         sessionsCompleted: { increment: 1 },
@@ -1245,7 +1245,7 @@ export class ProfessionalNetworkService {
     message?: string
   ): Promise<Endorsement> {
     // Verify connection
-    const connection = await this.prisma.professionalConnection.findFirst({
+    const connection = await (this.prisma as any).professionalConnection.findFirst({
       where: {
         OR: [
           { requesterId: fromUserId, receiverId: toUserId },
@@ -1260,7 +1260,7 @@ export class ProfessionalNetworkService {
     }
 
     // Check if already endorsed this skill
-    const existing = await this.prisma.endorsement.findFirst({
+    const existing = await (this.prisma as any).endorsement.findFirst({
       where: { fromUserId, toUserId, skill }
     });
 
@@ -1268,7 +1268,7 @@ export class ProfessionalNetworkService {
       throw new Error('Already endorsed this skill');
     }
 
-    const endorsement = await this.prisma.endorsement.create({
+    const endorsement = await (this.prisma as any).endorsement.create({
       data: {
         fromUserId,
         toUserId,
@@ -1278,7 +1278,7 @@ export class ProfessionalNetworkService {
     });
 
     // Update profile endorsement count
-    await this.prisma.professionalProfile.update({
+    await (this.prisma as any).professionalProfile.update({
       where: { userId: toUserId },
       data: { endorsementsCount: { increment: 1 } }
     });
@@ -1297,7 +1297,7 @@ export class ProfessionalNetworkService {
     organiserId: string,
     data: Omit<NetworkEvent, 'id' | 'organiserId' | 'registeredCount' | 'waitlistCount' | 'status' | 'createdAt'>
   ): Promise<NetworkEvent> {
-    const event = await this.prisma.networkEvent.create({
+    const event = await (this.prisma as any).networkEvent.create({
       data: {
         ...data,
         organiserId,
@@ -1312,7 +1312,7 @@ export class ProfessionalNetworkService {
 
     // If community event, update community stats
     if (data.communityId) {
-      await this.prisma.professionalLearningCommunity.update({
+      await (this.prisma as any).professionalLearningCommunity.update({
         where: { id: data.communityId },
         data: {
           eventsCount: { increment: 1 },
@@ -1328,7 +1328,7 @@ export class ProfessionalNetworkService {
    * Register for event
    */
   async registerForEvent(userId: string, eventId: string): Promise<{ registered: boolean; waitlisted: boolean }> {
-    const event = await this.prisma.networkEvent.findUnique({
+    const event = await (this.prisma as any).networkEvent.findUnique({
       where: { id: eventId }
     });
 
@@ -1342,7 +1342,7 @@ export class ProfessionalNetworkService {
 
     const isWaitlisted = event.maxAttendees ? event.registeredCount >= event.maxAttendees : false;
 
-    await this.prisma.eventRegistration.create({
+    await (this.prisma as any).eventRegistration.create({
       data: {
         eventId,
         userId,
@@ -1352,7 +1352,7 @@ export class ProfessionalNetworkService {
     });
 
     // Update event counts
-    await this.prisma.networkEvent.update({
+    await (this.prisma as any).networkEvent.update({
       where: { id: eventId },
       data: isWaitlisted
         ? { waitlistCount: { increment: 1 } }
@@ -1380,7 +1380,7 @@ export class ProfessionalNetworkService {
   }
 
   private async updateConnectionCounts(userId: string): Promise<void> {
-    const count = await this.prisma.professionalConnection.count({
+    const count = await (this.prisma as any).professionalConnection.count({
       where: {
         OR: [
           { requesterId: userId },
@@ -1390,7 +1390,7 @@ export class ProfessionalNetworkService {
       }
     });
 
-    await this.prisma.professionalProfile.update({
+    await (this.prisma as any).professionalProfile.update({
       where: { userId },
       data: { connectionsCount: count }
     });
@@ -1430,7 +1430,7 @@ export class ProfessionalNetworkService {
     const now = new Date();
     const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
 
-    const profile = await this.prisma.professionalProfile.findUnique({
+    const profile = await (this.prisma as any).professionalProfile.findUnique({
       where: { userId }
     });
 
@@ -1444,35 +1444,35 @@ export class ProfessionalNetworkService {
       communities,
       mentoring
     ] = await Promise.all([
-      this.prisma.discussion.count({
+      (this.prisma as any).discussion.count({
         where: { authorId: userId, createdAt: { gte: monthStart } }
       }),
-      this.prisma.discussionReply.count({
+      (this.prisma as any).discussionReply.count({
         where: { authorId: userId, createdAt: { gte: monthStart } }
       }),
-      this.prisma.sharedResource.count({
+      (this.prisma as any).sharedResource.count({
         where: { authorId: userId, createdAt: { gte: monthStart } }
       }),
-      this.prisma.endorsement.count({
+      (this.prisma as any).endorsement.count({
         where: { toUserId: userId }
       }),
-      this.prisma.professionalConnection.count({
+      (this.prisma as any).professionalConnection.count({
         where: {
           OR: [{ requesterId: userId }, { receiverId: userId }],
           status: 'ACCEPTED'
         }
       }),
-      this.prisma.professionalConnection.count({
+      (this.prisma as any).professionalConnection.count({
         where: {
           OR: [{ requesterId: userId }, { receiverId: userId }],
           status: 'ACCEPTED',
           acceptedAt: { gte: monthStart }
         }
       }),
-      this.prisma.communityMembership.count({
+      (this.prisma as any).communityMembership.count({
         where: { userId, status: 'ACTIVE' }
       }),
-      this.prisma.mentoringRelationship.count({
+      (this.prisma as any).mentoringRelationship.count({
         where: {
           OR: [{ mentorId: userId }, { menteeId: userId }],
           status: 'ACTIVE'
@@ -1529,3 +1529,7 @@ export class ProfessionalNetworkService {
     return Math.round((completed / fields.length) * 100);
   }
 }
+
+
+
+

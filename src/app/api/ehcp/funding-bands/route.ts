@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
 
     const fundingBand = await prisma.fundingBand.create({
       data: {
-        la_tenant_id: session.tenant_id,
+        la_tenant: { connect: { id: session.tenant_id } },
         band_code,
         band_name,
         description,

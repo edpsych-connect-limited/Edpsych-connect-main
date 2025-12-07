@@ -36,6 +36,8 @@ import {
   History,
 } from 'lucide-react';
 
+import { smartMergeContributions } from '@/lib/ehcp/smart-merge';
+
 // Helper function to format dates
 const format = (date: string | Date, _pattern?: string): string => {
   const d = new Date(date);
@@ -462,6 +464,7 @@ export default function EHCPMergeTool({ applicationId, application, onBack, onSa
   const [saving, setSaving] = useState(false);
   const [_activeSection, _setActiveSection] = useState<string | null>(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [conflicts, setConflicts] = useState<string[]>([]);
   
   // Fetch contributions and initialize sections
   const fetchContributions = useCallback(async () => {
@@ -527,12 +530,14 @@ export default function EHCPMergeTool({ applicationId, application, onBack, onSa
     const section = sections.find((s) => s.id === sectionId);
     if (!section || section.contributions.length === 0) return;
     
-    // Simple merge: concatenate all contributions with headers
-    const mergedContent = section.contributions
-      .map((c) => `**${getRoleLabel(c.professionalRole)} - ${c.professionalName}:**\n\n${c.content}`)
-      .join('\n\n---\n\n');
+    // Use Smart Merge Logic
+    const result = smartMergeContributions(section.contributions);
     
-    handleContentChange(sectionId, mergedContent);
+    if (result.conflicts.length > 0) {
+      setConflicts(prev => [...prev, ...result.conflicts]);
+    }
+    
+    handleContentChange(sectionId, result.content);
   };
   
   // Calculate completion status
@@ -624,6 +629,27 @@ export default function EHCPMergeTool({ applicationId, application, onBack, onSa
         </div>
       </div>
       
+      {/* Conflicts Banner */}
+      {conflicts.length > 0 && (
+        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3">
+          <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5" />
+          <div>
+            <h3 className="font-semibold text-amber-800">Conflicts Detected</h3>
+            <ul className="mt-1 space-y-1 text-sm text-amber-700">
+              {conflicts.map((c, i) => (
+                <li key={i}>{c}</li>
+              ))}
+            </ul>
+            <button 
+              onClick={() => setConflicts([])}
+              className="mt-2 text-xs font-medium text-amber-800 hover:underline"
+            >
+              Dismiss
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Progress Overview */}
       <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-6 text-white">
         <div className="flex items-center justify-between">

@@ -532,9 +532,9 @@ export default function TrainingSandbox() {
                   {/* Video Player Section */}
                   <div className="aspect-video bg-gray-900 relative">
                     <CloudinaryVideoPlayer
-                      src={getVideoUrl(selectedLesson, selectedCourse)}
+                      videoId={getVideoUrl(selectedLesson, selectedCourse)}
                       title={selectedLesson.title}
-                      onEnded={handleVideoComplete}
+                      onComplete={handleVideoComplete}
                       autoPlay={false}
                       showControls={true}
                     />

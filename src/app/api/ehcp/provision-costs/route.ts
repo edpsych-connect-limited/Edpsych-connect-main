@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic';
 
 interface ProvisionCost {
   provision_type: string;
-  provider_type: string;
+  provider_type: string | null;
   cost_model: string;
   unit_cost: number;
 }
@@ -46,13 +46,13 @@ export async function GET(request: NextRequest) {
       where,
       orderBy: [
         { provision_type: 'asc' },
-        { provider_name: 'asc' },
+        { provision_name: 'asc' },
       ],
     });
 
     // Group by type
     const groupedByType = provisionCosts.reduce((acc: Record<string, ProvisionCost[]>, cost: ProvisionCost) => {
-      const type = cost.provision_type;
+      const type = cost.provision_type || 'unknown';
       if (!acc[type]) acc[type] = [];
       acc[type].push(cost);
       return acc;
@@ -61,8 +61,8 @@ export async function GET(request: NextRequest) {
     // Group by provider
     const groupedByProvider = provisionCosts.reduce((acc: Record<string, ProvisionCost[]>, cost: ProvisionCost) => {
       const provider = cost.provider_type;
-      if (!acc[provider]) acc[provider] = [];
-      acc[provider].push(cost);
+      if (provider && !acc[provider]) if (provider) acc[provider] = [];
+      if (provider) acc[provider].push(cost);
       return acc;
     }, {});
 
@@ -146,7 +146,7 @@ export async function POST(request: NextRequest) {
         maximum_units,
         academic_year,
         is_active: true,
-      },
+      } as any,
     });
 
     return NextResponse.json(provisionCost, { status: 201 });
@@ -158,3 +158,5 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+

@@ -1,0 +1,118 @@
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
+
+// Configuration
+const API_KEY = 'sk_V2_hgu_knMBHTR5eZS_Fh7oPDiRF6jLhvQXFPVXnNlMNG7PkjRj';
+const AVATAR_ID = '0d10345ca99840cdbd3103692ba55e27';
+const VOICE_ID = '50d2a2a531d049719a0debbf82e1cf4c'; // Scott Ighavongbe-Patrick (Correct Voice)
+
+const TEST_FILE = path.join(__dirname, '..', 'video_scripts', 'v4_generated', 'adhd-understanding-support', 'adhd-m1-l1.md');
+
+function parseMarkdown(content) {
+    const parts = content.split('---');
+    if (parts.length < 3) return null;
+
+    const frontmatter = parts[1];
+    const body = parts.slice(2).join('---');
+
+    const metadata = {};
+    frontmatter.split('\n').forEach(line => {
+        const [key, ...val] = line.split(':');
+        if (key && val) {
+            metadata[key.trim()] = val.join(':').trim();
+        }
+    });
+
+    const scriptMatch = body.split('## Script');
+    let script = '';
+    if (scriptMatch.length > 1) {
+        script = scriptMatch[1].trim();
+    } else {
+        script = body.replace(/# .+\n/, '').trim();
+    }
+
+    return { metadata, script };
+}
+
+function makeRequest(options, payload) {
+    return new Promise((resolve, reject) => {
+        const req = https.request(options, (res) => {
+            let data = '';
+            res.on('data', (chunk) => data += chunk);
+            res.on('end', () => {
+                if (res.statusCode >= 200 && res.statusCode < 300) {
+                    try {
+                        resolve(JSON.parse(data));
+                    } catch (e) {
+                        resolve(data);
+                    }
+                } else {
+                    reject(new Error(`Request failed with status code ${res.statusCode}: ${data}`));
+                }
+            });
+        });
+
+        req.on('error', (e) => reject(e));
+        if (payload) {
+            req.write(JSON.stringify(payload));
+        }
+        req.end();
+    });
+}
+
+async function main() {
+    console.log(`Reading test file: ${TEST_FILE}`);
+    const content = fs.readFileSync(TEST_FILE, 'utf8');
+    const parsed = parseMarkdown(content);
+    
+    if (!parsed || !parsed.script) {
+        console.error(`Failed to parse script`);
+        return;
+    }
+
+    const { metadata, script } = parsed;
+    console.log(`Title: ${metadata.title}`);
+    console.log(`Voice ID: ${VOICE_ID}`);
+    console.log(`Script Preview: ${script.substring(0, 100)}...`);
+
+    const payload = {
+        video_inputs: [
+            {
+                character: {
+                    type: 'avatar',
+                    avatar_id: AVATAR_ID,
+                    avatar_style: 'normal'
+                },
+                voice: {
+                    type: 'text',
+                    voice_id: VOICE_ID,
+                    input_text: script
+                }
+            }
+        ],
+        test: false,
+        aspect_ratio: "16:9",
+        title: `TEST - ${metadata.title}`
+    };
+
+    const options = {
+        hostname: 'api.heygen.com',
+        path: '/v2/video/generate',
+        method: 'POST',
+        headers: {
+            'X-Api-Key': API_KEY,
+            'Content-Type': 'application/json'
+        }
+    };
+
+    try {
+        console.log('Sending request to HeyGen...');
+        const response = await makeRequest(options, payload);
+        console.log(`Success! Video ID: ${response.data.video_id}`);
+    } catch (error) {
+        console.error(`Error:`, error.message);
+    }
+}
+
+main();

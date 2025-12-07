@@ -148,7 +148,7 @@ export async function POST(request: NextRequest) {
     const overdueReviews = await prisma.annualReview.count({
       where: {
         la_tenant_id: laTenantId,
-        scheduled_date: { lt: new Date() },
+        scheduledDate: { lt: new Date() },
         status: { not: 'completed' },
       },
     });

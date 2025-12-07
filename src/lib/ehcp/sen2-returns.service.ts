@@ -103,18 +103,18 @@ export const DFE_PRIMARY_NEED_CODES = {
 
 // DfE Placement Type Categories
 export const DFE_PLACEMENT_TYPES = {
-  MAINSTREAM_SCHOOL: 'Mainstream School',
-  RESOURCED_PROVISION: 'Resourced Provision in Mainstream',
-  SPECIAL_UNIT: 'Special Unit in Mainstream',
+  MAINSTREAM_MAINTAINED: 'Mainstream School (Maintained)',
+  MAINSTREAM_ACADEMY: 'Mainstream Academy',
   MAINTAINED_SPECIAL: 'Maintained Special School',
-  NMSS: 'Non-Maintained Special School',
+  ACADEMY_SPECIAL: 'Academy Special School',
+  NON_MAINTAINED_SPECIAL: 'Non-Maintained Special School',
   INDEPENDENT_SPECIAL: 'Independent Special School',
   INDEPENDENT_MAINSTREAM: 'Independent Mainstream',
-  AP: 'Alternative Provision',
-  PUPIL_REFERRAL: 'Pupil Referral Unit',
-  EOTAS: 'Educated Otherwise Than At School',
-  EARLY_YEARS: 'Early Years Setting',
-  FURTHER_EDUCATION: 'Further Education',
+  HOSPITAL_SCHOOL: 'Hospital School',
+  ALTERNATIVE_PROVISION: 'Alternative Provision',
+  POST_16_FE: 'Post-16 FE',
+  POST_16_SPECIALIST: 'Post-16 Specialist',
+  ELECTIVE_HOME_EDUCATION: 'Elective Home Education',
   AWAITING_PLACEMENT: 'Awaiting Placement',
   OTHER: 'Other',
 } as const;
@@ -342,17 +342,16 @@ export class SEN2ReturnsService {
     // Get EHCP applications to calculate timeline compliance
     const applications = await prisma.eHCPApplication.findMany({
       where: {
-        tenant_id: this.tenantId,
-        status: 'finalised',
-        finalised_date: {
+        la_tenant_id: this.tenantId,
+        status: 'FINAL_EHCP_ISSUED',
+        final_actual_date: {
           gte: startOfYear,
           lte: endOfYear,
         },
       },
       select: {
         referral_date: true,
-        finalised_date: true,
-        current_timeline_days: true,
+        final_actual_date: true,
       },
     });
 
@@ -363,8 +362,15 @@ export class SEN2ReturnsService {
     let exceeding20Weeks = 0;
 
     for (const app of applications) {
-      if (app.current_timeline_days !== null) {
-        if (app.current_timeline_days <= TWENTY_WEEK_TARGET) {
+      if (app.final_actual_date && app.referral_date) {
+        // Simple calculation for now - ideally should be working days
+        const diffTime = Math.abs(app.final_actual_date.getTime() - app.referral_date.getTime());
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+        
+        // Rough approximation of working days (5/7)
+        const workingDays = Math.ceil(diffDays * (5/7));
+
+        if (workingDays <= TWENTY_WEEK_TARGET) {
           within20Weeks++;
         } else {
           exceeding20Weeks++;
@@ -545,9 +551,9 @@ export class SEN2ReturnsService {
 
     const applications = await prisma.eHCPApplication.findMany({
       where: {
-        tenant_id: this.tenantId,
-        status: 'finalised',
-        finalised_date: {
+        la_tenant_id: this.tenantId,
+        status: 'FINAL_EHCP_ISSUED',
+        final_actual_date: {
           gte: startOfYear,
           lte: endOfYear,
         },
@@ -556,22 +562,30 @@ export class SEN2ReturnsService {
         id: true,
         child_name: true,
         referral_date: true,
-        finalised_date: true,
-        current_timeline_days: true,
+        final_actual_date: true,
         exception_type: true,
       },
     });
 
-    return applications.map(app => ({
-      ehcpId: app.id,
-      childName: app.child_name,
-      referralDate: app.referral_date,
-      finalDate: app.finalised_date,
-      workingDaysTaken: app.current_timeline_days,
-      within20Weeks: (app.current_timeline_days || 999) <= 100,
-      exceptionApplied: !!app.exception_type,
-      exceptionReason: app.exception_type,
-    }));
+    return applications.map(app => {
+      let workingDays = 0;
+      if (app.final_actual_date && app.referral_date) {
+        const diffTime = Math.abs(app.final_actual_date.getTime() - app.referral_date.getTime());
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        workingDays = Math.ceil(diffDays * (5/7));
+      }
+
+      return {
+        ehcpId: app.id,
+        childName: app.child_name,
+        referralDate: app.referral_date,
+        finalDate: app.final_actual_date,
+        workingDaysTaken: workingDays,
+        within20Weeks: workingDays <= 100,
+        exceptionApplied: !!app.exception_type,
+        exceptionReason: app.exception_type,
+      };
+    });
   }
 
   // ==========================================================================
@@ -633,7 +647,7 @@ export class SEN2ReturnsService {
       await prisma.sEN2PlacementBreakdown.create({
         data: {
           sen2_return_id: returnId,
-          placement_type: breakdown.placementType as 'MAINSTREAM_SCHOOL' | 'RESOURCED_PROVISION' | 'SPECIAL_UNIT' | 'MAINTAINED_SPECIAL' | 'NMSS' | 'INDEPENDENT_SPECIAL' | 'INDEPENDENT_MAINSTREAM' | 'AP' | 'PUPIL_REFERRAL' | 'EOTAS' | 'EARLY_YEARS' | 'FURTHER_EDUCATION' | 'AWAITING_PLACEMENT' | 'OTHER',
+          placement_type: breakdown.placementType as any,
           count: breakdown.count,
           percentage: breakdown.percentage,
           previous_count: previousCount,
@@ -982,17 +996,28 @@ export class SEN2ReturnsService {
 
   private mapToDfEPlacementType(placement: string): string {
     const mappings: Record<string, string> = {
-      'mainstream': 'MAINSTREAM_SCHOOL',
-      'mainstream_school': 'MAINSTREAM_SCHOOL',
+      'mainstream': 'MAINSTREAM_MAINTAINED',
+      'mainstream_school': 'MAINSTREAM_MAINTAINED',
+      'academy': 'MAINSTREAM_ACADEMY',
       'special_school': 'MAINTAINED_SPECIAL',
       'maintained_special': 'MAINTAINED_SPECIAL',
+      'academy_special': 'ACADEMY_SPECIAL',
+      'nmss': 'NON_MAINTAINED_SPECIAL',
       'independent': 'INDEPENDENT_SPECIAL',
-      'alternative_provision': 'AP',
-      'pru': 'PUPIL_REFERRAL',
-      'eotas': 'EOTAS',
-      'home_education': 'EOTAS',
-      'fe_college': 'FURTHER_EDUCATION',
-      'further_education': 'FURTHER_EDUCATION',
+      'independent_special': 'INDEPENDENT_SPECIAL',
+      'independent_mainstream': 'INDEPENDENT_MAINSTREAM',
+      'hospital': 'HOSPITAL_SCHOOL',
+      'ap': 'ALTERNATIVE_PROVISION',
+      'alternative_provision': 'ALTERNATIVE_PROVISION',
+      'pru': 'ALTERNATIVE_PROVISION',
+      'fe': 'POST_16_FE',
+      'fe_college': 'POST_16_FE',
+      'further_education': 'POST_16_FE',
+      'specialist_college': 'POST_16_SPECIALIST',
+      'ehe': 'ELECTIVE_HOME_EDUCATION',
+      'home_education': 'ELECTIVE_HOME_EDUCATION',
+      'eotas': 'ELECTIVE_HOME_EDUCATION',
+      'awaiting': 'AWAITING_PLACEMENT',
       // Add more mappings
     };
 

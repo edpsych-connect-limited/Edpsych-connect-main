@@ -393,6 +393,9 @@ export class DevelopersOfTomorrowService {
     // Get exercise with test cases
     const exercise = await prisma.nCExercise.findUnique({
       where: { id: exerciseId },
+      include: {
+        lesson: true,
+      },
     });
 
     if (!exercise) {
@@ -409,8 +412,8 @@ export class DevelopersOfTomorrowService {
     const attemptNumber = previousSubmissions + 1;
 
     // Run test cases
-    const testCases = (exercise.test_cases as TestCase[]) || [];
-    const testResults = await this.runTestCases(submittedCode, testCases, exercise.language);
+    const testCases = (exercise.test_cases as unknown as TestCase[]) || [];
+    const testResults = await this.runTestCases(submittedCode, testCases, exercise.lesson.language);
 
     const testsPassed = testResults.filter(r => r.passed).length;
     const testsTotal = testResults.length;
@@ -423,8 +426,9 @@ export class DevelopersOfTomorrowService {
       data: {
         exercise_id: exerciseId,
         student_id: studentId,
+        tenant_id: exercise.tenant_id,
         submitted_code: submittedCode,
-        test_results: testResults,
+        test_results: testResults as any,
         tests_passed: testsPassed,
         tests_total: testsTotal,
         auto_score: autoScore,
@@ -637,7 +641,7 @@ export class DevelopersOfTomorrowService {
     for (const skill of skillAreas) {
       const skillKey = `${skill.toLowerCase()}_mastery`;
       if (skillKey in progress) {
-        const currentMastery = (progress as Record<string, number>)[skillKey] || 0;
+        const currentMastery = (progress as any)[skillKey] || 0;
         updates[skillKey] = Math.min(100, currentMastery + masteryIncrement);
       }
     }

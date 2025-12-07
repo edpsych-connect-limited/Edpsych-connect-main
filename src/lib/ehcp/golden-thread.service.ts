@@ -199,7 +199,7 @@ export class GoldenThreadService {
     logger.info(`[GoldenThread] Analysing coherence for EHCP: ${ehcpId}`);
 
     // Fetch EHCP with all sections
-    const ehcp = await prisma.eHCP.findUnique({
+    const ehcp = await prisma.ehcps.findUnique({
       where: { id: ehcpId },
       include: {
         needs: true,
@@ -769,35 +769,54 @@ export class GoldenThreadService {
    * Save analysis to database
    */
   private async saveAnalysis(analysis: CoherenceAnalysis): Promise<void> {
+    const needsCoverage = analysis.sections.sectionB.needCount > 0 
+      ? (analysis.sections.sectionB.linkedToProvision / analysis.sections.sectionB.needCount) * 100 
+      : 0;
+      
+    // provisions_justified: % of provisions linked to needs
+    const provisionsJustified = analysis.sections.sectionF.provisionCount > 0
+      ? (analysis.sections.sectionF.linkedToNeeds / analysis.sections.sectionF.provisionCount) * 100
+      : 0;
+      
+    const outcomesMeasurable = analysis.sections.sectionE.outcomeCount > 0
+      ? (analysis.sections.sectionE.measurableOutcomes / analysis.sections.sectionE.outcomeCount) * 100
+      : 0;
+
     await prisma.eHCPCoherenceAnalysis.upsert({
-      where: { ehcpId: analysis.ehcpId },
+      where: { ehcp_id: analysis.ehcpId },
       create: {
-        ehcpId: analysis.ehcpId,
-        tenantId: this.tenantId,
-        overallScore: analysis.overallScore,
+        ehcp_id: analysis.ehcpId,
+        tenant_id: this.tenantId,
+        overall_score: analysis.overallScore,
         status: analysis.status,
-        threadCount: analysis.threadCount,
-        completeThreads: analysis.completeThreads,
-        incompleteThreads: analysis.incompleteThreads,
-        gapCount: analysis.gaps.length,
-        criticalGaps: analysis.gaps.filter(g => g.severity === 'critical').length,
-        majorGaps: analysis.gaps.filter(g => g.severity === 'major').length,
-        minorGaps: analysis.gaps.filter(g => g.severity === 'minor').length,
-        analysisData: JSON.stringify(analysis),
-        analysedAt: analysis.analysisDate,
+        thread_count: analysis.threadCount,
+        complete_threads: analysis.completeThreads,
+        incomplete_threads: analysis.incompleteThreads,
+        gap_count: analysis.gaps.length,
+        critical_gaps: analysis.gaps.filter(g => g.severity === 'critical').length,
+        major_gaps: analysis.gaps.filter(g => g.severity === 'major').length,
+        minor_gaps: analysis.gaps.filter(g => g.severity === 'minor').length,
+        needs_coverage: needsCoverage,
+        provisions_justified: provisionsJustified,
+        outcomes_measurable: outcomesMeasurable,
+        analysis_data: JSON.stringify(analysis),
+        analyzed_at: analysis.analysisDate,
       },
       update: {
-        overallScore: analysis.overallScore,
+        overall_score: analysis.overallScore,
         status: analysis.status,
-        threadCount: analysis.threadCount,
-        completeThreads: analysis.completeThreads,
-        incompleteThreads: analysis.incompleteThreads,
-        gapCount: analysis.gaps.length,
-        criticalGaps: analysis.gaps.filter(g => g.severity === 'critical').length,
-        majorGaps: analysis.gaps.filter(g => g.severity === 'major').length,
-        minorGaps: analysis.gaps.filter(g => g.severity === 'minor').length,
-        analysisData: JSON.stringify(analysis),
-        analysedAt: analysis.analysisDate,
+        thread_count: analysis.threadCount,
+        complete_threads: analysis.completeThreads,
+        incomplete_threads: analysis.incompleteThreads,
+        gap_count: analysis.gaps.length,
+        critical_gaps: analysis.gaps.filter(g => g.severity === 'critical').length,
+        major_gaps: analysis.gaps.filter(g => g.severity === 'major').length,
+        minor_gaps: analysis.gaps.filter(g => g.severity === 'minor').length,
+        needs_coverage: needsCoverage,
+        provisions_justified: provisionsJustified,
+        outcomes_measurable: outcomesMeasurable,
+        analysis_data: JSON.stringify(analysis),
+        analyzed_at: analysis.analysisDate,
       },
     });
   }
@@ -807,12 +826,12 @@ export class GoldenThreadService {
    */
   async getLatestAnalysis(ehcpId: string): Promise<CoherenceAnalysis | null> {
     const stored = await prisma.eHCPCoherenceAnalysis.findUnique({
-      where: { ehcpId },
+      where: { ehcp_id: ehcpId },
     });
 
     if (!stored) return null;
 
-    return JSON.parse(stored.analysisData as string);
+    return JSON.parse(stored.analysis_data as string);
   }
 
   /**
@@ -826,11 +845,11 @@ export class GoldenThreadService {
     commonGapTypes: Array<{ type: GapType; count: number }>;
   }> {
     const analyses = await prisma.eHCPCoherenceAnalysis.findMany({
-      where: { tenantId: this.tenantId },
+      where: { tenant_id: this.tenantId },
     });
 
-    const totalEHCPs = await prisma.eHCP.count({
-      where: { tenantId: this.tenantId },
+    const totalEHCPs = await prisma.ehcps.count({
+      where: { tenant_id: this.tenantId },
     });
 
     const statusBreakdown: Record<CoherenceStatus, number> = {
@@ -844,11 +863,13 @@ export class GoldenThreadService {
     let totalScore = 0;
 
     for (const analysis of analyses) {
-      statusBreakdown[analysis.status as CoherenceStatus]++;
-      totalScore += analysis.overallScore;
+      if (analysis.status) {
+        statusBreakdown[analysis.status as CoherenceStatus]++;
+      }
+      totalScore += analysis.overall_score;
 
       // Parse gaps from stored data
-      const data = JSON.parse(analysis.analysisData as string);
+      const data = JSON.parse(analysis.analysis_data as string);
       for (const gap of data.gaps || []) {
         gapTypeCounts[gap.type] = (gapTypeCounts[gap.type] || 0) + 1;
       }

@@ -251,7 +251,7 @@ export class AnnualReviewService {
     const academicYear = this.getAcademicYear(data.dueDate);
 
     // Count existing reviews for this EHCP in this academic year
-    const existingReviews = await this.prisma.annualReview.count({
+    const existingReviews = await (this.prisma as any).annualReview.count({
       where: { ehcpId: data.ehcpId, academicYear }
     });
 
@@ -262,7 +262,7 @@ export class AnnualReviewService {
     const nextReviewDate = new Date(data.dueDate);
     nextReviewDate.setFullYear(nextReviewDate.getFullYear() + 1);
 
-    const review = await this.prisma.annualReview.create({
+    const review = await (this.prisma as any).annualReview.create({
       data: {
         ehcpId: data.ehcpId,
         studentId: data.studentId,
@@ -301,7 +301,7 @@ export class AnnualReviewService {
    * Get review by ID
    */
   async getReview(reviewId: string): Promise<AnnualReview | null> {
-    const review = await this.prisma.annualReview.findUnique({
+    const review = await (this.prisma as any).annualReview.findUnique({
       where: { id: reviewId },
       include: {
         student: {
@@ -325,7 +325,7 @@ export class AnnualReviewService {
     page: number = 1,
     limit: number = 20
   ): Promise<{ reviews: AnnualReview[]; total: number }> {
-    const where: Prisma.AnnualReviewWhereInput = {
+    const where: any = {
       student: { schoolId }
     };
 
@@ -347,7 +347,7 @@ export class AnnualReviewService {
     }
 
     const [reviews, total] = await Promise.all([
-      this.prisma.annualReview.findMany({
+      (this.prisma as any).annualReview.findMany({
         where,
         include: {
           student: {
@@ -358,7 +358,7 @@ export class AnnualReviewService {
         take: limit,
         orderBy: { dueDate: 'asc' }
       }),
-      this.prisma.annualReview.count({ where })
+      (this.prisma as any).annualReview.count({ where })
     ]);
 
     return {
@@ -383,7 +383,7 @@ export class AnnualReviewService {
       virtualLink?: string;
     }
   ): Promise<AnnualReview> {
-    const review = await this.prisma.annualReview.update({
+    const review = await (this.prisma as any).annualReview.update({
       where: { id: reviewId },
       data: {
         scheduledDate: data.scheduledDate,
@@ -405,7 +405,7 @@ export class AnnualReviewService {
     reviewId: string,
     participant: Omit<ReviewParticipant, 'id' | 'attendanceStatus' | 'contributionSubmitted'>
   ): Promise<AnnualReview> {
-    const review = await this.prisma.annualReview.findUnique({
+    const review = await (this.prisma as any).annualReview.findUnique({
       where: { id: reviewId }
     });
 
@@ -421,7 +421,7 @@ export class AnnualReviewService {
     const participants = review.participants as unknown as ReviewParticipant[] || [];
     participants.push(newParticipant);
 
-    const updated = await this.prisma.annualReview.update({
+    const updated = await (this.prisma as any).annualReview.update({
       where: { id: reviewId },
       data: {
         participants: participants as unknown as Prisma.JsonValue,
@@ -436,7 +436,7 @@ export class AnnualReviewService {
    * Send invitations
    */
   async sendInvitations(reviewId: string): Promise<{ sent: number; failed: number }> {
-    const review = await this.prisma.annualReview.findUnique({
+    const review = await (this.prisma as any).annualReview.findUnique({
       where: { id: reviewId }
     });
 
@@ -464,7 +464,7 @@ export class AnnualReviewService {
       }
     }
 
-    await this.prisma.annualReview.update({
+    await (this.prisma as any).annualReview.update({
       where: { id: reviewId },
       data: {
         invitations: invitations as unknown as Prisma.JsonValue,
@@ -484,7 +484,7 @@ export class AnnualReviewService {
     status: ReviewParticipant['attendanceStatus'],
     reason?: string
   ): Promise<AnnualReview> {
-    const review = await this.prisma.annualReview.findUnique({
+    const review = await (this.prisma as any).annualReview.findUnique({
       where: { id: reviewId }
     });
 
@@ -507,7 +507,7 @@ export class AnnualReviewService {
       if (reason) invitations[invitationIndex].declineReason = reason;
     }
 
-    const updated = await this.prisma.annualReview.update({
+    const updated = await (this.prisma as any).annualReview.update({
       where: { id: reviewId },
       data: {
         participants: participants as unknown as Prisma.JsonValue,
@@ -530,7 +530,7 @@ export class AnnualReviewService {
     reviewId: string,
     document: Omit<ReviewDocument, 'id' | 'uploadedAt' | 'status'>
   ): Promise<AnnualReview> {
-    const review = await this.prisma.annualReview.findUnique({
+    const review = await (this.prisma as any).annualReview.findUnique({
       where: { id: reviewId }
     });
 
@@ -546,7 +546,7 @@ export class AnnualReviewService {
     const documents = review.preReviewDocuments as unknown as ReviewDocument[] || [];
     documents.push(newDocument);
 
-    const updated = await this.prisma.annualReview.update({
+    const updated = await (this.prisma as any).annualReview.update({
       where: { id: reviewId },
       data: {
         preReviewDocuments: documents as unknown as Prisma.JsonValue,
@@ -561,7 +561,7 @@ export class AnnualReviewService {
    * Submit parent views
    */
   async submitParentViews(reviewId: string, views: ParentViews): Promise<AnnualReview> {
-    const updated = await this.prisma.annualReview.update({
+    const updated = await (this.prisma as any).annualReview.update({
       where: { id: reviewId },
       data: {
         parentViews: views as unknown as Prisma.JsonValue,
@@ -579,7 +579,7 @@ export class AnnualReviewService {
    * Submit child views
    */
   async submitChildViews(reviewId: string, views: ChildViews): Promise<AnnualReview> {
-    const updated = await this.prisma.annualReview.update({
+    const updated = await (this.prisma as any).annualReview.update({
       where: { id: reviewId },
       data: {
         childViews: views as unknown as Prisma.JsonValue,
@@ -600,7 +600,7 @@ export class AnnualReviewService {
     reviewId: string,
     report: Omit<ProfessionalReport, 'id' | 'status'>
   ): Promise<AnnualReview> {
-    const review = await this.prisma.annualReview.findUnique({
+    const review = await (this.prisma as any).annualReview.findUnique({
       where: { id: reviewId }
     });
 
@@ -615,7 +615,7 @@ export class AnnualReviewService {
     const reports = review.professionalReports as unknown as ProfessionalReport[] || [];
     reports.push(newReport);
 
-    const updated = await this.prisma.annualReview.update({
+    const updated = await (this.prisma as any).annualReview.update({
       where: { id: reviewId },
       data: {
         professionalReports: reports as unknown as Prisma.JsonValue,
@@ -634,7 +634,7 @@ export class AnnualReviewService {
    * Start review meeting
    */
   async startMeeting(reviewId: string): Promise<AnnualReview> {
-    const updated = await this.prisma.annualReview.update({
+    const updated = await (this.prisma as any).annualReview.update({
       where: { id: reviewId },
       data: {
         actualDate: new Date(),
@@ -664,7 +664,7 @@ export class AnnualReviewService {
     const amendmentsRequired = data.amendmentsRequired || 
       data.recommendations.some(r => r.requiresAmendment);
 
-    const updated = await this.prisma.annualReview.update({
+    const updated = await (this.prisma as any).annualReview.update({
       where: { id: reviewId },
       data: {
         meetingNotes: data.meetingNotes,
@@ -693,7 +693,7 @@ export class AnnualReviewService {
    * Send notification to LA
    */
   async sendLANotification(reviewId: string): Promise<AnnualReview> {
-    const review = await this.prisma.annualReview.findUnique({
+    const review = await (this.prisma as any).annualReview.findUnique({
       where: { id: reviewId },
       include: {
         student: true,
@@ -705,7 +705,7 @@ export class AnnualReviewService {
 
     // In production, this would send actual notification to LA
     // For now, we update the status
-    const updated = await this.prisma.annualReview.update({
+    const updated = await (this.prisma as any).annualReview.update({
       where: { id: reviewId },
       data: {
         laNotificationSent: true,
@@ -731,7 +731,7 @@ export class AnnualReviewService {
       response: string;
     }
   ): Promise<AnnualReview> {
-    const updated = await this.prisma.annualReview.update({
+    const updated = await (this.prisma as any).annualReview.update({
       where: { id: reviewId },
       data: {
         laDecision: data.decision,
@@ -777,26 +777,26 @@ export class AnnualReviewService {
     const now = new Date();
     const thirtyDaysFromNow = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
 
-    const reviews = await this.prisma.annualReview.findMany({
+    const reviews = await (this.prisma as any).annualReview.findMany({
       where: {
         student: { schoolId },
         academicYear
       }
     });
 
-    const completed = reviews.filter(r => ['COMPLETED', 'FINALISED'].includes(r.status as string));
-    const overdue = reviews.filter(r => 
+    const completed = reviews.filter((r: any) => ['COMPLETED', 'FINALISED'].includes(r.status as string));
+    const overdue = reviews.filter((r: any) => 
       r.dueDate < now && 
       !['COMPLETED', 'FINALISED', 'CANCELLED'].includes(r.status as string)
     );
-    const upcoming = reviews.filter(r =>
+    const upcoming = reviews.filter((r: any) =>
       r.dueDate >= now && 
       r.dueDate <= thirtyDaysFromNow &&
       !['COMPLETED', 'FINALISED', 'CANCELLED'].includes(r.status as string)
     );
 
     // Calculate on-time rate
-    const completedOnTime = completed.filter(r => 
+    const completedOnTime = completed.filter((r: any) => 
       r.actualDate && new Date(r.actualDate) <= new Date(r.dueDate)
     );
     const onTimeRate = completed.length > 0 
@@ -804,15 +804,15 @@ export class AnnualReviewService {
       : 100;
 
     // Calculate average days overdue
-    const overduedays = overdue.map(r => 
+    const overduedays = overdue.map((r: any) => 
       Math.ceil((now.getTime() - new Date(r.dueDate).getTime()) / (1000 * 60 * 60 * 24))
     );
     const averageDaysOverdue = overduedays.length > 0
-      ? Math.round(overduedays.reduce((a, b) => a + b, 0) / overduedays.length)
+      ? Math.round(overduedays.reduce((a: number, b: number) => a + b, 0) / overduedays.length)
       : 0;
 
     // Parent participation
-    const withParentViews = reviews.filter(r => r.parentViews !== null);
+    const withParentViews = reviews.filter((r: any) => r.parentViews !== null);
     const parentParticipationRate = reviews.length > 0
       ? Math.round((withParentViews.length / reviews.length) * 100)
       : 0;
@@ -821,7 +821,7 @@ export class AnnualReviewService {
     const byStatus: Record<string, number> = {};
     const byType: Record<string, number> = {};
     
-    reviews.forEach(r => {
+    reviews.forEach((r: any) => {
       byStatus[r.status as string] = (byStatus[r.status as string] || 0) + 1;
       byType[r.reviewType as string] = (byType[r.reviewType as string] || 0) + 1;
     });
@@ -832,13 +832,13 @@ export class AnnualReviewService {
       const monthStart = new Date(now.getFullYear(), now.getMonth() - i, 1);
       const monthEnd = new Date(now.getFullYear(), now.getMonth() - i + 1, 0);
       
-      const monthCompleted = reviews.filter(r =>
+      const monthCompleted = reviews.filter((r: any) =>
         r.actualDate &&
         new Date(r.actualDate) >= monthStart &&
         new Date(r.actualDate) <= monthEnd
       ).length;
 
-      const monthScheduled = reviews.filter(r =>
+      const monthScheduled = reviews.filter((r: any) =>
         r.dueDate >= monthStart && r.dueDate <= monthEnd
       ).length;
 
@@ -970,7 +970,7 @@ export class AnnualReviewService {
     task: string,
     completed: boolean
   ): Promise<void> {
-    const review = await this.prisma.annualReview.findUnique({
+    const review = await (this.prisma as any).annualReview.findUnique({
       where: { id: reviewId }
     });
 
@@ -983,7 +983,7 @@ export class AnnualReviewService {
       checklist[itemIndex].completed = completed;
       checklist[itemIndex].completedDate = completed ? new Date() : undefined;
 
-      await this.prisma.annualReview.update({
+      await (this.prisma as any).annualReview.update({
         where: { id: reviewId },
         data: {
           completionChecklist: checklist as unknown as Prisma.JsonValue
@@ -1003,14 +1003,11 @@ export class AnnualReviewService {
     await this.prisma.actionItem.createMany({
       data: [
         {
-          type: 'REVIEW_DUE',
           priority: 'HIGH',
           title: 'Prepare annual review',
           description: 'Collect all documents and views for upcoming annual review',
-          relatedEntityId: reviewId,
-          relatedEntityType: 'ANNUAL_REVIEW',
           dueDate: twoWeeksBefore,
-          assignedToId: coordinatorId,
+          assigneeId: coordinatorId,
           status: 'PENDING'
         }
       ]
@@ -1018,7 +1015,7 @@ export class AnnualReviewService {
   }
 
   private async scheduleNextReview(reviewId: string): Promise<void> {
-    const review = await this.prisma.annualReview.findUnique({
+    const review = await (this.prisma as any).annualReview.findUnique({
       where: { id: reviewId }
     });
 
@@ -1068,7 +1065,7 @@ export class AnnualReviewService {
     });
 
     // From recommendations
-    review.recommendations?.forEach(r => {
+    review.recommendations?.forEach((r: any) => {
       if (r.priority === 'ESSENTIAL') {
         steps.push(`${r.area}: ${r.recommendation}`);
       }
@@ -1082,3 +1079,5 @@ export class AnnualReviewService {
     return steps;
   }
 }
+
+

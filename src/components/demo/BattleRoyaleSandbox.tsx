@@ -603,7 +603,7 @@ export default function BattleRoyaleSandbox() {
                 </div>
                 
                 {/* Progress Bar */}
-                <ProgressBar score={metric.score} name={metric.name} />
+                <ProgressBar score={metric.score} name={metric.domainId} />
 
                 <div className="space-y-1">
                   {metric.observations.slice(-2).map((obs, idx) => (

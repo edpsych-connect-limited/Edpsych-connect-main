@@ -203,7 +203,7 @@ export async function GET(
     const epAssessments: any[] = [];
 
     /*
-    const epAssessments = await prisma.assessment.findMany({
+    const epAssessments = await prisma.assessments.findMany({
       where: {
         assessor_id: userId,
       },

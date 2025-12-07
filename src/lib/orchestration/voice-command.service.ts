@@ -514,8 +514,8 @@ export class VoiceCommandService {
     const avgSuccessRate =
       recentAssignments.length > 0
         ? recentAssignments
-            .filter((a) => a.success_rate !== null)
-            .reduce((sum, a) => sum + (a.success_rate || 0), 0) / lessonsCompleted
+            .filter((a: any) => a.success_rate !== null)
+            .reduce((sum: number, a: any) => sum + (a.success_rate || 0), 0) / lessonsCompleted
         : 0;
 
     return {
@@ -1114,3 +1114,4 @@ export class VoiceCommandService {
 
 // Export singleton instance for use in API routes
 export const voiceCommandService = new VoiceCommandService();
+

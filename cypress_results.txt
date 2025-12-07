@@ -1,0 +1,18 @@
+
+
+DevTools listening on ws://127.0.0.1:63096/devtools/browser/765565f4-2b6e-4d49-a311-119326d3b780
+Cypress could not verify that this server is running:
+
+  > http://localhost:3000
+
+We are verifying this server because it has been configured as your baseUrl.
+
+Cypress automatically waits until your server is accessible before running tests.
+
+We will try connecting to it 3 more times...
+We will try connecting to it 2 more times...
+We will try connecting to it 1 more time...
+
+Cypress failed to verify that your server is running.
+
+Please start this server and then run Cypress again.

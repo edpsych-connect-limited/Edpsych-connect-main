@@ -1,0 +1,1493 @@
+{
+  "adhd-m1-l1": {
+    "status": "pending",
+    "heygen_id": "b1dbc2b44c7d49df8f2465d4713757e4",
+    "title": "ADHD Neurobiology: Dopamine & Development",
+    "timestamp": "2025-12-07T02:14:17.183Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-m1-l1.md"
+  },
+  "ehcp-application-journey-v4": {
+    "status": "pending",
+    "heygen_id": "962eac0e578a4d998e9bc4ae77d90346",
+    "title": "Your EHCP Application Journey",
+    "timestamp": "2025-12-07T02:13:05.359Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\ehcp\\ehcp-application-journey.md"
+  },
+  "ehcp-evidence-gathering-v4": {
+    "status": "pending",
+    "heygen_id": "09e5df70c64148ce8da45205825a711d",
+    "title": "Gathering Strong EHCP Evidence",
+    "timestamp": "2025-12-07T02:13:06.732Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\ehcp\\ehcp-evidence-gathering.md"
+  },
+  "ehcp-professional-contributions-v4": {
+    "status": "pending",
+    "heygen_id": "bfb4d1f06b3e49b28c4338e4d1c78e61",
+    "title": "Understanding Professional EHCP Contributions",
+    "timestamp": "2025-12-07T02:13:08.120Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\ehcp\\ehcp-professional-contributions.md"
+  },
+  "ehcp-annual-review-v4": {
+    "status": "pending",
+    "heygen_id": "2ef72caabd014841a63dbb82a1200b9b",
+    "title": "The EHCP Annual Review Process",
+    "timestamp": "2025-12-07T02:13:09.482Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\ehcp\\ehcp-annual-review.md"
+  },
+  "ehcp-appeals-v4": {
+    "status": "pending",
+    "heygen_id": "e0510966c89945629828cb084bfa65be",
+    "title": "Understanding EHCP Appeals",
+    "timestamp": "2025-12-07T02:13:10.909Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\ehcp\\ehcp-appeals.md"
+  },
+  "help-getting-started-v4": {
+    "status": "pending",
+    "heygen_id": "3b5ed35ce5014ec09c905cd7efec90e6",
+    "title": "Getting Started with EdPsych Connect",
+    "timestamp": "2025-12-07T02:13:12.320Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\helpCentre\\help-getting-started.md"
+  },
+  "help-first-assessment-v4": {
+    "status": "pending",
+    "heygen_id": "4825122b6e1146c2a9815078e6998128",
+    "title": "Running Your First Assessment",
+    "timestamp": "2025-12-07T02:13:13.748Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\helpCentre\\help-first-assessment.md"
+  },
+  "help-finding-interventions-v4": {
+    "status": "pending",
+    "heygen_id": "f1e47d7bd680489c8360faf71da019ba",
+    "title": "Finding the Right Intervention",
+    "timestamp": "2025-12-07T02:13:15.108Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\helpCentre\\help-finding-interventions.md"
+  },
+  "help-data-security-v4": {
+    "status": "pending",
+    "heygen_id": "0519dbf9d8dc459b9d26d5498da739a4",
+    "title": "How We Protect Your Data",
+    "timestamp": "2025-12-07T02:13:16.524Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\helpCentre\\help-data-security.md"
+  },
+  "help-collaboration-v4": {
+    "status": "pending",
+    "heygen_id": "819f268ac2a5469ea03777c82f9f6160",
+    "title": "Collaborating with Your Team",
+    "timestamp": "2025-12-07T02:13:17.914Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\helpCentre\\help-collaboration.md"
+  },
+  "help-generating-reports-v4": {
+    "status": "pending",
+    "heygen_id": "89044e274b7b4a809a87b07688c8fffa",
+    "title": "Generating Professional Reports",
+    "timestamp": "2025-12-07T02:13:19.260Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\helpCentre\\help-generating-reports.md"
+  },
+  "help-cpd-tracking-v4": {
+    "status": "pending",
+    "heygen_id": "8ec168145b244ed19f3d2af8474bb451",
+    "title": "Tracking Your Professional Development",
+    "timestamp": "2025-12-07T02:13:20.723Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\helpCentre\\help-cpd-tracking.md"
+  },
+  "help-troubleshooting-v4": {
+    "status": "pending",
+    "heygen_id": "8d685c96c0e04717bf53c856e6965d48",
+    "title": "Troubleshooting Common Issues",
+    "timestamp": "2025-12-07T02:13:22.170Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\helpCentre\\help-troubleshooting.md"
+  },
+  "la-dashboard-overview-v4": {
+    "status": "pending",
+    "heygen_id": "cf1b4bb1a9ed45ecb426b913da65ffb3",
+    "title": "Your LA Dashboard Overview",
+    "timestamp": "2025-12-07T02:13:23.580Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\laPortal\\la-dashboard-overview.md"
+  },
+  "la-professional-requests-v4": {
+    "status": "pending",
+    "heygen_id": "9ed0a51b8dad41498b8074ac0930228d",
+    "title": "Managing Professional Requests",
+    "timestamp": "2025-12-07T02:13:25.037Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\laPortal\\la-professional-requests.md"
+  },
+  "la-ehcp-merge-tool-v4": {
+    "status": "pending",
+    "heygen_id": "34c37802b20d4b1695af203fbe1b46fe",
+    "title": "The EHCP Merge Tool Explained",
+    "timestamp": "2025-12-07T02:13:26.388Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\laPortal\\la-ehcp-merge-tool.md"
+  },
+  "parent-portal-welcome-v4": {
+    "status": "pending",
+    "heygen_id": "0516b00d10c149f684f92e0831b08c64",
+    "title": "Welcome to the Parent Portal",
+    "timestamp": "2025-12-07T02:13:27.756Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\parentPortal\\parent-portal-welcome.md"
+  },
+  "parent-contributing-views-v4": {
+    "status": "pending",
+    "heygen_id": "40178232e82c4437a79f0909f04e8c92",
+    "title": "Contributing Your Views",
+    "timestamp": "2025-12-07T02:13:29.181Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\parentPortal\\parent-contributing-views.md"
+  },
+  "compliance-data-protection-v4": {
+    "status": "pending",
+    "heygen_id": "d6d0f4c8681a4da6a9e50ed557cc2f00",
+    "title": "Data Protection for Educators",
+    "timestamp": "2025-12-07T02:13:30.685Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\compliance\\compliance-data-protection.md"
+  },
+  "compliance-consent-v4": {
+    "status": "pending",
+    "heygen_id": "302ce81dca6a46de92ada016da29a3fd",
+    "title": "Managing Consent Properly",
+    "timestamp": "2025-12-07T02:13:32.053Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\compliance\\compliance-consent.md"
+  },
+  "assessment-choosing-v4": {
+    "status": "pending",
+    "heygen_id": "3ce19a7c254c4edba0de624fa4701336",
+    "title": "Choosing the Right Assessment",
+    "timestamp": "2025-12-07T02:13:33.405Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\assessment\\assessment-choosing.md"
+  },
+  "assessment-interpreting-v4": {
+    "status": "pending",
+    "heygen_id": "a0952ae4e9d045adb0da3e7b2370d729",
+    "title": "Interpreting Assessment Results",
+    "timestamp": "2025-12-07T02:13:34.829Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\assessment\\assessment-interpreting.md"
+  },
+  "dyslexia-neurobiology-v4": {
+    "status": "pending",
+    "heygen_id": "7cab1187ed6a457586afbb50478f1b89",
+    "title": "The Neurobiology of Dyslexia",
+    "timestamp": "2025-12-07T02:13:36.273Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia\\dyslexia-neurobiology.md"
+  },
+  "dyslexia-indicators-v4": {
+    "status": "pending",
+    "heygen_id": "57a7e2fc5b424ae5891b9578f4d0d2a2",
+    "title": "Identifying Dyslexia: Indicators Across Ages",
+    "timestamp": "2025-12-07T02:13:37.658Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia\\dyslexia-indicators.md"
+  },
+  "dyslexia-structured-literacy-v4": {
+    "status": "pending",
+    "heygen_id": "81380f1f3930444c917210543f268d04",
+    "title": "What is Structured Literacy?",
+    "timestamp": "2025-12-07T02:13:39.067Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia\\dyslexia-structured-literacy.md"
+  },
+  "the-neurobiology-of-dyslexia": {
+    "status": "pending",
+    "heygen_id": "4682a13c957641edaacf5ca70fa54171",
+    "title": "The Neurobiology of Dyslexia",
+    "timestamp": "2025-12-07T02:13:40.523Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia\\the-neurobiology-of-dyslexia.md"
+  },
+  "identifying-dyslexia-indicators-across-ages": {
+    "status": "pending",
+    "heygen_id": "f9534f01aee84a20aa6e4d4287650826",
+    "title": "Identifying Dyslexia: Indicators Across Ages",
+    "timestamp": "2025-12-07T02:15:54.531Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\identifying-dyslexia-indicators-across-ages.md"
+  },
+  "what-is-structured-literacy": {
+    "status": "pending",
+    "heygen_id": "959016e627124a968b0872b3d3b2adcb",
+    "title": "What is Structured Literacy?",
+    "timestamp": "2025-12-07T02:13:43.309Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia\\what-is-structured-literacy.md"
+  },
+  "innovation-safety-net-v4": {
+    "status": "pending",
+    "heygen_id": "c8783234e69744ce8d1f55c8533c1c2e",
+    "title": "The Safety Net: AI Risk Prediction",
+    "timestamp": "2025-12-07T02:13:45.870Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\innovation\\innovation-safety-net.md"
+  },
+  "innovation-orchestration-v4": {
+    "status": "pending",
+    "heygen_id": "02de3692b4dc4e449dcda33bed11220e",
+    "title": "Multi-Agency Orchestration",
+    "timestamp": "2025-12-07T02:13:47.242Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\innovation\\innovation-orchestration.md"
+  },
+  "innovation-research-hub-v4": {
+    "status": "pending",
+    "heygen_id": "ad66e2f7968f4be28d2529ec6a393f5c",
+    "title": "The Research Hub: Evidence-Based Practice",
+    "timestamp": "2025-12-07T02:13:48.682Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\innovation\\innovation-research-hub.md"
+  },
+  "innovation-coding-curriculum-v4": {
+    "status": "pending",
+    "heygen_id": "bf59c88a0b854016b60b17d3bbf2b6ad",
+    "title": "Developers of Tomorrow: Inclusive Coding",
+    "timestamp": "2025-12-07T02:13:50.119Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\innovation\\innovation-coding-curriculum.md"
+  },
+  "innovation-ai-agents-v4": {
+    "status": "pending",
+    "heygen_id": "a65ea4c9d6d44dc58dcae5dd1dc65a33",
+    "title": "AI Tutoring Agents: Personalised Learning",
+    "timestamp": "2025-12-07T02:13:51.568Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\innovation\\innovation-ai-agents.md"
+  },
+  "innovation-battle-royale-v4": {
+    "status": "pending",
+    "heygen_id": "c6ff8c821c1c48e0adce3cba5c00322c",
+    "title": "Battle Royale: Making Learning Thrilling",
+    "timestamp": "2025-12-07T02:13:53.000Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\innovation\\innovation-battle-royale.md"
+  },
+  "autism-m1-l1": {
+    "status": "pending",
+    "heygen_id": "2214eb57cd7e485fa25d22aaff210c7d",
+    "title": "What is Autism? Neurodiversity Paradigm",
+    "timestamp": "2025-12-07T02:13:54.418Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support\\autism-m1-l1.md"
+  },
+  "autism-m1-l2": {
+    "status": "pending",
+    "heygen_id": "3c3a1cc46dea4d95988631a6fb7a8ff5",
+    "title": "The Autistic Experience: First-Person Perspectives",
+    "timestamp": "2025-12-07T02:13:55.813Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support\\autism-m1-l2.md"
+  },
+  "autism-m2-l1": {
+    "status": "pending",
+    "heygen_id": "6eabb8f80a8c4dec9c39d763e406fcec",
+    "title": "Social Communication Differences",
+    "timestamp": "2025-12-07T02:13:57.387Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support\\autism-m2-l1.md"
+  },
+  "autism-m2-l2": {
+    "status": "pending",
+    "heygen_id": "87d30072fb8a4096b3a1be1855d8d811",
+    "title": "Friendship and Peer Relationships",
+    "timestamp": "2025-12-07T02:13:58.760Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support\\autism-m2-l2.md"
+  },
+  "autism-m3-l1": {
+    "status": "pending",
+    "heygen_id": "aa18b3dff6514be4bf216bd4751f198a",
+    "title": "Sensory Processing: Hyper and Hypo",
+    "timestamp": "2025-12-07T02:14:00.261Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support\\autism-m3-l1.md"
+  },
+  "autism-m3-l2": {
+    "status": "pending",
+    "heygen_id": "77faca173a05424b9f317462b9e81ce6",
+    "title": "Creating Sensory-Friendly Environments",
+    "timestamp": "2025-12-07T02:14:01.678Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support\\autism-m3-l2.md"
+  },
+  "autism-m4-l1": {
+    "status": "pending",
+    "heygen_id": "4aa04ee6e0da440a8135bcb30239b5c5",
+    "title": "Visual Supports: Making the Invisible Visible",
+    "timestamp": "2025-12-07T02:14:03.035Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support\\autism-m4-l1.md"
+  },
+  "autism-m4-l2": {
+    "status": "pending",
+    "heygen_id": "99971060c9e343468470987b0ec83876",
+    "title": "Structure and Predictability",
+    "timestamp": "2025-12-07T02:14:04.507Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support\\autism-m4-l2.md"
+  },
+  "autism-m5-l1": {
+    "status": "pending",
+    "heygen_id": "285e67b1aba74d79b556e15a5b3352d6",
+    "title": "Anxiety in Autism",
+    "timestamp": "2025-12-07T02:14:05.890Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support\\autism-m5-l1.md"
+  },
+  "autism-m5-l2": {
+    "status": "pending",
+    "heygen_id": "29d2b242667d4af89414e9837ae747ef",
+    "title": "Meltdown Support",
+    "timestamp": "2025-12-07T02:14:07.421Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support\\autism-m5-l2.md"
+  },
+  "autism-m6-l1": {
+    "status": "pending",
+    "heygen_id": "0d3579f8a6004b5c98dc16157404076c",
+    "title": "Special Interests: Passion, Not Obsession",
+    "timestamp": "2025-12-07T02:14:08.760Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support\\autism-m6-l1.md"
+  },
+  "autism-m6-l2": {
+    "status": "pending",
+    "heygen_id": "50faa5bfb3b243b5a16c850824ea3e2f",
+    "title": "Strengths-Based Approach",
+    "timestamp": "2025-12-07T02:14:10.186Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support\\autism-m6-l2.md"
+  },
+  "autism-m7-l1": {
+    "status": "pending",
+    "heygen_id": "1ffaabc5b7f546b6afa7c68daa95c2c1",
+    "title": "Executive Function Difficulties",
+    "timestamp": "2025-12-07T02:14:11.610Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support\\autism-m7-l1.md"
+  },
+  "autism-m7-l2": {
+    "status": "pending",
+    "heygen_id": "687d5f141fc2458d8f255baf57187a3e",
+    "title": "Promoting Independence",
+    "timestamp": "2025-12-07T02:14:12.949Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support\\autism-m7-l2.md"
+  },
+  "autism-m8-l1": {
+    "status": "pending",
+    "heygen_id": "06561bd86b354fb29758882169979110",
+    "title": "Inclusive Education",
+    "timestamp": "2025-12-07T02:14:14.291Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support\\autism-m8-l1.md"
+  },
+  "autism-m8-l2": {
+    "status": "pending",
+    "heygen_id": "a87ee125882247b196a38730fdda4913",
+    "title": "Legal Rights & Adjustments",
+    "timestamp": "2025-12-07T02:14:15.756Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support\\autism-m8-l2.md"
+  },
+  "adhd-m1-l2": {
+    "status": "pending",
+    "heygen_id": "0448f60b3a3f413d9ddbde1603880975",
+    "title": "The Three Presentations",
+    "timestamp": "2025-12-07T02:14:18.567Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-m1-l2.md"
+  },
+  "adhd-m2-l1": {
+    "status": "pending",
+    "heygen_id": "c6ed38a6b2964f098ff4d24b7286342d",
+    "title": "Inattentive Presentation: The Daydreamer",
+    "timestamp": "2025-12-07T02:14:20.037Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-m2-l1.md"
+  },
+  "adhd-m2-l2": {
+    "status": "pending",
+    "heygen_id": "036f23a05ab3464295f4b9b51046943b",
+    "title": "Hyperactive Presentation: The Energizer Bunny",
+    "timestamp": "2025-12-07T02:14:21.471Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-m2-l2.md"
+  },
+  "adhd-m3-l1": {
+    "status": "pending",
+    "heygen_id": "d8bdbe58dd0e4c5ba0b132d63060db20",
+    "title": "The 8 Executive Functions",
+    "timestamp": "2025-12-07T02:14:22.821Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-m3-l1.md"
+  },
+  "adhd-m3-l2": {
+    "status": "pending",
+    "heygen_id": "ba2e7c8126d547dfaa84161b5f528e41",
+    "title": "Impact on Academic Performance",
+    "timestamp": "2025-12-07T02:14:24.280Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-m3-l2.md"
+  },
+  "adhd-m4-l1": {
+    "status": "pending",
+    "heygen_id": "f858cf3e60f24267af65d940886194f2",
+    "title": "Seating and Sensory",
+    "timestamp": "2025-12-07T02:14:25.721Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-m4-l1.md"
+  },
+  "adhd-m4-l2": {
+    "status": "pending",
+    "heygen_id": "4e859ec449f1424fa866f198a47141cb",
+    "title": "Instructional Accommodations",
+    "timestamp": "2025-12-07T02:14:27.112Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-m4-l2.md"
+  },
+  "adhd-m5-l1": {
+    "status": "pending",
+    "heygen_id": "d7d5089f496f462aad5cb1c175b5ac34",
+    "title": "Attention Cues",
+    "timestamp": "2025-12-07T02:14:28.505Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-m5-l1.md"
+  },
+  "adhd-m5-l2": {
+    "status": "pending",
+    "heygen_id": "0450a537340a4a3c970fac010e08e740",
+    "title": "Self-Monitoring",
+    "timestamp": "2025-12-07T02:14:29.906Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-m5-l2.md"
+  },
+  "adhd-m6-l1": {
+    "status": "pending",
+    "heygen_id": "007ab266ad764dd2a034c34c686732e8",
+    "title": "Channelling Hyperactivity",
+    "timestamp": "2025-12-07T02:14:31.322Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-m6-l1.md"
+  },
+  "adhd-m6-l2": {
+    "status": "pending",
+    "heygen_id": "4709e5344a7442418566b62307cdddf3",
+    "title": "Impulse Control Strategies",
+    "timestamp": "2025-12-07T02:14:32.741Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-m6-l2.md"
+  },
+  "adhd-m7-l1": {
+    "status": "pending",
+    "heygen_id": "b9b65864942f4cb5bd0de56743c0c15b",
+    "title": "Organisation Systems",
+    "timestamp": "2025-12-07T02:14:34.171Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-m7-l1.md"
+  },
+  "adhd-m7-l2": {
+    "status": "pending",
+    "heygen_id": "859764b35bc4476dad7213bf040b1e01",
+    "title": "Homework Strategies",
+    "timestamp": "2025-12-07T02:14:35.495Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-m7-l2.md"
+  },
+  "adhd-m8-l1": {
+    "status": "pending",
+    "heygen_id": "afd74525aae2421f9b76844023012280",
+    "title": "ADHD Medication",
+    "timestamp": "2025-12-07T02:14:36.848Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-m8-l1.md"
+  },
+  "adhd-m8-l2": {
+    "status": "pending",
+    "heygen_id": "7e840519ceea446f8a87895e5d5df594",
+    "title": "Parent Partnership",
+    "timestamp": "2025-12-07T02:14:38.302Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-m8-l2.md"
+  },
+  "adhd-neurobiology-dopamine-norepinephrine-and-brain-development": {
+    "status": "pending",
+    "heygen_id": "6dd0cddb6d794e1c9b95c960b951ceb4",
+    "title": "ADHD Neurobiology: Dopamine, Norepinephrine, and Brain Development",
+    "timestamp": "2025-12-07T02:14:39.748Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-neurobiology-dopamine-norepinephrine-and-brain-development.md"
+  },
+  "dsm-5-diagnostic-criteria-and-three-presentations": {
+    "status": "pending",
+    "heygen_id": "86d3cf481aa04e81a9e017948c728ba3",
+    "title": "DSM-5 Diagnostic Criteria and Three Presentations",
+    "timestamp": "2025-12-07T02:14:41.089Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\dsm-5-diagnostic-criteria-and-three-presentations.md"
+  },
+  "inattentive-presentation-the-daydreamer": {
+    "status": "pending",
+    "heygen_id": "74d8caa881ae4da6976264f00595a692",
+    "title": "Inattentive Presentation: The Daydreamer",
+    "timestamp": "2025-12-07T02:14:42.527Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\inattentive-presentation-the-daydreamer.md"
+  },
+  "hyperactive-impulsive-presentation-the-energizer-bunny": {
+    "status": "pending",
+    "heygen_id": "9e1e351fec4840eba778fce69718427d",
+    "title": "Hyperactive-Impulsive Presentation: The Energizer Bunny",
+    "timestamp": "2025-12-07T02:14:43.892Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\hyperactive-impulsive-presentation-the-energizer-bunny.md"
+  },
+  "the-8-executive-functions-affected-by-adhd": {
+    "status": "pending",
+    "heygen_id": "72d1d8b3b3d147449f959a84c39875ff",
+    "title": "The 8 Executive Functions Affected by ADHD",
+    "timestamp": "2025-12-07T02:14:45.230Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\the-8-executive-functions-affected-by-adhd.md"
+  },
+  "impact-on-academic-performance-and-daily-functioning": {
+    "status": "pending",
+    "heygen_id": "73482d3e256a42f0bf118a610f5e135e",
+    "title": "Impact on Academic Performance and Daily Functioning",
+    "timestamp": "2025-12-07T02:14:46.589Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\impact-on-academic-performance-and-daily-functioning.md"
+  },
+  "seating-layout-and-sensory-considerations": {
+    "status": "pending",
+    "heygen_id": "bc7e1fd5fb0544dca4ff3f466e5fe16d",
+    "title": "Seating, Layout, and Sensory Considerations",
+    "timestamp": "2025-12-07T02:14:47.923Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\seating-layout-and-sensory-considerations.md"
+  },
+  "instructional-accommodations-and-task-modifications": {
+    "status": "pending",
+    "heygen_id": "ad53d5510db34c5fb0a68fd54893812e",
+    "title": "Instructional Accommodations and Task Modifications",
+    "timestamp": "2025-12-07T02:14:49.358Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\instructional-accommodations-and-task-modifications.md"
+  },
+  "attention-cues-and-focus-techniques": {
+    "status": "pending",
+    "heygen_id": "e2f63571b8684af48e3d6ed17bc5998c",
+    "title": "Attention Cues and Focus Techniques",
+    "timestamp": "2025-12-07T02:14:50.750Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\attention-cues-and-focus-techniques.md"
+  },
+  "self-monitoring-and-attention-training": {
+    "status": "pending",
+    "heygen_id": "e506bb1c57b1475c892d86d30c03927f",
+    "title": "Self-Monitoring and Attention Training",
+    "timestamp": "2025-12-07T02:14:52.225Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\self-monitoring-and-attention-training.md"
+  },
+  "channel-hyperactivity-productively": {
+    "status": "pending",
+    "heygen_id": "e6eb53c71ed54212b3043ac7bd89e8bf",
+    "title": "Channel Hyperactivity Productively",
+    "timestamp": "2025-12-07T02:14:53.557Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\channel-hyperactivity-productively.md"
+  },
+  "impulse-control-stop-and-think-strategies": {
+    "status": "pending",
+    "heygen_id": "324d813418c942d1b1b96588ee43f055",
+    "title": "Impulse Control: Stop and Think Strategies",
+    "timestamp": "2025-12-07T02:14:54.993Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\impulse-control-stop-and-think-strategies.md"
+  },
+  "organization-systems-and-time-management": {
+    "status": "pending",
+    "heygen_id": "710d14b194e64f3dad70b0edde65c815",
+    "title": "Organization Systems and Time Management",
+    "timestamp": "2025-12-07T02:14:56.413Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\organization-systems-and-time-management.md"
+  },
+  "homework-strategies-and-executive-function-support": {
+    "status": "pending",
+    "heygen_id": "6c4c6856a6f449628272011357ad654d",
+    "title": "Homework Strategies and Executive Function Support",
+    "timestamp": "2025-12-07T02:14:57.772Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\homework-strategies-and-executive-function-support.md"
+  },
+  "adhd-medication-what-teachers-need-to-know": {
+    "status": "pending",
+    "heygen_id": "83fa5a1419b64994b9cd5fada784c18f",
+    "title": "ADHD Medication: What Teachers Need to Know",
+    "timestamp": "2025-12-07T02:14:59.252Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-medication-what-teachers-need-to-know.md"
+  },
+  "multi-agency-collaboration-and-parent-partnership": {
+    "status": "pending",
+    "heygen_id": "900c6a6e59b548c7a0908e94629f49ce",
+    "title": "Multi-Agency Collaboration and Parent Partnership",
+    "timestamp": "2025-12-07T02:15:00.679Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\multi-agency-collaboration-and-parent-partnership.md"
+  },
+  "adhd-neurobiology-dopamine-development": {
+    "status": "pending",
+    "heygen_id": "a439722c0d3245559e2c121dfe21fd30",
+    "title": "ADHD Neurobiology: Dopamine & Development",
+    "timestamp": "2025-12-07T02:15:02.011Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-neurobiology-dopamine-development.md"
+  },
+  "the-three-presentations": {
+    "status": "pending",
+    "heygen_id": "e4f63f418bb94ea1ba54e335c3671f84",
+    "title": "The Three Presentations",
+    "timestamp": "2025-12-07T02:15:03.429Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\the-three-presentations.md"
+  },
+  "hyperactive-presentation-the-energizer-bunny": {
+    "status": "pending",
+    "heygen_id": "240033880a8c4042919085beb89fa1b1",
+    "title": "Hyperactive Presentation: The Energizer Bunny",
+    "timestamp": "2025-12-07T02:15:04.852Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\hyperactive-presentation-the-energizer-bunny.md"
+  },
+  "the-8-executive-functions": {
+    "status": "pending",
+    "heygen_id": "555fb33475134b0b821d7fe9f35e4205",
+    "title": "The 8 Executive Functions",
+    "timestamp": "2025-12-07T02:15:06.209Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\the-8-executive-functions.md"
+  },
+  "impact-on-academic-performance": {
+    "status": "pending",
+    "heygen_id": "532ecd02cab9454a88439df9353601a9",
+    "title": "Impact on Academic Performance",
+    "timestamp": "2025-12-07T02:15:07.624Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\impact-on-academic-performance.md"
+  },
+  "seating-and-sensory": {
+    "status": "pending",
+    "heygen_id": "c8c3b17667e14a018b1343fa90084918",
+    "title": "Seating and Sensory",
+    "timestamp": "2025-12-07T02:15:09.078Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\seating-and-sensory.md"
+  },
+  "instructional-accommodations": {
+    "status": "pending",
+    "heygen_id": "4283fa069817481e9bfcca137d2da509",
+    "title": "Instructional Accommodations",
+    "timestamp": "2025-12-07T02:15:10.504Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\instructional-accommodations.md"
+  },
+  "attention-cues": {
+    "status": "pending",
+    "heygen_id": "7548773245b74f99909dd4ea92d4329b",
+    "title": "Attention Cues",
+    "timestamp": "2025-12-07T02:15:11.841Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\attention-cues.md"
+  },
+  "self-monitoring": {
+    "status": "pending",
+    "heygen_id": "904599a3708f4d1d981daa6b2ad211b3",
+    "title": "Self-Monitoring",
+    "timestamp": "2025-12-07T02:15:13.264Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\self-monitoring.md"
+  },
+  "channelling-hyperactivity": {
+    "status": "pending",
+    "heygen_id": "5cb84c5f8909489987ec85e07efaf085",
+    "title": "Channelling Hyperactivity",
+    "timestamp": "2025-12-07T02:15:14.844Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\channelling-hyperactivity.md"
+  },
+  "impulse-control-strategies": {
+    "status": "pending",
+    "heygen_id": "884c4f917f6d4e3cb709aebd62288e25",
+    "title": "Impulse Control Strategies",
+    "timestamp": "2025-12-07T02:15:16.171Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\impulse-control-strategies.md"
+  },
+  "organisation-systems": {
+    "status": "pending",
+    "heygen_id": "f65f9f7bbbb949c6a5b6cc3444961f6a",
+    "title": "Organisation Systems",
+    "timestamp": "2025-12-07T02:15:17.604Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\organisation-systems.md"
+  },
+  "homework-strategies": {
+    "status": "pending",
+    "heygen_id": "de0249d40ea248b29796d51dcec4b8b2",
+    "title": "Homework Strategies",
+    "timestamp": "2025-12-07T02:15:19.002Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\homework-strategies.md"
+  },
+  "adhd-medication": {
+    "status": "pending",
+    "heygen_id": "e412dc3c86634765be184558d973fbad",
+    "title": "ADHD Medication",
+    "timestamp": "2025-12-07T02:15:20.988Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-medication.md"
+  },
+  "parent-partnership": {
+    "status": "pending",
+    "heygen_id": "8fc20302396c43f09ebaf9355b3a683a",
+    "title": "Parent Partnership",
+    "timestamp": "2025-12-07T02:15:22.426Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\parent-partnership.md"
+  },
+  "adhd-neurobiology-dopamine-norepinephrine-and-brai": {
+    "status": "pending",
+    "heygen_id": "fa57f7bafbad43dc9437433c1431d53c",
+    "title": "ADHD Neurobiology: Dopamine, Norepinephrine, and Brain Development",
+    "timestamp": "2025-12-07T02:15:23.885Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\adhd-neurobiology-dopamine-norepinephrine-and-brai.md"
+  },
+  "hyperactive-impulsive-presentation-the-energizer-b": {
+    "status": "pending",
+    "heygen_id": "9d2c261c8c44459f9d0d9a1df8207a84",
+    "title": "Hyperactive-Impulsive Presentation: The Energizer Bunny",
+    "timestamp": "2025-12-07T02:15:25.319Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\hyperactive-impulsive-presentation-the-energizer-b.md"
+  },
+  "impact-on-academic-performance-and-daily-functioni": {
+    "status": "pending",
+    "heygen_id": "0171664e813c4d93b9212b1d0460f347",
+    "title": "Impact on Academic Performance and Daily Functioning",
+    "timestamp": "2025-12-07T02:15:26.685Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\impact-on-academic-performance-and-daily-functioni.md"
+  },
+  "instructional-accommodations-and-task-modification": {
+    "status": "pending",
+    "heygen_id": "58cda026fed5424abe73c857209753e3",
+    "title": "Instructional Accommodations and Task Modifications",
+    "timestamp": "2025-12-07T02:15:28.007Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\adhd-understanding-support\\instructional-accommodations-and-task-modification.md"
+  },
+  "feature-gamification-v4": {
+    "status": "pending",
+    "heygen_id": "321f42b3d97d42b4af31c8419a8719e9",
+    "title": "Gamification: Engagement by Design",
+    "timestamp": "2025-12-07T02:15:29.474Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\platform-features\\feature-gamification.md"
+  },
+  "feature-accessibility-v4": {
+    "status": "pending",
+    "heygen_id": "0612c3aa00e744bca13fe3e56454f0f2",
+    "title": "Universal Accessibility",
+    "timestamp": "2025-12-07T02:15:30.896Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\platform-features\\feature-accessibility.md"
+  },
+  "feature-ai-agents-v4": {
+    "status": "pending",
+    "heygen_id": "e9bf218c24e745abad44521622f0f45d",
+    "title": "Meet Dr. Scott AI",
+    "timestamp": "2025-12-07T02:15:32.230Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\platform-features\\feature-ai-agents.md"
+  },
+  "feature-la-dashboard-v4": {
+    "status": "pending",
+    "heygen_id": "719574e8414f4e4c99f5f90a949337cc",
+    "title": "The Local Authority Dashboard",
+    "timestamp": "2025-12-07T02:15:33.564Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\platform-features\\feature-la-dashboard.md"
+  },
+  "dyslexia-m2-l2": {
+    "status": "pending",
+    "heygen_id": "e8eb63004f9d433ab51d1cdaf6b861d1",
+    "title": "Multisensory Teaching",
+    "timestamp": "2025-12-07T02:15:35.003Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\dyslexia-m2-l2.md"
+  },
+  "dyslexia-m3-l1": {
+    "status": "pending",
+    "heygen_id": "9be12a900770459db6c7d73c570e1202",
+    "title": "Teaching Phonemic Awareness",
+    "timestamp": "2025-12-07T02:15:36.379Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\dyslexia-m3-l1.md"
+  },
+  "dyslexia-m3-l2": {
+    "status": "pending",
+    "heygen_id": "acc0643220b14cf8acc4f5aa3e6376f9",
+    "title": "What is Phonological Awareness?",
+    "timestamp": "2025-12-07T02:15:37.800Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\dyslexia-m3-l2.md"
+  },
+  "dyslexia-m4-l1": {
+    "status": "pending",
+    "heygen_id": "8e54d8699a024fcd980b8a5d33e6ad6f",
+    "title": "Teaching Phonics Systematically",
+    "timestamp": "2025-12-07T02:15:39.138Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\dyslexia-m4-l1.md"
+  },
+  "dyslexia-m4-l2": {
+    "status": "pending",
+    "heygen_id": "84aa3cce3ef549cd99a0fd765e53ddb6",
+    "title": "Decodable Texts",
+    "timestamp": "2025-12-07T02:15:40.487Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\dyslexia-m4-l2.md"
+  },
+  "dyslexia-m5-l1": {
+    "status": "pending",
+    "heygen_id": "4919553bbe6840249ecc5eeac9c563e0",
+    "title": "What is Reading Fluency?",
+    "timestamp": "2025-12-07T02:15:41.909Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\dyslexia-m5-l1.md"
+  },
+  "dyslexia-m5-l2": {
+    "status": "pending",
+    "heygen_id": "684ddb062f9849f8a963c2332beb6ccd",
+    "title": "Fluency Interventions",
+    "timestamp": "2025-12-07T02:15:43.360Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\dyslexia-m5-l2.md"
+  },
+  "dyslexia-m6-l1": {
+    "status": "pending",
+    "heygen_id": "fa5b51b08ddb4a8782def4766085f557",
+    "title": "Comprehension Strategies",
+    "timestamp": "2025-12-07T02:15:44.700Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\dyslexia-m6-l1.md"
+  },
+  "dyslexia-m6-l2": {
+    "status": "pending",
+    "heygen_id": "558b300011a04b43b1dfbfd8e830caff",
+    "title": "The Simple View of Reading",
+    "timestamp": "2025-12-07T02:15:46.127Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\dyslexia-m6-l2.md"
+  },
+  "dyslexia-m7-l1": {
+    "status": "pending",
+    "heygen_id": "432ea759f7634e5e99e916abd062f715",
+    "title": "Spelling Instruction",
+    "timestamp": "2025-12-07T02:15:47.553Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\dyslexia-m7-l1.md"
+  },
+  "dyslexia-m7-l2": {
+    "status": "pending",
+    "heygen_id": "74fd3cf9a8764b689e44e08d640f1b8f",
+    "title": "Supporting Written Expression",
+    "timestamp": "2025-12-07T02:15:49.008Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\dyslexia-m7-l2.md"
+  },
+  "dyslexia-m8-l1": {
+    "status": "pending",
+    "heygen_id": "65a6d46858a0440e834216b3994a8b26",
+    "title": "Classroom Accommodations",
+    "timestamp": "2025-12-07T02:15:50.370Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\dyslexia-m8-l1.md"
+  },
+  "dyslexia-m8-l2": {
+    "status": "pending",
+    "heygen_id": "ba97ac943bfb423fbd9bbf57aa8cb711",
+    "title": "Progress Monitoring",
+    "timestamp": "2025-12-07T02:15:51.804Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\dyslexia-m8-l2.md"
+  },
+  "dyslexia-neurobiology-the-phonological-deficit-hypothesis": {
+    "status": "pending",
+    "heygen_id": "8964462307ef45b4aec11a0386168687",
+    "title": "Dyslexia Neurobiology: The Phonological Deficit Hypothesis",
+    "timestamp": "2025-12-07T02:15:53.178Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\dyslexia-neurobiology-the-phonological-deficit-hypothesis.md"
+  },
+  "what-is-structured-literacy-orton-gillingham-principles": {
+    "status": "pending",
+    "heygen_id": "79efd4cb83314629af29ae169f3c3abc",
+    "title": "What is Structured Literacy? Orton-Gillingham Principles",
+    "timestamp": "2025-12-07T02:15:56.546Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\what-is-structured-literacy-orton-gillingham-principles.md"
+  },
+  "multisensory-teaching-engaging-all-pathways": {
+    "status": "pending",
+    "heygen_id": "b99f4bbe067c4ce4af8fd94fd8c3bc6c",
+    "title": "Multisensory Teaching: Engaging All Pathways",
+    "timestamp": "2025-12-07T02:15:58.037Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\multisensory-teaching-engaging-all-pathways.md"
+  },
+  "what-is-phonological-awareness-continuum-of-skills": {
+    "status": "pending",
+    "heygen_id": "7d72c64544554eadb0d73455b86ccdd9",
+    "title": "What is Phonological Awareness? Continuum of Skills",
+    "timestamp": "2025-12-07T02:15:59.390Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\what-is-phonological-awareness-continuum-of-skills.md"
+  },
+  "teaching-phonemic-awareness-activities-and-games": {
+    "status": "pending",
+    "heygen_id": "6440955bb23d4049a1ff0d4222f84594",
+    "title": "Teaching Phonemic Awareness: Activities and Games",
+    "timestamp": "2025-12-07T02:16:00.722Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\teaching-phonemic-awareness-activities-and-games.md"
+  },
+  "teaching-phonics-systematically-scope-and-sequence": {
+    "status": "pending",
+    "heygen_id": "55be67cd4af74ebd8d6951c713b77eaf",
+    "title": "Teaching Phonics Systematically: Scope and Sequence",
+    "timestamp": "2025-12-07T02:16:02.100Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\teaching-phonics-systematically-scope-and-sequence.md"
+  },
+  "decodable-texts-and-application": {
+    "status": "pending",
+    "heygen_id": "95ba49a8af494f1c856d3077ddb49e0a",
+    "title": "Decodable Texts and Application",
+    "timestamp": "2025-12-07T02:16:03.588Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\decodable-texts-and-application.md"
+  },
+  "what-is-reading-fluency-accuracy-rate-prosody": {
+    "status": "pending",
+    "heygen_id": "dad51bf037f54500a0e76101d3d62e98",
+    "title": "What is Reading Fluency? Accuracy, Rate, Prosody",
+    "timestamp": "2025-12-07T02:16:04.925Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\what-is-reading-fluency-accuracy-rate-prosody.md"
+  },
+  "fluency-interventions-repeated-reading-and-strategies": {
+    "status": "pending",
+    "heygen_id": "f2a6e24228eb457a9be51954c6d7a255",
+    "title": "Fluency Interventions: Repeated Reading and Strategies",
+    "timestamp": "2025-12-07T02:16:06.364Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\fluency-interventions-repeated-reading-and-strategies.md"
+  },
+  "simple-view-of-reading-decoding-comprehension": {
+    "status": "pending",
+    "heygen_id": "22472d7aa2304207a5561e4dd04729f8",
+    "title": "Simple View of Reading: Decoding × Comprehension",
+    "timestamp": "2025-12-07T02:16:07.749Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\simple-view-of-reading-decoding-comprehension.md"
+  },
+  "comprehension-strategies-for-dyslexic-readers": {
+    "status": "pending",
+    "heygen_id": "fcb5f0f3b18d4af2a6debaf7d7bf11a0",
+    "title": "Comprehension Strategies for Dyslexic Readers",
+    "timestamp": "2025-12-07T02:16:09.233Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\comprehension-strategies-for-dyslexic-readers.md"
+  },
+  "spelling-instruction-patterns-not-memorization": {
+    "status": "pending",
+    "heygen_id": "416adeacf9014309989bbee6c5532aa5",
+    "title": "Spelling Instruction: Patterns Not Memorization",
+    "timestamp": "2025-12-07T02:16:10.641Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\spelling-instruction-patterns-not-memorization.md"
+  },
+  "supporting-written-expression-separating-transcription-from-composition": {
+    "status": "pending",
+    "heygen_id": "1128b376631f432490ff91a662d5b9ef",
+    "title": "Supporting Written Expression: Separating Transcription from Composition",
+    "timestamp": "2025-12-07T02:16:12.064Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\supporting-written-expression-separating-transcription-from-composition.md"
+  },
+  "classroom-accommodations-and-assistive-technology": {
+    "status": "pending",
+    "heygen_id": "2575df56793a43beb8f9263f1d4d1bf2",
+    "title": "Classroom Accommodations and Assistive Technology",
+    "timestamp": "2025-12-07T02:16:13.468Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\classroom-accommodations-and-assistive-technology.md"
+  },
+  "progress-monitoring-and-assessment": {
+    "status": "pending",
+    "heygen_id": "54bc0e4c0ee44f74a8107501aebb07e8",
+    "title": "Progress Monitoring and Assessment",
+    "timestamp": "2025-12-07T02:16:14.893Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\progress-monitoring-and-assessment.md"
+  },
+  "multisensory-teaching": {
+    "status": "pending",
+    "heygen_id": "6019bfec0355448a9ac38e529a876ae3",
+    "title": "Multisensory Teaching",
+    "timestamp": "2025-12-07T02:16:16.394Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\multisensory-teaching.md"
+  },
+  "teaching-phonemic-awareness": {
+    "status": "pending",
+    "heygen_id": "39e43361c61e4a288c4124ef20333f0f",
+    "title": "Teaching Phonemic Awareness",
+    "timestamp": "2025-12-07T02:16:17.888Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\teaching-phonemic-awareness.md"
+  },
+  "what-is-phonological-awareness": {
+    "status": "pending",
+    "heygen_id": "09055fa2f290426f88f939d1d367fa68",
+    "title": "What is Phonological Awareness?",
+    "timestamp": "2025-12-07T02:16:19.239Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\what-is-phonological-awareness.md"
+  },
+  "teaching-phonics-systematically": {
+    "status": "pending",
+    "heygen_id": "2931a6fa8fc74347a216b85edf55b7bc",
+    "title": "Teaching Phonics Systematically",
+    "timestamp": "2025-12-07T02:16:20.674Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\teaching-phonics-systematically.md"
+  },
+  "decodable-texts": {
+    "status": "pending",
+    "heygen_id": "a6ee4fb0fca74b5ba4fc3821f5acc9a1",
+    "title": "Decodable Texts",
+    "timestamp": "2025-12-07T02:16:22.080Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\decodable-texts.md"
+  },
+  "what-is-reading-fluency": {
+    "status": "pending",
+    "heygen_id": "8daec379f9f44a2eaa2cb08b9449b1cf",
+    "title": "What is Reading Fluency?",
+    "timestamp": "2025-12-07T02:16:23.445Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\what-is-reading-fluency.md"
+  },
+  "fluency-interventions": {
+    "status": "pending",
+    "heygen_id": "2edac11f19b2463f818bf07ade83e8c1",
+    "title": "Fluency Interventions",
+    "timestamp": "2025-12-07T02:16:24.830Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\fluency-interventions.md"
+  },
+  "comprehension-strategies": {
+    "status": "pending",
+    "heygen_id": "593d20d689c14952bd1f843f9f57ee39",
+    "title": "Comprehension Strategies",
+    "timestamp": "2025-12-07T02:16:26.318Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\comprehension-strategies.md"
+  },
+  "the-simple-view-of-reading": {
+    "status": "pending",
+    "heygen_id": "bc20d11432a649caa588cfa7d3825287",
+    "title": "The Simple View of Reading",
+    "timestamp": "2025-12-07T02:16:27.653Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\the-simple-view-of-reading.md"
+  },
+  "spelling-instruction": {
+    "status": "pending",
+    "heygen_id": "0350216abf0a4e93b9f6fe38b16337f3",
+    "title": "Spelling Instruction",
+    "timestamp": "2025-12-07T02:16:28.995Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\spelling-instruction.md"
+  },
+  "supporting-written-expression": {
+    "status": "pending",
+    "heygen_id": "14694d29bb89496b8e8ec7ade263b542",
+    "title": "Supporting Written Expression",
+    "timestamp": "2025-12-07T02:16:30.535Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\supporting-written-expression.md"
+  },
+  "classroom-accommodations": {
+    "status": "pending",
+    "heygen_id": "65bcef28bdbc4b53bc62dabb1235f55f",
+    "title": "Classroom Accommodations",
+    "timestamp": "2025-12-07T02:16:31.961Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\classroom-accommodations.md"
+  },
+  "progress-monitoring": {
+    "status": "pending",
+    "heygen_id": "d6e667cbace24e32ba5148b7c1fdd235",
+    "title": "Progress Monitoring",
+    "timestamp": "2025-12-07T02:16:33.340Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\progress-monitoring.md"
+  },
+  "dyslexia-neurobiology-the-phonological-deficit-hyp": {
+    "status": "pending",
+    "heygen_id": "e0b41f7785e24d6b946f7b62c8656add",
+    "title": "Dyslexia Neurobiology: The Phonological Deficit Hypothesis",
+    "timestamp": "2025-12-07T02:16:34.898Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\dyslexia-neurobiology-the-phonological-deficit-hyp.md"
+  },
+  "what-is-structured-literacy-orton-gillingham-princ": {
+    "status": "pending",
+    "heygen_id": "6eaa019dec1940c18401981d5db14b7a",
+    "title": "What is Structured Literacy? Orton-Gillingham Principles",
+    "timestamp": "2025-12-07T02:21:22.021Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\what-is-structured-literacy-orton-gillingham-princ.md"
+  },
+  "fluency-interventions-repeated-reading-and-strateg": {
+    "status": "pending",
+    "heygen_id": "bf6f75534c0b4809a3f77dffc0b17a27",
+    "title": "Fluency Interventions: Repeated Reading and Strategies",
+    "timestamp": "2025-12-07T02:21:23.366Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\fluency-interventions-repeated-reading-and-strateg.md"
+  },
+  "supporting-written-expression-separating-transcrip": {
+    "status": "pending",
+    "heygen_id": "92888f4c599640fb8538dc714460f4e7",
+    "title": "Supporting Written Expression: Separating Transcription from Composition",
+    "timestamp": "2025-12-07T02:21:24.773Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\dyslexia-intervention-strategies\\supporting-written-expression-separating-transcrip.md"
+  },
+  "what-is-autism-neurodiversity-vs-medical-model": {
+    "status": "pending",
+    "heygen_id": "8c2383e4e2f844d6b7afec8d6d600291",
+    "title": "What is Autism? Neurodiversity vs Medical Model",
+    "timestamp": "2025-12-07T02:21:26.109Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\what-is-autism-neurodiversity-vs-medical-model.md"
+  },
+  "the-autistic-experience-first-person-perspectives": {
+    "status": "pending",
+    "heygen_id": "92ef9664dd2e4b49b3b59bfb18b88b83",
+    "title": "The Autistic Experience: First-Person Perspectives",
+    "timestamp": "2025-12-07T02:21:27.487Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\the-autistic-experience-first-person-perspectives.md"
+  },
+  "social-communication-differences-in-autism": {
+    "status": "pending",
+    "heygen_id": "fd362127b6a24827903262ab5543298e",
+    "title": "Social Communication Differences in Autism",
+    "timestamp": "2025-12-07T02:21:28.858Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\social-communication-differences-in-autism.md"
+  },
+  "friendship-and-peer-relationships": {
+    "status": "pending",
+    "heygen_id": "d092c2d850314708a076f46337cd0350",
+    "title": "Friendship and Peer Relationships",
+    "timestamp": "2025-12-07T02:21:30.196Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\friendship-and-peer-relationships.md"
+  },
+  "sensory-processing-in-autism-hyper-and-hypo-sensitivity": {
+    "status": "pending",
+    "heygen_id": "f0aac0c7645746bbbc46c528f9a82f8c",
+    "title": "Sensory Processing in Autism: Hyper- and Hypo-Sensitivity",
+    "timestamp": "2025-12-07T02:21:31.686Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\sensory-processing-in-autism-hyper-and-hypo-sensitivity.md"
+  },
+  "creating-sensory-friendly-environments": {
+    "status": "pending",
+    "heygen_id": "ec2e1100e5074cf29b2304965cce5957",
+    "title": "Creating Sensory-Friendly Environments",
+    "timestamp": "2025-12-07T02:21:33.098Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\creating-sensory-friendly-environments.md"
+  },
+  "visual-supports-making-the-invisible-visible": {
+    "status": "pending",
+    "heygen_id": "78ceee1cf3334c0785b590424b6a7aae",
+    "title": "Visual Supports: Making the Invisible Visible",
+    "timestamp": "2025-12-07T02:21:34.674Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\visual-supports-making-the-invisible-visible.md"
+  },
+  "structure-and-predictability": {
+    "status": "pending",
+    "heygen_id": "017bfa1a0a184c13880d4db7b93f0f74",
+    "title": "Structure and Predictability",
+    "timestamp": "2025-12-07T02:21:36.047Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\structure-and-predictability.md"
+  },
+  "anxiety-in-autism-understanding-the-constant-stress": {
+    "status": "pending",
+    "heygen_id": "60f8ecc880cf49dcb0c55228cfabe075",
+    "title": "Anxiety in Autism: Understanding the Constant Stress",
+    "timestamp": "2025-12-07T02:21:37.357Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\anxiety-in-autism-understanding-the-constant-stress.md"
+  },
+  "emotional-regulation-and-meltdown-support": {
+    "status": "pending",
+    "heygen_id": "88aa1f1676c8443789dd63204c184d6b",
+    "title": "Emotional Regulation and Meltdown Support",
+    "timestamp": "2025-12-07T02:21:38.788Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\emotional-regulation-and-meltdown-support.md"
+  },
+  "special-interests-passion-not-obsession": {
+    "status": "pending",
+    "heygen_id": "b447cd673f574ecb8467565c208bd0e8",
+    "title": "Special Interests: Passion, Not Obsession",
+    "timestamp": "2025-12-07T02:21:40.190Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\special-interests-passion-not-obsession.md"
+  },
+  "strengths-based-approach-to-autism": {
+    "status": "pending",
+    "heygen_id": "ad68a82c6da84d33b9b7e8a1dd9ac6d7",
+    "title": "Strengths-Based Approach to Autism",
+    "timestamp": "2025-12-07T02:21:41.635Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\strengths-based-approach-to-autism.md"
+  },
+  "executive-function-difficulties-in-autism": {
+    "status": "pending",
+    "heygen_id": "5c7b97a407794ce8987db07e6c371777",
+    "title": "Executive Function Difficulties in Autism",
+    "timestamp": "2025-12-07T02:21:43.063Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\executive-function-difficulties-in-autism.md"
+  },
+  "life-skills-and-promoting-independence": {
+    "status": "pending",
+    "heygen_id": "9a13e711b63143688c3ea75351553f92",
+    "title": "Life Skills and Promoting Independence",
+    "timestamp": "2025-12-07T02:21:44.370Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\life-skills-and-promoting-independence.md"
+  },
+  "inclusive-education-for-autistic-students": {
+    "status": "pending",
+    "heygen_id": "401736531bae4595a399bd04e1961c21",
+    "title": "Inclusive Education for Autistic Students",
+    "timestamp": "2025-12-07T02:21:45.853Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\inclusive-education-for-autistic-students.md"
+  },
+  "legal-rights-and-reasonable-adjustments": {
+    "status": "pending",
+    "heygen_id": "23853c5ea389454198c5f089fe788ce7",
+    "title": "Legal Rights and Reasonable Adjustments",
+    "timestamp": "2025-12-07T02:21:47.233Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\legal-rights-and-reasonable-adjustments.md"
+  },
+  "what-is-autism-neurodiversity-paradigm": {
+    "status": "pending",
+    "heygen_id": "07630691020d4e7493ffa656736a5d27",
+    "title": "What is Autism? Neurodiversity Paradigm",
+    "timestamp": "2025-12-07T02:21:48.731Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\what-is-autism-neurodiversity-paradigm.md"
+  },
+  "social-communication-differences": {
+    "status": "pending",
+    "heygen_id": "aa779e82816f4f33953a2fa2643eb748",
+    "title": "Social Communication Differences",
+    "timestamp": "2025-12-07T02:21:50.149Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\social-communication-differences.md"
+  },
+  "sensory-processing-hyper-and-hypo": {
+    "status": "pending",
+    "heygen_id": "83ad0f0a1f064f39b1487c1234532c87",
+    "title": "Sensory Processing: Hyper and Hypo",
+    "timestamp": "2025-12-07T02:21:51.495Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\sensory-processing-hyper-and-hypo.md"
+  },
+  "anxiety-in-autism": {
+    "status": "pending",
+    "heygen_id": "209f078ea83b4cb395703610c392d822",
+    "title": "Anxiety in Autism",
+    "timestamp": "2025-12-07T02:21:52.946Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\anxiety-in-autism.md"
+  },
+  "meltdown-support": {
+    "status": "pending",
+    "heygen_id": "f4a7d0667c9b49cc991a9d97070c09ad",
+    "title": "Meltdown Support",
+    "timestamp": "2025-12-07T02:21:54.353Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\meltdown-support.md"
+  },
+  "strengths-based-approach": {
+    "status": "pending",
+    "heygen_id": "84a95064ca2a43bd821f06783e8dc005",
+    "title": "Strengths-Based Approach",
+    "timestamp": "2025-12-07T02:21:55.858Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\strengths-based-approach.md"
+  },
+  "executive-function-difficulties": {
+    "status": "pending",
+    "heygen_id": "26f6d3db330d4ad5b74002f7f3e109a4",
+    "title": "Executive Function Difficulties",
+    "timestamp": "2025-12-07T02:21:57.268Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\executive-function-difficulties.md"
+  },
+  "promoting-independence": {
+    "status": "pending",
+    "heygen_id": "c6adfbedefed4c488b8a43d63e4441c5",
+    "title": "Promoting Independence",
+    "timestamp": "2025-12-07T02:21:58.608Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\promoting-independence.md"
+  },
+  "inclusive-education": {
+    "status": "pending",
+    "heygen_id": "10ef8c08d2d74655adb27c2b451864c4",
+    "title": "Inclusive Education",
+    "timestamp": "2025-12-07T02:22:00.001Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\inclusive-education.md"
+  },
+  "legal-rights-adjustments": {
+    "status": "pending",
+    "heygen_id": "7125668c5b8244f3a9e20ac755d8e337",
+    "title": "Legal Rights & Adjustments",
+    "timestamp": "2025-12-07T02:22:01.414Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\legal-rights-adjustments.md"
+  },
+  "sensory-processing-in-autism-hyper-and-hypo-sensit": {
+    "status": "pending",
+    "heygen_id": "1778b7270f784414ae361cafaaac84f9",
+    "title": "Sensory Processing in Autism: Hyper- and Hypo-Sensitivity",
+    "timestamp": "2025-12-07T02:22:02.787Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\sensory-processing-in-autism-hyper-and-hypo-sensit.md"
+  },
+  "anxiety-in-autism-understanding-the-constant-stres": {
+    "status": "pending",
+    "heygen_id": "3481e2fc9c06437c930dcf369ef44ae0",
+    "title": "Anxiety in Autism: Understanding the Constant Stress",
+    "timestamp": "2025-12-07T02:22:04.212Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\autism-spectrum-support-complete-guide\\anxiety-in-autism-understanding-the-constant-stres.md"
+  },
+  "your-ehcp-application-journey": {
+    "status": "pending",
+    "heygen_id": "fb29e16df1a54cf589e9b7b853b3f822",
+    "title": "Your EHCP Application Journey",
+    "timestamp": "2025-12-07T02:22:05.593Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\ehcp-mastery-complete-process-guide\\your-ehcp-application-journey.md"
+  },
+  "gathering-strong-ehcp-evidence": {
+    "status": "pending",
+    "heygen_id": "611ca081893a40cc8dd91e5bf46b552b",
+    "title": "Gathering Strong EHCP Evidence",
+    "timestamp": "2025-12-07T02:22:07.070Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\ehcp-mastery-complete-process-guide\\gathering-strong-ehcp-evidence.md"
+  },
+  "understanding-professional-ehcp-contributions": {
+    "status": "pending",
+    "heygen_id": "b7300a90930d443ba0f021daa17fe4b0",
+    "title": "Understanding Professional EHCP Contributions",
+    "timestamp": "2025-12-07T02:22:08.496Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\ehcp-mastery-complete-process-guide\\understanding-professional-ehcp-contributions.md"
+  },
+  "the-ehcp-annual-review-process": {
+    "status": "pending",
+    "heygen_id": "b9092152c80f47379796c027244c320e",
+    "title": "The EHCP Annual Review Process",
+    "timestamp": "2025-12-07T02:22:09.824Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\ehcp-mastery-complete-process-guide\\the-ehcp-annual-review-process.md"
+  },
+  "understanding-ehcp-appeals": {
+    "status": "pending",
+    "heygen_id": "9ff5580cce0e4ff6b9ef68fbe4b68ad5",
+    "title": "Understanding EHCP Appeals",
+    "timestamp": "2025-12-07T02:22:11.318Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\ehcp-mastery-complete-process-guide\\understanding-ehcp-appeals.md"
+  },
+  "getting-started-with-edpsych-connect": {
+    "status": "pending",
+    "heygen_id": "43317e4dc2544accbb4ec53a3df2c019",
+    "title": "Getting Started with EdPsych Connect",
+    "timestamp": "2025-12-07T02:22:12.694Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\help-centre-tutorials\\getting-started-with-edpsych-connect.md"
+  },
+  "running-your-first-assessment": {
+    "status": "pending",
+    "heygen_id": "5a1f6f70c2844357bfb20b54c2206a81",
+    "title": "Running Your First Assessment",
+    "timestamp": "2025-12-07T02:22:14.108Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\help-centre-tutorials\\running-your-first-assessment.md"
+  },
+  "finding-the-right-intervention": {
+    "status": "pending",
+    "heygen_id": "5f21941f164f4b9694efacc317740733",
+    "title": "Finding the Right Intervention",
+    "timestamp": "2025-12-07T02:22:15.539Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\help-centre-tutorials\\finding-the-right-intervention.md"
+  },
+  "how-we-protect-your-data": {
+    "status": "pending",
+    "heygen_id": "2956da74bc79405fa965ee9ce83fab72",
+    "title": "How We Protect Your Data",
+    "timestamp": "2025-12-07T02:22:16.931Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\help-centre-tutorials\\how-we-protect-your-data.md"
+  },
+  "collaborating-with-your-team": {
+    "status": "pending",
+    "heygen_id": "dafc3cd2c1ff416494b562e5742aa388",
+    "title": "Collaborating with Your Team",
+    "timestamp": "2025-12-07T02:22:18.265Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\help-centre-tutorials\\collaborating-with-your-team.md"
+  },
+  "generating-professional-reports": {
+    "status": "pending",
+    "heygen_id": "600c8d75285647da855823e84aa7e042",
+    "title": "Generating Professional Reports",
+    "timestamp": "2025-12-07T02:22:19.709Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\help-centre-tutorials\\generating-professional-reports.md"
+  },
+  "tracking-your-professional-development": {
+    "status": "pending",
+    "heygen_id": "46ee47cada4347b39117370f69aee17e",
+    "title": "Tracking Your Professional Development",
+    "timestamp": "2025-12-07T02:22:21.149Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\help-centre-tutorials\\tracking-your-professional-development.md"
+  },
+  "troubleshooting-common-issues": {
+    "status": "pending",
+    "heygen_id": "745d04f2183c485e8d949fe06fc9cb8d",
+    "title": "Troubleshooting Common Issues",
+    "timestamp": "2025-12-07T02:22:22.492Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\help-centre-tutorials\\troubleshooting-common-issues.md"
+  },
+  "your-la-dashboard-overview": {
+    "status": "pending",
+    "heygen_id": "fa593f0f2d8745fbadf0393eb76717f5",
+    "title": "Your LA Dashboard Overview",
+    "timestamp": "2025-12-07T02:22:23.929Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\local-authority-portal-training\\your-la-dashboard-overview.md"
+  },
+  "managing-professional-requests": {
+    "status": "pending",
+    "heygen_id": "79aa0ab93f2943359373a53db6a2ef48",
+    "title": "Managing Professional Requests",
+    "timestamp": "2025-12-07T02:22:25.352Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\local-authority-portal-training\\managing-professional-requests.md"
+  },
+  "the-ehcp-merge-tool-explained": {
+    "status": "pending",
+    "heygen_id": "1a8fd4c1c4bc47a7938450772f89ab26",
+    "title": "The EHCP Merge Tool Explained",
+    "timestamp": "2025-12-07T02:22:26.706Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\local-authority-portal-training\\the-ehcp-merge-tool-explained.md"
+  },
+  "welcome-to-the-parent-portal": {
+    "status": "pending",
+    "heygen_id": "7c0a667a75e24219bcb46fa09a29c858",
+    "title": "Welcome to the Parent Portal",
+    "timestamp": "2025-12-07T02:22:28.138Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\parent-portal-guide\\welcome-to-the-parent-portal.md"
+  },
+  "contributing-your-views": {
+    "status": "pending",
+    "heygen_id": "b5313b05698943dda0dddad08d7eae51",
+    "title": "Contributing Your Views",
+    "timestamp": "2025-12-07T02:22:29.596Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\parent-portal-guide\\contributing-your-views.md"
+  },
+  "data-protection-for-educators": {
+    "status": "pending",
+    "heygen_id": "0e4eddc8f0a54ee6a27e32cbb0a57ccc",
+    "title": "Data Protection for Educators",
+    "timestamp": "2025-12-07T02:22:31.029Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\compliance-safety\\data-protection-for-educators.md"
+  },
+  "managing-consent-properly": {
+    "status": "pending",
+    "heygen_id": "1d48655be295477f92c74916545385d1",
+    "title": "Managing Consent Properly",
+    "timestamp": "2025-12-07T02:22:32.628Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\compliance-safety\\managing-consent-properly.md"
+  },
+  "choosing-the-right-assessment": {
+    "status": "pending",
+    "heygen_id": "8576d5df703643e6bc5c35052fac7364",
+    "title": "Choosing the Right Assessment",
+    "timestamp": "2025-12-07T02:22:33.950Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\assessment-essentials\\choosing-the-right-assessment.md"
+  },
+  "interpreting-assessment-results": {
+    "status": "pending",
+    "heygen_id": "c8f4707928f14219b3620d0e445684d9",
+    "title": "Interpreting Assessment Results",
+    "timestamp": "2025-12-07T02:22:35.358Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\assessment-essentials\\interpreting-assessment-results.md"
+  },
+  "the-safety-net-ai-risk-prediction": {
+    "status": "pending",
+    "heygen_id": "ba2c18e65f1c44c5bc38cda3d9b96174",
+    "title": "The Safety Net: AI Risk Prediction",
+    "timestamp": "2025-12-07T02:22:36.689Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\innovation-in-edpsych\\the-safety-net-ai-risk-prediction.md"
+  },
+  "multi-agency-orchestration": {
+    "status": "pending",
+    "heygen_id": "2984e2f4b5404bd28076f9f410c1c1ed",
+    "title": "Multi-Agency Orchestration",
+    "timestamp": "2025-12-07T02:22:38.122Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\innovation-in-edpsych\\multi-agency-orchestration.md"
+  },
+  "the-research-hub-evidence-based-practice": {
+    "status": "pending",
+    "heygen_id": "4a186e23b4154c53b441229a7b75cb52",
+    "title": "The Research Hub: Evidence-Based Practice",
+    "timestamp": "2025-12-07T02:22:39.484Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\innovation-in-edpsych\\the-research-hub-evidence-based-practice.md"
+  },
+  "developers-of-tomorrow-inclusive-coding": {
+    "status": "pending",
+    "heygen_id": "1b89b1eb55984085b94de5a352434c96",
+    "title": "Developers of Tomorrow: Inclusive Coding",
+    "timestamp": "2025-12-07T02:22:40.820Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\innovation-in-edpsych\\developers-of-tomorrow-inclusive-coding.md"
+  },
+  "ai-tutoring-agents-personalised-learning": {
+    "status": "pending",
+    "heygen_id": "43db1e0f09fa4dd49b85c7c0763579bd",
+    "title": "AI Tutoring Agents: Personalised Learning",
+    "timestamp": "2025-12-07T02:22:42.250Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\innovation-in-edpsych\\ai-tutoring-agents-personalised-learning.md"
+  },
+  "battle-royale-making-learning-thrilling": {
+    "status": "pending",
+    "heygen_id": "850f1578400346c2b1247341de151a8a",
+    "title": "Battle Royale: Making Learning Thrilling",
+    "timestamp": "2025-12-07T02:22:43.635Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\innovation-in-edpsych\\battle-royale-making-learning-thrilling.md"
+  },
+  "gamification-engagement-by-design": {
+    "status": "pending",
+    "heygen_id": "cce7755eaf694282900f6f028c1a64cf",
+    "title": "Gamification: Engagement by Design",
+    "timestamp": "2025-12-07T02:22:45.090Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\platform-features-tutorials\\gamification-engagement-by-design.md"
+  },
+  "universal-accessibility": {
+    "status": "pending",
+    "heygen_id": "e8b34d26f5324040987254e9aed1aa5a",
+    "title": "Universal Accessibility",
+    "timestamp": "2025-12-07T02:22:46.485Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\platform-features-tutorials\\universal-accessibility.md"
+  },
+  "meet-dr-scott-ai": {
+    "status": "pending",
+    "heygen_id": "b0ba1b36741c4203ac687876c2335666",
+    "title": "Meet Dr. Scott AI",
+    "timestamp": "2025-12-07T02:22:47.827Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\platform-features-tutorials\\meet-dr-scott-ai.md"
+  },
+  "the-local-authority-dashboard": {
+    "status": "pending",
+    "heygen_id": "679305ba772445fab209a879370e39f5",
+    "title": "The Local Authority Dashboard",
+    "timestamp": "2025-12-07T02:22:49.169Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\platform-features-tutorials\\the-local-authority-dashboard.md"
+  },
+  "welcome-to-edpsych-connect-world": {
+    "status": "pending",
+    "heygen_id": "200235316f7f4e49b0a8fa6879854ed8",
+    "title": "Welcome to EdPsych Connect World",
+    "timestamp": "2025-12-07T02:22:50.547Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\marketing\\welcome-to-edpsych-connect-world.md"
+  },
+  "data-autonomy-trust": {
+    "status": "pending",
+    "heygen_id": "e663935fa3b84c7985cbe70e74dde20a",
+    "title": "Data Autonomy & Trust",
+    "timestamp": "2025-12-07T02:22:51.901Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\marketing\\data-autonomy-trust.md"
+  },
+  "no-child-left-behind": {
+    "status": "pending",
+    "heygen_id": "271abd9ed2164e5faf5312c4521562eb",
+    "title": "No Child Left Behind",
+    "timestamp": "2025-12-07T02:22:53.918Z",
+    "file_path": "E:\\EdpsychConnect\\video_scripts\\v4_generated\\marketing\\no-child-left-behind.md"
+  }
+}

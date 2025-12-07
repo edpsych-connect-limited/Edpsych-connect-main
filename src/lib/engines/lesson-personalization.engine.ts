@@ -51,9 +51,8 @@ export interface StudentAdaptiveProfileInput {
   asdSupport?: boolean;
   visualImpairment?: boolean;
   hearingImpairment?: boolean;
-  preferredFontSize?: string;
+  preferredFontSize?: number;
   preferredColorScheme?: string;
-  preferredLanguage?: string;
 }
 
 export interface PersonalizedLessonContent {
@@ -219,15 +218,14 @@ export class LessonPersonalizationEngine {
       asd_support: input.asdSupport ?? false,
       visual_impairment: input.visualImpairment ?? false,
       hearing_impairment: input.hearingImpairment ?? false,
-      preferred_font_size: input.preferredFontSize ?? 'medium',
+      preferred_font_size: input.preferredFontSize ?? 1.0,
       preferred_color_scheme: input.preferredColorScheme ?? 'default',
-      preferred_language: input.preferredLanguage ?? 'en-GB',
     };
 
     if (existing) {
       await prisma.studentAdaptiveProfile.update({
         where: { id: existing.id },
-        data: { ...data, updated_at: new Date() },
+        data: { ...data, last_profile_update: new Date() },
       });
       return existing.id;
     }
@@ -670,13 +668,24 @@ export class LessonPersonalizationEngine {
     variantName: string,
     adaptations: ContentAdaptation[]
   ): Promise<void> {
+    const profile = await prisma.studentAdaptiveProfile.findUnique({
+      where: { student_id: studentId }
+    });
+
+    if (!profile) {
+      logger.warn(`Profile not found for student ${studentId}`);
+      return;
+    }
+
     await prisma.studentLearningAdaptation.create({
       data: {
         student_id: studentId,
-        lesson_id: lessonId,
-        adaptations_applied: adaptations.map(a => a.type),
-        variant_used: variantName,
-        effectiveness_rating: null, // To be updated after lesson completion
+        profile_id: profile.id,
+        content_type: 'lesson',
+        content_id: lessonId,
+        personalization_dimension: adaptations.map(a => a.type).join(','),
+        personalization_variant: variantName,
+        student_rating: null,
       },
     });
   }
@@ -697,7 +706,8 @@ export class LessonPersonalizationEngine {
     const adaptation = await prisma.studentLearningAdaptation.findFirst({
       where: {
         student_id: studentId,
-        lesson_id: lessonId,
+        content_id: lessonId,
+        content_type: 'lesson',
       },
       orderBy: { applied_at: 'desc' },
     });
@@ -706,8 +716,8 @@ export class LessonPersonalizationEngine {
       await prisma.studentLearningAdaptation.update({
         where: { id: adaptation.id },
         data: {
-          effectiveness_rating: rating,
-          feedback,
+          student_rating: rating,
+          helpful: feedback ? true : undefined,
         },
       });
     }
@@ -726,12 +736,13 @@ export class LessonPersonalizationEngine {
     const effectivenessByType: Record<string, { total: number; count: number }> = {};
 
     for (const adaptation of adaptations) {
-      if (adaptation.effectiveness_rating !== null) {
-        for (const type of adaptation.adaptations_applied) {
+      if (adaptation.student_rating !== null) {
+        const types = adaptation.personalization_dimension.split(',');
+        for (const type of types) {
           if (!effectivenessByType[type]) {
             effectivenessByType[type] = { total: 0, count: 0 };
           }
-          effectivenessByType[type].total += adaptation.effectiveness_rating;
+          effectivenessByType[type].total += adaptation.student_rating;
           effectivenessByType[type].count += 1;
         }
       }
@@ -744,7 +755,7 @@ export class LessonPersonalizationEngine {
 
     return {
       totalAdaptations: adaptations.length,
-      ratedAdaptations: adaptations.filter(a => a.effectiveness_rating !== null).length,
+      ratedAdaptations: adaptations.filter(a => a.student_rating !== null).length,
       averageEffectiveness,
       recentAdaptations: adaptations.slice(0, 10),
     };

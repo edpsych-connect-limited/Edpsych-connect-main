@@ -1,0 +1,81 @@
+
+// TRANSITION PLANNING
+// ============================================================================
+
+model TransitionPlan {
+  id                  String   @id @default(cuid())
+  studentId           Int
+  student             students @relation(fields: [studentId], references: [id])
+  transitionType      String
+  currentSettingId    String?
+  targetSettingId     String?
+  targetDate          DateTime
+  keyWorker           Json?    // { id, name, role, contactEmail }
+  preparationAreas    Json?    // [{ area, priority, strategies }]
+  supportRequirements Json?    // { academic: [], ... }
+  status              String   @default("DRAFT")
+  
+  meetings            TransitionMeeting[]
+  documents           TransitionDocument[]
+  checklists          TransitionChecklist[]
+  communications      TransitionCommunication[]
+
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model TransitionMeeting {
+  id               String         @id @default(cuid())
+  transitionPlanId String
+  transitionPlan   TransitionPlan @relation(fields: [transitionPlanId], references: [id])
+  meetingType      String
+  scheduledDate    DateTime
+  participants     Json           // [{ name, role, organisation, email }]
+  agenda           Json           // String[]
+  venue            String?
+  virtualLink      String?
+  notes            String?
+  outcomes         String[]
+  
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model TransitionDocument {
+  id               String         @id @default(cuid())
+  transitionPlanId String
+  transitionPlan   TransitionPlan @relation(fields: [transitionPlanId], references: [id])
+  documentType     String
+  title            String
+  content          Json?
+  attachmentUrl    String?
+  confidential     Boolean        @default(false)
+  
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model TransitionChecklist {
+  id               String         @id @default(cuid())
+  transitionPlanId String
+  transitionPlan   TransitionPlan @relation(fields: [transitionPlanId], references: [id])
+  phase            String
+  items            Json           // [{ task, responsible, dueDate, notes }]
+  
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model TransitionCommunication {
+  id               String         @id @default(cuid())
+  transitionPlanId String
+  transitionPlan   TransitionPlan @relation(fields: [transitionPlanId], references: [id])
+  date             DateTime
+  type             String
+  summary          String
+  sender           String?
+  recipient        String?
+  
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}

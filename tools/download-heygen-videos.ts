@@ -132,6 +132,14 @@ async function main() {
       
       await downloadFile(status.data.video_url, destPath);
       
+      // Download Captions if available
+      if (status.data.video_url_caption) {
+        const captionPath = destPath.replace(/\.mp4$/, '.vtt');
+        console.log(`   📝 Downloading captions...`);
+        await downloadFile(status.data.video_url_caption, captionPath);
+        console.log(`   ✅ Captions saved to ${path.basename(captionPath)}`);
+      }
+
       const stats = fs.statSync(destPath);
       const sizeMB = (stats.size / 1024 / 1024).toFixed(2);
       console.log(`   ✅ Downloaded: ${sizeMB} MB to ${mapping.localPath}`);

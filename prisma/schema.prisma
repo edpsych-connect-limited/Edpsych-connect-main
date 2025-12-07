@@ -7,219 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// ============================================================================
-// SUBSCRIPTION TIER ACCESS CONTROL ENUMS
-// ============================================================================
-
-enum SubscriptionTier {
-  FREE
-  TRAINEE
-  EP_INDEPENDENT
-  EP_GROUP_SMALL
-  EP_GROUP_LARGE
-  SCHOOL_SMALL
-  SCHOOL_LARGE
-  MAT_SMALL
-  MAT_LARGE
-  LA_TIER1
-  LA_TIER2
-  LA_TIER3
-  RESEARCH_INDIVIDUAL
-  RESEARCH_INSTITUTION
-  ENTERPRISE_CUSTOM
-}
-
-enum Feature {
-  PROBLEM_SOLVER
-  LESSON_DIFFERENTIATION
-  EHCNA_SUPPORT
-  BATTLE_ROYALE
-  PROGRESS_MONITORING
-  INTERVENTION_TRACKING
-  BASIC_ANALYTICS
-  ADVANCED_ANALYTICS
-  CUSTOM_REPORTS
-  DATA_EXPORT
-  TEAM_COLLABORATION
-  PARENT_PORTAL
-  MULTI_SCHOOL_SHARING
-  EMAIL_SUPPORT
-  PHONE_SUPPORT
-  PRIORITY_SUPPORT
-  TRAINING_SESSIONS
-  DEDICATED_ACCOUNT_MANAGER
-  RESEARCH_API
-  RESEARCH_DATA_ACCESS
-  RESEARCH_DOCUMENTATION
-  CUSTOM_FEATURE_DEVELOPMENT
-  API_ACCESS
-  MIS_INTEGRATION
-  SINGLE_SIGN_ON
-}
-
-// ============================================================================
-// CORE TENANT & USER MODELS
-// ============================================================================
-
-model tenants {
-  id        Int    @id @default(autoincrement())
-  name      String
-  subdomain String @unique
-
-  // Tenant Type & Hierarchy
-  tenant_type      String    @default("SCHOOL") // "LA", "MAT", "SCHOOL", "RESEARCH"
-  parent_tenant_id Int?
-  parent_tenant    tenants?  @relation("TenantHierarchy", fields: [parent_tenant_id], references: [id])
-  child_tenants    tenants[] @relation("TenantHierarchy")
-
-  // UK-specific fields
-  urn      String? @unique // Unique Reference Number
-  la_code  String? // Local Authority code
-  postcode String?
-
-  // Configuration
-  settings      Json?
-  status        String  @default("active") // active, suspended, trial
-  contact_email String?
-  contact_phone String?
-
-  // Metadata
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
-
-  // Relations - Core
-  users                users[]
-  students             students[]
-  professionals        professionals[]
-  assessments          assessments[]
-  assessment_instances AssessmentInstance[]
-  assessment_outcomes  AssessmentOutcome[]
-  cases                cases[]
-  interventions        interventions[]
-  subscriptions        subscriptions[]
-
-  // Relations - Training
-  courses             courses[]
-  enrollments         enrollments[]
-  academic_years      academic_years[]
-  terms               terms[]
-  class_enrollments   class_enrollments[]
-  subject_enrollments subject_enrollments[]
-  teacher_subjects    teacher_subjects[]
-  timetable_slots     timetable_slots[]
-
-  // Relations - Gamification
-  battle_stats       battle_stats[]
-  merits             merits[]
-  game_items         game_items[]
-  equipped_items     equipped_items[]
-  houses             houses[]
-  squad_competitions squad_competitions[]
-  squad_members      squad_members[]
-
-  // Relations - Networking
-  forums        forums[]
-  forum_threads forum_threads[]
-  forum_replies forum_replies[]
-  friendships   friendships[]
-
-  // Relations - EHCP/SEND
-  ehcps         ehcps[]
-  ehcp_versions ehcp_versions[]
-  sen_details   sen_details[]
-  attachments   attachments[]
-  
-  // Relations - LA EHCP System (Enterprise)
-  la_ehcp_applications      EHCPApplication[]        @relation("LAApplications")
-  school_ehcp_applications  EHCPApplication[]        @relation("SchoolApplications")
-  la_compliance_metrics     LAComplianceMetrics[]    @relation("LAMetrics")
-  la_notification_templates EHCPNotificationTemplate[] @relation("LANotificationTemplates")
-
-  // Relations - Research
-  research_studies research_studies[]
-
-  // Relations - Study Buddy (AI Integration)
-  study_buddy_recommendations StudyBuddyRecommendation[]
-  user_learning_profiles      UserLearningProfile[]
-  study_buddy_interactions    StudyBuddyInteraction[]
-  predictive_insights         PredictiveInsight[]
-  conversational_ai_sessions  ConversationalAISession[]
-  study_buddy_agent_analytics StudyBuddyAgentAnalytics[]
-
-  // Relations - Platform Orchestration Layer
-  student_profiles           StudentProfile[]
-  class_rosters              ClassRoster[]
-  lesson_plans               LessonPlan[]
-  student_lesson_assignments StudentLessonAssignment[]
-  student_progress_snapshots StudentProgressSnapshot[]
-  multi_agency_access        MultiAgencyAccess[]
-  parent_child_links         ParentChildLink[]
-  voice_commands             VoiceCommand[]
-  automated_actions          AutomatedAction[]
-  parent_teacher_messages    ParentTeacherMessage[]
-  feature_usage              feature_usage[]           @relation("TenantFeatureUsage")
-
-  // Relations - Tokenisation System
-  // tokenisation_accounts  TokenisationAccount[]
-  // tokenisation_transactions TokenisationTransaction[]
-  // rewards                Reward[]
-  // reward_claims          RewardClaim[]
-
-  // Relations - Marketplace
-  service_contracts ServiceContract[]
-
-  // Relations - System & Security
-  audit_logs         AuditLog[]
-  secure_documents   SecureDocument[]
-  claimed_beta_codes BetaAccessCode[]
-  beta_access_usages BetaAccessCodeUsage[]
-
-  // Relations - Integrations
-  integration_settings IntegrationSettings?
-  sync_logs            SyncLog[]
-  squadMembers         SquadMember[]
-
-  // Relations - Data Sovereignty (BYOD)
-  database_config      TenantDatabaseConfig?
-
-  // Relations - Algorithm Marketplace
-  algorithmLicenses    AlgorithmLicense[]
-  algorithmUsages      AlgorithmUsage[]
-
-  // Relations - EHCP Module Extensions
-  la_mediation_cases        MediationCase[]              @relation("LAMediationCases")
-  la_tribunal_cases         TribunalCase[]               @relation("LATribunalCases")
-  la_phase_transfers        PhaseTransfer[]              @relation("LAPhaseTransfers")
-  la_annual_reviews         AnnualReview[]               @relation("LAAnnualReviews")
-  la_risk_predictions       ComplianceRiskPrediction[]   @relation("LARiskPredictions")
-  la_compliance_alerts      ComplianceAlert[]            @relation("LAComplianceAlerts")
-  la_provision_costs        ProvisionCost[]              @relation("LAProvisionCosts")
-  la_funding_bands          FundingBand[]                @relation("LAFundingBands")
-  la_ehcp_costs             EHCPCostCalculation[]        @relation("LAEHCPCosts")
-  la_golden_thread_analyses GoldenThreadAnalysis[]       @relation("LAGoldenThreadAnalyses")
-  la_sen2_returns           SEN2ReturnData[]             @relation("LASEN2Returns")
-
-  // Relations - SEN2 Statutory Returns (NEW)
-  sen2_returns              SEN2Return[]                 @relation("LASen2Returns")
-  
-  // Relations - Time Savings Metrics (NEW)
-  time_savings_reports      TimeSavingsReport[]          @relation("TenantTimeSavingsReports")
-  time_savings_metrics      TimeSavingsMetric[]          @relation("TenantTimeSavingsMetrics")
-  
-  // Relations - EP Marketplace Bookings (NEW)
-  school_ep_bookings        EPBooking[]                  @relation("SchoolBookings")
-
-  // Relations - Coding Curriculum (Zero Gap Project)
-  nc_curricula              NCCurriculum[]               @relation("TenantCodingCurricula")
-  nc_lessons                NCLesson[]                   @relation("TenantCodingLessons")
-  nc_exercises              NCExercise[]                 @relation("TenantCodingExercises")
-  lesson_personalizations   LessonPersonalization[]      @relation("TenantLessonPersonalizations")
-
-  @@index([subdomain])
-  @@index([tenant_type])
-  @@index([status])
-}
-
 model users {
   id            Int    @id @default(autoincrement())
   tenant_id     Int
@@ -280,7 +67,7 @@ model users {
   // Relations - Onboarding
   // onboarding_progress onboarding_progress?
 
-  // Relations - User Types
+  // Relations - users Types
   parents       parents?
   professionals professionals?
 
@@ -451,6 +238,224 @@ model users {
   @@index([role])
 }
 
+
+// ============================================================================
+// SUBSCRIPTION TIER ACCESS CONTROL ENUMS
+// ============================================================================
+
+enum SubscriptionTier {
+  FREE
+  TRAINEE
+  EP_INDEPENDENT
+  EP_GROUP_SMALL
+  EP_GROUP_LARGE
+  SCHOOL_SMALL
+  SCHOOL_LARGE
+  MAT_SMALL
+  MAT_LARGE
+  LA_TIER1
+  LA_TIER2
+  LA_TIER3
+  RESEARCH_INDIVIDUAL
+  RESEARCH_INSTITUTION
+  ENTERPRISE_CUSTOM
+}
+
+enum Feature {
+  PROBLEM_SOLVER
+  LESSON_DIFFERENTIATION
+  EHCNA_SUPPORT
+  BATTLE_ROYALE
+  PROGRESS_MONITORING
+  INTERVENTION_TRACKING
+  BASIC_ANALYTICS
+  ADVANCED_ANALYTICS
+  CUSTOM_REPORTS
+  DATA_EXPORT
+  TEAM_COLLABORATION
+  PARENT_PORTAL
+  MULTI_SCHOOL_SHARING
+  EMAIL_SUPPORT
+  PHONE_SUPPORT
+  PRIORITY_SUPPORT
+  TRAINING_SESSIONS
+  DEDICATED_ACCOUNT_MANAGER
+  RESEARCH_API
+  RESEARCH_DATA_ACCESS
+  RESEARCH_DOCUMENTATION
+  CUSTOM_FEATURE_DEVELOPMENT
+  API_ACCESS
+  MIS_INTEGRATION
+  SINGLE_SIGN_ON
+}
+
+// ============================================================================
+// CORE TENANT & USER MODELS
+// ============================================================================
+
+model tenants {
+  id        Int    @id @default(autoincrement())
+  name      String
+  subdomain String @unique
+
+  // Tenant Type & Hierarchy
+  tenant_type      String    @default("SCHOOL") // "LA", "MAT", "SCHOOL", "RESEARCH"
+  parent_tenant_id Int?
+  parent_tenant    tenants?  @relation("TenantHierarchy", fields: [parent_tenant_id], references: [id])
+  child_tenants    tenants[] @relation("TenantHierarchy")
+
+  // UK-specific fields
+  urn      String? @unique // Unique Reference Number
+  la_code  String? // Local Authority code
+  postcode String?
+
+  // Configuration
+  settings      Json?
+  status        String  @default("active") // active, suspended, trial
+  contact_email String?
+  contact_phone String?
+
+  // Metadata
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  users users[]
+
+  // Relations - Core
+  // users                users[]
+  students             students[]
+  professionals        professionals[]
+  assessments          assessments[]
+  assessment_instances AssessmentInstance[]
+  assessment_outcomes  AssessmentOutcome[]
+  cases                cases[]
+  interventions        interventions[]
+  subscriptions        subscriptions[]
+
+  // Relations - Training
+  courses             courses[]
+  enrollments         enrollments[]
+  academic_years      academic_years[]
+  terms               terms[]
+  class_enrollments   class_enrollments[]
+  subject_enrollments subject_enrollments[]
+  teacher_subjects    teacher_subjects[]
+  timetable_slots     timetable_slots[]
+
+  // Relations - Gamification
+  battle_stats       battle_stats[]
+  merits             merits[]
+  game_items         game_items[]
+  equipped_items     equipped_items[]
+  houses             houses[]
+  squad_competitions squad_competitions[]
+  squad_members      squad_members[]
+
+  // Relations - Networking
+  forums        forums[]
+  forum_threads forum_threads[]
+  forum_replies forum_replies[]
+  friendships   friendships[]
+
+  // Relations - EHCP/SEND
+  ehcps         ehcps[]
+  ehcp_versions ehcp_versions[]
+  sen_details   sen_details[]
+  attachments   attachments[]
+  
+  // Relations - LA EHCP System (Enterprise)
+  la_ehcp_applications      EHCPApplication[]        @relation("LAApplications")
+  school_ehcp_applications  EHCPApplication[]        @relation("SchoolApplications")
+  la_compliance_metrics     LAComplianceMetrics[]    @relation("LAMetrics")
+  la_notification_templates EHCPNotificationTemplate[] @relation("LANotificationTemplates")
+
+  // Relations - Research
+  research_studies research_studies[]
+
+  // Relations - Study Buddy (AI Integration)
+  study_buddy_recommendations StudyBuddyRecommendation[]
+  user_learning_profiles      UserLearningProfile[]
+  study_buddy_interactions    StudyBuddyInteraction[]
+  predictive_insights         PredictiveInsight[]
+  conversational_ai_sessions  ConversationalAISession[]
+  study_buddy_agent_analytics StudyBuddyAgentAnalytics[]
+
+  // Relations - Platform Orchestration Layer
+  student_profiles           StudentProfile[]
+  class_rosters              ClassRoster[]
+  lesson_plans               LessonPlan[]
+  student_lesson_assignments StudentLessonAssignment[]
+  student_progress_snapshots StudentProgressSnapshot[]
+  multi_agency_access        MultiAgencyAccess[]
+  parent_child_links         ParentChildLink[]
+  voice_commands             VoiceCommand[]
+  automated_actions          AutomatedAction[]
+  parent_teacher_messages    ParentTeacherMessage[]
+  feature_usage              feature_usage[]           @relation("TenantFeatureUsage")
+
+  // Relations - Tokenisation System
+  // tokenisation_accounts  TokenisationAccount[]
+  // tokenisation_transactions TokenisationTransaction[]
+  // rewards                Reward[]
+  // reward_claims          RewardClaim[]
+
+  // Relations - Marketplace
+  service_contracts ServiceContract[]
+
+  // Relations - System & Security
+  audit_logs         AuditLog[]
+  secure_documents   SecureDocument[]
+  claimed_beta_codes BetaAccessCode[]
+  beta_access_usages BetaAccessCodeUsage[]
+
+  // Relations - Integrations
+  integration_settings IntegrationSettings?
+  sync_logs            SyncLog[]
+  squadMembers         SquadMember[]
+
+  // Relations - Data Sovereignty (BYOD)
+  database_config      TenantDatabaseConfig?
+
+  // Relations - Algorithm Marketplace
+  algorithmLicenses    AlgorithmLicense[]
+  algorithmUsages      AlgorithmUsage[]
+
+  // Relations - EHCP Module Extensions
+  la_mediation_cases        MediationCase[]              @relation("LAMediationCases")
+  la_tribunal_cases         TribunalCase[]               @relation("LATribunalCases")
+  la_phase_transfers        PhaseTransfer[]              @relation("LAPhaseTransfers")
+  la_annual_reviews         AnnualReview[]               @relation("LAAnnualReviews")
+  la_risk_predictions       ComplianceRiskPrediction[]   @relation("LARiskPredictions")
+  la_compliance_alerts      ComplianceAlert[]            @relation("LAComplianceAlerts")
+  la_provision_costs        ProvisionCost[]              @relation("LAProvisionCosts")
+  la_funding_bands          FundingBand[]                @relation("LAFundingBands")
+  la_ehcp_costs             EHCPCostCalculation[]        @relation("LAEHCPCosts")
+  la_golden_thread_analyses GoldenThreadAnalysis[]       @relation("LAGoldenThreadAnalyses")
+  la_sen2_returns           SEN2ReturnData[]             @relation("LASEN2Returns")
+
+  // Relations - SEN2 Statutory Returns (NEW)
+  sen2_returns              SEN2Return[]                 @relation("LASen2Returns")
+  
+  // Relations - Time Savings Metrics (NEW)
+  time_savings_reports      TimeSavingsReport[]          @relation("TenantTimeSavingsReports")
+  time_savings_metrics      TimeSavingsMetric[]          @relation("TenantTimeSavingsMetrics")
+  
+  // Relations - EP Marketplace Bookings (NEW)
+  school_ep_bookings        EPBooking[]                  @relation("SchoolBookings")
+
+  // Relations - Coding Curriculum (Zero Gap Project)
+  nc_curricula              NCCurriculum[]               @relation("TenantCodingCurricula")
+  nc_lessons                NCLesson[]                   @relation("TenantCodingLessons")
+  nc_exercises              NCExercise[]                 @relation("TenantCodingExercises")
+  lesson_personalizations   LessonPersonalization[]      @relation("TenantLessonPersonalizations")
+
+  @@index([subdomain])
+  @@index([tenant_type])
+  @@index([status])
+}
+
+
+
 // ============================================================================
 // EDUCATIONAL MODELS (TENANT-SCOPED)
 // ============================================================================
@@ -506,6 +511,9 @@ model students {
   // Relations - EP Marketplace Bookings
   ep_bookings                 EPBooking[]                 @relation("StudentBookings")
 
+  // Relations - Transition Planning
+  transitionPlans             TransitionPlan[]
+
   @@unique([tenant_id, unique_id])
   @@index([tenant_id])
   @@index([sen_status])
@@ -555,6 +563,7 @@ model assessments {
   // Relations
   tenants tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
   cases   cases   @relation(fields: [case_id], references: [id], onDelete: Cascade)
+  AssessmentResult AssessmentResult[]
   users   users?  @relation(fields: [created_by], references: [id])
 
   @@index([tenant_id])
@@ -1101,7 +1110,7 @@ enum EHCPApplicationStatus {
   DECISION_TO_ASSESS            // LA agreed to statutory assessment
   DECISION_NOT_TO_ASSESS        // LA declined - not meeting threshold
   
-  // Assessment Stage (Weeks 6-16)
+  // assessments Stage (Weeks 6-16)
   PROFESSIONAL_REFERRALS_SENT   // Advice requests sent to professionals
   AWAITING_EP_ASSESSMENT        // Waiting for Educational Psychologist
   AWAITING_HEALTH_ASSESSMENT    // Waiting for Health professional
@@ -1346,7 +1355,7 @@ model EHCPContribution {
   
   // Contributor Details
   contributor_type      String               // school, ep, health, social_care, other
-  contributor_id        Int                  // User ID
+  contributor_id        Int                  // users ID
   contributor_name      String
   contributor_role      String               // e.g., "SENCO", "Educational Psychologist", "Paediatrician"
   contributor_org       String               // e.g., "Oakwood Primary School", "NHS Trust"
@@ -1901,7 +1910,7 @@ model PhaseTransferEvent {
 model AnnualReview {
   id                    String               @id @default(cuid())
   la_tenant_id          Int
-  ehcp_id               String
+  ehcpId                String               @map("ehcp_id")
   
   // Child Details
   child_id              String
@@ -1912,8 +1921,8 @@ model AnnualReview {
   review_period_end     DateTime
   
   // Scheduling
-  scheduled_date        DateTime?
-  review_type           String               @default("standard") // standard, phase_transfer, early_review, emergency
+  scheduledDate         DateTime?            @map("scheduled_date")
+  reviewType            String               @default("standard") @map("review_type") // standard, phase_transfer, early_review, emergency
   
   // Setting Details
   setting_id            Int?
@@ -1944,6 +1953,8 @@ model AnnualReview {
   parent_views_received Boolean              @default(false)
   child_views_received  Boolean              @default(false)
   setting_advice_received Boolean            @default(false)
+
+  // Missing fields from code
   
   // Amendments
   amendments_required   Json?                // Specific changes required
@@ -1960,9 +1971,30 @@ model AnnualReview {
   la_tenant             tenants              @relation("LAAnnualReviews", fields: [la_tenant_id], references: [id])
   case_officer          users?               @relation("AnnualReviewOfficer", fields: [case_officer_id], references: [id])
   contributions         AnnualReviewContribution[]
+
+  // New fields required by code
+  studentId             String?
+  coordinatorId         String?
+  createdById           String?
+  participants          Json?
+  invitations           Json?
+  preReviewDocuments    Json?
+  parentViews           Json?
+  childViews            Json?
+  professionalReports   Json?
+  meetingNotes          String?
+  laNotificationSent    Boolean              @default(false)
+  laDecision            String?
+  completionChecklist   Json?
+  actualDate            DateTime?
+  agenda                Json?
+  decisions             Json?
+  outcomesReview        Json?
+  newOutcomes           Json?
+  recommendations       Json?
   
   @@index([la_tenant_id])
-  @@index([scheduled_date])
+  @@index([scheduledDate])
   @@index([status])
   @@index([setting_id])
 }
@@ -2089,7 +2121,7 @@ model ProvisionCost {
   id                    String               @id @default(cuid())
   la_tenant_id          Int
   
-  // Provision Details
+  // provisions Details
   provision_type        String               // ep_assessment, salt, ot, specialist_teaching, 1to1_support, etc.
   provision_name        String
   description           String?
@@ -2252,7 +2284,7 @@ model GoldenThreadAnalysis {
   outcomes_smart_score  Float                // How SMART the outcomes are
   outcomes_linked_to_needs Boolean           @default(false)
   
-  // Provision Analysis
+  // provisions Analysis
   provisions_mapped     Json                 // Array of provisions
   provisions_linked     Boolean              @default(false) // All linked to needs/outcomes
   provision_gaps        Json?                // Identified gaps
@@ -3525,7 +3557,7 @@ model MultiAgencyAccess {
   // Access Scope
   role_type String
 
-  // Student Access
+  // students Access
   accessible_student_ids Int[] @default([])
   owned_student_ids      Int[] @default([])
 
@@ -3680,7 +3712,7 @@ model AutomatedAction {
 model StudyBuddyRecommendation {
   id String @id @default(uuid())
 
-  // User targeting
+  // users targeting
   user_id   Int
   tenant_id Int
 
@@ -3702,7 +3734,7 @@ model StudyBuddyRecommendation {
   strategy         String
   strategy_details Json?
 
-  // User interaction
+  // users interaction
   status       String    @default("active")
   clicked_at   DateTime?
   dismissed_at DateTime?
@@ -3728,7 +3760,7 @@ model StudyBuddyRecommendation {
 model UserLearningProfile {
   id String @id @default(uuid())
 
-  // User identification
+  // users identification
   user_id   Int    @unique
   tenant_id Int
   role      String
@@ -3796,7 +3828,7 @@ model UserLearningProfile {
 model StudyBuddyInteraction {
   id String @id @default(uuid())
 
-  // User and context
+  // users and context
   user_id   Int
   tenant_id Int
 
@@ -3813,7 +3845,7 @@ model StudyBuddyInteraction {
   model_used       String?
   cost_usd         Float?
 
-  // User feedback
+  // users feedback
   satisfaction_rating Int?
   was_helpful         Boolean @default(true)
   feedback_text       String? @db.Text
@@ -3876,7 +3908,7 @@ model PredictiveInsight {
   action_url         String?
   estimated_time     Int?
 
-  // User response
+  // users response
   status       String    @default("active")
   viewed_at    DateTime?
   acted_at     DateTime?
@@ -3901,7 +3933,7 @@ model PredictiveInsight {
 model ConversationalAISession {
      id String @id @default(uuid())
 
-  // User context
+  // users context
   user_id   Int
   tenant_id Int
 
@@ -4930,29 +4962,11 @@ model AssessmentOutcome {
   @@index([contributed_to_research])
 }
 
-model Assessment {
-  id             String    @id @default(uuid())
-  studentId      String
-  assessmentType String
-  title          String
-  description    String?   @db.Text
-  status         String    @default("draft")
-  assessedBy     String
-  assessmentDate DateTime?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @default(now())
 
-  results AssessmentResult[]
-
-  @@index([studentId])
-  @@index([status])
-  @@index([assessmentType])
-  @@index([assessmentDate])
-}
 
 model AssessmentResult {
   id           String   @id @default(uuid())
-  assessmentId String
+  assessmentId Int
   domain       String
   score        Float
   maxScore    Float
@@ -4961,7 +4975,7 @@ model AssessmentResult {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @default(now())
 
-  assessment Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  assessment assessments @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
   contentLinks AssessmentContentLink[]
 
   @@index([assessmentId])
@@ -6102,7 +6116,7 @@ enum SEN2PrimaryNeed {
   PD      // Physical Disability
   ASD     // Autistic Spectrum Disorder
   OTH     // Other Difficulty/Disability
-  NSA     // No Specialist Assessment of Need
+  NSA     // No Specialist assessments of Need
 }
 
 enum SEN2PlacementType {
@@ -6314,7 +6328,7 @@ model EHCPNeed {
   severity    String   @default("moderate") // mild, moderate, severe
   
   // Evidence Base
-  evidence_sources String[] // Assessment IDs that support this need
+  evidence_sources String[] // assessments IDs that support this need
   
   // Ordering
   display_order Int @default(0)
@@ -6337,7 +6351,7 @@ model EHCPProvision {
   id          String   @id @default(cuid())
   ehcp_id     String
   
-  // Provision Details
+  // provisions Details
   section     String   @default("F") // F, G, H (EHCP sections)
   provision_type String // educational, health, social_care
   description String   @db.Text
@@ -6469,7 +6483,7 @@ model OutcomeProgressReview {
   review_date DateTime
   reviewer_id Int
   
-  // Progress Assessment
+  // Progress assessments
   previous_level String?
   current_level  String?
   progress_made  String   // significant, some, none, regression
@@ -6505,6 +6519,18 @@ model EHCPCoherenceAnalysis {
   weak_links          Int     @default(0)
   unmeasurable_outcomes Int   @default(0)
   
+  // Detailed Analysis (Golden Thread)
+  tenant_id           Int?
+  status              String?
+  thread_count        Int     @default(0)
+  complete_threads    Int     @default(0)
+  incomplete_threads  Int     @default(0)
+  gap_count           Int     @default(0)
+  critical_gaps       Int     @default(0)
+  major_gaps          Int     @default(0)
+  minor_gaps          Int     @default(0)
+  analysis_data       Json?
+
   // Recommendations
   recommendations     Json?   // Array of improvement suggestions
   
@@ -6750,7 +6776,7 @@ model CodingLesson {
   has_visual_guide      Boolean @default(false)
   has_simplified_version Boolean @default(false)
   
-  // Assessment
+  // assessments
   success_criteria String[]
   hints           String[]
   
@@ -7284,7 +7310,7 @@ model NCExercise {
   // Hints (graduated support)
   hints           String[] // Progressive hints
   
-  // Points and Assessment
+  // Points and assessments
   max_points      Int      @default(10)
   
   // Accessibility Adaptations Available
@@ -7491,7 +7517,7 @@ model StudentAdaptiveProfile {
   struggle_areas        String[] // Areas needing extra support
   strength_areas        String[] // Areas of proficiency
   
-  // Last Assessment
+  // Last assessments
   last_profile_update   DateTime @default(now())
   profile_confidence    Float   @default(0) // 0-1, how confident are we in this profile
   
@@ -7596,4 +7622,399 @@ model SEN2ChildRecord {
   @@index([tenant_id])
   @@index([collection_year])
   @@index([primary_need])
+}
+
+
+
+model provisions {
+  id              String   @id @default(cuid())
+  schoolId        String
+  name            String
+  areaOfNeed      String
+  wave            String
+  description     String?
+  staffRatio      Float?
+  groupSize       Int?
+  frequency       String?
+  duration        Int?
+  costPerSession  Float?
+  costPerWeek     Float?
+  weeksPerYear    Int?
+  totalAnnualCost Float?
+  fundingSource   String?
+  academicYear    String
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@map("provisions_custom")
+}
+
+
+
+model SENDRegister {
+  id            String   @id @default(cuid())
+  schoolId      String
+  studentId     String
+  academicYear  String
+  
+  needs         String[]
+  provisions    String[]
+  outcomes      String[]
+  
+  startDate     DateTime
+  endDate       DateTime?
+  status        String
+  sendStatus    String? 
+  
+  // Dashboard fields
+  primaryNeed          String?
+  progressRAG          String?
+  requiresUrgentAction Boolean  @default(false)
+  nextReviewDate       DateTime?
+  hasTransition        Boolean  @default(false)
+  ehcpAnnualReviewDate DateTime?
+  keyWorkerId          String?
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@map("send_registers")
+}
+
+
+
+model ActionItem {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  status      String
+  priority    String
+  dueDate     DateTime?
+  assigneeId  String?
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("action_items")
+}
+
+
+
+model SchoolStaff {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  email     String
+  schoolId  String
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("school_staff")
+}
+
+
+
+model ReviewMeeting {
+  id          String   @id @default(cuid())
+  date        DateTime
+  type        String
+  status      String
+  studentId   String
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("review_meetings")
+}
+
+
+
+model ParentPortalSession {
+  id        String   @id @default(cuid())
+  userId    String
+  duration  Int
+  
+  createdAt DateTime @default(now())
+  
+  @@map("parent_portal_sessions")
+}
+
+
+
+model ParentMessage {
+  id        String   @id @default(cuid())
+  senderId  String
+  content   String
+  read      Boolean @default(false)
+  
+  createdAt DateTime @default(now())
+  
+  @@map("parent_messages")
+}
+
+
+
+model DocumentView {
+  id         String   @id @default(cuid())
+  documentId String
+  viewerId   String
+  viewedAt   DateTime @default(now())
+  
+  @@map("document_views")
+}
+
+
+
+model Meeting {
+  id        String   @id @default(cuid())
+  title     String
+  date      DateTime
+  
+  createdAt DateTime @default(now())
+  
+  @@map("meetings_custom")
+}
+
+
+
+model Document {
+  id        String   @id @default(cuid())
+  title     String
+  url       String
+  type      String
+  
+  createdAt DateTime @default(now())
+  
+  @@map("documents_custom")
+}
+
+
+
+model StaffAllocation {
+  id          String   @id @default(cuid())
+  staffId     String
+  provisionId String
+  hours       Float
+  
+  createdAt   DateTime @default(now())
+  
+  @@map("staff_allocations")
+}
+
+
+
+model ExternalSpecialist {
+  id        String   @id @default(cuid())
+  name      String
+  specialty String
+  cost      Float
+  
+  createdAt DateTime @default(now())
+  
+  @@map("external_specialists")
+}
+
+
+
+model SchoolBudget {
+  id           String   @id @default(cuid())
+  schoolId     String
+  academicYear String
+  totalAmount  Float
+  
+  createdAt    DateTime @default(now())
+  
+  @@map("school_budgets")
+}
+
+
+
+model ProvisionAllocation {
+  id          String   @id @default(cuid())
+  provisionId String
+  studentId   String
+  status      String
+  startDate   DateTime
+  endDate     DateTime?
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("provision_allocations")
+}
+
+
+
+model ProvisionMap {
+  id           String   @id @default(cuid())
+  schoolId     String
+  academicYear String
+  status       String
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  @@map("provision_maps")
+}
+
+
+
+model SENDOutcome {
+  id          String   @id @default(cuid())
+  description String
+  status      String
+  
+  createdAt   DateTime @default(now())
+  
+  @@map("send_outcomes")
+}
+
+
+
+model ParentConsent {
+  id        String   @id @default(cuid())
+  type      String
+  granted   Boolean
+  
+  createdAt DateTime @default(now())
+  
+  @@map("parent_consents")
+}
+
+
+
+model RiskAssessment {
+  id        String   @id @default(cuid())
+  title     String
+  riskLevel String
+  
+  createdAt DateTime @default(now())
+  
+  @@map("risk_assessments")
+}
+
+
+
+model EHCPAssessment {
+  id        String   @id @default(cuid())
+  studentId String
+  status    String
+  
+  createdAt DateTime @default(now())
+  
+  @@map("ehcp_assessments_custom")
+}
+
+// TRANSITION PLANNING
+// ============================================================================
+
+model TransitionPlan {
+  id                  String   @id @default(cuid())
+  studentId           Int
+  student             students @relation(fields: [studentId], references: [id])
+  transitionType      String
+  currentSettingId    String?
+  targetSettingId     String?
+  targetDate          DateTime
+  keyWorker           Json?    // { id, name, role, contactEmail }
+  preparationAreas    Json?    // [{ area, priority, strategies }]
+  supportRequirements Json?    // { academic: [], ... }
+  phases              Json?    // [{ name, startDate, status, tasks }]
+  status              String   @default("DRAFT")
+  createdById         String?
+  updatedById         String?
+  
+  meetings            TransitionMeeting[]
+  documents           TransitionDocument[]
+  checklists          TransitionChecklist[]
+  communications      TransitionCommunication[]
+  actions             TransitionAction[]
+
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model TransitionMeeting {
+  id               String         @id @default(cuid())
+  transitionPlanId String
+  transitionPlan   TransitionPlan @relation(fields: [transitionPlanId], references: [id])
+  meetingType      String
+  scheduledDate    DateTime
+  participants     Json           // [{ name, role, organisation, email }]
+  agenda           Json           // String[]
+  venue            String?
+  virtualLink      String?
+  notes            String?
+  outcomes         String[]
+  actions          Json?          // [{ description, assignedTo, dueDate }]
+  nextSteps        String?
+  actualAttendees  Json?          // [{ name, role }]
+  status           String         @default("SCHEDULED")
+  completedAt      DateTime?
+  createdById      String?
+  
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model TransitionDocument {
+  id               String         @id @default(cuid())
+  transitionPlanId String
+  transitionPlan   TransitionPlan @relation(fields: [transitionPlanId], references: [id])
+  documentType     String
+  title            String
+  content          Json?
+  attachmentUrl    String?
+  confidential     Boolean        @default(false)
+  status           String         @default("DRAFT")
+  uploadedById     String?
+  
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model TransitionChecklist {
+  id               String         @id @default(cuid())
+  transitionPlanId String
+  transitionPlan   TransitionPlan @relation(fields: [transitionPlanId], references: [id])
+  phase            String
+  items            Json           // [{ task, responsible, dueDate, notes }]
+  createdById      String?
+  updatedById      String?
+  
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@unique([transitionPlanId, phase])
+}
+
+model TransitionCommunication {
+  id               String         @id @default(cuid())
+  transitionPlanId String
+  transitionPlan   TransitionPlan @relation(fields: [transitionPlanId], references: [id])
+  date             DateTime
+  type             String
+  summary          String
+  sender           String?
+  recipient        String?
+  
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model TransitionAction {
+  id               String         @id @default(cuid())
+  transitionPlanId String
+  transitionPlan   TransitionPlan @relation(fields: [transitionPlanId], references: [id])
+  description      String
+  assignedTo       String
+  dueDate          DateTime?
+  priority         String         @default("MEDIUM")
+  status           String         @default("PENDING")
+  createdById      String?
+  
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }

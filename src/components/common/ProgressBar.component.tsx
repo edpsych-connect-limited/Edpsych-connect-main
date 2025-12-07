@@ -37,9 +37,9 @@ export function ProgressBar({
 
   // Memoize aria attributes to ensure they're always valid strings
   const ariaAttrs = useMemo(() => ({
-    'aria-valuenow': safeValue.toString(),
-    'aria-valuemin': '0',
-    'aria-valuemax': safeMax.toString(),
+    'aria-valuenow': safeValue,
+    'aria-valuemin': 0,
+    'aria-valuemax': safeMax,
     'aria-label': ariaLabel || `Progress: ${percentage.toFixed(1)}%`
   }), [safeValue, safeMax, percentage, ariaLabel]);
 

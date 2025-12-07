@@ -1,0 +1,19 @@
+---
+id: inclusive-education-for-autistic-students
+title: Inclusive Education for Autistic Students
+duration: 38 seconds
+audience: General
+category: autism-spectrum-support-complete-guide
+speaker: Dr. Scott Ighavongbe-Patrick
+---
+
+# Inclusive Education for Autistic Students
+
+**Speaker:** Dr. Scott Ighavongbe-Patrick
+**Duration:** 38 seconds
+
+---
+
+## Script
+
+INCLUSIVE EDUCATION: Autistic students educated alongside peers with appropriate supports. NOT one-size-fits-all - individualized accommodations. WHOLE-SCHOOL APPROACH: Autism training for all staff, sensory-friendly environments, flexible approaches, peer education (autism acceptance), anti-bullying, neurodiversity celebration. CLASSROOM: Visual supports, sensory accommodations, predictability, choice/control, special interests incorporated, executive function supports, communication supports, social breaks. EXAMS: Extra time, separate room, rest breaks, reader, scribe, word processor, sensory accommodations. BARRIERS: Sensory overload, social demands, unpredictability, executive function demands, communication barriers, lack of understanding. SOLUTIONS: Accommodate, adapt, respect differences. GOAL: Autistic students thriving academically AND emotionally - not just coping.
