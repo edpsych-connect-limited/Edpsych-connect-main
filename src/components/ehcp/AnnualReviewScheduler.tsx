@@ -24,6 +24,7 @@
  */
 
 import React, { useState, useEffect, useMemo } from 'react';
+import { ProgressBar } from '../ui/ProgressBar';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Calendar,
@@ -45,7 +46,9 @@ import {
   CalendarCheck,
   CalendarX,
   Eye,
+  Projector,
 } from 'lucide-react';
+import LiveEHCPEditor from './LiveEHCPEditor';
 
 // Types
 interface AnnualReview {
@@ -176,6 +179,7 @@ export default function AnnualReviewScheduler() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<ReviewStatus | 'all'>('all');
+  const [activeLiveSession, setActiveLiveSession] = useState<string | null>(null);
   const [typeFilter, setTypeFilter] = useState<ReviewType | 'all'>('all');
   const [viewMode, setViewMode] = useState<'list' | 'calendar'>('list');
   const [selectedMonth, setSelectedMonth] = useState(new Date());
@@ -689,14 +693,13 @@ export default function AnnualReviewScheduler() {
                             {review.preparationTasks.filter(t => t.completed).length}/{review.preparationTasks.length} complete
                           </span>
                         </div>
-                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                          <div 
-                            className="bg-indigo-600 h-2 rounded-full transition-all duration-500"
-                            style={{ 
-                              width: `${(review.preparationTasks.filter(t => t.completed).length / review.preparationTasks.length) * 100}%` 
-                            }}
-                          />
-                        </div>
+                        <ProgressBar 
+                          value={review.preparationTasks.filter(t => t.completed).length} 
+                          max={review.preparationTasks.length}
+                          colorClass="bg-indigo-600"
+                          trackColorClass="bg-gray-200 dark:bg-gray-700"
+                          heightClass="h-2"
+                        />
                       </div>
                     )}
 
@@ -710,6 +713,15 @@ export default function AnnualReviewScheduler() {
                           >
                             <Calendar className="w-4 h-4" />
                             Schedule
+                          </button>
+                        )}
+                        {(review.status === 'confirmed' || review.status === 'in_progress') && (
+                          <button 
+                            onClick={(e) => { e.stopPropagation(); setActiveLiveSession(review.id); }}
+                            className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-green-600 hover:text-green-700 bg-green-50 hover:bg-green-100 rounded-lg transition-colors"
+                          >
+                            <Projector className="w-4 h-4" />
+                            Start Live Session
                           </button>
                         )}
                         <button className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-gray-700 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
@@ -864,6 +876,33 @@ export default function AnnualReviewScheduler() {
           </div>
         </div>
       </div>
+
+      {/* Live Session Modal */}
+      <AnimatePresence>
+        {activeLiveSession && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="w-full max-w-6xl h-[90vh] bg-white dark:bg-gray-800 rounded-xl shadow-2xl overflow-hidden"
+            >
+              <LiveEHCPEditor
+                ehcpId={activeLiveSession}
+                initialOutcomes={[
+                  { id: '1', description: 'Improve reading comprehension', area: 'Cognition and Learning', targetDate: '2025-07-01' },
+                  { id: '2', description: 'Develop social turn-taking skills', area: 'Communication and Interaction', targetDate: '2025-07-01' }
+                ]}
+                onClose={() => setActiveLiveSession(null)}
+                onSave={(outcomes) => {
+                  console.log('Saved outcomes:', outcomes);
+                  setActiveLiveSession(null);
+                }}
+              />
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

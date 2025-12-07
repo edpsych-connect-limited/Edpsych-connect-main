@@ -14,6 +14,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import AIDraftButton from './AIDraftButton';
 
 interface EHCPFormData {
   tenant_id: number;
@@ -485,9 +486,20 @@ export default function EHCPWizardForm({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Description of Special Educational Needs *
-              </label>
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  Description of Special Educational Needs *
+                </label>
+                <AIDraftButton 
+                  section="section_b" 
+                  onDraftGenerated={(text) => 
+                    updatePlanDetail('section_b', {
+                      ...formData.plan_details.section_b,
+                      description: text,
+                    })
+                  } 
+                />
+              </div>
               <textarea
                 value={formData.plan_details.section_b?.description || ''}
                 onChange={(e) =>
