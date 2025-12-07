@@ -34,7 +34,7 @@ const VIDEO_URL_MAP: Record<string, string> = cloudinaryUrls as Record<string, s
 
 // Fallback URLs for specific categories
 const FALLBACK_VIDEOS: Record<string, string> = {
-  'intro': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533750/edpsych-connect/videos/platform-introduction.mp4',
+  'intro': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
   'training': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764768583/edpsych-connect/videos/welcome.mp4',
   'assessment': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764768608/edpsych-connect/videos/assessment.mp4',
   'coding': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764769501/edpsych-connect/videos/features.mp4',

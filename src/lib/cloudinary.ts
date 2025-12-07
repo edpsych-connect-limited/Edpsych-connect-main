@@ -145,17 +145,17 @@ export async function deleteVideo(publicId: string): Promise<void> {
  */
 export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   // Marketing videos
-  'platform-introduction': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533750/edpsych-connect/videos/platform-introduction.mp4',
-  'data-autonomy': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533766/edpsych-connect/videos/data-autonomy.mp4',
-  'no-child-left-behind': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533789/edpsych-connect/videos/no-child-left-behind.mp4',
-  'gamification-integrity': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533803/edpsych-connect/videos/gamification-integrity.mp4',
+  'platform-introduction': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
+  'data-autonomy': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111354/edpsych-connect/videos/data-autonomy.mp4',
+  'no-child-left-behind': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111358/edpsych-connect/videos/no-child-left-behind.mp4',
+  'gamification-integrity': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111361/edpsych-connect/videos/gamification-integrity.mp4',
   
   // Onboarding videos
-  'onboarding-welcome': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533816/edpsych-connect/videos/onboarding-welcome.mp4',
-  'onboarding-role-selection': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533828/edpsych-connect/videos/onboarding-role-selection.mp4',
-  'onboarding-goals': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533841/edpsych-connect/videos/onboarding-goals.mp4',
-  'onboarding-knowledge-check': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533870/edpsych-connect/videos/onboarding-knowledge-check.mp4',
-  'onboarding-completion': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533882/edpsych-connect/videos/onboarding-completion.mp4',
+  'onboarding-welcome': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110926/edpsych-connect/videos/onboarding-welcome.mp4',
+  'onboarding-role-selection': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110966/edpsych-connect/videos/onboarding-role-selection.mp4',
+  'onboarding-goals': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110985/edpsych-connect/videos/onboarding-goals.mp4',
+  'onboarding-knowledge-check': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111043/edpsych-connect/videos/onboarding-knowledge-check.mp4',
+  'onboarding-completion': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111046/edpsych-connect/videos/onboarding-completion.mp4',
   
   // Help Centre videos
   'help-getting-started': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533911/edpsych-connect/videos/help-getting-started.mp4',
