@@ -1,0 +1,62 @@
+<svg width="1920" height="1080" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#f1f5f9"/>
+  
+  <!-- Sidebar -->
+  <rect x="0" y="0" width="280" height="1080" fill="#0f172a"/>
+  <rect x="40" y="40" width="200" height="40" rx="8" fill="#1e293b"/>
+  
+  <!-- Header -->
+  <rect x="280" y="0" width="1640" height="80" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="320" y="50" font-family="Arial" font-size="24" fill="#0f172a" font-weight="bold">System Administration</text>
+  
+  <!-- Stats Cards -->
+  <rect x="320" y="120" width="350" height="180" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="360" y="170" font-family="Arial" font-size="18" fill="#64748b">Total Users</text>
+  <text x="360" y="240" font-family="Arial" font-size="48" fill="#0f172a" font-weight="bold">1,245</text>
+  
+  <rect x="710" y="120" width="350" height="180" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="750" y="170" font-family="Arial" font-size="18" fill="#64748b">Active Sessions</text>
+  <text x="750" y="240" font-family="Arial" font-size="48" fill="#22c55e" font-weight="bold">842</text>
+  
+  <rect x="1100" y="120" width="350" height="180" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="1140" y="170" font-family="Arial" font-size="18" fill="#64748b">System Health</text>
+  <text x="1140" y="240" font-family="Arial" font-size="48" fill="#3b82f6" font-weight="bold">99.9%</text>
+  
+  <rect x="1490" y="120" width="350" height="180" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="1530" y="170" font-family="Arial" font-size="18" fill="#64748b">Pending Approvals</text>
+  <text x="1530" y="240" font-family="Arial" font-size="48" fill="#f59e0b" font-weight="bold">15</text>
+  
+  <!-- Main Table -->
+  <rect x="320" y="340" width="1520" height="680" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+  
+  <!-- Table Header -->
+  <rect x="320" y="340" width="1520" height="60" rx="12" fill="#f8fafc"/>
+  <text x="360" y="380" font-family="Arial" font-size="16" fill="#64748b" font-weight="bold">USER</text>
+  <text x="660" y="380" font-family="Arial" font-size="16" fill="#64748b" font-weight="bold">ROLE</text>
+  <text x="960" y="380" font-family="Arial" font-size="16" fill="#64748b" font-weight="bold">STATUS</text>
+  <text x="1260" y="380" font-family="Arial" font-size="16" fill="#64748b" font-weight="bold">LAST ACTIVE</text>
+  <text x="1660" y="380" font-family="Arial" font-size="16" fill="#64748b" font-weight="bold">ACTIONS</text>
+  
+  <!-- Row 1 -->
+  <rect x="320" y="400" width="1520" height="80" fill="#ffffff"/>
+  <circle cx="380" cy="440" r="20" fill="#cbd5e1"/>
+  <text x="420" y="445" font-family="Arial" font-size="16" fill="#0f172a">John Doe</text>
+  <rect x="660" y="425" width="100" height="30" rx="15" fill="#e0f2fe"/>
+  <text x="685" y="445" font-family="Arial" font-size="14" fill="#0369a1">Admin</text>
+  <circle cx="970" cy="440" r="6" fill="#22c55e"/>
+  <text x="990" y="445" font-family="Arial" font-size="16" fill="#0f172a">Active</text>
+  <text x="1260" y="445" font-family="Arial" font-size="16" fill="#64748b">2 mins ago</text>
+  
+  <!-- Row 2 -->
+  <rect x="320" y="480" width="1520" height="80" fill="#f8fafc"/>
+  <circle cx="380" cy="520" r="20" fill="#cbd5e1"/>
+  <text x="420" y="525" font-family="Arial" font-size="16" fill="#0f172a">Jane Smith</text>
+  <rect x="660" y="505" width="100" height="30" rx="15" fill="#f0fdf4"/>
+  <text x="685" y="525" font-family="Arial" font-size="14" fill="#15803d">User</text>
+  <circle cx="970" cy="520" r="6" fill="#22c55e"/>
+  <text x="990" y="525" font-family="Arial" font-size="16" fill="#0f172a">Active</text>
+  <text x="1260" y="525" font-family="Arial" font-size="16" fill="#64748b">15 mins ago</text>
+  
+  <!-- Watermark -->
+  <text x="1700" y="1040" font-family="Arial" font-size="24" fill="#94a3b8" opacity="0.5">EdPsych Connect</text>
+</svg>

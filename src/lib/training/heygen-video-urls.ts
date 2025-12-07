@@ -360,6 +360,17 @@ export const HEYGEN_VIDEO_URLS: Record<string, string> = Object.fromEntries(
   ])
 );
 
+// ============================================================================
+// REAL OPERATIONS SNAPSHOTS (Overlays)
+// ============================================================================
+// Map lesson IDs to screenshot URLs to overlay during the video.
+// This enhances the narration by showing the actual platform UI.
+export const VIDEO_OVERLAYS: Record<string, string> = {
+  'platform-introduction': '/images/dr-scott-landing.jpg',
+  'marketplace-navigation': '/images/dr-scott-marketplace.jpg',
+  // Add more screenshots here as they are created
+};
+
 /**
  * Local video paths - these are the downloaded MP4 files
  * PRIORITY: Use local files first, HeyGen embed as fallback
@@ -385,130 +396,130 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // ============================================================================
   // MARKETING VIDEOS - Landing page feature spotlights
   // ============================================================================
-  'platform-introduction-legacy': '/content/training_videos/marketing/platform-introduction.mp4',
-  'data-autonomy-legacy': '/content/training_videos/marketing/data-autonomy.mp4',
-  'no-child-left-behind-legacy': '/content/training_videos/marketing/no-child-left-behind.mp4',
-  'gamification-integrity-legacy': '/content/training_videos/marketing/gamification-integrity.mp4',
-  'premium-data-autonomy': '/content/training_videos/marketing/data-autonomy.mp4',
-  'premium-no-child-left-behind': '/content/training_videos/marketing/no-child-left-behind.mp4',
-  'premium-gamification-integrity': '/content/training_videos/marketing/gamification-integrity.mp4',
+  // 'platform-introduction-legacy': '/content/training_videos/marketing/platform-introduction.mp4',
+  // 'data-autonomy-legacy': '/content/training_videos/marketing/data-autonomy.mp4',
+  // 'no-child-left-behind-legacy': '/content/training_videos/marketing/no-child-left-behind.mp4',
+  // 'gamification-integrity-legacy': '/content/training_videos/marketing/gamification-integrity.mp4',
+  // 'premium-data-autonomy': '/content/training_videos/marketing/data-autonomy.mp4',
+  // 'premium-no-child-left-behind': '/content/training_videos/marketing/no-child-left-behind.mp4',
+  // 'premium-gamification-integrity': '/content/training_videos/marketing/gamification-integrity.mp4',
   
   // ============================================================================
   // LA EHCP PORTAL VIDEOS - For Local Authority marketing
   // ============================================================================
-  'la-ehcp-portal-intro': '/content/training_videos/la-portal/la-ehcp-portal-intro.mp4',
-  'la-dashboard-overview': '/content/training_videos/la-portal/la-dashboard-overview.mp4',
-  'la-coordinator-hub': '/content/training_videos/la-portal/la-coordinator-hub.mp4',
+  // 'la-ehcp-portal-intro': '/content/training_videos/la-portal/la-ehcp-portal-intro.mp4',
+  // 'la-dashboard-overview': '/content/training_videos/la-portal/la-dashboard-overview.mp4',
+  // 'la-coordinator-hub': '/content/training_videos/la-portal/la-coordinator-hub.mp4',
   
   // ============================================================================
   // HELP CENTRE VIDEOS
   // ============================================================================
-  'help-getting-started': '/content/training_videos/help-centre/help-getting-started.mp4',
-  'help-first-assessment': '/content/training_videos/help-centre/help-first-assessment.mp4',
-  'help-data-security': '/content/training_videos/help-centre/help-data-security.mp4',
-  'help-finding-interventions': '/content/training_videos/help-centre/help-finding-interventions.mp4',
-  'help-technical-support': '/content/training_videos/help-centre/help-technical-support.mp4',
+  // 'help-getting-started': '/content/training_videos/help-centre/help-getting-started.mp4',
+  // 'help-first-assessment': '/content/training_videos/help-centre/help-first-assessment.mp4',
+  // 'help-data-security': '/content/training_videos/help-centre/help-data-security.mp4',
+  // 'help-finding-interventions': '/content/training_videos/help-centre/help-finding-interventions.mp4',
+  // 'help-technical-support': '/content/training_videos/help-centre/help-technical-support.mp4',
   
   // ============================================================================
   // EHCP PROCESS VIDEOS
   // ============================================================================
-  'ehcp-application-journey': '/content/training_videos/ehcp/ehcp-application-journey.mp4',
-  'ehcp-evidence-gathering': '/content/training_videos/ehcp/ehcp-evidence-gathering.mp4',
-  'ehcp-annual-review': '/content/training_videos/ehcp/ehcp-annual-review.mp4',
-  'ehcp-appeals-process': '/content/training_videos/ehcp/ehcp-appeals-process.mp4',
+  // 'ehcp-application-journey': '/content/training_videos/ehcp/ehcp-application-journey.mp4',
+  // 'ehcp-evidence-gathering': '/content/training_videos/ehcp/ehcp-evidence-gathering.mp4',
+  // 'ehcp-annual-review': '/content/training_videos/ehcp/ehcp-annual-review.mp4',
+  // 'ehcp-appeals-process': '/content/training_videos/ehcp/ehcp-appeals-process.mp4',
   
   // ============================================================================
   // PARENT PORTAL VIDEOS
   // ============================================================================
-  'parent-portal-welcome': '/content/training_videos/parent-portal/welcome.mp4',
-  'parent-support-plan': '/content/training_videos/parent-portal/support-plan.mp4',
-  'parent-communication': '/content/training_videos/parent-portal/communication.mp4',
-  'parent-home-support': '/content/training_videos/parent-portal/home-support.mp4',
+  // 'parent-portal-welcome': '/content/training_videos/parent-portal/welcome.mp4',
+  // 'parent-support-plan': '/content/training_videos/parent-portal/support-plan.mp4',
+  // 'parent-communication': '/content/training_videos/parent-portal/communication.mp4',
+  // 'parent-home-support': '/content/training_videos/parent-portal/home-support.mp4',
   
   // ============================================================================
   // FEATURE WALKTHROUGH VIDEOS
   // ============================================================================
-  'feature-dashboard': '/content/training_videos/features/dashboard.mp4',
+  // 'feature-dashboard': '/content/training_videos/features/dashboard.mp4',
   'feature-no-child-engine': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111358/edpsych-connect/videos/no-child-left-behind.mp4',
   'feature-battle-royale': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111361/edpsych-connect/videos/gamification-integrity.mp4',
-  'feature-reports': '/content/training_videos/features/reports.mp4',
-  'feature-interventions': '/content/training_videos/features/interventions.mp4',
-  'feature-collaboration': '/content/training_videos/features/collaboration.mp4',
-  'feature-senco-analytics': '/content/training_videos/features/senco-analytics.mp4',
+  // 'feature-reports': '/content/training_videos/features/reports.mp4',
+  // 'feature-interventions': '/content/training_videos/features/interventions.mp4',
+  // 'feature-collaboration': '/content/training_videos/features/collaboration.mp4',
+  // 'feature-senco-analytics': '/content/training_videos/features/senco-analytics.mp4',
   
   // ============================================================================
   // ERROR RECOVERY VIDEOS
   // ============================================================================
-  'error-general': '/content/training_videos/error-recovery/general-error.mp4',
-  'error-connection': '/content/training_videos/error-recovery/connection-issues.mp4',
-  'error-data-sync': '/content/training_videos/error-recovery/data-sync.mp4',
-  'error-account-access': '/content/training_videos/error-recovery/account-access.mp4',
+  // 'error-general': '/content/training_videos/error-recovery/general-error.mp4',
+  // 'error-connection': '/content/training_videos/error-recovery/connection-issues.mp4',
+  // 'error-data-sync': '/content/training_videos/error-recovery/data-sync.mp4',
+  // 'error-account-access': '/content/training_videos/error-recovery/account-access.mp4',
   
   // ============================================================================
   // COMPLIANCE & SAFEGUARDING VIDEOS
   // ============================================================================
-  'compliance-data-protection': '/content/training_videos/compliance/data-protection.mp4',
-  'safeguarding-features': '/content/training_videos/compliance/safeguarding.mp4',
-  'safeguarding-immediate-escalation': '/content/training_videos/compliance/immediate-escalation.mp4',
-  'emergency-contact-protocols': '/content/training_videos/compliance/emergency-protocols.mp4',
+  // 'compliance-data-protection': '/content/training_videos/compliance/data-protection.mp4',
+  // 'safeguarding-features': '/content/training_videos/compliance/safeguarding.mp4',
+  // 'safeguarding-immediate-escalation': '/content/training_videos/compliance/immediate-escalation.mp4',
+  // 'emergency-contact-protocols': '/content/training_videos/compliance/emergency-protocols.mp4',
   
   // ============================================================================
   // ADMIN/IT SETUP VIDEOS
   // ============================================================================
-  'admin-dashboard-guide': '/content/training_videos/admin/dashboard-guide.mp4',
-  'admin-sso-configuration': '/content/training_videos/admin/sso-configuration.mp4',
-  'admin-mis-integration': '/content/training_videos/admin/mis-integration.mp4',
+  // 'admin-dashboard-guide': '/content/training_videos/admin/dashboard-guide.mp4',
+  // 'admin-sso-configuration': '/content/training_videos/admin/sso-configuration.mp4',
+  // 'admin-mis-integration': '/content/training_videos/admin/mis-integration.mp4',
   
   // ============================================================================
   // STUDENT SELF-SERVICE VIDEOS
   // ============================================================================
-  'student-portal-welcome': '/content/training_videos/student/portal-welcome.mp4',
+  // 'student-portal-welcome': '/content/training_videos/student/portal-welcome.mp4',
   
   // ============================================================================
   // SPECIFIC CONDITIONS / SEND TOPICS VIDEOS
   // ============================================================================
-  'understanding-dyscalculia': '/content/training_videos/conditions/dyscalculia.mp4',
-  'understanding-slcn': '/content/training_videos/conditions/slcn.mp4',
-  'understanding-semh': '/content/training_videos/conditions/semh.mp4',
-  'understanding-adhd': '/content/training_videos/conditions/adhd.mp4',
-  'understanding-autism': '/content/training_videos/conditions/autism.mp4',
-  'understanding-physical-medical': '/content/training_videos/conditions/physical-medical.mp4',
+  // 'understanding-dyscalculia': '/content/training_videos/conditions/dyscalculia.mp4',
+  // 'understanding-slcn': '/content/training_videos/conditions/slcn.mp4',
+  // 'understanding-semh': '/content/training_videos/conditions/semh.mp4',
+  // 'understanding-adhd': '/content/training_videos/conditions/adhd.mp4',
+  // 'understanding-autism': '/content/training_videos/conditions/autism.mp4',
+  // 'understanding-physical-medical': '/content/training_videos/conditions/physical-medical.mp4',
   
   // ============================================================================
   // MARKETPLACE VIDEOS
   // ============================================================================
-  'marketplace-navigation': '/content/training_videos/marketplace/navigation.mp4',
+  // 'marketplace-navigation': '/content/training_videos/marketplace/navigation.mp4',
   
   // ============================================================================
   // MOBILE & ACCESSIBILITY VIDEOS
   // ============================================================================
-  'mobile-app-guide': '/content/training_videos/mobile/app-guide.mp4',
-  'accessibility-features': '/content/training_videos/accessibility/features.mp4',
+  // 'mobile-app-guide': '/content/training_videos/mobile/app-guide.mp4',
+  // 'accessibility-features': '/content/training_videos/accessibility/features.mp4',
   
   // ============================================================================
   // DATA MANAGEMENT VIDEOS
   // ============================================================================
-  'data-export-portability': '/content/training_videos/data/export-portability.mp4',
+  // 'data-export-portability': '/content/training_videos/data/export-portability.mp4',
   
   // ============================================================================
   // BILLING & SUBSCRIPTION VIDEOS
   // ============================================================================
-  'subscription-billing-management': '/content/training_videos/billing/subscription-management.mp4',
+  // 'subscription-billing-management': '/content/training_videos/billing/subscription-management.mp4',
   
   // ============================================================================
   // PLATFORM SUMMARY & WELCOME
   // ============================================================================
-  'platform-summary-welcome': '/content/training_videos/marketing/platform-summary.mp4',
+  // 'platform-summary-welcome': '/content/training_videos/marketing/platform-summary.mp4',
   
   // ============================================================================
   // EHCP ANNUAL REVIEW PROCESS
   // ============================================================================
-  'ehcp-annual-review-process': '/content/training_videos/ehcp/annual-review-process.mp4',
+  // 'ehcp-annual-review-process': '/content/training_videos/ehcp/annual-review-process.mp4',
   
   // ============================================================================
   // TEAM COLLABORATION
   // ============================================================================
-  'feature-team-collaboration': '/content/training_videos/features/team-collaboration.mp4',
+  // 'feature-team-collaboration': '/content/training_videos/features/team-collaboration.mp4',
   
   // ============================================================================
   // ONBOARDING VIDEOS
@@ -523,84 +534,84 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // ============================================================================
   // AUTISM COURSE VIDEOS
   // ============================================================================
-  'autism-m1-l1': '/content/training_videos/autism-spectrum-support/autism-m1-l1.mp4',
-  'autism-m1-l2': '/content/training_videos/autism-spectrum-support/autism-m1-l2.mp4',
-  'autism-m2-l1': '/content/training_videos/autism-spectrum-support/autism-m2-l1.mp4',
-  'autism-m2-l2': '/content/training_videos/autism-spectrum-support/autism-m2-l2.mp4',
-  'autism-m3-l1': '/content/training_videos/autism-spectrum-support/autism-m3-l1.mp4',
-  'autism-m3-l2': '/content/training_videos/autism-spectrum-support/autism-m3-l2.mp4',
-  'autism-m4-l1': '/content/training_videos/autism-spectrum-support/autism-m4-l1.mp4',
-  'autism-m4-l2': '/content/training_videos/autism-spectrum-support/autism-m4-l2.mp4',
-  'autism-m5-l1': '/content/training_videos/autism-spectrum-support/autism-m5-l1.mp4',
-  'autism-m5-l2': '/content/training_videos/autism-spectrum-support/autism-m5-l2.mp4',
-  'autism-m6-l1': '/content/training_videos/autism-spectrum-support/autism-m6-l1.mp4',
-  'autism-m6-l2': '/content/training_videos/autism-spectrum-support/autism-m6-l2.mp4',
-  'autism-m7-l1': '/content/training_videos/autism-spectrum-support/autism-m7-l1.mp4',
-  'autism-m7-l2': '/content/training_videos/autism-spectrum-support/autism-m7-l2.mp4',
-  'autism-m8-l1': '/content/training_videos/autism-spectrum-support/autism-m8-l1.mp4',
-  'autism-m8-l2': '/content/training_videos/autism-spectrum-support/autism-m8-l2.mp4',
+  // 'autism-m1-l1': '/content/training_videos/autism-spectrum-support/autism-m1-l1.mp4',
+  // 'autism-m1-l2': '/content/training_videos/autism-spectrum-support/autism-m1-l2.mp4',
+  // 'autism-m2-l1': '/content/training_videos/autism-spectrum-support/autism-m2-l1.mp4',
+  // 'autism-m2-l2': '/content/training_videos/autism-spectrum-support/autism-m2-l2.mp4',
+  // 'autism-m3-l1': '/content/training_videos/autism-spectrum-support/autism-m3-l1.mp4',
+  // 'autism-m3-l2': '/content/training_videos/autism-spectrum-support/autism-m3-l2.mp4',
+  // 'autism-m4-l1': '/content/training_videos/autism-spectrum-support/autism-m4-l1.mp4',
+  // 'autism-m4-l2': '/content/training_videos/autism-spectrum-support/autism-m4-l2.mp4',
+  // 'autism-m5-l1': '/content/training_videos/autism-spectrum-support/autism-m5-l1.mp4',
+  // 'autism-m5-l2': '/content/training_videos/autism-spectrum-support/autism-m5-l2.mp4',
+  // 'autism-m6-l1': '/content/training_videos/autism-spectrum-support/autism-m6-l1.mp4',
+  // 'autism-m6-l2': '/content/training_videos/autism-spectrum-support/autism-m6-l2.mp4',
+  // 'autism-m7-l1': '/content/training_videos/autism-spectrum-support/autism-m7-l1.mp4',
+  // 'autism-m7-l2': '/content/training_videos/autism-spectrum-support/autism-m7-l2.mp4',
+  // 'autism-m8-l1': '/content/training_videos/autism-spectrum-support/autism-m8-l1.mp4',
+  // 'autism-m8-l2': '/content/training_videos/autism-spectrum-support/autism-m8-l2.mp4',
   // ADHD course videos
-  'adhd-m1-l1': '/content/training_videos/adhd-understanding-support/adhd-m1-l1.mp4',
-  'adhd-m1-l2': '/content/training_videos/adhd-understanding-support/adhd-m1-l2.mp4',
-  'adhd-m2-l1': '/content/training_videos/adhd-understanding-support/adhd-m2-l1.mp4',
-  'adhd-m2-l2': '/content/training_videos/adhd-understanding-support/adhd-m2-l2.mp4',
-  'adhd-m3-l1': '/content/training_videos/adhd-understanding-support/adhd-m3-l1.mp4',
-  'adhd-m3-l2': '/content/training_videos/adhd-understanding-support/adhd-m3-l2.mp4',
-  'adhd-m4-l1': '/content/training_videos/adhd-understanding-support/adhd-m4-l1.mp4',
-  'adhd-m4-l2': '/content/training_videos/adhd-understanding-support/adhd-m4-l2.mp4',
-  'adhd-m5-l1': '/content/training_videos/adhd-understanding-support/adhd-m5-l1.mp4',
-  'adhd-m5-l2': '/content/training_videos/adhd-understanding-support/adhd-m5-l2.mp4',
-  'adhd-m6-l1': '/content/training_videos/adhd-understanding-support/adhd-m6-l1.mp4',
-  'adhd-m6-l2': '/content/training_videos/adhd-understanding-support/adhd-m6-l2.mp4',
-  'adhd-m7-l1': '/content/training_videos/adhd-understanding-support/adhd-m7-l1.mp4',
-  'adhd-m7-l2': '/content/training_videos/adhd-understanding-support/adhd-m7-l2.mp4',
-  'adhd-m8-l1': '/content/training_videos/adhd-understanding-support/adhd-m8-l1.mp4',
-  'adhd-m8-l2': '/content/training_videos/adhd-understanding-support/adhd-m8-l2.mp4',
+  // 'adhd-m1-l1': '/content/training_videos/adhd-understanding-support/adhd-m1-l1.mp4',
+  // 'adhd-m1-l2': '/content/training_videos/adhd-understanding-support/adhd-m1-l2.mp4',
+  // 'adhd-m2-l1': '/content/training_videos/adhd-understanding-support/adhd-m2-l1.mp4',
+  // 'adhd-m2-l2': '/content/training_videos/adhd-understanding-support/adhd-m2-l2.mp4',
+  // 'adhd-m3-l1': '/content/training_videos/adhd-understanding-support/adhd-m3-l1.mp4',
+  // 'adhd-m3-l2': '/content/training_videos/adhd-understanding-support/adhd-m3-l2.mp4',
+  // 'adhd-m4-l1': '/content/training_videos/adhd-understanding-support/adhd-m4-l1.mp4',
+  // 'adhd-m4-l2': '/content/training_videos/adhd-understanding-support/adhd-m4-l2.mp4',
+  // 'adhd-m5-l1': '/content/training_videos/adhd-understanding-support/adhd-m5-l1.mp4',
+  // 'adhd-m5-l2': '/content/training_videos/adhd-understanding-support/adhd-m5-l2.mp4',
+  // 'adhd-m6-l1': '/content/training_videos/adhd-understanding-support/adhd-m6-l1.mp4',
+  // 'adhd-m6-l2': '/content/training_videos/adhd-understanding-support/adhd-m6-l2.mp4',
+  // 'adhd-m7-l1': '/content/training_videos/adhd-understanding-support/adhd-m7-l1.mp4',
+  // 'adhd-m7-l2': '/content/training_videos/adhd-understanding-support/adhd-m7-l2.mp4',
+  // 'adhd-m8-l1': '/content/training_videos/adhd-understanding-support/adhd-m8-l1.mp4',
+  // 'adhd-m8-l2': '/content/training_videos/adhd-understanding-support/adhd-m8-l2.mp4',
   // Dyslexia course videos
-  'dyslexia-m1-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m1-l1.mp4',
-  'dyslexia-m1-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m1-l2.mp4',
-  'dyslexia-m2-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m2-l1.mp4',
-  'dyslexia-m2-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m2-l2.mp4',
-  'dyslexia-m3-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m3-l1.mp4',
-  'dyslexia-m3-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m3-l2.mp4',
-  'dyslexia-m4-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m4-l1.mp4',
-  'dyslexia-m4-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m4-l2.mp4',
-  'dyslexia-m5-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m5-l1.mp4',
-  'dyslexia-m5-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m5-l2.mp4',
-  'dyslexia-m6-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m6-l1.mp4',
-  'dyslexia-m6-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m6-l2.mp4',
-  'dyslexia-m7-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m7-l1.mp4',
-  'dyslexia-m7-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m7-l2.mp4',
-  'dyslexia-m8-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m8-l1.mp4',
-  'dyslexia-m8-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m8-l2.mp4',
+  // 'dyslexia-m1-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m1-l1.mp4',
+  // 'dyslexia-m1-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m1-l2.mp4',
+  // 'dyslexia-m2-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m2-l1.mp4',
+  // 'dyslexia-m2-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m2-l2.mp4',
+  // 'dyslexia-m3-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m3-l1.mp4',
+  // 'dyslexia-m3-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m3-l2.mp4',
+  // 'dyslexia-m4-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m4-l1.mp4',
+  // 'dyslexia-m4-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m4-l2.mp4',
+  // 'dyslexia-m5-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m5-l1.mp4',
+  // 'dyslexia-m5-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m5-l2.mp4',
+  // 'dyslexia-m6-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m6-l1.mp4',
+  // 'dyslexia-m6-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m6-l2.mp4',
+  // 'dyslexia-m7-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m7-l1.mp4',
+  // 'dyslexia-m7-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m7-l2.mp4',
+  // 'dyslexia-m8-l1': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m8-l1.mp4',
+  // 'dyslexia-m8-l2': '/content/training_videos/dyslexia-intervention-strategies/dyslexia-m8-l2.mp4',
   
   // ============================================================================
   // DECEMBER 2025 - PRICING & VALUE PROPOSITION VIDEOS
   // ============================================================================
-  'value-enterprise-platform': '/content/training_videos/pricing/value-enterprise-platform.mp4',
-  'value-edtech-problem': '/content/training_videos/pricing/value-edtech-problem.mp4',
-  'value-complete-solution': '/content/training_videos/pricing/value-complete-solution.mp4',
+  // 'value-enterprise-platform': '/content/training_videos/pricing/value-enterprise-platform.mp4',
+  // 'value-edtech-problem': '/content/training_videos/pricing/value-edtech-problem.mp4',
+  // 'value-complete-solution': '/content/training_videos/pricing/value-complete-solution.mp4',
   
   // ============================================================================
   // DECEMBER 2025 - TIER PRICING VIDEOS
   // ============================================================================
-  'tier-parent-plus': '/content/training_videos/pricing/tier-parent-plus.mp4',
-  'tier-teacher-individual': '/content/training_videos/pricing/tier-teacher-individual.mp4',
-  'tier-schools-overview': '/content/training_videos/pricing/tier-schools-overview.mp4',
-  'tier-mat-enterprise': '/content/training_videos/pricing/tier-mat-enterprise.mp4',
-  'tier-local-authority': '/content/training_videos/pricing/tier-local-authority.mp4',
-  'tier-researcher': '/content/training_videos/pricing/tier-researcher.mp4',
-  'tier-trainee-ep': '/content/training_videos/pricing/tier-trainee-ep.mp4',
+  // 'tier-parent-plus': '/content/training_videos/pricing/tier-parent-plus.mp4',
+  // 'tier-teacher-individual': '/content/training_videos/pricing/tier-teacher-individual.mp4',
+  // 'tier-schools-overview': '/content/training_videos/pricing/tier-schools-overview.mp4',
+  // 'tier-mat-enterprise': '/content/training_videos/pricing/tier-mat-enterprise.mp4',
+  // 'tier-local-authority': '/content/training_videos/pricing/tier-local-authority.mp4',
+  // 'tier-researcher': '/content/training_videos/pricing/tier-researcher.mp4',
+  // 'tier-trainee-ep': '/content/training_videos/pricing/tier-trainee-ep.mp4',
   
   // ============================================================================
   // DECEMBER 2025 - ADD-ON FEATURE VIDEOS
   // ============================================================================
-  'addon-ai-power-pack': '/content/training_videos/pricing/addon-ai-power-pack.mp4',
-  'addon-ehcp-accelerator': '/content/training_videos/pricing/addon-ehcp-accelerator.mp4',
-  'addon-cpd-library': '/content/training_videos/pricing/addon-cpd-library.mp4',
-  'addon-api-access': '/content/training_videos/pricing/addon-api-access.mp4',
-  'addon-white-label': '/content/training_videos/pricing/addon-white-label.mp4',
-  'addon-priority-support': '/content/training_videos/pricing/addon-priority-support.mp4',
+  // 'addon-ai-power-pack': '/content/training_videos/pricing/addon-ai-power-pack.mp4',
+  // 'addon-ehcp-accelerator': '/content/training_videos/pricing/addon-ehcp-accelerator.mp4',
+  // 'addon-cpd-library': '/content/training_videos/pricing/addon-cpd-library.mp4',
+  // 'addon-api-access': '/content/training_videos/pricing/addon-api-access.mp4',
+  // 'addon-white-label': '/content/training_videos/pricing/addon-white-label.mp4',
+  // 'addon-priority-support': '/content/training_videos/pricing/addon-priority-support.mp4',
   
   // ============================================================================
   // DECEMBER 2025 - FEATURE DEEP DIVE VIDEOS
@@ -613,102 +624,102 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // ============================================================================
   // DECEMBER 2025 - COMPARISON & TRUST VIDEOS
   // ============================================================================
-  'compare-true-cost': '/content/training_videos/pricing/compare-true-cost.mp4',
-  'compare-switching': '/content/training_videos/pricing/compare-switching.mp4',
-  'trust-security': '/content/training_videos/pricing/trust-security.mp4',
-  'trust-built-by-practitioners': '/content/training_videos/pricing/trust-built-by-practitioners.mp4',
+  // 'compare-true-cost': '/content/training_videos/pricing/compare-true-cost.mp4',
+  // 'compare-switching': '/content/training_videos/pricing/compare-switching.mp4',
+  // 'trust-security': '/content/training_videos/pricing/trust-security.mp4',
+  // 'trust-built-by-practitioners': '/content/training_videos/pricing/trust-built-by-practitioners.mp4',
   
   // ============================================================================
   // DECEMBER 2025 - ROLE-BASED ONBOARDING: TEACHERS
   // ============================================================================
-  'onboard-teacher-welcome': '/content/training_videos/onboarding/teacher/welcome.mp4',
-  'onboard-teacher-differentiation': '/content/training_videos/onboarding/teacher/differentiation.mp4',
-  'onboard-teacher-assessment': '/content/training_videos/onboarding/teacher/assessment.mp4',
+  // 'onboard-teacher-welcome': '/content/training_videos/onboarding/teacher/welcome.mp4',
+  // 'onboard-teacher-differentiation': '/content/training_videos/onboarding/teacher/differentiation.mp4',
+  // 'onboard-teacher-assessment': '/content/training_videos/onboarding/teacher/assessment.mp4',
   
   // ============================================================================
   // DECEMBER 2025 - ROLE-BASED ONBOARDING: SENCOs
   // ============================================================================
-  'onboard-senco-welcome': '/content/training_videos/onboarding/senco/welcome.mp4',
-  'onboard-senco-provision-mapping': '/content/training_videos/onboarding/senco/provision-mapping.mp4',
-  'onboard-senco-ehcp-workflow': '/content/training_videos/onboarding/senco/ehcp-workflow.mp4',
+  // 'onboard-senco-welcome': '/content/training_videos/onboarding/senco/welcome.mp4',
+  // 'onboard-senco-provision-mapping': '/content/training_videos/onboarding/senco/provision-mapping.mp4',
+  // 'onboard-senco-ehcp-workflow': '/content/training_videos/onboarding/senco/ehcp-workflow.mp4',
   
   // ============================================================================
   // DECEMBER 2025 - ROLE-BASED ONBOARDING: EDUCATIONAL PSYCHOLOGISTS
   // ============================================================================
-  'onboard-ep-welcome': '/content/training_videos/onboarding/ep/welcome.mp4',
-  'onboard-ep-assessment-suite': '/content/training_videos/onboarding/ep/assessment-suite.mp4',
-  'onboard-ep-report-writing': '/content/training_videos/onboarding/ep/report-writing.mp4',
+  // 'onboard-ep-welcome': '/content/training_videos/onboarding/ep/welcome.mp4',
+  // 'onboard-ep-assessment-suite': '/content/training_videos/onboarding/ep/assessment-suite.mp4',
+  // 'onboard-ep-report-writing': '/content/training_videos/onboarding/ep/report-writing.mp4',
   
   // ============================================================================
   // DECEMBER 2025 - ROLE-BASED ONBOARDING: PARENTS
   // ============================================================================
-  'onboard-parent-welcome': '/content/training_videos/onboarding/parent/welcome.mp4',
-  'onboard-parent-understanding-reports': '/content/training_videos/onboarding/parent/understanding-reports.mp4',
-  'onboard-parent-contributing': '/content/training_videos/onboarding/parent/contributing.mp4',
+  // 'onboard-parent-welcome': '/content/training_videos/onboarding/parent/welcome.mp4',
+  // 'onboard-parent-understanding-reports': '/content/training_videos/onboarding/parent/understanding-reports.mp4',
+  // 'onboard-parent-contributing': '/content/training_videos/onboarding/parent/contributing.mp4',
   
   // ============================================================================
   // DECEMBER 2025 - ROLE-BASED ONBOARDING: LOCAL AUTHORITY
   // ============================================================================
-  'onboard-la-welcome': '/content/training_videos/onboarding/la/welcome.mp4',
-  'onboard-la-merge-tool': '/content/training_videos/onboarding/la/merge-tool.mp4',
-  'onboard-la-analytics': '/content/training_videos/onboarding/la/analytics.mp4',
+  // 'onboard-la-welcome': '/content/training_videos/onboarding/la/welcome.mp4',
+  // 'onboard-la-merge-tool': '/content/training_videos/onboarding/la/merge-tool.mp4',
+  // 'onboard-la-analytics': '/content/training_videos/onboarding/la/analytics.mp4',
   
   // ============================================================================
   // DECEMBER 2025 - RESEARCH PORTAL VIDEOS
   // ============================================================================
-  'research-methodology': '/content/training_videos/research/research-methodology.mp4',
-  'ecca-validation': '/content/training_videos/research/ecca-validation.mp4',
-  'data-ethics': '/content/training_videos/research/data-ethics.mp4',
-  'intervention-research': '/content/training_videos/research/intervention-research.mp4',
-  'longitudinal-studies': '/content/training_videos/research/longitudinal-studies.mp4',
-  'clinical-trials': '/content/training_videos/research/clinical-trials.mp4',
-  'research-ethics-submission': '/content/training_videos/research/ethics-submission.mp4',
-  'research-data-governance': '/content/training_videos/research/data-governance.mp4',
+  // 'research-methodology': '/content/training_videos/research/research-methodology.mp4',
+  // 'ecca-validation': '/content/training_videos/research/ecca-validation.mp4',
+  // 'data-ethics': '/content/training_videos/research/data-ethics.mp4',
+  // 'intervention-research': '/content/training_videos/research/intervention-research.mp4',
+  // 'longitudinal-studies': '/content/training_videos/research/longitudinal-studies.mp4',
+  // 'clinical-trials': '/content/training_videos/research/clinical-trials.mp4',
+  // 'research-ethics-submission': '/content/training_videos/research/ethics-submission.mp4',
+  // 'research-data-governance': '/content/training_videos/research/data-governance.mp4',
   
   // ============================================================================
   // DECEMBER 2025 - MIS INTEGRATION VIDEOS
   // ============================================================================
-  'mis-wonde-setup': '/content/training_videos/admin/mis-wonde-setup.mp4',
-  'mis-sims-integration': '/content/training_videos/admin/mis-sims-integration.mp4',
-  'mis-arbor-integration': '/content/training_videos/admin/mis-arbor-integration.mp4',
-  'mis-sync-troubleshooting': '/content/training_videos/admin/mis-sync-troubleshooting.mp4',
+  // 'mis-wonde-setup': '/content/training_videos/admin/mis-wonde-setup.mp4',
+  // 'mis-sims-integration': '/content/training_videos/admin/mis-sims-integration.mp4',
+  // 'mis-arbor-integration': '/content/training_videos/admin/mis-arbor-integration.mp4',
+  // 'mis-sync-troubleshooting': '/content/training_videos/admin/mis-sync-troubleshooting.mp4',
   
   // ============================================================================
   // DECEMBER 2025 - ASSESSMENT ESSENTIALS VIDEOS
   // ============================================================================
-  'assess-m1-l1': '/content/training_videos/assessment-essentials/assess-m1-l1.mp4',
-  'assess-m2-l1': '/content/training_videos/assessment-essentials/assess-m2-l1.mp4',
-  'assess-m2-l2': '/content/training_videos/assessment-essentials/assess-m2-l2.mp4',
+  // 'assess-m1-l1': '/content/training_videos/assessment-essentials/assess-m1-l1.mp4',
+  // 'assess-m2-l1': '/content/training_videos/assessment-essentials/assess-m2-l1.mp4',
+  // 'assess-m2-l2': '/content/training_videos/assessment-essentials/assess-m2-l2.mp4',
   
   // ============================================================================
   // DECEMBER 2025 - DYSLEXIA INTERVENTION STRATEGIES
   // ============================================================================
-  'dys-m1-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m1-l1.mp4',
-  'dys-m2-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m2-l1.mp4',
-  'dys-m3-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m3-l1.mp4',
-  'dys-m4-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m4-l1.mp4',
-  'dys-m5-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m5-l1.mp4',
-  'dys-m6-l2': '/content/training_videos/dyslexia-intervention-strategies/dys-m6-l2.mp4',
-  'dys-m7-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m7-l1.mp4',
-  'dys-m8-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m8-l1.mp4',
+  // 'dys-m1-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m1-l1.mp4',
+  // 'dys-m2-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m2-l1.mp4',
+  // 'dys-m3-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m3-l1.mp4',
+  // 'dys-m4-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m4-l1.mp4',
+  // 'dys-m5-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m5-l1.mp4',
+  // 'dys-m6-l2': '/content/training_videos/dyslexia-intervention-strategies/dys-m6-l2.mp4',
+  // 'dys-m7-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m7-l1.mp4',
+  // 'dys-m8-l1': '/content/training_videos/dyslexia-intervention-strategies/dys-m8-l1.mp4',
   
   // ============================================================================
   // DECEMBER 2025 - EHCP MASTERY
   // ============================================================================
-  'ehcp-m1-l1': '/content/training_videos/ehcp-mastery/ehcp-m1-l1.mp4',
+  // 'ehcp-m1-l1': '/content/training_videos/ehcp-mastery/ehcp-m1-l1.mp4',
   
   // ============================================================================
   // DECEMBER 2025 - EVIDENCE-BASED INTERVENTIONS
   // ============================================================================
-  'int-m1-l1': '/content/training_videos/evidence-based-interventions/int-m1-l1.mp4',
-  'int-m2-l1': '/content/training_videos/evidence-based-interventions/int-m2-l1.mp4',
+  // 'int-m1-l1': '/content/training_videos/evidence-based-interventions/int-m1-l1.mp4',
+  // 'int-m2-l1': '/content/training_videos/evidence-based-interventions/int-m2-l1.mp4',
   
   // ============================================================================
   // DECEMBER 2025 - SEND FUNDAMENTALS
   // ============================================================================
-  'send-fund-m1-l1': '/content/training_videos/send-fundamentals/send-fund-m1-l1.mp4',
-  'send-fund-m2-l1': '/content/training_videos/send-fundamentals/send-fund-m2-l1.mp4',
-  'send-fund-m2-l2': '/content/training_videos/send-fundamentals/send-fund-m2-l2.mp4',
+  // 'send-fund-m1-l1': '/content/training_videos/send-fundamentals/send-fund-m1-l1.mp4',
+  // 'send-fund-m2-l1': '/content/training_videos/send-fundamentals/send-fund-m2-l1.mp4',
+  // 'send-fund-m2-l2': '/content/training_videos/send-fundamentals/send-fund-m2-l2.mp4',
   
   // ============================================================================
   // DECEMBER 2025 - EHCP MANAGEMENT SUITE VIDEOS (Cloudinary-hosted)
@@ -797,8 +808,19 @@ export function hasHeyGenVideo(lessonId: string): boolean {
  * @returns The lesson ID (e.g., 'autism-m1-l1') or undefined
  */
 export function extractLessonIdFromUrl(contentUrl: string): string | undefined {
-  const match = contentUrl.match(/(autism|adhd|dyslexia)-m\d+-l\d+/);
-  return match ? match[0] : undefined;
+  // 1. Try specific course pattern first (e.g. autism-m1-l1)
+  const courseMatch = contentUrl.match(/(autism|adhd|dyslexia)-m\d+-l\d+/);
+  if (courseMatch) return courseMatch[0];
+
+  // 2. Try extracting filename without extension
+  // Handles: /path/to/platform-introduction.mp4 -> platform-introduction
+  const filenameMatch = contentUrl.match(/\/([^\/]+)\.mp4$/);
+  if (filenameMatch) return filenameMatch[1];
+
+  // 3. If it's already an ID (no slashes), return it
+  if (!contentUrl.includes('/')) return contentUrl;
+
+  return undefined;
 }
 
 /**
@@ -837,3 +859,29 @@ export function getSpeakerForVideo(lessonId: string): 'Dr. Scott' | 'Adrian' | u
 
   return undefined;
 }
+
+// ============================================================================
+// INTERACTIVE WALKTHROUGH OVERLAYS
+// ============================================================================
+// Maps video IDs to static UI snapshots.
+// When a video has an entry here, the player switches to "Walkthrough Mode":
+// - The image is displayed as the full-screen background.
+// - The video player floats in the corner (Picture-in-Picture style).
+// ============================================================================
+export const VIDEO_OVERLAYS: Record<string, string> = {
+  // NCLB Engine -> Dashboard Snapshot
+  'feature-no-child-engine': '/images/walkthroughs/nclb-dashboard.svg',
+  'no-child-left-behind': '/images/walkthroughs/nclb-dashboard.svg',
+  
+  // Battle Royale -> Leaderboard Snapshot
+  'feature-battle-royale': '/images/walkthroughs/gamification-leaderboard.svg',
+  'gamification-integrity': '/images/walkthroughs/gamification-leaderboard.svg',
+  
+  // Data Architecture -> Architecture Diagram
+  'help-data-security': '/images/walkthroughs/data-architecture.svg',
+  'data-autonomy': '/images/walkthroughs/data-architecture.svg',
+  
+  // Admin Dashboard -> Admin UI Snapshot
+  'feature-dashboard': '/images/walkthroughs/admin-dashboard.svg',
+  'la-dashboard-overview': '/images/walkthroughs/admin-dashboard.svg',
+};

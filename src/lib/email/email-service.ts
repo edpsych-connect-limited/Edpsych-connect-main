@@ -23,20 +23,25 @@ export class EmailService {
   private constructor() {
     // Validate required environment variable
     const sendgridApiKey = process.env.SENDGRID_API_KEY;
-    if (!sendgridApiKey) {
-      logger.warn('SENDGRID_API_KEY not configured - email service will not function');
-    }
     
-    // Initialize Nodemailer with SendGrid
-    this.transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.sendgrid.net',
-      port: parseInt(process.env.SMTP_PORT || '587'),
-      secure: false, // true for 465, false for other ports
-      auth: {
-        user: 'apikey', // SendGrid requires 'apikey' as the user
-        pass: sendgridApiKey || '',
-      },
-    });
+    if (!sendgridApiKey) {
+      logger.warn('SENDGRID_API_KEY not configured - email service will use console logging only');
+      // Initialize with a JSON transport for testing/logging purposes
+      this.transporter = nodemailer.createTransport({
+        jsonTransport: true
+      });
+    } else {
+      // Initialize Nodemailer with SendGrid
+      this.transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST || 'smtp.sendgrid.net',
+        port: parseInt(process.env.SMTP_PORT || '587'),
+        secure: false, // true for 465, false for other ports
+        auth: {
+          user: 'apikey', // SendGrid requires 'apikey' as the user
+          pass: sendgridApiKey,
+        },
+      });
+    }
   }
 
   public static getInstance(): EmailService {
@@ -59,7 +64,24 @@ export class EmailService {
         html: options.html,
       });
 
-      logger.debug(`[EmailService] Email sent: ${info.messageId}`);
+      logger.debug(`[EmailService] Email processed: ${info.messageId}`);
+
+      // If using JSON transport (no API key), log the email content for debugging/admin use
+      // @ts-expect-error - info.message exists on JSON transport response
+      if (this.transporter.transporter.name === 'JSON' || info.message) {
+        logger.info('=================================================================');
+        logger.info('📧 [EMAIL SERVICE - MOCK MODE]');
+        logger.info(`To: ${options.to}`);
+        logger.info(`Subject: ${options.subject}`);
+        logger.info('-----------------------------------------------------------------');
+        // Log the reset link specifically if found in HTML
+        const linkMatch = options.html.match(/href="(.*?)"/);
+        if (linkMatch) {
+          logger.info(`🔗 ACTION LINK: ${linkMatch[1]}`);
+        }
+        logger.info('=================================================================');
+      }
+
       return true;
     } catch (_error) {
       console.error('[EmailService] Failed to send email:', _error);

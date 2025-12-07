@@ -300,7 +300,7 @@ export class SENCODashboardService {
     // Count pending assessments
     const pendingAssessments = await this.prisma.eHCPAssessment.count({
       where: {
-        // @ts-ignore - schoolId might not exist on EHCPAssessment
+        // @ts-expect-error - schoolId might not exist on EHCPAssessment
         schoolId: schoolId as any,
         status: { in: ['REQUESTED', 'IN_PROGRESS'] }
       }

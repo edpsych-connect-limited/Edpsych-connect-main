@@ -1,0 +1,50 @@
+<svg width="1920" height="1080" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#0f172a"/>
+  
+  <!-- Header -->
+  <rect x="0" y="0" width="1920" height="100" fill="#1e293b"/>
+  <text x="60" y="60" font-family="Arial" font-size="32" fill="#f8fafc" font-weight="bold">Battle Royale: Knowledge Arena</text>
+  
+  <!-- Leaderboard Panel -->
+  <rect x="60" y="140" width="600" height="880" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+  <text x="100" y="200" font-family="Arial" font-size="24" fill="#fbbf24">Top Performers</text>
+  
+  <!-- Rank 1 -->
+  <rect x="80" y="240" width="560" height="80" rx="8" fill="#334155"/>
+  <circle cx="130" cy="280" r="25" fill="#fbbf24"/>
+  <text x="180" y="290" font-family="Arial" font-size="20" fill="#ffffff">Sarah J.</text>
+  <text x="550" y="290" font-family="Arial" font-size="20" fill="#fbbf24">2450 XP</text>
+  
+  <!-- Rank 2 -->
+  <rect x="80" y="340" width="560" height="80" rx="8" fill="#334155"/>
+  <circle cx="130" cy="380" r="25" fill="#94a3b8"/>
+  <text x="180" y="390" font-family="Arial" font-size="20" fill="#ffffff">Mike T.</text>
+  <text x="550" y="390" font-family="Arial" font-size="20" fill="#94a3b8">2100 XP</text>
+  
+  <!-- Rank 3 -->
+  <rect x="80" y="440" width="560" height="80" rx="8" fill="#334155"/>
+  <circle cx="130" cy="480" r="25" fill="#b45309"/>
+  <text x="180" y="490" font-family="Arial" font-size="20" fill="#ffffff">Emma W.</text>
+  <text x="550" y="490" font-family="Arial" font-size="20" fill="#b45309">1950 XP</text>
+  
+  <!-- Main Game Area -->
+  <rect x="700" y="140" width="1160" height="880" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+  
+  <!-- Question Card -->
+  <rect x="800" y="240" width="960" height="400" rx="16" fill="#0f172a"/>
+  <text x="850" y="300" font-family="Arial" font-size="28" fill="#ffffff">Question 5/10</text>
+  <text x="850" y="360" font-family="Arial" font-size="36" fill="#e2e8f0" font-weight="bold">What is the primary function of the SEN Code of Practice?</text>
+  
+  <!-- Options -->
+  <rect x="850" y="450" width="400" height="60" rx="8" fill="#334155"/>
+  <rect x="1300" y="450" width="400" height="60" rx="8" fill="#334155"/>
+  <rect x="850" y="530" width="400" height="60" rx="8" fill="#334155"/>
+  <rect x="1300" y="530" width="400" height="60" rx="8" fill="#22c55e"/> <!-- Correct Answer -->
+  
+  <!-- Progress Bar -->
+  <rect x="800" y="700" width="960" height="20" rx="10" fill="#334155"/>
+  <rect x="800" y="700" width="480" height="20" rx="10" fill="#3b82f6"/>
+  
+  <!-- Watermark -->
+  <text x="1700" y="980" font-family="Arial" font-size="24" fill="#475569" opacity="0.5">EdPsych Connect</text>
+</svg>
