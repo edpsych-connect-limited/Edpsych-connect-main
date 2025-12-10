@@ -14,7 +14,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 
 interface EHCPPlanDetails {
   status?: string;
@@ -99,7 +99,7 @@ interface EHCP {
 export default function EHCPDetailPage() {
   const router = useRouter();
   const params = useParams();
-  const { data: _session, status } = useSession();
+  const { isAuthenticated, isLoading } = useAuth();
   const ehcpId = params?.id as string;
 
   // State management
@@ -133,13 +133,13 @@ export default function EHCPDetailPage() {
   }, [ehcpId]);
 
   useEffect(() => {
-    if (status === 'authenticated' && ehcpId) {
+    if (isAuthenticated && ehcpId) {
       fetchEHCP();
     }
-  }, [status, ehcpId, fetchEHCP]);
+  }, [isAuthenticated, ehcpId, fetchEHCP]);
 
   // Authentication check
-  if (status === 'loading') {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">

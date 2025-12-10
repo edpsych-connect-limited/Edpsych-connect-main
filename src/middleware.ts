@@ -18,7 +18,7 @@ import { routing } from './navigation';
 // =============================================================================
 // Set to true to enable site-wide maintenance mode
 // Users can bypass with ?dev=edpsych2025 parameter (sets a cookie)
-const MAINTENANCE_MODE = true;
+const MAINTENANCE_MODE = false;
 const DEV_BYPASS_KEY = 'edpsych2025';
 const DEV_COOKIE_NAME = 'edpsych_dev_access';
 

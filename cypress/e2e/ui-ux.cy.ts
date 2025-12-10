@@ -50,16 +50,14 @@ describe('UI/UX Audit', () => {
             includedImpacts: ['critical', 'serious']
         }, (violations) => {
             cy.log(`${violations.length} accessibility violation${violations.length === 1 ? '' : 's'} ${violations.length === 1 ? 'was' : 'were'} detected`);
-            // Pluck specific keys to keep the table readable
-            const violationData = violations.map(
-              ({ id, impact, description, nodes }) => ({
-                id,
-                impact,
-                description,
-                nodes: nodes.length
-              })
-            );
-            cy.log(JSON.stringify(violationData));
+            // Log details to console for debugging
+            const violationData = violations.map(v => ({
+                id: v.id,
+                impact: v.impact,
+                description: v.description,
+                nodes: v.nodes.map(n => n.html).join(', ')
+            }));
+            cy.task('log', JSON.stringify(violationData, null, 2));
         });
       });
     });

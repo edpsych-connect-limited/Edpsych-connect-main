@@ -1,0 +1,977 @@
+Patched fs.readlink for EISDIR and added retries for UNKNOWN/EPERM errors
+Patched fs.readlink for EISDIR and added retries for UNKNOWN/EPERM errors
+
+[21868:1208/162118.551:ERROR:electron\shell\common\node_bindings.cc:427] Most NODE_OPTIONs are not supported in packaged apps. See documentation for more details.
+[21868:1208/162118.551:ERROR:electron\shell\common\node_bindings.cc:427] Most NODE_OPTIONs are not supported in packaged apps. See documentation for more details.
+[21868:1208/162118.551:ERROR:electron\shell\common\node_bindings.cc:427] Most NODE_OPTIONs are not supported in packaged apps. See documentation for more details.
+
+DevTools listening on ws://127.0.0.1:61666/devtools/browser/3d454f10-f490-4044-8c6c-bce5ce295e5b
+Patched fs.readlink for EISDIR and added retries for UNKNOWN/EPERM errors
+Patched fs.readlink for EISDIR and added retries for UNKNOWN/EPERM errors
+
+====================================================================================================
+
+  (Run Starting)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Cypress:        15.7.1                                                                         Ôöé
+  Ôöé Browser:        Electron 138 (headless)                                                        Ôöé
+  Ôöé Node Version:   v24.11.1 (C:\Program Files\nodejs\node.exe)                                    Ôöé
+  Ôöé Specs:          14 found (ai-tutoring.cy.ts, assessment-collaboration.cy.ts, auth.cy.ts, demo. Ôöé
+  Ôöé                 cy.ts, ehcp.cy.ts, help-center.cy.ts, la-portal.cy.ts, onboarding.cy.ts, paren Ôöé
+  Ôöé                 t-portal.cy.ts, researcher.cy.ts, safety-net.cy.ts, sanity.cy.ts, auth/login.c Ôöé
+  Ôöé                 y.ts, auth/role-smoke-t...)                                                    Ôöé
+  Ôöé Searched:       E:\EdpsychConnect\cypress\e2e\**\*.cy.ts                                       Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+                                                                                                    
+  Running:  ai-tutoring.cy.ts                                                              (1 of 14)
+
+
+  AI Tutoring Interface
+    1) "before each" hook for "should load the tutoring interface"
+
+
+  0 passing (7s)
+  1 failing
+
+  1) AI Tutoring Interface
+       "before each" hook for "should load the tutoring interface":
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[name="email"]`, but never found it.
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `AI Tutoring Interface`
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/ai-tutoring.cy.ts:4:7)
+
+
+
+
+  (Results)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Tests:        2                                                                                Ôöé
+  Ôöé Passing:      0                                                                                Ôöé
+  Ôöé Failing:      1                                                                                Ôöé
+  Ôöé Pending:      0                                                                                Ôöé
+  Ôöé Skipped:      1                                                                                Ôöé
+  Ôöé Screenshots:  1                                                                                Ôöé
+  Ôöé Video:        false                                                                            Ôöé
+  Ôöé Duration:     7 seconds                                                                        Ôöé
+  Ôöé Spec Ran:     ai-tutoring.cy.ts                                                                Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+  (Screenshots)
+
+  -  E:\EdpsychConnect\cypress\screenshots\ai-tutoring.cy.ts\AI Tutoring Interface --     (1280x720)
+      should load the tutoring interface -- before each hook (failed).png                           
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+                                                                                                    
+  Running:  assessment-collaboration.cy.ts                                                 (2 of 14)
+
+
+  Assessment Collaboration Flow
+    1) should allow a collaborator to submit feedback
+
+
+  0 passing (6s)
+  1 failing
+
+  1) Assessment Collaboration Flow
+       should allow a collaborator to submit feedback:
+     CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getCollaboration`. No request ever occurred.
+
+https://on.cypress.io/wait
+      at cypressErr (http://localhost:3000/__cypress/runner/cypress_runner.js:77985:18)
+      at Object.errByPath (http://localhost:3000/__cypress/runner/cypress_runner.js:78053:10)
+      at checkForXhr (http://localhost:3000/__cypress/runner/cypress_runner.js:138416:84)
+      at <unknown> (http://localhost:3000/__cypress/runner/cypress_runner.js:138441:28)
+      at tryCatcher (http://localhost:3000/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (http://localhost:3000/__cypress/runner/cypress_runner.js:4285:29)
+      at whenStable (http://localhost:3000/__cypress/runner/cypress_runner.js:151493:68)
+      at <unknown> (http://localhost:3000/__cypress/runner/cypress_runner.js:151434:14)
+      at tryCatcher (http://localhost:3000/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise._settlePromiseFromHandler (http://localhost:3000/__cypress/runner/cypress_runner.js:1489:31)
+      at Promise._settlePromise (http://localhost:3000/__cypress/runner/cypress_runner.js:1546:18)
+      at Promise._settlePromise0 (http://localhost:3000/__cypress/runner/cypress_runner.js:1591:10)
+      at Promise._settlePromises (http://localhost:3000/__cypress/runner/cypress_runner.js:1671:18)
+      at Promise._fulfill (http://localhost:3000/__cypress/runner/cypress_runner.js:1615:18)
+      at <unknown> (http://localhost:3000/__cypress/runner/cypress_runner.js:5420:46)
+  From Your Spec Code:
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/assessment-collaboration.cy.ts:42:7)
+
+
+
+
+  (Results)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Tests:        1                                                                                Ôöé
+  Ôöé Passing:      0                                                                                Ôöé
+  Ôöé Failing:      1                                                                                Ôöé
+  Ôöé Pending:      0                                                                                Ôöé
+  Ôöé Skipped:      0                                                                                Ôöé
+  Ôöé Screenshots:  1                                                                                Ôöé
+  Ôöé Video:        false                                                                            Ôöé
+  Ôöé Duration:     6 seconds                                                                        Ôöé
+  Ôöé Spec Ran:     assessment-collaboration.cy.ts                                                   Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+  (Screenshots)
+
+  -  E:\EdpsychConnect\cypress\screenshots\assessment-collaboration.cy.ts\Assessment      (1280x720)
+     Collaboration Flow -- should allow a collaborator to submit feedback (failed).pn               
+     g                                                                                              
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+                                                                                                    
+  Running:  auth.cy.ts                                                                     (3 of 14)
+
+
+  Authentication Flow
+    Login Page
+      1) should display the login page correctly
+      2) should show secure environment notice
+      3) should have accessible form fields
+      4) should show validation errors for empty form submission
+      5) should show error message for invalid credentials
+      6) should disable submit button while loading
+      7) should toggle remember me checkbox
+    Beta Login Page
+      8) should display the beta login page correctly
+      9) should show beta terms and conditions
+    Beta Registration Page
+      10) should display the beta registration page correctly
+      ÔêÜ should have role selection options (346ms)
+      11) should validate password requirements
+      12) should validate password confirmation match
+      13) should require terms acceptance
+    Protected Routes
+      14) should redirect unauthenticated users from dashboard to login
+      15) should redirect unauthenticated users from admin to login
+      16) should redirect unauthenticated users from settings to login
+    Public Routes
+      ÔêÜ should allow access to home page (759ms)
+      ÔêÜ should allow access to pricing page (455ms)
+      ÔêÜ should allow access to about page (599ms)
+      ÔêÜ should allow access to contact page (455ms)
+      ÔêÜ should allow access to help page (568ms)
+      ÔêÜ should allow access to blog page (571ms)
+    Session Management
+      ÔêÜ should check session endpoint (351ms)
+    Accessibility
+      17) should have proper focus management on error
+
+
+  8 passing (1m)
+  17 failing
+
+  1) Authentication Flow
+       Login Page
+         should display the login page correctly:
+     AssertionError: Timed out retrying after 4000ms: Expected to find content: 'Sign in to your account' but never did.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth.cy.ts:20:45)
+
+  2) Authentication Flow
+       Login Page
+         should show secure environment notice:
+     AssertionError: Timed out retrying after 4000ms: Expected to find content: 'Secure Environment' but never did.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth.cy.ts:29:40)
+
+  3) Authentication Flow
+       Login Page
+         should have accessible form fields:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `label[for="email"]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth.cy.ts:37:35)
+
+  4) Authentication Flow
+       Login Page
+         should show validation errors for empty form submission:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `button[type="submit"]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth.cy.ts:49:9)
+
+  5) Authentication Flow
+       Login Page
+         should show error message for invalid credentials:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[name="email"]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth.cy.ts:59:9)
+
+  6) Authentication Flow
+       Login Page
+         should disable submit button while loading:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[name="email"]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth.cy.ts:71:9)
+
+  7) Authentication Flow
+       Login Page
+         should toggle remember me checkbox:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[name="remember-me"]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth.cy.ts:84:42)
+
+  8) Authentication Flow
+       Beta Login Page
+         should display the beta login page correctly:
+     AssertionError: Timed out retrying after 4000ms: Expected to find content: 'Beta Access' but never did.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth.cy.ts:94:33)
+
+  9) Authentication Flow
+       Beta Login Page
+         should show beta terms and conditions:
+     AssertionError: Timed out retrying after 4000ms: Expected to find content: 'terms' but never did.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth.cy.ts:104:49)
+
+  10) Authentication Flow
+       Beta Registration Page
+         should display the beta registration page correctly:
+     AssertionError: Timed out retrying after 4000ms: Expected to find content: 'Beta Tester Registration' but never did.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth.cy.ts:112:46)
+
+  11) Authentication Flow
+       Beta Registration Page
+         should validate password requirements:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[name="email"]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth.cy.ts:134:9)
+
+  12) Authentication Flow
+       Beta Registration Page
+         should validate password confirmation match:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[name="password"]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth.cy.ts:151:9)
+
+  13) Authentication Flow
+       Beta Registration Page
+         should require terms acceptance:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[name="email"]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth.cy.ts:163:9)
+
+  14) Authentication Flow
+       Protected Routes
+         should redirect unauthenticated users from dashboard to login:
+     AssertionError: Timed out retrying after 4000ms: expected 'http://localhost:3000/en/dashboard' to include '/login'
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth.cy.ts:181:15)
+
+  15) Authentication Flow
+       Protected Routes
+         should redirect unauthenticated users from admin to login:
+     AssertionError: Timed out retrying after 4000ms: expected 'http://localhost:3000/en/admin' to include '/login'
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth.cy.ts:188:15)
+
+  16) Authentication Flow
+       Protected Routes
+         should redirect unauthenticated users from settings to login:
+     CypressError: `cy.visit()` failed trying to load:
+
+http://localhost:3000/en/settings
+
+The response we received from your web server was:
+
+  > 500: Internal Server Error
+
+This was considered a failure because the status code was not `2xx`.
+
+If you do not want status codes to cause failures pass the option: `failOnStatusCode: false`
+      at <unknown> (http://localhost:3000/__cypress/runner/cypress_runner.js:134626:76)
+      at visitFailedByErr (http://localhost:3000/__cypress/runner/cypress_runner.js:134216:12)
+      at <unknown> (http://localhost:3000/__cypress/runner/cypress_runner.js:134609:13)
+      at tryCatcher (http://localhost:3000/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise._settlePromiseFromHandler (http://localhost:3000/__cypress/runner/cypress_runner.js:1489:31)
+      at Promise._settlePromise (http://localhost:3000/__cypress/runner/cypress_runner.js:1546:18)
+      at Promise._settlePromise0 (http://localhost:3000/__cypress/runner/cypress_runner.js:1591:10)
+      at Promise._settlePromises (http://localhost:3000/__cypress/runner/cypress_runner.js:1667:18)
+      at _drainQueueStep (http://localhost:3000/__cypress/runner/cypress_runner.js:2377:12)
+      at _drainQueue (http://localhost:3000/__cypress/runner/cypress_runner.js:2370:9)
+      at Async._drainQueues (http://localhost:3000/__cypress/runner/cypress_runner.js:2386:5)
+      at Async.drainQueues (http://localhost:3000/__cypress/runner/cypress_runner.js:2256:14)
+  From Your Spec Code:
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth.cy.ts:192:9)
+
+  17) Authentication Flow
+       Accessibility
+         should have proper focus management on error:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[name="email"]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth.cy.ts:270:9)
+
+
+
+
+  (Results)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Tests:        25                                                                               Ôöé
+  Ôöé Passing:      8                                                                                Ôöé
+  Ôöé Failing:      17                                                                               Ôöé
+  Ôöé Pending:      0                                                                                Ôöé
+  Ôöé Skipped:      0                                                                                Ôöé
+  Ôöé Screenshots:  17                                                                               Ôöé
+  Ôöé Video:        false                                                                            Ôöé
+  Ôöé Duration:     1 minute, 22 seconds                                                             Ôöé
+  Ôöé Spec Ran:     auth.cy.ts                                                                       Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+  (Screenshots)
+
+  -  E:\EdpsychConnect\cypress\screenshots\auth.cy.ts\Authentication Flow -- Login Pa     (1280x720)
+     ge -- should display the login page correctly (failed).png                                     
+  -  E:\EdpsychConnect\cypress\screenshots\auth.cy.ts\Authentication Flow -- Login Pa     (1280x720)
+     ge -- should show secure environment notice (failed).png                                       
+  -  E:\EdpsychConnect\cypress\screenshots\auth.cy.ts\Authentication Flow -- Login Pa     (1280x720)
+     ge -- should have accessible form fields (failed).png                                          
+  -  E:\EdpsychConnect\cypress\screenshots\auth.cy.ts\Authentication Flow -- Login Pa     (1280x720)
+     ge -- should show validation errors for empty form submission (failed).png                     
+  -  E:\EdpsychConnect\cypress\screenshots\auth.cy.ts\Authentication Flow -- Login Pa     (1280x720)
+     ge -- should show error message for invalid credentials (failed).png                           
+  -  E:\EdpsychConnect\cypress\screenshots\auth.cy.ts\Authentication Flow -- Login Pa     (1280x720)
+     ge -- should disable submit button while loading (failed).png                                  
+  -  E:\EdpsychConnect\cypress\screenshots\auth.cy.ts\Authentication Flow -- Login Pa     (1280x720)
+     ge -- should toggle remember me checkbox (failed).png                                          
+  -  E:\EdpsychConnect\cypress\screenshots\auth.cy.ts\Authentication Flow -- Beta Log     (1280x720)
+     in Page -- should display the beta login page correctly (failed).png                           
+  -  E:\EdpsychConnect\cypress\screenshots\auth.cy.ts\Authentication Flow -- Beta Log     (1280x720)
+     in Page -- should show beta terms and conditions (failed).png                                  
+  -  E:\EdpsychConnect\cypress\screenshots\auth.cy.ts\Authentication Flow -- Beta Reg     (1280x720)
+     istration Page -- should display the beta registration page correctly (failed).p               
+     ng                                                                                             
+  -  E:\EdpsychConnect\cypress\screenshots\auth.cy.ts\Authentication Flow -- Beta Reg     (1280x720)
+     istration Page -- should validate password requirements (failed).png                           
+  -  E:\EdpsychConnect\cypress\screenshots\auth.cy.ts\Authentication Flow -- Beta Reg     (1280x720)
+     istration Page -- should validate password confirmation match (failed).png                     
+  -  E:\EdpsychConnect\cypress\screenshots\auth.cy.ts\Authentication Flow -- Beta Reg     (1280x720)
+     istration Page -- should require terms acceptance (failed).png                                 
+  -  E:\EdpsychConnect\cypress\screenshots\auth.cy.ts\Authentication Flow -- Protecte     (1280x720)
+     d Routes -- should redirect unauthenticated users from dashboard to login (faile               
+     d).png                                                                                         
+  -  E:\EdpsychConnect\cypress\screenshots\auth.cy.ts\Authentication Flow -- Protecte     (1280x720)
+     d Routes -- should redirect unauthenticated users from admin to login (failed).p               
+     ng                                                                                             
+  -  E:\EdpsychConnect\cypress\screenshots\auth.cy.ts\Authentication Flow -- Protecte     (1280x720)
+     d Routes -- should redirect unauthenticated users from settings to login (failed               
+     ).png                                                                                          
+  -  E:\EdpsychConnect\cypress\screenshots\auth.cy.ts\Authentication Flow -- Accessib     (1280x720)
+     ility -- should have proper focus management on error (failed).png                             
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+                                                                                                    
+  Running:  demo.cy.ts                                                                     (4 of 14)
+
+
+  Interactive Demo E2E
+    ÔêÜ should load the demo page with correct layout (679ms)
+    1) should allow interaction with the AI demo
+    2) should handle custom input
+
+
+  1 passing (10s)
+  2 failing
+
+  1) Interactive Demo E2E
+       should allow interaction with the AI demo:
+     AssertionError: Timed out retrying after 4000ms: Expected to find content: 'AI Assistant Terminal' but never did.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/demo.cy.ts:14:41)
+
+  2) Interactive Demo E2E
+       should handle custom input:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[placeholder="Type your question here..."]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/demo.cy.ts:32:7)
+
+
+
+
+  (Results)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Tests:        3                                                                                Ôöé
+  Ôöé Passing:      1                                                                                Ôöé
+  Ôöé Failing:      2                                                                                Ôöé
+  Ôöé Pending:      0                                                                                Ôöé
+  Ôöé Skipped:      0                                                                                Ôöé
+  Ôöé Screenshots:  2                                                                                Ôöé
+  Ôöé Video:        false                                                                            Ôöé
+  Ôöé Duration:     10 seconds                                                                       Ôöé
+  Ôöé Spec Ran:     demo.cy.ts                                                                       Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+  (Screenshots)
+
+  -  E:\EdpsychConnect\cypress\screenshots\demo.cy.ts\Interactive Demo E2E -- should      (1280x720)
+     allow interaction with the AI demo (failed).png                                                
+  -  E:\EdpsychConnect\cypress\screenshots\demo.cy.ts\Interactive Demo E2E -- should      (1280x720)
+     handle custom input (failed).png                                                               
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+                                                                                                    
+  Running:  ehcp.cy.ts                                                                     (5 of 14)
+
+
+  EHCP Management Workflow
+    1) "before each" hook for "should navigate to EHCP list and display plans"
+
+
+  0 passing (5s)
+  1 failing
+
+  1) EHCP Management Workflow
+       "before each" hook for "should navigate to EHCP list and display plans":
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[name="email"]`, but never found it.
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `EHCP Management Workflow`
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/ehcp.cy.ts:9:7)
+
+
+
+
+  (Results)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Tests:        3                                                                                Ôöé
+  Ôöé Passing:      0                                                                                Ôöé
+  Ôöé Failing:      1                                                                                Ôöé
+  Ôöé Pending:      0                                                                                Ôöé
+  Ôöé Skipped:      2                                                                                Ôöé
+  Ôöé Screenshots:  1                                                                                Ôöé
+  Ôöé Video:        false                                                                            Ôöé
+  Ôöé Duration:     4 seconds                                                                        Ôöé
+  Ôöé Spec Ran:     ehcp.cy.ts                                                                       Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+  (Screenshots)
+
+  -  E:\EdpsychConnect\cypress\screenshots\ehcp.cy.ts\EHCP Management Workflow -- sho     (1280x720)
+     uld navigate to EHCP list and display plans -- before each hook (failed).png                   
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+                                                                                                    
+  Running:  help-center.cy.ts                                                              (6 of 14)
+
+
+  Help Center E2E
+    1) should display the main help center page with categories
+    2) should allow searching for articles
+    3) should navigate to category view
+    4) should display article details
+    5) should handle feedback submission
+    6) should display FAQs
+
+
+  0 passing (29s)
+  6 failing
+
+  1) Help Center E2E
+       should display the main help center page with categories:
+     AssertionError: Timed out retrying after 4000ms: expected '<h1.text-4xl.md:text-6xl.font-bold.text-white.mb-6>' to contain 'How can we help you?'
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/help-center.cy.ts:8:17)
+
+  2) Help Center E2E
+       should allow searching for articles:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[placeholder="Search for help articles..."]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/help-center.cy.ts:19:7)
+
+  3) Help Center E2E
+       should navigate to category view:
+     AssertionError: Timed out retrying after 4000ms: Expected to find content: 'Assessments Articles' but never did.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/help-center.cy.ts:30:40)
+
+  4) Help Center E2E
+       should display article details:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[placeholder="Search for help articles..."]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/help-center.cy.ts:37:7)
+
+  5) Help Center E2E
+       should handle feedback submission:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[placeholder="Search for help articles..."]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/help-center.cy.ts:49:7)
+
+  6) Help Center E2E
+       should display FAQs:
+     AssertionError: Timed out retrying after 4000ms: Expected to find content: 'Frequently Asked Questions' but never did.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/help-center.cy.ts:63:46)
+
+
+
+
+  (Results)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Tests:        6                                                                                Ôöé
+  Ôöé Passing:      0                                                                                Ôöé
+  Ôöé Failing:      6                                                                                Ôöé
+  Ôöé Pending:      0                                                                                Ôöé
+  Ôöé Skipped:      0                                                                                Ôöé
+  Ôöé Screenshots:  6                                                                                Ôöé
+  Ôöé Video:        false                                                                            Ôöé
+  Ôöé Duration:     28 seconds                                                                       Ôöé
+  Ôöé Spec Ran:     help-center.cy.ts                                                                Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+  (Screenshots)
+
+  -  E:\EdpsychConnect\cypress\screenshots\help-center.cy.ts\Help Center E2E -- shoul     (1280x720)
+     d display the main help center page with categories (failed).png                               
+  -  E:\EdpsychConnect\cypress\screenshots\help-center.cy.ts\Help Center E2E -- shoul     (1280x720)
+     d allow searching for articles (failed).png                                                    
+  -  E:\EdpsychConnect\cypress\screenshots\help-center.cy.ts\Help Center E2E -- shoul     (1280x720)
+     d navigate to category view (failed).png                                                       
+  -  E:\EdpsychConnect\cypress\screenshots\help-center.cy.ts\Help Center E2E -- shoul     (1280x720)
+     d display article details (failed).png                                                         
+  -  E:\EdpsychConnect\cypress\screenshots\help-center.cy.ts\Help Center E2E -- shoul     (1280x720)
+     d handle feedback submission (failed).png                                                      
+  -  E:\EdpsychConnect\cypress\screenshots\help-center.cy.ts\Help Center E2E -- shoul     (1280x720)
+     d display FAQs (failed).png                                                                    
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+                                                                                                    
+  Running:  la-portal.cy.ts                                                                (7 of 14)
+
+
+  Local Authority Portal
+    1) "before each" hook for "should access the LA Dashboard"
+
+
+  0 passing (5s)
+  1 failing
+
+  1) Local Authority Portal
+       "before each" hook for "should access the LA Dashboard":
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[name="email"]`, but never found it.
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Local Authority Portal`
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/la-portal.cy.ts:4:7)
+
+
+
+
+  (Results)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Tests:        3                                                                                Ôöé
+  Ôöé Passing:      0                                                                                Ôöé
+  Ôöé Failing:      1                                                                                Ôöé
+  Ôöé Pending:      0                                                                                Ôöé
+  Ôöé Skipped:      2                                                                                Ôöé
+  Ôöé Screenshots:  1                                                                                Ôöé
+  Ôöé Video:        false                                                                            Ôöé
+  Ôöé Duration:     4 seconds                                                                        Ôöé
+  Ôöé Spec Ran:     la-portal.cy.ts                                                                  Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+  (Screenshots)
+
+  -  E:\EdpsychConnect\cypress\screenshots\la-portal.cy.ts\Local Authority Portal --      (1280x720)
+     should access the LA Dashboard -- before each hook (failed).png                                
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+                                                                                                    
+  Running:  onboarding.cy.ts                                                               (8 of 14)
+
+
+  Onboarding Flow E2E
+    1) should redirect to login if not authenticated
+    2) should protect /onboarding route
+
+
+  0 passing (9s)
+  2 failing
+
+  1) Onboarding Flow E2E
+       should redirect to login if not authenticated:
+     AssertionError: Timed out retrying after 4000ms: expected 'http://localhost:3000/en/dashboard' to include '/login'
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/onboarding.cy.ts:9:13)
+
+  2) Onboarding Flow E2E
+       should protect /onboarding route:
+     AssertionError: Timed out retrying after 4000ms: expected 'http://localhost:3000/en/onboarding' to include '/login'
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/onboarding.cy.ts:23:13)
+
+
+
+
+  (Results)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Tests:        2                                                                                Ôöé
+  Ôöé Passing:      0                                                                                Ôöé
+  Ôöé Failing:      2                                                                                Ôöé
+  Ôöé Pending:      0                                                                                Ôöé
+  Ôöé Skipped:      0                                                                                Ôöé
+  Ôöé Screenshots:  2                                                                                Ôöé
+  Ôöé Video:        false                                                                            Ôöé
+  Ôöé Duration:     9 seconds                                                                        Ôöé
+  Ôöé Spec Ran:     onboarding.cy.ts                                                                 Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+  (Screenshots)
+
+  -  E:\EdpsychConnect\cypress\screenshots\onboarding.cy.ts\Onboarding Flow E2E -- sh     (1280x720)
+     ould redirect to login if not authenticated (failed).png                                       
+  -  E:\EdpsychConnect\cypress\screenshots\onboarding.cy.ts\Onboarding Flow E2E -- sh     (1280x720)
+     ould protect onboarding route (failed).png                                                     
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+                                                                                                    
+  Running:  parent-portal.cy.ts                                                            (9 of 14)
+
+
+  Parent Portal
+    1) should allow access to the demo portal
+    2) should allow authenticated parent login
+
+
+  0 passing (9s)
+  2 failing
+
+  1) Parent Portal
+       should allow access to the demo portal:
+     AssertionError: Timed out retrying after 4000ms: Expected to find content: 'Parent Portal' but never did.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/parent-portal.cy.ts:7:33)
+
+  2) Parent Portal
+       should allow authenticated parent login:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[name="email"]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/parent-portal.cy.ts:16:7)
+
+
+
+
+  (Results)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Tests:        2                                                                                Ôöé
+  Ôöé Passing:      0                                                                                Ôöé
+  Ôöé Failing:      2                                                                                Ôöé
+  Ôöé Pending:      0                                                                                Ôöé
+  Ôöé Skipped:      0                                                                                Ôöé
+  Ôöé Screenshots:  2                                                                                Ôöé
+  Ôöé Video:        false                                                                            Ôöé
+  Ôöé Duration:     9 seconds                                                                        Ôöé
+  Ôöé Spec Ran:     parent-portal.cy.ts                                                              Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+  (Screenshots)
+
+  -  E:\EdpsychConnect\cypress\screenshots\parent-portal.cy.ts\Parent Portal -- shoul     (1280x720)
+     d allow access to the demo portal (failed).png                                                 
+  -  E:\EdpsychConnect\cypress\screenshots\parent-portal.cy.ts\Parent Portal -- shoul     (1280x720)
+     d allow authenticated parent login (failed).png                                                
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+                                                                                                    
+  Running:  researcher.cy.ts                                                              (10 of 14)
+
+
+  Researcher Role E2E
+    1) should allow researcher login and access researcher dashboard
+    2) should have access to ethics submission
+
+
+  0 passing (11s)
+  2 failing
+
+  1) Researcher Role E2E
+       should allow researcher login and access researcher dashboard:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[type="email"]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/researcher.cy.ts:10:7)
+
+  2) Researcher Role E2E
+       should have access to ethics submission:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[type="email"]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/researcher.cy.ts:26:7)
+
+
+
+
+  (Results)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Tests:        2                                                                                Ôöé
+  Ôöé Passing:      0                                                                                Ôöé
+  Ôöé Failing:      2                                                                                Ôöé
+  Ôöé Pending:      0                                                                                Ôöé
+  Ôöé Skipped:      0                                                                                Ôöé
+  Ôöé Screenshots:  2                                                                                Ôöé
+  Ôöé Video:        false                                                                            Ôöé
+  Ôöé Duration:     10 seconds                                                                       Ôöé
+  Ôöé Spec Ran:     researcher.cy.ts                                                                 Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+  (Screenshots)
+
+  -  E:\EdpsychConnect\cypress\screenshots\researcher.cy.ts\Researcher Role E2E -- sh     (1280x720)
+     ould allow researcher login and access researcher dashboard (failed).png                       
+  -  E:\EdpsychConnect\cypress\screenshots\researcher.cy.ts\Researcher Role E2E -- sh     (1280x720)
+     ould have access to ethics submission (failed).png                                             
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+                                                                                                    
+  Running:  safety-net.cy.ts                                                              (11 of 14)
+
+
+  Safety Net & Simulation E2E
+    1) "before each" hook for "should display the Golden Thread Dashboard"
+
+
+  0 passing (6s)
+  1 failing
+
+  1) Safety Net & Simulation E2E
+       "before each" hook for "should display the Golden Thread Dashboard":
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[type="email"]`, but never found it.
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Safety Net & Simulation E2E`
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/safety-net.cy.ts:7:7)
+
+
+
+
+  (Results)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Tests:        3                                                                                Ôöé
+  Ôöé Passing:      0                                                                                Ôöé
+  Ôöé Failing:      1                                                                                Ôöé
+  Ôöé Pending:      0                                                                                Ôöé
+  Ôöé Skipped:      2                                                                                Ôöé
+  Ôöé Screenshots:  1                                                                                Ôöé
+  Ôöé Video:        false                                                                            Ôöé
+  Ôöé Duration:     6 seconds                                                                        Ôöé
+  Ôöé Spec Ran:     safety-net.cy.ts                                                                 Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+  (Screenshots)
+
+  -  E:\EdpsychConnect\cypress\screenshots\safety-net.cy.ts\Safety Net & Simulation E     (1280x720)
+     2E -- should display the Golden Thread Dashboard -- before each hook (failed).pn               
+     g                                                                                              
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+                                                                                                    
+  Running:  sanity.cy.ts                                                                  (12 of 14)
+
+
+  Sanity Check
+    ÔêÜ should pass a simple assertion (27ms)
+    ÔêÜ should visit the homepage (628ms)
+
+
+  2 passing (699ms)
+
+
+  (Results)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Tests:        2                                                                                Ôöé
+  Ôöé Passing:      2                                                                                Ôöé
+  Ôöé Failing:      0                                                                                Ôöé
+  Ôöé Pending:      0                                                                                Ôöé
+  Ôöé Skipped:      0                                                                                Ôöé
+  Ôöé Screenshots:  0                                                                                Ôöé
+  Ôöé Video:        false                                                                            Ôöé
+  Ôöé Duration:     0 seconds                                                                        Ôöé
+  Ôöé Spec Ran:     sanity.cy.ts                                                                     Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+                                                                                                    
+  Running:  auth/login.cy.ts                                                              (13 of 14)
+
+
+  Login Page
+    1) should display the login form
+    2) should show validation errors for empty form submission
+    3) should show error message for invalid credentials
+    4) should redirect to dashboard after successful login
+    5) should have a "Forgot Password" link
+    6) should have a registration link for new users
+
+We detected that the Electron Renderer process just crashed.
+
+We have failed the current spec but will continue running the next spec.
+
+This can happen for a number of different reasons.
+
+If you're running lots of tests on a memory intense application.
+  - Try increasing the CPU/memory on the machine you're running on.
+  - Try enabling experimentalMemoryManagement in your config file.
+  - Try lowering numTestsKeptInMemory in your config file during 'cypress open'.
+
+You can learn more here:
+
+https://on.cypress.io/renderer-process-crashed
+
+  (Results)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Tests:        10                                                                               Ôöé
+  Ôöé Passing:      0                                                                                Ôöé
+  Ôöé Failing:      7                                                                                Ôöé
+  Ôöé Pending:      0                                                                                Ôöé
+  Ôöé Skipped:      3                                                                                Ôöé
+  Ôöé Screenshots:  6                                                                                Ôöé
+  Ôöé Video:        false                                                                            Ôöé
+  Ôöé Duration:     5 minutes, 27 seconds                                                            Ôöé
+  Ôöé Spec Ran:     auth/login.cy.ts                                                                 Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+  (Screenshots)
+
+  -  E:\EdpsychConnect\cypress\screenshots\auth\login.cy.ts\Login Page -- should disp     (1280x720)
+     lay the login form (failed).png                                                                
+  -  E:\EdpsychConnect\cypress\screenshots\auth\login.cy.ts\Login Page -- should show     (1280x720)
+      validation errors for empty form submission (failed).png                                      
+  -  E:\EdpsychConnect\cypress\screenshots\auth\login.cy.ts\Login Page -- should show     (1280x720)
+      error message for invalid credentials (failed).png                                            
+  -  E:\EdpsychConnect\cypress\screenshots\auth\login.cy.ts\Login Page -- should redi     (1280x720)
+     rect to dashboard after successful login (failed).png                                          
+  -  E:\EdpsychConnect\cypress\screenshots\auth\login.cy.ts\Login Page -- should have     (1280x720)
+      a Forgot Password link (failed).png                                                           
+  -  E:\EdpsychConnect\cypress\screenshots\auth\login.cy.ts\Login Page -- should have     (1280x720)
+      a registration link for new users (failed).png                                                
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+                                                                                                    
+  Running:  auth/role-smoke-test.cy.ts                                                    (14 of 14)
+
+
+  Systematic Role Verification
+    1) should allow Super Admin (admin@demo.com) to login and redirect to /admin
+    2) should allow Teacher (teacher@demo.com) to login and redirect to /dashboard
+    3) should allow Student (student@demo.com) to login and redirect to /dashboard
+    4) should allow Parent (parent@demo.com) to login and redirect to /dashboard
+    5) should allow Educational Psychologist (ep@demo.com) to login and redirect to /dashboard
+    6) should allow SENCO (sen_coordinator@demo.com) to login and redirect to /dashboard
+
+
+  0 passing (29s)
+  6 failing
+
+  1) Systematic Role Verification
+       should allow Super Admin (admin@demo.com) to login and redirect to /admin:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[type="email"]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth/role-smoke-test.cy.ts:60:9)
+
+  2) Systematic Role Verification
+       should allow Teacher (teacher@demo.com) to login and redirect to /dashboard:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[type="email"]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth/role-smoke-test.cy.ts:60:9)
+
+  3) Systematic Role Verification
+       should allow Student (student@demo.com) to login and redirect to /dashboard:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[type="email"]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth/role-smoke-test.cy.ts:60:9)
+
+  4) Systematic Role Verification
+       should allow Parent (parent@demo.com) to login and redirect to /dashboard:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[type="email"]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth/role-smoke-test.cy.ts:60:9)
+
+  5) Systematic Role Verification
+       should allow Educational Psychologist (ep@demo.com) to login and redirect to /dashboard:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[type="email"]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth/role-smoke-test.cy.ts:60:9)
+
+  6) Systematic Role Verification
+       should allow SENCO (sen_coordinator@demo.com) to login and redirect to /dashboard:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[type="email"]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/auth/role-smoke-test.cy.ts:60:9)
+
+
+
+
+  (Results)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Tests:        6                                                                                Ôöé
+  Ôöé Passing:      0                                                                                Ôöé
+  Ôöé Failing:      6                                                                                Ôöé
+  Ôöé Pending:      0                                                                                Ôöé
+  Ôöé Skipped:      0                                                                                Ôöé
+  Ôöé Screenshots:  6                                                                                Ôöé
+  Ôöé Video:        false                                                                            Ôöé
+  Ôöé Duration:     28 seconds                                                                       Ôöé
+  Ôöé Spec Ran:     auth/role-smoke-test.cy.ts                                                       Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+  (Screenshots)
+
+  -  E:\EdpsychConnect\cypress\screenshots\auth\role-smoke-test.cy.ts\Systematic Role     (1280x720)
+      Verification -- should allow Super Admin (admin@demo.com) to login and redirect               
+      to admin (failed).png                                                                         
+  -  E:\EdpsychConnect\cypress\screenshots\auth\role-smoke-test.cy.ts\Systematic Role     (1280x720)
+      Verification -- should allow Teacher (teacher@demo.com) to login and redirect t               
+     o dashboard (failed).png                                                                       
+  -  E:\EdpsychConnect\cypress\screenshots\auth\role-smoke-test.cy.ts\Systematic Role     (1280x720)
+      Verification -- should allow Student (student@demo.com) to login and redirect t               
+     o dashboard (failed).png                                                                       
+  -  E:\EdpsychConnect\cypress\screenshots\auth\role-smoke-test.cy.ts\Systematic Role     (1280x720)
+      Verification -- should allow Parent (parent@demo.com) to login and redirect to                
+     dashboard (failed).png                                                                         
+  -  E:\EdpsychConnect\cypress\screenshots\auth\role-smoke-test.cy.ts\Systematic Role     (1280x720)
+      Verification -- should allow Educational Psychologist (ep@demo.com) to login an               
+     d redirect to dashboard (failed).png                                                           
+  -  E:\EdpsychConnect\cypress\screenshots\auth\role-smoke-test.cy.ts\Systematic Role     (1280x720)
+      Verification -- should allow SENCO (sen_coordinator@demo.com) to login and redi               
+     rect to dashboard (failed).png                                                                 
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé ├ù  ai-tutoring.cy.ts                        00:07        2        -        1        -        1 Ôöé
+  Ôö£ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöñ
+  Ôöé ├ù  assessment-collaboration.cy.ts           00:06        1        -        1        -        - Ôöé
+  Ôö£ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöñ
+  Ôöé ├ù  auth.cy.ts                               01:22       25        8       17        -        - Ôöé
+  Ôö£ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöñ
+  Ôöé ├ù  demo.cy.ts                               00:10        3        1        2        -        - Ôöé
+  Ôö£ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöñ
+  Ôöé ├ù  ehcp.cy.ts                               00:04        3        -        1        -        2 Ôöé
+  Ôö£ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöñ
+  Ôöé ├ù  help-center.cy.ts                        00:28        6        -        6        -        - Ôöé
+  Ôö£ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöñ
+  Ôöé ├ù  la-portal.cy.ts                          00:04        3        -        1        -        2 Ôöé
+  Ôö£ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöñ
+  Ôöé ├ù  onboarding.cy.ts                         00:09        2        -        2        -        - Ôöé
+  Ôö£ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöñ
+  Ôöé ├ù  parent-portal.cy.ts                      00:09        2        -        2        -        - Ôöé
+  Ôö£ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöñ
+  Ôöé ├ù  researcher.cy.ts                         00:10        2        -        2        -        - Ôöé
+  Ôö£ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöñ
+  Ôöé ├ù  safety-net.cy.ts                         00:06        3        -        1        -        2 Ôöé
+  Ôö£ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöñ
+  Ôöé ÔêÜ  sanity.cy.ts                             702ms        2        2        -        -        - Ôöé
+  Ôö£ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöñ
+  Ôöé ├ù  auth/login.cy.ts                         05:27       10        -        7        -        3 Ôöé
+  Ôö£ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöñ
+  Ôöé ├ù  auth/role-smoke-test.cy.ts               00:28        6        -        6        -        - Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+    ├ù  13 of 14 failed (93%)                    08:56       70       11       49        -       10  
+

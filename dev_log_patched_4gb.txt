@@ -1,0 +1,12 @@
+v20.18.0
+Patched fs.readlink for EISDIR and added retries for UNKNOWN/EPERM errors
+   Ôû▓ Next.js 16.0.8 (Turbopack)
+   - Local:         http://localhost:3002
+   - Network:       http://192.168.1.187:3002
+   - Environments: .env.development.local, .env.local, .env
+
+ Ô£ô Starting...
+ Ôùï Compiling middleware ...
+ ÔÜá The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+ Ô£ô Ready in 31s
+[?25h

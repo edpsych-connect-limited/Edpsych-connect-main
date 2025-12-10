@@ -8,8 +8,6 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
@@ -274,12 +272,18 @@ export default function LoginPage() {
           </form>
 
           {/* Additional Links */}
-          <div className="mt-6 text-center text-sm">
+          <div className="mt-6 flex justify-between text-sm">
             <a 
               href="/forgot-password" 
               className="text-blue-600 hover:text-blue-700 transition-colors"
             >
               Forgot your password?
+            </a>
+            <a 
+              href="/register" 
+              className="text-blue-600 hover:text-blue-700 transition-colors"
+            >
+              Create an account
             </a>
           </div>
         </div>

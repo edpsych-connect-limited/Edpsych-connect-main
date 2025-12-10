@@ -1,0 +1,6 @@
+  Ôû▓ Next.js 14.2.33
+  - Local:        http://localhost:3000
+  - Environments: .env.development.local, .env.local, .env
+
+ Ô£ô Starting...
+ Ô£ô Ready in 3.7s

@@ -1,0 +1,21 @@
+
+Operating System:
+  Platform: win32
+  Arch: x64
+  Version: Windows 11 Home
+  Available memory (MB): 7752
+  Available CPU cores: 16
+Binaries:
+  Node: 20.18.0
+  npm: 10.8.2
+  Yarn: 4.10.3
+  pnpm: 10.25.0
+Relevant Packages:
+  next: 16.0.8 // Latest available version is detected (16.0.8).
+  eslint-config-next: 14.1.0
+  react: 18.3.1
+  react-dom: 18.3.1
+  typescript: 5.9.3
+Next.js Config:
+  output: N/A
+! Corepack is about to download https://registry.npmjs.org/pnpm/-/pnpm-10.25.0.tgz

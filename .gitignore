@@ -122,3 +122,6 @@ service-account.json
 
 # Video files (served from Cloudinary CDN)
 public/content/training_videos/**/*.mp4
+.vercel
+.cypress-cache/
+tools/node20/

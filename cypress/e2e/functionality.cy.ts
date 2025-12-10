@@ -27,7 +27,7 @@ describe('Functionality Audit', () => {
   it('3.4 Assessment System - Library loads', () => {
     cy.visit('/en/assessments');
     // Ensure we match the header, not the hidden nav link
-    cy.get('h1, h2').contains('Assessment Management').should('be.visible');
+    cy.get('h1, h2').contains('Assessments').should('be.visible');
     
     // Check for at least one assessment card or list item
     cy.get('body').then(($body) => {

@@ -4,8 +4,8 @@ const withNextIntl = createNextIntlPlugin('./src/i18n.ts');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'standalone',
-  eslint: { ignoreDuringBuilds: true },
+  // output: 'standalone',
+  // eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
   webpack: (config) => {
     config.cache = false;

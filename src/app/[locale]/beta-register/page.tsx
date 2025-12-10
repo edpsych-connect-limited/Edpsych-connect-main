@@ -228,6 +228,7 @@ export default function BetaRegisterPage() {
             <div className="flex gap-2">
               <input
                 type="text"
+                name="betaCode"
                 value={betaCode}
                 onChange={(e) => {
                   setBetaCode(e.target.value.toUpperCase());
@@ -271,6 +272,7 @@ export default function BetaRegisterPage() {
               </label>
               <input
                 type="text"
+                name="firstName"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-purple-500"
@@ -282,6 +284,7 @@ export default function BetaRegisterPage() {
               <label className="block text-white font-medium mb-2">Last Name *</label>
               <input
                 type="text"
+                name="lastName"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-purple-500"
@@ -299,6 +302,7 @@ export default function BetaRegisterPage() {
             </label>
             <input
               type="email"
+              name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-purple-500"
@@ -316,6 +320,7 @@ export default function BetaRegisterPage() {
               </label>
               <input
                 type="password"
+                name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className={`w-full bg-white/10 border rounded-lg px-4 py-3 text-white placeholder-slate-400 focus:outline-none ${
@@ -332,6 +337,7 @@ export default function BetaRegisterPage() {
               <label className="block text-white font-medium mb-2">Confirm Password *</label>
               <input
                 type="password"
+                name="confirmPassword"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 className={`w-full bg-white/10 border rounded-lg px-4 py-3 text-white placeholder-slate-400 focus:outline-none ${
@@ -353,6 +359,7 @@ export default function BetaRegisterPage() {
               Your Role *
             </label>
             <select
+              name="role"
               value={role}
               onChange={(e) => setRole(e.target.value)}
               disabled={!!codeRole}
@@ -378,6 +385,7 @@ export default function BetaRegisterPage() {
             </label>
             <input
               type="text"
+              name="organizationName"
               value={organizationName}
               onChange={(e) => setOrganizationName(e.target.value)}
               className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-purple-500"
@@ -390,6 +398,7 @@ export default function BetaRegisterPage() {
             <label className="flex items-start gap-3 cursor-pointer">
               <input
                 type="checkbox"
+                name="acceptedTerms"
                 checked={acceptedTerms}
                 onChange={(e) => setAcceptedTerms(e.target.checked)}
                 className="mt-1 w-5 h-5 rounded border-white/20 bg-white/10 text-purple-500 focus:ring-purple-500"
@@ -413,6 +422,7 @@ export default function BetaRegisterPage() {
             <label className="flex items-start gap-3 cursor-pointer">
               <input
                 type="checkbox"
+                name="acceptedBetaTerms"
                 checked={acceptedBetaTerms}
                 onChange={(e) => setAcceptedBetaTerms(e.target.checked)}
                 className="mt-1 w-5 h-5 rounded border-white/20 bg-white/10 text-purple-500 focus:ring-purple-500"

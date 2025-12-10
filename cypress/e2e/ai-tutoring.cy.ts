@@ -12,13 +12,35 @@ describe('AI Tutoring Interface', () => {
   });
 
   it('should allow submitting a tutoring request', () => {
+    // Intercept the API call
+    cy.intercept('POST', '**/api/orchestrator/tutor').as('tutoringRequest');
+
     cy.visit('/ai-agents');
-    // Fill out form (hypothetical selectors based on interface)
-    cy.get('input[name="subject"]').type('Maths');
-    cy.get('input[name="topic"]').type('Fractions');
-    cy.get('button').contains('Start Session').click();
+    cy.url().should('include', '/ai-agents');
     
-    // Check for loading state or response
-    cy.contains('Generating').should('exist');
+    // Fill out form
+    // Select subject from dropdown - use force click and wait for options
+    cy.contains('Select a subject').click({ force: true });
+    cy.get('[role="option"]', { timeout: 10000 }).contains('Mathematics').click({ force: true });
+    
+    // Verify selection was made and dropdown closed
+    cy.contains('Select a subject').should('not.exist');
+    cy.contains('Mathematics').should('exist');
+    
+    // Fill topic
+    cy.get('input[id="topic"]').type('Algebra', { force: true });
+
+    // Fill learning objective
+    cy.contains('label', 'Learning Objectives')
+      .parent()
+      .find('input')
+      .first()
+      .type('Understand linear equations', { force: true });
+    
+    // Submit
+    cy.contains('button', 'Get Tutoring Help').click({ force: true });
+    
+    // Check for loading state
+    cy.contains('Preparing your request', { timeout: 15000 }).should('be.visible');
   });
 });

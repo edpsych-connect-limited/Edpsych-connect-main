@@ -85,6 +85,7 @@ export const AICentralNervousSystem = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsExpanded(!isExpanded)}
+        aria-label="Toggle AI Assistant"
         className={`p-3 rounded-full shadow-lg border transition-all duration-300 ${
           isExpanded 
             ? 'bg-indigo-600 border-indigo-400 text-white' 

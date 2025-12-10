@@ -62,12 +62,13 @@ export const dynamic = 'force-dynamic'; // Ensure searchParams are read correctl
 export default async function Home({
   searchParams,
 }: {
-  params: { locale: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   // Beta launch: Show full platform by default
   // Use ?maintenance=true to show coming soon page if needed
-  const isMaintenance = searchParams?.maintenance === 'true';
+  const resolvedSearchParams = await searchParams;
+  const isMaintenance = resolvedSearchParams?.maintenance === 'true';
 
   if (isMaintenance) {
     return <ComingSoonPage />;

@@ -78,7 +78,7 @@ export const useSpeechRecognition = (): SpeechRecognitionHook => {
       } else {
         // SERVER-SIDE MODE (MediaRecorder)
         // We still report "browserSupportsSpeechRecognition" as true if we can use the fallback
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        if (navigator.mediaDevices && typeof navigator.mediaDevices.getUserMedia === 'function') {
           setBrowserSupportsSpeechRecognition(true);
         }
       }

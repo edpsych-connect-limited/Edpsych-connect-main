@@ -1,0 +1,11 @@
+
+> edpsych-connect-web-v2@1.0.0 dev
+> cross-env NODE_OPTIONS="--max-old-space-size=8192" node -r ./scripts/patch-fs-runtime.cjs node_modules/next/dist/bin/next dev
+
+Patched fs.readlink for EISDIR and added retries for UNKNOWN/EPERM errors
+Patched fs.readlink for EISDIR and added retries for UNKNOWN/EPERM errors
+  Ôû▓ Next.js 14.2.33
+  - Local:        http://localhost:3000
+  - Environments: .env.development.local, .env.local, .env
+
+ Ô£ô Starting...

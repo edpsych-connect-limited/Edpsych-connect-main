@@ -1,0 +1,9 @@
+
+> edpsych-connect-web-v2@1.0.0 start
+> node node_modules/next/dist/bin/next start
+
+  Ôû▓ Next.js 14.2.33
+  - Local:        http://localhost:3000
+
+ Ô£ô Starting...
+ Ô£ô Ready in 2.2s

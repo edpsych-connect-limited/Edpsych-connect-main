@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
-import { Loader2, Mic, MicOff, X } from 'lucide-react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { Loader2, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface StreamingAvatarProps {
@@ -11,26 +11,26 @@ interface StreamingAvatarProps {
 
 export const StreamingAvatar: React.FC<StreamingAvatarProps> = ({ isOpen, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [stream, setStream] = useState<MediaStream | null>(null);
   const [debug, setDebug] = useState<string>('');
   const [avatarSession, setAvatarSession] = useState<any>(null);
-  const [isTalking, setIsTalking] = useState(false);
   const mediaVideoRef = useRef<HTMLVideoElement>(null);
   const peerConnectionRef = useRef<RTCPeerConnection | null>(null);
 
-  useEffect(() => {
-    if (isOpen && !avatarSession) {
-      startAvatarSession();
+  const endAvatarSession = useCallback(async () => {
+    if (avatarSession) {
+      // Close session logic would go here if we stored the token
+      // For now we just close the peer connection
     }
     
-    return () => {
-      if (!isOpen && avatarSession) {
-        endAvatarSession();
-      }
-    };
-  }, [isOpen]);
+    if (peerConnectionRef.current) {
+      peerConnectionRef.current.close();
+      peerConnectionRef.current = null;
+    }
+    
+    setAvatarSession(null);
+  }, [avatarSession]);
 
-  const startAvatarSession = async () => {
+  const startAvatarSession = useCallback(async () => {
     setIsLoading(true);
     setDebug('Initializing session...');
     
@@ -128,26 +128,23 @@ export const StreamingAvatar: React.FC<StreamingAvatarProps> = ({ isOpen, onClos
       setDebug(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  const endAvatarSession = async () => {
-    if (avatarSession) {
-      // Close session logic would go here if we stored the token
-      // For now we just close the peer connection
+  useEffect(() => {
+    if (isOpen && !avatarSession) {
+      startAvatarSession();
     }
     
-    if (peerConnectionRef.current) {
-      peerConnectionRef.current.close();
-      peerConnectionRef.current = null;
-    }
-    
-    setAvatarSession(null);
-  };
+    return () => {
+      if (!isOpen && avatarSession) {
+        endAvatarSession();
+      }
+    };
+  }, [isOpen, avatarSession, startAvatarSession, endAvatarSession]);
 
   const speakText = async (text: string) => {
     if (!avatarSession) return;
     
-    setIsTalking(true);
     try {
       const tokenRes = await fetch('/api/video/heygen-token', { method: 'POST' });
       const tokenData = await tokenRes.json();
@@ -165,8 +162,6 @@ export const StreamingAvatar: React.FC<StreamingAvatarProps> = ({ isOpen, onClos
       });
     } catch (error) {
       console.error('Speak Error:', error);
-    } finally {
-      setIsTalking(false);
     }
   };
 
@@ -185,7 +180,7 @@ export const StreamingAvatar: React.FC<StreamingAvatarProps> = ({ isOpen, onClos
             <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
             AI Assistant
           </h3>
-          <button onClick={onClose} className="hover:bg-indigo-700 p-1 rounded">
+          <button onClick={onClose} className="hover:bg-indigo-700 p-1 rounded" aria-label="Close avatar">
             <X size={18} />
           </button>
         </div>
@@ -218,6 +213,19 @@ export const StreamingAvatar: React.FC<StreamingAvatarProps> = ({ isOpen, onClos
                 }
               }}
             />
+            <button 
+              className="bg-indigo-600 text-white px-3 py-2 rounded hover:bg-indigo-700 text-sm"
+              onClick={(e) => {
+                const input = e.currentTarget.previousElementSibling as HTMLInputElement;
+                if (input.value) {
+                  speakText(input.value);
+                  input.value = '';
+                }
+              }}
+              aria-label="Send message"
+            >
+              Send
+            </button>
           </div>
           {debug && <p className="text-xs text-gray-400 mt-2">{debug}</p>}
         </div>

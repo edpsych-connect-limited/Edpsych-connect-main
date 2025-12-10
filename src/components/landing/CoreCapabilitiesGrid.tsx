@@ -276,7 +276,7 @@ export default function CoreCapabilitiesGrid() {
           <p className="text-slate-400 max-w-2xl mx-auto">
             A complete orchestration layer for Special Educational Needs. Every tool you need, integrated into one seamless system.
           </p>
-          <p className="text-slate-500 text-sm mt-2">
+          <p className="text-slate-400 text-sm mt-2">
             Click any feature to explore • Tier badges show required subscription level
           </p>
         </div>

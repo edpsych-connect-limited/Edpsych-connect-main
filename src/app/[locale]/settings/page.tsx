@@ -9,14 +9,16 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useSession, signOut } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
+import { useRouter } from 'next/navigation';
 import MISIntegrationSettings from '@/components/settings/MISIntegrationSettings';
 import { Settings, User, Bell, Shield, Database, Moon, Sun, Volume2, VolumeX } from 'lucide-react';
 
 type SettingsTab = 'general' | 'account' | 'integrations' | 'notifications' | 'privacy';
 
 export default function SettingsPage() {
-  const { data: session } = useSession();
+  const { user, logout, isLoading } = useAuth();
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<SettingsTab>('general');
   const [voiceEnabled, setVoiceEnabled] = useState(true);
   const [darkMode, setDarkMode] = useState<'system' | 'light' | 'dark'>('system');
@@ -25,6 +27,25 @@ export default function SettingsPage() {
     push: true,
     weekly: true,
   });
+
+  // Redirect if not authenticated
+  React.useEffect(() => {
+    if (!isLoading && !user) {
+      router.push('/login');
+    }
+  }, [user, isLoading, router]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null; // Will redirect via useEffect
+  }
 
   const tabs: { id: SettingsTab; label: string; icon: React.ReactNode }[] = [
     { id: 'general', label: 'General', icon: <Settings className="w-4 h-4" /> },
@@ -135,11 +156,11 @@ export default function SettingsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="p-4 border border-slate-200 dark:border-slate-700 rounded-lg">
                     <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">Name</p>
-                    <p className="font-medium text-slate-900 dark:text-white">{session?.user?.name || 'Not set'}</p>
+                    <p className="font-medium text-slate-900 dark:text-white">{user?.name || 'Not set'}</p>
                   </div>
                   <div className="p-4 border border-slate-200 dark:border-slate-700 rounded-lg">
                     <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">Email</p>
-                    <p className="font-medium text-slate-900 dark:text-white">{session?.user?.email || 'user@example.com'}</p>
+                    <p className="font-medium text-slate-900 dark:text-white">{user?.email || 'user@example.com'}</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
@@ -156,7 +177,10 @@ export default function SettingsPage() {
             <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
               <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-4">Session</h2>
               <button
-                onClick={() => signOut({ callbackUrl: '/' })}
+                onClick={async () => {
+                  await logout();
+                  router.push('/');
+                }}
                 className="text-red-600 hover:text-red-700 font-medium text-sm"
               >
                 Sign Out
