@@ -63,7 +63,7 @@ if (originalPromisesReadlink) {
 
 // Helper for retries
 function shouldRetry(err) {
-    return err && (err.code === 'UNKNOWN' || err.code === 'EPERM' || err.code === 'EBUSY' || err.code === 'EACCES');
+    return err && (err.code === 'UNKNOWN' || err.code === 'EPERM' || err.code === 'EBUSY' || err.code === 'EACCES' || err.code === 'EAGAIN');
 }
 
 function sleep(ms) {
@@ -71,12 +71,15 @@ function sleep(ms) {
     while (Date.now() - start < ms) {}
 }
 
+const MAX_RETRIES = 50;
+const RETRY_DELAY = 200;
+
 // Patch lstat to retry on UNKNOWN error
 const originalLstat = fs.lstat;
 const originalLstatSync = fs.lstatSync;
 
 fs.lstatSync = function(path, options) {
-    let retries = 5;
+    let retries = MAX_RETRIES;
     while (retries > 0) {
         try {
             return originalLstatSync(path, options);
@@ -101,13 +104,13 @@ fs.lstat = function(...args) {
         return originalLstat.apply(this, args);
     }
 
-    let retries = 5;
+    let retries = MAX_RETRIES;
     
     const attempt = () => {
         const wrappedCallback = (err, stats) => {
             if (shouldRetry(err) && retries > 0) {
                 retries--;
-                setTimeout(attempt, 50 + Math.random() * 100);
+                setTimeout(attempt, RETRY_DELAY + Math.random() * 100);
             } else {
                 callback(err, stats);
             }
@@ -124,7 +127,7 @@ const originalOpenSync = fs.openSync;
 const originalReadFileSync = fs.readFileSync;
 
 fs.openSync = function(path, flags, mode) {
-    let retries = 5;
+    let retries = MAX_RETRIES;
     while (retries > 0) {
         try {
             return originalOpenSync(path, flags, mode);
@@ -132,7 +135,7 @@ fs.openSync = function(path, flags, mode) {
             if (shouldRetry(err) && retries > 1) {
                 // console.log(`[Patch] Retrying openSync on ${path} due to ${err.code}`);
                 retries--;
-                sleep(50 + Math.random() * 100);
+                sleep(RETRY_DELAY + Math.random() * 100);
                 continue;
             }
             throw err;
@@ -141,7 +144,7 @@ fs.openSync = function(path, flags, mode) {
 };
 
 fs.readFileSync = function(path, options) {
-    let retries = 5;
+    let retries = MAX_RETRIES;
     while (retries > 0) {
         try {
             return originalReadFileSync(path, options);
@@ -149,7 +152,7 @@ fs.readFileSync = function(path, options) {
             if (shouldRetry(err) && retries > 1) {
                 // console.log(`[Patch] Retrying readFileSync on ${path} due to ${err.code}`);
                 retries--;
-                sleep(50 + Math.random() * 100);
+                sleep(RETRY_DELAY + Math.random() * 100);
                 continue;
             }
             throw err;
@@ -162,7 +165,7 @@ const originalRealpath = fs.realpath;
 const originalRealpathSync = fs.realpathSync;
 
 fs.realpathSync = function(path, options) {
-    let retries = 5;
+    let retries = MAX_RETRIES;
     while (retries > 0) {
         try {
             return originalRealpathSync(path, options);
@@ -170,7 +173,7 @@ fs.realpathSync = function(path, options) {
             if (shouldRetry(err) && retries > 1) {
                 // console.log(`[Patch] Retrying realpathSync on ${path} due to ${err.code}`);
                 retries--;
-                sleep(50 + Math.random() * 100);
+                sleep(RETRY_DELAY + Math.random() * 100);
                 continue;
             }
             throw err;
@@ -186,14 +189,14 @@ fs.realpath = function(path, options, callback) {
         options = null;
     }
     
-    let retries = 5;
+    let retries = MAX_RETRIES;
 
     const attempt = () => {
         const cb = (err, resolvedPath) => {
             if (shouldRetry(err) && retries > 0) {
                 // console.log(`[Patch] Retrying realpath on ${path} due to ${err.code}`);
                 retries--;
-                setTimeout(attempt, 50 + Math.random() * 100);
+                setTimeout(attempt, RETRY_DELAY + Math.random() * 100);
             } else {
                 callback(err, resolvedPath);
             }
@@ -216,7 +219,7 @@ const originalStat = fs.stat;
 const originalStatSync = fs.statSync;
 
 fs.statSync = function(path, options) {
-    let retries = 3;
+    let retries = MAX_RETRIES;
     while (retries > 0) {
         try {
             return originalStatSync(path, options);
@@ -224,7 +227,7 @@ fs.statSync = function(path, options) {
             if (shouldRetry(err) && retries > 1) {
                 // console.log(`[Patch] Retrying statSync on ${path} due to ${err.code}`);
                 retries--;
-                sleep(50 + Math.random() * 100);
+                sleep(RETRY_DELAY + Math.random() * 100);
                 continue;
             }
             throw err;
@@ -240,13 +243,13 @@ fs.stat = function(...args) {
         return originalStat.apply(this, args);
     }
 
-    let retries = 5;
+    let retries = MAX_RETRIES;
     
     const attempt = () => {
         const wrappedCallback = (err, stats) => {
             if (shouldRetry(err) && retries > 0) {
                 retries--;
-                setTimeout(attempt, 50 + Math.random() * 100);
+                setTimeout(attempt, RETRY_DELAY + Math.random() * 100);
             } else {
                 callback(err, stats);
             }
@@ -257,5 +260,170 @@ fs.stat = function(...args) {
     
     attempt();
 };
+
+// Patch mkdir/mkdirSync to retry on EPERM
+const originalMkdir = fs.mkdir;
+const originalMkdirSync = fs.mkdirSync;
+
+fs.mkdirSync = function(path, options) {
+    let retries = MAX_RETRIES;
+    while (retries > 0) {
+        try {
+            return originalMkdirSync(path, options);
+        } catch (err) {
+            if (shouldRetry(err) && retries > 1) {
+                console.log(`[Patch] Retrying mkdirSync on ${path} due to ${err.code}`);
+                retries--;
+                sleep(RETRY_DELAY + Math.random() * 100);
+                continue;
+            }
+            throw err;
+        }
+    }
+};
+
+fs.mkdir = function(...args) {
+    const callback = args[args.length - 1];
+    
+    if (typeof callback !== 'function') {
+        return originalMkdir.apply(this, args);
+    }
+
+    const argsWithoutCb = args.slice(0, -1);
+    let retries = MAX_RETRIES;
+    
+    const attempt = () => {
+        const wrappedCallback = (err, result) => {
+            if (shouldRetry(err) && retries > 0) {
+                console.log(`[Patch] Retrying mkdir on ${argsWithoutCb[0]} due to ${err ? err.code : 'unknown'}`);
+                retries--;
+                setTimeout(attempt, RETRY_DELAY + Math.random() * 100);
+            } else {
+                callback(err, result);
+            }
+        };
+        
+        originalMkdir.apply(this, [...argsWithoutCb, wrappedCallback]);
+    };
+    
+    attempt();
+};
+
+// Patch readdir/readdirSync to retry on EPERM
+const originalReaddir = fs.readdir;
+const originalReaddirSync = fs.readdirSync;
+
+fs.readdirSync = function(path, options) {
+    let retries = MAX_RETRIES;
+    while (retries > 0) {
+        try {
+            return originalReaddirSync(path, options);
+        } catch (err) {
+            if (shouldRetry(err) && retries > 1) {
+                retries--;
+                sleep(RETRY_DELAY + Math.random() * 100);
+                continue;
+            }
+            throw err;
+        }
+    }
+};
+
+fs.readdir = function(...args) {
+    const callback = args[args.length - 1];
+    
+    if (typeof callback !== 'function') {
+        return originalReaddir.apply(this, args);
+    }
+
+    const argsWithoutCb = args.slice(0, -1);
+    let retries = MAX_RETRIES;
+    
+    const attempt = () => {
+        const wrappedCallback = (err, files) => {
+            if (shouldRetry(err) && retries > 0) {
+                retries--;
+                setTimeout(attempt, RETRY_DELAY + Math.random() * 100);
+            } else {
+                callback(err, files);
+            }
+        };
+        
+        originalReaddir.apply(this, [...argsWithoutCb, wrappedCallback]);
+    };
+    
+    attempt();
+};
+
+// Patch fs.promises
+if (fs.promises) {
+    const originalPromisesMkdir = fs.promises.mkdir;
+    fs.promises.mkdir = async function(path, options) {
+        let retries = MAX_RETRIES;
+        while (retries > 0) {
+            try {
+                return await originalPromisesMkdir(path, options);
+            } catch (err) {
+                if (shouldRetry(err) && retries > 1) {
+                    retries--;
+                    await new Promise(resolve => setTimeout(resolve, RETRY_DELAY + Math.random() * 100));
+                    continue;
+                }
+                throw err;
+            }
+        }
+    };
+
+    const originalPromisesReaddir = fs.promises.readdir;
+    fs.promises.readdir = async function(path, options) {
+        let retries = MAX_RETRIES;
+        while (retries > 0) {
+            try {
+                return await originalPromisesReaddir(path, options);
+            } catch (err) {
+                if (shouldRetry(err) && retries > 1) {
+                    retries--;
+                    await new Promise(resolve => setTimeout(resolve, RETRY_DELAY + Math.random() * 100));
+                    continue;
+                }
+                throw err;
+            }
+        }
+    };
+
+    const originalPromisesStat = fs.promises.stat;
+    fs.promises.stat = async function(path, options) {
+        let retries = MAX_RETRIES;
+        while (retries > 0) {
+            try {
+                return await originalPromisesStat(path, options);
+            } catch (err) {
+                if (shouldRetry(err) && retries > 1) {
+                    retries--;
+                    await new Promise(resolve => setTimeout(resolve, RETRY_DELAY + Math.random() * 100));
+                    continue;
+                }
+                throw err;
+            }
+        }
+    };
+
+    const originalPromisesLstat = fs.promises.lstat;
+    fs.promises.lstat = async function(path, options) {
+        let retries = MAX_RETRIES;
+        while (retries > 0) {
+            try {
+                return await originalPromisesLstat(path, options);
+            } catch (err) {
+                if (shouldRetry(err) && retries > 1) {
+                    retries--;
+                    await new Promise(resolve => setTimeout(resolve, RETRY_DELAY + Math.random() * 100));
+                    continue;
+                }
+                throw err;
+            }
+        }
+    };
+}
 
 console.log('Patched fs.readlink for EISDIR and added retries for UNKNOWN/EPERM errors');
