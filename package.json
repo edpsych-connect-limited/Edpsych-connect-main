@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" node node_modules/next/dist/bin/next dev",
-    "build": "cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" node -r ./scripts/patch-fs-runtime.cjs node_modules/next/dist/bin/next build",
+    "build": "cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" next build",
     "build:safe": "cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" node -r ./scripts/patch-fs-runtime.cjs node_modules/next/dist/bin/next build",
     "prebuild": "rimraf node_modules/@sentry",
     "start": "node node_modules/next/dist/bin/next start",
