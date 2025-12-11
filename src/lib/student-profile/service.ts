@@ -22,6 +22,9 @@ export interface StudentProfile {
     workingMemory: number;
     attention: number;
     learningMemory: number;
+    communication: number;
+    semh: number;
+    sensoryPhysical: number;
   };
 
   recentSessions: AssessmentSession[];
@@ -74,7 +77,10 @@ export class StudentProfileService {
       processingSpeed: 50,
       workingMemory: 50,
       attention: 50,
-      learningMemory: 50
+      learningMemory: 50,
+      communication: 50,
+      semh: 50,
+      sensoryPhysical: 50
     };
 
     // Fetch interventions

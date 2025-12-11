@@ -4,6 +4,7 @@ import { logger } from "@/lib/logger";
  * Complete white-labeling and multi-tenant architecture
  */
 
+import { prisma } from '@/lib/prisma';
 
 export interface TenantConfig {
   id: string;
@@ -60,11 +61,9 @@ export interface WhiteLabelConfig {
 
 class MultiTenantService {
   private static instance: MultiTenantService;
-  private tenants: Map<string, TenantConfig> = new Map();
-  private whiteLabels: Map<string, WhiteLabelConfig> = new Map();
 
   private constructor() {
-    this.initializeDefaultTenant();
+    // Initialization is now async, handled by ensureDefaultTenant
   }
 
   public static getInstance(): MultiTenantService {
@@ -74,129 +73,185 @@ class MultiTenantService {
     return MultiTenantService.instance;
   }
 
-  private initializeDefaultTenant(): void {
-    const defaultTenant: TenantConfig = {
-      id: 'default',
-      name: 'EdPsych Connect',
-      domain: 'edpsychconnect.com',
-      branding: {
-        primaryColor: '#0ea5e9',
-        secondaryColor: '#64748b',
-        accentColor: '#eab308',
-        logo: '/images/logo/edpsych-logo.svg',
-        favicon: '/favicon.ico',
-        brandName: 'EdPsych Connect',
-        tagline: 'Where Technology Disappears, Education Transforms'
-      },
-      features: {
-        enabled: ['all'],
-        disabled: [],
-        customizations: {}
-      },
-      limits: {
-        users: 1000,
-        storage: 100, // GB
-        aiRequests: 10000,
-        apiCalls: 100000
-      },
-      integrations: {
-        sso: true,
-        lms: ['canvas', 'moodle', 'blackboard', 'google-classroom'],
-        sis: ['powerschool', 'infinite-campus', 'skyward'],
-        custom: {}
-      },
-      compliance: {
-        gdpr: true,
-        ferpa: true,
-        coppa: true,
-        customPolicies: []
-      },
-      status: 'active',
-      createdAt: new Date(),
+  public async ensureDefaultTenant(): Promise<void> {
+    const defaultSubdomain = 'app';
+    const existing = await prisma.tenants.findUnique({
+      where: { subdomain: defaultSubdomain }
+    });
+
+    if (!existing) {
+      const defaultSettings = {
+        domain: 'edpsychconnect.com',
+        branding: {
+          primaryColor: '#0ea5e9',
+          secondaryColor: '#64748b',
+          accentColor: '#eab308',
+          logo: '/images/logo/edpsych-logo.svg',
+          favicon: '/favicon.ico',
+          brandName: 'EdPsych Connect',
+          tagline: 'Where Technology Disappears, Education Transforms'
+        },
+        features: {
+          enabled: ['all'],
+          disabled: [],
+          customizations: {}
+        },
+        limits: {
+          users: 1000,
+          storage: 100,
+          aiRequests: 10000,
+          apiCalls: 100000
+        },
+        integrations: {
+          sso: true,
+          lms: ['canvas', 'moodle', 'blackboard', 'google-classroom'],
+          sis: ['powerschool', 'infinite-campus', 'skyward'],
+          custom: {}
+        },
+        compliance: {
+          gdpr: true,
+          ferpa: true,
+          coppa: true,
+          customPolicies: []
+        }
+      };
+
+      await prisma.tenants.create({
+        data: {
+          name: 'EdPsych Connect',
+          subdomain: defaultSubdomain,
+          tenant_type: 'SCHOOL', // Default type
+          status: 'active',
+          settings: defaultSettings
+        }
+      });
+      logger.info('Default tenant initialized in database.');
+    }
+  }
+
+  private mapPrismaToConfig(tenant: any): TenantConfig {
+    const settings = tenant.settings as any || {};
+    return {
+      id: tenant.id.toString(),
+      name: tenant.name,
+      domain: settings.domain || '',
+      subdomain: tenant.subdomain,
+      branding: settings.branding || {},
+      features: settings.features || { enabled: [], disabled: [], customizations: {} },
+      limits: settings.limits || { users: 0, storage: 0, aiRequests: 0, apiCalls: 0 },
+      integrations: settings.integrations || { sso: false, lms: [], sis: [], custom: {} },
+      compliance: settings.compliance || { gdpr: false, ferpa: false, coppa: false, customPolicies: [] },
+      status: tenant.status as any,
+      createdAt: new Date(), // Prisma doesn't have created_at on tenants model in snippet, assuming it might or we use now
       updatedAt: new Date()
     };
-
-    this.tenants.set('default', defaultTenant);
   }
 
   // Tenant Management
   async createTenant(config: Omit<TenantConfig, 'id' | 'createdAt' | 'updatedAt'>): Promise<TenantConfig> {
-    const tenantId = this.generateTenantId();
-    const tenant: TenantConfig = {
-      ...config,
-      id: tenantId,
-      createdAt: new Date(),
-      updatedAt: new Date()
+    const settings = {
+      domain: config.domain,
+      branding: config.branding,
+      features: config.features,
+      limits: config.limits,
+      integrations: config.integrations,
+      compliance: config.compliance
     };
 
-    this.tenants.set(tenantId, tenant);
+    const tenant = await prisma.tenants.create({
+      data: {
+        name: config.name,
+        subdomain: config.subdomain || `tenant-${Date.now()}`,
+        status: config.status,
+        settings: settings
+      }
+    });
 
-    // Create default white-label configuration
-    await this.createWhiteLabelConfig(tenantId);
+    // Create default white-label configuration (stored in settings or separate table? For now, we'll assume it's derived)
+    // await this.createWhiteLabelConfig(tenant.id.toString());
 
-    // Initialize tenant database schema
-    await this.initializeTenantDatabase(tenantId);
-
-    // Set up tenant-specific configurations
-    await this.setupTenantConfigurations(tenantId);
-
-    return tenant;
+    return this.mapPrismaToConfig(tenant);
   }
 
   async updateTenant(tenantId: string, updates: Partial<TenantConfig>): Promise<TenantConfig> {
-    const tenant = this.tenants.get(tenantId);
-    if (!tenant) {
-      throw new Error(`Tenant ${tenantId} not found`);
-    }
+    const id = parseInt(tenantId);
+    const existing = await prisma.tenants.findUnique({ where: { id } });
+    if (!existing) throw new Error(`Tenant ${tenantId} not found`);
 
-    const updatedTenant = {
-      ...tenant,
-      ...updates,
-      updatedAt: new Date()
+    const currentSettings = existing.settings as any || {};
+    
+    const newSettings = {
+      ...currentSettings,
+      domain: updates.domain ?? currentSettings.domain,
+      branding: updates.branding ?? currentSettings.branding,
+      features: updates.features ?? currentSettings.features,
+      limits: updates.limits ?? currentSettings.limits,
+      integrations: updates.integrations ?? currentSettings.integrations,
+      compliance: updates.compliance ?? currentSettings.compliance
     };
 
-    this.tenants.set(tenantId, updatedTenant);
+    const updated = await prisma.tenants.update({
+      where: { id },
+      data: {
+        name: updates.name,
+        subdomain: updates.subdomain,
+        status: updates.status,
+        settings: newSettings
+      }
+    });
 
-    // Update white-label configurations if branding changed
-    if (updates.branding) {
-      await this.updateWhiteLabelBranding(tenantId, updates.branding);
-    }
-
-    return updatedTenant;
+    return this.mapPrismaToConfig(updated);
   }
 
   async deleteTenant(tenantId: string): Promise<void> {
-    if (tenantId === 'default') {
+    const id = parseInt(tenantId);
+    // Prevent deleting default tenant (assuming ID 1 or specific subdomain)
+    const tenant = await prisma.tenants.findUnique({ where: { id } });
+    if (tenant?.subdomain === 'app') {
       throw new Error('Cannot delete default tenant');
     }
 
-    // Clean up tenant data
-    await this.cleanupTenantData(tenantId);
-
-    // Remove from maps
-    this.tenants.delete(tenantId);
-    this.whiteLabels.delete(tenantId);
+    await prisma.tenants.delete({ where: { id } });
   }
 
-  getTenant(tenantId: string): TenantConfig | null {
-    return this.tenants.get(tenantId) || null;
+  async getTenant(tenantId: string): Promise<TenantConfig | null> {
+    const id = parseInt(tenantId);
+    if (isNaN(id)) return null;
+    
+    const tenant = await prisma.tenants.findUnique({ where: { id } });
+    return tenant ? this.mapPrismaToConfig(tenant) : null;
   }
 
-  getTenantByDomain(domain: string): TenantConfig | null {
-    for (const tenant of Array.from(this.tenants.values())) {
-      if (tenant.domain === domain || tenant.subdomain === domain) {
-        return tenant;
-      }
+  async getTenantByDomain(domain: string): Promise<TenantConfig | null> {
+    // This is tricky because domain is in JSON settings.
+    // We might need to search by subdomain first if it matches, or scan.
+    // For performance, we should probably index domain or rely on subdomain.
+    
+    // Try finding by subdomain first
+    const bySubdomain = await prisma.tenants.findUnique({ where: { subdomain: domain } });
+    if (bySubdomain) return this.mapPrismaToConfig(bySubdomain);
+
+    // Fallback: Search all (inefficient, but works for low tenant count)
+    // In production, 'domain' should be a top-level column.
+    const allTenants = await prisma.tenants.findMany();
+    for (const t of allTenants) {
+      const settings = t.settings as any;
+      if (settings?.domain === domain) return this.mapPrismaToConfig(t);
     }
+    
     return null;
   }
 
-  getAllTenants(): TenantConfig[] {
-    return Array.from(this.tenants.values());
+  async getAllTenants(): Promise<TenantConfig[]> {
+    const tenants = await prisma.tenants.findMany();
+    return tenants.map(t => this.mapPrismaToConfig(t));
   }
 
   // White-Label Management
   async createWhiteLabelConfig(tenantId: string): Promise<WhiteLabelConfig> {
+    const tenant = await this.getTenant(tenantId);
+    if (!tenant) throw new Error('Tenant not found');
+
     const config: WhiteLabelConfig = {
       tenantId,
       customCSS: '',
@@ -208,42 +263,79 @@ class MultiTenantService {
       featureCustomizations: {}
     };
 
-    this.whiteLabels.set(tenantId, config);
+    await this.updateTenantSettings(tenantId, { whiteLabel: config });
     return config;
   }
 
   async updateWhiteLabelConfig(tenantId: string, updates: Partial<WhiteLabelConfig>): Promise<WhiteLabelConfig> {
-    const config = this.whiteLabels.get(tenantId);
-    if (!config) {
-      throw new Error(`White-label config for tenant ${tenantId} not found`);
+    const currentConfig = await this.getWhiteLabelConfig(tenantId);
+    if (!currentConfig) {
+       const tenant = await this.getTenant(tenantId);
+       if (!tenant) throw new Error('Tenant not found');
+       
+       const baseConfig: WhiteLabelConfig = {
+          tenantId,
+          customCSS: '',
+          customJS: '',
+          emailTemplates: {},
+          notificationTemplates: {},
+          reportTemplates: {},
+          dashboardCustomizations: {},
+          featureCustomizations: {}
+       };
+       const newConfig = { ...baseConfig, ...updates };
+       await this.updateTenantSettings(tenantId, { whiteLabel: newConfig });
+       return newConfig;
     }
 
-    const updatedConfig = { ...config, ...updates };
-    this.whiteLabels.set(tenantId, updatedConfig);
+    const updatedConfig = { ...currentConfig, ...updates };
+    await this.updateTenantSettings(tenantId, { whiteLabel: updatedConfig });
 
     return updatedConfig;
   }
 
-  getWhiteLabelConfig(tenantId: string): WhiteLabelConfig | null {
-    return this.whiteLabels.get(tenantId) || null;
+  async getWhiteLabelConfig(tenantId: string): Promise<WhiteLabelConfig | null> {
+    const id = parseInt(tenantId);
+    if (isNaN(id)) return null;
+    
+    const tenant = await prisma.tenants.findUnique({ where: { id } });
+    if (!tenant) return null;
+
+    const settings = tenant.settings as any || {};
+    return settings.whiteLabel as WhiteLabelConfig || null;
+  }
+
+  // Helper to update settings JSON
+  private async updateTenantSettings(tenantId: string, newSettingsPart: any): Promise<void> {
+      const id = parseInt(tenantId);
+      const tenant = await prisma.tenants.findUnique({ where: { id } });
+      if (!tenant) return;
+      
+      const currentSettings = tenant.settings as any || {};
+      const updatedSettings = { ...currentSettings, ...newSettingsPart };
+      
+      await prisma.tenants.update({
+          where: { id },
+          data: { settings: updatedSettings }
+      });
   }
 
   // Branding and Theming
   async updateWhiteLabelBranding(tenantId: string, branding: TenantConfig['branding']): Promise<void> {
-    const config = this.whiteLabels.get(tenantId);
-    if (!config) return;
-
     // Generate custom CSS for branding
     const customCSS = this.generateBrandingCSS(branding);
-    config.customCSS = customCSS;
-
+    
     // Update email templates with new branding
-    config.emailTemplates = this.generateBrandedEmailTemplates(branding);
-
+    const emailTemplates = this.generateBrandedEmailTemplates(branding);
+    
     // Update notification templates
-    config.notificationTemplates = this.generateBrandedNotificationTemplates(branding);
+    const notificationTemplates = this.generateBrandedNotificationTemplates(branding);
 
-    this.whiteLabels.set(tenantId, config);
+    await this.updateWhiteLabelConfig(tenantId, {
+        customCSS,
+        emailTemplates,
+        notificationTemplates
+    });
   }
 
   private generateBrandingCSS(branding: TenantConfig['branding']): string {
@@ -331,31 +423,33 @@ class MultiTenantService {
 
   // Feature Management
   async enableFeature(tenantId: string, feature: string): Promise<void> {
-    const tenant = this.tenants.get(tenantId);
+    const tenant = await this.getTenant(tenantId);
     if (!tenant) return;
 
-    if (!tenant.features.enabled.includes(feature)) {
-      tenant.features.enabled.push(feature);
+    const features = tenant.features;
+    if (!features.enabled.includes(feature)) {
+      features.enabled.push(feature);
     }
-
-    tenant.features.disabled = tenant.features.disabled.filter(f => f !== feature);
-    this.tenants.set(tenantId, tenant);
+    features.disabled = features.disabled.filter(f => f !== feature);
+    
+    await this.updateTenantSettings(tenantId, { features });
   }
 
   async disableFeature(tenantId: string, feature: string): Promise<void> {
-    const tenant = this.tenants.get(tenantId);
+    const tenant = await this.getTenant(tenantId);
     if (!tenant) return;
 
-    if (!tenant.features.disabled.includes(feature)) {
-      tenant.features.disabled.push(feature);
+    const features = tenant.features;
+    if (!features.disabled.includes(feature)) {
+      features.disabled.push(feature);
     }
-
-    tenant.features.enabled = tenant.features.enabled.filter(f => f !== feature);
-    this.tenants.set(tenantId, tenant);
+    features.enabled = features.enabled.filter(f => f !== feature);
+    
+    await this.updateTenantSettings(tenantId, { features });
   }
 
-  isFeatureEnabled(tenantId: string, feature: string): boolean {
-    const tenant = this.tenants.get(tenantId);
+  async isFeatureEnabled(tenantId: string, feature: string): Promise<boolean> {
+    const tenant = await this.getTenant(tenantId);
     if (!tenant) return false;
 
     if (tenant.features.enabled.includes('all')) return true;
@@ -363,16 +457,16 @@ class MultiTenantService {
   }
 
   // Resource Management
-  checkLimits(tenantId: string, resource: keyof TenantConfig['limits'], currentUsage: number): boolean {
-    const tenant = this.tenants.get(tenantId);
+  async checkLimits(tenantId: string, resource: keyof TenantConfig['limits'], currentUsage: number): Promise<boolean> {
+    const tenant = await this.getTenant(tenantId);
     if (!tenant) return false;
 
     const limit = tenant.limits[resource];
     return currentUsage < limit;
   }
 
-  getRemainingLimits(tenantId: string, resource: keyof TenantConfig['limits'], currentUsage: number): number {
-    const tenant = this.tenants.get(tenantId);
+  async getRemainingLimits(tenantId: string, resource: keyof TenantConfig['limits'], currentUsage: number): Promise<number> {
+    const tenant = await this.getTenant(tenantId);
     if (!tenant) return 0;
 
     const limit = tenant.limits[resource];
@@ -403,11 +497,14 @@ class MultiTenantService {
 
   // Domain and Routing
   async configureDomain(tenantId: string, domain: string, _ssl: boolean = true): Promise<void> {
-    const tenant = this.tenants.get(tenantId);
+    const tenant = await this.getTenant(tenantId);
     if (!tenant) return;
 
-    tenant.domain = domain;
-    this.tenants.set(tenantId, tenant);
+    // Update domain in settings
+    const settings = { domain }; // This merges into settings via updateTenantSettings logic if we used it, but here we need to be careful.
+    // Actually, domain is part of settings in our mapPrismaToConfig.
+    
+    await this.updateTenantSettings(tenantId, { domain });
 
     // Configure DNS
     // Set up SSL certificate
@@ -416,11 +513,13 @@ class MultiTenantService {
   }
 
   async configureSubdomain(tenantId: string, subdomain: string): Promise<void> {
-    const tenant = this.tenants.get(tenantId);
-    if (!tenant) return;
+    const id = parseInt(tenantId);
+    if (isNaN(id)) return;
 
-    tenant.subdomain = subdomain;
-    this.tenants.set(tenantId, tenant);
+    await prisma.tenants.update({
+        where: { id },
+        data: { subdomain }
+    });
 
     // Configure subdomain routing
     logger.info(`Configuring subdomain ${subdomain} for tenant: ${tenantId}`);
@@ -431,12 +530,13 @@ class MultiTenantService {
     tenantId: string,
     complianceType: Extract<keyof TenantConfig['compliance'], 'gdpr' | 'ferpa' | 'coppa'>
   ): Promise<void> {
-    const tenant = this.tenants.get(tenantId);
+    const tenant = await this.getTenant(tenantId);
     if (!tenant) return;
 
-    // Only assign boolean values to boolean properties
-    tenant.compliance[complianceType] = true;
-    this.tenants.set(tenantId, tenant);
+    const compliance = tenant.compliance;
+    compliance[complianceType] = true;
+    
+    await this.updateTenantSettings(tenantId, { compliance });
 
     // Configure compliance settings
     // Set up data retention policies
@@ -446,12 +546,13 @@ class MultiTenantService {
 
   // Add custom compliance policies
   async addCustomCompliancePolicy(tenantId: string, policy: string): Promise<void> {
-    const tenant = this.tenants.get(tenantId);
+    const tenant = await this.getTenant(tenantId);
     if (!tenant) return;
 
-    // Add to the string array for custom policies
-    tenant.compliance.customPolicies.push(policy);
-    this.tenants.set(tenantId, tenant);
+    const compliance = tenant.compliance;
+    compliance.customPolicies.push(policy);
+    
+    await this.updateTenantSettings(tenantId, { compliance });
 
     logger.info(`Added custom compliance policy for tenant: ${tenantId}`);
   }
@@ -491,7 +592,7 @@ class MultiTenantService {
 
   // Monitoring and Health Checks
   async getTenantHealth(tenantId: string): Promise<any> {
-    const tenant = this.tenants.get(tenantId);
+    const tenant = await this.getTenant(tenantId);
     if (!tenant) return null;
 
     return {
@@ -509,14 +610,16 @@ class MultiTenantService {
   }
 
   // Public API
-  getTenantContext(): TenantConfig | null {
+  async getTenantContext(): Promise<TenantConfig | null> {
     // Get current tenant from request context
     // This would be implemented based on your routing/domain setup
-    return this.tenants.get('default') || null;
+    // For now, return default tenant
+    const defaultTenant = await prisma.tenants.findUnique({ where: { subdomain: 'app' } });
+    return defaultTenant ? this.mapPrismaToConfig(defaultTenant) : null;
   }
 
-  getWhiteLabelAssets(tenantId: string): any {
-    const config = this.whiteLabels.get(tenantId);
+  async getWhiteLabelAssets(tenantId: string): Promise<any> {
+    const config = await this.getWhiteLabelConfig(tenantId);
     if (!config) return null;
 
     return {

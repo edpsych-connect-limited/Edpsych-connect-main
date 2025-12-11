@@ -50,6 +50,8 @@ export async function POST(request: NextRequest) {
 
     const { email, password } = validation.data;
 
+    console.log('[DEBUG] Login attempt:', email);
+
     // Find user with tenant information
     const user = await prisma.users.findUnique({
       where: { email: email.toLowerCase() },
@@ -58,6 +60,8 @@ export async function POST(request: NextRequest) {
         professionals: true,
       },
     });
+
+    console.log('[DEBUG] User found:', user ? 'yes' : 'no');
 
     // Check if user exists
     if (!user) {
@@ -69,6 +73,7 @@ export async function POST(request: NextRequest) {
 
     // Check if user is active
     if (!user.is_active) {
+      console.log('[DEBUG] User inactive');
       return NextResponse.json(
         { error: 'Account is inactive. Please contact support.' },
         { status: 403 }
@@ -77,6 +82,8 @@ export async function POST(request: NextRequest) {
 
     // Verify password
     const isPasswordValid = await bcrypt.compare(password, user.password_hash);
+    console.log('[DEBUG] Password valid:', isPasswordValid);
+    
     if (!isPasswordValid) {
       return NextResponse.json(
         { error: 'Invalid email or password' },
@@ -122,7 +129,7 @@ export async function POST(request: NextRequest) {
       action: 'LOGIN',
       resource: 'auth',
       details: { method: 'password' },
-      ipAddress: request.headers.get('x-forwarded-for') || request.ip,
+      ipAddress: request.headers.get('x-forwarded-for') || '127.0.0.1',
       userAgent: request.headers.get('user-agent') || undefined,
     });
 

@@ -9,9 +9,14 @@
  */
 
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { FaUsers, FaGraduationCap, FaGamepad, FaPlay, FaQuestionCircle, FaTrophy } from 'react-icons/fa';
-import { BattleRoyaleGame } from './BattleRoyaleGame';
+
+const BattleRoyaleGame = dynamic(() => import('./BattleRoyaleGame').then(mod => mod.BattleRoyaleGame), {
+  ssr: false,
+  loading: () => <div className="h-[600px] w-full bg-slate-900 flex items-center justify-center text-white font-bold">Loading 3D Engine...</div>
+});
 
 const BattleRoyalePreview: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);

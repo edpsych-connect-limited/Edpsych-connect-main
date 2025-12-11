@@ -543,7 +543,7 @@ All provisions must be **school-deliverable**
 
 - **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS
 - **Backend**: Next.js API Routes, Prisma ORM
-- **Database**: PostgreSQL (Railway)
+- **Database**: PostgreSQL (Neon)
 - **Validation**: Zod schemas
 - **Security**: RBAC, audit logging, rate limiting
 

@@ -88,19 +88,9 @@ const TechnologyStackVisualizer = (): React.ReactElement => {
           description: 'Relational database'
         },
         {
-          name: 'MongoDB',
-          icon: '🍃',
-          description: 'Document database'
-        },
-        {
           name: 'Redis',
           icon: '⚡',
           description: 'In-memory database'
-        },
-        {
-          name: 'Neo4j',
-          icon: '🔄',
-          description: 'Graph database'
         }
       ]
     },

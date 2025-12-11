@@ -1,0 +1,26 @@
+[2025-12-11T01:35:55.142Z] ERROR: Query failed: users.findUnique {
+  model: 'users',
+  operation: 'findUnique',
+  executionTime: 5944,
+  error: '\n' +
+    'Invalid `prisma.users.findUnique()` invocation:\n' +
+    '\n' +
+    '\n' +
+    "Can't reach database server at `caboose.proxy.rlwy.net:42364`\n" +
+    '\n' +
+    'Please make sure your database server is running at `caboose.proxy.rlwy.net:42364`.'
+}
+Login error: Error [PrismaClientInitializationError]: 
+Invalid `prisma.users.findUnique()` invocation:
+
+
+Can't reach database server at `caboose.proxy.rlwy.net:42364`
+
+Please make sure your database server is running at `caboose.proxy.rlwy.net:42364`.
+    at async Array.$allOperations (E:\EdpsychConnect\.next_temp\server\chunks\[root-of-the-server]__78f0aa62._.js:1:1135)
+    at async I (E:\EdpsychConnect\.next_temp\server\chunks\[root-of-the-server]__31b6b84d._.js:1:12542)
+    at async u (E:\EdpsychConnect\.next_temp\server\chunks\[root-of-the-server]__31b6b84d._.js:1:17704) {
+  clientVersion: '6.19.0',
+  errorCode: undefined,
+  retryable: undefined
+}

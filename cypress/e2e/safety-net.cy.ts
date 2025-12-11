@@ -8,8 +8,9 @@ describe('Safety Net & Simulation E2E', () => {
     cy.get('input[type="password"]').type('Test123!');
     cy.get('button[type="submit"]').click();
     
-    // Wait for dashboard to ensure login complete
-    cy.url().should('include', '/dashboard');
+    // Wait for dashboard or admin panel to ensure login complete
+    // Admin users are redirected to /admin, others to /dashboard
+    cy.url().should('match', /\/(dashboard|admin)/);
   });
 
   it('should display the Golden Thread Dashboard', () => {

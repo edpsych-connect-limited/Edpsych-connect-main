@@ -138,6 +138,21 @@ export class ProfileBuilderService {
       // Update profile confidence (assessments are high-quality data)
       const newConfidence = Math.min(1.0, profile.profile_confidence + 0.15);
 
+      // Update Cognitive Profile (learning_style)
+      const currentLearningStyle = (profile.learning_style as any) || {};
+      const updatedLearningStyle = { ...currentLearningStyle };
+
+      // Map domain scores to profile keys
+      domain_scores.forEach(ds => {
+        const normalizedScore = (ds.score / ds.max_score) * 100;
+        const domainKey = this.mapDomainToKey(ds.domain);
+        if (domainKey) {
+          // Weighted average: 70% new score, 30% old score (if exists)
+          const oldScore = updatedLearningStyle[domainKey] || 50; // Default to 50 if new
+          updatedLearningStyle[domainKey] = Math.round((normalizedScore * 0.7) + (oldScore * 0.3));
+        }
+      });
+
       // Update profile
       await prisma.studentProfile.update({
         where: { student_id },
@@ -147,6 +162,7 @@ export class ProfileBuilderService {
           needs_intervention: needsIntervention,
           intervention_urgency: needsIntervention ? interventionUrgency : null,
           profile_confidence: newConfidence,
+          learning_style: updatedLearningStyle, // Save updated scores
           last_synced_at: new Date(),
           updated_at: new Date(),
         },
@@ -770,6 +786,21 @@ export class ProfileBuilderService {
       kinaesthetic: kinaestheticScore,
       confidence: Math.min(1, baseStyle.confidence + 0.1),
     };
+  }
+
+  /**
+   * Map assessment domain string to profile key
+   */
+  private static mapDomainToKey(domain: string): string | null {
+    const d = domain.toLowerCase();
+    if (d.includes('working memory')) return 'workingMemory';
+    if (d.includes('attention')) return 'attention';
+    if (d.includes('processing speed')) return 'processingSpeed';
+    if (d.includes('learning') || d.includes('memory')) return 'learningMemory';
+    if (d.includes('communication') || d.includes('language')) return 'communication';
+    if (d.includes('semh') || d.includes('emotional')) return 'semh';
+    if (d.includes('sensory') || d.includes('physical') || d.includes('motor')) return 'sensoryPhysical';
+    return null;
   }
 
   /**

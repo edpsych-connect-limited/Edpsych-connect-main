@@ -20,8 +20,9 @@ export const dynamic = 'force-dynamic';
 // ============================================================================
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: { params: Promise<{ id: string }> }
 ) {
+  const params = await props.params;
   try {
     const session = await authService.getSessionFromRequest(request);
     if (!session) {
@@ -63,8 +64,9 @@ export async function GET(
 // ============================================================================
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: { params: Promise<{ id: string }> }
 ) {
+  const params = await props.params;
   try {
     const session = await authService.getSessionFromRequest(request);
     if (!session) {
@@ -147,8 +149,9 @@ export async function PUT(
 // ============================================================================
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: { params: Promise<{ id: string }> }
 ) {
+  const params = await props.params;
   try {
     const session = await authService.getSessionFromRequest(request);
     if (!session) {

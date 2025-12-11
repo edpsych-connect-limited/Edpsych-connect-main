@@ -88,7 +88,7 @@ const ukEducationTiers: PricingTier[] = [
       { name: 'Email support', included: true },
       { name: 'All 11 AI Agents', included: false },
       { name: 'Advanced analytics & predictions', included: false },
-      { name: 'Relationship mapping (Neo4j)', included: false },
+      { name: 'Relationship mapping', included: false },
       { name: 'Multi-class management', included: false },
       { name: 'SIMS/Arbor integration', included: false },
       { name: 'Burnout prevention system', included: false },
@@ -110,7 +110,7 @@ const ukEducationTiers: PricingTier[] = [
       { name: 'All 11 AI Agents', included: true, tooltip: 'Curriculum Designer, Learning Path Optimiser, Assessment Generator, Progress Analyst, Intervention Specialist, Student Mentor, Tutor, Coaching, Feedback, Monitoring' },
       { name: 'Voice control with instant insights', included: true },
       { name: 'Full UK curriculum mapping', included: true },
-      { name: 'Relationship analytics (Neo4j graphs)', included: true, tooltip: 'Visualise and optimise support networks' },
+      { name: 'Relationship analytics', included: true, tooltip: 'Visualise and optimise support networks' },
       { name: 'Staff burnout prevention', included: true, tooltip: 'Proactive workload monitoring' },
       { name: 'Battle Royale gamification', included: true },
       { name: 'Advanced predictive analytics', included: true },
@@ -408,7 +408,7 @@ export default function UKPricingTiers() {
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
           <strong>Core Features:</strong> Voice Interface • Battle Royale Game • UK Curriculum (KS1-4) • 
-          Relationship Analytics (Neo4j) • Burnout Prevention • SIMS/Arbor Integration • Ofsted Reporting • 
+          Relationship Analytics • Burnout Prevention • SIMS/Arbor Integration • Ofsted Reporting • 
           SEND Support • Adaptive Learning • Cognitive Assessments • Parent Portal • Real-time Analytics
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>

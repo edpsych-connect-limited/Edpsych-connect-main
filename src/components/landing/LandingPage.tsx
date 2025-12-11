@@ -11,6 +11,7 @@
 ;
 
 import HeroOrchestration from './HeroOrchestration';
+import UnifiedEcosystem from './UnifiedEcosystem';
 import CrisisImpactSection from './CrisisImpactSection';
 import ExpressionOfInterest from './ExpressionOfInterest';
 import CoreCapabilitiesGrid from './CoreCapabilitiesGrid';
@@ -29,6 +30,9 @@ export default function LandingPage({ pricingData }: LandingPageProps) {
     <main className="min-h-screen bg-slate-950 text-white selection:bg-indigo-500/30">
       {/* Hero: No Child Left Behind - The UK's First SEND Orchestration System */}
       <HeroOrchestration />
+
+      {/* Unified Ecosystem: The Golden Thread - How It All Connects */}
+      <UnifiedEcosystem />
       
       {/* Crisis Impact: Our Manifesto - The Problem We're Solving */}
       <CrisisImpactSection />

@@ -14,6 +14,7 @@ import React, { useState } from 'react';
 import { Link, usePathname, useRouter } from '@/navigation';
 import { AuthProvider, useAuth } from '@/lib/auth/hooks';
 import { Toaster } from 'react-hot-toast';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import FeatureExplainer from '@/components/onboarding/FeatureExplainer';
 import { VoiceAssistant } from '@/components/voice/VoiceAssistant';
@@ -288,57 +289,67 @@ export default function ClientLayout({
 }) {
   const pathname = usePathname();
   const isLandingPage = pathname === '/' || pathname?.startsWith('/demo');
+  const [queryClient] = useState(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 60 * 1000,
+        retry: 1,
+      },
+    },
+  }));
 
   return (
     <body className={`min-h-screen ${isLandingPage ? 'bg-slate-950' : 'bg-gray-50 text-gray-900'}`}>
-      <AuthProvider>
-        <BrandingProvider>
-          <DemoProvider>
-            <AccessibilityPanel />
-            <Toaster 
-              position="top-right"
-              toastOptions={{
-                duration: 4000,
-                style: {
-                  background: '#363636',
-                  color: '#fff',
-                },
-                success: {
-                  duration: 3000,
-                  iconTheme: {
-                    primary: '#22c55e',
-                    secondary: '#fff',
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <BrandingProvider>
+            <DemoProvider>
+              <AccessibilityPanel />
+              <Toaster 
+                position="top-right"
+                toastOptions={{
+                  duration: 4000,
+                  style: {
+                    background: '#363636',
+                    color: '#fff',
                   },
-                },
-                error: {
-                  duration: 5000,
-                  iconTheme: {
-                    primary: '#ef4444',
-                    secondary: '#fff',
+                  success: {
+                    duration: 3000,
+                    iconTheme: {
+                      primary: '#22c55e',
+                      secondary: '#fff',
+                    },
                   },
-                },
-              }}
-            />
-            <HeaderContent />
-            <main className={isLandingPage ? '' : 'p-6'}>{children}</main>
-            <FeatureExplainer key={pathname} />
-            {/* VoiceAssistant is now integrated into SupportChatbot */}
-            {/* <VoiceAssistant /> */}
-            <AICentralNervousSystem />
-            <SupportChatbot />
-            {!isLandingPage && (
-              <div className="fixed bottom-6 right-24 z-50">
-                <ContextualHelp title="Help & Support" description="Get help with the current page." />
-              </div>
-            )}
-            {!isLandingPage && (
-              <footer className="bg-gray-100 text-center py-4 mt-10 text-sm text-gray-600">
-                © {new Date().getFullYear()} EdPsych Connect World. All rights reserved.
-              </footer>
-            )}
-          </DemoProvider>
-        </BrandingProvider>
-      </AuthProvider>
+                  error: {
+                    duration: 5000,
+                    iconTheme: {
+                      primary: '#ef4444',
+                      secondary: '#fff',
+                    },
+                  },
+                }}
+              />
+              <HeaderContent />
+              <main className={isLandingPage ? '' : 'p-6'}>{children}</main>
+              <FeatureExplainer key={pathname} />
+              {/* VoiceAssistant is now integrated into SupportChatbot */}
+              {/* <VoiceAssistant /> */}
+              <AICentralNervousSystem />
+              <SupportChatbot />
+              {!isLandingPage && (
+                <div className="fixed bottom-6 right-24 z-50">
+                  <ContextualHelp title="Help & Support" description="Get help with the current page." />
+                </div>
+              )}
+              {!isLandingPage && (
+                <footer className="bg-gray-100 text-center py-4 mt-10 text-sm text-gray-600">
+                  © {new Date().getFullYear()} EdPsych Connect World. All rights reserved.
+                </footer>
+              )}
+            </DemoProvider>
+          </BrandingProvider>
+        </AuthProvider>
+      </QueryClientProvider>
     </body>
   );
 }

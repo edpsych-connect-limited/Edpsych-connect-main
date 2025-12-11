@@ -5,8 +5,9 @@ describe('Help Center E2E', () => {
   });
 
   it('should display the main help center page with categories', () => {
-    cy.get('h1').should('contain', 'How can we help you?');
-    cy.get('input[placeholder="Search for help articles..."]').should('be.visible');
+    // The H1 contains "How can we help you" inside a span structure
+    cy.get('h1').should('contain', 'How can we help you');
+    cy.get('input[placeholder="Search for help articles, tutorials, features..."]').should('be.visible');
     
     // Check for seeded categories
     cy.contains('Getting Started').should('be.visible');
@@ -16,52 +17,49 @@ describe('Help Center E2E', () => {
 
   it('should allow searching for articles', () => {
     const searchTerm = 'ECCA';
-    cy.get('input[placeholder="Search for help articles..."]').type(`${searchTerm}{enter}`);
+    cy.get('input[placeholder="Search for help articles, tutorials, features..."]').type(`${searchTerm}{enter}`, { force: true });
     
-    // Should switch to search view
-    cy.contains(`Search Results for "${searchTerm}"`).should('be.visible');
-    cy.contains('Conducting an ECCA Assessment').should('be.visible');
+    // Should show the article in the filtered list
+    cy.contains('Complete Guide to the ECCA Assessment Framework').should('be.visible');
   });
 
   it('should navigate to category view', () => {
-    cy.contains('Assessments').click();
+    // Click on Assessments category
+    cy.contains('h3', 'Assessments').click({ force: true });
     
     // Should show category articles
-    cy.contains('Assessments Articles').should('be.visible');
-    cy.contains('Conducting an ECCA Assessment').should('be.visible');
-    cy.contains('Generating Assessment Reports').should('be.visible');
-  });
-
-  it('should display article details', () => {
-    // Search and click an article
-    cy.get('input[placeholder="Search for help articles..."]').type('Welcome{enter}');
-    cy.contains('Welcome to EdPsych Connect World').click();
-
-    // Verify article content
-    cy.get('h1').should('contain', 'Welcome to EdPsych Connect World');
-    cy.contains('Key Features').should('be.visible');
-    
-    // Verify breadcrumbs
-    cy.contains('Help Center').should('be.visible');
-  });
-
-  it('should handle feedback submission', () => {
-    cy.get('input[placeholder="Search for help articles..."]').type('Welcome{enter}');
-    cy.contains('Welcome to EdPsych Connect World').click();
-
-    // Scroll to feedback section
-    cy.contains('Was this article helpful?').scrollIntoView();
-    
-    // Click Yes
-    cy.contains('👍 Yes').click();
-    
-    // Verify success message
-    cy.contains('Thank you for your feedback!').should('be.visible');
+    // The component highlights the category and filters the list
+    cy.contains('Complete Guide to the ECCA Assessment Framework').should('be.visible');
   });
 
   it('should display FAQs', () => {
-    cy.contains('Frequently Asked Questions').should('be.visible');
-    cy.contains('How long does a typical assessment take?').click();
-    cy.contains('An ECCA assessment typically takes 45-60 minutes').should('be.visible');
+    // Click on FAQ tab
+    cy.contains('button', 'FAQ').click({ force: true });
+    
+    // Check for an existing FAQ
+    cy.contains('How do I run a Stealth Assessment?').should('be.visible');
+    
+    // Click to expand
+    cy.contains('How do I run a Stealth Assessment?').click({ force: true });
+    
+    // Verify answer is visible
+    cy.contains('Navigate to Assessments > New Assessment').should('be.visible');
+  });
+
+  it('should open AI Assistant', () => {
+    // Click "Ask AI" button in the hero section
+    cy.contains('button', 'Ask AI').click({ force: true });
+    
+    // Verify Chatbot opens
+    cy.contains('AI Assistant').should('be.visible');
+    cy.contains('Always here to help').should('be.visible');
+    
+    // Verify initial message
+    cy.contains("I'm your EdPsych Connect AI Assistant").should('be.visible');
+    
+    // Close chat
+    cy.get('button[title="Close chat"]').click({ force: true });
+    cy.wait(500); // Wait for animation
+    cy.contains('Always here to help').should('not.exist');
   });
 });

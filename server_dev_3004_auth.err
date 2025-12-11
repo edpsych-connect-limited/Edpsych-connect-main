@@ -1,0 +1,4 @@
+ ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[2025-12-11T02:12:36.643Z] WARN: Slow query detected (1307ms) { model: 'users', operation: 'findUnique', executionTime: 1307 }
+[2025-12-11T02:12:37.064Z] WARN: Slow query detected (111ms) { model: 'users', operation: 'update', executionTime: 111 }
+[2025-12-11T02:12:37.216Z] WARN: Slow query detected (139ms) { model: 'AuditLog', operation: 'create', executionTime: 139 }

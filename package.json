@@ -22,6 +22,7 @@
     "validate:report": "npx validate-code report src",
     "validate:setup": "bash tools/setup-validation.sh",
     "test:e2e": "cross-env CYPRESS_CACHE_FOLDER=E:\\cypress-cache cypress run",
+    "test:e2e:dev": "powershell -ExecutionPolicy Bypass -File run-e2e-dev.ps1",
     "test:open": "cross-env CYPRESS_CACHE_FOLDER=E:\\cypress-cache cypress open",
     "postinstall": "test $SKIP_POSTINSTALL || npx prisma generate"
   },

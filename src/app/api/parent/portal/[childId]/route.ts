@@ -127,8 +127,9 @@ function getSuccessLevel(successRate: number | null): 'excellent' | 'good' | 'sa
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { childId: string } }
+  props: { params: Promise<{ childId: string }> }
 ): Promise<NextResponse<ParentPortalResponse | { error: string; message?: string }>> {
+  const params = await props.params;
   try {
     // Authentication
     const session = await authService.getSessionFromRequest(request);

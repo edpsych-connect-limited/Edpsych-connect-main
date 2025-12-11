@@ -611,10 +611,10 @@ function OverviewContent({
             </div>
 
             {/* 20-Week Timeline Visualisation */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8" data-tour="la-dashboard-timeline">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8" data-tour="la-dashboard-timeline" data-testid="timeline-visualisation">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                 20-Week Statutory Timeline
-              </h2>
+              </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <TimelinePhaseCard
                   phase="week_0_to_6"

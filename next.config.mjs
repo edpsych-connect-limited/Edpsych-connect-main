@@ -7,6 +7,7 @@ const nextConfig = {
   // output: 'standalone',
   // eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
+  // distDir: '.next_temp',
   webpack: (config) => {
     config.cache = false;
     config.watchOptions = {

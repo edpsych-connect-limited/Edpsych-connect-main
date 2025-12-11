@@ -1,0 +1,252 @@
+
+
+DevTools listening on ws://127.0.0.1:49705/devtools/browser/f1a5870f-2038-443a-8c92-2b35057c845e
+
+====================================================================================================
+
+  (Run Starting)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Cypress:        15.7.1                                                                         Ôöé
+  Ôöé Browser:        Electron 138 (headless)                                                        Ôöé
+  Ôöé Node Version:   v24.11.1 (C:\Program Files\nodejs\node.exe)                                    Ôöé
+  Ôöé Specs:          2 found (demo.cy.ts, help-center.cy.ts)                                        Ôöé
+  Ôöé Searched:       E:\EdpsychConnect\cypress\e2e\demo.cy.ts, E:\EdpsychConnect\cypress\e2e\help-c Ôöé
+  Ôöé                 enter.cy.ts                                                                    Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+                                                                                                    
+  Running:  demo.cy.ts                                                                      (1 of 2)
+
+
+  Interactive Demo E2E
+    ÔêÜ should load the demo page with correct layout (3429ms)
+    1) should allow interaction with the AI demo
+    2) should handle custom input
+
+
+  1 passing (1m)
+  2 failing
+
+  1) Interactive Demo E2E
+       should allow interaction with the AI demo:
+     AssertionError: Timed out retrying after 30000ms: Expected to find content: 'EdPsych Connect Coordinator' but never did.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/demo.cy.ts:14:47)
+
+  2) Interactive Demo E2E
+       should handle custom input:
+     CypressError: Timed out retrying after 30000ms: `cy.type()` failed because this element:
+
+`<textarea placeholder="Type your message or use voice..." rows="1" class="w-full px-4 py-3 pr-12 rounded-xl resize-none bg-slate-800 text-white placeholder-slate-500 border border-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all outline-none disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] max-h-[120px]"></textarea>`
+
+is being covered by another element:
+
+`<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">...</div>`
+
+Fix this problem, or use {force: true} to disable error checking.
+
+https://on.cypress.io/element-cannot-be-interacted-with
+      at ensureIsDescendent (http://localhost:3000/__cypress/runner/cypress_runner.js:114805:68)
+      at ensureDescendents (http://localhost:3000/__cypress/runner/cypress_runner.js:114856:5)
+      at ensureDescendentsAndScroll (http://localhost:3000/__cypress/runner/cypress_runner.js:114862:14)
+      at ensureElIsNotCovered (http://localhost:3000/__cypress/runner/cypress_runner.js:114993:5)
+      at runAllChecks (http://localhost:3000/__cypress/runner/cypress_runner.js:115192:52)
+      at retryActionability (http://localhost:3000/__cypress/runner/cypress_runner.js:115229:16)
+      at tryCatcher (http://localhost:3000/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (http://localhost:3000/__cypress/runner/cypress_runner.js:4285:29)
+      at whenStable (http://localhost:3000/__cypress/runner/cypress_runner.js:151493:68)
+      at <unknown> (http://localhost:3000/__cypress/runner/cypress_runner.js:151434:14)
+      at tryCatcher (http://localhost:3000/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise._settlePromiseFromHandler (http://localhost:3000/__cypress/runner/cypress_runner.js:1489:31)
+      at Promise._settlePromise (http://localhost:3000/__cypress/runner/cypress_runner.js:1546:18)
+      at Promise._settlePromise0 (http://localhost:3000/__cypress/runner/cypress_runner.js:1591:10)
+      at Promise._settlePromises (http://localhost:3000/__cypress/runner/cypress_runner.js:1671:18)
+      at Promise._fulfill (http://localhost:3000/__cypress/runner/cypress_runner.js:1615:18)
+      at <unknown> (http://localhost:3000/__cypress/runner/cypress_runner.js:5420:46)
+  From Your Spec Code:
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/demo.cy.ts:32:72)
+
+
+
+
+  (Results)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Tests:        3                                                                                Ôöé
+  Ôöé Passing:      1                                                                                Ôöé
+  Ôöé Failing:      2                                                                                Ôöé
+  Ôöé Pending:      0                                                                                Ôöé
+  Ôöé Skipped:      0                                                                                Ôöé
+  Ôöé Screenshots:  2                                                                                Ôöé
+  Ôöé Video:        false                                                                            Ôöé
+  Ôöé Duration:     1 minute, 5 seconds                                                              Ôöé
+  Ôöé Spec Ran:     demo.cy.ts                                                                       Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+  (Screenshots)
+
+  -  E:\EdpsychConnect\cypress\screenshots\demo.cy.ts\Interactive Demo E2E -- should      (1280x720)
+     allow interaction with the AI demo (failed).png                                                
+  -  E:\EdpsychConnect\cypress\screenshots\demo.cy.ts\Interactive Demo E2E -- should      (1280x720)
+     handle custom input (failed).png                                                               
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+                                                                                                    
+  Running:  help-center.cy.ts                                                               (2 of 2)
+
+
+  Help Center E2E
+    ÔêÜ should display the main help center page with categories (531ms)
+    ÔêÜ should allow searching for articles (966ms)
+    1) should navigate to category view
+    2) should display FAQs
+    3) should open AI Assistant
+
+
+  2 passing (2m)
+  3 failing
+
+  1) Help Center E2E
+       should navigate to category view:
+     CypressError: Timed out retrying after 30050ms: `cy.click()` failed because this element:
+
+`<h3 class="text-xl font-bold text-white mb-2 group-hover:text-indigo-300 transition-colors">Assessm...</h3>`
+
+is being covered by another element:
+
+`<div class="flex justify-between items-center py-4">...</div>`
+
+Fix this problem, or use {force: true} to disable error checking.
+
+https://on.cypress.io/element-cannot-be-interacted-with
+      at ensureIsDescendent (http://localhost:3000/__cypress/runner/cypress_runner.js:114805:68)
+      at ensureDescendents (http://localhost:3000/__cypress/runner/cypress_runner.js:114856:5)
+      at ensureDescendentsAndScroll (http://localhost:3000/__cypress/runner/cypress_runner.js:114862:14)
+      at ensureElIsNotCovered (http://localhost:3000/__cypress/runner/cypress_runner.js:114993:5)
+      at runAllChecks (http://localhost:3000/__cypress/runner/cypress_runner.js:115192:52)
+      at retryActionability (http://localhost:3000/__cypress/runner/cypress_runner.js:115229:16)
+      at tryCatcher (http://localhost:3000/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (http://localhost:3000/__cypress/runner/cypress_runner.js:4285:29)
+      at whenStable (http://localhost:3000/__cypress/runner/cypress_runner.js:151493:68)
+      at <unknown> (http://localhost:3000/__cypress/runner/cypress_runner.js:151434:14)
+      at tryCatcher (http://localhost:3000/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise._settlePromiseFromHandler (http://localhost:3000/__cypress/runner/cypress_runner.js:1489:31)
+      at Promise._settlePromise (http://localhost:3000/__cypress/runner/cypress_runner.js:1546:18)
+      at Promise._settlePromise0 (http://localhost:3000/__cypress/runner/cypress_runner.js:1591:10)
+      at Promise._settlePromises (http://localhost:3000/__cypress/runner/cypress_runner.js:1671:18)
+      at Promise._fulfill (http://localhost:3000/__cypress/runner/cypress_runner.js:1615:18)
+      at <unknown> (http://localhost:3000/__cypress/runner/cypress_runner.js:5420:46)
+  From Your Spec Code:
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/help-center.cy.ts:28:37)
+
+  2) Help Center E2E
+       should display FAQs:
+     CypressError: Timed out retrying after 30050ms: `cy.click()` failed because this element:
+
+`<button class="flex items-center gap-2 px-6 py-4 border-b-2 transition-colors border-transparent text-slate-400 hover:text-slate-300">...</button>`
+
+is being covered by another element:
+
+`<div class="flex justify-between items-center py-4">...</div>`
+
+Fix this problem, or use {force: true} to disable error checking.
+
+https://on.cypress.io/element-cannot-be-interacted-with
+      at ensureIsDescendent (http://localhost:3000/__cypress/runner/cypress_runner.js:114805:68)
+      at ensureDescendents (http://localhost:3000/__cypress/runner/cypress_runner.js:114856:5)
+      at ensureDescendentsAndScroll (http://localhost:3000/__cypress/runner/cypress_runner.js:114862:14)
+      at ensureElIsNotCovered (http://localhost:3000/__cypress/runner/cypress_runner.js:114993:5)
+      at runAllChecks (http://localhost:3000/__cypress/runner/cypress_runner.js:115192:52)
+      at retryActionability (http://localhost:3000/__cypress/runner/cypress_runner.js:115229:16)
+      at tryCatcher (http://localhost:3000/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (http://localhost:3000/__cypress/runner/cypress_runner.js:4285:29)
+      at whenStable (http://localhost:3000/__cypress/runner/cypress_runner.js:151493:68)
+      at <unknown> (http://localhost:3000/__cypress/runner/cypress_runner.js:151434:14)
+      at tryCatcher (http://localhost:3000/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise._settlePromiseFromHandler (http://localhost:3000/__cypress/runner/cypress_runner.js:1489:31)
+      at Promise._settlePromise (http://localhost:3000/__cypress/runner/cypress_runner.js:1546:18)
+      at Promise._settlePromise0 (http://localhost:3000/__cypress/runner/cypress_runner.js:1591:10)
+      at Promise._settlePromises (http://localhost:3000/__cypress/runner/cypress_runner.js:1671:18)
+      at Promise._fulfill (http://localhost:3000/__cypress/runner/cypress_runner.js:1615:18)
+      at <unknown> (http://localhost:3000/__cypress/runner/cypress_runner.js:5420:46)
+  From Your Spec Code:
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/help-center.cy.ts:37:33)
+
+  3) Help Center E2E
+       should open AI Assistant:
+     CypressError: Timed out retrying after 30050ms: `cy.click()` failed because this element:
+
+`<button class="absolute right-3 top-1/2 -translate-y-1/2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl flex items-center gap-2 transition-colors">...</button>`
+
+is being covered by another element:
+
+`<div class="flex justify-between items-center py-4">...</div>`
+
+Fix this problem, or use {force: true} to disable error checking.
+
+https://on.cypress.io/element-cannot-be-interacted-with
+      at ensureIsDescendent (http://localhost:3000/__cypress/runner/cypress_runner.js:114805:68)
+      at ensureDescendents (http://localhost:3000/__cypress/runner/cypress_runner.js:114856:5)
+      at ensureDescendentsAndScroll (http://localhost:3000/__cypress/runner/cypress_runner.js:114862:14)
+      at ensureElIsNotCovered (http://localhost:3000/__cypress/runner/cypress_runner.js:114993:5)
+      at runAllChecks (http://localhost:3000/__cypress/runner/cypress_runner.js:115192:52)
+      at retryActionability (http://localhost:3000/__cypress/runner/cypress_runner.js:115229:16)
+      at tryCatcher (http://localhost:3000/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (http://localhost:3000/__cypress/runner/cypress_runner.js:4285:29)
+      at whenStable (http://localhost:3000/__cypress/runner/cypress_runner.js:151493:68)
+      at <unknown> (http://localhost:3000/__cypress/runner/cypress_runner.js:151434:14)
+      at tryCatcher (http://localhost:3000/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise._settlePromiseFromHandler (http://localhost:3000/__cypress/runner/cypress_runner.js:1489:31)
+      at Promise._settlePromise (http://localhost:3000/__cypress/runner/cypress_runner.js:1546:18)
+      at Promise._settlePromise0 (http://localhost:3000/__cypress/runner/cypress_runner.js:1591:10)
+      at Promise._settlePromises (http://localhost:3000/__cypress/runner/cypress_runner.js:1671:18)
+      at Promise._fulfill (http://localhost:3000/__cypress/runner/cypress_runner.js:1615:18)
+      at <unknown> (http://localhost:3000/__cypress/runner/cypress_runner.js:5420:46)
+  From Your Spec Code:
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/help-center.cy.ts:51:36)
+
+
+
+
+  (Results)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Tests:        5                                                                                Ôöé
+  Ôöé Passing:      2                                                                                Ôöé
+  Ôöé Failing:      3                                                                                Ôöé
+  Ôöé Pending:      0                                                                                Ôöé
+  Ôöé Skipped:      0                                                                                Ôöé
+  Ôöé Screenshots:  3                                                                                Ôöé
+  Ôöé Video:        false                                                                            Ôöé
+  Ôöé Duration:     1 minute, 34 seconds                                                             Ôöé
+  Ôöé Spec Ran:     help-center.cy.ts                                                                Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+  (Screenshots)
+
+  -  E:\EdpsychConnect\cypress\screenshots\help-center.cy.ts\Help Center E2E -- shoul     (1280x720)
+     d navigate to category view (failed).png                                                       
+  -  E:\EdpsychConnect\cypress\screenshots\help-center.cy.ts\Help Center E2E -- shoul     (1280x720)
+     d display FAQs (failed).png                                                                    
+  -  E:\EdpsychConnect\cypress\screenshots\help-center.cy.ts\Help Center E2E -- shoul     (1280x720)
+     d open AI Assistant (failed).png                                                               
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé ├ù  demo.cy.ts                               01:05        3        1        2        -        - Ôöé
+  Ôö£ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöñ
+  Ôöé ├ù  help-center.cy.ts                        01:34        5        2        3        -        - Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+    ├ù  2 of 2 failed (100%)                     02:39        8        3        5        -        -  
+

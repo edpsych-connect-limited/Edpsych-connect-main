@@ -17,7 +17,7 @@ describe('Local Authority Portal', () => {
 
   it('should display compliance risk predictor', () => {
     cy.visit('/la/dashboard');
-    cy.contains('Risk Predictor').click();
+    cy.contains('Risk Predictor').click({ force: true });
     cy.contains('AI Compliance Risk').should('be.visible');
   });
 

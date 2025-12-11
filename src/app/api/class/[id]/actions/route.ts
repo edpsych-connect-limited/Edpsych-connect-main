@@ -107,8 +107,9 @@ interface ActionApprovalResponse {
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: { params: Promise<{ id: string }> }
 ): Promise<NextResponse<ClassActionsResponse | { error: string; message?: string }>> {
+  const params = await props.params;
   try {
     // Authentication
     const session = await authService.getSessionFromRequest(request);
@@ -350,8 +351,9 @@ export async function GET(
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: { params: Promise<{ id: string }> }
 ): Promise<NextResponse<ActionApprovalResponse | { error: string; message?: string; errors?: any }>> {
+  const params = await props.params;
   try {
     // Authentication
     const session = await authService.getSessionFromRequest(request);

@@ -1,0 +1,43 @@
+ ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+ ⚠ Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[2025-12-11T02:17:41.949Z] WARN: Slow query detected (442ms) { model: 'users', operation: 'findUnique', executionTime: 442 }
+[2025-12-11T02:19:58.212Z] WARN: Slow query detected (2009ms) { model: 'users', operation: 'findUnique', executionTime: 2009 }
+[2025-12-11T02:20:02.247Z] WARN: Slow query detected (150ms) { model: 'AuditLog', operation: 'create', executionTime: 150 }
+[2025-12-11T02:23:56.968Z] WARN: Slow query detected (3404ms) { model: 'users', operation: 'findUnique', executionTime: 3404 }
+[2025-12-11T02:23:57.246Z] WARN: Slow query detected (112ms) { model: 'users', operation: 'update', executionTime: 112 }
+[2025-12-11T02:27:32.747Z] WARN: Slow query detected (3574ms) { model: 'users', operation: 'findUnique', executionTime: 3574 }
+[2025-12-11T02:27:33.092Z] WARN: Slow query detected (162ms) { model: 'users', operation: 'update', executionTime: 162 }
+[2025-12-11T02:27:33.272Z] WARN: Slow query detected (162ms) { model: 'AuditLog', operation: 'create', executionTime: 162 }
+[2025-12-11T02:27:48.226Z] WARN: Slow query detected (114ms) { model: 'users', operation: 'findUnique', executionTime: 114 }
+[2025-12-11T02:27:48.440Z] WARN: Slow query detected (314ms) { model: 'users', operation: 'findUnique', executionTime: 314 }
+[2025-12-11T02:27:48.446Z] WARN: Slow query detected (309ms) { model: 'users', operation: 'findUnique', executionTime: 309 }
+[2025-12-11T02:27:48.451Z] WARN: Slow query detected (332ms) { model: 'users', operation: 'findUnique', executionTime: 332 }
+[2025-12-11T02:27:48.462Z] WARN: Slow query detected (329ms) { model: 'users', operation: 'findUnique', executionTime: 329 }
+[2025-12-11T02:30:59.627Z] WARN: Slow query detected (1020ms) { model: 'users', operation: 'findUnique', executionTime: 1020 }
+[2025-12-11T02:31:09.336Z] WARN: Slow query detected (108ms) { model: 'users', operation: 'findUnique', executionTime: 108 }
+[2025-12-11T02:31:09.341Z] WARN: Slow query detected (106ms) { model: 'users', operation: 'findUnique', executionTime: 106 }
+[2025-12-11T02:31:09.735Z] WARN: Slow query detected (140ms) { model: 'users', operation: 'findUnique', executionTime: 140 }
+[2025-12-11T02:33:38.440Z] WARN: Slow query detected (2672ms) { model: 'users', operation: 'findUnique', executionTime: 2672 }
+[2025-12-11T02:33:38.736Z] WARN: Slow query detected (155ms) { model: 'users', operation: 'update', executionTime: 155 }
+[2025-12-11T02:33:49.487Z] WARN: Slow query detected (168ms) { model: 'users', operation: 'findUnique', executionTime: 168 }
+[2025-12-11T02:33:49.494Z] WARN: Slow query detected (156ms) { model: 'users', operation: 'findUnique', executionTime: 156 }
+[2025-12-11T02:33:49.505Z] WARN: Slow query detected (179ms) { model: 'users', operation: 'findUnique', executionTime: 179 }
+[2025-12-11T02:33:49.512Z] WARN: Slow query detected (168ms) { model: 'users', operation: 'findUnique', executionTime: 168 }
+[2025-12-11T02:33:49.555Z] WARN: Slow query detected (176ms) { model: 'users', operation: 'findUnique', executionTime: 176 }
+[2025-12-11T02:33:49.644Z] WARN: Slow query detected (275ms) { model: 'EHCPApplication', operation: 'findMany', executionTime: 275 }
+[2025-12-11T02:33:49.673Z] WARN: Slow query detected (165ms) { model: 'EHCPApplication', operation: 'findMany', executionTime: 165 }
+[2025-12-11T02:33:49.680Z] WARN: Slow query detected (190ms) { model: 'EHCPApplication', operation: 'findMany', executionTime: 190 }
+[2025-12-11T02:33:49.695Z] WARN: Slow query detected (180ms) { model: 'EHCPApplication', operation: 'findMany', executionTime: 180 }
+[2025-12-11T02:33:49.702Z] WARN: Slow query detected (205ms) { model: 'EHCPApplication', operation: 'findMany', executionTime: 205 }
+[2025-12-11T02:33:49.711Z] WARN: Slow query detected (154ms) { model: 'EHCPApplication', operation: 'findMany', executionTime: 154 }
+[2025-12-11T02:36:30.161Z] WARN: Slow query detected (2832ms) { model: 'users', operation: 'findUnique', executionTime: 2832 }
+[2025-12-11T02:36:30.468Z] WARN: Slow query detected (135ms) { model: 'users', operation: 'update', executionTime: 135 }
+[2025-12-11T02:36:30.627Z] WARN: Slow query detected (155ms) { model: 'AuditLog', operation: 'create', executionTime: 155 }
+[2025-12-11T02:36:34.755Z] WARN: Slow query detected (108ms) { model: 'users', operation: 'findUnique', executionTime: 108 }
+[2025-12-11T02:36:41.800Z] WARN: Slow query detected (101ms) { model: 'users', operation: 'findUnique', executionTime: 101 }
+[2025-12-11T02:36:41.918Z] WARN: Slow query detected (202ms) { model: 'EHCPApplication', operation: 'findMany', executionTime: 202 }
+[2025-12-11T02:36:41.936Z] WARN: Slow query detected (152ms) { model: 'EHCPApplication', operation: 'findMany', executionTime: 152 }
+[2025-12-11T02:36:41.945Z] WARN: Slow query detected (146ms) { model: 'EHCPApplication', operation: 'findMany', executionTime: 146 }
+[2025-12-11T02:36:41.954Z] WARN: Slow query detected (164ms) { model: 'EHCPApplication', operation: 'findMany', executionTime: 164 }
+[2025-12-11T02:36:41.965Z] WARN: Slow query detected (149ms) { model: 'EHCPApplication', operation: 'findMany', executionTime: 149 }

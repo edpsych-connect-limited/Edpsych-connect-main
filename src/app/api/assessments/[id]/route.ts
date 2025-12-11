@@ -28,8 +28,9 @@ const UpdateAssessmentSchema = z.object({
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: { params: Promise<{ id: string }> }
 ) {
+  const params = await props.params;
   const id = parseInt(params.id);
 
   if (isNaN(id)) {
@@ -82,8 +83,9 @@ export async function GET(
  */
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: { params: Promise<{ id: string }> }
 ) {
+  const params = await props.params;
   const ipAddress = getIpAddress(request);
   const requestId = getRequestId(request);
   const id = parseInt(params.id);

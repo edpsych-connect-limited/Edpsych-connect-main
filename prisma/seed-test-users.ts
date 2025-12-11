@@ -106,7 +106,8 @@ async function main() {
       update: { 
         password_hash: demoPassword,
         tenant_id: tenant.id,
-        is_active: true
+        is_active: true,
+        onboarding_completed: true
       },
       create: {
         tenant_id: tenant.id,
@@ -119,6 +120,7 @@ async function main() {
         permissions: ['VIEW_OWN_CHILD', 'MESSAGE_TEACHER', 'VIEW_CHILD_PROGRESS'],
         isEmailVerified: true,
         is_active: true,
+        onboarding_completed: true,
       },
     });
     console.log('✅ Demo Parent created: parent@demo.com / Test123!');

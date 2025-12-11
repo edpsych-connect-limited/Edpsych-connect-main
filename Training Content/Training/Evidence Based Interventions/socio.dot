@@ -1,0 +1,111 @@
+digraph {overlap=scale; sep=0.80; splines=true; start=rand; node[fontsize=24]; edge [arrowsize=1.5];
+1
+2
+3 [style=filled fillcolor=palegreen]
+4 [style=filled fillcolor=palegreen]
+5
+6
+7
+8
+9 [style=filled fillcolor=gray]
+10
+11
+12 [style=filled fillcolor=gray]
+13
+14 [style=filled fillcolor=orange]
+15
+16
+17
+18
+19 [style=filled fillcolor=gray]
+20 [style=filled fillcolor=gray]
+21
+22 [style=filled fillcolor=palegreen]
+23
+24 [style=filled fillcolor=palevioletred]
+25 [style=filled fillcolor=palevioletred]
+26
+27
+1 -> 18
+1 -> 13 [dir=both color=blue]
+1 -> 5 [dir=both color=blue]
+2 -> 14 [dir=both color=blue]
+2 -> 5
+2 -> 17 [dir=both color=blue]
+3 -> 22 [dir=both color=blue]
+3 -> 6
+3 -> 26 [dir=both color=blue]
+4 -> 11 [dir=both color=blue]
+4 -> 3
+4 -> 14
+5 -> 22
+
+5 -> 4
+6 -> 8 [dir=both color=blue]
+6 -> 9
+6 -> 22
+7 -> 25 [dir=both color=blue]
+7 -> 4
+7 -> 6
+
+8 -> 11
+8 -> 21
+9 -> 22
+9 -> 3
+9 -> 15
+10 -> 16 [dir=both color=blue]
+10 -> 27
+10 -> 20
+
+11 -> 26
+11 -> 21
+12 -> 4
+12 -> 11
+12 -> 6
+13 -> 18 [dir=both color=blue]
+
+13 -> 5
+14 -> 27 [dir=both color=blue]
+
+14 -> 17 [dir=both color=blue]
+15 -> 3
+15 -> 8
+15 -> 4
+16 -> 20
+
+16 -> 5
+17 -> 27 [dir=both color=blue]
+
+
+
+18 -> 14
+18 -> 5
+19 -> 23
+19 -> 14
+19 -> 8
+20 -> 14
+20 -> 1
+20 -> 23
+21 -> 22 [dir=both color=blue]
+21 -> 26
+21 -> 4
+
+
+22 -> 11
+23 -> 27
+23 -> 24
+23 -> 27
+24 -> 22
+24 -> 8
+24 -> 21
+
+25 -> 3
+25 -> 4
+26 -> 15
+26 -> 7
+
+
+27 -> 2
+
+
+}

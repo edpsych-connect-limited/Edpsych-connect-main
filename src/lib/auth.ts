@@ -9,7 +9,7 @@ import { emailService } from "@/lib/email/email-service";
  */
 
 // EdPsych Connect World - Authentication Service
-// Updated: Railway Postgres Integration + Subscription System Compatible
+// Updated: Neon Postgres Integration + Subscription System Compatible
 // Environment: PRODUCTION
 // Compliance: GDPR, ISO 27001, SOC 2
 
@@ -45,7 +45,7 @@ export async function auth(): Promise<Session | null> {
   try {
     // For now, return null as we need to implement session management
     // This would typically check for JWT tokens or session cookies
-    console.warn('auth() function needs Railway Postgres session implementation');
+    console.warn('auth() function needs Neon Postgres session implementation');
     return null;
   } catch (_error) {
     console.error('Auth service _error', _error instanceof Error ? _error : new Error('Unknown _error'));

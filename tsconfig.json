@@ -39,7 +39,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/lib/security/ip-protection.ts",
-    ".next/dev/types/**/*.ts"
+    ".next/dev/types/**/*.ts",
+    ".next_temp/types/**/*.ts",
+    ".next_temp/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

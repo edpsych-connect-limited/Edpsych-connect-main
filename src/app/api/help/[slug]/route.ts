@@ -15,8 +15,9 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  props: { params: Promise<{ slug: string }> }
 ) {
+  const params = await props.params;
   try {
     const { slug } = params;
 
@@ -77,8 +78,9 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  props: { params: Promise<{ slug: string }> }
 ) {
+  const params = await props.params;
   try {
     const { slug } = params;
     const { helpful } = await request.json();

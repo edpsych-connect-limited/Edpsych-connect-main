@@ -1,0 +1,3 @@
+[2025-12-11T01:44:47.692Z] WARN: Slow query detected (3148ms) { model: 'users', operation: 'findUnique', executionTime: 3148 }
+[2025-12-11T01:44:48.089Z] WARN: Slow query detected (159ms) { model: 'users', operation: 'update', executionTime: 159 }
+[2025-12-11T01:44:48.285Z] WARN: Slow query detected (177ms) { model: 'AuditLog', operation: 'create', executionTime: 177 }

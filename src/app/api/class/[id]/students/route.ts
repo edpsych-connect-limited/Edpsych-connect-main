@@ -146,8 +146,9 @@ function calculateUrgencyLevel(studentData: {
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: { params: Promise<{ id: string }> }
 ): Promise<NextResponse<ClassStudentsResponse | { error: string; message?: string }>> {
+  const params = await props.params;
   try {
     // Authentication
     const session = await authService.getSessionFromRequest(request);

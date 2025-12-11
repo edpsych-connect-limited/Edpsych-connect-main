@@ -8,21 +8,19 @@
 
 // EdPsych Connect World - Supabase Client Configuration
 // DEPRECATED: This file is no longer used
-// Updated: Railway Postgres Integration
+// Updated: Neon Postgres Integration
 // Environment: PRODUCTION
 // Compliance: GDPR, ISO 27001, SOC 2
 
 /**
  * ⚠️  DEPRECATED: This Supabase client is NOT used in production
  *
- * The EdPsych Connect World platform uses Railway Postgres, not Supabase.
+ * The EdPsych Connect World platform uses Neon Postgres, not Supabase.
  * This file is kept for reference only.
  *
  * Current Database Setup:
- * - Railway Postgres (primary database)
+ * - Neon Postgres (primary database)
  * - Redis (caching and session management)
- * - MongoDB (document storage)
- * - Neo4j (graph database)
  *
  * See: apps/web/src/lib/auth.ts for the current authentication implementation
  */

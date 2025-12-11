@@ -1,0 +1,220 @@
+ ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+ ⚠ Cross origin request detected from 192.168.1.187 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[2025-12-10T18:55:25.540Z] WARN: Slow query detected (1805ms) { model: 'users', operation: 'findUnique', executionTime: 1805 }
+[2025-12-10T18:55:28.604Z] WARN: Slow query detected (278ms) { model: 'users', operation: 'findUnique', executionTime: 278 }
+[2025-12-10T18:55:29.081Z] WARN: Slow query detected (293ms) { model: 'users', operation: 'update', executionTime: 293 }
+[2025-12-10T18:55:29.403Z] WARN: Slow query detected (311ms) { model: 'AuditLog', operation: 'create', executionTime: 311 }
+[2025-12-10T19:06:14.753Z] WARN: Slow query detected (1328ms) { model: 'users', operation: 'findUnique', executionTime: 1328 }
+[2025-12-10T19:06:17.248Z] WARN: Slow query detected (263ms) { model: 'users', operation: 'findUnique', executionTime: 263 }
+[2025-12-10T19:06:17.626Z] WARN: Slow query detected (228ms) { model: 'users', operation: 'update', executionTime: 228 }
+[2025-12-10T19:06:17.751Z] WARN: Slow query detected (120ms) { model: 'AuditLog', operation: 'create', executionTime: 120 }
+[2025-12-10T19:21:16.846Z] WARN: Slow query detected (2920ms) { model: 'users', operation: 'findUnique', executionTime: 2920 }
+[2025-12-10T19:21:17.280Z] WARN: Slow query detected (180ms) { model: 'users', operation: 'update', executionTime: 180 }
+[2025-12-10T19:21:17.443Z] WARN: Slow query detected (141ms) { model: 'AuditLog', operation: 'create', executionTime: 141 }
+[2025-12-10T19:21:44.714Z] WARN: Slow query detected (335ms) { model: 'users', operation: 'findUnique', executionTime: 335 }
+E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__afc4048d._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\lib\router-utils\instrumentation-node-extensions.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[2025-12-10T19:22:10.367Z] ERROR: [Orchestrator] Error processing tutor request: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at POST (E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__afc4048d._.js:2770:32)
+[2025-12-10T19:22:31.578Z] WARN: Slow query detected (673ms) { model: 'users', operation: 'findUnique', executionTime: 673 }
+[2025-12-10T19:24:42.763Z] WARN: Slow query detected (792ms) { model: 'BlogPost', operation: 'count', executionTime: 792 }
+[2025-12-10T19:24:42.769Z] WARN: Slow query detected (669ms) { model: 'BlogCategory', operation: 'findMany', executionTime: 669 }
+[2025-12-10T19:24:42.774Z] WARN: Slow query detected (657ms) { model: 'BlogTag', operation: 'findMany', executionTime: 657 }
+[2025-12-10T19:24:42.857Z] WARN: Slow query detected (747ms) { model: 'BlogPost', operation: 'findMany', executionTime: 747 }
+[2025-12-10T19:24:42.865Z] WARN: Slow query detected (894ms) { model: 'BlogPost', operation: 'findMany', executionTime: 894 }
+[2025-12-10T19:24:45.575Z] WARN: Slow query detected (117ms) { model: 'users', operation: 'findUnique', executionTime: 117 }
+[2025-12-10T19:25:12.003Z] WARN: Slow query detected (132ms) { model: 'users', operation: 'update', executionTime: 132 }
+[2025-12-10T19:25:39.892Z] WARN: Slow query detected (563ms) { model: 'EHCPApplication', operation: 'findMany', executionTime: 563 }
+[2025-12-10T19:25:42.401Z] WARN: Slow query detected (694ms) { model: 'users', operation: 'findUnique', executionTime: 694 }
+[2025-12-10T19:25:42.854Z] WARN: Slow query detected (243ms) { model: 'users', operation: 'update', executionTime: 243 }
+[2025-12-10T19:25:43.031Z] WARN: Slow query detected (167ms) { model: 'AuditLog', operation: 'create', executionTime: 167 }
+[2025-12-10T19:26:36.331Z] WARN: Slow query detected (6867ms) { model: 'users', operation: 'findUnique', executionTime: 6867 }
+[2025-12-10T19:26:36.709Z] WARN: Slow query detected (180ms) { model: 'users', operation: 'update', executionTime: 180 }
+E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__110a2c72._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\lib\router-utils\instrumentation-node-extensions.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+❌ Failed to process error report: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at POST (E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__110a2c72._.js:67:36)
+E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__110a2c72._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\lib\router-utils\instrumentation-node-extensions.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+❌ Failed to process error report: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at POST (E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__110a2c72._.js:67:36)
+[2025-12-10T19:27:17.938Z] WARN: Slow query detected (2210ms) { model: 'users', operation: 'findUnique', executionTime: 2210 }
+[2025-12-10T19:28:19.692Z] WARN: Slow query detected (1235ms) { model: 'assessments', operation: 'findMany', executionTime: 1235 }
+E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__e40e394a._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\@prisma\client\runtime\library.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\.next\dev\server\chunks\node_modules_next_8267a210._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[AUDIT LOG] Failed to write audit log: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.auditLog.create()` invocation in
+E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__e40e394a._.js:1488:35
+
+  1485 const userId = parseInt(entry.performedBy);
+  1486 const validUserId = isNaN(userId) ? 0 : userId;
+  1487 const tenantId = entry.tenantId || null;
+→ 1488 await prisma.auditLog.create(
+Foreign key constraint violated on the constraint: `audit_logs_user_id_int_fkey`
+    at <unknown> (E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__e40e394a._.js:1488:35)
+    at async AuditLogger.log (E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__e40e394a._.js:1488:13)
+    at async authenticateRequest (E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__e40e394a._.js:1849:9)
+    at async authorizeRequest (E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__e40e394a._.js:1878:24)
+    at async GET (E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__e40e394a._.js:2252:28) {
+  code: 'P2003',
+  meta: [Object],
+  clientVersion: '6.19.0'
+}
+E:\EdpsychConnect\.next\dev\server\chunks\ssr\node_modules_react-reconciler_8dd5e087._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\.next\dev\server\chunks\ssr\node_modules_@react-three_fiber_dist_a66c63c8._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\.next\dev\server\chunks\ssr\[turbopack]_runtime.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\.next\dev\server\chunks\ssr\src_2b7a5a1a._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+ ⨯ TypeError: Cannot read properties of undefined (reading 'ReactCurrentOwner')
+    at instantiateModule (E:\EdpsychConnect\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (E:\EdpsychConnect\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:738:12)
+    at Context.esmImport [as i] (E:\EdpsychConnect\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:228:20)
+    ... collapsed 3 duplicate lines matching above lines ...
+    at module evaluation (E:\EdpsychConnect\.next\dev\server\chunks\ssr\src_2b7a5a1a._.js:143:225)
+    at instantiateModule (E:\EdpsychConnect\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (E:\EdpsychConnect\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:738:12)
+    at Context.esmImport [as i] (E:\EdpsychConnect\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:228:20)
+    at module evaluation (E:\EdpsychConnect\.next\dev\server\chunks\ssr\src_2b7a5a1a._.js:3763:184)
+    at instantiateModule (E:\EdpsychConnect\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (E:\EdpsychConnect\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:738:12)
+    at Context.esmImport [as i] (E:\EdpsychConnect\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:228:20)
+    at module evaluation (E:\EdpsychConnect\.next\dev\server\chunks\ssr\src_2b7a5a1a._.js:4138:187)
+    at instantiateModule (E:\EdpsychConnect\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (E:\EdpsychConnect\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:738:12)
+    at Context.commonJsRequire [as r] (E:\EdpsychConnect\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:249:12) {
+  digest: '2895194268'
+}
+[2025-12-10T19:30:56.349Z] WARN: Slow query detected (1442ms) { model: 'users', operation: 'findUnique', executionTime: 1442 }
+🚨 Client Error Report: {
+  "timestamp": 1765395191337,
+  "type": "error",
+  "message": "No QueryClient set, use QueryClientProvider to set one",
+  "url": "http://localhost:3000/en/parents",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/15.7.1 Chrome/138.0.7204.251 Electron/37.6.0 Safari/537.36",
+  "context": {
+    "errorSource": "React Error Boundary",
+    "componentStack": "Route Error Boundary"
+  },
+  "stack": "Error: No QueryClient set, use QueryClientProvider to set one\n    at useQueryClient (http://localhost:3000/_next/static/chunks/node_modules_daedd35b._.js:1788:15)\n    at ParentPortal (http://localhost:3000/_next/static/chunks/src_5167827c._.js:2106:233)\n    at Object.react_stack_bottom_frame (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:14816:24)\n    at renderWithHooks (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:4645:24)\n    at updateFunctionComponent (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:6106:21)\n    at beginWork (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:6702:24)\n    at runWithFiberInDEV (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:959:74)\n    at performUnitOfWork (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:9556:97)\n    at workLoopSync (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:9450:40)\n    at renderRootSync (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:9434:13)\n    at performWorkOnRoot (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:9099:47)\n    at performSyncWorkOnRoot (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:10232:9)\n    at flushSyncWorkAcrossRoots_impl (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:10148:316)\n    at processRootScheduleInMicrotask (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:10169:106)\n    at http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:10243:158"
+}
+🚨 Client Error Report: {
+  "timestamp": 1765395191382,
+  "type": "error",
+  "message": "No QueryClient set, use QueryClientProvider to set one",
+  "url": "http://localhost:3000/en/parents",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/15.7.1 Chrome/138.0.7204.251 Electron/37.6.0 Safari/537.36",
+  "context": {
+    "errorSource": "React Error Boundary",
+    "componentStack": "Route Error Boundary"
+  },
+  "stack": "Error: No QueryClient set, use QueryClientProvider to set one\n    at useQueryClient (http://localhost:3000/_next/static/chunks/node_modules_daedd35b._.js:1788:15)\n    at ParentPortal (http://localhost:3000/_next/static/chunks/src_5167827c._.js:2106:233)\n    at Object.react_stack_bottom_frame (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:14816:24)\n    at renderWithHooks (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:4645:24)\n    at updateFunctionComponent (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:6106:21)\n    at beginWork (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:6702:24)\n    at runWithFiberInDEV (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:959:74)\n    at performUnitOfWork (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:9556:97)\n    at workLoopSync (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:9450:40)\n    at renderRootSync (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:9434:13)\n    at performWorkOnRoot (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:9099:47)\n    at performSyncWorkOnRoot (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:10232:9)\n    at flushSyncWorkAcrossRoots_impl (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:10148:316)\n    at processRootScheduleInMicrotask (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:10169:106)\n    at http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js:10243:158"
+}
+[2025-12-10T19:33:52.218Z] WARN: Slow query detected (1539ms) { model: 'users', operation: 'findUnique', executionTime: 1539 }
+[2025-12-10T19:33:52.512Z] WARN: Slow query detected (111ms) { model: 'users', operation: 'update', executionTime: 111 }
+[2025-12-10T19:34:50.365Z] ERROR: Query failed: onboarding_progress.create {
+  error: '\n' +
+    'Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prismaSafe$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].onboarding_progress.create()` invocation in\n' +
+    'E:\\EdpsychConnect\\.next\\dev\\server\\chunks\\[root-of-the-server]__ca63bb34._.js:843:169\n' +
+    '\n' +
+    '  840     }\n' +
+    '  841 });\n' +
+    '  842 if (!existing) {\n' +
+    '→ 843     await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prismaSafe$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].onboarding_progress.create(\n' +
+    'Unique constraint failed on the fields: (`user_id`)'
+}
+E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__ca63bb34._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\@prisma\client\runtime\library.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\.next\dev\server\chunks\node_modules_4311ff75._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[Onboarding] Unhandled Error: Error [PrismaClientKnownRequestError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prismaSafe$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].onboarding_progress.create()` invocation in
+E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__ca63bb34._.js:843:169
+
+  840     }
+  841 });
+  842 if (!existing) {
+→ 843     await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$prismaSafe$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].onboarding_progress.create(
+Unique constraint failed on the fields: (`user_id`)
+    at <unknown> (E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__ca63bb34._.js:843:169)
+    at async Array.$allOperations (E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__ca63bb34._.js:254:40)
+    at async handleStart (E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__ca63bb34._.js:843:9)
+    at async routeOnboardingRequest (E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__ca63bb34._.js:640:24) {
+  code: 'P2002',
+  meta: [Object],
+  clientVersion: '6.19.0'
+}
+[2025-12-10T19:36:24.539Z] WARN: Slow query detected (2453ms) { model: 'users', operation: 'findUnique', executionTime: 2453 }
+[2025-12-10T19:36:24.826Z] WARN: Slow query detected (133ms) { model: 'users', operation: 'update', executionTime: 133 }
+[2025-12-10T19:36:24.938Z] WARN: Slow query detected (106ms) { model: 'AuditLog', operation: 'create', executionTime: 106 }
+[2025-12-10T19:36:29.931Z] WARN: Slow query detected (241ms) { model: 'assessments', operation: 'findMany', executionTime: 241 }
+E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__e40e394a._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\@prisma\client\runtime\library.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\.next\dev\server\chunks\node_modules_next_8267a210._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+E:\EdpsychConnect\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[AUDIT LOG] Failed to write audit log: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.auditLog.create()` invocation in
+E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__e40e394a._.js:1488:35
+
+  1485 const userId = parseInt(entry.performedBy);
+  1486 const validUserId = isNaN(userId) ? 0 : userId;
+  1487 const tenantId = entry.tenantId || null;
+→ 1488 await prisma.auditLog.create(
+Foreign key constraint violated on the constraint: `audit_logs_user_id_int_fkey`
+    at <unknown> (E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__e40e394a._.js:1488:35)
+    at async AuditLogger.log (E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__e40e394a._.js:1488:13)
+    at async authenticateRequest (E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__e40e394a._.js:1849:9)
+    at async authorizeRequest (E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__e40e394a._.js:1878:24)
+    at async GET (E:\EdpsychConnect\.next\dev\server\chunks\[root-of-the-server]__e40e394a._.js:2252:28) {
+  code: 'P2003',
+  meta: [Object],
+  clientVersion: '6.19.0'
+}
+[2025-12-10T19:37:33.047Z] WARN: Slow query detected (1979ms) { model: 'users', operation: 'findUnique', executionTime: 1979 }
+[2025-12-10T19:38:58.877Z] WARN: Slow query detected (1527ms) { model: 'users', operation: 'findUnique', executionTime: 1527 }
+[Parent Portal API] Unauthorized access attempt
+[Parent Portal API] Unauthorized access attempt
+[2025-12-10T19:48:12.821Z] WARN: Slow query detected (1532ms) { model: 'users', operation: 'findUnique', executionTime: 1532 }
+[Parent Portal API] Unauthorized access attempt
+[Parent Portal API] Unauthorized access attempt
+[Parent Portal API] Unauthorized access attempt
+[2025-12-10T19:54:31.220Z] WARN: Slow query detected (1418ms) { model: 'users', operation: 'findUnique', executionTime: 1418 }
+[Parent Portal API] Unauthorized access attempt
+[Parent Portal API] Unauthorized access attempt
+[Parent Portal API] Unauthorized access attempt
+[2025-12-10T20:02:00.798Z] WARN: Slow query detected (2656ms) { model: 'users', operation: 'findUnique', executionTime: 2656 }
+[2025-12-10T20:02:01.093Z] WARN: Slow query detected (137ms) { model: 'users', operation: 'update', executionTime: 137 }
+[2025-12-10T20:02:01.275Z] WARN: Slow query detected (173ms) { model: 'AuditLog', operation: 'create', executionTime: 173 }
+[2025-12-10T20:05:43.500Z] WARN: Slow query detected (1593ms) { model: 'users', operation: 'findUnique', executionTime: 1593 }
+[2025-12-10T20:05:43.824Z] WARN: Slow query detected (116ms) { model: 'AuditLog', operation: 'create', executionTime: 116 }
+[2025-12-10T20:07:02.182Z] WARN: Slow query detected (1664ms) { model: 'users', operation: 'findUnique', executionTime: 1664 }
+[2025-12-10T20:10:51.052Z] WARN: Slow query detected (1511ms) { model: 'users', operation: 'findUnique', executionTime: 1511 }

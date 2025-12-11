@@ -13,32 +13,43 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import ParentPortal from '@/components/orchestration/ParentPortal';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export default function ParentsPage() {
   const [showPortal, setShowPortal] = useState(false);
+  const [queryClient] = useState(() => new QueryClient());
+
+  // Scroll to top when portal opens to ensure header visibility
+  React.useEffect(() => {
+    if (showPortal) {
+      window.scrollTo(0, 0);
+    }
+  }, [showPortal]);
 
   if (showPortal) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              <div className="flex items-center">
-                <span className="text-xl font-bold text-rose-600">Parent Portal</span>
+      <QueryClientProvider client={queryClient}>
+        <div className="min-h-screen bg-gray-50">
+          <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex justify-between items-center h-16">
+                <div className="flex items-center">
+                  <span className="text-xl font-bold text-rose-600">Parent Portal</span>
+                </div>
+                <button
+                  onClick={() => setShowPortal(false)}
+                  className="text-sm text-gray-500 hover:text-gray-700"
+                >
+                  Exit Demo
+                </button>
               </div>
-              <button
-                onClick={() => setShowPortal(false)}
-                className="text-sm text-gray-500 hover:text-gray-700"
-              >
-                Exit Demo
-              </button>
             </div>
           </div>
+          <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <ParentPortal childId={1} parentId={1} demoMode={true} />
+          </main>
         </div>
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <ParentPortal childId={1} parentId={1} />
-        </main>
-      </div>
+      </QueryClientProvider>
     );
   }
 

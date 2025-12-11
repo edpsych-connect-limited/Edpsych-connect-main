@@ -215,7 +215,7 @@ export async function getSessionFromRequest(req: NextRequest): Promise<UserSessi
  * @returns User session if authenticated, null otherwise
  */
 export async function getSession(): Promise<UserSession | null> {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const token = cookieStore.get(COOKIE_NAME)?.value;
   
   if (!token) {
@@ -229,8 +229,8 @@ export async function getSession(): Promise<UserSession | null> {
  * Set authentication cookie
  * @param token JWT token string
  */
-export function setAuthCookie(token: string): void {
-  cookies().set({
+export async function setAuthCookie(token: string): Promise<void> {
+  (await cookies()).set({
     name: COOKIE_NAME,
     value: token,
     httpOnly: true,
@@ -243,8 +243,8 @@ export function setAuthCookie(token: string): void {
 /**
  * Clear authentication cookie
  */
-export function clearAuthCookie(): void {
-  cookies().delete(COOKIE_NAME);
+export async function clearAuthCookie(): Promise<void> {
+  (await cookies()).delete(COOKIE_NAME);
 }
 
 /**

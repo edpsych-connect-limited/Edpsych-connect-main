@@ -85,22 +85,29 @@ Cypress.Commands.add('login', (email = 'test@example.com', password = 'password1
     body: { email, password },
     failOnStatusCode: false
   }).then((response) => {
-    if (response.status === 200 && response.body.token) {
+    if (response.status === 200 && response.body.data && response.body.data.accessToken) {
+      const token = response.body.data.accessToken;
+      const refreshToken = response.body.data.refreshToken;
+      const user = response.body.data.user;
+      
       // Set the token in localStorage to simulate login
       cy.window().then((win) => {
-        win.localStorage.setItem('token', response.body.token);
-        if (response.body.refreshToken) {
-          win.localStorage.setItem('refreshToken', response.body.refreshToken);
+        win.localStorage.setItem('accessToken', token);
+        if (refreshToken) {
+          win.localStorage.setItem('refreshToken', refreshToken);
+        }
+        if (user) {
+          win.localStorage.setItem('userData', JSON.stringify(user));
         }
       });
       
       // Set cookies if needed
-      if (response.body.token) {
-        cy.setCookie('token', response.body.token);
-      }
+      cy.setCookie('auth-token', token);
       
-      // Visit the protected route
-      cy.visit('/dashboard');
+      // Log success
+      cy.log('Login successful via API');
+    } else {
+      throw new Error('Login failed via API: ' + JSON.stringify(response.body));
     }
   });
 });

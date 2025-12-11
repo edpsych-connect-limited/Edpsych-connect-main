@@ -50,8 +50,9 @@ const UpdateStudentSchema = z.object({
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: { params: Promise<{ id: string }> }
 ) {
+  const params = await props.params;
   const ipAddress = getIpAddress(request);
   const requestId = getRequestId(request);
 
@@ -172,8 +173,9 @@ export async function GET(
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: { params: Promise<{ id: string }> }
 ) {
+  const params = await props.params;
   const ipAddress = getIpAddress(request);
   const requestId = getRequestId(request);
 
@@ -317,8 +319,9 @@ export async function PATCH(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: { params: Promise<{ id: string }> }
 ) {
+  const params = await props.params;
   const ipAddress = getIpAddress(request);
   const requestId = getRequestId(request);
 

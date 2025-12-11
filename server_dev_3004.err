@@ -1,0 +1,5 @@
+ ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+ ⚠ Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[2025-12-11T01:58:00.603Z] WARN: Slow query detected (899ms) { model: 'users', operation: 'findUnique', executionTime: 899 }
+[2025-12-11T02:00:41.321Z] WARN: Slow query detected (2230ms) { model: 'users', operation: 'findUnique', executionTime: 2230 }

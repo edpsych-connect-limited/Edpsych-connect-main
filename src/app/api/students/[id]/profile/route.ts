@@ -131,8 +131,9 @@ const profileUpdateSchema = z.object({
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: { params: Promise<{ id: string }> }
 ): Promise<NextResponse<StudentProfileResponse | { error: string; message?: string }>> {
+  const params = await props.params;
   try {
     // Authentication
     const session = await authService.getSessionFromRequest(request);
@@ -379,8 +380,9 @@ export async function GET(
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: { params: Promise<{ id: string }> }
 ): Promise<NextResponse<StudentProfileResponse | { error: string; message?: string; errors?: any }>> {
+  const params = await props.params;
   try {
     // Authentication
     const session = await authService.getSessionFromRequest(request);

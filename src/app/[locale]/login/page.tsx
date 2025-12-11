@@ -51,6 +51,11 @@ export default function LoginPage() {
     if (role === 'LA_ADMIN' || role === 'LA_MANAGER' || role === 'LA_CASEWORKER') {
       return '/la/dashboard';
     }
+
+    // Parent - Parent Portal
+    if (role === 'PARENT') {
+      return '/parents';
+    }
     
     // Default - general dashboard
     return '/dashboard';

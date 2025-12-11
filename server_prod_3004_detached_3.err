@@ -1,0 +1,11 @@
+ ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[2025-12-11T10:51:09.620Z] WARN: Slow query detected (7945ms) { model: 'BlogPost', operation: 'count', executionTime: 7945 }
+[2025-12-11T10:51:09.734Z] WARN: Slow query detected (8047ms) { model: 'BlogCategory', operation: 'findMany', executionTime: 8047 }
+[2025-12-11T10:51:09.755Z] WARN: Slow query detected (8063ms) { model: 'BlogTag', operation: 'findMany', executionTime: 8063 }
+[2025-12-11T10:51:09.776Z] WARN: Slow query detected (8080ms) { model: 'BlogPost', operation: 'findMany', executionTime: 8080 }
+[2025-12-11T10:51:09.791Z] WARN: Slow query detected (8117ms) { model: 'BlogPost', operation: 'findMany', executionTime: 8117 }
+[2025-12-11T10:53:14.951Z] WARN: Slow query detected (355ms) { model: 'BlogPost', operation: 'count', executionTime: 355 }
+[2025-12-11T10:53:14.961Z] WARN: Slow query detected (372ms) { model: 'BlogCategory', operation: 'findMany', executionTime: 372 }
+[2025-12-11T10:53:14.978Z] WARN: Slow query detected (377ms) { model: 'BlogTag', operation: 'findMany', executionTime: 377 }
+[2025-12-11T10:53:15.058Z] WARN: Slow query detected (538ms) { model: 'BlogPost', operation: 'findMany', executionTime: 538 }
+[2025-12-11T10:53:15.064Z] WARN: Slow query detected (468ms) { model: 'BlogPost', operation: 'findMany', executionTime: 468 }

@@ -1,0 +1,162 @@
+
+
+DevTools listening on ws://127.0.0.1:58743/devtools/browser/aeefba41-e910-446b-b466-934b6c39b4cf
+
+====================================================================================================
+
+  (Run Starting)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Cypress:        15.7.1                                                                         Ôöé
+  Ôöé Browser:        Electron 138 (headless)                                                        Ôöé
+  Ôöé Node Version:   v24.11.1 (C:\Program Files\nodejs\node.exe)                                    Ôöé
+  Ôöé Specs:          2 found (demo.cy.ts, help-center.cy.ts)                                        Ôöé
+  Ôöé Searched:       E:\EdpsychConnect\cypress\e2e\demo.cy.ts, E:\EdpsychConnect\cypress\e2e\help-c Ôöé
+  Ôöé                 enter.cy.ts                                                                    Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+                                                                                                    
+  Running:  demo.cy.ts                                                                      (1 of 2)
+
+
+  Interactive Demo E2E
+    ÔêÜ should load the demo page with correct layout (3891ms)
+    1) should allow interaction with the AI demo
+    2) should handle custom input
+
+
+  1 passing (1m)
+  2 failing
+
+  1) Interactive Demo E2E
+       should allow interaction with the AI demo:
+     AssertionError: Timed out retrying after 30000ms: Expected to find content: 'AI Assistant Terminal' but never did.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/demo.cy.ts:14:41)
+
+  2) Interactive Demo E2E
+       should handle custom input:
+     AssertionError: Timed out retrying after 30000ms: Expected to find element: `input[placeholder="Type your question here..."]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/demo.cy.ts:32:7)
+
+
+
+
+  (Results)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Tests:        3                                                                                Ôöé
+  Ôöé Passing:      1                                                                                Ôöé
+  Ôöé Failing:      2                                                                                Ôöé
+  Ôöé Pending:      0                                                                                Ôöé
+  Ôöé Skipped:      0                                                                                Ôöé
+  Ôöé Screenshots:  2                                                                                Ôöé
+  Ôöé Video:        false                                                                            Ôöé
+  Ôöé Duration:     1 minute, 5 seconds                                                              Ôöé
+  Ôöé Spec Ran:     demo.cy.ts                                                                       Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+  (Screenshots)
+
+  -  E:\EdpsychConnect\cypress\screenshots\demo.cy.ts\Interactive Demo E2E -- should      (1280x720)
+     allow interaction with the AI demo (failed).png                                                
+  -  E:\EdpsychConnect\cypress\screenshots\demo.cy.ts\Interactive Demo E2E -- should      (1280x720)
+     handle custom input (failed).png                                                               
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+                                                                                                    
+  Running:  help-center.cy.ts                                                               (2 of 2)
+
+
+  Help Center E2E
+    1) should display the main help center page with categories
+    2) should allow searching for articles
+    3) should navigate to category view
+    4) should display article details
+    5) should handle feedback submission
+    6) should display FAQs
+
+
+  0 passing (3m)
+  6 failing
+
+  1) Help Center E2E
+       should display the main help center page with categories:
+     AssertionError: Timed out retrying after 30000ms: expected '<h1.text-4xl.md:text-6xl.font-bold.text-white.mb-6>' to contain 'How can we help you?'
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/help-center.cy.ts:8:17)
+
+  2) Help Center E2E
+       should allow searching for articles:
+     AssertionError: Timed out retrying after 30000ms: Expected to find element: `input[placeholder="Search for help articles..."]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/help-center.cy.ts:19:7)
+
+  3) Help Center E2E
+       should navigate to category view:
+     AssertionError: Timed out retrying after 30000ms: Expected to find content: 'Assessments Articles' but never did.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/help-center.cy.ts:30:40)
+
+  4) Help Center E2E
+       should display article details:
+     AssertionError: Timed out retrying after 30000ms: Expected to find element: `input[placeholder="Search for help articles..."]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/help-center.cy.ts:37:7)
+
+  5) Help Center E2E
+       should handle feedback submission:
+     AssertionError: Timed out retrying after 30000ms: Expected to find element: `input[placeholder="Search for help articles..."]`, but never found it.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/help-center.cy.ts:49:7)
+
+  6) Help Center E2E
+       should display FAQs:
+     AssertionError: Timed out retrying after 30000ms: Expected to find content: 'Frequently Asked Questions' but never did.
+      at Context.eval (webpack://edpsych-connect-web-v2/./cypress/e2e/help-center.cy.ts:63:46)
+
+
+
+
+  (Results)
+
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé Tests:        6                                                                                Ôöé
+  Ôöé Passing:      0                                                                                Ôöé
+  Ôöé Failing:      6                                                                                Ôöé
+  Ôöé Pending:      0                                                                                Ôöé
+  Ôöé Skipped:      0                                                                                Ôöé
+  Ôöé Screenshots:  6                                                                                Ôöé
+  Ôöé Video:        false                                                                            Ôöé
+  Ôöé Duration:     3 minutes, 4 seconds                                                             Ôöé
+  Ôöé Spec Ran:     help-center.cy.ts                                                                Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+
+  (Screenshots)
+
+  -  E:\EdpsychConnect\cypress\screenshots\help-center.cy.ts\Help Center E2E -- shoul     (1280x720)
+     d display the main help center page with categories (failed).png                               
+  -  E:\EdpsychConnect\cypress\screenshots\help-center.cy.ts\Help Center E2E -- shoul     (1280x720)
+     d allow searching for articles (failed).png                                                    
+  -  E:\EdpsychConnect\cypress\screenshots\help-center.cy.ts\Help Center E2E -- shoul     (1280x720)
+     d navigate to category view (failed).png                                                       
+  -  E:\EdpsychConnect\cypress\screenshots\help-center.cy.ts\Help Center E2E -- shoul     (1280x720)
+     d display article details (failed).png                                                         
+  -  E:\EdpsychConnect\cypress\screenshots\help-center.cy.ts\Help Center E2E -- shoul     (1280x720)
+     d handle feedback submission (failed).png                                                      
+  -  E:\EdpsychConnect\cypress\screenshots\help-center.cy.ts\Help Center E2E -- shoul     (1280x720)
+     d display FAQs (failed).png                                                                    
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+  Ôöé ├ù  demo.cy.ts                               01:05        3        1        2        -        - Ôöé
+  Ôö£ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöñ
+  Ôöé ├ù  help-center.cy.ts                        03:04        6        -        6        -        - Ôöé
+  ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+    ├ù  2 of 2 failed (100%)                     04:09        9        1        8        -        -  
+

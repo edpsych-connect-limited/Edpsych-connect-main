@@ -1242,6 +1242,285 @@ difficulties may arise from encoding problems, storage/consolidation issues, or 
         },
       ],
     },
+
+    {
+      id: 'ecca-domain-communication-interaction',
+      name: 'Communication and Interaction',
+      description: 'This domain assesses the child\'s ability to understand and use language for learning and social interaction. It covers receptive language (understanding instructions, concepts), expressive language (vocabulary, sentence structure), and social communication (pragmatics, non-verbal cues). Grounded in developmental linguistics and social interactionist theories.',
+      order_index: 5,
+      observation_prompts: {
+        key_questions: [
+          'How well does the child understand verbal instructions?',
+          'Can they express their needs and ideas clearly?',
+          'Do they initiate and maintain social interactions appropriately?',
+          'How do they use non-verbal communication?',
+          'Is there a gap between their understanding and their expression?'
+        ],
+        observation_contexts: [
+          'Whole class listening tasks',
+          'Small group discussions',
+          'Playground/unstructured social time',
+          '1:1 interaction with adults',
+          'Written work (as a proxy for expressive language)'
+        ],
+        what_to_notice: [
+          'Response to complex vs. simple language',
+          'Vocabulary range and precision',
+          'Turn-taking and listening skills',
+          'Eye contact and body language',
+          'Word-finding difficulties or hesitations'
+        ]
+      },
+      task_suggestions: [
+        {
+          task: 'Narrative Retell',
+          description: 'Child retells a story or event; assess structure, vocabulary, and sequencing.',
+          age_appropriate: '5-18',
+          materials: 'Picture book or short video',
+          dynamic_component: 'Model story structure and retest'
+        },
+        {
+          task: 'Instruction Following (Language Heavy)',
+          description: 'Give instructions with increasing linguistic complexity (concepts, clauses).',
+          age_appropriate: '5-18',
+          materials: 'Objects to manipulate',
+          dynamic_component: 'Simplify language/add visuals and retest'
+        },
+        {
+          task: 'Social Scenario Problem Solving',
+          description: 'Present social dilemmas; ask what they would do/say.',
+          age_appropriate: '7-18',
+          materials: 'Social scenario cards',
+          dynamic_component: 'Role-play alternative responses'
+        }
+      ],
+      key_indicators: {
+        strengths: [
+          'Articulate and expressive',
+          'Good listener; follows complex instructions',
+          'Socially confident and appropriate',
+          'Uses sophisticated vocabulary',
+          'Adapts communication style to listener'
+        ],
+        needs: [
+          'Difficulty following verbal instructions',
+          'Limited vocabulary or short sentences',
+          'Struggles with social rules (turn-taking, personal space)',
+          'Literal interpretation of language',
+          'Reluctant speaker or selective mutism'
+        ]
+      },
+      parent_questions: [],
+      teacher_questions: [],
+      child_prompts: [],
+      interpretation_guidance: {
+        patterns_to_consider: ['Receptive vs. Expressive gap', 'Social vs. Academic language use'],
+        theoretical_links: ['Bishop\'s Model of SLI', 'Social Interactionist Theory'],
+        functional_implications: ['Accessing the curriculum', 'Forming friendships', 'Self-advocacy']
+      },
+      strength_descriptors: ['Strong communicator', 'Socially adept'],
+      need_descriptors: ['Language delay', 'Social communication difficulty'],
+      suggested_interventions: [
+        {
+          intervention: 'Elklan Strategies',
+          evidence_base: 'Speech & Language Therapy best practice',
+          description: 'Teacher strategies: simplify language, chunking, visual support, extra time.',
+          suitability: 'All need levels'
+        },
+        {
+          intervention: 'Social Stories / Comic Strip Conversations',
+          evidence_base: 'Gray (1994)',
+          description: 'Visual tools to explain social situations and expected behaviours.',
+          suitability: 'Social communication needs'
+        }
+      ]
+    },
+
+    {
+      id: 'ecca-domain-semh',
+      name: 'Social, Emotional and Mental Health',
+      description: 'This domain explores the child\'s emotional regulation, self-esteem, resilience, and mental wellbeing. It considers how emotional states impact learning and how the child manages stress, relationships, and their own behaviour. Based on attachment theory and emotional intelligence frameworks.',
+      order_index: 6,
+      observation_prompts: {
+        key_questions: [
+          'How does the child regulate their emotions?',
+          'Do they have a positive view of themselves as a learner?',
+          'How do they cope with failure or challenge?',
+          'Are there signs of anxiety or low mood?',
+          'How do they relate to peers and adults?'
+        ],
+        observation_contexts: [
+          'Challenging academic tasks',
+          'Unstructured times (break/lunch)',
+          'Transitions and changes',
+          'Group work situations',
+          'Response to correction/feedback'
+        ],
+        what_to_notice: [
+          'Signs of withdrawal or acting out',
+          'Physical signs of anxiety (fidgeting, tension)',
+          'Self-talk (positive or negative)',
+          'Interaction with key adults (attachment seeking)',
+          'Recovery time after upset'
+        ]
+      },
+      task_suggestions: [
+        {
+          task: 'The Three Houses / Ideal School',
+          description: 'Drawing/sorting activity to explore worries, strengths, and wishes.',
+          age_appropriate: '5-16',
+          materials: 'Paper, pens, templates',
+          dynamic_component: 'Explore solutions to worries'
+        },
+        {
+          task: 'Resiliency Scales / Self-Image Profiles',
+          description: 'Structured questionnaires about self-view.',
+          age_appropriate: '8-18',
+          materials: 'Standardized forms (if available) or interview',
+          dynamic_component: 'Discuss strengths and reframing'
+        },
+        {
+          task: 'Emotion Card Sorting',
+          description: 'Identify and label emotions in scenarios.',
+          age_appropriate: '5-12',
+          materials: 'Emotion cards',
+          dynamic_component: 'Teach regulation strategy for "big feelings"'
+        }
+      ],
+      key_indicators: {
+        strengths: [
+          'Resilient; bounces back from setbacks',
+          'Good emotional vocabulary',
+          'Positive self-esteem',
+          'Forms secure relationships',
+          'Seeks help appropriately'
+        ],
+        needs: [
+          'Low resilience; gives up easily',
+          'Explosive outbursts or withdrawal',
+          'High anxiety affecting performance',
+          'Negative self-talk',
+          'Difficulty trusting adults'
+        ]
+      },
+      parent_questions: [],
+      teacher_questions: [],
+      child_prompts: [],
+      interpretation_guidance: {
+        patterns_to_consider: ['Internalizing vs. Externalizing behaviours', 'Situational triggers'],
+        theoretical_links: ['Attachment Theory (Bowlby)', 'Resilience Frameworks'],
+        functional_implications: ['Availability for learning', 'School attendance', 'Peer relationships']
+      },
+      strength_descriptors: ['Emotionally resilient', 'Securely attached'],
+      need_descriptors: ['Emotional dysregulation', 'High anxiety'],
+      suggested_interventions: [
+        {
+          intervention: 'Emotion Coaching',
+          evidence_base: 'Gottman Institute',
+          description: 'Adult style: validating emotions, labeling, and problem-solving.',
+          suitability: 'All need levels'
+        },
+        {
+          intervention: 'CBT Approaches (Think Good, Feel Good)',
+          evidence_base: 'Cognitive Behavioural Therapy',
+          description: 'Linking thoughts, feelings, and behaviours; challenging negative thoughts.',
+          suitability: 'Moderate need; age 8+'
+        }
+      ]
+    },
+
+    {
+      id: 'ecca-domain-sensory-physical',
+      name: 'Sensory and Physical Development',
+      description: 'This domain assesses fine and gross motor skills, as well as sensory processing patterns. It considers how physical and sensory needs impact access to the curriculum and the learning environment. Grounded in sensory integration theory and motor development milestones.',
+      order_index: 7,
+      observation_prompts: {
+        key_questions: [
+          'Does the child have difficulty with handwriting or tools?',
+          'Are they clumsy or uncoordinated?',
+          'Do they seek or avoid certain sensory inputs (noise, touch, movement)?',
+          'Can they sit still to focus?',
+          'Do they fatigue easily due to physical effort?'
+        ],
+        observation_contexts: [
+          'PE lessons / Playground',
+          'Handwriting tasks',
+          'Busy/noisy environments (canteen, assembly)',
+          'Moving around the classroom',
+          'Using scissors/rulers'
+        ],
+        what_to_notice: [
+          'Pencil grip and control',
+          'Balance and coordination',
+          'Covering ears or seeking deep pressure',
+          'Fidgeting or needing to move',
+          'Spatial awareness (bumping into things)'
+        ]
+      },
+      task_suggestions: [
+        {
+          task: 'Handwriting Sample',
+          description: 'Assess speed, legibility, and grip.',
+          age_appropriate: '5-18',
+          materials: 'Paper, pencil',
+          dynamic_component: 'Try different grips/paper positions'
+        },
+        {
+          task: 'Movement ABC Checklist (Observation)',
+          description: 'Observe ball skills, balance, and manual dexterity.',
+          age_appropriate: '5-12',
+          materials: 'Ball, beads, etc.',
+          dynamic_component: 'Break down motor task into steps'
+        },
+        {
+          task: 'Sensory Audit',
+          description: 'Review environment for triggers.',
+          age_appropriate: 'All',
+          materials: 'Checklist',
+          dynamic_component: 'Modify environment (e.g., ear defenders) and observe change'
+        }
+      ],
+      key_indicators: {
+        strengths: [
+          'Good fine motor control',
+          'Coordinated and agile',
+          'Regulates sensory needs effectively',
+          'Good spatial awareness',
+          'Physically robust'
+        ],
+        needs: [
+          'Poor handwriting/fine motor skills',
+          'Sensory seeking or avoiding behaviours',
+          'Dyspraxic-type difficulties',
+          'Fatigues easily',
+          'Distracted by sensory environment'
+        ]
+      },
+      parent_questions: [],
+      teacher_questions: [],
+      child_prompts: [],
+      interpretation_guidance: {
+        patterns_to_consider: ['Sensory modulation vs. Motor planning', 'Impact on attention'],
+        theoretical_links: ['Sensory Integration Theory (Ayres)', 'Motor Learning Theory'],
+        functional_implications: ['Recording work', 'Sitting still', 'Navigating school']
+      },
+      strength_descriptors: ['Physically coordinated', 'Sensory regulated'],
+      need_descriptors: ['Motor coordination difficulties', 'Sensory processing needs'],
+      suggested_interventions: [
+        {
+          intervention: 'Sensory Circuits',
+          evidence_base: 'Sensory Integration approaches',
+          description: 'Alerting, organizing, and calming physical activities before learning.',
+          suitability: 'Sensory/regulation needs'
+        },
+        {
+          intervention: 'Handwriting Rescue / Speed Up',
+          evidence_base: 'Occupational Therapy approaches',
+          description: 'Structured practice for letter formation and fluency.',
+          suitability: 'Fine motor needs'
+        }
+      ]
+    },
   ],
 
   status: 'active',

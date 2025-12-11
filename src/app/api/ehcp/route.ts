@@ -4,6 +4,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
+import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
@@ -38,9 +39,41 @@ async function routeEhcp(request: NextRequest): Promise<NextResponse> {
     }
 
     if (segments.length === 0) {
-      return request.method === 'GET'
-        ? NextResponse.json({ success: true, plans: [] })
-        : NextResponse.json({ success: true, plan: { id: 'new' } }, { status: 201 });
+      if (request.method === 'GET') {
+        const applications = await prisma.eHCPApplication.findMany({
+          take: 20,
+          orderBy: { created_at: 'desc' }
+        });
+        
+        const ehcps = applications.map(app => ({
+          id: app.id,
+          student_id: app.student_id,
+          tenant_id: app.la_tenant_id,
+          plan_details: {
+            status: app.status,
+            section_b: {
+              primary_need: app.primary_need
+            }
+          },
+          issued_at: app.created_at.toISOString(),
+          updated_at: app.updated_at.toISOString()
+        }));
+
+        return NextResponse.json({ 
+          success: true, 
+          ehcps,
+          pagination: {
+            page: 1,
+            limit: 20,
+            totalCount: applications.length,
+            totalPages: 1,
+            hasNextPage: false,
+            hasPreviousPage: false
+          }
+        });
+      }
+      
+      return NextResponse.json({ success: true, plan: { id: 'new' } }, { status: 201 });
     }
 
     const planId = segments[0];

@@ -26,6 +26,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import jwt from 'jsonwebtoken';
 
 export const dynamic = 'force-dynamic';
 
@@ -135,13 +136,34 @@ interface RiskItem {
  */
 export async function GET(request: NextRequest) {
   try {
+    let userEmail = null;
+    
+    // Try NextAuth session first
     const session = await getServerSession(authOptions);
-    if (!session?.user?.email) {
+    
+    if (session?.user?.email) {
+      userEmail = session.user.email;
+    } else {
+      // Fallback to custom auth-token
+      const token = request.cookies.get('auth-token')?.value;
+      if (token) {
+        try {
+          const decoded = jwt.verify(token, process.env.NEXTAUTH_SECRET || 'fallback-secret-key') as any;
+          if (decoded?.email) {
+            userEmail = decoded.email;
+          }
+        } catch (e) {
+          console.error('Invalid auth-token:', e);
+        }
+      }
+    }
+
+    if (!userEmail) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const user = await prisma.users.findUnique({
-      where: { email: session.user.email },
+      where: { email: userEmail },
       include: { tenants: true },
     });
 
@@ -150,7 +172,8 @@ export async function GET(request: NextRequest) {
     }
 
     // Verify user has LA role
-    if (!['admin', 'la_manager', 'la_caseworker'].includes(user.role)) {
+    const allowedRoles = ['admin', 'la_manager', 'la_caseworker', 'LA_ADMIN', 'LA_MANAGER', 'LA_CASEWORKER'];
+    if (!allowedRoles.includes(user.role)) {
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 });
     }
 

@@ -18,6 +18,9 @@ export const dynamic = 'force-dynamic';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+
+console.log('Rendering EHCP Page');
+
 import { useAuth } from '@/lib/auth/hooks';
 import { downloadEHCPPDF } from '@/lib/ehcp/pdf-generator';
 import { useDemo } from '@/components/demo/DemoProvider';
@@ -25,7 +28,7 @@ import { EHCP } from '@/components/ui/GlossaryTerm';
 import { HelpCircle } from 'lucide-react';
 
 interface EHCP {
-  id: number;
+  id: string;
   student_id: string;
   tenant_id: number;
   plan_details: {
@@ -79,7 +82,7 @@ export default function EHCPListPage() {
   });
 
   // Bulk selection state
-  const [selectedEHCPs, setSelectedEHCPs] = useState<Set<number>>(new Set());
+  const [selectedEHCPs, setSelectedEHCPs] = useState<Set<string>>(new Set());
   const [isExporting, setIsExporting] = useState(false);
 
   // PDF Export Functions
@@ -121,7 +124,7 @@ export default function EHCPListPage() {
     }
   };
 
-  const toggleSelectEHCP = (id: number) => {
+  const toggleSelectEHCP = (id: string) => {
     const newSelected = new Set(selectedEHCPs);
     if (newSelected.has(id)) {
       newSelected.delete(id);

@@ -358,10 +358,51 @@ const MessageInput: React.FC<{
   );
 };
 
+const MOCK_PORTAL_DATA: ParentPortalData = {
+  child: {
+    id: 1,
+    name: "Leo",
+    yearGroup: "Year 4",
+    className: "4B"
+  },
+  teacher: {
+    id: 1,
+    name: "Mrs. Thompson",
+    email: "teacher@school.com"
+  },
+  progressUpdate: {
+    weekOf: new Date().toISOString(),
+    wins: [
+      { emoji: "🌟", description: "Completed all reading assignments with enthusiasm" },
+      { emoji: "🤝", description: "Helped a classmate with their math problems" },
+      { emoji: "🎨", description: "Created a beautiful art project about the Romans" }
+    ],
+    workingOn: [
+      { area: "Handwriting", progress: "Improving consistency in letter sizing" },
+      { area: "Focus", progress: "Staying on task for 15 minute blocks" }
+    ],
+    homeSupport: [
+      { activity: "Reading Together", description: "Read for 20 mins before bed", frequency: "Daily" },
+      { activity: "Number Games", description: "Play 'Times Table Rockstars'", frequency: "3x per week" }
+    ]
+  },
+  recentMessages: [
+    {
+      id: 1,
+      senderId: 2,
+      senderName: "Mrs. Thompson",
+      senderRole: "teacher",
+      content: "Leo had a great day today! He was very helpful in class.",
+      timestamp: new Date(Date.now() - 86400000).toISOString(),
+      read: true
+    }
+  ]
+};
+
 /**
  * Main Parent Portal Component
  */
-export const ParentPortal: React.FC<ParentPortalProps> = ({ childId, parentId, className = '' }) => {
+export const ParentPortal: React.FC<ParentPortalProps & { demoMode?: boolean }> = ({ childId, parentId, className = '', demoMode = false }) => {
   const queryClient = useQueryClient();
 
   // Fetch portal data with security verification
@@ -371,8 +412,14 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ childId, parentId, c
     error,
     refetch: _refetch,
   } = useQuery<ParentPortalData>({
-    queryKey: ['parent-portal', childId, parentId],
+    queryKey: ['parent-portal', childId, parentId, demoMode],
     queryFn: async () => {
+      if (demoMode) {
+        // Simulate network delay
+        await new Promise(resolve => setTimeout(resolve, 800));
+        return MOCK_PORTAL_DATA;
+      }
+
       const response = await fetch(`/api/parent/portal/${childId}?parentId=${parentId}`, {
         headers: {
           'Content-Type': 'application/json',
