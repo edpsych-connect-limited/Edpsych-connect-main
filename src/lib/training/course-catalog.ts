@@ -2631,3 +2631,440 @@ export function getCourseCompletionRequirements(courseId: string): {
     total_duration_minutes: course.duration_minutes,
   };
 }
+
+// ============================================================================
+// NEW COURSES INGESTED FROM TRAINING CONTENT (ADHD, ANXIETY, ASD)
+// ============================================================================
+
+COURSE_CATALOG.push(
+  // --------------------------------------------------------------------------
+  // ADHD: Understanding & Supporting Attention Deficit Hyperactivity Disorder
+  // --------------------------------------------------------------------------
+  {
+    id: 'adhd-mastery',
+    title: 'ADHD: Understanding & Supporting Attention Deficit Hyperactivity Disorder',
+    subtitle: 'Comprehensive strategies for classroom and home support',
+    category: 'adhd',
+    level: 'intermediate',
+    description: 'A deep dive into ADHD, moving beyond the label to understand the neurobiology, executive function challenges, and practical, evidence-based strategies for support. Based on the "ADHD Guidelines" and "Helpful Strategies" training modules.',
+    learning_outcomes: [
+      'Understand the neurobiology of ADHD and executive dysfunction',
+      'Identify the three presentations of ADHD (Inattentive, Hyperactive-Impulsive, Combined)',
+      'Implement environmental adaptations to reduce cognitive load',
+      'Apply specific strategies for attention, impulse control, and working memory',
+      'Support emotional regulation and rejection sensitivity'
+    ],
+    cpd_hours: 4,
+    total_merits: 400,
+    duration_minutes: 240,
+    instructor: {
+      name: 'Dr. Sarah Johnson',
+      title: 'Senior Educational Psychologist',
+      credentials: 'DEdPsy, HCPC Registered',
+      avatar_url: '/images/instructors/sarah-johnson.jpg',
+    },
+    modules: [
+      {
+        id: 'adhd-m1',
+        module_number: 1,
+        title: 'The ADHD Brain: Neurobiology & Executive Function',
+        description: 'Understanding the "why" behind ADHD behaviours. Dopamine, the prefrontal cortex, and the executive function system.',
+        duration_minutes: 60,
+        lessons: [
+          {
+            id: 'adhd-l1',
+            lesson_number: 1,
+            title: 'Neurobiology 101: Dopamine & The Prefrontal Cortex',
+            type: 'video',
+            duration_minutes: 15,
+            merits_earned: 10,
+            resources: [{ id: 'r1', title: 'ADHD Brain Diagram', type: 'pdf', url: '/content/adhd/brain-diagram.pdf', description: 'Visual guide to ADHD brain structure', downloadable: true }],
+          },
+          {
+            id: 'adhd-l2',
+            lesson_number: 2,
+            title: 'Executive Functions: The Air Traffic Control System',
+            type: 'reading',
+            duration_minutes: 20,
+            merits_earned: 10,
+            content_text: 'Executive functions are the cognitive processes that help us regulate, control, and manage our thoughts and actions...',
+            resources: [],
+          },
+          {
+            id: 'adhd-l3',
+            lesson_number: 3,
+            title: 'The 3 Presentations: Inattentive, Hyperactive, Combined',
+            type: 'case_study',
+            duration_minutes: 25,
+            merits_earned: 20,
+            resources: [],
+          },
+        ],
+        quiz: {
+          id: 'adhd-q1',
+          title: 'ADHD Fundamentals Quiz',
+          passing_score: 80,
+          merits_perfect_score: 50,
+          questions: [
+            {
+              id: 'q1',
+              question: 'Which neurotransmitter is primarily dysregulated in ADHD?',
+              type: 'multiple_choice',
+              options: ['Serotonin', 'Dopamine', 'Acetylcholine', 'GABA'],
+              correct_answer: 'Dopamine',
+              explanation: 'ADHD is characterized by a dysregulation of dopamine, particularly in the reward and executive function pathways.',
+              points: 10,
+            },
+          ],
+        },
+      },
+      {
+        id: 'adhd-m2',
+        module_number: 2,
+        title: 'Classroom Strategies & Environmental Adaptations',
+        description: 'Practical changes to the learning environment that make a massive difference.',
+        duration_minutes: 90,
+        lessons: [
+          {
+            id: 'adhd-l4',
+            lesson_number: 1,
+            title: 'The ADHD-Friendly Classroom Audit',
+            type: 'interactive',
+            duration_minutes: 30,
+            merits_earned: 30,
+            interactive_elements: [
+              {
+                id: 'ie-adhd-1',
+                type: 'simulation',
+                title: 'Classroom Audit Tool',
+                data: { items: ['Visual clutter reduced', 'Seating away from distractions', 'Clear visual timetable'] },
+              },
+            ],
+            resources: [],
+          },
+          {
+            id: 'adhd-l5',
+            lesson_number: 2,
+            title: 'Movement Breaks & Sensory Regulation',
+            type: 'video',
+            duration_minutes: 20,
+            merits_earned: 10,
+            resources: [],
+          },
+          {
+            id: 'adhd-l6',
+            lesson_number: 3,
+            title: 'Task Design: Chunking & Scaffolding',
+            type: 'interactive',
+            duration_minutes: 40,
+            merits_earned: 40,
+            resources: [],
+          },
+        ],
+      },
+    ],
+    prerequisites: ['send-fundamentals'],
+    target_audience: ['Teachers', 'SENCOs', 'Parents'],
+    certificate_available: true,
+    badge_awarded: 'ADHD Specialist',
+    image_url: '/images/courses/adhd-support.jpg',
+    featured: true,
+    popularity_score: 98,
+    related_interventions: ['adhd-movement-breaks', 'adhd-visual-timers', 'adhd-chunking'],
+  },
+
+  // --------------------------------------------------------------------------
+  // ANXIETY: Supporting Anxious Learners in School
+  // --------------------------------------------------------------------------
+  {
+    id: 'anxiety-support',
+    title: 'Anxiety: Supporting Anxious Learners in School',
+    subtitle: 'From school refusal to exam stress - practical tools for calm',
+    category: 'mental_health',
+    level: 'intermediate',
+    description: 'Based on the "School Anxiety Scale" and "Understanding Stress, Depression and Anxiety" modules. Learn to identify the signs of anxiety, understand the "fight, flight, freeze" response, and implement the "5 Point Scale" and other regulation strategies.',
+    learning_outcomes: [
+      'Recognize the physiological and behavioural signs of anxiety',
+      'Understand the "Cycle of Avoidance" and how to break it',
+      'Use the "5 Point Scale" for emotional regulation',
+      'Implement "Graded Exposure" for school refusal/EBSA',
+      'Create a "Calm Kit" and safe space plan'
+    ],
+    cpd_hours: 3,
+    total_merits: 300,
+    duration_minutes: 180,
+    instructor: {
+      name: 'Dr. Emily Chen',
+      title: 'Clinical Psychologist',
+      credentials: 'DClinPsy',
+      avatar_url: '/images/instructors/emily-chen.jpg',
+    },
+    modules: [
+      {
+        id: 'anx-m1',
+        module_number: 1,
+        title: 'The Physiology of Anxiety',
+        description: 'The Amygdala Hijack: What happens in the brain and body during anxiety.',
+        duration_minutes: 45,
+        lessons: [
+          {
+            id: 'anx-l1',
+            lesson_number: 1,
+            title: 'Fight, Flight, Freeze: The Survival Brain',
+            type: 'video',
+            duration_minutes: 15,
+            merits_earned: 10,
+            resources: [],
+          },
+          {
+            id: 'anx-l2',
+            lesson_number: 2,
+            title: 'Identifying Hidden Anxiety (Masking)',
+            type: 'case_study',
+            duration_minutes: 30,
+            merits_earned: 20,
+            resources: [],
+          },
+        ],
+      },
+      {
+        id: 'anx-m2',
+        module_number: 2,
+        title: 'The Toolkit: Strategies for Regulation',
+        description: 'Practical tools to help students self-regulate and lower arousal.',
+        duration_minutes: 90,
+        lessons: [
+          {
+            id: 'anx-l3',
+            lesson_number: 1,
+            title: 'The 5 Point Scale',
+            type: 'interactive',
+            duration_minutes: 30,
+            merits_earned: 30,
+            resources: [],
+          },
+          {
+            id: 'anx-l4',
+            lesson_number: 2,
+            title: 'Graded Exposure for School Refusal',
+            type: 'reading',
+            duration_minutes: 30,
+            merits_earned: 20,
+            resources: [],
+          },
+          {
+            id: 'anx-l5',
+            lesson_number: 3,
+            title: 'Cognitive Reframing for Kids',
+            type: 'video',
+            duration_minutes: 30,
+            merits_earned: 20,
+            resources: [],
+          },
+        ],
+      },
+    ],
+    prerequisites: [],
+    target_audience: ['Teachers', 'Pastoral Staff', 'Parents'],
+    certificate_available: true,
+    badge_awarded: 'Anxiety Ally',
+    image_url: '/images/courses/anxiety-support.jpg',
+    featured: true,
+    popularity_score: 92,
+    related_interventions: ['anxiety-5-point-scale', 'anxiety-graded-exposure', 'anxiety-calm-kit'],
+  },
+
+  // --------------------------------------------------------------------------
+  // ASD: Autism Spectrum Disorder - The Inside Out Approach
+  // --------------------------------------------------------------------------
+  {
+    id: 'asd-inside-out',
+    title: 'ASD: Autism Spectrum Disorder - The Inside Out Approach',
+    subtitle: 'Neuro-affirming support for autistic learners',
+    category: 'autism',
+    level: 'advanced',
+    description: 'Moving away from "deficit models" to understanding the autistic experience. Covers sensory processing, the "Double Empathy Problem", monotropism, and practical strategies like Social Stories and Comic Strip Conversations.',
+    learning_outcomes: [
+      'Understand the "Double Empathy Problem" and autistic communication styles',
+      'Analyze sensory profiles and create sensory diets',
+      'Write effective Social Stories (Gray) and Comic Strip Conversations',
+      'Support "Monotropic" focus and transitions',
+      'Reduce anxiety through predictability and structure'
+    ],
+    cpd_hours: 5,
+    total_merits: 500,
+    duration_minutes: 300,
+    instructor: {
+      name: 'Prof. Simon Baron-Cohen (AI Avatar)',
+      title: 'Autism Researcher',
+      credentials: 'PhD',
+      avatar_url: '/images/instructors/simon-bc.jpg',
+    },
+    modules: [
+      {
+        id: 'asd-m1',
+        module_number: 1,
+        title: 'Reframing Autism',
+        description: 'Modern theories of autism: Neurodiversity, Double Empathy, and Monotropism.',
+        duration_minutes: 60,
+        lessons: [
+          {
+            id: 'asd-l1',
+            lesson_number: 1,
+            title: 'The Double Empathy Problem',
+            type: 'video',
+            duration_minutes: 20,
+            merits_earned: 15,
+            resources: [],
+          },
+          {
+            id: 'asd-l2',
+            lesson_number: 2,
+            title: 'Sensory Processing Differences',
+            type: 'interactive',
+            duration_minutes: 40,
+            merits_earned: 30,
+            resources: [],
+          },
+        ],
+      },
+      {
+        id: 'asd-m2',
+        module_number: 2,
+        title: 'Communication & Social Understanding Tools',
+        description: 'Specific interventions to bridge the communication gap.',
+        duration_minutes: 120,
+        lessons: [
+          {
+            id: 'asd-l3',
+            lesson_number: 1,
+            title: 'Writing Social Stories (Carol Gray)',
+            type: 'interactive',
+            duration_minutes: 60,
+            merits_earned: 50,
+            resources: [],
+          },
+          {
+            id: 'asd-l4',
+            lesson_number: 2,
+            title: 'Comic Strip Conversations',
+            type: 'video',
+            duration_minutes: 30,
+            merits_earned: 20,
+            resources: [],
+          },
+          {
+            id: 'asd-l5',
+            lesson_number: 3,
+            title: 'Visual Supports & TEACCH',
+            type: 'reading',
+            duration_minutes: 30,
+            merits_earned: 20,
+            resources: [],
+          },
+        ],
+      },
+    ],
+    prerequisites: ['send-fundamentals'],
+    target_audience: ['Teachers', 'SENCOs', 'Speech Therapists'],
+    certificate_available: true,
+    badge_awarded: 'Neurodiversity Champion',
+    image_url: '/images/courses/autism-support.jpg',
+    featured: true,
+    popularity_score: 96,
+    related_interventions: ['asd-social-stories', 'asd-comic-strip-conversations', 'asd-sensory-diet'],
+  }
+);
+
+COURSE_CATALOG.push(
+  {
+    id: 'working-memory-mastery',
+    title: 'Working Memory: The Engine of Learning',
+    subtitle: 'Practical Strategies for Classroom Support',
+    category: 'intervention',
+    level: 'intermediate',
+    description: 'Unlock the potential of students with Working Memory difficulties. Learn to identify signs of overload and implement evidence-based strategies like Dual Coding and Chunking.',
+    learning_outcomes: [
+      'Define Working Memory and its role in learning',
+      'Identify signs of Working Memory overload in students',
+      'Apply Dual Coding theory to lesson design',
+      'Implement Chunking strategies for complex tasks',
+      'Create a "Working Memory Friendly" classroom environment'
+    ],
+    cpd_hours: 6,
+    total_merits: 100,
+    duration_minutes: 360,
+    instructor: {
+      name: 'Dr. Scott Ighavongbe-Patrick',
+      title: 'Educational Psychologist',
+      credentials: 'DEdPsych, CPsychol'
+    },
+    modules: [
+      {
+        id: 'wm-m1',
+        module_number: 1,
+        title: 'Understanding Working Memory',
+        description: 'The cognitive science behind memory and learning.',
+        duration_minutes: 60,
+        lessons: [
+          {
+            id: 'wm-m1-l1',
+            lesson_number: 1,
+            title: 'What is Working Memory?',
+            type: 'video',
+            duration_minutes: 20,
+            merits_earned: 10,
+            content_text: 'Working Memory is the "post-it note" of the brain. It holds information temporarily while we process it. It has limited capacity (approx 4 items).',
+            resources: []
+          },
+          {
+            id: 'wm-m1-l2',
+            lesson_number: 2,
+            title: 'The Cognitive Load Theory',
+            type: 'reading',
+            duration_minutes: 40,
+            merits_earned: 10,
+            resources: []
+          }
+        ]
+      },
+      {
+        id: 'wm-m2',
+        module_number: 2,
+        title: 'Classroom Strategies',
+        description: 'Practical tools to reduce cognitive load.',
+        duration_minutes: 120,
+        lessons: [
+          {
+            id: 'wm-m2-l1',
+            lesson_number: 1,
+            title: 'Dual Coding: Combining Words and Pictures',
+            type: 'video',
+            duration_minutes: 30,
+            merits_earned: 20,
+            content_text: 'Dual Coding uses both visual and verbal channels to increase processing capacity.',
+            resources: []
+          },
+          {
+            id: 'wm-m2-l2',
+            lesson_number: 2,
+            title: 'Chunking Information',
+            type: 'interactive',
+            duration_minutes: 30,
+            merits_earned: 20,
+            content_text: 'Breaking complex information into smaller, manageable "chunks".',
+            resources: []
+          }
+        ]
+      }
+    ],
+    prerequisites: ['send-fundamentals'],
+    target_audience: ['Teachers', 'TAs'],
+    certificate_available: true,
+    badge_awarded: 'Memory Master',
+    image_url: '/images/courses/working-memory.jpg',
+    featured: false,
+    popularity_score: 85,
+    related_interventions: ['wm-dual-coding', 'wm-chunking', 'wm-visual-scaffolds']
+  }
+);

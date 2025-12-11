@@ -3126,6 +3126,334 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     tags: ['working_memory', 'dual_coding', 'visual_learning', 'tier_1']
   },
 
+  // ========================================================================
+  // ADHD INTERVENTIONS (Ingested from Training Content/ADHD)
+  // ========================================================================
+  {
+    id: 'adhd-movement-breaks',
+    name: 'ADHD: Structured Movement Breaks',
+    category: 'behavioural',
+    subcategory: 'regulation',
+    description: 'Scheduled, short bursts of physical activity to regulate arousal levels and replenish dopamine/norepinephrine. Essential for maintaining focus in ADHD students.',
+    targeted_needs: ['Hyperactivity', 'Inattention', 'Restlessness', 'Fidgeting', 'Mental fatigue'],
+
+    evidence_level: 'tier_1',
+    research_sources: ['Ratey (2008)', 'Mulder et al. (2010)', 'ADHD Guidelines Part 5'],
+    effect_size: 0.60,
+    success_rate: 'High',
+
+    age_range: ['all'],
+    setting: ['classroom'],
+    duration: '3-5 minutes',
+    frequency: 'Every 20-30 minutes',
+    session_length: 'Short bursts',
+
+    complexity: 'low',
+    staff_training_required: false,
+    resources_needed: ['None', 'GoNoodle (optional)'],
+    cost_implications: 'None',
+
+    key_components: [
+      'Proactive scheduling (before behaviour deteriorates)',
+      'Whole class participation (avoids stigma)',
+      'Heavy work activities (proprioceptive input)',
+      'Clear start/stop signals'
+    ],
+
+    fidelity_checklist: [
+      'Breaks occur BEFORE loss of focus',
+      'Teacher participates/models',
+      'Students return to work quickly'
+    ],
+
+    progress_indicators: [
+      'Increased time on task after break',
+      'Reduced fidgeting',
+      'Fewer disruptions'
+    ],
+
+    expected_outcomes: [
+      'Maintained optimal arousal for learning',
+      'Improved on-task behaviour',
+      'Better academic performance'
+    ],
+
+    adaptations: ['Chair push-ups', 'Wall pushes', 'Errands (delivering a note)'],
+    contraindications: ['Unstructured chaos - must be led'],
+    complementary_interventions: ['Flexible Seating', 'Fidget Tools'],
+
+    implementation_guide: 'Every 20 minutes, stop the class. Do 2 minutes of "Chair Aerobics" or "Wall Pushes". This resets the ADHD brain\'s dopamine levels. Do not use removal of break as punishment.',
+    parent_information: 'Allow your child to move while doing homework. A 2-minute star jump break can save 20 minutes of arguing.',
+    useful_links: ['https://www.gonoodle.com'],
+    created_at: '2025-12-11',
+    updated_at: '2025-12-11',
+    tags: ['adhd', 'movement', 'regulation', 'tier_1']
+  },
+  {
+    id: 'adhd-visual-timers',
+    name: 'ADHD: Visual Timers (Time Blindness Support)',
+    category: 'academic',
+    subcategory: 'executive_function',
+    description: 'Using analogue visual timers (e.g., Time Timer) to make the passage of time concrete and visible. Addresses "Time Blindness" common in ADHD.',
+    targeted_needs: ['Time blindness', 'Poor time management', 'Transition difficulties', 'Procrastination'],
+
+    evidence_level: 'tier_2',
+    research_sources: ['Barkley (1997)', 'ADHD Guidelines Part 3'],
+    effect_size: 0.45,
+    success_rate: 'Moderate to High',
+
+    age_range: ['all'],
+    setting: ['classroom', 'home'],
+    duration: 'Task duration',
+    frequency: 'Every task',
+    session_length: 'N/A',
+
+    complexity: 'low',
+    staff_training_required: false,
+    resources_needed: ['Time Timer', 'Sand timer', 'Digital visual timer app'],
+    cost_implications: 'Low (£20-£40 for physical timer)',
+
+    key_components: [
+      'Visual representation of time vanishing (red disk)',
+      'No ticking sound (distraction)',
+      'Used for both work AND breaks'
+    ],
+
+    fidelity_checklist: [
+      'Timer is visible to student',
+      'Student sets the timer (ownership)',
+      'Used consistently'
+    ],
+
+    progress_indicators: ['Tasks completed on time', 'Smoother transitions'],
+    expected_outcomes: ['Improved time perception', 'Reduced transition anxiety'],
+
+    adaptations: ['Digital apps on iPad'],
+    contraindications: ['Can cause anxiety in perfectionist students (monitor)'],
+    complementary_interventions: ['Checklists', 'Now/Next Boards'],
+
+    implementation_guide: 'Place a Time Timer on the student\'s desk. "You have 10 minutes to finish this." Show the red disk. As time passes, the red disappears. This externalizes the executive function of time monitoring.',
+    parent_information: 'Use a visual timer for morning routines (getting dressed) and screen time limits.',
+    useful_links: ['https://www.timetimer.com'],
+    created_at: '2025-12-11',
+    updated_at: '2025-12-11',
+    tags: ['adhd', 'time_management', 'executive_function', 'tier_1']
+  },
+
+  // ========================================================================
+  // ANXIETY INTERVENTIONS (Ingested from Training Content/Anxiety)
+  // ========================================================================
+  {
+    id: 'anxiety-5-point-scale',
+    name: 'Anxiety: The Incredible 5-Point Scale',
+    category: 'social_emotional',
+    subcategory: 'emotional_regulation',
+    description: 'A visual system to help students identify and communicate their emotional state (1=Calm to 5=Explosive) and link it to specific regulation strategies.',
+    targeted_needs: ['Emotional dysregulation', 'Anxiety', 'Anger', 'Communication difficulties'],
+
+    evidence_level: 'tier_2',
+    research_sources: ['Buron & Curtis (2003)', 'Anxiety Recommendations.pdf'],
+    effect_size: 0.50,
+    success_rate: 'High',
+
+    age_range: ['primary', 'secondary'],
+    setting: ['classroom', 'one_to_one'],
+    duration: 'Ongoing',
+    frequency: 'Daily check-ins',
+    session_length: 'Integrated',
+
+    complexity: 'medium',
+    staff_training_required: true,
+    resources_needed: ['5-Point Scale Chart', 'Personalized Strategy Cards'],
+    cost_implications: 'None',
+
+    key_components: [
+      'Personalized definitions for each level (1-5)',
+      'Personalized strategies for each level',
+      'Visual cues',
+      'Check-ins'
+    ],
+
+    fidelity_checklist: [
+      'Student helped define the levels',
+      'Scale is accessible/visible',
+      'Adults use the number language ("I can see you are at a 3")'
+    ],
+
+    progress_indicators: ['Increased self-reporting', 'De-escalation before reaching level 5'],
+    expected_outcomes: ['Better emotional regulation', 'Reduced meltdowns'],
+
+    adaptations: ['Use emojis', 'Use traffic lights', 'Use special interest characters (e.g., Hulk)'],
+    contraindications: ['None'],
+    complementary_interventions: ['Zones of Regulation', 'Sensory Breaks'],
+
+    implementation_guide: 'Co-create the scale with the student. Level 1: Happy/Calm. Level 2: A bit worried. Level 3: Nervous/Wobbly. Level 4: Scared/Angry. Level 5: Explosion. For EACH level, agree on a strategy (e.g., Level 3 = take a drink of water).',
+    parent_information: 'Use the 5-point scale at home on the fridge. Model it yourself: "I am at a 3 because I am late, I need to take a deep breath."',
+    useful_links: ['https://www.5pointscale.com'],
+    created_at: '2025-12-11',
+    updated_at: '2025-12-11',
+    tags: ['anxiety', 'emotional_regulation', 'autism', 'tier_2']
+  },
+  {
+    id: 'anxiety-graded-exposure',
+    name: 'Anxiety: Graded Exposure (Stepladder Approach)',
+    category: 'social_emotional',
+    subcategory: 'mental_health',
+    description: 'A CBT-based strategy for overcoming fears/phobias (including school refusal) by breaking the fear down into small, manageable steps and facing them gradually.',
+    targeted_needs: ['School refusal (EBSA)', 'Phobias', 'Social anxiety', 'Selective mutism'],
+
+    evidence_level: 'tier_3',
+    research_sources: ['CBT Protocols', 'Anxiety and Depression in Children (Reading Univ)'],
+    effect_size: 0.70,
+    success_rate: 'High (with consistency)',
+
+    age_range: ['all'],
+    setting: ['one_to_one', 'mixed'],
+    duration: '6-12 weeks',
+    frequency: 'Weekly steps',
+    session_length: 'Varies',
+
+    complexity: 'high',
+    staff_training_required: true,
+    resources_needed: ['Fear Ladder Template', 'Rewards'],
+    cost_implications: 'Staff time',
+
+    key_components: [
+      'Hierarchy of fear (least to most scary)',
+      'Stay in the situation until anxiety drops (habituation)',
+      'Rewards for completing steps',
+      'No avoidance'
+    ],
+
+    fidelity_checklist: [
+      'Steps are small enough',
+      'Student agrees to the plan',
+      'Anxiety ratings taken before/during/after'
+    ],
+
+    progress_indicators: ['Moving up the ladder', 'Reduced anxiety ratings'],
+    expected_outcomes: ['Return to school', 'Overcoming phobia'],
+
+    adaptations: ['Virtual reality exposure'],
+    contraindications: ['Trauma (consult EP first)'],
+    complementary_interventions: ['Relaxation techniques', 'Cognitive Restructuring'],
+
+    implementation_guide: 'For school refusal: Step 1: Drive past school. Step 2: Walk to gate. Step 3: Go to reception. Step 4: Stay for 1 lesson. Do not move up until anxiety at current step has halved.',
+    parent_information: 'We need to work together. If we let them avoid the scary thing, the fear gets bigger. We will take it very slowly, step by step.',
+    useful_links: ['https://www.anxietycanada.com'],
+    created_at: '2025-12-11',
+    updated_at: '2025-12-11',
+    tags: ['anxiety', 'ebsa', 'school_refusal', 'cbt', 'tier_3']
+  },
+
+  // ========================================================================
+  // ASD INTERVENTIONS (Ingested from Training Content/ASD)
+  // ========================================================================
+  {
+    id: 'asd-social-stories',
+    name: 'ASD: Social Stories™ (Carol Gray)',
+    category: 'social_emotional',
+    subcategory: 'social_skills',
+    description: 'Short descriptions of a particular situation, event, or activity, which include specific information about what to expect in that situation and why. Written from the autistic person\'s perspective.',
+    targeted_needs: ['Social misunderstanding', 'Anxiety about change', 'New routines', 'Unexpected behaviour'],
+
+    evidence_level: 'tier_2',
+    research_sources: ['Gray (1991)', 'National Autistic Society', 'ASD Guidelines'],
+    effect_size: 0.55,
+    success_rate: 'Moderate to High',
+
+    age_range: ['primary', 'secondary'],
+    setting: ['classroom', 'home'],
+    duration: 'Until skill learned',
+    frequency: 'Read before event',
+    session_length: '5 minutes',
+
+    complexity: 'medium',
+    staff_training_required: true,
+    resources_needed: ['Paper/Computer', 'Photos/Symbols'],
+    cost_implications: 'None',
+
+    key_components: [
+      'Descriptive sentences (facts)',
+      'Perspective sentences (thoughts/feelings of others)',
+      'Directive sentences (what to do - gently)',
+      'Affirmative sentences (reassurance)',
+      'Ratio: 1 directive for every 2-5 descriptive'
+    ],
+
+    fidelity_checklist: [
+      'Written in first person',
+      'Positive tone',
+      'Checked for literal interpretation',
+      'Includes "why"'
+    ],
+
+    progress_indicators: ['Reduced anxiety in target situation', 'Appropriate social behaviour'],
+    expected_outcomes: ['Better social understanding', 'Smoother transitions'],
+
+    adaptations: ['Video modeling', 'Audio stories'],
+    contraindications: ['Do not use to "tell off" or lecture'],
+    complementary_interventions: ['Comic Strip Conversations', 'Visual Timetables'],
+
+    implementation_guide: 'Write a story about "Lining up for lunch". Describe the line, why we line up (to be fair), how others feel (hungry), and what the student can do (wait quietly). Read it with the student every day BEFORE lunch.',
+    parent_information: 'We can write stories for home too, like "Going to the Dentist" or "Visiting Grandma".',
+    useful_links: ['https://carolgraysocialstories.com'],
+    created_at: '2025-12-11',
+    updated_at: '2025-12-11',
+    tags: ['autism', 'social_skills', 'communication', 'tier_2']
+  },
+  {
+    id: 'asd-comic-strip-conversations',
+    name: 'ASD: Comic Strip Conversations',
+    category: 'social_emotional',
+    subcategory: 'social_skills',
+    description: 'Drawing a conversation using stick figures and speech/thought bubbles. Helps autistic students understand the "hidden curriculum" of social interaction, including thoughts, feelings, and intentions.',
+    targeted_needs: ['Conflict resolution', 'Misinterpreting intentions', 'Literal thinking', 'Theory of Mind difficulties'],
+
+    evidence_level: 'tier_2',
+    research_sources: ['Gray (1994)', 'ASD Guidelines'],
+    effect_size: 0.50,
+    success_rate: 'High for debriefing',
+
+    age_range: ['primary', 'secondary'],
+    setting: ['one_to_one'],
+    duration: 'As needed',
+    frequency: 'Post-incident',
+    session_length: '15-20 minutes',
+
+    complexity: 'medium',
+    staff_training_required: true,
+    resources_needed: ['Paper', 'Coloured pens (colours represent feelings)'],
+    cost_implications: 'None',
+
+    key_components: [
+      'Draw while you talk',
+      'Use symbols for listening/interrupting',
+      'Colours: Green=Happy, Red=Angry, Blue=Sad',
+      'Thought bubbles vs Speech bubbles (crucial)'
+    ],
+
+    fidelity_checklist: [
+      'Student does the drawing (if able)',
+      'Focus on perspective taking',
+      'Non-judgmental'
+    ],
+
+    progress_indicators: ['Better understanding of conflict', 'Improved perspective taking'],
+    expected_outcomes: ['Resolved conflicts', 'Learning from social mistakes'],
+
+    adaptations: ['Use pre-drawn templates'],
+    contraindications: ['None'],
+    complementary_interventions: ['Social Stories', 'Restorative Justice'],
+
+    implementation_guide: 'After an argument, sit down and draw it. "What did you say?" (Speech bubble). "What were you thinking?" (Thought bubble). "What was he thinking?" (Thought bubble). This makes the invisible social world visible.',
+    parent_information: 'Drawing out what happened helps your child "see" the conversation and understand why someone got upset.',
+    useful_links: ['https://www.autism.org.uk'],
+    created_at: '2025-12-11',
+    updated_at: '2025-12-11',
+    tags: ['autism', 'social_skills', 'conflict_resolution', 'tier_2']
+  },
+
   {
     id: 'writing-across-curriculum',
     name: 'Writing to Learn Across the Curriculum',
