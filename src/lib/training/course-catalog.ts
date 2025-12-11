@@ -29,9 +29,10 @@ export type CourseCategory =
   | 'mental_health'
   | 'trauma'
   | 'research'
-  | 'leadership';
+  | 'leadership'
+  | 'behavioural';
 
-export type LessonType = 'video' | 'reading' | 'quiz' | 'interactive' | 'case_study' | 'reflection';
+export type LessonType = 'video' | 'reading' | 'quiz' | 'interactive' | 'case_study' | 'reflection' | 'simulation' | 'workshop';
 
 export type DifficultyLevel = 'beginner' | 'intermediate' | 'advanced' | 'expert';
 
@@ -3066,5 +3067,568 @@ COURSE_CATALOG.push(
     featured: false,
     popularity_score: 85,
     related_interventions: ['wm-dual-coding', 'wm-chunking', 'wm-visual-scaffolds']
+  }
+);
+
+COURSE_CATALOG.push(
+  {
+    id: 'trauma-attachment-aware',
+    title: 'Trauma-Informed Practice & Attachment Aware Schools',
+    subtitle: 'From Theory to Classroom Practice',
+    category: 'trauma',
+    level: 'advanced',
+    description: 'A deep dive into the neuroscience of trauma (Polyvagal Theory) and Attachment Theory. Learn how to create a "Secure Base" for vulnerable learners and move from "What is wrong with you?" to "What happened to you?".',
+    learning_outcomes: [
+      'Understand the impact of ACEs (Adverse Childhood Experiences) on brain development',
+      'Apply Polyvagal Theory to understand fight/flight/freeze/fawn responses',
+      'Identify Attachment Styles (Secure, Avoidant, Ambivalent, Disorganized) in the classroom',
+      'Implement the Key Person approach effectively',
+      'Create a trauma-informed behaviour policy'
+    ],
+    cpd_hours: 10,
+    total_merits: 150,
+    duration_minutes: 600,
+    instructor: {
+      name: 'Dr. Scott Ighavongbe-Patrick',
+      title: 'Educational Psychologist',
+      credentials: 'DEdPsych, CPsychol'
+    },
+    modules: [
+      {
+        id: 'trauma-m1',
+        module_number: 1,
+        title: 'The Neuroscience of Trauma',
+        description: 'Understanding the survival brain.',
+        duration_minutes: 90,
+        lessons: [
+          {
+            id: 'trauma-m1-l1',
+            lesson_number: 1,
+            title: 'Polyvagal Theory (Stephen Porges)',
+            type: 'video',
+            duration_minutes: 30,
+            merits_earned: 15,
+            content_text: 'Understanding the hierarchy of the autonomic nervous system: Ventral Vagal (Social Engagement), Sympathetic (Mobilization), and Dorsal Vagal (Immobilization).',
+            resources: [
+               { id: 'r-porges', title: 'Stephen Porges Transcript', type: 'pdf', url: '/content/trauma/CTS2022_Stephen_Porges_Transcript.pdf', description: 'Transcript of Porges interview', downloadable: true }
+            ]
+          },
+          {
+            id: 'trauma-m1-l2',
+            lesson_number: 2,
+            title: 'The Iceberg Model of Behaviour',
+            type: 'reading',
+            duration_minutes: 20,
+            merits_earned: 10,
+            content_text: 'Behaviour is just the tip of the iceberg. Underlying needs (safety, connection, regulation) are submerged.',
+            resources: [
+               { id: 'r-iceberg', title: 'The Iceberg Model', type: 'pdf', url: '/content/trauma/650e461c150f33388c0e8215_The-Iceberg-Model.pdf', description: 'Visual guide to the Iceberg Model', downloadable: true }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'trauma-m2',
+        module_number: 2,
+        title: 'Attachment Theory in Schools',
+        description: 'Building secure relationships.',
+        duration_minutes: 90,
+        lessons: [
+          {
+            id: 'trauma-m2-l1',
+            lesson_number: 1,
+            title: 'Attachment Styles & Classroom Presentation',
+            type: 'video',
+            duration_minutes: 30,
+            merits_earned: 15,
+            resources: []
+          },
+          {
+            id: 'trauma-m2-l2',
+            lesson_number: 2,
+            title: 'The Key Person Approach',
+            type: 'case_study',
+            duration_minutes: 30,
+            merits_earned: 20,
+            resources: []
+          }
+        ]
+      }
+    ],
+    prerequisites: ['send-fundamentals'],
+    target_audience: ['SLT', 'SENCOs', 'Pastoral Leads', 'Teachers'],
+    certificate_available: true,
+    badge_awarded: 'Trauma Informed Practitioner',
+    image_url: '/images/courses/trauma.jpg',
+    featured: true,
+    popularity_score: 92,
+    related_interventions: ['trauma-iceberg', 'attachment-key-person', 'trauma-safe-space']
+  },
+  {
+    id: 'restorative-justice-semh',
+    title: 'Restorative Justice & SEMH Intervention',
+    subtitle: 'Repairing Harm and Building Community',
+    category: 'behavioural',
+    level: 'intermediate',
+    description: 'Move beyond punitive discipline. Learn to facilitate Restorative Conferences, use Affective Statements, and implement whole-school Restorative Approaches to reduce exclusions and build a positive school culture.',
+    learning_outcomes: [
+      'Understand the difference between Retributive and Restorative Justice',
+      'Master the "Social Discipline Window" (High Control, High Support)',
+      'Facilitate a Restorative Chat using the 5 Magic Questions',
+      'Run a Restorative Conference for serious incidents',
+      'Implement "Undercover Teams" for bullying'
+    ],
+    cpd_hours: 8,
+    total_merits: 120,
+    duration_minutes: 480,
+    instructor: {
+      name: 'Dr. Scott Ighavongbe-Patrick',
+      title: 'Educational Psychologist',
+      credentials: 'DEdPsych, CPsychol'
+    },
+    modules: [
+      {
+        id: 'rj-m1',
+        module_number: 1,
+        title: 'Restorative Fundamentals',
+        description: 'The core principles of RP.',
+        duration_minutes: 60,
+        lessons: [
+          {
+            id: 'rj-m1-l1',
+            lesson_number: 1,
+            title: 'The Social Discipline Window',
+            type: 'video',
+            duration_minutes: 20,
+            merits_earned: 10,
+            content_text: 'Restorative Practice is working WITH people, not TO them or FOR them. High Expectations + High Support.',
+            resources: [
+               { id: 'r-window', title: 'Window on Relationship', type: 'pdf', url: '/content/rj/Window on Relationship-Final.pdf', description: 'The Social Discipline Window explained', downloadable: true }
+            ]
+          },
+          {
+            id: 'rj-m1-l2',
+            lesson_number: 2,
+            title: 'Affective Statements',
+            type: 'interactive',
+            duration_minutes: 30,
+            merits_earned: 15,
+            content_text: 'Small changes in language: "I feel worried when..." instead of "Stop doing that!"',
+            resources: []
+          }
+        ]
+      },
+      {
+        id: 'rj-m2',
+        module_number: 2,
+        title: 'Conferencing & Conflict Resolution',
+        description: 'Facilitating repair.',
+        duration_minutes: 120,
+        lessons: [
+          {
+            id: 'rj-m2-l1',
+            lesson_number: 1,
+            title: 'The 5 Restorative Questions',
+            type: 'simulation',
+            duration_minutes: 40,
+            merits_earned: 30,
+            content_text: '1. What happened? 2. What were you thinking? 3. How did you feel? 4. Who has been affected? 5. What needs to happen to make things right?',
+            resources: [
+               { id: 'r-script', title: 'Restorative Script', type: 'pdf', url: '/content/rj/restorative-practices-guide.pdf', description: 'Pocket guide to restorative questions', downloadable: true }
+            ]
+          },
+          {
+            id: 'rj-m2-l2',
+            lesson_number: 2,
+            title: 'Undercover Teams for Bullying',
+            type: 'case_study',
+            duration_minutes: 40,
+            merits_earned: 20,
+            resources: []
+          }
+        ]
+      }
+    ],
+    prerequisites: ['send-fundamentals'],
+    target_audience: ['Teachers', 'Pastoral Staff', 'SLT'],
+    certificate_available: true,
+    badge_awarded: 'Restorative Facilitator',
+    image_url: '/images/courses/restorative.jpg',
+    featured: false,
+    popularity_score: 88,
+    related_interventions: ['rj-restorative-chat', 'rj-undercover-teams', 'rj-circle-time']
+  }
+);
+
+COURSE_CATALOG.push(
+  {
+    id: 'positive-psychology-wellbeing',
+    title: 'Positive Psychology & Wellbeing in Schools',
+    subtitle: 'Building Resilience and Flourishing',
+    category: 'mental_health',
+    level: 'intermediate',
+    description: 'Apply the science of happiness to education. Learn to use the PERMA model, Growth Mindset, and Motivational Interviewing to support student wellbeing and intrinsic motivation.',
+    learning_outcomes: [
+      'Apply Seligman\'s PERMA model to school culture',
+      'Foster a Growth Mindset in students (and staff)',
+      'Use Motivational Interviewing techniques to facilitate change',
+      'Implement Circle of Friends for social inclusion',
+      'Understand the role of an ELSA (Emotional Literacy Support Assistant)'
+    ],
+    cpd_hours: 8,
+    total_merits: 120,
+    duration_minutes: 480,
+    instructor: {
+      name: 'Dr. Scott Ighavongbe-Patrick',
+      title: 'Educational Psychologist',
+      credentials: 'DEdPsych, CPsychol'
+    },
+    modules: [
+      {
+        id: 'pp-m1',
+        module_number: 1,
+        title: 'Positive Psychology Foundations',
+        description: 'The science of flourishing.',
+        duration_minutes: 90,
+        lessons: [
+          {
+            id: 'pp-m1-l1',
+            lesson_number: 1,
+            title: 'The PERMA Model',
+            type: 'video',
+            duration_minutes: 20,
+            merits_earned: 10,
+            content_text: 'Positive Emotion, Engagement, Relationships, Meaning, Accomplishment.',
+            resources: []
+          },
+          {
+            id: 'pp-m1-l2',
+            lesson_number: 2,
+            title: 'Growth Mindset: The Power of Yet',
+            type: 'reading',
+            duration_minutes: 30,
+            merits_earned: 15,
+            content_text: 'Carol Dweck\'s research on fixed vs growth mindsets.',
+            resources: []
+          }
+        ]
+      },
+      {
+        id: 'pp-m2',
+        module_number: 2,
+        title: 'Tools for Change & Connection',
+        description: 'Practical skills for supporting students.',
+        duration_minutes: 120,
+        lessons: [
+          {
+            id: 'pp-m2-l1',
+            lesson_number: 1,
+            title: 'Motivational Interviewing: OARS Skills',
+            type: 'simulation',
+            duration_minutes: 45,
+            merits_earned: 30,
+            content_text: 'Open questions, Affirmations, Reflections, Summaries.',
+            resources: []
+          },
+          {
+            id: 'pp-m2-l2',
+            lesson_number: 2,
+            title: 'Circle of Friends Intervention',
+            type: 'case_study',
+            duration_minutes: 30,
+            merits_earned: 20,
+            resources: []
+          }
+        ]
+      }
+    ],
+    prerequisites: [],
+    target_audience: ['Teachers', 'ELSAs', 'Pastoral Staff'],
+    certificate_available: true,
+    badge_awarded: 'Wellbeing Champion',
+    image_url: '/images/courses/wellbeing.jpg',
+    featured: false,
+    popularity_score: 89,
+    related_interventions: ['pp-perma', 'gm-growth-mindset', 'cof-circle-of-friends']
+  }
+);
+
+COURSE_CATALOG.push(
+  {
+    id: 'precision-teaching-academic',
+    title: 'Precision Teaching & Academic Resilience',
+    subtitle: 'Data-Driven Progress Monitoring',
+    category: 'assessment',
+    level: 'advanced',
+    description: 'Master the art of Precision Teaching to monitor small steps of progress. Combine this with Metacognition and Executive Function support to boost academic outcomes.',
+    learning_outcomes: [
+      'Design and implement 1-minute Precision Teaching probes',
+      'Chart progress using Standard Celeration Charts (simplified)',
+      'Teach metacognitive strategies for exam preparation',
+      'Support Executive Function difficulties in the classroom',
+      'Implement Paired Reading and CPA (Concrete-Pictorial-Abstract) approaches'
+    ],
+    cpd_hours: 10,
+    total_merits: 150,
+    duration_minutes: 600,
+    instructor: {
+      name: 'Dr. Scott Ighavongbe-Patrick',
+      title: 'Educational Psychologist',
+      credentials: 'DEdPsych, CPsychol'
+    },
+    modules: [
+      {
+        id: 'pt-m1',
+        module_number: 1,
+        title: 'Precision Teaching Mastery',
+        description: 'The science of small steps.',
+        duration_minutes: 120,
+        lessons: [
+          {
+            id: 'pt-m1-l1',
+            lesson_number: 1,
+            title: 'Designing 1-Minute Probes',
+            type: 'workshop',
+            duration_minutes: 45,
+            merits_earned: 25,
+            content_text: 'How to create fluency probes for reading, spelling, and maths facts.',
+            resources: []
+          },
+          {
+            id: 'pt-m1-l2',
+            lesson_number: 2,
+            title: 'Charting and Analysis',
+            type: 'video',
+            duration_minutes: 30,
+            merits_earned: 15,
+            content_text: 'Interpreting the data: Maintenance, Endurance, Stability, Application.',
+            resources: []
+          }
+        ]
+      },
+      {
+        id: 'pt-m2',
+        module_number: 2,
+        title: 'Cognition & Learning',
+        description: 'Supporting the learning brain.',
+        duration_minutes: 120,
+        lessons: [
+          {
+            id: 'pt-m2-l1',
+            lesson_number: 1,
+            title: 'Metacognition: Exam Wrappers',
+            type: 'reading',
+            duration_minutes: 30,
+            merits_earned: 15,
+            content_text: 'Helping students reflect on their revision strategies.',
+            resources: []
+          },
+          {
+            id: 'pt-m2-l2',
+            lesson_number: 2,
+            title: 'Executive Function Support',
+            type: 'simulation',
+            duration_minutes: 40,
+            merits_earned: 20,
+            content_text: 'Simulating working memory overload to understand student experience.',
+            resources: []
+          }
+        ]
+      }
+    ],
+    prerequisites: [],
+    target_audience: ['SENCos', 'Specialist Teachers', 'TAs'],
+    certificate_available: true,
+    badge_awarded: 'Data Detective',
+    image_url: '/images/courses/precision-teaching.jpg',
+    featured: true,
+    popularity_score: 92,
+    related_interventions: ['pt-probe', 'meta-wrapper', 'ef-games']
+  }
+);
+COURSE_CATALOG.push(
+  {
+    id: 'advanced-inclusion-strategies',
+    title: 'Advanced Inclusion Strategies',
+    subtitle: 'Specialist Approaches for Complex Needs',
+    category: 'send',
+    level: 'expert',
+    description: 'Deep dive into specialist areas of inclusion: EBSA (School Refusal), Bereavement, Dynamic Assessment, and EAL. Equip yourself with the tools to handle the most complex cases.',
+    learning_outcomes: [
+      'Create robust Return to School plans for EBSA',
+      'Support students through bereavement and loss',
+      'Apply Dynamic Assessment principles (Test-Teach-Retest)',
+      'Distinguish between EAL needs and SEND',
+      'Implement anger management strategies like the Volcano Scale'
+    ],
+    cpd_hours: 12,
+    total_merits: 200,
+    duration_minutes: 720,
+    instructor: {
+      name: 'Dr. Scott Ighavongbe-Patrick',
+      title: 'Educational Psychologist',
+      credentials: 'DEdPsych, CPsychol'
+    },
+    modules: [
+      {
+        id: 'adv-m1',
+        module_number: 1,
+        title: 'EBSA: Emotionally Based School Avoidance',
+        description: 'Understanding the "Push" and "Pull" factors.',
+        duration_minutes: 120,
+        lessons: [
+          {
+            id: 'adv-m1-l1',
+            lesson_number: 1,
+            title: 'The EBSA Formulation',
+            type: 'case_study',
+            duration_minutes: 60,
+            merits_earned: 30,
+            content_text: 'Mapping the functions of behaviour: Why are they avoiding school?',
+            resources: []
+          },
+          {
+            id: 'adv-m1-l2',
+            lesson_number: 2,
+            title: 'Graduated Return Plans',
+            type: 'workshop',
+            duration_minutes: 60,
+            merits_earned: 30,
+            content_text: 'Designing a step-by-step reintegration plan.',
+            resources: []
+          }
+        ]
+      },
+      {
+        id: 'adv-m2',
+        module_number: 2,
+        title: 'Critical Incidents & Specialist Skills',
+        description: 'Bereavement, Dynamic Assessment, and EAL.',
+        duration_minutes: 180,
+        lessons: [
+          {
+            id: 'adv-m2-l1',
+            lesson_number: 1,
+            title: 'Bereavement: The Whirlpool of Grief',
+            type: 'video',
+            duration_minutes: 45,
+            merits_earned: 20,
+            content_text: 'Supporting students through loss and change.',
+            resources: []
+          },
+          {
+            id: 'adv-m2-l2',
+            lesson_number: 2,
+            title: 'Dynamic Assessment: Unlocking Potential',
+            type: 'simulation',
+            duration_minutes: 60,
+            merits_earned: 40,
+            content_text: 'Moving beyond IQ scores: Assessing potential through mediation.',
+            resources: []
+          }
+        ]
+      }
+    ],
+    prerequisites: ['Trauma Informed Practice'],
+    target_audience: ['SENCos', 'Senior Leaders', 'EPs'],
+    certificate_available: true,
+    badge_awarded: 'Inclusion Expert',
+    image_url: '/images/courses/inclusion.jpg',
+    featured: false,
+    popularity_score: 85,
+    related_interventions: ['ebsa-plan', 'ber-box', 'da-mediation']
+  }
+);
+COURSE_CATALOG.push(
+  {
+    id: 'advanced-inclusion-strategies',
+    title: 'Advanced Inclusion Strategies',
+    subtitle: 'Specialist Approaches for Complex Needs',
+    category: 'send',
+    level: 'expert',
+    description: 'Deep dive into specialist areas of inclusion: EBSA (School Refusal), Bereavement, Dynamic Assessment, and EAL. Equip yourself with the tools to handle the most complex cases.',
+    learning_outcomes: [
+      'Create robust Return to School plans for EBSA',
+      'Support students through bereavement and loss',
+      'Apply Dynamic Assessment principles (Test-Teach-Retest)',
+      'Distinguish between EAL needs and SEND',
+      'Implement anger management strategies like the Volcano Scale'
+    ],
+    cpd_hours: 12,
+    total_merits: 200,
+    duration_minutes: 720,
+    instructor: {
+      name: 'Dr. Scott Ighavongbe-Patrick',
+      title: 'Educational Psychologist',
+      credentials: 'DEdPsych, CPsychol'
+    },
+    modules: [
+      {
+        id: 'adv-m1',
+        module_number: 1,
+        title: 'EBSA: Emotionally Based School Avoidance',
+        description: 'Understanding the "Push" and "Pull" factors.',
+        duration_minutes: 120,
+        lessons: [
+          {
+            id: 'adv-m1-l1',
+            lesson_number: 1,
+            title: 'The EBSA Formulation',
+            type: 'case_study',
+            duration_minutes: 60,
+            merits_earned: 30,
+            content_text: 'Mapping the functions of behaviour: Why are they avoiding school?',
+            resources: []
+          },
+          {
+            id: 'adv-m1-l2',
+            lesson_number: 2,
+            title: 'Graduated Return Plans',
+            type: 'workshop',
+            duration_minutes: 60,
+            merits_earned: 30,
+            content_text: 'Designing a step-by-step reintegration plan.',
+            resources: []
+          }
+        ]
+      },
+      {
+        id: 'adv-m2',
+        module_number: 2,
+        title: 'Critical Incidents & Specialist Skills',
+        description: 'Bereavement, Dynamic Assessment, and EAL.',
+        duration_minutes: 180,
+        lessons: [
+          {
+            id: 'adv-m2-l1',
+            lesson_number: 1,
+            title: 'Bereavement: The Whirlpool of Grief',
+            type: 'video',
+            duration_minutes: 45,
+            merits_earned: 20,
+            content_text: 'Supporting students through loss and change.',
+            resources: []
+          },
+          {
+            id: 'adv-m2-l2',
+            lesson_number: 2,
+            title: 'Dynamic Assessment: Unlocking Potential',
+            type: 'simulation',
+            duration_minutes: 60,
+            merits_earned: 40,
+            content_text: 'Moving beyond IQ scores: Assessing potential through mediation.',
+            resources: []
+          }
+        ]
+      }
+    ],
+    prerequisites: ['Trauma Informed Practice'],
+    target_audience: ['SENCos', 'Senior Leaders', 'EPs'],
+    certificate_available: true,
+    badge_awarded: 'Inclusion Expert',
+    image_url: '/images/courses/inclusion.jpg',
+    featured: false,
+    popularity_score: 85,
+    related_interventions: ['ebsa-plan', 'ber-box', 'da-mediation']
   }
 );
