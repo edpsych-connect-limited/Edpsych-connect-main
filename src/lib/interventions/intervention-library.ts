@@ -3009,6 +3009,123 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     tags: ['literacy_across_curriculum', 'content_area_reading', 'disciplinary_literacy', 'secondary', 'tier_1']
   },
 
+  // ========================================================================
+  // COGNITIVE & WORKING MEMORY INTERVENTIONS (Ingested from Training Content)
+  // ========================================================================
+  {
+    id: 'wm-chunking-strategy',
+    name: 'Working Memory: Chunking Strategy',
+    category: 'academic',
+    subcategory: 'cognition_memory',
+    description: 'A cognitive strategy to overcome working memory limitations by grouping individual pieces of information into larger, meaningful units ("chunks"). Based on Miller\'s Law (7 +/- 2 items).',
+    targeted_needs: ['Poor working memory', 'Difficulty following multi-step instructions', 'Forgetting information quickly', 'Cognitive overload'],
+
+    evidence_level: 'tier_1',
+    research_sources: ['Miller (1956)', 'Cowan (2001)', 'Gathercole & Alloway (2008)'],
+    effect_size: 0.65,
+    success_rate: 'High for immediate recall tasks',
+
+    age_range: ['primary', 'secondary', 'post_16'],
+    setting: ['classroom', 'one_to_one', 'home'],
+    duration: 'Ongoing strategy',
+    frequency: 'Daily integration',
+    session_length: 'Integrated into teaching',
+
+    complexity: 'low',
+    staff_training_required: false,
+    resources_needed: ['None (Teacher technique)'],
+    cost_implications: 'None',
+
+    key_components: [
+      'Group related items together',
+      'Use acronyms or mnemonics',
+      'Break long numbers into groups (e.g., 077-00-900-123)',
+      'Categorize vocabulary words',
+      'Teach students to self-chunk'
+    ],
+
+    fidelity_checklist: [
+      'Teacher presents information in groups of 3-4',
+      'Pauses provided between chunks',
+      'Students encouraged to find patterns',
+      'Visual grouping used on board'
+    ],
+
+    progress_indicators: [
+      'Recall of longer sequences',
+      'Better following of instructions',
+      'Reduced frustration during complex tasks'
+    ],
+
+    expected_outcomes: [
+      'Improved immediate recall',
+      'Better task completion',
+      'Reduced cognitive load'
+    ],
+
+    adaptations: ['Use color coding to visually chunk', 'Use rhythm/melody to auditory chunk'],
+    contraindications: ['None'],
+    complementary_interventions: ['Dual Coding', 'Visual Supports'],
+
+    implementation_guide: 'Instead of giving a list of 10 items, group them into 3 categories of 3-4 items. When giving instructions, break "Get your book, turn to page 4, and answer question 1" into: "Get Book -> Page 4 -> Question 1".',
+    parent_information: 'Help your child remember things by grouping them. Instead of a long list of chores, group them: "Upstairs chores" and "Downstairs chores".',
+    useful_links: ['https://www.understood.org/en/articles/chunking-technique'],
+    created_at: '2025-12-11',
+    updated_at: '2025-12-11',
+    tags: ['working_memory', 'cognition', 'memory_strategy', 'tier_1']
+  },
+  {
+    id: 'wm-dual-coding',
+    name: 'Working Memory: Dual Coding',
+    category: 'academic',
+    subcategory: 'cognition_memory',
+    description: 'Combining verbal and visual information to double the chance of learning. Utilizes both the Phonological Loop and Visuo-Spatial Sketchpad simultaneously.',
+    targeted_needs: ['Verbal memory deficits', 'Visual memory deficits', 'Slow processing speed'],
+
+    evidence_level: 'tier_1',
+    research_sources: ['Paivio (1971)', 'Caviglioli (2019)', 'EEF Cognitive Science'],
+    effect_size: 0.55,
+    success_rate: 'Very High',
+
+    age_range: ['all'],
+    setting: ['classroom'],
+    duration: 'Ongoing',
+    frequency: 'Daily',
+    session_length: 'Integrated',
+
+    complexity: 'medium',
+    staff_training_required: true,
+    resources_needed: ['Icons', 'Diagrams', 'Visualizers'],
+    cost_implications: 'Low',
+
+    key_components: [
+      'Always pair text/speech with an image',
+      'Use diagrams to explain concepts',
+      'Avoid "decorative" images (extraneous load)',
+      'Students draw diagrams to explain understanding'
+    ],
+
+    fidelity_checklist: [
+      'Visuals support the text directly',
+      'No "chart junk"',
+      'Teacher explains the visual connection'
+    ],
+
+    progress_indicators: ['Improved retention of concepts', 'Better explanation of ideas'],
+    expected_outcomes: ['Deeper understanding', 'Longer retention'],
+
+    adaptations: ['Tactile dual coding for VI students'],
+    contraindications: ['Visual clutter/overload'],
+    complementary_interventions: ['Chunking', 'Graphic Organizers'],
+
+    implementation_guide: 'Don\'t just say "The heart pumps blood." Show a diagram of the heart AND say it. The brain processes these in two separate channels, increasing capacity.',
+    parent_information: 'Draw pictures when explaining things to your child. It helps them "see" what you mean and remember it better.',
+    useful_links: ['https://www.olicav.com'],
+    created_at: '2025-12-11',
+    updated_at: '2025-12-11',
+    tags: ['working_memory', 'dual_coding', 'visual_learning', 'tier_1']
+  },
+
   {
     id: 'writing-across-curriculum',
     name: 'Writing to Learn Across the Curriculum',

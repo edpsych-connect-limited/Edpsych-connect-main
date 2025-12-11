@@ -60,6 +60,7 @@ export interface Course {
   image_url?: string;
   featured: boolean;
   popularity_score: number;
+  related_interventions?: string[]; // IDs from intervention-library.ts
 }
 
 export interface CourseModule {
@@ -2407,6 +2408,116 @@ export const COURSE_CATALOG: Course[] = [
     badge_awarded: 'Research Scholar',
     featured: false,
     popularity_score: 78,
+  },
+  // ========================================================================
+  // 11. WORKING MEMORY MASTERY (Ingested from Training Content)
+  // ========================================================================
+  {
+    id: 'working-memory-mastery',
+    title: 'Working Memory Mastery: Strategies for the Classroom',
+    subtitle: 'Practical interventions for cognitive load management',
+    category: 'assessment',
+    level: 'intermediate',
+    description:
+      'A comprehensive guide to understanding, assessing, and supporting Working Memory in the classroom. Based on the "WM STRATEGIES" and "Working Memory 1 & 2" training modules. Learn to distinguish between auditory and visual working memory deficits and implement the "Multi-Element Model" for support.',
+    learning_outcomes: [
+      'Define Working Memory and its components (Phonological Loop, Visuo-Spatial Sketchpad)',
+      'Identify signs of Working Memory overload in students',
+      'Implement the "Chunking" and "Dual Coding" strategies',
+      'Modify classroom instructions to reduce cognitive load',
+      'Use the "Memory Mates" peer support system',
+    ],
+    cpd_hours: 4,
+    total_merits: 120,
+    duration_minutes: 240,
+    instructor: {
+      name: 'Dr. Sarah Collins',
+      title: 'Senior Educational Psychologist',
+      credentials: 'DEdPsych, HCPC Registered',
+      avatar_url: '/avatars/sarah-collins.jpg',
+    },
+    modules: [
+      {
+        id: 'wm-mod-1',
+        module_number: 1,
+        title: 'The Architecture of Memory',
+        description: 'Understanding how we process and store information.',
+        duration_minutes: 60,
+        lessons: [
+          {
+            id: 'wm-l1',
+            lesson_number: 1,
+            title: 'What is Working Memory?',
+            type: 'video',
+            duration_minutes: 15,
+            content_url: '/content/training_videos/wm-intro.mp4',
+            resources: [{ id: 'r1', title: 'WM Model Diagram', type: 'pdf', url: '/resources/wm-model.pdf', description: 'Baddeley\'s Model of Working Memory', downloadable: true }],
+            merits_earned: 10,
+          },
+          {
+            id: 'wm-l2',
+            lesson_number: 2,
+            title: 'The Bottleneck of Learning',
+            type: 'reading',
+            duration_minutes: 20,
+            content_text: 'Working memory is often the bottleneck for learning. When the capacity is exceeded, information is lost...',
+            resources: [],
+            merits_earned: 10,
+          },
+        ],
+        quiz: {
+          id: 'wm-q1',
+          title: 'Memory Models Quiz',
+          passing_score: 80,
+          merits_perfect_score: 20,
+          questions: [
+            {
+              id: 'q1',
+              question: 'Which component handles visual information?',
+              type: 'multiple_choice',
+              options: ['Phonological Loop', 'Visuo-Spatial Sketchpad', 'Central Executive', 'Episodic Buffer'],
+              correct_answer: 'Visuo-Spatial Sketchpad',
+              explanation: 'The Visuo-Spatial Sketchpad is responsible for holding and manipulating visual and spatial information.',
+              points: 10,
+            },
+          ],
+        },
+      },
+      {
+        id: 'wm-mod-2',
+        module_number: 2,
+        title: 'Classroom Strategies',
+        description: 'Practical tools from the "WM STRATEGIES" document.',
+        duration_minutes: 90,
+        lessons: [
+          {
+            id: 'wm-l3',
+            lesson_number: 1,
+            title: 'Reducing Cognitive Load',
+            type: 'interactive',
+            duration_minutes: 30,
+            merits_earned: 15,
+            interactive_elements: [
+              {
+                id: 'ie-1',
+                type: 'simulation',
+                title: 'Simplify the Instruction',
+                data: { scenario: 'Teacher gives 4-step instruction. Rewrite it to be WM-friendly.' },
+              },
+            ],
+            resources: [],
+          },
+        ],
+      },
+    ],
+    prerequisites: ['send-fundamentals'],
+    target_audience: ['Teachers', 'SENCOs', 'Teaching Assistants'],
+    certificate_available: true,
+    badge_awarded: 'Cognition Champion',
+    image_url: '/images/courses/working-memory.jpg',
+    featured: true,
+    popularity_score: 95,
+    related_interventions: ['wm-chunking-strategy', 'wm-dual-coding'],
   },
 ];
 

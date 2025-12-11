@@ -291,6 +291,7 @@ export default function EnhancedCodingCurriculum() {
   const [activeTrack, setActiveTrack] = useState<'blocks' | 'python' | 'react'>('blocks');
   const [voiceEnabled, setVoiceEnabled] = useState(false);
   const [accessibilityMode, setAccessibilityMode] = useState(false);
+  const [isTeacherMode, setIsTeacherMode] = useState(false);
 
   const currentLevel = LEVELS.find(l => l.id === activeLevel) || LEVELS[0];
   const trackVideos = CODING_VIDEOS.filter(v => v.track === activeTrack || v.track === 'intro');
@@ -419,6 +420,15 @@ export default function EnhancedCodingCurriculum() {
                 >
                   <Settings className="w-5 h-5" />
                 </button>
+                <button
+                  onClick={() => setIsTeacherMode(!isTeacherMode)}
+                  className={`p-2 rounded-lg transition-colors ${
+                    isTeacherMode ? 'bg-amber-500 text-white' : 'bg-white/10 text-white/70 hover:bg-white/20'
+                  }`}
+                  title="Teacher Dashboard"
+                >
+                  <BookOpen className="w-5 h-5" />
+                </button>
               </div>
             </div>
           </div>
@@ -451,9 +461,12 @@ export default function EnhancedCodingCurriculum() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Learning Path Tab */}
-        {activeTab === 'learn' && (
+      {isTeacherMode ? (
+        <TeacherDashboard />
+      ) : (
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          {/* Learning Path Tab */}
+          {activeTab === 'learn' && (
           <div className="space-y-8">
             {/* Learning Tracks */}
             <div className="grid md:grid-cols-3 gap-6">
@@ -920,7 +933,6 @@ export default function EnhancedCodingCurriculum() {
             </div>
           </div>
         )}
-      </div>
 
       {/* Video Modal */}
       {selectedVideo && (
@@ -975,6 +987,92 @@ export default function EnhancedCodingCurriculum() {
           </div>
         </div>
       )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function TeacherDashboard() {
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">Classroom Analytics</h2>
+            <p className="text-gray-600">Year 5 - Coding Club</p>
+          </div>
+          <button className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+            Assign New Module
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="bg-purple-50 p-4 rounded-xl border border-purple-100">
+            <div className="text-purple-600 font-medium mb-1">Active Students</div>
+            <div className="text-3xl font-bold text-gray-900">24/28</div>
+            <div className="text-sm text-purple-600 mt-2">↑ 12% from last week</div>
+          </div>
+          <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
+            <div className="text-blue-600 font-medium mb-1">Avg. Progress</div>
+            <div className="text-3xl font-bold text-gray-900">Level 4</div>
+            <div className="text-sm text-blue-600 mt-2">Block Coding Mastery</div>
+          </div>
+          <div className="bg-green-50 p-4 rounded-xl border border-green-100">
+            <div className="text-green-600 font-medium mb-1">Skills Mastered</div>
+            <div className="text-3xl font-bold text-gray-900">156</div>
+            <div className="text-sm text-green-600 mt-2">Collective achievements</div>
+          </div>
+        </div>
+
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Student Progress</h3>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-gray-200">
+                <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Student</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Current Track</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Level</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Last Active</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                { name: 'Alex T.', track: 'Python', level: 5, last: '2 mins ago', status: 'On Track' },
+                { name: 'Sarah M.', track: 'Blocks', level: 4, last: '1 hour ago', status: 'Needs Help' },
+                { name: 'James R.', track: 'React', level: 7, last: '1 day ago', status: 'Advanced' },
+                { name: 'Emma W.', track: 'Blocks', level: 3, last: '3 days ago', status: 'On Track' },
+              ].map((student, i) => (
+                <tr key={i} className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="py-3 px-4 font-medium text-gray-900">{student.name}</td>
+                  <td className="py-3 px-4">
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                      student.track === 'Python' ? 'bg-blue-100 text-blue-800' :
+                      student.track === 'React' ? 'bg-purple-100 text-purple-800' :
+                      'bg-amber-100 text-amber-800'
+                    }`}>
+                      {student.track}
+                    </span>
+                  </td>
+                  <td className="py-3 px-4 text-gray-600">Level {student.level}</td>
+                  <td className="py-3 px-4 text-gray-500">{student.last}</td>
+                  <td className="py-3 px-4">
+                    <span className={`inline-flex items-center text-sm ${
+                      student.status === 'Needs Help' ? 'text-red-600 font-medium' :
+                      student.status === 'Advanced' ? 'text-green-600 font-medium' :
+                      'text-gray-600'
+                    }`}>
+                      {student.status === 'Needs Help' && <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>}
+                      {student.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }
