@@ -1,6 +1,6 @@
 // Auto-generated HeyGen video URL mapping
 // Generated: 2025-12-12T14:21:15.552Z
-// Updated: Generated 13 new production videos (Sarah, Adrian, Dr. Maya, and Dr. Scott) (2025-12-12)
+// Updated: Regenerated Dr. Scott videos with correct custom Avatar/Voice (2025-12-12)
 
 // ============================================================================
 // CASTING STRATEGY (Dr. Scott vs. Adrian)
@@ -17,9 +17,9 @@
 // Video IDs for HeyGen embed
 export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   // Core Platform Videos
-  "platform-introduction": "1253f6c2d8e9442db7eeb8dcba27a568",
-  "onboarding-platform-tour": "1253f6c2d8e9442db7eeb8dcba27a568",
-  "onboarding-welcome": "1253f6c2d8e9442db7eeb8dcba27a568",
+  "platform-introduction": "fbac694af7124c69abcf13102ac090f9",
+  "onboarding-platform-tour": "fbac694af7124c69abcf13102ac090f9",
+  "onboarding-welcome": "fbac694af7124c69abcf13102ac090f9",
   "la-dashboard-overview": "bda257f9263440b0ace5f74875d8e5b6",
   "school-senco-portal": "7a6420de424a477eba6a29ad99a3271d",
   "parent-portal-welcome": "ec76fcbd50954161a040fb0f5ec42738",
@@ -44,7 +44,7 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "compliance-consent": "a9add208f50b411f97b6db9cf7df3f88",
   "assessment-choosing": "8f7d3a8b5d784d05a368650e26e0a50a",
   "assessment-interpreting": "8f517e49f738427086b1483f0f41cb6f",
-  "innovation-safety-net": "c27e642db9b54d6faf695da40d47bf2a",
+  "innovation-safety-net": "32d0aa1f216d486695d283c23fb82a1b",
   "innovation-orchestration": "4be8a3b43a2f42c9b538b613c5e002e3",
   "innovation-research-hub": "b4dc8f8e12f645b987d7b4c25269acd3",
   "innovation-coding-curriculum": "84c23e6e11604b7da12d41ad23c90804",
@@ -64,7 +64,7 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "react-state": "84c23e6e11604b7da12d41ad23c90804",
 
   // Enterprise & Security (Placeholders mapped to Platform Intro until production)
-  "enterprise-plan-overview": "1253f6c2d8e9442db7eeb8dcba27a568", 
+  "enterprise-plan-overview": "fbac694af7124c69abcf13102ac090f9", 
   "security-deep-dive": "12fbfee13dd04c7087eee79ad1101fb2",
   "feature-deep-dive-ehcp": "5ad6364b3e0944a5bbc055c6b4e35896",
 

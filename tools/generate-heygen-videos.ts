@@ -40,9 +40,17 @@ const API_KEY: string = API_KEY_RAW;
 // async function fetchAvatars() { ... }
 // async function fetchVoices() { ... }
 
-async function generateVideo(script: string, gender: 'Male' | 'Female', title: string) {
-  const avatarId = getRandomAvatar(gender);
-  const voiceId = VOICES[gender] || VOICES['Female'];
+async function generateVideo(script: string, gender: 'Male' | 'Female', title: string, instructor: string) {
+  let avatarId = getRandomAvatar(gender);
+  let voiceId = VOICES[gender] || VOICES['Female'];
+  
+  // Specific casting
+  if (instructor === 'Dr. Scott') {
+    avatarId = 'aae2fc783ee247cc9e09bd9517f74e5b'; // Dr. Scott Real Avatar
+    voiceId = 'd680604a31f34ce096c84bed708774c3'; // Dr. Scott Real Voice
+  } else if (instructor === 'Adrian') {
+    avatarId = 'Adrian_public_3_20240312'; // Adrian
+  }
 
   const payload = {
     video_inputs: [
@@ -117,7 +125,7 @@ async function main() {
     console.log(`   Instructor: ${instructor} (${gender})`);
 
     try {
-      const result: any = await generateVideo(script, gender as 'Male' | 'Female', title);
+      const result: any = await generateVideo(script, gender as 'Male' | 'Female', title, instructor);
       const videoId = result.data?.video_id || 'Unknown ID';
       console.log(`   ✅ Success! Video ID: ${videoId}`);
       
