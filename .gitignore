@@ -121,7 +121,7 @@ service-account.json
 # public/content/training_videos/  # REMOVED - now using Git LFS
 
 # Video files (served from Cloudinary CDN)
-public/content/training_videos/**/*.mp4
+# public/content/training_videos/**/*.mp4
 .vercel
 .cypress-cache/
 tools/node20/
