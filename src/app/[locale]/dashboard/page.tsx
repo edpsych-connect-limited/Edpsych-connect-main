@@ -248,6 +248,13 @@ export default function DashboardPage() {
           color: 'bg-yellow-100 text-yellow-600',
         },
         {
+          title: 'Coding Curriculum',
+          description: 'Learn to code by modding your favourite games.',
+          icon: PlayCircle,
+          href: '/demo/coding',
+          color: 'bg-green-100 text-green-600',
+        },
+        {
           title: 'My Progress',
           description: 'Track your own learning achievements.',
           icon: TrendingUp,
