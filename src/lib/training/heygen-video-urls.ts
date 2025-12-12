@@ -1,6 +1,6 @@
 // Auto-generated HeyGen video URL mapping
 // Generated: 2025-12-12T14:21:15.552Z
-// Updated: Regenerated all videos with strict content guidelines (no abbreviations)
+// Updated: Generated 11 new production videos for Sarah, Adrian, and Dr. Maya (2025-12-12)
 
 // ============================================================================
 // CASTING STRATEGY (Dr. Scott vs. Adrian)
@@ -20,7 +20,7 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "platform-introduction": "47faddd661d648e5ae34c8360c8b2286",
   "onboarding-platform-tour": "47faddd661d648e5ae34c8360c8b2286",
   "onboarding-welcome": "47faddd661d648e5ae34c8360c8b2286",
-  "la-dashboard-overview": "e22dc12814024315b4847ae0b7d368ec",
+  "la-dashboard-overview": "bda257f9263440b0ace5f74875d8e5b6",
   "school-senco-portal": "7a6420de424a477eba6a29ad99a3271d",
   "parent-portal-welcome": "ec76fcbd50954161a040fb0f5ec42738",
   "ehcp-application-journey": "5ad6364b3e0944a5bbc055c6b4e35896",
@@ -28,23 +28,23 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "ehcp-professional-contributions": "93e46803ffc4404998abfcdcaa5c09ae",
   "ehcp-annual-review": "04effa7e0b9147b582008f022e8421b2",
   "ehcp-appeals": "290dd8919c24405e9f83548d56f37caf",
-  "help-getting-started": "8a9eaa07f0854e04ad3abf8988fa2900",
-  "help-first-assessment": "4b19692b1836468d9fb2d35be6376d5a",
+  "help-getting-started": "a3b05db1d6f94cca89b190205148e814",
+  "help-first-assessment": "c2f83ce8d785468a8d762bebb2cee7f0",
   "help-finding-interventions": "47aa88223c364600b6618b54c719f717",
-  "help-data-security": "12fbfee13dd04c7087eee79ad1101fb2",
+  "help-data-security": "e55cf956dc06440b9596976c5b21657d",
   "help-collaboration": "43b884d3d5eb4d1f9e98126238ce9b07",
-  "help-generating-reports": "aa3ed2e5e3c546329a2158c5a1e77c96",
+  "help-generating-reports": "54882ac8986c404d99b052952de1699b",
   "help-cpd-tracking": "36da748c9c9948cebf809ccb88a6ee6d",
-  "help-troubleshooting": "e6b3f3f774a54aedbd8a84eaf895f495",
+  "help-troubleshooting": "a47ac27a1b444cc892840d32c9d63cbb",
   "la-professional-requests": "f6bb91fba2b64a9980ad90486156215b",
   "la-ehcp-merge-tool": "e0fd73d582534c23acdf88c81fd4e616",
   "parent-understanding-results": "5d2a1d79e71144c884337f44ffc81180",
   "parent-contributing-views": "a4929f69fc9c4dada50351d378589950",
-  "compliance-data-protection": "1b7ec040ec96407e8be783e1345edbcd",
+  "compliance-data-protection": "d741f1a637fc4d279c255ceea749ec7c",
   "compliance-consent": "a9add208f50b411f97b6db9cf7df3f88",
   "assessment-choosing": "8f7d3a8b5d784d05a368650e26e0a50a",
   "assessment-interpreting": "8f517e49f738427086b1483f0f41cb6f",
-  "innovation-safety-net": "67b145614e7f4e61b0e69529391ed580",
+  "innovation-safety-net": "e56da82801a54cbaaecfc3aea2f0e4b3",
   "innovation-orchestration": "4be8a3b43a2f42c9b538b613c5e002e3",
   "innovation-research-hub": "b4dc8f8e12f645b987d7b4c25269acd3",
   "innovation-coding-curriculum": "84c23e6e11604b7da12d41ad23c90804",
@@ -52,14 +52,14 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "innovation-battle-royale": "c13549ec38474d0287b3f019cf842b48",
   
   // Coding Curriculum Videos (Aliased to placeholders)
-  "intro-coding-journey": "84c23e6e11604b7da12d41ad23c90804",
+  "intro-coding-journey": "4363edaa3c594cd7bc2561bc7df5482e",
   "blocks-intro": "84c23e6e11604b7da12d41ad23c90804",
   "blocks-events": "84c23e6e11604b7da12d41ad23c90804",
   "blocks-loops": "84c23e6e11604b7da12d41ad23c90804",
-  "python-basics": "84c23e6e11604b7da12d41ad23c90804",
+  "python-basics": "ce12a5c23c8f48bfa444b15088d6263f",
   "python-variables": "84c23e6e11604b7da12d41ad23c90804",
   "python-functions": "84c23e6e11604b7da12d41ad23c90804",
-  "react-intro": "84c23e6e11604b7da12d41ad23c90804",
+  "react-intro": "9fdd9b32b3cd4ce8a6c4f6cf8bf85012",
   "react-components": "84c23e6e11604b7da12d41ad23c90804",
   "react-state": "84c23e6e11604b7da12d41ad23c90804",
 

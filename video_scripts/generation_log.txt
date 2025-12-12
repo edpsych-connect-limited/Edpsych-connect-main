@@ -229,3 +229,14 @@
 2025-11-25T18:32:17.999Z | SUCCESS | 82d8b5bce85c4aa7b787093275216d5e | Dyslexia Intervention Strategies - Spelling and Written Expression Support - Supporting Written Expression: Separating Transcription from Composition
 2025-11-25T18:32:23.790Z | SUCCESS | 5baff17122374d549a199600b4ec044c | Dyslexia Intervention Strategies - Accommodations, Assistive Technology, and Progress Monitoring - Classroom Accommodations and Assistive Technology
 2025-11-25T18:32:29.537Z | SUCCESS | 4c7259f3a45b49f38a78e5d2c516f972 | Dyslexia Intervention Strategies - Accommodations, Assistive Technology, and Progress Monitoring - Progress Monitoring and Assessment
+2025-12-12T20:53:36.159Z | SUCCESS | a3b05db1d6f94cca89b190205148e814 | Help - Getting Started - Welcome
+2025-12-12T20:53:43.387Z | SUCCESS | c2f83ce8d785468a8d762bebb2cee7f0 | Help - Assessment - First Assessment
+2025-12-12T20:53:49.443Z | SUCCESS | 54882ac8986c404d99b052952de1699b | Help - Reports - Generating Reports
+2025-12-12T20:53:56.000Z | SUCCESS | bda257f9263440b0ace5f74875d8e5b6 | LA Portal - Dashboard - Overview
+2025-12-12T20:54:02.565Z | SUCCESS | e55cf956dc06440b9596976c5b21657d | Help - Security - Data Architecture
+2025-12-12T20:54:09.128Z | SUCCESS | d741f1a637fc4d279c255ceea749ec7c | Compliance - GDPR - Data Autonomy
+2025-12-12T20:54:15.529Z | SUCCESS | e56da82801a54cbaaecfc3aea2f0e4b3 | Innovation - Safety Net - Logic
+2025-12-12T20:54:23.239Z | SUCCESS | a47ac27a1b444cc892840d32c9d63cbb | Help - Troubleshooting - System Diagnostics
+2025-12-12T20:54:29.739Z | SUCCESS | 4363edaa3c594cd7bc2561bc7df5482e | Coding - Intro - Journey
+2025-12-12T20:54:35.989Z | SUCCESS | ce12a5c23c8f48bfa444b15088d6263f | Coding - Python - Basics
+2025-12-12T20:54:42.457Z | SUCCESS | 9fdd9b32b3cd4ce8a6c4f6cf8bf85012 | Coding - React - Intro
