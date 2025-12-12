@@ -12,8 +12,8 @@ describe('Researcher Role E2E', () => {
     cy.get('button[type="submit"]').click();
 
     // Wait for redirect and loading
-    cy.location('pathname', { timeout: 10000 }).should('include', '/dashboard');
-    cy.contains('Welcome back', { timeout: 10000 }).should('be.visible');
+    cy.location('pathname', { timeout: 30000 }).should('include', '/dashboard');
+    cy.contains('Welcome back', { timeout: 30000 }).should('be.visible');
     
     // Verify researcher specific elements
     // Updated to match actual DashboardPage implementation

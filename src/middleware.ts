@@ -242,6 +242,11 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Skip next-intl for API routes
+  if (pathname.startsWith('/api')) {
+    return NextResponse.next();
+  }
+
   return intlMiddleware(request);
 }
 

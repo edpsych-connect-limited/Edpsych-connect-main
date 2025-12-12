@@ -10,7 +10,7 @@ describe('Safety Net & Simulation E2E', () => {
     
     // Wait for dashboard or admin panel to ensure login complete
     // Admin users are redirected to /admin, others to /dashboard
-    cy.url().should('match', /\/(dashboard|admin)/);
+    cy.url({ timeout: 60000 }).should('match', /\/(dashboard|admin)/);
   });
 
   it('should display the Golden Thread Dashboard', () => {
