@@ -14,6 +14,7 @@ import { Html, Stars, PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaHeart, FaShieldAlt, FaBrain, FaClock, FaTrophy, FaGamepad, FaQuestionCircle, FaVolumeUp, FaVolumeMute, FaStar, FaFire, FaMedal } from 'react-icons/fa';
+import { getStudentQuestions } from '@/app/actions/gamification';
 
 // --- Types ---
 interface Player {
@@ -79,7 +80,7 @@ const ACHIEVEMENTS: Achievement[] = [
 ];
 
 // Expanded Curriculum-aligned questions (UK Key Stage focused)
-const CURRICULUM_QUESTIONS: Question[] = [
+const FALLBACK_QUESTIONS: Question[] = [
   // ========== KEY STAGE 1 - EASY (Ages 5-7) ==========
   // Maths KS1
   { id: 'ks1-m1', text: 'What does 2 + 3 equal?', options: ['4', '5', '6', '7'], correctIndex: 1, points: 50, category: 'Maths KS1', difficulty: 'easy', curriculumLink: 'Addition within 10' },
@@ -293,6 +294,30 @@ export const BattleRoyaleGame: React.FC = () => {
   const [totalWins, setTotalWins] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [bestStreak, setBestStreak] = useState(0);
+  const [questions, setQuestions] = useState<Question[]>(FALLBACK_QUESTIONS);
+  const [isLoadingQuestions, setIsLoadingQuestions] = useState(true);
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        setIsLoadingQuestions(true);
+        // Use a default student ID for beta/demo purposes
+        const studentId = 1009; 
+        const fetchedQuestions = await getStudentQuestions(studentId);
+        
+        if (fetchedQuestions && fetchedQuestions.length > 0) {
+          setQuestions(fetchedQuestions as unknown as Question[]);
+        }
+      } catch (error) {
+        console.error('Failed to fetch questions:', error);
+      } finally {
+        setIsLoadingQuestions(false);
+      }
+    };
+
+    fetchQuestions();
+  }, []);
+
   const keysPressed = useRef<Set<string>>(new Set());
   const _audioRef = useRef<HTMLAudioElement | null>(null);
   
@@ -406,7 +431,20 @@ export const BattleRoyaleGame: React.FC = () => {
 
   // Get questions based on difficulty
   const getQuestionsByDifficulty = (difficulty: 'easy' | 'medium' | 'hard'): Question[] => {
-    return CURRICULUM_QUESTIONS.filter(q => q.difficulty === difficulty);
+    // If we have dynamic questions, they might be tailored to a specific difficulty.
+    // If the user selects a difficulty that matches, great.
+    // If the questions are dynamic (not fallback), we might want to be more flexible or strict.
+    // For now, we'll assume the bridge returns questions with the correct difficulty tag.
+    // However, if the bridge returns 'medium' questions and the user picks 'easy', we might want to show them anyway?
+    // Let's stick to strict filtering for now, but we'll auto-select the difficulty in the UI.
+    const filtered = questions.filter(q => q.difficulty === difficulty);
+    
+    // Fallback: If no questions match the selected difficulty, but we have questions, return them all.
+    // This handles the case where a student is assigned 'at' level (medium) but clicks 'easy'.
+    if (filtered.length === 0 && questions.length > 0) {
+      return questions;
+    }
+    return filtered;
   };
 
   // Start game from tutorial
@@ -737,33 +775,41 @@ export const BattleRoyaleGame: React.FC = () => {
                 transition={{ delay: 0.6 }}
               >
                 <h3 className="text-lg font-semibold text-white mb-4 text-center">Choose Your Difficulty</h3>
-                <div className="grid grid-cols-3 gap-4">
-                  <button
-                    onClick={() => startGame('easy')}
-                    className="bg-green-600 hover:bg-green-500 text-white py-4 px-6 rounded-xl font-bold transition-all hover:scale-105 hover:shadow-lg hover:shadow-green-500/30"
-                  >
-                    <FaStar className="mx-auto mb-2 text-2xl" />
-                    Easy
-                    <p className="text-xs font-normal mt-1 opacity-80">Key Stage 1</p>
-                  </button>
-                  <button
-                    onClick={() => startGame('medium')}
-                    className="bg-yellow-600 hover:bg-yellow-500 text-white py-4 px-6 rounded-xl font-bold transition-all hover:scale-105 hover:shadow-lg hover:shadow-yellow-500/30"
-                  >
-                    <FaStar className="mx-auto mb-2 text-2xl" />
-                    <FaStar className="mx-auto mb-2 text-2xl -mt-4" />
-                    Medium
-                    <p className="text-xs font-normal mt-1 opacity-80">Key Stage 2</p>
-                  </button>
-                  <button
-                    onClick={() => startGame('hard')}
-                    className="bg-red-600 hover:bg-red-500 text-white py-4 px-6 rounded-xl font-bold transition-all hover:scale-105 hover:shadow-lg hover:shadow-red-500/30"
-                  >
-                    <FaMedal className="mx-auto mb-2 text-2xl text-yellow-300" />
-                    Hard
-                    <p className="text-xs font-normal mt-1 opacity-80">Key Stage 3+</p>
-                  </button>
-                </div>
+                {isLoadingQuestions ? (
+                  <div className="flex flex-col items-center justify-center py-8">
+                    <div className="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+                    <p className="text-slate-300">Loading curriculum content...</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-3 gap-4">
+                    {/* If we have dynamic questions, we might want to highlight the recommended difficulty */}
+                    <button
+                      onClick={() => startGame('easy')}
+                      className={`bg-green-600 hover:bg-green-500 text-white py-4 px-6 rounded-xl font-bold transition-all hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 ${questions.some(q => q.difficulty === 'easy') ? 'ring-4 ring-white' : 'opacity-70'}`}
+                    >
+                      <FaStar className="mx-auto mb-2 text-2xl" />
+                      Easy
+                      <p className="text-xs font-normal mt-1 opacity-80">Key Stage 1</p>
+                    </button>
+                    <button
+                      onClick={() => startGame('medium')}
+                      className={`bg-yellow-600 hover:bg-yellow-500 text-white py-4 px-6 rounded-xl font-bold transition-all hover:scale-105 hover:shadow-lg hover:shadow-yellow-500/30 ${questions.some(q => q.difficulty === 'medium') ? 'ring-4 ring-white' : 'opacity-70'}`}
+                    >
+                      <FaStar className="mx-auto mb-2 text-2xl" />
+                      <FaStar className="mx-auto mb-2 text-2xl -mt-4" />
+                      Medium
+                      <p className="text-xs font-normal mt-1 opacity-80">Key Stage 2</p>
+                    </button>
+                    <button
+                      onClick={() => startGame('hard')}
+                      className={`bg-red-600 hover:bg-red-500 text-white py-4 px-6 rounded-xl font-bold transition-all hover:scale-105 hover:shadow-lg hover:shadow-red-500/30 ${questions.some(q => q.difficulty === 'hard') ? 'ring-4 ring-white' : 'opacity-70'}`}
+                    >
+                      <FaMedal className="mx-auto mb-2 text-2xl text-yellow-300" />
+                      Hard
+                      <p className="text-xs font-normal mt-1 opacity-80">Key Stage 3+</p>
+                    </button>
+                  </div>
+                )}
               </motion.div>
             </div>
           </motion.div>
