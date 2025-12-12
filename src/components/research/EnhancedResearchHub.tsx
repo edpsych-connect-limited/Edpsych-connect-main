@@ -21,6 +21,7 @@
 import React, { useState } from 'react';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
+import { submitEthicsProposal } from '@/app/actions/research';
 import { 
   Beaker, 
   Database, 
@@ -61,7 +62,7 @@ interface VideoTutorial {
 }
 
 interface ResearchStudy {
-  id: number;
+  id: string | number;
   title: string;
   status: string;
   participants: number;
@@ -72,6 +73,10 @@ interface ResearchStudy {
   institution: string;
   methodology: string;
   ethicsApproval: string;
+}
+
+interface EnhancedResearchHubProps {
+  initialStudies?: ResearchStudy[];
 }
 
 interface Publication {
@@ -276,12 +281,57 @@ const VALIDATION_FRAMEWORKS = [
   }
 ];
 
-export default function EnhancedResearchHub() {
+export default function EnhancedResearchHub({ initialStudies = [] }: EnhancedResearchHubProps) {
   const [activeTab, setActiveTab] = useState<'overview' | 'studies' | 'videos' | 'publications' | 'frameworks' | 'datasets'>('overview');
   const [showEthicsModal, setShowEthicsModal] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<VideoTutorial | null>(null);
   const [selectedPublication, setSelectedPublication] = useState<Publication | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [proposalForm, setProposalForm] = useState({
+    title: '',
+    sampleSize: '',
+    methodology: 'Randomised Controlled Trial',
+    summary: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async () => {
+    if (!proposalForm.title || !proposalForm.sampleSize || !proposalForm.summary) {
+      alert('Please fill in all required fields');
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const result = await submitEthicsProposal({
+        title: proposalForm.title,
+        sampleSize: parseInt(proposalForm.sampleSize),
+        methodology: proposalForm.methodology,
+        summary: proposalForm.summary
+      });
+
+      if (result.success && result.data) {
+        alert(`Proposal submitted successfully! Reference: ${result.data.referenceId}`);
+        setShowEthicsModal(false);
+        setProposalForm({
+          title: '',
+          sampleSize: '',
+          methodology: 'Randomised Controlled Trial',
+          summary: ''
+        });
+      } else {
+        alert('Failed to submit proposal: ' + (result.error || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Error submitting proposal:', error);
+      alert('An unexpected error occurred');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Use initialStudies if available, otherwise fallback to mock data
+  const studies = initialStudies.length > 0 ? initialStudies : ACTIVE_STUDIES;
 
   const researchStats = [
     { label: 'Active Studies', value: '12', icon: Beaker, color: 'blue', trend: '+3 this year' },
@@ -292,7 +342,7 @@ export default function EnhancedResearchHub() {
     { label: 'Partner Institutions', value: '18', icon: GraduationCap, color: 'indigo', trend: '+5 universities' },
   ];
 
-  const filteredStudies = ACTIVE_STUDIES.filter(study => 
+  const filteredStudies = studies.filter(study => 
     study.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     study.leadResearcher.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -475,7 +525,7 @@ export default function EnhancedResearchHub() {
                 </button>
               </div>
               <div className="divide-y divide-gray-100">
-                {ACTIVE_STUDIES.slice(0, 3).map((study) => {
+                {studies.slice(0, 3).map((study) => {
                   const progressPercent = (study.participants / study.target) * 100;
                   return (
                     <div key={study.id} className="p-6 hover:bg-gray-50 transition-colors">
@@ -919,6 +969,8 @@ export default function EnhancedResearchHub() {
                   type="text" 
                   className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:outline-none" 
                   placeholder="e.g., Impact of AI-Assisted Assessment on Student Outcomes" 
+                  value={proposalForm.title}
+                  onChange={(e) => setProposalForm({...proposalForm, title: e.target.value})}
                 />
               </div>
 
@@ -951,6 +1003,8 @@ export default function EnhancedResearchHub() {
                     type="number" 
                     className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                     placeholder="200" 
+                    value={proposalForm.sampleSize}
+                    onChange={(e) => setProposalForm({...proposalForm, sampleSize: e.target.value})}
                   />
                 </div>
                 <div>
@@ -958,6 +1012,8 @@ export default function EnhancedResearchHub() {
                   <select 
                     id="methodology"
                     className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    value={proposalForm.methodology}
+                    onChange={(e) => setProposalForm({...proposalForm, methodology: e.target.value})}
                   >
                     <option>Randomised Controlled Trial</option>
                     <option>Quasi-Experimental</option>
@@ -974,6 +1030,8 @@ export default function EnhancedResearchHub() {
                   id="summary" 
                   className="w-full border border-gray-300 rounded-xl px-4 py-3 h-32 focus:ring-2 focus:ring-indigo-500 focus:outline-none" 
                   placeholder="Describe your research design, objectives, and expected outcomes..."
+                  value={proposalForm.summary}
+                  onChange={(e) => setProposalForm({...proposalForm, summary: e.target.value})}
                 />
               </div>
 
@@ -1001,13 +1059,18 @@ export default function EnhancedResearchHub() {
                 Cancel
               </button>
               <button 
-                onClick={() => {
-                  alert('Proposal submitted for Ethics Review. Reference: ETH-2025-' + Math.floor(Math.random() * 900 + 100));
-                  setShowEthicsModal(false);
-                }}
-                className="px-8 py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 shadow-sm transition-colors"
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                className="px-8 py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 shadow-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
-                Submit for Review
+                {isSubmitting ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Submitting...
+                  </>
+                ) : (
+                  'Submit for Review'
+                )}
               </button>
             </div>
           </div>
