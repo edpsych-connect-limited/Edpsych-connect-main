@@ -14,7 +14,7 @@ import { Html, Stars, PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaHeart, FaShieldAlt, FaBrain, FaClock, FaTrophy, FaGamepad, FaQuestionCircle, FaVolumeUp, FaVolumeMute, FaStar, FaFire, FaMedal } from 'react-icons/fa';
-import { getStudentQuestions } from '@/app/actions/gamification';
+import { getStudentQuestions } from '../../app/actions/gamification';
 
 // --- Types ---
 interface Player {

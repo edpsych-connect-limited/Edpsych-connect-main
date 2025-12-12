@@ -150,18 +150,20 @@ export default function UnifiedEcosystem() {
           transition={{ delay: 0.8 }}
           className="mt-20 text-center"
         >
-          <div className="inline-flex items-center gap-8 p-1 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-md">
-            <div className="px-8 py-4">
+          <div className="inline-flex flex-col md:flex-row items-center gap-8 p-4 md:p-1 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-md max-w-full">
+            <div className="px-4 md:px-8 py-2 md:py-4">
               <div className="text-3xl font-bold text-white">47+</div>
               <div className="text-xs text-slate-400 uppercase tracking-wider">Hours Saved / Mo</div>
             </div>
-            <div className="w-px h-12 bg-slate-800" />
-            <div className="px-8 py-4">
+            <div className="hidden md:block w-px h-12 bg-slate-800" />
+            <div className="w-full h-px bg-slate-800 md:hidden" />
+            <div className="px-4 md:px-8 py-2 md:py-4">
               <div className="text-3xl font-bold text-white">100%</div>
               <div className="text-xs text-slate-400 uppercase tracking-wider">Ofsted Compliant</div>
             </div>
-            <div className="w-px h-12 bg-slate-800" />
-            <div className="px-8 py-4">
+            <div className="hidden md:block w-px h-12 bg-slate-800" />
+            <div className="w-full h-px bg-slate-800 md:hidden" />
+            <div className="px-4 md:px-8 py-2 md:py-4">
               <div className="text-3xl font-bold text-white">Zero</div>
               <div className="text-xs text-slate-400 uppercase tracking-wider">Children Left Behind</div>
             </div>
