@@ -246,7 +246,7 @@ export function OnboardingWizard({ className = '' }: OnboardingWizardProps) {
                 rel="noopener noreferrer"
                 className="text-indigo-600 hover:text-indigo-700 underline focus:outline-none focus:ring-2 focus:ring-indigo-300 rounded"
               >
-                Help Center
+                Help Centre
               </a>
             </p>
             <p>

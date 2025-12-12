@@ -19,6 +19,9 @@ describe('Researcher Role E2E', () => {
     // Updated to match actual DashboardPage implementation
     cy.contains('Research Hub').should('exist');
     cy.contains('Data Enclave').should('exist');
+    
+    // Take snapshot of researcher dashboard
+    cy.screenshot('researcher-dashboard');
   });
 
   it('should have access to ethics submission', () => {
@@ -31,5 +34,11 @@ describe('Researcher Role E2E', () => {
     cy.visit('/research');
     // Verify we are on the research page (even if empty)
     cy.url().should('include', '/research');
+    
+    // Verify UK spelling (ensure no US spelling)
+    cy.contains('Center').should('not.exist');
+    
+    // Take snapshot of research hub
+    cy.screenshot('research-hub');
   });
 });

@@ -14,6 +14,16 @@ interface LessonPersonalization {
   visual_aids_urls?: string[];
 }
 
+interface Exercise {
+  id: string;
+  title: string;
+  instructions: string;
+  starter_code: string;
+  solution_code: string;
+  test_cases: any;
+  hints: string[];
+}
+
 interface Lesson {
   id: string;
   title: string;
@@ -26,10 +36,12 @@ interface Lesson {
   has_simplified_version: boolean;
   hints: string[];
   personalizations?: LessonPersonalization[];
+  exercises?: Exercise[];
 }
 
 export default function LessonPlayer({ lessonId }: { lessonId: string }) {
   const [lesson, setLesson] = useState<Lesson | null>(null);
+  const [currentExercise, setCurrentExercise] = useState<Exercise | null>(null);
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(true);
@@ -37,6 +49,7 @@ export default function LessonPlayer({ lessonId }: { lessonId: string }) {
   const [hintIndex, setHintIndex] = useState(0);
   const [isSimplified, setIsSimplified] = useState(false);
   const [selectedPersonalization, setSelectedPersonalization] = useState<LessonPersonalization | null>(null);
+  const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
     const fetchLesson = async () => {
@@ -45,10 +58,16 @@ export default function LessonPlayer({ lessonId }: { lessonId: string }) {
         if (response.ok) {
           const data = await response.json();
           setLesson(data);
-          setCode(data.starter_code || '');
           
-          // Auto-select simplified version if available and requested via prop (future enhancement)
-          // For now, we just store the personalizations
+          // Initialize with first exercise if available, otherwise fallback to lesson content
+          if (data.exercises && data.exercises.length > 0) {
+            const firstExercise = data.exercises[0];
+            setCurrentExercise(firstExercise);
+            setCode(firstExercise.starter_code || '');
+          } else {
+            setCode(data.starter_code || '');
+          }
+          
         } else {
           console.error('Failed to fetch lesson');
         }
@@ -62,10 +81,55 @@ export default function LessonPlayer({ lessonId }: { lessonId: string }) {
     fetchLesson();
   }, [lessonId]);
 
-  const runCode = () => {
-    // Simulation of running code
-    // In a real environment, this would send code to a secure sandbox
-    setOutput('Running programme...\n\n> Hello World!\n> Programme executed successfully.');
+  const runCode = async () => {
+    setIsRunning(true);
+    setOutput('Running programme...\n');
+
+    try {
+      // 1. Simulate local execution (in a real app, this might use a client-side runner like Pyodide)
+      // For now, we simulate a successful run
+      setTimeout(async () => {
+        const simulatedOutput = '> Hello World!\n> Programme executed successfully.';
+        setOutput(prev => prev + simulatedOutput);
+
+        // 2. Save progress to backend
+        if (currentExercise) {
+          try {
+            const response = await fetch('/api/coding/progress', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                exerciseId: currentExercise.id,
+                code: code,
+                timeSpentSeconds: 60, // Placeholder - should track actual time
+                studentId: null, // Will be inferred from session
+              }),
+            });
+
+            if (response.ok) {
+              const result = await response.json();
+              if (result.passed) {
+                setOutput(prev => prev + '\n\n✅ Exercise Completed! Progress saved.');
+              } else {
+                setOutput(prev => prev + '\n\n⚠️ Code ran, but did not pass all test cases.');
+              }
+            } else {
+              console.error('Failed to save progress');
+            }
+          } catch (err) {
+            console.error('Error saving progress:', err);
+          }
+        }
+        
+        setIsRunning(false);
+      }, 1000);
+
+    } catch (error) {
+      setOutput('Error executing code.');
+      setIsRunning(false);
+    }
   };
 
   const toggleSimplified = () => {
@@ -84,12 +148,22 @@ export default function LessonPlayer({ lessonId }: { lessonId: string }) {
     return <div>Lesson not found</div>;
   }
 
+  // Determine what instructions to show (Exercise specific or Lesson general)
+  const displayTitle = currentExercise ? currentExercise.title : lesson.title;
+  const displayInstructions = currentExercise 
+    ? currentExercise.instructions 
+    : (isSimplified 
+        ? (lesson.instructions?.simplified || lesson.description) 
+        : (lesson.instructions?.original || lesson.description));
+  
+  const displayHints = currentExercise ? currentExercise.hints : lesson.hints;
+
   return (
     <div className="flex h-[calc(100vh-64px)] flex-col lg:flex-row overflow-hidden">
       {/* Left Panel: Instructions */}
       <div className="w-full lg:w-1/3 bg-white border-r border-gray-200 overflow-y-auto p-6">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold text-gray-900">{lesson.title}</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{displayTitle}</h1>
           <div className="flex space-x-2">
             {lesson.has_audio_version && (
               <button className="p-2 text-gray-500 hover:text-indigo-600" title="Listen to instructions">
@@ -149,10 +223,7 @@ export default function LessonPlayer({ lessonId }: { lessonId: string }) {
           }}
         >
           <ReactMarkdown>
-            {selectedPersonalization?.modified_instructions || 
-             (isSimplified 
-              ? (lesson.instructions?.simplified || lesson.description) 
-              : (lesson.instructions?.original || lesson.description))}
+            {selectedPersonalization?.modified_instructions || displayInstructions}
           </ReactMarkdown>
         </div>
 
@@ -176,10 +247,10 @@ export default function LessonPlayer({ lessonId }: { lessonId: string }) {
             </svg>
             Need a hint?
           </button>
-          {showHint && lesson.hints && lesson.hints.length > 0 && (
+          {showHint && displayHints && displayHints.length > 0 && (
             <div className="mt-2 p-4 bg-yellow-50 rounded-md border border-yellow-200">
-              <p className="text-sm text-yellow-800">{lesson.hints[hintIndex]}</p>
-              {hintIndex < lesson.hints.length - 1 && (
+              <p className="text-sm text-yellow-800">{displayHints[hintIndex]}</p>
+              {hintIndex < displayHints.length - 1 && (
                 <button 
                   onClick={() => setHintIndex(hintIndex + 1)}
                   className="mt-2 text-xs text-yellow-700 underline"
@@ -202,19 +273,36 @@ export default function LessonPlayer({ lessonId }: { lessonId: string }) {
           <div className="flex space-x-3">
             <button 
               className="px-3 py-1 bg-gray-700 text-gray-300 rounded hover:bg-gray-600 text-sm transition-colors"
-              onClick={() => setCode(lesson.starter_code || '')}
+              onClick={() => setCode(currentExercise?.starter_code || lesson.starter_code || '')}
             >
               Reset
             </button>
             <button 
-              className="px-4 py-1 bg-green-600 text-white rounded hover:bg-green-500 text-sm font-medium transition-colors flex items-center"
+              className={`px-4 py-1 rounded text-sm font-medium transition-colors flex items-center ${
+                isRunning 
+                  ? 'bg-gray-600 text-gray-400 cursor-not-allowed' 
+                  : 'bg-green-600 text-white hover:bg-green-500'
+              }`}
               onClick={runCode}
+              disabled={isRunning}
             >
-              <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              Run Programme
+              {isRunning ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Running...
+                </>
+              ) : (
+                <>
+                  <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Run Programme
+                </>
+              )}
             </button>
           </div>
         </div>

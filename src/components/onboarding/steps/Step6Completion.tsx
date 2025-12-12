@@ -299,7 +299,7 @@ export function Step6Completion() {
             target="_blank"
             className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 underline focus:outline-none focus:ring-2 focus:ring-indigo-300 rounded"
           >
-            📚 Help Center
+            📚 Help Centre
           </a>
           <a
             href="/training/getting-started"

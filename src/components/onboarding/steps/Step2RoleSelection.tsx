@@ -23,27 +23,27 @@ import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
 // Role-specific video configuration - mapped to actual video IDs
 const ROLE_VIDEOS: Record<string, { id: string; title: string; subtitle: string }> = {
   'educational-psychologist': {
-    id: 'onboard-ep-welcome',
+    id: 'help-getting-started',
     title: 'Welcome, Educational Psychologist',
     subtitle: 'Discover how EdPsych Connect streamlines your assessment workflow'
   },
   'senco': {
-    id: 'onboard-senco-welcome',
+    id: 'school-senco-portal',
     title: 'Welcome, SENCO',
     subtitle: 'Your complete SEND provision management toolkit'
   },
   'teacher': {
-    id: 'onboard-teacher-welcome',
+    id: 'school-senco-portal',
     title: 'Welcome, Teacher',
     subtitle: 'Simple tools to support every learner in your classroom'
   },
   'local-authority': {
-    id: 'onboard-la-welcome',
+    id: 'la-dashboard-overview',
     title: 'Welcome, LA Officer',
     subtitle: 'Multi-school oversight and compliance made effortless'
   },
   'researcher': {
-    id: 'tier-researcher', // Uses pricing tier video as fallback
+    id: 'innovation-research-hub',
     title: 'Welcome, Researcher',
     subtitle: 'Ethical data access and research-grade analytics'
   }

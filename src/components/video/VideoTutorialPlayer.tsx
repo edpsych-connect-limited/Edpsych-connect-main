@@ -74,18 +74,8 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
         return;
       }
 
-      // 2. Try HeyGen Embed (Secondary Source)
-      const heygenId = HEYGEN_VIDEO_IDS[videoKey];
-      if (heygenId) {
-        // Use HeyGen /embeds/ URL (designed for iframe embedding with full player)
-        setVideoUrl(`https://app.heygen.com/embeds/${heygenId}`);
-        setVideoSource('heygen');
-        return;
-      }
-
-      // 3. Fallback to local file path
+      // 2. Check local file path (if available)
       if (localPath) {
-        // For local files, check if they exist (HEAD request to avoid downloading)
         try {
           const response = await fetch(localPath, { method: 'HEAD' });
           if (response.ok) {
@@ -93,10 +83,18 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
             setVideoSource('local');
             return;
           }
-        } catch {
-          // Local file not accessible
-          console.log(`Local video not accessible: ${localPath}`);
+        } catch (e) {
+          console.log(`Local video check failed: ${localPath}`, e);
         }
+      }
+
+      // 3. Fallback to HeyGen Embed
+      const heygenId = HEYGEN_VIDEO_IDS[videoKey];
+      if (heygenId) {
+        // Use HeyGen /embeds/ URL (designed for iframe embedding with full player)
+        setVideoUrl(`https://app.heygen.com/embeds/${heygenId}`);
+        setVideoSource('heygen');
+        return;
       }
 
       // No video source available

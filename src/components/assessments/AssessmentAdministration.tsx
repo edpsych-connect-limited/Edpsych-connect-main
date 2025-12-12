@@ -438,7 +438,7 @@ export default function AssessmentAdministration({
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Behavioral Observations
+                  Behavioural Observations
                 </label>
                 <textarea
                   value={behavioralObservations}

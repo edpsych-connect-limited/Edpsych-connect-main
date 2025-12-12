@@ -142,13 +142,13 @@ export default function UnifiedEcosystem() {
           })}
         </div>
 
-        {/* Bottom CTA */}
+        {/* Bottom CTA - Shifted down to prevent overlap */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.8 }}
-          className="mt-20 text-center"
+          className="mt-40 text-center relative z-10"
         >
           <div className="inline-flex flex-col md:flex-row items-center gap-8 p-4 md:p-1 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-md max-w-full">
             <div className="px-4 md:px-8 py-2 md:py-4">

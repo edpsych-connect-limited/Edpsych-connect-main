@@ -94,28 +94,28 @@ interface Publication {
 // Research-focused video tutorials
 const RESEARCH_VIDEOS: VideoTutorial[] = [
   {
-    id: 'research-methodology',
+    id: 'innovation-research-hub',
     title: 'Evidence-Based Research Methodology',
     description: 'Understanding the rigorous research standards behind EdPsych Connect\'s assessment frameworks.',
     duration: '12:45',
     category: 'Methodology'
   },
   {
-    id: 'ecca-validation',
+    id: 'assessment-interpreting',
     title: 'ECCA Framework Validation Process',
     description: 'How the Emotional, Cognitive, Creative, and Autonomy assessment system was validated across 15,000+ students.',
     duration: '15:20',
     category: 'Validation'
   },
   {
-    id: 'data-ethics',
+    id: 'compliance-data-protection',
     title: 'Data Ethics & Privacy in Educational Research',
     description: 'Our commitment to GDPR compliance, data sovereignty, and ethical research practices.',
     duration: '8:30',
     category: 'Ethics'
   },
   {
-    id: 'intervention-research',
+    id: 'help-finding-interventions',
     title: 'Intervention Effectiveness Research',
     description: 'How we measure and validate the effectiveness of 500+ evidence-based interventions.',
     duration: '11:15',

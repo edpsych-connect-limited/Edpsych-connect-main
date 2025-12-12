@@ -126,7 +126,7 @@ export function ContextualHelp({
               </p>
               <Link href="/help">
                 <Button size="sm" variant="outline" className="w-full border-blue-200 text-blue-700 hover:bg-blue-100">
-                  Visit Help Center
+                  Visit Help Centre
                 </Button>
               </Link>
             </div>

@@ -331,7 +331,7 @@ export default function EHCPModulesHub() {
             </div>
             <div className="aspect-video">
               <VideoTutorialPlayer
-                videoKey="ehcp-modules-hub-overview"
+                videoKey="ehcp-application-journey"
                 title="EHCP Management Suite Overview"
                 autoPlay={true}
                 className="w-full h-full"

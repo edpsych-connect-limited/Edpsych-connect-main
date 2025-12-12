@@ -32,19 +32,19 @@ import { Play, Shield, Zap, Users, ArrowRight, Star, Building2, GraduationCap, H
 // Video configuration for pricing page
 const PRICING_VIDEOS = {
   // Hero/Value Proposition
-  hero: { key: 'value-enterprise-platform', title: 'The £2.35 Million Platform', duration: '2:30' },
-  problem: { key: 'value-edtech-problem', title: 'The EdTech Problem', duration: '1:45' },
-  solution: { key: 'value-complete-solution', title: 'The Complete Solution', duration: '2:00' },
+  hero: { key: 'platform-introduction', title: 'The £2.35 Million Platform', duration: '2:30' },
+  problem: { key: 'innovation-orchestration', title: 'The EdTech Problem', duration: '1:45' },
+  solution: { key: 'innovation-safety-net', title: 'The Complete Solution', duration: '2:00' },
   
   // Tier Videos
   tiers: {
-    'parent-plus': { key: 'tier-parent-plus', title: 'Parent Plus Plan', duration: '1:15' },
-    'teacher-individual': { key: 'tier-teacher-individual', title: 'Teacher Individual Plan', duration: '1:30' },
-    'schools': { key: 'tier-schools-overview', title: 'Schools Overview', duration: '2:00' },
-    'mat-enterprise': { key: 'tier-mat-enterprise', title: 'MAT Enterprise', duration: '2:15' },
-    'local-authority': { key: 'tier-local-authority', title: 'Local Authority', duration: '2:30' },
-    'researcher': { key: 'tier-researcher', title: 'Research Access', duration: '1:45' },
-    'trainee-ep': { key: 'tier-trainee-ep', title: 'Trainee EP Plan', duration: '1:30' },
+    'parent-plus': { key: 'parent-portal-welcome', title: 'Parent Plus Plan', duration: '1:15' },
+    'teacher-individual': { key: 'school-senco-portal', title: 'Teacher Individual Plan', duration: '1:30' },
+    'schools': { key: 'school-senco-portal', title: 'Schools Overview', duration: '2:00' },
+    'mat-enterprise': { key: 'la-dashboard-overview', title: 'MAT Enterprise', duration: '2:15' },
+    'local-authority': { key: 'la-dashboard-overview', title: 'Local Authority', duration: '2:30' },
+    'researcher': { key: 'innovation-research-hub', title: 'Research Access', duration: '1:45' },
+    'trainee-ep': { key: 'help-getting-started', title: 'Trainee EP Plan', duration: '1:30' },
   },
   
   // Add-ons - December 2025 Pricing (aligned with video scripts)

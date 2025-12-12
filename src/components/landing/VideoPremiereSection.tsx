@@ -21,27 +21,27 @@ import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
 // UPDATED: January 2025 - V3 Featured Introduction with comprehensive platform overview
 const SHOWCASE_VIDEOS = {
   hero: {
-    id: 'platform-introduction-featured',
+    id: 'platform-introduction',
     title: 'EdPsych Connect: Complete Platform Overview',
     subtitle: 'Evidence-based SEND orchestration with citations from DfE, BPS & IPSEA',
   },
   featured: [
     {
-      id: 'ehcp-modules-hub-overview',
+      id: 'ehcp-application-journey',
       title: 'EHCP Management Suite',
       description: 'Complete EHCP lifecycle management with AI-powered compliance tracking.',
       icon: Shield,
       gradient: 'from-blue-500 to-indigo-600',
     },
     {
-      id: 'value-edtech-problem',
+      id: 'innovation-orchestration',
       title: 'The EdTech Problem We Solve',
       description: 'Why existing tools fail schools and how orchestration changes everything.',
       icon: Target,
       gradient: 'from-amber-500 to-orange-600',
     },
     {
-      id: 'feature-nclb-engine',
+      id: 'innovation-safety-net',
       title: 'No Child Left Behind Engine',
       description: 'Watch differentiation happen automatically for 40 students.',
       icon: Users,

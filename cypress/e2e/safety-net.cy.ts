@@ -17,6 +17,9 @@ describe('Safety Net & Simulation E2E', () => {
     cy.visit('/demo/golden-thread');
     cy.contains('The Golden Thread').should('be.visible');
     cy.contains('Autonomous Educational Intelligence').should('be.visible');
+    
+    // Take snapshot
+    cy.screenshot('golden-thread-dashboard');
   });
 
   it('should show live simulation data', () => {
@@ -30,6 +33,9 @@ describe('Safety Net & Simulation E2E', () => {
     cy.contains('2. Analysis').should('be.visible');
     cy.contains('3. Action').should('be.visible');
     cy.contains('4. Communication').should('be.visible');
+    
+    // Take snapshot
+    cy.screenshot('simulation-active');
   });
 
   it('should allow interaction with simulation stages', () => {

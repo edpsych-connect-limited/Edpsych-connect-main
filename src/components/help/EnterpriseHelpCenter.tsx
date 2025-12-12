@@ -81,7 +81,7 @@ How to use:
 3. Assign to students or classes
 4. Review results in the cognitive profile viewer
 5. Generate reports for parents, teachers, or EHCP applications`,
-      videos: ['stealth-assessment-intro', 'cognitive-profile-guide', 'ecca-deep-dive'],
+      videos: ['assessment-choosing', 'assessment-interpreting', 'innovation-research-hub'],
       relatedTopics: ['interventions', 'ehcp', 'reports']
     },
     interventions: {
@@ -102,7 +102,7 @@ The Self-Driving SENCO feature automatically:
 3. Schedules intervention delivery
 4. Monitors progress
 5. Adjusts recommendations based on outcomes`,
-      videos: ['intervention-matching', 'self-driving-senco', 'progress-monitoring'],
+      videos: ['help-finding-interventions', 'innovation-safety-net', 'help-cpd-tracking'],
       relatedTopics: ['assessments', 'progress', 'senco-tools']
     },
     ehcp: {
@@ -129,7 +129,7 @@ For Local Authorities:
 • Annual review scheduling
 
 The Universal Translator feature automatically converts professional language into parent-friendly explanations.`,
-      videos: ['ehcp-workflow', 'universal-translator', 'la-dashboard-guide'],
+      videos: ['ehcp-application-journey', 'ehcp-evidence-gathering', 'la-dashboard-overview'],
       relatedTopics: ['la-panel', 'assessments', 'reports']
     },
     marketplace: {
@@ -156,7 +156,7 @@ For EPs:
 • Job board access
 • Invoice generation
 • CPD tracking`,
-      videos: ['marketplace-intro', 'booking-ep', 'ep-profile-setup'],
+      videos: ['la-professional-requests', 'help-collaboration', 'help-getting-started'],
       relatedTopics: ['la-panel', 'professionals', 'booking']
     },
     training: {
@@ -181,7 +181,7 @@ Features:
 • Cohort learning options
 
 All courses are accredited and count towards professional development requirements.`,
-      videos: ['training-overview', 'course-completion', 'certificates'],
+      videos: ['help-cpd-tracking', 'help-getting-started', 'help-troubleshooting'],
       relatedTopics: ['cpd', 'certificates', 'professional-development']
     },
     research: {
@@ -209,7 +209,7 @@ Our proprietary algorithms are developed and refined based on:
 • 50,000+ assessment data points
 • 10+ years of clinical practice
 • Collaboration with leading researchers`,
-      videos: ['research-foundation', 'chc-theory-explained', 'evidence-base'],
+      videos: ['innovation-research-hub', 'assessment-interpreting', 'assessment-choosing'],
       relatedTopics: ['assessments', 'ecca', 'methodology']
     },
     coding: {
@@ -237,7 +237,7 @@ Each level includes:
 • Projects
 • Assessments
 • Certificates`,
-      videos: ['coding-curriculum-intro', 'battle-royale-coding', 'differentiated-coding'],
+      videos: ['innovation-coding-curriculum', 'innovation-battle-royale', 'innovation-ai-agents'],
       relatedTopics: ['gamification', 'student-dashboard', 'battle-royale']
     },
     gamification: {
@@ -264,7 +264,7 @@ Teachers can:
 • Set class goals
 • Award bonus points
 • Monitor engagement metrics`,
-      videos: ['battle-royale-intro', 'gamification-setup', 'teacher-gamification'],
+      videos: ['innovation-battle-royale', 'innovation-coding-curriculum', 'school-senco-portal'],
       relatedTopics: ['student-dashboard', 'assessments', 'engagement']
     }
   },

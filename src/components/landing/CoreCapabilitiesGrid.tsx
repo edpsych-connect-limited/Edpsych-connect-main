@@ -14,7 +14,7 @@ import {
   Brain, Library, GraduationCap, Trophy, Clock, ShieldCheck, FileCheck, Code, 
   MessageSquareText, Users, Search, Heart, Mic, BookOpen, Lock, Crown, Building2, 
   FlaskConical, LucideIcon, ClipboardList, Target, Calendar, MapPin, Handshake, 
-  LineChart, AlertTriangle, Sparkles, Network, BarChart3 
+  LineChart, AlertTriangle, Sparkles, Network, BarChart3, Lightbulb, Coins 
 } from 'lucide-react';
 
 // Tier definitions for feature gating
@@ -259,6 +259,24 @@ export default function CoreCapabilitiesGrid() {
       color: "text-sky-400",
       bg: "bg-sky-400/10",
       href: "/assessments",
+      tier: "standard"
+    },
+    {
+      icon: Lightbulb,
+      title: "AI Problem Solver",
+      description: "Expert guidance for educational challenges. Describe a scenario, get evidence-based strategies instantly.",
+      color: "text-yellow-400",
+      bg: "bg-yellow-400/10",
+      href: "/problem-solver",
+      tier: "standard"
+    },
+    {
+      icon: Coins,
+      title: "Token Economy System",
+      description: "Digital reward system for positive behaviour reinforcement. Track points, manage rewards, and motivate students.",
+      color: "text-amber-500",
+      bg: "bg-amber-500/10",
+      href: "/tokenisation",
       tier: "standard"
     }
   ];

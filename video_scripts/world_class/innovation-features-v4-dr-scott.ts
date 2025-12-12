@@ -18,7 +18,7 @@ export const INNOVATION_VIDEOS = {
     id: 'innovation-safety-net-v4',
     title: 'The Safety Net: AI Risk Prediction',
     duration: '90 seconds',
-    audience: 'LAs, Senior Leaders, Compliance Officers',
+    audience: 'Local Authorities, Senior Leaders, Compliance Officers',
     script: `In high-stakes environments like aviation or medicine, we don't wait for a crash to investigate. We use predictive systems to prevent it. Why should children's education be any different?
 
 I'm Dr. Scott, and I want to introduce you to the 'Safety Net'.
@@ -33,7 +33,7 @@ It looks at context. Is the assigned officer overloaded?
 
 When it detects a risk, it doesn't just log it. It intervenes.
 
-It flags the case to a manager. It suggests a specific action: "Reallocate to Officer B" or "Request urgent EP advice."
+It flags the case to a manager. It suggests a specific action: "Reallocate to Officer B" or "Request urgent Educational Psychologist advice."
 
 We calculate a 'Risk Score' for every child. A score of 80% triggers an immediate review.
 
@@ -47,8 +47,8 @@ This is how we move from reactive firefighting to proactive protection. We catch
     id: 'innovation-orchestration-v4',
     title: 'Multi-Agency Orchestration',
     duration: '75 seconds',
-    audience: 'LAs, Health Partners, Social Care',
-    script: `The biggest failure in SEND isn't a lack of caring. It's a lack of coordination. The 'silo effect'.
+    audience: 'Local Authorities, Health Partners, Social Care',
+    script: `The biggest failure in Special Educational Needs and Disabilities isn't a lack of caring. It's a lack of coordination. The 'silo effect'.
 
 Health is on one system. Education on another. Social Care on a third. The child falls through the gaps.
 
@@ -56,8 +56,8 @@ Our 'Orchestration Engine' bridges these worlds.
 
 Imagine a dashboard that pulls live data from all three sectors.
 
-If a Social Worker updates a risk assessment, the School SENCO sees the alert instantly.
-If a Paediatrician diagnoses ADHD, the EP's report draft is automatically updated to reflect this new evidence.
+If a Social Worker updates a risk assessment, the School Special Educational Needs Coordinator sees the alert instantly.
+If a Paediatrician diagnoses Attention Deficit Hyperactivity Disorder, the Educational Psychologist's report draft is automatically updated to reflect this new evidence.
 
 We use 'Role-Based Scoping'. You only see what you need to see, but the system sees everything.
 
@@ -73,7 +73,7 @@ No more "I didn't get the memo." No more conflicting advice. Just one coherent p
     id: 'innovation-research-hub-v4',
     title: 'The Research Hub: Evidence-Based Practice',
     duration: '60 seconds',
-    audience: 'EPs, Researchers, Universities',
+    audience: 'Educational Psychologists, Researchers, Universities',
     script: `EdPsych Connect isn't just a software platform. It's a living laboratory.
 
 Our 'Research Hub' allows us to validate interventions at a scale never seen before.
@@ -97,7 +97,7 @@ We are bridging the gap between academic research and classroom practice. We tur
     title: 'Developers of Tomorrow: Inclusive Coding',
     duration: '75 seconds',
     audience: 'Teachers, Parents, Students',
-    script: `Technology is the future of work. But too often, SEND students are excluded from computer science because the tools aren't accessible.
+    script: `Technology is the future of work. But too often, Special Educational Needs and Disabilities students are excluded from computer science because the tools aren't accessible.
 
 We've built the 'Developers of Tomorrow' curriculum to change that.
 

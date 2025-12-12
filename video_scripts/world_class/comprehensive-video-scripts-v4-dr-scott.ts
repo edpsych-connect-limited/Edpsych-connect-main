@@ -6,28 +6,28 @@
  * 
  * STYLE GUIDE:
  * - Authoritative yet accessible (The "Expert Friend")
- * - Personal anecdotes ("In my years as an EP...")
+ * - Personal anecdotes ("In my years as an Educational Psychologist...")
  * - Specific feature mentions ("Golden Thread", "AI Drafting")
  * - Direct address ("You know the pain of...")
  * - Call to action ("Let's build plans that work")
  */
 
 // =============================================================================
-// SECTION 1: EHCP SUPPORT VIDEOS
+// SECTION 1: Education, Health and Care Plan SUPPORT VIDEOS
 // =============================================================================
 
 export const EHCP_VIDEOS = {
   // ---------------------------------------------------------------------------
-  // 1.1 EHCP Application Journey (For Schools/Parents)
+  // 1.1 Education, Health and Care Plan Application Journey (For Schools/Parents)
   // ---------------------------------------------------------------------------
   'ehcp-application-journey': {
     id: 'ehcp-application-journey-v4',
-    title: 'Your EHCP Application Journey',
+    title: 'Your Education, Health and Care Plan Application Journey',
     duration: '90 seconds',
-    audience: 'Parents, SENCOs, Schools',
-    script: `In my years as an Educational Psychologist, I've seen too many families lost in the EHCP maze. It's not just paperwork; it's a child's future. That's why I built this platform to be different.
+    audience: 'Parents, Special Educational Needs Coordinators, Schools',
+    script: `In my years as an Educational Psychologist, I've seen too many families lost in the Education, Health and Care Plan maze. It's not just paperwork; it's a child's future. That's why I built this platform to be different.
 
-EHCP stands for Education, Health and Care Plan. But I like to think of it as a legal safety net. It's the document that guarantees the support a child needs to thrive.
+Education, Health and Care Plan stands for Education, Health and Care Plan. But I like to think of it as a legal safety net. It's the document that guarantees the support a child needs to thrive.
 
 Here's the reality: the old way was broken. Chasing emails, lost reports, missed deadlines.
 
@@ -37,7 +37,7 @@ The journey starts here. You gather evidence—not just random documents, but st
 
 Once submitted, you're not in the dark. You track every milestone of the 20-week statutory timeline. You see exactly who is doing what, and when.
 
-If the Local Authority agrees to assess, our system coordinates the professionals. EPs, Speech Therapists, OTs—we all work in the same digital space. No more copy-pasting from PDFs.
+If the Local Authority agrees to assess, our system coordinates the professionals. Educational Psychologists, Speech Therapists, Occupational Therapists—we all work in the same digital space. No more copy-pasting from PDFs.
 
 This isn't just about getting a plan. It's about getting a *good* plan. One that is legally defensible and actually delivers support.
 
@@ -49,10 +49,10 @@ Let's make this journey count.`
   // ---------------------------------------------------------------------------
   'ehcp-evidence-gathering': {
     id: 'ehcp-evidence-gathering-v4',
-    title: 'Gathering Strong EHCP Evidence',
+    title: 'Gathering Strong Education, Health and Care Plan Evidence',
     duration: '75 seconds',
-    audience: 'SENCOs, Teachers, Parents',
-    script: `I always tell SENCOs: an EHCP application lives or dies by its evidence. But quantity isn't quality. Ten pages of waffle will lose to one page of hard data every time.
+    audience: 'Special Educational Needs Coordinators, Teachers, Parents',
+    script: `I always tell Special Educational Needs Coordinators: an Education, Health and Care Plan application lives or dies by its evidence. But quantity isn't quality. Ten pages of waffle will lose to one page of hard data every time.
 
 Let me show you how to build a case that's impossible to ignore using our Evidence Builder.
 
@@ -74,10 +74,10 @@ Your evidence tells the story. Let's make it a compelling one.`
   // ---------------------------------------------------------------------------
   'ehcp-professional-contributions': {
     id: 'ehcp-professional-contributions-v4',
-    title: 'Understanding Professional EHCP Contributions',
+    title: 'Understanding Professional Education, Health and Care Plan Contributions',
     duration: '60 seconds',
-    audience: 'Parents, SENCOs',
-    script: `When an assessment kicks off, you'll see reports coming in from all angles. As an EP, I know this can be overwhelming. Let me decode who does what.
+    audience: 'Parents, Special Educational Needs Coordinators',
+    script: `When an assessment kicks off, you'll see reports coming in from all angles. As an Educational Psychologist, I know this can be overwhelming. Let me decode who does what.
 
 I'm the Educational Psychologist. My job is to work out *how* your child learns. I look at memory, processing speed, and cognitive strengths. My report drives Section B (Needs) and Section F (Provision).
 
@@ -95,16 +95,16 @@ Every professional is a puzzle piece. We put them together.`
   },
 
   // ---------------------------------------------------------------------------
-  // 1.4 EHCP Annual Review Process
+  // 1.4 Education, Health and Care Plan Annual Review Process
   // ---------------------------------------------------------------------------
   'ehcp-annual-review': {
     id: 'ehcp-annual-review-v4',
-    title: 'The EHCP Annual Review Process',
+    title: 'The Education, Health and Care Plan Annual Review Process',
     duration: '75 seconds',
-    audience: 'SENCOs, Parents, LAs',
+    audience: 'Special Educational Needs Coordinators, Parents, Local Authorities',
     script: `The Annual Review. For many, it's a tick-box exercise. For us, it's the engine of progress.
 
-An EHCP isn't a statue; it's a living document. If it's not changing, it's probably not working.
+An Education, Health and Care Plan isn't a statue; it's a living document. If it's not changing, it's probably not working.
 
 Our 'Annual Review Scheduler' automates the admin so you can focus on the child. It pulls in the progress data from the last 12 months automatically.
 
@@ -122,24 +122,24 @@ Let's turn the Annual Review from a chore into a celebration of progress.`
   },
 
   // ---------------------------------------------------------------------------
-  // 1.5 EHCP Appeals Explained
+  // 1.5 Education, Health and Care Plan Appeals Explained
   // ---------------------------------------------------------------------------
   'ehcp-appeals': {
     id: 'ehcp-appeals-v4',
-    title: 'Understanding EHCP Appeals',
+    title: 'Understanding Education, Health and Care Plan Appeals',
     duration: '60 seconds',
     audience: 'Parents',
     script: `Sometimes, despite everyone's best efforts, the decision comes back 'No'. Or the plan comes back empty. I know how devastating that feels.
 
 But 'No' isn't the end. It's often just the start of the appeal process. And you have more power than you think.
 
-You can appeal to the SEND Tribunal if the LA refuses to assess, refuses to issue a plan, or if the content is weak.
+You can appeal to the Special Educational Needs and Disabilities Tribunal if the Local Authority refuses to assess, refuses to issue a plan, or if the content is weak.
 
 Before you go to court, consider Mediation. Our platform connects you directly with mediation services. It's faster, less adversarial, and often resolves the issue.
 
 If you do need to appeal, our 'Tribunal Bundle Generator' is your best friend. It compiles every piece of evidence, every email, every report into a court-ready bundle.
 
-It highlights the gaps. It points out where the LA has failed to follow the Code of Practice. It gives you the legal footing of a solicitor, without the cost.
+It highlights the gaps. It points out where the Local Authority has failed to follow the Code of Practice. It gives you the legal footing of a solicitor, without the cost.
 
 Appealing doesn't make you 'difficult'. It makes you an advocate. And with the right evidence, you can win.
 
@@ -163,7 +163,7 @@ export const HELP_CENTRE_VIDEOS = {
     audience: 'All new users',
     script: `Welcome to EdPsych Connect. I'm Dr. Scott, and I built this platform because I was tired of seeing children fail because of paperwork.
 
-You're now looking at your Dashboard. Think of this as Mission Control for your SEND provision.
+You're now looking at your Dashboard. Think of this as Mission Control for your Special Educational Needs and Disabilities provision.
 
 On the left, you have your toolkit. 'Assessments' for identifying needs. 'Interventions' for doing something about them. And 'Reports' for documenting it all.
 
@@ -185,10 +185,10 @@ You're here to make a difference. We're here to handle the rest. Let's get start
     id: 'help-first-assessment-v4',
     title: 'Running Your First Assessment',
     duration: '75 seconds',
-    audience: 'Teachers, SENCOs, EPs',
+    audience: 'Teachers, Special Educational Needs Coordinators, Educational Psychologists',
     script: `Ready to run your first assessment? This is where the science happens.
 
-Go to the Assessment Library. We have over fifty validated tools here. Not sure which one to pick? Just ask the system: "Screen for ADHD traits" or "Check reading fluency."
+Go to the Assessment Library. We have over fifty validated tools here. Not sure which one to pick? Just ask the system: "Screen for Attention Deficit Hyperactivity Disorder traits" or "Check reading fluency."
 
 Once you've chosen, you have two modes. 'Guided Mode' is for you to use with the child. 'Independent Mode' lets older students complete it themselves on a tablet.
 
@@ -208,7 +208,7 @@ Assess. Understand. Act. That's the workflow. Give it a try.`
     id: 'help-finding-interventions-v4',
     title: 'Finding the Right Intervention',
     duration: '60 seconds',
-    audience: 'Teachers, SENCOs, TAs',
+    audience: 'Teachers, Special Educational Needs Coordinators, TAs',
     script: `Identifying a need is useless if we don't do something about it. That's why our Intervention Library is the heart of this platform.
 
 We don't just list strategies. We curate evidence-based programmes.
@@ -242,11 +242,11 @@ Everything is encrypted. In transit, at rest, everywhere. We use AES-256 encrypt
 
 For our Local Authority partners, we offer 'Bring Your Own Database'. This means your data stays on your infrastructure. We process it, but we don't own it. You have absolute sovereignty.
 
-Access is strictly 'Need to Know'. A teacher sees their class. A SENCO sees their school. An LA officer sees their caseload. No accidental sharing.
+Access is strictly 'Need to Know'. A teacher sees their class. A Special Educational Needs Coordinator sees their school. An Local Authority officer sees their caseload. No accidental sharing.
 
 And we log everything. Our 'Immutable Audit Trail' records every click, every view, every edit. If you need to know who looked at a file three years ago, we can tell you.
 
-We are fully GDPR compliant, UK-hosted, and ISO 27001 aligned.
+We are fully General Data Protection Regulation compliant, UK-hosted, and ISO 27001 aligned.
 
 Your trust is our currency. We protect it like our own.`
   },
@@ -265,7 +265,7 @@ On EdPsych Connect, you build 'Care Teams' around a child.
 
 You can invite the Speech Therapist, the Social Worker, and the Class Teacher into a secure workspace.
 
-You can co-author documents. I can be writing the psychological advice while the SENCO adds the school history. We see each other's edits in real-time.
+You can co-author documents. I can be writing the psychological advice while the Special Educational Needs Coordinator adds the school history. We see each other's edits in real-time.
 
 But it's controlled. You decide exactly who sees what. You can share the 'Needs' section without sharing the 'Family History'.
 
@@ -281,7 +281,7 @@ It's about working together, without the friction.`
     id: 'help-generating-reports-v4',
     title: 'Generating Professional Reports',
     duration: '60 seconds',
-    audience: 'EPs, SENCOs, Teachers',
+    audience: 'Educational Psychologists, Special Educational Needs Coordinators, Teachers',
     script: `I used to spend 3 hours writing a report for every 1 hour I spent with a child. That's backwards.
 
 Our 'Report Generator' flips that ratio.
@@ -300,7 +300,7 @@ What used to take me all evening now takes 20 minutes. That means more time for 
   },
 
   // ---------------------------------------------------------------------------
-  // 2.7 Tracking CPD Progress
+  // 2.7 Tracking Continuing Professional Development Progress
   // ---------------------------------------------------------------------------
   'help-cpd-tracking': {
     id: 'help-cpd-tracking-v4',
@@ -309,7 +309,7 @@ What used to take me all evening now takes 20 minutes. That means more time for 
     audience: 'All professional users',
     script: `You're a professional. You're constantly learning. But tracking that learning is a pain.
 
-We've built a 'CPD Portfolio' right into the platform.
+We've built a 'Continuing Professional Development Portfolio' right into the platform.
 
 Every time you complete a training module with us, it's logged automatically. The hours, the learning outcomes, the certificate.
 
@@ -338,7 +338,7 @@ If a page isn't loading, check your connection. Our 'Offline Mode' handles spott
 
 If you're stuck on a login loop, it's usually a cache issue. A quick refresh often solves it.
 
-But if you're really stuck, our support isn't a robot. It's a team of real people, including EPs and tech experts.
+But if you're really stuck, our support isn't a robot. It's a team of real people, including Educational Psychologists and tech experts.
 
 Click the 'Help' icon. You can chat with us live. We can even 'Shadow' your session (with your permission) to see exactly what you're seeing.
 
@@ -348,19 +348,19 @@ We're not just a software company; we're your partners. We won't leave you stran
 
 
 // =============================================================================
-// SECTION 3: LA PORTAL SPECIFIC VIDEOS
+// SECTION 3: Local Authority PORTAL SPECIFIC VIDEOS
 // =============================================================================
 
 export const LA_PORTAL_VIDEOS = {
   // ---------------------------------------------------------------------------
-  // 3.1 LA Dashboard Overview
+  // 3.1 Local Authority Dashboard Overview
   // ---------------------------------------------------------------------------
   'la-dashboard-overview': {
     id: 'la-dashboard-overview-v4',
-    title: 'Your LA Dashboard Overview',
+    title: 'Your Local Authority Dashboard Overview',
     duration: '75 seconds',
-    audience: 'LA Caseworkers, SEND Managers',
-    script: `Welcome to the Command Centre. This is the LA Dashboard, designed to give you total visibility over your SEND landscape.
+    audience: 'Local Authority Caseworkers, Special Educational Needs and Disabilities Managers',
+    script: `Welcome to the Command Centre. This is the Local Authority Dashboard, designed to give you total visibility over your Special Educational Needs and Disabilities landscape.
 
 I know the pressure you're under. The 20-week deadline isn't just a target; it's the law.
 
@@ -368,7 +368,7 @@ That's why your dashboard is colour-coded by urgency. Green is on track. Amber i
 
 You can see your entire caseload at a glance. Filter by school, by stage, or by complexity.
 
-The 'Activity Feed' on the right is your pulse check. It shows you real-time updates: "St Mary's just submitted the Annual Review," "Dr. Jones just uploaded the EP advice."
+The 'Activity Feed' on the right is your pulse check. It shows you real-time updates: "St Mary's just submitted the Annual Review," "Dr. Jones just uploaded the Educational Psychologist advice."
 
 And for managers, the 'Compliance Analytics' are a game changer. You can see bottlenecks before they become breaches. "Why is the drafting stage taking 4 weeks on average?" Now you have the data to fix it.
 
@@ -382,12 +382,12 @@ This isn't just about managing cases; it's about managing capacity. It puts you 
     id: 'la-professional-requests-v4',
     title: 'Managing Professional Requests',
     duration: '60 seconds',
-    audience: 'LA Caseworkers',
-    script: `Chasing professional advice is the biggest bottleneck in the EHCP process. We've solved it with our 'Request Portal'.
+    audience: 'Local Authority Caseworkers',
+    script: `Chasing professional advice is the biggest bottleneck in the Education, Health and Care Plan process. We've solved it with our 'Request Portal'.
 
 Instead of sending emails into the void, you send a secure, tracked request directly from the platform.
 
-You select the professional—EP, SALT, Social Care. You set the deadline. You add specific questions.
+You select the professional—Educational Psychologist, Speech and Language Therapist, Social Care. You set the deadline. You add specific questions.
 
 They get a secure link. They don't need a login. They upload their advice directly into the system.
 
@@ -401,22 +401,22 @@ It turns a chaotic chase into a streamlined workflow.`
   },
 
   // ---------------------------------------------------------------------------
-  // 3.3 Using the EHCP Merge Tool
+  // 3.3 Using the Education, Health and Care Plan Merge Tool
   // ---------------------------------------------------------------------------
   'la-ehcp-merge-tool': {
     id: 'la-ehcp-merge-tool-v4',
-    title: 'The EHCP Merge Tool Explained',
+    title: 'The Education, Health and Care Plan Merge Tool Explained',
     duration: '75 seconds',
-    audience: 'LA Caseworkers',
-    script: `This is the feature that makes caseworkers cheer. The EHCP Merge Tool.
+    audience: 'Local Authority Caseworkers',
+    script: `This is the feature that makes caseworkers cheer. The Education, Health and Care Plan Merge Tool.
 
-You have five different reports. The EP, the School, the Parent, Health, Social Care. Traditionally, you'd spend hours copy-pasting these into the draft plan.
+You have five different reports. The Educational Psychologist, the School, the Parent, Health, Social Care. Traditionally, you'd spend hours copy-pasting these into the draft plan.
 
 Watch this. I click 'Generate Draft'.
 
 The system reads all five reports. It identifies the Needs. It identifies the Provision. And it maps them into Section B and Section F.
 
-It even spots conflicts. "The EP says 10 hours of support, the School says 15." It highlights this for you to resolve.
+It even spots conflicts. "The Educational Psychologist says 10 hours of support, the School says 15." It highlights this for you to resolve.
 
 It doesn't replace your judgement. You still review every word. But it does the heavy lifting. It creates a structured, coherent first draft in seconds.
 
@@ -490,7 +490,7 @@ Knowledge is power. We want you to feel powerful.`
     title: 'Contributing Your Views',
     duration: '45 seconds',
     audience: 'Parents',
-    script: `Section A of the EHCP is 'The Views, Interests and Aspirations of the Child and their Parents'. It's the most important section.
+    script: `Section A of the Education, Health and Care Plan is 'The Views, Interests and Aspirations of the Child and their Parents'. It's the most important section.
 
 Don't worry about sounding 'professional'. You are the expert on your child.
 
@@ -530,7 +530,7 @@ If you're a subject teacher, you see the 'Need to Know' info—strategies, medic
 
 We also handle 'Retention'. We automatically archive data when a student leaves, and delete it when the statutory period expires. You don't have to remember to shred the files.
 
-And 'Subject Access Requests'. If a parent asks for their data, our 'SAR Generator' compiles it in minutes, redacted and ready.
+And 'Subject Access Requests'. If a parent asks for their data, our 'Subject Access Request Generator' compiles it in minutes, redacted and ready.
 
 Security is built in. But it relies on you. Don't share passwords. Don't leave screens unlocked.
 
@@ -544,12 +544,12 @@ Treat this data like it belongs to your own child.`
     id: 'compliance-consent-v4',
     title: 'Managing Consent Properly',
     duration: '60 seconds',
-    audience: 'SENCOs, Teachers, Administrators',
+    audience: 'Special Educational Needs Coordinators, Teachers, Administrators',
     script: `Consent is the foundation of everything we do. You can't assess a child without it.
 
 Our 'Consent Manager' makes this watertight.
 
-When you want to refer a child to an EP, you click 'Request Consent'. The parent gets a secure link on their phone. They sign with their finger.
+When you want to refer a child to an Educational Psychologist, you click 'Request Consent'. The parent gets a secure link on their phone. They sign with their finger.
 
 It's instantly logged. We know who signed, when, and exactly what they agreed to.
 
@@ -574,13 +574,13 @@ export const ASSESSMENT_VIDEOS = {
     id: 'assessment-choosing-v4',
     title: 'Choosing the Right Assessment',
     duration: '60 seconds',
-    audience: 'Teachers, SENCOs, EPs',
+    audience: 'Teachers, Special Educational Needs Coordinators, Educational Psychologists',
     script: `We have over 50 assessments in our library. Choosing the right one is critical.
 
 Ask yourself: What is the question?
 
 If you're asking "Is this dyslexia?", use our 'Phonological Screener'.
-If you're asking "Why are they behaving like this?", use the 'SEMH Profiler'.
+If you're asking "Why are they behaving like this?", use the 'Social, Emotional and Mental Health Profiler'.
 If you're asking "Are they ready for exams?", use the 'Access Arrangements Screener'.
 
 Our 'Assessment Finder' helps you. You can filter by Age, Area of Need, or Time Required.
@@ -597,13 +597,13 @@ And remember, assessment isn't a label. It's a roadmap. Choose the tool that giv
     id: 'assessment-interpreting-v4',
     title: 'Interpreting Assessment Results',
     duration: '75 seconds',
-    audience: 'Teachers, SENCOs, EPs',
+    audience: 'Teachers, Special Educational Needs Coordinators, Educational Psychologists',
     script: `You've got the scores. Now, what do they mean?
 
 Don't just look at the total. Look at the profile.
 
 A flat profile (all low) suggests a general learning difficulty.
-A spiky profile (some high, some low) suggests a specific difficulty, like dyslexia or ADHD.
+A spiky profile (some high, some low) suggests a specific difficulty, like dyslexia or Attention Deficit Hyperactivity Disorder.
 
 Our 'AI Analysis' highlights these spikes for you. It says: "Look here. Verbal skills are high, but working memory is low. This is the bottleneck."
 
