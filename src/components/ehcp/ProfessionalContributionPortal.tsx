@@ -264,8 +264,13 @@ function ContributionCard({
   );
 }
 
+interface ProfessionalContributionPortalProps {
+  isDemo?: boolean;
+  demoUserId?: number;
+}
+
 // Main Portal Component
-export default function ProfessionalContributionPortal() {
+export default function ProfessionalContributionPortal({ isDemo = false, demoUserId }: ProfessionalContributionPortalProps = {}) {
   const router = useRouter();
   const { user, isLoading: authLoading } = useAuth();
   const { startTour } = useDemo();
@@ -283,6 +288,43 @@ export default function ProfessionalContributionPortal() {
       setLoading(true);
       setError(null);
 
+      if (isDemo) {
+        // Mock data for demo
+        await new Promise(resolve => setTimeout(resolve, 800));
+        setContributions([
+          {
+            id: 'demo-1',
+            application_id: 'app-1',
+            contribution_type: 'EDUCATIONAL_PSYCHOLOGY',
+            status: 'REQUESTED',
+            deadline: new Date(Date.now() + 86400000 * 5).toISOString(), // 5 days from now
+            priority: 'HIGH',
+            application: {
+              child: { id: 101, first_name: 'Leo', last_name: 'Thompson', date_of_birth: '2015-05-15', year_group: '4' },
+              school_tenant: { id: 1, name: 'Oak Primary School' },
+              la_tenant: { id: 1, name: 'Demo Local Authority' }
+            }
+          },
+          {
+            id: 'demo-2',
+            application_id: 'app-2',
+            contribution_type: 'EDUCATIONAL_PSYCHOLOGY',
+            status: 'IN_PROGRESS',
+            deadline: new Date(Date.now() + 86400000 * 12).toISOString(), // 12 days from now
+            priority: 'MEDIUM',
+            notes: 'Initial observation completed. Awaiting teacher feedback.',
+            content: { status: 'draft' },
+            application: {
+              child: { id: 102, first_name: 'Mia', last_name: 'Chen', date_of_birth: '2016-02-20', year_group: '3' },
+              school_tenant: { id: 1, name: 'Oak Primary School' },
+              la_tenant: { id: 1, name: 'Demo Local Authority' }
+            }
+          }
+        ]);
+        setStats({ total: 2, pending: 1, in_progress: 1, overdue: 0, submitted: 0, accepted: 0 });
+        return;
+      }
+
       const response = await fetch('/api/professional/contributions');
       if (!response.ok) {
         throw new Error('Failed to fetch contributions');
@@ -299,10 +341,10 @@ export default function ProfessionalContributionPortal() {
   };
 
   useEffect(() => {
-    if (user) {
+    if (user || isDemo) {
       fetchContributions();
     }
-  }, [user]);
+  }, [user, isDemo]);
 
   // Filter contributions
   const filteredContributions = contributions.filter(c => {
@@ -318,7 +360,7 @@ export default function ProfessionalContributionPortal() {
     return true;
   });
 
-  if (authLoading) {
+  if (authLoading && !isDemo) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
@@ -326,7 +368,7 @@ export default function ProfessionalContributionPortal() {
     );
   }
 
-  if (!user) {
+  if (!user && !isDemo) {
     router.push('/login');
     return null;
   }

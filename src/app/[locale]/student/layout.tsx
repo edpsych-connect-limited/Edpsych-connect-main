@@ -1,13 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
 
-export default function StudentLayout({
+export default async function StudentLayout({
   children,
-  params: { locale }
+  params
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
   return (
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white shadow-sm border-b border-gray-200">

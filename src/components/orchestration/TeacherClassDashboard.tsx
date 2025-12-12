@@ -49,7 +49,7 @@ import VoiceCommandInterface from './VoiceCommandInterface';
 
 interface TeacherClassDashboardProps {
   /** Class ID to display dashboard for */
-  classId: number;
+  classId: string | number;
   /** Teacher ID for permissions and context */
   teacherId: number;
   /** Additional CSS classes */
@@ -60,7 +60,7 @@ interface TeacherClassDashboardProps {
 
 interface ClassDashboardData {
   classInfo: {
-    id: number;
+    id: string | number;
     name: string;
     yearGroup: string;
     totalStudents: number;

@@ -12,7 +12,13 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: 'postgresql://neondb_owner:npg_rSnga68XPqve@ep-delicate-grass-abi62lhk-pooler.eu-west-2.aws.neon.tech/neondb?connect_timeout=15&sslmode=require',
+    },
+  },
+});
 
 // Test password (same for all test accounts for convenience)
 const TEST_PASSWORD = 'Test123!';
@@ -216,6 +222,62 @@ async function main() {
       },
     });
     console.log('✅ Demo Researcher created: researcher@demo.com / Test123!');
+
+    // ========================================================================
+    // 0.1 LINK DEMO PARENT TO DEMO STUDENT
+    // ========================================================================
+    console.log('🔗 Linking Demo Parent to Demo Student...');
+
+    // 1. Ensure "Demo Student" exists in `students` table (Academic Record)
+    const demoStudentRecord = await prisma.students.upsert({
+      where: {
+        tenant_id_unique_id: {
+          tenant_id: tenant.id,
+          unique_id: 'DEMO-STUDENT-001'
+        }
+      },
+      update: {},
+      create: {
+        tenant_id: tenant.id,
+        unique_id: 'DEMO-STUDENT-001',
+        first_name: 'Demo',
+        last_name: 'Student',
+        date_of_birth: new Date('2015-01-01'),
+        year_group: 'Year 4',
+        sen_status: 'SEN Support'
+      }
+    });
+
+    // 2. Get the Demo Parent User ID
+    const demoParentUser = await prisma.users.findUnique({ 
+      where: { email: 'parent@demo.com' } 
+    });
+
+    if (demoParentUser) {
+      // 3. Create the link
+      await prisma.parentChildLink.upsert({
+        where: {
+          parent_id_child_id: {
+            parent_id: demoParentUser.id,
+            child_id: demoStudentRecord.id
+          }
+        },
+        update: {},
+        create: {
+          tenant_id: tenant.id,
+          parent_id: demoParentUser.id,
+          child_id: demoStudentRecord.id,
+          relationship_type: 'Parent',
+          is_primary_contact: true,
+          can_view_progress: true,
+          can_view_behavior: true,
+          can_message_teacher: true,
+          can_view_attendance: true,
+          verified_at: new Date()
+        }
+      });
+      console.log('✅ Linked Demo Parent (parent@demo.com) to Demo Student (Academic Record)');
+    }
 
     // ========================================================================
     // 1. CREATE TEACHER ACCOUNT

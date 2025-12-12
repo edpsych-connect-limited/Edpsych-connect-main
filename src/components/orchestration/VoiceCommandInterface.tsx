@@ -42,7 +42,7 @@ import toast from 'react-hot-toast';
 
 interface VoiceCommandInterfaceProps {
   /** Class ID for context-aware commands */
-  classId?: number;
+  classId?: string | number;
   /** Context type for tailored command suggestions */
   contextType?: 'dashboard' | 'student' | 'lesson';
   /** Callback when command is successfully executed */
@@ -57,7 +57,7 @@ interface VoiceCommandInterfaceProps {
 
 interface VoiceCommandRequest {
   query: string;
-  classId?: number;
+  classId?: string | number;
   contextType?: string;
   timestamp: string;
 }

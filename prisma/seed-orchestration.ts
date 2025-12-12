@@ -327,6 +327,48 @@ async function main() {
   console.log(`✓ Created ${classRosters.length} class rosters`);
 
   // ============================================================================
+  // 2b. ENSURE DEMO CLASS EXISTS (Year 4 - Oak Class)
+  // ============================================================================
+  console.log('\n🏫 Ensuring Demo Class (Year 4 - Oak Class) exists...');
+  let demoClass = await prisma.classRoster.findFirst({
+    where: {
+      class_name: 'Year 4 - Oak Class',
+      teacher_id: teacher.id
+    }
+  });
+
+  if (!demoClass) {
+    // Pick some students for this class (ensure they are not already in another class if possible, 
+    // but for demo purposes overlap is fine or we can take from the end)
+    const demoStudents = students.slice(0, 28); 
+    
+    demoClass = await prisma.classRoster.create({
+      data: {
+        tenant_id: tenant.id,
+        teacher_id: teacher.id,
+        class_name: 'Year 4 - Oak Class',
+        subject: 'Mixed',
+        year_group: 'Year 4',
+        academic_year: '2024-2025',
+        // Manually assign some urgency for the demo to match the mock data structure
+        urgent_students: demoStudents.slice(0, 2).map(s => s.id),
+        needs_support: demoStudents.slice(2, 7).map(s => s.id),
+        on_track: demoStudents.slice(7, 22).map(s => s.id),
+        exceeding: demoStudents.slice(22, 28).map(s => s.id),
+        auto_assign: true,
+        voice_enabled: true
+      }
+    });
+    console.log(`✓ Created Demo Class: ${demoClass.class_name}`);
+    classRosters.push(demoClass);
+  } else {
+    console.log(`✓ Using existing Demo Class: ${demoClass.class_name}`);
+    if (!classRosters.find(c => c.id === demoClass.id)) {
+      classRosters.push(demoClass);
+    }
+  }
+
+  // ============================================================================
   // 3. CREATE LESSON PLANS WITH ACTIVITIES
   // ============================================================================
   console.log('\n📝 Creating lesson plans with activities...');
