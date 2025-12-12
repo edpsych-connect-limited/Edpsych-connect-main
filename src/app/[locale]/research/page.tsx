@@ -10,12 +10,15 @@
  */
 
 import EnhancedResearchHub from '@/components/research/EnhancedResearchHub';
+import { getResearchStudies } from '@/app/actions/research';
 
 export const metadata = {
   title: 'Research & Validation Hub | EdPsych Connect',
   description: 'Evidence-based educational psychology research. Explore peer-reviewed studies, validation frameworks, and ongoing research initiatives.',
 };
 
-export default function ResearchPage() {
-  return <EnhancedResearchHub />;
+export default async function ResearchPage() {
+  const studies = await getResearchStudies();
+  
+  return <EnhancedResearchHub initialStudies={studies} />;
 }
