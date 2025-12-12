@@ -174,3 +174,17 @@ export const VIDEO_OVERLAYS: Record<string, string> = {
   'feature-dashboard': '/images/walkthroughs/admin-dashboard.svg',
   'la-dashboard-overview': '/images/walkthroughs/admin-dashboard.svg',
 };
+
+/**
+ * Get the best available video source for a given lesson ID
+ * Checks local paths first, then falls back to HeyGen ID
+ */
+export function getBestVideoSource(lessonId: string): { videoUrl?: string; heygenVideoId?: string } {
+  const localPath = LOCAL_VIDEO_PATHS[lessonId];
+  const heygenId = HEYGEN_VIDEO_IDS[lessonId];
+
+  return {
+    videoUrl: localPath,
+    heygenVideoId: heygenId
+  };
+}
