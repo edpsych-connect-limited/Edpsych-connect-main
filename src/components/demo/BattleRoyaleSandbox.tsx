@@ -145,9 +145,13 @@ export default function BattleRoyaleSandbox() {
     setIsCorrect(false);
     setStreak(0);
     setTimeout(() => {
-      nextQuestion();
+      if (currentQuestionIndex < ADAPTIVE_QUESTIONS.length - 1) {
+        nextQuestion();
+      } else {
+        setGameState('result');
+      }
     }, 3000); // Longer pause for feedback
-  }, [nextQuestion]);
+  }, [nextQuestion, currentQuestionIndex]);
 
   // Timer logic
   useEffect(() => {
@@ -316,7 +320,7 @@ export default function BattleRoyaleSandbox() {
               </div>
             )}
 
-            {gameState === 'playing' && (
+            {gameState === 'playing' && ADAPTIVE_QUESTIONS[currentQuestionIndex] && (
               <div className="max-w-2xl mx-auto">
                 {/* Game Header */}
                 <div className="flex justify-between items-center mb-6">

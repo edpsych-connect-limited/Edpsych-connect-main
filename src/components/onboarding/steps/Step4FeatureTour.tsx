@@ -30,13 +30,7 @@ import {
 } from 'lucide-react';
 import { useOnboarding } from '../OnboardingProvider';
 import { InteractiveDemo } from '../InteractiveDemo';
-import { LOCAL_VIDEO_PATHS } from '@/lib/training/heygen-video-urls';
-
-// Cloudinary video URL - PRIMARY source for production
-const CLOUDINARY_PLATFORM_TOUR_VIDEO = 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111289/edpsych-connect/videos/onboarding-platform-tour.mp4';
-
-// Local video path for onboarding platform tour - for local development
-const LOCAL_PLATFORM_TOUR_VIDEO = LOCAL_VIDEO_PATHS['onboarding-platform-tour'] || '/content/training_videos/onboarding/onboarding-platform-tour.mp4';
+import { getBestVideoSource } from '@/lib/training/heygen-video-urls';
 
 interface Feature {
   id: string;
@@ -197,31 +191,15 @@ export function Step4FeatureTour() {
   const fetchVideoUrl = useCallback(async () => {
     setIsLoadingVideo(true);
 
-    // 1. Try local file first (for development)
-    try {
-      const response = await fetch(LOCAL_PLATFORM_TOUR_VIDEO, { method: 'HEAD' });
-      if (response.ok) {
-        setVideoUrl(LOCAL_PLATFORM_TOUR_VIDEO);
-        setIsLoadingVideo(false);
-        return;
-      }
-    } catch {
-      // Local file doesn't exist, continue
+    // 1. Try registry first (Local or HeyGen)
+    const source = getBestVideoSource('onboarding-platform-tour');
+    if (source) {
+      setVideoUrl(source.url);
+      setIsLoadingVideo(false);
+      return;
     }
 
-    // 2. Try Cloudinary CDN (PRIMARY source for production)
-    try {
-      const response = await fetch(CLOUDINARY_PLATFORM_TOUR_VIDEO, { method: 'HEAD' });
-      if (response.ok) {
-        setVideoUrl(CLOUDINARY_PLATFORM_TOUR_VIDEO);
-        setIsLoadingVideo(false);
-        return;
-      }
-    } catch {
-      // Cloudinary failed, continue to fallback
-    }
-
-    // 3. Try HeyGen API as fallback
+    // 2. Try HeyGen API as fallback
     try {
       const response = await fetch('/api/video/heygen-url?key=onboarding-platform-tour');
       if (response.ok) {
@@ -237,7 +215,7 @@ export function Step4FeatureTour() {
     }
 
     // Fallback - just use local path and let it error naturally
-    setVideoUrl(LOCAL_PLATFORM_TOUR_VIDEO);
+    setVideoUrl('/content/training_videos/platform-introduction.mp4');
     setIsLoadingVideo(false);
   }, []);
 

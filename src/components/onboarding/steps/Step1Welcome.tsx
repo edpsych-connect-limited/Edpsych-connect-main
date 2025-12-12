@@ -23,13 +23,7 @@ import { Play, CheckCircle, Target, Zap, Shield, Users, TrendingUp, Loader2 } fr
 import { motion } from 'framer-motion';
 import { useOnboarding } from '../OnboardingProvider';
 import { ProgressBar } from '@/components/ui/ProgressBar';
-import { LOCAL_VIDEO_PATHS } from '@/lib/training/heygen-video-urls';
-
-// Cloudinary video URL - PRIMARY source for production
-const CLOUDINARY_WELCOME_VIDEO = 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110926/edpsych-connect/videos/onboarding-welcome.mp4';
-
-// Local video path for onboarding welcome - for local development
-const LOCAL_WELCOME_VIDEO = LOCAL_VIDEO_PATHS['onboarding-welcome'] || '/content/training_videos/onboarding/onboarding-welcome.mp4';
+import { getBestVideoSource } from '@/lib/training/heygen-video-urls';
 
 export function Step1Welcome() {
   const { state, updateStep } = useOnboarding();
@@ -43,48 +37,52 @@ export function Step1Welcome() {
   const fetchVideoUrl = useCallback(async () => {
     setIsLoadingVideo(true);
 
-    // 1. Try local file first (for development)
     try {
-      const response = await fetch(LOCAL_WELCOME_VIDEO, { method: 'HEAD' });
-      if (response.ok) {
-        setVideoUrl(LOCAL_WELCOME_VIDEO);
+      const source = getBestVideoSource('onboarding-welcome');
+      
+      if (!source) {
+        console.error('No video source found for onboarding-welcome');
         setIsLoadingVideo(false);
         return;
       }
-    } catch {
-      // Local file doesn't exist, continue
-    }
 
-    // 2. Try Cloudinary CDN (PRIMARY source for production)
-    try {
-      const response = await fetch(CLOUDINARY_WELCOME_VIDEO, { method: 'HEAD' });
-      if (response.ok) {
-        setVideoUrl(CLOUDINARY_WELCOME_VIDEO);
-        setIsLoadingVideo(false);
-        return;
-      }
-    } catch {
-      // Cloudinary failed, continue to fallback
-    }
-
-    // 3. Try HeyGen API as fallback
-    try {
-      const response = await fetch('/api/video/heygen-url?key=onboarding-welcome');
-      if (response.ok) {
-        const data = await response.json();
-        if (data.url) {
-          setVideoUrl(data.url);
-          setIsLoadingVideo(false);
-          return;
+      if (source.isLocal) {
+        try {
+          const response = await fetch(source.url, { method: 'HEAD' });
+          if (response.ok) {
+            setVideoUrl(source.url);
+            setIsLoadingVideo(false);
+            return;
+          }
+        } catch {
+          // Local failed
         }
       }
-    } catch {
-      // HeyGen API failed
-    }
 
-    // Fallback - just use local path and let it error naturally
-    setVideoUrl(LOCAL_WELCOME_VIDEO);
-    setIsLoadingVideo(false);
+      // Fallback to HeyGen API for direct MP4
+      try {
+        const response = await fetch('/api/video/heygen-url?key=onboarding-welcome');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.url) {
+            setVideoUrl(data.url);
+            setIsLoadingVideo(false);
+            return;
+          }
+        }
+      } catch {
+        // API failed
+      }
+      
+      // If all else fails, try to use the source URL anyway if it was local
+      if (source.isLocal) {
+         setVideoUrl(source.url);
+      }
+    } catch (error) {
+      console.error('Error fetching video:', error);
+    } finally {
+      setIsLoadingVideo(false);
+    }
   }, []);
 
   // Auto-play when video URL is loaded

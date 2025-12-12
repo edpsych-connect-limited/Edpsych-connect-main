@@ -12,9 +12,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, Pause, Volume2, VolumeX, Maximize, Minimize, SkipBack, SkipForward, Settings, Loader2, AlertCircle } from 'lucide-react';
-
-// Import Cloudinary video URL mapping
-import cloudinaryUrls from '@/../cloudinary-video-urls.json';
+import { getBestVideoSource } from '@/lib/training/heygen-video-urls';
 
 interface CloudinaryVideoPlayerProps {
   videoId: string;
@@ -27,61 +25,6 @@ interface CloudinaryVideoPlayerProps {
   className?: string;
   posterTime?: number;
   enableVoiceNarration?: boolean;
-}
-
-// Direct mapping for common video IDs to Cloudinary URLs
-const VIDEO_URL_MAP: Record<string, string> = cloudinaryUrls as Record<string, string>;
-
-// Fallback URLs for specific categories
-const FALLBACK_VIDEOS: Record<string, string> = {
-  'intro': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
-  'training': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764768583/edpsych-connect/videos/welcome.mp4',
-  'assessment': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764768608/edpsych-connect/videos/assessment.mp4',
-  'coding': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764769501/edpsych-connect/videos/features.mp4',
-};
-
-function getVideoUrl(videoId: string): string | null {
-  // Direct match
-  if (VIDEO_URL_MAP[videoId]) {
-    return VIDEO_URL_MAP[videoId];
-  }
-  
-  // Try with module/lesson format (e.g., autism-m1-l1)
-  const normalizedId = videoId.toLowerCase().replace(/\s+/g, '-');
-  if (VIDEO_URL_MAP[normalizedId]) {
-    return VIDEO_URL_MAP[normalizedId];
-  }
-  
-  // Try course-specific paths
-  const courseMapping: Record<string, string> = {
-    'autism-m1-l1': 'autism-spectrum-support/autism-m1-l1',
-    'autism-m1-l2': 'autism-spectrum-support/autism-m1-l2',
-    'autism-m2-l1': 'autism-spectrum-support/autism-m2-l1',
-    'autism-m2-l2': 'autism-spectrum-support/autism-m2-l2',
-    'adhd-m1-l1': 'adhd-understanding-support/adhd-m1-l1',
-    'adhd-m1-l2': 'adhd-understanding-support/adhd-m1-l2',
-  };
-  
-  if (courseMapping[normalizedId] && VIDEO_URL_MAP[courseMapping[normalizedId]]) {
-    return VIDEO_URL_MAP[courseMapping[normalizedId]];
-  }
-  
-  // Category-based fallback
-  if (videoId.includes('intro') || videoId.includes('welcome')) {
-    return FALLBACK_VIDEOS['intro'];
-  }
-  if (videoId.includes('training') || videoId.includes('course')) {
-    return FALLBACK_VIDEOS['training'];
-  }
-  if (videoId.includes('assess')) {
-    return FALLBACK_VIDEOS['assessment'];
-  }
-  if (videoId.includes('coding') || videoId.includes('code')) {
-    return FALLBACK_VIDEOS['coding'];
-  }
-  
-  // Default fallback
-  return FALLBACK_VIDEOS['intro'];
 }
 
 export default function CloudinaryVideoPlayer({
@@ -110,12 +53,71 @@ export default function CloudinaryVideoPlayer({
   const [showVolumeSlider, setShowVolumeSlider] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [showSpeedMenu, setShowSpeedMenu] = useState(false);
+  const [resolvedUrl, setResolvedUrl] = useState<string | null>(null);
   
-  const videoUrl = getVideoUrl(videoId);
+  // Resolve video URL
+  useEffect(() => {
+    const resolveVideo = async () => {
+      setIsLoading(true);
+      setError(null);
+
+      // 1. Check if videoId is already a URL
+      if (videoId.startsWith('http')) {
+        setResolvedUrl(videoId);
+        setIsLoading(false);
+        return;
+      }
+
+      // 2. Check registry
+      const source = getBestVideoSource(videoId);
+      if (source) {
+        if (source.isLocal) {
+           // Verify local file
+           try {
+             const res = await fetch(source.url, { method: 'HEAD' });
+             if (res.ok) {
+               setResolvedUrl(source.url);
+               setIsLoading(false);
+               return;
+             }
+           } catch {}
+        }
+        
+        // Fallback to HeyGen API
+        try {
+           const res = await fetch(`/api/video/heygen-url?key=${videoId}`);
+           if (res.ok) {
+             const data = await res.json();
+             if (data.url) {
+               setResolvedUrl(data.url);
+               setIsLoading(false);
+               return;
+             }
+           }
+        } catch {}
+        
+        // If local failed but we have a local URL, try it anyway?
+        if (source.isLocal) {
+            setResolvedUrl(source.url);
+            setIsLoading(false);
+            return;
+        }
+      }
+
+      // 3. Fallback for legacy IDs not in registry
+      // Try to construct a path or use a default?
+      // For now, we'll just fail gracefully if not found.
+      console.warn(`Video ID not found in registry: ${videoId}`);
+      setError('Video not found');
+      setIsLoading(false);
+    };
+
+    resolveVideo();
+  }, [videoId]);
   
-  // Generate poster URL from Cloudinary
-  const posterUrl = videoUrl 
-    ? videoUrl.replace('/upload/', `/upload/so_${posterTime},c_fill,w_1280,h_720/`).replace('.mp4', '.jpg')
+  // Generate poster URL from Cloudinary if it's a Cloudinary URL
+  const posterUrl = resolvedUrl && resolvedUrl.includes('cloudinary')
+    ? resolvedUrl.replace('/upload/', `/upload/so_${posterTime},c_fill,w_1280,h_720/`).replace('.mp4', '.jpg')
     : undefined;
 
   useEffect(() => {
@@ -161,7 +163,7 @@ export default function CloudinaryVideoPlayer({
       video.removeEventListener('waiting', handleWaiting);
       video.removeEventListener('canplay', handleCanPlay);
     };
-  }, [onComplete, onProgress]);
+  }, [onComplete, onProgress, resolvedUrl]); // Added resolvedUrl dependency
 
   useEffect(() => {
     const video = videoRef.current;
@@ -245,9 +247,18 @@ export default function CloudinaryVideoPlayer({
   };
 
   // Caption URL derivation
-  const captionUrl = videoUrl ? videoUrl.replace(/\.mp4$/, '.vtt') : null;
+  const captionUrl = resolvedUrl ? resolvedUrl.replace(/\.mp4$/, '.vtt') : null;
 
-  if (!videoUrl) {
+  if (!resolvedUrl && !isLoading && !error) {
+     // Initial state or waiting for resolution
+     return (
+        <div className={`bg-slate-900 rounded-xl flex items-center justify-center aspect-video ${className}`}>
+          <Loader2 className="w-8 h-8 text-slate-500 animate-spin" />
+        </div>
+     );
+  }
+
+  if (!resolvedUrl && !isLoading && error) {
     return (
       <div className={`bg-slate-900 rounded-xl flex items-center justify-center aspect-video ${className}`}>
         <div className="text-center text-slate-400">
@@ -265,9 +276,10 @@ export default function CloudinaryVideoPlayer({
       className={`relative bg-black rounded-xl overflow-hidden group ${className}`}
     >
       {/* Video Element */}
+      {resolvedUrl && (
       <video
         ref={videoRef}
-        src={videoUrl}
+        src={resolvedUrl}
         poster={posterUrl}
         className="w-full h-full object-contain"
         autoPlay={autoPlay}
@@ -285,6 +297,7 @@ export default function CloudinaryVideoPlayer({
           />
         )}
       </video>
+      )}
 
       {/* Loading Overlay */}
       {isLoading && (
@@ -478,10 +491,23 @@ export function VideoPreviewCard({
   duration?: string;
   onPlay: () => void;
 }) {
-  const videoUrl = getVideoUrl(videoId);
-  const posterUrl = videoUrl 
-    ? videoUrl.replace('/upload/', '/upload/so_2,c_fill,w_400,h_225/').replace('.mp4', '.jpg')
-    : undefined;
+  // We can't resolve URL synchronously anymore.
+  // We'll just show a placeholder or try to resolve it if it's a URL.
+  const [posterUrl, setPosterUrl] = useState<string | undefined>(undefined);
+  
+  useEffect(() => {
+      if (videoId.startsWith('http')) {
+          setPosterUrl(videoId.replace('/upload/', '/upload/so_2,c_fill,w_400,h_225/').replace('.mp4', '.jpg'));
+      } else {
+          // Try to get local path synchronously if possible?
+          const source = getBestVideoSource(videoId);
+          if (source && source.isLocal) {
+              // Local poster?
+              // Assuming local videos don't have generated posters easily available unless we have them.
+              // We'll skip poster for local for now or use a default.
+          }
+      }
+  }, [videoId]);
 
   return (
     <button
@@ -508,5 +534,10 @@ export function VideoPreviewCard({
   );
 }
 
-// Export the utility function for getting video URLs
-export { getVideoUrl };
+// Export the utility function for getting video URLs - DEPRECATED but kept for compatibility
+export function getVideoUrl(videoId: string): string | null {
+  if (videoId.startsWith('http')) return videoId;
+  const source = getBestVideoSource(videoId);
+  if (source && source.isLocal) return source.url;
+  return null;
+}

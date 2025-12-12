@@ -18,6 +18,8 @@
 export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   // Core Platform Videos
   "platform-introduction": "47faddd661d648e5ae34c8360c8b2286",
+  "onboarding-platform-tour": "47faddd661d648e5ae34c8360c8b2286",
+  "onboarding-welcome": "47faddd661d648e5ae34c8360c8b2286",
   "la-dashboard-overview": "e22dc12814024315b4847ae0b7d368ec",
   "school-senco-portal": "7a6420de424a477eba6a29ad99a3271d",
   "parent-portal-welcome": "ec76fcbd50954161a040fb0f5ec42738",
@@ -49,6 +51,18 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "innovation-ai-agents": "3c6c385ff87245d99ba9b1c59925f463",
   "innovation-battle-royale": "c13549ec38474d0287b3f019cf842b48",
   
+  // Coding Curriculum Videos (Aliased to placeholders)
+  "intro-coding-journey": "84c23e6e11604b7da12d41ad23c90804",
+  "blocks-intro": "84c23e6e11604b7da12d41ad23c90804",
+  "blocks-events": "84c23e6e11604b7da12d41ad23c90804",
+  "blocks-loops": "84c23e6e11604b7da12d41ad23c90804",
+  "python-basics": "84c23e6e11604b7da12d41ad23c90804",
+  "python-variables": "84c23e6e11604b7da12d41ad23c90804",
+  "python-functions": "84c23e6e11604b7da12d41ad23c90804",
+  "react-intro": "84c23e6e11604b7da12d41ad23c90804",
+  "react-components": "84c23e6e11604b7da12d41ad23c90804",
+  "react-state": "84c23e6e11604b7da12d41ad23c90804",
+
   // Enterprise & Security (Placeholders mapped to Platform Intro until production)
   "enterprise-plan-overview": "47faddd661d648e5ae34c8360c8b2286", 
   "security-deep-dive": "12fbfee13dd04c7087eee79ad1101fb2",
@@ -111,6 +125,11 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "feature-ai-agents": "38c9dbfd422d4099afb1526da569b70e",
   "feature-la-dashboard": "08aea67e72f64e8ebb45d1be32633002",
 
+  // Feature Spotlight Aliases (Mapping marketing names to actual content)
+  "data-autonomy": "12fbfee13dd04c7087eee79ad1101fb2", // Maps to help-data-security
+  "no-child-left-behind": "67b145614e7f4e61b0e69529391ed580", // Maps to innovation-safety-net
+  "gamification-integrity": "c13549ec38474d0287b3f019cf842b48", // Maps to innovation-battle-royale
+
   // Legacy/Long Keys (Keeping for backward compatibility if needed)
   "1-1_ADHD_Neurobiology__Dopamine__Norepinephrine__and_Brain_Development": "d0f77eb76bf04e7b8089b5487acf428f",
   "1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations": "03a6a280d0484f668d1c3558dd75ec54",
@@ -169,6 +188,8 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
 export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // Core Platform Videos
   "platform-introduction": "/content/training_videos/platform-introduction.mp4",
+  "onboarding-platform-tour": "/content/training_videos/platform-introduction.mp4",
+  "onboarding-welcome": "/content/training_videos/platform-introduction.mp4",
   "la-dashboard-overview": "/content/training_videos/la-portal/la-dashboard-overview.mp4",
   "school-senco-portal": "/content/training_videos/misc/school-senco-portal.mp4",
   "parent-portal-welcome": "/content/training_videos/parent-portal/parent-portal-welcome.mp4",
@@ -200,11 +221,28 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   "innovation-ai-agents": "/content/training_videos/innovation/innovation-ai-agents.mp4",
   "innovation-battle-royale": "/content/training_videos/innovation/innovation-battle-royale.mp4",
   
+  // Coding Curriculum Videos (Aliased to placeholders)
+  "intro-coding-journey": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
+  "blocks-intro": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
+  "blocks-events": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
+  "blocks-loops": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
+  "python-basics": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
+  "python-variables": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
+  "python-functions": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
+  "react-intro": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
+  "react-components": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
+  "react-state": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
+
   // Feature Videos
   "feature-gamification": "/content/training_videos/features/feature-gamification.mp4",
   "feature-accessibility": "/content/training_videos/features/feature-accessibility.mp4",
   "feature-ai-agents": "/content/training_videos/features/feature-ai-agents.mp4",
   "feature-la-dashboard": "/content/training_videos/features/feature-la-dashboard.mp4",
+
+  // Feature Spotlight Aliases
+  "data-autonomy": "/content/training_videos/help-centre/help-data-security.mp4",
+  "no-child-left-behind": "/content/training_videos/innovation/innovation-safety-net.mp4",
+  "gamification-integrity": "/content/training_videos/innovation/innovation-battle-royale.mp4",
 
   // Training Academy Videos - Autism
   "autism-m1-l1": "/content/training_videos/autism/autism-m1-l1.mp4",

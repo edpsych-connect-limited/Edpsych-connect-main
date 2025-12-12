@@ -51,21 +51,22 @@ You are absolutely right—videos are for **narrative**, screenshots are for **p
 **Presenter:** Dr. Scott I-Patrick
 **Setting:** Clean, modern office background or "The Golden Thread" abstract background.
 **Duration:** ~90 seconds
+**Voice Direction:** *Warm, empathetic, but urgent. Use pauses (...) for effect. Do not sound robotic.*
 
 **(0:00) The Hook:**
-"If you are watching this, you already know the truth. The system is not just broken; it is a maze. A fragmented, chaotic maze of emails, spreadsheets, and missed deadlines. And who gets lost in that maze? The children."
+"If you're watching this... you already know the truth. The system isn't just broken—it's a *maze*. A fragmented, chaotic maze of emails, spreadsheets, and missed deadlines. And who gets lost in that maze? ...The children."
 
 **(0:20) The Authority:**
-"I am Dr. Scott I-Patrick. In my fifteen years as an Educational Psychologist, I have seen brilliant teachers burn out and desperate parents give up—not because they do not care, but because they are fighting a system that fights back."
+"I'm Dr. Scott I-Patrick. In my fifteen years as an Educational Psychologist, I've seen brilliant teachers burn out and desperate parents give up. Not because they don't care... but because they're fighting a system that fights *back*."
 
 **(0:40) The Solution (The Analogy):**
-"So, we stopped trying to fix the broken pieces. We built a new engine. Think of EdPsych Connect not as another database, but as an Orchestration System. It is the 'Golden Thread' that ties the school, the family, and the Local Authority together."
+"So, we stopped trying to fix the broken pieces. We built a new engine. Think of EdPsych Connect not as another database, but as an *Orchestration System*. It's the 'Golden Thread' that ties the school, the family, and the Local Authority together."
 
 **(1:00) The "Safety Net" (The Tech):**
-"While you sleep, our Safety Net Engine is awake. It scans every case. It looks for stagnation. It flags the quiet child who has not made progress in six weeks. It does not just store data; it acts on it."
+"While you sleep, our Safety Net Engine is awake. It scans every case. It looks for stagnation. It flags the quiet child who hasn't made progress in six weeks. It doesn't just store data; it *acts* on it."
 
 **(1:20) The Call to Action:**
-"We have turned the maze into a map. Let me show you how."
+"We've turned the maze into a map. Let me show you how."
 
 ---
 

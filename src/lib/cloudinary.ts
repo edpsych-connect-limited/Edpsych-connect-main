@@ -185,7 +185,7 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   'clinical-trials': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764646999/edpsych-connect/videos/clinical-trials.mp4',
   
   // All 56 ADHD, Autism, and Dyslexia training videos are also uploaded
-  // See full mapping in VideoTutorialPlayer.tsx or cloudinary-video-urls.json
+  // See full mapping in src/lib/training/heygen-video-urls.ts
 };
 
 /**

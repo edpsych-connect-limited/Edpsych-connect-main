@@ -15,9 +15,9 @@
 
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { Play, AlertCircle, CheckCircle, Clock, X, Loader2 } from 'lucide-react';
-import { HEYGEN_VIDEO_IDS, LOCAL_VIDEO_PATHS, VIDEO_OVERLAYS } from '@/lib/training/heygen-video-urls';
+import { HEYGEN_VIDEO_IDS, VIDEO_OVERLAYS, getBestVideoSource } from '@/lib/training/heygen-video-urls';
 
-// Note: Cloudinary URLs removed - all videos are served locally from public/content/training_videos/
+// Note: All videos are served locally from public/content/training_videos/
 // Local serving is more reliable and doesn't depend on external CDN
 
 export interface VideoTutorial {
@@ -61,43 +61,47 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
   const [videoSource, setVideoSource] = useState<'loading' | 'local' | 'heygen' | 'error'>('loading');
   const [_errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Fetch video URL with priority: Cloudinary URL > HeyGen Embed > Local MP4
-  // In production (Vercel), local files are NOT available (100+ MP4s exceed limits)
-  // So we prioritize Cloudinary CDN URLs, then HeyGen Embeds
+  // Fetch video URL with priority: Local MP4 > HeyGen Embed
   useEffect(() => {
     async function findVideoSource() {
-      // 1. Check for Cloudinary/External URL in LOCAL_VIDEO_PATHS (Primary Source)
-      const localPath = LOCAL_VIDEO_PATHS[videoKey];
-      if (localPath && (localPath.startsWith('http://') || localPath.startsWith('https://'))) {
-        setVideoUrl(localPath);
-        setVideoSource('local'); // Treat as local/direct source
+      const source = getBestVideoSource(videoKey);
+
+      if (!source) {
+        setVideoSource('error');
+        setErrorMessage('Video not available');
         return;
       }
 
-      // 2. Check local file path (if available)
-      if (localPath) {
+      if (source.isLocal) {
+        // Verify local file exists/is accessible
         try {
-          const response = await fetch(localPath, { method: 'HEAD' });
+          const response = await fetch(source.url, { method: 'HEAD' });
           if (response.ok) {
-            setVideoUrl(localPath);
+            setVideoUrl(source.url);
             setVideoSource('local');
             return;
+          } else {
+            console.warn(`Local video not found: ${source.url}, falling back to HeyGen`);
           }
         } catch (e) {
-          console.log(`Local video check failed: ${localPath}`, e);
+          console.warn(`Local video check failed: ${source.url}, falling back to HeyGen`, e);
         }
-      }
-
-      // 3. Fallback to HeyGen Embed
-      const heygenId = HEYGEN_VIDEO_IDS[videoKey];
-      if (heygenId) {
-        // Use HeyGen /embeds/ URL (designed for iframe embedding with full player)
-        setVideoUrl(`https://app.heygen.com/embeds/${heygenId}`);
+        
+        // Fallback to HeyGen if local file is missing/inaccessible
+        const heygenId = HEYGEN_VIDEO_IDS[videoKey];
+        if (heygenId) {
+          setVideoUrl(`https://app.heygen.com/embed/${heygenId}`);
+          setVideoSource('heygen');
+          return;
+        }
+      } else {
+        // It's a HeyGen URL
+        setVideoUrl(source.url);
         setVideoSource('heygen');
         return;
       }
 
-      // No video source available
+      // No video source available (local failed and no HeyGen ID, or source was undefined)
       setVideoSource('error');
       setErrorMessage('Video not available');
     }

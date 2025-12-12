@@ -16,51 +16,7 @@
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Play, Shield, Users, Gamepad2, AlertCircle, Loader2 } from 'lucide-react';
-
-/**
- * Cloudinary video URLs - PRIMARY SOURCE
- * These are hosted on Cloudinary CDN with global edge delivery
- * Cloud: dncfu2j0r | 90 videos uploaded | ~915MB total
- */
-const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
-  // Platform Introduction (main landing page)
-  '700652dcbd134ad281da2126e37560e2': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
-  'platform-introduction': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
-  
-  // Data Autonomy & Trust
-  '7aaa131e10de45808d643665167a1ed8': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111354/edpsych-connect/videos/data-autonomy.mp4',
-  'data-autonomy': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111354/edpsych-connect/videos/data-autonomy.mp4',
-  
-  // No Child Left Behind
-  'd3d3ba5658ff4ff4915a6456902c8d4a': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111358/edpsych-connect/videos/no-child-left-behind.mp4',
-  'no-child-left-behind': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111358/edpsych-connect/videos/no-child-left-behind.mp4',
-  
-  // Gamification Integrity
-  '8466dedc0abc453fad7fd74073931652': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111361/edpsych-connect/videos/gamification-integrity.mp4',
-  'gamification-integrity': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111361/edpsych-connect/videos/gamification-integrity.mp4',
-};
-
-/**
- * Local video paths for marketing videos (checked first for local development)
- * UPDATED: Pointing to Cloudinary for consistent experience across envs
- */
-const LOCAL_VIDEO_PATHS: Record<string, string> = {
-  // Platform Introduction (main landing page)
-  '700652dcbd134ad281da2126e37560e2': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
-  'platform-introduction': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
-  
-  // Data Autonomy & Trust
-  '7aaa131e10de45808d643665167a1ed8': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111354/edpsych-connect/videos/data-autonomy.mp4',
-  'data-autonomy': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111354/edpsych-connect/videos/data-autonomy.mp4',
-  
-  // No Child Left Behind
-  'd3d3ba5658ff4ff4915a6456902c8d4a': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111358/edpsych-connect/videos/no-child-left-behind.mp4',
-  'no-child-left-behind': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111358/edpsych-connect/videos/no-child-left-behind.mp4',
-  
-  // Gamification Integrity
-  '8466dedc0abc453fad7fd74073931652': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111361/edpsych-connect/videos/gamification-integrity.mp4',
-  'gamification-integrity': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111361/edpsych-connect/videos/gamification-integrity.mp4',
-};
+import { getBestVideoSource } from '@/lib/training/heygen-video-urls';
 
 interface FeatureSpotlightVideoProps {
   videoId: string;
@@ -97,54 +53,58 @@ export const FeatureSpotlightVideo: React.FC<FeatureSpotlightVideoProps> = ({
     setIsLoading(true);
     setVideoError(false);
 
-    // 1. Try local file first (for local development)
-    const localPath = LOCAL_VIDEO_PATHS[videoId];
-    if (localPath) {
-      try {
-        const response = await fetch(localPath, { method: 'HEAD' });
-        if (response.ok) {
-          setVideoUrl(localPath);
-          setIsLoading(false);
-          return;
-        }
-      } catch {
-        // Local file doesn't exist, continue
-      }
-    }
-
-    // 2. Try Cloudinary CDN (PRIMARY source for production)
-    const cloudinaryUrl = CLOUDINARY_VIDEO_URLS[videoId];
-    if (cloudinaryUrl) {
-      try {
-        const response = await fetch(cloudinaryUrl, { method: 'HEAD' });
-        if (response.ok) {
-          setVideoUrl(cloudinaryUrl);
-          setIsLoading(false);
-          return;
-        }
-      } catch {
-        // Cloudinary failed, continue to fallback
-      }
-    }
-
-    // 3. Try HeyGen API as fallback
     try {
-      const response = await fetch(`/api/video/heygen-url?key=${videoId}`);
-      if (response.ok) {
-        const data = await response.json();
-        if (data.url) {
-          setVideoUrl(data.url);
-          setIsLoading(false);
-          return;
+      // Get the best source from our registry
+      const source = getBestVideoSource(videoId);
+
+      if (!source) {
+        console.error(`No video source found for ID: ${videoId}`);
+        setVideoError(true);
+        setIsLoading(false);
+        return;
+      }
+
+      // If it's a local file, we can use it directly in the <video> tag
+      if (source.isLocal) {
+        // Verify the file exists with a HEAD request
+        try {
+          const response = await fetch(source.url, { method: 'HEAD' });
+          if (response.ok) {
+            setVideoUrl(source.url);
+            setIsLoading(false);
+            return;
+          } else {
+            console.warn(`Local video file not found: ${source.url}`);
+          }
+        } catch (e) {
+          console.warn(`Error checking local video: ${e}`);
         }
       }
-    } catch {
-      // HeyGen API failed
-    }
 
-    // No video available
-    setVideoError(true);
-    setIsLoading(false);
+      // Fallback: If local failed or it's a HeyGen ID, get the direct MP4 URL from API
+      // We need the direct MP4 for the <video> tag, not the embed URL
+      try {
+        const response = await fetch(`/api/video/heygen-url?key=${videoId}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.url) {
+            setVideoUrl(data.url);
+            setIsLoading(false);
+            return;
+          }
+        }
+      } catch (e) {
+        console.error('Failed to fetch HeyGen URL:', e);
+      }
+
+      // If we get here, all methods failed
+      setVideoError(true);
+    } catch (error) {
+      console.error('Error in fetchVideoUrl:', error);
+      setVideoError(true);
+    } finally {
+      setIsLoading(false);
+    }
   }, [videoId]);
 
   const handleVideoError = () => {

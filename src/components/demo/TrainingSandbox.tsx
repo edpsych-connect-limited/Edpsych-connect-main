@@ -23,34 +23,8 @@ import {
   Brain
 } from 'lucide-react';
 
-// Video URL mapping for real Cloudinary videos
-const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
-  // Autism course videos
-  'autism-intro': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764769455/edpsych-connect/videos/autism.mp4',
-  'autism-m1-l1': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533450/edpsych-connect/videos/autism-m1-l1.mp4',
-  'autism-m1-l2': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533456/edpsych-connect/videos/autism-m1-l2.mp4',
-  'autism-m2-l1': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533463/edpsych-connect/videos/autism-m2-l1.mp4',
-  'autism-m2-l2': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533519/edpsych-connect/videos/autism-m2-l2.mp4',
-  'autism-m3-l1': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533471/edpsych-connect/videos/autism-m3-l1.mp4',
-  'autism-m3-l2': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533527/edpsych-connect/videos/autism-m3-l2.mp4',
-  // ADHD course videos
-  'adhd-intro': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764769442/edpsych-connect/videos/adhd.mp4',
-  'adhd-m1-l1': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533363/edpsych-connect/videos/adhd-m1-l1.mp4',
-  'adhd-m1-l2': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533402/edpsych-connect/videos/adhd-m1-l2.mp4',
-  'adhd-m2-l1': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533368/edpsych-connect/videos/adhd-m2-l1.mp4',
-  'adhd-m2-l2': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533371/edpsych-connect/videos/adhd-m2-l2.mp4',
-  'adhd-m3-l1': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533407/edpsych-connect/videos/adhd-m3-l1.mp4',
-  'adhd-m3-l2': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533412/edpsych-connect/videos/adhd-m3-l2.mp4',
-  // SEND/Assessment course videos
-  'send-intro': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764768608/edpsych-connect/videos/assessment.mp4',
-  'send-m1-l1': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533443/edpsych-connect/videos/assess-m1-l1.mp4',
-  'send-m2-l1': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533445/edpsych-connect/videos/assess-m2-l1.mp4',
-  'send-m2-l2': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533446/edpsych-connect/videos/assess-m2-l2.mp4',
-  // Dyslexia course videos (using assessment videos as placeholder)
-  'dyslexia-intro': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764768608/edpsych-connect/videos/assessment.mp4',
-  'dyslexia-m1-l1': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533443/edpsych-connect/videos/assess-m1-l1.mp4',
-  'dyslexia-m2-l1': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533445/edpsych-connect/videos/assess-m2-l1.mp4',
-};
+// Video URL mapping is now handled by the central registry in src/lib/training/heygen-video-urls.ts
+// The CloudinaryVideoPlayer component automatically resolves IDs to URLs.
 
 // ============================================================================
 // COURSE DATA - Production-ready with video mappings
@@ -256,11 +230,11 @@ export default function TrainingSandbox() {
   const [quizScore, setQuizScore] = useState<number | null>(null);
   const [quizAnswers, setQuizAnswers] = useState<Record<string, number>>({});
 
-  // Get video URL for current lesson
+  // Get video ID for current lesson
   const getVideoUrl = useCallback((lesson: Lesson, course: Course | null): string => {
     if (!course || !lesson.videoId) return '';
-    const videoKey = `${course.videoPrefix}-${lesson.videoId}`;
-    return CLOUDINARY_VIDEO_URLS[videoKey] || CLOUDINARY_VIDEO_URLS[`${course.videoPrefix}-intro`] || '';
+    // Return the ID directly - the player will resolve it via registry
+    return `${course.videoPrefix}-${lesson.videoId}`;
   }, []);
 
   const handleCourseClick = (course: Course) => {

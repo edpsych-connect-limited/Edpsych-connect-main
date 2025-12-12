@@ -81,11 +81,11 @@ async function main() {
   const entries = Object.entries(videoIds);
   console.log(`Tracking ${entries.length} videos...`);
 
-  let pending = [...entries];
+  let pending = [...entries] as [string, unknown][];
 
   while (pending.length > 0) {
     console.log(`\nChecking ${pending.length} pending videos...`);
-    const nextPending = [];
+    const nextPending: [string, unknown][] = [];
 
     for (const [key, id] of pending) {
       const targetDir = getTargetDir(key);
