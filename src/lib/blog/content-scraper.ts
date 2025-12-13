@@ -150,7 +150,7 @@ const EDUCATIONAL_TOPICS = [
 
 export class ContentScraper {
   private readonly maxArticlesPerSource = 10;
-  private readonly relevanceThreshold = 0.5;
+  private readonly relevanceThreshold = 0.1;
 
   /**
    * Scrape content from all sources
@@ -303,17 +303,17 @@ export class ContentScraper {
   private async getSimulatedArticles(source: ContentSource): Promise<any[]> {
     return [
       {
-        title: 'New SEND strategy announced',
+        title: 'New SEND strategy announced for inclusive education',
         url: `${source.baseUrl}/article-1`,
-        excerpt: 'Government announces comprehensive SEND reform...',
-        fullContent: 'Full article content...',
+        excerpt: 'Government announces comprehensive SEND reform focusing on EHCP timeliness and autism support...',
+        fullContent: 'The new SEND strategy aims to improve inclusion in schools. Key focus areas include better support for autism and ADHD, faster EHCP processing, and enhanced teacher training in special educational needs. Educational psychology services will play a key role in assessment and intervention.',
         publishedDate: new Date().toISOString(),
       },
       {
-        title: 'Evidence-based teaching methods',
+        title: 'Evidence-based teaching methods for neurodiverse classrooms',
         url: `${source.baseUrl}/article-2`,
-        excerpt: 'Research highlights effective pedagogy...',
-        fullContent: 'Full article content...',
+        excerpt: 'Research highlights effective pedagogy for differentiation and classroom management...',
+        fullContent: 'Recent studies in educational psychology highlight the importance of trauma-informed practice and attachment theory in the classroom. Effective pedagogy involves differentiation strategies that support students with dyslexia and dyscalculia. CPD for teachers is crucial for implementing these evidence-based practices.',
         publishedDate: new Date().toISOString(),
       },
     ];

@@ -43,25 +43,41 @@ export async function POST(request: NextRequest) {
 
     logger.debug('[Blog Generate] Post generated:', post.title);
 
-    // Store in database
+    // 1. Find or create category
+    const categorySlug = post.category.toLowerCase().replace(/ /g, '-');
+    let category = await (prisma as any).blogCategory.findUnique({
+      where: { slug: categorySlug }
+    });
+
+    if (!category) {
+      category = await (prisma as any).blogCategory.create({
+        data: {
+          name: post.category,
+          slug: categorySlug,
+          description: `Articles about ${post.category}`,
+          is_active: true
+        }
+      });
+    }
+
+    // 2. Prepare content with extra metadata
+    const enrichedContent = `${post.content}\n\n## Metadata\n\n**CPD Value:** ${post.cpdValue}\n**Target Audience:** ${post.targetAudience.join(', ')}\n\n**Sources:**\n${post.sources.map((s: any) => `- [${s.title}](${s.url})`).join('\n')}`;
+
+    // 3. Store in database
     const savedPost = await (prisma as any).blogPost.create({
       data: {
         title: post.title,
         slug: post.slug,
         excerpt: post.excerpt,
-        content: post.content,
-        author: post.author,
-        category: post.category,
-        tags: post.tags,
-        sources: post.sources,
-        cpdValue: post.cpdValue,
-        targetAudience: post.targetAudience,
-        readingTime: post.readingTime,
-        publishedAt: post.publishedAt,
-        featured: post.featured,
-        status: 'published',
+        content: enrichedContent,
+        author_name: post.author,
+        category_id: category.id,
+        reading_time: post.readingTime,
+        published_at: post.publishedAt,
+        is_published: true,
+        is_featured: post.featured,
+        keywords: post.tags,
         views: 0,
-        likes: 0,
       },
     });
 
