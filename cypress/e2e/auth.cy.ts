@@ -61,8 +61,8 @@ describe('Authentication Flow', () => {
       cy.get('button[type="submit"]').click();
       
       // Wait for and check error message
-      cy.contains('Login Failed', { timeout: 10000 }).should('be.visible');
-      cy.contains('Invalid email or password').should('be.visible');
+      // Note: App displays "Invalid email or password" which is more user-friendly than "Login Failed"
+      cy.contains('Invalid email or password', { timeout: 10000 }).should('be.visible');
     });
 
     it('should toggle remember me checkbox', () => {

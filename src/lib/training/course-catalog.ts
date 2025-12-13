@@ -630,7 +630,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'autism-m1-l3',
+            lesson_number: 3,
+            title: 'Case Studies and Real-World Scenarios',
+            type: 'case_study',
+            content_url: '/content/training_videos/autism-support/autism-m1-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'autism-m1-l4',
+            lesson_number: 4,
+            title: 'Practical Application Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/autism-support/autism-m1-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'autism-m1-l5',
+            lesson_number: 5,
+            title: 'Advanced Research and Deep Dive',
+            type: 'video',
+            content_url: '/content/training_videos/autism-support/autism-m1-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'autism-m1-quiz',
           title: 'Module 1: Understanding Autism Quiz',
@@ -695,7 +728,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'autism-m2-l3',
+            lesson_number: 3,
+            title: 'Case Studies and Real-World Scenarios',
+            type: 'case_study',
+            content_url: '/content/training_videos/autism-support/autism-m2-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'autism-m2-l4',
+            lesson_number: 4,
+            title: 'Practical Application Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/autism-support/autism-m2-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'autism-m2-l5',
+            lesson_number: 5,
+            title: 'Advanced Research and Deep Dive',
+            type: 'video',
+            content_url: '/content/training_videos/autism-support/autism-m2-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'autism-m2-quiz',
           title: 'Module 2: Social Communication Quiz',
@@ -769,7 +835,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'autism-m3-l3',
+            lesson_number: 3,
+            title: 'Case Studies and Real-World Scenarios',
+            type: 'case_study',
+            content_url: '/content/training_videos/autism-support/autism-m3-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'autism-m3-l4',
+            lesson_number: 4,
+            title: 'Practical Application Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/autism-support/autism-m3-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'autism-m3-l5',
+            lesson_number: 5,
+            title: 'Advanced Research and Deep Dive',
+            type: 'video',
+            content_url: '/content/training_videos/autism-support/autism-m3-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'autism-m3-quiz',
           title: 'Module 3: Sensory Processing Quiz',
@@ -843,7 +942,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'autism-m4-l3',
+            lesson_number: 3,
+            title: 'Case Studies and Real-World Scenarios',
+            type: 'case_study',
+            content_url: '/content/training_videos/autism-support/autism-m4-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'autism-m4-l4',
+            lesson_number: 4,
+            title: 'Practical Application Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/autism-support/autism-m4-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'autism-m4-l5',
+            lesson_number: 5,
+            title: 'Advanced Research and Deep Dive',
+            type: 'video',
+            content_url: '/content/training_videos/autism-support/autism-m4-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'autism-m4-quiz',
           title: 'Module 4: Visual Supports & Structure Quiz',
@@ -917,7 +1049,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'autism-m5-l3',
+            lesson_number: 3,
+            title: 'Case Studies and Real-World Scenarios',
+            type: 'case_study',
+            content_url: '/content/training_videos/autism-support/autism-m5-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'autism-m5-l4',
+            lesson_number: 4,
+            title: 'Practical Application Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/autism-support/autism-m5-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'autism-m5-l5',
+            lesson_number: 5,
+            title: 'Advanced Research and Deep Dive',
+            type: 'video',
+            content_url: '/content/training_videos/autism-support/autism-m5-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'autism-m5-quiz',
           title: 'Module 5: Anxiety & Regulation Quiz',
@@ -982,7 +1147,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'autism-m6-l3',
+            lesson_number: 3,
+            title: 'Case Studies and Real-World Scenarios',
+            type: 'case_study',
+            content_url: '/content/training_videos/autism-support/autism-m6-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'autism-m6-l4',
+            lesson_number: 4,
+            title: 'Practical Application Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/autism-support/autism-m6-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'autism-m6-l5',
+            lesson_number: 5,
+            title: 'Advanced Research and Deep Dive',
+            type: 'video',
+            content_url: '/content/training_videos/autism-support/autism-m6-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'autism-m6-quiz',
           title: 'Module 6: Special Interests & Strengths Quiz',
@@ -1056,7 +1254,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'autism-m7-l3',
+            lesson_number: 3,
+            title: 'Case Studies and Real-World Scenarios',
+            type: 'case_study',
+            content_url: '/content/training_videos/autism-support/autism-m7-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'autism-m7-l4',
+            lesson_number: 4,
+            title: 'Practical Application Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/autism-support/autism-m7-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'autism-m7-l5',
+            lesson_number: 5,
+            title: 'Advanced Research and Deep Dive',
+            type: 'video',
+            content_url: '/content/training_videos/autism-support/autism-m7-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'autism-m7-quiz',
           title: 'Module 7: Executive Function & Life Skills Quiz',
@@ -1129,7 +1360,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'autism-m8-l3',
+            lesson_number: 3,
+            title: 'Case Studies and Real-World Scenarios',
+            type: 'case_study',
+            content_url: '/content/training_videos/autism-support/autism-m8-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'autism-m8-l4',
+            lesson_number: 4,
+            title: 'Practical Application Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/autism-support/autism-m8-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'autism-m8-l5',
+            lesson_number: 5,
+            title: 'Advanced Research and Deep Dive',
+            type: 'video',
+            content_url: '/content/training_videos/autism-support/autism-m8-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'autism-m8-quiz',
           title: 'Module 8: Inclusion & Rights Quiz',
@@ -1241,7 +1505,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'adhd-m1-l3',
+            lesson_number: 3,
+            title: 'Case Studies: Complexity in Practice',
+            type: 'case_study',
+            content_url: '/content/training_videos/adhd-support/adhd-m1-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'adhd-m1-l4',
+            lesson_number: 4,
+            title: 'Implementation Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/adhd-support/adhd-m1-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'adhd-m1-l5',
+            lesson_number: 5,
+            title: 'Research Perspectives and Future Directions',
+            type: 'video',
+            content_url: '/content/training_videos/adhd-support/adhd-m1-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'adhd-m1-quiz',
           title: 'Module 1: ADHD Foundations Quiz',
@@ -1307,7 +1604,40 @@ export const COURSE_CATALOG: Course[] = [
             content_text: 'Hyperactive-Impulsive ADHD in classroom: Fidgets, squirms, leaves seat, runs/climbs inappropriately, can\'t play quietly, "always on the go", talks excessively, blurts out answers, can\'t wait turn, interrupts others. MORE NOTICEABLE - often identified earlier due to behaviour disruption. May be labelled "naughty" or "badly behaved" - actually struggling with neurological impulse control. Combined presentation shows both inattentive and hyperactive-impulsive symptoms - most common type (70%).',
             resources: []
           }
-        ],
+        ,
+          {
+            id: 'adhd-m2-l3',
+            lesson_number: 3,
+            title: 'Case Studies: Complexity in Practice',
+            type: 'case_study',
+            content_url: '/content/training_videos/adhd-support/adhd-m2-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'adhd-m2-l4',
+            lesson_number: 4,
+            title: 'Implementation Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/adhd-support/adhd-m2-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'adhd-m2-l5',
+            lesson_number: 5,
+            title: 'Research Perspectives and Future Directions',
+            type: 'video',
+            content_url: '/content/training_videos/adhd-support/adhd-m2-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'adhd-m2-quiz',
           title: 'Module 2: Classroom Recognition Quiz',
@@ -1371,7 +1701,40 @@ export const COURSE_CATALOG: Course[] = [
             content_text: 'Executive function deficits cause: ACADEMIC: Difficulty starting tasks, forgetting instructions, losing materials, poor time management, disorganization, incomplete homework, underachievement (despite intelligence). SOCIAL: Interrupting conversations, missing social cues, emotional outbursts, friendship difficulties. BEHAVIORAL: Impulsive decisions, risk-taking, rule-breaking (not deliberate - poor inhibition), emotional dysregulation. Case study: "Intelligent but lazy" - actually ADHD executive function difficulties. Needs external structure, not punishment.',
             resources: []
           }
-        ],
+        ,
+          {
+            id: 'adhd-m3-l3',
+            lesson_number: 3,
+            title: 'Case Studies: Complexity in Practice',
+            type: 'case_study',
+            content_url: '/content/training_videos/adhd-support/adhd-m3-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'adhd-m3-l4',
+            lesson_number: 4,
+            title: 'Implementation Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/adhd-support/adhd-m3-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'adhd-m3-l5',
+            lesson_number: 5,
+            title: 'Research Perspectives and Future Directions',
+            type: 'video',
+            content_url: '/content/training_videos/adhd-support/adhd-m3-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'adhd-m3-quiz',
           title: 'Module 3: Executive Function Quiz',
@@ -1436,7 +1799,40 @@ export const COURSE_CATALOG: Course[] = [
             content_text: 'INSTRUCTIONS: Short, clear, one at a time, written + verbal, check understanding (repeat back). TASKS: Break into chunks, provide step-by-step guides, reduce copying (provide notes), extra time for processing, frequent check-ins. MATERIALS: Highlighters for key information, graphic organizers, checklists, visual timers, technology supports (text-to-speech, voice recording). FEEDBACK: Immediate and specific, positive reinforcement frequently, focus on effort not just outcome, private correction (not public shaming). These aren\'t "giving in" - they level the playing field for neurological differences.',
             resources: []
           }
-        ],
+        ,
+          {
+            id: 'adhd-m4-l3',
+            lesson_number: 3,
+            title: 'Case Studies: Complexity in Practice',
+            type: 'case_study',
+            content_url: '/content/training_videos/adhd-support/adhd-m4-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'adhd-m4-l4',
+            lesson_number: 4,
+            title: 'Implementation Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/adhd-support/adhd-m4-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'adhd-m4-l5',
+            lesson_number: 5,
+            title: 'Research Perspectives and Future Directions',
+            type: 'video',
+            content_url: '/content/training_videos/adhd-support/adhd-m4-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'adhd-m4-quiz',
           title: 'Module 4: Accommodations Quiz',
@@ -1501,7 +1897,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'adhd-m5-l3',
+            lesson_number: 3,
+            title: 'Case Studies: Complexity in Practice',
+            type: 'case_study',
+            content_url: '/content/training_videos/adhd-support/adhd-m5-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'adhd-m5-l4',
+            lesson_number: 4,
+            title: 'Implementation Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/adhd-support/adhd-m5-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'adhd-m5-l5',
+            lesson_number: 5,
+            title: 'Research Perspectives and Future Directions',
+            type: 'video',
+            content_url: '/content/training_videos/adhd-support/adhd-m5-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'adhd-m5-quiz',
           title: 'Module 5: Attention Strategies Quiz',
@@ -1566,7 +1995,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'adhd-m6-l3',
+            lesson_number: 3,
+            title: 'Case Studies: Complexity in Practice',
+            type: 'case_study',
+            content_url: '/content/training_videos/adhd-support/adhd-m6-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'adhd-m6-l4',
+            lesson_number: 4,
+            title: 'Implementation Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/adhd-support/adhd-m6-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'adhd-m6-l5',
+            lesson_number: 5,
+            title: 'Research Perspectives and Future Directions',
+            type: 'video',
+            content_url: '/content/training_videos/adhd-support/adhd-m6-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'adhd-m6-quiz',
           title: 'Module 6: Hyperactivity & Impulsivity Quiz',
@@ -1631,7 +2093,40 @@ export const COURSE_CATALOG: Course[] = [
             content_text: 'HOMEWORK CHALLENGES: Forgets assignments, loses worksheets, poor time management, procrastination, incomplete work. STRATEGIES: Written assignments (not just verbal), online homework platform access, reduced homework load (quality over quantity), homework club/support, parent communication (home-school diary). EXECUTIVE FUNCTION SUPPORTS: Break assignments into steps, set mini-deadlines, study skills training, external accountability (check-ins), planning scaffolds (project timeline templates). ACCOMMODATIONS: Extra time, reduce quantity, provide structure, allow technology (typing, calculator, spell-check). NOT "easier" - levelling the playing field.',
             resources: []
           }
-        ],
+        ,
+          {
+            id: 'adhd-m7-l3',
+            lesson_number: 3,
+            title: 'Case Studies: Complexity in Practice',
+            type: 'case_study',
+            content_url: '/content/training_videos/adhd-support/adhd-m7-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'adhd-m7-l4',
+            lesson_number: 4,
+            title: 'Implementation Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/adhd-support/adhd-m7-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'adhd-m7-l5',
+            lesson_number: 5,
+            title: 'Research Perspectives and Future Directions',
+            type: 'video',
+            content_url: '/content/training_videos/adhd-support/adhd-m7-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'adhd-m7-quiz',
           title: 'Module 7: Academic Support Quiz',
@@ -1705,7 +2200,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'adhd-m8-l3',
+            lesson_number: 3,
+            title: 'Case Studies: Complexity in Practice',
+            type: 'case_study',
+            content_url: '/content/training_videos/adhd-support/adhd-m8-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'adhd-m8-l4',
+            lesson_number: 4,
+            title: 'Implementation Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/adhd-support/adhd-m8-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'adhd-m8-l5',
+            lesson_number: 5,
+            title: 'Research Perspectives and Future Directions',
+            type: 'video',
+            content_url: '/content/training_videos/adhd-support/adhd-m8-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'adhd-m8-quiz',
           title: 'Module 8: Medication & Partnership Quiz',
@@ -1814,7 +2342,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'dys-m1-l3',
+            lesson_number: 3,
+            title: 'Case Studies: Intervention Outcomes',
+            type: 'case_study',
+            content_url: '/content/training_videos/dys-support/dys-m1-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'dys-m1-l4',
+            lesson_number: 4,
+            title: 'Practical Strategy Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/dys-support/dys-m1-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'dys-m1-l5',
+            lesson_number: 5,
+            title: 'The Science of Reading: Deep Dive',
+            type: 'video',
+            content_url: '/content/training_videos/dys-support/dys-m1-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'dys-m1-quiz',
           title: 'Module 1: Understanding Dyslexia Quiz',
@@ -1888,7 +2449,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'dys-m2-l3',
+            lesson_number: 3,
+            title: 'Case Studies: Intervention Outcomes',
+            type: 'case_study',
+            content_url: '/content/training_videos/dys-support/dys-m2-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'dys-m2-l4',
+            lesson_number: 4,
+            title: 'Practical Strategy Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/dys-support/dys-m2-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'dys-m2-l5',
+            lesson_number: 5,
+            title: 'The Science of Reading: Deep Dive',
+            type: 'video',
+            content_url: '/content/training_videos/dys-support/dys-m2-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'dys-m2-quiz',
           title: 'Module 2: Structured Literacy Quiz',
@@ -1953,7 +2547,40 @@ export const COURSE_CATALOG: Course[] = [
             content_text: 'TEACHING STRATEGIES: Short, daily practice (10-15 min), make it FUN (games, songs), purely ORAL initially (no letters yet), progress systematically, multisensory (use manipulatives). ACTIVITIES: Sound sorting (which words start with /m/?), I-Spy with sounds (I spy something beginning with /s/), Rhyme generation (words that rhyme with "cat"), Syllable clapping, Sound tapping (tap for each sound), Elkonin boxes (push counter for each sound), Robot talk (blending), Phoneme deletion/substitution games. PROGRESSION: Start with larger units (syllables), move to smaller (phonemes), start with initial sounds (easier), then final, then medial (hardest), start with continuous sounds (/m/, /s/) before stops (/t/, /p/). REMEMBER: This is ORAL - letters come later in phonics instruction.',
             resources: []
           }
-        ],
+        ,
+          {
+            id: 'dys-m3-l3',
+            lesson_number: 3,
+            title: 'Case Studies: Intervention Outcomes',
+            type: 'case_study',
+            content_url: '/content/training_videos/dys-support/dys-m3-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'dys-m3-l4',
+            lesson_number: 4,
+            title: 'Practical Strategy Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/dys-support/dys-m3-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'dys-m3-l5',
+            lesson_number: 5,
+            title: 'The Science of Reading: Deep Dive',
+            type: 'video',
+            content_url: '/content/training_videos/dys-support/dys-m3-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'dys-m3-quiz',
           title: 'Module 3: Phonological Awareness Quiz',
@@ -2027,7 +2654,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'dys-m4-l3',
+            lesson_number: 3,
+            title: 'Case Studies: Intervention Outcomes',
+            type: 'case_study',
+            content_url: '/content/training_videos/dys-support/dys-m4-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'dys-m4-l4',
+            lesson_number: 4,
+            title: 'Practical Strategy Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/dys-support/dys-m4-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'dys-m4-l5',
+            lesson_number: 5,
+            title: 'The Science of Reading: Deep Dive',
+            type: 'video',
+            content_url: '/content/training_videos/dys-support/dys-m4-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'dys-m4-quiz',
           title: 'Module 4: Systematic Phonics Quiz',
@@ -2101,7 +2761,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'dys-m5-l3',
+            lesson_number: 3,
+            title: 'Case Studies: Intervention Outcomes',
+            type: 'case_study',
+            content_url: '/content/training_videos/dys-support/dys-m5-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'dys-m5-l4',
+            lesson_number: 4,
+            title: 'Practical Strategy Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/dys-support/dys-m5-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'dys-m5-l5',
+            lesson_number: 5,
+            title: 'The Science of Reading: Deep Dive',
+            type: 'video',
+            content_url: '/content/training_videos/dys-support/dys-m5-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'dys-m5-quiz',
           title: 'Module 5: Fluency Development Quiz',
@@ -2166,7 +2859,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'dys-m6-l3',
+            lesson_number: 3,
+            title: 'Case Studies: Intervention Outcomes',
+            type: 'case_study',
+            content_url: '/content/training_videos/dys-support/dys-m6-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'dys-m6-l4',
+            lesson_number: 4,
+            title: 'Practical Strategy Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/dys-support/dys-m6-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'dys-m6-l5',
+            lesson_number: 5,
+            title: 'The Science of Reading: Deep Dive',
+            type: 'video',
+            content_url: '/content/training_videos/dys-support/dys-m6-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'dys-m6-quiz',
           title: 'Module 6: Reading Comprehension Quiz',
@@ -2240,7 +2966,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'dys-m7-l3',
+            lesson_number: 3,
+            title: 'Case Studies: Intervention Outcomes',
+            type: 'case_study',
+            content_url: '/content/training_videos/dys-support/dys-m7-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'dys-m7-l4',
+            lesson_number: 4,
+            title: 'Practical Strategy Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/dys-support/dys-m7-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'dys-m7-l5',
+            lesson_number: 5,
+            title: 'The Science of Reading: Deep Dive',
+            type: 'video',
+            content_url: '/content/training_videos/dys-support/dys-m7-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'dys-m7-quiz',
           title: 'Module 7: Spelling & Writing Quiz',
@@ -2314,7 +3073,40 @@ export const COURSE_CATALOG: Course[] = [
               }
             ]
           }
-        ],
+        ,
+          {
+            id: 'dys-m8-l3',
+            lesson_number: 3,
+            title: 'Case Studies: Intervention Outcomes',
+            type: 'case_study',
+            content_url: '/content/training_videos/dys-support/dys-m8-l3.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 3) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'dys-m8-l4',
+            lesson_number: 4,
+            title: 'Practical Strategy Workshop',
+            type: 'interactive',
+            content_url: '/content/training_videos/dys-support/dys-m8-l4.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 4) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          },
+          {
+            id: 'dys-m8-l5',
+            lesson_number: 5,
+            title: 'The Science of Reading: Deep Dive',
+            type: 'video',
+            content_url: '/content/training_videos/dys-support/dys-m8-l5.mp4',
+            duration_minutes: 30,
+            merits_earned: 10,
+            content_text: 'This is a deep-dive lesson (Level 5) focusing on advanced strategies and practical application. Content includes case studies, research analysis, and implementation workshops.',
+            resources: []
+          }],
         quiz: {
           id: 'dys-m8-quiz',
           title: 'Module 8: Accommodations & Progress Quiz',
@@ -2362,7 +3154,11 @@ export const COURSE_CATALOG: Course[] = [
     cpd_hours: 12,
     total_merits: 180,
     duration_minutes: 480,
-    instructor: { name: 'Dr. Lisa Brown', title: 'Clinical Psychologist', credentials: 'DClinPsy, Child Mental Health' },
+    instructor: {
+      name: 'Dr. Scott Ighavongbe-Patrick',
+      title: 'Educational Psychologist',
+      credentials: 'DEdPsych, CPsychol, HCPC Registered',
+    },
     modules: [],
     target_audience: ['All School Staff', 'Mental Health Leads'],
     certificate_available: true,
@@ -2382,7 +3178,11 @@ export const COURSE_CATALOG: Course[] = [
     cpd_hours: 10,
     total_merits: 150,
     duration_minutes: 400,
-    instructor: { name: 'Dr. Anna Davis', title: 'Trauma Specialist', credentials: 'Ph.D., ACEs Training' },
+    instructor: {
+      name: 'Dr. Scott Ighavongbe-Patrick',
+      title: 'Educational Psychologist',
+      credentials: 'DEdPsych, CPsychol, HCPC Registered',
+    },
     modules: [],
     target_audience: ['Teachers', 'Pastoral Staff', 'School Leaders'],
     certificate_available: true,
@@ -2402,7 +3202,11 @@ export const COURSE_CATALOG: Course[] = [
     cpd_hours: 15,
     total_merits: 250,
     duration_minutes: 600,
-    instructor: { name: 'Professor David Wilson', title: 'Research Director', credentials: 'Ph.D., Professor of Educational Psychology' },
+    instructor: {
+      name: 'Dr. Scott Ighavongbe-Patrick',
+      title: 'Educational Psychologist',
+      credentials: 'DEdPsych, CPsychol, HCPC Registered',
+    },
     modules: [],
     target_audience: ['Educational Psychologists', 'Researchers', 'Doctoral Students'],
     certificate_available: true,
@@ -2432,10 +3236,10 @@ export const COURSE_CATALOG: Course[] = [
     total_merits: 120,
     duration_minutes: 240,
     instructor: {
-      name: 'Dr. Sarah Collins',
-      title: 'Senior Educational Psychologist',
-      credentials: 'DEdPsych, HCPC Registered',
-      avatar_url: '/avatars/sarah-collins.jpg',
+      name: 'Dr. Scott Ighavongbe-Patrick',
+      title: 'Educational Psychologist',
+      credentials: 'DEdPsych, CPsychol, HCPC Registered',
+      avatar_url: '/images/dr-scott-landing.jpg',
     },
     modules: [
       {
@@ -2659,10 +3463,10 @@ COURSE_CATALOG.push(
     total_merits: 400,
     duration_minutes: 240,
     instructor: {
-      name: 'Dr. Sarah Johnson',
-      title: 'Senior Educational Psychologist',
-      credentials: 'DEdPsy, HCPC Registered',
-      avatar_url: '/images/instructors/sarah-johnson.jpg',
+      name: 'Dr. Scott Ighavongbe-Patrick',
+      title: 'Educational Psychologist',
+      credentials: 'DEdPsych, CPsychol, HCPC Registered',
+      avatar_url: '/images/dr-scott-landing.jpg',
     },
     modules: [
       {
@@ -2795,10 +3599,10 @@ COURSE_CATALOG.push(
     total_merits: 300,
     duration_minutes: 180,
     instructor: {
-      name: 'Dr. Emily Chen',
-      title: 'Clinical Psychologist',
-      credentials: 'DClinPsy',
-      avatar_url: '/images/instructors/emily-chen.jpg',
+      name: 'Dr. Scott Ighavongbe-Patrick',
+      title: 'Educational Psychologist',
+      credentials: 'DEdPsych, CPsychol, HCPC Registered',
+      avatar_url: '/images/dr-scott-landing.jpg',
     },
     modules: [
       {
@@ -2896,10 +3700,10 @@ COURSE_CATALOG.push(
     total_merits: 500,
     duration_minutes: 300,
     instructor: {
-      name: 'Prof. Simon Baron-Cohen (AI Avatar)',
-      title: 'Autism Researcher',
-      credentials: 'PhD',
-      avatar_url: '/images/instructors/simon-bc.jpg',
+      name: 'Dr. Scott Ighavongbe-Patrick',
+      title: 'Educational Psychologist',
+      credentials: 'DEdPsych, CPsychol, HCPC Registered',
+      avatar_url: '/images/dr-scott-landing.jpg',
     },
     modules: [
       {

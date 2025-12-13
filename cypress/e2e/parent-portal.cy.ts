@@ -8,7 +8,8 @@ describe('Parent Portal', () => {
     cy.contains('Exit Demo').should('be.visible');
     
     // Check for child progress
-    cy.contains("Leo's Progress").should('be.visible');
+    // Note: Seed data creates "Amara Singh", so we check for "Amara's Progress"
+    cy.contains("Amara's Progress").should('be.visible');
   });
 
   it('should allow authenticated parent login', () => {

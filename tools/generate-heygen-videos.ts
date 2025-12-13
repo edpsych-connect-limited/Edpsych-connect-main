@@ -46,8 +46,8 @@ async function generateVideo(script: string, gender: 'Male' | 'Female', title: s
   
   // Specific casting
   if (instructor === 'Dr. Scott') {
-    avatarId = 'aae2fc783ee247cc9e09bd9517f74e5b'; // Dr. Scott Real Avatar
-    voiceId = 'd680604a31f34ce096c84bed708774c3'; // Dr. Scott Real Voice
+    avatarId = '0d10345ca99840cdbd3103692ba55e27'; // Dr. Scott Custom Avatar
+    voiceId = 'aba5ce361bfa433480f4bf281cc4c4f9'; // Oliver Bennett - Warm UK voice
   } else if (instructor === 'Adrian') {
     avatarId = 'Adrian_public_3_20240312'; // Adrian
   }
