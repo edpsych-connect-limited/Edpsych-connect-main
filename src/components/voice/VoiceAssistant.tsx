@@ -115,7 +115,7 @@ export const VoiceAssistant: React.FC = () => {
   // Speak function
   const speak = (text: string) => {
     setAssistantResponse(text); // Show text in UI
-    if ('speechSynthesis' in window) {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       // Cancel any ongoing speech
       window.speechSynthesis.cancel();
 
@@ -123,7 +123,10 @@ export const VoiceAssistant: React.FC = () => {
       
       // Attempt to set a clear English voice
       const voices = window.speechSynthesis.getVoices();
-      const preferredVoice = voices.find(v => v.lang === 'en-GB') || voices.find(v => v.lang.startsWith('en'));
+      // Robust voice selection: Prefer GB, then US, then any English
+      const preferredVoice = voices.find(v => v.lang === 'en-GB') || 
+                             voices.find(v => v.lang === 'en-US') || 
+                             voices.find(v => v.lang.startsWith('en'));
       
       if (preferredVoice) {
         utterance.voice = preferredVoice;
@@ -133,7 +136,14 @@ export const VoiceAssistant: React.FC = () => {
       utterance.pitch = 1.0;
       utterance.volume = 1.0;
 
+      utterance.onerror = (e) => {
+        console.error('Speech synthesis error:', e);
+        toast.error('Text-to-speech failed. Please check your audio settings.');
+      };
+
       window.speechSynthesis.speak(utterance);
+    } else {
+      console.warn('Text-to-speech not supported in this browser.');
     }
   };
 

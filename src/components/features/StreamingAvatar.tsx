@@ -43,24 +43,7 @@ export const StreamingAvatar: React.FC<StreamingAvatarProps> = ({ isOpen, onClos
         throw new Error('Failed to get access token');
       }
 
-      // 2. Create Peer Connection
-      const pc = new RTCPeerConnection({
-        iceServers: [
-          { urls: 'stun:stun.l.google.com:19302' }
-        ]
-      });
-      
-      peerConnectionRef.current = pc;
-
-      pc.ontrack = (event) => {
-        if (event.streams && event.streams[0]) {
-          if (mediaVideoRef.current) {
-            mediaVideoRef.current.srcObject = event.streams[0];
-          }
-        }
-      };
-
-      // 3. Create Session
+      // 2. Create Session (Get ICE servers first)
       const sessionRes = await fetch('https://api.heygen.com/v1/streaming.new', {
         method: 'POST',
         headers: {
@@ -83,6 +66,23 @@ export const StreamingAvatar: React.FC<StreamingAvatarProps> = ({ isOpen, onClos
       }
 
       setAvatarSession(sessionData.data);
+
+      // 3. Create Peer Connection with HeyGen ICE Servers
+      const pc = new RTCPeerConnection({
+        iceServers: sessionData.data.ice_servers || [
+          { urls: 'stun:stun.l.google.com:19302' }
+        ]
+      });
+      
+      peerConnectionRef.current = pc;
+
+      pc.ontrack = (event) => {
+        if (event.streams && event.streams[0]) {
+          if (mediaVideoRef.current) {
+            mediaVideoRef.current.srcObject = event.streams[0];
+          }
+        }
+      };
 
       // 4. Set Remote Description & Create Answer
       await pc.setRemoteDescription(new RTCSessionDescription(sessionData.data.sdp));

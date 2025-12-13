@@ -55,7 +55,15 @@ Important guidelines:
 - For clinical advice, recommend consulting a qualified EP
 - Always maintain GDPR awareness - never ask for or reference sensitive student data
 
-Format your responses with clear headings and bullet points when appropriate.`;
+Format your responses with clear headings and bullet points when appropriate.
+
+CRITICAL FORMATTING INSTRUCTIONS:
+- Use Markdown formatting for all responses.
+- Use **bold text** for emphasis and key terms.
+- Structure your answer with clear, short paragraphs. Do not produce large blocks of text.
+- Use lists (bullet points or numbered lists) to break down complex information.
+- If providing steps, use numbered lists.
+- Ensure the output is spacious and easy to read.`;
 
 export async function POST(request: NextRequest) {
   const startTime = Date.now();
