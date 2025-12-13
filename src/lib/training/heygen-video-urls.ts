@@ -16,7 +16,7 @@
 
 export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   // PLATFORM Videos
-  "platform-introduction": "700652dcbd134ad281da2126e37560e2",
+  "platform-introduction": "1253f6c2d8e9442db7eeb8dcba27a568",
 
   // ONBOARDING Videos
   "onboarding-platform-tour": "700652dcbd134ad281da2126e37560e2",
@@ -257,6 +257,7 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   "la-professional-requests": "/content/training_videos/la-portal/la-professional-requests.mp4",
   "la-ehcp-merge-tool": "/content/training_videos/la-portal/la-ehcp-merge-tool.mp4",
   "parent-understanding-results": "/content/training_videos/parent-portal/parent-understanding-results.mp4",
+  "platform-introduction": "/content/training_videos/marketing/platform-introduction.mp4",
   "parent-contributing-views": "/content/training_videos/parent-portal/parent-contributing-views.mp4",
   "compliance-data-protection": "/content/training_videos/compliance/compliance-data-protection.mp4",
   "compliance-consent": "/content/training_videos/compliance/compliance-consent.mp4",
@@ -547,7 +548,7 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "parent-portal-welcome": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641905/edpsych-connect/videos/parent-portal-welcome.mp4",
   "parent-contributing-views": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641915/edpsych-connect/videos/parent-contributing-views.mp4",
   "parent-understanding-results": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641927/edpsych-connect/videos/parent-understanding-results.mp4",
-  // "platform-introduction": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641941/edpsych-connect/videos/platform-introduction.mp4", // Removed bad version
+  "platform-introduction": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765665881/edpsych-connect/onboarding/platform-introduction.mp4",
   "school-senco-portal": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641955/edpsych-connect/videos/school-senco-portal.mp4",
   "1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641962/edpsych-connect/videos/1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations.mp4",
   "2-1_Inattentive_Presentation___The_Daydreamer_": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641969/edpsych-connect/videos/2-1_Inattentive_Presentation___The_Daydreamer_.mp4",
