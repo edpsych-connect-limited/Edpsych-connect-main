@@ -16,11 +16,11 @@
 
 export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   // PLATFORM Videos
-  "platform-introduction": "47faddd661d648e5ae34c8360c8b2286",
+  "platform-introduction": "700652dcbd134ad281da2126e37560e2",
 
   // ONBOARDING Videos
-  "onboarding-platform-tour": "47faddd661d648e5ae34c8360c8b2286",
-  "onboarding-welcome": "47faddd661d648e5ae34c8360c8b2286",
+  "onboarding-platform-tour": "700652dcbd134ad281da2126e37560e2",
+  "onboarding-welcome": "700652dcbd134ad281da2126e37560e2",
 
   // LA- Videos
   "la-dashboard-overview": "bda257f9263440b0ace5f74875d8e5b6",
@@ -87,7 +87,7 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "react-state": "84c23e6e11604b7da12d41ad23c90804",
 
   // ENTERPRISE- Videos
-  "enterprise-plan-overview": "47faddd661d648e5ae34c8360c8b2286",
+  "enterprise-plan-overview": "700652dcbd134ad281da2126e37560e2",
 
   // SECURITY- Videos
   "security-deep-dive": "12fbfee13dd04c7087eee79ad1101fb2",
@@ -235,9 +235,9 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
 
 export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // Core Platform Videos
-  "platform-introduction": "/content/training_videos/platform-introduction.mp4",
-  "onboarding-platform-tour": "/content/training_videos/platform-introduction.mp4",
-  "onboarding-welcome": "/content/training_videos/platform-introduction.mp4",
+  // "platform-introduction": "/content/training_videos/platform-introduction.mp4", // Removed to force HeyGen v3 fallback
+  // "onboarding-platform-tour": "/content/training_videos/platform-introduction.mp4",
+  // "onboarding-welcome": "/content/training_videos/platform-introduction.mp4",
   "la-dashboard-overview": "/content/training_videos/la-portal/la-dashboard-overview.mp4",
   "school-senco-portal": "/content/training_videos/misc/school-senco-portal.mp4",
   "parent-portal-welcome": "/content/training_videos/parent-portal/parent-portal-welcome.mp4",
@@ -510,7 +510,7 @@ export function getSpeakerForVideo(lessonId: string): 'Dr. Scott' | 'Adrian' | u
 // ============================================================================
 export const VIDEO_OVERLAYS: Record<string, string> = {
   // Platform Intro -> Landing Page Snapshot
-  'platform-introduction': '/images/dr-scott-landing.jpg',
+  // 'platform-introduction': '/images/dr-scott-landing.jpg', // Removed to allow full-screen v3 video
   'marketplace-navigation': '/images/dr-scott-marketplace.jpg',
 
   // NCLB Engine -> Dashboard Snapshot
@@ -547,7 +547,7 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "parent-portal-welcome": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641905/edpsych-connect/videos/parent-portal-welcome.mp4",
   "parent-contributing-views": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641915/edpsych-connect/videos/parent-contributing-views.mp4",
   "parent-understanding-results": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641927/edpsych-connect/videos/parent-understanding-results.mp4",
-  "platform-introduction": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641941/edpsych-connect/videos/platform-introduction.mp4",
+  // "platform-introduction": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641941/edpsych-connect/videos/platform-introduction.mp4", // Removed bad version
   "school-senco-portal": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641955/edpsych-connect/videos/school-senco-portal.mp4",
   "1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641962/edpsych-connect/videos/1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations.mp4",
   "2-1_Inattentive_Presentation___The_Daydreamer_": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641969/edpsych-connect/videos/2-1_Inattentive_Presentation___The_Daydreamer_.mp4",
