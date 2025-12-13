@@ -15,6 +15,8 @@ const TEAM_MEMBERS = [
   { name: 'Hayley Baverstock', email: 'hayley.baverstock@edpsychconnect.com' },
   { name: 'Hannah Patrick', email: 'hannah.patrick@edpsychconnect.com' },
   { name: 'Louis Young', email: 'louis.young@edpsychconnect.com' },
+  { name: 'Samantha Patrick', email: 'samantha.patrick@edpsychconnect.com' },
+  { name: 'Michelle Garreth', email: 'michelle.garreth@edpsychconnect.com' },
   { name: 'George Randall', email: 'george.randall@edpsychconnect.com' },
   { name: 'Cora Sargent', email: 'cora.sargent@edpsychconnect.com' },
   { name: 'Bevan Givens', email: 'bevan.givens@edpsychconnect.com' },
