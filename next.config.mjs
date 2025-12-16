@@ -15,6 +15,12 @@ const withNextIntl = createNextIntlPlugin('./src/i18n.ts');
 const requestedDistDir = process.env.NEXT_DIST_DIR;
 const resolvedDistDir = requestedDistDir === '.next_build' ? '.next_build_local' : requestedDistDir;
 
+// Vercel's build runtime (vercel build / Next.js framework) expects the standard `.next`
+// output directory to exist and contain manifests like `routes-manifest.json`.
+// We use alternate distDirs locally to avoid Windows/drive ACL issues, but on Vercel
+// we must align with `.next`.
+const isVercel = Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
+
 const isNextStart = process.argv.includes('start');
 const isNextBuild = process.argv.includes('build');
 
@@ -82,7 +88,7 @@ const nextConfig = {
   // Prevent Next from inferring an incorrect monorepo root when other lockfiles exist on the machine.
   outputFileTracingRoot: __dirname,
   // Use a fresh build directory name; older `.next` / `.next_temp` folders on this drive can become undeletable.
-  distDir: chooseDistDir(resolvedDistDir) || '.next_build_local',
+  distDir: isVercel ? '.next' : (chooseDistDir(resolvedDistDir) || '.next_build_local'),
   webpack: (config, { dev }) => {
     // Dev-only: reduce flakiness on Windows/mapped drives.
     // NOTE: Do not disable webpack cache in production builds; Next 16's
