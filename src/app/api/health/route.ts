@@ -29,13 +29,14 @@ export async function GET(request: Request) {
         ok: false,
         error: _error instanceof Error ? _error.message : String(_error),
       };
-      // Still return 200 for beta observability; callers can inspect `db.ok`.
-      // If you want this to be a hard failure later, we can switch to status 503.
     }
   }
 
   return new Response(JSON.stringify(payload), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' },
+    status: deep && (payload.db as any)?.ok === false ? 503 : 200,
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-store',
+    },
   });
 }

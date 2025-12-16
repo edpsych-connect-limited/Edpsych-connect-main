@@ -11,6 +11,10 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+# Under StrictMode, reading an unset variable throws.
+# This flag is used by Write-Log to avoid spamming repeated log-write failures.
+$script:LogWriteFailed = $false
+
 # PowerShell 7 can treat native stderr output as an error record when
 # $PSNativeCommandUseErrorActionPreference is enabled, which would make
 # non-fatal warnings (e.g. console.warn) fail the gate.
@@ -80,6 +84,57 @@ try {
     # ignore
 }
 
+# If the default log file is locked by another process (e.g. a concurrent gate run),
+# fall back to a unique log file so the gate can still run.
+function Test-LogWritable {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Path
+    )
+
+    try {
+        $fs = [System.IO.File]::Open(
+            $Path,
+            [System.IO.FileMode]::OpenOrCreate,
+            [System.IO.FileAccess]::ReadWrite,
+            [System.IO.FileShare]::ReadWrite
+        )
+        $fs.Close()
+        return $true
+    } catch {
+        return $false
+    }
+}
+
+if (-not (Test-LogWritable -Path $LogPath)) {
+    $timestamp = (Get-Date -Format 'yyyyMMdd-HHmmss')
+    try {
+        $fallback = Join-Path $repoRoot ("gate-release-$timestamp.log")
+    } catch {
+        $fallback = "gate-release-$timestamp.log"
+    }
+
+    try {
+        Write-Host "WARNING: Log file '$LogPath' is locked. Using '$fallback' instead." -ForegroundColor Yellow
+    } catch {
+        Write-Output "WARNING: Log file '$LogPath' is locked. Using '$fallback' instead."
+    }
+
+    $LogPath = $fallback
+
+    try {
+        Remove-Item -Path $LogPath -Force -ErrorAction SilentlyContinue
+    } catch {
+        # ignore
+    }
+
+    try {
+        New-Item -ItemType File -Path $LogPath -Force -ErrorAction SilentlyContinue | Out-Null
+    } catch {
+        # ignore
+    }
+}
+
 Write-Log "Gate log: $LogPath" ([ConsoleColor]::DarkGray)
 
 function Import-DotEnv {
@@ -119,7 +174,10 @@ function Import-DotEnv {
 
 function Clear-NextArtifacts {
     param(
-        [string[]]$Paths = @('.next', '.next_build'),
+        # Avoid deleting `.next` on Windows during the gate; it is frequently locked
+        # by background processes (TypeScript server, antivirus, indexers) and is
+        # not required when we build into an isolated distDir.
+        [string[]]$Paths = @('.next_build_gate', '.next_build_gate_alt', '.next_build_local', '.next_build_local2'),
         [int]$Port = 3000
     )
 
@@ -200,8 +258,39 @@ function Invoke-NpmScript {
     $cmdText = ($cmdParts | ForEach-Object { Quote-CmdArg $_ }) -join ' '
     $cmdText = $cmdText + ' 2>&1'
 
-    & cmd.exe /d /s /c $cmdText | Tee-Object -FilePath $LogPath -Append
+    # Avoid piping directly to Tee-Object because it can hold an exclusive lock on the log file,
+    # and on Windows this sometimes fails when other processes (AV/indexers/previous gates)
+    # briefly touch the log. Instead, capture output to a temp file and then append best-effort.
+    $tempOut = $null
+    try {
+        $tempOut = Join-Path $repoRoot ("gate-release-tmp-$([Guid]::NewGuid().ToString('N')).log")
+    } catch {
+        $tempOut = "gate-release-tmp-$([Guid]::NewGuid().ToString('N')).log"
+    }
+
+    & cmd.exe /d /s /c ("$cmdText > ""$tempOut""")
     $exitCode = $LASTEXITCODE
+
+    try {
+        Get-Content -LiteralPath $tempOut -ErrorAction SilentlyContinue
+    } catch {
+        # ignore
+    }
+
+    try {
+        if (Test-Path $tempOut) {
+            Add-Content -Path $LogPath -Value (Get-Content -LiteralPath $tempOut -ErrorAction SilentlyContinue)
+        }
+    } catch {
+        # Best effort; do not fail the gate just because log appending failed.
+        Write-Log "WARNING: Failed to append output to log '$LogPath': $($_.Exception.Message)" ([ConsoleColor]::Yellow)
+    }
+
+    try {
+        Remove-Item -Path $tempOut -Force -ErrorAction SilentlyContinue
+    } catch {
+        # ignore
+    }
     if ($exitCode -ne 0) {
         throw "npm run $Script failed with exit code $exitCode"
     }
@@ -223,11 +312,9 @@ try {
     Invoke-NpmScript -Script "test:db-connectivity"
 
     # Build into an isolated dist dir during the gate to avoid flakey Windows locks/ACL issues.
-    # Keep the dist dir name stable so Next doesn't constantly rewrite tsconfig.json includes.
+    # We intentionally override any pre-existing NEXT_DIST_DIR to keep the release gate deterministic.
     # next.config.mjs honors NEXT_DIST_DIR when set.
-    if (-not $env:NEXT_DIST_DIR) {
-        $env:NEXT_DIST_DIR = ".next_build_gate"
-    }
+    $env:NEXT_DIST_DIR = ".next_build_gate"
 
     # Prefer the repo-pinned Node 20 if present (helps keep builds consistent with package.json engines)
     $node20Dir = Join-Path $PSScriptRoot "node20\node-v20.18.0-win-x64"
@@ -271,7 +358,7 @@ try {
     # Clean build (best effort)
     Write-Log "Cleaning Next build artifacts..." ([ConsoleColor]::Green)
     try {
-        Clear-NextArtifacts -Paths @('.next', $env:NEXT_DIST_DIR) -Port $Port
+        Clear-NextArtifacts -Paths @($env:NEXT_DIST_DIR) -Port $Port
     } catch {
         # If the gate dist dir itself is locked/undeletable, fall back to a secondary stable dist dir.
         $fallbackDist = ".next_build_gate_alt"

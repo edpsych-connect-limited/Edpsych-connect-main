@@ -99,6 +99,15 @@ build_webpack_*.txt
 # clean-next diagnostic output (local-only)
 clean_next_log*.txt
 
+# Local lint/CI verification artifacts (repo root)
+eslint_report.json
+lint_full_output.txt
+lint_output_check.txt
+lint_output_*.txt
+verify_ci*.txt
+verify_ci*.exit
+test_out.txt
+
 # Local video inventory dumps
 heygen*_videos*.json
 heygen_videos_list.json

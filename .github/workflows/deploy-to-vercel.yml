@@ -31,6 +31,9 @@ jobs:
       - name: Type-check
         run: npm run type-check
 
+      - name: Smoke (static, no server)
+        run: npm run smoke:ci
+
   build-and-deploy:
     name: Deploy to Vercel (prod)
     runs-on: ubuntu-latest

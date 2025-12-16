@@ -13,7 +13,6 @@ import './commands';
 import 'cypress-axe';
 import 'cypress-file-upload';
 import 'cypress-wait-until';
-import 'cypress-iframe';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

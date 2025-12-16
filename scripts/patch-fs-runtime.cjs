@@ -74,6 +74,12 @@ function sleep(ms) {
 const MAX_RETRIES = 50;
 const RETRY_DELAY = 200;
 
+function isIgnorableNextTypesPath(p) {
+    if (!p || typeof p !== 'string') return false;
+    const normalized = p.replace(/\\/g, '/');
+    return normalized.endsWith('/.next/types') || normalized.includes('/.next/types/');
+}
+
 // Patch lstat to retry on UNKNOWN error
 const originalLstat = fs.lstat;
 const originalLstatSync = fs.lstatSync;
@@ -319,6 +325,12 @@ fs.readdirSync = function(path, options) {
         try {
             return originalReaddirSync(path, options);
         } catch (err) {
+            // Windows can keep file handles open under .next/types (TS server, antivirus, indexers),
+            // which may surface as persistent EPERM/EACCES during builds. Since this folder is a
+            // build artifact, treat it as empty rather than failing the build.
+            if (isIgnorableNextTypesPath(path) && (err?.code === 'EPERM' || err?.code === 'EACCES')) {
+                return [];
+            }
             if (shouldRetry(err) && retries > 1) {
                 retries--;
                 sleep(RETRY_DELAY + Math.random() * 100);
@@ -341,6 +353,9 @@ fs.readdir = function(...args) {
     
     const attempt = () => {
         const wrappedCallback = (err, files) => {
+            if (err && isIgnorableNextTypesPath(argsWithoutCb[0]) && (err.code === 'EPERM' || err.code === 'EACCES')) {
+                return callback(null, []);
+            }
             if (shouldRetry(err) && retries > 0) {
                 retries--;
                 setTimeout(attempt, RETRY_DELAY + Math.random() * 100);
@@ -354,6 +369,122 @@ fs.readdir = function(...args) {
     
     attempt();
 };
+
+// Patch rmdir/rmdirSync and rm/rmSync to tolerate locked `.next/types` on Windows.
+// Next's build can attempt to remove this artifact directory between phases.
+const originalRmdir = fs.rmdir;
+const originalRmdirSync = fs.rmdirSync;
+
+if (typeof originalRmdirSync === 'function') {
+    fs.rmdirSync = function(p, options) {
+        let retries = MAX_RETRIES;
+        while (retries > 0) {
+            try {
+                return originalRmdirSync(p, options);
+            } catch (err) {
+                if (isIgnorableNextTypesPath(p) && (err?.code === 'EPERM' || err?.code === 'EACCES' || err?.code === 'ENOTEMPTY')) {
+                    return;
+                }
+                if (shouldRetry(err) && retries > 1) {
+                    retries--;
+                    sleep(RETRY_DELAY + Math.random() * 100);
+                    continue;
+                }
+                throw err;
+            }
+        }
+    };
+}
+
+if (typeof originalRmdir === 'function') {
+    fs.rmdir = function(...args) {
+        const callback = args[args.length - 1];
+
+        if (typeof callback !== 'function') {
+            return originalRmdir.apply(this, args);
+        }
+
+        const argsWithoutCb = args.slice(0, -1);
+        const p = argsWithoutCb[0];
+        let retries = MAX_RETRIES;
+
+        const attempt = () => {
+            const wrappedCallback = (err) => {
+                if (err && isIgnorableNextTypesPath(p) && (err.code === 'EPERM' || err.code === 'EACCES' || err.code === 'ENOTEMPTY')) {
+                    return callback(null);
+                }
+
+                if (shouldRetry(err) && retries > 0) {
+                    retries--;
+                    setTimeout(attempt, RETRY_DELAY + Math.random() * 100);
+                } else {
+                    callback(err);
+                }
+            };
+
+            originalRmdir.apply(this, [...argsWithoutCb, wrappedCallback]);
+        };
+
+        attempt();
+    };
+}
+
+const originalRm = fs.rm;
+const originalRmSync = fs.rmSync;
+
+if (typeof originalRmSync === 'function') {
+    fs.rmSync = function(p, options) {
+        let retries = MAX_RETRIES;
+        while (retries > 0) {
+            try {
+                return originalRmSync(p, options);
+            } catch (err) {
+                if (isIgnorableNextTypesPath(p) && (err?.code === 'EPERM' || err?.code === 'EACCES' || err?.code === 'ENOTEMPTY')) {
+                    return;
+                }
+                if (shouldRetry(err) && retries > 1) {
+                    retries--;
+                    sleep(RETRY_DELAY + Math.random() * 100);
+                    continue;
+                }
+                throw err;
+            }
+        }
+    };
+}
+
+if (typeof originalRm === 'function') {
+    fs.rm = function(...args) {
+        const callback = args[args.length - 1];
+
+        if (typeof callback !== 'function') {
+            return originalRm.apply(this, args);
+        }
+
+        const argsWithoutCb = args.slice(0, -1);
+        const p = argsWithoutCb[0];
+        let retries = MAX_RETRIES;
+
+        const attempt = () => {
+            const wrappedCallback = (err) => {
+                if (err && isIgnorableNextTypesPath(p) && (err.code === 'EPERM' || err.code === 'EACCES' || err.code === 'ENOTEMPTY')) {
+                    return callback(null);
+                }
+
+                if (shouldRetry(err) && retries > 0) {
+                    retries--;
+                    setTimeout(attempt, RETRY_DELAY + Math.random() * 100);
+                } else {
+                    callback(err);
+                }
+            };
+
+            originalRm.apply(this, [...argsWithoutCb, wrappedCallback]);
+        };
+
+        attempt();
+    };
+}
 
 // Patch fs.promises
 if (fs.promises) {
@@ -381,6 +512,9 @@ if (fs.promises) {
             try {
                 return await originalPromisesReaddir.call(fs.promises, path, options);
             } catch (err) {
+                if (isIgnorableNextTypesPath(path) && (err?.code === 'EPERM' || err?.code === 'EACCES')) {
+                    return [];
+                }
                 if (shouldRetry(err) && retries > 1) {
                     retries--;
                     await new Promise(resolve => setTimeout(resolve, RETRY_DELAY + Math.random() * 100));
@@ -424,6 +558,50 @@ if (fs.promises) {
             }
         }
     };
+
+    const originalPromisesRmdir = fs.promises.rmdir;
+    if (typeof originalPromisesRmdir === 'function') {
+        fs.promises.rmdir = async function(path, options) {
+            let retries = MAX_RETRIES;
+            while (retries > 0) {
+                try {
+                    return await originalPromisesRmdir.call(fs.promises, path, options);
+                } catch (err) {
+                    if (isIgnorableNextTypesPath(path) && (err?.code === 'EPERM' || err?.code === 'EACCES' || err?.code === 'ENOTEMPTY')) {
+                        return;
+                    }
+                    if (shouldRetry(err) && retries > 1) {
+                        retries--;
+                        await new Promise(resolve => setTimeout(resolve, RETRY_DELAY + Math.random() * 100));
+                        continue;
+                    }
+                    throw err;
+                }
+            }
+        };
+    }
+
+    const originalPromisesRm = fs.promises.rm;
+    if (typeof originalPromisesRm === 'function') {
+        fs.promises.rm = async function(path, options) {
+            let retries = MAX_RETRIES;
+            while (retries > 0) {
+                try {
+                    return await originalPromisesRm.call(fs.promises, path, options);
+                } catch (err) {
+                    if (isIgnorableNextTypesPath(path) && (err?.code === 'EPERM' || err?.code === 'EACCES' || err?.code === 'ENOTEMPTY')) {
+                        return;
+                    }
+                    if (shouldRetry(err) && retries > 1) {
+                        retries--;
+                        await new Promise(resolve => setTimeout(resolve, RETRY_DELAY + Math.random() * 100));
+                        continue;
+                    }
+                    throw err;
+                }
+            }
+        };
+    }
 }
 
 console.log('Patched fs.readlink for EISDIR and added retries for UNKNOWN/EPERM errors');

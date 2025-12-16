@@ -27,10 +27,27 @@
     "react/forbid-dom-props": "off"
   },
   "ignorePatterns": [
-    "tools/**/*",
+    "node_modules/**/*",
+    ".next/**/*",
+    "out/**/*",
+    "build/**/*",
+    "dist/**/*",
+    "cypress/**/*",
+    "INSTRUCTION-FILES/**/*",
     "scripts/**/*",
+    "prisma/**/*",
+    "tools/**/*",
+    "video_scripts/**/*",
+    "*.config.js",
+    "*.config.ts",
+    "*.config.cjs",
+    "*.config.mjs",
     "*.cjs",
     "*.mjs",
-    "video_scripts/**/*"
+    "scan-dependencies.js",
+    "test-db-connection.js",
+    "analyze-lint.cjs",
+    "check_prisma_model.cjs",
+    "*.py"
   ]
 }

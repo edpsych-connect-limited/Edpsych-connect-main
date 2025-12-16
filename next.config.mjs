@@ -19,7 +19,14 @@ const resolvedDistDir = requestedDistDir === '.next_build' ? '.next_build_local'
 // output directory to exist and contain manifests like `routes-manifest.json`.
 // We use alternate distDirs locally to avoid Windows/drive ACL issues, but on Vercel
 // we must align with `.next`.
-const isVercel = Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
+//
+// IMPORTANT: Only treat this as “running on Vercel” when we have Vercel runtime-only
+// environment markers.
+// Some local setups carry `VERCEL=1` / `VERCEL_ENV=...` in dotenv files; that should
+// *not* force distDir to `.next` locally.
+const isVercel = Boolean(
+  process.env.VERCEL === '1' && (process.env.VERCEL_REGION || process.env.VERCEL_URL)
+);
 
 const isNextStart = process.argv.includes('start');
 const isNextBuild = process.argv.includes('build');
