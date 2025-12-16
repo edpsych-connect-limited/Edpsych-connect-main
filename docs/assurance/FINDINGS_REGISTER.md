@@ -28,7 +28,9 @@ This register tracks issues found during internal audits and their remediation s
 	- **Fix:**
 		- Add alias page: `src/app/[locale]/training/courses/page.tsx` (redirect to `/<locale>/training`).
 		- Exempt `/robots.txt` and `/sitemap.xml` from next-intl locale redirects in `src/proxy.ts`.
-	- **Retest evidence:** TBD after deployment (repeat production smoke checks and attach updated evidence JSONs)
+	- **Retest evidence:**
+		- `docs/AUDIT/runs/RUN-2025-12-16-01/prod-public-urls-20251216_015106Z.json` (retest run executed; production still showing old behavior at time of capture)
+		- **Deployment note:** Fix was merged and pushed in commit `c80aea98` on 2025-12-16; re-probe again once deployment has completed/propagated.
 
 - **Finding ID:** INT-PRIV-2025-001
 	- **Date discovered:** 2025-12-15
