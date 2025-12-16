@@ -560,5 +560,18 @@ export class AdaptiveIntelligenceSystem {
   }
 }
 
-// Export singleton instance
-export const adaptiveSystem = new AdaptiveIntelligenceSystem();
+let _adaptiveSystem: AdaptiveIntelligenceSystem | null = null;
+
+/**
+ * Lazily create the adaptive system.
+ *
+ * Important: do NOT instantiate at module load time, because Next.js may import
+ * route modules during build/static analysis which would otherwise create noisy
+ * side effects in Vercel build logs.
+ */
+export function getAdaptiveSystem(): AdaptiveIntelligenceSystem {
+  if (!_adaptiveSystem) {
+    _adaptiveSystem = new AdaptiveIntelligenceSystem();
+  }
+  return _adaptiveSystem;
+}

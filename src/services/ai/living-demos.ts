@@ -491,5 +491,18 @@ export class LivingDemonstrationsSystem {
   }
 }
 
-// Export singleton instance
-export const livingDemos = new LivingDemonstrationsSystem();
+let _livingDemos: LivingDemonstrationsSystem | null = null;
+
+/**
+ * Lazily create the demos system.
+ *
+ * Important: do NOT instantiate at module load time, because Next.js may import
+ * route modules during build/static analysis which would otherwise create noisy
+ * side effects in Vercel build logs.
+ */
+export function getLivingDemos(): LivingDemonstrationsSystem {
+  if (!_livingDemos) {
+    _livingDemos = new LivingDemonstrationsSystem();
+  }
+  return _livingDemos;
+}

@@ -4,7 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { livingDemos } from '@/services/ai/living-demos';
+import { getLivingDemos } from '@/services/ai/living-demos';
 import { serverAuth } from '@/lib/auth/server-auth';
 import { decideAiAccess } from '@/lib/governance/policy-engine';
 import { redactPII } from '@/lib/security/pii-redaction';
@@ -58,6 +58,8 @@ export async function POST(request: NextRequest) {
 
     const safeInput = shouldRedactPII ? redactStringFields(input) : input;
 
+    const livingDemos = getLivingDemos();
+
     // Start a new demonstration
     const demoId = await livingDemos.startDemo(type, safeInput, sessionId);
 
@@ -96,6 +98,8 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const action = searchParams.get('action');
     const demoId = searchParams.get('demoId');
+
+    const livingDemos = getLivingDemos();
 
     switch (action) {
       case 'status':

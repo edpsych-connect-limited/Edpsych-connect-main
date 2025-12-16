@@ -4,7 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { problemMatcher } from '@/services/ai/problem-matcher';
+import { getProblemMatcher } from '@/services/ai/problem-matcher';
 import { serverAuth } from '@/lib/auth/server-auth';
 import { decideAiAccess } from '@/lib/governance/policy-engine';
 import { redactPII } from '@/lib/security/pii-redaction';
@@ -43,6 +43,8 @@ export async function POST(request: NextRequest) {
       ? redactPII(String(problemDescription)).redactedText
       : String(problemDescription);
 
+    const problemMatcher = getProblemMatcher();
+
     // Analyze the problem and get personalized solutions
     const analysis = await problemMatcher.analyzeProblem(safeProblemDescription);
 
@@ -79,6 +81,8 @@ export async function GET(request: NextRequest) {
 
     const { searchParams } = new URL(request.url);
     const action = searchParams.get('action');
+
+    const problemMatcher = getProblemMatcher();
 
     switch (action) {
       case 'categories':

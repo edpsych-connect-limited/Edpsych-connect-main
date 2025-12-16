@@ -547,5 +547,18 @@ export class IntelligentProblemMatcher {
   }
 }
 
-// Export singleton instance
-export const problemMatcher = new IntelligentProblemMatcher();
+let _problemMatcher: IntelligentProblemMatcher | null = null;
+
+/**
+ * Lazily create the matcher.
+ *
+ * Important: do NOT instantiate at module load time, because Next.js may import
+ * route modules during build/static analysis which would otherwise create noisy
+ * side effects in Vercel build logs.
+ */
+export function getProblemMatcher(): IntelligentProblemMatcher {
+  if (!_problemMatcher) {
+    _problemMatcher = new IntelligentProblemMatcher();
+  }
+  return _problemMatcher;
+}

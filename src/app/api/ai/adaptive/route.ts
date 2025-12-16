@@ -4,7 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { adaptiveSystem } from '@/services/ai/adaptive-system';
+import { getAdaptiveSystem } from '@/services/ai/adaptive-system';
 import { serverAuth } from '@/lib/auth/server-auth';
 import { decideAiAccess } from '@/lib/governance/policy-engine';
 
@@ -37,6 +37,8 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
     const { action, sessionId, data } = body;
+
+    const adaptiveSystem = getAdaptiveSystem();
 
     switch (action) {
       case 'track':
@@ -82,6 +84,8 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const action = searchParams.get('action');
     const sessionId = searchParams.get('sessionId');
+
+    const adaptiveSystem = getAdaptiveSystem();
 
     if (action === 'stats') {
       const stats = adaptiveSystem.getSystemStats();
