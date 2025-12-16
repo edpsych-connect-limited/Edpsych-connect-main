@@ -1,0 +1,81 @@
+﻿{
+    "runId":  "RUN-2025-12-16-03",
+    "capturedAtUtc":  "2025-12-16T03:26:53.2051997Z",
+    "urls":  [
+                 {
+                     "initialUrl":  "https://www.edpsychconnect.com/robots.txt",
+                     "chain":  [
+                                   {
+                                       "url":  "https://www.edpsychconnect.com/robots.txt",
+                                       "statusCode":  200,
+                                       "location":  null,
+                                       "headers":  {
+                                                       "location":  null,
+                                                       "contentType":  "text/plain",
+                                                       "cacheControl":  "public, max-age=0, must-revalidate",
+                                                       "server":  "Vercel",
+                                                       "date":  "Tue, 16 Dec 2025 03:26:54 GMT"
+                                                   }
+                                   }
+                               ]
+                 },
+                 {
+                     "initialUrl":  "https://www.edpsychconnect.com/sitemap.xml",
+                     "chain":  [
+                                   {
+                                       "url":  "https://www.edpsychconnect.com/sitemap.xml",
+                                       "statusCode":  200,
+                                       "location":  null,
+                                       "headers":  {
+                                                       "location":  null,
+                                                       "contentType":  "application/xml",
+                                                       "cacheControl":  "public, max-age=0, must-revalidate",
+                                                       "server":  "Vercel",
+                                                       "date":  "Tue, 16 Dec 2025 03:26:54 GMT"
+                                                   }
+                                   }
+                               ]
+                 },
+                 {
+                     "initialUrl":  "https://www.edpsychconnect.com/en/training/courses",
+                     "chain":  [
+                                   {
+                                       "url":  "https://www.edpsychconnect.com/en/training/courses",
+                                       "statusCode":  307,
+                                       "location":  "/undefined/training",
+                                       "headers":  {
+                                                       "location":  "/undefined/training",
+                                                       "contentType":  "text/html; charset=utf-8",
+                                                       "cacheControl":  "private, no-cache, no-store, max-age=0, must-revalidate",
+                                                       "server":  "Vercel",
+                                                       "date":  "Tue, 16 Dec 2025 03:26:55 GMT"
+                                                   }
+                                   },
+                                   {
+                                       "url":  "https://www.edpsychconnect.com/undefined/training",
+                                       "statusCode":  307,
+                                       "location":  "https://www.edpsychconnect.com/en/undefined/training",
+                                       "headers":  {
+                                                       "location":  "https://www.edpsychconnect.com/en/undefined/training",
+                                                       "contentType":  "text/plain",
+                                                       "cacheControl":  "public, max-age=0, must-revalidate",
+                                                       "server":  "Vercel",
+                                                       "date":  "Tue, 16 Dec 2025 03:26:55 GMT"
+                                                   }
+                                   },
+                                   {
+                                       "url":  "https://www.edpsychconnect.com/en/undefined/training",
+                                       "statusCode":  404,
+                                       "location":  null,
+                                       "headers":  {
+                                                       "location":  null,
+                                                       "contentType":  "text/html; charset=utf-8",
+                                                       "cacheControl":  "public, max-age=0, must-revalidate",
+                                                       "server":  "Vercel",
+                                                       "date":  "Tue, 16 Dec 2025 03:26:55 GMT"
+                                                   }
+                                   }
+                               ]
+                 }
+             ]
+}

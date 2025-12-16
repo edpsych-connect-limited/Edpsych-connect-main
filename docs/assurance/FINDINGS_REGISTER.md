@@ -10,7 +10,7 @@ This register tracks issues found during internal audits and their remediation s
 	- **Audit run reference:** RUN-2025-12-15-02
 	- **Area:** Product QA / SEO / Routing
 	- **Severity:** Medium
-	- **Status:** Open
+	- **Status:** Closed (Fixed + Retested)
 	- **Affected URL / Component:**
 		- Production route: `https://www.edpsychconnect.com/en/training/courses`
 		- Production metadata routes: `https://www.edpsychconnect.com/robots.txt`, `https://www.edpsychconnect.com/sitemap.xml`
@@ -19,8 +19,8 @@ This register tracks issues found during internal audits and their remediation s
 		- Training courses list route from the external auditor guide (`/en/training/courses`) should return 200 (or a clear redirect to the canonical training catalogue).
 		- `robots.txt` and `sitemap.xml` should return 200 without being redirected to a locale-prefixed path.
 	- **Actual behavior:**
-		- `/en/training/courses` returns 404 in production.
-		- `/robots.txt` and `/sitemap.xml` return 307 redirects; the redirected locale-prefixed endpoints (`/en/robots.txt`, `/en/sitemap.xml`) return 404.
+		- Initially: `/en/training/courses` returned 404 in production.
+		- Initially: `/robots.txt` and `/sitemap.xml` returned 307 redirects; the redirected locale-prefixed endpoints (`/en/robots.txt`, `/en/sitemap.xml`) returned 404.
 	- **Impact / Risk:**
 		- External auditor guide checklist cannot pass as written.
 		- SEO/crawler discoverability may be degraded (missing robots/sitemap).
@@ -32,7 +32,9 @@ This register tracks issues found during internal audits and their remediation s
 		- `docs/AUDIT/runs/RUN-2025-12-16-01/prod-public-urls-20251216_015106Z.json` (retest run executed; production still showing old behavior at time of capture)
 		- `docs/AUDIT/runs/RUN-2025-12-16-02/prod-public-urls-20251216_022157Z.json` (retest run executed; behavior still unchanged)
 		- `docs/AUDIT/runs/RUN-2025-12-16-02/prod-api-version-headers.txt` + `docs/AUDIT/runs/RUN-2025-12-16-02/prod-api-version-body.json` (deployment verification evidence: production is still serving the older `/api/version` payload shape)
-		- **Deployment note:** Fixes were merged and pushed (including middleware wiring and `/api/version` deploy metadata). As of RUN-2025-12-16-02, production behavior and `/api/version` response indicate the live deployment has not yet picked up the latest commits. Next step: confirm the Vercel project is connected to the correct repo/branch and check whether recent deployments are failing or queued.
+		- `docs/AUDIT/runs/RUN-2025-12-16-03/prod-public-urls-20251216_032655Z.json` (robots/sitemap fixed; training/courses redirect emitted an invalid `/undefined/...` path prior to final redirect hardening)
+		- `docs/AUDIT/runs/RUN-2025-12-16-04/prod-public-urls-20251216_033034Z.json` (PASS: `/robots.txt`=200, `/sitemap.xml`=200, `/en/training/courses` redirects to `/en/training`=200)
+		- **Closure note:** Production behavior now matches expected behavior; finding closed on 2025-12-16.
 
 - **Finding ID:** INT-PRIV-2025-001
 	- **Date discovered:** 2025-12-15
