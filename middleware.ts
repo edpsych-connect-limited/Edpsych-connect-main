@@ -11,7 +11,11 @@ import type { NextRequest } from "next/server";
 import { proxy } from "./src/proxy";
 
 export async function middleware(request: NextRequest) {
-  return proxy(request);
+  const requestId = request.headers.get("x-request-id") ?? crypto.randomUUID();
+
+  const response = await proxy(request);
+  response.headers.set("x-request-id", requestId);
+  return response;
 }
 
 // Keep middleware off static assets and common image types.

@@ -94,7 +94,9 @@ export class EmailService {
 
       return true;
     } catch (_error) {
-      console.error('[EmailService] Failed to send email:', _error);
+      logger.error('[EmailService] Failed to send email', {
+        error: _error instanceof Error ? _error.message : String(_error),
+      });
       
       // Fallback to console log in development if sending fails
       if (process.env.NODE_ENV !== 'production') {
@@ -186,4 +188,27 @@ export class EmailService {
   }
 }
 
-export const emailService = EmailService.getInstance();
+/**
+ * Lazy email service accessor.
+ *
+ * IMPORTANT:
+ * Do not create the singleton at module import time.
+ * Next.js may import server modules during build/SSG ("Collecting page data"),
+ * which caused noisy build logs (and could cause unwanted side effects).
+ */
+export function getEmailService(): EmailService {
+  return EmailService.getInstance();
+}
+
+/**
+ * Backwards-compatible facade for existing imports.
+ * This avoids eager initialization while preserving the `emailService.*` call sites.
+ */
+export const emailService = {
+  sendEmail: (options: EmailOptions) => getEmailService().sendEmail(options),
+  sendPasswordResetEmail: (email: string, token: string) =>
+    getEmailService().sendPasswordResetEmail(email, token),
+  sendWaitlistConfirmationEmail: (email: string, name?: string) =>
+    getEmailService().sendWaitlistConfirmationEmail(email, name),
+  notifyAdminNewWaitlistSignup: (entry: any) => getEmailService().notifyAdminNewWaitlistSignup(entry),
+} as const;
