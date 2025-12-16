@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 /**
  * @copyright EdPsych Connect Limited 2025
@@ -15,6 +15,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Play, X, ArrowRight, Sparkles, Shield, Users, Brain, Target } from 'lucide-react';
+import Link from 'next/link';
 import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
 
 // Video configuration - maps to centralized HEYGEN_VIDEO_IDS
@@ -225,13 +226,13 @@ export default function VideoPremiereSection() {
           viewport={{ once: true }}
           className="mt-16 text-centre"
         >
-          <a
+          <Link
             href="/pricing"
             className="inline-flex items-centre gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
           >
             Explore All Pricing Videos
             <ArrowRight className="w-5 h-5" />
-          </a>
+          </Link>
         </motion.div>
       </div>
 

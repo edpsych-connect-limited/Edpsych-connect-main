@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 /**
  * @copyright EdPsych Connect Limited 2025
@@ -8,10 +8,9 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 import { motion } from 'framer-motion';
 import { ShoppingBag, Star, Book, Video, Download, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 export default function MarketplacePreview() {
   const resources = [
@@ -82,16 +81,19 @@ export default function MarketplacePreview() {
             </motion.p>
           </div>
 
-          <motion.a
-            href="/marketplace"
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center font-semibold text-indigo-600 hover:text-indigo-700 transition-colors group"
           >
-            Explore the Marketplace
-            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </motion.a>
+            <Link
+              href="/marketplace"
+              className="inline-flex items-center font-semibold text-indigo-600 hover:text-indigo-700 transition-colors group"
+            >
+              Explore the Marketplace
+              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </motion.div>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
@@ -127,12 +129,12 @@ export default function MarketplacePreview() {
                   by {item.author}
                 </p>
                 
-                <a 
+                <Link
                   href="/marketplace"
                   className="block w-full py-3 rounded-xl border-2 border-slate-100 font-semibold text-slate-600 group-hover:border-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all text-center"
                 >
                   View Details
-                </a>
+                </Link>
               </div>
             </motion.div>
           ))}

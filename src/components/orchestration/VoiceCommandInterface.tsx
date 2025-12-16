@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 /**
  * @copyright EdPsych Connect Limited 2025
@@ -7,8 +7,6 @@
  * CONFIDENTIAL: This software contains proprietary algorithms and trade secrets.
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
-
-;
 
 import React, { useState, useEffect, useRef, useMemo, useId } from 'react';
 import { useRouter } from 'next/navigation';
@@ -107,6 +105,12 @@ const isSpeechRecognitionSupported = (): boolean => {
   return 'webkitSpeechRecognition' in window || 'SpeechRecognition' in window;
 };
 
+// Deterministic pseudo-random (0..1) for stable visuals and lint-friendly purity.
+const pseudoRandom01 = (seed: number): number => {
+  const x = Math.sin(seed * 9999) * 10000;
+  return x - Math.floor(x);
+};
+
 const WaveformBar = ({ height, delay, duration }: { height: number, delay: number, duration: number }) => {
   const id = useId().replace(/:/g, '');
   return (
@@ -132,9 +136,9 @@ const WaveformBar = ({ height, delay, duration }: { height: number, delay: numbe
 const WaveformVisualization: React.FC = () => {
   const bars = useMemo(() => [1, 2, 3, 4, 5, 6, 7].map((i) => ({
     id: i,
-    height: Math.random() * 60 + 40,
+    height: pseudoRandom01(i) * 60 + 40,
     delay: i * 0.1,
-    duration: 0.5 + Math.random() * 0.5
+    duration: 0.5 + pseudoRandom01(i + 0.5) * 0.5
   })), []);
 
   return (

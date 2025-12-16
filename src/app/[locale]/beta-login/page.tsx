@@ -8,9 +8,8 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import { logger } from "@/lib/logger";
@@ -363,18 +362,18 @@ export default function BetaLoginPage() {
 
           {/* Additional Links */}
           <div className="mt-6 flex justify-between text-sm">
-            <a 
-              href="/login" 
+            <Link
+              href="/login"
               className="text-purple-300 hover:text-white transition-colors"
             >
               ← Regular Login
-            </a>
-            <a 
-              href="/forgot-password" 
+            </Link>
+            <Link
+              href="/forgot-password"
               className="text-purple-300 hover:text-white transition-colors"
             >
               Forgot password?
-            </a>
+            </Link>
           </div>
         </div>
 

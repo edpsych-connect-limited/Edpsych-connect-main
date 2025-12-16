@@ -9,6 +9,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import { logger } from "@/lib/logger";
@@ -280,18 +281,18 @@ export default function LoginPage() {
 
           {/* Additional Links */}
           <div className="mt-6 flex justify-between text-sm">
-            <a 
-              href="/forgot-password" 
+            <Link
+              href="/forgot-password"
               className="text-blue-600 hover:text-blue-700 transition-colors"
             >
               Forgot your password?
-            </a>
-            <a 
-              href="/register" 
+            </Link>
+            <Link
+              href="/register"
               className="text-blue-600 hover:text-blue-700 transition-colors"
             >
               Create an account
-            </a>
+            </Link>
           </div>
         </div>
 

@@ -6,7 +6,7 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-import React, { lazy, Suspense, useMemo } from 'react';
+import React, { lazy, Suspense } from 'react';
 
 // Map of icon names to their dynamic imports
 const iconMap: Record<string, () => Promise<any>> = {
@@ -28,6 +28,14 @@ const iconMap: Record<string, () => Promise<any>> = {
   
   // Add more icons as needed for your application
 };
+
+// Pre-create the lazy components at module scope.
+// This avoids creating components during render and satisfies react-hooks/static-components.
+const lazyIconMap: Record<string, React.LazyExoticComponent<React.ComponentType<any>>> =
+  Object.fromEntries(Object.entries(iconMap).map(([key, loader]) => [key, lazy(loader)])) as Record<
+    string,
+    React.LazyExoticComponent<React.ComponentType<any>>
+  >;
 
 // Fallback loading component
 const IconFallback = () => <span className="icon-loading">...</span>;
@@ -52,12 +60,7 @@ export const OptimizedIcon: React.FC<OptimizedIconProps> = ({
   ...rest
 }) => {
   // Dynamically load the icon component
-  const IconComponent = useMemo(() => {
-    if (!iconMap[name]) {
-      return null;
-    }
-    return lazy(iconMap[name]);
-  }, [name]);
+  const IconComponent = lazyIconMap[name] ?? null;
 
   // Check if the icon is in our map
   if (!IconComponent) {

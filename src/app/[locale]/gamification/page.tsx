@@ -8,8 +8,8 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { LeaderboardEntry } from '@/components/gamification/leaderboard/LeaderboardEntry';
 import BattleRoyalePreview from '@/components/battle-royale/BattleRoyalePreview';
 
@@ -139,12 +139,12 @@ export default function GamificationPage() {
               </div>
             </div>
 
-            <a 
-              href="/dashboard" 
+            <Link
+              href="/dashboard"
               className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
             >
               Go to Dashboard & Start Earning
-            </a>
+            </Link>
           </div>
         ) : (
           <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">

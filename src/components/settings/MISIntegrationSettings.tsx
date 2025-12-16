@@ -20,6 +20,7 @@ import {
   Shield, Settings, Loader2, Play, Trash2,
   ExternalLink, HelpCircle, Video
 } from 'lucide-react';
+import Link from 'next/link';
 import { VideoModal } from '@/components/video/VideoTutorialPlayer';
 import toast from 'react-hot-toast';
 
@@ -29,8 +30,8 @@ interface IntegrationProvider {
   description: string;
   logo: string;
   status: 'connected' | 'disconnected' | 'syncing' | 'error';
-  lastSync?: string;
   recordsSynced?: number;
+  lastSync?: string;
   apiKeyConfigured: boolean;
 }
 
@@ -548,13 +549,13 @@ export default function MISIntegrationSettings() {
                 <Video className="w-4 h-4" />
                 Watch video guide
               </button>
-              <a
+              <Link
                 href="/help/mis-integration"
                 className="flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 hover:underline"
               >
                 <ExternalLink className="w-4 h-4" />
                 Read documentation
-              </a>
+              </Link>
             </div>
           </div>
         </div>

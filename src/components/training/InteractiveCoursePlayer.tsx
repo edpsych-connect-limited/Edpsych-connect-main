@@ -34,6 +34,9 @@ import {
 } from './EnhancedInteractiveElements';
 import { ScoringEngine, AttemptResult } from '@/lib/training/scoring-engine';
 
+// NOTE: Kept outside components to satisfy react-hooks/purity.
+const nowMs = (): number => Date.now();
+
 // ============================================================================
 // TYPES
 // ============================================================================
@@ -476,7 +479,7 @@ function QuizElement({ element, enrollmentId: _enrollmentId, onComplete }: Inter
   const [showFeedback, setShowFeedback] = useState(false);
   const [quizComplete, setQuizComplete] = useState(false);
   const [score, setScore] = useState(0);
-  const [questionStartTime, setQuestionStartTime] = useState(() => Date.now());
+  const [questionStartTime, setQuestionStartTime] = useState(() => nowMs());
   const [attemptCounts, setAttemptCounts] = useState<number[]>([]);
   const [scoringEngine] = useState(() => new ScoringEngine({
     basePoints: 100,
@@ -496,7 +499,7 @@ function QuizElement({ element, enrollmentId: _enrollmentId, onComplete }: Inter
 
     // Calculate if correct
     const isCorrect = answerIndex === currentQuestion.correct_answer;
-    const timeSpent = Math.floor((Date.now() - questionStartTime) / 1000);
+    const timeSpent = Math.floor((nowMs() - questionStartTime) / 1000);
     const attemptNumber = (attemptCounts[currentQuestionIndex] || 0) + 1;
 
     // Use scoring engine
@@ -521,7 +524,7 @@ function QuizElement({ element, enrollmentId: _enrollmentId, onComplete }: Inter
       if (currentQuestionIndex < questions.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
         setShowFeedback(false);
-        setQuestionStartTime(Date.now());
+        setQuestionStartTime(nowMs());
       } else {
         setQuizComplete(true);
         const finalScore = isCorrect ? score + (scoreResult.totalPoints / questions.length) : score;

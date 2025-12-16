@@ -13,6 +13,9 @@ import { Star, Target, Zap, Shield, Crown, Users, Timer, Brain, Sparkles, BookOp
 import { StealthAssessmentEngine } from '@/lib/stealth-assessment/engine';
 import { AssessmentSession } from '@/lib/stealth-assessment/types';
 
+// NOTE: Kept outside the component to satisfy react-hooks/purity.
+const nowMs = (): number => Date.now();
+
 // Progress bar component with proper accessibility
 function ProgressBar({ score, name }: { score: number; name: string }) {
   const normalizedScore = Math.min(100, Math.max(0, Math.round(score)));
@@ -130,7 +133,7 @@ export default function BattleRoyaleSandbox() {
   // Track question start time
   useEffect(() => {
     if (gameState === 'playing' && selectedAnswer === null) {
-      questionStartTime.current = Date.now();
+      questionStartTime.current = nowMs();
     }
   }, [gameState, currentQuestionIndex, selectedAnswer]);
 
@@ -179,7 +182,7 @@ export default function BattleRoyaleSandbox() {
   const handleAnswer = (index: number) => {
     if (selectedAnswer !== null) return;
 
-    const timeTaken = Date.now() - questionStartTime.current;
+    const timeTaken = nowMs() - questionStartTime.current;
     setSelectedAnswer(index);
     const correct = index === ADAPTIVE_QUESTIONS[currentQuestionIndex].correctAnswer;
     setIsCorrect(correct);
@@ -188,7 +191,7 @@ export default function BattleRoyaleSandbox() {
     if (engineRef.current) {
       const updatedSession = engineRef.current.processEvent({
         id: crypto.randomUUID(),
-        timestamp: Date.now(),
+        timestamp: nowMs(),
         type: 'RESPONSE',
         data: {
           questionId: ADAPTIVE_QUESTIONS[currentQuestionIndex].id,

@@ -12,6 +12,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { X, Play, RefreshCw, HelpCircle, ExternalLink, AlertTriangle } from 'lucide-react';
+import Link from 'next/link';
 import { VideoModal } from '@/components/video/VideoTutorialPlayer';
 
 // Error type to video mapping
@@ -171,14 +172,14 @@ export function ErrorRecoveryModal({
             </button>
 
             {showContactSupport && (
-              <a
+              <Link
                 href="/help"
                 className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
               >
                 <HelpCircle className="w-4 h-4" />
                 Visit Help Centre
                 <ExternalLink className="w-3 h-3" />
-              </a>
+              </Link>
             )}
           </div>
         </div>

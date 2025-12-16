@@ -9,6 +9,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useAuth } from '@/lib/auth/hooks';
 import { useRouter } from 'next/navigation';
 import MISIntegrationSettings from '@/components/settings/MISIntegrationSettings';
@@ -273,9 +274,9 @@ export default function SettingsPage() {
                     Your data is protected under UK GDPR regulations. We implement enterprise-grade security measures
                     including encryption at rest and in transit, role-based access control, and comprehensive audit logging.
                   </p>
-                  <a href="/gdpr" className="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 text-sm font-medium">
+                  <Link href="/gdpr" className="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 text-sm font-medium">
                     View Data Protection Policy →
-                  </a>
+                  </Link>
                 </div>
 
                 <div className="p-4 bg-slate-50 dark:bg-slate-700/50 rounded-lg">

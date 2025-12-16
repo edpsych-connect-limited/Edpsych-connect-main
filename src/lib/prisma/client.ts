@@ -1,4 +1,3 @@
-import { logger } from "@/lib/logger";
 /**
  * Prisma Client (Legacy Compat)
  *

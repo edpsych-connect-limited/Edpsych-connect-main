@@ -177,11 +177,11 @@ export class FinalDeploymentValidator {
         });
       });
 
-      const deploymentResult = await deploymentPromise;
+      const _deploymentResult = await deploymentPromise;
 
       // Post-deployment validation
       await this.delay(10000); // Wait for deployment to complete
-      const postDeploymentHealth = await this.validationService.getDeploymentHealth();
+      const _postDeploymentHealth = await this.validationService.getDeploymentHealth();
 
       return {
         success: true,

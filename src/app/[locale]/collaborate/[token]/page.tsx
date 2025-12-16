@@ -7,6 +7,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import CollaborativeInputForm from '@/components/assessments/CollaborativeInputForm';
 
@@ -127,12 +128,12 @@ export default function CollaboratePage() {
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Unable to Load Form</h2>
             <p className="text-gray-600 mb-6">{error}</p>
-            <a
+            <Link
               href="/"
               className="inline-block px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
             >
               Return to Home
-            </a>
+            </Link>
           </div>
         </div>
       </div>
