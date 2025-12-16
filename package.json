@@ -38,7 +38,7 @@
     "test:e2e:dev": "powershell -ExecutionPolicy Bypass -File run-e2e-dev.ps1",
     "gate:release": "powershell -ExecutionPolicy Bypass -File tools/gate-release.ps1",
     "test:open": "cross-env CYPRESS_CACHE_FOLDER=E:\\cypress-cache cypress open",
-    "postinstall": "test $SKIP_POSTINSTALL || npx prisma generate"
+    "postinstall": "node tools/postinstall.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.14.0",
@@ -151,6 +151,7 @@
     "wait-on": "^7.2.0"
   },
   "overrides": {
-    "glob": "^10.4.6"
+    "glob": "^10.4.6",
+    "three-mesh-bvh": "0.8.0"
   }
 }
