@@ -1,6 +1,7 @@
 name: Deploy to Vercel
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -14,8 +15,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Deployment context
+        run: |
+          echo "ref=${GITHUB_REF}"
+          echo "sha=${GITHUB_SHA}"
+
       - name: Deploy to Vercel
-        uses: vercel/action@main
+        uses: vercel/action@v3
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
