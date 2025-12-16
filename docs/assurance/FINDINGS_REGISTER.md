@@ -30,7 +30,9 @@ This register tracks issues found during internal audits and their remediation s
 		- Exempt `/robots.txt` and `/sitemap.xml` from next-intl locale redirects in `src/proxy.ts`.
 	- **Retest evidence:**
 		- `docs/AUDIT/runs/RUN-2025-12-16-01/prod-public-urls-20251216_015106Z.json` (retest run executed; production still showing old behavior at time of capture)
-		- **Deployment note:** Fix was merged and pushed in commit `c80aea98` on 2025-12-16; re-probe again once deployment has completed/propagated.
+		- `docs/AUDIT/runs/RUN-2025-12-16-02/prod-public-urls-20251216_022157Z.json` (retest run executed; behavior still unchanged)
+		- `docs/AUDIT/runs/RUN-2025-12-16-02/prod-api-version-headers.txt` + `docs/AUDIT/runs/RUN-2025-12-16-02/prod-api-version-body.json` (deployment verification evidence: production is still serving the older `/api/version` payload shape)
+		- **Deployment note:** Fixes were merged and pushed (including middleware wiring and `/api/version` deploy metadata). As of RUN-2025-12-16-02, production behavior and `/api/version` response indicate the live deployment has not yet picked up the latest commits. Next step: confirm the Vercel project is connected to the correct repo/branch and check whether recent deployments are failing or queued.
 
 - **Finding ID:** INT-PRIV-2025-001
 	- **Date discovered:** 2025-12-15

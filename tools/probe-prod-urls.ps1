@@ -101,10 +101,26 @@ function Parse-Head {
     location = $location
     headers = [pscustomobject]@{
       location = $location
-      contentType = ($headers['Content-Type'] ?? $headers['content-type'])
-      cacheControl = ($headers['Cache-Control'] ?? $headers['cache-control'])
-      server = ($headers['Server'] ?? $headers['server'])
-      date = ($headers['Date'] ?? $headers['date'])
+      contentType = $(
+        if ($headers.ContainsKey('Content-Type')) { $headers['Content-Type'] }
+        elseif ($headers.ContainsKey('content-type')) { $headers['content-type'] }
+        else { $null }
+      )
+      cacheControl = $(
+        if ($headers.ContainsKey('Cache-Control')) { $headers['Cache-Control'] }
+        elseif ($headers.ContainsKey('cache-control')) { $headers['cache-control'] }
+        else { $null }
+      )
+      server = $(
+        if ($headers.ContainsKey('Server')) { $headers['Server'] }
+        elseif ($headers.ContainsKey('server')) { $headers['server'] }
+        else { $null }
+      )
+      date = $(
+        if ($headers.ContainsKey('Date')) { $headers['Date'] }
+        elseif ($headers.ContainsKey('date')) { $headers['date'] }
+        else { $null }
+      )
     }
   }
 }
