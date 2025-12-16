@@ -11,15 +11,13 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
 import { authorizeRequest, Permission, canAccessTenant } from '@/lib/middleware/auth';
 import { apiRateLimit } from '@/lib/middleware/rate-limit';
 import { auditLogger, getIpAddress, getRequestId, getUserAgent } from '@/lib/security/audit-logger';
+import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
-
-const prisma = new PrismaClient();
 
 /**
  * Intervention Query Schema - Validation
@@ -162,7 +160,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       {
         error: 'Failed to retrieve interventions',
-        message: _error instanceof Error ? _error.message : 'Unknown _error',
+        message: _error instanceof Error ? _error.message : 'Unknown error',
         requestId,
       },
       { status: 500 }
@@ -270,7 +268,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         error: 'Failed to create intervention',
-        message: _error instanceof Error ? _error.message : 'Unknown _error',
+        message: _error instanceof Error ? _error.message : 'Unknown error',
         requestId,
       },
       { status: 500 }

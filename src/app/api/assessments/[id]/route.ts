@@ -4,15 +4,13 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
 import { authorizeRequest, Permission, canAccessTenant } from '@/lib/middleware/auth';
 import { apiRateLimit } from '@/lib/middleware/rate-limit';
 import { auditLogger, getIpAddress, getRequestId } from '@/lib/security/audit-logger';
+import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
-
-const prisma = new PrismaClient();
 
 const UpdateAssessmentSchema = z.object({
   assessment_type: z.string().optional(),

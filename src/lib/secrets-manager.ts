@@ -12,8 +12,7 @@ import { logger } from "@/lib/logger";
 // Generated: August 29, 2025
 // Compliance: GDPR, ISO 27001, SOC 2
 
-// Temporary mock implementation for Phase 3 development
-// TODO: Replace with real AWS Secrets Manager implementation when AWS access is available
+// Uses AWS Secrets Manager when AWS credentials are configured.
 
 
 interface SecretValue {
@@ -47,7 +46,7 @@ class SecretsManagerService {
   }
 
   /**
-   * Retrieve secret value from AWS Secrets Manager (Mock Implementation)
+    * Retrieve secret value from AWS Secrets Manager
    */
   async getSecret(secretName: string): Promise<SecretValue> {
     try {
@@ -76,14 +75,14 @@ class SecretsManagerService {
       return secretValue;
 
     } catch (_error) {
-      this.logger.error('Failed to retrieve secret (mock)', {
+      this.logger.error('Failed to retrieve secret', {
         secretName,
-        error: _error instanceof Error ? _error.message : 'Unknown _error'
+        error: _error instanceof Error ? _error.message : 'Unknown error'
       });
 
       // Audit log failure
       await this.auditLog('SECRET_ACCESS_FAILED', secretName, {
-        error: _error instanceof Error ? _error.message : 'Unknown _error'
+        error: _error instanceof Error ? _error.message : 'Unknown error'
       });
 
       throw new Error(`Failed to retrieve secret: ${secretName}`);
@@ -142,27 +141,17 @@ class SecretsManagerService {
    */
   async validateSecret(secretName: string): Promise<boolean> {
     try {
-      // Mock validation - in production this would check AWS Secrets Manager
-      const validSecrets = [
-        'edpsych-connect-world/app-secrets',
-        'edpsych-connect-world/database-credentials',
-        'edpsych-connect-world/redis-credentials',
-        'edpsych-connect-world/mongodb-credentials'
-      ];
+      const AWS = await import('@aws-sdk/client-secrets-manager');
+      const client = new AWS.SecretsManager({ region: this.config.region });
 
-      const isValid = validSecrets.includes(secretName);
-
-      this.logger.info('Secret validation result (mock)', {
-        secretName,
-        isValid
-      });
-
-      return isValid;
+      await client.describeSecret({ SecretId: secretName });
+      this.logger.info('Secret validation result', { secretName, isValid: true });
+      return true;
 
     } catch (_error) {
-      this.logger.error('Secret validation failed (mock)', {
+      this.logger.error('Secret validation failed', {
         secretName,
-        error: _error instanceof Error ? _error.message : 'Unknown _error'
+        error: _error instanceof Error ? _error.message : 'Unknown error'
       });
       return false;
     }
@@ -172,18 +161,20 @@ class SecretsManagerService {
    * Get secret metadata
    */
   async getSecretMetadata(secretName: string): Promise<any> {
-    // Mock metadata - in production this would come from AWS
+    const AWS = await import('@aws-sdk/client-secrets-manager');
+    const client = new AWS.SecretsManager({ region: this.config.region });
+    const meta = await client.describeSecret({ SecretId: secretName });
+
     return {
-      name: secretName,
-      arn: `arn:aws:secretsmanager:eu-west-2:123456789012:secret:${secretName}`,
-      description: `Mock metadata for ${secretName}`,
-      createdDate: new Date().toISOString(),
-      lastChangedDate: new Date().toISOString(),
-      rotationEnabled: true,
-      tags: [
-        { Key: 'Environment', Value: 'production' },
-        { Key: 'Application', Value: 'edpsych-connect-world' }
-      ]
+      name: meta.Name || secretName,
+      arn: meta.ARN,
+      description: meta.Description,
+      createdDate: meta.CreatedDate?.toISOString(),
+      lastChangedDate: meta.LastChangedDate?.toISOString(),
+      lastRotatedDate: meta.LastRotatedDate?.toISOString(),
+      rotationEnabled: Boolean(meta.RotationEnabled),
+      rotationLambdaArn: meta.RotationLambdaARN,
+      tags: meta.Tags || [],
     };
   }
 
@@ -246,7 +237,7 @@ class SecretsManagerService {
       return {
         status: 'unhealthy',
         details: {
-          error: _error instanceof Error ? _error.message : 'Unknown _error',
+          error: _error instanceof Error ? _error.message : 'Unknown error',
           region: this.config.region,
           implementation: 'mock'
         }
@@ -314,7 +305,7 @@ export async function initializeSecretsManager(): Promise<void> {
     });
 
   } catch (_error) {
-    const err = _error instanceof Error ? _error : new Error('Unknown _error');
+    const err = _error instanceof Error ? _error : new Error('Unknown error');
     logger.error('Failed to initialize AWS Secrets Manager (mock mode)', err);
 
     // In production, this should cause the application to exit

@@ -16,15 +16,13 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
 import { authorizeRequest, Permission, canAccessTenant } from '@/lib/middleware/auth';
 import { apiRateLimit } from '@/lib/middleware/rate-limit';
 import { auditLogger, getIpAddress, getRequestId, getUserAgent } from '@/lib/security/audit-logger';
+import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
-
-const prisma = new PrismaClient();
 
 /**
  * Case Update Schema - Validation
@@ -179,7 +177,7 @@ export async function GET(
     return NextResponse.json(
       {
         error: 'Failed to retrieve case',
-        message: _error instanceof Error ? _error.message : 'Unknown _error',
+        message: _error instanceof Error ? _error.message : 'Unknown error',
         requestId,
       },
       { status: 500 }
@@ -328,7 +326,7 @@ export async function PATCH(
     return NextResponse.json(
       {
         error: 'Failed to update case',
-        message: _error instanceof Error ? _error.message : 'Unknown _error',
+        message: _error instanceof Error ? _error.message : 'Unknown error',
         requestId,
       },
       { status: 500 }
@@ -444,7 +442,7 @@ export async function DELETE(
     return NextResponse.json(
       {
         error: 'Failed to close case',
-        message: _error instanceof Error ? _error.message : 'Unknown _error',
+        message: _error instanceof Error ? _error.message : 'Unknown error',
         requestId,
       },
       { status: 500 }

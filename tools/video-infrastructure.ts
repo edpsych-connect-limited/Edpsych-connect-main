@@ -23,7 +23,13 @@ import * as http from 'http';
 // =============================================================================
 // CONFIGURATION
 // =============================================================================
-const HEYGEN_API_KEY = 'sk_V2_hgu_kIsPOKnUIeM_Nvtt8QLs3osJMx3nQi5fYEytQNjhR4qM';
+const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
+
+if (!HEYGEN_API_KEY) {
+  throw new Error('HEYGEN_API_KEY environment variable is required');
+}
+
+const REQUIRED_HEYGEN_API_KEY: string = HEYGEN_API_KEY;
 const CLOUDINARY_CLOUD_NAME = 'dncfu2j0r';
 const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY || '';
 const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET || '';
@@ -1210,7 +1216,7 @@ interface HeyGenVideoStatus {
 
 async function fetchJSON(url: string, options: RequestInit = {}): Promise<any> {
   const headers: Record<string, string> = {
-    'X-Api-Key': HEYGEN_API_KEY,
+    'X-Api-Key': REQUIRED_HEYGEN_API_KEY,
     'Content-Type': 'application/json',
     ...(options.headers as Record<string, string> || {}),
   };

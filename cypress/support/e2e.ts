@@ -76,42 +76,6 @@ Cypress.Commands.add('checkA11y', (context = null, options = null) => {
   cy.checkA11y(context, options);
 });
 
-// Add custom command for testing authentication
-Cypress.Commands.add('login', (email = 'test@example.com', password = 'password123') => {
-  // Use a direct API call for faster login
-  cy.request({
-    method: 'POST',
-    url: '/api/auth/login',
-    body: { email, password },
-    failOnStatusCode: false
-  }).then((response) => {
-    if (response.status === 200 && response.body.data && response.body.data.accessToken) {
-      const token = response.body.data.accessToken;
-      const refreshToken = response.body.data.refreshToken;
-      const user = response.body.data.user;
-      
-      // Set the token in localStorage to simulate login
-      cy.window().then((win) => {
-        win.localStorage.setItem('accessToken', token);
-        if (refreshToken) {
-          win.localStorage.setItem('refreshToken', refreshToken);
-        }
-        if (user) {
-          win.localStorage.setItem('userData', JSON.stringify(user));
-        }
-      });
-      
-      // Set cookies if needed
-      cy.setCookie('auth-token', token);
-      
-      // Log success
-      cy.log('Login successful via API');
-    } else {
-      throw new Error('Login failed via API: ' + JSON.stringify(response.body));
-    }
-  });
-});
-
 // Log failed tests with screenshots
 Cypress.on('test:after:run', (test, runnable) => {
   if (test.state === 'failed') {

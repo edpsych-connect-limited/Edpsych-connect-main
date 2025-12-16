@@ -4,7 +4,7 @@ This document outlines the test scenarios for verifying the "invisible intellige
 
 ## 🧪 Test Environment
 - **URL**: `http://localhost:3000` (or your Vercel deployment URL)
-- **Password for all users**: `Test123!`
+- **Passwords**: provided via secure channel (not stored in this repo)
 
 ## 👥 User Roles & Scenarios
 

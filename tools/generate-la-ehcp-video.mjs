@@ -3,7 +3,11 @@
  * Pure Node.js implementation (no TypeScript)
  */
 
-const HEYGEN_API_KEY = 'Sk_V2_hgu_kCXZPri8zVW_USKActgMJqFGEFzXfxRhYB1F5Jm9MqUz';
+const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
+
+if (!HEYGEN_API_KEY) {
+  throw new Error('HEYGEN_API_KEY environment variable is required');
+}
 const HEYGEN_API_URL = 'https://api.heygen.com/v2/video/generate';
 const WEBHOOK_URL = 'https://edpsychconnect.com/webhook';
 

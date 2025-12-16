@@ -8,9 +8,8 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 import React, { useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
 import EHCPWorkflow from '@/components/la-panel/EHCPWorkflow';
 import { 
   Building, 
@@ -28,6 +27,25 @@ export default function LAAPanelPage() {
   const [selectedCase, setSelectedCase] = useState<{id: string, name: string} | null>(null);
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const params = useParams();
+  const locale = typeof params?.locale === 'string' ? params.locale : 'en';
+
+  const handleExport = () => {
+    const payload = {
+      exportedAt: new Date().toISOString(),
+      dashboard: data,
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = `la-dashboard-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    URL.revokeObjectURL(url);
+  };
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -91,11 +109,17 @@ export default function LAAPanelPage() {
             <p className="text-gray-600 mt-1">Manage SEND provision, panels, and professional vetting.</p>
           </div>
           <div className="flex gap-3">
-            <button className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+            <button
+              onClick={handleExport}
+              className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+            >
               <Download className="w-4 h-4" />
               Export Data
             </button>
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2">
+            <button
+              onClick={() => router.push(`/${locale}/marketplace`)}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
+            >
               <Users className="w-4 h-4" />
               Invite Professional
             </button>
@@ -127,7 +151,7 @@ export default function LAAPanelPage() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <div className="border-b border-gray-200">
             <nav className="flex">
-              {['overview', 'ehcp-tracker', 'quality-assurance', 'professionals'].map((tab) => (
+              {['overview', 'ehcp-tracker', 'quality-assurance'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
@@ -309,11 +333,6 @@ export default function LAAPanelPage() {
               </div>
             )}
             
-            {activeTab === 'professionals' && (
-              <div className="text-center py-12 text-gray-500">
-                Professional directory management coming soon.
-              </div>
-            )}
           </div>
         </div>
       </div>

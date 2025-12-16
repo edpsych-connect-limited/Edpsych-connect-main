@@ -415,8 +415,6 @@ export const ParentPortal: React.FC<ParentPortalProps & { demoMode?: boolean }> 
     queryKey: ['parent-portal', childId, parentId, demoMode],
     queryFn: async () => {
       if (demoMode) {
-        // Simulate network delay
-        await new Promise(resolve => setTimeout(resolve, 800));
         return MOCK_PORTAL_DATA;
       }
 

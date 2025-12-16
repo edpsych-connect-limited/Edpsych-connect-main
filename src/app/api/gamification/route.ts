@@ -89,7 +89,7 @@ async function handleBadges(userId: number): Promise<NextResponse> {
     where: { user_id: userId },
   });
 
-  const unlockedIds = new Set(unlockedBadges.map((b: any) => b.badge_type));
+  const _unlockedIds = new Set(unlockedBadges.map((b: any) => b.badge_type));
 
   // Merge with library to show all badges with lock status
   const allBadges = BADGE_LIBRARY.map(badge => {
@@ -109,7 +109,7 @@ async function handleBadges(userId: number): Promise<NextResponse> {
   });
 }
 
-async function handleChallenges(userId: number): Promise<NextResponse> {
+async function handleChallenges(_userId: number): Promise<NextResponse> {
   // Generate daily challenges based on date to ensure consistency
   const today = new Date().toISOString().split('T')[0];
   

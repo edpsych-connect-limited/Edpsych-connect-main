@@ -8,14 +8,14 @@
 
 ## 🔐 Demo Accounts (All Roles)
 
-| Role | Email | Password | Access Level |
-|------|-------|----------|--------------|
-| **Admin** | admin@demo.com | Test123! | Full platform access |
-| **Educational Psychologist** | ep@demo.com | Test123! | EP dashboard, assessments, EHCP |
-| **Teacher** | teacher@demo.com | Test123! | Class management, interventions |
-| **Parent** | parent@demo.com | Test123! | Parent portal, child progress |
-| **Student** | student@demo.com | Test123! | Student learning portal |
-| **Researcher** | researcher@demo.com | Test123! | Research hub, data analytics |
+| Role | Email | Password Handling | Access Level |
+|------|-------|-------------------|--------------|
+| **Admin** | admin@demo.com | Provided via secure channel / local seed | Full platform access |
+| **Educational Psychologist** | ep@demo.com | Provided via secure channel / local seed | EP dashboard, assessments, EHCP |
+| **Teacher** | teacher@demo.com | Provided via secure channel / local seed | Class management, interventions |
+| **Parent** | parent@demo.com | Provided via secure channel / local seed | Parent portal, child progress |
+| **Student** | student@demo.com | Provided via secure channel / local seed | Student learning portal |
+| **Researcher** | researcher@demo.com | Provided via secure channel / local seed | Research hub, data analytics |
 
 ---
 
@@ -25,28 +25,28 @@ These accounts are linked together to demonstrate parent-child and teacher-stude
 
 ### Teacher Account
 - **Email:** teacher@test.edpsych.com
-- **Password:** Test123!
+- **Password:** Provided via secure channel / local seed
 - **Name:** Sarah Mitchell
 - **Role:** Teacher
 - **Assigned Class:** Year 3 Oak
 
 ### Student Account
 - **Email:** amara.singh@test.edpsych.com
-- **Password:** Test123!
+- **Password:** Provided via secure channel / local seed
 - **Name:** Amara Singh
 - **Role:** Student (Year 3)
 - **SEN Status:** SEN Support
 
 ### Parent Account
 - **Email:** priya.singh@test.edpsych.com
-- **Password:** Test123!
+- **Password:** Provided via secure channel / local seed
 - **Name:** Priya Singh
 - **Role:** Parent
 - **Linked Child:** Amara Singh
 
 ### Educational Psychologist Account
 - **Email:** dr.patel@test.edpsych.com
-- **Password:** Test123!
+- **Password:** Provided via secure channel / local seed
 - **Name:** Dr. Priya Patel
 - **Role:** Educational Psychologist
 - **Caseload:** Amara Singh
@@ -58,7 +58,7 @@ These accounts are linked together to demonstrate parent-child and teacher-stude
 **Special pilot user with full access for evaluation:**
 
 - **Email:** caroline.marriott@pathfinder.edu
-- **Password:** Pathfinder2025!
+- **Password:** Provided via secure channel
 - **Name:** Caroline Marriott
 - **Role:** Teacher + Beta Tester
 - **School:** Pathfinder Primary School

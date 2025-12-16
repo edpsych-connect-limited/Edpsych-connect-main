@@ -8,8 +8,6 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 import React, { useState } from 'react';
 import { Link, usePathname, useRouter } from '@/navigation';
 import { AuthProvider, useAuth } from '@/lib/auth/hooks';
@@ -17,7 +15,7 @@ import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import FeatureExplainer from '@/components/onboarding/FeatureExplainer';
-import { VoiceAssistant } from '@/components/voice/VoiceAssistant';
+import { VoiceAssistant as _VoiceAssistant } from '@/components/voice/VoiceAssistant';
 import { ContextualHelp } from '@/components/help/ContextualHelp';
 import { DemoProvider } from '@/components/demo/DemoProvider';
 import { SupportChatbot } from '@/components/chat/SupportChatbot';
@@ -25,12 +23,28 @@ import { BrandingProvider, useBranding } from '@/lib/branding/BrandingProvider';
 import { AICentralNervousSystem } from '@/components/ai/AICentralNervousSystem';
 import AccessibilityPanel from '@/components/accessibility/AccessibilityPanel';
 
+function stripLocalePrefix(pathname: string): string {
+  // Some environments/hooks return locale-prefixed paths (e.g. /en/help), while
+  // next-intl navigation usually returns locale-stripped paths (e.g. /help).
+  // Normalize so layout logic behaves consistently across routes.
+  const stripped = pathname.replace(/^\/(en|cy)(?=\/|$)/, '');
+  return stripped || '/';
+}
+
+function getEffectivePathname(pathnameFromHook: string | null | undefined): string {
+  // `usePathname()` can occasionally be temporarily inconsistent during early
+  // hydration; fall back to the real browser pathname to avoid suppressing UI.
+  const hookPath = pathnameFromHook ?? '';
+  const windowPath = typeof window !== 'undefined' ? window.location.pathname : '';
+  return hookPath || windowPath || '/';
+}
+
 function HeaderContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, logout } = useAuth();
   const { config } = useBranding();
   const router = useRouter();
-  const pathname = usePathname();
+  const pathname = stripLocalePrefix(getEffectivePathname(usePathname()));
 
   // Don't render header on landing page or demo page
   if (pathname === '/' || pathname?.startsWith('/demo')) return null;
@@ -287,8 +301,13 @@ export default function ClientLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  const isLandingPage = pathname === '/' || pathname?.startsWith('/demo');
+  const pathname = stripLocalePrefix(getEffectivePathname(usePathname()));
+
+  // We treat the homepage as a true "landing" surface, but demo routes should
+  // still expose Contextual Help for zero-touch guidance.
+  const isHomePage = pathname === '/';
+  const isDemoPage = pathname.startsWith('/demo');
+  const useMinimalChrome = isHomePage || isDemoPage;
   const [queryClient] = useState(() => new QueryClient({
     defaultOptions: {
       queries: {
@@ -299,7 +318,7 @@ export default function ClientLayout({
   }));
 
   return (
-    <body className={`min-h-screen ${isLandingPage ? 'bg-slate-950' : 'bg-gray-50 text-gray-900'}`}>
+    <body className={`min-h-screen ${useMinimalChrome ? 'bg-slate-950' : 'bg-gray-50 text-gray-900'}`}>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <BrandingProvider>
@@ -330,18 +349,18 @@ export default function ClientLayout({
                 }}
               />
               <HeaderContent />
-              <main className={isLandingPage ? '' : 'p-6'}>{children}</main>
+              <main className={useMinimalChrome ? '' : 'p-6'}>{children}</main>
               <FeatureExplainer key={pathname} />
               {/* VoiceAssistant is now integrated into SupportChatbot */}
               {/* <VoiceAssistant /> */}
               <AICentralNervousSystem />
               <SupportChatbot />
-              {!isLandingPage && (
+              {!isHomePage && (
                 <div className="fixed bottom-6 right-24 z-50">
                   <ContextualHelp title="Help & Support" description="Get help with the current page." />
                 </div>
               )}
-              {!isLandingPage && (
+              {!useMinimalChrome && (
                 <footer className="bg-gray-100 text-center py-4 mt-10 text-sm text-gray-600">
                   © {new Date().getFullYear()} EdPsych Connect World. All rights reserved.
                 </footer>

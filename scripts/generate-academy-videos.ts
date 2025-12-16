@@ -2,7 +2,11 @@ import https from 'https';
 import fs from 'fs';
 import path from 'path';
 
-const HEYGEN_API_KEY = 'sk_V2_hgu_knMBHTR5eZS_Fh7oPDiRF6jLhvQXFPVXnNlMNG7PkjRj';
+const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
+
+if (!HEYGEN_API_KEY) {
+  throw new Error('HEYGEN_API_KEY environment variable is required');
+}
 const AVATAR_ID = 'd680604a31f34ce096c84bed708774c3'; // Dr. Scott
 const VOICE_ID = '50d2a2a531d049719a0debbf82e1cf4c'; // Dr. Scott Voice
 

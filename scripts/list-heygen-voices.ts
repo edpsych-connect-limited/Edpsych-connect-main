@@ -1,6 +1,10 @@
 import https from 'https';
 
-const HEYGEN_API_KEY = 'sk_V2_hgu_knMBHTR5eZS_Fh7oPDiRF6jLhvQXFPVXnNlMNG7PkjRj';
+const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
+
+if (!HEYGEN_API_KEY) {
+  throw new Error('HEYGEN_API_KEY environment variable is required');
+}
 
 const options = {
   hostname: 'api.heygen.com',

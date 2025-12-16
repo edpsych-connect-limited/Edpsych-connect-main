@@ -48,7 +48,7 @@ export async function auth(): Promise<Session | null> {
     console.warn('auth() function needs Neon Postgres session implementation');
     return null;
   } catch (_error) {
-    console.error('Auth service _error', _error instanceof Error ? _error : new Error('Unknown _error'));
+    console.error('Auth service _error', _error instanceof Error ? _error : new Error('Unknown error'));
     return null;
   }
 }
@@ -111,7 +111,7 @@ export async function signIn(email: string, password: string): Promise<Session |
       expiresAt: expiresAt
     };
   } catch (_error) {
-    console.error('Sign in _error', _error instanceof Error ? _error : new Error('Unknown _error'), { email });
+    console.error('Sign in _error', _error instanceof Error ? _error : new Error('Unknown error'), { email });
     throw _error;
   }
 }
@@ -177,7 +177,7 @@ export async function signUp(email: string, password: string, userData?: any): P
       expiresAt: expiresAt
     };
   } catch (_error) {
-    console.error('Sign up _error', _error instanceof Error ? _error : new Error('Unknown _error'), { email });
+    console.error('Sign up _error', _error instanceof Error ? _error : new Error('Unknown error'), { email });
     throw _error;
   }
 }
@@ -226,7 +226,7 @@ export async function resetPassword(email: string): Promise<void> {
       logger.warn(`Failed to send password reset email to ${email}`);
     }
   } catch (_error) {
-    console.error('Password reset _error', _error instanceof Error ? _error : new Error('Unknown _error'), { email });
+    console.error('Password reset _error', _error instanceof Error ? _error : new Error('Unknown error'), { email });
     throw _error;
   }
 }
@@ -268,7 +268,7 @@ export async function updatePassword(newPassword: string, token?: string, email?
 
     console.info('Password updated successfully');
   } catch (_error) {
-    console.error('Password update _error', _error instanceof Error ? _error : new Error('Unknown _error'));
+    console.error('Password update _error', _error instanceof Error ? _error : new Error('Unknown error'));
     throw _error;
   }
 }
@@ -290,7 +290,7 @@ export async function signOut(): Promise<void> {
     // TODO: Implement proper session management
     console.warn('signOut() function needs proper session token handling implementation');
   } catch (_error) {
-    console.error('Sign out _error', _error instanceof Error ? _error : new Error('Unknown _error'));
+    console.error('Sign out _error', _error instanceof Error ? _error : new Error('Unknown error'));
     throw _error;
   }
 }
@@ -334,7 +334,7 @@ export async function getUserFromRequest(req: any): Promise<User | null> {
       createdAt: new Date().toISOString()
     };
   } catch (_error) {
-    console.error('Failed to get user from request', _error instanceof Error ? _error : new Error('Unknown _error'));
+    console.error('Failed to get user from request', _error instanceof Error ? _error : new Error('Unknown error'));
     return null;
   }
 }
@@ -344,6 +344,42 @@ export const authOptions = {
   // Adapter commented out because Prisma schema uses 'users' (plural) instead of 'User' (singular).
   // To enable the adapter, we need to map the models in schema.prisma or use a custom adapter.
   // adapter: PrismaAdapter(prisma),
+  // Reduce log noise from expected/stale cookie decode failures while keeping real auth errors visible.
+  // These can happen during deploys/restarts when old session cookies are presented.
+  logger: {
+    error(code: string, metadata: unknown) {
+      const metaText = (() => {
+        try {
+          if (typeof metadata === 'string') return metadata;
+          if (metadata instanceof Error) return metadata.message;
+          if (metadata && typeof metadata === 'object') return JSON.stringify(metadata);
+          return '';
+        } catch {
+          return '';
+        }
+      })();
+
+      const isNoisyJwtDecodeError =
+        code === 'JWT_SESSION_ERROR' ||
+        code === 'JWT_DECODE_ERROR' ||
+        code === 'SESSION_ERROR';
+
+      // NextAuth (JWT strategy) can emit: "Invalid Compact JWE" when a stale/foreign cookie is presented.
+      // We treat this as debug-level unless it becomes a systematic issue.
+      if (isNoisyJwtDecodeError && metaText.includes('Invalid Compact JWE')) {
+        logger.debug('[NextAuth] Suppressed noisy session decode error', { code });
+        return;
+      }
+
+      logger.error('[NextAuth] error', { code, metadata });
+    },
+    warn(code: string) {
+      logger.warn('[NextAuth] warn', { code });
+    },
+    debug(code: string, metadata: unknown) {
+      logger.debug('[NextAuth] debug', { code, metadata });
+    },
+  },
   providers: [
     CredentialsProvider({
       id: 'credentials',

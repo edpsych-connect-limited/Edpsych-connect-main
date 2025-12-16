@@ -468,8 +468,8 @@ export async function GET(
   } catch (_error) {
     console.error('[Class Students API] Error retrieving students:', _error);
     return NextResponse.json({
-      error: 'Internal server _error',
-      message: _error instanceof Error ? _error.message : 'Unknown _error'
+      error: 'Internal server error',
+      message: _error instanceof Error ? _error.message : 'Unknown error'
     }, { status: 500 });
   }
 }

@@ -49,9 +49,9 @@ A graphical representation of the platform has been created in `docs/PLATFORM_AR
 
 ## 4. Next Steps for User
 1.  **Deploy:** The latest code (including the Assessment API fix) is being pushed to Vercel.
-2.  **Verify:** Log in to `https://www.edpsychconnect.com` using `scott.ipatrick@edpsychconnect.com` / `Founder2025!`.
+2.  **Verify:** Log in to `https://www.edpsychconnect.com` using `scott.ipatrick@edpsychconnect.com` (password provided via secure channel).
 3.  **Test Assessments:** Navigate to the Assessments tab and try creating a new assessment. It should now persist.
-4.  **Check AI:** Try the "Study Buddy". If it replies with "[AI MOCK RESPONSE]", add the API Key to Vercel.
+4.  **Check AI:** Try the "Study Buddy". If it errors, confirm the required AI environment variables are set in Vercel.
 
 ## 5. Conclusion
 The platform core is no longer "stubbed". The database is correctly seeded. The system is ready for a true E2E functionality test.

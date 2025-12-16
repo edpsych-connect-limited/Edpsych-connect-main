@@ -4,8 +4,8 @@
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
  * 
- * Enhanced Maintenance/Coming Soon Page
- * Features the manifesto and crisis messaging to build anticipation
+ * Enhanced Maintenance Page
+ * Clear operational status messaging for users
  */
 
 import React, { useState, useEffect } from 'react';
@@ -21,9 +21,9 @@ import {
   Users,
   Zap,
   Clock,
-  TrendingUp,
+
   BookOpen,
-  Target,
+
   Lightbulb,
   ChevronDown,
   X,
@@ -94,7 +94,7 @@ const MANIFESTO = [
 export default function MaintenancePage() {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [_activeSection, _setActiveSection] = useState<string | null>(null);
   const [showScrollHint, setShowScrollHint] = useState(true);
 
   useEffect(() => {

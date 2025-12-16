@@ -1,0 +1,391 @@
+
+> edpsych-connect-web-v2@1.0.0 prebuild
+> rimraf node_modules/@sentry
+
+
+> edpsych-connect-web-v2@1.0.0 build
+> cross-env NODE_OPTIONS="--max-old-space-size=8192" node ./scripts/next-cli-patched.cjs build --webpack
+
+Patched fs.readlink for EISDIR and added retries for UNKNOWN/EPERM errors
+[next-cli-patched] Detected both src/middleware.ts and src/proxy.ts. Using proxy.ts; temporarily moved middleware.ts -> middleware.ts.legacy
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_local\types due to EPERM
+[next-cli-patched] distDir '.next_build_local' is not usable (types/ not writable). Falling back to '.next_build_gate_alt'.
+   Ôû▓ Next.js 16.0.10 (webpack)
+   - Environments: .env.production.local, .env.local, .env
+
+   Creating an optimized production build ...
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
+ Ô£ô Compiled successfully in 3.6min
+   Skipping validation of types
+   Collecting page data using 15 workers ...
+[2025-12-15T23:57:19.419Z] DEBUG: ­ƒºá Adaptive Intelligence System initialized
+[2025-12-15T23:57:19.437Z] DEBUG: ­ƒÄ¼ Living Demonstrations System initialized
+[2025-12-15T23:57:19.458Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-15T23:57:19.460Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-15T23:57:19.576Z] DEBUG: ­ƒÄ» Intelligent Problem Matcher initialized
+[2025-12-15T23:57:19.622Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-15T23:57:19.636Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-15T23:57:19.653Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-15T23:57:19.768Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-15T23:57:19.784Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-15T23:57:19.785Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-15T23:57:19.858Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-15T23:57:21.611Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-15T23:57:21.670Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-15T23:57:21.685Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-15T23:57:21.970Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-15T23:57:22.468Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-15T23:57:24.026Z] INFO: EmailService initialized with SendGrid transport
+   Generating static pages using 15 workers (0/56) ...
+[2025-12-15T23:57:49.440Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-15T23:57:49.642Z] INFO: EmailService initialized with SendGrid transport
+   Generating static pages using 15 workers (14/56) 
+[2025-12-15T23:57:50.107Z] INFO: EmailService initialized with SendGrid transport
+   Generating static pages using 15 workers (28/56) 
+   Generating static pages using 15 workers (42/56) 
+ Ô£ô Generating static pages using 15 workers (56/56) in 9.4s
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)
+Ôöî Ôùï /_not-found
+Ôö£ ãÆ /[locale]
+Ôö£ ãÆ /[locale]/about
+Ôö£ ãÆ /[locale]/accessibility
+Ôö£ ãÆ /[locale]/admin
+Ôö£ ãÆ /[locale]/admin/ethics
+Ôö£ ãÆ /[locale]/admin/integrations
+Ôö£ ãÆ /[locale]/ai-agents
+Ôö£ ãÆ /[locale]/algorithms
+Ôö£ ãÆ /[locale]/analytics
+Ôö£ ãÆ /[locale]/assessments
+Ôö£ ãÆ /[locale]/assessments/[id]
+Ôö£ ãÆ /[locale]/assessments/[id]/conduct
+Ôö£ ãÆ /[locale]/assessments/new
+Ôö£ ãÆ /[locale]/assessments/tasks/digit-span
+Ôö£ ãÆ /[locale]/beta-login
+Ôö£ ãÆ /[locale]/beta-register
+Ôö£ ãÆ /[locale]/blog
+Ôö£ ãÆ /[locale]/blog/[slug]
+Ôö£ ãÆ /[locale]/careers
+Ôö£ ãÆ /[locale]/cases
+Ôö£ ãÆ /[locale]/cases/[id]
+Ôö£ ãÆ /[locale]/cases/new
+Ôö£ ãÆ /[locale]/collaborate
+Ôö£ ãÆ /[locale]/collaborate/[token]
+Ôö£ ãÆ /[locale]/collaborate/thank-you
+Ôö£ ãÆ /[locale]/contact
+Ôö£ ãÆ /[locale]/dashboard
+Ôö£ ãÆ /[locale]/demo
+Ôö£ ãÆ /[locale]/demo/assessment
+Ôö£ ãÆ /[locale]/demo/coding
+Ôö£ ãÆ /[locale]/demo/ehcp
+Ôö£ ãÆ /[locale]/demo/gamification
+Ôö£ ãÆ /[locale]/demo/golden-thread
+Ôö£ ãÆ /[locale]/demo/interventions
+Ôö£ ãÆ /[locale]/demo/onboarding
+Ôö£ ãÆ /[locale]/demo/tracking
+Ôö£ ãÆ /[locale]/demo/training
+Ôö£ ãÆ /[locale]/demo/translator
+Ôö£ ãÆ /[locale]/diagnostic
+Ôö£ ãÆ /[locale]/ehcp
+Ôö£ ãÆ /[locale]/ehcp/[id]
+Ôö£ ãÆ /[locale]/ehcp/modules
+Ôö£ ãÆ /[locale]/ehcp/modules/annual-reviews
+Ôö£ ãÆ /[locale]/ehcp/modules/compliance-risk
+Ôö£ ãÆ /[locale]/ehcp/modules/golden-thread
+Ôö£ ãÆ /[locale]/ehcp/modules/mediation-tribunal
+Ôö£ ãÆ /[locale]/ehcp/modules/phase-transfers
+Ôö£ ãÆ /[locale]/ehcp/modules/resource-costing
+Ôö£ ãÆ /[locale]/ehcp/modules/sen2-returns
+Ôö£ ãÆ /[locale]/ehcp/new
+Ôö£ ãÆ /[locale]/ep
+Ôö£ ãÆ /[locale]/forgot-password
+Ôö£ ãÆ /[locale]/forum
+Ôö£ ãÆ /[locale]/gamification
+Ôö£ ãÆ /[locale]/gdpr
+Ôö£ ãÆ /[locale]/help
+Ôö£ ãÆ /[locale]/help/[slug]
+Ôö£ ãÆ /[locale]/institutional-management
+Ôö£ ãÆ /[locale]/interventions
+Ôö£ ãÆ /[locale]/interventions/[id]
+Ôö£ ãÆ /[locale]/interventions/library
+Ôö£ ãÆ /[locale]/interventions/new
+Ôö£ ãÆ /[locale]/la/applications/[id]
+Ôö£ ãÆ /[locale]/la/dashboard
+Ôö£ ãÆ /[locale]/landing
+Ôö£ ãÆ /[locale]/login
+Ôö£ ãÆ /[locale]/marketplace
+Ôö£ ãÆ /[locale]/marketplace/dashboard
+Ôö£ ãÆ /[locale]/marketplace/la-panel
+Ôö£ ãÆ /[locale]/marketplace/register
+Ôö£ ãÆ /[locale]/networking
+Ôö£ ãÆ /[locale]/onboarding
+Ôö£ ãÆ /[locale]/outcomes
+Ôö£ ãÆ /[locale]/parents
+Ôö£ ãÆ /[locale]/pricing
+Ôö£ ãÆ /[locale]/privacy
+Ôö£ ãÆ /[locale]/problem-solver
+Ôö£ ãÆ /[locale]/professional/portal
+Ôö£ ãÆ /[locale]/progress
+Ôö£ ãÆ /[locale]/provision
+Ôö£ ãÆ /[locale]/reports
+Ôö£ ãÆ /[locale]/reports/create
+Ôö£ ãÆ /[locale]/research
+Ôö£ ãÆ /[locale]/research/ethics
+Ôö£ ãÆ /[locale]/safeguarding
+Ôö£ ãÆ /[locale]/school/ehcp-request
+Ôö£ ãÆ /[locale]/senco
+Ôö£ ãÆ /[locale]/settings
+Ôö£ ãÆ /[locale]/signin
+Ôö£ ãÆ /[locale]/signup
+Ôö£ ãÆ /[locale]/student
+Ôö£ ãÆ /[locale]/student/lessons
+Ôö£ ãÆ /[locale]/student/lessons/[id]
+Ôö£ ãÆ /[locale]/subscription
+Ôö£ ãÆ /[locale]/subscription/addon
+Ôö£ ãÆ /[locale]/teachers
+Ôö£ ãÆ /[locale]/terms
+Ôö£ ãÆ /[locale]/test-auth
+Ôö£ ãÆ /[locale]/test-login
+Ôö£ ãÆ /[locale]/test-navigation
+Ôö£ ãÆ /[locale]/tokenisation
+Ôö£ ãÆ /[locale]/training
+Ôö£ ãÆ /[locale]/training/certificates
+Ôö£ ãÆ /[locale]/training/checkout/[productId]
+Ôö£ ãÆ /[locale]/training/courses/[id]
+Ôö£ ãÆ /[locale]/training/courses/[id]/learn
+Ôö£ ãÆ /[locale]/training/dashboard
+Ôö£ ãÆ /[locale]/training/marketplace
+Ôö£ ãÆ /[locale]/transitions
+Ôö£ ãÆ /[locale]/verify
+Ôö£ ãÆ /api/admin/tenants/[tenantId]/byod/config
+Ôö£ ãÆ /api/admin/tenants/[tenantId]/byod/validate
+Ôö£ ãÆ /api/ai/adaptive
+Ôö£ ãÆ /api/ai/chat
+Ôö£ ãÆ /api/ai/demos
+Ôö£ ãÆ /api/ai/matcher
+Ôö£ ãÆ /api/analytics/time-savings
+Ôö£ ãÆ /api/api-docs
+Ôö£ ãÆ /api/assessment/analytics
+Ôö£ ãÆ /api/assessments
+Ôö£ ãÆ /api/assessments/[id]
+Ôö£ ãÆ /api/assessments/[id]/report
+Ôö£ ãÆ /api/assessments/collaborations
+Ôö£ ãÆ /api/assessments/collaborations/[id]
+Ôö£ ãÆ /api/assessments/frameworks/[id]
+Ôö£ ãÆ /api/assessments/instances
+Ôö£ ãÆ /api/assessments/instances/[id]
+Ôö£ ãÆ /api/assessments/submit
+Ôö£ ãÆ /api/auth
+Ôö£ ãÆ /api/auth/forgot-password
+Ôö£ ãÆ /api/auth/login
+Ôö£ ãÆ /api/auth/logout
+Ôö£ ãÆ /api/auth/me
+Ôö£ ãÆ /api/auth/refresh
+Ôö£ ãÆ /api/auth/register
+Ôö£ ãÆ /api/auth/reset-password
+Ôö£ ãÆ /api/auth/session
+Ôö£ ãÆ /api/auth/signup
+Ôö£ ãÆ /api/automation/analytics
+Ôö£ ãÆ /api/automation/effectiveness
+Ôö£ ãÆ /api/automation/interventions
+Ôö£ ãÆ /api/automation/templates
+Ôö£ ãÆ /api/battle-royale/match/[id]
+Ôö£ ãÆ /api/battle-royale/matchmaking/queue
+Ôö£ ãÆ /api/battle-royale/matchmaking/status
+Ôö£ ãÆ /api/battle-royale/squad
+Ôö£ ãÆ /api/beta/register
+Ôö£ ãÆ /api/beta/validate-code
+Ôö£ ãÆ /api/blog
+Ôö£ ãÆ /api/blog/[slug]
+Ôö£ ãÆ /api/blog/generate
+Ôö£ ãÆ /api/cases
+Ôö£ ãÆ /api/cases/[id]
+Ôö£ ãÆ /api/class/[id]/actions
+Ôö£ ãÆ /api/class/[id]/students
+Ôö£ ãÆ /api/class/dashboard
+Ôö£ ãÆ /api/coding/curriculum
+Ôö£ ãÆ /api/coding/progress
+Ôö£ ãÆ /api/collaboration/cases
+Ôö£ ãÆ /api/cpd
+Ôö£ ãÆ /api/cpd/[id]
+Ôö£ ãÆ /api/cpd/portfolio
+Ôö£ ãÆ /api/cron/predictions
+Ôö£ ãÆ /api/cron/sync
+Ôö£ ãÆ /api/ehcp
+Ôö£ ãÆ /api/ehcp/[id]
+Ôö£ ãÆ /api/ehcp/[id]/export
+Ôö£ ãÆ /api/ehcp/annual-reviews
+Ôö£ ãÆ /api/ehcp/coherence
+Ôö£ ãÆ /api/ehcp/compliance-risk
+Ôö£ ãÆ /api/ehcp/funding-bands
+Ôö£ ãÆ /api/ehcp/golden-thread
+Ôö£ ãÆ /api/ehcp/mediation
+Ôö£ ãÆ /api/ehcp/phase-transfers
+Ôö£ ãÆ /api/ehcp/provision-costs
+Ôö£ ãÆ /api/ehcp/sen2
+Ôö£ ãÆ /api/ehcp/sen2-returns
+Ôö£ ãÆ /api/ehcp/sen2/export
+Ôö£ ãÆ /api/ehcp/tribunals
+Ôö£ ãÆ /api/errors
+Ôö£ ãÆ /api/ethics/analytics
+Ôö£ ãÆ /api/ethics/assessments
+Ôö£ ãÆ /api/ethics/incidents
+Ôö£ ãÆ /api/ethics/monitors
+Ôö£ ãÆ /api/feedback
+Ôö£ ãÆ /api/forum/summary
+Ôö£ ãÆ /api/gamification
+Ôö£ ãÆ /api/gamification/leaderboard
+Ôö£ ãÆ /api/health
+Ôö£ ãÆ /api/health-dashboard
+Ôö£ ãÆ /api/help
+Ôö£ ãÆ /api/help/[slug]
+Ôö£ ãÆ /api/help/categories
+Ôö£ ãÆ /api/help/chat
+Ôö£ ãÆ /api/helpbot
+Ôö£ ãÆ /api/integrations/connect
+Ôö£ ãÆ /api/integrations/logs
+Ôö£ ãÆ /api/integrations/status
+Ôö£ ãÆ /api/interventions
+Ôö£ ãÆ /api/interventions/[id]
+Ôö£ ãÆ /api/interventions/generate
+Ôö£ ãÆ /api/interventions/tracking
+Ôö£ ãÆ /api/la/applications
+Ôö£ ãÆ /api/la/applications/[id]
+Ôö£ ãÆ /api/la/applications/[id]/assign
+Ôö£ ãÆ /api/la/applications/[id]/contributions
+Ôö£ ãÆ /api/la/applications/[id]/decision
+Ôö£ ãÆ /api/la/applications/[id]/ehcp-draft
+Ôö£ ãÆ /api/la/compliance
+Ôö£ ãÆ /api/la/dashboard
+Ôö£ ãÆ /api/learning/personalization
+Ôö£ ãÆ /api/legal/signatures
+Ôö£ ãÆ /api/lessons/assign
+Ôö£ ãÆ /api/lessons/differentiate
+Ôö£ ãÆ /api/marketplace/dashboard
+Ôö£ ãÆ /api/marketplace/la-panel/apply
+Ôö£ ãÆ /api/marketplace/professionals/register
+Ôö£ ãÆ /api/marketplace/professionals/search
+Ôö£ ãÆ /api/marketplace/profile/status
+Ôö£ ãÆ /api/monitoring/dashboard
+Ôö£ ãÆ /api/multi-agency/ep-dashboard
+Ôö£ ãÆ /api/multi-agency/view
+Ôö£ ãÆ /api/network
+Ôö£ ãÆ /api/onboarding/[...action]
+Ôö£ ãÆ /api/orchestrator/agent
+Ôö£ ãÆ /api/orchestrator/status
+Ôö£ ãÆ /api/orchestrator/tutor
+Ôö£ ãÆ /api/outcomes
+Ôö£ ãÆ /api/outcomes/track
+Ôö£ ãÆ /api/parent/messages
+Ôö£ ãÆ /api/parent/portal/[childId]
+Ôö£ ãÆ /api/portal/parent
+Ôö£ ãÆ /api/problem-solver
+Ôö£ ãÆ /api/professional/contributions
+Ôö£ ãÆ /api/professional/contributions/[id]
+Ôö£ ãÆ /api/professional/development
+Ôö£ ãÆ /api/progress/dashboard
+Ôö£ ãÆ /api/public/collaborations/[id]
+Ôö£ ãÆ /api/reports/generate
+Ôö£ ãÆ /api/research/library
+Ôö£ ãÆ /api/resources/library
+Ôö£ ãÆ /api/safeguarding
+Ôö£ ãÆ /api/senco
+Ôö£ ãÆ /api/settings/integrations
+Ôö£ ãÆ /api/settings/integrations/connect
+Ôö£ ãÆ /api/settings/integrations/sync
+Ôö£ ãÆ /api/settings/integrations/test
+Ôö£ ãÆ /api/status
+Ôö£ ãÆ /api/students
+Ôö£ ãÆ /api/students/[id]
+Ôö£ ãÆ /api/students/[id]/lessons
+Ôö£ ãÆ /api/students/[id]/profile
+Ôö£ ãÆ /api/study-buddy/chat
+Ôö£ ãÆ /api/study-buddy/insights
+Ôö£ ãÆ /api/study-buddy/profile
+Ôö£ ãÆ /api/study-buddy/recommendations
+Ôö£ ãÆ /api/subscription
+Ôö£ ãÆ /api/subscription/addon
+Ôö£ ãÆ /api/subscription/current
+Ôö£ ãÆ /api/tokenisation/rewards
+Ôö£ ãÆ /api/tokenisation/treasury
+Ôö£ ãÆ /api/training
+Ôö£ ãÆ /api/training/courses
+Ôö£ ãÆ /api/training/courses/[id]
+Ôö£ ãÆ /api/training/create-payment-intent
+Ôö£ ãÆ /api/training/discount-codes/validate
+Ôö£ ãÆ /api/training/enrollments
+Ôö£ ãÆ /api/training/products
+Ôö£ ãÆ /api/training/progress
+Ôö£ ãÆ /api/transitions
+Ôö£ ãÆ /api/user/onboarding
+Ôö£ ãÆ /api/version
+Ôö£ ãÆ /api/video/heygen-token
+Ôö£ ãÆ /api/video/heygen-url
+Ôö£ ãÆ /api/voice/command
+Ôö£ ãÆ /api/voice/family
+Ôö£ ãÆ /api/voice/quick-actions
+Ôö£ ãÆ /api/voice/transcribe
+Ôö£ ãÆ /api/waitlist
+Ôö£ ãÆ /api/webhooks/stripe
+Ôö£ Ôùï /maintenance
+Ôö£ Ôùï /robots.txt
+Ôöö Ôùï /sitemap.xml
+
+
+ãÆ Proxy (Middleware)
+
+Ôùï  (Static)   prerendered as static content
+ãÆ  (Dynamic)  server-rendered on demand
+

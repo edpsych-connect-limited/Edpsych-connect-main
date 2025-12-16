@@ -795,7 +795,7 @@ export class DeploymentPipelineService {
           id: `issue-${Date.now()}`,
           type: stage.type,
           severity: 'high',
-          description: `Stage ${stage.name} failed: ${_error instanceof Error ? _error.message : 'Unknown _error'}`,
+          description: `Stage ${stage.name} failed: ${_error instanceof Error ? _error.message : 'Unknown error'}`,
           stage: stage.id,
           timestamp: new Date(),
           resolved: false

@@ -13,6 +13,7 @@ import { logger } from "@/lib/logger";
 // Compliance: GDPR, ISO 27001, SOC 2
 
 import crypto from 'crypto';
+import { isProductionEnv } from '@/lib/env/production-env';
 
 interface SecretValue {
   [key: string]: string | number | boolean | null;
@@ -55,6 +56,10 @@ class SecretsManagerService {
   private initializeEncryptionKey(): void {
     const keyHex = process.env.SECRETS_ENCRYPTION_KEY;
     if (!keyHex) {
+      if (isProductionEnv()) {
+        throw new Error('Missing required environment variable: SECRETS_ENCRYPTION_KEY');
+      }
+
       this.logger.warn('SECRETS_ENCRYPTION_KEY not found, encryption disabled');
       this.config.encryptionEnabled = false;
       return;
@@ -115,12 +120,12 @@ class SecretsManagerService {
     } catch (_error) {
       this.logger.error('Failed to retrieve secret', {
         secretName,
-        error: _error instanceof Error ? _error.message : 'Unknown _error'
+        error: _error instanceof Error ? _error.message : 'Unknown error'
       });
 
       // Audit log failure
       await this.auditLog('SECRET_ACCESS_FAILED', secretName, {
-        error: _error instanceof Error ? _error.message : 'Unknown _error'
+        error: _error instanceof Error ? _error.message : 'Unknown error'
       });
 
       throw new Error(`Failed to retrieve secret: ${secretName}`);
@@ -302,7 +307,7 @@ class SecretsManagerService {
     } catch (_error) {
       this.logger.error('Secret validation failed', {
         secretName,
-        error: _error instanceof Error ? _error.message : 'Unknown _error'
+        error: _error instanceof Error ? _error.message : 'Unknown error'
       });
       return false;
     }
@@ -443,7 +448,7 @@ class SecretsManagerService {
       return {
         status: 'unhealthy',
         details: {
-          error: _error instanceof Error ? _error.message : 'Unknown _error',
+          error: _error instanceof Error ? _error.message : 'Unknown error',
           region: this.config.region,
           implementation: 'environment-based'
         }
@@ -511,7 +516,7 @@ export async function initializeSecretsManager(): Promise<void> {
     });
 
   } catch (_error) {
-    const err = _error instanceof Error ? _error : new Error('Unknown _error');
+    const err = _error instanceof Error ? _error : new Error('Unknown error');
     logger.error('Failed to initialize environment-based secrets manager', err);
 
     // In production, this should cause the application to exit

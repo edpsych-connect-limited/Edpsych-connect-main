@@ -361,10 +361,10 @@ Here's why:
 5. Document any issues found
 
 **Test Accounts Ready**:
-- Teacher: `teacher@test.edpsych.com` (password: `Test123!`)
-- Student: `amara.singh@test.edpsych.com` (password: `Test123!`)
-- Parent: `priya.singh@test.edpsych.com` (password: `Test123!`)
-- EP: `dr.patel@test.edpsych.com` (password: `Test123!`)
+- Teacher: `teacher@test.edpsych.com` (password provided securely)
+- Student: `amara.singh@test.edpsych.com` (password provided securely)
+- Parent: `priya.singh@test.edpsych.com` (password provided securely)
+- EP: `dr.patel@test.edpsych.com` (password provided securely)
 
 **Dev Server**: Already running on http://localhost:3002
 

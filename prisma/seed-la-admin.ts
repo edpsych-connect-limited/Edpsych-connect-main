@@ -3,6 +3,14 @@ import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
+const SEED_TEST_USERS_PASSWORD = process.env.SEED_TEST_USERS_PASSWORD;
+
+if (!SEED_TEST_USERS_PASSWORD) {
+  throw new Error(
+    'Missing SEED_TEST_USERS_PASSWORD. Refusing to seed accounts without an explicit password.'
+  );
+}
+
 async function main() {
   console.log('Seeding LA Admin...');
   
@@ -15,7 +23,7 @@ async function main() {
     return;
   }
 
-  const password = await bcrypt.hash('Test123!', 10);
+  const password = await bcrypt.hash(SEED_TEST_USERS_PASSWORD, 10);
 
   await prisma.users.upsert({
     where: { email: 'la_admin@demo.com' },
@@ -39,7 +47,7 @@ async function main() {
     }
   });
 
-  console.log('LA Admin seeded: la_admin@demo.com / Test123!');
+  console.log('LA Admin seeded: la_admin@demo.com (password set via SEED_TEST_USERS_PASSWORD)');
 }
 
 main()

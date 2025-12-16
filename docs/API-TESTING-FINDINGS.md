@@ -193,7 +193,7 @@ npm install --save-dev @playwright/test
 test('teacher can view student profile', async ({ page }) => {
   await page.goto('http://localhost:3002/login');
   await page.fill('[name="email"]', 'teacher@test.edpsych.com');
-  await page.fill('[name="password"]', 'Test123!');
+   await page.fill('[name="password"]', process.env.E2E_TEST_PASSWORD || '<password>');
   await page.click('button[type="submit"]');
 
   // Cookies handled automatically
@@ -286,7 +286,7 @@ const token = req.cookies.get('auth-token')?.value
 
 ## 📊 Test Data
 
-**Test Accounts (All passwords: `Test123!`)**:
+**Test Accounts (Passwords provided via secure channel)**:
 - Teacher: `teacher@test.edpsych.com`
 - Student: `amara.singh@test.edpsych.com`
 - Parent: `priya.singh@test.edpsych.com`

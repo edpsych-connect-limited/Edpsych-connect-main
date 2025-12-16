@@ -270,7 +270,7 @@ interface ProfessionalContributionPortalProps {
 }
 
 // Main Portal Component
-export default function ProfessionalContributionPortal({ isDemo = false, demoUserId }: ProfessionalContributionPortalProps = {}) {
+export default function ProfessionalContributionPortal({ isDemo = false, demoUserId: _demoUserId }: ProfessionalContributionPortalProps = {}) {
   const router = useRouter();
   const { user, isLoading: authLoading } = useAuth();
   const { startTour } = useDemo();
@@ -344,6 +344,7 @@ export default function ProfessionalContributionPortal({ isDemo = false, demoUse
     if (user || isDemo) {
       fetchContributions();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, isDemo]);
 
   // Filter contributions

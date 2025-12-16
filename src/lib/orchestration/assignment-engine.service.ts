@@ -16,12 +16,11 @@
  * PRINCIPLE: Teachers teach. We handle the differentiation.
  */
 
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 import { AIService as _AIService } from '@/services/ai-service';
 import { ProfileBuilderService } from './profile-builder.service';
 import { logger } from "@/lib/logger";
 
-const prisma = new PrismaClient();
 
 // ============================================================================
 // TYPES

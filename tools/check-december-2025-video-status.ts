@@ -5,13 +5,19 @@
 
 import { DECEMBER_2025_VIDEO_IDS } from '../video_scripts/world_class/december-2025-video-ids';
 
-const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY || 'Sk_V2_hgu_kCXZPri8zVW_USKActgMJqFGEFzXfxRhYB1F5Jm9MqUz';
+const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
+
+if (!HEYGEN_API_KEY) {
+  throw new Error('HEYGEN_API_KEY environment variable is required');
+}
+
+const REQUIRED_HEYGEN_API_KEY: string = HEYGEN_API_KEY;
 
 async function checkStatus(videoId: string): Promise<{ status: string; video_url?: string }> {
   const response = await fetch(
     `https://api.heygen.com/v1/video_status.get?video_id=${videoId}`,
     {
-      headers: { 'X-Api-Key': HEYGEN_API_KEY }
+      headers: { 'X-Api-Key': REQUIRED_HEYGEN_API_KEY }
     }
   );
   const data = await response.json() as { data?: { status: string; video_url?: string } };

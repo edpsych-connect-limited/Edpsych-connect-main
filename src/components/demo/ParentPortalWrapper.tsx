@@ -33,7 +33,13 @@ export default function ParentPortalWrapper({ demoParentId, demoChildId }: Paren
     return (
       <QueryClientProvider client={queryClient}>
         <div className="min-h-screen bg-gray-50">
-          <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
+          {/*
+            This page is rendered within the global <ClientLayout /> which has its own sticky header
+            (z-50). If we stick this demo header at top-0 it can be overlapped by the global header
+            (e.g., the Logout button), making 'Exit Demo' non-interactive and flaky in E2E.
+            Offset by the global header height (h-16) instead.
+          */}
+          <div className="bg-white border-b border-gray-200 sticky top-16 z-40">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center h-16">
                 <div className="flex items-center">
@@ -80,7 +86,7 @@ export default function ParentPortalWrapper({ demoParentId, demoChildId }: Paren
               <div className="flex flex-col sm:flex-row gap-4">
                 <button 
                   onClick={() => setShowPortal(true)}
-                  className="bg-rose-600 text-white font-bold py-4 px-8 rounded-xl hover:bg-rose-700 transition-all shadow-lg hover:shadow-xl text-center"
+                  className="bg-rose-600 text-white font-bold py-4 px-8 rounded-xl hover:bg-rose-700 transition-all shadow-lg hover:shadow-xl text-center relative z-10"
                 >
                   Launch Portal Demo
                 </button>

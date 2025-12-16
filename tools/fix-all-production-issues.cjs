@@ -1,14 +1,26 @@
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 
-// PRODUCTION DATABASE - the one Vercel actually uses
-const prisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: 'postgresql://neondb_owner:npg_rSnga68XPqve@ep-delicate-grass-abi62lhk-pooler.eu-west-2.aws.neon.tech/neondb?sslmode=require'
-    }
-  }
-});
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL is not set. Refusing to connect.');
+}
+
+if (process.env.CONFIRM_PRODUCTION_FIX_ALL !== 'YES') {
+  throw new Error('Refusing to run. Set CONFIRM_PRODUCTION_FIX_ALL=YES to proceed.');
+}
+
+const FOUNDER_PASSWORD = process.env.PRODUCTION_FOUNDER_PASSWORD;
+const DEMO_PASSWORD = process.env.PRODUCTION_DEMO_PASSWORD;
+const BETA_PASSWORD = process.env.PRODUCTION_BETA_PASSWORD;
+
+if (!FOUNDER_PASSWORD || !DEMO_PASSWORD || !BETA_PASSWORD) {
+  throw new Error(
+    'Missing required env vars: PRODUCTION_FOUNDER_PASSWORD, PRODUCTION_DEMO_PASSWORD, PRODUCTION_BETA_PASSWORD'
+  );
+}
+
+// Uses DATABASE_URL
+const prisma = new PrismaClient();
 
 async function main() {
   console.log('='.repeat(70));
@@ -35,9 +47,9 @@ async function main() {
     // ================================================================
     console.log('\n2. FIXING USER PASSWORDS...');
     
-    const founderHash = await bcrypt.hash('Founder2025!', 12);
-    const demoHash = await bcrypt.hash('Test123!', 12);
-    const betaHash = await bcrypt.hash('BetaTest2025!', 12);
+    const founderHash = await bcrypt.hash(FOUNDER_PASSWORD, 12);
+    const demoHash = await bcrypt.hash(DEMO_PASSWORD, 12);
+    const betaHash = await bcrypt.hash(BETA_PASSWORD, 12);
     
     // Fix founder account
     await prisma.users.updateMany({
@@ -78,14 +90,14 @@ async function main() {
         data: { password_hash: demoHash, is_active: true }
       });
     }
-    console.log(`   ✅ Fixed ${demoEmails.length} demo accounts (password: Test123!)`);
+    console.log(`   ✅ Fixed ${demoEmails.length} demo accounts (password not printed)`);
     
     // Fix beta tester
     await prisma.users.updateMany({
       where: { email: 'beta_tester@demo.com' },
       data: { password_hash: betaHash, is_active: true }
     });
-    console.log('   ✅ Beta tester account fixed (password: BetaTest2025!)');
+    console.log('   ✅ Beta tester account fixed (password not printed)');
 
     // ================================================================
     // 3. VERIFY EVERYTHING
@@ -97,7 +109,7 @@ async function main() {
       where: { email: 'scott.ipatrick@edpsychconnect.com' }
     });
     if (founder) {
-      const valid = await bcrypt.compare('Founder2025!', founder.password_hash);
+      const valid = await bcrypt.compare(FOUNDER_PASSWORD, founder.password_hash);
       console.log(`   Founder login: ${valid ? '✅ WORKS' : '❌ BROKEN'}`);
     }
     
@@ -106,7 +118,7 @@ async function main() {
       where: { email: 'teacher@demo.com' }
     });
     if (demo) {
-      const valid = await bcrypt.compare('Test123!', demo.password_hash);
+      const valid = await bcrypt.compare(DEMO_PASSWORD, demo.password_hash);
       console.log(`   Demo login: ${valid ? '✅ WORKS' : '❌ BROKEN'}`);
     }
     
@@ -123,14 +135,14 @@ async function main() {
     console.log('='.repeat(70));
     console.log('\nFOUNDER (Full Access):');
     console.log('  Email: scott.ipatrick@edpsychconnect.com');
-    console.log('  Password: Founder2025!');
+    console.log('  Password: (set via PRODUCTION_FOUNDER_PASSWORD)');
     console.log('  URL: https://www.edpsychconnect.com/en/login');
-    console.log('\nDEMO ACCOUNTS (password: Test123!):');
+    console.log('\nDEMO ACCOUNTS (password set via env):');
     console.log('  teacher@demo.com, student@demo.com, parent@demo.com');
     console.log('  ep@demo.com, admin@demo.com, researcher@demo.com');
     console.log('\nBETA TESTER:');
     console.log('  Email: beta_tester@demo.com');
-    console.log('  Password: BetaTest2025!');
+    console.log('  Password: (set via PRODUCTION_BETA_PASSWORD)');
     console.log('='.repeat(70));
     
   } finally {

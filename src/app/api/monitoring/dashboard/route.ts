@@ -36,7 +36,7 @@ export async function GET(_request: NextRequest) {
       {
         success: false,
         error: 'Failed to retrieve monitoring data',
-        details: _error instanceof Error ? _error.message : 'Unknown _error'
+        details: _error instanceof Error ? _error.message : 'Unknown error'
       },
       { status: 500 }
     );
@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
       {
         success: false,
         error: 'Failed to process monitoring request',
-        details: _error instanceof Error ? _error.message : 'Unknown _error'
+        details: _error instanceof Error ? _error.message : 'Unknown error'
       },
       { status: 500 }
     );

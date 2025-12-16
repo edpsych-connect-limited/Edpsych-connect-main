@@ -3,14 +3,7 @@ describe('Safety Net & Simulation E2E', () => {
   beforeEach(() => {
     // The Golden Thread demo is public or accessible to logged in users
     // We'll login as Admin just in case
-    cy.visit('/login');
-    cy.get('input[type="email"]').type('admin@demo.com');
-    cy.get('input[type="password"]').type('Test123!');
-    cy.get('button[type="submit"]').click();
-    
-    // Wait for dashboard or admin panel to ensure login complete
-    // Admin users are redirected to /admin, others to /dashboard
-    cy.url({ timeout: 60000 }).should('match', /\/(dashboard|admin)/);
+    cy.login('admin@demo.com');
   });
 
   it('should display the Golden Thread Dashboard', () => {

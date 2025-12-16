@@ -1,19 +1,12 @@
 describe('Functionality Audit', () => {
   const teacherEmail = 'teacher@demo.com';
-  const teacherPassword = 'Test123!';
 
   beforeEach(() => {
     // Set viewport to desktop to ensure nav is visible
     cy.viewport(1280, 720);
     
     // Log in before each test
-    cy.session('teacher-session', () => {
-      cy.visit('/en/login');
-      cy.get('input[name="email"]').type(teacherEmail);
-      cy.get('input[name="password"]').type(teacherPassword);
-      cy.get('button[type="submit"]').click();
-      cy.url().should('include', '/dashboard');
-    });
+    cy.login(teacherEmail);
     cy.visit('/en/dashboard');
   });
 

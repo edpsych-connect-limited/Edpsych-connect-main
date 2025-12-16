@@ -11,6 +11,8 @@ import { authOptions } from '../auth';
 import { verifyToken } from '../auth/auth-service';
 import { auditLogger, getIpAddress, getUserAgent, getRequestId } from '../security/audit-logger';
 import { AuditEventType, AuditSeverity } from '../security/audit-logger';
+import { setTenantContext } from '@/lib/db/tenant-context';
+import { getPrismaForTenant } from '@/lib/prisma';
 
 /**
  * Permission types for role-based access control
@@ -286,6 +288,25 @@ export async function authenticateRequest(request: NextRequest): Promise<{
         { status: 401 }
       ),
     };
+  }
+
+  // Establish request-scoped tenant context so downstream DB calls can route correctly.
+  // This is critical for BYOD (tenant-specific database routing) while keeping code changes minimal.
+  try {
+    const tenantId = session.user.tenant_id;
+    const tenantPrisma = await getPrismaForTenant(tenantId);
+    setTenantContext({
+      tenantId: typeof tenantId === 'string' ? parseInt(tenantId) : tenantId,
+      userId: session.user.id,
+      prisma: tenantPrisma as any,
+    });
+  } catch (_error) {
+    // If tenant routing setup fails, do not block authentication; fall back to platform DB.
+    // Access control checks still prevent cross-tenant access.
+    setTenantContext({
+      tenantId: session.user.tenant_id,
+      userId: session.user.id,
+    });
   }
 
   return {

@@ -16,7 +16,7 @@ import {
   HelpCircle,
   Award,
   Clock,
-  Users,
+
   ChevronRight,
   Volume2,
   FileText,

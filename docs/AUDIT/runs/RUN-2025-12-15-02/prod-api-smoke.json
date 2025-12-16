@@ -1,0 +1,31 @@
+{
+  "runId": "RUN-2025-12-15-02",
+  "dateUtc": "2025-12-15",
+  "base": "https://www.edpsychconnect.com",
+  "checks": [
+    {
+      "path": "/api/status",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "observedAtUtc": "2025-12-16T01:23:10.4087845Z",
+      "notes": "Production probe returned 200."
+    },
+    {
+      "path": "/api/health",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "observedAtUtc": "2025-12-16T01:23:10.4087845Z",
+      "notes": "Production probe returned 200."
+    },
+    {
+      "path": "/api/training/courses",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "observedAtUtc": "2025-12-16T01:23:10.4087845Z",
+      "notes": "Production probe returned 200."
+    }
+  ]
+}

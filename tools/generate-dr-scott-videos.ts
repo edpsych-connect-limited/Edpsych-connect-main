@@ -12,7 +12,13 @@ import path from 'path';
 // Import V4 scripts (Dr Scott Persona)
 import { ALL_VIDEO_SCRIPTS } from '../video_scripts/world_class/comprehensive-video-scripts-v4-dr-scott';
 
-const API_KEY = process.env.HEYGEN_API_KEY || 'sk_V2_hgu_kIsPOKnUIeM_Nvtt8QLs3osJMx3nQi5fYEytQNjhR4qM';
+const API_KEY = process.env.HEYGEN_API_KEY;
+
+if (!API_KEY) {
+  throw new Error('HEYGEN_API_KEY environment variable is required');
+}
+
+const REQUIRED_API_KEY: string = API_KEY;
 const API_URL = 'https://api.heygen.com/v2/video/generate';
 
 // Configuration for Dr Scott (using Adrian Blue Shirt as proxy)
@@ -81,7 +87,7 @@ async function generateVideo(script: VideoScript): Promise<GenerationResult> {
     const response = await fetch(API_URL, {
       method: 'POST',
       headers: {
-        'X-Api-Key': API_KEY,
+        'X-Api-Key': REQUIRED_API_KEY,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload)

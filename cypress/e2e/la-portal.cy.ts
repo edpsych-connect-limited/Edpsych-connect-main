@@ -1,10 +1,6 @@
 describe('Local Authority Portal', () => {
   beforeEach(() => {
-    cy.visit('/login');
-    cy.get('input[name="email"]').type('la_admin@demo.com'); // Assuming LA Admin role
-    cy.get('input[name="password"]').type('Test123!');
-    cy.get('button[type="submit"]').click();
-    cy.url().should('include', '/dashboard');
+    cy.login('la_admin@demo.com');
   });
 
   it('should access the LA Dashboard', () => {

@@ -1,0 +1,606 @@
+Gate log: docs\AUDIT\runs\RUN-2025-12-15-02\gate-release.txt
+Loading environment (.env, .env.local, .env.development.local, .env.production.local, .env.preview.local)...
+==> npm run test:db-connectivity
+
+> edpsych-connect-web-v2@1.0.0 test:db-connectivity
+> tsx tools/audit-db-test.ts
+
+=== Phase 3.3: Database Connectivity Test ===
+Testing connection to Neon PostgreSQL...
+
+Test 1: Basic Connection
+prisma:query SELECT 1 as connected
+Ô£à Database connected successfully
+
+Test 2: User Count
+prisma:query SELECT COUNT(*) AS "_count$_all" FROM (SELECT "public"."users"."id" FROM "public"."users" WHERE 1=1 OFFSET $1) AS "sub"
+[2025-12-16T00:20:38.103Z] WARN: Slow query detected (769ms) { model: 'users', operation: 'count', executionTime: 769, attempt: 1 }
+[2025-12-16T00:20:38.105Z] DEBUG: Prisma query: users.count { model: 'users', operation: 'count', executionTime: 769, attempt: 1 }
+Ô£à Users in database: 267
+
+Test 3: Tenant Count
+prisma:query SELECT COUNT(*) AS "_count$_all" FROM (SELECT "public"."tenants"."id" FROM "public"."tenants" WHERE 1=1 OFFSET $1) AS "sub"
+[2025-12-16T00:20:38.183Z] DEBUG: Prisma query: tenants.count { model: 'tenants', operation: 'count', executionTime: 77, attempt: 1 }
+Ô£à Tenants in database: 17
+
+Test 4: Test Users Check
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."name", "public"."users"."role" FROM "public"."users" WHERE "public"."users"."email"::text LIKE $1 ORDER BY "public"."users"."id" ASC LIMIT $2 OFFSET $3
+[2025-12-16T00:20:38.481Z] WARN: Slow query detected (297ms) {
+  model: 'users',
+  operation: 'findMany',
+  executionTime: 297,
+  attempt: 1
+}
+[2025-12-16T00:20:38.482Z] DEBUG: Prisma query: users.findMany {
+  model: 'users',
+  operation: 'findMany',
+  executionTime: 297,
+  attempt: 1
+}
+Ô£à Demo users found: 5
+   - teacher@demo.com (TEACHER)
+   - parent@demo.com (PARENT)
+   - leo@demo.school (STUDENT)
+   - mia@demo.school (STUDENT)
+   - noah@demo.school (STUDENT)
+
+Test 5: Critical Tables Check
+prisma:query SELECT COUNT(*) AS "_count$_all" FROM (SELECT "public"."users"."id" FROM "public"."users" WHERE 1=1 OFFSET $1) AS "sub"
+[2025-12-16T00:20:38.497Z] DEBUG: Prisma query: users.count { model: 'users', operation: 'count', executionTime: 14, attempt: 1 }
+Ô£à users: 267 records
+prisma:query SELECT COUNT(*) AS "_count$_all" FROM (SELECT "public"."assessments"."id" FROM "public"."assessments" WHERE 1=1 OFFSET $1) AS "sub"
+[2025-12-16T00:20:38.531Z] DEBUG: Prisma query: assessments.count {
+  model: 'assessments',
+  operation: 'count',
+  executionTime: 33,
+  attempt: 1
+}
+Ô£à assessments: 0 records
+prisma:query SELECT COUNT(*) AS "_count$_all" FROM (SELECT "public"."students"."id" FROM "public"."students" WHERE 1=1 OFFSET $1) AS "sub"
+[2025-12-16T00:20:38.570Z] DEBUG: Prisma query: students.count {
+  model: 'students',
+  operation: 'count',
+  executionTime: 38,
+  attempt: 1
+}
+Ô£à students: 1010 records
+
+=== Database Connectivity Test Complete ===
+Result: Ô£à PASS
+
+Using local Node.js (repo-pinned):
+Node version:
+v20.18.0
+==> npm run lint
+
+> edpsych-connect-web-v2@1.0.0 lint
+> eslint src --ext .ts,.tsx --max-warnings 0
+
+==> npm run type-check
+
+> edpsych-connect-web-v2@1.0.0 type-check
+> cross-env NODE_OPTIONS="--max-old-space-size=4096" node node_modules/typescript/bin/tsc --project tsconfig.typecheck.json --noEmit --skipLibCheck
+
+==> npm run test:pii-redaction
+
+> edpsych-connect-web-v2@1.0.0 test:pii-redaction
+> tsx tools/test-pii-redaction.ts
+
+OK: PII redaction tests passed
+==> npm run test:ai-governance
+
+> edpsych-connect-web-v2@1.0.0 test:ai-governance
+> tsx tools/test-ai-governance.ts
+
+OK: governance AI policy defaults validated
+==> npm run test:byod-db-url
+
+> edpsych-connect-web-v2@1.0.0 test:byod-db-url
+> tsx tools/test-byod-db-url.ts
+
+BYOD DB URL tests passed
+==> npm run test:video-registry
+
+> edpsych-connect-web-v2@1.0.0 test:video-registry
+> tsx tools/validate-video-registry.ts
+
+VIDEO REGISTRY WARNINGS: 72
+- [la-ehcp-merge-tool] CLOUDINARY_VIDEO_URLS[la-ehcp-merge-tool] is set, but key is missing from cloudinary-upload-results.json
+- [la-professional-requests] CLOUDINARY_VIDEO_URLS[la-professional-requests] is set, but key is missing from cloudinary-upload-results.json
+- [feature-la-dashboard] CLOUDINARY_VIDEO_URLS[feature-la-dashboard] is set, but key is missing from cloudinary-upload-results.json
+- [help-troubleshooting] CLOUDINARY_VIDEO_URLS[help-troubleshooting] is set, but key is missing from cloudinary-upload-results.json
+- [help-cpd-tracking] CLOUDINARY_VIDEO_URLS[help-cpd-tracking] is set, but key is missing from cloudinary-upload-results.json
+- [help-collaboration] CLOUDINARY_VIDEO_URLS[help-collaboration] is set, but key is missing from cloudinary-upload-results.json
+- [help-generating-reports] CLOUDINARY_VIDEO_URLS[help-generating-reports] is set, but key is missing from cloudinary-upload-results.json
+- [parent-portal-welcome] CLOUDINARY_VIDEO_URLS[parent-portal-welcome] is set, but key is missing from cloudinary-upload-results.json
+- [parent-contributing-views] CLOUDINARY_VIDEO_URLS[parent-contributing-views] is set, but key is missing from cloudinary-upload-results.json
+- [parent-understanding-results] CLOUDINARY_VIDEO_URLS[parent-understanding-results] is set, but key is missing from cloudinary-upload-results.json
+- [school-senco-portal] CLOUDINARY_VIDEO_URLS[school-senco-portal] is set, but key is missing from cloudinary-upload-results.json
+- [1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations] CLOUDINARY_VIDEO_URLS[1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations] is set, but key is missing from cloudinary-upload-results.json
+- [2-1_Inattentive_Presentation___The_Daydreamer_] CLOUDINARY_VIDEO_URLS[2-1_Inattentive_Presentation___The_Daydreamer_] is set, but key is missing from cloudinary-upload-results.json
+- [2-2_Hyperactive_Impulsive_Presentation___The_Energizer_Bunny_] CLOUDINARY_VIDEO_URLS[2-2_Hyperactive_Impulsive_Presentation___The_Energizer_Bunny_] is set, but key is missing from cloudinary-upload-results.json
+- [3-2_Impact_on_Academic_Performance_and_Daily_Functioning] CLOUDINARY_VIDEO_URLS[3-2_Impact_on_Academic_Performance_and_Daily_Functioning] is set, but key is missing from cloudinary-upload-results.json
+- [4-1_Seating__Layout__and_Sensory_Considerations] CLOUDINARY_VIDEO_URLS[4-1_Seating__Layout__and_Sensory_Considerations] is set, but key is missing from cloudinary-upload-results.json
+- [4-2_Instructional_Accommodations_and_Task_Modifications] CLOUDINARY_VIDEO_URLS[4-2_Instructional_Accommodations_and_Task_Modifications] is set, but key is missing from cloudinary-upload-results.json
+- [5-1_Attention_Cues_and_Focus_Techniques] CLOUDINARY_VIDEO_URLS[5-1_Attention_Cues_and_Focus_Techniques] is set, but key is missing from cloudinary-upload-results.json
+- [5-2_Self_Monitoring_and_Attention_Training] CLOUDINARY_VIDEO_URLS[5-2_Self_Monitoring_and_Attention_Training] is set, but key is missing from cloudinary-upload-results.json
+- [6-1_Channel_Hyperactivity_Productively] CLOUDINARY_VIDEO_URLS[6-1_Channel_Hyperactivity_Productively] is set, but key is missing from cloudinary-upload-results.json
+- [7-1_Organization_Systems_and_Time_Management] CLOUDINARY_VIDEO_URLS[7-1_Organization_Systems_and_Time_Management] is set, but key is missing from cloudinary-upload-results.json
+- [7-2_Homework_Strategies_and_Executive_Function_Support] CLOUDINARY_VIDEO_URLS[7-2_Homework_Strategies_and_Executive_Function_Support] is set, but key is missing from cloudinary-upload-results.json
+- [8-2_Multi_Agency_Collaboration_and_Parent_Partnership] CLOUDINARY_VIDEO_URLS[8-2_Multi_Agency_Collaboration_and_Parent_Partnership] is set, but key is missing from cloudinary-upload-results.json
+- [1-2_The_Autistic_Experience__First_Person_Perspectives] CLOUDINARY_VIDEO_URLS[1-2_The_Autistic_Experience__First_Person_Perspectives] is set, but key is missing from cloudinary-upload-results.json
+- [2-2_Friendship_and_Peer_Relationships] CLOUDINARY_VIDEO_URLS[2-2_Friendship_and_Peer_Relationships] is set, but key is missing from cloudinary-upload-results.json
+- [3-2_Creating_Sensory_Friendly_Environments] CLOUDINARY_VIDEO_URLS[3-2_Creating_Sensory_Friendly_Environments] is set, but key is missing from cloudinary-upload-results.json
+- [4-1_Visual_Supports__Making_the_Invisible_Visible] CLOUDINARY_VIDEO_URLS[4-1_Visual_Supports__Making_the_Invisible_Visible] is set, but key is missing from cloudinary-upload-results.json
+- [4-2_Structure_and_Predictability] CLOUDINARY_VIDEO_URLS[4-2_Structure_and_Predictability] is set, but key is missing from cloudinary-upload-results.json
+- [5-2_Emotional_Regulation_and_Meltdown_Support] CLOUDINARY_VIDEO_URLS[5-2_Emotional_Regulation_and_Meltdown_Support] is set, but key is missing from cloudinary-upload-results.json
+- [6-1_Special_Interests__Passion__Not_Obsession] CLOUDINARY_VIDEO_URLS[6-1_Special_Interests__Passion__Not_Obsession] is set, but key is missing from cloudinary-upload-results.json
+- [7-2_Life_Skills_and_Promoting_Independence] CLOUDINARY_VIDEO_URLS[7-2_Life_Skills_and_Promoting_Independence] is set, but key is missing from cloudinary-upload-results.json
+- [8-1_Inclusive_Education_for_Autistic_Students] CLOUDINARY_VIDEO_URLS[8-1_Inclusive_Education_for_Autistic_Students] is set, but key is missing from cloudinary-upload-results.json
+- [8-2_Legal_Rights_and_Reasonable_Adjustments] CLOUDINARY_VIDEO_URLS[8-2_Legal_Rights_and_Reasonable_Adjustments] is set, but key is missing from cloudinary-upload-results.json
+- [2-1_What_is_Structured_Literacy__Orton_Gillingham_Principles] CLOUDINARY_VIDEO_URLS[2-1_What_is_Structured_Literacy__Orton_Gillingham_Principles] is set, but key is missing from cloudinary-upload-results.json
+- [2-2_Multisensory_Teaching__Engaging_All_Pathways] CLOUDINARY_VIDEO_URLS[2-2_Multisensory_Teaching__Engaging_All_Pathways] is set, but key is missing from cloudinary-upload-results.json
+- [3-1_What_is_Phonological_Awareness__Continuum_of_Skills] CLOUDINARY_VIDEO_URLS[3-1_What_is_Phonological_Awareness__Continuum_of_Skills] is set, but key is missing from cloudinary-upload-results.json
+- [3-2_Teaching_Phonemic_Awareness__Activities_and_Games] CLOUDINARY_VIDEO_URLS[3-2_Teaching_Phonemic_Awareness__Activities_and_Games] is set, but key is missing from cloudinary-upload-results.json
+- [4-1_Teaching_Phonics_Systematically__Scope_and_Sequence] CLOUDINARY_VIDEO_URLS[4-1_Teaching_Phonics_Systematically__Scope_and_Sequence] is set, but key is missing from cloudinary-upload-results.json
+- [4-2_Decodable_Texts_and_Application] CLOUDINARY_VIDEO_URLS[4-2_Decodable_Texts_and_Application] is set, but key is missing from cloudinary-upload-results.json
+- [5-1_What_is_Reading_Fluency__Accuracy__Rate__Prosody] CLOUDINARY_VIDEO_URLS[5-1_What_is_Reading_Fluency__Accuracy__Rate__Prosody] is set, but key is missing from cloudinary-upload-results.json
+- [5-2_Fluency_Interventions__Repeated_Reading_and_Strategies] CLOUDINARY_VIDEO_URLS[5-2_Fluency_Interventions__Repeated_Reading_and_Strategies] is set, but key is missing from cloudinary-upload-results.json
+- [6-1_Simple_View_of_Reading__Decoding___Comprehension] CLOUDINARY_VIDEO_URLS[6-1_Simple_View_of_Reading__Decoding___Comprehension] is set, but key is missing from cloudinary-upload-results.json
+- [6-2_Comprehension_Strategies_for_Dyslexic_Readers] CLOUDINARY_VIDEO_URLS[6-2_Comprehension_Strategies_for_Dyslexic_Readers] is set, but key is missing from cloudinary-upload-results.json
+- [7-1_Spelling_Instruction__Patterns_Not_Memorization] CLOUDINARY_VIDEO_URLS[7-1_Spelling_Instruction__Patterns_Not_Memorization] is set, but key is missing from cloudinary-upload-results.json
+- [7-2_Supporting_Written_Expression__Separating_Transcription_from_Composition] CLOUDINARY_VIDEO_URLS[7-2_Supporting_Written_Expression__Separating_Transcription_from_Composition] is set, but key is missing from cloudinary-upload-results.json
+- [8-1_Classroom_Accommodations_and_Assistive_Technology] CLOUDINARY_VIDEO_URLS[8-1_Classroom_Accommodations_and_Assistive_Technology] is set, but key is missing from cloudinary-upload-results.json
+- [8-2_Progress_Monitoring_and_Assessment] CLOUDINARY_VIDEO_URLS[8-2_Progress_Monitoring_and_Assessment] is set, but key is missing from cloudinary-upload-results.json
+- [6-2_Impulse_Control__Stop_and_Think_Strategies] CLOUDINARY_VIDEO_URLS[6-2_Impulse_Control__Stop_and_Think_Strategies] is set, but key is missing from cloudinary-upload-results.json
+- [ehcp-professional-contributions] CLOUDINARY_VIDEO_URLS[ehcp-professional-contributions] is set, but key is missing from cloudinary-upload-results.json
+- [ehcp-appeals] CLOUDINARY_VIDEO_URLS[ehcp-appeals] is set, but key is missing from cloudinary-upload-results.json
+- ... (22 more)
+VIDEO REGISTRY VALIDATION PASSED
+==> npm run test:contextual-help-coverage
+
+> edpsych-connect-web-v2@1.0.0 test:contextual-help-coverage
+> tsx tools/validate-contextual-help-coverage.ts
+
+Contextual Help video coverage:
+- ehcp-application-journey: OK (local)
+- help-getting-started: OK (local)
+- innovation-research-hub: OK (local)
+- innovation-safety-net: OK (heygen)
+- intro-coding-journey: OK (local)
+- la-dashboard-overview: OK (local)
+- onboarding-welcome: OK (local)
+- parent-portal-welcome: OK (local)
+- platform-introduction: OK (local)
+==> npm run test:audit-integrity
+
+> edpsych-connect-web-v2@1.0.0 test:audit-integrity
+> tsx tools/test-audit-integrity.ts
+
+OK: audit integrity envelope tests passed
+==> npm run verify:audit-integrity
+
+> edpsych-connect-web-v2@1.0.0 verify:audit-integrity
+> tsx tools/verify-audit-log-integrity.ts
+
+SKIP: AUDIT_LOG_INTEGRITY_MODE=off
+Cleaning Next build artifacts...
+Ensuring no process is listening on port 3000 (best effort)...
+Cleanup retry 1/5 failed for .next_build_gate: The directory is not empty. : 'E:\EdpsychConnect\.next_build_gate\types\app\api\cron'.
+Cleanup retry 2/5 failed for .next_build_gate: The directory is not empty. : 'E:\EdpsychConnect\.next_build_gate\types\app\api\ehcp\sen2'.
+Cleanup retry 3/5 failed for .next_build_gate: The directory is not empty. : 'E:\EdpsychConnect\.next_build_gate\types\app\api\ehcp'.
+Cleanup retry 4/5 failed for .next_build_gate: The directory is not empty. : 'E:\EdpsychConnect\.next_build_gate\types\app\api\help'.
+Cleanup retry 5/5 failed for .next_build_gate: The directory is not empty. : 'E:\EdpsychConnect\.next_build_gate\types\app\api\la'.
+Fallback cleanup (takeown/icacls/rd) for .next_build_gate ...
+WARNING: Unable to fully remove .next/.next_build_gate (Windows file lock/permissions).
+If the build fails with a lock error, close VS Code/terminals and retry, or reboot to release file handles.
+Cleanup error: Failed to remove .next_build_gate. A background process may still be holding file handles.
+Falling back to NEXT_DIST_DIR=.next_build_gate_alt for this run.
+==> npm run build
+
+> edpsych-connect-web-v2@1.0.0 prebuild
+> rimraf node_modules/@sentry
+
+
+> edpsych-connect-web-v2@1.0.0 build
+> cross-env NODE_OPTIONS="--max-old-space-size=8192" node ./scripts/next-cli-patched.cjs build --webpack
+
+Patched fs.readlink for EISDIR and added retries for UNKNOWN/EPERM errors
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[Patch] Retrying mkdirSync on E:\EdpsychConnect\.next_build_gate_alt\types due to EPERM
+[next-cli-patched] distDir '.next_build_gate_alt' is not usable (types/ not writable). Falling back to '.next_build_gate'.
+   Ôû▓ Next.js 16.0.10 (webpack)
+   - Environments: .env.production.local, .env.local, .env
+
+   Creating an optimized production build ...
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
+ Ô£ô Compiled successfully in 4.7min
+   Skipping validation of types
+   Collecting page data using 15 workers ...
+[2025-12-16T00:33:10.073Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-16T00:33:10.029Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-16T00:33:10.060Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-16T00:33:10.032Z] DEBUG: ­ƒÄ» Intelligent Problem Matcher initialized
+[2025-12-16T00:33:10.048Z] DEBUG: ­ƒÄ¼ Living Demonstrations System initialized
+[2025-12-16T00:33:10.035Z] DEBUG: ­ƒºá Adaptive Intelligence System initialized
+[2025-12-16T00:33:10.082Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-16T00:33:10.135Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-16T00:33:10.422Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-16T00:33:10.436Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-16T00:33:10.449Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-16T00:33:12.465Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-16T00:33:12.886Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-16T00:33:12.922Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-16T00:33:13.230Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-16T00:33:13.440Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-16T00:33:14.412Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-16T00:33:14.496Z] INFO: EmailService initialized with SendGrid transport
+   Generating static pages using 15 workers (0/56) ...
+[2025-12-16T00:33:41.211Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-16T00:33:41.221Z] INFO: EmailService initialized with SendGrid transport
+[2025-12-16T00:33:41.572Z] INFO: EmailService initialized with SendGrid transport
+   Generating static pages using 15 workers (14/56) 
+   Generating static pages using 15 workers (28/56) 
+   Generating static pages using 15 workers (42/56) 
+ Ô£ô Generating static pages using 15 workers (56/56) in 11.5s
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)
+Ôöî Ôùï /_not-found
+Ôö£ ãÆ /[locale]
+Ôö£ ãÆ /[locale]/about
+Ôö£ ãÆ /[locale]/accessibility
+Ôö£ ãÆ /[locale]/admin
+Ôö£ ãÆ /[locale]/admin/ethics
+Ôö£ ãÆ /[locale]/admin/integrations
+Ôö£ ãÆ /[locale]/ai-agents
+Ôö£ ãÆ /[locale]/algorithms
+Ôö£ ãÆ /[locale]/analytics
+Ôö£ ãÆ /[locale]/assessments
+Ôö£ ãÆ /[locale]/assessments/[id]
+Ôö£ ãÆ /[locale]/assessments/[id]/conduct
+Ôö£ ãÆ /[locale]/assessments/new
+Ôö£ ãÆ /[locale]/assessments/tasks/digit-span
+Ôö£ ãÆ /[locale]/beta-login
+Ôö£ ãÆ /[locale]/beta-register
+Ôö£ ãÆ /[locale]/blog
+Ôö£ ãÆ /[locale]/blog/[slug]
+Ôö£ ãÆ /[locale]/careers
+Ôö£ ãÆ /[locale]/cases
+Ôö£ ãÆ /[locale]/cases/[id]
+Ôö£ ãÆ /[locale]/cases/new
+Ôö£ ãÆ /[locale]/collaborate
+Ôö£ ãÆ /[locale]/collaborate/[token]
+Ôö£ ãÆ /[locale]/collaborate/thank-you
+Ôö£ ãÆ /[locale]/contact
+Ôö£ ãÆ /[locale]/dashboard
+Ôö£ ãÆ /[locale]/demo
+Ôö£ ãÆ /[locale]/demo/assessment
+Ôö£ ãÆ /[locale]/demo/coding
+Ôö£ ãÆ /[locale]/demo/ehcp
+Ôö£ ãÆ /[locale]/demo/gamification
+Ôö£ ãÆ /[locale]/demo/golden-thread
+Ôö£ ãÆ /[locale]/demo/interventions
+Ôö£ ãÆ /[locale]/demo/onboarding
+Ôö£ ãÆ /[locale]/demo/tracking
+Ôö£ ãÆ /[locale]/demo/training
+Ôö£ ãÆ /[locale]/demo/translator
+Ôö£ ãÆ /[locale]/diagnostic
+Ôö£ ãÆ /[locale]/ehcp
+Ôö£ ãÆ /[locale]/ehcp/[id]
+Ôö£ ãÆ /[locale]/ehcp/modules
+Ôö£ ãÆ /[locale]/ehcp/modules/annual-reviews
+Ôö£ ãÆ /[locale]/ehcp/modules/compliance-risk
+Ôö£ ãÆ /[locale]/ehcp/modules/golden-thread
+Ôö£ ãÆ /[locale]/ehcp/modules/mediation-tribunal
+Ôö£ ãÆ /[locale]/ehcp/modules/phase-transfers
+Ôö£ ãÆ /[locale]/ehcp/modules/resource-costing
+Ôö£ ãÆ /[locale]/ehcp/modules/sen2-returns
+Ôö£ ãÆ /[locale]/ehcp/new
+Ôö£ ãÆ /[locale]/ep
+Ôö£ ãÆ /[locale]/forgot-password
+Ôö£ ãÆ /[locale]/forum
+Ôö£ ãÆ /[locale]/gamification
+Ôö£ ãÆ /[locale]/gdpr
+Ôö£ ãÆ /[locale]/help
+Ôö£ ãÆ /[locale]/help/[slug]
+Ôö£ ãÆ /[locale]/institutional-management
+Ôö£ ãÆ /[locale]/interventions
+Ôö£ ãÆ /[locale]/interventions/[id]
+Ôö£ ãÆ /[locale]/interventions/library
+Ôö£ ãÆ /[locale]/interventions/new
+Ôö£ ãÆ /[locale]/la/applications/[id]
+Ôö£ ãÆ /[locale]/la/dashboard
+Ôö£ ãÆ /[locale]/landing
+Ôö£ ãÆ /[locale]/login
+Ôö£ ãÆ /[locale]/marketplace
+Ôö£ ãÆ /[locale]/marketplace/dashboard
+Ôö£ ãÆ /[locale]/marketplace/la-panel
+Ôö£ ãÆ /[locale]/marketplace/register
+Ôö£ ãÆ /[locale]/networking
+Ôö£ ãÆ /[locale]/onboarding
+Ôö£ ãÆ /[locale]/outcomes
+Ôö£ ãÆ /[locale]/parents
+Ôö£ ãÆ /[locale]/pricing
+Ôö£ ãÆ /[locale]/privacy
+Ôö£ ãÆ /[locale]/problem-solver
+Ôö£ ãÆ /[locale]/professional/portal
+Ôö£ ãÆ /[locale]/progress
+Ôö£ ãÆ /[locale]/provision
+Ôö£ ãÆ /[locale]/reports
+Ôö£ ãÆ /[locale]/reports/create
+Ôö£ ãÆ /[locale]/research
+Ôö£ ãÆ /[locale]/research/ethics
+Ôö£ ãÆ /[locale]/safeguarding
+Ôö£ ãÆ /[locale]/school/ehcp-request
+Ôö£ ãÆ /[locale]/senco
+Ôö£ ãÆ /[locale]/settings
+Ôö£ ãÆ /[locale]/signin
+Ôö£ ãÆ /[locale]/signup
+Ôö£ ãÆ /[locale]/student
+Ôö£ ãÆ /[locale]/student/lessons
+Ôö£ ãÆ /[locale]/student/lessons/[id]
+Ôö£ ãÆ /[locale]/subscription
+Ôö£ ãÆ /[locale]/subscription/addon
+Ôö£ ãÆ /[locale]/teachers
+Ôö£ ãÆ /[locale]/terms
+Ôö£ ãÆ /[locale]/test-auth
+Ôö£ ãÆ /[locale]/test-login
+Ôö£ ãÆ /[locale]/test-navigation
+Ôö£ ãÆ /[locale]/tokenisation
+Ôö£ ãÆ /[locale]/training
+Ôö£ ãÆ /[locale]/training/certificates
+Ôö£ ãÆ /[locale]/training/checkout/[productId]
+Ôö£ ãÆ /[locale]/training/courses/[id]
+Ôö£ ãÆ /[locale]/training/courses/[id]/learn
+Ôö£ ãÆ /[locale]/training/dashboard
+Ôö£ ãÆ /[locale]/training/marketplace
+Ôö£ ãÆ /[locale]/transitions
+Ôö£ ãÆ /[locale]/verify
+Ôö£ ãÆ /api/admin/tenants/[tenantId]/byod/config
+Ôö£ ãÆ /api/admin/tenants/[tenantId]/byod/validate
+Ôö£ ãÆ /api/ai/adaptive
+Ôö£ ãÆ /api/ai/chat
+Ôö£ ãÆ /api/ai/demos
+Ôö£ ãÆ /api/ai/matcher
+Ôö£ ãÆ /api/analytics/time-savings
+Ôö£ ãÆ /api/api-docs
+Ôö£ ãÆ /api/assessment/analytics
+Ôö£ ãÆ /api/assessments
+Ôö£ ãÆ /api/assessments/[id]
+Ôö£ ãÆ /api/assessments/[id]/report
+Ôö£ ãÆ /api/assessments/collaborations
+Ôö£ ãÆ /api/assessments/collaborations/[id]
+Ôö£ ãÆ /api/assessments/frameworks/[id]
+Ôö£ ãÆ /api/assessments/instances
+Ôö£ ãÆ /api/assessments/instances/[id]
+Ôö£ ãÆ /api/assessments/submit
+Ôö£ ãÆ /api/auth
+Ôö£ ãÆ /api/auth/forgot-password
+Ôö£ ãÆ /api/auth/login
+Ôö£ ãÆ /api/auth/logout
+Ôö£ ãÆ /api/auth/me
+Ôö£ ãÆ /api/auth/refresh
+Ôö£ ãÆ /api/auth/register
+Ôö£ ãÆ /api/auth/reset-password
+Ôö£ ãÆ /api/auth/session
+Ôö£ ãÆ /api/auth/signup
+Ôö£ ãÆ /api/automation/analytics
+Ôö£ ãÆ /api/automation/effectiveness
+Ôö£ ãÆ /api/automation/interventions
+Ôö£ ãÆ /api/automation/templates
+Ôö£ ãÆ /api/battle-royale/match/[id]
+Ôö£ ãÆ /api/battle-royale/matchmaking/queue
+Ôö£ ãÆ /api/battle-royale/matchmaking/status
+Ôö£ ãÆ /api/battle-royale/squad
+Ôö£ ãÆ /api/beta/register
+Ôö£ ãÆ /api/beta/validate-code
+Ôö£ ãÆ /api/blog
+Ôö£ ãÆ /api/blog/[slug]
+Ôö£ ãÆ /api/blog/generate
+Ôö£ ãÆ /api/cases
+Ôö£ ãÆ /api/cases/[id]
+Ôö£ ãÆ /api/class/[id]/actions
+Ôö£ ãÆ /api/class/[id]/students
+Ôö£ ãÆ /api/class/dashboard
+Ôö£ ãÆ /api/coding/curriculum
+Ôö£ ãÆ /api/coding/progress
+Ôö£ ãÆ /api/collaboration/cases
+Ôö£ ãÆ /api/cpd
+Ôö£ ãÆ /api/cpd/[id]
+Ôö£ ãÆ /api/cpd/portfolio
+Ôö£ ãÆ /api/cron/predictions
+Ôö£ ãÆ /api/cron/sync
+Ôö£ ãÆ /api/ehcp
+Ôö£ ãÆ /api/ehcp/[id]
+Ôö£ ãÆ /api/ehcp/[id]/export
+Ôö£ ãÆ /api/ehcp/annual-reviews
+Ôö£ ãÆ /api/ehcp/coherence
+Ôö£ ãÆ /api/ehcp/compliance-risk
+Ôö£ ãÆ /api/ehcp/funding-bands
+Ôö£ ãÆ /api/ehcp/golden-thread
+Ôö£ ãÆ /api/ehcp/mediation
+Ôö£ ãÆ /api/ehcp/phase-transfers
+Ôö£ ãÆ /api/ehcp/provision-costs
+Ôö£ ãÆ /api/ehcp/sen2
+Ôö£ ãÆ /api/ehcp/sen2-returns
+Ôö£ ãÆ /api/ehcp/sen2/export
+Ôö£ ãÆ /api/ehcp/tribunals
+Ôö£ ãÆ /api/errors
+Ôö£ ãÆ /api/ethics/analytics
+Ôö£ ãÆ /api/ethics/assessments
+Ôö£ ãÆ /api/ethics/incidents
+Ôö£ ãÆ /api/ethics/monitors
+Ôö£ ãÆ /api/feedback
+Ôö£ ãÆ /api/forum/summary
+Ôö£ ãÆ /api/gamification
+Ôö£ ãÆ /api/gamification/leaderboard
+Ôö£ ãÆ /api/health
+Ôö£ ãÆ /api/health-dashboard
+Ôö£ ãÆ /api/help
+Ôö£ ãÆ /api/help/[slug]
+Ôö£ ãÆ /api/help/categories
+Ôö£ ãÆ /api/help/chat
+Ôö£ ãÆ /api/helpbot
+Ôö£ ãÆ /api/integrations/connect
+Ôö£ ãÆ /api/integrations/logs
+Ôö£ ãÆ /api/integrations/status
+Ôö£ ãÆ /api/interventions
+Ôö£ ãÆ /api/interventions/[id]
+Ôö£ ãÆ /api/interventions/generate
+Ôö£ ãÆ /api/interventions/tracking
+Ôö£ ãÆ /api/la/applications
+Ôö£ ãÆ /api/la/applications/[id]
+Ôö£ ãÆ /api/la/applications/[id]/assign
+Ôö£ ãÆ /api/la/applications/[id]/contributions
+Ôö£ ãÆ /api/la/applications/[id]/decision
+Ôö£ ãÆ /api/la/applications/[id]/ehcp-draft
+Ôö£ ãÆ /api/la/compliance
+Ôö£ ãÆ /api/la/dashboard
+Ôö£ ãÆ /api/learning/personalization
+Ôö£ ãÆ /api/legal/signatures
+Ôö£ ãÆ /api/lessons/assign
+Ôö£ ãÆ /api/lessons/differentiate
+Ôö£ ãÆ /api/marketplace/dashboard
+Ôö£ ãÆ /api/marketplace/la-panel/apply
+Ôö£ ãÆ /api/marketplace/professionals/register
+Ôö£ ãÆ /api/marketplace/professionals/search
+Ôö£ ãÆ /api/marketplace/profile/status
+Ôö£ ãÆ /api/monitoring/dashboard
+Ôö£ ãÆ /api/multi-agency/ep-dashboard
+Ôö£ ãÆ /api/multi-agency/view
+Ôö£ ãÆ /api/network
+Ôö£ ãÆ /api/onboarding/[...action]
+Ôö£ ãÆ /api/orchestrator/agent
+Ôö£ ãÆ /api/orchestrator/status
+Ôö£ ãÆ /api/orchestrator/tutor
+Ôö£ ãÆ /api/outcomes
+Ôö£ ãÆ /api/outcomes/track
+Ôö£ ãÆ /api/parent/messages
+Ôö£ ãÆ /api/parent/portal/[childId]
+Ôö£ ãÆ /api/portal/parent
+Ôö£ ãÆ /api/problem-solver
+Ôö£ ãÆ /api/professional/contributions
+Ôö£ ãÆ /api/professional/contributions/[id]
+Ôö£ ãÆ /api/professional/development
+Ôö£ ãÆ /api/progress/dashboard
+Ôö£ ãÆ /api/public/collaborations/[id]
+Ôö£ ãÆ /api/reports/generate
+Ôö£ ãÆ /api/research/library
+Ôö£ ãÆ /api/resources/library
+Ôö£ ãÆ /api/safeguarding
+Ôö£ ãÆ /api/senco
+Ôö£ ãÆ /api/settings/integrations
+Ôö£ ãÆ /api/settings/integrations/connect
+Ôö£ ãÆ /api/settings/integrations/sync
+Ôö£ ãÆ /api/settings/integrations/test
+Ôö£ ãÆ /api/status
+Ôö£ ãÆ /api/students
+Ôö£ ãÆ /api/students/[id]
+Ôö£ ãÆ /api/students/[id]/lessons
+Ôö£ ãÆ /api/students/[id]/profile
+Ôö£ ãÆ /api/study-buddy/chat
+Ôö£ ãÆ /api/study-buddy/insights
+Ôö£ ãÆ /api/study-buddy/profile
+Ôö£ ãÆ /api/study-buddy/recommendations
+Ôö£ ãÆ /api/subscription
+Ôö£ ãÆ /api/subscription/addon
+Ôö£ ãÆ /api/subscription/current
+Ôö£ ãÆ /api/tokenisation/rewards
+Ôö£ ãÆ /api/tokenisation/treasury
+Ôö£ ãÆ /api/training
+Ôö£ ãÆ /api/training/courses
+Ôö£ ãÆ /api/training/courses/[id]
+Ôö£ ãÆ /api/training/create-payment-intent
+Ôö£ ãÆ /api/training/discount-codes/validate
+Ôö£ ãÆ /api/training/enrollments
+Ôö£ ãÆ /api/training/products
+Ôö£ ãÆ /api/training/progress
+Ôö£ ãÆ /api/transitions
+Ôö£ ãÆ /api/user/onboarding
+Ôö£ ãÆ /api/version
+Ôö£ ãÆ /api/video/heygen-token
+Ôö£ ãÆ /api/video/heygen-url
+Ôö£ ãÆ /api/voice/command
+Ôö£ ãÆ /api/voice/family
+Ôö£ ãÆ /api/voice/quick-actions
+Ôö£ ãÆ /api/voice/transcribe
+Ôö£ ãÆ /api/waitlist
+Ôö£ ãÆ /api/webhooks/stripe
+Ôö£ Ôùï /maintenance
+Ôö£ Ôùï /robots.txt
+Ôöö Ôùï /sitemap.xml
+
+
+ãÆ Proxy (Middleware)
+
+Ôùï  (Static)   prerendered as static content
+ãÆ  (Dynamic)  server-rendered on demand
+
+Starting production server on http://localhost:3000 ...
+Server logs: E:\EdpsychConnect\logs\gate-server-20251216_003358.out.log
+            E:\EdpsychConnect\logs\gate-server-20251216_003358.err.log
+Waiting for server readiness...
+Error: Timed out waiting for: http://localhost:3000
+    at E:\EdpsychConnect\node_modules\wait-on\lib\wait-on.js:131:31
+    at doInnerSub (E:\EdpsychConnect\node_modules\rxjs\dist\cjs\internal\operators\mergeInternals.js:22:31)
+    at outerNext (E:\EdpsychConnect\node_modules\rxjs\dist\cjs\internal\operators\mergeInternals.js:17:70)
+    at OperatorSubscriber._this._next (E:\EdpsychConnect\node_modules\rxjs\dist\cjs\internal\operators\OperatorSubscriber.js:33:21)
+    at Subscriber.next (E:\EdpsychConnect\node_modules\rxjs\dist\cjs\internal\Subscriber.js:51:18)
+    at AsyncAction.work (E:\EdpsychConnect\node_modules\rxjs\dist\cjs\internal\observable\timer.js:28:28)
+    at AsyncAction._execute (E:\EdpsychConnect\node_modules\rxjs\dist\cjs\internal\scheduler\AsyncAction.js:79:18)
+    at AsyncAction.execute (E:\EdpsychConnect\node_modules\rxjs\dist\cjs\internal\scheduler\AsyncAction.js:67:26)
+    at AsyncScheduler.flush (E:\EdpsychConnect\node_modules\rxjs\dist\cjs\internal\scheduler\AsyncScheduler.js:38:33)
+    at listOnTimeout (node:internal/timers:581:17)
+\nRELEASE GATE FAILED: Server did not become ready at http://localhost:3000 in time.
+at <ScriptBlock>, E:\EdpsychConnect\tools\gate-release.ps1: line 321

@@ -148,8 +148,8 @@ export async function GET(
   } catch (_error) {
     console.error('[Multi-Agency View API] Error generating view:', _error);
     return NextResponse.json({
-      error: 'Internal server _error',
-      message: _error instanceof Error ? _error.message : 'Unknown _error'
+      error: 'Internal server error',
+      message: _error instanceof Error ? _error.message : 'Unknown error'
     }, { status: 500 });
   }
 }

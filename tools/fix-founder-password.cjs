@@ -1,20 +1,20 @@
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 
-const prisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: 'postgres://neondb_owner:npg_zkQMGCh0ZO8L@ep-steep-boat-abz9lg8e-pooler.eu-west-2.aws.neon.tech/neondb?connect_timeout=15&sslmode=require'
-    }
-  }
-});
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL is not set. Refusing to connect.');
+}
+
+const prisma = new PrismaClient();
 
 async function main() {
   console.log('Checking founder account in USERS table...\n');
   
   try {
+    const email = process.env.FOUNDER_EMAIL || 'scott.ipatrick@edpsychconnect.com';
+
     const user = await prisma.users.findUnique({
-      where: { email: 'scott.ipatrick@edpsychconnect.com' }
+      where: { email }
     });
     
     if (!user) {
@@ -35,32 +35,24 @@ async function main() {
     console.log('   is_active:', user.is_active);
     console.log('   Password hash exists:', !!user.password_hash);
     console.log('   Hash length:', user.password_hash?.length || 0);
-    console.log('   Hash preview:', user.password_hash?.substring(0, 30) + '...');
-    
-    // Test password verification
-    const testPassword = 'Founder2025!';
-    const isValid = await bcrypt.compare(testPassword, user.password_hash || '');
-    console.log('\n   Password "Founder2025!" valid:', isValid);
-    
-    if (!isValid) {
-      console.log('\n⚠️ Password mismatch - resetting password...');
-      const newHash = await bcrypt.hash('Founder2025!', 12);
-      console.log('   New hash:', newHash.substring(0, 30) + '...');
-      
+    const shouldReset = process.env.CONFIRM_PASSWORD_RESET === 'YES';
+    const newPassword = process.env.FOUNDER_NEW_PASSWORD;
+
+    if (shouldReset) {
+      if (!newPassword) {
+        throw new Error('CONFIRM_PASSWORD_RESET=YES requires FOUNDER_NEW_PASSWORD');
+      }
+
+      console.log('\n⚠️  Resetting password (not printing plaintext)...');
+      const newHash = await bcrypt.hash(newPassword, 12);
+
       await prisma.users.update({
         where: { id: user.id },
-        data: { password_hash: newHash }
+        data: { password_hash: newHash, is_active: true }
       });
-      console.log('✅ Password reset to "Founder2025!"');
-      
-      // Verify the reset
-      const updatedUser = await prisma.users.findUnique({
-        where: { email: 'scott.ipatrick@edpsychconnect.com' }
-      });
-      const verifyReset = await bcrypt.compare('Founder2025!', updatedUser?.password_hash || '');
-      console.log('   Verification after reset:', verifyReset);
+      console.log('✅ Password reset complete');
     } else {
-      console.log('\n✅ Password is already correct!');
+      console.log('\nℹ️  No password reset performed. To reset, set CONFIRM_PASSWORD_RESET=YES and FOUNDER_NEW_PASSWORD.');
     }
     
   } finally {

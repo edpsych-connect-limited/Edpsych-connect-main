@@ -609,6 +609,8 @@ export const BattleRoyaleGame: React.FC = () => {
     }, 50);
 
     return () => clearInterval(interval);
+    // getQuestionsByDifficulty is stable (no external dependencies)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameState.status, activeQuestion, playSound]);
 
   const handleAnswer = (index: number) => {

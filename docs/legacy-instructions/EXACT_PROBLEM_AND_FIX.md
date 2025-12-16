@@ -88,17 +88,17 @@ this.anthropic = new Anthropic({
 
 | Variable Name (EXACT!) | Value (from .env.txt) | Environments |
 |----------------------|----------------------|--------------|
-| `DATABASE_URL` | `postgresql://postgres:LIeFibdBmBEVtrOaAkmUMbFzTbmLLAPy@caboose.proxy.rlwy.net:42364/railway` | ✅ Prod ✅ Preview ✅ Dev |
-| `MONGODB_URI` | `mongodb://mongo:WyFZWpMXUKdycSTkQrIvOJgROYtclotG@trolley.proxy.rlwy.net:19013` | ✅ Prod ✅ Preview ✅ Dev |
-| `REDIS_URL` | `redis://default:wEvdnwhivvZnLWCJORmlvMDTfnhgntWG@crossover.proxy.rlwy.net:58963` | ✅ Prod ✅ Preview ✅ Dev |
-| `JWT_SECRET` | `K7mP9nQ2tR5vX8zA3bC6dE1fH4jL0wY` | ✅ Prod ✅ Preview ✅ Dev |
-| `NEO4J_PASSWORD` | `C1BF40ISMj-HB6Y9hnnhqnSpkBUNdp4HG_CVo1J1XHM` | ✅ Prod ✅ Preview ✅ Dev |
-| `OPENAI_API_KEY` | `sk-Qz8Wm5Lp9TnXvJyHrEcFbA3Dk7Gt6UiVoSbPq2OwZ1YcX4` | ✅ Prod ✅ Preview ✅ Dev |
-| `ANTHROPIC_API_KEY` | `sk-ant-api03-JS8w5KUn4KfQqQm0IEXXuL_HkJRMIrTqF4OOv_zQPHmBTDTHDjDw3SgWxn0SdE46yQ-wEyAAAAB_QrCuAA` | ✅ Prod ✅ Preview ✅ Dev |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | `pk_live_51R5bbqBz14LFoqP29ItewuPByklBLdTHLPasfhnZVXD1fV2wncGKmDd7YJ3OfX4GEvXFwwkXLsW9VxY5tPFXGOPc00wsj8yerh` | ✅ Prod ✅ Preview ✅ Dev |
-| `STRIPE_SECRET_KEY` | `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` | ✅ Prod ✅ Preview ✅ Dev |
-| `STRIPE_WEBHOOK_SECRET` | `whsec_HPnizmObI5oaQvOW05iY4w2yEWWB66Ph` | ✅ Prod ✅ Preview ✅ Dev |
-| `NEXT_PUBLIC_SENTRY_DSN` | `https://1739f1ab3c214b6600646650f89e2643@o4509879738826752.ingest.de.sentry.io/4509879781883984` | ✅ Prod ✅ Preview ✅ Dev |
+| `DATABASE_URL` | `postgresql://...` | ✅ Prod ✅ Preview ✅ Dev |
+| `MONGODB_URI` | `mongodb://...` | ✅ Prod ✅ Preview ✅ Dev |
+| `REDIS_URL` | `redis://...` | ✅ Prod ✅ Preview ✅ Dev |
+| `JWT_SECRET` | `(set via secret manager)` | ✅ Prod ✅ Preview ✅ Dev |
+| `NEO4J_PASSWORD` | `(set via secret manager)` | ✅ Prod ✅ Preview ✅ Dev |
+| `OPENAI_API_KEY` | `sk-...` | ✅ Prod ✅ Preview ✅ Dev |
+| `ANTHROPIC_API_KEY` | `sk-ant-api03-...` | ✅ Prod ✅ Preview ✅ Dev |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | `pk_live_...` | ✅ Prod ✅ Preview ✅ Dev |
+| `STRIPE_SECRET_KEY` | `sk_live_...` | ✅ Prod ✅ Preview ✅ Dev |
+| `STRIPE_WEBHOOK_SECRET` | `whsec_...` | ✅ Prod ✅ Preview ✅ Dev |
+| `NEXT_PUBLIC_SENTRY_DSN` | `(set in Vercel)` | ✅ Prod ✅ Preview ✅ Dev |
 
 #### Step 3: Redeploy (2 mins)
 
@@ -121,16 +121,16 @@ vercel env rm REDIS_PUBLIC_URL production --yes
 
 # Add correctly named variables (will prompt for values)
 vercel env add DATABASE_URL production
-# Paste: postgresql://postgres:LIeFibdBmBEVtrOaAkmUMbFzTbmLLAPy@caboose.proxy.rlwy.net:42364/railway
+# Paste: postgresql://user:password@host:5432/dbname
 
 vercel env add MONGODB_URI production
-# Paste: mongodb://mongo:WyFZWpMXUKdycSTkQrIvOJgROYtclotG@trolley.proxy.rlwy.net:19013
+# Paste: mongodb://user:password@host:27017/dbname
 
 vercel env add REDIS_URL production
-# Paste: redis://default:wEvdnwhivvZnLWCJORmlvMDTfnhgntWG@crossover.proxy.rlwy.net:58963
+# Paste: redis://default:password@host:6379
 
 vercel env add JWT_SECRET production
-# Paste: K7mP9nQ2tR5vX8zA3bC6dE1fH4jL0wY
+# Paste: (set via secret manager)
 
 # ... (repeat for all missing variables)
 

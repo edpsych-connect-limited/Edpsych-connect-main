@@ -1,5 +1,6 @@
-
 describe('Researcher Role E2E', () => {
+  const seedPassword = (Cypress.env('SEED_TEST_USERS_PASSWORD') as string | undefined) ?? 'Test123!';
+
   beforeEach(() => {
     // Visit login page
     cy.visit('/login');
@@ -8,7 +9,7 @@ describe('Researcher Role E2E', () => {
   it('should allow researcher login and access researcher dashboard', () => {
     // Login as researcher
     cy.get('input[type="email"]').type('researcher@demo.com');
-    cy.get('input[type="password"]').type('Test123!');
+    cy.get('input[type="password"]').type(seedPassword);
     cy.get('button[type="submit"]').click();
 
     // Wait for redirect and loading
@@ -27,7 +28,7 @@ describe('Researcher Role E2E', () => {
   it('should have access to ethics submission', () => {
     // Login
     cy.get('input[type="email"]').type('researcher@demo.com');
-    cy.get('input[type="password"]').type('Test123!');
+    cy.get('input[type="password"]').type(seedPassword);
     cy.get('button[type="submit"]').click();
 
     // Navigate to research hub

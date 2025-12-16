@@ -172,7 +172,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { 
         error: 'Failed to submit LA Panel application',
-        details: _error instanceof Error ? _error.message : 'Unknown _error',
+        details: _error instanceof Error ? _error.message : 'Unknown error',
       },
       { status: 500 }
     );

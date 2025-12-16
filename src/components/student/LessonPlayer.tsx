@@ -71,8 +71,8 @@ export default function LessonPlayer({ lessonId }: { lessonId: string }) {
         } else {
           console.error('Failed to fetch lesson');
         }
-      } catch (error) {
-        console.error('Error fetching lesson', error);
+      } catch (err) {
+        console.error('Error fetching lesson', err);
       } finally {
         setLoading(false);
       }
@@ -126,7 +126,7 @@ export default function LessonPlayer({ lessonId }: { lessonId: string }) {
         setIsRunning(false);
       }, 1000);
 
-    } catch (error) {
+    } catch (_error) {
       setOutput('Error executing code.');
       setIsRunning(false);
     }

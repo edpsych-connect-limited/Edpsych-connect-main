@@ -3,7 +3,7 @@
 **Date**: 2025-11-04
 **Tester**: Dr. Scott Ighavongbe-Patrick
 **Dev Server**: http://localhost:3002
-**Test Account**: teacher@test.edpsych.com (Password: Test123!)
+**Test Account**: teacher@test.edpsych.com (password provided securely)
 
 ---
 

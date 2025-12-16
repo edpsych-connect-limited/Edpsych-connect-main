@@ -59,10 +59,10 @@ export default function NotFound() {
             </Button>
           </Link>
           
-          <Link href="/search" passHref>
+          <Link href="/help" passHref>
             <Button variant="outline" className="gap-2">
               <Search className="h-4 w-4" />
-              Search Resources
+              Find Help
             </Button>
           </Link>
         </div>

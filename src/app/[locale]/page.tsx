@@ -11,7 +11,7 @@
 
 import { Metadata } from 'next';
 import LandingPage from '@/components/landing/LandingPage';
-import ComingSoonPage from '@/components/landing/ComingSoonPage';
+import MaintenancePage from '@/components/landing/MaintenancePage';
 
 export const metadata: Metadata = {
   title: 'EdPsych Connect World | Teaching That Adapts Itself - Platform Orchestration for UK Education',
@@ -66,12 +66,12 @@ export default async function Home({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   // Beta launch: Show full platform by default
-  // Use ?maintenance=true to show coming soon page if needed
+  // Use ?maintenance=true to show the maintenance page if needed
   const resolvedSearchParams = await searchParams;
   const isMaintenance = resolvedSearchParams?.maintenance === 'true';
 
   if (isMaintenance) {
-    return <ComingSoonPage />;
+    return <MaintenancePage />;
   }
 
   return <LandingPage pricingData={[]} />;

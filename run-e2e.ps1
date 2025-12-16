@@ -2,12 +2,56 @@
 # Usage: powershell -ExecutionPolicy Bypass -File run-e2e.ps1 [-Spec "cypress/e2e/auth/login.cy.ts"]
 
 param (
-    [string]$Spec = "cypress/e2e/auth/login.cy.ts"
+    # Supports comma-separated spec list (Cypress accepts "a,b,c")
+    [string]$Spec = "cypress/e2e/sanity.cy.ts,cypress/e2e/auth.cy.ts,cypress/e2e/parent-portal.cy.ts"
 )
 
 Write-Host "Starting server..."
 $env:NODE_OPTIONS = ""
-$env:DATABASE_URL = "postgresql://neondb_owner:npg_rSnga68XPqve@ep-delicate-grass-abi62lhk-pooler.eu-west-2.aws.neon.tech/neondb?connect_timeout=15&sslmode=require"
+
+function Import-DotEnv {
+    param(
+        [string[]]$Paths
+    )
+
+    foreach ($path in $Paths) {
+        if (-not (Test-Path $path)) {
+            continue
+        }
+
+        Get-Content $path | ForEach-Object {
+            $line = $_.Trim()
+            if (-not $line -or $line.StartsWith('#')) { return }
+
+            if ($line.StartsWith('export ')) {
+                $line = $line.Substring(7).Trim()
+            }
+
+            $idx = $line.IndexOf('=')
+            if ($idx -lt 1) { return }
+
+            $key = $line.Substring(0, $idx).Trim()
+            $val = $line.Substring($idx + 1).Trim()
+
+            if (($val.StartsWith('"') -and $val.EndsWith('"')) -or ($val.StartsWith("'") -and $val.EndsWith("'"))) {
+                $val = $val.Substring(1, $val.Length - 2)
+            }
+
+            if ($key) {
+                $env:$key = $val
+            }
+        }
+    }
+}
+
+Import-DotEnv -Paths @('.env', '.env.local', '.env.development.local')
+
+if (-not $env:DATABASE_URL) {
+    Write-Host "DATABASE_URL is not set. Configure it in .env/.env.local or in your shell environment." -ForegroundColor Red
+    exit 1
+}
+
+$cypressExitCode = 1
 $serverProcess = Start-Process -FilePath "cmd" -ArgumentList "/c npm start" -PassThru -NoNewWindow
 
 # Wait for server to be ready

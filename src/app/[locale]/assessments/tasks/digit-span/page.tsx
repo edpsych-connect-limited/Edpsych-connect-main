@@ -3,12 +3,12 @@
 import React, { useState } from 'react';
 import DigitSpanTask from '@/components/assessments/interactive/DigitSpanTask';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Loader2, CheckCircle } from 'lucide-react';
+import { ArrowLeft, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'react-hot-toast';
 
 export default function DigitSpanPage() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [_isSubmitting, setIsSubmitting] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
 
   const handleComplete = async (result: any) => {

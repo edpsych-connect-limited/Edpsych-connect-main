@@ -12,16 +12,15 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
-const prisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: 'postgresql://neondb_owner:npg_rSnga68XPqve@ep-delicate-grass-abi62lhk-pooler.eu-west-2.aws.neon.tech/neondb?connect_timeout=15&sslmode=require',
-    },
-  },
-});
+const prisma = new PrismaClient();
 
-// Test password (same for all test accounts for convenience)
-const TEST_PASSWORD = 'Test123!';
+const SEED_TEST_USERS_PASSWORD = process.env.SEED_TEST_USERS_PASSWORD;
+
+if (!SEED_TEST_USERS_PASSWORD) {
+  throw new Error(
+    'Missing SEED_TEST_USERS_PASSWORD. Refusing to seed accounts without an explicit password.'
+  );
+}
 
 async function main() {
   console.log('\n🧪 Creating Test Users for E2E Testing...\n');
@@ -41,8 +40,7 @@ async function main() {
     console.log(`✅ Using tenant: ${tenant.name} (ID: ${tenant.id})\n`);
 
     // Hash password once for all users
-    const hashedPassword = await bcrypt.hash(TEST_PASSWORD, 10);
-    const demoPassword = await bcrypt.hash('Test123!', 10);
+    const hashedPassword = await bcrypt.hash(SEED_TEST_USERS_PASSWORD, 10);
 
     // ========================================================================
     // 0. CREATE DEMO USERS (Requested by User)
@@ -53,14 +51,14 @@ async function main() {
     const demoTeacher = await prisma.users.upsert({
       where: { email: 'teacher@demo.com' },
       update: { 
-        password_hash: demoPassword,
+        password_hash: hashedPassword,
         tenant_id: tenant.id,
         is_active: true
       },
       create: {
         tenant_id: tenant.id,
         email: 'teacher@demo.com',
-        password_hash: demoPassword,
+        password_hash: hashedPassword,
         name: 'Demo Teacher',
         firstName: 'Demo',
         lastName: 'Teacher',
@@ -70,7 +68,7 @@ async function main() {
         is_active: true,
       },
     });
-    console.log('✅ Demo Teacher created: teacher@demo.com / Test123!');
+    console.log('✅ Demo Teacher created: teacher@demo.com');
 
     // Create Demo Class for Demo Teacher
     const existingDemoClass = await prisma.classRoster.findFirst({
@@ -110,7 +108,7 @@ async function main() {
     await prisma.users.upsert({
       where: { email: 'parent@demo.com' },
       update: { 
-        password_hash: demoPassword,
+        password_hash: hashedPassword,
         tenant_id: tenant.id,
         is_active: true,
         onboarding_completed: true
@@ -118,7 +116,7 @@ async function main() {
       create: {
         tenant_id: tenant.id,
         email: 'parent@demo.com',
-        password_hash: demoPassword,
+        password_hash: hashedPassword,
         name: 'Demo Parent',
         firstName: 'Demo',
         lastName: 'Parent',
@@ -129,20 +127,20 @@ async function main() {
         onboarding_completed: true,
       },
     });
-    console.log('✅ Demo Parent created: parent@demo.com / Test123!');
+    console.log('✅ Demo Parent created: parent@demo.com');
 
     // Demo Student
     await prisma.users.upsert({
       where: { email: 'student@demo.com' },
       update: { 
-        password_hash: demoPassword,
+        password_hash: hashedPassword,
         tenant_id: tenant.id,
         is_active: true
       },
       create: {
         tenant_id: tenant.id,
         email: 'student@demo.com',
-        password_hash: demoPassword,
+        password_hash: hashedPassword,
         name: 'Demo Student',
         firstName: 'Demo',
         lastName: 'Student',
@@ -152,20 +150,20 @@ async function main() {
         is_active: true,
       },
     });
-    console.log('✅ Demo Student created: student@demo.com / Test123!');
+    console.log('✅ Demo Student created: student@demo.com');
 
     // Demo EP
     await prisma.users.upsert({
       where: { email: 'ep@demo.com' },
       update: { 
-        password_hash: demoPassword,
+        password_hash: hashedPassword,
         tenant_id: tenant.id,
         is_active: true
       },
       create: {
         tenant_id: tenant.id,
         email: 'ep@demo.com',
-        password_hash: demoPassword,
+        password_hash: hashedPassword,
         name: 'Demo EP',
         firstName: 'Demo',
         lastName: 'EP',
@@ -175,20 +173,20 @@ async function main() {
         is_active: true,
       },
     });
-    console.log('✅ Demo EP created: ep@demo.com / Test123!');
+    console.log('✅ Demo EP created: ep@demo.com');
 
     // Demo Admin
     await prisma.users.upsert({
       where: { email: 'admin@demo.com' },
       update: { 
-        password_hash: demoPassword,
+        password_hash: hashedPassword,
         tenant_id: tenant.id,
         is_active: true
       },
       create: {
         tenant_id: tenant.id,
         email: 'admin@demo.com',
-        password_hash: demoPassword,
+        password_hash: hashedPassword,
         name: 'Demo Admin',
         firstName: 'Demo',
         lastName: 'Admin',
@@ -198,20 +196,20 @@ async function main() {
         is_active: true,
       },
     });
-    console.log('✅ Demo Admin created: admin@demo.com / Test123!');
+    console.log('✅ Demo Admin created: admin@demo.com');
 
     // Demo Researcher
     await prisma.users.upsert({
       where: { email: 'researcher@demo.com' },
       update: { 
-        password_hash: demoPassword,
+        password_hash: hashedPassword,
         tenant_id: tenant.id,
         is_active: true
       },
       create: {
         tenant_id: tenant.id,
         email: 'researcher@demo.com',
-        password_hash: demoPassword,
+        password_hash: hashedPassword,
         name: 'Demo Researcher',
         firstName: 'Demo',
         lastName: 'Researcher',
@@ -221,7 +219,30 @@ async function main() {
         is_active: true,
       },
     });
-    console.log('✅ Demo Researcher created: researcher@demo.com / Test123!');
+    console.log('✅ Demo Researcher created: researcher@demo.com');
+
+    // Demo SENCO
+    await prisma.users.upsert({
+      where: { email: 'sen_coordinator@demo.com' },
+      update: {
+        password_hash: hashedPassword,
+        tenant_id: tenant.id,
+        is_active: true,
+      },
+      create: {
+        tenant_id: tenant.id,
+        email: 'sen_coordinator@demo.com',
+        password_hash: hashedPassword,
+        name: 'Demo SENCO',
+        firstName: 'Demo',
+        lastName: 'SENCO',
+        role: 'SENCO',
+        permissions: ['VIEW_STUDENTS', 'VIEW_EHCP', 'MANAGE_SUPPORT_PLANS'],
+        isEmailVerified: true,
+        is_active: true,
+      },
+    });
+    console.log('✅ Demo SENCO created: sen_coordinator@demo.com');
 
     // ========================================================================
     // 0.1 LINK DEMO PARENT TO DEMO STUDENT
@@ -539,7 +560,7 @@ async function main() {
 
     console.log('\n👩‍🏫 TEACHER ACCOUNT:');
     console.log(`   Email:    ${teacher.email}`);
-    console.log(`   Password: ${TEST_PASSWORD}`);
+    console.log('   Password: (set via SEED_TEST_USERS_PASSWORD)');
     console.log(`   Role:     Teacher`);
     if (year3Class) {
       console.log(`   Class:    ${year3Class.class_name}`);
@@ -547,19 +568,19 @@ async function main() {
 
     console.log('\n👨‍🎓 STUDENT ACCOUNT:');
     console.log(`   Email:    ${studentUser.email}`);
-    console.log(`   Password: ${TEST_PASSWORD}`);
+    console.log('   Password: (set via SEED_TEST_USERS_PASSWORD)');
     console.log(`   Role:     Student`);
     console.log(`   Name:     ${student.first_name} ${student.last_name}`);
 
     console.log('\n👨‍👩‍👧 PARENT ACCOUNT:');
     console.log(`   Email:    ${parent.email}`);
-    console.log(`   Password: ${TEST_PASSWORD}`);
+    console.log('   Password: (set via SEED_TEST_USERS_PASSWORD)');
     console.log(`   Role:     Parent`);
     console.log(`   Child:    ${student.first_name} ${student.last_name}`);
 
     console.log('\n🧠 EDUCATIONAL PSYCHOLOGIST ACCOUNT:');
     console.log(`   Email:    ${ep.email}`);
-    console.log(`   Password: ${TEST_PASSWORD}`);
+    console.log('   Password: (set via SEED_TEST_USERS_PASSWORD)');
     console.log(`   Role:     Educational Psychologist`);
     console.log(`   Caseload: ${student.first_name} ${student.last_name}`);
 

@@ -362,7 +362,7 @@ if (fs.promises) {
         let retries = MAX_RETRIES;
         while (retries > 0) {
             try {
-                return await originalPromisesMkdir(path, options);
+                return await originalPromisesMkdir.call(fs.promises, path, options);
             } catch (err) {
                 if (shouldRetry(err) && retries > 1) {
                     retries--;
@@ -379,7 +379,7 @@ if (fs.promises) {
         let retries = MAX_RETRIES;
         while (retries > 0) {
             try {
-                return await originalPromisesReaddir(path, options);
+                return await originalPromisesReaddir.call(fs.promises, path, options);
             } catch (err) {
                 if (shouldRetry(err) && retries > 1) {
                     retries--;
@@ -396,7 +396,7 @@ if (fs.promises) {
         let retries = MAX_RETRIES;
         while (retries > 0) {
             try {
-                return await originalPromisesStat(path, options);
+                return await originalPromisesStat.call(fs.promises, path, options);
             } catch (err) {
                 if (shouldRetry(err) && retries > 1) {
                     retries--;
@@ -413,7 +413,7 @@ if (fs.promises) {
         let retries = MAX_RETRIES;
         while (retries > 0) {
             try {
-                return await originalPromisesLstat(path, options);
+                return await originalPromisesLstat.call(fs.promises, path, options);
             } catch (err) {
                 if (shouldRetry(err) && retries > 1) {
                     retries--;

@@ -10,21 +10,21 @@ describe('Coding Curriculum', () => {
 
   it('should display the learning tracks', () => {
     cy.contains('Block Coding').should('be.visible');
-    cy.contains('Python Programming').should('be.visible');
-    cy.contains('React Development').should('be.visible');
+    cy.contains('Python').should('be.visible');
+    cy.contains('React & Web').should('be.visible');
   });
 
   it('should allow switching between tracks', () => {
     // Default is Block Coding
-    cy.contains('Introduction to Block Coding').should('be.visible');
+    cy.contains('Block Coding Journey').should('be.visible');
 
     // Switch to Python
-    cy.contains('Python Programming').click();
-    cy.contains('Python Fundamentals').should('be.visible');
+    cy.contains('Python').click();
+    cy.contains('Python Journey').should('be.visible');
 
     // Switch to React
-    cy.contains('React Development').click();
-    cy.contains('Introduction to React').should('be.visible');
+    cy.contains('React & Web').click();
+    cy.contains('React & Web Journey').should('be.visible');
   });
 
   it('should display video tutorials', () => {

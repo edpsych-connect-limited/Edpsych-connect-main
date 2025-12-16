@@ -10,13 +10,20 @@ This document addresses the critical data privacy, security, and sovereignty arc
 
 A primary concern for public sector bodies is whether student data is used to train third-party AI models (like ChatGPT or Claude).
 
-**EdPsych Connect Policy:**
-> **"No customer data is ever used to train foundation models."**
+**EdPsych Connect Policy (Operationally Enforced Where Supported):**
+> **"Customer data is not used to train foundation models."**
 
-### How We Enforce This:
+This is enforced through:
+- provider terms/settings that disable training where available,
+- contractual and configuration controls,
+- and internal guardrails to reduce unnecessary data sharing.
+
+### How We Enforce This (and what it does *not* mean)
 1.  **Enterprise API Usage:** We utilize the Enterprise/Business tiers of OpenAI and Anthropic APIs. Unlike the free consumer versions (ChatGPT), these commercial APIs have strict **Zero Data Retention (ZDR)** policies for training purposes.
 2.  **Stateless Processing:** Data sent to the AI for analysis (e.g., "Summarize this observation") is processed in memory and discarded by the model provider immediately after the response is generated.
-3.  **PII Redaction Layer:** Before any text leaves the EdPsych Connect secure environment, our "Privacy Guard" middleware detects and redacts Personally Identifiable Information (PII) such as names, dates of birth, and addresses, replacing them with tokens (e.g., `[STUDENT_NAME]`).
+3.  **PII Redaction Layer (Privacy Guard):** Before prompts are sent to third-party AI providers, EdPsych Connect applies a **best-effort redaction layer** to reduce accidental exposure of likely PII (e.g., emails, phone numbers, dates, UK postcodes, NI numbers) by replacing matches with tokens.
+
+**Important:** This redaction is heuristic and conservative. It reduces risk, but it is **not a guarantee** that all PII is removed in every free-text scenario.
 
 ---
 
@@ -42,8 +49,8 @@ If an LA decides to leave EdPsych Connect, they do not need to request a data ex
 
 ### GDPR & UK Data Protection Act 2018
 *   **Right to Erasure:** Automated workflows to permanently delete student records upon request.
-*   **Audit Logs:** Every AI interaction, record view, and edit is immutably logged in the `AuditLog` table.
-*   **Data Residency:** All data is hosted within **UK/EU Data Centers** (AWS London / Azure UK South).
+*   **Audit Logs:** Security-relevant events (including AI interactions) are written to an `AuditLog` table. Logs are designed to be append-focused at the application level.
+*   **Data Residency:** Hosting region depends on the deployment configuration. For public cloud deployments we target UK/EU regions where available; confirm the region for your tenant during onboarding.
 
 ### AI Safety Guardrails
 *   **Hallucination Checks:** Our "Safety Net" system cross-references AI-generated reports against the raw data to flag potential inaccuracies.
@@ -60,4 +67,4 @@ A: No. We use the API with a zero-retention policy. Data is transient.
 A: In the BYOD model, your data is isolated. A breach of one tenant does not compromise another.
 
 **Q: Can we audit the AI's decisions?**
-A: Yes. All prompts sent to the AI and the raw responses are stored in your dedicated audit log for review.
+A: Yes. AI interactions are logged for review. Where PII redaction is enabled, logs store redacted inputs/outputs to reduce sensitive content retention.

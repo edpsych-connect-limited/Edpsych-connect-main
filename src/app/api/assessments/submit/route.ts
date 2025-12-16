@@ -6,7 +6,7 @@ import { logger } from '@/lib/logger';
 
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession(authOptions);
+    const _session = await getServerSession(authOptions);
     
     // In a real app, we'd enforce auth. For this demo/audit, we might be lenient or use a test user.
     // if (!session) {

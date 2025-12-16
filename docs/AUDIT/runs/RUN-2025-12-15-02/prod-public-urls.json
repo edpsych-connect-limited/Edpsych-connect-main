@@ -1,0 +1,126 @@
+{
+  "runId": "RUN-2025-12-15-02",
+  "dateUtc": "2025-12-15",
+  "base": "https://www.edpsychconnect.com",
+  "checks": [
+    {
+      "path": "/en",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "observedAtUtc": "2025-12-16T01:22:37.6340086Z",
+      "notes": "Public landing page responds 200."
+    },
+    {
+      "path": "/en/about",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "observedAtUtc": "2025-12-16T01:22:37.6340086Z"
+    },
+    {
+      "path": "/en/pricing",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "observedAtUtc": "2025-12-16T01:22:37.6340086Z"
+    },
+    {
+      "path": "/en/blog",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "observedAtUtc": "2025-12-16T01:22:37.6340086Z"
+    },
+    {
+      "path": "/en/contact",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "observedAtUtc": "2025-12-16T01:22:37.6340086Z"
+    },
+    {
+      "path": "/en/privacy",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "observedAtUtc": "2025-12-16T01:22:37.6340086Z"
+    },
+    {
+      "path": "/en/terms",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "observedAtUtc": "2025-12-16T01:22:37.6340086Z"
+    },
+    {
+      "path": "/en/login",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "observedAtUtc": "2025-12-16T01:22:37.6340086Z"
+    },
+    {
+      "path": "/en/help",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "observedAtUtc": "2025-12-16T01:22:37.6340086Z"
+    },
+    {
+      "path": "/en/training",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "observedAtUtc": "2025-12-16T01:22:37.6340086Z"
+    },
+    {
+      "path": "/en/training/marketplace",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "observedAtUtc": "2025-12-16T01:22:37.6340086Z",
+      "notes": "Responds 200 to unauthenticated request (client-side auth redirect may occur after hydration)."
+    },
+    {
+      "path": "/en/training/courses",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 404,
+      "observedAtUtc": "2025-12-16T01:22:37.6340086Z",
+      "notes": "External auditor guide expects this route; currently 404 in production. Remediation: add alias route to `/<locale>/training` or implement courses index page."
+    },
+    {
+      "path": "/robots.txt",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 307,
+      "observedAtUtc": "2025-12-16T01:22:37.6340086Z",
+      "notes": "Redirect observed; follow-up check shows `/en/robots.txt` returns 404. Likely locale middleware redirecting metadata routes."
+    },
+    {
+      "path": "/en/robots.txt",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 404,
+      "observedAtUtc": "2025-12-16T01:22:37.6340086Z",
+      "notes": "Reached after redirect from `/robots.txt` in production."
+    },
+    {
+      "path": "/sitemap.xml",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 307,
+      "observedAtUtc": "2025-12-16T01:22:37.6340086Z",
+      "notes": "Redirect observed; follow-up check shows `/en/sitemap.xml` returns 404. Likely locale middleware redirecting metadata routes."
+    },
+    {
+      "path": "/en/sitemap.xml",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 404,
+      "observedAtUtc": "2025-12-16T01:22:37.6340086Z",
+      "notes": "Reached after redirect from `/sitemap.xml` in production."
+    }
+  ]
+}

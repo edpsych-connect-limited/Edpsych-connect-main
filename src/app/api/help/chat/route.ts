@@ -49,7 +49,7 @@ export async function POST(req: Request) {
   } catch (_error) {
     console.error('Concierge chat error:', _error);
     return NextResponse.json(
-      { error: 'Internal server _error' },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }

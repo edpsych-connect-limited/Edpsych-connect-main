@@ -46,7 +46,7 @@ export default function NavigationTest() {
         path,
         status: 0,
         ok: false,
-        error: _error instanceof Error ? _error.message : 'Unknown _error'
+        error: _error instanceof Error ? _error.message : 'Unknown error'
       };
     }
   };

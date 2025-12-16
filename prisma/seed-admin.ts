@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 
 const prisma = new PrismaClient();
 
@@ -32,7 +33,22 @@ async function main() {
   console.log('👤 Creating admin user...');
   
   // Hash password securely
-  const password = 'Admin123!'; // CHANGE THIS AFTER FIRST LOGIN
+  const shouldPrintPassword = process.env.PRINT_SEED_PASSWORD === 'true';
+
+  let password = process.env.SEED_ADMIN_PASSWORD;
+  if (!password) {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error(
+        'SEED_ADMIN_PASSWORD must be set when running seed-admin in production (refusing to generate or hardcode a password).'
+      );
+    }
+
+    // Development convenience: generate a strong random password if none is provided.
+    password = crypto.randomBytes(18).toString('base64url');
+    console.log('⚠️  SEED_ADMIN_PASSWORD not set; generated a one-time password for this seed run.');
+    console.log('   (Set SEED_ADMIN_PASSWORD to control this and avoid printing secrets in logs.)');
+  }
+
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const adminUser = await prisma.users.upsert({
@@ -61,7 +77,11 @@ async function main() {
     },
   });
   console.log(`✅ Admin user created: ${adminUser.email} (ID: ${adminUser.id})`);
-  console.log(`   Password: ${password}\n`);
+  if (process.env.SEED_ADMIN_PASSWORD) {
+    console.log(`   Password: ${shouldPrintPassword ? password : '(from SEED_ADMIN_PASSWORD)'}\n`);
+  } else {
+    console.log(`   Password: ${password}\n`);
+  }
 
   // 3. CREATE DEMO SUBSCRIPTION
   console.log('💳 Creating demo subscription...');
@@ -107,7 +127,14 @@ async function main() {
   console.log('📋 LOGIN CREDENTIALS:');
   console.log('=' .repeat(60));
   console.log(`Email:    ${adminUser.email}`);
-  console.log(`Password: ${password}`);
+  if (process.env.SEED_ADMIN_PASSWORD) {
+    console.log(`Password: ${shouldPrintPassword ? password : '(from SEED_ADMIN_PASSWORD)'}\n`);
+    if (!shouldPrintPassword) {
+      console.log('To print the password in this seed run output, set PRINT_SEED_PASSWORD=true');
+    }
+  } else {
+    console.log(`Password: ${password}`);
+  }
   console.log(`Tenant:   ${tenant.subdomain}.edpsychconnect.com`);
   console.log('=' .repeat(60));
   console.log('\n⚠️  IMPORTANT: Change your password after first login!\n');

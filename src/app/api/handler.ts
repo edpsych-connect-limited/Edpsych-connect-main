@@ -61,7 +61,7 @@ export async function handleApiRequest(req: NextRequest): Promise<Response> {
   } catch (_error) {
     console.error('[API Handler] Error:', _error);
     return NextResponse.json(
-      { error: 'Internal server _error', message: _error instanceof Error ? _error.message : 'Unknown _error' },
+      { error: 'Internal server error', message: _error instanceof Error ? _error.message : 'Unknown error' },
       { status: 500 }
     );
   }

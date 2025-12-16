@@ -7,7 +7,10 @@
 
 ## 🔑 All Test Accounts
 
-**Password for ALL accounts:** `Test123!`
+**Password handling:** passwords are not stored in-repo.
+
+- For local/dev: create accounts via seed scripts.
+- For shared testing: distribute credentials via a secret manager or one-time reset links.
 
 ### 👩‍🏫 Teacher Account
 - **Email:** `teacher@test.edpsych.com`
@@ -156,6 +159,6 @@ Before testing, verify:
 
 **Ready to Test?** Open your browser and go to: http://localhost:3002/login
 
-**Start with:** Teacher account (`teacher@test.edpsych.com` / `Test123!`)
+**Start with:** Teacher account (`teacher@test.edpsych.com` / password provided securely)
 
 **Document everything in:** docs/TEST-RESULTS-SESSION-1.md

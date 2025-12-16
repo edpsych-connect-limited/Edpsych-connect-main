@@ -9,6 +9,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { aiIntegration } from '@/lib/ai-integration';
 import { serverAuth } from '@/lib/auth/server-auth';
+import { decideAiAccess } from '@/lib/governance/policy-engine';
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,6 +24,24 @@ export async function POST(request: NextRequest) {
     }
 
     const activeUser = user;
+
+    // 1b. Enforce per-tenant AI governance policy
+    const tenantIdRaw: unknown = (activeUser as any).tenantId;
+    const tenantId = typeof tenantIdRaw === 'string' ? parseInt(tenantIdRaw, 10) : (tenantIdRaw as number);
+    if (!tenantId || Number.isNaN(tenantId)) {
+      return NextResponse.json(
+        { error: 'Missing tenant context' },
+        { status: 400 }
+      );
+    }
+
+    const { decision, redactPII } = await decideAiAccess({ tenantId });
+    if (!decision.allowed) {
+      return NextResponse.json(
+        { error: decision.reason },
+        { status: 403 }
+      );
+    }
 
     // 2. Parse Request Body
     const body = await request.json();
@@ -41,7 +60,8 @@ export async function POST(request: NextRequest) {
       messages,
       systemPrompt: '', // Optional: let the agent config handle it
       userId: activeUser.id,
-      tenantId: activeUser.tenantId
+      tenantId: tenantId,
+      redactPII,
     });
 
     // 4. Return Response

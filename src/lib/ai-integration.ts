@@ -7,6 +7,8 @@ import Anthropic from '@anthropic-ai/sdk';
 import OpenAI from 'openai';
 import { Redis } from '@upstash/redis';
 import { aiAuditService } from './audit/ai-audit-service';
+import { getDefaultOpenAIModel } from '@/lib/ai/openai-model';
+import { redactPII } from '@/lib/security/pii-redaction';
 
 export interface AIRequest {
   prompt: string;
@@ -19,6 +21,15 @@ export interface AIRequest {
   maxTokens?: number;
   temperature?: number;
   model?: string;
+  /**
+   * When true, redact likely PII before sending to third-party AI providers.
+   * Defaults to true in production.
+   */
+  redactPII?: boolean;
+  /**
+   * Optional explicit entity strings (names/identifiers) to redact.
+   */
+  piiEntities?: string[];
 }
 
 export interface AIResponse {
@@ -55,8 +66,6 @@ class AIIntegrationService {
       this.anthropic = new Anthropic({
         apiKey: process.env.CLAUDE_API_KEY,
       });
-    } else {
-      // console.warn('CLAUDE_API_KEY not found - AI features will use mock responses');
     }
 
     // Initialize OpenAI client if API key is available
@@ -64,8 +73,6 @@ class AIIntegrationService {
       this.openai = new OpenAI({
         apiKey: process.env.OPENAI_API_KEY,
       });
-    } else {
-      // console.warn('OPENAI_API_KEY not found - AI features will use mock responses');
     }
 
     // Initialize xAI client if API key is available
@@ -513,16 +520,28 @@ class AIIntegrationService {
       throw new Error(`No suitable agent found for use case: ${request.useCase}`);
     }
 
-    // Check budget
-    const estimatedCost = this.estimateCost(request.prompt, agent.model);
-    if (this.dailyUsage.get(request.id) || 0 + estimatedCost > this.dailyBudget) {
+    // Privacy guard: redact PII before it can leave our boundary (best-effort).
+    const shouldRedactPII =
+      request.redactPII ?? (process.env.NODE_ENV === 'production');
+
+    const promptForProvider = shouldRedactPII
+      ? redactPII(request.prompt, { entities: request.piiEntities }).redactedText
+      : request.prompt;
+
+    // Check budget (fix precedence bug)
+    const estimatedCost = this.estimateCost(promptForProvider, agent.model);
+    if (((this.dailyUsage.get(request.id) || 0) + estimatedCost) > this.dailyBudget) {
       // Try fallback to cached or simpler response
       return this.handleBudgetExceeded(request);
     }
 
     try {
       // Generate response
-      const response = await this.callAI(agent, request);
+      const response = await this.callAI(agent, {
+        ...request,
+        // Ensure downstream providers always see the redacted prompt when enabled.
+        prompt: promptForProvider,
+      });
 
       // Track costs and usage
       const actualCost = this.calculateCost(response, agent.model);
@@ -540,13 +559,21 @@ class AIIntegrationService {
       }
 
       // SAFETY NET: Log to Audit Service
+      // Redact again defensively (AI may echo PII if provided in prompt/context).
+      const auditInput = shouldRedactPII
+        ? redactPII(request.prompt, { entities: request.piiEntities }).redactedText
+        : request.prompt;
+      const auditOutput = shouldRedactPII
+        ? redactPII(response.content, { entities: request.piiEntities }).redactedText
+        : response.content;
+
       await aiAuditService.logDecision({
         agentId: agent.name,
         userId: request.id,
         tenantId: request.tenantId || 'unknown',
         action: request.useCase,
-        input: request.prompt,
-        output: response.content,
+        input: auditInput,
+        output: auditOutput,
         confidenceScore: 0.95, // Mock confidence for now
         autonomyLevel: request.autonomyLevel || 'advisory',
         humanReviewRequired: request.autonomyLevel === 'advisory'
@@ -604,8 +631,10 @@ class AIIntegrationService {
   private async callAI(agent: AgentConfig, request: AIRequest): Promise<{ content: string; tokens: number }> {
     // Check if any API clients are available
     if (!this.anthropic && !this.openai && !this.xai && !this.gemini) {
-      console.warn('No AI clients available - returning mock response');
-      return this.getMockResponse(agent, request);
+      if (process.env.NODE_ENV === 'production') {
+        throw new Error('AI providers unavailable');
+      }
+      return this.getUnavailableResponse(agent);
     }
 
     try {
@@ -626,7 +655,10 @@ class AIIntegrationService {
       if (this.openai) return await this.callOpenAI(agent, request);
       if (this.gemini) return await this.callGemini(agent, request);
       
-      return this.getMockResponse(agent, request);
+      if (process.env.NODE_ENV === 'production') {
+        throw new Error('AI providers unavailable');
+      }
+      return this.getUnavailableResponse(agent);
     } catch (_error) {
       console.warn(`Primary model ${agent.model} failed, attempting failover...`, _error);
       
@@ -648,15 +680,18 @@ class AIIntegrationService {
         }
       }
       
-      // Final fallback to mock response
-      return this.getMockResponse(agent, request);
+      // Final fallback
+      if (process.env.NODE_ENV === 'production') {
+        throw new Error('AI providers unavailable');
+      }
+      return this.getUnavailableResponse(agent);
     }
   }
 
-  private getMockResponse(agent: AgentConfig, request: AIRequest): { content: string; tokens: number } {
+  private getUnavailableResponse(agent: AgentConfig): { content: string; tokens: number } {
     return {
-      content: `[AI MOCK RESPONSE] I understand you're asking about "${request.prompt}". Since I'm running in a test environment without active AI keys, I can't generate a full response, but I acknowledge your request.`,
-      tokens: 50
+      content: `AI is not configured for this environment. Please set the required provider API key(s) to enable ${agent.name}.`,
+      tokens: 0
     };
   }
 
@@ -681,7 +716,7 @@ class AIIntegrationService {
     if (!this.openai) throw new Error('OpenAI client not initialized');
 
     const response = await this.openai.chat.completions.create({
-      model: 'gpt-4-turbo-preview',
+      model: request.model || getDefaultOpenAIModel(),
       messages: [
         { role: 'system', content: agent.systemPrompt },
         { role: 'user', content: request.prompt }
@@ -891,6 +926,15 @@ export interface ChatRequest {
   systemPrompt: string;
   userId: number | string;
   tenantId: number | string;
+  /**
+   * When true, redact likely PII before sending to third-party AI providers.
+   * If omitted, defaults apply inside the AI service.
+   */
+  redactPII?: boolean;
+  /**
+   * Optional explicit entity strings (names/identifiers) to redact.
+   */
+  piiEntities?: string[];
   maxTokens?: number;
   temperature?: number;
 }
@@ -966,7 +1010,9 @@ class AIIntegration {
         subscriptionTier: 'professional', // Default for educational psychologists
         useCase: useCase,
         maxTokens: request.maxTokens || 800,
-        temperature: request.temperature || 0.7
+        temperature: request.temperature || 0.7,
+        redactPII: request.redactPII,
+        piiEntities: request.piiEntities,
       };
 
       // Process request through existing AI service

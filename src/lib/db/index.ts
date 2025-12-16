@@ -6,21 +6,15 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-import { PrismaClient, Prisma } from '@prisma/client';
+import type { DbClient } from '@/lib/prisma';
 import { logger } from "@/lib/logger";
+import { prisma as db } from '@/lib/prisma';
 
-// Ensure we have a single instance of PrismaClient throughout the app
-const globalForPrisma = global as unknown as { prisma: PrismaClient };
-
-export const db = globalForPrisma.prisma || new PrismaClient({
-  log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
-});
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = db;
+export { db };
 
 // Export utility functions for database operations
 export async function executeQuery<T>(
-  queryFn: (prisma: PrismaClient) => Promise<T>,
+  queryFn: (prisma: DbClient) => Promise<T>,
   errorMessage = 'Database query failed'
 ): Promise<T> {
   try {
@@ -31,8 +25,10 @@ export async function executeQuery<T>(
   }
 }
 
+type InteractiveTransactionClient = Parameters<Parameters<DbClient['$transaction']>[0]>[0];
+
 export async function transaction<T>(
-  txFn: (tx: Prisma.TransactionClient) => Promise<T>,
+  txFn: (tx: InteractiveTransactionClient) => Promise<T>,
   errorMessage = 'Transaction failed'
 ): Promise<T> {
   try {

@@ -429,7 +429,7 @@ Dr Scott Ighavongbe-Patrick (Platform Founder)
 
 **Demo Account (for testing):**
 • Email: teacher@demo.com
-• Password: Test123!
+• Password: (provided via secure channel / local seed)
 
 **Need Help?**
 Email: support@edpsychconnect.world
@@ -962,7 +962,7 @@ Our gamification is designed based on educational psychology research to enhance
 • Works on all modern browsers
 • Add to home screen for app-like experience
 • Touch-optimised interface
-• Offline mode (coming soon)
+• Resilient connection handling (auto-retry on reconnect)
 
 **Supported Devices:**
 • iPhone (iOS 14+)
@@ -1044,7 +1044,7 @@ For custom integrations, API documentation is available for Professional and Ent
 
 **Demo Account:**
 • Email: teacher@demo.com
-• Password: Test123!
+• Password: (provided via secure channel / local seed)
 • Pre-populated with sample students
 • All features unlocked for testing
 
@@ -1058,7 +1058,7 @@ For custom integrations, API documentation is available for Professional and Ent
 **Demo Limitations:**
 • Data resets periodically
 • No real student data
-• Some features simulated
+• Some features may use reduced datasets
 • Cannot export real reports
 
 **Ready to Go Live?**

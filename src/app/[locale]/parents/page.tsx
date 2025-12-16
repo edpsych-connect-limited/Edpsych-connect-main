@@ -12,19 +12,12 @@ export default async function ParentsPage() {
   if (session?.user?.id) {
     // Real user
     parentId = parseInt(session.user.id);
-  } else {
-    // Demo user fallback
-    const demoParent = await prisma.users.findUnique({
-      where: { email: 'parent@demo.com' }
-    });
-    parentId = demoParent?.id;
-  }
 
-  if (parentId) {
     const link = await prisma.parentChildLink.findFirst({
       where: { parent_id: parentId },
       select: { child_id: true }
     });
+
     if (link) {
       childId = link.child_id;
     }

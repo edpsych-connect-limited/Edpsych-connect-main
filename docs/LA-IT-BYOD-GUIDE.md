@@ -8,9 +8,13 @@
 
 ## 1. Executive Summary
 
-EdPsych Connect World offers a **Hybrid Cloud Architecture** designed specifically for UK Local Authorities. This model allows you to utilize our SaaS platform for application logic and AI processing while retaining **100% sovereignty over Personally Identifiable Information (PII)**.
+EdPsych Connect offers a **Hybrid Cloud Architecture** designed for UK Local Authorities.
 
-We support a **"Bring Your Own Database" (BYOD)** model, where the application connects to a PostgreSQL instance hosted within your infrastructure (or your private cloud), ensuring that sensitive student data never rests on our multi-tenant storage.
+Where a Local Authority requires stronger control over *data at rest*, we can support an architecture where the LA provisions and owns the database.
+
+**Note:** This document describes the *target enterprise architecture* and the operational controls expected in an LA deployment. Exact capabilities depend on the deployed configuration and contract.
+
+We support a **"Bring Your Own Database" (BYOD)** model in enterprise deployments, where the application connects to a PostgreSQL instance hosted within your infrastructure (or your private cloud), reducing exposure to shared multi-tenant storage.
 
 ---
 
@@ -24,9 +28,11 @@ We support a **"Bring Your Own Database" (BYOD)** model, where the application c
 ### Enterprise Hybrid (BYOD)
 - **App Logic**: AWS London (eu-west-2)
 - **Database**: **Your Private Infrastructure** (On-Premise or Private Cloud)
-- **Connection**: Secure Tunnel (VPN / TLS 1.3) via Data Gateway
+- **Connection**: Secure private connectivity (e.g., VPN/PrivateLink/peering) and TLS-in-transit
 
-In the BYOD model, our application acts as a stateless processor. It receives a request, processes it using your data, and returns the result. **No PII is persisted on our side.**
+In a BYOD deployment, the Local Authority controls the database where student records are stored at rest.
+
+**Important clarification:** The application may still process personal data in memory to provide features, and operational logs/telemetry may exist depending on configuration. "No PII is persisted" is only true if the deployment is explicitly configured to avoid writing PII to any EdPsych Connect-managed storage (including logs). This must be validated as part of onboarding.
 
 ---
 
@@ -42,11 +48,11 @@ To implement the BYOD model, your IT team must provision the following:
 
 ### 3.2 Network Configuration
 - **Inbound Allow**: Port 5432 (PostgreSQL) from EdPsych Connect Static IPs (List provided upon contract signing)
-- **Encryption**: TLS 1.3 enforced. Self-signed certificates are supported if the CA bundle is provided.
+- **Encryption**: TLS-in-transit is required. (TLS version/cipher policy is agreed during onboarding.)
 
 ### 3.3 Authentication
-- We support **SAML 2.0** / **OIDC** for Single Sign-On (SSO).
-- Compatible with Azure AD, Okta, and Google Workspace.
+- **SSO:** SSO integration (SAML/OIDC) is available in enterprise deployments where configured.
+- Compatibility depends on the chosen IdP and the final integration approach.
 
 ---
 
@@ -74,7 +80,7 @@ To implement the BYOD model, your IT team must provision the following:
 ## 5. Security & Compliance
 
 ### 5.1 Encryption
-- **Transit**: All data flows over TLS 1.3.
+- **Transit**: TLS-in-transit is required.
 - **Rest**: Data is encrypted on your disks using your keys.
 
 ### 5.2 Access Control

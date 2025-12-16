@@ -347,8 +347,8 @@ export async function GET(
   } catch (_error) {
     console.error('[Student Profile API] Error retrieving profile:', _error);
     return NextResponse.json({
-      error: 'Internal server _error',
-      message: _error instanceof Error ? _error.message : 'Unknown _error'
+      error: 'Internal server error',
+      message: _error instanceof Error ? _error.message : 'Unknown error'
     }, { status: 500 });
   }
 }
@@ -579,8 +579,8 @@ export async function PATCH(
   } catch (_error) {
     console.error('[Student Profile API] Error updating profile:', _error);
     return NextResponse.json({
-      error: 'Internal server _error',
-      message: _error instanceof Error ? _error.message : 'Unknown _error'
+      error: 'Internal server error',
+      message: _error instanceof Error ? _error.message : 'Unknown error'
     }, { status: 500 });
   }
 }

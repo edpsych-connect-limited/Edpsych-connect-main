@@ -8,8 +8,6 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 import React, { useState } from 'react';
 import { HelpCircle, ExternalLink, PlayCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -23,12 +21,18 @@ import {
 } from '@/components/ui/sheet';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
+import { getContextualHelpVideoKey } from '@/lib/guidance/contextual-help-video';
 
 interface ContextualHelpProps {
   title: string;
   description?: string;
   topic?: string;
+  /** @deprecated Use `videoKey` instead. */
   videoId?: string;
+  videoKey?: string;
   relatedArticles?: { title: string; slug: string }[];
 }
 
@@ -36,19 +40,28 @@ export function ContextualHelp({
   title,
   description,
   videoId,
+  videoKey,
   relatedArticles = [],
 }: ContextualHelpProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname() ?? '';
+
+  const resolvedVideoKey = videoKey ?? videoId ?? getContextualHelpVideoKey(pathname);
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-muted-foreground hover:text-primary">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-8 w-8 p-0 text-muted-foreground hover:text-primary"
+          data-testid="contextual-help-trigger"
+        >
           <HelpCircle className="h-5 w-5" />
           <span className="sr-only">Get help with {title}</span>
         </Button>
       </SheetTrigger>
-      <SheetContent className="w-[400px] sm:w-[540px]">
+      <SheetContent className="w-[400px] sm:w-[540px]" data-testid="contextual-help-sheet">
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2">
             <HelpCircle className="h-5 w-5 text-primary" />
@@ -62,14 +75,23 @@ export function ContextualHelp({
         <ScrollArea className="h-[calc(100vh-120px)] pr-4 mt-6">
           <div className="space-y-6">
             {/* Video Section */}
-            {videoId && (
-              <div className="rounded-lg overflow-hidden border bg-muted/50">
-                <div className="aspect-video flex items-center justify-center bg-black/5">
-                  <PlayCircle className="h-12 w-12 text-muted-foreground/50" />
-                  {/* Placeholder for actual video player */}
-                </div>
-                <div className="p-3 text-xs text-muted-foreground text-center">
-                  Video tutorial: {title}
+            {resolvedVideoKey ? (
+              <div className="rounded-lg overflow-hidden border bg-muted/50" data-testid="contextual-help-video">
+                <VideoTutorialPlayer
+                  videoKey={resolvedVideoKey}
+                  title={`${title} tutorial`}
+                  description={description}
+                  compact
+                />
+              </div>
+            ) : (
+              <div className="rounded-lg border bg-muted/50 p-4" data-testid="contextual-help-video-placeholder">
+                <div className="flex items-center gap-3">
+                  <PlayCircle className="h-8 w-8 text-muted-foreground/60" />
+                  <div>
+                    <p className="text-sm font-medium text-slate-700">Video tutorial coming soon</p>
+                    <p className="text-xs text-muted-foreground">This panel will auto-suggest a relevant walkthrough for the current page.</p>
+                  </div>
                 </div>
               </div>
             )}

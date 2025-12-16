@@ -18,7 +18,13 @@ import { DECEMBER_2025_PRICING_VIDEOS } from '../video_scripts/world_class/decem
 import { ROLE_BASED_ONBOARDING } from '../video_scripts/world_class/role-based-onboarding-videos';
 
 // HeyGen API Configuration
-const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY || 'sk_V2_hgu_kIsPOKnUIeM_Nvtt8QLs3osJMx3nQi5fYEytQNjhR4qM';
+const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
+
+if (!HEYGEN_API_KEY) {
+  throw new Error('HEYGEN_API_KEY environment variable is required');
+}
+
+const REQUIRED_HEYGEN_API_KEY: string = HEYGEN_API_KEY;
 const HEYGEN_API_URL = 'https://api.heygen.com/v2/video/generate';
 
 // Avatar and Voice Configuration - UK Professional Style
@@ -133,7 +139,7 @@ async function generateVideo(script: VideoScript): Promise<GenerationResult> {
     const response = await fetch(HEYGEN_API_URL, {
       method: 'POST',
       headers: {
-        'X-Api-Key': HEYGEN_API_KEY,
+        'X-Api-Key': REQUIRED_HEYGEN_API_KEY,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload)
@@ -372,7 +378,11 @@ export const VIDEO_COUNTS = {
 
 import { DECEMBER_2025_VIDEO_IDS } from '../video_scripts/world_class/december-2025-video-ids';
 
-const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY || 'Sk_V2_hgu_kCXZPri8zVW_USKActgMJqFGEFzXfxRhYB1F5Jm9MqUz';
+const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
+
+if (!HEYGEN_API_KEY) {
+  throw new Error('HEYGEN_API_KEY environment variable is required');
+}
 
 async function checkStatus(videoId: string): Promise<{ status: string; video_url?: string }> {
   const response = await fetch(

@@ -10,6 +10,14 @@ import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
+const SEED_TEAM_ADMINS_PASSWORD = process.env.SEED_TEAM_ADMINS_PASSWORD;
+
+if (!SEED_TEAM_ADMINS_PASSWORD) {
+  throw new Error('SEED_TEAM_ADMINS_PASSWORD environment variable is required');
+}
+
+const REQUIRED_SEED_TEAM_ADMINS_PASSWORD: string = SEED_TEAM_ADMINS_PASSWORD;
+
 const TEAM_MEMBERS = [
   { name: 'Dr Piers Worth', email: 'piers.worth@edpsychconnect.com' },
   { name: 'Hayley Baverstock', email: 'hayley.baverstock@edpsychconnect.com' },
@@ -47,8 +55,7 @@ async function main() {
     }
 
     // Hash password
-    const defaultPassword = 'Team2025!';
-    const hashedPassword = await bcrypt.hash(defaultPassword, 12);
+    const hashedPassword = await bcrypt.hash(REQUIRED_SEED_TEAM_ADMINS_PASSWORD, 12);
 
     for (const member of TEAM_MEMBERS) {
       const [firstName, ...lastNameParts] = member.name.split(' ');
@@ -85,7 +92,7 @@ async function main() {
 
     console.log('\n' + '='.repeat(70));
     console.log('✅ All team accounts ready!');
-    console.log(`   Default Password: ${defaultPassword}`);
+    console.log('   Password: (set via SEED_TEAM_ADMINS_PASSWORD)');
     console.log('='.repeat(70) + '\n');
 
   } catch (error) {

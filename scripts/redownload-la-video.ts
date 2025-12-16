@@ -6,9 +6,13 @@ import path from 'path';
 import https from 'https';
 import http from 'http';
 
-const HEYGEN_API_KEY = 'sk_V2_hgu_kCXZPri8zVW_USKActgMJqFGEFzXfxRhYB1F5Jm9MqUz';
+const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
 const VIDEO_ID = '639b683948e143fea9d0805a1d305aef';
 const OUTPUT_PATH = 'public/content/training_videos/la-portal/la-dashboard-overview.mp4';
+
+if (!HEYGEN_API_KEY) {
+  throw new Error('HEYGEN_API_KEY environment variable is required');
+}
 
 async function getVideoStatus(videoId: string): Promise<any> {
   return new Promise((resolve, reject) => {

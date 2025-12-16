@@ -5,11 +5,36 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { adaptiveSystem } from '@/services/ai/adaptive-system';
+import { serverAuth } from '@/lib/auth/server-auth';
+import { decideAiAccess } from '@/lib/governance/policy-engine';
 
 export const dynamic = 'force-dynamic';
 
+async function requireTenantAiAccess(request: NextRequest) {
+  const user = await serverAuth.getUserFromRequest(request);
+  if (!user) {
+    return { ok: false as const, response: NextResponse.json({ error: 'Unauthorized' }, { status: 401 }) };
+  }
+
+  const tenantIdRaw: unknown = (user as any).tenantId;
+  const tenantId = typeof tenantIdRaw === 'string' ? parseInt(tenantIdRaw, 10) : (tenantIdRaw as number);
+  if (!tenantId || Number.isNaN(tenantId)) {
+    return { ok: false as const, response: NextResponse.json({ error: 'Missing tenant context' }, { status: 400 }) };
+  }
+
+  const { decision } = await decideAiAccess({ tenantId });
+  if (!decision.allowed) {
+    return { ok: false as const, response: NextResponse.json({ error: decision.reason }, { status: 403 }) };
+  }
+
+  return { ok: true as const, user, tenantId };
+}
+
 export async function POST(request: NextRequest) {
   try {
+    const access = await requireTenantAiAccess(request);
+    if (!access.ok) return access.response;
+
     const body = await request.json();
     const { action, sessionId, data } = body;
 
@@ -51,6 +76,9 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
+    const access = await requireTenantAiAccess(request);
+    if (!access.ok) return access.response;
+
     const { searchParams } = new URL(request.url);
     const action = searchParams.get('action');
     const sessionId = searchParams.get('sessionId');

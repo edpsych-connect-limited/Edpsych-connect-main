@@ -473,7 +473,7 @@ Result: ✅ PASS (endpoint accessible, returns appropriate response)
 
 ### Test Accounts (Available)
 
-All passwords: `Test123!`
+Passwords are provided via secure channel (not stored in this repo).
 
 - Teacher: `teacher@test.edpsych.com`
 - Student: `amara.singh@test.edpsych.com`

@@ -1,16 +1,22 @@
 # Beta Access Credentials & Testing Guide
 
 **CONFIDENTIAL - INTERNAL USE ONLY**
-**Last Updated:** December 13, 2025
+**Last Updated:** December 14, 2025
 
-This document contains the login credentials for all Beta testing accounts currently seeded in the production database. These accounts cover all user roles and specific pilot scenarios.
+This document lists the Beta testing accounts (roles + emails) but does **not** store passwords in-repo.
+
+## Password Handling (Enterprise Standard)
+
+- Passwords must be distributed via an approved secret manager (e.g., 1Password/LastPass/Azure Key Vault) or via one-time reset links.
+- For production testing, do **not** commit or paste credentials into Git, issues, chat, or docs.
+- For local/dev testing, use the seed scripts to create known test users.
 
 ## 1. Executive & Founder Access
 
 | Role | Name | Email | Password | Purpose |
 |------|------|-------|----------|---------|
-| **Founder (Super Admin)** | Dr Scott Ighavongbe-Patrick | `scott.ipatrick@edpsychconnect.com` | `Founder2025!` | Full system oversight, all permissions. |
-| **System Admin** | Admin User | `scott@edpsychconnect.com` | `Admin123!` | General system administration and tenant management. |
+| **Founder (Super Admin)** | Dr Scott Ighavongbe-Patrick | `scott.ipatrick@edpsychconnect.com` | **Stored in secret manager** | Full system oversight, all permissions. |
+| **System Admin** | Admin User | `scott@edpsychconnect.com` | **Stored in secret manager** | General system administration and tenant management. |
 
 ## 2. Pathfinder Pilot (VIP)
 
@@ -18,7 +24,7 @@ This document contains the login credentials for all Beta testing accounts curre
 
 | Role | Name | Email | Password | Context |
 |------|------|-------|----------|---------|
-| **Super Admin (VIP)** | Caroline Marriott | `caroline.marriott@edpsychconnect.com` | `Bucks2025!Pilot` | **Buckinghamshire Council Pilot.** Full access to all dashboards, EHCP workflows, and analytics. |
+| **Super Admin (VIP)** | Caroline Marriott | `caroline.marriott@edpsychconnect.com` | **Stored in secret manager** | **Buckinghamshire Council Pilot.** Full access to all dashboards, EHCP workflows, and analytics. |
 
 ## 3. Core Team Admins
 
@@ -26,16 +32,16 @@ All team admins have `SUPER_ADMIN` access to assist with testing and demonstrati
 
 | Name | Email | Password |
 |------|-------|----------|
-| Dr Piers Worth | `piers.worth@edpsychconnect.com` | `Team2025!` |
-| Hayley Baverstock | `hayley.baverstock@edpsychconnect.com` | `Team2025!` |
-| Hannah Patrick | `hannah.patrick@edpsychconnect.com` | `Team2025!` |
-| Louis Young | `louis.young@edpsychconnect.com` | `Team2025!` |
-| Samantha Patrick | `samantha.patrick@edpsychconnect.com` | `Team2025!` |
-| Michelle Garreth | `michelle.garreth@edpsychconnect.com` | `Team2025!` |
-| George Randall | `george.randall@edpsychconnect.com` | `Team2025!` |
-| Cora Sargent | `cora.sargent@edpsychconnect.com` | `Team2025!` |
-| Bevan Givens | `bevan.givens@edpsychconnect.com` | `Team2025!` |
-| Sue Podolska | `sue.podolska@edpsychconnect.com` | `Team2025!` |
+| Dr Piers Worth | `piers.worth@edpsychconnect.com` | **Stored in secret manager** |
+| Hayley Baverstock | `hayley.baverstock@edpsychconnect.com` | **Stored in secret manager** |
+| Hannah Patrick | `hannah.patrick@edpsychconnect.com` | **Stored in secret manager** |
+| Louis Young | `louis.young@edpsychconnect.com` | **Stored in secret manager** |
+| Samantha Patrick | `samantha.patrick@edpsychconnect.com` | **Stored in secret manager** |
+| Michelle Garreth | `michelle.garreth@edpsychconnect.com` | **Stored in secret manager** |
+| George Randall | `george.randall@edpsychconnect.com` | **Stored in secret manager** |
+| Cora Sargent | `cora.sargent@edpsychconnect.com` | **Stored in secret manager** |
+| Bevan Givens | `bevan.givens@edpsychconnect.com` | **Stored in secret manager** |
+| Sue Podolska | `sue.podolska@edpsychconnect.com` | **Stored in secret manager** |
 
 ## 4. Functional Test Accounts (E2E Scenarios)
 
@@ -43,11 +49,11 @@ Use these accounts to test specific user journeys (e.g., a teacher assigning wor
 
 | Role | Email | Password | Key Features to Test |
 |------|-------|----------|----------------------|
-| **Teacher** | `teacher@demo.com` | `Test123!` | Classroom Cockpit, Lesson Planning, Student Reports, Voice Assistant. |
-| **Student** | `student@demo.com` | `Test123!` | Student Dashboard, Games, Assignments, Mood Tracking. |
-| **Parent** | `parent@demo.com` | `Test123!` | Parent Portal, Progress Reports, Messaging. |
-| **Ed. Psychologist** | `ep@demo.com` | `Test123!` | EP Dashboard, Case Management, Report Writing. |
-| **LA Admin** | `la_admin@demo.com` | `Test123!` | LA Dashboard, EHCP Panel, School Oversight. |
+| **Teacher** | `teacher@demo.com` | **Local seed only** | Classroom Cockpit, Lesson Planning, Student Reports, Voice Assistant. |
+| **Student** | `student@demo.com` | **Local seed only** | Student Dashboard, Games, Assignments, Mood Tracking. |
+| **Parent** | `parent@demo.com` | **Local seed only** | Parent Portal, Progress Reports, Messaging. |
+| **Ed. Psychologist** | `ep@demo.com` | **Local seed only** | EP Dashboard, Case Management, Report Writing. |
+| **LA Admin** | `la_admin@demo.com` | **Local seed only** | LA Dashboard, EHCP Panel, School Oversight. |
 
 ## 5. Beta Testing Checklist
 
@@ -61,7 +67,7 @@ Before opening to external testers, please verify:
 
 ## 6. Emergency Reset
 
-If credentials need to be reset or data wiped, run the following commands in the terminal:
+If credentials need to be reset or data wiped, run the following commands in the terminal (local/dev only):
 
 ```bash
 # Reset and re-seed all test users

@@ -43,7 +43,7 @@ import {
   ArrowRight,
   Gamepad2,
   Blocks,
-  FileCode,
+
   Settings
 } from 'lucide-react';
 

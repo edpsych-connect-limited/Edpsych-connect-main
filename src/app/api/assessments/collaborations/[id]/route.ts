@@ -66,7 +66,7 @@ export async function GET(
 
   } catch (_error) {
     console.error('Error fetching collaboration:', _error);
-    return NextResponse.json({ error: 'Internal server _error' }, { status: 500 });
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
@@ -96,7 +96,7 @@ export async function POST(
 
   } catch (_error) {
     console.error('Error submitting collaboration:', _error);
-    return NextResponse.json({ error: 'Internal server _error' }, { status: 500 });
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
@@ -125,6 +125,6 @@ export async function PUT(
 
   } catch (_error) {
     console.error('Error saving draft:', _error);
-    return NextResponse.json({ error: 'Internal server _error' }, { status: 500 });
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

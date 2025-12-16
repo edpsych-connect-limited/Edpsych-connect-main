@@ -1,7 +1,11 @@
 import https from 'https';
 
-const HEYGEN_API_KEY = 'sk_V2_hgu_knMBHTR5eZS_Fh7oPDiRF6jLhvQXFPVXnNlMNG7PkjRj';
+const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
 const VIDEO_ID = process.argv[2];
+
+if (!HEYGEN_API_KEY) {
+  throw new Error('HEYGEN_API_KEY environment variable is required');
+}
 
 if (!VIDEO_ID) {
   console.error('Please provide a video ID as an argument.');

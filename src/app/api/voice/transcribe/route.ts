@@ -5,21 +5,18 @@ import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import OpenAI from 'openai';
 
-// Initialize OpenAI client
-// Note: This requires OPENAI_API_KEY in environment variables
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || 'dummy-key',
-});
-
 export async function POST(req: NextRequest) {
   try {
     // Check if OpenAI key is configured
-    if (!process.env.OPENAI_API_KEY) {
+    const openAiApiKey = process.env.OPENAI_API_KEY;
+    if (!openAiApiKey) {
       return NextResponse.json(
         { error: 'Server-side transcription not configured (missing API key)' },
         { status: 503 }
       );
     }
+
+    const openai = new OpenAI({ apiKey: openAiApiKey });
 
     const formData = await req.formData();
     const file = formData.get('file') as File;

@@ -29,7 +29,12 @@ export async function POST(request: NextRequest) {
   try {
     // Verify cron secret for security
     const authHeader = request.headers.get('authorization');
-    const cronSecret = process.env.CRON_SECRET || 'development-secret';
+    const cronSecret = process.env.CRON_SECRET;
+
+    if (!cronSecret) {
+      logger.error('[Blog Generate] CRON_SECRET not configured');
+      return NextResponse.json({ success: false, error: 'Cron not configured' }, { status: 503 });
+    }
 
     if (authHeader !== `Bearer ${cronSecret}`) {
       logger.error('[Blog Generate] Unauthorized cron attempt');
@@ -134,7 +139,11 @@ export async function GET(request: NextRequest) {
   try {
     // Check admin auth
     const authHeader = request.headers.get('authorization');
-    const cronSecret = process.env.CRON_SECRET || 'development-secret';
+    const cronSecret = process.env.CRON_SECRET;
+
+    if (!cronSecret) {
+      return NextResponse.json({ success: false, error: 'Cron not configured' }, { status: 503 });
+    }
 
     if (authHeader !== `Bearer ${cronSecret}`) {
       return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });

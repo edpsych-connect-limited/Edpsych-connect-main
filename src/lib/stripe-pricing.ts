@@ -6,7 +6,7 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-import { stripe } from './stripe';
+import { getStripe } from './stripe';
 
 export interface PricingTier {
   id: string;
@@ -20,6 +20,8 @@ export interface PricingTier {
 
 export async function getStripePrices(): Promise<PricingTier[]> {
   try {
+    const stripe = getStripe();
+
     // List all active products
     const products = await stripe.products.list({
       active: true,
@@ -55,8 +57,8 @@ export async function getStripePrices(): Promise<PricingTier[]> {
 
     // Sort by price to ensure correct order (Free -> Pro -> Institutional -> Enterprise)
     return pricingTiers.sort((a, b) => a.price - b.price);
-  } catch (_error) {
-    console.error('Error fetching Stripe prices:', _error);
+  } catch (error) {
+    console.error('Error fetching Stripe prices:', error);
     return [];
   }
 }

@@ -17,10 +17,8 @@
  * PRINCIPLE: The more a student uses the system, the better we understand them.
  */
 
-import { PrismaClient } from '@prisma/client';
 import { logger } from "@/lib/logger";
-
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
 
 // ============================================================================
 // TYPES

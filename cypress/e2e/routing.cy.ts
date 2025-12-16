@@ -36,13 +36,7 @@ describe('Routing & Navigation Audit', () => {
 
   describe('2.2 Protected Routes (Teacher)', () => {
     beforeEach(() => {
-      cy.session('teacher-session', () => {
-        cy.visit('/en/login');
-        cy.get('input[name="email"]').type('teacher@demo.com');
-        cy.get('input[name="password"]').type('Test123!');
-        cy.get('button[type="submit"]').click();
-        cy.url().should('include', '/dashboard');
-      });
+      cy.login('teacher@demo.com');
     });
 
     const teacherRoutes = [

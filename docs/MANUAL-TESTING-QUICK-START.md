@@ -9,14 +9,14 @@
 
 ## Test Accounts Created ✅
 
-All accounts use password: `Test123!`
+Passwords are provided via secure channel (not stored in this repo).
 
 | Role | Email | Password | Access Level |
 |------|-------|----------|-------------|
-| **Teacher** | teacher@test.edpsych.com | Test123! | Year 3 Oak class (assigned) |
-| **Student** | amara.singh@test.edpsych.com | Test123! | Year 3, Student ID: 16 |
-| **Parent** | priya.singh@test.edpsych.com | Test123! | Mother of Amara Singh |
-| **EP (Educational Psychologist)** | dr.patel@test.edpsych.com | Test123! | Caseload includes Amara Singh |
+| **Teacher** | teacher@test.edpsych.com | *Provided securely* | Year 3 Oak class (assigned) |
+| **Student** | amara.singh@test.edpsych.com | *Provided securely* | Year 3, Student ID: 16 |
+| **Parent** | priya.singh@test.edpsych.com | *Provided securely* | Mother of Amara Singh |
+| **EP (Educational Psychologist)** | dr.patel@test.edpsych.com | *Provided securely* | Caseload includes Amara Singh |
 
 **Tenant**: test-school (ID: 2)
 **Database**: 50 students, 8 classes, 40 lesson plans already seeded
@@ -49,7 +49,7 @@ curl http://localhost:3002/api/health
 1. Navigate to: `http://localhost:3002/login`
 2. Enter credentials:
    - Email: `teacher@test.edpsych.com`
-   - Password: `Test123!`
+   - Password: *Provided securely*
 3. Click "Sign In"
 
 **Expected**:
@@ -144,7 +144,7 @@ _Write down what you see:_
 1. Navigate to: `http://localhost:3002/login`
 2. Enter credentials:
    - Email: `amara.singh@test.edpsych.com`
-   - Password: `Test123!`
+   - Password: *Provided securely*
 3. Click "Sign In"
 
 **Expected**:
@@ -214,7 +214,7 @@ _What you see:_
 1. Navigate to: `http://localhost:3002/login`
 2. Enter credentials:
    - Email: `priya.singh@test.edpsych.com`
-   - Password: `Test123!`
+   - Password: *Provided securely*
 3. Click "Sign In"
 
 **Expected**:
@@ -309,7 +309,7 @@ _Parent portal content quality:_
 1. Navigate to: `http://localhost:3002/login`
 2. Enter credentials:
    - Email: `dr.patel@test.edpsych.com`
-   - Password: `Test123!`
+   - Password: *Provided securely*
 3. Click "Sign In"
 
 **Expected**:
@@ -642,7 +642,7 @@ _Write here:_
 ## Quick Reference
 
 ### Test Account Passwords
-All accounts: `Test123!`
+Passwords are provided via secure channel (not stored in this repo).
 
 ### Test URLs
 - Login: http://localhost:3002/login

@@ -148,7 +148,13 @@ export async function GET(request: NextRequest) {
       const token = request.cookies.get('auth-token')?.value;
       if (token) {
         try {
-          const decoded = jwt.verify(token, process.env.NEXTAUTH_SECRET || 'fallback-secret-key') as any;
+          const jwtSecret = process.env.NEXTAUTH_SECRET;
+          if (!jwtSecret) {
+            console.error('NEXTAUTH_SECRET is not configured');
+            return NextResponse.json({ error: 'Server not configured' }, { status: 500 });
+          }
+
+          const decoded = jwt.verify(token, jwtSecret) as any;
           if (decoded?.email) {
             userEmail = decoded.email;
           }

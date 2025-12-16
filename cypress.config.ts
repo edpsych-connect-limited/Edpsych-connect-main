@@ -3,9 +3,14 @@ import { defineConfig } from "cypress";
 export default defineConfig({
   e2e: {
     baseUrl: 'http://localhost:3000',
+    browserConnectTimeout: 120000,
     defaultCommandTimeout: 30000,
     responseTimeout: 120000,
     pageLoadTimeout: 120000,
+    env: {
+      // Keep Cypress password in sync with prisma seed scripts
+      SEED_TEST_USERS_PASSWORD: process.env.SEED_TEST_USERS_PASSWORD,
+    },
     setupNodeEvents(on, config) {
       on('task', {
         log(message) {

@@ -14,15 +14,35 @@ import { randomBytes, createCipheriv, createDecipheriv, scryptSync } from 'crypt
  * - Data masking for safe logging
  */
 
-// In production, this should be loaded from a secure environment variable
-// For this implementation, we ensure a fallback for immediate functionality
-const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY || 'edpsych-connect-world-class-security-key-2025';
-// Ensure key is 32 bytes for AES-256
-const MASTER_KEY = scryptSync(ENCRYPTION_KEY, 'salt', 32);
+function getEncryptionKey(): string {
+  // Support both legacy and newer naming to avoid config drift.
+  // ENCRYPTION_KEY is used broadly across the codebase.
+  // SECRETS_ENCRYPTION_KEY is used by the secrets manager implementation.
+  const key = process.env.ENCRYPTION_KEY || process.env.SECRETS_ENCRYPTION_KEY;
+  if (key) return key;
+
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('Missing required environment variable: ENCRYPTION_KEY');
+  }
+
+  // Dev-only fallback to keep local developer experience smooth.
+  // Not suitable for production.
+  return 'dev-only-insecure-encryption-key-change-me';
+}
+
+// Ensure key is 32 bytes for AES-256.
+// NOTE: Keep this lazy so Next.js build-time module evaluation doesn't explode
+// when secrets are not provided at compile time.
+let _MASTER_KEY: Buffer | null = null;
+function getMasterKey(): Buffer {
+  if (_MASTER_KEY) return _MASTER_KEY;
+  _MASTER_KEY = scryptSync(getEncryptionKey(), 'salt', 32);
+  return _MASTER_KEY;
+}
 
 const ALGORITHM = 'aes-256-gcm';
 const IV_LENGTH = 16; // For AES, this is always 16
-const AUTH_TAG_LENGTH = 16;
+const _AUTH_TAG_LENGTH = 16; // Reserved for future tag validation
 
 export interface EncryptedData {
   iv: string;
@@ -37,7 +57,7 @@ export interface EncryptedData {
  */
 export function encrypt(text: string): EncryptedData {
   const iv = randomBytes(IV_LENGTH);
-  const cipher = createCipheriv(ALGORITHM, MASTER_KEY, iv);
+  const cipher = createCipheriv(ALGORITHM, getMasterKey(), iv);
   
   let encrypted = cipher.update(text, 'utf8', 'hex');
   encrypted += cipher.final('hex');
@@ -61,7 +81,7 @@ export function decrypt(encryptedData: EncryptedData): string {
   const iv = Buffer.from(encryptedData.iv, 'hex');
   const tag = Buffer.from(encryptedData.tag, 'hex');
   
-  const decipher = createDecipheriv(ALGORITHM, MASTER_KEY, iv);
+  const decipher = createDecipheriv(ALGORITHM, getMasterKey(), iv);
   decipher.setAuthTag(tag);
   
   let decrypted = decipher.update(encryptedData.content, 'hex', 'utf8');

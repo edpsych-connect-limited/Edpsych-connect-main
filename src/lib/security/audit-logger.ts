@@ -5,10 +5,22 @@
  * @module security/audit-logger
  */
 
-import { PrismaClient } from '@prisma/client';
 import { NextRequest } from 'next/server';
+import { prisma } from '@/lib/prisma';
+import { logger } from '@/lib/logger';
+import { withAuditIntegrity } from '@/lib/audit/audit-integrity';
+import { isProductionEnv } from '@/lib/env/production-env';
 
-const prisma = new PrismaClient();
+let auditWriteConfigErrorLogged = false;
+
+function isAuditIntegrityConfigError(err: unknown): boolean {
+  const msg = err instanceof Error ? err.message : String(err);
+  return (
+    msg.includes('AUDIT_LOG_INTEGRITY_MODE') ||
+    msg.includes('AUDIT_LOG_HMAC_KEY') ||
+    msg.includes('Missing required environment variable: AUDIT_LOG_HMAC_KEY')
+  );
+}
 
 /**
  * Audit event types for tracking different security events
@@ -84,33 +96,53 @@ class AuditLogger {
    */
   async log(entry: AuditLogEntry): Promise<void> {
     try {
-      const userId = parseInt(entry.performedBy);
-      const validUserId = isNaN(userId) ? 0 : userId;
-      const tenantId = entry.tenantId || null;
+      const userIdIntRaw = Number.parseInt(entry.performedBy, 10);
+      const user_id_int = Number.isFinite(userIdIntRaw) ? userIdIntRaw : null;
+      const tenant_id = entry.tenantId ?? null;
+
+      const createData = {
+        userId: entry.performedBy,
+        user_id_int,
+        tenant_id,
+        action: entry.eventType,
+        resource: entry.entityType || 'system',
+        entityType: entry.entityType,
+        entityId: entry.entityId,
+        ipAddress: entry.ipAddress,
+        userAgent: entry.userAgent,
+        details: {
+          ...(entry.details || {}),
+          entityId: entry.entityId,
+          severity: entry.severity,
+          performedByEmail: entry.performedByEmail,
+          requestId: entry.requestId,
+          success: entry.success,
+          errorMessage: entry.errorMessage,
+        },
+      };
+
+      const dataWithIntegrity = await withAuditIntegrity(prisma as any, createData);
 
       await prisma.auditLog.create({
-        data: {
-          userId: entry.performedBy,
-          user_id_int: validUserId,
-          tenant_id: tenantId,
-          action: entry.eventType,
-          resource: entry.entityType || 'system',
-          details: {
-            ...(entry.details || {}),
-            entityId: entry.entityId,
-            severity: entry.severity,
-            performedByEmail: entry.performedByEmail,
-            requestId: entry.requestId,
-            success: entry.success,
-            errorMessage: entry.errorMessage,
-            ipAddress: entry.ipAddress,
-            userAgent: entry.userAgent,
-          },
-        },
+        data: dataWithIntegrity as any,
       });
     } catch (_error) {
-      // Log to console if database logging fails (don't throw to prevent cascading failures)
-      console.error('[AUDIT LOG] Failed to write audit log:', _error);
+      // In production, audit-integrity misconfiguration is a deterministic deploy-time error.
+      // Log it once and rethrow so it fails fast instead of spamming logs per request.
+      if (isProductionEnv() && isAuditIntegrityConfigError(_error)) {
+        if (!auditWriteConfigErrorLogged) {
+          auditWriteConfigErrorLogged = true;
+          logger.error('[AUDIT LOG] Audit integrity configuration error (production)', {
+            error: _error instanceof Error ? _error.message : String(_error),
+          });
+        }
+        throw _error;
+      }
+
+      // Best-effort for other failures to avoid cascading outages.
+      logger.error('[AUDIT LOG] Failed to write audit log', {
+        error: _error instanceof Error ? _error.message : String(_error),
+      });
     }
   }
 

@@ -21,16 +21,16 @@ You are an independent AI auditor tasked with performing a comprehensive end-to-
 - **Regular Login:** https://www.edpsychconnect.com/en/login
 - **Beta Login:** https://www.edpsychconnect.com/en/beta-login
 
-### Accounts to Test (Password: `Test123!` for all demo accounts)
+### Accounts to Test (Passwords provided via secure channel)
 
 | Role | Email | Password | Purpose |
 |------|-------|----------|---------|
-| **Founder/Admin** | `scott.ipatrick@edpsychconnect.com` | `Founder2025!` | Full platform access |
-| **Teacher** | `teacher@demo.com` | `Test123!` | Teacher dashboard, lessons, students |
-| **Student** | `student@demo.com` | `Test123!` | Student experience, gamification |
-| **Parent** | `parent@demo.com` | `Test123!` | Parent portal, progress tracking |
-| **EP** | `ep@demo.com` | `Test123!` | Educational Psychologist tools |
-| **Admin** | `admin@demo.com` | `Test123!` | Administrative functions |
+| **Founder/Admin** | `scott.ipatrick@edpsychconnect.com` | *Provided securely* | Full platform access |
+| **Teacher** | `teacher@demo.com` | *Provided securely* | Teacher dashboard, lessons, students |
+| **Student** | `student@demo.com` | *Provided securely* | Student experience, gamification |
+| **Parent** | `parent@demo.com` | *Provided securely* | Parent portal, progress tracking |
+| **EP** | `ep@demo.com` | *Provided securely* | Educational Psychologist tools |
+| **Admin** | `admin@demo.com` | *Provided securely* | Administrative functions |
 
 ### Beta Access Codes
 - `FOUNDER-ACCESS` - Full access
@@ -124,7 +124,7 @@ You are an independent AI auditor tasked with performing a comprehensive end-to-
 
 ### Phase 3: Teacher Dashboard
 
-Login as: `teacher@demo.com` / `Test123!`
+Login as: `teacher@demo.com` / *password provided securely*
 
 #### Dashboard (`/en/dashboard`)
 - [ ] Dashboard loads without errors
@@ -158,7 +158,7 @@ Login as: `teacher@demo.com` / `Test123!`
 
 ### Phase 4: Student Experience
 
-Login as: `student@demo.com` / `Test123!`
+Login as: `student@demo.com` / *password provided securely*
 
 #### Student Dashboard
 - [ ] Dashboard displays correctly
@@ -178,7 +178,7 @@ Login as: `student@demo.com` / `Test123!`
 
 ### Phase 5: Parent Portal
 
-Login as: `parent@demo.com` / `Test123!`
+Login as: `parent@demo.com` / *password provided securely*
 
 #### Parent Dashboard
 - [ ] Child's progress visible
@@ -188,7 +188,7 @@ Login as: `parent@demo.com` / `Test123!`
 
 ### Phase 6: EP (Educational Psychologist) Tools
 
-Login as: `ep@demo.com` / `Test123!`
+Login as: `ep@demo.com` / *password provided securely*
 
 #### EP Dashboard
 - [ ] Dashboard loads
@@ -207,7 +207,7 @@ Login as: `ep@demo.com` / `Test123!`
 
 ### Phase 7: Admin Functions
 
-Login as: `admin@demo.com` / `Test123!` or `scott.ipatrick@edpsychconnect.com` / `Founder2025!`
+Login as: `admin@demo.com` / *password provided securely* or `scott.ipatrick@edpsychconnect.com` / *password provided securely*
 
 #### Admin Dashboard
 - [ ] Admin panel accessible

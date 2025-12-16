@@ -5,7 +5,6 @@ import path from 'path';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
-// const API_KEY = 'sk_V2_hgu_ky346mdR1EZ_sepM85TUnIexIOSuzpiVI5gXaqMhWDo1';
 const LOG_FILE = path.join(process.cwd(), 'video_scripts', 'generation_log.txt');
 
 // async function getVideoStatus(videoId: string) {

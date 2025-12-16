@@ -26,13 +26,19 @@ import { v2 as cloudinary } from 'cloudinary';
 // CONFIGURATION
 // =============================================================================
 
-const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY || 'sk_V2_hgu_kIsPOKnUIeM_Nvtt8QLs3osJMx3nQi5fYEytQNjhR4qM';
+const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
+
+if (!HEYGEN_API_KEY) {
+  throw new Error('HEYGEN_API_KEY environment variable is required');
+}
+
+const REQUIRED_HEYGEN_API_KEY: string = HEYGEN_API_KEY;
 const HEYGEN_API_URL = 'https://api.heygen.com/v2/video/generate';
 const HEYGEN_STATUS_URL = 'https://api.heygen.com/v1/video_status.get';
 
 const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || 'dncfu2j0r';
-const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY || '243634378544427';
-const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET || 'J2CdOE3wHop90Vz0mS99biVHbnU';
+const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
+const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
 
 // Avatar and Voice Configuration - UK Professional Style (Dr. Scott)
 const AVATAR_CONFIG = {
@@ -484,7 +490,7 @@ async function submitVideoToHeyGen(script: VideoScript): Promise<string | null> 
     const response = await fetch(HEYGEN_API_URL, {
       method: 'POST',
       headers: {
-        'X-Api-Key': HEYGEN_API_KEY,
+        'X-Api-Key': REQUIRED_HEYGEN_API_KEY,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload)
@@ -514,7 +520,7 @@ async function checkVideoStatus(videoId: string): Promise<{ status: string; vide
   try {
     const response = await fetch(`${HEYGEN_STATUS_URL}?video_id=${videoId}`, {
       headers: {
-        'X-Api-Key': HEYGEN_API_KEY
+        'X-Api-Key': REQUIRED_HEYGEN_API_KEY
       }
     });
 

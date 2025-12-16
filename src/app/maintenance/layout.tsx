@@ -3,7 +3,7 @@
  * @license Proprietary - All Rights Reserved
  * 
  * Maintenance Page Layout
- * Minimal layout for the maintenance/coming soon page
+ * Minimal layout for the maintenance page
  */
 
 import { Inter } from 'next/font/google';
@@ -12,8 +12,8 @@ import '@/app/globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'Coming Soon | EdPsych Connect',
-  description: 'EdPsych Connect is building the future of educational psychology. Join the movement.',
+  title: 'Maintenance | EdPsych Connect',
+  description: 'EdPsych Connect is temporarily unavailable while we perform maintenance.',
 };
 
 export default function MaintenanceLayout({

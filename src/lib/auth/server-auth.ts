@@ -131,7 +131,8 @@ class ServerAuthService {
     this.tenants.set('default', defaultTenant);
 
     // Create default admin user
-    const _hashedPassword = bcrypt.hashSync('admin123', 12);
+    // NOTE: This is a mock/in-memory auth service used for development scaffolding.
+    // Do not hardcode credentials in source. Real authentication uses persisted credentials.
     const adminUser: User = {
       id: 'admin-001',
       email: 'admin@edpsychconnect.app',

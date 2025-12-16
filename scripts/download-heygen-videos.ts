@@ -13,7 +13,11 @@ import path from 'path';
 import https from 'https';
 import { HEYGEN_VIDEO_IDS } from '../src/lib/training/heygen-video-urls';
 
-const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY || 'sk_V2_hgu_kCXZPri8zVW_USKActgMJqFGEFzXfxRhYB1F5Jm9MqUz';
+const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
+
+if (!HEYGEN_API_KEY) {
+  throw new Error('HEYGEN_API_KEY environment variable is required');
+}
 
 interface VideoStatus {
   id: string;

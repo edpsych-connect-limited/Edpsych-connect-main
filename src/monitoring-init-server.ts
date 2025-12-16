@@ -7,9 +7,9 @@ import { logger } from "@/lib/logger";
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-import { PrismaClient } from '@prisma/client';
+import type { PrismaClient } from '@prisma/client';
 import { initializeMonitoring } from './services/monitoring/monitoring-init';
-import { prisma } from './lib/prisma/client'; // Import the existing prisma client
+import { platformPrisma } from '@/lib/prisma';
 
 /**
  * Initialize monitoring services for the application server
@@ -31,8 +31,8 @@ export async function initializeServerMonitoring(): Promise<void> {
     // Get Prisma client for database monitoring
     let prismaClient: PrismaClient | undefined;
     try {
-      // Use the existing prisma client instance
-      prismaClient = prisma;
+      // Use the platform (default) datasource for monitoring.
+      prismaClient = platformPrisma as unknown as PrismaClient;
     } catch (_error) {
       console.warn('Failed to use Prisma client for monitoring:', _error);
       // Continue initialization without database monitoring

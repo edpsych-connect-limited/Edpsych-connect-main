@@ -40,8 +40,8 @@ export function SupportChatbot() {
     transcript,
     startListening,
     stopListening,
-    resetTranscript,
-    isProcessingServerSide
+    resetTranscript: _resetTranscript,
+    isProcessingServerSide: _isProcessingServerSide
   } = useSpeechRecognition();
 
   // Sync voice transcript with input

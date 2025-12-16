@@ -3,7 +3,10 @@ import fs from 'fs';
 import path from 'path';
 import { exec } from 'child_process';
 
-const HEYGEN_API_KEY = 'sk_V2_hgu_knMBHTR5eZS_Fh7oPDiRF6jLhvQXFPVXnNlMNG7PkjRj';
+const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
+if (!HEYGEN_API_KEY) {
+  throw new Error('HEYGEN_API_KEY environment variable is required');
+}
 
 const VIDEOS = [
   {

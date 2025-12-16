@@ -1,0 +1,4 @@
+
+> edpsych-connect-web-v2@1.0.0 type-check
+> cross-env NODE_OPTIONS='--max-old-space-size=4096' node node_modules/typescript/bin/tsc --project tsconfig.typecheck.json --noEmit --skipLibCheck
+

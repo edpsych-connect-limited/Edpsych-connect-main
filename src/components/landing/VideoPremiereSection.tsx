@@ -14,7 +14,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Play, X, ArrowRight, Sparkles, Shield, Users, Brain, Target, Zap } from 'lucide-react';
+import { Play, X, ArrowRight, Sparkles, Shield, Users, Brain, Target } from 'lucide-react';
 import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
 
 // Video configuration - maps to centralized HEYGEN_VIDEO_IDS

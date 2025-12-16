@@ -83,6 +83,12 @@ export async function POST(req: Request) {
       return { user, tenant };
     });
 
+    const jwtSecret = process.env.NEXTAUTH_SECRET;
+    if (!jwtSecret) {
+      console.error('NEXTAUTH_SECRET is not configured');
+      return NextResponse.json({ error: 'Server not configured' }, { status: 500 });
+    }
+
     // Generate Tokens
     const accessToken = sign(
       {
@@ -93,7 +99,7 @@ export async function POST(req: Request) {
         tenantId: newUser.tenant_id,
         permissions: newUser.permissions,
       },
-      process.env.NEXTAUTH_SECRET || 'fallback-secret-key',
+      jwtSecret,
       { expiresIn: '1d' }
     );
 
@@ -102,7 +108,7 @@ export async function POST(req: Request) {
         userId: newUser.id,
         email: newUser.email,
       },
-      process.env.NEXTAUTH_SECRET || 'fallback-secret-key',
+      jwtSecret,
       { expiresIn: '7d' }
     );
 

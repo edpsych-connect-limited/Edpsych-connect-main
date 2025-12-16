@@ -5,8 +5,7 @@
 describe('Login Page', () => {
   beforeEach(() => {
     cy.viewport(1280, 720);
-    const baseUrl = Cypress.config('baseUrl') || 'http://localhost:3002';
-    cy.visit(`${baseUrl}/login`, { failOnStatusCode: false });
+    cy.visit('/login', { failOnStatusCode: false });
   });
 
   it('should display the login form', () => {
@@ -40,18 +39,18 @@ describe('Login Page', () => {
     // For a true E2E test, we should seed a test user before running this test
     
     // We'll use the test user credentials that should be seeded in the database
+    const seedPassword = (Cypress.env('SEED_TEST_USERS_PASSWORD') as string | undefined) ?? 'Test123!';
     const testUser = {
-      email: 'teacher@demo.com', 
-      password: 'Test123!'
+      email: 'teacher@demo.com',
+      password: seedPassword
     };
 
     cy.get('input[type="email"]').type(testUser.email);
     cy.get('input[type="password"]').type(testUser.password);
     cy.get('button[type="submit"]').click();
     
-    // Check redirect to dashboard
-    // We increase timeout because real API calls might take longer than mocks
-    cy.url({ timeout: 10000 }).should('include', '/dashboard');
+    // Check redirect to dashboard (locale-aware).
+    cy.location('pathname', { timeout: 30000 }).should('include', '/dashboard');
   });
 
   it('should have a "Forgot Password" link', () => {

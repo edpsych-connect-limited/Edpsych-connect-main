@@ -7,28 +7,28 @@ These use Railway's **private network** (`.railway.internal`) and need PUBLIC UR
 ### 1. PostgreSQL (Railway)
 ```
 ❌ CURRENT INTERNAL:
-postgresql://postgres:LIeFibdBmBEVtrOaAkmUMbFzTbmLLAPy@postgres.railway.internal:5432/railway
+postgresql://user:password@postgres.railway.internal:5432/dbname
 
 ✅ NEEDS PUBLIC:
-postgresql://postgres:LIeFibdBmBEVtrOaAkmUMbFzTbmLLAPy@containers-us-west-xxx.railway.app:5432/railway
+postgresql://user:password@containers-us-west-xxx.railway.app:5432/dbname
 ```
 
 ### 2. MongoDB (Railway)
 ```
 ❌ CURRENT INTERNAL:
-mongodb://mongo:WyFZWpMXUKdycSTkQrIvOJgROYtclotG@mongodb.railway.internal:27017
+mongodb://user:password@mongodb.railway.internal:27017/dbname
 
 ✅ NEEDS PUBLIC:
-mongodb://mongo:WyFZWpMXUKdycSTkQrIvOJgROYtclotG@containers-us-west-xxx.railway.app:27017
+mongodb://user:password@containers-us-west-xxx.railway.app:27017/dbname
 ```
 
 ### 3. Redis (Railway)
 ```
 ❌ CURRENT INTERNAL:
-redis://default:wEvdnwhivvZnLWCJORmlvMDTfnhgntWG@redis-pgdr.railway.internal:6379
+redis://default:password@redis-pgdr.railway.internal:6379
 
 ✅ NEEDS PUBLIC:
-redis://default:wEvdnwhivvZnLWCJORmlvMDTfnhgntWG@containers-us-west-xxx.railway.app:6379
+redis://default:password@containers-us-west-xxx.railway.app:6379
 ```
 
 ---

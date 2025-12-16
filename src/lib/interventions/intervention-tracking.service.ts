@@ -13,13 +13,15 @@
  * - "Progress monitoring"
  * 
  * Zero Gap Project - Sprint 7
+ * 
+ * Note: This service contains stub implementations with unused parameters
+ * that will be implemented in future sprints.
  */
 
-import { PrismaClient } from '@prisma/client';
-import { logger } from '@/lib/logger';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
-// Initialize Prisma
-const prisma = new PrismaClient();
+import { logger } from '@/lib/logger';
+import { prisma as _prisma } from '@/lib/prisma';
 
 // ============================================================================
 // Types and Interfaces

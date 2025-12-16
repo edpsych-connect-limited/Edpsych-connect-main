@@ -15,7 +15,9 @@
  * @version 1.0.0
  */
 
-import { PrismaClient, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
+import type { DbClient } from '@/lib/prisma';
+import { prisma as defaultPrisma } from '@/lib/prisma';
 
 // Types
 interface ProfessionalProfile {
@@ -358,10 +360,10 @@ interface ProfileUpdateData {
 }
 
 export class ProfessionalNetworkService {
-  private prisma: PrismaClient;
+  private prisma: DbClient;
 
-  constructor(prismaClient?: PrismaClient) {
-    this.prisma = prismaClient || new PrismaClient();
+  constructor(prismaClient?: DbClient) {
+    this.prisma = prismaClient || defaultPrisma;
   }
 
   // ========================================

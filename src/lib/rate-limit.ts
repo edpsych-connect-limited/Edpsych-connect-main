@@ -221,9 +221,9 @@ export function getClientIP(request: Request): string {
 
 // Pre-configured rate limits
 export const RATE_LIMITS = {
-  /** Login attempts: 5 per minute per IP */
+  /** Login attempts: 5 per minute per IP (production), relaxed in dev/test for E2E */
   LOGIN: {
-    maxRequests: 5,
+    maxRequests: process.env.NODE_ENV === 'production' ? 5 : 50,
     windowMs: 60 * 1000,
     prefix: 'login',
   },

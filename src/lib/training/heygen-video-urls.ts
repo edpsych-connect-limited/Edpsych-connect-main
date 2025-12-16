@@ -164,8 +164,6 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
 export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // Core Platform Videos
   // "platform-introduction": "/content/training_videos/platform-introduction.mp4", // Removed to force HeyGen v3 fallback
-  "onboarding-platform-tour": "47faddd661d648e5ae34c8360c8b2286",
-  "onboarding-welcome": "a3b05db1d6f94cca89b190205148e814",
   "la-dashboard-overview": "/content/training_videos/la-portal/la-dashboard-overview.mp4",
   "school-senco-portal": "/content/training_videos/misc/school-senco-portal.mp4",
   "parent-portal-welcome": "/content/training_videos/parent-portal/parent-portal-welcome.mp4",
@@ -187,11 +185,9 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   "parent-understanding-results": "/content/training_videos/parent-portal/parent-understanding-results.mp4",
   "platform-introduction": "/content/training_videos/marketing/platform-introduction.mp4",
   "parent-contributing-views": "/content/training_videos/parent-portal/parent-contributing-views.mp4",
-  "compliance-data-protection": "d741f1a637fc4d279c255ceea749ec7c",
   "compliance-consent": "/content/training_videos/compliance/compliance-consent.mp4",
   "assessment-choosing": "/content/training_videos/assessment/assessment-choosing.mp4",
   "assessment-interpreting": "/content/training_videos/assessment/assessment-interpreting.mp4",
-  "innovation-safety-net": "c27e642db9b54d6faf695da40d47bf2a",
   "innovation-orchestration": "/content/training_videos/innovation/innovation-orchestration.mp4",
   "innovation-research-hub": "/content/training_videos/innovation/innovation-research-hub.mp4",
   "innovation-coding-curriculum": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
@@ -217,7 +213,6 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   "feature-la-dashboard": "/content/training_videos/features/feature-la-dashboard.mp4",
 
   // Feature Spotlight Aliases
-  "data-autonomy": "d741f1a637fc4d279c255ceea749ec7c",
   "no-child-left-behind": "/content/training_videos/innovation/innovation-safety-net.mp4",
   "gamification-integrity": "/content/training_videos/innovation/innovation-battle-royale.mp4",
 
@@ -387,12 +382,31 @@ export const VIDEO_OVERLAYS: Record<string, string> = {
   'la-dashboard-overview': '/images/walkthroughs/admin-dashboard.svg',
 };
 
+// ============================================================================
+// LIVE DEMO RECORDINGS (REAL PLATFORM OPERATIONS)
+// ============================================================================
+// These are optional, curated screen recordings of real platform workflows
+// (e.g., onboarding, first assessment, EHCP export). They are intended to
+// complement AI explainers and reduce reliance on human support.
+//
+// Priority (highest -> lowest): Live Demo -> Cloudinary (AI/edited) -> Local -> HeyGen embed
+//
+// NOTE: Keep this mapping small and high-signal. Only add keys where a real,
+// end-to-end workflow recording materially improves user autonomy.
+// ============================================================================
+export const LIVE_DEMO_VIDEO_URLS: Record<string, string> = {
+  // Example (add when available):
+  // "ehcp-application-journey": "https://res.cloudinary.com/<cloud>/video/upload/<v>/edpsych-connect/live/ehcp-application-journey.mp4",
+};
+
 
 export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "la-ehcp-merge-tool": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641766/edpsych-connect/videos/la-ehcp-merge-tool.mp4",
   "la-professional-requests": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641777/edpsych-connect/videos/la-professional-requests.mp4",
   "la-dashboard-overview": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641794/edpsych-connect/videos/la-dashboard-overview.mp4",
   "feature-la-dashboard": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644467/edpsych-connect/videos/feature-la-dashboard.mp4",
+  "onboarding-welcome": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533816/edpsych-connect/videos/onboarding-welcome.mp4",
+  "onboarding-platform-tour": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533862/edpsych-connect/videos/onboarding-platform-tour.mp4",
   "help-troubleshooting": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641815/edpsych-connect/videos/help-troubleshooting.mp4",
   "help-cpd-tracking": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641824/edpsych-connect/videos/help-cpd-tracking.mp4",
   "help-collaboration": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641834/edpsych-connect/videos/help-collaboration.mp4",
@@ -405,6 +419,9 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "parent-contributing-views": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641915/edpsych-connect/videos/parent-contributing-views.mp4",
   "parent-understanding-results": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641927/edpsych-connect/videos/parent-understanding-results.mp4",
   "platform-introduction": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765665881/edpsych-connect/onboarding/platform-introduction.mp4",
+  "data-autonomy": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533766/edpsych-connect/videos/data-autonomy.mp4",
+  "no-child-left-behind": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533789/edpsych-connect/videos/no-child-left-behind.mp4",
+  "gamification-integrity": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533803/edpsych-connect/videos/gamification-integrity.mp4",
   "school-senco-portal": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641955/edpsych-connect/videos/school-senco-portal.mp4",
   "1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641962/edpsych-connect/videos/1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations.mp4",
   "2-1_Inattentive_Presentation___The_Daydreamer_": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641969/edpsych-connect/videos/2-1_Inattentive_Presentation___The_Daydreamer_.mp4",
@@ -449,14 +466,12 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "ehcp-appeals": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642419/edpsych-connect/videos/ehcp-appeals.mp4",
   "ehcp-application-journey": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642436/edpsych-connect/videos/ehcp-application-journey.mp4",
   "compliance-consent": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642445/edpsych-connect/videos/compliance-consent.mp4",
-  "compliance-data-protection": "d741f1a637fc4d279c255ceea749ec7c",
   "assessment-choosing": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642465/edpsych-connect/videos/assessment-choosing.mp4",
   "assessment-interpreting": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642475/edpsych-connect/videos/assessment-interpreting.mp4",
   "innovation-battle-royale": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642485/edpsych-connect/videos/innovation-battle-royale.mp4",
   "innovation-ai-agents": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642494/edpsych-connect/videos/innovation-ai-agents.mp4",
   "innovation-research-hub": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642505/edpsych-connect/videos/innovation-research-hub.mp4",
   "innovation-coding-curriculum": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642517/edpsych-connect/videos/innovation-coding-curriculum.mp4",
-  "innovation-safety-net": "c27e642db9b54d6faf695da40d47bf2a",
   "innovation-orchestration": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642543/edpsych-connect/videos/innovation-orchestration.mp4",
   "1-1_ADHD_Neurobiology__Dopamine__Norepinephrine__and_Brain_Development": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642554/edpsych-connect/videos/1-1_ADHD_Neurobiology__Dopamine__Norepinephrine__and_Brain_Development.mp4",
   "3-1_The_8_Executive_Functions_Affected_by_ADHD": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642563/edpsych-connect/videos/3-1_The_8_Executive_Functions_Affected_by_ADHD.mp4",
@@ -519,6 +534,44 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "feature-ai-agents": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644453/edpsych-connect/videos/feature-ai-agents.mp4",
 };
 
+export type VideoSourceType = 'live' | 'cloudinary' | 'local' | 'heygen';
+
+export type VideoSourceCandidate = {
+  type: VideoSourceType;
+  kind: 'video' | 'iframe';
+  url: string;
+};
+
+/**
+ * Returns an ordered list of candidates for playback.
+ * This is the canonical source-of-truth for priority ordering.
+ */
+export function getVideoSourceCandidates(lessonId: string): VideoSourceCandidate[] {
+  const candidates: VideoSourceCandidate[] = [];
+
+  const liveUrl = LIVE_DEMO_VIDEO_URLS[lessonId];
+  if (liveUrl) {
+    candidates.push({ type: 'live', kind: 'video', url: liveUrl });
+  }
+
+  const cloudinaryUrl = CLOUDINARY_VIDEO_URLS[lessonId];
+  if (cloudinaryUrl) {
+    candidates.push({ type: 'cloudinary', kind: 'video', url: cloudinaryUrl });
+  }
+
+  const localPath = LOCAL_VIDEO_PATHS[lessonId];
+  if (localPath) {
+    candidates.push({ type: 'local', kind: 'video', url: localPath });
+  }
+
+  const heygenId = HEYGEN_VIDEO_IDS[lessonId];
+  if (heygenId) {
+    candidates.push({ type: 'heygen', kind: 'iframe', url: `https://app.heygen.com/embed/${heygenId}` });
+  }
+
+  return candidates;
+}
+
 
 
 /**
@@ -526,24 +579,8 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
  * Checks Cloudinary first, then local paths, then falls back to HeyGen ID
  */
 export function getBestVideoSource(lessonId: string): { isLocal: boolean; url: string } | undefined {
-  // 1. Cloudinary (Primary - CDN)
-  const cloudinaryUrl = CLOUDINARY_VIDEO_URLS[lessonId];
-  if (cloudinaryUrl) {
-    // Treat as local to use <video> tag instead of iframe
-    return { isLocal: true, url: cloudinaryUrl };
-  }
-
-  // 2. Local (Fallback)
-  const localPath = LOCAL_VIDEO_PATHS[lessonId];
-  if (localPath) {
-    return { isLocal: true, url: localPath };
-  }
-
-  // 3. HeyGen (Last Resort)
-  const heygenId = HEYGEN_VIDEO_IDS[lessonId];
-  if (heygenId) {
-    return { isLocal: false, url: `https://app.heygen.com/embed/${heygenId}` };
-  }
-
-  return undefined;
+  const candidates = getVideoSourceCandidates(lessonId);
+  const best = candidates[0];
+  if (!best) return undefined;
+  return { isLocal: best.kind === 'video', url: best.url };
 }

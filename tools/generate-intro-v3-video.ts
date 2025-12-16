@@ -11,15 +11,31 @@ import * as path from 'path';
 import fetch from 'node-fetch';
 
 // Configuration
-const HEYGEN_API_KEY = 'sk_V2_hgu_knMBHTR5eZS_Fh7oPDiRF6jLhvQXFPVXnNlMNG7PkjRj';
+const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
+const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
+const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
+const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
+
+if (!HEYGEN_API_KEY) {
+  throw new Error('HEYGEN_API_KEY environment variable is required');
+}
+
+if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_API_KEY || !CLOUDINARY_API_SECRET) {
+  throw new Error('CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET must be set');
+}
+
+const REQUIRED_HEYGEN_API_KEY: string = HEYGEN_API_KEY;
+const REQUIRED_CLOUDINARY_CLOUD_NAME: string = CLOUDINARY_CLOUD_NAME;
+const REQUIRED_CLOUDINARY_API_KEY: string = CLOUDINARY_API_KEY;
+const REQUIRED_CLOUDINARY_API_SECRET: string = CLOUDINARY_API_SECRET;
 const AVATAR_ID = '0d10345ca99840cdbd3103692ba55e27'; // Dr. Scott Ighavongbe-Patrick
 const VOICE_ID = '50d2a2a531d049719a0debbf82e1cf4c'; // Scott Ighavongbe-Patrick
 
 // Cloudinary configuration
 cloudinary.config({
-  cloud_name: 'dncfu2j0r',
-  api_key: '243634378544427',
-  api_secret: 'J2CdOE3wHop90Vz0mS99biVHbnU'
+  cloud_name: REQUIRED_CLOUDINARY_CLOUD_NAME,
+  api_key: REQUIRED_CLOUDINARY_API_KEY,
+  api_secret: REQUIRED_CLOUDINARY_API_SECRET,
 });
 
 const INTRO_V3_SCRIPT = `Welcome to EdPsych Connect World. Over the next few minutes, I'll show you why this platform represents a fundamental shift in how we support children with special educational needs.
@@ -69,7 +85,7 @@ async function submitToHeyGen(): Promise<string | null> {
     const response = await fetch('https://api.heygen.com/v2/video/generate', {
       method: 'POST',
       headers: {
-        'X-Api-Key': HEYGEN_API_KEY,
+        'X-Api-Key': REQUIRED_HEYGEN_API_KEY,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -113,7 +129,7 @@ async function checkStatus(videoId: string): Promise<{ status: string; videoUrl?
     const response = await fetch(`https://api.heygen.com/v1/video_status.get?video_id=${videoId}`, {
       method: 'GET',
       headers: {
-        'X-Api-Key': HEYGEN_API_KEY,
+        'X-Api-Key': REQUIRED_HEYGEN_API_KEY,
         'Accept': 'application/json'
       }
     });

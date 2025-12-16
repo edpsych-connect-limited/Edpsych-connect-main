@@ -5,12 +5,21 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
-  const email = 'teacher@demo.com';
-  const password = 'Test123!';
+  const email = process.argv[2] || process.env.VERIFY_LOGIN_EMAIL;
+  const password = process.argv[3] || process.env.VERIFY_LOGIN_PASSWORD;
 
-  console.log(`Checking user: ${email}`);
+  if (!email || !password) {
+    console.error('Usage: npx tsx tools/verify-login.ts <email> <password>');
+    console.error('Or set VERIFY_LOGIN_EMAIL and VERIFY_LOGIN_PASSWORD');
+    process.exit(1);
+  }
+
+  const requiredEmail: string = email;
+  const requiredPassword: string = password;
+
+  console.log(`Checking user: ${requiredEmail}`);
   const user = await prisma.users.findUnique({
-    where: { email },
+    where: { email: requiredEmail },
   });
 
   if (!user) {
@@ -19,10 +28,8 @@ async function main() {
   }
 
   console.log('User found:', user.id, user.email);
-  console.log('Password Hash:', user.password_hash);
-
-  const isValid = await bcrypt.compare(password, user.password_hash);
-  console.log(`Password '${password}' valid?`, isValid);
+  const isValid = await bcrypt.compare(requiredPassword, user.password_hash);
+  console.log('Password valid?', isValid);
 }
 
 main()

@@ -4,7 +4,7 @@ describe('EHCP Management Workflow', () => {
     cy.visit('/en/login');
     
     // Use the custom login command which is faster and more reliable
-    cy.login('ep@demo.com', 'Test123!');
+    cy.login('ep@demo.com');
     
     // Verify token is set
     cy.window().then(win => {

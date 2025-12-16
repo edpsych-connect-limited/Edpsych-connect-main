@@ -14,10 +14,10 @@ This document provides an independent auditor with everything needed to conduct 
 | Field | Value |
 |-------|-------|
 | Email | `scott.ipatrick@edpsychconnect.com` |
-| Password | `Founder2025!` |
+| Password | *Provided via secure channel* |
 | Login URL | https://www.edpsychconnect.com/en/login |
 
-### Demo Accounts (All use password: `Test123!`)
+### Demo Accounts (Passwords provided via secure channel)
 | Role | Email | Purpose |
 |------|-------|---------|
 | Teacher | teacher@demo.com | Class management, lesson planning |
@@ -33,7 +33,7 @@ This document provides an independent auditor with everything needed to conduct 
 | Field | Value |
 |-------|-------|
 | Email | `beta_tester@demo.com` |
-| Password | `BetaTest2025!` |
+| Password | *Provided via secure channel* |
 
 ### Beta Access Codes (for /beta-login page)
 - `BETA2025`
@@ -221,7 +221,7 @@ For each issue found, document:
 ## SECTION 4: CRITICAL FUNCTIONALITY TESTS
 
 ### 4.1 Assessment Workflow (ECCA)
-1. Login as EP (ep@demo.com / Test123!)
+1. Login as EP (ep@demo.com / password provided securely)
 2. Navigate to Assessments
 3. Click "Start New Assessment" or "ECCA Framework" button
 4. Select a student/case
@@ -231,7 +231,7 @@ For each issue found, document:
 **Expected**: Full workflow completes, report generates
 
 ### 4.2 Lesson Plan Creation
-1. Login as Teacher (teacher@demo.com / Test123!)
+1. Login as Teacher (teacher@demo.com / password provided securely)
 2. Navigate to Lesson Plans (or equivalent)
 3. Create new lesson plan
 4. Save and verify it appears in list
@@ -239,7 +239,7 @@ For each issue found, document:
 **Expected**: Lesson plan creates and saves successfully
 
 ### 4.3 Parent-Child View
-1. Login as Parent (parent@demo.com / Test123!)
+1. Login as Parent (parent@demo.com / password provided securely)
 2. View child's progress
 3. Access child's assessments/reports
 
@@ -288,7 +288,7 @@ Test with curl:
 # Login test
 curl -X POST https://www.edpsychconnect.com/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"teacher@demo.com","password":"Test123!"}'
+  -d '{"email":"teacher@demo.com","password":"<password>"}'
 
 # Should return: {"success":true,"message":"Login successful",...}
 ```

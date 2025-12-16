@@ -19,7 +19,9 @@
  * @version 1.0.0
  */
 
-import { PrismaClient, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
+import type { DbClient } from '@/lib/prisma';
+import { prisma as defaultPrisma } from '@/lib/prisma';
 
 // Types
 interface SENDRegisterEntry {
@@ -218,10 +220,10 @@ interface RegisterFilters {
 }
 
 export class SENCODashboardService {
-  private prisma: PrismaClient;
+  private prisma: DbClient;
 
-  constructor(prismaClient?: PrismaClient) {
-    this.prisma = prismaClient || new PrismaClient();
+  constructor(prismaClient?: DbClient) {
+    this.prisma = prismaClient || defaultPrisma;
   }
 
   // ========================================
@@ -1064,14 +1066,14 @@ export class SENCODashboardService {
     };
   }
 
-  private async getTrends(schoolId: string): Promise<DashboardMetrics['trends']> {
+  private async getTrends(_schoolId: string): Promise<DashboardMetrics['trends']> {
     // Get monthly data for last 6 months
     const months: TrendData[] = [];
     const now = new Date();
 
     for (let i = 5; i >= 0; i--) {
       const monthStart = new Date(now.getFullYear(), now.getMonth() - i, 1);
-      const monthEnd = new Date(now.getFullYear(), now.getMonth() - i + 1, 0);
+      const _monthEnd = new Date(now.getFullYear(), now.getMonth() - i + 1, 0);
       
       months.push({
         period: monthStart.toLocaleDateString('en-GB', { month: 'short', year: '2-digit' }),

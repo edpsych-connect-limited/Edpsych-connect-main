@@ -14,7 +14,7 @@
  * - Responsive design
  */
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import {
   Brain,
   FileText,
@@ -25,12 +25,11 @@ import {
   Check,
   Play,
   X,
-  ExternalLink,
-  Loader2
+  ExternalLink
 } from 'lucide-react';
 import { useOnboarding } from '../OnboardingProvider';
 import { InteractiveDemo } from '../InteractiveDemo';
-import { getBestVideoSource } from '@/lib/training/heygen-video-urls';
+import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
 
 interface Feature {
   id: string;
@@ -181,60 +180,6 @@ export function Step4FeatureTour() {
   const [triedDemos, setTriedDemos] = useState<string[]>(state.step4Data.demosTried || []);
   const [showDemoModal, setShowDemoModal] = useState(false);
 
-  // Video state
-  const [videoStarted, setVideoStarted] = useState(false);
-  const [videoUrl, setVideoUrl] = useState<string | null>(null);
-  const [isLoadingVideo, setIsLoadingVideo] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Fetch video URL when play is clicked
-  const fetchVideoUrl = useCallback(async () => {
-    setIsLoadingVideo(true);
-
-    // 1. Try registry first (Local or HeyGen)
-    const source = getBestVideoSource('onboarding-platform-tour');
-    if (source) {
-      setVideoUrl(source.url);
-      setIsLoadingVideo(false);
-      return;
-    }
-
-    // 2. Try HeyGen API as fallback
-    try {
-      const response = await fetch('/api/video/heygen-url?key=onboarding-platform-tour');
-      if (response.ok) {
-        const data = await response.json();
-        if (data.url) {
-          setVideoUrl(data.url);
-          setIsLoadingVideo(false);
-          return;
-        }
-      }
-    } catch {
-      // HeyGen API failed
-    }
-
-    // Fallback - just use local path and let it error naturally
-    setVideoUrl('/content/training_videos/platform-introduction.mp4');
-    setIsLoadingVideo(false);
-  }, []);
-
-  // Auto-play when video URL is loaded
-  useEffect(() => {
-    if (videoUrl && videoStarted && videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
-  }, [videoUrl, videoStarted]);
-
-  const handleVideoPlay = () => {
-    setVideoStarted(true);
-    if (!videoUrl) {
-      fetchVideoUrl();
-    } else if (videoRef.current) {
-      videoRef.current.play();
-    }
-  };
-
   const handleFeatureView = (featureId: string) => {
     setActiveFeature(featureId);
 
@@ -342,47 +287,12 @@ export function Step4FeatureTour() {
       </div>
 
       {/* Video Player */}
-      <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 max-w-4xl mx-auto mb-8">
-        <div className="relative aspect-video bg-gray-900">
-          {!videoStarted ? (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 to-purple-900 opacity-50" />
-              <button
-                onClick={handleVideoPlay}
-                className="relative z-10 group"
-                aria-label="Play platform tour video"
-              >
-                <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all duration-300 ring-1 ring-white/50 group-hover:ring-white">
-                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    <Play className="w-8 h-8 text-indigo-600 ml-1" fill="currentColor" />
-                  </div>
-                </div>
-                <span className="absolute -bottom-12 left-1/2 -translate-x-1/2 text-white font-medium tracking-wide text-sm uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                  Watch Tour
-                </span>
-              </button>
-            </div>
-          ) : (
-            <div className="w-full h-full">
-              {isLoadingVideo && (
-                <div className="absolute inset-0 flex items-center justify-center bg-gray-900 z-10">
-                  <Loader2 className="w-10 h-10 text-white animate-spin" />
-                </div>
-              )}
-              <video
-                ref={videoRef}
-                src={videoUrl || ''}
-                className="w-full h-full object-cover"
-                controls
-                playsInline
-              >
-                <track kind="captions" src="/captions/onboarding-platform-tour.vtt" label="English" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-          )}
-        </div>
-      </div>
+      <VideoTutorialPlayer
+        videoKey="onboarding-platform-tour"
+        title="Platform Tour"
+        description="A quick walkthrough of the core workflow and where to find key features."
+        className="max-w-4xl mx-auto mb-8"
+      />
 
       {/* Progress Indicator */}
       <div className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-xl p-4">

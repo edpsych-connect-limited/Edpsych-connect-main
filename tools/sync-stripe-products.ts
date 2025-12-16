@@ -42,7 +42,8 @@ const products = [
 
 async function sync() {
   // Dynamic import to ensure env vars are loaded first
-  const { stripe } = await import('../src/lib/stripe');
+  const { getStripe } = await import('../src/lib/stripe');
+  const stripe = getStripe();
 
   console.log('🔄 Starting Stripe Product Sync...');
 

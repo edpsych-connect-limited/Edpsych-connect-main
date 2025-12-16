@@ -72,7 +72,7 @@ async function routeAssessmentRequest(request: NextRequest): Promise<NextRespons
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   } catch (_error) {
     console.error('[Assessment] Error:', _error);
-    return NextResponse.json({ error: 'Internal server _error' }, { status: 500 });
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 

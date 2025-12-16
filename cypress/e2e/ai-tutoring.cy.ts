@@ -1,8 +1,10 @@
 describe('AI Tutoring Interface', () => {
+  const seedPassword = (Cypress.env('SEED_TEST_USERS_PASSWORD') as string | undefined) ?? 'Test123!';
+
   beforeEach(() => {
     cy.visit('/login');
     cy.get('input[name="email"]').type('student@demo.com');
-    cy.get('input[name="password"]').type('Test123!');
+    cy.get('input[name="password"]').type(seedPassword);
     cy.get('button[type="submit"]').click();
   });
 

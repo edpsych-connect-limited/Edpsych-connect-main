@@ -360,12 +360,24 @@ export class DeploymentValidationService {
       'NEXTAUTH_SECRET',
       'DATABASE_URL',
       'OPENAI_API_KEY',
-      'STRIPE_SECRET_KEY'
+      'STRIPE_SECRET_KEY',
     ];
 
     for (const envVar of requiredEnvVars) {
       if (!process.env[envVar]) {
         issues.push(`Missing required environment variable: ${envVar}`);
+      }
+    }
+
+    // Audit integrity hard requirements (production)
+    if (process.env.NODE_ENV === 'production') {
+      const mode = (process.env.AUDIT_LOG_INTEGRITY_MODE || '').toLowerCase();
+      if (mode !== 'hmac-sha256' && mode !== 'hmac') {
+        issues.push('AUDIT_LOG_INTEGRITY_MODE must be set to hmac-sha256 in production');
+      }
+
+      if (!process.env.AUDIT_LOG_HMAC_KEY) {
+        issues.push('Missing required environment variable: AUDIT_LOG_HMAC_KEY');
       }
     }
 

@@ -1,4 +1,4 @@
-import { LucideIcon, Blocks, FileCode, Code, Database, Globe, Cpu } from 'lucide-react';
+import { Blocks, FileCode, Code } from 'lucide-react';
 
 export type Difficulty = 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
 

@@ -12,8 +12,8 @@ You're asking the RIGHT question! Your `CLAUDE_API_KEY` and `OPENAI_API_KEY` ARE
 ```
 File: C:\Users\scott\Desktop\package\.env.txt
 
-CLAUDE_API_KEY="sk-ant-api03-JS8w5KUn4KfQqQm0IEXXuL_HkJRMIrTqF4OOv_zQPHmBTDTHDjDw3SgWxn0SdE46yQ-wEyAAAAB_QrCuAA"
-OPENAI_API_KEY="sk-Qz8Wm5Lp9TnXvJyHrEcFbA3Dk7Gt6UiVoSbPq2OwZ1YcX4"
+CLAUDE_API_KEY="sk-ant-api03-..."
+OPENAI_API_KEY="sk-..."
 ```
 ✅ Works on `localhost:3000`
 

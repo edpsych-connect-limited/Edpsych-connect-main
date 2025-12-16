@@ -31,6 +31,10 @@ interface AuthContextType {
   user: AuthUser | null;
   isLoading: boolean;
   isAuthenticated: boolean;
+  /** Last auth-related error message suitable for displaying in UI (cleared on successful actions). */
+  authError: string | null;
+  /** Clear any previously-set auth error. */
+  clearAuthError: () => void;
   login: (email: string, password: string, rememberMe?: boolean) => Promise<boolean>;
   logout: () => Promise<void>;
   signup: (userData: any) => Promise<boolean>;
@@ -90,7 +94,10 @@ function useAuthProvider(): AuthContextType {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isInitialized, setIsInitialized] = useState<boolean>(false);
+  const [authError, setAuthError] = useState<string | null>(null);
   const router = useRouter();
+
+  const clearAuthError = () => setAuthError(null);
 
   /**
    * Check authentication status on mount
@@ -162,11 +169,13 @@ function useAuthProvider(): AuthContextType {
   const login = async (email: string, password: string, rememberMe: boolean = false): Promise<boolean> => {
     try {
       setIsLoading(true);
+      setAuthError(null);
       logger.info('🔐 Starting login process:', { email });
 
       // Validate inputs
       if (!email || !password) {
         logger.error('❌ Login failed: Email and password are required');
+        setAuthError('Email and password are required');
         return false;
       }
 
@@ -182,7 +191,9 @@ function useAuthProvider(): AuthContextType {
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        logger.error('❌ Login failed:', data.message || 'Unknown error');
+        const message = data?.error || data?.message || 'Login failed';
+        logger.error('❌ Login failed:', message);
+        setAuthError(message);
         return false;
       }
 
@@ -205,6 +216,7 @@ function useAuthProvider(): AuthContextType {
 
       // Update state with user data
       setUser(data.data.user);
+      setAuthError(null);
       logger.info('✅ Login successful:', {
         userId: data.data.user.id,
         email: data.data.user.email,
@@ -214,6 +226,7 @@ function useAuthProvider(): AuthContextType {
       return true;
     } catch (_error) {
       logger.error('❌ Login error:', _error);
+      setAuthError('Network error. Please check your connection and try again.');
       return false;
     } finally {
       setIsLoading(false);
@@ -591,6 +604,8 @@ function useAuthProvider(): AuthContextType {
     user,
     isLoading,
     isAuthenticated: !!user,
+    authError,
+    clearAuthError,
     login,
     logout,
     signup,

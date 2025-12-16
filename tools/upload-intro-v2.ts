@@ -6,20 +6,38 @@ import { v2 as cloudinary } from 'cloudinary';
 import * as fs from 'fs';
 import * as path from 'path';
 
+const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
+const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
+const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
+
+if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_API_KEY || !CLOUDINARY_API_SECRET) {
+  throw new Error('CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET must be set');
+}
+
+const REQUIRED_CLOUDINARY_CLOUD_NAME: string = CLOUDINARY_CLOUD_NAME;
+const REQUIRED_CLOUDINARY_API_KEY: string = CLOUDINARY_API_KEY;
+const REQUIRED_CLOUDINARY_API_SECRET: string = CLOUDINARY_API_SECRET;
+
 // Cloudinary configuration
 cloudinary.config({
-  cloud_name: 'dncfu2j0r',
-  api_key: '243634378544427',
-  api_secret: 'J2CdOE3wHop90Vz0mS99biVHbnU'
+  cloud_name: REQUIRED_CLOUDINARY_CLOUD_NAME,
+  api_key: REQUIRED_CLOUDINARY_API_KEY,
+  api_secret: REQUIRED_CLOUDINARY_API_SECRET,
 });
 
-const VIDEO_URL = 'https://files2.heygen.ai/aws_pacific/avatar_tmp/0521ad203a684ea48881e754c046810e/ae34995e2433414dbad87db49f5d99fe.mp4?Expires=1765467126&Signature=RZV7ZmofZ9xiOMi3sTmzNSTGG~sd5VSZRh5oiBv3xlQxzgAiZFlIYYZclYDKrZuopPsEhwc4R2wwezTk2dyGNIOMCu9-UX7~ZwIx54VvJw5~6FTQnvv5XjCCjM0B0X~LDUbHro622r1K8r3yj5ZOevKeVRDnbyjO~Vd37CsDgMlmpLR8ijekpGblppIDx1rHriwFzb13wccqwLvRe6tu9UrkQ~nfpOZFN4tpamyBuquIAAUZPAX2ysoMeJTFQi3YcGFqAywu-fVQpTOdO8AuGf33F4hBneiHOq6PuSd8oPMbDwDhNjhB6T5gPHE53mo9rU96i4Q5zpELEdEhLqqe8w__&Key-Pair-Id=K38HBHX5LX3X2H';
+const VIDEO_URL = process.argv[2] || process.env.HEYGEN_VIDEO_URL;
+
+if (!VIDEO_URL) {
+  throw new Error('Provide the video URL as argv[2] or set HEYGEN_VIDEO_URL');
+}
+
+const REQUIRED_VIDEO_URL: string = VIDEO_URL;
 
 async function main() {
   console.log('📤 Uploading V2 Intro Video to Cloudinary...');
   
   try {
-    const result = await cloudinary.uploader.upload(VIDEO_URL, {
+    const result = await cloudinary.uploader.upload(REQUIRED_VIDEO_URL, {
       resource_type: 'video',
       public_id: 'edpsych-connect/onboarding/platform-introduction-v2',
       folder: 'edpsych-connect/onboarding',

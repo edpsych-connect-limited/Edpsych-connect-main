@@ -1,0 +1,57 @@
+
+> edpsych-connect-web-v2@1.0.0 test:video-registry
+> tsx tools/validate-video-registry.ts
+
+VIDEO REGISTRY WARNINGS: 72
+- [la-ehcp-merge-tool] CLOUDINARY_VIDEO_URLS[la-ehcp-merge-tool] is set, but key is missing from cloudinary-upload-results.json
+- [la-professional-requests] CLOUDINARY_VIDEO_URLS[la-professional-requests] is set, but key is missing from cloudinary-upload-results.json
+- [feature-la-dashboard] CLOUDINARY_VIDEO_URLS[feature-la-dashboard] is set, but key is missing from cloudinary-upload-results.json
+- [help-troubleshooting] CLOUDINARY_VIDEO_URLS[help-troubleshooting] is set, but key is missing from cloudinary-upload-results.json
+- [help-cpd-tracking] CLOUDINARY_VIDEO_URLS[help-cpd-tracking] is set, but key is missing from cloudinary-upload-results.json
+- [help-collaboration] CLOUDINARY_VIDEO_URLS[help-collaboration] is set, but key is missing from cloudinary-upload-results.json
+- [help-generating-reports] CLOUDINARY_VIDEO_URLS[help-generating-reports] is set, but key is missing from cloudinary-upload-results.json
+- [parent-portal-welcome] CLOUDINARY_VIDEO_URLS[parent-portal-welcome] is set, but key is missing from cloudinary-upload-results.json
+- [parent-contributing-views] CLOUDINARY_VIDEO_URLS[parent-contributing-views] is set, but key is missing from cloudinary-upload-results.json
+- [parent-understanding-results] CLOUDINARY_VIDEO_URLS[parent-understanding-results] is set, but key is missing from cloudinary-upload-results.json
+- [school-senco-portal] CLOUDINARY_VIDEO_URLS[school-senco-portal] is set, but key is missing from cloudinary-upload-results.json
+- [1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations] CLOUDINARY_VIDEO_URLS[1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations] is set, but key is missing from cloudinary-upload-results.json
+- [2-1_Inattentive_Presentation___The_Daydreamer_] CLOUDINARY_VIDEO_URLS[2-1_Inattentive_Presentation___The_Daydreamer_] is set, but key is missing from cloudinary-upload-results.json
+- [2-2_Hyperactive_Impulsive_Presentation___The_Energizer_Bunny_] CLOUDINARY_VIDEO_URLS[2-2_Hyperactive_Impulsive_Presentation___The_Energizer_Bunny_] is set, but key is missing from cloudinary-upload-results.json
+- [3-2_Impact_on_Academic_Performance_and_Daily_Functioning] CLOUDINARY_VIDEO_URLS[3-2_Impact_on_Academic_Performance_and_Daily_Functioning] is set, but key is missing from cloudinary-upload-results.json
+- [4-1_Seating__Layout__and_Sensory_Considerations] CLOUDINARY_VIDEO_URLS[4-1_Seating__Layout__and_Sensory_Considerations] is set, but key is missing from cloudinary-upload-results.json
+- [4-2_Instructional_Accommodations_and_Task_Modifications] CLOUDINARY_VIDEO_URLS[4-2_Instructional_Accommodations_and_Task_Modifications] is set, but key is missing from cloudinary-upload-results.json
+- [5-1_Attention_Cues_and_Focus_Techniques] CLOUDINARY_VIDEO_URLS[5-1_Attention_Cues_and_Focus_Techniques] is set, but key is missing from cloudinary-upload-results.json
+- [5-2_Self_Monitoring_and_Attention_Training] CLOUDINARY_VIDEO_URLS[5-2_Self_Monitoring_and_Attention_Training] is set, but key is missing from cloudinary-upload-results.json
+- [6-1_Channel_Hyperactivity_Productively] CLOUDINARY_VIDEO_URLS[6-1_Channel_Hyperactivity_Productively] is set, but key is missing from cloudinary-upload-results.json
+- [7-1_Organization_Systems_and_Time_Management] CLOUDINARY_VIDEO_URLS[7-1_Organization_Systems_and_Time_Management] is set, but key is missing from cloudinary-upload-results.json
+- [7-2_Homework_Strategies_and_Executive_Function_Support] CLOUDINARY_VIDEO_URLS[7-2_Homework_Strategies_and_Executive_Function_Support] is set, but key is missing from cloudinary-upload-results.json
+- [8-2_Multi_Agency_Collaboration_and_Parent_Partnership] CLOUDINARY_VIDEO_URLS[8-2_Multi_Agency_Collaboration_and_Parent_Partnership] is set, but key is missing from cloudinary-upload-results.json
+- [1-2_The_Autistic_Experience__First_Person_Perspectives] CLOUDINARY_VIDEO_URLS[1-2_The_Autistic_Experience__First_Person_Perspectives] is set, but key is missing from cloudinary-upload-results.json
+- [2-2_Friendship_and_Peer_Relationships] CLOUDINARY_VIDEO_URLS[2-2_Friendship_and_Peer_Relationships] is set, but key is missing from cloudinary-upload-results.json
+- [3-2_Creating_Sensory_Friendly_Environments] CLOUDINARY_VIDEO_URLS[3-2_Creating_Sensory_Friendly_Environments] is set, but key is missing from cloudinary-upload-results.json
+- [4-1_Visual_Supports__Making_the_Invisible_Visible] CLOUDINARY_VIDEO_URLS[4-1_Visual_Supports__Making_the_Invisible_Visible] is set, but key is missing from cloudinary-upload-results.json
+- [4-2_Structure_and_Predictability] CLOUDINARY_VIDEO_URLS[4-2_Structure_and_Predictability] is set, but key is missing from cloudinary-upload-results.json
+- [5-2_Emotional_Regulation_and_Meltdown_Support] CLOUDINARY_VIDEO_URLS[5-2_Emotional_Regulation_and_Meltdown_Support] is set, but key is missing from cloudinary-upload-results.json
+- [6-1_Special_Interests__Passion__Not_Obsession] CLOUDINARY_VIDEO_URLS[6-1_Special_Interests__Passion__Not_Obsession] is set, but key is missing from cloudinary-upload-results.json
+- [7-2_Life_Skills_and_Promoting_Independence] CLOUDINARY_VIDEO_URLS[7-2_Life_Skills_and_Promoting_Independence] is set, but key is missing from cloudinary-upload-results.json
+- [8-1_Inclusive_Education_for_Autistic_Students] CLOUDINARY_VIDEO_URLS[8-1_Inclusive_Education_for_Autistic_Students] is set, but key is missing from cloudinary-upload-results.json
+- [8-2_Legal_Rights_and_Reasonable_Adjustments] CLOUDINARY_VIDEO_URLS[8-2_Legal_Rights_and_Reasonable_Adjustments] is set, but key is missing from cloudinary-upload-results.json
+- [2-1_What_is_Structured_Literacy__Orton_Gillingham_Principles] CLOUDINARY_VIDEO_URLS[2-1_What_is_Structured_Literacy__Orton_Gillingham_Principles] is set, but key is missing from cloudinary-upload-results.json
+- [2-2_Multisensory_Teaching__Engaging_All_Pathways] CLOUDINARY_VIDEO_URLS[2-2_Multisensory_Teaching__Engaging_All_Pathways] is set, but key is missing from cloudinary-upload-results.json
+- [3-1_What_is_Phonological_Awareness__Continuum_of_Skills] CLOUDINARY_VIDEO_URLS[3-1_What_is_Phonological_Awareness__Continuum_of_Skills] is set, but key is missing from cloudinary-upload-results.json
+- [3-2_Teaching_Phonemic_Awareness__Activities_and_Games] CLOUDINARY_VIDEO_URLS[3-2_Teaching_Phonemic_Awareness__Activities_and_Games] is set, but key is missing from cloudinary-upload-results.json
+- [4-1_Teaching_Phonics_Systematically__Scope_and_Sequence] CLOUDINARY_VIDEO_URLS[4-1_Teaching_Phonics_Systematically__Scope_and_Sequence] is set, but key is missing from cloudinary-upload-results.json
+- [4-2_Decodable_Texts_and_Application] CLOUDINARY_VIDEO_URLS[4-2_Decodable_Texts_and_Application] is set, but key is missing from cloudinary-upload-results.json
+- [5-1_What_is_Reading_Fluency__Accuracy__Rate__Prosody] CLOUDINARY_VIDEO_URLS[5-1_What_is_Reading_Fluency__Accuracy__Rate__Prosody] is set, but key is missing from cloudinary-upload-results.json
+- [5-2_Fluency_Interventions__Repeated_Reading_and_Strategies] CLOUDINARY_VIDEO_URLS[5-2_Fluency_Interventions__Repeated_Reading_and_Strategies] is set, but key is missing from cloudinary-upload-results.json
+VIDEO REGISTRY VALIDATION PASSED
+- [6-1_Simple_View_of_Reading__Decoding___Comprehension] CLOUDINARY_VIDEO_URLS[6-1_Simple_View_of_Reading__Decoding___Comprehension] is set, but key is missing from cloudinary-upload-results.json
+- [6-2_Comprehension_Strategies_for_Dyslexic_Readers] CLOUDINARY_VIDEO_URLS[6-2_Comprehension_Strategies_for_Dyslexic_Readers] is set, but key is missing from cloudinary-upload-results.json
+- [7-1_Spelling_Instruction__Patterns_Not_Memorization] CLOUDINARY_VIDEO_URLS[7-1_Spelling_Instruction__Patterns_Not_Memorization] is set, but key is missing from cloudinary-upload-results.json
+- [7-2_Supporting_Written_Expression__Separating_Transcription_from_Composition] CLOUDINARY_VIDEO_URLS[7-2_Supporting_Written_Expression__Separating_Transcription_from_Composition] is set, but key is missing from cloudinary-upload-results.json
+- [8-1_Classroom_Accommodations_and_Assistive_Technology] CLOUDINARY_VIDEO_URLS[8-1_Classroom_Accommodations_and_Assistive_Technology] is set, but key is missing from cloudinary-upload-results.json
+- [8-2_Progress_Monitoring_and_Assessment] CLOUDINARY_VIDEO_URLS[8-2_Progress_Monitoring_and_Assessment] is set, but key is missing from cloudinary-upload-results.json
+- [6-2_Impulse_Control__Stop_and_Think_Strategies] CLOUDINARY_VIDEO_URLS[6-2_Impulse_Control__Stop_and_Think_Strategies] is set, but key is missing from cloudinary-upload-results.json
+- [ehcp-professional-contributions] CLOUDINARY_VIDEO_URLS[ehcp-professional-contributions] is set, but key is missing from cloudinary-upload-results.json
+- [ehcp-appeals] CLOUDINARY_VIDEO_URLS[ehcp-appeals] is set, but key is missing from cloudinary-upload-results.json
+- ... (22 more)

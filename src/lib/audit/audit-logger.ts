@@ -7,6 +7,20 @@
  */
 
 import { prisma } from '@/lib/prisma';
+import { logger } from '@/lib/logger';
+import { getAuditIntegrityMode, withAuditIntegrity } from '@/lib/audit/audit-integrity';
+import { isProductionEnv } from '@/lib/env/production-env';
+
+let auditLoggerConfigErrorLogged = false;
+
+function isAuditIntegrityConfigError(err: unknown): boolean {
+  const msg = err instanceof Error ? err.message : String(err);
+  return (
+    msg.includes('AUDIT_LOG_INTEGRITY_MODE') ||
+    msg.includes('AUDIT_LOG_HMAC_KEY') ||
+    msg.includes('Missing required environment variable: AUDIT_LOG_HMAC_KEY')
+  );
+}
 
 export type AuditAction = 
   | 'LOGIN' 
@@ -35,23 +49,50 @@ export class AuditLogger {
     try {
       // In a real enterprise app, we might want to use a message queue (e.g., Kafka, SQS)
       // to offload this write operation. For now, we write directly to DB asynchronously.
-      
-      // We don't await this to avoid blocking the main request flow
-      prisma.auditLog.create({
-        data: {
-          user_id_int: entry.userId,
-          tenant_id: entry.tenantId,
-          action: entry.action,
-          resource: entry.resource,
-          details: entry.details,
-          ipAddress: entry.ipAddress,
-          userAgent: entry.userAgent,
-        },
-      }).catch(err => {
-        console.error('Failed to write audit log:', err);
-      });
+
+      const createData = {
+        user_id_int: entry.userId ?? null,
+        tenant_id: entry.tenantId ?? null,
+        action: entry.action,
+        resource: entry.resource,
+        details: entry.details,
+        ipAddress: entry.ipAddress,
+        userAgent: entry.userAgent,
+      };
+
+      const mode = getAuditIntegrityMode();
+
+      // When integrity chaining is enabled, we must await the write so the chain remains consistent.
+      if (mode !== 'off') {
+        const dataWithIntegrity = await withAuditIntegrity(prisma as any, createData);
+        await prisma.auditLog.create({ data: dataWithIntegrity as any });
+        return;
+      }
+
+      // Otherwise, fire-and-forget to avoid blocking the main request flow.
+      prisma.auditLog
+        .create({
+          data: createData as any,
+        })
+        .catch((err) => {
+          logger.error('Failed to write audit log', {
+            error: err instanceof Error ? err.message : String(err),
+          });
+        });
     } catch (_error) {
-      console.error('Failed to initiate audit log:', _error);
+      if (isProductionEnv() && isAuditIntegrityConfigError(_error)) {
+        if (!auditLoggerConfigErrorLogged) {
+          auditLoggerConfigErrorLogged = true;
+          logger.error('Audit integrity configuration error (production)', {
+            error: _error instanceof Error ? _error.message : String(_error),
+          });
+        }
+        throw _error;
+      }
+
+      logger.error('Failed to initiate audit log', {
+        error: _error instanceof Error ? _error.message : String(_error),
+      });
     }
   }
 }

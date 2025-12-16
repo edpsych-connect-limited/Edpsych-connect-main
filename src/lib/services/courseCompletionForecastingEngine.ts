@@ -12,14 +12,14 @@ import { logger } from "@/lib/logger";
  * - Confidence interval calculations
  * - Trend analysis with linear regression
  * - Multi-factor risk scoring
- * - GPT-4 insights and recommendations
+ * - AI insights and recommendations
  */
 
 import { EventEmitter } from 'events';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 import { redis } from '@/lib/redis';
-import { openai } from '@/lib/openai';
+import { DEFAULT_OPENAI_MODEL, getOpenAIClient } from '@/lib/openai';
 
 // ============================================================================
 // TYPE DEFINITIONS
@@ -230,7 +230,7 @@ class CourseCompletionForecastingEngine extends EventEmitter {
         riskFactors = this.identifyRiskFactors(courseData);
       }
 
-      // Generate AI insights with GPT-4
+      // Generate AI insights
       let aiInsights: string | undefined;
       if (includeRecommendations) {
         aiInsights = await this.generateAIInsights(forecast, courseData, riskFactors);
@@ -616,7 +616,7 @@ class CourseCompletionForecastingEngine extends EventEmitter {
   }
 
   /**
-   * Generate AI insights with GPT-4
+  * Generate AI insights
    */
   private async generateAIInsights(
     forecast: CompletionForecast,
@@ -641,8 +641,10 @@ Additional Context:
 
 Provide a concise 2-3 sentence analysis with specific, actionable recommendations:`;
 
+      const openai = getOpenAIClient();
+
       const response = await openai.chat.completions.create({
-        model: 'gpt-4o',
+        model: DEFAULT_OPENAI_MODEL,
         messages: [
           {
             role: 'system',

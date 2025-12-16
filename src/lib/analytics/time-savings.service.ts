@@ -14,11 +14,8 @@
  * Zero Gap Project - Sprint 4
  */
 
-import { PrismaClient } from '@prisma/client';
 import { logger } from '@/lib/logger';
-
-// Initialize Prisma
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
 
 // ============================================================================
 // Types and Interfaces

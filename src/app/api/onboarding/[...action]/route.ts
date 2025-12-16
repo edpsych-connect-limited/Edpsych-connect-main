@@ -90,7 +90,7 @@ async function routeOnboardingRequest(request: NextRequest): Promise<NextRespons
     console.error('[Onboarding] Unhandled Error:', _error);
     // Return JSON even for unhandled errors to prevent "Network _error" on client
     return NextResponse.json({ 
-      error: 'Internal server _error', 
+      error: 'Internal server error', 
       details: _error instanceof Error ? _error.message : String(_error) 
     }, { status: 500 });
   }

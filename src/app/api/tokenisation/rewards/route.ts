@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
       }
     );
   } catch (_error) {
-    const message = _error instanceof Error ? _error.message : 'Unknown _error';
+    const message = _error instanceof Error ? _error.message : 'Unknown error';
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
@@ -71,7 +71,7 @@ export async function PATCH(request: NextRequest) {
       }
     );
   } catch (_error) {
-    const message = _error instanceof Error ? _error.message : 'Unknown _error';
+    const message = _error instanceof Error ? _error.message : 'Unknown error';
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

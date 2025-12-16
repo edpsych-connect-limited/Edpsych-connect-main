@@ -14,12 +14,7 @@ import {
   ArrowRight, 
   Database, 
   Sparkles, 
-  Users, 
-  LineChart, 
-  Code, 
-  GraduationCap,
-  Network,
-  ShieldCheck
+  Network
 } from 'lucide-react';
 
 const ecosystemSteps = [

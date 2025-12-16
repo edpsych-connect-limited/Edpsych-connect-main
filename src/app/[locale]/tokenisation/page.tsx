@@ -35,7 +35,7 @@ interface TreasuryData {
 }
 
 export default function TokenisationPage() {
-  const { data: session, status } = useSession();
+  const { data: _session, status } = useSession();
   const [rewards, setRewards] = useState<RewardsData | null>(null);
   const [treasury, setTreasury] = useState<TreasuryData | null>(null);
   const [loading, setLoading] = useState(true);

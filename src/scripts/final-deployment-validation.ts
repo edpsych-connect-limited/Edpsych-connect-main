@@ -192,7 +192,7 @@ export class FinalDeploymentValidator {
       return {
         success: false,
         validationReport: await this.generateValidationReport(),
-        error: _error instanceof Error ? _error.message : 'Unknown _error'
+        error: _error instanceof Error ? _error.message : 'Unknown error'
       };
     }
   }

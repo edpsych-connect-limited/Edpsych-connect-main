@@ -1,14 +1,20 @@
 
 import fetch from 'node-fetch';
 
-const API_KEY = 'sk_V2_hgu_ky346mdR1EZ_sepM85TUnIexIOSuzpiVI5gXaqMhWDo1';
+const API_KEY = process.env.HEYGEN_API_KEY;
+
+if (!API_KEY) {
+  throw new Error('HEYGEN_API_KEY environment variable is required');
+}
+
+const REQUIRED_API_KEY: string = API_KEY;
 
 async function listAssets() {
   try {
     // 1. List Voices
     console.log('🎧 Fetching Voices...');
     const voicesResp = await fetch('https://api.heygen.com/v2/voices', {
-      headers: { 'X-Api-Key': API_KEY }
+      headers: { 'X-Api-Key': REQUIRED_API_KEY }
     });
     
     if (voicesResp.ok) {
@@ -36,7 +42,7 @@ async function listAssets() {
     // 2. List Avatars
     console.log('\n👤 Fetching Avatars...');
     const avatarsResp = await fetch('https://api.heygen.com/v2/avatars', {
-      headers: { 'X-Api-Key': API_KEY }
+      headers: { 'X-Api-Key': REQUIRED_API_KEY }
     });
 
     if (avatarsResp.ok) {

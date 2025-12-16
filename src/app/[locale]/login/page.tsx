@@ -28,7 +28,7 @@ import { logger } from "@/lib/logger";
  */
 export default function LoginPage() {
   const router = useRouter();
-  const { user, isLoading: authLoading, login } = useAuth();
+  const { user, isLoading: authLoading, login, authError, clearAuthError } = useAuth();
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -83,6 +83,7 @@ export default function LoginPage() {
     }
 
     setError('');
+    clearAuthError();
     setIsSubmitting(true);
     logger.info('🔐 Starting login process');
 
@@ -97,7 +98,8 @@ export default function LoginPage() {
         // but relying on the useEffect is safer for state consistency.
         logger.info('✅ Login successful, waiting for redirect...');
       } else {
-        setError('Invalid email or password. Please try again.');
+        // Prefer server-provided message (e.g. exact "Invalid email or password") to keep UX + tests consistent.
+        setError(authError || 'Invalid email or password');
         logger.error('❌ Login failed: Invalid credentials');
         setIsSubmitting(false);
       }

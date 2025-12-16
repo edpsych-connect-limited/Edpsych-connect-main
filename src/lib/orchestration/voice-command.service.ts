@@ -16,13 +16,12 @@
  * AI INTERPRETATION: Understands context and intent, not just keywords
  */
 
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 import { AIService as _AIService } from '@/services/ai-service';
 import { aiService } from '@/lib/ai-integration';
 import { DataRouterService } from './data-router.service';
 import { logger } from "@/lib/logger";
 
-const prisma = new PrismaClient();
 
 // ============================================================================
 // TYPES

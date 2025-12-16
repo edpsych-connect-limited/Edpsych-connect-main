@@ -114,7 +114,7 @@ export function InteractiveDemo({ featureId, onComplete }: InteractiveDemoProps)
       setState(prev => ({
         ...prev,
         status: 'error',
-        error: _error instanceof Error ? _error.message : 'An _error occurred'
+        error: _error instanceof Error ? _error.message : 'An error occurred'
       }));
     }
   };

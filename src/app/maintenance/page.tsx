@@ -3,14 +3,14 @@
  * @license Proprietary - All Rights Reserved
  * 
  * Maintenance Page Route
- * Displays the enhanced coming soon/maintenance page
+ * Displays the maintenance page
  */
 
 import MaintenancePage from '@/components/landing/MaintenancePage';
 
 export const metadata = {
-  title: 'Coming Soon | EdPsych Connect',
-  description: 'EdPsych Connect is building the future of educational psychology. Join the movement.',
+  title: 'Maintenance | EdPsych Connect',
+  description: 'EdPsych Connect is temporarily unavailable while we perform maintenance.',
 };
 
 export default function Page() {

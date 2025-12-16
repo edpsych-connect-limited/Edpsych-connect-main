@@ -11,7 +11,11 @@ import * as https from 'https';
 import * as fs from 'fs';
 import * as path from 'path';
 
-const HEYGEN_API_KEY = 'sk_V2_hgu_kIsPOKnUIeM_Nvtt8QLs3osJMx3nQi5fYEytQNjhR4qM';
+const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
+
+if (!HEYGEN_API_KEY) {
+  throw new Error('HEYGEN_API_KEY environment variable is required');
+}
 
 // Videos to download - key: { heygenId, localPath }
 const MISSING_VIDEOS: Record<string, { id: string; path: string }> = {

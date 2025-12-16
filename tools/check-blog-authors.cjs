@@ -1,13 +1,10 @@
 const { PrismaClient } = require('@prisma/client');
 
-// PRODUCTION DATABASE
-const prisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: 'postgresql://neondb_owner:npg_rSnga68XPqve@ep-delicate-grass-abi62lhk-pooler.eu-west-2.aws.neon.tech/neondb?sslmode=require'
-    }
-  }
-});
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL is not set. Refusing to connect.');
+}
+
+const prisma = new PrismaClient();
 
 async function main() {
   console.log('Checking blog posts in PRODUCTION database...\n');

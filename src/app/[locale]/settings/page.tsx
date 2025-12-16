@@ -273,7 +273,7 @@ export default function SettingsPage() {
                     Your data is protected under UK GDPR regulations. We implement enterprise-grade security measures
                     including encryption at rest and in transit, role-based access control, and comprehensive audit logging.
                   </p>
-                  <a href="/docs/data-protection" className="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 text-sm font-medium">
+                  <a href="/gdpr" className="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 text-sm font-medium">
                     View Data Protection Policy →
                   </a>
                 </div>

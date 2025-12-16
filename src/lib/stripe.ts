@@ -8,9 +8,7 @@
 
 import Stripe from 'stripe';
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  console.warn('STRIPE_SECRET_KEY is not defined');
-}
+let stripeClient: Stripe | null = null;
 
 // Define types matching the Prisma schema
 export enum SubscriptionTier {
@@ -36,9 +34,20 @@ export enum UserType {
   SYSTEM_ADMIN = 'SYSTEM_ADMIN'
 }
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy', {
-  apiVersion: '2025-10-29.clover' as Stripe.LatestApiVersion, // Latest Stripe API version
-});
+export function getStripe(): Stripe {
+  if (stripeClient) return stripeClient;
+
+  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+  if (!stripeSecretKey) {
+    throw new Error('STRIPE_SECRET_KEY is not defined');
+  }
+
+  stripeClient = new Stripe(stripeSecretKey, {
+    apiVersion: '2025-10-29.clover' as Stripe.LatestApiVersion, // Latest Stripe API version
+  });
+
+  return stripeClient;
+}
 
 // Export the Stripe constructor for type checking
 export { Stripe };

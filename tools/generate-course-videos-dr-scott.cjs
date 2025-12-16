@@ -3,7 +3,11 @@ const fs = require('fs');
 const path = require('path');
 
 // Configuration
-const API_KEY = 'sk_V2_hgu_knMBHTR5eZS_Fh7oPDiRF6jLhvQXFPVXnNlMNG7PkjRj';
+const API_KEY = process.env.HEYGEN_API_KEY;
+
+if (!API_KEY) {
+  throw new Error('HEYGEN_API_KEY environment variable is required');
+}
 const AVATAR_ID = '0d10345ca99840cdbd3103692ba55e27';
 const VOICE_ID = '50d2a2a531d049719a0debbf82e1cf4c'; // Scott Ighavongbe-Patrick
 

@@ -16,10 +16,8 @@
  * PRIVACY: Parents can NEVER see other children's data.
  */
 
-import { PrismaClient } from '@prisma/client';
 import { logger } from "@/lib/logger";
-
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
 
 // ============================================================================
 // TYPES

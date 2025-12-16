@@ -15,6 +15,12 @@ cypress/screenshots
 /out/
 next-env.d.ts
 
+# Next.js alternate distDirs used by release gate / Windows safety workarounds
+/.next_temp/
+/.next_build*/
+/.next_build_gate*/
+/.next_dist_dir
+
 # Production
 /build
 /dist
@@ -29,6 +35,10 @@ next-env.d.ts
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Ignore all env variants by default (keep example)
+.env.*
+!.env.example
 
 # Debug
 npm-debug.log*
@@ -81,9 +91,48 @@ final-validation-output.log
 depcheck-report.json
 deployment-trigger.txt
 
+# Local build captures
+build_output_*.txt
+build_*.txt
+build_webpack_*.txt
+
+# clean-next diagnostic output (local-only)
+clean_next_log*.txt
+
+# Local video inventory dumps
+heygen*_videos*.json
+heygen_videos_list.json
+
+# Downloaded local marketing videos (Cloudinary is the primary source)
+public/content/training_videos/marketing/
+
 # Generated files
 generated/
 .generated/
+
+# Local request payloads (often contain credentials)
+login*.json
+login*_response*.txt
+login*_debug*.txt
+login*_output*.txt
+
+# Cypress run logs captured to repo root
+cypress_*.txt
+
+# Release gate logs
+gate_release_*.txt
+
+# Dev server breadcrumbs
+dev_server*.err
+dev_server*.pid
+dev_server*.txt
+
+# Typecheck outputs
+tsc_errors.txt
+
+# Local WSL build artifacts / notes
+wsl_build_output*.txt
+wsl_help*.txt
 
 # Environment files
 .env.txt
@@ -115,6 +164,9 @@ nul
 credentials.json
 service-account.json
 
+# Local-only credential docs (never commit)
+docs/BETA_ACCESS_CREDENTIALS.local.md
+
 # Training videos - NOW TRACKED VIA GIT LFS (see .gitattributes)
 # Git LFS stores large files (*.mp4) efficiently with pointers in git
 # Actual video content is stored on GitHub LFS servers
@@ -125,3 +177,5 @@ service-account.json
 .vercel
 .cypress-cache/
 tools/node20/
+
+.vercel

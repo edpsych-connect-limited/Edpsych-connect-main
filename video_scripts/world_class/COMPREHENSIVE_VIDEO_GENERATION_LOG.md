@@ -116,5 +116,5 @@ public/content/training_videos/
 
 Use this PowerShell command to check video status:
 ```powershell
-curl.exe -s "https://api.heygen.com/v1/video_status.get?video_id=VIDEO_ID_HERE" -H "X-Api-Key: sk_V2_hgu_kCXZPri8zVW_USKActgMJqFGEFzXfxRhYB1F5Jm9MqUz"
+curl.exe -s "https://api.heygen.com/v1/video_status.get?video_id=VIDEO_ID_HERE" -H "X-Api-Key: $env:HEYGEN_API_KEY"
 ```

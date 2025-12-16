@@ -352,8 +352,8 @@ export async function POST(
   } catch (_error) {
     console.error('[Lesson Assignment API] Error assigning lessons:', _error);
     return NextResponse.json({
-      error: 'Internal server _error',
-      message: _error instanceof Error ? _error.message : 'Unknown _error'
+      error: 'Internal server error',
+      message: _error instanceof Error ? _error.message : 'Unknown error'
     }, { status: 500 });
   }
 }

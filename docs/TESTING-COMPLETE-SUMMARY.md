@@ -451,7 +451,7 @@ After comprehensive autonomous testing of the backend APIs and platform orchestr
 - `docs/TEST-ACCOUNTS-QUICK-REFERENCE.md` - Credentials
 - `docs/RESEARCH-FOUNDATION-AZURE-DEPLOYMENT.md` - Azure guide
 
-### **Test Accounts** (All passwords: `Test123!`):
+### **Test Accounts** (Passwords provided via secure channel):
 - Teacher: teacher@test.edpsych.com
 - Student: amara.singh@test.edpsych.com
 - Parent: priya.singh@test.edpsych.com

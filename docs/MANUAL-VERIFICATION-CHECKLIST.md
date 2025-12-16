@@ -20,9 +20,9 @@ This document contains all manual verification tasks that require human testing 
 | Role | Email | Password | Notes |
 |------|-------|----------|-------|
 | Admin | admin@edpsychconnect.com | *Contact Scott* | Full system access |
-| Teacher | teacher@demo.com | Test123! | Standard teacher account |
-| SENCO | senco@demo.com | Test123! | SENCO role access |
-| EP | ep@demo.com | Test123! | Educational Psychologist |
+| Teacher | teacher@demo.com | *Provided securely* | Standard teacher account |
+| SENCO | senco@demo.com | *Provided securely* | SENCO role access |
+| EP | ep@demo.com | *Provided securely* | Educational Psychologist |
 
 ---
 

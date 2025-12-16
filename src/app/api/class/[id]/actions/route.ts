@@ -323,8 +323,8 @@ export async function GET(
   } catch (_error) {
     console.error('[Class Actions API] Error retrieving actions:', _error);
     return NextResponse.json({
-      error: 'Internal server _error',
-      message: _error instanceof Error ? _error.message : 'Unknown _error'
+      error: 'Internal server error',
+      message: _error instanceof Error ? _error.message : 'Unknown error'
     }, { status: 500 });
   }
 }
@@ -532,8 +532,8 @@ export async function POST(
   } catch (_error) {
     console.error('[Class Actions API] Error processing approval:', _error);
     return NextResponse.json({
-      error: 'Internal server _error',
-      message: _error instanceof Error ? _error.message : 'Unknown _error'
+      error: 'Internal server error',
+      message: _error instanceof Error ? _error.message : 'Unknown error'
     }, { status: 500 });
   }
 }

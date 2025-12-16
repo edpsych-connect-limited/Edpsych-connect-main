@@ -41,7 +41,7 @@ export const FALLBACK_QUESTIONS: GameQuestion[] = [
   { id: 'ks1-s2', text: 'Which animal has feathers?', options: ['Fish', 'Dog', 'Bird', 'Cat'], correctIndex: 2, points: 50, category: 'Science KS1', difficulty: 'easy', curriculumLink: 'Animal classification' },
 ];
 
-interface LessonActivityContent {
+interface _LessonActivityContent {
   questions?: Array<{
     text: string;
     options: string[];

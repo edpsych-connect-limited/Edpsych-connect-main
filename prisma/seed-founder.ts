@@ -10,6 +10,14 @@ import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
+const SEED_FOUNDER_PASSWORD = process.env.SEED_FOUNDER_PASSWORD;
+
+if (!SEED_FOUNDER_PASSWORD) {
+  throw new Error('SEED_FOUNDER_PASSWORD environment variable is required');
+}
+
+const REQUIRED_SEED_FOUNDER_PASSWORD: string = SEED_FOUNDER_PASSWORD;
+
 async function main() {
   console.log('\n🔑 Creating Founder Account...\n');
   console.log('='.repeat(70));
@@ -49,7 +57,7 @@ async function main() {
     }
 
     // Hash password
-    const hashedPassword = await bcrypt.hash('Founder2025!', 12);
+    const hashedPassword = await bcrypt.hash(REQUIRED_SEED_FOUNDER_PASSWORD, 12);
 
     // Create founder account
     const founder = await prisma.users.upsert({
@@ -80,7 +88,7 @@ async function main() {
     
     console.log('✅ Founder account created/updated:');
     console.log('   Email: scott.ipatrick@edpsychconnect.com');
-    console.log('   Password: Founder2025!');
+    console.log('   Password: (set via SEED_FOUNDER_PASSWORD)');
     console.log('   Role: SUPER_ADMIN');
     console.log('   User ID:', founder.id);
 
@@ -103,7 +111,7 @@ async function main() {
     console.log('✅ Founder account ready!');
     console.log('\nLogin credentials:');
     console.log('  Email: scott.ipatrick@edpsychconnect.com');
-    console.log('  Password: Founder2025!');
+    console.log('  Password: (set via SEED_FOUNDER_PASSWORD)');
     console.log('='.repeat(70) + '\n');
 
   } catch (error) {

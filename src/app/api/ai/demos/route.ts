@@ -5,11 +5,47 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { livingDemos } from '@/services/ai/living-demos';
+import { serverAuth } from '@/lib/auth/server-auth';
+import { decideAiAccess } from '@/lib/governance/policy-engine';
+import { redactPII } from '@/lib/security/pii-redaction';
 
 export const dynamic = 'force-dynamic';
 
+function redactStringFields(value: unknown): unknown {
+  if (typeof value === 'string') {
+    return redactPII(value).redactedText;
+  }
+  if (Array.isArray(value)) {
+    return value.map(v => redactStringFields(v));
+  }
+  if (value && typeof value === 'object') {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+      out[k] = redactStringFields(v);
+    }
+    return out;
+  }
+  return value;
+}
+
 export async function POST(request: NextRequest) {
   try {
+    const user = await serverAuth.getUserFromRequest(request);
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const tenantIdRaw: unknown = (user as any).tenantId;
+    const tenantId = typeof tenantIdRaw === 'string' ? parseInt(tenantIdRaw, 10) : (tenantIdRaw as number);
+    if (!tenantId || Number.isNaN(tenantId)) {
+      return NextResponse.json({ error: 'Missing tenant context' }, { status: 400 });
+    }
+
+    const { decision, redactPII: shouldRedactPII } = await decideAiAccess({ tenantId });
+    if (!decision.allowed) {
+      return NextResponse.json({ error: decision.reason }, { status: 403 });
+    }
+
     const body = await request.json();
     const { type, input, sessionId } = body;
 
@@ -20,8 +56,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const safeInput = shouldRedactPII ? redactStringFields(input) : input;
+
     // Start a new demonstration
-    const demoId = await livingDemos.startDemo(type, input, sessionId);
+    const demoId = await livingDemos.startDemo(type, safeInput, sessionId);
 
     return NextResponse.json({
       success: true,
@@ -39,6 +77,22 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
+    const user = await serverAuth.getUserFromRequest(request);
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const tenantIdRaw: unknown = (user as any).tenantId;
+    const tenantId = typeof tenantIdRaw === 'string' ? parseInt(tenantIdRaw, 10) : (tenantIdRaw as number);
+    if (!tenantId || Number.isNaN(tenantId)) {
+      return NextResponse.json({ error: 'Missing tenant context' }, { status: 400 });
+    }
+
+    const { decision } = await decideAiAccess({ tenantId });
+    if (!decision.allowed) {
+      return NextResponse.json({ error: decision.reason }, { status: 403 });
+    }
+
     const { searchParams } = new URL(request.url);
     const action = searchParams.get('action');
     const demoId = searchParams.get('demoId');

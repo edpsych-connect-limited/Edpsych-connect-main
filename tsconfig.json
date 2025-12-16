@@ -35,13 +35,20 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
     ".next/types/**/*.ts",
-    "src/lib/security/ip-protection.ts",
     ".next/dev/types/**/*.ts",
     ".next_temp/types/**/*.ts",
-    ".next_temp/dev/types/**/*.ts"
+    ".next_temp/dev/types/**/*.ts",
+    ".next_build/types/**/*.ts",
+    ".next_build/dev/types/**/*.ts",
+    ".next_build_local/types/**/*.ts",
+    ".next_build_local/dev/types/**/*.ts",
+    ".next_build_gate/types/**/*.ts",
+    ".next_build_gate/dev/types/**/*.ts",
+    ".next_build_gate_alt/types/**/*.ts",
+    ".next_build_gate_alt/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
@@ -49,6 +56,7 @@
     "cypress.config.ts",
     "INSTRUCTION-FILES",
     "scripts",
+    "tools",
     "prisma",
     "docs"
   ]

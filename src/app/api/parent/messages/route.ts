@@ -250,8 +250,8 @@ export async function GET(
   } catch (_error) {
     console.error('[Parent Messages API] Error retrieving messages:', _error);
     return NextResponse.json({
-      error: 'Internal server _error',
-      message: _error instanceof Error ? _error.message : 'Unknown _error'
+      error: 'Internal server error',
+      message: _error instanceof Error ? _error.message : 'Unknown error'
     }, { status: 500 });
   }
 }
@@ -431,8 +431,8 @@ export async function POST(
   } catch (_error) {
     console.error('[Parent Messages API] Error sending message:', _error);
     return NextResponse.json({
-      error: 'Internal server _error',
-      message: _error instanceof Error ? _error.message : 'Unknown _error'
+      error: 'Internal server error',
+      message: _error instanceof Error ? _error.message : 'Unknown error'
     }, { status: 500 });
   }
 }

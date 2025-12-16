@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const status = searchParams.get('status');
     const reviewType = searchParams.get('type');
-    const academicYear = searchParams.get('academicYear');
+    const _academicYear = searchParams.get('academicYear');
 
     const laTenantId = session.tenant_id;
 

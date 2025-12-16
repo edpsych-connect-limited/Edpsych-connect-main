@@ -1,14 +1,23 @@
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 
-// PRODUCTION DATABASE
-const prisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: 'postgresql://neondb_owner:npg_rSnga68XPqve@ep-delicate-grass-abi62lhk-pooler.eu-west-2.aws.neon.tech/neondb?sslmode=require'
-    }
-  }
-});
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL is not set. Refusing to connect.');
+}
+
+if (process.env.CONFIRM_PRODUCTION_SEED !== 'YES') {
+  throw new Error('Refusing to run. Set CONFIRM_PRODUCTION_SEED=YES to proceed.');
+}
+
+const FOUNDER_EMAIL = process.env.FOUNDER_EMAIL;
+const FOUNDER_PASSWORD = process.env.FOUNDER_PASSWORD;
+
+if (!FOUNDER_EMAIL || !FOUNDER_PASSWORD) {
+  throw new Error('Missing FOUNDER_EMAIL or FOUNDER_PASSWORD.');
+}
+
+// Uses DATABASE_URL
+const prisma = new PrismaClient();
 
 async function main() {
   console.log('='.repeat(60));
@@ -27,12 +36,12 @@ async function main() {
     
     // Check if founder already exists
     const existing = await prisma.users.findUnique({
-      where: { email: 'scott.ipatrick@edpsychconnect.com' }
+      where: { email: FOUNDER_EMAIL }
     });
     
     if (existing) {
       console.log('\n2. ✅ Founder account already exists! Resetting password...');
-      const newHash = await bcrypt.hash('Founder2025!', 12);
+      const newHash = await bcrypt.hash(FOUNDER_PASSWORD, 12);
       await prisma.users.update({
         where: { id: existing.id },
         data: { 
@@ -41,7 +50,7 @@ async function main() {
           role: 'SUPER_ADMIN'
         }
       });
-      console.log('   ✅ Password reset to Founder2025!');
+      console.log('   ✅ Password reset complete');
     } else {
       console.log('\n2. Creating new founder account...');
       
@@ -52,12 +61,12 @@ async function main() {
         return;
       }
       
-      const hashedPassword = await bcrypt.hash('Founder2025!', 12);
+      const hashedPassword = await bcrypt.hash(FOUNDER_PASSWORD, 12);
       
       const founder = await prisma.users.create({
         data: {
           tenant_id: tenant.id,
-          email: 'scott.ipatrick@edpsychconnect.com',
+          email: FOUNDER_EMAIL,
           password_hash: hashedPassword,
           name: 'Dr Scott Ighavongbe-Patrick',
           firstName: 'Scott',
@@ -76,17 +85,17 @@ async function main() {
     // Verify
     console.log('\n3. Verifying login...');
     const verify = await prisma.users.findUnique({
-      where: { email: 'scott.ipatrick@edpsychconnect.com' }
+      where: { email: FOUNDER_EMAIL }
     });
-    const isValid = await bcrypt.compare('Founder2025!', verify.password_hash);
+    const isValid = await bcrypt.compare(FOUNDER_PASSWORD, verify.password_hash);
     console.log(`   Password valid: ${isValid ? '✅ YES' : '❌ NO'}`);
     console.log(`   Active: ${verify.is_active ? '✅ YES' : '❌ NO'}`);
     console.log(`   Role: ${verify.role}`);
     
     console.log('\n' + '='.repeat(60));
     console.log('LOGIN CREDENTIALS:');
-    console.log('  Email: scott.ipatrick@edpsychconnect.com');
-    console.log('  Password: Founder2025!');
+    console.log(`  Email: ${FOUNDER_EMAIL}`);
+    console.log('  Password: (not printed)');
     console.log('  URL: https://www.edpsychconnect.com/en/login');
     console.log('='.repeat(60));
     

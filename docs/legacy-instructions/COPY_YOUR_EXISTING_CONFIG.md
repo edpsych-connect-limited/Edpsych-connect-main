@@ -41,7 +41,7 @@ Your Railway DATABASE_URL uses **internal DNS** which won't work from Vercel:
 
 ```
 ❌ CURRENT (won't work from Vercel):
-DATABASE_URL="postgresql://postgres:LIeFibdBmBEVtrOaAkmUMbFzTbmLLAPy@postgres.railway.internal:5432/railway"
+DATABASE_URL="postgresql://user:password@postgres.railway.internal:5432/dbname"
 ```
 
 You need to get the **public** Railway connection string.
@@ -73,20 +73,20 @@ Add these variables (copy from your `.env.txt` file):
 | Variable | Your Value | Add to |
 |----------|-----------|--------|
 | `DATABASE_URL` | (use PUBLIC Railway URL from Step 1) | Production, Preview, Development |
-| `MONGODB_URI` | `mongodb://mongo:WyFZWpMXUKdycSTkQrIvOJgROYtclotG@mongodb.railway.internal:27017` | Production, Preview, Development |
-| `REDIS_URL` | `redis://default:wEvdnwhivvZnLWCJORmlvMDTfnhgntWG@redis-pgdr.railway.internal:6379` | Production, Preview, Development |
+| `MONGODB_URI` | `mongodb://user:password@mongodb.railway.internal:27017/dbname` | Production, Preview, Development |
+| `REDIS_URL` | `redis://default:password@redis-pgdr.railway.internal:6379` | Production, Preview, Development |
 | `NEO4J_URI` | `neo4j+s://20c03c25.databases.neo4j.io` | Production, Preview, Development |
-| `NEO4J_PASSWORD` | `C1BF40ISMj-HB6Y9hnnhqnSpkBUNdp4HG_CVo1J1XHM` | Production, Preview, Development |
-| `CLAUDE_API_KEY` | `sk-ant-api03-JS8w5KUn4KfQqQm0IEXXuL_HkJRMIrTqF4OOv_zQPHmBTDTHDjDw3SgWxn0SdE46yQ-wEyAAAAB_QrCuAA` | Production, Preview, Development |
-| `OPENAI_API_KEY` | `sk-Qz8Wm5Lp9TnXvJyHrEcFbA3Dk7Gt6UiVoSbPq2OwZ1YcX4` | Production, Preview, Development |
-| `ANTHROPIC_API_KEY` | `sk-ant-api03-JS8w5KUn4KfQqQm0IEXXuL_HkJRMIrTqF4OOv_zQPHmBTDTHDjDw3SgWxn0SdE46yQ-wEyAAAAB_QrCuAA` | Production, Preview, Development |
+| `NEO4J_PASSWORD` | `(set via secret manager)` | Production, Preview, Development |
+| `CLAUDE_API_KEY` | `sk-ant-api03-...` | Production, Preview, Development |
+| `OPENAI_API_KEY` | `sk-...` | Production, Preview, Development |
+| `ANTHROPIC_API_KEY` | `sk-ant-api03-...` | Production, Preview, Development |
 | `NEXTAUTH_URL` | `https://edpsych-connect-limited.vercel.app` | Production |
-| `NEXTAUTH_SECRET` | `K7mP9nQ2tR5vX8zA3bC6dE1fH4jL0wY` | Production, Preview, Development |
-| `JWT_SECRET` | `K7mP9nQ2tR5vX8zA3bC6dE1fH4jL0wY` | Production, Preview, Development |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | `pk_live_51R5bbqBz14LFoqP29ItewuPByklBLdTHLPasfhnZVXD1fV2wncGKmDd7YJ3OfX4GEvXFwwkXLsW9VxY5tPFXGOPc00wsj8yerh` | Production, Preview, Development |
-| `STRIPE_SECRET_KEY` | `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` | Production, Preview, Development |
-| `STRIPE_WEBHOOK_SECRET` | `whsec_HPnizmObI5oaQvOW05iY4w2yEWWB66Ph` | Production, Preview, Development |
-| `NEXT_PUBLIC_SENTRY_DSN` | `https://1739f1ab3c214b6600646650f89e2643@o4509879738826752.ingest.de.sentry.io/4509879781883984` | Production, Preview, Development |
+| `NEXTAUTH_SECRET` | `(set via secret manager)` | Production, Preview, Development |
+| `JWT_SECRET` | `(set via secret manager)` | Production, Preview, Development |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | `pk_live_...` | Production, Preview, Development |
+| `STRIPE_SECRET_KEY` | `sk_live_...` | Production, Preview, Development |
+| `STRIPE_WEBHOOK_SECRET` | `whsec_...` | Production, Preview, Development |
+| `NEXT_PUBLIC_SENTRY_DSN` | `(set in Vercel)` | Production, Preview, Development |
 | `NODE_ENV` | `production` | Production |
 
 ### Step 3: Initialize Database & Redeploy (2 mins)

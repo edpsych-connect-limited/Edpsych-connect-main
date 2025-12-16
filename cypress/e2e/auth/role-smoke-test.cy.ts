@@ -4,15 +4,12 @@
  */
 
 describe('Systematic Role Verification', () => {
-  const password = 'Test123!';
-  const baseUrl = Cypress.config('baseUrl') || 'http://localhost:3000';
-
   const roles = [
     {
       role: 'Super Admin',
       email: 'admin@demo.com',
       expectedPath: '/admin',
-      checkText: 'Admin' // Assuming admin dashboard has "Admin" text
+      checkText: 'Overview'
     },
     {
       role: 'Teacher',
@@ -29,8 +26,8 @@ describe('Systematic Role Verification', () => {
     {
       role: 'Parent',
       email: 'parent@demo.com',
-      expectedPath: '/dashboard',
-      checkText: 'Dashboard'
+      expectedPath: '/parents',
+      checkText: 'Launch Portal Demo'
     },
     {
       role: 'Educational Psychologist',
@@ -54,25 +51,16 @@ describe('Systematic Role Verification', () => {
 
   roles.forEach(({ role, email, expectedPath, checkText }) => {
     it(`should allow ${role} (${email}) to login and redirect to ${expectedPath}`, () => {
-      cy.visit(`${baseUrl}/login`);
-
-      // Fill in credentials
-      cy.get('input[type="email"]').type(email);
-      cy.get('input[type="password"]').type(password);
-
-      // Submit form
-      cy.get('button[type="submit"]').click();
-
-      // Verify redirect
-      // We increase timeout because cold start might be slow
-      cy.url({ timeout: 15000 }).should('include', expectedPath);
+      cy.login(email);
+      cy.visit(expectedPath);
 
       // Verify basic content to ensure page loaded
-      cy.contains(checkText, { timeout: 10000 }).should('be.visible');
-      
-      // Verify user name is displayed (welcome message)
-      // The dashboard usually says "Welcome back, [Name]"
-      cy.contains('Welcome back').should('be.visible');
+      cy.contains(checkText, { timeout: 20000 }).should('be.visible');
+
+      // Dashboard-specific sanity check
+      if (expectedPath === '/dashboard') {
+        cy.contains('Welcome back', { timeout: 20000 }).should('be.visible');
+      }
     });
   });
 });

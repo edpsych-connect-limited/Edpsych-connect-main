@@ -17,7 +17,25 @@ import { createCipheriv, createDecipheriv, randomBytes, createHash } from 'crypt
  */
 
 // Environment configuration
-const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY || '32_CHAR_STRONG_KEY_FOR_LOCAL_DEV'; // Use proper secret management in production
+function getEncryptionKeyMaterial(): string {
+  const key = process.env.ENCRYPTION_KEY;
+  if (key) return key;
+
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('Missing required environment variable: ENCRYPTION_KEY');
+  }
+
+  // Dev-only fallback to keep local developer experience smooth.
+  // Not suitable for production.
+  return 'dev-only-insecure-encryption-key-change-me';
+}
+
+let _ENCRYPTION_KEY: string | null = null;
+function getEncryptionKey(): string {
+  if (_ENCRYPTION_KEY) return _ENCRYPTION_KEY;
+  _ENCRYPTION_KEY = getEncryptionKeyMaterial();
+  return _ENCRYPTION_KEY;
+}
 const ENCRYPTION_ALGORITHM = 'aes-256-cbc';
 
 /**
@@ -229,7 +247,7 @@ export async function deleteFromSecureStorage(path: string): Promise<boolean> {
  * @returns Encrypted content
  */
 function encryptContent(content: Buffer, iv: Buffer): Buffer {
-  const key = Buffer.from(ENCRYPTION_KEY);
+  const key = createHash('sha256').update(getEncryptionKey()).digest();
   const cipher = createCipheriv(ENCRYPTION_ALGORITHM, key, iv);
   return Buffer.concat([cipher.update(content), cipher.final()]);
 }
@@ -242,7 +260,7 @@ function encryptContent(content: Buffer, iv: Buffer): Buffer {
  * @returns Decrypted content
  */
 function decryptContent(encryptedContent: Buffer, iv: Buffer): Buffer {
-  const key = Buffer.from(ENCRYPTION_KEY);
+  const key = createHash('sha256').update(getEncryptionKey()).digest();
   const decipher = createDecipheriv(ENCRYPTION_ALGORITHM, key, iv);
   return Buffer.concat([decipher.update(encryptedContent), decipher.final()]);
 }
@@ -258,7 +276,7 @@ function generateTemporaryToken(path: string, expiresIn: number): string {
   const expiry = Math.floor(Date.now() / 1000) + expiresIn;
   const data = `${path}|${expiry}`;
   const signature = createHash('sha256')
-    .update(data + ENCRYPTION_KEY)
+    .update(data + getEncryptionKey())
     .digest('hex');
   
   return Buffer.from(`${data}|${signature}`).toString('base64');

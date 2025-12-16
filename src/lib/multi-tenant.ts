@@ -501,7 +501,7 @@ class MultiTenantService {
     if (!tenant) return;
 
     // Update domain in settings
-    const settings = { domain }; // This merges into settings via updateTenantSettings logic if we used it, but here we need to be careful.
+    const _settings = { domain }; // This merges into settings via updateTenantSettings logic if we used it, but here we need to be careful.
     // Actually, domain is part of settings in our mapPrismaToConfig.
     
     await this.updateTenantSettings(tenantId, { domain });

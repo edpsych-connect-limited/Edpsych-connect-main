@@ -76,7 +76,7 @@ async function routeTrainingRequest(request: NextRequest): Promise<NextResponse>
   } catch (_error) {
     console.error('[Training API] Error:', _error);
     return NextResponse.json(
-      { error: 'Internal server _error' },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }

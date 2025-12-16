@@ -7,7 +7,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { stripe } from '@/lib/stripe';
+import { getStripe } from '@/lib/stripe';
 import { prisma } from '@/lib/prisma';
 import jwt from 'jsonwebtoken';
 
@@ -21,8 +21,16 @@ export async function POST(request: NextRequest) {
     const token = authHeader.split(' ')[1];
     let decoded: any;
     try {
-      decoded = jwt.verify(token, process.env.NEXTAUTH_SECRET || 'fallback-secret-key');
-    } catch (err) {
+      const nextAuthSecret = process.env.NEXTAUTH_SECRET;
+      if (!nextAuthSecret) {
+        return NextResponse.json(
+          { error: 'Server misconfiguration: NEXTAUTH_SECRET is not set' },
+          { status: 500 }
+        );
+      }
+
+      decoded = jwt.verify(token, nextAuthSecret);
+    } catch (_err) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
     
@@ -63,6 +71,8 @@ export async function POST(request: NextRequest) {
     }
     
     const finalAmount = Math.max(50, amount - discountAmount); // Minimum 50p
+
+    const stripe = getStripe();
 
     // 5. Create Payment Intent
     const paymentIntent = await stripe.paymentIntents.create({

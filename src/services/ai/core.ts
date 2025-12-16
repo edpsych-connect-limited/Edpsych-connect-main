@@ -8,6 +8,7 @@
 import OpenAI from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
 import { z } from 'zod';
+import { getDefaultOpenAIModel } from '@/lib/ai/openai-model';
 
 // Environment validation schema
 const _EnvSchema = z.object({
@@ -212,7 +213,7 @@ export async function callXAI(params: OpenAIParams): Promise<AIResponse> {
 export function getAvailableModels() {
   const models = {
     openai: openaiClient 
-      ? ['gpt-4o', 'gpt-4o-mini', 'gpt-4-turbo', 'gpt-3.5-turbo'] 
+      ? ['gpt-5.2-preview', 'gpt-4o', 'gpt-4o-mini', 'gpt-4-turbo', 'gpt-3.5-turbo'] 
       : [],
     anthropic: anthropicClient 
       ? ['claude-3-opus-20240229', 'claude-3-sonnet-20240229', 'claude-3-haiku-20240307'] 
@@ -287,9 +288,7 @@ export class AIService {
         return { content: response.text };
       } else if (openaiClient) {
         // Fall back to OpenAI
-        const model = subscriptionTier === 'premium'
-          ? 'gpt-4o'
-          : 'gpt-3.5-turbo';
+        const model = getDefaultOpenAIModel();
         
         const response = await callOpenAI({
           model,

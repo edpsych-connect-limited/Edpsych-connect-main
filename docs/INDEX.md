@@ -74,6 +74,7 @@ Welcome to the central documentation repository for EdPsych Connect. This index 
 - See `ops/` subdirectory for operational documentation
 - [PRODUCTION-DEPLOYMENT-COMPLETE.md](PRODUCTION-DEPLOYMENT-COMPLETE.md) - Production deployment status
 - [PLATFORM-STATUS-UPDATE.md](PLATFORM-STATUS-UPDATE.md) - Platform status
+- [ops/OWNER_RESPONSIBILITIES.md](ops/OWNER_RESPONSIBILITIES.md) - Founder/owner accountabilities (BYOD, security, compliance, release governance)
 
 ### 🔒 **Security & Standards**
 - [SECURITY-INCIDENT-REPORT.md](SECURITY-INCIDENT-REPORT.md) - Security incidents

@@ -1,14 +1,23 @@
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 
-// PRODUCTION DATABASE
-const prisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: 'postgresql://neondb_owner:npg_rSnga68XPqve@ep-delicate-grass-abi62lhk-pooler.eu-west-2.aws.neon.tech/neondb?sslmode=require'
-    }
-  }
-});
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL is not set. Refusing to connect.');
+}
+
+if (process.env.CONFIRM_PRODUCTION_FIX !== 'YES') {
+  throw new Error('Refusing to run. Set CONFIRM_PRODUCTION_FIX=YES to proceed.');
+}
+
+const BETA_TESTER_PASSWORD = process.env.PRODUCTION_BETA_TESTER_PASSWORD;
+const DEMO_ACCOUNTS_PASSWORD = process.env.PRODUCTION_DEMO_ACCOUNTS_PASSWORD;
+
+if (!BETA_TESTER_PASSWORD || !DEMO_ACCOUNTS_PASSWORD) {
+  throw new Error('Missing PRODUCTION_BETA_TESTER_PASSWORD or PRODUCTION_DEMO_ACCOUNTS_PASSWORD.');
+}
+
+// Uses DATABASE_URL
+const prisma = new PrismaClient();
 
 async function main() {
   console.log('='.repeat(70));
@@ -31,7 +40,7 @@ async function main() {
     
     console.log(`   Found ${betaTesters.length} beta tester accounts`);
     
-    const hashedPassword = await bcrypt.hash('BetaTest2025!', 12);
+    const hashedPassword = await bcrypt.hash(BETA_TESTER_PASSWORD, 12);
     
     for (const tester of betaTesters) {
       await prisma.users.update({
@@ -56,7 +65,7 @@ async function main() {
       'researcher@demo.com'
     ];
     
-    const demoPassword = await bcrypt.hash('Test123!', 12);
+    const demoPassword = await bcrypt.hash(DEMO_ACCOUNTS_PASSWORD, 12);
     
     for (const email of demoAccounts) {
       const user = await prisma.users.findUnique({ where: { email } });

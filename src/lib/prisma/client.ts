@@ -1,11 +1,13 @@
 import { logger } from "@/lib/logger";
 /**
- * Prisma Client Singleton
- * This file ensures we have a single Prisma Client instance across the application
- * This implementation is a mock for the build process
+ * Prisma Client (Legacy Compat)
+ *
+ * This module historically exported its own Prisma singleton.
+ * To support BYOD tenant routing, it now re-exports the canonical tenant-aware
+ * Prisma client from `@/lib/prisma`.
  */
 
-import { PrismaClient, Prisma } from '@prisma/client';
+import { prisma as tenantPrisma } from '@/lib/prisma';
 
 // Mock types for build process
 export type PaginationParams = {
@@ -15,41 +17,9 @@ export type PaginationParams = {
   orderBy?: { [key: string]: 'asc' | 'desc' };
 };
 
-// Add logging in development
-const options: Prisma.PrismaClientOptions =
-  process.env.NODE_ENV === 'development'
-    ? {
-        log: [
-          { emit: 'event', level: 'query' },
-        ],
-      }
-    : {};
-
-// PrismaClient singleton instance
-let prismaClient: PrismaClient;
-
-if (process.env.NODE_ENV === 'production') {
-  prismaClient = new PrismaClient(options);
-} else {
-  // For development, reuse the same client instance to avoid multiple connections
-  if (!(global as any).prisma) {
-    (global as any).prisma = new PrismaClient(options);
-  }
-  prismaClient = (global as any).prisma;
-}
-
-// Add query logging in development
-if (process.env.NODE_ENV === 'development') {
-  // @ts-expect-error - Prisma client events are not properly typed in production builds
-  prismaClient.$on('query', (e: any) => {
-    logger.debug('Query: ' + e.query);
-    logger.debug('Duration: ' + e.duration + 'ms');
-  });
-}
-
 // Export as both default and named export for backward compatibility
-export const prisma = prismaClient;
-export default prismaClient;
+export const prisma = tenantPrisma;
+export default tenantPrisma;
 
 // Utility functions for common database operations
 export const prismaUtils = {

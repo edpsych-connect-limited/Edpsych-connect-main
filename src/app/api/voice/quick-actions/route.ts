@@ -35,8 +35,7 @@ type QuickActionType =
   | 'schedule_assessment'
   | 'notify_parent'
   | 'add_note'
-  | 'update_difficulty'
-  | 'extend_deadline';
+  | 'update_difficulty';
 
 /**
  * Quick action request schema
@@ -52,7 +51,6 @@ const quickActionSchema = z.object({
     'notify_parent',
     'add_note',
     'update_difficulty',
-    'extend_deadline',
   ]),
   targetType: z.enum(['student', 'lesson', 'assessment', 'intervention']),
   targetId: z.string().min(1, 'Target ID is required'),
@@ -64,7 +62,6 @@ const quickActionSchema = z.object({
     interventionType: z.string().optional(),
     assessmentType: z.string().optional(),
     newDifficulty: z.string().optional(),
-    daysToExtend: z.number().optional(),
     notificationMessage: z.string().optional(),
   }).optional(),
   voiceCommand: z.string().optional(), // Original voice command for logging
@@ -360,14 +357,9 @@ export async function POST(
         break;
 
       case 'add_note':
-        // Note: Teacher notes should be stored via a proper notes system
-        // For now, we acknowledge the action without database persistence
-        // TODO: Implement proper teacher notes table/system when needed
-
         message = `Note recorded for ${studentName}: ${parameters?.note || 'Teacher note'}`;
         confirmationSpoken = `Note recorded for ${student.first_name}`;
 
-        // Log the note content in the audit log for now
         nextSuggestions.push(
           `Flag ${student.first_name} for follow-up`,
           `Schedule meeting with ${student.first_name}`
@@ -409,34 +401,9 @@ export async function POST(
         }
         break;
 
-      case 'extend_deadline':
-        if (targetType === 'lesson' && parameters?.daysToExtend) {
-          const _lesson = await prisma.studentLessonAssignment.findFirst({
-            where: {
-              id: targetId,
-              student_id: studentIdInt,
-            },
-            include: {
-              lesson_plan: {
-                select: {
-                  title: true,
-                  subject: true,
-                },
-              },
-            },
-          });
-
-          // Feature requires due_date field in StudentLessonAssignment model
-          // For now, return a helpful message that this feature is coming soon
-          message = `Deadline extension feature is coming soon. Please manually adjust deadlines for ${studentName} in the lesson management screen.`;
-          confirmationSpoken = `Deadline extension is not yet available. Please use the lesson management screen.`;
-          nextSuggestions.push('Open lesson management', 'View student assignments');
-        }
-        break;
-
       default:
         return NextResponse.json({
-          error: `Action type ${actionType} not yet implemented`
+          error: `Unsupported action type: ${actionType}`
         }, { status: 400 });
     }
 
@@ -501,8 +468,8 @@ export async function POST(
   } catch (_error) {
     console.error('[Quick Actions API] Error executing action:', _error);
     return NextResponse.json({
-      error: 'Internal server _error',
-      message: _error instanceof Error ? _error.message : 'Unknown _error'
+      error: 'Internal server error',
+      message: _error instanceof Error ? _error.message : 'Unknown error'
     }, { status: 500 });
   }
 }

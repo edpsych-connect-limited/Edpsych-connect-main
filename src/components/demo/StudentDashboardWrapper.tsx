@@ -9,7 +9,7 @@
  */
 
 import React, { useState } from 'react';
-import Link from 'next/link';
+// import Link from 'next/link'; // Unused
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import LessonList from '@/components/student/LessonList';
 
@@ -17,7 +17,7 @@ interface StudentDashboardWrapperProps {
   demoStudentId?: number;
 }
 
-export default function StudentDashboardWrapper({ demoStudentId }: StudentDashboardWrapperProps) {
+export default function StudentDashboardWrapper({ demoStudentId: _demoStudentId }: StudentDashboardWrapperProps) {
   const [showDashboard, setShowDashboard] = useState(false);
   const [queryClient] = useState(() => new QueryClient());
 

@@ -5,8 +5,21 @@
  * It encrypts sensitive values in memory and provides secure access patterns.
  */
 
+function getObfuscationKey(): string {
+  const key = process.env.OBFUSCATION_KEY;
+  if (key) return key;
+
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('Missing required environment variable: OBFUSCATION_KEY');
+  }
+
+  // Dev-only fallback to keep local developer experience smooth.
+  // Not suitable for production.
+  return 'dev-only-insecure-obfuscation-key-change-me';
+}
+
 // Simple XOR-based obfuscation for runtime values (not cryptographic security)
-const obfuscationKey = process.env.OBFUSCATION_KEY || 'EdPsych2025SecureKey';
+const obfuscationKey = getObfuscationKey();
 
 /**
  * Obfuscate a string value for storage

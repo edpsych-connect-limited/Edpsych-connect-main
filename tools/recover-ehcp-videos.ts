@@ -9,13 +9,29 @@ import * as path from 'path';
 import fetch from 'node-fetch';
 
 // Configuration
-const HEYGEN_API_KEY = 'sk_V2_hgu_kIsPOKnUIeM_Nvtt8QLs3osJMx3nQi5fYEytQNjhR4qM';
+const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
+const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
+const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
+const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
+
+if (!HEYGEN_API_KEY) {
+  throw new Error('HEYGEN_API_KEY environment variable is required');
+}
+
+if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_API_KEY || !CLOUDINARY_API_SECRET) {
+  throw new Error('CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET must be set');
+}
+
+const REQUIRED_HEYGEN_API_KEY: string = HEYGEN_API_KEY;
+const REQUIRED_CLOUDINARY_CLOUD_NAME: string = CLOUDINARY_CLOUD_NAME;
+const REQUIRED_CLOUDINARY_API_KEY: string = CLOUDINARY_API_KEY;
+const REQUIRED_CLOUDINARY_API_SECRET: string = CLOUDINARY_API_SECRET;
 
 // Cloudinary configuration
 cloudinary.config({
-  cloud_name: 'dncfu2j0r',
-  api_key: '243634378544427',
-  api_secret: 'J2CdOE3wHop90Vz0mS99biVHbnU'
+  cloud_name: REQUIRED_CLOUDINARY_CLOUD_NAME,
+  api_key: REQUIRED_CLOUDINARY_API_KEY,
+  api_secret: REQUIRED_CLOUDINARY_API_SECRET,
 });
 
 // Video IDs from the previous run
@@ -44,7 +60,7 @@ async function checkVideoStatus(videoId: string): Promise<{ status: string; vide
     const response = await fetch(`https://api.heygen.com/v1/video_status.get?video_id=${videoId}`, {
       method: 'GET',
       headers: {
-        'X-Api-Key': HEYGEN_API_KEY,
+        'X-Api-Key': REQUIRED_HEYGEN_API_KEY,
         'Accept': 'application/json'
       }
     });

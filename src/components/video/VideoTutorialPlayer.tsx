@@ -6,19 +6,18 @@
  * 
  * Universal Video Tutorial Player Component
  * 
- * Video Priority System for 100% Uptime:
- * 1. Local MP4 files (public/content/training_videos/) - Most reliable, no external dependency
- * 2. HeyGen embed as fallback - For videos not yet downloaded locally
+ * Video Priority System (canonical):
+ * 1) Live demo recordings (real platform operations) when available
+ * 2) Cloudinary CDN (primary delivery)
+ * 3) Local MP4 (development/offline fallback)
+ * 4) HeyGen embed (last-resort fallback)
  * 
  * Used across Help Centre, Parent Portal, LA Dashboard, and all tutorial contexts.
  */
 
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { Play, AlertCircle, CheckCircle, Clock, X, Loader2 } from 'lucide-react';
-import { HEYGEN_VIDEO_IDS, VIDEO_OVERLAYS, getBestVideoSource } from '@/lib/training/heygen-video-urls';
-
-// Note: All videos are served locally from public/content/training_videos/
-// Local serving is more reliable and doesn't depend on external CDN
+import { VIDEO_OVERLAYS, getVideoSourceCandidates, type VideoSourceCandidate, type VideoSourceType } from '@/lib/training/heygen-video-urls';
 
 export interface VideoTutorial {
   id: string;
@@ -58,64 +57,69 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
   const [_progress, setProgress] = useState(0); // Track for completion detection
   const [isComplete, setIsComplete] = useState(false);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
-  const [videoSource, setVideoSource] = useState<'loading' | 'local' | 'heygen' | 'error'>('loading');
+  const [videoSource, setVideoSource] = useState<'loading' | 'live' | 'cdn' | 'local' | 'heygen' | 'error'>('loading');
   const [_errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [candidates, setCandidates] = useState<VideoSourceCandidate[]>([]);
+  const [candidateIndex, setCandidateIndex] = useState(0);
 
-  // Fetch video URL with priority: Local MP4 > HeyGen Embed
-  useEffect(() => {
-    async function findVideoSource() {
-      const source = getBestVideoSource(videoKey);
+  const toPlayerSource = (t: VideoSourceType): 'live' | 'cdn' | 'local' | 'heygen' => {
+    switch (t) {
+      case 'live':
+        return 'live';
+      case 'cloudinary':
+        return 'cdn';
+      case 'local':
+        return 'local';
+      case 'heygen':
+        return 'heygen';
+    }
+  };
 
-      if (!source) {
-        setVideoSource('error');
-        setErrorMessage('Video not available');
-        return;
-      }
+  const applyCandidate = useCallback((nextIndex: number, nextCandidates?: VideoSourceCandidate[]) => {
+    const list = nextCandidates ?? candidates;
+    const next = list[nextIndex];
 
-      if (source.isLocal) {
-        // Verify local file exists/is accessible
-        try {
-          const response = await fetch(source.url, { method: 'HEAD' });
-          if (response.ok) {
-            setVideoUrl(source.url);
-            setVideoSource('local');
-            return;
-          } else {
-            console.warn(`Local video not found: ${source.url}, falling back to HeyGen`);
-          }
-        } catch (e) {
-          console.warn(`Local video check failed: ${source.url}, falling back to HeyGen`, e);
-        }
-        
-        // Fallback to HeyGen if local file is missing/inaccessible
-        const heygenId = HEYGEN_VIDEO_IDS[videoKey];
-        if (heygenId) {
-          setVideoUrl(`https://app.heygen.com/embed/${heygenId}`);
-          setVideoSource('heygen');
-          return;
-        }
-      } else {
-        // It's a HeyGen URL
-        setVideoUrl(source.url);
-        setVideoSource('heygen');
-        return;
-      }
-
-      // No video source available (local failed and no HeyGen ID, or source was undefined)
+    if (!next) {
       setVideoSource('error');
       setErrorMessage('Video not available');
+      setVideoUrl(null);
+      return;
     }
 
-    findVideoSource();
-  }, [videoKey]);
+    setCandidateIndex(nextIndex);
+    setVideoUrl(next.url);
+    setVideoSource(toPlayerSource(next.type));
+    setErrorMessage(null);
+  }, [candidates]);
+
+  // Resolve candidates (canonical priority) and select the first one.
+  useEffect(() => {
+    setVideoSource('loading');
+    const nextCandidates = getVideoSourceCandidates(videoKey);
+    setCandidates(nextCandidates);
+    applyCandidate(0, nextCandidates);
+  }, [applyCandidate, videoKey]);
 
   const hasVideo = videoSource !== 'error' && videoSource !== 'loading';
 
   const handleVideoError = useCallback(() => {
-    console.warn(`Video failed for ${videoKey}`);
+    // Self-healing: fall back to the next candidate automatically.
+    const current = candidates[candidateIndex];
+    const nextIndex = candidateIndex + 1;
+    const next = candidates[nextIndex];
+
+    const currentLabel = current ? `${current.type} (${current.kind})` : 'unknown';
+    const nextLabel = next ? `${next.type} (${next.kind})` : 'none';
+    console.warn(`Video failed for ${videoKey}. Current=${currentLabel}. Next=${nextLabel}`);
+
+    if (next) {
+      applyCandidate(nextIndex);
+      return;
+    }
+
     setVideoSource('error');
     setErrorMessage('Failed to load video');
-  }, [videoKey]);
+  }, [applyCandidate, candidateIndex, candidates, videoKey]);
 
   const handlePlay = useCallback(() => {
     setHasStarted(true);
@@ -145,7 +149,13 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
   // Loading state
   if (videoSource === 'loading') {
     return (
-      <div className={`bg-slate-900 rounded-xl flex items-center justify-center aspect-video ${className}`}>
+      <div
+        className={`bg-slate-900 rounded-xl flex items-center justify-center aspect-video ${className}`}
+        data-testid="video-tutorial-player"
+        data-video-key={videoKey}
+        data-video-state="loading"
+        data-video-source="loading"
+      >
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-indigo-400 animate-spin mx-auto mb-3" />
           <p className="text-slate-400">Loading video...</p>
@@ -157,7 +167,13 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
   // Error state
   if (!hasVideo || !videoUrl) {
     return (
-      <div className={`bg-slate-100 rounded-xl p-6 text-center aspect-video flex items-center justify-center ${className}`}>
+      <div
+        className={`bg-slate-100 rounded-xl p-6 text-center aspect-video flex items-center justify-center ${className}`}
+        data-testid="video-tutorial-player"
+        data-video-key={videoKey}
+        data-video-state="error"
+        data-video-source="error"
+      >
         <div>
           <AlertCircle className="w-12 h-12 text-amber-500 mx-auto mb-3" />
           <p className="text-slate-700 font-medium">Video not available</p>
@@ -169,9 +185,17 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
 
   const overlayImage = VIDEO_OVERLAYS[videoKey];
 
+  const currentCandidate = candidates[candidateIndex];
+
   if (compact) {
     return (
-      <div className={`bg-white rounded-lg border border-slate-200 overflow-hidden ${className}`}>
+      <div
+        className={`bg-white rounded-lg border border-slate-200 overflow-hidden ${className}`}
+        data-testid="video-tutorial-player"
+        data-video-key={videoKey}
+        data-video-state="ready"
+        data-video-source={videoSource}
+      >
         <div className="relative aspect-video bg-slate-900">
           {!hasStarted ? (
             <button
@@ -219,7 +243,13 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
   }
 
   return (
-    <div className={`bg-white rounded-xl shadow-lg overflow-hidden border border-slate-200 ${className}`}>
+    <div
+      className={`bg-white rounded-xl shadow-lg overflow-hidden border border-slate-200 ${className}`}
+      data-testid="video-tutorial-player"
+      data-video-key={videoKey}
+      data-video-state="ready"
+      data-video-source={videoSource}
+    >
       {/* Video Container */}
       <div className="relative aspect-video bg-slate-900 group">
         
@@ -311,7 +341,19 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
             )}
             {/* Source indicator */}
             <p className="text-xs text-slate-400 mt-2">
-              Source: {videoSource === 'local' ? 'Local' : 'HeyGen'}
+              Source: {(() => {
+                if (!currentCandidate) return videoSource;
+                switch (currentCandidate.type) {
+                  case 'live':
+                    return 'Live demo';
+                  case 'cloudinary':
+                    return 'CDN';
+                  case 'local':
+                    return 'Local';
+                  case 'heygen':
+                    return 'HeyGen';
+                }
+              })()}
             </p>
           </div>
           {isComplete && (
