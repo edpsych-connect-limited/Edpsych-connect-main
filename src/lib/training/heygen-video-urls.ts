@@ -18,9 +18,32 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   // PLATFORM Videos
   "platform-introduction": "1253f6c2d8e9442db7eeb8dcba27a568",
 
+  // PRICING / MARKETING (December 2025 suite)
+  // NOTE: These are used across Pricing + Landing surfaces. If Cloudinary isn't
+  // mapped yet, the player will fall back to HeyGen embed.
+  "value-enterprise-platform": "5a44470c78684139ab2faa3f34cc5429",
+  "addon-ai-power-pack": "585ec6706d7349c6b42e363ee0655d5a",
+  "addon-ehcp-accelerator": "06bf1fcb7aa04476abf0db827b5e6c6e",
+  "addon-cpd-library": "88582eef95634801b88c0dd76c7523f6",
+  "addon-api-access": "49faa010b2864d539969227b7b6d81de",
+  "addon-white-label": "6132f8ab6d4246b7a184db10c9a49c9e",
+  "addon-priority-support": "e90201fbba1a4f789186c4d8b58dcc72",
+  "feature-nclb-engine": "88fcefafc9f64bc7bfbea861d19cd1cb",
+  "feature-battle-royale": "58d38fdf4d8640c1b9d848a826d686a6",
+  "feature-battle-royale-pricing": "58d38fdf4d8640c1b9d848a826d686a6", // alias: PricingPage key
+  "feature-byod-architecture": "4ae970ec77f145b3a5ccc12298fd7cd1",
+  "feature-intervention-library": "70ae2bd8eb3e41cab5dfdeb8a771fc8a",
+  "compare-true-cost": "80f6551b669a4a4c804d6d19726d626e",
+  "compare-switching": "35fc14cae23d4323a08150b6625dea35",
+  "trust-security": "caa20295f1164b3cb796c1e04c348c77",
+  "trust-built-by-practitioners": "81e7ef1a1d1449a2a65187820cff7bac",
+
   // ONBOARDING Videos
   "onboarding-platform-tour": "47faddd661d648e5ae34c8360c8b2286",
-  "onboarding-welcome": "a3b05db1d6f94cca89b190205148e814",
+  // NOTE: "onboarding-welcome" was regenerated with verified Dr Scott avatar/voice
+  // and a claim-safe script (truth-by-code). Keep this key pinned to the verified
+  // asset only; do not reintroduce unverified identities via Cloudinary overrides.
+  "onboarding-welcome": "17126ba3772f4a7984aa5fa82d85c817",
 
   // LA- Videos
   "la-dashboard-overview": "bda257f9263440b0ace5f74875d8e5b6",
@@ -42,6 +65,16 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "ehcp-evidence-gathering": "3e05294094ba4d6eabc38e7a981d970e",
   "ehcp-professional-contributions": "93e46803ffc4404998abfcdcaa5c09ae",
 
+  // EHCP MODULES (hub + advanced workflows)
+  "ehcp-modules-hub-overview": "4a6bb2e9083542c185cebb1609d6d1cf",
+  "annual-reviews-mastery": "24b893afc8f44f9c8d4813328098c87f",
+  "mediation-tribunal-navigation": "2fb25e1c05c848c2880e52d41c21c5ef",
+  "phase-transfers-mastery": "74fb795821a046ed845425d9c5e53de1",
+  "compliance-risk-ai": "b78522c6f075420ca3e5ed52bacc225d",
+  "resource-costing-funding": "41805d3e583d4ca4b1d3f46687f6ac76",
+  "golden-thread-coherence": "51297c420ab84cfd99847e5b54e80e74",
+  "sen2-returns-automation": "3edc74c4a40548ec8866fcc19caf0126",
+
   // HELP- Videos
   "help-collaboration": "43b884d3d5eb4d1f9e98126238ce9b07",
   "help-cpd-tracking": "36da748c9c9948cebf809ccb88a6ee6d",
@@ -49,8 +82,10 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "help-finding-interventions": "47aa88223c364600b6618b54c719f717",
   "help-first-assessment": "c2f83ce8d785468a8d762bebb2cee7f0",
   "help-generating-reports": "54882ac8986c404d99b052952de1699b",
-  "help-getting-started": "a3b05db1d6f94cca89b190205148e814",
   "help-troubleshooting": "a47ac27a1b444cc892840d32c9d63cbb",
+
+  // Legacy/compat aliases (keep until all call sites are migrated)
+  "feature-interventions": "47aa88223c364600b6618b54c719f717", // alias -> help-finding-interventions
 
   // COMPLIANCE- Videos
   "compliance-consent": "a9add208f50b411f97b6db9cf7df3f88",
@@ -167,6 +202,10 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   "la-dashboard-overview": "/content/training_videos/la-portal/la-dashboard-overview.mp4",
   "school-senco-portal": "/content/training_videos/misc/school-senco-portal.mp4",
   "parent-portal-welcome": "/content/training_videos/parent-portal/parent-portal-welcome.mp4",
+  // Parent Portal (aliases): avoid dead-ends until dedicated videos are produced
+  "parent-support-plan": "/content/training_videos/parent-portal/parent-portal-welcome.mp4",
+  "parent-home-support": "/content/training_videos/parent-portal/parent-portal-welcome.mp4",
+  "parent-communication": "/content/training_videos/parent-portal/parent-portal-welcome.mp4",
   "ehcp-application-journey": "/content/training_videos/ehcp/ehcp-application-journey.mp4",
   "ehcp-evidence-gathering": "/content/training_videos/ehcp/ehcp-evidence-gathering.mp4",
   "ehcp-professional-contributions": "/content/training_videos/ehcp/ehcp-professional-contributions.mp4",
@@ -183,7 +222,8 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   "la-professional-requests": "/content/training_videos/la-portal/la-professional-requests.mp4",
   "la-ehcp-merge-tool": "/content/training_videos/la-portal/la-ehcp-merge-tool.mp4",
   "parent-understanding-results": "/content/training_videos/parent-portal/parent-understanding-results.mp4",
-  "platform-introduction": "/content/training_videos/marketing/platform-introduction.mp4",
+  // Local fallback to prevent 404s if external sources are unavailable
+  "platform-introduction": "/content/training_videos/platform-introduction.mp4",
   "parent-contributing-views": "/content/training_videos/parent-portal/parent-contributing-views.mp4",
   "compliance-consent": "/content/training_videos/compliance/compliance-consent.mp4",
   "assessment-choosing": "/content/training_videos/assessment/assessment-choosing.mp4",
@@ -193,6 +233,11 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   "innovation-coding-curriculum": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
   "innovation-ai-agents": "/content/training_videos/innovation/innovation-ai-agents.mp4",
   "innovation-battle-royale": "/content/training_videos/innovation/innovation-battle-royale.mp4",
+
+  // Research (aliases): keep Research Hub playable while dedicated videos are produced
+  "clinical-trials": "/content/training_videos/innovation/innovation-research-hub.mp4",
+  "longitudinal-studies": "/content/training_videos/innovation/innovation-research-hub.mp4",
+  "research-ethics-submission": "/content/training_videos/innovation/innovation-research-hub.mp4",
   
   // Coding Curriculum Videos (Aliased to placeholders)
   "intro-coding-journey": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
@@ -211,6 +256,13 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   "feature-accessibility": "/content/training_videos/features/feature-accessibility.mp4",
   "feature-ai-agents": "/content/training_videos/features/feature-ai-agents.mp4",
   "feature-la-dashboard": "/content/training_videos/features/feature-la-dashboard.mp4",
+
+  // Pricing page assets (local fallbacks to reduce HeyGen-only reliance)
+  "value-enterprise-platform": "/content/training_videos/pricing/value/value-enterprise-platform.mp4",
+  "feature-nclb-engine": "/content/training_videos/pricing/features/feature-nclb-engine.mp4",
+  "feature-battle-royale": "/content/training_videos/pricing/features/feature-battle-royale.mp4",
+  "feature-battle-royale-pricing": "/content/training_videos/pricing/features/feature-battle-royale.mp4",
+  "feature-byod-architecture": "/content/training_videos/pricing/features/feature-byod-architecture.mp4",
 
   // Feature Spotlight Aliases
   "no-child-left-behind": "/content/training_videos/innovation/innovation-safety-net.mp4",
@@ -267,6 +319,35 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   "dys-m8-l1": "/content/training_videos/dyslexia/dyslexia-m8-l1.mp4",
   "dys-m8-l2": "/content/training_videos/dyslexia/dyslexia-m8-l2.mp4",
 
+  // Course-catalog lesson IDs that need explicit wiring
+  // (these are real files already shipped in /public)
+  "send-fund-m1-l1": "/content/training_videos/platform-introduction.mp4",
+  "send-fund-m2-l1": "/content/training_videos/platform-introduction.mp4",
+  "send-fund-m2-l2": "/content/training_videos/platform-introduction.mp4",
+  "assess-m1-l1": "/content/training_videos/assessment/assessment-choosing.mp4",
+  "assess-m2-l1": "/content/training_videos/assessment/assessment-interpreting.mp4",
+  "assess-m2-l2": "/content/training_videos/assessment/assessment-interpreting.mp4",
+  "int-m1-l1": "/content/training_videos/platform-introduction.mp4",
+  "int-m2-l1": "/content/training_videos/academy_misc/2-1_What_is_Structured_Literacy__Orton_Gillingham_Principles.mp4",
+  "ehcp-m1-l1": "/content/training_videos/ehcp/ehcp-application-journey.mp4",
+  "wm-l1": "/content/training_videos/platform-introduction.mp4",
+  "wm-m1-l1": "/content/training_videos/platform-introduction.mp4",
+  "wm-m2-l1": "/content/training_videos/platform-introduction.mp4",
+  "anx-l1": "/content/training_videos/platform-introduction.mp4",
+  "anx-l5": "/content/training_videos/platform-introduction.mp4",
+  "asd-l1": "/content/training_videos/platform-introduction.mp4",
+  "asd-l4": "/content/training_videos/platform-introduction.mp4",
+  "trauma-m1-l1": "/content/training_videos/platform-introduction.mp4",
+  "trauma-m2-l1": "/content/training_videos/platform-introduction.mp4",
+  "rj-m1-l1": "/content/training_videos/platform-introduction.mp4",
+  "pp-m1-l1": "/content/training_videos/platform-introduction.mp4",
+  "pt-m1-l2": "/content/training_videos/platform-introduction.mp4",
+  "adv-m2-l1": "/content/training_videos/platform-introduction.mp4",
+  "adhd-l1": "/content/training_videos/adhd/1-1_ADHD_Neurobiology__Dopamine__Norepinephrine__and_Brain_Development.mp4",
+  "adhd-l5": "/content/training_videos/academy_misc/6-1_Channel_Hyperactivity_Productively.mp4",
+  "dys-m1-l1": "/content/training_videos/dyslexia/1-1_Dyslexia_Neurobiology__The_Phonological_Deficit_Hypothesis.mp4",
+  "dys-m2-l1": "/content/training_videos/academy_misc/2-1_What_is_Structured_Literacy__Orton_Gillingham_Principles.mp4",
+
 
   // Generated Academy Videos (L3-L5)
 };
@@ -303,11 +384,13 @@ export function extractLessonIdFromUrl(contentUrl: string): string | undefined {
  */
 export function getSpeakerForVideo(lessonId: string): 'Dr. Scott' | 'Adrian' | undefined {
   const lowerId = lessonId.toLowerCase();
+
+  // NOTE (truth-by-code): Speaker attribution is a *display* concern, not proof of identity.
+  // Avoid broad heuristics like "welcome" => "Dr. Scott" which can mislabel content if the
+  // underlying video asset was generated with a different avatar/voice.
   
   // Dr. Scott (Visionary/Clinical)
   if (
-    lowerId.includes('welcome') ||
-    lowerId.includes('parent') ||
     lowerId.includes('clinical') ||
     lowerId.includes('crisis') ||
     lowerId.includes('safeguarding') ||
@@ -315,7 +398,6 @@ export function getSpeakerForVideo(lessonId: string): 'Dr. Scott' | 'Adrian' | u
     lowerId.includes('adhd') ||
     lowerId.includes('dyslexia') ||
     lowerId.includes('dys-') ||
-    lowerId.includes('platform-introduction') ||
     lowerId.includes('send') ||
     lowerId.includes('assessment') ||
     lowerId.includes('intervention') ||
@@ -404,9 +486,20 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "la-ehcp-merge-tool": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641766/edpsych-connect/videos/la-ehcp-merge-tool.mp4",
   "la-professional-requests": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641777/edpsych-connect/videos/la-professional-requests.mp4",
   "la-dashboard-overview": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641794/edpsych-connect/videos/la-dashboard-overview.mp4",
+  "la-ehcp-portal-intro": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533892/edpsych-connect/videos/la-ehcp-portal-intro.mp4",
   "feature-la-dashboard": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644467/edpsych-connect/videos/feature-la-dashboard.mp4",
-  "onboarding-welcome": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533816/edpsych-connect/videos/onboarding-welcome.mp4",
   "onboarding-platform-tour": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533862/edpsych-connect/videos/onboarding-platform-tour.mp4",
+  "value-enterprise-platform": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765942287/edpsych-connect/videos/value-enterprise-platform.mp4",
+
+  // EHCP Modules (Cloudinary CDN)
+  "ehcp-modules-hub-overview": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860056/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/ehcp-modules-hub-overview.mp4",
+  "annual-reviews-mastery": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860087/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/annual-reviews-mastery.mp4",
+  "mediation-tribunal-navigation": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860119/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/mediation-tribunal-navigation.mp4",
+  "phase-transfers-mastery": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860151/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/phase-transfers-mastery.mp4",
+  "compliance-risk-ai": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860193/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/compliance-risk-ai.mp4",
+  "resource-costing-funding": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860225/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/resource-costing-funding.mp4",
+  "golden-thread-coherence": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764861076/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/golden-thread-coherence.mp4",
+  "sen2-returns-automation": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860684/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/sen2-returns-automation.mp4",
   "help-troubleshooting": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641815/edpsych-connect/videos/help-troubleshooting.mp4",
   "help-cpd-tracking": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641824/edpsych-connect/videos/help-cpd-tracking.mp4",
   "help-collaboration": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641834/edpsych-connect/videos/help-collaboration.mp4",
@@ -566,7 +659,11 @@ export function getVideoSourceCandidates(lessonId: string): VideoSourceCandidate
 
   const heygenId = HEYGEN_VIDEO_IDS[lessonId];
   if (heygenId) {
-    candidates.push({ type: 'heygen', kind: 'iframe', url: `https://app.heygen.com/embed/${heygenId}` });
+    // HeyGen's /embed endpoint sets a restrictive `Content-Security-Policy: frame-ancestors ...`
+    // which prevents embedding on edpsychconnect.com (and most non-HeyGen domains).
+    //
+    // Use our server endpoint to resolve a direct MP4 URL (or 302-redirect to it) instead.
+    candidates.push({ type: 'heygen', kind: 'video', url: `/api/video/heygen-url?key=${encodeURIComponent(lessonId)}&redirect=1` });
   }
 
   return candidates;
@@ -575,12 +672,12 @@ export function getVideoSourceCandidates(lessonId: string): VideoSourceCandidate
 
 
 /**
- * Get the best available video source for a given lesson ID
- * Checks Cloudinary first, then local paths, then falls back to HeyGen ID
+ * Returns the highest-priority source candidate for a lesson.
+ *
+ * Note: if you need an MP4-compatible URL for an HTML5 <video> tag,
+ * prefer candidates where `kind === 'video'`. HeyGen candidates are `iframe`.
  */
-export function getBestVideoSource(lessonId: string): { isLocal: boolean; url: string } | undefined {
+export function getBestVideoSource(lessonId: string): VideoSourceCandidate | undefined {
   const candidates = getVideoSourceCandidates(lessonId);
-  const best = candidates[0];
-  if (!best) return undefined;
-  return { isLocal: best.kind === 'video', url: best.url };
+  return candidates[0];
 }

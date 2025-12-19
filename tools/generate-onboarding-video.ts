@@ -1,9 +1,20 @@
 /**
  * Generate Onboarding Welcome Video via HeyGen API
- * 
- * This script generates a 2-minute comprehensive platform introduction video
- * featuring Dr Scott I-Patrick as the AI presenter.
+ *
+ * IMPORTANT (truth-by-code):
+ * - This script must only make claims that are true in the current product.
+ * - Avoid hard numbers/time guarantees unless they are enforced by code + measured.
+ * - If the script claims a real-person identity (e.g. "I'm Dr Scott…"), the
+ *   avatar + voice MUST match the approved IDs.
  */
+
+// Load local environment variables (e.g. HEYGEN_API_KEY) from .env files.
+// NOTE:
+// - Next.js loads multiple env files (e.g. .env.local, .env.development.local).
+// - This generator is a standalone Node script, so we mirror that precedence
+//   to avoid the common “key is in .env.local but the script can’t see it” issue.
+// - These files are git-ignored; do not commit real secrets.
+import dotenv from 'dotenv';
 
 import * as fs from 'fs';
 import * as path from 'path';
@@ -12,40 +23,85 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+function loadEnvForGenerator(): void {
+  // Align with Next.js env loading (simplified):
+  //   .env.{mode}.local
+  //   .env.local              (except test)
+  //   .env.{mode}
+  //   .env
+  // We do NOT override already-set process.env values.
+  const mode = (process.env.NODE_ENV || 'development').toLowerCase();
+  const root = path.join(__dirname, '..');
+
+  const candidates: string[] = [
+    `.env.${mode}.local`,
+    ...(mode === 'test' ? [] : ['.env.local']),
+    `.env.${mode}`,
+    '.env',
+  ];
+
+  const loaded: string[] = [];
+  for (const rel of candidates) {
+    const abs = path.join(root, rel);
+    if (!fs.existsSync(abs)) continue;
+    const result = dotenv.config({ path: abs, override: false });
+    if (!result.error) loaded.push(rel);
+  }
+
+  // Safe diagnostics: never print secret values.
+  if (loaded.length > 0) {
+    console.log(`🔐 Loaded env files: ${loaded.join(', ')}`);
+  } else {
+    console.log('🔐 Loaded env files: (none found)');
+  }
+}
+
+loadEnvForGenerator();
+
 const API_KEY: string = process.env.HEYGEN_API_KEY || '';
 if (!API_KEY) {
   console.error('❌ Error: HEYGEN_API_KEY environment variable is not set.');
-  console.log('Usage: HEYGEN_API_KEY=your_key npx tsx tools/generate-onboarding-video.ts');
+  console.log(
+    'Set HEYGEN_API_KEY in your shell or in one of: .env.local / .env.development.local / .env, then re-run.'
+  );
+  console.log('Usage: npx tsx tools/generate-onboarding-video.ts');
   process.exit(1);
 }
 
 // HeyGen Avatar and Voice Configuration
-// Using a professional male avatar for Dr Scott I-Patrick
-const AVATAR_ID = 'josh_lite3_20230714'; // Professional male avatar
-const VOICE_ID = 'en-GB-RyanNeural'; // British English male voice
+// IMPORTANT (truth-by-code): if the script claims to be a real person (e.g. "I'm Dr Scott…"),
+// the avatar + voice MUST match the approved IDs for that presenter.
+//
+// Dr Scott (approved, used across other generation tools in this repo)
+const DR_SCOTT_AVATAR_ID = '0d10345ca99840cdbd3103692ba55e27';
+const DR_SCOTT_VOICE_ID = '50d2a2a531d049719a0debbf82e1cf4c';
 
-// The complete 2-minute onboarding script
-const ONBOARDING_SCRIPT = `Welcome to EdPsych Connect World. I'm Dr Scott I-Patrick, and in the next two minutes, I'll show you why educational psychology professionals across the UK are calling this platform transformational.
+const AVATAR_ID = DR_SCOTT_AVATAR_ID;
+const VOICE_ID = DR_SCOTT_VOICE_ID;
 
-First, let's talk about what makes us different. We're not just another EdTech tool. We're a complete ecosystem designed by educational psychologists, for educational psychologists. Every feature, every workflow, every assessment was built with one mission: making your expertise reach further, faster, and with greater impact.
+// Onboarding script (keep accurate, durable, and claim-safe).
+// Avoid hard numbers and performance guarantees; refer to capabilities in the feature catalog.
+const ONBOARDING_SCRIPT = `Welcome to EdPsych Connect World. I'm Dr Scott I-Patrick.
 
-Let me show you three things that will change how you work.
+This is an all-in-one workspace for educational psychology and SEND collaboration, built around a simple principle: if we claim it, we can prove it.
 
-Number one: Evidence-based assessments at your fingertips. Our platform includes over fifty validated assessment templates, from cognitive screenings to social-emotional evaluations. Each one is backed by peer-reviewed research and adapted for the UK context. No more recreating the wheel. No more hunting through folders. Everything you need is organized, standardized, and ready to use.
+In a couple of minutes, here’s what you can do today.
 
-Number two: The 'No Child Left Behind' engine. This is our flagship innovation. When you create a lesson or intervention plan, our AI automatically generates differentiated versions for every learner profile. Dyslexia-friendly fonts for Sam. Chunked instructions for Mia. Visual supports for Leo. One plan becomes thirty personalized experiences in seconds.
+First: onboarding and role setup. We tailor the experience to your role, so you can get to the parts of the platform you actually need.
 
-Number three: Data autonomy and trust. We know you handle the most sensitive student information. That's why we built our platform with BYOD architecture - Bring Your Own Database. Your Local Authority retains complete control. We process; we never hoard. NHS-level encryption, GDPR compliant, and you keep the keys to your data.
+Second: assessments and reporting. You can create assessment instances, capture structured inputs, collaborate where appropriate, and generate reports from real saved data — with clear links back to the underlying evidence.
 
-But here's what our users love most: the time savings. Tasks that took hours now take minutes. Assessment reports that required three days of writing? Generated in thirty seconds. Multi-agency collaboration that meant endless email chains? Streamlined into a single secure workspace.
+Third: EHCP and casework workflows. You can organise case records, contribute evidence, and support core EHCP processes — including modules designed for clarity, consistency, and auditability.
 
-The result? More time with students. More impact per case. More families supported. More children thriving.
+Fourth: multi-agency collaboration. Parents, teachers, and professionals can contribute through dedicated portal routes and collaboration flows, so information is gathered once and stays connected to the right case.
 
-This isn't just software. It's a movement to transform educational psychology practice. And you're now part of it.
+And for institutions: data autonomy. EdPsych Connect supports institution-managed configurations, including Bring Your Own Database options, so organisations can retain control over where data lives.
 
-Ready to explore? Your personalized dashboard is waiting. Click 'Continue' to complete your profile and discover features tailored exactly to your role.
+Across the platform, we use privacy-aware, role-based workflows designed to support GDPR obligations.
 
-Welcome to the future of educational psychology. Welcome to EdPsych Connect World.`;
+Now, click Continue to finish your profile, open your dashboard, and start with a workflow that matches your goal — an assessment, a report, an EHCP task, or a collaboration request.
+
+Welcome to EdPsych Connect World.`;
 
 interface HeyGenVideoRequest {
   video_inputs: Array<{
@@ -72,16 +128,55 @@ interface HeyGenVideoRequest {
   test?: boolean;
 }
 
+function assertNoUnverifiedIdentityClaims(params: {
+  script: string;
+  avatarId: string;
+  voiceId: string;
+}): void {
+  const script = params.script.toLowerCase();
+
+  // Guardrail: prevent generating a video that claims to be Dr Scott unless
+  // the approved Dr Scott avatar + voice are used.
+  const claimsDrScott =
+    script.includes("i'm dr scott") ||
+    script.includes('im dr scott') ||
+    script.includes('i am dr scott') ||
+    script.includes('dr scott i-patrick') ||
+    script.includes('dr scott');
+
+  if (claimsDrScott) {
+    const okAvatar = params.avatarId === DR_SCOTT_AVATAR_ID;
+    const okVoice = params.voiceId === DR_SCOTT_VOICE_ID;
+    if (!okAvatar || !okVoice) {
+      throw new Error(
+        [
+          'Unverified identity claim blocked:',
+          'This script references Dr Scott, but the configured avatar/voice are not the approved Dr Scott IDs.',
+          `avatarId=${params.avatarId} (expected ${DR_SCOTT_AVATAR_ID})`,
+          `voiceId=${params.voiceId} (expected ${DR_SCOTT_VOICE_ID})`,
+        ].join(' ')
+      );
+    }
+  }
+}
+
 async function generateVideo(): Promise<void> {
   console.log('='.repeat(80));
   console.log('EdPsych Connect - Onboarding Video Generator');
   console.log('='.repeat(80));
   console.log('');
   console.log('📽️  Generating 2-minute platform introduction video...');
-  console.log('🎭 Avatar: Professional Male (Dr Scott I-Patrick)');
-  console.log('🗣️  Voice: British English (Ryan Neural)');
+  console.log(`🎭 Avatar ID: ${AVATAR_ID} (Dr Scott)`);
+  console.log(`🗣️  Voice ID: ${VOICE_ID} (Dr Scott)`);
   console.log(`📝 Script length: ${ONBOARDING_SCRIPT.length} characters`);
   console.log('');
+
+  // Governance guardrail: refuse to generate if identity claims and IDs don't match.
+  assertNoUnverifiedIdentityClaims({
+    script: ONBOARDING_SCRIPT,
+    avatarId: AVATAR_ID,
+    voiceId: VOICE_ID,
+  });
 
   const requestBody: HeyGenVideoRequest = {
     video_inputs: [

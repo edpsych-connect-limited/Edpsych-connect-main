@@ -13,9 +13,10 @@
  * - Responsive design
  * 
  * Video Priority System:
- * 1. Local files (for development)
- * 2. Cloudinary CDN (PRIMARY - verified working, optimised delivery)
- * 3. HeyGen API (fallback for video regeneration)
+ * 1. Live demo URLs (where available)
+ * 2. Cloudinary CDN
+ * 3. Local files (development / offline)
+ * 4. HeyGen embed / API fallback
  */
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
@@ -30,36 +31,46 @@ export function Step1Welcome() {
   const [videoStarted, setVideoStarted] = useState(false);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [isLoadingVideo, setIsLoadingVideo] = useState(false);
+  const [videoError, setVideoError] = useState<string | null>(null);
   const [videoWatchPercentage, setVideoWatchPercentage] = useState(state.step1Data.videoWatchPercentage || 0);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // Fetch video URL when play is clicked
   const fetchVideoUrl = useCallback(async () => {
     setIsLoadingVideo(true);
+    setVideoError(null);
 
     try {
       const source = getBestVideoSource('onboarding-welcome');
       
       if (!source) {
-        console.error('No video source found for onboarding-welcome');
-        setIsLoadingVideo(false);
+        setVideoUrl(null);
+        setVideoError('The introduction video is temporarily unavailable while we replace it with a verified version.');
         return;
       }
 
-      if (source.isLocal) {
-        try {
-          const response = await fetch(source.url, { method: 'HEAD' });
-          if (response.ok) {
-            setVideoUrl(source.url);
-            setIsLoadingVideo(false);
-            return;
+      // If we have a direct video URL (live/cloudinary/local), use it.
+      if (source.kind === 'video') {
+        // For local assets, do a quick existence check; for remote URLs, let the <video> element handle it.
+        if (source.type === 'local') {
+          try {
+            const response = await fetch(source.url, { method: 'HEAD' });
+            if (response.ok) {
+              setVideoUrl(source.url);
+              setIsLoadingVideo(false);
+              return;
+            }
+          } catch {
+            // Local failed
           }
-        } catch {
-          // Local failed
+        } else {
+          setVideoUrl(source.url);
+          setIsLoadingVideo(false);
+          return;
         }
       }
 
-      // Fallback to HeyGen API for direct MP4
+      // Fallback to HeyGen API for direct MP4 (required when best source is an iframe embed)
       try {
         const response = await fetch('/api/video/heygen-url?key=onboarding-welcome');
         if (response.ok) {
@@ -73,13 +84,14 @@ export function Step1Welcome() {
       } catch {
         // API failed
       }
-      
-      // If all else fails, try to use the source URL anyway if it was local
-      if (source.isLocal) {
-         setVideoUrl(source.url);
-      }
+
+      // If we got here, we had a source but couldn't resolve a playable URL.
+      setVideoUrl(null);
+      setVideoError('We couldn\'t load the introduction video. Please try again in a moment.');
     } catch (error) {
       console.error('Error fetching video:', error);
+      setVideoUrl(null);
+      setVideoError('We couldn\'t load the introduction video. Please try again.');
     } finally {
       setIsLoadingVideo(false);
     }
@@ -102,20 +114,20 @@ export function Step1Welcome() {
   const benefits = [
     {
       icon: Target,
-      title: 'Evidence-Based Practice',
-      description: '51 validated assessment templates and 69 research-backed interventions',
+      title: 'Evidence-Informed Practice',
+      description: 'A growing library of templates and interventions to support consistent, evidence-informed work',
       color: 'indigo'
     },
     {
       icon: Zap,
       title: 'Save Time',
-      description: 'Reduce assessment time by 45% with automated scoring and report generation',
+      description: 'Speed up common workflows with reusable templates and streamlined report-writing',
       color: 'purple'
     },
     {
       icon: Shield,
       title: 'GDPR Compliant',
-      description: 'Enterprise-grade security with UK data residency and NHS-level encryption',
+      description: 'Security-first design with privacy-aware workflows and role-based access',
       color: 'green'
     },
     {
@@ -127,13 +139,13 @@ export function Step1Welcome() {
     {
       icon: TrendingUp,
       title: 'Track Progress',
-      description: 'Longitudinal data tracking with goal attainment scaling (GAS)',
+      description: 'Capture outcomes over time with structured notes, goals, and review points',
       color: 'orange'
     },
     {
       icon: CheckCircle,
-      title: 'CPD Certified',
-      description: 'Earn CPD certificates and unlock professional development achievements',
+      title: 'Training & Support',
+      description: 'Short video walkthroughs and guidance to help you onboard quickly and confidently',
       color: 'pink'
     }
   ];
@@ -188,7 +200,7 @@ export function Step1Welcome() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
         >
-          We&apos;re excited to have you join EdPsych Connect World - the UK&apos;s leading platform for educational psychology professionals.
+          We&apos;re excited to have you join EdPsych Connect World — an all-in-one workspace for educational psychology and SEND collaboration.
         </motion.p>
       </div>
 
@@ -239,6 +251,34 @@ export function Step1Welcome() {
                 <p className="text-white text-sm">Loading video...</p>
               </div>
             </div>
+          ) : !videoUrl ? (
+            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-indigo-600 to-purple-700 p-6">
+              <div className="text-center text-white max-w-md">
+                <p className="text-sm font-medium">{videoError || 'Video unavailable'}</p>
+                <div className="mt-4 flex items-center justify-center gap-3">
+                  <button
+                    type="button"
+                    onClick={fetchVideoUrl}
+                    className="px-4 py-2 bg-white/20 backdrop-blur-sm text-white text-sm rounded-lg hover:bg-white/25 transition-colors border border-white/30"
+                  >
+                    Retry
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setVideoWatchPercentage(100);
+                      updateStep(1, {
+                        videoWatchPercentage: 100,
+                        videoWatched: true,
+                      }, false);
+                    }}
+                    className="px-4 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition-colors shadow-lg"
+                  >
+                    Continue
+                  </button>
+                </div>
+              </div>
+            </div>
           ) : (
             <>
               {/* Video Player - Using Cloudinary CDN as primary source */}
@@ -278,7 +318,8 @@ export function Step1Welcome() {
                   }, false);
                 }}
                 onError={() => {
-                  console.warn('Video failed to load');
+                  setVideoError('We couldn\'t load the introduction video. Please try again.');
+                  setVideoUrl(null);
                 }}
               >
                 {/* Fallback message */}
@@ -337,7 +378,7 @@ export function Step1Welcome() {
           Why professionals choose us
         </h3>
         <p className="text-gray-600 mb-6 text-center">
-          Trusted by 500+ educational psychologists, SENCOs, and schools across the UK
+          Designed for educational psychologists, SENCOs, and schools across the UK
         </p>
 
         <motion.div 
@@ -384,16 +425,16 @@ export function Step1Welcome() {
       >
         <div className="grid grid-cols-3 gap-6">
           <div className="text-center">
-            <div className="text-3xl font-bold mb-1">500+</div>
-            <div className="text-indigo-100 text-sm">Active Professionals</div>
+            <div className="text-3xl font-bold mb-1">Built</div>
+            <div className="text-indigo-100 text-sm">for real-world workflows</div>
           </div>
           <div className="text-center border-l border-r border-indigo-400 border-opacity-30">
-            <div className="text-3xl font-bold mb-1">10,000+</div>
-            <div className="text-indigo-100 text-sm">Assessments Completed</div>
+            <div className="text-3xl font-bold mb-1">Designed</div>
+            <div className="text-indigo-100 text-sm">for multi-stakeholder input</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold mb-1">98%</div>
-            <div className="text-indigo-100 text-sm">User Satisfaction</div>
+            <div className="text-3xl font-bold mb-1">Focused</div>
+            <div className="text-indigo-100 text-sm">on clarity and consistency</div>
           </div>
         </div>
       </motion.div>

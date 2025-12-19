@@ -24,6 +24,7 @@ export async function GET(request: NextRequest) {
 
   const { searchParams } = new URL(request.url);
   const videoKey = searchParams.get('key');
+  const redirect = searchParams.get('redirect') === '1';
 
   if (!videoKey) {
     return NextResponse.json({ error: 'Missing video key' }, { status: 400 });
@@ -38,11 +39,22 @@ export async function GET(request: NextRequest) {
   // Check cache first
   const cached = urlCache.get(videoId);
   if (cached && cached.expires > Date.now()) {
-    return NextResponse.json({
-      url: cached.url,
-      source: 'heygen_direct',
-      cached: true,
-    });
+    if (redirect) {
+      return NextResponse.redirect(cached.url);
+    }
+
+    return NextResponse.json(
+      {
+        url: cached.url,
+        source: 'heygen_direct',
+        cached: true,
+      },
+      {
+        headers: {
+          'Cache-Control': 'private, max-age=3600',
+        },
+      }
+    );
   }
 
   // Fetch from HeyGen API
@@ -71,12 +83,22 @@ export async function GET(request: NextRequest) {
       expires: Date.now() + CACHE_DURATION,
     });
 
+    if (redirect) {
+      // Allows use as <video src="/api/video/heygen-url?key=...&redirect=1">
+      // The browser will follow the redirect to the short-lived MP4 URL.
+      return NextResponse.redirect(data.data.video_url);
+    }
+
     return NextResponse.json({
       url: data.data.video_url,
       thumbnail: data.data.thumbnail_url,
       duration: data.data.duration,
       source: 'heygen_direct',
       cached: false,
+    }, {
+      headers: {
+        'Cache-Control': 'private, max-age=60',
+      },
     });
   } catch (error) {
     logger.error('HeyGen API error:', error);
