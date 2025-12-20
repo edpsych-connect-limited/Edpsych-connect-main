@@ -71,37 +71,37 @@ export default function CloudinaryVideoPlayer({
       // 2. Check registry
       const source = getBestVideoSource(videoId);
       if (source) {
-        if (source.isLocal) {
-           // Verify local file
-           try {
-             const res = await fetch(source.url, { method: 'HEAD' });
-             if (res.ok) {
-               setResolvedUrl(source.url);
-               setIsLoading(false);
-               return;
-             }
-           } catch {}
-        }
-        
-        // Fallback to HeyGen API
-        try {
-           const res = await fetch(`/api/video/heygen-url?key=${videoId}`);
-           if (res.ok) {
-             const data = await res.json();
-             if (data.url) {
-               setResolvedUrl(data.url);
-               setIsLoading(false);
-               return;
-             }
-           }
-        } catch {}
-        
-        // If local failed but we have a local URL, try it anyway?
-        if (source.isLocal) {
+        // Direct MP4 sources: local/cloudinary/live/heygen-resolved.
+        if (source.kind === 'video') {
+          if (source.type === 'local') {
+            // Verify local file
+            try {
+              const res = await fetch(source.url, { method: 'HEAD' });
+              if (res.ok) {
+                setResolvedUrl(source.url);
+                setIsLoading(false);
+                return;
+              }
+            } catch {}
+          } else {
             setResolvedUrl(source.url);
             setIsLoading(false);
             return;
+          }
         }
+
+        // Iframe sources: try to resolve a direct MP4 via API
+        try {
+          const res = await fetch(`/api/video/heygen-url?key=${videoId}`);
+          if (res.ok) {
+            const data = await res.json();
+            if (data.url) {
+              setResolvedUrl(data.url);
+              setIsLoading(false);
+              return;
+            }
+          }
+        } catch {}
       }
 
       // 3. Fallback for legacy IDs not in registry
@@ -501,11 +501,9 @@ export function VideoPreviewCard({
       } else {
           // Try to get local path synchronously if possible?
           const source = getBestVideoSource(videoId);
-          if (source && source.isLocal) {
-              // Local poster?
-              // Assuming local videos don't have generated posters easily available unless we have them.
-              // We'll skip poster for local for now or use a default.
-          }
+        if (source?.type === 'cloudinary') {
+        setPosterUrl(source.url.replace('/upload/', '/upload/so_2,c_fill,w_400,h_225/').replace('.mp4', '.jpg'));
+        }
       }
   }, [videoId]);
 
@@ -538,6 +536,6 @@ export function VideoPreviewCard({
 export function getVideoUrl(videoId: string): string | null {
   if (videoId.startsWith('http')) return videoId;
   const source = getBestVideoSource(videoId);
-  if (source && source.isLocal) return source.url;
+  if (source?.kind === 'video') return source.url;
   return null;
 }

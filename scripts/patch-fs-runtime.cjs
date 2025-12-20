@@ -66,6 +66,10 @@ function shouldRetry(err) {
     return err && (err.code === 'UNKNOWN' || err.code === 'EPERM' || err.code === 'EBUSY' || err.code === 'EACCES' || err.code === 'EAGAIN');
 }
 
+function isDebugEnabled() {
+    return process.env.FS_PATCH_DEBUG === '1';
+}
+
 function sleep(ms) {
     const start = Date.now();
     while (Date.now() - start < ms) {}
@@ -326,7 +330,10 @@ fs.readdirSync = function(path, options) {
             return originalReaddirSync(path, options);
         } catch (err) {
             // Windows can keep file handles open under .next/types (TS server, antivirus, indexers),
-            // which may surface as persistent EPERM/EACCES during builds. Since this folder is a
+                if (isDebugEnabled()) {
+                    // eslint-disable-next-line no-console
+                    console.log(`[Patch] Retrying mkdirSync on ${path} due to ${err.code}`);
+                }
             // build artifact, treat it as empty rather than failing the build.
             if (isIgnorableNextTypesPath(path) && (err?.code === 'EPERM' || err?.code === 'EACCES')) {
                 return [];
@@ -604,4 +611,7 @@ if (fs.promises) {
     }
 }
 
-console.log('Patched fs.readlink for EISDIR and added retries for UNKNOWN/EPERM errors');
+if (isDebugEnabled()) {
+    // eslint-disable-next-line no-console
+    console.log('Patched fs.readlink for EISDIR and added retries for UNKNOWN/EPERM errors');
+}

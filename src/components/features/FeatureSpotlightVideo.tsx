@@ -64,37 +64,38 @@ export const FeatureSpotlightVideo: React.FC<FeatureSpotlightVideoProps> = ({
         return;
       }
 
-      // If it's a local file, we can use it directly in the <video> tag
-      if (source.isLocal) {
-        // Verify the file exists with a HEAD request
-        try {
-          const response = await fetch(source.url, { method: 'HEAD' });
-          if (response.ok) {
-            setVideoUrl(source.url);
-            setIsLoading(false);
-            return;
-          } else {
+      // If it's a direct video URL (cloudinary/local/live/heygen-resolved), use it.
+      if (source.kind === 'video') {
+        if (source.type === 'local') {
+          // Verify the file exists with a HEAD request
+          try {
+            const response = await fetch(source.url, { method: 'HEAD' });
+            if (response.ok) {
+              setVideoUrl(source.url);
+              return;
+            }
             console.warn(`Local video file not found: ${source.url}`);
+          } catch (e) {
+            console.warn(`Error checking local video: ${e}`);
           }
-        } catch (e) {
-          console.warn(`Error checking local video: ${e}`);
+        } else {
+          setVideoUrl(source.url);
+          return;
         }
       }
 
-      // Fallback: If local failed or it's a HeyGen ID, get the direct MP4 URL from API
-      // We need the direct MP4 for the <video> tag, not the embed URL
+      // If we ever get an iframe candidate, resolve a direct MP4 via API for <video> playback.
       try {
         const response = await fetch(`/api/video/heygen-url?key=${videoId}`);
         if (response.ok) {
           const data = await response.json();
           if (data.url) {
             setVideoUrl(data.url);
-            setIsLoading(false);
             return;
           }
         }
       } catch (e) {
-        console.error('Failed to fetch HeyGen URL:', e);
+        console.error('Failed to fetch video URL:', e);
       }
 
       // If we get here, all methods failed

@@ -13,6 +13,50 @@ require('./patch-fs-runtime.cjs');
 const fs = require('node:fs');
 const path = require('node:path');
 
+// IMPORTANT: Next.js build uses worker processes for tasks like page-data collection.
+// Requiring the patch here only affects the current process; workers won't inherit it
+// unless it is preloaded via NODE_OPTIONS.
+//
+// We intentionally use the long-form `--require=<path>` to avoid issues with short flags
+// being rejected in NODE_OPTIONS on some setups.
+if (process.platform === 'win32') {
+	try {
+		const patchAbs = path.join(__dirname, 'patch-fs-runtime.cjs');
+		const existing = process.env.NODE_OPTIONS || '';
+		const needle = `--require=${patchAbs}`;
+		if (!existing.includes(needle)) {
+			process.env.NODE_OPTIONS = `${existing} ${needle}`.trim();
+		}
+	} catch {
+		// Best-effort only.
+	}
+}
+
+// Next.js may rewrite tsconfig.json during build (e.g., adding distDir `types/**` globs).
+// Those mutations can balloon the file and even cause `tsc`/editor OOM on Windows.
+// Snapshot and restore unless explicitly disabled.
+const tsconfigPath = path.join(process.cwd(), 'tsconfig.json');
+let originalTsconfigText = null;
+if (process.env.NEXT_PRESERVE_TSCONFIG !== '1') {
+	try {
+		originalTsconfigText = fs.readFileSync(tsconfigPath, 'utf8');
+	} catch {
+		originalTsconfigText = null;
+	}
+}
+
+function restoreTsconfig() {
+	if (!originalTsconfigText) return;
+	try {
+		const current = fs.readFileSync(tsconfigPath, 'utf8');
+		if (current !== originalTsconfigText) {
+			fs.writeFileSync(tsconfigPath, originalTsconfigText, 'utf8');
+		}
+	} catch {
+		// Best-effort only.
+	}
+}
+
 // Next.js 16 migration guard:
 // If both `src/middleware.*` and `src/proxy.*` exist, Next aborts the build/dev/start.
 // The codebase uses `src/proxy.ts` as the canonical entrypoint.
@@ -56,15 +100,44 @@ function restoreLegacyMiddleware() {
 }
 
 moveLegacyMiddlewareOutOfTheWay();
-process.on('exit', restoreLegacyMiddleware);
+process.on('exit', () => {
+	restoreTsconfig();
+	restoreLegacyMiddleware();
+});
 process.on('SIGINT', () => {
+	restoreTsconfig();
 	restoreLegacyMiddleware();
 	process.exit(130);
 });
 process.on('SIGTERM', () => {
+	restoreTsconfig();
 	restoreLegacyMiddleware();
 	process.exit(143);
 });
+
+const isBuildCommand = process.argv.includes('build');
+const isStartCommand = process.argv.includes('start');
+
+// Track whether the caller explicitly set NEXT_DIST_DIR.
+const userProvidedDistDir = Boolean(process.env.NEXT_DIST_DIR);
+
+// For `next start`, prefer the last known distDir produced by this wrapper (if any).
+// This is particularly important when local Windows builds use a unique distDir.
+if (isStartCommand && (!process.env.NEXT_DIST_DIR || process.env.NEXT_DIST_DIR === '.next_build_local')) {
+	try {
+		const recorded = fs.readFileSync(path.join(process.cwd(), '.next_dist_dir'), 'utf8').trim();
+		if (recorded) process.env.NEXT_DIST_DIR = recorded;
+	} catch {
+		// Best-effort only.
+	}
+}
+
+// On some Windows/external-drive setups, reusing a stable distDir can lead to
+// persistent EPERM/ACL/lock issues. If the caller didn't explicitly request a
+// distDir, default to a unique folder for `next build`.
+if (isBuildCommand && process.platform === 'win32' && !userProvidedDistDir && !process.env.NEXT_DIST_DIR_UNIQUE) {
+	process.env.NEXT_DIST_DIR_UNIQUE = '1';
+}
 
 if (!process.env.NEXT_DIST_DIR) {
 	process.env.NEXT_DIST_DIR = '.next_build_local';
@@ -89,8 +162,52 @@ function distDirIsUsable(distDir) {
 		return false;
 	}
 
+	// Next.js uses a lock file inside distDir to prevent concurrent builds.
+	// On Windows, a crashed/interrupted build can leave a stale lock behind.
+	// Treat any existing lock as “unusable for build” and fall back to another
+	// distDir (ideally unique) so builds remain deterministic.
+	if (isBuildCommand) {
+		try {
+			const lockPath = path.join(abs, 'lock');
+			if (fs.existsSync(lockPath)) return false;
+		} catch {
+			return false;
+		}
+	}
+
 	const typesDir = path.join(abs, 'types');
 	try {
+		// For build commands, Next may delete/recreate `types/`.
+		// Some Windows/external-drive setups allow writing to an existing directory
+		// but fail with EPERM when (re)creating it. Probe the *recreate* path.
+		if (isBuildCommand) {
+			const probeFile = path.join(typesDir, `.probe_${process.pid}_${Date.now()}`);
+			if (fs.existsSync(typesDir)) {
+				// Verify we can write, then verify we can remove+recreate.
+				try {
+					fs.accessSync(typesDir, fs.constants.W_OK);
+					fs.writeFileSync(probeFile, 'ok', 'utf8');
+					fs.unlinkSync(probeFile);
+				} catch {
+					return false;
+				}
+				try {
+					fs.rmSync(typesDir, { recursive: true, force: true });
+				} catch {
+					return false;
+				}
+			}
+
+			try {
+				fs.mkdirSync(typesDir, { recursive: true });
+				fs.writeFileSync(probeFile, 'ok', 'utf8');
+				fs.unlinkSync(probeFile);
+				return true;
+			} catch {
+				return false;
+			}
+		}
+
 		if (fs.existsSync(typesDir)) {
 			fs.accessSync(typesDir, fs.constants.W_OK);
 			return true;

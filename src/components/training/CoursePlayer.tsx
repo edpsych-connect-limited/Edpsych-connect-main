@@ -619,7 +619,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                     {currentLesson.type === 'video' && (
                       <div className="mb-6">
                         <div className="bg-black rounded-xl overflow-hidden shadow-2xl relative">
-                          {/* Use local video files first, HeyGen embed as fallback */}
+                          {/* Use the registry's best candidate (mp4 when possible) */}
                           {(() => {
                             const lessonId = currentLesson.content_url 
                               ? extractLessonIdFromUrl(currentLesson.content_url)
@@ -629,8 +629,8 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                             
                             // Helper to render the video element
                             const renderVideo = (isSmall = false) => {
-                              // If we have a local video file, use native HTML5 video player
-                              if (videoSource?.isLocal) {
+                              // Prefer HTML5 <video> for direct MP4 sources (local/cloudinary/live/heygen-resolved)
+                              if (videoSource?.kind === 'video') {
                                 return (
                                   <video
                                     ref={videoRef}
@@ -656,8 +656,8 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                                 );
                               }
                               
-                              // Fallback to HeyGen embed (requires their server)
-                              if (videoSource && !videoSource.isLocal) {
+                              // If the registry returns an iframe candidate, embed it.
+                              if (videoSource?.kind === 'iframe') {
                                 return (
                                   <iframe
                                     src={videoSource.url}
@@ -738,8 +738,8 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                             : undefined;
                           const videoSource = lessonId ? getBestVideoSource(lessonId) : undefined;
                           
-                          // Only show manual completion for HeyGen embeds (local videos track progress automatically)
-                          if (videoSource && !videoSource.isLocal && state.video_progress < 100) {
+                          // Only show manual completion for iframe embeds (we can't reliably observe playback progress)
+                          if (videoSource?.kind === 'iframe' && state.video_progress < 100) {
                             return (
                               <div className="mt-4 text-center">
                                 <button

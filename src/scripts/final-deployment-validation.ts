@@ -166,7 +166,7 @@ export class FinalDeploymentValidator {
       }
 
       // Deploy to Vercel
-      const { exec } = await import('child_process');
+      const { exec } = await import('node:child_process');
       const deploymentPromise = new Promise((resolve, reject) => {
         exec('cd apps/web && vercel --prod', (error: any, stdout: string, stderr: string) => {
           if (error) {
