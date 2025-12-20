@@ -489,6 +489,7 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "la-ehcp-portal-intro": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533892/edpsych-connect/videos/la-ehcp-portal-intro.mp4",
   "feature-la-dashboard": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644467/edpsych-connect/videos/feature-la-dashboard.mp4",
   "onboarding-platform-tour": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533862/edpsych-connect/videos/onboarding-platform-tour.mp4",
+  "onboarding-welcome": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766258344/edpsych-connect/videos/onboarding-welcome.mp4",
   "value-enterprise-platform": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765942287/edpsych-connect/videos/value-enterprise-platform.mp4",
 
   // EHCP Modules (Cloudinary CDN)
