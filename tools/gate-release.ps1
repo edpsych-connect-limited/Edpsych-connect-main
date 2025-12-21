@@ -165,6 +165,14 @@ function Import-DotEnv {
                 $val = $val.Substring(1, $val.Length - 2)
             }
 
+            # Treat empty-string values as "unset" so placeholder entries in checked-in
+            # .env files don't clobber real environment variables (or later .env.* files).
+            # Example: SEED_TEST_USERS_PASSWORD="" should not force Cypress to receive
+            # an empty string that breaks cy.type().
+            if ([string]::IsNullOrEmpty($val)) {
+                return
+            }
+
             if ($key) {
                 Set-Item -Path ("Env:{0}" -f $key) -Value $val | Out-Null
             }

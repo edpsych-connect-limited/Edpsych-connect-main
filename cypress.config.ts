@@ -9,7 +9,7 @@ export default defineConfig({
     pageLoadTimeout: 120000,
     env: {
       // Keep Cypress password in sync with prisma seed scripts
-      SEED_TEST_USERS_PASSWORD: process.env.SEED_TEST_USERS_PASSWORD,
+      SEED_TEST_USERS_PASSWORD: process.env.SEED_TEST_USERS_PASSWORD?.trim() || undefined,
     },
     setupNodeEvents(on, config) {
       on('task', {

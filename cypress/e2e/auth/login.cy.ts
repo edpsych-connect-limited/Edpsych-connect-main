@@ -39,7 +39,9 @@ describe('Login Page', () => {
     // For a true E2E test, we should seed a test user before running this test
     
     // We'll use the test user credentials that should be seeded in the database
-    const seedPassword = (Cypress.env('SEED_TEST_USERS_PASSWORD') as string | undefined) ?? 'Test123!';
+    const seedPassword = (((Cypress.env('SEED_TEST_USERS_PASSWORD') as string | undefined) ?? '')
+      .toString()
+      .trim() || 'Test123!');
     const testUser = {
       email: 'teacher@demo.com',
       password: seedPassword

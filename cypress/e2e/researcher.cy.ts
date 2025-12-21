@@ -1,5 +1,7 @@
 describe('Researcher Role E2E', () => {
-  const seedPassword = (Cypress.env('SEED_TEST_USERS_PASSWORD') as string | undefined) ?? 'Test123!';
+  const seedPassword = (((Cypress.env('SEED_TEST_USERS_PASSWORD') as string | undefined) ?? '')
+    .toString()
+    .trim() || 'Test123!');
 
   beforeEach(() => {
     // Visit login page
