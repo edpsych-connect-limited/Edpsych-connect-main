@@ -18,7 +18,7 @@
  */
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import {
   SUBSCRIPTION_PLANS,
@@ -34,7 +34,7 @@ const PRICING_VIDEOS = {
   // Hero/Value Proposition
   hero: { key: 'platform-introduction', title: 'The £2.35 Million Platform', duration: '2:30' },
   problem: { key: 'innovation-orchestration', title: 'The EdTech Problem', duration: '1:45' },
-  solution: { key: 'innovation-safety-net', title: 'The Complete Solution', duration: '2:00' },
+  solution: { key: 'no-child-left-behind', title: 'The Complete Solution', duration: '2:00' },
   
   // Tier Videos
   tiers: {

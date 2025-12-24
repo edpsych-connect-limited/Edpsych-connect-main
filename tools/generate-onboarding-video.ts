@@ -20,6 +20,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 
+import { assertApprovedDrScottCasting, REQUIRED_DR_SCOTT_VOICE_ID } from './lib/dr-scott-heygen';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -72,12 +74,23 @@ if (!API_KEY) {
 // IMPORTANT (truth-by-code): if the script claims to be a real person (e.g. "I'm Dr Scott…"),
 // the avatar + voice MUST match the approved IDs for that presenter.
 //
-// Dr Scott (approved, used across other generation tools in this repo)
-const DR_SCOTT_AVATAR_ID = '0d10345ca99840cdbd3103692ba55e27';
-const DR_SCOTT_VOICE_ID = '50d2a2a531d049719a0debbf82e1cf4c';
+// Dr Scott (enterprise-approved allowlist)
+const AVATAR_ID = process.env.HEYGEN_DR_SCOTT_AVATAR_ID || '';
+const VOICE_ID = process.env.HEYGEN_DR_SCOTT_VOICE_ID || '';
 
-const AVATAR_ID = DR_SCOTT_AVATAR_ID;
-const VOICE_ID = DR_SCOTT_VOICE_ID;
+if (!AVATAR_ID) {
+  throw new Error('HEYGEN_DR_SCOTT_AVATAR_ID environment variable is required');
+}
+
+if (!VOICE_ID) {
+  throw new Error('HEYGEN_DR_SCOTT_VOICE_ID environment variable is required');
+}
+
+assertApprovedDrScottCasting({
+  avatarId: AVATAR_ID,
+  voiceId: VOICE_ID,
+  context: 'generate-onboarding-video',
+});
 
 // Onboarding script (keep accurate, durable, and claim-safe).
 // Avoid hard numbers and performance guarantees; refer to capabilities in the feature catalog.
@@ -145,16 +158,11 @@ function assertNoUnverifiedIdentityClaims(params: {
     script.includes('dr scott');
 
   if (claimsDrScott) {
-    const okAvatar = params.avatarId === DR_SCOTT_AVATAR_ID;
-    const okVoice = params.voiceId === DR_SCOTT_VOICE_ID;
-    if (!okAvatar || !okVoice) {
+    // The allowlist check already enforces the approved avatar IDs + required voice.
+    // Keep this secondary guard to make the intent explicit for operators.
+    if (params.voiceId !== REQUIRED_DR_SCOTT_VOICE_ID) {
       throw new Error(
-        [
-          'Unverified identity claim blocked:',
-          'This script references Dr Scott, but the configured avatar/voice are not the approved Dr Scott IDs.',
-          `avatarId=${params.avatarId} (expected ${DR_SCOTT_AVATAR_ID})`,
-          `voiceId=${params.voiceId} (expected ${DR_SCOTT_VOICE_ID})`,
-        ].join(' ')
+        `Unverified identity claim blocked: script references Dr Scott but voiceId is not the approved Dr Scott voice. voiceId=${params.voiceId}`
       );
     }
   }

@@ -27,11 +27,10 @@ COURSE_CATALOG.forEach(course => {
 
   console.log(`\nProcessing Course: ${course.title}`);
   
-  // Determine avatar gender based on instructor name (heuristic)
-  // Dr. Scott Ighavongbe-Patrick -> Male
-  // Sarah Mitchell -> Female
+  // Truth-by-code: avoid heuristics (e.g., inferring gender from a name).
+  // Leave blank unless you have explicit, auditable metadata.
   const instructorName = course.instructor.name;
-  const avatarGender = instructorName.includes('Sarah') || instructorName.includes('Priya') ? 'Female' : 'Male';
+  const avatarGender = '';
 
   course.modules.forEach(module => {
     module.lessons.forEach(lesson => {

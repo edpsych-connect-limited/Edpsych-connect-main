@@ -1,12 +1,28 @@
 import https from 'https';
 
+import { assertApprovedDrScottCasting } from '../tools/lib/dr-scott-heygen';
+
 const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
 
 if (!HEYGEN_API_KEY) {
   throw new Error('HEYGEN_API_KEY environment variable is required');
 }
-const AVATAR_ID = 'd680604a31f34ce096c84bed708774c3';
-const VOICE_ID = '50d2a2a531d049719a0debbf82e1cf4c';
+const AVATAR_ID = process.env.HEYGEN_DR_SCOTT_AVATAR_ID || '';
+const VOICE_ID = process.env.HEYGEN_DR_SCOTT_VOICE_ID || '';
+
+if (!AVATAR_ID) {
+  throw new Error('HEYGEN_DR_SCOTT_AVATAR_ID environment variable is required');
+}
+
+if (!VOICE_ID) {
+  throw new Error('HEYGEN_DR_SCOTT_VOICE_ID environment variable is required');
+}
+
+assertApprovedDrScottCasting({
+  avatarId: AVATAR_ID,
+  voiceId: VOICE_ID,
+  context: 'scripts/generate-platform-intro-video',
+});
 
 const SCRIPT_TEXT = `If you are watching this, you already know the truth. The system is not just broken; it is a maze. A fragmented, chaotic maze of emails, spreadsheets, and missed deadlines. And who gets lost in that maze? The children.
 

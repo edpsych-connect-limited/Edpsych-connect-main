@@ -12,7 +12,7 @@
 
 import { motion } from 'framer-motion';
 import { FileText, Clock, CheckCircle, ArrowRight, Search } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 
 export default function AssessmentLibraryPreview() {
   const assessments = [

@@ -3,32 +3,50 @@
  * Generates all videos from the comprehensive V4 scripts (Dr Scott)
  * 
  * Run with: npx tsx tools/generate-dr-scott-videos.ts
- * Requires: HEYGEN_API_KEY environment variable
+ * Requires: HEYGEN_API_KEY, HEYGEN_DR_SCOTT_AVATAR_ID, HEYGEN_DR_SCOTT_VOICE_ID
  */
 
 import fs from 'fs';
 import path from 'path';
 
+import { assertApprovedDrScottCasting } from './lib/dr-scott-heygen';
+
 // Import V4 scripts (Dr Scott Persona)
 import { ALL_VIDEO_SCRIPTS } from '../video_scripts/world_class/comprehensive-video-scripts-v4-dr-scott';
 
 const API_KEY = process.env.HEYGEN_API_KEY;
+const DR_SCOTT_AVATAR_ID = process.env.HEYGEN_DR_SCOTT_AVATAR_ID;
+const DR_SCOTT_VOICE_ID = process.env.HEYGEN_DR_SCOTT_VOICE_ID;
 
 if (!API_KEY) {
   throw new Error('HEYGEN_API_KEY environment variable is required');
 }
 
+if (!DR_SCOTT_AVATAR_ID) {
+  throw new Error('HEYGEN_DR_SCOTT_AVATAR_ID environment variable is required');
+}
+
+if (!DR_SCOTT_VOICE_ID) {
+  throw new Error('HEYGEN_DR_SCOTT_VOICE_ID environment variable is required');
+}
+
+assertApprovedDrScottCasting({
+  avatarId: DR_SCOTT_AVATAR_ID,
+  voiceId: DR_SCOTT_VOICE_ID,
+  context: 'generate-dr-scott-videos',
+});
+
 const REQUIRED_API_KEY: string = API_KEY;
 const API_URL = 'https://api.heygen.com/v2/video/generate';
 
-// Configuration for Dr Scott (using Adrian Blue Shirt as proxy)
+// Configuration for Dr Scott (explicit IDs only; no proxy defaults)
 const CONFIG = {
   avatar: {
-    id: '0d10345ca99840cdbd3103692ba55e27', // Dr Scott Custom Avatar
+    id: DR_SCOTT_AVATAR_ID,
     style: 'normal'
   },
   voice: {
-    id: 'aba5ce361bfa433480f4bf281cc4c4f9', // Oliver Bennett - Warm UK voice
+    id: DR_SCOTT_VOICE_ID,
     speed: 1.0
   },
   background: {

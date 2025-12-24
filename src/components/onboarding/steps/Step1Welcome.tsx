@@ -19,7 +19,7 @@
  * 4. HeyGen embed / API fallback
  */
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { Play, CheckCircle, Target, Zap, Shield, Users, TrendingUp, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useOnboarding } from '../OnboardingProvider';
@@ -96,13 +96,6 @@ export function Step1Welcome() {
       setIsLoadingVideo(false);
     }
   }, []);
-
-  // Auto-play when video URL is loaded
-  useEffect(() => {
-    if (videoUrl && videoStarted && videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
-  }, [videoUrl, videoStarted]);
 
   const handleVideoPlay = () => {
     setVideoStarted(true);
@@ -287,7 +280,6 @@ export function Step1Welcome() {
                 src={videoUrl || undefined}
                 className="w-full h-full object-cover"
                 controls
-                autoPlay
                 controlsList="nodownload"
                 playsInline
                 poster="/images/video-poster-welcome.jpg"

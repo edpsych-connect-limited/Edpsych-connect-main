@@ -23,7 +23,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/lib/auth/hooks';
 import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { 
   Search, 
   Book, 
@@ -102,7 +102,7 @@ The Self-Driving SENCO feature automatically:
 3. Schedules intervention delivery
 4. Monitors progress
 5. Adjusts recommendations based on outcomes`,
-      videos: ['help-finding-interventions', 'innovation-safety-net', 'help-cpd-tracking'],
+      videos: ['help-finding-interventions', 'no-child-left-behind', 'help-cpd-tracking'],
       relatedTopics: ['assessments', 'progress', 'senco-tools']
     },
     ehcp: {
@@ -461,6 +461,7 @@ interface AIChatbotProps {
 
 function AIChatbot({ isOpen, onClose }: AIChatbotProps) {
   const { user } = useAuth();
+  const VOICE_PREF_KEY = 'epc_ai_chat_voice_enabled';
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -482,7 +483,8 @@ How can I help you today? You can also use voice input by clicking the microphon
   const [isLoading, setIsLoading] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [voiceEnabled, setVoiceEnabled] = useState(true);
+  // Default OFF: do not speak without explicit user choice.
+  const [voiceEnabled, setVoiceEnabled] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<any>(null);
   const synthRef = useRef<SpeechSynthesis | null>(null);
@@ -493,6 +495,27 @@ How can I help you today? You can also use voice input by clicking the microphon
       synthRef.current = window.speechSynthesis;
     }
   }, []);
+
+  // Load persisted voice preference
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const saved = window.localStorage.getItem(VOICE_PREF_KEY);
+      if (saved === 'true') setVoiceEnabled(true);
+      if (saved === 'false') setVoiceEnabled(false);
+    } catch {
+      // Ignore storage errors (private mode, blocked storage, etc.)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // If voice is disabled, stop any ongoing speech immediately.
+  useEffect(() => {
+    if (!voiceEnabled) {
+      synthRef.current?.cancel();
+      setIsSpeaking(false);
+    }
+  }, [voiceEnabled]);
 
   // Scroll to bottom on new messages
   useEffect(() => {
@@ -696,7 +719,15 @@ How can I help you today? You can also use voice input by clicking the microphon
         </div>
         <div className="flex items-center gap-2">
           <button
-            onClick={() => setVoiceEnabled(!voiceEnabled)}
+            onClick={() => {
+              const next = !voiceEnabled;
+              setVoiceEnabled(next);
+              try {
+                window.localStorage.setItem(VOICE_PREF_KEY, String(next));
+              } catch {
+                // Ignore
+              }
+            }}
             className={`p-2 rounded-lg transition-colors ${voiceEnabled ? 'bg-white/20 hover:bg-white/30' : 'bg-white/10'}`}
             title={voiceEnabled ? 'Disable voice responses' : 'Enable voice responses'}
             aria-label={voiceEnabled ? 'Disable voice responses' : 'Enable voice responses'}

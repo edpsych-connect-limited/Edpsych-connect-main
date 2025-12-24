@@ -10,7 +10,7 @@
 
 import { motion } from 'framer-motion';
 import { ShoppingBag, Star, Book, Video, Download, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 
 export default function MarketplacePreview() {
   const resources = [

@@ -101,9 +101,11 @@ function main() {
     // Determine Lesson
     const lessonTitle = metadata.title || filename;
 
-    // Determine Instructor
-    const instructor = metadata.speaker || 'Dr. Scott Ighavongbe-Patrick';
-    const gender = 'Male'; // Default for Dr. Scott
+    // Determine Instructor / Avatar Gender
+    // Truth-by-code: do NOT default to a real person's identity or gender when metadata is missing.
+    // Leave blank unless explicitly provided in frontmatter.
+    const instructor = metadata.speaker || metadata.instructor || '';
+    const gender = metadata.gender || '';
 
     // Check if this script is already in the CSV (simple check by title)
     // This is a bit loose, but prevents exact duplicates if run multiple times

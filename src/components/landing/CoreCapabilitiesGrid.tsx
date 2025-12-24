@@ -9,7 +9,7 @@
  */
 
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
 import { 
   Brain, Library, GraduationCap, Trophy, Clock, ShieldCheck, FileCheck, Code, 
   MessageSquareText, Users, Search, Heart, Mic, BookOpen, Crown, Building2, 

@@ -3,15 +3,14 @@
 // Updated: Fixed corrupted file and standardized IDs
 
 // ============================================================================
-// CASTING STRATEGY (Dr. Scott vs. Adrian)
+// CASTING NOTES (non-authoritative)
 // ============================================================================
-// 👨‍⚕️ Dr. Scott (The Visionary):
-// - Welcome & Onboarding, Parent Portal, Clinical Concepts, Crisis & Safeguarding.
-// - Tone: Empathetic, Authoritative, Strategic.
+// These notes describe *intended* casting for internal planning.
+// They are NOT evidence of who appears in any given rendered video.
 //
-// 👨‍💻 Adrian (The Architect):
-// - Feature Walkthroughs, Admin & IT, Gamification Logic, Error Recovery.
-// - Tone: Precise, Efficient, Technical.
+// Truth-by-code rule:
+// - Do not claim a real-person identity for a video unless backed by persisted,
+//   reloadable provenance (e.g. in `video_provenance/*.json`).
 // ============================================================================
 
 export const HEYGEN_VIDEO_IDS: Record<string, string> = {
@@ -40,9 +39,9 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
 
   // ONBOARDING Videos
   "onboarding-platform-tour": "47faddd661d648e5ae34c8360c8b2286",
-  // NOTE: "onboarding-welcome" was regenerated with verified Dr Scott avatar/voice
-  // and a claim-safe script (truth-by-code). Keep this key pinned to the verified
-  // asset only; do not reintroduce unverified identities via Cloudinary overrides.
+  // NOTE (truth-by-code): If you change the casting (avatar/voice) behind this key,
+  // ensure you have documented provenance/consent for any real-person identity.
+  // Avoid swapping identities via Cloudinary overrides without updating provenance.
   "onboarding-welcome": "17126ba3772f4a7984aa5fa82d85c817",
 
   // LA- Videos
@@ -266,6 +265,8 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
 
   // Feature Spotlight Aliases
   "no-child-left-behind": "/content/training_videos/innovation/innovation-safety-net.mp4",
+  // Legacy alias (kept for backward compatibility)
+  "innovation-safety-net": "/content/training_videos/innovation/innovation-safety-net.mp4",
   "gamification-integrity": "/content/training_videos/innovation/innovation-battle-royale.mp4",
 
   // Training Academy Videos - Autism
@@ -377,61 +378,25 @@ export function extractLessonIdFromUrl(contentUrl: string): string | undefined {
   return undefined;
 }
 
+// Speaker attribution map
+// ---------------------------------------------------------------------------
+// Only add entries here when you have explicit provenance for the specific
+// `lessonId` (avoid heuristic keyword matching).
+const EXPLICIT_SPEAKER_BY_LESSON_ID: Record<string, 'Dr. Scott' | 'Adrian'> = {
+  // 'platform-introduction': 'Adrian'
+};
+
 /**
  * Get the speaker for a given video ID
  * @param lessonId - The lesson ID
  * @returns 'Dr. Scott' | 'Adrian' | undefined
  */
 export function getSpeakerForVideo(lessonId: string): 'Dr. Scott' | 'Adrian' | undefined {
-  const lowerId = lessonId.toLowerCase();
-
   // NOTE (truth-by-code): Speaker attribution is a *display* concern, not proof of identity.
-  // Avoid broad heuristics like "welcome" => "Dr. Scott" which can mislabel content if the
-  // underlying video asset was generated with a different avatar/voice.
-  
-  // Dr. Scott (Visionary/Clinical)
-  if (
-    lowerId.includes('clinical') ||
-    lowerId.includes('crisis') ||
-    lowerId.includes('safeguarding') ||
-    lowerId.includes('autism') ||
-    lowerId.includes('adhd') ||
-    lowerId.includes('dyslexia') ||
-    lowerId.includes('dys-') ||
-    lowerId.includes('send') ||
-    lowerId.includes('assessment') ||
-    lowerId.includes('intervention') ||
-    lowerId.includes('ehcp') ||
-    lowerId.includes('mental') ||
-    lowerId.includes('trauma') ||
-    lowerId.includes('research') ||
-    lowerId.includes('leadership') ||
-    lowerId.includes('behavioural') ||
-    lowerId.includes('anxiety') ||
-    lowerId.includes('asd') ||
-    lowerId.includes('working-memory') ||
-    lowerId.includes('restorative') ||
-    lowerId.includes('positive') ||
-    lowerId.includes('precision') ||
-    lowerId.includes('advanced')
-  ) {
-    return 'Dr. Scott';
-  }
-
-  // Adrian (Architect/Technical)
-  if (
-    lowerId.includes('feature') ||
-    lowerId.includes('admin') ||
-    lowerId.includes('gamification') ||
-    lowerId.includes('error') ||
-    lowerId.includes('technical') ||
-    lowerId.includes('data') ||
-    lowerId.includes('dashboard')
-  ) {
-    return 'Adrian';
-  }
-
-  return undefined;
+  // We intentionally avoid heuristic attribution (e.g. keyword matching) because it can
+  // mislabel a video if the underlying asset was generated with a different avatar/voice.
+  //
+  return EXPLICIT_SPEAKER_BY_LESSON_ID[lessonId];
 }
 
 // ============================================================================
@@ -515,6 +480,8 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "platform-introduction": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765665881/edpsych-connect/onboarding/platform-introduction.mp4",
   "data-autonomy": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533766/edpsych-connect/videos/data-autonomy.mp4",
   "no-child-left-behind": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533789/edpsych-connect/videos/no-child-left-behind.mp4",
+  // Legacy alias (kept for backward compatibility)
+  "innovation-safety-net": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533789/edpsych-connect/videos/no-child-left-behind.mp4",
   "gamification-integrity": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533803/edpsych-connect/videos/gamification-integrity.mp4",
   "school-senco-portal": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641955/edpsych-connect/videos/school-senco-portal.mp4",
   "1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641962/edpsych-connect/videos/1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations.mp4",

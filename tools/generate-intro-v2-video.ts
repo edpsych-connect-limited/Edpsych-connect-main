@@ -6,6 +6,8 @@
 import { v2 as cloudinary } from 'cloudinary';
 import * as fs from 'fs';
 import * as path from 'path';
+
+import { assertApprovedDrScottCasting } from './lib/dr-scott-heygen';
 import fetch from 'node-fetch';
 
 // Configuration
@@ -26,8 +28,22 @@ const REQUIRED_HEYGEN_API_KEY: string = HEYGEN_API_KEY;
 const REQUIRED_CLOUDINARY_CLOUD_NAME: string = CLOUDINARY_CLOUD_NAME;
 const REQUIRED_CLOUDINARY_API_KEY: string = CLOUDINARY_API_KEY;
 const REQUIRED_CLOUDINARY_API_SECRET: string = CLOUDINARY_API_SECRET;
-const AVATAR_ID = 'Adrian_public_3_20240312';
-const VOICE_ID = 'aba5ce361bfa433480f4bf281cc4c4f9'; // Oliver Bennett UK
+const AVATAR_ID = process.env.HEYGEN_DR_SCOTT_AVATAR_ID || '';
+const VOICE_ID = process.env.HEYGEN_DR_SCOTT_VOICE_ID || '';
+
+if (!AVATAR_ID) {
+  throw new Error('HEYGEN_DR_SCOTT_AVATAR_ID environment variable is required');
+}
+
+if (!VOICE_ID) {
+  throw new Error('HEYGEN_DR_SCOTT_VOICE_ID environment variable is required');
+}
+
+assertApprovedDrScottCasting({
+  avatarId: AVATAR_ID,
+  voiceId: VOICE_ID,
+  context: 'generate-intro-v2-video',
+});
 
 // Cloudinary configuration
 cloudinary.config({

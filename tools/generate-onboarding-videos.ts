@@ -11,6 +11,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 
+import { assertApprovedDrScottCasting } from './lib/dr-scott-heygen';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -20,9 +22,26 @@ if (!API_KEY) {
   process.exit(1);
 }
 
-// Configuration - Dr. Scott Ighavongbe-Patrick
-const AVATAR_ID = '0d10345ca99840cdbd3103692ba55e27';
-const VOICE_ID = '50d2a2a531d049719a0debbf82e1cf4c';
+// Configuration - Dr Scott (enterprise-approved casting)
+// IMPORTANT: do not hardcode avatar/voice IDs. Require env-driven values and enforce allowlist.
+const AVATAR_ID = process.env.HEYGEN_DR_SCOTT_AVATAR_ID || '';
+const VOICE_ID = process.env.HEYGEN_DR_SCOTT_VOICE_ID || '';
+
+if (!AVATAR_ID) {
+  console.error('❌ Error: HEYGEN_DR_SCOTT_AVATAR_ID environment variable is not set.');
+  process.exit(1);
+}
+
+if (!VOICE_ID) {
+  console.error('❌ Error: HEYGEN_DR_SCOTT_VOICE_ID environment variable is not set.');
+  process.exit(1);
+}
+
+assertApprovedDrScottCasting({
+  avatarId: AVATAR_ID,
+  voiceId: VOICE_ID,
+  context: 'generate-onboarding-videos',
+});
 const VOICE_LOCALE = 'en-GB';
 const VIDEO_WIDTH = 1920;
 const VIDEO_HEIGHT = 1080;
@@ -197,8 +216,8 @@ async function main() {
   console.log('EdPsych Connect World - Onboarding Video Generation');
   console.log('================================================================================\n');
   
-  console.log(`🎭 Avatar: Adrian in Blue Suit`);
-  console.log(`🗣️  Voice: Archer with British English locale`);
+  console.log(`🎭 Avatar: Dr Scott (approved)`);
+  console.log(`🗣️  Voice: Dr Scott (approved) with British English locale`);
   console.log(`🎬 Quality: ${VIDEO_WIDTH}x${VIDEO_HEIGHT} HD\n`);
 
   const credits = await checkCredits();

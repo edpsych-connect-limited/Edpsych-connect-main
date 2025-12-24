@@ -3,13 +3,29 @@ import fs from 'fs';
 import path from 'path';
 import { COMPREHENSIVE_TRAINING_VIDEOS } from '../video_scripts/world_class/comprehensive-training-scripts-v4-dr-scott';
 
+import { assertApprovedDrScottCasting } from '../tools/lib/dr-scott-heygen';
+
 const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
 
 if (!HEYGEN_API_KEY) {
   throw new Error('HEYGEN_API_KEY environment variable is required');
 }
-const AVATAR_ID = 'd680604a31f34ce096c84bed708774c3'; // Dr. Scott
-const VOICE_ID = '50d2a2a531d049719a0debbf82e1cf4c'; // Dr. Scott Voice
+const AVATAR_ID = process.env.HEYGEN_DR_SCOTT_AVATAR_ID || '';
+const VOICE_ID = process.env.HEYGEN_DR_SCOTT_VOICE_ID || '';
+
+if (!AVATAR_ID) {
+  throw new Error('HEYGEN_DR_SCOTT_AVATAR_ID environment variable is required');
+}
+
+if (!VOICE_ID) {
+  throw new Error('HEYGEN_DR_SCOTT_VOICE_ID environment variable is required');
+}
+
+assertApprovedDrScottCasting({
+  avatarId: AVATAR_ID,
+  voiceId: VOICE_ID,
+  context: 'scripts/generate-academy-v4',
+});
 
 const ID_FILE = path.join(process.cwd(), 'academy-video-ids.json');
 let generatedIds: Record<string, string> = {};

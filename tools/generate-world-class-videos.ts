@@ -14,6 +14,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 
+import { assertApprovedDrScottCasting } from './lib/dr-scott-heygen';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -27,12 +29,29 @@ if (!API_KEY) {
 // CONFIGURATION
 // ============================================================================
 
-// Dr. Scott Ighavongbe-Patrick
-const AVATAR_ID = '0d10345ca99840cdbd3103692ba55e27';
+// Dr Scott (enterprise-approved casting)
+// IMPORTANT: do not hardcode avatar/voice IDs. Require env-driven values and enforce allowlist.
+const AVATAR_ID = process.env.HEYGEN_DR_SCOTT_AVATAR_ID || '';
 
 // Voice with British English locale support
-const VOICE_ID = '50d2a2a531d049719a0debbf82e1cf4c';
+const VOICE_ID = process.env.HEYGEN_DR_SCOTT_VOICE_ID || '';
 const VOICE_LOCALE = 'en-GB'; // British English
+
+if (!AVATAR_ID) {
+  console.error('❌ Error: HEYGEN_DR_SCOTT_AVATAR_ID environment variable is not set.');
+  process.exit(1);
+}
+
+if (!VOICE_ID) {
+  console.error('❌ Error: HEYGEN_DR_SCOTT_VOICE_ID environment variable is not set.');
+  process.exit(1);
+}
+
+assertApprovedDrScottCasting({
+  avatarId: AVATAR_ID,
+  voiceId: VOICE_ID,
+  context: 'generate-world-class-videos',
+});
 
 // Video settings
 const VIDEO_WIDTH = 1920;

@@ -10,7 +10,7 @@
 
 ;
 
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { Github, Twitter, Linkedin, Mail, Phone as _Phone, MapPin } from 'lucide-react';
 
 export default function Footer() {

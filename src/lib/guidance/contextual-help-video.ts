@@ -19,7 +19,7 @@ export const CONTEXTUAL_HELP_VIDEO_KEYS = {
   // Public demo pages
   CODING_CURRICULUM: 'intro-coding-journey',
   RESEARCH_HUB: 'innovation-research-hub',
-  SAFETY_NET: 'innovation-safety-net',
+  SAFETY_NET: 'no-child-left-behind',
 
   // Onboarding
   ONBOARDING_WELCOME: 'onboarding-welcome',

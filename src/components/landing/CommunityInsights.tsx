@@ -11,7 +11,7 @@
 ;
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { Users, Heart, MessageCircle, ArrowRight, BookOpen } from 'lucide-react';
 
 export default function CommunityInsights() {

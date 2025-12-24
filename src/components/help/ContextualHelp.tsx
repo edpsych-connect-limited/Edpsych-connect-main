@@ -20,8 +20,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, usePathname } from '@/navigation';
 
 import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
 import { getContextualHelpVideoKey } from '@/lib/guidance/contextual-help-video';

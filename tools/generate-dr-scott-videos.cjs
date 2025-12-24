@@ -8,8 +8,16 @@ const API_KEY = process.env.HEYGEN_API_KEY;
 if (!API_KEY) {
   throw new Error('HEYGEN_API_KEY environment variable is required');
 }
-const AVATAR_ID = '0d10345ca99840cdbd3103692ba55e27';
-const VOICE_ID = '50d2a2a531d049719a0debbf82e1cf4c'; // Scott Ighavongbe-Patrick (Correct Voice)
+// Truth-by-code: never hardcode real-person identity casting.
+// These must be provided explicitly (e.g. from .env / secret manager).
+const AVATAR_ID = process.env.HEYGEN_DR_SCOTT_AVATAR_ID;
+const VOICE_ID = process.env.HEYGEN_DR_SCOTT_VOICE_ID;
+
+if (!AVATAR_ID || !VOICE_ID) {
+  throw new Error(
+    'HEYGEN_DR_SCOTT_AVATAR_ID and HEYGEN_DR_SCOTT_VOICE_ID environment variables are required'
+  );
+}
 
 // Video Scripts Data (Embedded to avoid TS/ESM issues)
 const EHCP_VIDEOS = {

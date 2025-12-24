@@ -15,7 +15,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Play, X, ArrowRight, Sparkles, Shield, Users, Brain, Target } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
 
 // Video configuration - maps to centralized HEYGEN_VIDEO_IDS
@@ -42,7 +42,8 @@ const SHOWCASE_VIDEOS = {
       gradient: 'from-amber-500 to-orange-600',
     },
     {
-      id: 'innovation-safety-net',
+      // Use the canonical key that is backed by Cloudinary/local fallbacks.
+      id: 'no-child-left-behind',
       title: 'No Child Left Behind Engine',
       description: 'Watch differentiation happen automatically for 40 students.',
       icon: Users,

@@ -128,6 +128,9 @@ login*_output*.txt
 # Cypress run logs captured to repo root
 cypress_*.txt
 
+# Local route audit outputs
+route-test-results*.txt
+
 # Release gate logs
 gate_release_*.txt
 

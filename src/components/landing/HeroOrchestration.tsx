@@ -11,7 +11,7 @@
 ;
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { ArrowRight, Sparkles, Layers, Zap } from 'lucide-react';
 
 export default function HeroOrchestration() {

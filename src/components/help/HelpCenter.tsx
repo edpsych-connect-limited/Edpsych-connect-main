@@ -12,7 +12,7 @@
 
 import React, { useState } from 'react';
 import { Search, Book, FileText, MessageCircle, ChevronRight, Play, Video } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { VideoModal } from '@/components/video/VideoTutorialPlayer';
 
 // Featured video tutorials

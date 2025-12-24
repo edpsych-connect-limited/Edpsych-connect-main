@@ -1,12 +1,28 @@
 const https = require('https');
 
+const { assertApprovedDrScottCasting, REQUIRED_DR_SCOTT_VOICE_ID } = require('./lib/dr-scott-heygen.cjs');
+
 const API_KEY = process.env.HEYGEN_API_KEY;
 
 if (!API_KEY) {
   throw new Error('HEYGEN_API_KEY environment variable is required');
 }
-const AVATAR_ID = '0d10345ca99840cdbd3103692ba55e27';
-const VOICE_ID = '50d2a2a531d049719a0debbf82e1cf4c'; // Scott Ighavongbe-Patrick (Correct Voice)
+const AVATAR_ID = process.env.HEYGEN_DR_SCOTT_AVATAR_ID || '';
+const VOICE_ID = process.env.HEYGEN_DR_SCOTT_VOICE_ID || '';
+
+if (!AVATAR_ID) {
+  throw new Error('HEYGEN_DR_SCOTT_AVATAR_ID environment variable is required');
+}
+
+if (!VOICE_ID) {
+  throw new Error('HEYGEN_DR_SCOTT_VOICE_ID environment variable is required');
+}
+
+assertApprovedDrScottCasting({
+  avatarId: AVATAR_ID,
+  voiceId: VOICE_ID,
+  context: 'test-dr-scott-settings',
+});
 
 const TEST_SCRIPT = "Hello. This is a test to check the new speaking pace. I am speaking slightly slower now, at 90% speed, to ensure clarity. I hope this feels more natural.";
 
@@ -32,6 +48,7 @@ function makeRequest(options, payload) {
 async function generateTestVideo() {
   console.log('Generating TEST video with new settings...');
   console.log(`Voice ID: ${VOICE_ID}`);
+  console.log(`Required Dr Scott Voice ID: ${REQUIRED_DR_SCOTT_VOICE_ID}`);
   console.log(`Speed: 0.9`);
 
   const options = {

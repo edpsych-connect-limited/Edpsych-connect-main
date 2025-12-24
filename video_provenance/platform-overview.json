@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "description": "Persisted provenance for the two flagship platform overview videos. This is the only basis for claiming a specific real-person identity (e.g. 'Dr Scott') for these assets.",
+  "verified": false,
+  "generatedAt": "",
+  "generator": {
+    "tool": "tools/sync-platform-overview-videos.ts",
+    "version": "1",
+    "gitCommit": ""
+  },
+  "keys": {
+    "platform-introduction": {
+      "verified": false,
+      "expectedIdentity": {
+        "person": "Dr Scott",
+        "heygenAvatarId": "",
+        "heygenVoiceId": ""
+      },
+      "heygen": {
+        "videoId": "",
+        "resolvedAt": "",
+        "statusEndpoint": "https://api.heygen.com/v1/video_status.get?video_id=..."
+      },
+      "local": {
+        "path": "",
+        "sha256": "",
+        "bytes": 0
+      },
+      "cloudinary": {
+        "publicId": "",
+        "secureUrl": "",
+        "version": 0,
+        "etag": "",
+        "bytes": 0,
+        "resourceType": "video",
+        "uploadedAt": ""
+      },
+      "integrity": {
+        "sha256": ""
+      }
+    },
+    "value-enterprise-platform": {
+      "verified": false,
+      "expectedIdentity": {
+        "person": "Dr Scott",
+        "heygenAvatarId": "",
+        "heygenVoiceId": ""
+      },
+      "heygen": {
+        "videoId": "",
+        "resolvedAt": "",
+        "statusEndpoint": "https://api.heygen.com/v1/video_status.get?video_id=..."
+      },
+      "local": {
+        "path": "",
+        "sha256": "",
+        "bytes": 0
+      },
+      "cloudinary": {
+        "publicId": "",
+        "secureUrl": "",
+        "version": 0,
+        "etag": "",
+        "bytes": 0,
+        "resourceType": "video",
+        "uploadedAt": ""
+      },
+      "integrity": {
+        "sha256": ""
+      }
+    }
+  }
+}

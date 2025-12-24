@@ -2,9 +2,13 @@
 import fs from 'fs';
 import path from 'path';
 
+import { assertApprovedDrScottCasting } from './lib/dr-scott-heygen';
+
 // CONFIGURATION
 // API key must be set via environment variable for security
 const API_KEY_RAW: string = process.env.HEYGEN_API_KEY || '';
+const DR_SCOTT_AVATAR_ID = process.env.HEYGEN_DR_SCOTT_AVATAR_ID;
+const DR_SCOTT_VOICE_ID = process.env.HEYGEN_DR_SCOTT_VOICE_ID;
 const API_URL = 'https://api.heygen.com/v2/video/generate';
 // const AVATARS_API_URL = 'https://api.heygen.com/v2/avatars';
 // const VOICES_API_URL = 'https://api.heygen.com/v2/voices';
@@ -33,6 +37,14 @@ if (!API_KEY_RAW) {
   process.exit(1);
 }
 
+// If CSV scripts request Dr. Scott, these must be configured (prevents accidental proxy voice/avatar).
+if (!DR_SCOTT_AVATAR_ID || !DR_SCOTT_VOICE_ID) {
+  console.warn(
+    '⚠️ HEYGEN_DR_SCOTT_AVATAR_ID / HEYGEN_DR_SCOTT_VOICE_ID are not set. ' +
+      'Any rows with instructor="Dr. Scott" will be rejected to avoid unverified casting.'
+  );
+}
+
 // Safe to use now - we've checked it exists
 const API_KEY: string = API_KEY_RAW;
 
@@ -46,8 +58,18 @@ async function generateVideo(script: string, gender: 'Male' | 'Female', title: s
   
   // Specific casting
   if (instructor === 'Dr. Scott') {
-    avatarId = '0d10345ca99840cdbd3103692ba55e27'; // Dr. Scott Custom Avatar
-    voiceId = 'aba5ce361bfa433480f4bf281cc4c4f9'; // Oliver Bennett - Warm UK voice
+    if (!DR_SCOTT_AVATAR_ID || !DR_SCOTT_VOICE_ID) {
+      throw new Error('Dr. Scott casting requested but HEYGEN_DR_SCOTT_AVATAR_ID / HEYGEN_DR_SCOTT_VOICE_ID are not configured');
+    }
+
+    assertApprovedDrScottCasting({
+      avatarId: DR_SCOTT_AVATAR_ID,
+      voiceId: DR_SCOTT_VOICE_ID,
+      context: 'generate-heygen-videos:csv-row',
+    });
+
+    avatarId = DR_SCOTT_AVATAR_ID;
+    voiceId = DR_SCOTT_VOICE_ID;
   } else if (instructor === 'Adrian') {
     avatarId = 'Adrian_public_3_20240312'; // Adrian
   }
