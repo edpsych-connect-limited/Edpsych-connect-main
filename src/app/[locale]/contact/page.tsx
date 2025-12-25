@@ -12,7 +12,7 @@ import { logger } from "@/lib/logger";
 
 ;
 
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { useState } from 'react';
 import { 
   ArrowLeft, 

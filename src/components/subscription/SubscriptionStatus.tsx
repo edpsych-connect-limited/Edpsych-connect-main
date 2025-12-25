@@ -14,7 +14,7 @@
 // ============================================================================
 
 import React from 'react';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { useSubscription } from '@/hooks/useSubscription';
 import { SubscriptionTier } from '@/types/prisma-enums';
 

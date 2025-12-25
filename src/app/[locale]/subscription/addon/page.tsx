@@ -8,7 +8,8 @@
 export const dynamic = 'force-dynamic';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from '@/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import { CheckCircle, ArrowLeft, Loader2, Shield, Zap } from 'lucide-react';
 import toast from 'react-hot-toast';

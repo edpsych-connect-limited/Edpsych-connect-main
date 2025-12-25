@@ -9,7 +9,7 @@
 export const dynamic = 'force-dynamic';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import jsPDF from 'jspdf';
 import {

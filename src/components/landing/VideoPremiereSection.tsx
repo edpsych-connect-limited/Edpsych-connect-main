@@ -61,7 +61,7 @@ const SHOWCASE_VIDEOS = {
     {
       id: 'trust-security',
       title: 'Enterprise Security',
-      description: 'NHS-level encryption and GDPR compliance built-in.',
+      description: 'Encryption, access controls, and GDPR-focused design built in.',
       icon: Shield,
       gradient: 'from-slate-500 to-slate-700',
     },

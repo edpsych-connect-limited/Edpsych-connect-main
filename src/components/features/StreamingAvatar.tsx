@@ -43,6 +43,14 @@ export const StreamingAvatar: React.FC<StreamingAvatarProps> = ({ isOpen, onClos
         throw new Error('Failed to get access token');
       }
 
+      // 1b. Get identity configuration (avatar/voice)
+      const configRes = await fetch('/api/video/heygen-config', { method: 'GET' });
+      const configData = await configRes.json();
+
+      if (!configRes.ok || !configData?.avatarName || !configData?.voiceId) {
+        throw new Error(configData?.error || 'HeyGen streaming identity not configured');
+      }
+
       // 2. Create Session (Get ICE servers first)
       const sessionRes = await fetch('https://api.heygen.com/v1/streaming.new', {
         method: 'POST',
@@ -52,9 +60,9 @@ export const StreamingAvatar: React.FC<StreamingAvatarProps> = ({ isOpen, onClos
         },
         body: JSON.stringify({
           quality: 'medium',
-          avatar_name: 'Angela-inTshirt-20220820', // Default avatar
+          avatar_name: configData.avatarName,
           voice: {
-            voice_id: '2d5b0e6cf361460aa7fc47e3eee4ba54' // Default voice
+            voice_id: configData.voiceId
           }
         })
       });

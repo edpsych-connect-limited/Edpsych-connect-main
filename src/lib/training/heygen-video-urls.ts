@@ -256,13 +256,6 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   "feature-ai-agents": "/content/training_videos/features/feature-ai-agents.mp4",
   "feature-la-dashboard": "/content/training_videos/features/feature-la-dashboard.mp4",
 
-  // Pricing page assets (local fallbacks to reduce HeyGen-only reliance)
-  "value-enterprise-platform": "/content/training_videos/pricing/value/value-enterprise-platform.mp4",
-  "feature-nclb-engine": "/content/training_videos/pricing/features/feature-nclb-engine.mp4",
-  "feature-battle-royale": "/content/training_videos/pricing/features/feature-battle-royale.mp4",
-  "feature-battle-royale-pricing": "/content/training_videos/pricing/features/feature-battle-royale.mp4",
-  "feature-byod-architecture": "/content/training_videos/pricing/features/feature-byod-architecture.mp4",
-
   // Feature Spotlight Aliases
   "no-child-left-behind": "/content/training_videos/innovation/innovation-safety-net.mp4",
   // Legacy alias (kept for backward compatibility)
@@ -414,19 +407,36 @@ export const VIDEO_OVERLAYS: Record<string, string> = {
 
   // NCLB Engine -> Dashboard Snapshot
   'feature-no-child-engine': '/images/walkthroughs/nclb-dashboard.svg',
+  'feature-nclb-engine': '/images/walkthroughs/nclb-dashboard.svg',
   'no-child-left-behind': '/images/walkthroughs/nclb-dashboard.svg',
   
   // Battle Royale -> Leaderboard Snapshot
   'feature-battle-royale': '/images/walkthroughs/gamification-leaderboard.svg',
+  'feature-battle-royale-pricing': '/images/walkthroughs/gamification-leaderboard.svg',
   'gamification-integrity': '/images/walkthroughs/gamification-leaderboard.svg',
   
   // Data Architecture -> Architecture Diagram
   'help-data-security': '/images/walkthroughs/data-architecture.svg',
   'data-autonomy': '/images/walkthroughs/data-architecture.svg',
+  'feature-byod-architecture': '/images/walkthroughs/data-architecture.svg',
+  'trust-security': '/images/walkthroughs/data-architecture.svg',
   
   // Admin Dashboard -> Admin UI Snapshot
   'feature-dashboard': '/images/walkthroughs/admin-dashboard.svg',
   'la-dashboard-overview': '/images/walkthroughs/admin-dashboard.svg',
+
+  // Pricing / Trust / Comparison (polished fallbacks when videos are unavailable)
+  'value-enterprise-platform': '/images/dr-scott-landing.jpg',
+  'trust-built-by-practitioners': '/images/dr-scott-landing.jpg',
+  'compare-true-cost': '/images/dr-scott-marketplace.jpg',
+  'compare-switching': '/images/dr-scott-marketplace.jpg',
+  'feature-intervention-library': '/images/dr-scott-marketplace.jpg',
+  'addon-ai-power-pack': '/images/dr-scott-marketplace.jpg',
+  'addon-ehcp-accelerator': '/images/dr-scott-marketplace.jpg',
+  'addon-cpd-library': '/images/dr-scott-marketplace.jpg',
+  'addon-api-access': '/images/dr-scott-marketplace.jpg',
+  'addon-white-label': '/images/dr-scott-marketplace.jpg',
+  'addon-priority-support': '/images/dr-scott-marketplace.jpg',
 };
 
 // ============================================================================
@@ -456,6 +466,13 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "onboarding-platform-tour": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533862/edpsych-connect/videos/onboarding-platform-tour.mp4",
   "onboarding-welcome": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766258344/edpsych-connect/videos/onboarding-welcome.mp4",
   "value-enterprise-platform": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765942287/edpsych-connect/videos/value-enterprise-platform.mp4",
+
+  // Pricing feature keys -> stable Cloudinary recordings (avoid missing local paths / HeyGen readiness issues)
+  "feature-nclb-engine": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533789/edpsych-connect/videos/no-child-left-behind.mp4",
+  "feature-byod-architecture": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533766/edpsych-connect/videos/data-autonomy.mp4",
+  "feature-battle-royale": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533803/edpsych-connect/videos/gamification-integrity.mp4",
+  "feature-battle-royale-pricing": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533803/edpsych-connect/videos/gamification-integrity.mp4",
+  "trust-security": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641857/edpsych-connect/videos/help-data-security.mp4",
 
   // EHCP Modules (Cloudinary CDN)
   "ehcp-modules-hub-overview": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860056/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/ehcp-modules-hub-overview.mp4",
@@ -643,7 +660,7 @@ export function getVideoSourceCandidates(lessonId: string): VideoSourceCandidate
  * Returns the highest-priority source candidate for a lesson.
  *
  * Note: if you need an MP4-compatible URL for an HTML5 <video> tag,
- * prefer candidates where `kind === 'video'`. HeyGen candidates are `iframe`.
+ * prefer candidates where `kind === 'video'`.
  */
 export function getBestVideoSource(lessonId: string): VideoSourceCandidate | undefined {
   const candidates = getVideoSourceCandidates(lessonId);

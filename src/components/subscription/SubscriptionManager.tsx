@@ -9,7 +9,7 @@
  */
 
 import React, { useState } from 'react';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { useSession } from 'next-auth/react';
 import useSubscription from '../../hooks/useSubscription';
 import { SubscriptionStatus, SubscriptionTier, BillingCycle } from '../../types';

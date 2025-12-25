@@ -19,6 +19,19 @@ import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { Play, AlertCircle, CheckCircle, Clock, X, Loader2 } from 'lucide-react';
 import { VIDEO_OVERLAYS, getVideoSourceCandidates, type VideoSourceCandidate, type VideoSourceType } from '@/lib/training/heygen-video-urls';
 
+function toPlayerSource(t: VideoSourceType): 'live' | 'cdn' | 'local' | 'heygen' {
+  switch (t) {
+    case 'live':
+      return 'live';
+    case 'cloudinary':
+      return 'cdn';
+    case 'local':
+      return 'local';
+    case 'heygen':
+      return 'heygen';
+  }
+}
+
 export interface VideoTutorial {
   id: string;
   title: string;
@@ -62,21 +75,9 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
   const [candidates, setCandidates] = useState<VideoSourceCandidate[]>([]);
   const [candidateIndex, setCandidateIndex] = useState(0);
 
-  const toPlayerSource = (t: VideoSourceType): 'live' | 'cdn' | 'local' | 'heygen' => {
-    switch (t) {
-      case 'live':
-        return 'live';
-      case 'cloudinary':
-        return 'cdn';
-      case 'local':
-        return 'local';
-      case 'heygen':
-        return 'heygen';
-    }
-  };
+  const overlayImage = VIDEO_OVERLAYS[videoKey];
 
-  const applyCandidate = useCallback((nextIndex: number, nextCandidates?: VideoSourceCandidate[]) => {
-    const list = nextCandidates ?? candidates;
+  const applyCandidate = useCallback((nextIndex: number, list: VideoSourceCandidate[]) => {
     const next = list[nextIndex];
 
     if (!next) {
@@ -90,7 +91,7 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
     setVideoUrl(next.url);
     setVideoSource(toPlayerSource(next.type));
     setErrorMessage(null);
-  }, [candidates]);
+  }, []);
 
   // Resolve candidates (canonical priority) and select the first one.
   useEffect(() => {
@@ -99,6 +100,17 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
     setCandidates(nextCandidates);
     applyCandidate(0, nextCandidates);
   }, [applyCandidate, videoKey]);
+
+  const handleRetry = useCallback(() => {
+    setIsComplete(false);
+    setProgress(0);
+    setHasStarted(autoPlay);
+    setVideoSource('loading');
+
+    const nextCandidates = getVideoSourceCandidates(videoKey);
+    setCandidates(nextCandidates);
+    applyCandidate(0, nextCandidates);
+  }, [applyCandidate, autoPlay, videoKey]);
 
   const hasVideo = videoSource !== 'error' && videoSource !== 'loading';
 
@@ -113,7 +125,7 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
     console.warn(`Video failed for ${videoKey}. Current=${currentLabel}. Next=${nextLabel}`);
 
     if (next) {
-      applyCandidate(nextIndex);
+      applyCandidate(nextIndex, candidates);
       return;
     }
 
@@ -174,18 +186,61 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
         data-video-state="error"
         data-video-source="error"
       >
-        <div>
-          <AlertCircle className="w-12 h-12 text-amber-500 mx-auto mb-3" />
-          <p className="text-slate-700 font-medium">Video not available</p>
-          <p className="text-sm text-slate-500 mt-1">Key: {videoKey}</p>
-        </div>
+        {overlayImage ? (
+          <div className="w-full h-full relative rounded-lg overflow-hidden border border-slate-200 bg-white">
+            <img
+              src={overlayImage}
+              alt="Walkthrough snapshot"
+              className="absolute inset-0 w-full h-full object-contain bg-slate-900"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/20 to-black/60" />
+
+            <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm backdrop-blur-sm">
+              Interactive Walkthrough
+            </div>
+
+            <div className="absolute bottom-0 left-0 right-0 p-5 text-left">
+              <div className="flex items-start gap-3">
+                <AlertCircle className="w-6 h-6 text-amber-400 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-white font-semibold">Video temporarily unavailable</p>
+                  <p className="text-sm text-white/80 mt-1">
+                    This walkthrough snapshot is still available. You can retry the video in a moment.
+                  </p>
+                  <div className="mt-3 flex flex-wrap items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={handleRetry}
+                      className="px-4 py-2 bg-white/90 hover:bg-white text-slate-900 rounded-md text-sm font-medium"
+                    >
+                      Retry video
+                    </button>
+                    <span className="text-xs text-white/70">Key: {videoKey}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <AlertCircle className="w-12 h-12 text-amber-500 mx-auto mb-3" />
+            <p className="text-slate-700 font-medium">Video not available</p>
+            <p className="text-sm text-slate-500 mt-1">Key: {videoKey}</p>
+            <button
+              type="button"
+              onClick={handleRetry}
+              className="mt-4 px-4 py-2 bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 rounded-md text-sm font-medium text-slate-800"
+            >
+              Retry
+            </button>
+          </div>
+        )}
       </div>
     );
   }
 
-  const overlayImage = VIDEO_OVERLAYS[videoKey];
-
   const currentCandidate = candidates[candidateIndex];
+  const isIframeCandidate = currentCandidate?.kind === 'iframe';
 
   if (compact) {
     return (
@@ -207,7 +262,7 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
                 <Play className="w-5 h-5 text-indigo-600 ml-0.5" />
               </div>
             </button>
-          ) : videoSource === 'heygen' ? (
+          ) : isIframeCandidate ? (
             <iframe
               className="absolute inset-0 w-full h-full border-0"
               src={videoUrl || ''}
@@ -217,6 +272,7 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
             />
           ) : (
             <video
+              key={`${videoKey}:${candidateIndex}`}
               ref={videoRef}
               className="absolute inset-0 w-full h-full"
               controls
@@ -291,7 +347,7 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
                 )}
                 </div>
             </button>
-            ) : videoSource === 'heygen' ? (
+            ) : isIframeCandidate ? (
             <>
                 <iframe
                 className="absolute inset-0 w-full h-full border-0"
@@ -300,15 +356,18 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
                 allowFullScreen
                 title={title}
                 />
-                {/* HeyGen indicator */}
-                <div className="absolute top-2 right-2 bg-indigo-500/90 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
-                <CheckCircle className="w-3 h-3" />
-                Streaming
-                </div>
+                {/* Streaming indicator */}
+                {videoSource === 'heygen' && (
+                  <div className="absolute top-2 right-2 bg-indigo-500/90 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
+                    <CheckCircle className="w-3 h-3" />
+                    Streaming
+                  </div>
+                )}
             </>
             ) : (
             <>
                 <video
+                key={`${videoKey}:${candidateIndex}`}
                 ref={videoRef}
                 className="absolute inset-0 w-full h-full"
                 autoPlay

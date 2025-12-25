@@ -13,8 +13,8 @@
  * 
  * Video Integration (December 2025):
  * - 39 professionally produced HeyGen videos
- * - UK professional avatar (Adrian) with Oliver Bennett voice
- * - Serves as "sales team" - zero-touch self-service
+ * - AI-presented explainers and platform walkthroughs
+ * - Identity (avatar/voice) is configured via environment variables to avoid hardcoded defaults
  */
 
 import React, { useState } from 'react';

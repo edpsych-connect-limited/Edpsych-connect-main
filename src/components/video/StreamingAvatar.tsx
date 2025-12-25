@@ -18,8 +18,8 @@ interface StreamingAvatarProps {
 }
 
 export const StreamingAvatar: React.FC<StreamingAvatarProps> = ({
-  avatarId = 'default_avatar_id', // Replace with actual ID
-  voiceId = 'default_voice_id',   // Replace with actual ID
+  avatarId,
+  voiceId,
   className = '',
 }) => {
   const [isConnected, setIsConnected] = useState(false);
@@ -36,6 +36,22 @@ export const StreamingAvatar: React.FC<StreamingAvatarProps> = ({
     setError(null);
 
     try {
+      // Resolve identity configuration (avatar/voice) if not provided.
+      let resolvedAvatarId = avatarId;
+      let resolvedVoiceId = voiceId;
+
+      if (!resolvedAvatarId || !resolvedVoiceId) {
+        const configRes = await fetch('/api/video/heygen-config');
+        const configData = await configRes.json();
+
+        if (!configRes.ok || !configData?.avatarName || !configData?.voiceId) {
+          throw new Error(configData?.error || 'HeyGen streaming identity not configured');
+        }
+
+        resolvedAvatarId = configData.avatarName;
+        resolvedVoiceId = configData.voiceId;
+      }
+
       // 1. Get Access Token
       const tokenResponse = await fetch('/api/video/heygen-token', { method: 'POST' });
       const { token } = await tokenResponse.json();
@@ -51,8 +67,8 @@ export const StreamingAvatar: React.FC<StreamingAvatarProps> = ({
         },
         body: JSON.stringify({
           quality: 'high',
-          avatar_name: avatarId,
-          voice: { voice_id: voiceId },
+          avatar_name: resolvedAvatarId,
+          voice: { voice_id: resolvedVoiceId },
         }),
       });
 
