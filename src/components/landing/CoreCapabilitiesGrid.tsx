@@ -9,7 +9,7 @@
  */
 
 import { motion } from 'framer-motion';
-import { useRouter } from '@/navigation';
+import { Link } from '@/navigation';
 import { 
   Brain, Library, GraduationCap, Trophy, Clock, ShieldCheck, FileCheck, Code, 
   MessageSquareText, Users, Search, Heart, Mic, BookOpen, Crown, Building2, 
@@ -40,8 +40,6 @@ const tierConfig: Record<FeatureTier, { label: string; icon: LucideIcon; classNa
 };
 
 export default function CoreCapabilitiesGrid() {
-  const router = useRouter();
-  
   const capabilities: Capability[] = [
     {
       icon: Brain,
@@ -280,11 +278,6 @@ export default function CoreCapabilitiesGrid() {
     }
   ];
 
-  const handleCardClick = (cap: Capability) => {
-    // Navigate to the feature page - the page itself handles tier gating
-    router.push(cap.href);
-  };
-
   return (
     <section id="features" className="py-24 bg-slate-950 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -310,9 +303,17 @@ export default function CoreCapabilitiesGrid() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.05 }}
-                onClick={() => handleCardClick(cap)}
-                className="p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-indigo-500/50 transition-all group cursor-pointer relative overflow-hidden"
+                className="p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-indigo-500/50 transition-all group relative overflow-hidden"
               >
+                {/* Full-card link (locale-aware + keyboard accessible) */}
+                <Link
+                  href={cap.href}
+                  aria-label={`Explore feature: ${cap.title}`}
+                  className="absolute inset-0 z-10 rounded-2xl cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+                >
+                  <span className="sr-only">Explore feature: {cap.title}</span>
+                </Link>
+
                 {/* Tier Badge */}
                 <div className={`absolute top-3 right-3 px-2 py-1 rounded-full text-[10px] font-semibold flex items-center gap-1 border ${tierInfo.className}`}>
                   <TierIcon className="w-3 h-3" />

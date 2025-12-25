@@ -42,8 +42,9 @@ const SHOWCASE_VIDEOS = {
       gradient: 'from-amber-500 to-orange-600',
     },
     {
-      // Use the canonical key that is backed by Cloudinary/local fallbacks.
-      id: 'no-child-left-behind',
+      // Use the dedicated marketing/demo key (lets us fix casting without touching
+      // the core 'no-child-left-behind' training video).
+      id: 'feature-nclb-engine',
       title: 'No Child Left Behind Engine',
       description: 'Watch differentiation happen automatically for 40 students.',
       icon: Users,

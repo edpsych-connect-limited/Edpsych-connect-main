@@ -15,19 +15,21 @@
 
 export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   // PLATFORM Videos
-  "platform-introduction": "1253f6c2d8e9442db7eeb8dcba27a568",
+  // V3 platform intro (see `platform-intro-v3-result.json`)
+  "platform-introduction": "700652dcbd134ad281da2126e37560e2",
 
   // PRICING / MARKETING (December 2025 suite)
   // NOTE: These are used across Pricing + Landing surfaces. If Cloudinary isn't
   // mapped yet, the player will fall back to HeyGen embed.
-  "value-enterprise-platform": "5a44470c78684139ab2faa3f34cc5429",
+  // December 2025 pricing suite (see `docs/VIDEO_AUDIT_REPORT.md`)
+  "value-enterprise-platform": "52e39fee2f98437fb2a8a67c840c0836",
   "addon-ai-power-pack": "585ec6706d7349c6b42e363ee0655d5a",
   "addon-ehcp-accelerator": "06bf1fcb7aa04476abf0db827b5e6c6e",
   "addon-cpd-library": "88582eef95634801b88c0dd76c7523f6",
   "addon-api-access": "49faa010b2864d539969227b7b6d81de",
   "addon-white-label": "6132f8ab6d4246b7a184db10c9a49c9e",
   "addon-priority-support": "e90201fbba1a4f789186c4d8b58dcc72",
-  "feature-nclb-engine": "88fcefafc9f64bc7bfbea861d19cd1cb",
+  "feature-nclb-engine": "738bbcfaa87541aeb36e061c00db5ece",
   "feature-battle-royale": "58d38fdf4d8640c1b9d848a826d686a6",
   "feature-battle-royale-pricing": "58d38fdf4d8640c1b9d848a826d686a6", // alias: PricingPage key
   "feature-byod-architecture": "4ae970ec77f145b3a5ccc12298fd7cd1",
@@ -426,7 +428,9 @@ export const VIDEO_OVERLAYS: Record<string, string> = {
   'la-dashboard-overview': '/images/walkthroughs/admin-dashboard.svg',
 
   // Pricing / Trust / Comparison (polished fallbacks when videos are unavailable)
-  'value-enterprise-platform': '/images/dr-scott-landing.jpg',
+  // IMPORTANT: Avoid face-photo overlays on overview videos; it can create an
+  // identity mismatch if the underlying rendered video/avatar/voice differs.
+  // Use standard UI/screenshot overlays only.
   'trust-built-by-practitioners': '/images/dr-scott-landing.jpg',
   'compare-true-cost': '/images/dr-scott-marketplace.jpg',
   'compare-switching': '/images/dr-scott-marketplace.jpg',
@@ -465,10 +469,16 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "feature-la-dashboard": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644467/edpsych-connect/videos/feature-la-dashboard.mp4",
   "onboarding-platform-tour": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533862/edpsych-connect/videos/onboarding-platform-tour.mp4",
   "onboarding-welcome": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766258344/edpsych-connect/videos/onboarding-welcome.mp4",
-  "value-enterprise-platform": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765942287/edpsych-connect/videos/value-enterprise-platform.mp4",
+  // NOTE: Cloudinary overrides take priority over HeyGen. If an override is
+  // wrong/outdated, it will keep showing the wrong avatar/voice.
+  // For identity-sensitive overview content, prefer HeyGen embed until a
+  // verified Cloudinary asset is uploaded and provenance is updated.
+  // "value-enterprise-platform": "https://res.cloudinary.com/dncfu2j0r/video/upload/<v>/edpsych-connect/videos/value-enterprise-platform.mp4",
 
-  // Pricing feature keys -> stable Cloudinary recordings (avoid missing local paths / HeyGen readiness issues)
-  "feature-nclb-engine": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533789/edpsych-connect/videos/no-child-left-behind.mp4",
+  // Pricing feature keys -> Cloudinary recordings
+  // Disabled: the previous URL(s) now 404, which breaks playback in production.
+  // Keep local + HeyGen fallbacks instead.
+  // "feature-nclb-engine": "https://res.cloudinary.com/dncfu2j0r/video/upload/<v>/edpsych-connect/videos/no-child-left-behind.mp4",
   "feature-byod-architecture": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533766/edpsych-connect/videos/data-autonomy.mp4",
   "feature-battle-royale": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533803/edpsych-connect/videos/gamification-integrity.mp4",
   "feature-battle-royale-pricing": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533803/edpsych-connect/videos/gamification-integrity.mp4",
@@ -494,11 +504,12 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "parent-portal-welcome": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641905/edpsych-connect/videos/parent-portal-welcome.mp4",
   "parent-contributing-views": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641915/edpsych-connect/videos/parent-contributing-views.mp4",
   "parent-understanding-results": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641927/edpsych-connect/videos/parent-understanding-results.mp4",
-  "platform-introduction": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765665881/edpsych-connect/onboarding/platform-introduction.mp4",
+  // Platform overview (v3)
+  "platform-introduction": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4",
   "data-autonomy": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533766/edpsych-connect/videos/data-autonomy.mp4",
-  "no-child-left-behind": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533789/edpsych-connect/videos/no-child-left-behind.mp4",
-  // Legacy alias (kept for backward compatibility)
-  "innovation-safety-net": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533789/edpsych-connect/videos/no-child-left-behind.mp4",
+  // Disabled: Cloudinary asset currently 404; rely on local/HeyGen until re-uploaded.
+  // "no-child-left-behind": "https://res.cloudinary.com/dncfu2j0r/video/upload/<v>/edpsych-connect/videos/no-child-left-behind.mp4",
+  // "innovation-safety-net": "https://res.cloudinary.com/dncfu2j0r/video/upload/<v>/edpsych-connect/videos/no-child-left-behind.mp4",
   "gamification-integrity": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533803/edpsych-connect/videos/gamification-integrity.mp4",
   "school-senco-portal": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641955/edpsych-connect/videos/school-senco-portal.mp4",
   "1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641962/edpsych-connect/videos/1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations.mp4",

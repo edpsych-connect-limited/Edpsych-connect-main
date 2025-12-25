@@ -21,7 +21,10 @@ foreach ($h in $hrefs) {
   $p1 = Join-Path 'src/app/[locale]' (Join-Path $rel 'page.tsx')
   $p2 = Join-Path 'src/app/[locale]' (Join-Path $rel 'page.ts')
 
-  if (-not (Test-Path $p1) -and -not (Test-Path $p2)) {
+  # IMPORTANT: `[locale]` contains `[` and `]`, which PowerShell treats as wildcard
+  # character classes when using Test-Path. Use -LiteralPath so we check the
+  # folder name literally.
+  if (-not (Test-Path -LiteralPath $p1) -and -not (Test-Path -LiteralPath $p2)) {
     $missing += $h
   }
 }
