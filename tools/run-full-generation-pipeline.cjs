@@ -22,7 +22,19 @@ function runScript(scriptName) {
 async function main() {
   try {
     console.log('=== STARTING MASTER VIDEO GENERATION PIPELINE ===');
-    console.log('Settings: Voice=Scott (50d2...), Speed=0.9, Captions=Enabled');
+
+    const confirm = process.env.HEYGEN_GENERATION_CONFIRM;
+    if (confirm !== 'I_UNDERSTAND_COSTS') {
+      console.error('');
+      console.error('SAFETY STOP: This pipeline submits paid HeyGen generation jobs.');
+      console.error('To prevent accidental spend, it is blocked unless you explicitly confirm.');
+      console.error('');
+      console.error('Set: HEYGEN_GENERATION_CONFIRM=I_UNDERSTAND_COSTS');
+      console.error('Then re-run this pipeline.');
+      process.exit(1);
+    }
+
+    console.log('Safety confirmation received. Proceeding with HeyGen submissions.');
 
     // 1. Platform Videos (23 videos)
     await runScript('generate-dr-scott-videos.cjs');

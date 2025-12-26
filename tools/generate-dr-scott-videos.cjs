@@ -2,6 +2,8 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
+const { assertApprovedDrScottCasting, REQUIRED_DR_SCOTT_VOICE_ID } = require('./lib/dr-scott-heygen.cjs');
+
 // Configuration
 const API_KEY = process.env.HEYGEN_API_KEY;
 
@@ -17,6 +19,29 @@ if (!AVATAR_ID || !VOICE_ID) {
   throw new Error(
     'HEYGEN_DR_SCOTT_AVATAR_ID and HEYGEN_DR_SCOTT_VOICE_ID environment variables are required'
   );
+}
+
+// Hard safety rails:
+// 1) Enforce approved Dr Scott casting (avatar allowlist + required voice ID)
+// 2) Require explicit operator confirmation before any paid generation is submitted
+assertApprovedDrScottCasting({
+  avatarId: AVATAR_ID,
+  voiceId: VOICE_ID,
+  context: 'generate-dr-scott-videos.cjs',
+});
+
+const CONFIRM = process.env.HEYGEN_GENERATION_CONFIRM;
+if (CONFIRM !== 'I_UNDERSTAND_COSTS') {
+  console.log('');
+  console.log('SAFETY STOP: HeyGen generation is NOT enabled by default.');
+  console.log('This prevents expensive accidental re-renders and wrong-casting runs.');
+  console.log('');
+  console.log(`- Required voice ID for Dr Scott (enforced): ${REQUIRED_DR_SCOTT_VOICE_ID}`);
+  console.log(`- Current env voice ID: ${VOICE_ID}`);
+  console.log('');
+  console.log('To proceed, set: HEYGEN_GENERATION_CONFIRM=I_UNDERSTAND_COSTS');
+  console.log('Then re-run this script.');
+  process.exit(0);
 }
 
 // Video Scripts Data (Embedded to avoid TS/ESM issues)
