@@ -555,7 +555,9 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "ehcp-evidence-gathering": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642391/edpsych-connect/videos/ehcp-evidence-gathering.mp4",
   "ehcp-professional-contributions": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642405/edpsych-connect/videos/ehcp-professional-contributions.mp4",
   "ehcp-appeals": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642419/edpsych-connect/videos/ehcp-appeals.mp4",
-  "ehcp-application-journey": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642436/edpsych-connect/videos/ehcp-application-journey.mp4",
+  // NOTE: Pinned to a known-good upload while narration is being re-recorded.
+  // See: cloudinary-upload-results.json (publicId: edpsych-connect/videos/ehcp-application-journey)
+  "ehcp-application-journey": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533977/edpsych-connect/videos/ehcp-application-journey.mp4",
   "compliance-consent": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642445/edpsych-connect/videos/compliance-consent.mp4",
   "assessment-choosing": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642465/edpsych-connect/videos/assessment-choosing.mp4",
   "assessment-interpreting": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642475/edpsych-connect/videos/assessment-interpreting.mp4",
