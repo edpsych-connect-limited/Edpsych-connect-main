@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2025-12-26T17:33:27.637Z",
+  "generatedAt": "2025-12-26T17:48:33.100Z",
   "description": "Manual claim-to-evidence mapping for each video key. This is the basis for auditing script claims against the actual codebase (truth-by-code).",
   "keys": {
     "platform-introduction": {
@@ -72,6 +72,66 @@
           },
           "kind": "script-transcript",
           "expected": "present"
+        },
+        {
+          "id": "platform-introduction-snippet-5de600f0e6",
+          "statement": "Script-derived transcript for 'platform-introduction' contains: \"When you've got thirty students who all need something different, and there simply aren't enough hours in the day?\"",
+          "kind": "script-snippet",
+          "expected": "contains",
+          "expectedText": "When you've got thirty students who all need something different, and there simply aren't enough hours in the day?",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "video_scripts/world_class/marketing-scripts.ts",
+              "src/app/api/video/captions/route.ts"
+            ],
+            "apis": [
+              "/api/video/captions?key=platform-introduction"
+            ],
+            "notes": "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation."
+          }
+        },
+        {
+          "id": "platform-introduction-snippet-6924d81249",
+          "statement": "Script-derived transcript for 'platform-introduction' contains: \"You know that feeling when you're drowning in paperwork?\"",
+          "kind": "script-snippet",
+          "expected": "contains",
+          "expectedText": "You know that feeling when you're drowning in paperwork?",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "video_scripts/world_class/marketing-scripts.ts",
+              "src/app/api/video/captions/route.ts"
+            ],
+            "apis": [
+              "/api/video/captions?key=platform-introduction"
+            ],
+            "notes": "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation."
+          }
+        },
+        {
+          "id": "platform-introduction-snippet-75f2742efa",
+          "statement": "Script-derived transcript for 'platform-introduction' contains: \"I'm genuinely excited to share something with you that I believe will change how you work.\"",
+          "kind": "script-snippet",
+          "expected": "contains",
+          "expectedText": "I'm genuinely excited to share something with you that I believe will change how you work.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "video_scripts/world_class/marketing-scripts.ts",
+              "src/app/api/video/captions/route.ts"
+            ],
+            "apis": [
+              "/api/video/captions?key=platform-introduction"
+            ],
+            "notes": "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation."
+          }
         }
       ]
     },
@@ -6980,6 +7040,66 @@
           },
           "kind": "script-transcript",
           "expected": "present"
+        },
+        {
+          "id": "value-enterprise-platform-snippet-03a4417305",
+          "statement": "Script-derived transcript for 'value-enterprise-platform' contains: \"Let me tell you something that might sound unbelievable.\"",
+          "kind": "script-snippet",
+          "expected": "contains",
+          "expectedText": "Let me tell you something that might sound unbelievable.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "video_scripts/world_class/december-2025-pricing-videos.ts",
+              "src/app/api/video/captions/route.ts"
+            ],
+            "apis": [
+              "/api/video/captions?key=value-enterprise-platform"
+            ],
+            "notes": "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation."
+          }
+        },
+        {
+          "id": "value-enterprise-platform-snippet-77c710ba1b",
+          "statement": "Script-derived transcript for 'value-enterprise-platform' contains: \"The platform you're about to explore represents over two million pounds in development investment.\"",
+          "kind": "script-snippet",
+          "expected": "contains",
+          "expectedText": "The platform you're about to explore represents over two million pounds in development investment.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "video_scripts/world_class/december-2025-pricing-videos.ts",
+              "src/app/api/video/captions/route.ts"
+            ],
+            "apis": [
+              "/api/video/captions?key=value-enterprise-platform"
+            ],
+            "notes": "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation."
+          }
+        },
+        {
+          "id": "value-enterprise-platform-snippet-b458314ef8",
+          "statement": "Script-derived transcript for 'value-enterprise-platform' contains: \"Enterprise-grade software that would typically require a small fortune and a dedicated IT department just to get started.\"",
+          "kind": "script-snippet",
+          "expected": "contains",
+          "expectedText": "Enterprise-grade software that would typically require a small fortune and a dedicated IT department just to get started.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "video_scripts/world_class/december-2025-pricing-videos.ts",
+              "src/app/api/video/captions/route.ts"
+            ],
+            "apis": [
+              "/api/video/captions?key=value-enterprise-platform"
+            ],
+            "notes": "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation."
+          }
         }
       ]
     }

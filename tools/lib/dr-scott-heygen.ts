@@ -6,7 +6,9 @@ export const ALLOWED_DR_SCOTT_AVATAR_IDS = [
   'aae2fc783ee247cc9e09bd9517f74e5b',
 ] as const;
 
-export const REQUIRED_DR_SCOTT_VOICE_ID = '7814e6a7f7d84f4eb7a14c453d9d472a' as const;
+// IMPORTANT: This must match the currently approved Dr Scott voice ID.
+// If you rotate the voice in HeyGen, update this constant and re-run CI.
+export const REQUIRED_DR_SCOTT_VOICE_ID = '5a4bb65a67734477a659398468c7272e' as const;
 
 export function assertApprovedDrScottCasting(params: {
   avatarId: string;

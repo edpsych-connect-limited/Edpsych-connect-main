@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 
 import { HEYGEN_VIDEO_IDS } from '../src/lib/training/heygen-video-urls';
 import { getVideoScriptResolution } from '../src/lib/video-scripts/registry-core';
@@ -15,12 +16,17 @@ type Evidence = {
 
 type ClaimStatus = 'draft' | 'needs-review' | 'verified' | 'deprecated';
 
+type ClaimKind = 'registry-key' | 'script-transcript' | 'script-snippet';
+
+type ClaimExpected = 'present' | 'missing' | 'contains' | 'not-contains';
+
 type Claim = {
   id: string;
   statement: string;
   evidence: Evidence;
-  kind?: 'registry-key' | 'script-transcript';
-  expected?: 'present' | 'missing';
+  kind?: ClaimKind;
+  expected?: ClaimExpected;
+  expectedText?: string;
   status?: ClaimStatus;
   lastReviewedAt?: string;
 };
@@ -59,6 +65,84 @@ function uniqStrings(values: Array<string | undefined | null>): string[] {
     out.push(s);
   }
   return out;
+}
+
+type PlatformOverviewKey = 'platform-introduction' | 'value-enterprise-platform';
+
+// Start with the flagship Dr Scott videos (small, high-value set) to keep diffs bounded.
+const ATOMIC_SNIPPET_KEYS: PlatformOverviewKey[] = ['platform-introduction', 'value-enterprise-platform'];
+
+const SCRIPT_SOURCE_FILES: Record<string, string> = {
+  'world-class-v4-core': 'video_scripts/world_class/comprehensive-video-scripts-v4-dr-scott.ts',
+  'world-class-v4-training': 'video_scripts/world_class/comprehensive-training-scripts-v4-dr-scott.ts',
+  'world-class-v4-pricing-2025-12': 'video_scripts/world_class/december-2025-pricing-videos.ts',
+  'world-class-v4-innovation': 'video_scripts/world_class/innovation-features-v4-dr-scott.ts',
+  'world-class-v4-dyslexia-masterclass': 'video_scripts/world_class/dyslexia-masterclass-v4-dr-scott.ts',
+  'world-class-onboarding': 'video_scripts/world_class/onboarding-scripts.ts',
+  'world-class-marketing': 'video_scripts/world_class/marketing-scripts.ts',
+  'world-class-role-based-onboarding': 'video_scripts/world_class/role-based-onboarding-videos.ts',
+  'world-class-v4-additional': 'video_scripts/world_class/additional-scripts-v4-dr-scott.ts',
+};
+
+function normaliseWhitespace(input: string): string {
+  return input.replace(/\s+/g, ' ').trim();
+}
+
+function sentenceSplit(transcript: string): string[] {
+  const normalized = transcript.replace(/\r\n/g, '\n');
+  const chunks = normalized
+    .split(/\n+/)
+    .flatMap(line => line.split(/(?<=[.!?])\s+/))
+    .map(s => normaliseWhitespace(s))
+    .filter(Boolean);
+
+  // Filter out extremely short fragments.
+  return chunks.filter(s => s.length >= 40);
+}
+
+function hashId(input: string): string {
+  return crypto.createHash('sha256').update(input, 'utf8').digest('hex').slice(0, 10);
+}
+
+function truncate(input: string, maxLen: number): string {
+  const s = input.trim();
+  if (s.length <= maxLen) return s;
+  return `${s.slice(0, maxLen - 1)}…`;
+}
+
+function atomicSnippetClaimsForKey(key: string): Claim[] {
+  if (!(ATOMIC_SNIPPET_KEYS as readonly string[]).includes(key)) return [];
+
+  const res = getVideoScriptResolution(key);
+  if (res.status !== 'found' || !res.transcript?.trim()) return [];
+
+  const sentences = sentenceSplit(res.transcript).slice(0, 3);
+  if (sentences.length === 0) return [];
+
+  const sourceFile = SCRIPT_SOURCE_FILES[res.sourceId] ?? 'src/lib/video-scripts/registry-core.ts';
+
+  return sentences.map(sentence => {
+    const hid = hashId(`${key}::${res.sourceId}::${sentence}`);
+    return {
+      id: `${key}-snippet-${hid}`,
+      statement: `Script-derived transcript for '${key}' contains: "${truncate(sentence, 140)}"`,
+      kind: 'script-snippet',
+      expected: 'contains',
+      expectedText: sentence,
+      status: 'needs-review',
+      lastReviewedAt: '',
+      evidence: {
+        files: uniqStrings([
+          'src/lib/video-scripts/registry-core.ts',
+          sourceFile,
+          'src/app/api/video/captions/route.ts',
+        ]),
+        apis: [`/api/video/captions?key=${encodeURIComponent(key)}`],
+        notes:
+          "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation.",
+      },
+    };
+  });
 }
 
 function baseClaimsForKey(key: string): Claim[] {
@@ -154,6 +238,10 @@ function isBaseGeneratedId(key: string, id: string): boolean {
   return id === `${key}-registry-001` || id === `${key}-script-001`;
 }
 
+function isAutoSnippetId(key: string, id: string): boolean {
+  return id.startsWith(`${key}-snippet-`);
+}
+
 function mergeClaims(existing: Claim[], additions: Claim[]): Claim[] {
   const byId = new Map<string, Claim>();
   for (const c of existing) {
@@ -192,9 +280,25 @@ function mergeClaims(existing: Claim[], additions: Claim[]): Claim[] {
         ...current,
         kind: (current.kind ?? a.kind),
         expected: (current.expected ?? a.expected),
+        expectedText: current.expectedText ?? a.expectedText,
         evidence: mergeEvidence(current.evidence ?? {}, a.evidence ?? {}),
         status: nextStatus,
         lastReviewedAt: nextReviewedAt,
+      });
+      continue;
+    }
+
+    // For auto-generated snippet claims, keep the user's status/review fields,
+    // but refresh the machine-checkable fields and evidence anchors.
+    const snippetKey = a.id.split('-snippet-')[0];
+    if (snippetKey && isAutoSnippetId(snippetKey, a.id)) {
+      byId.set(a.id, {
+        ...current,
+        statement: current.statement?.trim() ? current.statement : a.statement,
+        kind: a.kind,
+        expected: a.expected,
+        expectedText: a.expectedText,
+        evidence: mergeEvidence(current.evidence ?? {}, a.evidence ?? {}),
       });
     }
   }
@@ -227,7 +331,7 @@ function main() {
   for (const key of canonicalKeys) {
     const current = manifest.keys[key];
     const existingClaims = Array.isArray(current?.claims) ? current.claims : [];
-    const additions = baseClaimsForKey(key);
+    const additions = [...baseClaimsForKey(key), ...atomicSnippetClaimsForKey(key)];
 
     if (!current) {
       manifest.keys[key] = { claims: additions };

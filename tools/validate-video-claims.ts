@@ -10,7 +10,9 @@ type CodeSearch = {
   isRegex?: boolean;
 };
 
-type ClaimKind = 'registry-key' | 'script-transcript';
+type ClaimKind = 'registry-key' | 'script-transcript' | 'script-snippet';
+
+type ClaimExpected = 'present' | 'missing' | 'contains' | 'not-contains';
 
 type Evidence = {
   files?: string[];
@@ -26,7 +28,8 @@ type Claim = {
   statement: string;
   evidence: Evidence;
   kind?: ClaimKind;
-  expected?: 'present' | 'missing';
+  expected?: ClaimExpected;
+  expectedText?: string;
   status?: 'draft' | 'needs-review' | 'verified' | 'deprecated';
   lastReviewedAt?: string;
 };
@@ -86,6 +89,10 @@ function matchesCodeSearch(entry: CodeSearch): boolean {
     }
   }
   return text.includes(entry.pattern);
+}
+
+function normaliseWhitespace(input: string): string {
+  return input.replace(/\s+/g, ' ').trim();
 }
 
 function normaliseRoute(route: string): string {
@@ -248,6 +255,51 @@ function main() {
               claimId: claim.id,
               message: `Claim '${claim.id}' expected transcript '${expected}', but current script resolution is '${actual}' (resolvedKey='${res.resolvedKey}')`,
             });
+          }
+        }
+      }
+
+      if (claim.kind === 'script-snippet') {
+        const expected = claim.expected;
+        if (expected !== 'contains' && expected !== 'not-contains') {
+          issues.push({
+            level: 'error',
+            key,
+            claimId: claim.id,
+            message: `Claim '${claim.id}' kind='script-snippet' requires expected='contains'|'not-contains'`,
+          });
+        } else {
+          const expectedText = typeof claim.expectedText === 'string' ? claim.expectedText.trim() : '';
+          if (!expectedText) {
+            issues.push({
+              level: 'error',
+              key,
+              claimId: claim.id,
+              message: `Claim '${claim.id}' kind='script-snippet' requires expectedText (non-empty)`,
+            });
+          } else {
+            const res = getVideoScriptResolution(key);
+            if (res.status !== 'found' || !res.transcript?.trim()) {
+              issues.push({
+                level: 'error',
+                key,
+                claimId: claim.id,
+                message: `Claim '${claim.id}' kind='script-snippet' requires a resolvable transcript, but script resolution is missing (resolvedKey='${res.resolvedKey}')`,
+              });
+            } else {
+              const haystack = normaliseWhitespace(res.transcript);
+              const needle = normaliseWhitespace(expectedText);
+              const contains = haystack.includes(needle);
+              const ok = expected === 'contains' ? contains : !contains;
+              if (!ok) {
+                issues.push({
+                  level: 'error',
+                  key,
+                  claimId: claim.id,
+                  message: `Claim '${claim.id}' expected transcript '${expected}' for expectedText, but check failed (resolvedKey='${res.resolvedKey}')`,
+                });
+              }
+            }
           }
         }
       }
