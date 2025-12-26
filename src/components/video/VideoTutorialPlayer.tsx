@@ -71,7 +71,7 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
   const [isComplete, setIsComplete] = useState(false);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [videoSource, setVideoSource] = useState<'loading' | 'live' | 'cdn' | 'local' | 'heygen' | 'error'>('loading');
-  const [_errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [candidates, setCandidates] = useState<VideoSourceCandidate[]>([]);
   const [candidateIndex, setCandidateIndex] = useState(0);
 
@@ -130,7 +130,26 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
     }
 
     setVideoSource('error');
-    setErrorMessage('Failed to load video');
+    // If HeyGen was the last resort, try to fetch a human-readable error message.
+    // (e.g. missing HEYGEN_API_KEY in production returns 503 JSON.)
+    if (current?.type === 'heygen') {
+      void (async () => {
+        try {
+          const diagnosticUrl = `/api/video/heygen-url?key=${encodeURIComponent(videoKey)}`;
+          const res = await fetch(diagnosticUrl, { method: 'GET' });
+          const data = await res.json().catch(() => null);
+          const message =
+            (data && typeof data === 'object' && 'error' in data && typeof (data as any).error === 'string')
+              ? (data as any).error
+              : 'Failed to load video';
+          setErrorMessage(message);
+        } catch {
+          setErrorMessage('Failed to load video');
+        }
+      })();
+    } else {
+      setErrorMessage('Failed to load video');
+    }
   }, [applyCandidate, candidateIndex, candidates, videoKey]);
 
   const handlePlay = useCallback(() => {
@@ -205,7 +224,7 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
                 <div>
                   <p className="text-white font-semibold">Video temporarily unavailable</p>
                   <p className="text-sm text-white/80 mt-1">
-                    This walkthrough snapshot is still available. You can retry the video in a moment.
+                    {errorMessage || 'This walkthrough snapshot is still available. You can retry the video in a moment.'}
                   </p>
                   <div className="mt-3 flex flex-wrap items-center gap-3">
                     <button
@@ -224,7 +243,7 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
         ) : (
           <div>
             <AlertCircle className="w-12 h-12 text-amber-500 mx-auto mb-3" />
-            <p className="text-slate-700 font-medium">Video not available</p>
+            <p className="text-slate-700 font-medium">{errorMessage || 'Video not available'}</p>
             <p className="text-sm text-slate-500 mt-1">Key: {videoKey}</p>
             <button
               type="button"

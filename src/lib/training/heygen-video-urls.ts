@@ -199,7 +199,7 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
 
 export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // Core Platform Videos
-  // "platform-introduction": "/content/training_videos/platform-introduction.mp4", // Removed to force HeyGen v3 fallback
+  // "platform-introduction": "/content/training_videos/platform-introduction.mp4", // Optional local override (kept commented to avoid masking CDN/HeyGen issues)
   "la-dashboard-overview": "/content/training_videos/la-portal/la-dashboard-overview.mp4",
   "school-senco-portal": "/content/training_videos/misc/school-senco-portal.mp4",
   "parent-portal-welcome": "/content/training_videos/parent-portal/parent-portal-welcome.mp4",
@@ -223,7 +223,7 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   "la-professional-requests": "/content/training_videos/la-portal/la-professional-requests.mp4",
   "la-ehcp-merge-tool": "/content/training_videos/la-portal/la-ehcp-merge-tool.mp4",
   "parent-understanding-results": "/content/training_videos/parent-portal/parent-understanding-results.mp4",
-  // Local fallback to prevent 404s if external sources are unavailable
+  // Local fallbacks to prevent 404s if external sources are unavailable
   "platform-introduction": "/content/training_videos/platform-introduction.mp4",
   "parent-contributing-views": "/content/training_videos/parent-portal/parent-contributing-views.mp4",
   "compliance-consent": "/content/training_videos/compliance/compliance-consent.mp4",
@@ -505,7 +505,9 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "parent-contributing-views": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641915/edpsych-connect/videos/parent-contributing-views.mp4",
   "parent-understanding-results": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641927/edpsych-connect/videos/parent-understanding-results.mp4",
   // Platform overview (v3)
-  "platform-introduction": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4",
+  // NOTE: The Cloudinary publicId is `edpsych-connect/videos/platform-introduction` (not a "-v3" suffix).
+  // The previous URL here contained a duplicated path segment and returned 404 in production.
+  "platform-introduction": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533750/edpsych-connect/videos/platform-introduction.mp4",
   "data-autonomy": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533766/edpsych-connect/videos/data-autonomy.mp4",
   // Disabled: Cloudinary asset currently 404; rely on local/HeyGen until re-uploaded.
   // "no-child-left-behind": "https://res.cloudinary.com/dncfu2j0r/video/upload/<v>/edpsych-connect/videos/no-child-left-behind.mp4",
