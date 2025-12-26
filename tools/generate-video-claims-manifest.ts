@@ -9,6 +9,7 @@ type Evidence = {
   routes?: string[];
   apis?: string[];
   tests?: string[];
+  codeSearch?: Array<{ file: string; pattern: string; isRegex?: boolean }>;
   notes?: string;
 };
 
@@ -18,6 +19,8 @@ type Claim = {
   id: string;
   statement: string;
   evidence: Evidence;
+  kind?: 'registry-key' | 'script-transcript';
+  expected?: 'present' | 'missing';
   status?: ClaimStatus;
   lastReviewedAt?: string;
 };
@@ -72,11 +75,18 @@ function baseClaimsForKey(key: string): Claim[] {
     {
       id: `${key}-registry-001`,
       statement: `Key '${key}' is present in the canonical video registry and should appear in /api/video/health candidate output.`,
+      kind: 'registry-key',
+      expected: 'present',
       status: 'needs-review',
       lastReviewedAt: '',
       evidence: {
         files: uniqStrings(['src/lib/training/heygen-video-urls.ts', 'src/app/api/video/health/route.ts']),
         apis: [`/api/video/health?key=${encodeURIComponent(key)}`],
+        codeSearch: [
+          // Anchor: key is present in the canonical ID registry object.
+          // Match either single or double quotes, followed by a colon (object literal key).
+          { file: 'src/lib/training/heygen-video-urls.ts', pattern: `['\"]${escapeRegex(key)}['\"]\s*:`, isRegex: true },
+        ],
       },
     },
     {
@@ -84,6 +94,8 @@ function baseClaimsForKey(key: string): Claim[] {
       statement: hasTranscript
         ? `A script-derived transcript exists for key '${key}', and the captions endpoint can produce script-derived WebVTT for this key.`
         : `Transcript is currently missing for key '${key}' (captions cannot be truthfully claimed until a transcript exists).`,
+      kind: 'script-transcript',
+      expected: hasTranscript ? 'present' : 'missing',
       status: hasTranscript ? 'needs-review' : 'draft',
       lastReviewedAt: '',
       evidence: {
@@ -95,11 +107,49 @@ function baseClaimsForKey(key: string): Claim[] {
         ]),
         apis: [`/api/video/captions?key=${encodeURIComponent(key)}`],
         notes: scriptEvidenceNotes,
+        codeSearch: [
+          // Anchor: captions endpoint exists.
+          { file: 'src/app/api/video/captions/route.ts', pattern: 'text/vtt' },
+        ],
       },
     },
   ];
 
   return claims;
+}
+
+function escapeRegex(input: string): string {
+  return input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function mergeEvidence(existing: Evidence, additions: Evidence): Evidence {
+  const merged: Evidence = {
+    ...existing,
+    files: uniqStrings([...(existing.files ?? []), ...(additions.files ?? [])]),
+    routes: uniqStrings([...(existing.routes ?? []), ...(additions.routes ?? [])]),
+    apis: uniqStrings([...(existing.apis ?? []), ...(additions.apis ?? [])]),
+    tests: uniqStrings([...(existing.tests ?? []), ...(additions.tests ?? [])]),
+    codeSearch: [...(existing.codeSearch ?? []), ...(additions.codeSearch ?? [])],
+    notes: existing.notes ?? additions.notes,
+  };
+
+  // De-dupe codeSearch by (file,pattern,isRegex)
+  if (merged.codeSearch && merged.codeSearch.length > 0) {
+    const seen = new Set<string>();
+    merged.codeSearch = merged.codeSearch.filter(cs => {
+      if (!cs || typeof cs !== 'object') return false;
+      const k = `${cs.file}::${cs.pattern}::${cs.isRegex ? '1' : '0'}`;
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
+  }
+
+  return merged;
+}
+
+function isBaseGeneratedId(key: string, id: string): boolean {
+  return id === `${key}-registry-001` || id === `${key}-script-001`;
 }
 
 function mergeClaims(existing: Claim[], additions: Claim[]): Claim[] {
@@ -111,7 +161,28 @@ function mergeClaims(existing: Claim[], additions: Claim[]): Claim[] {
   }
 
   for (const a of additions) {
-    if (!byId.has(a.id)) byId.set(a.id, a);
+    const current = byId.get(a.id);
+    if (!current) {
+      byId.set(a.id, a);
+      continue;
+    }
+
+    // For our generated baseline claim IDs, enrich missing structured fields and
+    // merge evidence without overwriting user-edited statements.
+    // (User statement edits are allowed, but the kind/expected + evidence anchors
+    // are required for congruence checks.)
+    //
+    // Note: We intentionally do NOT overwrite status/lastReviewedAt.
+    // The auditor owns those.
+    const keyMatch = a.id.replace(/-(registry|script)-001$/, '');
+    if (isBaseGeneratedId(keyMatch, a.id)) {
+      byId.set(a.id, {
+        ...current,
+        kind: (current.kind ?? a.kind),
+        expected: (current.expected ?? a.expected),
+        evidence: mergeEvidence(current.evidence ?? {}, a.evidence ?? {}),
+      });
+    }
   }
 
   return Array.from(byId.values()).sort((a, b) => a.id.localeCompare(b.id));

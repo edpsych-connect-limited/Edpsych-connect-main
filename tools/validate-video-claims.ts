@@ -2,12 +2,22 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import { HEYGEN_VIDEO_IDS } from '../src/lib/training/heygen-video-urls';
+import { getVideoScriptResolution } from '../src/lib/video-scripts/registry-core';
+
+type CodeSearch = {
+  file: string;
+  pattern: string;
+  isRegex?: boolean;
+};
+
+type ClaimKind = 'registry-key' | 'script-transcript';
 
 type Evidence = {
   files?: string[];
   routes?: string[];
   apis?: string[];
   tests?: string[];
+  codeSearch?: CodeSearch[];
   notes?: string;
 };
 
@@ -15,6 +25,8 @@ type Claim = {
   id: string;
   statement: string;
   evidence: Evidence;
+  kind?: ClaimKind;
+  expected?: 'present' | 'missing';
   status?: 'draft' | 'needs-review' | 'verified' | 'deprecated';
   lastReviewedAt?: string;
 };
@@ -34,6 +46,10 @@ function requireVerified(): boolean {
   return process.env.VIDEO_CLAIMS_REQUIRE_VERIFIED === '1';
 }
 
+function enforceCodeSearch(): boolean {
+  return process.env.VIDEO_CLAIMS_ENFORCE_CODE_SEARCH === '1';
+}
+
 function isEnabled(): boolean {
   return process.env.VIDEO_CLAIMS_AUDIT === '1';
 }
@@ -48,6 +64,28 @@ function fileExists(p: string): boolean {
   } catch {
     return false;
   }
+}
+
+function readFileText(p: string): string {
+  try {
+    return fs.readFileSync(path.join(process.cwd(), p), 'utf8');
+  } catch {
+    return '';
+  }
+}
+
+function matchesCodeSearch(entry: CodeSearch): boolean {
+  const text = readFileText(entry.file);
+  if (!text) return false;
+  if (entry.isRegex) {
+    try {
+      const re = new RegExp(entry.pattern, 'm');
+      return re.test(text);
+    } catch {
+      return false;
+    }
+  }
+  return text.includes(entry.pattern);
 }
 
 function normaliseRoute(route: string): string {
@@ -190,6 +228,43 @@ function main() {
         continue;
       }
 
+      // Enforce congruence for structured kinds.
+      if (claim.kind === 'script-transcript') {
+        const expected = claim.expected;
+        if (expected !== 'present' && expected !== 'missing') {
+          issues.push({
+            level: 'error',
+            key,
+            claimId: claim.id,
+            message: `Claim '${claim.id}' kind='script-transcript' requires expected='present'|'missing'`,
+          });
+        } else {
+          const res = getVideoScriptResolution(key);
+          const actual = res.status === 'found' && Boolean(res.transcript?.trim()) ? 'present' : 'missing';
+          if (actual !== expected) {
+            issues.push({
+              level: 'error',
+              key,
+              claimId: claim.id,
+              message: `Claim '${claim.id}' expected transcript '${expected}', but current script resolution is '${actual}' (resolvedKey='${res.resolvedKey}')`,
+            });
+          }
+        }
+      }
+
+      if (claim.kind === 'registry-key') {
+        // The surrounding loop already iterates canonicalKeys; this is mainly to ensure
+        // the manifest isn't misapplied to a different key.
+        if (!(key in HEYGEN_VIDEO_IDS)) {
+          issues.push({
+            level: 'error',
+            key,
+            claimId: claim.id,
+            message: `Claim '${claim.id}' kind='registry-key' but key is not in HEYGEN_VIDEO_IDS`,
+          });
+        }
+      }
+
       if (!hasAnyEvidence(claim.evidence)) {
         issues.push({
           level: strict ? 'error' : 'warning',
@@ -202,6 +277,51 @@ function main() {
       for (const fp of claim.evidence.files ?? []) {
         if (!fileExists(fp)) {
           issues.push({ level: strict ? 'error' : 'warning', key, claimId: claim.id, message: `Missing evidence file: ${fp}` });
+        }
+      }
+
+      // Optional: require code-search anchors for VERIFIED claims.
+      const mustHaveCodeSearch = enforceCodeSearch() && claim.status === 'verified';
+      const codeSearchList = claim.evidence.codeSearch ?? [];
+      if (mustHaveCodeSearch && codeSearchList.length === 0) {
+        issues.push({
+          level: 'error',
+          key,
+          claimId: claim.id,
+          message: `Verified claim '${claim.id}' missing evidence.codeSearch[] (set VIDEO_CLAIMS_ENFORCE_CODE_SEARCH=0 to disable)` ,
+        });
+      }
+
+      for (const cs of codeSearchList) {
+        if (!cs || typeof cs !== 'object') {
+          issues.push({ level: 'error', key, claimId: claim.id, message: `Invalid codeSearch entry (non-object)` });
+          continue;
+        }
+        if (!cs.file || typeof cs.file !== 'string' || !cs.file.trim()) {
+          issues.push({ level: 'error', key, claimId: claim.id, message: `codeSearch missing file` });
+          continue;
+        }
+        if (!fileExists(cs.file)) {
+          issues.push({
+            level: strict ? 'error' : 'warning',
+            key,
+            claimId: claim.id,
+            message: `codeSearch file missing: ${cs.file}`,
+          });
+          continue;
+        }
+        if (!cs.pattern || typeof cs.pattern !== 'string' || !cs.pattern.trim()) {
+          issues.push({ level: 'error', key, claimId: claim.id, message: `codeSearch missing pattern for file ${cs.file}` });
+          continue;
+        }
+        const ok = matchesCodeSearch(cs);
+        if (!ok) {
+          issues.push({
+            level: strict ? 'error' : 'warning',
+            key,
+            claimId: claim.id,
+            message: `codeSearch did not match in ${cs.file} (pattern=${cs.isRegex ? `/${cs.pattern}/` : JSON.stringify(cs.pattern)})`,
+          });
         }
       }
 
@@ -247,7 +367,7 @@ function main() {
   }
 
   console.log(
-    `VIDEO CLAIMS PASSED (keys=${canonicalKeys.length}, strict=${strict}, requireVerified=${requireVerified()})`,
+    `VIDEO CLAIMS PASSED (keys=${canonicalKeys.length}, strict=${strict}, requireVerified=${requireVerified()}, enforceCodeSearch=${enforceCodeSearch()})`,
   );
 }
 

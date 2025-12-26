@@ -28,7 +28,7 @@
     "test:byod-db-url": "tsx tools/test-byod-db-url.ts",
     "test:video-registry": "tsx tools/validate-video-registry.ts",
     "test:video-assets": "tsx tools/validate-video-assets.ts",
-    "test:video-claims": "tsx tools/validate-video-claims.ts",
+    "test:video-claims": "cross-env VIDEO_CLAIMS_AUDIT=1 VIDEO_CLAIMS_STRICT=1 tsx tools/validate-video-claims.ts",
     "test:video-script-coverage": "tsx tools/validate-video-script-coverage.ts",
     "generate:video-claims-manifest": "tsx tools/generate-video-claims-manifest.ts",
     "generate:video-script-provenance": "tsx tools/generate-video-script-provenance.ts",

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2025-12-26T15:37:01.154Z",
+  "generatedAt": "2025-12-26T16:07:51.189Z",
   "description": "Manual claim-to-evidence mapping for each video key. This is the basis for auditing script claims against the actual codebase (truth-by-code).",
   "keys": {
     "platform-introduction": {
@@ -32,8 +32,19 @@
             ],
             "apis": [
               "/api/video/health?key=platform-introduction"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]platform-introduction['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "platform-introduction-script-001",
@@ -49,8 +60,18 @@
             "apis": [
               "/api/video/captions?key=platform-introduction"
             ],
-            "notes": "Transcript sourceId='world-class-marketing', resolvedKey='platform-introduction'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-marketing', resolvedKey='platform-introduction'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -79,8 +100,19 @@
             ],
             "apis": [
               "/api/video/health?key=onboarding-welcome"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]onboarding-welcome['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "onboarding-welcome-script-001",
@@ -96,8 +128,18 @@
             "apis": [
               "/api/video/captions?key=onboarding-welcome"
             ],
-            "notes": "Transcript sourceId='world-class-onboarding', resolvedKey='onboarding-welcome'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-onboarding', resolvedKey='onboarding-welcome'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -115,8 +157,19 @@
             ],
             "apis": [
               "/api/video/health?key=addon-ai-power-pack"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]addon-ai-power-pack['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "addon-ai-power-pack-script-001",
@@ -132,8 +185,18 @@
             "apis": [
               "/api/video/captions?key=addon-ai-power-pack"
             ],
-            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='addon-ai-power-pack'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='addon-ai-power-pack'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -151,8 +214,19 @@
             ],
             "apis": [
               "/api/video/health?key=addon-api-access"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]addon-api-access['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "addon-api-access-script-001",
@@ -168,8 +242,18 @@
             "apis": [
               "/api/video/captions?key=addon-api-access"
             ],
-            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='addon-api-access'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='addon-api-access'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -187,8 +271,19 @@
             ],
             "apis": [
               "/api/video/health?key=addon-cpd-library"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]addon-cpd-library['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "addon-cpd-library-script-001",
@@ -204,8 +299,18 @@
             "apis": [
               "/api/video/captions?key=addon-cpd-library"
             ],
-            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='addon-cpd-library'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='addon-cpd-library'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -223,8 +328,19 @@
             ],
             "apis": [
               "/api/video/health?key=addon-ehcp-accelerator"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]addon-ehcp-accelerator['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "addon-ehcp-accelerator-script-001",
@@ -240,8 +356,18 @@
             "apis": [
               "/api/video/captions?key=addon-ehcp-accelerator"
             ],
-            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='addon-ehcp-accelerator'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='addon-ehcp-accelerator'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -259,8 +385,19 @@
             ],
             "apis": [
               "/api/video/health?key=addon-priority-support"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]addon-priority-support['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "addon-priority-support-script-001",
@@ -276,8 +413,18 @@
             "apis": [
               "/api/video/captions?key=addon-priority-support"
             ],
-            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='addon-priority-support'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='addon-priority-support'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -295,8 +442,19 @@
             ],
             "apis": [
               "/api/video/health?key=addon-white-label"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]addon-white-label['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "addon-white-label-script-001",
@@ -312,8 +470,18 @@
             "apis": [
               "/api/video/captions?key=addon-white-label"
             ],
-            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='addon-white-label'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='addon-white-label'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -331,8 +499,19 @@
             ],
             "apis": [
               "/api/video/health?key=adhd-m1-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]adhd-m1-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "adhd-m1-l1-script-001",
@@ -348,8 +527,18 @@
             "apis": [
               "/api/video/captions?key=adhd-m1-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m1-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m1-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -367,8 +556,19 @@
             ],
             "apis": [
               "/api/video/health?key=adhd-m1-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]adhd-m1-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "adhd-m1-l2-script-001",
@@ -384,8 +584,18 @@
             "apis": [
               "/api/video/captions?key=adhd-m1-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m1-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m1-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -403,8 +613,19 @@
             ],
             "apis": [
               "/api/video/health?key=adhd-m2-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]adhd-m2-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "adhd-m2-l1-script-001",
@@ -420,8 +641,18 @@
             "apis": [
               "/api/video/captions?key=adhd-m2-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m2-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m2-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -439,8 +670,19 @@
             ],
             "apis": [
               "/api/video/health?key=adhd-m2-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]adhd-m2-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "adhd-m2-l2-script-001",
@@ -456,8 +698,18 @@
             "apis": [
               "/api/video/captions?key=adhd-m2-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m2-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m2-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -475,8 +727,19 @@
             ],
             "apis": [
               "/api/video/health?key=adhd-m3-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]adhd-m3-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "adhd-m3-l1-script-001",
@@ -492,8 +755,18 @@
             "apis": [
               "/api/video/captions?key=adhd-m3-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m3-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m3-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -511,8 +784,19 @@
             ],
             "apis": [
               "/api/video/health?key=adhd-m3-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]adhd-m3-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "adhd-m3-l2-script-001",
@@ -528,8 +812,18 @@
             "apis": [
               "/api/video/captions?key=adhd-m3-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m3-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m3-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -547,8 +841,19 @@
             ],
             "apis": [
               "/api/video/health?key=adhd-m4-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]adhd-m4-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "adhd-m4-l1-script-001",
@@ -564,8 +869,18 @@
             "apis": [
               "/api/video/captions?key=adhd-m4-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m4-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m4-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -583,8 +898,19 @@
             ],
             "apis": [
               "/api/video/health?key=adhd-m4-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]adhd-m4-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "adhd-m4-l2-script-001",
@@ -600,8 +926,18 @@
             "apis": [
               "/api/video/captions?key=adhd-m4-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m4-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m4-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -619,8 +955,19 @@
             ],
             "apis": [
               "/api/video/health?key=adhd-m5-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]adhd-m5-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "adhd-m5-l1-script-001",
@@ -636,8 +983,18 @@
             "apis": [
               "/api/video/captions?key=adhd-m5-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m5-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m5-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -655,8 +1012,19 @@
             ],
             "apis": [
               "/api/video/health?key=adhd-m5-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]adhd-m5-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "adhd-m5-l2-script-001",
@@ -672,8 +1040,18 @@
             "apis": [
               "/api/video/captions?key=adhd-m5-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m5-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m5-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -691,8 +1069,19 @@
             ],
             "apis": [
               "/api/video/health?key=adhd-m6-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]adhd-m6-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "adhd-m6-l1-script-001",
@@ -708,8 +1097,18 @@
             "apis": [
               "/api/video/captions?key=adhd-m6-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m6-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m6-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -727,8 +1126,19 @@
             ],
             "apis": [
               "/api/video/health?key=adhd-m6-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]adhd-m6-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "adhd-m6-l2-script-001",
@@ -744,8 +1154,18 @@
             "apis": [
               "/api/video/captions?key=adhd-m6-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m6-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m6-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -763,8 +1183,19 @@
             ],
             "apis": [
               "/api/video/health?key=adhd-m7-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]adhd-m7-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "adhd-m7-l1-script-001",
@@ -780,8 +1211,18 @@
             "apis": [
               "/api/video/captions?key=adhd-m7-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m7-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m7-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -799,8 +1240,19 @@
             ],
             "apis": [
               "/api/video/health?key=adhd-m7-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]adhd-m7-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "adhd-m7-l2-script-001",
@@ -816,8 +1268,18 @@
             "apis": [
               "/api/video/captions?key=adhd-m7-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m7-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m7-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -835,8 +1297,19 @@
             ],
             "apis": [
               "/api/video/health?key=adhd-m8-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]adhd-m8-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "adhd-m8-l1-script-001",
@@ -852,8 +1325,18 @@
             "apis": [
               "/api/video/captions?key=adhd-m8-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m8-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m8-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -871,8 +1354,19 @@
             ],
             "apis": [
               "/api/video/health?key=adhd-m8-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]adhd-m8-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "adhd-m8-l2-script-001",
@@ -888,8 +1382,18 @@
             "apis": [
               "/api/video/captions?key=adhd-m8-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m8-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m8-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -907,8 +1411,19 @@
             ],
             "apis": [
               "/api/video/health?key=annual-reviews-mastery"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]annual-reviews-mastery['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "annual-reviews-mastery-script-001",
@@ -924,8 +1439,18 @@
             "apis": [
               "/api/video/captions?key=annual-reviews-mastery"
             ],
-            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='annual-reviews-mastery'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='annual-reviews-mastery'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -943,8 +1468,19 @@
             ],
             "apis": [
               "/api/video/health?key=assessment-choosing"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]assessment-choosing['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "assessment-choosing-script-001",
@@ -960,8 +1496,18 @@
             "apis": [
               "/api/video/captions?key=assessment-choosing"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='assessment-choosing'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='assessment-choosing'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -979,8 +1525,19 @@
             ],
             "apis": [
               "/api/video/health?key=assessment-interpreting"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]assessment-interpreting['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "assessment-interpreting-script-001",
@@ -996,8 +1553,18 @@
             "apis": [
               "/api/video/captions?key=assessment-interpreting"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='assessment-interpreting'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='assessment-interpreting'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1015,8 +1582,19 @@
             ],
             "apis": [
               "/api/video/health?key=autism-m1-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]autism-m1-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "autism-m1-l1-script-001",
@@ -1032,8 +1610,18 @@
             "apis": [
               "/api/video/captions?key=autism-m1-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m1-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m1-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1051,8 +1639,19 @@
             ],
             "apis": [
               "/api/video/health?key=autism-m1-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]autism-m1-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "autism-m1-l2-script-001",
@@ -1068,8 +1667,18 @@
             "apis": [
               "/api/video/captions?key=autism-m1-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m1-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m1-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1087,8 +1696,19 @@
             ],
             "apis": [
               "/api/video/health?key=autism-m2-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]autism-m2-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "autism-m2-l1-script-001",
@@ -1104,8 +1724,18 @@
             "apis": [
               "/api/video/captions?key=autism-m2-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m2-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m2-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1123,8 +1753,19 @@
             ],
             "apis": [
               "/api/video/health?key=autism-m2-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]autism-m2-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "autism-m2-l2-script-001",
@@ -1140,8 +1781,18 @@
             "apis": [
               "/api/video/captions?key=autism-m2-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m2-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m2-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1159,8 +1810,19 @@
             ],
             "apis": [
               "/api/video/health?key=autism-m3-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]autism-m3-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "autism-m3-l1-script-001",
@@ -1176,8 +1838,18 @@
             "apis": [
               "/api/video/captions?key=autism-m3-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m3-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m3-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1195,8 +1867,19 @@
             ],
             "apis": [
               "/api/video/health?key=autism-m3-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]autism-m3-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "autism-m3-l2-script-001",
@@ -1212,8 +1895,18 @@
             "apis": [
               "/api/video/captions?key=autism-m3-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m3-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m3-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1231,8 +1924,19 @@
             ],
             "apis": [
               "/api/video/health?key=autism-m4-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]autism-m4-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "autism-m4-l1-script-001",
@@ -1248,8 +1952,18 @@
             "apis": [
               "/api/video/captions?key=autism-m4-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m4-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m4-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1267,8 +1981,19 @@
             ],
             "apis": [
               "/api/video/health?key=autism-m4-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]autism-m4-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "autism-m4-l2-script-001",
@@ -1284,8 +2009,18 @@
             "apis": [
               "/api/video/captions?key=autism-m4-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m4-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m4-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1303,8 +2038,19 @@
             ],
             "apis": [
               "/api/video/health?key=autism-m5-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]autism-m5-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "autism-m5-l1-script-001",
@@ -1320,8 +2066,18 @@
             "apis": [
               "/api/video/captions?key=autism-m5-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m5-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m5-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1339,8 +2095,19 @@
             ],
             "apis": [
               "/api/video/health?key=autism-m5-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]autism-m5-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "autism-m5-l2-script-001",
@@ -1356,8 +2123,18 @@
             "apis": [
               "/api/video/captions?key=autism-m5-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m5-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m5-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1375,8 +2152,19 @@
             ],
             "apis": [
               "/api/video/health?key=autism-m6-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]autism-m6-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "autism-m6-l1-script-001",
@@ -1392,8 +2180,18 @@
             "apis": [
               "/api/video/captions?key=autism-m6-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m6-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m6-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1411,8 +2209,19 @@
             ],
             "apis": [
               "/api/video/health?key=autism-m6-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]autism-m6-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "autism-m6-l2-script-001",
@@ -1428,8 +2237,18 @@
             "apis": [
               "/api/video/captions?key=autism-m6-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m6-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m6-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1447,8 +2266,19 @@
             ],
             "apis": [
               "/api/video/health?key=autism-m7-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]autism-m7-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "autism-m7-l1-script-001",
@@ -1464,8 +2294,18 @@
             "apis": [
               "/api/video/captions?key=autism-m7-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m7-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m7-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1483,8 +2323,19 @@
             ],
             "apis": [
               "/api/video/health?key=autism-m7-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]autism-m7-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "autism-m7-l2-script-001",
@@ -1500,8 +2351,18 @@
             "apis": [
               "/api/video/captions?key=autism-m7-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m7-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m7-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1519,8 +2380,19 @@
             ],
             "apis": [
               "/api/video/health?key=autism-m8-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]autism-m8-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "autism-m8-l1-script-001",
@@ -1536,8 +2408,18 @@
             "apis": [
               "/api/video/captions?key=autism-m8-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m8-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m8-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1555,8 +2437,19 @@
             ],
             "apis": [
               "/api/video/health?key=autism-m8-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]autism-m8-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "autism-m8-l2-script-001",
@@ -1572,8 +2465,18 @@
             "apis": [
               "/api/video/captions?key=autism-m8-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m8-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m8-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1591,8 +2494,19 @@
             ],
             "apis": [
               "/api/video/health?key=blocks-events"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]blocks-events['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "blocks-events-script-001",
@@ -1608,8 +2522,18 @@
             "apis": [
               "/api/video/captions?key=blocks-events"
             ],
-            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1627,8 +2551,19 @@
             ],
             "apis": [
               "/api/video/health?key=blocks-intro"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]blocks-intro['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "blocks-intro-script-001",
@@ -1644,8 +2579,18 @@
             "apis": [
               "/api/video/captions?key=blocks-intro"
             ],
-            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1663,8 +2608,19 @@
             ],
             "apis": [
               "/api/video/health?key=blocks-loops"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]blocks-loops['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "blocks-loops-script-001",
@@ -1680,8 +2636,18 @@
             "apis": [
               "/api/video/captions?key=blocks-loops"
             ],
-            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1699,8 +2665,19 @@
             ],
             "apis": [
               "/api/video/health?key=compare-switching"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]compare-switching['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "compare-switching-script-001",
@@ -1716,8 +2693,18 @@
             "apis": [
               "/api/video/captions?key=compare-switching"
             ],
-            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='compare-switching'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='compare-switching'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1735,8 +2722,19 @@
             ],
             "apis": [
               "/api/video/health?key=compare-true-cost"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]compare-true-cost['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "compare-true-cost-script-001",
@@ -1752,8 +2750,18 @@
             "apis": [
               "/api/video/captions?key=compare-true-cost"
             ],
-            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='compare-true-cost'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='compare-true-cost'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1771,8 +2779,19 @@
             ],
             "apis": [
               "/api/video/health?key=compliance-consent"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]compliance-consent['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "compliance-consent-script-001",
@@ -1788,8 +2807,18 @@
             "apis": [
               "/api/video/captions?key=compliance-consent"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='compliance-consent'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='compliance-consent'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1807,8 +2836,19 @@
             ],
             "apis": [
               "/api/video/health?key=compliance-data-protection"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]compliance-data-protection['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "compliance-data-protection-script-001",
@@ -1824,8 +2864,18 @@
             "apis": [
               "/api/video/captions?key=compliance-data-protection"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='compliance-data-protection'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='compliance-data-protection'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1843,8 +2893,19 @@
             ],
             "apis": [
               "/api/video/health?key=compliance-risk-ai"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]compliance-risk-ai['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "compliance-risk-ai-script-001",
@@ -1860,8 +2921,18 @@
             "apis": [
               "/api/video/captions?key=compliance-risk-ai"
             ],
-            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='compliance-risk-ai'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='compliance-risk-ai'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1879,8 +2950,19 @@
             ],
             "apis": [
               "/api/video/health?key=data-autonomy"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]data-autonomy['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "data-autonomy-script-001",
@@ -1896,8 +2978,18 @@
             "apis": [
               "/api/video/captions?key=data-autonomy"
             ],
-            "notes": "Transcript sourceId='world-class-marketing', resolvedKey='data-autonomy'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-marketing', resolvedKey='data-autonomy'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1915,8 +3007,19 @@
             ],
             "apis": [
               "/api/video/health?key=dys-m2-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]dys-m2-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "dys-m2-l2-script-001",
@@ -1932,8 +3035,18 @@
             "apis": [
               "/api/video/captions?key=dys-m2-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m2-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m2-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1951,8 +3064,19 @@
             ],
             "apis": [
               "/api/video/health?key=dys-m3-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]dys-m3-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "dys-m3-l1-script-001",
@@ -1968,8 +3092,18 @@
             "apis": [
               "/api/video/captions?key=dys-m3-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m3-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m3-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -1987,8 +3121,19 @@
             ],
             "apis": [
               "/api/video/health?key=dys-m3-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]dys-m3-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "dys-m3-l2-script-001",
@@ -2004,8 +3149,18 @@
             "apis": [
               "/api/video/captions?key=dys-m3-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m3-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m3-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2023,8 +3178,19 @@
             ],
             "apis": [
               "/api/video/health?key=dys-m4-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]dys-m4-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "dys-m4-l1-script-001",
@@ -2040,8 +3206,18 @@
             "apis": [
               "/api/video/captions?key=dys-m4-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m4-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m4-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2059,8 +3235,19 @@
             ],
             "apis": [
               "/api/video/health?key=dys-m4-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]dys-m4-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "dys-m4-l2-script-001",
@@ -2076,8 +3263,18 @@
             "apis": [
               "/api/video/captions?key=dys-m4-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m4-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m4-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2095,8 +3292,19 @@
             ],
             "apis": [
               "/api/video/health?key=dys-m5-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]dys-m5-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "dys-m5-l1-script-001",
@@ -2112,8 +3320,18 @@
             "apis": [
               "/api/video/captions?key=dys-m5-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m5-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m5-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2131,8 +3349,19 @@
             ],
             "apis": [
               "/api/video/health?key=dys-m5-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]dys-m5-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "dys-m5-l2-script-001",
@@ -2148,8 +3377,18 @@
             "apis": [
               "/api/video/captions?key=dys-m5-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m5-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m5-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2167,8 +3406,19 @@
             ],
             "apis": [
               "/api/video/health?key=dys-m6-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]dys-m6-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "dys-m6-l1-script-001",
@@ -2184,8 +3434,18 @@
             "apis": [
               "/api/video/captions?key=dys-m6-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m6-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m6-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2203,8 +3463,19 @@
             ],
             "apis": [
               "/api/video/health?key=dys-m6-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]dys-m6-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "dys-m6-l2-script-001",
@@ -2220,8 +3491,18 @@
             "apis": [
               "/api/video/captions?key=dys-m6-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m6-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m6-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2239,8 +3520,19 @@
             ],
             "apis": [
               "/api/video/health?key=dys-m7-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]dys-m7-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "dys-m7-l1-script-001",
@@ -2256,8 +3548,18 @@
             "apis": [
               "/api/video/captions?key=dys-m7-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m7-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m7-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2275,8 +3577,19 @@
             ],
             "apis": [
               "/api/video/health?key=dys-m7-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]dys-m7-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "dys-m7-l2-script-001",
@@ -2292,8 +3605,18 @@
             "apis": [
               "/api/video/captions?key=dys-m7-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m7-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m7-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2311,8 +3634,19 @@
             ],
             "apis": [
               "/api/video/health?key=dys-m8-l1"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]dys-m8-l1['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "dys-m8-l1-script-001",
@@ -2328,8 +3662,18 @@
             "apis": [
               "/api/video/captions?key=dys-m8-l1"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m8-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m8-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2347,8 +3691,19 @@
             ],
             "apis": [
               "/api/video/health?key=dys-m8-l2"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]dys-m8-l2['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "dys-m8-l2-script-001",
@@ -2364,8 +3719,18 @@
             "apis": [
               "/api/video/captions?key=dys-m8-l2"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m8-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m8-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2383,8 +3748,19 @@
             ],
             "apis": [
               "/api/video/health?key=ehcp-annual-review"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]ehcp-annual-review['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "ehcp-annual-review-script-001",
@@ -2400,8 +3776,18 @@
             "apis": [
               "/api/video/captions?key=ehcp-annual-review"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='ehcp-annual-review'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='ehcp-annual-review'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2419,8 +3805,19 @@
             ],
             "apis": [
               "/api/video/health?key=ehcp-appeals"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]ehcp-appeals['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "ehcp-appeals-script-001",
@@ -2436,8 +3833,18 @@
             "apis": [
               "/api/video/captions?key=ehcp-appeals"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='ehcp-appeals'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='ehcp-appeals'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2455,8 +3862,19 @@
             ],
             "apis": [
               "/api/video/health?key=ehcp-application-journey"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]ehcp-application-journey['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "ehcp-application-journey-script-001",
@@ -2472,8 +3890,18 @@
             "apis": [
               "/api/video/captions?key=ehcp-application-journey"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='ehcp-application-journey'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='ehcp-application-journey'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2491,8 +3919,19 @@
             ],
             "apis": [
               "/api/video/health?key=ehcp-evidence-gathering"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]ehcp-evidence-gathering['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "ehcp-evidence-gathering-script-001",
@@ -2508,8 +3947,18 @@
             "apis": [
               "/api/video/captions?key=ehcp-evidence-gathering"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='ehcp-evidence-gathering'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='ehcp-evidence-gathering'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2527,8 +3976,19 @@
             ],
             "apis": [
               "/api/video/health?key=ehcp-modules-hub-overview"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]ehcp-modules-hub-overview['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "ehcp-modules-hub-overview-script-001",
@@ -2544,8 +4004,18 @@
             "apis": [
               "/api/video/captions?key=ehcp-modules-hub-overview"
             ],
-            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='ehcp-modules-hub-overview'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='ehcp-modules-hub-overview'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2563,8 +4033,19 @@
             ],
             "apis": [
               "/api/video/health?key=ehcp-professional-contributions"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]ehcp-professional-contributions['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "ehcp-professional-contributions-script-001",
@@ -2580,8 +4061,18 @@
             "apis": [
               "/api/video/captions?key=ehcp-professional-contributions"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='ehcp-professional-contributions'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='ehcp-professional-contributions'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2599,8 +4090,19 @@
             ],
             "apis": [
               "/api/video/health?key=enterprise-plan-overview"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]enterprise-plan-overview['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "enterprise-plan-overview-script-001",
@@ -2616,8 +4118,18 @@
             "apis": [
               "/api/video/captions?key=enterprise-plan-overview"
             ],
-            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-orchestration'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-orchestration'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2635,8 +4147,19 @@
             ],
             "apis": [
               "/api/video/health?key=feature-accessibility"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]feature-accessibility['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "feature-accessibility-script-001",
@@ -2652,8 +4175,18 @@
             "apis": [
               "/api/video/captions?key=feature-accessibility"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='feature-accessibility'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='feature-accessibility'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2671,8 +4204,19 @@
             ],
             "apis": [
               "/api/video/health?key=feature-ai-agents"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]feature-ai-agents['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "feature-ai-agents-script-001",
@@ -2688,8 +4232,18 @@
             "apis": [
               "/api/video/captions?key=feature-ai-agents"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='feature-ai-agents'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='feature-ai-agents'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2707,8 +4261,19 @@
             ],
             "apis": [
               "/api/video/health?key=feature-battle-royale"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]feature-battle-royale['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "feature-battle-royale-script-001",
@@ -2724,8 +4289,18 @@
             "apis": [
               "/api/video/captions?key=feature-battle-royale"
             ],
-            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='feature-battle-royale'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='feature-battle-royale'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2743,8 +4318,19 @@
             ],
             "apis": [
               "/api/video/health?key=feature-battle-royale-pricing"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]feature-battle-royale-pricing['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "feature-battle-royale-pricing-script-001",
@@ -2760,8 +4346,18 @@
             "apis": [
               "/api/video/captions?key=feature-battle-royale-pricing"
             ],
-            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='feature-battle-royale'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='feature-battle-royale'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2779,8 +4375,19 @@
             ],
             "apis": [
               "/api/video/health?key=feature-byod-architecture"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]feature-byod-architecture['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "feature-byod-architecture-script-001",
@@ -2796,8 +4403,18 @@
             "apis": [
               "/api/video/captions?key=feature-byod-architecture"
             ],
-            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='feature-byod-architecture'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='feature-byod-architecture'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2815,8 +4432,19 @@
             ],
             "apis": [
               "/api/video/health?key=feature-deep-dive-ehcp"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]feature-deep-dive-ehcp['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "feature-deep-dive-ehcp-script-001",
@@ -2832,8 +4460,18 @@
             "apis": [
               "/api/video/captions?key=feature-deep-dive-ehcp"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='ehcp-application-journey'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='ehcp-application-journey'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2851,8 +4489,19 @@
             ],
             "apis": [
               "/api/video/health?key=feature-gamification"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]feature-gamification['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "feature-gamification-script-001",
@@ -2868,8 +4517,18 @@
             "apis": [
               "/api/video/captions?key=feature-gamification"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='feature-gamification'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='feature-gamification'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2887,8 +4546,19 @@
             ],
             "apis": [
               "/api/video/health?key=feature-intervention-library"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]feature-intervention-library['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "feature-intervention-library-script-001",
@@ -2904,8 +4574,18 @@
             "apis": [
               "/api/video/captions?key=feature-intervention-library"
             ],
-            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='feature-intervention-library'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='feature-intervention-library'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2923,8 +4603,19 @@
             ],
             "apis": [
               "/api/video/health?key=feature-interventions"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]feature-interventions['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "feature-interventions-script-001",
@@ -2940,8 +4631,18 @@
             "apis": [
               "/api/video/captions?key=feature-interventions"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-finding-interventions'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-finding-interventions'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2959,8 +4660,19 @@
             ],
             "apis": [
               "/api/video/health?key=feature-la-dashboard"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]feature-la-dashboard['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "feature-la-dashboard-script-001",
@@ -2976,8 +4688,18 @@
             "apis": [
               "/api/video/captions?key=feature-la-dashboard"
             ],
-            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='feature-la-dashboard'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='feature-la-dashboard'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -2995,8 +4717,19 @@
             ],
             "apis": [
               "/api/video/health?key=feature-nclb-engine"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]feature-nclb-engine['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "feature-nclb-engine-script-001",
@@ -3012,8 +4745,18 @@
             "apis": [
               "/api/video/captions?key=feature-nclb-engine"
             ],
-            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='feature-nclb-engine'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='feature-nclb-engine'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3031,8 +4774,19 @@
             ],
             "apis": [
               "/api/video/health?key=gamification-integrity"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]gamification-integrity['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "gamification-integrity-script-001",
@@ -3048,8 +4802,18 @@
             "apis": [
               "/api/video/captions?key=gamification-integrity"
             ],
-            "notes": "Transcript sourceId='world-class-marketing', resolvedKey='gamification-integrity'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-marketing', resolvedKey='gamification-integrity'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3067,8 +4831,19 @@
             ],
             "apis": [
               "/api/video/health?key=golden-thread-coherence"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]golden-thread-coherence['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "golden-thread-coherence-script-001",
@@ -3084,8 +4859,18 @@
             "apis": [
               "/api/video/captions?key=golden-thread-coherence"
             ],
-            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='golden-thread-coherence'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='golden-thread-coherence'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3103,8 +4888,19 @@
             ],
             "apis": [
               "/api/video/health?key=help-collaboration"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]help-collaboration['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "help-collaboration-script-001",
@@ -3120,8 +4916,18 @@
             "apis": [
               "/api/video/captions?key=help-collaboration"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-collaboration'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-collaboration'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3139,8 +4945,19 @@
             ],
             "apis": [
               "/api/video/health?key=help-cpd-tracking"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]help-cpd-tracking['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "help-cpd-tracking-script-001",
@@ -3156,8 +4973,18 @@
             "apis": [
               "/api/video/captions?key=help-cpd-tracking"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-cpd-tracking'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-cpd-tracking'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3175,8 +5002,19 @@
             ],
             "apis": [
               "/api/video/health?key=help-data-security"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]help-data-security['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "help-data-security-script-001",
@@ -3192,8 +5030,18 @@
             "apis": [
               "/api/video/captions?key=help-data-security"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-data-security'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-data-security'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3211,8 +5059,19 @@
             ],
             "apis": [
               "/api/video/health?key=help-finding-interventions"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]help-finding-interventions['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "help-finding-interventions-script-001",
@@ -3228,8 +5087,18 @@
             "apis": [
               "/api/video/captions?key=help-finding-interventions"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-finding-interventions'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-finding-interventions'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3247,8 +5116,19 @@
             ],
             "apis": [
               "/api/video/health?key=help-first-assessment"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]help-first-assessment['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "help-first-assessment-script-001",
@@ -3264,8 +5144,18 @@
             "apis": [
               "/api/video/captions?key=help-first-assessment"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-first-assessment'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-first-assessment'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3283,8 +5173,19 @@
             ],
             "apis": [
               "/api/video/health?key=help-generating-reports"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]help-generating-reports['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "help-generating-reports-script-001",
@@ -3300,8 +5201,18 @@
             "apis": [
               "/api/video/captions?key=help-generating-reports"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-generating-reports'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-generating-reports'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3319,8 +5230,19 @@
             ],
             "apis": [
               "/api/video/health?key=help-troubleshooting"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]help-troubleshooting['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "help-troubleshooting-script-001",
@@ -3336,8 +5258,18 @@
             "apis": [
               "/api/video/captions?key=help-troubleshooting"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-troubleshooting'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-troubleshooting'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3355,8 +5287,19 @@
             ],
             "apis": [
               "/api/video/health?key=innovation-ai-agents"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]innovation-ai-agents['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "innovation-ai-agents-script-001",
@@ -3372,8 +5315,18 @@
             "apis": [
               "/api/video/captions?key=innovation-ai-agents"
             ],
-            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-ai-agents'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-ai-agents'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3391,8 +5344,19 @@
             ],
             "apis": [
               "/api/video/health?key=innovation-battle-royale"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]innovation-battle-royale['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "innovation-battle-royale-script-001",
@@ -3408,8 +5372,18 @@
             "apis": [
               "/api/video/captions?key=innovation-battle-royale"
             ],
-            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-battle-royale'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-battle-royale'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3427,8 +5401,19 @@
             ],
             "apis": [
               "/api/video/health?key=innovation-coding-curriculum"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]innovation-coding-curriculum['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "innovation-coding-curriculum-script-001",
@@ -3444,8 +5429,18 @@
             "apis": [
               "/api/video/captions?key=innovation-coding-curriculum"
             ],
-            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3463,8 +5458,19 @@
             ],
             "apis": [
               "/api/video/health?key=innovation-orchestration"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]innovation-orchestration['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "innovation-orchestration-script-001",
@@ -3480,8 +5486,18 @@
             "apis": [
               "/api/video/captions?key=innovation-orchestration"
             ],
-            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-orchestration'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-orchestration'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3499,8 +5515,19 @@
             ],
             "apis": [
               "/api/video/health?key=innovation-research-hub"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]innovation-research-hub['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "innovation-research-hub-script-001",
@@ -3516,8 +5543,18 @@
             "apis": [
               "/api/video/captions?key=innovation-research-hub"
             ],
-            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-research-hub'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-research-hub'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3535,8 +5572,19 @@
             ],
             "apis": [
               "/api/video/health?key=innovation-safety-net"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]innovation-safety-net['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "innovation-safety-net-script-001",
@@ -3552,8 +5600,18 @@
             "apis": [
               "/api/video/captions?key=innovation-safety-net"
             ],
-            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-safety-net'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-safety-net'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3571,8 +5629,19 @@
             ],
             "apis": [
               "/api/video/health?key=intro-coding-journey"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]intro-coding-journey['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "intro-coding-journey-script-001",
@@ -3588,8 +5657,18 @@
             "apis": [
               "/api/video/captions?key=intro-coding-journey"
             ],
-            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3607,8 +5686,19 @@
             ],
             "apis": [
               "/api/video/health?key=la-dashboard-overview"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]la-dashboard-overview['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "la-dashboard-overview-script-001",
@@ -3624,8 +5714,18 @@
             "apis": [
               "/api/video/captions?key=la-dashboard-overview"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='la-dashboard-overview'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='la-dashboard-overview'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3643,8 +5743,19 @@
             ],
             "apis": [
               "/api/video/health?key=la-ehcp-merge-tool"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]la-ehcp-merge-tool['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "la-ehcp-merge-tool-script-001",
@@ -3660,8 +5771,18 @@
             "apis": [
               "/api/video/captions?key=la-ehcp-merge-tool"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='la-ehcp-merge-tool'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='la-ehcp-merge-tool'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3679,8 +5800,19 @@
             ],
             "apis": [
               "/api/video/health?key=la-professional-requests"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]la-professional-requests['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "la-professional-requests-script-001",
@@ -3696,8 +5828,18 @@
             "apis": [
               "/api/video/captions?key=la-professional-requests"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='la-professional-requests'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='la-professional-requests'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3715,8 +5857,19 @@
             ],
             "apis": [
               "/api/video/health?key=mediation-tribunal-navigation"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]mediation-tribunal-navigation['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "mediation-tribunal-navigation-script-001",
@@ -3732,8 +5885,18 @@
             "apis": [
               "/api/video/captions?key=mediation-tribunal-navigation"
             ],
-            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='mediation-tribunal-navigation'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='mediation-tribunal-navigation'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3751,8 +5914,19 @@
             ],
             "apis": [
               "/api/video/health?key=no-child-left-behind"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]no-child-left-behind['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "no-child-left-behind-script-001",
@@ -3768,8 +5942,18 @@
             "apis": [
               "/api/video/captions?key=no-child-left-behind"
             ],
-            "notes": "Transcript sourceId='world-class-marketing', resolvedKey='no-child-left-behind'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-marketing', resolvedKey='no-child-left-behind'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3787,8 +5971,19 @@
             ],
             "apis": [
               "/api/video/health?key=onboarding-platform-tour"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]onboarding-platform-tour['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "onboarding-platform-tour-script-001",
@@ -3804,8 +5999,18 @@
             "apis": [
               "/api/video/captions?key=onboarding-platform-tour"
             ],
-            "notes": "Transcript sourceId='world-class-onboarding', resolvedKey='onboarding-platform-tour'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-onboarding', resolvedKey='onboarding-platform-tour'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3823,8 +6028,19 @@
             ],
             "apis": [
               "/api/video/health?key=parent-contributing-views"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]parent-contributing-views['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "parent-contributing-views-script-001",
@@ -3840,8 +6056,18 @@
             "apis": [
               "/api/video/captions?key=parent-contributing-views"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='parent-contributing-views'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='parent-contributing-views'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3859,8 +6085,19 @@
             ],
             "apis": [
               "/api/video/health?key=parent-portal-welcome"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]parent-portal-welcome['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "parent-portal-welcome-script-001",
@@ -3876,8 +6113,18 @@
             "apis": [
               "/api/video/captions?key=parent-portal-welcome"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='parent-portal-welcome'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='parent-portal-welcome'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3895,8 +6142,19 @@
             ],
             "apis": [
               "/api/video/health?key=parent-understanding-results"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]parent-understanding-results['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "parent-understanding-results-script-001",
@@ -3912,8 +6170,18 @@
             "apis": [
               "/api/video/captions?key=parent-understanding-results"
             ],
-            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='parent-understanding-results'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='parent-understanding-results'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3931,8 +6199,19 @@
             ],
             "apis": [
               "/api/video/health?key=phase-transfers-mastery"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]phase-transfers-mastery['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "phase-transfers-mastery-script-001",
@@ -3948,8 +6227,18 @@
             "apis": [
               "/api/video/captions?key=phase-transfers-mastery"
             ],
-            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='phase-transfers-mastery'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='phase-transfers-mastery'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -3967,8 +6256,19 @@
             ],
             "apis": [
               "/api/video/health?key=python-basics"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]python-basics['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "python-basics-script-001",
@@ -3984,8 +6284,18 @@
             "apis": [
               "/api/video/captions?key=python-basics"
             ],
-            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='python-basics'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='python-basics'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -4003,8 +6313,19 @@
             ],
             "apis": [
               "/api/video/health?key=python-functions"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]python-functions['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "python-functions-script-001",
@@ -4020,8 +6341,18 @@
             "apis": [
               "/api/video/captions?key=python-functions"
             ],
-            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -4039,8 +6370,19 @@
             ],
             "apis": [
               "/api/video/health?key=python-variables"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]python-variables['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "python-variables-script-001",
@@ -4056,8 +6398,18 @@
             "apis": [
               "/api/video/captions?key=python-variables"
             ],
-            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -4075,8 +6427,19 @@
             ],
             "apis": [
               "/api/video/health?key=react-components"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]react-components['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "react-components-script-001",
@@ -4092,8 +6455,18 @@
             "apis": [
               "/api/video/captions?key=react-components"
             ],
-            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -4111,8 +6484,19 @@
             ],
             "apis": [
               "/api/video/health?key=react-intro"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]react-intro['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "react-intro-script-001",
@@ -4128,8 +6512,18 @@
             "apis": [
               "/api/video/captions?key=react-intro"
             ],
-            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='react-intro'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='react-intro'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -4147,8 +6541,19 @@
             ],
             "apis": [
               "/api/video/health?key=react-state"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]react-state['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "react-state-script-001",
@@ -4164,8 +6569,18 @@
             "apis": [
               "/api/video/captions?key=react-state"
             ],
-            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -4183,8 +6598,19 @@
             ],
             "apis": [
               "/api/video/health?key=resource-costing-funding"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]resource-costing-funding['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "resource-costing-funding-script-001",
@@ -4200,8 +6626,18 @@
             "apis": [
               "/api/video/captions?key=resource-costing-funding"
             ],
-            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='resource-costing-funding'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='resource-costing-funding'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -4219,8 +6655,19 @@
             ],
             "apis": [
               "/api/video/health?key=school-senco-portal"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]school-senco-portal['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "school-senco-portal-script-001",
@@ -4236,8 +6683,18 @@
             "apis": [
               "/api/video/captions?key=school-senco-portal"
             ],
-            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='school-senco-portal'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='school-senco-portal'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -4255,8 +6712,19 @@
             ],
             "apis": [
               "/api/video/health?key=security-deep-dive"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]security-deep-dive['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "security-deep-dive-script-001",
@@ -4272,8 +6740,18 @@
             "apis": [
               "/api/video/captions?key=security-deep-dive"
             ],
-            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='security-deep-dive'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='security-deep-dive'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -4291,8 +6769,19 @@
             ],
             "apis": [
               "/api/video/health?key=sen2-returns-automation"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]sen2-returns-automation['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "sen2-returns-automation-script-001",
@@ -4308,8 +6797,18 @@
             "apis": [
               "/api/video/captions?key=sen2-returns-automation"
             ],
-            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='sen2-returns-automation'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='sen2-returns-automation'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -4327,8 +6826,19 @@
             ],
             "apis": [
               "/api/video/health?key=trust-built-by-practitioners"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]trust-built-by-practitioners['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "trust-built-by-practitioners-script-001",
@@ -4344,8 +6854,18 @@
             "apis": [
               "/api/video/captions?key=trust-built-by-practitioners"
             ],
-            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='trust-built-by-practitioners'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='trust-built-by-practitioners'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -4363,8 +6883,19 @@
             ],
             "apis": [
               "/api/video/health?key=trust-security"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]trust-security['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "trust-security-script-001",
@@ -4380,8 +6911,18 @@
             "apis": [
               "/api/video/captions?key=trust-security"
             ],
-            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='trust-security'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='trust-security'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     },
@@ -4399,8 +6940,19 @@
             ],
             "apis": [
               "/api/video/health?key=value-enterprise-platform"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]value-enterprise-platform['\"]s*:",
+                "isRegex": true
+              }
             ]
-          }
+          },
+          "kind": "registry-key",
+          "expected": "present"
         },
         {
           "id": "value-enterprise-platform-script-001",
@@ -4416,8 +6968,18 @@
             "apis": [
               "/api/video/captions?key=value-enterprise-platform"
             ],
-            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='value-enterprise-platform'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
-          }
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='value-enterprise-platform'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
         }
       ]
     }
