@@ -30,6 +30,7 @@
     "test:video-assets": "tsx tools/validate-video-assets.ts",
     "test:video-claims": "tsx tools/validate-video-claims.ts",
     "test:video-script-coverage": "tsx tools/validate-video-script-coverage.ts",
+    "generate:video-claims-manifest": "tsx tools/generate-video-claims-manifest.ts",
     "generate:video-script-provenance": "tsx tools/generate-video-script-provenance.ts",
     "test:video-script-provenance": "tsx tools/validate-video-script-provenance.ts",
     "test:contextual-help-coverage": "tsx tools/validate-contextual-help-coverage.ts",

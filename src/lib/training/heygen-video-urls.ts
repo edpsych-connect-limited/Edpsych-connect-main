@@ -465,10 +465,13 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "la-ehcp-merge-tool": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641766/edpsych-connect/videos/la-ehcp-merge-tool.mp4",
   "la-professional-requests": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641777/edpsych-connect/videos/la-professional-requests.mp4",
   "la-dashboard-overview": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641794/edpsych-connect/videos/la-dashboard-overview.mp4",
-  "la-ehcp-portal-intro": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533892/edpsych-connect/videos/la-ehcp-portal-intro.mp4",
   "feature-la-dashboard": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644467/edpsych-connect/videos/feature-la-dashboard.mp4",
-  "onboarding-platform-tour": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533862/edpsych-connect/videos/onboarding-platform-tour.mp4",
   "onboarding-welcome": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766258344/edpsych-connect/videos/onboarding-welcome.mp4",
+
+  // Disabled (confirmed 404 by tools/validate-video-assets.ts)
+  // Fall back to local/HeyGen sources instead of breaking playback.
+  // "la-ehcp-portal-intro": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533892/edpsych-connect/videos/la-ehcp-portal-intro.mp4",
+  // "onboarding-platform-tour": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533862/edpsych-connect/videos/onboarding-platform-tour.mp4",
   // NOTE: Cloudinary overrides take priority over HeyGen. If an override is
   // wrong/outdated, it will keep showing the wrong avatar/voice.
   // For identity-sensitive overview content, prefer HeyGen embed until a
@@ -484,14 +487,17 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   // They will fall back to local/HeyGen sources instead.
 
   // EHCP Modules (Cloudinary CDN)
-  "ehcp-modules-hub-overview": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860056/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/ehcp-modules-hub-overview.mp4",
-  "annual-reviews-mastery": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860087/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/annual-reviews-mastery.mp4",
-  "mediation-tribunal-navigation": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860119/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/mediation-tribunal-navigation.mp4",
-  "phase-transfers-mastery": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860151/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/phase-transfers-mastery.mp4",
-  "compliance-risk-ai": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860193/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/compliance-risk-ai.mp4",
-  "resource-costing-funding": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860225/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/resource-costing-funding.mp4",
-  "golden-thread-coherence": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764861076/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/golden-thread-coherence.mp4",
-  "sen2-returns-automation": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860684/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/sen2-returns-automation.mp4",
+  // Disabled (confirmed 404). These are expected to be re-uploaded to Cloudinary
+  // or served via HeyGen. Keeping broken Cloudinary overrides here prevents
+  // the HeyGen/local fallback from ever running.
+  // "ehcp-modules-hub-overview": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860056/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/ehcp-modules-hub-overview.mp4",
+  // "annual-reviews-mastery": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860087/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/annual-reviews-mastery.mp4",
+  // "mediation-tribunal-navigation": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860119/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/mediation-tribunal-navigation.mp4",
+  // "phase-transfers-mastery": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860151/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/phase-transfers-mastery.mp4",
+  // "compliance-risk-ai": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860193/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/compliance-risk-ai.mp4",
+  // "resource-costing-funding": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860225/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/resource-costing-funding.mp4",
+  // "golden-thread-coherence": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764861076/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/golden-thread-coherence.mp4",
+  // "sen2-returns-automation": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860684/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/sen2-returns-automation.mp4",
   "help-troubleshooting": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641815/edpsych-connect/videos/help-troubleshooting.mp4",
   "help-cpd-tracking": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641824/edpsych-connect/videos/help-cpd-tracking.mp4",
   "help-collaboration": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641834/edpsych-connect/videos/help-collaboration.mp4",
@@ -507,11 +513,13 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   // NOTE: The Cloudinary publicId is `edpsych-connect/videos/platform-introduction` (not a "-v3" suffix).
   // The previous URL here contained a duplicated path segment and returned 404 in production.
   "platform-introduction": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533750/edpsych-connect/videos/platform-introduction.mp4",
-  "data-autonomy": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533766/edpsych-connect/videos/data-autonomy.mp4",
+  // Disabled (confirmed 404)
+  // "data-autonomy": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533766/edpsych-connect/videos/data-autonomy.mp4",
   // Disabled: Cloudinary asset currently 404; rely on local/HeyGen until re-uploaded.
   // "no-child-left-behind": "https://res.cloudinary.com/dncfu2j0r/video/upload/<v>/edpsych-connect/videos/no-child-left-behind.mp4",
   // "innovation-safety-net": "https://res.cloudinary.com/dncfu2j0r/video/upload/<v>/edpsych-connect/videos/no-child-left-behind.mp4",
-  "gamification-integrity": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533803/edpsych-connect/videos/gamification-integrity.mp4",
+  // Disabled (confirmed 404)
+  // "gamification-integrity": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533803/edpsych-connect/videos/gamification-integrity.mp4",
   "school-senco-portal": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641955/edpsych-connect/videos/school-senco-portal.mp4",
   "1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641962/edpsych-connect/videos/1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations.mp4",
   "2-1_Inattentive_Presentation___The_Daydreamer_": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641969/edpsych-connect/videos/2-1_Inattentive_Presentation___The_Daydreamer_.mp4",

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "",
+  "generatedAt": "2025-12-26T15:37:01.154Z",
   "description": "Manual claim-to-evidence mapping for each video key. This is the basis for auditing script claims against the actual codebase (truth-by-code).",
   "keys": {
     "platform-introduction": {
@@ -19,6 +19,38 @@
               "/api/video/health?key=platform-introduction"
             ]
           }
+        },
+        {
+          "id": "platform-introduction-registry-001",
+          "statement": "Key 'platform-introduction' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=platform-introduction"
+            ]
+          }
+        },
+        {
+          "id": "platform-introduction-script-001",
+          "statement": "A script-derived transcript exists for key 'platform-introduction', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=platform-introduction"
+            ],
+            "notes": "Transcript sourceId='world-class-marketing', resolvedKey='platform-introduction'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
         }
       ]
     },
@@ -33,6 +65,4358 @@
             "files": [
               "src/lib/training/heygen-video-urls.ts"
             ]
+          }
+        },
+        {
+          "id": "onboarding-welcome-registry-001",
+          "statement": "Key 'onboarding-welcome' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=onboarding-welcome"
+            ]
+          }
+        },
+        {
+          "id": "onboarding-welcome-script-001",
+          "statement": "A script-derived transcript exists for key 'onboarding-welcome', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=onboarding-welcome"
+            ],
+            "notes": "Transcript sourceId='world-class-onboarding', resolvedKey='onboarding-welcome'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "addon-ai-power-pack": {
+      "claims": [
+        {
+          "id": "addon-ai-power-pack-registry-001",
+          "statement": "Key 'addon-ai-power-pack' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=addon-ai-power-pack"
+            ]
+          }
+        },
+        {
+          "id": "addon-ai-power-pack-script-001",
+          "statement": "A script-derived transcript exists for key 'addon-ai-power-pack', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=addon-ai-power-pack"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='addon-ai-power-pack'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "addon-api-access": {
+      "claims": [
+        {
+          "id": "addon-api-access-registry-001",
+          "statement": "Key 'addon-api-access' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=addon-api-access"
+            ]
+          }
+        },
+        {
+          "id": "addon-api-access-script-001",
+          "statement": "A script-derived transcript exists for key 'addon-api-access', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=addon-api-access"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='addon-api-access'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "addon-cpd-library": {
+      "claims": [
+        {
+          "id": "addon-cpd-library-registry-001",
+          "statement": "Key 'addon-cpd-library' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=addon-cpd-library"
+            ]
+          }
+        },
+        {
+          "id": "addon-cpd-library-script-001",
+          "statement": "A script-derived transcript exists for key 'addon-cpd-library', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=addon-cpd-library"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='addon-cpd-library'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "addon-ehcp-accelerator": {
+      "claims": [
+        {
+          "id": "addon-ehcp-accelerator-registry-001",
+          "statement": "Key 'addon-ehcp-accelerator' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=addon-ehcp-accelerator"
+            ]
+          }
+        },
+        {
+          "id": "addon-ehcp-accelerator-script-001",
+          "statement": "A script-derived transcript exists for key 'addon-ehcp-accelerator', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=addon-ehcp-accelerator"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='addon-ehcp-accelerator'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "addon-priority-support": {
+      "claims": [
+        {
+          "id": "addon-priority-support-registry-001",
+          "statement": "Key 'addon-priority-support' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=addon-priority-support"
+            ]
+          }
+        },
+        {
+          "id": "addon-priority-support-script-001",
+          "statement": "A script-derived transcript exists for key 'addon-priority-support', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=addon-priority-support"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='addon-priority-support'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "addon-white-label": {
+      "claims": [
+        {
+          "id": "addon-white-label-registry-001",
+          "statement": "Key 'addon-white-label' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=addon-white-label"
+            ]
+          }
+        },
+        {
+          "id": "addon-white-label-script-001",
+          "statement": "A script-derived transcript exists for key 'addon-white-label', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=addon-white-label"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='addon-white-label'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "adhd-m1-l1": {
+      "claims": [
+        {
+          "id": "adhd-m1-l1-registry-001",
+          "statement": "Key 'adhd-m1-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=adhd-m1-l1"
+            ]
+          }
+        },
+        {
+          "id": "adhd-m1-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'adhd-m1-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=adhd-m1-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m1-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "adhd-m1-l2": {
+      "claims": [
+        {
+          "id": "adhd-m1-l2-registry-001",
+          "statement": "Key 'adhd-m1-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=adhd-m1-l2"
+            ]
+          }
+        },
+        {
+          "id": "adhd-m1-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'adhd-m1-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=adhd-m1-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m1-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "adhd-m2-l1": {
+      "claims": [
+        {
+          "id": "adhd-m2-l1-registry-001",
+          "statement": "Key 'adhd-m2-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=adhd-m2-l1"
+            ]
+          }
+        },
+        {
+          "id": "adhd-m2-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'adhd-m2-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=adhd-m2-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m2-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "adhd-m2-l2": {
+      "claims": [
+        {
+          "id": "adhd-m2-l2-registry-001",
+          "statement": "Key 'adhd-m2-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=adhd-m2-l2"
+            ]
+          }
+        },
+        {
+          "id": "adhd-m2-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'adhd-m2-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=adhd-m2-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m2-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "adhd-m3-l1": {
+      "claims": [
+        {
+          "id": "adhd-m3-l1-registry-001",
+          "statement": "Key 'adhd-m3-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=adhd-m3-l1"
+            ]
+          }
+        },
+        {
+          "id": "adhd-m3-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'adhd-m3-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=adhd-m3-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m3-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "adhd-m3-l2": {
+      "claims": [
+        {
+          "id": "adhd-m3-l2-registry-001",
+          "statement": "Key 'adhd-m3-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=adhd-m3-l2"
+            ]
+          }
+        },
+        {
+          "id": "adhd-m3-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'adhd-m3-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=adhd-m3-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m3-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "adhd-m4-l1": {
+      "claims": [
+        {
+          "id": "adhd-m4-l1-registry-001",
+          "statement": "Key 'adhd-m4-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=adhd-m4-l1"
+            ]
+          }
+        },
+        {
+          "id": "adhd-m4-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'adhd-m4-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=adhd-m4-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m4-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "adhd-m4-l2": {
+      "claims": [
+        {
+          "id": "adhd-m4-l2-registry-001",
+          "statement": "Key 'adhd-m4-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=adhd-m4-l2"
+            ]
+          }
+        },
+        {
+          "id": "adhd-m4-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'adhd-m4-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=adhd-m4-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m4-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "adhd-m5-l1": {
+      "claims": [
+        {
+          "id": "adhd-m5-l1-registry-001",
+          "statement": "Key 'adhd-m5-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=adhd-m5-l1"
+            ]
+          }
+        },
+        {
+          "id": "adhd-m5-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'adhd-m5-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=adhd-m5-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m5-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "adhd-m5-l2": {
+      "claims": [
+        {
+          "id": "adhd-m5-l2-registry-001",
+          "statement": "Key 'adhd-m5-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=adhd-m5-l2"
+            ]
+          }
+        },
+        {
+          "id": "adhd-m5-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'adhd-m5-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=adhd-m5-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m5-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "adhd-m6-l1": {
+      "claims": [
+        {
+          "id": "adhd-m6-l1-registry-001",
+          "statement": "Key 'adhd-m6-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=adhd-m6-l1"
+            ]
+          }
+        },
+        {
+          "id": "adhd-m6-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'adhd-m6-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=adhd-m6-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m6-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "adhd-m6-l2": {
+      "claims": [
+        {
+          "id": "adhd-m6-l2-registry-001",
+          "statement": "Key 'adhd-m6-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=adhd-m6-l2"
+            ]
+          }
+        },
+        {
+          "id": "adhd-m6-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'adhd-m6-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=adhd-m6-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m6-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "adhd-m7-l1": {
+      "claims": [
+        {
+          "id": "adhd-m7-l1-registry-001",
+          "statement": "Key 'adhd-m7-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=adhd-m7-l1"
+            ]
+          }
+        },
+        {
+          "id": "adhd-m7-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'adhd-m7-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=adhd-m7-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m7-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "adhd-m7-l2": {
+      "claims": [
+        {
+          "id": "adhd-m7-l2-registry-001",
+          "statement": "Key 'adhd-m7-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=adhd-m7-l2"
+            ]
+          }
+        },
+        {
+          "id": "adhd-m7-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'adhd-m7-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=adhd-m7-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m7-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "adhd-m8-l1": {
+      "claims": [
+        {
+          "id": "adhd-m8-l1-registry-001",
+          "statement": "Key 'adhd-m8-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=adhd-m8-l1"
+            ]
+          }
+        },
+        {
+          "id": "adhd-m8-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'adhd-m8-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=adhd-m8-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m8-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "adhd-m8-l2": {
+      "claims": [
+        {
+          "id": "adhd-m8-l2-registry-001",
+          "statement": "Key 'adhd-m8-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=adhd-m8-l2"
+            ]
+          }
+        },
+        {
+          "id": "adhd-m8-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'adhd-m8-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=adhd-m8-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='adhd-m8-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "annual-reviews-mastery": {
+      "claims": [
+        {
+          "id": "annual-reviews-mastery-registry-001",
+          "statement": "Key 'annual-reviews-mastery' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=annual-reviews-mastery"
+            ]
+          }
+        },
+        {
+          "id": "annual-reviews-mastery-script-001",
+          "statement": "A script-derived transcript exists for key 'annual-reviews-mastery', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=annual-reviews-mastery"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='annual-reviews-mastery'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "assessment-choosing": {
+      "claims": [
+        {
+          "id": "assessment-choosing-registry-001",
+          "statement": "Key 'assessment-choosing' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=assessment-choosing"
+            ]
+          }
+        },
+        {
+          "id": "assessment-choosing-script-001",
+          "statement": "A script-derived transcript exists for key 'assessment-choosing', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=assessment-choosing"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='assessment-choosing'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "assessment-interpreting": {
+      "claims": [
+        {
+          "id": "assessment-interpreting-registry-001",
+          "statement": "Key 'assessment-interpreting' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=assessment-interpreting"
+            ]
+          }
+        },
+        {
+          "id": "assessment-interpreting-script-001",
+          "statement": "A script-derived transcript exists for key 'assessment-interpreting', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=assessment-interpreting"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='assessment-interpreting'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "autism-m1-l1": {
+      "claims": [
+        {
+          "id": "autism-m1-l1-registry-001",
+          "statement": "Key 'autism-m1-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=autism-m1-l1"
+            ]
+          }
+        },
+        {
+          "id": "autism-m1-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'autism-m1-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=autism-m1-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m1-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "autism-m1-l2": {
+      "claims": [
+        {
+          "id": "autism-m1-l2-registry-001",
+          "statement": "Key 'autism-m1-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=autism-m1-l2"
+            ]
+          }
+        },
+        {
+          "id": "autism-m1-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'autism-m1-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=autism-m1-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m1-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "autism-m2-l1": {
+      "claims": [
+        {
+          "id": "autism-m2-l1-registry-001",
+          "statement": "Key 'autism-m2-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=autism-m2-l1"
+            ]
+          }
+        },
+        {
+          "id": "autism-m2-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'autism-m2-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=autism-m2-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m2-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "autism-m2-l2": {
+      "claims": [
+        {
+          "id": "autism-m2-l2-registry-001",
+          "statement": "Key 'autism-m2-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=autism-m2-l2"
+            ]
+          }
+        },
+        {
+          "id": "autism-m2-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'autism-m2-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=autism-m2-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m2-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "autism-m3-l1": {
+      "claims": [
+        {
+          "id": "autism-m3-l1-registry-001",
+          "statement": "Key 'autism-m3-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=autism-m3-l1"
+            ]
+          }
+        },
+        {
+          "id": "autism-m3-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'autism-m3-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=autism-m3-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m3-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "autism-m3-l2": {
+      "claims": [
+        {
+          "id": "autism-m3-l2-registry-001",
+          "statement": "Key 'autism-m3-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=autism-m3-l2"
+            ]
+          }
+        },
+        {
+          "id": "autism-m3-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'autism-m3-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=autism-m3-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m3-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "autism-m4-l1": {
+      "claims": [
+        {
+          "id": "autism-m4-l1-registry-001",
+          "statement": "Key 'autism-m4-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=autism-m4-l1"
+            ]
+          }
+        },
+        {
+          "id": "autism-m4-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'autism-m4-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=autism-m4-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m4-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "autism-m4-l2": {
+      "claims": [
+        {
+          "id": "autism-m4-l2-registry-001",
+          "statement": "Key 'autism-m4-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=autism-m4-l2"
+            ]
+          }
+        },
+        {
+          "id": "autism-m4-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'autism-m4-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=autism-m4-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m4-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "autism-m5-l1": {
+      "claims": [
+        {
+          "id": "autism-m5-l1-registry-001",
+          "statement": "Key 'autism-m5-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=autism-m5-l1"
+            ]
+          }
+        },
+        {
+          "id": "autism-m5-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'autism-m5-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=autism-m5-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m5-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "autism-m5-l2": {
+      "claims": [
+        {
+          "id": "autism-m5-l2-registry-001",
+          "statement": "Key 'autism-m5-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=autism-m5-l2"
+            ]
+          }
+        },
+        {
+          "id": "autism-m5-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'autism-m5-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=autism-m5-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m5-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "autism-m6-l1": {
+      "claims": [
+        {
+          "id": "autism-m6-l1-registry-001",
+          "statement": "Key 'autism-m6-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=autism-m6-l1"
+            ]
+          }
+        },
+        {
+          "id": "autism-m6-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'autism-m6-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=autism-m6-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m6-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "autism-m6-l2": {
+      "claims": [
+        {
+          "id": "autism-m6-l2-registry-001",
+          "statement": "Key 'autism-m6-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=autism-m6-l2"
+            ]
+          }
+        },
+        {
+          "id": "autism-m6-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'autism-m6-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=autism-m6-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m6-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "autism-m7-l1": {
+      "claims": [
+        {
+          "id": "autism-m7-l1-registry-001",
+          "statement": "Key 'autism-m7-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=autism-m7-l1"
+            ]
+          }
+        },
+        {
+          "id": "autism-m7-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'autism-m7-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=autism-m7-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m7-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "autism-m7-l2": {
+      "claims": [
+        {
+          "id": "autism-m7-l2-registry-001",
+          "statement": "Key 'autism-m7-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=autism-m7-l2"
+            ]
+          }
+        },
+        {
+          "id": "autism-m7-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'autism-m7-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=autism-m7-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m7-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "autism-m8-l1": {
+      "claims": [
+        {
+          "id": "autism-m8-l1-registry-001",
+          "statement": "Key 'autism-m8-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=autism-m8-l1"
+            ]
+          }
+        },
+        {
+          "id": "autism-m8-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'autism-m8-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=autism-m8-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m8-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "autism-m8-l2": {
+      "claims": [
+        {
+          "id": "autism-m8-l2-registry-001",
+          "statement": "Key 'autism-m8-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=autism-m8-l2"
+            ]
+          }
+        },
+        {
+          "id": "autism-m8-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'autism-m8-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=autism-m8-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='autism-m8-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "blocks-events": {
+      "claims": [
+        {
+          "id": "blocks-events-registry-001",
+          "statement": "Key 'blocks-events' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=blocks-events"
+            ]
+          }
+        },
+        {
+          "id": "blocks-events-script-001",
+          "statement": "A script-derived transcript exists for key 'blocks-events', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=blocks-events"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "blocks-intro": {
+      "claims": [
+        {
+          "id": "blocks-intro-registry-001",
+          "statement": "Key 'blocks-intro' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=blocks-intro"
+            ]
+          }
+        },
+        {
+          "id": "blocks-intro-script-001",
+          "statement": "A script-derived transcript exists for key 'blocks-intro', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=blocks-intro"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "blocks-loops": {
+      "claims": [
+        {
+          "id": "blocks-loops-registry-001",
+          "statement": "Key 'blocks-loops' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=blocks-loops"
+            ]
+          }
+        },
+        {
+          "id": "blocks-loops-script-001",
+          "statement": "A script-derived transcript exists for key 'blocks-loops', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=blocks-loops"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "compare-switching": {
+      "claims": [
+        {
+          "id": "compare-switching-registry-001",
+          "statement": "Key 'compare-switching' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=compare-switching"
+            ]
+          }
+        },
+        {
+          "id": "compare-switching-script-001",
+          "statement": "A script-derived transcript exists for key 'compare-switching', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=compare-switching"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='compare-switching'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "compare-true-cost": {
+      "claims": [
+        {
+          "id": "compare-true-cost-registry-001",
+          "statement": "Key 'compare-true-cost' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=compare-true-cost"
+            ]
+          }
+        },
+        {
+          "id": "compare-true-cost-script-001",
+          "statement": "A script-derived transcript exists for key 'compare-true-cost', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=compare-true-cost"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='compare-true-cost'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "compliance-consent": {
+      "claims": [
+        {
+          "id": "compliance-consent-registry-001",
+          "statement": "Key 'compliance-consent' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=compliance-consent"
+            ]
+          }
+        },
+        {
+          "id": "compliance-consent-script-001",
+          "statement": "A script-derived transcript exists for key 'compliance-consent', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=compliance-consent"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='compliance-consent'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "compliance-data-protection": {
+      "claims": [
+        {
+          "id": "compliance-data-protection-registry-001",
+          "statement": "Key 'compliance-data-protection' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=compliance-data-protection"
+            ]
+          }
+        },
+        {
+          "id": "compliance-data-protection-script-001",
+          "statement": "A script-derived transcript exists for key 'compliance-data-protection', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=compliance-data-protection"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='compliance-data-protection'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "compliance-risk-ai": {
+      "claims": [
+        {
+          "id": "compliance-risk-ai-registry-001",
+          "statement": "Key 'compliance-risk-ai' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=compliance-risk-ai"
+            ]
+          }
+        },
+        {
+          "id": "compliance-risk-ai-script-001",
+          "statement": "A script-derived transcript exists for key 'compliance-risk-ai', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=compliance-risk-ai"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='compliance-risk-ai'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "data-autonomy": {
+      "claims": [
+        {
+          "id": "data-autonomy-registry-001",
+          "statement": "Key 'data-autonomy' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=data-autonomy"
+            ]
+          }
+        },
+        {
+          "id": "data-autonomy-script-001",
+          "statement": "A script-derived transcript exists for key 'data-autonomy', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=data-autonomy"
+            ],
+            "notes": "Transcript sourceId='world-class-marketing', resolvedKey='data-autonomy'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "dys-m2-l2": {
+      "claims": [
+        {
+          "id": "dys-m2-l2-registry-001",
+          "statement": "Key 'dys-m2-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=dys-m2-l2"
+            ]
+          }
+        },
+        {
+          "id": "dys-m2-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'dys-m2-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=dys-m2-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m2-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "dys-m3-l1": {
+      "claims": [
+        {
+          "id": "dys-m3-l1-registry-001",
+          "statement": "Key 'dys-m3-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=dys-m3-l1"
+            ]
+          }
+        },
+        {
+          "id": "dys-m3-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'dys-m3-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=dys-m3-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m3-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "dys-m3-l2": {
+      "claims": [
+        {
+          "id": "dys-m3-l2-registry-001",
+          "statement": "Key 'dys-m3-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=dys-m3-l2"
+            ]
+          }
+        },
+        {
+          "id": "dys-m3-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'dys-m3-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=dys-m3-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m3-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "dys-m4-l1": {
+      "claims": [
+        {
+          "id": "dys-m4-l1-registry-001",
+          "statement": "Key 'dys-m4-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=dys-m4-l1"
+            ]
+          }
+        },
+        {
+          "id": "dys-m4-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'dys-m4-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=dys-m4-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m4-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "dys-m4-l2": {
+      "claims": [
+        {
+          "id": "dys-m4-l2-registry-001",
+          "statement": "Key 'dys-m4-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=dys-m4-l2"
+            ]
+          }
+        },
+        {
+          "id": "dys-m4-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'dys-m4-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=dys-m4-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m4-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "dys-m5-l1": {
+      "claims": [
+        {
+          "id": "dys-m5-l1-registry-001",
+          "statement": "Key 'dys-m5-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=dys-m5-l1"
+            ]
+          }
+        },
+        {
+          "id": "dys-m5-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'dys-m5-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=dys-m5-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m5-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "dys-m5-l2": {
+      "claims": [
+        {
+          "id": "dys-m5-l2-registry-001",
+          "statement": "Key 'dys-m5-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=dys-m5-l2"
+            ]
+          }
+        },
+        {
+          "id": "dys-m5-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'dys-m5-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=dys-m5-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m5-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "dys-m6-l1": {
+      "claims": [
+        {
+          "id": "dys-m6-l1-registry-001",
+          "statement": "Key 'dys-m6-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=dys-m6-l1"
+            ]
+          }
+        },
+        {
+          "id": "dys-m6-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'dys-m6-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=dys-m6-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m6-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "dys-m6-l2": {
+      "claims": [
+        {
+          "id": "dys-m6-l2-registry-001",
+          "statement": "Key 'dys-m6-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=dys-m6-l2"
+            ]
+          }
+        },
+        {
+          "id": "dys-m6-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'dys-m6-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=dys-m6-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m6-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "dys-m7-l1": {
+      "claims": [
+        {
+          "id": "dys-m7-l1-registry-001",
+          "statement": "Key 'dys-m7-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=dys-m7-l1"
+            ]
+          }
+        },
+        {
+          "id": "dys-m7-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'dys-m7-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=dys-m7-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m7-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "dys-m7-l2": {
+      "claims": [
+        {
+          "id": "dys-m7-l2-registry-001",
+          "statement": "Key 'dys-m7-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=dys-m7-l2"
+            ]
+          }
+        },
+        {
+          "id": "dys-m7-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'dys-m7-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=dys-m7-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m7-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "dys-m8-l1": {
+      "claims": [
+        {
+          "id": "dys-m8-l1-registry-001",
+          "statement": "Key 'dys-m8-l1' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=dys-m8-l1"
+            ]
+          }
+        },
+        {
+          "id": "dys-m8-l1-script-001",
+          "statement": "A script-derived transcript exists for key 'dys-m8-l1', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=dys-m8-l1"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m8-l1'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "dys-m8-l2": {
+      "claims": [
+        {
+          "id": "dys-m8-l2-registry-001",
+          "statement": "Key 'dys-m8-l2' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=dys-m8-l2"
+            ]
+          }
+        },
+        {
+          "id": "dys-m8-l2-script-001",
+          "statement": "A script-derived transcript exists for key 'dys-m8-l2', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=dys-m8-l2"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='dyslexia-m8-l2'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "ehcp-annual-review": {
+      "claims": [
+        {
+          "id": "ehcp-annual-review-registry-001",
+          "statement": "Key 'ehcp-annual-review' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=ehcp-annual-review"
+            ]
+          }
+        },
+        {
+          "id": "ehcp-annual-review-script-001",
+          "statement": "A script-derived transcript exists for key 'ehcp-annual-review', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=ehcp-annual-review"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='ehcp-annual-review'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "ehcp-appeals": {
+      "claims": [
+        {
+          "id": "ehcp-appeals-registry-001",
+          "statement": "Key 'ehcp-appeals' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=ehcp-appeals"
+            ]
+          }
+        },
+        {
+          "id": "ehcp-appeals-script-001",
+          "statement": "A script-derived transcript exists for key 'ehcp-appeals', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=ehcp-appeals"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='ehcp-appeals'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "ehcp-application-journey": {
+      "claims": [
+        {
+          "id": "ehcp-application-journey-registry-001",
+          "statement": "Key 'ehcp-application-journey' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=ehcp-application-journey"
+            ]
+          }
+        },
+        {
+          "id": "ehcp-application-journey-script-001",
+          "statement": "A script-derived transcript exists for key 'ehcp-application-journey', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=ehcp-application-journey"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='ehcp-application-journey'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "ehcp-evidence-gathering": {
+      "claims": [
+        {
+          "id": "ehcp-evidence-gathering-registry-001",
+          "statement": "Key 'ehcp-evidence-gathering' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=ehcp-evidence-gathering"
+            ]
+          }
+        },
+        {
+          "id": "ehcp-evidence-gathering-script-001",
+          "statement": "A script-derived transcript exists for key 'ehcp-evidence-gathering', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=ehcp-evidence-gathering"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='ehcp-evidence-gathering'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "ehcp-modules-hub-overview": {
+      "claims": [
+        {
+          "id": "ehcp-modules-hub-overview-registry-001",
+          "statement": "Key 'ehcp-modules-hub-overview' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=ehcp-modules-hub-overview"
+            ]
+          }
+        },
+        {
+          "id": "ehcp-modules-hub-overview-script-001",
+          "statement": "A script-derived transcript exists for key 'ehcp-modules-hub-overview', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=ehcp-modules-hub-overview"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='ehcp-modules-hub-overview'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "ehcp-professional-contributions": {
+      "claims": [
+        {
+          "id": "ehcp-professional-contributions-registry-001",
+          "statement": "Key 'ehcp-professional-contributions' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=ehcp-professional-contributions"
+            ]
+          }
+        },
+        {
+          "id": "ehcp-professional-contributions-script-001",
+          "statement": "A script-derived transcript exists for key 'ehcp-professional-contributions', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=ehcp-professional-contributions"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='ehcp-professional-contributions'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "enterprise-plan-overview": {
+      "claims": [
+        {
+          "id": "enterprise-plan-overview-registry-001",
+          "statement": "Key 'enterprise-plan-overview' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=enterprise-plan-overview"
+            ]
+          }
+        },
+        {
+          "id": "enterprise-plan-overview-script-001",
+          "statement": "A script-derived transcript exists for key 'enterprise-plan-overview', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=enterprise-plan-overview"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-orchestration'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "feature-accessibility": {
+      "claims": [
+        {
+          "id": "feature-accessibility-registry-001",
+          "statement": "Key 'feature-accessibility' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=feature-accessibility"
+            ]
+          }
+        },
+        {
+          "id": "feature-accessibility-script-001",
+          "statement": "A script-derived transcript exists for key 'feature-accessibility', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=feature-accessibility"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='feature-accessibility'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "feature-ai-agents": {
+      "claims": [
+        {
+          "id": "feature-ai-agents-registry-001",
+          "statement": "Key 'feature-ai-agents' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=feature-ai-agents"
+            ]
+          }
+        },
+        {
+          "id": "feature-ai-agents-script-001",
+          "statement": "A script-derived transcript exists for key 'feature-ai-agents', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=feature-ai-agents"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='feature-ai-agents'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "feature-battle-royale": {
+      "claims": [
+        {
+          "id": "feature-battle-royale-registry-001",
+          "statement": "Key 'feature-battle-royale' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=feature-battle-royale"
+            ]
+          }
+        },
+        {
+          "id": "feature-battle-royale-script-001",
+          "statement": "A script-derived transcript exists for key 'feature-battle-royale', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=feature-battle-royale"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='feature-battle-royale'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "feature-battle-royale-pricing": {
+      "claims": [
+        {
+          "id": "feature-battle-royale-pricing-registry-001",
+          "statement": "Key 'feature-battle-royale-pricing' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=feature-battle-royale-pricing"
+            ]
+          }
+        },
+        {
+          "id": "feature-battle-royale-pricing-script-001",
+          "statement": "A script-derived transcript exists for key 'feature-battle-royale-pricing', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=feature-battle-royale-pricing"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='feature-battle-royale'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "feature-byod-architecture": {
+      "claims": [
+        {
+          "id": "feature-byod-architecture-registry-001",
+          "statement": "Key 'feature-byod-architecture' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=feature-byod-architecture"
+            ]
+          }
+        },
+        {
+          "id": "feature-byod-architecture-script-001",
+          "statement": "A script-derived transcript exists for key 'feature-byod-architecture', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=feature-byod-architecture"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='feature-byod-architecture'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "feature-deep-dive-ehcp": {
+      "claims": [
+        {
+          "id": "feature-deep-dive-ehcp-registry-001",
+          "statement": "Key 'feature-deep-dive-ehcp' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=feature-deep-dive-ehcp"
+            ]
+          }
+        },
+        {
+          "id": "feature-deep-dive-ehcp-script-001",
+          "statement": "A script-derived transcript exists for key 'feature-deep-dive-ehcp', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=feature-deep-dive-ehcp"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='ehcp-application-journey'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "feature-gamification": {
+      "claims": [
+        {
+          "id": "feature-gamification-registry-001",
+          "statement": "Key 'feature-gamification' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=feature-gamification"
+            ]
+          }
+        },
+        {
+          "id": "feature-gamification-script-001",
+          "statement": "A script-derived transcript exists for key 'feature-gamification', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=feature-gamification"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='feature-gamification'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "feature-intervention-library": {
+      "claims": [
+        {
+          "id": "feature-intervention-library-registry-001",
+          "statement": "Key 'feature-intervention-library' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=feature-intervention-library"
+            ]
+          }
+        },
+        {
+          "id": "feature-intervention-library-script-001",
+          "statement": "A script-derived transcript exists for key 'feature-intervention-library', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=feature-intervention-library"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='feature-intervention-library'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "feature-interventions": {
+      "claims": [
+        {
+          "id": "feature-interventions-registry-001",
+          "statement": "Key 'feature-interventions' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=feature-interventions"
+            ]
+          }
+        },
+        {
+          "id": "feature-interventions-script-001",
+          "statement": "A script-derived transcript exists for key 'feature-interventions', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=feature-interventions"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-finding-interventions'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "feature-la-dashboard": {
+      "claims": [
+        {
+          "id": "feature-la-dashboard-registry-001",
+          "statement": "Key 'feature-la-dashboard' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=feature-la-dashboard"
+            ]
+          }
+        },
+        {
+          "id": "feature-la-dashboard-script-001",
+          "statement": "A script-derived transcript exists for key 'feature-la-dashboard', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=feature-la-dashboard"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-training', resolvedKey='feature-la-dashboard'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "feature-nclb-engine": {
+      "claims": [
+        {
+          "id": "feature-nclb-engine-registry-001",
+          "statement": "Key 'feature-nclb-engine' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=feature-nclb-engine"
+            ]
+          }
+        },
+        {
+          "id": "feature-nclb-engine-script-001",
+          "statement": "A script-derived transcript exists for key 'feature-nclb-engine', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=feature-nclb-engine"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='feature-nclb-engine'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "gamification-integrity": {
+      "claims": [
+        {
+          "id": "gamification-integrity-registry-001",
+          "statement": "Key 'gamification-integrity' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=gamification-integrity"
+            ]
+          }
+        },
+        {
+          "id": "gamification-integrity-script-001",
+          "statement": "A script-derived transcript exists for key 'gamification-integrity', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=gamification-integrity"
+            ],
+            "notes": "Transcript sourceId='world-class-marketing', resolvedKey='gamification-integrity'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "golden-thread-coherence": {
+      "claims": [
+        {
+          "id": "golden-thread-coherence-registry-001",
+          "statement": "Key 'golden-thread-coherence' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=golden-thread-coherence"
+            ]
+          }
+        },
+        {
+          "id": "golden-thread-coherence-script-001",
+          "statement": "A script-derived transcript exists for key 'golden-thread-coherence', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=golden-thread-coherence"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='golden-thread-coherence'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "help-collaboration": {
+      "claims": [
+        {
+          "id": "help-collaboration-registry-001",
+          "statement": "Key 'help-collaboration' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=help-collaboration"
+            ]
+          }
+        },
+        {
+          "id": "help-collaboration-script-001",
+          "statement": "A script-derived transcript exists for key 'help-collaboration', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=help-collaboration"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-collaboration'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "help-cpd-tracking": {
+      "claims": [
+        {
+          "id": "help-cpd-tracking-registry-001",
+          "statement": "Key 'help-cpd-tracking' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=help-cpd-tracking"
+            ]
+          }
+        },
+        {
+          "id": "help-cpd-tracking-script-001",
+          "statement": "A script-derived transcript exists for key 'help-cpd-tracking', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=help-cpd-tracking"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-cpd-tracking'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "help-data-security": {
+      "claims": [
+        {
+          "id": "help-data-security-registry-001",
+          "statement": "Key 'help-data-security' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=help-data-security"
+            ]
+          }
+        },
+        {
+          "id": "help-data-security-script-001",
+          "statement": "A script-derived transcript exists for key 'help-data-security', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=help-data-security"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-data-security'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "help-finding-interventions": {
+      "claims": [
+        {
+          "id": "help-finding-interventions-registry-001",
+          "statement": "Key 'help-finding-interventions' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=help-finding-interventions"
+            ]
+          }
+        },
+        {
+          "id": "help-finding-interventions-script-001",
+          "statement": "A script-derived transcript exists for key 'help-finding-interventions', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=help-finding-interventions"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-finding-interventions'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "help-first-assessment": {
+      "claims": [
+        {
+          "id": "help-first-assessment-registry-001",
+          "statement": "Key 'help-first-assessment' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=help-first-assessment"
+            ]
+          }
+        },
+        {
+          "id": "help-first-assessment-script-001",
+          "statement": "A script-derived transcript exists for key 'help-first-assessment', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=help-first-assessment"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-first-assessment'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "help-generating-reports": {
+      "claims": [
+        {
+          "id": "help-generating-reports-registry-001",
+          "statement": "Key 'help-generating-reports' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=help-generating-reports"
+            ]
+          }
+        },
+        {
+          "id": "help-generating-reports-script-001",
+          "statement": "A script-derived transcript exists for key 'help-generating-reports', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=help-generating-reports"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-generating-reports'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "help-troubleshooting": {
+      "claims": [
+        {
+          "id": "help-troubleshooting-registry-001",
+          "statement": "Key 'help-troubleshooting' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=help-troubleshooting"
+            ]
+          }
+        },
+        {
+          "id": "help-troubleshooting-script-001",
+          "statement": "A script-derived transcript exists for key 'help-troubleshooting', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=help-troubleshooting"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='help-troubleshooting'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "innovation-ai-agents": {
+      "claims": [
+        {
+          "id": "innovation-ai-agents-registry-001",
+          "statement": "Key 'innovation-ai-agents' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=innovation-ai-agents"
+            ]
+          }
+        },
+        {
+          "id": "innovation-ai-agents-script-001",
+          "statement": "A script-derived transcript exists for key 'innovation-ai-agents', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=innovation-ai-agents"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-ai-agents'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "innovation-battle-royale": {
+      "claims": [
+        {
+          "id": "innovation-battle-royale-registry-001",
+          "statement": "Key 'innovation-battle-royale' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=innovation-battle-royale"
+            ]
+          }
+        },
+        {
+          "id": "innovation-battle-royale-script-001",
+          "statement": "A script-derived transcript exists for key 'innovation-battle-royale', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=innovation-battle-royale"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-battle-royale'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "innovation-coding-curriculum": {
+      "claims": [
+        {
+          "id": "innovation-coding-curriculum-registry-001",
+          "statement": "Key 'innovation-coding-curriculum' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=innovation-coding-curriculum"
+            ]
+          }
+        },
+        {
+          "id": "innovation-coding-curriculum-script-001",
+          "statement": "A script-derived transcript exists for key 'innovation-coding-curriculum', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=innovation-coding-curriculum"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "innovation-orchestration": {
+      "claims": [
+        {
+          "id": "innovation-orchestration-registry-001",
+          "statement": "Key 'innovation-orchestration' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=innovation-orchestration"
+            ]
+          }
+        },
+        {
+          "id": "innovation-orchestration-script-001",
+          "statement": "A script-derived transcript exists for key 'innovation-orchestration', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=innovation-orchestration"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-orchestration'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "innovation-research-hub": {
+      "claims": [
+        {
+          "id": "innovation-research-hub-registry-001",
+          "statement": "Key 'innovation-research-hub' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=innovation-research-hub"
+            ]
+          }
+        },
+        {
+          "id": "innovation-research-hub-script-001",
+          "statement": "A script-derived transcript exists for key 'innovation-research-hub', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=innovation-research-hub"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-research-hub'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "innovation-safety-net": {
+      "claims": [
+        {
+          "id": "innovation-safety-net-registry-001",
+          "statement": "Key 'innovation-safety-net' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=innovation-safety-net"
+            ]
+          }
+        },
+        {
+          "id": "innovation-safety-net-script-001",
+          "statement": "A script-derived transcript exists for key 'innovation-safety-net', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=innovation-safety-net"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-safety-net'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "intro-coding-journey": {
+      "claims": [
+        {
+          "id": "intro-coding-journey-registry-001",
+          "statement": "Key 'intro-coding-journey' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=intro-coding-journey"
+            ]
+          }
+        },
+        {
+          "id": "intro-coding-journey-script-001",
+          "statement": "A script-derived transcript exists for key 'intro-coding-journey', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=intro-coding-journey"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "la-dashboard-overview": {
+      "claims": [
+        {
+          "id": "la-dashboard-overview-registry-001",
+          "statement": "Key 'la-dashboard-overview' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=la-dashboard-overview"
+            ]
+          }
+        },
+        {
+          "id": "la-dashboard-overview-script-001",
+          "statement": "A script-derived transcript exists for key 'la-dashboard-overview', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=la-dashboard-overview"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='la-dashboard-overview'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "la-ehcp-merge-tool": {
+      "claims": [
+        {
+          "id": "la-ehcp-merge-tool-registry-001",
+          "statement": "Key 'la-ehcp-merge-tool' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=la-ehcp-merge-tool"
+            ]
+          }
+        },
+        {
+          "id": "la-ehcp-merge-tool-script-001",
+          "statement": "A script-derived transcript exists for key 'la-ehcp-merge-tool', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=la-ehcp-merge-tool"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='la-ehcp-merge-tool'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "la-professional-requests": {
+      "claims": [
+        {
+          "id": "la-professional-requests-registry-001",
+          "statement": "Key 'la-professional-requests' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=la-professional-requests"
+            ]
+          }
+        },
+        {
+          "id": "la-professional-requests-script-001",
+          "statement": "A script-derived transcript exists for key 'la-professional-requests', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=la-professional-requests"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='la-professional-requests'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "mediation-tribunal-navigation": {
+      "claims": [
+        {
+          "id": "mediation-tribunal-navigation-registry-001",
+          "statement": "Key 'mediation-tribunal-navigation' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=mediation-tribunal-navigation"
+            ]
+          }
+        },
+        {
+          "id": "mediation-tribunal-navigation-script-001",
+          "statement": "A script-derived transcript exists for key 'mediation-tribunal-navigation', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=mediation-tribunal-navigation"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='mediation-tribunal-navigation'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "no-child-left-behind": {
+      "claims": [
+        {
+          "id": "no-child-left-behind-registry-001",
+          "statement": "Key 'no-child-left-behind' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=no-child-left-behind"
+            ]
+          }
+        },
+        {
+          "id": "no-child-left-behind-script-001",
+          "statement": "A script-derived transcript exists for key 'no-child-left-behind', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=no-child-left-behind"
+            ],
+            "notes": "Transcript sourceId='world-class-marketing', resolvedKey='no-child-left-behind'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "onboarding-platform-tour": {
+      "claims": [
+        {
+          "id": "onboarding-platform-tour-registry-001",
+          "statement": "Key 'onboarding-platform-tour' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=onboarding-platform-tour"
+            ]
+          }
+        },
+        {
+          "id": "onboarding-platform-tour-script-001",
+          "statement": "A script-derived transcript exists for key 'onboarding-platform-tour', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=onboarding-platform-tour"
+            ],
+            "notes": "Transcript sourceId='world-class-onboarding', resolvedKey='onboarding-platform-tour'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "parent-contributing-views": {
+      "claims": [
+        {
+          "id": "parent-contributing-views-registry-001",
+          "statement": "Key 'parent-contributing-views' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=parent-contributing-views"
+            ]
+          }
+        },
+        {
+          "id": "parent-contributing-views-script-001",
+          "statement": "A script-derived transcript exists for key 'parent-contributing-views', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=parent-contributing-views"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='parent-contributing-views'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "parent-portal-welcome": {
+      "claims": [
+        {
+          "id": "parent-portal-welcome-registry-001",
+          "statement": "Key 'parent-portal-welcome' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=parent-portal-welcome"
+            ]
+          }
+        },
+        {
+          "id": "parent-portal-welcome-script-001",
+          "statement": "A script-derived transcript exists for key 'parent-portal-welcome', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=parent-portal-welcome"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='parent-portal-welcome'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "parent-understanding-results": {
+      "claims": [
+        {
+          "id": "parent-understanding-results-registry-001",
+          "statement": "Key 'parent-understanding-results' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=parent-understanding-results"
+            ]
+          }
+        },
+        {
+          "id": "parent-understanding-results-script-001",
+          "statement": "A script-derived transcript exists for key 'parent-understanding-results', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=parent-understanding-results"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-core', resolvedKey='parent-understanding-results'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "phase-transfers-mastery": {
+      "claims": [
+        {
+          "id": "phase-transfers-mastery-registry-001",
+          "statement": "Key 'phase-transfers-mastery' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=phase-transfers-mastery"
+            ]
+          }
+        },
+        {
+          "id": "phase-transfers-mastery-script-001",
+          "statement": "A script-derived transcript exists for key 'phase-transfers-mastery', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=phase-transfers-mastery"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='phase-transfers-mastery'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "python-basics": {
+      "claims": [
+        {
+          "id": "python-basics-registry-001",
+          "statement": "Key 'python-basics' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=python-basics"
+            ]
+          }
+        },
+        {
+          "id": "python-basics-script-001",
+          "statement": "A script-derived transcript exists for key 'python-basics', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=python-basics"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='python-basics'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "python-functions": {
+      "claims": [
+        {
+          "id": "python-functions-registry-001",
+          "statement": "Key 'python-functions' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=python-functions"
+            ]
+          }
+        },
+        {
+          "id": "python-functions-script-001",
+          "statement": "A script-derived transcript exists for key 'python-functions', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=python-functions"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "python-variables": {
+      "claims": [
+        {
+          "id": "python-variables-registry-001",
+          "statement": "Key 'python-variables' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=python-variables"
+            ]
+          }
+        },
+        {
+          "id": "python-variables-script-001",
+          "statement": "A script-derived transcript exists for key 'python-variables', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=python-variables"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "react-components": {
+      "claims": [
+        {
+          "id": "react-components-registry-001",
+          "statement": "Key 'react-components' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=react-components"
+            ]
+          }
+        },
+        {
+          "id": "react-components-script-001",
+          "statement": "A script-derived transcript exists for key 'react-components', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=react-components"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "react-intro": {
+      "claims": [
+        {
+          "id": "react-intro-registry-001",
+          "statement": "Key 'react-intro' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=react-intro"
+            ]
+          }
+        },
+        {
+          "id": "react-intro-script-001",
+          "statement": "A script-derived transcript exists for key 'react-intro', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=react-intro"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='react-intro'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "react-state": {
+      "claims": [
+        {
+          "id": "react-state-registry-001",
+          "statement": "Key 'react-state' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=react-state"
+            ]
+          }
+        },
+        {
+          "id": "react-state-script-001",
+          "statement": "A script-derived transcript exists for key 'react-state', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=react-state"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-innovation', resolvedKey='innovation-coding-curriculum'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "resource-costing-funding": {
+      "claims": [
+        {
+          "id": "resource-costing-funding-registry-001",
+          "statement": "Key 'resource-costing-funding' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=resource-costing-funding"
+            ]
+          }
+        },
+        {
+          "id": "resource-costing-funding-script-001",
+          "statement": "A script-derived transcript exists for key 'resource-costing-funding', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=resource-costing-funding"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='resource-costing-funding'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "school-senco-portal": {
+      "claims": [
+        {
+          "id": "school-senco-portal-registry-001",
+          "statement": "Key 'school-senco-portal' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=school-senco-portal"
+            ]
+          }
+        },
+        {
+          "id": "school-senco-portal-script-001",
+          "statement": "A script-derived transcript exists for key 'school-senco-portal', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=school-senco-portal"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='school-senco-portal'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "security-deep-dive": {
+      "claims": [
+        {
+          "id": "security-deep-dive-registry-001",
+          "statement": "Key 'security-deep-dive' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=security-deep-dive"
+            ]
+          }
+        },
+        {
+          "id": "security-deep-dive-script-001",
+          "statement": "A script-derived transcript exists for key 'security-deep-dive', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=security-deep-dive"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='security-deep-dive'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "sen2-returns-automation": {
+      "claims": [
+        {
+          "id": "sen2-returns-automation-registry-001",
+          "statement": "Key 'sen2-returns-automation' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=sen2-returns-automation"
+            ]
+          }
+        },
+        {
+          "id": "sen2-returns-automation-script-001",
+          "statement": "A script-derived transcript exists for key 'sen2-returns-automation', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=sen2-returns-automation"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='sen2-returns-automation'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "trust-built-by-practitioners": {
+      "claims": [
+        {
+          "id": "trust-built-by-practitioners-registry-001",
+          "statement": "Key 'trust-built-by-practitioners' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=trust-built-by-practitioners"
+            ]
+          }
+        },
+        {
+          "id": "trust-built-by-practitioners-script-001",
+          "statement": "A script-derived transcript exists for key 'trust-built-by-practitioners', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=trust-built-by-practitioners"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='trust-built-by-practitioners'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "trust-security": {
+      "claims": [
+        {
+          "id": "trust-security-registry-001",
+          "statement": "Key 'trust-security' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=trust-security"
+            ]
+          }
+        },
+        {
+          "id": "trust-security-script-001",
+          "statement": "A script-derived transcript exists for key 'trust-security', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=trust-security"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='trust-security'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
+          }
+        }
+      ]
+    },
+    "value-enterprise-platform": {
+      "claims": [
+        {
+          "id": "value-enterprise-platform-registry-001",
+          "statement": "Key 'value-enterprise-platform' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=value-enterprise-platform"
+            ]
+          }
+        },
+        {
+          "id": "value-enterprise-platform-script-001",
+          "statement": "A script-derived transcript exists for key 'value-enterprise-platform', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=value-enterprise-platform"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-pricing-2025-12', resolvedKey='value-enterprise-platform'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)"
           }
         }
       ]

@@ -30,6 +30,10 @@ function isStrict(): boolean {
   return process.env.VIDEO_CLAIMS_STRICT === '1';
 }
 
+function requireVerified(): boolean {
+  return process.env.VIDEO_CLAIMS_REQUIRE_VERIFIED === '1';
+}
+
 function isEnabled(): boolean {
   return process.env.VIDEO_CLAIMS_AUDIT === '1';
 }
@@ -121,6 +125,20 @@ function main() {
 
   const canonicalKeys = Object.keys(HEYGEN_VIDEO_IDS);
 
+  // Unknown keys are permitted (manual extras), but warn in strict mode so the manifest
+  // doesn't drift away from the canonical registry accidentally.
+  const manifestKeys = Object.keys(manifest.keys ?? {});
+  const canonicalSet = new Set(canonicalKeys);
+  const unknown = manifestKeys.filter(k => !canonicalSet.has(k));
+  if (unknown.length > 0) {
+    issues.push({
+      level: strict ? 'warning' : 'warning',
+      message: `Manifest contains ${unknown.length} non-canonical key(s): ${unknown.slice(0, 20).join(', ')}${
+        unknown.length > 20 ? ' ...' : ''
+      }`,
+    });
+  }
+
   for (const key of canonicalKeys) {
     const entry = manifest.keys?.[key];
     if (!entry) {
@@ -140,6 +158,17 @@ function main() {
         message: `No claims listed for key '${key}' (expected at least one)` ,
       });
       continue;
+    }
+
+    if (requireVerified()) {
+      const hasVerified = claims.some(c => c && typeof c === 'object' && (c as Claim).status === 'verified');
+      if (!hasVerified) {
+        issues.push({
+          level: 'error',
+          key,
+          message: `No VERIFIED claim found for key '${key}' (set claim.status='verified' on at least one claim)` ,
+        });
+      }
     }
 
     for (const claim of claims) {
@@ -217,7 +246,9 @@ function main() {
     process.exit(1);
   }
 
-  console.log(`VIDEO CLAIMS PASSED (keys=${canonicalKeys.length}, strict=${strict})`);
+  console.log(
+    `VIDEO CLAIMS PASSED (keys=${canonicalKeys.length}, strict=${strict}, requireVerified=${requireVerified()})`,
+  );
 }
 
 main();
