@@ -76,6 +76,7 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
   const [candidateIndex, setCandidateIndex] = useState(0);
 
   const overlayImage = VIDEO_OVERLAYS[videoKey];
+  const captionsSrc = `/api/video/captions?key=${encodeURIComponent(videoKey)}`;
 
   const applyCandidate = useCallback((nextIndex: number, list: VideoSourceCandidate[]) => {
     const next = list[nextIndex];
@@ -297,11 +298,14 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
               controls
               autoPlay
               playsInline
+              crossOrigin="anonymous"
               onError={handleVideoError}
               onTimeUpdate={handleTimeUpdate}
               onEnded={handleEnded}
               src={videoUrl || ''}
-            />
+            >
+              <track kind="captions" src={captionsSrc} srcLang="en" label="English" default />
+            </video>
           )}
         </div>
         <div className="p-3">
@@ -392,11 +396,14 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
                 autoPlay
                 playsInline
                 controls
+                crossOrigin="anonymous"
                 onError={handleVideoError}
                 onTimeUpdate={handleTimeUpdate}
                 onEnded={handleEnded}
                 src={videoUrl || undefined}
-                />
+                >
+                  <track kind="captions" src={captionsSrc} srcLang="en" label="English" default />
+                </video>
                 {/* Completion badge overlay */}
                 {isComplete && (
                 <div className="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded flex items-center gap-1">

@@ -644,13 +644,15 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                                     src={videoSource.url}
                                     poster={`/content/training_videos/thumbnails/${lessonId}.jpg`}
                                   >
-                                    <track 
-                                      kind="captions" 
-                                      src={`/content/training_videos/captions/${lessonId}.vtt`} 
-                                      srcLang="en" 
-                                      label="English" 
-                                      default 
-                                    />
+                                    {lessonId && (
+                                      <track
+                                        kind="captions"
+                                        src={`/api/video/captions?key=${encodeURIComponent(lessonId)}`}
+                                        srcLang="en"
+                                        label="English"
+                                        default
+                                      />
+                                    )}
                                     Your browser does not support the video tag.
                                   </video>
                                 );

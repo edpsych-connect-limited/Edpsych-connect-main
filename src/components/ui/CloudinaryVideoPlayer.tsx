@@ -246,8 +246,9 @@ export default function CloudinaryVideoPlayer({
     }
   };
 
-  // Caption URL derivation
-  const captionUrl = resolvedUrl ? resolvedUrl.replace(/\.mp4$/, '.vtt') : null;
+  // Captions: always provide a WebVTT track (transcript-based fallback when timed captions are not available).
+  const captionUrl = `/api/video/captions?key=${encodeURIComponent(videoId)}`;
+  const derivedTimedCaptionUrl = resolvedUrl ? resolvedUrl.replace(/\.mp4$/, '.vtt') : null;
 
   if (!resolvedUrl && !isLoading && !error) {
      // Initial state or waiting for resolution
@@ -287,14 +288,9 @@ export default function CloudinaryVideoPlayer({
         onClick={togglePlay}
         crossOrigin="anonymous"
       >
-        {captionUrl && (
-          <track 
-            kind="captions" 
-            src={captionUrl} 
-            srcLang="en" 
-            label="English" 
-            default 
-          />
+        <track kind="captions" src={captionUrl} srcLang="en" label="English" default />
+        {derivedTimedCaptionUrl && derivedTimedCaptionUrl !== captionUrl && (
+          <track kind="captions" src={derivedTimedCaptionUrl} srcLang="en" label="English (timed)" />
         )}
       </video>
       )}
