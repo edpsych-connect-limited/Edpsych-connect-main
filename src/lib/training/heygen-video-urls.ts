@@ -479,10 +479,9 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   // Disabled: the previous URL(s) now 404, which breaks playback in production.
   // Keep local + HeyGen fallbacks instead.
   // "feature-nclb-engine": "https://res.cloudinary.com/dncfu2j0r/video/upload/<v>/edpsych-connect/videos/no-child-left-behind.mp4",
-  "feature-byod-architecture": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533766/edpsych-connect/videos/data-autonomy.mp4",
-  "feature-battle-royale": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533803/edpsych-connect/videos/gamification-integrity.mp4",
-  "feature-battle-royale-pricing": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533803/edpsych-connect/videos/gamification-integrity.mp4",
-  "trust-security": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641857/edpsych-connect/videos/help-data-security.mp4",
+  // NOTE: These feature keys currently do not have dedicated Cloudinary assets.
+  // Do NOT point them at another key's mp4 (it causes wrong playback + breaks registry validation).
+  // They will fall back to local/HeyGen sources instead.
 
   // EHCP Modules (Cloudinary CDN)
   "ehcp-modules-hub-overview": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764860056/edpsych-connect/ehcp-modules/edpsych-connect/ehcp-modules/ehcp-modules-hub-overview.mp4",
