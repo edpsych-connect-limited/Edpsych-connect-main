@@ -559,7 +559,7 @@ export default function AIAssistant({
         role: 'assistant',
         content: `**Welcome to EdPsych Connect!** 🧠
 
-I'm your AI Coordinator, orchestrating 13 specialist AI agents to support your educational psychology work.
+I'm **Dr. Scott AI** — your AI Coordinator, orchestrating 13 specialist AI agents to support your educational psychology work.
 
 **I can help you:**
 • **Plan lessons** with differentiated content
@@ -727,7 +727,7 @@ How can I assist you today?`,
           </div>
           <div className="flex items-center gap-2">
             <Brain className="w-5 h-5 text-indigo-400" />
-            <span className="text-sm font-semibold text-white">AI Assistant</span>
+            <span className="text-sm font-semibold text-white">Dr. Scott AI</span>
             <span className="px-2 py-0.5 text-[10px] font-medium rounded-full bg-indigo-500/20 text-indigo-300">
               13 Agents
             </span>

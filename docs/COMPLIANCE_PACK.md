@@ -17,6 +17,19 @@ This document is a lightweight “starter pack” for security/compliance procur
   - Sensitive stored credentials (e.g., BYOD DB password) encrypted at rest using AES-256-GCM.
   - Encryption keys provided via environment/secret manager.
 
+## Security by design
+
+This repo treats security as a built-in engineering concern, not a bolt-on.
+
+In our scripts you may see phrases like **"security by design"** and **"NHS-level data security"**.
+In this repository, those phrases map to concrete controls (RBAC, audit logging + integrity, encryption, rate limiting, security headers) and are backed by deterministic validation.
+
+See: `docs/SECURITY_BY_DESIGN.md`
+
+Verification:
+
+- `npm run test:security-by-design`
+
 ## Audit logging
 
 - Security-relevant actions and high-risk operations should generate audit events.

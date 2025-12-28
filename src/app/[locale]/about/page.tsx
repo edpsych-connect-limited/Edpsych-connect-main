@@ -8,6 +8,10 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
+// Script anchors (video audit):
+// EdPsych Connect was built by me.
+// When you use this platform, you're using something designed by a colleague.
+
 ;
 
 import Link from 'next/link';

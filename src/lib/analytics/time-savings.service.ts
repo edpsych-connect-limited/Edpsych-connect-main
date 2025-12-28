@@ -240,7 +240,8 @@ export class TimeSavingsService {
       actionType,
       traditionalTimeMinutes: benchmark.traditionalMinutes,
       automatedTimeMinutes: actualMinutes,
-      evidenceType: benchmark.confidence === 'high' ? 'measured' : 'estimated',
+      // Benchmarks are never "measured"; they are estimates until backed by real timing instrumentation.
+      evidenceType: 'estimated',
       metadata: {
         ...metadata,
         benchmarkSource: benchmark.source,

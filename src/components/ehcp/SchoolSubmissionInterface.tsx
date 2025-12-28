@@ -33,6 +33,17 @@ const format = (date: string | Date, _pattern?: string): string => {
   return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
 };
 
+// Helper: derive age from date-of-birth (best-effort; returns null if invalid)
+const getAgeYears = (dateOfBirth: string): number | null => {
+  const dob = new Date(dateOfBirth);
+  if (!dateOfBirth || Number.isNaN(dob.getTime())) return null;
+  const now = new Date();
+  let age = now.getFullYear() - dob.getFullYear();
+  const m = now.getMonth() - dob.getMonth();
+  if (m < 0 || (m === 0 && now.getDate() < dob.getDate())) age -= 1;
+  return age;
+};
+
 // Types
 interface ChildDetails {
   firstName: string;
@@ -436,6 +447,11 @@ export default function SchoolSubmissionInterface({
     parentalConsentDate: '',
     declarationAgreed: false,
   });
+
+  const childAgeYears = getAgeYears(formData.child.dateOfBirth);
+  // UK online service consent age is commonly treated as 13+, but capacity to consent varies.
+  // We use a conservative threshold to *prompt consideration*, not to automate legal decisions.
+  const showOlderStudentConsentPrompt = childAgeYears !== null && childAgeYears >= 13;
   
   // Steps configuration
   const steps = [
@@ -1245,6 +1261,18 @@ export default function SchoolSubmissionInterface({
                             to be submitted and for information to be shared with the Local Authority and relevant
                             professionals.
                           </p>
+
+                          {showOlderStudentConsentPrompt && (
+                            <div className="mt-3 flex items-start gap-2 rounded-lg border border-indigo-200 bg-indigo-50 p-3">
+                              <Info className="w-4 h-4 text-indigo-700 mt-0.5" />
+                              <p className="text-sm text-indigo-900">
+                                <span className="font-medium">Older student consent check:</span> For older students,
+                                the system prompts you to consider if they can give their own consent (in line with
+                                your local policy). Where appropriate, involve the child/young person in the consent
+                                decision.
+                              </p>
+                            </div>
+                          )}
                         </div>
                       </label>
                       {errors['parentalConsent'] && (

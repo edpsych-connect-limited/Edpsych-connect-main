@@ -53,8 +53,10 @@ If an LA decides to leave EdPsych Connect, they do not need to request a data ex
 *   **Data Residency:** Hosting region depends on the deployment configuration. For public cloud deployments we target UK/EU regions where available; confirm the region for your tenant during onboarding.
 
 ### AI Safety Guardrails
+*   **Good governance isn't anti-AI:** Governance exists to make AI safe, accountable, and auditable in high-stakes contexts. Our position is that strong guardrails enable AI to be used responsibly rather than blocking it.
 *   **Hallucination Checks:** Our "Safety Net" system cross-references AI-generated reports against the raw data to flag potential inaccuracies.
 *   **Human-in-the-Loop:** AI never finalizes a statutory report. It acts as a drafter; a qualified Educational Psychologist must review and sign off (digital signature required).
+*   **AI output is not evidence:** In EdPsych Connect, AI-generated text is treated as *drafting assistance*, not as objective evidence. **Never let AI output become evidence** — it must be cross-checked against the underlying data and reviewed by a qualified practitioner.
 
 ---
 

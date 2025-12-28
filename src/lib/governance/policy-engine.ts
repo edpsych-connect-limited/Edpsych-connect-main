@@ -12,6 +12,11 @@ const GovernanceSchema = z
       .object({
         enabled: z.boolean().optional(),
         redactPII: z.boolean().optional(),
+        /**
+         * When true, tenant explicitly opts in to using AI inputs/outputs for training future AI models.
+         * Default is false and this codebase treats training as disallowed unless explicitly enabled.
+         */
+        allowTraining: z.boolean().optional(),
       })
       .optional(),
     export: z
@@ -33,6 +38,8 @@ function defaultPolicy(): GovernancePolicy {
       // Default to redaction in production even if tenant doesn’t specify.
       // This aligns with the existing AI integration’s default behavior.
       redactPII: process.env.NODE_ENV === 'production',
+      // Explicitly default to *no training* to match our product privacy posture.
+      allowTraining: false,
     },
     export: {
       enabled: true,
@@ -80,21 +87,24 @@ export async function getTenantGovernancePolicy(tenantId: number): Promise<Gover
 
 export async function decideAiAccess(params: {
   tenantId: number;
-}): Promise<{ decision: GovernanceDecision; redactPII: boolean }> {
+}): Promise<{ decision: GovernanceDecision; redactPII: boolean; allowTraining: boolean }> {
   const policy = await getTenantGovernancePolicy(params.tenantId);
 
   const enabled = policy.ai?.enabled ?? false;
   const redactPII = policy.ai?.redactPII ?? (process.env.NODE_ENV === 'production');
+  const allowTraining = policy.ai?.allowTraining ?? false;
 
   if (!enabled) {
     return {
       decision: { allowed: false, reason: 'AI features are disabled by tenant policy' },
       redactPII,
+      allowTraining,
     };
   }
 
   return {
     decision: { allowed: true },
     redactPII,
+    allowTraining,
   };
 }

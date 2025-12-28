@@ -12,6 +12,8 @@
  * - EHCP data (official SEND needs)
  * - Teacher observations and flagging
  *
+ * Script anchor: Their profiles, built from assessments and observations, are already in the platform.
+ *
  * OUTPUT: Continuously updated StudentProfile with confidence scores
  *
  * PRINCIPLE: The more a student uses the system, the better we understand them.

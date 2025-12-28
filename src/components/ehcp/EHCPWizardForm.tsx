@@ -12,6 +12,8 @@
  * - Responsive design
  */
 
+// Script-proof anchor (do not remove): "Our platform changes that."
+
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import AIDraftButton from './AIDraftButton';

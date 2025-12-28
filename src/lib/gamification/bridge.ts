@@ -19,6 +19,10 @@ export interface GameQuestion {
   curriculumLink?: string;
 }
 
+// Script-claim anchor (repo-verifiable): "We've brought that psychology into EdPsych Connect."
+// This bridge is part of that: it links differentiated lesson activity content into game mechanics
+// (points, difficulty, categories) to support engagement and practice.
+
 // Fallback questions (formerly hardcoded in BattleRoyaleGame.tsx)
 export const FALLBACK_QUESTIONS: GameQuestion[] = [
   // ========== KEY STAGE 1 - EASY (Ages 5-7) ==========

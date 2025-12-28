@@ -27,7 +27,7 @@ export const EHCP_VIDEOS = {
     audience: 'Parents, Special Educational Needs Coordinators, Schools',
     script: `In my years as an Educational Psychologist, I've seen too many families lost in the Education, Health and Care Plan maze. It's not just paperwork; it's a child's future. That's why I built this platform to be different.
 
-  EHCP — that's E-H-C-P — stands for an Education, Health, and Care Plan. But I like to think of it as a legal safety net. It's the document that guarantees the support a child needs to thrive.
+  EHCP means Education, Health and Care Plan. But I like to think of it as a legal safety net. It's the document that guarantees the support a child needs to thrive.
 
 Here's the reality: the old way was broken. Chasing emails, lost reports, missed deadlines.
 

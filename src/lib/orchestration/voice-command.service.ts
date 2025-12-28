@@ -213,6 +213,44 @@ export class VoiceCommandService {
   ): Promise<CommandIntent> {
     const lowerTranscript = transcript.toLowerCase().trim();
 
+    // TROUBLESHOOTING: "I can't find the report" / "Where is the report?"
+    if (
+      lowerTranscript.match(/(can\s*not|can't)\s+find\s+(the\s+)?report/i) ||
+      lowerTranscript.match(/where\s+(is|are)\s+(the\s+)?report/i) ||
+      lowerTranscript.match(/missing\s+report/i)
+    ) {
+      const assessmentId = this.extractAssessmentId(transcript);
+      return {
+        type: 'action',
+        command: 'troubleshoot_report',
+        confidence: 0.92,
+        parameters: {
+          assessment_id: assessmentId,
+          student_id: context?.current_student_id,
+          class_id: context?.current_class_id,
+        },
+      };
+    }
+
+    // TROUBLESHOOTING: "The assessment is stuck" / "assessment stuck"
+    if (
+      lowerTranscript.match(/assessment\s+is\s+stuck/i) ||
+      lowerTranscript.match(/assessment\s+stuck/i) ||
+      lowerTranscript.match(/stuck\s+assessment/i)
+    ) {
+      const assessmentId = this.extractAssessmentId(transcript);
+      return {
+        type: 'action',
+        command: 'troubleshoot_assessment',
+        confidence: 0.9,
+        parameters: {
+          assessment_id: assessmentId,
+          student_id: context?.current_student_id,
+          class_id: context?.current_class_id,
+        },
+      };
+    }
+
     // Pattern matching for common commands (fast path)
 
     // QUERY: "How is [student] doing?"
@@ -447,6 +485,12 @@ export class VoiceCommandService {
 
       case 'flag_intervention':
         return await this.flagForIntervention(userId, intent.parameters.student_name);
+
+      case 'troubleshoot_report':
+        return await this.troubleshootReport(userId, intent.parameters);
+
+      case 'troubleshoot_assessment':
+        return await this.troubleshootAssessment(userId, intent.parameters);
 
       case 'notify_parents':
         return await this.notifyParents(userId, intent.parameters.student_name);
@@ -830,6 +874,10 @@ export class VoiceCommandService {
         }
         return `Parent notification has been queued for ${data.student_name}.`;
 
+      case 'troubleshoot_report':
+      case 'troubleshoot_assessment':
+        return data?.message || 'I ran a quick diagnostic. Please check the dashboard for updates.';
+
       default:
         return 'Command executed successfully.';
     }
@@ -940,6 +988,18 @@ export class VoiceCommandService {
           suggestions.push('Assign next lesson');
         }
         break;
+
+      case 'troubleshoot_report':
+        if (data?.report_url) {
+          suggestions.push('Open the report');
+        }
+        suggestions.push('Show me the latest assessment');
+        break;
+
+      case 'troubleshoot_assessment':
+        suggestions.push('Show me assessment status');
+        suggestions.push('Open the assessment');
+        break;
     }
 
     return suggestions;
@@ -977,6 +1037,229 @@ export class VoiceCommandService {
     }
 
     return 'Unknown';
+  }
+
+  /**
+   * Extract an assessment instance id from a transcript.
+   * Supports UUID-ish ids or simple tokens when spoken.
+   */
+  private static extractAssessmentId(transcript: string): string | undefined {
+    const t = transcript.trim();
+    // Common phrasing: "assessment <id>" or "assessment id <id>"
+    const match = t.match(/assessment\s+(?:id\s+)?([a-f0-9-]{8,})/i);
+    return match?.[1];
+  }
+
+  // ============================================================================
+  // TROUBLESHOOTING / SELF-HEAL
+  // ============================================================================
+
+  private static async troubleshootReport(
+    userId: number,
+    params: { assessment_id?: string; student_id?: number }
+  ): Promise<any> {
+    const tenant = await prisma.users.findUnique({ where: { id: userId }, select: { tenant_id: true } });
+    if (!tenant) {
+      return { success: false, message: 'I could not verify your account context. Please sign in again.', actions: [] };
+    }
+
+    const assessment = await this.resolveAssessmentInstance(tenant.tenant_id, params.assessment_id, params.student_id);
+    if (!assessment) {
+      return {
+        success: false,
+        message:
+          "I couldn't identify which assessment you mean. Try saying: 'I can't find the report for assessment <id>' or open the assessment first.",
+        actions: [],
+      };
+    }
+
+    const repair = await this.attemptAutoRepair({
+      tenantId: tenant.tenant_id,
+      assessmentId: assessment.id,
+      kind: 'report',
+    });
+
+    return {
+      success: true,
+      assessment_id: assessment.id,
+      report_url: repair.reportUrl,
+      message: repair.message,
+      actions: repair.actions,
+    };
+  }
+
+  private static async troubleshootAssessment(
+    userId: number,
+    params: { assessment_id?: string; student_id?: number }
+  ): Promise<any> {
+    const tenant = await prisma.users.findUnique({ where: { id: userId }, select: { tenant_id: true } });
+    if (!tenant) {
+      return { success: false, message: 'I could not verify your account context. Please sign in again.', actions: [] };
+    }
+
+    const assessment = await this.resolveAssessmentInstance(tenant.tenant_id, params.assessment_id, params.student_id);
+    if (!assessment) {
+      return {
+        success: false,
+        message:
+          "I couldn't identify which assessment is stuck. Try: 'The assessment <id> is stuck' or open the assessment first.",
+        actions: [],
+      };
+    }
+
+    const repair = await this.attemptAutoRepair({
+      tenantId: tenant.tenant_id,
+      assessmentId: assessment.id,
+      kind: 'assessment',
+    });
+
+    return {
+      success: true,
+      assessment_id: assessment.id,
+      message: repair.message,
+      actions: repair.actions,
+    };
+  }
+
+  private static async resolveAssessmentInstance(
+    tenantId: number,
+    assessmentId?: string,
+    studentId?: number
+  ): Promise<{
+    id: string;
+    status: string;
+    progress_percentage: number;
+    linked_report_id: string | null;
+    completed_at: Date | null;
+  } | null> {
+    if (assessmentId) {
+      return prisma.assessmentInstance.findFirst({
+        where: { id: assessmentId, tenant_id: tenantId },
+        select: {
+          id: true,
+          status: true,
+          progress_percentage: true,
+          linked_report_id: true,
+          completed_at: true,
+        },
+      });
+    }
+
+    if (studentId) {
+      return prisma.assessmentInstance.findFirst({
+        where: { tenant_id: tenantId, student_id: studentId },
+        orderBy: { updated_at: 'desc' },
+        select: {
+          id: true,
+          status: true,
+          progress_percentage: true,
+          linked_report_id: true,
+          completed_at: true,
+        },
+      });
+    }
+
+    return null;
+  }
+
+  private static async attemptAutoRepair(input: {
+    tenantId: number;
+    assessmentId: string;
+    kind: 'report' | 'assessment';
+  }): Promise<{ message: string; actions: string[]; reportUrl?: string }> {
+    const actions: string[] = [];
+
+    const instance = await prisma.assessmentInstance.findFirst({
+      where: { id: input.assessmentId, tenant_id: input.tenantId },
+      select: {
+        id: true,
+        status: true,
+        progress_percentage: true,
+        linked_report_id: true,
+        completed_at: true,
+      },
+    });
+
+    if (!instance) {
+      return {
+        message: "I couldn't locate that assessment in your tenant.",
+        actions,
+      };
+    }
+
+    let reportUrl: string | undefined;
+
+    // Repair 1: if report exists in SecureDocument but assessment isn't linked, link it.
+    if (!instance.linked_report_id) {
+      const prefix = `/uploads/reports/report-${instance.id}-`;
+      const candidate = await prisma.secureDocument.findFirst({
+        where: { path: { contains: prefix } },
+        select: { id: true, path: true },
+      });
+
+      if (candidate) {
+        await prisma.assessmentInstance.update({
+          where: { id: instance.id },
+          data: {
+            linked_report_id: candidate.id,
+            status: instance.status === 'completed' ? instance.status : 'completed',
+            completed_at: instance.completed_at ?? new Date(),
+          },
+        });
+        actions.push('linked_report');
+        reportUrl = candidate.path;
+      }
+    } else {
+      const doc = await prisma.secureDocument.findFirst({
+        where: { id: instance.linked_report_id },
+        select: { path: true },
+      });
+      reportUrl = doc?.path;
+    }
+
+    // Repair 2: mark assessment completed when it looks complete but is not.
+    if (input.kind === 'assessment') {
+      const looksComplete = instance.progress_percentage >= 100;
+      if (looksComplete && instance.status !== 'completed') {
+        await prisma.assessmentInstance.update({
+          where: { id: instance.id },
+          data: {
+            status: 'completed',
+            completed_at: instance.completed_at ?? new Date(),
+          },
+        });
+        actions.push('marked_completed');
+      }
+      if (instance.status === 'completed' && !instance.completed_at) {
+        await prisma.assessmentInstance.update({
+          where: { id: instance.id },
+          data: { completed_at: new Date() },
+        });
+        actions.push('set_completed_at');
+      }
+    }
+
+    if (input.kind === 'report') {
+      if (reportUrl) {
+        return {
+          message: `I found the report and linked it to the assessment. You can open it from the assessment page now.`,
+          actions: actions.length ? actions : ['report_found'],
+          reportUrl,
+        };
+      }
+      return {
+        message:
+          "I couldn't find a linked report yet. If you've uploaded a PDF, try refreshing the assessment page. Otherwise, upload the report again and I'll link it automatically.",
+        actions: actions.length ? actions : ['no_report_found'],
+      };
+    }
+
+    return {
+      message: actions.length
+        ? 'I applied a quick fix and updated the assessment status. Please refresh your dashboard.'
+        : 'I ran a diagnostic but did not find anything safe to change. Please refresh and try again.',
+      actions: actions.length ? actions : ['no_change'],
+    };
   }
 
   /**

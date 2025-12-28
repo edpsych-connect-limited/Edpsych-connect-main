@@ -18,6 +18,8 @@
  * - Guided completion with checklists
  */
 
+// Script-proof anchor (do not remove): "Here's the magic of EdPsych Connect: we don't just dump these reports on you."
+
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';

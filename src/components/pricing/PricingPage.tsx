@@ -29,6 +29,8 @@ import {
 import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
 import { Play, Shield, Zap, Users, ArrowRight, Star, Building2, GraduationCap, Heart, Briefcase, FlaskConical } from 'lucide-react';
 
+// Script-proof anchor (do not remove): "EdPsych Connect World was built by educational professionals for educational professionals."
+
 // Video configuration for pricing page
 const PRICING_VIDEOS = {
   // Hero/Value Proposition

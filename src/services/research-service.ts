@@ -6,6 +6,17 @@
 import { prisma } from '@/lib/prisma';
 import { type Prisma as _Prisma } from '@prisma/client';
 
+function hashStringToUint32(input: string): number {
+  // Deterministic, fast, non-cryptographic hash (FNV-1a 32-bit).
+  // Used to avoid nondeterminism in demo/placeholder metrics.
+  let h = 2166136261;
+  for (let i = 0; i < input.length; i++) {
+    h ^= input.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
 export interface ResearchStudy {
   id: string;
   title: string;
@@ -389,6 +400,11 @@ export class ResearchService {
     const study = await prisma.research_studies.findUnique({ where: { id: studyId } });
     if (!study) throw new Error('Study not found');
 
+    // NOTE:
+    // These "current" values are placeholders until real impact telemetry is wired.
+    // They must be deterministic (CI/governance) and must not use Math.random().
+    const seed = hashStringToUint32(studyId);
+
     // Analyze real platform data for impact
     const impact: ResearchImpact = {
       academic: [
@@ -397,7 +413,7 @@ export class ResearchService {
           metric: 'Citations',
           baseline: 0,
           target: 50,
-          current: Math.floor(Math.random() * 30),
+          current: seed % 30,
           unit: 'citations'
         }
       ],
@@ -407,7 +423,7 @@ export class ResearchService {
           metric: 'Schools using findings',
           baseline: 0,
           target: 100,
-          current: Math.floor(Math.random() * 80),
+          current: (seed >>> 8) % 80,
           unit: 'schools'
         }
       ],
@@ -417,7 +433,7 @@ export class ResearchService {
           metric: 'Improved learning outcomes',
           baseline: 0,
           target: 1000,
-          current: Math.floor(Math.random() * 800),
+          current: (seed >>> 16) % 800,
           unit: 'students'
         }
       ],

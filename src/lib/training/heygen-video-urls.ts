@@ -227,6 +227,9 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   "platform-introduction": "/content/training_videos/platform-introduction.mp4",
   "parent-contributing-views": "/content/training_videos/parent-portal/parent-contributing-views.mp4",
   "compliance-consent": "/content/training_videos/compliance/compliance-consent.mp4",
+  "compliance-data-protection": "/content/training_videos/compliance/compliance-data-protection.mp4",
+  // Alias: shares HeyGen ID with compliance-data-protection; keep offline playback deterministic.
+  "data-autonomy": "/content/training_videos/compliance/compliance-data-protection.mp4",
   "assessment-choosing": "/content/training_videos/assessment/assessment-choosing.mp4",
   "assessment-interpreting": "/content/training_videos/assessment/assessment-interpreting.mp4",
   "innovation-orchestration": "/content/training_videos/innovation/innovation-orchestration.mp4",
@@ -234,6 +237,8 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   "innovation-coding-curriculum": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
   "innovation-ai-agents": "/content/training_videos/innovation/innovation-ai-agents.mp4",
   "innovation-battle-royale": "/content/training_videos/innovation/innovation-battle-royale.mp4",
+  // Alias: enterprise-plan-overview shares HeyGen ID with innovation-orchestration.
+  "enterprise-plan-overview": "/content/training_videos/innovation/innovation-orchestration.mp4",
 
   // Research (aliases): keep Research Hub playable while dedicated videos are produced
   "clinical-trials": "/content/training_videos/innovation/innovation-research-hub.mp4",
@@ -257,6 +262,12 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   "feature-accessibility": "/content/training_videos/features/feature-accessibility.mp4",
   "feature-ai-agents": "/content/training_videos/features/feature-ai-agents.mp4",
   "feature-la-dashboard": "/content/training_videos/features/feature-la-dashboard.mp4",
+
+  // Alias: feature-interventions shares HeyGen ID with help-finding-interventions.
+  "feature-interventions": "/content/training_videos/help-centre/help-finding-interventions.mp4",
+
+  // Alias: feature-deep-dive-ehcp shares HeyGen ID with ehcp-application-journey.
+  "feature-deep-dive-ehcp": "/content/training_videos/ehcp/ehcp-application-journey.mp4",
 
   // Feature Spotlight Aliases
   "no-child-left-behind": "/content/training_videos/innovation/innovation-safety-net.mp4",

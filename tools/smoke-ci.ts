@@ -61,7 +61,14 @@ function main() {
   //    on a different Node version.
   const major = parseMajorNodeVersion(process.version);
   if (isCI) {
-    assert(major === 20, `Expected Node 20.x in CI, got ${process.version}`);
+    assert(
+      major === 20,
+      [
+        `Expected Node 20.x in CI, got ${process.version}.`,
+        'Fix: use Node 20 (see package.json engines, .nvmrc, .node-version).',
+        'Tip: run `node tools/assert-node20.cjs` for a detailed remediation message.',
+      ].join(' '),
+    );
   } else if (major !== 20) {
     // eslint-disable-next-line no-console
     console.warn(`SMOKE_WARN: Recommended Node 20.x; detected ${process.version}`);

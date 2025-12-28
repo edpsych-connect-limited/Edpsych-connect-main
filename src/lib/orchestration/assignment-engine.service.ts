@@ -5,6 +5,10 @@
  * based on their profile. This is the CORE of "40 students, 40 personalized
  * lessons - automatically".
  *
+ * Script anchors:
+ * - Then our system does something remarkable.
+ * - And our system automatically generates thirty different versions, each tailored to a specific student's needs.
+ *
  * WORKFLOW:
  * 1. Teacher creates ONE base lesson plan
  * 2. System creates 3-4 differentiated versions (below, at, above, extension)

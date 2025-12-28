@@ -6,9 +6,11 @@
 import Anthropic from '@anthropic-ai/sdk';
 import OpenAI from 'openai';
 import { Redis } from '@upstash/redis';
+import { createHash } from 'crypto';
 import { aiAuditService } from './audit/ai-audit-service';
 import { getDefaultOpenAIModel } from '@/lib/ai/openai-model';
 import { redactPII } from '@/lib/security/pii-redaction';
+import { AI_DATA_USE_POLICY } from '@/lib/ai/data-use-policy';
 
 export interface AIRequest {
   prompt: string;
@@ -489,6 +491,12 @@ class AIIntegrationService {
   async processRequest(request: AIRequest): Promise<AIResponse> {
     const startTime = performance.now();
 
+    // Repo-enforced policy: this product must not use end-user queries to train future AI models.
+    // (If this ever changes, it must be an explicit, audited governance decision.)
+    if (AI_DATA_USE_POLICY.trainOnStudentQueries !== false) {
+      throw new Error('AI data-use policy violation: training on student queries is forbidden');
+    }
+
     // Check rate limits (only if Redis is available)
     if (this.redis) {
       const rateLimitKey = `rate_limit:${request.id}:${new Date().toDateString()}`;
@@ -498,20 +506,6 @@ class AIIntegrationService {
       if (currentUsage > limit) {
         throw new Error('Daily AI request limit exceeded. Upgrade your plan for more.');
       }
-    }
-
-    // Check cache first (only if Redis is available)
-    const cacheKey = this.generateCacheKey(request);
-    const cached = this.redis ? await this.redis.get(cacheKey) : null;
-    if (cached && this.shouldUseCache(request.subscriptionTier)) {
-      return {
-        response: cached as string,
-        model: 'cache',
-        cost: 0,
-        tokens: 0,
-        fromCache: true,
-        processingTime: performance.now() - startTime
-      };
     }
 
     // Select appropriate agent
@@ -527,6 +521,25 @@ class AIIntegrationService {
     const promptForProvider = shouldRedactPII
       ? redactPII(request.prompt, { entities: request.piiEntities }).redactedText
       : request.prompt;
+
+    // Check cache (only if Redis is available). Cache keys are derived from the prompt
+    // actually sent to providers (redacted when enabled).
+    const cacheKey = this.generateCacheKey({
+      prompt: promptForProvider,
+      useCase: request.useCase,
+      context: request.context,
+    });
+    const cached = this.redis ? await this.redis.get(cacheKey) : null;
+    if (cached && this.shouldUseCache(request.subscriptionTier)) {
+      return {
+        response: cached as string,
+        model: 'cache',
+        cost: 0,
+        tokens: 0,
+        fromCache: true,
+        processingTime: performance.now() - startTime,
+      };
+    }
 
     // Check budget (fix precedence bug)
     const estimatedCost = this.estimateCost(promptForProvider, agent.model);
@@ -769,26 +782,14 @@ class AIIntegrationService {
     };
   }
 
-  private generateCacheKey(request: AIRequest): string {
-    import('crypto').then(crypto => {
-      const hash = crypto.createHash('sha256');
-      hash.update(JSON.stringify({
-        prompt: request.prompt,
-        useCase: request.useCase,
-        context: request.context
-      }));
-      return `ai_cache:${hash.digest('hex')}`;
-    });
-    // Fallback synchronous implementation
-    const simpleHash = JSON.stringify({
-      prompt: request.prompt,
-      useCase: request.useCase,
-      context: request.context
-    }).split('').reduce((a, b) => {
-      a = ((a << 5) - a) + b.charCodeAt(0);
-      return a & a;
-    }, 0);
-    return `ai_cache:${Math.abs(simpleHash).toString(16)}`;
+  private generateCacheKey(params: { prompt: string; useCase: string; context?: unknown }): string {
+    const hash = createHash('sha256');
+    hash.update(JSON.stringify({
+      prompt: params.prompt,
+      useCase: params.useCase,
+      context: params.context ?? null,
+    }));
+    return `ai_cache:${hash.digest('hex')}`;
   }
 
   private getRateLimit(tier: string): number {
@@ -844,7 +845,18 @@ class AIIntegrationService {
   private async handleBudgetExceeded(request: AIRequest): Promise<AIResponse> {
     // Try to find cached response (only if Redis is available)
     if (this.redis) {
-      const cacheKey = this.generateCacheKey(request);
+      const shouldRedactPII =
+        request.redactPII ?? (process.env.NODE_ENV === 'production');
+
+      const promptForProvider = shouldRedactPII
+        ? redactPII(request.prompt, { entities: request.piiEntities }).redactedText
+        : request.prompt;
+
+      const cacheKey = this.generateCacheKey({
+        prompt: promptForProvider,
+        useCase: request.useCase,
+        context: request.context,
+      });
       const cached = await this.redis.get(cacheKey);
 
       if (cached) {

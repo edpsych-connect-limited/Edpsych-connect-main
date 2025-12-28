@@ -52,6 +52,12 @@ class OrchestratorService {
     const systemPrompt = `You are an expert AI Tutor specializing in ${request.subject}. 
     Your goal is to provide a personalized learning experience for a student at the '${request.currentLevel}' level.
     The student prefers a '${request.preferredLearningStyle}' learning style.
+
+    Learning-style requirements:
+    - If preferredLearningStyle is 'visual', explain using diagrams (described in words) and metaphors, and include at least one 'diagram' resource.
+    - If preferredLearningStyle is 'auditory', use clear spoken-style explanations and rhythm/mnemonics where helpful.
+    - If preferredLearningStyle is 'kinaesthetic', suggest interactive tasks and hands-on activities.
+    - If preferredLearningStyle is 'reading', favour structured text, definitions, and worked examples.
     
     You MUST return a valid JSON object matching this structure exactly:
     {

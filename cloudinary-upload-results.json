@@ -1,67 +1,396 @@
 [
   {
+    "key": "1-1_ADHD_Neurobiology__Dopamine__Norepinephrine__and_Brain_Development",
+    "publicId": "edpsych-connect/videos/1-1_ADHD_Neurobiology__Dopamine__Norepinephrine__and_Brain_Development",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642554/edpsych-connect/videos/1-1_ADHD_Neurobiology__Dopamine__Norepinephrine__and_Brain_Development.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "1-1_Dyslexia_Neurobiology__The_Phonological_Deficit_Hypothesis",
+    "publicId": "edpsych-connect/videos/1-1_Dyslexia_Neurobiology__The_Phonological_Deficit_Hypothesis",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644003/edpsych-connect/videos/1-1_Dyslexia_Neurobiology__The_Phonological_Deficit_Hypothesis.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "1-1_What_is_Autism__Neurodiversity_vs_Medical_Model",
+    "publicId": "edpsych-connect/videos/1-1_What_is_Autism__Neurodiversity_vs_Medical_Model",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643495/edpsych-connect/videos/1-1_What_is_Autism__Neurodiversity_vs_Medical_Model.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations",
+    "publicId": "edpsych-connect/videos/1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641962/edpsych-connect/videos/1-2_DSM_5_Diagnostic_Criteria_and_Three_Presentations.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "1-2_Identifying_Dyslexia__Indicators_Across_Ages",
+    "publicId": "edpsych-connect/videos/1-2_Identifying_Dyslexia__Indicators_Across_Ages",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643991/edpsych-connect/videos/1-2_Identifying_Dyslexia__Indicators_Across_Ages.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "1-2_The_Autistic_Experience__First_Person_Perspectives",
+    "publicId": "edpsych-connect/videos/1-2_The_Autistic_Experience__First_Person_Perspectives",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642071/edpsych-connect/videos/1-2_The_Autistic_Experience__First_Person_Perspectives.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "2-1_Inattentive_Presentation___The_Daydreamer_",
+    "publicId": "edpsych-connect/videos/2-1_Inattentive_Presentation___The_Daydreamer_",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641969/edpsych-connect/videos/2-1_Inattentive_Presentation___The_Daydreamer_.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "2-1_Social_Communication_Differences_in_Autism",
+    "publicId": "edpsych-connect/videos/2-1_Social_Communication_Differences_in_Autism",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643470/edpsych-connect/videos/2-1_Social_Communication_Differences_in_Autism.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "2-1_What_is_Structured_Literacy__Orton_Gillingham_Principles",
+    "publicId": "edpsych-connect/videos/2-1_What_is_Structured_Literacy__Orton_Gillingham_Principles",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642204/edpsych-connect/videos/2-1_What_is_Structured_Literacy__Orton_Gillingham_Principles.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "2-2_Friendship_and_Peer_Relationships",
+    "publicId": "edpsych-connect/videos/2-2_Friendship_and_Peer_Relationships",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642083/edpsych-connect/videos/2-2_Friendship_and_Peer_Relationships.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "2-2_Hyperactive_Impulsive_Presentation___The_Energizer_Bunny_",
+    "publicId": "edpsych-connect/videos/2-2_Hyperactive_Impulsive_Presentation___The_Energizer_Bunny_",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641977/edpsych-connect/videos/2-2_Hyperactive_Impulsive_Presentation___The_Energizer_Bunny_.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "2-2_Multisensory_Teaching__Engaging_All_Pathways",
+    "publicId": "edpsych-connect/videos/2-2_Multisensory_Teaching__Engaging_All_Pathways",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642216/edpsych-connect/videos/2-2_Multisensory_Teaching__Engaging_All_Pathways.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "3-1_Sensory_Processing_in_Autism__Hyper__and_Hypo_Sensitivity",
+    "publicId": "edpsych-connect/videos/3-1_Sensory_Processing_in_Autism__Hyper__and_Hypo_Sensitivity",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643458/edpsych-connect/videos/3-1_Sensory_Processing_in_Autism__Hyper__and_Hypo_Sensitivity.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "3-1_The_8_Executive_Functions_Affected_by_ADHD",
+    "publicId": "edpsych-connect/videos/3-1_The_8_Executive_Functions_Affected_by_ADHD",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642563/edpsych-connect/videos/3-1_The_8_Executive_Functions_Affected_by_ADHD.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "3-1_What_is_Phonological_Awareness__Continuum_of_Skills",
+    "publicId": "edpsych-connect/videos/3-1_What_is_Phonological_Awareness__Continuum_of_Skills",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642226/edpsych-connect/videos/3-1_What_is_Phonological_Awareness__Continuum_of_Skills.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "3-2_Creating_Sensory_Friendly_Environments",
+    "publicId": "edpsych-connect/videos/3-2_Creating_Sensory_Friendly_Environments",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642097/edpsych-connect/videos/3-2_Creating_Sensory_Friendly_Environments.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "3-2_Impact_on_Academic_Performance_and_Daily_Functioning",
+    "publicId": "edpsych-connect/videos/3-2_Impact_on_Academic_Performance_and_Daily_Functioning",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641985/edpsych-connect/videos/3-2_Impact_on_Academic_Performance_and_Daily_Functioning.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "3-2_Teaching_Phonemic_Awareness__Activities_and_Games",
+    "publicId": "edpsych-connect/videos/3-2_Teaching_Phonemic_Awareness__Activities_and_Games",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642237/edpsych-connect/videos/3-2_Teaching_Phonemic_Awareness__Activities_and_Games.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "4-1_Seating__Layout__and_Sensory_Considerations",
+    "publicId": "edpsych-connect/videos/4-1_Seating__Layout__and_Sensory_Considerations",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641993/edpsych-connect/videos/4-1_Seating__Layout__and_Sensory_Considerations.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "4-1_Teaching_Phonics_Systematically__Scope_and_Sequence",
+    "publicId": "edpsych-connect/videos/4-1_Teaching_Phonics_Systematically__Scope_and_Sequence",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642248/edpsych-connect/videos/4-1_Teaching_Phonics_Systematically__Scope_and_Sequence.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "4-1_Visual_Supports__Making_the_Invisible_Visible",
+    "publicId": "edpsych-connect/videos/4-1_Visual_Supports__Making_the_Invisible_Visible",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642110/edpsych-connect/videos/4-1_Visual_Supports__Making_the_Invisible_Visible.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "4-2_Decodable_Texts_and_Application",
+    "publicId": "edpsych-connect/videos/4-2_Decodable_Texts_and_Application",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642261/edpsych-connect/videos/4-2_Decodable_Texts_and_Application.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "4-2_Instructional_Accommodations_and_Task_Modifications",
+    "publicId": "edpsych-connect/videos/4-2_Instructional_Accommodations_and_Task_Modifications",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642001/edpsych-connect/videos/4-2_Instructional_Accommodations_and_Task_Modifications.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "4-2_Structure_and_Predictability",
+    "publicId": "edpsych-connect/videos/4-2_Structure_and_Predictability",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642122/edpsych-connect/videos/4-2_Structure_and_Predictability.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "5-1_Anxiety_in_Autism__Understanding_the_Constant_Stress",
+    "publicId": "edpsych-connect/videos/5-1_Anxiety_in_Autism__Understanding_the_Constant_Stress",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643446/edpsych-connect/videos/5-1_Anxiety_in_Autism__Understanding_the_Constant_Stress.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "5-1_Attention_Cues_and_Focus_Techniques",
+    "publicId": "edpsych-connect/videos/5-1_Attention_Cues_and_Focus_Techniques",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642009/edpsych-connect/videos/5-1_Attention_Cues_and_Focus_Techniques.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "5-1_What_is_Reading_Fluency__Accuracy__Rate__Prosody",
+    "publicId": "edpsych-connect/videos/5-1_What_is_Reading_Fluency__Accuracy__Rate__Prosody",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642272/edpsych-connect/videos/5-1_What_is_Reading_Fluency__Accuracy__Rate__Prosody.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "5-2_Emotional_Regulation_and_Meltdown_Support",
+    "publicId": "edpsych-connect/videos/5-2_Emotional_Regulation_and_Meltdown_Support",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642134/edpsych-connect/videos/5-2_Emotional_Regulation_and_Meltdown_Support.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "5-2_Fluency_Interventions__Repeated_Reading_and_Strategies",
+    "publicId": "edpsych-connect/videos/5-2_Fluency_Interventions__Repeated_Reading_and_Strategies",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642285/edpsych-connect/videos/5-2_Fluency_Interventions__Repeated_Reading_and_Strategies.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "5-2_Self_Monitoring_and_Attention_Training",
+    "publicId": "edpsych-connect/videos/5-2_Self_Monitoring_and_Attention_Training",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642019/edpsych-connect/videos/5-2_Self_Monitoring_and_Attention_Training.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "6-1_Channel_Hyperactivity_Productively",
+    "publicId": "edpsych-connect/videos/6-1_Channel_Hyperactivity_Productively",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642027/edpsych-connect/videos/6-1_Channel_Hyperactivity_Productively.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "6-1_Simple_View_of_Reading__Decoding___Comprehension",
+    "publicId": "edpsych-connect/videos/6-1_Simple_View_of_Reading__Decoding___Comprehension",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642296/edpsych-connect/videos/6-1_Simple_View_of_Reading__Decoding___Comprehension.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "6-1_Special_Interests__Passion__Not_Obsession",
+    "publicId": "edpsych-connect/videos/6-1_Special_Interests__Passion__Not_Obsession",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642149/edpsych-connect/videos/6-1_Special_Interests__Passion__Not_Obsession.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "6-2_Comprehension_Strategies_for_Dyslexic_Readers",
+    "publicId": "edpsych-connect/videos/6-2_Comprehension_Strategies_for_Dyslexic_Readers",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642307/edpsych-connect/videos/6-2_Comprehension_Strategies_for_Dyslexic_Readers.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "6-2_Impulse_Control__Stop_and_Think_Strategies",
+    "publicId": "edpsych-connect/videos/6-2_Impulse_Control__Stop_and_Think_Strategies",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642362/edpsych-connect/videos/6-2_Impulse_Control__Stop_and_Think_Strategies.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "6-2_Strengths_Based_Approach_to_Autism",
+    "publicId": "edpsych-connect/videos/6-2_Strengths_Based_Approach_to_Autism",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643435/edpsych-connect/videos/6-2_Strengths_Based_Approach_to_Autism.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "7-1_Executive_Function_Difficulties_in_Autism",
+    "publicId": "edpsych-connect/videos/7-1_Executive_Function_Difficulties_in_Autism",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643484/edpsych-connect/videos/7-1_Executive_Function_Difficulties_in_Autism.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "7-1_Organization_Systems_and_Time_Management",
+    "publicId": "edpsych-connect/videos/7-1_Organization_Systems_and_Time_Management",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642035/edpsych-connect/videos/7-1_Organization_Systems_and_Time_Management.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "7-1_Spelling_Instruction__Patterns_Not_Memorization",
+    "publicId": "edpsych-connect/videos/7-1_Spelling_Instruction__Patterns_Not_Memorization",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642318/edpsych-connect/videos/7-1_Spelling_Instruction__Patterns_Not_Memorization.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "7-2_Homework_Strategies_and_Executive_Function_Support",
+    "publicId": "edpsych-connect/videos/7-2_Homework_Strategies_and_Executive_Function_Support",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642044/edpsych-connect/videos/7-2_Homework_Strategies_and_Executive_Function_Support.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "7-2_Life_Skills_and_Promoting_Independence",
+    "publicId": "edpsych-connect/videos/7-2_Life_Skills_and_Promoting_Independence",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642168/edpsych-connect/videos/7-2_Life_Skills_and_Promoting_Independence.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "7-2_Supporting_Written_Expression__Separating_Transcription_from_Composition",
+    "publicId": "edpsych-connect/videos/7-2_Supporting_Written_Expression__Separating_Transcription_from_Composition",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642329/edpsych-connect/videos/7-2_Supporting_Written_Expression__Separating_Transcription_from_Composition.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "8-1_ADHD_Medication__What_Teachers_Need_to_Know",
+    "publicId": "edpsych-connect/videos/8-1_ADHD_Medication__What_Teachers_Need_to_Know",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642573/edpsych-connect/videos/8-1_ADHD_Medication__What_Teachers_Need_to_Know.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "8-1_Classroom_Accommodations_and_Assistive_Technology",
+    "publicId": "edpsych-connect/videos/8-1_Classroom_Accommodations_and_Assistive_Technology",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642339/edpsych-connect/videos/8-1_Classroom_Accommodations_and_Assistive_Technology.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "8-1_Inclusive_Education_for_Autistic_Students",
+    "publicId": "edpsych-connect/videos/8-1_Inclusive_Education_for_Autistic_Students",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642182/edpsych-connect/videos/8-1_Inclusive_Education_for_Autistic_Students.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "8-2_Legal_Rights_and_Reasonable_Adjustments",
+    "publicId": "edpsych-connect/videos/8-2_Legal_Rights_and_Reasonable_Adjustments",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642194/edpsych-connect/videos/8-2_Legal_Rights_and_Reasonable_Adjustments.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "8-2_Multi_Agency_Collaboration_and_Parent_Partnership",
+    "publicId": "edpsych-connect/videos/8-2_Multi_Agency_Collaboration_and_Parent_Partnership",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642057/edpsych-connect/videos/8-2_Multi_Agency_Collaboration_and_Parent_Partnership.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "8-2_Progress_Monitoring_and_Assessment",
+    "publicId": "edpsych-connect/videos/8-2_Progress_Monitoring_and_Assessment",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642352/edpsych-connect/videos/8-2_Progress_Monitoring_and_Assessment.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
     "key": "adhd-m1-l1",
     "publicId": "edpsych-connect/videos/adhd-m1-l1",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533363/edpsych-connect/videos/adhd-m1-l1.mp4",
     "duration": 0,
     "bytes": 4818154,
-    "status": "skipped"
-  },
-  {
-    "key": "adhd-m2-l1",
-    "publicId": "edpsych-connect/videos/adhd-m2-l1",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533368/edpsych-connect/videos/adhd-m2-l1.mp4",
-    "duration": 0,
-    "bytes": 7337383,
-    "status": "skipped"
-  },
-  {
-    "key": "adhd-m2-l2",
-    "publicId": "edpsych-connect/videos/adhd-m2-l2",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533371/edpsych-connect/videos/adhd-m2-l2.mp4",
-    "duration": 0,
-    "bytes": 2207187,
-    "status": "skipped"
-  },
-  {
-    "key": "adhd-m4-l2",
-    "publicId": "edpsych-connect/videos/adhd-m4-l2",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533377/edpsych-connect/videos/adhd-m4-l2.mp4",
-    "duration": 0,
-    "bytes": 7619878,
-    "status": "skipped"
-  },
-  {
-    "key": "adhd-m5-l1",
-    "publicId": "edpsych-connect/videos/adhd-m5-l1",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533381/edpsych-connect/videos/adhd-m5-l1.mp4",
-    "duration": 0,
-    "bytes": 7308999,
-    "status": "skipped"
-  },
-  {
-    "key": "adhd-m6-l1",
-    "publicId": "edpsych-connect/videos/adhd-m6-l1",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533386/edpsych-connect/videos/adhd-m6-l1.mp4",
-    "duration": 0,
-    "bytes": 6761250,
-    "status": "skipped"
-  },
-  {
-    "key": "adhd-m7-l1",
-    "publicId": "edpsych-connect/videos/adhd-m7-l1",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533392/edpsych-connect/videos/adhd-m7-l1.mp4",
-    "duration": 0,
-    "bytes": 7716997,
-    "status": "skipped"
-  },
-  {
-    "key": "adhd-m8-l1",
-    "publicId": "edpsych-connect/videos/adhd-m8-l1",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533398/edpsych-connect/videos/adhd-m8-l1.mp4",
-    "duration": 0,
-    "bytes": 8914606,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642582/edpsych-connect/videos/adhd-m1-l1.mp4"
   },
   {
     "key": "adhd-m1-l2",
@@ -69,7 +398,26 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533402/edpsych-connect/videos/adhd-m1-l2.mp4",
     "duration": 0,
     "bytes": 6594225,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642589/edpsych-connect/videos/adhd-m1-l2.mp4"
+  },
+  {
+    "key": "adhd-m2-l1",
+    "publicId": "edpsych-connect/videos/adhd-m2-l1",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533368/edpsych-connect/videos/adhd-m2-l1.mp4",
+    "duration": 0,
+    "bytes": 7337383,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642595/edpsych-connect/videos/adhd-m2-l1.mp4"
+  },
+  {
+    "key": "adhd-m2-l2",
+    "publicId": "edpsych-connect/videos/adhd-m2-l2",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533371/edpsych-connect/videos/adhd-m2-l2.mp4",
+    "duration": 0,
+    "bytes": 2207187,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642601/edpsych-connect/videos/adhd-m2-l2.mp4"
   },
   {
     "key": "adhd-m3-l1",
@@ -77,7 +425,8 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533407/edpsych-connect/videos/adhd-m3-l1.mp4",
     "duration": 0,
     "bytes": 7040126,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642608/edpsych-connect/videos/adhd-m3-l1.mp4"
   },
   {
     "key": "adhd-m3-l2",
@@ -85,7 +434,8 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533412/edpsych-connect/videos/adhd-m3-l2.mp4",
     "duration": 0,
     "bytes": 8614744,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642615/edpsych-connect/videos/adhd-m3-l2.mp4"
   },
   {
     "key": "adhd-m4-l1",
@@ -93,7 +443,26 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533417/edpsych-connect/videos/adhd-m4-l1.mp4",
     "duration": 0,
     "bytes": 6843765,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642620/edpsych-connect/videos/adhd-m4-l1.mp4"
+  },
+  {
+    "key": "adhd-m4-l2",
+    "publicId": "edpsych-connect/videos/adhd-m4-l2",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533377/edpsych-connect/videos/adhd-m4-l2.mp4",
+    "duration": 0,
+    "bytes": 7619878,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642625/edpsych-connect/videos/adhd-m4-l2.mp4"
+  },
+  {
+    "key": "adhd-m5-l1",
+    "publicId": "edpsych-connect/videos/adhd-m5-l1",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533381/edpsych-connect/videos/adhd-m5-l1.mp4",
+    "duration": 0,
+    "bytes": 7308999,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642629/edpsych-connect/videos/adhd-m5-l1.mp4"
   },
   {
     "key": "adhd-m5-l2",
@@ -101,7 +470,17 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533422/edpsych-connect/videos/adhd-m5-l2.mp4",
     "duration": 0,
     "bytes": 7582101,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642633/edpsych-connect/videos/adhd-m5-l2.mp4"
+  },
+  {
+    "key": "adhd-m6-l1",
+    "publicId": "edpsych-connect/videos/adhd-m6-l1",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533386/edpsych-connect/videos/adhd-m6-l1.mp4",
+    "duration": 0,
+    "bytes": 6761250,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642639/edpsych-connect/videos/adhd-m6-l1.mp4"
   },
   {
     "key": "adhd-m6-l2",
@@ -109,7 +488,17 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533428/edpsych-connect/videos/adhd-m6-l2.mp4",
     "duration": 0,
     "bytes": 8750284,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642644/edpsych-connect/videos/adhd-m6-l2.mp4"
+  },
+  {
+    "key": "adhd-m7-l1",
+    "publicId": "edpsych-connect/videos/adhd-m7-l1",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533392/edpsych-connect/videos/adhd-m7-l1.mp4",
+    "duration": 0,
+    "bytes": 7716997,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642649/edpsych-connect/videos/adhd-m7-l1.mp4"
   },
   {
     "key": "adhd-m7-l2",
@@ -117,7 +506,17 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533434/edpsych-connect/videos/adhd-m7-l2.mp4",
     "duration": 0,
     "bytes": 8981425,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642654/edpsych-connect/videos/adhd-m7-l2.mp4"
+  },
+  {
+    "key": "adhd-m8-l1",
+    "publicId": "edpsych-connect/videos/adhd-m8-l1",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533398/edpsych-connect/videos/adhd-m8-l1.mp4",
+    "duration": 0,
+    "bytes": 8914606,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642660/edpsych-connect/videos/adhd-m8-l1.mp4"
   },
   {
     "key": "adhd-m8-l2",
@@ -125,7 +524,8 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533441/edpsych-connect/videos/adhd-m8-l2.mp4",
     "duration": 0,
     "bytes": 10969393,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642665/edpsych-connect/videos/adhd-m8-l2.mp4"
   },
   {
     "key": "assess-m1-l1",
@@ -152,12 +552,29 @@
     "status": "skipped"
   },
   {
+    "key": "assessment-choosing",
+    "publicId": "edpsych-connect/videos/assessment-choosing",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642465/edpsych-connect/videos/assessment-choosing.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "assessment-interpreting",
+    "publicId": "edpsych-connect/videos/assessment-interpreting",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642475/edpsych-connect/videos/assessment-interpreting.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
     "key": "autism-m1-l1",
     "publicId": "edpsych-connect/videos/autism-m1-l1",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533450/edpsych-connect/videos/autism-m1-l1.mp4",
     "duration": 0,
     "bytes": 5305226,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643507/edpsych-connect/videos/autism-m1-l1.mp4"
   },
   {
     "key": "autism-m1-l2",
@@ -165,7 +582,8 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533456/edpsych-connect/videos/autism-m1-l2.mp4",
     "duration": 0,
     "bytes": 11470717,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643517/edpsych-connect/videos/autism-m1-l2.mp4"
   },
   {
     "key": "autism-m2-l1",
@@ -173,55 +591,8 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533463/edpsych-connect/videos/autism-m2-l1.mp4",
     "duration": 0,
     "bytes": 10790868,
-    "status": "skipped"
-  },
-  {
-    "key": "autism-m3-l1",
-    "publicId": "edpsych-connect/videos/autism-m3-l1",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533471/edpsych-connect/videos/autism-m3-l1.mp4",
-    "duration": 0,
-    "bytes": 11967398,
-    "status": "skipped"
-  },
-  {
-    "key": "autism-m4-l1",
-    "publicId": "edpsych-connect/videos/autism-m4-l1",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533478/edpsych-connect/videos/autism-m4-l1.mp4",
-    "duration": 0,
-    "bytes": 11274191,
-    "status": "skipped"
-  },
-  {
-    "key": "autism-m5-l1",
-    "publicId": "edpsych-connect/videos/autism-m5-l1",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533486/edpsych-connect/videos/autism-m5-l1.mp4",
-    "duration": 0,
-    "bytes": 13024330,
-    "status": "skipped"
-  },
-  {
-    "key": "autism-m6-l1",
-    "publicId": "edpsych-connect/videos/autism-m6-l1",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533495/edpsych-connect/videos/autism-m6-l1.mp4",
-    "duration": 0,
-    "bytes": 13505551,
-    "status": "skipped"
-  },
-  {
-    "key": "autism-m7-l1",
-    "publicId": "edpsych-connect/videos/autism-m7-l1",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533502/edpsych-connect/videos/autism-m7-l1.mp4",
-    "duration": 0,
-    "bytes": 11430524,
-    "status": "skipped"
-  },
-  {
-    "key": "autism-m8-l2",
-    "publicId": "edpsych-connect/videos/autism-m8-l2",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533510/edpsych-connect/videos/autism-m8-l2.mp4",
-    "duration": 0,
-    "bytes": 12240332,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643527/edpsych-connect/videos/autism-m2-l1.mp4"
   },
   {
     "key": "autism-m2-l2",
@@ -229,7 +600,17 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533519/edpsych-connect/videos/autism-m2-l2.mp4",
     "duration": 0,
     "bytes": 12997999,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643534/edpsych-connect/videos/autism-m2-l2.mp4"
+  },
+  {
+    "key": "autism-m3-l1",
+    "publicId": "edpsych-connect/videos/autism-m3-l1",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533471/edpsych-connect/videos/autism-m3-l1.mp4",
+    "duration": 0,
+    "bytes": 11967398,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643543/edpsych-connect/videos/autism-m3-l1.mp4"
   },
   {
     "key": "autism-m3-l2",
@@ -237,7 +618,17 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533527/edpsych-connect/videos/autism-m3-l2.mp4",
     "duration": 0,
     "bytes": 11923246,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643551/edpsych-connect/videos/autism-m3-l2.mp4"
+  },
+  {
+    "key": "autism-m4-l1",
+    "publicId": "edpsych-connect/videos/autism-m4-l1",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533478/edpsych-connect/videos/autism-m4-l1.mp4",
+    "duration": 0,
+    "bytes": 11274191,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643557/edpsych-connect/videos/autism-m4-l1.mp4"
   },
   {
     "key": "autism-m4-l2",
@@ -245,7 +636,17 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533535/edpsych-connect/videos/autism-m4-l2.mp4",
     "duration": 0,
     "bytes": 14077722,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643564/edpsych-connect/videos/autism-m4-l2.mp4"
+  },
+  {
+    "key": "autism-m5-l1",
+    "publicId": "edpsych-connect/videos/autism-m5-l1",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533486/edpsych-connect/videos/autism-m5-l1.mp4",
+    "duration": 0,
+    "bytes": 13024330,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643570/edpsych-connect/videos/autism-m5-l1.mp4"
   },
   {
     "key": "autism-m5-l2",
@@ -253,7 +654,17 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533544/edpsych-connect/videos/autism-m5-l2.mp4",
     "duration": 0,
     "bytes": 14120106,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643578/edpsych-connect/videos/autism-m5-l2.mp4"
+  },
+  {
+    "key": "autism-m6-l1",
+    "publicId": "edpsych-connect/videos/autism-m6-l1",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533495/edpsych-connect/videos/autism-m6-l1.mp4",
+    "duration": 0,
+    "bytes": 13505551,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643584/edpsych-connect/videos/autism-m6-l1.mp4"
   },
   {
     "key": "autism-m6-l2",
@@ -261,7 +672,17 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533551/edpsych-connect/videos/autism-m6-l2.mp4",
     "duration": 0,
     "bytes": 12154454,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643590/edpsych-connect/videos/autism-m6-l2.mp4"
+  },
+  {
+    "key": "autism-m7-l1",
+    "publicId": "edpsych-connect/videos/autism-m7-l1",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533502/edpsych-connect/videos/autism-m7-l1.mp4",
+    "duration": 0,
+    "bytes": 11430524,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643596/edpsych-connect/videos/autism-m7-l1.mp4"
   },
   {
     "key": "autism-m7-l2",
@@ -269,7 +690,8 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533560/edpsych-connect/videos/autism-m7-l2.mp4",
     "duration": 0,
     "bytes": 13547423,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643602/edpsych-connect/videos/autism-m7-l2.mp4"
   },
   {
     "key": "autism-m8-l1",
@@ -277,6 +699,32 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533568/edpsych-connect/videos/autism-m8-l1.mp4",
     "duration": 0,
     "bytes": 13714130,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643608/edpsych-connect/videos/autism-m8-l1.mp4"
+  },
+  {
+    "key": "autism-m8-l2",
+    "publicId": "edpsych-connect/videos/autism-m8-l2",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533510/edpsych-connect/videos/autism-m8-l2.mp4",
+    "duration": 0,
+    "bytes": 12240332,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643617/edpsych-connect/videos/autism-m8-l2.mp4"
+  },
+  {
+    "key": "compliance-consent",
+    "publicId": "edpsych-connect/videos/compliance-consent",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642445/edpsych-connect/videos/compliance-consent.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "data-autonomy",
+    "publicId": "edpsych-connect/videos/data-autonomy",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533766/edpsych-connect/videos/data-autonomy.mp4",
+    "duration": 0,
+    "bytes": 23274266,
     "status": "skipped"
   },
   {
@@ -368,92 +816,22 @@
     "status": "skipped"
   },
   {
-    "key": "dyslexia-m3-l1",
-    "publicId": "edpsych-connect/videos/dyslexia-m3-l1",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533609/edpsych-connect/videos/dyslexia-m3-l1.mp4",
-    "duration": 0,
-    "bytes": 12304111,
-    "status": "skipped"
-  },
-  {
-    "key": "dyslexia-m4-l1",
-    "publicId": "edpsych-connect/videos/dyslexia-m4-l1",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533616/edpsych-connect/videos/dyslexia-m4-l1.mp4",
-    "duration": 0,
-    "bytes": 10424889,
-    "status": "skipped"
-  },
-  {
-    "key": "dyslexia-m4-l2",
-    "publicId": "edpsych-connect/videos/dyslexia-m4-l2",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533621/edpsych-connect/videos/dyslexia-m4-l2.mp4",
-    "duration": 0,
-    "bytes": 5533556,
-    "status": "skipped"
-  },
-  {
-    "key": "dyslexia-m5-l1",
-    "publicId": "edpsych-connect/videos/dyslexia-m5-l1",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533627/edpsych-connect/videos/dyslexia-m5-l1.mp4",
-    "duration": 0,
-    "bytes": 9716472,
-    "status": "skipped"
-  },
-  {
-    "key": "dyslexia-m5-l2",
-    "publicId": "edpsych-connect/videos/dyslexia-m5-l2",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533634/edpsych-connect/videos/dyslexia-m5-l2.mp4",
-    "duration": 0,
-    "bytes": 11825368,
-    "status": "skipped"
-  },
-  {
-    "key": "dyslexia-m6-l1",
-    "publicId": "edpsych-connect/videos/dyslexia-m6-l1",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533643/edpsych-connect/videos/dyslexia-m6-l1.mp4",
-    "duration": 0,
-    "bytes": 11426976,
-    "status": "skipped"
-  },
-  {
-    "key": "dyslexia-m7-l1",
-    "publicId": "edpsych-connect/videos/dyslexia-m7-l1",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533651/edpsych-connect/videos/dyslexia-m7-l1.mp4",
-    "duration": 0,
-    "bytes": 10112140,
-    "status": "skipped"
-  },
-  {
-    "key": "dyslexia-m7-l2",
-    "publicId": "edpsych-connect/videos/dyslexia-m7-l2",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533660/edpsych-connect/videos/dyslexia-m7-l2.mp4",
-    "duration": 0,
-    "bytes": 12372492,
-    "status": "skipped"
-  },
-  {
-    "key": "dyslexia-m8-l1",
-    "publicId": "edpsych-connect/videos/dyslexia-m8-l1",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533668/edpsych-connect/videos/dyslexia-m8-l1.mp4",
-    "duration": 0,
-    "bytes": 12376230,
-    "status": "skipped"
-  },
-  {
-    "key": "dyslexia-m8-l2",
-    "publicId": "edpsych-connect/videos/dyslexia-m8-l2",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533679/edpsych-connect/videos/dyslexia-m8-l2.mp4",
-    "duration": 0,
-    "bytes": 11898636,
-    "status": "skipped"
-  },
-  {
     "key": "dyslexia-m2-l2",
     "publicId": "edpsych-connect/videos/dyslexia-m2-l2",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533686/edpsych-connect/videos/dyslexia-m2-l2.mp4",
     "duration": 0,
     "bytes": 9598142,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644009/edpsych-connect/videos/dyslexia-m2-l2.mp4"
+  },
+  {
+    "key": "dyslexia-m3-l1",
+    "publicId": "edpsych-connect/videos/dyslexia-m3-l1",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533609/edpsych-connect/videos/dyslexia-m3-l1.mp4",
+    "duration": 0,
+    "bytes": 12304111,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644016/edpsych-connect/videos/dyslexia-m3-l1.mp4"
   },
   {
     "key": "dyslexia-m3-l2",
@@ -461,7 +839,53 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533695/edpsych-connect/videos/dyslexia-m3-l2.mp4",
     "duration": 0,
     "bytes": 12980191,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644022/edpsych-connect/videos/dyslexia-m3-l2.mp4"
+  },
+  {
+    "key": "dyslexia-m4-l1",
+    "publicId": "edpsych-connect/videos/dyslexia-m4-l1",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533616/edpsych-connect/videos/dyslexia-m4-l1.mp4",
+    "duration": 0,
+    "bytes": 10424889,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644028/edpsych-connect/videos/dyslexia-m4-l1.mp4"
+  },
+  {
+    "key": "dyslexia-m4-l2",
+    "publicId": "edpsych-connect/videos/dyslexia-m4-l2",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533621/edpsych-connect/videos/dyslexia-m4-l2.mp4",
+    "duration": 0,
+    "bytes": 5533556,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644034/edpsych-connect/videos/dyslexia-m4-l2.mp4"
+  },
+  {
+    "key": "dyslexia-m5-l1",
+    "publicId": "edpsych-connect/videos/dyslexia-m5-l1",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533627/edpsych-connect/videos/dyslexia-m5-l1.mp4",
+    "duration": 0,
+    "bytes": 9716472,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644040/edpsych-connect/videos/dyslexia-m5-l1.mp4"
+  },
+  {
+    "key": "dyslexia-m5-l2",
+    "publicId": "edpsych-connect/videos/dyslexia-m5-l2",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533634/edpsych-connect/videos/dyslexia-m5-l2.mp4",
+    "duration": 0,
+    "bytes": 11825368,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644044/edpsych-connect/videos/dyslexia-m5-l2.mp4"
+  },
+  {
+    "key": "dyslexia-m6-l1",
+    "publicId": "edpsych-connect/videos/dyslexia-m6-l1",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533643/edpsych-connect/videos/dyslexia-m6-l1.mp4",
+    "duration": 0,
+    "bytes": 11426976,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644049/edpsych-connect/videos/dyslexia-m6-l1.mp4"
   },
   {
     "key": "dyslexia-m6-l2",
@@ -469,7 +893,94 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533704/edpsych-connect/videos/dyslexia-m6-l2.mp4",
     "duration": 0,
     "bytes": 9899770,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644055/edpsych-connect/videos/dyslexia-m6-l2.mp4"
+  },
+  {
+    "key": "dyslexia-m7-l1",
+    "publicId": "edpsych-connect/videos/dyslexia-m7-l1",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533651/edpsych-connect/videos/dyslexia-m7-l1.mp4",
+    "duration": 0,
+    "bytes": 10112140,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644060/edpsych-connect/videos/dyslexia-m7-l1.mp4"
+  },
+  {
+    "key": "dyslexia-m7-l2",
+    "publicId": "edpsych-connect/videos/dyslexia-m7-l2",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533660/edpsych-connect/videos/dyslexia-m7-l2.mp4",
+    "duration": 0,
+    "bytes": 12372492,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644064/edpsych-connect/videos/dyslexia-m7-l2.mp4"
+  },
+  {
+    "key": "dyslexia-m8-l1",
+    "publicId": "edpsych-connect/videos/dyslexia-m8-l1",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533668/edpsych-connect/videos/dyslexia-m8-l1.mp4",
+    "duration": 0,
+    "bytes": 12376230,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644069/edpsych-connect/videos/dyslexia-m8-l1.mp4"
+  },
+  {
+    "key": "dyslexia-m8-l2",
+    "publicId": "edpsych-connect/videos/dyslexia-m8-l2",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533679/edpsych-connect/videos/dyslexia-m8-l2.mp4",
+    "duration": 0,
+    "bytes": 11898636,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644074/edpsych-connect/videos/dyslexia-m8-l2.mp4"
+  },
+  {
+    "key": "ehcp-annual-review",
+    "publicId": "edpsych-connect/videos/ehcp-annual-review",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764534004/edpsych-connect/videos/ehcp-annual-review.mp4",
+    "duration": 0,
+    "bytes": 15077921,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642376/edpsych-connect/videos/ehcp-annual-review.mp4"
+  },
+  {
+    "key": "ehcp-annual-review-process",
+    "publicId": "edpsych-connect/videos/ehcp-annual-review-process",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764534034/edpsych-connect/videos/ehcp-annual-review-process.mp4",
+    "duration": 0,
+    "bytes": 14679519,
     "status": "skipped"
+  },
+  {
+    "key": "ehcp-appeals",
+    "publicId": "edpsych-connect/videos/ehcp-appeals",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642419/edpsych-connect/videos/ehcp-appeals.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "ehcp-appeals-process",
+    "publicId": "edpsych-connect/videos/ehcp-appeals-process",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764534023/edpsych-connect/videos/ehcp-appeals-process.mp4",
+    "duration": 0,
+    "bytes": 17178395,
+    "status": "skipped"
+  },
+  {
+    "key": "ehcp-application-journey",
+    "publicId": "edpsych-connect/videos/ehcp-application-journey",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533977/edpsych-connect/videos/ehcp-application-journey.mp4",
+    "duration": 0,
+    "bytes": 17040990,
+    "status": "skipped"
+  },
+  {
+    "key": "ehcp-evidence-gathering",
+    "publicId": "edpsych-connect/videos/ehcp-evidence-gathering",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533989/edpsych-connect/videos/ehcp-evidence-gathering.mp4",
+    "duration": 0,
+    "bytes": 15083161,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642391/edpsych-connect/videos/ehcp-evidence-gathering.mp4"
   },
   {
     "key": "ehcp-m1-l1",
@@ -478,6 +989,170 @@
     "duration": 0,
     "bytes": 22137,
     "status": "skipped"
+  },
+  {
+    "key": "ehcp-professional-contributions",
+    "publicId": "edpsych-connect/videos/ehcp-professional-contributions",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642405/edpsych-connect/videos/ehcp-professional-contributions.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "feature-accessibility",
+    "publicId": "edpsych-connect/videos/feature-accessibility",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644448/edpsych-connect/videos/feature-accessibility.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "feature-ai-agents",
+    "publicId": "edpsych-connect/videos/feature-ai-agents",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644453/edpsych-connect/videos/feature-ai-agents.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "feature-gamification",
+    "publicId": "edpsych-connect/videos/feature-gamification",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644443/edpsych-connect/videos/feature-gamification.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "feature-la-dashboard",
+    "publicId": "edpsych-connect/videos/feature-la-dashboard",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644467/edpsych-connect/videos/feature-la-dashboard.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "gamification-integrity",
+    "publicId": "edpsych-connect/videos/gamification-integrity",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533803/edpsych-connect/videos/gamification-integrity.mp4",
+    "duration": 0,
+    "bytes": 24568172,
+    "status": "skipped"
+  },
+  {
+    "key": "help-collaboration",
+    "publicId": "edpsych-connect/videos/help-collaboration",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641834/edpsych-connect/videos/help-collaboration.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "help-cpd-tracking",
+    "publicId": "edpsych-connect/videos/help-cpd-tracking",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641824/edpsych-connect/videos/help-cpd-tracking.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "help-data-security",
+    "publicId": "edpsych-connect/videos/help-data-security",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533939/edpsych-connect/videos/help-data-security.mp4",
+    "duration": 0,
+    "bytes": 15679023,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641857/edpsych-connect/videos/help-data-security.mp4"
+  },
+  {
+    "key": "help-finding-interventions",
+    "publicId": "edpsych-connect/videos/help-finding-interventions",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533952/edpsych-connect/videos/help-finding-interventions.mp4",
+    "duration": 0,
+    "bytes": 16734393,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641870/edpsych-connect/videos/help-finding-interventions.mp4"
+  },
+  {
+    "key": "help-first-assessment",
+    "publicId": "edpsych-connect/videos/help-first-assessment",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533929/edpsych-connect/videos/help-first-assessment.mp4",
+    "duration": 0,
+    "bytes": 14878709,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641895/edpsych-connect/videos/help-first-assessment.mp4"
+  },
+  {
+    "key": "help-generating-reports",
+    "publicId": "edpsych-connect/videos/help-generating-reports",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641845/edpsych-connect/videos/help-generating-reports.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "help-getting-started",
+    "publicId": "edpsych-connect/videos/help-getting-started",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533911/edpsych-connect/videos/help-getting-started.mp4",
+    "duration": 0,
+    "bytes": 15695164,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641883/edpsych-connect/videos/help-getting-started.mp4"
+  },
+  {
+    "key": "help-technical-support",
+    "publicId": "edpsych-connect/videos/help-technical-support",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533963/edpsych-connect/videos/help-technical-support.mp4",
+    "duration": 0,
+    "bytes": 14256708,
+    "status": "skipped"
+  },
+  {
+    "key": "help-troubleshooting",
+    "publicId": "edpsych-connect/videos/help-troubleshooting",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641815/edpsych-connect/videos/help-troubleshooting.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "innovation-ai-agents",
+    "publicId": "edpsych-connect/videos/innovation-ai-agents",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642494/edpsych-connect/videos/innovation-ai-agents.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "innovation-battle-royale",
+    "publicId": "edpsych-connect/videos/innovation-battle-royale",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642485/edpsych-connect/videos/innovation-battle-royale.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "innovation-coding-curriculum",
+    "publicId": "edpsych-connect/videos/innovation-coding-curriculum",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642517/edpsych-connect/videos/innovation-coding-curriculum.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "innovation-orchestration",
+    "publicId": "edpsych-connect/videos/innovation-orchestration",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642543/edpsych-connect/videos/innovation-orchestration.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "innovation-research-hub",
+    "publicId": "edpsych-connect/videos/innovation-research-hub",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642505/edpsych-connect/videos/innovation-research-hub.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
   },
   {
     "key": "int-m1-l1",
@@ -494,6 +1169,136 @@
     "duration": 0,
     "bytes": 28312,
     "status": "skipped"
+  },
+  {
+    "key": "la-dashboard-overview",
+    "publicId": "edpsych-connect/videos/la-dashboard-overview",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764534507/edpsych-connect/videos/la-dashboard-overview.mp4",
+    "duration": 0,
+    "bytes": 16474379,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641794/edpsych-connect/videos/la-dashboard-overview.mp4"
+  },
+  {
+    "key": "la-ehcp-merge-tool",
+    "publicId": "edpsych-connect/videos/la-ehcp-merge-tool",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641766/edpsych-connect/videos/la-ehcp-merge-tool.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "la-ehcp-portal-intro",
+    "publicId": "edpsych-connect/videos/la-ehcp-portal-intro",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533892/edpsych-connect/videos/la-ehcp-portal-intro.mp4",
+    "duration": 0,
+    "bytes": 10447330,
+    "status": "skipped"
+  },
+  {
+    "key": "la-professional-requests",
+    "publicId": "edpsych-connect/videos/la-professional-requests",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641777/edpsych-connect/videos/la-professional-requests.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "no-child-left-behind",
+    "publicId": "edpsych-connect/videos/no-child-left-behind",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533789/edpsych-connect/videos/no-child-left-behind.mp4",
+    "duration": 0,
+    "bytes": 26618177,
+    "status": "skipped"
+  },
+  {
+    "key": "onboarding-completion",
+    "publicId": "edpsych-connect/videos/onboarding-completion",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533882/edpsych-connect/videos/onboarding-completion.mp4",
+    "duration": 0,
+    "bytes": 17821563,
+    "status": "skipped"
+  },
+  {
+    "key": "onboarding-goals",
+    "publicId": "edpsych-connect/videos/onboarding-goals",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533841/edpsych-connect/videos/onboarding-goals.mp4",
+    "duration": 0,
+    "bytes": 14984759,
+    "status": "skipped"
+  },
+  {
+    "key": "onboarding-knowledge-check",
+    "publicId": "edpsych-connect/videos/onboarding-knowledge-check",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533870/edpsych-connect/videos/onboarding-knowledge-check.mp4",
+    "duration": 0,
+    "bytes": 11555622,
+    "status": "skipped"
+  },
+  {
+    "key": "onboarding-platform-tour",
+    "publicId": "edpsych-connect/videos/onboarding-platform-tour",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533862/edpsych-connect/videos/onboarding-platform-tour.mp4",
+    "duration": 0,
+    "bytes": 23239855,
+    "status": "skipped"
+  },
+  {
+    "key": "onboarding-role-selection",
+    "publicId": "edpsych-connect/videos/onboarding-role-selection",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533828/edpsych-connect/videos/onboarding-role-selection.mp4",
+    "duration": 0,
+    "bytes": 16153190,
+    "status": "skipped"
+  },
+  {
+    "key": "onboarding-welcome",
+    "publicId": "edpsych-connect/videos/onboarding-welcome",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533816/edpsych-connect/videos/onboarding-welcome.mp4",
+    "duration": 0,
+    "bytes": 15793886,
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766258344/edpsych-connect/videos/onboarding-welcome.mp4"
+  },
+  {
+    "key": "parent-contributing-views",
+    "publicId": "edpsych-connect/videos/parent-contributing-views",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641915/edpsych-connect/videos/parent-contributing-views.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "parent-portal-welcome",
+    "publicId": "edpsych-connect/videos/parent-portal-welcome",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641905/edpsych-connect/videos/parent-portal-welcome.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "parent-understanding-results",
+    "publicId": "edpsych-connect/videos/parent-understanding-results",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641927/edpsych-connect/videos/parent-understanding-results.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "platform-introduction",
+    "publicId": "edpsych-connect/videos/platform-introduction",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533750/edpsych-connect/videos/platform-introduction.mp4",
+    "duration": 0,
+    "bytes": 45223744,
+    "status": "skipped"
+  },
+  {
+    "key": "school-senco-portal",
+    "publicId": "edpsych-connect/videos/school-senco-portal",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641955/edpsych-connect/videos/school-senco-portal.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
   },
   {
     "key": "send-fund-m1-l1",
@@ -517,206 +1322,6 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533715/edpsych-connect/videos/send-fund-m2-l2.mp4",
     "duration": 0,
     "bytes": 26752,
-    "status": "skipped"
-  },
-  {
-    "key": "platform-introduction",
-    "publicId": "edpsych-connect/videos/platform-introduction",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533750/edpsych-connect/videos/platform-introduction.mp4",
-    "duration": 0,
-    "bytes": 45223744,
-    "status": "skipped"
-  },
-  {
-    "key": "data-autonomy",
-    "publicId": "edpsych-connect/videos/data-autonomy",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533766/edpsych-connect/videos/data-autonomy.mp4",
-    "duration": 0,
-    "bytes": 23274266,
-    "status": "skipped"
-  },
-  {
-    "key": "no-child-left-behind",
-    "publicId": "edpsych-connect/videos/no-child-left-behind",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533789/edpsych-connect/videos/no-child-left-behind.mp4",
-    "duration": 0,
-    "bytes": 26618177,
-    "status": "skipped"
-  },
-  {
-    "key": "gamification-integrity",
-    "publicId": "edpsych-connect/videos/gamification-integrity",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533803/edpsych-connect/videos/gamification-integrity.mp4",
-    "duration": 0,
-    "bytes": 24568172,
-    "status": "skipped"
-  },
-  {
-    "key": "onboarding-welcome",
-    "publicId": "edpsych-connect/videos/onboarding-welcome",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533816/edpsych-connect/videos/onboarding-welcome.mp4",
-    "duration": 0,
-    "bytes": 15793886,
-    "status": "skipped"
-  },
-  {
-    "key": "onboarding-role-selection",
-    "publicId": "edpsych-connect/videos/onboarding-role-selection",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533828/edpsych-connect/videos/onboarding-role-selection.mp4",
-    "duration": 0,
-    "bytes": 16153190,
-    "status": "skipped"
-  },
-  {
-    "key": "onboarding-goals",
-    "publicId": "edpsych-connect/videos/onboarding-goals",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533841/edpsych-connect/videos/onboarding-goals.mp4",
-    "duration": 0,
-    "bytes": 14984759,
-    "status": "skipped"
-  },
-  {
-    "key": "onboarding-platform-tour",
-    "publicId": "edpsych-connect/videos/onboarding-platform-tour",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533862/edpsych-connect/videos/onboarding-platform-tour.mp4",
-    "duration": 0,
-    "bytes": 23239855,
-    "status": "skipped"
-  },
-  {
-    "key": "onboarding-knowledge-check",
-    "publicId": "edpsych-connect/videos/onboarding-knowledge-check",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533870/edpsych-connect/videos/onboarding-knowledge-check.mp4",
-    "duration": 0,
-    "bytes": 11555622,
-    "status": "skipped"
-  },
-  {
-    "key": "onboarding-completion",
-    "publicId": "edpsych-connect/videos/onboarding-completion",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533882/edpsych-connect/videos/onboarding-completion.mp4",
-    "duration": 0,
-    "bytes": 17821563,
-    "status": "skipped"
-  },
-  {
-    "key": "data-autonomy",
-    "publicId": "edpsych-connect/videos/data-autonomy",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533766/edpsych-connect/videos/data-autonomy.mp4",
-    "duration": 0,
-    "bytes": 23274266,
-    "status": "skipped"
-  },
-  {
-    "key": "no-child-left-behind",
-    "publicId": "edpsych-connect/videos/no-child-left-behind",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533789/edpsych-connect/videos/no-child-left-behind.mp4",
-    "duration": 0,
-    "bytes": 26618177,
-    "status": "skipped"
-  },
-  {
-    "key": "gamification-integrity",
-    "publicId": "edpsych-connect/videos/gamification-integrity",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533803/edpsych-connect/videos/gamification-integrity.mp4",
-    "duration": 0,
-    "bytes": 24568172,
-    "status": "skipped"
-  },
-  {
-    "key": "la-ehcp-portal-intro",
-    "publicId": "edpsych-connect/videos/la-ehcp-portal-intro",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533892/edpsych-connect/videos/la-ehcp-portal-intro.mp4",
-    "duration": 0,
-    "bytes": 10447330,
-    "status": "skipped"
-  },
-  {
-    "key": "la-dashboard-overview",
-    "publicId": "edpsych-connect/videos/la-dashboard-overview",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764534507/edpsych-connect/videos/la-dashboard-overview.mp4",
-    "duration": 0,
-    "bytes": 16474379,
-    "status": "skipped"
-  },
-  {
-    "key": "help-getting-started",
-    "publicId": "edpsych-connect/videos/help-getting-started",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533911/edpsych-connect/videos/help-getting-started.mp4",
-    "duration": 0,
-    "bytes": 15695164,
-    "status": "skipped"
-  },
-  {
-    "key": "help-first-assessment",
-    "publicId": "edpsych-connect/videos/help-first-assessment",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533929/edpsych-connect/videos/help-first-assessment.mp4",
-    "duration": 0,
-    "bytes": 14878709,
-    "status": "skipped"
-  },
-  {
-    "key": "help-data-security",
-    "publicId": "edpsych-connect/videos/help-data-security",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533939/edpsych-connect/videos/help-data-security.mp4",
-    "duration": 0,
-    "bytes": 15679023,
-    "status": "skipped"
-  },
-  {
-    "key": "help-finding-interventions",
-    "publicId": "edpsych-connect/videos/help-finding-interventions",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533952/edpsych-connect/videos/help-finding-interventions.mp4",
-    "duration": 0,
-    "bytes": 16734393,
-    "status": "skipped"
-  },
-  {
-    "key": "help-technical-support",
-    "publicId": "edpsych-connect/videos/help-technical-support",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533963/edpsych-connect/videos/help-technical-support.mp4",
-    "duration": 0,
-    "bytes": 14256708,
-    "status": "skipped"
-  },
-  {
-    "key": "ehcp-application-journey",
-    "publicId": "edpsych-connect/videos/ehcp-application-journey",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533977/edpsych-connect/videos/ehcp-application-journey.mp4",
-    "duration": 0,
-    "bytes": 17040990,
-    "status": "skipped"
-  },
-  {
-    "key": "ehcp-evidence-gathering",
-    "publicId": "edpsych-connect/videos/ehcp-evidence-gathering",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533989/edpsych-connect/videos/ehcp-evidence-gathering.mp4",
-    "duration": 0,
-    "bytes": 15083161,
-    "status": "skipped"
-  },
-  {
-    "key": "ehcp-annual-review",
-    "publicId": "edpsych-connect/videos/ehcp-annual-review",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764534004/edpsych-connect/videos/ehcp-annual-review.mp4",
-    "duration": 0,
-    "bytes": 15077921,
-    "status": "skipped"
-  },
-  {
-    "key": "ehcp-appeals-process",
-    "publicId": "edpsych-connect/videos/ehcp-appeals-process",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764534023/edpsych-connect/videos/ehcp-appeals-process.mp4",
-    "duration": 0,
-    "bytes": 17178395,
-    "status": "skipped"
-  },
-  {
-    "key": "ehcp-annual-review-process",
-    "publicId": "edpsych-connect/videos/ehcp-annual-review-process",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764534034/edpsych-connect/videos/ehcp-annual-review-process.mp4",
-    "duration": 0,
-    "bytes": 14679519,
     "status": "skipped"
   }
 ]

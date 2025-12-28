@@ -10,8 +10,6 @@ import { logger } from "@/lib/logger";
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 import { useParams, useRouter } from 'next/navigation';
 import CoursePlayer from '@/components/training/CoursePlayer';
 import { useAuth } from '@/lib/auth/hooks';
@@ -36,7 +34,7 @@ export default function CourseLearnPage() {
       courseId={courseId} 
       userId={user.id.toString()}
       onComplete={() => logger.debug('Course completed!')}
-      onMeritEarned={(merits, reason) => logger.debug(`Earned ${merits} merits: ${reason}`)}
+      onMeritEarned={(merits: number, reason: string) => logger.debug(`Earned ${merits} merits: ${reason}`)}
     />
   );
 }

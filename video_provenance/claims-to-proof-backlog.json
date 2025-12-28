@@ -1,0 +1,519 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2025-12-27T04:36:49.596Z",
+  "sourceAuditGeneratedAt": "2025-12-27T04:36:41.901Z",
+  "totals": {
+    "auditKeysTotal": 122,
+    "needsReviewKeys": 26,
+    "likelyScriptUpdateKeys": 0,
+    "unevidencedSentenceClusters": 37,
+    "unevidencedSentenceInstances": 41
+  },
+  "clusters": [
+    {
+      "clusterId": "CLM-022",
+      "risk": "medium",
+      "sentence": "Our 'Research Hub' allows us to validate interventions at a scale never seen before.",
+      "keys": [
+        {
+          "key": "innovation-research-hub",
+          "resolvedKey": "innovation-research-hub",
+          "title": "The Research Hub: Evidence-Based Practice",
+          "sourceId": "world-class-v4-innovation"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-001",
+      "risk": "medium",
+      "sentence": "The EHCP Accelerator automates everything that can be automated, so you can focus on everything that requires human insight.",
+      "keys": [
+        {
+          "key": "addon-ehcp-accelerator",
+          "resolvedKey": "addon-ehcp-accelerator",
+          "title": "EHCP Accelerator: Statutory Compliance Made Manageable",
+          "sourceId": "world-class-v4-pricing-2025-12"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-008",
+      "risk": "low",
+      "sentence": "But I like to think of it as a legal safety net.",
+      "keys": [
+        {
+          "key": "ehcp-application-journey",
+          "resolvedKey": "ehcp-application-journey",
+          "title": "Your Education, Health and Care Plan Application Journey",
+          "sourceId": "world-class-v4-core"
+        },
+        {
+          "key": "feature-deep-dive-ehcp",
+          "resolvedKey": "ehcp-application-journey",
+          "title": "Your Education, Health and Care Plan Application Journey",
+          "sourceId": "world-class-v4-core"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-009",
+      "risk": "low",
+      "sentence": "Our platform changes that.",
+      "keys": [
+        {
+          "key": "ehcp-application-journey",
+          "resolvedKey": "ehcp-application-journey",
+          "title": "Your Education, Health and Care Plan Application Journey",
+          "sourceId": "world-class-v4-core"
+        },
+        {
+          "key": "feature-deep-dive-ehcp",
+          "resolvedKey": "ehcp-application-journey",
+          "title": "Your Education, Health and Care Plan Application Journey",
+          "sourceId": "world-class-v4-core"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-007",
+      "risk": "low",
+      "sentence": "That's why I built this platform to be different.",
+      "keys": [
+        {
+          "key": "ehcp-application-journey",
+          "resolvedKey": "ehcp-application-journey",
+          "title": "Your Education, Health and Care Plan Application Journey",
+          "sourceId": "world-class-v4-core"
+        },
+        {
+          "key": "feature-deep-dive-ehcp",
+          "resolvedKey": "ehcp-application-journey",
+          "title": "Your Education, Health and Care Plan Application Journey",
+          "sourceId": "world-class-v4-core"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-034",
+      "risk": "low",
+      "sentence": "Welcome to EdPsych Connect World.",
+      "keys": [
+        {
+          "key": "platform-introduction",
+          "resolvedKey": "platform-introduction",
+          "title": "Welcome to EdPsych Connect World",
+          "sourceId": "world-class-marketing"
+        },
+        {
+          "key": "value-enterprise-platform",
+          "resolvedKey": "value-enterprise-platform",
+          "title": "The £2.35 Million Platform",
+          "sourceId": "world-class-v4-pricing-2025-12"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-003",
+      "risk": "low",
+      "sentence": "And finally: never let AI output become evidence.",
+      "keys": [
+        {
+          "key": "compliance-risk-ai",
+          "resolvedKey": "compliance-risk-ai",
+          "title": "Compliance Risk & AI: Practical Guardrails",
+          "sourceId": "world-class-v4-additional"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-032",
+      "risk": "low",
+      "sentence": "And our system automatically generates thirty different versions, each tailored to a specific student's needs.",
+      "keys": [
+        {
+          "key": "platform-introduction",
+          "resolvedKey": "platform-introduction",
+          "title": "Welcome to EdPsych Connect World",
+          "sourceId": "world-class-marketing"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-021",
+      "risk": "low",
+      "sentence": "EdPsych Connect isn't just a software platform.",
+      "keys": [
+        {
+          "key": "innovation-research-hub",
+          "resolvedKey": "innovation-research-hub",
+          "title": "The Research Hub: Evidence-Based Practice",
+          "sourceId": "world-class-v4-innovation"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-036",
+      "risk": "low",
+      "sentence": "EdPsych Connect was built by me.",
+      "keys": [
+        {
+          "key": "trust-built-by-practitioners",
+          "resolvedKey": "trust-built-by-practitioners",
+          "title": "Built by Someone Who Actually Does This Work",
+          "sourceId": "world-class-v4-pricing-2025-12"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-025",
+      "risk": "low",
+      "sentence": "EdPsych Connect World was built by educational professionals for educational professionals.",
+      "keys": [
+        {
+          "key": "onboarding-welcome",
+          "resolvedKey": "onboarding-welcome",
+          "title": "Welcome to Your EdPsych Connect Journey",
+          "sourceId": "world-class-onboarding"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-004",
+      "risk": "low",
+      "sentence": "Good governance isn't anti-AI.",
+      "keys": [
+        {
+          "key": "compliance-risk-ai",
+          "resolvedKey": "compliance-risk-ai",
+          "title": "Compliance Risk & AI: Practical Guardrails",
+          "sourceId": "world-class-v4-additional"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-012",
+      "risk": "low",
+      "sentence": "Here's the magic of EdPsych Connect: we don't just dump these reports on you.",
+      "keys": [
+        {
+          "key": "ehcp-professional-contributions",
+          "resolvedKey": "ehcp-professional-contributions",
+          "title": "Understanding Professional Education, Health and Care Plan Contributions",
+          "sourceId": "world-class-v4-core"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-026",
+      "risk": "low",
+      "sentence": "I created this platform because I watched too many brilliant colleagues drowning in paperwork when they should have been doing what they do best: transforming children's lives.",
+      "keys": [
+        {
+          "key": "onboarding-welcome",
+          "resolvedKey": "onboarding-welcome",
+          "title": "Welcome to Your EdPsych Connect Journey",
+          "sourceId": "world-class-onboarding"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-020",
+      "risk": "low",
+      "sentence": "If a student is a 'Visual Learner', the agent explains concepts using diagrams and metaphors.",
+      "keys": [
+        {
+          "key": "innovation-ai-agents",
+          "resolvedKey": "innovation-ai-agents",
+          "title": "AI Tutoring Agents: Personalised Learning",
+          "sourceId": "world-class-v4-innovation"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-035",
+      "risk": "low",
+      "sentence": "It's a continuous process — and we build the platform to support that reality.",
+      "keys": [
+        {
+          "key": "security-deep-dive",
+          "resolvedKey": "security-deep-dive",
+          "title": "Security Deep Dive: Designed for Sensitive SEND Data",
+          "sourceId": "world-class-v4-additional"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-019",
+      "risk": "low",
+      "sentence": "Meet our AI Tutoring Agents.",
+      "keys": [
+        {
+          "key": "innovation-ai-agents",
+          "resolvedKey": "innovation-ai-agents",
+          "title": "AI Tutoring Agents: Personalised Learning",
+          "sourceId": "world-class-v4-innovation"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-017",
+      "risk": "low",
+      "sentence": "On EdPsych Connect, you build 'Care Teams' around a child.",
+      "keys": [
+        {
+          "key": "help-collaboration",
+          "resolvedKey": "help-collaboration",
+          "title": "Collaborating with Your Team",
+          "sourceId": "world-class-v4-core"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-029",
+      "risk": "low",
+      "sentence": "Our AI will give you a plain-English breakdown.",
+      "keys": [
+        {
+          "key": "parent-understanding-results",
+          "resolvedKey": "parent-understanding-results",
+          "title": "Understanding Your Child's Assessment Results",
+          "sourceId": "world-class-v4-core"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-015",
+      "risk": "low",
+      "sentence": "Our Dashboard is your command centre.",
+      "keys": [
+        {
+          "key": "feature-la-dashboard",
+          "resolvedKey": "feature-la-dashboard",
+          "title": "The Local Authority Dashboard",
+          "sourceId": "world-class-v4-training"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-010",
+      "risk": "low",
+      "sentence": "Our platform prompts you for these because they provide the objective baseline.",
+      "keys": [
+        {
+          "key": "ehcp-evidence-gathering",
+          "resolvedKey": "ehcp-evidence-gathering",
+          "title": "Gathering Strong Education, Health and Care Plan Evidence",
+          "sourceId": "world-class-v4-core"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-028",
+      "risk": "low",
+      "sentence": "Our platform visualises this for you.",
+      "keys": [
+        {
+          "key": "parent-understanding-results",
+          "resolvedKey": "parent-understanding-results",
+          "title": "Understanding Your Child's Assessment Results",
+          "sourceId": "world-class-v4-core"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-011",
+      "risk": "low",
+      "sentence": "Our system pulls this directly from your intervention logs.",
+      "keys": [
+        {
+          "key": "ehcp-evidence-gathering",
+          "resolvedKey": "ehcp-evidence-gathering",
+          "title": "Gathering Strong Education, Health and Care Plan Evidence",
+          "sourceId": "world-class-v4-core"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-013",
+      "risk": "low",
+      "sentence": "Scott AI.",
+      "keys": [
+        {
+          "key": "feature-ai-agents",
+          "resolvedKey": "feature-ai-agents",
+          "title": "Meet Dr. Scott AI",
+          "sourceId": "world-class-v4-training"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-023",
+      "risk": "low",
+      "sentence": "Scott, and I want to introduce you to the 'Safety Net'.",
+      "keys": [
+        {
+          "key": "innovation-safety-net",
+          "resolvedKey": "innovation-safety-net",
+          "title": "The Safety Net: AI Risk Prediction",
+          "sourceId": "world-class-v4-innovation"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-031",
+      "risk": "low",
+      "sentence": "So what actually is this platform?",
+      "keys": [
+        {
+          "key": "platform-introduction",
+          "resolvedKey": "platform-introduction",
+          "title": "Welcome to EdPsych Connect World",
+          "sourceId": "world-class-marketing"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-002",
+      "risk": "low",
+      "sentence": "Start using EdPsych Connect for new activity while your historical data remains accessible in your current system.",
+      "keys": [
+        {
+          "key": "compare-switching",
+          "resolvedKey": "compare-switching",
+          "title": "Switching Platforms Without the Pain",
+          "sourceId": "world-class-v4-pricing-2025-12"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-033",
+      "risk": "low",
+      "sentence": "Teachers using this platform tell us they're saving three to four hours every single week.",
+      "keys": [
+        {
+          "key": "platform-introduction",
+          "resolvedKey": "platform-introduction",
+          "title": "Welcome to EdPsych Connect World",
+          "sourceId": "world-class-marketing"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-030",
+      "risk": "low",
+      "sentence": "That's exactly why I created EdPsych Connect World.",
+      "keys": [
+        {
+          "key": "platform-introduction",
+          "resolvedKey": "platform-introduction",
+          "title": "Welcome to EdPsych Connect World",
+          "sourceId": "world-class-marketing"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-005",
+      "risk": "low",
+      "sentence": "That's the EdPsych Connect difference.",
+      "keys": [
+        {
+          "key": "data-autonomy",
+          "resolvedKey": "data-autonomy",
+          "title": "Data Autonomy & Trust",
+          "sourceId": "world-class-marketing"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-018",
+      "risk": "low",
+      "sentence": "That's why we built this platform with a 'Zero Trust' architecture.",
+      "keys": [
+        {
+          "key": "help-data-security",
+          "resolvedKey": "help-data-security",
+          "title": "How We Protect Your Data",
+          "sourceId": "world-class-v4-core"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-016",
+      "risk": "low",
+      "sentence": "Their profiles, built from assessments and observations, are already in the platform.",
+      "keys": [
+        {
+          "key": "feature-nclb-engine",
+          "resolvedKey": "feature-nclb-engine",
+          "title": "No Child Left Behind: The Differentiation Revolution",
+          "sourceId": "world-class-v4-pricing-2025-12"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-006",
+      "risk": "low",
+      "sentence": "Then complex vowel teams (ai, ay, a-e).",
+      "keys": [
+        {
+          "key": "dys-m4-l1",
+          "resolvedKey": "dyslexia-m4-l1",
+          "title": "Teaching Phonics Systematically",
+          "sourceId": "world-class-v4-training"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-024",
+      "risk": "low",
+      "sentence": "Then our system does something remarkable.",
+      "keys": [
+        {
+          "key": "no-child-left-behind",
+          "resolvedKey": "no-child-left-behind",
+          "title": "No Child Left Behind",
+          "sourceId": "world-class-marketing"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-027",
+      "risk": "low",
+      "sentence": "This Parent Portal is your window into your child's support.",
+      "keys": [
+        {
+          "key": "parent-portal-welcome",
+          "resolvedKey": "parent-portal-welcome",
+          "title": "Welcome to the Parent Portal",
+          "sourceId": "world-class-v4-core"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-014",
+      "risk": "low",
+      "sentence": "We've brought that psychology into EdPsych Connect.",
+      "keys": [
+        {
+          "key": "feature-gamification",
+          "resolvedKey": "feature-gamification",
+          "title": "Gamification: Engagement by Design",
+          "sourceId": "world-class-v4-training"
+        }
+      ]
+    },
+    {
+      "clusterId": "CLM-037",
+      "risk": "low",
+      "sentence": "When you use this platform, you're using something designed by a colleague.",
+      "keys": [
+        {
+          "key": "trust-built-by-practitioners",
+          "resolvedKey": "trust-built-by-practitioners",
+          "title": "Built by Someone Who Actually Does This Work",
+          "sourceId": "world-class-v4-pricing-2025-12"
+        }
+      ]
+    }
+  ]
+}

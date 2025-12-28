@@ -29,10 +29,12 @@ EdPsych Connect is a modern, enterprise-grade educational psychology platform bu
 ## 5.2 Development Environment
 
 ### 🛠️ Tools Required
-*   **Node.js**: v18.17.0 or higher.
+*   **Node.js**: **20.x** (required).
 *   **Package Manager**: `npm` (preferred) or `pnpm`.
 *   **Database**: PostgreSQL (Local instance or Docker container).
 *   **IDE**: VS Code (Recommended extensions: ESLint, Prettier, Prisma, Tailwind CSS).
+
+> Note: This repo enforces Node **20.x** via `package.json` engines + CI smoke checks. Newer majors (e.g. Node 24) will fail `npm run verify:ci` by design.
 
 ### ⚙️ Setup Instructions
 1.  **Clone the Repository:**

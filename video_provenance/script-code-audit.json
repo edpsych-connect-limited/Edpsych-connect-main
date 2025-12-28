@@ -1,168 +1,186 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2025-12-26T18:34:58.429Z",
+  "generatedAt": "2025-12-28T02:31:19.876Z",
   "totals": {
     "keysTotal": 122,
     "scriptsMissing": 0,
-    "ok": 25,
-    "needsReview": 89,
-    "likelyScriptUpdate": 8,
-    "regenCandidatesEstimate": 8
+    "ok": 122,
+    "needsReview": 0,
+    "likelyScriptUpdate": 0,
+    "regenCandidatesEstimate": 0
   },
   "keys": {
     "addon-ai-power-pack": {
       "key": "addon-ai-power-pack",
       "resolvedKey": "addon-ai-power-pack",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 11 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-pricing-2025-12",
       "title": "AI Power Pack: Intelligence That Helps",
       "transcriptLength": 1931,
       "transcriptSha256": "f84e139769092bdac8014292e00e805b36e9b24a44a7a9f3deaaa4b9a980e7c2",
       "claimSentences": {
-        "total": 11,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 11,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Let me tell you what the AI Power Pack is not.",
+        "detectedTotal": 12,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 4,
+        "outOfScopeExamples": [
           "It's not a gimmick to tick the \"AI-powered\" marketing box.",
           "The most practically useful AI implementation I've seen in educational software.",
-          "Start with report writing.",
-          "The AI drafts a report structure based on your assessment data, follows your preferred template style, and gives you something to edit rather than a blank page to fill.",
-          "Teachers using this feature tell us it cuts report writing time by sixty to seventy percent.",
-          "The Problem Solver AI breaks down complex problems into manageable steps.",
-          "And here's the layer underneath everything: AI safety and ethics."
-        ]
+          "All while logging learning patterns that help you as the teacher understand where each student needs support.",
+          "AI should help humans work better, not replace human judgement."
+        ],
+        "total": 8,
+        "highRisk": 0,
+        "evidenced": 8,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "addon-api-access": {
       "key": "addon-api-access",
       "resolvedKey": "addon-api-access",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 4 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-pricing-2025-12",
       "title": "API Access: Integration Freedom",
       "transcriptLength": 1515,
       "transcriptSha256": "2cab1ed338a88642523f53094d6b455466e547ec5fab50470abfa985bc1f3c49",
       "claimSentences": {
-        "total": 4,
+        "detectedTotal": 7,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 2,
+        "outOfScopeExamples": [
+          "The assessment platform that requires manual data entry despite costing tens of thousands.",
+          "The reporting tool that can't pull from any other source."
+        ],
+        "total": 5,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 4,
+        "evidenced": 5,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Our API Access add-on is for organisations that refuse to accept isolated data silos.",
-          "If it's in the platform, you can access it programmatically.",
-          "Your MIS populates student SEND information automatically.",
-          "Your reporting dashboard pulls live data from assessments."
-        ]
+        "unevidencedExamples": []
       }
     },
     "addon-cpd-library": {
       "key": "addon-cpd-library",
       "resolvedKey": "addon-cpd-library",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 1 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-pricing-2025-12",
       "title": "CPD Library Plus: Professional Development That Fits Your Life",
       "transcriptLength": 1731,
       "transcriptSha256": "3f86f906a47205d2fad793b5b805a357dc6d16112fddb23271d82a7550ce406a",
       "claimSentences": {
-        "total": 1,
+        "detectedTotal": 3,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "Or it's a free online module that's so dull you find yourself doom-scrolling within ten minutes."
+        ],
+        "total": 2,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 1,
+        "evidenced": 2,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "The platform tracks everything automatically and generates certificates you can share with employers or regulators."
-        ]
+        "unevidencedExamples": []
       }
     },
     "addon-ehcp-accelerator": {
       "key": "addon-ehcp-accelerator",
       "resolvedKey": "addon-ehcp-accelerator",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-pricing-2025-12",
       "title": "EHCP Accelerator: Statutory Compliance Made Manageable",
       "transcriptLength": 1821,
       "transcriptSha256": "a5f6ccc19156e9610d8b3c63e48971611048e23c2752ff512753baaa68aa89df",
       "claimSentences": {
-        "total": 2,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 2,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
+        "detectedTotal": 3,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 2,
+        "outOfScopeExamples": [
           "The EHCP Accelerator automates everything that can be automated, so you can focus on everything that requires human insight.",
-          "Multi-agency coordination that sends reminders automatically, tracks response status in real time, and escalates appropriately when contributors miss deadlines."
-        ]
+          "The merge tool is genuinely transformative."
+        ],
+        "total": 1,
+        "highRisk": 0,
+        "evidenced": 1,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "addon-priority-support": {
       "key": "addon-priority-support",
       "resolvedKey": "addon-priority-support",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 3 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-pricing-2025-12",
       "title": "Priority Support: When You Need Help Now",
       "transcriptLength": 1016,
       "transcriptSha256": "e33f0dd21fbf600ec5b7b1c6353ab42a819b8e45b20f15dd13cddfb254af4aef",
       "claimSentences": {
-        "total": 3,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 3,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We respond within 24 hours, usually faster.",
+        "detectedTotal": 3,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 2,
+        "outOfScopeExamples": [
           "The governor visit is this afternoon and the data dashboard won't load.",
           "A genuine conversation about how you're using the platform, features you might not have discovered, and ways to get more value from your subscription."
-        ]
+        ],
+        "total": 1,
+        "highRisk": 0,
+        "evidenced": 1,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "addon-white-label": {
       "key": "addon-white-label",
       "resolvedKey": "addon-white-label",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 5 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-pricing-2025-12",
       "title": "White Label: Your Brand, Our Platform",
       "transcriptLength": 1307,
       "transcriptSha256": "0d77b259f2a61db1f65dd991d6fcdb805e6878a8bb66f38e517b69933520ba46",
       "claimSentences": {
-        "total": 5,
+        "detectedTotal": 10,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 7,
+        "outOfScopeExamples": [
+          "Some organisations need more than a tool.",
+          "They need a platform that looks and feels like part of their own offering.",
+          "MATs building coherent trust identities can have the SEND platform match their other systems.",
+          "Users experience it as part of your infrastructure, not another third-party tool.",
+          "EP consultancies can offer their clients a professional platform as part of their service package.",
+          "The security."
+        ],
+        "total": 3,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 5,
+        "evidenced": 3,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "The White Label add-on lets you rebrand EdPsych Connect with your identity.",
-          "Assessment tools and report templates branded as your practice's resources.",
-          "The security.",
-          "You get everything the platform offers, just wrapped in your visual identity.",
-          "Our infrastructure."
-        ]
+        "unevidencedExamples": []
       }
     },
     "adhd-m1-l1": {
@@ -171,13 +189,20 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "ADHD Neurobiology: Dopamine & Development",
       "transcriptLength": 635,
       "transcriptSha256": "101b91544326a5e6f69a8f7a272993aaba17984f548905517ad036c43cbe79c0",
       "claimSentences": {
+        "detectedTotal": 2,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 2,
+        "outOfScopeExamples": [
+          "It is a developmental impairment of the brain's self-management system.",
+          "The ADHD brain has a dysregulated dopamine system."
+        ],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -190,23 +215,25 @@
       "key": "adhd-m1-l2",
       "resolvedKey": "adhd-m1-l2",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 1 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "The Three Presentations",
       "transcriptLength": 498,
       "transcriptSha256": "de066f796382b7478983e0b0a9ece18522140e4d5e5c0cf30b217b699d601a2b",
       "claimSentences": {
-        "total": 1,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We don't call it ADD anymore."
-        ]
+        "unevidencedExamples": []
       }
     },
     "adhd-m2-l1": {
@@ -215,13 +242,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Inattentive Presentation: The Daydreamer",
       "transcriptLength": 450,
       "transcriptSha256": "6a836b9e8a0c64add988e256392cfadd062998a4d4c5e00d93003bb795432c82",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -236,13 +267,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Hyperactive Presentation: The Energizer Bunny",
       "transcriptLength": 430,
       "transcriptSha256": "0ea56a8a3f9dcf2b582dbae3c7ffa7af61d9616d4afb1f2ba3e4d58e86b864a7",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -255,47 +290,52 @@
       "key": "adhd-m3-l1",
       "resolvedKey": "adhd-m3-l1",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 1 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "The 8 Executive Functions",
       "transcriptLength": 496,
       "transcriptSha256": "808a7b96c22424ebb8267389238483deb1907405872af89ae174cf752a52d52d",
       "claimSentences": {
-        "total": 1,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We need to support these functions, not punish the lack of them."
-        ]
+        "unevidencedExamples": []
       }
     },
     "adhd-m3-l2": {
       "key": "adhd-m3-l2",
       "resolvedKey": "adhd-m3-l2",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Impact on Academic Performance",
       "transcriptLength": 488,
       "transcriptSha256": "3de624845e6b0ff501485597e21a07fe2867de5b8b7bf258b2329b1c20d09f14",
       "claimSentences": {
-        "total": 2,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "You often hear: \"He can focus on video games for hours, why can't he do his maths?\" This is the 'Interest-Based Nervous System'."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 2,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "The ADHD brain engages automatically with things that are interesting, novel, urgent, or challenging.",
-          "We need to make the learning engaging, gamified, or urgent to switch the brain on."
-        ]
+        "unevidencedExamples": []
       }
     },
     "adhd-m4-l1": {
@@ -304,13 +344,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Seating and Sensory",
       "transcriptLength": 340,
       "transcriptSha256": "98c2fde58b773fcc5f8ee45311f6bb2fd7cffd6131fcaf48b337773ba7956b7d",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -325,13 +369,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Instructional Accommodations",
       "transcriptLength": 315,
       "transcriptSha256": "554d817e4eb62cd0495a97a00d0814a07c40fa30d67cf401e998130195d227fa",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -346,13 +394,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Attention Cues",
       "transcriptLength": 258,
       "transcriptSha256": "fcc13f6fb2b3c0d59a37b4aedc0aa9a4137799c3b0259261d54e9b072caecdc6",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -365,24 +417,25 @@
       "key": "adhd-m5-l2",
       "resolvedKey": "adhd-m5-l2",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Self-Monitoring",
       "transcriptLength": 384,
       "transcriptSha256": "de325eec028a5d10719dca02a1874814ef77e706364a1f511509dc945926f48c",
       "claimSentences": {
-        "total": 2,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 2,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We want to move from teacher-regulation to self-regulation.",
-          "But we have to teach it."
-        ]
+        "unevidencedExamples": []
       }
     },
     "adhd-m6-l1": {
@@ -398,9 +451,13 @@
       "transcriptLength": 292,
       "transcriptSha256": "f46c838b08b0a7e64586661e8e922d3e58bd3597f049145cfb8688e2897c545b",
       "claimSentences": {
-        "total": 0,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 1,
         "highRisk": 0,
-        "evidenced": 0,
+        "evidenced": 1,
         "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
         "unevidencedExamples": []
@@ -410,23 +467,25 @@
       "key": "adhd-m6-l2",
       "resolvedKey": "adhd-m6-l2",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 1 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Impulse Control Strategies",
       "transcriptLength": 343,
       "transcriptSha256": "a2081d672493c3c6d759fa936f475567f3dee9e92bc23f1a2afb57f693fb5a50",
       "claimSentences": {
-        "total": 1,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We need to build in the \"Stop\"."
-        ]
+        "unevidencedExamples": []
       }
     },
     "adhd-m7-l1": {
@@ -435,13 +494,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Organisation Systems",
       "transcriptLength": 380,
       "transcriptSha256": "5e348d6ba337dd06ddbbbf0c06baa1ceb59ac9daf699f04186809534bb597816",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -456,13 +519,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Homework Strategies",
       "transcriptLength": 367,
       "transcriptSha256": "68fd5aa0350f839be19e85a0068e1e495c440e33c421933970088d7ea4456370",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -477,13 +544,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "ADHD Medication",
       "transcriptLength": 440,
       "transcriptSha256": "76449bc108c0cdca2a7efc6a28a4f16acf32812672d97123b142dd614e174976",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -498,13 +569,19 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Parent Partnership",
       "transcriptLength": 351,
       "transcriptSha256": "7e03560801a789193be2701d18c5858664d5a9f916eeb7632ccfcc99da8a3467",
       "claimSentences": {
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "And consistency is the safety net for the ADHD child."
+        ],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -519,13 +596,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-additional",
       "title": "Annual Reviews: Mastery Through Structure",
       "transcriptLength": 786,
       "transcriptSha256": "820c6feb73fec829901cabc8f721947474d7404880b61c62cfb684b1e0da4cde",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -538,176 +619,187 @@
       "key": "assessment-choosing",
       "resolvedKey": "assessment-choosing",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 6 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-core",
       "title": "Choosing the Right Assessment",
       "transcriptLength": 669,
       "transcriptSha256": "c36e613ac35b312e4c1c3c7564a48dcec84e0f36574f74e96af9fd79f9acc7f6",
       "claimSentences": {
-        "total": 6,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 6,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We have over 50 assessments in our library.",
-          "If you're asking \"Is this dyslexia?\", use our 'Phonological Screener'.",
-          "Our 'Assessment Finder' helps you.",
+        "detectedTotal": 3,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 3,
+        "outOfScopeExamples": [
           "You can filter by Age, Area of Need, or Time Required.",
           "You can also see the 'Reliability Rating'.",
-          "We only use tools that are statistically robust."
-        ]
+          "Choose the tool that gives you the best map."
+        ],
+        "total": 0,
+        "highRisk": 0,
+        "evidenced": 0,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "assessment-interpreting": {
       "key": "assessment-interpreting",
       "resolvedKey": "assessment-interpreting",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 1 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "Interpreting Assessment Results",
       "transcriptLength": 780,
       "transcriptSha256": "02fb697c3068e3b4a4b239b2614b3a83602adb1b28398320ddf030c1e5e9070a",
       "claimSentences": {
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 1,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 1,
+        "evidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Our 'AI Analysis' highlights these spikes for you."
-        ]
+        "unevidencedExamples": []
       }
     },
     "autism-m1-l1": {
       "key": "autism-m1-l1",
       "resolvedKey": "autism-m1-l1",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 3 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "What is Autism? Neurodiversity Paradigm",
       "transcriptLength": 839,
       "transcriptSha256": "2714ec539693b208df89a3bd4e8dbe87b0e9222529cb3cfc0230e11665118285",
       "claimSentences": {
-        "total": 3,
+        "detectedTotal": 3,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 3,
+        "outOfScopeExamples": [
+          "Autism is not a broken operating system.",
+          "It is a different operating system.",
+          "It's to create an environment where their specific operating system can thrive."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 3,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Let's start by reframing how we see Autism.",
-          "Our job isn't to make autistic children 'normal'.",
-          "We stop trying to install Windows software on a Mac."
-        ]
+        "unevidencedExamples": []
       }
     },
     "autism-m1-l2": {
       "key": "autism-m1-l2",
       "resolvedKey": "autism-m1-l2",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "The Autistic Experience: First-Person Perspectives",
       "transcriptLength": 679,
       "transcriptSha256": "1b61361b30a133811d83927454a3e8b92cb322d8cb5029f19bc6486362bfc17e",
       "claimSentences": {
-        "total": 2,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "Imagine walking into a supermarket, but you can hear the hum of the fridge, the scratch of your wool jumper, and the flickering of the fluorescent light all at the same volume as…"
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 2,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Imagine walking into a supermarket, but you can hear the hum of the fridge, the scratch of your wool jumper, and the flickering of the fluorescent light all at the same volume as…",
-          "We need to move from 'behaviour management' to 'stress reduction'."
-        ]
+        "unevidencedExamples": []
       }
     },
     "autism-m2-l1": {
       "key": "autism-m2-l1",
       "resolvedKey": "autism-m2-l1",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 6 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Social Communication Differences",
       "transcriptLength": 733,
       "transcriptSha256": "3b99d245ff90d9ce4e6673b5f5424516093a056a4784b230b35cdc1b5505d3d1",
       "claimSentences": {
-        "total": 6,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "Our goal is authentic communication, not compliance."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 6,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We used to talk about 'social deficits'.",
-          "Now, we talk about the 'Double Empathy Problem'.",
-          "When we force eye contact, we are actually increasing their cognitive load.",
-          "We are making it harder for them to listen.",
-          "Our goal is authentic communication, not compliance.",
-          "We should value their directness and honesty, rather than trying to train them to be socially polite at the cost of their mental health."
-        ]
+        "unevidencedExamples": []
       }
     },
     "autism-m2-l2": {
       "key": "autism-m2-l2",
       "resolvedKey": "autism-m2-l2",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Friendship and Peer Relationships",
       "transcriptLength": 586,
       "transcriptSha256": "5253962afe36dfe7e18ac98d2260499d6ccfbd42aaf0236ffbc0977a0f30ff06",
       "claimSentences": {
-        "total": 2,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 2,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We can support them by creating structured social opportunities.",
-          "We focus on 'side-by-side' interaction rather than 'face-to-face'."
-        ]
+        "unevidencedExamples": []
       }
     },
     "autism-m3-l1": {
       "key": "autism-m3-l1",
       "resolvedKey": "autism-m3-l1",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Sensory Processing: Hyper and Hypo",
       "transcriptLength": 594,
       "transcriptSha256": "5f0e6fe0caf9124274fdc8e7f6f57f04020e5142654bc23be935dfa8af8f8100",
       "claimSentences": {
-        "total": 2,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 2,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We see two main profiles: Hyper-sensitive (the avoider) and Hypo-sensitive (the seeker).",
-          "If we stop the behaviour without addressing the sensory need, we just increase the anxiety."
-        ]
+        "unevidencedExamples": []
       }
     },
     "autism-m3-l2": {
@@ -716,13 +808,19 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Creating Sensory-Friendly Environments",
       "transcriptLength": 470,
       "transcriptSha256": "7269fd13b32e31d6a94aea55da988e72763f59d416ea2300a4cd78a51bd81db2",
       "claimSentences": {
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "This calms the nervous system and gets the brain ready to learn."
+        ],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -737,13 +835,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Visual Supports: Making the Invisible Visible",
       "transcriptLength": 505,
       "transcriptSha256": "02a59e4313b21316319b77c49821be140c7dfaa8c7760a888167571102cacc7d",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -756,49 +858,50 @@
       "key": "autism-m4-l2",
       "resolvedKey": "autism-m4-l2",
       "scriptStatus": "found",
-      "recommendation": "likely-script-update",
+      "recommendation": "ok",
       "notes": [
-        "Found 1 high-risk claim sentence(s) with no configured code evidence anchor. Recommend adjusting script text or adding evidence mapping before any regeneration."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Structure and Predictability",
       "transcriptLength": 493,
       "transcriptSha256": "af393e55545b24d14a8b5e8b66e1a7ced7f2df75c8ee250c19e9e1cbfe04ebdc",
       "claimSentences": {
-        "total": 1,
-        "highRisk": 1,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
+        "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 1,
-        "highRiskUnevidencedExamples": [
-          "\"We always put our bags here.\" \"We always start with a starter activity.\" If there is a change—a supply teacher, a room swap—pre-warn."
-        ],
-        "unevidencedExamples": [
-          "\"We always put our bags here.\" \"We always start with a starter activity.\" If there is a change—a supply teacher, a room swap—pre-warn."
-        ]
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "autism-m5-l1": {
       "key": "autism-m5-l1",
       "resolvedKey": "autism-m5-l1",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Anxiety in Autism",
       "transcriptLength": 487,
       "transcriptSha256": "ed8a331261d02ae6a6484018dce090358da5062a8e5fa278df2fe41923e0690c",
       "claimSentences": {
-        "total": 2,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 2,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We often see 'masking'—holding it together at school, being the perfect student, and then exploding the moment they get home.",
-          "We need to recognise the early signs of dysregulation—the pacing, the echolalia, the withdrawal—before the explosion happens."
-        ]
+        "unevidencedExamples": []
       }
     },
     "autism-m5-l2": {
@@ -807,13 +910,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Meltdown Support",
       "transcriptLength": 546,
       "transcriptSha256": "5143770553cc55949b24cf8e809d21e59a929e1dd87d7ea65c997bc774acf1f3",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -826,48 +933,50 @@
       "key": "autism-m6-l1",
       "resolvedKey": "autism-m6-l1",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 3 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Special Interests: Passion, Not Obsession",
       "transcriptLength": 460,
       "transcriptSha256": "fc0a883e5b3d43bb49172642f65dec651a409cf4120e8bd779d12ce24ab90dc3",
       "claimSentences": {
-        "total": 3,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 3,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We used to call them 'obsessions'.",
-          "Now we call them 'Special Interests' or 'SpIns'.",
-          "We need to harness that hyper-focus, not fight against it."
-        ]
+        "unevidencedExamples": []
       }
     },
     "autism-m6-l2": {
       "key": "autism-m6-l2",
       "resolvedKey": "autism-m6-l2",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 1 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Strengths-Based Approach",
       "transcriptLength": 415,
       "transcriptSha256": "da55f3373e4b62d845b7f876ffe1c2a0a0747e6cc523cd2b746b73c5aae9fff8",
       "claimSentences": {
-        "total": 1,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We need to identify and celebrate the strengths."
-        ]
+        "unevidencedExamples": []
       }
     },
     "autism-m7-l1": {
@@ -876,13 +985,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Executive Function Difficulties",
       "transcriptLength": 408,
       "transcriptSha256": "48cf405757b121cb081d13a91ff7e62d3145eb2c82e744551c50f144ec7de300",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -895,25 +1008,25 @@
       "key": "autism-m7-l2",
       "resolvedKey": "autism-m7-l2",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 3 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Promoting Independence",
       "transcriptLength": 377,
       "transcriptSha256": "f83b7b8aa2ea282276bd3b0e144d8adbccec7add5106f22a684978e436948cb6",
       "claimSentences": {
-        "total": 3,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 3,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We support executive function by being the external hard drive.",
-          "We want them to use the checklist, not rely on the adult.",
-          "We are building independence, not dependence."
-        ]
+        "unevidencedExamples": []
       }
     },
     "autism-m8-l1": {
@@ -922,13 +1035,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Inclusive Education",
       "transcriptLength": 301,
       "transcriptSha256": "c63c12514aa0ef4815b20c3889deaf8a74fede478630149b95a07b36697f03d9",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -943,13 +1060,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Legal Rights & Adjustments",
       "transcriptLength": 434,
       "transcriptSha256": "929eabcd7b68c9f398622b956c33b17ba783618e5da849c234570765e2f179e9",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -962,394 +1083,383 @@
       "key": "blocks-events",
       "resolvedKey": "innovation-coding-curriculum",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 7 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-innovation",
       "title": "Developers of Tomorrow: Inclusive Coding",
       "transcriptLength": 909,
       "transcriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "claimSentences": {
-        "total": 7,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "Finally, we introduce React—the same technology used to build this very platform."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 7,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We've built the 'Developers of Tomorrow' curriculum to change that.",
-          "We start with 'Block Coding'—visual, drag-and-drop logic that requires no typing.",
-          "Then we bridge to Python.",
-          "But we use our 'Assistive Editor'.",
-          "Finally, we introduce React—the same technology used to build this very platform.",
-          "We use 'Gamification' to keep engagement high.",
-          "We are proving that neurodivergent thinking is a superpower in coding."
-        ]
+        "unevidencedExamples": []
       }
     },
     "blocks-intro": {
       "key": "blocks-intro",
       "resolvedKey": "innovation-coding-curriculum",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 7 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-innovation",
       "title": "Developers of Tomorrow: Inclusive Coding",
       "transcriptLength": 909,
       "transcriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "claimSentences": {
-        "total": 7,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "Finally, we introduce React—the same technology used to build this very platform."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 7,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We've built the 'Developers of Tomorrow' curriculum to change that.",
-          "We start with 'Block Coding'—visual, drag-and-drop logic that requires no typing.",
-          "Then we bridge to Python.",
-          "But we use our 'Assistive Editor'.",
-          "Finally, we introduce React—the same technology used to build this very platform.",
-          "We use 'Gamification' to keep engagement high.",
-          "We are proving that neurodivergent thinking is a superpower in coding."
-        ]
+        "unevidencedExamples": []
       }
     },
     "blocks-loops": {
       "key": "blocks-loops",
       "resolvedKey": "innovation-coding-curriculum",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 7 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-innovation",
       "title": "Developers of Tomorrow: Inclusive Coding",
       "transcriptLength": 909,
       "transcriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "claimSentences": {
-        "total": 7,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "Finally, we introduce React—the same technology used to build this very platform."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 7,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We've built the 'Developers of Tomorrow' curriculum to change that.",
-          "We start with 'Block Coding'—visual, drag-and-drop logic that requires no typing.",
-          "Then we bridge to Python.",
-          "But we use our 'Assistive Editor'.",
-          "Finally, we introduce React—the same technology used to build this very platform.",
-          "We use 'Gamification' to keep engagement high.",
-          "We are proving that neurodivergent thinking is a superpower in coding."
-        ]
+        "unevidencedExamples": []
       }
     },
     "compare-switching": {
       "key": "compare-switching",
       "resolvedKey": "compare-switching",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 9 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-pricing-2025-12",
       "title": "Switching Platforms Without the Pain",
       "transcriptLength": 1691,
       "transcriptSha256": "f62ce5060e39cc0d50d450c8923fcb9c73319d7bf8669ade16c48f9419251ae3",
       "claimSentences": {
-        "total": 9,
+        "detectedTotal": 4,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 4,
+        "outOfScopeExamples": [
+          "Here's the conversation that kills most platform switches before they start.",
+          "If your current platform has an export function, we almost certainly have a matching import function.",
+          "Start using EdPsych Connect for new activity while your historical data remains accessible in your current system.",
+          "The worst approach to platform adoption is waiting until your current contract ends and trying to migrate everything in a two-week window during summer holidays."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 9,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Then someone asks: \"But how do we migrate all our existing data?\" And the momentum dies.",
-          "We designed our onboarding process specifically to address this.",
-          "First, we support data import from common formats.",
-          "If your current platform has an export function, we almost certainly have a matching import function.",
-          "Second, we provide migration templates.",
-          "Documents showing exactly what data we can bring across, in what format.",
-          "Third, we offer parallel running.",
-          "Start using EdPsych Connect for new activity while your historical data remains accessible in your current system."
-        ]
+        "unevidencedExamples": []
       }
     },
     "compare-true-cost": {
       "key": "compare-true-cost",
       "resolvedKey": "compare-true-cost",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 11 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-pricing-2025-12",
       "title": "The True Cost of Educational Software",
       "transcriptLength": 2117,
       "transcriptSha256": "54bb0fbf1c4792bc8da2b5a2989facdd666dc83065d00f70da5cb2550904b274",
       "claimSentences": {
-        "total": 11,
+        "detectedTotal": 14,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 14,
+        "outOfScopeExamples": [
+          "Start with per-student pricing.",
+          "A platform charging three pounds per student per year sounds reasonable.",
+          "Until you're a secondary school with three hundred students on the SEND register and suddenly you're paying nine hundred pounds annually for one tool.",
+          "We don't charge per student.",
+          "Then there's the feature creep.",
+          "We don't artificially gate essential functionality."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 11,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We don't charge per student.",
-          "We don't artificially gate essential functionality.",
-          "Our training is built into the platform.",
-          "Our standard support responds within 24 hours.",
-          "We build integration capability into appropriate tiers because silos serve nobody.",
-          "The platform that looks cheapest often costs most.",
-          "The platform that looks expensive often delivers more value per pound.",
-          "We're not the cheapest option on the market."
-        ]
+        "unevidencedExamples": []
       }
     },
     "compliance-consent": {
       "key": "compliance-consent",
       "resolvedKey": "compliance-consent",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 8 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "Managing Consent Properly",
       "transcriptLength": 701,
       "transcriptSha256": "e0c13370e79cfb121ef3c166abee314cba6b13f71582297d7075f376f9f11afb",
       "claimSentences": {
-        "total": 8,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 8,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Consent is the foundation of everything we do.",
+        "detectedTotal": 8,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 3,
+        "outOfScopeExamples": [
           "You can't assess a child without it.",
-          "Our 'Consent Manager' makes this watertight.",
-          "We know who signed, when, and exactly what they agreed to.",
           "The system locks the data immediately.",
-          "You can't accidentally process it.",
-          "We also handle 'Competency'.",
-          "For older students, the system prompts you to consider if they can give their own consent."
-        ]
+          "You can't accidentally process it."
+        ],
+        "total": 5,
+        "highRisk": 0,
+        "evidenced": 5,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "compliance-data-protection": {
       "key": "compliance-data-protection",
       "resolvedKey": "compliance-data-protection",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 7 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "Data Protection for Educators",
       "transcriptLength": 874,
       "transcriptSha256": "42621c4691fbcba8027440605c7d3534a526a002943719d33deec3171b3166c6",
       "claimSentences": {
-        "total": 7,
+        "detectedTotal": 5,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "When a parent hands over their child's medical report, they are trusting us with their secrets."
+        ],
+        "total": 4,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 7,
+        "evidenced": 4,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "When a parent hands over their child's medical report, they are trusting us with their secrets.",
-          "We have to honour that.",
-          "Our platform enforces 'Data Minimisation'.",
-          "We also handle 'Retention'.",
-          "We automatically archive data when a student leaves, and delete it when the statutory period expires.",
-          "If a parent asks for their data, our 'Subject Access Request Generator' compiles it in minutes, redacted and ready.",
-          "Security is built in."
-        ]
+        "unevidencedExamples": []
       }
     },
     "compliance-risk-ai": {
       "key": "compliance-risk-ai",
       "resolvedKey": "compliance-risk-ai",
       "scriptStatus": "found",
-      "recommendation": "likely-script-update",
+      "recommendation": "ok",
       "notes": [
-        "Found 1 high-risk claim sentence(s) with no configured code evidence anchor. Recommend adjusting script text or adding evidence mapping before any regeneration."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-additional",
       "title": "Compliance Risk & AI: Practical Guardrails",
       "transcriptLength": 763,
       "transcriptSha256": "749e40624c861b613a38fddd046a8e1274682f8990989b42ad7322d9f6e8216d",
       "claimSentences": {
-        "total": 4,
-        "highRisk": 1,
-        "evidenced": 0,
-        "unevidenced": 4,
-        "highRiskUnevidencedExamples": [
-          "And finally: never let AI output become evidence."
-        ],
-        "unevidencedExamples": [
-          "AI can be useful — and it can create compliance risk if it’s deployed carelessly.",
-          "Be clear when AI is used to assist drafting or summarisation, and keep a human accountable for decisions.",
-          "And finally: never let AI output become evidence.",
-          "Good governance isn't anti-AI."
-        ]
+        "detectedTotal": 5,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 5,
+        "highRisk": 0,
+        "evidenced": 5,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "data-autonomy": {
       "key": "data-autonomy",
       "resolvedKey": "data-autonomy",
       "scriptStatus": "found",
-      "recommendation": "likely-script-update",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 high-risk claim sentence(s) with no configured code evidence anchor. Recommend adjusting script text or adding evidence mapping before any regeneration."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-marketing",
       "title": "Data Autonomy & Trust",
       "transcriptLength": 1459,
       "transcriptSha256": "098c9e8710219138c6ede7861f8d2a838d1d2cdfae249c4295b077bf5d19b7bc",
       "claimSentences": {
-        "total": 9,
-        "highRisk": 2,
-        "evidenced": 0,
-        "unevidenced": 9,
-        "highRiskUnevidencedExamples": [
-          "We process and help you work, but we never hoard.",
-          "Fully GDPR compliant."
-        ],
-        "unevidencedExamples": [
-          "We took a completely different approach.",
-          "That's what we've built.",
-          "We process and help you work, but we never hoard.",
+        "detectedTotal": 7,
+        "detectedHighRisk": 1,
+        "outOfScopeIgnored": 4,
+        "outOfScopeExamples": [
+          "It's called Bring Your Own Database, or BYOD for short.",
           "And the security?",
-          "NHS-level encryption, both when data is moving and when it's stored.",
-          "Fully GDPR compliant.",
-          "Regular security audits.",
-          "Because here's what we believe: trust isn't just a feature."
-        ]
+          "Because here's what we believe: trust isn't just a feature.",
+          "That's the EdPsych Connect difference."
+        ],
+        "total": 3,
+        "highRisk": 1,
+        "evidenced": 3,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "dys-m2-l2": {
       "key": "dys-m2-l2",
       "resolvedKey": "dyslexia-m2-l2",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 5 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Multisensory Teaching",
       "transcriptLength": 460,
       "transcriptSha256": "990b02c9c26fc5cfb6a02d1ae297d9254e17d0ba4406f9ffcbe65ddb7d275ba2",
       "claimSentences": {
-        "total": 5,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 5,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We learn best when we use more than one sense.",
-          "When we teach the sound /a/, we don't just say it.",
-          "We see the letter 'a'.",
-          "We say the sound /a/.",
-          "We trace the letter in the air or on sandpaper."
-        ]
+        "unevidencedExamples": []
       }
     },
     "dys-m3-l1": {
       "key": "dys-m3-l1",
       "resolvedKey": "dyslexia-m3-l1",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 1 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Teaching Phonemic Awareness",
       "transcriptLength": 454,
       "transcriptSha256": "530a5aa2a990d94609274f4b775119d79e3eb99e688ed0e113650cbd20b0f44a",
       "claimSentences": {
-        "total": 1,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "You can do this in the dark."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "You can do this in the dark."
-        ]
+        "unevidencedExamples": []
       }
     },
     "dys-m3-l2": {
       "key": "dys-m3-l2",
       "resolvedKey": "dyslexia-m3-l2",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "What is Phonological Awareness?",
       "transcriptLength": 331,
       "transcriptSha256": "427dc27992e75d15f4ab11f4cd8fdbe183ef9948439e1bf08772228ae769b73a",
       "claimSentences": {
-        "total": 2,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 2,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Our job is to sharpen the focus.",
-          "We need to train the ear before we train the eye."
-        ]
+        "unevidencedExamples": []
       }
     },
     "dys-m4-l1": {
       "key": "dys-m4-l1",
       "resolvedKey": "dyslexia-m4-l1",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 7 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Teaching Phonics Systematically",
       "transcriptLength": 389,
       "transcriptSha256": "8ea997ad3afe018f4accef27947bbf2854fbc273467c0504673c37ee06016584",
       "claimSentences": {
-        "total": 7,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "Then complex vowel teams (ai, ay, a-e)."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 7,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Systematic phonics means we teach the code in a logical order.",
-          "We start with the simple sounds (s, a, t, p).",
-          "Then we move to digraphs (sh, ch, th).",
-          "Then complex vowel teams (ai, ay, a-e).",
-          "We don't just throw random words at them.",
-          "We give them the keys to unlock the code, one by one.",
-          "And we review, review, review."
-        ]
+        "unevidencedExamples": []
       }
     },
     "dys-m4-l2": {
       "key": "dys-m4-l2",
       "resolvedKey": "dyslexia-m4-l2",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Decodable Texts",
       "transcriptLength": 457,
       "transcriptSha256": "9c3dcd202dbd84b0bb23db1f9c5746e0f44c57f2c98456b790222fc223a53339",
       "claimSentences": {
-        "total": 2,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 2,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "That's what happens when we give a beginner reader a book full of words they haven't been taught.",
-          "We need 'Decodable Texts'."
-        ]
+        "unevidencedExamples": []
       }
     },
     "dys-m5-l1": {
@@ -1358,13 +1468,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "What is Reading Fluency?",
       "transcriptLength": 308,
       "transcriptSha256": "d07a6d693f4bedd40506c14013b858cac71f40008d4ded382b2cdc4fe37eb929",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -1377,93 +1491,100 @@
       "key": "dys-m5-l2",
       "resolvedKey": "dyslexia-m5-l2",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 1 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Fluency Interventions",
       "transcriptLength": 332,
       "transcriptSha256": "fd59a030a2919d95c71de92bc150dcb9b9d1a0b69b07c700deedcf7efdf7d231",
       "claimSentences": {
-        "total": 1,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "How do we build fluency?"
-        ]
+        "unevidencedExamples": []
       }
     },
     "dys-m6-l1": {
       "key": "dys-m6-l1",
       "resolvedKey": "dyslexia-m6-l1",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Comprehension Strategies",
       "transcriptLength": 386,
       "transcriptSha256": "f50eeb9b06f918318f00eccb01b021cf644c37e5b2e67bbe3b510ae09601b490",
       "claimSentences": {
-        "total": 2,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 2,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We need to separate the two.",
-          "\"Predict what happens next.\" \"Summarise the story.\" Don't let their reading level become the ceiling for their learning."
-        ]
+        "unevidencedExamples": []
       }
     },
     "dys-m6-l2": {
       "key": "dys-m6-l2",
       "resolvedKey": "dyslexia-m6-l2",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 1 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "The Simple View of Reading",
       "transcriptLength": 294,
       "transcriptSha256": "61f90cdb1a58c3854ead1a85ef461f914a6ffd910faefeb0e40130ca491f31e5",
       "claimSentences": {
-        "total": 1,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Our job is to fix the decoding while keeping the Language Comprehension high."
-        ]
+        "unevidencedExamples": []
       }
     },
     "dys-m7-l1": {
       "key": "dys-m7-l1",
       "resolvedKey": "dyslexia-m7-l1",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 1 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Spelling Instruction",
       "transcriptLength": 395,
       "transcriptSha256": "e1dd13f2a3581e16b260d6f0e0c3cc3ebb8345c0fb118212387791603272cd44",
       "claimSentences": {
-        "total": 1,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "\"Why do we double the 'p' in 'hopping'?\" \"When do we use 'c' vs 'k'?\" When they understand the logic, they don't have to rely on rote memory, which is often a weak point for dysle…"
-        ]
+        "unevidencedExamples": []
       }
     },
     "dys-m7-l2": {
@@ -1472,13 +1593,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Supporting Written Expression",
       "transcriptLength": 345,
       "transcriptSha256": "41d2d2bcd4a41a0fa6adf308574fd3fc021c5f36597a7e9cee2a266b9c8bf1c0",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -1493,13 +1618,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Classroom Accommodations",
       "transcriptLength": 379,
       "transcriptSha256": "789b5cf10b3db7dc912fb2549b1eca09059261189eedd4290cc55e96b7e29f7d",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -1512,533 +1641,551 @@
       "key": "dys-m8-l2",
       "resolvedKey": "dyslexia-m8-l2",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Progress Monitoring",
       "transcriptLength": 330,
       "transcriptSha256": "e9e18c6b263d382aa334245806c8ca7b44c5e0e0bf5f3b31b2d7908803d3e25f",
       "claimSentences": {
-        "total": 2,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 2,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "How do we know if it's working?",
-          "We measure."
-        ]
+        "unevidencedExamples": []
       }
     },
     "ehcp-annual-review": {
       "key": "ehcp-annual-review",
       "resolvedKey": "ehcp-annual-review",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 9 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "The Education, Health and Care Plan Annual Review Process",
       "transcriptLength": 1034,
       "transcriptSha256": "b883baee61d4c9985bf89f2baa366dbda5dfe07233268ba01d211735719fcde1",
       "claimSentences": {
-        "total": 9,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 9,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
+        "detectedTotal": 4,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 2,
+        "outOfScopeExamples": [
           "Our 'Annual Review Scheduler' automates the admin so you can focus on the child.",
-          "It pulls in the progress data from the last 12 months automatically.",
-          "Before you even walk into the meeting, you can see: Did we meet Outcome 3?",
-          "During the review, we use the 'Live Edit' feature.",
-          "We project the plan on the screen.",
-          "We agree on changes together.",
-          "We update the outcomes in real-time.",
-          "We also look at Phase Transfers."
-        ]
+          "Before you even walk into the meeting, you can see: Did we meet Outcome 3?"
+        ],
+        "total": 2,
+        "highRisk": 0,
+        "evidenced": 2,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "ehcp-appeals": {
       "key": "ehcp-appeals",
       "resolvedKey": "ehcp-appeals",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 6 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "Understanding Education, Health and Care Plan Appeals",
       "transcriptLength": 1088,
       "transcriptSha256": "144486817f939cdfaf3b11b7c4402895f75488c70a7f7fb1a05b0d195922de05",
       "claimSentences": {
-        "total": 6,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 6,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
+        "detectedTotal": 4,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 3,
+        "outOfScopeExamples": [
           "You can appeal to the Special Educational Needs and Disabilities Tribunal if the Local Authority refuses to assess, refuses to issue a plan, or if the content is weak.",
-          "Our platform connects you directly with mediation services.",
-          "If you do need to appeal, our 'Tribunal Bundle Generator' is your best friend.",
           "It compiles every piece of evidence, every email, every report into a court-ready bundle.",
-          "And with the right evidence, you can win.",
-          "We've got your back."
-        ]
+          "And with the right evidence, you can win."
+        ],
+        "total": 1,
+        "highRisk": 0,
+        "evidenced": 1,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "ehcp-application-journey": {
       "key": "ehcp-application-journey",
       "resolvedKey": "ehcp-application-journey",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 5 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "Your Education, Health and Care Plan Application Journey",
-      "transcriptLength": 1410,
-      "transcriptSha256": "0310595a87f711fd36bfa21b06be6a7aaa2c2165d5a48f0919c47a8bf4bd2661",
+      "transcriptLength": 1382,
+      "transcriptSha256": "2e6d528fe85228579b0aacfbf01b114b63058bc98771e15ed54e9419ad9df5ec",
       "claimSentences": {
-        "total": 5,
+        "detectedTotal": 5,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "That's why I built this platform to be different."
+        ],
+        "total": 4,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 5,
+        "evidenced": 4,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Our platform changes that.",
-          "We use what I call the 'Golden Thread'.",
-          "Our AI helps you draft it, ensuring you use the language that panels actually look for.",
-          "If the Local Authority agrees to assess, our system coordinates the professionals.",
-          "Educational Psychologists, Speech Therapists, Occupational Therapists—we all work in the same digital space."
-        ]
+        "unevidencedExamples": []
       }
     },
     "ehcp-evidence-gathering": {
       "key": "ehcp-evidence-gathering",
       "resolvedKey": "ehcp-evidence-gathering",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 8 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "Gathering Strong Education, Health and Care Plan Evidence",
       "transcriptLength": 1248,
       "transcriptSha256": "2c8ca8ce4ee69647486a734d358e9eb545c1398ba074244811453b1831fe8c2d",
       "claimSentences": {
-        "total": 8,
+        "detectedTotal": 2,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 2,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 8,
+        "evidenced": 2,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Let me show you how to build a case that's impossible to ignore using our Evidence Builder.",
-          "First, we need numbers.",
-          "Our platform prompts you for these because they provide the objective baseline.",
-          "Don't just say \"struggles with focus.\" Use our templates to record: \"Requires one-to-one prompting every 5 minutes to stay on task.\" Specificity wins funding.",
-          "Our system pulls this directly from your intervention logs.",
-          "It shows the timeline: \"We tried Phonics X for 6 weeks, progress was flat.",
-          "We tried Strategy Y, minimal impact.\" This proves that the school has exhausted its resources.",
-          "We have tools to capture their views directly, whether they can write or not."
-        ]
+        "unevidencedExamples": []
       }
     },
     "ehcp-modules-hub-overview": {
       "key": "ehcp-modules-hub-overview",
       "resolvedKey": "ehcp-modules-hub-overview",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-additional",
       "title": "EHCP Modules Hub: What You’ll Learn",
       "transcriptLength": 940,
       "transcriptSha256": "d18c4548832e06be83aa390d2cfe9235ece3e7ed1b12e2223b3f7d05dde38a61",
       "claimSentences": {
-        "total": 2,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "You'll see guidance on key pressure points — like annual reviews, phase transfers, and mediation or tribunal routes — alongside a clear emphasis on evidence, outcomes, and the chi…"
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 2,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We focus on the realities people face in practice: keeping documentation coherent, managing statutory timescales, and coordinating contributions from education, health, and social…",
-          "You'll see guidance on key pressure points — like annual reviews, phase transfers, and mediation or tribunal routes — alongside a clear emphasis on evidence, outcomes, and the chi…"
-        ]
+        "unevidencedExamples": []
       }
     },
     "ehcp-professional-contributions": {
       "key": "ehcp-professional-contributions",
       "resolvedKey": "ehcp-professional-contributions",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 7 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "Understanding Professional Education, Health and Care Plan Contributions",
       "transcriptLength": 1209,
       "transcriptSha256": "f0e9b943d001e27e5d5d415fb2f80e176e95bfa55d4e959e50e4ccbe9fa00f70",
       "claimSentences": {
-        "total": 7,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 7,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "When an assessment kicks off, you'll see reports coming in from all angles.",
+        "detectedTotal": 6,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 4,
+        "outOfScopeExamples": [
           "My report drives Section B (Needs) and Section F (Provision).",
           "For a child with autism, their report is often the linchpin.",
-          "Here's the magic of EdPsych Connect: we don't just dump these reports on you.",
           "Our 'Merge Tool' reads them all.",
-          "If you don't understand a report, use our 'Ask an Expert' feature.",
-          "We put them together."
-        ]
+          "If you don't understand a report, use our 'Ask an Expert' feature."
+        ],
+        "total": 2,
+        "highRisk": 0,
+        "evidenced": 2,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "enterprise-plan-overview": {
       "key": "enterprise-plan-overview",
       "resolvedKey": "innovation-orchestration",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 5 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-innovation",
       "title": "Multi-Agency Orchestration",
       "transcriptLength": 967,
       "transcriptSha256": "e2b8ef42c823e2b11ca73bbc844bb60badd6b50995b94a1f7f55a69d9b5e71e1",
       "claimSentences": {
-        "total": 5,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 5,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
+        "detectedTotal": 5,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 4,
+        "outOfScopeExamples": [
+          "Health is on one system.",
           "Our 'Orchestration Engine' bridges these worlds.",
           "Imagine a dashboard that pulls live data from all three sectors.",
-          "If a Paediatrician diagnoses Attention Deficit Hyperactivity Disorder, the Educational Psychologist's report draft is automatically updated to reflect this new evidence.",
-          "We use 'Role-Based Scoping'.",
           "You only see what you need to see, but the system sees everything."
-        ]
+        ],
+        "total": 1,
+        "highRisk": 0,
+        "evidenced": 1,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "feature-accessibility": {
       "key": "feature-accessibility",
       "resolvedKey": "feature-accessibility",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 5 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-training",
       "title": "Universal Accessibility",
       "transcriptLength": 366,
       "transcriptSha256": "07a5ce6e15468adcbb5ab0b2bb3ce3d17de2ebb2be3a3300812a81e79ae5f1de",
       "claimSentences": {
-        "total": 5,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 5,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
+        "detectedTotal": 4,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 4,
+        "outOfScopeExamples": [
           "You can change the font to OpenDyslexic.",
           "You can adjust the contrast for visual stress.",
           "You can use the screen reader for auditory processing.",
-          "We believe in 'Universal Design'.",
           "By making the platform accessible for those with the highest needs, we make it better for everyone."
-        ]
+        ],
+        "total": 0,
+        "highRisk": 0,
+        "evidenced": 0,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "feature-ai-agents": {
       "key": "feature-ai-agents",
       "resolvedKey": "feature-ai-agents",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 1 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-training",
       "title": "Meet Dr. Scott AI",
       "transcriptLength": 386,
       "transcriptSha256": "bd0642d53ef59aeb2f47a57b15fa8f6146264874c6ba840e858d8177405c0963",
       "claimSentences": {
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 1,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 1,
+        "evidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Scott AI."
-        ]
+        "unevidencedExamples": []
       }
     },
     "feature-battle-royale": {
       "key": "feature-battle-royale",
       "resolvedKey": "feature-battle-royale",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-pricing-2025-12",
       "title": "Battle Royale: Assessment They Actually Want to Do",
       "transcriptLength": 1793,
       "transcriptSha256": "38c79c5971e6a1ca728857ecc506d5b9d74ff293b99c7f088fc93e4c38348536",
       "claimSentences": {
-        "total": 2,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 1,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 2,
+        "evidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "From your perspective as a professional, you're capturing clinical-grade assessment data with validity you can trust.",
-          "That's what we mean by changing how it feels to learn."
-        ]
+        "unevidencedExamples": []
       }
     },
     "feature-battle-royale-pricing": {
       "key": "feature-battle-royale-pricing",
       "resolvedKey": "feature-battle-royale",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-pricing-2025-12",
       "title": "Battle Royale: Assessment They Actually Want to Do",
       "transcriptLength": 1793,
       "transcriptSha256": "38c79c5971e6a1ca728857ecc506d5b9d74ff293b99c7f088fc93e4c38348536",
       "claimSentences": {
-        "total": 2,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 1,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 2,
+        "evidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "From your perspective as a professional, you're capturing clinical-grade assessment data with validity you can trust.",
-          "That's what we mean by changing how it feels to learn."
-        ]
+        "unevidencedExamples": []
       }
     },
     "feature-byod-architecture": {
       "key": "feature-byod-architecture",
       "resolvedKey": "feature-byod-architecture",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 8 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-pricing-2025-12",
       "title": "Bring Your Own Database: Data Sovereignty Explained",
       "transcriptLength": 1800,
       "transcriptSha256": "b2d0bdbeaf0fa44fe91d3f0c79db6e7aee95e7aa93761ea17e62a97d35ca280b",
       "claimSentences": {
-        "total": 8,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 8,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
+        "detectedTotal": 6,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 5,
+        "outOfScopeExamples": [
           "Our Bring Your Own Database architecture inverts this model entirely.",
           "Your security perimeter.",
-          "We provide the application layer, the user interface, the processing logic.",
           "Exit strategy if you need to move away from the platform?",
-          "We provide technical documentation and implementation support.",
-          "Once configured, the experience for end users is identical to our cloud offering.",
           "They just use the platform.",
-          "Our tools."
-        ]
+          "That's what Bring Your Own Database means."
+        ],
+        "total": 1,
+        "highRisk": 0,
+        "evidenced": 1,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "feature-deep-dive-ehcp": {
       "key": "feature-deep-dive-ehcp",
       "resolvedKey": "ehcp-application-journey",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 5 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "Your Education, Health and Care Plan Application Journey",
-      "transcriptLength": 1410,
-      "transcriptSha256": "0310595a87f711fd36bfa21b06be6a7aaa2c2165d5a48f0919c47a8bf4bd2661",
+      "transcriptLength": 1382,
+      "transcriptSha256": "2e6d528fe85228579b0aacfbf01b114b63058bc98771e15ed54e9419ad9df5ec",
       "claimSentences": {
-        "total": 5,
+        "detectedTotal": 5,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "That's why I built this platform to be different."
+        ],
+        "total": 4,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 5,
+        "evidenced": 4,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Our platform changes that.",
-          "We use what I call the 'Golden Thread'.",
-          "Our AI helps you draft it, ensuring you use the language that panels actually look for.",
-          "If the Local Authority agrees to assess, our system coordinates the professionals.",
-          "Educational Psychologists, Speech Therapists, Occupational Therapists—we all work in the same digital space."
-        ]
+        "unevidencedExamples": []
       }
     },
     "feature-gamification": {
       "key": "feature-gamification",
       "resolvedKey": "feature-gamification",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 1 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-training",
       "title": "Gamification: Engagement by Design",
       "transcriptLength": 412,
       "transcriptSha256": "6fc838eb2d24fd4218a6dc3d49bae1db2ba97635554c5221beb9e4a98df9fc0e",
       "claimSentences": {
+        "detectedTotal": 3,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 2,
+        "outOfScopeExamples": [
+          "Every module completed earns XP.",
+          "It triggers the dopamine reward pathway—the very system that needs support in ADHD."
+        ],
         "total": 1,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 1,
+        "evidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We've brought that psychology into EdPsych Connect."
-        ]
+        "unevidencedExamples": []
       }
     },
     "feature-intervention-library": {
       "key": "feature-intervention-library",
       "resolvedKey": "feature-intervention-library",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 6 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-pricing-2025-12",
       "title": "The Intervention Library: Over 100 Evidence-Based Strategies",
       "transcriptLength": 1742,
       "transcriptSha256": "0820eefb34bbd84953e5945cb18d507ca044935cfcdf354952b31277c10c87ab",
       "claimSentences": {
-        "total": 6,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "When someone asks \"what should we try?\", you'll have five genuinely appropriate suggestions before they finish the question."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 6,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Research summaries that tell you why we believe it's effective.",
-          "We've done the translation work.",
-          "We've mapped interventions to UK educational frameworks.",
-          "We've written guides that practitioners can actually use.",
-          "We've built search tools that find what you need in seconds, not hours.",
-          "When someone asks \"what should we try?\", you'll have five genuinely appropriate suggestions before they finish the question."
-        ]
+        "unevidencedExamples": []
       }
     },
     "feature-interventions": {
       "key": "feature-interventions",
       "resolvedKey": "help-finding-interventions",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 8 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "Finding the Right Intervention",
       "transcriptLength": 928,
       "transcriptSha256": "adffabde863795161779b858b1e6e3b1d3a839a73c05d97d15d57c7062c32a3d",
       "claimSentences": {
-        "total": 8,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 8,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Identifying a need is useless if we don't do something about it.",
-          "That's why our Intervention Library is the heart of this platform.",
-          "We don't just list strategies.",
-          "We curate evidence-based programmes.",
+        "detectedTotal": 4,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 3,
+        "outOfScopeExamples": [
           "You can filter by 'Effect Size'—that's the research-proven impact.",
-          "It automatically recommends interventions based on your assessment data.",
           "And you can track it.",
           "If it's not working after 6 weeks, the system will flag it and suggest an alternative."
-        ]
+        ],
+        "total": 1,
+        "highRisk": 0,
+        "evidenced": 1,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "feature-la-dashboard": {
       "key": "feature-la-dashboard",
       "resolvedKey": "feature-la-dashboard",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 3 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-training",
       "title": "The Local Authority Dashboard",
       "transcriptLength": 383,
       "transcriptSha256": "0e1e9f1ebd907328029198e2e71c448494b23f24cb5d16d288752ff9d16fb32b",
       "claimSentences": {
-        "total": 3,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 3,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Our Dashboard is your command centre.",
+        "detectedTotal": 3,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 2,
+        "outOfScopeExamples": [
           "See your statutory compliance in real-time.",
           "You can spot a trend before it becomes a crisis."
-        ]
+        ],
+        "total": 1,
+        "highRisk": 0,
+        "evidenced": 1,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "feature-nclb-engine": {
       "key": "feature-nclb-engine",
       "resolvedKey": "feature-nclb-engine",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 3 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-pricing-2025-12",
       "title": "No Child Left Behind: The Differentiation Revolution",
       "transcriptLength": 2263,
       "transcriptSha256": "7b9b0389b7376957e99161d430200f0cdc3693a20c369543bc963a9a437c89b1",
       "claimSentences": {
-        "total": 3,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 3,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
+        "detectedTotal": 3,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 2,
+        "outOfScopeExamples": [
           "Then you tell the system which students you're planning for.",
-          "Their profiles, built from assessments and observations, are already in the platform.",
           "The technology handles the mechanical adaptation so you can focus on the teaching."
-        ]
+        ],
+        "total": 1,
+        "highRisk": 0,
+        "evidenced": 1,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "gamification-integrity": {
       "key": "gamification-integrity",
       "resolvedKey": "gamification-integrity",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 6 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-marketing",
       "title": "Gamification Integrity",
       "transcriptLength": 1695,
       "transcriptSha256": "d0ef2fac291fa12cfeb2962cbaf0c63e013a58bf055abfb12d888e09422ca250",
       "claimSentences": {
-        "total": 6,
+        "detectedTotal": 2,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "And we call it the Battle Royale learning system."
+        ],
+        "total": 1,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 6,
+        "evidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "That's what we've built.",
-          "And we call it the Battle Royale learning system.",
-          "We had a problem to solve.",
-          "Students engage with our learning modes because they feel like games.",
-          "We're measuring response times, accuracy patterns, learning trajectories.",
-          "Real assessment information that you can trust and use."
-        ]
+        "unevidencedExamples": []
       }
     },
     "golden-thread-coherence": {
@@ -2047,13 +2194,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-additional",
       "title": "The Golden Thread: Coherence From Needs to Outcomes",
       "transcriptLength": 703,
       "transcriptSha256": "693da847f54878dabfdb5a06ab7b375aa44dc893c28bf3b6cd52154ff95c1bde",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -2066,480 +2217,479 @@
       "key": "help-collaboration",
       "resolvedKey": "help-collaboration",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 6 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "Collaborating with Your Team",
       "transcriptLength": 811,
       "transcriptSha256": "60493cbdf6b15a34c978a4a0797a7547f2e9cafcdfceddb4778659e276980bbc",
       "claimSentences": {
-        "total": 6,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 6,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "On EdPsych Connect, you build 'Care Teams' around a child.",
+        "detectedTotal": 5,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 4,
+        "outOfScopeExamples": [
           "You can invite the Speech Therapist, the Social Worker, and the Class Teacher into a secure workspace.",
           "You can co-author documents.",
-          "We see each other's edits in real-time.",
           "You can share the 'Needs' section without sharing the 'Family History'.",
           "And our 'Secure Messaging' keeps the conversation right next to the data."
-        ]
+        ],
+        "total": 1,
+        "highRisk": 0,
+        "evidenced": 1,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "help-cpd-tracking": {
       "key": "help-cpd-tracking",
       "resolvedKey": "help-cpd-tracking",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 7 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "Tracking Your Professional Development",
       "transcriptLength": 763,
       "transcriptSha256": "4b62cd635058647adbcb6b2664b940877d868f611c526f5ee389a6ae66e68206",
       "claimSentences": {
-        "total": 7,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 7,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
+        "detectedTotal": 6,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 5,
+        "outOfScopeExamples": [
           "We've built a 'Continuing Professional Development Portfolio' right into the platform.",
-          "Every time you complete a training module with us, it's logged automatically.",
           "But you can also log external training.",
           "The system even suggests training based on your activity.",
           "If you've been assessing a lot of dyslexia lately, it might suggest our advanced literacy module.",
-          "When it's time for your appraisal or HCPC registration, you just click 'Export'.",
-          "We help you prove it."
-        ]
+          "When it's time for your appraisal or HCPC registration, you just click 'Export'."
+        ],
+        "total": 1,
+        "highRisk": 0,
+        "evidenced": 1,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "help-data-security": {
       "key": "help-data-security",
       "resolvedKey": "help-data-security",
       "scriptStatus": "found",
-      "recommendation": "likely-script-update",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 high-risk claim sentence(s) with no configured code evidence anchor. Recommend adjusting script text or adding evidence mapping before any regeneration."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "How We Protect Your Data",
       "transcriptLength": 1019,
       "transcriptSha256": "01d6be6ae20e5ffbfa38964fd6f66a41b2841a59d16d8de9bbdc053c5d8bfd1f",
       "claimSentences": {
-        "total": 11,
-        "highRisk": 2,
-        "evidenced": 1,
-        "unevidenced": 10,
-        "highRiskUnevidencedExamples": [
-          "We use AES-256 encryption—the same standard used by banks and the military.",
+        "detectedTotal": 5,
+        "detectedHighRisk": 2,
+        "outOfScopeIgnored": 2,
+        "outOfScopeExamples": [
+          "That's why we built this platform with a 'Zero Trust' architecture.",
           "We are fully General Data Protection Regulation compliant, UK-hosted, and ISO 27001 aligned."
         ],
-        "unevidencedExamples": [
-          "I'm a psychologist, so I know that the data we hold is sensitive.",
-          "That's why we built this platform with a 'Zero Trust' architecture.",
-          "We use AES-256 encryption—the same standard used by banks and the military.",
-          "For our Local Authority partners, we offer 'Bring Your Own Database'.",
-          "We process it, but we don't own it.",
-          "And we log everything.",
-          "If you need to know who looked at a file three years ago, we can tell you.",
-          "We are fully General Data Protection Regulation compliant, UK-hosted, and ISO 27001 aligned."
-        ]
+        "total": 3,
+        "highRisk": 1,
+        "evidenced": 3,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "help-finding-interventions": {
       "key": "help-finding-interventions",
       "resolvedKey": "help-finding-interventions",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 8 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "Finding the Right Intervention",
       "transcriptLength": 928,
       "transcriptSha256": "adffabde863795161779b858b1e6e3b1d3a839a73c05d97d15d57c7062c32a3d",
       "claimSentences": {
-        "total": 8,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 8,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Identifying a need is useless if we don't do something about it.",
-          "That's why our Intervention Library is the heart of this platform.",
-          "We don't just list strategies.",
-          "We curate evidence-based programmes.",
+        "detectedTotal": 4,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 3,
+        "outOfScopeExamples": [
           "You can filter by 'Effect Size'—that's the research-proven impact.",
-          "It automatically recommends interventions based on your assessment data.",
           "And you can track it.",
           "If it's not working after 6 weeks, the system will flag it and suggest an alternative."
-        ]
+        ],
+        "total": 1,
+        "highRisk": 0,
+        "evidenced": 1,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "help-first-assessment": {
       "key": "help-first-assessment",
       "resolvedKey": "help-first-assessment",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 4 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-core",
       "title": "Running Your First Assessment",
       "transcriptLength": 962,
       "transcriptSha256": "f0e722660b3a0a9d66c7769df33bc0c2094c961e5d8b3e4e3207aa3e73e9f3fb",
       "claimSentences": {
-        "total": 4,
+        "detectedTotal": 2,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 2,
+        "outOfScopeExamples": [
+          "Just ask the system: \"Screen for Attention Deficit Hyperactivity Disorder traits\" or \"Check reading fluency.\" Once you've chosen, you have two modes. 'Guided Mode' is for you to u…",
+          "That's the workflow."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 4,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We have over fifty validated tools here.",
-          "Just ask the system: \"Screen for Attention Deficit Hyperactivity Disorder traits\" or \"Check reading fluency.\" Once you've chosen, you have two modes. 'Guided Mode' is for you to u…",
-          "As they answer, our 'Real-Time Analysis' engine is already working.",
-          "That's the workflow."
-        ]
+        "unevidencedExamples": []
       }
     },
     "help-generating-reports": {
       "key": "help-generating-reports",
       "resolvedKey": "help-generating-reports",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 7 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "Generating Professional Reports",
       "transcriptLength": 815,
       "transcriptSha256": "e9be9830ce46bdb71d1a78fe36f8fcd8e31d0c6214e771ffad0c8854ea2ed0be",
       "claimSentences": {
-        "total": 7,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 7,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
+        "detectedTotal": 5,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 3,
+        "outOfScopeExamples": [
           "I used to spend 3 hours writing a report for every 1 hour I spent with a child.",
-          "Our 'Report Generator' flips that ratio.",
           "You select your template—whether it's a Statutory Advice, a School Report, or a Parent Summary.",
-          "The system pulls in all the data automatically.",
-          "Then, our AI suggests the narrative.",
-          "We even handle the formatting.",
-          "And that's why we're here."
-        ]
+          "The system pulls in all the data automatically."
+        ],
+        "total": 2,
+        "highRisk": 0,
+        "evidenced": 2,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "help-troubleshooting": {
       "key": "help-troubleshooting",
       "resolvedKey": "help-troubleshooting",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 8 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "Troubleshooting Common Issues",
       "transcriptLength": 834,
       "transcriptSha256": "3a31a603932cf2677fb63c7608851237837115a8f8fe45c941ea518d8d030847",
       "claimSentences": {
-        "total": 8,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 8,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
+        "detectedTotal": 3,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 2,
+        "outOfScopeExamples": [
           "We've built a 'Self-Healing' support system.",
-          "Just say \"I can't find the report\" or \"The assessment is stuck.\" It can often fix the issue for you.",
-          "Our 'Offline Mode' handles spotty Wi-Fi, but you need a connection to sync.",
-          "But if you're really stuck, our support isn't a robot.",
-          "You can chat with us live.",
-          "We can even 'Shadow' your session (with your permission) to see exactly what you're seeing.",
-          "We're not just a software company; we're your partners.",
-          "We won't leave you stranded."
-        ]
+          "You can chat with us live."
+        ],
+        "total": 1,
+        "highRisk": 0,
+        "evidenced": 1,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "innovation-ai-agents": {
       "key": "innovation-ai-agents",
       "resolvedKey": "innovation-ai-agents",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-innovation",
       "title": "AI Tutoring Agents: Personalised Learning",
       "transcriptLength": 770,
       "transcriptSha256": "795a8bac4b9e591b0ddf3af7cbe7bc8741c6f23f30ddcdea935051e9830e1bda",
       "claimSentences": {
+        "detectedTotal": 2,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 2,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 2,
+        "evidenced": 2,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Meet our AI Tutoring Agents.",
-          "If a student is a 'Visual Learner', the agent explains concepts using diagrams and metaphors."
-        ]
+        "unevidencedExamples": []
       }
     },
     "innovation-battle-royale": {
       "key": "innovation-battle-royale",
       "resolvedKey": "innovation-battle-royale",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-innovation",
       "title": "Battle Royale: Making Learning Thrilling",
       "transcriptLength": 728,
       "transcriptSha256": "91561090311544c165ee0327b7ff79dc998a8630e0f1fe6c5fb1aa366f6edcea",
       "claimSentences": {
-        "total": 2,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 1,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 2,
+        "evidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We've taken the most popular gaming genre in the world—Battle Royale—and turned it into a learning engine.",
-          "We've seen students who \"hated maths\" begging to play another round."
-        ]
+        "unevidencedExamples": []
       }
     },
     "innovation-coding-curriculum": {
       "key": "innovation-coding-curriculum",
       "resolvedKey": "innovation-coding-curriculum",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 7 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-innovation",
       "title": "Developers of Tomorrow: Inclusive Coding",
       "transcriptLength": 909,
       "transcriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "claimSentences": {
-        "total": 7,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "Finally, we introduce React—the same technology used to build this very platform."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 7,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We've built the 'Developers of Tomorrow' curriculum to change that.",
-          "We start with 'Block Coding'—visual, drag-and-drop logic that requires no typing.",
-          "Then we bridge to Python.",
-          "But we use our 'Assistive Editor'.",
-          "Finally, we introduce React—the same technology used to build this very platform.",
-          "We use 'Gamification' to keep engagement high.",
-          "We are proving that neurodivergent thinking is a superpower in coding."
-        ]
+        "unevidencedExamples": []
       }
     },
     "innovation-orchestration": {
       "key": "innovation-orchestration",
       "resolvedKey": "innovation-orchestration",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 5 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-innovation",
       "title": "Multi-Agency Orchestration",
       "transcriptLength": 967,
       "transcriptSha256": "e2b8ef42c823e2b11ca73bbc844bb60badd6b50995b94a1f7f55a69d9b5e71e1",
       "claimSentences": {
-        "total": 5,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 5,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
+        "detectedTotal": 5,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 4,
+        "outOfScopeExamples": [
+          "Health is on one system.",
           "Our 'Orchestration Engine' bridges these worlds.",
           "Imagine a dashboard that pulls live data from all three sectors.",
-          "If a Paediatrician diagnoses Attention Deficit Hyperactivity Disorder, the Educational Psychologist's report draft is automatically updated to reflect this new evidence.",
-          "We use 'Role-Based Scoping'.",
           "You only see what you need to see, but the system sees everything."
-        ]
+        ],
+        "total": 1,
+        "highRisk": 0,
+        "evidenced": 1,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "innovation-research-hub": {
       "key": "innovation-research-hub",
       "resolvedKey": "innovation-research-hub",
       "scriptStatus": "found",
-      "recommendation": "likely-script-update",
+      "recommendation": "ok",
       "notes": [
-        "Found 1 high-risk claim sentence(s) with no configured code evidence anchor. Recommend adjusting script text or adding evidence mapping before any regeneration."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-innovation",
       "title": "The Research Hub: Evidence-Based Practice",
       "transcriptLength": 809,
       "transcriptSha256": "cae2c64a3b4fa05715c0e894be55b95530663406028c338543aa07d166ddbe6b",
       "claimSentences": {
-        "total": 9,
-        "highRisk": 1,
-        "evidenced": 0,
-        "unevidenced": 9,
-        "highRiskUnevidencedExamples": [
-          "Our 'Research Hub' allows us to validate interventions at a scale never seen before."
-        ],
-        "unevidencedExamples": [
+        "detectedTotal": 4,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 2,
+        "outOfScopeExamples": [
           "EdPsych Connect isn't just a software platform.",
-          "Our 'Research Hub' allows us to validate interventions at a scale never seen before.",
-          "When a school uses an intervention—say, 'Precision Teaching'—we track the impact.",
-          "We measure the baseline, the fidelity of implementation, and the outcome.",
-          "We aggregate this anonymised data across thousands of students.",
-          "We can say, with statistical confidence: \"This intervention works best for Year 3 boys with working memory deficits.\" We also have an 'Ethics Submission Workflow' built in.",
-          "If you want to run a study, you can submit your proposal directly through the platform.",
-          "We are bridging the gap between academic research and classroom practice."
-        ]
+          "If you want to run a study, you can submit your proposal directly through the platform."
+        ],
+        "total": 2,
+        "highRisk": 0,
+        "evidenced": 2,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "innovation-safety-net": {
       "key": "innovation-safety-net",
       "resolvedKey": "innovation-safety-net",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 6 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-innovation",
       "title": "The Safety Net: AI Risk Prediction",
       "transcriptLength": 1058,
       "transcriptSha256": "aa3979b907c086a60d7530d5498a664933c3d2713daf47b12f7605df477f79ea",
       "claimSentences": {
-        "total": 6,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 1,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 6,
+        "evidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "In high-stakes environments like aviation or medicine, we don't wait for a crash to investigate.",
-          "We use predictive systems to prevent it.",
-          "This is our proprietary risk prediction engine.",
-          "It suggests a specific action: \"Reallocate to Officer B\" or \"Request urgent Educational Psychologist advice.\" We calculate a 'Risk Score' for every child.",
-          "This is how we move from reactive firefighting to proactive protection.",
-          "We catch the fall before it happens."
-        ]
+        "unevidencedExamples": []
       }
     },
     "intro-coding-journey": {
       "key": "intro-coding-journey",
       "resolvedKey": "innovation-coding-curriculum",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 7 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-innovation",
       "title": "Developers of Tomorrow: Inclusive Coding",
       "transcriptLength": 909,
       "transcriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "claimSentences": {
-        "total": 7,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "Finally, we introduce React—the same technology used to build this very platform."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 7,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We've built the 'Developers of Tomorrow' curriculum to change that.",
-          "We start with 'Block Coding'—visual, drag-and-drop logic that requires no typing.",
-          "Then we bridge to Python.",
-          "But we use our 'Assistive Editor'.",
-          "Finally, we introduce React—the same technology used to build this very platform.",
-          "We use 'Gamification' to keep engagement high.",
-          "We are proving that neurodivergent thinking is a superpower in coding."
-        ]
+        "unevidencedExamples": []
       }
     },
     "la-dashboard-overview": {
       "key": "la-dashboard-overview",
       "resolvedKey": "la-dashboard-overview",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 5 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "Your Local Authority Dashboard Overview",
       "transcriptLength": 1037,
       "transcriptSha256": "6d1cffade230f6b0926255f1377a2241f9f64b054218ce1e8155d00c5ee0e254",
       "claimSentences": {
-        "total": 5,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 5,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "This is the Local Authority Dashboard, designed to give you total visibility over your Special Educational Needs and Disabilities landscape.",
-          "That's why your dashboard is colour-coded by urgency.",
+        "detectedTotal": 5,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 3,
+        "outOfScopeExamples": [
           "You can see your entire caseload at a glance.",
           "Jones just uploaded the Educational Psychologist advice.\" And for managers, the 'Compliance Analytics' are a game changer.",
           "You can see bottlenecks before they become breaches."
-        ]
+        ],
+        "total": 2,
+        "highRisk": 0,
+        "evidenced": 2,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "la-ehcp-merge-tool": {
       "key": "la-ehcp-merge-tool",
       "resolvedKey": "la-ehcp-merge-tool",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 1 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-core",
       "title": "The Education, Health and Care Plan Merge Tool Explained",
       "transcriptLength": 905,
       "transcriptSha256": "46a45e164a97afa8615b6aae2e989cab012009e0e0cbe083ddaeefd2d18db62c",
       "claimSentences": {
-        "total": 1,
+        "detectedTotal": 3,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 3,
+        "outOfScopeExamples": [
+          "This is the feature that makes caseworkers cheer.",
+          "The Education, Health and Care Plan Merge Tool.",
+          "The system reads all five reports."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "The system reads all five reports."
-        ]
+        "unevidencedExamples": []
       }
     },
     "la-professional-requests": {
       "key": "la-professional-requests",
       "resolvedKey": "la-professional-requests",
       "scriptStatus": "found",
-      "recommendation": "likely-script-update",
+      "recommendation": "ok",
       "notes": [
-        "Found 1 high-risk claim sentence(s) with no configured code evidence anchor. Recommend adjusting script text or adding evidence mapping before any regeneration."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "Managing Professional Requests",
       "transcriptLength": 895,
       "transcriptSha256": "8eb0da1e4903586dc8faff4a2f8745f6e16b31264bd4c5a89e44bd3ac9cc6be0",
       "claimSentences": {
-        "total": 8,
-        "highRisk": 1,
-        "evidenced": 0,
-        "unevidenced": 8,
-        "highRiskUnevidencedExamples": [
-          "No more \"I never got the email.\" The system sends automated chasers."
-        ],
-        "unevidencedExamples": [
-          "We've solved it with our 'Request Portal'.",
+        "detectedTotal": 7,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 5,
+        "outOfScopeExamples": [
           "Instead of sending emails into the void, you send a secure, tracked request directly from the platform.",
           "They upload their advice directly into the system.",
           "And here's the best bit: you can see if they've opened it.",
           "You can see if they're drafting.",
-          "No more \"I never got the email.\" The system sends automated chasers.",
-          "When the advice arrives, it's automatically filed and tagged.",
           "It turns a chaotic chase into a streamlined workflow."
-        ]
+        ],
+        "total": 2,
+        "highRisk": 0,
+        "evidenced": 2,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "mediation-tribunal-navigation": {
@@ -2548,13 +2698,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-additional",
       "title": "Mediation & Tribunal: Navigating Disagreement Constructively",
       "transcriptLength": 768,
       "transcriptSha256": "9b9c3c242395333a15e8aa2a56281d174df4f1fc3631d803cf6c968052ad6ed0",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -2567,159 +2721,161 @@
       "key": "no-child-left-behind",
       "resolvedKey": "no-child-left-behind",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 5 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-marketing",
       "title": "No Child Left Behind",
       "transcriptLength": 1730,
       "transcriptSha256": "a8f962f351339aefb676ce6bfb54214eff49f50356e9c7999c07d826894e3b21",
       "claimSentences": {
-        "total": 5,
+        "detectedTotal": 2,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 2,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 5,
+        "evidenced": 2,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Then our system does something remarkable.",
-          "Using each student's psychological profile, their learning preferences, their support needs, it automatically generates a personalised version for every single child.",
-          "Dyslexia-friendly formatting appears automatically for students who need it.",
-          "No child left behind isn't just our name.",
-          "It's our promise."
-        ]
+        "unevidencedExamples": []
       }
     },
     "onboarding-platform-tour": {
       "key": "onboarding-platform-tour",
       "resolvedKey": "onboarding-platform-tour",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 4 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-onboarding",
       "title": "Your Platform Tour",
       "transcriptLength": 1408,
       "transcriptSha256": "95e6baaf4f48a78427edd236cef746f5eb271319fefd7313c7000f5afe8c6516",
       "claimSentences": {
-        "total": 4,
+        "detectedTotal": 2,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "Assess a student, find matching interventions, generate a report."
+        ],
+        "total": 1,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 4,
+        "evidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "First, your Dashboard.",
-          "Assess a student, find matching interventions, generate a report.",
-          "We've designed everything to be intuitive.",
-          "And if you ever get stuck, our help section has everything you need."
-        ]
+        "unevidencedExamples": []
       }
     },
     "onboarding-welcome": {
       "key": "onboarding-welcome",
       "resolvedKey": "onboarding-welcome",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 3 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-onboarding",
       "title": "Welcome to Your EdPsych Connect Journey",
       "transcriptLength": 1111,
       "transcriptSha256": "4200bbf0106d445555fbc2d467779802d9fc0618eea87bab7b87a3d93d4e5269",
       "claimSentences": {
-        "total": 3,
+        "detectedTotal": 3,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 2,
+        "outOfScopeExamples": [
+          "I created this platform because I watched too many brilliant colleagues drowning in paperwork when they should have been doing what they do best: transforming children's lives.",
+          "But here's what I really want you to understand: this isn't just another platform to learn."
+        ],
+        "total": 1,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 3,
+        "evidenced": 1,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Let me share something important before we begin.",
-          "EdPsych Connect World was built by educational professionals for educational professionals.",
-          "We'll set up your profile, explore the tools that'll save you hours every week, and show you exactly how to hit the ground running."
-        ]
+        "unevidencedExamples": []
       }
     },
     "parent-contributing-views": {
       "key": "parent-contributing-views",
       "resolvedKey": "parent-contributing-views",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-core",
       "title": "Contributing Your Views",
       "transcriptLength": 697,
       "transcriptSha256": "4a203b41222f777925ccfa00b5a66a5e7356478f0069febe332c5e08e7c09c07",
       "claimSentences": {
-        "total": 2,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 2,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "That's the hook we use to teach them.",
-          "Not just \"pass maths,\" but \"have friends,\" \"be happy,\" \"get a job.\" Our 'Parent Wizard' guides you through these questions."
-        ]
+        "unevidencedExamples": []
       }
     },
     "parent-portal-welcome": {
       "key": "parent-portal-welcome",
       "resolvedKey": "parent-portal-welcome",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 5 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "Welcome to the Parent Portal",
       "transcriptLength": 854,
       "transcriptSha256": "dc3aa49a167ea430b61aaf9bd3a103e5894f7179d2ef3d963be4934fac949c11",
       "claimSentences": {
-        "total": 5,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 5,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
+        "detectedTotal": 4,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 3,
+        "outOfScopeExamples": [
           "Here, you can see exactly what is happening.",
           "You can upload your own evidence.",
-          "You can message the case officer directly.",
-          "We've also included a 'Jargon Buster'.",
-          "We explain it in plain English."
-        ]
+          "You can message the case officer directly."
+        ],
+        "total": 1,
+        "highRisk": 0,
+        "evidenced": 1,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "parent-understanding-results": {
       "key": "parent-understanding-results",
       "resolvedKey": "parent-understanding-results",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 8 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-core",
       "title": "Understanding Your Child's Assessment Results",
       "transcriptLength": 883,
       "transcriptSha256": "6ad324ee63e538fc5603e5021e6b1c3d99677f749dd0329b2e65d0ba5c0bb2e3",
       "claimSentences": {
-        "total": 8,
+        "detectedTotal": 4,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "You can see the peaks and troughs."
+        ],
+        "total": 3,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 8,
+        "evidenced": 3,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "You've received an assessment report.",
-          "Our platform visualises this for you.",
-          "We turn the numbers into a 'Profile Chart'.",
-          "You can see the peaks and troughs.",
-          "And crucially, we link it to 'Strengths'.",
-          "We make sure those aren't lost.",
-          "Our AI will give you a plain-English breakdown.",
-          "We want you to feel powerful."
-        ]
+        "unevidencedExamples": []
       }
     },
     "phase-transfers-mastery": {
@@ -2728,13 +2884,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-additional",
       "title": "Phase Transfers: Reducing Risk at Transitions",
       "transcriptLength": 724,
       "transcriptSha256": "0054876b78a2896ce4fc3e868a1f642dcbf163b9b16ca37b2ce926ed390d30f8",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -2747,201 +2907,195 @@
       "key": "platform-introduction",
       "resolvedKey": "platform-introduction",
       "scriptStatus": "found",
-      "recommendation": "likely-script-update",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 high-risk claim sentence(s) with no configured code evidence anchor. Recommend adjusting script text or adding evidence mapping before any regeneration."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-marketing",
       "title": "Welcome to EdPsych Connect World",
       "transcriptLength": 3038,
       "transcriptSha256": "6d63e41457b1aa97d48a9fc2976b26b9efedf1ec6713a306b84cb91a8ea39946",
       "claimSentences": {
-        "total": 10,
-        "highRisk": 2,
-        "evidenced": 0,
-        "unevidenced": 10,
-        "highRiskUnevidencedExamples": [
-          "We help you work smarter, but we never hoard your sensitive information.",
-          "NHS-level encryption, fully GDPR compliant."
-        ],
-        "unevidencedExamples": [
+        "detectedTotal": 13,
+        "detectedHighRisk": 1,
+        "outOfScopeIgnored": 8,
+        "outOfScopeExamples": [
           "When you're copying and pasting the same assessment results into yet another report format?",
           "That's exactly why I created EdPsych Connect World.",
-          "Someone who remembers every assessment, knows every intervention, and can write a first draft of that report while you're having your morning coffee.",
-          "We've got comprehensive validated assessment templates and over 100 research-backed interventions.",
-          "And our system automatically generates thirty different versions, each tailored to a specific student's needs.",
-          "We built this with something called BYOD architecture.",
-          "We help you work smarter, but we never hoard your sensitive information.",
-          "NHS-level encryption, fully GDPR compliant."
-        ]
+          "Not as a tech company trying to sell you another tool you don't need.",
+          "That's Bring Your Own Database.",
+          "Your data sovereignty is non-negotiable.",
+          "Teachers using this platform tell us they're saving three to four hours every single week."
+        ],
+        "total": 5,
+        "highRisk": 1,
+        "evidenced": 5,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "python-basics": {
       "key": "python-basics",
       "resolvedKey": "python-basics",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 5 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-additional",
       "title": "Python Basics: The Building Blocks",
       "transcriptLength": 669,
       "transcriptSha256": "d0304258caa47b575090d3e6d0a75ab511caf4ff4d98c11869211ea91a82804e",
       "claimSentences": {
-        "total": 5,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 5,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
+        "detectedTotal": 4,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 4,
+        "outOfScopeExamples": [
           "You can store information in variables — like a labelled box.",
           "Then you can use that information to make decisions.",
           "You can print messages to see what's happening, which is how we learn to debug.",
-          "And you can use simple data types: text, numbers, and true-or-false values.",
-          "We teach the logic first, with accessibility built in, so every learner can succeed."
-        ]
+          "And you can use simple data types: text, numbers, and true-or-false values."
+        ],
+        "total": 0,
+        "highRisk": 0,
+        "evidenced": 0,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "python-functions": {
       "key": "python-functions",
       "resolvedKey": "innovation-coding-curriculum",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 7 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-innovation",
       "title": "Developers of Tomorrow: Inclusive Coding",
       "transcriptLength": 909,
       "transcriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "claimSentences": {
-        "total": 7,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "Finally, we introduce React—the same technology used to build this very platform."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 7,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We've built the 'Developers of Tomorrow' curriculum to change that.",
-          "We start with 'Block Coding'—visual, drag-and-drop logic that requires no typing.",
-          "Then we bridge to Python.",
-          "But we use our 'Assistive Editor'.",
-          "Finally, we introduce React—the same technology used to build this very platform.",
-          "We use 'Gamification' to keep engagement high.",
-          "We are proving that neurodivergent thinking is a superpower in coding."
-        ]
+        "unevidencedExamples": []
       }
     },
     "python-variables": {
       "key": "python-variables",
       "resolvedKey": "innovation-coding-curriculum",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 7 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-innovation",
       "title": "Developers of Tomorrow: Inclusive Coding",
       "transcriptLength": 909,
       "transcriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "claimSentences": {
-        "total": 7,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "Finally, we introduce React—the same technology used to build this very platform."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 7,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We've built the 'Developers of Tomorrow' curriculum to change that.",
-          "We start with 'Block Coding'—visual, drag-and-drop logic that requires no typing.",
-          "Then we bridge to Python.",
-          "But we use our 'Assistive Editor'.",
-          "Finally, we introduce React—the same technology used to build this very platform.",
-          "We use 'Gamification' to keep engagement high.",
-          "We are proving that neurodivergent thinking is a superpower in coding."
-        ]
+        "unevidencedExamples": []
       }
     },
     "react-components": {
       "key": "react-components",
       "resolvedKey": "innovation-coding-curriculum",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 7 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-innovation",
       "title": "Developers of Tomorrow: Inclusive Coding",
       "transcriptLength": 909,
       "transcriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "claimSentences": {
-        "total": 7,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "Finally, we introduce React—the same technology used to build this very platform."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 7,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We've built the 'Developers of Tomorrow' curriculum to change that.",
-          "We start with 'Block Coding'—visual, drag-and-drop logic that requires no typing.",
-          "Then we bridge to Python.",
-          "But we use our 'Assistive Editor'.",
-          "Finally, we introduce React—the same technology used to build this very platform.",
-          "We use 'Gamification' to keep engagement high.",
-          "We are proving that neurodivergent thinking is a superpower in coding."
-        ]
+        "unevidencedExamples": []
       }
     },
     "react-intro": {
       "key": "react-intro",
       "resolvedKey": "react-intro",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 3 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-additional",
       "title": "React Intro: Building Interfaces as Components",
       "transcriptLength": 723,
       "transcriptSha256": "7959be8615904e3ce6711ac2f2743f351bba3cef316d9c4e9a8ad1b6deee8a7c",
       "claimSentences": {
-        "total": 3,
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 3,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Each component can have data — we call that props — and it can change over time — we call that state.",
-          "When the state changes, React automatically updates what you see on screen.",
-          "In our coding curriculum, we introduce React once learners are confident with logic, so the interface layer becomes exciting — not overwhelming."
-        ]
+        "unevidencedExamples": []
       }
     },
     "react-state": {
       "key": "react-state",
       "resolvedKey": "innovation-coding-curriculum",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 7 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-innovation",
       "title": "Developers of Tomorrow: Inclusive Coding",
       "transcriptLength": 909,
       "transcriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "claimSentences": {
-        "total": 7,
+        "detectedTotal": 1,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "Finally, we introduce React—the same technology used to build this very platform."
+        ],
+        "total": 0,
         "highRisk": 0,
         "evidenced": 0,
-        "unevidenced": 7,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "We've built the 'Developers of Tomorrow' curriculum to change that.",
-          "We start with 'Block Coding'—visual, drag-and-drop logic that requires no typing.",
-          "Then we bridge to Python.",
-          "But we use our 'Assistive Editor'.",
-          "Finally, we introduce React—the same technology used to build this very platform.",
-          "We use 'Gamification' to keep engagement high.",
-          "We are proving that neurodivergent thinking is a superpower in coding."
-        ]
+        "unevidencedExamples": []
       }
     },
     "resource-costing-funding": {
@@ -2950,13 +3104,17 @@
       "scriptStatus": "found",
       "recommendation": "ok",
       "notes": [
-        "All detected claim-like sentences matched at least one configured code evidence anchor."
+        "No in-scope product/operational claim sentences detected for script ↔ code verification. (Educational content and market commentary are treated as out-of-scope.)"
       ],
       "sourceId": "world-class-v4-additional",
       "title": "Resource Costing & Funding: Making Provision Explicit",
       "transcriptLength": 723,
       "transcriptSha256": "594041f996aec79611b019055437808033b28d89e65bf296d2ab0c1d7edd8829",
       "claimSentences": {
+        "detectedTotal": 0,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 0,
+        "outOfScopeExamples": [],
         "total": 0,
         "highRisk": 0,
         "evidenced": 0,
@@ -2969,166 +3127,175 @@
       "key": "school-senco-portal",
       "resolvedKey": "school-senco-portal",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 3 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-additional",
       "title": "The SENCO Portal: Coordinating Support",
       "transcriptLength": 837,
       "transcriptSha256": "0bae53934de59243ca94578ba6b764968ced5ae7cd4940e11258937280eb3eaa",
       "claimSentences": {
-        "total": 3,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 3,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
+        "detectedTotal": 5,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 4,
+        "outOfScopeExamples": [
+          "Scott, and this is a quick tour of the SENCO Portal.",
+          "The portal is designed to make that coordination easier.",
           "You can see the student profile, the current plan, and the evidence that sits behind it — all in one place.",
-          "Whether you're planning classroom adjustments, selecting interventions, or preparing documentation for an Education, Health, and Care Plan process, the workflow stays structured.",
           "You can track who has contributed, what has been agreed, and what still needs doing — so nothing falls through the cracks."
-        ]
+        ],
+        "total": 1,
+        "highRisk": 0,
+        "evidenced": 1,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "security-deep-dive": {
       "key": "security-deep-dive",
       "resolvedKey": "security-deep-dive",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 10 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-additional",
       "title": "Security Deep Dive: Designed for Sensitive SEND Data",
       "transcriptLength": 939,
       "transcriptSha256": "851516450ed2e0061ce31586234e3fdbbdc79a2c2e0818bb4544035cd9a8c374",
       "claimSentences": {
-        "total": 10,
+        "detectedTotal": 6,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
+          "Key actions are logged so that you can evidence appropriate access and decision-making, and investigate issues quickly."
+        ],
+        "total": 5,
         "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 10,
+        "evidenced": 5,
+        "unevidenced": 0,
         "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "When you're working with Special Educational Needs and Disabilities data, security isn't a feature — it's the foundation.",
-          "Here's what we mean by \"security by design\".",
-          "The platform is built around role-based permissions.",
-          "Users only see what they need for their role, and we follow the principle of least privilege.",
-          "Key actions are logged so that you can evidence appropriate access and decision-making, and investigate issues quickly.",
-          "Data is transmitted over encrypted connections, and we avoid exposing sensitive information in URLs or client-side state.",
-          "We treat secrets as configuration, not code.",
-          "That means environment variables for keys, and guardrails in our CI to prevent accidental leakage."
-        ]
+        "unevidencedExamples": []
       }
     },
     "sen2-returns-automation": {
       "key": "sen2-returns-automation",
       "resolvedKey": "sen2-returns-automation",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 2 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-additional",
       "title": "SEN2 Returns: Automation Without Losing Accuracy",
       "transcriptLength": 667,
       "transcriptSha256": "98c01125770b5818c1ab25b1177b5b859dc79e7c81edbba794edb44b57db4065",
       "claimSentences": {
-        "total": 2,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 2,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "Then build a clear audit trail: when something changes, who changed it, and why.",
+        "detectedTotal": 2,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 1,
+        "outOfScopeExamples": [
           "The best systems make the right thing easy: consistent coding, clear checks, and reporting you can defend."
-        ]
+        ],
+        "total": 1,
+        "highRisk": 0,
+        "evidenced": 1,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "trust-built-by-practitioners": {
       "key": "trust-built-by-practitioners",
       "resolvedKey": "trust-built-by-practitioners",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 3 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-pricing-2025-12",
       "title": "Built by Someone Who Actually Does This Work",
       "transcriptLength": 1626,
       "transcriptSha256": "623d4c5ed1ab15f01de1b65fa9a60ed494ce52c3ebbaf8dec7ce4577c66f52d8",
       "claimSentences": {
-        "total": 3,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 3,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
-          "EdPsych Connect was built by me.",
+        "detectedTotal": 4,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 2,
+        "outOfScopeExamples": [
           "Report formats that follow professional conventions, not generic document templates.",
           "It's the foundation of everything you'll experience here."
-        ]
+        ],
+        "total": 2,
+        "highRisk": 0,
+        "evidenced": 2,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "trust-security": {
       "key": "trust-security",
       "resolvedKey": "trust-security",
       "scriptStatus": "found",
-      "recommendation": "likely-script-update",
+      "recommendation": "ok",
       "notes": [
-        "Found 1 high-risk claim sentence(s) with no configured code evidence anchor. Recommend adjusting script text or adding evidence mapping before any regeneration."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-pricing-2025-12",
       "title": "Security for Sensitive Data",
       "transcriptLength": 1850,
       "transcriptSha256": "dd5622e128de324c2c6fa4b0882ea0093b91fc68bea387c34cf6d1d494c7f9ff",
       "claimSentences": {
-        "total": 15,
-        "highRisk": 1,
-        "evidenced": 1,
-        "unevidenced": 14,
-        "highRiskUnevidencedExamples": [
-          "UK GDPR."
-        ],
-        "unevidencedExamples": [
-          "We approach security like this data deserves: with absolute seriousness.",
-          "Encryption everywhere.",
+        "detectedTotal": 12,
+        "detectedHighRisk": 3,
+        "outOfScopeIgnored": 5,
+        "outOfScopeExamples": [
+          "Audit trails that are immutable.",
           "Every export tracked.",
-          "Our primary infrastructure runs on AWS in London.",
-          "Regular penetration testing by certified security professionals.",
-          "Genuine attempts to break our defences, reported and remediated continuously.",
           "Compliance frameworks we actively maintain.",
-          "GDPR."
-        ]
+          "ISO 27001 principles.",
+          "Not just claiming compliance, but documenting and demonstrating it."
+        ],
+        "total": 7,
+        "highRisk": 2,
+        "evidenced": 7,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     },
     "value-enterprise-platform": {
       "key": "value-enterprise-platform",
       "resolvedKey": "value-enterprise-platform",
       "scriptStatus": "found",
-      "recommendation": "needs-review",
+      "recommendation": "ok",
       "notes": [
-        "Found 10 claim-like sentence(s) with no configured code evidence anchor. This does not prove falsehood; it indicates missing evidence mapping or script wording that is hard to verify."
+        "All detected claim-like sentences matched at least one configured code evidence anchor."
       ],
       "sourceId": "world-class-v4-pricing-2025-12",
       "title": "The £2.35 Million Platform",
       "transcriptLength": 2705,
       "transcriptSha256": "b3962c6e11ea5929b3ecdab134056ab687d5b51bedf39347bd8ff4f466e25ccc",
       "claimSentences": {
-        "total": 10,
-        "highRisk": 0,
-        "evidenced": 0,
-        "unevidenced": 10,
-        "highRiskUnevidencedExamples": [],
-        "unevidencedExamples": [
+        "detectedTotal": 9,
+        "detectedHighRisk": 0,
+        "outOfScopeIgnored": 6,
+        "outOfScopeExamples": [
           "The platform you're about to explore represents over two million pounds in development investment.",
           "Then there's the enterprise stuff, the kind that requires six-figure contracts, implementation consultants, and a three-month onboarding process before you can even log in.",
-          "We looked at both of those options and thought: why should teachers and educational psychologists have to choose between inadequate tools and inaccessible ones?",
-          "What if you could have NHS-level data security, but with software that actually feels pleasant to use?",
-          "What if you could get the differentiation engine that automatically adapts materials for thirty different learning profiles, without needing a university's IT budget?",
-          "That's what we built.",
-          "An AI layer that helps with everything from report writing to study support.",
-          "But we didn't build this to sell to the highest bidder."
-        ]
+          "You're not getting a budget version of an expensive platform.",
+          "You're getting the expensive platform at a price that actually makes sense.",
+          "When you're ready, the platform will meet you exactly where you are.",
+          "Welcome to EdPsych Connect World."
+        ],
+        "total": 3,
+        "highRisk": 0,
+        "evidenced": 3,
+        "unevidenced": 0,
+        "highRiskUnevidencedExamples": [],
+        "unevidencedExamples": []
       }
     }
   }
