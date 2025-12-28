@@ -479,6 +479,13 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "feature-la-dashboard": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644467/edpsych-connect/videos/feature-la-dashboard.mp4",
   "onboarding-welcome": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766258344/edpsych-connect/videos/onboarding-welcome.mp4",
 
+  // Verified working (HTTP 206 with 1-byte range probe):
+  // These keys previously had no CDN mapping and were HeyGen-only single points of failure.
+  "feature-battle-royale": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-battle-royale.mp4",
+  "feature-byod-architecture": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-byod-architecture.mp4",
+  "feature-nclb-engine": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-nclb-engine.mp4",
+  "value-enterprise-platform": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/value-enterprise-platform.mp4",
+
   // Disabled (confirmed 404 by tools/validate-video-assets.ts)
   // Fall back to local/HeyGen sources instead of breaking playback.
   // "la-ehcp-portal-intro": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533892/edpsych-connect/videos/la-ehcp-portal-intro.mp4",
@@ -487,12 +494,12 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   // wrong/outdated, it will keep showing the wrong avatar/voice.
   // For identity-sensitive overview content, prefer HeyGen embed until a
   // verified Cloudinary asset is uploaded and provenance is updated.
-  // "value-enterprise-platform": "https://res.cloudinary.com/dncfu2j0r/video/upload/<v>/edpsych-connect/videos/value-enterprise-platform.mp4",
+  // (value-enterprise-platform now has a verified Cloudinary CDN mapping above.)
 
   // Pricing feature keys -> Cloudinary recordings
   // Disabled: the previous URL(s) now 404, which breaks playback in production.
   // Keep local + HeyGen fallbacks instead.
-  // "feature-nclb-engine": "https://res.cloudinary.com/dncfu2j0r/video/upload/<v>/edpsych-connect/videos/no-child-left-behind.mp4",
+  // (feature-nclb-engine now has a verified Cloudinary CDN mapping above.)
   // NOTE: These feature keys currently do not have dedicated Cloudinary assets.
   // Do NOT point them at another key's mp4 (it causes wrong playback + breaks registry validation).
   // They will fall back to local/HeyGen sources instead.

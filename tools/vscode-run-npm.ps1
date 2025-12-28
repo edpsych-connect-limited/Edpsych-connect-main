@@ -69,8 +69,12 @@ if ($LogPath) {
   # the underlying process returns a non-zero exit code.
   $prevEap = $ErrorActionPreference
   $ErrorActionPreference = 'Continue'
+  # In StrictMode, reading $LASTEXITCODE before it's been set throws.
+  # Initialise it so benign stderr output (surfaced as NativeCommandError) can't break the wrapper.
+  $global:LASTEXITCODE = 0
   npm run $Script *> $LogPath
-  $code = $LASTEXITCODE
+  $code = 0
+  try { $code = $LASTEXITCODE } catch { $code = 0 }
   $ErrorActionPreference = $prevEap
 
   if ($TailLog -and (Test-Path -LiteralPath $LogPath)) {
@@ -79,8 +83,10 @@ if ($LogPath) {
 } else {
   $prevEap = $ErrorActionPreference
   $ErrorActionPreference = 'Continue'
+  $global:LASTEXITCODE = 0
   npm run $Script
-  $code = $LASTEXITCODE
+  $code = 0
+  try { $code = $LASTEXITCODE } catch { $code = 0 }
   $ErrorActionPreference = $prevEap
 }
 

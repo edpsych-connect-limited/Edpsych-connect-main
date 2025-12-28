@@ -33,6 +33,10 @@ function isStrict(): boolean {
   return process.env.VIDEO_ASSET_AUDIT_STRICT === '1';
 }
 
+function shouldWriteProvenance(): boolean {
+  return process.env.VIDEO_ASSET_AUDIT_WRITE_PROVENANCE === '1';
+}
+
 function toList(): AssetToCheck[] {
   const out: AssetToCheck[] = [];
 
@@ -140,6 +144,12 @@ function ensureLogsDir(): string {
   return logsDir;
 }
 
+function ensureVideoProvenanceDir(): string {
+  const dir = path.join(process.cwd(), 'video_provenance');
+  fs.mkdirSync(dir, { recursive: true });
+  return dir;
+}
+
 function writeReport(results: CheckResult[]) {
   const logsDir = ensureLogsDir();
   const reportPath = path.join(logsDir, 'video_assets_audit.json');
@@ -159,6 +169,13 @@ function writeReport(results: CheckResult[]) {
 
   fs.writeFileSync(reportPath, JSON.stringify(payload, null, 2), 'utf8');
   console.log(`\nWrote audit report: ${path.relative(process.cwd(), reportPath)}`);
+
+  if (shouldWriteProvenance()) {
+    const provDir = ensureVideoProvenanceDir();
+    const provPath = path.join(provDir, 'video-assets-audit.json');
+    fs.writeFileSync(provPath, JSON.stringify(payload, null, 2) + '\n', 'utf8');
+    console.log(`Wrote provenance report: ${path.relative(process.cwd(), provPath)}`);
+  }
 }
 
 async function main() {

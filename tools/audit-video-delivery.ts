@@ -50,6 +50,21 @@ type ScriptProvenanceFile = {
   keys?: Record<string, ProvenanceEntry>;
 };
 
+type VideoAssetsAuditResult = {
+  registry?: unknown;
+  url?: unknown;
+  ok?: unknown;
+  status?: unknown;
+};
+
+type VideoAssetsAuditFile = {
+  schemaVersion?: unknown;
+  generatedAt?: unknown;
+  enabled?: unknown;
+  strict?: unknown;
+  results?: unknown;
+};
+
 type IssueLevel = 'error' | 'warning' | 'info';
 
 type KeyAudit = {
@@ -145,6 +160,16 @@ function main() {
   const repoRoot = process.cwd();
   const now = new Date().toISOString();
 
+  // Enterprise posture: strict-by-default.
+  //
+  // - strict (default): any delivery-single-point-of-failure or inventory drift that
+  //   impacts runtime confidence is flagged as a WARNING and counts toward needsAttention.
+  // - non-strict (opt-out): set VIDEO_DELIVERY_STRICT=0 to downgrade those to INFO.
+  //
+  // This keeps the report deterministic (no network calls) while avoiding “green by
+  // semantics” in CI.
+  const strict = process.env.VIDEO_DELIVERY_STRICT !== '0';
+
   const keys = Object.keys(HEYGEN_VIDEO_IDS).sort();
 
   // Optional: captured inventory from HeyGen API (helps answer "generated" without network calls).
@@ -164,6 +189,26 @@ function main() {
   const provenanceKeys = (provenanceFile && typeof provenanceFile === 'object' && provenanceFile)
     ? (provenanceFile.keys ?? {})
     : {};
+
+  // Optional: captured network validation of CDN/demo URLs.
+  // This enables “operational” enforcement without making network calls in CI.
+  const assetsAuditPath = path.join(repoRoot, 'video_provenance', 'video-assets-audit.json');
+  const assetsAuditFile = readJsonFile<VideoAssetsAuditFile>(assetsAuditPath);
+  const assetsAuditUrlOk = new Map<string, boolean>();
+  let assetsAuditLoaded = false;
+  if (assetsAuditFile && typeof assetsAuditFile === 'object') {
+    const results = (assetsAuditFile as VideoAssetsAuditFile).results;
+    if (Array.isArray(results)) {
+      for (const r of results as VideoAssetsAuditResult[]) {
+        const registry = typeof r?.registry === 'string' ? r.registry : undefined;
+        const url = typeof r?.url === 'string' ? r.url : undefined;
+        const ok = typeof r?.ok === 'boolean' ? r.ok : undefined;
+        if (!registry || !url || ok === undefined) continue;
+        assetsAuditUrlOk.set(`${registry}::${url}`, ok);
+      }
+      assetsAuditLoaded = assetsAuditUrlOk.size > 0;
+    }
+  }
 
   // Literal embedding signals: scan src/** once and count key occurrences.
   const srcRoot = path.join(repoRoot, 'src');
@@ -241,6 +286,40 @@ function main() {
     const liveDemoUrl = LIVE_DEMO_VIDEO_URLS[key];
     if (liveDemoUrl) report.totals.liveDemoMapped += 1;
 
+    // If we have a captured operational URL audit, enforce that mapped URLs are actually reachable.
+    // This keeps CI deterministic: we only read repo evidence, never fetch.
+    if (assetsAuditLoaded) {
+      if (cloudinaryUrl) {
+        const ok = assetsAuditUrlOk.get(`cloudinary::${cloudinaryUrl}`);
+        if (ok === false) {
+          issues.push({
+            level: strict ? 'warning' : 'info',
+            message: `Cloudinary URL failed operational audit (see video_provenance/video-assets-audit.json): ${cloudinaryUrl}`,
+          });
+        } else if (ok === undefined) {
+          issues.push({
+            level: strict ? 'warning' : 'info',
+            message: `Cloudinary URL not present in operational audit report (run VIDEO_ASSET_AUDIT=1 VIDEO_ASSET_AUDIT_WRITE_PROVENANCE=1): ${cloudinaryUrl}`,
+          });
+        }
+      }
+
+      if (liveDemoUrl) {
+        const ok = assetsAuditUrlOk.get(`live-demo::${liveDemoUrl}`);
+        if (ok === false) {
+          issues.push({
+            level: strict ? 'warning' : 'info',
+            message: `Live-demo URL failed operational audit (see video_provenance/video-assets-audit.json): ${liveDemoUrl}`,
+          });
+        } else if (ok === undefined) {
+          issues.push({
+            level: strict ? 'warning' : 'info',
+            message: `Live-demo URL not present in operational audit report (run VIDEO_ASSET_AUDIT=1 VIDEO_ASSET_AUDIT_WRITE_PROVENANCE=1): ${liveDemoUrl}`,
+          });
+        }
+      }
+    }
+
     const localPath = LOCAL_VIDEO_PATHS[key];
     const localFile = localPath ? path.join(repoRoot, 'public', localPath.replace(/^\//, '')) : undefined;
     const localFileExists = Boolean(localFile && fs.existsSync(localFile));
@@ -260,14 +339,20 @@ function main() {
       if (!heygenStatus) {
         report.totals.heygenMissingFromInventory += 1;
         if (!hasFallback) {
-          issues.push({ level: 'warning', message: `HeyGen ID '${heygenId}' not found in heygen_videos_list.json (inventory drift?)` });
+          issues.push({
+            level: strict ? 'warning' : 'info',
+            message: `HeyGen ID '${heygenId}' not found in heygen_videos_list.json (inventory drift?)`,
+          });
         }
       } else if (heygenStatus === 'completed') {
         report.totals.heygenCompleted += 1;
       } else {
         report.totals.heygenNotCompleted += 1;
         if (!hasFallback) {
-          issues.push({ level: 'warning', message: `HeyGen status is '${heygenStatus}' for id='${heygenId}'` });
+          issues.push({
+            level: strict ? 'warning' : 'info',
+            message: `HeyGen status is '${heygenStatus}' for id='${heygenId}'`,
+          });
         }
       }
     } else {
@@ -280,9 +365,12 @@ function main() {
     else report.totals.embedMissingLiteral += 1;
 
     // Heuristic: if it has neither Cloudinary nor local nor live-demo mapping, it relies entirely on HeyGen embed.
-    // That's acceptable for early-stage, but it is still a deploy-time dependency.
+    // That can be acceptable (especially during iteration), but if you want redundancy enforced, enable strict mode.
     if (!cloudinaryUrl && !localPath && !liveDemoUrl) {
-      issues.push({ level: 'warning', message: `No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only` });
+      issues.push({
+        level: strict ? 'warning' : 'info',
+        message: `No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only`,
+      });
     }
 
     const needsAttention = issues.some(i => i.level === 'error' || i.level === 'warning');
@@ -334,6 +422,7 @@ function main() {
   lines.push('- Scripts/transcripts: `src/lib/video-scripts/registry-core.ts`');
   lines.push('- Provenance: `video_provenance/video-script-provenance.json`');
   lines.push('- Optional HeyGen inventory snapshot: `heygen_videos_list.json`');
+  lines.push('- Optional URL operational proof: `video_provenance/video-assets-audit.json` (generated by `tools/validate-video-assets.ts` with `VIDEO_ASSET_AUDIT_WRITE_PROVENANCE=1`)');
   lines.push('- Embedding signals: literal key references in `src/**/*.{ts,tsx,md,mdx}`');
   lines.push('');
   lines.push('## Totals');
@@ -348,6 +437,11 @@ function main() {
     lines.push(`- HeyGen IDs missing from inventory: **${report.totals.heygenMissingFromInventory}**`);
   } else {
     lines.push('- HeyGen inventory loaded: **0** (skipped generation status checks)');
+  }
+  if (assetsAuditLoaded) {
+    lines.push(`- URL operational audit loaded: **yes** (validated URLs: ${assetsAuditUrlOk.size})`);
+  } else {
+    lines.push('- URL operational audit loaded: **no** (skipping “URL is operational” enforcement)');
   }
   lines.push(`- Cloudinary mapped: **${report.totals.cloudinaryMapped}**`);
   lines.push(`- Live demo mapped: **${report.totals.liveDemoMapped}**`);
@@ -384,6 +478,12 @@ function main() {
   lines.push('- This audit does not assert rendered audio matches scripts; for that you must set `verifiedAudioMatch: true` with external evidence in provenance.');
 
   fs.writeFileSync(mdOutPath, lines.join('\n') + '\n', 'utf8');
+
+  // If strict mode is enabled, use the exit code as an enforcement mechanism.
+  // This is the enterprise-grade default: the audit is actionable, not advisory.
+  if (strict && report.totals.needsAttention > 0) {
+    process.exitCode = 2;
+  }
 
   // eslint-disable-next-line no-console
   console.log(`Wrote ${path.relative(repoRoot, jsonOutPath)} and ${path.relative(repoRoot, mdOutPath)}`);

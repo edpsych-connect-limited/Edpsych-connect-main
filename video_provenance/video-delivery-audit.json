@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2025-12-28T03:05:19.813Z",
+  "generatedAt": "2025-12-28T04:58:47.065Z",
   "totals": {
     "keysTotal": 122,
     "scriptsMissing": 0,
@@ -8,13 +8,13 @@
     "heygenMissingFromInventory": 26,
     "heygenCompleted": 96,
     "heygenNotCompleted": 0,
-    "cloudinaryMapped": 65,
+    "cloudinaryMapped": 69,
     "liveDemoMapped": 0,
     "localMapped": 95,
     "localFilesPresent": 95,
     "embeddedLiteral": 122,
     "embedMissingLiteral": 0,
-    "needsAttention": 26
+    "needsAttention": 22
   },
   "keys": {
     "addon-ai-power-pack": {
@@ -1897,6 +1897,7 @@
       },
       "sources": {
         "heygenId": "58d38fdf4d8640c1b9d848a826d686a6",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-battle-royale.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -1907,17 +1908,8 @@
           "src\\lib\\video-scripts\\registry-core.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '58d38fdf4d8640c1b9d848a826d686a6' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "feature-battle-royale-pricing": {
       "key": "feature-battle-royale-pricing",
@@ -1961,6 +1953,7 @@
       },
       "sources": {
         "heygenId": "4ae970ec77f145b3a5ccc12298fd7cd1",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-byod-architecture.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -1971,17 +1964,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '4ae970ec77f145b3a5ccc12298fd7cd1' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "feature-deep-dive-ehcp": {
       "key": "feature-deep-dive-ehcp",
@@ -2123,6 +2107,7 @@
       },
       "sources": {
         "heygenId": "738bbcfaa87541aeb36e061c00db5ece",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-nclb-engine.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -2134,17 +2119,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '738bbcfaa87541aeb36e061c00db5ece' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "gamification-integrity": {
       "key": "gamification-integrity",
@@ -3224,6 +3200,7 @@
       },
       "sources": {
         "heygenId": "52e39fee2f98437fb2a8a67c840c0836",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/value-enterprise-platform.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -3234,17 +3211,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '52e39fee2f98437fb2a8a67c840c0836' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     }
   }
 }
