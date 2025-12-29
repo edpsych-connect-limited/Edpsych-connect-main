@@ -1,20 +1,20 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2025-12-28T04:58:47.065Z",
+  "generatedAt": "2025-12-28T23:21:30.955Z",
   "totals": {
     "keysTotal": 122,
     "scriptsMissing": 0,
     "provenanceMissing": 0,
-    "heygenMissingFromInventory": 26,
-    "heygenCompleted": 96,
+    "heygenMissingFromInventory": 22,
+    "heygenCompleted": 100,
     "heygenNotCompleted": 0,
-    "cloudinaryMapped": 69,
+    "cloudinaryMapped": 98,
     "liveDemoMapped": 0,
-    "localMapped": 95,
-    "localFilesPresent": 95,
+    "localMapped": 57,
+    "localFilesPresent": 57,
     "embeddedLiteral": 122,
     "embedMissingLiteral": 0,
-    "needsAttention": 22
+    "needsAttention": 0
   },
   "keys": {
     "addon-ai-power-pack": {
@@ -26,7 +26,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "585ec6706d7349c6b42e363ee0655d5a",
+        "heygenId": "d5909b4cfdc6432f8e3e92afb5c3e3fc",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/addon-ai-power-pack.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -36,17 +37,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '585ec6706d7349c6b42e363ee0655d5a' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "addon-api-access": {
       "key": "addon-api-access",
@@ -57,7 +49,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "49faa010b2864d539969227b7b6d81de",
+        "heygenId": "036f01ef7f02484ba4474859917df868",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/addon-api-access.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -67,17 +60,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '49faa010b2864d539969227b7b6d81de' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "addon-cpd-library": {
       "key": "addon-cpd-library",
@@ -88,7 +72,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "88582eef95634801b88c0dd76c7523f6",
+        "heygenId": "d5c904f898eb438aa14deb375cda1872",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/addon-cpd-library.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -98,17 +83,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '88582eef95634801b88c0dd76c7523f6' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "addon-ehcp-accelerator": {
       "key": "addon-ehcp-accelerator",
@@ -119,7 +95,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "06bf1fcb7aa04476abf0db827b5e6c6e",
+        "heygenId": "d47af80deaa946689e33a4ed4a918323",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/addon-ehcp-accelerator.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -130,17 +107,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '06bf1fcb7aa04476abf0db827b5e6c6e' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "addon-priority-support": {
       "key": "addon-priority-support",
@@ -151,7 +119,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "e90201fbba1a4f789186c4d8b58dcc72",
+        "heygenId": "63b728a51d8349388e87e98597811664",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/addon-priority-support.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -161,17 +130,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID 'e90201fbba1a4f789186c4d8b58dcc72' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "addon-white-label": {
       "key": "addon-white-label",
@@ -182,7 +142,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "6132f8ab6d4246b7a184db10c9a49c9e",
+        "heygenId": "2601efeb473e40bd98844f8d33437826",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/addon-white-label.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -192,17 +153,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '6132f8ab6d4246b7a184db10c9a49c9e' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "adhd-m1-l1": {
       "key": "adhd-m1-l1",
@@ -613,7 +565,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "24b893afc8f44f9c8d4813328098c87f",
+        "heygenId": "770c307d79244a848eb288602107b6bb",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/annual-reviews-mastery.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -623,17 +576,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '24b893afc8f44f9c8d4813328098c87f' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "assessment-choosing": {
       "key": "assessment-choosing",
@@ -647,8 +591,7 @@
         "heygenId": "8f7d3a8b5d784d05a368650e26e0a50a",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642465/edpsych-connect/videos/assessment-choosing.mp4",
-        "localPath": "/content/training_videos/assessment/assessment-choosing.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 2,
@@ -672,8 +615,7 @@
         "heygenId": "8f517e49f738427086b1483f0f41cb6f",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642475/edpsych-connect/videos/assessment-interpreting.mp4",
-        "localPath": "/content/training_videos/assessment/assessment-interpreting.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 3,
@@ -1168,7 +1110,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "35fc14cae23d4323a08150b6625dea35",
+        "heygenId": "fcff323c9cce4ea1b18dcfb4127ff5c2",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/compare-switching.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -1178,17 +1121,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '35fc14cae23d4323a08150b6625dea35' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "compare-true-cost": {
       "key": "compare-true-cost",
@@ -1199,7 +1133,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "80f6551b669a4a4c804d6d19726d626e",
+        "heygenId": "21a6eb143c734c00917f11f36428a387",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/compare-true-cost.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -1209,17 +1144,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '80f6551b669a4a4c804d6d19726d626e' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "compliance-consent": {
       "key": "compliance-consent",
@@ -1233,8 +1159,7 @@
         "heygenId": "a9add208f50b411f97b6db9cf7df3f88",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642445/edpsych-connect/videos/compliance-consent.mp4",
-        "localPath": "/content/training_videos/compliance/compliance-consent.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 1,
@@ -1256,8 +1181,8 @@
       "sources": {
         "heygenId": "d741f1a637fc4d279c255ceea749ec7c",
         "heygenStatus": "completed",
-        "localPath": "/content/training_videos/compliance/compliance-data-protection.mp4",
-        "localFileExists": true
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/compliance-data-protection.mp4",
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 4,
@@ -1280,7 +1205,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "b78522c6f075420ca3e5ed52bacc225d",
+        "heygenId": "ae1e574d2967453fa7d558a22b490ed4",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/compliance-risk-ai.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -1290,17 +1216,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID 'b78522c6f075420ca3e5ed52bacc225d' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "data-autonomy": {
       "key": "data-autonomy",
@@ -1313,8 +1230,8 @@
       "sources": {
         "heygenId": "d741f1a637fc4d279c255ceea749ec7c",
         "heygenStatus": "completed",
-        "localPath": "/content/training_videos/compliance/compliance-data-protection.mp4",
-        "localFileExists": true
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/data-autonomy.mp4",
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 2,
@@ -1663,8 +1580,7 @@
         "heygenId": "04effa7e0b9147b582008f022e8421b2",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642376/edpsych-connect/videos/ehcp-annual-review.mp4",
-        "localPath": "/content/training_videos/ehcp/ehcp-annual-review.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 3,
@@ -1689,8 +1605,7 @@
         "heygenId": "290dd8919c24405e9f83548d56f37caf",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642419/edpsych-connect/videos/ehcp-appeals.mp4",
-        "localPath": "/content/training_videos/ehcp/ehcp-appeals.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 3,
@@ -1715,8 +1630,7 @@
         "heygenId": "5ad6364b3e0944a5bbc055c6b4e35896",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533977/edpsych-connect/videos/ehcp-application-journey.mp4",
-        "localPath": "/content/training_videos/ehcp/ehcp-application-journey.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 9,
@@ -1746,8 +1660,7 @@
         "heygenId": "3e05294094ba4d6eabc38e7a981d970e",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642391/edpsych-connect/videos/ehcp-evidence-gathering.mp4",
-        "localPath": "/content/training_videos/ehcp/ehcp-evidence-gathering.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 4,
@@ -1770,7 +1683,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "4a6bb2e9083542c185cebb1609d6d1cf",
+        "heygenId": "a519e9cd4cb84e2b9bb9486a200c4441",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/ehcp-modules-hub-overview.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -1779,17 +1693,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '4a6bb2e9083542c185cebb1609d6d1cf' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "ehcp-professional-contributions": {
       "key": "ehcp-professional-contributions",
@@ -1803,8 +1708,7 @@
         "heygenId": "93e46803ffc4404998abfcdcaa5c09ae",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642405/edpsych-connect/videos/ehcp-professional-contributions.mp4",
-        "localPath": "/content/training_videos/ehcp/ehcp-professional-contributions.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 1,
@@ -1826,8 +1730,8 @@
       "sources": {
         "heygenId": "4be8a3b43a2f42c9b538b613c5e002e3",
         "heygenStatus": "completed",
-        "localPath": "/content/training_videos/innovation/innovation-orchestration.mp4",
-        "localFileExists": true
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/enterprise-plan-overview.mp4",
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 2,
@@ -1851,8 +1755,7 @@
         "heygenId": "a53810c3826544d0b67a19dbf0848419",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644448/edpsych-connect/videos/feature-accessibility.mp4",
-        "localPath": "/content/training_videos/features/feature-accessibility.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 1,
@@ -1875,8 +1778,7 @@
         "heygenId": "38c9dbfd422d4099afb1526da569b70e",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644453/edpsych-connect/videos/feature-ai-agents.mp4",
-        "localPath": "/content/training_videos/features/feature-ai-agents.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 1,
@@ -1897,6 +1799,7 @@
       },
       "sources": {
         "heygenId": "58d38fdf4d8640c1b9d848a826d686a6",
+        "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-battle-royale.mp4",
         "localFileExists": false
       },
@@ -1921,6 +1824,8 @@
       },
       "sources": {
         "heygenId": "58d38fdf4d8640c1b9d848a826d686a6",
+        "heygenStatus": "completed",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-battle-royale-pricing.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -1931,17 +1836,8 @@
           "src\\lib\\video-scripts\\registry-core.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '58d38fdf4d8640c1b9d848a826d686a6' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "feature-byod-architecture": {
       "key": "feature-byod-architecture",
@@ -1953,6 +1849,7 @@
       },
       "sources": {
         "heygenId": "4ae970ec77f145b3a5ccc12298fd7cd1",
+        "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-byod-architecture.mp4",
         "localFileExists": false
       },
@@ -2003,8 +1900,7 @@
         "heygenId": "56f1e0d6cdc84ba0b8035eacf186825d",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644443/edpsych-connect/videos/feature-gamification.mp4",
-        "localPath": "/content/training_videos/features/feature-gamification.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 1,
@@ -2024,7 +1920,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "70ae2bd8eb3e41cab5dfdeb8a771fc8a",
+        "heygenId": "ca9e9c0875994e2786cb59150c2a6e2a",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-intervention-library.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -2035,17 +1932,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '70ae2bd8eb3e41cab5dfdeb8a771fc8a' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "feature-interventions": {
       "key": "feature-interventions",
@@ -2085,8 +1973,7 @@
         "heygenId": "08aea67e72f64e8ebb45d1be32633002",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644467/edpsych-connect/videos/feature-la-dashboard.mp4",
-        "localPath": "/content/training_videos/features/feature-la-dashboard.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 1,
@@ -2155,7 +2042,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "51297c420ab84cfd99847e5b54e80e74",
+        "heygenId": "80fbb062d739443cb089c6c2d8ccace2",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/golden-thread-coherence.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -2165,17 +2053,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '51297c420ab84cfd99847e5b54e80e74' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "help-collaboration": {
       "key": "help-collaboration",
@@ -2189,8 +2068,7 @@
         "heygenId": "43b884d3d5eb4d1f9e98126238ce9b07",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641834/edpsych-connect/videos/help-collaboration.mp4",
-        "localPath": "/content/training_videos/help-centre/help-collaboration.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 2,
@@ -2214,8 +2092,7 @@
         "heygenId": "36da748c9c9948cebf809ccb88a6ee6d",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641824/edpsych-connect/videos/help-cpd-tracking.mp4",
-        "localPath": "/content/training_videos/help-centre/help-cpd-tracking.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 2,
@@ -2239,8 +2116,7 @@
         "heygenId": "e55cf956dc06440b9596976c5b21657d",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641857/edpsych-connect/videos/help-data-security.mp4",
-        "localPath": "/content/training_videos/help-centre/help-data-security.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 4,
@@ -2266,8 +2142,7 @@
         "heygenId": "47aa88223c364600b6618b54c719f717",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641870/edpsych-connect/videos/help-finding-interventions.mp4",
-        "localPath": "/content/training_videos/help-centre/help-finding-interventions.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 5,
@@ -2294,8 +2169,7 @@
         "heygenId": "c2f83ce8d785468a8d762bebb2cee7f0",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641895/edpsych-connect/videos/help-first-assessment.mp4",
-        "localPath": "/content/training_videos/help-centre/help-first-assessment.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 4,
@@ -2321,8 +2195,7 @@
         "heygenId": "54882ac8986c404d99b052952de1699b",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641845/edpsych-connect/videos/help-generating-reports.mp4",
-        "localPath": "/content/training_videos/help-centre/help-generating-reports.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 1,
@@ -2345,8 +2218,7 @@
         "heygenId": "a47ac27a1b444cc892840d32c9d63cbb",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641815/edpsych-connect/videos/help-troubleshooting.mp4",
-        "localPath": "/content/training_videos/help-centre/help-troubleshooting.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 2,
@@ -2370,8 +2242,7 @@
         "heygenId": "3c6c385ff87245d99ba9b1c59925f463",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642494/edpsych-connect/videos/innovation-ai-agents.mp4",
-        "localPath": "/content/training_videos/innovation/innovation-ai-agents.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 2,
@@ -2395,8 +2266,7 @@
         "heygenId": "c13549ec38474d0287b3f019cf842b48",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642485/edpsych-connect/videos/innovation-battle-royale.mp4",
-        "localPath": "/content/training_videos/innovation/innovation-battle-royale.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 2,
@@ -2420,8 +2290,7 @@
         "heygenId": "84c23e6e11604b7da12d41ad23c90804",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642517/edpsych-connect/videos/innovation-coding-curriculum.mp4",
-        "localPath": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 3,
@@ -2446,8 +2315,7 @@
         "heygenId": "4be8a3b43a2f42c9b538b613c5e002e3",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642543/edpsych-connect/videos/innovation-orchestration.mp4",
-        "localPath": "/content/training_videos/innovation/innovation-orchestration.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 4,
@@ -2473,8 +2341,7 @@
         "heygenId": "b4dc8f8e12f645b987d7b4c25269acd3",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642505/edpsych-connect/videos/innovation-research-hub.mp4",
-        "localPath": "/content/training_videos/innovation/innovation-research-hub.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 7,
@@ -2582,8 +2449,7 @@
         "heygenId": "e0fd73d582534c23acdf88c81fd4e616",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641766/edpsych-connect/videos/la-ehcp-merge-tool.mp4",
-        "localPath": "/content/training_videos/la-portal/la-ehcp-merge-tool.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 1,
@@ -2606,8 +2472,7 @@
         "heygenId": "f6bb91fba2b64a9980ad90486156215b",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641777/edpsych-connect/videos/la-professional-requests.mp4",
-        "localPath": "/content/training_videos/la-portal/la-professional-requests.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 2,
@@ -2628,7 +2493,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "2fb25e1c05c848c2880e52d41c21c5ef",
+        "heygenId": "fc5c1b06b3df4735a52813e5824ab8cd",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/mediation-tribunal-navigation.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -2638,17 +2504,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '2fb25e1c05c848c2880e52d41c21c5ef' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "no-child-left-behind": {
       "key": "no-child-left-behind",
@@ -2689,6 +2546,7 @@
       "sources": {
         "heygenId": "47faddd661d648e5ae34c8360c8b2286",
         "heygenStatus": "completed",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/onboarding-platform-tour.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -2698,13 +2556,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "onboarding-welcome": {
       "key": "onboarding-welcome",
@@ -2716,6 +2569,7 @@
       },
       "sources": {
         "heygenId": "17126ba3772f4a7984aa5fa82d85c817",
+        "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766258344/edpsych-connect/videos/onboarding-welcome.mp4",
         "localFileExists": false
       },
@@ -2745,8 +2599,7 @@
         "heygenId": "a4929f69fc9c4dada50351d378589950",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641915/edpsych-connect/videos/parent-contributing-views.mp4",
-        "localPath": "/content/training_videos/parent-portal/parent-contributing-views.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 1,
@@ -2769,8 +2622,7 @@
         "heygenId": "ec76fcbd50954161a040fb0f5ec42738",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641905/edpsych-connect/videos/parent-portal-welcome.mp4",
-        "localPath": "/content/training_videos/parent-portal/parent-portal-welcome.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 6,
@@ -2798,8 +2650,7 @@
         "heygenId": "5d2a1d79e71144c884337f44ffc81180",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641927/edpsych-connect/videos/parent-understanding-results.mp4",
-        "localPath": "/content/training_videos/parent-portal/parent-understanding-results.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 1,
@@ -2819,7 +2670,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "74fb795821a046ed845425d9c5e53de1",
+        "heygenId": "d8f332b9c5794e349254e2f50f440504",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/phase-transfers-mastery.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -2829,17 +2681,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '74fb795821a046ed845425d9c5e53de1' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "platform-introduction": {
       "key": "platform-introduction",
@@ -2852,8 +2695,7 @@
       "sources": {
         "heygenId": "700652dcbd134ad281da2126e37560e2",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533750/edpsych-connect/videos/platform-introduction.mp4",
-        "localPath": "/content/training_videos/platform-introduction.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 5,
@@ -2902,8 +2744,8 @@
       "sources": {
         "heygenId": "84c23e6e11604b7da12d41ad23c90804",
         "heygenStatus": "completed",
-        "localPath": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
-        "localFileExists": true
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/python-functions.mp4",
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 2,
@@ -2950,8 +2792,8 @@
       "sources": {
         "heygenId": "84c23e6e11604b7da12d41ad23c90804",
         "heygenStatus": "completed",
-        "localPath": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
-        "localFileExists": true
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/react-components.mp4",
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 2,
@@ -2974,8 +2816,8 @@
       "sources": {
         "heygenId": "9fdd9b32b3cd4ce8a6c4f6cf8bf85012",
         "heygenStatus": "completed",
-        "localPath": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
-        "localFileExists": true
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/react-intro.mp4",
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 1,
@@ -2997,8 +2839,8 @@
       "sources": {
         "heygenId": "84c23e6e11604b7da12d41ad23c90804",
         "heygenStatus": "completed",
-        "localPath": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
-        "localFileExists": true
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/react-state.mp4",
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 2,
@@ -3019,7 +2861,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "41805d3e583d4ca4b1d3f46687f6ac76",
+        "heygenId": "7075ba900e774ccfbb622454697fecee",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/resource-costing-funding.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -3029,17 +2872,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '41805d3e583d4ca4b1d3f46687f6ac76' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "school-senco-portal": {
       "key": "school-senco-portal",
@@ -3053,8 +2887,7 @@
         "heygenId": "7a6420de424a477eba6a29ad99a3271d",
         "heygenStatus": "completed",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641955/edpsych-connect/videos/school-senco-portal.mp4",
-        "localPath": "/content/training_videos/misc/school-senco-portal.mp4",
-        "localFileExists": true
+        "localFileExists": false
       },
       "embedding": {
         "literalReferenceCount": 4,
@@ -3079,6 +2912,7 @@
       "sources": {
         "heygenId": "12fbfee13dd04c7087eee79ad1101fb2",
         "heygenStatus": "completed",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/security-deep-dive.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -3087,13 +2921,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "sen2-returns-automation": {
       "key": "sen2-returns-automation",
@@ -3104,7 +2933,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "3edc74c4a40548ec8866fcc19caf0126",
+        "heygenId": "a407bf5c93c7405bb757384b76fc64cd",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/sen2-returns-automation.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -3114,17 +2944,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '3edc74c4a40548ec8866fcc19caf0126' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "trust-built-by-practitioners": {
       "key": "trust-built-by-practitioners",
@@ -3135,7 +2956,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "81e7ef1a1d1449a2a65187820cff7bac",
+        "heygenId": "86b48aa0a91b4848815fca5fa58180ca",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/trust-built-by-practitioners.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -3145,17 +2967,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID '81e7ef1a1d1449a2a65187820cff7bac' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "trust-security": {
       "key": "trust-security",
@@ -3166,7 +2979,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "caa20295f1164b3cb796c1e04c348c77",
+        "heygenId": "1353dc5eeae1475e8d307a9914f8f2e5",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/trust-security.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -3178,17 +2992,8 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [
-        {
-          "level": "warning",
-          "message": "HeyGen ID 'caa20295f1164b3cb796c1e04c348c77' not found in heygen_videos_list.json (inventory drift?)"
-        },
-        {
-          "level": "warning",
-          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
-        }
-      ],
-      "recommendation": "needs-attention"
+      "issues": [],
+      "recommendation": "ok"
     },
     "value-enterprise-platform": {
       "key": "value-enterprise-platform",

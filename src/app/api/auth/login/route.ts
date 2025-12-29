@@ -189,10 +189,23 @@ export async function POST(request: NextRequest) {
     });
 
     return response;
-  } catch (_error) {
-    console.error('Login error:', _error);
+  } catch (error: unknown) {
+    // Avoid leaking internals; return a stable, user-safe message.
+    // Map common Prisma connectivity failures to 503 so monitoring + clients can react appropriately.
+    const maybeCode = (error as { code?: unknown } | null)?.code;
+    const code = typeof maybeCode === 'string' ? maybeCode : undefined;
+
+    console.error('Login error:', error);
+
+    if (code === 'P1000' || code === 'P1001') {
+      return NextResponse.json(
+        { error: 'Service temporarily unavailable. Please try again shortly.' },
+        { status: 503 }
+      );
+    }
+
     return NextResponse.json(
-      { error: 'An _error occurred during login. Please try again.' },
+      { error: 'An error occurred during login. Please try again.' },
       { status: 500 }
     );
   }

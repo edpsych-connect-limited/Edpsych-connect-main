@@ -384,6 +384,60 @@
     "status": "imported-from-registry"
   },
   {
+    "key": "addon-ai-power-pack",
+    "publicId": "edpsych-connect/videos/addon-ai-power-pack",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766943835/edpsych-connect/videos/addon-ai-power-pack.mp4",
+    "duration": 135.56,
+    "bytes": 45424879,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T17:43:56.665Z"
+  },
+  {
+    "key": "addon-api-access",
+    "publicId": "edpsych-connect/videos/addon-api-access",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766942440/edpsych-connect/videos/addon-api-access.mp4",
+    "duration": 106.04,
+    "bytes": 46230728,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T17:20:42.463Z"
+  },
+  {
+    "key": "addon-cpd-library",
+    "publicId": "edpsych-connect/videos/addon-cpd-library",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766953802/edpsych-connect/videos/addon-cpd-library.mp4",
+    "duration": 119.88,
+    "bytes": 40195431,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T20:30:04.619Z"
+  },
+  {
+    "key": "addon-ehcp-accelerator",
+    "publicId": "edpsych-connect/videos/addon-ehcp-accelerator",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766954176/edpsych-connect/videos/addon-ehcp-accelerator.mp4",
+    "duration": 129.16,
+    "bytes": 43278452,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T20:36:18.446Z"
+  },
+  {
+    "key": "addon-priority-support",
+    "publicId": "edpsych-connect/videos/addon-priority-support",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766954371/edpsych-connect/videos/addon-priority-support.mp4",
+    "duration": 78.2,
+    "bytes": 26093031,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T20:39:32.714Z"
+  },
+  {
+    "key": "addon-white-label",
+    "publicId": "edpsych-connect/videos/addon-white-label",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766954611/edpsych-connect/videos/addon-white-label.mp4",
+    "duration": 101.44,
+    "bytes": 34120386,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T20:43:33.796Z"
+  },
+  {
     "key": "adhd-m1-l1",
     "publicId": "edpsych-connect/videos/adhd-m1-l1",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533363/edpsych-connect/videos/adhd-m1-l1.mp4",
@@ -526,6 +580,15 @@
     "bytes": 10969393,
     "status": "skipped",
     "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642665/edpsych-connect/videos/adhd-m8-l2.mp4"
+  },
+  {
+    "key": "annual-reviews-mastery",
+    "publicId": "edpsych-connect/videos/annual-reviews-mastery",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766958166/edpsych-connect/videos/annual-reviews-mastery.mp4",
+    "duration": 63.12,
+    "bytes": 21260612,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T21:42:47.867Z"
   },
   {
     "key": "assess-m1-l1",
@@ -712,6 +775,24 @@
     "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765643617/edpsych-connect/videos/autism-m8-l2.mp4"
   },
   {
+    "key": "compare-switching",
+    "publicId": "edpsych-connect/videos/compare-switching",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766954895/edpsych-connect/videos/compare-switching.mp4",
+    "duration": 120.8,
+    "bytes": 40734563,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T20:48:17.661Z"
+  },
+  {
+    "key": "compare-true-cost",
+    "publicId": "edpsych-connect/videos/compare-true-cost",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766957075/edpsych-connect/videos/compare-true-cost.mp4",
+    "duration": 148.04,
+    "bytes": 49587234,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T21:24:38.147Z"
+  },
+  {
     "key": "compliance-consent",
     "publicId": "edpsych-connect/videos/compliance-consent",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642445/edpsych-connect/videos/compliance-consent.mp4",
@@ -720,12 +801,31 @@
     "status": "imported-from-registry"
   },
   {
+    "key": "compliance-data-protection",
+    "publicId": "edpsych-connect/videos/compliance-data-protection",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766959594/edpsych-connect/videos/compliance-data-protection.mp4",
+    "duration": 31.76,
+    "bytes": 5084519,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T22:06:35.294Z"
+  },
+  {
+    "key": "compliance-risk-ai",
+    "publicId": "edpsych-connect/videos/compliance-risk-ai",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766958402/edpsych-connect/videos/compliance-risk-ai.mp4",
+    "duration": 63.12,
+    "bytes": 28094629,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T21:46:44.264Z"
+  },
+  {
     "key": "data-autonomy",
     "publicId": "edpsych-connect/videos/data-autonomy",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533766/edpsych-connect/videos/data-autonomy.mp4",
-    "duration": 0,
-    "bytes": 23274266,
-    "status": "skipped"
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766959599/edpsych-connect/videos/data-autonomy.mp4",
+    "duration": 31.76,
+    "bytes": 5084519,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T22:06:40.480Z"
   },
   {
     "key": "dys-m1-l1",
@@ -991,12 +1091,30 @@
     "status": "skipped"
   },
   {
+    "key": "ehcp-modules-hub-overview",
+    "publicId": "edpsych-connect/videos/ehcp-modules-hub-overview",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766958595/edpsych-connect/videos/ehcp-modules-hub-overview.mp4",
+    "duration": 67.84,
+    "bytes": 22629707,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T21:50:03.296Z"
+  },
+  {
     "key": "ehcp-professional-contributions",
     "publicId": "edpsych-connect/videos/ehcp-professional-contributions",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642405/edpsych-connect/videos/ehcp-professional-contributions.mp4",
     "duration": 0,
     "bytes": 0,
     "status": "imported-from-registry"
+  },
+  {
+    "key": "enterprise-plan-overview",
+    "publicId": "edpsych-connect/videos/enterprise-plan-overview",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766959616/edpsych-connect/videos/enterprise-plan-overview.mp4",
+    "duration": 68.16,
+    "bytes": 24406101,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T22:06:57.841Z"
   },
   {
     "key": "feature-accessibility",
@@ -1015,6 +1133,31 @@
     "status": "imported-from-registry"
   },
   {
+    "key": "feature-battle-royale",
+    "publicId": "edpsych-connect/videos/feature-battle-royale",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-battle-royale.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "feature-battle-royale-pricing",
+    "publicId": "edpsych-connect/videos/feature-battle-royale-pricing",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766939958/edpsych-connect/videos/feature-battle-royale-pricing.mp4",
+    "duration": 116.12,
+    "bytes": 39454290,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T17:06:02.140Z"
+  },
+  {
+    "key": "feature-byod-architecture",
+    "publicId": "edpsych-connect/videos/feature-byod-architecture",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-byod-architecture.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
     "key": "feature-gamification",
     "publicId": "edpsych-connect/videos/feature-gamification",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644443/edpsych-connect/videos/feature-gamification.mp4",
@@ -1023,9 +1166,26 @@
     "status": "imported-from-registry"
   },
   {
+    "key": "feature-intervention-library",
+    "publicId": "edpsych-connect/videos/feature-intervention-library",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766957484/edpsych-connect/videos/feature-intervention-library.mp4",
+    "duration": 120.4,
+    "bytes": 40528992,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T21:31:26.969Z"
+  },
+  {
     "key": "feature-la-dashboard",
     "publicId": "edpsych-connect/videos/feature-la-dashboard",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644467/edpsych-connect/videos/feature-la-dashboard.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "feature-nclb-engine",
+    "publicId": "edpsych-connect/videos/feature-nclb-engine",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-nclb-engine.mp4",
     "duration": 0,
     "bytes": 0,
     "status": "imported-from-registry"
@@ -1037,6 +1197,15 @@
     "duration": 0,
     "bytes": 24568172,
     "status": "skipped"
+  },
+  {
+    "key": "golden-thread-coherence",
+    "publicId": "edpsych-connect/videos/golden-thread-coherence",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766959017/edpsych-connect/videos/golden-thread-coherence.mp4",
+    "duration": 60.32,
+    "bytes": 20579632,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T21:56:58.968Z"
   },
   {
     "key": "help-collaboration",
@@ -1204,6 +1373,15 @@
     "status": "imported-from-registry"
   },
   {
+    "key": "mediation-tribunal-navigation",
+    "publicId": "edpsych-connect/videos/mediation-tribunal-navigation",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766958771/edpsych-connect/videos/mediation-tribunal-navigation.mp4",
+    "duration": 60.76,
+    "bytes": 20463033,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T21:52:53.592Z"
+  },
+  {
     "key": "no-child-left-behind",
     "publicId": "edpsych-connect/videos/no-child-left-behind",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533789/edpsych-connect/videos/no-child-left-behind.mp4",
@@ -1238,10 +1416,11 @@
   {
     "key": "onboarding-platform-tour",
     "publicId": "edpsych-connect/videos/onboarding-platform-tour",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533862/edpsych-connect/videos/onboarding-platform-tour.mp4",
-    "duration": 0,
-    "bytes": 23239855,
-    "status": "skipped"
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766939976/edpsych-connect/videos/onboarding-platform-tour.mp4",
+    "duration": 65.689,
+    "bytes": 23186781,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T17:06:18.865Z"
   },
   {
     "key": "onboarding-role-selection",
@@ -1285,6 +1464,15 @@
     "status": "imported-from-registry"
   },
   {
+    "key": "phase-transfers-mastery",
+    "publicId": "edpsych-connect/videos/phase-transfers-mastery",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766959206/edpsych-connect/videos/phase-transfers-mastery.mp4",
+    "duration": 57.56,
+    "bytes": 19244302,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T22:00:08.362Z"
+  },
+  {
     "key": "platform-introduction",
     "publicId": "edpsych-connect/videos/platform-introduction",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533750/edpsych-connect/videos/platform-introduction.mp4",
@@ -1293,12 +1481,75 @@
     "status": "skipped"
   },
   {
+    "key": "python-functions",
+    "publicId": "edpsych-connect/videos/python-functions",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766959633/edpsych-connect/videos/python-functions.mp4",
+    "duration": 62.12,
+    "bytes": 22253492,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T22:07:15.190Z"
+  },
+  {
+    "key": "react-components",
+    "publicId": "edpsych-connect/videos/react-components",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766959648/edpsych-connect/videos/react-components.mp4",
+    "duration": 62.12,
+    "bytes": 22253492,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T22:07:30.723Z"
+  },
+  {
+    "key": "react-intro",
+    "publicId": "edpsych-connect/videos/react-intro",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766959654/edpsych-connect/videos/react-intro.mp4",
+    "duration": 23.36,
+    "bytes": 3750127,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T22:07:35.459Z"
+  },
+  {
+    "key": "react-state",
+    "publicId": "edpsych-connect/videos/react-state",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766959670/edpsych-connect/videos/react-state.mp4",
+    "duration": 62.12,
+    "bytes": 22253492,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T22:07:52.668Z"
+  },
+  {
+    "key": "resource-costing-funding",
+    "publicId": "edpsych-connect/videos/resource-costing-funding",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766959355/edpsych-connect/videos/resource-costing-funding.mp4",
+    "duration": 55.2,
+    "bytes": 18470400,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T22:02:37.159Z"
+  },
+  {
     "key": "school-senco-portal",
     "publicId": "edpsych-connect/videos/school-senco-portal",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641955/edpsych-connect/videos/school-senco-portal.mp4",
     "duration": 0,
     "bytes": 0,
     "status": "imported-from-registry"
+  },
+  {
+    "key": "security-deep-dive",
+    "publicId": "edpsych-connect/videos/security-deep-dive",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766939994/edpsych-connect/videos/security-deep-dive.mp4",
+    "duration": 64.04,
+    "bytes": 23019685,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T17:06:37.324Z"
+  },
+  {
+    "key": "sen2-returns-automation",
+    "publicId": "edpsych-connect/videos/sen2-returns-automation",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766959503/edpsych-connect/videos/sen2-returns-automation.mp4",
+    "duration": 52.12,
+    "bytes": 17427150,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T22:05:04.766Z"
   },
   {
     "key": "send-fund-m1-l1",
@@ -1325,28 +1576,22 @@
     "status": "skipped"
   },
   {
-    "key": "feature-battle-royale",
-    "publicId": "edpsych-connect/videos/feature-battle-royale",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-battle-royale.mp4",
-    "duration": 0,
-    "bytes": 0,
-    "status": "imported-from-registry"
+    "key": "trust-built-by-practitioners",
+    "publicId": "edpsych-connect/videos/trust-built-by-practitioners",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766957870/edpsych-connect/videos/trust-built-by-practitioners.mp4",
+    "duration": 114.48,
+    "bytes": 38407170,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T21:37:52.181Z"
   },
   {
-    "key": "feature-byod-architecture",
-    "publicId": "edpsych-connect/videos/feature-byod-architecture",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-byod-architecture.mp4",
-    "duration": 0,
-    "bytes": 0,
-    "status": "imported-from-registry"
-  },
-  {
-    "key": "feature-nclb-engine",
-    "publicId": "edpsych-connect/videos/feature-nclb-engine",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-nclb-engine.mp4",
-    "duration": 0,
-    "bytes": 0,
-    "status": "imported-from-registry"
+    "key": "trust-security",
+    "publicId": "edpsych-connect/videos/trust-security",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766957900/edpsych-connect/videos/trust-security.mp4",
+    "duration": 136.2,
+    "bytes": 45585458,
+    "status": "uploaded-from-heygen",
+    "uploadedAt": "2025-12-28T21:38:22.794Z"
   },
   {
     "key": "value-enterprise-platform",

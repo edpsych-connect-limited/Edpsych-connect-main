@@ -360,7 +360,7 @@ export const ADDON_VIDEOS = {
 
 What it is? The most practically useful AI implementation I've seen in educational software. And I say that knowing how bold that sounds.
 
-Start with report writing. You've done an assessment. You know what you want to say. But formatting it, structuring it, making sure you haven't missed anything? That takes hours. The AI drafts a report structure based on your assessment data, follows your preferred template style, and gives you something to edit rather than a blank page to fill. Teachers using this feature tell us it cuts report writing time by sixty to seventy percent.
+Start with report writing. You've done an assessment. You know what you want to say. But formatting it, structuring it, making sure you haven't missed anything? That takes hours. The AI drafts a report structure based on your assessment data, follows your preferred template style, and gives you something to edit rather than a blank page to fill. Teachers using this feature often tell us it turns a blank page into a solid first draft much faster, while keeping you firmly in control of the final wording.
 
 Then there's the Study Buddy. Not a replacement for teaching, but a study companion that's available at 2am when students are revising. It explains concepts in multiple ways. It generates practice questions at the right difficulty level. It notices when a student is struggling and suggests different approaches. All while logging learning patterns that help you as the teacher understand where each student needs support.
 

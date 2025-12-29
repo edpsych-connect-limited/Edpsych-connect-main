@@ -537,7 +537,7 @@ export const AutomatedActionsLog: React.FC<AutomatedActionsLogProps> = ({
 
     const query = searchQuery.toLowerCase();
     return logData.actions.filter(
-      (action) =>
+      (action: AutomatedAction) =>
         action.title.toLowerCase().includes(query) ||
         action.description.toLowerCase().includes(query)
     );
@@ -666,7 +666,7 @@ export const AutomatedActionsLog: React.FC<AutomatedActionsLogProps> = ({
                 onReject={(id) => rejectMutation.mutate(id)}
                 onRetry={(id) => retryMutation.mutate(id)}
                 onModify={(id) => {
-                  const actionToModify = logData.actions.find(a => a.id === id);
+                  const actionToModify = logData.actions.find((a: AutomatedAction) => a.id === id);
                   if (actionToModify) setModifyingAction(actionToModify);
                 }}
               />

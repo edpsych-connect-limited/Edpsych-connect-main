@@ -43,14 +43,26 @@ describe('Systematic Role Verification', () => {
     }
   ];
 
+  const isRemoteBaseUrl = (): boolean => {
+    const base = String(Cypress.config('baseUrl') ?? '');
+    return base.startsWith('http') && !base.includes('localhost');
+  };
+
   beforeEach(() => {
     // Clear cookies and storage to ensure clean state
     cy.clearCookies();
     cy.clearLocalStorage();
   });
 
-  roles.forEach(({ role, email, expectedPath, checkText }) => {
+  roles.forEach(({ role, email, expectedPath, checkText }, index) => {
     it(`should allow ${role} (${email}) to login and redirect to ${expectedPath}`, () => {
+      // Production rate limiting is 5 logins/minute/IP.
+      // When running this suite against a deployed environment, we intentionally pause
+      // before the 6th login to avoid false negatives.
+      if (isRemoteBaseUrl() && index === 5) {
+        cy.wait(65_000);
+      }
+
       cy.login(email);
       cy.visit(expectedPath);
 

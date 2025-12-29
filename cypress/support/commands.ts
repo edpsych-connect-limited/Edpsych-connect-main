@@ -88,15 +88,44 @@ Cypress.Commands.add('login', (email: string, password?: string) => {
 			// Establish correct origin before touching localStorage
 			cy.visit('/', { failOnStatusCode: false });
 
-			cy.request<LoginResponseBody>({
-				method: 'POST',
-				url: '/api/auth/login',
-				headers: {
-					'x-forwarded-for': ipForUser,
-				},
-				body: { email, password: resolvedPassword },
-				failOnStatusCode: false,
-			}).then((response) => {
+			const requestLogin = (attempt: number): Cypress.Chainable<Cypress.Response<LoginResponseBody>> => {
+				return cy
+					.request<LoginResponseBody>({
+						method: 'POST',
+						url: '/api/auth/login',
+						headers: {
+							// NOTE: Some hosts (e.g., Vercel) will overwrite this header.
+							// It's still useful for local runs and self-hosted environments.
+							'x-forwarded-for': ipForUser,
+						},
+						body: { email, password: resolvedPassword },
+						failOnStatusCode: false,
+					})
+					.then((response) => {
+						// Production has strict per-IP login rate limiting.
+						// If we hit it during multi-role smoke tests, honor Retry-After and retry.
+						if (response.status === 429 && attempt < 4) {
+							const retryAfterHeader =
+								(response.headers?.['retry-after'] as string | undefined) ??
+								(response.headers?.['Retry-After'] as string | undefined);
+							const retryAfterSeconds = retryAfterHeader ? Number.parseInt(retryAfterHeader, 10) : NaN;
+							const waitMs = Number.isFinite(retryAfterSeconds) && retryAfterSeconds > 0
+								? (retryAfterSeconds + 1) * 1000
+								: 65_000;
+
+							Cypress.log({
+								name: 'login',
+								message: `Rate limited (429) for ${email}. Waiting ${waitMs}ms then retrying (attempt ${attempt + 1}/4).`,
+							});
+
+							return cy.wait(waitMs, { log: false }).then(() => requestLogin(attempt + 1));
+						}
+
+						return cy.wrap(response, { log: false });
+					});
+			};
+
+			requestLogin(1).then((response) => {
 				if (response.status !== 200 || !response.body?.data?.accessToken || !response.body?.data?.user) {
 					throw new Error(
 						`Login failed via API (status ${response.status}): ${JSON.stringify(response.body)}`

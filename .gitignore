@@ -110,7 +110,6 @@ test_out.txt
 
 # Local video inventory dumps
 heygen*_videos*.json
-heygen_videos_list.json
 
 # Downloaded local marketing videos (Cloudinary is the primary source)
 public/content/training_videos/marketing/
