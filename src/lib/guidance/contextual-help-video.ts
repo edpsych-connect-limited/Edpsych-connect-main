@@ -19,7 +19,11 @@ export const CONTEXTUAL_HELP_VIDEO_KEYS = {
   // Public demo pages
   CODING_CURRICULUM: 'intro-coding-journey',
   RESEARCH_HUB: 'innovation-research-hub',
-  SAFETY_NET: 'no-child-left-behind',
+  // Canonical key for the “Safety Net” / Golden Thread demo.
+  // NOTE: We still support the older alias key `no-child-left-behind` elsewhere
+  // (e.g. in training video registries), but contextual help should emit the
+  // canonical key to keep UI evidence + E2E expectations deterministic.
+  SAFETY_NET: 'innovation-safety-net',
 
   // Onboarding
   ONBOARDING_WELCOME: 'onboarding-welcome',
