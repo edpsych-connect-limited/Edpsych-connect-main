@@ -69,6 +69,12 @@ const PUBLIC_API_PATHS = [
   "/api/version",
   "/api/health",
   "/api/ops", // Ops endpoints use their own key-based auth and should not require a user JWT
+  // Video playback helpers (must be callable from public pages)
+  // NOTE: Keep `/api/video/heygen-token` protected (it mints tokens using HEYGEN_API_KEY).
+  "/api/video/heygen-url",
+  "/api/video/captions",
+  "/api/video/health",
+  "/api/video/heygen-config",
   "/api/help/categories",
   "/api/help/chat",
   "/api/blog",

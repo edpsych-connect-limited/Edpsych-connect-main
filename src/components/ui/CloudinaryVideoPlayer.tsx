@@ -12,7 +12,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, Pause, Volume2, VolumeX, Maximize, Minimize, SkipBack, SkipForward, Settings, Loader2, AlertCircle } from 'lucide-react';
-import { getBestVideoSource } from '@/lib/training/heygen-video-urls';
+import { getVideoSourceCandidates, getBestVideoSource, type VideoSourceCandidate } from '@/lib/training/heygen-video-urls';
 
 interface CloudinaryVideoPlayerProps {
   videoId: string;
@@ -54,66 +54,94 @@ export default function CloudinaryVideoPlayer({
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [showSpeedMenu, setShowSpeedMenu] = useState(false);
   const [resolvedUrl, setResolvedUrl] = useState<string | null>(null);
+  const [candidates, setCandidates] = useState<VideoSourceCandidate[]>([]);
+  const [candidateIndex, setCandidateIndex] = useState(0);
   
-  // Resolve video URL
+  // Build candidate list
   useEffect(() => {
-    const resolveVideo = async () => {
+    setError(null);
+    setResolvedUrl(null);
+    setCandidateIndex(0);
+
+    // 1) Already a URL
+    if (videoId.startsWith('http')) {
+      setCandidates([{ type: 'cloudinary', kind: 'video', url: videoId }]);
+      return;
+    }
+
+    // 2) Registry candidates
+    const list = getVideoSourceCandidates(videoId);
+    setCandidates(list);
+  }, [videoId]);
+
+  // Resolve current candidate to a playable URL (and skip invalid locals)
+  useEffect(() => {
+    let cancelled = false;
+
+    const resolveCandidate = async () => {
       setIsLoading(true);
       setError(null);
 
-      // 1. Check if videoId is already a URL
-      if (videoId.startsWith('http')) {
-        setResolvedUrl(videoId);
+      const candidate = candidates[candidateIndex];
+      if (!candidate) {
+        setResolvedUrl(null);
         setIsLoading(false);
+        setError('Video not available');
         return;
       }
 
-      // 2. Check registry
-      const source = getBestVideoSource(videoId);
-      if (source) {
-        // Direct MP4 sources: local/cloudinary/live/heygen-resolved.
-        if (source.kind === 'video') {
-          if (source.type === 'local') {
-            // Verify local file
-            try {
-              const res = await fetch(source.url, { method: 'HEAD' });
-              if (res.ok) {
-                setResolvedUrl(source.url);
-                setIsLoading(false);
-                return;
-              }
-            } catch {}
-          } else {
-            setResolvedUrl(source.url);
-            setIsLoading(false);
-            return;
-          }
-        }
-
-        // Iframe sources: try to resolve a direct MP4 via API
+      // HeyGen iframe sources must be resolved to a direct MP4 URL via our server endpoint.
+      if (candidate.kind !== 'video') {
         try {
-          const res = await fetch(`/api/video/heygen-url?key=${videoId}`);
+          const res = await fetch(`/api/video/heygen-url?key=${encodeURIComponent(videoId)}`);
           if (res.ok) {
             const data = await res.json();
-            if (data.url) {
+            if (data?.url) {
+              if (cancelled) return;
               setResolvedUrl(data.url);
-              setIsLoading(false);
+              requestAnimationFrame(() => {
+                videoRef.current?.load();
+              });
               return;
             }
           }
-        } catch {}
+        } catch {
+          // ignore
+        }
+
+        if (!cancelled) setCandidateIndex((i) => i + 1);
+        return;
       }
 
-      // 3. Fallback for legacy IDs not in registry
-      // Try to construct a path or use a default?
-      // For now, we'll just fail gracefully if not found.
-      console.warn(`Video ID not found in registry: ${videoId}`);
-      setError('Video not found');
-      setIsLoading(false);
+      // Local assets can legitimately be missing in production builds.
+      // Pre-flight them to avoid a visible "flash" before falling back.
+      if (candidate.type === 'local') {
+        try {
+          const res = await fetch(candidate.url, { method: 'HEAD' });
+          if (!res.ok) {
+            if (!cancelled) setCandidateIndex((i) => i + 1);
+            return;
+          }
+        } catch {
+          if (!cancelled) setCandidateIndex((i) => i + 1);
+          return;
+        }
+      }
+
+      if (cancelled) return;
+      setResolvedUrl(candidate.url);
+      // Force the <video> element to reload the new src.
+      requestAnimationFrame(() => {
+        videoRef.current?.load();
+      });
     };
 
-    resolveVideo();
-  }, [videoId]);
+    resolveCandidate();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [candidates, candidateIndex, videoId]);
   
   // Generate poster URL from Cloudinary if it's a Cloudinary URL
   const posterUrl = resolvedUrl && resolvedUrl.includes('cloudinary')
@@ -141,6 +169,12 @@ export default function CloudinaryVideoPlayer({
     };
 
     const handleError = () => {
+      // Try next candidate (if any) before surfacing an error.
+      if (candidateIndex + 1 < candidates.length) {
+        setCandidateIndex((i) => i + 1);
+        return;
+      }
+
       setError('Failed to load video. Please try again.');
       setIsLoading(false);
     };
@@ -163,7 +197,7 @@ export default function CloudinaryVideoPlayer({
       video.removeEventListener('waiting', handleWaiting);
       video.removeEventListener('canplay', handleCanPlay);
     };
-  }, [onComplete, onProgress, resolvedUrl]); // Added resolvedUrl dependency
+  }, [onComplete, onProgress, resolvedUrl, candidates.length, candidateIndex]); // keep handler in sync
 
   useEffect(() => {
     const video = videoRef.current;
@@ -311,7 +345,7 @@ export default function CloudinaryVideoPlayer({
             <button 
               onClick={() => {
                 setError(null);
-                videoRef.current?.load();
+                setCandidateIndex(0);
               }}
               className="mt-4 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-lg"
             >
@@ -495,11 +529,11 @@ export function VideoPreviewCard({
       if (videoId.startsWith('http')) {
           setPosterUrl(videoId.replace('/upload/', '/upload/so_2,c_fill,w_400,h_225/').replace('.mp4', '.jpg'));
       } else {
-          // Try to get local path synchronously if possible?
-          const source = getBestVideoSource(videoId);
-        if (source?.type === 'cloudinary') {
-        setPosterUrl(source.url.replace('/upload/', '/upload/so_2,c_fill,w_400,h_225/').replace('.mp4', '.jpg'));
-        }
+          const list = getVideoSourceCandidates(videoId);
+          const cloudinary = list.find((c) => c.type === 'cloudinary');
+          if (cloudinary) {
+            setPosterUrl(cloudinary.url.replace('/upload/', '/upload/so_2,c_fill,w_400,h_225/').replace('.mp4', '.jpg'));
+          }
       }
   }, [videoId]);
 

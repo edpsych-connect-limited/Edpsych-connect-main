@@ -675,6 +675,30 @@ export type VideoSourceCandidate = {
   url: string;
 };
 
+// Keys where the *identity* (avatar/voice/persona) is sensitive.
+// To reduce wrong-avatar regressions, we prefer the HeyGen-resolved MP4 ahead
+// of Cloudinary overrides unless/until Cloudinary provenance is explicitly verified.
+const IDENTITY_SENSITIVE_KEYS = new Set<string>([
+  'platform-introduction',
+  'onboarding-welcome',
+]);
+
+// Keys used by the "Developers of Tomorrow" coding curriculum.
+// Many of these intentionally alias to a single placeholder recording.
+// In production, we prefer a CDN-hosted fallback over local-only assets.
+const CODING_CURRICULUM_KEYS = new Set<string>([
+  'intro-coding-journey',
+  'blocks-intro',
+  'blocks-events',
+  'blocks-loops',
+  'python-basics',
+  'python-variables',
+  'python-functions',
+  'react-intro',
+  'react-components',
+  'react-state',
+]);
+
 /**
  * Returns an ordered list of candidates for playback.
  * This is the canonical source-of-truth for priority ordering.
@@ -682,28 +706,53 @@ export type VideoSourceCandidate = {
 export function getVideoSourceCandidates(lessonId: string): VideoSourceCandidate[] {
   const candidates: VideoSourceCandidate[] = [];
 
+  const identitySensitive = IDENTITY_SENSITIVE_KEYS.has(lessonId);
+  const isCodingCurriculumKey = CODING_CURRICULUM_KEYS.has(lessonId);
+
   const liveUrl = LIVE_DEMO_VIDEO_URLS[lessonId];
   if (liveUrl) {
     candidates.push({ type: 'live', kind: 'video', url: liveUrl });
   }
 
-  const cloudinaryUrl = CLOUDINARY_VIDEO_URLS[lessonId];
+  const heygenId = HEYGEN_VIDEO_IDS[lessonId];
+  const heygenCandidate: VideoSourceCandidate | null = heygenId
+    ? {
+        type: 'heygen',
+        kind: 'video',
+        // HeyGen's /embed endpoint sets a restrictive `Content-Security-Policy: frame-ancestors ...`
+        // which prevents embedding on edpsychconnect.com (and most non-HeyGen domains).
+        //
+        // Use our server endpoint to resolve a direct MP4 URL (or 302-redirect to it) instead.
+        url: `/api/video/heygen-url?key=${encodeURIComponent(lessonId)}&redirect=1`,
+      }
+    : null;
+
+  let cloudinaryUrl = CLOUDINARY_VIDEO_URLS[lessonId];
+  // For coding curriculum keys, if there isn't a dedicated Cloudinary mp4 yet,
+  // fall back to the known-good "innovation-coding-curriculum" CDN asset.
+  if (!cloudinaryUrl && isCodingCurriculumKey) {
+    cloudinaryUrl = CLOUDINARY_VIDEO_URLS['innovation-coding-curriculum'];
+  }
+
+  const localPath = LOCAL_VIDEO_PATHS[lessonId];
+
+  // Priority ordering:
+  // - Identity-sensitive keys: Live -> HeyGen -> Cloudinary -> Local
+  // - Default: Live -> Cloudinary -> Local -> HeyGen
+  if (identitySensitive && heygenCandidate) {
+    candidates.push(heygenCandidate);
+  }
+
   if (cloudinaryUrl) {
     candidates.push({ type: 'cloudinary', kind: 'video', url: cloudinaryUrl });
   }
 
-  const localPath = LOCAL_VIDEO_PATHS[lessonId];
   if (localPath) {
     candidates.push({ type: 'local', kind: 'video', url: localPath });
   }
 
-  const heygenId = HEYGEN_VIDEO_IDS[lessonId];
-  if (heygenId) {
-    // HeyGen's /embed endpoint sets a restrictive `Content-Security-Policy: frame-ancestors ...`
-    // which prevents embedding on edpsychconnect.com (and most non-HeyGen domains).
-    //
-    // Use our server endpoint to resolve a direct MP4 URL (or 302-redirect to it) instead.
-    candidates.push({ type: 'heygen', kind: 'video', url: `/api/video/heygen-url?key=${encodeURIComponent(lessonId)}&redirect=1` });
+  if (!identitySensitive && heygenCandidate) {
+    candidates.push(heygenCandidate);
   }
 
   return candidates;
