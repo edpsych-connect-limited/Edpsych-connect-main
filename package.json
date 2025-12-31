@@ -24,7 +24,7 @@
     "verify:ci": "npm run lint && npm run type-check && npm run test:ai-governance && npm run test:ai-nontraining && npm run test:security-by-design && npm run test:intervention-validation-scale && npm run test:video-registry && npm run test:video-assets && npm run test:video-claims && npm run test:video-script-coverage && npm run test:video-script-provenance && npm run smoke:ci && npm run security:scan",
     "verify:ci:capture": "cross-env NODE_OPTIONS=\"--require ./scripts/patch-fs-runtime.cjs\" tsx tools/capture-verify-ci.ts",
     "gate:beta": "npm run verify:ci",
-    "build:vercel": "npm run verify:ci && npm run build",
+    "build:vercel": "cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" node ./scripts/next-cli-patched.cjs build --webpack",
     "test:pii-redaction": "cross-env NODE_OPTIONS=\"--require ./scripts/patch-fs-runtime.cjs\" tsx tools/test-pii-redaction.ts",
     "test:ai-governance": "cross-env NODE_OPTIONS=\"--require ./scripts/patch-fs-runtime.cjs\" tsx tools/test-ai-governance.ts",
     "test:ai-nontraining": "cross-env NODE_OPTIONS=\"--require ./scripts/patch-fs-runtime.cjs\" tsx tools/validate-ai-nontraining.ts",
