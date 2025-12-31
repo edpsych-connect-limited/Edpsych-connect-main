@@ -9,9 +9,11 @@
  */
 
 import * as crypto from 'crypto';
-import { ml_kem768 } from '@noble/post-quantum/ml-kem';
-import { ml_dsa65 } from '@noble/post-quantum/ml-dsa';
-import { slh_dsa_shake_192f } from '@noble/post-quantum/slh-dsa';
+// NOTE: `@noble/post-quantum` uses strict ESM `exports` entries that include the `.js` extension.
+// Importing without the extension fails under TS module resolution modes that respect package exports.
+import { ml_kem768 } from '@noble/post-quantum/ml-kem.js';
+import { ml_dsa65 } from '@noble/post-quantum/ml-dsa.js';
+import { slh_dsa_shake_192f } from '@noble/post-quantum/slh-dsa.js';
 
 // Security level configurations
 export enum SecurityLevel {

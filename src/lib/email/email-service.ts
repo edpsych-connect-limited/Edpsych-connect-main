@@ -19,16 +19,21 @@ interface EmailOptions {
 export class EmailService {
   private static instance: EmailService;
   private transporter: nodemailer.Transporter;
+  private readonly isProduction: boolean;
+  private readonly isConfigured: boolean;
+  private readonly isMockMode: boolean;
 
   private constructor() {
+    this.isProduction = process.env.NODE_ENV === 'production';
+
     // Validate required environment variable
     const sendgridApiKey = process.env.SENDGRID_API_KEY;
-    
-    // In production, we want to be stricter about email configuration
-    const isProduction = process.env.NODE_ENV === 'production';
-    
+
     if (!sendgridApiKey) {
-      if (isProduction) {
+      this.isConfigured = false;
+      this.isMockMode = !this.isProduction;
+
+      if (this.isProduction) {
         logger.error('CRITICAL: SENDGRID_API_KEY missing in production environment. Emails will fail.');
       } else {
         logger.warn('SENDGRID_API_KEY not configured - email service will use console logging only');
@@ -39,6 +44,9 @@ export class EmailService {
         jsonTransport: true
       });
     } else {
+      this.isConfigured = true;
+      this.isMockMode = false;
+
       // Initialize Nodemailer with SendGrid
       this.transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST || 'smtp.sendgrid.net',
@@ -65,9 +73,23 @@ export class EmailService {
    * Send an email using SendGrid
    */
   async sendEmail(options: EmailOptions): Promise<boolean> {
+    // In production, we must never "pretend" to send emails. If SENDGRID is missing,
+    // return false so callers can log an operational incident.
+    if (this.isProduction && !this.isConfigured) {
+      logger.error('[EmailService] Email send requested but email provider is not configured', {
+        to: options.to,
+        subject: options.subject,
+      });
+      return false;
+    }
+
     try {
+      const from = process.env.EMAIL_FROM || '"EdPsych Connect" <noreply@edpsychconnect.com>';
+      const replyTo = process.env.EMAIL_REPLY_TO;
+
       const info = await this.transporter.sendMail({
-        from: process.env.EMAIL_FROM || '"EdPsych Connect" <noreply@edpsychconnect.com>',
+        from,
+        ...(replyTo ? { replyTo } : {}),
         to: options.to,
         subject: options.subject,
         text: options.text,
@@ -78,7 +100,7 @@ export class EmailService {
 
       // If using JSON transport (no API key), log the email content for debugging/admin use
       // info.message exists on JSON transport response
-      if (this.transporter.transporter.name === 'JSON' || (info as any).message) {
+      if (this.isMockMode || (info as any).message) {
         logger.info('=================================================================');
         logger.info('📧 [EMAIL SERVICE - MOCK MODE]');
         logger.info(`To: ${options.to}`);
@@ -99,7 +121,7 @@ export class EmailService {
       });
       
       // Fallback to console log in development if sending fails
-      if (process.env.NODE_ENV !== 'production') {
+      if (!this.isProduction) {
         logger.debug('=================================================================');
         logger.debug('📧 [EMAIL SERVICE - FALLBACK LOG]');
         logger.debug(`To: ${options.to}`);
@@ -118,7 +140,14 @@ export class EmailService {
    * Send password reset email
    */
   async sendPasswordResetEmail(email: string, token: string): Promise<boolean> {
-    const resetLink = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/reset-password?token=${token}`;
+    // next-intl routing is configured with `localePrefix: 'always'`.
+    // That means user-facing routes MUST include a locale segment (e.g. `/en/...`).
+    // If we send `/reset-password`, Next.js will redirect to `/en/reset-password`, but
+    // we keep the link canonical to avoid extra redirects and to ensure the page exists.
+    const appUrl = (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000').replace(/\/$/, '');
+    const defaultLocale = (process.env.NEXT_PUBLIC_DEFAULT_LOCALE || 'en').toLowerCase();
+    const safeLocale = (defaultLocale === 'en' || defaultLocale === 'cy') ? defaultLocale : 'en';
+    const resetLink = `${appUrl}/${safeLocale}/reset-password?token=${encodeURIComponent(token)}`;
     
     return this.sendEmail({
       to: email,

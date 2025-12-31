@@ -8,13 +8,25 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ArrowLeft, Mail, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 
 export default function ForgotPasswordPage() {
+  const pathname = usePathname();
+
+  const safeLocale = useMemo(() => {
+    const locale = (pathname?.split('/')?.[1] || 'en').toLowerCase();
+    return (locale === 'en' || locale === 'cy') ? locale : 'en';
+  }, [pathname]);
+
+  const withLocale = useCallback((path: string) => {
+    const normalized = path.startsWith('/') ? path : `/${path}`;
+    if (normalized === `/${safeLocale}` || normalized.startsWith(`/${safeLocale}/`)) return normalized;
+    return `/${safeLocale}${normalized}`;
+  }, [safeLocale]);
+
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -56,10 +68,13 @@ export default function ForgotPasswordPage() {
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Check your email</h2>
           <p className="text-gray-600 mb-6">
-            We&apos;ve sent password reset instructions to <strong>{email}</strong>.
+            If an account exists for <strong>{email}</strong>, you&apos;ll receive password reset instructions shortly.
+          </p>
+          <p className="text-sm text-gray-500 mb-6">
+            Didn&apos;t receive anything within 5 minutes? Please check your spam/junk folder, then contact support.
           </p>
           <Link 
-            href="/login"
+            href={withLocale('/login')}
             className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
           >
             Return to Login
@@ -75,7 +90,7 @@ export default function ForgotPasswordPage() {
         <div className="bg-white rounded-lg shadow-lg p-8">
           <div className="mb-6">
             <Link 
-              href="/login"
+              href={withLocale('/login')}
               className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 transition-colors mb-4"
             >
               <ArrowLeft className="w-4 h-4 mr-1" />

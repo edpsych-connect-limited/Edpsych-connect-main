@@ -11,6 +11,7 @@ import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 import { emailService } from '@/lib/email/email-service';
 import crypto from 'crypto';
+import { logger } from '@/lib/logger';
 
 const ForgotPasswordSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -58,8 +59,16 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Send email
-    await emailService.sendPasswordResetEmail(user.email, resetToken);
+    // Send email (do not leak whether delivery succeeded to the user)
+    const emailSent = await emailService.sendPasswordResetEmail(user.email, resetToken);
+    if (!emailSent) {
+      // IMPORTANT: returning a failure here would allow account enumeration.
+      // We log internally for ops visibility and still return a generic success.
+      logger.error('[Forgot Password API] Password reset email send failed', {
+        userId: user.id,
+        email: user.email,
+      });
+    }
 
     return NextResponse.json({
       success: true,
@@ -67,7 +76,9 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (_error) {
-    console.error('[Forgot Password API] Critical Error:', _error);
+    logger.error('[Forgot Password API] Critical Error', {
+      error: _error instanceof Error ? _error.message : String(_error),
+    });
     
     // Return a generic error to the user, but ensure we don't crash the client
     return NextResponse.json(

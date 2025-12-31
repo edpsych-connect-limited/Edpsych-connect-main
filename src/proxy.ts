@@ -68,6 +68,7 @@ const PUBLIC_API_PATHS = [
   "/api/status",
   "/api/version",
   "/api/health",
+  "/api/ops", // Ops endpoints use their own key-based auth and should not require a user JWT
   "/api/help/categories",
   "/api/help/chat",
   "/api/blog",
@@ -166,7 +167,10 @@ export async function proxy(request: NextRequest) {
     // If origin not allowed, don't set Access-Control-Allow-Origin (browser will block)
 
     response.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    response.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    response.headers.set(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization, x-ops-key, x-request-id",
+    );
     response.headers.set("Access-Control-Allow-Credentials", "true");
 
     // Handle preflight requests

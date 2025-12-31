@@ -5,7 +5,8 @@
     // Next.js may append distDir `types` globs to tsconfig.json during `next build`,
     // which can cause `tsc --noEmit` to fail on generated files.
     "noEmit": true,
-    "incremental": false
+    "incremental": false,
+    "moduleResolution": "node"
   },
   "include": [
     "next-env.d.ts",

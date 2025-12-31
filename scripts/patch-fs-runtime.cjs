@@ -62,13 +62,51 @@ if (originalPromisesReadlink) {
 }
 
 // Helper for retries
-function shouldRetry(err) {
-    return err && (err.code === 'UNKNOWN' || err.code === 'EPERM' || err.code === 'EBUSY' || err.code === 'EACCES' || err.code === 'EAGAIN');
+function shouldRetry(err, p) {
+    if (!err) return false;
+
+    // Common transient errors we see on Windows/mapped/external drives.
+    if (err.code === 'UNKNOWN' || err.code === 'EPERM' || err.code === 'EBUSY' || err.code === 'EACCES' || err.code === 'EAGAIN') {
+        return true;
+    }
+
+    // Treat ENOENT as retryable only for repo-local paths. This avoids masking
+    // genuine missing file errors, while smoothing over intermittent FS glitches.
+    if (err.code === 'ENOENT' && p && typeof p === 'string' && REPO_ROOT_NORMALIZED) {
+        try {
+            const abs = path.isAbsolute(p) ? p : path.resolve(p);
+            const normalized = abs.replace(/\\/g, '/').toLowerCase();
+            if (normalized.startsWith(REPO_ROOT_NORMALIZED)) {
+                if (
+                    normalized.includes('/src/') ||
+                    normalized.includes('/tools/') ||
+                    normalized.includes('/scripts/') ||
+                    normalized.includes('/prisma/')
+                ) {
+                    return true;
+                }
+            }
+        } catch {
+            // If path resolution fails, fall through and treat as non-retryable.
+        }
+    }
+
+    return false;
 }
 
 function isDebugEnabled() {
     return process.env.FS_PATCH_DEBUG === '1';
 }
+
+// Used to scope more aggressive retry behavior (e.g. transient ENOENT) to the repo.
+// This patch is loaded by npm scripts that run from the repo root.
+const REPO_ROOT_NORMALIZED = (() => {
+    try {
+        return path.resolve(process.cwd()).replace(/\\/g, '/').toLowerCase();
+    } catch {
+        return '';
+    }
+})();
 
 function sleep(ms) {
     const start = Date.now();
@@ -77,6 +115,8 @@ function sleep(ms) {
 
 const MAX_RETRIES = 50;
 const RETRY_DELAY = 200;
+const MAX_RETRIES_ENOENT = 25;
+const RETRY_DELAY_ENOENT = 60;
 
 function isIgnorableNextTypesPath(p) {
     if (!p || typeof p !== 'string') return false;
@@ -94,10 +134,16 @@ fs.lstatSync = function(path, options) {
         try {
             return originalLstatSync(path, options);
         } catch (err) {
-            if (shouldRetry(err) && retries > 1) {
+            // For transient ENOENT, cap retries to avoid long hangs for genuine missing files.
+            if (err?.code === 'ENOENT' && retries === MAX_RETRIES) {
+                retries = MAX_RETRIES_ENOENT;
+            }
+
+            if (shouldRetry(err, path) && retries > 1) {
                 // console.log(`[Patch] Retrying lstatSync on ${path} due to ${err.code}`);
                 retries--;
-                sleep(50 + Math.random() * 100);
+                const delay = err?.code === 'ENOENT' ? RETRY_DELAY_ENOENT : (50 + Math.random() * 100);
+                sleep(delay);
                 continue;
             }
             throw err;
@@ -142,10 +188,15 @@ fs.openSync = function(path, flags, mode) {
         try {
             return originalOpenSync(path, flags, mode);
         } catch (err) {
-            if (shouldRetry(err) && retries > 1) {
+            if (err?.code === 'ENOENT' && retries === MAX_RETRIES) {
+                retries = MAX_RETRIES_ENOENT;
+            }
+
+            if (shouldRetry(err, path) && retries > 1) {
                 // console.log(`[Patch] Retrying openSync on ${path} due to ${err.code}`);
                 retries--;
-                sleep(RETRY_DELAY + Math.random() * 100);
+                const base = err?.code === 'ENOENT' ? RETRY_DELAY_ENOENT : RETRY_DELAY;
+                sleep(base + Math.random() * 100);
                 continue;
             }
             throw err;
@@ -159,10 +210,15 @@ fs.readFileSync = function(path, options) {
         try {
             return originalReadFileSync(path, options);
         } catch (err) {
-            if (shouldRetry(err) && retries > 1) {
+            if (err?.code === 'ENOENT' && retries === MAX_RETRIES) {
+                retries = MAX_RETRIES_ENOENT;
+            }
+
+            if (shouldRetry(err, path) && retries > 1) {
                 // console.log(`[Patch] Retrying readFileSync on ${path} due to ${err.code}`);
                 retries--;
-                sleep(RETRY_DELAY + Math.random() * 100);
+                const base = err?.code === 'ENOENT' ? RETRY_DELAY_ENOENT : RETRY_DELAY;
+                sleep(base + Math.random() * 100);
                 continue;
             }
             throw err;
@@ -180,10 +236,15 @@ fs.realpathSync = function(path, options) {
         try {
             return originalRealpathSync(path, options);
         } catch (err) {
-            if (shouldRetry(err) && retries > 1) {
+            if (err?.code === 'ENOENT' && retries === MAX_RETRIES) {
+                retries = MAX_RETRIES_ENOENT;
+            }
+
+            if (shouldRetry(err, path) && retries > 1) {
                 // console.log(`[Patch] Retrying realpathSync on ${path} due to ${err.code}`);
                 retries--;
-                sleep(RETRY_DELAY + Math.random() * 100);
+                const base = err?.code === 'ENOENT' ? RETRY_DELAY_ENOENT : RETRY_DELAY;
+                sleep(base + Math.random() * 100);
                 continue;
             }
             throw err;
@@ -234,15 +295,49 @@ fs.statSync = function(path, options) {
         try {
             return originalStatSync(path, options);
         } catch (err) {
-            if (shouldRetry(err) && retries > 1) {
+            if (err?.code === 'ENOENT' && retries === MAX_RETRIES) {
+                retries = MAX_RETRIES_ENOENT;
+            }
+
+            if (shouldRetry(err, path) && retries > 1) {
                 // console.log(`[Patch] Retrying statSync on ${path} due to ${err.code}`);
                 retries--;
-                sleep(RETRY_DELAY + Math.random() * 100);
+                const base = err?.code === 'ENOENT' ? RETRY_DELAY_ENOENT : RETRY_DELAY;
+                sleep(base + Math.random() * 100);
                 continue;
             }
             throw err;
         }
     }
+};
+
+// Patch existsSync because TypeScript's ts.sys.fileExists uses it and it can return
+// false on transient filesystem glitches (without exposing an error code).
+const originalExistsSync = fs.existsSync;
+fs.existsSync = function(p) {
+    let retries = MAX_RETRIES;
+    while (retries > 0) {
+        try {
+            originalStatSync(p);
+            return true;
+        } catch (err) {
+            if (err?.code === 'ENOENT' && retries === MAX_RETRIES) {
+                retries = MAX_RETRIES_ENOENT;
+            }
+
+            if (shouldRetry(err, p) && retries > 1) {
+                retries--;
+                const base = err?.code === 'ENOENT' ? RETRY_DELAY_ENOENT : 30;
+                sleep(base + Math.random() * 50);
+                continue;
+            }
+
+            return false;
+        }
+    }
+
+    // Fallback to original implementation if we ever exhaust retries.
+    return originalExistsSync(p);
 };
 
 fs.stat = function(...args) {

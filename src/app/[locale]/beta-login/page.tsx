@@ -8,9 +8,9 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useMemo, useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import { logger } from "@/lib/logger";
 
@@ -27,7 +27,19 @@ import { logger } from "@/lib/logger";
  */
 export default function BetaLoginPage() {
   const router = useRouter();
+  const pathname = usePathname();
   const { user, isLoading: authLoading, login } = useAuth();
+
+  const safeLocale = useMemo(() => {
+    const locale = (pathname?.split('/')?.[1] || 'en').toLowerCase();
+    return (locale === 'en' || locale === 'cy') ? locale : 'en';
+  }, [pathname]);
+
+  const withLocale = useCallback((path: string) => {
+    const normalized = path.startsWith('/') ? path : `/${path}`;
+    if (normalized === `/${safeLocale}` || normalized.startsWith(`/${safeLocale}/`)) return normalized;
+    return `/${safeLocale}${normalized}`;
+  }, [safeLocale]);
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -56,9 +68,9 @@ export default function BetaLoginPage() {
     if (!authLoading && user) {
       const path = getRedirectPath(user.role);
       logger.info(`✅ Beta user already authenticated, redirecting to ${path}`);
-      router.push(path);
+      router.push(withLocale(path));
     }
-  }, [user, authLoading, router]);
+  }, [user, authLoading, router, withLocale]);
 
   /**
    * Handle form submission
@@ -363,13 +375,13 @@ export default function BetaLoginPage() {
           {/* Additional Links */}
           <div className="mt-6 flex justify-between text-sm">
             <Link
-              href="/login"
+              href={withLocale('/login')}
               className="text-purple-300 hover:text-white transition-colors"
             >
               ← Regular Login
             </Link>
             <Link
-              href="/forgot-password"
+              href={withLocale('/forgot-password')}
               className="text-purple-300 hover:text-white transition-colors"
             >
               Forgot password?

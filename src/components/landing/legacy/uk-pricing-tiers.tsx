@@ -9,7 +9,7 @@
  */
 
 import React, { useState } from 'react';
-import { Button, Card, Container, Typography, Box, Chip, Divider, Switch, FormControlLabel, Tooltip } from '@mui/material';
+import { Button, Card, Container, Typography, Chip, Divider, Switch, FormControlLabel, Tooltip } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -37,7 +37,7 @@ const PricingCard = styled(Card)(({ theme, featured }: { theme?: any, featured: 
 }));
 
 // Feature badge styling
-const FeatureBadge = styled(Box)(({ theme }: { theme?: any }) => ({
+const FeatureBadge = styled('div')(({ theme }: { theme?: any }) => ({
   display: 'flex',
   alignItems: 'center',
   marginBottom: theme.spacing(1),
@@ -240,12 +240,12 @@ const ukResearchTiers: PricingTier[] = [
 
 // UK Compliance badges component
 const ComplianceBadges = () => (
-  <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, my: 3 }}>
+  <div style={{ display: 'flex', justifyContent: 'center', gap: 16, marginTop: 24, marginBottom: 24, flexWrap: 'wrap' }}>
     <Chip label="🇬🇧 UK Data Centre" color="primary" variant="outlined" />
     <Chip label="GDPR Compliant" color="success" variant="outlined" />
     <Chip label="Ofsted Ready" color="info" variant="outlined" />
     <Chip label="ICO Registered" color="secondary" variant="outlined" />
-  </Box>
+  </div>
 );
 
 export default function UKPricingTiers() {
@@ -275,16 +275,16 @@ export default function UKPricingTiers() {
 
   const renderPricingTiers = (tiers: PricingTier[]) => {
     return (
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32, justifyContent: 'center' }}>
         {tiers.map((tier) => (
-          <Box key={tier.id} sx={{ flex: '1 1 350px', maxWidth: '400px', minWidth: '320px' }}>
+          <div key={tier.id} style={{ flex: '1 1 350px', maxWidth: 400, minWidth: 320 }}>
             <PricingCard featured={tier.featured || false}>
               {tier.featured && (
                 <Chip
                   label="MOST POPULAR"
                   color="primary"
                   size="small"
-                  sx={{
+                  style={{
                     position: 'absolute',
                     top: -16,
                     right: 24,
@@ -295,10 +295,10 @@ export default function UKPricingTiers() {
               <Typography component="h3" variant="h4" color="text.primary">
                 {tier.title}
               </Typography>
-              <Typography variant="subtitle1" color="text.secondary" sx={{ minHeight: 60 }}>
+              <Typography variant="subtitle1" color="text.secondary" style={{ minHeight: 60 }}>
                 {tier.description}
               </Typography>
-              <Box sx={{ mt: 2, mb: 2 }}>
+              <div style={{ marginTop: 16, marginBottom: 16 }}>
                 <Typography component="h4" variant="h3" color="text.primary">
                   {tier.currency}{annualBilling ? tier.annualPrice : tier.monthlyPrice}
                   <Typography variant="h6" color="text.secondary" component="span">
@@ -310,9 +310,9 @@ export default function UKPricingTiers() {
                     Save {Math.round(100 - (tier.annualPrice / (tier.monthlyPrice * 12)) * 100)}%
                   </Typography>
                 )}
-              </Box>
-              <Divider sx={{ my: 2 }} />
-              <Box sx={{ flexGrow: 1 }}>
+              </div>
+              <Divider style={{ marginTop: 16, marginBottom: 16 }} />
+              <div style={{ flexGrow: 1 }}>
                 {tier.features.map((feature, index) => (
                   <FeatureBadge key={index}>
                     {feature.included ? (
@@ -323,7 +323,7 @@ export default function UKPricingTiers() {
                     <Typography
                       variant="body2"
                       color={feature.included ? 'text.primary' : 'text.disabled'}
-                      sx={{ display: 'flex', alignItems: 'center' }}
+                      style={{ display: 'flex', alignItems: 'center' }}
                     >
                       {feature.name}
                       {feature.tooltip && (
@@ -334,8 +334,8 @@ export default function UKPricingTiers() {
                     </Typography>
                   </FeatureBadge>
                 ))}
-              </Box>
-              <Box sx={{ mt: 3 }}>
+              </div>
+              <div style={{ marginTop: 24 }}>
                 <Button
                   fullWidth
                   variant={tier.buttonVariant}
@@ -344,26 +344,26 @@ export default function UKPricingTiers() {
                 >
                   {tier.buttonText}
                 </Button>
-              </Box>
+              </div>
             </PricingCard>
-          </Box>
+          </div>
         ))}
-      </Box>
+      </div>
     );
   };
 
   return (
-    <Container component="section" maxWidth="lg" sx={{ py: 8 }}>
+    <Container component="section" maxWidth="lg" style={{ paddingTop: 64, paddingBottom: 64 }}>
       <Typography component="h2" variant="h3" align="center" color="text.primary" gutterBottom>
         Transparent Pricing for UK Schools
       </Typography>
-      <Typography variant="h6" align="center" color="text.secondary" component="p" sx={{ mb: 4 }}>
+      <Typography variant="h6" align="center" color="text.secondary" component="p" style={{ marginBottom: 32 }}>
         Choose the perfect plan for your educational setting. All plans include our core AI-powered learning platform.
       </Typography>
 
       <ComplianceBadges />
 
-      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4, gap: 4, flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 32, gap: 32, flexWrap: 'wrap' }}>
         <FormControlLabel
           control={<Switch checked={annualBilling} onChange={toggleBilling} color="primary" />}
           label={
@@ -381,23 +381,23 @@ export default function UKPricingTiers() {
             </Typography>
           }
         />
-      </Box>
+      </div>
 
       {showResearchTiers ? renderPricingTiers(ukResearchTiers) : renderPricingTiers(ukEducationTiers)}
       
-      <Box sx={{ mt: 6, textAlign: 'center' }}>
+      <div style={{ marginTop: 48, textAlign: 'center' }}>
         <Typography variant="body2" color="text.secondary" gutterBottom>
           All prices exclude VAT • Educational discounts available
         </Typography>
-        <Typography variant="subtitle1" color="text.secondary" gutterBottom sx={{ mt: 2 }}>
+        <Typography variant="subtitle1" color="text.secondary" gutterBottom style={{ marginTop: 16 }}>
           Need a bespoke solution for your academy trust?
         </Typography>
         <Button variant="outlined" color="primary" onClick={() => router.push('/contact')}>
           Contact Our UK Sales Team
         </Button>
-      </Box>
+      </div>
 
-      <Box sx={{ mt: 4, p: 3, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1 }}>
+      <div style={{ marginTop: 32, padding: 24, backgroundColor: '#ffffff', borderRadius: 16, boxShadow: '0 1px 3px rgba(0,0,0,0.12)' }}>
         <Typography variant="h6" gutterBottom>
           🎯 Complete Feature List
         </Typography>
@@ -406,16 +406,16 @@ export default function UKPricingTiers() {
           Progress Analyst • Intervention Specialist • Student Mentor • Tutor • Coaching • Feedback • Monitoring • 
           Assessment Agents
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+        <Typography variant="body2" color="text.secondary" style={{ marginTop: 8 }}>
           <strong>Core Features:</strong> Voice Interface • Battle Royale Game • UK Curriculum (KS1-4) • 
           Relationship Analytics • Burnout Prevention • SIMS/Arbor Integration • Ofsted Reporting • 
           SEND Support • Adaptive Learning • Cognitive Assessments • Parent Portal • Real-time Analytics
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+        <Typography variant="body2" color="text.secondary" style={{ marginTop: 8 }}>
           <strong>Research Tools:</strong> Anonymised Export • Statistical Analysis • Evidence Synthesis • 
           Cohort Analysis • Predictive Modelling • Publication Support
         </Typography>
-      </Box>
+      </div>
     </Container>
   );
 }

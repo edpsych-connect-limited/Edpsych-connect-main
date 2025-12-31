@@ -31,7 +31,7 @@ We implemented a comprehensive fix that:
 
 **File**: `package.json`
 - Removed `@sentry/nextjs` from dependencies
-- Added prebuild script: `"prebuild": "rm -rf node_modules/@sentry 2>/dev/null || true"`
+- Added prebuild script: `"prebuild": "rimraf node_modules/@sentry"` (defense-in-depth: prevents cached Sentry artifacts from reappearing)
 - Increased Node.js heap from 4096MB to 8192MB for builds
 
 ### 2. Disabled All Sentry Initialization Code
@@ -42,6 +42,36 @@ We implemented a comprehensive fix that:
 - `sentry.edge.config.ts` - All code commented out
 
 These files remain in the codebase for future reference, but all Sentry initialization is disabled.
+
+## Current Status (Dec 2025)
+
+Sentry is **not configured / not active** by design:
+
+- `src/instrumentation.ts` exports an intentionally empty `register()`.
+- `package.json` runs `rimraf node_modules/@sentry` during `prebuild`.
+- A mock/no-op Sentry facade exists (`src/lib/mock-sentry.ts`) for older code paths.
+- Client-side monitoring (`src/utils/monitoring.ts`) contains optional Sentry scaffolding, but does not load the real SDK.
+
+This means:
+
+- Password reset operational issues (like missing email provider config) **will only show up in logs**, not in Sentry.
+- Error visibility currently depends on:
+  - API route logs in Vercel
+  - `/api/errors` ingestion from client error boundaries
+
+## How to Re-Enable Sentry (Optional)
+
+If you decide to re-enable Sentry later, do it deliberately and test builds end-to-end:
+
+1. Remove or guard the `prebuild` Sentry purge in `package.json`.
+2. Install `@sentry/nextjs` and follow the official Next.js integration.
+3. Keep all Sentry initialization behind env flags (e.g. require `SENTRY_DSN`).
+4. Ensure the build does not regress to `ReferenceError: self is not defined`.
+5. Upload source maps in CI only; never from developer laptops.
+
+If Sentry remains disabled (recommended for deterministic builds), keep using `/api/errors` and consider:
+- Slack/Webhook alerts for server-side failures
+- A database-backed error/event store
 
 ### 3. Implemented Enterprise-Grade Error Tracking
 

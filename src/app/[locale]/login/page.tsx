@@ -8,9 +8,9 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useMemo, useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import { logger } from "@/lib/logger";
 
@@ -29,7 +29,20 @@ import { logger } from "@/lib/logger";
  */
 export default function LoginPage() {
   const router = useRouter();
+  const pathname = usePathname();
   const { user, isLoading: authLoading, login, authError, clearAuthError } = useAuth();
+
+  const safeLocale = useMemo(() => {
+    const locale = (pathname?.split('/')?.[1] || 'en').toLowerCase();
+    return (locale === 'en' || locale === 'cy') ? locale : 'en';
+  }, [pathname]);
+
+  const withLocale = useCallback((path: string) => {
+    const normalized = path.startsWith('/') ? path : `/${path}`;
+    // If already prefixed, keep as-is.
+    if (normalized === `/${safeLocale}` || normalized.startsWith(`/${safeLocale}/`)) return normalized;
+    return `/${safeLocale}${normalized}`;
+  }, [safeLocale]);
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -67,9 +80,9 @@ export default function LoginPage() {
     if (!authLoading && user) {
       const path = getRedirectPath(user.role);
       logger.info(`✅ User already authenticated, redirecting to ${path}`);
-      router.push(path);
+      router.push(withLocale(path));
     }
-  }, [user, authLoading, router]);
+  }, [user, authLoading, router, withLocale]);
 
   /**
    * Handle form submission
@@ -129,7 +142,7 @@ export default function LoginPage() {
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="text-center">
           <div className="text-6xl mb-4">🔒</div>
-          <p className="text-gray-600 text-lg">Redirecting to {getRedirectPath(user.role)}...</p>
+          <p className="text-gray-600 text-lg">Redirecting to {withLocale(getRedirectPath(user.role))}...</p>
         </div>
       </div>
     );
@@ -282,13 +295,13 @@ export default function LoginPage() {
           {/* Additional Links */}
           <div className="mt-6 flex justify-between text-sm">
             <Link
-              href="/forgot-password"
+              href={withLocale('/forgot-password')}
               className="text-blue-600 hover:text-blue-700 transition-colors"
             >
               Forgot your password?
             </Link>
             <Link
-              href="/register"
+              href={withLocale('/register')}
               className="text-blue-600 hover:text-blue-700 transition-colors"
             >
               Create an account

@@ -9,7 +9,7 @@
  */
 
 import React, { useState } from 'react';
-import { Button, Card, Container, Typography, Box, Chip, Divider, Switch, FormControlLabel, Tooltip } from '@mui/material';
+import { Button, Card, Container, Typography, Chip, Divider, Switch, FormControlLabel, Tooltip } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -50,7 +50,7 @@ const PricingCard = styled(Card)(({ theme, featured }: { theme?: any, featured: 
 }));
 
 // Feature badge styling
-const FeatureBadge = styled(Box)(({ theme }: { theme?: any }) => ({
+const FeatureBadge = styled('div')(({ theme }: { theme?: any }) => ({
   display: 'flex',
   alignItems: 'center',
   marginBottom: theme.spacing(1),
@@ -253,16 +253,19 @@ export default function PricingTiers() {
 
   const renderPricingTiers = (tiers: PricingTier[]) => {
     return (
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32 }}>
         {tiers.map((tier) => (
-          <Box key={tier.id} sx={{ flex: '1 1 300px', maxWidth: '380px', minWidth: '280px' }}>
+          <div
+            key={tier.id}
+            style={{ flex: '1 1 300px', maxWidth: 380, minWidth: 280 }}
+          >
             <PricingCard featured={tier.featured || false}>
               {tier.featured && (
                 <Chip
                   label="MOST POPULAR"
                   color="primary"
                   size="small"
-                  sx={{
+                  style={{
                     position: 'absolute',
                     top: -16,
                     right: 24,
@@ -273,10 +276,10 @@ export default function PricingTiers() {
               <Typography component="h3" variant="h4" color="text.primary">
                 {tier.title}
               </Typography>
-              <Typography variant="subtitle1" color="text.secondary" sx={{ minHeight: 60 }}>
+              <Typography variant="subtitle1" color="text.secondary" style={{ minHeight: 60 }}>
                 {tier.description}
               </Typography>
-              <Box sx={{ mt: 2, mb: 2 }}>
+              <div style={{ marginTop: 16, marginBottom: 16 }}>
                 <Typography component="h4" variant="h3" color="text.primary">
                   {tier.currency}{annualBilling ? tier.annualPrice : tier.monthlyPrice}
                   <Typography variant="h6" color="text.secondary" component="span">
@@ -288,32 +291,32 @@ export default function PricingTiers() {
                     Save {Math.round(100 - (tier.annualPrice / (tier.monthlyPrice * 12)) * 100)}%
                   </Typography>
                 )}
-              </Box>
-              <Divider sx={{ my: 2 }} />
-              <Box sx={{ flexGrow: 1 }}>
+              </div>
+              <Divider style={{ marginTop: 16, marginBottom: 16 }} />
+              <div style={{ flexGrow: 1 }}>
                 {tier.features.map((feature, index) => (
                   <FeatureBadge key={index}>
                     {feature.included ? (
-                      <CheckIcon sx={{ color: 'success.main' }} />
+                      <CheckIcon sx={{ color: 'success.main' } as any} />
                     ) : (
-                      <CloseIcon sx={{ color: 'text.disabled' }} />
+                      <CloseIcon sx={{ color: 'text.disabled' } as any} />
                     )}
                     <Typography
                       variant="body2"
                       color={feature.included ? 'text.primary' : 'text.disabled'}
-                      sx={{ display: 'flex', alignItems: 'center' }}
+                      style={{ display: 'flex', alignItems: 'center' }}
                     >
                       {feature.name}
                       {feature.description && (
                         <Tooltip title={feature.description} arrow>
-                          <InfoOutlinedIcon sx={{ ml: 0.5, fontSize: '0.9rem' }} />
+                          <InfoOutlinedIcon sx={{ ml: 0.5, fontSize: '0.9rem' } as any} />
                         </Tooltip>
                       )}
                     </Typography>
                   </FeatureBadge>
                 ))}
-              </Box>
-              <Box sx={{ mt: 3 }}>
+              </div>
+              <div style={{ marginTop: 24 }}>
                 <Button
                   fullWidth
                   variant={tier.buttonVariant}
@@ -322,24 +325,24 @@ export default function PricingTiers() {
                 >
                   {tier.buttonText}
                 </Button>
-              </Box>
+              </div>
             </PricingCard>
-          </Box>
+          </div>
         ))}
-      </Box>
+      </div>
     );
   };
 
   return (
-    <Container component="section" maxWidth="lg" sx={{ py: 8 }}>
+    <Container component="section" maxWidth="lg" style={{ paddingTop: 64, paddingBottom: 64 }}>
       <Typography component="h2" variant="h3" align="center" color="text.primary" gutterBottom>
         Pricing
       </Typography>
-      <Typography variant="h6" align="center" color="text.secondary" component="p" sx={{ mb: 6 }}>
+      <Typography variant="h6" align="center" color="text.secondary" component="p" style={{ marginBottom: 48 }}>
         Choose the plan that best fits your needs. All plans include access to our core AI-powered learning platform.
       </Typography>
 
-      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4, gap: 4, flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 32, gap: 32, flexWrap: 'wrap' }}>
         <FormControlLabel
           control={<Switch checked={annualBilling} onChange={toggleBilling} color="primary" />}
           label={
@@ -357,18 +360,18 @@ export default function PricingTiers() {
             </Typography>
           }
         />
-      </Box>
+      </div>
 
       {showResearchTiers ? renderPricingTiers(researchPricingTiers) : renderPricingTiers(mainPricingTiers)}
       
-      <Box sx={{ mt: 6, textAlign: 'center' }}>
+      <div style={{ marginTop: 48, textAlign: 'center' }}>
         <Typography variant="subtitle1" color="text.secondary" gutterBottom>
           Need a custom solution for your organization?
         </Typography>
         <Button variant="outlined" color="primary" onClick={() => router.push('/contact')}>
           Contact Our Sales Team
         </Button>
-      </Box>
+      </div>
     </Container>
   );
 }

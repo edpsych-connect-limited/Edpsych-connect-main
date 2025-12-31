@@ -10,13 +10,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Button, TextField, Checkbox, Paper, Typography, Box, Alert, CircularProgress, Link } from '@mui/material';
+import { Button, TextField, Checkbox, Paper, Typography, Alert, CircularProgress, Link } from '@mui/material';
 const AGREEMENT_PATHS = {
   PRIVACY_POLICY: '/legal/privacy-policy',
   TERMS_OF_SERVICE: '/legal/terms-of-service',
   BETA_TEST_AGREEMENT: '/legal/beta-test-agreement',
   BETA_CONFIDENTIALITY: '/legal/beta-confidentiality'
 } as const;
+
+// NOTE: Avoid MUI `sx` in this file.
+// In this repo's TS/MUI combination, `sx={{...}}` can trigger TS2590 ("union type too complex").
 
 type AgreementTypes = keyof typeof AGREEMENT_PATHS;
 
@@ -160,43 +163,42 @@ const BetaRegistrationForm: React.FC = () => {
   // Display loading state while fetching agreement
   if (!agreementContent && !error) {
     return (
-      // @ts-expect-error - MUI sx prop has overly complex union type
-      <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
+      <div className="flex justify-center my-4">
         <CircularProgress />
-      </Box>
+      </div>
     );
   }
 
   // Display success state
   if (success) {
     return (
-      <Paper elevation={3} sx={{ p: 4, maxWidth: 800, mx: 'auto', my: 4 }}>
-        <Box sx={{ textAlign: 'center', py: 2 }}>
-          <CheckCircleOutline color="success" sx={{ fontSize: 60 }} />
-          <Typography variant="h5" component="h2" sx={{ mt: 2 }}>
+      <Paper elevation={3} style={{ padding: 32, maxWidth: 800, margin: '32px auto' }}>
+        <div style={{ textAlign: 'center', paddingTop: 16, paddingBottom: 16 }}>
+          <CheckCircleOutline color="success" style={{ fontSize: 60 }} />
+          <Typography variant="h5" component="h2" style={{ marginTop: 16 }}>
             Registration Successful!
           </Typography>
-          <Typography sx={{ mt: 2 }}>
+          <Typography style={{ marginTop: 16 }}>
             Thank you for joining the EdPsych Connect World beta program. You will be redirected to the beta dashboard shortly.
           </Typography>
-        </Box>
+        </div>
       </Paper>
     );
   }
 
   return (
-    <Paper elevation={3} sx={{ p: 4, maxWidth: 800, mx: 'auto', my: 4 }}>
-      <Box sx={{ mb: 3 }}>
+    <Paper elevation={3} style={{ padding: 32, maxWidth: 800, margin: '32px auto' }}>
+      <div style={{ marginBottom: 24 }}>
         <Typography variant="h4" component="h1" gutterBottom align="center">
           Beta Program Registration
         </Typography>
         <Typography variant="subtitle1" align="center" color="text.secondary">
           Please read and accept the confidentiality agreement to join the beta program
         </Typography>
-      </Box>
+      </div>
 
       {error && (
-        <Alert severity="error" sx={{ mb: 3 }}>
+        <Alert severity="error" style={{ marginBottom: 24 }}>
           {error}
         </Alert>
       )}
@@ -215,7 +217,7 @@ const BetaRegistrationForm: React.FC = () => {
           helperText={codeError || (codeValid ? 'Access code valid' : 'Enter your beta access code')}
           disabled={loading}
           InputProps={{
-            startAdornment: <LockOutlined sx={{ mr: 1, color: 'text.secondary' }} />,
+            startAdornment: <LockOutlined style={{ marginRight: 8, color: 'rgba(0,0,0,0.6)' }} />,
             endAdornment: validatingCode ? (
               <CircularProgress size={20} />
             ) : codeValid ? (
@@ -226,24 +228,24 @@ const BetaRegistrationForm: React.FC = () => {
 
         <Paper
           variant="outlined"
-          sx={{ 
-            mt: 3, 
-            p: 2, 
-            maxHeight: 300, 
+          style={{
+            marginTop: 24,
+            padding: 16,
+            maxHeight: 300,
             overflow: 'auto',
-            bgcolor: 'background.default'
+            backgroundColor: '#f5f5f5',
           }}
         >
           <Typography variant="subtitle2" color="text.secondary" gutterBottom>
             Confidentiality Agreement (v{agreementVersion})
           </Typography>
           
-          <Box sx={{ whiteSpace: 'pre-wrap' }}>
+          <div style={{ whiteSpace: 'pre-wrap' }}>
             {agreementContent}
-          </Box>
+          </div>
         </Paper>
 
-        <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
+        <div style={{ marginTop: 16, display: 'flex', alignItems: 'center' }}>
           <Checkbox
             checked={acceptedAgreement}
             onChange={(e) => setAcceptedAgreement(e.target.checked)}
@@ -256,7 +258,7 @@ const BetaRegistrationForm: React.FC = () => {
               I have read and agree to the Confidentiality Agreement
             </Typography>
           </label>
-        </Box>
+        </div>
 
         <Button
           type="submit"
@@ -265,21 +267,21 @@ const BetaRegistrationForm: React.FC = () => {
           fullWidth
           size="large"
           disabled={loading || !acceptedAgreement || !codeValid || validatingCode}
-          sx={{ mt: 3 }}
+          style={{ marginTop: 24 }}
         >
           {loading ? <CircularProgress size={24} color="inherit" /> : 'Register for Beta Program'}
         </Button>
       </form>
 
-      <Box sx={{ mt: 3, textAlign: 'center' }}>
+      <div style={{ marginTop: 24, textAlign: 'center' }}>
         <Typography variant="body2" color="text.secondary">
           By registering, you agree to keep all beta features confidential as outlined in the agreement.
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+        <Typography variant="body2" color="text.secondary" style={{ marginTop: 8 }}>
           For questions about the beta program, please contact{' '}
           <Link href="mailto:beta@edpsych-connect.com">beta@edpsych-connect.com</Link>
         </Typography>
-      </Box>
+      </div>
     </Paper>
   );
 };
