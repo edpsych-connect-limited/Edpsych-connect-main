@@ -88,7 +88,12 @@ export default function NewAssessmentPage() {
 
       {/* Form */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <AssessmentForm initialData={{ assessment_type: type || undefined }} />
+        <AssessmentForm 
+          initialData={{ 
+            assessment_type: type || undefined,
+            tenant_id: session.user.tenant_id || 1
+          }} 
+        />
       </div>
     </div>
   );

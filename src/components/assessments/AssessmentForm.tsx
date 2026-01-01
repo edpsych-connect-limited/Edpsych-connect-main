@@ -169,25 +169,6 @@ export default function AssessmentForm({
               The case this assessment is associated with
             </p>
           </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Institution ID *
-            </label>
-            <input
-              type="number"
-              value={formData.tenant_id}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  tenant_id: parseInt(e.target.value),
-                })
-              }
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Enter institution ID"
-              required
-            />
-          </div>
         </div>
       </div>
 

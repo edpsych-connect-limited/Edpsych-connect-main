@@ -55,6 +55,7 @@ model users {
   cases                     cases[]
   interventions_created     interventions[]      @relation("interventions_created_byTousers")
   interventions_implemented interventions[]      @relation("interventions_implemented_byTousers")
+  reports                   reports[]
 
   // Relations - Gamification
   gamification_achievements gamification_achievements[]
@@ -331,6 +332,7 @@ model tenants {
   assessment_outcomes  AssessmentOutcome[]
   cases                cases[]
   interventions        interventions[]
+  reports              reports[]
   subscriptions        subscriptions[]
 
   // Relations - Training
@@ -595,6 +597,25 @@ model interventions {
   @@index([tenant_id])
   @@index([case_id])
   @@index([status])
+}
+
+model reports {
+  id          Int      @id @default(autoincrement())
+  tenant_id   Int
+  author_id   Int
+  title       String
+  type        String   // assessment, ehcp_advice, etc.
+  status      String   // DRAFT, PUBLISHED
+  content     Json     // Stores the full report data
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+
+  // Relations
+  tenants     tenants  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  author      users    @relation(fields: [author_id], references: [id])
+
+  @@index([tenant_id])
+  @@index([author_id])
 }
 
 // ============================================================================

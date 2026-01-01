@@ -73,14 +73,47 @@ async function routeEhcp(request: NextRequest): Promise<NextResponse> {
         });
       }
       
-      return NextResponse.json({ success: true, plan: { id: 'new' } }, { status: 201 });
+      if (request.method === 'POST') {
+        const body = await request.json();
+        const { tenant_id, student_id, plan_details } = body;
+
+        const ehcp = await prisma.ehcps.create({
+          data: {
+            tenant_id: parseInt(tenant_id),
+            student_id: student_id.toString(),
+            plan_details: plan_details,
+            status: 'draft',
+          },
+        });
+
+        return NextResponse.json({ success: true, ehcp }, { status: 201 });
+      }
     }
 
     const planId = segments[0];
     if (segments.length === 1) {
-      if (request.method === 'GET') return NextResponse.json({ success: true, plan: { id: planId } });
-      if (request.method === 'PUT') return NextResponse.json({ success: true, plan: { id: planId } });
-      if (request.method === 'DELETE') return NextResponse.json({ success: true, message: `Deleted ${planId}` });
+      if (request.method === 'GET') {
+        const ehcp = await prisma.ehcps.findUnique({ where: { id: planId } });
+        if (!ehcp) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+        return NextResponse.json({ success: true, ehcp });
+      }
+      if (request.method === 'PUT') {
+        const body = await request.json();
+        const { plan_details } = body;
+        
+        const ehcp = await prisma.ehcps.update({
+          where: { id: planId },
+          data: {
+            plan_details,
+            updated_at: new Date(),
+          },
+        });
+        return NextResponse.json({ success: true, ehcp });
+      }
+      if (request.method === 'DELETE') {
+        await prisma.ehcps.delete({ where: { id: planId } });
+        return NextResponse.json({ success: true, message: `Deleted ${planId}` });
+      }
     }
 
     if (segments.length >= 2) {

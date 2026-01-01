@@ -83,7 +83,11 @@ export default function NewEHCPPage() {
       </div>
 
       {/* Form */}
-      <EHCPWizardForm />
+      <EHCPWizardForm 
+        initialData={{
+          tenant_id: session.user.tenant_id || 1
+        }}
+      />
     </div>
   );
 }

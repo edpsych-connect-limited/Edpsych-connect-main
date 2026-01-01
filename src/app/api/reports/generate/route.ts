@@ -8,9 +8,16 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { ReportGenerator, ReportData } from '@/lib/reports/report-generator';
+import authService from '@/lib/auth/auth-service';
+import { prisma } from '@/lib/prisma';
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await authService.getSessionFromRequest(req);
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const data: ReportData = await req.json();
 
     // Basic validation
@@ -28,6 +35,18 @@ export async function POST(req: NextRequest) {
     if (typeof data.student.dob === 'string') {
       data.student.dob = new Date(data.student.dob);
     }
+
+    // Save to database
+    await prisma.reports.create({
+      data: {
+        tenant_id: session.user.tenant_id,
+        author_id: session.user.id,
+        title: `${data.type} Report for ${data.student.name}`,
+        type: data.type,
+        status: 'GENERATED',
+        content: data as any, 
+      },
+    });
 
     const pdfBuffer = await ReportGenerator.generateReport(data);
 

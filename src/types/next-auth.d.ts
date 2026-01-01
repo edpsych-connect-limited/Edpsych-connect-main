@@ -12,6 +12,7 @@ declare module 'next-auth' {
       role: UserRole;
       id?: string;
       organizationId?: string;
+      tenant_id?: number;
       permissions?: string[];
       isActive: boolean;
       name?: string | null;
@@ -29,6 +30,7 @@ declare module 'next-auth' {
     role: UserRole;
     id?: string;
     organizationId?: string;
+    tenant_id?: number;
     yearGroup?: string;
     profile?: {
       firstName: string;
@@ -51,6 +53,7 @@ declare module 'next-auth/jwt' {
     role: UserRole;
     id?: string;
     organizationId?: string;
+    tenant_id?: number;
     permissions?: string[];
     isActive: boolean;
   }

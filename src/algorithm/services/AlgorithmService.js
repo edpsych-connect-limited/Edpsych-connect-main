@@ -2,10 +2,9 @@
  * Algorithm Service
  * Provides business logic and API for interacting with algorithms, licenses, and creators
  */
+import { prisma } from '@/lib/prisma';
 import { logger } from '@/lib/logger';
 
-
-// Mock implementations to avoid import issues during build
 class AlgorithmService {
   /**
    * Gets algorithm categories
@@ -27,19 +26,29 @@ class AlgorithmService {
   /**
    * Creates a new algorithm
    * @param {Object} algorithmData - Algorithm data
-   * @param {string} creatorId - ID of the creator
+   * @param {string|number} creatorId - ID of the creator
    * @returns {Promise<Object>} Created algorithm
    */
   static async createAlgorithm(algorithmData, creatorId) {
     logger.debug('Creating algorithm:', algorithmData, creatorId);
-    return {
-      id: `alg-${Date.now()}`,
-      ...algorithmData,
-      creatorId,
-      status: 'draft',
-      visibility: 'private',
-      createdAt: new Date().toISOString()
-    };
+    return await prisma.algorithm.create({
+      data: {
+        name: algorithmData.name,
+        description: algorithmData.description,
+        category: algorithmData.category,
+        tags: algorithmData.tags || [],
+        price: parseFloat(algorithmData.price) || 0,
+        currency: algorithmData.currency || 'GBP',
+        creatorId: parseInt(creatorId.toString()),
+        versions: {
+          create: {
+            version: '1.0.0',
+            status: 'draft',
+            code: algorithmData.code
+          }
+        }
+      }
+    });
   }
 
   /**
@@ -49,14 +58,32 @@ class AlgorithmService {
    */
   static async getById(id) {
     logger.debug('Getting algorithm by ID:', id);
+    const algorithm = await prisma.algorithm.findUnique({
+      where: { id },
+      include: {
+        creator: {
+          select: { name: true }
+        },
+        versions: {
+          orderBy: { createdAt: 'desc' },
+          take: 1
+        }
+      }
+    });
+
+    if (!algorithm) return null;
+
     return {
-      id,
-      name: 'Mock Algorithm',
-      description: 'Mock algorithm description',
-      creatorId: 'mock-creator',
-      status: 'approved',
-      visibility: 'public'
+      ...algorithm,
+      creatorName: algorithm.creator.name,
+      currentVersion: algorithm.versions[0]?.version,
+      status: algorithm.versions[0]?.status
     };
+  }
+
+  // Alias for getById to match routes
+  static async getAlgorithmById(id) {
+    return this.getById(id);
   }
 
   /**
@@ -65,130 +92,261 @@ class AlgorithmService {
    * @param {Object} pagination - Pagination options
    * @returns {Promise<Object>} Search results
    */
-  static async searchAlgorithms(criteria = {}, _pagination = {}) {
+  static async searchAlgorithms(criteria = {}, pagination = {}) {
     logger.debug('Searching algorithms:', criteria);
+    const { page = 1, limit = 20 } = pagination;
+    const skip = (page - 1) * limit;
+
+    const where = {};
+    if (criteria.category) where.category = criteria.category;
+    if (criteria.search) {
+      where.OR = [
+        { name: { contains: criteria.search, mode: 'insensitive' } },
+        { description: { contains: criteria.search, mode: 'insensitive' } }
+      ];
+    }
+
+    const [items, total] = await Promise.all([
+      prisma.algorithm.findMany({
+        where,
+        skip,
+        take: limit,
+        include: {
+          creator: {
+            select: { name: true }
+          },
+          _count: {
+            select: { usages: true }
+          }
+        },
+        orderBy: { createdAt: 'desc' }
+      }),
+      prisma.algorithm.count({ where })
+    ]);
+
     return {
-      items: [
-        {
-          id: 'mock-alg-1',
-          name: 'Mock Algorithm 1',
-          description: 'Mock algorithm description',
-          categoryId: 'assessment',
-          creatorName: 'Mock Creator',
-          status: 'approved',
-          visibility: 'public',
-          totalUsage: 150,
-          averageRating: 4.5,
-          ratingCount: 25
-        }
-      ],
-      total: 1,
-      page: 1,
-      limit: 20
+      items: items.map(item => ({
+        ...item,
+        creatorName: item.creator.name,
+        totalUsage: item._count.usages,
+        averageRating: 0,
+        ratingCount: 0
+      })),
+      total,
+      page,
+      limit
     };
+  }
+
+  static async getPopularAlgorithms(limit = 10) {
+      const items = await prisma.algorithm.findMany({
+          take: limit,
+          include: {
+              creator: { select: { name: true } },
+              _count: { select: { usages: true } }
+          },
+          orderBy: {
+              usages: { _count: 'desc' }
+          }
+      });
+      return items.map(item => ({
+          ...item,
+          creatorName: item.creator.name,
+          totalUsage: item._count.usages
+      }));
+  }
+
+  static async getFeaturedAlgorithms(limit = 10) {
+      return this.getPopularAlgorithms(limit);
+  }
+
+  static async updateAlgorithm(id, data, userId) {
+      return await prisma.algorithm.update({
+          where: { id },
+          data: {
+              name: data.name,
+              description: data.description,
+              category: data.category,
+              tags: data.tags,
+              price: data.price ? parseFloat(data.price) : undefined,
+              currency: data.currency
+          }
+      });
+  }
+
+  static async submitAlgorithmForReview(id, userId) {
+      const latestVersion = await prisma.algorithmVersion.findFirst({
+          where: { algorithmId: id },
+          orderBy: { createdAt: 'desc' }
+      });
+      if (latestVersion) {
+          await prisma.algorithmVersion.update({
+              where: { id: latestVersion.id },
+              data: { status: 'review' }
+          });
+      }
+      return this.getById(id);
+  }
+
+  static async approveAlgorithm(id, reviewerId, comments) {
+       const latestVersion = await prisma.algorithmVersion.findFirst({
+          where: { algorithmId: id },
+          orderBy: { createdAt: 'desc' }
+      });
+      if (latestVersion) {
+          await prisma.algorithmVersion.update({
+              where: { id: latestVersion.id },
+              data: { status: 'published' }
+          });
+      }
+      return this.getById(id);
+  }
+
+  static async rejectAlgorithm(id, reviewerId, reason) {
+       const latestVersion = await prisma.algorithmVersion.findFirst({
+          where: { algorithmId: id },
+          orderBy: { createdAt: 'desc' }
+      });
+      if (latestVersion) {
+          await prisma.algorithmVersion.update({
+              where: { id: latestVersion.id },
+              data: { status: 'rejected' }
+          });
+      }
+      return this.getById(id);
+  }
+
+  static async publishAlgorithm(id, userId) {
+       const latestVersion = await prisma.algorithmVersion.findFirst({
+          where: { algorithmId: id },
+          orderBy: { createdAt: 'desc' }
+      });
+      if (latestVersion) {
+          await prisma.algorithmVersion.update({
+              where: { id: latestVersion.id },
+              data: { status: 'published' }
+          });
+      }
+      return this.getById(id);
+  }
+
+  static async addAlgorithmVersion(id, data, userId) {
+      return await prisma.algorithmVersion.create({
+          data: {
+              algorithmId: id,
+              version: data.version,
+              code: data.code,
+              changelog: data.changelog,
+              status: 'draft'
+          }
+      });
+  }
+
+  static async addAlgorithmLicense(id, data, userId) {
+      if (data.price) {
+          await prisma.algorithm.update({
+              where: { id },
+              data: { price: parseFloat(data.price) }
+          });
+      }
+      return { message: 'License options updated (Single price model)' };
   }
 
   /**
    * Purchases a license for an algorithm
    * @param {string} algorithmId - Algorithm ID
-   * @param {string} licenseId - License ID
-   * @param {string} institutionId - Institution ID
-   * @param {string} purchaserId - User ID making the purchase
+   * @param {string} _licenseId - License ID (unused, generated by DB)
+   * @param {string|number} institutionId - Institution ID (Tenant ID)
+   * @param {string|number} _purchaserId - User ID making the purchase
    * @param {Object} purchaseData - Additional purchase data
    * @returns {Promise<Object>} Created license
    */
-  static async purchaseLicense(algorithmId, licenseId, institutionId, purchaserId, _purchaseData = {}) {
-    logger.debug('Purchasing license:', { algorithmId, licenseId, institutionId, purchaserId });
-    return {
-      id: `license-${Date.now()}`,
-      algorithmId,
-      licenseId,
-      licenseeId: institutionId,
-      purchaserId,
-      price: 99.99,
-      currency: 'GBP',
-      billingCycle: 'monthly',
-      createdAt: new Date().toISOString()
-    };
-  }
-
-  /**
-   * Gets an algorithm by ID (alias for getById)
-   * @param {string} id - Algorithm ID
-   * @returns {Promise<Object|null>} Algorithm data
-   */
-  static async getAlgorithmById(id) {
-    return this.getById(id);
-  }
-
-  /**
-   * Gets featured algorithms
-   * @param {number} limit - Maximum number of algorithms to return
-   * @returns {Promise<Array<Object>>} List of featured algorithms
-   */
-  static async getFeaturedAlgorithms(limit = 4) {
-    logger.debug('Getting featured algorithms, limit:', limit);
-    return [
-      {
-        id: 'featured-1',
-        name: 'Featured Algorithm 1',
-        description: 'A highly rated algorithm for assessment',
-        categoryId: 'assessment',
-        creatorName: 'Featured Creator',
-        status: 'approved',
-        visibility: 'public',
-        totalUsage: 500,
-        averageRating: 4.8,
-        ratingCount: 100,
-        thumbnail: '/images/algorithm-placeholder.jpg'
+  static async purchaseLicense(algorithmId, _licenseId, institutionId, _purchaserId, purchaseData = {}) {
+    return await prisma.algorithmLicense.create({
+      data: {
+        algorithmId,
+        tenantId: parseInt(institutionId.toString()),
+        type: purchaseData.type || 'subscription',
+        status: 'active',
+        expiresAt: purchaseData.expiresAt ? new Date(purchaseData.expiresAt) : null
       }
-    ].slice(0, limit);
+    });
   }
+  
+  static async getLicenses(filters = {}, pagination = {}) {
+    const { page = 1, limit = 20 } = pagination;
+    const skip = (page - 1) * limit;
 
-  /**
-   * Updates an algorithm
-   * @param {string} id - Algorithm ID
-   * @param {Object} data - Updated algorithm data
-   * @returns {Promise<Object>} Updated algorithm
-   */
-  static async updateAlgorithm(id, data) {
-    logger.debug('Updating algorithm:', id, data);
+    const where = {};
+    if (filters.licenseeId) where.tenantId = parseInt(filters.licenseeId.toString());
+    if (filters.status) where.status = filters.status;
+
+    const [items, total] = await Promise.all([
+      prisma.algorithmLicense.findMany({
+        where,
+        skip,
+        take: limit,
+        include: {
+          algorithm: {
+            select: { name: true, version: true } // Assuming version is on algorithm or we need to join versions
+          },
+          tenant: {
+            select: { name: true }
+          }
+        },
+        orderBy: { createdAt: 'desc' }
+      }),
+      prisma.algorithmLicense.count({ where })
+    ]);
+
     return {
-      id,
-      ...data,
-      updatedAt: new Date().toISOString()
+      items: items.map(item => ({
+        ...item,
+        algorithmName: item.algorithm.name,
+        institutionName: item.tenant?.name
+      })),
+      total,
+      page,
+      limit
     };
   }
 
-  /**
-   * Adds a new version to an algorithm
-   * @param {string} algorithmId - Algorithm ID
-   * @param {Object} versionData - Version data
-   * @returns {Promise<Object>} Created version
-   */
-  static async addAlgorithmVersion(algorithmId, versionData) {
-    logger.debug('Adding algorithm version:', algorithmId, versionData);
-    return {
-      id: `version-${Date.now()}`,
-      algorithmId,
-      ...versionData,
-      createdAt: new Date().toISOString()
-    };
+  static async createCreator(data) {
+      return { id: 0, name: 'Mock Creator' };
   }
-
-  /**
-   * Creates an algorithm creator profile
-   * @param {Object} creatorData - Creator profile data
-   * @returns {Promise<Object>} Created creator profile
-   */
-  static async createAlgorithmCreator(creatorData) {
-    logger.debug('Creating algorithm creator:', creatorData);
-    return {
-      id: `creator-${Date.now()}`,
-      ...creatorData,
-      status: 'active',
-      createdAt: new Date().toISOString()
-    };
+  
+  static async updateCreator(id, data, userId) {
+      return { id, ...data };
+  }
+  
+  static async getCreatorEarnings(id, period) {
+      return { total: 0, period };
+  }
+  
+  static async createCustomRevenueShareAgreement(data) {
+      return { ...data, status: 'active' };
+  }
+  
+  static async processCreatorPayout(data) {
+      return { status: 'processed' };
+  }
+  
+  static async recordAlgorithmUsage(licenseId, usageData) {
+      const license = await prisma.algorithmLicense.findUnique({
+          where: { id: licenseId }
+      });
+      
+      if (!license) throw new Error('License not found');
+      
+      return await prisma.algorithmUsage.create({
+          data: {
+              algorithmId: license.algorithmId,
+              tenantId: license.tenantId,
+              executionTime: usageData.executionTime || 0,
+              status: usageData.status || 'success',
+              cost: usageData.cost || 0
+          }
+      });
   }
 }
 

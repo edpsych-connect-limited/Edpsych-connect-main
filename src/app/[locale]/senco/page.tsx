@@ -8,44 +8,81 @@
  * Comprehensive SEND management interface for Special Educational Needs Coordinators
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Users, AlertTriangle, Calendar, Search, Filter, Download, Plus, Bell, Settings,
-  BarChart3, PieChart, Shield, Briefcase
+  BarChart3, PieChart, Shield, Briefcase, Loader2
 } from 'lucide-react';
 import { FeatureGate } from '@/components/subscription/FeatureGate';
 import { Feature } from '@/types/prisma-enums';
 
-// Mock data for demonstration
-const mockDashboardData = {
-  totalStudents: 127,
-  ehcpCount: 34,
-  senSupportCount: 93,
-  upcomingDeadlines: 8,
-  overdueReviews: 2,
-  complianceScore: 94,
-  budgetUtilisation: 78,
-  staffCaseload: [
-    { name: 'Mrs. Smith', caseload: 28, capacity: 30 },
-    { name: 'Mr. Jones', caseload: 31, capacity: 30 },
-    { name: 'Ms. Wilson', caseload: 24, capacity: 30 },
-    { name: 'Mrs. Brown', caseload: 22, capacity: 25 },
-  ],
-  recentAlerts: [
-    { id: 1, type: 'deadline', message: 'Annual Review due: James P. (Year 8)', urgency: 'high', date: '2025-12-10' },
-    { id: 2, type: 'compliance', message: 'Missing provision record: Sarah M.', urgency: 'medium', date: '2025-12-08' },
-    { id: 3, type: 'transition', message: 'Year 6 transition meeting scheduled', urgency: 'low', date: '2025-12-15' },
-  ],
-  needsBreakdown: [
-    { category: 'Cognition & Learning', count: 45, percentage: 35 },
-    { category: 'Communication & Interaction', count: 38, percentage: 30 },
-    { category: 'SEMH', count: 28, percentage: 22 },
-    { category: 'Sensory/Physical', count: 16, percentage: 13 },
-  ]
-};
+// Mock data for staff caseload (not yet available in backend)
+const mockStaffCaseload = [
+  { name: 'Mrs. Smith', caseload: 28, capacity: 30 },
+  { name: 'Mr. Jones', caseload: 31, capacity: 30 },
+  { name: 'Ms. Wilson', caseload: 24, capacity: 30 },
+  { name: 'Mrs. Brown', caseload: 22, capacity: 25 },
+];
 
 function SENCODashboardContent() {
   const [activeTab, setActiveTab] = useState<'overview' | 'register' | 'compliance' | 'analytics'>('overview');
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<{
+    metrics: any;
+    alerts: any[];
+  } | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const [dashboardRes, actionsRes] = await Promise.all([
+          fetch('/api/senco?action=dashboard'),
+          fetch('/api/senco?action=actions')
+        ]);
+        
+        const dashboard = await dashboardRes.json();
+        const actions = await actionsRes.json();
+        
+        if (dashboard.success) {
+          setData({
+            metrics: dashboard.data,
+            alerts: actions.success ? actions.data : []
+          });
+        }
+      } catch (error) {
+        console.error('Failed to fetch dashboard data', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+      </div>
+    );
+  }
+
+  const metrics = data?.metrics;
+  const alerts = data?.alerts || [];
+
+  // Transform backend data for UI
+  const totalStudents = metrics?.caseload?.totalStudents || 0;
+  const ehcpCount = metrics?.caseload?.byStatus?.['EHCP'] || 0;
+  const senSupportCount = metrics?.caseload?.byStatus?.['SEN_SUPPORT'] || 0;
+  const upcomingDeadlines = metrics?.compliance?.statutoryDeadlines?.length || 0;
+  const overdueReviews = metrics?.caseload?.overdueReviews || 0;
+  const complianceScore = metrics?.compliance?.overallCompliance || 0;
+  const budgetUtilisation = metrics?.resourceSummary?.budgetUtilisation || 0;
+
+  const needsBreakdown = Object.entries(metrics?.caseload?.byNeedType || {}).map(([category, count]) => ({
+    category,
+    count: count as number,
+    percentage: totalStudents > 0 ? Math.round(((count as number) / totalStudents) * 100) : 0
+  }));
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -115,28 +152,28 @@ function SENCODashboardContent() {
               <MetricCard
                 icon={Users}
                 label="Total SEND Students"
-                value={mockDashboardData.totalStudents}
-                subtext={`${mockDashboardData.ehcpCount} EHCP • ${mockDashboardData.senSupportCount} SEN Support`}
+                value={totalStudents}
+                subtext={`${ehcpCount} EHCP • ${senSupportCount} SEN Support`}
                 color="blue"
               />
               <MetricCard
                 icon={Calendar}
                 label="Upcoming Deadlines"
-                value={mockDashboardData.upcomingDeadlines}
-                subtext={mockDashboardData.overdueReviews > 0 ? `${mockDashboardData.overdueReviews} overdue` : 'All on track'}
-                color={mockDashboardData.overdueReviews > 0 ? 'red' : 'green'}
+                value={upcomingDeadlines}
+                subtext={overdueReviews > 0 ? `${overdueReviews} overdue` : 'All on track'}
+                color={overdueReviews > 0 ? 'red' : 'green'}
               />
               <MetricCard
                 icon={Shield}
                 label="Compliance Score"
-                value={`${mockDashboardData.complianceScore}%`}
+                value={`${complianceScore}%`}
                 subtext="Statutory requirements"
                 color="green"
               />
               <MetricCard
                 icon={Briefcase}
                 label="Budget Utilisation"
-                value={`${mockDashboardData.budgetUtilisation}%`}
+                value={`${budgetUtilisation}%`}
                 subtext="Element 3 + Top-up"
                 color="purple"
               />
@@ -151,29 +188,35 @@ function SENCODashboardContent() {
                   <button className="text-sm text-indigo-600 hover:text-indigo-700">View all</button>
                 </div>
                 <div className="space-y-3">
-                  {mockDashboardData.recentAlerts.map((alert) => (
-                    <div
-                      key={alert.id}
-                      className={`p-4 rounded-lg border-l-4 ${
-                        alert.urgency === 'high'
-                          ? 'bg-red-50 dark:bg-red-900/20 border-red-500'
-                          : alert.urgency === 'medium'
-                          ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-500'
-                          : 'bg-blue-50 dark:bg-blue-900/20 border-blue-500'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <AlertTriangle className={`w-5 h-5 ${
-                            alert.urgency === 'high' ? 'text-red-500' :
-                            alert.urgency === 'medium' ? 'text-amber-500' : 'text-blue-500'
-                          }`} />
-                          <span className="font-medium text-gray-900 dark:text-white">{alert.message}</span>
+                  {alerts.length > 0 ? (
+                    alerts.map((alert) => (
+                      <div
+                        key={alert.id}
+                        className={`p-4 rounded-lg border-l-4 ${
+                          alert.priority === 'URGENT'
+                            ? 'bg-red-50 dark:bg-red-900/20 border-red-500'
+                            : alert.priority === 'HIGH'
+                            ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-500'
+                            : 'bg-blue-50 dark:bg-blue-900/20 border-blue-500'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <AlertTriangle className={`w-5 h-5 ${
+                              alert.priority === 'URGENT' ? 'text-red-500' :
+                              alert.priority === 'HIGH' ? 'text-amber-500' : 'text-blue-500'
+                            }`} />
+                            <span className="font-medium text-gray-900 dark:text-white">{alert.title}</span>
+                          </div>
+                          <span className="text-sm text-gray-500">
+                            {new Date(alert.dueDate).toLocaleDateString()}
+                          </span>
                         </div>
-                        <span className="text-sm text-gray-500">{alert.date}</span>
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  ) : (
+                    <div className="text-center py-4 text-gray-500">No urgent actions required</div>
+                  )}
                 </div>
               </div>
 
@@ -181,7 +224,7 @@ function SENCODashboardContent() {
               <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Staff Caseload</h2>
                 <div className="space-y-4">
-                  {mockDashboardData.staffCaseload.map((staff, idx) => {
+                  {mockStaffCaseload.map((staff, idx) => {
                     const percentage = (staff.caseload / staff.capacity) * 100;
                     const isOverloaded = percentage > 100;
                     const widthClass = percentage >= 100 ? 'w-full' :
@@ -225,13 +268,17 @@ function SENCODashboardContent() {
             <div className="mt-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Primary Need Breakdown</h2>
               <div className="grid md:grid-cols-4 gap-4">
-                {mockDashboardData.needsBreakdown.map((need, idx) => (
-                  <div key={idx} className="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                    <div className="text-2xl font-bold text-indigo-600">{need.count}</div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">{need.category}</div>
-                    <div className="text-xs text-gray-500 mt-1">{need.percentage}%</div>
-                  </div>
-                ))}
+                {needsBreakdown.length > 0 ? (
+                  needsBreakdown.map((need, idx) => (
+                    <div key={idx} className="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                      <div className="text-2xl font-bold text-indigo-600">{need.count}</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">{need.category}</div>
+                      <div className="text-xs text-gray-500 mt-1">{need.percentage}%</div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="col-span-4 text-center py-4 text-gray-500">No data available</div>
+                )}
               </div>
             </div>
           </>

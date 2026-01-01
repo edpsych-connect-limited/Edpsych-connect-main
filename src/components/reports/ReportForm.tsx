@@ -141,12 +141,31 @@ export function ReportForm() {
     }
   };
 
+  const handleSaveDraft = async () => {
+    try {
+      const response = await fetch('/api/reports', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) throw new Error('Failed to save draft');
+
+      alert('Draft saved successfully!');
+    } catch (error) {
+      console.error('Error saving draft:', error);
+      alert('Failed to save draft.');
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold tracking-tight">Report Generator</h2>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => logger.debug('Form data:', formData)}>
+          <Button variant="outline" onClick={handleSaveDraft}>
             <Save className="mr-2 h-4 w-4" /> Save Draft
           </Button>
           <Button onClick={handleSubmit} disabled={isGenerating}>

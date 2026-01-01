@@ -39,51 +39,26 @@ export default function CasesPage() {
 
   const loadCases = async () => {
     try {
-      const mockCases: Case[] = [
-        {
-          id: 1,
-          student_name: 'Jamie Smith',
-          year_group: 'Year 3',
-          school: 'Riverside Primary',
-          case_type: 'Cognitive Assessment',
-          status: 'assessment',
-          priority: 'high',
-          referral_date: '2025-09-15',
-          active_interventions: 3,
-          sen_support: true,
-          ehcp: false,
-          updated_at: '2025-10-28',
-        },
-        {
-          id: 2,
-          student_name: 'Alex Johnson',
-          year_group: 'Year 5',
-          school: 'Oakwood Academy',
-          case_type: 'EHCP Annual Review',
-          status: 'review',
-          priority: 'medium',
-          referral_date: '2025-08-20',
-          active_interventions: 2,
-          sen_support: true,
-          ehcp: true,
-          updated_at: '2025-10-25',
-        },
-        {
-          id: 3,
-          student_name: 'Sam Williams',
-          year_group: 'Year 7',
-          school: 'Meadowbrook Secondary',
-          case_type: 'Intervention Support',
-          status: 'intervention',
-          priority: 'medium',
-          referral_date: '2025-10-01',
-          active_interventions: 1,
-          sen_support: true,
-          ehcp: false,
-          updated_at: '2025-10-27',
-        },
-      ];
-      setCases(mockCases);
+      const response = await fetch('/api/cases');
+      if (!response.ok) throw new Error('Failed to fetch cases');
+      const data = await response.json();
+      
+      const mappedCases: Case[] = data.cases.map((c: any) => ({
+        id: c.id,
+        student_name: c.students ? `${c.students.first_name} ${c.students.last_name}` : 'Unknown Student',
+        year_group: c.students?.year_group || 'Unknown',
+        school: 'Unknown School', // TODO: Fetch school details
+        case_type: c.type || 'General',
+        status: c.status,
+        priority: c.priority,
+        referral_date: c.referral_date,
+        active_interventions: c._count?.interventions || 0,
+        sen_support: false, // Placeholder
+        ehcp: false, // Placeholder
+        updated_at: c.updated_at,
+      }));
+
+      setCases(mappedCases);
     } catch (_error) {
       console.error('Failed to load cases:', _error);
     } finally {

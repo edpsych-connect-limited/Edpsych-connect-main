@@ -52,8 +52,16 @@ const RecommendationDashboard: React.FC = () => {
       queryParams.append('limit', filters.limit.toString());
       queryParams.append('offset', filters.offset.toString());
       
-      // Fetch recommendations
-      const response = await fetch(`/api/recommendations?${queryParams.toString()}`);
+      // Mapped to real API endpoint
+      // Backend expects: category, query, featured
+      const apiParams = new URLSearchParams();
+      if (filters.categoryId) apiParams.append('category', filters.categoryId);
+      if (filters.reason) apiParams.append('query', filters.reason); // Mapping reason to search query
+      apiParams.append('limit', filters.limit.toString());
+      apiParams.append('page', (Math.floor(filters.offset / filters.limit) + 1).toString());
+
+      // Fetch recommendations from the Algorithm Service
+      const response = await fetch(`/api/algorithms?${apiParams.toString()}`);
       
       if (!response.ok) {
         throw new Error('Failed to fetch recommendations');
@@ -62,10 +70,16 @@ const RecommendationDashboard: React.FC = () => {
       const data = await response.json();
       
       if (data.success) {
-        setRecommendations(data.data.recommendations);
-        setTotalCount(data.data.count);
+        setRecommendations(data.data); // Backend returns { success: true, data: [...] } or just the array?
+        setTotalCount(data.pagination?.total || 0);
+      } else if (Array.isArray(data)) {
+         // Handle direct array return if that's what the API does
+         setRecommendations(data);
+         setTotalCount(data.length);
       } else {
-        throw new Error(data.message || 'Failed to fetch recommendations');
+        // Fallback for different response structures
+        setRecommendations(data.algorithms || []);
+        setTotalCount(data.total || 0);
       }
     } catch (_err) {
       setError(_err instanceof Error ? _err.message : 'An unknown error occurred');

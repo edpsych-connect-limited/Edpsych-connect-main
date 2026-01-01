@@ -22,7 +22,7 @@ class AlgorithmUsageService {
    * @param {Object} usageData - Data about the algorithm usage
    * @returns {Promise<Object>} - Details of the recorded usage
    */
-  async recordUsage(usageData) {
+  static async recordUsage(usageData) {
     return await prisma.algorithmUsage.create({
       data: {
         algorithmId: usageData.algorithmId,
@@ -44,7 +44,7 @@ class AlgorithmUsageService {
    * @param {Object} [filterOptions={}] - Additional filter options
    * @returns {Promise<Object>} - Paginated usage history
    */
-  async getUsageHistory(algorithmId, paginationOptions = {}, _filterOptions = {}) {
+  static async getUsageHistory(algorithmId, paginationOptions = {}, _filterOptions = {}) {
     const { page = 1, limit = 20 } = paginationOptions;
     const skip = (page - 1) * limit;
 
@@ -78,7 +78,7 @@ class AlgorithmUsageService {
    * @param {Object} [filterOptions={}] - Filter options for the statistics
    * @returns {Promise<Object>} - Comprehensive usage statistics
    */
-  async getUsageStats(algorithmId, _filterOptions = {}) {
+  static async getUsageStats(algorithmId, _filterOptions = {}) {
     const usages = await prisma.algorithmUsage.findMany({
       where: { algorithmId }
     });
@@ -117,7 +117,7 @@ class AlgorithmUsageService {
    * @param {string} [format='csv'] - Format of the report (csv, pdf, json)
    * @returns {Promise<Object>} - The report data
    */
-  async generateUsageReport(algorithmId, period, format = 'csv') {
+  static async generateUsageReport(algorithmId, period, format = 'csv') {
     // In a real implementation, this would generate a file
     // For now, we'll return a placeholder URL but verify the algorithm exists
     const algorithm = await prisma.algorithm.findUnique({ where: { id: algorithmId } });
@@ -138,12 +138,17 @@ class AlgorithmUsageService {
    * @param {string} institutionId - ID of the institution using the algorithm
    * @returns {Promise<Object>} - Validity status and details
    */
-  async checkLicenseValidity(licenseId, algorithmId, institutionId) {
+  static async checkLicenseValidity(licenseId, algorithmId, institutionId) {
+    const tenantId = parseInt(institutionId);
+    if (isNaN(tenantId)) {
+      return { valid: false, reason: 'Invalid institution ID' };
+    }
+
     const license = await prisma.algorithmLicense.findFirst({
       where: {
         id: licenseId,
         algorithmId,
-        // tenantId: parseInt(institutionId), // Assuming institutionId matches tenantId
+        tenantId,
         status: 'active'
       }
     });
@@ -156,16 +161,32 @@ class AlgorithmUsageService {
       return { valid: false, reason: 'License expired' };
     }
 
+    // Calculate usage remaining if applicable
+    let usageRemaining = null;
+    const currentUsage = await prisma.algorithmUsage.count({
+      where: { algorithmId, tenantId: license.tenantId }
+    });
+
+    // This is a placeholder logic for usage limits. 
+    // In a real scenario, the limit would be stored in the license or a related table.
+    // For 'per_use' licenses, we might assume a limit or check a field.
+    // Since the schema doesn't have a 'usageLimit' field on AlgorithmLicense, 
+    // we will default to unlimited unless specified otherwise.
+    if (license.type === 'per_use') {
+      // Default to a high number to avoid blocking valid usage until limits are implemented
+      usageRemaining = 999999 - currentUsage;
+    }
+    
     return {
       valid: true,
       licenseId,
       algorithmId,
       institutionId,
+      licenseType: license.type,
       expiresAt: license.expiresAt,
       usageLimit: null,
-      currentUsage: await prisma.algorithmUsage.count({
-        where: { algorithmId, tenantId: license.tenantId }
-      })
+      usageRemaining, 
+      currentUsage
     };
   }
 
@@ -176,7 +197,7 @@ class AlgorithmUsageService {
    * @param {Object} [options={}] - Options for filtering royalty information
    * @returns {Promise<Object>} - Royalty information
    */
-  async getCreatorRoyalties(creatorId, _options = {}) {
+  static async getCreatorRoyalties(creatorId, _options = {}) {
     const algorithms = await prisma.algorithm.findMany({
       where: { creatorId: parseInt(creatorId) },
       include: { usages: true }

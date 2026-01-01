@@ -114,6 +114,13 @@ export default function DashboardPage() {
           color: 'bg-red-100 text-red-600',
         },
         {
+          title: 'LA Dashboard',
+          description: 'Statutory timeline monitoring and case oversight.',
+          icon: Building,
+          href: '/marketplace/la-panel',
+          color: 'bg-cyan-100 text-cyan-600',
+        },
+        {
           title: 'Classroom Cockpit',
           description: 'Manage your class, assign lessons, and track daily progress.',
           icon: LayoutDashboard,
