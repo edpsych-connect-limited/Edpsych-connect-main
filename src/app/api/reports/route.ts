@@ -13,8 +13,8 @@ export async function POST(req: NextRequest) {
 
     const report = await prisma.reports.create({
       data: {
-        tenant_id: session.user.tenant_id,
-        author_id: session.user.id,
+        tenant_id: session.tenant_id!,
+        author_id: parseInt(session.id),
         title: `${data.type} Report for ${data.student.name || 'Unknown Student'} (Draft)`,
         type: data.type,
         status: 'DRAFT',
@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
 
     const reports = await prisma.reports.findMany({
       where: {
-        tenant_id: session.user.tenant_id,
+        tenant_id: session.tenant_id,
       },
       orderBy: {
         updated_at: 'desc',

@@ -39,8 +39,8 @@ export async function POST(req: NextRequest) {
     // Save to database
     await prisma.reports.create({
       data: {
-        tenant_id: session.user.tenant_id,
-        author_id: session.user.id,
+        tenant_id: session.tenant_id!,
+        author_id: parseInt(session.id),
         title: `${data.type} Report for ${data.student.name}`,
         type: data.type,
         status: 'GENERATED',
