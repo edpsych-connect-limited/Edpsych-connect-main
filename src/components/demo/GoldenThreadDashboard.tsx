@@ -11,6 +11,7 @@
 ;
 
 import React, { useState, useEffect as _useEffect } from 'react';
+import Link from 'next/link';
 import { 
   Search, 
   Activity, 
@@ -19,7 +20,8 @@ import {
   ArrowRight, 
   CheckCircle2, 
   AlertTriangle, 
-  Zap
+  Zap,
+  ExternalLink
 } from 'lucide-react';
 
 // Mock Data for the "Golden Thread" Narrative
@@ -192,7 +194,10 @@ export default function GoldenThreadDashboard() {
                     </div>
                   </div>
 
-                  <div className="mt-8 flex justify-end">
+                  <div className="mt-8 flex justify-end gap-3">
+                    <Link href="/senco/audit" className="px-6 py-3 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl font-bold flex items-center gap-2 transition-all">
+                      <ExternalLink className="w-5 h-5" /> View Live Module
+                    </Link>
                     <button onClick={nextStage} className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold flex items-center gap-2 transition-all">
                       Investigate <ArrowRight className="w-5 h-5" />
                     </button>
@@ -233,7 +238,10 @@ export default function GoldenThreadDashboard() {
                     </div>
                   </div>
 
-                  <div className="mt-8 flex justify-end">
+                  <div className="mt-8 flex justify-end gap-3">
+                    <Link href="/behaviour/tracker" className="px-6 py-3 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl font-bold flex items-center gap-2 transition-all">
+                      <ExternalLink className="w-5 h-5" /> View Live Module
+                    </Link>
                     <button onClick={nextStage} className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold flex items-center gap-2 transition-all">
                       Generate Plan <ArrowRight className="w-5 h-5" />
                     </button>
@@ -285,7 +293,13 @@ export default function GoldenThreadDashboard() {
                     </div>
                   </div>
 
-                  <div className="mt-8 flex justify-end">
+                  <div className="mt-8 flex justify-end gap-3">
+                    <Link href="/interventions/schedule" className="px-6 py-3 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl font-bold flex items-center gap-2 transition-all">
+                      <ExternalLink className="w-5 h-5" /> View Interventions
+                    </Link>
+                    <Link href="/teacher/gamification" className="px-6 py-3 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl font-bold flex items-center gap-2 transition-all">
+                      <ExternalLink className="w-5 h-5" /> View Gamification
+                    </Link>
                     <button onClick={nextStage} className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold flex items-center gap-2 transition-all">
                       Notify Parents <ArrowRight className="w-5 h-5" />
                     </button>
@@ -324,7 +338,10 @@ export default function GoldenThreadDashboard() {
                     </div>
                   </div>
 
-                  <div className="mt-8 flex justify-center">
+                  <div className="mt-8 flex justify-center gap-3">
+                    <Link href="/wellbeing/survey" className="px-8 py-4 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl font-bold flex items-center gap-2 transition-all shadow-sm">
+                      <ExternalLink className="w-5 h-5" /> View Wellbeing Survey
+                    </Link>
                     <button 
                       onClick={() => setActiveStage(0)}
                       className="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold flex items-center gap-2 transition-all shadow-xl"

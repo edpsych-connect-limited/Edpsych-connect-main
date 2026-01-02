@@ -208,6 +208,31 @@ export async function proxy(request: NextRequest) {
       );
     }
 
+    // COMMERCIAL HARDENING: Enterprise Tier Gating
+    // Block non-enterprise users from accessing Enterprise-only API routes
+    // This prevents "API hopping" where a user might try to access LA/Integration endpoints directly
+    const ENTERPRISE_API_PATHS = [
+      "/api/la",
+      "/api/integrations",
+      "/api/reports/analytics",
+      "/api/multi-agency",
+    ];
+
+    const isEnterpriseApi = ENTERPRISE_API_PATHS.some((path) => pathname.startsWith(path));
+    if (isEnterpriseApi) {
+      const tier = (payload as any).subscriptionTier;
+      // Allow 'enterprise' tier. Also allow 'admin' role to bypass (optional, but good for support)
+      const role = (payload as any).role;
+      
+      if (tier !== 'enterprise' && role !== 'admin' && role !== 'super_admin') {
+        logger.warn(`[Proxy] Blocked non-enterprise access to ${pathname} by user ${(payload as any).email} (Tier: ${tier})`);
+        return NextResponse.json(
+          { error: "Forbidden: Enterprise subscription required" },
+          { status: 403 }
+        );
+      }
+    }
+
     return response;
   }
 

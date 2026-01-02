@@ -39,7 +39,11 @@
     "src/**/*.tsx",
     "video_scripts/**/*.ts",
     ".next_build_local/types/**/*.ts",
-    ".next_build_local/dev/types/**/*.ts"
+    ".next_build_local/dev/types/**/*.ts",
+    ".next_build_gate/types/**/*.ts",
+    ".next_build_gate/dev/types/**/*.ts",
+    ".next_build_gate_alt/types/**/*.ts",
+    ".next_build_gate_alt/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

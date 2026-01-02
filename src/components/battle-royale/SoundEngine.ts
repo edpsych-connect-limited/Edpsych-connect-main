@@ -112,6 +112,15 @@ export const useGameSounds = (enabled: boolean = true) => {
     playTone(311.13, 'sawtooth', 0.8, now + 0.4); // Eb4 (Tritone)
   }, [initAudio, playTone]);
 
+  const playStreak = useCallback(() => {
+    initAudio();
+    // Streak: Ascending rapid notes
+    const now = 0;
+    playTone(440, 'sine', 0.1, now);
+    playTone(554.37, 'sine', 0.1, now + 0.1); // C#5
+    playTone(659.25, 'sine', 0.2, now + 0.2); // E5
+  }, [initAudio, playTone]);
+
   const playStormWarning = useCallback(() => {
     initAudio();
     // Storm Siren: Slow oscillating sine
@@ -142,6 +151,7 @@ export const useGameSounds = (enabled: boolean = true) => {
     playHit,
     playWin,
     playEliminated,
+    playStreak,
     playStormWarning
   };
 };

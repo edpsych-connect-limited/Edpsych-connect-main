@@ -31,7 +31,7 @@ export default function HeroOrchestration() {
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 mb-8 backdrop-blur-sm"
         >
           <Sparkles className="w-4 h-4" />
-          <span className="text-sm font-medium">Invisible Intelligence is Here</span>
+          <span className="text-sm font-medium">Ethical AI & Clinical-Grade Security</span>
         </motion.div>
 
         <motion.h1

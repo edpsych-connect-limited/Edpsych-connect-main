@@ -190,3 +190,5 @@ docs/BETA_ACCESS_CREDENTIALS.local.md
 tools/node20/
 
 .vercel
+
+.env*.local

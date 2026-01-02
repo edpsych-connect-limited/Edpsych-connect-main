@@ -217,6 +217,30 @@ It's the end of a half-term. Energy levels may be lower than usual.
       { label: 'Staff Survey', action: 'navigate', params: { path: '/wellbeing/survey' } },
       { label: 'Mindfulness Script', action: 'prompt', params: { text: 'Write a 2-minute mindfulness script' } }
     ]
+  },
+  'gamification': {
+    agentId: 'gamification-lead',
+    content: `**Gamification Strategy: Battle Royale**
+
+**Subject:** Science (Biology)
+**Topic:** Cell Structure
+
+**Game Mode:** Battle Royale
+**Duration:** 20 minutes
+
+**Mechanics:**
+• **Zone Shrink:** Every 3 minutes, the "safe zone" shrinks. Students must answer a question correctly to stay in the safe zone.
+• **Loot Drops:** Bonus points for streak of 3 correct answers.
+• **Revive:** Students can "revive" a teammate by answering a difficult challenge question.
+
+**Engagement Metrics:**
+• **Participation:** 100% of class active.
+• **Accuracy:** 85% average on core concepts.
+• **Collaboration:** High levels of peer-to-peer support observed during "Revive" phases.`,
+    suggestedActions: [
+      { label: 'Launch Battle', action: 'navigate', params: { path: '/teacher/gamification' } },
+      { label: 'View Leaderboard', action: 'navigate', params: { path: '/teacher/gamification' } }
+    ]
   }
 };
 
@@ -243,6 +267,9 @@ export function getDemoResponse(query: string) {
   }
   if (lowerQuery.includes('wellbeing') || lowerQuery.includes('health') || lowerQuery.includes('stress')) {
     return DEMO_RESPONSES['wellbeing'];
+  }
+  if (lowerQuery.includes('game') || lowerQuery.includes('battle') || lowerQuery.includes('play') || lowerQuery.includes('quiz')) {
+    return DEMO_RESPONSES['gamification'];
   }
   
   return DEMO_RESPONSES['default'];

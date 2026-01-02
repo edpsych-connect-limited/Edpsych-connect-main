@@ -4,15 +4,67 @@
  * Utility for detecting anomalies in ethical metrics using various
  * statistical methods and machine learning techniques.
  */
-// Logger available for future use: import { logger } from '@/lib/logger';
 
-class EthicsAnomalyDetector {
+export type DetectionMethod = 'zscore' | 'iqr' | 'moving_average' | 'ml';
+export type SensitivityLevel = 'low' | 'medium' | 'high';
+
+export interface AnomalyDetectorOptions {
+  method?: DetectionMethod;
+  sensitivity?: SensitivityLevel;
+  historySize?: number;
+  logger?: any;
+}
+
+export interface DetectionResult {
+  isAnomaly: boolean;
+  confidence: number;
+  message: string;
+  details: {
+    method: string;
+    threshold?: any;
+    historySize?: number;
+    currentValue: number;
+    mean?: number;
+    stdDev?: number;
+    zScore?: number;
+    q1?: number;
+    q3?: number;
+    iqr?: number;
+    lowerBound?: number;
+    upperBound?: number;
+    movingAvg?: number;
+    deviation?: number;
+    normalizedDeviation?: number;
+    windowSize?: number;
+    error?: string;
+    anomalyCount?: number;
+    averageConfidence?: number;
+    methodResults?: Array<{
+      method: string;
+      isAnomaly: boolean;
+      confidence: number;
+    }>;
+  };
+}
+
+export interface DetectionOptions {
+  windowSize?: number;
+  [key: string]: any;
+}
+
+export class EthicsAnomalyDetector {
+  method: DetectionMethod;
+  sensitivity: SensitivityLevel;
+  historySize: number;
+  logger: any;
+  thresholds: any;
+
   constructor({
-    method = 'zscore', // 'zscore', 'iqr', 'moving_average', 'ml'
-    sensitivity = 'medium', // 'low', 'medium', 'high'
-    historySize = 100, // Number of data points to consider for history
+    method = 'zscore',
+    sensitivity = 'medium',
+    historySize = 100,
     logger = console
-  }) {
+  }: AnomalyDetectorOptions = {}) {
     this.method = method;
     this.sensitivity = sensitivity;
     this.historySize = historySize;
@@ -24,12 +76,12 @@ class EthicsAnomalyDetector {
 
   /**
    * Detect anomalies in a metric value
-   * @param {Array} history - Historical values of the metric
+   * @param {Array<number>} history - Historical values of the metric
    * @param {number} currentValue - Current value to check for anomaly
-   * @param {Object} options - Additional options for detection
-   * @returns {Object} Detection result with anomaly status and details
+   * @param {DetectionOptions} options - Additional options for detection
+   * @returns {DetectionResult} Detection result with anomaly status and details
    */
-  detectAnomaly(history, currentValue, options = {}) {
+  detectAnomaly(history: number[], currentValue: number, options: DetectionOptions = {}): DetectionResult {
     try {
       // Ensure we have enough history
       if (!history || history.length < 3) {
@@ -47,7 +99,7 @@ class EthicsAnomalyDetector {
       }
       
       // Select the appropriate detection method
-      let result;
+      let result: DetectionResult;
       switch (this.method) {
         case 'zscore':
           result = this.detectWithZScore(history, currentValue, options);
@@ -66,7 +118,7 @@ class EthicsAnomalyDetector {
       }
       
       return result;
-    } catch (_error) {
+    } catch (error: any) {
       this.logger.error('Error detecting anomaly', error);
       return {
         isAnomaly: false,
@@ -75,6 +127,7 @@ class EthicsAnomalyDetector {
         details: {
           method: this.method,
           threshold: this.thresholds,
+          currentValue,
           error: error.message
         }
       };
@@ -83,22 +136,18 @@ class EthicsAnomalyDetector {
 
   /**
    * Detect anomalies using Z-Score method
-   * @param {Array} history - Historical values of the metric
-   * @param {number} currentValue - Current value to check for anomaly
-   * @param {Object} options - Additional options for detection
-   * @returns {Object} Detection result with anomaly status and details
-   * @private
    */
-  detectWithZScore(history, currentValue, _options = {}) {
+  private detectWithZScore(history: number[], currentValue: number, _options: DetectionOptions = {}): DetectionResult {
     // Calculate mean and standard deviation
     const mean = this.calculateMean(history);
     const stdDev = this.calculateStandardDeviation(history, mean);
     
     // If stdDev is 0 or very small, we can't effectively use Z-Score
     if (stdDev < 0.0001) {
+      const isAnomaly = Math.abs(currentValue - mean) > 0.001;
       return {
-        isAnomaly: Math.abs(currentValue - mean) > 0.001, // Use a small threshold
-        confidence: Math.abs(currentValue - mean) > 0.001 ? 0.8 : 0,
+        isAnomaly,
+        confidence: isAnomaly ? 0.8 : 0,
         message: stdDev < 0.0001 ? 'Standard deviation is too small for Z-Score method' : 'Value is within normal range',
         details: {
           method: 'zscore',
@@ -137,13 +186,8 @@ class EthicsAnomalyDetector {
 
   /**
    * Detect anomalies using Interquartile Range (IQR) method
-   * @param {Array} history - Historical values of the metric
-   * @param {number} currentValue - Current value to check for anomaly
-   * @param {Object} options - Additional options for detection
-   * @returns {Object} Detection result with anomaly status and details
-   * @private
    */
-  detectWithIQR(history, currentValue, _options = {}) {
+  private detectWithIQR(history: number[], currentValue: number, _options: DetectionOptions = {}): DetectionResult {
     // Sort the history
     const sortedHistory = [...history].sort((a, b) => a - b);
     
@@ -185,13 +229,8 @@ class EthicsAnomalyDetector {
 
   /**
    * Detect anomalies using Moving Average method
-   * @param {Array} history - Historical values of the metric
-   * @param {number} currentValue - Current value to check for anomaly
-   * @param {Object} options - Additional options for detection
-   * @returns {Object} Detection result with anomaly status and details
-   * @private
    */
-  detectWithMovingAverage(history, currentValue, options = {}) {
+  private detectWithMovingAverage(history: number[], currentValue: number, options: DetectionOptions = {}): DetectionResult {
     const windowSize = options.windowSize || Math.min(10, history.length);
     const recentHistory = history.slice(-windowSize);
     
@@ -249,14 +288,8 @@ class EthicsAnomalyDetector {
 
   /**
    * Detect anomalies using Machine Learning method
-   * This is a placeholder for ML-based anomaly detection
-   * @param {Array} history - Historical values of the metric
-   * @param {number} currentValue - Current value to check for anomaly
-   * @param {Object} options - Additional options for detection
-   * @returns {Object} Detection result with anomaly status and details
-   * @private
    */
-  detectWithML(history, currentValue, options = {}) {
+  private detectWithML(history: number[], currentValue: number, options: DetectionOptions = {}): DetectionResult {
     // This would typically involve a more complex ML model
     // For demonstration, we'll use a simple ensemble of other methods
     
@@ -293,33 +326,25 @@ class EthicsAnomalyDetector {
 
   /**
    * Get sensitivity thresholds based on selected sensitivity
-   * @param {string} sensitivity - Sensitivity level ('low', 'medium', 'high')
-   * @returns {Object} Thresholds for different detection methods
-   * @private
    */
-  getSensitivityThresholds(sensitivity) {
-    switch (sensitivity.toLowerCase()) {
+  private getSensitivityThresholds(sensitivity: SensitivityLevel): any {
+    switch (sensitivity) {
       case 'low':
         return {
-          zscore: 3.0,      // 99.7% of normal distribution
-          iqr: 2.0,         // 2 times IQR for outliers
-          movingAverage: 4.0 // 4 standard deviations from moving average
-        };
-      case 'medium':
-        return {
-          zscore: 2.5,      // 99% of normal distribution
-          iqr: 1.5,         // 1.5 times IQR for outliers (standard)
-          movingAverage: 3.0 // 3 standard deviations from moving average
+          zscore: 3.5, // Higher threshold = less sensitive
+          iqr: 2.5,
+          movingAverage: 3.5
         };
       case 'high':
         return {
-          zscore: 2.0,      // 95% of normal distribution
-          iqr: 1.0,         // 1 times IQR for outliers (sensitive)
-          movingAverage: 2.0 // 2 standard deviations from moving average
+          zscore: 2.0, // Lower threshold = more sensitive
+          iqr: 1.2,
+          movingAverage: 2.0
         };
+      case 'medium':
       default:
         return {
-          zscore: 2.5,
+          zscore: 3.0,
           iqr: 1.5,
           movingAverage: 3.0
         };
@@ -327,72 +352,35 @@ class EthicsAnomalyDetector {
   }
 
   /**
-   * Calculate the mean of an array of numbers
-   * @param {Array<number>} values - Array of numerical values
-   * @returns {number} The mean value
-   * @private
+   * Calculate mean of an array of numbers
    */
-  calculateMean(values) {
-    if (!values || values.length === 0) return 0;
-    const sum = values.reduce((a, b) => a + b, 0);
-    return sum / values.length;
+  private calculateMean(data: number[]): number {
+    if (!data || data.length === 0) return 0;
+    const sum = data.reduce((acc, val) => acc + val, 0);
+    return sum / data.length;
   }
 
   /**
-   * Calculate the standard deviation of an array of numbers
-   * @param {Array<number>} values - Array of numerical values
-   * @param {number} mean - The mean of the values (optional)
-   * @returns {number} The standard deviation
-   * @private
+   * Calculate standard deviation of an array of numbers
    */
-  calculateStandardDeviation(values, mean = null) {
-    if (!values || values.length <= 1) return 0;
-    
-    const avg = mean !== null ? mean : this.calculateMean(values);
-    const squareDiffs = values.map(value => {
-      const diff = value - avg;
-      return diff * diff;
-    });
-    
+  private calculateStandardDeviation(data: number[], mean: number): number {
+    if (!data || data.length < 2) return 0;
+    const squareDiffs = data.map(value => Math.pow(value - mean, 2));
     const avgSquareDiff = this.calculateMean(squareDiffs);
     return Math.sqrt(avgSquareDiff);
   }
 
   /**
-   * Calculate a percentile of an array of numbers
-   * @param {Array<number>} sortedValues - Sorted array of numerical values
-   * @param {number} percentile - The percentile to calculate (0-100)
-   * @returns {number} The percentile value
-   * @private
+   * Calculate percentile of an array of numbers
    */
-  calculatePercentile(sortedValues, percentile) {
-    if (!sortedValues || sortedValues.length === 0) return 0;
-    
-    const index = (percentile / 100) * (sortedValues.length - 1);
+  private calculatePercentile(sortedData: number[], percentile: number): number {
+    if (!sortedData || sortedData.length === 0) return 0;
+    const index = (percentile / 100) * (sortedData.length - 1);
     const lower = Math.floor(index);
     const upper = Math.ceil(index);
-    
-    if (lower === upper) return sortedValues[lower];
-    
     const weight = index - lower;
-    return sortedValues[lower] * (1 - weight) + sortedValues[upper] * weight;
-  }
-
-  /**
-   * Configure the detector with new settings
-   * @param {Object} config - Configuration options
-   * @returns {EthicsAnomalyDetector} This detector instance
-   */
-  configure(config = {}) {
-    if (config.method) this.method = config.method;
-    if (config.sensitivity) {
-      this.sensitivity = config.sensitivity;
-      this.thresholds = this.getSensitivityThresholds(config.sensitivity);
-    }
-    if (config.historySize) this.historySize = config.historySize;
     
-    return this;
+    if (upper >= sortedData.length) return sortedData[lower];
+    return sortedData[lower] * (1 - weight) + sortedData[upper] * weight;
   }
 }
-
-module.exports = EthicsAnomalyDetector;

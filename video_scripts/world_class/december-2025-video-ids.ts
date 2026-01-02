@@ -1,6 +1,6 @@
 /**
  * December 2025 Video IDs - Auto-generated
- * Generated: 2025-12-02T01:48:54.911Z
+ * Generated: 2026-01-02T13:30:07.508Z
  * 
  * These IDs are returned from HeyGen API and represent pending/processing videos.
  * Videos typically take 2-5 minutes to render after submission.
@@ -12,45 +12,45 @@
  */
 
 export const DECEMBER_2025_VIDEO_IDS: Record<string, string> = {
-  "value-enterprise-platform": "52e39fee2f98437fb2a8a67c840c0836",
-  "value-edtech-problem": "f8411531c5fb4031898957be38e6b168",
-  "value-complete-solution": "2e088cf41f434059b6cf0be15a42134a",
-  "tier-parent-plus": "79bd4e006d504aed947ef24c7e2dcab8",
-  "tier-teacher-individual": "174b9257fe1044cb9295777d68fe4e80",
-  "tier-schools-overview": "d65eb31cbe9c4c018362b5ff71b4baee",
-  "tier-mat-enterprise": "636e4a41cf0a43b38e90020d4eb2defb",
-  "tier-local-authority": "1201be5f79c04a9d9c46dcc4053d524e",
-  "tier-researcher": "72635bd2217d41d9b3a88680c292ba5a",
-  "tier-trainee-ep": "cf96e5128cfb4af8bb4bce4f76ff372c",
-  "addon-ai-power-pack": "585ec6706d7349c6b42e363ee0655d5a",
-  "addon-ehcp-accelerator": "06bf1fcb7aa04476abf0db827b5e6c6e",
-  "addon-cpd-library": "88582eef95634801b88c0dd76c7523f6",
-  "addon-api-access": "49faa010b2864d539969227b7b6d81de",
-  "addon-white-label": "6132f8ab6d4246b7a184db10c9a49c9e",
-  "addon-priority-support": "e90201fbba1a4f789186c4d8b58dcc72",
-  "feature-nclb-engine": "738bbcfaa87541aeb36e061c00db5ece",
-  "feature-battle-royale": "b9fa6820015c4d10971fbb9a8263cc12",
-  "feature-byod-architecture": "9a6b8abfac524086a84d3ce64c8c5df3",
-  "feature-intervention-library": "70ae2bd8eb3e41cab5dfdeb8a771fc8a",
-  "compare-true-cost": "80f6551b669a4a4c804d6d19726d626e",
-  "compare-switching": "35fc14cae23d4323a08150b6625dea35",
-  "trust-security": "caa20295f1164b3cb796c1e04c348c77",
-  "trust-built-by-practitioners": "81e7ef1a1d1449a2a65187820cff7bac",
-  "onboard-teacher-welcome": "2a4360fa476c49ddbba8740ffa010536",
-  "onboard-teacher-differentiation": "c0b9a101cfd5449d87efcac0fa00267e",
-  "onboard-teacher-assessment": "094207aaf81b442d993a21b716e49f8e",
-  "onboard-senco-welcome": "3d15dfb87ce343498808f5100e276800",
-  "onboard-senco-provision-mapping": "476c8c1e9a1148d7972af4058fd727c8",
-  "onboard-senco-ehcp-workflow": "98dd9dd96a564399ba2c379e2226a2c8",
-  "onboard-ep-welcome": "11508bd5211b41d1b58d74cd2bf114fe",
-  "onboard-ep-assessment-suite": "ffd5a9a625e94fb295e1ceee17d13f06",
-  "onboard-ep-report-writing": "99cfe04692a441cfa1d5b4c4389f1917",
-  "onboard-parent-welcome": "7a23f6e01c974fbebb3ccf015a8096cf",
-  "onboard-parent-understanding-reports": "e3f23d81d1e9488bbd3cd4301d7dc9ac",
-  "onboard-parent-contributing": "f5fc230f548447dba95ca6eaf465868a",
-  "onboard-la-welcome": "e67669e51e8541afaf5298ba4590e945",
-  "onboard-la-merge-tool": "43c797d441114299aaa1d48539e1a7e4",
-  "onboard-la-analytics": "dde9cfa221aa4ae1893eabcdb384fdb9"
+  "value-enterprise-platform": "12c27a71e127403c9a0c34034f6bc456",
+  "value-edtech-problem": "f6beb8e7a35449fa9f0b88548a8f32a1",
+  "value-complete-solution": "5bb5d22f8fa8466590650ea35d78f682",
+  "tier-parent-plus": "d4bfefd023ea4fb985adcd427abe7056",
+  "tier-teacher-individual": "4a19ea5b4006452eacfc73f9910fd6ad",
+  "tier-schools-overview": "8ce3836d95fc4fdd86b4c5b01b1bd915",
+  "tier-mat-enterprise": "ad64883f5a494349bbd6a4c4e91ad510",
+  "tier-local-authority": "f879d45ff73848d6b3c78d6c31fae09f",
+  "tier-researcher": "7ad62cf9adeb45f69ca916b6e877c22e",
+  "tier-trainee-ep": "1e1a6b851f7c4aa9a93b6cb08046f5e9",
+  "addon-ai-power-pack": "49a6bd03cd2c4d648f434c0080ec33de",
+  "addon-ehcp-accelerator": "740984519c7342caa31102a534b33606",
+  "addon-cpd-library": "7a6d7aa63d36482aa589866cb7fcb62e",
+  "addon-api-access": "ff941793813f42e7a0a9f6267e834b17",
+  "addon-white-label": "3b44c05c4e6a4284bd79a9663e9ccd72",
+  "addon-priority-support": "4fddbafc167c45799181c3bfc5a16ce5",
+  "feature-nclb-engine": "a0a4b6e78edc4903a67b62e9b8bb48be",
+  "feature-battle-royale": "8f3e843c2e8a4224ad801aafacae28f3",
+  "feature-byod-architecture": "2084b8395f064a4b9ddee4a47161cb65",
+  "feature-intervention-library": "27ce81bfae264d3983e788685df8b7e9",
+  "compare-true-cost": "590deb0375f04910acae951efca089fd",
+  "compare-switching": "1e775b5417854895a8f672d8e7772dfb",
+  "trust-security": "a82761123c9b47f3829fc6ab36b3c38b",
+  "trust-built-by-practitioners": "a0702453690345c49cef19c9289398f4",
+  "onboard-teacher-welcome": "aa6f775982ce4a658193a7e726d959e2",
+  "onboard-teacher-differentiation": "d427fc00e94a4292b3ee550c8bbed3e4",
+  "onboard-teacher-assessment": "e9f7a3a0a1e544769ec0a62bc5d8ee6c",
+  "onboard-senco-welcome": "38fcb8e7ea7b494d9bad444086da0e6f",
+  "onboard-senco-provision-mapping": "02064bf93c4e40fcb1140eefc58d687e",
+  "onboard-senco-ehcp-workflow": "8bc986b7cdde43e2a0a4c7b3b698880e",
+  "onboard-ep-welcome": "6c9cbf6132a14d27bd4434e62b8b061e",
+  "onboard-ep-assessment-suite": "b19df53306944143868d19a642658b59",
+  "onboard-ep-report-writing": "ac9987a30eee4a389ac05c1bd5302501",
+  "onboard-parent-welcome": "8e9a4345ad7744db9f2cfaadceb70310",
+  "onboard-parent-understanding-reports": "d8ab29a4f2ff4b5abae561fe00e4ee32",
+  "onboard-parent-contributing": "0aee08034df44204ad2c8c44900a3174",
+  "onboard-la-welcome": "a6de3b5055744d76ab4628e2c1db03c5",
+  "onboard-la-merge-tool": "69f140791b5d41f297962596324f719a",
+  "onboard-la-analytics": "98afc3ad59254f39a48740bf02fd773f"
 };
 
 // Helper functions
@@ -88,5 +88,5 @@ export const VIDEO_COUNTS = {
   total: 39,
   pricing: 24,
   onboarding: 15,
-  generated: '2025-12-02T01:48:54.918Z'
+  generated: '2026-01-02T13:30:07.508Z'
 };

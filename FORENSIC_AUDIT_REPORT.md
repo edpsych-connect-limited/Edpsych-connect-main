@@ -39,16 +39,16 @@ These features MUST work perfectly for the demo.
 ## 2. SECONDARY PATH: Role-Based Portals (Day 3)
 
 ### 2.1 Parent Portal
-- [ ] **Route:** `/parent/dashboard`
-- [ ] **Verification:** Can view child's progress, contribute views.
+- [x] **Route:** `/parent/dashboard`
+- [x] **Verification:** Can view child's progress, contribute views. (Implemented)
 
 ### 2.2 School/SENCO Portal
-- [ ] **Route:** `/school/dashboard`
-- [ ] **Verification:** Can request assessment, view active cases.
+- [x] **Route:** `/school/dashboard`
+- [x] **Verification:** Can request assessment, view active cases. (Implemented)
 
 ### 2.3 EP Portal
-- [ ] **Route:** `/ep/dashboard`
-- [ ] **Verification:** Can manage caseload, submit advice.
+- [x] **Route:** `/ep/dashboard`
+- [x] **Verification:** Can manage caseload, submit advice. (Implemented)
 
 ---
 
@@ -80,6 +80,9 @@ These features MUST work perfectly for the demo.
 ### 4.2 Functional Gaps
 - [ ] **Gap Analysis:** Identify any "Mock" data still in use.
 - [ ] **Action:** Replace all mocks with live DB calls.
+    - [x] Parent Portal: Wired to Training & Intervention Engines.
+    - [x] School Portal: Wired to Intervention & Assessment Engines.
+    - [x] EP Portal: Wired to Assessment Engine (Professional Toolkit).
 
 ---
 
@@ -91,3 +94,7 @@ These features MUST work perfectly for the demo.
 | Jan 1 | LA Dashboard | Verified | Removed mocks in `cases/page.tsx`. Added nav link. |
 | Jan 1 | EHCP Wizard | Verified | Implemented real DB persistence in `/api/ehcp`. |
 | Jan 1 | Multi-Agency | Verified | Confirmed `/api/assessments/collaborations` uses live DB. |
+| Jan 2 | Role Portals | Done | Created Parent, School, and EP dashboards. |
+| Jan 2 | Parent Portal Wiring | Done | Wired to real Training Engine (Course Catalog) and Intervention Engine (Library). |
+| Jan 2 | School Portal Wiring | Done | Wired to real Intervention Stats and Assessment Library. |
+| Jan 2 | EP Portal Wiring | Done | Wired to real Assessment Engine (Professional Toolkit). |

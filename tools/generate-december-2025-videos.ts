@@ -16,6 +16,7 @@ import path from 'path';
 // Import video scripts
 import { DECEMBER_2025_PRICING_VIDEOS } from '../video_scripts/world_class/december-2025-pricing-videos';
 import { ROLE_BASED_ONBOARDING } from '../video_scripts/world_class/role-based-onboarding-videos';
+import { assertApprovedDrScottCasting } from './lib/dr-scott-heygen';
 
 // HeyGen API Configuration
 const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
@@ -28,13 +29,28 @@ const REQUIRED_HEYGEN_API_KEY: string = HEYGEN_API_KEY;
 const HEYGEN_API_URL = 'https://api.heygen.com/v2/video/generate';
 
 // Avatar and Voice Configuration - UK Professional Style
+const AVATAR_ID = process.env.HEYGEN_DR_SCOTT_AVATAR_ID || '';
+const VOICE_ID = process.env.HEYGEN_DR_SCOTT_VOICE_ID || '';
+
+// Validate casting (Truth-by-code enforcement)
+try {
+  assertApprovedDrScottCasting({
+    avatarId: AVATAR_ID,
+    voiceId: VOICE_ID,
+    context: 'generate-december-2025-videos'
+  });
+} catch (error: any) {
+  console.error('❌ Dr Scott Identity Verification Failed:', error.message);
+  process.exit(1);
+}
+
 const CONFIG = {
   avatar: {
-    id: 'Adrian_public_3_20240312', // Professional UK male avatar
+    id: AVATAR_ID,
     style: 'normal'
   },
   voice: {
-    id: 'aba5ce361bfa433480f4bf281cc4c4f9', // Oliver Bennett - Warm UK voice
+    id: VOICE_ID,
     speed: 1.0
   },
   background: {
