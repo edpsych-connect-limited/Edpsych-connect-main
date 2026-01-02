@@ -15,6 +15,8 @@ import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaHeart, FaShieldAlt, FaBrain, FaClock, FaTrophy, FaGamepad, FaQuestionCircle, FaVolumeUp, FaVolumeMute, FaStar, FaFire, FaMedal } from 'react-icons/fa';
 import { getStudentQuestions } from '../../app/actions/gamification';
+import { EnhancedArena, EnhancedStorm, EnhancedPlayerMesh, EnhancedLootMesh } from './GameVisuals';
+import { useGameSounds } from './SoundEngine';
 
 // --- Types ---
 interface Player {
@@ -178,71 +180,7 @@ const ProgressBar = ({ width, color, className }: { width: number, color: string
   );
 };
 
-// --- 3D Components ---
 
-const Arena = ({ size }: { size: number }) => (
-  <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]} receiveShadow>
-    <planeGeometry args={[size, size]} />
-    <meshStandardMaterial color="#1a1a2e" />
-    <gridHelper args={[size, 20, 0x444444, 0x222222]} rotation={[-Math.PI / 2, 0, 0]} />
-  </mesh>
-);
-
-const Storm = ({ radius }: { radius: number }) => (
-  <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-    <ringGeometry args={[radius, radius + 100, 64]} />
-    <meshBasicMaterial color="#8b5cf6" opacity={0.3} transparent side={THREE.DoubleSide} />
-  </mesh>
-);
-
-const PlayerMesh = ({ player }: { player: Player }) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  
-  useFrame((state) => {
-    if (meshRef.current) {
-      // Bobbing animation
-      meshRef.current.position.y = 0.5 + Math.sin(state.clock.elapsedTime * 2) * 0.1;
-      meshRef.current.rotation.y += 0.01;
-    }
-  });
-
-  return (
-    <group position={player.position}>
-      <mesh ref={meshRef} castShadow>
-        <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial color={player.color} emissive={player.color} emissiveIntensity={0.5} />
-      </mesh>
-      {/* Health Bar */}
-      <Html position={[0, 1.5, 0]} center>
-        <div className="flex flex-col items-center">
-          <div className="bg-black/50 text-white text-xs px-1 rounded mb-1 whitespace-nowrap">{player.name}</div>
-          <div className="w-12 h-1 bg-red-900 rounded overflow-hidden">
-            <ProgressBar width={player.health} color="bg-green-500" />
-          </div>
-        </div>
-      </Html>
-    </group>
-  );
-};
-
-const LootMesh = ({ loot }: { loot: Loot }) => {
-  const ref = useRef<THREE.Mesh>(null);
-  useFrame((state) => {
-    if (ref.current) {
-      ref.current.rotation.y += 0.02;
-      ref.current.position.y = 0.5 + Math.sin(state.clock.elapsedTime * 3) * 0.2;
-    }
-  });
-
-  const color = loot.type === 'shield' ? '#3b82f6' : loot.type === 'health' ? '#ef4444' : '#eab308';
-
-  return (
-    <mesh ref={ref} position={loot.position} castShadow>
-      <octahedronGeometry args={[0.5]} />
-      <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.8} />
-    </mesh>
-  );
-};
 
 const GameCamera = ({ playerPos }: { playerPos: THREE.Vector3 }) => {
   const { camera } = useThree();
@@ -319,56 +257,32 @@ export const BattleRoyaleGame: React.FC = () => {
   }, []);
 
   const keysPressed = useRef<Set<string>>(new Set());
-  const _audioRef = useRef<HTMLAudioElement | null>(null);
   
-  // Sound effects (using Web Audio API simulation) - defined first as it's used by checkAchievements
+  // Sound Engine
+  const { playCollect, playHit, playWin, playStreak } = useGameSounds(soundEnabled);
+  
+  // Sound effects wrapper
   const playSound = useCallback((type: 'correct' | 'wrong' | 'pickup' | 'victory' | 'streak') => {
-    if (!soundEnabled || typeof window === 'undefined') return;
+    if (!soundEnabled) return;
     
-    try {
-      const audioContext = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
-      
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
-      
-      switch (type) {
-        case 'correct':
-          oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
-          oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
-          oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
-          break;
-        case 'wrong':
-          oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
-          oscillator.frequency.setValueAtTime(150, audioContext.currentTime + 0.1);
-          break;
-        case 'pickup':
-          oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-          oscillator.frequency.setValueAtTime(1200, audioContext.currentTime + 0.05);
-          break;
-        case 'victory':
-          oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime);
-          oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.15);
-          oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.3);
-          oscillator.frequency.setValueAtTime(1046.50, audioContext.currentTime + 0.45);
-          break;
-        case 'streak':
-          oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
-          oscillator.frequency.setValueAtTime(900, audioContext.currentTime + 0.1);
-          oscillator.frequency.setValueAtTime(1200, audioContext.currentTime + 0.2);
-          break;
-      }
-      
-      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-      
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.5);
-    } catch (_e) {
-      // Audio not available
+    switch (type) {
+      case 'correct':
+        playCollect();
+        break;
+      case 'wrong':
+        playHit();
+        break;
+      case 'pickup':
+        playCollect();
+        break;
+      case 'victory':
+        playWin();
+        break;
+      case 'streak':
+        playStreak();
+        break;
     }
-  }, [soundEnabled]);
+  }, [soundEnabled, playCollect, playHit, playWin, playStreak]);
   
   // Check and unlock achievements
   const checkAchievements = useCallback((score: number, streak: number, isWin: boolean) => {
@@ -1046,15 +960,15 @@ export const BattleRoyaleGame: React.FC = () => {
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={1} castShadow />
         
-        <Arena size={200} />
-        <Storm radius={gameState.stormRadius} />
+        <EnhancedArena size={200} />
+        <EnhancedStorm radius={gameState.stormRadius} />
         
         {gameState.players.filter(p => p.health > 0).map(p => (
-          <PlayerMesh key={p.id} player={p} />
+          <EnhancedPlayerMesh key={p.id} player={p} />
         ))}
         
         {gameState.loot.map(l => (
-          <LootMesh key={l.id} loot={l} />
+          <EnhancedLootMesh key={l.id} loot={l} />
         ))}
 
         {selfPlayer && <GameCamera playerPos={selfPlayer.position} />}
