@@ -956,6 +956,38 @@ async function generateAIResponse(query: string): Promise<{
   agentId: AgentType;
   suggestedActions?: Message['suggestedActions'];
 }> {
+  try {
+    const response = await fetch('/api/ai/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        messages: [{ role: 'user', content: query }]
+      })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return {
+        content: data.content,
+        agentId: 'coordinator',
+        suggestedActions: [
+          { label: 'Continue', action: 'prompt', params: { text: 'Tell me more' } },
+          { label: 'Save Response', action: 'navigate', params: { path: '/resources/save' } }
+        ]
+      };
+    }
+  } catch (error) {
+    console.warn('AI API failed, falling back to local logic', error);
+  }
+  
+  return generateLocalResponse(query);
+}
+
+async function generateLocalResponse(query: string): Promise<{
+  content: string;
+  agentId: AgentType;
+  suggestedActions?: Message['suggestedActions'];
+}> {
   const queryLower = query.toLowerCase();
   
   // Route to appropriate agent and generate response
