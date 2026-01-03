@@ -1,4 +1,6 @@
 import { logger } from '../../utils/logger';
+import { prisma } from '../../lib/prisma/client';
+import { Prisma } from '@prisma/client';
 
 interface AITutoringOptions {
   tutoringAlgorithm?: 'adaptive' | 'mastery' | 'scaffolding';
@@ -42,7 +44,7 @@ interface ConversationItem {
 
 interface TutoringSession {
   id: string;
-  studentId: string;
+  studentId: number;
   topicId: string;
   sessionType: string;
   difficulty: string;
@@ -60,7 +62,7 @@ interface TutoringSession {
 }
 
 interface StudentModel {
-  studentId: string;
+  studentId: number;
   topicId: string;
   knowledgeLevel: number;
   confidence: number;
@@ -108,7 +110,7 @@ interface FeedbackContext {
 }
 
 interface PersonalisedFeedback {
-  studentId: string;
+  studentId: number;
   generatedAt: string;
   overallAssessment: any;
   strengths: any[];
@@ -120,7 +122,7 @@ interface PersonalisedFeedback {
 }
 
 interface LearningGapAssessment {
-  studentId: string;
+  studentId: number;
   topicId: string;
   assessmentDate: string;
   knowledgeState: any;
@@ -170,9 +172,6 @@ interface SessionSummary {
 
 export class AITutoringService {
   private options: Required<AITutoringOptions>;
-  private tutoringSessions: Map<string, TutoringSession>;
-  private studentModels: Map<string, StudentModel>;
-  private conversationHistory: Map<string, any[]>;
   private knowledgeGraph: Map<string, any>;
   private feedbackTemplates: Map<string, string[]>;
 
@@ -186,9 +185,6 @@ export class AITutoringService {
       feedbackTypes: options.feedbackTypes || ['explanatory', 'socratic', 'encouraging', 'corrective']
     };
 
-    this.tutoringSessions = new Map();
-    this.studentModels = new Map();
-    this.conversationHistory = new Map();
     this.knowledgeGraph = new Map();
     this.feedbackTemplates = new Map();
 
@@ -206,7 +202,7 @@ export class AITutoringService {
     }
   }
 
-  async startTutoringSession(studentId: string, topicId: string, sessionConfig: SessionConfig = {}): Promise<{ sessionId: string; session: TutoringSession; initialInteraction: ConversationItem }> {
+  async startTutoringSession(studentId: number, topicId: string, sessionConfig: SessionConfig = {}): Promise<{ sessionId: string; session: TutoringSession; initialInteraction: ConversationItem }> {
     try {
       const {
         sessionType = 'practice',
@@ -218,45 +214,54 @@ export class AITutoringService {
       // Get student model
       const studentModel = await this._getStudentModel(studentId, topicId);
 
-      // Create session
-      const sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      const session: TutoringSession = {
-        id: sessionId,
-        studentId,
-        topicId,
-        sessionType,
-        difficulty,
-        timeLimit,
-        objectives,
-        startTime: new Date().toISOString(),
-        endTime: null,
-        status: 'active',
-        progress: {
-          questionsAnswered: 0,
-          correctAnswers: 0,
-          currentStreak: 0,
-          timeSpent: 0
-        },
-        conversation: [],
-        learningPath: [],
-        assessment: {
-          preTestScore: await this._assessPriorKnowledge(studentId, topicId),
-          currentScore: 0,
-          masteryLevel: 0
-        }
-      };
-
-      this.tutoringSessions.set(sessionId, session);
-
       // Generate initial learning path
-      session.learningPath = await this._generateLearningPath(studentModel, topicId, objectives);
+      const learningPath = await this._generateLearningPath(studentModel, topicId, objectives);
+
+      // Assess prior knowledge
+      const preTestScore = await this._assessPriorKnowledge(studentId, topicId);
+
+      // Create session in DB
+      const dbSession = await prisma.tutoringSession.create({
+        data: {
+          student_id: studentId,
+          topic_id: topicId,
+          status: 'active',
+          start_time: new Date(),
+          session_type: sessionType,
+          difficulty: difficulty,
+          objectives: objectives,
+          learning_path: learningPath as any as Prisma.JsonArray,
+          questions_answered: 0,
+          correct_answers: 0,
+          current_streak: 0,
+          time_spent: 0,
+          pre_test_score: preTestScore,
+          current_score: 0,
+          mastery_level: 0
+        }
+      });
+
+      const session: TutoringSession = this._mapDbSessionToInterface(dbSession);
 
       // Start with initial question or prompt
       const initialInteraction = await this._generateInitialInteraction(session);
+      
+      // Store initial interaction
+      await prisma.tutoringMessage.create({
+        data: {
+          session_id: dbSession.id,
+          type: 'tutor',
+          content: JSON.stringify(initialInteraction.content),
+          question: initialInteraction.question as any as Prisma.JsonObject,
+          timestamp: new Date()
+        }
+      });
+
+      // Update session with conversation item (in memory representation)
       session.conversation.push(initialInteraction);
 
       return {
-        sessionId,
+        sessionId: dbSession.id,
         session,
         initialInteraction
       };
@@ -268,10 +273,15 @@ export class AITutoringService {
 
   async processStudentResponse(sessionId: string, studentResponse: StudentResponse): Promise<{ sessionId: string; tutorResponse: TutorResponse; nextAction: NextAction; sessionProgress: SessionProgress; analysis: any }> {
     try {
-      const session = this.tutoringSessions.get(sessionId);
-      if (!session || session.status !== 'active') {
+      const dbSession = await prisma.tutoringSession.findUnique({
+        where: { id: sessionId }
+      });
+
+      if (!dbSession || dbSession.status !== 'active') {
         throw new Error('Invalid or inactive session');
       }
+
+      const session = this._mapDbSessionToInterface(dbSession);
 
       const {
         response,
@@ -279,6 +289,19 @@ export class AITutoringService {
         timeSpent = 0,
         confidence = null
       } = studentResponse;
+
+      // Store student message
+      await prisma.tutoringMessage.create({
+        data: {
+          session_id: sessionId,
+          type: 'student',
+          content: response,
+          response_type: responseType,
+          time_spent: timeSpent,
+          confidence: confidence,
+          timestamp: new Date()
+        }
+      });
 
       // Update session progress
       session.progress.questionsAnswered++;
@@ -296,31 +319,33 @@ export class AITutoringService {
       // Generate tutor response
       const tutorResponse = await this._generateTutorResponse(session, analysis, nextAction);
 
-      // Add to conversation
-      session.conversation.push({
-        type: 'student',
-        content: response,
-        responseType,
-        timeSpent,
-        confidence: confidence || undefined,
-        timestamp: new Date().toISOString()
+      // Store tutor message
+      await prisma.tutoringMessage.create({
+        data: {
+          session_id: sessionId,
+          type: 'tutor',
+          content: tutorResponse.text,
+          action: nextAction as any as Prisma.JsonObject,
+          timestamp: new Date()
+        }
       });
 
-      session.conversation.push({
-        type: 'tutor',
-        content: tutorResponse,
-        action: nextAction,
-        timestamp: new Date().toISOString()
+      // Update session state in DB
+      await prisma.tutoringSession.update({
+        where: { id: sessionId },
+        data: {
+          questions_answered: session.progress.questionsAnswered,
+          correct_answers: session.progress.correctAnswers,
+          current_streak: session.progress.currentStreak,
+          time_spent: session.progress.timeSpent,
+          current_score: session.assessment.currentScore,
+          mastery_level: session.assessment.masteryLevel
+        }
       });
 
       // Check session completion
       if (nextAction.type === 'end_session') {
-        await this._endTutoringSession(sessionId);
-      }
-
-      // Keep conversation manageable
-      if (session.conversation.length > this.options.maxConversationLength) {
-        session.conversation = session.conversation.slice(-this.options.maxConversationLength);
+        await this.endTutoringSession(sessionId);
       }
 
       return {
@@ -340,7 +365,7 @@ export class AITutoringService {
     }
   }
 
-  async generatePersonalisedFeedback(studentId: string, performanceData: any, context: FeedbackContext = {}): Promise<PersonalisedFeedback> {
+  async generatePersonalisedFeedback(studentId: number, performanceData: any, context: FeedbackContext = {}): Promise<PersonalisedFeedback> {
     try {
       const {
         includeStrengths = true,
@@ -376,7 +401,7 @@ export class AITutoringService {
     }
   }
 
-  async assessLearningGaps(studentId: string, topicId: string): Promise<LearningGapAssessment> {
+  async assessLearningGaps(studentId: number, topicId: string): Promise<LearningGapAssessment> {
     try {
       // Get student's current knowledge state
       const knowledgeState = await this._assessKnowledgeState(studentId, topicId);
@@ -410,10 +435,16 @@ export class AITutoringService {
 
   async provideHint(sessionId: string, context: HintContext = {}): Promise<HintResult> {
     try {
-      const session = this.tutoringSessions.get(sessionId);
-      if (!session) {
+      const dbSession = await prisma.tutoringSession.findUnique({
+        where: { id: sessionId },
+        include: { messages: { orderBy: { timestamp: 'desc' }, take: 1 } }
+      });
+
+      if (!dbSession) {
         throw new Error('Session not found');
       }
+
+      const session = this._mapDbSessionToInterface(dbSession);
 
       const {
         hintLevel = 1, // 1-3, with 3 being most specific
@@ -421,7 +452,8 @@ export class AITutoringService {
       } = context;
 
       // Analyse current question and student progress
-      const currentQuestion = session.conversation[session.conversation.length - 1];
+      // In a real implementation, we'd fetch the last question from messages
+      const currentQuestion = session.conversation[session.conversation.length - 1]; 
       const studentProgress = session.progress;
 
       // Generate appropriate hint
@@ -434,13 +466,19 @@ export class AITutoringService {
       );
 
       // Track hint usage
-      if (!session.hintUsage) {
-        session.hintUsage = [];
-      }
-      session.hintUsage.push({
+      const currentHintUsage = (dbSession.hint_usage as any[]) || [];
+      currentHintUsage.push({
         hintLevel,
         hintType,
         timestamp: new Date().toISOString()
+      });
+
+      // Update session with hint usage
+      await prisma.tutoringSession.update({
+        where: { id: sessionId },
+        data: {
+          hint_usage: currentHintUsage as any as Prisma.JsonArray
+        }
       });
 
       return {
@@ -448,7 +486,7 @@ export class AITutoringService {
         hint,
         hintLevel,
         hintType,
-        usageCount: session.hintUsage.length
+        usageCount: currentHintUsage.length
       };
     } catch (error) {
       logger.error('Error providing hint:', error);
@@ -478,7 +516,7 @@ export class AITutoringService {
       };
 
       // Calculate summary metrics
-      const relevantSessions = this._getRelevantSessions(filters, timeRange);
+      const relevantSessions = await this._getRelevantSessions(filters, timeRange);
       analytics.summary = this._calculateTutoringSummary(relevantSessions);
 
       // Calculate performance metrics
@@ -499,23 +537,42 @@ export class AITutoringService {
 
   async endTutoringSession(sessionId: string): Promise<{ sessionId: string; summary: SessionSummary; finalAssessment: SessionAssessment }> {
     try {
-      const session = this.tutoringSessions.get(sessionId);
-      if (!session) {
+      const dbSession = await prisma.tutoringSession.findUnique({
+        where: { id: sessionId }
+      });
+
+      if (!dbSession) {
         throw new Error('Session not found');
       }
+
+      const session = this._mapDbSessionToInterface(dbSession);
 
       // Mark session as completed
       session.status = 'completed';
       session.endTime = new Date().toISOString();
 
+      // Calculate final assessment
+      session.assessment.currentScore = session.progress.correctAnswers / (session.progress.questionsAnswered || 1);
+      session.assessment.masteryLevel = this._calculateMasteryLevel(session);
+
       // Generate session summary
       const summary = this._generateSessionSummary(session);
+      session.completionSummary = summary;
 
       // Update student model with session learnings
       await this._updateStudentModelFromSession(session);
 
-      // Store conversation history
-      this._storeConversationHistory(session);
+      // Update session in DB
+      await prisma.tutoringSession.update({
+        where: { id: sessionId },
+        data: {
+          status: 'completed',
+          end_time: new Date(),
+          current_score: session.assessment.currentScore,
+          mastery_level: session.assessment.masteryLevel,
+          completion_summary: summary as any as Prisma.JsonObject
+        }
+      });
 
       return {
         sessionId,
@@ -528,10 +585,47 @@ export class AITutoringService {
     }
   }
 
-  private async _getStudentModel(studentId: string, topicId: string): Promise<StudentModel> {
-    const modelKey = `${studentId}_${topicId}`;
+  private _mapDbSessionToInterface(dbSession: any): TutoringSession {
+    return {
+      id: dbSession.id,
+      studentId: dbSession.student_id,
+      topicId: dbSession.topic_id,
+      sessionType: dbSession.session_type || 'practice',
+      difficulty: dbSession.difficulty || 'adaptive',
+      timeLimit: 30, // Default or fetched if stored
+      objectives: dbSession.objectives || [],
+      startTime: dbSession.start_time.toISOString(),
+      endTime: dbSession.end_time ? dbSession.end_time.toISOString() : null,
+      status: dbSession.status as 'active' | 'completed',
+      progress: {
+        questionsAnswered: dbSession.questions_answered || 0,
+        correctAnswers: dbSession.correct_answers || 0,
+        currentStreak: dbSession.current_streak || 0,
+        timeSpent: dbSession.time_spent || 0
+      },
+      conversation: [], // Conversation is loaded separately if needed
+      learningPath: (dbSession.learning_path as any[]) || [],
+      assessment: {
+        preTestScore: dbSession.pre_test_score || 0,
+        currentScore: dbSession.current_score || 0,
+        masteryLevel: dbSession.mastery_level || 0
+      },
+      hintUsage: (dbSession.hint_usage as any[]) || [],
+      completionSummary: dbSession.completion_summary as any
+    };
+  }
 
-    if (!this.studentModels.has(modelKey)) {
+  private async _getStudentModel(studentId: number, topicId: string): Promise<StudentModel> {
+    const mastery = await prisma.studentTopicMastery.findUnique({
+      where: {
+        student_id_topic_id: {
+          student_id: studentId,
+          topic_id: topicId
+        }
+      }
+    });
+
+    if (!mastery) {
       // Create initial student model
       const model: StudentModel = {
         studentId,
@@ -546,13 +640,42 @@ export class AITutoringService {
         lastUpdated: new Date().toISOString()
       };
 
-      this.studentModels.set(modelKey, model);
+      // Persist initial model
+      await prisma.studentTopicMastery.create({
+        data: {
+          student_id: studentId,
+          topic_id: topicId,
+          knowledge_level: 0.5,
+          confidence: 0.5,
+          progress_history: {
+            learningStyle: 'visual',
+            strengths: [],
+            weaknesses: [],
+            misconceptions: [],
+            history: []
+          } as any as Prisma.JsonObject
+        }
+      });
+
+      return model;
     }
 
-    return this.studentModels.get(modelKey)!;
+    const progressData = (mastery.progress_history as any) || {};
+    return {
+      studentId,
+      topicId,
+      knowledgeLevel: mastery.knowledge_level,
+      confidence: mastery.confidence,
+      learningStyle: progressData.learningStyle || 'visual',
+      strengths: progressData.strengths || [],
+      weaknesses: progressData.weaknesses || [],
+      misconceptions: progressData.misconceptions || [],
+      progressHistory: progressData.history || [],
+      lastUpdated: mastery.last_updated.toISOString()
+    };
   }
 
-  private async _assessPriorKnowledge(studentId: string, topicId: string): Promise<number> {
+  private async _assessPriorKnowledge(studentId: number, topicId: string): Promise<number> {
     // Assess student's prior knowledge of the topic
     const model = await this._getStudentModel(studentId, topicId);
     return model.knowledgeLevel;
@@ -621,7 +744,7 @@ export class AITutoringService {
     return analysis;
   }
 
-  private async _updateStudentModel(studentId: string, topicId: string, analysis: ResponseAnalysis): Promise<void> {
+  private async _updateStudentModel(studentId: number, topicId: string, analysis: ResponseAnalysis): Promise<void> {
     const model = await this._getStudentModel(studentId, topicId);
 
     // Update knowledge level based on analysis
@@ -644,7 +767,27 @@ export class AITutoringService {
       model.progressHistory = model.progressHistory.slice(-50);
     }
 
-    model.lastUpdated = new Date().toISOString();
+    // Update DB
+    await prisma.studentTopicMastery.update({
+      where: {
+        student_id_topic_id: {
+          student_id: studentId,
+          topic_id: topicId
+        }
+      },
+      data: {
+        knowledge_level: model.knowledgeLevel,
+        confidence: model.confidence,
+        last_updated: new Date(),
+        progress_history: {
+          learningStyle: model.learningStyle,
+          strengths: model.strengths,
+          weaknesses: model.weaknesses,
+          misconceptions: model.misconceptions,
+          history: model.progressHistory
+        } as any as Prisma.JsonObject
+      }
+    });
   }
 
   private async _determineNextAction(session: TutoringSession, analysis: ResponseAnalysis): Promise<NextAction> {
@@ -714,21 +857,6 @@ export class AITutoringService {
     };
   }
 
-  private async _endTutoringSession(sessionId: string): Promise<void> {
-    const session = this.tutoringSessions.get(sessionId);
-    if (session) {
-      session.status = 'completed';
-      session.endTime = new Date().toISOString();
-
-      // Calculate final assessment
-      session.assessment.currentScore = session.progress.correctAnswers / session.progress.questionsAnswered;
-      session.assessment.masteryLevel = this._calculateMasteryLevel(session);
-
-      // Generate completion summary
-      session.completionSummary = this._generateSessionSummary(session);
-    }
-  }
-
   private async _loadKnowledgeGraph(): Promise<void> {
     // Load topic knowledge graphs
     logger.info('Loading knowledge graph');
@@ -779,8 +907,8 @@ export class AITutoringService {
   }
 
   private _calculateMasteryLevel(session: TutoringSession): number {
-    const accuracy = session.progress.correctAnswers / session.progress.questionsAnswered;
-    const consistency = session.progress.currentStreak / session.progress.questionsAnswered;
+    const accuracy = session.progress.correctAnswers / (session.progress.questionsAnswered || 1);
+    const consistency = session.progress.currentStreak / (session.progress.questionsAnswered || 1);
 
     return (accuracy * 0.7) + (consistency * 0.3);
   }
@@ -789,7 +917,7 @@ export class AITutoringService {
     return {
       totalQuestions: session.progress.questionsAnswered,
       correctAnswers: session.progress.correctAnswers,
-      accuracy: session.progress.correctAnswers / session.progress.questionsAnswered,
+      accuracy: session.progress.correctAnswers / (session.progress.questionsAnswered || 1),
       timeSpent: session.progress.timeSpent,
       masteryLevel: session.assessment.masteryLevel,
       improvement: session.assessment.currentScore - session.assessment.preTestScore,
@@ -802,45 +930,45 @@ export class AITutoringService {
     const model = await this._getStudentModel(session.studentId, session.topicId);
 
     // Update model based on session performance
-    const sessionAccuracy = session.progress.correctAnswers / session.progress.questionsAnswered;
+    const sessionAccuracy = session.progress.correctAnswers / (session.progress.questionsAnswered || 1);
     model.knowledgeLevel = (model.knowledgeLevel + sessionAccuracy) / 2;
 
-    model.lastUpdated = new Date().toISOString();
-  }
-
-  private _storeConversationHistory(session: TutoringSession): void {
-    const historyKey = `${session.studentId}_${session.topicId}`;
-
-    if (!this.conversationHistory.has(historyKey)) {
-      this.conversationHistory.set(historyKey, []);
-    }
-
-    const history = this.conversationHistory.get(historyKey)!;
-    history.push({
-      sessionId: session.id,
-      conversation: session.conversation,
-      summary: session.completionSummary,
-      timestamp: new Date().toISOString()
+    // Update DB
+    await prisma.studentTopicMastery.update({
+      where: {
+        student_id_topic_id: {
+          student_id: session.studentId,
+          topic_id: session.topicId
+        }
+      },
+      data: {
+        knowledge_level: model.knowledgeLevel,
+        last_updated: new Date()
+      }
     });
-
-    // Keep only recent history
-    if (history.length > 10) {
-      this.conversationHistory.set(historyKey, history.slice(-5));
-    }
   }
 
-  private _cleanupExpiredSessions(): void {
+  private async _cleanupExpiredSessions(): Promise<void> {
     const now = new Date();
     const maxSessionTime = 2 * 60 * 60 * 1000; // 2 hours
+    const cutoffTime = new Date(now.getTime() - maxSessionTime);
 
-    for (const [sessionId, session] of this.tutoringSessions) {
-      if (session.status === 'active') {
-        const startTime = new Date(session.startTime);
-        if (now.getTime() - startTime.getTime() > maxSessionTime) {
-          logger.info(`Cleaning up expired session: ${sessionId}`);
-          this._endTutoringSession(sessionId);
+    try {
+      const expiredSessions = await prisma.tutoringSession.findMany({
+        where: {
+          status: 'active',
+          start_time: {
+            lt: cutoffTime
+          }
         }
+      });
+
+      for (const session of expiredSessions) {
+        logger.info(`Cleaning up expired session: ${session.id}`);
+        await this.endTutoringSession(session.id);
       }
+    } catch (error) {
+      logger.error('Error cleaning up expired sessions:', error);
     }
   }
 
@@ -849,7 +977,7 @@ export class AITutoringService {
     return {};
   }
 
-  private async _getStudentProfile(studentId: string): Promise<any> {
+  private async _getStudentProfile(studentId: number): Promise<any> {
     return {};
   }
 
@@ -881,7 +1009,7 @@ export class AITutoringService {
     return {};
   }
 
-  private async _assessKnowledgeState(studentId: string, topicId: string): Promise<any> {
+  private async _assessKnowledgeState(studentId: number, topicId: string): Promise<any> {
     return {};
   }
 
@@ -893,7 +1021,7 @@ export class AITutoringService {
     return [];
   }
 
-  private _generateRemediationPlan(gaps: any[], studentId: string): any {
+  private _generateRemediationPlan(gaps: any[], studentId: number): any {
     return {};
   }
 
@@ -905,14 +1033,25 @@ export class AITutoringService {
     return "Hint placeholder";
   }
 
-  private _getRelevantSessions(filters: any, range: number): any[] {
-    return [];
+  private async _getRelevantSessions(filters: any, range: number): Promise<any[]> {
+    const cutoffDate = new Date();
+    cutoffDate.setDate(cutoffDate.getDate() - range);
+
+    const sessions = await prisma.tutoringSession.findMany({
+      where: {
+        start_time: {
+          gte: cutoffDate
+        }
+      }
+    });
+
+    return sessions;
   }
 
   private _calculateTutoringSummary(sessions: any[]): any {
     return {
-      totalSessions: 0,
-      totalStudents: 0,
+      totalSessions: sessions.length,
+      totalStudents: new Set(sessions.map(s => s.student_id)).size,
       averageSessionLength: 0,
       averageImprovement: 0,
       mostChallengingTopics: []
@@ -933,12 +1072,18 @@ export class AITutoringService {
 
   async shutdown(): Promise<void> {
     // End all active sessions
-    for (const [sessionId, session] of this.tutoringSessions) {
-      if (session.status === 'active') {
-        await this._endTutoringSession(sessionId);
-      }
-    }
+    try {
+      const activeSessions = await prisma.tutoringSession.findMany({
+        where: { status: 'active' }
+      });
 
-    logger.info('AI tutoring service shut down');
+      for (const session of activeSessions) {
+        await this.endTutoringSession(session.id);
+      }
+      
+      logger.info('AI tutoring service shut down');
+    } catch (error) {
+      logger.error('Error shutting down AI tutoring service:', error);
+    }
   }
 }

@@ -4,7 +4,8 @@
  */
 
 import { prisma } from '@/lib/prisma';
-import { type AIService as _AIService } from './ai-service';
+import { aiService } from '@/lib/ai-integration';
+import { logger } from '@/lib/logger';
 
 export interface BlogPost {
   id: string;
@@ -112,7 +113,7 @@ export class BlogService {
    */
   async generateAutomatedPost(request: BlogGenerationRequest): Promise<BlogPost> {
     try {
-      // Generate content using AI (Mock for now, would use AIService)
+      // Generate content using AI
       const generatedContent = await this.generateBlogContent(request);
       const slug = this.generateSlug(generatedContent.title);
 
@@ -354,47 +355,41 @@ export class BlogService {
 
   // Helper methods
   private async generateBlogContent(request: BlogGenerationRequest): Promise<any> {
-    // Mock content generation - in production this would use AIService
-    const titles: Record<string, string> = {
-      'curriculum': 'Revolutionary Curriculum Design for the 21st Century',
-      'assessment': 'Beyond Testing: Authentic Assessment Strategies',
-      'engagement': 'Student Engagement: The Key to Learning Success',
-      'technology': 'Educational Technology That Actually Works',
-      'wellbeing': 'Supporting Student Mental Health and Wellbeing'
-    };
-
-    const baseTopic = request.topic.toLowerCase();
-    const title = titles[baseTopic] || `Mastering ${request.topic} in Modern Education`;
-
-    return {
-      title,
-      excerpt: `Discover evidence-based strategies and practical insights for ${request.topic} in contemporary education.`,
-      content: this.generateDetailedContent(request),
-      tags: [request.topic, request.category, ...request.targetAudience]
-    };
-  }
-
-  private generateDetailedContent(request: BlogGenerationRequest): string {
-    return `
-      <h2>Introduction</h2>
-      <p>Welcome to our comprehensive guide on ${request.topic}. In this post, we'll explore evidence-based strategies and practical applications that can transform your educational practice.</p>
-
-      <h2>Understanding the Challenge</h2>
-      <p>Every educator faces unique challenges in ${request.topic}. Let's examine the current landscape and identify key opportunities for improvement.</p>
-
-      <h2>Evidence-Based Solutions</h2>
-      <p>Research shows that effective ${request.topic} strategies can significantly improve learning outcomes. Here are the most impactful approaches:</p>
-
-      <h2>Practical Implementation</h2>
-      <p>Ready to apply these insights in your classroom? Follow these step-by-step guidelines:</p>
-
-      <h2>Measuring Success</h2>
-      <p>Track your progress and measure the impact of these strategies on student learning outcomes.</p>
-
-      <h2>Conclusion</h2>
-      <p>By implementing these ${request.topic} strategies, you'll create more engaging and effective learning experiences for your students.</p>
+    const prompt = `
+      Write a ${request.tone} educational blog post about "${request.topic}".
+      Target audience: ${request.targetAudience.join(', ')}.
+      Category: ${request.category}.
+      Length: ${request.length}.
+      Include research: ${request.includeResearch}.
+      Include examples: ${request.includeExamples}.
+      Include actionable tips: ${request.includeActionable}.
+      
+      Format the output as JSON with keys: title, content (Markdown), excerpt, tags (array of strings).
     `;
+
+    try {
+      const response = await aiService.generateResponse({
+        prompt,
+        id: `blog-gen-${Date.now()}`,
+        subscriptionTier: 'enterprise',
+        useCase: 'blog_generation'
+      });
+
+      const jsonStr = response.response.replace(/```json\n?|\n?```/g, '');
+      return JSON.parse(jsonStr);
+    } catch (error) {
+      logger.error('AI generation failed', { error });
+      // Fallback
+      return {
+        title: \`Insights on \${request.topic}\`,
+        content: \`Content generation currently unavailable. Please check back later for insights on \${request.topic}.\`,
+        excerpt: \`Brief overview of \${request.topic}.\`,
+        tags: [request.topic, request.category]
+      };
+    }
   }
+
+
 
   private calculateRelevanceScore(post: BlogPost, userInterests: string[], userType: BlogAudience): number {
     let score = 0;
