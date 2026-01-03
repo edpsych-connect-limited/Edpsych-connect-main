@@ -381,9 +381,9 @@ export class BlogService {
       logger.error('AI generation failed', { error });
       // Fallback
       return {
-        title: \`Insights on \${request.topic}\`,
-        content: \`Content generation currently unavailable. Please check back later for insights on \${request.topic}.\`,
-        excerpt: \`Brief overview of \${request.topic}.\`,
+        title: `Insights on ${request.topic}`,
+        content: `Content generation currently unavailable. Please check back later for insights on ${request.topic}.`,
+        excerpt: `Brief overview of ${request.topic}.`,
         tags: [request.topic, request.category]
       };
     }
