@@ -290,7 +290,7 @@ export default function DashboardPage() {
       );
     }
     // Local Authority (LAA)
-    else if (role === 'LAA' || role === 'LOCAL_AUTHORITY') {
+    else if (role === 'LAA' || role === 'LOCAL_AUTHORITY' || role === 'LA_ADMIN' || role === 'LA_MANAGER' || role === 'LA_CASEWORKER') {
       list.push(
         {
           title: 'LAA Dashboard',

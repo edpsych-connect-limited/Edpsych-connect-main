@@ -223,8 +223,13 @@ export async function proxy(request: NextRequest) {
       const tier = (payload as any).subscriptionTier;
       // Allow 'enterprise' tier. Also allow 'admin' role to bypass (optional, but good for support)
       const role = (payload as any).role;
+      const userRoles = Array.isArray(role) ? role : [role];
       
-      if (tier !== 'enterprise' && role !== 'admin' && role !== 'super_admin') {
+      // Allow LA roles to access enterprise APIs (they are inherently enterprise users)
+      const isLARole = userRoles.some((r: any) => ['LA_ADMIN', 'LA_MANAGER', 'LA_CASEWORKER'].includes(r));
+      const isAdmin = userRoles.some((r: any) => ['admin', 'super_admin', 'ADMIN', 'SUPER_ADMIN'].includes(r));
+
+      if (tier !== 'enterprise' && !isAdmin && !isLARole) {
         logger.warn(`[Proxy] Blocked non-enterprise access to ${pathname} by user ${(payload as any).email} (Tier: ${tier})`);
         return NextResponse.json(
           { error: "Forbidden: Enterprise subscription required" },
@@ -259,7 +264,10 @@ export async function proxy(request: NextRequest) {
     // Example: /admin routes require ADMIN role
     if (pathnameWithoutLocale.startsWith("/admin")) {
       const userRole = (payload as any).role;
-      if (userRole !== "ADMIN" && userRole !== "SUPER_ADMIN") {
+      const roles = Array.isArray(userRole) ? userRole : [userRole];
+      const hasAdminRole = roles.some((r: any) => ['ADMIN', 'SUPER_ADMIN', 'admin', 'super_admin'].includes(r));
+      
+      if (!hasAdminRole) {
         // User does not have permission
         const url = request.nextUrl.clone();
         url.pathname = "/en/dashboard"; // Redirect to user dashboard
