@@ -8,7 +8,7 @@ export async function getCodingCurriculum() {
     // Find the specific lesson plan we seeded
     const lessonPlan = await prisma.lessonPlan.findFirst({
       where: {
-        title: 'Developers of Tomorrow Curriculum',
+        title: 'Coders of Tomorrow Curriculum',
         subject: 'Computing'
       },
       include: {

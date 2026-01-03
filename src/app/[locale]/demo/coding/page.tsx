@@ -14,7 +14,7 @@ import EnhancedCodingCurriculum from '@/components/demo/EnhancedCodingCurriculum
 import { getCodingCurriculum } from '@/app/actions/coding-curriculum';
 
 export const metadata = {
-  title: 'Developers of Tomorrow | EdPsych Connect',
+  title: 'Coders of Tomorrow | EdPsych Connect',
   description: 'Learn to code by modding your favourite games. From block coding to React development with video tutorials and XP tracking.',
 };
 

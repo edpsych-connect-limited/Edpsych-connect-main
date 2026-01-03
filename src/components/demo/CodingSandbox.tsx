@@ -85,7 +85,7 @@ export default function CodingSandbox() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
           <Terminal className="w-8 h-8 text-green-400" />
-          Developers of Tomorrow
+          Coders of Tomorrow
         </h1>
         <p className="text-slate-400">Learn to code by modding your favorite games. From blocks to professional engineering.</p>
       </div>

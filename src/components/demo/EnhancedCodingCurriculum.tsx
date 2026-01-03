@@ -7,7 +7,7 @@
  * CONFIDENTIAL: This software contains proprietary algorithms and trade secrets.
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  * 
- * Enhanced Coding Curriculum - "Developers of Tomorrow"
+ * Enhanced Coding Curriculum - "Coders of Tomorrow"
  * 
  * Features:
  * - Video explainers for each coding concept
@@ -77,7 +77,7 @@ const DEFAULT_CODING_VIDEOS: VideoTutorial[] = [
   {
     id: 'intro-coding-journey',
     title: 'Welcome to Your Coding Journey',
-    description: 'An introduction to the Developers of Tomorrow programme - learn why coding matters and what you\'ll achieve.',
+    description: 'An introduction to the Coders of Tomorrow programme - learn why coding matters and what you\'ll achieve.',
     duration: '5:30',
     track: 'intro'
   },
@@ -278,7 +278,7 @@ export default function EnhancedCodingCurriculum({
                   <Terminal className="w-8 h-8 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-3xl lg:text-4xl font-black text-white">Developers of Tomorrow</h1>
+                  <h1 className="text-3xl lg:text-4xl font-black text-white">Coders of Tomorrow</h1>
                   <p className="text-purple-200">Learn to code by modding your favourite games</p>
                 </div>
               </div>

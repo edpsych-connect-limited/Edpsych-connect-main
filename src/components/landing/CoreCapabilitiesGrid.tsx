@@ -70,7 +70,7 @@ export default function CoreCapabilitiesGrid() {
     },
     {
       icon: Code,
-      title: "Developers of Tomorrow",
+      title: "Coders of Tomorrow",
       description: "Proprietary coding curriculum designed for neurodiversity. Block coding to Python to React—with cognitive load management built in.",
       color: "text-rose-400",
       bg: "bg-rose-400/10",
