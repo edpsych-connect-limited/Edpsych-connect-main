@@ -11,6 +11,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { createParentPortalService } from '@/lib/portal/parent-portal.service';
 import { logger } from '@/lib/logger';
+import { auditLogger, AuditEventType, AuditSeverity } from '@/lib/security/audit-logger';
 
 // ============================================================================
 // GET - Get parent dashboard or child details
@@ -43,6 +44,19 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const type = searchParams.get('type') || 'dashboard';
     const childId = searchParams.get('childId');
+
+    // Audit log access
+    await auditLogger.log({
+      eventType: AuditEventType.DATA_READ,
+      severity: AuditSeverity.LOW,
+      userId: user.id.toString(),
+      userRole: user.role,
+      resourceType: 'parent-portal',
+      resourceId: type,
+      details: { type, childId },
+      ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+      userAgent: request.headers.get('user-agent') || 'unknown',
+    });
 
     const service = createParentPortalService(tenantId, user.id);
 

@@ -14,6 +14,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { createSafeguardingService } from '@/lib/safeguarding/safeguarding.service';
 import { logger } from '@/lib/logger';
+import { auditLogger, AuditEventType, AuditSeverity } from '@/lib/security/audit-logger';
 
 // ============================================================================
 // Helper: Check Safeguarding Permissions
@@ -64,6 +65,19 @@ export async function GET(request: NextRequest) {
     
     const { searchParams } = new URL(request.url);
     const action = searchParams.get('action') || 'dashboard';
+
+    // Audit log access
+    await auditLogger.log({
+      eventType: AuditEventType.DATA_READ,
+      severity: AuditSeverity.MEDIUM,
+      userId: userId.toString(),
+      userRole: userRole,
+      resourceType: 'safeguarding',
+      resourceId: action,
+      details: { action, searchParams: Object.fromEntries(searchParams) },
+      ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+      userAgent: request.headers.get('user-agent') || 'unknown',
+    });
 
     switch (action) {
       case 'dashboard': {
@@ -209,6 +223,19 @@ export async function POST(request: NextRequest) {
     
     const body = await request.json();
     const { action, data } = body;
+
+    // Audit log attempt
+    await auditLogger.log({
+      eventType: AuditEventType.DATA_CREATE,
+      severity: AuditSeverity.HIGH,
+      userId: userId.toString(),
+      userRole: userRole,
+      resourceType: 'safeguarding',
+      resourceId: action,
+      details: { action, data_keys: Object.keys(data || {}) },
+      ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+      userAgent: request.headers.get('user-agent') || 'unknown',
+    });
 
     switch (action) {
       case 'report-concern': {
@@ -393,6 +420,19 @@ export async function PUT(request: NextRequest) {
     
     const body = await request.json();
     const { action, data } = body;
+
+    // Audit log update
+    await auditLogger.log({
+      eventType: AuditEventType.DATA_UPDATE,
+      severity: AuditSeverity.HIGH,
+      userId: userId.toString(),
+      userRole: userRole,
+      resourceType: 'safeguarding',
+      resourceId: action,
+      details: { action, data_keys: Object.keys(data || {}) },
+      ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+      userAgent: request.headers.get('user-agent') || 'unknown',
+    });
 
     switch (action) {
       case 'update-status': {

@@ -15,6 +15,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { AssessmentTemplate } from './assessment-library';
 import { ScoreResult } from './scoring-engine';
+import { processSmartFields } from './smart-fields';
 
 // ============================================================================
 // TYPES
@@ -136,14 +137,14 @@ export class AssessmentReportGenerator {
     // Section 3: Reason for Referral
     if (report.reason_for_referral) {
       this.addSectionHeader('3. Reason for Referral');
-      this.addText(report.reason_for_referral);
+      this.addText(processSmartFields(report.reason_for_referral, report));
       this.yPosition += 5;
     }
 
     // Section 4: Background Information
     if (report.background_information) {
       this.addSectionHeader('4. Background Information');
-      this.addText(report.background_information);
+      this.addText(processSmartFields(report.background_information, report));
       this.yPosition += 5;
     }
 
@@ -160,7 +161,7 @@ export class AssessmentReportGenerator {
 
     // Section 7: Clinical Interpretation
     this.addSectionHeader('7. Clinical Interpretation');
-    this.addText(report.scores.interpretation);
+    this.addText(processSmartFields(report.scores.interpretation, report));
     this.yPosition += 5;
 
     // Section 8: Strengths & Needs
@@ -546,7 +547,7 @@ export class AssessmentReportGenerator {
 
   private addSummary(report: AssessmentReport) {
     const summary = this.generateSummary(report);
-    this.addText(summary);
+    this.addText(processSmartFields(summary, report));
   }
 
   private generateSummary(report: AssessmentReport): string {

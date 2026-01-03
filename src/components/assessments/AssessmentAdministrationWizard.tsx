@@ -15,7 +15,7 @@ import { logger } from "@/lib/logger";
  * - Draft saving throughout
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { downloadAssessmentReport, type AssessmentReport } from '@/lib/assessments/report-generator';
 
@@ -72,6 +72,12 @@ export default function AssessmentAdministrationWizard({
   const [isSaving, setIsSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [isGeneratingReport, setIsGeneratingReport] = useState(false);
+
+  // Ref to track latest assessment data for auto-save without resetting interval
+  const assessmentDataRef = useRef(assessmentData);
+  useEffect(() => {
+    assessmentDataRef.current = assessmentData;
+  }, [assessmentData]);
 
   // Fetch framework data
   useEffect(() => {
@@ -156,12 +162,12 @@ export default function AssessmentAdministrationWizard({
   // Auto-save draft every 2 minutes
   useEffect(() => {
     const autoSaveInterval = setInterval(() => {
-      saveDraft();
+      saveDraft(assessmentDataRef.current);
     }, 120000); // 2 minutes
 
     return () => clearInterval(autoSaveInterval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [assessmentData]);
+  }, []);
 
   // Load existing assessment if editing
   useEffect(() => {
@@ -171,14 +177,14 @@ export default function AssessmentAdministrationWizard({
   }, [existingInstanceId]);
 
   // Save draft
-  const saveDraft = async () => {
+  const saveDraft = async (dataToSave = assessmentData) => {
     setIsSaving(true);
     try {
       const response = await fetch('/api/assessments/instances', {
         method: existingInstanceId ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...assessmentData,
+          ...dataToSave,
           id: existingInstanceId,
           status: 'draft',
         }),
