@@ -87,8 +87,12 @@ These features MUST work perfectly for the demo.
 
 ### 4.2 Functional Gaps
 - [ ] **Gap Analysis:** Identify any "Mock" data still in use.
-- [ ] **Action:** Replace all mocks with live DB calls.
+- [x] **Action:** Replace all mocks with live DB calls.
     - [x] **Authentication:** Replaced mock `useAuth` hook with real Enterprise-Grade Auth Provider.
+    - [x] **EHCP:** Wired to real DB (Prisma).
+    - [x] **Algorithm Marketplace:** Wired to real DB (Prisma).
+    - [x] **Coding Curriculum:** Wired to real DB (Prisma).
+    - [x] **CDN:** Wired to Cloudinary (Production).
     - [x] Parent Portal: Wired to Training & Intervention Engines.
     - [x] School Portal: Wired to Intervention & Assessment Engines.
     - [x] EP Portal: Wired to Assessment Engine (Professional Toolkit).
