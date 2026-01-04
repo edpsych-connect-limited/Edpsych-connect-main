@@ -40,24 +40,11 @@ async function routeEhcp(request: NextRequest): Promise<NextResponse> {
 
     if (segments.length === 0) {
       if (request.method === 'GET') {
-        const applications = await prisma.eHCPApplication.findMany({
+        // Fetch real EHCP plans from the database
+        const ehcps = await prisma.ehcps.findMany({
           take: 20,
-          orderBy: { created_at: 'desc' }
+          orderBy: { updated_at: 'desc' }
         });
-        
-        const ehcps = applications.map(app => ({
-          id: app.id,
-          student_id: app.student_id,
-          tenant_id: app.la_tenant_id,
-          plan_details: {
-            status: app.status,
-            section_b: {
-              primary_need: app.primary_need
-            }
-          },
-          issued_at: app.created_at.toISOString(),
-          updated_at: app.updated_at.toISOString()
-        }));
 
         return NextResponse.json({ 
           success: true, 
@@ -65,7 +52,7 @@ async function routeEhcp(request: NextRequest): Promise<NextResponse> {
           pagination: {
             page: 1,
             limit: 20,
-            totalCount: applications.length,
+            totalCount: ehcps.length, // Simplified for now
             totalPages: 1,
             hasNextPage: false,
             hasPreviousPage: false

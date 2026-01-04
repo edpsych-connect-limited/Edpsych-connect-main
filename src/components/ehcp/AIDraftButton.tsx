@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Sparkles, Loader2 } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 
 interface AIDraftButtonProps {
   section: string;
@@ -15,28 +16,42 @@ export default function AIDraftButton({ section, context, onDraftGenerated }: AI
   const handleGenerate = async () => {
     setIsGenerating(true);
     
-    // Simulate AI delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch('/api/ai/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: [
+            {
+              role: 'user',
+              content: `Draft content for EHCP section "${section}". Context: ${context || 'No specific context provided.'}`
+            }
+          ],
+          agentId: 'report-writer'
+        }),
+      });
 
-    // Mock AI response based on section
-    let generatedText = '';
-    if (section === 'section_b') {
-      generatedText = `Based on the assessment data, ${context || 'the student'} demonstrates significant strengths in verbal reasoning but faces challenges with working memory processing. 
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to generate draft');
+      }
 
-Key areas of need include:
-1. Processing speed delays affecting task completion
-2. Difficulty retaining multi-step instructions
-3. Sensory sensitivities in noisy environments
-
-These needs impact access to the curriculum, particularly in literacy and numeracy tasks requiring sustained attention.`;
-    } else if (section === 'section_a') {
-      generatedText = `The family expresses a strong desire for ${context || 'the child'} to develop independence and social confidence. They value an inclusive education setting where peer relationships can be supported.`;
-    } else {
-      generatedText = "AI generated draft content based on available assessment data.";
+      const data = await response.json();
+      
+      if (data.success && data.data && data.data.content) {
+        onDraftGenerated(data.data.content);
+        toast.success('Draft generated successfully');
+      } else {
+        throw new Error('Invalid response format from AI service');
+      }
+    } catch (error) {
+      console.error('AI Draft Error:', error);
+      toast.error(error instanceof Error ? error.message : 'Failed to generate draft');
+    } finally {
+      setIsGenerating(false);
     }
-
-    onDraftGenerated(generatedText);
-    setIsGenerating(false);
   };
 
   return (
