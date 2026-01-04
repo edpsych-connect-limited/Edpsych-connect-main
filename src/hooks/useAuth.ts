@@ -6,7 +6,7 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-import { useState, useEffect } from 'react';
+import { useAuth as useRealAuth } from '@/lib/auth/hooks';
 
 interface User {
   id: string;
@@ -15,18 +15,16 @@ interface User {
 }
 
 function useAuth() {
-    const [user, setUser] = useState<User | null>(null);
+    const { user: realUser, isAuthenticated } = useRealAuth();
 
-    useEffect(() => {
-        // Placeholder: simulate a logged-in user
-        setUser({
-            id: '1',
-            name: 'Test User',
-            email: 'test@example.com',
-        });
-    }, []);
+    // Map the real user object to the interface expected by consumers of this hook
+    const user: User | null = realUser ? {
+        id: realUser.id,
+        name: realUser.name || realUser.email.split('@')[0],
+        email: realUser.email,
+    } : null;
 
-    return { user, isAuthenticated: !!user };
+    return { user, isAuthenticated };
 }
 
 export default useAuth;

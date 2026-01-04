@@ -43,6 +43,11 @@ declare global {
 
 // Initialize Prisma Client with logging options and extensions
 function createPrismaClient(datasourceUrl?: string) {
+  if (!datasourceUrl && !process.env.DATABASE_URL) {
+    console.error('CRITICAL: No DATABASE_URL found in environment!');
+  } else {
+    console.log('Initializing Prisma Client with URL:', datasourceUrl || process.env.DATABASE_URL?.substring(0, 20) + '...');
+  }
   const baseClient = new PrismaClient({
     log: isProduction
       ? ['error'] // Only log errors in production

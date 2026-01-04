@@ -1,4 +1,5 @@
 import { logger } from '../../utils/logger';
+import { prisma } from '../prisma/client';
 
 interface AdaptiveLearningOptions {
   updateInterval?: number;
@@ -211,10 +212,9 @@ export class AdaptiveLearningService {
     try {
       const { responses, timeSpent, topic, difficultyLevel } = assessmentData;
 
-      let profile = this.learningProfiles.get(studentId);
+      let profile = await this._getProfile(studentId);
       if (!profile) {
-        profile = this._createInitialProfile(studentId);
-        this.learningProfiles.set(studentId, profile);
+        profile = await this._createInitialProfile(studentId);
       }
 
       // Analyse learning style indicators
@@ -234,13 +234,16 @@ export class AdaptiveLearningService {
       );
 
       // Determine optimal difficulty
-      profile.optimalDifficulty = this._calculateOptimalDifficulty(profile);
+      profile.optimalDifficulty = await this._calculateOptimalDifficulty(profile);
 
       // Update learning pace preference
       profile.learningPace = this._updateLearningPace(profile, timeSpent, responses.length);
 
       // Store assessment in history
-      this._storeAssessmentHistory(studentId, { ...assessmentData, performance });
+      await this._storeAssessmentHistory(studentId, { ...assessmentData, performance });
+
+      // Save updated profile to DB
+      await this._saveProfile(profile);
 
       return profile;
     } catch (error) {
@@ -262,7 +265,7 @@ export class AdaptiveLearningService {
       } = options;
 
       // Get student learning profile
-      const profile = this.learningProfiles.get(studentId);
+      const profile = await this._getProfile(studentId);
       if (!profile) {
         throw new Error(`Learning profile not found for student: ${studentId}`);
       }
@@ -320,7 +323,7 @@ export class AdaptiveLearningService {
       } = interactionData;
 
       // Get student profile
-      const profile = this.learningProfiles.get(studentId);
+      const profile = await this._getProfile(studentId);
       if (!profile) {
         return { studentId, contentId, adaptations: [] };
       }
@@ -409,7 +412,7 @@ export class AdaptiveLearningService {
       } = goals;
 
       // Get student profile
-      const profile = this.learningProfiles.get(studentId);
+      const profile = await this._getProfile(studentId);
       if (!profile) {
         throw new Error(`Learning profile not found for student: ${studentId}`);
       }
@@ -457,14 +460,25 @@ export class AdaptiveLearningService {
         relatedObjectives
       } = assessmentData;
 
+      const id = parseInt(studentId);
+      if (isNaN(id)) throw new Error('Invalid student ID');
+
       // Get current mastery level
-      const masteryKey = `${studentId}_${objectiveId}`;
-      let mastery = this.masteryLevels.get(masteryKey) || {
-        level: 0,
-        attempts: 0,
+      const dbMastery = await prisma.studentTopicMastery.findUnique({
+        where: {
+          student_id_topic_id: {
+            student_id: id,
+            topic_id: objectiveId
+          }
+        }
+      });
+
+      let mastery: MasteryLevel = {
+        level: dbMastery?.knowledge_level || 0,
+        attempts: 0, // Not tracked in this model
         totalTime: 0,
-        lastAssessed: null,
-        confidence: 0
+        lastAssessed: dbMastery?.last_updated.toISOString() || null,
+        confidence: dbMastery?.confidence || 0
       };
 
       // Update mastery calculation
@@ -477,9 +491,24 @@ export class AdaptiveLearningService {
       );
 
       // Store updated mastery
-      this.masteryLevels.set(masteryKey, {
-        ...newMastery,
-        lastAssessed: new Date().toISOString()
+      await prisma.studentTopicMastery.upsert({
+        where: {
+          student_id_topic_id: {
+            student_id: id,
+            topic_id: objectiveId
+          }
+        },
+        update: {
+          knowledge_level: newMastery.level,
+          confidence: newMastery.confidence,
+          last_updated: new Date()
+        },
+        create: {
+          student_id: id,
+          topic_id: objectiveId,
+          knowledge_level: newMastery.level,
+          confidence: newMastery.confidence
+        }
       });
 
       // Check prerequisite relationships
@@ -520,7 +549,7 @@ export class AdaptiveLearningService {
         includePredictions = true
       } = options;
 
-      const profile = this.learningProfiles.get(studentId);
+      const profile = await this._getProfile(studentId);
       if (!profile) {
         throw new Error(`Learning profile not found for student: ${studentId}`);
       }
@@ -555,8 +584,72 @@ export class AdaptiveLearningService {
     }
   }
 
-  private _createInitialProfile(studentId: string): LearningProfile {
-    return {
+  private async _getProfile(studentId: string): Promise<LearningProfile | null> {
+    try {
+      const id = parseInt(studentId);
+      if (isNaN(id)) return null;
+
+      const dbProfile = await prisma.studentAdaptiveProfile.findUnique({
+        where: { student_id: id }
+      });
+
+      if (!dbProfile) return null;
+
+      return {
+        studentId: dbProfile.student_id.toString(),
+        learningStyles: {
+          visual: dbProfile.visual_preference / 100,
+          auditory: dbProfile.auditory_preference / 100,
+          kinesthetic: dbProfile.kinesthetic_preference / 100,
+          reading: dbProfile.reading_preference / 100
+        },
+        optimalDifficulty: 3, // Default as not in DB yet
+        learningPace: dbProfile.processing_speed === 'fast' ? 'fast' : dbProfile.processing_speed === 'slow' ? 'slow' : 'moderate',
+        cognitiveLoad: 0.5,
+        expectedTimePerContent: dbProfile.attention_span_minutes,
+        performanceMetrics: {}, // Not persisted in this model
+        createdAt: new Date().toISOString(),
+        lastUpdated: new Date().toISOString()
+      };
+    } catch (error) {
+      logger.error('Error fetching profile:', error);
+      return null;
+    }
+  }
+
+  private async _saveProfile(profile: LearningProfile): Promise<void> {
+    try {
+      const id = parseInt(profile.studentId);
+      if (isNaN(id)) return;
+
+      await prisma.studentAdaptiveProfile.upsert({
+        where: { student_id: id },
+        update: {
+          visual_preference: Math.round(profile.learningStyles.visual * 100),
+          auditory_preference: Math.round(profile.learningStyles.auditory * 100),
+          kinesthetic_preference: Math.round(profile.learningStyles.kinesthetic * 100),
+          reading_preference: Math.round(profile.learningStyles.reading * 100),
+          processing_speed: profile.learningPace === 'fast' ? 'fast' : profile.learningPace === 'slow' ? 'slow' : 'average',
+          attention_span_minutes: profile.expectedTimePerContent
+        },
+        create: {
+          student_id: id,
+          tenant_id: 1, // Default tenant
+          visual_preference: Math.round(profile.learningStyles.visual * 100),
+          auditory_preference: Math.round(profile.learningStyles.auditory * 100),
+          kinesthetic_preference: Math.round(profile.learningStyles.kinesthetic * 100),
+          reading_preference: Math.round(profile.learningStyles.reading * 100),
+          processing_speed: profile.learningPace === 'fast' ? 'fast' : profile.learningPace === 'slow' ? 'slow' : 'average',
+          attention_span_minutes: profile.expectedTimePerContent
+        }
+      });
+    } catch (error) {
+      logger.error('Error saving profile:', error);
+    }
+  }
+
+  private async _createInitialProfile(studentId: string): Promise<LearningProfile> {
+    const profile: LearningProfile = {
       studentId,
       learningStyles: {
         visual: 0.25,
@@ -572,6 +665,9 @@ export class AdaptiveLearningService {
       createdAt: new Date().toISOString(),
       lastUpdated: new Date().toISOString()
     };
+    
+    await this._saveProfile(profile);
+    return profile;
   }
 
   private _analyseLearningStyleIndicators(responses: AssessmentResponse[], _timeSpent: number): LearningStyles {
@@ -653,12 +749,12 @@ export class AdaptiveLearningService {
     return currentMetrics;
   }
 
-  private _calculateOptimalDifficulty(profile: LearningProfile): number {
+  private async _calculateOptimalDifficulty(profile: LearningProfile): Promise<number> {
     // Calculate optimal difficulty based on performance and cognitive load
     let optimalDifficulty = 3; // Start with medium
 
     // Adjust based on recent performance
-    const recentPerformance = this._getRecentPerformance(profile);
+    const recentPerformance = await this._getRecentPerformance(profile);
     if (recentPerformance > 0.8) {
       optimalDifficulty += 0.5; // Increase difficulty for high performers
     } else if (recentPerformance < 0.6) {
@@ -686,20 +782,33 @@ export class AdaptiveLearningService {
     }
   }
 
-  private _storeAssessmentHistory(studentId: string, assessmentData: any): void {
-    if (!this.assessmentHistory.has(studentId)) {
-      this.assessmentHistory.set(studentId, []);
-    }
+  private async _storeAssessmentHistory(studentId: string, assessmentData: any): Promise<void> {
+    try {
+      // Try to find a quiz matching the topic
+      const quiz = await prisma.courseQuiz.findFirst({
+        where: {
+          title: {
+            contains: assessmentData.topic,
+            mode: 'insensitive'
+          }
+        }
+      });
 
-    const history = this.assessmentHistory.get(studentId)!;
-    history.push({
-      ...assessmentData,
-      timestamp: new Date().toISOString()
-    });
-
-    // Keep only recent history
-    if (history.length > 100) {
-      this.assessmentHistory.set(studentId, history.slice(-50));
+      if (quiz) {
+        await prisma.quizAttempt.create({
+          data: {
+            quizId: quiz.id,
+            userId: studentId,
+            score: Math.round((assessmentData.performance || 0) * 100),
+            maxScore: 100,
+            isPassed: (assessmentData.performance || 0) > 0.7,
+            timeSpent: assessmentData.timeSpent || 0,
+            completedAt: new Date()
+          }
+        });
+      }
+    } catch (error) {
+      logger.error('Error storing assessment history:', error);
     }
   }
 
@@ -725,19 +834,24 @@ export class AdaptiveLearningService {
     logger.info('Updating learning profiles');
   }
 
-  private _getRecentPerformance(profile: LearningProfile): number {
+  private async _getRecentPerformance(profile: LearningProfile): Promise<number> {
     // Calculate recent performance from assessment history
     const studentId = profile.studentId;
-    const history = this.assessmentHistory.get(studentId) || [];
+    
+    try {
+      const attempts = await prisma.quizAttempt.findMany({
+        where: { userId: studentId },
+        orderBy: { completedAt: 'desc' },
+        take: 5
+      });
 
-    if (history.length === 0) return 0.5;
+      if (attempts.length === 0) return 0.5;
 
-    const recentAssessments = history.slice(-5); // Last 5 assessments
-    const avgPerformance = recentAssessments.reduce((sum, assessment) =>
-      sum + assessment.performance, 0
-    ) / recentAssessments.length;
-
-    return avgPerformance;
+      const avgScore = attempts.reduce((sum, attempt) => sum + attempt.score, 0) / attempts.length;
+      return avgScore / 100; // Convert back to 0-1
+    } catch (error) {
+      return 0.5;
+    }
   }
 
   // Placeholder methods for missing implementations in original JS
@@ -747,7 +861,64 @@ export class AdaptiveLearningService {
   }
 
   private async _selectAdaptiveQuestions(topic: string, difficulty: number, count: number, styles: LearningStyles): Promise<any[]> {
-    return Array(count).fill({ topic, difficulty, type: 'mock_question' });
+    try {
+      // Map numeric difficulty (1-5) to string (easy, medium, hard)
+      let difficultyStr = 'medium';
+      if (difficulty <= 2) difficultyStr = 'easy';
+      if (difficulty >= 4) difficultyStr = 'hard';
+
+      // Find questions in DB
+      const questions = await prisma.quizQuestion.findMany({
+        where: {
+          difficulty: difficultyStr,
+          quiz: {
+            title: {
+              contains: topic,
+              mode: 'insensitive'
+            }
+          }
+        },
+        take: count,
+        include: {
+          quiz: true
+        }
+      });
+      
+      // Fallback if not enough questions found
+      if (questions.length < count) {
+         const extra = await prisma.quizQuestion.findMany({
+           where: {
+              difficulty: difficultyStr,
+              id: { notIn: questions.map(q => q.id) }
+           },
+           take: count - questions.length,
+           include: {
+             quiz: true
+           }
+         });
+         questions.push(...extra);
+      }
+
+      // If still no questions, return mocks (safety net)
+      if (questions.length === 0) {
+        return Array(count).fill({ topic, difficulty, type: 'mock_question', text: 'Sample Question (DB Empty)' });
+      }
+
+      return questions.map(q => ({
+        id: q.id,
+        text: q.questionText,
+        type: q.questionType,
+        options: q.options,
+        difficulty: q.difficulty === 'easy' ? 1 : q.difficulty === 'medium' ? 3 : 5,
+        topic: q.quiz.title,
+        correctAnswer: q.correctAnswer,
+        explanation: q.explanation
+      }));
+    } catch (error) {
+      logger.error('Error selecting adaptive questions:', error);
+      // Fallback to mock on error
+      return Array(count).fill({ topic, difficulty, type: 'mock_question', text: 'Sample Question (Error)' });
+    }
   }
 
   private _personaliseQuestionPresentation(questions: any[], styles: LearningStyles): any[] {

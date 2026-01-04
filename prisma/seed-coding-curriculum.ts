@@ -1,5 +1,5 @@
 
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, CodingLanguage, CodingSkillArea, CodingDifficulty } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -247,6 +247,45 @@ async function main() {
 
   // 5. Assign to Students (Optional - assign to all students in roster)
   // For now, we'll just ensure the lesson plan exists so we can fetch it.
+
+  // 6. Create NCCurriculum (Enterprise Grade)
+  // Check if it already exists
+  const existingCurriculum = await prisma.nCCurriculum.findFirst({
+    where: { tenant_id: tenant.id, name: 'Coders of Tomorrow' }
+  });
+
+  if (!existingCurriculum) {
+    const curriculum = await prisma.nCCurriculum.create({
+      data: {
+        tenant_id: tenant.id,
+        name: 'Coders of Tomorrow',
+        description: 'A comprehensive coding curriculum taking students from block-based coding to professional React development.',
+        key_stage: 'KS3',
+        year_groups: ['Year 7', 'Year 8', 'Year 9'],
+        age_range_min: 11,
+        age_range_max: 14,
+        nc_objectives: ['KS3-01', 'KS3-02'],
+        status: 'published',
+        created_by_id: teacher.id,
+        lessons: {
+          create: LEVELS.map(level => ({
+            tenant_id: tenant.id,
+            title: level.title,
+            description: level.description,
+            lesson_number: level.id,
+            duration_minutes: 45,
+            language: level.type.toUpperCase() === 'BLOCKS' ? CodingLanguage.SCRATCH : level.type.toUpperCase() === 'PYTHON' ? CodingLanguage.PYTHON : CodingLanguage.JAVASCRIPT,
+            skill_areas: [CodingSkillArea.PROGRAMMING],
+            base_difficulty: level.cognitiveLoad === 'Low' ? CodingDifficulty.FOUNDATION : level.cognitiveLoad === 'Medium' ? CodingDifficulty.DEVELOPING : CodingDifficulty.ADVANCED,
+            status: 'published'
+          }))
+        }
+      }
+    });
+    console.log(`✅ Created NCCurriculum: ${curriculum.name} with ${LEVELS.length} lessons`);
+  } else {
+    console.log('ℹ️ NCCurriculum already exists');
+  }
 }
 
 main()

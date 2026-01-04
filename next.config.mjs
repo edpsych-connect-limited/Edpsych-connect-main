@@ -89,6 +89,7 @@ function chooseDistDir(preferred) {
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  productionBrowserSourceMaps: false,
   // output: 'standalone',
   // eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },

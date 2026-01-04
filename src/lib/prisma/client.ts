@@ -6,7 +6,7 @@
  * Prisma client from `@/lib/prisma`.
  */
 
-import { prisma as tenantPrisma } from '@/lib/prisma';
+import { prisma as tenantPrisma } from '../prisma';
 
 // Mock types for build process
 export type PaginationParams = {
