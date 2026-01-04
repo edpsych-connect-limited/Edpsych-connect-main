@@ -69,14 +69,14 @@ export async function GET(request: NextRequest) {
     // Audit log access
     await auditLogger.log({
       eventType: AuditEventType.DATA_READ,
-      severity: AuditSeverity.MEDIUM,
-      userId: userId.toString(),
-      userRole: userRole,
-      resourceType: 'safeguarding',
-      resourceId: action,
-      details: { action, searchParams: Object.fromEntries(searchParams) },
+      severity: AuditSeverity.WARNING,
+      performedBy: userId.toString(),
+      entityType: 'safeguarding',
+      entityId: action,
+      details: { action, searchParams: Object.fromEntries(searchParams), userRole },
       ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
       userAgent: request.headers.get('user-agent') || 'unknown',
+      success: true,
     });
 
     switch (action) {
@@ -227,14 +227,14 @@ export async function POST(request: NextRequest) {
     // Audit log attempt
     await auditLogger.log({
       eventType: AuditEventType.DATA_CREATE,
-      severity: AuditSeverity.HIGH,
-      userId: userId.toString(),
-      userRole: userRole,
-      resourceType: 'safeguarding',
-      resourceId: action,
-      details: { action, data_keys: Object.keys(data || {}) },
+      severity: AuditSeverity.ERROR,
+      performedBy: userId.toString(),
+      entityType: 'safeguarding',
+      entityId: action,
+      details: { action, data_keys: Object.keys(data || {}), userRole },
       ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
       userAgent: request.headers.get('user-agent') || 'unknown',
+      success: true,
     });
 
     switch (action) {
@@ -424,14 +424,14 @@ export async function PUT(request: NextRequest) {
     // Audit log update
     await auditLogger.log({
       eventType: AuditEventType.DATA_UPDATE,
-      severity: AuditSeverity.HIGH,
-      userId: userId.toString(),
-      userRole: userRole,
-      resourceType: 'safeguarding',
-      resourceId: action,
-      details: { action, data_keys: Object.keys(data || {}) },
+      severity: AuditSeverity.ERROR,
+      performedBy: userId.toString(),
+      entityType: 'safeguarding',
+      entityId: action,
+      details: { action, data_keys: Object.keys(data || {}), userRole },
       ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
       userAgent: request.headers.get('user-agent') || 'unknown',
+      success: true,
     });
 
     switch (action) {

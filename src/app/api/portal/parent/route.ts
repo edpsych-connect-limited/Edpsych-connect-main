@@ -48,14 +48,14 @@ export async function GET(request: Request) {
     // Audit log access
     await auditLogger.log({
       eventType: AuditEventType.DATA_READ,
-      severity: AuditSeverity.LOW,
-      userId: user.id.toString(),
-      userRole: user.role,
-      resourceType: 'parent-portal',
-      resourceId: type,
-      details: { type, childId },
+      severity: AuditSeverity.INFO,
+      performedBy: user.id.toString(),
+      entityType: 'parent-portal',
+      entityId: type,
+      details: { type, childId, userRole: user.role },
       ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
       userAgent: request.headers.get('user-agent') || 'unknown',
+      success: true,
     });
 
     const service = createParentPortalService(tenantId, user.id);

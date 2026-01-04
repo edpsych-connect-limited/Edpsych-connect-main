@@ -368,7 +368,7 @@ export class BlogService {
     `;
 
     try {
-      const response = await aiService.generateResponse({
+      const response = await aiService.processRequest({
         prompt,
         id: `blog-gen-${Date.now()}`,
         subscriptionTier: 'enterprise',
