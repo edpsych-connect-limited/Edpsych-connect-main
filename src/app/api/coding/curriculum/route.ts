@@ -10,7 +10,7 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { createDOTService } from '@/lib/coding/developers-of-tomorrow.service';
+import { createCOTService } from '@/lib/coding/coders-of-tomorrow.service';
 import { logger } from '@/lib/logger';
 
 // ============================================================================
@@ -40,15 +40,15 @@ export async function GET(request: Request) {
     const lessonId = searchParams.get('lessonId');
     const exerciseId = searchParams.get('exerciseId');
 
-    const dotService = createDOTService(tenantId);
+    const cotService = createCOTService(tenantId);
 
     switch (type) {
       case 'curricula': {
         if (keyStage) {
-          const curricula = await dotService.getCurriculaByKeyStage(keyStage);
+          const curricula = await cotService.getCurriculaByKeyStage(keyStage);
           return NextResponse.json(curricula);
         }
-        const allCurricula = await dotService.getAllCurricula();
+        const allCurricula = await cotService.getAllCurricula();
         return NextResponse.json(allCurricula);
       }
 
@@ -59,7 +59,7 @@ export async function GET(request: Request) {
             { status: 400 }
           );
         }
-        const lessons = await dotService.getLessonsForCurriculum(curriculumId);
+        const lessons = await cotService.getLessonsForCurriculum(curriculumId);
         return NextResponse.json(lessons);
       }
 
@@ -70,7 +70,7 @@ export async function GET(request: Request) {
             { status: 400 }
           );
         }
-        const lesson = await dotService.getLesson(lessonId);
+        const lesson = await cotService.getLesson(lessonId);
         if (!lesson) {
           return NextResponse.json({ error: 'Lesson not found' }, { status: 404 });
         }
@@ -84,7 +84,7 @@ export async function GET(request: Request) {
             { status: 400 }
           );
         }
-        const exercise = await dotService.getExercise(exerciseId);
+        const exercise = await cotService.getExercise(exerciseId);
         if (!exercise) {
           return NextResponse.json({ error: 'Exercise not found' }, { status: 404 });
         }
@@ -93,7 +93,7 @@ export async function GET(request: Request) {
 
       case 'leaderboard': {
         const limit = parseInt(searchParams.get('limit') || '10', 10);
-        const leaderboard = await dotService.getLeaderboard(curriculumId || undefined, limit);
+        const leaderboard = await cotService.getLeaderboard(curriculumId || undefined, limit);
         return NextResponse.json(leaderboard);
       }
 
@@ -105,7 +105,7 @@ export async function GET(request: Request) {
     }
 
   } catch (error) {
-    logger.error('[DOT API] GET error:', error);
+    logger.error('[COT API] GET error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch coding curriculum data' },
       { status: 500 }
@@ -141,11 +141,11 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { type, data } = body;
 
-    const dotService = createDOTService(tenantId, userId);
+    const cotService = createCOTService(tenantId, userId);
 
     switch (type) {
       case 'curriculum': {
-        const curriculumId = await dotService.createCurriculum({
+        const curriculumId = await cotService.createCurriculum({
           name: data.name,
           description: data.description,
           keyStage: data.keyStage,
@@ -164,7 +164,7 @@ export async function POST(request: Request) {
       }
 
       case 'lesson': {
-        const lessonId = await dotService.createLesson({
+        const lessonId = await cotService.createLesson({
           curriculumId: data.curriculumId,
           title: data.title,
           description: data.description,
@@ -187,7 +187,7 @@ export async function POST(request: Request) {
       }
 
       case 'exercise': {
-        const exerciseId = await dotService.createExercise({
+        const exerciseId = await cotService.createExercise({
           lessonId: data.lessonId,
           title: data.title,
           instructions: data.instructions,
@@ -219,7 +219,7 @@ export async function POST(request: Request) {
     }
 
   } catch (error) {
-    logger.error('[DOT API] POST error:', error);
+    logger.error('[COT API] POST error:', error);
     const message = error instanceof Error ? error.message : 'Failed to create curriculum content';
     return NextResponse.json(
       { error: message },
@@ -248,7 +248,7 @@ export async function PUT(request: Request) {
     const body = await request.json();
     const { action, curriculumId } = body;
 
-    const dotService = createDOTService(tenantId, userId);
+    const cotService = createCOTService(tenantId, userId);
 
     switch (action) {
       case 'publish': {
@@ -258,7 +258,7 @@ export async function PUT(request: Request) {
             { status: 400 }
           );
         }
-        await dotService.publishCurriculum(curriculumId);
+        await cotService.publishCurriculum(curriculumId);
         return NextResponse.json({
           success: true,
           message: 'Curriculum published successfully',
@@ -273,7 +273,7 @@ export async function PUT(request: Request) {
     }
 
   } catch (error) {
-    logger.error('[DOT API] PUT error:', error);
+    logger.error('[COT API] PUT error:', error);
     const message = error instanceof Error ? error.message : 'Failed to update curriculum content';
     return NextResponse.json(
       { error: message },

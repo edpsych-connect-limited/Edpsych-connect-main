@@ -112,15 +112,15 @@ export default function CollaborativeInputForm({
     const intros = {
       parent: {
         title: 'Parent/Carer Input Form',
-        description: 'Your observations of your child at home and in daily life are invaluable. Please share what you see in your child\'s everyday activities, strengths, and any challenges you\'ve noticed.',
+        description: 'Your insights as a parent/carer are vital to understanding your child\'s needs. By sharing your observations of daily life, strengths, and challenges, you help us build a complete picture to support them effectively.',
       },
       teacher: {
         title: 'Teacher Input Form',
-        description: 'Your classroom observations and professional insights are essential. Please share what you observe about this student\'s learning, behaviour, and interactions in the school environment.',
+        description: 'Your professional perspective is essential. Please share your observations on learning behaviours, social interactions, and classroom engagement to help us tailor support strategies.',
       },
       child: {
         title: 'Your Views',
-        description: 'We want to hear from you! Tell us about how you learn, what you find easy or hard, and what helps you do your best.',
+        description: 'This is your chance to tell us what you think! We want to know what you enjoy, what you find tricky, and how we can help you learn best.',
       },
       other_professional: {
         title: 'Professional Input Form',
@@ -144,8 +144,8 @@ export default function CollaborativeInputForm({
       {
         id: 'frequency',
         question: contributor_type === 'child'
-          ? `How often do you notice challenges with ${domain.name.toLowerCase()}?`
-          : `How frequently do you observe challenges in this area?`,
+          ? `How often do you find ${domain.name.toLowerCase()} tricky?`
+          : `How frequently do you observe difficulties in this area?`,
         type: 'scale',
         options: ['Never', 'Rarely', 'Sometimes', 'Often', 'Very Often'],
       },
@@ -153,19 +153,19 @@ export default function CollaborativeInputForm({
         id: 'examples',
         question: contributor_type === 'child'
           ? 'Can you tell us about a time when this was hard for you?'
-          : 'Please provide specific examples of what you observe',
+          : 'Could you describe a specific example or situation?',
         type: 'textarea',
         placeholder: contributor_type === 'child'
           ? 'Tell us about a time when this was tricky...'
-          : 'Describe specific situations and behaviours...',
+          : 'Please provide specific details to help us understand context...',
       },
       {
         id: 'strengths',
         question: contributor_type === 'child'
-          ? 'What do you do really well in this area?'
-          : 'What strengths do you observe in this area?',
+          ? 'What are you really good at in this area?'
+          : 'What key strengths or positive signs do you observe?',
         type: 'textarea',
-        placeholder: 'Describe strengths and positive aspects...',
+        placeholder: 'Describe strengths, skills, and positive aspects...',
       },
     ];
 
@@ -373,9 +373,9 @@ export default function CollaborativeInputForm({
             <p className="text-blue-800 mb-4">{intro.description}</p>
             <ul className="list-disc list-inside text-blue-800 space-y-1 text-sm">
               <li>This form will take approximately <strong>15-20 minutes</strong></li>
-              <li>Your responses are saved automatically</li>
+              <li>Your responses are saved automatically as you type</li>
               <li>You can take breaks and return to finish later</li>
-              <li>All information is confidential</li>
+              <li>Your input is confidential and used solely for this assessment</li>
             </ul>
           </div>
         )}

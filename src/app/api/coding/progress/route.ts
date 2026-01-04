@@ -9,7 +9,7 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { createDOTService } from '@/lib/coding/developers-of-tomorrow.service';
+import { createCOTService } from '@/lib/coding/coders-of-tomorrow.service';
 import { logger } from '@/lib/logger';
 
 // ============================================================================
@@ -60,16 +60,16 @@ export async function GET(request: Request) {
       );
     }
 
-    const dotService = createDOTService(tenantId);
+    const cotService = createCOTService(tenantId);
 
     switch (type) {
       case 'progress': {
-        const progress = await dotService.getStudentProgress(targetStudentId);
+        const progress = await cotService.getStudentProgress(targetStudentId);
         return NextResponse.json(progress);
       }
 
       case 'submissions': {
-        const submissions = await dotService.getStudentSubmissions(
+        const submissions = await cotService.getStudentSubmissions(
           targetStudentId, 
           exerciseId || undefined
         );
@@ -84,7 +84,7 @@ export async function GET(request: Request) {
     }
 
   } catch (error) {
-    logger.error('[DOT Progress API] GET error:', error);
+    logger.error('[COT Progress API] GET error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch student progress' },
       { status: 500 }
@@ -140,9 +140,9 @@ export async function POST(request: Request) {
       );
     }
 
-    const dotService = createDOTService(tenantId);
+    const cotService = createCOTService(tenantId);
 
-    const result = await dotService.submitExercise(
+    const result = await cotService.submitExercise(
       exerciseId,
       targetStudentId,
       code,
@@ -155,7 +155,7 @@ export async function POST(request: Request) {
     });
 
   } catch (error) {
-    logger.error('[DOT Progress API] POST error:', error);
+    logger.error('[COT Progress API] POST error:', error);
     const message = error instanceof Error ? error.message : 'Failed to submit code';
     return NextResponse.json(
       { error: message },

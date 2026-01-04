@@ -1,5 +1,5 @@
 /**
- * Developers of Tomorrow - Coding Curriculum Service
+ * Coders of Tomorrow - Coding Curriculum Service
  * 
  * Production-ready implementation of the UK National Curriculum-aligned coding
  * education system. Provides comprehensive coding instruction from Reception
@@ -15,7 +15,7 @@
  * - Progress tracking and skill mastery
  * - Achievement badges and gamification
  * 
- * @module DevelopersOfTomorrowService
+ * @module CodersOfTomorrowService
  * @version 1.0.0
  * Zero Gap Project - Sprint 2
  */
@@ -165,10 +165,10 @@ export const BADGES = {
 } as const;
 
 // ============================================================================
-// DEVELOPERS OF TOMORROW SERVICE CLASS
+// CODERS OF TOMORROW SERVICE CLASS
 // ============================================================================
 
-export class DevelopersOfTomorrowService {
+export class CodersOfTomorrowService {
   private tenantId: number;
   private createdById?: number;
 
@@ -213,7 +213,16 @@ export class DevelopersOfTomorrowService {
       where: { tenant_id: this.tenantId },
       include: {
         lessons: {
-          select: { id: true, title: true, lesson_number: true, status: true },
+          select: { 
+            id: true, 
+            title: true, 
+            lesson_number: true, 
+            status: true,
+            description: true,
+            language: true,
+            base_difficulty: true,
+            skill_areas: true
+          },
           orderBy: { lesson_number: 'asc' },
         },
         prerequisite: {
@@ -734,8 +743,8 @@ export class DevelopersOfTomorrowService {
 // FACTORY FUNCTION
 // ============================================================================
 
-export function createDOTService(tenantId: number, createdById?: number): DevelopersOfTomorrowService {
-  return new DevelopersOfTomorrowService(tenantId, createdById);
+export function createCOTService(tenantId: number, createdById?: number): CodersOfTomorrowService {
+  return new CodersOfTomorrowService(tenantId, createdById);
 }
 
-export default DevelopersOfTomorrowService;
+export default CodersOfTomorrowService;
