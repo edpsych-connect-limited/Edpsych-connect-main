@@ -18,7 +18,7 @@
  * - Educational psychology integration
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import CloudinaryVideoPlayer from '@/components/ui/CloudinaryVideoPlayer';
 import { 
@@ -178,9 +178,70 @@ export default function EnhancedCodingCurriculum({
   initialLevels = [], 
   initialVideos = [] 
 }: EnhancedCodingCurriculumProps) {
-  // Use props if available, otherwise fallback to defaults (though defaults are now empty arrays in props, we'll handle merge)
-  const levels = initialLevels.length > 0 ? initialLevels : DEFAULT_LEVELS;
-  const videos = initialVideos.length > 0 ? initialVideos : DEFAULT_CODING_VIDEOS;
+  const [levels, setLevels] = useState<CodingLevel[]>(initialLevels.length > 0 ? initialLevels : DEFAULT_LEVELS);
+  const [videos, setVideos] = useState<VideoTutorial[]>(initialVideos.length > 0 ? initialVideos : DEFAULT_CODING_VIDEOS);
+  const [loading, setLoading] = useState(false);
+
+  const mapLanguage = (lang: string) => {
+    switch(lang) {
+      case 'SCRATCH': return 'Blocks';
+      case 'PYTHON': return 'Python';
+      case 'JAVASCRIPT': return 'React';
+      default: return 'Blocks';
+    }
+  };
+
+  const mapDifficultyToXP = (diff: string) => {
+    switch(diff) {
+      case 'FOUNDATION': return 100;
+      case 'DEVELOPING': return 300;
+      case 'ADVANCED': return 500;
+      default: return 100;
+    }
+  };
+
+  const mapDifficultyToLoad = (diff: string) => {
+    switch(diff) {
+      case 'FOUNDATION': return 'Low';
+      case 'DEVELOPING': return 'Medium';
+      case 'ADVANCED': return 'High';
+      default: return 'Low';
+    }
+  };
+
+  useEffect(() => {
+    const fetchCurriculum = async () => {
+      // Only fetch if no initial levels provided
+      if (initialLevels.length > 0) return;
+
+      try {
+        setLoading(true);
+        const response = await fetch('/api/coding/curriculum');
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.length > 0 && data[0].lessons) {
+             const mappedLevels = data[0].lessons.map((lesson: any) => ({
+               id: lesson.lesson_number,
+               title: lesson.title,
+               type: mapLanguage(lesson.language),
+               description: lesson.description,
+               xp: mapDifficultyToXP(lesson.base_difficulty),
+               cognitiveLoad: mapDifficultyToLoad(lesson.base_difficulty),
+               skills: lesson.skill_areas,
+               unlocked: lesson.lesson_number <= 2 // Unlock first 2 for demo
+             }));
+             setLevels(mappedLevels);
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch curriculum:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCurriculum();
+  }, [initialLevels]);
 
   const [activeLevel, setActiveLevel] = useState(1);
   // ...
