@@ -517,6 +517,10 @@ model students {
   // Relations - Transition Planning
   transitionPlans             TransitionPlan[]
 
+  // Relations - AI Tutoring
+  tutoring_sessions     TutoringSession[]
+  topic_mastery         StudentTopicMastery[]
+
   @@unique([tenant_id, unique_id])
   @@index([tenant_id])
   @@index([sen_status])
@@ -8040,3 +8044,86 @@ model TransitionAction {
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 }
+
+
+// ============================================================================
+// AI TUTORING SYSTEM
+// ============================================================================
+
+model TutoringSession {
+  id            String   @id @default(cuid())
+  student_id    Int
+  topic_id      String
+  session_type  String   @default("practice") // practice, assessment, review
+  difficulty    String   @default("adaptive")
+  status        String   @default("active") // active, completed
+  
+  start_time    DateTime @default(now())
+  end_time      DateTime?
+  
+  // Progress
+  questions_answered Int @default(0)
+  correct_answers    Int @default(0)
+  current_streak     Int @default(0)
+  time_spent         Int @default(0) // seconds
+  
+  // Assessment
+  pre_test_score     Float?
+  current_score      Float?
+  mastery_level      Float?
+  
+  // Data
+  objectives         String[]
+  learning_path      Json? // Array of steps
+  hint_usage         Json?
+  completion_summary Json?
+  
+  // Relations
+  student       students @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  messages      TutoringMessage[]
+  
+  @@index([student_id])
+  @@index([topic_id])
+  @@index([status])
+}
+
+model TutoringMessage {
+  id            String   @id @default(cuid())
+  session_id    String
+  type          String   // student, tutor
+  content       String   @db.Text
+  response_type String?  // text, multiple_choice, interactive
+  
+  // Metadata
+  time_spent    Int?
+  confidence    Float?
+  action        Json?    // NextAction
+  question      Json?    // Question details
+  
+  timestamp     DateTime @default(now())
+  
+  // Relations
+  session       TutoringSession @relation(fields: [session_id], references: [id], onDelete: Cascade)
+  
+  @@index([session_id])
+}
+
+model StudentTopicMastery {
+  id              String   @id @default(cuid())
+  student_id      Int
+  topic_id        String
+  
+  knowledge_level Float    @default(0.0)
+  confidence      Float    @default(0.0)
+  
+  last_updated    DateTime @default(now())
+  
+  progress_history Json?   // Array of history items
+  
+  // Relations
+  student         students @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  
+  @@unique([student_id, topic_id])
+  @@index([student_id])
+}
+
