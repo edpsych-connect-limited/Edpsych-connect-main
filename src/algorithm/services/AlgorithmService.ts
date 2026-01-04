@@ -175,14 +175,19 @@ class AlgorithmService {
   }
 
   static async approveAlgorithm(id: string, _userId: string, _comments: string) {
-    // Logic to approve algorithm
-    // This might involve updating the status of the latest version
-    const algorithm = await this.getById(id);
-    if (!algorithm) throw new Error('Algorithm not found');
-    
-    // Mock implementation - update status to approved
-    // In reality, we'd update the version status
-    return algorithm;
+    const latestVersion = await prisma.algorithmVersion.findFirst({
+      where: { algorithmId: id },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    if (!latestVersion) throw new Error('No version found for algorithm');
+
+    await prisma.algorithmVersion.update({
+      where: { id: latestVersion.id },
+      data: { status: 'published' }
+    });
+
+    return this.getById(id);
   }
 
   static async addAlgorithmLicense(id: string, data: any, _userId: string) {
@@ -195,33 +200,68 @@ class AlgorithmService {
   }
 
   static async publishAlgorithm(id: string, _userId: string) {
-    // Logic to publish algorithm
-    const algorithm = await this.getById(id);
-    if (!algorithm) throw new Error('Algorithm not found');
-    return algorithm;
+    const latestVersion = await prisma.algorithmVersion.findFirst({
+      where: { algorithmId: id },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    if (!latestVersion) throw new Error('No version found for algorithm');
+
+    await prisma.algorithmVersion.update({
+      where: { id: latestVersion.id },
+      data: { status: 'published' }
+    });
+
+    return this.getById(id);
   }
 
-  static async purchaseLicense(id: string, _licenseId: string, _institutionId: string, _userId: string, _purchaseData: any) {
-    // Logic to purchase license
-    return {
-      id: 'mock-license-id',
-      algorithmId: id,
-      status: 'active'
-    };
+  static async purchaseLicense(id: string, _licenseId: string, institutionId: string, _userId: string, purchaseData: any) {
+    // Create a real license record
+    // Assuming institutionId is the tenantId (Int)
+    const tenantId = parseInt(institutionId);
+    
+    return await prisma.algorithmLicense.create({
+      data: {
+        algorithmId: id,
+        tenantId: isNaN(tenantId) ? 1 : tenantId, // Fallback to 1 if parsing fails, or handle error
+        type: purchaseData.type || 'subscription',
+        status: 'active',
+        startsAt: new Date(),
+        expiresAt: purchaseData.expiresAt ? new Date(purchaseData.expiresAt) : null
+      }
+    });
   }
 
   static async rejectAlgorithm(id: string, _userId: string, _reason: string) {
-    // Logic to reject algorithm
-    const algorithm = await this.getById(id);
-    if (!algorithm) throw new Error('Algorithm not found');
-    return algorithm;
+    const latestVersion = await prisma.algorithmVersion.findFirst({
+      where: { algorithmId: id },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    if (!latestVersion) throw new Error('No version found for algorithm');
+
+    await prisma.algorithmVersion.update({
+      where: { id: latestVersion.id },
+      data: { status: 'rejected' }
+    });
+
+    return this.getById(id);
   }
 
   static async submitAlgorithmForReview(id: string, _userId: string) {
-    // Logic to submit for review
-    const algorithm = await this.getById(id);
-    if (!algorithm) throw new Error('Algorithm not found');
-    return algorithm;
+    const latestVersion = await prisma.algorithmVersion.findFirst({
+      where: { algorithmId: id },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    if (!latestVersion) throw new Error('No version found for algorithm');
+
+    await prisma.algorithmVersion.update({
+      where: { id: latestVersion.id },
+      data: { status: 'review' }
+    });
+
+    return this.getById(id);
   }
 
   static async addAlgorithmVersion(id: string, data: any, _userId: string) {
@@ -240,8 +280,43 @@ class AlgorithmService {
   }
 
   static async getPopularAlgorithms(limit: number = 5) {
-    // Mock implementation - just return recent ones
-    return await this.searchAlgorithms({}, { limit });
+    // Find algorithms with the most usages
+    const popularUsage = await prisma.algorithmUsage.groupBy({
+      by: ['algorithmId'],
+      _count: {
+        id: true
+      },
+      orderBy: {
+        _count: {
+          id: 'desc'
+        }
+      },
+      take: limit
+    });
+
+    const algorithmIds = popularUsage.map(u => u.algorithmId);
+
+    if (algorithmIds.length === 0) {
+      // Fallback to recent if no usage data
+      return await this.searchAlgorithms({}, { limit });
+    }
+
+    const algorithms = await prisma.algorithm.findMany({
+      where: { id: { in: algorithmIds } },
+      include: {
+        creator: {
+          select: { name: true }
+        }
+      }
+    });
+
+    // Sort by usage count order
+    return algorithms.sort((a, b) => {
+      return algorithmIds.indexOf(a.id) - algorithmIds.indexOf(b.id);
+    }).map(item => ({
+      ...item,
+      creatorName: item.creator.name
+    }));
   }
 
   static async getLicenses(filters: any = {}, pagination: Pagination = {}) {

@@ -27,6 +27,7 @@ export interface ScoreResult {
   interpretation: string;
   strengths: string[];
   weaknesses: string[];
+  primary_need?: string;
 }
 
 export interface DomainScore {
