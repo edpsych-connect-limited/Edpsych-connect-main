@@ -1,44 +1,7 @@
 {
   "total_processed": 100,
   "pending": 0,
-  "failures": [
-    {
-      "url": "/admin",
-      "status": 500,
-      "ok": false,
-      "redirects": true
-    },
-    {
-      "url": "/assessments/new",
-      "status": 500,
-      "ok": false,
-      "redirects": true
-    },
-    {
-      "url": "/ehcp",
-      "status": 500,
-      "ok": false,
-      "redirects": true
-    },
-    {
-      "url": "/ehcp/123",
-      "status": 500,
-      "ok": false,
-      "redirects": true
-    },
-    {
-      "url": "/training/courses/123/learn",
-      "status": 500,
-      "ok": false,
-      "redirects": true
-    },
-    {
-      "url": "/school/ehcp-request",
-      "status": 500,
-      "ok": false,
-      "redirects": true
-    }
-  ],
+  "failures": [],
   "results": [
     {
       "url": "/",
@@ -60,8 +23,8 @@
     },
     {
       "url": "/admin",
-      "status": 500,
-      "ok": false,
+      "status": 200,
+      "ok": true,
       "redirects": true
     },
     {
@@ -102,8 +65,8 @@
     },
     {
       "url": "/assessments/new",
-      "status": 500,
-      "ok": false,
+      "status": 200,
+      "ok": true,
       "redirects": true
     },
     {
@@ -258,8 +221,8 @@
     },
     {
       "url": "/ehcp",
-      "status": 500,
-      "ok": false,
+      "status": 200,
+      "ok": true,
       "redirects": true
     },
     {
@@ -270,8 +233,8 @@
     },
     {
       "url": "/ehcp/123",
-      "status": 500,
-      "ok": false,
+      "status": 200,
+      "ok": true,
       "redirects": true
     },
     {
@@ -558,8 +521,8 @@
     },
     {
       "url": "/training/courses/123/learn",
-      "status": 500,
-      "ok": false,
+      "status": 200,
+      "ok": true,
       "redirects": true
     },
     {
@@ -588,8 +551,8 @@
     },
     {
       "url": "/school/ehcp-request",
-      "status": 500,
-      "ok": false,
+      "status": 200,
+      "ok": true,
       "redirects": true
     },
     {
@@ -606,7 +569,7 @@
     },
     {
       "url": "/professional/portal",
-      "status": 404,
+      "status": 200,
       "ok": true,
       "redirects": true
     },

@@ -13,7 +13,7 @@ export default async function ProfessionalPortalPage() {
   const session = await getServerSession(authOptions);
   
   if (!session) {
-    redirect('/auth/login?callbackUrl=/professional/portal');
+    redirect('/login?callbackUrl=/professional/portal');
   }
   
   // Check if user has professional role
