@@ -2544,7 +2544,7 @@ model research_studies {
   @@index([tenant_id])
   @@index([creator_id])
   @@index([status])
-  @@index([is_public])
+  @@index([is_public, updated_at])
 }
 
 model research_collaborators {
@@ -5139,7 +5139,7 @@ model AuditLog {
   @@index([performedById])
   @@index([institutionId])
   @@index([subscriptionId])
-  @@index([resource])
+  @@index([resource, timestamp])
   @@index([entityType, entityId])
   @@index([timestamp])
   @@index([action])

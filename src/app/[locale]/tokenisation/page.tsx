@@ -49,7 +49,7 @@ export default function TokenisationPage() {
 
   // Fetch tokenisation data
   useEffect(() => {
-    if (status !== 'authenticated') return;
+    if (authLoading || !user) return;
 
     const fetchData = async () => {
       try {
@@ -79,7 +79,7 @@ export default function TokenisationPage() {
     };
 
     fetchData();
-  }, [status]);
+  }, [authLoading, user]);
 
   if (loading) {
     return (
