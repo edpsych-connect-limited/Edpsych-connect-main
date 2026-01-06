@@ -15,7 +15,7 @@ import EHCPWizardForm from '@/components/ehcp/EHCPWizardForm';
 import { Loader2 } from 'lucide-react';
 
 export default function NewEHCPPage() {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { user, isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
 
   // Redirect to login if not authenticated
@@ -71,7 +71,7 @@ export default function NewEHCPPage() {
       {/* Form */}
       <EHCPWizardForm 
         initialData={{
-          tenant_id: session.user.tenant_id || 1
+          tenant_id: (user?.tenant_id as number) || 1
         }}
       />
     </div>

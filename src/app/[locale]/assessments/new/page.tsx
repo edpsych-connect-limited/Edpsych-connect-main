@@ -89,7 +89,7 @@ export default function NewAssessmentPage() {
         <AssessmentForm 
           initialData={{ 
             assessment_type: type || undefined,
-            tenant_id: session.user.tenant_id || 1
+            tenant_id: (user?.tenant_id as number) || 1
           }} 
         />
       </div>

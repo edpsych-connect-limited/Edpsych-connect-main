@@ -51,8 +51,8 @@ export default function EHCPRequestPage() {
   
   return (
     <SchoolSubmissionInterface
-      schoolId={(session.user as Record<string, unknown>)?.tenantId as string || 'default-school'}
-      schoolName={(session.user as Record<string, unknown>)?.tenantName as string || 'Your School'}
+      schoolId={(user as any)?.tenantId as string || 'default-school'}
+      schoolName={(user as any)?.tenantName as string || 'Your School'}
       onSubmit={handleSubmit}
       onSaveDraft={handleSaveDraft}
     />

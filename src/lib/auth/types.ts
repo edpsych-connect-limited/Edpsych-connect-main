@@ -13,6 +13,8 @@ export interface AuthUser {
   updatedAt?: string;
   onboardingCompleted?: boolean; // Added for onboarding flow
   onboardingSkipped?: boolean; // Added for onboarding flow
+  tenant_id?: number | string; // Multi-tenancy support
+  tenantId?: string; // Alternative naming seen in codebase
 }
 
 export interface PasswordUpdateRequest {

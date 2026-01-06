@@ -255,14 +255,7 @@ export default function UKPricingTiers() {
 
   const handleSubscribe = (tier: PricingTier) => {
     // Navigate to checkout with the selected tier
-    router.push({
-      pathname: '/checkout',
-      query: { 
-        tier: tier.id,
-        billing: annualBilling ? 'annual' : 'monthly',
-        product: tier.stripeProductId
-      },
-    });
+    router.push(`/checkout?tier=${tier.id}&billing=${annualBilling ? 'annual' : 'monthly'}&product=${tier.stripeProductId}`);
   };
 
   const toggleBilling = () => {
