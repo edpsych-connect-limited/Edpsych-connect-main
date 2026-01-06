@@ -2544,6 +2544,7 @@ model research_studies {
   @@index([tenant_id])
   @@index([creator_id])
   @@index([status])
+  @@index([is_public])
 }
 
 model research_collaborators {
@@ -3423,6 +3424,7 @@ model LessonPlan {
   @@index([class_roster_id])
   @@index([teacher_id])
   @@index([status])
+  @@index([title, subject])
 }
 
 model LessonActivity {

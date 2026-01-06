@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { logError } from '@/lib/logger';
 import { INTERVENTION_STATS, INTERVENTION_LIBRARY, InterventionTemplate } from '@/lib/interventions/intervention-library';
 import { ASSESSMENT_LIBRARY } from '@/lib/assessments/assessment-library';
 
@@ -57,16 +58,21 @@ export function useSchoolDashboard() {
       setError(null);
       
       try {
-        // Fetch Dashboard Metrics
-        const metricsRes = await fetch('/api/senco?action=dashboard');
-        if (!metricsRes.ok) throw new Error('Failed to fetch dashboard metrics');
-        const metricsData = await metricsRes.json();
-        const metrics: ApiDashboardMetrics = metricsData.data;
+        // Fetch data in parallel for performance optimization
+        const [metricsRes, registerRes] = await Promise.all([
+          fetch('/api/senco?action=dashboard'),
+          fetch('/api/senco?action=register')
+        ]);
 
-        // Fetch Student Register
-        const registerRes = await fetch('/api/senco?action=register');
+        if (!metricsRes.ok) throw new Error('Failed to fetch dashboard metrics');
         if (!registerRes.ok) throw new Error('Failed to fetch student register');
-        const registerData = await registerRes.json();
+        
+        const [metricsData, registerData] = await Promise.all([
+          metricsRes.json(),
+          registerRes.json()
+        ]);
+        
+        const metrics: ApiDashboardMetrics = metricsData.data;
         const register: ApiRegisterEntry[] = registerData.data;
 
         // Calculate Stats
@@ -97,7 +103,7 @@ export function useSchoolDashboard() {
         setClassroomInterventions(interventions);
 
       } catch (err) {
-        console.error('Error loading school dashboard:', err);
+        logError(err instanceof Error ? err : new Error('Unknown error loading dashboard'), { context: 'useSchoolDashboard' });
         setError('Failed to load dashboard data');
         
         // Fallback to mock data if API fails (for demo purposes/resilience)
