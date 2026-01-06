@@ -10,10 +10,10 @@ import {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { token: string } }
+  { params }: { params: Promise<{ token: string }> }
 ) {
   try {
-    const token = params.token;
+    const { token } = await params;
 
     const collaboration = await prisma.assessmentCollaboration.findUnique({
       where: { invitation_token: token },
@@ -75,10 +75,10 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { token: string } }
+  { params }: { params: Promise<{ token: string }> }
 ) {
   try {
-    const token = params.token;
+    const { token } = await params;
     const body = await request.json();
     const { responses, narrative_input, observation_context } = body;
 
@@ -131,10 +131,10 @@ export async function POST(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { token: string } }
+  { params }: { params: Promise<{ token: string }> }
 ) {
   try {
-    const token = params.token;
+    const { token } = await params;
     const body = await request.json();
     const { responses, narrative_input, observation_context } = body;
 

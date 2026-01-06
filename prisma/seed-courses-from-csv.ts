@@ -5,6 +5,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 const CSV_FILE = path.join(process.cwd(), 'video_scripts', 'all_scripts.csv');
+const VIDEO_MAPPING_FILE = path.join(process.cwd(), 'course-videos-dr-scott.json');
 
 async function main() {
   console.log('🌱 Seeding Courses from CSV...');
@@ -13,6 +14,37 @@ async function main() {
     console.error(`❌ CSV file not found: ${CSV_FILE}`);
     process.exit(1);
   }
+
+  // Load Video Mappings
+  let videoMappings: any[] = [];
+  if (fs.existsSync(VIDEO_MAPPING_FILE)) {
+    try {
+      videoMappings = JSON.parse(fs.readFileSync(VIDEO_MAPPING_FILE, 'utf-8'));
+      console.log(`   Loaded ${videoMappings.length} video mappings.`);
+    } catch (e) {
+      console.warn('   ⚠️ Failed to load video mappings:', e);
+    }
+  }
+
+  // Helper to find video URL
+  const getVideoUrl = (courseTitle: string, moduleTitle: string, lessonTitle: string) => {
+    const mapping = videoMappings.find(v => 
+      v.course === courseTitle && 
+      v.module === moduleTitle && 
+      v.lesson === lessonTitle
+    );
+    
+    if (mapping && mapping.videoId) {
+      // Construct Cloudinary URL based on the convention used in upload script
+      // The upload script uses the filename (slug) as the key
+      // We assume the ID in the JSON corresponds to the slug or we use the ID directly if it was uploaded with that ID
+      // Actually, the upload script uses the filename. The JSON has 'id' which looks like a slug.
+      // Let's use the 'id' from the JSON as the key.
+      const cloudName = process.env.CLOUDINARY_CLOUD_NAME || 'dncfu2j0r'; // Fallback to known demo cloud
+      return `https://res.cloudinary.com/${cloudName}/video/upload/edpsych-connect/videos/${mapping.id}.mp4`;
+    }
+    return null;
+  };
 
   // Get or create tenant
   let tenant = await prisma.tenants.findFirst({
@@ -63,7 +95,8 @@ async function main() {
     courses[courseTitle].modules[moduleTitle].lessons.push({
       title: lessonTitle,
       content: script,
-      instructor: instructor
+      instructor: instructor,
+      videoUrl: getVideoUrl(courseTitle, moduleTitle, lessonTitle)
     });
   }
 
@@ -124,11 +157,19 @@ async function main() {
               moduleId: module.id,
               title: lessonData.title,
               content: lessonData.content,
+              videoUrl: lessonData.videoUrl,
               orderIndex: lessonIndex,
               duration: 5 // Default duration
             }
           });
-          console.log(`         ✅ Created Lesson: ${lesson.title}`);
+          console.log(`         ✅ Created Lesson: ${lesson.title} ${lessonData.videoUrl ? '📹' : ''}`);
+        } else if (lessonData.videoUrl && !lesson.videoUrl) {
+           // Update video URL if missing
+           await prisma.courseLesson.update({
+             where: { id: lesson.id },
+             data: { videoUrl: lessonData.videoUrl }
+           });
+           console.log(`         🔄 Updated Lesson Video: ${lesson.title}`);
         }
         lessonIndex++;
       }

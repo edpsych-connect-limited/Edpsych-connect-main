@@ -72,6 +72,8 @@ function shouldRetry(err, p) {
 
     // Treat ENOENT as retryable only for repo-local paths. This avoids masking
     // genuine missing file errors, while smoothing over intermittent FS glitches.
+    // DISABLE: ENOENT retries cause massive performance degradation (90s latency) in Next.js probing
+    /*
     if (err.code === 'ENOENT' && p && typeof p === 'string' && REPO_ROOT_NORMALIZED) {
         try {
             const abs = path.isAbsolute(p) ? p : path.resolve(p);
@@ -90,6 +92,7 @@ function shouldRetry(err, p) {
             // If path resolution fails, fall through and treat as non-retryable.
         }
     }
+    */
 
     return false;
 }

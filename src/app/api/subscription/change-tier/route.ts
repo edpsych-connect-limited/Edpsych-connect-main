@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
 
     const tenantId = session.tenant_id || 0;
     const body = await request.json();
-    const { newTier, billingInterval } = body;
+    const { newTier, billingInterval, paymentMethodId } = body;
 
     if (!newTier || !billingInterval) {
       return NextResponse.json(
@@ -98,6 +98,27 @@ export async function POST(request: NextRequest) {
         { success: false, error: 'Stripe subscription ID not found' },
         { status: 500 }
       );
+    }
+
+    // If a new payment method is provided, attach it to the customer
+    if (paymentMethodId && subscription.stripe_customer_id) {
+      try {
+        await stripe.paymentMethods.attach(paymentMethodId, {
+          customer: subscription.stripe_customer_id,
+        });
+        
+        await stripe.customers.update(subscription.stripe_customer_id, {
+          invoice_settings: {
+            default_payment_method: paymentMethodId,
+          },
+        });
+      } catch (pmError: any) {
+        logger.error('Failed to update payment method', pmError);
+        return NextResponse.json(
+          { success: false, error: 'Failed to update payment method', details: pmError.message },
+          { status: 400 }
+        );
+      }
     }
 
     const stripeSubscription = await stripe.subscriptions.retrieve(stripeSubscriptionId);

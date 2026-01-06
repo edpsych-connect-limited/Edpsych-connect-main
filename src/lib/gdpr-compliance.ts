@@ -11,7 +11,7 @@
 // Environment: PRODUCTION
 // Compliance: GDPR, ISO 27001, SOC 2
 
-import { getPostgresClient } from '../../database/postgres';
+import { prisma } from '@/lib/prisma';
 import { logger } from "@/lib/logger";
 
 export interface ConsentType {
@@ -77,23 +77,20 @@ export class GDPRComplianceService {
    */
   async getConsentTypes(): Promise<ConsentType[]> {
     try {
-      const postgres = getPostgresClient();
-      const result = await postgres.query(`
-        SELECT id, name, description, required, version
-        FROM consent_types
-        WHERE active = true
-        ORDER BY name ASC
-      `);
+      const types = await prisma.consentType.findMany({
+        where: { active: true },
+        orderBy: { name: 'asc' }
+      });
 
-      return result.rows.map((type: any) => ({
+      return types.map((type) => ({
         id: type.id,
         name: type.name,
         description: type.description,
         required: type.required,
         version: type.version
       }));
-    } catch (_error) {
-      logger.error('Failed to get consent types', _error as Error);
+    } catch (error) {
+      logger.error('Failed to get consent types', error as Error);
       throw new Error('Failed to retrieve consent types');
     }
   }
@@ -103,28 +100,27 @@ export class GDPRComplianceService {
    */
   async getUserConsents(id: string): Promise<ConsentRecord[]> {
     try {
-      const postgres = getPostgresClient();
-      const result = await postgres.query(`
-        SELECT id, user_id, consent_type_id, consented, consent_text,
-               consent_timestamp, withdrawal_timestamp, valid_until, consent_version
-        FROM consent_records
-        WHERE user_id = $1
-        ORDER BY consent_timestamp DESC
-      `, [id]);
+      const userId = parseInt(id, 10);
+      if (isNaN(userId)) throw new Error('Invalid user ID');
 
-      return result.rows.map((record: any) => ({
+      const records = await prisma.consentRecord.findMany({
+        where: { user_id: userId },
+        orderBy: { consent_timestamp: 'desc' }
+      });
+
+      return records.map((record) => ({
         id: record.id,
-        userId: record.user_id,
+        userId: record.user_id.toString(),
         consentTypeId: record.consent_type_id,
         consented: record.consented,
         consentText: record.consent_text,
-        consentTimestamp: record.consent_timestamp,
-        withdrawalTimestamp: record.withdrawal_timestamp,
-        validUntil: record.valid_until,
+        consentTimestamp: record.consent_timestamp.toISOString(),
+        withdrawalTimestamp: record.withdrawal_timestamp?.toISOString(),
+        validUntil: record.valid_until?.toISOString(),
         consentVersion: record.consent_version
       }));
-    } catch (_error) {
-      logger.error('Failed to get user consents', _error as Error);
+    } catch (error) {
+      logger.error('Failed to get user consents', error as Error);
       throw new Error('Failed to retrieve user consents');
     }
   }
@@ -141,85 +137,84 @@ export class GDPRComplianceService {
     userAgent?: string
   ): Promise<ConsentRecord> {
     try {
-      const postgres = getPostgresClient();
-      
+      const userId = parseInt(id, 10);
+      if (isNaN(userId)) throw new Error('Invalid user ID');
+
       // Get consent type details
-      const consentTypeResult = await postgres.query(`
-        SELECT id, version FROM consent_types WHERE id = $1
-      `, [consentTypeId]);
+      const consentType = await prisma.consentType.findUnique({
+        where: { id: consentTypeId }
+      });
       
-      if (consentTypeResult.rows.length === 0)
+      if (!consentType)
         throw new Error('Consent type not found');
-        
-      const consentType = consentTypeResult.rows[0];
 
       // Check if consent already exists
-      const existingConsentResult = await postgres.query(`
-        SELECT id FROM consent_records
-        WHERE user_id = $1 AND consent_type_id = $2 AND withdrawal_timestamp IS NULL
-      `, [id, consentTypeId]);
-      
-      const existingConsent = existingConsentResult.rows.length > 0 ?
-        existingConsentResult.rows[0] : null;
+      const existingConsent = await prisma.consentRecord.findFirst({
+        where: {
+          user_id: userId,
+          consent_type_id: consentTypeId,
+          withdrawal_timestamp: null
+        }
+      });
 
       if (existingConsent) {
         // Update existing consent
         const validUntil = consented ? new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) : null;
-        const updateResult = await postgres.query(`
-          UPDATE consent_records
-          SET consented = $1, consent_text = $2, consent_version = $3,
-              valid_until = $4, updated_at = NOW()
-          WHERE id = $5
-          RETURNING *
-        `, [consented, consentText, consentType.version, validUntil, existingConsent.id]);
         
-        const data = updateResult.rows[0];
+        const data = await prisma.consentRecord.update({
+          where: { id: existingConsent.id },
+          data: {
+            consented,
+            consent_text: consentText,
+            consent_version: consentType.version,
+            valid_until: validUntil,
+          }
+        });
 
         // Log the consent change
         await this.logConsentChange(data.id, 'updated', existingConsent, data, id);
 
         return {
           id: data.id,
-          userId: data.user_id,
+          userId: data.user_id.toString(),
           consentTypeId: data.consent_type_id,
           consented: data.consented,
           consentText: data.consent_text,
-          consentTimestamp: data.consent_timestamp,
-          validUntil: data.valid_until,
+          consentTimestamp: data.consent_timestamp.toISOString(),
+          validUntil: data.valid_until?.toISOString(),
           consentVersion: data.consent_version
         };
       } else {
         // Create new consent record
         const validUntil = consented ? new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) : null;
-        const insertResult = await postgres.query(`
-          INSERT INTO consent_records (
-            user_id, consent_type_id, consented, consent_text, consent_version,
-            valid_until, ip_address, user_agent, consent_method, created_at, updated_at
-          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW(), NOW())
-          RETURNING *
-        `, [
-          id, consentTypeId, consented, consentText, consentType.version,
-          validUntil, ipAddress, userAgent, 'web'
-        ]);
         
-        const data = insertResult.rows[0];
+        const data = await prisma.consentRecord.create({
+          data: {
+            user_id: userId,
+            consent_type_id: consentTypeId,
+            consented,
+            consent_text: consentText,
+            consent_version: consentType.version,
+            valid_until: validUntil,
+          }
+        });
 
         // Log the consent grant
         await this.logConsentChange(data.id, 'granted', null, data, id);
 
         return {
           id: data.id,
-          userId: data.user_id,
+          userId: data.user_id.toString(),
           consentTypeId: data.consent_type_id,
           consented: data.consented,
           consentText: data.consent_text,
-          consentTimestamp: data.consent_timestamp,
-          validUntil: data.valid_until,
+          consentTimestamp: data.consent_timestamp.toISOString(),
+          validUntil: data.valid_until?.toISOString(),
           consentVersion: data.consent_version
         };
       }
-    } catch (_error) {
-      logger.error('Failed to grant consent', _error as Error);
+    } catch (error) {
+      logger.error('Failed to grant consent', error as Error);
       throw new Error('Failed to process consent');
     }
   }
@@ -233,44 +228,41 @@ export class GDPRComplianceService {
     reason?: string
   ): Promise<void> {
     try {
-      const postgres = getPostgresClient();
-      
+      const userId = parseInt(id, 10);
+      if (isNaN(userId)) throw new Error('Invalid user ID');
+
       // Find existing active consent
-      const existingConsentResult = await postgres.query(`
-        SELECT * FROM consent_records
-        WHERE user_id = $1 AND consent_type_id = $2 AND withdrawal_timestamp IS NULL
-      `, [id, consentTypeId]);
+      const existingConsent = await prisma.consentRecord.findFirst({
+        where: {
+          user_id: userId,
+          consent_type_id: consentTypeId,
+          withdrawal_timestamp: null
+        }
+      });
       
-      if (existingConsentResult.rows.length === 0)
+      if (!existingConsent)
         throw new Error('No active consent found');
-        
-      const existingConsent = existingConsentResult.rows[0];
       
       // Update the withdrawal timestamp
-      await postgres.query(`
-        UPDATE consent_records
-        SET withdrawal_timestamp = NOW(), updated_at = NOW()
-        WHERE id = $1
-      `, [existingConsent.id]);
-      
-      // Create a modified record for logging
-      const modifiedConsent = {
-        ...existingConsent,
-        withdrawal_timestamp: new Date().toISOString()
-      };
+      const updatedConsent = await prisma.consentRecord.update({
+        where: { id: existingConsent.id },
+        data: {
+          withdrawal_timestamp: new Date()
+        }
+      });
       
       // Log the consent withdrawal
       await this.logConsentChange(
         existingConsent.id,
         'withdrawn',
         existingConsent,
-        modifiedConsent,
+        updatedConsent,
         id,
         reason
       );
 
-    } catch (_error) {
-      logger.error('Failed to withdraw consent', _error as Error);
+    } catch (error) {
+      logger.error('Failed to withdraw consent', error as Error);
       throw new Error('Failed to withdraw consent');
     }
   }
@@ -287,22 +279,22 @@ export class GDPRComplianceService {
     reason?: string
   ): Promise<void> {
     try {
-      const postgres = getPostgresClient();
-      
-      await postgres.query(`
-        INSERT INTO consent_audit_logs (
-          consent_record_id, action, old_values, new_values, performed_by, reason, created_at
-        ) VALUES ($1, $2, $3, $4, $5, $6, NOW())
-      `, [
-        consentRecordId,
-        action,
-        JSON.stringify(oldValues),
-        JSON.stringify(newValues),
-        performedBy,
-        reason || null
-      ]);
-    } catch (_error) {
-      logger.error('Failed to log consent change', _error as Error);
+      await prisma.auditLog.create({
+        data: {
+          action: action,
+          resource: 'consent_record',
+          entityId: consentRecordId,
+          performedById: performedBy,
+          details: {
+            reason,
+            oldValues,
+            newValues
+          },
+          timestamp: new Date()
+        }
+      });
+    } catch (error) {
+      logger.error('Failed to log consent change', error as Error);
     }
   }
 
@@ -311,29 +303,23 @@ export class GDPRComplianceService {
    */
   async getCurrentPrivacyPolicy(): Promise<PrivacyPolicy | null> {
     try {
-      const postgres = getPostgresClient();
-      const result = await postgres.query(`
-        SELECT id, version, title, content, effective_date, published_at, requires_reconsent
-        FROM privacy_policies
-        WHERE active = true
-        ORDER BY version DESC
-        LIMIT 1
-      `);
+      const policy = await prisma.privacyPolicy.findFirst({
+        orderBy: { version: 'desc' }
+      });
 
-      if (result.rows.length === 0) return null;
+      if (!policy) return null;
       
-      const data = result.rows[0];
       return {
-        id: data.id,
-        version: data.version,
-        title: data.title,
-        content: data.content,
-        effectiveDate: data.effective_date,
-        publishedAt: data.published_at,
-        requiresReconsent: data.requires_reconsent
+        id: policy.id,
+        version: policy.version,
+        title: policy.title,
+        content: policy.content,
+        effectiveDate: policy.effective_date.toISOString(),
+        publishedAt: policy.published_at.toISOString(),
+        requiresReconsent: policy.requires_reconsent
       };
-    } catch (_error) {
-      logger.error('Failed to get current privacy policy', _error as Error);
+    } catch (error) {
+      logger.error('Failed to get current privacy policy', error as Error);
       throw new Error('Failed to retrieve privacy policy');
     }
   }
@@ -343,6 +329,9 @@ export class GDPRComplianceService {
    */
   async checkReconsentRequired(id: string): Promise<boolean> {
     try {
+      const userId = parseInt(id, 10);
+      if (isNaN(userId)) return true;
+
       // Get current privacy policy
       const currentPolicy = await this.getCurrentPrivacyPolicy();
       if (!currentPolicy || !currentPolicy.requiresReconsent) {
@@ -350,23 +339,21 @@ export class GDPRComplianceService {
       }
 
       // Get user's latest consent for privacy policy
-      const postgres = getPostgresClient();
-      const latestConsentResult = await postgres.query(`
-        SELECT consent_version FROM consent_records
-        WHERE user_id = $1 AND consent_type_id = 'privacy_policy'
-        ORDER BY consent_timestamp DESC
-        LIMIT 1
-      `, [id]);
-      
-      const latestConsent = latestConsentResult.rows.length > 0 ? latestConsentResult.rows[0] : null;
+      const latestConsent = await prisma.consentRecord.findFirst({
+        where: {
+          user_id: userId,
+          consent_type_id: 'privacy_policy'
+        },
+        orderBy: { consent_timestamp: 'desc' }
+      });
 
       if (!latestConsent) return true;
 
       // Check if user's consent version is older than current policy version
       return latestConsent.consent_version < currentPolicy.version;
-    } catch (_error) {
-      logger.error('Failed to check reconsent requirement', _error as Error);
-      return true; // Default to requiring reconsent on _error
+    } catch (error) {
+      logger.error('Failed to check reconsent requirement', error as Error);
+      return true; // Default to requiring reconsent on error
     }
   }
 
@@ -375,8 +362,9 @@ export class GDPRComplianceService {
    */
   async exportUserData(id: string): Promise<any> {
     try {
-      const postgres = getPostgresClient();
-      
+      const userId = parseInt(id, 10);
+      if (isNaN(userId)) throw new Error('Invalid user ID');
+
       const exportData: {
         id: string;
         exportTimestamp: string;
@@ -392,14 +380,13 @@ export class GDPRComplianceService {
       };
 
       // Get user personal data
-      const userDataResult = await postgres.query(`
-        SELECT * FROM users WHERE id = $1
-      `, [id]);
+      const userData = await prisma.users.findUnique({
+        where: { id: userId }
+      });
 
-      if (userDataResult.rows.length > 0) {
-        const userData = userDataResult.rows[0];
+      if (userData) {
         // Remove sensitive fields like passwords
-        const { password: _password, password_hash: _password_hash, ...sanitizedData } = userData;
+        const { password_hash: _password_hash, ...sanitizedData } = userData;
         exportData.personalData = sanitizedData;
       }
 
@@ -407,19 +394,18 @@ export class GDPRComplianceService {
       exportData.consents = await this.getUserConsents(id);
 
       // Get data subject requests
-      const requestsResult = await postgres.query(`
-        SELECT * FROM data_subject_requests
-        WHERE user_id = $1
-        ORDER BY submitted_at DESC
-      `, [id]);
+      const requests = await prisma.dataSubjectRequest.findMany({
+        where: { user_id: userId },
+        orderBy: { submitted_at: 'desc' }
+      });
 
-      if (requestsResult.rows.length > 0) {
-        exportData.dataSubjectRequests = requestsResult.rows;
+      if (requests.length > 0) {
+        exportData.dataSubjectRequests = requests;
       }
 
       return exportData;
-    } catch (_error) {
-      logger.error('Failed to export user data', _error as Error);
+    } catch (error) {
+      logger.error('Failed to export user data', error as Error);
       throw new Error('Failed to export user data');
     }
   }
@@ -433,51 +419,49 @@ export class GDPRComplianceService {
     requestDetails: any
   ): Promise<DataSubjectRequest> {
     try {
-      const postgres = getPostgresClient();
-      
+      const userId = parseInt(id, 10);
+      if (isNaN(userId)) throw new Error('Invalid user ID');
+
       const expiresAt = new Date();
       expiresAt.setMonth(expiresAt.getMonth() + 1); // Requests expire after 1 month
       
       // Insert the data subject request
-      const insertResult = await postgres.query(`
-        INSERT INTO data_subject_requests (
-          user_id, request_type, status, request_details,
-          submitted_at, expires_at, created_at, updated_at
-        ) VALUES ($1, $2, $3, $4, NOW(), $5, NOW(), NOW())
-        RETURNING id, user_id, request_type, status, request_details, submitted_at, expires_at
-      `, [
-        id,
-        requestType,
-        'pending',
-        JSON.stringify(requestDetails),
-        expiresAt
-      ]);
-      
-      const data = insertResult.rows[0];
+      const data = await prisma.dataSubjectRequest.create({
+        data: {
+          user_id: userId,
+          request_type: requestType,
+          status: 'pending',
+          request_details: requestDetails,
+          expires_at: expiresAt
+        }
+      });
       
       // Log the request
-      await postgres.query(`
-        INSERT INTO request_audit_logs (
-          request_id, action, performed_by, details, created_at
-        ) VALUES ($1, $2, $3, $4, NOW())
-      `, [
-        data.id,
-        'submitted',
-        id,
-        JSON.stringify(requestDetails)
-      ]);
+      await prisma.auditLog.create({
+        data: {
+          action: 'gdpr_request.submitted',
+          resource: 'data_subject_request',
+          entityId: data.id,
+          performedById: id,
+          details: {
+            requestType,
+            requestDetails
+          },
+          timestamp: new Date()
+        }
+      });
 
       return {
         id: data.id,
-        userId: data.user_id,
-        requestType: data.request_type,
-        status: data.status,
+        userId: data.user_id.toString(),
+        requestType: data.request_type as any,
+        status: data.status as any,
         requestDetails: data.request_details,
-        submittedAt: data.submitted_at,
-        expiresAt: data.expires_at
+        submittedAt: data.submitted_at.toISOString(),
+        expiresAt: data.expires_at.toISOString()
       };
-    } catch (_error) {
-      logger.error('Failed to submit data subject request', _error as Error);
+    } catch (error) {
+      logger.error('Failed to submit data subject request', error as Error);
       throw new Error('Failed to submit data subject request');
     }
   }

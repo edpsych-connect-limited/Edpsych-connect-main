@@ -9,7 +9,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 import AssessmentNavigation from './AssessmentNavigation';
 import AssessmentProgress from './AssessmentProgress';

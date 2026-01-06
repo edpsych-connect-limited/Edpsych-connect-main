@@ -1,4 +1,6 @@
 import { logger } from "@/lib/logger";
+import { prisma } from "@/lib/prisma";
+
 /**
  * AI Audit Service
  * Provides forensic logging for all AI decisions to ensure "Zero-Oversight" safety.
@@ -23,7 +25,6 @@ export interface AIAuditLog {
 
 class AIAuditService {
   private static instance: AIAuditService;
-  private logs: AIAuditLog[] = []; // In-memory buffer, would be DB in production
 
   private constructor() {}
 
@@ -38,50 +39,108 @@ class AIAuditService {
    * Log an AI decision or action
    */
   async logDecision(logData: Omit<AIAuditLog, 'id' | 'timestamp'>): Promise<string> {
-    const log: AIAuditLog = {
-      id: `audit_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      timestamp: new Date(),
-      ...logData
+    const details = {
+      agentId: logData.agentId,
+      input: logData.input,
+      output: logData.output,
+      reasoningTrace: logData.reasoningTrace,
+      confidenceScore: logData.confidenceScore,
+      autonomyLevel: logData.autonomyLevel,
+      humanReviewRequired: logData.humanReviewRequired,
+      humanReviewStatus: logData.humanReviewStatus,
+      ...logData.metadata
     };
 
-    // In a real implementation, this would write to the 'AuditLog' table in Prisma
-    // or a dedicated high-volume logging service (e.g., CloudWatch, Datadog)
-    this.logs.push(log);
-    
-    // Keep buffer size manageable
-    if (this.logs.length > 1000) {
-      this.logs.shift();
+    try {
+      const log = await prisma.auditLog.create({
+        data: {
+          action: logData.action,
+          userId: logData.userId,
+          tenant_id: parseInt(logData.tenantId) || undefined,
+          resource: 'AI_AGENT',
+          entityType: 'AI_INTERACTION',
+          entityId: logData.agentId,
+          details: details as any,
+          description: `AI Agent ${logData.agentId} performed ${logData.action}`,
+          timestamp: new Date(),
+        }
+      });
+      
+      logger.debug(`[AI AUDIT] ${logData.agentId} performed ${logData.action} (Confidence: ${logData.confidenceScore})`);
+      return log.id;
+    } catch (error) {
+      logger.error('Failed to write AI audit log to DB', error);
+      return `fallback_${Date.now()}`;
     }
-
-    logger.debug(`[AI AUDIT] ${log.agentId} performed ${log.action} (Confidence: ${log.confidenceScore})`);
-    
-    return log.id;
   }
 
   /**
    * Retrieve logs for a specific tenant or user
    */
   async getLogs(filter: { tenantId?: string; userId?: string; agentId?: string }): Promise<AIAuditLog[]> {
-    return this.logs.filter(log => {
-      if (filter.tenantId && log.tenantId !== filter.tenantId) return false;
-      if (filter.userId && log.userId !== filter.userId) return false;
-      if (filter.agentId && log.agentId !== filter.agentId) return false;
-      return true;
-    });
+    try {
+      const where: any = {
+        resource: 'AI_AGENT',
+        entityType: 'AI_INTERACTION'
+      };
+      
+      if (filter.tenantId) where.tenant_id = parseInt(filter.tenantId);
+      if (filter.userId) where.userId = filter.userId;
+      if (filter.agentId) where.entityId = filter.agentId;
+
+      const logs = await prisma.auditLog.findMany({
+        where,
+        orderBy: { timestamp: 'desc' },
+        take: 100
+      });
+
+      return logs.map(log => {
+        const details = log.details as any || {};
+        return {
+          id: log.id,
+          timestamp: log.timestamp,
+          agentId: log.entityId || 'unknown',
+          userId: log.userId || 'unknown',
+          tenantId: log.tenant_id?.toString() || 'unknown',
+          action: log.action,
+          input: details.input || '',
+          output: details.output || '',
+          reasoningTrace: details.reasoningTrace,
+          confidenceScore: details.confidenceScore,
+          autonomyLevel: details.autonomyLevel || 'advisory',
+          humanReviewRequired: details.humanReviewRequired || false,
+          humanReviewStatus: details.humanReviewStatus,
+          metadata: details
+        };
+      });
+    } catch (error) {
+      logger.error('Failed to fetch AI audit logs', error);
+      return [];
+    }
   }
 
   /**
    * Flag a decision for human review
    */
   async flagForReview(logId: string, reason: string): Promise<boolean> {
-    const log = this.logs.find(l => l.id === logId);
-    if (log) {
-      log.humanReviewRequired = true;
-      log.humanReviewStatus = 'pending';
-      log.metadata = { ...log.metadata, reviewReason: reason };
+    try {
+      const log = await prisma.auditLog.findUnique({ where: { id: logId } });
+      if (!log) return false;
+
+      const details = log.details as any || {};
+      details.humanReviewRequired = true;
+      details.humanReviewStatus = 'pending';
+      details.reviewReason = reason;
+
+      await prisma.auditLog.update({
+        where: { id: logId },
+        data: { details }
+      });
       return true;
+    } catch (error) {
+      logger.error('Failed to flag AI audit log for review', error);
+      return false;
     }
-    return false;
   }
 }
 

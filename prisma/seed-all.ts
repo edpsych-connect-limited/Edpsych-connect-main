@@ -4,6 +4,7 @@ import path from 'path';
 const scripts = [
   'seed-admin.ts',
   'seed-system-config.ts',
+  'seed-la-admin.ts',
   'seed-content.ts',
   'seed-orchestration.ts',
   'seed-help-center.ts',

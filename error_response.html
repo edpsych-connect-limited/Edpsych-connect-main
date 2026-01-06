@@ -1,0 +1,43 @@
+* Host localhost:3000 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying [::1]:3000...
+* Established connection to localhost (::1 port 3000) from ::1 port 51565 
+* using HTTP/1.x
+> GET /assessments/new HTTP/1.1
+
+> Host: localhost:3000
+
+> User-Agent: curl/8.16.0
+
+> Accept: */*
+
+> 
+
+* Request completely sent off
+< HTTP/1.1 307 Temporary Redirect
+
+< location: /en/assessments/new
+
+< set-cookie: NEXT_LOCALE=en; Path=/; SameSite=lax
+
+< x-request-id: 378cd4ed-a4d3-4183-abe1-fd94e39c0ae6
+
+< Date: Tue, 06 Jan 2026 20:13:06 GMT
+
+< Connection: keep-alive
+
+< Keep-Alive: timeout=5
+
+< Transfer-Encoding: chunked
+
+< 
+
+{ [30 bytes data]
+
+100    19    0    19    0     0    647      0 --:--:-- --:--:-- --:--:--   655
+* Connection #0 to host localhost:3000 left intact
+/en/assessments/new

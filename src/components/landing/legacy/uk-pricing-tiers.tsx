@@ -14,7 +14,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { styled } from '@mui/material/styles';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 // Enhanced styling for pricing cards
 const PricingCard = styled(Card)(({ theme, featured }: { theme?: any, featured: boolean }) => ({

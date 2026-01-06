@@ -86,7 +86,7 @@ Cypress.Commands.add('login', (email: string, password?: string) => {
 		[email, resolvedPassword],
 		() => {
 			// Establish correct origin before touching localStorage
-			cy.visit('/', { failOnStatusCode: false });
+			cy.visit('/en', { failOnStatusCode: false });
 
 			const requestLogin = (attempt: number): Cypress.Chainable<Cypress.Response<LoginResponseBody>> => {
 				return cy

@@ -10,7 +10,7 @@
 
 import React, { useState } from 'react';
 import { Link } from '@/navigation';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 import useSubscription from '../../hooks/useSubscription';
 import { SubscriptionStatus, SubscriptionTier, BillingCycle } from '../../types';
 
@@ -22,8 +22,7 @@ interface SubscriptionManagerProps {
 const SubscriptionManager: React.FC<SubscriptionManagerProps> = ({ className = '' }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const sessionData = useSession();
-  const session = sessionData?.data ?? null;
+  const { user } = useAuth();
   const { subscription, isActive, tier, status } = useSubscription();
 
   const handleManageSubscription = async () => {
@@ -144,7 +143,7 @@ const SubscriptionManager: React.FC<SubscriptionManagerProps> = ({ className = '
     }
   };
 
-  if (!session) {
+  if (!user) {
     return (
       <div className={`subscription-manager ${className}`}>
         <div className="not-logged-in">

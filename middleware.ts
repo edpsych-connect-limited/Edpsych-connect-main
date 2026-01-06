@@ -6,11 +6,13 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
+import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { proxy } from "./src/proxy";
 import { maybeRateLimitRsc } from "./src/lib/security/edge-rate-limit";
 
 export async function middleware(request: NextRequest) {
+  console.log(`[Middleware] Request: ${request.nextUrl.pathname}`);
   const requestId = request.headers.get("x-request-id") ?? crypto.randomUUID();
 
   // Defense-in-depth for RSC/Server Actions: limit suspiciously high request rates.

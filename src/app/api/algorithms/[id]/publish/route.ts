@@ -4,7 +4,7 @@ import serverAuth from '@/lib/auth/server-auth';
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const user = await serverAuth.getUserFromRequest(req);
@@ -12,7 +12,7 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const id = params.id;
+    const { id } = await params;
     
     // AlgorithmService.publishAlgorithm likely checks ownership, but we can double check if needed.
     // For now, we rely on the service or just pass the user ID.

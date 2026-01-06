@@ -1,0 +1,82 @@
+[2026-01-05T21:34:24.770Z] WARN: Slow query detected (2277ms) {
+  model: 'users',
+  operation: 'findUnique',
+  executionTime: 2277,
+  attempt: 1
+}
+[2026-01-05T21:34:25.110Z] WARN: Slow query detected (222ms) { model: 'users', operation: 'update', executionTime: 222, attempt: 1 }
+[2026-01-05T21:34:25.369Z] WARN: Slow query detected (254ms) {
+  model: 'AuditLog',
+  operation: 'create',
+  executionTime: 254,
+  attempt: 1
+}
+[2026-01-05T21:34:25.923Z] WARN: Slow query detected (146ms) {
+  model: 'onboarding_progress',
+  operation: 'findUnique',
+  executionTime: 146,
+  attempt: 1
+}
+[2026-01-05T21:34:28.848Z] WARN: Slow query detected (314ms) {
+  model: 'research_studies',
+  operation: 'findMany',
+  executionTime: 314,
+  attempt: 1
+}
+[2026-01-05T21:34:50.862Z] WARN: Slow query detected (247ms) {
+  model: 'users',
+  operation: 'findUnique',
+  executionTime: 247,
+  attempt: 1
+}
+[2026-01-05T21:34:51.508Z] WARN: [Proxy] Blocked non-enterprise access to /api/la/compliance by user la_admin@demo.com (Tier: undefined)
+[2026-01-05T21:34:51.706Z] WARN: [Proxy] Blocked non-enterprise access to /api/la/compliance by user la_admin@demo.com (Tier: undefined)
+[2026-01-05T21:34:52.436Z] WARN: [Proxy] Blocked non-enterprise access to /api/la/compliance by user la_admin@demo.com (Tier: undefined)
+[2026-01-05T22:38:40.955Z] WARN: Slow query detected (6058ms) {
+  model: 'users',
+  operation: 'findUnique',
+  executionTime: 6058,
+  attempt: 1
+}
+[2026-01-05T22:38:41.187Z] WARN: Slow query detected (108ms) { model: 'users', operation: 'update', executionTime: 108, attempt: 1 }
+[2026-01-05T22:38:41.306Z] WARN: Slow query detected (114ms) {
+  model: 'AuditLog',
+  operation: 'create',
+  executionTime: 114,
+  attempt: 1
+}
+[2026-01-05T22:38:42.273Z] WARN: [Proxy] Blocked non-enterprise access to /api/la/compliance by user la_admin@demo.com (Tier: undefined)
+[2026-01-05T22:38:43.220Z] WARN: [Proxy] Blocked non-enterprise access to /api/la/compliance by user la_admin@demo.com (Tier: undefined)
+[2026-01-05T22:38:44.723Z] WARN: [Proxy] Blocked non-enterprise access to /api/la/compliance by user la_admin@demo.com (Tier: undefined)
+[2026-01-05T22:43:08.023Z] WARN: Slow query detected (3624ms) {
+  model: 'users',
+  operation: 'findUnique',
+  executionTime: 3624,
+  attempt: 1
+}
+[2026-01-05T22:43:08.817Z] WARN: Slow query detected (424ms) { model: 'users', operation: 'update', executionTime: 424, attempt: 1 }
+[2026-01-05T22:43:09.163Z] WARN: Slow query detected (300ms) {
+  model: 'AuditLog',
+  operation: 'create',
+  executionTime: 300,
+  attempt: 1
+}
+[2026-01-05T22:43:10.269Z] WARN: [Proxy] Blocked non-enterprise access to /api/la/compliance by user la_admin@demo.com (Tier: undefined)
+[2026-01-05T22:43:11.876Z] WARN: [Proxy] Blocked non-enterprise access to /api/la/compliance by user la_admin@demo.com (Tier: undefined)
+[2026-01-05T22:43:12.808Z] WARN: [Proxy] Blocked non-enterprise access to /api/la/compliance by user la_admin@demo.com (Tier: undefined)
+[2026-01-05T22:47:27.112Z] WARN: Slow query detected (4413ms) {
+  model: 'users',
+  operation: 'findUnique',
+  executionTime: 4413,
+  attempt: 1
+}
+[2026-01-05T22:47:27.612Z] WARN: Slow query detected (288ms) { model: 'users', operation: 'update', executionTime: 288, attempt: 1 }
+[2026-01-05T22:47:27.823Z] WARN: Slow query detected (174ms) {
+  model: 'AuditLog',
+  operation: 'create',
+  executionTime: 174,
+  attempt: 1
+}
+[2026-01-05T22:47:28.561Z] WARN: [Proxy] Blocked non-enterprise access to /api/la/compliance by user la_admin@demo.com (Tier: undefined)
+[2026-01-05T22:47:29.007Z] WARN: [Proxy] Blocked non-enterprise access to /api/la/compliance by user la_admin@demo.com (Tier: undefined)
+[2026-01-05T22:47:29.777Z] WARN: [Proxy] Blocked non-enterprise access to /api/la/compliance by user la_admin@demo.com (Tier: undefined)

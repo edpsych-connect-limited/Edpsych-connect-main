@@ -1,0 +1,644 @@
+{
+  "total_processed": 100,
+  "pending": 0,
+  "failures": [
+    {
+      "url": "/admin",
+      "status": 500,
+      "ok": false,
+      "redirects": true
+    },
+    {
+      "url": "/assessments/new",
+      "status": 500,
+      "ok": false,
+      "redirects": true
+    },
+    {
+      "url": "/ehcp",
+      "status": 500,
+      "ok": false,
+      "redirects": true
+    },
+    {
+      "url": "/ehcp/123",
+      "status": 500,
+      "ok": false,
+      "redirects": true
+    },
+    {
+      "url": "/training/courses/123/learn",
+      "status": 500,
+      "ok": false,
+      "redirects": true
+    },
+    {
+      "url": "/school/ehcp-request",
+      "status": 500,
+      "ok": false,
+      "redirects": true
+    }
+  ],
+  "results": [
+    {
+      "url": "/",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/about",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/accessibility",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/admin",
+      "status": 500,
+      "ok": false,
+      "redirects": true
+    },
+    {
+      "url": "/admin/ethics",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/admin/integrations",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/ai-agents",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/algorithms",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/analytics",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/assessments",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/assessments/new",
+      "status": 500,
+      "ok": false,
+      "redirects": true
+    },
+    {
+      "url": "/assessments/123",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/assessments/123/conduct",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/assessments/tasks/digit-span",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/blog",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/blog/test-slug",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/cases",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/cases/new",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/cases/123",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/collaborate",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/collaborate/thank-you",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/collaborate/test-token",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/contact",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/dashboard",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/demo",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/demo/assessment",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/demo/coding",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/demo/ehcp",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/demo/gamification",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/demo/golden-thread",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/demo/interventions",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/demo/onboarding",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/demo/tracking",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/demo/training",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/demo/translator",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/diagnostic",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/ehcp",
+      "status": 500,
+      "ok": false,
+      "redirects": true
+    },
+    {
+      "url": "/ehcp/new",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/ehcp/123",
+      "status": 500,
+      "ok": false,
+      "redirects": true
+    },
+    {
+      "url": "/ehcp/modules",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/ehcp/modules/annual-reviews",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/ehcp/modules/mediation-tribunal",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/ehcp/modules/phase-transfers",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/ehcp/modules/compliance-risk",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/ehcp/modules/resource-costing",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/ehcp/modules/golden-thread",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/ehcp/modules/sen2-returns",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/forgot-password",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/gamification",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/gdpr",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/help",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/help/test-slug",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/institutional-management",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/interventions",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/interventions/library",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/interventions/new",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/interventions/123",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/landing",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/login",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/marketplace",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/marketplace/dashboard",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/marketplace/la-panel",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/marketplace/register",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/networking",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/onboarding",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/parents",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/pricing",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/privacy",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/progress",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/reports",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/reports/create",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/research",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/research/ethics",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/settings",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/signup",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/subscription",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/subscription/addon",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/teachers",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/terms",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/test-auth",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/test-navigation",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/training",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/training/certificates",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/training/checkout/123",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/training/courses",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/training/courses/123",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/training/courses/123/learn",
+      "status": 500,
+      "ok": false,
+      "redirects": true
+    },
+    {
+      "url": "/training/dashboard",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/training/marketplace",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/beta-login",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/beta-register",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/school/ehcp-request",
+      "status": 500,
+      "ok": false,
+      "redirects": true
+    },
+    {
+      "url": "/la/dashboard",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/la/applications/123",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/professional/portal",
+      "status": 404,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/careers",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/forum",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/problem-solver",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/senco",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    },
+    {
+      "url": "/outcomes",
+      "status": 200,
+      "ok": true,
+      "redirects": true
+    }
+  ]
+}

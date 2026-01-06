@@ -11,7 +11,7 @@ import { aiAuditService } from './audit/ai-audit-service';
 import { getDefaultOpenAIModel } from '@/lib/ai/openai-model';
 import { redactPII } from '@/lib/security/pii-redaction';
 import { AI_DATA_USE_POLICY } from '@/lib/ai/data-use-policy';
-import { getDemoResponse } from '@/lib/ai/demo-data';
+// import { getDemoResponse } from '@/lib/ai/demo-data'; // Removed for Truth-by-Code
 
 export interface AIRequest {
   prompt: string;
@@ -361,7 +361,7 @@ class AIIntegrationService {
       maxTokens: 700,
       temperature: 0.5,
       systemPrompt: `You are a special educational needs specialist. Coordinate comprehensive support including:
-      - Individualized Education Program development
+      - Individualised Education Programme development
       - Multi-agency collaboration
       - Progress monitoring and adjustment
       - Evidence-based intervention strategies
@@ -698,17 +698,9 @@ class AIIntegrationService {
   }
 
   private getUnavailableResponse(agent: AgentConfig, prompt?: string): { content: string; tokens: number } {
-    if (prompt) {
-      const demo = getDemoResponse(prompt);
-      return {
-        content: demo.content,
-        tokens: 200
-      };
-    }
-    return {
-      content: `AI is not configured for this environment. Please set the required provider API key(s) to enable ${agent.name}.`,
-      tokens: 0
-    };
+    // TRUTH-BY-CODE: Removed mock response fallback.
+    // If no providers are available, we must fail to indicate configuration is required.
+    throw new Error(`AI Configuration Error: No active providers found for agent ${agent.name}. Please configure API keys.`);
   }
 
   private async callAnthropic(agent: AgentConfig, request: AIRequest): Promise<{ content: string; tokens: number }> {
@@ -888,29 +880,18 @@ class AIIntegrationService {
   private async handleFailover(request: AIRequest, error: Error): Promise<AIResponse> {
     console.error('AI service error for request:', { useCase: request.useCase, id: request.id }, error.message);
 
-    // Attempt to provide a high-quality demo response as a final fallback
-    try {
-      const demo = getDemoResponse(request.prompt);
-      return {
-        response: demo.content,
-        model: 'demo-fallback',
-        cost: 0,
-        tokens: 0,
-        fromCache: false,
-        processingTime: 0
-      };
-    } catch (e) {
-      // If even that fails, return the generic error
-      return {
-        response: "I'm experiencing technical difficulties. Please try again in a moment, or contact support if the issue persists.",
-        model: 'error',
-        cost: 0,
-        tokens: 0,
-        fromCache: false,
-        processingTime: 0
-      };
-    }
+    // TRUTH-BY-CODE: Removed demo fallback.
+    // Return the error message to the user so they know something is wrong.
+    return {
+      response: "I'm experiencing technical difficulties connecting to the AI provider. Please check your configuration or try again later.",
+      model: 'error',
+      cost: 0,
+      tokens: 0,
+      fromCache: false,
+      processingTime: 0
+    };
   }
+
 
   // Public methods for agent management
   getAvailableAgents(): string[] {

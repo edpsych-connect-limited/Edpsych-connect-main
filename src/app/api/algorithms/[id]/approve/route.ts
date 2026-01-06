@@ -4,7 +4,7 @@ import serverAuth from '@/lib/auth/server-auth';
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const user = await serverAuth.getUserFromRequest(req);
@@ -17,7 +17,7 @@ export async function POST(
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
-    const id = params.id;
+    const { id } = await params;
     const body = await req.json();
     const { comments } = body;
     

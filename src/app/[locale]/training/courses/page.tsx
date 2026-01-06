@@ -8,14 +8,15 @@
 
 import { redirect } from 'next/navigation';
 
-export default function TrainingCoursesIndexPage({
+export default async function TrainingCoursesIndexPage({
   params,
 }: {
-  params?: { locale?: string };
+  params: Promise<{ locale?: string }>;
 }) {
   // Canonical training catalogue lives at `/<locale>/training`.
   // Keep this route as an alias for backwards-compatibility and audit checklists.
-  const locale = params?.locale;
+  const resolvedParams = await params;
+  const locale = resolvedParams.locale;
   // Defensive: if for any reason the dynamic segment isn't available at runtime,
   // redirect to the locale-less route and let middleware apply the correct locale.
   redirect(locale ? `/${locale}/training` : '/training');

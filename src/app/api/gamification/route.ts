@@ -16,11 +16,41 @@ import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
 import prisma from '@/lib/prismaSafe';
 import { BADGE_LIBRARY } from '@/lib/gamification/badge-system';
+import { RealGamification } from '@/lib/gamification/real-gamification';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   return routeGamificationRequest(request);
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const { pathname } = new URL(request.url);
+    const segments = pathname.split('/').filter(Boolean).slice(2);
+    const resource = segments[0];
+
+    const session = await authService.getSessionFromRequest(request);
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    const userId = parseInt(session.id);
+
+    if (resource === 'complete') {
+       const body = await request.json();
+       const { challengeId } = body;
+       if (!challengeId) {
+         return NextResponse.json({ success: false, message: 'Missing challengeId' }, { status: 400 });
+       }
+       const result = await RealGamification.completeChallenge(userId.toString(), challengeId);
+       return NextResponse.json(result);
+    }
+    
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  } catch (error) {
+    console.error('Error in POST gamification:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
 }
 
 export async function OPTIONS(_request: NextRequest) {
@@ -109,51 +139,31 @@ async function handleBadges(userId: number): Promise<NextResponse> {
   });
 }
 
-async function handleChallenges(_userId: number): Promise<NextResponse> {
-  // Generate daily challenges based on date to ensure consistency
-  const today = new Date().toISOString().split('T')[0];
-  
-  // Check if user has completed any of today's challenges (mock check for now)
-  // In a real implementation, we would check a 'user_challenges' table
-  
-  const challenges = [
-    {
-      id: `daily-login-${today}`,
-      title: 'Daily Dedication',
-      description: 'Log in to the platform today',
-      reward: 50,
-      type: 'daily',
-      progress: 1,
-      target: 1,
-      completed: true // They are logged in if they are calling this
-    },
-    {
-      id: `quiz-master-${today}`,
-      title: 'Quiz Master',
-      description: 'Complete 3 quizzes with >80% score',
-      reward: 150,
-      type: 'daily',
-      progress: 0, // TODO: Fetch from daily stats
-      target: 3,
-      completed: false
-    },
-    {
-      id: `lesson-learner-${today}`,
-      title: 'Knowledge Seeker',
-      description: 'Complete 2 lessons',
-      reward: 100,
-      type: 'daily',
-      progress: 0, // TODO: Fetch from daily stats
-      target: 2,
-      completed: false
-    }
-  ];
+async function handleChallenges(userId: number): Promise<NextResponse> {
+  try {
+    const challenges = await RealGamification.getUserChallenges(userId.toString());
+    
+    // Map to the format expected by the frontend
+    const mappedChallenges = challenges.map(c => ({
+      id: c.id,
+      title: c.title,
+      description: c.description,
+      reward: c.points,
+      type: c.category,
+      progress: c.isCompleted ? 100 : 0,
+      target: 100,
+      completed: c.isCompleted
+    }));
 
-  return NextResponse.json({
-    success: true,
-    challenges,
-    total: challenges.length,
-  });
+    return NextResponse.json({
+      success: true,
+      challenges: mappedChallenges,
+      total: mappedChallenges.length,
+    });
+  } catch (error) {
+    console.error('Error fetching challenges:', error);
+    return NextResponse.json({ success: false, challenges: [], total: 0 });
+  }
 }
 
 async function handleLeaderboard(userId: number): Promise<NextResponse> {

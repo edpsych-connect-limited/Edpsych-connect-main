@@ -11,20 +11,14 @@ import {
   GraduationCap,
   BookOpen
 } from 'lucide-react';
-import { INTERVENTION_STATS, INTERVENTION_LIBRARY } from '@/lib/interventions/intervention-library';
-import { ASSESSMENT_LIBRARY } from '@/lib/assessments/assessment-library';
+import { useSchoolDashboard } from '@/hooks/useSchoolDashboard';
 
 export default function SchoolDashboard() {
-  // GAP ANALYSIS: Wiring Real Engines
-  // 1. Intervention Engine Stats
-  const interventionCount = INTERVENTION_STATS.total;
-  
-  // 2. Assessment Engine Stats
-  const assessmentCount = ASSESSMENT_LIBRARY.length;
-  const teacherAssessments = ASSESSMENT_LIBRARY.filter(a => a.qualification_required === 'teacher' || a.qualification_required === 'senco').length;
+  const { stats, classroomInterventions, students, loading } = useSchoolDashboard();
 
-  // 3. Featured Interventions for Schools (Classroom setting)
-  const classroomInterventions = INTERVENTION_LIBRARY.filter(i => i.setting.includes('classroom')).slice(0, 3);
+  if (loading || !stats) {
+    return <div className="min-h-screen bg-slate-50 flex items-center justify-center">Loading...</div>;
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 pb-12">
@@ -62,10 +56,10 @@ export default function SchoolDashboard() {
         {/* Stats Grid (Wired to Libraries) */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           {[
-            { label: 'Active Cases', value: '12', icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
-            { label: 'Teacher Assessments', value: teacherAssessments.toString(), icon: FileText, color: 'text-amber-600', bg: 'bg-amber-50' },
-            { label: 'Intervention Library', value: interventionCount.toString(), icon: GraduationCap, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-            { label: 'Critical Actions', value: '2', icon: AlertCircle, color: 'text-red-600', bg: 'bg-red-50' },
+            { label: 'Active Cases', value: stats.activeCases.toString(), icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
+            { label: 'Teacher Assessments', value: stats.teacherAssessments.toString(), icon: FileText, color: 'text-amber-600', bg: 'bg-amber-50' },
+            { label: 'Intervention Library', value: stats.interventionCount.toString(), icon: GraduationCap, color: 'text-emerald-600', bg: 'bg-emerald-50' },
+            { label: 'Critical Actions', value: stats.criticalActions.toString(), icon: AlertCircle, color: 'text-red-600', bg: 'bg-red-50' },
           ].map((stat, i) => (
             <div key={i} className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
               <div className="flex items-center justify-between mb-4">
@@ -84,7 +78,7 @@ export default function SchoolDashboard() {
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-bold text-slate-900">Featured Classroom Strategies</h2>
             <Link href="/interventions" className="text-sm text-indigo-600 font-medium hover:text-indigo-700">
-              View All {interventionCount} Strategies
+              View All {stats.interventionCount} Strategies
             </Link>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -138,11 +132,7 @@ export default function SchoolDashboard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {[
-                { name: 'Leo Thompson', year: 'Year 4', need: 'Cognition & Learning', status: 'Assessment', statusColor: 'bg-amber-100 text-amber-700', review: 'Jan 24, 2026' },
-                { name: 'Sarah Jenkins', year: 'Year 6', need: 'SEMH', status: 'EHCP Active', statusColor: 'bg-green-100 text-green-700', review: 'Feb 10, 2026' },
-                { name: 'Michael Chang', year: 'Year 3', need: 'Communication', status: 'Monitoring', statusColor: 'bg-blue-100 text-blue-700', review: 'Mar 01, 2026' },
-              ].map((student, i) => (
+              {students.map((student, i) => (
                 <tr key={i} className="hover:bg-slate-50 transition-colors">
                   <td className="px-6 py-4 font-medium text-slate-900">{student.name}</td>
                   <td className="px-6 py-4 text-slate-600">{student.year}</td>

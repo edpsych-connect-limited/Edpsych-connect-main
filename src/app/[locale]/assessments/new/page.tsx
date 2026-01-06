@@ -9,28 +9,26 @@
 export const dynamic = 'force-dynamic';
 
 import React, { useEffect } from 'react';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 import { useRouter, useSearchParams } from 'next/navigation';
 import AssessmentForm from '@/components/assessments/AssessmentForm';
 import { Loader2 } from 'lucide-react';
 
 export default function NewAssessmentPage() {
-  const sessionResult = useSession();
-  const session = sessionResult?.data;
-  const status = sessionResult?.status;
+  const { user, isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const type = searchParams.get('type');
 
   // Redirect to login if not authenticated
   useEffect(() => {
-    if (status === 'unauthenticated') {
+    if (!isLoading && !isAuthenticated) {
       router.push('/login?returnUrl=/assessments/new');
     }
-  }, [status, router]);
+  }, [isLoading, isAuthenticated, router]);
 
   // Show loading during authentication check
-  if (status === 'loading') {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-slate-50">
         <div className="text-center">
@@ -42,7 +40,7 @@ export default function NewAssessmentPage() {
   }
 
   // If not authenticated, show redirecting message
-  if (!session) {
+  if (!isAuthenticated) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-slate-50">
         <div className="text-center">

@@ -15,38 +15,16 @@
 
 import React, { useState, useEffect } from 'react';
 import DOMPurify from 'dompurify';
-import { gdprCompliance } from '../../lib/gdpr-compliance';
-
-
-interface PrivacyPolicy {
-  id: string;
-  version: number;
-  title: string;
-  content: string;
-  effectiveDate: string;
-  publishedAt: string;
-  requiresReconsent: boolean;
-}
-
-interface ConsentType {
-  id: string;
-  name: string;
-  description: string;
-  required: boolean;
-  version: number;
-}
-
-interface ConsentRecord {
-  id: string;
-  userId: string;
-  consentTypeId: string;
-  consented: boolean;
-  consentText: string;
-  consentTimestamp: string;
-  withdrawalTimestamp?: string;
-  validUntil?: string;
-  consentVersion: number;
-}
+import { type ConsentType, type ConsentRecord, type PrivacyPolicy } from '../../lib/gdpr-compliance';
+import { 
+  getConsentTypes, 
+  getUserConsents, 
+  grantConsent, 
+  getCurrentPrivacyPolicy, 
+  checkReconsentRequired, 
+  exportUserData, 
+  submitDataSubjectRequest 
+} from '@/actions/gdpr-actions';
 
 export const PrivacyPolicyManager: React.FC = () => {
   const [privacyPolicy, setPrivacyPolicy] = useState<PrivacyPolicy | null>(null);
@@ -69,10 +47,10 @@ export const PrivacyPolicyManager: React.FC = () => {
       setError(null);
 
       const [policy, types, consents, needsReconsent] = await Promise.all([
-        gdprCompliance.getCurrentPrivacyPolicy(),
-        gdprCompliance.getConsentTypes(),
-        gdprCompliance.getUserConsents('current-user'), // Replace with actual user ID
-        gdprCompliance.checkReconsentRequired('current-user') // Replace with actual user ID
+        getCurrentPrivacyPolicy(),
+        getConsentTypes(),
+        getUserConsents('current-user'), // Replace with actual user ID
+        checkReconsentRequired('current-user') // Replace with actual user ID
       ]);
 
       setPrivacyPolicy(policy);
@@ -99,7 +77,7 @@ export const PrivacyPolicyManager: React.FC = () => {
 
       const consentText = `User ${consented ? 'consented to' : 'declined'} ${consentType.name} on ${new Date().toISOString()}`;
 
-      const consent = await gdprCompliance.grantConsent(
+      const consent = await grantConsent(
         'current-user', // Replace with actual user ID
         consentTypeId,
         consented,
@@ -114,7 +92,7 @@ export const PrivacyPolicyManager: React.FC = () => {
       setSuccess(`Consent ${consented ? 'granted' : 'withdrawn'} successfully`);
 
       // Check if reconsent is still required
-      const stillNeedsReconsent = await gdprCompliance.checkReconsentRequired('current-user');
+      const stillNeedsReconsent = await checkReconsentRequired('current-user');
       setReconsentRequired(stillNeedsReconsent);
 
     } catch (_error) {
@@ -130,7 +108,7 @@ export const PrivacyPolicyManager: React.FC = () => {
       setProcessing('export');
       setError(null);
 
-      const exportData = await gdprCompliance.exportUserData('current-user'); // Replace with actual user ID
+      const exportData = await exportUserData('current-user'); // Replace with actual user ID
 
       // Create and download JSON file
       const blob = new Blob([JSON.stringify(exportData, null, 2)], {
@@ -164,7 +142,7 @@ export const PrivacyPolicyManager: React.FC = () => {
       setProcessing('delete');
       setError(null);
 
-      await gdprCompliance.submitDataSubjectRequest(
+      await submitDataSubjectRequest(
         'current-user', // Replace with actual user ID
         'erasure',
         { reason: 'User requested data deletion' }

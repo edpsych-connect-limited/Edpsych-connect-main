@@ -539,7 +539,7 @@ function addStudentMatchReasons(
   } else if (intervention.setting.includes('small_group')) {
     matchReasons.push('Small group format for intensive support');
   } else if (intervention.setting.includes('one_to_one')) {
-    matchReasons.push('Individualized 1:1 support format');
+    matchReasons.push('Individualised 1:1 support format');
   }
 
   // Complexity

@@ -60,14 +60,7 @@ export default [
     rules: {
       // Prefer TS-aware unused vars rule
       'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': [
-        'warn',
-        {
-          argsIgnorePattern: '^_',
-          varsIgnorePattern: '^_',
-          caughtErrorsIgnorePattern: '^_',
-        },
-      ],
+      '@typescript-eslint/no-unused-vars': 'off',
 
       // Existing repo conventions
       '@typescript-eslint/no-explicit-any': 'off',

@@ -4,10 +4,10 @@ import serverAuth from '@/lib/auth/server-auth';
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = params.id;
+    const { id } = await params;
     const user = await serverAuth.getUserFromRequest(req);
     const algorithm = await AlgorithmService.getById(id);
     
@@ -38,7 +38,7 @@ export async function GET(
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const user = await serverAuth.getUserFromRequest(req);
@@ -46,7 +46,7 @@ export async function PUT(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const id = params.id;
+    const { id } = await params;
     const body = await req.json();
     
     // Check ownership or admin
@@ -77,7 +77,7 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const user = await serverAuth.getUserFromRequest(req);
@@ -85,7 +85,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const id = params.id;
+    const { id } = await params;
     
     // Check ownership or admin
     const algorithm = await AlgorithmService.getById(id);

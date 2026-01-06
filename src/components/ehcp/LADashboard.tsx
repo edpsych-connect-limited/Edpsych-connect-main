@@ -433,7 +433,7 @@ export default function LAEHCPDashboard() {
                   }`}
                 >
                   {tab.icon}
-                  <span className="hidden sm:inline">{tab.label}</span>
+                  <span>{tab.label}</span>
                   {tab.badge && (
                     <span className={`text-xs px-1.5 py-0.5 rounded-full ${
                       tab.badge === 'AI' 

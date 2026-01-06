@@ -985,7 +985,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Phonology-based',
       'Teaches 6 syllable types',
       'Morphology instruction',
-      'Individualized pacing'
+      'Individualised pacing'
     ],
 
     fidelity_checklist: [
@@ -1040,7 +1040,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Assistive technology training'
     ],
 
-    implementation_guide: 'OG lesson structure (60 min): 1) Review cards (10 min) - sounds, words, concepts. 2) New learning (10 min) - introduce new concept using multi-sensory techniques (see, hear, say, write). 3) Reading practice (15 min) - word lists, phrases, passages at instructional level. 4) Spelling/writing (15 min) - encode words, sentences. 5) Reading text (10 min) - controlled text incorporating taught concepts. Sequence: Alphabet, consonants, short vowels, digraphs, blends, long vowels, r-controlled, diphthongs, syllable types, prefixes/suffixes, morphology. MUST be systematic, cumulative, explicit, multisensory, individualized.',
+    implementation_guide: 'OG lesson structure (60 min): 1) Review cards (10 min) - sounds, words, concepts. 2) New learning (10 min) - introduce new concept using multi-sensory techniques (see, hear, say, write). 3) Reading practice (15 min) - word lists, phrases, passages at instructional level. 4) Spelling/writing (15 min) - encode words, sentences. 5) Reading text (10 min) - controlled text incorporating taught concepts. Sequence: Alphabet, consonants, short vowels, digraphs, blends, long vowels, r-controlled, diphthongs, syllable types, prefixes/suffixes, morphology. MUST be systematic, cumulative, explicit, multisensory, Individualised.',
 
     parent_information: 'Your child is receiving Orton-Gillingham - a proven intensive reading program specifically designed for dyslexia and severe reading difficulties. It uses sight, sound, movement, and touch simultaneously to teach reading and spelling systematically. This is not a quick fix - it takes 2-3 years for the full program, but research shows excellent results. Your child will learn: all letter sounds, syllable patterns, spelling rules, and how to break down complex words. At home: practice review cards daily (5 minutes), read decodable books together, praise effort and progress, be patient - reading will improve steadily with this approach.',
 
@@ -1877,7 +1877,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Identify error patterns',
       'Targeted intervention for specific errors',
       'Re-assessment to monitor progress',
-      'Individualized approach'
+      'Individualised approach'
     ],
 
     fidelity_checklist: [
@@ -1924,7 +1924,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Writing instruction'
     ],
 
-    implementation_guide: 'Step 1: Diagnostic assessment - dictate 20-30 words across difficulty levels, collect writing sample. Step 2: Error analysis - categorize errors: Phonological (sound errors - "sed" for said), Orthographic (visual pattern errors - "tode" for toad), Morphological (word part errors - "runing" for running). Step 3: Identify predominant pattern. Step 4: Target intervention: Phonological errors → phonics, sound segmentation. Orthographic errors → visual memory (look-cover-write-check), pattern recognition. Morphological errors → teach word parts, rules. Step 5: Practice targeted skills. Step 6: Re-assess after 4-6 weeks. Adjust intervention as needed. Highly individualized!',
+    implementation_guide: 'Step 1: Diagnostic assessment - dictate 20-30 words across difficulty levels, collect writing sample. Step 2: Error analysis - categorize errors: Phonological (sound errors - "sed" for said), Orthographic (visual pattern errors - "tode" for toad), Morphological (word part errors - "runing" for running). Step 3: Identify predominant pattern. Step 4: Target intervention: Phonological errors → phonics, sound segmentation. Orthographic errors → visual memory (look-cover-write-check), pattern recognition. Morphological errors → teach word parts, rules. Step 5: Practice targeted skills. Step 6: Re-assess after 4-6 weeks. Adjust intervention as needed. Highly Individualised!',
 
     parent_information: 'Instead of just "practicing more spelling", we\'re analyzing WHY your child makes spelling errors and targeting those specific difficulties. There are different types of spelling errors: sound-based (phonological), visual pattern-based (orthographic), and word parts-based (morphological). We identify your child\'s main error type and teach the skills they need. This is more efficient than random practice. At home, you can help by: focusing on the targeted skill we\'re working on, using the strategies we teach, celebrating progress in the targeted area, and being patient - fixing persistent spelling issues takes time but targeted intervention works!',
 
@@ -1936,7 +1936,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
 
     created_at: '2025-11-02',
     updated_at: '2025-11-02',
-    tags: ['spelling', 'error_analysis', 'targeted_intervention', 'dyslexia', 'tier_2', 'diagnostic', 'individualized']
+    tags: ['spelling', 'error_analysis', 'targeted_intervention', 'dyslexia', 'tier_2', 'diagnostic', 'Individualised']
   },
 
   // WRITING INTERVENTIONS - HANDWRITING (2)
@@ -6646,7 +6646,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     ],
 
     adaptations: [
-      'Individualized technology',
+      'Individualised technology',
       'Focus on priority skills',
       'Reduce expectations appropriately',
       'More visual supports',
@@ -7207,7 +7207,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
 
     created_at: '2025-11-01',
     updated_at: '2025-11-01',
-    tags: ['behaviour', 'PBS', 'FBA', 'challenging_behaviour', 'tier_1', 'evidence_based', 'individualized']
+    tags: ['behaviour', 'PBS', 'FBA', 'challenging_behaviour', 'tier_1', 'evidence_based', 'Individualised']
   },
 
   {
@@ -7675,7 +7675,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     ],
 
     adaptations: [
-      'Individualized to trauma history',
+      'Individualised to trauma history',
       'Cultural sensitivity',
       'Developmentally appropriate',
       'Involve therapeutic services',
@@ -7782,7 +7782,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     ],
 
     adaptations: [
-      'Individualized to ADHD profile',
+      'Individualised to ADHD profile',
       'Increase structure for severe ADHD',
       'Technology aids (apps, reminders)',
       'Reduce stigma (discrete supports)',
@@ -7888,7 +7888,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     ],
 
     adaptations: [
-      'Highly individualized to autistic profile',
+      'Highly Individualised to autistic profile',
       'AAC if needed',
       'Adjust language complexity',
       'More visual supports',
@@ -9152,7 +9152,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     ],
 
     adaptations: [
-      'Highly individualized',
+      'Highly Individualised',
       'Very gradual for severe cases',
       'Home tuition if needed initially',
       'Alternative provision considered',
@@ -10880,7 +10880,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     fidelity_checklist: [
       'Staff trained in attachment theory and trauma-informed practice',
       'Child\'s attachment style identified',
-      'Strategies individualized to attachment profile',
+      'Strategies Individualised to attachment profile',
       'Consistent key adult assigned',
       'Connection prioritized before correction',
       'Predictable routines established',
@@ -11662,7 +11662,7 @@ const SENSORY_INTERVENTIONS: InterventionTemplate[] = [
 
     fidelity_checklist: [
       'Led by trained Occupational Therapist',
-      'Individualized based on sensory profile',
+      'Individualised based on sensory profile',
       'Child actively engaged (not passive)',
       'Activities provide adaptive responses',
       'Balanced sensory diet throughout day',
@@ -11709,7 +11709,7 @@ const SENSORY_INTERVENTIONS: InterventionTemplate[] = [
       'Zones of Regulation'
     ],
 
-    implementation_guide: 'OT completes sensory profile assessment (e.g., Sensory Profile 2). Identifies areas of difficulty (hyper-responsive, hypo-responsive, sensory-seeking). Designs individualized program targeting specific sensory systems. Typical activities: swinging for vestibular input, resistance activities for proprioception, tactile play, balance challenges. Sessions include gross motor activities with sensory components. Child leads exploration within structured environment. OT analyzes adaptive responses. Collaborate with school to: identify sensory triggers, provide sensory breaks, modify environment, create sensory toolkit.',
+    implementation_guide: 'OT completes sensory profile assessment (e.g., Sensory Profile 2). Identifies areas of difficulty (hyper-responsive, hypo-responsive, sensory-seeking). Designs Individualised program targeting specific sensory systems. Typical activities: swinging for vestibular input, resistance activities for proprioception, tactile play, balance challenges. Sessions include gross motor activities with sensory components. Child leads exploration within structured environment. OT analyzes adaptive responses. Collaborate with school to: identify sensory triggers, provide sensory breaks, modify environment, create sensory toolkit.',
 
     parent_information: "Your child's nervous system processes sensory information differently. Sensory integration therapy uses movement, touch, and other sensory experiences to help your child's brain better organize and respond to sensory input. The OT will work with your child on activities like: swinging, climbing, tactile play, and 'heavy work' exercises. These aren't just for fun - they help your child's brain develop better sensory processing. At home, you can help by: following the sensory diet recommendations (activities to do daily), being patient with sensory sensitivities, offering sensory tools (fidgets, weighted blanket, etc.), and avoiding forcing sensory experiences.",
 
@@ -11753,7 +11753,7 @@ const SENSORY_INTERVENTIONS: InterventionTemplate[] = [
       'Heavy work activities (wall pushes, chair pushes, carrying)',
       'Vestibular input (spinning, rocking)',
       'Brief duration (don\'t miss too much teaching)',
-      'Individualized based on needs'
+      'Individualised based on needs'
     ],
 
     fidelity_checklist: [

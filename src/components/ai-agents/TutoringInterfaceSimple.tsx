@@ -10,7 +10,7 @@
 
 import React, { useState } from 'react';
 import { FaBookOpen, FaSpinner, FaCheckCircle } from 'react-icons/fa';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 
 interface TutoringRequest {
   studentId: string;
@@ -47,13 +47,13 @@ interface TutoringResponse {
 }
 
 export default function TutoringInterfaceSimple() {
-  const { data: session } = useSession();
+  const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState<TutoringResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const [formData, setFormData] = useState<TutoringRequest>({
-    studentId: session?.user?.email || '',
+    studentId: user?.email || '',
     subject: '',
     topic: '',
     currentLevel: 'developing',

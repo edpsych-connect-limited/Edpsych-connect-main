@@ -39,7 +39,7 @@ async function getRedisClient(): Promise<RedisClientType | null> {
       url: redisUrl,
       socket: {
         connectTimeout: 5000,
-        reconnectStrategy: (retries) => {
+        reconnectStrategy: (retries: number) => {
           if (retries > 3) {
             console.warn('Redis connection failed after 3 retries, falling back to in-memory');
             return false;

@@ -43,20 +43,44 @@ interface SimpleChallenge {
 const api = {
   // Get user challenges
   getUserChallenges: async (id: string): Promise<SimpleChallenge[]> => {
-    logger.info(`Getting challenges for user: ${id}`);
-    return [];
+    try {
+      const response = await fetch('/api/gamification/challenges');
+      if (!response.ok) return [];
+      const data = await response.json();
+      return data.challenges || [];
+    } catch (error) {
+      logger.error('Failed to fetch challenges', error);
+      return [];
+    }
   },
   
   // Get all challenges (for analytics dashboard)
   getChallenges: async (): Promise<SimpleChallenge[]> => {
-    logger.info('Getting all challenges');
-    return [];
+    try {
+      const response = await fetch('/api/gamification/challenges');
+      if (!response.ok) return [];
+      const data = await response.json();
+      return data.challenges || [];
+    } catch (error) {
+      logger.error('Failed to fetch all challenges', error);
+      return [];
+    }
   },
   
   // Complete a challenge
   completeChallenge: async (id: string, challengeId: string): Promise<{success: boolean}> => {
-    logger.info(`Completing challenge ${challengeId} for user ${id}`);
-    return { success: true };
+    try {
+      const response = await fetch('/api/gamification/complete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ challengeId })
+      });
+      const data = await response.json();
+      return { success: data.success };
+    } catch (error) {
+      logger.error('Failed to complete challenge', error);
+      return { success: false };
+    }
   },
   
   // Get user points

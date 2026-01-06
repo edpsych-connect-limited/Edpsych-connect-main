@@ -27,8 +27,19 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import jwt from 'jsonwebtoken';
+import fs from 'fs';
+import path from 'path';
 
 export const dynamic = 'force-dynamic';
+
+function debugLog(msg: string) {
+  try {
+    const logPath = path.join(process.cwd(), 'la_api_debug.txt');
+    fs.appendFileSync(logPath, new Date().toISOString() + ': ' + msg + '\n');
+  } catch (e) {
+    // ignore
+  }
+}
 
 // Type definitions for compliance analytics
 interface EHCPApplicationForAnalytics {
@@ -135,17 +146,21 @@ interface RiskItem {
  * Comprehensive compliance and analytics dashboard data
  */
 export async function GET(request: NextRequest) {
+  debugLog('GET started');
   try {
     let userEmail = null;
     
     // Try NextAuth session first
     const session = await getServerSession(authOptions);
+    debugLog('Session: ' + JSON.stringify(session));
     
     if (session?.user?.email) {
       userEmail = session.user.email;
     } else {
       // Fallback to custom auth-token
       const token = request.cookies.get('auth-token')?.value;
+      debugLog('Token available: ' + !!token);
+
       if (token) {
         try {
           const jwtSecret = process.env.NEXTAUTH_SECRET;
@@ -165,6 +180,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (!userEmail) {
+      debugLog('No userEmail found');
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -174,12 +190,15 @@ export async function GET(request: NextRequest) {
     });
 
     if (!user?.tenants) {
+      debugLog('User not found or no tenants: ' + userEmail);
       return NextResponse.json({ error: 'User or tenant not found' }, { status: 404 });
     }
 
     // Verify user has LA role
     const allowedRoles = ['admin', 'la_manager', 'la_caseworker', 'LA_ADMIN', 'LA_MANAGER', 'LA_CASEWORKER'];
+    debugLog(`User Role: ${user.role}`);
     if (!allowedRoles.includes(user.role)) {
+      debugLog('Role not allowed');
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 });
     }
 
@@ -267,6 +286,7 @@ export async function GET(request: NextRequest) {
       risk_register: riskRegister,
     });
   } catch (error) {
+    debugLog('Error in GET: ' + error);
     logger.error('Error generating compliance report:', error);
     return NextResponse.json(
       { error: 'Failed to generate compliance report' },

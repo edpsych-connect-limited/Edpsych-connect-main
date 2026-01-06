@@ -1,0 +1,5 @@
+❌ /: ERROR
+❌ /about: ERROR
+❌ /login: ERROR
+❌ /dashboard: ERROR
+❌ /contact: ERROR

@@ -98,6 +98,10 @@ model users {
   research_ethics_approvals research_ethics_approvals[]
   research_analyses         research_analyses[]
 
+  // Relations - GDPR
+  consent_records       ConsentRecord[]
+  data_subject_requests DataSubjectRequest[]
+
   // Relations - Accessibility
   accessibility_settings  accessibility_settings?
   user_preferences        user_preferences?
@@ -8125,5 +8129,68 @@ model StudentTopicMastery {
   
   @@unique([student_id, topic_id])
   @@index([student_id])
+}
+
+
+model ConsentType {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  required    Boolean
+  version     Int
+  active      Boolean  @default(true)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  records     ConsentRecord[]
+
+  @@map("consent_types")
+}
+
+model ConsentRecord {
+  id                String    @id @default(uuid())
+  user_id           Int
+  consent_type_id   String
+  consented         Boolean
+  consent_text      String
+  consent_timestamp DateTime  @default(now())
+  withdrawal_timestamp DateTime?
+  valid_until       DateTime?
+  consent_version   Int
+
+  user              users       @relation(fields: [user_id], references: [id])
+  consent_type      ConsentType @relation(fields: [consent_type_id], references: [id])
+
+  @@map("consent_records")
+}
+
+model DataSubjectRequest {
+  id              String    @id @default(uuid())
+  user_id         Int
+  request_type    String
+  status          String
+  request_details Json?
+  submitted_at    DateTime  @default(now())
+  processed_at    DateTime?
+  completed_at    DateTime?
+  expires_at      DateTime
+  response_data   Json?
+  rejection_reason String?
+
+  user            users     @relation(fields: [user_id], references: [id])
+
+  @@map("data_subject_requests")
+}
+
+model PrivacyPolicy {
+  id                String   @id @default(uuid())
+  version           Int
+  title             String
+  content           String   @db.Text
+  effective_date    DateTime
+  published_at      DateTime @default(now())
+  requires_reconsent Boolean
+
+  @@map("privacy_policies")
 }
 

@@ -84,6 +84,7 @@ const PUBLIC_API_PATHS = [
 ];
 
 export async function proxy(request: NextRequest) {
+  console.log(`[Proxy] Incoming request: ${request.nextUrl.pathname}`);
   const { pathname } = request.nextUrl;
 
   // Exempt Next.js metadata routes from locale redirects.
@@ -220,14 +221,24 @@ export async function proxy(request: NextRequest) {
 
     const isEnterpriseApi = ENTERPRISE_API_PATHS.some((path) => pathname.startsWith(path));
     if (isEnterpriseApi) {
-      const tier = (payload as any).subscriptionTier;
+      console.log(`[Proxy] Checking Enterprise API access for ${pathname}`);
+      const payload = await getJwtFromRequest(request);
+      if (!payload) {
+        console.log(`[Proxy] No payload found for ${pathname}`);
+      } else {
+        console.log(`[Proxy] Payload found:`, JSON.stringify(payload, null, 2));
+      }
+      
+      const tier = (payload as any)?.subscriptionTier;
       // Allow 'enterprise' tier. Also allow 'admin' role to bypass (optional, but good for support)
-      const role = (payload as any).role;
+      const role = (payload as any)?.role;
       const userRoles = Array.isArray(role) ? role : [role];
       
       // Allow LA roles to access enterprise APIs (they are inherently enterprise users)
       const isLARole = userRoles.some((r: any) => ['LA_ADMIN', 'LA_MANAGER', 'LA_CASEWORKER'].includes(r));
       const isAdmin = userRoles.some((r: any) => ['admin', 'super_admin', 'ADMIN', 'SUPER_ADMIN'].includes(r));
+      
+      console.log(`[Proxy] Access check - Tier: ${tier}, Role: ${JSON.stringify(userRoles)}, isLARole: ${isLARole}, isAdmin: ${isAdmin}`);
 
       if (tier !== 'enterprise' && !isAdmin && !isLARole) {
         logger.warn(`[Proxy] Blocked non-enterprise access to ${pathname} by user ${(payload as any).email} (Tier: ${tier})`);

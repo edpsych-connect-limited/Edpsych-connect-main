@@ -14,7 +14,7 @@
 // ============================================================================
 
 import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 import { Feature, SubscriptionTier } from '@/types/prisma-enums';
 
 /**
@@ -28,7 +28,7 @@ import { Feature, SubscriptionTier } from '@/types/prisma-enums';
  * return <YourComponent />;
  */
 export function useFeatureAccess(feature: Feature) {
-  const { data: session, status } = useSession();
+  const { user, isLoading: isAuthLoading } = useAuth();
   const [hasAccess, setHasAccess] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [tier, setTier] = useState<SubscriptionTier | undefined>();
@@ -37,12 +37,12 @@ export function useFeatureAccess(feature: Feature) {
   useEffect(() => {
     async function checkAccess() {
       // Wait for session to load
-      if (status === 'loading') {
+      if (isAuthLoading) {
         return;
       }
 
       // Not authenticated
-      if (!session?.user) {
+      if (!user) {
         setHasAccess(false);
         setIsLoading(false);
         return;
@@ -75,7 +75,7 @@ export function useFeatureAccess(feature: Feature) {
     }
 
     checkAccess();
-  }, [session, status, feature]);
+  }, [user, isAuthLoading, feature]);
 
   return { hasAccess, isLoading, tier, error };
 }

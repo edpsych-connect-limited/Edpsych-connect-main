@@ -1091,7 +1091,7 @@ export const COURSE_CATALOG: Course[] = [
             type: 'reading',
             duration_minutes: 30,
             merits_earned: 10,
-            content_text: 'INCLUSIVE EDUCATION: Autistic students educated alongside peers with appropriate supports. NOT "one-size-fits-all" - individualized accommodations. WHOLE-SCHOOL APPROACH: Autism training for all staff, sensory-friendly environments, flexible approaches, peer education (autism acceptance), anti-bullying, neurodiversity celebration. CLASSROOM: Visual supports, sensory accommodations, predictability, choice/control, special interests incorporated, executive function supports, communication supports, social breaks. EXAMS: Extra time, separate room, rest breaks, reader, scribe, word processor, sensory accommodations. BARRIERS: Sensory overload, social demands, unpredictability, executive function demands, communication barriers, lack of understanding. SOLUTIONS: Accommodate, adapt, respect differences. GOAL: Autistic students thriving academically AND emotionally - not just "coping".',
+            content_text: 'INCLUSIVE EDUCATION: Autistic students educated alongside peers with appropriate supports. NOT "one-size-fits-all" - individualised accommodations. WHOLE-SCHOOL APPROACH: Autism training for all staff, sensory-friendly environments, flexible approaches, peer education (autism acceptance), anti-bullying, neurodiversity celebration. CLASSROOM: Visual supports, sensory accommodations, predictability, choice/control, special interests incorporated, executive function supports, communication supports, social breaks. EXAMS: Extra time, separate room, rest breaks, reader, scribe, word processor, sensory accommodations. BARRIERS: Sensory overload, social demands, unpredictability, executive function demands, communication barriers, lack of understanding. SOLUTIONS: Accommodate, adapt, respect differences. GOAL: Autistic students thriving academically AND emotionally - not just "coping".',
             resources: []
           },
           {
@@ -1141,7 +1141,7 @@ export const COURSE_CATALOG: Course[] = [
               type: 'multiple_choice',
               options: ['Making autistic students act "normal"', 'Autistic students thriving academically and emotionally with appropriate supports', 'Segregation in special schools only', 'Minimum accommodations to save resources'],
               correct_answer: 'Autistic students thriving academically and emotionally with appropriate supports',
-              explanation: 'Inclusive autism education aims for autistic students to thrive (not just cope) academically and emotionally through individualized supports, accommodations, and neurodiversity-affirming practices.',
+              explanation: 'Inclusive autism education aims for autistic students to thrive (not just cope) academically and emotionally through individualised supports, accommodations, and neurodiversity-affirming practices.',
               points: 5
             }
           ],

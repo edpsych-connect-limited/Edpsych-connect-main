@@ -9,43 +9,29 @@
 export const dynamic = 'force-dynamic';
 
 import React, { useEffect } from 'react';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 import { useRouter } from 'next/navigation';
 import EHCPWizardForm from '@/components/ehcp/EHCPWizardForm';
 import { Loader2 } from 'lucide-react';
 
 export default function NewEHCPPage() {
-  const sessionResult = useSession();
-  const session = sessionResult?.data;
-  const status = sessionResult?.status;
+  const { isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
 
   // Redirect to login if not authenticated
   useEffect(() => {
-    if (status === 'unauthenticated') {
+    if (!isLoading && !isAuthenticated) {
       router.push('/login?returnUrl=/ehcp/new');
     }
-  }, [status, router]);
+  }, [isLoading, isAuthenticated, router]);
 
   // Show loading during authentication check
-  if (status === 'loading') {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-slate-50">
         <div className="text-center">
           <Loader2 className="w-10 h-10 text-indigo-600 animate-spin mx-auto mb-4" />
           <p className="text-slate-600">Verifying access...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // If not authenticated, show redirecting message
-  if (!session) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-slate-50">
-        <div className="text-center">
-          <Loader2 className="w-10 h-10 text-indigo-600 animate-spin mx-auto mb-4" />
-          <p className="text-slate-600">Redirecting to login...</p>
         </div>
       </div>
     );

@@ -190,7 +190,7 @@ export const GamificationSystem = {
   },
 
   async completeChallenge(id: string): Promise<void> {
-    const endpoint = `${API_BASE}/challenges/${id}/complete`;
+    const endpoint = `${API_BASE}/complete`;
     try {
       await retryFetch<void>(
         endpoint,
@@ -199,7 +199,8 @@ export const GamificationSystem = {
           credentials: "include",
           headers: {
             'Content-Type': 'application/json',
-          }
+          },
+          body: JSON.stringify({ challengeId: id })
         })
       );
     } catch (_error) {

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import PageHeader from '@/components/layout/PageHeader';
@@ -35,7 +35,7 @@ interface TreasuryData {
 }
 
 export default function TokenisationPage() {
-  const { data: _session, status } = useSession();
+  const { user, isLoading: authLoading } = useAuth();
   const [rewards, setRewards] = useState<RewardsData | null>(null);
   const [treasury, setTreasury] = useState<TreasuryData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -43,7 +43,7 @@ export default function TokenisationPage() {
   const [activeTab, setActiveTab] = useState<'rewards' | 'treasury' | 'exchange'>('rewards');
 
   // Redirect if not authenticated
-  if (status === 'unauthenticated') {
+  if (!authLoading && !user) {
     redirect('/login');
   }
 
@@ -405,7 +405,7 @@ export default function TokenisationPage() {
                 </div>
 
                 <div className="border-l-4 border-cyan-500 pl-6">
-                  <h4 className="text-lg font-semibold text-cyan-400 mb-2">Referral Program</h4>
+                  <h4 className="text-lg font-semibold text-cyan-400 mb-2">Referral Programme</h4>
                   <p className="text-slate-400">Earn tokens by referring new users</p>
                   <div className="mt-2 text-sm text-slate-500">500 tokens per referral</div>
                 </div>
@@ -422,7 +422,7 @@ export default function TokenisationPage() {
                 href="/help"
                 className="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors"
               >
-                View Help Center
+                View Help Centre
               </Link>
             </div>
           </div>

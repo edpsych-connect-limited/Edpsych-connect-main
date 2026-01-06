@@ -14,16 +14,14 @@ import {
   BookOpen,
   PlayCircle
 } from 'lucide-react';
-import { COURSE_CATALOG } from '@/lib/training/course-catalog';
-import { INTERVENTION_LIBRARY } from '@/lib/interventions/intervention-library';
+import { useParentDashboard } from '@/hooks/useParentDashboard';
 
 export default function ParentDashboard() {
-  // GAP ANALYSIS: Wiring Real Engines
-  // 1. Intervention Engine: Fetching "Working Memory" intervention for "Active Support"
-  const activeIntervention = INTERVENTION_LIBRARY.find(i => i.id === 'wm-chunking-strategy');
-  
-  // 2. Training Engine: Fetching courses recommended for Parents
-  const parentCourses = COURSE_CATALOG.filter(c => c.target_audience.includes('Parents')).slice(0, 3);
+  const { childProfile, activeIntervention, parentCourses, loading } = useParentDashboard();
+
+  if (loading) {
+    return <div className="min-h-screen bg-slate-50 flex items-center justify-center">Loading...</div>;
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 pb-12">
@@ -39,9 +37,9 @@ export default function ParentDashboard() {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold">
-                JD
+                P
               </div>
-              <span className="text-sm font-medium text-slate-700">John Doe</span>
+              <span className="text-sm font-medium text-slate-700">Parent</span>
             </div>
           </div>
         </div>
@@ -50,8 +48,8 @@ export default function ParentDashboard() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-slate-900">Welcome back, John</h1>
-          <p className="text-slate-600">Here's what's happening with Leo's support plan.</p>
+          <h1 className="text-2xl font-bold text-slate-900">Welcome back</h1>
+          <p className="text-slate-600">Here's what's happening with {childProfile?.name || 'your child'}'s support plan.</p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">

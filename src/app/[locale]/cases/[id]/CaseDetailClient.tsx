@@ -7,7 +7,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/lib/auth/hooks';
 
 interface CaseDetailClientProps {
   id: string;
@@ -49,7 +49,7 @@ interface Note {
 
 export default function CaseDetailClient({ id }: CaseDetailClientProps) {
   const router = useRouter();
-  const { status } = useSession();
+  const { isAuthenticated } = useAuth();
 
   const [caseDetail, setCaseDetail] = useState<CaseDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -121,10 +121,10 @@ export default function CaseDetailClient({ id }: CaseDetailClientProps) {
       }
     };
 
-    if (status === 'authenticated') {
+    if (isAuthenticated) {
       loadCase();
     }
-  }, [status, id]);
+  }, [isAuthenticated, id]);
 
   const handleUpdateCase = (updatedFields: Partial<CaseDetail>) => {
     if (caseDetail) {

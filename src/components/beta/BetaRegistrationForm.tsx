@@ -9,7 +9,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { Button, TextField, Checkbox, Paper, Typography, Alert, CircularProgress, Link } from '@mui/material';
 const AGREEMENT_PATHS = {
   PRIVACY_POLICY: '/legal/privacy-policy',
