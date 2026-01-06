@@ -301,7 +301,7 @@ export default function LoginPage() {
               Forgot your password?
             </Link>
             <Link
-              href={withLocale('/register')}
+              href={withLocale('/signup')}
               className="text-blue-600 hover:text-blue-700 transition-colors"
             >
               Create an account
