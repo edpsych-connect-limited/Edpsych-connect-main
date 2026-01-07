@@ -8,7 +8,8 @@ import { Elements, CardElement, useStripe, useElements } from '@stripe/react-str
 import { getPlanById, formatPrice } from '@/lib/subscription/plans';
 import { SubscriptionTier } from '@/types/prisma-enums';
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+const stripeKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+const stripePromise = stripeKey ? loadStripe(stripeKey) : null;
 
 // Mapping from plan ID (kebab-case) to SubscriptionTier enum
 const PLAN_TO_TIER: Record<string, string> = {
@@ -31,6 +32,20 @@ interface CheckoutClientProps {
 }
 
 export default function CheckoutClient({ planId, billingPeriod }: CheckoutClientProps) {
+  if (!stripePromise) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="bg-white p-8 rounded-lg shadow-md max-w-md text-center">
+          <h2 className="text-xl font-bold text-red-600 mb-2">Configuration Error</h2>
+          <p className="text-gray-600">
+            Payment system is currently unavailable (Missing Stripe Key). 
+            Please try again later or contact support.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Elements stripe={stripePromise}>
       <CheckoutForm planId={planId} billingPeriod={billingPeriod} />
@@ -238,11 +253,16 @@ function CheckoutForm({ planId, billingPeriod }: CheckoutClientProps) {
                   disabled={!stripe || processing}
                   className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
-                  {processing ? 'Processing...' : `Pay £${priceDisplay}`}
+                  {processing 
+                    ? 'Processing...' 
+                    : (plan.trial_days && plan.trial_days > 0 ? `Start ${plan.trial_days}-Day Free Trial` : `Pay £${priceDisplay}`)
+                  }
                 </button>
                 
                 <p className="mt-4 text-xs text-center text-gray-500">
-                  By confirming, you agree to our Terms of Service and Privacy Policy.
+                  {plan.trial_days && plan.trial_days > 0 
+                    ? `You won't be charged until after your ${plan.trial_days}-day trial ends. Cancel anytime.` 
+                    : 'By confirming, you agree to our Terms of Service and Privacy Policy.'}
                 </p>
               </form>
             </div>

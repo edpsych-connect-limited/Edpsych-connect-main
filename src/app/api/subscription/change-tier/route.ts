@@ -12,6 +12,20 @@ import {
 
 export const dynamic = 'force-dynamic';
 
+function getTrialDays(tier: SubscriptionTier): number {
+  switch (tier) {
+    case 'EP_INDEPENDENT':
+      return 14;
+    case 'SCHOOL_SMALL':
+    case 'SCHOOL_LARGE':
+    case 'MAT_SMALL':
+    case 'MAT_LARGE':
+      return 30;
+    default:
+      return 0;
+  }
+}
+
 function getStripeClient(): Stripe {
   const secretKey = process.env.STRIPE_SECRET_KEY;
   if (!secretKey) {
@@ -132,22 +146,59 @@ export async function POST(request: NextRequest) {
 
     let prorationAmount = 0;
     let prorationDate = Math.floor(Date.now() / 1000);
+    let trialDays = 0;
 
+    // Check for trial eligibility on upgrades
     if (isUpgradeTier) {
-      const upcomingInvoice = await (stripe.invoices as any).retrieveUpcoming({
-        customer: subscription.stripe_customer_id!,
-        subscription: stripeSubscriptionId,
-        subscription_items: [{ id: subscriptionItemId, price: newPriceId }],
-        subscription_proration_date: prorationDate,
-      });
-      prorationAmount = upcomingInvoice.amount_due / 100;
+      const planTrialDays = getTrialDays(newTier);
+      if (planTrialDays > 0) {
+        try {
+          // Abuse Prevention: Check if customer has ever paid an invoice
+          // If they have 0 paid invoices, they are likely a new customer or free tier user eligible for trial
+          const paidInvoices = await stripe.invoices.list({
+            customer: subscription.stripe_customer_id!,
+            status: 'paid',
+            limit: 1,
+          });
+          
+          if (paidInvoices.data.length === 0) {
+            trialDays = planTrialDays;
+          }
+        } catch (e) {
+          logger.warn('Failed to check trial eligibility', e);
+        }
+      }
     }
 
-    const updatedSubscription = await stripe.subscriptions.update(stripeSubscriptionId, {
+    if (isUpgradeTier && trialDays === 0) {
+      try {
+        const upcomingInvoice = await (stripe.invoices as any).retrieveUpcoming({
+          customer: subscription.stripe_customer_id!,
+          subscription: stripeSubscriptionId,
+          subscription_items: [{ id: subscriptionItemId, price: newPriceId }],
+          subscription_proration_date: prorationDate,
+        });
+        prorationAmount = upcomingInvoice.amount_due / 100;
+      } catch (e) {
+        // Fallback or ignore if preview fails
+        logger.warn('Failed to preview invoice', e);
+      }
+    }
+
+    // Prepare update parameters
+    const updateParams: Stripe.SubscriptionUpdateParams = {
       items: [{ id: subscriptionItemId, price: newPriceId }],
-      proration_behavior: isUpgradeTier ? 'create_prorations' : 'none',
-      billing_cycle_anchor: 'unchanged',
-    });
+      proration_behavior: (isUpgradeTier && trialDays === 0) ? 'create_prorations' : 'none',
+    };
+
+    if (trialDays > 0) {
+      updateParams.trial_period_days = trialDays;
+      // Note: extensive trial logic could added here (e.g. metadata flags)
+    } else {
+      updateParams.billing_cycle_anchor = 'unchanged';
+    }
+
+    const updatedSubscription = await stripe.subscriptions.update(stripeSubscriptionId, updateParams);
 
     await prisma.subscriptions.updateMany({
       where: { tenant_id: tenantId },
