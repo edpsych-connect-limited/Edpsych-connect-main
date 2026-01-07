@@ -46,6 +46,12 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   // Avoid swapping identities via Cloudinary overrides without updating provenance.
   "onboarding-welcome": "17126ba3772f4a7984aa5fa82d85c817",
 
+  // STUDIO- Videos (Overview)
+  "clinical-studio-overview": "6c671d0b98f54280b463d2e2d3e8cb23",
+  "engagement-studio-overview": "de7e30e4ea4a46e289895e493025ed9c",
+  "classroom-studio-overview": "8ba8cb00bcb84a86a7ba3c7f2f003d23",
+  "admin-studio-overview": "e649849c93ea40bcab1150c2aa4e8c5e",
+
   // LA- Videos
   "la-dashboard-overview": "bda257f9263440b0ace5f74875d8e5b6",
   "la-ehcp-merge-tool": "e0fd73d582534c23acdf88c81fd4e616",
@@ -98,6 +104,15 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
 
   // INNOVATION- Videos
   "innovation-ai-agents": "3c6c385ff87245d99ba9b1c59925f463",
+
+  // STUDIOS (Phase 2 Refactor)
+  // These are the new 'Hub' videos for the Studio architecture.
+  "clinical-ehcp-hub": "a519e9cd4cb84e2b9bb9486a200c4441", // Reuse ehcp-modules-hub-overview
+  "clinical-assessments": "8f7d3a8b5d784d05a368650e26e0a50a", // Reuse assessment-choosing
+  "engagement-gamification": "58d38fdf4d8640c1b9d848a826d686a6", // Reuse feature-battle-royale
+  "classroom-interventions": "ca9e9c0875994e2786cb59150c2a6e2a", // Reuse feature-intervention-library
+  "research-studio-overview": "21a6eb143c734c00917f11f36428a387", // Reuse compare-true-cost (Research Hub has no direct match yet)
+  "coding-studio-overview": "700652dcbd134ad281da2126e37560e2", // Placeholder
   "innovation-battle-royale": "c13549ec38474d0287b3f019cf842b48",
   "innovation-coding-curriculum": "84c23e6e11604b7da12d41ad23c90804",
   "innovation-orchestration": "4be8a3b43a2f42c9b538b613c5e002e3",
