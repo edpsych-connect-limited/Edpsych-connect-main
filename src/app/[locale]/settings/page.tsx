@@ -13,9 +13,10 @@ import Link from 'next/link';
 import { useAuth } from '@/lib/auth/hooks';
 import { useRouter } from 'next/navigation';
 import MISIntegrationSettings from '@/components/settings/MISIntegrationSettings';
-import { Settings, User, Bell, Shield, Database, Moon, Sun, Volume2, VolumeX } from 'lucide-react';
+import PayoutsSettings from '@/components/settings/PayoutsSettings';
+import { Settings, User, Bell, Shield, Database, Moon, Sun, Volume2, VolumeX, CreditCard } from 'lucide-react';
 
-type SettingsTab = 'general' | 'account' | 'integrations' | 'notifications' | 'privacy';
+type SettingsTab = 'general' | 'account' | 'integrations' | 'notifications' | 'privacy' | 'payouts';
 
 export default function SettingsPage() {
   const { user, logout, isLoading } = useAuth();
@@ -52,6 +53,7 @@ export default function SettingsPage() {
     { id: 'general', label: 'General', icon: <Settings className="w-4 h-4" /> },
     { id: 'account', label: 'Account', icon: <User className="w-4 h-4" /> },
     { id: 'integrations', label: 'Integrations', icon: <Database className="w-4 h-4" /> },
+    { id: 'payouts', label: 'Payouts', icon: <CreditCard className="w-4 h-4" /> },
     { id: 'notifications', label: 'Notifications', icon: <Bell className="w-4 h-4" /> },
     { id: 'privacy', label: 'Privacy', icon: <Shield className="w-4 h-4" /> },
   ];
@@ -193,6 +195,11 @@ export default function SettingsPage() {
         {/* Integrations Settings */}
         {activeTab === 'integrations' && (
           <MISIntegrationSettings />
+        )}
+
+        {/* Payouts Settings */}
+        {activeTab === 'payouts' && (
+          <PayoutsSettings />
         )}
 
         {/* Notifications Settings */}

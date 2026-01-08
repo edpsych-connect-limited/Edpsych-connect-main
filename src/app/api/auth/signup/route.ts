@@ -8,6 +8,7 @@
 
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { SubscriptionTier } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 
@@ -77,6 +78,21 @@ export async function POST(req: Request) {
           is_active: true,
           onboarding_completed: false,
           onboarding_step: 0,
+        },
+      });
+
+      // Create Default Subscription (FREE)
+      // This ensures the user has a valid subscription record for future upgrades via Checkout
+      await tx.subscriptions.create({
+        data: {
+          tenant_id: tenant.id,
+          tier: SubscriptionTier.FREE,
+          plan_type: 'free_forever',
+          payment_status: 'active',
+          amount_paid: 0,
+          start_date: new Date(),
+          end_date: new Date(new Date().setFullYear(new Date().getFullYear() + 100)), // 100 years validity for Free tier
+          is_active: true,
         },
       });
 

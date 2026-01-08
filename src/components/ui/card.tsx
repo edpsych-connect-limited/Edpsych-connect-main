@@ -8,8 +8,8 @@
 
 import * as React from "react";
 
-export function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`rounded-lg border bg-white shadow-sm ${className}`}>{children}</div>;
+export function Card({ children, className = "", ...props }: { children: React.ReactNode; className?: string } & React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={`rounded-lg border bg-white shadow-sm ${className}`} {...props}>{children}</div>;
 }
 
 export function CardHeader({ children, className = "" }: { children: React.ReactNode; className?: string }) {

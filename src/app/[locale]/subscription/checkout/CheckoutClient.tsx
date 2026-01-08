@@ -129,17 +129,15 @@ function CheckoutForm({ planId, billingPeriod }: CheckoutClientProps) {
         throw new Error(stripeError.message);
       }
 
-      // 2. Call API to change tier (which handles payment/subscription update)
-      // Note: The current API implementation might assume existing subscription.
-      // If user has no subscription, we might need a different endpoint or update the API.
-      // For now, we assume 'change-tier' handles it or we use it as the entry point.
+      // 2. Call API to create (or update) subscription
       
       const targetTier = PLAN_TO_TIER[planId];
       if (!targetTier) {
         throw new Error(`Invalid plan configuration: ${planId}`);
       }
 
-      const response = await fetch('/api/subscription/change-tier', {
+      // Use the 'create' endpoint which handles both new subscriptions and updates intelligently
+      const response = await fetch('/api/subscription/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -147,7 +145,7 @@ function CheckoutForm({ planId, billingPeriod }: CheckoutClientProps) {
         body: JSON.stringify({
           newTier: targetTier,
           billingInterval: billingPeriod === 'annual' ? 'year' : 'month',
-          paymentMethodId: paymentMethod.id // Pass payment method if API supports it
+          paymentMethodId: paymentMethod.id
         }),
       });
 

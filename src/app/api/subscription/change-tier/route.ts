@@ -192,7 +192,7 @@ export async function POST(request: NextRequest) {
     };
 
     if (trialDays > 0) {
-      updateParams.trial_period_days = trialDays;
+      updateParams.trial_end = Math.floor(Date.now() / 1000) + (trialDays * 86400);
       // Note: extensive trial logic could added here (e.g. metadata flags)
     } else {
       updateParams.billing_cycle_anchor = 'unchanged';

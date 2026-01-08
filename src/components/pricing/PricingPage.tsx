@@ -96,7 +96,7 @@ export default function PricingPage() {
 
   const handleSelectPlan = (planId: string) => {
     if (!user) {
-      router.push(`/register?plan=${planId}&billing=${billingPeriod}`);
+      router.push(`/signup?plan=${planId}&billing=${billingPeriod}`);
     } else {
       router.push(`/subscription/checkout?plan=${planId}&billing=${billingPeriod}`);
     }
@@ -105,7 +105,7 @@ export default function PricingPage() {
   const handleAddAddon = (addonId: string) => {
     if (!user) {
       // Redirect to register with addon in query
-      router.push(`/register?addon=${addonId}`);
+      router.push(`/signup?addon=${addonId}`);
     } else {
       // Redirect to subscription page to add addon
       router.push(`/subscription/addon?id=${addonId}`);

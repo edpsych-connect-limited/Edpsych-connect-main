@@ -27,7 +27,8 @@ import {
   Home,
   Trophy,
   Building,
-  Bot
+  Bot,
+  Mail
 } from 'lucide-react';
 import { useDemo } from '@/components/demo/DemoProvider';
 import { StreamingAvatar } from '@/components/features/StreamingAvatar';
@@ -331,6 +332,13 @@ export default function DashboardPage() {
           icon: Users,
           href: '/marketplace',
           color: 'bg-green-100 text-green-600',
+        },
+        {
+          title: 'Inquiries',
+          description: 'View messages from potential clients.',
+          icon: Mail,
+          href: '/dashboard/inquiries',
+          color: 'bg-teal-100 text-teal-600',
         }
       );
     }

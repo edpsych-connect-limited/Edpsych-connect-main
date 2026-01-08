@@ -104,6 +104,8 @@ export const NAVIGATION_CONFIG: NavGroup[] = [
     roles: ['ADMIN', 'SUPERADMIN', 'EP', 'EDUCATIONAL_PSYCHOLOGIST', 'LAA', 'LOCAL_AUTHORITY'],
     items: [
       { href: '/marketplace', label: 'EP Marketplace' },
+      { href: '/marketplace/dashboard', label: 'Professional Dashboard', roles: ['EP', 'EDUCATIONAL_PSYCHOLOGIST'] },
+      { href: '/marketplace/profile', label: 'My Professional Profile', roles: ['EP', 'EDUCATIONAL_PSYCHOLOGIST'] },
       { href: '/marketplace/la-panel', label: 'LA Panel', roles: ['LAA', 'LOCAL_AUTHORITY'] },
     ]
   },

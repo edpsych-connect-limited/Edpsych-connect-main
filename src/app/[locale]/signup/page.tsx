@@ -11,7 +11,7 @@
 ;
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import {
   Mail, Lock, User, Building2, Phone, Eye, EyeOff,
@@ -20,6 +20,7 @@ import {
 
 export default function SignupPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -111,7 +112,18 @@ export default function SignupPage() {
         setSuccess(true);
         // Redirect to login after 2 seconds
         setTimeout(() => {
-          router.push('/login?message=account-created');
+          const plan = searchParams.get('plan');
+          const billing = searchParams.get('billing');
+          let redirectUrl = '/login?message=account-created';
+          
+          if (plan) {
+            redirectUrl += `&plan=${plan}`;
+          }
+          if (billing) {
+            redirectUrl += `&billing=${billing}`;
+          }
+          
+          router.push(redirectUrl);
         }, 2000);
       } else {
         setError(data.error || 'Failed to create account. Please try again.');

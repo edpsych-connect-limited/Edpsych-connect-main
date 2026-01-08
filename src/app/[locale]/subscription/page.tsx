@@ -117,6 +117,31 @@ export default function SubscriptionManagementPage() {
     }
   };
 
+  const handleManageBilling = async () => {
+    try {
+      const res = await fetch('/api/subscription/portal', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          returnUrl: window.location.href,
+        }),
+      });
+      
+      const data = await res.json();
+      
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert(data.error || 'Failed to redirect to billing portal');
+      }
+    } catch (error) {
+      console.error('Error accessing billing portal:', error);
+      alert('An error occurred. Please try again.');
+    }
+  };
+
   const handleUpgradePlan = () => {
     if (subscription) {
       const upgrade = getUpgradeRecommendation(subscription.plan_id);
@@ -295,8 +320,15 @@ export default function SubscriptionManagementPage() {
                   </button>
                 )}
                 <button
+                  onClick={handleManageBilling}
+                  className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold"
+                >
+                  Manage Billing
+                </button>
+                <button
                   onClick={() => router.push('/pricing')}
                   className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+                  title="View all plans"
                 >
                   View All Plans
                 </button>

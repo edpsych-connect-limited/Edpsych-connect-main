@@ -24,6 +24,7 @@ import { AICentralNervousSystem } from '@/components/ai/AICentralNervousSystem';
 import AccessibilityPanel from '@/components/accessibility/AccessibilityPanel';
 import { getNavigationForRole, NavGroup } from '@/config/navigation';
 import { ChevronDown } from 'lucide-react';
+import { StudioSidebar } from '@/components/layout/StudioSidebar';
 
 function stripLocalePrefix(pathname: string): string {
   // Some environments/hooks return locale-prefixed paths (e.g. /en/help), while
@@ -41,7 +42,7 @@ function getEffectivePathname(pathnameFromHook: string | null | undefined): stri
   return hookPath || windowPath || '/';
 }
 
-function HeaderContent() {
+function MobileHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, logout } = useAuth();
   const { config } = useBranding();
@@ -58,8 +59,9 @@ function HeaderContent() {
 
   const navGroups = user ? getNavigationForRole(user.role?.toUpperCase() || 'GUEST') : [];
 
+  // This header is now MOBILE ONLY (lg:hidden) because Desktop uses StudioSidebar
   return (
-    <header className="bg-white shadow-md border-b border-gray-200 sticky top-0 z-50">
+    <header className="bg-white shadow-md border-b border-gray-200 sticky top-0 z-50 lg:hidden">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
@@ -67,67 +69,12 @@ function HeaderContent() {
             {config.portalName}
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-6">
-            {navGroups.map((group) => (
-              <div key={group.id} className="relative group">
-                <button className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 transition-colors">
-                  {group.label}
-                  <ChevronDown className="ml-1 h-4 w-4" />
-                </button>
-                
-                {/* Dropdown */}
-                <div className="absolute left-0 mt-0 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 transform origin-top-left">
-                  <div className="py-1" role="menu" aria-orientation="vertical">
-                    {group.items.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-900"
-                        role="menuitem"
-                      >
-                        <span className="flex-grow">{item.label}</span>
-                        {item.beta && (
-                          <span className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-800">
-                            Beta
-                          </span>
-                        )}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-
-            {/* User Menu */}
-            <div className="ml-4 pl-4 border-l border-gray-200">
-              {user ? (
-                <div className="flex items-center space-x-3">
-                  <span className="text-sm text-gray-700">
-                    {user.name || user.email}
-                  </span>
-                  <button
-                    onClick={handleLogout}
-                    className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors"
-                  >
-                    Logout
-                  </button>
-                </div>
-              ) : (
-                <Link
-                  href="/login"
-                  className="px-4 py-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-md transition-colors"
-                >
-                  Login
-                </Link>
-              )}
-            </div>
-          </nav>
+          {/* Desktop Navigation REMOVED - Moved to StudioSidebar */}
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100"
+            className="p-2 rounded-md text-gray-700 hover:bg-gray-100" // Removed lg:hidden as parent is hidden
             aria-label="Toggle menu"
           >
             <svg
@@ -157,7 +104,7 @@ function HeaderContent() {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="lg:hidden pb-4 border-t border-gray-200 mt-2 pt-4">
+          <div className="pb-4 border-t border-gray-200 mt-2 pt-4">
             <nav className="flex flex-col space-y-4">
               {navGroups.map((group) => (
                 <div key={group.id} className="space-y-1">
@@ -264,8 +211,23 @@ export default function ClientLayout({
                   },
                 }}
               />
-              <HeaderContent />
-              <main className={useMinimalChrome ? '' : 'p-6'}>{children}</main>
+              
+              {/* SIDEBAR NAVIGATION (Desktop) */}
+              {!useMinimalChrome && <StudioSidebar />}
+
+              {/* MAIN CONTENT WRAPPER */}
+              {/* Adds left padding on desktop to account for fixed sidebar */}
+              <div className={`flex-1 flex flex-col ${!useMinimalChrome ? 'lg:pl-64' : ''}`}>
+                <MobileHeader />
+                <main className={useMinimalChrome ? '' : 'p-6'}>{children}</main>
+                
+                {!useMinimalChrome && (
+                  <footer className="bg-gray-100 text-center py-4 mt-10 text-sm text-gray-600">
+                    © {new Date().getFullYear()} EdPsych Connect World. All rights reserved.
+                  </footer>
+                )}
+              </div>
+
               <FeatureExplainer key={pathname} />
               {/* VoiceAssistant is now integrated into SupportChatbot */}
               {/* <VoiceAssistant /> */}
@@ -275,11 +237,6 @@ export default function ClientLayout({
                 <div className="fixed bottom-6 right-24 z-50">
                   <ContextualHelp title="Help & Support" description="Get help with the current page." />
                 </div>
-              )}
-              {!useMinimalChrome && (
-                <footer className="bg-gray-100 text-center py-4 mt-10 text-sm text-gray-600">
-                  © {new Date().getFullYear()} EdPsych Connect World. All rights reserved.
-                </footer>
               )}
             </DemoProvider>
           </BrandingProvider>

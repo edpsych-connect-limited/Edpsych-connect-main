@@ -10,7 +10,7 @@
 
 import React, { useCallback, useMemo, useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import { logger } from "@/lib/logger";
 
@@ -30,6 +30,7 @@ import { logger } from "@/lib/logger";
 export default function LoginPage() {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { user, isLoading: authLoading, login, authError, clearAuthError } = useAuth();
 
   const safeLocale = useMemo(() => {
@@ -78,11 +79,22 @@ export default function LoginPage() {
   // Auto-redirect if already logged in
   useEffect(() => {
     if (!authLoading && user) {
+      // Check for subscription plan intent
+      const plan = searchParams?.get('plan');
+      const billing = searchParams?.get('billing');
+
+      if (plan) {
+         const checkoutUrl = `/subscription/checkout?plan=${plan}${billing ? `&billing=${billing}` : ''}`;
+         logger.info(`✅ User authenticated with purchase intent, redirecting to ${checkoutUrl}`);
+         router.push(withLocale(checkoutUrl));
+         return;
+      }
+
       const path = getRedirectPath(user.role);
       logger.info(`✅ User already authenticated, redirecting to ${path}`);
       router.push(withLocale(path));
     }
-  }, [user, authLoading, router, withLocale]);
+  }, [user, authLoading, router, withLocale, searchParams]);
 
   /**
    * Handle form submission
