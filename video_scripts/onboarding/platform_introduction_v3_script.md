@@ -3,11 +3,11 @@
 
 **Video ID:** `platform-introduction-v3`  
 **Duration:** ~3:30 minutes (Target)  
-**Presenter:** Professional UK Male Avatar (NOT Dr Scott Ighavongbe-Patrick)  
-**Avatar:** Adrian_public_3_20240312  
-**Voice:** Oliver Bennett (UK) - aba5ce361bfa433480f4bf281cc4c4f9  
+**Presenter:** Dr Scott Ighavongbe-Patrick (Founder)  
+**Avatar:** Dr_Scott_Official_2025  
+**Voice:** Dr Scott Ighavongbe-Patrick (Real Voice Clone)  
 
-**IMPORTANT NOTE:** The avatar is NOT the founder. Dr Scott Ighavongbe-Patrick is credited appropriately in the script but the presenter should NOT claim to BE him.
+**IMPORTANT NOTE:** This video features the verified digital twin of the founder, Dr Scott Ighavongbe-Patrick.
 
 ---
 

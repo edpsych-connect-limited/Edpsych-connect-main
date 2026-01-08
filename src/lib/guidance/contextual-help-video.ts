@@ -27,6 +27,18 @@ export const CONTEXTUAL_HELP_VIDEO_KEYS = {
 
   // Onboarding
   ONBOARDING_WELCOME: 'onboarding-welcome',
+
+  // Studios (Phase 2)
+  CLINICAL_STUDIO_OVERVIEW: 'clinical-studio-overview',
+  CLINICAL_EHCP_HUB: 'clinical-ehcp-hub',
+  CLINICAL_ASSESSMENTS: 'clinical-assessments',
+  ENGAGEMENT_STUDIO_OVERVIEW: 'engagement-studio-overview',
+  ENGAGEMENT_GAMIFICATION: 'engagement-gamification',
+  CLASSROOM_STUDIO_OVERVIEW: 'classroom-studio-overview',
+  CLASSROOM_INTERVENTIONS: 'classroom-interventions',
+  ADMIN_STUDIO_OVERVIEW: 'admin-studio-overview',
+  RESEARCH_STUDIO_OVERVIEW: 'research-studio-overview',
+  CODING_STUDIO_OVERVIEW: 'coding-studio-overview',
 } as const;
 
 export type ContextualHelpVideoKey = (typeof CONTEXTUAL_HELP_VIDEO_KEYS)[keyof typeof CONTEXTUAL_HELP_VIDEO_KEYS];
@@ -46,6 +58,36 @@ export function getContextualHelpVideoKey(pathname: string): ContextualHelpVideo
   const normalized = p.replace(/^\/(en|cy)(?=\/|$)/, '');
 
   // Most specific first.
+  
+  // Studios (Phase 2 Refactor)
+  if (normalized.startsWith('/clinical')) {
+    if (normalized.includes('/ehcp')) return CONTEXTUAL_HELP_VIDEO_KEYS.CLINICAL_EHCP_HUB;
+    if (normalized.includes('/assessments')) return CONTEXTUAL_HELP_VIDEO_KEYS.CLINICAL_ASSESSMENTS;
+    return CONTEXTUAL_HELP_VIDEO_KEYS.CLINICAL_STUDIO_OVERVIEW;
+  }
+
+  if (normalized.startsWith('/engagement')) {
+    if (normalized.includes('/gamification')) return CONTEXTUAL_HELP_VIDEO_KEYS.ENGAGEMENT_GAMIFICATION;
+    return CONTEXTUAL_HELP_VIDEO_KEYS.ENGAGEMENT_STUDIO_OVERVIEW;
+  }
+
+  if (normalized.startsWith('/classroom')) {
+    if (normalized.includes('/interventions')) return CONTEXTUAL_HELP_VIDEO_KEYS.CLASSROOM_INTERVENTIONS;
+    return CONTEXTUAL_HELP_VIDEO_KEYS.CLASSROOM_STUDIO_OVERVIEW;
+  }
+
+  if (normalized.startsWith('/admin')) {
+    return CONTEXTUAL_HELP_VIDEO_KEYS.ADMIN_STUDIO_OVERVIEW;
+  }
+
+  if (normalized.startsWith('/research')) {
+    return CONTEXTUAL_HELP_VIDEO_KEYS.RESEARCH_STUDIO_OVERVIEW;
+  }
+
+  if (normalized.startsWith('/coding')) {
+    return CONTEXTUAL_HELP_VIDEO_KEYS.CODING_STUDIO_OVERVIEW;
+  }
+
   if (normalized.startsWith('/la')) {
     // LA portal / dashboard.
     return CONTEXTUAL_HELP_VIDEO_KEYS.LA_DASHBOARD_OVERVIEW;

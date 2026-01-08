@@ -21,8 +21,8 @@ describe('Subscription Checkout Flow', () => {
   it('should show the payment form', () => {
     cy.visit('/en/subscription/checkout?plan=individual-ep&billing=monthly');
     
-    // Check for the "Pay" button
-    cy.get('button[type="submit"]').should('contain', 'Pay £79.00');
+    // Check for the "Start Trial" button (assuming test user is eligible)
+    cy.get('button[type="submit"]').should('contain', 'Start 14-Day Free Trial');
     
     // Check for Stripe Element container
     cy.get('.StripeElement').should('exist');

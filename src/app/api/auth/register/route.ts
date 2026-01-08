@@ -7,9 +7,25 @@
  */
 
 import { NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { signUp } from '@/lib/auth';
+import { checkRateLimit, getClientIP, RATE_LIMITS, createRateLimitHeaders } from '@/lib/rate-limit';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  // Rate limiting - Security: Prevent mass account creation
+  const clientIP = getClientIP(request);
+  const rateLimitResult = checkRateLimit(clientIP, RATE_LIMITS.REGISTRATION);
+  
+  if (!rateLimitResult.allowed) {
+    return NextResponse.json(
+      { error: 'Too many registration attempts. Please try again later.' },
+      { 
+        status: 429,
+        headers: createRateLimitHeaders(rateLimitResult),
+      }
+    );
+  }
+
   try {
     const body = await request.json();
     const { email, password, name, role, tenant_id } = body;

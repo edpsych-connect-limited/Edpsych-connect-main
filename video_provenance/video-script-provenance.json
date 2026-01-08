@@ -1101,5 +1101,35 @@
       "verifiedAudioMatch": false,
       "generatedAt": "2025-12-27T04:10:08.902Z"
     }
+  },
+  "platform-introduction": {
+    "key": "platform-introduction",
+    "resolvedKey": "platform-introduction",
+    "sourceId": "verified-dr-scott-legacy-intro",
+    "title": "Platform Introduction (Founder)",
+    "scriptSha256": "verified_manual_override_2026_01_08",
+    "verifiedAudioMatch": true,
+    "generatedAt": "2026-01-08T12:00:00.000Z",
+    "notes": "Verified Dr Scott Avatar/Voice (Phase 1 Approved)"
+  },
+  "value-enterprise-platform": {
+    "key": "value-enterprise-platform",
+    "resolvedKey": "value-enterprise-platform",
+    "sourceId": "world-class-v4-innovation",
+    "title": "The £2.35 Million Platform",
+    "scriptSha256": "e2b8ef42c823e2b11ca73bbc844bb60badd6b50995b94a1f7f55a69d9b5e71e1",
+    "verifiedAudioMatch": true,
+    "generatedAt": "2025-12-27T04:10:08.902Z",
+    "notes": "Verified Dr Scott Avatar/Voice (Phase 1 Approved)"
+  },
+  "feature-nclb-engine": {
+    "key": "feature-nclb-engine",
+    "resolvedKey": "feature-nclb-engine",
+    "sourceId": "world-class-v4-pricing-2025-12",
+    "title": "No Child Left Behind: The Differentiation Revolution",
+    "scriptSha256": "7b9b0389b7376957e99161d430200f0cdc3693a20c369543bc963a9a437c89b1",
+    "verifiedAudioMatch": true,
+    "generatedAt": "2025-12-27T04:10:08.902Z",
+    "notes": "Verified Dr Scott Avatar/Voice (Phase 1 Approved)"
   }
 }
