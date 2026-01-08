@@ -46,6 +46,13 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   // Avoid swapping identities via Cloudinary overrides without updating provenance.
   "onboarding-welcome": "17126ba3772f4a7984aa5fa82d85c817",
 
+  // MICRO-GUIDES (Just-In-Time Intelligence)
+  "guide-create-ehcp": "e0fd73d582534c23acdf88c81fd4e616", // Placeholder (using merge-tool ID)
+  "guide-token-reward": "de7e30e4ea4a46e289895e493025ed9c", // Placeholder (using engagement overview)
+  "guide-schedule-event": "04effa7e0b9147b582008f022e8421b2", // Placeholder (using annual review)
+  "guide-upload-report": "93e46803ffc4404998abfcdcaa5c09ae", // Placeholder (using prof contributions)
+  "guide-invite-user": "a47ac27a1b444cc892840d32c9d63cbb", // Placeholder (using troubleshooting)
+
   // STUDIO- Videos (Overview)
   "clinical-studio-overview": "6c671d0b98f54280b463d2e2d3e8cb23",
   "engagement-studio-overview": "de7e30e4ea4a46e289895e493025ed9c",

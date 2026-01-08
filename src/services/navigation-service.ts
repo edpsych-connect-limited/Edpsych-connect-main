@@ -4,6 +4,92 @@
  */
 
 import { type AIService as _AIService } from './ai-service';
+import { Activity, Users, BookOpen, Settings } from 'lucide-react';
+
+// ============================================================================
+// STUDIO ARCHITECTURE (Navigator Map)
+// ============================================================================
+// The "Studios" are the top-level workspaces for different personas.
+// This definition is the Single Source of Truth for Studio metadata.
+
+export interface StudioDefinition {
+  id: string;
+  title: string;
+  description: string;
+  videoKey: string;
+  icon: any; // Lucide Icon Component
+  features: string[];
+  ctaLink: string;
+  ctaText: string;
+  roles: string[]; // Access control
+}
+
+export const STUDIO_DEFINITIONS: Record<string, StudioDefinition> = {
+  'clinical': {
+    id: 'clinical',
+    title: 'Clinical Studio',
+    description: 'Comprehensive assessment, intervention, and case management for Educational Psychologists.',
+    videoKey: 'clinical-studio-overview',
+    icon: Activity,
+    features: [
+      'EHCP Management & Automation',
+      'Clinical Assessment Suite',
+      'Intervention Library',
+      'Case File Management'
+    ],
+    ctaLink: '/ehcp',
+    ctaText: 'Go to EHCP Dashboard',
+    roles: ['ADMIN', 'SUPERADMIN', 'EP', 'EDUCATIONAL_PSYCHOLOGIST', 'SENCO', 'LAA']
+  },
+  'engagement': {
+    id: 'engagement',
+    title: 'Engagement Studio',
+    description: 'Tools to boost student participation, track rewards, and manage gamified learning journeys.',
+    videoKey: 'engagement-studio-overview',
+    icon: Users,
+    features: [
+      'Gamification Zone',
+      'Token Economy System',
+      'Training Centre',
+      'AI Companions (Beta)'
+    ],
+    ctaLink: '/gamification',
+    ctaText: 'Enter Gamification Zone',
+    roles: ['ADMIN', 'SUPERADMIN', 'TEACHER', 'STAFF', 'STUDENT']
+  },
+  'classroom': {
+    id: 'classroom',
+    title: 'Classroom Studio',
+    description: 'Empowering teachers with behaviour tracking, progress monitoring, and peer networking.',
+    videoKey: 'classroom-studio-overview',
+    icon: BookOpen,
+    features: [
+      'Classroom Management',
+      'Pupil Progress Tracking',
+      'Behaviour Tracker',
+      'Staff Community'
+    ],
+    ctaLink: '/teachers',
+    ctaText: 'Manage Classroom',
+    roles: ['ADMIN', 'SUPERADMIN', 'TEACHER', 'STAFF', 'SENCO']
+  },
+  'admin': {
+    id: 'admin',
+    title: 'Admin Studio',
+    description: 'System-wide control, compliance, and institutional administration for LA and Superadmins.',
+    videoKey: 'admin-studio-overview',
+    icon: Settings,
+    features: [
+      'Institutional Management',
+      'System Administration',
+      'LA Dashboard',
+      'Compliance & Audits'
+    ],
+    ctaLink: '/admin',
+    ctaText: 'System Administration',
+    roles: ['ADMIN', 'SUPERADMIN', 'LAA', 'LOCAL_AUTHORITY']
+  }
+};
 
 export interface UserSession {
   id: string;

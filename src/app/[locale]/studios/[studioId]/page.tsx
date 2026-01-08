@@ -6,75 +6,8 @@ import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/navigation';
-import { ArrowLeft, BookOpen, Users, Settings, Activity } from 'lucide-react';
-
-// Configuration for each Studio
-const STUDIO_CONFIG: Record<string, {
-  title: string;
-  description: string;
-  videoKey: string;
-  icon: React.ElementType;
-  features: string[];
-  ctaLink: string;
-  ctaText: string;
-}> = {
-  'clinical': {
-    title: 'Clinical Studio',
-    description: 'Comprehensive assessment, intervention, and case management for Educational Psychologists.',
-    videoKey: 'clinical-studio-overview',
-    icon: Activity,
-    features: [
-      'EHCP Management & Automation',
-      'Clinical Assessment Suite',
-      'Intervention Library',
-      'Case File Management'
-    ],
-    ctaLink: '/ehcp',
-    ctaText: 'Go to EHCP Dashboard'
-  },
-  'engagement': {
-    title: 'Engagement Studio',
-    description: 'Tools to boost student participation, track rewards, and manage gamified learning journeys.',
-    videoKey: 'engagement-studio-overview',
-    icon: Users, // Using likely icons, import might need adjustment based on what's available
-    features: [
-      'Gamification Zone',
-      'Token Economy System',
-      'Training Centre',
-      'AI Companions (Beta)'
-    ],
-    ctaLink: '/gamification',
-    ctaText: 'Enter Gamification Zone'
-  },
-  'classroom': {
-    title: 'Classroom Studio',
-    description: 'Empowering teachers with behaviour tracking, progress monitoring, and peer networking.',
-    videoKey: 'classroom-studio-overview',
-    icon: BookOpen,
-    features: [
-      'Classroom Management',
-      'Pupil Progress Tracking',
-      'Behaviour Tracker',
-      'Staff Community'
-    ],
-    ctaLink: '/teachers',
-    ctaText: 'Manage Classroom'
-  },
-  'admin': {
-    title: 'Admin Studio',
-    description: 'System-wide control, compliance, and institutional administration for LA and Superadmins.',
-    videoKey: 'admin-studio-overview',
-    icon: Settings,
-    features: [
-      'Institutional Management',
-      'System Administration',
-      'LA Dashboard',
-      'Compliance & Audits'
-    ],
-    ctaLink: '/admin',
-    ctaText: 'System Administration'
-  }
-};
+import { STUDIO_DEFINITIONS } from '@/services/navigation-service';
+import { ArrowLeft } from 'lucide-react';
 
 interface StudioPageProps {
   params: {
@@ -86,7 +19,7 @@ interface StudioPageProps {
 export default function StudioPage({ params }: StudioPageProps) {
   // Normalize studioId
   const studioId = params.studioId.toLowerCase();
-  const config = STUDIO_CONFIG[studioId];
+  const config = STUDIO_DEFINITIONS[studioId];
 
   if (!config) {
     notFound();
