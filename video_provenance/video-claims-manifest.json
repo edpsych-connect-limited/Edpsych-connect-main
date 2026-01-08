@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2025-12-26T17:48:33.100Z",
+  "generatedAt": "2026-01-08T23:50:22.253Z",
   "description": "Manual claim-to-evidence mapping for each video key. This is the basis for auditing script claims against the actual codebase (truth-by-code).",
   "keys": {
     "platform-introduction": {
@@ -90,7 +90,10 @@
             "apis": [
               "/api/video/captions?key=platform-introduction"
             ],
-            "notes": "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation."
+            "notes": "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation.",
+            "routes": [],
+            "tests": [],
+            "codeSearch": []
           }
         },
         {
@@ -110,7 +113,10 @@
             "apis": [
               "/api/video/captions?key=platform-introduction"
             ],
-            "notes": "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation."
+            "notes": "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation.",
+            "routes": [],
+            "tests": [],
+            "codeSearch": []
           }
         },
         {
@@ -130,7 +136,10 @@
             "apis": [
               "/api/video/captions?key=platform-introduction"
             ],
-            "notes": "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation."
+            "notes": "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation.",
+            "routes": [],
+            "tests": [],
+            "codeSearch": []
           }
         }
       ]
@@ -7058,7 +7067,10 @@
             "apis": [
               "/api/video/captions?key=value-enterprise-platform"
             ],
-            "notes": "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation."
+            "notes": "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation.",
+            "routes": [],
+            "tests": [],
+            "codeSearch": []
           }
         },
         {
@@ -7078,7 +7090,10 @@
             "apis": [
               "/api/video/captions?key=value-enterprise-platform"
             ],
-            "notes": "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation."
+            "notes": "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation.",
+            "routes": [],
+            "tests": [],
+            "codeSearch": []
           }
         },
         {
@@ -7098,7 +7113,805 @@
             "apis": [
               "/api/video/captions?key=value-enterprise-platform"
             ],
-            "notes": "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation."
+            "notes": "Auto-extracted atomic snippet claim. This is only a checkable claim about script text; for product/feature assertions, add separate claims with evidence.codeSearch anchors in the implementation.",
+            "routes": [],
+            "tests": [],
+            "codeSearch": []
+          }
+        }
+      ]
+    },
+    "admin-studio-overview": {
+      "claims": [
+        {
+          "id": "admin-studio-overview-registry-001",
+          "statement": "Key 'admin-studio-overview' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "kind": "registry-key",
+          "expected": "present",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-08T23:50:22.249Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=admin-studio-overview"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]admin-studio-overview['\"]s*:",
+                "isRegex": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "admin-studio-overview-script-001",
+          "statement": "Transcript is currently missing for key 'admin-studio-overview' (captions cannot be truthfully claimed until a transcript exists).",
+          "kind": "script-transcript",
+          "expected": "missing",
+          "status": "draft",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=admin-studio-overview"
+            ],
+            "notes": "No transcript found for key='admin-studio-overview' (resolvedKey='admin-studio-overview'). Add a script entry or alias before claiming captions/voice content.",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "classroom-interventions": {
+      "claims": [
+        {
+          "id": "classroom-interventions-registry-001",
+          "statement": "Key 'classroom-interventions' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "kind": "registry-key",
+          "expected": "present",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-08T23:50:22.250Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=classroom-interventions"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]classroom-interventions['\"]s*:",
+                "isRegex": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "classroom-interventions-script-001",
+          "statement": "Transcript is currently missing for key 'classroom-interventions' (captions cannot be truthfully claimed until a transcript exists).",
+          "kind": "script-transcript",
+          "expected": "missing",
+          "status": "draft",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=classroom-interventions"
+            ],
+            "notes": "No transcript found for key='classroom-interventions' (resolvedKey='classroom-interventions'). Add a script entry or alias before claiming captions/voice content.",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "classroom-studio-overview": {
+      "claims": [
+        {
+          "id": "classroom-studio-overview-registry-001",
+          "statement": "Key 'classroom-studio-overview' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "kind": "registry-key",
+          "expected": "present",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-08T23:50:22.250Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=classroom-studio-overview"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]classroom-studio-overview['\"]s*:",
+                "isRegex": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "classroom-studio-overview-script-001",
+          "statement": "Transcript is currently missing for key 'classroom-studio-overview' (captions cannot be truthfully claimed until a transcript exists).",
+          "kind": "script-transcript",
+          "expected": "missing",
+          "status": "draft",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=classroom-studio-overview"
+            ],
+            "notes": "No transcript found for key='classroom-studio-overview' (resolvedKey='classroom-studio-overview'). Add a script entry or alias before claiming captions/voice content.",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "clinical-assessments": {
+      "claims": [
+        {
+          "id": "clinical-assessments-registry-001",
+          "statement": "Key 'clinical-assessments' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "kind": "registry-key",
+          "expected": "present",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-08T23:50:22.250Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=clinical-assessments"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]clinical-assessments['\"]s*:",
+                "isRegex": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "clinical-assessments-script-001",
+          "statement": "Transcript is currently missing for key 'clinical-assessments' (captions cannot be truthfully claimed until a transcript exists).",
+          "kind": "script-transcript",
+          "expected": "missing",
+          "status": "draft",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=clinical-assessments"
+            ],
+            "notes": "No transcript found for key='clinical-assessments' (resolvedKey='clinical-assessments'). Add a script entry or alias before claiming captions/voice content.",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "clinical-ehcp-hub": {
+      "claims": [
+        {
+          "id": "clinical-ehcp-hub-registry-001",
+          "statement": "Key 'clinical-ehcp-hub' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "kind": "registry-key",
+          "expected": "present",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-08T23:50:22.250Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=clinical-ehcp-hub"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]clinical-ehcp-hub['\"]s*:",
+                "isRegex": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "clinical-ehcp-hub-script-001",
+          "statement": "Transcript is currently missing for key 'clinical-ehcp-hub' (captions cannot be truthfully claimed until a transcript exists).",
+          "kind": "script-transcript",
+          "expected": "missing",
+          "status": "draft",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=clinical-ehcp-hub"
+            ],
+            "notes": "No transcript found for key='clinical-ehcp-hub' (resolvedKey='clinical-ehcp-hub'). Add a script entry or alias before claiming captions/voice content.",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "clinical-studio-overview": {
+      "claims": [
+        {
+          "id": "clinical-studio-overview-registry-001",
+          "statement": "Key 'clinical-studio-overview' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "kind": "registry-key",
+          "expected": "present",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-08T23:50:22.250Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=clinical-studio-overview"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]clinical-studio-overview['\"]s*:",
+                "isRegex": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "clinical-studio-overview-script-001",
+          "statement": "Transcript is currently missing for key 'clinical-studio-overview' (captions cannot be truthfully claimed until a transcript exists).",
+          "kind": "script-transcript",
+          "expected": "missing",
+          "status": "draft",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=clinical-studio-overview"
+            ],
+            "notes": "No transcript found for key='clinical-studio-overview' (resolvedKey='clinical-studio-overview'). Add a script entry or alias before claiming captions/voice content.",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "coding-studio-overview": {
+      "claims": [
+        {
+          "id": "coding-studio-overview-registry-001",
+          "statement": "Key 'coding-studio-overview' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "kind": "registry-key",
+          "expected": "present",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-08T23:50:22.250Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=coding-studio-overview"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]coding-studio-overview['\"]s*:",
+                "isRegex": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "coding-studio-overview-script-001",
+          "statement": "Transcript is currently missing for key 'coding-studio-overview' (captions cannot be truthfully claimed until a transcript exists).",
+          "kind": "script-transcript",
+          "expected": "missing",
+          "status": "draft",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=coding-studio-overview"
+            ],
+            "notes": "No transcript found for key='coding-studio-overview' (resolvedKey='coding-studio-overview'). Add a script entry or alias before claiming captions/voice content.",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "engagement-gamification": {
+      "claims": [
+        {
+          "id": "engagement-gamification-registry-001",
+          "statement": "Key 'engagement-gamification' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "kind": "registry-key",
+          "expected": "present",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-08T23:50:22.250Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=engagement-gamification"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]engagement-gamification['\"]s*:",
+                "isRegex": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "engagement-gamification-script-001",
+          "statement": "Transcript is currently missing for key 'engagement-gamification' (captions cannot be truthfully claimed until a transcript exists).",
+          "kind": "script-transcript",
+          "expected": "missing",
+          "status": "draft",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=engagement-gamification"
+            ],
+            "notes": "No transcript found for key='engagement-gamification' (resolvedKey='engagement-gamification'). Add a script entry or alias before claiming captions/voice content.",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "engagement-studio-overview": {
+      "claims": [
+        {
+          "id": "engagement-studio-overview-registry-001",
+          "statement": "Key 'engagement-studio-overview' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "kind": "registry-key",
+          "expected": "present",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-08T23:50:22.250Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=engagement-studio-overview"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]engagement-studio-overview['\"]s*:",
+                "isRegex": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "engagement-studio-overview-script-001",
+          "statement": "Transcript is currently missing for key 'engagement-studio-overview' (captions cannot be truthfully claimed until a transcript exists).",
+          "kind": "script-transcript",
+          "expected": "missing",
+          "status": "draft",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=engagement-studio-overview"
+            ],
+            "notes": "No transcript found for key='engagement-studio-overview' (resolvedKey='engagement-studio-overview'). Add a script entry or alias before claiming captions/voice content.",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "guide-create-ehcp": {
+      "claims": [
+        {
+          "id": "guide-create-ehcp-registry-001",
+          "statement": "Key 'guide-create-ehcp' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "kind": "registry-key",
+          "expected": "present",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-08T23:50:22.251Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=guide-create-ehcp"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]guide-create-ehcp['\"]s*:",
+                "isRegex": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "guide-create-ehcp-script-001",
+          "statement": "Transcript is currently missing for key 'guide-create-ehcp' (captions cannot be truthfully claimed until a transcript exists).",
+          "kind": "script-transcript",
+          "expected": "missing",
+          "status": "draft",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=guide-create-ehcp"
+            ],
+            "notes": "No transcript found for key='guide-create-ehcp' (resolvedKey='guide-create-ehcp'). Add a script entry or alias before claiming captions/voice content.",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "guide-invite-user": {
+      "claims": [
+        {
+          "id": "guide-invite-user-registry-001",
+          "statement": "Key 'guide-invite-user' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "kind": "registry-key",
+          "expected": "present",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-08T23:50:22.251Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=guide-invite-user"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]guide-invite-user['\"]s*:",
+                "isRegex": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "guide-invite-user-script-001",
+          "statement": "Transcript is currently missing for key 'guide-invite-user' (captions cannot be truthfully claimed until a transcript exists).",
+          "kind": "script-transcript",
+          "expected": "missing",
+          "status": "draft",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=guide-invite-user"
+            ],
+            "notes": "No transcript found for key='guide-invite-user' (resolvedKey='guide-invite-user'). Add a script entry or alias before claiming captions/voice content.",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "guide-schedule-event": {
+      "claims": [
+        {
+          "id": "guide-schedule-event-registry-001",
+          "statement": "Key 'guide-schedule-event' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "kind": "registry-key",
+          "expected": "present",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-08T23:50:22.251Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=guide-schedule-event"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]guide-schedule-event['\"]s*:",
+                "isRegex": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "guide-schedule-event-script-001",
+          "statement": "Transcript is currently missing for key 'guide-schedule-event' (captions cannot be truthfully claimed until a transcript exists).",
+          "kind": "script-transcript",
+          "expected": "missing",
+          "status": "draft",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=guide-schedule-event"
+            ],
+            "notes": "No transcript found for key='guide-schedule-event' (resolvedKey='guide-schedule-event'). Add a script entry or alias before claiming captions/voice content.",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "guide-token-reward": {
+      "claims": [
+        {
+          "id": "guide-token-reward-registry-001",
+          "statement": "Key 'guide-token-reward' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "kind": "registry-key",
+          "expected": "present",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-08T23:50:22.251Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=guide-token-reward"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]guide-token-reward['\"]s*:",
+                "isRegex": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "guide-token-reward-script-001",
+          "statement": "Transcript is currently missing for key 'guide-token-reward' (captions cannot be truthfully claimed until a transcript exists).",
+          "kind": "script-transcript",
+          "expected": "missing",
+          "status": "draft",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=guide-token-reward"
+            ],
+            "notes": "No transcript found for key='guide-token-reward' (resolvedKey='guide-token-reward'). Add a script entry or alias before claiming captions/voice content.",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "guide-upload-report": {
+      "claims": [
+        {
+          "id": "guide-upload-report-registry-001",
+          "statement": "Key 'guide-upload-report' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "kind": "registry-key",
+          "expected": "present",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-08T23:50:22.251Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=guide-upload-report"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]guide-upload-report['\"]s*:",
+                "isRegex": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "guide-upload-report-script-001",
+          "statement": "Transcript is currently missing for key 'guide-upload-report' (captions cannot be truthfully claimed until a transcript exists).",
+          "kind": "script-transcript",
+          "expected": "missing",
+          "status": "draft",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=guide-upload-report"
+            ],
+            "notes": "No transcript found for key='guide-upload-report' (resolvedKey='guide-upload-report'). Add a script entry or alias before claiming captions/voice content.",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "research-studio-overview": {
+      "claims": [
+        {
+          "id": "research-studio-overview-registry-001",
+          "statement": "Key 'research-studio-overview' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "kind": "registry-key",
+          "expected": "present",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-08T23:50:22.252Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=research-studio-overview"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]research-studio-overview['\"]s*:",
+                "isRegex": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "research-studio-overview-script-001",
+          "statement": "Transcript is currently missing for key 'research-studio-overview' (captions cannot be truthfully claimed until a transcript exists).",
+          "kind": "script-transcript",
+          "expected": "missing",
+          "status": "draft",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=research-studio-overview"
+            ],
+            "notes": "No transcript found for key='research-studio-overview' (resolvedKey='research-studio-overview'). Add a script entry or alias before claiming captions/voice content.",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
           }
         }
       ]
