@@ -115,7 +115,7 @@
     "graceful-fs": "^4.2.11",
     "jose": "^5.2.2",
     "jsonwebtoken": "^9.0.2",
-    "jspdf": "^3.0.4",
+    "jspdf": "^4.0.0",
     "jspdf-autotable": "^5.0.2",
     "lodash": "^4.17.21",
     "lucide-react": "^0.344.0",
