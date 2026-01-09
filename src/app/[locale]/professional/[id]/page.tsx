@@ -6,6 +6,9 @@ import React from 'react';
 import { Metadata } from 'next';
 import { ProfileActions } from '@/components/directory/ProfileActions';
 import { RecommendationsSection } from '@/components/directory/RecommendationsSection';
+import { cookies } from 'next/headers';
+import jwt from 'jsonwebtoken';
+import { EndorseSkillButton } from '@/components/directory/EndorseSkillButton';
 
 interface Props {
   params: {
@@ -35,6 +38,22 @@ export default async function PublicProfilePage({ params }: Props) {
   if (!profile) notFound();
 
   const { user, experiences, education, skills, recommendations } = profile;
+
+  // Get current user for auth checks
+  const cookieStore = await cookies();
+  const token = cookieStore.get('auth-token');
+  let currentUserId: number | null = null;
+  if (token) {
+    try {
+        const secret = process.env.NEXTAUTH_SECRET || process.env.JWT_SECRET;
+        if(secret) {
+            const payload = jwt.verify(token.value, secret) as any;
+            currentUserId = parseInt(payload.id);
+        }
+    } catch (e) {
+        // Token invalid
+    }
+  }
 
   // Format date helper
   const formatDate = (d: Date | null) => d ? new Date(d).toLocaleDateString(undefined, { month: 'short', year: 'numeric' }) : 'Present';
@@ -119,14 +138,22 @@ export default async function PublicProfilePage({ params }: Props) {
                   <p className="text-sm text-muted-foreground italic">No skills listed.</p>
                 )}
                 <div className="flex flex-wrap gap-2">
-                  {skills.map(skill => (
-                    <div key={skill.id} className="bg-secondary/50 hover:bg-secondary transition-colors text-secondary-foreground px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2 cursor-default" title={`${skill.endorsements.length} endorsements`}>
+                  {skills.map(skill => {
+                    const isEndorsed = currentUserId ? skill.endorsements.some(e => e.endorser.id === currentUserId) : false;
+                    const isOwnProfile = currentUserId === user.id;
+                    
+                    return (
+                    <div key={skill.id} className="bg-secondary/50 transition-colors text-secondary-foreground px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2">
                       {skill.name}
-                      {skill.endorsements.length > 0 && (
-                        <span className="bg-primary/10 text-primary text-xs px-1.5 py-0.5 rounded-full">{skill.endorsements.length}</span>
-                      )}
+                      <EndorseSkillButton 
+                        skillId={skill.id} 
+                        initialCount={skill.endorsements.length} 
+                        initialIsEndorsed={isEndorsed}
+                        isOwnProfile={isOwnProfile}
+                        isLoggedIn={!!currentUserId}
+                      />
                     </div>
-                  ))}
+                  )})}
                 </div>
               </CardContent>
             </Card>

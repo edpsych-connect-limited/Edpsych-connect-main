@@ -16,7 +16,7 @@ export type ProfessionalProfileData = {
   experiences: ProfessionalExperience[];
   education: ProfessionalEducation[];
   skills: (ProfessionalSkill & {
-    endorsements: { endorser: { name: string, avatar_url: string | null } }[]
+    endorsements: { endorser: { id: number, name: string, avatar_url: string | null } }[]
   })[];
   recommendations: (ProfessionalRecommendation & {
     author: { id: number, name: string, avatar_url: string | null, role: string }
@@ -43,7 +43,7 @@ export class ProfessionalProfileService {
             endorsements: {
               include: {
                 endorser: {
-                  select: { name: true, avatar_url: true }
+                  select: { id: true, name: true, avatar_url: true }
                 }
               }
             }
