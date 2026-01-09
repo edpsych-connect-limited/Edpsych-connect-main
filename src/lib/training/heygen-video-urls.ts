@@ -29,14 +29,14 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "addon-api-access": "036f01ef7f02484ba4474859917df868",
   "addon-white-label": "2601efeb473e40bd98844f8d33437826",
   "addon-priority-support": "63b728a51d8349388e87e98597811664",
-  "feature-nclb-engine": "738bbcfaa87541aeb36e061c00db5ece",
+  // "feature-nclb-engine": "738bbcfaa87541aeb36e061c00db5ece", // WRONG_AVATAR
   "feature-battle-royale": "58d38fdf4d8640c1b9d848a826d686a6",
   "feature-battle-royale-pricing": "58d38fdf4d8640c1b9d848a826d686a6", // alias: PricingPage key
-  "feature-byod-architecture": "4ae970ec77f145b3a5ccc12298fd7cd1",
+  // "feature-byod-architecture": "4ae970ec77f145b3a5ccc12298fd7cd1", // WRONG_AVATAR
   "feature-intervention-library": "ca9e9c0875994e2786cb59150c2a6e2a",
   "compare-true-cost": "21a6eb143c734c00917f11f36428a387",
   "compare-switching": "fcff323c9cce4ea1b18dcfb4127ff5c2",
-  "trust-security": "1353dc5eeae1475e8d307a9914f8f2e5",
+  // "trust-security": "1353dc5eeae1475e8d307a9914f8f2e5", // WRONG_AVATAR (Grouped with corrupted batch)
   "trust-built-by-practitioners": "86b48aa0a91b4848815fca5fa58180ca",
 
   // ONBOARDING Videos
@@ -483,7 +483,7 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "security-deep-dive": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/security-deep-dive.mp4",
   "sen2-returns-automation": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/sen2-returns-automation.mp4",
   "trust-built-by-practitioners": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/trust-built-by-practitioners.mp4",
-  "trust-security": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/trust-security.mp4",
+  // "trust-security": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/trust-security.mp4", // WRONG_AVATAR
   // === END AUTO-GENERATED ===
 
 
@@ -519,8 +519,8 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   // Verified working (HTTP 206 with 1-byte range probe):
   // These keys previously had no CDN mapping and were HeyGen-only single points of failure.
   "feature-battle-royale": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-battle-royale.mp4",
-  "feature-byod-architecture": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-byod-architecture.mp4",
-  "feature-nclb-engine": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-nclb-engine.mp4",
+  // "feature-byod-architecture": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-byod-architecture.mp4", // WRONG_AVATAR
+  // "feature-nclb-engine": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-nclb-engine.mp4", // WRONG_AVATAR
   "value-enterprise-platform": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/value-enterprise-platform.mp4",
 
   // Disabled (confirmed 404 by tools/validate-video-assets.ts)
