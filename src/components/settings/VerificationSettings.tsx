@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Shield, CheckCircle, AlertCircle, Loader2, Upload, FileCheck, XCircle } from 'lucide-react';
-import { toast } from 'sonner';
+import toast from 'react-hot-toast';
 
 interface VerificationData {
   dbs_certificate_number: string | null;

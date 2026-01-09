@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
 
     // Find professional record
     const professional = await prisma.professionals.findUnique({
-      where: { user_id: session.id }
+      where: { user_id: parseInt(session.id) }
     });
 
     if (!professional) {
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
     }
 
     const professional = await prisma.professionals.findUnique({
-      where: { user_id: session.id }
+      where: { user_id: parseInt(session.id) }
     });
 
     if (!professional) {
