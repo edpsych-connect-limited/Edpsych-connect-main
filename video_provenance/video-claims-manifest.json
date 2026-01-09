@@ -7149,21 +7149,20 @@
         },
         {
           "id": "admin-studio-overview-script-001",
-          "statement": "Transcript is currently missing for key 'admin-studio-overview' (captions cannot be truthfully claimed until a transcript exists).",
+          "statement": "A script-derived transcript exists for key 'admin-studio-overview', and the captions endpoint can produce script-derived WebVTT for this key.",
           "kind": "script-transcript",
-          "expected": "missing",
+          "expected": "present",
           "status": "draft",
           "lastReviewedAt": "",
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts",
-              "video_scripts/world_class"
+              "src/app/api/video/captions/route.ts"
             ],
             "apis": [
               "/api/video/captions?key=admin-studio-overview"
             ],
-            "notes": "No transcript found for key='admin-studio-overview' (resolvedKey='admin-studio-overview'). Add a script entry or alias before claiming captions/voice content.",
+            "notes": "Transcript resolved via alias in registry-core. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
             "codeSearch": [
               {
                 "file": "src/app/api/video/captions/route.ts",
@@ -7202,21 +7201,20 @@
         },
         {
           "id": "classroom-interventions-script-001",
-          "statement": "Transcript is currently missing for key 'classroom-interventions' (captions cannot be truthfully claimed until a transcript exists).",
+          "statement": "A script-derived transcript exists for key 'classroom-interventions', and the captions endpoint can produce script-derived WebVTT for this key.",
           "kind": "script-transcript",
-          "expected": "missing",
+          "expected": "present",
           "status": "draft",
           "lastReviewedAt": "",
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts",
-              "video_scripts/world_class"
+              "src/app/api/video/captions/route.ts"
             ],
             "apis": [
               "/api/video/captions?key=classroom-interventions"
             ],
-            "notes": "No transcript found for key='classroom-interventions' (resolvedKey='classroom-interventions'). Add a script entry or alias before claiming captions/voice content.",
+            "notes": "Transcript resolved via alias in registry-core. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
             "codeSearch": [
               {
                 "file": "src/app/api/video/captions/route.ts",
@@ -7255,21 +7253,20 @@
         },
         {
           "id": "classroom-studio-overview-script-001",
-          "statement": "Transcript is currently missing for key 'classroom-studio-overview' (captions cannot be truthfully claimed until a transcript exists).",
+          "statement": "A script-derived transcript exists for key 'classroom-studio-overview', and the captions endpoint can produce script-derived WebVTT for this key.",
           "kind": "script-transcript",
-          "expected": "missing",
+          "expected": "present",
           "status": "draft",
           "lastReviewedAt": "",
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts",
-              "video_scripts/world_class"
+              "src/app/api/video/captions/route.ts"
             ],
             "apis": [
               "/api/video/captions?key=classroom-studio-overview"
             ],
-            "notes": "No transcript found for key='classroom-studio-overview' (resolvedKey='classroom-studio-overview'). Add a script entry or alias before claiming captions/voice content.",
+            "notes": "Transcript resolved via alias in registry-core. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
             "codeSearch": [
               {
                 "file": "src/app/api/video/captions/route.ts",
@@ -7308,21 +7305,20 @@
         },
         {
           "id": "clinical-assessments-script-001",
-          "statement": "Transcript is currently missing for key 'clinical-assessments' (captions cannot be truthfully claimed until a transcript exists).",
+          "statement": "A script-derived transcript exists for key 'clinical-assessments', and the captions endpoint can produce script-derived WebVTT for this key.",
           "kind": "script-transcript",
-          "expected": "missing",
+          "expected": "present",
           "status": "draft",
           "lastReviewedAt": "",
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts",
-              "video_scripts/world_class"
+              "src/app/api/video/captions/route.ts"
             ],
             "apis": [
               "/api/video/captions?key=clinical-assessments"
             ],
-            "notes": "No transcript found for key='clinical-assessments' (resolvedKey='clinical-assessments'). Add a script entry or alias before claiming captions/voice content.",
+            "notes": "Transcript resolved via alias in registry-core. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
             "codeSearch": [
               {
                 "file": "src/app/api/video/captions/route.ts",
@@ -7361,21 +7357,20 @@
         },
         {
           "id": "clinical-ehcp-hub-script-001",
-          "statement": "Transcript is currently missing for key 'clinical-ehcp-hub' (captions cannot be truthfully claimed until a transcript exists).",
+          "statement": "A script-derived transcript exists for key 'clinical-ehcp-hub', and the captions endpoint can produce script-derived WebVTT for this key.",
           "kind": "script-transcript",
-          "expected": "missing",
+          "expected": "present",
           "status": "draft",
           "lastReviewedAt": "",
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts",
-              "video_scripts/world_class"
+              "src/app/api/video/captions/route.ts"
             ],
             "apis": [
               "/api/video/captions?key=clinical-ehcp-hub"
             ],
-            "notes": "No transcript found for key='clinical-ehcp-hub' (resolvedKey='clinical-ehcp-hub'). Add a script entry or alias before claiming captions/voice content.",
+            "notes": "Transcript resolved via alias in registry-core. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
             "codeSearch": [
               {
                 "file": "src/app/api/video/captions/route.ts",
@@ -7414,21 +7409,20 @@
         },
         {
           "id": "clinical-studio-overview-script-001",
-          "statement": "Transcript is currently missing for key 'clinical-studio-overview' (captions cannot be truthfully claimed until a transcript exists).",
+          "statement": "A script-derived transcript exists for key 'clinical-studio-overview', and the captions endpoint can produce script-derived WebVTT for this key.",
           "kind": "script-transcript",
-          "expected": "missing",
+          "expected": "present",
           "status": "draft",
           "lastReviewedAt": "",
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts",
-              "video_scripts/world_class"
+              "src/app/api/video/captions/route.ts"
             ],
             "apis": [
               "/api/video/captions?key=clinical-studio-overview"
             ],
-            "notes": "No transcript found for key='clinical-studio-overview' (resolvedKey='clinical-studio-overview'). Add a script entry or alias before claiming captions/voice content.",
+            "notes": "Transcript resolved via alias in registry-core. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
             "codeSearch": [
               {
                 "file": "src/app/api/video/captions/route.ts",
@@ -7467,21 +7461,20 @@
         },
         {
           "id": "coding-studio-overview-script-001",
-          "statement": "Transcript is currently missing for key 'coding-studio-overview' (captions cannot be truthfully claimed until a transcript exists).",
+          "statement": "A script-derived transcript exists for key 'coding-studio-overview', and the captions endpoint can produce script-derived WebVTT for this key.",
           "kind": "script-transcript",
-          "expected": "missing",
+          "expected": "present",
           "status": "draft",
           "lastReviewedAt": "",
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts",
-              "video_scripts/world_class"
+              "src/app/api/video/captions/route.ts"
             ],
             "apis": [
               "/api/video/captions?key=coding-studio-overview"
             ],
-            "notes": "No transcript found for key='coding-studio-overview' (resolvedKey='coding-studio-overview'). Add a script entry or alias before claiming captions/voice content.",
+            "notes": "Transcript resolved via alias in registry-core. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
             "codeSearch": [
               {
                 "file": "src/app/api/video/captions/route.ts",
@@ -7520,21 +7513,20 @@
         },
         {
           "id": "engagement-gamification-script-001",
-          "statement": "Transcript is currently missing for key 'engagement-gamification' (captions cannot be truthfully claimed until a transcript exists).",
+          "statement": "A script-derived transcript exists for key 'engagement-gamification', and the captions endpoint can produce script-derived WebVTT for this key.",
           "kind": "script-transcript",
-          "expected": "missing",
+          "expected": "present",
           "status": "draft",
           "lastReviewedAt": "",
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts",
-              "video_scripts/world_class"
+              "src/app/api/video/captions/route.ts"
             ],
             "apis": [
               "/api/video/captions?key=engagement-gamification"
             ],
-            "notes": "No transcript found for key='engagement-gamification' (resolvedKey='engagement-gamification'). Add a script entry or alias before claiming captions/voice content.",
+            "notes": "Transcript resolved via alias in registry-core. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
             "codeSearch": [
               {
                 "file": "src/app/api/video/captions/route.ts",
@@ -7573,21 +7565,20 @@
         },
         {
           "id": "engagement-studio-overview-script-001",
-          "statement": "Transcript is currently missing for key 'engagement-studio-overview' (captions cannot be truthfully claimed until a transcript exists).",
+          "statement": "A script-derived transcript exists for key 'engagement-studio-overview', and the captions endpoint can produce script-derived WebVTT for this key.",
           "kind": "script-transcript",
-          "expected": "missing",
+          "expected": "present",
           "status": "draft",
           "lastReviewedAt": "",
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts",
-              "video_scripts/world_class"
+              "src/app/api/video/captions/route.ts"
             ],
             "apis": [
               "/api/video/captions?key=engagement-studio-overview"
             ],
-            "notes": "No transcript found for key='engagement-studio-overview' (resolvedKey='engagement-studio-overview'). Add a script entry or alias before claiming captions/voice content.",
+            "notes": "Transcript resolved via alias in registry-core. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
             "codeSearch": [
               {
                 "file": "src/app/api/video/captions/route.ts",
@@ -7626,21 +7617,20 @@
         },
         {
           "id": "guide-create-ehcp-script-001",
-          "statement": "Transcript is currently missing for key 'guide-create-ehcp' (captions cannot be truthfully claimed until a transcript exists).",
+          "statement": "A script-derived transcript exists for key 'guide-create-ehcp', and the captions endpoint can produce script-derived WebVTT for this key.",
           "kind": "script-transcript",
-          "expected": "missing",
+          "expected": "present",
           "status": "draft",
           "lastReviewedAt": "",
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts",
-              "video_scripts/world_class"
+              "src/app/api/video/captions/route.ts"
             ],
             "apis": [
               "/api/video/captions?key=guide-create-ehcp"
             ],
-            "notes": "No transcript found for key='guide-create-ehcp' (resolvedKey='guide-create-ehcp'). Add a script entry or alias before claiming captions/voice content.",
+            "notes": "Transcript resolved via alias in registry-core. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
             "codeSearch": [
               {
                 "file": "src/app/api/video/captions/route.ts",
@@ -7679,21 +7669,20 @@
         },
         {
           "id": "guide-invite-user-script-001",
-          "statement": "Transcript is currently missing for key 'guide-invite-user' (captions cannot be truthfully claimed until a transcript exists).",
+          "statement": "A script-derived transcript exists for key 'guide-invite-user', and the captions endpoint can produce script-derived WebVTT for this key.",
           "kind": "script-transcript",
-          "expected": "missing",
+          "expected": "present",
           "status": "draft",
           "lastReviewedAt": "",
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts",
-              "video_scripts/world_class"
+              "src/app/api/video/captions/route.ts"
             ],
             "apis": [
               "/api/video/captions?key=guide-invite-user"
             ],
-            "notes": "No transcript found for key='guide-invite-user' (resolvedKey='guide-invite-user'). Add a script entry or alias before claiming captions/voice content.",
+            "notes": "Transcript resolved via alias in registry-core. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
             "codeSearch": [
               {
                 "file": "src/app/api/video/captions/route.ts",
@@ -7732,21 +7721,20 @@
         },
         {
           "id": "guide-schedule-event-script-001",
-          "statement": "Transcript is currently missing for key 'guide-schedule-event' (captions cannot be truthfully claimed until a transcript exists).",
+          "statement": "A script-derived transcript exists for key 'guide-schedule-event', and the captions endpoint can produce script-derived WebVTT for this key.",
           "kind": "script-transcript",
-          "expected": "missing",
+          "expected": "present",
           "status": "draft",
           "lastReviewedAt": "",
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts",
-              "video_scripts/world_class"
+              "src/app/api/video/captions/route.ts"
             ],
             "apis": [
               "/api/video/captions?key=guide-schedule-event"
             ],
-            "notes": "No transcript found for key='guide-schedule-event' (resolvedKey='guide-schedule-event'). Add a script entry or alias before claiming captions/voice content.",
+            "notes": "Transcript resolved via alias in registry-core. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
             "codeSearch": [
               {
                 "file": "src/app/api/video/captions/route.ts",
@@ -7785,21 +7773,20 @@
         },
         {
           "id": "guide-token-reward-script-001",
-          "statement": "Transcript is currently missing for key 'guide-token-reward' (captions cannot be truthfully claimed until a transcript exists).",
+          "statement": "A script-derived transcript exists for key 'guide-token-reward', and the captions endpoint can produce script-derived WebVTT for this key.",
           "kind": "script-transcript",
-          "expected": "missing",
+          "expected": "present",
           "status": "draft",
           "lastReviewedAt": "",
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts",
-              "video_scripts/world_class"
+              "src/app/api/video/captions/route.ts"
             ],
             "apis": [
               "/api/video/captions?key=guide-token-reward"
             ],
-            "notes": "No transcript found for key='guide-token-reward' (resolvedKey='guide-token-reward'). Add a script entry or alias before claiming captions/voice content.",
+            "notes": "Transcript resolved via alias in registry-core. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
             "codeSearch": [
               {
                 "file": "src/app/api/video/captions/route.ts",
@@ -7838,21 +7825,20 @@
         },
         {
           "id": "guide-upload-report-script-001",
-          "statement": "Transcript is currently missing for key 'guide-upload-report' (captions cannot be truthfully claimed until a transcript exists).",
+          "statement": "A script-derived transcript exists for key 'guide-upload-report', and the captions endpoint can produce script-derived WebVTT for this key.",
           "kind": "script-transcript",
-          "expected": "missing",
+          "expected": "present",
           "status": "draft",
           "lastReviewedAt": "",
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts",
-              "video_scripts/world_class"
+              "src/app/api/video/captions/route.ts"
             ],
             "apis": [
               "/api/video/captions?key=guide-upload-report"
             ],
-            "notes": "No transcript found for key='guide-upload-report' (resolvedKey='guide-upload-report'). Add a script entry or alias before claiming captions/voice content.",
+            "notes": "Transcript resolved via alias in registry-core. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
             "codeSearch": [
               {
                 "file": "src/app/api/video/captions/route.ts",
@@ -7891,21 +7877,20 @@
         },
         {
           "id": "research-studio-overview-script-001",
-          "statement": "Transcript is currently missing for key 'research-studio-overview' (captions cannot be truthfully claimed until a transcript exists).",
+          "statement": "A script-derived transcript exists for key 'research-studio-overview', and the captions endpoint can produce script-derived WebVTT for this key.",
           "kind": "script-transcript",
-          "expected": "missing",
+          "expected": "present",
           "status": "draft",
           "lastReviewedAt": "",
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts",
-              "video_scripts/world_class"
+              "src/app/api/video/captions/route.ts"
             ],
             "apis": [
               "/api/video/captions?key=research-studio-overview"
             ],
-            "notes": "No transcript found for key='research-studio-overview' (resolvedKey='research-studio-overview'). Add a script entry or alias before claiming captions/voice content.",
+            "notes": "Transcript resolved via alias in registry-core. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
             "codeSearch": [
               {
                 "file": "src/app/api/video/captions/route.ts",
