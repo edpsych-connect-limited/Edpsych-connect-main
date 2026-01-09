@@ -4,15 +4,26 @@ import React, { useEffect, useState } from 'react';
 import { getStripeConnectStatus, createStripeConnectOnboarding, getStripeDashboardLink } from '@/actions/stripe-connect-actions';
 import { CreditCard, ExternalLink, CheckCircle, AlertCircle, Loader2, ArrowRight } from 'lucide-react';
 import { toast } from 'react-hot-toast';
+import { useSearchParams } from 'next/navigation';
 
 export default function PayoutsSettings() {
+  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
   const [status, setStatus] = useState<any>(null);
 
   useEffect(() => {
+    // Check URL status from onboarding return
+    const statusParam = searchParams.get('status');
+    if (statusParam === 'success') {
+      toast.success('Payout account connected successfully!');
+      // Clean up URL parameter to avoid showing toast on refresh is optional but good practice (skipping for now to stick to minimal changes)
+    } else if (statusParam === 'refresh') {
+      toast.error('Connection incomplete. Please try again or contact support.');
+    }
+
     loadStatus();
-  }, []);
+  }, [searchParams]);
 
   const loadStatus = async () => {
     try {

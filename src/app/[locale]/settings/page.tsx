@@ -8,10 +8,10 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/lib/auth/hooks';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import MISIntegrationSettings from '@/components/settings/MISIntegrationSettings';
 import PayoutsSettings from '@/components/settings/PayoutsSettings';
 import { Settings, User, Bell, Shield, Database, Moon, Sun, Volume2, VolumeX, CreditCard } from 'lucide-react';
@@ -21,8 +21,18 @@ type SettingsTab = 'general' | 'account' | 'integrations' | 'notifications' | 'p
 export default function SettingsPage() {
   const { user, logout, isLoading } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState<SettingsTab>('general');
   const [voiceEnabled, setVoiceEnabled] = useState(true);
+
+  // Sync tab with URL
+  useEffect(() => {
+    const tabParam = searchParams.get('tab');
+    if (tabParam && ['general', 'account', 'integrations', 'notifications', 'privacy', 'payouts'].includes(tabParam)) {
+      setActiveTab(tabParam as SettingsTab);
+    }
+  }, [searchParams]);
+
   const [darkMode, setDarkMode] = useState<'system' | 'light' | 'dark'>('system');
   const [notifications, setNotifications] = useState({
     email: true,

@@ -44,7 +44,7 @@
 - [ ] **Commercial Strategy:** Define Subscription vs. Commission models.
 - [x] **Infrastructure:** Stripe Connect integration (Schema & Service Layer).
 - [x] **Billing:** Subscription management portal (Backend Services Ready).
-- [ ] **UI:** Connect Onboarding & Subscription Pricing Page Integration.
+- [x] **UI:** Connect Onboarding & Subscription Pricing Page Integration.
 
 ## Phase 5: Trust & Interaction (Endorsements)
 **Status:** ✅ **Partial**
