@@ -14,9 +14,10 @@ import { useAuth } from '@/lib/auth/hooks';
 import { useRouter, useSearchParams } from 'next/navigation';
 import MISIntegrationSettings from '@/components/settings/MISIntegrationSettings';
 import PayoutsSettings from '@/components/settings/PayoutsSettings';
-import { Settings, User, Bell, Shield, Database, Moon, Sun, Volume2, VolumeX, CreditCard } from 'lucide-react';
+import VerificationSettings from '@/components/settings/VerificationSettings';
+import { Settings, User, Bell, Shield, Database, Moon, Sun, Volume2, VolumeX, CreditCard, FileCheck } from 'lucide-react';
 
-type SettingsTab = 'general' | 'account' | 'integrations' | 'notifications' | 'privacy' | 'payouts';
+type SettingsTab = 'general' | 'account' | 'integrations' | 'notifications' | 'privacy' | 'payouts' | 'verification';
 
 export default function SettingsPage() {
   const { user, logout, isLoading } = useAuth();
@@ -28,7 +29,7 @@ export default function SettingsPage() {
   // Sync tab with URL
   useEffect(() => {
     const tabParam = searchParams.get('tab');
-    if (tabParam && ['general', 'account', 'integrations', 'notifications', 'privacy', 'payouts'].includes(tabParam)) {
+    if (tabParam && ['general', 'account', 'integrations', 'notifications', 'privacy', 'payouts', 'verification'].includes(tabParam)) {
       setActiveTab(tabParam as SettingsTab);
     }
   }, [searchParams]);
@@ -64,9 +65,18 @@ export default function SettingsPage() {
     { id: 'account', label: 'Account', icon: <User className="w-4 h-4" /> },
     { id: 'integrations', label: 'Integrations', icon: <Database className="w-4 h-4" /> },
     { id: 'payouts', label: 'Payouts', icon: <CreditCard className="w-4 h-4" /> },
+  ];
+
+  // Add Verification tab for professionals
+  if (user?.role === 'professional' || user?.role === 'admin' || user?.role === 'super_admin') {
+    tabs.push({ id: 'verification', label: 'Verification', icon: <FileCheck className="w-4 h-4" /> });
+  }
+
+  // Add common tabs
+  tabs.push(
     { id: 'notifications', label: 'Notifications', icon: <Bell className="w-4 h-4" /> },
     { id: 'privacy', label: 'Privacy', icon: <Shield className="w-4 h-4" /> },
-  ];
+  );
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 p-8">
@@ -210,6 +220,11 @@ export default function SettingsPage() {
         {/* Payouts Settings */}
         {activeTab === 'payouts' && (
           <PayoutsSettings />
+        )}
+
+        {/* Verification Settings */}
+        {activeTab === 'verification' && (
+          <VerificationSettings />
         )}
 
         {/* Notifications Settings */}

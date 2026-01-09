@@ -47,12 +47,12 @@
 - [x] **UI:** Connect Onboarding & Subscription Pricing Page Integration.
 
 ## Phase 5: Trust & Interaction (Endorsements)
-**Status:** ✅ **Partial**
+**Status:** 🟡 **In Progress**
 - [x] **Reviews:** `ProfessionalRecommendation` model.
 - [x] **UI:** "Write a Recommendation" Form & Display List.
+- [x] **Verification:** DBS/HCPC badge verification workflow (UI & Backend Route).
 - [ ] **Verification:** "Verified Client" tag logic.
 - [ ] **Endorsements:** "Vouching" system for skills.
-- [ ] **Verification:** DBS/HCPC badge verification workflow.
 
 ### Phase 6: Commissioning Marketplace (The "Revenue Engine")
 **Status:** ⏳ Pending
