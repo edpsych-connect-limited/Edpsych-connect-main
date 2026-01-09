@@ -105,6 +105,25 @@ const SCRIPT_ALIASES: Record<string, string> = {
   'dys-m7-l2': 'dyslexia-m7-l2',
   'dys-m8-l1': 'dyslexia-m8-l1',
   'dys-m8-l2': 'dyslexia-m8-l2',
+
+  // Studio / Hub aliases (mapped to nearest equivalent capability)
+  'admin-studio-overview': 'la-dashboard-overview',
+  'classroom-interventions': 'help-finding-interventions',
+  'classroom-studio-overview': 'help-finding-interventions',
+  'clinical-assessments': 'onboard-ep-assessment-suite',
+  'clinical-ehcp-hub': 'ehcp-modules-hub-overview',
+  'clinical-studio-overview': 'onboard-ep-assessment-suite',
+  'coding-studio-overview': 'innovation-coding-curriculum',
+  'engagement-gamification': 'feature-gamification',
+  'engagement-studio-overview': 'feature-gamification',
+  'research-studio-overview': 'innovation-research-hub',
+
+  // Guide aliases (mapped to workflow equivalents)
+  'guide-create-ehcp': 'ehcp-application-journey',
+  'guide-invite-user': 'help-getting-started',
+  'guide-schedule-event': 'help-getting-started',
+  'guide-token-reward': 'feature-gamification',
+  'guide-upload-report': 'onboard-ep-report-writing',
 };
 
 function isScriptEntryLike(value: unknown): value is ScriptEntryLike {
