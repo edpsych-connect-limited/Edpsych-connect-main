@@ -14,6 +14,7 @@ import HeroOrchestration from './HeroOrchestration';
 import UnifiedEcosystem from './UnifiedEcosystem';
 import CrisisImpactSection from './CrisisImpactSection';
 import ExpressionOfInterest from './ExpressionOfInterest';
+import EccaSpotlight from './EccaSpotlight';
 import CoreCapabilitiesGrid from './CoreCapabilitiesGrid';
 import ResearchFoundation from './ResearchFoundation';
 import VideoPremiereSection from './VideoPremiereSection';
@@ -40,6 +41,9 @@ export default function LandingPage({ pricingData }: LandingPageProps) {
       {/* Expression of Interest: Capture leads from social media campaigns */}
       <ExpressionOfInterest />
       
+      {/* ECCA Spotlight: The Proprietary Engine */}
+      <EccaSpotlight />
+
       {/* Core Capabilities: Full Inventory of Platform Features */}
       <CoreCapabilitiesGrid />
       

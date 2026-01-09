@@ -41,15 +41,7 @@ const tierConfig: Record<FeatureTier, { label: string; icon: LucideIcon; classNa
 
 export default function CoreCapabilitiesGrid() {
   const capabilities: Capability[] = [
-    {
-      icon: Brain,
-      title: "ECCA Framework Engine",
-      description: "The cognitive core. Emotion, Cognition, Context, and Application—orchestrated invisibly in real-time.",
-      color: "text-indigo-400",
-      bg: "bg-indigo-400/10",
-      href: "/ai-agents",
-      tier: "standard"
-    },
+
     {
       icon: Library,
       title: "Intervention Designer",

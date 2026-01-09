@@ -48,16 +48,16 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
 
   // MICRO-GUIDES (Just-In-Time Intelligence)
   "guide-create-ehcp": "e0fd73d582534c23acdf88c81fd4e616", // Placeholder (using merge-tool ID)
-  "guide-token-reward": "de7e30e4ea4a46e289895e493025ed9c", // Placeholder (using engagement overview)
+  // "guide-token-reward": "de7e30e4ea4a46e289895e493025ed9c", // BROKEN
   "guide-schedule-event": "04effa7e0b9147b582008f022e8421b2", // Placeholder (using annual review)
   "guide-upload-report": "93e46803ffc4404998abfcdcaa5c09ae", // Placeholder (using prof contributions)
   "guide-invite-user": "a47ac27a1b444cc892840d32c9d63cbb", // Placeholder (using troubleshooting)
 
   // STUDIO- Videos (Overview)
-  "clinical-studio-overview": "6c671d0b98f54280b463d2e2d3e8cb23",
-  "engagement-studio-overview": "de7e30e4ea4a46e289895e493025ed9c",
-  "classroom-studio-overview": "8ba8cb00bcb84a86a7ba3c7f2f003d23",
-  "admin-studio-overview": "e649849c93ea40bcab1150c2aa4e8c5e",
+  // "clinical-studio-overview": "6c671d0b98f54280b463d2e2d3e8cb23", // BROKEN
+  // "engagement-studio-overview": "de7e30e4ea4a46e289895e493025ed9c", // BROKEN
+  // "classroom-studio-overview": "8ba8cb00bcb84a86a7ba3c7f2f003d23", // BROKEN
+  // "admin-studio-overview": "e649849c93ea40bcab1150c2aa4e8c5e", // BROKEN
 
   // LA- Videos
   "la-dashboard-overview": "bda257f9263440b0ace5f74875d8e5b6",
