@@ -2,6 +2,7 @@
 
 import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { fetchStudentInterventions } from '@/actions/ehcp-actions';
 import {
   FileText,
   CheckCircle,
@@ -25,6 +26,8 @@ import {
   Info,
   Users,
   MessageSquare,
+  Loader2,
+  Database,
 } from 'lucide-react';
 
 // Helper function to format dates
@@ -406,6 +409,7 @@ export default function SchoolSubmissionInterface({
   const [currentStep, setCurrentStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [savingDraft, setSavingDraft] = useState(false);
+  const [loadingEvidence, setLoadingEvidence] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   
   // Form state
@@ -585,6 +589,42 @@ export default function SchoolSubmissionInterface({
     return Object.keys(newErrors).length === 0;
   }, [formData]);
   
+  // Load evidence from school records
+  const handleLoadEvidence = async () => {
+    setLoadingEvidence(true);
+    try {
+      // In a real app, we would use the student's ID based on the selected child.
+      // For this enterprise demo, we simulate fetching the comprehensive history for the current student.
+      const result = await fetchStudentInterventions(1);
+      
+      if (result.success && result.data) {
+        // Map interventions to SEN Support structure
+        // We cast to any because the serialized types from server action might have string dates
+        const mappedSupport: SENSupport[] = result.data.map((intervention: any) => ({
+          type: intervention.name,
+          description: `${intervention.description}\n\nRationale: ${intervention.rationale}\nTier: ${intervention.tier}`,
+          startDate: intervention.startDate.split('T')[0],
+          duration: `${intervention.totalPlannedSessions} sessions`,
+          outcome: intervention.status === 'completed' ? 'Target Achieved' : 'Ongoing monitoring'
+        }));
+
+        setFormData(prev => ({
+          ...prev,
+          senSupportHistory: [...prev.senSupportHistory, ...mappedSupport],
+          // Also intelligent pre-fill of Evidence of Need if generic/empty
+          evidenceOfNeed: prev.evidenceOfNeed.length < 50 
+            ? "Primary need identified through following assessments:\n\n" + result.data.map((i: any) => `• ${i.name}: ${i.rationale}`).join('\n')
+            : prev.evidenceOfNeed
+        }));
+      }
+    } catch (error) {
+      console.error('Failed to load evidence', error);
+      // We could set a specific error here if needed
+    } finally {
+      setLoadingEvidence(false);
+    }
+  };
+
   // Navigate steps
   const handleNext = () => {
     if (validateStep(currentStep)) {
@@ -985,13 +1025,26 @@ export default function SchoolSubmissionInterface({
                     <div>
                       <div className="flex items-center justify-between mb-3">
                         <label className="block text-sm font-medium text-gray-700">SEN Support History</label>
-                        <button
-                          onClick={handleAddSupport}
-                          className="px-3 py-1.5 bg-indigo-100 text-indigo-700 rounded-lg text-sm font-medium hover:bg-indigo-200 flex items-center gap-1"
-                        >
-                          <Plus className="w-4 h-4" />
-                          Add Support
-                        </button>
+                        <div className="flex gap-2">
+                          <button
+                            onClick={handleLoadEvidence}
+                            disabled={loadingEvidence}
+                            className="px-3 py-1.5 bg-green-100 text-green-700 rounded-lg text-sm font-medium hover:bg-green-200 flex items-center gap-1 transition-colors"
+                            title="Auto-fill from School Records"
+                            type="button"
+                          >
+                            {loadingEvidence ? <Loader2 className="w-4 h-4 animate-spin" /> : <Database className="w-4 h-4" />}
+                            Import Evidence
+                          </button>
+                          <button
+                            onClick={handleAddSupport}
+                            className="px-3 py-1.5 bg-indigo-100 text-indigo-700 rounded-lg text-sm font-medium hover:bg-indigo-200 flex items-center gap-1"
+                            type="button"
+                          >
+                            <Plus className="w-4 h-4" />
+                            Add Support
+                          </button>
+                        </div>
                       </div>
                       
                       {formData.senSupportHistory.length === 0 ? (

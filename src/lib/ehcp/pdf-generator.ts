@@ -11,7 +11,7 @@
  * - Watermarks for draft status
  */
 
-import jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
 // ============================================================================

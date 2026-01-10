@@ -76,70 +76,70 @@
 
 ---
 
-## SECTION 3: THE SCHOOL SUBMISSION PROCESS (3:30 - 4:30)
+## SECTION 3: THE SCHOOL SUBMISSION PROCESS (3:30 - 4:45)
 
 ### Visual
 - Switch to SENCO view
 - Clean submission form
+- "Graduated Response Validator" traffic light system highlighting green/amber/red status
 - Document upload interface
 
 ### Script
-> "The process begins when a school's SENCO decides to request an EHCP assessment. Rather than filling out paper forms or sending emails, they use our streamlined submission interface.
+> "The process begins when a school's SENCO decides to request an EHCP assessment. But we don't just accept any request.
 >
-> The SENCO enters the child's details, uploads supporting evidence—previous assessments, school reports, examples of work—and provides their professional observations.
+> Our new **Graduated Response Validator** proactively checks statutory compliance before the form is even submitted. The system analyses the school's intervention history—Apply, Plan, Do, Review cycles—and provides immediate 'Traffic Light' feedback.
 >
-> The moment they click submit, the application enters your system with all information properly structured and the 20-week clock begins."
+> If a school hasn't demonstrated sufficient SEN Support cycles, the system flags it immediately, guiding them to provide the necessary evidence or pause the request. This filters out premature applications, ensuring your team only reviews high-quality, legally compliant submissions."
 
 ### Visual Demo
 - Form fields being completed
-- File uploads showing drag-and-drop
+- "Traffic Light" indicator changing from Red to Green as evidence is added
 - Submission confirmation with reference number
 
 ---
 
-## SECTION 4: CASEWORKER ASSIGNMENT & TRACKING (4:30 - 5:30)
+## SECTION 4: CASEWORKER ASSIGNMENT & TRIAGE (4:45 - 6:00)
 
 ### Visual
 - Back to LA Dashboard
 - Click into individual application
-- Assignment dropdown
+- "Statutory Triage Decision" workflow highlighted
 
 ### Script
-> "As applications arrive, caseworkers are assigned either manually or through your existing allocation process. Each caseworker sees only their assigned cases, with clear priority ordering.
+> "Once submitted, the clock starts. But the first 6 weeks are critical. Our **Statutory Triage Decision Service** guides your caseworkers through the mandatory 'Decision to Assess' timeline.
 >
-> The application detail view shows everything in one place: child information, school details, all uploaded documents, and a complete timeline of every action taken."
+> The system enforces statutory checks: Has legal residency been confirmed? Is there evidence of SEN? Is there evidence that special provision is required?
+>
+> It guides the decision—'Assess' or 'Refuse'—and automatically generates the statutory decision letter based on the outcome, ensuring you never miss that 6-week legal deadline."
 
 ### Visual Demo
-- Timeline showing:
-  - Application received
-  - Decision to assess
-  - Professional requests sent
-  - Contributions received
-- Status badges updating in real-time
+- Triage timeline showing Weeks 1-6
+- Checklist for "Residency", "SEN Evidence", "Provision Evidence"
+- "Generate Decision Letter" button action
 
 ### Script
 > "Every status change is logged automatically, creating an audit trail that satisfies both internal governance and potential tribunal requirements."
 
 ---
 
-## SECTION 5: PROFESSIONAL CONTRIBUTIONS (5:30 - 6:45)
+## SECTION 5: PROFESSIONAL CONTRIBUTIONS & COMMUNICATION (6:00 - 7:30)
 
 ### Visual
 - Switch to Professional Portal view
+- "Communication Hub" interface side-by-side with report template
 - Educational Psychologist perspective
-- Report submission interface
 
 ### Script
-> "Here's where the magic happens. When you request professional advice, each professional receives a secure link to their contribution portal.
+> "We've completely replaced the chaos of email chains. Our **Secure Communication Hub** is embedded directly into the case file.
 >
-> Whether it's an Educational Psychologist, Speech Therapist, or Occupational Therapist—they see only what they need: the child's details, the assessment request, and a structured template for their contribution."
+> Need to query an EP report? Use the 'Request Clarification' feature. The EP gets notified, replies within the portal, and the entire conversation is legally audited and attached to the child's record.
+>
+> Professionals can't say 'I didn't get the email.' You can see exactly when they viewed the request, when they started drafting, and when they submitted. It brings radical transparency to the multi-agency process."
 
 ### Visual Demo
-- Professional selecting report type
-- Structured sections matching EHCP requirements
-- Rich text editing
-- File attachment for full reports
-- Submit button with confirmation
+- Caseworker sending a "Clarification Request"
+- Professional seeing the notification and replying
+- 'Audit Trail' showing timestamped interactions
 
 ### Script
 > "Professionals can work at their own pace, saving drafts and returning later. When they submit, their contribution immediately appears in your caseworker view—no chasing, no emails, no delays."
@@ -189,17 +189,20 @@
 
 ---
 
-## SECTION 7: DATA AUTONOMY - BRING YOUR OWN DATA (8:00 - 9:15)
+## SECTION 7: DATA AUTONOMY & DOCUMENT SECURITY (8:00 - 9:30)
 
 ### Visual
 - Security-focused graphics
+- Virus scanning animation
 - Data sovereignty icons
 - Architecture diagram showing LA-controlled infrastructure
 
 ### Script
-> "Now, let's address what we know is your primary concern: data governance.
+> "Now, let's address what we know is your primary concern: data governance and security.
 >
-> EdPsych Connect operates on a 'Bring Your Own Data' principle. This means your children's data—their names, their needs, their assessments—never leaves your control."
+> Our **Enterprise Document Management** system wraps every file in a protective layer. Every upload is automatically scanned for viruses and malware before it touches your network. We use cryptographic checksums to prevent duplicate files and version conflict.
+>
+> But beyond file security, EdPsych Connect operates on a 'Bring Your Own Data' principle. Your children's data never leaves your control."
 
 ### Visual
 - Animated diagram showing:

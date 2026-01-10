@@ -8,7 +8,7 @@ import { ProfileActions } from '@/components/directory/ProfileActions';
 import { RecommendationsSection } from '@/components/directory/RecommendationsSection';
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
-import { EndorseSkillButton } from '@/components/directory/EndorseSkillButton';
+import { SkillEndorsements } from '@/components/marketplace/profile/SkillEndorsements';
 
 interface Props {
   params: {
@@ -134,27 +134,7 @@ export default async function PublicProfilePage({ params }: Props) {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {skills.length === 0 && (
-                  <p className="text-sm text-muted-foreground italic">No skills listed.</p>
-                )}
-                <div className="flex flex-wrap gap-2">
-                  {skills.map(skill => {
-                    const isEndorsed = currentUserId ? skill.endorsements.some(e => e.endorser.id === currentUserId) : false;
-                    const isOwnProfile = currentUserId === user.id;
-                    
-                    return (
-                    <div key={skill.id} className="bg-secondary/50 transition-colors text-secondary-foreground px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2">
-                      {skill.name}
-                      <EndorseSkillButton 
-                        skillId={skill.id} 
-                        initialCount={skill.endorsements.length} 
-                        initialIsEndorsed={isEndorsed}
-                        isOwnProfile={isOwnProfile}
-                        isLoggedIn={!!currentUserId}
-                      />
-                    </div>
-                  )})}
-                </div>
+                <SkillEndorsements skills={skills} currentUserId={currentUserId} />
               </CardContent>
             </Card>
 

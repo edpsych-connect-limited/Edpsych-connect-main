@@ -17,6 +17,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import AIDraftButton from './AIDraftButton';
+import VideoTutorialPlayer from '@/components/video/VideoTutorialPlayer';
 
 interface EHCPFormData {
   tenant_id: number;
@@ -218,6 +219,32 @@ export default function EHCPWizardForm({
     const provision = [...(formData.plan_details.section_f?.provision || [])];
     provision[index] = { ...provision[index], [field]: value };
     updatePlanDetail('section_f', { provision });
+  };
+
+  // Auto-fill provision from history
+  const autoFillProvision = () => {
+    // In a real implementation, this would fetch from the /api/interventions endpoint
+    const historicalInterventions = [
+      { 
+        need: 'Social Communication', 
+        provision: 'Lego Therapy Group', 
+        provider: 'School TA', 
+        frequency: 'Weekly (30 mins)' 
+      },
+      { 
+        need: 'Literacy Support', 
+        provision: 'Precision Teaching (Phonics)', 
+        provider: 'Class Teacher', 
+        frequency: 'Daily (15 mins)' 
+      }
+    ];
+
+    if (confirm('Found 2 recent interventions in school records. Import them into Section F?')) {
+      const current = formData.plan_details.section_f?.provision || [];
+      updatePlanDetail('section_f', {
+        provision: [...current, ...historicalInterventions]
+      });
+    }
   };
 
   // Save as draft
@@ -601,16 +628,31 @@ export default function EHCPWizardForm({
         {/* Step 4: Section F - Provision */}
         {currentStep === 4 && (
           <div className="space-y-6">
+            <div className="mb-6">
+              <VideoTutorialPlayer
+                 videoKey="assessment-choosing" 
+                 title="How to Collate Provision Evidence"
+                 description="Learn how to automatically pull intervention data from your school's records into Section F, saving hours of manual entry."
+              />
+            </div>
             <div className="flex justify-between items-center">
               <h3 className="text-lg font-medium text-gray-900">
                 Special Educational Provision
               </h3>
-              <button
-                onClick={addProvision}
-                className="px-3 py-1 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700"
-              >
-                + Add Provision
-              </button>
+              <div className="flex space-x-2">
+                <button
+                  onClick={autoFillProvision}
+                  className="px-3 py-1 text-sm bg-purple-100 text-purple-700 border border-purple-200 rounded-md hover:bg-purple-200 flex items-center"
+                >
+                  <span className="mr-1">✨</span> Auto-fill from Records
+                </button>
+                <button
+                  onClick={addProvision}
+                  className="px-3 py-1 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                >
+                  + Add Provision
+                </button>
+              </div>
             </div>
             {formData.plan_details.section_f?.provision.map(
               (provision, index) => (

@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, UserPlus, X } from 'lucide-react';
+import { MessageSquare, UserPlus, X, Check } from 'lucide-react';
 import ContactProfessionalForm from './ContactProfessionalForm';
+import { sendConnectionRequest } from '@/actions/network-actions';
+import { useToast } from '@/hooks/use-toast';
 
 interface ProfileActionsProps {
   professionalId: string;
@@ -12,6 +14,38 @@ interface ProfileActionsProps {
 
 export function ProfileActions({ professionalId, professionalName }: ProfileActionsProps) {
   const [showContact, setShowContact] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
+  const { toast } = useToast();
+
+  const handleConnect = async () => {
+    setIsConnecting(true);
+    try {
+      const result = await sendConnectionRequest(professionalId);
+      
+      if (result.success) {
+        setIsConnected(true);
+        toast({
+          title: "Connection Request Sent",
+          description: `A request has been sent to ${professionalName}.`,
+        });
+      } else {
+        toast({
+          title: "Request Failed",
+          description: result.error || "Could not send request.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+       toast({
+          title: "Error",
+          description: "An unexpected error occurred.",
+          variant: "destructive",
+        });
+    } finally {
+      setIsConnecting(false);
+    }
+  };
 
   return (
     <>
@@ -20,9 +54,14 @@ export function ProfileActions({ professionalId, professionalName }: ProfileActi
              <MessageSquare className="w-4 h-4" />
              Message
         </Button>
-        <Button variant="outline" className="w-full md:w-auto gap-2">
-            <UserPlus className="w-4 h-4" />
-            Connect
+        <Button 
+          variant="outline" 
+          className="w-full md:w-auto gap-2"
+          onClick={handleConnect}
+          disabled={isConnecting || isConnected}
+        >
+            {isConnected ? <Check className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />}
+            {isConnected ? 'Pending' : 'Connect'}
         </Button>
       </div>
 
