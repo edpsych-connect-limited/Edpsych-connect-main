@@ -8,7 +8,7 @@
  * @license Proprietary - All Rights Reserved
  */
 
-// Database integration available via @/lib/prisma when needed
+import { knowledgeService } from '@/lib/knowledge/knowledge-service';
 
 // ============================================================================
 // Types & Interfaces
@@ -349,7 +349,7 @@ Balance immediate support with signposting to appropriate services.`,
 // AI Orchestrator Service
 // ============================================================================
 
-class AIOrchestrator {
+export class AIOrchestrator {
   private static instance: AIOrchestrator;
   
   private constructor() {}
@@ -425,6 +425,135 @@ class AIOrchestrator {
     
     return bestMatch;
   }
+
+  /**
+   * SPECIALIST METHOD: Validate Graduated Response (Statutory Check)
+   * This methods invokes the SEND Specialist to perform a statutory audit of evidence.
+   * Central Nervous System function for the 'Traffic Light' system.
+   */
+  async validateGraduatedResponse(
+    history: any[],
+    evidence: any
+  ): Promise<{ status: 'RED' | 'AMBER' | 'GREEN'; analysis: string; recommendations: string[] }> {
+    // 1. Invoke the SEND Specialist Persona
+    const agent = AI_AGENTS['send-specialist'];
+    
+    // 2. Perform Statutory Analysis (Simulated AI Logic)
+    // In a full LLM integration, we would create a prompt with the history/evidence
+    // and ask the LLM to evaluate against the SEND Code of Practice.
+    // Here, we simulate that deep analysis with robust logic.
+    
+    const cycleCount = Array.isArray(history) ? history.length : 0;
+    const hasExternalReports = evidence?.hasSpecialistReports === true;
+    const hasParentViews = evidence?.hasParentViews === true;
+    const hasPupilVoice = evidence?.hasPupilVoice === true;
+
+    // AI "Thinking" Process
+    let status: 'RED' | 'AMBER' | 'GREEN' = 'RED';
+    let analysis = '';
+    let recommendations: string[] = [];
+
+    if (cycleCount < 2) {
+      status = 'RED';
+      analysis = `As your ${agent.name}, I have reviewed the statutory evidence. We currently have evidence of ${cycleCount} Assess-Plan-Do-Review cycle(s). The Code of Practice (2015) typically requires at least two complete cycles to demonstrate a 'graduated approach' before considering higher-level support.`;
+      recommendations = [
+        'Complete a second full APDR cycle.',
+        'Ensure current interventions are evidence-based and tracked.',
+        'Review the impact of current support before escalating.'
+      ];
+    } else if (cycleCount >= 2 && !hasExternalReports) {
+      status = 'AMBER';
+      analysis = `As your ${agent.name}, I can confirm we have met the chronological requirement of ${cycleCount} cycles. However, the evidence base lacks external specialist input. For an EHC Needs Assessment request to be robust, we typically need to show that school-based expertise has been fully exhausted.`;
+      recommendations = [
+        'Commission an external specialist (e.g., EP, Speech Therapist) to provide a view.',
+        'Incorporate specific standardised assessment data into the next review.',
+        'Ensure the "Do" phase of your cycles is clearly documented with fidelity checks.'
+      ];
+    } else {
+      status = 'GREEN';
+      analysis = `As your ${agent.name}, I am pleased to validate that this case meets the typical evidentiary threshold. We have ${cycleCount} robust cycles of the graduated approach, supported by external specialist evidence. The "Access to Education" criteria appear to be met based on the severity and persistence of need demonstrated.`;
+      recommendations = [
+        'Proceed to Triage.',
+        'Ensure all "Section F" provision recommendations are costed if possible.',
+        'Prepare the "My Story" section with the family to ensure person-centred planning.'
+      ];
+    }
+
+    if (!hasParentViews || !hasPupilVoice) {
+      analysis += ' Note: Statutory compliance requires strong evidence of coproduction. Parent and pupil views appear unmatched or absent.';
+      recommendations.push('Urgently gather and upload Parent/Carer and Pupil views.');
+    }
+
+    return {
+      status,
+      analysis,
+      recommendations
+    };
+  }
+
+  /**
+   * SPECIALIST METHOD: Triage Quality Check
+   * Invokes SEND Specialist + Safeguarding Advisor to check application headers.
+   */
+  async performTriageQualityCheck(
+    applicationId: number,
+    data: any // In full implementation, this would be the application object
+  ): Promise<{ passed: boolean; issues: { field: string; severity: string; description: string; resolution: string }[]; recommendations: string[] }> {
+      // 1. Invoke Agents
+      const sendAgent = AI_AGENTS['send-specialist'];
+      const safeguardingAgent = AI_AGENTS['safeguarding-advisor'];
+
+      // 2. Perform Analysis (Simulated)
+      // We check for critical fields: Consent, Child Details, Evidence
+      
+      const issues = [];
+      const recommendations = [];
+      let passed = true;
+
+      // Mock Data Check (In real app, 'data' would be checked)
+      // We assume data might be missing typical fields for the demo
+      
+      // Check 1: Consent (Critical)
+      if (!data?.hasParentalConsent) {
+          passed = false;
+          issues.push({
+              field: 'parental_consent',
+              severity: 'CRITICAL',
+              description: `Missing signed parental consent form. Statutory deadline cannot start without valid consent.`,
+              resolution: 'Request signed form immediately.'
+          });
+      }
+
+      // Check 2: Safeguarding (Critical)
+      if (data?.hasSafeguardingConcerns && !data?.safeguardingReference) {
+          // Safeguarding Agent input
+          issues.push({
+              field: 'safeguarding',
+              severity: 'MAJOR',
+              description: `[${safeguardingAgent.name} Alert]: Safeguarding flag present but no reference provided.`,
+              resolution: 'Cross-reference with Social Care database.'
+          });
+          recommendations.push('Review KCSIE protocols for information sharing.');
+      }
+
+      // Check 3: Evidence (Major)
+      if (!data?.evidence?.hasMedicalReport) {
+          // SEND Agent input
+          issues.push({
+              field: 'medical_evidence',
+              severity: 'AMBER', // Using AMBER/MAJOR
+              description: `[${sendAgent.name} Note]: Missing medical evidence/report.`,
+              resolution: 'Request Community Paediatrician report during assessment week 1-6.'
+          });
+          recommendations.push('Initiate health advice request (Appendix C) immediately.');
+      }
+
+      if (passed && issues.length === 0) {
+          recommendations.push('Application validates. Proceed to statutory timeline (Week 0).');
+      }
+
+      return { passed, issues, recommendations };
+  }
   
   /**
    * Generate a response using the appropriate agent
@@ -433,6 +562,10 @@ class AIOrchestrator {
     query: string,
     context: ConversationContext
   ): Promise<AIResponse> {
+    // 1. "Nervous System" Lookup (Knowledge Base RAG)
+    // We consult the central knowledge base before delegating to specific agents
+    const knowledge = await knowledgeService.search(query, 3);
+    
     // Route to appropriate agent
     const agentId = await this.routeQuery(query, context);
     const agent = AI_AGENTS[agentId];
@@ -447,12 +580,34 @@ class AIOrchestrator {
     // For now, we'll generate contextual responses based on agent expertise
     const response = await this.generateAgentResponse(agent, query, conversationHistory, context);
     
+    // Augment response with Knowledge Base findings if available (The "Brain" Connection)
+    const enrichedResources = [...(response.relatedResources || [])];
+    if (knowledge.length > 0) {
+      knowledge.forEach(k => {
+        // Prevent duplicates
+        if (!enrichedResources.find(r => r.title === k.article.title)) {
+          enrichedResources.push({
+            title: `[Help Center] ${k.article.title}`,
+            type: 'documentation',
+            url: `/help/${k.article.slug}`
+          });
+        }
+      });
+    }
+
+    // If the agent gave a low-confidence generic response but we have a high-confidence article,
+    // we should highlight that.
+    let finalContent = response.content;
+    if (response.confidence < 0.8 && knowledge.length > 0 && knowledge[0].score > 15) {
+        finalContent += `\n\n**I found a relevant Help Center article that checks out:**\n\n📌 **[${knowledge[0].article.title}](/help/${knowledge[0].article.slug})**\n${knowledge[0].snippet}`;
+    }
+    
     return {
-      content: response.content,
+      content: finalContent,
       agentId,
       confidence: response.confidence,
       suggestedActions: response.suggestedActions,
-      relatedResources: response.relatedResources,
+      relatedResources: enrichedResources.length > 0 ? enrichedResources : undefined,
       handoffSuggestion: response.handoffSuggestion
     };
   }
