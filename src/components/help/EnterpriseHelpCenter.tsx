@@ -592,72 +592,6 @@ How can I help you today? You can also use voice input by clicking the microphon
     setIsSpeaking(false);
   };
 
-  // Generate AI response based on platform knowledge
-  const generateResponse = (query: string): string => {
-    const lowerQuery = query.toLowerCase();
-    
-    // Check for specific feature questions
-    for (const [key, feature] of Object.entries(PLATFORM_KNOWLEDGE.features)) {
-      if (lowerQuery.includes(key) || lowerQuery.includes(feature.title.toLowerCase())) {
-        return `**${feature.title}**\n\n${feature.description}\n\n${feature.details}\n\n📹 Related videos: ${feature.videos.join(', ')}\n\n🔗 Related topics: ${feature.relatedTopics.join(', ')}\n\nWould you like me to explain any of these in more detail?`;
-      }
-    }
-
-    // Check FAQs
-    for (const faq of PLATFORM_KNOWLEDGE.faqs) {
-      if (lowerQuery.includes(faq.question.toLowerCase().slice(0, 20)) ||
-          faq.question.toLowerCase().split(' ').some(word => word.length > 4 && lowerQuery.includes(word))) {
-        return `**${faq.question}**\n\n${faq.answer}\n\nIs there anything else you'd like to know?`;
-      }
-    }
-
-    // Role-specific guidance
-    if (lowerQuery.includes('teacher') || lowerQuery.includes('classroom')) {
-      const guide = PLATFORM_KNOWLEDGE.roles.teacher;
-      return `**${guide.title}**\n\nQuick start steps:\n${guide.quickStart.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\nKey features available to you: ${guide.features.join(', ')}\n\nWould you like detailed guidance on any of these?`;
-    }
-
-    if (lowerQuery.includes('senco') || lowerQuery.includes('send')) {
-      const guide = PLATFORM_KNOWLEDGE.roles.senco;
-      return `**${guide.title}**\n\nQuick start steps:\n${guide.quickStart.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\nKey features available to you: ${guide.features.join(', ')}\n\nWould you like detailed guidance on any of these?`;
-    }
-
-    if (lowerQuery.includes('parent')) {
-      const guide = PLATFORM_KNOWLEDGE.roles.parent;
-      return `**${guide.title}**\n\nQuick start steps:\n${guide.quickStart.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\nKey features available to you: ${guide.features.join(', ')}\n\nWould you like detailed guidance on any of these?`;
-    }
-
-    if (lowerQuery.includes('psychologist') || lowerQuery.includes(' ep ') || lowerQuery.includes('ep\'s')) {
-      const guide = PLATFORM_KNOWLEDGE.roles.ep;
-      return `**${guide.title}**\n\nQuick start steps:\n${guide.quickStart.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\nKey features available to you: ${guide.features.join(', ')}\n\nWould you like detailed guidance on any of these?`;
-    }
-
-    if (lowerQuery.includes('local authority') || lowerQuery.includes(' la ')) {
-      const guide = PLATFORM_KNOWLEDGE.roles.la;
-      return `**${guide.title}**\n\nQuick start steps:\n${guide.quickStart.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\nKey features available to you: ${guide.features.join(', ')}\n\nWould you like detailed guidance on any of these?`;
-    }
-
-    // Common queries
-    if (lowerQuery.includes('password') || lowerQuery.includes('login') || lowerQuery.includes('sign in')) {
-      return `**Account & Login Help**\n\n• **Reset password**: Click "Forgot Password" on the login page\n• **Can't log in**: Check your email is correct, clear browser cache\n• **Account locked**: Contact support after 5 failed attempts\n• **Two-factor auth**: Check your authenticator app or SMS\n\nIf you're still having trouble, please contact support@edpsychconnect.com`;
-    }
-
-    if (lowerQuery.includes('video') || lowerQuery.includes('tutorial')) {
-      const videoList = Object.values(PLATFORM_KNOWLEDGE.videos)
-        .slice(0, 5)
-        .map(v => `• **${v.title}** (${v.duration}) - ${v.description}`)
-        .join('\n');
-      return `**Video Tutorials**\n\nHere are some popular tutorials:\n\n${videoList}\n\nYou can find the complete video library in the Training section. Would you like me to recommend specific videos based on your needs?`;
-    }
-
-    if (lowerQuery.includes('help') || lowerQuery.includes('support')) {
-      return `**Getting Help**\n\nI'm here to help! You can:\n\n• Ask me any question about the platform\n• Use voice input (click the microphone)\n• Browse the knowledge base categories\n• Watch video tutorials\n• Contact human support:\n  - Email: support@edpsychconnect.com\n  - Phone: +44 (0) 123 456 7890\n  - Live chat: Available 9am-5pm GMT\n\nWhat would you like help with?`;
-    }
-
-    // Default response
-    return `I'd be happy to help you with that! While I process your specific question, here are some things I can assist with:\n\n• **Platform navigation** - Finding features and pages\n• **Assessments** - Running, interpreting, reporting\n• **Interventions** - Finding and tracking strategies\n• **EHCP** - Applications and statutory processes\n• **Technical issues** - Troubleshooting and support\n• **Training** - Courses and CPD\n\nCould you provide a bit more detail about what you're trying to do? I have comprehensive knowledge of all platform features and can give you step-by-step guidance.`;
-  };
-
   // Send message
   const sendMessage = async () => {
     if (!inputValue.trim()) return;
@@ -669,30 +603,59 @@ How can I help you today? You can also use voice input by clicking the microphon
       timestamp: new Date()
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    // Optimistic update
+    const newMessages = [...messages, userMessage];
+    setMessages(newMessages);
     setInputValue('');
     setIsLoading(true);
 
-    // Simulate AI processing
-    setTimeout(() => {
-      const response = generateResponse(userMessage.content);
+    try {
+      // Call the Real AI API
+      const response = await fetch('/api/ai/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: newMessages.map(m => ({ role: m.role, content: m.content })),
+          agentId: 'coordinator'
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API Error: ${response.status}`);
+      }
+
+      const data = await response.json();
+
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: response,
+        content: data.content, // Real AI response
         timestamp: new Date()
       };
 
       setMessages(prev => [...prev, assistantMessage]);
-      setIsLoading(false);
 
       // Speak response if voice enabled
       if (voiceEnabled) {
         // Extract plain text for speech (remove markdown)
-        const plainText = response.replace(/\*\*/g, '').replace(/•/g, '').replace(/\n/g, '. ');
+        const plainText = data.content.replace(/\*\*/g, '').replace(/•/g, '').replace(/\n/g, '. ');
         speakResponse(plainText);
       }
-    }, 1000);
+
+    } catch (error) {
+      console.error('AI Chat Error:', error);
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: "I apologise, but I'm having trouble connecting to my knowledge base at the moment. Please try again in a few seconds.",
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // Handle feedback
