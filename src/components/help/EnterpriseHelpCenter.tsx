@@ -628,10 +628,21 @@ How can I help you today? You can also use voice input by clicking the microphon
 
       const data = await response.json();
 
+      let aiContent = '';
+      if (data.data?.response) {
+        aiContent = data.data.response;
+      } else if (data.content) {
+         aiContent = data.content;
+      } else if (typeof data.data === 'string') {
+         aiContent = data.data;
+      } else {
+         aiContent = "I'm sorry, I received an invalid response format.";
+      }
+
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: data.content, // Real AI response
+        content: aiContent, // Corrected response parsing
         timestamp: new Date()
       };
 
@@ -640,7 +651,7 @@ How can I help you today? You can also use voice input by clicking the microphon
       // Speak response if voice enabled
       if (voiceEnabled) {
         // Extract plain text for speech (remove markdown)
-        const plainText = data.content.replace(/\*\*/g, '').replace(/•/g, '').replace(/\n/g, '. ');
+        const plainText = aiContent.replace(/\*\*/g, '').replace(/•/g, '').replace(/\n/g, '. ');
         speakResponse(plainText);
       }
 
@@ -1067,10 +1078,10 @@ export default function EnterpriseHelpCenter() {
 
             {/* Quick Links */}
             <div className="flex flex-wrap justify-center gap-4 mt-8">
-              <QuickLink icon={<Play className="w-4 h-4" />} label="Watch Tutorials" />
-              <QuickLink icon={<Headphones className="w-4 h-4" />} label="Contact Support" />
-              <QuickLink icon={<BookOpen className="w-4 h-4" />} label="Documentation" />
-              <QuickLink icon={<Lightbulb className="w-4 h-4" />} label="Feature Requests" />
+              <QuickLink icon={<Play className="w-4 h-4" />} label="Watch Tutorials" onClick={() => setActiveTab('videos')} />
+              <QuickLink icon={<Headphones className="w-4 h-4" />} label="Contact Support" href="/contact" />
+              <QuickLink icon={<BookOpen className="w-4 h-4" />} label="Documentation" onClick={() => setActiveTab('articles')} />
+              <QuickLink icon={<Lightbulb className="w-4 h-4" />} label="Feature Requests" href="/contact" />
             </div>
           </div>
         </div>
@@ -1260,9 +1271,20 @@ export default function EnterpriseHelpCenter() {
 // SUB-COMPONENTS
 // ============================================================================
 
-function QuickLink({ icon, label }: { icon: React.ReactNode; label: string }) {
+function QuickLink({ icon, label, href, onClick }: { icon: React.ReactNode; label: string; href?: string; onClick?: () => void }) {
+  const className = "flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm text-slate-300 hover:text-white transition-colors";
+  
+  if (href) {
+    return (
+      <Link href={href} className={className}>
+        {icon}
+        {label}
+      </Link>
+    );
+  }
+
   return (
-    <button className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm text-slate-300 hover:text-white transition-colors">
+    <button onClick={onClick} className={className}>
       {icon}
       {label}
     </button>

@@ -30,6 +30,7 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "addon-white-label": "2601efeb473e40bd98844f8d33437826",
   "addon-priority-support": "63b728a51d8349388e87e98597811664",
   // "feature-nclb-engine": "738bbcfaa87541aeb36e061c00db5ece", // WRONG_AVATAR
+  "feature-nclb-engine": "67b145614e7f4e61b0e69529391ed580", // Alias to no-child-left-behind
   "feature-battle-royale": "58d38fdf4d8640c1b9d848a826d686a6",
   "feature-battle-royale-pricing": "58d38fdf4d8640c1b9d848a826d686a6", // alias: PricingPage key
   // "feature-byod-architecture": "4ae970ec77f145b3a5ccc12298fd7cd1", // WRONG_AVATAR
@@ -37,6 +38,7 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "compare-true-cost": "21a6eb143c734c00917f11f36428a387",
   "compare-switching": "fcff323c9cce4ea1b18dcfb4127ff5c2",
   // "trust-security": "1353dc5eeae1475e8d307a9914f8f2e5", // WRONG_AVATAR (Grouped with corrupted batch)
+  "trust-security": "12fbfee13dd04c7087eee79ad1101fb2", // Alias to security-deep-dive
   "trust-built-by-practitioners": "86b48aa0a91b4848815fca5fa58180ca",
 
   // ONBOARDING Videos
@@ -97,6 +99,7 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "help-first-assessment": "c2f83ce8d785468a8d762bebb2cee7f0",
   "help-generating-reports": "54882ac8986c404d99b052952de1699b",
   "help-troubleshooting": "a47ac27a1b444cc892840d32c9d63cbb",
+  "help-getting-started": "47faddd661d648e5ae34c8360c8b2286", // Alias to onboarding-platform-tour
 
   // Legacy/compat aliases (keep until all call sites are migrated)
   "feature-interventions": "47aa88223c364600b6618b54c719f717", // alias -> help-finding-interventions
