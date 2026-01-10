@@ -6026,6 +6026,63 @@
         }
       ]
     },
+    "help-getting-started": {
+      "claims": [
+        {
+          "id": "help-getting-started-registry-001",
+          "statement": "Key 'help-getting-started' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "status": "verified",
+          "lastReviewedAt": "2025-12-26T17:33:27.637Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=help-getting-started"
+            ],
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]help-getting-started['\"]s*:",
+                "isRegex": true
+              }
+            ]
+          },
+          "kind": "registry-key",
+          "expected": "present"
+        },
+        {
+          "id": "help-getting-started-script-001",
+          "statement": "A script-derived transcript exists for key 'help-getting-started', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=help-getting-started"
+            ],
+            "notes": "Transcript sourceId='world-class-onboarding', resolvedKey='help-getting-started'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "routes": [],
+            "tests": [],
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ]
+          },
+          "kind": "script-transcript",
+          "expected": "present"
+        }
+      ]
+    },
     "onboarding-platform-tour": {
       "claims": [
         {
