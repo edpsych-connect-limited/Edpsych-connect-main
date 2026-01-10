@@ -148,6 +148,42 @@ export function CommunicationThreadComponent({
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const markMessagesAsRead = async () => {
+        // In production: POST to mark-as-read endpoint
+        // For now we just log, as the Service handles this via `getThread` side-effects optionally
+        console.log('Marking messages as read');
+    };
+
+    const loadThread = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(`/api/ehcp/communication?applicationId=${ehcpApplicationId}`);
+            if (!response.ok) throw new Error('Failed to load thread');
+            const data = await response.json();
+            
+            // Handle transforming dates from JSON strings back to Date objects
+            if (data && data.messages) {
+                data.messages = data.messages.map((m: any) => ({
+                    ...m,
+                    sentAt: new Date(m.sentAt),
+                    readAt: m.readAt ? new Date(m.readAt) : undefined,
+                    createdAt: new Date(m.createdAt),
+                    responseDueDate: m.responseDueDate ? new Date(m.responseDueDate) : undefined
+                }));
+                data.lastActivity = new Date(data.lastActivity);
+            }
+    
+            setThread(data);
+            markMessagesAsRead();
+        } catch (error) {
+            console.error('Thread Load Error:', error);
+            // Fallback to mock for resilient demo experience
+            setThread(mockThread);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     loadThread();
   }, [ehcpApplicationId]);
 
@@ -155,42 +191,6 @@ export function CommunicationThreadComponent({
     // Scroll to bottom when messages change
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [thread?.messages.length]);
-
-  const loadThread = async () => {
-    setLoading(true);
-    try {
-        const response = await fetch(`/api/ehcp/communication?applicationId=${ehcpApplicationId}`);
-        if (!response.ok) throw new Error('Failed to load thread');
-        const data = await response.json();
-        
-        // Handle transforming dates from JSON strings back to Date objects
-        if (data && data.messages) {
-            data.messages = data.messages.map((m: any) => ({
-                ...m,
-                sentAt: new Date(m.sentAt),
-                readAt: m.readAt ? new Date(m.readAt) : undefined,
-                createdAt: new Date(m.createdAt),
-                responseDueDate: m.responseDueDate ? new Date(m.responseDueDate) : undefined
-            }));
-            data.lastActivity = new Date(data.lastActivity);
-        }
-
-        setThread(data);
-        markMessagesAsRead();
-    } catch (error) {
-        console.error('Thread Load Error:', error);
-        // Fallback to mock for resilient demo experience
-        setThread(mockThread);
-    } finally {
-        setLoading(false);
-    }
-  };
-
-  const markMessagesAsRead = async () => {
-    // In production: POST to mark-as-read endpoint
-    // For now we just log, as the Service handles this via `getThread` side-effects optionally
-    console.log('Marking messages as read');
-  };
 
   const handleSendMessage = async () => {
     if (!newMessage.body.trim() || !newMessage.subject.trim()) return;

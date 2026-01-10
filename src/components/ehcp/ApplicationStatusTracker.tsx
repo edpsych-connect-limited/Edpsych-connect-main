@@ -80,23 +80,23 @@ export default function ApplicationStatusTracker({ applicationId }: ApplicationS
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const fetchStatus = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`/api/school/applications/${applicationId}/status`);
+        if (!response.ok) throw new Error('Failed to fetch status');
+        const data = await response.json();
+        setStatus(data);
+      } catch (err) {
+        setError('Failed to load application status');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchStatus();
   }, [applicationId]);
-
-  const fetchStatus = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`/api/school/applications/${applicationId}/status`);
-      if (!response.ok) throw new Error('Failed to fetch status');
-      const data = await response.json();
-      setStatus(data);
-    } catch (err) {
-      setError('Failed to load application status');
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   // Mock data for demonstration
   const mockStatus: ApplicationStatus = {
