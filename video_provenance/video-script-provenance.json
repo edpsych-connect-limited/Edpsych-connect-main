@@ -1047,6 +1047,15 @@
       "verifiedAudioMatch": false,
       "generatedAt": "2026-01-09T00:00:51.182Z"
     },
+    "help-getting-started": {
+      "key": "help-getting-started",
+      "resolvedKey": "help-getting-started",
+      "sourceId": "world-class-onboarding",
+      "title": "Your Platform Tour",
+      "scriptSha256": "affcca8fcc9ba76447f502343e03a2a887d4da1ecb33747df6b2f09b2854f59e",
+      "verifiedAudioMatch": false,
+      "generatedAt": "2026-01-09T00:00:51.182Z"
+    },
     "onboarding-platform-tour": {
       "key": "onboarding-platform-tour",
       "resolvedKey": "onboarding-platform-tour",
