@@ -9,6 +9,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { findBestMatch, findRelevantEntries, PLATFORM_KNOWLEDGE } from '@/lib/knowledge/platform-knowledge';
+import { knowledgeService } from '@/lib/knowledge/knowledge-service';
 import { aiService } from '@/services/ai/core';
 import { logger } from '@/lib/logger';
 
@@ -83,15 +84,34 @@ export async function POST(request: NextRequest) {
     const { message, conversationId, context } = validation.data;
     const newConversationId = conversationId || `helpbot_${Date.now()}`;
 
-    // First, try to find a match in the knowledge base
+    // ========================================================================
+    // HYBRID KNOWLEDGE RETRIEVAL: Static + Database
+    // ========================================================================
+    
+    // 1. Search static platform knowledge (fast, hardcoded)
     const knowledgeMatch = findBestMatch(message);
     const relatedEntries = findRelevantEntries(message, 3);
+    
+    // 2. Search database help articles (dynamic, comprehensive)
+    const helpArticles = await knowledgeService.search(message, 3);
 
-    // Build context from knowledge base for AI
+    // Build context from BOTH knowledge sources for AI
     let knowledgeContext = '';
+    
+    // Add static knowledge match
     if (knowledgeMatch) {
-      knowledgeContext = `\n\nRELEVANT KNOWLEDGE:\n${knowledgeMatch.content}`;
+      knowledgeContext = `\n\nRELEVANT PLATFORM KNOWLEDGE:\n${knowledgeMatch.content}`;
     }
+    
+    // Add database help articles
+    if (helpArticles.length > 0) {
+      knowledgeContext += `\n\nRELEVANT HELP ARTICLES:\n`;
+      helpArticles.forEach(article => {
+        knowledgeContext += `\n### ${article.article.title}\n${article.snippet}\n[Read full article](/help/${article.article.slug})\n`;
+      });
+    }
+    
+    // Add related topics from static knowledge
     if (relatedEntries.length > 0) {
       knowledgeContext += `\n\nRELATED TOPICS:\n${relatedEntries.map(e => `- ${e.title}: ${e.content.substring(0, 200)}...`).join('\n')}`;
     }
@@ -117,8 +137,20 @@ export async function POST(request: NextRequest) {
     } catch (aiError) {
       logger.warn('AI service unavailable, using knowledge base fallback', aiError);
       
-      // Fallback to knowledge base response
-      if (knowledgeMatch) {
+      // Fallback to knowledge base response (static or database)
+      if (helpArticles.length > 0) {
+        // Prefer database help articles as they're more comprehensive
+        const topArticle = helpArticles[0];
+        response = `**${topArticle.article.title}**\n\n${topArticle.article.excerpt}\n\n${topArticle.snippet}\n\n[Read the full article →](/help/${topArticle.article.slug})`;
+        
+        if (helpArticles.length > 1) {
+          response += '\n\n**Related Articles:**\n';
+          helpArticles.slice(1).forEach(article => {
+            response += `• [${article.article.title}](/help/${article.article.slug})\n`;
+          });
+        }
+      } else if (knowledgeMatch) {
+        // Fall back to static knowledge
         response = knowledgeMatch.content;
         
         if (knowledgeMatch.links && knowledgeMatch.links.length > 0) {

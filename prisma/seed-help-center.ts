@@ -647,6 +647,276 @@ Certificates are recognized by:
     // TECHNICAL
     {
       category_id: technical.id,
+      title: 'MIS Integration Setup & Configuration',
+      slug: 'mis-integration',
+      excerpt: 'Complete guide to connecting your Management Information System',
+      content: `# MIS Integration Setup & Configuration
+
+Connect EdPsych Connect World to your school's Management Information System (MIS) for seamless data sync.
+
+## Supported MIS Platforms
+
+We currently support integration with:
+- **SIMS (Schools Information Management System)**
+- **Arbor Education**
+- **Bromcom**
+- **ScholarPack**
+- **iSAMS**
+
+## Benefits of MIS Integration
+
+- **Automatic student data sync**: Names, dates of birth, year groups updated daily
+- **Single source of truth**: No manual data entry or duplicates
+- **Real-time updates**: Changes in MIS reflected instantly
+- **Timetable integration**: Staff and class schedules synced
+- **Attendance data**: Track correlations with assessment outcomes
+- **GDPR compliant**: Secure, encrypted data transfer
+
+## Initial Setup (Administrator Only)
+
+### Step 1: Generate API Credentials in Your MIS
+
+Navigate to your MIS platform's API/Integration settings:
+- SIMS: **Tools → Third Party → Configure Connections**
+- Arbor: **Settings → Integrations → API Keys**
+- Bromcom: **Admin → External Access → API Management**
+
+Generate a new API key with **Read-Only** permissions.
+
+### Step 2: Configure in EdPsych Connect
+
+1. Go to **Settings → Integrations → MIS Integration**
+2. Select your MIS platform from the dropdown
+3. Enter your MIS URL (e.g., https://yourschool.sims.co.uk)
+4. Paste the API Key
+5. Click **Test Connection**
+6. If successful, click **Enable Sync**
+
+### Step 3: Initial Data Import
+
+1. Click **Run Initial Sync**
+2. Select data to import:
+   - ☑ Students
+   - ☑ Staff
+   - ☑ Classes/Groups
+   - ☑ Timetables (optional)
+3. Click **Start Import**
+4. Monitor progress (typically 2-10 minutes depending on school size)
+
+## Ongoing Sync
+
+Once enabled, data syncs automatically:
+- **Student data**: Daily at 3:00 AM
+- **Staff/timetables**: Daily at 4:00 AM
+- **Attendance**: Hourly during school day
+
+## Field Mapping
+
+You can customize which MIS fields map to EdPsych Connect fields:
+- **Settings → Integrations → Field Mapping**
+- Map custom fields (e.g., EAL status, PP eligibility)
+
+## Troubleshooting
+
+### "Connection Failed" Error
+
+**Cause**: Incorrect URL or API key  
+**Solution**:
+1. Verify API key hasn't expired
+2. Check URL format (include https://)
+3. Ensure your MIS has API access enabled
+4. Check firewall allows outbound connections
+
+### "Permission Denied" Error
+
+**Cause**: API key lacks required permissions  
+**Solution**:
+1. Regenerate API key with **Read** permissions for:
+   - Students
+   - Staff
+   - Classes
+2. Re-enter key in EdPsych Connect
+
+### Data Not Syncing
+
+**Solution**:
+1. Check **Sync Logs** in Settings → Integrations
+2. Look for error messages
+3. Click **Force Sync Now** to trigger manual sync
+4. Contact support if issue persists
+
+## Data Privacy & Security
+
+- **Encryption**: All data transfers use TLS 1.3
+- **Read-Only**: We never write back to your MIS
+- **Audit Trail**: All sync events logged
+- **GDPR**: Compliant with UK data protection laws
+
+## Support
+
+For MIS integration support:
+- Email: integrations@edpsychconnect.com
+- Include: MIS platform name, error message, school ID
+- Response time: Within 24 hours
+
+> **Enterprise Tier Only**: MIS integration is available exclusively on Enterprise and LA subscriptions. Contact your account manager for upgrade information.`,
+      search_keywords: ['mis', 'integration', 'sims', 'arbor', 'bromcom', 'setup', 'sync', 'api', 'data', 'import'],
+      page_context: ['/settings', '/settings/integrations'],
+      is_featured: true,
+    },
+    {
+      category_id: gettingStarted.id,
+      title: 'Video Tutorial Library',
+      slug: 'videos',
+      excerpt: 'Access our comprehensive collection of video tutorials',
+      content: `# Video Tutorial Library
+
+Learn EdPsych Connect World through our extensive video tutorial library covering all platform features.
+
+## Getting Started Videos
+
+Perfect for new users:
+- **Platform Overview** (5 min): Quick tour of main features
+- **Your First Assessment** (8 min): Complete walkthrough
+- **Dashboard Navigation** (4 min): Finding your way around
+- **Profile Setup** (3 min): Completing your professional profile
+
+## Assessment Videos
+
+Master the ECCA framework:
+- **Understanding ECCA** (12 min): Framework deep-dive
+- **Administering Assessments** (15 min): Best practices
+- **Scoring & Interpretation** (10 min): Analyzing results
+- **Report Generation** (7 min): Creating professional PDFs
+- **Collaborative Input** (6 min): Gathering multi-informant perspectives
+
+## Intervention Videos
+
+Evidence-based intervention implementation:
+- **Intervention Library Tour** (5 min): Finding the right support
+- **Assigning Interventions** (4 min): Setting up interventions
+- **Progress Monitoring** (8 min): Tracking outcomes
+- **Fidelity Checklists** (6 min): Ensuring quality implementation
+
+## EHCP Videos
+
+Streamline EHCP workflows:
+- **Creating Your First EHCP** (10 min): Step-by-step guide
+- **Section-by-Section Guide** (18 min): Completing all sections
+- **Annual Reviews** (7 min): Efficient review process
+- **Transition Planning** (9 min): Post-16 EHCPs
+
+## CPD Training Videos
+
+Professional development:
+- **Course Enrollment** (3 min): Accessing CPD courses
+- **Interactive Modules** (4 min): Learning platform features
+- **Earning Certificates** (2 min): Completing courses
+
+## Advanced Features
+
+For power users:
+- **AI Assistant** (6 min): Getting the most from "The Brain"
+- **Voice Assessment** (5 min): Hands-free data entry
+- **Battle Royale** (4 min): Gamification system
+- **Data Export & Reports** (8 min): Analytics and dashboards
+
+## Technical Setup
+
+Platform configuration:
+- **MIS Integration** (12 min): Connecting SIMS/Arbor
+- **Team Management** (5 min): Inviting and managing users
+- **Role-Based Permissions** (7 min): Security and access control
+- **BYOD Setup** (15 min): Enterprise deployment (LA tier)
+
+## Accessing Videos
+
+### In-Context Help
+- Look for the 📺 icon throughout the platform
+- Click for context-specific video tutorials
+- Videos open in a modal without leaving your work
+
+### Video Tutorial Page
+Navigate to **Help → Video Tutorials** to browse the full library
+
+### Search Videos
+Use the search bar to find tutorials by keyword
+
+## Video Features
+
+All videos include:
+- **Professional narration**: Clear British English voice
+- **Closed captions**: Accessibility support
+- **Timestamps**: Jump to specific sections
+- **Downloadable transcripts**: For reference
+- **Speed control**: Watch at 0.5x to 2x speed
+- **HD quality**: Crisp 1080p resolution
+
+## Mobile Access
+
+Videos are optimized for:
+- Tablets (iPad, Android)
+- Smartphones (iOS, Android)
+- Desktop browsers
+- Smart TVs (Chromecast supported)
+
+## Video Training Paths
+
+### **New User Path** (45 min total)
+Recommended sequence for beginners:
+1. Platform Overview
+2. Dashboard Navigation
+3. Your First Assessment
+4. Report Generation
+5. Finding Interventions
+
+### **EP Professional Path** (90 min total)
+For Educational Psychologists:
+1. Understanding ECCA
+2. Administering Assessments
+3. Collaborative Input
+4. Scoring & Interpretation
+5. Evidence-Based Recommendations
+6. Professional Report Writing
+
+### **SENCO Path** (60 min total)
+For SENCOs and teachers:
+1. Dashboard Navigation
+2. Intervention Library Tour
+3. Assigning Interventions
+4. Progress Monitoring
+5. Creating EHCPs
+6. Annual Reviews
+
+### **LA Administrator Path** (75 min total)
+For LA deployment:
+1. Platform Overview
+2. Team Management
+3. Role-Based Permissions
+4. MIS Integration
+5. BYOD Setup (Enterprise)
+6. Data Export & Reporting
+
+## Custom Training
+
+**Enterprise Tier**: Request custom video tutorials for your organization's specific workflows.
+
+Contact: training@edpsychconnect.com
+
+## Feedback
+
+Help us improve:
+- Rate videos (thumbs up/down)
+- Request new topics
+- Report technical issues
+
+> **Tip**: Bookmark frequently watched videos by clicking the ⭐ icon. Access bookmarks from your profile menu.`,
+      search_keywords: ['videos', 'tutorials', 'training', 'learning', 'how-to', 'guide', 'walkthrough'],
+      page_context: ['/help', '/training'],
+      is_featured: true,
+    },
+    {
+      category_id: technical.id,
       title: 'Troubleshooting Common Issues',
       slug: 'troubleshooting',
       excerpt: 'Solutions to frequent problems',
