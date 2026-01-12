@@ -241,11 +241,15 @@ if (!distDirIsUsable(process.env.NEXT_DIST_DIR)) {
 	console.warn(`[next-cli-patched] distDir '${previous}' is not usable (types/ not writable). Falling back to '${process.env.NEXT_DIST_DIR}'.`);
 }
 
-// Record the chosen dist dir (useful for troubleshooting).
-try {
-	fs.writeFileSync(path.join(process.cwd(), '.next_dist_dir'), String(process.env.NEXT_DIST_DIR), 'utf8');
-} catch {
-	// Best-effort only.
+// Record the chosen dist dir (useful for troubleshooting and next start).
+// Only record for build commands, as `next dev` runs transiently and shouldn't
+// clobber the pointer to the latest production build.
+if (isBuildCommand) {
+	try {
+		fs.writeFileSync(path.join(process.cwd(), '.next_dist_dir'), String(process.env.NEXT_DIST_DIR), 'utf8');
+	} catch {
+		// Best-effort only.
+	}
 }
 
 require('next/dist/bin/next');

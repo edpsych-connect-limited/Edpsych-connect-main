@@ -26,14 +26,7 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit;
 
     // Build where clause
-    const where: any = {
-      // Check verification status via the relation to users -> ProfessionalCompliance
-      user: {
-        compliance: {
-          verificationStatus: 'VERIFIED'
-        }
-      }
-    };
+    const where: any = {};
 
     // Text search (name or bio)
     if (query) {
@@ -130,7 +123,7 @@ export async function GET(request: NextRequest) {
       isLaPanel: p.la_panel_status === 'APPROVED',
       nextAvailable: null, // p.availability,
       yearsExperience: 5, // Default until added to schema
-      verified: p.user.compliance?.verificationStatus === 'VERIFIED',
+      verified: p.la_panel_status === 'APPROVED', // Use LA Panel status as verification proxy for now
     }));
 
     return NextResponse.json({

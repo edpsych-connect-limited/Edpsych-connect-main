@@ -130,7 +130,7 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-6">
-      <div className="flex items-centre justify-between mb-6">
+      <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">CPD Tracker</h2>
           <p className="text-sm text-gray-600">Track your Continuing Professional Development hours for {currentYear}</p>
@@ -144,7 +144,7 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
       </div>
 
       <div className="mb-8">
-        <div className="flex items-centre justify-between mb-2">
+        <div className="flex items-center justify-between mb-2">
           <div>
             <span className="text-3xl font-bold text-gray-900">{totalHours}</span>
             <span className="text-lg text-gray-600"> / {targetHours} hours</span>
@@ -242,7 +242,7 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
               ></textarea>
             </div>
 
-            <div className="flex items-centre">
+            <div className="flex items-center">
               <input
                 type="checkbox"
                 id="certificate"
@@ -278,7 +278,7 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
           <div className="space-y-3">
             {categoryBreakdown.map((item) => (
               <div key={item.category}>
-                <div className="flex items-centre justify-between text-sm mb-1">
+                <div className="flex items-center justify-between text-sm mb-1">
                   <span className="text-gray-700">{item.category}</span>
                   <span className="font-medium text-gray-900">{item.hours}h ({item.count})</span>
                 </div>
@@ -300,23 +300,23 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
         <div>
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Stats</h3>
           <div className="space-y-3">
-            <div className="flex items-centre justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
               <span className="text-sm text-gray-600">Total Entries</span>
               <span className="font-semibold text-gray-900">{entries.length}</span>
             </div>
-            <div className="flex items-centre justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
               <span className="text-sm text-gray-600">Certificates Earned</span>
               <span className="font-semibold text-gray-900">
                 {entries.filter(e => e.certificate).length}
               </span>
             </div>
-            <div className="flex items-centre justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
               <span className="text-sm text-gray-600">Hours Remaining</span>
               <span className="font-semibold text-gray-900">
                 {Math.max(0, targetHours - totalHours)} hours
               </span>
             </div>
-            <div className="flex items-centre justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
               <span className="text-sm text-gray-600">Average per Entry</span>
               <span className="font-semibold text-gray-900">
                 {entries.length > 0 ? (totalHours / entries.length).toFixed(1) : 0}h
@@ -327,9 +327,9 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
       </div>
 
       <div className="border-t pt-6">
-        <div className="flex items-centre justify-between mb-4">
+        <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-900">Audit Trail</h3>
-          <div className="flex items-centre gap-3">
+          <div className="flex items-center gap-3">
             <select
               aria-label="Export format"
               value={exportFormat}
@@ -341,7 +341,7 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
             </select>
             <button
               onClick={handleExport}
-              className="flex items-centre gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 text-sm font-medium"
+              className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 text-sm font-medium"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -360,7 +360,7 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
                 <th className="px-4 py-3 text-left font-medium text-gray-700">Category</th>
                 <th className="px-4 py-3 text-left font-medium text-gray-700">Provider</th>
                 <th className="px-4 py-3 text-right font-medium text-gray-700">Hours</th>
-                <th className="px-4 py-3 text-centre font-medium text-gray-700">Certificate</th>
+                <th className="px-4 py-3 text-center font-medium text-gray-700">Certificate</th>
               </tr>
             </thead>
             <tbody className="divide-y">
@@ -380,9 +380,9 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
                   <td className="px-4 py-3 text-gray-600">{entry.category}</td>
                   <td className="px-4 py-3 text-gray-600">{entry.provider}</td>
                   <td className="px-4 py-3 text-right font-medium text-gray-900">{entry.hours}</td>
-                  <td className="px-4 py-3 text-centre">
+                  <td className="px-4 py-3 text-center">
                     {entry.certificate ? (
-                      <span className="inline-flex items-centre justify-centre w-6 h-6 bg-green-100 text-green-600 rounded-full">
+                      <span className="inline-flex items-center justify-center w-6 h-6 bg-green-100 text-green-600 rounded-full">
                         ✓
                       </span>
                     ) : (

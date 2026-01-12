@@ -341,6 +341,28 @@ export class VoiceCommandService {
       };
     }
 
+    // ACTION: "Add observation for [student]"
+    if (
+      lowerTranscript.match(/add\s+observation/i) ||
+      lowerTranscript.match(/take\s+observation/i) ||
+      lowerTranscript.match(/new\s+observation/i) ||
+      lowerTranscript.match(/record\s+observation/i) ||
+      lowerTranscript.match(/note\s+for/i)
+    ) {
+      const studentName = this.extractStudentName(transcript);
+      const content = this.extractObservationContent(transcript);
+      return {
+        type: 'action',
+        command: 'add_observation',
+        confidence: 0.95,
+        parameters: {
+          student_name: studentName,
+          content: content,
+          student_id: context?.current_student_id, // Fallback if name not parsed
+        },
+      };
+    }
+
     // ACTION: "Assign [lesson] to [class/student]"
     if (
       lowerTranscript.match(/assign .+ to .+/i) ||
@@ -494,6 +516,9 @@ export class VoiceCommandService {
 
       case 'notify_parents':
         return await this.notifyParents(userId, intent.parameters.student_name);
+
+      case 'add_observation':
+        return await this.executeObservation(userId, intent);
 
       case 'assign_lesson':
         return await this.assignLesson(
@@ -817,6 +842,76 @@ export class VoiceCommandService {
     };
   }
 
+  /**
+   * Execute observation recording
+   */
+  private static async executeObservation(userId: number, intent: CommandIntent): Promise<any> {
+    const studentName = intent.parameters.student_name;
+    const content = intent.parameters.content;
+
+    if (!studentName || studentName === 'Unknown') {
+      return {
+        success: false,
+        message: "I heard you want to add an observation, but I didn't catch the student's name. Please say 'Add observation for [Student Name]'.",
+        actions: [],
+      };
+    }
+
+    const student = await this.findStudentByName(userId, studentName);
+    if (!student) {
+      return {
+        success: false,
+        message: `I couldn't find a student named "${studentName}".`,
+        actions: [],
+      };
+    }
+
+    if (!content || content.length < 5) {
+      return {
+        success: false,
+        message: `I found ${studentName}, but I didn't catch the observation content. Please say: 'Add observation for ${studentName} [your notes]'.`,
+        actions: [],
+      };
+    }
+
+    // Capture as AutomatedAction (Audit Log / Persistence)
+    try {
+      await prisma.automatedAction.create({
+        data: {
+          tenant_id: student.tenant_id,
+          action_type: 'observation_recorded',
+          triggered_by: 'voice_command',
+          target_type: 'student',
+          target_id: student.id.toString(),
+          student_id: student.id,
+          action_data: {
+            content: content,
+            author_id: userId,
+            timestamp: new Date().toISOString(),
+          },
+          requires_approval: false,
+        },
+      });
+
+      return {
+        success: true,
+        student_id: student.id,
+        student_name: `${student.first_name} ${student.last_name}`,
+        content_snippet: content.substring(0, 50) + '...',
+        message: `Observation recorded for ${student.first_name}.`,
+        actions: ['observation_saved'],
+      };
+    } catch (e) {
+      logger.error('Failed to save observation', e as Error);
+      return {
+        success: false,
+        message: "I processed the observation but couldn't save it to the database.",
+        actions: [],
+      };
+    }
+  }
+
+
   // ============================================================================
   // RESPONSE GENERATION
   // ============================================================================
@@ -863,6 +958,11 @@ export class VoiceCommandService {
         if (!data.success) {
           return data.message;
         }
+        return `I've flagged ${data.student_name} for intervention. I will also generate an approval request for the SENCO.`;
+
+      case 'add_observation':
+        return data.message || `Observation recorded.`;
+
         return `${data.student_name} has been flagged for intervention. This will appear in your approvals queue.`;
 
       case 'notify_parents':
@@ -1025,6 +1125,35 @@ export class VoiceCommandService {
 
     return 'Unknown';
   }
+
+  /**
+   * Extract observation content from transcript
+   */
+  private static extractObservationContent(transcript: string): string {
+    // Regex to strip the command part and keep the rest
+    // Matches: "Add observation for [Name] [Content]" -> Captures Content
+    // Be robust about "for [Name]" being optional or variable length
+    
+    // Strategy: Find the command boundaries
+    const commandPatterns = [
+        /add\s+observation\s+(?:for\s+[a-zA-Z\s]+\s+)?(.*)/i,
+        /take\s+observation\s+(?:for\s+[a-zA-Z\s]+\s+)?(.*)/i,
+        /new\s+observation\s+(?:for\s+[a-zA-Z\s]+\s+)?(.*)/i,
+        /record\s+observation\s+(?:for\s+[a-zA-Z\s]+\s+)?(.*)/i,
+        /note\s+for\s+[a-zA-Z\s]+\s+(.*)/i
+    ];
+
+    for (const pattern of commandPatterns) {
+        const match = transcript.match(pattern);
+        if (match && match[1]) {
+            return match[1].trim();
+        }
+    }
+
+    // Fallback: if we just detect the intent but the specific pattern fails (rare), return original or empty
+    return '';
+  }
+
 
   /**
    * Extract topic from transcript

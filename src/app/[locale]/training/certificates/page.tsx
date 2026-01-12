@@ -109,7 +109,7 @@ export default function CertificatesPage() {
 
   if (loading) {
     return (
-      <div className="flex justify-centre items-centre min-h-screen" role="status" aria-live="polite">
+      <div className="flex justify-center items-center min-h-screen" role="status" aria-live="polite">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
         <span className="sr-only">Loading certificates...</span>
       </div>
@@ -128,7 +128,7 @@ export default function CertificatesPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg shadow-lg p-6">
-            <div className="flex items-centre justify-between mb-2">
+            <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-medium opacity-90">Total Certificates</h3>
               <span className="text-3xl">🎓</span>
             </div>
@@ -137,7 +137,7 @@ export default function CertificatesPage() {
           </div>
 
           <div className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-lg shadow-lg p-6">
-            <div className="flex items-centre justify-between mb-2">
+            <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-medium opacity-90">CPD Hours Earned</h3>
               <span className="text-3xl">⏱️</span>
             </div>
@@ -146,7 +146,7 @@ export default function CertificatesPage() {
           </div>
 
           <div className="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-lg shadow-lg p-6">
-            <div className="flex items-centre justify-between mb-2">
+            <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-medium opacity-90">Latest Certificate</h3>
               <span className="text-3xl">🏆</span>
             </div>
@@ -164,8 +164,8 @@ export default function CertificatesPage() {
             {certificates.map((certificate) => (
               <div key={certificate.id} className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden">
                 <div className="md:flex">
-                  <div className="md:w-1/3 bg-gradient-to-br from-blue-50 to-blue-100 p-8 flex items-centre justify-centre">
-                    <div className="text-centre">
+                  <div className="md:w-1/3 bg-gradient-to-br from-blue-50 to-blue-100 p-8 flex items-center justify-center">
+                    <div className="text-center">
                       <div className="text-6xl mb-4">🎓</div>
                       <h3 className="text-xl font-bold text-gray-900 mb-2">Certificate of Completion</h3>
                       <p className="text-sm text-gray-600">EdPsych Connect</p>
@@ -222,7 +222,7 @@ export default function CertificatesPage() {
                     <div className="flex flex-wrap gap-3 pt-4 border-t">
                       <button
                         onClick={() => handleDownloadPdf(certificate)}
-                        className="flex items-centre gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm font-medium"
+                        className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm font-medium"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -231,7 +231,7 @@ export default function CertificatesPage() {
                       </button>
                       <button
                         onClick={() => handlePrint(certificate)}
-                        className="flex items-centre gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 text-sm font-medium"
+                        className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 text-sm font-medium"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
@@ -240,7 +240,7 @@ export default function CertificatesPage() {
                       </button>
                       <button
                         onClick={() => handleShare(certificate)}
-                        className="flex items-centre gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 text-sm font-medium"
+                        className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 text-sm font-medium"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
@@ -249,7 +249,7 @@ export default function CertificatesPage() {
                       </button>
                       <Link
                         href={`/training/courses/${certificate.courseId}`}
-                        className="flex items-centre gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 text-sm font-medium"
+                        className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 text-sm font-medium"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -264,7 +264,7 @@ export default function CertificatesPage() {
             ))}
           </div>
         ) : (
-          <div className="bg-white rounded-lg shadow-sm p-12 text-centre">
+          <div className="bg-white rounded-lg shadow-sm p-12 text-center">
             <div className="text-6xl mb-4">🎓</div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">No Certificates Yet</h2>
             <p className="text-gray-600 mb-6">

@@ -78,7 +78,7 @@ export default function AssessmentLibraryPreview() {
             transition={{ delay: 0.2 }}
             className="text-xl text-slate-600"
           >
-            Stop reinventing the wheel. Access our bank of standardized, evidence-based assessment templates. 
+            Stop reinventing the wheel. Access our bank of standardised, evidence-based assessment templates. 
             Valid for EHCP applications and instantly scorable.
           </motion.p>
         </div>

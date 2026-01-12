@@ -35,7 +35,7 @@ const ConversionFunnel = (): React.ReactElement => {
   const funnelSteps: FunnelStep[] = [
     {
       title: 'Discover AI Education Solutions',
-      description: 'Explore how our platform revolutionizes education with AI-powered personalized learning and intelligent assessment tools.',
+      description: 'Explore how our platform revolutionizes education with AI-powered Personalised learning and intelligent assessment tools.',
       icon: <div className="text-3xl">🔎</div>,
       roles: ['teacher', 'student', 'parent', 'researcher']
     },
@@ -46,7 +46,7 @@ const ConversionFunnel = (): React.ReactElement => {
       roles: ['teacher', 'student', 'parent', 'researcher']
     },
     {
-      title: 'Personalized Onboarding',
+      title: 'Personalised Onboarding',
       description: 'Take a quick assessment to help our AI understand your specific needs and goals.',
       icon: <div className="text-3xl">🧩</div>,
       roles: ['teacher', 'student', 'parent', 'researcher']
@@ -65,7 +65,7 @@ const ConversionFunnel = (): React.ReactElement => {
     },
     {
       title: 'Parent Monitoring Tools',
-      description: 'Monitor your child\'s progress, communicate with teachers, and receive personalized recommendations.',
+      description: 'Monitor your child\'s progress, communicate with teachers, and receive Personalised recommendations.',
       icon: <div className="text-3xl">👨‍👩‍👧‍👦</div>,
       roles: ['parent']
     },
@@ -83,7 +83,7 @@ const ConversionFunnel = (): React.ReactElement => {
     },
     {
       title: 'Connect with Support',
-      description: 'Get help from our AI support team or connect with a human specialist for personalized assistance.',
+      description: 'Get help from our AI support team or connect with a human specialist for Personalised assistance.',
       icon: <div className="text-3xl">🤝</div>,
       roles: ['teacher', 'student', 'parent', 'researcher']
     }

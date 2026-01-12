@@ -373,7 +373,7 @@ const SmartPricingWizard: React.FC = () => {
         </div>
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
           Our AI analyzes your needs to recommend the perfect plan with the best value.
-          Answer a few questions and get a personalized recommendation.
+          Answer a few questions and get a Personalised recommendation.
         </p>
       </motion.div>
 

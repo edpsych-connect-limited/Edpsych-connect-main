@@ -29,14 +29,14 @@ const ecosystemSteps = [
   {
     id: 'process',
     title: '2. AI Orchestration',
-    description: 'Our "Invisible Intelligence" analyzes the profile against 100+ evidence-based strategies to design the perfect intervention.',
+    description: 'Our "Invisible Intelligence" analyses the profile against 100+ evidence-based strategies to design the perfect intervention.',
     icon: Brain,
     color: 'purple',
     features: ['Intervention Designer', 'ECCA Framework', 'AI Plan Generator']
   },
   {
     id: 'action',
-    title: '3. Personalized Action',
+    title: '3. Personalised Action',
     description: 'The child receives bespoke support—from specific classroom strategies to gamified coding lessons that build missing skills.',
     icon: Sparkles,
     color: 'amber',

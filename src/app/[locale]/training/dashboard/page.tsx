@@ -170,7 +170,7 @@ export default function TrainingDashboardPage() {
 
   if (loading) {
     return (
-      <div className="flex justify-centre items-centre min-h-screen" role="status" aria-live="polite">
+      <div className="flex justify-center items-center min-h-screen" role="status" aria-live="polite">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
         <span className="sr-only">Loading dashboard...</span>
       </div>
@@ -187,7 +187,7 @@ export default function TrainingDashboardPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="flex items-centre justify-between mb-2">
+            <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-medium text-gray-600">Courses in Progress</h3>
               <span className="text-2xl">📚</span>
             </div>
@@ -196,7 +196,7 @@ export default function TrainingDashboardPage() {
           </div>
 
           <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="flex items-centre justify-between mb-2">
+            <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-medium text-gray-600">CPD Hours</h3>
               <span className="text-2xl">⏱️</span>
             </div>
@@ -210,7 +210,7 @@ export default function TrainingDashboardPage() {
           </div>
 
           <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="flex items-centre justify-between mb-2">
+            <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-medium text-gray-600">Total Time</h3>
               <span className="text-2xl">⏰</span>
             </div>
@@ -221,7 +221,7 @@ export default function TrainingDashboardPage() {
           </div>
 
           <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="flex items-centre justify-between mb-2">
+            <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-medium text-gray-600">Achievements</h3>
               <span className="text-2xl">🏆</span>
             </div>
@@ -240,7 +240,7 @@ export default function TrainingDashboardPage() {
             </div>
 
             <div className="bg-white rounded-lg shadow-sm p-6">
-              <div className="flex items-centre justify-between mb-4">
+              <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-semibold text-gray-900">Active Courses</h2>
                 <Link href="/training" className="text-blue-600 hover:text-blue-800 text-sm font-medium">
                   Browse More →
@@ -255,7 +255,7 @@ export default function TrainingDashboardPage() {
                         {course.imageUrl ? (
                           <Image src={course.imageUrl} alt={course.title} width={96} height={96} className="object-cover rounded-md" />
                         ) : (
-                          <div className="w-full h-full flex items-centre justify-centre text-gray-400 text-xs">
+                          <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
                             No Image
                           </div>
                         )}
@@ -275,7 +275,7 @@ export default function TrainingDashboardPage() {
                         </div>
 
                         <div className="mb-3">
-                         <div className="flex items-centre justify-between text-sm text-gray-600 mb-1">
+                         <div className="flex items-center justify-between text-sm text-gray-600 mb-1">
                            <span>Progress: {course.progress}%</span>
                            <span className="text-xs">Time spent: {formatTimeSpent(course.timeSpent)}</span>
                          </div>
@@ -284,7 +284,7 @@ export default function TrainingDashboardPage() {
                          </div>
                        </div>
 
-                        <div className="flex items-centre justify-between">
+                        <div className="flex items-center justify-between">
                           <p className="text-sm text-gray-500">Next: {course.nextLesson}</p>
                           <Link
                             href={`/training/courses/${course.id}`}
@@ -300,7 +300,7 @@ export default function TrainingDashboardPage() {
               </div>
 
               {enrolledCourses.length === 0 && (
-                <div className="text-centre py-12">
+                <div className="text-center py-12">
                   <p className="text-gray-500 mb-4">You haven&apos;t enrolled in any courses yet.</p>
                   <Link
                     href="/training"
@@ -329,7 +329,7 @@ export default function TrainingDashboardPage() {
                 ))}
               </div>
               {achievements.length === 0 && (
-                <p className="text-sm text-gray-500 text-centre py-4">
+                <p className="text-sm text-gray-500 text-center py-4">
                   Complete courses to earn achievements
                 </p>
               )}
@@ -340,7 +340,7 @@ export default function TrainingDashboardPage() {
               <div className="space-y-3">
                 {recentActivity.map((activity) => (
                   <div key={activity.id} className="flex gap-3 pb-3 border-b last:border-b-0">
-                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-centre justify-centre flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
                       {activity.type === 'completed_lesson' && '✓'}
                       {activity.type === 'earned_certificate' && '🎓'}
                       {activity.type === 'earned_badge' && '🏆'}

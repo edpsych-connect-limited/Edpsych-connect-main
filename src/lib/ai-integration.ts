@@ -947,6 +947,7 @@ export interface ChatRequest {
   piiEntities?: string[];
   maxTokens?: number;
   temperature?: number;
+  platformContext?: Record<string, unknown>;
 }
 
 /**
@@ -992,6 +993,14 @@ class AIIntegration {
     const startTime = performance.now();
 
     try {
+      // Format platform context if available
+      let contextString = '';
+      if (request.platformContext) {
+        contextString = `[Current Context]\n${Object.entries(request.platformContext)
+          .map(([k, v]) => `${k}: ${JSON.stringify(v)}`)
+          .join('\n')}\n\n`;
+      }
+
       // Build conversation context from message history
       const conversationContext = request.messages
         .filter(m => m.role !== 'system')
@@ -1007,12 +1016,17 @@ class AIIntegration {
       const useCase = this.mapAgentToUseCase(request.agentId);
 
       // Create AI request using existing service format
+      const fullPrompt = conversationContext 
+        ? `${contextString}${conversationContext}\n\nUser: ${lastUserMessage}` 
+        : `${contextString}${lastUserMessage}`;
+
       const aiRequest: AIRequest = {
-        prompt: conversationContext ? `${conversationContext}\n\nUser: ${lastUserMessage}` : lastUserMessage,
+        prompt: fullPrompt,
         context: {
           conversationHistory: request.messages,
           systemPrompt: request.systemPrompt,
-          agentId: request.agentId
+          agentId: request.agentId,
+          ...request.platformContext
         },
         id: request.userId.toString(),
         tenantId: request.tenantId.toString(),

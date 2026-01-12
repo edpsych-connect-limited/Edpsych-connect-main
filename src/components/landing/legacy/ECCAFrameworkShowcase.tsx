@@ -137,7 +137,7 @@ export default function ECCAFrameworkShowcase() {
                 },
                 {
                   title: "Copyright-Safe",
-                  desc: "Proprietary framework—no licensing fees for standardized test materials"
+                  desc: "Proprietary framework—no licensing fees for standardised test materials"
                 }
               ].map((feature, idx) => (
                 <div key={idx} className="flex items-start">

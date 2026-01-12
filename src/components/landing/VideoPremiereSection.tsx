@@ -83,12 +83,12 @@ export default function VideoPremiereSection() {
     <section className="py-24 bg-slate-900 text-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-centre mb-16">
+        <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-centre gap-2 px-4 py-2 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-indigo-300 text-sm font-medium mb-4"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-indigo-300 text-sm font-medium mb-4"
           >
             <Play className="w-4 h-4" />
             Video Showcase
@@ -137,7 +137,7 @@ export default function VideoPremiereSection() {
 
         {/* Featured Videos - Primary Row */}
         <div className="mb-12">
-          <h3 className="text-xl font-semibold mb-6 flex items-centre gap-2">
+          <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-indigo-400" />
             Featured Demonstrations
           </h3>
@@ -156,12 +156,12 @@ export default function VideoPremiereSection() {
                 >
                   <div className={`aspect-video bg-gradient-to-br ${video.gradient} relative`}>
                     <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
-                    <div className="absolute inset-0 flex items-centre justify-centre">
-                      <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-centre justify-centre border border-white/30 group-hover:scale-110 group-hover:bg-white/30 transition-all shadow-lg">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30 group-hover:scale-110 group-hover:bg-white/30 transition-all shadow-lg">
                         <Play className="w-8 h-8 text-white fill-white ml-1" />
                       </div>
                     </div>
-                    <div className="absolute top-3 left-3 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-centre justify-centre">
+                    <div className="absolute top-3 left-3 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
                       <Icon className="w-5 h-5 text-white" />
                     </div>
                     <div className="absolute top-3 right-3 px-2 py-1 bg-black/50 backdrop-blur-sm rounded-full text-xs font-medium text-white/80">
@@ -171,7 +171,7 @@ export default function VideoPremiereSection() {
                   <div className="p-6">
                     <h4 className="font-bold text-lg mb-2">{video.title}</h4>
                     <p className="text-slate-400 text-sm mb-4">{video.description}</p>
-                    <div className="flex items-centre gap-2 text-sm text-indigo-400 font-medium group-hover:text-indigo-300">
+                    <div className="flex items-center gap-2 text-sm text-indigo-400 font-medium group-hover:text-indigo-300">
                       Watch Now <ArrowRight className="w-4 h-4" />
                     </div>
                   </div>
@@ -183,7 +183,7 @@ export default function VideoPremiereSection() {
 
         {/* Secondary Videos - Additional Row */}
         <div>
-          <h3 className="text-xl font-semibold mb-6 flex items-centre gap-2">
+          <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
             <Shield className="w-5 h-5 text-emerald-400" />
             Deep Dives
           </h3>
@@ -202,12 +202,12 @@ export default function VideoPremiereSection() {
                 >
                   <div className={`aspect-video bg-gradient-to-br ${video.gradient} relative`}>
                     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
-                    <div className="absolute inset-0 flex items-centre justify-centre">
-                      <div className="w-14 h-14 bg-white/15 backdrop-blur-sm rounded-full flex items-centre justify-centre border border-white/20 group-hover:scale-110 transition-all">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-14 h-14 bg-white/15 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 group-hover:scale-110 transition-all">
                         <Play className="w-6 h-6 text-white fill-white ml-0.5" />
                       </div>
                     </div>
-                    <div className="absolute top-3 left-3 w-8 h-8 bg-white/15 backdrop-blur-sm rounded-lg flex items-centre justify-centre">
+                    <div className="absolute top-3 left-3 w-8 h-8 bg-white/15 backdrop-blur-sm rounded-lg flex items-center justify-center">
                       <Icon className="w-4 h-4 text-white" />
                     </div>
                   </div>
@@ -226,11 +226,11 @@ export default function VideoPremiereSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-16 text-centre"
+          className="mt-16 text-center"
         >
           <Link
             href="/pricing"
-            className="inline-flex items-centre gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
           >
             Explore All Pricing Videos
             <ArrowRight className="w-5 h-5" />
@@ -240,9 +240,9 @@ export default function VideoPremiereSection() {
 
       {/* Video Modal */}
       {activeVideo && (
-        <div className="fixed inset-0 z-50 flex items-centre justify-centre bg-black/90 backdrop-blur-sm p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4">
           <div className="relative w-full max-w-5xl bg-black rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
-            <div className="flex items-centre justify-between p-4 border-b border-slate-800">
+            <div className="flex items-center justify-between p-4 border-b border-slate-800">
               <h3 className="text-lg font-semibold">{activeVideo.title}</h3>
               <button 
                 onClick={() => setActiveVideo(null)}

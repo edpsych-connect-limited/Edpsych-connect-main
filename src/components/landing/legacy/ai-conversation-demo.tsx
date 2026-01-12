@@ -85,7 +85,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
     { 
       id: 'curriculum-designer', 
       name: 'Curriculum Designer', 
-      role: 'Creates personalized learning materials',
+      role: 'Creates Personalised learning materials',
       icon: <FaBrain className="text-blue-500" />,
       color: 'bg-blue-100 border-blue-300'
     },
@@ -112,13 +112,13 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
       text: 'Create a learning path for GCSE maths',
       response: {
         agent: 'curriculum-designer',
-        content: "I've analyzed the complete UK GCSE mathematics curriculum and created a personalized learning path. This includes all key areas: Number, Algebra, Ratio & Proportion, Geometry, Probability, and Statistics - with adaptive difficulty based on your progress.",
+        content: "I've analyzed the complete UK GCSE mathematics curriculum and created a Personalised learning path. This includes all key areas: Number, Algebra, Ratio & Proportion, Geometry, Probability, and Statistics - with adaptive difficulty based on your progress.",
         thinking: [
           "Analyzing UK GCSE mathematics curriculum structure...",
           "Identifying core competency requirements for all exam boards...",
           "Mapping prerequisite knowledge relationships between topics...",
           "Calculating optimal topic sequencing based on complexity gradients...",
-          "Generating personalized learning path with adaptive difficulty..."
+          "Generating Personalised learning path with adaptive difficulty..."
         ]
       }
     },

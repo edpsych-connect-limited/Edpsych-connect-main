@@ -45,7 +45,13 @@
     ".next_build_gate_alt/types/**/*.ts",
     ".next_build_gate_alt/dev/types/**/*.ts",
     ".next_build_8gb_nosourcemap/types/**/*.ts",
-    ".next_build_8gb_nosourcemap/dev/types/**/*.ts"
+    ".next_build_8gb_nosourcemap/dev/types/**/*.ts",
+    ".next_build_local_1768072089670_483408/types/**/*.ts",
+    ".next_build_local_1768072089670_483408/dev/types/**/*.ts",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    ".next_local/types/**/*.ts",
+    ".next_local/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

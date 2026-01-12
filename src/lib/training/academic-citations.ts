@@ -218,7 +218,7 @@ export const peerReviewedResearch: Citation[] = [
   {
     id: 'poulou-2014-emotional-behavioural',
     type: 'research',
-    title: 'The effects on students' emotional and behavioural difficulties of teacher-student interactions, students' social skills and classroom context',
+    title: "The effects on students' emotional and behavioural difficulties of teacher-student interactions, students' social skills and classroom context",
     authors: ['Poulou, M.S.'],
     year: 2014,
     doi: '10.1080/01443410.2014.895059',
@@ -250,7 +250,7 @@ export const peerReviewedResearch: Citation[] = [
   {
     id: 'durlak-weissberg-2011-sel',
     type: 'meta-analysis',
-    title: 'The impact of enhancing students' social and emotional learning: A meta-analysis of school-based universal interventions',
+    title: "The impact of enhancing students' social and emotional learning: A meta-analysis of school-based universal interventions",
     authors: ['Durlak, J.A.', 'Weissberg, R.P.', 'Dymnicki, A.B.', 'Taylor, R.D.', 'Schellinger, K.B.'],
     year: 2011,
     doi: '10.1111/j.1467-8624.2010.01564.x',
@@ -289,15 +289,15 @@ export const governmentPolicy: Citation[] = [
   {
     id: 'mental-health-green-paper-2017',
     type: 'policy',
-    title: 'Transforming Children and Young People's Mental Health Provision: a Green Paper',
+    title: "Transforming Children and Young People's Mental Health Provision: a Green Paper",
     organization: 'Department for Education & Department of Health and Social Care',
     year: 2017,
     url: 'https://www.gov.uk/government/consultations/transforming-children-and-young-peoples-mental-health-provision-a-green-paper',
-    summary: 'Proposals to improve early intervention and support for children's mental health in schools.',
+    summary: "Proposals to improve early intervention and support for children's mental health in schools.",
     key_findings: [
       'Mental Health Support Teams to work in schools',
       'Designated Senior Lead for Mental Health in every school',
-      '4-week waiting time for NHS children's mental health services',
+      "4-week waiting time for NHS children's mental health services",
       'Schools have key role in early identification and prevention'
     ],
     relevance: 'Policy context for mental health training course and school-based intervention content'
@@ -328,8 +328,18 @@ export const governmentPolicy: Citation[] = [
  * Maps courses to their evidence bases
  */
 export const courseEvidenceBases: Record<string, EvidenceBase> = {
-  'adhd-support-strategies': {
-    course_id: 'adhd-support-strategies',
+  'send-fundamentals': {
+    course_id: 'send-fundamentals',
+    citations: [
+      governmentPolicy[0], // SEND Code of Practice
+      governmentPolicy[2], // Children and Families Act
+      niceGuidelines[0], // NICE ADHD (as example of need)
+    ],
+    evidence_level: 'strong',
+    last_updated: '2025-01-15'
+  },
+  'adhd-understanding-support': {
+    course_id: 'adhd-understanding-support',
     citations: [
       niceGuidelines[0], // NICE ADHD guideline
       peerReviewedResearch[1], // Hattie meta-analysis
@@ -338,8 +348,8 @@ export const courseEvidenceBases: Record<string, EvidenceBase> = {
     evidence_level: 'strong',
     last_updated: '2025-01-15'
   },
-  'autism-support-comprehensive': {
-    course_id: 'autism-support-comprehensive',
+  'autism-spectrum-support': {
+    course_id: 'autism-spectrum-support',
     citations: [
       niceGuidelines[1], // NICE Autism guideline
       peerReviewedResearch[4], // Rogers autism interventions
@@ -348,8 +358,8 @@ export const courseEvidenceBases: Record<string, EvidenceBase> = {
     evidence_level: 'strong',
     last_updated: '2025-01-15'
   },
-  'working-memory-training': {
-    course_id: 'working-memory-training',
+  'working-memory-mastery': {
+    course_id: 'working-memory-mastery',
     citations: [
       peerReviewedResearch[0], // Gathercole working memory study
       peerReviewedResearch[1], // Hattie meta-analysis
@@ -357,8 +367,8 @@ export const courseEvidenceBases: Record<string, EvidenceBase> = {
     evidence_level: 'strong',
     last_updated: '2025-01-15'
   },
-  'assessment-comprehensive': {
-    course_id: 'assessment-comprehensive',
+  'assessment-essentials': {
+    course_id: 'assessment-essentials',
     citations: [
       bpsStandards[2], // BPS Assessment Standards
       bpsStandards[0], // BPS EHCP guidance
@@ -386,8 +396,8 @@ export const courseEvidenceBases: Record<string, EvidenceBase> = {
     evidence_level: 'strong',
     last_updated: '2025-01-15'
   },
-  'mental-health-schools': {
-    course_id: 'mental-health-schools',
+  'mental-health-in-schools': {
+    course_id: 'mental-health-in-schools',
     citations: [
       niceGuidelines[2], // NICE Depression guideline
       niceGuidelines[3], // NICE Anxiety guideline

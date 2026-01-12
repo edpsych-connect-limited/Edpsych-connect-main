@@ -18,7 +18,7 @@ export const dynamic = 'force-dynamic';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
-import { courses, type Course } from '@/lib/training/course-catalog';
+import { COURSE_CATALOG as courses, type Course } from '@/lib/training/course-catalog';
 import MasterclassCourseCard from '@/components/training/MasterclassCourseCard';
 import { Search, Filter, Award, BookOpen, TrendingUp, Star } from 'lucide-react';
 

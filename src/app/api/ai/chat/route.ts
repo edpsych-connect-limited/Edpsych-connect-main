@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
 
     // 2. Parse Request Body
     const body = await request.json();
-    const { messages, agentId = 'general-assistant' } = body;
+    const { messages, agentId = 'general-assistant', context = {} } = body;
 
     if (!messages || !Array.isArray(messages)) {
       return NextResponse.json(
@@ -62,6 +62,10 @@ export async function POST(request: NextRequest) {
       userId: activeUser.id,
       tenantId: tenantId,
       redactPII,
+      platformContext: {
+        ...context,
+        userRole: activeUser.roles[0] || 'user'
+      }
     });
 
     // 4. Return Response

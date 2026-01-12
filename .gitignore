@@ -192,3 +192,9 @@ tools/node20/
 .vercel
 
 .env*.local
+
+node_modules_trash_1/
+.next_local/
+*.err
+server_out.txt
+dev_log_*.txt

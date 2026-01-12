@@ -116,7 +116,7 @@ export default function TrainingCataloguePage() {
 
   if (loading) {
     return (
-      <div className="flex justify-centre items-centre min-h-screen">
+      <div className="flex justify-center items-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
       </div>
     );
@@ -167,8 +167,8 @@ export default function TrainingCataloguePage() {
             </select>
           </div>
 
-          <div className="flex items-centre justify-between">
-            <div className="flex items-centre gap-2">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
               <span className="text-sm text-gray-600">Sort by:</span>
               <select
                 aria-label="Sort courses"
@@ -183,7 +183,7 @@ export default function TrainingCataloguePage() {
               </select>
             </div>
 
-            <div className="flex items-centre gap-2">
+            <div className="flex items-center gap-2">
               <button
                 onClick={() => setViewMode('grid')}
                 className={`p-2 rounded ${viewMode === 'grid' ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:bg-gray-100'}`}
@@ -267,7 +267,7 @@ export default function TrainingCataloguePage() {
                   )}
                 </div>
                 <div className="p-6">
-                  <div className="flex items-centre justify-between mb-2">
+                  <div className="flex items-center justify-between mb-2">
                     <span className={`text-xs px-2 py-1 rounded-full ${
                       course.level === 'Beginner' ? 'bg-green-100 text-green-800' :
                       course.level === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' :
@@ -287,8 +287,8 @@ export default function TrainingCataloguePage() {
                     <p className="text-xs text-gray-500 mb-2">by {course.instructor}</p>
                   )}
                   {course.rating && (
-                    <div className="flex items-centre gap-2 mb-4">
-                      <div className="flex items-centre">
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="flex items-center">
                         <span className="text-yellow-400 text-sm">★</span>
                         <span className="text-sm text-gray-700 ml-1">{course.rating}</span>
                       </div>
@@ -297,7 +297,7 @@ export default function TrainingCataloguePage() {
                   )}
                   {course.enrolled && course.progress !== undefined && (
                     <div className="mb-4">
-                      <div className="flex items-centre justify-between text-xs text-gray-600 mb-1">
+                      <div className="flex items-center justify-between text-xs text-gray-600 mb-1">
                         <span>Progress</span>
                         <span>{course.progress}%</span>
                       </div>
@@ -306,7 +306,7 @@ export default function TrainingCataloguePage() {
                   )}
                   <Link
                     href={`/training/courses/${course.id}`}
-                    className={`block text-centre py-2 px-4 rounded-md font-medium ${
+                    className={`block text-center py-2 px-4 rounded-md font-medium ${
                       course.enrolled 
                         ? 'bg-blue-600 text-white hover:bg-blue-700' 
                         : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
@@ -328,7 +328,7 @@ export default function TrainingCataloguePage() {
                     {course.imageUrl ? (
                       <Image src={course.imageUrl} alt={course.title} fill className="object-cover rounded-md" />
                     ) : (
-                      <div className="w-full h-full flex items-centre justify-centre text-gray-400">
+                      <div className="w-full h-full flex items-center justify-center text-gray-400">
                         No Image
                       </div>
                     )}
@@ -336,7 +336,7 @@ export default function TrainingCataloguePage() {
                   <div className="flex-1">
                     <div className="flex items-start justify-between">
                       <div>
-                        <div className="flex items-centre gap-2 mb-2">
+                        <div className="flex items-center gap-2 mb-2">
                           <span className={`text-xs px-2 py-1 rounded-full ${
                             course.level === 'Beginner' ? 'bg-green-100 text-green-800' :
                             course.level === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' :
@@ -361,8 +361,8 @@ export default function TrainingCataloguePage() {
                           <p className="text-sm text-gray-500 mb-2">by {course.instructor}</p>
                         )}
                         {course.rating && (
-                          <div className="flex items-centre gap-2">
-                            <div className="flex items-centre">
+                          <div className="flex items-center gap-2">
+                            <div className="flex items-center">
                               <span className="text-yellow-400">★</span>
                               <span className="text-sm text-gray-700 ml-1">{course.rating}</span>
                             </div>
@@ -383,7 +383,7 @@ export default function TrainingCataloguePage() {
                     </div>
                     {course.enrolled && course.progress !== undefined && (
                       <div className="mt-4 max-w-md">
-                        <div className="flex items-centre justify-between text-xs text-gray-600 mb-1">
+                        <div className="flex items-center justify-between text-xs text-gray-600 mb-1">
                           <span>Progress</span>
                           <span>{course.progress}%</span>
                         </div>
@@ -398,7 +398,7 @@ export default function TrainingCataloguePage() {
         )}
 
         {filteredCourses.length === 0 && (
-          <div className="text-centre py-12">
+          <div className="text-center py-12">
             <p className="text-gray-500 mb-4">No courses found matching your criteria.</p>
             <button
               onClick={() => {

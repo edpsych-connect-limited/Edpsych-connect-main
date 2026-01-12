@@ -15,6 +15,7 @@
 
 import React, { useState, useEffect } from 'react';
 import DOMPurify from 'dompurify';
+import { useAuth } from '@/lib/auth/hooks';
 import { type ConsentType, type ConsentRecord, type PrivacyPolicy } from '../../lib/gdpr-compliance';
 import { 
   getConsentTypes, 
@@ -27,6 +28,7 @@ import {
 } from '@/actions/gdpr-actions';
 
 export const PrivacyPolicyManager: React.FC = () => {
+  const { user } = useAuth();
   const [privacyPolicy, setPrivacyPolicy] = useState<PrivacyPolicy | null>(null);
   const [consentTypes, setConsentTypes] = useState<ConsentType[]>([]);
   const [userConsents, setUserConsents] = useState<ConsentRecord[]>([]);
@@ -37,20 +39,25 @@ export const PrivacyPolicyManager: React.FC = () => {
   const [success, setSuccess] = useState<string | null>(null);
 
   useEffect(() => {
-    loadPrivacyData();
+    if (user) {
+      loadPrivacyData();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
 
   const loadPrivacyData = async () => {
+    if (!user) return;
     try {
       setLoading(true);
       setError(null);
 
+      const userId = user.id.toString();
+
       const [policy, types, consents, needsReconsent] = await Promise.all([
         getCurrentPrivacyPolicy(),
         getConsentTypes(),
-        getUserConsents('current-user'), // Replace with actual user ID
-        checkReconsentRequired('current-user') // Replace with actual user ID
+        getUserConsents(userId),
+        checkReconsentRequired(userId)
       ]);
 
       setPrivacyPolicy(policy);
@@ -72,13 +79,18 @@ export const PrivacyPolicyManager: React.FC = () => {
       setError(null);
       setSuccess(null);
 
+      if (!user) {
+        throw new Error('User not authenticated');
+      }
+
       const consentType = consentTypes.find(ct => ct.id === consentTypeId);
       if (!consentType) throw new Error('Consent type not found');
 
       const consentText = `User ${consented ? 'consented to' : 'declined'} ${consentType.name} on ${new Date().toISOString()}`;
+      const userId = user.id.toString();
 
       const consent = await grantConsent(
-        'current-user', // Replace with actual user ID
+        userId,
         consentTypeId,
         consented,
         consentText
@@ -92,7 +104,7 @@ export const PrivacyPolicyManager: React.FC = () => {
       setSuccess(`Consent ${consented ? 'granted' : 'withdrawn'} successfully`);
 
       // Check if reconsent is still required
-      const stillNeedsReconsent = await checkReconsentRequired('current-user');
+      const stillNeedsReconsent = await checkReconsentRequired(userId);
       setReconsentRequired(stillNeedsReconsent);
 
     } catch (_error) {

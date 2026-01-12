@@ -98,25 +98,12 @@ const nextConfig = {
   // Use a fresh build directory name; older `.next` / `.next_temp` folders on this drive can become undeletable.
   distDir: isVercel ? '.next' : (chooseDistDir(resolvedDistDir) || '.next_build_local'),
   webpack: (config, { dev }) => {
-    // Windows builds on external/mapped drives can hit transient "insufficient system resources" failures
-    // when too many files are opened/processed concurrently (os error 1450).
-    // Reducing webpack parallelism tends to make builds slower-but-reliable.
-    if (!dev && process.platform === 'win32') {
-      config.parallelism = 1;
-    }
-
-    // Dev-only: reduce flakiness on Windows/mapped drives.
-    // NOTE: Do not disable webpack cache in production builds; Next 16's
-    // FlightClientEntryPlugin expects the cache shape to be present.
-    if (dev) {
-      config.cache = false;
+    // Enable polling based on env var (for WSL/Docker/network drives)
+    if (dev && (process.env.NEXT_WEBPACK_USEPOLLING || process.env.CHOKIDAR_USEPOLLING)) {
       config.watchOptions = {
-        poll: 1000,
+        poll: 800,
         aggregateTimeout: 300,
       };
-
-      // Fix for EISDIR on Windows mapped drives (dev only).
-      config.resolve.symlinks = false;
     }
     return config;
   },

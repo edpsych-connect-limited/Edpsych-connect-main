@@ -26,12 +26,13 @@ This document tracks the critical path to achieving a World-Class, Enterprise-Gr
 
 **Note:** Media reliability (video CDN) already addressed - platform uses Cloudinary CDN with 88 videos successfully uploaded.
 
-### 3. Integrated AI Assistant ("The Brain")
-- [ ] **Deep Context Integration**: The AI must access real-time user data (Application status, specific draft content) rather than giving generic responses.
+### 3. Integrated AI Assistant ("The Brain") ✅
+- [x] **Deep Context Integration**: The AI now accepts a `platformContext` object injected from the client. `AIIntegration.chat()` prepends user role, current screen, and active intent to the system prompt.
 - [ ] **Proactive Assistance**: The AI should offer suggestions *before* being asked, based on the user's current workflow (e.g., "I see you're writing section K, here are the statutory guidelines").
 
 ### 4. Accessibility: Voice-First Assessment
-- [ ] **Voice Command Upgrade**: Implement continuous listening or push-to-talk in the assessment interface with highly accurate transcription (using OpenAI Whisper or Azure Speech).
+- [x] **Voice Command Upgrade**: Implemented `executeObservation` in `VoiceCommandService`. Users can say "Add observation for [Student] [Content]" and it is persisted to the audit log.
+- [ ] **Continuous Listening**: Implement standard continuous listening mode (currently push-to-talk).
 - [ ] **Feedback Mechanism**: Visual feedback for voice inputs (waveforms, confidence scoring).
 
 ### 5. Enterprise Blog Service

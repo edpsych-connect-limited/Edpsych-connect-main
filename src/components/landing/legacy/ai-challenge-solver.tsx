@@ -117,12 +117,12 @@ const AIChallengeSolver: React.FC = () => {
       {
         id: 'learning_path',
         title: 'Creating a Learning Path',
-        description: 'Designing a personalized learning journey for skill development',
+        description: 'Designing a Personalised learning journey for skill development',
         category: 'academic',
         difficulty: 'hard',
         estimatedTime: 75,
         aiAgent: 'Learning Path Optimizer Agent',
-        tags: ['learning', 'path', 'personalized', 'skills']
+        tags: ['learning', 'path', 'Personalised', 'skills']
       },
       {
         id: 'assessment_prep',
@@ -186,7 +186,7 @@ const AIChallengeSolver: React.FC = () => {
 
       const mockSolution: Solution = {
         challengeId: 'custom',
-        content: `I've analyzed your custom challenge: "${userInput}". Here's a personalized approach to help you address this situation.`,
+        content: `I've analysed your custom challenge: "${userInput}". Here's a Personalised approach to help you address this situation.`,
         steps: [
           'Break down your challenge into smaller, manageable parts',
           'Identify the specific skills or knowledge you need',
@@ -221,7 +221,7 @@ const AIChallengeSolver: React.FC = () => {
       technical: `Technical skills are highly valuable! I'll guide you through the learning process with clear, step-by-step instructions.`
     };
 
-    return templates[challenge.category] || 'I&apos;ll help you address this challenge with a personalized approach.';
+    return templates[challenge.category] || 'I&apos;ll help you address this challenge with a Personalised approach.';
   };
 
   const generateSolutionSteps = (challenge: Challenge): string[] => {
@@ -280,7 +280,7 @@ const AIChallengeSolver: React.FC = () => {
       career: [
         { title: 'Career Assessment Tools', type: 'Online Assessment' },
         { title: 'Industry Reports', type: 'Research Documents' },
-        { title: 'Mentorship Programs', type: 'Community Resources' }
+        { title: 'Mentorship Programmes', type: 'Community Resources' }
       ],
       personal: [
         { title: 'Mindfulness Apps', type: 'Mobile Applications' },
@@ -325,7 +325,7 @@ const AIChallengeSolver: React.FC = () => {
           <h1 className="text-4xl font-bold text-gray-900">AI Challenge Solver</h1>
         </div>
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Describe any challenge you&apos;re facing, and our AI agents will provide personalized solutions,
+          Describe any challenge you&apos;re facing, and our AI agents will provide Personalised solutions,
           step-by-step guidance, and relevant resources to help you succeed.
         </p>
       </motion.div>
@@ -369,7 +369,7 @@ const AIChallengeSolver: React.FC = () => {
                 {isLoading ? (
                   <>
                     <FaSpinner className="animate-spin" />
-                    <span>Analyzing...</span>
+                    <span>Analysing...</span>
                   </>
                 ) : (
                   <>
@@ -473,7 +473,7 @@ const AIChallengeSolver: React.FC = () => {
             className="bg-white rounded-lg shadow-lg p-8 text-center"
           >
             <FaSpinner className="animate-spin text-4xl text-blue-600 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">AI is analyzing your challenge...</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">AI is analysing your challenge...</h3>
             <p className="text-gray-600">Our specialized AI agents are working together to provide you with the best solution.</p>
           </motion.div>
         )}
