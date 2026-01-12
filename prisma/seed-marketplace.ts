@@ -103,8 +103,7 @@ async function main() {
       }
     });
 
-    // Create or update Marketplace Profile
-    await prisma.marketplaceProfessional.upsert({
+    const profile = await prisma.marketplaceProfessional.upsert({
       where: { userId: user.id },
       update: {
         bio: pro.bio,
@@ -126,6 +125,92 @@ async function main() {
         reviewCount: pro.reviews
       }
     });
+
+    // Seed Detailed Experience & Education for Dr. Scott (skip for demos to keep it simple)
+    if (pro.name === 'Dr Scott Ighavongbe-Patrick') {
+        // Clear existing to avoid dupes on re-seed
+        await prisma.professionalExperience.deleteMany({ where: { user_id: user.id } });
+        await prisma.professionalEducation.deleteMany({ where: { user_id: user.id } });
+        await prisma.professionalSkill.deleteMany({ where: { user_id: user.id } });
+
+        // Education
+        await prisma.professionalEducation.createMany({
+            data: [
+                {
+                    user_id: user.id,
+                    institution: 'University of Southampton',
+                    degree: 'Doctorate',
+                    field_of_study: 'Educational Psychology (DEdPsych)',
+                    start_date: new Date('2013-09-01'), // Approx based on career
+                    end_date: new Date('2016-07-01'),   // Approx
+                },
+                {
+                    user_id: user.id,
+                    institution: 'Buckinghamshire New University',
+                    degree: 'BSc (Hons) First Class',
+                    field_of_study: 'Psychology',
+                    start_date: new Date('2009-09-01'), // Approx
+                    end_date: new Date('2012-07-01'),   // Approx
+                }
+            ]
+        });
+
+        // Experience
+        await prisma.professionalExperience.createMany({
+            data: [
+                {
+                    user_id: user.id,
+                    title: 'Founder & Principal Psychologist',
+                    company: 'EdPsych Connect World',
+                    location: 'United Kingdom',
+                    start_date: new Date('2023-01-01'),
+                    is_current: true,
+                    description: 'Founded the comprehensive digital platform connecting Locum EPs with Local Authorities. Leading strategic direction and clinical standards.'
+                },
+                {
+                    user_id: user.id,
+                    title: 'Locum Consultant Educational Psychologist',
+                    company: 'Multiple LAs (Suffolk, Leics, Worcs, Herts)',
+                    location: 'Regions',
+                    start_date: new Date('2023-01-01'),
+                    is_current: true,
+                    description: 'Quality Assessment EP for Leicestershire. Providing statutory advice and complex casework across multiple authorities.'
+                },
+                {
+                    user_id: user.id,
+                    title: 'Senior Educational Psychologist',
+                    company: 'Buckinghamshire Council',
+                    location: 'Buckinghamshire',
+                    start_date: new Date('2019-09-01'),
+                    end_date: new Date('2023-12-01'), 
+                    is_current: false,
+                    description: 'Conceived and named TEAM-UP (Termly Early Action Multi-Agency Unified Planning). Led collaborative multi-agency initiatives.'
+                },
+                {
+                    user_id: user.id,
+                    title: 'Maingrade Educational Psychologist',
+                    company: 'Achieving for Children',
+                    location: 'Kingston & Richmond',
+                    start_date: new Date('2016-09-01'),
+                    end_date: new Date('2019-08-01'), 
+                    is_current: false,
+                    description: 'Completed statutory assessments and delivered school-based interventions.'
+                }
+            ]
+        });
+
+        // Skills
+        const skillsList = ['Restorative Justice', 'Strategic Leadership', 'SEMH', 'Autism', 'Trauma-Informed Practice', 'Clinical Supervision (SDS Accredited)', 'Expert Witness'];
+        for (const skill of skillsList) {
+             await prisma.professionalSkill.create({
+                 data: {
+                     user_id: user.id,
+                     name: skill,
+                     is_verified: true, // Auto-verified for founder
+                 }
+             });
+        }
+    }
 
     // Ensure compliance record exists
     await prisma.professionalCompliance.upsert({
