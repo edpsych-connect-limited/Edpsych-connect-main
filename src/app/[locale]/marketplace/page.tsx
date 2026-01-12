@@ -14,6 +14,7 @@ import React, { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { useDebounce } from '@/hooks/useDebounce';
 
 interface Professional {
   id: number;
@@ -31,12 +32,15 @@ interface Professional {
   nextAvailable: string | null;
   yearsExperience: number;
   verified: boolean;
+  isFeatured?: boolean;
 }
 
 function MarketplaceSearchContent() {
   const searchParams = useSearchParams();
   const [professionals, setProfessionals] = useState<Professional[]>([]);
   const [loading, setLoading] = useState(true);
+  
+  // UI state for inputs
   const [filters, setFilters] = useState({
     q: searchParams.get('q') || '',
     location: searchParams.get('location') || '',
@@ -46,21 +50,26 @@ function MarketplaceSearchContent() {
     laPanel: false,
   });
 
+  // Debounce the filters to avoid excessive API calls
+  // 500ms delay gives user time to finish typing
+  const debouncedFilters = useDebounce(filters, 500);
+
   useEffect(() => {
     fetchProfessionals();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters]); // Re-fetch when filters change
+  }, [debouncedFilters]); // Re-fetch when DEBOUNCED filters change
 
   const fetchProfessionals = async () => {
     setLoading(true);
     try {
       const queryParams = new URLSearchParams();
-      if (filters.q) queryParams.set('q', filters.q);
-      if (filters.location) queryParams.set('location', filters.location);
-      if (filters.specialisms.length) queryParams.set('specialisms', filters.specialisms.join(','));
-      if (filters.availability) queryParams.set('availability', filters.availability);
-      if (filters.maxRate) queryParams.set('max_rate', filters.maxRate);
-      if (filters.laPanel) queryParams.set('la_panel', 'true');
+      // Use debounced values for the API call
+      if (debouncedFilters.q) queryParams.set('q', debouncedFilters.q);
+      if (debouncedFilters.location) queryParams.set('location', debouncedFilters.location);
+      if (debouncedFilters.specialisms.length) queryParams.set('specialisms', debouncedFilters.specialisms.join(','));
+      if (debouncedFilters.availability) queryParams.set('availability', debouncedFilters.availability);
+      if (debouncedFilters.maxRate) queryParams.set('max_rate', debouncedFilters.maxRate);
+      if (debouncedFilters.laPanel) queryParams.set('la_panel', 'true');
 
       const res = await fetch(`/api/marketplace/professionals/search?${queryParams.toString()}`);
       const data = await res.json();
@@ -184,10 +193,23 @@ function MarketplaceSearchContent() {
             ) : (
               <div className="grid gap-6">
                 {professionals.map((pro) => (
-                  <div key={pro.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex gap-6 hover:shadow-md transition-shadow">
+                  <div 
+                    key={pro.id} 
+                    className={`bg-white rounded-lg shadow-sm border p-6 flex gap-6 hover:shadow-md transition-shadow relative overflow-hidden ${
+                      pro.isFeatured ? 'border-blue-200 ring-1 ring-blue-100 bg-blue-50/10' : 'border-gray-200'
+                    }`}
+                  >
+                    {pro.isFeatured && (
+                      <div className="absolute top-0 right-0 bg-blue-600 text-white text-[10px] px-3 py-1 rounded-bl-lg font-bold uppercase tracking-wider z-10">
+                        Featured EP
+                      </div>
+                    )}
+
                     {/* Avatar - Professional photo with proper centering */}
                     <div className="flex-shrink-0">
-                      <div className="h-24 w-24 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center overflow-hidden relative ring-2 ring-white shadow-lg">
+                      <div className={`h-24 w-24 rounded-full flex items-center justify-center overflow-hidden relative shadow-lg ${
+                        pro.isFeatured ? 'ring-4 ring-blue-100' : 'ring-2 ring-white bg-gradient-to-br from-blue-100 to-indigo-100'
+                      }`}>
                         {pro.avatar ? (
                           <Image 
                             src={pro.avatar} 
