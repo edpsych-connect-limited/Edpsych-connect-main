@@ -29,7 +29,7 @@ async function main() {
     {
       name: 'Dr Scott Ighavongbe-Patrick',
       email: 'scott@edpsychconnect.world',
-      bio: 'Dr Scott Ighavongbe-Patrick DEdPsych CPsychol is the founder of EdPsych Connect World. First Class Honours in Psychology (Buckinghamshire New University), Doctorate in Educational Psychology (University of Southampton). Former Senior Educational Psychologist at Buckinghamshire Council (until 2023), where he conceived and named TEAM-UP (Termly Early Action Multi-Agency Unified Planning)—an initiative developed through collaborative multi-agency effort. Currently practising as Locum Consultant EP for Suffolk, Leicestershire (Quality Assessment EP), Worcestershire, and Hertfordshire. Previously Maingrade EP at Achieving for Children (2016-2019). HCPC Registered with SDS clinical supervision accreditation. Expertise spans exclusions, restorative justice, SEMH, autism, and trauma-informed practice across early years to college education.',
+      bio: "Dr Scott founded and developed EdPsych Connect after a distinguished career in educational psychology. Following his First Class Honours in Psychology from Buckinghamshire New University, he trained at the University of Southampton where his doctoral research explored children's experiences of school sanctions through restorative justice. As Senior Educational Psychologist at Buckinghamshire Council, he conceived and named TEAM-UP (Termly Early Action Multi-Agency Unified Planning)—a pioneering early intervention initiative that was developed and implemented through collaborative multi-agency effort with the Head of Children's Services and partners. He resigned in 2023 to focus full-time on EdPsych Connect, combining his clinical expertise with self-taught software development skills.",
       location: 'Buckinghamshire',
       specialties: ['Restorative Justice', 'Exclusions', 'SEMH', 'Autism', 'Trauma-Informed Practice', 'EHCP Assessments', 'Multi-Agency Working'],
       hourlyRate: 150,
@@ -37,7 +37,7 @@ async function main() {
       regions: ['Buckinghamshire', 'Hertfordshire', 'Leicestershire', 'Worcestershire', 'Suffolk', 'London', 'South East'],
       rating: 5.0,
       reviews: 127,
-      imageUrl: '/images/dr-scott-marketplace.jpg',
+      imageUrl: '/images/dr-scott-landing.jpg',
       isFeatured: true,
       isVerified: true
     },

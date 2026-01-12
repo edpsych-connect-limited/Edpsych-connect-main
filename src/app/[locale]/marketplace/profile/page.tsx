@@ -60,16 +60,16 @@ export default async function ProfilePage({ searchParams }: { searchParams: { id
             </p>
          </div>
          {isOwner ? (
-            <Button variant="outline" asChild>
-              <Link href={`/marketplace/profile?id=${targetUserId}`}>View Public Profile</Link>
-            </Button>
+            <Link href={`/marketplace/profile?id=${targetUserId}`}>
+              <Button variant="outline">View Public Profile</Button>
+            </Link>
          ) : (
-            <Button size="lg" className="gap-2" asChild>
-              <Link href={`/marketplace/book/${targetUserId}`}>
+            <Link href={`/marketplace/book/${targetUserId}`}>
+              <Button size="lg" className="gap-2">
                 <Calendar className="w-4 h-4" />
                 Book Consultation
-              </Link>
-            </Button>
+              </Button>
+            </Link>
          )}
        </div>
 

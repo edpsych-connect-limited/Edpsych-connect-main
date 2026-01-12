@@ -11,6 +11,8 @@ import { Calendar, Clock, ArrowLeft, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
+import BookingForm from '@/components/marketplace/BookingForm';
+
 export default async function BookingPage({ params }: { params: { professionalId: string } }) {
   const session = await getSession();
   if (!session) redirect(`/login?callbackUrl=/marketplace/book/${params.professionalId}`);
@@ -64,46 +66,7 @@ export default async function BookingPage({ params }: { params: { professionalId
                </CardDescription>
              </CardHeader>
              <CardContent>
-               <form className="space-y-6">
-                 <div className="space-y-2">
-                   <Label htmlFor="subject">Subject</Label>
-                   <Input id="subject" placeholder="Brief summary of requirements (e.g. EHCP Assessment)" required />
-                 </div>
-
-                 <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="preferred-date">Preferred Date</Label>
-                      <Input id="preferred-date" type="date" required />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="preferred-time">Preferred Time</Label>
-                      {/* Simple Select Placeholder */}
-                      <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="preferred-time">
-                        <option>Morning (9am - 12pm)</option>
-                        <option>Afternoon (1pm - 5pm)</option>
-                        <option>Anytime</option>
-                      </select>
-                    </div>
-                 </div>
-
-                 <div className="space-y-2">
-                   <Label htmlFor="message">Message</Label>
-                   <Textarea 
-                      id="message" 
-                      placeholder="Please describe the context, age of the child/young person, and specific needs..." 
-                      className="min-h-[150px]"
-                      required
-                   />
-                 </div>
-
-                 <div className="bg-blue-50 p-4 rounded-lg text-sm text-blue-800">
-                    <p>There is no charge for making this initial enquiry. Fees will be discussed once the scope of work is agreed.</p>
-                 </div>
-
-                 <Button type="submit" className="w-full size-lg">
-                    Send Request
-                 </Button>
-               </form>
+               <BookingForm professionalId={professionalId} />
              </CardContent>
            </Card>
         </div>

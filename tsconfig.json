@@ -63,6 +63,9 @@
     "scripts",
     "tools",
     "prisma",
-    "docs"
+    "docs",
+    ".next_build_local",
+    ".next_build_gate",
+    ".next_build*"
   ]
 }
