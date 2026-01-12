@@ -1,28 +1,47 @@
 import { getSession } from '@/lib/auth/auth-service';
 import { ProfessionalProfileService } from '@/services/professional-profile-service';
-import { redirect } from 'next/navigation';
+import { redirect, notFound } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Building2, GraduationCap, Award, CheckCircle2, Plus } from 'lucide-react';
+import { Building2, GraduationCap, Award, CheckCircle2, Calendar } from 'lucide-react';
 import { AddExperienceSheet } from '@/components/marketplace/profile/AddExperienceSheet';
 import { AddEducationSheet } from '@/components/marketplace/profile/AddEducationSheet';
 import { AddSkillSheet } from '@/components/marketplace/profile/AddSkillSheet';
 import { DeleteExperienceButton, DeleteEducationButton, DeleteSkillButton } from '@/components/marketplace/profile/DeleteButtons';
 import { ProfileAvatarUploader } from '@/components/marketplace/profile/ProfileAvatarUploader';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import Link from 'next/link';
 import React from 'react';
 
-export default async function MyProfilePage() {
-  const user = await getSession();
-  if (!user) redirect('/login');
+export default async function ProfilePage({ searchParams }: { searchParams: { id?: string } }) {
+  const session = await getSession();
+  
+  let targetUserId: number;
+  let isOwner = false;
+  let isPublicView = false;
 
-  const userId = parseInt(user.id);
-  if (isNaN(userId)) {
-      console.error("User ID is NaN", user.id);
-      // Fallback or specific error handling
-      return <div>Error loading profile: Invalid User ID format</div>;
+  if (searchParams?.id) {
+     targetUserId = parseInt(searchParams.id);
+     if (isNaN(targetUserId)) return <div>Invalid Profile ID</div>;
+     
+     if (session && parseInt(session.id) === targetUserId) {
+         isOwner = true;
+     } else {
+         isPublicView = true;
+     }
+  } else {
+     // Private mode (My Profile)
+     if (!session) redirect('/login');
+     targetUserId = parseInt(session.id);
+     isOwner = true;
   }
 
-  const profile = await ProfessionalProfileService.getProfile(userId);
+  const profile = await ProfessionalProfileService.getProfile(targetUserId);
+  
+  if (!profile) {
+    if (isPublicView) return notFound();
+    return <div>Profile not found. Please complete onboarding.</div>;
+  }
 
   // Helper to format date
   const formatDate = (d: Date | null) => d ? new Date(d).toLocaleDateString(undefined, { month: 'short', year: 'numeric' }) : 'Present';
@@ -31,23 +50,63 @@ export default async function MyProfilePage() {
     <div className="container mx-auto py-8 space-y-6 max-w-5xl">
        <div className="flex justify-between items-center mb-6">
          <div>
-            <h1 className="text-3xl font-bold tracking-tight">My Professional Profile</h1>
-            <p className="text-muted-foreground mt-1">Manage your experience, skills, and validated claims.</p>
+            <h1 className="text-3xl font-bold tracking-tight">
+              {isOwner ? 'My Professional Profile' : `${profile.user.name}'s Profile`}
+            </h1>
+            <p className="text-muted-foreground mt-1">
+              {isOwner 
+                ? 'Manage your experience, skills, and validated claims.' 
+                : 'View professional experience, qualifications, and areas of expertise.'}
+            </p>
          </div>
-         <Button variant="outline">View Public Profile</Button>
+         {isOwner ? (
+            <Button variant="outline" asChild>
+              <Link href={`/marketplace/profile?id=${targetUserId}`}>View Public Profile</Link>
+            </Button>
+         ) : (
+            <Button size="lg" className="gap-2" asChild>
+              <Link href={`/marketplace/book/${targetUserId}`}>
+                <Calendar className="w-4 h-4" />
+                Book Consultation
+              </Link>
+            </Button>
+         )}
        </div>
 
        {/* Profile Header */}
        <Card>
          <CardContent className="pt-6">
            <div className="flex flex-col md:flex-row items-center gap-6">
-             <ProfileAvatarUploader 
-                currentImageUrl={profile?.user.avatar_url} 
-                userName={profile?.user.name || user.name} 
-             />
-             <div className="flex-1 text-center md:text-left">
-               <h2 className="text-2xl font-bold">{profile?.user.name}</h2>
-               <p className="text-muted-foreground">{profile?.user.email}</p>
+             {isOwner ? (
+                <ProfileAvatarUploader 
+                    currentImageUrl={profile.user.avatar_url} 
+                    userName={profile.user.name} 
+                />
+             ) : (
+                <Avatar className="h-24 w-24 ring-2 ring-background shadow-lg">
+                  <AvatarImage src={profile.user.avatar_url || ''} alt={profile.user.name} />
+                  <AvatarFallback className="text-2xl">{profile.user.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+             )}
+             
+             <div className="flex-1 text-center md:text-left space-y-2">
+               <div>
+                  <h2 className="text-2xl font-bold flex items-center justify-center md:justify-start gap-2">
+                    {profile.user.name}
+                    {/* Add featured badge if applicable, or generic check */}
+                    <CheckCircle2 className="w-5 h-5 text-blue-500" />
+                  </h2>
+                  <p className="text-muted-foreground">{profile.user.email}</p>
+               </div>
+               
+               {isPublicView && (
+                 <div className="flex gap-2 justify-center md:justify-start pt-2">
+                   <div className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
+                      Verified EP
+                   </div>
+                   {/* We could add more badges here dynamically */}
+                 </div>
+               )}
              </div>
            </div>
          </CardContent>
@@ -60,19 +119,21 @@ export default async function MyProfilePage() {
              <Building2 className="w-5 h-5 text-primary" />
              <CardTitle>Experience</CardTitle>
            </div>
-           <AddExperienceSheet />
+           {isOwner && <AddExperienceSheet />}
          </CardHeader>
          <CardContent className="space-y-6 pt-2">
-           {(!profile?.experiences || profile.experiences.length === 0) && (
-             <p className="text-muted-foreground italic text-sm">No professional experience listed. Add your role history to verify your expertise.</p>
+           {(!profile.experiences || profile.experiences.length === 0) && (
+             <p className="text-muted-foreground italic text-sm">No professional experience listed.</p>
            )}
-           {profile?.experiences.map(exp => (
+           {profile.experiences.map(exp => (
              <div key={exp.id} className="border-b last:border-0 pb-6 last:pb-0 relative group">
                <div className="flex justify-between items-start">
                   <h3 className="font-semibold text-lg">{exp.title}</h3>
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                    <DeleteExperienceButton id={exp.id} name={exp.company} />
-                  </div>
+                  {isOwner && (
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                        <DeleteExperienceButton id={exp.id} name={exp.company} />
+                    </div>
+                  )}
                </div>
                <div className="flex items-center gap-2 text-sm text-foreground/80 mt-1">
                  <span className="font-medium">{exp.company}</span>
@@ -95,19 +156,21 @@ export default async function MyProfilePage() {
              <GraduationCap className="w-5 h-5 text-primary" />
              <CardTitle>Education</CardTitle>
            </div>
-           <AddEducationSheet />
+           {isOwner && <AddEducationSheet />}
          </CardHeader>
          <CardContent className="space-y-6 pt-2">
-            {(!profile?.education || profile.education.length === 0) && (
+            {(!profile.education || profile.education.length === 0) && (
              <p className="text-muted-foreground italic text-sm">No education listed.</p>
            )}
-           {profile?.education.map(edu => (
+           {profile.education.map(edu => (
              <div key={edu.id} className="border-b last:border-0 pb-6 last:pb-0 group">
                <div className="flex justify-between items-start">
                   <h3 className="font-semibold text-lg">{edu.institution}</h3>
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                    <DeleteEducationButton id={edu.id} name={edu.institution} />
-                  </div>
+                  {isOwner && (
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                        <DeleteEducationButton id={edu.id} name={edu.institution} />
+                    </div>
+                  )}
                </div>
                <p className="text-sm font-medium mt-1">{edu.degree}, {edu.field_of_study}</p>
                <p className="text-xs text-muted-foreground mt-1">
@@ -126,21 +189,23 @@ export default async function MyProfilePage() {
              <Award className="w-5 h-5 text-primary" />
              <CardTitle>Skills & Verification</CardTitle>
            </div>
-           <AddSkillSheet />
+           {isOwner && <AddSkillSheet />}
          </CardHeader>
          <CardContent>
            <div className="flex flex-wrap gap-2">
-             {profile?.skills.map(skill => (
-               <div key={skill.id} className="bg-secondary/50 border hover:bg-secondary transition-colors px-3 py-1.5 rounded-full text-sm font-medium flex items-center gap-2 group cursor-pointer pr-2">
+             {profile.skills.map(skill => (
+               <div key={skill.id} className={`bg-secondary/50 border transition-colors px-3 py-1.5 rounded-full text-sm font-medium flex items-center gap-2 group ${isOwner ? 'hover:bg-secondary pr-2 cursor-pointer' : ''}`}>
                  {skill.name}
                  {skill.is_verified && <CheckCircle2 className="w-3.5 h-3.5 text-blue-500" />}
                  {skill.endorsements.length > 0 && <span className="text-[10px] bg-background border px-1.5 rounded-full">{skill.endorsements.length}</span>}
-                 <div className="border-l pl-2 ml-1 cursor-auto">
-                    <DeleteSkillButton id={skill.id} name={skill.name} />
-                 </div>
+                 {isOwner && (
+                    <div className="border-l pl-2 ml-1 cursor-auto">
+                        <DeleteSkillButton id={skill.id} name={skill.name} />
+                    </div>
+                 )}
                </div>
              ))}
-             {(!profile?.skills || profile.skills.length === 0) && (
+             {(!profile.skills || profile.skills.length === 0) && (
                 <p className="text-muted-foreground italic text-sm">No skills listed.</p>
              )}
            </div>
