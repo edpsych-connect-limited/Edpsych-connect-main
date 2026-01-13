@@ -198,3 +198,5 @@ node_modules_trash_1/
 *.err
 server_out.txt
 dev_log_*.txt
+
+package-lock.json
