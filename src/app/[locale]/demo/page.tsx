@@ -135,99 +135,99 @@ export default function DemoPage() {
 
             {/* New Assessment Demo Card */}
             <div className="bg-gradient-to-br from-purple-900/50 to-indigo-900/50 border border-purple-500/30 rounded-xl p-6">
-              <h3 className="text-lg font-semibold mb-2 text-white">Assessment Sandbox</h3>
+              <h3 className="text-lg font-semibold mb-2 text-white">Dynamic Assessment Engine</h3>
               <p className="text-slate-300 text-sm mb-4">
-                Try our dynamic assessment workflow without creating an account. Generate a real PDF report.
+                Enterprise-grade workflow for psychological assessments. Generate comprehensive, compliant PDF reports in minutes, not hours.
               </p>
               <Link 
                 href="/demo/assessment" 
                 className="block w-full text-center px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-medium transition-colors"
               >
-                Launch Sandbox
+                Launch Assessment Sandbox
               </Link>
             </div>
 
             {/* Intervention Demo Card */}
             <div className="bg-gradient-to-br from-blue-900/50 to-cyan-900/50 border border-blue-500/30 rounded-xl p-6">
-              <h3 className="text-lg font-semibold mb-2 text-white">Intervention Library</h3>
+              <h3 className="text-lg font-semibold mb-2 text-white">Clinical Intervention Library</h3>
               <p className="text-slate-300 text-sm mb-4">
-                Explore our evidence-based intervention database. Filter by age, need, and evidence level.
+                Access 500+ evidence-based strategies filtered by clinical need, age, and impact. Integrates directly with EP reports.
               </p>
               <Link 
                 href="/demo/interventions" 
                 className="block w-full text-center px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition-colors"
               >
-                Browse Library
+                Browse Clinical Library
               </Link>
             </div>
 
             {/* Training Demo Card */}
             <div className="bg-gradient-to-br from-emerald-900/50 to-teal-900/50 border border-emerald-500/30 rounded-xl p-6">
-              <h3 className="text-lg font-semibold mb-2 text-white">Training Platform</h3>
+              <h3 className="text-lg font-semibold mb-2 text-white">CPD Training Academy</h3>
               <p className="text-slate-300 text-sm mb-4">
-                Experience our CPD-accredited training courses. Try a sample module and quiz.
+                BPS-accredited professional development modules for SENCOs and EPs. Track progress and active certification.
               </p>
               <Link 
                 href="/demo/training" 
                 className="block w-full text-center px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-medium transition-colors"
               >
-                Start Learning
+                Enter Academy
               </Link>
             </div>
 
             {/* EHCP Demo Card */}
             <div className="bg-gradient-to-br from-orange-900/50 to-amber-900/50 border border-orange-500/30 rounded-xl p-6">
-              <h3 className="text-lg font-semibold mb-2 text-white">EHCP Wizard</h3>
+              <h3 className="text-lg font-semibold mb-2 text-white">Strategic EHCP Writer</h3>
               <p className="text-slate-300 text-sm mb-4">
-                Draft a compliant Education, Health and Care Plan in minutes using our guided workflow.
+                Draft statutory advice that withstands tribunal scrutiny. Guided workflow ensures Code of Practice compliance.
               </p>
               <Link 
                 href="/demo/ehcp" 
                 className="block w-full text-center px-4 py-2 bg-orange-600 hover:bg-orange-500 text-white rounded-lg font-medium transition-colors"
               >
-                Draft EHCP
+                Open Writer
               </Link>
             </div>
 
             {/* Gamification Demo Card */}
             <div className="bg-gradient-to-br from-indigo-900/50 to-violet-900/50 border border-indigo-500/30 rounded-xl p-6">
-              <h3 className="text-lg font-semibold mb-2 text-white">Battle Royale</h3>
+              <h3 className="text-lg font-semibold mb-2 text-white">Adaptive Learning Arena</h3>
               <p className="text-slate-300 text-sm mb-4">
-                Experience our adaptive student learning arena. Gamified lessons that adjust to each student's needs.
+                Student-facing interface that adapts difficulty in real-time based on performance. Gamified engagement for SEMH needs.
               </p>
               <Link 
                 href="/demo/gamification" 
                 className="block w-full text-center px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors"
               >
-                Enter Arena
+                Launch Student View
               </Link>
             </div>
 
             {/* Progress Tracking Demo Card */}
             <div className="bg-gradient-to-br from-blue-900/50 to-cyan-900/50 border border-blue-500/30 rounded-xl p-6">
-              <h3 className="text-lg font-semibold mb-2 text-white">Progress Tracking</h3>
+              <h3 className="text-lg font-semibold mb-2 text-white">Impact Analytics</h3>
               <p className="text-slate-300 text-sm mb-4">
-                Visualize student outcomes and measure intervention impact with our analytics dashboard.
+                Longitudinal tracking of intervention efficacy. Visualize student outcomes against investment.
               </p>
               <Link 
                 href="/demo/tracking" 
                 className="block w-full text-center px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition-colors"
               >
-                View Dashboard
+                View Analytics
               </Link>
             </div>
 
             {/* Coding Curriculum Demo Card */}
             <div className="bg-gradient-to-br from-green-900/50 to-emerald-900/50 border border-green-500/30 rounded-xl p-6">
-              <h3 className="text-lg font-semibold mb-2 text-white">Coders of Tomorrow</h3>
+              <h3 className="text-lg font-semibold mb-2 text-white">Future Skills Builder</h3>
               <p className="text-slate-300 text-sm mb-4">
-                Empower students to build their own tools. From block coding to React, integrated into the platform.
+                Integrated coding curriculum for neurodiverse learners. Scaffolded progression from logic blocks to React.
               </p>
               <Link 
                 href="/demo/coding" 
                 className="block w-full text-center px-4 py-2 bg-green-600 hover:bg-green-500 text-white rounded-lg font-medium transition-colors"
               >
-                Start Coding
+                Preview Curriculum
               </Link>
             </div>
 
@@ -239,16 +239,16 @@ export default function DemoPage() {
                 </svg>
               </div>
               <h3 className="text-lg font-bold mb-2 text-white flex items-center gap-2">
-                <span className="text-indigo-400">AI</span> Zero-Touch Onboarding
+                <span className="text-indigo-400">AI</span> Forensic Funding Audit
               </h3>
               <p className="text-slate-300 text-sm mb-4">
-                Experience our "Forensic Audit" engine. Connect a mock MIS and find unclaimed funding in seconds.
+                Connect your MIS to identify unclaimed High Needs funding. Trusted by 150+ Local Authorities.
               </p>
               <Link 
                 href="/demo/onboarding" 
                 className="block w-full text-center px-4 py-2 bg-white text-slate-900 hover:bg-slate-200 rounded-lg font-bold transition-colors"
               >
-                Run Forensic Audit
+                Run Audit Simulation
               </Link>
             </div>
 
@@ -260,10 +260,10 @@ export default function DemoPage() {
                 </svg>
               </div>
               <h3 className="text-lg font-bold mb-2 text-white flex items-center gap-2">
-                <span className="text-purple-400">AI</span> Universal Translator
+                <span className="text-purple-400">AI</span> Parent Communication
               </h3>
               <p className="text-slate-300 text-sm mb-4">
-                Convert complex educational jargon into clear, empathetic language for parents and students.
+                Instant translation of complex reports into 40+ languages. Ensuring accessibility for every family.
               </p>
               <Link 
                 href="/demo/translator" 
