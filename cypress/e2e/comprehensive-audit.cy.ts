@@ -101,7 +101,11 @@ const pages = [
   '/forum',
   '/problem-solver',
   '/senco',
-  '/outcomes'
+  '/outcomes',
+  '/safeguarding',
+  '/provision',
+  '/transitions',
+  '/tokenisation'
 ];
 
 describe('Comprehensive Page Audit (Smoke Test)', () => {
