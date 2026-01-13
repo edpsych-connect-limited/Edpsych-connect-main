@@ -14,7 +14,7 @@ import {
   Brain, Library, GraduationCap, Trophy, Clock, ShieldCheck, FileCheck, Code, 
   MessageSquareText, Users, Search, Heart, Mic, BookOpen, Crown, Building2, 
   FlaskConical, LucideIcon, ClipboardList, Target, Calendar, MapPin, Handshake, 
-  LineChart, AlertTriangle, Sparkles, Network, BarChart3, Lightbulb, Coins 
+  LineChart, Shield, Sparkles, Network, BarChart3, Lightbulb, Coins 
 } from 'lucide-react';
 
 // Tier definitions for feature gating
@@ -215,7 +215,7 @@ export default function CoreCapabilitiesGrid() {
       tier: "institution"
     },
     {
-      icon: AlertTriangle,
+      icon: Shield,
       title: "Safeguarding System",
       description: "KCSIE 2023 compliant safeguarding tools. Concern logging, DSL workflows, chronology tracking, and secure referrals.",
       color: "text-red-500",
