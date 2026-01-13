@@ -181,6 +181,7 @@
     "three-mesh-bvh": "0.8.0"
   },
   "optionalDependencies": {
-    "@esbuild/linux-x64": "^0.27.2"
+    "@esbuild/linux-x64": "^0.27.2",
+    "@parcel/watcher-linux-x64-glibc": "^2.5.4"
   }
 }
