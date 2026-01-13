@@ -47,11 +47,11 @@ export default function DemoPage() {
           </p>
           <div className="flex items-center justify-center gap-4 mt-6">
             <span className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 text-emerald-400 rounded-full text-sm font-medium">
-              <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-              Voice Enabled
+              <span className="w-2 h-2 bg-emerald-500 rounded-full" />
+              Voice Capable
             </span>
             <span className="flex items-center gap-2 px-3 py-1.5 bg-indigo-500/10 text-indigo-400 rounded-full text-sm font-medium">
-              13 AI Agents Active
+              Multi-Agent System Ready
             </span>
           </div>
         </div>
@@ -62,6 +62,7 @@ export default function DemoPage() {
             <AIAssistant 
               className="border border-slate-700 shadow-2xl shadow-indigo-500/10" 
               onNavigate={handleNavigate}
+              initialVoiceEnabled={false}
             />
           </div>
 

@@ -529,12 +529,14 @@ function QuickActions({ onSelect, disabled }: {
 interface AIAssistantProps {
   className?: string;
   initialExpanded?: boolean;
+  initialVoiceEnabled?: boolean;
   onNavigate?: (path: string) => void;
 }
 
 export default function AIAssistant({ 
   className, 
   initialExpanded = true,
+  initialVoiceEnabled = false,
   onNavigate 
 }: AIAssistantProps) {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -544,7 +546,7 @@ export default function AIAssistant({
   const [showThinking, setShowThinking] = useState(false);
   const [thinkingSteps, setThinkingSteps] = useState<string[]>([]);
   const [currentThinkingStep, setCurrentThinkingStep] = useState(0);
-  const [voiceEnabled, setVoiceEnabled] = useState(true);
+  const [voiceEnabled, setVoiceEnabled] = useState(initialVoiceEnabled);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
