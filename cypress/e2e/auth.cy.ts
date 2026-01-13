@@ -65,6 +65,26 @@ describe('Authentication Flow', () => {
       cy.contains('Invalid email or password', { timeout: 10000 }).should('be.visible');
     });
 
+    it('should successfully login with valid credentials (founder)', () => {
+      cy.visit('/en/login');
+      
+      // Use founder credentials from seed
+      const email = 'scott.ipatrick@edpsychconnect.com';
+      // Use environment variable or fallback to standard test password
+      const password = Cypress.env('TEST_PASSWORD') || 'Kanopatrick1@';
+
+      cy.get('input[name="email"]').type(email);
+      cy.get('input[name="password"]').type(password);
+      cy.get('button[type="submit"]').click();
+      
+      // Should redirect to dashboard or admin based on role
+      cy.url({ timeout: 15000 }).should('match', /\/(dashboard|admin)/);
+      
+      // Should show user name in dashboard
+      // Note: Dashboard content might vary, but "Scott" should be present in header/welcome
+      cy.get('body').should('contain', 'Scott');
+    });
+
     it('should toggle remember me checkbox', () => {
       cy.visit('/en/login');
       

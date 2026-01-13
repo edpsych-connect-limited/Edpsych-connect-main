@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -41,13 +42,14 @@ export default function BookingForm({ professionalId }: { professionalId: number
         </div>
         <h3 className="text-2xl font-bold">Request Sent!</h3>
         <p className="text-muted-foreground">
-          The professional has received your enquiry and will respond shortly via your <a href="/dashboard" className="underline text-blue-600">Dashboard</a>.
+          The professional has received your enquiry and will respond shortly via your <Link href="/dashboard" className="underline text-blue-600">Dashboard</Link>.
         </p>
-        <a href="/marketplace">
-          <Button className="mt-6">
+        <Link 
+          href="/marketplace" 
+          className="mt-6 inline-block rounded font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500 text-center"
+        >
             Return to Marketplace
-          </Button>
-        </a>
+        </Link>
       </div>
     );
   }
