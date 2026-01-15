@@ -26,7 +26,6 @@ export default function TeachersPageClient({ demoTeacherId, demoClassId }: Teach
 
   // Note: classId prop in TeacherClassDashboard expects string | number, but our real ID is string (CUID)
   // and mock ID was number (1). The component handles both.
-  const useRealDemo = !!demoTeacherId && !!demoClassId;
 
   if (showDashboard) {
     return (

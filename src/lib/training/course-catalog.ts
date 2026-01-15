@@ -58,6 +58,7 @@ export interface Course {
   target_audience: string[];
   certificate_available: boolean;
   badge_awarded?: string;
+  related_intervention_ids?: string[];
   image_url?: string;
   featured: boolean;
   popularity_score: number;
@@ -487,6 +488,7 @@ export const COURSE_CATALOG: Course[] = [
     badge_awarded: 'Intervention Master',
     featured: true,
     popularity_score: 92,
+    related_intervention_ids: ['working-memory-chunking', 'working-memory-dual-coding'],
   },
 
   // ========================================================================

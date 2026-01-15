@@ -57,46 +57,16 @@ function restoreTsconfig() {
 	}
 }
 
-// Next.js 16 migration guard:
-// If both `src/middleware.*` and `src/proxy.*` exist, Next aborts the build/dev/start.
-// The codebase uses `src/proxy.ts` as the canonical entrypoint.
-// To avoid breaking local workflows when legacy `src/middleware.ts` exists,
-// temporarily move it out of the way for the duration of the Next command.
-// (It is restored on process exit.)
-const middlewarePath = path.join(process.cwd(), 'src', 'middleware.ts');
-const proxyPath = path.join(process.cwd(), 'src', 'proxy.ts');
-
-let movedMiddleware = null;
+// Middleware renaming logic removed for stability
+// const middlewarePath = path.join(process.cwd(), 'src', 'middleware.ts');
+// const proxyPath = path.join(process.cwd(), 'src', 'proxy.ts');
 
 function moveLegacyMiddlewareOutOfTheWay() {
-	try {
-		if (!fs.existsSync(proxyPath) || !fs.existsSync(middlewarePath)) return;
-
-		const dir = path.dirname(middlewarePath);
-		const base = path.basename(middlewarePath);
-		let candidate = path.join(dir, `${base}.legacy`);
-		if (fs.existsSync(candidate)) {
-			candidate = path.join(dir, `${base}.legacy_${Date.now()}_${process.pid}`);
-		}
-
-		fs.renameSync(middlewarePath, candidate);
-		movedMiddleware = { from: middlewarePath, to: candidate };
-		// eslint-disable-next-line no-console
-		console.warn(`[next-cli-patched] Detected both src/middleware.ts and src/proxy.ts. Using proxy.ts; temporarily moved middleware.ts -> ${path.basename(candidate)}`);
-	} catch {
-		// Best-effort only; if this fails Next will provide a clear error.
-	}
+	// Disabled: middleware.ts is the correct entry point in this project
 }
 
 function restoreLegacyMiddleware() {
-	if (!movedMiddleware) return;
-	try {
-		if (!fs.existsSync(movedMiddleware.to)) return;
-		if (fs.existsSync(movedMiddleware.from)) return;
-		fs.renameSync(movedMiddleware.to, movedMiddleware.from);
-	} catch {
-		// Best-effort only.
-	}
+	// Disabled
 }
 
 moveLegacyMiddlewareOutOfTheWay();
@@ -234,7 +204,7 @@ function pickDistDirFallback(current) {
 
 // Some Windows/external-drive setups can leave a distDir in a state where Node cannot
 // create or access `${distDir}/types` (EPERM). Detect and fall back.
-if (!distDirIsUsable(process.env.NEXT_DIST_DIR)) {
+if (false && !distDirIsUsable(process.env.NEXT_DIST_DIR)) {
 	const previous = process.env.NEXT_DIST_DIR;
 	process.env.NEXT_DIST_DIR = pickDistDirFallback(previous);
 	// eslint-disable-next-line no-console

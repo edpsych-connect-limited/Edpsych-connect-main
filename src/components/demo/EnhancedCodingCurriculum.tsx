@@ -90,7 +90,7 @@ const DEFAULT_LEVELS: CodingLevel[] = [
     id: 1, 
     title: "Hello World", 
     type: "Blocks", 
-    description: "Make your avatar say hello!", 
+    description: "Make your avatar say hello! (integrated with Dual Coding strategy)", 
     xp: 100,
     cognitiveLoad: 'Low',
     skills: ['Sequencing', 'Basic Logic'],

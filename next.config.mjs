@@ -94,9 +94,23 @@ const nextConfig = {
   // eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
   // Prevent Next from inferring an incorrect monorepo root when other lockfiles exist on the machine.
-  outputFileTracingRoot: __dirname,
+  // outputFileTracingRoot: __dirname,
   // Use a fresh build directory name; older `.next` / `.next_temp` folders on this drive can become undeletable.
   distDir: isVercel ? '.next' : (chooseDistDir(resolvedDistDir) || '.next_build_local'),
+  async redirects() {
+    return [
+      {
+        source: '/register',
+        destination: '/signup',
+        permanent: true,
+      },
+      {
+        source: '/:locale/register',
+        destination: '/:locale/signup',
+        permanent: true,
+      },
+    ];
+  },
   webpack: (config, { dev }) => {
     // Enable polling based on env var (for WSL/Docker/network drives)
     if (dev && (process.env.NEXT_WEBPACK_USEPOLLING || process.env.CHOKIDAR_USEPOLLING)) {

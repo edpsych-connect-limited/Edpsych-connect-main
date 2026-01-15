@@ -14,6 +14,7 @@ import {
   BarChart3, PieChart, Shield, Briefcase, Loader2
 } from 'lucide-react';
 import { FeatureGate } from '@/components/subscription/FeatureGate';
+import { VoiceCommandInterface } from '@/components/orchestration/VoiceCommandInterface';
 import { Feature } from '@/types/prisma-enums';
 
 // Mock data for staff caseload (not yet available in backend)
@@ -145,6 +146,12 @@ function SENCODashboardContent() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Voice Command Interface */}
+        <VoiceCommandInterface 
+          contextType="senco-dashboard" 
+          className="mb-8"
+        />
+
         {activeTab === 'overview' && (
           <>
             {/* Key Metrics */}

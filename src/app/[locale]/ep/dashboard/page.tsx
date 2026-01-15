@@ -43,7 +43,7 @@ export default function EPDashboard() {
         {/* Voice Command Interface */}
         <div className="mb-6">
           <VoiceCommandInterface
-            contextType="dashboard"
+            contextType="ep-dashboard"
             onCommandExecuted={(result) => {
               console.log('EP Command executed:', result);
             }}

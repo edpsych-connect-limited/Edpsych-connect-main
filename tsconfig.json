@@ -51,7 +51,11 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     ".next_local/types/**/*.ts",
-    ".next_local/dev/types/**/*.ts"
+    ".next_local/dev/types/**/*.ts",
+    ".next_temp_QA/types/**/*.ts",
+    ".next_temp_QA/dev/types/**/*.ts",
+    ".next_build_debug/types/**/*.ts",
+    ".next_build_debug/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

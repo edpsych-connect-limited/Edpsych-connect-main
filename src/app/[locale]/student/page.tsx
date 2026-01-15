@@ -1,6 +1,7 @@
 import React from 'react';
 import { prisma } from '@/lib/prisma';
 import StudentDashboardWrapper from '@/components/demo/StudentDashboardWrapper';
+import { PersonalTutor } from '@/components/student/PersonalTutor';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
@@ -20,10 +21,11 @@ export default async function StudentPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 relative min-h-screen">
       <StudentDashboardWrapper 
         demoStudentId={studentId} 
       />
+      <PersonalTutor />
     </div>
   );
 }

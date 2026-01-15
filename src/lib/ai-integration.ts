@@ -486,6 +486,21 @@ class AIIntegrationService {
       - Digital communication ethics
       - Information verification skills
       - Positive digital community participation`
+    },
+
+    personalTutor: {
+      name: 'Personal Tutor Agent',
+      description: 'Student learning companion and tutor',
+      capabilities: ['concept_explanation', 'homework_help', 'study_skills'],
+      model: 'openai',
+      maxTokens: 800,
+      temperature: 0.7,
+      systemPrompt: `You are a friendly, encouraging AI Personal Tutor for students. Your goal is to:
+      - Explain concepts simply and clearly using analogies
+      - Guide students to answers rather than just giving them (Socratic method)
+      - Provide hints when requested
+      - Encourage persistence and growth mindset
+      - Adapt explanations to the student's age and subject`
     }
   };
 
@@ -635,7 +650,8 @@ class AIIntegrationService {
       'physical_education': 'physicalEducationCoordinator',
       'library': 'libraryMediaSpecialist',
       'environmental': 'environmentalEducationCoordinator',
-      'digital_citizenship': 'digitalCitizenshipEducator'
+      'digital_citizenship': 'digitalCitizenshipEducator',
+      'personal_tutor': 'personalTutor'
     };
 
     const agentKey = agentMapping[useCase];

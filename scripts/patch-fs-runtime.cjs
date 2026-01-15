@@ -229,6 +229,34 @@ fs.readFileSync = function(path, options) {
     }
 };
 
+const originalReadFile = fs.readFile;
+fs.readFile = function(path, ...args) {
+    const callback = args[args.length - 1];
+    
+    if (typeof callback !== 'function') {
+        return originalReadFile.apply(this, [path, ...args]);
+    }
+
+    const argsWithoutCb = args.slice(0, -1);
+    let retries = MAX_RETRIES;
+    
+    const attempt = () => {
+        const wrappedCallback = (err, data) => {
+            if (shouldRetry(err, path) && retries > 0) {
+                // console.log(`[Patch] Retrying readFile on ${path} due to ${err.code}`);
+                retries--;
+                setTimeout(attempt, RETRY_DELAY + Math.random() * 100);
+            } else {
+                callback(err, data);
+            }
+        };
+        
+        originalReadFile.call(this, path, ...argsWithoutCb, wrappedCallback);
+    };
+    
+    attempt();
+};
+
 // Patch realpath/realpathSync to retry on UNKNOWN
 const originalRealpath = fs.realpath;
 const originalRealpathSync = fs.realpathSync;
@@ -610,6 +638,23 @@ if (fs.promises) {
         }
     };
 
+    const originalPromisesReadFile = fs.promises.readFile;
+    fs.promises.readFile = async function(path, options) {
+        let retries = MAX_RETRIES;
+        while (retries > 0) {
+            try {
+                return await originalPromisesReadFile.call(fs.promises, path, options);
+            } catch (err) {
+                if (shouldRetry(err) && retries > 1) {
+                    retries--;
+                    await new Promise(resolve => setTimeout(resolve, RETRY_DELAY + Math.random() * 100));
+                    continue;
+                }
+                throw err;
+            }
+        }
+    };
+
     const originalPromisesReaddir = fs.promises.readdir;
     fs.promises.readdir = async function(path, options) {
         let retries = MAX_RETRIES;
@@ -708,6 +753,36 @@ if (fs.promises) {
         };
     }
 }
+
+// Patch open to retry on UNKNOWN/EPERM (openSync patched above)
+const originalOpen = fs.open;
+
+fs.open = function(path, ...args) {
+    const callback = args[args.length - 1];
+    
+    if (typeof callback !== 'function') {
+        return originalOpen.call(this, path, ...args);
+    }
+
+    const argsWithoutCb = args.slice(0, -1);
+    let retries = MAX_RETRIES;
+    
+    const attempt = () => {
+        const wrappedCallback = (err, fd) => {
+            if (shouldRetry(err) && retries > 0) {
+                if (isDebugEnabled()) console.log(`[Patch] Retrying open on ${path} due to ${err ? err.code : 'unknown'}`);
+                retries--;
+                setTimeout(attempt, RETRY_DELAY + Math.random() * 100);
+            } else {
+                callback(err, fd);
+            }
+        };
+        
+        originalOpen.call(this, path, ...argsWithoutCb, wrappedCallback);
+    };
+    
+    attempt();
+};
 
 if (isDebugEnabled()) {
     // eslint-disable-next-line no-console

@@ -26,9 +26,11 @@ import {
   User,
   Play,
   Video,
+  Mic,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { VideoModal } from '@/components/video/VideoTutorialPlayer';
+import { VoiceCommandInterface } from '@/components/orchestration/VoiceCommandInterface';
 
 // Parent-facing video tutorials
 const PARENT_VIDEOS = [
@@ -404,6 +406,18 @@ const MOCK_PORTAL_DATA: ParentPortalData = {
  */
 export const ParentPortal: React.FC<ParentPortalProps & { demoMode?: boolean }> = ({ childId, parentId, className = '', demoMode = false }) => {
   const queryClient = useQueryClient();
+  const [showVoiceInterface, setShowVoiceInterface] = useState(false);
+
+  const handleVoiceResult = (result: any) => {
+    if (result.intent?.type === 'navigation' && result.intent.command === 'open_message_teacher') {
+       const messageSection = document.getElementById('message-teacher-section');
+       if (messageSection) messageSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    if (result.intent?.type === 'query' && result.intent.command === 'get_home_support') {
+       const supportSection = document.getElementById('home-support-section');
+       if (supportSection) supportSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   // Fetch portal data with security verification
   const {
@@ -524,26 +538,51 @@ export const ParentPortal: React.FC<ParentPortalProps & { demoMode?: boolean }> 
               })}
             </p>
           </div>
-          <button
-            onClick={() => exportReportMutation.mutate()}
-            disabled={exportReportMutation.isPending}
-            className="flex items-center gap-2 px-4 py-2 bg-white text-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
-            aria-label="Download progress report"
-          >
-            {exportReportMutation.isPending ? (
-              <>
-                <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" />
-                <span>Generating...</span>
-              </>
-            ) : (
-              <>
-                <Download className="w-5 h-5" aria-hidden="true" />
-                <span>Download Report</span>
-              </>
-            )}
-          </button>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <button
+              onClick={() => setShowVoiceInterface(!showVoiceInterface)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors font-medium ${
+                showVoiceInterface 
+                  ? 'bg-white/20 text-white ring-2 ring-white/50' 
+                  : 'bg-white/10 text-white hover:bg-white/20'
+              }`}
+            >
+              <Mic className="w-5 h-5" />
+              <span>{showVoiceInterface ? 'Close AI' : 'Ask AI'}</span>
+            </button>
+            <button
+              onClick={() => exportReportMutation.mutate()}
+              disabled={exportReportMutation.isPending}
+              className="flex items-center gap-2 px-4 py-2 bg-white text-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-label="Download progress report"
+            >
+              {exportReportMutation.isPending ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" />
+                  <span>Generating...</span>
+                </>
+              ) : (
+                <>
+                  <Download className="w-5 h-5" aria-hidden="true" />
+                  <span>Download Report</span>
+                </>
+              )}
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Voice Interface */}
+      {showVoiceInterface && (
+        <div className="animate-in slide-in-from-top-4 duration-300">
+          <VoiceCommandInterface 
+            contextType="parent-portal"
+            initialQuery="How can I help at home?"
+            onCommandExecuted={handleVoiceResult}
+            className="border-2 border-blue-100 shadow-lg"
+          />
+        </div>
+      )}
 
       {/* Progress wins */}
       <ProgressWins wins={portalData.progressUpdate.wins} />
@@ -552,10 +591,12 @@ export const ParentPortal: React.FC<ParentPortalProps & { demoMode?: boolean }> 
       <WorkingOn areas={portalData.progressUpdate.workingOn} />
 
       {/* Home support */}
-      <HomeSupport activities={portalData.progressUpdate.homeSupport} />
+      <div id="home-support-section">
+        <HomeSupport activities={portalData.progressUpdate.homeSupport} />
+      </div>
 
       {/* Teacher messaging */}
-      <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
+      <div id="message-teacher-section" className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
         <div className="flex items-center gap-3 mb-4">
           <MessageCircle className="w-6 h-6 text-blue-600" aria-hidden="true" />
           <div className="flex-1">

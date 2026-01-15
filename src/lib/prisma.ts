@@ -157,7 +157,9 @@ function createPrismaClient(datasourceUrl?: string) {
 }
 
 // Platform (default) Prisma client instance
+console.log('Creating platformPrisma...');
 export const platformPrisma: DbClient = global.prisma || createPrismaClient();
+console.log('platformPrisma created.');
 
 // In development, we want to use a global variable so that the connection
 // is maintained across hot reloads
