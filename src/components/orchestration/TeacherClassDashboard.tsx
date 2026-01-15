@@ -25,7 +25,7 @@ import {
   RefreshCw,
 } from 'lucide-react';
 import StudentProfileCard from './StudentProfileCard';
-import VoiceCommandInterface from './VoiceCommandInterface';
+import { VoiceCommandInterface } from './VoiceCommandInterface';
 
 /**
  * Teacher Class Dashboard Component
@@ -239,6 +239,13 @@ const StudentGrid: React.FC<{
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Voice command visualization
+  const handleVoiceCommand = (result: any) => {
+    logger.info('Classroom Voice Command:', result);
+    // Future: Handle classroom-specific actions here
+    // e.g., Filter grid, open student profile
+  };
+
   // Filter and sort students
   const filteredStudents = useMemo(() => {
     let filtered = students;
@@ -262,12 +269,22 @@ const StudentGrid: React.FC<{
 
   return (
     <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
-      <h2 className="text-xl font-bold text-gray-900 mb-4">
-        STUDENT GRID
-        <span className="text-sm font-normal text-gray-600 ml-2">
-          (sorted by need • {filteredStudents.length} of {students.length} shown)
-        </span>
-      </h2>
+      <div className="flex flex-col sm:flex-row gap-4 justify-between items-start mb-4">
+        <h2 className="text-xl font-bold text-gray-900">
+          STUDENT GRID
+          <span className="text-sm font-normal text-gray-600 block sm:inline sm:ml-2">
+            (sorted by need • {filteredStudents.length} of {students.length} shown)
+          </span>
+        </h2>
+        <div className="w-full sm:w-auto">
+          <VoiceCommandInterface 
+            contextType="classroom-dashboard" 
+            onCommandExecuted={handleVoiceCommand}
+            compact
+            className="w-full"
+          />
+        </div>
+      </div>
 
       {/* Search and filters */}
       <div className="mb-6 space-y-3">

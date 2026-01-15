@@ -42,7 +42,7 @@ interface VoiceCommandInterfaceProps {
   /** Class ID for context-aware commands */
   classId?: string | number;
   /** Context type for tailored command suggestions */
-  contextType?: 'dashboard' | 'student' | 'lesson';
+  contextType?: 'dashboard' | 'student' | 'lesson' | 'parent-portal' | 'ep-dashboard' | 'la-dashboard' | 'senco-dashboard' | 'classroom-dashboard';
   /** Callback when command is successfully executed */
   onCommandExecuted?: (result: VoiceCommandResult) => void;
   /** Compact mode for reduced UI */
@@ -96,6 +96,36 @@ const QUICK_COMMANDS = {
     'Assign to whole class',
     'Show predicted success rates',
     'Who might struggle with this?',
+  ],
+  'ep-dashboard': [
+    'Draft psychological advice',
+    'Summarize recent observations',
+    'Check assessment deadlines',
+    'Find recent referrals',
+  ],
+  'la-dashboard': [
+    'Check funding applications',
+    'Show EHCP compliance rates',
+    'List tribunal deadlines',
+    'Find out of county placements',
+  ],
+  'senco-dashboard': [
+    'Check assessment request readiness',
+    'Review evidence for assessment',
+    'Track application progress',
+    'Check staff caseloads',
+  ],
+  'classroom-dashboard': [
+    'Suggest differentiation for ADHD',
+    'Log behavioural incident',
+    'Find social story for anxiety',
+    'Check targets for Michael',
+  ],
+  'parent-portal': [
+    'How can I help at home?',
+    'Message Mrs. Thompson',
+    'Show me the video guides',
+    'How is Leo doing?',
   ],
 };
 
