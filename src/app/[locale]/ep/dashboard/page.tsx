@@ -10,6 +10,7 @@ import {
   Clock
 } from 'lucide-react';
 import { ASSESSMENT_LIBRARY } from '@/lib/assessments/assessment-library';
+import { VoiceCommandInterface } from '@/components/orchestration/VoiceCommandInterface';
 
 export default function EPDashboard() {
   // GAP ANALYSIS: Wiring Real Engines
@@ -39,6 +40,18 @@ export default function EPDashboard() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Voice Command Interface */}
+        <div className="mb-6">
+          <VoiceCommandInterface
+            contextType="dashboard"
+            onCommandExecuted={(result) => {
+              console.log('EP Command executed:', result);
+            }}
+            compact={false}
+            className=""
+          />
+        </div>
+
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-2xl font-bold text-slate-900">My Caseload</h1>

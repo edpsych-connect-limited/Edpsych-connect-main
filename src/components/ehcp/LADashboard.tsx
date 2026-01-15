@@ -30,6 +30,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import { useDemo } from '@/components/demo/DemoProvider';
 import { VideoModal } from '@/components/video/VideoTutorialPlayer';
+import { VoiceCommandInterface } from '@/components/orchestration/VoiceCommandInterface';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   AlertTriangle, 
@@ -379,6 +380,21 @@ export default function LAEHCPDashboard() {
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 shadow" data-tour="la-dashboard-header">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          {/* Voice Command Interface */}
+          <div className="mb-6">
+            <VoiceCommandInterface
+              contextType="dashboard"
+              onCommandExecuted={(result) => {
+                console.log('LA Command executed:', result);
+                if (result.actions?.some((a: any) => a.type === 'compliance' || a.type === 'funding')) {
+                  fetchDashboard();
+                }
+              }}
+              compact={false}
+              className=""
+            />
+          </div>
+
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
