@@ -18,9 +18,12 @@ interface TeachersPageClientProps {
 }
 
 export default function TeachersPageClient({ demoTeacherId, demoClassId }: TeachersPageClientProps) {
-  const [showDashboard, setShowDashboard] = useState(false);
+  // If we have real demo data, use it.
+  const useRealDemo = !!demoTeacherId && !!demoClassId;
+  
+  // Auto-show dashboard if user is logged in (useRealDemo is true)
+  const [showDashboard, setShowDashboard] = useState(useRealDemo);
 
-  // If we have real demo data, use it. Otherwise fallback to mock (isDemo=true)
   // Note: classId prop in TeacherClassDashboard expects string | number, but our real ID is string (CUID)
   // and mock ID was number (1). The component handles both.
   const useRealDemo = !!demoTeacherId && !!demoClassId;
