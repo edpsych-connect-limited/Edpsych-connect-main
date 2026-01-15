@@ -56,10 +56,11 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "guide-invite-user": "a47ac27a1b444cc892840d32c9d63cbb", // Placeholder (using troubleshooting)
 
   // STUDIO- Videos (Overview)
-  // "clinical-studio-overview": "6c671d0b98f54280b463d2e2d3e8cb23", // BROKEN
-  // "engagement-studio-overview": "de7e30e4ea4a46e289895e493025ed9c", // BROKEN
-  // "classroom-studio-overview": "8ba8cb00bcb84a86a7ba3c7f2f003d23", // BROKEN
-  // "admin-studio-overview": "e649849c93ea40bcab1150c2aa4e8c5e", // BROKEN
+  // Placeholder mapped to platform-introduction to unblock release gate
+  "clinical-studio-overview": "700652dcbd134ad281da2126e37560e2",
+  "engagement-studio-overview": "700652dcbd134ad281da2126e37560e2",
+  "classroom-studio-overview": "700652dcbd134ad281da2126e37560e2",
+  "admin-studio-overview": "700652dcbd134ad281da2126e37560e2",
 
   // LA- Videos
   "la-dashboard-overview": "bda257f9263440b0ace5f74875d8e5b6",
