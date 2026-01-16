@@ -145,7 +145,7 @@ export async function deleteVideo(publicId: string): Promise<void> {
  */
 export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   // Marketing videos
-  'platform-introduction': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110693/edpsych-connect/onboarding/edpsych-connect/onboarding/platform-introduction-v3.mp4',
+  'platform-introduction': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1768582555/edpsych-connect/videos/platform-introduction.mp4',
   'data-autonomy': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111354/edpsych-connect/videos/data-autonomy.mp4',
   'no-child-left-behind': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111358/edpsych-connect/videos/no-child-left-behind.mp4',
   'gamification-integrity': 'https://res.cloudinary.com/dncfu2j0r/video/upload/v1765111361/edpsych-connect/videos/gamification-integrity.mp4',

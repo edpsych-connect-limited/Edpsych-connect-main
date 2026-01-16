@@ -506,9 +506,9 @@
   {
     "key": "innovation-battle-royale",
     "publicId": "edpsych-connect/videos/innovation-battle-royale",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642485/edpsych-connect/videos/innovation-battle-royale.mp4",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578107/edpsych-connect/videos/innovation-battle-royale.mp4",
     "duration": 0,
-    "bytes": 16056048,
+    "bytes": 12224548,
     "status": "skipped"
   },
   {
@@ -1906,17 +1906,17 @@
   {
     "key": "feature-byod-architecture",
     "publicId": "edpsych-connect/videos/feature-byod-architecture",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765942223/edpsych-connect/videos/feature-byod-architecture.mp4",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578122/edpsych-connect/videos/feature-byod-architecture.mp4",
     "duration": 0,
-    "bytes": 35706713,
+    "bytes": 27701047,
     "status": "skipped"
   },
   {
     "key": "feature-nclb-engine",
     "publicId": "edpsych-connect/videos/feature-nclb-engine",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765942185/edpsych-connect/videos/feature-nclb-engine.mp4",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578139/edpsych-connect/videos/feature-nclb-engine.mp4",
     "duration": 0,
-    "bytes": 47288708,
+    "bytes": 30724476,
     "status": "skipped"
   },
   {
@@ -1930,17 +1930,17 @@
   {
     "key": "value-enterprise-platform",
     "publicId": "edpsych-connect/videos/value-enterprise-platform",
-    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765942287/edpsych-connect/videos/value-enterprise-platform.mp4",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578171/edpsych-connect/videos/value-enterprise-platform.mp4",
     "duration": 0,
-    "bytes": 58694938,
+    "bytes": 36463396,
     "status": "skipped"
   },
   {
     "key": "welcome",
     "publicId": "edpsych-connect/videos/welcome",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578029/edpsych-connect/videos/welcome.mp4",
-    "duration": 77.48,
+    "duration": 0,
     "bytes": 17386578,
-    "status": "uploaded"
+    "status": "skipped"
   }
 ]

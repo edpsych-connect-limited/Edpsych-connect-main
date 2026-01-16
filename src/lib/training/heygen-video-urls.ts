@@ -16,7 +16,7 @@
 export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   // PLATFORM Videos
   // V3 platform intro (TEMPORARY PLACEHOLDER due to 404)
-  "platform-introduction": "17126ba3772f4a7984aa5fa82d85c817",
+  "platform-introduction": "1504b108b783451e9246cfac493b163f",
 
   // PRICING / MARKETING (December 2025 suite)
   // NOTE: These are used across Pricing + Landing surfaces. If Cloudinary isn't
@@ -123,7 +123,7 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   // These are the new 'Hub' videos for the Studio architecture.
   "clinical-ehcp-hub": "a519e9cd4cb84e2b9bb9486a200c4441", // Reuse ehcp-modules-hub-overview
   "clinical-assessments": "8f7d3a8b5d784d05a368650e26e0a50a", // Reuse assessment-choosing
-  "engagement-gamification": "58d38fdf4d8640c1b9d848a826d686a6", // Reuse feature-battle-royale
+  "engagement-gamification": "e1bef5ae78f244059f1dac13f496ed3b", // Reuse feature-battle-royale
   "classroom-interventions": "ca9e9c0875994e2786cb59150c2a6e2a", // Reuse feature-intervention-library
   "research-studio-overview": "162c4d26eb5c4539857bff6411d85629", // Reuse compare-true-cost (Research Hub has no direct match yet)
   "coding-studio-overview": "f6912fc2e7a3409881068cee713707c3", // Placeholder
