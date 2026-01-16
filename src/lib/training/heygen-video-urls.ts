@@ -521,11 +521,11 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "la-professional-requests": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641777/edpsych-connect/videos/la-professional-requests.mp4",
   "la-dashboard-overview": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641794/edpsych-connect/videos/la-dashboard-overview.mp4",
   "feature-la-dashboard": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644467/edpsych-connect/videos/feature-la-dashboard.mp4",
-  "onboarding-welcome": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578029/edpsych-connect/videos/welcome.mp4",
+  "onboarding-welcome": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110926/edpsych-connect/videos/onboarding-welcome.mp4",
 
   // Verified working (HTTP 206 with 1-byte range probe):
   // These keys previously had no CDN mapping and were HeyGen-only single points of failure.
-  "feature-battle-royale": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578107/edpsych-connect/videos/innovation-battle-royale.mp4",
+  "feature-battle-royale": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-battle-royale.mp4",
   "feature-byod-architecture": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578122/edpsych-connect/videos/feature-byod-architecture.mp4",
   "feature-nclb-engine": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578139/edpsych-connect/videos/feature-nclb-engine.mp4",
   "value-enterprise-platform": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578171/edpsych-connect/videos/value-enterprise-platform.mp4",
