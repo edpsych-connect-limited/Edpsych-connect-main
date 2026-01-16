@@ -7957,6 +7957,78 @@
           }
         }
       ]
+    },
+    "marketing-studio-overview": {
+      "claims": [
+        {
+          "id": "marketing-studio-overview-registry-001",
+          "statement": "Key 'marketing-studio-overview' is present in the canonical video registry.",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-16T18:00:00.000Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\\\"]marketing-studio-overview['\\\"]s*:",
+                "isRegex": true
+              }
+            ]
+          },
+          "kind": "registry-key",
+          "expected": "present"
+        }
+      ]
+    },
+    "sales-studio-overview": {
+      "claims": [
+        {
+          "id": "sales-studio-overview-registry-001",
+          "statement": "Key 'sales-studio-overview' is present in the canonical video registry.",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-16T18:00:00.000Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\\\"]sales-studio-overview['\\\"]s*:",
+                "isRegex": true
+              }
+            ]
+          },
+          "kind": "registry-key",
+          "expected": "present"
+        }
+      ]
+    },
+    "customer-success-studio-overview": {
+      "claims": [
+        {
+          "id": "customer-success-studio-overview-registry-001",
+          "statement": "Key 'customer-success-studio-overview' is present in the canonical video registry.",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-16T18:00:00.000Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\\\"]customer-success-studio-overview['\\\"]s*:",
+                "isRegex": true
+              }
+            ]
+          },
+          "kind": "registry-key",
+          "expected": "present"
+        }
+      ]
     }
   }
 }

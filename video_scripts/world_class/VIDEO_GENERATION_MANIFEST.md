@@ -116,6 +116,15 @@ These play automatically after signup.
 | `trust-security` | Security That Matters | 1:30 | Trust building |
 | `trust-built-by-practitioners` | Built by Practitioners | 1:15 | Credibility |
 
+### Priority 6: Studio Overviews
+Deep-dives into specific product studios.
+
+| Video ID | Title | Duration | Purpose |
+|----------|-------|----------|---------|
+| `marketing-studio-overview` | Marketing Studio | 1:30 | Studio overview |
+| `sales-studio-overview` | Sales Studio | 1:30 | Studio overview |
+| `customer-success-studio-overview` | Customer Success Studio | 1:30 | Studio overview |
+
 ---
 
 ## HeyGen Settings Recommendations
