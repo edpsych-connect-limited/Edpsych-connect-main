@@ -57,10 +57,13 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
 
   // STUDIO- Videos (Overview)
   // Placeholder mapped to platform-introduction to unblock release gate
-  "clinical-studio-overview": "700652dcbd134ad281da2126e37560e2",
-  "engagement-studio-overview": "700652dcbd134ad281da2126e37560e2",
-  "classroom-studio-overview": "700652dcbd134ad281da2126e37560e2",
-  "admin-studio-overview": "700652dcbd134ad281da2126e37560e2",
+  "clinical-studio-overview": "10812bf7cedf43b598a3d8abc5b135fa",
+  "engagement-studio-overview": "547849c2f15941e18759fd0fa904ad1c",
+  "classroom-studio-overview": "04031e35dc6e4d5cb6d3e16260f5b4f9",
+  "admin-studio-overview": "dc215adad95a44aca67b0e2427c00e39",
+  "marketing-studio-overview": "8146a5c294ad46bbb7f95d9e96077dd8",
+  "sales-studio-overview": "d1c4fd9f6b3446ba992375faffcb206e",
+  "customer-success-studio-overview": "be7f15bca70a4cb982fa0aaadad5ae5a",
 
   // LA- Videos
   "la-dashboard-overview": "bda257f9263440b0ace5f74875d8e5b6",
@@ -122,8 +125,8 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "clinical-assessments": "8f7d3a8b5d784d05a368650e26e0a50a", // Reuse assessment-choosing
   "engagement-gamification": "58d38fdf4d8640c1b9d848a826d686a6", // Reuse feature-battle-royale
   "classroom-interventions": "ca9e9c0875994e2786cb59150c2a6e2a", // Reuse feature-intervention-library
-  "research-studio-overview": "21a6eb143c734c00917f11f36428a387", // Reuse compare-true-cost (Research Hub has no direct match yet)
-  "coding-studio-overview": "700652dcbd134ad281da2126e37560e2", // Placeholder
+  "research-studio-overview": "89628be22f1a4372a64dbca4dc4088d6", // Reuse compare-true-cost (Research Hub has no direct match yet)
+  "coding-studio-overview": "46322a2c0d344c7481e04505062f9033", // Placeholder
   "innovation-battle-royale": "c13549ec38474d0287b3f019cf842b48",
   "innovation-coding-curriculum": "84c23e6e11604b7da12d41ad23c90804",
   "innovation-orchestration": "4be8a3b43a2f42c9b538b613c5e002e3",

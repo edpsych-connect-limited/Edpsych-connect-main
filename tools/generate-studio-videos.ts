@@ -1,190 +1,187 @@
-/**
- * Generate Studio Overview Videos via HeyGen API
- *
- * Scenarios:
- * 1. Clinical Studio Overview
- * 2. Engagement Studio Overview
- * 3. Classroom Studio Overview
- * 4. Admin Studio Overview
- */
-
 import dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
-import { pickApprovedDrScottAvatarId, pickRequiredDrScottVoiceId } from './lib/dr-scott-heygen';
+import https from 'https';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-function loadEnvForGenerator(): void {
-  const mode = (process.env.NODE_ENV || 'development').toLowerCase();
-  const root = path.join(__dirname, '..');
-  const candidates: string[] = [
-    `.env.${mode}.local`,
-    ...(mode === 'test' ? [] : ['.env.local']),
-    `.env.${mode}`,
-    '.env',
-  ];
+// Load environment variables
+const mode = (process.env.NODE_ENV || 'development').toLowerCase();
+const root = path.join(__dirname, '..');
+const candidates = [
+  `.env.${mode}.local`,
+  '.env.local',
+  `.env.${mode}`,
+  '.env',
+];
 
-  for (const rel of candidates) {
-    const abs = path.join(root, rel);
-    if (!fs.existsSync(abs)) continue;
-    const result = dotenv.config({ path: abs, override: false });
+for (const rel of candidates) {
+  const abs = path.join(root, rel);
+  if (fs.existsSync(abs)) {
+    dotenv.config({ path: abs, override: false });
   }
 }
 
-loadEnvForGenerator();
+const API_KEY = process.env.HEYGEN_API_KEY;
 
-const API_KEY: string = process.env.HEYGEN_API_KEY || '';
+// Use approved IDs from source of truth (src/lib/video/dr-scott-heygen.ts)
+const AVATAR_ID = 'd680604a31f34ce096c84bed708774c3';
+const VOICE_ID = '5a4bb65a67734477a659398468c7272e';
+
 if (!API_KEY) {
-  console.error('❌ Error: HEYGEN_API_KEY environment variable is not set.');
+  console.error('❌ HEYGEN_API_KEY is missing');
   process.exit(1);
 }
 
-const rawAvatarId = process.env.HEYGEN_DR_SCOTT_AVATAR_ID || '';
-const rawVoiceId = process.env.HEYGEN_DR_SCOTT_VOICE_ID || '';
+const MARKDOWN_PATH = path.join(root, 'video_scripts', 'studio_overview_scripts.md');
+const LOG_FILE = path.join(root, 'video_scripts', 'generation_log_studios.json');
 
-if (!rawAvatarId || !rawVoiceId) {
-  throw new Error('HEYGEN_DR_SCOTT_AVATAR_ID and HEYGEN_DR_SCOTT_VOICE_ID environment variables are required');
-}
-
-const AVATAR_ID = pickApprovedDrScottAvatarId(rawAvatarId, 'generate-studio-videos');
-const VOICE_ID = pickRequiredDrScottVoiceId(rawVoiceId, 'generate-studio-videos');
-
-const VIDEOS = [
-  {
-    key: 'clinical-studio-overview',
-    title: 'Clinical Studio Overview',
-    script: `Welcome to the Clinical Studio. I'm Dr Scott I-Patrick. This is your statutory command centre for EHCP management, assessments, and case files. Here, we operationalise the Code of Practice. You can track statutory timelines, manage multi-agency contributions, and generate high-fidelity reports that stand up to tribunal scrutiny. Security and audit trails are built-in, ensuring every decision is evidenced.`
-  },
-  {
-    key: 'engagement-studio-overview',
-    title: 'Engagement Studio Overview',
-    script: `Welcome to the Engagement Studio. Motivation is the engine of progress. This studio brings together our Tokenisation and Gamification systems. You can configure reward schedules, track engagement metrics, and deploy AI companions to support learning journeys. It's about turning passive participation into active ownership.`
-  },
-  {
-    key: 'classroom-studio-overview',
-    title: 'Classroom Studio Overview',
-    script: `Welcome to the Classroom Studio. This is where strategy meets practice. For teachers and SENCOs, this workspace provides real-time behaviour tracking, intervention logging, and progress monitoring. It connects the dots between the statutory plan and the daily reality of the classroom.`
-  },
-  {
-    key: 'admin-studio-overview',
-    title: 'Admin Studio Overview',
-    script: `Welcome to the Admin Studio. This is the control tower for Local Authorities and School Leaders. From here, you manage institutional settings, compliance audits, and user permissions. It provides a macroscopic view of your entire educational estate, ensuring data autonomy and operational integrity.`
-  }
-];
-
-interface HeyGenVideoRequest {
-  video_inputs: Array<{
-    character: {
-      type: string;
-      avatar_id: string;
-      avatar_style?: string;
-    };
-    voice: {
-      type: string;
-      voice_id: string;
-      input_text: string;
-    };
-    background?: {
-      type: string;
-      value?: string;
-    };
-  }>;
-  dimension?: {
-    width: number;
-    height: number;
-  };
-  aspect_ratio?: string;
-  test?: boolean;
-}
-
-async function generateSingleVideo(video: { key: string; title: string; script: string }) {
-  console.log(`🎬 Generating: ${video.title} (${video.key})`);
-  console.log(`📝 Script length: ${video.script.length} characters`);
-
-  const requestBody: HeyGenVideoRequest = {
+async function generateVideo(script: string, title: string): Promise<string | null> {
+  console.log(`🎬 Generating: ${title}...`);
+  
+  const payload = JSON.stringify({
     video_inputs: [
       {
         character: {
-          type: 'avatar',
+          type: "avatar",
           avatar_id: AVATAR_ID,
-          avatar_style: 'normal',
+          avatar_style: "normal"
         },
         voice: {
-          type: 'text',
+          type: "text",
           voice_id: VOICE_ID,
-          input_text: video.script,
-        },
-        background: {
-          type: 'color',
-          value: '#1e293b',
+          input_text: script,
         },
       },
     ],
-    dimension: {
-      width: 1920,
-      height: 1080,
-    },
-    aspect_ratio: '16:9',
-  };
+    test: false,
+    aspect_ratio: "16:9",
+    title: title
+  });
 
-  try {
-    const response = await fetch('https://api.heygen.com/v2/video/generate', {
+  return new Promise((resolve, reject) => {
+    const req = https.request({
+      hostname: 'api.heygen.com',
+      path: '/v2/video/generate',
       method: 'POST',
       headers: {
         'X-Api-Key': API_KEY,
         'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
+      }
+    }, (res) => {
+      let data = '';
+      res.on('data', (chunk) => data += chunk);
+      res.on('end', () => {
+        if (res.statusCode !== 200) {
+          console.error(`❌ API Error (${res.statusCode}): ${data}`);
+          resolve(null);
+          return;
+        }
+        try {
+          const response = JSON.parse(data);
+          if (response.error) {
+            console.error(`❌ HeyGen Error: ${JSON.stringify(response.error)}`);
+            resolve(null);
+          } else {
+            const videoId = response.data?.video_id;
+            console.log(`✅ Started! Video ID: ${videoId}`);
+            resolve(videoId);
+          }
+        } catch (e) {
+            console.error('❌ JSON Parse Error', e);
+            resolve(null);
+        }
+      });
     });
 
-    const data = await response.json();
-    
-    if (data.error) {
-      console.error(`❌ FAILED: ${video.key}`, data.error);
-      return null;
-    }
+    req.on('error', (e) => {
+      console.error('❌ Request Error:', e);
+      resolve(null);
+    });
 
-    const videoId = data.data?.video_id;
-    if (videoId) {
-      console.log(`✅ SUCCESS: ${video.key} -> ${videoId}`);
-      return { key: video.key, id: videoId };
-    } else {
-      console.error(`❌ FAILED: No video ID returned for ${video.key}`);
-      return null;
-    }
-  } catch (error) {
-    console.error(`❌ ERROR: ${video.key}`, error);
-    return null;
-  }
-}
-
-async function run() {
-  console.log('='.repeat(80));
-  console.log('EdPsych Connect - Studio Video Generator');
-  console.log('='.repeat(80));
-
-  const results = [];
-
-  for (const video of VIDEOS) {
-    const result = await generateSingleVideo(video);
-    if (result) {
-      results.push(result);
-    }
-    // Wait 2 seconds to avoid rate limits
-    await new Promise(resolve => setTimeout(resolve, 2000));
-  }
-
-  console.log('\n\n' + '='.repeat(80));
-  console.log('GENERATION COMPLETE');
-  console.log('Update src/lib/training/heygen-video-urls.ts with these IDs:');
-  console.log('='.repeat(80));
-  
-  results.forEach(r => {
-    console.log(`  "${r.key}": "${r.id}",`);
+    req.write(payload);
+    req.end();
   });
 }
 
-run().catch(console.error);
+function parseMarkdown(mdContent: string): Array<{key: string, title: string, script: string}> {
+    const sections = mdContent.split(/^## /gm);
+    const results = [];
+
+    for (const section of sections) {
+        if (!section.trim()) continue;
+        
+        const lines = section.split('\n');
+        const titleLine = lines[0].trim();
+        const title = titleLine.replace(/^\d+\.\s*/, '').trim();
+
+        const keyLine = lines.find(l => l.includes('**Key**:'));
+        const scriptStart = lines.findIndex(l => l.includes('**[Dr. Scott]**:'));
+
+        if (keyLine && scriptStart !== -1) {
+            const keyMatches = keyLine.match(/`([^`]+)`/);
+            const key = keyMatches ? keyMatches[1] : '';
+            
+            let scriptRaw = lines.slice(scriptStart + 1).join('\n').trim();
+            scriptRaw = scriptRaw.split('---')[0].trim();
+            
+            if (key && scriptRaw) {
+                results.push({ key, title, script: scriptRaw });
+            }
+        }
+    }
+    return results;
+}
+
+async function main() {
+  console.log('🚀 Starting Studio Overview Video Generation...');
+  
+  if (!fs.existsSync(MARKDOWN_PATH)) {
+      console.error(`❌ Script file not found: ${MARKDOWN_PATH}`);
+      process.exit(1);
+  }
+
+  const content = fs.readFileSync(MARKDOWN_PATH, 'utf-8');
+  const items = parseMarkdown(content);
+  
+  console.log(`📋 Found ${items.length} scripts to generate.`);
+  
+  const results: Record<string, string> = {};
+
+  for (const item of items) {
+      console.log(`\nProcessing: ${item.key}`);
+      const videoId = await generateVideo(item.script, item.title);
+      if (videoId) {
+          results[item.key] = videoId;
+      }
+      await new Promise(r => setTimeout(r, 1000));
+  }
+
+  fs.writeFileSync(LOG_FILE, JSON.stringify(results, null, 2));
+  console.log(`\n💾 Video IDs saved to ${LOG_FILE}`);
+  
+  updateCode(results);
+}
+
+function updateCode(newIds: Record<string, string>) {
+    const tsPath = path.join(root, 'src', 'lib', 'training', 'heygen-video-urls.ts');
+    let tsContent = fs.readFileSync(tsPath, 'utf-8');
+    
+    let updatedCount = 0;
+    for (const [key, id] of Object.entries(newIds)) {
+        const regex = new RegExp(`"${key}":\\s*"[^"]*"`, 'g');
+        if (regex.test(tsContent)) {
+            tsContent = tsContent.replace(regex, `"${key}": "${id}"`);
+            updatedCount++;
+        } else {
+            console.warn(`⚠️ Could not find key "${key}" in heygen-video-urls.ts to update.`);
+        }
+    }
+    
+    fs.writeFileSync(tsPath, tsContent);
+    console.log(`\n📝 Updated ${updatedCount} keys in heygen-video-urls.ts`);
+}
+
+main().catch(console.error);
