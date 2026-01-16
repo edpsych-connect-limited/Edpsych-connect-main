@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "description": "Truth-by-code script provenance. This file proves which script text is associated with each videoKey via SHA256. It does NOT assert that rendered audio matches unless verifiedAudioMatch is explicitly set true with external evidence.",
-  "generatedAt": "2026-01-09T00:00:51.182Z",
+  "generatedAt": "2026-01-16T18:24:16.985Z",
   "keys": {
     "addon-ai-power-pack": {
       "key": "addon-ai-power-pack",
@@ -10,7 +10,7 @@
       "title": "AI Power Pack: Intelligence That Helps",
       "scriptSha256": "c5820677daeabffa28fa8ef57e80d349cfd6c17057bd79615326518656aa0c04",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "addon-api-access": {
       "key": "addon-api-access",
@@ -19,7 +19,7 @@
       "title": "API Access: Integration Freedom",
       "scriptSha256": "2cab1ed338a88642523f53094d6b455466e547ec5fab50470abfa985bc1f3c49",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "addon-cpd-library": {
       "key": "addon-cpd-library",
@@ -28,7 +28,7 @@
       "title": "CPD Library Plus: Professional Development That Fits Your Life",
       "scriptSha256": "3f86f906a47205d2fad793b5b805a357dc6d16112fddb23271d82a7550ce406a",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "addon-ehcp-accelerator": {
       "key": "addon-ehcp-accelerator",
@@ -37,7 +37,7 @@
       "title": "EHCP Accelerator: Statutory Compliance Made Manageable",
       "scriptSha256": "a5f6ccc19156e9610d8b3c63e48971611048e23c2752ff512753baaa68aa89df",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "addon-priority-support": {
       "key": "addon-priority-support",
@@ -46,7 +46,7 @@
       "title": "Priority Support: When You Need Help Now",
       "scriptSha256": "e33f0dd21fbf600ec5b7b1c6353ab42a819b8e45b20f15dd13cddfb254af4aef",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "addon-white-label": {
       "key": "addon-white-label",
@@ -55,7 +55,7 @@
       "title": "White Label: Your Brand, Our Platform",
       "scriptSha256": "0d77b259f2a61db1f65dd991d6fcdb805e6878a8bb66f38e517b69933520ba46",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "adhd-m1-l1": {
       "key": "adhd-m1-l1",
@@ -64,7 +64,7 @@
       "title": "ADHD Neurobiology: Dopamine & Development",
       "scriptSha256": "101b91544326a5e6f69a8f7a272993aaba17984f548905517ad036c43cbe79c0",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "adhd-m1-l2": {
       "key": "adhd-m1-l2",
@@ -73,7 +73,7 @@
       "title": "The Three Presentations",
       "scriptSha256": "de066f796382b7478983e0b0a9ece18522140e4d5e5c0cf30b217b699d601a2b",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "adhd-m2-l1": {
       "key": "adhd-m2-l1",
@@ -82,7 +82,7 @@
       "title": "Inattentive Presentation: The Daydreamer",
       "scriptSha256": "6a836b9e8a0c64add988e256392cfadd062998a4d4c5e00d93003bb795432c82",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "adhd-m2-l2": {
       "key": "adhd-m2-l2",
@@ -91,7 +91,7 @@
       "title": "Hyperactive Presentation: The Energizer Bunny",
       "scriptSha256": "0ea56a8a3f9dcf2b582dbae3c7ffa7af61d9616d4afb1f2ba3e4d58e86b864a7",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "adhd-m3-l1": {
       "key": "adhd-m3-l1",
@@ -100,7 +100,7 @@
       "title": "The 8 Executive Functions",
       "scriptSha256": "808a7b96c22424ebb8267389238483deb1907405872af89ae174cf752a52d52d",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "adhd-m3-l2": {
       "key": "adhd-m3-l2",
@@ -109,7 +109,7 @@
       "title": "Impact on Academic Performance",
       "scriptSha256": "3de624845e6b0ff501485597e21a07fe2867de5b8b7bf258b2329b1c20d09f14",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "adhd-m4-l1": {
       "key": "adhd-m4-l1",
@@ -118,7 +118,7 @@
       "title": "Seating and Sensory",
       "scriptSha256": "98c2fde58b773fcc5f8ee45311f6bb2fd7cffd6131fcaf48b337773ba7956b7d",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "adhd-m4-l2": {
       "key": "adhd-m4-l2",
@@ -127,7 +127,7 @@
       "title": "Instructional Accommodations",
       "scriptSha256": "554d817e4eb62cd0495a97a00d0814a07c40fa30d67cf401e998130195d227fa",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "adhd-m5-l1": {
       "key": "adhd-m5-l1",
@@ -136,7 +136,7 @@
       "title": "Attention Cues",
       "scriptSha256": "fcc13f6fb2b3c0d59a37b4aedc0aa9a4137799c3b0259261d54e9b072caecdc6",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "adhd-m5-l2": {
       "key": "adhd-m5-l2",
@@ -145,7 +145,7 @@
       "title": "Self-Monitoring",
       "scriptSha256": "de325eec028a5d10719dca02a1874814ef77e706364a1f511509dc945926f48c",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "adhd-m6-l1": {
       "key": "adhd-m6-l1",
@@ -154,7 +154,7 @@
       "title": "Channelling Hyperactivity",
       "scriptSha256": "f46c838b08b0a7e64586661e8e922d3e58bd3597f049145cfb8688e2897c545b",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "adhd-m6-l2": {
       "key": "adhd-m6-l2",
@@ -163,7 +163,7 @@
       "title": "Impulse Control Strategies",
       "scriptSha256": "a2081d672493c3c6d759fa936f475567f3dee9e92bc23f1a2afb57f693fb5a50",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "adhd-m7-l1": {
       "key": "adhd-m7-l1",
@@ -172,7 +172,7 @@
       "title": "Organisation Systems",
       "scriptSha256": "5e348d6ba337dd06ddbbbf0c06baa1ceb59ac9daf699f04186809534bb597816",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "adhd-m7-l2": {
       "key": "adhd-m7-l2",
@@ -181,7 +181,7 @@
       "title": "Homework Strategies",
       "scriptSha256": "68fd5aa0350f839be19e85a0068e1e495c440e33c421933970088d7ea4456370",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "adhd-m8-l1": {
       "key": "adhd-m8-l1",
@@ -190,7 +190,7 @@
       "title": "ADHD Medication",
       "scriptSha256": "76449bc108c0cdca2a7efc6a28a4f16acf32812672d97123b142dd614e174976",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "adhd-m8-l2": {
       "key": "adhd-m8-l2",
@@ -199,7 +199,7 @@
       "title": "Parent Partnership",
       "scriptSha256": "7e03560801a789193be2701d18c5858664d5a9f916eeb7632ccfcc99da8a3467",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "admin-studio-overview": {
       "key": "admin-studio-overview",
@@ -208,7 +208,7 @@
       "title": "Your Local Authority Dashboard Overview",
       "scriptSha256": "6d1cffade230f6b0926255f1377a2241f9f64b054218ce1e8155d00c5ee0e254",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "annual-reviews-mastery": {
       "key": "annual-reviews-mastery",
@@ -217,7 +217,7 @@
       "title": "Annual Reviews: Mastery Through Structure",
       "scriptSha256": "820c6feb73fec829901cabc8f721947474d7404880b61c62cfb684b1e0da4cde",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "assessment-choosing": {
       "key": "assessment-choosing",
@@ -226,7 +226,7 @@
       "title": "Choosing the Right Assessment",
       "scriptSha256": "c36e613ac35b312e4c1c3c7564a48dcec84e0f36574f74e96af9fd79f9acc7f6",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "assessment-interpreting": {
       "key": "assessment-interpreting",
@@ -235,7 +235,7 @@
       "title": "Interpreting Assessment Results",
       "scriptSha256": "02fb697c3068e3b4a4b239b2614b3a83602adb1b28398320ddf030c1e5e9070a",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "autism-m1-l1": {
       "key": "autism-m1-l1",
@@ -244,7 +244,7 @@
       "title": "What is Autism? Neurodiversity Paradigm",
       "scriptSha256": "2714ec539693b208df89a3bd4e8dbe87b0e9222529cb3cfc0230e11665118285",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "autism-m1-l2": {
       "key": "autism-m1-l2",
@@ -253,7 +253,7 @@
       "title": "The Autistic Experience: First-Person Perspectives",
       "scriptSha256": "1b61361b30a133811d83927454a3e8b92cb322d8cb5029f19bc6486362bfc17e",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "autism-m2-l1": {
       "key": "autism-m2-l1",
@@ -262,7 +262,7 @@
       "title": "Social Communication Differences",
       "scriptSha256": "3b99d245ff90d9ce4e6673b5f5424516093a056a4784b230b35cdc1b5505d3d1",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "autism-m2-l2": {
       "key": "autism-m2-l2",
@@ -271,7 +271,7 @@
       "title": "Friendship and Peer Relationships",
       "scriptSha256": "5253962afe36dfe7e18ac98d2260499d6ccfbd42aaf0236ffbc0977a0f30ff06",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "autism-m3-l1": {
       "key": "autism-m3-l1",
@@ -280,7 +280,7 @@
       "title": "Sensory Processing: Hyper and Hypo",
       "scriptSha256": "5f0e6fe0caf9124274fdc8e7f6f57f04020e5142654bc23be935dfa8af8f8100",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "autism-m3-l2": {
       "key": "autism-m3-l2",
@@ -289,7 +289,7 @@
       "title": "Creating Sensory-Friendly Environments",
       "scriptSha256": "7269fd13b32e31d6a94aea55da988e72763f59d416ea2300a4cd78a51bd81db2",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "autism-m4-l1": {
       "key": "autism-m4-l1",
@@ -298,7 +298,7 @@
       "title": "Visual Supports: Making the Invisible Visible",
       "scriptSha256": "02a59e4313b21316319b77c49821be140c7dfaa8c7760a888167571102cacc7d",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "autism-m4-l2": {
       "key": "autism-m4-l2",
@@ -307,7 +307,7 @@
       "title": "Structure and Predictability",
       "scriptSha256": "af393e55545b24d14a8b5e8b66e1a7ced7f2df75c8ee250c19e9e1cbfe04ebdc",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "autism-m5-l1": {
       "key": "autism-m5-l1",
@@ -316,7 +316,7 @@
       "title": "Anxiety in Autism",
       "scriptSha256": "ed8a331261d02ae6a6484018dce090358da5062a8e5fa278df2fe41923e0690c",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "autism-m5-l2": {
       "key": "autism-m5-l2",
@@ -325,7 +325,7 @@
       "title": "Meltdown Support",
       "scriptSha256": "5143770553cc55949b24cf8e809d21e59a929e1dd87d7ea65c997bc774acf1f3",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "autism-m6-l1": {
       "key": "autism-m6-l1",
@@ -334,7 +334,7 @@
       "title": "Special Interests: Passion, Not Obsession",
       "scriptSha256": "fc0a883e5b3d43bb49172642f65dec651a409cf4120e8bd779d12ce24ab90dc3",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "autism-m6-l2": {
       "key": "autism-m6-l2",
@@ -343,7 +343,7 @@
       "title": "Strengths-Based Approach",
       "scriptSha256": "da55f3373e4b62d845b7f876ffe1c2a0a0747e6cc523cd2b746b73c5aae9fff8",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "autism-m7-l1": {
       "key": "autism-m7-l1",
@@ -352,7 +352,7 @@
       "title": "Executive Function Difficulties",
       "scriptSha256": "48cf405757b121cb081d13a91ff7e62d3145eb2c82e744551c50f144ec7de300",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "autism-m7-l2": {
       "key": "autism-m7-l2",
@@ -361,7 +361,7 @@
       "title": "Promoting Independence",
       "scriptSha256": "f83b7b8aa2ea282276bd3b0e144d8adbccec7add5106f22a684978e436948cb6",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "autism-m8-l1": {
       "key": "autism-m8-l1",
@@ -370,7 +370,7 @@
       "title": "Inclusive Education",
       "scriptSha256": "c63c12514aa0ef4815b20c3889deaf8a74fede478630149b95a07b36697f03d9",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "autism-m8-l2": {
       "key": "autism-m8-l2",
@@ -379,7 +379,7 @@
       "title": "Legal Rights & Adjustments",
       "scriptSha256": "929eabcd7b68c9f398622b956c33b17ba783618e5da849c234570765e2f179e9",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "blocks-events": {
       "key": "blocks-events",
@@ -388,7 +388,7 @@
       "title": "Developers of Tomorrow: Inclusive Coding",
       "scriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "blocks-intro": {
       "key": "blocks-intro",
@@ -397,7 +397,7 @@
       "title": "Developers of Tomorrow: Inclusive Coding",
       "scriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "blocks-loops": {
       "key": "blocks-loops",
@@ -406,7 +406,7 @@
       "title": "Developers of Tomorrow: Inclusive Coding",
       "scriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "classroom-interventions": {
       "key": "classroom-interventions",
@@ -415,7 +415,7 @@
       "title": "Finding the Right Intervention",
       "scriptSha256": "adffabde863795161779b858b1e6e3b1d3a839a73c05d97d15d57c7062c32a3d",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "classroom-studio-overview": {
       "key": "classroom-studio-overview",
@@ -424,7 +424,7 @@
       "title": "Finding the Right Intervention",
       "scriptSha256": "adffabde863795161779b858b1e6e3b1d3a839a73c05d97d15d57c7062c32a3d",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "clinical-assessments": {
       "key": "clinical-assessments",
@@ -433,7 +433,7 @@
       "title": "EPs: The Assessment Suite Deep Dive",
       "scriptSha256": "944c9ded5fe38e1c503409d6fabc202f0f3f9b90573b3715b03a6fe632c159d2",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "clinical-ehcp-hub": {
       "key": "clinical-ehcp-hub",
@@ -442,7 +442,7 @@
       "title": "EHCP Modules Hub: What You’ll Learn",
       "scriptSha256": "d18c4548832e06be83aa390d2cfe9235ece3e7ed1b12e2223b3f7d05dde38a61",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "clinical-studio-overview": {
       "key": "clinical-studio-overview",
@@ -451,7 +451,7 @@
       "title": "EPs: The Assessment Suite Deep Dive",
       "scriptSha256": "944c9ded5fe38e1c503409d6fabc202f0f3f9b90573b3715b03a6fe632c159d2",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "coding-studio-overview": {
       "key": "coding-studio-overview",
@@ -460,7 +460,7 @@
       "title": "Developers of Tomorrow: Inclusive Coding",
       "scriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "compare-switching": {
       "key": "compare-switching",
@@ -469,7 +469,7 @@
       "title": "Switching Platforms Without the Pain",
       "scriptSha256": "f62ce5060e39cc0d50d450c8923fcb9c73319d7bf8669ade16c48f9419251ae3",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "compare-true-cost": {
       "key": "compare-true-cost",
@@ -478,7 +478,7 @@
       "title": "The True Cost of Educational Software",
       "scriptSha256": "54bb0fbf1c4792bc8da2b5a2989facdd666dc83065d00f70da5cb2550904b274",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "compliance-consent": {
       "key": "compliance-consent",
@@ -487,7 +487,7 @@
       "title": "Managing Consent Properly",
       "scriptSha256": "e0c13370e79cfb121ef3c166abee314cba6b13f71582297d7075f376f9f11afb",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "compliance-data-protection": {
       "key": "compliance-data-protection",
@@ -496,7 +496,7 @@
       "title": "Data Protection for Educators",
       "scriptSha256": "42621c4691fbcba8027440605c7d3534a526a002943719d33deec3171b3166c6",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "compliance-risk-ai": {
       "key": "compliance-risk-ai",
@@ -505,7 +505,16 @@
       "title": "Compliance Risk & AI: Practical Guardrails",
       "scriptSha256": "749e40624c861b613a38fddd046a8e1274682f8990989b42ad7322d9f6e8216d",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
+    },
+    "customer-success-studio-overview": {
+      "key": "customer-success-studio-overview",
+      "resolvedKey": "platform-introduction",
+      "sourceId": "world-class-marketing",
+      "title": "Welcome to EdPsych Connect World",
+      "scriptSha256": "6d63e41457b1aa97d48a9fc2976b26b9efedf1ec6713a306b84cb91a8ea39946",
+      "verifiedAudioMatch": false,
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "data-autonomy": {
       "key": "data-autonomy",
@@ -514,7 +523,7 @@
       "title": "Data Autonomy & Trust",
       "scriptSha256": "098c9e8710219138c6ede7861f8d2a838d1d2cdfae249c4295b077bf5d19b7bc",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "dys-m2-l2": {
       "key": "dys-m2-l2",
@@ -523,7 +532,7 @@
       "title": "Multisensory Teaching",
       "scriptSha256": "990b02c9c26fc5cfb6a02d1ae297d9254e17d0ba4406f9ffcbe65ddb7d275ba2",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "dys-m3-l1": {
       "key": "dys-m3-l1",
@@ -532,7 +541,7 @@
       "title": "Teaching Phonemic Awareness",
       "scriptSha256": "530a5aa2a990d94609274f4b775119d79e3eb99e688ed0e113650cbd20b0f44a",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "dys-m3-l2": {
       "key": "dys-m3-l2",
@@ -541,7 +550,7 @@
       "title": "What is Phonological Awareness?",
       "scriptSha256": "427dc27992e75d15f4ab11f4cd8fdbe183ef9948439e1bf08772228ae769b73a",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "dys-m4-l1": {
       "key": "dys-m4-l1",
@@ -550,7 +559,7 @@
       "title": "Teaching Phonics Systematically",
       "scriptSha256": "8ea997ad3afe018f4accef27947bbf2854fbc273467c0504673c37ee06016584",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "dys-m4-l2": {
       "key": "dys-m4-l2",
@@ -559,7 +568,7 @@
       "title": "Decodable Texts",
       "scriptSha256": "9c3dcd202dbd84b0bb23db1f9c5746e0f44c57f2c98456b790222fc223a53339",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "dys-m5-l1": {
       "key": "dys-m5-l1",
@@ -568,7 +577,7 @@
       "title": "What is Reading Fluency?",
       "scriptSha256": "d07a6d693f4bedd40506c14013b858cac71f40008d4ded382b2cdc4fe37eb929",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "dys-m5-l2": {
       "key": "dys-m5-l2",
@@ -577,7 +586,7 @@
       "title": "Fluency Interventions",
       "scriptSha256": "fd59a030a2919d95c71de92bc150dcb9b9d1a0b69b07c700deedcf7efdf7d231",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "dys-m6-l1": {
       "key": "dys-m6-l1",
@@ -586,7 +595,7 @@
       "title": "Comprehension Strategies",
       "scriptSha256": "f50eeb9b06f918318f00eccb01b021cf644c37e5b2e67bbe3b510ae09601b490",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "dys-m6-l2": {
       "key": "dys-m6-l2",
@@ -595,7 +604,7 @@
       "title": "The Simple View of Reading",
       "scriptSha256": "61f90cdb1a58c3854ead1a85ef461f914a6ffd910faefeb0e40130ca491f31e5",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "dys-m7-l1": {
       "key": "dys-m7-l1",
@@ -604,7 +613,7 @@
       "title": "Spelling Instruction",
       "scriptSha256": "e1dd13f2a3581e16b260d6f0e0c3cc3ebb8345c0fb118212387791603272cd44",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "dys-m7-l2": {
       "key": "dys-m7-l2",
@@ -613,7 +622,7 @@
       "title": "Supporting Written Expression",
       "scriptSha256": "41d2d2bcd4a41a0fa6adf308574fd3fc021c5f36597a7e9cee2a266b9c8bf1c0",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "dys-m8-l1": {
       "key": "dys-m8-l1",
@@ -622,7 +631,7 @@
       "title": "Classroom Accommodations",
       "scriptSha256": "789b5cf10b3db7dc912fb2549b1eca09059261189eedd4290cc55e96b7e29f7d",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "dys-m8-l2": {
       "key": "dys-m8-l2",
@@ -631,7 +640,7 @@
       "title": "Progress Monitoring",
       "scriptSha256": "e9e18c6b263d382aa334245806c8ca7b44c5e0e0bf5f3b31b2d7908803d3e25f",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "ehcp-annual-review": {
       "key": "ehcp-annual-review",
@@ -640,7 +649,7 @@
       "title": "The Education, Health and Care Plan Annual Review Process",
       "scriptSha256": "b883baee61d4c9985bf89f2baa366dbda5dfe07233268ba01d211735719fcde1",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "ehcp-appeals": {
       "key": "ehcp-appeals",
@@ -649,7 +658,7 @@
       "title": "Understanding Education, Health and Care Plan Appeals",
       "scriptSha256": "144486817f939cdfaf3b11b7c4402895f75488c70a7f7fb1a05b0d195922de05",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "ehcp-application-journey": {
       "key": "ehcp-application-journey",
@@ -658,7 +667,7 @@
       "title": "Your Education, Health and Care Plan Application Journey",
       "scriptSha256": "2e6d528fe85228579b0aacfbf01b114b63058bc98771e15ed54e9419ad9df5ec",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "ehcp-evidence-gathering": {
       "key": "ehcp-evidence-gathering",
@@ -667,7 +676,7 @@
       "title": "Gathering Strong Education, Health and Care Plan Evidence",
       "scriptSha256": "2c8ca8ce4ee69647486a734d358e9eb545c1398ba074244811453b1831fe8c2d",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "ehcp-modules-hub-overview": {
       "key": "ehcp-modules-hub-overview",
@@ -676,7 +685,7 @@
       "title": "EHCP Modules Hub: What You’ll Learn",
       "scriptSha256": "d18c4548832e06be83aa390d2cfe9235ece3e7ed1b12e2223b3f7d05dde38a61",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "ehcp-professional-contributions": {
       "key": "ehcp-professional-contributions",
@@ -685,7 +694,7 @@
       "title": "Understanding Professional Education, Health and Care Plan Contributions",
       "scriptSha256": "f0e9b943d001e27e5d5d415fb2f80e176e95bfa55d4e959e50e4ccbe9fa00f70",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "engagement-gamification": {
       "key": "engagement-gamification",
@@ -694,7 +703,7 @@
       "title": "Gamification: Engagement by Design",
       "scriptSha256": "6fc838eb2d24fd4218a6dc3d49bae1db2ba97635554c5221beb9e4a98df9fc0e",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "engagement-studio-overview": {
       "key": "engagement-studio-overview",
@@ -703,7 +712,7 @@
       "title": "Gamification: Engagement by Design",
       "scriptSha256": "6fc838eb2d24fd4218a6dc3d49bae1db2ba97635554c5221beb9e4a98df9fc0e",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "enterprise-plan-overview": {
       "key": "enterprise-plan-overview",
@@ -712,7 +721,7 @@
       "title": "Multi-Agency Orchestration",
       "scriptSha256": "e2b8ef42c823e2b11ca73bbc844bb60badd6b50995b94a1f7f55a69d9b5e71e1",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "feature-accessibility": {
       "key": "feature-accessibility",
@@ -721,7 +730,7 @@
       "title": "Universal Accessibility",
       "scriptSha256": "07a5ce6e15468adcbb5ab0b2bb3ce3d17de2ebb2be3a3300812a81e79ae5f1de",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "feature-ai-agents": {
       "key": "feature-ai-agents",
@@ -730,7 +739,7 @@
       "title": "Meet Dr. Scott AI",
       "scriptSha256": "bd0642d53ef59aeb2f47a57b15fa8f6146264874c6ba840e858d8177405c0963",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "feature-battle-royale": {
       "key": "feature-battle-royale",
@@ -739,7 +748,7 @@
       "title": "Battle Royale: Assessment They Actually Want to Do",
       "scriptSha256": "38c79c5971e6a1ca728857ecc506d5b9d74ff293b99c7f088fc93e4c38348536",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "feature-battle-royale-pricing": {
       "key": "feature-battle-royale-pricing",
@@ -748,7 +757,7 @@
       "title": "Battle Royale: Assessment They Actually Want to Do",
       "scriptSha256": "38c79c5971e6a1ca728857ecc506d5b9d74ff293b99c7f088fc93e4c38348536",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "feature-byod-architecture": {
       "key": "feature-byod-architecture",
@@ -757,7 +766,7 @@
       "title": "Bring Your Own Database: Data Sovereignty Explained",
       "scriptSha256": "b2d0bdbeaf0fa44fe91d3f0c79db6e7aee95e7aa93761ea17e62a97d35ca280b",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "feature-deep-dive-ehcp": {
       "key": "feature-deep-dive-ehcp",
@@ -766,7 +775,7 @@
       "title": "Your Education, Health and Care Plan Application Journey",
       "scriptSha256": "2e6d528fe85228579b0aacfbf01b114b63058bc98771e15ed54e9419ad9df5ec",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "feature-gamification": {
       "key": "feature-gamification",
@@ -775,7 +784,7 @@
       "title": "Gamification: Engagement by Design",
       "scriptSha256": "6fc838eb2d24fd4218a6dc3d49bae1db2ba97635554c5221beb9e4a98df9fc0e",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "feature-intervention-library": {
       "key": "feature-intervention-library",
@@ -784,7 +793,7 @@
       "title": "The Intervention Library: Over 100 Evidence-Based Strategies",
       "scriptSha256": "0820eefb34bbd84953e5945cb18d507ca044935cfcdf354952b31277c10c87ab",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "feature-interventions": {
       "key": "feature-interventions",
@@ -793,7 +802,7 @@
       "title": "Finding the Right Intervention",
       "scriptSha256": "adffabde863795161779b858b1e6e3b1d3a839a73c05d97d15d57c7062c32a3d",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "feature-la-dashboard": {
       "key": "feature-la-dashboard",
@@ -802,7 +811,7 @@
       "title": "The Local Authority Dashboard",
       "scriptSha256": "0e1e9f1ebd907328029198e2e71c448494b23f24cb5d16d288752ff9d16fb32b",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "feature-nclb-engine": {
       "key": "feature-nclb-engine",
@@ -811,7 +820,7 @@
       "title": "No Child Left Behind: The Differentiation Revolution",
       "scriptSha256": "7b9b0389b7376957e99161d430200f0cdc3693a20c369543bc963a9a437c89b1",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "gamification-integrity": {
       "key": "gamification-integrity",
@@ -820,7 +829,7 @@
       "title": "Gamification Integrity",
       "scriptSha256": "d0ef2fac291fa12cfeb2962cbaf0c63e013a58bf055abfb12d888e09422ca250",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "golden-thread-coherence": {
       "key": "golden-thread-coherence",
@@ -829,7 +838,7 @@
       "title": "The Golden Thread: Coherence From Needs to Outcomes",
       "scriptSha256": "693da847f54878dabfdb5a06ab7b375aa44dc893c28bf3b6cd52154ff95c1bde",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "guide-create-ehcp": {
       "key": "guide-create-ehcp",
@@ -838,7 +847,7 @@
       "title": "Your Education, Health and Care Plan Application Journey",
       "scriptSha256": "2e6d528fe85228579b0aacfbf01b114b63058bc98771e15ed54e9419ad9df5ec",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "guide-invite-user": {
       "key": "guide-invite-user",
@@ -847,7 +856,7 @@
       "title": "Getting Started with EdPsych Connect",
       "scriptSha256": "affcca8fcc9ba76447f502343e03a2a887d4da1ecb33747df6b2f09b2854f59e",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "guide-schedule-event": {
       "key": "guide-schedule-event",
@@ -856,16 +865,7 @@
       "title": "Getting Started with EdPsych Connect",
       "scriptSha256": "affcca8fcc9ba76447f502343e03a2a887d4da1ecb33747df6b2f09b2854f59e",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
-    },
-    "guide-token-reward": {
-      "key": "guide-token-reward",
-      "resolvedKey": "feature-gamification",
-      "sourceId": "world-class-v4-training",
-      "title": "Gamification: Engagement by Design",
-      "scriptSha256": "6fc838eb2d24fd4218a6dc3d49bae1db2ba97635554c5221beb9e4a98df9fc0e",
-      "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "guide-upload-report": {
       "key": "guide-upload-report",
@@ -874,7 +874,7 @@
       "title": "EPs: Report Writing Transformed",
       "scriptSha256": "a734c2857d9e8a6f591bdace6af66e13e3a0d8209cd4b24dde5f02df7627e939",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "help-collaboration": {
       "key": "help-collaboration",
@@ -883,7 +883,7 @@
       "title": "Collaborating with Your Team",
       "scriptSha256": "60493cbdf6b15a34c978a4a0797a7547f2e9cafcdfceddb4778659e276980bbc",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "help-cpd-tracking": {
       "key": "help-cpd-tracking",
@@ -892,7 +892,7 @@
       "title": "Tracking Your Professional Development",
       "scriptSha256": "4b62cd635058647adbcb6b2664b940877d868f611c526f5ee389a6ae66e68206",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "help-data-security": {
       "key": "help-data-security",
@@ -901,7 +901,7 @@
       "title": "How We Protect Your Data",
       "scriptSha256": "01d6be6ae20e5ffbfa38964fd6f66a41b2841a59d16d8de9bbdc053c5d8bfd1f",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "help-finding-interventions": {
       "key": "help-finding-interventions",
@@ -910,7 +910,7 @@
       "title": "Finding the Right Intervention",
       "scriptSha256": "adffabde863795161779b858b1e6e3b1d3a839a73c05d97d15d57c7062c32a3d",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "help-first-assessment": {
       "key": "help-first-assessment",
@@ -919,7 +919,7 @@
       "title": "Running Your First Assessment",
       "scriptSha256": "f0e722660b3a0a9d66c7769df33bc0c2094c961e5d8b3e4e3207aa3e73e9f3fb",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "help-generating-reports": {
       "key": "help-generating-reports",
@@ -928,7 +928,16 @@
       "title": "Generating Professional Reports",
       "scriptSha256": "e9be9830ce46bdb71d1a78fe36f8fcd8e31d0c6214e771ffad0c8854ea2ed0be",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
+    },
+    "help-getting-started": {
+      "key": "help-getting-started",
+      "resolvedKey": "help-getting-started",
+      "sourceId": "world-class-v4-core",
+      "title": "Getting Started with EdPsych Connect",
+      "scriptSha256": "affcca8fcc9ba76447f502343e03a2a887d4da1ecb33747df6b2f09b2854f59e",
+      "verifiedAudioMatch": false,
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "help-troubleshooting": {
       "key": "help-troubleshooting",
@@ -937,7 +946,7 @@
       "title": "Troubleshooting Common Issues",
       "scriptSha256": "3a31a603932cf2677fb63c7608851237837115a8f8fe45c941ea518d8d030847",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "innovation-ai-agents": {
       "key": "innovation-ai-agents",
@@ -946,7 +955,7 @@
       "title": "AI Tutoring Agents: Personalised Learning",
       "scriptSha256": "795a8bac4b9e591b0ddf3af7cbe7bc8741c6f23f30ddcdea935051e9830e1bda",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "innovation-battle-royale": {
       "key": "innovation-battle-royale",
@@ -955,7 +964,7 @@
       "title": "Battle Royale: Making Learning Thrilling",
       "scriptSha256": "91561090311544c165ee0327b7ff79dc998a8630e0f1fe6c5fb1aa366f6edcea",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "innovation-coding-curriculum": {
       "key": "innovation-coding-curriculum",
@@ -964,7 +973,7 @@
       "title": "Developers of Tomorrow: Inclusive Coding",
       "scriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "innovation-orchestration": {
       "key": "innovation-orchestration",
@@ -973,7 +982,7 @@
       "title": "Multi-Agency Orchestration",
       "scriptSha256": "e2b8ef42c823e2b11ca73bbc844bb60badd6b50995b94a1f7f55a69d9b5e71e1",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "innovation-research-hub": {
       "key": "innovation-research-hub",
@@ -982,7 +991,7 @@
       "title": "The Research Hub: Evidence-Based Practice",
       "scriptSha256": "cae2c64a3b4fa05715c0e894be55b95530663406028c338543aa07d166ddbe6b",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "innovation-safety-net": {
       "key": "innovation-safety-net",
@@ -991,7 +1000,7 @@
       "title": "The Safety Net: AI Risk Prediction",
       "scriptSha256": "aa3979b907c086a60d7530d5498a664933c3d2713daf47b12f7605df477f79ea",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "intro-coding-journey": {
       "key": "intro-coding-journey",
@@ -1000,7 +1009,7 @@
       "title": "Developers of Tomorrow: Inclusive Coding",
       "scriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "la-dashboard-overview": {
       "key": "la-dashboard-overview",
@@ -1009,7 +1018,7 @@
       "title": "Your Local Authority Dashboard Overview",
       "scriptSha256": "6d1cffade230f6b0926255f1377a2241f9f64b054218ce1e8155d00c5ee0e254",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "la-ehcp-merge-tool": {
       "key": "la-ehcp-merge-tool",
@@ -1018,7 +1027,7 @@
       "title": "The Education, Health and Care Plan Merge Tool Explained",
       "scriptSha256": "46a45e164a97afa8615b6aae2e989cab012009e0e0cbe083ddaeefd2d18db62c",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "la-professional-requests": {
       "key": "la-professional-requests",
@@ -1027,7 +1036,16 @@
       "title": "Managing Professional Requests",
       "scriptSha256": "8eb0da1e4903586dc8faff4a2f8745f6e16b31264bd4c5a89e44bd3ac9cc6be0",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
+    },
+    "marketing-studio-overview": {
+      "key": "marketing-studio-overview",
+      "resolvedKey": "platform-introduction",
+      "sourceId": "world-class-marketing",
+      "title": "Welcome to EdPsych Connect World",
+      "scriptSha256": "6d63e41457b1aa97d48a9fc2976b26b9efedf1ec6713a306b84cb91a8ea39946",
+      "verifiedAudioMatch": false,
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "mediation-tribunal-navigation": {
       "key": "mediation-tribunal-navigation",
@@ -1036,7 +1054,7 @@
       "title": "Mediation & Tribunal: Navigating Disagreement Constructively",
       "scriptSha256": "9b9c3c242395333a15e8aa2a56281d174df4f1fc3631d803cf6c968052ad6ed0",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "no-child-left-behind": {
       "key": "no-child-left-behind",
@@ -1045,16 +1063,7 @@
       "title": "No Child Left Behind",
       "scriptSha256": "a8f962f351339aefb676ce6bfb54214eff49f50356e9c7999c07d826894e3b21",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
-    },
-    "help-getting-started": {
-      "key": "help-getting-started",
-      "resolvedKey": "help-getting-started",
-      "sourceId": "world-class-onboarding",
-      "title": "Your Platform Tour",
-      "scriptSha256": "affcca8fcc9ba76447f502343e03a2a887d4da1ecb33747df6b2f09b2854f59e",
-      "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "onboarding-platform-tour": {
       "key": "onboarding-platform-tour",
@@ -1063,7 +1072,7 @@
       "title": "Your Platform Tour",
       "scriptSha256": "95e6baaf4f48a78427edd236cef746f5eb271319fefd7313c7000f5afe8c6516",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "onboarding-welcome": {
       "key": "onboarding-welcome",
@@ -1072,7 +1081,7 @@
       "title": "Welcome to Your EdPsych Connect Journey",
       "scriptSha256": "4200bbf0106d445555fbc2d467779802d9fc0618eea87bab7b87a3d93d4e5269",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "parent-contributing-views": {
       "key": "parent-contributing-views",
@@ -1081,7 +1090,7 @@
       "title": "Contributing Your Views",
       "scriptSha256": "4a203b41222f777925ccfa00b5a66a5e7356478f0069febe332c5e08e7c09c07",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "parent-portal-welcome": {
       "key": "parent-portal-welcome",
@@ -1090,7 +1099,7 @@
       "title": "Welcome to the Parent Portal",
       "scriptSha256": "dc3aa49a167ea430b61aaf9bd3a103e5894f7179d2ef3d963be4934fac949c11",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "parent-understanding-results": {
       "key": "parent-understanding-results",
@@ -1099,7 +1108,7 @@
       "title": "Understanding Your Child's Assessment Results",
       "scriptSha256": "6ad324ee63e538fc5603e5021e6b1c3d99677f749dd0329b2e65d0ba5c0bb2e3",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "phase-transfers-mastery": {
       "key": "phase-transfers-mastery",
@@ -1108,7 +1117,7 @@
       "title": "Phase Transfers: Reducing Risk at Transitions",
       "scriptSha256": "0054876b78a2896ce4fc3e868a1f642dcbf163b9b16ca37b2ce926ed390d30f8",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "platform-introduction": {
       "key": "platform-introduction",
@@ -1117,7 +1126,7 @@
       "title": "Welcome to EdPsych Connect World",
       "scriptSha256": "6d63e41457b1aa97d48a9fc2976b26b9efedf1ec6713a306b84cb91a8ea39946",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "python-basics": {
       "key": "python-basics",
@@ -1126,7 +1135,7 @@
       "title": "Python Basics: The Building Blocks",
       "scriptSha256": "d0304258caa47b575090d3e6d0a75ab511caf4ff4d98c11869211ea91a82804e",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "python-functions": {
       "key": "python-functions",
@@ -1135,7 +1144,7 @@
       "title": "Developers of Tomorrow: Inclusive Coding",
       "scriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "python-variables": {
       "key": "python-variables",
@@ -1144,7 +1153,7 @@
       "title": "Developers of Tomorrow: Inclusive Coding",
       "scriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "react-components": {
       "key": "react-components",
@@ -1153,7 +1162,7 @@
       "title": "Developers of Tomorrow: Inclusive Coding",
       "scriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "react-intro": {
       "key": "react-intro",
@@ -1162,7 +1171,7 @@
       "title": "React Intro: Building Interfaces as Components",
       "scriptSha256": "7959be8615904e3ce6711ac2f2743f351bba3cef316d9c4e9a8ad1b6deee8a7c",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "react-state": {
       "key": "react-state",
@@ -1171,7 +1180,7 @@
       "title": "Developers of Tomorrow: Inclusive Coding",
       "scriptSha256": "66989adc039c375e10db87296935f4f7ce50aed5dc46c93c529b748bc3e30c96",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "research-studio-overview": {
       "key": "research-studio-overview",
@@ -1180,7 +1189,7 @@
       "title": "The Research Hub: Evidence-Based Practice",
       "scriptSha256": "cae2c64a3b4fa05715c0e894be55b95530663406028c338543aa07d166ddbe6b",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "resource-costing-funding": {
       "key": "resource-costing-funding",
@@ -1189,7 +1198,16 @@
       "title": "Resource Costing & Funding: Making Provision Explicit",
       "scriptSha256": "594041f996aec79611b019055437808033b28d89e65bf296d2ab0c1d7edd8829",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
+    },
+    "sales-studio-overview": {
+      "key": "sales-studio-overview",
+      "resolvedKey": "platform-introduction",
+      "sourceId": "world-class-marketing",
+      "title": "Welcome to EdPsych Connect World",
+      "scriptSha256": "6d63e41457b1aa97d48a9fc2976b26b9efedf1ec6713a306b84cb91a8ea39946",
+      "verifiedAudioMatch": false,
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "school-senco-portal": {
       "key": "school-senco-portal",
@@ -1198,7 +1216,7 @@
       "title": "The SENCO Portal: Coordinating Support",
       "scriptSha256": "0bae53934de59243ca94578ba6b764968ced5ae7cd4940e11258937280eb3eaa",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "security-deep-dive": {
       "key": "security-deep-dive",
@@ -1207,7 +1225,7 @@
       "title": "Security Deep Dive: Designed for Sensitive SEND Data",
       "scriptSha256": "851516450ed2e0061ce31586234e3fdbbdc79a2c2e0818bb4544035cd9a8c374",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "sen2-returns-automation": {
       "key": "sen2-returns-automation",
@@ -1216,7 +1234,7 @@
       "title": "SEN2 Returns: Automation Without Losing Accuracy",
       "scriptSha256": "98c01125770b5818c1ab25b1177b5b859dc79e7c81edbba794edb44b57db4065",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "trust-built-by-practitioners": {
       "key": "trust-built-by-practitioners",
@@ -1225,7 +1243,7 @@
       "title": "Built by Someone Who Actually Does This Work",
       "scriptSha256": "623d4c5ed1ab15f01de1b65fa9a60ed494ce52c3ebbaf8dec7ce4577c66f52d8",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "trust-security": {
       "key": "trust-security",
@@ -1234,7 +1252,7 @@
       "title": "Security for Sensitive Data",
       "scriptSha256": "dd5622e128de324c2c6fa4b0882ea0093b91fc68bea387c34cf6d1d494c7f9ff",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     },
     "value-enterprise-platform": {
       "key": "value-enterprise-platform",
@@ -1243,7 +1261,7 @@
       "title": "The £2.35 Million Platform",
       "scriptSha256": "b3962c6e11ea5929b3ecdab134056ab687d5b51bedf39347bd8ff4f466e25ccc",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-01-09T00:00:51.182Z"
+      "generatedAt": "2026-01-16T18:24:16.985Z"
     }
   }
 }
