@@ -124,6 +124,11 @@ const SCRIPT_ALIASES: Record<string, string> = {
   'guide-schedule-event': 'help-getting-started',
   'guide-token-reward': 'feature-gamification',
   'guide-upload-report': 'onboard-ep-report-writing',
+
+  // Studio Overview aliases (mapped to platform introduction as fallback)
+  'marketing-studio-overview': 'platform-introduction',
+  'sales-studio-overview': 'platform-introduction',
+  'customer-success-studio-overview': 'platform-introduction',
 };
 
 function isScriptEntryLike(value: unknown): value is ScriptEntryLike {
