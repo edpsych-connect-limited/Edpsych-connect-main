@@ -16,8 +16,12 @@ import path from 'path';
 import dotenv from 'dotenv';
 import { v2 as cloudinary } from 'cloudinary';
 
-// Load environment variables from .env file
-dotenv.config();
+const mode = (process.env.NODE_ENV || 'development').toLowerCase();
+const candidates = [`.env.${mode}.local`, '.env.local', `.env.${mode}`, '.env'];
+for (const rel of candidates) {
+  const abs = path.join(process.cwd(), rel);
+  if (fs.existsSync(abs)) dotenv.config({ path: abs, override: false });
+}
 
 // Configure Cloudinary
 cloudinary.config({

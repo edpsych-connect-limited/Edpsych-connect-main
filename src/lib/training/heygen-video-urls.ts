@@ -22,7 +22,7 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   // NOTE: These are used across Pricing + Landing surfaces. If Cloudinary isn't
   // mapped yet, the player will fall back to HeyGen embed.
   // December 2025 pricing suite (see `docs/VIDEO_AUDIT_REPORT.md`)
-  "value-enterprise-platform": "17126ba3772f4a7984aa5fa82d85c817",
+  "value-enterprise-platform": "868bb5e5e35746968d8f7abe65aba081",
   "addon-ai-power-pack": "d5909b4cfdc6432f8e3e92afb5c3e3fc",
   "addon-ehcp-accelerator": "d47af80deaa946689e33a4ed4a918323",
   "addon-cpd-library": "d5c904f898eb438aa14deb375cda1872",
@@ -30,10 +30,10 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "addon-white-label": "2601efeb473e40bd98844f8d33437826",
   "addon-priority-support": "63b728a51d8349388e87e98597811664",
   // "feature-nclb-engine": "738bbcfaa87541aeb36e061c00db5ece", // WRONG_AVATAR
-  "feature-nclb-engine": "67b145614e7f4e61b0e69529391ed580", // Alias to no-child-left-behind
-  "feature-battle-royale": "58d38fdf4d8640c1b9d848a826d686a6",
-  "feature-battle-royale-pricing": "58d38fdf4d8640c1b9d848a826d686a6", // alias: PricingPage key
-  // "feature-byod-architecture": "4ae970ec77f145b3a5ccc12298fd7cd1", // WRONG_AVATAR
+  "feature-nclb-engine": "1a01810e51df48e5a61838d78d3747e5", // Fixed regeneration
+  "feature-battle-royale": "e1bef5ae78f244059f1dac13f496ed3b",
+  "feature-battle-royale-pricing": "e1bef5ae78f244059f1dac13f496ed3b", // alias: PricingPage key
+  "feature-byod-architecture": "648558037cf14dad9328ba214e7b349a", // Fixed regeneration
   "feature-intervention-library": "ca9e9c0875994e2786cb59150c2a6e2a",
   "compare-true-cost": "21a6eb143c734c00917f11f36428a387",
   "compare-switching": "fcff323c9cce4ea1b18dcfb4127ff5c2",
@@ -46,7 +46,7 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   // NOTE (truth-by-code): If you change the casting (avatar/voice) behind this key,
   // ensure you have documented provenance/consent for any real-person identity.
   // Avoid swapping identities via Cloudinary overrides without updating provenance.
-  "onboarding-welcome": "17126ba3772f4a7984aa5fa82d85c817",
+  "onboarding-welcome": "ec9d67ec19724552b7ad0b184400a073",
 
   // MICRO-GUIDES (Just-In-Time Intelligence)
   "guide-create-ehcp": "e0fd73d582534c23acdf88c81fd4e616", // Placeholder (using merge-tool ID)
@@ -521,14 +521,14 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
   "la-professional-requests": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641777/edpsych-connect/videos/la-professional-requests.mp4",
   "la-dashboard-overview": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641794/edpsych-connect/videos/la-dashboard-overview.mp4",
   "feature-la-dashboard": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644467/edpsych-connect/videos/feature-la-dashboard.mp4",
-  "onboarding-welcome": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766258344/edpsych-connect/videos/onboarding-welcome.mp4",
+  "onboarding-welcome": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578029/edpsych-connect/videos/welcome.mp4",
 
   // Verified working (HTTP 206 with 1-byte range probe):
   // These keys previously had no CDN mapping and were HeyGen-only single points of failure.
-  "feature-battle-royale": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-battle-royale.mp4",
-  // "feature-byod-architecture": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-byod-architecture.mp4", // WRONG_AVATAR
-  // "feature-nclb-engine": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-nclb-engine.mp4", // WRONG_AVATAR
-  "value-enterprise-platform": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/value-enterprise-platform.mp4",
+  "feature-battle-royale": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578107/edpsych-connect/videos/innovation-battle-royale.mp4",
+  "feature-byod-architecture": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578122/edpsych-connect/videos/feature-byod-architecture.mp4",
+  "feature-nclb-engine": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578139/edpsych-connect/videos/feature-nclb-engine.mp4",
+  "value-enterprise-platform": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578171/edpsych-connect/videos/value-enterprise-platform.mp4",
 
   // Disabled (confirmed 404 by tools/validate-video-assets.ts)
   // Fall back to local/HeyGen sources instead of breaking playback.
