@@ -57,7 +57,7 @@ async function generateVideo(script: string, title: string): Promise<string | nu
       },
     ],
     test: false,
-    aspect_ratio: "16:9",
+    dimension: { width: 1280, height: 720 },
     title: title
   });
 
