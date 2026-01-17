@@ -96,6 +96,25 @@ export default function AdminInterface() {
   const [blogStatus, setBlogStatus] = useState<any>(null);
   const [blogGenerating, setBlogGenerating] = useState(false);
   const [blogError, setBlogError] = useState<string | null>(null);
+  const blogOwnerEmail = 'scott.ipatrick@edpsychconnect.com';
+  const isBlogOwner = (user?.email || '').toLowerCase() === blogOwnerEmail;
+
+  useEffect(() => {
+    if (!isBlogOwner) return;
+    const loadBlogStatus = async () => {
+      try {
+        const response = await fetch('/api/blog/status');
+        const data = await response.json();
+        if (!data?.error) {
+          setBlogStatus(data);
+        }
+      } catch (error) {
+        console.error('Failed to load blog status:', error);
+      }
+    };
+
+    loadBlogStatus();
+  }, [isBlogOwner]);
 
   // Loading state
   if (isLoading) {
@@ -174,26 +193,6 @@ export default function AdminInterface() {
 
   // Filter tabs based on user permissions
   const accessibleTabs = ADMIN_TABS.filter(canAccessTab);
-  const blogOwnerEmail = 'scott.ipatrick@edpsychconnect.com';
-  const isBlogOwner = (user?.email || '').toLowerCase() === blogOwnerEmail;
-
-  useEffect(() => {
-    if (!isBlogOwner) return;
-    const loadBlogStatus = async () => {
-      try {
-        const response = await fetch('/api/blog/status');
-        const data = await response.json();
-        if (!data?.error) {
-          setBlogStatus(data);
-        }
-      } catch (error) {
-        console.error('Failed to load blog status:', error);
-      }
-    };
-
-    loadBlogStatus();
-  }, [isBlogOwner]);
-
   const handleGenerateBlogPost = async () => {
     setBlogError(null);
     setBlogGenerating(true);
