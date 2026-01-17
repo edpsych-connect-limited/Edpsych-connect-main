@@ -16,6 +16,7 @@
 
 import { logger } from '@/lib/logger';
 import { prisma } from '@/lib/prisma';
+import { createEvidenceTraceId, recordEvidenceEvent } from '@/lib/analytics/evidence-telemetry';
 
 // ============================================================================
 // Types and Interfaces
@@ -208,6 +209,24 @@ export class TimeSavingsService {
         evidenceType: metric.evidenceType,
         metadata: metric.metadata ? JSON.stringify(metric.metadata) : null,
         recordedAt: new Date(),
+      },
+    });
+
+    await recordEvidenceEvent({
+      tenantId: this.tenantId,
+      userId: metric.userId,
+      traceId: createEvidenceTraceId(),
+      eventType: 'time_savings_recorded',
+      workflowType: metric.featureCategory,
+      actionType: metric.actionType,
+      status: 'ok',
+      evidenceType: metric.evidenceType,
+      summary: `${metric.featureName} saved ${timeSaved} minutes`,
+      metadata: {
+        featureName: metric.featureName,
+        traditionalTimeMinutes: metric.traditionalTimeMinutes,
+        automatedTimeMinutes: metric.automatedTimeMinutes,
+        timeSavedMinutes: timeSaved,
       },
     });
 

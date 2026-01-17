@@ -12,6 +12,9 @@ import { getDefaultOpenAIModel } from '@/lib/ai/openai-model';
 import { redactPII } from '@/lib/security/pii-redaction';
 import { AI_DATA_USE_POLICY } from '@/lib/ai/data-use-policy';
 import { enforceEthicsGate } from '@/lib/ethics/ethics-gate';
+import { createEvidenceTraceId, hashEvidenceText, recordEvidenceEvent } from '@/lib/analytics/evidence-telemetry';
+import { evaluateAiReviewPolicy } from '@/lib/governance/ai-review-policy';
+import { createAiReview } from '@/lib/governance/ai-review.service';
 // import { getDemoResponse } from '@/lib/ai/demo-data'; // Removed for Truth-by-Code
 
 export interface AIRequest {
@@ -43,6 +46,10 @@ export interface AIResponse {
   tokens: number;
   fromCache: boolean;
   processingTime: number;
+  traceId?: string;
+  reviewRequired?: boolean;
+  reviewStatus?: 'pending' | 'approved' | 'rejected' | 'modified';
+  reviewId?: string | null;
 }
 
 export interface AgentConfig {
@@ -507,6 +514,16 @@ class AIIntegrationService {
 
   async processRequest(request: AIRequest): Promise<AIResponse> {
     const startTime = performance.now();
+    const traceId = createEvidenceTraceId();
+    const tenantIdRaw = typeof request.tenantId === 'string' ? parseInt(request.tenantId, 10) : request.tenantId;
+    const tenantId = Number.isFinite(tenantIdRaw) ? (tenantIdRaw as number) : null;
+    const userIdRaw = typeof request.id === 'string' ? parseInt(request.id, 10) : (request.id as number);
+    const userId = Number.isFinite(userIdRaw) ? (userIdRaw as number) : undefined;
+    const reviewDecision = evaluateAiReviewPolicy({
+      useCase: request.useCase,
+      autonomyLevel: request.autonomyLevel || 'advisory',
+      platformContext: request.context,
+    });
 
     // Repo-enforced policy: this product must not use end-user queries to train future AI models.
     // (If this ever changes, it must be an explicit, audited governance decision.)
@@ -533,50 +550,123 @@ class AIIntegrationService {
 
     const providerInfo = this.resolveProviderModel(agent, request);
     let ethicsGateDecision: { allowed: boolean; reason?: string; modelVersionId?: string; fairnessEvaluationId?: string } | null = null;
-    if (process.env.ETHICS_GATE_DISABLED !== 'true') {
-      ethicsGateDecision = await enforceEthicsGate({
-        provider: providerInfo.provider,
-        providerModel: providerInfo.providerModel,
-        tenantId: request.tenantId,
+      if (process.env.ETHICS_GATE_DISABLED !== 'true') {
+        ethicsGateDecision = await enforceEthicsGate({
+          provider: providerInfo.provider,
+          providerModel: providerInfo.providerModel,
+          tenantId: request.tenantId,
         userId: request.id,
-        useCase: request.useCase
-      });
-      if (!ethicsGateDecision.allowed) {
-        throw new Error(`Ethics gate blocked: ${ethicsGateDecision.reason || 'unknown'}`);
+          useCase: request.useCase
+        });
+        if (!ethicsGateDecision.allowed) {
+          if (tenantId) {
+            await recordEvidenceEvent({
+              tenantId,
+              userId,
+              traceId,
+              eventType: 'ai_request',
+              workflowType: request.useCase,
+              actionType: request.useCase,
+              status: 'blocked',
+              evidenceType: 'system',
+              modelVersionId: ethicsGateDecision.modelVersionId,
+              requestId: traceId,
+              summary: ethicsGateDecision.reason || 'Ethics gate blocked request',
+            });
+          }
+          throw new Error(`Ethics gate blocked: ${ethicsGateDecision.reason || 'unknown'}`);
+        }
       }
-    }
 
-    // Privacy guard: redact PII before it can leave our boundary (best-effort).
+      // Privacy guard: redact PII before it can leave our boundary (best-effort).
     const shouldRedactPII =
       request.redactPII ?? (process.env.NODE_ENV === 'production');
 
-    const promptForProvider = shouldRedactPII
-      ? redactPII(request.prompt, { entities: request.piiEntities }).redactedText
-      : request.prompt;
+      const promptForProvider = shouldRedactPII
+        ? redactPII(request.prompt, { entities: request.piiEntities }).redactedText
+        : request.prompt;
+      const inputHash = hashEvidenceText(promptForProvider);
 
-    // Check cache (only if Redis is available). Cache keys are derived from the prompt
-    // actually sent to providers (redacted when enabled).
-    const cacheKey = this.generateCacheKey({
-      prompt: promptForProvider,
+      // Check cache (only if Redis is available). Cache keys are derived from the prompt
+      // actually sent to providers (redacted when enabled).
+      const cacheKey = this.generateCacheKey({
+        prompt: promptForProvider,
       useCase: request.useCase,
       context: request.context,
     });
-    const cached = this.redis ? await this.redis.get(cacheKey) : null;
-    if (cached && this.shouldUseCache(request.subscriptionTier)) {
-      return {
-        response: cached as string,
-        model: 'cache',
-        cost: 0,
-        tokens: 0,
-        fromCache: true,
-        processingTime: performance.now() - startTime,
-      };
-    }
+      const cached = this.redis ? await this.redis.get(cacheKey) : null;
+      if (cached && this.shouldUseCache(request.subscriptionTier)) {
+        if (tenantId) {
+          await recordEvidenceEvent({
+            tenantId,
+            userId,
+            traceId,
+            eventType: 'ai_response',
+            workflowType: request.useCase,
+            actionType: request.useCase,
+            status: 'ok',
+            durationMs: Math.round(performance.now() - startTime),
+            evidenceType: 'measured',
+            modelVersionId: ethicsGateDecision?.modelVersionId,
+            requestId: traceId,
+            inputHash,
+            outputHash: hashEvidenceText(cached as string),
+            summary: 'Cache hit response',
+            metadata: { fromCache: true },
+          });
+        }
+        let reviewId: string | null = null;
+        if (reviewDecision.required && tenantId) {
+          reviewId = await createAiReview({
+            tenantId,
+            userId,
+            auditLogId: null,
+            evidenceEventId: null,
+            modelVersionId: ethicsGateDecision?.modelVersionId ?? null,
+            requestId: traceId,
+            useCase: request.useCase,
+            agentId: agent.name,
+            severity: reviewDecision.severity,
+            reason: reviewDecision.reason,
+            responsePreview: String(cached).slice(0, 1200),
+          });
+        }
 
-    // Check budget (fix precedence bug)
-    const estimatedCost = this.estimateCost(promptForProvider, agent.model);
-    if (((this.dailyUsage.get(request.id) || 0) + estimatedCost) > this.dailyBudget) {
-      // Try fallback to cached or simpler response
+        return {
+          response: cached as string,
+          model: 'cache',
+          cost: 0,
+          tokens: 0,
+          fromCache: true,
+          processingTime: performance.now() - startTime,
+          traceId,
+          reviewRequired: reviewDecision.required,
+          reviewStatus: reviewDecision.required ? 'pending' : undefined,
+          reviewId,
+        };
+      }
+
+      if (tenantId) {
+        await recordEvidenceEvent({
+          tenantId,
+          userId,
+          traceId,
+          eventType: 'ai_request',
+          workflowType: request.useCase,
+          actionType: request.useCase,
+          status: 'ok',
+          evidenceType: 'measured',
+          modelVersionId: ethicsGateDecision?.modelVersionId,
+          requestId: traceId,
+          inputHash,
+          summary: 'AI request accepted',
+        });
+      }
+
+      // Check budget (fix precedence bug)
+      const estimatedCost = this.estimateCost(promptForProvider, agent.model);
+      if (((this.dailyUsage.get(request.id) || 0) + estimatedCost) > this.dailyBudget) {
+        // Try fallback to cached or simpler response
       return this.handleBudgetExceeded(request);
     }
 
@@ -608,34 +698,103 @@ class AIIntegrationService {
       const auditInput = shouldRedactPII
         ? redactPII(request.prompt, { entities: request.piiEntities }).redactedText
         : request.prompt;
-      const auditOutput = shouldRedactPII
-        ? redactPII(response.content, { entities: request.piiEntities }).redactedText
-        : response.content;
+        const auditOutput = shouldRedactPII
+          ? redactPII(response.content, { entities: request.piiEntities }).redactedText
+          : response.content;
 
-      await aiAuditService.logDecision({
-        agentId: agent.name,
-        userId: request.id,
-        tenantId: request.tenantId || 'unknown',
-        action: request.useCase,
-        input: auditInput,
-        output: auditOutput,
-        confidenceScore: 0.95, // Mock confidence for now
-        autonomyLevel: request.autonomyLevel || 'advisory',
-        humanReviewRequired: request.autonomyLevel === 'advisory',
-        metadata: {
-          ethicsGate: ethicsGateDecision || { skipped: true },
-          providerModel: providerInfo
+        const auditLogId = await aiAuditService.logDecision({
+          agentId: agent.name,
+          userId: request.id,
+          tenantId: request.tenantId || 'unknown',
+          action: request.useCase,
+          input: auditInput,
+          output: auditOutput,
+          confidenceScore: 0.95, // Mock confidence for now
+          autonomyLevel: request.autonomyLevel || 'advisory',
+          humanReviewRequired: reviewDecision.required,
+          metadata: {
+            ethicsGate: ethicsGateDecision || { skipped: true },
+            providerModel: providerInfo,
+            reviewPolicy: {
+              required: reviewDecision.required,
+              severity: reviewDecision.severity,
+              mode: reviewDecision.mode,
+            },
+          }
+        });
+
+        const responseEvidenceId = tenantId
+          ? await recordEvidenceEvent({
+              tenantId,
+              userId,
+              traceId,
+              eventType: 'ai_response',
+              workflowType: request.useCase,
+              actionType: request.useCase,
+              status: 'ok',
+              durationMs: Math.round(performance.now() - startTime),
+              evidenceType: 'measured',
+              modelVersionId: ethicsGateDecision?.modelVersionId,
+              requestId: traceId,
+              inputHash,
+              outputHash: hashEvidenceText(auditOutput),
+              summary: 'AI response generated',
+              metadata: { fromCache: false },
+            })
+          : null;
+
+        let reviewId: string | null = null;
+        if (reviewDecision.required && tenantId) {
+          reviewId = await createAiReview({
+            tenantId,
+            userId,
+            auditLogId,
+            evidenceEventId: responseEvidenceId,
+            modelVersionId: ethicsGateDecision?.modelVersionId ?? null,
+            requestId: traceId,
+            useCase: request.useCase,
+            agentId: agent.name,
+            severity: reviewDecision.severity,
+            reason: reviewDecision.reason,
+            responsePreview: auditOutput.slice(0, 1200),
+          });
+
+          await recordEvidenceEvent({
+            tenantId,
+            userId,
+            traceId,
+            eventType: 'review_required',
+            workflowType: request.useCase,
+            actionType: request.useCase,
+            status: 'ok',
+            evidenceType: 'system',
+            modelVersionId: ethicsGateDecision?.modelVersionId,
+            requestId: traceId,
+            summary: reviewDecision.reason || 'Review required',
+            metadata: {
+              reviewId,
+              severity: reviewDecision.severity,
+            },
+          });
         }
-      });
 
-      return {
-        response: response.content,
-        model: agent.model,
-        cost: actualCost,
-        tokens: response.tokens,
-        fromCache: false,
-        processingTime: performance.now() - startTime
-      };
+        const reviewEnforced = reviewDecision.required && reviewDecision.mode === 'enforce';
+        const responseContent = reviewEnforced
+          ? 'This AI output has been queued for human review. A reviewer must approve it before release.'
+          : response.content;
+
+        return {
+          response: responseContent,
+          model: agent.model,
+          cost: actualCost,
+          tokens: response.tokens,
+          fromCache: false,
+          processingTime: performance.now() - startTime,
+          traceId,
+          reviewRequired: reviewDecision.required,
+          reviewStatus: reviewDecision.required ? 'pending' : undefined,
+          reviewId,
+        };
 
     } catch (_error) {
       // Fallback to alternative provider
@@ -1008,6 +1167,10 @@ export interface ChatResponse {
   estimatedCost: number;
   model: string;
   responseTime: number;
+  traceId?: string;
+  reviewRequired?: boolean;
+  reviewStatus?: 'pending' | 'approved' | 'rejected' | 'modified';
+  reviewId?: string | null;
 }
 
 /**
@@ -1093,13 +1256,17 @@ class AIIntegration {
 
       const responseTime = performance.now() - startTime;
 
-      return {
-        content: response.response,
-        tokensUsed: response.tokens,
-        estimatedCost: response.cost,
-        model: response.model,
-        responseTime: responseTime
-      };
+        return {
+          content: response.response,
+          tokensUsed: response.tokens,
+          estimatedCost: response.cost,
+          model: response.model,
+          responseTime: responseTime,
+          traceId: response.traceId,
+          reviewRequired: response.reviewRequired,
+          reviewStatus: response.reviewStatus,
+          reviewId: response.reviewId,
+        };
     } catch (_error) {
       console.error('[aiIntegration] Chat error:', _error);
 

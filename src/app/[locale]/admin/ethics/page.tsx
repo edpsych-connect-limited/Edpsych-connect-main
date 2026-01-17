@@ -8,8 +8,6 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 import { useState, useEffect } from 'react';
 
 export default function EthicsAdminPage() {
@@ -18,7 +16,12 @@ export default function EthicsAdminPage() {
   const [monitors, setMonitors] = useState<any[]>([]);
   const [incidents, setIncidents] = useState<any[]>([]);
   const [assessments, setAssessments] = useState<any[]>([]);
+  const [evidenceMetrics, setEvidenceMetrics] = useState<any>(null);
+  const [reviews, setReviews] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState('overview');
+  const [reviewUpdatingId, setReviewUpdatingId] = useState<string | null>(null);
+  const [reviewActionError, setReviewActionError] = useState<string | null>(null);
+  const [reviewNotes, setReviewNotes] = useState<Record<string, string>>({});
 
   useEffect(() => {
     const loadData = async () => {
@@ -26,24 +29,30 @@ export default function EthicsAdminPage() {
         setLoading(true);
 
         // Load all ethics data
-        const [analyticsRes, monitorsRes, incidentsRes, assessmentsRes] = await Promise.all([
+        const [analyticsRes, monitorsRes, incidentsRes, assessmentsRes, evidenceRes, reviewsRes] = await Promise.all([
           fetch('/api/ethics/analytics'),
           fetch('/api/ethics/monitors'),
           fetch('/api/ethics/incidents?status=active'),
-          fetch('/api/ethics/assessments')
+          fetch('/api/ethics/assessments'),
+          fetch('/api/evidence/metrics'),
+          fetch('/api/ai/reviews')
         ]);
 
-        const [analyticsData, monitorsData, incidentsData, assessmentsData] = await Promise.all([
+        const [analyticsData, monitorsData, incidentsData, assessmentsData, evidenceData, reviewsData] = await Promise.all([
           analyticsRes.json(),
           monitorsRes.json(),
           incidentsRes.json(),
-          assessmentsRes.json()
+          assessmentsRes.json(),
+          evidenceRes.json(),
+          reviewsRes.json()
         ]);
 
         setAnalytics(analyticsData);
         setMonitors(monitorsData.monitors || []);
         setIncidents(incidentsData.incidents || []);
         setAssessments(assessmentsData.assessments || []);
+        setEvidenceMetrics(evidenceData || null);
+        setReviews(reviewsData.reviews || []);
       } catch (_error) {
         console.error('Failed to load ethics data:', _error);
       } finally {
@@ -53,6 +62,44 @@ export default function EthicsAdminPage() {
 
     loadData();
   }, []);
+
+  const handleReviewDecision = async (reviewId: string, status: 'approved' | 'rejected' | 'modified') => {
+    try {
+      setReviewActionError(null);
+      setReviewUpdatingId(reviewId);
+      const decisionNotesRaw = reviewNotes[reviewId] || '';
+      const decisionNotes = decisionNotesRaw.trim();
+      if (status !== 'approved' && !decisionNotes) {
+        setReviewActionError('Decision notes are required for rejection or modification.');
+        return;
+      }
+
+      const response = await fetch(`/api/ai/reviews/${reviewId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status, decisionNotes: decisionNotes || undefined })
+      });
+
+      if (!response.ok) {
+        const errorPayload = await response.json().catch(() => ({}));
+        throw new Error(errorPayload?.error || 'Failed to update review');
+      }
+
+      const payload = await response.json();
+      const updatedReview = payload.review;
+      setReviews((prev) => prev.map((review) => (review.id === reviewId ? updatedReview : review)));
+      setReviewNotes((prev) => {
+        const next = { ...prev };
+        delete next[reviewId];
+        return next;
+      });
+    } catch (error: any) {
+      console.error('Failed to update review:', error);
+      setReviewActionError(error?.message || 'Failed to update review');
+    } finally {
+      setReviewUpdatingId(null);
+    }
+  };
 
   if (loading) {
     return (
@@ -159,7 +206,7 @@ export default function EthicsAdminPage() {
         <div className="bg-white rounded-lg shadow mb-8">
           <div className="border-b border-gray-200">
             <nav className="flex -mb-px">
-              {['overview', 'monitors', 'incidents', 'assessments'].map((tab) => (
+              {['overview', 'monitors', 'incidents', 'assessments', 'evidence', 'reviews'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
@@ -327,6 +374,134 @@ export default function EthicsAdminPage() {
                     </div>
                   </div>
                 ))}
+              </div>
+            )}
+
+            {activeTab === 'evidence' && (
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="border border-gray-200 rounded-lg p-4">
+                    <p className="text-sm text-gray-600">Evidence Events (30d)</p>
+                    <p className="text-2xl font-semibold text-gray-900">
+                      {evidenceMetrics?.summary?.events30d || 0}
+                    </p>
+                  </div>
+                  <div className="border border-gray-200 rounded-lg p-4">
+                    <p className="text-sm text-gray-600">Unique Users</p>
+                    <p className="text-2xl font-semibold text-gray-900">
+                      {evidenceMetrics?.summary?.uniqueUsers30d || 0}
+                    </p>
+                  </div>
+                  <div className="border border-gray-200 rounded-lg p-4">
+                    <p className="text-sm text-gray-600">Reviews (30d)</p>
+                    <p className="text-2xl font-semibold text-gray-900">
+                      {evidenceMetrics?.summary?.reviews30d || 0}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="border border-gray-200 rounded-lg p-4">
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">Top Evidence Types</h3>
+                  {evidenceMetrics?.byType?.length ? (
+                    <div className="space-y-3">
+                      {evidenceMetrics.byType.map((entry: any) => (
+                        <div key={entry.type} className="flex items-center justify-between">
+                          <span className="text-sm text-gray-700">{entry.type}</span>
+                          <span className="text-sm font-medium text-gray-900">{entry.count}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-sm text-gray-500">No evidence activity recorded yet.</p>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'reviews' && (
+              <div className="space-y-4">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">AI Review Queue</h3>
+                  <span className="text-sm text-gray-500">
+                    Pending {reviews.filter((review) => review.status === 'pending').length}
+                  </span>
+                </div>
+                {reviewActionError && (
+                  <div className="border border-red-200 bg-red-50 text-red-700 rounded-lg p-3 text-sm">
+                    {reviewActionError}
+                  </div>
+                )}
+                {reviews.length === 0 ? (
+                  <div className="text-center py-12 text-gray-500">
+                    No reviews in queue
+                  </div>
+                ) : (
+                  reviews.map((review) => (
+                    <div key={review.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                      <div className="flex justify-between items-start">
+                        <div className="flex-1">
+                          <h4 className="font-medium text-gray-900">{review.useCase}</h4>
+                          <p className="text-sm text-gray-600 mt-1">{review.reason || 'Awaiting reviewer context'}</p>
+                          <div className="flex gap-2 mt-2">
+                            <span className="px-2 py-1 text-xs bg-gray-100 text-gray-800 rounded">
+                              {review.severity || 'medium'}
+                            </span>
+                            <span className={`px-2 py-1 text-xs rounded ${
+                              review.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                              review.status === 'approved' ? 'bg-green-100 text-green-800' :
+                              review.status === 'rejected' ? 'bg-red-100 text-red-800' :
+                              'bg-gray-100 text-gray-800'
+                            }`}>
+                              {review.status}
+                            </span>
+                          </div>
+                          {review.status === 'pending' && (
+                            <div className="flex flex-wrap gap-2 mt-3">
+                              <div className="w-full">
+                                <label className="block text-xs font-medium text-gray-700 mb-1">
+                                  Decision notes (required for reject/modify)
+                                </label>
+                                <textarea
+                                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-800 focus:border-blue-500 focus:outline-none"
+                                  rows={3}
+                                  placeholder="Add context or required changes..."
+                                  value={reviewNotes[review.id] || ''}
+                                  onChange={(event) =>
+                                    setReviewNotes((prev) => ({ ...prev, [review.id]: event.target.value }))
+                                  }
+                                />
+                              </div>
+                              <button
+                                className="px-3 py-1 text-xs font-medium bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50"
+                                onClick={() => handleReviewDecision(review.id, 'approved')}
+                                disabled={reviewUpdatingId === review.id}
+                              >
+                                Approve
+                              </button>
+                              <button
+                                className="px-3 py-1 text-xs font-medium bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50"
+                                onClick={() => handleReviewDecision(review.id, 'rejected')}
+                                disabled={reviewUpdatingId === review.id || !(reviewNotes[review.id] || '').trim()}
+                              >
+                                Reject
+                              </button>
+                              <button
+                                className="px-3 py-1 text-xs font-medium bg-gray-800 text-white rounded hover:bg-gray-900 disabled:opacity-50"
+                                onClick={() => handleReviewDecision(review.id, 'modified')}
+                                disabled={reviewUpdatingId === review.id || !(reviewNotes[review.id] || '').trim()}
+                              >
+                                Approve with Modifications
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {review.createdAt ? new Date(review.createdAt).toLocaleString() : '—'}
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
             )}
           </div>

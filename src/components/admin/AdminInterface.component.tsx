@@ -8,9 +8,7 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/lib/auth/hooks';
 import SubscriptionManager from '../subscription/SubscriptionManager';
 import InstitutionalSubscriptionOverview from '../subscriptions/InstitutionalSubscriptionOverview';
@@ -95,6 +93,9 @@ export default function AdminInterface() {
   // Authentication and authorization
   const { user, isLoading, hasRole, hasPermission } = useAuth();
   const [activeTab, setActiveTab] = useState<AdminTab>('overview');
+  const [blogStatus, setBlogStatus] = useState<any>(null);
+  const [blogGenerating, setBlogGenerating] = useState(false);
+  const [blogError, setBlogError] = useState<string | null>(null);
 
   // Loading state
   if (isLoading) {
@@ -173,6 +174,74 @@ export default function AdminInterface() {
 
   // Filter tabs based on user permissions
   const accessibleTabs = ADMIN_TABS.filter(canAccessTab);
+  const blogOwnerEmail = 'scott.ipatrick@edpsychconnect.com';
+  const isBlogOwner = (user?.email || '').toLowerCase() === blogOwnerEmail;
+
+  useEffect(() => {
+    if (!isBlogOwner) return;
+    const loadBlogStatus = async () => {
+      try {
+        const response = await fetch('/api/blog/status');
+        const data = await response.json();
+        if (!data?.error) {
+          setBlogStatus(data);
+        }
+      } catch (error) {
+        console.error('Failed to load blog status:', error);
+      }
+    };
+
+    loadBlogStatus();
+  }, [isBlogOwner]);
+
+  const handleGenerateBlogPost = async () => {
+    setBlogError(null);
+    setBlogGenerating(true);
+    try {
+      const response = await fetch('/api/admin/blog/generate', { method: 'POST' });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data?.error || 'Failed to generate post');
+      }
+      const statusResponse = await fetch('/api/blog/status');
+      const statusData = await statusResponse.json();
+      if (!statusData?.error) {
+        setBlogStatus(statusData);
+      }
+    } catch (error: any) {
+      console.error('Blog generation failed:', error);
+      setBlogError(error?.message || 'Blog generation failed');
+    } finally {
+      setBlogGenerating(false);
+    }
+  };
+
+  const blogStatusInfo = (() => {
+    if (!blogStatus?.lastPublishedAt) {
+      return { label: 'Inactive', tone: 'bg-gray-100 text-gray-700', detail: 'No published posts yet' };
+    }
+    const lastPublished = new Date(blogStatus.lastPublishedAt);
+    const daysSince = Math.floor((Date.now() - lastPublished.getTime()) / 86400000);
+    if (daysSince <= 1) {
+      return {
+        label: 'Healthy',
+        tone: 'bg-emerald-100 text-emerald-700',
+        detail: `Last post ${daysSince === 0 ? 'today' : 'yesterday'}`
+      };
+    }
+    if (daysSince <= 3) {
+      return {
+        label: 'Delayed',
+        tone: 'bg-amber-100 text-amber-700',
+        detail: `Last post ${daysSince} days ago`
+      };
+    }
+    return {
+      label: 'Stale',
+      tone: 'bg-red-100 text-red-700',
+      detail: `Last post ${daysSince} days ago`
+    };
+  })();
 
   return (
     <div className="admin-interface min-h-screen bg-gray-50">
@@ -239,6 +308,39 @@ export default function AdminInterface() {
                     active={true}
                     renewalDate="2026-01-15"
                   />
+                  {isBlogOwner && (
+                    <div className="bg-white border border-gray-200 rounded-lg p-6">
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900">Blog Automation</h3>
+                          <p className="text-sm text-gray-600">
+                            Evidence-led posts are scheduled daily with automated sourcing.
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <span className={`px-3 py-1 rounded-full text-xs font-semibold ${blogStatusInfo.tone}`}>
+                            {blogStatusInfo.label}
+                          </span>
+                          <button
+                            onClick={handleGenerateBlogPost}
+                            disabled={blogGenerating}
+                            className="px-4 py-2 text-sm font-medium bg-primary-600 text-white rounded-md hover:bg-primary-700 disabled:opacity-60"
+                          >
+                            {blogGenerating ? 'Generating...' : 'Generate now'}
+                          </button>
+                        </div>
+                      </div>
+                      <div className="mt-3 text-sm text-gray-600">
+                        {blogStatusInfo.detail}
+                        {blogStatus?.postsLast7Days !== undefined && (
+                          <span> - {blogStatus.postsLast7Days} posts in last 7 days</span>
+                        )}
+                      </div>
+                      {blogError && (
+                        <div className="mt-3 text-sm text-red-600">{blogError}</div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

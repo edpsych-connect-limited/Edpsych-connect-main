@@ -8,8 +8,6 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 import { useAuth } from '@/lib/auth/hooks';
 import { useRouter } from '@/navigation';
 import { useEffect, useState } from 'react';
@@ -38,6 +36,7 @@ export default function DashboardPage() {
   const { startTour } = useDemo();
   const router = useRouter();
   const [showAvatar, setShowAvatar] = useState(false);
+  const [showAllTools, setShowAllTools] = useState(false);
 
   useEffect(() => {
     const checkAuthAndOnboarding = async () => {
@@ -91,8 +90,9 @@ export default function DashboardPage() {
     );
   }
 
+  const role = user.role?.toUpperCase() || 'GUEST';
+
   const getFeatures = () => {
-    const role = user.role?.toUpperCase() || 'GUEST';
     const list = [];
 
     // Admin / Super Admin
@@ -345,7 +345,59 @@ export default function DashboardPage() {
     return list;
   };
 
+  const getGuidedSteps = () => {
+    if (role === 'ADMIN' || role === 'SUPERADMIN') {
+      return [
+        { title: 'Invite your team', description: 'Add core roles to unlock collaboration.', href: '/admin' },
+        { title: 'Configure compliance guardrails', description: 'Validate governance, security, and ethics defaults.', href: '/admin/ethics' },
+        { title: 'Review live workloads', description: 'Monitor cases, assessments, and interventions.', href: '/cases' }
+      ];
+    }
+    if (role === 'TEACHER' || role === 'STAFF') {
+      return [
+        { title: 'Create your class', description: 'Set up your learners and timetables.', href: '/teachers' },
+        { title: 'Run a baseline assessment', description: 'Capture starting points for each learner.', href: '/assessments' },
+        { title: 'Assign an intervention', description: 'Launch evidence-based support quickly.', href: '/interventions' }
+      ];
+    }
+    if (role === 'PARENT') {
+      return [
+        { title: 'Connect your child profile', description: 'Link your child to their learning plan.', href: '/parents' },
+        { title: 'Review progress', description: 'See goals, milestones, and outcomes.', href: '/progress' },
+        { title: 'Message your team', description: 'Collaborate with teachers and staff.', href: '/collaborate' }
+      ];
+    }
+    if (role === 'STUDENT') {
+      return [
+        { title: 'Start Battle Royale', description: 'Jump into competitions and challenges.', href: '/gamification' },
+        { title: 'Begin a coding mission', description: 'Learn through game modding.', href: '/demo/coding' },
+        { title: 'Track your progress', description: 'Celebrate your wins and streaks.', href: '/progress' }
+      ];
+    }
+    if (role === 'RESEARCHER') {
+      return [
+        { title: 'Open the research hub', description: 'Manage studies and evidence workflows.', href: '/research' },
+        { title: 'Request a dataset', description: 'Access anonymized data safely.', href: '/research?tab=datasets' },
+        { title: 'Launch a trial', description: 'Design and track a new study.', href: '/research' }
+      ];
+    }
+    if (role === 'LAA' || role === 'LOCAL_AUTHORITY' || role === 'LA_ADMIN' || role === 'LA_MANAGER' || role === 'LA_CASEWORKER') {
+      return [
+        { title: 'Review open cases', description: 'See priority workflows and deadlines.', href: '/marketplace/la-panel' },
+        { title: 'Check compliance risk', description: 'Spot at-risk timelines early.', href: '/ehcp/modules/compliance-risk' },
+        { title: 'Approve EHCPs', description: 'Validate applications and decisions.', href: '/ehcp' }
+      ];
+    }
+    return [
+      { title: 'Run an assessment', description: 'Start evidence-led assessments.', href: '/assessments' },
+      { title: 'Open interventions', description: 'Deploy structured support plans.', href: '/interventions' },
+      { title: 'Create a case', description: 'Organize student journeys in one place.', href: '/cases' }
+    ];
+  };
+
   const features = getFeatures();
+  const guidedSteps = getGuidedSteps();
+  const visibleFeatures = showAllTools ? features : features.slice(0, 4);
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -375,9 +427,44 @@ export default function DashboardPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold text-gray-900">Your Next 3 Steps</h2>
+                <button
+                  onClick={() => startTour('dashboard')}
+                  className="text-sm text-blue-600 hover:text-blue-700"
+                >
+                  Need a walkthrough?
+                </button>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {guidedSteps.map((step, index) => (
+                  <Link
+                    key={step.href}
+                    href={step.href}
+                    className="rounded-lg border border-gray-200 p-4 hover:border-blue-300 hover:shadow-sm transition"
+                  >
+                    <div className="text-xs font-semibold text-blue-600">Step {index + 1}</div>
+                    <h3 className="mt-2 text-sm font-semibold text-gray-900">{step.title}</h3>
+                    <p className="mt-1 text-xs text-gray-600">{step.description}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold text-gray-900">Quick Actions</h2>
+              {features.length > 4 && (
+                <button
+                  onClick={() => setShowAllTools((prev) => !prev)}
+                  className="text-sm text-gray-600 hover:text-gray-800"
+                >
+                  {showAllTools ? 'Show fewer tools' : `Show all ${features.length} tools`}
+                </button>
+              )}
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6" data-tour="quick-actions">
-              {features.map((feature) => {
+              {visibleFeatures.map((feature) => {
                 const Icon = feature.icon;
                 return (
                   <Link 
@@ -394,6 +481,11 @@ export default function DashboardPage() {
                 );
               })}
             </div>
+            {!showAllTools && features.length > 4 && (
+              <div className="mt-4 text-sm text-gray-500">
+                Showing the most-used tools first to keep things focused.
+              </div>
+            )}
           </div>
 
           <div className="lg:col-span-1">
@@ -407,7 +499,7 @@ export default function DashboardPage() {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-gray-900">Assessment Report Generated</p>
-                      <p className="text-xs text-gray-500">2 hours ago • Student #{100 + i}</p>
+                      <p className="text-xs text-gray-500">2 hours ago - Student #{100 + i}</p>
                     </div>
                   </div>
                 ))}

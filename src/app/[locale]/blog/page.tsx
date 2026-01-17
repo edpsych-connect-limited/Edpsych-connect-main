@@ -148,6 +148,7 @@ function BlogPageContent() {
     });
   };
 
+
   if (loading && view === 'all' && posts.length === 0) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">

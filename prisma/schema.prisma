@@ -6242,6 +6242,80 @@ model AnalyticsEvent {
   @@index([timestamp])
 }
 
+model EvidenceEvent {
+  id String @id @default(cuid())
+
+  tenantId Int  @map("tenant_id")
+  userId   Int? @map("user_id")
+
+  traceId      String? @map("trace_id")
+  eventType    String  @map("event_type") // ai_request, ai_response, workflow_start, workflow_end, review_required
+  workflowType String? @map("workflow_type")
+  actionType   String? @map("action_type")
+  status       String? @default("ok")
+  durationMs   Int?    @map("duration_ms")
+
+  evidenceType  String  @map("evidence_type") // measured, estimated, reported, calculated, system
+  modelVersionId String? @map("model_version_id")
+  requestId     String? @map("request_id")
+  inputHash     String? @map("input_hash")
+  outputHash    String? @map("output_hash")
+  summary       String? @db.Text
+  metadata      Json?
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  tenant tenants @relation(fields: [tenantId], references: [id])
+  user   users?  @relation(fields: [userId], references: [id])
+  modelVersion AIModelVersion? @relation(fields: [modelVersionId], references: [id])
+
+  @@index([tenantId])
+  @@index([userId])
+  @@index([eventType])
+  @@index([workflowType])
+  @@index([createdAt])
+  @@index([traceId])
+  @@map("evidence_events")
+}
+
+model AIReview {
+  id String @id @default(cuid())
+
+  tenantId Int  @map("tenant_id")
+  userId   Int? @map("user_id")
+  approvedById Int? @map("approved_by_id")
+
+  auditLogId      String? @map("audit_log_id")
+  evidenceEventId String? @map("evidence_event_id")
+  modelVersionId  String? @map("model_version_id")
+
+  requestId String? @map("request_id")
+  useCase   String  @map("use_case")
+  agentId   String? @map("agent_id")
+  severity  String  @default("medium")
+  status    String  @default("pending") // pending, approved, rejected, modified
+  reason    String?
+  decisionNotes String? @map("decision_notes") @db.Text
+  responsePreview String? @map("response_preview") @db.Text
+
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  approvedAt DateTime? @map("approved_at")
+
+  tenant tenants @relation(fields: [tenantId], references: [id])
+  user users? @relation("AIReviewRequester", fields: [userId], references: [id])
+  approver users? @relation("AIReviewApprover", fields: [approvedById], references: [id])
+  auditLog AuditLog? @relation(fields: [auditLogId], references: [id])
+  evidenceEvent EvidenceEvent? @relation(fields: [evidenceEventId], references: [id])
+  modelVersion AIModelVersion? @relation(fields: [modelVersionId], references: [id])
+
+  @@index([tenantId])
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("ai_reviews")
+}
+
 // ============================================================================
 // PARENTAL ENGAGEMENT
 // ============================================================================
