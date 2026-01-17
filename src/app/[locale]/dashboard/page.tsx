@@ -12,24 +12,10 @@ import { useAuth } from '@/lib/auth/hooks';
 import { useRouter } from '@/navigation';
 import { useEffect, useState } from 'react';
 import { Link } from '@/navigation';
-import { 
-  Users, 
-  FileText, 
-  TrendingUp, 
-  GraduationCap, 
-  Brain,
-  Zap,
-  PlayCircle,
-  LayoutDashboard,
-  Shield,
-  Home,
-  Trophy,
-  Building,
-  Bot,
-  Mail
-} from 'lucide-react';
+import { FileText, LayoutDashboard, Bot, PlayCircle } from 'lucide-react';
 import { useDemo } from '@/components/demo/DemoProvider';
 import { StreamingAvatar } from '@/components/features/StreamingAvatar';
+import { resolveRoleProfile } from '@/lib/navigation/role-journeys';
 
 export default function DashboardPage() {
   const { user, isLoading } = useAuth();
@@ -90,368 +76,12 @@ export default function DashboardPage() {
     );
   }
 
-  const role = user.role?.toUpperCase() || 'GUEST';
-
-  const getPrimaryWorkspace = () => {
-    if (role === 'SUPER_ADMIN' || role === 'SUPERADMIN' || role === 'ADMIN') {
-      return {
-        label: 'Admin Command Center',
-        description: 'Manage governance, access, and system oversight.',
-        href: '/admin'
-      };
-    }
-    if (role === 'LA_ADMIN' || role === 'LA_MANAGER' || role === 'LA_CASEWORKER' || role === 'LOCAL_AUTHORITY' || role === 'LAA') {
-      return {
-        label: 'Local Authority Dashboard',
-        description: 'Prioritize statutory timelines and case readiness.',
-        href: '/la/dashboard'
-      };
-    }
-    if (role === 'EDUCATIONAL_PSYCHOLOGIST' || role === 'EP') {
-      return {
-        label: 'EP Workspace',
-        description: 'Assessments, reports, and case decisions in one place.',
-        href: '/ep/dashboard'
-      };
-    }
-    if (role === 'SCHOOL_ADMIN' || role === 'SENCO') {
-      return {
-        label: 'School Dashboard',
-        description: 'Coordinate referrals, interventions, and outcomes.',
-        href: '/school/dashboard'
-      };
-    }
-    if (role === 'PARENT') {
-      return {
-        label: 'Parent Portal',
-        description: 'View progress and collaborate with your team.',
-        href: '/parent/dashboard'
-      };
-    }
-    if (role === 'STUDENT') {
-      return {
-        label: 'Student Dashboard',
-        description: 'Track progress and launch learning missions.',
-        href: '/student'
-      };
-    }
-    if (role === 'TEACHER' || role === 'STAFF') {
-      return {
-        label: 'Teacher Cockpit',
-        description: 'Plan lessons, track progress, and assign interventions.',
-        href: '/teachers'
-      };
-    }
-    return null;
-  };
-
-  const getFeatures = () => {
-    const list = [];
-
-    // Admin / Super Admin
-    if (role === 'ADMIN' || role === 'SUPERADMIN') {
-      if (role === 'SUPERADMIN') {
-        list.push({
-          title: 'Institutional Management',
-          description: 'Manage multi-academy trusts and institutions.',
-          icon: Building,
-          href: '/institutional-management',
-          color: 'bg-slate-100 text-slate-600',
-        });
-      }
-      list.push(
-        {
-          title: 'Admin Dashboard',
-          description: 'Manage users, settings, and system configuration.',
-          icon: Shield,
-          href: '/admin',
-          color: 'bg-red-100 text-red-600',
-        },
-        {
-          title: 'LA Dashboard',
-          description: 'Statutory timeline monitoring and case oversight.',
-          icon: Building,
-          href: '/marketplace/la-panel',
-          color: 'bg-cyan-100 text-cyan-600',
-        },
-        {
-          title: 'Classroom Cockpit',
-          description: 'Manage your class, assign lessons, and track daily progress.',
-          icon: LayoutDashboard,
-          href: '/teachers',
-          color: 'bg-indigo-100 text-indigo-600',
-        },
-        {
-          title: 'Assessments',
-          description: 'Conduct cognitive assessments using the ECCA framework.',
-          icon: Brain,
-          href: '/assessments',
-          color: 'bg-purple-100 text-purple-600',
-        },
-        {
-          title: 'Interventions',
-          description: 'Access evidence-based interventions for your cases.',
-          icon: Zap,
-          href: '/interventions',
-          color: 'bg-blue-100 text-blue-600',
-        },
-        {
-          title: 'Cases',
-          description: 'Manage your student cases and profiles.',
-          icon: Users,
-          href: '/cases',
-          color: 'bg-green-100 text-green-600',
-        },
-        {
-          title: 'EHCP',
-          description: 'Generate and manage EHCP reports.',
-          icon: FileText,
-          href: '/ehcp',
-          color: 'bg-orange-100 text-orange-600',
-        },
-        {
-          title: 'Progress',
-          description: 'Track student progress and outcomes.',
-          icon: TrendingUp,
-          href: '/progress',
-          color: 'bg-indigo-100 text-indigo-600',
-        },
-        {
-          title: 'Training',
-          description: 'Professional development and training resources.',
-          icon: GraduationCap,
-          href: '/training',
-          color: 'bg-pink-100 text-pink-600',
-        }
-      );
-    }
-    // Teacher
-    else if (role === 'TEACHER' || role === 'STAFF') {
-      list.push(
-        {
-          title: 'Classroom Cockpit',
-          description: 'Manage your class, assign lessons, and track daily progress.',
-          icon: LayoutDashboard,
-          href: '/teachers',
-          color: 'bg-indigo-100 text-indigo-600',
-        },
-        {
-          title: 'Assessments',
-          description: 'Conduct cognitive assessments using the ECCA framework.',
-          icon: Brain,
-          href: '/assessments',
-          color: 'bg-purple-100 text-purple-600',
-        },
-        {
-          title: 'Interventions',
-          description: 'Access evidence-based interventions for your cases.',
-          icon: Zap,
-          href: '/interventions',
-          color: 'bg-blue-100 text-blue-600',
-        },
-        {
-          title: 'Cases',
-          description: 'Manage your student cases and profiles.',
-          icon: Users,
-          href: '/cases',
-          color: 'bg-green-100 text-green-600',
-        },
-        {
-          title: 'EHCP',
-          description: 'Generate and manage EHCP reports.',
-          icon: FileText,
-          href: '/ehcp',
-          color: 'bg-orange-100 text-orange-600',
-        },
-        {
-          title: 'Progress',
-          description: 'Track student progress and outcomes.',
-          icon: TrendingUp,
-          href: '/progress',
-          color: 'bg-indigo-100 text-indigo-600',
-        },
-        {
-          title: 'Training',
-          description: 'Professional development and training resources.',
-          icon: GraduationCap,
-          href: '/training',
-          color: 'bg-pink-100 text-pink-600',
-        }
-      );
-    }
-    // Parent
-    else if (role === 'PARENT') {
-      list.push(
-        {
-          title: 'Parent Portal',
-          description: 'View your child\'s progress and communicate with teachers.',
-          icon: Home,
-          href: '/parents',
-          color: 'bg-rose-100 text-rose-600',
-        },
-        {
-          title: 'Child Progress',
-          description: 'Detailed breakdown of your child\'s learning journey.',
-          icon: TrendingUp,
-          href: '/progress',
-          color: 'bg-blue-100 text-blue-600',
-        }
-      );
-    }
-    // Student
-    else if (role === 'STUDENT') {
-      list.push(
-        {
-          title: 'Gamification Hub',
-          description: 'Compete in Battle Royale and check the leaderboard.',
-          icon: Trophy,
-          href: '/gamification',
-          color: 'bg-yellow-100 text-yellow-600',
-        },
-        {
-          title: 'Coding Curriculum',
-          description: 'Learn to code by modding your favourite games.',
-          icon: PlayCircle,
-          href: '/demo/coding',
-          color: 'bg-green-100 text-green-600',
-        },
-        {
-          title: 'My Progress',
-          description: 'Track your own learning achievements.',
-          icon: TrendingUp,
-          href: '/progress',
-          color: 'bg-blue-100 text-blue-600',
-        }
-      );
-    } 
-    // Researcher
-    else if (role === 'RESEARCHER') {
-      list.push(
-        {
-          title: 'Research Hub',
-          description: 'Manage clinical trials and validate assessment frameworks.',
-          icon: Brain,
-          href: '/research',
-          color: 'bg-purple-100 text-purple-600',
-        },
-        {
-          title: 'Data Enclave',
-          description: 'Access anonymized datasets for analysis.',
-          icon: Shield,
-          href: '/research?tab=datasets',
-          color: 'bg-slate-100 text-slate-600',
-        }
-      );
-    }
-    // Local Authority (LAA)
-    else if (role === 'LAA' || role === 'LOCAL_AUTHORITY' || role === 'LA_ADMIN' || role === 'LA_MANAGER' || role === 'LA_CASEWORKER') {
-      list.push(
-        {
-          title: 'LAA Dashboard',
-          description: 'Manage SEND provision and professional panels.',
-          icon: Building,
-          href: '/marketplace/la-panel',
-          color: 'bg-blue-100 text-blue-600',
-        },
-        {
-          title: 'EHCP Review',
-          description: 'Review and approve EHCP applications.',
-          icon: FileText,
-          href: '/ehcp',
-          color: 'bg-orange-100 text-orange-600',
-        }
-      );
-    }
-    else {
-      // Fallback (EPs and others)
-      list.push(
-        {
-          title: 'Assessments',
-          description: 'Conduct cognitive assessments using the ECCA framework.',
-          icon: Brain,
-          href: '/assessments',
-          color: 'bg-purple-100 text-purple-600',
-        },
-        {
-          title: 'Interventions',
-          description: 'Access evidence-based interventions for your cases.',
-          icon: Zap,
-          href: '/interventions',
-          color: 'bg-blue-100 text-blue-600',
-        },
-        {
-          title: 'Professional Marketplace',
-          description: 'Find jobs and connect with Local Authorities.',
-          icon: Users,
-          href: '/marketplace',
-          color: 'bg-green-100 text-green-600',
-        },
-        {
-          title: 'Inquiries',
-          description: 'View messages from potential clients.',
-          icon: Mail,
-          href: '/dashboard/inquiries',
-          color: 'bg-teal-100 text-teal-600',
-        }
-      );
-    }
-    return list;
-  };
-
-  const getGuidedSteps = () => {
-    if (role === 'ADMIN' || role === 'SUPERADMIN') {
-      return [
-        { title: 'Invite your team', description: 'Add core roles to unlock collaboration.', href: '/admin' },
-        { title: 'Configure compliance guardrails', description: 'Validate governance, security, and ethics defaults.', href: '/admin/ethics' },
-        { title: 'Review live workloads', description: 'Monitor cases, assessments, and interventions.', href: '/cases' }
-      ];
-    }
-    if (role === 'TEACHER' || role === 'STAFF') {
-      return [
-        { title: 'Create your class', description: 'Set up your learners and timetables.', href: '/teachers' },
-        { title: 'Run a baseline assessment', description: 'Capture starting points for each learner.', href: '/assessments' },
-        { title: 'Assign an intervention', description: 'Launch evidence-based support quickly.', href: '/interventions' }
-      ];
-    }
-    if (role === 'PARENT') {
-      return [
-        { title: 'Connect your child profile', description: 'Link your child to their learning plan.', href: '/parents' },
-        { title: 'Review progress', description: 'See goals, milestones, and outcomes.', href: '/progress' },
-        { title: 'Message your team', description: 'Collaborate with teachers and staff.', href: '/collaborate' }
-      ];
-    }
-    if (role === 'STUDENT') {
-      return [
-        { title: 'Start Battle Royale', description: 'Jump into competitions and challenges.', href: '/gamification' },
-        { title: 'Begin a coding mission', description: 'Learn through game modding.', href: '/demo/coding' },
-        { title: 'Track your progress', description: 'Celebrate your wins and streaks.', href: '/progress' }
-      ];
-    }
-    if (role === 'RESEARCHER') {
-      return [
-        { title: 'Open the research hub', description: 'Manage studies and evidence workflows.', href: '/research' },
-        { title: 'Request a dataset', description: 'Access anonymized data safely.', href: '/research?tab=datasets' },
-        { title: 'Launch a trial', description: 'Design and track a new study.', href: '/research' }
-      ];
-    }
-    if (role === 'LAA' || role === 'LOCAL_AUTHORITY' || role === 'LA_ADMIN' || role === 'LA_MANAGER' || role === 'LA_CASEWORKER') {
-      return [
-        { title: 'Review open cases', description: 'See priority workflows and deadlines.', href: '/marketplace/la-panel' },
-        { title: 'Check compliance risk', description: 'Spot at-risk timelines early.', href: '/ehcp/modules/compliance-risk' },
-        { title: 'Approve EHCPs', description: 'Validate applications and decisions.', href: '/ehcp' }
-      ];
-    }
-    return [
-      { title: 'Run an assessment', description: 'Start evidence-led assessments.', href: '/assessments' },
-      { title: 'Open interventions', description: 'Deploy structured support plans.', href: '/interventions' },
-      { title: 'Create a case', description: 'Organize student journeys in one place.', href: '/cases' }
-    ];
-  };
-
-  const features = getFeatures();
-  const guidedSteps = getGuidedSteps();
+  const roleProfile = resolveRoleProfile(user.role);
+  const features = roleProfile.quickActions;
+  const guidedSteps = roleProfile.guidedSteps;
   const visibleFeatures = showAllTools ? features : features.slice(0, 4);
-  const primaryWorkspace = getPrimaryWorkspace();
+  const primaryWorkspace = roleProfile.primaryWorkspace;
+  const outcomes = roleProfile.outcomes;
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -460,11 +90,9 @@ export default function DashboardPage() {
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
             <p className="mt-2 text-gray-600">Welcome back, {user.name || user.email}</p>
-            {primaryWorkspace && (
-              <p className="mt-1 text-sm text-gray-500">
-                Your primary workspace: <span className="font-medium text-gray-700">{primaryWorkspace.label}</span>
-              </p>
-            )}
+            <p className="mt-1 text-sm text-gray-500">
+              Role focus: <span className="font-medium text-gray-700">{roleProfile.label}</span>
+            </p>
           </div>
           <div className="flex gap-3">
             {primaryWorkspace && primaryWorkspace.href !== '/dashboard' && (
@@ -524,6 +152,9 @@ export default function DashboardPage() {
                   Need a walkthrough?
                 </button>
               </div>
+              <div className="mb-4 rounded-lg border border-blue-100 bg-blue-50 px-4 py-3 text-sm text-blue-800">
+                {roleProfile.description}
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {guidedSteps.map((step, index) => (
                   <Link
@@ -535,6 +166,18 @@ export default function DashboardPage() {
                     <h3 className="mt-2 text-sm font-semibold text-gray-900">{step.title}</h3>
                     <p className="mt-1 text-xs text-gray-600">{step.description}</p>
                   </Link>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">This Week's Outcomes</h2>
+              <div className="space-y-3">
+                {outcomes.map((outcome) => (
+                  <div key={outcome} className="flex items-start gap-3">
+                    <span className="mt-1 h-2 w-2 rounded-full bg-blue-500"></span>
+                    <p className="text-sm text-gray-700">{outcome}</p>
+                  </div>
                 ))}
               </div>
             </div>

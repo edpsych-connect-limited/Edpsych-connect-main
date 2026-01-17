@@ -30,6 +30,7 @@ Last updated: 2026-01-17
 
 Progress log:
 - 2026-01-17: Added primary workspace CTA + role-based workspace mapping on `/dashboard`.
+- 2026-01-17: Centralized role journeys + outcomes in `src/lib/navigation/role-journeys.ts` and surfaced role outcomes on `/dashboard`.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
