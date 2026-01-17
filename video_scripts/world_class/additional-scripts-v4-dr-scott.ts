@@ -40,7 +40,7 @@ The goal is simple: reduce admin, increase clarity, and keep the focus where it 
     title: 'Security Deep Dive: Designed for Sensitive SEND Data',
     duration: '90 seconds',
     audience: 'Local Authorities, Senior Leaders, Compliance Officers',
-    script: `When you're working with Special Educational Needs and Disabilities data, security isn't a feature — it's the foundation.
+    script: `When you're working with Special Educational Needs and Disabilities data, security isn't a feature - it's the foundation.
 
 I'm Dr. Scott. Here's what we mean by "security by design".
 
@@ -52,7 +52,30 @@ Third, secure transport. Data is transmitted over encrypted connections, and we 
 
 Finally, operational discipline. We treat secrets as configuration, not code. That means environment variables for keys, and guardrails in our CI to prevent accidental leakage.
 
-Security is not a one-off checklist. It's a continuous process — and we build the platform to support that reality.`
+Security is not a one-off checklist. It's a continuous process - and we build the platform to support that reality.`
+  },
+
+  // ---------------------------------------------------------------------------
+  // ETHICAL AI
+  // ---------------------------------------------------------------------------
+  'ethical-ai-oversight': {
+    id: 'ethical-ai-oversight-v4',
+    title: 'Ethical AI Oversight: Fairness, Transparency, Accountability',
+    duration: '90 seconds',
+    audience: 'Local Authorities, Senior Leaders, Compliance Officers, Researchers',
+    script: `I'm Dr. Scott. This is a short overview of our Ethical AI Oversight framework.
+
+We treat AI as a decision-support tool, not a decision-maker. That starts with governance.
+
+First, bias and fairness monitoring. We evaluate outcomes across protected groups using clear metrics like demographic parity, equal opportunity, and disparate impact. If a model falls outside thresholds, it is blocked from use.
+
+Second, transparency. Every model version is registered with a clear description, performance evidence, limitations, and a published transparency report.
+
+Third, auditability. AI actions are logged with context, confidence, and review status so schools and authorities can evidence appropriate use.
+
+Finally, human review. High-risk outputs are flagged for approval, and ethics assessments are required before models are approved.
+
+Our goal is simple: safe, fair, and explainable AI that supports professionals without replacing them.`
   },
 
   // ---------------------------------------------------------------------------

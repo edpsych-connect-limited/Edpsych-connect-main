@@ -75,6 +75,30 @@ Remember, our Data Protection Officer is available for consultation. We want you
 Good data governance leads to better science. Thank you.
     `,
   },
+
+  // ============================================================================
+  // ETHICAL AI
+  // ============================================================================
+  'ethical-ai-oversight': {
+    title: 'Ethical AI Oversight Framework',
+    duration: '4:00',
+    avatar: 'dr-sarah-chen',
+    script: `
+Hello, I'm Dr Sarah Chen. This video introduces our Ethical AI Oversight framework.
+
+We use AI to support professionals, but we never treat it as a replacement for human judgement. That principle shapes every safeguard.
+
+First, fairness. We evaluate outcomes across protected groups using clear metrics: demographic parity, equal opportunity, and disparate impact. If a model fails thresholds, it's blocked from production use.
+
+Second, transparency. Every model version is registered with performance data, known limitations, and a published transparency report so decision-makers can see how the system behaves.
+
+Third, accountability. Every AI action is logged with context, confidence, and review status. This creates a full audit trail for compliance and safeguarding.
+
+Finally, human review. High-risk outputs are flagged for approval, and every model must pass an ethics assessment before it is approved.
+
+Ethical AI is not a one-off checklist. It's a continuous process, and we build the platform to make that process operational.
+    `,
+  },
   
   // ============================================================================
   // MIS INTEGRATION VIDEOS

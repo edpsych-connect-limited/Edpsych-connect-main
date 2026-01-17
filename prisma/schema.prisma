@@ -152,6 +152,7 @@ model users {
   ethicsAssessments EthicsAssessment[] @relation("Assessor")
   ethicsReviews     EthicsAssessment[] @relation("Reviewers")
   ethicsIncidents   EthicsIncident[]   @relation("IncidentAssignee")
+  fairnessEvaluations AIFairnessEvaluation[] @relation("FairnessEvaluator")
 
   // Relations - Games
   gamePlayers GamePlayer[]
@@ -5895,7 +5896,7 @@ model AIFairnessEvaluation {
   evaluatorId   Int?
 
   modelVersion  AIModelVersion @relation(fields: [modelVersionId], references: [id])
-  evaluator     users?         @relation(fields: [evaluatorId], references: [id])
+  evaluator     users?         @relation("FairnessEvaluator", fields: [evaluatorId], references: [id])
 
   @@index([modelVersionId])
   @@index([evaluatedAt])
