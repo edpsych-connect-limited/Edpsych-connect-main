@@ -12,8 +12,11 @@
 // Compliance: GDPR, ISO 27001, SOC 2
 
 import { prisma } from '@/lib/prisma';
+import type { DbClient } from '@/lib/prisma';
 import { Prisma } from '@prisma/client';
 import { logger } from "@/lib/logger";
+
+type PrismaTx = Omit<DbClient, '$connect' | '$disconnect' | '$transaction' | '$extends' | '$on'>;
 
 export interface ConsentType {
   id: string;
@@ -494,7 +497,7 @@ export class GDPRComplianceService {
     });
   }
 
-  private async scrubAuditLogs(tx: Prisma.TransactionClient, userId: number) {
+  private async scrubAuditLogs(tx: PrismaTx, userId: number) {
     const userIdString = userId.toString();
     await tx.auditLog.updateMany({
       where: {
@@ -520,7 +523,7 @@ export class GDPRComplianceService {
     });
   }
 
-  private async deleteUserScopedData(tx: Prisma.TransactionClient, userId: number) {
+  private async deleteUserScopedData(tx: PrismaTx, userId: number) {
     const deleteTargets = [
       'professionals',
       'parents',
@@ -576,7 +579,7 @@ export class GDPRComplianceService {
     );
   }
 
-  private async scrubRetainedRecords(tx: Prisma.TransactionClient, userId: number, tombstoneUserId: number) {
+  private async scrubRetainedRecords(tx: PrismaTx, userId: number, tombstoneUserId: number) {
     await tx.consentRecord.updateMany({
       where: { user_id: userId },
       data: {
