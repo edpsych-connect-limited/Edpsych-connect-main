@@ -16,7 +16,7 @@ import type { DbClient } from '@/lib/prisma';
 import { Prisma } from '@prisma/client';
 import { logger } from "@/lib/logger";
 
-type PrismaTx = Omit<DbClient, '$connect' | '$disconnect' | '$transaction' | '$extends' | '$on'>;
+type PrismaTx = Parameters<Parameters<DbClient['$transaction']>[0]>[0];
 
 export interface ConsentType {
   id: string;
