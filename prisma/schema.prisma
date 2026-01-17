@@ -5785,6 +5785,7 @@ model EthicsAssessment {
   // Relations
   assessor  users   @relation("Assessor", fields: [assessorId], references: [id])
   reviewers users[] @relation("Reviewers")
+  modelVersions AIModelVersion[] @relation("EthicsAssessmentModelVersion")
 
   @@index([status])
   @@index([componentType])
@@ -5875,7 +5876,7 @@ model AIModelVersion {
   updatedAt DateTime @default(now())
 
   model            AIModel         @relation(fields: [modelId], references: [id])
-  ethicsAssessment EthicsAssessment? @relation(fields: [ethicsAssessmentId], references: [id])
+  ethicsAssessment EthicsAssessment? @relation("EthicsAssessmentModelVersion", fields: [ethicsAssessmentId], references: [id])
   fairnessEvaluations AIFairnessEvaluation[]
   transparencyReport AITransparencyReport?
 
