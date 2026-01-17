@@ -253,6 +253,11 @@ model users {
   // Relations - Time Savings
   time_savings_metrics TimeSavingsMetric[] @relation("UserTimeSavingsMetrics")
 
+  // Relations - AI Governance
+  evidence_events     EvidenceEvent[]
+  ai_reviews_requested AIReview[] @relation("AIReviewRequester")
+  ai_reviews_approved  AIReview[] @relation("AIReviewApprover")
+
   // Relations - Marketplace Inquiries
   professional_inquiries_received ProfessionalInquiry[] @relation("ProfessionalInquiriesRecieved")
 
@@ -431,6 +436,8 @@ model tenants {
   secure_documents   SecureDocument[]
   claimed_beta_codes BetaAccessCode[]
   beta_access_usages BetaAccessCodeUsage[]
+  evidence_events    EvidenceEvent[]
+  ai_reviews         AIReview[]
 
   // Relations - Integrations
   integration_settings IntegrationSettings?
@@ -5179,6 +5186,7 @@ model BetaAccessCodeUsage {
   tenant      tenants? @relation(fields: [tenant_id], references: [id])
   user_id_int Int?
   user        users?   @relation(fields: [user_id_int], references: [id])
+  ai_reviews  AIReview[]
 
   @@index([accessCodeId])
   @@index([userId])
@@ -5879,6 +5887,8 @@ model AIModelVersion {
   ethicsAssessment EthicsAssessment? @relation("EthicsAssessmentModelVersion", fields: [ethicsAssessmentId], references: [id])
   fairnessEvaluations AIFairnessEvaluation[]
   transparencyReport AITransparencyReport?
+  evidenceEvents      EvidenceEvent[]
+  aiReviews           AIReview[]
 
   @@index([modelId])
   @@index([providerModel])
@@ -6268,6 +6278,7 @@ model EvidenceEvent {
   tenant tenants @relation(fields: [tenantId], references: [id])
   user   users?  @relation(fields: [userId], references: [id])
   modelVersion AIModelVersion? @relation(fields: [modelVersionId], references: [id])
+  aiReviews AIReview[]
 
   @@index([tenantId])
   @@index([userId])
