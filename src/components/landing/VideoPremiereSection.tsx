@@ -67,6 +67,13 @@ const SHOWCASE_VIDEOS = {
       gradient: 'from-slate-500 to-slate-700',
     },
     {
+      id: 'ethical-ai-oversight',
+      title: 'Ethical AI Oversight',
+      description: 'Fairness metrics, transparency reports, and review workflows in action.',
+      icon: Brain,
+      gradient: 'from-emerald-500 to-teal-600',
+    },
+    {
       id: 'feature-byod-architecture',
       title: 'BYOD Architecture',
       description: 'Designed for data control with BYOD options.',

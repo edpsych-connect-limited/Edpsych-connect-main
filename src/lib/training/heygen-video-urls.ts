@@ -156,6 +156,7 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
 
   // SECURITY- Videos
   "security-deep-dive": "12fbfee13dd04c7087eee79ad1101fb2",
+  "ethical-ai-oversight": "7de1da950ad34f4b891ecc8f2e153e07",
 
   // FEATURE- Videos
   "feature-accessibility": "a53810c3826544d0b67a19dbf0848419",

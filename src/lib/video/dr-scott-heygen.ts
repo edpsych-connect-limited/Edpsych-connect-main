@@ -3,6 +3,8 @@
 
 export const ALLOWED_DR_SCOTT_AVATAR_IDS = [
   'd680604a31f34ce096c84bed708774c3',
+  '7517449dd67445d4842527a32758468d',
+  '5200bd0ca0a4485285d6061bfab66f18',
 ] as const;
 
 // IMPORTANT: This must match the currently approved Dr Scott voice ID.
