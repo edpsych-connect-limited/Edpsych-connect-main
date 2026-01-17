@@ -12,6 +12,7 @@
 // Compliance: GDPR, ISO 27001, SOC 2
 
 import { prisma } from '@/lib/prisma';
+import { Prisma } from '@prisma/client';
 import { logger } from "@/lib/logger";
 
 export interface ConsentType {
@@ -493,7 +494,7 @@ export class GDPRComplianceService {
     });
   }
 
-  private async scrubAuditLogs(tx: typeof prisma, userId: number) {
+  private async scrubAuditLogs(tx: Prisma.TransactionClient, userId: number) {
     const userIdString = userId.toString();
     await tx.auditLog.updateMany({
       where: {
@@ -519,7 +520,7 @@ export class GDPRComplianceService {
     });
   }
 
-  private async deleteUserScopedData(tx: typeof prisma, userId: number) {
+  private async deleteUserScopedData(tx: Prisma.TransactionClient, userId: number) {
     const deleteTargets = [
       'professionals',
       'parents',
@@ -575,7 +576,7 @@ export class GDPRComplianceService {
     );
   }
 
-  private async scrubRetainedRecords(tx: typeof prisma, userId: number, tombstoneUserId: number) {
+  private async scrubRetainedRecords(tx: Prisma.TransactionClient, userId: number, tombstoneUserId: number) {
     await tx.consentRecord.updateMany({
       where: { user_id: userId },
       data: {
@@ -589,8 +590,8 @@ export class GDPRComplianceService {
       where: { user_id: userId },
       data: {
         user_id: tombstoneUserId,
-        request_details: null,
-        response_data: null,
+        request_details: Prisma.DbNull,
+        response_data: Prisma.DbNull,
         rejection_reason: null,
       }
     });
@@ -601,7 +602,7 @@ export class GDPRComplianceService {
         user_id: tombstoneUserId,
         email: 'redacted@edpsychconnect.invalid',
         receipt_url: null,
-        purchase_metadata: null
+        purchase_metadata: Prisma.DbNull
       }
     });
   }

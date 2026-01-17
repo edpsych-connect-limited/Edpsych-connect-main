@@ -33,7 +33,7 @@ function isStrictMode(): boolean {
 export async function enforceEthicsGate(context: EthicsGateContext): Promise<EthicsGateDecision> {
   const { provider, providerModel, tenantId, userId, useCase } = context;
 
-  const modelVersion = await prisma.aiModelVersion.findFirst({
+  const modelVersion = await prisma.aIModelVersion.findFirst({
     where: {
       providerModel,
       status: 'active',
