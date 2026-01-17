@@ -92,6 +92,59 @@ export default function DashboardPage() {
 
   const role = user.role?.toUpperCase() || 'GUEST';
 
+  const getPrimaryWorkspace = () => {
+    if (role === 'SUPER_ADMIN' || role === 'SUPERADMIN' || role === 'ADMIN') {
+      return {
+        label: 'Admin Command Center',
+        description: 'Manage governance, access, and system oversight.',
+        href: '/admin'
+      };
+    }
+    if (role === 'LA_ADMIN' || role === 'LA_MANAGER' || role === 'LA_CASEWORKER' || role === 'LOCAL_AUTHORITY' || role === 'LAA') {
+      return {
+        label: 'Local Authority Dashboard',
+        description: 'Prioritize statutory timelines and case readiness.',
+        href: '/la/dashboard'
+      };
+    }
+    if (role === 'EDUCATIONAL_PSYCHOLOGIST' || role === 'EP') {
+      return {
+        label: 'EP Workspace',
+        description: 'Assessments, reports, and case decisions in one place.',
+        href: '/ep/dashboard'
+      };
+    }
+    if (role === 'SCHOOL_ADMIN' || role === 'SENCO') {
+      return {
+        label: 'School Dashboard',
+        description: 'Coordinate referrals, interventions, and outcomes.',
+        href: '/school/dashboard'
+      };
+    }
+    if (role === 'PARENT') {
+      return {
+        label: 'Parent Portal',
+        description: 'View progress and collaborate with your team.',
+        href: '/parent/dashboard'
+      };
+    }
+    if (role === 'STUDENT') {
+      return {
+        label: 'Student Dashboard',
+        description: 'Track progress and launch learning missions.',
+        href: '/student'
+      };
+    }
+    if (role === 'TEACHER' || role === 'STAFF') {
+      return {
+        label: 'Teacher Cockpit',
+        description: 'Plan lessons, track progress, and assign interventions.',
+        href: '/teachers'
+      };
+    }
+    return null;
+  };
+
   const getFeatures = () => {
     const list = [];
 
@@ -398,16 +451,31 @@ export default function DashboardPage() {
   const features = getFeatures();
   const guidedSteps = getGuidedSteps();
   const visibleFeatures = showAllTools ? features : features.slice(0, 4);
+  const primaryWorkspace = getPrimaryWorkspace();
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-8 flex justify-between items-end">
+        <div className="mb-8 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
             <p className="mt-2 text-gray-600">Welcome back, {user.name || user.email}</p>
+            {primaryWorkspace && (
+              <p className="mt-1 text-sm text-gray-500">
+                Your primary workspace: <span className="font-medium text-gray-700">{primaryWorkspace.label}</span>
+              </p>
+            )}
           </div>
           <div className="flex gap-3">
+            {primaryWorkspace && primaryWorkspace.href !== '/dashboard' && (
+              <Link
+                href={primaryWorkspace.href}
+                className="flex items-center gap-2 px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                <LayoutDashboard className="w-4 h-4" />
+                Open Workspace
+              </Link>
+            )}
             <button
               onClick={() => setShowAvatar(true)}
               className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm"
@@ -424,6 +492,25 @@ export default function DashboardPage() {
             </button>
           </div>
         </div>
+
+        {primaryWorkspace && (
+          <div className="mb-8 rounded-2xl border border-blue-100 bg-white p-6 shadow-sm">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">Primary Workspace</p>
+                <h2 className="mt-2 text-2xl font-semibold text-gray-900">{primaryWorkspace.label}</h2>
+                <p className="mt-1 text-sm text-gray-600">{primaryWorkspace.description}</p>
+              </div>
+              <Link
+                href={primaryWorkspace.href}
+                className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                Enter workspace
+              </Link>
+            </div>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
