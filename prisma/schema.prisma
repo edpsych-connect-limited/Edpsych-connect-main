@@ -5186,7 +5186,6 @@ model BetaAccessCodeUsage {
   tenant      tenants? @relation(fields: [tenant_id], references: [id])
   user_id_int Int?
   user        users?   @relation(fields: [user_id_int], references: [id])
-  ai_reviews  AIReview[]
 
   @@index([accessCodeId])
   @@index([userId])
@@ -5244,6 +5243,7 @@ model AuditLog {
   tenant      tenants? @relation(fields: [tenant_id], references: [id])
   user_id_int Int?
   user        users?   @relation(fields: [user_id_int], references: [id])
+  ai_reviews  AIReview[]
 
   @@index([userId])
   @@index([performedById])
