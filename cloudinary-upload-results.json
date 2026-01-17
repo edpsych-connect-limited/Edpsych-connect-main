@@ -384,6 +384,54 @@
     "status": "skipped"
   },
   {
+    "key": "addon-ai-power-pack",
+    "publicId": "edpsych-connect/videos/addon-ai-power-pack",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/addon-ai-power-pack.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "addon-api-access",
+    "publicId": "edpsych-connect/videos/addon-api-access",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/addon-api-access.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "addon-cpd-library",
+    "publicId": "edpsych-connect/videos/addon-cpd-library",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/addon-cpd-library.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "addon-ehcp-accelerator",
+    "publicId": "edpsych-connect/videos/addon-ehcp-accelerator",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/addon-ehcp-accelerator.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "addon-priority-support",
+    "publicId": "edpsych-connect/videos/addon-priority-support",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/addon-priority-support.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "addon-white-label",
+    "publicId": "edpsych-connect/videos/addon-white-label",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/addon-white-label.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
     "key": "adhd-m1-l1",
     "publicId": "edpsych-connect/videos/adhd-m1-l1",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642582/edpsych-connect/videos/adhd-m1-l1.mp4",
@@ -702,6 +750,14 @@
     "duration": 0,
     "bytes": 28025484,
     "status": "skipped"
+  },
+  {
+    "key": "annual-reviews-mastery",
+    "publicId": "edpsych-connect/videos/annual-reviews-mastery",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/annual-reviews-mastery.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
   },
   {
     "key": "assessment-choosing",
@@ -1040,6 +1096,22 @@
     "status": "skipped"
   },
   {
+    "key": "compare-switching",
+    "publicId": "edpsych-connect/videos/compare-switching",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/compare-switching.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "compare-true-cost",
+    "publicId": "edpsych-connect/videos/compare-true-cost",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/compare-true-cost.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
     "key": "compliance-consent",
     "publicId": "edpsych-connect/videos/compliance-consent",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642445/edpsych-connect/videos/compliance-consent.mp4",
@@ -1053,7 +1125,24 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766959594/edpsych-connect/videos/compliance-data-protection.mp4",
     "duration": 0,
     "bytes": 5084519,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/compliance-data-protection.mp4"
+  },
+  {
+    "key": "compliance-risk-ai",
+    "publicId": "edpsych-connect/videos/compliance-risk-ai",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/compliance-risk-ai.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "data-autonomy",
+    "publicId": "edpsych-connect/videos/data-autonomy",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/data-autonomy.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
   },
   {
     "key": "dys-m1-l3",
@@ -1373,7 +1462,8 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642436/edpsych-connect/videos/ehcp-application-journey.mp4",
     "duration": 0,
     "bytes": 33753179,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533977/edpsych-connect/videos/ehcp-application-journey.mp4"
   },
   {
     "key": "ehcp-evidence-gathering",
@@ -1384,6 +1474,14 @@
     "status": "skipped"
   },
   {
+    "key": "ehcp-modules-hub-overview",
+    "publicId": "edpsych-connect/videos/ehcp-modules-hub-overview",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/ehcp-modules-hub-overview.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
     "key": "ehcp-professional-contributions",
     "publicId": "edpsych-connect/videos/ehcp-professional-contributions",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642405/edpsych-connect/videos/ehcp-professional-contributions.mp4",
@@ -1392,13 +1490,22 @@
     "status": "skipped"
   },
   {
+    "key": "enterprise-plan-overview",
+    "publicId": "edpsych-connect/videos/enterprise-plan-overview",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/enterprise-plan-overview.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
     "key": "ethical-ai-oversight",
     "publicId": "edpsych-connect/videos/ethical-ai-oversight",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768669481/edpsych-connect/videos/ethical-ai-oversight.mp4",
     "duration": 75.8,
     "bytes": 25478722,
     "status": "uploaded-from-heygen",
-    "uploadedAt": "2026-01-17T17:04:43.016Z"
+    "uploadedAt": "2026-01-17T17:04:43.016Z",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/ethical-ai-oversight.mp4"
   },
   {
     "key": "feature-accessibility",
@@ -1417,6 +1524,22 @@
     "status": "skipped"
   },
   {
+    "key": "feature-battle-royale",
+    "publicId": "edpsych-connect/videos/feature-battle-royale",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-battle-royale.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "feature-battle-royale-pricing",
+    "publicId": "edpsych-connect/videos/feature-battle-royale-pricing",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-battle-royale-pricing.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
     "key": "feature-byod-architecture",
     "publicId": "edpsych-connect/videos/feature-byod-architecture",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578122/edpsych-connect/videos/feature-byod-architecture.mp4",
@@ -1433,6 +1556,14 @@
     "status": "skipped"
   },
   {
+    "key": "feature-intervention-library",
+    "publicId": "edpsych-connect/videos/feature-intervention-library",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-intervention-library.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
     "key": "feature-la-dashboard",
     "publicId": "edpsych-connect/videos/feature-la-dashboard",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644467/edpsych-connect/videos/feature-la-dashboard.mp4",
@@ -1447,6 +1578,14 @@
     "duration": 0,
     "bytes": 30724476,
     "status": "skipped"
+  },
+  {
+    "key": "golden-thread-coherence",
+    "publicId": "edpsych-connect/videos/golden-thread-coherence",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/golden-thread-coherence.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
   },
   {
     "key": "help-collaboration",
@@ -1526,7 +1665,8 @@
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578107/edpsych-connect/videos/innovation-battle-royale.mp4",
     "duration": 0,
     "bytes": 12224548,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765642485/edpsych-connect/videos/innovation-battle-royale.mp4"
   },
   {
     "key": "innovation-coding-curriculum",
@@ -1585,6 +1725,30 @@
     "status": "skipped"
   },
   {
+    "key": "mediation-tribunal-navigation",
+    "publicId": "edpsych-connect/videos/mediation-tribunal-navigation",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/mediation-tribunal-navigation.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "onboarding-platform-tour",
+    "publicId": "edpsych-connect/videos/onboarding-platform-tour",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/onboarding-platform-tour.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "onboarding-welcome",
+    "publicId": "edpsych-connect/videos/onboarding-welcome",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110926/edpsych-connect/videos/onboarding-welcome.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
     "key": "parent-contributing-views",
     "publicId": "edpsych-connect/videos/parent-contributing-views",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641915/edpsych-connect/videos/parent-contributing-views.mp4",
@@ -1609,12 +1773,61 @@
     "status": "skipped"
   },
   {
+    "key": "phase-transfers-mastery",
+    "publicId": "edpsych-connect/videos/phase-transfers-mastery",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/phase-transfers-mastery.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
     "key": "platform-introduction",
     "publicId": "edpsych-connect/videos/platform-introduction",
     "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641941/edpsych-connect/videos/platform-introduction.mp4",
     "duration": 0,
     "bytes": 28025484,
-    "status": "skipped"
+    "status": "skipped",
+    "registryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533750/edpsych-connect/videos/platform-introduction.mp4"
+  },
+  {
+    "key": "python-functions",
+    "publicId": "edpsych-connect/videos/python-functions",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/python-functions.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "react-components",
+    "publicId": "edpsych-connect/videos/react-components",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/react-components.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "react-intro",
+    "publicId": "edpsych-connect/videos/react-intro",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/react-intro.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "react-state",
+    "publicId": "edpsych-connect/videos/react-state",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/react-state.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "resource-costing-funding",
+    "publicId": "edpsych-connect/videos/resource-costing-funding",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/resource-costing-funding.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
   },
   {
     "key": "school-senco-portal",
@@ -1623,6 +1836,30 @@
     "duration": 0,
     "bytes": 24483853,
     "status": "skipped"
+  },
+  {
+    "key": "security-deep-dive",
+    "publicId": "edpsych-connect/videos/security-deep-dive",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/security-deep-dive.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "sen2-returns-automation",
+    "publicId": "edpsych-connect/videos/sen2-returns-automation",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/sen2-returns-automation.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
+  },
+  {
+    "key": "trust-built-by-practitioners",
+    "publicId": "edpsych-connect/videos/trust-built-by-practitioners",
+    "secureUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/trust-built-by-practitioners.mp4",
+    "duration": 0,
+    "bytes": 0,
+    "status": "imported-from-registry"
   },
   {
     "key": "value-enterprise-platform",

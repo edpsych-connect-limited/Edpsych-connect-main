@@ -521,7 +521,6 @@ export const CLOUDINARY_VIDEO_URLS: Record<string, string> = {
 
 
 
-  "guide-token-reward": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765644443/edpsych-connect/videos/feature-gamification.mp4",
   "la-ehcp-merge-tool": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641766/edpsych-connect/videos/la-ehcp-merge-tool.mp4",
   "la-professional-requests": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641777/edpsych-connect/videos/la-professional-requests.mp4",
   "la-dashboard-overview": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641794/edpsych-connect/videos/la-dashboard-overview.mp4",
