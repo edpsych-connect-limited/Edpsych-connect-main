@@ -1,6 +1,6 @@
 # Video Delivery Audit Summary
 
-Generated: 2025-12-28T23:21:30.955Z
+Generated: 2026-01-17T17:04:50.467Z
 
 This report is deterministic (no network calls). It uses repository evidence only:
 - Canonical keys: `src/lib/training/heygen-video-urls.ts` (`HEYGEN_VIDEO_IDS`)
@@ -12,25 +12,43 @@ This report is deterministic (no network calls). It uses repository evidence onl
 
 ## Totals
 
-- Keys total: **122**
+- Keys total: **141**
 - Scripts missing: **0**
-- Provenance missing: **0**
+- Provenance missing: **1**
 - HeyGen inventory loaded: **185** video id(s)
-- HeyGen completed (in inventory): **100**
+- HeyGen completed (in inventory): **103**
 - HeyGen not completed (in inventory): **0**
-- HeyGen IDs missing from inventory: **22**
+- HeyGen IDs missing from inventory: **38**
 - URL operational audit loaded: **no** (skipping “URL is operational” enforcement)
-- Cloudinary mapped: **98**
+- Cloudinary mapped: **99**
 - Live demo mapped: **0**
 - Local fallback mapped: **57**
 - Local fallback files present on disk: **57**
-- Keys with literal embedding references: **122**
+- Keys with literal embedding references: **141**
 - Keys with no literal embedding references: **0**
-- Keys needing attention (warnings/errors): **0**
+- Keys needing attention (warnings/errors): **19**
 
 ## What is left (top issues)
 
-- ✅ No keys flagged by this audit.
+- `admin-studio-overview`: WARNING: HeyGen ID '02b3dd252bcf4dd595501ec71ef805d2' not found in heygen_videos_list.json (inventory drift?) | WARNING: No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only
+- `classroom-interventions`: WARNING: HeyGen ID 'ca9e9c0875994e2786cb59150c2a6e2a' not found in heygen_videos_list.json (inventory drift?) | WARNING: No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only
+- `classroom-studio-overview`: WARNING: HeyGen ID '5cfaad864e2c40399a4fedcf1170b523' not found in heygen_videos_list.json (inventory drift?) | WARNING: No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only
+- `clinical-assessments`: WARNING: No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only
+- `clinical-ehcp-hub`: WARNING: HeyGen ID 'a519e9cd4cb84e2b9bb9486a200c4441' not found in heygen_videos_list.json (inventory drift?) | WARNING: No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only
+- `clinical-studio-overview`: WARNING: HeyGen ID 'ca3a86744e0042359fda79ca4be3fa25' not found in heygen_videos_list.json (inventory drift?) | WARNING: No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only
+- `coding-studio-overview`: WARNING: HeyGen ID 'f6912fc2e7a3409881068cee713707c3' not found in heygen_videos_list.json (inventory drift?) | WARNING: No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only
+- `customer-success-studio-overview`: WARNING: HeyGen ID 'aba880d988a14b628e48d94b3624ebfd' not found in heygen_videos_list.json (inventory drift?) | WARNING: No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only
+- `engagement-gamification`: WARNING: HeyGen ID 'e1bef5ae78f244059f1dac13f496ed3b' not found in heygen_videos_list.json (inventory drift?) | WARNING: No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only
+- `engagement-studio-overview`: WARNING: HeyGen ID '13d0695f0a644c66939ccd8924fc94e8' not found in heygen_videos_list.json (inventory drift?) | WARNING: No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only
+- `ethical-ai-oversight`: WARNING: No provenance entry found in video_provenance/video-script-provenance.json
+- `guide-create-ehcp`: WARNING: No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only
+- `guide-invite-user`: WARNING: No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only
+- `guide-schedule-event`: WARNING: No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only
+- `guide-upload-report`: WARNING: No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only
+- `marketing-studio-overview`: WARNING: HeyGen ID '0ee6163fc4004c95a581fbd25c0a2af4' not found in heygen_videos_list.json (inventory drift?) | WARNING: No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only
+- `research-studio-overview`: WARNING: HeyGen ID '162c4d26eb5c4539857bff6411d85629' not found in heygen_videos_list.json (inventory drift?) | WARNING: No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only
+- `sales-studio-overview`: WARNING: HeyGen ID '42456f6ea7524f1aaefcb7825d47f6d8' not found in heygen_videos_list.json (inventory drift?) | WARNING: No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only
+- `trust-security`: WARNING: No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only
 
 ## Where this is recorded
 

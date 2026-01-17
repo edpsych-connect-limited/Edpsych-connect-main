@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-01-08T23:50:22.253Z",
+  "generatedAt": "2026-01-17T17:06:54.213Z",
   "description": "Manual claim-to-evidence mapping for each video key. This is the basis for auditing script claims against the actual codebase (truth-by-code).",
   "keys": {
     "platform-introduction": {
@@ -7201,7 +7201,9 @@
                 "pattern": "['\"]admin-studio-overview['\"]s*:",
                 "isRegex": true
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         },
         {
@@ -7214,7 +7216,8 @@
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts"
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
             ],
             "apis": [
               "/api/video/captions?key=admin-studio-overview"
@@ -7225,7 +7228,9 @@
                 "file": "src/app/api/video/captions/route.ts",
                 "pattern": "text/vtt"
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         }
       ]
@@ -7253,7 +7258,9 @@
                 "pattern": "['\"]classroom-interventions['\"]s*:",
                 "isRegex": true
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         },
         {
@@ -7266,7 +7273,8 @@
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts"
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
             ],
             "apis": [
               "/api/video/captions?key=classroom-interventions"
@@ -7277,7 +7285,9 @@
                 "file": "src/app/api/video/captions/route.ts",
                 "pattern": "text/vtt"
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         }
       ]
@@ -7305,7 +7315,9 @@
                 "pattern": "['\"]classroom-studio-overview['\"]s*:",
                 "isRegex": true
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         },
         {
@@ -7318,7 +7330,8 @@
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts"
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
             ],
             "apis": [
               "/api/video/captions?key=classroom-studio-overview"
@@ -7329,7 +7342,9 @@
                 "file": "src/app/api/video/captions/route.ts",
                 "pattern": "text/vtt"
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         }
       ]
@@ -7357,7 +7372,9 @@
                 "pattern": "['\"]clinical-assessments['\"]s*:",
                 "isRegex": true
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         },
         {
@@ -7370,7 +7387,8 @@
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts"
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
             ],
             "apis": [
               "/api/video/captions?key=clinical-assessments"
@@ -7381,7 +7399,9 @@
                 "file": "src/app/api/video/captions/route.ts",
                 "pattern": "text/vtt"
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         }
       ]
@@ -7409,7 +7429,9 @@
                 "pattern": "['\"]clinical-ehcp-hub['\"]s*:",
                 "isRegex": true
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         },
         {
@@ -7422,7 +7444,8 @@
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts"
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
             ],
             "apis": [
               "/api/video/captions?key=clinical-ehcp-hub"
@@ -7433,7 +7456,9 @@
                 "file": "src/app/api/video/captions/route.ts",
                 "pattern": "text/vtt"
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         }
       ]
@@ -7461,7 +7486,9 @@
                 "pattern": "['\"]clinical-studio-overview['\"]s*:",
                 "isRegex": true
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         },
         {
@@ -7474,7 +7501,8 @@
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts"
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
             ],
             "apis": [
               "/api/video/captions?key=clinical-studio-overview"
@@ -7485,7 +7513,9 @@
                 "file": "src/app/api/video/captions/route.ts",
                 "pattern": "text/vtt"
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         }
       ]
@@ -7513,7 +7543,9 @@
                 "pattern": "['\"]coding-studio-overview['\"]s*:",
                 "isRegex": true
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         },
         {
@@ -7526,7 +7558,8 @@
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts"
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
             ],
             "apis": [
               "/api/video/captions?key=coding-studio-overview"
@@ -7537,7 +7570,9 @@
                 "file": "src/app/api/video/captions/route.ts",
                 "pattern": "text/vtt"
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         }
       ]
@@ -7565,7 +7600,9 @@
                 "pattern": "['\"]engagement-gamification['\"]s*:",
                 "isRegex": true
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         },
         {
@@ -7578,7 +7615,8 @@
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts"
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
             ],
             "apis": [
               "/api/video/captions?key=engagement-gamification"
@@ -7589,7 +7627,9 @@
                 "file": "src/app/api/video/captions/route.ts",
                 "pattern": "text/vtt"
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         }
       ]
@@ -7617,7 +7657,9 @@
                 "pattern": "['\"]engagement-studio-overview['\"]s*:",
                 "isRegex": true
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         },
         {
@@ -7630,7 +7672,8 @@
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts"
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
             ],
             "apis": [
               "/api/video/captions?key=engagement-studio-overview"
@@ -7641,7 +7684,9 @@
                 "file": "src/app/api/video/captions/route.ts",
                 "pattern": "text/vtt"
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         }
       ]
@@ -7669,7 +7714,9 @@
                 "pattern": "['\"]guide-create-ehcp['\"]s*:",
                 "isRegex": true
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         },
         {
@@ -7682,7 +7729,8 @@
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts"
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
             ],
             "apis": [
               "/api/video/captions?key=guide-create-ehcp"
@@ -7693,7 +7741,9 @@
                 "file": "src/app/api/video/captions/route.ts",
                 "pattern": "text/vtt"
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         }
       ]
@@ -7721,7 +7771,9 @@
                 "pattern": "['\"]guide-invite-user['\"]s*:",
                 "isRegex": true
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         },
         {
@@ -7734,7 +7786,8 @@
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts"
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
             ],
             "apis": [
               "/api/video/captions?key=guide-invite-user"
@@ -7745,7 +7798,9 @@
                 "file": "src/app/api/video/captions/route.ts",
                 "pattern": "text/vtt"
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         }
       ]
@@ -7773,7 +7828,9 @@
                 "pattern": "['\"]guide-schedule-event['\"]s*:",
                 "isRegex": true
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         },
         {
@@ -7786,7 +7843,8 @@
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts"
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
             ],
             "apis": [
               "/api/video/captions?key=guide-schedule-event"
@@ -7797,7 +7855,9 @@
                 "file": "src/app/api/video/captions/route.ts",
                 "pattern": "text/vtt"
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         }
       ]
@@ -7825,7 +7885,9 @@
                 "pattern": "['\"]guide-token-reward['\"]s*:",
                 "isRegex": true
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         },
         {
@@ -7838,7 +7900,8 @@
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts"
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
             ],
             "apis": [
               "/api/video/captions?key=guide-token-reward"
@@ -7849,7 +7912,9 @@
                 "file": "src/app/api/video/captions/route.ts",
                 "pattern": "text/vtt"
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         }
       ]
@@ -7877,7 +7942,9 @@
                 "pattern": "['\"]guide-upload-report['\"]s*:",
                 "isRegex": true
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         },
         {
@@ -7890,7 +7957,8 @@
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts"
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
             ],
             "apis": [
               "/api/video/captions?key=guide-upload-report"
@@ -7901,7 +7969,9 @@
                 "file": "src/app/api/video/captions/route.ts",
                 "pattern": "text/vtt"
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         }
       ]
@@ -7929,7 +7999,9 @@
                 "pattern": "['\"]research-studio-overview['\"]s*:",
                 "isRegex": true
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         },
         {
@@ -7942,7 +8014,8 @@
           "evidence": {
             "files": [
               "src/lib/video-scripts/registry-core.ts",
-              "src/app/api/video/captions/route.ts"
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
             ],
             "apis": [
               "/api/video/captions?key=research-studio-overview"
@@ -7953,7 +8026,9 @@
                 "file": "src/app/api/video/captions/route.ts",
                 "pattern": "text/vtt"
               }
-            ]
+            ],
+            "routes": [],
+            "tests": []
           }
         }
       ]
@@ -7967,18 +8042,56 @@
           "lastReviewedAt": "2026-01-16T18:00:00.000Z",
           "evidence": {
             "files": [
-              "src/lib/training/heygen-video-urls.ts"
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
             ],
             "codeSearch": [
               {
                 "file": "src/lib/training/heygen-video-urls.ts",
                 "pattern": "['\\\"]marketing-studio-overview['\\\"]s*:",
                 "isRegex": true
+              },
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]marketing-studio-overview['\"]s*:",
+                "isRegex": true
               }
-            ]
+            ],
+            "routes": [],
+            "apis": [
+              "/api/video/health?key=marketing-studio-overview"
+            ],
+            "tests": []
           },
           "kind": "registry-key",
           "expected": "present"
+        },
+        {
+          "id": "marketing-studio-overview-script-001",
+          "statement": "A script-derived transcript exists for key 'marketing-studio-overview', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "kind": "script-transcript",
+          "expected": "present",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=marketing-studio-overview"
+            ],
+            "notes": "Transcript sourceId='world-class-marketing', resolvedKey='platform-introduction'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ],
+            "routes": [],
+            "tests": []
+          }
         }
       ]
     },
@@ -7991,18 +8104,56 @@
           "lastReviewedAt": "2026-01-16T18:00:00.000Z",
           "evidence": {
             "files": [
-              "src/lib/training/heygen-video-urls.ts"
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
             ],
             "codeSearch": [
               {
                 "file": "src/lib/training/heygen-video-urls.ts",
                 "pattern": "['\\\"]sales-studio-overview['\\\"]s*:",
                 "isRegex": true
+              },
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]sales-studio-overview['\"]s*:",
+                "isRegex": true
               }
-            ]
+            ],
+            "routes": [],
+            "apis": [
+              "/api/video/health?key=sales-studio-overview"
+            ],
+            "tests": []
           },
           "kind": "registry-key",
           "expected": "present"
+        },
+        {
+          "id": "sales-studio-overview-script-001",
+          "statement": "A script-derived transcript exists for key 'sales-studio-overview', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "kind": "script-transcript",
+          "expected": "present",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=sales-studio-overview"
+            ],
+            "notes": "Transcript sourceId='world-class-marketing', resolvedKey='platform-introduction'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ],
+            "routes": [],
+            "tests": []
+          }
         }
       ]
     },
@@ -8015,18 +8166,113 @@
           "lastReviewedAt": "2026-01-16T18:00:00.000Z",
           "evidence": {
             "files": [
-              "src/lib/training/heygen-video-urls.ts"
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
             ],
             "codeSearch": [
               {
                 "file": "src/lib/training/heygen-video-urls.ts",
                 "pattern": "['\\\"]customer-success-studio-overview['\\\"]s*:",
                 "isRegex": true
+              },
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]customer-success-studio-overview['\"]s*:",
+                "isRegex": true
               }
-            ]
+            ],
+            "routes": [],
+            "apis": [
+              "/api/video/health?key=customer-success-studio-overview"
+            ],
+            "tests": []
           },
           "kind": "registry-key",
           "expected": "present"
+        },
+        {
+          "id": "customer-success-studio-overview-script-001",
+          "statement": "A script-derived transcript exists for key 'customer-success-studio-overview', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "kind": "script-transcript",
+          "expected": "present",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=customer-success-studio-overview"
+            ],
+            "notes": "Transcript sourceId='world-class-marketing', resolvedKey='platform-introduction'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ],
+            "routes": [],
+            "tests": []
+          }
+        }
+      ]
+    },
+    "ethical-ai-oversight": {
+      "claims": [
+        {
+          "id": "ethical-ai-oversight-registry-001",
+          "statement": "Key 'ethical-ai-oversight' is present in the canonical video registry and should appear in /api/video/health candidate output.",
+          "kind": "registry-key",
+          "expected": "present",
+          "status": "verified",
+          "lastReviewedAt": "2026-01-17T17:02:50.192Z",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/app/api/video/health/route.ts"
+            ],
+            "apis": [
+              "/api/video/health?key=ethical-ai-oversight"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "['\"]ethical-ai-oversight['\"]s*:",
+                "isRegex": true
+              }
+            ],
+            "routes": [],
+            "tests": []
+          }
+        },
+        {
+          "id": "ethical-ai-oversight-script-001",
+          "statement": "A script-derived transcript exists for key 'ethical-ai-oversight', and the captions endpoint can produce script-derived WebVTT for this key.",
+          "kind": "script-transcript",
+          "expected": "present",
+          "status": "needs-review",
+          "lastReviewedAt": "",
+          "evidence": {
+            "files": [
+              "src/lib/video-scripts/registry-core.ts",
+              "src/app/api/video/captions/route.ts",
+              "video_scripts/world_class"
+            ],
+            "apis": [
+              "/api/video/captions?key=ethical-ai-oversight"
+            ],
+            "notes": "Transcript sourceId='world-class-v4-additional', resolvedKey='ethical-ai-oversight'. (Truth-by-code: transcript is script-derived; audio match is not asserted here.)",
+            "codeSearch": [
+              {
+                "file": "src/app/api/video/captions/route.ts",
+                "pattern": "text/vtt"
+              }
+            ],
+            "routes": [],
+            "tests": []
+          }
         }
       ]
     }

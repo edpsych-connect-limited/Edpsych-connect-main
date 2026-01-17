@@ -1,20 +1,20 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2025-12-28T23:21:30.955Z",
+  "generatedAt": "2026-01-17T17:04:50.467Z",
   "totals": {
-    "keysTotal": 122,
+    "keysTotal": 141,
     "scriptsMissing": 0,
-    "provenanceMissing": 0,
-    "heygenMissingFromInventory": 22,
-    "heygenCompleted": 100,
+    "provenanceMissing": 1,
+    "heygenMissingFromInventory": 38,
+    "heygenCompleted": 103,
     "heygenNotCompleted": 0,
-    "cloudinaryMapped": 98,
+    "cloudinaryMapped": 99,
     "liveDemoMapped": 0,
     "localMapped": 57,
     "localFilesPresent": 57,
-    "embeddedLiteral": 122,
+    "embeddedLiteral": 141,
     "embedMissingLiteral": 0,
-    "needsAttention": 0
+    "needsAttention": 19
   },
   "keys": {
     "addon-ai-power-pack": {
@@ -556,6 +556,39 @@
       "issues": [],
       "recommendation": "ok"
     },
+    "admin-studio-overview": {
+      "key": "admin-studio-overview",
+      "resolvedKey": "la-dashboard-overview",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": true,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "02b3dd252bcf4dd595501ec71ef805d2",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 4,
+        "sampleFiles": [
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\guidance\\contextual-help-video.ts",
+          "src\\lib\\video-scripts\\registry-core.ts",
+          "src\\services\\navigation-service.ts"
+        ]
+      },
+      "issues": [
+        {
+          "level": "warning",
+          "message": "HeyGen ID '02b3dd252bcf4dd595501ec71ef805d2' not found in heygen_videos_list.json (inventory drift?)"
+        },
+        {
+          "level": "warning",
+          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
+        }
+      ],
+      "recommendation": "needs-attention"
+    },
     "annual-reviews-mastery": {
       "key": "annual-reviews-mastery",
       "resolvedKey": "annual-reviews-mastery",
@@ -594,8 +627,9 @@
         "localFileExists": false
       },
       "embedding": {
-        "literalReferenceCount": 2,
+        "literalReferenceCount": 3,
         "sampleFiles": [
+          "src\\components\\ehcp\\EHCPWizardForm.tsx",
           "src\\components\\help\\EnterpriseHelpCenter.tsx",
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
@@ -1101,6 +1135,197 @@
       "issues": [],
       "recommendation": "ok"
     },
+    "classroom-interventions": {
+      "key": "classroom-interventions",
+      "resolvedKey": "help-finding-interventions",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": true,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "ca9e9c0875994e2786cb59150c2a6e2a",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 3,
+        "sampleFiles": [
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\guidance\\contextual-help-video.ts",
+          "src\\lib\\video-scripts\\registry-core.ts"
+        ]
+      },
+      "issues": [
+        {
+          "level": "warning",
+          "message": "HeyGen ID 'ca9e9c0875994e2786cb59150c2a6e2a' not found in heygen_videos_list.json (inventory drift?)"
+        },
+        {
+          "level": "warning",
+          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
+        }
+      ],
+      "recommendation": "needs-attention"
+    },
+    "classroom-studio-overview": {
+      "key": "classroom-studio-overview",
+      "resolvedKey": "help-finding-interventions",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": true,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "5cfaad864e2c40399a4fedcf1170b523",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 4,
+        "sampleFiles": [
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\guidance\\contextual-help-video.ts",
+          "src\\lib\\video-scripts\\registry-core.ts",
+          "src\\services\\navigation-service.ts"
+        ]
+      },
+      "issues": [
+        {
+          "level": "warning",
+          "message": "HeyGen ID '5cfaad864e2c40399a4fedcf1170b523' not found in heygen_videos_list.json (inventory drift?)"
+        },
+        {
+          "level": "warning",
+          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
+        }
+      ],
+      "recommendation": "needs-attention"
+    },
+    "clinical-assessments": {
+      "key": "clinical-assessments",
+      "resolvedKey": "onboard-ep-assessment-suite",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": true,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "8f7d3a8b5d784d05a368650e26e0a50a",
+        "heygenStatus": "completed",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 3,
+        "sampleFiles": [
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\guidance\\contextual-help-video.ts",
+          "src\\lib\\video-scripts\\registry-core.ts"
+        ]
+      },
+      "issues": [
+        {
+          "level": "warning",
+          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
+        }
+      ],
+      "recommendation": "needs-attention"
+    },
+    "clinical-ehcp-hub": {
+      "key": "clinical-ehcp-hub",
+      "resolvedKey": "ehcp-modules-hub-overview",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": true,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "a519e9cd4cb84e2b9bb9486a200c4441",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 3,
+        "sampleFiles": [
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\guidance\\contextual-help-video.ts",
+          "src\\lib\\video-scripts\\registry-core.ts"
+        ]
+      },
+      "issues": [
+        {
+          "level": "warning",
+          "message": "HeyGen ID 'a519e9cd4cb84e2b9bb9486a200c4441' not found in heygen_videos_list.json (inventory drift?)"
+        },
+        {
+          "level": "warning",
+          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
+        }
+      ],
+      "recommendation": "needs-attention"
+    },
+    "clinical-studio-overview": {
+      "key": "clinical-studio-overview",
+      "resolvedKey": "onboard-ep-assessment-suite",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": true,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "ca3a86744e0042359fda79ca4be3fa25",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 4,
+        "sampleFiles": [
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\guidance\\contextual-help-video.ts",
+          "src\\lib\\video-scripts\\registry-core.ts",
+          "src\\services\\navigation-service.ts"
+        ]
+      },
+      "issues": [
+        {
+          "level": "warning",
+          "message": "HeyGen ID 'ca3a86744e0042359fda79ca4be3fa25' not found in heygen_videos_list.json (inventory drift?)"
+        },
+        {
+          "level": "warning",
+          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
+        }
+      ],
+      "recommendation": "needs-attention"
+    },
+    "coding-studio-overview": {
+      "key": "coding-studio-overview",
+      "resolvedKey": "innovation-coding-curriculum",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": true,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "f6912fc2e7a3409881068cee713707c3",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 3,
+        "sampleFiles": [
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\guidance\\contextual-help-video.ts",
+          "src\\lib\\video-scripts\\registry-core.ts"
+        ]
+      },
+      "issues": [
+        {
+          "level": "warning",
+          "message": "HeyGen ID 'f6912fc2e7a3409881068cee713707c3' not found in heygen_videos_list.json (inventory drift?)"
+        },
+        {
+          "level": "warning",
+          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
+        }
+      ],
+      "recommendation": "needs-attention"
+    },
     "compare-switching": {
       "key": "compare-switching",
       "resolvedKey": "compare-switching",
@@ -1218,6 +1443,37 @@
       },
       "issues": [],
       "recommendation": "ok"
+    },
+    "customer-success-studio-overview": {
+      "key": "customer-success-studio-overview",
+      "resolvedKey": "platform-introduction",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": true,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "aba880d988a14b628e48d94b3624ebfd",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 2,
+        "sampleFiles": [
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\video-scripts\\registry-core.ts"
+        ]
+      },
+      "issues": [
+        {
+          "level": "warning",
+          "message": "HeyGen ID 'aba880d988a14b628e48d94b3624ebfd' not found in heygen_videos_list.json (inventory drift?)"
+        },
+        {
+          "level": "warning",
+          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
+        }
+      ],
+      "recommendation": "needs-attention"
     },
     "data-autonomy": {
       "key": "data-autonomy",
@@ -1688,9 +1944,10 @@
         "localFileExists": false
       },
       "embedding": {
-        "literalReferenceCount": 1,
+        "literalReferenceCount": 2,
         "sampleFiles": [
-          "src\\lib\\training\\heygen-video-urls.ts"
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\video-scripts\\registry-core.ts"
         ]
       },
       "issues": [],
@@ -1719,6 +1976,71 @@
       "issues": [],
       "recommendation": "ok"
     },
+    "engagement-gamification": {
+      "key": "engagement-gamification",
+      "resolvedKey": "feature-gamification",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": true,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "e1bef5ae78f244059f1dac13f496ed3b",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 3,
+        "sampleFiles": [
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\guidance\\contextual-help-video.ts",
+          "src\\lib\\video-scripts\\registry-core.ts"
+        ]
+      },
+      "issues": [
+        {
+          "level": "warning",
+          "message": "HeyGen ID 'e1bef5ae78f244059f1dac13f496ed3b' not found in heygen_videos_list.json (inventory drift?)"
+        },
+        {
+          "level": "warning",
+          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
+        }
+      ],
+      "recommendation": "needs-attention"
+    },
+    "engagement-studio-overview": {
+      "key": "engagement-studio-overview",
+      "resolvedKey": "feature-gamification",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": true,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "13d0695f0a644c66939ccd8924fc94e8",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 4,
+        "sampleFiles": [
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\guidance\\contextual-help-video.ts",
+          "src\\lib\\video-scripts\\registry-core.ts",
+          "src\\services\\navigation-service.ts"
+        ]
+      },
+      "issues": [
+        {
+          "level": "warning",
+          "message": "HeyGen ID '13d0695f0a644c66939ccd8924fc94e8' not found in heygen_videos_list.json (inventory drift?)"
+        },
+        {
+          "level": "warning",
+          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
+        }
+      ],
+      "recommendation": "needs-attention"
+    },
     "enterprise-plan-overview": {
       "key": "enterprise-plan-overview",
       "resolvedKey": "innovation-orchestration",
@@ -1742,6 +2064,35 @@
       },
       "issues": [],
       "recommendation": "ok"
+    },
+    "ethical-ai-oversight": {
+      "key": "ethical-ai-oversight",
+      "resolvedKey": "ethical-ai-oversight",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": false,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "7de1da950ad34f4b891ecc8f2e153e07",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/ethical-ai-oversight.mp4",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 3,
+        "sampleFiles": [
+          "src\\components\\landing\\VideoPremiereSection.tsx",
+          "src\\lib\\training\\video-generation-scripts.ts",
+          "src\\lib\\training\\heygen-video-urls.ts"
+        ]
+      },
+      "issues": [
+        {
+          "level": "warning",
+          "message": "No provenance entry found in video_provenance/video-script-provenance.json"
+        }
+      ],
+      "recommendation": "needs-attention"
     },
     "feature-accessibility": {
       "key": "feature-accessibility",
@@ -1798,8 +2149,7 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "58d38fdf4d8640c1b9d848a826d686a6",
-        "heygenStatus": "completed",
+        "heygenId": "e1bef5ae78f244059f1dac13f496ed3b",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-battle-royale.mp4",
         "localFileExists": false
       },
@@ -1823,8 +2173,7 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "58d38fdf4d8640c1b9d848a826d686a6",
-        "heygenStatus": "completed",
+        "heygenId": "e1bef5ae78f244059f1dac13f496ed3b",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-battle-royale-pricing.mp4",
         "localFileExists": false
       },
@@ -1848,9 +2197,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "4ae970ec77f145b3a5ccc12298fd7cd1",
-        "heygenStatus": "completed",
-        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-byod-architecture.mp4",
+        "heygenId": "648558037cf14dad9328ba214e7b349a",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578122/edpsych-connect/videos/feature-byod-architecture.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -1903,9 +2251,10 @@
         "localFileExists": false
       },
       "embedding": {
-        "literalReferenceCount": 1,
+        "literalReferenceCount": 2,
         "sampleFiles": [
-          "src\\lib\\training\\heygen-video-urls.ts"
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\video-scripts\\registry-core.ts"
         ]
       },
       "issues": [],
@@ -1925,8 +2274,9 @@
         "localFileExists": false
       },
       "embedding": {
-        "literalReferenceCount": 3,
+        "literalReferenceCount": 4,
         "sampleFiles": [
+          "src\\components\\dashboard\\TeacherInterventionDashboard.tsx",
           "src\\components\\help\\EnterpriseHelpCenter.tsx",
           "src\\components\\pricing\\PricingPage.tsx",
           "src\\lib\\training\\heygen-video-urls.ts"
@@ -1993,8 +2343,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "738bbcfaa87541aeb36e061c00db5ece",
-        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/feature-nclb-engine.mp4",
+        "heygenId": "1a01810e51df48e5a61838d78d3747e5",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578139/edpsych-connect/videos/feature-nclb-engine.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -2055,6 +2405,118 @@
       },
       "issues": [],
       "recommendation": "ok"
+    },
+    "guide-create-ehcp": {
+      "key": "guide-create-ehcp",
+      "resolvedKey": "ehcp-application-journey",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": true,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "e0fd73d582534c23acdf88c81fd4e616",
+        "heygenStatus": "completed",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 2,
+        "sampleFiles": [
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\video-scripts\\registry-core.ts"
+        ]
+      },
+      "issues": [
+        {
+          "level": "warning",
+          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
+        }
+      ],
+      "recommendation": "needs-attention"
+    },
+    "guide-invite-user": {
+      "key": "guide-invite-user",
+      "resolvedKey": "help-getting-started",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": true,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "a47ac27a1b444cc892840d32c9d63cbb",
+        "heygenStatus": "completed",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 2,
+        "sampleFiles": [
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\video-scripts\\registry-core.ts"
+        ]
+      },
+      "issues": [
+        {
+          "level": "warning",
+          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
+        }
+      ],
+      "recommendation": "needs-attention"
+    },
+    "guide-schedule-event": {
+      "key": "guide-schedule-event",
+      "resolvedKey": "help-getting-started",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": true,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "04effa7e0b9147b582008f022e8421b2",
+        "heygenStatus": "completed",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 2,
+        "sampleFiles": [
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\video-scripts\\registry-core.ts"
+        ]
+      },
+      "issues": [
+        {
+          "level": "warning",
+          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
+        }
+      ],
+      "recommendation": "needs-attention"
+    },
+    "guide-upload-report": {
+      "key": "guide-upload-report",
+      "resolvedKey": "onboard-ep-report-writing",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": true,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "93e46803ffc4404998abfcdcaa5c09ae",
+        "heygenStatus": "completed",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 2,
+        "sampleFiles": [
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\video-scripts\\registry-core.ts"
+        ]
+      },
+      "issues": [
+        {
+          "level": "warning",
+          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
+        }
+      ],
+      "recommendation": "needs-attention"
     },
     "help-collaboration": {
       "key": "help-collaboration",
@@ -2201,6 +2663,36 @@
         "literalReferenceCount": 1,
         "sampleFiles": [
           "src\\lib\\training\\heygen-video-urls.ts"
+        ]
+      },
+      "issues": [],
+      "recommendation": "ok"
+    },
+    "help-getting-started": {
+      "key": "help-getting-started",
+      "resolvedKey": "help-getting-started",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": true,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "47faddd661d648e5ae34c8360c8b2286",
+        "heygenStatus": "completed",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765641883/edpsych-connect/videos/help-getting-started.mp4",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 10,
+        "sampleFiles": [
+          "src\\components\\help\\EnterpriseHelpCenter.tsx",
+          "src\\components\\help\\HelpCenter.tsx",
+          "src\\components\\help\\HelpCenterWithVideos.tsx",
+          "src\\components\\onboarding\\steps\\Step2RoleSelection.tsx",
+          "src\\components\\video\\VideoTutorialPlayer.tsx",
+          "src\\components\\pricing\\PricingPage.tsx",
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\guidance\\contextual-help-video.ts"
         ]
       },
       "issues": [],
@@ -2373,9 +2865,10 @@
         "localFileExists": true
       },
       "embedding": {
-        "literalReferenceCount": 1,
+        "literalReferenceCount": 2,
         "sampleFiles": [
-          "src\\lib\\training\\heygen-video-urls.ts"
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\guidance\\contextual-help-video.ts"
         ]
       },
       "issues": [],
@@ -2423,7 +2916,7 @@
         "localFileExists": true
       },
       "embedding": {
-        "literalReferenceCount": 7,
+        "literalReferenceCount": 8,
         "sampleFiles": [
           "src\\components\\ehcp\\LADashboard.tsx",
           "src\\components\\help\\EnterpriseHelpCenter.tsx",
@@ -2431,7 +2924,8 @@
           "src\\components\\pricing\\PricingPage.tsx",
           "src\\lib\\training\\heygen-video-urls.ts",
           "src\\lib\\guidance\\contextual-help-video.ts",
-          "src\\lib\\cloudinary.ts"
+          "src\\lib\\cloudinary.ts",
+          "src\\lib\\video-scripts\\registry-core.ts"
         ]
       },
       "issues": [],
@@ -2483,6 +2977,37 @@
       },
       "issues": [],
       "recommendation": "ok"
+    },
+    "marketing-studio-overview": {
+      "key": "marketing-studio-overview",
+      "resolvedKey": "platform-introduction",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": true,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "0ee6163fc4004c95a581fbd25c0a2af4",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 2,
+        "sampleFiles": [
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\video-scripts\\registry-core.ts"
+        ]
+      },
+      "issues": [
+        {
+          "level": "warning",
+          "message": "HeyGen ID '0ee6163fc4004c95a581fbd25c0a2af4' not found in heygen_videos_list.json (inventory drift?)"
+        },
+        {
+          "level": "warning",
+          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
+        }
+      ],
+      "recommendation": "needs-attention"
     },
     "mediation-tribunal-navigation": {
       "key": "mediation-tribunal-navigation",
@@ -2568,9 +3093,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "17126ba3772f4a7984aa5fa82d85c817",
-        "heygenStatus": "completed",
-        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1766258344/edpsych-connect/videos/onboarding-welcome.mp4",
+        "heygenId": "ec9d67ec19724552b7ad0b184400a073",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1765110926/edpsych-connect/videos/onboarding-welcome.mp4",
         "localFileExists": false
       },
       "embedding": {
@@ -2693,18 +3217,19 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "700652dcbd134ad281da2126e37560e2",
+        "heygenId": "1504b108b783451e9246cfac493b163f",
         "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1764533750/edpsych-connect/videos/platform-introduction.mp4",
         "localFileExists": false
       },
       "embedding": {
-        "literalReferenceCount": 5,
+        "literalReferenceCount": 6,
         "sampleFiles": [
           "src\\components\\landing\\VideoPremiereSection.tsx",
           "src\\components\\pricing\\PricingPage.tsx",
           "src\\lib\\training\\heygen-video-urls.ts",
           "src\\lib\\guidance\\contextual-help-video.ts",
-          "src\\lib\\cloudinary.ts"
+          "src\\lib\\cloudinary.ts",
+          "src\\lib\\video-scripts\\registry-core.ts"
         ]
       },
       "issues": [],
@@ -2852,6 +3377,38 @@
       "issues": [],
       "recommendation": "ok"
     },
+    "research-studio-overview": {
+      "key": "research-studio-overview",
+      "resolvedKey": "innovation-research-hub",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": true,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "162c4d26eb5c4539857bff6411d85629",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 3,
+        "sampleFiles": [
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\guidance\\contextual-help-video.ts",
+          "src\\lib\\video-scripts\\registry-core.ts"
+        ]
+      },
+      "issues": [
+        {
+          "level": "warning",
+          "message": "HeyGen ID '162c4d26eb5c4539857bff6411d85629' not found in heygen_videos_list.json (inventory drift?)"
+        },
+        {
+          "level": "warning",
+          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
+        }
+      ],
+      "recommendation": "needs-attention"
+    },
     "resource-costing-funding": {
       "key": "resource-costing-funding",
       "resolvedKey": "resource-costing-funding",
@@ -2874,6 +3431,37 @@
       },
       "issues": [],
       "recommendation": "ok"
+    },
+    "sales-studio-overview": {
+      "key": "sales-studio-overview",
+      "resolvedKey": "platform-introduction",
+      "scriptStatus": "found",
+      "provenance": {
+        "present": true,
+        "verifiedAudioMatch": false
+      },
+      "sources": {
+        "heygenId": "42456f6ea7524f1aaefcb7825d47f6d8",
+        "localFileExists": false
+      },
+      "embedding": {
+        "literalReferenceCount": 2,
+        "sampleFiles": [
+          "src\\lib\\training\\heygen-video-urls.ts",
+          "src\\lib\\video-scripts\\registry-core.ts"
+        ]
+      },
+      "issues": [
+        {
+          "level": "warning",
+          "message": "HeyGen ID '42456f6ea7524f1aaefcb7825d47f6d8' not found in heygen_videos_list.json (inventory drift?)"
+        },
+        {
+          "level": "warning",
+          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
+        }
+      ],
+      "recommendation": "needs-attention"
     },
     "school-senco-portal": {
       "key": "school-senco-portal",
@@ -2979,8 +3567,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "1353dc5eeae1475e8d307a9914f8f2e5",
-        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/trust-security.mp4",
+        "heygenId": "12fbfee13dd04c7087eee79ad1101fb2",
+        "heygenStatus": "completed",
         "localFileExists": false
       },
       "embedding": {
@@ -2992,8 +3580,13 @@
           "src\\lib\\training\\heygen-video-urls.ts"
         ]
       },
-      "issues": [],
-      "recommendation": "ok"
+      "issues": [
+        {
+          "level": "warning",
+          "message": "No Cloudinary/local/live-demo mapping; playback depends on HeyGen embed only"
+        }
+      ],
+      "recommendation": "needs-attention"
     },
     "value-enterprise-platform": {
       "key": "value-enterprise-platform",
@@ -3004,8 +3597,8 @@
         "verifiedAudioMatch": false
       },
       "sources": {
-        "heygenId": "52e39fee2f98437fb2a8a67c840c0836",
-        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/edpsych-connect/videos/value-enterprise-platform.mp4",
+        "heygenId": "868bb5e5e35746968d8f7abe65aba081",
+        "cloudinaryUrl": "https://res.cloudinary.com/dncfu2j0r/video/upload/v1768578171/edpsych-connect/videos/value-enterprise-platform.mp4",
         "localFileExists": false
       },
       "embedding": {
