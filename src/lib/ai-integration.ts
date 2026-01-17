@@ -11,6 +11,7 @@ import { aiAuditService } from './audit/ai-audit-service';
 import { getDefaultOpenAIModel } from '@/lib/ai/openai-model';
 import { redactPII } from '@/lib/security/pii-redaction';
 import { AI_DATA_USE_POLICY } from '@/lib/ai/data-use-policy';
+import { enforceEthicsGate } from '@/lib/ethics/ethics-gate';
 // import { getDemoResponse } from '@/lib/ai/demo-data'; // Removed for Truth-by-Code
 
 export interface AIRequest {
@@ -530,6 +531,21 @@ class AIIntegrationService {
       throw new Error(`No suitable agent found for use case: ${request.useCase}`);
     }
 
+    const providerInfo = this.resolveProviderModel(agent, request);
+    let ethicsGateDecision: { allowed: boolean; reason?: string; modelVersionId?: string; fairnessEvaluationId?: string } | null = null;
+    if (process.env.ETHICS_GATE_DISABLED !== 'true') {
+      ethicsGateDecision = await enforceEthicsGate({
+        provider: providerInfo.provider,
+        providerModel: providerInfo.providerModel,
+        tenantId: request.tenantId,
+        userId: request.id,
+        useCase: request.useCase
+      });
+      if (!ethicsGateDecision.allowed) {
+        throw new Error(`Ethics gate blocked: ${ethicsGateDecision.reason || 'unknown'}`);
+      }
+    }
+
     // Privacy guard: redact PII before it can leave our boundary (best-effort).
     const shouldRedactPII =
       request.redactPII ?? (process.env.NODE_ENV === 'production');
@@ -605,7 +621,11 @@ class AIIntegrationService {
         output: auditOutput,
         confidenceScore: 0.95, // Mock confidence for now
         autonomyLevel: request.autonomyLevel || 'advisory',
-        humanReviewRequired: request.autonomyLevel === 'advisory'
+        humanReviewRequired: request.autonomyLevel === 'advisory',
+        metadata: {
+          ethicsGate: ethicsGateDecision || { skipped: true },
+          providerModel: providerInfo
+        }
       });
 
       return {
@@ -656,6 +676,19 @@ class AIIntegrationService {
 
     const agentKey = agentMapping[useCase];
     return agentKey ? this.agents[agentKey] : null;
+  }
+
+  private resolveProviderModel(agent: AgentConfig, request: AIRequest): { provider: string; providerModel: string } {
+    if (agent.model === 'claude' || agent.model === 'hybrid') {
+      return { provider: 'anthropic', providerModel: 'claude-3-sonnet-20240229' };
+    }
+    if (agent.model === 'xai') {
+      return { provider: 'xai', providerModel: 'grok-beta' };
+    }
+    if (agent.model === 'openai') {
+      return { provider: 'openai', providerModel: request.model || getDefaultOpenAIModel() };
+    }
+    return { provider: 'openai', providerModel: request.model || getDefaultOpenAIModel() };
   }
 
   private async callAI(agent: AgentConfig, request: AIRequest): Promise<{ content: string; tokens: number }> {

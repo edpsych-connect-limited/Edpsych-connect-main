@@ -5,7 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getLivingDemos } from '@/services/ai/living-demos';
-import { serverAuth } from '@/lib/auth/server-auth';
+import { authenticateRequest } from '@/lib/middleware/auth';
 import { decideAiAccess } from '@/lib/governance/policy-engine';
 import { redactPII } from '@/lib/security/pii-redaction';
 
@@ -30,12 +30,13 @@ function redactStringFields(value: unknown): unknown {
 
 export async function POST(request: NextRequest) {
   try {
-    const user = await serverAuth.getUserFromRequest(request);
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const authResult = await authenticateRequest(request);
+    if (!authResult.success) {
+      return authResult.response;
     }
+    const user = authResult.session.user;
 
-    const tenantIdRaw: unknown = (user as any).tenantId;
+    const tenantIdRaw: unknown = (user as any).tenant_id;
     const tenantId = typeof tenantIdRaw === 'string' ? parseInt(tenantIdRaw, 10) : (tenantIdRaw as number);
     if (!tenantId || Number.isNaN(tenantId)) {
       return NextResponse.json({ error: 'Missing tenant context' }, { status: 400 });
@@ -79,12 +80,13 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const user = await serverAuth.getUserFromRequest(request);
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const authResult = await authenticateRequest(request);
+    if (!authResult.success) {
+      return authResult.response;
     }
+    const user = authResult.session.user;
 
-    const tenantIdRaw: unknown = (user as any).tenantId;
+    const tenantIdRaw: unknown = (user as any).tenant_id;
     const tenantId = typeof tenantIdRaw === 'string' ? parseInt(tenantIdRaw, 10) : (tenantIdRaw as number);
     if (!tenantId || Number.isNaN(tenantId)) {
       return NextResponse.json({ error: 'Missing tenant context' }, { status: 400 });

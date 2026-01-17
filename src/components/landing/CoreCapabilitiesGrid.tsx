@@ -45,7 +45,7 @@ export default function CoreCapabilitiesGrid() {
     {
       icon: Library,
       title: "Intervention Designer",
-      description: "Access 100+ evidence-based strategies. The system suggests the perfect intervention before you even ask.",
+      description: "Access a growing library of evidence-based strategies. The system suggests interventions to review.",
       color: "text-pink-400",
       bg: "bg-pink-400/10",
       href: "/interventions",
@@ -63,7 +63,7 @@ export default function CoreCapabilitiesGrid() {
     {
       icon: Code,
       title: "Coders of Tomorrow",
-      description: "Proprietary coding curriculum designed for neurodiversity. Block coding to Python to React—with cognitive load management built in.",
+      description: "Proprietary coding curriculum designed for neurodiversity. Block coding to Python to React, with cognitive load management built in.",
       color: "text-rose-400",
       bg: "bg-rose-400/10",
       href: "/demo/coding",
@@ -72,7 +72,7 @@ export default function CoreCapabilitiesGrid() {
     {
       icon: Mic,
       title: "Voice Command System",
-      description: "Hands-free operation with UK accent recognition. 'Show me Year 3 progress' or 'Who needs help today?' Teaching shouldn't require typing.",
+      description: "Hands-free operation with UK English-friendly commands. 'Show me Year 3 progress' or 'Who needs help today?' Teaching shouldn't require typing.",
       color: "text-sky-400",
       bg: "bg-sky-400/10",
       href: "/settings",
@@ -108,7 +108,7 @@ export default function CoreCapabilitiesGrid() {
     {
       icon: Search,
       title: "EP Marketplace",
-      description: "Find vetted Educational Psychologists instantly. LA Panel approved, DBS checked, £6M insured. Book assessments in minutes.",
+      description: "Find Educational Psychologists quickly. Supports LA panel workflows, DBS verification, and insurance evidence collection.",
       color: "text-orange-400",
       bg: "bg-orange-400/10",
       href: "/marketplace",
@@ -117,7 +117,7 @@ export default function CoreCapabilitiesGrid() {
     {
       icon: Users,
       title: "Professional Forum",
-      description: "Connect with 2,300+ EPs, SENCOs, and educators. Share evidence-based practices. Learn from expert contributors.",
+      description: "Connect with a growing community of EPs, SENCOs, and educators. Share evidence-based practices and learn together.",
       color: "text-violet-400",
       bg: "bg-violet-400/10",
       href: "/forum",
@@ -135,7 +135,7 @@ export default function CoreCapabilitiesGrid() {
     {
       icon: Trophy,
       title: "Gamified Engagement Engine",
-      description: "Engagement that sustains itself. Battle Royale modes and live leaderboards that make learning addictive.",
+      description: "Engagement that stays positive. Battle Royale modes and leaderboards designed to motivate learners.",
       color: "text-amber-400",
       bg: "bg-amber-400/10",
       href: "/gamification",
@@ -144,7 +144,7 @@ export default function CoreCapabilitiesGrid() {
     {
       icon: Clock,
       title: "Zero-Touch EHCP Drafting",
-      description: "Paperwork that writes itself. Our invisible intelligence drafts 80% of the report while you observe.",
+      description: "Paperwork that drafts itself. Our assistant pre-fills structured sections for review and editing.",
       color: "text-blue-400",
       bg: "bg-blue-400/10",
       href: "/ehcp/new",
@@ -217,7 +217,7 @@ export default function CoreCapabilitiesGrid() {
     {
       icon: Shield,
       title: "Safeguarding System",
-      description: "KCSIE 2023 compliant safeguarding tools. Concern logging, DSL workflows, chronology tracking, and secure referrals.",
+      description: "Safeguarding tools aligned to KCSIE 2023 guidance. Concern logging, DSL workflows, chronology tracking, and secure referrals.",
       color: "text-red-500",
       bg: "bg-red-500/10",
       href: "/safeguarding",
@@ -226,7 +226,7 @@ export default function CoreCapabilitiesGrid() {
     {
       icon: Sparkles,
       title: "Golden Thread Coherence",
-      description: "AI-powered EHCP coherence checking. Ensures needs, provision, and outcomes align throughout the document.",
+      description: "AI-powered EHCP coherence checking. Supports alignment across needs, provision, and outcomes.",
       color: "text-amber-400",
       bg: "bg-amber-400/10",
       href: "/ehcp/modules/golden-thread",
@@ -279,7 +279,7 @@ export default function CoreCapabilitiesGrid() {
             A complete orchestration layer for Special Educational Needs. Every tool you need, integrated into one seamless system.
           </p>
           <p className="text-slate-400 text-sm mt-2">
-            Click any feature to explore • Tier badges show required subscription level
+            Click any feature to explore. Tier badges show required subscription level.
           </p>
         </div>
 
@@ -348,3 +348,4 @@ export default function CoreCapabilitiesGrid() {
     </section>
   );
 }
+

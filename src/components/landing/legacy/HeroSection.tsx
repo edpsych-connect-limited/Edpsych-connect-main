@@ -23,11 +23,11 @@ interface LiveMetrics {
   lastUpdate: string;
 }
 
-interface EvidenceData {
-  adminReduction: number;
-  engagementIncrease: number;
-  parentSatisfaction: number;
-  schoolAvoidanceDecrease: number;
+interface EvidenceItem {
+  label: string;
+  value: number | null;
+  status: string;
+  color: string;
 }
 
 const HeroSection: React.FC = () => {
@@ -39,25 +39,25 @@ const HeroSection: React.FC = () => {
   const [_challengeAnalysis, setChallengeAnalysis] = useState<any>(null);
 
   const headlines = [
-    "Teaching That Adapts Itself. No Child Left Behind. Ever.",
-    "40 Students. 40 Different Needs. One Platform That Knows Them All.",
-    "47 Hours Back Every Month. Spent Teaching, Not Planning.",
-    "From 'I Can't Reach Everyone' to 'Every Student Gets What They Need.'"
+    "Teaching That Adapts. Built For Every Learner.",
+    "One Platform For Many Needs. Designed To Flex With Your Class.",
+    "Time Back For Teaching. Less Admin, More Impact.",
+    "From 'I Can't Reach Everyone' to 'I Can Personalize At Scale.'"
   ];
 
   const liveMetrics: LiveMetrics = {
-    schools: 14327,
-    hoursSaved: 47892,
-    students: 2300000,
+    schools: 0,
+    hoursSaved: 0,
+    students: 0,
     lastUpdate: new Date().toLocaleTimeString()
   };
 
-  const evidenceData: EvidenceData = {
-    adminReduction: 87,
-    engagementIncrease: 73,
-    parentSatisfaction: 91,
-    schoolAvoidanceDecrease: 65
-  };
+  const evidenceData: EvidenceItem[] = [
+    { label: 'Time saved on differentiation', value: null, status: 'Pilot evidence in progress', color: 'from-green-400 to-emerald-400' },
+    { label: 'Learners receiving targeted support', value: null, status: 'Pilot evidence in progress', color: 'from-blue-400 to-cyan-400' },
+    { label: 'Parent understanding & clarity', value: null, status: 'Pilot evidence in progress', color: 'from-purple-400 to-pink-400' },
+    { label: 'Multi-agency coordination', value: null, status: 'Pilot evidence in progress', color: 'from-orange-400 to-red-400' }
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -87,9 +87,9 @@ const HeroSection: React.FC = () => {
         category: 'general_automation',
         confidence: 0.85,
         solutions: [
-          'Implement automated workflow optimization',
-          'Deploy intelligent task prioritization',
-          'Set up resource allocation automation'
+          'Surface the highest-impact actions for the week',
+          'Reduce duplicate admin tasks across teams',
+          'Streamline reporting with consistent templates'
         ],
         timeSavings: {
           hoursPerWeek: 5,
@@ -100,7 +100,7 @@ const HeroSection: React.FC = () => {
           {
             name: 'Workflow Automation',
             description: 'Intelligent automation of routine tasks',
-            impact: '87% reduction in administrative overhead'
+            impact: 'Designed to reduce repetitive admin workload'
           }
         ]
       };
@@ -141,7 +141,7 @@ const HeroSection: React.FC = () => {
             >
               <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mr-3 animate-pulse" />
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                ✨ Platform That Knows Every Student. Automatically.
+                Pilot-ready, evidence-first platform.
               </span>
             </motion.div>
 
@@ -220,7 +220,7 @@ const HeroSection: React.FC = () => {
                         Ask About Any Student
                       </h3>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Voice or type - instant insights from all their data
+                        Voice or type - surface insights from your trusted data
                       </p>
                     </div>
                   </div>
@@ -234,7 +234,7 @@ const HeroSection: React.FC = () => {
                     animate={{ scale: [1, 1.05, 1] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
                   >
-                    {isCalculating ? '🧠 Analyzing...' : '✨ Ready'}
+                    {isCalculating ? 'Analyzing...' : 'Beta Ready'}
                   </motion.div>
                 </div>
 
@@ -244,7 +244,7 @@ const HeroSection: React.FC = () => {
                       type="text"
                       value={userChallenge}
                       onChange={(e) => setUserChallenge(e.target.value)}
-                      placeholder="Try: 'How is Amara doing?' or 'Who needs extra support in maths?' or 'Show me today's lesson plans'"
+                      placeholder="Try: 'How is Amara doing?' or 'Who needs extra support in maths?'"
                       className="w-full px-6 py-4 pr-32 text-lg border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 dark:focus:border-blue-400 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all duration-300"
                       onKeyPress={(e) => e.key === 'Enter' && handleChallengeSubmit()}
                       aria-label="Enter your education challenge or question"
@@ -301,7 +301,7 @@ const HeroSection: React.FC = () => {
             <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-6 mb-8 border border-green-100">
               <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
                 <FaCalculator className="mr-2 text-green-600" />
-                Time Savings Calculator
+                Time Savings Estimator
               </h3>
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div>
@@ -325,9 +325,9 @@ const HeroSection: React.FC = () => {
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-green-600 mb-1">
-                  {timeSavings > 0 ? `${timeSavings}+ hours` : '47+ hours'}
+                  {timeSavings > 0 ? `${timeSavings}+ hours` : 'Estimate'}
                 </div>
-                <div className="text-sm text-gray-600">saved monthly per teacher</div>
+                <div className="text-sm text-gray-600">estimated monthly per teacher</div>
               </div>
             </div>
 
@@ -417,27 +417,27 @@ const HeroSection: React.FC = () => {
                         Platform Intelligence In Action
                       </h3>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Automatic differentiation happening right now
+                        Pilot workflows ready for review
                       </p>
                     </div>
                   </div>
 
                   <motion.div
-                    className="flex items-center space-x-2 px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-xs font-medium"
+                    className="flex items-center space-x-2 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full text-xs font-medium"
                     animate={{ opacity: [0.5, 1, 0.5] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                    <span>Live</span>
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                    <span>Beta</span>
                   </motion.div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-6">
                   {[
-                    { value: liveMetrics.schools, label: 'Teachers Using Platform', color: 'from-blue-500 to-blue-600', icon: FaUsers },
-                    { value: liveMetrics.hoursSaved, label: 'Hours Saved This Week', color: 'from-green-500 to-green-600', icon: FaClock },
-                    { value: liveMetrics.students, label: 'Students Auto-Profiled', color: 'from-purple-500 to-purple-600', icon: FaBrain },
-                    { value: '98%', label: 'Lessons Auto-Differentiated', color: 'from-orange-500 to-orange-600', icon: FaRocket }
+                    { value: 'Beta cohort open', label: 'Early Access Cohort', color: 'from-blue-500 to-blue-600', icon: FaUsers },
+                    { value: 'Pilot-ready', label: 'Workflow Coverage', color: 'from-green-500 to-green-600', icon: FaClock },
+                    { value: 'Sandbox mode', label: 'Safe Demo Data', color: 'from-purple-500 to-purple-600', icon: FaBrain },
+                    { value: 'Audit-first', label: 'Compliance Evidence', color: 'from-orange-500 to-orange-600', icon: FaRocket }
                   ].map((metric, index) => {
                     const Icon = metric.icon;
                     return (
@@ -533,7 +533,7 @@ const HeroSection: React.FC = () => {
                         Orchestration Impact
                       </h3>
                       <p className="text-sm text-white/80">
-                        Real outcomes from invisible intelligence
+                        Evidence reporting for pilot partners
                       </p>
                     </div>
                   </div>
@@ -543,17 +543,12 @@ const HeroSection: React.FC = () => {
                     animate={{ scale: [1, 1.05, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
-                    ✓ Evidence-Based
+                    Evidence Program
                   </motion.div>
                 </div>
 
                 <div className="space-y-4">
-                  {[
-                    { label: 'Time on differentiation saved', value: evidenceData.adminReduction, color: 'from-green-400 to-emerald-400' },
-                    { label: 'Students reached who were falling behind', value: evidenceData.engagementIncrease, color: 'from-blue-400 to-cyan-400' },
-                    { label: 'Parents understand their child\'s progress', value: evidenceData.parentSatisfaction, color: 'from-purple-400 to-pink-400' },
-                    { label: 'Multi-agency coordination improved', value: evidenceData.schoolAvoidanceDecrease, color: 'from-orange-400 to-red-400' }
-                  ].map((item, index) => (
+                  {evidenceData.map((item, index) => (
                     <motion.div
                       key={index}
                       className="relative bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20"
@@ -570,9 +565,10 @@ const HeroSection: React.FC = () => {
                           animate={{ scale: 1 }}
                           transition={{ delay: 0.2 + (0.1 * index), duration: 0.5, type: "spring" }}
                         >
-                          {item.value}%
+                          {item.value === null ? 'Pilot' : `${item.value}%`}
                         </motion.span>
                       </div>
+                      <div className="mt-2 text-xs text-white/70">{item.status}</div>
 
                       <motion.div
                         className="mt-3 h-2 bg-white/20 rounded-full overflow-hidden"
@@ -583,7 +579,7 @@ const HeroSection: React.FC = () => {
                         <motion.div
                           className={`h-full bg-gradient-to-r ${item.color} rounded-full`}
                           initial={{ width: "0%" }}
-                          animate={{ width: `${item.value}%` }}
+                          animate={{ width: `${item.value ?? 0}%` }}
                           transition={{ delay: 0.6 + (0.1 * index), duration: 1.5, ease: "easeOut" }}
                         />
                       </motion.div>
@@ -604,7 +600,7 @@ const HeroSection: React.FC = () => {
                       transition={{ duration: 2, repeat: Infinity }}
                     >
                       <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                      <span>Based on data from {formatNumber(14327)}+ schools</span>
+                      <span>Evidence summaries will appear as pilots complete</span>
                     </motion.div>
                   </div>
                 </motion.div>

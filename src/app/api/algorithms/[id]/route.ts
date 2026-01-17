@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import AlgorithmService from '@/algorithm/services/AlgorithmService';
-import serverAuth from '@/lib/auth/server-auth';
+import { authenticateRequest, isAdminRole } from '@/lib/middleware/auth';
 
 export async function GET(
   req: NextRequest,
@@ -8,7 +8,6 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const user = await serverAuth.getUserFromRequest(req);
     const algorithm = await AlgorithmService.getById(id);
     
     if (!algorithm) {
@@ -17,13 +16,14 @@ export async function GET(
 
     // Check visibility
     if (algorithm.visibility === 'private') {
-      if (!user) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      const authResult = await authenticateRequest(req);
+      if (!authResult.success) {
+        return authResult.response;
       }
-      // Check if user is creator or admin (assuming isAdmin property or role check)
-      const isCreator = user.id === algorithm.creatorId.toString(); // Ensure type match
-      const isAdmin = user.roles.includes('admin');
-      
+      const user = authResult.session.user;
+      const isCreator = user.id === algorithm.creatorId.toString();
+      const isAdmin = isAdminRole(user.role);
+
       if (!isCreator && !isAdmin) {
         return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
       }
@@ -41,10 +41,11 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await serverAuth.getUserFromRequest(req);
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const authResult = await authenticateRequest(req);
+    if (!authResult.success) {
+      return authResult.response;
     }
+    const user = authResult.session.user;
 
     const { id } = await params;
     const body = await req.json();
@@ -56,7 +57,7 @@ export async function PUT(
     }
 
     const isCreator = user.id === algorithm.creatorId.toString();
-    const isAdmin = user.roles.includes('admin');
+    const isAdmin = isAdminRole(user.role);
 
     if (!isCreator && !isAdmin) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -80,10 +81,11 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await serverAuth.getUserFromRequest(req);
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const authResult = await authenticateRequest(req);
+    if (!authResult.success) {
+      return authResult.response;
     }
+    const user = authResult.session.user;
 
     const { id } = await params;
     
@@ -94,7 +96,7 @@ export async function DELETE(
     }
 
     const isCreator = user.id === algorithm.creatorId.toString();
-    const isAdmin = user.roles.includes('admin');
+    const isAdmin = isAdminRole(user.role);
 
     if (!isCreator && !isAdmin) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });

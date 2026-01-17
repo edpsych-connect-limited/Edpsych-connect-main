@@ -37,7 +37,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const session = await signUp(email, password, { name, role, tenant_id });
+    if (role) {
+      const normalizedRole = String(role).trim().toUpperCase();
+      const allowedRoles = ['TEACHER', 'SENCO', 'EP', 'PARENT', 'RESEARCHER', 'STUDENT'];
+      if (!allowedRoles.includes(normalizedRole)) {
+        return NextResponse.json(
+          { error: 'Invalid role selection' },
+          { status: 400 }
+        );
+      }
+      body.role = normalizedRole;
+    }
+
+    const session = await signUp(email, password, { name, role: body.role, tenant_id });
 
     return NextResponse.json({
       message: 'User registered successfully',

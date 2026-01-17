@@ -79,3 +79,77 @@ model EthicsMonitor {
 
   @@index([enabled])
 }
+
+// ============================================================================
+// AI MODEL REGISTRY & ETHICAL EVALUATION
+// ============================================================================
+
+model AIModel {
+  id          String   @id @default(cuid())
+  name        String
+  provider    String
+  description String?  @db.Text
+  status      String   @default("active") // active, deprecated, retired
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  versions    AIModelVersion[]
+
+  @@index([provider])
+  @@index([status])
+}
+
+model AIModelVersion {
+  id                  String   @id @default(cuid())
+  modelId             String
+  versionLabel        String
+  providerModel       String
+  status              String   @default("active") // active, deprecated, retired
+  releaseDate         DateTime?
+  trainingDataSummary String?  @db.Text
+  architectureSummary String?  @db.Text
+  performanceMetrics  Json?
+  limitations         Json?
+  ethicsAssessmentId  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  model              AIModel            @relation(fields: [modelId], references: [id])
+  ethicsAssessment   EthicsAssessment?  @relation(fields: [ethicsAssessmentId], references: [id])
+  fairnessEvaluations AIFairnessEvaluation[]
+  transparencyReport  AITransparencyReport?
+
+  @@index([modelId])
+  @@index([providerModel])
+  @@index([status])
+}
+
+model AIFairnessEvaluation {
+  id             String   @id @default(cuid())
+  modelVersionId String
+  datasetName    String
+  evaluatedAt    DateTime @default(now())
+  metrics        Json
+  thresholds     Json
+  passed         Boolean  @default(false)
+  notes          String?  @db.Text
+  evaluatorId    Int?
+
+  modelVersion AIModelVersion @relation(fields: [modelVersionId], references: [id])
+  evaluator    users?         @relation(fields: [evaluatorId], references: [id])
+
+  @@index([modelVersionId])
+  @@index([evaluatedAt])
+  @@index([passed])
+}
+
+model AITransparencyReport {
+  id             String   @id @default(cuid())
+  modelVersionId String   @unique
+  report         Json
+  publishedAt    DateTime?
+  createdAt      DateTime @default(now())
+
+  modelVersion AIModelVersion @relation(fields: [modelVersionId], references: [id])
+}

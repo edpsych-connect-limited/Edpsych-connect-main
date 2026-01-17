@@ -38,15 +38,15 @@ export default function FlagshipDifferentiation() {
             </h2>
             
             <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-              Input a single lesson objective. Instantly receive 40 personalised versions—scaffolded for support, extended for mastery, and adapted for every unique need in your classroom.
+              Input a single lesson objective. Generate differentiated versions scaffolded for support, extended for mastery, and adapted for diverse learner needs.
             </p>
 
             <div className="space-y-4 mb-10">
               {[
-                "Instantly adapts to 40+ unique student profiles",
+                "Adapts for varied learner profiles and support levels",
                 "Generates specific scaffolding & extension resources",
-                "Maps directly to UK National Curriculum standards",
-                "Saves 5-10 hours of planning time per week"
+                "Aligns with UK National Curriculum guidance",
+                "Designed to save planning time each week"
               ].map((item, idx) => (
                 <div key={idx} className="flex items-start gap-3">
                   <CheckCircle2 className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" />
@@ -62,7 +62,7 @@ export default function FlagshipDifferentiation() {
               </Link>
               <div className="flex items-center gap-2 px-6 py-4 bg-indigo-50 rounded-xl text-indigo-700 font-medium">
                 <Clock className="w-5 h-5" />
-                <span>Saves ~45 mins per lesson</span>
+                <span>Estimated planning time back</span>
               </div>
             </div>
           </motion.div>
@@ -78,8 +78,8 @@ export default function FlagshipDifferentiation() {
             <div className="absolute inset-0 bg-gradient-to-tr from-indigo-100 to-purple-100 rounded-3xl transform rotate-3 scale-105 opacity-50 blur-2xl" />
             <FeatureSpotlightVideo
               videoId="70ec101b44744460a79c70cee1573bb0"
-              title="No Child Left Behind"
-              description="See how our engine instantly adapts one lesson plan for 30 unique student profiles."
+              title="Every Learner Supported"
+              description="See how one lesson plan adapts across varied learner needs."
               icon="differentiation"
               className="relative z-10"
             />

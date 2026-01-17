@@ -27,7 +27,7 @@ export default function PrivacyPolicyPage() {
             <Shield className="w-8 h-8 text-indigo-600" />
             <h1 className="text-3xl font-bold text-slate-900">Privacy Policy</h1>
           </div>
-          <p className="text-slate-600 mt-2">Last updated: November 2025</p>
+          <p className="text-slate-600 mt-2">Last updated: January 2026</p>
         </div>
       </div>
 
@@ -107,15 +107,28 @@ export default function PrivacyPolicyPage() {
             </p>
 
             <h3>5.2 Third-Party Service Providers</h3>
+            <p>
+              We use carefully selected third-party service providers (subprocessors). Some are always required
+              to deliver the service, while others are optional and depend on tenant configuration or feature enablement.
+            </p>
+            <h4>Active (Core Service)</h4>
             <ul>
-              <li><strong>Hosting:</strong> Vercel (United States) - covered by UK adequacy regulations</li>
-              <li><strong>Database:</strong> Neon (PostgreSQL) - EU/UK data centres</li>
-              <li><strong>Payment Processing:</strong> Stripe - PCI DSS compliant</li>
-              <li><strong>AI Services:</strong> Anthropic Claude - for assessment interpretation and support</li>
-              <li><strong>Email Services:</strong> For notifications and communications</li>
+              <li><strong>Hosting/Edge Runtime:</strong> Vercel (region configured per deployment)</li>
+              <li><strong>Database:</strong> Neon (PostgreSQL)</li>
+              <li><strong>Payment Processing:</strong> Stripe (PCI DSS compliant)</li>
+              <li><strong>Email Delivery:</strong> Twilio SendGrid (transactional email)</li>
+              <li><strong>Media Delivery:</strong> Cloudinary (video storage/CDN)</li>
+            </ul>
+            <h4>Optional/Conditional (Feature-Dependent)</h4>
+            <ul>
+              <li><strong>AI Assistance:</strong> Anthropic Claude, OpenAI, Google Gemini, xAI (only if enabled)</li>
+              <li><strong>Video Generation:</strong> HeyGen (only if enabled)</li>
+              <li><strong>Caching/Rate Limiting:</strong> Upstash/Vercel KV or Redis (only if configured)</li>
+              <li><strong>Monitoring/Analytics:</strong> AWS CloudWatch, Sentry, Google Analytics (only if enabled)</li>
             </ul>
             <p>
-              All third-party processors are bound by data processing agreements ensuring UK GDPR compliance.
+              We maintain a subprocessor register and will provide details on request. All active subprocessors are
+              bound by data processing agreements and are required to meet UK GDPR obligations.
             </p>
 
             <h3>5.3 Legal Requirements</h3>
@@ -167,8 +180,9 @@ export default function PrivacyPolicyPage() {
 
             <h2>10. International Data Transfers</h2>
             <p>
-              Some of our service providers are located outside the UK/EEA. Where this occurs, we ensure appropriate safeguards are in place,
-              including Standard Contractual Clauses and adequacy decisions. Your data is primarily stored in UK/EU data centres.
+              Some service providers may process data outside the UK/EEA. Where international transfers occur, we use appropriate safeguards
+              such as the UK International Data Transfer Agreement (IDTA) or the UK Addendum to the EU Standard Contractual Clauses,
+              as applicable. Details of safeguards and the current subprocessor list are available on request.
             </p>
 
             <h2>11. Cookies and Tracking Technologies</h2>

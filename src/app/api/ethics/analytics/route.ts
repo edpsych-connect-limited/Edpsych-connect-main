@@ -30,6 +30,11 @@ export async function GET(request: NextRequest) {
       allIncidents,
       allAssessments,
       recentIncidents,
+      totalModels,
+      activeModelVersions,
+      evaluationsInRange,
+      failedEvaluations,
+      latestEvaluation,
     ] = await Promise.all([
       // Total monitors
       prisma.ethicsMonitor.count(),
@@ -73,6 +78,20 @@ export async function GET(request: NextRequest) {
           detectedAt: 'asc',
         },
       }),
+      prisma.aIModel.count(),
+      prisma.aIModelVersion.count({
+        where: { status: 'active' }
+      }),
+      prisma.aIFairnessEvaluation.count({
+        where: { evaluatedAt: { gte: startDate } }
+      }),
+      prisma.aIFairnessEvaluation.count({
+        where: { evaluatedAt: { gte: startDate }, passed: false }
+      }),
+      prisma.aIFairnessEvaluation.findFirst({
+        orderBy: { evaluatedAt: 'desc' },
+        select: { evaluatedAt: true }
+      })
     ]);
 
     // Calculate incident stats
@@ -170,6 +189,14 @@ export async function GET(request: NextRequest) {
           : 0
       },
       recommendations
+      ,
+      modelRegistry: {
+        totalModels,
+        activeModelVersions,
+        evaluationsInRange,
+        failedEvaluations,
+        latestEvaluationAt: latestEvaluation?.evaluatedAt || null
+      }
     };
 
     return NextResponse.json(analytics);

@@ -8,25 +8,20 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { aiIntegration } from '@/lib/ai-integration';
-import { serverAuth } from '@/lib/auth/server-auth';
+import { authenticateRequest } from '@/lib/middleware/auth';
 import { decideAiAccess } from '@/lib/governance/policy-engine';
 
 export async function POST(request: NextRequest) {
   try {
     // 1. Authenticate User
-    const user = await serverAuth.getUserFromRequest(request);
-    
-    if (!user) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
+    const authResult = await authenticateRequest(request);
+    if (!authResult.success) {
+      return authResult.response;
     }
-
-    const activeUser = user;
+    const activeUser = authResult.session.user;
 
     // 1b. Enforce per-tenant AI governance policy
-    const tenantIdRaw: unknown = (activeUser as any).tenantId;
+    const tenantIdRaw: unknown = (activeUser as any).tenant_id;
     const tenantId = typeof tenantIdRaw === 'string' ? parseInt(tenantIdRaw, 10) : (tenantIdRaw as number);
     if (!tenantId || Number.isNaN(tenantId)) {
       return NextResponse.json(
@@ -64,7 +59,7 @@ export async function POST(request: NextRequest) {
       redactPII,
       platformContext: {
         ...context,
-        userRole: activeUser.roles[0] || 'user'
+        userRole: activeUser.role || 'user'
       }
     });
 

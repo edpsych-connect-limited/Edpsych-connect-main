@@ -5,18 +5,19 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getAdaptiveSystem } from '@/services/ai/adaptive-system';
-import { serverAuth } from '@/lib/auth/server-auth';
+import { authenticateRequest } from '@/lib/middleware/auth';
 import { decideAiAccess } from '@/lib/governance/policy-engine';
 
 export const dynamic = 'force-dynamic';
 
 async function requireTenantAiAccess(request: NextRequest) {
-  const user = await serverAuth.getUserFromRequest(request);
-  if (!user) {
-    return { ok: false as const, response: NextResponse.json({ error: 'Unauthorized' }, { status: 401 }) };
+  const authResult = await authenticateRequest(request);
+  if (!authResult.success) {
+    return { ok: false as const, response: authResult.response };
   }
+  const user = authResult.session.user;
 
-  const tenantIdRaw: unknown = (user as any).tenantId;
+  const tenantIdRaw: unknown = (user as any).tenant_id;
   const tenantId = typeof tenantIdRaw === 'string' ? parseInt(tenantIdRaw, 10) : (tenantIdRaw as number);
   if (!tenantId || Number.isNaN(tenantId)) {
     return { ok: false as const, response: NextResponse.json({ error: 'Missing tenant context' }, { status: 400 }) };

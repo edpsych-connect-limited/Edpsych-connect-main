@@ -37,7 +37,7 @@ export default function FlagshipEHCP() {
             </h2>
             
             <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-              The UK's only end-to-end EHCP orchestration system. From evidence gathering to final PDF export, we automate the administrative burden so you can focus on the child.
+              End-to-end EHCP orchestration designed for UK workflows. From evidence gathering to final PDF export, we streamline the admin so you can focus on the child.
             </p>
 
             <div className="space-y-6 mb-10">
@@ -46,8 +46,8 @@ export default function FlagshipEHCP() {
                   <Clock className="w-6 h-6 text-green-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900 text-lg">Save 47+ Hours Monthly</h4>
-                  <p className="text-slate-600">Automated evidence collection and report generation reduces admin time by 80%.</p>
+                  <h4 className="font-bold text-slate-900 text-lg">Reduce Admin Time</h4>
+                  <p className="text-slate-600">Automated evidence collection and report generation reduce repetitive drafting.</p>
                 </div>
               </div>
               
@@ -56,8 +56,8 @@ export default function FlagshipEHCP() {
                   <ShieldCheck className="w-6 h-6 text-blue-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900 text-lg">100% Statutory Compliance</h4>
-                  <p className="text-slate-600">Built-in validation ensures every plan meets UK Code of Practice standards.</p>
+                  <h4 className="font-bold text-slate-900 text-lg">Compliance-Ready Checks</h4>
+                  <p className="text-slate-600">Built-in validation supports UK Code of Practice alignment and internal QA.</p>
                 </div>
               </div>
             </div>

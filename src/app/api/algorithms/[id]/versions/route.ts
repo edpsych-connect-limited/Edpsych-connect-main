@@ -1,16 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import AlgorithmService from '@/algorithm/services/AlgorithmService';
-import serverAuth from '@/lib/auth/server-auth';
+import { authenticateRequest } from '@/lib/middleware/auth';
 
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await serverAuth.getUserFromRequest(req);
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const authResult = await authenticateRequest(req);
+    if (!authResult.success) {
+      return authResult.response;
     }
+    const user = authResult.session.user;
 
     const { id } = await params;
     const body = await req.json();

@@ -51,8 +51,9 @@ Legend:
 	- The signed DPA (or link in contract system)
 	- Subprocessor list (if vendor provides one)
 	- Transfer mechanism evidence (IDTA/Addendum/adequacy)
-4. Validate “optional/conditional” vendors:
+4. Validate "optional/conditional" vendors:
 	- If not used in production, remove from privacy disclosures and/or disable at build/runtime.
 	- If used, ensure DPAs exist and disclosures match reality.
+5. **Sync disclosures:** Keep `src/app/[locale]/privacy/page.tsx` aligned with the Active vs Optional/Conditional list above.
 
-Last updated: 2025-12-15
+Last updated: 2026-01-17

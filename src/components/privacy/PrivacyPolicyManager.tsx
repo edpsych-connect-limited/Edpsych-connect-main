@@ -24,7 +24,7 @@ import {
   getCurrentPrivacyPolicy, 
   checkReconsentRequired, 
   exportUserData, 
-  submitDataSubjectRequest 
+  requestErasureAndExecute
 } from '@/actions/gdpr-actions';
 
 export const PrivacyPolicyManager: React.FC = () => {
@@ -120,7 +120,11 @@ export const PrivacyPolicyManager: React.FC = () => {
       setProcessing('export');
       setError(null);
 
-      const exportData = await exportUserData('current-user'); // Replace with actual user ID
+      if (!user) {
+        throw new Error('User not authenticated');
+      }
+
+      const exportData = await exportUserData(user.id.toString());
 
       // Create and download JSON file
       const blob = new Blob([JSON.stringify(exportData, null, 2)], {
@@ -154,10 +158,13 @@ export const PrivacyPolicyManager: React.FC = () => {
       setProcessing('delete');
       setError(null);
 
-      await submitDataSubjectRequest(
-        'current-user', // Replace with actual user ID
-        'erasure',
-        { reason: 'User requested data deletion' }
+      if (!user) {
+        throw new Error('User not authenticated');
+      }
+
+      await requestErasureAndExecute(
+        user.id.toString(),
+        'User requested data deletion'
       );
 
       setSuccess('Data deletion request submitted successfully');

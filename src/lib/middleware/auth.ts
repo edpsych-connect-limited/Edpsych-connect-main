@@ -72,6 +72,15 @@ const ROLE_PERMISSIONS: Record<string, Permission[]> = {
   SYSTEM_ADMIN: [
     ...Object.values(Permission), // System admins have all permissions
   ],
+  SUPER_ADMIN: [
+    ...Object.values(Permission),
+  ],
+  SUPERADMIN: [
+    ...Object.values(Permission),
+  ],
+  ADMIN: [
+    ...Object.values(Permission),
+  ],
 
   INSTITUTION_ADMIN: [
     Permission.VIEW_OWN_DATA,
@@ -190,6 +199,123 @@ const ROLE_PERMISSIONS: Record<string, Permission[]> = {
     Permission.VIEW_OWN_DATA,
     Permission.EDIT_OWN_PROFILE,
   ],
+  RESEARCHER: [
+    Permission.VIEW_OWN_DATA,
+    Permission.EDIT_OWN_PROFILE,
+  ],
+  SCHOOL_ADMIN: [
+    Permission.VIEW_OWN_DATA,
+    Permission.EDIT_OWN_PROFILE,
+    Permission.VIEW_EHCP,
+    Permission.CREATE_EHCP,
+    Permission.EDIT_EHCP,
+    Permission.DELETE_EHCP,
+    Permission.EXPORT_EHCP,
+    Permission.VIEW_ASSESSMENTS,
+    Permission.CREATE_ASSESSMENTS,
+    Permission.EDIT_ASSESSMENTS,
+    Permission.SUBMIT_ASSESSMENTS,
+    Permission.VIEW_INTERVENTIONS,
+    Permission.CREATE_INTERVENTIONS,
+    Permission.EDIT_INTERVENTIONS,
+    Permission.VIEW_ALL_STUDENTS,
+    Permission.MANAGE_INSTITUTION,
+    Permission.VIEW_INSTITUTION_USERS,
+    Permission.INVITE_USERS,
+    Permission.MANAGE_DEPARTMENTS,
+    Permission.VIEW_INSTITUTION_REPORTS,
+  ],
+  LA_ADMIN: [
+    Permission.VIEW_OWN_DATA,
+    Permission.EDIT_OWN_PROFILE,
+    Permission.VIEW_EHCP,
+    Permission.CREATE_EHCP,
+    Permission.EDIT_EHCP,
+    Permission.DELETE_EHCP,
+    Permission.EXPORT_EHCP,
+    Permission.VIEW_ASSESSMENTS,
+    Permission.CREATE_ASSESSMENTS,
+    Permission.EDIT_ASSESSMENTS,
+    Permission.SUBMIT_ASSESSMENTS,
+    Permission.VIEW_INTERVENTIONS,
+    Permission.CREATE_INTERVENTIONS,
+    Permission.EDIT_INTERVENTIONS,
+    Permission.VIEW_ALL_STUDENTS,
+    Permission.MANAGE_INSTITUTION,
+    Permission.VIEW_INSTITUTION_USERS,
+    Permission.INVITE_USERS,
+    Permission.MANAGE_DEPARTMENTS,
+    Permission.VIEW_INSTITUTION_REPORTS,
+  ],
+  LA_MANAGER: [
+    Permission.VIEW_OWN_DATA,
+    Permission.EDIT_OWN_PROFILE,
+    Permission.VIEW_EHCP,
+    Permission.CREATE_EHCP,
+    Permission.EDIT_EHCP,
+    Permission.DELETE_EHCP,
+    Permission.EXPORT_EHCP,
+    Permission.VIEW_ASSESSMENTS,
+    Permission.CREATE_ASSESSMENTS,
+    Permission.EDIT_ASSESSMENTS,
+    Permission.SUBMIT_ASSESSMENTS,
+    Permission.VIEW_INTERVENTIONS,
+    Permission.CREATE_INTERVENTIONS,
+    Permission.EDIT_INTERVENTIONS,
+    Permission.VIEW_ALL_STUDENTS,
+    Permission.MANAGE_INSTITUTION,
+    Permission.VIEW_INSTITUTION_USERS,
+    Permission.INVITE_USERS,
+    Permission.MANAGE_DEPARTMENTS,
+    Permission.VIEW_INSTITUTION_REPORTS,
+  ],
+  LA_CASEWORKER: [
+    Permission.VIEW_OWN_DATA,
+    Permission.EDIT_OWN_PROFILE,
+    Permission.VIEW_EHCP,
+    Permission.CREATE_EHCP,
+    Permission.EDIT_EHCP,
+    Permission.EXPORT_EHCP,
+    Permission.VIEW_ASSESSMENTS,
+    Permission.CREATE_ASSESSMENTS,
+    Permission.EDIT_ASSESSMENTS,
+    Permission.SUBMIT_ASSESSMENTS,
+    Permission.VIEW_INTERVENTIONS,
+    Permission.CREATE_INTERVENTIONS,
+    Permission.EDIT_INTERVENTIONS,
+    Permission.VIEW_STUDENT_DATA,
+    Permission.EDIT_STUDENT_DATA,
+  ],
+  LAA: [
+    Permission.VIEW_OWN_DATA,
+    Permission.EDIT_OWN_PROFILE,
+    Permission.VIEW_EHCP,
+    Permission.CREATE_EHCP,
+    Permission.EDIT_EHCP,
+    Permission.EXPORT_EHCP,
+    Permission.VIEW_ASSESSMENTS,
+    Permission.VIEW_INTERVENTIONS,
+    Permission.VIEW_STUDENT_DATA,
+  ],
+  LOCAL_AUTHORITY: [
+    Permission.VIEW_OWN_DATA,
+    Permission.EDIT_OWN_PROFILE,
+    Permission.VIEW_EHCP,
+    Permission.CREATE_EHCP,
+    Permission.EDIT_EHCP,
+    Permission.EXPORT_EHCP,
+    Permission.VIEW_ASSESSMENTS,
+    Permission.VIEW_INTERVENTIONS,
+    Permission.VIEW_STUDENT_DATA,
+  ],
+  STAFF: [
+    Permission.VIEW_OWN_DATA,
+    Permission.EDIT_OWN_PROFILE,
+    Permission.VIEW_EHCP,
+    Permission.VIEW_ASSESSMENTS,
+    Permission.VIEW_INTERVENTIONS,
+    Permission.VIEW_STUDENT_DATA,
+  ],
 };
 
 /**
@@ -202,6 +328,12 @@ export function hasPermission(userRole: string | null | undefined, permission: P
   const permissions = ROLE_PERMISSIONS[normalizedRole] || [];
 
   return permissions.includes(permission);
+}
+
+export function isAdminRole(userRole: string | null | undefined): boolean {
+  if (!userRole) return false;
+  const normalizedRole = userRole.toUpperCase().replace(/\s+/g, '_');
+  return ['SYSTEM_ADMIN', 'SUPER_ADMIN', 'SUPERADMIN', 'ADMIN'].includes(normalizedRole);
 }
 
 /**

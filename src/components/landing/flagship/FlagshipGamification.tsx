@@ -53,11 +53,11 @@ export default function FlagshipGamification() {
             </div>
             
             <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6 leading-tight">
-              Engagement That <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600">Sustains Itself.</span>
+              Engagement That <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600">Stays On Track.</span>
             </h2>
             
             <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-              Turn intervention into adventure. Our Battle Royale system keeps students motivated with live leaderboards, squad competitions, and merit-based rewards—automatically tracking progress while they play.
+              Turn intervention into adventure. Our Battle Royale system is designed to motivate students with opt-in leaderboards, squad competitions, and merit-based rewards while progress tracking runs in the background.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-6 mb-10">

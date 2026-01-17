@@ -1,19 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import AlgorithmService from '@/algorithm/services/AlgorithmService';
-import serverAuth from '@/lib/auth/server-auth';
+import { authenticateRequest, isAdminRole } from '@/lib/middleware/auth';
 
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await serverAuth.getUserFromRequest(req);
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const authResult = await authenticateRequest(req);
+    if (!authResult.success) {
+      return authResult.response;
     }
+    const user = authResult.session.user;
+    const normalizedRole = user.role?.toUpperCase?.() || '';
 
     // Check reviewer role
-    if (!user.roles.includes('reviewer') && !user.roles.includes('admin')) {
+    if (!isAdminRole(user.role) && normalizedRole !== 'REVIEWER') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 

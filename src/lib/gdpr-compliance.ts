@@ -465,6 +465,238 @@ export class GDPRComplianceService {
       throw new Error('Failed to submit data subject request');
     }
   }
+
+  // =================================================================
+  // RIGHT TO ERASURE (ARTICLE 17)
+  // =================================================================
+
+  private buildErasedEmail(userId: number, tenantId: number): string {
+    return `erased+u${userId}.t${tenantId}@edpsychconnect.invalid`;
+  }
+
+  private async ensureTombstoneUser(tenantId: number) {
+    const email = `erased+tenant-${tenantId}@edpsychconnect.invalid`;
+    const existing = await prisma.users.findUnique({ where: { email } });
+    if (existing) return existing;
+
+    return prisma.users.create({
+      data: {
+        tenant_id: tenantId,
+        email,
+        password_hash: `erased_${Date.now()}`,
+        name: 'Deleted User',
+        role: 'DELETED_USER',
+        is_active: false,
+        permissions: [],
+        isEmailVerified: false,
+      },
+    });
+  }
+
+  private async scrubAuditLogs(tx: typeof prisma, userId: number) {
+    const userIdString = userId.toString();
+    await tx.auditLog.updateMany({
+      where: {
+        OR: [
+          { user_id_int: userId },
+          { userId: userIdString },
+          { performedById: userIdString }
+        ]
+      },
+      data: {
+        user_id_int: null,
+        userId: null,
+        performedById: null,
+        ipAddress: null,
+        userAgent: null,
+        details: {
+          gdpr_redacted: true
+        },
+        metadata: {
+          gdpr_redacted_at: new Date().toISOString()
+        }
+      }
+    });
+  }
+
+  private async deleteUserScopedData(tx: typeof prisma, userId: number) {
+    const deleteTargets = [
+      'professionals',
+      'parents',
+      'enrollments',
+      'subject_enrollments',
+      'gamification_achievements',
+      'gamification_badges',
+      'gamification_scores',
+      'battle_stats',
+      'merits',
+      'equipped_items',
+      'squad_members',
+      'eHCPDocumentAccessLog',
+      'research_collaborators',
+      'research_participants',
+      'research_ethics_approvals',
+      'accessibility_settings',
+      'user_preferences',
+      'learning_style',
+      'speech_recognition_logs',
+      'speech_synthesis_logs',
+      'translation_logs',
+      'help_preferences',
+      'help_viewed_items',
+      'helpSearchLog',
+      'multiAgencyAccess',
+      'voiceCommand',
+      'studyBuddyRecommendation',
+      'userLearningProfile',
+      'studyBuddyInteraction',
+      'predictiveInsight',
+      'conversationalAISession',
+      'interactiveResponse',
+      'learningPathEnrollment',
+      'cPDLog',
+      'secureDocument',
+      'betaAccessCode',
+      'onboarding_progress',
+      'problem_solver_queries',
+      'knowledgeInteraction',
+      'dailyCPDDigest',
+      'performanceMetric',
+      'timeSavingsMetric',
+      'professionalExperience',
+      'professionalEducation',
+      'professionalSkill'
+    ] as const;
+
+    await Promise.all(
+      deleteTargets.map((model) =>
+        (tx as any)[model].deleteMany({ where: { user_id: userId } })
+      )
+    );
+  }
+
+  private async scrubRetainedRecords(tx: typeof prisma, userId: number, tombstoneUserId: number) {
+    await tx.consentRecord.updateMany({
+      where: { user_id: userId },
+      data: {
+        user_id: tombstoneUserId,
+        consent_text: '[erased]',
+        withdrawal_timestamp: new Date(),
+      }
+    });
+
+    await tx.dataSubjectRequest.updateMany({
+      where: { user_id: userId },
+      data: {
+        user_id: tombstoneUserId,
+        request_details: null,
+        response_data: null,
+        rejection_reason: null,
+      }
+    });
+
+    await tx.trainingPurchase.updateMany({
+      where: { user_id: userId },
+      data: {
+        user_id: tombstoneUserId,
+        email: 'redacted@edpsychconnect.invalid',
+        receipt_url: null,
+        purchase_metadata: null
+      }
+    });
+  }
+
+  async requestErasureAndExecute(
+    id: string,
+    reason = 'User requested data erasure'
+  ): Promise<DataSubjectRequest> {
+    const userId = parseInt(id, 10);
+    if (isNaN(userId)) throw new Error('Invalid user ID');
+
+    const user = await prisma.users.findUnique({
+      where: { id: userId },
+      select: { id: true, tenant_id: true }
+    });
+    if (!user) throw new Error('User not found');
+
+    const expiresAt = new Date();
+    expiresAt.setMonth(expiresAt.getMonth() + 1);
+
+    const request = await prisma.dataSubjectRequest.create({
+      data: {
+        user_id: userId,
+        request_type: 'erasure',
+        status: 'processing',
+        request_details: { reason },
+        expires_at: expiresAt
+      }
+    });
+
+    try {
+      const tombstone = await this.ensureTombstoneUser(user.tenant_id);
+
+      await prisma.$transaction(async (tx) => {
+        await this.scrubAuditLogs(tx, userId);
+        await this.scrubRetainedRecords(tx, userId, tombstone.id);
+        await this.deleteUserScopedData(tx, userId);
+
+        await tx.users.update({
+          where: { id: userId },
+          data: {
+            email: this.buildErasedEmail(userId, user.tenant_id),
+            password_hash: `erased_${Date.now()}`,
+            name: 'Deleted User',
+            firstName: null,
+            lastName: null,
+            avatar_url: null,
+            role: 'DELETED_USER',
+            permissions: [],
+            is_active: false,
+            isEmailVerified: false,
+            emailVerificationToken: null,
+            resetPasswordToken: null,
+            resetPasswordExpires: null,
+            stripeConnectAccountId: null,
+            stripeCustomerId: null,
+          }
+        });
+
+        await tx.dataSubjectRequest.update({
+          where: { id: request.id },
+          data: {
+            status: 'completed',
+            processed_at: new Date(),
+            completed_at: new Date(),
+            response_data: { status: 'erased', completedAt: new Date().toISOString() }
+          }
+        });
+      });
+    } catch (error) {
+      await prisma.dataSubjectRequest.update({
+        where: { id: request.id },
+        data: {
+          status: 'rejected',
+          processed_at: new Date(),
+          rejection_reason: (error as Error).message
+        }
+      });
+      logger.error('Failed to execute erasure request', error as Error);
+      throw new Error('Failed to execute erasure request');
+    }
+
+    return {
+      id: request.id,
+      userId: request.user_id.toString(),
+      requestType: 'erasure',
+      status: 'completed',
+      requestDetails: request.request_details,
+      submittedAt: request.submitted_at.toISOString(),
+      processedAt: new Date().toISOString(),
+      completedAt: new Date().toISOString(),
+      expiresAt: request.expires_at.toISOString(),
+      responseData: { status: 'erased' }
+    };
+  }
 }
 
 // Export singleton instance

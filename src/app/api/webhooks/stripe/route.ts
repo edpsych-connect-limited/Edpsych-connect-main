@@ -97,6 +97,14 @@ export async function POST(request: NextRequest) {
 
     // Handle event based on type
     switch (event.type) {
+      case 'payment_intent.succeeded':
+        await handlePaymentIntentSucceeded(event.data.object as Stripe.PaymentIntent);
+        break;
+
+      case 'payment_intent.payment_failed':
+        await handlePaymentIntentFailed(event.data.object as Stripe.PaymentIntent);
+        break;
+
       case 'customer.subscription.created':
         await handleSubscriptionCreated(event.data.object as Stripe.Subscription);
         break;
@@ -133,6 +141,73 @@ export async function POST(request: NextRequest) {
       { success: false, error: 'Webhook processing failed' },
       { status: 500 }
     );
+  }
+}
+
+async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent) {
+  const bookingId = paymentIntent.metadata?.bookingId;
+  const paymentIntentId = paymentIntent.id;
+
+  // Training purchases
+  await prisma.trainingPurchase.updateMany({
+    where: { stripe_payment_intent_id: paymentIntentId },
+    data: {
+      payment_status: 'paid',
+      status: 'active',
+      updated_at: new Date()
+    }
+  });
+
+  if (bookingId) {
+    await prisma.ePBooking.updateMany({
+      where: { id: bookingId },
+      data: {
+        payment_status: 'paid',
+        invoice_id: paymentIntentId,
+        updated_at: new Date()
+      }
+    });
+  } else {
+    await prisma.ePBooking.updateMany({
+      where: { invoice_id: paymentIntentId },
+      data: {
+        payment_status: 'paid',
+        updated_at: new Date()
+      }
+    });
+  }
+}
+
+async function handlePaymentIntentFailed(paymentIntent: Stripe.PaymentIntent) {
+  const bookingId = paymentIntent.metadata?.bookingId;
+  const paymentIntentId = paymentIntent.id;
+
+  await prisma.trainingPurchase.updateMany({
+    where: { stripe_payment_intent_id: paymentIntentId },
+    data: {
+      payment_status: 'failed',
+      status: 'failed',
+      updated_at: new Date()
+    }
+  });
+
+  if (bookingId) {
+    await prisma.ePBooking.updateMany({
+      where: { id: bookingId },
+      data: {
+        payment_status: 'failed',
+        invoice_id: paymentIntentId,
+        updated_at: new Date()
+      }
+    });
+  } else {
+    await prisma.ePBooking.updateMany({
+      where: { invoice_id: paymentIntentId },
+      data: {
+        payment_status: 'failed',
+        updated_at: new Date()
+      }
+    });
   }
 }
 

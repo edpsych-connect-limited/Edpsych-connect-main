@@ -106,6 +106,15 @@ export async function POST(request: NextRequest) {
       }
     });
 
+    await stripe.paymentIntents.update(paymentIntent.id, {
+      metadata: {
+        userId: userId.toString(),
+        productId: product_id,
+        discountCode: discount_code || '',
+        purchaseId: purchase.id
+      }
+    });
+
     return NextResponse.json({
       client_secret: paymentIntent.client_secret,
       purchase_id: purchase.id

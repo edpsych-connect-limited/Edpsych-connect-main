@@ -17,9 +17,20 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
   apiVersion: '2025-10-29.clover' as Stripe.LatestApiVersion,
 });
 
-export async function createStripeCustomer(email: string, name: string) {
+const isProduction = process.env.NODE_ENV === 'production';
+
+function requireStripeKey(): void {
   if (!process.env.STRIPE_SECRET_KEY) {
-    console.warn('STRIPE_SECRET_KEY is not set. Skipping Stripe customer creation.');
+    if (isProduction) {
+      throw new Error('STRIPE_SECRET_KEY is required in production');
+    }
+    console.warn('STRIPE_SECRET_KEY is not set. Using mock Stripe responses in non-production.');
+  }
+}
+
+export async function createStripeCustomer(email: string, name: string) {
+  requireStripeKey();
+  if (!process.env.STRIPE_SECRET_KEY) {
     return { id: 'mock_customer_' + Date.now() };
   }
   return await stripe.customers.create({
@@ -32,8 +43,8 @@ export async function createSubscription(
   customerId: string,
   priceId: string
 ) {
+  requireStripeKey();
   if (!process.env.STRIPE_SECRET_KEY) {
-    console.warn('STRIPE_SECRET_KEY is not set. Skipping Stripe subscription creation.');
     return { 
       id: 'mock_sub_' + Date.now(),
       client_secret: 'mock_secret',
@@ -50,6 +61,7 @@ export async function createSubscription(
 }
 
 export async function getSubscription(subscriptionId: string) {
+  requireStripeKey();
   if (!process.env.STRIPE_SECRET_KEY) {
     return { status: 'active' };
   }
@@ -57,6 +69,7 @@ export async function getSubscription(subscriptionId: string) {
 }
 
 export async function cancelSubscription(subscriptionId: string) {
+  requireStripeKey();
   if (!process.env.STRIPE_SECRET_KEY) {
     return { status: 'canceled' };
   }
@@ -67,6 +80,7 @@ export async function updateSubscription(
   subscriptionId: string,
   newPriceId: string
 ) {
+  requireStripeKey();
   if (!process.env.STRIPE_SECRET_KEY) {
     return { status: 'active' };
   }
@@ -83,6 +97,7 @@ export async function updateSubscription(
 }
 
 export async function createPortalSession(customerId: string, returnUrl: string) {
+  requireStripeKey();
   if (!process.env.STRIPE_SECRET_KEY) {
     return { url: returnUrl };
   }

@@ -1,22 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
 import AlgorithmService from '@/algorithm/services/AlgorithmService';
-import serverAuth from '@/lib/auth/server-auth';
+import { authenticateRequest, isAdminRole } from '@/lib/middleware/auth';
 
 export async function GET(req: NextRequest) {
   try {
-    const user = await serverAuth.getUserFromRequest(req);
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const authResult = await authenticateRequest(req);
+    if (!authResult.success) {
+      return authResult.response;
     }
+    const user = authResult.session.user;
 
     const searchParams = req.nextUrl.searchParams;
-    const institutionId = searchParams.get('institutionId');
+    const institutionId = searchParams.get('institutionId') || (user.tenant_id ? String(user.tenant_id) : null);
     const status = searchParams.get('status');
     const limit = parseInt(searchParams.get('limit') || '10');
     const page = parseInt(searchParams.get('page') || '1');
 
     // Ensure user has permission to view institution licenses
-    if (user.tenantId !== institutionId && !user.roles.includes('admin')) {
+    const userTenant = user.tenant_id ? String(user.tenant_id) : null;
+    if (!institutionId) {
+      return NextResponse.json({ error: 'Missing institutionId' }, { status: 400 });
+    }
+    if (userTenant !== institutionId && !isAdminRole(user.role)) {
       return NextResponse.json({ error: 'Unauthorized to view these licenses' }, { status: 403 });
     }
 

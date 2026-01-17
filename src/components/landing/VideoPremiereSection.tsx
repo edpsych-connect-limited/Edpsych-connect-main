@@ -24,7 +24,7 @@ const SHOWCASE_VIDEOS = {
   hero: {
     id: 'platform-introduction',
     title: 'EdPsych Connect: Complete Platform Overview',
-    subtitle: 'Evidence-based SEND orchestration with citations from DfE, BPS & IPSEA',
+    subtitle: 'SEND orchestration informed by DfE, BPS, and IPSEA guidance',
   },
   featured: [
     {
@@ -45,8 +45,8 @@ const SHOWCASE_VIDEOS = {
       // Use the dedicated marketing/demo key (lets us fix casting without touching
       // the core 'no-child-left-behind' training video).
       id: 'feature-nclb-engine',
-      title: 'No Child Left Behind Engine',
-      description: 'Watch differentiation happen automatically for 40 students.',
+      title: 'Adaptive Differentiation Engine',
+      description: 'See a walkthrough of differentiation workflows across learner needs.',
       icon: Users,
       gradient: 'from-emerald-500 to-teal-600',
     },
@@ -69,7 +69,7 @@ const SHOWCASE_VIDEOS = {
     {
       id: 'feature-byod-architecture',
       title: 'BYOD Architecture',
-      description: 'Your data never leaves your control.',
+      description: 'Designed for data control with BYOD options.',
       icon: Brain,
       gradient: 'from-cyan-500 to-blue-600',
     },
@@ -165,7 +165,7 @@ export default function VideoPremiereSection() {
                       <Icon className="w-5 h-5 text-white" />
                     </div>
                     <div className="absolute top-3 right-3 px-2 py-1 bg-black/50 backdrop-blur-sm rounded-full text-xs font-medium text-white/80">
-                      ▶️ Video Guide
+                      Video Guide
                     </div>
                   </div>
                   <div className="p-6">

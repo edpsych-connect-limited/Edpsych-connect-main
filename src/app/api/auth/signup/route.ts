@@ -11,9 +11,22 @@ import { prisma } from '@/lib/prisma';
 import { SubscriptionTier } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
+import { checkRateLimit, createRateLimitHeaders, getClientIP, RATE_LIMITS } from '@/lib/rate-limit';
 
 export async function POST(req: Request) {
   try {
+    const clientIP = getClientIP(req);
+    const rateLimitResult = checkRateLimit(clientIP, RATE_LIMITS.REGISTRATION);
+    if (!rateLimitResult.allowed) {
+      return NextResponse.json(
+        { success: false, error: 'Too many registration attempts. Please try again later.' },
+        {
+          status: 429,
+          headers: createRateLimitHeaders(rateLimitResult),
+        }
+      );
+    }
+
     const body = await req.json();
     const { firstName, lastName, email, password, organization, role, phone } = body;
 
@@ -25,9 +38,19 @@ export async function POST(req: Request) {
       );
     }
 
+    const normalizedRole = String(role).trim().toUpperCase();
+    const allowedRoles = ['TEACHER', 'SENCO', 'EP', 'PARENT', 'RESEARCHER', 'STUDENT'];
+    if (!allowedRoles.includes(normalizedRole)) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid role selection' },
+        { status: 400 }
+      );
+    }
+
     // 2. Check if user already exists
+    const normalizedEmail = String(email).trim().toLowerCase();
     const existingUser = await prisma.users.findUnique({
-      where: { email },
+      where: { email: normalizedEmail },
     });
 
     if (existingUser) {
@@ -68,12 +91,12 @@ export async function POST(req: Request) {
       // Create User
       const user = await tx.users.create({
         data: {
-          email,
+          email: normalizedEmail,
           password_hash: passwordHash,
           name: `${firstName} ${lastName}`,
           firstName,
           lastName,
-          role,
+          role: normalizedRole,
           tenant_id: tenant.id,
           is_active: true,
           onboarding_completed: false,

@@ -9,11 +9,18 @@ import { logger } from "@/lib/logger";
 
 
 // Simple mock implementation focused on fallbacks
+function assertMockAllowed(): void {
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('stripe-institution-service mock is not permitted in production');
+  }
+}
+
 class StripeInstitutionService {
   /**
    * Create a Stripe customer for an institution
    */
   async createStripeCustomer(institution: any) {
+    assertMockAllowed();
     logger.info('Creating Stripe customer for institution (mock)', { 
       id: institution.id 
     });
@@ -39,6 +46,7 @@ class StripeInstitutionService {
    * Create a subscription for an institution
    */
   async createSubscription(id: string, planId: string) {
+    assertMockAllowed();
     logger.info('Creating subscription for institution (mock)', { 
       id,
       planId 
@@ -71,6 +79,7 @@ class StripeInstitutionService {
    * Update a subscription for an institution
    */
   async updateSubscription(subscriptionId: string, planId: string) {
+    assertMockAllowed();
     logger.info('Updating subscription (mock)', { 
       subscriptionId,
       planId 
@@ -98,6 +107,7 @@ class StripeInstitutionService {
    * Cancel a subscription for an institution
    */
   async cancelSubscription(subscriptionId: string, immediate = false) {
+    assertMockAllowed();
     logger.info('Canceling subscription (mock)', { 
       subscriptionId,
       immediate 
@@ -120,6 +130,7 @@ class StripeInstitutionService {
    * Handle Stripe webhook events for institutions
    */
   async handleWebhookEvent(event: any) {
+    assertMockAllowed();
     logger.info('Mock handling of Stripe webhook event', { 
       type: event.type 
     });
