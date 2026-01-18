@@ -8,7 +8,7 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, usePathname, useRouter } from '@/navigation';
 import { AuthProvider, useAuth } from '@/lib/auth/hooks';
 import { Toaster } from 'react-hot-toast';
@@ -25,6 +25,8 @@ import AccessibilityPanel from '@/components/accessibility/AccessibilityPanel';
 import { getNavigationForRole, NavGroup } from '@/config/navigation';
 import { ChevronDown } from 'lucide-react';
 import { StudioSidebar } from '@/components/layout/StudioSidebar';
+import { analyticsService } from '@/lib/analytics';
+import { hasAnalyticsConsent } from '@/utils/cookies';
 
 function stripLocalePrefix(pathname: string): string {
   // Some environments/hooks return locale-prefixed paths (e.g. /en/help), while
@@ -159,6 +161,21 @@ function MobileHeader() {
   );
 }
 
+function AnalyticsTracker() {
+  const pathname = stripLocalePrefix(getEffectivePathname(usePathname()));
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (!hasAnalyticsConsent()) return;
+    const entityId = user?.id ? String(user.id) : 'anonymous';
+    analyticsService.trackPageView(entityId, pathname, {
+      referrer: typeof document !== 'undefined' ? document.referrer : undefined,
+    });
+  }, [pathname, user]);
+
+  return null;
+}
+
 export default function ClientLayout({
   children,
 }: {
@@ -186,6 +203,7 @@ export default function ClientLayout({
         <AuthProvider>
           <BrandingProvider>
             <DemoProvider>
+              <AnalyticsTracker />
               <AccessibilityPanel />
               <Toaster 
                 position="top-right"
