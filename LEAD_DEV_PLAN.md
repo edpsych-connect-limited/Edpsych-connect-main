@@ -65,6 +65,7 @@ Progress log:
 - 2026-01-18: Wired consent toggles to cookie settings and cleaned privacy copy.
 - 2026-01-18: Wrapped app layout with cookie consent provider for analytics gating.
 - 2026-01-18: Added consent-aware page view tracking hook.
+- 2026-01-18: Added consent-aware feature usage tracking for cases and EHCP entry points.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

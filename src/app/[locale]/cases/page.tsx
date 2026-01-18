@@ -14,6 +14,8 @@ import { Link } from '@/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import ErrorDisplay from '@/components/error-handling/ErrorDisplay';
 import { EmptyState } from '@/components/ui/EmptyState';
+import { analyticsService } from '@/lib/analytics';
+import { hasAnalyticsConsent } from '@/utils/cookies';
 
 interface Case {
   id: number;
@@ -40,6 +42,12 @@ export default function CasesPage() {
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
+
+  const trackCasesUsage = (action: string, data?: Record<string, any>) => {
+    if (!hasAnalyticsConsent()) return;
+    const entityId = user?.id ? String(user.id) : 'anonymous';
+    analyticsService.trackFeatureUsage(entityId, 'cases', action, data);
+  };
 
   const loadCases = async () => {
     try {
@@ -132,6 +140,7 @@ export default function CasesPage() {
             </div>
             <Link
               href="/cases/new"
+              onClick={() => trackCasesUsage('start_create')}
               className="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             >
               New case
@@ -223,7 +232,10 @@ export default function CasesPage() {
 
             {/* New Case Button */}
             <button
-              onClick={() => router.push('/cases/new')}
+              onClick={() => {
+                trackCasesUsage('start_create');
+                router.push('/cases/new');
+              }}
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
             >
               + New Case
@@ -252,7 +264,12 @@ export default function CasesPage() {
             }
             actionLabel={cases.length === 0 ? 'Create first case' : undefined}
             actionOnClick={
-              cases.length === 0 ? () => router.push('/cases/new') : undefined
+              cases.length === 0
+                ? () => {
+                    trackCasesUsage('start_create');
+                    router.push('/cases/new');
+                  }
+                : undefined
             }
           />
         ) : (
@@ -261,7 +278,10 @@ export default function CasesPage() {
               <CaseCard
                 key={case_.id}
                 case_={case_}
-                onClick={() => router.push(`/cases/${case_.id}`)}
+                onClick={() => {
+                  trackCasesUsage('open_case', { caseId: case_.id });
+                  router.push(`/cases/${case_.id}`);
+                }}
               />
             ))}
           </div>

@@ -28,6 +28,8 @@ import { useDemo } from '@/components/demo/DemoProvider';
 import ErrorDisplay from '@/components/error-handling/ErrorDisplay';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { HelpCircle } from 'lucide-react';
+import { analyticsService } from '@/lib/analytics';
+import { hasAnalyticsConsent } from '@/utils/cookies';
 
 interface EHCP {
   id: string;
@@ -86,6 +88,12 @@ export default function EHCPListPage() {
   // Bulk selection state
   const [selectedEHCPs, setSelectedEHCPs] = useState<Set<string>>(new Set());
   const [isExporting, setIsExporting] = useState(false);
+
+  const trackEHCPUsage = (action: string, data?: Record<string, any>) => {
+    if (!hasAnalyticsConsent()) return;
+    const entityId = user?.id ? String(user.id) : 'anonymous';
+    analyticsService.trackFeatureUsage(entityId, 'ehcp', action, data);
+  };
 
   // PDF Export Functions
   const handleExportPDF = async (ehcp: EHCP) => {
@@ -276,7 +284,10 @@ export default function EHCPListPage() {
                 </button>
               )}
               <button
-                onClick={() => router.push('/ehcp/new')}
+                onClick={() => {
+                  trackEHCPUsage('start_request');
+                  router.push('/ehcp/new');
+                }}
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
                 <svg
@@ -310,6 +321,7 @@ export default function EHCPListPage() {
             </div>
             <Link
               href="/ehcp/new"
+              onClick={() => trackEHCPUsage('start_request')}
               className="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             >
               Start request
@@ -390,7 +402,10 @@ export default function EHCPListPage() {
             title="No EHCPs found"
             description="Get started by creating a new EHCP request."
             actionLabel="Create EHCP request"
-            actionOnClick={() => router.push('/ehcp/new')}
+            actionOnClick={() => {
+              trackEHCPUsage('start_request');
+              router.push('/ehcp/new');
+            }}
           />
         ) : (
           /* EHCP List */
