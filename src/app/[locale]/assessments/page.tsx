@@ -304,16 +304,20 @@ export default function AssessmentListPage() {
               >
                 Case ID
               </label>
-              <input
-                type="text"
-                id="case_id"
-                value={filters.case_id}
-                onChange={(e) =>
-                  setFilters({ ...filters, case_id: e.target.value })
-                }
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Filter by case ID"
-              />
+                <input
+                  type="text"
+                  id="case_id"
+                  value={filters.case_id}
+                  onChange={(e) =>
+                    setFilters({ ...filters, case_id: e.target.value })
+                  }
+                  aria-describedby="case-id-help"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  placeholder="Filter by case ID"
+                />
+                <p id="case-id-help" className="sr-only">
+                  Filter assessments by case reference ID.
+                </p>
             </div>
             <div>
               <label
@@ -328,6 +332,7 @@ export default function AssessmentListPage() {
                 onChange={(e) =>
                   setFilters({ ...filters, status: e.target.value })
                 }
+                aria-label="Filter by assessment status"
                 className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               >
                 <option value="">All Statuses</option>
@@ -351,6 +356,7 @@ export default function AssessmentListPage() {
                 onChange={(e) =>
                   setFilters({ ...filters, assessment_type: e.target.value })
                 }
+                aria-label="Filter by assessment type"
                 className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               >
                 <option value="">All Types</option>

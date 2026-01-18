@@ -72,6 +72,7 @@ Progress log:
     - case detail tabs now use tablist/tabpanel semantics
     - EHCP section navigation marks active item
     - assessment wizard step nav and progress bar now include ARIA
+    - assessment and intervention filters clarified with ARIA labels
 
 [x] Add "skip to content" and landmark improvements where missing
 

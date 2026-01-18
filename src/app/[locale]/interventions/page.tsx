@@ -201,7 +201,7 @@ export default function InterventionsPage() {
             {/* Filters */}
             <div className="flex space-x-4" data-tour="intervention-filters">
               <select
-                aria-label="Filter by status"
+                aria-label="Filter by intervention status"
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
                 className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
@@ -214,7 +214,7 @@ export default function InterventionsPage() {
               </select>
 
               <select
-                aria-label="Filter by type"
+                aria-label="Filter by intervention type"
                 value={typeFilter}
                 onChange={(e) => setTypeFilter(e.target.value)}
                 className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
