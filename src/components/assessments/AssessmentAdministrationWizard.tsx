@@ -482,6 +482,25 @@ export default function AssessmentAdministrationWizard({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4" data-tour="assessment-header">
           <div className="flex items-center justify-between">
             <div>
+              <div className="flex items-center text-xs text-gray-500 mb-1">
+                <button
+                  type="button"
+                  onClick={() => router.push('/assessments')}
+                  className="hover:text-blue-600"
+                >
+                  Assessments
+                </button>
+                <span className="mx-2">&gt;</span>
+                <button
+                  type="button"
+                  onClick={() => router.push(`/cases/${caseId}`)}
+                  className="hover:text-blue-600"
+                >
+                  Case {caseId}
+                </button>
+                <span className="mx-2">&gt;</span>
+                <span className="text-gray-700">Conduct</span>
+              </div>
               <h1 className="text-2xl font-bold text-gray-900">
                 {framework.name} ({framework.abbreviation})
               </h1>
