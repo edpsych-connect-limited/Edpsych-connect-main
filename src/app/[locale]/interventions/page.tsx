@@ -10,6 +10,7 @@ export const dynamic = 'force-dynamic';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useAuth } from '@/lib/auth/hooks';
 import { useDemo } from '@/components/demo/DemoProvider';
 import { HelpCircle, Target } from 'lucide-react';
@@ -119,6 +120,13 @@ export default function InterventionsPage() {
         {/* Header */}
         <div className="mb-8 flex justify-between items-start">
           <div>
+            <div className="mb-3 flex items-center text-sm text-gray-500">
+              <Link href="/dashboard" className="hover:text-blue-600">
+                Dashboard
+              </Link>
+              <span className="mx-2">&gt;</span>
+              <span className="text-gray-700">Interventions</span>
+            </div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Interventions</h1>
             <p className="text-gray-600">
               Design, implement, and monitor evidence-based interventions

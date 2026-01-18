@@ -39,6 +39,7 @@ Progress log:
 - 2026-01-18: Added guided tour and anchors for assessment administration wizard.
 - 2026-01-18: Added assessment conduct breadcrumb trail for navigation clarity.
 - 2026-01-18: Added breadcrumbs for report creation and marketplace booking.
+- 2026-01-18: Added breadcrumbs for assessments and interventions list pages.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

@@ -17,6 +17,7 @@ export const dynamic = 'force-dynamic';
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useAuth } from '@/lib/auth/hooks';
 import { useDemo } from '@/components/demo/DemoProvider';
 import { EmptyState } from '@/components/ui/EmptyState';
@@ -183,6 +184,13 @@ export default function AssessmentListPage() {
       {/* Header */}
       <div className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="mb-3 flex items-center text-sm text-gray-500">
+            <Link href="/dashboard" className="hover:text-blue-600">
+              Dashboard
+            </Link>
+            <span className="mx-2">&gt;</span>
+            <span className="text-gray-700">Assessments</span>
+          </div>
           <div className="flex justify-between items-center">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">
