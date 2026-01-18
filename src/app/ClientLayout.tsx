@@ -218,8 +218,18 @@ export default function ClientLayout({
               {/* MAIN CONTENT WRAPPER */}
               {/* Adds left padding on desktop to account for fixed sidebar */}
               <div className={`flex-1 flex flex-col ${!useMinimalChrome ? 'lg:pl-64' : ''}`}>
+                {!useMinimalChrome && (
+                  <a
+                    href="#main-content"
+                    className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-blue-600 focus:shadow"
+                  >
+                    Skip to main content
+                  </a>
+                )}
                 <MobileHeader />
-                <main className={useMinimalChrome ? '' : 'p-6'}>{children}</main>
+                <main id="main-content" className={useMinimalChrome ? '' : 'p-6'}>
+                  {children}
+                </main>
                 
                 {!useMinimalChrome && (
                   <footer className="bg-gray-100 text-center py-4 mt-10 text-sm text-gray-600">
