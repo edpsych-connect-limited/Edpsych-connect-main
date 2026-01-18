@@ -52,6 +52,7 @@ Progress log:
 - 2026-01-18: Cleaned non-ASCII control characters from cases list UI placeholders and labels.
 - 2026-01-18: Standardized empty states for blog, directory, forum, training catalogs, and annual reviews.
 - 2026-01-18: Added aria-live loading status for blog, marketplace, and annual reviews.
+- 2026-01-18: Standardized cases list empty state with shared component.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

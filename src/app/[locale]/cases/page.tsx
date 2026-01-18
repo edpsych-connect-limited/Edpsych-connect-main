@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 import { Link } from '@/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import ErrorDisplay from '@/components/error-handling/ErrorDisplay';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 interface Case {
   id: number;
@@ -242,23 +243,18 @@ export default function CasesPage() {
 
         {/* Cases List */}
         {filteredCases.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-md p-12 text-center">
-            <div className="text-gray-400 text-6xl mb-4">No data</div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">No cases found</h3>
-            <p className="text-gray-600 mb-6">
-              {cases.length === 0
-                ? 'Get started by creating your first case'
-                : 'Try adjusting your search or filters'}
-            </p>
-            {cases.length === 0 && (
-              <button
-                onClick={() => router.push('/cases/new')}
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
-              >
-                Create First Case
-              </button>
-            )}
-          </div>
+          <EmptyState
+            title="No cases found"
+            description={
+              cases.length === 0
+                ? 'Get started by creating your first case.'
+                : 'Try adjusting your search or filters.'
+            }
+            actionLabel={cases.length === 0 ? 'Create first case' : undefined}
+            actionOnClick={
+              cases.length === 0 ? () => router.push('/cases/new') : undefined
+            }
+          />
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {filteredCases.map((case_) => (
