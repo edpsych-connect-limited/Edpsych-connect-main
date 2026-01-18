@@ -55,6 +55,7 @@ Progress log:
 - 2026-01-18: Standardized cases list empty state with shared component.
 - 2026-01-18: Authored SLI/SLO definitions, error budget policy, and tracing plan docs.
 - 2026-01-18: Added rollout, test, and launch signoff checklist docs.
+- 2026-01-18: Added AI review queue guidance to explain oversight requirements.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -111,7 +112,7 @@ Progress log:
 [ ] Evidence dashboards for governance and audit readiness
     - Human-readable summaries for executives
 
-[ ] Improve AI review UX for clarity (why review is required)
+[~] Improve AI review UX for clarity (why review is required)
 
 -----------------------------------------------------------------------------
 6) Content, Language, and Product Clarity

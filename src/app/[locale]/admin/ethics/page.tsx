@@ -440,6 +440,11 @@ export default function EthicsAdminPage() {
                     Pending {reviews.filter((review) => review.status === 'pending').length}
                   </span>
                 </div>
+                <div className="rounded-lg border border-blue-100 bg-blue-50 p-3 text-sm text-blue-900">
+                  Reviews appear here when an AI decision requires human oversight or evidence
+                  validation. Approve to allow deployment, or reject with rationale to keep the
+                  model blocked.
+                </div>
                 {reviewActionError && (
                   <div className="border border-red-200 bg-red-50 text-red-700 rounded-lg p-3 text-sm">
                     {reviewActionError}
