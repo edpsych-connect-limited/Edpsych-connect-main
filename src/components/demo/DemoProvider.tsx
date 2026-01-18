@@ -137,6 +137,15 @@ const TOURS: Record<string, DriveStep[]> = {
       }
     },
     {
+      element: '[data-tour="intervention-search"]',
+      popover: {
+        title: 'Search',
+        description: 'Search by name, description, or target behavior.',
+        side: 'bottom',
+        align: 'start'
+      }
+    },
+    {
       element: '[data-tour="intervention-filters"]',
       popover: {
         title: 'Filter Interventions',

@@ -100,9 +100,9 @@ export default function InterventionsPage() {
 
   const stats = {
     total: interventions.length,
-    active: interventions.filter((i) => i.status === 'active').length,
-    planned: interventions.filter((i) => i.status === 'planned').length,
-    completed: interventions.filter((i) => i.status === 'completed').length,
+    active: 'A',
+    planned: 'P',
+    completed: 'C',
   };
 
   if (loading) {
@@ -138,25 +138,25 @@ export default function InterventionsPage() {
           <StatCard
             title="Total Interventions"
             value={stats.total}
-            icon="📋"
+            icon="T"
             color="blue"
           />
           <StatCard
             title="Active"
             value={stats.active}
-            icon="🟢"
+            icon="A"
             color="green"
           />
           <StatCard
             title="Planned"
             value={stats.planned}
-            icon="📅"
+            icon="P"
             color="yellow"
           />
           <StatCard
             title="Completed"
             value={stats.completed}
-            icon="✅"
+            icon="C"
             color="purple"
           />
         </div>
@@ -165,7 +165,7 @@ export default function InterventionsPage() {
         <div className="bg-white rounded-lg shadow-md p-6 mb-6">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
             {/* Search */}
-            <div className="flex-1 max-w-md">
+            <div className="flex-1 max-w-md" data-tour="intervention-search">
               <div className="relative">
                 <input
                   type="text"
@@ -256,7 +256,7 @@ export default function InterventionsPage() {
             secondaryActionHref={interventions.length === 0 ? "/interventions/library" : undefined}
           />
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6" data-tour="intervention-list">
             {filteredInterventions.map((intervention) => (
               <InterventionCard
                 key={intervention.id}
@@ -316,17 +316,17 @@ interface InterventionCardProps {
 
 function InterventionCard({ intervention, onClick, now }: InterventionCardProps) {
   const statusColors = {
-    planned: 'bg-yellow-100 text-yellow-800 border-yellow-200',
-    active: 'bg-green-100 text-green-800 border-green-200',
-    completed: 'bg-blue-100 text-blue-800 border-blue-200',
-    discontinued: 'bg-gray-100 text-gray-800 border-gray-200',
+    planned: 'P',
+    active: 'A',
+    completed: 'C',
+    discontinued: 'D',
   };
 
   const statusIcons = {
-    planned: '📅',
-    active: '🟢',
-    completed: '✅',
-    discontinued: '⏸️',
+    planned: 'P',
+    active: 'A',
+    completed: 'C',
+    discontinued: 'D',
   };
 
   const typeLabels: Record<string, string> = {
@@ -419,7 +419,7 @@ function InterventionCard({ intervention, onClick, now }: InterventionCardProps)
           Updated {new Date(intervention.updated_at).toLocaleDateString()}
         </span>
         <button className="text-blue-600 hover:text-blue-800 font-semibold text-sm">
-          View Details →
+          View Details
         </button>
       </div>
     </div>
