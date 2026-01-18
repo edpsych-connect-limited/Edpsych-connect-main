@@ -12,10 +12,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { useDemo } from '@/components/demo/DemoProvider';
 
 export default function AssessmentDetailPage() {
   const params = useParams();
   const router = useRouter();
+  const { startTour } = useDemo();
   const id = params.id as string;
 
   const [assessment, setAssessment] = useState<any>(null);
@@ -76,6 +79,17 @@ export default function AssessmentDetailPage() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-6">
+          <div className="mb-3 flex items-center text-sm text-gray-500">
+            <Link href="/dashboard" className="hover:text-blue-600">
+              Dashboard
+            </Link>
+            <span className="mx-2">&gt;</span>
+            <Link href="/assessments" className="hover:text-blue-600">
+              Assessments
+            </Link>
+            <span className="mx-2">&gt;</span>
+            <span className="text-gray-700">{studentName}</span>
+          </div>
           <button
             onClick={() => router.push('/assessments')}
             className="text-blue-600 hover:underline mb-4 flex items-center"
@@ -85,23 +99,32 @@ export default function AssessmentDetailPage() {
             </svg>
             Back to Assessments
           </button>
-          <div className="flex justify-between items-start">
+          <div className="flex justify-between items-start" data-tour="assessment-detail-header">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">{assessment.assessment_type.replace('_', ' ').toUpperCase()}</h1>
               <p className="text-gray-600 mt-1">For {studentName}</p>
             </div>
-            <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-              assessment.status === 'completed' ? 'bg-green-100 text-green-800' :
-              assessment.status === 'in_progress' ? 'bg-blue-100 text-blue-800' :
-              'bg-yellow-100 text-yellow-800'
-            }`}>
-              {assessment.status.replace('_', ' ').toUpperCase()}
-            </span>
+            <div className="flex items-center space-x-3">
+              <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                assessment.status === 'completed' ? 'bg-green-100 text-green-800' :
+                assessment.status === 'in_progress' ? 'bg-blue-100 text-blue-800' :
+                'bg-yellow-100 text-yellow-800'
+              }`}>
+                {assessment.status.replace('_', ' ').toUpperCase()}
+              </span>
+              <button
+                type="button"
+                onClick={() => startTour('assessment-detail')}
+                className="px-3 py-2 rounded-md text-sm font-medium text-blue-600 border border-blue-200 hover:bg-blue-50"
+              >
+                Take Tour
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Details Card */}
-        <div className="bg-white shadow rounded-lg overflow-hidden mb-6">
+        <div className="bg-white shadow rounded-lg overflow-hidden mb-6" data-tour="assessment-detail-card">
           <div className="px-6 py-5 border-b border-gray-200">
             <h3 className="text-lg font-medium text-gray-900">Assessment Details</h3>
           </div>
@@ -122,7 +145,7 @@ export default function AssessmentDetailPage() {
         </div>
 
         {/* Actions */}
-        <div className="flex space-x-4">
+        <div className="flex space-x-4" data-tour="assessment-detail-actions">
           {assessment.assessment_type === 'cognitive' && (
             <button
               onClick={() => router.push(`/assessments/${assessment.id}/conduct`)}

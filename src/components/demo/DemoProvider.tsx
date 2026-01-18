@@ -505,6 +505,35 @@ const TOURS: Record<string, DriveStep[]> = {
         align: 'center'
       }
     }
+  ],
+  'assessment-detail': [
+    {
+      element: '[data-tour="assessment-detail-header"]',
+      popover: {
+        title: 'Assessment Summary',
+        description: 'Review the type, status, and student context.',
+        side: 'bottom',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="assessment-detail-card"]',
+      popover: {
+        title: 'Assessment Details',
+        description: 'Confirm schedule and linked case information.',
+        side: 'top',
+        align: 'center'
+      }
+    },
+    {
+      element: '[data-tour="assessment-detail-actions"]',
+      popover: {
+        title: 'Next Actions',
+        description: 'Launch the wizard or jump to the case file.',
+        side: 'top',
+        align: 'center'
+      }
+    }
   ]
 };
 
