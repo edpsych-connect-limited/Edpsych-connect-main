@@ -24,6 +24,8 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { ECCA } from '@/components/ui/GlossaryTerm';
 import ErrorDisplay from '@/components/error-handling/ErrorDisplay';
 import { Brain, HelpCircle } from 'lucide-react';
+import { analyticsService } from '@/lib/analytics';
+import { hasAnalyticsConsent } from '@/utils/cookies';
 
 interface Assessment {
   id: number;
@@ -81,6 +83,12 @@ export default function AssessmentListPage() {
     status: '',
     assessment_type: '',
   });
+
+  const trackAssessmentUsage = (action: string, data?: Record<string, any>) => {
+    if (!hasAnalyticsConsent()) return;
+    const entityId = user?.id ? String(user.id) : 'anonymous';
+    analyticsService.trackFeatureUsage(entityId, 'assessments', action, data);
+  };
 
   // Fetch assessments
   const fetchAssessments = useCallback(async () => {
@@ -210,7 +218,10 @@ export default function AssessmentListPage() {
                 Take Tour
               </button>
               <button
-                onClick={() => router.push('/assessments/new')}
+                onClick={() => {
+                  trackAssessmentUsage('start_create');
+                  router.push('/assessments/new');
+                }}
                 data-tour="schedule-assessment"
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
@@ -245,6 +256,7 @@ export default function AssessmentListPage() {
             </div>
             <Link
               href="/assessments/new"
+              onClick={() => trackAssessmentUsage('start_create')}
               className="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             >
               Schedule assessment
@@ -480,17 +492,19 @@ export default function AssessmentListPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <button
-                          onClick={() =>
+                          onClick={() => {
+                            trackAssessmentUsage('open_assessment', { assessmentId: assessment.id });
                             router.push(`/assessments/${assessment.id}`)
-                          }
+                          }}
                           className="text-blue-600 hover:text-blue-900 mr-4"
                         >
                           View
                         </button>
                         <button
-                          onClick={() =>
+                          onClick={() => {
+                            trackAssessmentUsage('edit_assessment', { assessmentId: assessment.id });
                             router.push(`/assessments/${assessment.id}/edit`)
-                          }
+                          }}
                           className="text-indigo-600 hover:text-indigo-900"
                         >
                           Edit
