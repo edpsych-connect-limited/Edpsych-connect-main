@@ -31,17 +31,18 @@ Last updated: 2026-01-17
 Progress log:
 - 2026-01-17: Added primary workspace CTA + role-based workspace mapping on `/dashboard`.
 - 2026-01-17: Centralized role journeys + outcomes in `src/lib/navigation/role-journeys.ts` and surfaced role outcomes on `/dashboard`.
+- 2026-01-17: Added role-aware quick tips in contextual help via `src/lib/guidance/contextual-help-tips.ts`.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
 -----------------------------------------------------------------------------
-[ ] Identify top 10 workflows and add guided steps
+[~] Identify top 10 workflows and add guided steps
     - EHCP creation, assessment, report generation
     - EP booking and scheduling
     - Intervention selection and tracking
     - AI review and approval workflow
 
-[ ] Add contextual help modules (inline tips, "why this matters")
+[~] Add contextual help modules (inline tips, "why this matters")
     - Must be short, actionable, and tied to data entered on page
 
 [ ] Add "next best action" prompts on key pages

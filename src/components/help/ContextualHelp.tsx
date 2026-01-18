@@ -24,6 +24,8 @@ import { Link, usePathname } from '@/navigation';
 
 import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
 import { getContextualHelpVideoKey } from '@/lib/guidance/contextual-help-video';
+import { getContextualQuickTips } from '@/lib/guidance/contextual-help-tips';
+import { useAuth } from '@/lib/auth/hooks';
 
 interface ContextualHelpProps {
   title: string;
@@ -44,8 +46,13 @@ export function ContextualHelp({
 }: ContextualHelpProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname() ?? '';
+  const { user } = useAuth();
 
   const resolvedVideoKey = videoKey ?? videoId ?? getContextualHelpVideoKey(pathname);
+  const quickTips = getContextualQuickTips({
+    role: user?.role,
+    pathname,
+  });
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -101,18 +108,12 @@ export function ContextualHelp({
                 Quick Tips
               </h3>
               <ul className="space-y-2 text-sm">
-                <li className="flex gap-2">
-                  <span className="text-primary">•</span>
-                  <span>Use this feature to streamline your workflow.</span>
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-primary">•</span>
-                  <span>Data is automatically saved as you type.</span>
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-primary">•</span>
-                  <span>You can export reports at any time.</span>
-                </li>
+                {quickTips.map((tip) => (
+                  <li key={tip} className="flex gap-2">
+                    <span className="text-primary">*</span>
+                    <span>{tip}</span>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -157,3 +158,5 @@ export function ContextualHelp({
     </Sheet>
   );
 }
+
+
