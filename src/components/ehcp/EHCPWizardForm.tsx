@@ -15,7 +15,7 @@
 // Script-proof anchor (do not remove): "Our platform changes that."
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'Next
 import AIDraftButton from './AIDraftButton';
 import VideoTutorialPlayer from '@/components/video/VideoTutorialPlayer';
 
@@ -139,13 +139,13 @@ export default function EHCPWizardForm({
 
   // Wizard steps
   const steps = [
-    { id: 'basic', name: 'Basic Information', icon: '📋' },
-    { id: 'section_a', name: 'Section A: Views & Aspirations', icon: '👁️' },
-    { id: 'section_b', name: 'Section B: SEN', icon: '📚' },
-    { id: 'section_e', name: 'Section E: Outcomes', icon: '🎯' },
-    { id: 'section_f', name: 'Section F: Provision', icon: '🏫' },
-    { id: 'section_i', name: 'Section I: Placement', icon: '🏛️' },
-    { id: 'review', name: 'Review & Submit', icon: '✅' },
+    { id: 'basic', name: 'Basic Information', icon: '1' },
+    { id: 'section_a', name: 'Section A: Views & Aspirations', icon: 'A' },
+    { id: 'section_b', name: 'Section B: SEN', icon: 'B' },
+    { id: 'section_e', name: 'Section E: Outcomes', icon: 'E' },
+    { id: 'section_f', name: 'Section F: Provision', icon: 'F' },
+    { id: 'section_i', name: 'Section I: Placement', icon: 'I' },
+    { id: 'review', name: 'Review & Submit', icon: 'R' },
   ];
 
   // Update form field
@@ -325,7 +325,7 @@ export default function EHCPWizardForm({
   };
 
   // Navigation
-  const nextStep = () => {
+  const Next
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     }
@@ -644,7 +644,7 @@ export default function EHCPWizardForm({
                   onClick={autoFillProvision}
                   className="px-3 py-1 text-sm bg-purple-100 text-purple-700 border border-purple-200 rounded-md hover:bg-purple-200 flex items-center"
                 >
-                  <span className="mr-1">✨</span> Auto-fill from Records
+                  <span className="mr-1">i</span> Auto-fill from Records
                 </button>
                 <button
                   onClick={addProvision}
@@ -870,14 +870,15 @@ export default function EHCPWizardForm({
               disabled={saving}
               className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              ← Previous
+               Previous
             </button>
           )}
         </div>
         <div className="flex space-x-3">
           <button
             onClick={saveDraft}
-            disabled={saving}\n            data-tour="ehcp-save"
+            disabled={saving}
+            data-tour="ehcp-save"
             className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {saving ? 'Saving...' : 'Save Draft'}
@@ -885,15 +886,17 @@ export default function EHCPWizardForm({
           {currentStep < steps.length - 1 ? (
             <button
               onClick={nextStep}
-              disabled={saving}\n              data-tour="ehcp-next"
+              disabled={saving}
+              data-tour="ehcp-next"
               className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Next →
+              Next
             </button>
           ) : (
             <button
               onClick={handleSubmit}
-              disabled={saving}\n              data-tour="ehcp-submit"
+              disabled={saving}
+              data-tour="ehcp-submit"
               className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {saving ? 'Submitting...' : 'Submit EHCP'}
@@ -904,4 +907,9 @@ export default function EHCPWizardForm({
     </div>
   );
 }
+
+
+
+
+
 
