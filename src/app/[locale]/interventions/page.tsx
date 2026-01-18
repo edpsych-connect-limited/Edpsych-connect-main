@@ -16,6 +16,8 @@ import { useDemo } from '@/components/demo/DemoProvider';
 import { HelpCircle, Target } from 'lucide-react';
 import { EmptyState } from '@/components/ui/EmptyState';
 import ErrorDisplay from '@/components/error-handling/ErrorDisplay';
+import { analyticsService } from '@/lib/analytics';
+import { hasAnalyticsConsent } from '@/utils/cookies';
 
 interface Intervention {
   id: number;
@@ -46,6 +48,12 @@ export default function InterventionsPage() {
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [now, setNow] = useState<number | null>(null);
+
+  const trackInterventionUsage = (action: string, data?: Record<string, any>) => {
+    if (!hasAnalyticsConsent()) return;
+    const entityId = user?.id ? String(user.id) : 'anonymous';
+    analyticsService.trackFeatureUsage(entityId, 'interventions', action, data);
+  };
 
   useEffect(() => {
     setNow(Date.now());
@@ -131,6 +139,7 @@ export default function InterventionsPage() {
             </div>
             <Link
               href="/interventions/new"
+              onClick={() => trackInterventionUsage('start_create')}
               className="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             >
               Create intervention
@@ -252,13 +261,19 @@ export default function InterventionsPage() {
             {/* New Intervention Buttons */}
             <div className="flex space-x-3">
               <button
-                onClick={() => router.push('/interventions/library')}
+                onClick={() => {
+                  trackInterventionUsage('browse_library');
+                  router.push('/interventions/library');
+                }}
                 className="px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 font-semibold"
               >
                 Browse Library
               </button>
               <button
-                onClick={() => router.push('/interventions/new')}
+                onClick={() => {
+                  trackInterventionUsage('start_create');
+                  router.push('/interventions/new');
+                }}
                 data-tour="create-intervention"
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
               >
@@ -300,7 +315,10 @@ export default function InterventionsPage() {
                 key={intervention.id}
                 intervention={intervention}
                 now={now}
-                onClick={() => router.push(`/interventions/${intervention.id}`)}
+                onClick={() => {
+                  trackInterventionUsage('open_intervention', { interventionId: intervention.id });
+                  router.push(`/interventions/${intervention.id}`);
+                }}
               />
             ))}
           </div>
