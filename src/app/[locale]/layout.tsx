@@ -9,6 +9,7 @@
 import '../globals.css';
 import { Metadata, Viewport } from 'next';
 import ClientLayout from '../ClientLayout';
+import CookieConsentClientWrapper from '@/components/providers/CookieConsentClientWrapper';
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 
@@ -120,7 +121,9 @@ export default async function RootLayout({
         />
       </head>
       <NextIntlClientProvider messages={messages}>
-        <ClientLayout>{children}</ClientLayout>
+        <CookieConsentClientWrapper>
+          <ClientLayout>{children}</ClientLayout>
+        </CookieConsentClientWrapper>
       </NextIntlClientProvider>
     </html>
   );
