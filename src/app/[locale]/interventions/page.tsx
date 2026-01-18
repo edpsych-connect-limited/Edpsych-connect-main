@@ -10,6 +10,7 @@ export const dynamic = 'force-dynamic';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { Link } from '@/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/lib/auth/hooks';
 import { useDemo } from '@/components/demo/DemoProvider';
@@ -117,6 +118,22 @@ export default function InterventionsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-6 rounded-lg border border-blue-100 bg-blue-50 px-4 py-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">Next Best Action</p>
+              <p className="text-sm text-blue-900">
+                Create or schedule an intervention and set the next review date.
+              </p>
+            </div>
+            <Link
+              href="/interventions/new"
+              className="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+            >
+              Create intervention
+            </Link>
+          </div>
+        </div>
         {/* Header */}
         <div className="mb-8 flex justify-between items-start">
           <div>

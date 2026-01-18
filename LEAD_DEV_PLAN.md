@@ -46,6 +46,7 @@ Progress log:
 - 2026-01-18: Added guided tours and anchors for case and EHCP detail views.
 - 2026-01-18: Added breadcrumb trail and guided tour for assessment detail view.
 - 2026-01-18: Added global skip link for keyboard navigation (main content).
+- 2026-01-18: Added next best action prompts across assessments, interventions, cases, and EHCP lists.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -59,7 +60,7 @@ Progress log:
 [~] Add contextual help modules (inline tips, "why this matters")
     - Must be short, actionable, and tied to data entered on page
 
-[ ] Add "next best action" prompts on key pages
+[x] Add "next best action" prompts on key pages
 
 -----------------------------------------------------------------------------
 3) Accessibility (WCAG 2.1 AA+) - Deep Audit
