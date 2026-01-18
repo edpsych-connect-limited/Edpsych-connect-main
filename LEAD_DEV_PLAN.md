@@ -73,6 +73,7 @@ Progress log:
     - EHCP section navigation marks active item
     - assessment wizard step nav and progress bar now include ARIA
     - assessment and intervention filters clarified with ARIA labels
+    - loading spinners now expose role="status" where relevant
 
 [x] Add "skip to content" and landmark improvements where missing
 
