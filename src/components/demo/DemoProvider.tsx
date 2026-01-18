@@ -174,6 +174,82 @@ const TOURS: Record<string, DriveStep[]> = {
         align: 'center'
       }
     }
+  ],
+  'ehcp-wizard': [
+    {
+      element: '[data-tour="ehcp-steps"]',
+      popover: {
+        title: 'EHCP Wizard Steps',
+        description: 'Progress through each statutory section of the EHCP in order.',
+        side: 'bottom',
+        align: 'center'
+      }
+    },
+    {
+      element: '[data-tour="ehcp-form"]',
+      popover: {
+        title: 'Section Details',
+        description: 'Complete the required fields for each section before moving on.',
+        side: 'top',
+        align: 'center'
+      }
+    },
+    {
+      element: '[data-tour="ehcp-save"]',
+      popover: {
+        title: 'Save Drafts',
+        description: 'Save progress at any time to avoid losing work.',
+        side: 'top',
+        align: 'end'
+      }
+    },
+    {
+      element: '[data-tour="ehcp-next"]',
+      popover: {
+        title: 'Advance Steps',
+        description: 'Move to the next section once the current step is complete.',
+        side: 'top',
+        align: 'end'
+      }
+    }
+  ],
+  'case-create': [
+    {
+      element: '[data-tour="case-steps"]',
+      popover: {
+        title: 'Case Setup Steps',
+        description: 'Follow the guided steps to capture a complete referral record.',
+        side: 'bottom',
+        align: 'center'
+      }
+    },
+    {
+      element: '[data-tour="case-form"]',
+      popover: {
+        title: 'Case Details',
+        description: 'Capture student information, referral details, and safeguarding notes.',
+        side: 'top',
+        align: 'center'
+      }
+    },
+    {
+      element: '[data-tour="case-next"]',
+      popover: {
+        title: 'Next Step',
+        description: 'Move forward once the current section is complete.',
+        side: 'top',
+        align: 'end'
+      }
+    },
+    {
+      element: '[data-tour="case-save"]',
+      popover: {
+        title: 'Create Case',
+        description: 'Finalize and create the case once all sections are reviewed.',
+        side: 'top',
+        align: 'end'
+      }
+    }
   ]
 };
 

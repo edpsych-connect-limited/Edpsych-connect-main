@@ -9,6 +9,8 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import CaseManager from '@/components/cases/CaseManager';
+import { useDemo } from '@/components/demo/DemoProvider';
+import { PlayCircle } from 'lucide-react';
 
 // Force dynamic rendering for auth-required pages
 export const dynamic = 'force-dynamic';
@@ -16,6 +18,7 @@ export const dynamic = 'force-dynamic';
 export default function NewCasePage() {
   const router = useRouter();
   const { user, isLoading } = useAuth();
+  const { startTour } = useDemo();
 
   useEffect(() => {
     if (!isLoading && !user) {
@@ -66,11 +69,20 @@ export default function NewCasePage() {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Create New Case</h1>
-          <p className="text-gray-600">
-            Add a new student case to your Educational Psychology caseload
-          </p>
+        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Create New Case</h1>
+            <p className="text-gray-600">
+              Add a new student case to your Educational Psychology caseload
+            </p>
+          </div>
+          <button
+            onClick={() => startTour('case-create')}
+            className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          >
+            <PlayCircle className="h-4 w-4" />
+            Guided walkthrough
+          </button>
         </div>
 
         {/* Case Manager */}

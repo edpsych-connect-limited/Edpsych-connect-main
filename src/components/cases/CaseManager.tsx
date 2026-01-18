@@ -118,7 +118,7 @@ export default function CaseManager({
   return (
     <div className="max-w-5xl mx-auto">
       {/* Progress Stepper */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+      <div className="bg-white rounded-lg shadow-md p-6 mb-6" data-tour="case-steps">
         <div className="flex items-center justify-between">
           {steps.map((s, index) => (
             <React.Fragment key={s.number}>
@@ -159,7 +159,7 @@ export default function CaseManager({
       </div>
 
       {/* Step Content */}
-      <div className="bg-white rounded-lg shadow-md p-8">
+      <div className="bg-white rounded-lg shadow-md p-8" data-tour="case-form">
         {step === 1 && <Step1StudentInfo data={caseData} updateData={updateData} />}
         {step === 2 && <Step2ReferralDetails data={caseData} updateData={updateData} />}
         {step === 3 && <Step3Background data={caseData} updateData={updateData} />}
@@ -179,6 +179,7 @@ export default function CaseManager({
           {step < 6 ? (
             <button
               onClick={() => setStep(step + 1)}
+              data-tour="case-next"
               className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             >
               Next Step
@@ -187,6 +188,7 @@ export default function CaseManager({
             <button
               onClick={handleSave}
               disabled={saving}
+              data-tour="case-save"
               className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50"
             >
               {saving ? 'Saving...' : caseId ? 'Update Case' : 'Create Case'}

@@ -12,11 +12,13 @@ import React, { useEffect } from 'react';
 import { useAuth } from '@/lib/auth/hooks';
 import { useRouter } from 'next/navigation';
 import EHCPWizardForm from '@/components/ehcp/EHCPWizardForm';
-import { Loader2 } from 'lucide-react';
+import { Loader2, PlayCircle } from 'lucide-react';
+import { useDemo } from '@/components/demo/DemoProvider';
 
 export default function NewEHCPPage() {
   const { user, isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
+  const { startTour } = useDemo();
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -61,10 +63,21 @@ export default function NewEHCPPage() {
             </svg>
             Back to EHCP list
           </button>
-          <h1 className="text-3xl font-bold text-gray-900">Create New EHCP</h1>
-          <p className="mt-1 text-sm text-gray-600">
-            Education, Health and Care Plan - UK SEND Code of Practice
-          </p>
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">Create New EHCP</h1>
+              <p className="mt-1 text-sm text-gray-600">
+                Education, Health and Care Plan - UK SEND Code of Practice
+              </p>
+            </div>
+            <button
+              onClick={() => startTour('ehcp-wizard')}
+              className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            >
+              <PlayCircle className="h-4 w-4" />
+              Guided walkthrough
+            </button>
+          </div>
         </div>
       </div>
 

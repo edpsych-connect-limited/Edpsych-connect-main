@@ -340,7 +340,7 @@ export default function EHCPWizardForm({
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       {/* Progress Bar */}
-      <div className="mb-8">
+      <div className="mb-8" data-tour="ehcp-steps">
         <div className="flex items-center justify-between">
           {steps.map((step, index) => (
             <div key={step.id} className="flex items-center">
@@ -383,7 +383,7 @@ export default function EHCPWizardForm({
       )}
 
       {/* Form Content */}
-      <div className="bg-white shadow rounded-lg p-6">
+      <div className="bg-white shadow rounded-lg p-6" data-tour="ehcp-form">
         {/* Step 0: Basic Information */}
         {currentStep === 0 && (
           <div className="space-y-6">
@@ -877,7 +877,7 @@ export default function EHCPWizardForm({
         <div className="flex space-x-3">
           <button
             onClick={saveDraft}
-            disabled={saving}
+            disabled={saving}\n            data-tour="ehcp-save"
             className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {saving ? 'Saving...' : 'Save Draft'}
@@ -885,7 +885,7 @@ export default function EHCPWizardForm({
           {currentStep < steps.length - 1 ? (
             <button
               onClick={nextStep}
-              disabled={saving}
+              disabled={saving}\n              data-tour="ehcp-next"
               className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Next →
@@ -893,7 +893,7 @@ export default function EHCPWizardForm({
           ) : (
             <button
               onClick={handleSubmit}
-              disabled={saving}
+              disabled={saving}\n              data-tour="ehcp-submit"
               className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {saving ? 'Submitting...' : 'Submit EHCP'}
@@ -904,3 +904,4 @@ export default function EHCPWizardForm({
     </div>
   );
 }
+
