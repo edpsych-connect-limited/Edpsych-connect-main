@@ -11,7 +11,6 @@ export const dynamic = 'force-dynamic';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Link } from '@/navigation';
-import Link from 'next/link';
 import { useAuth } from '@/lib/auth/hooks';
 import { useDemo } from '@/components/demo/DemoProvider';
 import { HelpCircle, Target } from 'lucide-react';
