@@ -7,6 +7,7 @@
 
 import Image from 'next/image';
 import { EmptyState } from '@/components/ui/EmptyState';
+import ErrorDisplay from '@/components/error-handling/ErrorDisplay';
 import React, { useState, useEffect, Suspense, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -24,12 +25,14 @@ function BlogPageContent() {
   const [categories, setCategories] = useState<any[]>([]);
   const [tags, setTags] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(initialCategory);
   const [selectedTag, setSelectedTag] = useState<string | null>(initialTag);
   const [pagination, setPagination] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState(1);
 
   const loadBlogContent = useCallback(async () => {
+    setError(null);
     setLoading(true);
     try {
       const [postsRes, featuredRes, categoriesRes, tagsRes] = await Promise.all([
@@ -51,6 +54,7 @@ function BlogPageContent() {
       setTags(tagsData.tags || []);
     } catch (_error) {
       console.error('Failed to load blog content:', _error);
+      setError(_error instanceof Error ? _error.message : 'Failed to load blog content');
     } finally {
       setLoading(false);
     }
@@ -59,6 +63,7 @@ function BlogPageContent() {
   const handleSearch = useCallback(async () => {
     if (!searchQuery.trim()) return;
 
+    setError(null);
     setLoading(true);
     setView('search');
     setSelectedCategory(null);
@@ -71,12 +76,14 @@ function BlogPageContent() {
       setPagination(data.pagination);
     } catch (_error) {
       console.error('Search failed:', _error);
+      setError(_error instanceof Error ? _error.message : 'Search failed');
     } finally {
       setLoading(false);
     }
   }, [searchQuery, currentPage]);
 
   const handleCategoryFilter = useCallback(async (slug: string) => {
+    setError(null);
     setLoading(true);
     setSelectedCategory(slug);
     setSelectedTag(null);
@@ -90,12 +97,14 @@ function BlogPageContent() {
       setPagination(data.pagination);
     } catch (_error) {
       console.error('Failed to filter by category:', _error);
+      setError(_error instanceof Error ? _error.message : 'Failed to filter by category');
     } finally {
       setLoading(false);
     }
   }, [currentPage]);
 
   const handleTagFilter = useCallback(async (slug: string) => {
+    setError(null);
     setLoading(true);
     setSelectedTag(slug);
     setSelectedCategory(null);
@@ -109,6 +118,7 @@ function BlogPageContent() {
       setPagination(data.pagination);
     } catch (_error) {
       console.error('Failed to filter by tag:', _error);
+      setError(_error instanceof Error ? _error.message : 'Failed to filter by tag');
     } finally {
       setLoading(false);
     }
@@ -319,6 +329,15 @@ function BlogPageContent() {
                   {pagination?.total || 0} {pagination?.total === 1 ? 'post' : 'posts'} found
                 </p>
               </div>
+            )}
+
+            {error && (
+              <ErrorDisplay
+                title="Unable to load blog content"
+                error={error}
+                retry={loadBlogContent}
+                className="mb-6"
+              />
             )}
 
             {/* All Posts */}

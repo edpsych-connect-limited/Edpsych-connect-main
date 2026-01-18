@@ -60,6 +60,7 @@ Progress log:
 - 2026-01-18: Added bundle review plan for core pages.
 - 2026-01-18: Removed non-ASCII footer marker for UI consistency.
 - 2026-01-18: Standardized EHCP list empty state with shared component.
+- 2026-01-18: Added error display handling for blog loading and filters.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
