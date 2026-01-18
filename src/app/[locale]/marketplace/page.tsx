@@ -13,6 +13,7 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { useSearchParams } from 'next/navigation';
 import { useDebounce } from '@/hooks/useDebounce';
 
@@ -186,10 +187,12 @@ function MarketplaceSearchContent() {
                 <p className="mt-4 text-gray-500">Searching professionals...</p>
               </div>
             ) : professionals.length === 0 ? (
-              <div className="text-center py-12 bg-white rounded-lg shadow-sm border border-gray-200">
-                <h3 className="text-lg font-medium text-gray-900">No professionals found</h3>
-                <p className="mt-2 text-gray-500">Try adjusting your filters or search terms.</p>
-              </div>
+              <EmptyState
+                title="No professionals found"
+                description="Try adjusting your filters or search terms."
+                actionLabel="View all professionals"
+                actionHref="/marketplace"
+              />
             ) : (
               <div className="grid gap-6">
                 {professionals.map((pro) => (

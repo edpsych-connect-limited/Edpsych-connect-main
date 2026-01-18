@@ -18,6 +18,7 @@ export const dynamic = 'force-dynamic';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 interface TrainingProduct {
   id: string;
@@ -162,9 +163,12 @@ export default function TrainingMarketplace() {
         </div>
 
         {filteredProducts.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-600">No courses found matching your filters.</p>
-          </div>
+          <EmptyState
+            title="No courses found"
+            description="Try selecting a different catalog view."
+            actionLabel="View all courses"
+            actionOnClick={() => setFilter('all')}
+          />
         )}
       </div>
 

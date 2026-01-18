@@ -6,6 +6,7 @@
  */
 
 import Image from 'next/image';
+import { EmptyState } from '@/components/ui/EmptyState';
 import React, { useState, useEffect, Suspense, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -327,17 +328,12 @@ function BlogPageContent() {
                 <p className="mt-4 text-gray-600">Loading posts...</p>
               </div>
             ) : posts.length === 0 ? (
-              <div className="text-center py-12 bg-white rounded-lg shadow-sm">
-                <div className="text-5xl mb-4">📝</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">No posts found</h3>
-                <p className="text-gray-600 mb-6">Try a different search term or browse by category</p>
-                <button
-                  onClick={handleClearFilters}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-                >
-                  View All Posts
-                </button>
-              </div>
+              <EmptyState
+                title="No posts found"
+                description="Try a different search term or browse by category."
+                actionLabel="View all posts"
+                actionHref="/blog"
+              />
             ) : (
               <div className="space-y-6">
                 {posts.map((post) => (

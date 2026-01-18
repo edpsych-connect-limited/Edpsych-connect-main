@@ -1,6 +1,7 @@
 import { ProfessionalProfileService } from '@/services/professional-profile-service';
 import { ProfileCard } from '@/components/directory/ProfileCard';
 import { DirectorySearch } from '@/components/directory/DirectorySearch';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -36,10 +37,12 @@ export default async function DirectoryPage({
           ))}
         </div>
       ) : (
-        <div className="text-center py-20 bg-secondary/20 rounded-lg">
-          <h3 className="text-lg font-medium">No results found</h3>
-          <p className="text-muted-foreground mt-1">Try adjusting your search terms.</p>
-        </div>
+        <EmptyState
+          title="No results found"
+          description="Try adjusting your search terms or broaden your filters."
+          actionLabel="View all professionals"
+          actionHref="/directory"
+        />
       )}
     </div>
   );

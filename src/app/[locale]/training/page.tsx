@@ -13,6 +13,7 @@
 import { useState, useEffect, useId } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 interface Course {
   id: string;
@@ -398,19 +399,16 @@ export default function TrainingCataloguePage() {
         )}
 
         {filteredCourses.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500 mb-4">No courses found matching your criteria.</p>
-            <button
-              onClick={() => {
-                setSearchQuery('');
-                setSelectedCategory('all');
-                setSelectedLevel('all');
-              }}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-            >
-              Clear Filters
-            </button>
-          </div>
+          <EmptyState
+            title="No courses found"
+            description="Try adjusting your filters to find the right course."
+            actionLabel="Clear filters"
+            actionOnClick={() => {
+              setSearchQuery('');
+              setSelectedCategory('all');
+              setSelectedLevel('all');
+            }}
+          />
         )}
       </div>
     </div>

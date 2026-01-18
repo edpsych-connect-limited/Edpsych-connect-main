@@ -18,6 +18,7 @@ export const dynamic = 'force-dynamic';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { COURSE_CATALOG as courses, type Course } from '@/lib/training/course-catalog';
 import MasterclassCourseCard from '@/components/training/MasterclassCourseCard';
 import { Search, Filter, Award, BookOpen, TrendingUp, Star } from 'lucide-react';
@@ -227,23 +228,16 @@ export default function MasterclassTrainingAcademy() {
             ))}
           </div>
         ) : (
-          <div className="text-center py-16">
-            <div className="text-6xl mb-4">🔍</div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">No courses found</h3>
-            <p className="text-gray-600 mb-6">
-              Try adjusting your search or filters to find what you're looking for.
-            </p>
-            <button
-              onClick={() => {
-                setSearchTerm('');
-                setCategoryFilter('all');
-                setLevelFilter('all');
-              }}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-            >
-              Reset Filters
-            </button>
-          </div>
+          <EmptyState
+            title="No courses found"
+            description="Try adjusting your search or filters to find what you're looking for."
+            actionLabel="Reset filters"
+            actionOnClick={() => {
+              setSearchTerm("");
+              setCategoryFilter("all");
+              setLevelFilter("all");
+            }}
+          />
         )}
       </div>
 

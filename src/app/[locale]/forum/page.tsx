@@ -26,6 +26,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { Link } from '@/navigation';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { useAuth } from '@/lib/auth/hooks';
 
 // Forum categories with UK educational psychology focus
@@ -426,11 +427,10 @@ export default function ForumPage() {
                 ))}
 
                 {filteredTopics.length === 0 && (
-                  <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-12 text-center">
-                    <AlertCircle className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">No topics found</h3>
-                    <p className="text-gray-500">Try adjusting your search or filter criteria</p>
-                  </div>
+                  <EmptyState
+                    title="No topics found"
+                    description="Try adjusting your search or filter criteria."
+                  />
                 )}
               </div>
             )}

@@ -20,8 +20,10 @@ interface EmptyStateProps {
   icon?: React.ReactNode;
   actionLabel?: string;
   actionHref?: string;
+  actionOnClick?: () => void;
   secondaryActionLabel?: string;
   secondaryActionHref?: string;
+  secondaryActionOnClick?: () => void;
   className?: string;
 }
 
@@ -31,8 +33,10 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   icon,
   actionLabel,
   actionHref,
+  actionOnClick,
   secondaryActionLabel,
   secondaryActionHref,
+  secondaryActionOnClick,
   className = '',
 }) => {
   return (
@@ -68,6 +72,17 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
             {actionLabel}
           </Link>
         )}
+
+        {actionLabel && !actionHref && actionOnClick && (
+          <button
+            type="button"
+            onClick={actionOnClick}
+            className="inline-flex items-center px-5 py-2.5 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 transition-colors"
+          >
+            <PlusCircle className="w-4 h-4 mr-2" />
+            {actionLabel}
+          </button>
+        )}
         
         {secondaryActionLabel && secondaryActionHref && (
           <Link
@@ -77,6 +92,17 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
             {secondaryActionLabel}
             <ArrowRight className="w-4 h-4 ml-2" />
           </Link>
+        )}
+
+        {secondaryActionLabel && !secondaryActionHref && secondaryActionOnClick && (
+          <button
+            type="button"
+            onClick={secondaryActionOnClick}
+            className="inline-flex items-center px-5 py-2.5 border border-gray-300 text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 transition-colors"
+          >
+            {secondaryActionLabel}
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </button>
         )}
       </div>
     </div>
