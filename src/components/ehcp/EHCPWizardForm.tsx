@@ -15,7 +15,7 @@
 // Script-proof anchor (do not remove): "Our platform changes that."
 
 import React, { useState } from 'react';
-import { useRouter } from 'Next
+import { useRouter } from 'next/navigation';
 import AIDraftButton from './AIDraftButton';
 import VideoTutorialPlayer from '@/components/video/VideoTutorialPlayer';
 
@@ -325,7 +325,7 @@ export default function EHCPWizardForm({
   };
 
   // Navigation
-  const Next
+  const nextStep = () => {
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     }
