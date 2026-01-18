@@ -18,6 +18,7 @@ export const dynamic = 'force-dynamic';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 console.log('Rendering EHCP Page');
 
@@ -228,6 +229,13 @@ export default function EHCPListPage() {
       {/* Header */}
       <div className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="mb-3 flex items-center text-sm text-gray-500">
+            <Link href="/dashboard" className="hover:text-blue-600">
+              Dashboard
+            </Link>
+            <span className="mx-2">&gt;</span>
+            <span className="text-gray-700">EHCP</span>
+          </div>
           <div className="flex justify-between items-center">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">
