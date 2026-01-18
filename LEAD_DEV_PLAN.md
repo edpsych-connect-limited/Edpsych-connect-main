@@ -76,6 +76,7 @@ Progress log:
     - assessment and intervention filters clarified with ARIA labels
     - loading spinners now expose role="status" where relevant
     - dashboard loading state exposes role="status"
+    - table headers include scope and table labels for key grids
 
 [x] Add "skip to content" and landmark improvements where missing
 
