@@ -68,6 +68,7 @@ Progress log:
     - Document fixes and retest
 
 [~] Normalize focus states and ARIA across core components
+    - focus-visible applied to core button/input/empty-state controls
 
 [x] Add "skip to content" and landmark improvements where missing
 
