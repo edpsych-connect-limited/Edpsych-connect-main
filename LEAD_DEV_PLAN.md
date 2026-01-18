@@ -58,6 +58,7 @@ Progress log:
 - 2026-01-18: Added AI review queue guidance to explain oversight requirements.
 - 2026-01-18: Authored product telemetry plan and evidence dashboard requirements.
 - 2026-01-18: Added bundle review plan for core pages.
+- 2026-01-18: Removed non-ASCII footer marker for UI consistency.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

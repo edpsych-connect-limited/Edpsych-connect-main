@@ -233,7 +233,7 @@ export default function ClientLayout({
                 
                 {!useMinimalChrome && (
                   <footer className="bg-gray-100 text-center py-4 mt-10 text-sm text-gray-600">
-                    © {new Date().getFullYear()} EdPsych Connect World. All rights reserved.
+                    (c) {new Date().getFullYear()} EdPsych Connect World. All rights reserved.
                   </footer>
                 )}
               </div>
