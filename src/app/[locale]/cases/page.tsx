@@ -154,10 +154,10 @@ export default function CasesPage() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <StatCard title="Total Cases" value={stats.total} icon="📋" color="blue" />
-          <StatCard title="Active Cases" value={stats.active} icon="🟢" color="green" />
-          <StatCard title="Urgent Priority" value={stats.urgent} icon="🚨" color="red" />
-          <StatCard title="EHCPs" value={stats.ehcps} icon="📄" color="purple" />
+          <StatCard title="Total Cases" value={stats.total} icon="T" color="blue" />
+          <StatCard title="Active Cases" value={stats.active} icon="A" color="green" />
+          <StatCard title="Urgent Priority" value={stats.urgent} icon="U" color="red" />
+          <StatCard title="EHCPs" value={stats.ehcps} icon="E" color="purple" />
         </div>
 
         {/* Actions Bar */}
@@ -193,7 +193,7 @@ export default function CasesPage() {
             {/* Filters */}
             <div className="flex space-x-4">
               <select
-                aria-label="Filter by status"
+                aria-label="Filter by case status"
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
                 className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
@@ -207,7 +207,7 @@ export default function CasesPage() {
               </select>
 
               <select
-                aria-label="Filter by priority"
+                aria-label="Filter by case priority"
                 value={priorityFilter}
                 onChange={(e) => setPriorityFilter(e.target.value)}
                 className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
@@ -243,7 +243,7 @@ export default function CasesPage() {
         {/* Cases List */}
         {filteredCases.length === 0 ? (
           <div className="bg-white rounded-lg shadow-md p-12 text-center">
-            <div className="text-gray-400 text-6xl mb-4">📂</div>
+            <div className="text-gray-400 text-6xl mb-4">No data</div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">No cases found</h3>
             <p className="text-gray-600 mb-6">
               {cases.length === 0
@@ -333,12 +333,11 @@ function CaseCard({ case_, onClick }: CaseCardProps) {
   };
 
   const priorityIcons = {
-    low: '🟢',
-    medium: '🟡',
-    high: '🟠',
-    urgent: '🚨',
+    low: '-',
+    medium: '!',
+    high: '!!',
+    urgent: '!!!',
   };
-
   return (
     <div
       onClick={onClick}
@@ -359,7 +358,7 @@ function CaseCard({ case_, onClick }: CaseCardProps) {
 
         {/* School & Year Group */}
         <div className="text-sm text-gray-600 mb-3">
-          {case_.school} • {case_.year_group}
+          {case_.school} | {case_.year_group}
         </div>
 
         {/* Case Type */}
@@ -406,7 +405,7 @@ function CaseCard({ case_, onClick }: CaseCardProps) {
           Updated {new Date(case_.updated_at).toLocaleDateString()}
         </span>
         <button className="text-blue-600 hover:text-blue-800 font-semibold text-sm">
-          View Case →
+          View Case
         </button>
       </div>
     </div>
