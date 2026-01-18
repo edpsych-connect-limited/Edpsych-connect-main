@@ -37,10 +37,31 @@ const ROUTE_TIPS: Array<{ match: string; tips: string[] }> = [
     ],
   },
   {
+    match: '/admin/ethics',
+    tips: [
+      'Triage pending AI reviews first to keep approvals moving.',
+      'Add decision notes to build a defensible audit trail.',
+    ],
+  },
+  {
     match: '/admin',
     tips: [
       'Review governance alerts daily to avoid compliance drift.',
       'Audit access changes after onboarding new staff.',
+    ],
+  },
+  {
+    match: '/reports',
+    tips: [
+      'Capture evidence sources before finalizing recommendations.',
+      'Assign responsibility and timescales for every action.',
+    ],
+  },
+  {
+    match: '/marketplace/book',
+    tips: [
+      'Be specific about the request so the EP can scope quickly.',
+      'Share preferred dates to reduce scheduling delays.',
     ],
   },
   {

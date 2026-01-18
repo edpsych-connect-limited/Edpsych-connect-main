@@ -259,6 +259,120 @@ const TOURS: Record<string, DriveStep[]> = {
         align: 'end'
       }
     }
+  ],
+  'reports': [
+    {
+      element: '[data-tour="report-header"]',
+      popover: {
+        title: 'Report Generator',
+        description: 'Build compliant reports with structured sections and recommendations.',
+        side: 'bottom',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="report-actions"]',
+      popover: {
+        title: 'Save and Export',
+        description: 'Save a draft or generate a PDF when the report is complete.',
+        side: 'left',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="report-tabs"]',
+      popover: {
+        title: 'Report Sections',
+        description: 'Move between details, narrative sections, recommendations, and evidence.',
+        side: 'bottom',
+        align: 'center'
+      }
+    },
+    {
+      element: '[data-tour="report-recommendations"]',
+      popover: {
+        title: 'Actionable Recommendations',
+        description: 'Capture priorities, responsibility, and timescales for each recommendation.',
+        side: 'top',
+        align: 'start'
+      }
+    }
+  ],
+  'marketplace-booking': [
+    {
+      element: '[data-tour="booking-subject"]',
+      popover: {
+        title: 'Booking Summary',
+        description: 'Provide a short headline for the request so the EP can triage quickly.',
+        side: 'bottom',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="booking-schedule"]',
+      popover: {
+        title: 'Preferred Schedule',
+        description: 'Share preferred dates and times to speed up scheduling.',
+        side: 'top',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="booking-message"]',
+      popover: {
+        title: 'Context and Needs',
+        description: 'Add the child context and priorities to help the EP prepare.',
+        side: 'top',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="booking-submit"]',
+      popover: {
+        title: 'Send Request',
+        description: 'Submit the enquiry and track progress in your dashboard.',
+        side: 'top',
+        align: 'center'
+      }
+    }
+  ],
+  'ai-reviews': [
+    {
+      element: '[data-tour="ethics-tabs"]',
+      popover: {
+        title: 'Ethics Workspaces',
+        description: 'Navigate between monitors, incidents, evidence, and AI review tasks.',
+        side: 'bottom',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="ethics-review-summary"]',
+      popover: {
+        title: 'Review Load',
+        description: 'Track pending reviews and keep approval queues under control.',
+        side: 'bottom',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="ai-review-queue"]',
+      popover: {
+        title: 'Review Queue',
+        description: 'Each item includes the use case, reason, and severity context.',
+        side: 'top',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="ai-review-actions"]',
+      popover: {
+        title: 'Decision Actions',
+        description: 'Approve, reject, or request modifications with clear notes.',
+        side: 'top',
+        align: 'start'
+      }
+    }
   ]
 };
 

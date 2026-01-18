@@ -2,14 +2,16 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useDemo } from '@/components/demo/DemoProvider';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { submitBookingEnquiry } from '@/actions/marketplace-actions';
-import { Loader2, CheckCircle } from 'lucide-react';
+import { Loader2, CheckCircle, PlayCircle } from 'lucide-react';
 
 export default function BookingForm({ professionalId }: { professionalId: number }) {
+  const { startTour } = useDemo();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -56,7 +58,13 @@ export default function BookingForm({ professionalId }: { professionalId: number
 
   return (
     <form action={handleSubmit} className="space-y-6">
-      <div className="space-y-2">
+      <div className="flex justify-end">
+        <Button type="button" variant="outline" onClick={() => startTour('marketplace-booking')}>
+          <PlayCircle className="mr-2 h-4 w-4" />
+          Take a Quick Tour
+        </Button>
+      </div>
+      <div className="space-y-2" data-tour="booking-subject">
         <Label htmlFor="subject">Subject</Label>
         <Input 
           id="subject" 
@@ -66,7 +74,7 @@ export default function BookingForm({ professionalId }: { professionalId: number
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4" data-tour="booking-schedule">
         <div className="space-y-2">
           <Label htmlFor="preferredDate">Preferred Date</Label>
           <Input 
@@ -90,7 +98,7 @@ export default function BookingForm({ professionalId }: { professionalId: number
         </div>
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-2" data-tour="booking-message">
         <Label htmlFor="message">Message</Label>
         <Textarea 
           id="message" 
@@ -111,7 +119,7 @@ export default function BookingForm({ professionalId }: { professionalId: number
         <p>There is no charge for making this initial enquiry. Fees will be discussed once the scope of work is agreed.</p>
       </div>
 
-      <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+      <Button type="submit" className="w-full" size="lg" disabled={isSubmitting} data-tour="booking-submit">
         {isSubmitting ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -7,7 +7,7 @@ of context and to provide a clear execution checklist.
 Status key: [ ] pending, [~] in progress, [x] done
 
 Owner: Codex (Project Lead) + Scott (Sponsor)
-Last updated: 2026-01-17
+Last updated: 2026-01-18
 
 -----------------------------------------------------------------------------
 1) Navigation + Role-Based Journeys
@@ -34,6 +34,8 @@ Progress log:
 - 2026-01-17: Added role-aware quick tips in contextual help via `src/lib/guidance/contextual-help-tips.ts`.
 - 2026-01-17: Added guided tours for EHCP wizard and case creation workflows.
 - 2026-01-17: Expanded interventions tour with search guidance and normalized intervention icons to ASCII.
+- 2026-01-18: Added guided tours for report generation, AI review queue, and marketplace booking.
+- 2026-01-18: Extended contextual help tips for reports, ethics reviews, and booking flows.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

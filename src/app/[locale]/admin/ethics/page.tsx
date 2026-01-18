@@ -9,8 +9,10 @@
  */
 
 import { useState, useEffect } from 'react';
+import { useDemo } from '@/components/demo/DemoProvider';
 
 export default function EthicsAdminPage() {
+  const { startTour } = useDemo();
   const [loading, setLoading] = useState(true);
   const [analytics, setAnalytics] = useState<any>(null);
   const [monitors, setMonitors] = useState<any[]>([]);
@@ -118,15 +120,27 @@ export default function EthicsAdminPage() {
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Ethics Monitoring System</h1>
-          <p className="mt-2 text-gray-600">
-            World-class ethical oversight and compliance monitoring
-          </p>
+        <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Ethics Monitoring System</h1>
+            <p className="mt-2 text-gray-600">
+              World-class ethical oversight and compliance monitoring
+            </p>
+          </div>
+          <button
+            type="button"
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            onClick={() => {
+              setActiveTab('reviews');
+              setTimeout(() => startTour('ai-reviews'), 150);
+            }}
+          >
+            Take Review Tour
+          </button>
         </div>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" data-tour="ethics-review-summary">
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -205,7 +219,7 @@ export default function EthicsAdminPage() {
         {/* Tabs */}
         <div className="bg-white rounded-lg shadow mb-8">
           <div className="border-b border-gray-200">
-            <nav className="flex -mb-px">
+            <nav className="flex -mb-px" data-tour="ethics-tabs">
               {['overview', 'monitors', 'incidents', 'assessments', 'evidence', 'reviews'].map((tab) => (
                 <button
                   key={tab}
@@ -419,7 +433,7 @@ export default function EthicsAdminPage() {
             )}
 
             {activeTab === 'reviews' && (
-              <div className="space-y-4">
+              <div className="space-y-4" data-tour="ai-review-queue">
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-lg font-medium text-gray-900">AI Review Queue</h3>
                   <span className="text-sm text-gray-500">
@@ -456,7 +470,7 @@ export default function EthicsAdminPage() {
                             </span>
                           </div>
                           {review.status === 'pending' && (
-                            <div className="flex flex-wrap gap-2 mt-3">
+                            <div className="flex flex-wrap gap-2 mt-3" data-tour="ai-review-actions">
                               <div className="w-full">
                                 <label className="block text-xs font-medium text-gray-700 mb-1">
                                   Decision notes (required for reject/modify)

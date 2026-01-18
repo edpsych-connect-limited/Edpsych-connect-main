@@ -13,6 +13,7 @@ import { logger } from "@/lib/logger";
 ;
 
 import React, { useState } from 'react';
+import { useDemo } from '@/components/demo/DemoProvider';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -21,9 +22,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ReportData, Recommendation } from '@/lib/reports/report-generator';
-import { Plus, Trash2, Save, Download } from 'lucide-react';
+import { Plus, Trash2, Save, Download, PlayCircle } from 'lucide-react';
 
 export function ReportForm() {
+  const { startTour } = useDemo();
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeTab, setActiveTab] = useState('details');
 
@@ -162,21 +164,30 @@ export function ReportForm() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold tracking-tight">Report Generator</h2>
-        <div className="flex gap-2">
+      <div className="flex flex-wrap justify-between items-center gap-3" data-tour="report-header">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight">Report Generator</h2>
+          <p className="text-sm text-muted-foreground">
+            Capture evidence, recommendations, and outcomes in one structured flow.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2" data-tour="report-actions">
+          <Button variant="outline" onClick={() => startTour('reports')}>
+            <PlayCircle className="mr-2 h-4 w-4" />
+            Take a Quick Tour
+          </Button>
           <Button variant="outline" onClick={handleSaveDraft}>
             <Save className="mr-2 h-4 w-4" /> Save Draft
           </Button>
-          <Button onClick={handleSubmit} disabled={isGenerating}>
-            <Download className="mr-2 h-4 w-4" /> 
+          <Button onClick={handleSubmit} disabled={isGenerating} data-tour="report-generate">
+            <Download className="mr-2 h-4 w-4" />
             {isGenerating ? 'Generating...' : 'Generate PDF'}
           </Button>
         </div>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-4" data-tour="report-tabs">
           <TabsTrigger value="details">Details</TabsTrigger>
           <TabsTrigger value="sections">Sections</TabsTrigger>
           <TabsTrigger value="recommendations">Recommendations</TabsTrigger>
@@ -184,7 +195,7 @@ export function ReportForm() {
         </TabsList>
 
         <TabsContent value="details" className="space-y-4 mt-4">
-          <Card>
+          <Card data-tour="report-details">
             <CardHeader>
               <CardTitle>Report Details</CardTitle>
               <CardDescription>Basic information about the report, student, and EP.</CardDescription>
@@ -290,7 +301,7 @@ export function ReportForm() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="sections" className="space-y-4 mt-4">
+        <TabsContent value="sections" className="space-y-4 mt-4" data-tour="report-sections">
           {formData.sections.map((section, index) => (
             <Card key={index}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -327,7 +338,7 @@ export function ReportForm() {
           </Button>
         </TabsContent>
 
-        <TabsContent value="recommendations" className="space-y-4 mt-4">
+        <TabsContent value="recommendations" className="space-y-4 mt-4" data-tour="report-recommendations">
           {formData.recommendations.map((rec, index) => (
             <Card key={index}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -407,7 +418,7 @@ export function ReportForm() {
           </Button>
         </TabsContent>
 
-        <TabsContent value="evidence" className="space-y-4 mt-4">
+        <TabsContent value="evidence" className="space-y-4 mt-4" data-tour="report-evidence">
           <Card>
             <CardHeader>
               <CardTitle>Evidence & Outcomes</CardTitle>
