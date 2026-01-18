@@ -100,9 +100,9 @@ export default function InterventionsPage() {
 
   const stats = {
     total: interventions.length,
-    active: 'A',
-    planned: 'P',
-    completed: 'C',
+    active: interventions.filter((intervention) => intervention.status === 'active').length,
+    planned: interventions.filter((intervention) => intervention.status === 'planned').length,
+    completed: interventions.filter((intervention) => intervention.status === 'completed').length,
   };
 
   if (loading) {
