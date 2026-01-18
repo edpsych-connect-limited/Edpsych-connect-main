@@ -15,6 +15,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { EmptyState } from '@/components/ui/EmptyState';
 import ErrorDisplay from '@/components/error-handling/ErrorDisplay';
+import { analyticsService } from '@/lib/analytics';
+import { hasAnalyticsConsent } from '@/utils/cookies';
 import { useSearchParams } from 'next/navigation';
 import { useDebounce } from '@/hooks/useDebounce';
 
@@ -42,6 +44,11 @@ function MarketplaceSearchContent() {
   const [professionals, setProfessionals] = useState<Professional[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const trackMarketplaceUsage = (action: string, data?: Record<string, any>) => {
+    if (!hasAnalyticsConsent()) return;
+    analyticsService.trackFeatureUsage('anonymous', 'marketplace', action, data);
+  };
   
   // UI state for inputs
   const [filters, setFilters] = useState({
@@ -78,6 +85,7 @@ function MarketplaceSearchContent() {
       const res = await fetch(`/api/marketplace/professionals/search?${queryParams.toString()}`);
       const data = await res.json();
       setProfessionals(data.results || []);
+      trackMarketplaceUsage('search', { total: data.results?.length || 0 });
     } catch (_error) {
       console.error('Search failed:', _error);
       setError(_error instanceof Error ? _error.message : 'Search failed');
