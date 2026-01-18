@@ -48,6 +48,7 @@ Progress log:
 - 2026-01-18: Added global skip link for keyboard navigation (main content).
 - 2026-01-18: Added next best action prompts across assessments, interventions, cases, and EHCP lists.
 - 2026-01-18: Standardized error display for assessments and EHCP lists with retry.
+- 2026-01-18: Standardized reports empty state with shared component.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -116,6 +117,7 @@ Progress log:
 
 [~] Standardize error and empty states
     - error display with retry now in assessments, cases, EHCP, interventions
+    - reports empty state now uses shared EmptyState component
 
 -----------------------------------------------------------------------------
 7) Delivery + Validation

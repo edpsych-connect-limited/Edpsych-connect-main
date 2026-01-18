@@ -9,6 +9,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { FileText, Plus } from 'lucide-react';
 
 export default function ReportsPage() {
@@ -47,28 +48,14 @@ export default function ReportsPage() {
       </div>
 
       <div className="grid gap-4">
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Reports</CardTitle>
-            <CardDescription>
-              You haven&apos;t generated any reports yet.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col items-center justify-center py-10 text-center">
-              <FileText className="h-10 w-10 text-muted-foreground mb-4" />
-              <h3 className="text-lg font-medium">No reports found</h3>
-              <p className="text-sm text-muted-foreground max-w-sm mt-2 mb-6">
-                Get started by creating your first professional report using our templates.
-              </p>
-              <Link href="/reports/create">
-                <Button variant="outline">
-                  Create Report
-                </Button>
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
+        <h2 className="text-xl font-semibold text-gray-900">Recent Reports</h2>
+        <EmptyState
+          title="No reports found"
+          description="Get started by creating your first professional report using our templates."
+          icon={<FileText className="h-8 w-8 text-blue-500" />}
+          actionLabel="Create report"
+          actionHref="/reports/create"
+        />
       </div>
     </div>
   );
