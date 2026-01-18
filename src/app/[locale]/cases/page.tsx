@@ -12,6 +12,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Link } from '@/navigation';
 import { useAuth } from '@/lib/auth/hooks';
+import ErrorDisplay from '@/components/error-handling/ErrorDisplay';
 
 interface Case {
   id: number;
@@ -34,12 +35,14 @@ export default function CasesPage() {
 
   const [cases, setCases] = useState<Case[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   const loadCases = async () => {
     try {
+      setError(null);
       const response = await fetch('/api/cases');
       if (!response.ok) throw new Error('Failed to fetch cases');
       const data = await response.json();
@@ -62,6 +65,7 @@ export default function CasesPage() {
       setCases(mappedCases);
     } catch (_error) {
       console.error('Failed to load cases:', _error);
+      setError(_error instanceof Error ? _error.message : 'Failed to load cases');
     } finally {
       setLoading(false);
     }
@@ -225,6 +229,16 @@ export default function CasesPage() {
             </button>
           </div>
         </div>
+
+        {/* Error Message */}
+        {error && (
+          <ErrorDisplay
+            title="Failed to load cases"
+            error={error}
+            retry={loadCases}
+            className="mb-6"
+          />
+        )}
 
         {/* Cases List */}
         {filteredCases.length === 0 ? (

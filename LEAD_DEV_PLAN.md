@@ -115,6 +115,7 @@ Progress log:
 [ ] Add consistent microcopy for AI features and sensitive workflows
 
 [~] Standardize error and empty states
+    - error display with retry now in assessments, cases, EHCP, interventions
 
 -----------------------------------------------------------------------------
 7) Delivery + Validation

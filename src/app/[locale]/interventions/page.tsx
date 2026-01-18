@@ -15,6 +15,7 @@ import { useAuth } from '@/lib/auth/hooks';
 import { useDemo } from '@/components/demo/DemoProvider';
 import { HelpCircle, Target } from 'lucide-react';
 import { EmptyState } from '@/components/ui/EmptyState';
+import ErrorDisplay from '@/components/error-handling/ErrorDisplay';
 
 interface Intervention {
   id: number;
@@ -40,6 +41,7 @@ export default function InterventionsPage() {
 
   const [interventions, setInterventions] = useState<Intervention[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -51,6 +53,7 @@ export default function InterventionsPage() {
 
   const loadInterventions = async () => {
     try {
+      setError(null);
       const response = await fetch('/api/interventions');
       if (response.ok) {
         const data = await response.json();
@@ -58,6 +61,7 @@ export default function InterventionsPage() {
       }
     } catch (_error) {
       console.error('Failed to load interventions:', _error);
+      setError(_error instanceof Error ? _error.message : 'Failed to load interventions');
     } finally {
       setLoading(false);
     }
@@ -263,6 +267,16 @@ export default function InterventionsPage() {
             </div>
           </div>
         </div>
+
+        {/* Error Message */}
+        {error && (
+          <ErrorDisplay
+            title="Failed to load interventions"
+            error={error}
+            retry={loadInterventions}
+            className="mb-6"
+          />
+        )}
 
         {/* Interventions List */}
         {filteredInterventions.length === 0 ? (
