@@ -555,7 +555,14 @@ export default function AssessmentAdministrationWizard({
                 {Math.round(((currentStep + 1) / steps.length) * 100)}% complete
               </span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div
+              className="w-full bg-gray-200 rounded-full h-2"
+              role="progressbar"
+              aria-label="Assessment completion"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={Math.round(((currentStep + 1) / steps.length) * 100)}
+            >
               {/* eslint-disable-next-line */}
               <div
                 className="bg-blue-600 h-2 rounded-full transition-all duration-300"
@@ -571,13 +578,18 @@ export default function AssessmentAdministrationWizard({
         <div className="grid grid-cols-12 gap-8">
           {/* Step Navigation Sidebar */}
           <div className="col-span-3">
-            <nav className="bg-white rounded-lg shadow-sm p-4 sticky top-24" data-tour="assessment-steps">
+            <nav
+              className="bg-white rounded-lg shadow-sm p-4 sticky top-24"
+              data-tour="assessment-steps"
+              aria-label="Assessment steps"
+            >
               <h3 className="text-sm font-semibold text-gray-900 mb-4">Assessment Steps</h3>
               <ol className="space-y-2">
                 {steps.map((step, index) => (
                   <li key={step.id}>
                     <button
                       onClick={() => goToStep(index)}
+                      aria-current={index === currentStep ? 'step' : undefined}
                       className={`w-full text-left p-3 rounded-lg transition-colors ${
                         index === currentStep
                           ? 'bg-blue-50 text-blue-700 border-2 border-blue-300'
