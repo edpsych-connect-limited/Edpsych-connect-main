@@ -14,6 +14,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
+import Link from 'next/link';
 import { useAuth } from '@/lib/auth/hooks';
 
 interface EHCPPlanDetails {
@@ -267,6 +268,17 @@ export default function EHCPDetailPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex justify-between items-start">
             <div className="flex-1">
+              <div className="mb-2 flex items-center text-sm text-gray-500">
+                <Link href="/dashboard" className="hover:text-blue-600">
+                  Dashboard
+                </Link>
+                <span className="mx-2">&gt;</span>
+                <Link href="/ehcp" className="hover:text-blue-600">
+                  EHCP
+                </Link>
+                <span className="mx-2">&gt;</span>
+                <span className="text-gray-700">Student {ehcp.student_id}</span>
+              </div>
               <button
                 onClick={() => router.push('/ehcp')}
                 className="text-sm text-gray-500 hover:text-gray-700 mb-2 flex items-center"
