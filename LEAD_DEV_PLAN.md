@@ -50,7 +50,7 @@ Progress log:
 - 2026-01-18: Standardized error display for assessments and EHCP lists with retry.
 - 2026-01-18: Standardized reports empty state with shared component.
 - 2026-01-18: Cleaned non-ASCII control characters from cases list UI placeholders and labels.
-- 2026-01-18: Standardized empty states for blog, directory, forum, and training catalogs.
+- 2026-01-18: Standardized empty states for blog, directory, forum, training catalogs, and annual reviews.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

@@ -10,6 +10,7 @@ export const dynamic = 'force-dynamic';
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/auth/hooks';
 import { useRouter } from 'next/navigation';
+import { EmptyState } from '@/components/ui/EmptyState';
 import Link from 'next/link';
 import {
   ArrowLeft,
@@ -271,18 +272,12 @@ export default function AnnualReviewsPage() {
             <p className="mt-4 text-gray-600">Loading reviews...</p>
           </div>
         ) : reviews.length === 0 ? (
-          <div className="bg-white rounded-xl shadow-sm border p-12 text-center">
-            <Calendar className="h-12 w-12 text-gray-300 mx-auto" />
-            <h3 className="mt-4 text-lg font-medium text-gray-900">No reviews found</h3>
-            <p className="mt-2 text-gray-500">Schedule your first annual review to get started.</p>
-            <button
-              onClick={() => _setShowCreateModal(true)}
-              className="mt-4 inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Schedule Review
-            </button>
-          </div>
+          <EmptyState
+            title="No reviews found"
+            description="Schedule your first annual review to get started."
+            actionLabel="Schedule review"
+            actionOnClick={() => _setShowCreateModal(true)}
+          />
         ) : (
           <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
             <table className="min-w-full divide-y divide-gray-200">
