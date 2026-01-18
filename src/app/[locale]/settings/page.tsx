@@ -16,6 +16,8 @@ import MISIntegrationSettings from '@/components/settings/MISIntegrationSettings
 import PayoutsSettings from '@/components/settings/PayoutsSettings';
 import VerificationSettings from '@/components/settings/VerificationSettings';
 import { Settings, User, Bell, Shield, Database, Moon, Sun, Volume2, VolumeX, CreditCard, FileCheck } from 'lucide-react';
+import { CookieCategory } from '@/types/cookies';
+import { getCookieSettings, updateConsent } from '@/utils/cookies';
 
 type SettingsTab = 'general' | 'account' | 'integrations' | 'notifications' | 'privacy' | 'payouts' | 'verification';
 
@@ -25,6 +27,8 @@ export default function SettingsPage() {
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState<SettingsTab>('general');
   const [voiceEnabled, setVoiceEnabled] = useState(true);
+  const [analyticsConsent, setAnalyticsConsent] = useState(false);
+  const [marketingConsent, setMarketingConsent] = useState(false);
 
   // Sync tab with URL
   useEffect(() => {
@@ -41,12 +45,24 @@ export default function SettingsPage() {
     weekly: true,
   });
 
+  useEffect(() => {
+    const settings = getCookieSettings();
+    setAnalyticsConsent(settings.consents[CookieCategory.ANALYTICS]?.granted || false);
+    setMarketingConsent(settings.consents[CookieCategory.MARKETING]?.granted || false);
+  }, []);
+
   // Redirect if not authenticated
   React.useEffect(() => {
     if (!isLoading && !user) {
       router.push('/login');
     }
   }, [user, isLoading, router]);
+
+  const toggleConsent = (category: CookieCategory, current: boolean, setState: (value: boolean) => void) => {
+    const next = !current;
+    setState(next);
+    updateConsent(category, next);
+  };
 
   if (isLoading) {
     return (
@@ -162,7 +178,7 @@ export default function SettingsPage() {
                   >
                     <option value="en">English (UK)</option>
                     <option value="cy">Cymraeg (Welsh)</option>
-                    <option value="gd">Gàidhlig (Scottish Gaelic)</option>
+                    <option value="gd">Scottish Gaelic</option>
                   </select>
                 </div>
               </div>
@@ -307,7 +323,7 @@ export default function SettingsPage() {
                     including encryption at rest and in transit, role-based access control, and comprehensive audit logging.
                   </p>
                   <Link href="/gdpr" className="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 text-sm font-medium">
-                    View Data Protection Policy →
+                    View Data Protection Policy
                   </Link>
                 </div>
 
@@ -342,26 +358,36 @@ export default function SettingsPage() {
                     <h3 className="font-medium text-slate-900 dark:text-white">Analytics</h3>
                     <p className="text-sm text-slate-500 dark:text-slate-400">Help us improve the platform with anonymous usage data</p>
                   </div>
-                  <button 
-                    className="relative inline-block w-12 h-6 transition duration-200 ease-in-out rounded-full bg-green-500 cursor-pointer"
+                  <button
+                    onClick={() => toggleConsent(CookieCategory.ANALYTICS, analyticsConsent, setAnalyticsConsent)}
+                    className={`relative inline-block w-12 h-6 transition duration-200 ease-in-out rounded-full cursor-pointer ${
+                      analyticsConsent ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-600'
+                    }`}
                     aria-label="Toggle analytics"
                     title="Toggle analytics"
                   >
-                    <span className="absolute left-6 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-200 ease-in-out"></span>
+                    <span className={`absolute top-1 bg-white w-4 h-4 rounded-full transition-transform duration-200 ease-in-out ${
+                      analyticsConsent ? 'left-6' : 'left-1'
+                    }`}></span>
                   </button>
                 </div>
 
                 <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
                   <div>
-                    <h3 className="font-medium text-slate-900 dark:text-white">Research Participation</h3>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">Allow anonymised data to be used in educational research</p>
+                    <h3 className="font-medium text-slate-900 dark:text-white">Marketing</h3>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">Allow communications about updates, offers, and events</p>
                   </div>
-                  <button 
-                    className="relative inline-block w-12 h-6 transition duration-200 ease-in-out rounded-full bg-slate-300 dark:bg-slate-600 cursor-pointer"
-                    aria-label="Toggle research participation"
-                    title="Toggle research participation"
+                  <button
+                    onClick={() => toggleConsent(CookieCategory.MARKETING, marketingConsent, setMarketingConsent)}
+                    className={`relative inline-block w-12 h-6 transition duration-200 ease-in-out rounded-full cursor-pointer ${
+                      marketingConsent ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-600'
+                    }`}
+                    aria-label="Toggle marketing"
+                    title="Toggle marketing"
                   >
-                    <span className="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-200 ease-in-out"></span>
+                    <span className={`absolute top-1 bg-white w-4 h-4 rounded-full transition-transform duration-200 ease-in-out ${
+                      marketingConsent ? 'left-6' : 'left-1'
+                    }`}></span>
                   </button>
                 </div>
               </div>

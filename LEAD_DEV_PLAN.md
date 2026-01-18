@@ -62,6 +62,7 @@ Progress log:
 - 2026-01-18: Standardized EHCP list empty state with shared component.
 - 2026-01-18: Added error display handling for blog loading and filters.
 - 2026-01-18: Added error display handling for marketplace search.
+- 2026-01-18: Wired consent toggles to cookie settings and cleaned privacy copy.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
