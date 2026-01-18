@@ -358,6 +358,7 @@ export default function EHCPDetailPage() {
                   <li key={section.id}>
                     <button
                       onClick={() => setActiveSection(section.id)}
+                      aria-current={activeSection === section.id ? 'page' : undefined}
                       className={`w-full text-left px-3 py-2 text-sm rounded-md ${
                         activeSection === section.id
                           ? 'bg-blue-50 text-blue-700 font-medium'

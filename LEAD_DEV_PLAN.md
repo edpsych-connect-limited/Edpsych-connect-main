@@ -69,6 +69,8 @@ Progress log:
 
 [~] Normalize focus states and ARIA across core components
     - focus-visible applied to core button/input/empty-state controls
+    - case detail tabs now use tablist/tabpanel semantics
+    - EHCP section navigation marks active item
 
 [x] Add "skip to content" and landmark improvements where missing
 

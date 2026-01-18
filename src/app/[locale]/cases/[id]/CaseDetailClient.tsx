@@ -327,9 +327,13 @@ export default function CaseDetailClient({ id }: CaseDetailClientProps) {
         {/* Tabs */}
         <div className="bg-white rounded-lg shadow-md mb-6" data-tour="case-tabs">
           <div className="border-b border-gray-200">
-            <div className="flex space-x-8 px-6">
+            <div className="flex space-x-8 px-6" role="tablist" aria-label="Case detail sections">
               <button
                 onClick={() => setActiveTab('overview')}
+                id="case-tab-overview"
+                role="tab"
+                aria-selected={activeTab === 'overview'}
+                aria-controls="case-panel-overview"
                 className={`py-4 px-1 border-b-2 font-semibold text-sm transition-colors ${
                   activeTab === 'overview'
                     ? 'border-blue-600 text-blue-600'
@@ -340,6 +344,10 @@ export default function CaseDetailClient({ id }: CaseDetailClientProps) {
               </button>
               <button
                 onClick={() => setActiveTab('interventions')}
+                id="case-tab-interventions"
+                role="tab"
+                aria-selected={activeTab === 'interventions'}
+                aria-controls="case-panel-interventions"
                 className={`py-4 px-1 border-b-2 font-semibold text-sm transition-colors ${
                   activeTab === 'interventions'
                     ? 'border-blue-600 text-blue-600'
@@ -350,6 +358,10 @@ export default function CaseDetailClient({ id }: CaseDetailClientProps) {
               </button>
               <button
                 onClick={() => setActiveTab('notes')}
+                id="case-tab-notes"
+                role="tab"
+                aria-selected={activeTab === 'notes'}
+                aria-controls="case-panel-notes"
                 className={`py-4 px-1 border-b-2 font-semibold text-sm transition-colors ${
                   activeTab === 'notes'
                     ? 'border-blue-600 text-blue-600'
@@ -360,6 +372,10 @@ export default function CaseDetailClient({ id }: CaseDetailClientProps) {
               </button>
               <button
                 onClick={() => setActiveTab('timeline')}
+                id="case-tab-timeline"
+                role="tab"
+                aria-selected={activeTab === 'timeline'}
+                aria-controls="case-panel-timeline"
                 className={`py-4 px-1 border-b-2 font-semibold text-sm transition-colors ${
                   activeTab === 'timeline'
                     ? 'border-blue-600 text-blue-600'
@@ -371,7 +387,13 @@ export default function CaseDetailClient({ id }: CaseDetailClientProps) {
             </div>
           </div>
 
-          <div className="p-6" data-tour="case-content">
+          <div
+            id={`case-panel-${activeTab}`}
+            role="tabpanel"
+            aria-labelledby={`case-tab-${activeTab}`}
+            className="p-6"
+            data-tour="case-content"
+          >
             {activeTab === 'overview' && <OverviewTab caseDetail={caseDetail} />}
             {activeTab === 'interventions' && (
               <InterventionsTab caseId={caseDetail.id} router={router} />
