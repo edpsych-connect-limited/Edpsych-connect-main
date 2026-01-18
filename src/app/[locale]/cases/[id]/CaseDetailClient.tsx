@@ -7,6 +7,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useAuth } from '@/lib/auth/hooks';
 
 interface CaseDetailClientProps {
@@ -204,6 +205,17 @@ export default function CaseDetailClient({ id }: CaseDetailClientProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-6">
+          <div className="mb-3 flex items-center text-sm text-gray-500">
+            <Link href="/dashboard" className="hover:text-blue-600">
+              Dashboard
+            </Link>
+            <span className="mx-2">&gt;</span>
+            <Link href="/cases" className="hover:text-blue-600">
+              Cases
+            </Link>
+            <span className="mx-2">&gt;</span>
+            <span className="text-gray-700">{caseDetail.student_name}</span>
+          </div>
           <button
             onClick={() => router.push('/cases')}
             className="text-blue-600 hover:underline mb-4 flex items-center"
