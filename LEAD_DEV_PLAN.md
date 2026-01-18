@@ -57,6 +57,7 @@ Progress log:
 - 2026-01-18: Added rollout, test, and launch signoff checklist docs.
 - 2026-01-18: Added AI review queue guidance to explain oversight requirements.
 - 2026-01-18: Authored product telemetry plan and evidence dashboard requirements.
+- 2026-01-18: Added bundle review plan for core pages.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -102,7 +103,7 @@ Progress log:
 
 [x] Establish error budgets and alerting thresholds
 
-[ ] Review and reduce heavy client bundles (core pages)
+[~] Review and reduce heavy client bundles (core pages)
 
 -----------------------------------------------------------------------------
 5) Telemetry + Evidence + Governance UX
