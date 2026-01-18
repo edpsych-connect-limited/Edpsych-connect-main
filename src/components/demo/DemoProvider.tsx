@@ -438,6 +438,73 @@ const TOURS: Record<string, DriveStep[]> = {
         align: 'center'
       }
     }
+  ],
+  'case-detail': [
+    {
+      element: '[data-tour="case-header"]',
+      popover: {
+        title: 'Case Overview',
+        description: 'Review key student and case context before taking action.',
+        side: 'bottom',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="case-actions"]',
+      popover: {
+        title: 'Quick Actions',
+        description: 'Launch new interventions, assessments, or updates from here.',
+        side: 'bottom',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="case-tabs"]',
+      popover: {
+        title: 'Case Sections',
+        description: 'Move between overview, interventions, notes, and timeline.',
+        side: 'top',
+        align: 'center'
+      }
+    },
+    {
+      element: '[data-tour="case-content"]',
+      popover: {
+        title: 'Case Detail',
+        description: 'Document evidence, concerns, and stakeholder context.',
+        side: 'top',
+        align: 'center'
+      }
+    }
+  ],
+  'ehcp-detail': [
+    {
+      element: '[data-tour="ehcp-header"]',
+      popover: {
+        title: 'EHCP Summary',
+        description: 'Track status, review dates, and export options.',
+        side: 'bottom',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="ehcp-sections"]',
+      popover: {
+        title: 'EHCP Sections',
+        description: 'Navigate each statutory section for review or edit.',
+        side: 'right',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="ehcp-content"]',
+      popover: {
+        title: 'Section Detail',
+        description: 'Review evidence and provision content for accuracy.',
+        side: 'top',
+        align: 'center'
+      }
+    }
   ]
 };
 

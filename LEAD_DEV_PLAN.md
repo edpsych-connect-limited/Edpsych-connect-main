@@ -43,6 +43,7 @@ Progress log:
 - 2026-01-18: Added breadcrumbs for cases and EHCP list pages.
 - 2026-01-18: Added breadcrumb trail to case detail view.
 - 2026-01-18: Added breadcrumb trail to EHCP detail view.
+- 2026-01-18: Added guided tours and anchors for case and EHCP detail views.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

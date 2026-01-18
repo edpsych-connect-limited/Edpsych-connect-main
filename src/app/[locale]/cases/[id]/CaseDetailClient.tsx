@@ -9,6 +9,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/lib/auth/hooks';
+import { useDemo } from '@/components/demo/DemoProvider';
 
 interface CaseDetailClientProps {
   id: string;
@@ -51,6 +52,7 @@ interface Note {
 export default function CaseDetailClient({ id }: CaseDetailClientProps) {
   const router = useRouter();
   const { isAuthenticated } = useAuth();
+  const { startTour } = useDemo();
 
   const [caseDetail, setCaseDetail] = useState<CaseDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -231,7 +233,7 @@ export default function CaseDetailClient({ id }: CaseDetailClientProps) {
             Back to Cases
           </button>
 
-          <div className="flex items-start justify-between mb-4">
+          <div className="flex items-start justify-between mb-4" data-tour="case-header">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">{caseDetail.student_name}</h1>
               <div className="flex items-center space-x-4 text-gray-600">
@@ -253,6 +255,13 @@ export default function CaseDetailClient({ id }: CaseDetailClientProps) {
               <span className={`text-2xl font-semibold ${priorityColors[caseDetail.priority]}`}>
                 {priorityIcons[caseDetail.priority]}
               </span>
+              <button
+                type="button"
+                onClick={() => startTour('case-detail')}
+                className="px-3 py-2 rounded-md text-sm font-medium text-blue-600 border border-blue-200 hover:bg-blue-50"
+              >
+                Take Tour
+              </button>
             </div>
           </div>
 
@@ -285,7 +294,7 @@ export default function CaseDetailClient({ id }: CaseDetailClientProps) {
         </div>
 
         {/* Quick Actions */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div className="bg-white rounded-lg shadow-md p-6 mb-6" data-tour="case-actions">
           <h3 className="font-semibold text-gray-900 mb-3">Quick Actions</h3>
           <div className="flex flex-wrap gap-3">
             <button
@@ -316,7 +325,7 @@ export default function CaseDetailClient({ id }: CaseDetailClientProps) {
         </div>
 
         {/* Tabs */}
-        <div className="bg-white rounded-lg shadow-md mb-6">
+        <div className="bg-white rounded-lg shadow-md mb-6" data-tour="case-tabs">
           <div className="border-b border-gray-200">
             <div className="flex space-x-8 px-6">
               <button
@@ -362,7 +371,7 @@ export default function CaseDetailClient({ id }: CaseDetailClientProps) {
             </div>
           </div>
 
-          <div className="p-6">
+          <div className="p-6" data-tour="case-content">
             {activeTab === 'overview' && <OverviewTab caseDetail={caseDetail} />}
             {activeTab === 'interventions' && (
               <InterventionsTab caseId={caseDetail.id} router={router} />
