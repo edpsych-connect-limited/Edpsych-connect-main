@@ -56,6 +56,7 @@ Progress log:
 - 2026-01-18: Authored SLI/SLO definitions, error budget policy, and tracing plan docs.
 - 2026-01-18: Added rollout, test, and launch signoff checklist docs.
 - 2026-01-18: Added AI review queue guidance to explain oversight requirements.
+- 2026-01-18: Authored product telemetry plan and evidence dashboard requirements.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -106,10 +107,10 @@ Progress log:
 -----------------------------------------------------------------------------
 5) Telemetry + Evidence + Governance UX
 -----------------------------------------------------------------------------
-[ ] Expand telemetry beyond AI into product usage
+[~] Expand telemetry beyond AI into product usage
     - Adoption metrics, drop-off points, task completion time
 
-[ ] Evidence dashboards for governance and audit readiness
+[~] Evidence dashboards for governance and audit readiness
     - Human-readable summaries for executives
 
 [~] Improve AI review UX for clarity (why review is required)
