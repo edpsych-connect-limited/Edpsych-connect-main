@@ -53,6 +53,8 @@ Progress log:
 - 2026-01-18: Standardized empty states for blog, directory, forum, training catalogs, and annual reviews.
 - 2026-01-18: Added aria-live loading status for blog, marketplace, and annual reviews.
 - 2026-01-18: Standardized cases list empty state with shared component.
+- 2026-01-18: Authored SLI/SLO definitions, error budget policy, and tracing plan docs.
+- 2026-01-18: Added rollout, test, and launch signoff checklist docs.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -91,12 +93,12 @@ Progress log:
 -----------------------------------------------------------------------------
 4) Performance + Reliability (Enterprise Grade)
 -----------------------------------------------------------------------------
-[ ] Define SLIs/SLOs for critical workflows
+[x] Define SLIs/SLOs for critical workflows
     - Examples: login, dashboard, assessment submission, report generation
 
-[ ] Add performance tracing for slow pages and API endpoints
+[~] Add performance tracing for slow pages and API endpoints
 
-[ ] Establish error budgets and alerting thresholds
+[x] Establish error budgets and alerting thresholds
 
 [ ] Review and reduce heavy client bundles (core pages)
 
@@ -126,7 +128,7 @@ Progress log:
 -----------------------------------------------------------------------------
 7) Delivery + Validation
 -----------------------------------------------------------------------------
-[ ] Define rollout plan (staging -> production)
-[ ] Test plan: unit, integration, E2E on critical journeys
-[ ] Accessibility and performance sign-off checklist
+[x] Define rollout plan (staging -> production)
+[x] Test plan: unit, integration, E2E on critical journeys
+[x] Accessibility and performance sign-off checklist
 [ ] Enterprise launch readiness sign-off
