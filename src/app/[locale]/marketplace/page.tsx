@@ -14,6 +14,7 @@ import React, { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { EmptyState } from '@/components/ui/EmptyState';
+import ErrorDisplay from '@/components/error-handling/ErrorDisplay';
 import { useSearchParams } from 'next/navigation';
 import { useDebounce } from '@/hooks/useDebounce';
 
@@ -40,6 +41,7 @@ function MarketplaceSearchContent() {
   const searchParams = useSearchParams();
   const [professionals, setProfessionals] = useState<Professional[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   
   // UI state for inputs
   const [filters, setFilters] = useState({
@@ -61,6 +63,7 @@ function MarketplaceSearchContent() {
   }, [debouncedFilters]); // Re-fetch when DEBOUNCED filters change
 
   const fetchProfessionals = async () => {
+    setError(null);
     setLoading(true);
     try {
       const queryParams = new URLSearchParams();
@@ -77,6 +80,7 @@ function MarketplaceSearchContent() {
       setProfessionals(data.results || []);
     } catch (_error) {
       console.error('Search failed:', _error);
+      setError(_error instanceof Error ? _error.message : 'Search failed');
     } finally {
       setLoading(false);
     }
@@ -181,6 +185,14 @@ function MarketplaceSearchContent() {
 
           {/* Results Grid */}
           <div className="flex-1">
+            {error && (
+              <ErrorDisplay
+                title="Unable to load professionals"
+                error={error}
+                retry={fetchProfessionals}
+                className="mb-6"
+              />
+            )}
             {loading ? (
               <div className="text-center py-12" role="status" aria-live="polite">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
