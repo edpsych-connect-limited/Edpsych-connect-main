@@ -373,6 +373,71 @@ const TOURS: Record<string, DriveStep[]> = {
         align: 'start'
       }
     }
+  ],
+  'assessment-admin': [
+    {
+      element: '[data-tour="assessment-header"]',
+      popover: {
+        title: 'Assessment Workspace',
+        description: 'Run the assessment with the active framework and student context.',
+        side: 'bottom',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="assessment-progress"]',
+      popover: {
+        title: 'Progress Tracker',
+        description: 'Monitor completion across each assessment step.',
+        side: 'bottom',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="assessment-steps"]',
+      popover: {
+        title: 'Step Navigation',
+        description: 'Jump between steps or review completed sections.',
+        side: 'right',
+        align: 'start'
+      }
+    },
+    {
+      element: '[data-tour="assessment-content"]',
+      popover: {
+        title: 'Active Step',
+        description: 'Capture observations, interpretation, and evidence for this step.',
+        side: 'top',
+        align: 'center'
+      }
+    },
+    {
+      element: '[data-tour="assessment-save"]',
+      popover: {
+        title: 'Save Draft',
+        description: 'Save progress at any time to protect your work.',
+        side: 'top',
+        align: 'center'
+      }
+    },
+    {
+      element: '[data-tour="assessment-nav"]',
+      popover: {
+        title: 'Step Controls',
+        description: 'Move back and forward as you complete the assessment.',
+        side: 'top',
+        align: 'center'
+      }
+    },
+    {
+      element: '[data-tour="assessment-report"]',
+      popover: {
+        title: 'Generate Report',
+        description: 'Produce the professional PDF once the review step is complete.',
+        side: 'top',
+        align: 'center'
+      }
+    }
   ]
 };
 

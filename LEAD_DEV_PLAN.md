@@ -36,6 +36,7 @@ Progress log:
 - 2026-01-17: Expanded interventions tour with search guidance and normalized intervention icons to ASCII.
 - 2026-01-18: Added guided tours for report generation, AI review queue, and marketplace booking.
 - 2026-01-18: Extended contextual help tips for reports, ethics reviews, and booking flows.
+- 2026-01-18: Added guided tour and anchors for assessment administration wizard.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

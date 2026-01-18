@@ -17,6 +17,7 @@ import { logger } from "@/lib/logger";
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { useDemo } from '@/components/demo/DemoProvider';
 import { downloadAssessmentReport, type AssessmentReport } from '@/lib/assessments/report-generator';
 
 // ============================================================================
@@ -53,6 +54,7 @@ export default function AssessmentAdministrationWizard({
   existingInstanceId,
 }: AssessmentWizardProps) {
   const router = useRouter();
+  const { startTour } = useDemo();
   
   // State management
   const [framework, setFramework] = useState<any>(null);
@@ -477,7 +479,7 @@ export default function AssessmentAdministrationWizard({
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4" data-tour="assessment-header">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">
@@ -488,6 +490,13 @@ export default function AssessmentAdministrationWizard({
               </p>
             </div>
             <div className="flex items-center space-x-4">
+              <button
+                type="button"
+                onClick={() => startTour('assessment-admin')}
+                className="px-3 py-2 rounded-md text-sm font-medium text-blue-600 border border-blue-200 hover:bg-blue-50"
+              >
+                Take Tour
+              </button>
               {/* Auto-save indicator */}
               <div className="text-sm text-gray-500">
                 {isSaving ? (
@@ -518,7 +527,7 @@ export default function AssessmentAdministrationWizard({
           </div>
 
           {/* Progress bar */}
-          <div className="mt-4">
+          <div className="mt-4" data-tour="assessment-progress">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium text-gray-700">
                 Step {currentStep + 1} of {steps.length}: {steps[currentStep].title}
@@ -543,7 +552,7 @@ export default function AssessmentAdministrationWizard({
         <div className="grid grid-cols-12 gap-8">
           {/* Step Navigation Sidebar */}
           <div className="col-span-3">
-            <nav className="bg-white rounded-lg shadow-sm p-4 sticky top-24">
+            <nav className="bg-white rounded-lg shadow-sm p-4 sticky top-24" data-tour="assessment-steps">
               <h3 className="text-sm font-semibold text-gray-900 mb-4">Assessment Steps</h3>
               <ol className="space-y-2">
                 {steps.map((step, index) => (
@@ -582,7 +591,7 @@ export default function AssessmentAdministrationWizard({
 
           {/* Main Content */}
           <div className="col-span-9">
-            <div className="bg-white rounded-lg shadow-sm p-8">
+            <div className="bg-white rounded-lg shadow-sm p-8" data-tour="assessment-content">
               <CurrentStepComponent
                 framework={framework}
                 assessmentData={assessmentData}
@@ -599,7 +608,7 @@ export default function AssessmentAdministrationWizard({
               />
 
               {/* Navigation Buttons */}
-              <div className="mt-8 flex items-center justify-between border-t border-gray-200 pt-6">
+              <div className="mt-8 flex items-center justify-between border-t border-gray-200 pt-6" data-tour="assessment-nav">
                 <button
                   onClick={goToPreviousStep}
                   disabled={currentStep === 0}
@@ -611,6 +620,7 @@ export default function AssessmentAdministrationWizard({
                 <button
                   onClick={saveDraft}
                   className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                  data-tour="assessment-save"
                 >
                   Save Draft
                 </button>
@@ -1256,6 +1266,7 @@ function ReviewStep({ assessmentData, framework, handleGenerateReport, isGenerat
               onClick={handleGenerateReport}
               disabled={isGeneratingReport}
               className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              data-tour="assessment-report"
             >
               {isGeneratingReport ? (
                 <>
