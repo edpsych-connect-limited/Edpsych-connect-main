@@ -6,11 +6,23 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
+import Link from 'next/link';
 import { ReportForm } from '@/components/reports/ReportForm';
 
 export default function CreateReportPage() {
   return (
     <div className="container mx-auto py-10">
+      <div className="mb-6 flex items-center text-sm text-gray-500">
+        <Link href="/dashboard" className="hover:text-blue-600">
+          Dashboard
+        </Link>
+        <span className="mx-2">&gt;</span>
+        <Link href="/reports" className="hover:text-blue-600">
+          Reports
+        </Link>
+        <span className="mx-2">&gt;</span>
+        <span className="text-gray-700">Create</span>
+      </div>
       <ReportForm />
     </div>
   );
