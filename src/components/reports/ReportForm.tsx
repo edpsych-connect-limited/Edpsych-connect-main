@@ -23,11 +23,18 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ReportData, Recommendation } from '@/lib/reports/report-generator';
 import { Plus, Trash2, Save, Download, PlayCircle } from 'lucide-react';
+import { analyticsService } from '@/lib/analytics';
+import { hasAnalyticsConsent } from '@/utils/cookies';
 
 export function ReportForm() {
   const { startTour } = useDemo();
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeTab, setActiveTab] = useState('details');
+
+  const trackReportUsage = (action: string, data?: Record<string, any>) => {
+    if (!hasAnalyticsConsent()) return;
+    analyticsService.trackFeatureUsage('anonymous', 'reports', action, data);
+  };
 
   const [formData, setFormData] = useState<ReportData>({
     type: 'assessment',
@@ -67,6 +74,7 @@ export function ReportForm() {
   };
 
   const addSection = () => {
+    trackReportUsage('add_section');
     setFormData(prev => ({
       ...prev,
       sections: [...prev.sections, { title: 'New Section', content: '' }]
@@ -80,6 +88,7 @@ export function ReportForm() {
   };
 
   const removeSection = (index: number) => {
+    trackReportUsage('remove_section', { index });
     setFormData(prev => ({
       ...prev,
       sections: prev.sections.filter((_, i) => i !== index)
@@ -87,6 +96,7 @@ export function ReportForm() {
   };
 
   const addRecommendation = () => {
+    trackReportUsage('add_recommendation');
     setFormData(prev => ({
       ...prev,
       recommendations: [...prev.recommendations, {
@@ -107,6 +117,7 @@ export function ReportForm() {
   };
 
   const removeRecommendation = (index: number) => {
+    trackReportUsage('remove_recommendation', { index });
     setFormData(prev => ({
       ...prev,
       recommendations: prev.recommendations.filter((_, i) => i !== index)
@@ -115,6 +126,7 @@ export function ReportForm() {
 
   const handleSubmit = async () => {
     setIsGenerating(true);
+    trackReportUsage('generate_report', { type: formData.type });
     try {
       const response = await fetch('/api/reports/generate', {
         method: 'POST',
@@ -144,6 +156,7 @@ export function ReportForm() {
   };
 
   const handleSaveDraft = async () => {
+    trackReportUsage('save_draft', { type: formData.type });
     try {
       const response = await fetch('/api/reports', {
         method: 'POST',
