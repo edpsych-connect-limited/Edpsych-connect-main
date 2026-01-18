@@ -323,7 +323,7 @@ function BlogPageContent() {
 
             {/* All Posts */}
             {loading ? (
-              <div className="text-center py-12">
+              <div className="text-center py-12" role="status" aria-live="polite">
                 <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-600 border-t-transparent"></div>
                 <p className="mt-4 text-gray-600">Loading posts...</p>
               </div>

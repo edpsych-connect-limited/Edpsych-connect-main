@@ -267,7 +267,7 @@ export default function AnnualReviewsPage() {
 
         {/* Reviews List */}
         {loading ? (
-          <div className="bg-white rounded-xl shadow-sm border p-12 text-center">
+          <div className="bg-white rounded-xl shadow-sm border p-12 text-center" role="status" aria-live="polite">
             <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600 mx-auto"></div>
             <p className="mt-4 text-gray-600">Loading reviews...</p>
           </div>
