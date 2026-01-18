@@ -75,6 +75,7 @@ Progress log:
     - assessment wizard step nav and progress bar now include ARIA
     - assessment and intervention filters clarified with ARIA labels
     - loading spinners now expose role="status" where relevant
+    - dashboard loading state exposes role="status"
 
 [x] Add "skip to content" and landmark improvements where missing
 
