@@ -335,7 +335,7 @@ function CheckoutForm({ productId }: { productId: string }) {
 
               {/* Error Message */}
               {error && (
-                <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
+                <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md" role="alert" aria-live="assertive">
                   <p className="text-sm text-red-800">{error}</p>
                 </div>
               )}
