@@ -324,6 +324,7 @@ export default function CourseDetailPage() {
                       trackCourseUsage('tab', { tab: 'overview' });
                     }}
                     role="tab"
+                    id="overview-tab"
                     {...(activeTab === 'overview' ? { 'aria-selected': 'true' } : { 'aria-selected': 'false' })}
                     aria-controls="overview-panel"
                     className={`px-6 py-4 font-medium border-b-2 ${
@@ -340,6 +341,7 @@ export default function CourseDetailPage() {
                       trackCourseUsage('tab', { tab: 'curriculum' });
                     }}
                     role="tab"
+                    id="curriculum-tab"
                     {...(activeTab === 'curriculum' ? { 'aria-selected': 'true' } : { 'aria-selected': 'false' })}
                     aria-controls="curriculum-panel"
                     className={`px-6 py-4 font-medium border-b-2 ${
@@ -356,6 +358,7 @@ export default function CourseDetailPage() {
                       trackCourseUsage('tab', { tab: 'instructor' });
                     }}
                     role="tab"
+                    id="instructor-tab"
                     {...(activeTab === 'instructor' ? { 'aria-selected': 'true' } : { 'aria-selected': 'false' })}
                     aria-controls="instructor-panel"
                     className={`px-6 py-4 font-medium border-b-2 ${
@@ -372,6 +375,7 @@ export default function CourseDetailPage() {
                       trackCourseUsage('tab', { tab: 'reviews' });
                     }}
                     role="tab"
+                    id="reviews-tab"
                     {...(activeTab === 'reviews' ? { 'aria-selected': 'true' } : { 'aria-selected': 'false' })}
                     aria-controls="reviews-panel"
                     className={`px-6 py-4 font-medium border-b-2 ${
