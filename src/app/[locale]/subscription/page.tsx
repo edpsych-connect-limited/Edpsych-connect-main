@@ -403,7 +403,7 @@ export default function SubscriptionManagementPage() {
                       </text>
                     </svg>
                     <div>
-                      <div className="font-semibold text-gray-900">•••• 4242</div>
+                      <div className="font-semibold text-gray-900">**** 4242</div>
                       <div className="text-sm text-gray-600">Expires 12/25</div>
                     </div>
                   </div>
