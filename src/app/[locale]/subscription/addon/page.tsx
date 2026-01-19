@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 /**
  * Add-On Subscription Page
@@ -20,8 +20,8 @@ const ADDONS = {
     id: 'ADDON_AI_POWER',
     name: 'AI Power Pack',
     description: '500 additional AI calls per month with advanced AI features including report drafting, study buddy, and problem solver.',
-    priceMonthly: 4999, // £49.99
-    priceAnnual: 49990, // £499.90
+    priceMonthly: 4999, // GBP 49.99
+    priceAnnual: 49990, // GBP 499.90
     features: [
       '500 additional AI calls/month',
       'AI Report Drafting',
@@ -34,8 +34,8 @@ const ADDONS = {
     id: 'ADDON_EHCP_ACCELERATOR',
     name: 'EHCP Accelerator',
     description: 'Advanced EHCP tools including intelligent deadline tracking, template libraries, and multi-agency coordination.',
-    priceMonthly: 7999, // £79.99
-    priceAnnual: 79990, // £799.90
+    priceMonthly: 7999, // GBP 79.99
+    priceAnnual: 79990, // GBP 799.90
     features: [
       'Intelligent deadline tracking',
       'Smart EHCP templates',
@@ -48,8 +48,8 @@ const ADDONS = {
     id: 'ADDON_CPD_UNLIMITED',
     name: 'CPD Library Unlimited',
     description: 'Unlimited access to 18+ comprehensive CPD courses with verified certificates.',
-    priceMonthly: 2999, // £29.99
-    priceAnnual: 29990, // £299.90
+    priceMonthly: 2999, // GBP 29.99
+    priceAnnual: 29990, // GBP 299.90
     features: [
       '18+ comprehensive courses',
       'Autism, ADHD, Dyslexia modules',
@@ -62,8 +62,8 @@ const ADDONS = {
     id: 'ADDON_API_ACCESS',
     name: 'API Access',
     description: 'Full RESTful API access for custom integrations with your existing systems.',
-    priceMonthly: 19999, // £199.99
-    priceAnnual: 199990, // £1,999.90
+    priceMonthly: 19999, // GBP 199.99
+    priceAnnual: 199990, // GBP 1,999.90
     features: [
       'Full RESTful API coverage',
       'Comprehensive documentation',
@@ -76,8 +76,8 @@ const ADDONS = {
     id: 'ADDON_WHITE_LABEL',
     name: 'White Label',
     description: 'Rebrand EdPsych Connect with your organisation\'s identity.',
-    priceMonthly: 49999, // £499.99
-    priceAnnual: 499990, // £4,999.90
+    priceMonthly: 49999, // GBP 499.99
+    priceAnnual: 499990, // GBP 4,999.90
     features: [
       'Custom logo & branding',
       'Custom colour scheme',
@@ -90,8 +90,8 @@ const ADDONS = {
     id: 'ADDON_PRIORITY_SUPPORT',
     name: 'Priority Support',
     description: 'Jump to the front of the support queue with 4-hour response SLA.',
-    priceMonthly: 9999, // £99.99
-    priceAnnual: 99990, // £999.90
+    priceMonthly: 9999, // GBP 99.99
+    priceAnnual: 99990, // GBP 999.90
     features: [
       '4-hour response SLA',
       'Direct technical specialist access',
@@ -138,7 +138,7 @@ export default function AddonSubscriptionPage() {
             onClick={() => router.push('/pricing')}
             className="text-indigo-600 hover:text-indigo-800 font-medium"
           >
-            ← Back to Pricing
+            <- Back to Pricing
           </button>
         </div>
       </div>
@@ -146,7 +146,7 @@ export default function AddonSubscriptionPage() {
   }
 
   const formatPrice = (pence: number) => {
-    return `£${(pence / 100).toFixed(2)}`;
+    return `GBP ${(pence / 100).toFixed(2)}`;
   };
 
   const handleSubscribe = async () => {
