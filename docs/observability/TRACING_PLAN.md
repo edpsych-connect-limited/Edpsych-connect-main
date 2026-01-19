@@ -7,7 +7,7 @@ This document defines the tracing scope for critical workflows.
 - Dashboard: initial load, key summary widgets
 - Assessments: create, autosave, submit
 - Cases: create, list, detail
-- EHCP: create, module save, export
+- EHCP: create, module save, export, evidence pack
 - Reports: generate, export
 - Marketplace: search, booking creation, payment intent
 - AI review: submit, approve, reject

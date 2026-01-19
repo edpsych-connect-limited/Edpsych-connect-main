@@ -105,6 +105,7 @@ Progress log:
 - 2026-01-18: Added evidence telemetry for EHCP export generation.
 - 2026-01-18: Updated course player animations to respect prefers-reduced-motion.
 - 2026-01-18: Added evidence telemetry for EHCP evidence pack generation.
+- 2026-01-18: Expanded tracing plan to include EHCP evidence pack workflow.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
