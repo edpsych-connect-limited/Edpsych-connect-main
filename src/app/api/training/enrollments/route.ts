@@ -9,6 +9,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import authService from '@/lib/auth/auth-service';
+import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
+import { getRequestId } from '@/lib/security/audit-logger';
 
 export const dynamic = 'force-dynamic';
 
@@ -81,6 +83,28 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+  const requestId = getRequestId(request) ?? traceId;
+  let tenantId: number | undefined;
+  let userIdForAudit: number | undefined;
+  const recordTrace = async (status: EvidenceStatus, metadata?: Record<string, unknown>) => {
+    if (!tenantId) return;
+    await recordEvidenceEvent({
+      tenantId,
+      userId: userIdForAudit,
+      traceId,
+      requestId,
+      eventType: 'training_enrollment',
+      workflowType: 'training_enrollment',
+      actionType: 'create_enrollment',
+      status,
+      durationMs: Date.now() - startedAt,
+      evidenceType: 'measured',
+      metadata,
+    });
+  };
+
   try {
     const session = await authService.getSessionFromRequest(request);
     if (!session) {
@@ -101,6 +125,8 @@ export async function POST(request: NextRequest) {
     }
 
     const userId = parseInt(session.id);
+    userIdForAudit = userId;
+    tenantId = session.tenant_id ? Number(session.tenant_id) : undefined;
 
     // Check if already enrolled
     const existingEnrollment = await prisma.courseEnrollment.findUnique({
@@ -113,6 +139,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (existingEnrollment) {
+      await recordTrace('ok', { courseId, status: 'already_enrolled' });
       return NextResponse.json(existingEnrollment);
     }
 
@@ -127,9 +154,11 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    await recordTrace('ok', { courseId, status: 'enrolled' });
     return NextResponse.json(enrollment);
   } catch (_error) {
     console.error('[Enrollments API] Error:', _error);
+    await recordTrace('error');
     return NextResponse.json(
       { error: 'Failed to enroll in course' },
       { status: 500 }

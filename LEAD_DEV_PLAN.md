@@ -91,6 +91,7 @@ Progress log:
 - 2026-01-18: Added alert semantics for training checkout error messaging.
 - 2026-01-18: Added aria-live loading status for course player fallback state.
 - 2026-01-18: Added evidence telemetry for training checkout payment intent creation.
+- 2026-01-18: Added evidence telemetry for training enrollment creation.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
