@@ -10,10 +10,14 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import { createEvidenceTraceId, recordEvidenceEvent } from '@/lib/analytics/evidence-telemetry';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
@@ -87,6 +91,27 @@ export async function GET() {
         risk: weeksOpen > 18 ? 'high' : weeksOpen > 12 ? 'medium' : 'low',
       };
     });
+
+    if (tenantId) {
+      await recordEvidenceEvent({
+        tenantId,
+        userId: user.id,
+        traceId,
+        requestId: traceId,
+        eventType: 'la_dashboard_load',
+        workflowType: 'dashboard',
+        actionType: 'load_la_dashboard',
+        status: 'ok',
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata: {
+          activeEhcpCount,
+          pendingAssessmentsCount,
+          registeredSchoolsCount,
+          professionalsCount,
+        },
+      });
+    }
 
     return NextResponse.json({
       stats,

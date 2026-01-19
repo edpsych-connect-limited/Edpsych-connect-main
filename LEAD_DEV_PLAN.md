@@ -121,6 +121,7 @@ Progress log:
 - 2026-01-19: Added evidence telemetry for interventions list, detail, update, and discontinue workflows.
 - 2026-01-19: Added evidence telemetry for authentication login, refresh, and logout workflows.
 - 2026-01-19: Added evidence telemetry for progress dashboard load workflow.
+- 2026-01-19: Added evidence telemetry for LA dashboard load workflow.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
