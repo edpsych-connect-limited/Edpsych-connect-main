@@ -98,6 +98,7 @@ Progress log:
 - 2026-01-18: Expanded tracing plan to include training workflows.
 - 2026-01-18: Added dialog and status semantics to course player celebration and merit animation.
 - 2026-01-18: Added observability evidence entry and refreshed evidence register date.
+- 2026-01-18: Expanded marketplace payment intent tracing to cover common error paths.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

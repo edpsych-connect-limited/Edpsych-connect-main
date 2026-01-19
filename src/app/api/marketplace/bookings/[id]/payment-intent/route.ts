@@ -58,6 +58,7 @@ export async function POST(
   });
 
   if (!booking) {
+    await recordTrace('error', { bookingId: id, reason: 'not_found' });
     return NextResponse.json({ error: 'Booking not found' }, { status: 404 });
   }
 
@@ -67,6 +68,7 @@ export async function POST(
   const canAccess = canAccessTenant(session.user.tenant_id, booking.school_tenant_id, session.user.role);
 
   if (!canAccess || (!isCreator && !isAdmin)) {
+    await recordTrace('error', { bookingId: booking.id, reason: 'forbidden' });
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
@@ -77,6 +79,7 @@ export async function POST(
 
   const connectAccountId = booking.professional.users?.stripeConnectAccountId;
   if (!connectAccountId) {
+    await recordTrace('error', { bookingId: booking.id, reason: 'stripe_not_connected' });
     return NextResponse.json(
       { error: 'Professional Stripe account not connected' },
       { status: 409 }
@@ -90,6 +93,7 @@ export async function POST(
   );
 
   if (!totalCostGbp) {
+    await recordTrace('error', { bookingId: booking.id, reason: 'missing_cost' });
     return NextResponse.json(
       { error: 'Booking cost not configured' },
       { status: 400 }
@@ -98,6 +102,7 @@ export async function POST(
 
   const totalAmount = toPence(totalCostGbp);
   if (totalAmount < 50) {
+    await recordTrace('error', { bookingId: booking.id, reason: 'below_minimum' });
     return NextResponse.json(
       { error: 'Booking amount is below minimum chargeable limit' },
       { status: 400 }
@@ -109,6 +114,7 @@ export async function POST(
   const stripe = getStripe();
   const connectAccount = await stripe.accounts.retrieve(connectAccountId);
   if (!connectAccount.charges_enabled || !connectAccount.payouts_enabled) {
+    await recordTrace('error', { bookingId: booking.id, reason: 'stripe_account_disabled' });
     return NextResponse.json(
       { error: 'Professional Stripe account is not enabled for charges or payouts' },
       { status: 409 }
