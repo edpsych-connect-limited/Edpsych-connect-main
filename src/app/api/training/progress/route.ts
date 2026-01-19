@@ -9,6 +9,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import authService from '@/lib/auth/auth-service';
+import { createEvidenceTraceId, recordEvidenceEvent } from '@/lib/analytics/evidence-telemetry';
+import { getRequestId } from '@/lib/security/audit-logger';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -59,6 +61,9 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+  const requestId = getRequestId(request) ?? traceId;
   try {
     const session = await authService.getSessionFromRequest(request);
     if (!session) {
@@ -106,6 +111,25 @@ export async function POST(request: NextRequest) {
         completedAt: progress === 100 ? new Date() : null,
       },
     });
+
+    if (progress === 100 && session.tenant_id) {
+      await recordEvidenceEvent({
+        tenantId: Number(session.tenant_id),
+        userId,
+        traceId,
+        requestId,
+        eventType: 'training_progress',
+        workflowType: 'training_completion',
+        actionType: 'complete_course',
+        status: 'ok',
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata: {
+          courseId,
+          timeSpent,
+        },
+      });
+    }
 
     return NextResponse.json(enrollment);
   } catch (_error) {
