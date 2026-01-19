@@ -73,8 +73,9 @@ export default function TrainingMarketplace() {
   // Show loading during authentication check
   if (authLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen" role="status" aria-live="polite">
         <div className="text-lg">Loading...</div>
+        <span className="sr-only">Loading training marketplace...</span>
       </div>
     );
   }
@@ -92,8 +93,9 @@ export default function TrainingMarketplace() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen" role="status" aria-live="polite">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <span className="sr-only">Loading training marketplace...</span>
       </div>
     );
   }

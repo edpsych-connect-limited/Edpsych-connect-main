@@ -165,8 +165,9 @@ function CheckoutForm({ productId }: { productId: string }) {
 
   if (authLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen" role="status" aria-live="polite">
         <div className="text-lg">Loading...</div>
+        <span className="sr-only">Loading checkout...</span>
       </div>
     );
   }
@@ -178,8 +179,9 @@ function CheckoutForm({ productId }: { productId: string }) {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen" role="status" aria-live="polite">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <span className="sr-only">Loading checkout...</span>
       </div>
     );
   }
