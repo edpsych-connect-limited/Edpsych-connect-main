@@ -8,7 +8,7 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-import { useState, useEffect, useId } from 'react';
+import { useState, useEffect, useId, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
@@ -89,10 +89,10 @@ export default function TrainingDashboardPage() {
   const [totalCpdHours, setTotalCpdHours] = useState(0);
   const [targetCpdHours] = useState(30);
 
-  const trackDashboardUsage = (action: string, data?: Record<string, any>) => {
+  const trackDashboardUsage = useCallback((action: string, data?: Record<string, any>) => {
     if (!hasAnalyticsConsent()) return;
     analyticsService.trackFeatureUsage('anonymous', 'training_dashboard', action, data);
-  };
+  }, []);
 
   useEffect(() => {
     loadDashboardData();
@@ -100,7 +100,7 @@ export default function TrainingDashboardPage() {
 
   useEffect(() => {
     trackDashboardUsage('view');
-  }, []);
+  }, [trackDashboardUsage]);
 
   const loadDashboardData = async () => {
     try {
