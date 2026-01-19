@@ -5,6 +5,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
 import { prisma } from '@/lib/prisma';
+import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
 
 export const dynamic = 'force-dynamic';
 
@@ -29,6 +30,9 @@ export async function OPTIONS(_request: NextRequest) {
 }
 
 async function routeEhcp(request: NextRequest): Promise<NextResponse> {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+
   try {
     const { pathname } = new URL(request.url);
     const segments = pathname.split('/').filter(Boolean).slice(2);
@@ -38,6 +42,32 @@ async function routeEhcp(request: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    const tenantIdRaw: unknown = session.tenant_id;
+    const tenantId = typeof tenantIdRaw === 'string' ? parseInt(tenantIdRaw, 10) : (tenantIdRaw as number | undefined);
+    const userId = parseInt(session.id, 10);
+    const recordTrace = async (
+      status: EvidenceStatus,
+      actionType: string,
+      metadata?: Record<string, unknown>
+    ) => {
+      if (!tenantId || Number.isNaN(userId)) {
+        return;
+      }
+      await recordEvidenceEvent({
+        tenantId,
+        userId,
+        traceId,
+        requestId: traceId,
+        eventType: 'ehcp_workflow',
+        workflowType: 'ehcp',
+        actionType,
+        status,
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata,
+      });
+    };
+
     if (segments.length === 0) {
       if (request.method === 'GET') {
         // Fetch real EHCP plans from the database
@@ -45,6 +75,8 @@ async function routeEhcp(request: NextRequest): Promise<NextResponse> {
           take: 20,
           orderBy: { updated_at: 'desc' }
         });
+
+        await recordTrace('ok', 'list_ehcp', { count: ehcps.length });
 
         return NextResponse.json({ 
           success: true, 
@@ -73,6 +105,8 @@ async function routeEhcp(request: NextRequest): Promise<NextResponse> {
           },
         });
 
+        await recordTrace('ok', 'create_ehcp', { ehcpId: ehcp.id });
+
         return NextResponse.json({ success: true, ehcp }, { status: 201 });
       }
     }
@@ -82,6 +116,7 @@ async function routeEhcp(request: NextRequest): Promise<NextResponse> {
       if (request.method === 'GET') {
         const ehcp = await prisma.ehcps.findUnique({ where: { id: planId } });
         if (!ehcp) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+        await recordTrace('ok', 'view_ehcp', { ehcpId: planId });
         return NextResponse.json({ success: true, ehcp });
       }
       if (request.method === 'PUT') {
@@ -95,10 +130,12 @@ async function routeEhcp(request: NextRequest): Promise<NextResponse> {
             updated_at: new Date(),
           },
         });
+        await recordTrace('ok', 'update_ehcp', { ehcpId: planId });
         return NextResponse.json({ success: true, ehcp });
       }
       if (request.method === 'DELETE') {
         await prisma.ehcps.delete({ where: { id: planId } });
+        await recordTrace('ok', 'delete_ehcp', { ehcpId: planId });
         return NextResponse.json({ success: true, message: `Deleted ${planId}` });
       }
     }
@@ -111,6 +148,7 @@ async function routeEhcp(request: NextRequest): Promise<NextResponse> {
           : NextResponse.json({ success: true, amendment: { id: 'new' } }, { status: 201 });
       }
       if (resource === 'export') {
+        await recordTrace('ok', 'export_ehcp', { ehcpId: planId });
         return NextResponse.json({ success: true, url: `/download/plan-${planId}.pdf` });
       }
       if (resource === 'reviews') {
