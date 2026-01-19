@@ -8,12 +8,12 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 import { useState, useEffect, useId } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { EmptyState } from '@/components/ui/EmptyState';
+import { analyticsService } from '@/lib/analytics';
+import { hasAnalyticsConsent } from '@/utils/cookies';
 
 interface Course {
   id: string;
@@ -62,6 +62,11 @@ export default function TrainingCataloguePage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedLevel, setSelectedLevel] = useState<string>('all');
   const [sortBy, setSortBy] = useState<SortOption>('relevance');
+
+  const trackTrainingUsage = (action: string, data?: Record<string, any>) => {
+    if (!hasAnalyticsConsent()) return;
+    analyticsService.trackFeatureUsage('anonymous', 'training', action, data);
+  };
 
   const categories = [
     'All Courses',
@@ -140,14 +145,21 @@ export default function TrainingCataloguePage() {
                 type="text"
                 placeholder="Search courses..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  const nextValue = e.target.value;
+                  setSearchQuery(nextValue);
+                  trackTrainingUsage('search_query', { length: nextValue.length });
+                }}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
             <select
               aria-label="Filter by category"
               value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
+              onChange={(e) => {
+                setSelectedCategory(e.target.value);
+                trackTrainingUsage('filter_category', { category: e.target.value });
+              }}
               className="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
             >
               <option value="all">All Categories</option>
@@ -158,7 +170,10 @@ export default function TrainingCataloguePage() {
             <select
               aria-label="Filter by level"
               value={selectedLevel}
-              onChange={(e) => setSelectedLevel(e.target.value)}
+              onChange={(e) => {
+                setSelectedLevel(e.target.value);
+                trackTrainingUsage('filter_level', { level: e.target.value });
+              }}
               className="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
             >
               <option value="all">All Levels</option>
@@ -174,7 +189,10 @@ export default function TrainingCataloguePage() {
               <select
                 aria-label="Sort courses"
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as SortOption)}
+                onChange={(e) => {
+                  setSortBy(e.target.value as SortOption);
+                  trackTrainingUsage('sort', { sortBy: e.target.value });
+                }}
                 className="px-3 py-1 border border-gray-300 rounded-md text-sm"
               >
                 <option value="relevance">Relevance</option>
@@ -186,7 +204,10 @@ export default function TrainingCataloguePage() {
 
             <div className="flex items-center gap-2">
               <button
-                onClick={() => setViewMode('grid')}
+                onClick={() => {
+                  setViewMode('grid');
+                  trackTrainingUsage('view_mode', { mode: 'grid' });
+                }}
                 className={`p-2 rounded ${viewMode === 'grid' ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:bg-gray-100'}`}
                 aria-label="Grid view"
               >
@@ -195,7 +216,10 @@ export default function TrainingCataloguePage() {
                 </svg>
               </button>
               <button
-                onClick={() => setViewMode('list')}
+                onClick={() => {
+                  setViewMode('list');
+                  trackTrainingUsage('view_mode', { mode: 'list' });
+                }}
                 className={`p-2 rounded ${viewMode === 'list' ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:bg-gray-100'}`}
                 aria-label="List view"
               >
@@ -307,6 +331,7 @@ export default function TrainingCataloguePage() {
                   )}
                   <Link
                     href={`/training/courses/${course.id}`}
+                    onClick={() => trackTrainingUsage('open_course', { courseId: course.id })}
                     className={`block text-center py-2 px-4 rounded-md font-medium ${
                       course.enrolled 
                         ? 'bg-blue-600 text-white hover:bg-blue-700' 
@@ -373,6 +398,7 @@ export default function TrainingCataloguePage() {
                       </div>
                       <Link
                         href={`/training/courses/${course.id}`}
+                        onClick={() => trackTrainingUsage('open_course', { courseId: course.id })}
                         className={`py-2 px-6 rounded-md font-medium whitespace-nowrap ${
                           course.enrolled 
                             ? 'bg-blue-600 text-white hover:bg-blue-700' 
@@ -407,6 +433,7 @@ export default function TrainingCataloguePage() {
               setSearchQuery('');
               setSelectedCategory('all');
               setSelectedLevel('all');
+              trackTrainingUsage('clear_filters');
             }}
           />
         )}
