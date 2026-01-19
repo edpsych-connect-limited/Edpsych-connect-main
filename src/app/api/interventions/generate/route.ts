@@ -13,6 +13,8 @@ import { prisma } from '@/lib/prisma';
 import { aiService } from '@/services/ai/core';
 import { authorizeRequest, Permission } from '@/lib/middleware/auth';
 import { apiRateLimit } from '@/lib/middleware/rate-limit';
+import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
+import { getRequestId } from '@/lib/security/audit-logger';
 
 export const dynamic = 'force-dynamic';
 
@@ -22,6 +24,26 @@ const GenerateInterventionSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+  const requestId = getRequestId(request) ?? traceId;
+  const recordTrace = async (status: EvidenceStatus, tenantId: number | undefined, userId: string, metadata?: Record<string, unknown>) => {
+    if (!tenantId) return;
+    await recordEvidenceEvent({
+      tenantId,
+      userId: parseInt(userId, 10),
+      traceId,
+      requestId,
+      eventType: 'intervention_generate',
+      workflowType: 'intervention_generate',
+      actionType: 'generate_intervention',
+      status,
+      durationMs: Date.now() - startedAt,
+      evidenceType: 'measured',
+      metadata,
+    });
+  };
+
   try {
     // 1. Rate Limit
     const rateLimitResult = await apiRateLimit(request);
@@ -34,6 +56,7 @@ export async function POST(request: NextRequest) {
     if (!authResult.success) {
       return authResult.response;
     }
+    const { user } = authResult.session;
 
     // 3. Validate Body
     const body = await request.json();
@@ -62,6 +85,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (!caseData) {
+      await recordTrace('error', user.tenant_id, user.id, { reason: 'case_not_found', caseId: case_id });
       return NextResponse.json({ error: 'Case not found' }, { status: 404 });
     }
 
@@ -102,6 +126,12 @@ export async function POST(request: NextRequest) {
       useCase: 'intervention-design',
       maxTokens: 1500,
       temperature: 0.7
+    });
+
+    await recordTrace('ok', caseData.tenant_id, user.id, {
+      caseId: case_id,
+      assessmentCount: caseData.assessments.length,
+      focusArea: focus_area ?? null,
     });
 
     // 7. Return Result
