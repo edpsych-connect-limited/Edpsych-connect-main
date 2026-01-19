@@ -112,6 +112,10 @@ Progress log:
 - 2026-01-18: Added evidence telemetry for assessment creation workflow.
 - 2026-01-18: Added evidence telemetry for intervention generation workflow.
 - 2026-01-18: Expanded tracing plan to include intervention workflows.
+- 2026-01-19: Added evidence telemetry for case list and case detail workflows.
+- 2026-01-19: Added evidence telemetry for case update and close workflows.
+- 2026-01-19: Added evidence telemetry for interventions tracking API.
+- 2026-01-19: Added evidence telemetry for report draft save and report list workflows.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

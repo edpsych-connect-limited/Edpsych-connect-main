@@ -21,6 +21,7 @@ import { authorizeRequest, Permission, canAccessTenant } from '@/lib/middleware/
 import { apiRateLimit } from '@/lib/middleware/rate-limit';
 import { auditLogger, getIpAddress, getRequestId, getUserAgent } from '@/lib/security/audit-logger';
 import { prisma } from '@/lib/prisma';
+import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
 
 export const dynamic = 'force-dynamic';
 
@@ -62,6 +63,8 @@ export async function GET(
   const params = await props.params;
   const ipAddress = getIpAddress(request);
   const requestId = getRequestId(request);
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
 
   try {
     const { id } = params;
@@ -88,6 +91,26 @@ export async function GET(
 
     const { session } = authResult;
     const { user } = session;
+    const recordTrace = async (
+      status: EvidenceStatus,
+      tenantId: number,
+      userId: string,
+      metadata?: Record<string, unknown>
+    ) => {
+      await recordEvidenceEvent({
+        tenantId,
+        userId: parseInt(userId, 10),
+        traceId,
+        requestId: requestId ?? traceId,
+        eventType: 'case_detail',
+        workflowType: 'case_management',
+        actionType: 'view_case',
+        status,
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata,
+      });
+    };
 
     // 3. Retrieve case from database
     const caseRecord = await prisma.cases.findUnique({
@@ -133,6 +156,7 @@ export async function GET(
     });
 
     if (!caseRecord) {
+      await recordTrace('error', user.tenant_id, user.id, { reason: 'not_found', caseId: id });
       return NextResponse.json(
         { error: 'Case not found' },
         { status: 404 }
@@ -150,6 +174,7 @@ export async function GET(
         getUserAgent(request),
         requestId
       );
+      await recordTrace('blocked', user.tenant_id, user.id, { reason: 'forbidden', caseId: id });
       return NextResponse.json(
         { error: 'Access denied. You cannot view this case.' },
         { status: 403 }
@@ -167,6 +192,11 @@ export async function GET(
       ipAddress,
       requestId
     );
+
+    await recordTrace('ok', caseRecord.tenant_id, user.id, {
+      caseId: caseRecord.id,
+      studentId: caseRecord.student_id,
+    });
 
     return NextResponse.json({
       case: caseRecord,
@@ -203,6 +233,8 @@ export async function PATCH(
   const params = await props.params;
   const ipAddress = getIpAddress(request);
   const requestId = getRequestId(request);
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
 
   try {
     const { id } = params;
@@ -229,12 +261,33 @@ export async function PATCH(
 
     const { session } = authResult;
     const { user } = session;
+    const recordTrace = async (
+      status: EvidenceStatus,
+      tenantId: number,
+      userId: string,
+      metadata?: Record<string, unknown>
+    ) => {
+      await recordEvidenceEvent({
+        tenantId,
+        userId: parseInt(userId, 10),
+        traceId,
+        requestId: requestId ?? traceId,
+        eventType: 'case_update',
+        workflowType: 'case_management',
+        actionType: 'update_case',
+        status,
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata,
+      });
+    };
 
     // 3. Parse and validate request body
     const body = await request.json();
     const validation = UpdateCaseSchema.safeParse(body);
 
     if (!validation.success) {
+      await recordTrace('error', user.tenant_id, user.id, { reason: 'validation_failed' });
       return NextResponse.json(
         { error: 'Invalid case data', details: validation.error.issues },
         { status: 400 }
@@ -249,6 +302,7 @@ export async function PATCH(
     });
 
     if (!existingCase) {
+      await recordTrace('error', user.tenant_id, user.id, { reason: 'not_found', caseId: id });
       return NextResponse.json(
         { error: 'Case not found' },
         { status: 404 }
@@ -266,6 +320,7 @@ export async function PATCH(
         getUserAgent(request),
         requestId
       );
+      await recordTrace('blocked', user.tenant_id, user.id, { reason: 'forbidden', caseId: id });
       return NextResponse.json(
         { error: 'Access denied. You cannot edit this case.' },
         { status: 403 }
@@ -317,6 +372,12 @@ export async function PATCH(
       requestId
     );
 
+    await recordTrace('ok', updatedCase.tenant_id, user.id, {
+      caseId: updatedCase.id,
+      studentId: updatedCase.student_id,
+      updatedFields: Object.keys(updateData),
+    });
+
     return NextResponse.json({
       case: updatedCase,
       message: 'Case updated successfully',
@@ -352,6 +413,8 @@ export async function DELETE(
   const params = await props.params;
   const ipAddress = getIpAddress(request);
   const requestId = getRequestId(request);
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
 
   try {
     const { id } = params;
@@ -378,6 +441,26 @@ export async function DELETE(
 
     const { session } = authResult;
     const { user } = session;
+    const recordTrace = async (
+      status: EvidenceStatus,
+      tenantId: number,
+      userId: string,
+      metadata?: Record<string, unknown>
+    ) => {
+      await recordEvidenceEvent({
+        tenantId,
+        userId: parseInt(userId, 10),
+        traceId,
+        requestId: requestId ?? traceId,
+        eventType: 'case_close',
+        workflowType: 'case_management',
+        actionType: 'close_case',
+        status,
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata,
+      });
+    };
 
     // 3. Check if case exists
     const existingCase = await prisma.cases.findUnique({
@@ -385,6 +468,7 @@ export async function DELETE(
     });
 
     if (!existingCase) {
+      await recordTrace('error', user.tenant_id, user.id, { reason: 'not_found', caseId: id });
       return NextResponse.json(
         { error: 'Case not found' },
         { status: 404 }
@@ -402,6 +486,7 @@ export async function DELETE(
         getUserAgent(request),
         requestId
       );
+      await recordTrace('blocked', user.tenant_id, user.id, { reason: 'forbidden', caseId: id });
       return NextResponse.json(
         { error: 'Access denied. You cannot delete this case.' },
         { status: 403 }
@@ -432,6 +517,12 @@ export async function DELETE(
       ipAddress,
       requestId
     );
+
+    await recordTrace('ok', existingCase.tenant_id, user.id, {
+      caseId: closedCase.id,
+      studentId: existingCase.student_id,
+      status: closedCase.status,
+    });
 
     return NextResponse.json({
       message: 'Case closed successfully',

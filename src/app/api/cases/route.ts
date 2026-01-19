@@ -70,6 +70,8 @@ const CreateCaseSchema = z.object({
 export async function GET(request: NextRequest) {
   const ipAddress = getIpAddress(request);
   const requestId = getRequestId(request);
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
 
   try {
     // 1. Rate limiting check
@@ -86,6 +88,26 @@ export async function GET(request: NextRequest) {
 
     const { session } = authResult;
     const { user } = session;
+    const recordTrace = async (
+      status: EvidenceStatus,
+      tenantId: number,
+      userId: string,
+      metadata?: Record<string, unknown>
+    ) => {
+      await recordEvidenceEvent({
+        tenantId,
+        userId: parseInt(userId, 10),
+        traceId,
+        requestId: requestId ?? traceId,
+        eventType: 'case_list',
+        workflowType: 'case_management',
+        actionType: 'list_cases',
+        status,
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata,
+      });
+    };
 
     // 3. Parse and validate query parameters
     const { searchParams } = new URL(request.url);
@@ -101,6 +123,7 @@ export async function GET(request: NextRequest) {
     });
 
     if (!validation.success) {
+      await recordTrace('error', user.tenant_id, user.id, { reason: 'validation_failed' });
       return NextResponse.json(
         { error: 'Invalid query parameters', details: validation.error.issues },
         { status: 400 }
@@ -123,6 +146,10 @@ export async function GET(request: NextRequest) {
         getUserAgent(request),
         requestId
       );
+      await recordTrace('blocked', user.tenant_id, user.id, {
+        reason: 'forbidden',
+        tenant_id: tenant_id ? parseInt(tenant_id) : user.tenant_id,
+      });
       return NextResponse.json(
         { error: 'Access denied. You cannot view cases from other institutions.' },
         { status: 403 }
@@ -184,6 +211,15 @@ export async function GET(request: NextRequest) {
       ipAddress,
       requestId
     );
+
+    await recordTrace('ok', user.tenant_id, user.id, {
+      totalCount,
+      page,
+      limit,
+      status,
+      priority,
+      type,
+    });
 
     // 7. Calculate pagination
     const totalPages = Math.ceil(totalCount / limit);

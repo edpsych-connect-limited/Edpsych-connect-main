@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
 import { prisma } from '@/lib/prisma';
+import { createEvidenceTraceId, recordEvidenceEvent } from '@/lib/analytics/evidence-telemetry';
+import { getRequestId } from '@/lib/security/audit-logger';
 
 export async function POST(req: NextRequest) {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+  const requestId = getRequestId(req);
+
   try {
     const session = await authService.getSessionFromRequest(req);
     if (!session) {
@@ -22,6 +28,23 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    await recordEvidenceEvent({
+      tenantId: session.tenant_id!,
+      userId: parseInt(session.id, 10),
+      traceId,
+      requestId: requestId ?? traceId,
+      eventType: 'report_draft',
+      workflowType: 'reports',
+      actionType: 'save_draft',
+      status: 'ok',
+      durationMs: Date.now() - startedAt,
+      evidenceType: 'measured',
+      metadata: {
+        reportId: report.id,
+        reportType: report.type,
+      },
+    });
+
     return NextResponse.json(report);
   } catch (error) {
     console.error('Error saving draft:', error);
@@ -30,6 +53,10 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+  const requestId = getRequestId(req);
+
   try {
     const session = await authService.getSessionFromRequest(req);
     if (!session) {
@@ -42,6 +69,22 @@ export async function GET(req: NextRequest) {
       },
       orderBy: {
         updated_at: 'desc',
+      },
+    });
+
+    await recordEvidenceEvent({
+      tenantId: session.tenant_id!,
+      userId: parseInt(session.id, 10),
+      traceId,
+      requestId: requestId ?? traceId,
+      eventType: 'report_list',
+      workflowType: 'reports',
+      actionType: 'list_reports',
+      status: 'ok',
+      durationMs: Date.now() - startedAt,
+      evidenceType: 'measured',
+      metadata: {
+        count: reports.length,
       },
     });
 
