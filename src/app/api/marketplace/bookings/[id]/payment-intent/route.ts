@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getStripe } from '@/lib/stripe';
 import { prisma } from '@/lib/prisma';
 import { authenticateRequest, canAccessTenant, isAdminRole } from '@/lib/middleware/auth';
+import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
+import { getRequestId } from '@/lib/security/audit-logger';
 
 const DEFAULT_PLATFORM_FEE_BPS = 1000; // 10%
 
@@ -13,11 +15,35 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+  const requestId = getRequestId(request) ?? traceId;
+  let tenantId: number | undefined;
+  let userIdForAudit: number | undefined;
+  const recordTrace = async (status: EvidenceStatus, metadata?: Record<string, unknown>) => {
+    if (!tenantId) return;
+    await recordEvidenceEvent({
+      tenantId,
+      userId: userIdForAudit,
+      traceId,
+      requestId,
+      eventType: 'marketplace_payment_intent',
+      workflowType: 'marketplace_checkout',
+      actionType: 'create_payment_intent',
+      status,
+      durationMs: Date.now() - startedAt,
+      evidenceType: 'measured',
+      metadata,
+    });
+  };
+
   const authResult = await authenticateRequest(request);
   if (!authResult.success) {
     return authResult.response;
   }
   const session = authResult.session;
+  tenantId = session.user.tenant_id ? Number(session.user.tenant_id) : undefined;
+  userIdForAudit = parseInt(session.user.id, 10);
 
   const { id } = await params;
   const booking = await prisma.ePBooking.findUnique({
@@ -45,6 +71,7 @@ export async function POST(
   }
 
   if (booking.payment_status === 'paid') {
+    await recordTrace('ok', { bookingId: booking.id, status: 'already_paid' });
     return NextResponse.json({ error: 'Booking already paid' }, { status: 409 });
   }
 
@@ -110,6 +137,12 @@ export async function POST(
       invoice_id: paymentIntent.id,
       payment_status: 'pending'
     }
+  });
+
+  await recordTrace('ok', {
+    bookingId: booking.id,
+    amountPence: totalAmount,
+    platformFeeBps,
   });
 
   return NextResponse.json({

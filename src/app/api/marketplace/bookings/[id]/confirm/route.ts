@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { authenticateRequest, isAdminRole } from '@/lib/middleware/auth';
+import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
+import { getRequestId } from '@/lib/security/audit-logger';
 
 function addHours(date: Date, hours: number): Date {
   return new Date(date.getTime() + hours * 60 * 60 * 1000);
@@ -10,11 +12,35 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+  const requestId = getRequestId(request) ?? traceId;
+  let tenantId: number | undefined;
+  let userIdForAudit: number | undefined;
+  const recordTrace = async (status: EvidenceStatus, metadata?: Record<string, unknown>) => {
+    if (!tenantId) return;
+    await recordEvidenceEvent({
+      tenantId,
+      userId: userIdForAudit,
+      traceId,
+      requestId,
+      eventType: 'marketplace_booking_confirm',
+      workflowType: 'marketplace_booking',
+      actionType: 'confirm_booking',
+      status,
+      durationMs: Date.now() - startedAt,
+      evidenceType: 'measured',
+      metadata,
+    });
+  };
+
   const authResult = await authenticateRequest(request);
   if (!authResult.success) {
     return authResult.response;
   }
   const session = authResult.session;
+  tenantId = session.user.tenant_id ? Number(session.user.tenant_id) : undefined;
+  userIdForAudit = parseInt(session.user.id, 10);
 
   const { id } = await params;
   const body = await request.json();
@@ -37,6 +63,7 @@ export async function POST(
   const isProfessionalOwner = booking.professional?.user_id === userId;
 
   if (!isAdmin && !isProfessionalOwner) {
+    await recordTrace('error', { bookingId: booking.id, reason: 'forbidden' });
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
@@ -74,11 +101,13 @@ export async function POST(
   });
 
   if (conflicts.length > 0) {
+    await recordTrace('error', { bookingId: booking.id, reason: 'conflict' });
     return NextResponse.json(
       { error: 'Booking conflict detected' },
       { status: 409 }
     );
   }
 
+  await recordTrace('ok', { bookingId: booking.id, status: 'confirmed' });
   return NextResponse.json({ success: true });
 }

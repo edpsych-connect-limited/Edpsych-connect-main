@@ -94,6 +94,7 @@ Progress log:
 - 2026-01-18: Added evidence telemetry for training enrollment creation.
 - 2026-01-18: Added evidence telemetry for training course completion events.
 - 2026-01-18: Logged accessibility audit notes for training flows and course tabs.
+- 2026-01-18: Added evidence telemetry for marketplace booking payment intents and confirmations.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
