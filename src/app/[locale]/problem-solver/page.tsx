@@ -9,7 +9,7 @@
  */
 
 import React, { useState, useRef, useEffect } from 'react';
-import { 
+import {
   Brain, 
   Lightbulb, 
   Send, 
@@ -30,6 +30,7 @@ import {
   MessageSquare
 } from 'lucide-react';
 import { Link } from '@/navigation';
+import { AI_ASSIST_NOTICE, AI_DATA_NOTICE } from '@/lib/ai/ai-microcopy';
 
 // Common challenge categories with examples
 const CHALLENGE_CATEGORIES = [
@@ -243,6 +244,10 @@ export default function ProblemSolverPage() {
             Get expert guidance on educational challenges. Our AI draws on evidence-based 
             educational psychology to provide practical, actionable strategies.
           </p>
+          <div className="mt-6 inline-flex flex-col gap-1 rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-xs text-indigo-50">
+            <span>{AI_ASSIST_NOTICE}</span>
+            <span>{AI_DATA_NOTICE}</span>
+          </div>
           
           {/* Trust Indicators */}
           <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-sm">

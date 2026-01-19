@@ -134,6 +134,7 @@ Progress log:
 - 2026-01-19: Added decision support summary panel to outcomes page to reduce dense content.
 - 2026-01-19: Added report workflow microcopy and decision support panel in report generator.
 - 2026-01-19: Added decision support panel to progress tracking page.
+- 2026-01-19: Added AI microcopy guidance to the problem solver experience.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
