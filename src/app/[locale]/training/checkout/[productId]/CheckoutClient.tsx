@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import { loadStripe } from '@stripe/stripe-js';
@@ -31,10 +31,13 @@ function CheckoutForm({ productId }: { productId: string }) {
   const [discountCode, setDiscountCode] = useState('');
   const [appliedDiscount, setAppliedDiscount] = useState<any>(null);
 
-  const trackCheckoutUsage = (action: string, data?: Record<string, any>) => {
-    if (!hasAnalyticsConsent()) return;
-    analyticsService.trackFeatureUsage(user?.id ?? 'anonymous', 'training_checkout', action, data);
-  };
+  const trackCheckoutUsage = useCallback(
+    (action: string, data?: Record<string, any>) => {
+      if (!hasAnalyticsConsent()) return;
+      analyticsService.trackFeatureUsage(user?.id ?? 'anonymous', 'training_checkout', action, data);
+    },
+    [user?.id]
+  );
 
   const loadProduct = React.useCallback(async () => {
     try {
@@ -56,7 +59,7 @@ function CheckoutForm({ productId }: { productId: string }) {
 
   useEffect(() => {
     trackCheckoutUsage('view', { productId });
-  }, [productId]);
+  }, [productId, trackCheckoutUsage]);
 
   const applyDiscountCode = async () => {
     try {

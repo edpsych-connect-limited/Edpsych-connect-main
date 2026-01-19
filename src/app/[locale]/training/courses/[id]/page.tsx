@@ -184,7 +184,7 @@ export default function CourseDetailPage() {
         <div className="container mx-auto px-4 py-12">
           <div className="mb-4">
             <Link href="/training" className="text-blue-100 hover:text-white text-sm">
-              <- Back to Courses
+              Back to Courses
             </Link>
           </div>
           
