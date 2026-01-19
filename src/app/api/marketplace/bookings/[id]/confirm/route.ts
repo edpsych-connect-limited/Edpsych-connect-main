@@ -46,6 +46,7 @@ export async function POST(
   const body = await request.json();
   const confirmedDate = body.confirmed_date ? new Date(body.confirmed_date) : null;
   if (confirmedDate && Number.isNaN(confirmedDate.getTime())) {
+    await recordTrace('error', { bookingId: id, reason: 'invalid_confirmed_date' });
     return NextResponse.json({ error: 'Invalid confirmed_date' }, { status: 400 });
   }
 
@@ -55,6 +56,7 @@ export async function POST(
   });
 
   if (!booking) {
+    await recordTrace('error', { bookingId: id, reason: 'not_found' });
     return NextResponse.json({ error: 'Booking not found' }, { status: 404 });
   }
 
