@@ -16,6 +16,7 @@ import { apiRateLimit } from '@/lib/middleware/rate-limit';
 import { auditLogger, getIpAddress, getRequestId, getUserAgent } from '@/lib/security/audit-logger';
 import { logger } from '@/lib/logger';
 import { buildEHCPEvidencePack } from '@/lib/ehcp/evidence-builder';
+import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
 
 export const dynamic = 'force-dynamic';
 
@@ -28,6 +29,23 @@ const QuerySchema = z.object({
 export async function GET(request: NextRequest) {
   const ipAddress = getIpAddress(request);
   const requestId = getRequestId(request);
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+  const recordTrace = async (status: EvidenceStatus, tenantId: number, userId: string, metadata?: Record<string, unknown>) => {
+    await recordEvidenceEvent({
+      tenantId,
+      userId: Number(userId),
+      traceId,
+      requestId: requestId ?? traceId,
+      eventType: 'ehcp_evidence_pack',
+      workflowType: 'ehcp_evidence_pack',
+      actionType: 'build_pack',
+      status,
+      durationMs: Date.now() - startedAt,
+      evidenceType: 'measured',
+      metadata,
+    });
+  };
 
   try {
     const rateLimitResult = await apiRateLimit(request);
@@ -72,6 +90,7 @@ export async function GET(request: NextRequest) {
         getUserAgent(request),
         requestId
       );
+      await recordTrace('error', tenantId, user.id, { reason: 'forbidden', caseId: parsed.data.case_id });
       return NextResponse.json(
         { error: 'Access denied. You cannot access evidence packs for other institutions.' },
         { status: 403 }
@@ -98,6 +117,12 @@ export async function GET(request: NextRequest) {
       ipAddress,
       requestId
     );
+
+    await recordTrace('ok', tenantId, user.id, {
+      caseId: parsed.data.case_id,
+      interventions: pack.interventionLogs.length,
+      prompts: pack.baselinePrompts.length,
+    });
 
     return NextResponse.json(pack);
   } catch (error) {
