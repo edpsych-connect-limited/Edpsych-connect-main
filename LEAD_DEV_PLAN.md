@@ -87,6 +87,7 @@ Progress log:
 - 2026-01-18: Expanded launch signoff checklist to enterprise coverage areas.
 - 2026-01-18: Stabilized training dashboard analytics hook dependencies.
 - 2026-01-18: Added training academy, marketplace, and certificates view tracking with stable hook dependencies.
+- 2026-01-18: Added consent-aware tracking and loading status for the training course player.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
