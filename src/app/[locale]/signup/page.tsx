@@ -8,7 +8,6 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
 
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -261,7 +260,7 @@ export default function SignupPage() {
                     value={formData.password}
                     onChange={handleChange}
                     className="w-full pl-10 pr-12 py-3 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition-all"
-                    placeholder="••••••••"
+                    placeholder="--------"
                     required
                   />
                   <button
@@ -288,7 +287,7 @@ export default function SignupPage() {
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     className="w-full pl-10 pr-12 py-3 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition-all"
-                    placeholder="••••••••"
+                    placeholder="--------"
                     required
                   />
                   <button
@@ -417,11 +416,11 @@ export default function SignupPage() {
 
         {/* Additional Info */}
         <div className="mt-8 text-center text-sm text-slate-500">
-          <p>By creating an account, you'll get access to:</p>
-          <ul className="mt-2 space-y-1">
-            <li>• AI-powered SEND support tools</li>
-            <li>• Comprehensive assessment library</li>
-            <li>• Professional development resources</li>
+          <p>By creating an account, you will get access to:</p>
+          <ul className="mt-2 list-disc list-inside space-y-1">
+            <li>AI-powered SEND support tools</li>
+            <li>Comprehensive assessment library</li>
+            <li>Professional development resources</li>
           </ul>
         </div>
       </div>

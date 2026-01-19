@@ -143,6 +143,7 @@ Progress log:
 - 2026-01-19: Normalized marketplace copy to ASCII-safe currency and separators.
 - 2026-01-19: Clarified marketplace professional registration compliance copy and normalized currency label.
 - 2026-01-19: Normalized marketplace dashboard currency and removed non-ASCII emoji for deployment stability.
+- 2026-01-19: Normalized login and signup UI copy to ASCII-safe characters and cleaned placeholders.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

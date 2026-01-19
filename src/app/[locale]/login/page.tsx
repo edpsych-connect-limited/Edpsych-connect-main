@@ -85,13 +85,13 @@ export default function LoginPage() {
 
       if (plan) {
          const checkoutUrl = `/subscription/checkout?plan=${plan}${billing ? `&billing=${billing}` : ''}`;
-         logger.info(`✅ User authenticated with purchase intent, redirecting to ${checkoutUrl}`);
+         logger.info(`User authenticated with purchase intent, redirecting to ${checkoutUrl}`);
          router.push(withLocale(checkoutUrl));
          return;
       }
 
       const path = getRedirectPath(user.role);
-      logger.info(`✅ User already authenticated, redirecting to ${path}`);
+      logger.info(`User already authenticated, redirecting to ${path}`);
       router.push(withLocale(path));
     }
   }, [user, authLoading, router, withLocale, searchParams]);
@@ -104,14 +104,14 @@ export default function LoginPage() {
     
     // Prevent double submission
     if (isSubmitting) {
-      logger.warn('⚠️ Login already in progress');
+      logger.warn('Login already in progress');
       return;
     }
 
     setError('');
     clearAuthError();
     setIsSubmitting(true);
-    logger.info('🔐 Starting login process');
+    logger.info('Starting login process');
 
     try {
       // Call login function from useAuth hook
@@ -122,16 +122,16 @@ export default function LoginPage() {
         // but the useEffect above will handle the redirect once it is.
         // We can also try to guess the redirect if we had the user object here,
         // but relying on the useEffect is safer for state consistency.
-        logger.info('✅ Login successful, waiting for redirect...');
+        logger.info('Login successful, waiting for redirect...');
       } else {
         // Prefer server-provided message (e.g. exact "Invalid email or password") to keep UX + tests consistent.
         setError(authError || 'Invalid email or password');
-        logger.error('❌ Login failed: Invalid credentials');
+        logger.error('Login failed: Invalid credentials');
         setIsSubmitting(false);
       }
     } catch (err: any) {
       setError(err.message || 'An unexpected error occurred. Please try again.');
-      logger.error('❌ Login error:', err);
+      logger.error('Login error:', err);
       setIsSubmitting(false);
     }
   };
@@ -153,7 +153,7 @@ export default function LoginPage() {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="text-center">
-          <div className="text-6xl mb-4">🔒</div>
+          <div className="text-2xl font-semibold mb-4">Secure</div>
           <p className="text-gray-600 text-lg">Redirecting to {withLocale(getRedirectPath(user.role))}...</p>
         </div>
       </div>
@@ -188,7 +188,7 @@ export default function LoginPage() {
           {error && (
             <div id="login-error" className="mb-6 p-4 bg-red-50 border border-red-200 rounded-md" role="alert" aria-live="polite">
               <div className="flex items-start">
-                <div className="text-red-600 mr-3">⚠️</div>
+                <div className="text-red-600 mr-3">!</div>
                 <div>
                   <h3 className="text-sm font-medium text-red-800 mb-1">Login Failed</h3>
                   <p className="text-sm text-red-700">{error}</p>
@@ -244,7 +244,7 @@ export default function LoginPage() {
                 aria-describedby="password-hint"
                 {...{'aria-invalid': error ? "true" : "false"}}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed transition-colors"
-                placeholder="••••••••"
+                placeholder="********"
               />
               <p id="password-hint" className="sr-only">Enter your account password</p>
             </div>
@@ -323,7 +323,7 @@ export default function LoginPage() {
 
         {/* Footer Note */}
         <div className="mt-6 text-center text-xs text-gray-500">
-          <p>© 2025 EdPsych Connect Limited. All rights reserved.</p>
+          <p>(c) 2025 EdPsych Connect Limited. All rights reserved.</p>
         </div>
       </div>
     </div>
