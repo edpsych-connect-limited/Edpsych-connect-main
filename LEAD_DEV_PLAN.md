@@ -73,6 +73,9 @@ Progress log:
 - 2026-01-18: Added consent-aware blog search and filter tracking.
 - 2026-01-18: Added accessibility audit checklist document.
 - 2026-01-18: Added consent-aware training catalogue usage tracking.
+- 2026-01-18: Added consent-aware usage tracking for training academy and marketplace flows.
+- 2026-01-18: Added consent-aware usage tracking for training course detail view and tab engagement.
+- 2026-01-18: Normalized training UI copy to ASCII-safe text for deployment stability.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

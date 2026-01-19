@@ -259,20 +259,20 @@ export default function TrainingCataloguePage() {
               
               // Category icons
               const categoryIcons: Record<string, string> = {
-                'Cognitive Assessment': '🧠',
-                'Behavioural Intervention': '🎯',
-                'Special Educational Needs': '⭐',
-                'Research Methods': '📊',
-                'Professional Skills': '💼',
-                'Compliance & Ethics': '📋',
-                'autism': '🧩',
-                'adhd': '⚡',
-                'dyslexia': '📖',
-                'mental_health': '💚',
-                'ehcp': '📝',
-                'send': '🎓',
+                'Cognitive Assessment': 'Mind',
+                'Behavioural Intervention': 'Target',
+                'Special Educational Needs': 'Star',
+                'Research Methods': 'Chart',
+                'Professional Skills': 'Briefcase',
+                'Compliance & Ethics': 'Checklist',
+                'autism': 'Puzzle',
+                'adhd': 'Fast',
+                'dyslexia': 'Book',
+                'mental_health': 'Heart',
+                'ehcp': 'Notes',
+                'send': 'Academy',
               };
-              const icon = categoryIcons[course.category] || '📚';
+              const icon = categoryIcons[course.category] || 'Books';
               
               return (
                 <div key={course.id} className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden">
@@ -314,7 +314,7 @@ export default function TrainingCataloguePage() {
                   {course.rating && (
                     <div className="flex items-center gap-2 mb-4">
                       <div className="flex items-center">
-                        <span className="text-yellow-400 text-sm">★</span>
+                        <span className="text-yellow-400 text-sm">*</span>
                         <span className="text-sm text-gray-700 ml-1">{course.rating}</span>
                       </div>
                       <span className="text-xs text-gray-500">({course.students} students)</span>
@@ -389,7 +389,7 @@ export default function TrainingCataloguePage() {
                         {course.rating && (
                           <div className="flex items-center gap-2">
                             <div className="flex items-center">
-                              <span className="text-yellow-400">★</span>
+                              <span className="text-yellow-400">*</span>
                               <span className="text-sm text-gray-700 ml-1">{course.rating}</span>
                             </div>
                             <span className="text-xs text-gray-500">({course.students} students)</span>

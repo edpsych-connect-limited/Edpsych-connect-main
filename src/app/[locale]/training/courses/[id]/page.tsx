@@ -8,12 +8,12 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 import { useState, useEffect, useId } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { analyticsService } from '@/lib/analytics';
+import { hasAnalyticsConsent } from '@/utils/cookies';
 
 interface CourseModule {
   id: string;
@@ -85,6 +85,11 @@ export default function CourseDetailPage() {
   const [enrolling, setEnrolling] = useState(false);
   const [activeTab, setActiveTab] = useState<'overview' | 'curriculum' | 'instructor' | 'reviews'>('overview');
 
+  const trackCourseUsage = (action: string, data?: Record<string, any>) => {
+    if (!hasAnalyticsConsent()) return;
+    analyticsService.trackFeatureUsage('anonymous', 'training_course_detail', action, data);
+  };
+
   useEffect(() => {
     const loadCourse = async () => {
       try {
@@ -107,9 +112,16 @@ export default function CourseDetailPage() {
     loadCourse();
   }, [params.id]);
 
+  useEffect(() => {
+    if (course?.id) {
+      trackCourseUsage('view', { courseId: course.id });
+    }
+  }, [course?.id]);
+
   const handleEnroll = async () => {
     try {
       setEnrolling(true);
+      trackCourseUsage('enroll_start', { courseId: params.id });
       const response = await fetch('/api/training/enrollments', {
         method: 'POST',
         headers: {
@@ -126,9 +138,11 @@ export default function CourseDetailPage() {
 
       if (course) {
         setCourse({ ...course, enrolled: true, progress: 0 });
+        trackCourseUsage('enroll_complete', { courseId: course.id });
       }
     } catch (_error) {
       console.error('Error enrolling in course:', _error);
+      trackCourseUsage('enroll_error', { courseId: params.id });
       alert('Failed to enroll in course. Please try again.');
     } finally {
       setEnrolling(false);
@@ -137,6 +151,7 @@ export default function CourseDetailPage() {
 
   const handleStartLearning = () => {
     if (course) {
+      trackCourseUsage('start_learning', { courseId: course.id });
       router.push(`/training/courses/${course.id}/learn`);
     }
   };
@@ -169,7 +184,7 @@ export default function CourseDetailPage() {
         <div className="container mx-auto px-4 py-12">
           <div className="mb-4">
             <Link href="/training" className="text-blue-100 hover:text-white text-sm">
-              ← Back to Courses
+              <- Back to Courses
             </Link>
           </div>
           
@@ -187,7 +202,7 @@ export default function CourseDetailPage() {
               
               <div className="flex flex-wrap items-center gap-6">
                 <div className="flex items-center gap-1">
-                  <span className="text-yellow-400 text-xl">★</span>
+                  <span className="text-yellow-400 text-xl">*</span>
                   <span className="font-semibold">{course.rating}</span>
                   <span className="text-blue-100">({course.reviews} reviews)</span>
                 </div>
@@ -247,7 +262,7 @@ export default function CourseDetailPage() {
                   )}
                   
                   <div className="text-center text-sm text-gray-500 mb-4">
-                    {course.certificateAvailable && '✓ Certificate available upon completion'}
+                    {course.certificateAvailable && 'Certificate available upon completion'}
                   </div>
                   
                   <div className="border-t pt-4">
@@ -304,7 +319,10 @@ export default function CourseDetailPage() {
               <div className="border-b">
                 <nav className="flex" role="tablist">
                   <button
-                    onClick={() => setActiveTab('overview')}
+                    onClick={() => {
+                      setActiveTab('overview');
+                      trackCourseUsage('tab', { tab: 'overview' });
+                    }}
                     role="tab"
                     {...(activeTab === 'overview' ? { 'aria-selected': 'true' } : { 'aria-selected': 'false' })}
                     aria-controls="overview-panel"
@@ -317,7 +335,10 @@ export default function CourseDetailPage() {
                     Overview
                   </button>
                   <button
-                    onClick={() => setActiveTab('curriculum')}
+                    onClick={() => {
+                      setActiveTab('curriculum');
+                      trackCourseUsage('tab', { tab: 'curriculum' });
+                    }}
                     role="tab"
                     {...(activeTab === 'curriculum' ? { 'aria-selected': 'true' } : { 'aria-selected': 'false' })}
                     aria-controls="curriculum-panel"
@@ -330,7 +351,10 @@ export default function CourseDetailPage() {
                     Curriculum
                   </button>
                   <button
-                    onClick={() => setActiveTab('instructor')}
+                    onClick={() => {
+                      setActiveTab('instructor');
+                      trackCourseUsage('tab', { tab: 'instructor' });
+                    }}
                     role="tab"
                     {...(activeTab === 'instructor' ? { 'aria-selected': 'true' } : { 'aria-selected': 'false' })}
                     aria-controls="instructor-panel"
@@ -343,7 +367,10 @@ export default function CourseDetailPage() {
                     Instructor
                   </button>
                   <button
-                    onClick={() => setActiveTab('reviews')}
+                    onClick={() => {
+                      setActiveTab('reviews');
+                      trackCourseUsage('tab', { tab: 'reviews' });
+                    }}
                     role="tab"
                     {...(activeTab === 'reviews' ? { 'aria-selected': 'true' } : { 'aria-selected': 'false' })}
                     aria-controls="reviews-panel"
@@ -394,7 +421,7 @@ export default function CourseDetailPage() {
                   <div role="tabpanel" id="curriculum-panel" aria-labelledby="curriculum-tab">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">Course Curriculum</h2>
                     <p className="text-gray-600 mb-6">
-                      {course.modules.length} modules · {course.modules.reduce((acc, m) => acc + m.lessons.length, 0)} lessons · {course.duration} total
+                      {course.modules.length} modules - {course.modules.reduce((acc, m) => acc + m.lessons.length, 0)} lessons - {course.duration} total
                     </p>
 
                     <div className="space-y-4">
@@ -407,7 +434,7 @@ export default function CourseDetailPage() {
                                   Module {moduleIndex + 1}: {module.title}
                                 </h3>
                                 <p className="text-sm text-gray-600 mt-1">
-                                  {module.lessons.length} lessons · {module.duration}
+                                  {module.lessons.length} lessons - {module.duration}
                                 </p>
                               </div>
                             </div>
@@ -427,7 +454,7 @@ export default function CourseDetailPage() {
                                   </div>
                                   <div>
                                     <p className="font-medium text-gray-900">{lesson.title}</p>
-                                    <p className="text-sm text-gray-500 capitalize">{lesson.type} · {lesson.duration}</p>
+                                    <p className="text-sm text-gray-500 capitalize">{lesson.type} - {lesson.duration}</p>
                                   </div>
                                 </div>
                                 {!course.enrolled && (
@@ -475,7 +502,7 @@ export default function CourseDetailPage() {
                         <div className="flex items-center justify-center gap-1 mb-2">
                           {[1, 2, 3, 4, 5].map((star) => (
                             <span key={star} className={`text-2xl ${star <= Math.floor(course.rating) ? 'text-yellow-400' : 'text-gray-300'}`}>
-                              ★
+                              *
                             </span>
                           ))}
                         </div>
@@ -500,6 +527,7 @@ export default function CourseDetailPage() {
                     <Link
                       key={relatedCourse.id}
                       href={`/training/courses/${relatedCourse.id}`}
+                      onClick={() => trackCourseUsage('related_course_click', { courseId: relatedCourse.id })}
                       className="block hover:bg-gray-50 rounded-lg transition-colours"
                     >
                       <div className="flex gap-3">

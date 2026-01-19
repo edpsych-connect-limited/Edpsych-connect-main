@@ -5,11 +5,11 @@
  * Browse and purchase CPD training courses
  *
  * Pricing Strategy (Based on UK market research):
- * - Short courses (2-4 hours): £49-79
- * - Standard courses (8-12 hours): £99-149
- * - Comprehensive courses (20+ hours): £199-299
+ * - Short courses (2-4 hours): GBP 49-79
+ * - Standard courses (8-12 hours): GBP 99-149
+ * - Comprehensive courses (20+ hours): GBP 199-299
  * - Course bundles: 20-25% discount
- * - Annual unlimited: £599
+ * - Annual unlimited: GBP 599
  */
 
 // Force dynamic rendering for auth-required pages
@@ -19,6 +19,8 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import { EmptyState } from '@/components/ui/EmptyState';
+import { analyticsService } from '@/lib/analytics';
+import { hasAnalyticsConsent } from '@/utils/cookies';
 
 interface TrainingProduct {
   id: string;
@@ -44,6 +46,11 @@ export default function TrainingMarketplace() {
   const [products, setProducts] = useState<TrainingProduct[]>([]);
   const [filter, setFilter] = useState<string>('all'); // all, featured, bundles
   const [loading, setLoading] = useState(true);
+
+  const trackMarketplaceUsage = (action: string, data?: Record<string, any>) => {
+    if (!hasAnalyticsConsent()) return;
+    analyticsService.trackFeatureUsage(user?.id ?? 'anonymous', 'training_marketplace', action, data);
+  };
 
   const loadProducts = async () => {
     try {
@@ -102,10 +109,10 @@ export default function TrainingMarketplace() {
           </p>
           <div className="grid grid-cols-4 gap-6 max-w-4xl">
             {[
-              { icon: '🎓', text: 'BPS Quality Mark' },
-              { icon: '✅', text: 'CPD Hours Accredited' },
-              { icon: '🎯', text: 'Evidence-Based Content' },
-              { icon: '🎮', text: 'Interactive Learning' },
+              { icon: 'Academy', text: 'BPS Quality Mark' },
+              { icon: 'Yes', text: 'CPD Hours Accredited' },
+              { icon: 'Target', text: 'Evidence-Based Content' },
+              { icon: 'Interactive', text: 'Interactive Learning' },
             ].map((feature, index) => (
               <div key={index} className="text-center">
                 <div className="text-4xl mb-2">{feature.icon}</div>
@@ -121,7 +128,10 @@ export default function TrainingMarketplace() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center space-x-4">
             <button
-              onClick={() => setFilter('all')}
+              onClick={() => {
+                setFilter('all');
+                trackMarketplaceUsage('filter', { filter: 'all' });
+              }}
               className={`px-4 py-2 rounded-lg ${
                 filter === 'all'
                   ? 'bg-blue-600 text-white'
@@ -131,7 +141,10 @@ export default function TrainingMarketplace() {
               All Courses
             </button>
             <button
-              onClick={() => setFilter('featured')}
+              onClick={() => {
+                setFilter('featured');
+                trackMarketplaceUsage('filter', { filter: 'featured' });
+              }}
               className={`px-4 py-2 rounded-lg ${
                 filter === 'featured'
                   ? 'bg-blue-600 text-white'
@@ -141,7 +154,10 @@ export default function TrainingMarketplace() {
               Featured
             </button>
             <button
-              onClick={() => setFilter('bundles')}
+              onClick={() => {
+                setFilter('bundles');
+                trackMarketplaceUsage('filter', { filter: 'bundles' });
+              }}
               className={`px-4 py-2 rounded-lg ${
                 filter === 'bundles'
                   ? 'bg-blue-600 text-white'
@@ -158,7 +174,12 @@ export default function TrainingMarketplace() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard
+              key={product.id}
+              product={product}
+              onPurchase={() => trackMarketplaceUsage('purchase_click', { productId: product.id })}
+              onLearnMore={() => trackMarketplaceUsage('learn_more_click', { productId: product.id })}
+            />
           ))}
         </div>
 
@@ -167,7 +188,10 @@ export default function TrainingMarketplace() {
             title="No courses found"
             description="Try selecting a different catalog view."
             actionLabel="View all courses"
-            actionOnClick={() => setFilter('all')}
+            actionOnClick={() => {
+              setFilter('all');
+              trackMarketplaceUsage('reset_filters');
+            }}
           />
         )}
       </div>
@@ -180,12 +204,15 @@ export default function TrainingMarketplace() {
             <p className="text-xl text-purple-100 mb-6">
               Get access to ALL training courses for one annual fee
             </p>
-            <div className="text-5xl font-bold mb-6">£599/year</div>
+            <div className="text-5xl font-bold mb-6">GBP 599/year</div>
             <p className="text-purple-100 mb-8">
-              That's less than £50/month for unlimited CPD training!
+              That's less than GBP 50/month for unlimited CPD training!
             </p>
             <button
-              onClick={() => router.push('/training/checkout/annual-unlimited')}
+              onClick={() => {
+                trackMarketplaceUsage('cta_annual_unlimited');
+                router.push('/training/checkout/annual-unlimited');
+              }}
               className="px-8 py-4 bg-white text-purple-600 rounded-lg font-semibold hover:bg-gray-100 text-lg"
             >
               Get Unlimited Access
@@ -201,7 +228,15 @@ export default function TrainingMarketplace() {
 // PRODUCT CARD COMPONENT
 // ============================================================================
 
-function ProductCard({ product }: { product: TrainingProduct }) {
+function ProductCard({
+  product,
+  onPurchase,
+  onLearnMore,
+}: {
+  product: TrainingProduct;
+  onPurchase: () => void;
+  onLearnMore: () => void;
+}) {
   const router = useRouter();
 
   const priceDisplay = (product.price_gbp / 100).toFixed(2);
@@ -219,7 +254,7 @@ function ProductCard({ product }: { product: TrainingProduct }) {
       {/* Badge */}
       {product.is_featured && (
         <div className="bg-gradient-to-r from-yellow-400 to-orange-400 text-white px-4 py-2 text-sm font-semibold">
-          ⭐ Featured Course
+          Star Featured Course
         </div>
       )}
 
@@ -263,9 +298,9 @@ function ProductCard({ product }: { product: TrainingProduct }) {
           <div className="flex items-end justify-between mb-4">
             <div>
               {originalPriceDisplay && (
-                <div className="text-gray-500 line-through text-sm">£{originalPriceDisplay}</div>
+                <div className="text-gray-500 line-through text-sm">GBP {originalPriceDisplay}</div>
               )}
-              <div className="text-3xl font-bold text-gray-900">£{priceDisplay}</div>
+              <div className="text-3xl font-bold text-gray-900">GBP {priceDisplay}</div>
             </div>
             {product.type === 'course_bundle' && (
               <div className="text-sm text-gray-600">
@@ -275,14 +310,20 @@ function ProductCard({ product }: { product: TrainingProduct }) {
           </div>
 
           <button
-            onClick={() => router.push(`/training/checkout/${product.id}`)}
+            onClick={() => {
+              onPurchase();
+              router.push(`/training/checkout/${product.id}`);
+            }}
             className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
           >
             Purchase Course
           </button>
 
           <button
-            onClick={() => router.push(`/training/courses/${product.slug}`)}
+            onClick={() => {
+              onLearnMore();
+              router.push(`/training/courses/${product.slug}`);
+            }}
             className="w-full mt-2 px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
           >
             Learn More

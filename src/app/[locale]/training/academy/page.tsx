@@ -22,6 +22,8 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { COURSE_CATALOG as courses, type Course } from '@/lib/training/course-catalog';
 import MasterclassCourseCard from '@/components/training/MasterclassCourseCard';
 import { Search, Filter, Award, BookOpen, TrendingUp, Star } from 'lucide-react';
+import { analyticsService } from '@/lib/analytics';
+import { hasAnalyticsConsent } from '@/utils/cookies';
 
 export default function MasterclassTrainingAcademy() {
   const router = useRouter();
@@ -31,6 +33,11 @@ export default function MasterclassTrainingAcademy() {
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [levelFilter, setLevelFilter] = useState<string>('all');
   const [showFilters, setShowFilters] = useState(false);
+
+  const trackAcademyUsage = (action: string, data?: Record<string, any>) => {
+    if (!hasAnalyticsConsent()) return;
+    analyticsService.trackFeatureUsage(user?.id ?? 'anonymous', 'training_academy', action, data);
+  };
 
   // Show loading during authentication check
   if (authLoading) {
@@ -66,6 +73,7 @@ export default function MasterclassTrainingAcademy() {
   });
 
   const handleEnroll = (course: Course) => {
+    trackAcademyUsage('open_course', { courseId: course.id });
     router.push(`/training/courses/${course.id}`);
   };
 
@@ -116,12 +124,12 @@ export default function MasterclassTrainingAcademy() {
           {/* Quality badges */}
           <div className="flex flex-wrap items-center justify-center gap-8">
             {[
-              { icon: '🎓', text: 'BPS Quality Mark' },
-              { icon: '✅', text: 'CPD Accredited' },
-              { icon: '📚', text: 'Evidence-Based' },
-              { icon: '🎯', text: 'NICE Guidelines' },
-              { icon: '🏆', text: 'Award-Winning' },
-              { icon: '🔬', text: 'Research-Backed' },
+              { icon: 'Academy', text: 'BPS Quality Mark' },
+              { icon: 'Yes', text: 'CPD Accredited' },
+              { icon: 'Books', text: 'Evidence-Based' },
+              { icon: 'Target', text: 'NICE Guidelines' },
+              { icon: 'Award', text: 'Award-Winning' },
+              { icon: 'Lab', text: 'Research-Backed' },
             ].map((badge, index) => (
               <div key={index} className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
                 <span className="text-2xl">{badge.icon}</span>
@@ -143,20 +151,27 @@ export default function MasterclassTrainingAcademy() {
                 type="text"
                 placeholder="Search courses by title, topic, or keyword..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => {
+                  const nextValue = e.target.value;
+                  setSearchTerm(nextValue);
+                  trackAcademyUsage('search_query', { length: nextValue.length });
+                }}
                 className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
 
             {/* Filter toggle */}
             <button
-              onClick={() => setShowFilters(!showFilters)}
+              onClick={() => {
+                setShowFilters(!showFilters);
+                trackAcademyUsage('toggle_filters', { open: !showFilters });
+              }}
               className="flex items-center justify-center gap-2 px-6 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors"
             >
               <Filter className="w-5 h-5" />
               <span className="font-medium">Filters</span>
               <span className={`transform transition-transform ${showFilters ? 'rotate-180' : ''}`}>
-                ▼
+                v
               </span>
             </button>
           </div>
@@ -170,7 +185,10 @@ export default function MasterclassTrainingAcademy() {
                 </label>
                 <select
                   value={categoryFilter}
-                  onChange={(e) => setCategoryFilter(e.target.value)}
+                  onChange={(e) => {
+                    setCategoryFilter(e.target.value);
+                    trackAcademyUsage('filter_category', { category: e.target.value });
+                  }}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="all">All Categories</option>
@@ -194,7 +212,10 @@ export default function MasterclassTrainingAcademy() {
                 </label>
                 <select
                   value={levelFilter}
-                  onChange={(e) => setLevelFilter(e.target.value)}
+                  onChange={(e) => {
+                    setLevelFilter(e.target.value);
+                    trackAcademyUsage('filter_level', { level: e.target.value });
+                  }}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="all">All Levels</option>
@@ -233,9 +254,10 @@ export default function MasterclassTrainingAcademy() {
             description="Try adjusting your search or filters to find what you're looking for."
             actionLabel="Reset filters"
             actionOnClick={() => {
-              setSearchTerm("");
-              setCategoryFilter("all");
-              setLevelFilter("all");
+              setSearchTerm('');
+              setCategoryFilter('all');
+              setLevelFilter('all');
+              trackAcademyUsage('reset_filters');
             }}
           />
         )}
@@ -254,22 +276,28 @@ export default function MasterclassTrainingAcademy() {
               Get unrestricted access to all {totalCourses} courses, {totalCPDHours} CPD hours, and new courses as they launch
             </p>
             <div className="inline-flex items-baseline gap-2 mb-2">
-              <span className="text-6xl font-bold">£599</span>
+              <span className="text-6xl font-bold">GBP 599</span>
               <span className="text-2xl text-purple-200">/year</span>
             </div>
             <p className="text-purple-200 mb-8 text-lg">
-              That's less than <span className="font-bold">£50/month</span> or{' '}
-              <span className="font-bold">£5 per CPD hour</span>!
+              That's less than <span className="font-bold">GBP 50/month</span> or{' '}
+              <span className="font-bold">GBP 5 per CPD hour</span>!
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
               <button
-                onClick={() => router.push('/training/checkout/annual-unlimited')}
+                onClick={() => {
+                  trackAcademyUsage('cta_annual_unlimited');
+                  router.push('/training/checkout/annual-unlimited');
+                }}
                 className="px-8 py-4 bg-white text-purple-900 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5"
               >
-                Get Unlimited Access →
+                Get Unlimited Access
               </button>
               <button
-                onClick={() => router.push('/training/pricing')}
+                onClick={() => {
+                  trackAcademyUsage('cta_pricing');
+                  router.push('/training/pricing');
+                }}
                 className="px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white rounded-xl font-semibold text-lg hover:bg-white/20 transition-all"
               >
                 View All Plans
@@ -277,11 +305,11 @@ export default function MasterclassTrainingAcademy() {
             </div>
             <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-purple-200">
               {[
-                '✓ All current courses',
-                '✓ Future courses included',
-                '✓ CPD certificates',
-                '✓ Cancel anytime',
-                '✓ 30-day money-back',
+                'Included: All current courses',
+                'Included: Future courses',
+                'Included: CPD certificates',
+                'Included: Cancel anytime',
+                'Included: 30-day money-back',
               ].map((benefit, index) => (
                 <span key={index}>{benefit}</span>
               ))}
