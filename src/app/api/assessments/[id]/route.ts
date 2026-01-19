@@ -9,6 +9,7 @@ import { authorizeRequest, Permission, canAccessTenant } from '@/lib/middleware/
 import { apiRateLimit } from '@/lib/middleware/rate-limit';
 import { auditLogger, getIpAddress, getRequestId } from '@/lib/security/audit-logger';
 import { prisma } from '@/lib/prisma';
+import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
 
 export const dynamic = 'force-dynamic';
 
@@ -86,6 +87,8 @@ export async function PUT(
   const params = await props.params;
   const ipAddress = getIpAddress(request);
   const requestId = getRequestId(request);
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
   const id = parseInt(params.id);
 
   if (isNaN(id)) {
@@ -142,6 +145,23 @@ export async function PUT(
       ipAddress,
       requestId
     );
+
+    await recordEvidenceEvent({
+      tenantId: existingAssessment.tenant_id,
+      userId: parseInt(user.id),
+      traceId,
+      requestId: requestId ?? traceId,
+      eventType: 'assessment_update',
+      workflowType: 'assessment',
+      actionType: 'update_assessment',
+      status: 'ok',
+      durationMs: Date.now() - startedAt,
+      evidenceType: 'measured',
+      metadata: {
+        assessmentId: id,
+        status: validation.data.status ?? null,
+      },
+    });
 
     return NextResponse.json({ assessment: updatedAssessment });
   } catch (_error) {
