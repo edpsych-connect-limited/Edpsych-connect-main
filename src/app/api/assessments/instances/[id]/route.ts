@@ -9,13 +9,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { authenticateRequest } from '@/lib/middleware/auth';
+import { createEvidenceTraceId, recordEvidenceEvent } from '@/lib/analytics/evidence-telemetry';
 
 export async function GET(req: NextRequest, props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
   const authResult = await authenticateRequest(req);
   if (!authResult.success) {
     return authResult.response;
   }
+  const { session } = authResult;
 
   try {
     const id = params.id;
@@ -49,6 +53,25 @@ export async function GET(req: NextRequest, props: { params: Promise<{ id: strin
             domains
         }
     };
+
+    const user = session.user as any;
+    const tenantId = typeof user?.tenant_id === 'string' ? parseInt(user.tenant_id, 10) : (user?.tenant_id as number | undefined);
+    const userId = parseInt(user?.id ?? '', 10);
+    if (tenantId && !Number.isNaN(userId)) {
+      await recordEvidenceEvent({
+        tenantId,
+        userId,
+        traceId,
+        requestId: traceId,
+        eventType: 'assessment_instance',
+        workflowType: 'assessments',
+        actionType: 'view_instance',
+        status: 'ok',
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata: { instanceId: id },
+      });
+    }
 
     return NextResponse.json(responseData);
   } catch (_error) {
