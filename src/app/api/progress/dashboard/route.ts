@@ -24,6 +24,7 @@ import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
 import { prisma } from '@/lib/prisma';
+import { createEvidenceTraceId, recordEvidenceEvent } from '@/lib/analytics/evidence-telemetry';
 
 export const dynamic = 'force-dynamic';
 
@@ -238,6 +239,9 @@ function generateAlerts(interventions: InterventionProgress[]): ProgressAlert[] 
 // ============================================================================
 
 export async function GET(request: NextRequest) {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+
   try {
     // Verify authentication
     const session = await authService.getSessionFromRequest(request);
@@ -375,7 +379,7 @@ export async function GET(request: NextRequest) {
       },
     };
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       data: {
         interventions,
@@ -389,6 +393,28 @@ export async function GET(request: NextRequest) {
         fetchedAt: now.toISOString(),
       },
     });
+
+    if (session.tenant_id) {
+      await recordEvidenceEvent({
+        tenantId: session.tenant_id,
+        userId: parseInt(session.id, 10),
+        traceId,
+        requestId: traceId,
+        eventType: 'dashboard_progress',
+        workflowType: 'dashboard',
+        actionType: 'load_progress',
+        status: 'ok',
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata: {
+          timeRange,
+          interventionsCount: interventions.length,
+          outcomesCount: outcomes.length,
+        },
+      });
+    }
+
+    return response;
   } catch (error: any) {
     logger.error('[Progress Dashboard API] Error:', error);
     return NextResponse.json(
