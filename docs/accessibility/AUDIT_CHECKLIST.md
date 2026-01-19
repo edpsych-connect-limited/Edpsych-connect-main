@@ -25,3 +25,7 @@ This checklist captures the WCAG 2.1 AA audit process and verification steps.
 ## Motion and Media
 - Animations respect prefers-reduced-motion
 - Video and audio have captions and transcripts
+
+## Audit Notes
+- 2026-01-18: Training flows updated with aria-live loading states and alert semantics; verify in screen reader pass.
+- 2026-01-18: Course detail tabs include explicit tab IDs; confirm focus order matches visual layout.
