@@ -108,6 +108,7 @@ Progress log:
 - 2026-01-18: Expanded tracing plan to include EHCP evidence pack workflow.
 - 2026-01-18: Added evidence telemetry for assessment update endpoint.
 - 2026-01-18: Expanded tracing plan to include assessment report uploads.
+- 2026-01-18: Added evidence telemetry for case creation workflow.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

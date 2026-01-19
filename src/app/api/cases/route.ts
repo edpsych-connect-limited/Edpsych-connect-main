@@ -16,6 +16,7 @@ import { authorizeRequest, Permission, canAccessTenant } from '@/lib/middleware/
 import { apiRateLimit } from '@/lib/middleware/rate-limit';
 import { auditLogger, getIpAddress, getRequestId, getUserAgent } from '@/lib/security/audit-logger';
 import { prisma } from '@/lib/prisma';
+import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
 
 export const dynamic = 'force-dynamic';
 
@@ -225,6 +226,28 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   const ipAddress = getIpAddress(request);
   const requestId = getRequestId(request);
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+  const recordTrace = async (
+    status: EvidenceStatus,
+    tenantId: number,
+    userId: string,
+    metadata?: Record<string, unknown>
+  ) => {
+    await recordEvidenceEvent({
+      tenantId,
+      userId: parseInt(userId, 10),
+      traceId,
+      requestId: requestId ?? traceId,
+      eventType: 'case_create',
+      workflowType: 'case_management',
+      actionType: 'create_case',
+      status,
+      durationMs: Date.now() - startedAt,
+      evidenceType: 'measured',
+      metadata,
+    });
+  };
 
   try {
     // 1. Rate limiting check
@@ -247,6 +270,9 @@ export async function POST(request: NextRequest) {
     const validation = CreateCaseSchema.safeParse(body);
 
     if (!validation.success) {
+      if (body?.tenant_id && user?.id) {
+        await recordTrace('error', body.tenant_id, user.id, { reason: 'validation_failed' });
+      }
       return NextResponse.json(
         { error: 'Invalid case data', details: validation.error.issues },
         { status: 400 }
@@ -266,6 +292,7 @@ export async function POST(request: NextRequest) {
         getUserAgent(request),
         requestId
       );
+      await recordTrace('error', tenant_id, user.id, { reason: 'forbidden' });
       return NextResponse.json(
         { error: 'Access denied. You cannot create cases for other institutions.' },
         { status: 403 }
@@ -279,6 +306,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (!student) {
+      await recordTrace('error', tenant_id, user.id, { reason: 'student_not_found', studentId: student_id });
       return NextResponse.json(
         { error: 'Student not found' },
         { status: 404 }
@@ -286,6 +314,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (student.tenant_id !== tenant_id) {
+      await recordTrace('error', tenant_id, user.id, { reason: 'tenant_mismatch', studentId: student_id });
       return NextResponse.json(
         { error: 'Access denied. Student belongs to a different institution.' },
         { status: 403 }
@@ -341,6 +370,14 @@ export async function POST(request: NextRequest) {
       ipAddress,
       requestId
     );
+
+    await recordTrace('ok', tenant_id, user.id, {
+      caseId: caseRecord.id,
+      studentId: student_id,
+      status,
+      priority,
+      type,
+    });
 
     return NextResponse.json(
       { case: caseRecord, message: 'Case created successfully' },
