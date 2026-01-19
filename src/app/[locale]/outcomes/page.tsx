@@ -77,6 +77,14 @@ const outcomeCategories = [
 function OutcomeTrackingContent() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const needsAttention = mockOutcomes.filter((outcome) => outcome.status !== 'on-track');
+  const dueSoon = mockOutcomes.filter((outcome) => {
+    const due = new Date(outcome.dueDate);
+    const now = new Date();
+    const diffDays = Math.ceil((due.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+    return diffDays >= 0 && diffDays <= 30;
+  });
+  const evidenceGaps = mockOutcomes.filter((outcome) => outcome.evidenceCount < 5);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -135,6 +143,38 @@ function OutcomeTrackingContent() {
             change="4 pending verification"
             trend="up"
           />
+        </div>
+
+        {/* Decision Support */}
+        <div className="mb-8 rounded-xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Decision Support</h2>
+              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                Focus attention where outcomes need the fastest intervention.
+              </p>
+            </div>
+            <button className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
+              Review Priorities
+            </button>
+          </div>
+          <div className="mt-4 grid gap-4 md:grid-cols-3">
+            <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900 dark:border-amber-900/40 dark:bg-amber-900/20 dark:text-amber-100">
+              <p className="font-semibold">Needs Attention</p>
+              <p className="mt-1 text-2xl font-bold">{needsAttention.length}</p>
+              <p className="mt-1">Prioritize these outcomes for review.</p>
+            </div>
+            <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm text-blue-900 dark:border-blue-900/40 dark:bg-blue-900/20 dark:text-blue-100">
+              <p className="font-semibold">Due in 30 Days</p>
+              <p className="mt-1 text-2xl font-bold">{dueSoon.length}</p>
+              <p className="mt-1">Confirm evidence and next steps.</p>
+            </div>
+            <div className="rounded-lg border border-rose-200 bg-rose-50 p-4 text-sm text-rose-900 dark:border-rose-900/40 dark:bg-rose-900/20 dark:text-rose-100">
+              <p className="font-semibold">Evidence Gaps</p>
+              <p className="mt-1 text-2xl font-bold">{evidenceGaps.length}</p>
+              <p className="mt-1">Add observations to strengthen audits.</p>
+            </div>
+          </div>
         </div>
 
         <div className="flex gap-6">

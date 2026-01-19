@@ -12,6 +12,7 @@ import React, { useState, useEffect } from 'react';
 import { Loader2, BookOpen, Target, Lightbulb } from 'lucide-react';
 import { useAuth } from '@/lib/auth/hooks';
 import { ProgressBar } from '@/components/ui/ProgressBar';
+import { AI_ASSIST_NOTICE, AI_DATA_NOTICE } from '@/lib/ai/ai-microcopy';
 
 // Import UI components individually from their actual locations
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -260,6 +261,10 @@ export default function TutoringInterface() {
           <p className="text-muted-foreground">
             Get personalized tutoring assistance tailored to your learning needs
           </p>
+          <div className="mt-3 rounded-md border border-blue-100 bg-blue-50 px-3 py-2 text-xs text-blue-900">
+            <p>{AI_ASSIST_NOTICE}</p>
+            <p className="mt-1">{AI_DATA_NOTICE}</p>
+          </div>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">

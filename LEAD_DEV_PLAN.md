@@ -130,6 +130,8 @@ Progress log:
 - 2026-01-19: Added evidence telemetry for outcomes tracking record and analytics workflows.
 - 2026-01-19: Expanded tracing plan to include outcomes workflows.
 - 2026-01-19: Logged contrast/typography audit as pending manual pass in accessibility checklist.
+- 2026-01-19: Added AI microcopy guidance to tutoring and ethics review experiences.
+- 2026-01-19: Added decision support summary panel to outcomes page to reduce dense content.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

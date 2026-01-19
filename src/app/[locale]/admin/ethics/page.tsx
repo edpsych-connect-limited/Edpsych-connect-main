@@ -10,6 +10,7 @@
 
 import { useState, useEffect } from 'react';
 import { useDemo } from '@/components/demo/DemoProvider';
+import { AI_ASSIST_NOTICE, AI_DATA_NOTICE } from '@/lib/ai/ai-microcopy';
 
 export default function EthicsAdminPage() {
   const { startTour } = useDemo();
@@ -444,6 +445,10 @@ export default function EthicsAdminPage() {
                   Reviews appear here when an AI decision requires human oversight or evidence
                   validation. Approve to allow deployment, or reject with rationale to keep the
                   model blocked.
+                  <div className="mt-2 text-xs text-blue-800">
+                    <p>{AI_ASSIST_NOTICE}</p>
+                    <p className="mt-1">{AI_DATA_NOTICE}</p>
+                  </div>
                 </div>
                 {reviewActionError && (
                   <div className="border border-red-200 bg-red-50 text-red-700 rounded-lg p-3 text-sm">
