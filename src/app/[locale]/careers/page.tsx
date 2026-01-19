@@ -41,7 +41,7 @@ const CURRENT_OPENINGS = [
     department: 'Marketing',
     location: 'Buckinghamshire / Hybrid',
     type: 'Full-time',
-    salary: '£38,000 - £50,000',
+    salary: '38,000 - 50,000',
     priority: 'Critical',
     description: 'Lead our marketing strategy to reach schools, LAs, and EP practitioners across the UK.',
     responsibilities: [
@@ -65,7 +65,7 @@ const CURRENT_OPENINGS = [
     department: 'Operations',
     location: 'Buckinghamshire / Hybrid',
     type: 'Full-time',
-    salary: '£35,000 - £48,000',
+    salary: '35,000 - 48,000',
     priority: 'Critical',
     description: 'Keep our operations running smoothly while managing financial administration.',
     responsibilities: [
@@ -89,7 +89,7 @@ const CURRENT_OPENINGS = [
     department: 'Customer Success',
     location: 'Buckinghamshire / Remote',
     type: 'Full-time',
-    salary: '£35,000 - £45,000',
+    salary: '35,000 - 45,000',
     priority: 'High',
     description: 'Be the voice of our customers and ensure schools and EPs get maximum value.',
     responsibilities: [
@@ -113,7 +113,7 @@ const CURRENT_OPENINGS = [
     department: 'Engineering',
     location: 'Buckinghamshire / Remote',
     type: 'Full-time',
-    salary: '£55,000 - £75,000',
+    salary: '55,000 - 75,000',
     priority: 'Critical',
     description: 'Build the platform that\'s transforming educational psychology.',
     responsibilities: [
@@ -138,7 +138,7 @@ const CURRENT_OPENINGS = [
     department: 'Customer Success',
     location: 'Remote',
     type: 'Full-time',
-    salary: '£24,000 - £32,000',
+    salary: '24,000 - 32,000',
     priority: 'Medium',
     description: 'Be the friendly face of EdPsych Connect, helping users succeed.',
     responsibilities: [
@@ -167,7 +167,7 @@ const BENEFITS = [
   },
   {
     icon: GraduationCap,
-    title: '£1,000 Learning Budget',
+    title: '1,000 Learning Budget',
     description: 'Annual professional development fund for courses, conferences, or certifications.',
   },
   {
@@ -409,10 +409,9 @@ export default function CareersPage() {
                     <div className="mt-4 grid md:grid-cols-2 gap-6">
                       <div>
                         <h4 className="font-semibold text-grey-900 mb-2">Responsibilities</h4>
-                        <ul className="space-y-1">
+                        <ul className="space-y-1 list-disc list-inside">
                           {role.responsibilities.map((item, idx) => (
-                            <li key={idx} className="flex items-start gap-2 text-sm text-grey-600">
-                              <span className="text-indigo-500 mt-1">•</span>
+                            <li key={idx} className="text-sm text-grey-600">
                               {item}
                             </li>
                           ))}
@@ -420,10 +419,9 @@ export default function CareersPage() {
                       </div>
                       <div>
                         <h4 className="font-semibold text-grey-900 mb-2">Requirements</h4>
-                        <ul className="space-y-1">
+                        <ul className="space-y-1 list-disc list-inside">
                           {role.requirements.map((item, idx) => (
-                            <li key={idx} className="flex items-start gap-2 text-sm text-grey-600">
-                              <span className="text-indigo-500 mt-1">•</span>
+                            <li key={idx} className="text-sm text-grey-600">
                               {item}
                             </li>
                           ))}
