@@ -15,6 +15,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import authService from '@/lib/auth/auth-service';
 import { prisma } from '@/lib/prisma';
+import { createEvidenceTraceId, recordEvidenceEvent } from '@/lib/analytics/evidence-telemetry';
 
 export const dynamic = 'force-dynamic';
 
@@ -116,10 +117,27 @@ async function handleListOrCreateAssessments(request: NextRequest, session: any)
   
   if (request.method === 'POST') {
     try {
+      const startedAt = Date.now();
+      const traceId = createEvidenceTraceId();
       const body = await request.json();
       const { case_id, assessment_type, status = 'pending' } = body;
 
       if (!case_id || !assessment_type) {
+        if (session?.tenantId) {
+          await recordEvidenceEvent({
+            tenantId: session.tenantId,
+            userId: session.userId ? parseInt(session.userId) : undefined,
+            traceId,
+            requestId: traceId,
+            eventType: 'assessment_create',
+            workflowType: 'assessment',
+            actionType: 'create_assessment',
+            status: 'error',
+            durationMs: Date.now() - startedAt,
+            evidenceType: 'measured',
+            metadata: { reason: 'missing_fields' },
+          });
+        }
         return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
       }
 
@@ -131,6 +149,20 @@ async function handleListOrCreateAssessments(request: NextRequest, session: any)
           status,
           created_by: session.userId
         }
+      });
+
+      await recordEvidenceEvent({
+        tenantId: session.tenantId,
+        userId: session.userId ? parseInt(session.userId) : undefined,
+        traceId,
+        requestId: traceId,
+        eventType: 'assessment_create',
+        workflowType: 'assessment',
+        actionType: 'create_assessment',
+        status: 'ok',
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata: { assessmentId: assessment.id, caseId: case_id, assessmentType: assessment_type },
       });
 
       return NextResponse.json({
