@@ -9,6 +9,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prismaSafe';
 import { logger } from '@/lib/logger';
+import { createEvidenceTraceId, recordEvidenceEvent } from '@/lib/analytics/evidence-telemetry';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,6 +22,9 @@ export const dynamic = 'force-dynamic';
  * - Platform metrics
  */
 export async function GET(request: NextRequest) {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+
   try {
     const searchParams = request.nextUrl.searchParams;
     const tenantId = searchParams.get('tenant_id');
@@ -219,6 +223,31 @@ export async function GET(request: NextRequest) {
     };
 
     logger.debug('[Marketplace Dashboard] Data retrieved successfully');
+
+    const tenantIdValue = tenantId ? parseInt(tenantId, 10) : undefined;
+    const userIdValue = userId ? parseInt(userId, 10) : undefined;
+    if (tenantIdValue && !Number.isNaN(tenantIdValue)) {
+      await recordEvidenceEvent({
+        tenantId: tenantIdValue,
+        userId: userIdValue && !Number.isNaN(userIdValue) ? userIdValue : undefined,
+        traceId,
+        requestId: traceId,
+        eventType: 'marketplace_dashboard_load',
+        workflowType: 'marketplace',
+        actionType: 'load_dashboard',
+        status: 'ok',
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata: {
+          totalListings,
+          totalContracts,
+          completedContracts,
+          activeContracts,
+          verifiedProfessionals,
+        },
+      });
+    }
+
     return NextResponse.json(dashboardData);
 
   } catch (error) {
