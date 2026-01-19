@@ -15,7 +15,7 @@
 // Force dynamic rendering for auth-required pages
 export const dynamic = 'force-dynamic';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import { EmptyState } from '@/components/ui/EmptyState';
@@ -47,10 +47,13 @@ export default function TrainingMarketplace() {
   const [filter, setFilter] = useState<string>('all'); // all, featured, bundles
   const [loading, setLoading] = useState(true);
 
-  const trackMarketplaceUsage = (action: string, data?: Record<string, any>) => {
-    if (!hasAnalyticsConsent()) return;
-    analyticsService.trackFeatureUsage(user?.id ?? 'anonymous', 'training_marketplace', action, data);
-  };
+  const trackMarketplaceUsage = useCallback(
+    (action: string, data?: Record<string, any>) => {
+      if (!hasAnalyticsConsent()) return;
+      analyticsService.trackFeatureUsage(user?.id ?? 'anonymous', 'training_marketplace', action, data);
+    },
+    [user?.id]
+  );
 
   const loadProducts = async () => {
     try {
@@ -69,6 +72,12 @@ export default function TrainingMarketplace() {
   useEffect(() => {
     loadProducts();
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      trackMarketplaceUsage('view');
+    }
+  }, [user, trackMarketplaceUsage]);
 
   // Show loading during authentication check
   if (authLoading) {

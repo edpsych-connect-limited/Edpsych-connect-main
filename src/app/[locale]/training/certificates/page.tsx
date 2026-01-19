@@ -12,7 +12,7 @@ import { logger } from '@/lib/logger';
  */
 
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { analyticsService } from '@/lib/analytics';
 import { hasAnalyticsConsent } from '@/utils/cookies';
@@ -34,14 +34,18 @@ export default function CertificatesPage() {
   const [certificates, setCertificates] = useState<Certificate[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const trackCertificateUsage = (action: string, data?: Record<string, any>) => {
+  const trackCertificateUsage = useCallback((action: string, data?: Record<string, any>) => {
     if (!hasAnalyticsConsent()) return;
     analyticsService.trackFeatureUsage('anonymous', 'training_certificates', action, data);
-  };
+  }, []);
 
   useEffect(() => {
     loadCertificates();
   }, []);
+
+  useEffect(() => {
+    trackCertificateUsage('view');
+  }, [trackCertificateUsage]);
 
   const loadCertificates = async () => {
     try {

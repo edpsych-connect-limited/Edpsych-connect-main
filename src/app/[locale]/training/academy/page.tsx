@@ -15,7 +15,7 @@
 // Force dynamic rendering for auth-required pages
 export const dynamic = 'force-dynamic';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import { EmptyState } from '@/components/ui/EmptyState';
@@ -34,10 +34,19 @@ export default function MasterclassTrainingAcademy() {
   const [levelFilter, setLevelFilter] = useState<string>('all');
   const [showFilters, setShowFilters] = useState(false);
 
-  const trackAcademyUsage = (action: string, data?: Record<string, any>) => {
-    if (!hasAnalyticsConsent()) return;
-    analyticsService.trackFeatureUsage(user?.id ?? 'anonymous', 'training_academy', action, data);
-  };
+  const trackAcademyUsage = useCallback(
+    (action: string, data?: Record<string, any>) => {
+      if (!hasAnalyticsConsent()) return;
+      analyticsService.trackFeatureUsage(user?.id ?? 'anonymous', 'training_academy', action, data);
+    },
+    [user?.id]
+  );
+
+  useEffect(() => {
+    if (user) {
+      trackAcademyUsage('view');
+    }
+  }, [user, trackAcademyUsage]);
 
   // Show loading during authentication check
   if (authLoading) {
