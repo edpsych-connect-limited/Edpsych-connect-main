@@ -139,6 +139,7 @@ Progress log:
 - 2026-01-19: Added decision support summary to EHCP list page.
 - 2026-01-19: Added decision support panel to cases list page.
 - 2026-01-19: Added decision support panel to interventions list page.
+- 2026-01-19: Added report list microcopy and decision support panel.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

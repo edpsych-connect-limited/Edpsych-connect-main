@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { FileText, Plus } from 'lucide-react';
+import { REPORT_CONFIDENTIAL_NOTICE, REPORT_EVIDENCE_NOTICE } from '@/lib/content/workflow-microcopy';
 
 export default function ReportsPage() {
   return (
@@ -21,6 +22,10 @@ export default function ReportsPage() {
           <p className="text-muted-foreground mt-2">
             Generate and manage professional educational psychology reports.
           </p>
+          <div className="mt-3 rounded-md border border-blue-100 bg-blue-50 px-3 py-2 text-xs text-blue-900">
+            <p>{REPORT_CONFIDENTIAL_NOTICE}</p>
+            <p className="mt-1">{REPORT_EVIDENCE_NOTICE}</p>
+          </div>
         </div>
         <Link href="/reports/create">
           <Button>
@@ -28,6 +33,27 @@ export default function ReportsPage() {
           </Button>
         </Link>
       </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Decision Support</CardTitle>
+          <CardDescription>Keep reports focused and defensible.</CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-3 text-sm text-muted-foreground md:grid-cols-3">
+          <div className="rounded-md border border-gray-200 bg-white px-3 py-2">
+            <p className="font-medium text-gray-900">Prioritize Drafts</p>
+            <p>Finalize time-sensitive cases first.</p>
+          </div>
+          <div className="rounded-md border border-gray-200 bg-white px-3 py-2">
+            <p className="font-medium text-gray-900">Link Evidence</p>
+            <p>Reference observations in every recommendation.</p>
+          </div>
+          <div className="rounded-md border border-gray-200 bg-white px-3 py-2">
+            <p className="font-medium text-gray-900">Assign Ownership</p>
+            <p>Document who delivers each action.</p>
+          </div>
+        </CardContent>
+      </Card>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card>
