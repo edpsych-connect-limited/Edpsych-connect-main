@@ -140,6 +140,9 @@ Progress log:
 - 2026-01-19: Added decision support panel to cases list page.
 - 2026-01-19: Added decision support panel to interventions list page.
 - 2026-01-19: Added report list microcopy and decision support panel.
+- 2026-01-19: Normalized marketplace copy to ASCII-safe currency and separators.
+- 2026-01-19: Clarified marketplace professional registration compliance copy and normalized currency label.
+- 2026-01-19: Normalized marketplace dashboard currency and removed non-ASCII emoji for deployment stability.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

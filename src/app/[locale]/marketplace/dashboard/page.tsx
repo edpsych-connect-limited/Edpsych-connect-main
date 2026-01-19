@@ -182,7 +182,7 @@ export default function ProfessionalDashboard() {
         <Alert className="mb-6 border-purple-200 bg-purple-50">
           <Award className="w-4 h-4 text-purple-600" />
           <AlertDescription className="text-purple-900">
-            <strong>🎉 Congratulations!</strong> You are an approved LA Panel member. 
+            <strong>Congratulations!</strong> You are an approved LA Panel member. 
             You now have higher visibility to Local Authorities and earn 18% commission.
           </AlertDescription>
         </Alert>
@@ -196,7 +196,7 @@ export default function ProfessionalDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-green-600">
-              £{totalEarnings.toFixed(2)}
+              GBP {totalEarnings.toFixed(2)}
             </div>
             <p className="text-sm text-gray-500 mt-1">
               {bookings.filter(b => b.status === 'COMPLETED').length} completed bookings
@@ -318,7 +318,7 @@ export default function ProfessionalDashboard() {
                         {booking.status}
                       </Badge>
                       <div className="text-lg font-bold mt-2">
-                        £{booking.professional_earnings.toFixed(2)}
+                        GBP {booking.professional_earnings.toFixed(2)}
                       </div>
                     </div>
                   </div>
@@ -327,7 +327,7 @@ export default function ProfessionalDashboard() {
                   <div className="flex items-center justify-between">
                     <div className="text-sm text-gray-600">
                       <p>Client: {booking.client.name} ({booking.client.role})</p>
-                      <p>Total: £{booking.total_amount.toFixed(2)}</p>
+                      <p>Total: GBP {booking.total_amount.toFixed(2)}</p>
                     </div>
                     <div className="flex gap-2">
                       {booking.status === 'PENDING' && (
@@ -422,7 +422,7 @@ export default function ProfessionalDashboard() {
                   <Alert>
                     <AlertCircle className="w-4 h-4" />
                     <AlertDescription>
-                      <strong>Requirements:</strong> Enhanced DBS, Professional Indemnity Insurance (£6M+), 
+                      <strong>Requirements:</strong> Enhanced DBS, Professional Indemnity Insurance (GBP 6M+), 
                       HCPC Registration, Qualifications, 2+ Professional References, Current CV
                     </AlertDescription>
                   </Alert>
@@ -451,12 +451,12 @@ export default function ProfessionalDashboard() {
               {profile.la_panel_status === 'APPROVED' && (
                 <div className="text-center py-8">
                   <Award className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">🎉 LA Panel Member</h3>
+                  <h3 className="text-lg font-semibold mb-2">LA Panel Member</h3>
                   <p className="text-gray-600 mb-4">
                     You are an approved LA Panel member with enhanced visibility and 18% commission rate.
                   </p>
                   <Badge variant="secondary" className="text-lg py-2 px-4">
-                    Annual Fee: £99/year
+                    Annual Fee: GBP 99/year
                   </Badge>
                 </div>
               )}

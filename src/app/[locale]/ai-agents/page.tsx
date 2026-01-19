@@ -7,8 +7,6 @@
  * CONFIDENTIAL: This software contains proprietary algorithms and trade secrets.
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
-
-;
 import React from 'react';
 import TutoringInterface from '@/components/ai-agents/TutoringInterface';
 

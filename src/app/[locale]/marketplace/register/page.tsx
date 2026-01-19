@@ -8,7 +8,6 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -195,7 +194,7 @@ export default function ProfessionalRegistrationPage() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="dailyRate" className="block text-sm font-medium text-gray-700">Daily Rate (£)</label>
+                    <label htmlFor="dailyRate" className="block text-sm font-medium text-gray-700">Daily Rate (GBP)</label>
                     <input
                       type="number"
                       id="dailyRate"
@@ -250,7 +249,7 @@ export default function ProfessionalRegistrationPage() {
               <div className="space-y-6">
                 <h2 className="text-xl font-semibold text-gray-900">Compliance & Vetting</h2>
                 <p className="text-sm text-gray-500 bg-blue-50 p-4 rounded-md">
-                  To join the LA Framework Panel (18% commission), you will need to provide proof of £6M insurance coverage later.
+                  To join the LA Framework Panel (18% commission), provide proof of GBP 6M insurance coverage and Enhanced DBS details. You can upload evidence later.
                 </p>
 
                 <div>

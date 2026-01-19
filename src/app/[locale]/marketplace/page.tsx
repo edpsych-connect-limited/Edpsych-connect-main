@@ -8,7 +8,6 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
 
 import React, { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
@@ -44,6 +43,8 @@ function MarketplaceSearchContent() {
   const [professionals, setProfessionals] = useState<Professional[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const verifiedCount = professionals.filter((pro) => pro.verified).length;
+  const laPanelCount = professionals.filter((pro) => pro.isLaPanel).length;
 
   const trackMarketplaceUsage = (action: string, data?: Record<string, any>) => {
     if (!hasAnalyticsConsent()) return;
@@ -143,6 +144,27 @@ function MarketplaceSearchContent() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-6 rounded-lg border border-gray-200 bg-white px-4 py-4 shadow-sm">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold text-gray-900">Decision Support</p>
+              <p className="text-sm text-gray-500">
+                Prioritize verified and LA panel professionals for time-sensitive cases.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3 text-sm">
+              <span className="rounded-full border border-gray-200 px-3 py-1 text-gray-700">
+                Results: {professionals.length}
+              </span>
+              <span className="rounded-full border border-green-200 bg-green-50 px-3 py-1 text-green-700">
+                Verified: {verifiedCount}
+              </span>
+              <span className="rounded-full border border-purple-200 bg-purple-50 px-3 py-1 text-purple-700">
+                LA Panel: {laPanelCount}
+              </span>
+            </div>
+          </div>
+        </div>
         <div className="flex gap-8">
           {/* Sidebar Filters */}
           <div className="w-64 flex-shrink-0 space-y-6">
@@ -164,7 +186,7 @@ function MarketplaceSearchContent() {
             <div>
               <h3 className="font-semibold text-gray-900 mb-3">Max Daily Rate</h3>
               <div className="flex items-center gap-2">
-                <span className="text-gray-500">£</span>
+                <span className="text-gray-500">GBP</span>
                 <input
                   type="number"
                   placeholder="Max rate"
@@ -186,7 +208,7 @@ function MarketplaceSearchContent() {
                 <span className="font-semibold text-gray-900">LA Panel Approved</span>
               </label>
               <p className="text-xs text-gray-500 mt-1 ml-6">
-                Only show professionals vetted for Local Authority work (Enhanced DBS, £6M Insurance).
+                Only show professionals vetted for Local Authority work (Enhanced DBS, GBP 6M Insurance).
               </p>
             </div>
           </div>
@@ -265,10 +287,10 @@ function MarketplaceSearchContent() {
                             )}
                           </div>
                           <p className="text-gray-600 font-medium">{pro.title}</p>
-                          <p className="text-sm text-gray-500 mt-1">{pro.location} • {pro.yearsExperience} years exp.</p>
+                          <p className="text-sm text-gray-500 mt-1">{pro.location} - {pro.yearsExperience} years exp.</p>
                         </div>
                         <div className="text-right">
-                          <p className="text-2xl font-bold text-gray-900">£{pro.dailyRate}</p>
+                          <p className="text-2xl font-bold text-gray-900">GBP {pro.dailyRate}</p>
                           <p className="text-sm text-gray-500">per day</p>
                         </div>
                       </div>
