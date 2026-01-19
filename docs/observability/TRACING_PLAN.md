@@ -5,7 +5,7 @@ This document defines the tracing scope for critical workflows.
 ## Tracing Targets
 - Authentication: login, refresh, logout
 - Dashboard: initial load, key summary widgets
-- Assessments: create, autosave, submit
+- Assessments: create, autosave, submit, report upload
 - Cases: create, list, detail
 - EHCP: create, module save, export, evidence pack
 - Reports: generate, export
