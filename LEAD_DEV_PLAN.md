@@ -101,6 +101,7 @@ Progress log:
 - 2026-01-18: Expanded marketplace payment intent tracing to cover common error paths.
 - 2026-01-18: Expanded marketplace booking confirmation tracing for invalid date and missing booking cases.
 - 2026-01-18: Added evidence telemetry for report generation API.
+- 2026-01-18: Added evidence telemetry for assessment report upload flow.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

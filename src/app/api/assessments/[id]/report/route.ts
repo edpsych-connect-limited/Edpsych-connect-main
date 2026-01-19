@@ -12,23 +12,50 @@ import { authenticateRequest } from '@/lib/middleware/auth';
 import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
+import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
+import { getRequestId } from '@/lib/security/audit-logger';
 
 export async function POST(
   req: NextRequest,
   props: { params: Promise<{ id: string }> }
 ) {
   const params = await props.params;
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+  const requestId = getRequestId(req) ?? traceId;
+  let tenantId: number | undefined;
+  let userIdForAudit: number | undefined;
+  const recordTrace = async (status: EvidenceStatus, metadata?: Record<string, unknown>) => {
+    if (!tenantId) return;
+    await recordEvidenceEvent({
+      tenantId,
+      userId: userIdForAudit,
+      traceId,
+      requestId,
+      eventType: 'assessment_report_upload',
+      workflowType: 'assessment_report',
+      actionType: 'upload_report',
+      status,
+      durationMs: Date.now() - startedAt,
+      evidenceType: 'measured',
+      metadata,
+    });
+  };
+
   try {
     const authResult = await authenticateRequest(req);
     if (!authResult.success) {
       return authResult.response;
     }
     const { session } = authResult;
+    tenantId = session.user.tenant_id ? Number(session.user.tenant_id) : undefined;
+    userIdForAudit = parseInt(session.user.id, 10);
 
     const formData = await req.formData();
     const file = formData.get('file') as File;
 
     if (!file) {
+      await recordTrace('error', { assessmentId: params.id, reason: 'missing_file' });
       return new NextResponse('No file uploaded', { status: 400 });
     }
 
@@ -74,10 +101,12 @@ export async function POST(
       }
     });
 
+    await recordTrace('ok', { assessmentId: params.id, documentId: secureDoc.id, fileSizeBytes: buffer.length });
     return NextResponse.json({ success: true, url: fileUrl, documentId: secureDoc.id });
 
   } catch (_error) {
     console.error('Error uploading report:', _error);
+    await recordTrace('error', { assessmentId: params.id });
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 }
