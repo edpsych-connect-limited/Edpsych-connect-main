@@ -67,7 +67,7 @@ export default function BetaLoginPage() {
   useEffect(() => {
     if (!authLoading && user) {
       const path = getRedirectPath(user.role);
-      logger.info(`✅ Beta user already authenticated, redirecting to ${path}`);
+      logger.info(` Beta user already authenticated, redirecting to ${path}`);
       router.push(withLocale(path));
     }
   }, [user, authLoading, router, withLocale]);
@@ -80,7 +80,7 @@ export default function BetaLoginPage() {
     
     // Prevent double submission
     if (isSubmitting) {
-      logger.warn('⚠️ Beta login already in progress');
+      logger.warn(' Beta login already in progress');
       return;
     }
 
@@ -92,7 +92,7 @@ export default function BetaLoginPage() {
 
     setError('');
     setIsSubmitting(true);
-    logger.info('🔐 Starting beta login process');
+    logger.info(' Starting beta login process');
 
     try {
       // Validate beta code via API
@@ -133,16 +133,16 @@ export default function BetaLoginPage() {
         localStorage.setItem('betaFeatures', JSON.stringify(codeResult.features || []));
         localStorage.setItem('betaAcceptedAt', new Date().toISOString());
         
-        logger.info('✅ Beta login successful, waiting for redirect...');
+        logger.info(' Beta login successful, waiting for redirect...');
       } else {
         setError('Invalid email or password. Please try again.');
-        logger.error('❌ Beta login failed: Invalid credentials');
+        logger.error(' Beta login failed: Invalid credentials');
         setIsSubmitting(false);
       }
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'An unexpected error occurred.';
       setError(message);
-      logger.error('❌ Beta login error:', err);
+      logger.error(' Beta login error:', err);
       setIsSubmitting(false);
     }
   };
@@ -164,7 +164,7 @@ export default function BetaLoginPage() {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
         <div className="text-center">
-          <div className="text-6xl mb-4">🚀</div>
+          <div className="text-6xl mb-4"></div>
           <p className="text-purple-200 text-lg">Welcome, Beta Tester!</p>
           <p className="text-purple-300 text-sm mt-2">Redirecting to {getRedirectPath(user.role)}...</p>
         </div>
@@ -192,7 +192,7 @@ export default function BetaLoginPage() {
           {/* Beta Welcome Notice */}
           <div className="mb-6 p-4 bg-purple-600/20 border border-purple-400/30 rounded-lg text-sm text-purple-100">
             <div className="flex items-center mb-2">
-              <span className="text-2xl mr-2">🎉</span>
+              <span className="text-2xl mr-2"></span>
               <p className="font-semibold">Welcome to the Beta Programme!</p>
             </div>
             <p className="text-purple-200">
@@ -204,7 +204,7 @@ export default function BetaLoginPage() {
           {error && (
             <div className="mb-6 p-4 bg-red-500/20 border border-red-400/30 rounded-lg">
               <div className="flex items-start">
-                <div className="text-red-300 mr-3">⚠️</div>
+                <div className="text-red-300 mr-3"></div>
                 <div>
                   <h3 className="text-sm font-medium text-red-200 mb-1">Login Issue</h3>
                   <p className="text-sm text-red-100">{error}</p>
@@ -276,7 +276,7 @@ export default function BetaLoginPage() {
                 disabled={isSubmitting}
                 enterKeyHint="go"
                 className="w-full px-4 py-2.5 bg-white/10 border border-white/30 rounded-lg text-white placeholder-purple-300/50 focus:ring-2 focus:ring-purple-400 focus:border-purple-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                placeholder="••••••••"
+                placeholder=""
               />
             </div>
 
@@ -297,11 +297,11 @@ export default function BetaLoginPage() {
                   className="ml-3 text-sm text-purple-200"
                 >
                   I understand this is a <strong>beta version</strong> and agree to:
-                  <ul className="mt-2 space-y-1 text-purple-300 text-xs">
-                    <li>• Provide constructive feedback to improve the platform</li>
-                    <li>• Report any bugs or issues I encounter</li>
-                    <li>• Keep beta features confidential until public release</li>
-                    <li>• Accept that some features may be incomplete or change</li>
+                  <ul className="mt-2 list-disc list-inside space-y-1 text-purple-300 text-xs">
+                    <li>Provide constructive feedback to improve the platform</li>
+                    <li>Report any bugs or issues I encounter</li>
+                    <li>Keep beta features confidential until public release</li>
+                    <li>Accept that some features may be incomplete or change</li>
                   </ul>
                 </label>
               </div>
@@ -366,7 +366,7 @@ export default function BetaLoginPage() {
                 </>
               ) : (
                 <>
-                  🚀 Enter Beta Programme
+                   Enter Beta Programme
                 </>
               )}
             </button>
@@ -378,7 +378,7 @@ export default function BetaLoginPage() {
               href={withLocale('/login')}
               className="text-purple-300 hover:text-white transition-colors"
             >
-              ← Regular Login
+               Regular Login
             </Link>
             <Link
               href={withLocale('/forgot-password')}
@@ -391,30 +391,18 @@ export default function BetaLoginPage() {
 
         {/* What to Expect Section */}
         <div className="mt-6 bg-white/5 backdrop-blur rounded-lg p-4 border border-white/10">
-          <h3 className="text-white font-medium mb-3">🎯 What to Expect as a Beta Tester</h3>
-          <div className="grid grid-cols-2 gap-3 text-xs text-purple-200">
-            <div className="flex items-start">
-              <span className="mr-2">✨</span>
-              <span>Early access to new features</span>
-            </div>
-            <div className="flex items-start">
-              <span className="mr-2">💬</span>
-              <span>Direct feedback to developers</span>
-            </div>
-            <div className="flex items-start">
-              <span className="mr-2">🏆</span>
-              <span>Beta tester badge on profile</span>
-            </div>
-            <div className="flex items-start">
-              <span className="mr-2">🎁</span>
-              <span>Special launch discounts</span>
-            </div>
-          </div>
+          <h3 className="text-white font-medium mb-3">What to Expect as a Beta Tester</h3>
+          <ul className="grid grid-cols-2 gap-3 text-xs text-purple-200 list-disc list-inside">
+            <li>Early access to new features</li>
+            <li>Direct feedback to developers</li>
+            <li>Beta tester badge on profile</li>
+            <li>Special launch discounts</li>
+          </ul>
         </div>
 
         {/* Footer Note */}
         <div className="mt-6 text-center text-xs text-purple-300/70">
-          <p>© 2025 EdPsych Connect Limited. All rights reserved.</p>
+          <p>(c) 2025 EdPsych Connect Limited. All rights reserved.</p>
           <p className="mt-1">Company No: 14989115 | HCPC: PYL042340</p>
         </div>
       </div>
