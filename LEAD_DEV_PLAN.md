@@ -70,6 +70,7 @@ Progress log:
 - 2026-01-18: Added consent-aware feature usage tracking for interventions entry points.
 - 2026-01-18: Added consent-aware report workflow tracking in report form.
 - 2026-01-18: Added consent-aware marketplace search tracking.
+- 2026-01-18: Added consent-aware blog search and filter tracking.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

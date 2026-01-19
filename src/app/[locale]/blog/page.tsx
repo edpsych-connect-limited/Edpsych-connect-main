@@ -10,6 +10,8 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import ErrorDisplay from '@/components/error-handling/ErrorDisplay';
 import React, { useState, useEffect, Suspense, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { analyticsService } from '@/lib/analytics';
+import { hasAnalyticsConsent } from '@/utils/cookies';
 
 function BlogPageContent() {
   const router = useRouter();
@@ -30,6 +32,11 @@ function BlogPageContent() {
   const [selectedTag, setSelectedTag] = useState<string | null>(initialTag);
   const [pagination, setPagination] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const trackBlogUsage = (action: string, data?: Record<string, any>) => {
+    if (!hasAnalyticsConsent()) return;
+    analyticsService.trackFeatureUsage('anonymous', 'blog', action, data);
+  };
 
   const loadBlogContent = useCallback(async () => {
     setError(null);
@@ -52,6 +59,7 @@ function BlogPageContent() {
       setFeatured(featuredData.featured || []);
       setCategories(categoriesData.categories || []);
       setTags(tagsData.tags || []);
+      trackBlogUsage('load_content', { featured: featuredData.featured?.length || 0 });
     } catch (_error) {
       console.error('Failed to load blog content:', _error);
       setError(_error instanceof Error ? _error.message : 'Failed to load blog content');
@@ -74,6 +82,7 @@ function BlogPageContent() {
       const data = await response.json();
       setPosts(data.posts || []);
       setPagination(data.pagination);
+      trackBlogUsage('search', { total: data.posts?.length || 0 });
     } catch (_error) {
       console.error('Search failed:', _error);
       setError(_error instanceof Error ? _error.message : 'Search failed');
@@ -95,6 +104,7 @@ function BlogPageContent() {
       const data = await response.json();
       setPosts(data.posts || []);
       setPagination(data.pagination);
+      trackBlogUsage('filter_category', { category: slug, total: data.posts?.length || 0 });
     } catch (_error) {
       console.error('Failed to filter by category:', _error);
       setError(_error instanceof Error ? _error.message : 'Failed to filter by category');
@@ -116,6 +126,7 @@ function BlogPageContent() {
       const data = await response.json();
       setPosts(data.posts || []);
       setPagination(data.pagination);
+      trackBlogUsage('filter_tag', { tag: slug, total: data.posts?.length || 0 });
     } catch (_error) {
       console.error('Failed to filter by tag:', _error);
       setError(_error instanceof Error ? _error.message : 'Failed to filter by tag');
