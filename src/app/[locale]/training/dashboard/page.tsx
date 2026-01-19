@@ -8,12 +8,12 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 import { useState, useEffect, useId } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
+import { analyticsService } from '@/lib/analytics';
+import { hasAnalyticsConsent } from '@/utils/cookies';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -89,8 +89,17 @@ export default function TrainingDashboardPage() {
   const [totalCpdHours, setTotalCpdHours] = useState(0);
   const [targetCpdHours] = useState(30);
 
+  const trackDashboardUsage = (action: string, data?: Record<string, any>) => {
+    if (!hasAnalyticsConsent()) return;
+    analyticsService.trackFeatureUsage('anonymous', 'training_dashboard', action, data);
+  };
+
   useEffect(() => {
     loadDashboardData();
+  }, []);
+
+  useEffect(() => {
+    trackDashboardUsage('view');
   }, []);
 
   const loadDashboardData = async () => {
@@ -189,7 +198,7 @@ export default function TrainingDashboardPage() {
           <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-medium text-gray-600">Courses in Progress</h3>
-              <span className="text-2xl">📚</span>
+              <span className="text-2xl">Books</span>
             </div>
             <p className="text-3xl font-bold text-gray-900">{enrolledCourses.length}</p>
             <p className="text-xs text-gray-500 mt-1">Active enrollments</p>
@@ -198,7 +207,7 @@ export default function TrainingDashboardPage() {
           <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-medium text-gray-600">CPD Hours</h3>
-              <span className="text-2xl">⏱️</span>
+              <span className="text-2xl">Timer</span>
             </div>
             <p className="text-3xl font-bold text-gray-900">
               {totalCpdHours}
@@ -212,7 +221,7 @@ export default function TrainingDashboardPage() {
           <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-medium text-gray-600">Total Time</h3>
-              <span className="text-2xl">⏰</span>
+              <span className="text-2xl">Time</span>
             </div>
             <p className="text-3xl font-bold text-gray-900">
               {formatTimeSpent(enrolledCourses.reduce((acc, course) => acc + course.timeSpent, 0))}
@@ -223,7 +232,7 @@ export default function TrainingDashboardPage() {
           <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-medium text-gray-600">Achievements</h3>
-              <span className="text-2xl">🏆</span>
+              <span className="text-2xl">Award</span>
             </div>
             <p className="text-3xl font-bold text-gray-900">{achievements.length}</p>
             <p className="text-xs text-gray-500 mt-1">Badges earned</p>
@@ -242,8 +251,12 @@ export default function TrainingDashboardPage() {
             <div className="bg-white rounded-lg shadow-sm p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-semibold text-gray-900">Active Courses</h2>
-                <Link href="/training" className="text-blue-600 hover:text-blue-800 text-sm font-medium">
-                  Browse More →
+                <Link
+                  href="/training"
+                  onClick={() => trackDashboardUsage('browse_more')}
+                  className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                >
+                  Browse More
                 </Link>
               </div>
 
@@ -288,6 +301,7 @@ export default function TrainingDashboardPage() {
                           <p className="text-sm text-gray-500">Next: {course.nextLesson}</p>
                           <Link
                             href={`/training/courses/${course.id}`}
+                            onClick={() => trackDashboardUsage('continue_course', { courseId: course.id })}
                             className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700"
                           >
                             Continue
@@ -304,6 +318,7 @@ export default function TrainingDashboardPage() {
                   <p className="text-gray-500 mb-4">You haven&apos;t enrolled in any courses yet.</p>
                   <Link
                     href="/training"
+                    onClick={() => trackDashboardUsage('explore_courses')}
                     className="inline-block px-6 py-3 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700"
                   >
                     Explore Courses
@@ -341,10 +356,10 @@ export default function TrainingDashboardPage() {
                 {recentActivity.map((activity) => (
                   <div key={activity.id} className="flex gap-3 pb-3 border-b last:border-b-0">
                     <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                      {activity.type === 'completed_lesson' && '✓'}
-                      {activity.type === 'earned_certificate' && '🎓'}
-                      {activity.type === 'earned_badge' && '🏆'}
-                      {activity.type === 'started_course' && '📚'}
+                      {activity.type === 'completed_lesson' && 'Yes'}
+                      {activity.type === 'earned_certificate' && 'Academy'}
+                      {activity.type === 'earned_badge' && 'Award'}
+                      {activity.type === 'started_course' && 'Books'}
                     </div>
                     <div className="flex-1">
                       <p className="text-sm font-medium text-gray-900">{activity.title}</p>
@@ -362,7 +377,7 @@ export default function TrainingDashboardPage() {
 
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
           <div className="flex items-start gap-4">
-            <div className="text-4xl">💡</div>
+            <div className="text-4xl">Idea</div>
             <div className="flex-1">
               <h3 className="font-semibold text-blue-900 mb-2">Keep Learning!</h3>
               <p className="text-blue-800 mb-3">
@@ -371,6 +386,7 @@ export default function TrainingDashboardPage() {
               </p>
               <Link
                 href="/training/certificates"
+                onClick={() => trackDashboardUsage('view_certificates')}
                 className="inline-block px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700"
               >
                 View Your Certificates

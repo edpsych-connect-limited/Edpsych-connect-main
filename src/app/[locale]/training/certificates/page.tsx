@@ -1,6 +1,7 @@
 'use client'
+'use client'
 
-import { logger } from "@/lib/logger";
+import { logger } from '@/lib/logger';
 
 /**
  * @copyright EdPsych Connect Limited 2025
@@ -10,10 +11,11 @@ import { logger } from "@/lib/logger";
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { analyticsService } from '@/lib/analytics';
+import { hasAnalyticsConsent } from '@/utils/cookies';
 
 interface Certificate {
   id: string;
@@ -31,6 +33,11 @@ interface Certificate {
 export default function CertificatesPage() {
   const [certificates, setCertificates] = useState<Certificate[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const trackCertificateUsage = (action: string, data?: Record<string, any>) => {
+    if (!hasAnalyticsConsent()) return;
+    analyticsService.trackFeatureUsage('anonymous', 'training_certificates', action, data);
+  };
 
   useEffect(() => {
     loadCertificates();
@@ -56,6 +63,7 @@ export default function CertificatesPage() {
 
   const handleDownloadPdf = (certificate: Certificate) => {
     logger.debug('Downloading PDF for certificate:', certificate.id);
+    trackCertificateUsage('download_pdf', { certificateId: certificate.id });
     const message = 'PDF generation functionality would be implemented here';
     if (typeof window !== 'undefined') {
       const alertDiv = document.createElement('div');
@@ -70,10 +78,12 @@ export default function CertificatesPage() {
 
   const handlePrint = (certificate: Certificate) => {
     logger.debug('Printing certificate:', certificate.id);
+    trackCertificateUsage('print_certificate', { certificateId: certificate.id });
     window.print();
   };
 
   const handleShare = (certificate: Certificate) => {
+    trackCertificateUsage('share', { certificateId: certificate.id });
     const shareUrl = `${window.location.origin}/verify/${certificate.verificationCode}`;
     
     if (navigator.share) {
@@ -130,7 +140,7 @@ export default function CertificatesPage() {
           <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg shadow-lg p-6">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-medium opacity-90">Total Certificates</h3>
-              <span className="text-3xl">🎓</span>
+              <span className="text-3xl">Academy</span>
             </div>
             <p className="text-4xl font-bold">{certificates.length}</p>
             <p className="text-sm opacity-90 mt-1">Courses completed</p>
@@ -139,7 +149,7 @@ export default function CertificatesPage() {
           <div className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-lg shadow-lg p-6">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-medium opacity-90">CPD Hours Earned</h3>
-              <span className="text-3xl">⏱️</span>
+              <span className="text-3xl">Timer</span>
             </div>
             <p className="text-4xl font-bold">{totalCpdHours}</p>
             <p className="text-sm opacity-90 mt-1">Professional development hours</p>
@@ -148,7 +158,7 @@ export default function CertificatesPage() {
           <div className="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-lg shadow-lg p-6">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-medium opacity-90">Latest Certificate</h3>
-              <span className="text-3xl">🏆</span>
+              <span className="text-3xl">Award</span>
             </div>
             <p className="text-lg font-bold line-clamp-2">
               {certificates.length > 0 ? certificates[0].courseTitle : 'None yet'}
@@ -166,7 +176,7 @@ export default function CertificatesPage() {
                 <div className="md:flex">
                   <div className="md:w-1/3 bg-gradient-to-br from-blue-50 to-blue-100 p-8 flex items-center justify-center">
                     <div className="text-center">
-                      <div className="text-6xl mb-4">🎓</div>
+                      <div className="text-6xl mb-4">Academy</div>
                       <h3 className="text-xl font-bold text-gray-900 mb-2">Certificate of Completion</h3>
                       <p className="text-sm text-gray-600">EdPsych Connect</p>
                     </div>
@@ -249,6 +259,7 @@ export default function CertificatesPage() {
                       </button>
                       <Link
                         href={`/training/courses/${certificate.courseId}`}
+                        onClick={() => trackCertificateUsage('view_course', { courseId: certificate.courseId })}
                         className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 text-sm font-medium"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -265,7 +276,7 @@ export default function CertificatesPage() {
           </div>
         ) : (
           <div className="bg-white rounded-lg shadow-sm p-12 text-center">
-            <div className="text-6xl mb-4">🎓</div>
+            <div className="text-6xl mb-4">Academy</div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">No Certificates Yet</h2>
             <p className="text-gray-600 mb-6">
               Complete courses to earn certificates and track your professional development.
@@ -281,7 +292,7 @@ export default function CertificatesPage() {
 
         <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
           <div className="flex items-start gap-4">
-            <div className="text-3xl">💡</div>
+            <div className="text-3xl">Idea</div>
             <div>
               <h3 className="font-semibold text-blue-900 mb-2">About Certificate Verification</h3>
               <p className="text-blue-800 text-sm mb-3">
@@ -290,9 +301,10 @@ export default function CertificatesPage() {
               </p>
               <Link
                 href="/verify"
+                onClick={() => trackCertificateUsage('verify_link')}
                 className="text-blue-600 hover:text-blue-800 text-sm font-medium"
               >
-                Verify a Certificate →
+                Verify a Certificate
               </Link>
             </div>
           </div>

@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { analyticsService } from '@/lib/analytics';
+import { hasAnalyticsConsent } from '@/utils/cookies';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
@@ -29,6 +31,11 @@ function CheckoutForm({ productId }: { productId: string }) {
   const [discountCode, setDiscountCode] = useState('');
   const [appliedDiscount, setAppliedDiscount] = useState<any>(null);
 
+  const trackCheckoutUsage = (action: string, data?: Record<string, any>) => {
+    if (!hasAnalyticsConsent()) return;
+    analyticsService.trackFeatureUsage(user?.id ?? 'anonymous', 'training_checkout', action, data);
+  };
+
   const loadProduct = React.useCallback(async () => {
     try {
       const response = await fetch(`/api/training/products/${productId}`);
@@ -47,6 +54,10 @@ function CheckoutForm({ productId }: { productId: string }) {
     loadProduct();
   }, [loadProduct]);
 
+  useEffect(() => {
+    trackCheckoutUsage('view', { productId });
+  }, [productId]);
+
   const applyDiscountCode = async () => {
     try {
       const response = await fetch('/api/training/discount-codes/validate', {
@@ -62,12 +73,15 @@ function CheckoutForm({ productId }: { productId: string }) {
         const data = await response.json();
         setAppliedDiscount(data.discount);
         setError(null);
+        trackCheckoutUsage('discount_applied', { code: discountCode, productId });
       } else {
         setError('Invalid discount code');
         setAppliedDiscount(null);
+        trackCheckoutUsage('discount_invalid', { code: discountCode, productId });
       }
     } catch (_error) {
       setError('Failed to apply discount code');
+      trackCheckoutUsage('discount_error', { productId });
     }
   };
 
@@ -96,6 +110,7 @@ function CheckoutForm({ productId }: { productId: string }) {
 
     setProcessing(true);
     setError(null);
+    trackCheckoutUsage('payment_attempt', { productId });
 
     try {
       // Create payment intent
@@ -131,12 +146,15 @@ function CheckoutForm({ productId }: { productId: string }) {
 
       if (stripeError) {
         setError(stripeError.message || 'Payment failed');
+        trackCheckoutUsage('payment_failed', { productId });
       } else if (paymentIntent.status === 'succeeded') {
+        trackCheckoutUsage('payment_success', { productId });
         // Payment successful, redirect to success page
         router.push(`/training/purchase-success/${purchase_id}`);
       }
     } catch (err: any) {
       setError(err.message || 'An error occurred');
+      trackCheckoutUsage('payment_error', { productId });
     } finally {
       setProcessing(false);
     }
@@ -169,7 +187,10 @@ function CheckoutForm({ productId }: { productId: string }) {
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Product Not Found</h2>
           <button
-            onClick={() => router.push('/training/marketplace')}
+            onClick={() => {
+              trackCheckoutUsage('return_marketplace', { productId });
+              router.push('/training/marketplace');
+            }}
             className="text-blue-600 hover:underline"
           >
             Return to Marketplace
@@ -207,7 +228,7 @@ function CheckoutForm({ productId }: { productId: string }) {
               <div className="border-t border-gray-200 pt-4 space-y-2">
                 <div className="flex justify-between text-gray-700">
                   <span>Subtotal</span>
-                  <span>£{originalPriceDisplay}</span>
+                  <span>GBP {originalPriceDisplay}</span>
                 </div>
 
                 {appliedDiscount && (
@@ -216,14 +237,14 @@ function CheckoutForm({ productId }: { productId: string }) {
                       Discount ({appliedDiscount.code})
                     </span>
                     <span>
-                      -£{((product.price_gbp - finalPrice) / 100).toFixed(2)}
+                      -GBP {((product.price_gbp - finalPrice) / 100).toFixed(2)}
                     </span>
                   </div>
                 )}
 
                 <div className="flex justify-between text-xl font-bold text-gray-900 pt-2 border-t border-gray-200">
                   <span>Total</span>
-                  <span>£{priceDisplay}</span>
+                  <span>GBP {priceDisplay}</span>
                 </div>
               </div>
 
@@ -277,7 +298,7 @@ function CheckoutForm({ productId }: { productId: string }) {
                 </div>
                 {appliedDiscount && (
                   <p className="text-sm text-green-600 mt-2">
-                    ✓ Discount applied: {appliedDiscount.name}
+                    Discount applied: {appliedDiscount.name}
                   </p>
                 )}
               </div>
@@ -329,7 +350,7 @@ function CheckoutForm({ productId }: { productId: string }) {
                     Processing...
                   </span>
                 ) : (
-                  `Pay £${priceDisplay}`
+                  `Pay GBP ${priceDisplay}`
                 )}
               </button>
 

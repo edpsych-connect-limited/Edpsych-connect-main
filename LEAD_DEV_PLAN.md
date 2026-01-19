@@ -76,6 +76,8 @@ Progress log:
 - 2026-01-18: Added consent-aware usage tracking for training academy and marketplace flows.
 - 2026-01-18: Added consent-aware usage tracking for training course detail view and tab engagement.
 - 2026-01-18: Normalized training UI copy to ASCII-safe text for deployment stability.
+- 2026-01-18: Added consent-aware usage tracking for training dashboard, certificates, and checkout flows.
+- 2026-01-18: Normalized training dashboard, certificates, and checkout copy to ASCII-safe text.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
