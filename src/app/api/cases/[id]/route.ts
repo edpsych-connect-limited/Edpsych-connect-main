@@ -93,10 +93,13 @@ export async function GET(
     const { user } = session;
     const recordTrace = async (
       status: EvidenceStatus,
-      tenantId: number,
+      tenantId: number | undefined,
       userId: string,
       metadata?: Record<string, unknown>
     ) => {
+      if (!tenantId) {
+        return;
+      }
       await recordEvidenceEvent({
         tenantId,
         userId: parseInt(userId, 10),
@@ -263,10 +266,13 @@ export async function PATCH(
     const { user } = session;
     const recordTrace = async (
       status: EvidenceStatus,
-      tenantId: number,
+      tenantId: number | undefined,
       userId: string,
       metadata?: Record<string, unknown>
     ) => {
+      if (!tenantId) {
+        return;
+      }
       await recordEvidenceEvent({
         tenantId,
         userId: parseInt(userId, 10),
@@ -443,10 +449,13 @@ export async function DELETE(
     const { user } = session;
     const recordTrace = async (
       status: EvidenceStatus,
-      tenantId: number,
+      tenantId: number | undefined,
       userId: string,
       metadata?: Record<string, unknown>
     ) => {
+      if (!tenantId) {
+        return;
+      }
       await recordEvidenceEvent({
         tenantId,
         userId: parseInt(userId, 10),

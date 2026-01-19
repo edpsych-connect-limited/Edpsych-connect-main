@@ -116,6 +116,7 @@ Progress log:
 - 2026-01-19: Added evidence telemetry for case update and close workflows.
 - 2026-01-19: Added evidence telemetry for interventions tracking API.
 - 2026-01-19: Added evidence telemetry for report draft save and report list workflows.
+- 2026-01-19: Tracked follow-up to fix evidence telemetry typing for case endpoints after TS build failure.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

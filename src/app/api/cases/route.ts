@@ -90,10 +90,13 @@ export async function GET(request: NextRequest) {
     const { user } = session;
     const recordTrace = async (
       status: EvidenceStatus,
-      tenantId: number,
+      tenantId: number | undefined,
       userId: string,
       metadata?: Record<string, unknown>
     ) => {
+      if (!tenantId) {
+        return;
+      }
       await recordEvidenceEvent({
         tenantId,
         userId: parseInt(userId, 10),
