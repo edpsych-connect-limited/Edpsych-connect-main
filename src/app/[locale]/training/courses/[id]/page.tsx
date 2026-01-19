@@ -532,7 +532,7 @@ export default function CourseDetailPage() {
                       key={relatedCourse.id}
                       href={`/training/courses/${relatedCourse.id}`}
                       onClick={() => trackCourseUsage('related_course_click', { courseId: relatedCourse.id })}
-                      className="block hover:bg-gray-50 rounded-lg transition-colours"
+                      className="block hover:bg-gray-50 rounded-lg transition-colors"
                     >
                       <div className="flex gap-3">
                         <div className="w-20 h-20 bg-gray-200 rounded-md flex-shrink-0 relative">
