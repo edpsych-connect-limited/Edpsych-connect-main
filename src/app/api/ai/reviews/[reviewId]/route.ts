@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { authenticateRequest, isAdminRole } from '@/lib/middleware/auth';
 import { prisma } from '@/lib/prisma';
+import { createEvidenceTraceId, recordEvidenceEvent } from '@/lib/analytics/evidence-telemetry';
 
 export const dynamic = 'force-dynamic';
 
 export async function PATCH(request: NextRequest, { params }: { params: { reviewId: string } }) {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+
   const authResult = await authenticateRequest(request);
   if (!authResult.success) {
     return authResult.response;
@@ -23,6 +27,9 @@ export async function PATCH(request: NextRequest, { params }: { params: { review
   }
 
   const reviewId = params.reviewId;
+  const tenantIdRaw: unknown = (activeUser as any).tenant_id;
+  const tenantId = typeof tenantIdRaw === 'string' ? parseInt(tenantIdRaw, 10) : (tenantIdRaw as number);
+  const approverId = parseInt(activeUser.id, 10);
 
   const updated = await prisma.aIReview.update({
     where: { id: reviewId },
@@ -30,9 +37,34 @@ export async function PATCH(request: NextRequest, { params }: { params: { review
       status,
       decisionNotes: decisionNotes || undefined,
       approvedAt: new Date(),
-      approvedById: parseInt(activeUser.id, 10) || undefined,
+      approvedById: approverId || undefined,
     },
   });
+
+  if (tenantId && !Number.isNaN(tenantId)) {
+    const actionType =
+      status === 'approved'
+        ? 'approve_review'
+        : status === 'rejected'
+          ? 'reject_review'
+          : 'modify_review';
+    await recordEvidenceEvent({
+      tenantId,
+      userId: approverId || undefined,
+      traceId,
+      requestId: traceId,
+      eventType: 'ai_review_decision',
+      workflowType: 'ai_governance',
+      actionType,
+      status: 'ok',
+      durationMs: Date.now() - startedAt,
+      evidenceType: 'measured',
+      metadata: {
+        reviewId,
+        decision: status,
+      },
+    });
+  }
 
   return NextResponse.json({ review: updated });
 }

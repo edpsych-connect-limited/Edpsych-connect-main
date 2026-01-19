@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { logger } from '@/lib/logger';
+import { createEvidenceTraceId, recordEvidenceEvent } from '@/lib/analytics/evidence-telemetry';
 import type { ReviewSeverity } from '@/lib/governance/ai-review-policy';
 
 export async function createAiReview(params: {
@@ -15,6 +16,9 @@ export async function createAiReview(params: {
   reason?: string | null;
   responsePreview?: string | null;
 }): Promise<string | null> {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+
   try {
     const review = await prisma.aIReview.create({
       data: {
@@ -32,8 +36,44 @@ export async function createAiReview(params: {
       },
     });
 
+    await recordEvidenceEvent({
+      tenantId: params.tenantId,
+      userId: params.userId,
+      traceId,
+      requestId: params.requestId ?? traceId,
+      eventType: 'ai_review_submit',
+      workflowType: 'ai_governance',
+      actionType: 'submit_review',
+      status: 'ok',
+      durationMs: Date.now() - startedAt,
+      evidenceType: 'measured',
+      metadata: {
+        reviewId: review.id,
+        severity: params.severity,
+        useCase: params.useCase,
+        agentId: params.agentId ?? undefined,
+      },
+    });
+
     return review.id;
   } catch (error) {
+    await recordEvidenceEvent({
+      tenantId: params.tenantId,
+      userId: params.userId,
+      traceId,
+      requestId: params.requestId ?? traceId,
+      eventType: 'ai_review_submit',
+      workflowType: 'ai_governance',
+      actionType: 'submit_review',
+      status: 'error',
+      durationMs: Date.now() - startedAt,
+      evidenceType: 'measured',
+      metadata: {
+        severity: params.severity,
+        useCase: params.useCase,
+        agentId: params.agentId ?? undefined,
+      },
+    });
     logger.warn('Failed to create AI review record', { error: error instanceof Error ? error.message : String(error) });
     return null;
   }
