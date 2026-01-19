@@ -117,6 +117,15 @@ export default function InterventionsPage() {
     planned: interventions.filter((intervention) => intervention.status === 'planned').length,
     completed: interventions.filter((intervention) => intervention.status === 'completed').length,
   };
+  const effectiveNow = now ?? Date.now();
+  const reviewsDueSoon = interventions.filter((intervention) => {
+    if (!intervention.review_date || intervention.status !== 'active') return false;
+    const days = Math.ceil(
+      (new Date(intervention.review_date).getTime() - effectiveNow) / (1000 * 60 * 60 * 24)
+    );
+    return days >= 0 && days <= 7;
+  }).length;
+  const noProgressMeasure = interventions.filter((intervention) => !intervention.progress_measure).length;
 
   if (loading) {
     return (
@@ -144,6 +153,27 @@ export default function InterventionsPage() {
             >
               Create intervention
             </Link>
+          </div>
+        </div>
+        <div className="mb-6 rounded-lg border border-gray-200 bg-white px-4 py-4 shadow-sm">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold text-gray-900">Decision Support</p>
+              <p className="text-sm text-gray-500">
+                Review active interventions due this week and add progress measures.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3 text-sm">
+              <span className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-blue-700">
+                Active: {stats.active}
+              </span>
+              <span className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-amber-700">
+                Review due: {reviewsDueSoon}
+              </span>
+              <span className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-gray-700">
+                Missing measure: {noProgressMeasure}
+              </span>
+            </div>
           </div>
         </div>
         {/* Header */}
