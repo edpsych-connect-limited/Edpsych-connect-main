@@ -124,6 +124,7 @@ Progress log:
 - 2026-01-19: Added evidence telemetry for LA dashboard load workflow.
 - 2026-01-19: Added evidence telemetry for assessment submission workflow.
 - 2026-01-19: Added evidence telemetry for core EHCP list, create, update, delete, and export workflows.
+- 2026-01-19: Added evidence telemetry for assessment instance create and update workflows.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

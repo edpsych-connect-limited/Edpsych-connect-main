@@ -9,8 +9,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { authenticateRequest } from '@/lib/middleware/auth';
+import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
 
 export async function POST(req: NextRequest) {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
   const authResult = await authenticateRequest(req);
   if (!authResult.success) {
     return authResult.response;
@@ -28,6 +31,26 @@ export async function POST(req: NextRequest) {
     } = body;
 
     const user = session.user as any;
+    const tenantId = typeof user?.tenant_id === 'string' ? parseInt(user.tenant_id, 10) : (user?.tenant_id as number | undefined);
+    const userId = parseInt(user?.id ?? '', 10);
+    const recordTrace = async (status: EvidenceStatus, metadata?: Record<string, unknown>) => {
+      if (!tenantId || Number.isNaN(userId)) {
+        return;
+      }
+      await recordEvidenceEvent({
+        tenantId,
+        userId,
+        traceId,
+        requestId: traceId,
+        eventType: 'assessment_instance',
+        workflowType: 'assessments',
+        actionType: 'create_instance',
+        status,
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata,
+      });
+    };
     
     // Create the instance
     const instance = await prisma.assessmentInstance.create({
@@ -61,6 +84,8 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    await recordTrace('ok', { instanceId: instance.id, case_id, student_id });
+
     return NextResponse.json(instance);
   } catch (_error) {
     console.error('Error creating assessment instance:', _error);
@@ -69,17 +94,37 @@ export async function POST(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest) {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
   const authResult = await authenticateRequest(req);
   if (!authResult.success) {
     return authResult.response;
   }
-  // session is not used in PUT
+  const { session } = authResult;
   
   try {
     const body = await req.json();
     const { id, domains, ...updateData } = body;
 
     if (!id) {
+        const user = session.user as any;
+        const tenantId = typeof user?.tenant_id === 'string' ? parseInt(user.tenant_id, 10) : (user?.tenant_id as number | undefined);
+        const userId = parseInt(user?.id ?? '', 10);
+        if (tenantId && !Number.isNaN(userId)) {
+          await recordEvidenceEvent({
+            tenantId,
+            userId,
+            traceId,
+            requestId: traceId,
+            eventType: 'assessment_instance',
+            workflowType: 'assessments',
+            actionType: 'update_instance',
+            status: 'error',
+            durationMs: Date.now() - startedAt,
+            evidenceType: 'measured',
+            metadata: { reason: 'missing_id' },
+          });
+        }
         return NextResponse.json({ error: 'ID required' }, { status: 400 });
     }
 
@@ -141,6 +186,25 @@ export async function PUT(req: NextRequest) {
             });
         }
       }
+    }
+
+    const user = session.user as any;
+    const tenantId = typeof user?.tenant_id === 'string' ? parseInt(user.tenant_id, 10) : (user?.tenant_id as number | undefined);
+    const userId = parseInt(user?.id ?? '', 10);
+    if (tenantId && !Number.isNaN(userId)) {
+      await recordEvidenceEvent({
+        tenantId,
+        userId,
+        traceId,
+        requestId: traceId,
+        eventType: 'assessment_instance',
+        workflowType: 'assessments',
+        actionType: 'update_instance',
+        status: 'ok',
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata: { instanceId: id },
+      });
     }
 
     return NextResponse.json(instance);
