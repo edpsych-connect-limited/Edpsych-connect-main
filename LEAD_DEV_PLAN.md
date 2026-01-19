@@ -214,4 +214,6 @@ Outstanding Focus (Next)
 [ ] Complete contrast/typography validation for core journeys (WCAG AA pass)
 [~] Finish performance tracing coverage for remaining slow APIs/pages
 [~] Continue telemetry expansion for remaining top workflows (AI, marketplace, dashboards)
+[ ] Simplify dense pages into decision-support layouts
+[ ] Add consistent microcopy for AI features and sensitive workflows
 [ ] Enterprise launch readiness sign-off completion
