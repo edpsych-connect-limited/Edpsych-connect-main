@@ -93,6 +93,14 @@ function SafeguardingDashboardContent() {
 
         {activeTab === 'concerns' && (
           <>
+            <div className="mb-6 rounded-xl border border-red-100 bg-red-50 p-4 text-sm text-red-900">
+              <p className="font-semibold">Decision Support</p>
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                <li>Log concerns within 24 hours of disclosure.</li>
+                <li>Review active concerns daily with the DSL team.</li>
+                <li>Escalate to external agencies when thresholds are met.</li>
+              </ul>
+            </div>
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
               <MetricCard
@@ -268,3 +276,4 @@ export default function SafeguardingPage() {
     </FeatureGate>
   );
 }
+
