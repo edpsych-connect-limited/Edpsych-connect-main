@@ -84,6 +84,7 @@ Progress log:
 - 2026-01-18: Added aria-live loading status for training academy, marketplace, and checkout.
 - 2026-01-18: Fixed training course detail Tailwind class typo for consistent hover transitions.
 - 2026-01-18: Added aria-live loading status for training catalogue spinner.
+- 2026-01-18: Expanded launch signoff checklist to enterprise coverage areas.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
