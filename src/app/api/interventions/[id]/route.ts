@@ -21,6 +21,7 @@ import { authorizeRequest, Permission, canAccessTenant } from '@/lib/middleware/
 import { apiRateLimit } from '@/lib/middleware/rate-limit';
 import { auditLogger, getIpAddress, getRequestId, getUserAgent } from '@/lib/security/audit-logger';
 import { prisma } from '@/lib/prisma';
+import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
 
 export const dynamic = 'force-dynamic';
 
@@ -63,6 +64,8 @@ export async function GET(
   const params = await props.params;
   const ipAddress = getIpAddress(request);
   const requestId = getRequestId(request);
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
 
   try {
     const { id } = params;
@@ -89,6 +92,29 @@ export async function GET(
 
     const { session } = authResult;
     const { user } = session;
+    const recordTrace = async (
+      status: EvidenceStatus,
+      tenantId: number | undefined,
+      userId: string,
+      metadata?: Record<string, unknown>
+    ) => {
+      if (!tenantId) {
+        return;
+      }
+      await recordEvidenceEvent({
+        tenantId,
+        userId: parseInt(userId, 10),
+        traceId,
+        requestId: requestId ?? traceId,
+        eventType: 'intervention_detail',
+        workflowType: 'interventions',
+        actionType: 'view_intervention',
+        status,
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata,
+      });
+    };
 
     // 3. Retrieve intervention from database
     const intervention = await prisma.interventions.findUnique({
@@ -113,6 +139,7 @@ export async function GET(
     });
 
     if (!intervention) {
+      await recordTrace('error', user.tenant_id, user.id, { reason: 'not_found', interventionId: id });
       return NextResponse.json(
         { error: 'Intervention not found' },
         { status: 404 }
@@ -130,6 +157,7 @@ export async function GET(
         getUserAgent(request),
         requestId
       );
+      await recordTrace('blocked', user.tenant_id, user.id, { reason: 'forbidden', interventionId: id });
       return NextResponse.json(
         { error: 'Access denied. You cannot view this intervention.' },
         { status: 403 }
@@ -147,6 +175,11 @@ export async function GET(
       ipAddress,
       requestId
     );
+
+    await recordTrace('ok', intervention.tenant_id, user.id, {
+      interventionId: intervention.id,
+      case_id: intervention.case_id,
+    });
 
     return NextResponse.json({
       intervention,
@@ -183,6 +216,8 @@ export async function PATCH(
   const params = await props.params;
   const ipAddress = getIpAddress(request);
   const requestId = getRequestId(request);
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
 
   try {
     const { id } = params;
@@ -209,12 +244,36 @@ export async function PATCH(
 
     const { session } = authResult;
     const { user } = session;
+    const recordTrace = async (
+      status: EvidenceStatus,
+      tenantId: number | undefined,
+      userId: string,
+      metadata?: Record<string, unknown>
+    ) => {
+      if (!tenantId) {
+        return;
+      }
+      await recordEvidenceEvent({
+        tenantId,
+        userId: parseInt(userId, 10),
+        traceId,
+        requestId: requestId ?? traceId,
+        eventType: 'intervention_update',
+        workflowType: 'interventions',
+        actionType: 'update_intervention',
+        status,
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata,
+      });
+    };
 
     // 3. Parse and validate request body
     const body = await request.json();
     const validation = UpdateInterventionSchema.safeParse(body);
 
     if (!validation.success) {
+      await recordTrace('error', user.tenant_id, user.id, { reason: 'validation_failed' });
       return NextResponse.json(
         { error: 'Invalid intervention data', details: validation.error.issues },
         { status: 400 }
@@ -229,6 +288,7 @@ export async function PATCH(
     });
 
     if (!existingIntervention) {
+      await recordTrace('error', user.tenant_id, user.id, { reason: 'not_found', interventionId: id });
       return NextResponse.json(
         { error: 'Intervention not found' },
         { status: 404 }
@@ -246,6 +306,7 @@ export async function PATCH(
         getUserAgent(request),
         requestId
       );
+      await recordTrace('blocked', user.tenant_id, user.id, { reason: 'forbidden', interventionId: id });
       return NextResponse.json(
         { error: 'Access denied. You cannot edit this intervention.' },
         { status: 403 }
@@ -298,6 +359,12 @@ export async function PATCH(
       requestId
     );
 
+    await recordTrace('ok', updatedIntervention.tenant_id, user.id, {
+      interventionId: updatedIntervention.id,
+      case_id: updatedIntervention.case_id,
+      updatedFields: Object.keys(updateData),
+    });
+
     return NextResponse.json({
       intervention: updatedIntervention,
       message: 'Intervention updated successfully',
@@ -333,6 +400,8 @@ export async function DELETE(
   const params = await props.params;
   const ipAddress = getIpAddress(request);
   const requestId = getRequestId(request);
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
 
   try {
     const { id } = params;
@@ -359,6 +428,29 @@ export async function DELETE(
 
     const { session } = authResult;
     const { user } = session;
+    const recordTrace = async (
+      status: EvidenceStatus,
+      tenantId: number | undefined,
+      userId: string,
+      metadata?: Record<string, unknown>
+    ) => {
+      if (!tenantId) {
+        return;
+      }
+      await recordEvidenceEvent({
+        tenantId,
+        userId: parseInt(userId, 10),
+        traceId,
+        requestId: requestId ?? traceId,
+        eventType: 'intervention_discontinue',
+        workflowType: 'interventions',
+        actionType: 'discontinue_intervention',
+        status,
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata,
+      });
+    };
 
     // 3. Check if intervention exists
     const existingIntervention = await prisma.interventions.findUnique({
@@ -366,6 +458,7 @@ export async function DELETE(
     });
 
     if (!existingIntervention) {
+      await recordTrace('error', user.tenant_id, user.id, { reason: 'not_found', interventionId: id });
       return NextResponse.json(
         { error: 'Intervention not found' },
         { status: 404 }
@@ -383,6 +476,7 @@ export async function DELETE(
         getUserAgent(request),
         requestId
       );
+      await recordTrace('blocked', user.tenant_id, user.id, { reason: 'forbidden', interventionId: id });
       return NextResponse.json(
         { error: 'Access denied. You cannot delete this intervention.' },
         { status: 403 }
@@ -413,6 +507,12 @@ export async function DELETE(
       ipAddress,
       requestId
     );
+
+    await recordTrace('ok', existingIntervention.tenant_id, user.id, {
+      interventionId: discontinuedIntervention.id,
+      case_id: existingIntervention.case_id,
+      status: discontinuedIntervention.status,
+    });
 
     return NextResponse.json({
       message: 'Intervention discontinued successfully',

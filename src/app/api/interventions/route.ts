@@ -16,6 +16,7 @@ import { authorizeRequest, Permission, canAccessTenant } from '@/lib/middleware/
 import { apiRateLimit } from '@/lib/middleware/rate-limit';
 import { auditLogger, getIpAddress, getRequestId, getUserAgent } from '@/lib/security/audit-logger';
 import { prisma } from '@/lib/prisma';
+import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
 
 export const dynamic = 'force-dynamic';
 
@@ -67,6 +68,8 @@ const CreateInterventionSchema = z.object({
 export async function GET(request: NextRequest) {
   const ipAddress = getIpAddress(request);
   const requestId = getRequestId(request);
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
 
   try {
     // 1. Rate limiting check
@@ -83,6 +86,29 @@ export async function GET(request: NextRequest) {
 
     const { session } = authResult;
     const { user } = session;
+    const recordTrace = async (
+      status: EvidenceStatus,
+      tenantId: number | undefined,
+      userId: string,
+      metadata?: Record<string, unknown>
+    ) => {
+      if (!tenantId) {
+        return;
+      }
+      await recordEvidenceEvent({
+        tenantId,
+        userId: parseInt(userId, 10),
+        traceId,
+        requestId: requestId ?? traceId,
+        eventType: 'intervention_list',
+        workflowType: 'interventions',
+        actionType: 'list_interventions',
+        status,
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata,
+      });
+    };
 
     // 3. Parse and validate query parameters
     const { searchParams } = new URL(request.url);
@@ -96,6 +122,7 @@ export async function GET(request: NextRequest) {
     });
 
     if (!validation.success) {
+      await recordTrace('error', user.tenant_id, user.id, { reason: 'validation_failed' });
       return NextResponse.json(
         { error: 'Invalid query parameters', details: validation.error.issues },
         { status: 400 }
@@ -141,6 +168,14 @@ export async function GET(request: NextRequest) {
       requestId
     );
 
+    await recordTrace('ok', user.tenant_id, user.id, {
+      totalCount,
+      page,
+      limit,
+      status,
+      intervention_type,
+    });
+
     // 7. Calculate pagination
     const totalPages = Math.ceil(totalCount / limit);
 
@@ -181,6 +216,8 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   const ipAddress = getIpAddress(request);
   const requestId = getRequestId(request);
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
 
   try {
     // 1. Rate limiting check
@@ -197,12 +234,36 @@ export async function POST(request: NextRequest) {
 
     const { session } = authResult;
     const { user } = session;
+    const recordTrace = async (
+      status: EvidenceStatus,
+      tenantId: number | undefined,
+      userId: string,
+      metadata?: Record<string, unknown>
+    ) => {
+      if (!tenantId) {
+        return;
+      }
+      await recordEvidenceEvent({
+        tenantId,
+        userId: parseInt(userId, 10),
+        traceId,
+        requestId: requestId ?? traceId,
+        eventType: 'intervention_create',
+        workflowType: 'interventions',
+        actionType: 'create_intervention',
+        status,
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata,
+      });
+    };
 
     // 3. Parse and validate request body
     const body = await request.json();
     const validation = CreateInterventionSchema.safeParse(body);
 
     if (!validation.success) {
+      await recordTrace('error', user.tenant_id, user.id, { reason: 'validation_failed' });
       return NextResponse.json(
         { error: 'Invalid intervention data', details: validation.error.issues },
         { status: 400 }
@@ -222,6 +283,7 @@ export async function POST(request: NextRequest) {
         getUserAgent(request),
         requestId
       );
+      await recordTrace('blocked', tenant_id, user.id, { reason: 'forbidden' });
       return NextResponse.json(
         { error: 'Access denied. You cannot create interventions for other institutions.' },
         { status: 403 }
@@ -258,6 +320,13 @@ export async function POST(request: NextRequest) {
       ipAddress,
       requestId
     );
+
+    await recordTrace('ok', tenant_id, user.id, {
+      interventionId: intervention.id,
+      case_id,
+      intervention_type,
+      status,
+    });
 
     return NextResponse.json(
       { intervention, message: 'Intervention created successfully' },
