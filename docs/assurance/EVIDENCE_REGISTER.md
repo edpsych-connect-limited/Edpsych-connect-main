@@ -24,6 +24,7 @@ Each item has an ID so external auditors can reference it unambiguously.
 | PRIV-02 | Privacy | AI privacy stance documented | `docs/AI_DATA_PRIVACY_WHITEPAPER.md` | Validate against actual integrations and contracts | ✅ Present |
 | A11Y-01 | Accessibility | Accessibility audit readiness checklist exists | `docs/assurance/ACCESSIBILITY_WCAG22AA.md` | Perform and record manual + automated checks | ✅ Draft template |
 | BCP-01 | Resilience | Backup/restore + DR audit template exists | `docs/assurance/BCP_DR_AUDIT.md` | Execute a restore test and attach evidence | ✅ Draft template |
+| OBS-01 | Observability | Tracing plan and evidence telemetry paths documented | `docs/observability/TRACING_PLAN.md` + `src/lib/analytics/evidence-telemetry.ts` | Review targets and verify emitted evidence records | ? Present |
 | VEND-01 | Vendor risk | Subprocessor register maintained (evidence-backed) | `docs/assurance/VENDOR_SUBPROCESSOR_AUDIT.md` | Review vendor list; confirm regions + DPAs; keep in sync with `.env.example` + integrations | ✅ Present (populated draft; TBDs remain) |
 | PEN-01 | Security | Pen test readiness pack exists | `docs/assurance/PEN_TEST_READINESS.md` | Define scope + provide test accounts | ✅ Draft template |
 | CE-01 | Security | Cyber Essentials readiness checklist exists | `docs/assurance/CYBER_ESSENTIALS_READINESS.md` | Populate checklist + evidence links | ✅ Draft template |
@@ -35,4 +36,4 @@ Each item has an ID so external auditors can reference it unambiguously.
 - Prefer stable links to source files under `docs/` or `tools/`.
 - For generated outputs, prefer committing **summaries** under `docs/reports/` and keep raw logs out of git unless needed.
 
-Last updated: 2025-12-16
+Last updated: 2026-01-18
