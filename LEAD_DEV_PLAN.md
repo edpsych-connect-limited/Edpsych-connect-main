@@ -128,6 +128,7 @@ Progress log:
 - 2026-01-19: Added evidence telemetry for marketplace dashboard load workflow.
 - 2026-01-19: Added evidence telemetry for assessment instance detail workflow.
 - 2026-01-19: Added evidence telemetry for outcomes tracking record and analytics workflows.
+- 2026-01-19: Expanded tracing plan to include outcomes workflows.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

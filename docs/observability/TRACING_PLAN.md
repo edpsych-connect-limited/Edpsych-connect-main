@@ -13,6 +13,7 @@ This document defines the tracing scope for critical workflows.
 - Marketplace: search, booking creation, payment intent
 - AI review: submit, approve, reject
 - Training: enrollment, completion, payment intent
+- Outcomes: record measurement, analytics retrieval
 
 ## Required Attributes
 - `tenant_id`
