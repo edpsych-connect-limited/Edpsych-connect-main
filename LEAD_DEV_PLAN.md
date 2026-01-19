@@ -197,10 +197,10 @@ Progress log:
 -----------------------------------------------------------------------------
 6) Content, Language, and Product Clarity
 -----------------------------------------------------------------------------
-[ ] Simplify dense pages into decision-support layouts
+[~] Simplify dense pages into decision-support layouts
     - Reduce "wall of text" sections
 
-[ ] Add consistent microcopy for AI features and sensitive workflows
+[~] Add consistent microcopy for AI features and sensitive workflows
 
 [~] Standardize error and empty states
     - error display with retry now in assessments, cases, EHCP, interventions
