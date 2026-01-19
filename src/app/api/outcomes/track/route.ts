@@ -19,6 +19,7 @@ import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prismaSafe';
 import authService from '@/lib/auth/auth-service';
+import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
 
 export const dynamic = 'force-dynamic';
 
@@ -27,6 +28,9 @@ export const dynamic = 'force-dynamic';
 // ============================================================================
 
 export async function POST(request: NextRequest) {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+
   try {
     const session = await authService.getSessionFromRequest(request);
     if (!session) {
@@ -37,6 +41,25 @@ export async function POST(request: NextRequest) {
     }
 
     const userId = parseInt(session.id);
+    const tenantId = session.tenant_id;
+    const recordTrace = async (status: EvidenceStatus, metadata?: Record<string, unknown>) => {
+      if (!tenantId || Number.isNaN(userId)) {
+        return;
+      }
+      await recordEvidenceEvent({
+        tenantId,
+        userId,
+        traceId,
+        requestId: traceId,
+        eventType: 'outcome_measurement',
+        workflowType: 'outcomes',
+        actionType: 'record_outcome',
+        status,
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata,
+      });
+    };
     const body = await request.json();
 
     const {
@@ -53,6 +76,7 @@ export async function POST(request: NextRequest) {
 
     // Validate
     if (!studentId || !measurementType || !measurementTool || !domain || !scores) {
+      await recordTrace('error', { reason: 'missing_fields' });
       return NextResponse.json(
         { success: false, error: 'Missing required fields' },
         { status: 400 }
@@ -69,6 +93,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (!studentAccess) {
+      await recordTrace('blocked', { reason: 'no_access', studentId });
       return NextResponse.json(
         { success: false, error: 'No access to this student' },
         { status: 403 }
@@ -96,6 +121,14 @@ export async function POST(request: NextRequest) {
     if (measurementType !== 'baseline' && interventionId) {
       statistics = await calculateOutcomeStatistics(studentId, interventionId, domain);
     }
+
+    await recordTrace('ok', {
+      studentId,
+      interventionId,
+      measurementType,
+      measurementTool,
+      domain,
+    });
 
     return NextResponse.json({
       success: true,
@@ -126,6 +159,9 @@ export async function POST(request: NextRequest) {
 // ============================================================================
 
 export async function GET(request: NextRequest) {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+
   try {
     const session = await authService.getSessionFromRequest(request);
     if (!session) {
@@ -136,6 +172,25 @@ export async function GET(request: NextRequest) {
     }
 
     const userId = parseInt(session.id);
+    const tenantId = session.tenant_id;
+    const recordTrace = async (status: EvidenceStatus, metadata?: Record<string, unknown>) => {
+      if (!tenantId || Number.isNaN(userId)) {
+        return;
+      }
+      await recordEvidenceEvent({
+        tenantId,
+        userId,
+        traceId,
+        requestId: traceId,
+        eventType: 'outcome_report',
+        workflowType: 'outcomes',
+        actionType: 'fetch_outcomes',
+        status,
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata,
+      });
+    };
     const { searchParams } = new URL(request.url);
 
     const studentId = searchParams.get('studentId');
@@ -143,6 +198,7 @@ export async function GET(request: NextRequest) {
     const domain = searchParams.get('domain');
 
     if (!studentId) {
+      await recordTrace('error', { reason: 'missing_student_id' });
       return NextResponse.json(
         { success: false, error: 'Student ID required' },
         { status: 400 }
@@ -159,6 +215,7 @@ export async function GET(request: NextRequest) {
     });
 
     if (!studentAccess) {
+      await recordTrace('blocked', { reason: 'no_access', studentId });
       return NextResponse.json(
         { success: false, error: 'No access to this student' },
         { status: 403 }
@@ -204,6 +261,13 @@ export async function GET(request: NextRequest) {
 
     // Generate summary report
     const summary = generateOutcomeSummary(measurements, analytics);
+
+    await recordTrace('ok', {
+      studentId,
+      interventionId,
+      domain,
+      measurementCount: measurements.length,
+    });
 
     return NextResponse.json({
       success: true,
