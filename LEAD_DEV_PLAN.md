@@ -132,6 +132,7 @@ Progress log:
 - 2026-01-19: Logged contrast/typography audit as pending manual pass in accessibility checklist.
 - 2026-01-19: Added AI microcopy guidance to tutoring and ethics review experiences.
 - 2026-01-19: Added decision support summary panel to outcomes page to reduce dense content.
+- 2026-01-19: Added report workflow microcopy and decision support panel in report generator.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

@@ -25,6 +25,7 @@ import { ReportData, Recommendation } from '@/lib/reports/report-generator';
 import { Plus, Trash2, Save, Download, PlayCircle } from 'lucide-react';
 import { analyticsService } from '@/lib/analytics';
 import { hasAnalyticsConsent } from '@/utils/cookies';
+import { REPORT_CONFIDENTIAL_NOTICE, REPORT_EVIDENCE_NOTICE } from '@/lib/content/workflow-microcopy';
 
 export function ReportForm() {
   const { startTour } = useDemo();
@@ -183,6 +184,10 @@ export function ReportForm() {
           <p className="text-sm text-muted-foreground">
             Capture evidence, recommendations, and outcomes in one structured flow.
           </p>
+          <div className="mt-3 rounded-md border border-blue-100 bg-blue-50 px-3 py-2 text-xs text-blue-900">
+            <p>{REPORT_CONFIDENTIAL_NOTICE}</p>
+            <p className="mt-1">{REPORT_EVIDENCE_NOTICE}</p>
+          </div>
         </div>
         <div className="flex flex-wrap gap-2" data-tour="report-actions">
           <Button variant="outline" onClick={() => startTour('reports')}>
@@ -198,6 +203,27 @@ export function ReportForm() {
           </Button>
         </div>
       </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Decision Support</CardTitle>
+          <CardDescription>Keep reports clear, defensible, and outcome-focused.</CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-3 text-sm text-muted-foreground md:grid-cols-3">
+          <div className="rounded-md border border-gray-200 bg-white px-3 py-2">
+            <p className="font-medium text-gray-900">1. Capture Baseline</p>
+            <p>Record starting points before recommendations.</p>
+          </div>
+          <div className="rounded-md border border-gray-200 bg-white px-3 py-2">
+            <p className="font-medium text-gray-900">2. Link Evidence</p>
+            <p>Attach observations and supporting data.</p>
+          </div>
+          <div className="rounded-md border border-gray-200 bg-white px-3 py-2">
+            <p className="font-medium text-gray-900">3. Assign Ownership</p>
+            <p>Set responsibility and timescales for actions.</p>
+          </div>
+        </CardContent>
+      </Card>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-4" data-tour="report-tabs">
