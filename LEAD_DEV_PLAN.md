@@ -129,6 +129,7 @@ Progress log:
 - 2026-01-19: Added evidence telemetry for assessment instance detail workflow.
 - 2026-01-19: Added evidence telemetry for outcomes tracking record and analytics workflows.
 - 2026-01-19: Expanded tracing plan to include outcomes workflows.
+- 2026-01-19: Logged contrast/typography audit as pending manual pass in accessibility checklist.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

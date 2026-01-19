@@ -30,3 +30,4 @@ This checklist captures the WCAG 2.1 AA audit process and verification steps.
 - 2026-01-18: Training flows updated with aria-live loading states and alert semantics; verify in screen reader pass.
 - 2026-01-18: Course detail tabs include explicit tab IDs; confirm focus order matches visual layout.
 - 2026-01-18: Course player animations now respect prefers-reduced-motion.
+- 2026-01-19: Contrast and typography validation pending for core journeys; schedule manual tooling pass (WCAG AA checks).
