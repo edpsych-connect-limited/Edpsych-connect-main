@@ -9,6 +9,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import authService from '@/lib/auth/auth-service';
+import { createEvidenceTraceId, recordEvidenceEvent } from '@/lib/analytics/evidence-telemetry';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,6 +18,9 @@ const RefreshSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+
   try {
     const body = await request.json();
     const validation = RefreshSchema.safeParse(body);
@@ -48,6 +52,21 @@ export async function POST(request: NextRequest) {
 
     // Set the new token in cookies
     authService.setAuthCookie(newToken);
+
+    if (session.tenant_id) {
+      await recordEvidenceEvent({
+        tenantId: session.tenant_id,
+        userId: parseInt(session.id, 10),
+        traceId,
+        requestId: traceId,
+        eventType: 'auth_refresh',
+        workflowType: 'auth',
+        actionType: 'refresh_token',
+        status: 'ok',
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+      });
+    }
 
     return NextResponse.json({
       success: true,

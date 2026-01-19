@@ -119,6 +119,7 @@ Progress log:
 - 2026-01-19: Tracked follow-up to fix evidence telemetry typing for case endpoints after TS build failure.
 - 2026-01-19: Added evidence telemetry for AI review submission and decision workflows.
 - 2026-01-19: Added evidence telemetry for interventions list, detail, update, and discontinue workflows.
+- 2026-01-19: Added evidence telemetry for authentication login, refresh, and logout workflows.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

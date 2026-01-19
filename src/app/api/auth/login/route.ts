@@ -13,6 +13,7 @@ import jwt from 'jsonwebtoken';
 import { prisma } from '@/lib/prisma';
 import { AuditLogger } from '@/lib/audit/audit-logger';
 import { checkRateLimit, getClientIP, RATE_LIMITS, createRateLimitHeaders } from '@/lib/rate-limit';
+import { createEvidenceTraceId, recordEvidenceEvent } from '@/lib/analytics/evidence-telemetry';
 
 export const dynamic = 'force-dynamic';
 
@@ -23,6 +24,8 @@ const LoginSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
   // Rate limiting
   const clientIP = getClientIP(request);
   const rateLimitResult = checkRateLimit(clientIP, RATE_LIMITS.LOGIN);
@@ -187,6 +190,24 @@ export async function POST(request: NextRequest) {
       maxAge: 60 * 60 * 24, // 1 day
       path: '/',
     });
+
+    if (user.tenant_id) {
+      await recordEvidenceEvent({
+        tenantId: user.tenant_id,
+        userId: user.id,
+        traceId,
+        requestId: traceId,
+        eventType: 'auth_login',
+        workflowType: 'auth',
+        actionType: 'login',
+        status: 'ok',
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata: {
+          role: user.role,
+        },
+      });
+    }
 
     return response;
   } catch (error: unknown) {
