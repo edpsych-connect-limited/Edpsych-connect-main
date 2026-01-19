@@ -10,8 +10,33 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getStripe } from '@/lib/stripe';
 import { prisma } from '@/lib/prisma';
 import jwt from 'jsonwebtoken';
+import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
+import { getRequestId } from '@/lib/security/audit-logger';
 
 export async function POST(request: NextRequest) {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+  const requestId = getRequestId(request) ?? traceId;
+
+  let tenantId: number | undefined;
+  let userIdForAudit: number | undefined;
+  const recordTrace = async (status: EvidenceStatus, metadata?: Record<string, unknown>) => {
+    if (!tenantId) return;
+    await recordEvidenceEvent({
+      tenantId,
+      userId: userIdForAudit,
+      traceId,
+      requestId,
+      eventType: 'training_payment_intent',
+      workflowType: 'training_checkout',
+      actionType: 'create_payment_intent',
+      status,
+      durationMs: Date.now() - startedAt,
+      evidenceType: 'measured',
+      metadata,
+    });
+  };
+
   try {
     // 1. Authenticate
     const authHeader = request.headers.get('authorization');
@@ -35,10 +60,12 @@ export async function POST(request: NextRequest) {
     }
     
     const userId = decoded.id || decoded.userId;
+    tenantId = decoded.tenant_id ? Number(decoded.tenant_id) : undefined;
     
     if (!userId) {
         return NextResponse.json({ error: 'Invalid token payload' }, { status: 401 });
     }
+    userIdForAudit = parseInt(userId);
 
     // 2. Parse Body
     const body = await request.json();
@@ -115,6 +142,12 @@ export async function POST(request: NextRequest) {
       }
     });
 
+    await recordTrace('ok', {
+      productId: product_id,
+      discountCode: discount_code || null,
+      amountPence: finalAmount,
+    });
+
     return NextResponse.json({
       client_secret: paymentIntent.client_secret,
       purchase_id: purchase.id
@@ -122,6 +155,7 @@ export async function POST(request: NextRequest) {
 
   } catch (error: any) {
     console.error('Payment intent error:', error);
+    await recordTrace('error');
     return NextResponse.json({ error: error.message || 'Internal server error' }, { status: 500 });
   }
 }
