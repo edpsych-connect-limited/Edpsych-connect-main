@@ -3,20 +3,47 @@ import { ProfileBuilderService } from '@/lib/orchestration/profile-builder.servi
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { logger } from '@/lib/logger';
+import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
 
 export async function POST(req: Request) {
+  const startedAt = Date.now();
+  const traceId = createEvidenceTraceId();
+
   try {
-    const _session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions);
     
     // In a real app, we'd enforce auth. For this demo/audit, we might be lenient or use a test user.
     // if (!session) {
     //   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     // }
 
+    const tenantId = (session?.user as { tenant_id?: number } | undefined)?.tenant_id;
+    const userIdRaw = (session?.user as { id?: string } | undefined)?.id;
+    const userId = userIdRaw ? parseInt(userIdRaw, 10) : undefined;
+    const recordTrace = async (status: EvidenceStatus, metadata?: Record<string, unknown>) => {
+      if (!tenantId || !userId) {
+        return;
+      }
+      await recordEvidenceEvent({
+        tenantId,
+        userId,
+        traceId,
+        requestId: traceId,
+        eventType: 'assessment_submit',
+        workflowType: 'assessments',
+        actionType: 'submit_assessment',
+        status,
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata,
+      });
+    };
+
     const body = await req.json();
     const { taskType, result, studentId } = body;
 
     if (!taskType || !result) {
+      await recordTrace('error', { reason: 'missing_fields' });
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
@@ -54,6 +81,7 @@ export async function POST(req: Request) {
         completed_at: new Date()
       };
     } else {
+      await recordTrace('error', { reason: 'unknown_task', taskType });
       return NextResponse.json({ error: 'Unknown task type' }, { status: 400 });
     }
 
@@ -61,6 +89,12 @@ export async function POST(req: Request) {
     await ProfileBuilderService.updateProfileFromAssessment(assessmentResult);
 
     logger.info(`Processed ${taskType} for student ${assessmentResult.student_id}. Score: ${assessmentResult.overall_score}`);
+
+    await recordTrace('ok', {
+      taskType,
+      studentId: assessmentResult.student_id,
+      overallScore: assessmentResult.overall_score,
+    });
 
     return NextResponse.json({ 
       success: true, 
