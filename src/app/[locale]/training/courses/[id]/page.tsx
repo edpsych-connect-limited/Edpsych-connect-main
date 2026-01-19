@@ -8,7 +8,7 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-import { useState, useEffect, useId } from 'react';
+import { useState, useEffect, useId, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -85,10 +85,10 @@ export default function CourseDetailPage() {
   const [enrolling, setEnrolling] = useState(false);
   const [activeTab, setActiveTab] = useState<'overview' | 'curriculum' | 'instructor' | 'reviews'>('overview');
 
-  const trackCourseUsage = (action: string, data?: Record<string, any>) => {
+  const trackCourseUsage = useCallback((action: string, data?: Record<string, any>) => {
     if (!hasAnalyticsConsent()) return;
     analyticsService.trackFeatureUsage('anonymous', 'training_course_detail', action, data);
-  };
+  }, []);
 
   useEffect(() => {
     const loadCourse = async () => {
@@ -116,7 +116,7 @@ export default function CourseDetailPage() {
     if (course?.id) {
       trackCourseUsage('view', { courseId: course.id });
     }
-  }, [course?.id]);
+  }, [course?.id, trackCourseUsage]);
 
   const handleEnroll = async () => {
     try {

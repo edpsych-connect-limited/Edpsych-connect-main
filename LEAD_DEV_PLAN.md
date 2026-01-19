@@ -80,6 +80,7 @@ Progress log:
 - 2026-01-18: Normalized training dashboard, certificates, and checkout copy to ASCII-safe text.
 - 2026-01-18: Fixed checkout hook dependency warning and training course header copy parsing issue.
 - 2026-01-18: Added explicit tab IDs for training course detail tablist accessibility.
+- 2026-01-18: Stabilized training course detail analytics hook dependencies.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
