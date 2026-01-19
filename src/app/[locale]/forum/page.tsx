@@ -35,7 +35,7 @@ const FORUM_CATEGORIES = [
     id: 'send-support',
     name: 'SEND Support Strategies',
     description: 'Discuss evidence-based approaches for supporting students with Special Educational Needs and Disabilities',
-    icon: '🎯',
+    icon: 'S',
     color: 'bg-blue-100 text-blue-700',
     topics: 156,
     posts: 1247
@@ -44,7 +44,7 @@ const FORUM_CATEGORIES = [
     id: 'assessment-practice',
     name: 'Assessment & Evaluation',
     description: 'Share insights on cognitive assessments, ECCA framework implementation, and evaluation methods',
-    icon: '📊',
+    icon: 'A',
     color: 'bg-purple-100 text-purple-700',
     topics: 89,
     posts: 723
@@ -53,7 +53,7 @@ const FORUM_CATEGORIES = [
     id: 'ehcp-guidance',
     name: 'EHCP & Statutory Processes',
     description: 'Navigate Education, Health and Care Plans, tribunals, and statutory assessments',
-    icon: '📋',
+    icon: 'E',
     color: 'bg-green-100 text-green-700',
     topics: 134,
     posts: 1089
@@ -62,7 +62,7 @@ const FORUM_CATEGORIES = [
     id: 'interventions',
     name: 'Intervention Strategies',
     description: 'Evidence-based interventions for literacy, numeracy, behaviour, and emotional wellbeing',
-    icon: '💡',
+    icon: 'I',
     color: 'bg-amber-100 text-amber-700',
     topics: 201,
     posts: 1654
@@ -71,7 +71,7 @@ const FORUM_CATEGORIES = [
     id: 'mental-health',
     name: 'Mental Health & Wellbeing',
     description: 'Supporting student mental health, anxiety, and emotional regulation in educational settings',
-    icon: '💚',
+    icon: 'M',
     color: 'bg-teal-100 text-teal-700',
     topics: 178,
     posts: 1432
@@ -80,7 +80,7 @@ const FORUM_CATEGORIES = [
     id: 'autism-neurodiversity',
     name: 'Autism & Neurodiversity',
     description: 'Strategies for supporting autistic students and embracing neurodiversity in schools',
-    icon: '🧩',
+    icon: 'N',
     color: 'bg-indigo-100 text-indigo-700',
     topics: 223,
     posts: 1876
@@ -89,7 +89,7 @@ const FORUM_CATEGORIES = [
     id: 'professional-development',
     name: 'Professional Development',
     description: 'CPD opportunities, research updates, and career development for EPs and educators',
-    icon: '🎓',
+    icon: 'P',
     color: 'bg-pink-100 text-pink-700',
     topics: 67,
     posts: 412
@@ -98,7 +98,7 @@ const FORUM_CATEGORIES = [
     id: 'research-evidence',
     name: 'Research & Evidence Base',
     description: 'Discuss latest research, meta-analyses, and evidence-based practice in educational psychology',
-    icon: '📚',
+    icon: 'R',
     color: 'bg-rose-100 text-rose-700',
     topics: 98,
     posts: 567
@@ -402,7 +402,7 @@ export default function ForumPage() {
                         </h3>
                         <div className="flex items-center gap-4 text-sm text-gray-500">
                           <span className="font-medium text-gray-700">{topic.author}</span>
-                          <span className="text-gray-400">•</span>
+                          <span className="text-gray-400"></span>
                           <span>{topic.authorRole}</span>
                         </div>
                       </div>
@@ -474,19 +474,19 @@ export default function ForumPage() {
               </h3>
               <ul className="space-y-2 text-sm text-gray-600">
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
+                  <span className="text-green-500"></span>
                   Be respectful and professional
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
+                  <span className="text-green-500"></span>
                   Share evidence-based practices
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
+                  <span className="text-green-500"></span>
                   Maintain confidentiality
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
+                  <span className="text-green-500"></span>
                   Support fellow professionals
                 </li>
               </ul>
