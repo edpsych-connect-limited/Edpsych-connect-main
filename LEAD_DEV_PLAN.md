@@ -96,6 +96,7 @@ Progress log:
 - 2026-01-18: Logged accessibility audit notes for training flows and course tabs.
 - 2026-01-18: Added evidence telemetry for marketplace booking payment intents and confirmations.
 - 2026-01-18: Expanded tracing plan to include training workflows.
+- 2026-01-18: Added dialog and status semantics to course player celebration and merit animation.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

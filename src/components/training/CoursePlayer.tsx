@@ -430,7 +430,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Merit Animation */}
       {showMeritAnimation && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 animate-bounce">
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 animate-bounce" role="status" aria-live="polite">
           <div className="bg-yellow-400 text-yellow-900 px-8 py-6 rounded-2xl shadow-2xl border-4 border-yellow-500 text-center">
             <div className="text-5xl font-bold mb-2">+{meritAmount} 🏆</div>
             <div className="text-xl font-semibold">MERITS EARNED!</div>
@@ -441,9 +441,9 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
       {/* Course Completion Celebration */}
       {showCompletionCelebration && (
         <div className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center">
-          <div className="bg-white rounded-3xl p-12 max-w-2xl text-center animate-pulse">
+          <div className="bg-white rounded-3xl p-12 max-w-2xl text-center animate-pulse" role="dialog" aria-modal="true" aria-labelledby="course-complete-title" aria-describedby="course-complete-summary">
             <div className="text-8xl mb-6">🎓🎉🏆</div>
-            <h1 className="text-5xl font-bold text-blue-600 mb-4">COURSE COMPLETE!</h1>
+            <h1 id="course-complete-title" className="text-5xl font-bold text-blue-600 mb-4">COURSE COMPLETE!</h1>
             <p className="text-2xl text-gray-700 mb-6">You&apos;ve mastered {course.title}</p>
             <div className="bg-yellow-100 border-4 border-yellow-400 rounded-xl p-6 mb-6">
               <div className="text-4xl font-bold text-yellow-700">+100 BONUS MERITS! 🏆</div>
