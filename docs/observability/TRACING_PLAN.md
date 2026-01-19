@@ -9,6 +9,7 @@ This document defines the tracing scope for critical workflows.
 - Cases: create, list, detail
 - EHCP: create, module save, export, evidence pack
 - Reports: generate, export
+- Interventions: generate, track
 - Marketplace: search, booking creation, payment intent
 - AI review: submit, approve, reject
 - Training: enrollment, completion, payment intent
