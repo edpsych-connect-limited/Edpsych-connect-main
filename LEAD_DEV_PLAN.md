@@ -7,7 +7,7 @@ of context and to provide a clear execution checklist.
 Status key: [ ] pending, [~] in progress, [x] done
 
 Owner: Codex (Project Lead) + Scott (Sponsor)
-Last updated: 2026-01-18
+Last updated: 2026-01-19
 
 -----------------------------------------------------------------------------
 1) Navigation + Role-Based Journeys
@@ -207,3 +207,11 @@ Progress log:
 [x] Test plan: unit, integration, E2E on critical journeys
 [x] Accessibility and performance sign-off checklist
 [ ] Enterprise launch readiness sign-off
+
+-----------------------------------------------------------------------------
+Outstanding Focus (Next)
+-----------------------------------------------------------------------------
+[ ] Complete contrast/typography validation for core journeys (WCAG AA pass)
+[~] Finish performance tracing coverage for remaining slow APIs/pages
+[~] Continue telemetry expansion for remaining top workflows (AI, marketplace, dashboards)
+[ ] Enterprise launch readiness sign-off completion
