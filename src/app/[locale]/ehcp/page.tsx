@@ -88,6 +88,15 @@ export default function EHCPListPage() {
   // Bulk selection state
   const [selectedEHCPs, setSelectedEHCPs] = useState<Set<string>>(new Set());
   const [isExporting, setIsExporting] = useState(false);
+  const statusCounts = ehcps.reduce(
+    (acc, ehcp) => {
+      const status = ehcp.plan_details?.status || 'draft';
+      acc.total += 1;
+      acc[status] = (acc[status] || 0) + 1;
+      return acc;
+    },
+    { total: 0 } as Record<string, number>
+  );
 
   const trackEHCPUsage = (action: string, data?: Record<string, any>) => {
     if (!hasAnalyticsConsent()) return;
@@ -326,6 +335,30 @@ export default function EHCPListPage() {
             >
               Start request
             </Link>
+          </div>
+        </div>
+        <div className="mb-6 rounded-lg border border-gray-200 bg-white px-4 py-4 shadow-sm">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold text-gray-900">Decision Support</p>
+              <p className="text-sm text-gray-500">
+                Prioritize issued and under-review plans, then move drafts forward.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3 text-sm">
+              <span className="rounded-full border border-gray-200 px-3 py-1 text-gray-700">
+                Total: {statusCounts.total}
+              </span>
+              <span className="rounded-full border border-green-200 bg-green-50 px-3 py-1 text-green-700">
+                Issued: {statusCounts.issued || 0}
+              </span>
+              <span className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-blue-700">
+                Under review: {statusCounts.under_review || 0}
+              </span>
+              <span className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-gray-700">
+                Drafts: {statusCounts.draft || 0}
+              </span>
+            </div>
           </div>
         </div>
         {/* Filters */}
