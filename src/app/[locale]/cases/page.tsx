@@ -118,6 +118,7 @@ export default function CasesPage() {
     urgent: cases.filter((c) => c.priority === 'urgent').length,
     ehcps: cases.filter((c) => c.ehcp).length,
   };
+  const casesNeedingInterventions = cases.filter((c) => (c.active_interventions || 0) === 0).length;
 
   if (loading) {
     return (
@@ -145,6 +146,27 @@ export default function CasesPage() {
             >
               New case
             </Link>
+          </div>
+        </div>
+        <div className="mb-6 rounded-lg border border-gray-200 bg-white px-4 py-4 shadow-sm">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold text-gray-900">Decision Support</p>
+              <p className="text-sm text-gray-500">
+                Triage urgent cases first, then assign interventions where none exist.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3 text-sm">
+              <span className="rounded-full border border-gray-200 px-3 py-1 text-gray-700">
+                Urgent: {stats.urgent}
+              </span>
+              <span className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-amber-700">
+                Needs intervention: {casesNeedingInterventions}
+              </span>
+              <span className="rounded-full border border-green-200 bg-green-50 px-3 py-1 text-green-700">
+                Active cases: {stats.active}
+              </span>
+            </div>
           </div>
         </div>
         {/* Header */}
