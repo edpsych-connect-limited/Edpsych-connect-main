@@ -353,7 +353,7 @@ export default function ComplianceRiskPage() {
                             <div>
                               <p className="font-medium text-gray-900">{alert.message}</p>
                               <p className="text-sm text-gray-500 mt-1">
-                                {alert.ehcp?.student_id || `EHCP-${alert.ehcp_id}`} • {alert.alert_type.replace(/_/g, ' ')}
+                                {alert.ehcp?.student_id || `EHCP-${alert.ehcp_id}`} - {alert.alert_type.replace(/_/g, ' ')}
                               </p>
                             </div>
                             <div className="text-right">

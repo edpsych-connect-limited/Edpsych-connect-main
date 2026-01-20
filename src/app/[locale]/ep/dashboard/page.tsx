@@ -134,7 +134,7 @@ export default function EPDashboard() {
                     </div>
                   </div>
                   <Link href="/assessments/123/report" className="text-sm font-bold text-amber-700 hover:underline">
-                    Continue Draft →
+                    Continue Draft &gt;
                   </Link>
                 </div>
               </div>
@@ -193,7 +193,7 @@ export default function EPDashboard() {
                   </div>
                 ))}
                 <Link href="/assessments/library" className="block text-center text-sm font-bold text-indigo-600 hover:text-indigo-700 mt-2">
-                  View Full Library →
+                  View Full Library &gt;
                 </Link>
               </div>
             </div>

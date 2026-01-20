@@ -183,7 +183,7 @@ export default function ProgressPage() {
           <div className="space-y-6">
             {cases.length === 0 ? (
               <div className="bg-white rounded-lg shadow-md p-12 text-center">
-                <div className="text-gray-400 text-6xl mb-4">📊</div>
+                <div className="text-gray-400 text-6xl mb-4">Insights</div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">No Cases Found</h3>
                 <p className="text-gray-600 mb-6">
                   Create a case to start tracking progress
@@ -219,7 +219,7 @@ export default function ProgressPage() {
 
         {viewMode === 'single' && !selectedCaseId && (
           <div className="bg-white rounded-lg shadow-md p-12 text-center">
-            <div className="text-gray-400 text-6xl mb-4">👆</div>
+            <div className="text-gray-400 text-6xl mb-4">Tip</div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">Select a Case</h3>
             <p className="text-gray-600">
               Choose a case from the dropdown above to view detailed progress

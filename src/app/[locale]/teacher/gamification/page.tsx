@@ -10,7 +10,7 @@ export default function TeacherGamificationPage() {
       <div className="max-w-6xl mx-auto">
         <header className="mb-8 flex items-center justify-between">
           <div>
-            <Link href="/demo" className="text-indigo-400 hover:text-indigo-300 text-sm mb-4 inline-block">← Back to Dashboard</Link>
+            <Link href="/demo" className="text-indigo-400 hover:text-indigo-300 text-sm mb-4 inline-block">&lt; Back to Dashboard</Link>
             <h1 className="text-3xl font-bold flex items-center gap-3">
               <Gamepad2 className="w-8 h-8 text-purple-500" />
               Gamification Control Centre
@@ -51,7 +51,7 @@ export default function TeacherGamificationPage() {
                     ))}
                     <div className="w-8 h-8 rounded-full bg-slate-800 border-2 border-slate-900 flex items-center justify-center text-xs text-slate-400">+20</div>
                   </div>
-                  <button className="text-purple-400 hover:text-purple-300 font-medium text-sm">Open Monitor →</button>
+                  <button className="text-purple-400 hover:text-purple-300 font-medium text-sm">Open Monitor &gt;</button>
                 </div>
               </div>
             </section>

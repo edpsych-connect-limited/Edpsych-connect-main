@@ -54,7 +54,7 @@ export default function LADashboardPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="text-4xl mb-4">🔒</div>
+          <div className="text-4xl mb-4">Secure</div>
           <p className="text-gray-600">Redirecting to login...</p>
         </div>
       </div>
@@ -66,7 +66,7 @@ export default function LADashboardPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="text-4xl mb-4">🚫</div>
+          <div className="text-4xl mb-4">Blocked</div>
           <p className="text-gray-600">Checking authorization...</p>
         </div>
       </div>

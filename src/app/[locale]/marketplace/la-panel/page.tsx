@@ -242,7 +242,7 @@ export default function LAAPanelPage() {
                       <div className="flex justify-between items-start mb-4">
                         <div>
                           <h4 className="text-lg font-bold text-gray-900">{c.student}</h4>
-                          <p className="text-sm text-gray-500">{c.id} • {c.school}</p>
+                          <p className="text-sm text-gray-500">{c.id} - {c.school}</p>
                         </div>
                         <div className={`px-3 py-1 rounded-full text-sm font-bold ${
                           c.risk === 'high' ? 'bg-red-100 text-red-800' :

@@ -192,10 +192,10 @@ export default function CaseDetailClient({ id }: CaseDetailClientProps) {
   };
 
   const priorityIcons = {
-    low: '🟢',
-    medium: '🟡',
-    high: '🟠',
-    urgent: '🚨',
+    low: 'Green',
+    medium: 'Yellow',
+    high: 'Amber',
+    urgent: 'Alert',
   };
 
   const age = Math.floor(
@@ -238,9 +238,9 @@ export default function CaseDetailClient({ id }: CaseDetailClientProps) {
               <h1 className="text-3xl font-bold text-gray-900 mb-2">{caseDetail.student_name}</h1>
               <div className="flex items-center space-x-4 text-gray-600">
                 <span>
-                  {caseDetail.year_group} • {age} years old
+                  {caseDetail.year_group} - {age} years old
                 </span>
-                <span>•</span>
+                <span>-</span>
                 <span>{caseDetail.school}</span>
               </div>
             </div>
@@ -282,12 +282,12 @@ export default function CaseDetailClient({ id }: CaseDetailClientProps) {
             )}
             {caseDetail.consent_obtained && (
               <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
-                ✓ Consent
+                 Consent
               </span>
             )}
             {caseDetail.safeguarding_concerns && (
               <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
-                ⚠️ Safeguarding
+                Warning Safeguarding
               </span>
             )}
           </div>
@@ -532,7 +532,7 @@ function OverviewTab({ caseDetail }: { caseDetail: CaseDetail }) {
 function InterventionsTab({ caseId, router }: { caseId: number; router: any }) {
   return (
     <div className="text-center py-12">
-      <div className="text-gray-400 text-6xl mb-4">🎯</div>
+      <div className="text-gray-400 text-6xl mb-4">Target</div>
       <h3 className="text-xl font-semibold text-gray-900 mb-2">No Interventions Yet</h3>
       <p className="text-gray-600 mb-6">
         Start tracking progress by creating your first intervention for this case
@@ -555,7 +555,7 @@ function NotesTab({ notes, onAddNote }: { notes: Note[]; onAddNote: () => void }
   if (notes.length === 0) {
     return (
       <div className="text-center py-12">
-        <div className="text-gray-400 text-6xl mb-4">📝</div>
+        <div className="text-gray-400 text-6xl mb-4">Notes</div>
         <h3 className="text-xl font-semibold text-gray-900 mb-2">No Case Notes</h3>
         <p className="text-gray-600 mb-6">Case notes will appear here</p>
         <button 

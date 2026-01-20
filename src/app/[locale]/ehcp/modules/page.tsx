@@ -264,7 +264,7 @@ export default function EHCPModulesHub() {
                       />
                     </div>
                     <span className="text-sm text-gray-400 group-hover:text-blue-500 transition">
-                      →
+                      &gt;
                     </span>
                   </div>
                   <h3 className="mt-4 text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition">

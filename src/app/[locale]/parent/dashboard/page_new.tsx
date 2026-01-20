@@ -248,7 +248,7 @@ export default function ParentDashboard() {
                     <div className="flex items-start justify-between mb-2">
                       <div>
                         <h3 className="font-bold text-slate-900">{lesson.title}</h3>
-                        <p className="text-sm text-slate-500">{lesson.subject} • {new Date(lesson.completedDate || '').toLocaleDateString()}</p>
+                        <p className="text-sm text-slate-500">{lesson.subject} - {new Date(lesson.completedDate || '').toLocaleDateString()}</p>
                       </div>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                         lesson.successLevel === 'excellent' ? 'bg-green-100 text-green-700' :

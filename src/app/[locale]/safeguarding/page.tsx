@@ -36,7 +36,7 @@ function SafeguardingDashboardContent() {
               <div>
                 <h1 className="text-2xl font-bold text-white">Safeguarding Dashboard</h1>
                 <p className="text-red-100 mt-1">
-                  KCSIE 2023 Compliant • Restricted Access
+                  KCSIE 2023 Compliant - Restricted Access
                 </p>
               </div>
             </div>

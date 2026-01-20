@@ -152,7 +152,7 @@ export default function ForgotPasswordPage() {
         </div>
         
         <div className="mt-6 text-center text-xs text-gray-500">
-          <p>© 2025 EdPsych Connect Limited. All rights reserved.</p>
+          <p>(c) 2025 EdPsych Connect Limited. All rights reserved.</p>
         </div>
       </div>
     </div>

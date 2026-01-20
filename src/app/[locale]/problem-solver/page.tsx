@@ -223,7 +223,7 @@ export default function ProblemSolverPage() {
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\n\n/g, '</p><p>')
       .replace(/\n- /g, '</p><li>')
-      .replace(/\n• /g, '</p><li>')
+      .replace(/\n- /g, '</p><li>')
       .replace(/\n\d+\. /g, '</p><li>');
   };
 

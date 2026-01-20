@@ -160,7 +160,7 @@ function SENCODashboardContent() {
                 icon={Users}
                 label="Total SEND Students"
                 value={totalStudents}
-                subtext={`${ehcpCount} EHCP • ${senSupportCount} SEN Support`}
+                subtext={`${ehcpCount} EHCP - ${senSupportCount} SEN Support`}
                 color="blue"
               />
               <MetricCard

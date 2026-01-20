@@ -242,9 +242,9 @@ export default function ResourceCostingPage() {
             <div>
               <h3 className="font-semibold text-amber-900">UK EHCP Funding Elements</h3>
               <p className="text-sm text-amber-700 mt-1">
-                Element 1 (Core): £4,000 per pupil AWPU | 
-                Element 2 (Additional Support): Up to £6,000 | 
-                Element 3 (Top-Up): Variable based on need. Top-up funding is provided by the LA for costs above the £10,000 threshold.
+                Element 1 (Core): GBP 4,000 per pupil AWPU | 
+                Element 2 (Additional Support): Up to GBP 6,000 | 
+                Element 3 (Top-Up): Variable based on need. Top-up funding is provided by the LA for costs above the GBP 10,000 threshold.
               </p>
             </div>
           </div>

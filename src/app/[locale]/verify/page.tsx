@@ -83,7 +83,7 @@ export default function VerifyPage() {
               />
               <Button onClick={handleVerify} disabled={loading || !code.trim()}>
                 {loading ? (
-                  <span className="animate-spin">⏳</span>
+                  <span className="animate-spin">Pending</span>
                 ) : (
                   <Search className="w-4 h-4" />
                 )}

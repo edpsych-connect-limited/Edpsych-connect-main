@@ -173,7 +173,7 @@ export default async function PublicProfilePage({ params }: Props) {
                      <span>{formatDate(exp.start_date)} - {exp.is_current ? 'Present' : formatDate(exp.end_date)}</span>
                      {exp.location && (
                        <>
-                         <span>•</span>
+                         <span>-</span>
                          <span>{exp.location}</span>
                        </>
                      )}

@@ -137,7 +137,7 @@ export default async function ProfilePage({ searchParams }: { searchParams: { id
                </div>
                <div className="flex items-center gap-2 text-sm text-foreground/80 mt-1">
                  <span className="font-medium">{exp.company}</span>
-                 <span>•</span>
+                 <span>-</span>
                  <span className="text-muted-foreground">{exp.location}</span>
                </div>
                <p className="text-xs text-muted-foreground mt-1">

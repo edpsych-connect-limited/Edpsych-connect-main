@@ -83,7 +83,7 @@ const mockTransitions: TransitionPlan[] = [
 
 const transitionTypes = {
   year6: {
-    label: 'Year 6 → Year 7',
+    label: 'Year 6 &gt; Year 7',
     description: 'Primary to Secondary transition',
     icon: School,
     color: 'text-blue-600',

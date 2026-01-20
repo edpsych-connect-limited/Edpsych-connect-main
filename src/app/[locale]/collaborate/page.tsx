@@ -277,11 +277,11 @@ function CollaborationHubContent() {
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="font-semibold text-gray-900 dark:text-white">{meeting.type}</span>
-                        <span className="text-gray-500 dark:text-gray-400">•</span>
+                        <span className="text-gray-500 dark:text-gray-400">-</span>
                         <span className="text-gray-600 dark:text-gray-300">{meeting.student}</span>
                       </div>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {meeting.date} at {meeting.time} • {meeting.attendees} attendees
+                        {meeting.date} at {meeting.time} - {meeting.attendees} attendees
                       </p>
                     </div>
                   </div>
@@ -402,7 +402,7 @@ function AgencyRow({ agency }: { agency: Agency }) {
                 </span>
               )}
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-300">{agency.contact} • {agency.email}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">{agency.contact} - {agency.email}</p>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Last activity: {agency.lastActivity}</p>
           </div>
         </div>

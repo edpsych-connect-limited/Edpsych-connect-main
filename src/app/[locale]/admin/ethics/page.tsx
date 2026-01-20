@@ -520,7 +520,7 @@ export default function EthicsAdminPage() {
                           )}
                         </div>
                         <div className="text-xs text-gray-500">
-                          {review.createdAt ? new Date(review.createdAt).toLocaleString() : '—'}
+                          {review.createdAt ? new Date(review.createdAt).toLocaleString() : '-'}
                         </div>
                       </div>
                     </div>

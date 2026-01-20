@@ -203,7 +203,7 @@ function CheckoutForm({ planId, billingPeriod }: CheckoutClientProps) {
               <div className="bg-gray-50 rounded-lg p-4">
                 <div className="flex justify-between mb-2">
                   <span className="font-medium text-gray-900">{plan.name}</span>
-                  <span className="font-bold text-gray-900">£{priceDisplay}</span>
+                  <span className="font-bold text-gray-900">GBP {priceDisplay}</span>
                 </div>
                 <p className="text-sm text-gray-500 mb-4">{plan.description}</p>
                 <div className="text-sm text-gray-600">
@@ -253,7 +253,7 @@ function CheckoutForm({ planId, billingPeriod }: CheckoutClientProps) {
                 >
                   {processing 
                     ? 'Processing...' 
-                    : (plan.trial_days && plan.trial_days > 0 ? `Start ${plan.trial_days}-Day Free Trial` : `Pay £${priceDisplay}`)
+                    : (plan.trial_days && plan.trial_days > 0 ? `Start ${plan.trial_days}-Day Free Trial` : `Pay GBP ${priceDisplay}`)
                   }
                 </button>
                 

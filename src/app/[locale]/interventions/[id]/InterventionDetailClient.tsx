@@ -132,10 +132,10 @@ export default function InterventionDetailClient({ id }: InterventionDetailClien
   };
 
   const statusIcons = {
-    planned: '📅',
-    active: '🟢',
-    completed: '✅',
-    discontinued: '⏸️',
+    planned: 'Date',
+    active: 'Active',
+    completed: '',
+    discontinued: 'Paused',
   };
 
   const daysUntilReview = Math.ceil(
@@ -182,7 +182,7 @@ export default function InterventionDetailClient({ id }: InterventionDetailClien
                   onClick={() => updateStatus('active')}
                   className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
                 >
-                  🟢 Start Intervention
+                  Active Start Intervention
                 </button>
               )}
               {intervention.status === 'active' && (
@@ -191,13 +191,13 @@ export default function InterventionDetailClient({ id }: InterventionDetailClien
                     onClick={() => updateStatus('completed')}
                     className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
                   >
-                    ✅ Mark as Completed
+                     Mark as Completed
                   </button>
                   <button
                     onClick={() => updateStatus('discontinued')}
                     className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
                   >
-                    ⏸️ Discontinue
+                    Paused Discontinue
                   </button>
                 </>
               )}
@@ -372,7 +372,7 @@ function OverviewTab({ intervention }: { intervention: Intervention }) {
                 <ul className="space-y-1">
                   {metadata.staff_involved.map((staff: string, index: number) => (
                     <li key={index} className="text-gray-900 text-sm">
-                      • {staff}
+                      - {staff}
                     </li>
                   ))}
                 </ul>
@@ -384,7 +384,7 @@ function OverviewTab({ intervention }: { intervention: Intervention }) {
                 <ul className="space-y-1">
                   {metadata.materials_needed.map((material: string, index: number) => (
                     <li key={index} className="text-gray-900 text-sm">
-                      • {material}
+                      - {material}
                     </li>
                   ))}
                 </ul>

@@ -193,7 +193,7 @@ export default function PhaseTransfersPage() {
                 <School className="h-5 w-5 text-blue-600" />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Primary → Secondary</p>
+                <p className="text-sm text-gray-500">Primary &gt; Secondary</p>
                 <p className="text-2xl font-bold text-gray-900">
                   {transfers.filter(t => t.current_phase === 'primary' && t.target_phase === 'secondary').length}
                 </p>
