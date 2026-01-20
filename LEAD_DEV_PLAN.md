@@ -212,6 +212,7 @@ Progress log:
 - 2026-01-20: Added decision support panel to privacy policy page.
 - 2026-01-20: Added decision support panel to terms of service page.
 - 2026-01-20: Polished landing hero and crisis section punctuation and corrected GBP currency display.
+- 2026-01-20: Refined landing ecosystem headline punctuation and normalized crisis currency label.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

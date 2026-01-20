@@ -77,7 +77,7 @@ export default function UnifiedEcosystem() {
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-5xl font-bold text-white mb-6"
           >
-            One Platform. <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Infinite Connections.</span>
+            One Platform, <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Infinite Connections</span>
           </motion.h2>
           
           <motion.p
