@@ -7,7 +7,7 @@ of context and to provide a clear execution checklist.
 Status key: [ ] pending, [~] in progress, [x] done
 
 Owner: Codex (Project Lead) + Scott (Sponsor)
-Last updated: 2026-01-19
+Last updated: 2026-01-20
 
 -----------------------------------------------------------------------------
 1) Navigation + Role-Based Journeys
@@ -176,6 +176,7 @@ Progress log:
 - 2026-01-19: Added decision support panel to marketplace professional dashboard.
 - 2026-01-19: Added decision support panel to wellbeing survey dashboard.
 - 2026-01-19: Added decision support panel to certificate verification page.
+- 2026-01-20: Added decision support panel to transitions planning page.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
