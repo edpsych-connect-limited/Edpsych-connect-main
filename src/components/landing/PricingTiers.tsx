@@ -39,9 +39,9 @@ export default function PricingTiers({ pricingData = [] }: PricingTiersProps) {
   };
 
   // December 2025 Pricing - aligned with subscription/plans.ts
-  const individualPrice = getPrice('INDIVIDUAL_EP', '£79', '/month');
-  const schoolPrice = getPrice('SCHOOL_STANDARD', '£299', '/month');
-  const enterprisePrice = getPrice('LA_ESSENTIALS', '£2,999', '/month');
+  const individualPrice = getPrice('INDIVIDUAL_EP', 'GBP 79', '/month');
+  const schoolPrice = getPrice('SCHOOL_STANDARD', 'GBP 299', '/month');
+  const enterprisePrice = getPrice('LA_ESSENTIALS', 'GBP 2,999', '/month');
 
   const tiers = [
     {
