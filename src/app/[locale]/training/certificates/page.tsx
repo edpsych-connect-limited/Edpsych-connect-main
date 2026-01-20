@@ -139,6 +139,20 @@ export default function CertificatesPage() {
             View and download your professional development certificates
           </p>
         </div>
+        <div className="mb-8 rounded-lg border border-blue-100 bg-blue-50 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-blue-900">Decision Support</p>
+              <p className="text-sm text-blue-800">
+                Prioritize certificates needed for compliance, then download or share the
+                verification link for evidence.
+              </p>
+            </div>
+            <div className="text-xs text-blue-700">
+              Focus: compliance, download, verification.
+            </div>
+          </div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg shadow-lg p-6">

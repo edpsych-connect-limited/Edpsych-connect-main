@@ -184,6 +184,7 @@ Progress log:
 - 2026-01-20: Added decision support panel to training course detail page.
 - 2026-01-20: Added decision support panel to training dashboard page.
 - 2026-01-20: Added decision support panel to training marketplace page.
+- 2026-01-20: Added decision support panel to training certificates page.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
