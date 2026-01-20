@@ -207,6 +207,7 @@ Progress log:
 - 2026-01-20: Added decision support panel to research ethics submission page.
 - 2026-01-20: Added decision support panel to professional networking page.
 - 2026-01-20: Added decision support panel to institutional management page.
+- 2026-01-20: Added decision support panel to the help centre landing page.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
