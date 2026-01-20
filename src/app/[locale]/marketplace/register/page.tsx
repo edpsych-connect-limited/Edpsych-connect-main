@@ -90,6 +90,19 @@ export default function ProfessionalRegistrationPage() {
           <h1 className="text-3xl font-bold text-gray-900">Join the Professional Network</h1>
           <p className="mt-2 text-gray-600">Start accepting bookings and grow your practice</p>
         </div>
+        <div className="mb-8 rounded-lg border border-blue-100 bg-blue-50 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-blue-900">Decision Support</p>
+              <p className="text-sm text-blue-800">
+                Complete profile basics, then confirm compliance evidence before submitting.
+              </p>
+            </div>
+            <div className="text-xs text-blue-700">
+              Focus: profile, compliance, submit.
+            </div>
+          </div>
+        </div>
 
         {/* Progress Steps */}
         <div className="mb-8">

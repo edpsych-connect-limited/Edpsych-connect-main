@@ -191,6 +191,7 @@ Progress log:
 - 2026-01-20: Added decision support panel to EHCP creation page.
 - 2026-01-20: Added decision support panel to intervention creation page.
 - 2026-01-20: Added decision support panel to marketplace booking request page.
+- 2026-01-20: Added decision support panel to marketplace registration page.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
