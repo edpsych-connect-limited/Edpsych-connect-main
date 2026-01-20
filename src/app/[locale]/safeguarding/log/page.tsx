@@ -29,6 +29,20 @@ export default function SafeguardingLogPage() {
             </div>
           </div>
         </div>
+        <div className="mb-8 rounded-xl border border-red-900/40 bg-red-950/30 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-red-100">Decision Support</p>
+              <p className="text-sm text-red-200/80">
+                Record the immediate risk level and actions taken. Complete category and details before
+                submitting, and escalate urgent concerns via the safeguarding lead.
+              </p>
+            </div>
+            <div className="text-xs text-red-200/70">
+              Focus: risk, actions, escalation.
+            </div>
+          </div>
+        </div>
 
         <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
           <h2 className="text-xl font-semibold mb-6">New Incident Report</h2>

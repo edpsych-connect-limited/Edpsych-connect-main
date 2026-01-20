@@ -170,6 +170,7 @@ Progress log:
 - 2026-01-19: Added decision support panel to multi-agency collaboration hub.
 - 2026-01-19: Added decision support panel to behaviour tracker.
 - 2026-01-19: Added decision support panel to intervention scheduler.
+- 2026-01-19: Added decision support panel to safeguarding log.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
