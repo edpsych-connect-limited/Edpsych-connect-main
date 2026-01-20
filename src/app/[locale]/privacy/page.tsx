@@ -227,10 +227,10 @@ export default function PrivacyPolicyPage() {
         {/* Related Links */}
         <div className="mt-8 flex justify-center gap-6 text-sm">
           <Link href="/terms" className="text-indigo-600 hover:text-indigo-700 font-medium">
-            Terms of Service →
+            Terms of Service &gt;
           </Link>
           <Link href="/" className="text-indigo-600 hover:text-indigo-700 font-medium">
-            Back to Home →
+            Back to Home &gt;
           </Link>
         </div>
       </div>

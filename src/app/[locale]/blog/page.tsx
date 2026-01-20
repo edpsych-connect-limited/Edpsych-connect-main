@@ -393,7 +393,7 @@ function BlogPageContent() {
                           </span>
                           {post.is_featured && (
                             <span className="px-3 py-1 bg-yellow-100 text-yellow-800 text-sm font-medium rounded-full">
-                              ⭐ Featured
+                               Featured
                             </span>
                           )}
                         </div>
@@ -406,16 +406,16 @@ function BlogPageContent() {
 
                         <div className="flex items-center gap-4 text-sm text-gray-500">
                           <span>By {post.author_name}</span>
-                          <span>•</span>
+                          <span>-</span>
                           <span>{formatDate(post.published_at)}</span>
                           {post.reading_time && (
                             <>
-                              <span>•</span>
+                              <span>-</span>
                               <span>{post.reading_time} min read</span>
                             </>
                           )}
-                          <span>•</span>
-                          <span>👁️ {post.views} views</span>
+                          <span>-</span>
+                          <span>Views {post.views} views</span>
                         </div>
 
                         {post.tags.length > 0 && (

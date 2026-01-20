@@ -93,7 +93,7 @@ export default function ResetPasswordPage() {
             <CheckCircle2 className="w-8 h-8 text-green-600" />
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Password updated</h2>
-          <p className="text-gray-600 mb-6">Your password has been reset. Redirecting you to login…</p>
+          <p className="text-gray-600 mb-6">Your password has been reset. Redirecting you to login...</p>
           <Link
             href={loginHref}
             className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
@@ -190,7 +190,7 @@ export default function ResetPasswordPage() {
               {isSubmitting ? (
                 <>
                   <Loader2 className="animate-spin -ml-1 mr-2 h-5 w-5" />
-                  Updating Password…
+                  Updating Password...
                 </>
               ) : (
                 'Update Password'
@@ -200,7 +200,7 @@ export default function ResetPasswordPage() {
         </div>
 
         <div className="mt-6 text-center text-xs text-gray-500">
-          <p>© 2025 EdPsych Connect Limited. All rights reserved.</p>
+          <p>(c) 2025 EdPsych Connect Limited. All rights reserved.</p>
         </div>
       </div>
     </div>

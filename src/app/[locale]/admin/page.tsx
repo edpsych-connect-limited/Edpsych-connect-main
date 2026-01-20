@@ -53,7 +53,7 @@ function AdminErrorFallback({ error }: { error: Error }) {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
       <div className="max-w-md text-center">
-        <div className="text-6xl mb-4">⚠️</div>
+        <div className="text-6xl mb-4">Warning</div>
         <h2 className="text-2xl font-bold text-gray-900 mb-2">Something Went Wrong</h2>
         <p className="text-gray-600 mb-4">
           The admin interface failed to load. Please try refreshing the page.
@@ -100,26 +100,26 @@ export default function AdminPage() {
   const { user, isLoading, hasRole } = useAuth();
   const router = useRouter();
 
-  // ✅ CRITICAL: Handle redirects in useEffect, NOT during render
+  // Success CRITICAL: Handle redirects in useEffect, NOT during render
   useEffect(() => {
     // Wait for loading to complete
     if (isLoading) return;
 
     // Redirect to login if not authenticated
     if (!user) {
-      logger.debug('❌ No user found, redirecting to login');
+      logger.debug(' No user found, redirecting to login');
       router.push('/login');
       return;
     }
 
     // Check for admin role
     if (!hasRole('admin')) {
-      logger.debug('❌ User lacks admin role, redirecting to home');
+      logger.debug(' User lacks admin role, redirecting to home');
       router.push('/');
       return;
     }
 
-    logger.debug('✅ User authenticated and authorized for admin');
+    logger.debug('Success User authenticated and authorized for admin');
   }, [user, isLoading, hasRole, router]);
 
   // Show loading state while checking authentication
@@ -132,7 +132,7 @@ export default function AdminPage() {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="text-center">
-          <div className="text-4xl mb-4">🔒</div>
+          <div className="text-4xl mb-4">Secure</div>
           <p className="text-gray-600">Redirecting to login...</p>
         </div>
       </div>
@@ -144,7 +144,7 @@ export default function AdminPage() {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="max-w-md text-center">
-          <div className="text-6xl mb-4">🚫</div>
+          <div className="text-6xl mb-4">Blocked</div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Access Denied</h1>
           <p className="text-gray-600 mb-4">
             You don&apos;t have permission to access the administrative dashboard.
@@ -162,7 +162,7 @@ export default function AdminPage() {
     );
   }
 
-  // ✅ User is authenticated and authorized - render admin interface
+  // Success User is authenticated and authorized - render admin interface
   return (
     <ErrorBoundary fallback={(error) => <AdminErrorFallback error={error} />}>
       <main className="min-h-screen bg-gray-50">

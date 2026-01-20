@@ -103,7 +103,7 @@ export default function TeachersPageClient({ demoTeacherId, demoClassId }: Teach
                 <div className="space-y-4">
                   <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-bold">✓</div>
+                      <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-bold">Checked</div>
                       <div>
                         <div className="font-bold text-slate-900">Interventions</div>
                         <div className="text-xs text-slate-500">12 Active Plans</div>
@@ -113,7 +113,7 @@ export default function TeachersPageClient({ demoTeacherId, demoClassId }: Teach
                   </div>
                   <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">⚡</div>
+                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">Fast</div>
                       <div>
                         <div className="font-bold text-slate-900">Assessments</div>
                         <div className="text-xs text-slate-500">3 Pending Review</div>
@@ -123,7 +123,7 @@ export default function TeachersPageClient({ demoTeacherId, demoClassId }: Teach
                   </div>
                   <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 font-bold">🤖</div>
+                      <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 font-bold">AI</div>
                       <div>
                         <div className="font-bold text-slate-900">AI Assistant</div>
                         <div className="text-xs text-slate-500">Report Generated</div>
@@ -149,17 +149,17 @@ export default function TeachersPageClient({ demoTeacherId, demoClassId }: Teach
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                icon: "📝",
+                icon: "Notes",
                 title: "Instant Reports",
                 desc: "Generate comprehensive EHCP drafts and progress reports in minutes, not hours."
               },
               {
-                icon: "🎯",
+                icon: "Target",
                 title: "Targeted Interventions",
                 desc: "Get AI-recommended strategies based on specific student needs and assessment data."
               },
               {
-                icon: "📈",
+                icon: "Progress",
                 title: "Data Tracking",
                 desc: "Visualize student progress over time to prove impact and adjust support."
               }

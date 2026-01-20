@@ -118,14 +118,14 @@ export default function BlogPostPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <div className="text-center max-w-md">
-          <div className="text-5xl mb-4">📝</div>
+          <div className="text-5xl mb-4">Note</div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">{error || 'Post not found'}</h2>
           <p className="text-gray-600 mb-6">The blog post you&apos;re looking for doesn&apos;t exist or has been removed.</p>
           <button
             onClick={() => router.push('/blog')}
             className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium"
           >
-            ← Back to Blog
+            &lt; Back to Blog
           </button>
         </div>
       </div>
@@ -175,7 +175,7 @@ export default function BlogPostPage() {
               </span>
               {post.is_featured && (
                 <span className="px-3 py-1 bg-yellow-100 text-yellow-800 text-sm font-medium rounded-full">
-                  ⭐ Featured
+                   Featured
                 </span>
               )}
             </div>
@@ -192,16 +192,16 @@ export default function BlogPostPage() {
                   {post.author_bio && <p className="text-xs text-gray-500">{post.author_bio}</p>}
                 </div>
               </div>
-              <span>•</span>
+              <span>-</span>
               <span>{formatDate(post.published_at)}</span>
               {post.reading_time && (
                 <>
-                  <span>•</span>
+                  <span>-</span>
                   <span>{post.reading_time} min read</span>
                 </>
               )}
-              <span>•</span>
-              <span>👁️ {post.views} views</span>
+              <span>-</span>
+              <span>Views {post.views} views</span>
             </div>
 
             {post.tags.length > 0 && (
@@ -407,7 +407,7 @@ export default function BlogPostPage() {
                     <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">{relatedPost.title}</h3>
                     <p className="text-sm text-gray-600 line-clamp-2">{relatedPost.excerpt}</p>
                     <div className="mt-4 text-sm text-blue-600">
-                      Read more →
+                      Read more &gt;
                     </div>
                   </div>
                 </button>

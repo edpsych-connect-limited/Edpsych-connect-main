@@ -190,7 +190,7 @@ function ProvisionMappingContent() {
               <span className="text-xs text-green-600 font-medium">Within Budget</span>
             </div>
             <p className="text-2xl font-bold text-gray-900 dark:text-white mt-4">
-              £{totalBudget.toLocaleString()}
+              GBP {totalBudget.toLocaleString()}
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-400">Total Provision Cost</p>
           </div>
@@ -253,7 +253,7 @@ function ProvisionMappingContent() {
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-gray-600 dark:text-gray-300">{provisions.length} provisions</span>
                     <span className="text-gray-600 dark:text-gray-300">{students} students</span>
-                    <span className="font-medium text-gray-900 dark:text-white">£{waveTotals[wave].toLocaleString()}</span>
+                    <span className="font-medium text-gray-900 dark:text-white">GBP {waveTotals[wave].toLocaleString()}</span>
                   </div>
                 </button>
               );
@@ -324,7 +324,7 @@ function ProvisionRow({ provision }: { provision: Provision }) {
             </div>
             <div className="flex items-center gap-1 text-gray-500 dark:text-gray-400">
               <DollarSign className="w-4 h-4" />
-              £{provision.cost.toLocaleString()}/year
+              GBP {provision.cost.toLocaleString()}/year
             </div>
             <div className="flex items-center gap-1">
               <Target className="w-4 h-4 text-indigo-500" />

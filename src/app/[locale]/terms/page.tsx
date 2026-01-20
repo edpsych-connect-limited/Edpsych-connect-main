@@ -77,8 +77,8 @@ export default function TermsOfServicePage() {
 
             <h3>3.1 Subscription Tiers</h3>
             <ul>
-              <li><strong>Individual Educational Psychologist:</strong> £30/month or £300/year</li>
-              <li><strong>School:</strong> £99/month or £990/year</li>
+              <li><strong>Individual Educational Psychologist:</strong> GBP 30/month or GBP 300/year</li>
+              <li><strong>School:</strong> GBP 99/month or GBP 990/year</li>
               <li><strong>Local Authority:</strong> Custom pricing</li>
               <li><strong>Research:</strong> Custom pricing</li>
             </ul>
@@ -349,10 +349,10 @@ export default function TermsOfServicePage() {
         {/* Related Links */}
         <div className="mt-8 flex justify-center gap-6 text-sm">
           <Link href="/privacy" className="text-indigo-600 hover:text-indigo-700 font-medium">
-            Privacy Policy →
+            Privacy Policy &gt;
           </Link>
           <Link href="/" className="text-indigo-600 hover:text-indigo-700 font-medium">
-            Back to Home →
+            Back to Home &gt;
           </Link>
         </div>
       </div>

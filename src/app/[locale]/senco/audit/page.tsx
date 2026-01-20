@@ -9,7 +9,7 @@ export default function SencoAuditPage() {
     <div className="min-h-screen bg-slate-950 text-white p-8">
       <div className="max-w-4xl mx-auto">
         <header className="mb-8">
-          <Link href="/demo" className="text-indigo-400 hover:text-indigo-300 text-sm mb-4 inline-block">← Back to Demo</Link>
+          <Link href="/demo" className="text-indigo-400 hover:text-indigo-300 text-sm mb-4 inline-block">&lt; Back to Demo</Link>
           <h1 className="text-3xl font-bold flex items-center gap-3">
             <ClipboardCheck className="w-8 h-8 text-emerald-500" />
             SENCO Classroom Audit
@@ -26,11 +26,11 @@ export default function SencoAuditPage() {
             <div className="space-y-3">
               <div className="p-3 bg-slate-800/50 rounded-lg border-l-4 border-amber-500">
                 <h3 className="font-medium">Year 4 - Room 12</h3>
-                <p className="text-sm text-slate-400">Sensory processing focus • In Progress</p>
+                <p className="text-sm text-slate-400">Sensory processing focus - In Progress</p>
               </div>
               <div className="p-3 bg-slate-800/50 rounded-lg border-l-4 border-emerald-500">
                 <h3 className="font-medium">Year 2 - Room 5</h3>
-                <p className="text-sm text-slate-400">Visual support check • Completed</p>
+                <p className="text-sm text-slate-400">Visual support check - Completed</p>
               </div>
             </div>
           </div>

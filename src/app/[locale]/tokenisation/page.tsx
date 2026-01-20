@@ -282,7 +282,7 @@ export default function TokenisationPage() {
                             : 'text-blue-400'
                       }`}
                     >
-                      {transaction.type === 'earn' ? '+' : transaction.type === 'spend' ? '-' : '→'}
+                      {transaction.type === 'earn' ? '+' : transaction.type === 'spend' ? '-' : '&gt;'}
                       ${Math.abs(transaction.amount).toFixed(2)}
                     </div>
                   </div>
@@ -298,7 +298,7 @@ export default function TokenisationPage() {
             {/* Exchange Options */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-slate-800 border border-slate-700 rounded-lg p-8 hover:border-blue-500 transition-colors cursor-pointer">
-                <div className="text-2xl font-bold mb-4 text-blue-400">💳 Redeem for Credits</div>
+                <div className="text-2xl font-bold mb-4 text-blue-400">Card Redeem for Credits</div>
                 <p className="text-slate-300 mb-6">Convert your earned tokens into platform credits</p>
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between">
@@ -316,7 +316,7 @@ export default function TokenisationPage() {
               </div>
 
               <div className="bg-slate-800 border border-slate-700 rounded-lg p-8 hover:border-purple-500 transition-colors cursor-pointer">
-                <div className="text-2xl font-bold mb-4 text-purple-400">🎁 Transfer to Friend</div>
+                <div className="text-2xl font-bold mb-4 text-purple-400">Rewards Transfer to Friend</div>
                 <p className="text-slate-300 mb-6">Share your tokens with other platform users</p>
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between">
@@ -334,7 +334,7 @@ export default function TokenisationPage() {
               </div>
 
               <div className="bg-slate-800 border border-slate-700 rounded-lg p-8 hover:border-green-500 transition-colors cursor-pointer">
-                <div className="text-2xl font-bold mb-4 text-green-400">📚 Premium Features</div>
+                <div className="text-2xl font-bold mb-4 text-green-400">Library Premium Features</div>
                 <p className="text-slate-300 mb-6">Unlock premium content and advanced features</p>
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between">
@@ -352,7 +352,7 @@ export default function TokenisationPage() {
               </div>
 
               <div className="bg-slate-800 border border-slate-700 rounded-lg p-8 hover:border-amber-500 transition-colors cursor-pointer">
-                <div className="text-2xl font-bold mb-4 text-amber-400">🏆 Upgrade Tier</div>
+                <div className="text-2xl font-bold mb-4 text-amber-400">Awards Upgrade Tier</div>
                 <p className="text-slate-300 mb-6">Use tokens to upgrade your subscription plan</p>
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between">
