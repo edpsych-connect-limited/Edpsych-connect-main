@@ -16,6 +16,20 @@ export default function InterventionSchedulePage() {
           </h1>
           <p className="text-slate-400 mt-2">Schedule and manage targeted support sessions.</p>
         </header>
+        <div className="mb-8 rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-white">Decision Support</p>
+              <p className="text-sm text-slate-400">
+                Confirm staffing and student availability before adding sessions. Prioritize groups with
+                upcoming reviews or missed attendance.
+              </p>
+            </div>
+            <div className="text-xs text-slate-500">
+              Focus: availability, reviews, attendance.
+            </div>
+          </div>
+        </div>
 
         <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
           <div className="flex items-center justify-between mb-6">
