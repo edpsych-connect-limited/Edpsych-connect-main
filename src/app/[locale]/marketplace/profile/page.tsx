@@ -58,19 +58,33 @@ export default async function ProfilePage({ searchParams }: { searchParams: { id
                 ? 'Manage your experience, skills, and validated claims.' 
                 : 'View professional experience, qualifications, and areas of expertise.'}
             </p>
+       </div>
+       {isOwner ? (
+          <Link href={`/marketplace/profile?id=${targetUserId}`}>
+            <Button variant="outline">View Public Profile</Button>
+          </Link>
+        ) : (
+          <Link href={`/marketplace/book/${targetUserId}`}>
+            <Button size="lg" className="gap-2">
+              <Calendar className="w-4 h-4" />
+              Book Consultation
+            </Button>
+          </Link>
+        )}
+       </div>
+       <div className="rounded-lg border border-blue-100 bg-blue-50 p-4">
+         <div className="flex flex-wrap items-start justify-between gap-3">
+           <div>
+             <p className="text-sm font-semibold text-blue-900">Decision Support</p>
+             <p className="text-sm text-blue-800">
+               Keep experience and skills current to improve visibility. Prioritize verified skills
+               and complete profiles for faster booking decisions.
+             </p>
+           </div>
+           <div className="text-xs text-blue-700">
+             Focus: verified skills, updated experience.
+           </div>
          </div>
-         {isOwner ? (
-            <Link href={`/marketplace/profile?id=${targetUserId}`}>
-              <Button variant="outline">View Public Profile</Button>
-            </Link>
-         ) : (
-            <Link href={`/marketplace/book/${targetUserId}`}>
-              <Button size="lg" className="gap-2">
-                <Calendar className="w-4 h-4" />
-                Book Consultation
-              </Button>
-            </Link>
-         )}
        </div>
 
        {/* Profile Header */}
