@@ -77,6 +77,13 @@ export default function DemoPage() {
           <p className="text-lg text-slate-400 max-w-3xl mx-auto">
             Pick a guided path or ask the assistant directly. This demo is structured to show outcomes fast, with zero guesswork.
           </p>
+          <div className="mt-6 rounded-lg border border-indigo-500/40 bg-indigo-500/10 px-4 py-3 text-sm text-indigo-100">
+            <p className="font-semibold text-indigo-200">AI Demo Notice</p>
+            <p>
+              Outputs are illustrative. Validate recommendations against evidence and policy before
+              applying in live settings.
+            </p>
+          </div>
           <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
             <span className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 text-emerald-400 rounded-full text-sm font-medium">
               <span className="w-2 h-2 bg-emerald-500 rounded-full" />
