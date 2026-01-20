@@ -27,6 +27,19 @@ export default function GDPRPage() {
           </div>
 
           <div className="p-8 md:p-12 space-y-12">
+            <div className="rounded-lg border border-indigo-100 bg-indigo-50 p-4">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p className="text-sm font-semibold text-indigo-900">Decision Support</p>
+                  <p className="text-sm text-indigo-800">
+                    Review your data rights, then contact the DPO if you need access or changes.
+                  </p>
+                </div>
+                <div className="text-xs text-indigo-700">
+                  Focus: rights, access, contact.
+                </div>
+              </div>
+            </div>
             <section>
               <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                 <Lock className="w-6 h-6 text-indigo-600" />
