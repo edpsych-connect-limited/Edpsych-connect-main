@@ -190,6 +190,19 @@ function CheckoutForm({ planId, billingPeriod }: CheckoutClientProps) {
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8 rounded-lg border border-blue-100 bg-blue-50 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-blue-900">Decision Support</p>
+              <p className="text-sm text-blue-800">
+                Confirm the plan and billing cadence, then enter payment details to complete the upgrade.
+              </p>
+            </div>
+            <div className="text-xs text-blue-700">
+              Focus: plan, billing, payment.
+            </div>
+          </div>
+        </div>
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="px-6 py-8 border-b border-gray-200">
             <h1 className="text-2xl font-bold text-gray-900">Complete Your Upgrade</h1>
