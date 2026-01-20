@@ -209,6 +209,7 @@ Progress log:
 - 2026-01-20: Added decision support panel to institutional management page.
 - 2026-01-20: Added decision support panel to the help centre landing page.
 - 2026-01-20: Added decision support panel to GDPR guidance page.
+- 2026-01-20: Added decision support panel to privacy policy page.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
