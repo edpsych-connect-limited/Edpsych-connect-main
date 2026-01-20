@@ -20,7 +20,7 @@ Status key: [ ] pending, [x] done
 - [ ] Rollback plan tested
 
 ## Security
-- [ ] Secret scanning clean
+- [x] Secret scanning clean (CI `security:scan` passes)
 - [ ] Dependency audit complete
 - [ ] Privacy and data retention reviewed
 
@@ -40,3 +40,8 @@ Status key: [ ] pending, [x] done
 - [ ] Terms and privacy links verified in production
 - [ ] Pricing and billing flows validated
 - [ ] Customer communications approved
+
+## Evidence References
+- Accessibility checklist: `docs/accessibility/AUDIT_CHECKLIST.md`
+- Tracing coverage: `docs/observability/TRACING_PLAN.md`
+- Telemetry coverage: `docs/observability/TELEMETRY_PLAN.md`
