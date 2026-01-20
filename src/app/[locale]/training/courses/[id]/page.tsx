@@ -312,6 +312,22 @@ export default function CourseDetailPage() {
         </div>
       </div>
 
+      <div className="bg-blue-50 border-b border-blue-100">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-blue-900">Decision Support</p>
+              <p className="text-sm text-blue-800">
+                Review the outcomes and CPD hours, then enroll and start the curriculum when ready.
+              </p>
+            </div>
+            <div className="text-xs text-blue-700">
+              Focus: outcomes, CPD hours, enroll.
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
