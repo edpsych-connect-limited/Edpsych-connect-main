@@ -532,7 +532,7 @@ export default function AboutPage() {
             Terms of Service &gt;
           </Link>
           <Link href="/" className="text-indigo-600 hover:text-indigo-700 font-medium">
-            Back to Home ->
+            Back to Home &gt;
           </Link>
         </div>
       </div>

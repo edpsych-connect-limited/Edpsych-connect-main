@@ -153,6 +153,7 @@ Progress log:
 - 2026-01-19: Normalized about page punctuation to ASCII-safe separators.
 - 2026-01-19: Normalized contact page call-to-action arrow to ASCII-safe text.
 - 2026-01-19: Escaped CTA arrows in about/contact and pricing back-link for JSX safety.
+- 2026-01-19: Escaped remaining "Back to Home" CTA arrows for about/contact build fix.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
