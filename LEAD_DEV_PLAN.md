@@ -200,6 +200,7 @@ Progress log:
 - 2026-01-20: Added AI demo notice to the interactive demo landing page.
 - 2026-01-20: Added AI translation notice to the demo translator experience.
 - 2026-01-20: Added AI sandbox notice to the assessment demo.
+- 2026-01-20: Added AI sandbox notice to the EHCP demo.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
