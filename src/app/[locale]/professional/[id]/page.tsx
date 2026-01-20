@@ -122,6 +122,21 @@ export default async function PublicProfilePage({ params }: Props) {
          </CardContent>
        </Card>
 
+       <div className="rounded-lg border border-blue-100 bg-blue-50 p-4">
+         <div className="flex flex-wrap items-start justify-between gap-3">
+           <div>
+             <p className="text-sm font-semibold text-blue-900">Decision Support</p>
+             <p className="text-sm text-blue-800">
+               Review verified skills and recent experience first. Use recommendations to validate fit
+               before requesting a consultation.
+             </p>
+           </div>
+           <div className="text-xs text-blue-700">
+             Focus: verified skills, experience, recommendations.
+           </div>
+         </div>
+       </div>
+
        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
          
          {/* Left Column: Stats or Summary (Future Phase) -> currently Skills */}
