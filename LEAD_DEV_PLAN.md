@@ -189,6 +189,7 @@ Progress log:
 - 2026-01-20: Added decision support panel to assessment creation page.
 - 2026-01-20: Added decision support panel to case creation page.
 - 2026-01-20: Added decision support panel to EHCP creation page.
+- 2026-01-20: Added decision support panel to intervention creation page.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

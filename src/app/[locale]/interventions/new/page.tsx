@@ -143,6 +143,19 @@ function NewInterventionContent() {
         </div>
 
         {/* Designer */}
+        <div className="mb-6 rounded-lg border border-blue-100 bg-blue-50 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-blue-900">Decision Support</p>
+              <p className="text-sm text-blue-800">
+                Start with baseline needs, align SMART goals, then confirm measures before saving.
+              </p>
+            </div>
+            <div className="text-xs text-blue-700">
+              Focus: baseline, goals, measures.
+            </div>
+          </div>
+        </div>
         <InterventionDesigner
           caseId={caseId || 0}
           tenantId={tenantId}
