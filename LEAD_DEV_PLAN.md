@@ -193,6 +193,7 @@ Progress log:
 - 2026-01-20: Added decision support panel to marketplace booking request page.
 - 2026-01-20: Added decision support panel to marketplace registration page.
 - 2026-01-20: Added decision support panel to subscription checkout page.
+- 2026-01-20: Added decision support panel to provision mapping page.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

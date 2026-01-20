@@ -180,6 +180,19 @@ function ProvisionMappingContent() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-8 rounded-lg border border-blue-100 bg-blue-50 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-blue-900">Decision Support</p>
+              <p className="text-sm text-blue-800">
+                Review wave coverage, confirm cost impact, then prioritize provisions needing review.
+              </p>
+            </div>
+            <div className="text-xs text-blue-700">
+              Focus: wave coverage, cost, review.
+            </div>
+          </div>
+        </div>
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
