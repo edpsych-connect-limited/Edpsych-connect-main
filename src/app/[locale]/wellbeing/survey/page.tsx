@@ -16,6 +16,20 @@ export default function WellbeingSurveyPage() {
           </h1>
           <p className="text-slate-400 mt-2">Monitor staff and student wellbeing trends.</p>
         </header>
+        <div className="mb-8 rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-white">Decision Support</p>
+              <p className="text-sm text-slate-400">
+                Review shifts in morale or anxiety first, then launch a targeted survey. Favor short
+                check-ins when response rate is high.
+              </p>
+            </div>
+            <div className="text-xs text-slate-500">
+              Focus: trends, survey selection, engagement.
+            </div>
+          </div>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-6 mb-8">
           <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
