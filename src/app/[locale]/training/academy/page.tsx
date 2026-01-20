@@ -150,6 +150,23 @@ export default function MasterclassTrainingAcademy() {
         </div>
       </div>
 
+      <div className="bg-blue-50 border-b border-blue-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-blue-900">Decision Support</p>
+              <p className="text-sm text-blue-800">
+                Filter by category and level, then open a course to confirm outcomes and CPD hours
+                before enrolling.
+              </p>
+            </div>
+            <div className="text-xs text-blue-700">
+              Focus: filter, outcomes, enroll.
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Search and Filters */}
       <div className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
