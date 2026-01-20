@@ -202,6 +202,20 @@ export default function SubscriptionManagementPage() {
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Subscription & Billing</h1>
           <p className="text-gray-600">Manage your subscription and usage</p>
         </div>
+        <div className="mb-6 rounded-lg border border-blue-100 bg-blue-50 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-blue-900">Decision Support</p>
+              <p className="text-sm text-blue-800">
+                Review usage against plan limits before upgrading. Use Manage Billing for invoices and
+                payment updates. Cancel only after confirming a migration or renewal plan.
+              </p>
+            </div>
+            <div className="text-xs text-blue-700">
+              Current plan: <span className="font-semibold">{plan.name}</span>
+            </div>
+          </div>
+        </div>
 
         {/* Trial Alert */}
         {inTrial && (
