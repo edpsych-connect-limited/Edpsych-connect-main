@@ -149,6 +149,7 @@ Progress log:
 - 2026-01-19: Normalized subscription management copy and card masking to ASCII-safe content.
 - 2026-01-19: Normalized forum category icons and separators to ASCII-safe labels.
 - 2026-01-19: Normalized careers salary and benefit copy to ASCII-safe currency formatting.
+- 2026-01-19: Normalized help article view copy and feedback labels to ASCII-safe text.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

@@ -82,14 +82,14 @@ export default function HelpArticlePage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <div className="text-center max-w-md">
-          <div className="text-5xl mb-4">📄</div>
+          <div className="text-5xl mb-4"></div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">{error || 'Article not found'}</h2>
-          <p className="text-gray-600 mb-6">The article you’re looking for doesn’t exist or has been removed.</p>
+          <p className="text-gray-600 mb-6">The article you're looking for doesn't exist or has been removed.</p>
           <button
             onClick={() => router.push('/help')}
             className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium"
           >
-            ← Back to Help Centre
+             Back to Help Centre
           </button>
         </div>
       </div>
@@ -136,7 +136,7 @@ export default function HelpArticlePage() {
               </span>
               {article.is_featured && (
                 <span className="px-3 py-1 bg-yellow-100 text-yellow-800 text-sm font-medium rounded-full">
-                  ⭐ Featured
+                   Featured
                 </span>
               )}
             </div>
@@ -145,9 +145,9 @@ export default function HelpArticlePage() {
 
             <div className="flex items-center gap-4 text-sm text-gray-500">
               {article.author && <span>By {article.author}</span>}
-              <span>•</span>
-              <span>👁️ {article.views} views</span>
-              <span>•</span>
+              <span></span>
+              <span> {article.views} views</span>
+              <span></span>
               <span>Updated {new Date(article.updated_at).toLocaleDateString()}</span>
             </div>
           </div>
@@ -184,13 +184,13 @@ export default function HelpArticlePage() {
                     onClick={() => handleFeedback(true)}
                     className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 font-medium"
                   >
-                    👍 Yes
+                     Yes
                   </button>
                   <button
                     onClick={() => handleFeedback(false)}
                     className="px-6 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 font-medium"
                   >
-                    👎 No
+                     No
                   </button>
                 </div>
               </div>
@@ -212,7 +212,7 @@ export default function HelpArticlePage() {
                   <h3 className="font-semibold text-gray-900 mb-2">{relatedArticle.title}</h3>
                   <p className="text-sm text-gray-600 line-clamp-2">{relatedArticle.excerpt}</p>
                   <div className="mt-4 text-sm text-blue-600">
-                    Read more →
+                    Read more 
                   </div>
                 </button>
               ))}
