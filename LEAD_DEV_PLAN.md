@@ -216,6 +216,8 @@ Progress log:
 - 2026-01-20: Normalized landing pricing defaults to GBP labels for front-of-house polish.
 - 2026-01-20: Logged palette contrast checks and typography review in accessibility audit checklist.
 - 2026-01-20: Updated tracing and telemetry plans with coverage status across core workflows.
+- 2026-01-20: Completed decision-support layout coverage across dense pages.
+- 2026-01-20: Standardized AI guidance microcopy across AI-powered workflows and demos.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -277,10 +279,10 @@ Progress log:
 -----------------------------------------------------------------------------
 6) Content, Language, and Product Clarity
 -----------------------------------------------------------------------------
-[~] Simplify dense pages into decision-support layouts
+[x] Simplify dense pages into decision-support layouts
     - Reduce "wall of text" sections
 
-[~] Add consistent microcopy for AI features and sensitive workflows
+[x] Add consistent microcopy for AI features and sensitive workflows
 
 [~] Standardize error and empty states
     - error display with retry now in assessments, cases, EHCP, interventions
@@ -297,6 +299,4 @@ Progress log:
 -----------------------------------------------------------------------------
 Outstanding Focus (Next)
 -----------------------------------------------------------------------------
-[ ] Simplify dense pages into decision-support layouts
-[ ] Add consistent microcopy for AI features and sensitive workflows
 [ ] Enterprise launch readiness sign-off completion
