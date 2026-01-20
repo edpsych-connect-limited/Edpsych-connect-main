@@ -41,6 +41,11 @@ export default function TokenisationPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'rewards' | 'treasury' | 'exchange'>('rewards');
+  const decisionSupportCopy = {
+    rewards: 'Review pending rewards first, then prioritize the categories driving the highest progress.',
+    treasury: 'Check available funds before reallocating budgets or approving new allocations.',
+    exchange: 'Redeem tokens for immediate impact or transfer to support urgent collaboration needs.',
+  };
 
   // Redirect if not authenticated
   if (!authLoading && !user) {
@@ -147,6 +152,17 @@ export default function TokenisationPage() {
           >
             Exchange & Redeem
           </button>
+        </div>
+        <div className="mb-6 rounded-lg border border-slate-700 bg-slate-800/70 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-slate-100">Decision Support</p>
+              <p className="text-sm text-slate-300">{decisionSupportCopy[activeTab]}</p>
+            </div>
+            <div className="text-xs text-slate-400">
+              Active view: <span className="text-slate-200">{activeTab}</span>
+            </div>
+          </div>
         </div>
 
         {/* Rewards Tab */}

@@ -156,6 +156,7 @@ Progress log:
 - 2026-01-19: Escaped remaining "Back to Home" CTA arrows for about/contact build fix.
 - 2026-01-19: Normalized terms, privacy, blog, teachers, tokenisation, provision, reset-password, SENCO audit, and admin copy to ASCII-safe text.
 - 2026-01-19: Normalized remaining locale pages (dashboards, EHCP modules, safeguarding, and marketplace) to ASCII-safe text.
+- 2026-01-19: Added decision support panel to tokenisation page to reduce dense scanning.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
