@@ -171,6 +171,20 @@ export default function InterventionDetailClient({ id }: InterventionDetailClien
             </span>
           </div>
         </div>
+        <div className="mb-6 rounded-lg border border-blue-100 bg-blue-50 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-blue-900">Decision Support</p>
+              <p className="text-sm text-blue-800">
+                Confirm status updates before recording progress data. If a review is due soon, capture
+                evidence of impact and update fidelity notes first.
+              </p>
+            </div>
+            <div className="text-xs text-blue-700">
+              Focus: status, evidence, fidelity.
+            </div>
+          </div>
+        </div>
 
         {/* Status Update Actions */}
         {intervention.status !== 'completed' && intervention.status !== 'discontinued' && (
