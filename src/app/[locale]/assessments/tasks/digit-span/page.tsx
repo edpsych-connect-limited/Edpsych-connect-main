@@ -52,6 +52,13 @@ export default function DigitSpanPage() {
             <p className="text-slate-500">ECCA Framework &gt; Domain 1: Working Memory</p>
           </div>
         </div>
+        <div className="rounded-lg border border-amber-100 bg-amber-50 p-4 text-sm text-amber-800">
+          <p className="font-semibold text-amber-900">AI Orchestration Notice</p>
+          <p>
+            AI assists with scoring and profile updates. Review results alongside professional judgement
+            before finalizing decisions.
+          </p>
+        </div>
 
         <div className="grid gap-8">
           {isComplete ? (
