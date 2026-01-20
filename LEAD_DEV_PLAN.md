@@ -195,6 +195,7 @@ Progress log:
 - 2026-01-20: Added decision support panel to subscription checkout page.
 - 2026-01-20: Added decision support panel to provision mapping page.
 - 2026-01-20: Added AI guidance microcopy to the AI agents experience.
+- 2026-01-20: Added AI governance microcopy to the algorithm marketplace.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
