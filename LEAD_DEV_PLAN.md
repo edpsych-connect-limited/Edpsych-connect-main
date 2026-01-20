@@ -177,6 +177,7 @@ Progress log:
 - 2026-01-19: Added decision support panel to wellbeing survey dashboard.
 - 2026-01-19: Added decision support panel to certificate verification page.
 - 2026-01-20: Added decision support panel to transitions planning page.
+- 2026-01-20: Added decision support panel to assessment detail view.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
