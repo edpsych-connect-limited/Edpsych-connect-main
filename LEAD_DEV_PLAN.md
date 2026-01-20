@@ -150,6 +150,7 @@ Progress log:
 - 2026-01-19: Normalized forum category icons and separators to ASCII-safe labels.
 - 2026-01-19: Normalized careers salary and benefit copy to ASCII-safe currency formatting.
 - 2026-01-19: Normalized help article view copy and feedback labels to ASCII-safe text.
+- 2026-01-19: Normalized about page punctuation to ASCII-safe separators.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

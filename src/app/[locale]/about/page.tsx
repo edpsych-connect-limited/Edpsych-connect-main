@@ -51,7 +51,7 @@ const teamMembers: TeamMember[] = [
     role: 'Founder & Developer',
     image: '/images/dr-scott-landing.jpg',
     credentials: 'DEdPsych CPsychol | HCPC: PYL042340',
-    bio: 'Dr Scott founded and developed EdPsych Connect after a distinguished career in educational psychology. Following his First Class Honours in Psychology from Buckinghamshire New University, he trained at the University of Southampton where his doctoral research explored children\'s experiences of school sanctions through restorative justice. As Senior Educational Psychologist at Buckinghamshire Council, he conceived and named TEAM-UP (Termly Early Action Multi-Agency Unified Planning)—a pioneering early intervention initiative that was developed and implemented through collaborative multi-agency effort with the Head of Children\'s Services and partners. He resigned in 2023 to focus full-time on EdPsych Connect, combining his clinical expertise with self-taught software development skills.',
+    bio: 'Dr Scott founded and developed EdPsych Connect after a distinguished career in educational psychology. Following his First Class Honours in Psychology from Buckinghamshire New University, he trained at the University of Southampton where his doctoral research explored children\'s experiences of school sanctions through restorative justice. As Senior Educational Psychologist at Buckinghamshire Council, he conceived and named TEAM-UP (Termly Early Action Multi-Agency Unified Planning)-a pioneering early intervention initiative that was developed and implemented through collaborative multi-agency effort with the Head of Children\'s Services and partners. He resigned in 2023 to focus full-time on EdPsych Connect, combining his clinical expertise with self-taught software development skills.',
     isFounder: true,
     imagePosition: 'center top',
   },
@@ -523,16 +523,16 @@ export default function AboutPage() {
       <div className="py-8 bg-white border-t border-slate-200">
         <div className="max-w-6xl mx-auto px-6 flex flex-wrap justify-center gap-6 text-sm">
           <Link href="/contact" className="text-indigo-600 hover:text-indigo-700 font-medium">
-            Contact Us →
+            Contact Us ->
           </Link>
           <Link href="/privacy" className="text-indigo-600 hover:text-indigo-700 font-medium">
-            Privacy Policy →
+            Privacy Policy ->
           </Link>
           <Link href="/terms" className="text-indigo-600 hover:text-indigo-700 font-medium">
-            Terms of Service →
+            Terms of Service ->
           </Link>
           <Link href="/" className="text-indigo-600 hover:text-indigo-700 font-medium">
-            Back to Home →
+            Back to Home ->
           </Link>
         </div>
       </div>
