@@ -138,7 +138,7 @@ export default function AddonSubscriptionPage() {
             onClick={() => router.push('/pricing')}
             className="text-indigo-600 hover:text-indigo-800 font-medium"
           >
-            <- Back to Pricing
+            &lt; Back to Pricing
           </button>
         </div>
       </div>

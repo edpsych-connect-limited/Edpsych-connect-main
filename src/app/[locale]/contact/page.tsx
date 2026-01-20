@@ -512,13 +512,13 @@ export default function ContactPage() {
       <div className="py-8 bg-white border-t border-slate-200">
         <div className="max-w-6xl mx-auto px-6 flex flex-wrap justify-center gap-6 text-sm">
           <Link href="/about" className="text-indigo-600 hover:text-indigo-700 font-medium">
-            About Us ->
+            About Us &gt;
           </Link>
           <Link href="/privacy" className="text-indigo-600 hover:text-indigo-700 font-medium">
-            Privacy Policy ->
+            Privacy Policy &gt;
           </Link>
           <Link href="/terms" className="text-indigo-600 hover:text-indigo-700 font-medium">
-            Terms of Service ->
+            Terms of Service &gt;
           </Link>
           <Link href="/" className="text-indigo-600 hover:text-indigo-700 font-medium">
             Back to Home ->
