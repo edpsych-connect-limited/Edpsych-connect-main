@@ -30,4 +30,12 @@ This checklist captures the WCAG 2.1 AA audit process and verification steps.
 - 2026-01-18: Training flows updated with aria-live loading states and alert semantics; verify in screen reader pass.
 - 2026-01-18: Course detail tabs include explicit tab IDs; confirm focus order matches visual layout.
 - 2026-01-18: Course player animations now respect prefers-reduced-motion.
-- 2026-01-19: Contrast and typography validation pending for core journeys; schedule manual tooling pass (WCAG AA checks).
+- 2026-01-20: Palette contrast spot checks (Tailwind defaults) for core UI colors met WCAG AA for text.
+  - slate-400 on slate-950: 7.87
+  - slate-300 on slate-950: 13.59
+  - white on slate-900: 17.85
+  - indigo-400 on slate-950: 6.76
+  - emerald-400 on slate-950: 10.49
+  - amber-400 on slate-950: 12.08
+  - teal-400 on slate-950: 10.84
+  - Typography scale reviewed for headings/body across landing and dashboard shells.

@@ -30,3 +30,13 @@ This document defines product telemetry beyond AI features.
 - Completion rate by workflow
 - Drop-off heatmap by step
 - Median time to completion
+
+## Coverage Status (2026-01-20)
+- Assessments: entry points, creation, submission, report upload
+- Cases: create, list, detail, update, close
+- EHCP: list, create, update, export, evidence pack
+- Interventions: generate, list, detail, discontinue, tracking
+- Marketplace: search, booking flow events
+- Training: catalogue view, course view, enrollment, checkout, completion
+- Reports: draft save, generate, list
+- Authentication: login, refresh, logout

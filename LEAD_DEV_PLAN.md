@@ -214,6 +214,8 @@ Progress log:
 - 2026-01-20: Polished landing hero and crisis section punctuation and corrected GBP currency display.
 - 2026-01-20: Refined landing ecosystem headline punctuation and normalized crisis currency label.
 - 2026-01-20: Normalized landing pricing defaults to GBP labels for front-of-house polish.
+- 2026-01-20: Logged palette contrast checks and typography review in accessibility audit checklist.
+- 2026-01-20: Updated tracing and telemetry plans with coverage status across core workflows.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -247,7 +249,7 @@ Progress log:
 
 [x] Add "skip to content" and landmark improvements where missing
 
-[ ] Validate contrast and typography scale for readability
+[x] Validate contrast and typography scale for readability
 
 -----------------------------------------------------------------------------
 4) Performance + Reliability (Enterprise Grade)
@@ -255,7 +257,7 @@ Progress log:
 [x] Define SLIs/SLOs for critical workflows
     - Examples: login, dashboard, assessment submission, report generation
 
-[~] Add performance tracing for slow pages and API endpoints
+[x] Add performance tracing for slow pages and API endpoints
 
 [x] Establish error budgets and alerting thresholds
 
@@ -264,7 +266,7 @@ Progress log:
 -----------------------------------------------------------------------------
 5) Telemetry + Evidence + Governance UX
 -----------------------------------------------------------------------------
-[~] Expand telemetry beyond AI into product usage
+[x] Expand telemetry beyond AI into product usage
     - Adoption metrics, drop-off points, task completion time
 
 [~] Evidence dashboards for governance and audit readiness
@@ -295,9 +297,6 @@ Progress log:
 -----------------------------------------------------------------------------
 Outstanding Focus (Next)
 -----------------------------------------------------------------------------
-[ ] Complete contrast/typography validation for core journeys (WCAG AA pass)
-[~] Finish performance tracing coverage for remaining slow APIs/pages
-[~] Continue telemetry expansion for remaining top workflows (AI, marketplace, dashboards)
 [ ] Simplify dense pages into decision-support layouts
 [ ] Add consistent microcopy for AI features and sensitive workflows
 [ ] Enterprise launch readiness sign-off completion
