@@ -198,6 +198,7 @@ Progress log:
 - 2026-01-20: Added AI governance microcopy to the algorithm marketplace.
 - 2026-01-20: Added AI orchestration notice to the digit-span assessment task.
 - 2026-01-20: Added AI demo notice to the interactive demo landing page.
+- 2026-01-20: Added AI translation notice to the demo translator experience.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
