@@ -134,6 +134,23 @@ export default function TrainingMarketplace() {
         </div>
       </div>
 
+      <div className="bg-blue-50 border-b border-blue-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-blue-900">Decision Support</p>
+              <p className="text-sm text-blue-800">
+                Filter by featured courses or bundles, then compare CPD hours and outcomes
+                before purchasing.
+              </p>
+            </div>
+            <div className="text-xs text-blue-700">
+              Focus: filters, CPD hours, purchase.
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Filters */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
