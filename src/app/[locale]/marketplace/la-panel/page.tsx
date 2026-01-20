@@ -125,6 +125,20 @@ export default function LAAPanelPage() {
             </button>
           </div>
         </div>
+        <div className="mb-6 rounded-lg border border-blue-100 bg-blue-50 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-blue-900">Decision Support</p>
+              <p className="text-sm text-blue-800">
+                Start with pending panel applications, then review timeline risks and QA status before
+                exporting reports.
+              </p>
+            </div>
+            <div className="text-xs text-blue-700">
+              Focus: applications, timelines, QA.
+            </div>
+          </div>
+        </div>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">

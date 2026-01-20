@@ -165,6 +165,7 @@ Progress log:
 - 2026-01-19: Added decision support panel to EHCP detail view.
 - 2026-01-19: Added decision support panel to LA dashboard.
 - 2026-01-19: Added decision support panel to marketplace profile view.
+- 2026-01-19: Added decision support panel to LA panel dashboard.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
