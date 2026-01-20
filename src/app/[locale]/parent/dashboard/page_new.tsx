@@ -189,6 +189,20 @@ export default function ParentDashboard() {
           <h1 className="text-2xl font-bold text-slate-900">Welcome back, {portalData.parentName.split(' ')[0]}</h1>
           <p className="text-slate-600">{portalData.progressSummary.overallMessage}</p>
         </div>
+        <div className="mb-8 rounded-lg border border-indigo-100 bg-indigo-50 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-indigo-900">Decision Support</p>
+              <p className="text-sm text-indigo-800">
+                Start with the current focus, then review recent lessons and try one home activity this
+                week. Message the teacher if you need help or clarity.
+              </p>
+            </div>
+            <div className="text-xs text-indigo-700">
+              Focus: current support, lessons, home practice.
+            </div>
+          </div>
+        </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Feed */}
