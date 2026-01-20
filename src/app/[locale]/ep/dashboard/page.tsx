@@ -66,6 +66,20 @@ export default function EPDashboard() {
             </Link>
           </div>
         </div>
+        <div className="mb-8 rounded-lg border border-indigo-100 bg-indigo-50 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-indigo-900">Decision Support</p>
+              <p className="text-sm text-indigo-800">
+                Prioritize reports due this week, then confirm today&apos;s visits. Use the toolkit for
+                EP-qualified assessments when planning new cases.
+              </p>
+            </div>
+            <div className="text-xs text-indigo-700">
+              Focus: reports, visits, then new assessments.
+            </div>
+          </div>
+        </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Task List */}
