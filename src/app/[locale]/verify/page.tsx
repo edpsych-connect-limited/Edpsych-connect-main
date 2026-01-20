@@ -61,6 +61,20 @@ export default function VerifyPage() {
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Training
         </Link>
+        <div className="mb-6 rounded-lg border border-blue-100 bg-blue-50 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-blue-900">Decision Support</p>
+              <p className="text-sm text-blue-800">
+                Verify certificates before sharing them externally. If the code fails, confirm the
+                exact EPSC prefix and request a reissue from the training team.
+              </p>
+            </div>
+            <div className="text-xs text-blue-700">
+              Focus: verify, confirm prefix, reissue if needed.
+            </div>
+          </div>
+        </div>
 
         <Card className="shadow-xl">
           <CardHeader className="text-center">

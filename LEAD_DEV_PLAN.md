@@ -175,6 +175,7 @@ Progress log:
 - 2026-01-19: Added decision support panel to public professional profile.
 - 2026-01-19: Added decision support panel to marketplace professional dashboard.
 - 2026-01-19: Added decision support panel to wellbeing survey dashboard.
+- 2026-01-19: Added decision support panel to certificate verification page.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
