@@ -160,6 +160,7 @@ Progress log:
 - 2026-01-19: Added decision support panel to subscription management page.
 - 2026-01-19: Added decision support panel to teacher gamification dashboard.
 - 2026-01-19: Added decision support panel to EP dashboard.
+- 2026-01-19: Added decision support panel to case detail view.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
