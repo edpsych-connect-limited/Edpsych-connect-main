@@ -221,9 +221,9 @@ export default function CrisisImpactSection() {
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            A System in <span className="text-red-500">Crisis</span>.
+            A System in <span className="text-red-500">Crisis</span>
             <br />
-            <span className="text-emerald-400">A Platform That Heals.</span>
+            <span className="text-emerald-400">A Platform That Heals</span>
           </h2>
           
           <p className="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">

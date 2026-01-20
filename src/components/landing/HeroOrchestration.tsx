@@ -40,8 +40,8 @@ export default function HeroOrchestration() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-5xl md:text-7xl font-bold tracking-tight mb-8 bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-400"
         >
-          No Child Left Behind.<br />
-          <span className="text-indigo-400">The UK's First SEND Orchestration System.</span>
+          No Child Left Behind<br />
+          <span className="text-indigo-400">The UK's First SEND Orchestration System</span>
         </motion.h1>
 
         <motion.p

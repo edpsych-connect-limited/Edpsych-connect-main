@@ -37,7 +37,7 @@ const ecosystemSteps = [
   {
     id: 'action',
     title: '3. Personalised Action',
-    description: 'The child receives bespoke support—from specific classroom strategies to gamified coding lessons that build missing skills.',
+    description: 'The child receives bespoke support, from specific classroom strategies to gamified coding lessons that build missing skills.',
     icon: Sparkles,
     color: 'amber',
     features: ['Coding Curriculum', 'Bespoke Assignments', 'Accessibility Tools']

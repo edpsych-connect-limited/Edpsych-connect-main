@@ -211,6 +211,7 @@ Progress log:
 - 2026-01-20: Added decision support panel to GDPR guidance page.
 - 2026-01-20: Added decision support panel to privacy policy page.
 - 2026-01-20: Added decision support panel to terms of service page.
+- 2026-01-20: Polished landing hero and crisis section punctuation and corrected GBP currency display.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
