@@ -209,6 +209,20 @@ export default function AddonSubscriptionPage() {
           </div>
 
           <div className="p-8">
+            <div className="mb-6 rounded-lg border border-indigo-100 bg-indigo-50 p-4">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p className="text-sm font-semibold text-indigo-900">Decision Support</p>
+                  <p className="text-sm text-indigo-800">
+                    Confirm the add-on matches your immediate needs, then compare annual savings
+                    before moving to checkout.
+                  </p>
+                </div>
+                <div className="text-xs text-indigo-700">
+                  Focus: need, savings, checkout.
+                </div>
+              </div>
+            </div>
             {/* Billing Toggle */}
             <div className="flex justify-center mb-8">
               <div className="bg-slate-100 rounded-lg p-1 inline-flex">

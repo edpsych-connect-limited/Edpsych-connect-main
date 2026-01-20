@@ -179,6 +179,7 @@ Progress log:
 - 2026-01-20: Added decision support panel to transitions planning page.
 - 2026-01-20: Added decision support panel to assessment detail view.
 - 2026-01-20: Added decision support panel to report creation page.
+- 2026-01-20: Added decision support panel to subscription add-on page.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
