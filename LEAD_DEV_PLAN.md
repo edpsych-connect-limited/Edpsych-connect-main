@@ -202,6 +202,7 @@ Progress log:
 - 2026-01-20: Added AI sandbox notice to the assessment demo.
 - 2026-01-20: Added AI sandbox notice to the EHCP demo.
 - 2026-01-20: Added AI audit notice to the onboarding demo.
+- 2026-01-20: Added decision support panel to analytics dashboard.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
