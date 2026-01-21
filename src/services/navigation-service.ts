@@ -76,7 +76,7 @@ export const STUDIO_DEFINITIONS: Record<string, StudioDefinition> = {
   'admin': {
     id: 'admin',
     title: 'Admin Studio',
-    description: 'System-wide control, compliance, and institutional administration for LA and Superadmins.',
+    description: 'Operational governance, compliance, and institutional administration for LA and platform owners.',
     videoKey: 'admin-studio-overview',
     icon: Settings,
     features: [
@@ -85,8 +85,8 @@ export const STUDIO_DEFINITIONS: Record<string, StudioDefinition> = {
       'LA Dashboard',
       'Compliance & Audits'
     ],
-    ctaLink: '/admin',
-    ctaText: 'System Administration',
+    ctaLink: '/studios/admin',
+    ctaText: 'Open Admin Studio',
     roles: ['ADMIN', 'SUPERADMIN', 'LAA', 'LOCAL_AUTHORITY']
   }
 };

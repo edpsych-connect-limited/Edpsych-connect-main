@@ -272,6 +272,7 @@ Progress log:
 - 2026-01-21: Hardened edge proxy to require SUPER_ADMIN for /admin access.
 - 2026-01-21: Updated login redirects so only SUPER_ADMIN routes to /admin.
 - 2026-01-21: Updated systematic role testing plan to include platform admin scenario.
+- 2026-01-21: Aligned admin studio CTA to non-owner landing route.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
