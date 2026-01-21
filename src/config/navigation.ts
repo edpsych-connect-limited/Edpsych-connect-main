@@ -114,7 +114,7 @@ export const NAVIGATION_CONFIG: NavGroup[] = [
     label: 'Family Studio',
     roles: ['PARENT'],
     items: [
-      { href: '/parents', label: 'Parent Portal' },
+      { href: '/parent/dashboard', label: 'Parent Dashboard' },
       { href: '/progress', label: 'Child Progress' },
     ]
   },
@@ -123,6 +123,8 @@ export const NAVIGATION_CONFIG: NavGroup[] = [
     label: 'Student Studio',
     roles: ['STUDENT'],
     items: [
+      { href: '/student', label: 'Student Dashboard' },
+      { href: '/student/lessons', label: 'My Lessons' },
       { href: '/progress', label: 'My Progress' },
       { href: '/gamification', label: 'My Learning' },
     ]

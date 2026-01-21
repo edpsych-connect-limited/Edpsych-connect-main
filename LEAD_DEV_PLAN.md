@@ -57,11 +57,11 @@ Immediate next actions:
     - School: referrals, collaboration, interventions, progress
     - Parent: child updates, portal actions, communication
 
-[~] Standardize navigation patterns across app and admin
+[x] Standardize navigation patterns across app and admin
     - Align layout, breadcrumbing, and page titles
     - Remove duplicate or deprecated routes from navigation
 
-[~] Add clear onboarding entry points and tour triggers per role
+[x] Add clear onboarding entry points and tour triggers per role
 
 Progress log:
 - 2026-01-17: Added primary workspace CTA + role-based workspace mapping on `/dashboard`.
@@ -292,6 +292,7 @@ Progress log:
 - 2026-01-21: Replaced non-ASCII trend arrows with ASCII-safe copy in institutional dashboards.
 - 2026-01-21: Post-EHCP build completed; top chunk sizes unchanged from prior reduction run.
 - 2026-01-21: Documented role journeys and success criteria in `docs/ROLE_JOURNEYS.md`.
+- 2026-01-21: Standardized navigation links for parent/student studios and added role-specific tours + onboarding checkpoint on the dashboard.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

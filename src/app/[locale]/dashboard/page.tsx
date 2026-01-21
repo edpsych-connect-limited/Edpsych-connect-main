@@ -82,6 +82,19 @@ export default function DashboardPage() {
   const visibleFeatures = showAllTools ? features : features.slice(0, 4);
   const primaryWorkspace = roleProfile.primaryWorkspace;
   const outcomes = roleProfile.outcomes;
+  const roleTourMap: Record<string, string> = {
+    'owner-admin': 'ai-reviews',
+    'platform-admin': 'ai-reviews',
+    'local-authority': 'ehcp',
+    'ep': 'assessments',
+    'school': 'interventions',
+    'teacher': 'assessments',
+    'parent': 'dashboard',
+    'student': 'dashboard',
+    'researcher': 'reports',
+  };
+  const roleTourId = roleTourMap[roleProfile.id] || 'dashboard';
+  const shouldShowOnboarding = Boolean(user.onboardingSkipped);
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -105,6 +118,13 @@ export default function DashboardPage() {
               </Link>
             )}
             <button
+              onClick={() => startTour(roleTourId)}
+              className="flex items-center gap-2 px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              <PlayCircle className="w-4 h-4" />
+              Role Tour
+            </button>
+            <button
               onClick={() => setShowAvatar(true)}
               className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm"
             >
@@ -120,6 +140,26 @@ export default function DashboardPage() {
             </button>
           </div>
         </div>
+
+        {shouldShowOnboarding && (
+          <div className="mb-8 rounded-2xl border border-amber-100 bg-amber-50 p-6 shadow-sm">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-amber-600">Onboarding Checkpoint</p>
+                <h2 className="mt-2 text-2xl font-semibold text-gray-900">Finish your role setup</h2>
+                <p className="mt-1 text-sm text-gray-600">
+                  Complete onboarding to unlock tailored guidance for {roleProfile.label}.
+                </p>
+              </div>
+              <Link
+                href="/onboarding"
+                className="inline-flex items-center gap-2 rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white hover:bg-amber-600"
+              >
+                Resume onboarding
+              </Link>
+            </div>
+          </div>
+        )}
 
         {primaryWorkspace && (
           <div className="mb-8 rounded-2xl border border-blue-100 bg-white p-6 shadow-sm">
