@@ -352,7 +352,7 @@ export default function AdminInterface() {
                 <SubscriptionManager />
               ) : (
                 <div className="text-center py-12">
-                  <div className="text-4xl mb-4">🔒</div>
+                  <div className="text-sm uppercase tracking-wider text-gray-500 mb-2">Admin only</div>
                   <p className="text-gray-600">You need admin privileges to manage subscriptions.</p>
                 </div>
               )}
@@ -366,7 +366,7 @@ export default function AdminInterface() {
                 <AdvancedAnalyticsDashboard />
               ) : (
                 <div className="text-center py-12">
-                  <div className="text-4xl mb-4">🔒</div>
+                  <div className="text-sm uppercase tracking-wider text-gray-500 mb-2">Admin only</div>
                   <p className="text-gray-600">You need admin privileges to view analytics.</p>
                 </div>
               )}
@@ -380,7 +380,7 @@ export default function AdminInterface() {
                 <Reports />
               ) : (
                 <div className="text-center py-12">
-                  <div className="text-4xl mb-4">🔒</div>
+                  <div className="text-sm uppercase tracking-wider text-gray-500 mb-2">Admin only</div>
                   <p className="text-gray-600">You need admin privileges to view reports.</p>
                 </div>
               )}
@@ -394,7 +394,7 @@ export default function AdminInterface() {
                 <AccountManagement />
               ) : (
                 <div className="text-center py-12">
-                  <div className="text-4xl mb-4">🔒</div>
+                  <div className="text-sm uppercase tracking-wider text-gray-500 mb-2">Admin only</div>
                   <p className="text-gray-600">You need admin privileges to manage accounts.</p>
                 </div>
               )}
@@ -412,7 +412,7 @@ export default function AdminInterface() {
                 </div>
               ) : (
                 <div className="text-center py-12">
-                  <div className="text-4xl mb-4">🔒</div>
+                  <div className="text-sm uppercase tracking-wider text-gray-500 mb-2">Admin only</div>
                   <p className="text-gray-600">You need admin privileges to access compliance tools.</p>
                 </div>
               )}
@@ -423,7 +423,7 @@ export default function AdminInterface() {
         {/* Debug Info (only for SUPER_ADMIN) */}
         {hasRole('super_admin') && process.env.NODE_ENV === 'development' && (
           <div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-            <h3 className="text-sm font-semibold text-yellow-800 mb-2">🐛 Debug Info (Dev Only)</h3>
+            <h3 className="text-sm font-semibold text-yellow-800 mb-2">Debug Info (Dev Only)</h3>
             <div className="text-xs text-yellow-700 space-y-1">
               <p><strong>User ID:</strong> {user.id}</p>
               <p><strong>Role:</strong> {user.role}</p>
@@ -445,6 +445,40 @@ export default function AdminInterface() {
  * Integrates GDPR, ISO 27001, SOC 2, and AI ethics audit results into a single view.
  */
 export function UnifiedComplianceDashboard() {
+  const [evidenceSnapshot, setEvidenceSnapshot] = useState<any>(null);
+  const [evidenceLoading, setEvidenceLoading] = useState(true);
+  const [evidenceError, setEvidenceError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let isActive = true;
+    const loadEvidence = async () => {
+      try {
+        setEvidenceLoading(true);
+        const response = await fetch('/api/evidence/metrics?timeRange=30');
+        if (!response.ok) {
+          throw new Error('Failed to load evidence snapshot');
+        }
+        const payload = await response.json();
+        if (isActive) {
+          setEvidenceSnapshot(payload);
+        }
+      } catch (error) {
+        if (isActive) {
+          setEvidenceError(error instanceof Error ? error.message : 'Failed to load evidence snapshot');
+        }
+      } finally {
+        if (isActive) {
+          setEvidenceLoading(false);
+        }
+      }
+    };
+
+    loadEvidence();
+    return () => {
+      isActive = false;
+    };
+  }, []);
+
   return (
     <div className="unified-compliance-dashboard bg-white rounded-lg shadow-lg p-6">
       <h3 className="text-xl font-bold text-gray-900 mb-4">Unified Compliance Dashboard</h3>
@@ -452,6 +486,36 @@ export function UnifiedComplianceDashboard() {
         Centralized compliance and ethics oversight for leadership. Displays real-time metrics from
         privacy, security, and AI audit systems.
       </p>
+      <div className="mb-6 rounded-lg border border-gray-200 bg-gray-50 p-4">
+        <div className="flex items-center justify-between mb-3">
+          <h4 className="text-lg font-semibold text-gray-800">Evidence Governance Snapshot</h4>
+          <span className="text-xs text-gray-500">Last 30 days</span>
+        </div>
+        {evidenceLoading ? (
+          <p className="text-sm text-gray-500">Loading evidence metrics...</p>
+        ) : evidenceError ? (
+          <p className="text-sm text-red-600">{evidenceError}</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm">
+            <div className="rounded-md bg-white border border-gray-200 p-3">
+              <p className="text-xs text-gray-500">Events</p>
+              <p className="text-lg font-semibold text-gray-900">{evidenceSnapshot?.summary?.totalEvents || 0}</p>
+            </div>
+            <div className="rounded-md bg-white border border-gray-200 p-3">
+              <p className="text-xs text-gray-500">Reviews Required</p>
+              <p className="text-lg font-semibold text-gray-900">{evidenceSnapshot?.summary?.reviewsRequired || 0}</p>
+            </div>
+            <div className="rounded-md bg-white border border-gray-200 p-3">
+              <p className="text-xs text-gray-500">Avg Latency</p>
+              <p className="text-lg font-semibold text-gray-900">{evidenceSnapshot?.summary?.avgLatencyMs || 0} ms</p>
+            </div>
+            <div className="rounded-md bg-white border border-gray-200 p-3">
+              <p className="text-xs text-gray-500">Unique Users</p>
+              <p className="text-lg font-semibold text-gray-900">{evidenceSnapshot?.summary?.uniqueUsers30d || 0}</p>
+            </div>
+          </div>
+        )}
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-gray-50 p-4 rounded-md shadow-sm">
           <h4 className="text-lg font-semibold text-gray-800 mb-2">Privacy & Data Rights</h4>
@@ -461,19 +525,19 @@ export function UnifiedComplianceDashboard() {
           <h4 className="text-lg font-semibold text-gray-800 mb-2">Compliance Metrics</h4>
           <ul className="space-y-2 text-gray-700">
             <li className="flex items-center">
-              <span className="text-green-500 mr-2">✓</span>
+              <span className="text-green-600 mr-2">OK</span>
               <span>GDPR Compliance: 100%</span>
             </li>
             <li className="flex items-center">
-              <span className="text-green-500 mr-2">✓</span>
+              <span className="text-green-600 mr-2">OK</span>
               <span>ISO 27001 Controls: Verified</span>
             </li>
             <li className="flex items-center">
-              <span className="text-green-500 mr-2">✓</span>
+              <span className="text-green-600 mr-2">OK</span>
               <span>SOC 2 Type II: Passed</span>
             </li>
             <li className="flex items-center">
-              <span className="text-green-500 mr-2">✓</span>
+              <span className="text-green-600 mr-2">OK</span>
               <span>AI Ethics Audit: No violations detected</span>
             </li>
           </ul>

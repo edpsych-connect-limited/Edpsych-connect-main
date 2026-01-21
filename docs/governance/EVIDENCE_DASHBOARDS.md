@@ -42,7 +42,7 @@ This document defines evidence dashboards for governance and audit readiness.
 - Audit exports: quarterly or on demand
 
 ## Open Gaps
-- Confirm UI placement (admin dashboard vs governance hub)
+- Evidence snapshot now surfaced in Admin Compliance dashboard
 - Confirm SLA thresholds for review queues
 - Add evidence export format (CSV/PDF) and retention window
   - CSV export available in ethics admin evidence tab

@@ -251,6 +251,7 @@ Progress log:
 - 2026-01-20: Added CSV export for evidence dashboard snapshots.
 - 2026-01-21: Added accessibility audit execution plan and journey tracker.
 - 2026-01-21: Added bundle review status log to track reductions and evidence.
+- 2026-01-21: Added evidence snapshot panel to admin compliance dashboard.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -310,6 +311,7 @@ Progress log:
     - Human-readable summaries for executives
     - Ethics admin evidence tab aligned to production snapshot
     - CSV export enabled for evidence snapshots
+    - Compliance dashboard now shows evidence governance snapshot
 
 [~] Improve AI review UX for clarity (why review is required)
 
