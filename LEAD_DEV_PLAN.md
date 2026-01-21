@@ -250,6 +250,7 @@ Progress log:
 - 2026-01-20: Expanded evidence metrics API with workflow/status/aging and added JSON export.
 - 2026-01-20: Added CSV export for evidence dashboard snapshots.
 - 2026-01-21: Added accessibility audit execution plan and journey tracker.
+- 2026-01-21: Added bundle review status log to track reductions and evidence.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -296,6 +297,7 @@ Progress log:
 [x] Establish error budgets and alerting thresholds
 
 [~] Review and reduce heavy client bundles (core pages)
+    - Bundle review status log: `docs/performance/BUNDLE_REVIEW_STATUS.md`
 
 -----------------------------------------------------------------------------
 5) Telemetry + Evidence + Governance UX
