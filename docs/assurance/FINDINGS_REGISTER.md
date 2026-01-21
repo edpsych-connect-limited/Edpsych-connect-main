@@ -201,6 +201,21 @@ This register tracks issues found during internal audits and their remediation s
 	- **Fix:** Restricted System Administration UI to SUPER_ADMIN and hid nav link for non-owner roles.
 	- **Retest evidence:** `src/app/[locale]/admin/page.tsx`; `src/config/navigation.ts`
 
+- **Finding ID:** INT-SEC-2026-010
+	- **Date discovered:** 2026-01-21
+	- **Discovered by:** Internal audit (edge RBAC review)
+	- **Audit run reference:** RUN-2026-01-21-02
+	- **Area:** Security / Access Control
+	- **Severity:** Medium
+	- **Status:** Fixed
+	- **Affected URL / Component:** `src/proxy.ts`
+	- **Expected behavior:** `/admin` route should be restricted to SUPER_ADMIN only.
+	- **Actual behavior:** Edge proxy allowed ADMIN role to pass `/admin` gate.
+	- **Impact / Risk:** Platform owner dashboard could be reached by non-owner admins.
+	- **Evidence:** `src/proxy.ts` (pre-fix)
+	- **Fix:** Updated edge gate to require SUPER_ADMIN for `/admin`.
+	- **Retest evidence:** `src/proxy.ts`
+
 ## Closed findings
 
 - **Finding ID:** INT-OPS-2025-003

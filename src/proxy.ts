@@ -272,13 +272,13 @@ export async function proxy(request: NextRequest) {
     }
 
     // Role-based access control (RBAC)
-    // Example: /admin routes require ADMIN role
+    // Example: /admin routes require SUPER_ADMIN role
     if (pathnameWithoutLocale.startsWith("/admin")) {
       const userRole = (payload as any).role;
       const roles = Array.isArray(userRole) ? userRole : [userRole];
-      const hasAdminRole = roles.some((r: any) => ['ADMIN', 'SUPER_ADMIN', 'admin', 'super_admin'].includes(r));
+      const hasOwnerRole = roles.some((r: any) => ['SUPER_ADMIN', 'super_admin', 'SUPERADMIN'].includes(r));
       
-      if (!hasAdminRole) {
+      if (!hasOwnerRole) {
         // User does not have permission
         const url = request.nextUrl.clone();
         url.pathname = "/en/dashboard"; // Redirect to user dashboard

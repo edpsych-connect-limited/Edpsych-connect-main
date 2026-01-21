@@ -269,6 +269,7 @@ Progress log:
 - 2026-01-21: Restricted system admin dashboard to SUPER_ADMIN and hid link from non-owner roles.
 - 2026-01-21: Documented platform owner vs tenant admin role boundaries.
 - 2026-01-21: Expanded client role hierarchy to include tenant admin roles.
+- 2026-01-21: Hardened edge proxy to require SUPER_ADMIN for /admin access.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

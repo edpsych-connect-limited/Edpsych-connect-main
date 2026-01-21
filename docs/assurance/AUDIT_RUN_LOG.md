@@ -102,11 +102,13 @@ Each audit run records **what was tested**, **where**, and **what evidence was p
 - `src/app/[locale]/admin/page.tsx`
 - `src/components/admin/AdminInterface.component.tsx`
 - `src/config/navigation.ts`
+- `src/proxy.ts`
 
 ### Findings created
 - INT-SEC-2026-007
 - INT-SEC-2026-008
 - INT-SEC-2026-009
+- INT-SEC-2026-010
 
 ## Run template
 
