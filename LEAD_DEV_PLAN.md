@@ -263,6 +263,11 @@ Progress log:
 - 2026-01-21: Added accessibility audit execution plan and journey tracker.
 - 2026-01-21: Added bundle review status log to track reductions and evidence.
 - 2026-01-21: Added evidence snapshot panel to admin compliance dashboard.
+- 2026-01-21: Hardened algorithm creation API to require authenticated creator ID.
+- 2026-01-21: Restricted waitlist statistics endpoint to authenticated admin roles.
+- 2026-01-21: Enforced authentication on assessment submission API and normalized tenant context.
+- 2026-01-21: Restricted system admin dashboard to SUPER_ADMIN and hid link from non-owner roles.
+- 2026-01-21: Documented platform owner vs tenant admin role boundaries.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -363,4 +368,3 @@ Outstanding Focus (Next)
 [ ] Finish bundle review for core pages and record targets
 [ ] Implement evidence dashboard production scope (governance admin view + exports)
 [ ] Standardize remaining error + empty states in edge flows
-

@@ -84,7 +84,7 @@ export const NAVIGATION_CONFIG: NavGroup[] = [
     items: [
       { href: '/studios/admin', label: 'Studio Overview' },
       { href: '/institutional-management', label: 'Institutional Management', roles: ['SUPERADMIN'] },
-      { href: '/admin', label: 'System Administration' },
+      { href: '/admin', label: 'System Administration', roles: ['SUPERADMIN'] },
       { href: '/la/dashboard', label: 'LA Dashboard', roles: ['LAA', 'LOCAL_AUTHORITY'] },
       { href: '/la/compliance', label: 'Compliance & Audits', roles: ['LAA', 'LOCAL_AUTHORITY'] },
     ]

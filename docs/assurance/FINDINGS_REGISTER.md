@@ -156,6 +156,51 @@ This register tracks issues found during internal audits and their remediation s
 	- **Fix:** Added transactional overlap check with database-level time window validation.
 	- **Retest evidence:** `src/app/api/marketplace/bookings/[id]/confirm/route.ts`
 
+- **Finding ID:** INT-SEC-2026-007
+	- **Date discovered:** 2026-01-21
+	- **Discovered by:** Internal audit (access-control sweep)
+	- **Audit run reference:** RUN-2026-01-21-02
+	- **Area:** Security / Access Control
+	- **Severity:** Medium
+	- **Status:** Fixed
+	- **Affected URL / Component:** `src/app/api/waitlist/route.ts`
+	- **Expected behavior:** Waitlist statistics are restricted to authenticated platform admins.
+	- **Actual behavior:** Waitlist statistics endpoint allowed unauthenticated access.
+	- **Impact / Risk:** Exposure of operational metrics and user metadata to anonymous callers.
+	- **Evidence:** `src/app/api/waitlist/route.ts` (pre-fix)
+	- **Fix:** Enforced authentication and admin role checks for GET stats.
+	- **Retest evidence:** `src/app/api/waitlist/route.ts`
+
+- **Finding ID:** INT-SEC-2026-008
+	- **Date discovered:** 2026-01-21
+	- **Discovered by:** Internal audit (access-control sweep)
+	- **Audit run reference:** RUN-2026-01-21-02
+	- **Area:** Security / Access Control
+	- **Severity:** High
+	- **Status:** Fixed
+	- **Affected URL / Component:** `src/app/api/assessments/submit/route.ts`
+	- **Expected behavior:** Assessment submissions require authenticated sessions for audit and tenant integrity.
+	- **Actual behavior:** Assessment submissions could be posted without authentication.
+	- **Impact / Risk:** Unauthenticated data injection and evidence telemetry gaps.
+	- **Evidence:** `src/app/api/assessments/submit/route.ts` (pre-fix)
+	- **Fix:** Required authenticated request and normalized tenant context before processing submissions.
+	- **Retest evidence:** `src/app/api/assessments/submit/route.ts`
+
+- **Finding ID:** INT-SEC-2026-009
+	- **Date discovered:** 2026-01-21
+	- **Discovered by:** Internal audit (admin surface review)
+	- **Audit run reference:** RUN-2026-01-21-02
+	- **Area:** Security / Access Control
+	- **Severity:** Low
+	- **Status:** Fixed
+	- **Affected URL / Component:** `src/app/[locale]/admin/page.tsx`; `src/components/admin/AdminInterface.component.tsx`; `src/config/navigation.ts`
+	- **Expected behavior:** Platform owner dashboard is visible only to SUPER_ADMIN.
+	- **Actual behavior:** ADMIN role could access the system admin dashboard.
+	- **Impact / Risk:** Over-broad access to platform governance UI.
+	- **Evidence:** `src/app/[locale]/admin/page.tsx` (pre-fix)
+	- **Fix:** Restricted System Administration UI to SUPER_ADMIN and hid nav link for non-owner roles.
+	- **Retest evidence:** `src/app/[locale]/admin/page.tsx`; `src/config/navigation.ts`
+
 ## Closed findings
 
 - **Finding ID:** INT-OPS-2025-003

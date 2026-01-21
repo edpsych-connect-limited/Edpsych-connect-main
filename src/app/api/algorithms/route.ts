@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import AlgorithmService from '@/algorithm/services/AlgorithmService';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { authenticateRequest } from '@/lib/middleware/auth';
 
 export async function GET(req: NextRequest) {
   try {
@@ -35,16 +34,16 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    // TODO: Add proper auth check
-    // const session = await getServerSession(authOptions);
-    // if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const authResult = await authenticateRequest(req);
+    if (!authResult.success) {
+      return authResult.response;
+    }
 
     const body = await req.json();
-    // const creatorId = session.user.id;
-    const creatorId = body.creatorId; // Temporary: pass creatorId in body for testing
+    const creatorId = authResult.session.user.id;
 
     if (!creatorId) {
-        return NextResponse.json({ error: 'Creator ID required' }, { status: 400 });
+      return NextResponse.json({ error: 'Creator ID required' }, { status: 400 });
     }
 
     const algorithm = await AlgorithmService.createAlgorithm(body, creatorId);

@@ -140,8 +140,8 @@ export default function AdminInterface() {
     );
   }
 
-  // Authorization check - Must be admin or higher
-  if (!hasRole('admin')) {
+  // Authorization check - Must be platform owner admin
+  if (!hasRole('super_admin')) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center max-w-md">
@@ -154,7 +154,7 @@ export default function AdminInterface() {
             Current role: <span className="font-semibold">{user.role}</span>
           </p>
           <p className="text-sm text-gray-500 mt-2">
-            Required: <span className="font-semibold">ADMIN</span> or higher
+            Required: <span className="font-semibold">SUPER_ADMIN</span>
           </p>
         </div>
       </div>

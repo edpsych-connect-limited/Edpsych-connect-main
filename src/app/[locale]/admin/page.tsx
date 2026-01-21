@@ -112,8 +112,8 @@ export default function AdminPage() {
       return;
     }
 
-    // Check for admin role
-    if (!hasRole('admin')) {
+    // Check for platform owner admin role
+    if (!hasRole('super_admin')) {
       logger.debug(' User lacks admin role, redirecting to home');
       router.push('/');
       return;
@@ -140,7 +140,7 @@ export default function AdminPage() {
   }
 
   // Show access denied while redirect is in progress
-  if (!hasRole('admin')) {
+  if (!hasRole('super_admin')) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="max-w-md text-center">
@@ -154,7 +154,7 @@ export default function AdminPage() {
               <span className="font-semibold">Your Role:</span> {user.role}
             </p>
             <p className="text-sm text-gray-700 mt-1">
-              <span className="font-semibold">Required:</span> ADMIN or SUPER_ADMIN
+              <span className="font-semibold">Required:</span> SUPER_ADMIN
             </p>
           </div>
         </div>

@@ -9,6 +9,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 import { emailService } from '@/lib/email/email-service';
+import { authenticateRequest, isAdminRole } from '@/lib/middleware/auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -141,7 +142,14 @@ export async function POST(req: NextRequest) {
  */
 export async function GET(_req: NextRequest) {
   try {
-    // TODO: Add authentication check for admin access
+    const authResult = await authenticateRequest(_req);
+    if (!authResult.success) {
+      return authResult.response;
+    }
+
+    if (!isAdminRole(authResult.session.user.role)) {
+      return NextResponse.json({ error: 'Access denied' }, { status: 403 });
+    }
 
     const totalCount = await prisma.waitlist.count();
     const pendingCount = await prisma.waitlist.count({

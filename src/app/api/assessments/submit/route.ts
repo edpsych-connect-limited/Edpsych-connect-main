@@ -1,24 +1,22 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { ProfileBuilderService } from '@/lib/orchestration/profile-builder.service';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { authenticateRequest } from '@/lib/middleware/auth';
 import { logger } from '@/lib/logger';
 import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const startedAt = Date.now();
   const traceId = createEvidenceTraceId();
 
   try {
-    const session = await getServerSession(authOptions);
-    
-    // In a real app, we'd enforce auth. For this demo/audit, we might be lenient or use a test user.
-    // if (!session) {
-    //   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    // }
+    const authResult = await authenticateRequest(req);
+    if (!authResult.success) {
+      return authResult.response;
+    }
 
-    const tenantId = (session?.user as { tenant_id?: number } | undefined)?.tenant_id;
-    const userIdRaw = (session?.user as { id?: string } | undefined)?.id;
+    const tenantIdRaw = authResult.session.user.tenant_id;
+    const tenantId = typeof tenantIdRaw === 'string' ? parseInt(tenantIdRaw, 10) : tenantIdRaw;
+    const userIdRaw = authResult.session.user.id;
     const userId = userIdRaw ? parseInt(userIdRaw, 10) : undefined;
     const recordTrace = async (status: EvidenceStatus, metadata?: Record<string, unknown>) => {
       if (!tenantId || !userId) {
