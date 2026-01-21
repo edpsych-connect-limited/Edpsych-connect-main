@@ -58,6 +58,62 @@ const ROUTE_TIPS: Array<{ match: string; tips: string[] }> = [
     ],
   },
   {
+    match: '/reports/create',
+    tips: [
+      'Draft the executive summary last to keep it consistent.',
+      'Confirm recommendations map to measurable outcomes.',
+    ],
+  },
+  {
+    match: '/training',
+    tips: [
+      'Prioritize CPD modules tied to current case needs.',
+      'Track certificate progress after each session.',
+    ],
+  },
+  {
+    match: '/marketplace/dashboard',
+    tips: [
+      'Confirm availability windows before accepting requests.',
+      'Keep profile compliance details current.',
+    ],
+  },
+  {
+    match: '/subscription',
+    tips: [
+      'Review usage against plan limits before upgrading.',
+      'Download invoices monthly for audit readiness.',
+    ],
+  },
+  {
+    match: '/safeguarding',
+    tips: [
+      'Log concerns immediately and tag relevant stakeholders.',
+      'Escalate high-risk items within policy timeframes.',
+    ],
+  },
+  {
+    match: '/outcomes',
+    tips: [
+      'Update baseline data before logging new outcomes.',
+      'Highlight stalled progress for review.',
+    ],
+  },
+  {
+    match: '/analytics',
+    tips: [
+      'Check p95 latency before major launches.',
+      'Cross-reference trends with evidence snapshots.',
+    ],
+  },
+  {
+    match: '/onboarding',
+    tips: [
+      'Complete role details to unlock tailored workflows.',
+      'Run the role tour before starting your first case.',
+    ],
+  },
+  {
     match: '/marketplace/book',
     tips: [
       'Be specific about the request so the EP can scope quickly.',

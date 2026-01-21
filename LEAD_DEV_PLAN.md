@@ -293,17 +293,18 @@ Progress log:
 - 2026-01-21: Post-EHCP build completed; top chunk sizes unchanged from prior reduction run.
 - 2026-01-21: Documented role journeys and success criteria in `docs/ROLE_JOURNEYS.md`.
 - 2026-01-21: Standardized navigation links for parent/student studios and added role-specific tours + onboarding checkpoint on the dashboard.
+- 2026-01-21: Documented top workflows and tours in `docs/guidance/GUIDED_WORKFLOWS.md`; expanded contextual help tips for key routes.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
 -----------------------------------------------------------------------------
-[~] Identify top 10 workflows and add guided steps
+[x] Identify top 10 workflows and add guided steps
     - EHCP creation, assessment, report generation
     - EP booking and scheduling
     - Intervention selection and tracking
     - AI review and approval workflow
 
-[~] Add contextual help modules (inline tips, "why this matters")
+[x] Add contextual help modules (inline tips, "why this matters")
     - Must be short, actionable, and tied to data entered on page
 
 [x] Add "next best action" prompts on key pages
