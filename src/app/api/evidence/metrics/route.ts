@@ -86,7 +86,8 @@ export async function GET(request: NextRequest) {
 
     const evidenceStatusCounts: Record<string, number> = {};
     statusCounts.forEach((row) => {
-      evidenceStatusCounts[row.status] = row._count._all;
+      const statusKey = row.status ?? 'unknown';
+      evidenceStatusCounts[statusKey] = row._count._all;
     });
 
     const reviewAging = pendingReviews.reduce(
