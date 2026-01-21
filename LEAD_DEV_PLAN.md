@@ -279,6 +279,7 @@ Progress log:
 - 2026-01-21: Generated bundle analyzer reports (client/edge/node) for baseline sizing.
 - 2026-01-21: Enabled bundle analyzer in next.config.mjs (ANALYZE=true).
 - 2026-01-21: Analyzer reports generated but bundle parsing was limited; manual review still required.
+- 2026-01-21: Captured top client chunk sizes from build output for baseline bundle review.
 - 2026-01-21: Started accessibility audit run (RUN-2026-01-21-03).
 - 2026-01-21: Logged performance signoff entry for bundle review evidence.
 - 2026-01-21: Logged accessibility audit run status in checklist.

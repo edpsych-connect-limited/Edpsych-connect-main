@@ -11,6 +11,10 @@ const withNextIntl = createNextIntlPlugin('./src/i18n.ts');
 const require = createRequire(import.meta.url);
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
+  analyzerMode: 'static',
+  openAnalyzer: false,
+  generateStatsFile: true,
+  statsFilename: 'analyze/[name].stats.json',
 });
 
 // Dist dir selection
@@ -117,6 +121,19 @@ const nextConfig = {
     ];
   },
   webpack: (config, { dev }) => {
+    if (process.env.ANALYZE === 'true') {
+      // Ensure analyzer receives chunk + asset data, not just module sizes.
+      config.profile = true;
+      config.stats = {
+        assets: true,
+        chunks: true,
+        chunkModules: true,
+        moduleAssets: true,
+        modules: true,
+        errorDetails: true,
+      };
+    }
+
     // Enable polling based on env var (for WSL/Docker/network drives)
     if (dev && (process.env.NEXT_WEBPACK_USEPOLLING || process.env.CHOKIDAR_USEPOLLING)) {
       config.watchOptions = {
