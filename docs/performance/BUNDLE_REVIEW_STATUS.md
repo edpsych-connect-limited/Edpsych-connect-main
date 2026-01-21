@@ -25,6 +25,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 - 2026-01-21: Analyzer reports note "No bundles were parsed"; sizes may be limited to original module sizes.
 - 2026-01-21: Top chunk sizes captured from build output; page mapping sourced from app router client-reference manifests.
 - 2026-01-21: Post-reduction build completed with webpack cache warnings; new chunk sizes captured for delta comparison.
+- 2026-01-21: Post-assessment-report lazy-load build timed out; static bundle artifacts pending (lock file present).
 
 ## Reduction Plan (Initial)
 - Move PDF generation to lazy-loaded imports on subscription invoices (jsPDF only when downloading).
