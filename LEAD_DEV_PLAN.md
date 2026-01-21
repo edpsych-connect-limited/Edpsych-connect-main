@@ -249,6 +249,7 @@ Progress log:
 - 2026-01-20: Expanded ethics admin evidence tab with production coverage snapshot and queue health.
 - 2026-01-20: Expanded evidence metrics API with workflow/status/aging and added JSON export.
 - 2026-01-20: Added CSV export for evidence dashboard snapshots.
+- 2026-01-21: Added accessibility audit execution plan and journey tracker.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

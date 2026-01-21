@@ -6,6 +6,11 @@ This is an internal readiness checklist for an external WCAG audit.
 
 - Meet **WCAG 2.2 AA** for user-facing functionality.
 
+## Audit window
+- Target window: 2026-01-21 to 2026-02-07
+- Evidence location: `docs/accessibility/AUDIT_CHECKLIST.md`
+- Findings log: `docs/assurance/FINDINGS_REGISTER.md`
+
 ## Minimum internal evidence
 
 ### Automated checks
@@ -25,4 +30,4 @@ This is an internal readiness checklist for an external WCAG audit.
 - Remediation PR links
 - Final conformance statement / VPAT (if needed)
 
-Last updated: 2025-12-15
+Last updated: 2026-01-21

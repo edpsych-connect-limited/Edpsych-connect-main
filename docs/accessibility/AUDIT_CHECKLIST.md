@@ -2,6 +2,39 @@
 
 This checklist captures the WCAG 2.1 AA audit process and verification steps.
 
+## Audit Plan (Execution)
+- Tools: axe (devtools), eslint-plugin-jsx-a11y, manual keyboard, screen reader spot checks
+- Evidence logging: `docs/assurance/FINDINGS_REGISTER.md` + `docs/assurance/AUDIT_RUN_LOG.md`
+- Priority journeys: login, dashboards, assessments, reports, cases, EHCP, training, marketplace
+
+## Journey Verification Tracker
+Status key: [ ] pending, [~] in progress, [x] complete
+
+- [ ] Login + signup
+  - [ ] Keyboard-only pass
+  - [ ] Screen reader pass
+- [ ] Core dashboards (EP/LA/School/Parent)
+  - [ ] Keyboard-only pass
+  - [ ] Screen reader pass
+- [ ] Assessments (list, detail, conduct, submit)
+  - [ ] Keyboard-only pass
+  - [ ] Screen reader pass
+- [ ] Reports (list, create, generate)
+  - [ ] Keyboard-only pass
+  - [ ] Screen reader pass
+- [ ] Cases (list, create, detail, update)
+  - [ ] Keyboard-only pass
+  - [ ] Screen reader pass
+- [ ] EHCP (list, create, detail, export)
+  - [ ] Keyboard-only pass
+  - [ ] Screen reader pass
+- [ ] Training (academy, course detail, checkout)
+  - [ ] Keyboard-only pass
+  - [ ] Screen reader pass
+- [ ] Marketplace (search, booking, confirmation)
+  - [ ] Keyboard-only pass
+  - [ ] Screen reader pass
+
 ## Keyboard Navigation
 - Tab order matches visual hierarchy
 - Skip link moves focus to main content
@@ -39,3 +72,4 @@ This checklist captures the WCAG 2.1 AA audit process and verification steps.
   - amber-400 on slate-950: 12.08
   - teal-400 on slate-950: 10.84
   - Typography scale reviewed for headings/body across landing and dashboard shells.
+- 2026-01-21: Added journey tracker and audit execution plan.
