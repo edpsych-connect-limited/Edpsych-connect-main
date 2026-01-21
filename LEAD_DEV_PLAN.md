@@ -10,6 +10,30 @@ Owner: Codex (Project Lead) + Scott (Sponsor)
 Last updated: 2026-01-20
 
 -----------------------------------------------------------------------------
+Execution Timeline (Target)
+-----------------------------------------------------------------------------
+Goal: Complete all [~] in-progress items and close remaining [ ] tasks.
+
+Week 1 (Days 1-5)
+- Close all [~] items in Sections 1-2 (journeys, dashboards, contextual help)
+- Finish accessibility keyboard + screen-reader audits for top 15 journeys
+- Log findings and fixes in `docs/accessibility/AUDIT_CHECKLIST.md`
+
+Week 2 (Days 6-10)
+- Bundle size review + reductions for core pages (perf signoff)
+- Evidence dashboards production placement (admin governance view)
+- Export formats (CSV/PDF/JSON) and audit-ready snapshots
+
+Week 3 (Days 11-15)
+- Launch readiness signoff items (Security, Compliance, Operations)
+- DPIA, data retention, consent policy confirmations
+- Runbook + rollback verification evidence recorded
+
+Week 4 (Days 16-20)
+- Final QA sweep, regression checks, and signoff closure
+- Complete any remaining [ ] items and re-verify build
+
+-----------------------------------------------------------------------------
 1) Navigation + Role-Based Journeys
 -----------------------------------------------------------------------------
 [~] Define primary journeys per role (EP, LA, School, Parent, Admin)
