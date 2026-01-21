@@ -40,11 +40,11 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   className = '',
 }) => {
   return (
-    <div className={`bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center ${className}`}>
-      <div className="mx-auto w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-6">
+    <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-12 text-center ${className}`}>
+      <div className="mx-auto w-16 h-16 bg-blue-50 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-6">
         {icon || (
           <svg
-            className="w-8 h-8 text-blue-500"
+            className="w-8 h-8 text-blue-500 dark:text-blue-300"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -59,8 +59,8 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         )}
       </div>
       
-      <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
-      <p className="text-gray-500 max-w-md mx-auto mb-8">{description}</p>
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{title}</h3>
+      <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-8">{description}</p>
       
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
         {actionLabel && actionHref && (

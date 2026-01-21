@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
   startDate.setDate(startDate.getDate() - timeRange);
 
   try {
-    const [eventCounts, reviewCounts, latencyAgg, evidenceTypes, uniqueUsers] = await Promise.all([
+    const [eventCounts, reviewCounts, latencyAgg, evidenceTypes, uniqueUsers, workflowCounts, statusCounts, pendingReviews] = await Promise.all([
       prisma.evidenceEvent.groupBy({
         by: ['eventType'],
         where: { tenantId, createdAt: { gte: startDate } },
@@ -49,6 +49,20 @@ export async function GET(request: NextRequest) {
         where: { tenantId, createdAt: { gte: startDate }, userId: { not: null } },
         _count: { _all: true },
       }),
+      prisma.evidenceEvent.groupBy({
+        by: ['workflowType'],
+        where: { tenantId, createdAt: { gte: startDate } },
+        _count: { _all: true },
+      }),
+      prisma.evidenceEvent.groupBy({
+        by: ['status'],
+        where: { tenantId, createdAt: { gte: startDate } },
+        _count: { _all: true },
+      }),
+      prisma.aIReview.findMany({
+        where: { tenantId, status: 'pending', createdAt: { gte: startDate } },
+        select: { createdAt: true },
+      }),
     ]);
 
     const countsByEvent: Record<string, number> = {};
@@ -62,6 +76,34 @@ export async function GET(request: NextRequest) {
     });
 
     const reviewsTotal = Object.values(reviewsByStatus).reduce((sum, v) => sum + v, 0);
+
+    const byWorkflow = workflowCounts
+      .map((row) => ({
+        workflow: row.workflowType || 'unclassified',
+        count: row._count._all,
+      }))
+      .sort((a, b) => b.count - a.count);
+
+    const evidenceStatusCounts: Record<string, number> = {};
+    statusCounts.forEach((row) => {
+      evidenceStatusCounts[row.status] = row._count._all;
+    });
+
+    const reviewAging = pendingReviews.reduce(
+      (acc, review) => {
+        const ageMs = Date.now() - review.createdAt.getTime();
+        const ageHours = ageMs / (1000 * 60 * 60);
+        if (ageHours < 24) {
+          acc.lt24 += 1;
+        } else if (ageHours < 72) {
+          acc.between24And72 += 1;
+        } else {
+          acc.gt72 += 1;
+        }
+        return acc;
+      },
+      { lt24: 0, between24And72: 0, gt72: 0 }
+    );
 
     const byType = evidenceTypes.map((row) => ({
       type: row.evidenceType,
@@ -84,6 +126,9 @@ export async function GET(request: NextRequest) {
       },
       events: countsByEvent,
       reviews: reviewsByStatus,
+      reviewAging,
+      statuses: evidenceStatusCounts,
+      workflows: byWorkflow,
       byType,
     });
   } catch (error) {

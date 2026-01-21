@@ -219,6 +219,11 @@ Progress log:
 - 2026-01-20: Completed decision-support layout coverage across dense pages.
 - 2026-01-20: Standardized AI guidance microcopy across AI-powered workflows and demos.
 - 2026-01-20: Added launch signoff evidence references and security scan status.
+- 2026-01-20: Expanded launch readiness breakdown to prevent context loss.
+- 2026-01-20: Defined evidence dashboard production scope, data sources, and ownership.
+- 2026-01-20: Standardized SENCO needs breakdown empty state with shared EmptyState styling.
+- 2026-01-20: Expanded ethics admin evidence tab with production coverage snapshot and queue health.
+- 2026-01-20: Expanded evidence metrics API with workflow/status/aging and added JSON export.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -273,7 +278,9 @@ Progress log:
     - Adoption metrics, drop-off points, task completion time
 
 [~] Evidence dashboards for governance and audit readiness
+    - Production scope, data sources, and ownership documented
     - Human-readable summaries for executives
+    - Ethics admin evidence tab aligned to production snapshot
 
 [~] Improve AI review UX for clarity (why review is required)
 
@@ -288,6 +295,7 @@ Progress log:
 [~] Standardize error and empty states
     - error display with retry now in assessments, cases, EHCP, interventions
     - reports empty state now uses shared EmptyState component
+    - SENCO needs breakdown now uses shared EmptyState component
 
 -----------------------------------------------------------------------------
 7) Delivery + Validation
@@ -295,9 +303,21 @@ Progress log:
 [x] Define rollout plan (staging -> production)
 [x] Test plan: unit, integration, E2E on critical journeys
 [x] Accessibility and performance sign-off checklist
-[ ] Enterprise launch readiness sign-off
+[~] Enterprise launch readiness sign-off
+    - Source of truth: `docs/launch/SIGNOFF_CHECKLIST.md`
+    - Accessibility: WCAG audit, keyboard, screen reader verification
+    - Performance: SLO dashboards, p95 latency, bundle review
+    - Reliability: error budgets, incident playbook, rollback test
+    - Security: dependency audit, privacy/data retention review
+    - Compliance: DPIA, AI oversight, evidence retention, consent policy
+    - Operations: on-call, escalation, runbooks, backups
+    - Commercial: legal links, pricing/billing flows, comms approval
 
 -----------------------------------------------------------------------------
 Outstanding Focus (Next)
 -----------------------------------------------------------------------------
-[ ] Enterprise launch readiness sign-off completion
+[ ] Close enterprise launch readiness checklist (`docs/launch/SIGNOFF_CHECKLIST.md`)
+[ ] Complete keyboard + screen reader audits and log fixes
+[ ] Finish bundle review for core pages and record targets
+[ ] Implement evidence dashboard production scope (governance admin view + exports)
+[ ] Standardize remaining error + empty states in edge flows

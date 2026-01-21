@@ -22,9 +22,29 @@ export default function EthicsAdminPage() {
   const [evidenceMetrics, setEvidenceMetrics] = useState<any>(null);
   const [reviews, setReviews] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState('overview');
+  const [timeRangeDays, setTimeRangeDays] = useState(30);
   const [reviewUpdatingId, setReviewUpdatingId] = useState<string | null>(null);
   const [reviewActionError, setReviewActionError] = useState<string | null>(null);
   const [reviewNotes, setReviewNotes] = useState<Record<string, string>>({});
+
+  const handleEvidenceExport = () => {
+    if (!evidenceMetrics) {
+      return;
+    }
+    const payload = {
+      exportedAt: new Date().toISOString(),
+      ...evidenceMetrics,
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `evidence-dashboard-${timeRangeDays}d.json`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  };
 
   useEffect(() => {
     const loadData = async () => {
@@ -37,7 +57,7 @@ export default function EthicsAdminPage() {
           fetch('/api/ethics/monitors'),
           fetch('/api/ethics/incidents?status=active'),
           fetch('/api/ethics/assessments'),
-          fetch('/api/evidence/metrics'),
+          fetch(`/api/evidence/metrics?timeRange=${timeRangeDays}`),
           fetch('/api/ai/reviews')
         ]);
 
@@ -64,7 +84,7 @@ export default function EthicsAdminPage() {
     };
 
     loadData();
-  }, []);
+  }, [timeRangeDays]);
 
   const handleReviewDecision = async (reviewId: string, status: 'approved' | 'rejected' | 'modified') => {
     try {
@@ -394,11 +414,46 @@ export default function EthicsAdminPage() {
 
             {activeTab === 'evidence' && (
               <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-gray-500">
+                  <span>Coverage snapshot</span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      className="rounded-md border border-gray-200 bg-white px-3 py-1 text-sm text-gray-700 hover:bg-gray-50"
+                      onClick={handleEvidenceExport}
+                    >
+                      Export JSON
+                    </button>
+                    <span>Window</span>
+                    <select
+                      className="rounded-md border border-gray-200 bg-white px-2 py-1 text-sm text-gray-700"
+                      value={timeRangeDays}
+                      onChange={(event) => setTimeRangeDays(Number(event.target.value))}
+                    >
+                      <option value={7}>Last 7 days</option>
+                      <option value={30}>Last 30 days</option>
+                      <option value={90}>Last 90 days</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div className="border border-gray-200 rounded-lg p-4">
-                    <p className="text-sm text-gray-600">Evidence Events (30d)</p>
+                    <p className="text-sm text-gray-600">Evidence Events</p>
                     <p className="text-2xl font-semibold text-gray-900">
-                      {evidenceMetrics?.summary?.events30d || 0}
+                      {evidenceMetrics?.summary?.totalEvents || 0}
+                    </p>
+                  </div>
+                  <div className="border border-gray-200 rounded-lg p-4">
+                    <p className="text-sm text-gray-600">Reviews Required</p>
+                    <p className="text-2xl font-semibold text-gray-900">
+                      {evidenceMetrics?.summary?.reviewsRequired || 0}
+                    </p>
+                  </div>
+                  <div className="border border-gray-200 rounded-lg p-4">
+                    <p className="text-sm text-gray-600">Avg Latency (ms)</p>
+                    <p className="text-2xl font-semibold text-gray-900">
+                      {evidenceMetrics?.summary?.avgLatencyMs || 0}
                     </p>
                   </div>
                   <div className="border border-gray-200 rounded-lg p-4">
@@ -407,27 +462,130 @@ export default function EthicsAdminPage() {
                       {evidenceMetrics?.summary?.uniqueUsers30d || 0}
                     </p>
                   </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="border border-gray-200 rounded-lg p-4">
-                    <p className="text-sm text-gray-600">Reviews (30d)</p>
-                    <p className="text-2xl font-semibold text-gray-900">
-                      {evidenceMetrics?.summary?.reviews30d || 0}
+                    <h3 className="text-lg font-medium text-gray-900 mb-3">Review Queue Health</h3>
+                    <div className="grid grid-cols-3 gap-3">
+                      <div className="rounded-md bg-yellow-50 p-3">
+                        <p className="text-xs text-yellow-700">Pending</p>
+                        <p className="text-lg font-semibold text-yellow-900">
+                          {evidenceMetrics?.reviews?.pending || 0}
+                        </p>
+                      </div>
+                      <div className="rounded-md bg-green-50 p-3">
+                        <p className="text-xs text-green-700">Approved</p>
+                        <p className="text-lg font-semibold text-green-900">
+                          {evidenceMetrics?.reviews?.approved || 0}
+                        </p>
+                      </div>
+                      <div className="rounded-md bg-red-50 p-3">
+                        <p className="text-xs text-red-700">Rejected</p>
+                        <p className="text-lg font-semibold text-red-900">
+                          {evidenceMetrics?.reviews?.rejected || 0}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="mt-4 grid grid-cols-3 gap-3 text-xs">
+                      <div className="rounded-md border border-gray-200 bg-gray-50 p-2 text-gray-700">
+                        <p className="text-gray-500">Pending < 24h</p>
+                        <p className="text-sm font-semibold text-gray-900">
+                          {evidenceMetrics?.reviewAging?.lt24 || 0}
+                        </p>
+                      </div>
+                      <div className="rounded-md border border-gray-200 bg-gray-50 p-2 text-gray-700">
+                        <p className="text-gray-500">24-72h</p>
+                        <p className="text-sm font-semibold text-gray-900">
+                          {evidenceMetrics?.reviewAging?.between24And72 || 0}
+                        </p>
+                      </div>
+                      <div className="rounded-md border border-gray-200 bg-gray-50 p-2 text-gray-700">
+                        <p className="text-gray-500">Over 72h</p>
+                        <p className="text-sm font-semibold text-gray-900">
+                          {evidenceMetrics?.reviewAging?.gt72 || 0}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="mt-3 text-xs text-gray-500">
+                      Counts include pending reviews and recent decisions.
+                    </p>
+                  </div>
+
+                  <div className="border border-gray-200 rounded-lg p-4">
+                    <h3 className="text-lg font-medium text-gray-900 mb-3">Latency Summary</h3>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs text-gray-500">Average</p>
+                        <p className="text-xl font-semibold text-gray-900">
+                          {evidenceMetrics?.summary?.avgLatencyMs || 0} ms
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500">Maximum</p>
+                        <p className="text-xl font-semibold text-gray-900">
+                          {evidenceMetrics?.summary?.maxLatencyMs || 0} ms
+                        </p>
+                      </div>
+                    </div>
+                    <p className="mt-3 text-xs text-gray-500">
+                      Based on evidence events with duration metadata.
                     </p>
                   </div>
                 </div>
 
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="border border-gray-200 rounded-lg p-4">
+                    <h3 className="text-lg font-medium text-gray-900 mb-4">Evidence Status</h3>
+                    <div className="grid grid-cols-3 gap-3 text-sm">
+                      <div className="rounded-md bg-green-50 p-3 text-green-900">
+                        <p className="text-xs text-green-700">OK</p>
+                        <p className="text-lg font-semibold">{evidenceMetrics?.statuses?.ok || 0}</p>
+                      </div>
+                      <div className="rounded-md bg-yellow-50 p-3 text-yellow-900">
+                        <p className="text-xs text-yellow-700">Blocked</p>
+                        <p className="text-lg font-semibold">{evidenceMetrics?.statuses?.blocked || 0}</p>
+                      </div>
+                      <div className="rounded-md bg-red-50 p-3 text-red-900">
+                        <p className="text-xs text-red-700">Error</p>
+                        <p className="text-lg font-semibold">{evidenceMetrics?.statuses?.error || 0}</p>
+                      </div>
+                    </div>
+                    <p className="mt-3 text-xs text-gray-500">
+                      Status counts reflect evidence events logged in the selected window.
+                    </p>
+                  </div>
+
+                  <div className="border border-gray-200 rounded-lg p-4">
+                    <h3 className="text-lg font-medium text-gray-900 mb-4">Evidence Events by Type</h3>
+                    {evidenceMetrics?.byType?.length ? (
+                      <div className="space-y-3">
+                        {evidenceMetrics.byType.map((entry: any) => (
+                          <div key={entry.type} className="flex items-center justify-between">
+                            <span className="text-sm text-gray-700">{entry.type}</span>
+                            <span className="text-sm font-medium text-gray-900">{entry.count}</span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-gray-500">No evidence activity recorded yet.</p>
+                    )}
+                  </div>
+                </div>
+
                 <div className="border border-gray-200 rounded-lg p-4">
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">Top Evidence Types</h3>
-                  {evidenceMetrics?.byType?.length ? (
-                    <div className="space-y-3">
-                      {evidenceMetrics.byType.map((entry: any) => (
-                        <div key={entry.type} className="flex items-center justify-between">
-                          <span className="text-sm text-gray-700">{entry.type}</span>
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">Evidence Events by Workflow</h3>
+                  {evidenceMetrics?.workflows?.length ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {evidenceMetrics.workflows.map((entry: any) => (
+                        <div key={entry.workflow} className="flex items-center justify-between rounded-md bg-gray-50 p-3">
+                          <span className="text-sm text-gray-700">{entry.workflow}</span>
                           <span className="text-sm font-medium text-gray-900">{entry.count}</span>
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <p className="text-sm text-gray-500">No evidence activity recorded yet.</p>
+                    <p className="text-sm text-gray-500">No workflow evidence recorded yet.</p>
                   )}
                 </div>
               </div>

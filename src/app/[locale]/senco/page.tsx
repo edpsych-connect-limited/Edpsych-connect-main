@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { FeatureGate } from '@/components/subscription/FeatureGate';
 import { VoiceCommandInterface } from '@/components/orchestration/VoiceCommandInterface';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { Feature } from '@/types/prisma-enums';
 
 // Mock data for staff caseload (not yet available in backend)
@@ -298,7 +299,13 @@ function SENCODashboardContent() {
                     </div>
                   ))
                 ) : (
-                  <div className="col-span-4 text-center py-4 text-gray-500">No data available</div>
+                  <div className="col-span-4">
+                    <EmptyState
+                      title="No needs data yet"
+                      description="Once pupil profiles are added, this section will summarize the primary needs mix."
+                      className="bg-gray-50 dark:bg-gray-800/60 border-dashed"
+                    />
+                  </div>
                 )}
               </div>
             </div>
