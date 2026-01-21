@@ -11,29 +11,17 @@
 import { useState, useEffect, useId, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Line } from 'react-chartjs-2';
+import dynamic from 'next/dynamic';
 import { analyticsService } from '@/lib/analytics';
 import { hasAnalyticsConsent } from '@/utils/cookies';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-} from 'chart.js';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
+const ProgressChart = dynamic(() => import('@/components/training/ProgressChart'), {
+  ssr: false,
+  loading: () => (
+    <div className="h-64 flex items-center justify-center text-sm text-gray-500">
+      Loading chart...
+    </div>
+  ),
+});
 
 interface EnrolledCourse {
   id: string;
@@ -258,7 +246,7 @@ export default function TrainingDashboardPage() {
             <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4">CPD Progress</h2>
               <div className="h-64">
-                <Line data={progressChartData} options={chartOptions} />
+                <ProgressChart data={progressChartData} options={chartOptions} />
               </div>
             </div>
 

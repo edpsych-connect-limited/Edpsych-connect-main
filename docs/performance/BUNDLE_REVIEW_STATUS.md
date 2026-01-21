@@ -14,7 +14,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 ## Evidence Log
 - [x] Baseline build stats recorded (top 10 bundles)
 - [~] Top 5 bundles identified and prioritized (route mapping partially complete)
-- [ ] Reduction plan documented (dynamic imports, dependency removal)
+- [~] Reduction plan documented (dynamic imports, dependency removal)
 - [ ] Build stats updated after reductions
 - [ ] p95 impact verified against `docs/observability/SLI_SLO.md`
 
@@ -24,6 +24,13 @@ Status key: [ ] pending, [~] in progress, [x] done
 - 2026-01-21: Bundle analyzer reports generated for client/edge/node.
 - 2026-01-21: Analyzer reports note "No bundles were parsed"; sizes may be limited to original module sizes.
 - 2026-01-21: Top chunk sizes captured from build output; page mapping sourced from app router client-reference manifests.
+
+## Reduction Plan (Initial)
+- Move PDF generation to lazy-loaded imports on subscription invoices (jsPDF only when downloading).
+- Split training dashboard chart bundle into a dynamic client-only chunk.
+- After chart/PDF split, re-measure chunks for `/training/dashboard` and `/subscription`.
+- Next targets: audit where `recharts` is loaded; defer chart components on admin analytics and institutional management.
+- Next targets: isolate Three.js demo visuals behind dynamic import and only load in demo routes.
 
 ## Capture Method (Baseline + After)
 1) Record build stats output (top 10 bundles) and store evidence file path.

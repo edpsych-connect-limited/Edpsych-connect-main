@@ -283,6 +283,7 @@ Progress log:
 - 2026-01-21: Started accessibility audit run (RUN-2026-01-21-03).
 - 2026-01-21: Logged performance signoff entry for bundle review evidence.
 - 2026-01-21: Logged accessibility audit run status in checklist.
+- 2026-01-21: Lazy-loaded jsPDF invoice generation and split training dashboard chart into a dynamic chunk; documented bundle reduction plan.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

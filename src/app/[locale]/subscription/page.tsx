@@ -11,7 +11,6 @@ export const dynamic = 'force-dynamic';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from '@/navigation';
 import { useAuth } from '@/lib/auth/hooks';
-import jsPDF from 'jspdf';
 import {
   getPlanById,
   formatPrice,
@@ -532,48 +531,49 @@ function InvoiceItem({
     failed: 'text-red-600',
   };
 
-  const handleDownload = (e: React.MouseEvent) => {
+  const handleDownload = async (e: React.MouseEvent) => {
     e.preventDefault();
     
     try {
+      const { default: jsPDF } = await import('jspdf');
       const doc = new jsPDF();
       
-      // Header
-      doc.setFontSize(22);
-      doc.setTextColor(26, 31, 113); // #1A1F71
-      doc.text('EdPsych Connect', 20, 20);
-      
-      doc.setFontSize(16);
-      doc.setTextColor(0, 0, 0);
-      doc.text('INVOICE', 20, 40);
-      
-      // Details
-      doc.setFontSize(12);
-      doc.text(`Date: ${new Date(date).toLocaleDateString('en-GB')}`, 20, 60);
-      doc.text(`Invoice #: INV-${new Date(date).getTime().toString().slice(-6)}`, 20, 70);
-      doc.text(`Status: ${status.toUpperCase()}`, 20, 80);
-      
-      // Line Item
-      doc.line(20, 90, 190, 90);
-      doc.text('Description', 20, 100);
-      doc.text('Amount', 160, 100);
-      doc.line(20, 105, 190, 105);
-      
-      doc.text('Subscription Charge', 20, 115);
-      doc.text(formatPrice(amount), 160, 115);
-      
-      // Total
-      doc.line(20, 130, 190, 130);
-      doc.setFontSize(14);
-      doc.text('Total:', 120, 140);
-      doc.text(formatPrice(amount), 160, 140);
-      
-      // Footer
-      doc.setFontSize(10);
-      doc.setTextColor(100, 100, 100);
-      doc.text('Thank you for your business.', 20, 160);
-      
-      doc.save(`invoice-${date}.pdf`);
+        // Header
+        doc.setFontSize(22);
+        doc.setTextColor(26, 31, 113); // #1A1F71
+        doc.text('EdPsych Connect', 20, 20);
+        
+        doc.setFontSize(16);
+        doc.setTextColor(0, 0, 0);
+        doc.text('INVOICE', 20, 40);
+        
+        // Details
+        doc.setFontSize(12);
+        doc.text(`Date: ${new Date(date).toLocaleDateString('en-GB')}`, 20, 60);
+        doc.text(`Invoice #: INV-${new Date(date).getTime().toString().slice(-6)}`, 20, 70);
+        doc.text(`Status: ${status.toUpperCase()}`, 20, 80);
+        
+        // Line Item
+        doc.line(20, 90, 190, 90);
+        doc.text('Description', 20, 100);
+        doc.text('Amount', 160, 100);
+        doc.line(20, 105, 190, 105);
+        
+        doc.text('Subscription Charge', 20, 115);
+        doc.text(formatPrice(amount), 160, 115);
+        
+        // Total
+        doc.line(20, 130, 190, 130);
+        doc.setFontSize(14);
+        doc.text('Total:', 120, 140);
+        doc.text(formatPrice(amount), 160, 140);
+        
+        // Footer
+        doc.setFontSize(10);
+        doc.setTextColor(100, 100, 100);
+        doc.text('Thank you for your business.', 20, 160);
+        
+        doc.save(`invoice-${date}.pdf`);
     } catch (_error) {
       console.error('Error generating PDF:', _error);
       alert('Failed to generate invoice. Please try again.');
