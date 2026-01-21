@@ -25,7 +25,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 - 2026-01-21: Analyzer reports note "No bundles were parsed"; sizes may be limited to original module sizes.
 - 2026-01-21: Top chunk sizes captured from build output; page mapping sourced from app router client-reference manifests.
 - 2026-01-21: Post-reduction build completed with webpack cache warnings; new chunk sizes captured for delta comparison.
-- 2026-01-21: Post-assessment-report lazy-load build timed out; static bundle artifacts pending (lock file present).
+- 2026-01-21: Post-assessment-report lazy-load build completed; top chunk sizes unchanged from prior reduction run.
 
 ## Reduction Plan (Initial)
 - Move PDF generation to lazy-loaded imports on subscription invoices (jsPDF only when downloading).
@@ -58,3 +58,4 @@ Status key: [ ] pending, [~] in progress, [x] done
 | 2026-01-21 | /:locale/interventions/library; /:locale/interventions/new; /:locale/parent/dashboard; /:locale/school/dashboard; /:locale/teacher-dashboard | 9915-014565fd99e7f287.js | 582.18 | 0 / 0% | Post-reduction re-measure; chart/pdf/three/moment/ace modules remain. | docs/performance/chunk-sizes-2026-01-21-post-reduction.txt |
 | 2026-01-21 | Shared/vendor (route mapping pending) | 8591.80d4cd7443236e03.js | 403.20 | -0.56 / -0.1% | Post-reduction re-measure; chart/stripe/lodash/ace modules remain. | docs/performance/chunk-sizes-2026-01-21-post-reduction.txt |
 | 2026-01-21 | /:locale/ehcp; /:locale/ehcp/*; /:locale/assessments/:id/conduct; /:locale/demo/assessment | 164f4fb6-0aef2e9c384bc52b.js | 321.69 | 0 / 0% | Post-reduction re-measure; chart/pdf/canvas/ace modules remain. | docs/performance/chunk-sizes-2026-01-21-post-reduction.txt |
+| 2026-01-21 | N/A | N/A | N/A | 0 / 0% | Post-assessment-report build; top chunk sizes unchanged. | docs/performance/chunk-sizes-2026-01-21-post-reduction.txt |
