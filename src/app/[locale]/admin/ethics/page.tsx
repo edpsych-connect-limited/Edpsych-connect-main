@@ -676,6 +676,14 @@ export default function EthicsAdminPage() {
                         <div className="flex-1">
                           <h4 className="font-medium text-gray-900">{review.useCase}</h4>
                           <p className="text-sm text-gray-600 mt-1">{review.reason || 'Awaiting reviewer context'}</p>
+                          <div className="mt-3 rounded-md border border-gray-200 bg-gray-50 p-3 text-xs text-gray-700">
+                            <p className="font-semibold text-gray-800">Why this review matters</p>
+                            <ul className="mt-2 list-disc space-y-1 pl-4">
+                              <li>Confirm the output aligns to policy and safeguarding rules.</li>
+                              <li>Verify evidence links and consent flags before approval.</li>
+                              <li>Record decision notes for audit readiness.</li>
+                            </ul>
+                          </div>
                           <div className="flex gap-2 mt-2">
                             <span className="px-2 py-1 text-xs bg-gray-100 text-gray-800 rounded">
                               {review.severity || 'medium'}

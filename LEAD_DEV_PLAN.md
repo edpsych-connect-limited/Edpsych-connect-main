@@ -294,6 +294,7 @@ Progress log:
 - 2026-01-21: Documented role journeys and success criteria in `docs/ROLE_JOURNEYS.md`.
 - 2026-01-21: Standardized navigation links for parent/student studios and added role-specific tours + onboarding checkpoint on the dashboard.
 - 2026-01-21: Documented top workflows and tours in `docs/guidance/GUIDED_WORKFLOWS.md`; expanded contextual help tips for key routes.
+- 2026-01-21: Clarified AI review queue with "why this review matters" checklist in ethics admin.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -355,7 +356,7 @@ Progress log:
     - CSV export enabled for evidence snapshots
     - Compliance dashboard now shows evidence governance snapshot
 
-[~] Improve AI review UX for clarity (why review is required)
+[x] Improve AI review UX for clarity (why review is required)
 
 -----------------------------------------------------------------------------
 6) Content, Language, and Product Clarity
