@@ -47,7 +47,7 @@ Immediate next actions:
 -----------------------------------------------------------------------------
 1) Navigation + Role-Based Journeys
 -----------------------------------------------------------------------------
-[~] Define primary journeys per role (EP, LA, School, Parent, Admin)
+[x] Define primary journeys per role (EP, LA, School, Parent, Admin)
     - Outcomes: 3-5 primary tasks per role with entry points
     - Deliverable: Journey map + success criteria per role
 
@@ -291,6 +291,7 @@ Progress log:
 - 2026-01-21: Deferred EHCP PDF export to lazy-load jsPDF on demand.
 - 2026-01-21: Replaced non-ASCII trend arrows with ASCII-safe copy in institutional dashboards.
 - 2026-01-21: Post-EHCP build completed; top chunk sizes unchanged from prior reduction run.
+- 2026-01-21: Documented role journeys and success criteria in `docs/ROLE_JOURNEYS.md`.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
