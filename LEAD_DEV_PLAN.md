@@ -297,6 +297,7 @@ Progress log:
 - 2026-01-21: Clarified AI review queue with "why this review matters" checklist in ethics admin.
 - 2026-01-21: Standardized ethics review empty state using shared EmptyState component.
 - 2026-01-21: Standardized ethics admin monitors, incidents, and assessments empty states with shared EmptyState.
+- 2026-01-21: Deferred intervention, assessment, and course catalogs in school/parent dashboards via dynamic import to reduce initial bundles.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

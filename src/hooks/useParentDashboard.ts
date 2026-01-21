@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { COURSE_CATALOG, Course } from '@/lib/training/course-catalog';
-import { INTERVENTION_LIBRARY, InterventionTemplate } from '@/lib/interventions/intervention-library';
+import type { Course } from '@/lib/training/course-catalog';
+import type { InterventionTemplate } from '@/lib/interventions/intervention-library';
 
 export interface ChildProfile {
   id: string;
@@ -39,7 +39,8 @@ export function useParentDashboard() {
     const loadData = async () => {
       setLoading(true);
       setError(null);
-      
+      const librariesPromise = loadLibraries();
+
       try {
         // 1. Fetch Children
         const childrenRes = await fetch('/api/parent/children');
@@ -63,6 +64,7 @@ export function useParentDashboard() {
         const portalRes = await fetch(`/api/parent/portal/${child.id}`);
         if (!portalRes.ok) throw new Error('Failed to fetch portal data');
         const portalData: ApiParentPortalResponse = await portalRes.json();
+        const { COURSE_CATALOG, INTERVENTION_LIBRARY } = await librariesPromise;
 
         // Map Active Intervention
         let intervention: InterventionTemplate | undefined;
@@ -84,10 +86,14 @@ export function useParentDashboard() {
       } catch (err) {
         console.error('Error loading parent dashboard:', err);
         setError('Failed to load dashboard data');
-        
+
+        const fallbackLibraries = await librariesPromise.catch(() => null);
+        const fallbackCourses = fallbackLibraries?.COURSE_CATALOG ?? [];
+        const fallbackInterventions = fallbackLibraries?.INTERVENTION_LIBRARY ?? [];
+
         // Fallback
-        const intervention = INTERVENTION_LIBRARY.find(i => i.id === 'wm-chunking-strategy');
-        const courses = COURSE_CATALOG.filter(c => c.target_audience.includes('Parents')).slice(0, 3);
+        const intervention = fallbackInterventions.find(i => i.id === 'wm-chunking-strategy');
+        const courses = fallbackCourses.filter(c => c.target_audience.includes('Parents')).slice(0, 3);
         setActiveIntervention(intervention);
         setParentCourses(courses);
         setChildProfile({ id: '1', name: 'Leo', year: 'Year 4', schoolId: 1 });
@@ -99,4 +105,13 @@ export function useParentDashboard() {
   }, []);
 
   return { childProfile, activeIntervention, parentCourses, loading, error };
+}
+
+async function loadLibraries() {
+  const [{ COURSE_CATALOG }, { INTERVENTION_LIBRARY }] = await Promise.all([
+    import('@/lib/training/course-catalog'),
+    import('@/lib/interventions/intervention-library')
+  ]);
+
+  return { COURSE_CATALOG, INTERVENTION_LIBRARY };
 }

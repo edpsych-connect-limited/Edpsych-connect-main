@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { logError } from '@/lib/logger';
-import { INTERVENTION_STATS, INTERVENTION_LIBRARY, InterventionTemplate } from '@/lib/interventions/intervention-library';
-import { ASSESSMENT_LIBRARY } from '@/lib/assessments/assessment-library';
+import type { InterventionTemplate } from '@/lib/interventions/intervention-library';
 
 export interface DashboardStats {
   activeCases: number;
@@ -56,7 +55,8 @@ export function useSchoolDashboard() {
     const loadData = async () => {
       setLoading(true);
       setError(null);
-      
+      const librariesPromise = loadLibraries();
+
       try {
         // Fetch data in parallel for performance optimization
         const [metricsRes, registerRes] = await Promise.all([
@@ -74,6 +74,7 @@ export function useSchoolDashboard() {
         
         const metrics: ApiDashboardMetrics = metricsData.data;
         const register: ApiRegisterEntry[] = registerData.data;
+        const { INTERVENTION_LIBRARY, INTERVENTION_STATS, ASSESSMENT_LIBRARY } = await librariesPromise;
 
         // Calculate Stats
         const teacherAssessments = ASSESSMENT_LIBRARY.filter(a => a.qualification_required === 'teacher' || a.qualification_required === 'senco').length;
@@ -105,15 +106,20 @@ export function useSchoolDashboard() {
       } catch (err) {
         logError(err instanceof Error ? err : new Error('Unknown error loading dashboard'), { context: 'useSchoolDashboard' });
         setError('Failed to load dashboard data');
-        
+
+        const fallbackLibraries = await librariesPromise.catch(() => null);
+        const fallbackAssessments = fallbackLibraries?.ASSESSMENT_LIBRARY ?? [];
+        const fallbackInterventions = fallbackLibraries?.INTERVENTION_LIBRARY ?? [];
+        const fallbackStats = fallbackLibraries?.INTERVENTION_STATS ?? { total: 0 };
+
         // Fallback to mock data if API fails (for demo purposes/resilience)
-        const teacherAssessments = ASSESSMENT_LIBRARY.filter(a => a.qualification_required === 'teacher' || a.qualification_required === 'senco').length;
-        const interventions = INTERVENTION_LIBRARY.filter(i => i.setting.includes('classroom')).slice(0, 3);
+        const teacherAssessments = fallbackAssessments.filter(a => a.qualification_required === 'teacher' || a.qualification_required === 'senco').length;
+        const interventions = fallbackInterventions.filter(i => i.setting.includes('classroom')).slice(0, 3);
         
         setStats({
           activeCases: 12, // Mock data
           teacherAssessments,
-          interventionCount: INTERVENTION_STATS.total,
+          interventionCount: fallbackStats.total,
           criticalActions: 2 // Mock data
         });
 
@@ -133,6 +139,15 @@ export function useSchoolDashboard() {
   }, []);
 
   return { stats, classroomInterventions, students, loading, error };
+}
+
+async function loadLibraries() {
+  const [{ INTERVENTION_STATS, INTERVENTION_LIBRARY }, { ASSESSMENT_LIBRARY }] = await Promise.all([
+    import('@/lib/interventions/intervention-library'),
+    import('@/lib/assessments/assessment-library')
+  ]);
+
+  return { INTERVENTION_STATS, INTERVENTION_LIBRARY, ASSESSMENT_LIBRARY };
 }
 
 function getStatusColor(rag: 'RED' | 'AMBER' | 'GREEN'): string {
