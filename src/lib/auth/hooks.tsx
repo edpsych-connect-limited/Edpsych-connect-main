@@ -580,12 +580,22 @@ function useAuthProvider(): AuthContextType {
     // Define role hierarchy with numeric levels
     const roleHierarchy: Record<string, number> = {
       'SUPERADMIN': 100,
+      'SYSTEMADMIN': 100,
       'ADMIN': 90,
+      'INSTITUTIONADMIN': 80,
+      'SCHOOLADMIN': 80,
+      'LAADMIN': 80,
       'MANAGER': 70,
+      'LAMANAGER': 70,
+      'LACASEWORKER': 60,
+      'SENCO': 60,
+      'EP': 60,
+      'EDUCATIONALPSYCHOLOGIST': 60,
+      'RESEARCHER': 50,
       'TEACHER': 50,
       'STAFF': 50,
-      'STUDENT': 30,
       'PARENT': 30,
+      'STUDENT': 30,
       'GUEST': 10,
     };
 
