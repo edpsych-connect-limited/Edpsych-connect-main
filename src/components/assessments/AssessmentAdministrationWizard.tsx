@@ -18,7 +18,7 @@ import { logger } from "@/lib/logger";
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDemo } from '@/components/demo/DemoProvider';
-import { downloadAssessmentReport, type AssessmentReport } from '@/lib/assessments/report-generator';
+import type { AssessmentReport } from '@/lib/assessments/report-generator';
 
 // ============================================================================
 // TYPES
@@ -417,6 +417,7 @@ export default function AssessmentAdministrationWizard({
       }
 
       // Generate and download the report (client side)
+      const { downloadAssessmentReport } = await import('@/lib/assessments/report-generator');
       await downloadAssessmentReport(report, {
         include_raw_scores: false,
         include_score_tables: false,

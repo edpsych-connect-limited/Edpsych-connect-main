@@ -1,0 +1,11 @@
+# Top client chunk sizes after lazy-loading reductions (build 1769026177708)
+1) b536a0f1.fd5e8f5628eedaf7.js 653.56 KB
+2) 9915-014565fd99e7f287.js 582.18 KB
+3) 8591.80d4cd7443236e03.js 403.20 KB
+4) 164f4fb6-0aef2e9c384bc52b.js 321.69 KB
+5) 4363.4a57b2862049070f.js 195.27 KB
+6) 4bd1b696-4c900b478dd30033.js 193.88 KB
+7) ad2866b8.5c05f000a6bc3858.js 193.54 KB
+8) 3794-d7a823c5a988a2d8.js 183.70 KB
+9) 8116-8d57fc29a361d3d3.js 178.72 KB
+10) ca377847.f4789be888bea0bf.js 150.38 KB

@@ -1,0 +1,35 @@
+{
+  "b536a0f1.fd5e8f5628eedaf7.js": [],
+  "9915-014565fd99e7f287.js": [
+    "/:locale/interventions/library",
+    "/:locale/interventions/new",
+    "/:locale/parent/dashboard",
+    "/:locale/school/dashboard",
+    "/:locale/teacher-dashboard"
+  ],
+  "8591.80d4cd7443236e03.js": [],
+  "164f4fb6-0aef2e9c384bc52b.js": [
+    "/:locale/assessments/:id/conduct",
+    "/:locale/demo/assessment",
+    "/:locale/ehcp",
+    "/:locale/ehcp/:id",
+    "/:locale/ehcp/modules",
+    "/:locale/ehcp/modules/annual-reviews",
+    "/:locale/ehcp/modules/compliance-risk",
+    "/:locale/ehcp/modules/golden-thread",
+    "/:locale/ehcp/modules/mediation-tribunal",
+    "/:locale/ehcp/modules/phase-transfers",
+    "/:locale/ehcp/modules/resource-costing",
+    "/:locale/ehcp/modules/sen2-returns",
+    "/:locale/ehcp/new"
+  ],
+  "4363.4a57b2862049070f.js": [],
+  "4bd1b696-4c900b478dd30033.js": [],
+  "ad2866b8.5c05f000a6bc3858.js": [],
+  "3794-d7a823c5a988a2d8.js": [],
+  "8116-8d57fc29a361d3d3.js": [
+    "/:locale/ep/dashboard",
+    "/:locale/school/dashboard"
+  ],
+  "ca377847.f4789be888bea0bf.js": []
+}

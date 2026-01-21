@@ -21,7 +21,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ReportData, Recommendation } from '@/lib/reports/report-generator';
+import type { ReportData, Recommendation } from '@/lib/reports/report-generator';
 import { Plus, Trash2, Save, Download, PlayCircle } from 'lucide-react';
 import { analyticsService } from '@/lib/analytics';
 import { hasAnalyticsConsent } from '@/utils/cookies';

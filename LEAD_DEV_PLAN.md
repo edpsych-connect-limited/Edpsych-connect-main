@@ -285,6 +285,8 @@ Progress log:
 - 2026-01-21: Logged accessibility audit run status in checklist.
 - 2026-01-21: Lazy-loaded jsPDF invoice generation and split training dashboard chart into a dynamic chunk; documented bundle reduction plan.
 - 2026-01-21: Deferred institutional performance charts via dynamic import to keep recharts off the main bundle.
+- 2026-01-21: Deferred assessment PDF report generation and type-only report imports to reduce client jsPDF exposure.
+- 2026-01-21: Captured post-reduction bundle chunk sizes and route map evidence after build.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

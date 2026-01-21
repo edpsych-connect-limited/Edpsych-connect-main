@@ -8,7 +8,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { downloadAssessmentReport, type AssessmentReport } from '@/lib/assessments/report-generator';
+import type { AssessmentReport } from '@/lib/assessments/report-generator';
 
 // ============================================================================
 // MOCK DATA
@@ -301,6 +301,7 @@ export default function AssessmentSandboxWizard() {
       };
 
       // Generate and download the report (client side)
+      const { downloadAssessmentReport } = await import('@/lib/assessments/report-generator');
       await downloadAssessmentReport(report, {
         include_raw_scores: false,
         include_score_tables: false,
