@@ -296,6 +296,7 @@ Progress log:
 - 2026-01-21: Documented top workflows and tours in `docs/guidance/GUIDED_WORKFLOWS.md`; expanded contextual help tips for key routes.
 - 2026-01-21: Clarified AI review queue with "why this review matters" checklist in ethics admin.
 - 2026-01-21: Standardized ethics review empty state using shared EmptyState component.
+- 2026-01-21: Standardized ethics admin monitors, incidents, and assessments empty states with shared EmptyState.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
