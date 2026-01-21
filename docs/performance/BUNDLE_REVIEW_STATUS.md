@@ -22,6 +22,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 - Keep deltas in KB and % with date stamps.
 - 2026-01-21: Build completed with warnings; Next build output did not include bundle sizes.
 - 2026-01-21: Bundle analyzer reports generated for client/edge/node.
+- 2026-01-21: Analyzer reports note "No bundles were parsed"; sizes may be limited to original module sizes.
 
 ## Capture Method (Baseline + After)
 1) Record build stats output (top 10 bundles) and store evidence file path.
