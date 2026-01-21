@@ -34,6 +34,27 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - [ ] Marketplace (search, booking, confirmation)
   - [ ] Keyboard-only pass
   - [ ] Screen reader pass
+- [ ] Admin governance dashboards (ethics, compliance, evidence)
+  - [ ] Keyboard-only pass
+  - [ ] Screen reader pass
+- [ ] AI review queue (submit, review, decision)
+  - [ ] Keyboard-only pass
+  - [ ] Screen reader pass
+- [ ] Training certificates (list, verify, download)
+  - [ ] Keyboard-only pass
+  - [ ] Screen reader pass
+- [ ] Subscription management (upgrade, add-on, checkout)
+  - [ ] Keyboard-only pass
+  - [ ] Screen reader pass
+- [ ] Safeguarding log (create, review, update)
+  - [ ] Keyboard-only pass
+  - [ ] Screen reader pass
+- [ ] Outcomes + analytics dashboards
+  - [ ] Keyboard-only pass
+  - [ ] Screen reader pass
+- [ ] Marketplace professional profile (public + provider dashboard)
+  - [ ] Keyboard-only pass
+  - [ ] Screen reader pass
 
 ## Keyboard Navigation
 - Tab order matches visual hierarchy
@@ -58,6 +79,11 @@ Status key: [ ] pending, [~] in progress, [x] complete
 ## Motion and Media
 - Animations respect prefers-reduced-motion
 - Video and audio have captions and transcripts
+
+## Evidence Capture (per journey)
+- Record OS, browser, and screen reader used
+- Capture any blockers in `docs/assurance/FINDINGS_REGISTER.md`
+- Log run summary in `docs/assurance/AUDIT_RUN_LOG.md`
 
 ## Audit Notes
 - 2026-01-18: Training flows updated with aria-live loading states and alert semantics; verify in screen reader pass.

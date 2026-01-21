@@ -45,3 +45,14 @@ Status key: [ ] pending, [x] done
 - Accessibility checklist: `docs/accessibility/AUDIT_CHECKLIST.md`
 - Tracing coverage: `docs/observability/TRACING_PLAN.md`
 - Telemetry coverage: `docs/observability/TELEMETRY_PLAN.md`
+
+## Signoff Log
+| Date | Area | Owner | Status | Evidence |
+| --- | --- | --- | --- | --- |
+| YYYY-MM-DD | Accessibility |  | Pending | docs/accessibility/AUDIT_CHECKLIST.md |
+| YYYY-MM-DD | Performance |  | Pending | docs/performance/BUNDLE_REVIEW_STATUS.md |
+| YYYY-MM-DD | Reliability |  | Pending | docs/observability/SLI_SLO.md |
+| YYYY-MM-DD | Security |  | Pending | docs/assurance/FINDINGS_REGISTER.md |
+| YYYY-MM-DD | Compliance |  | Pending | docs/assurance/VENDOR_SUBPROCESSOR_AUDIT.md |
+| YYYY-MM-DD | Operations |  | Pending | docs/ops/RUNBOOK.md |
+| YYYY-MM-DD | Commercial |  | Pending | docs/launch/LEGAL_CHECKLIST.md |
