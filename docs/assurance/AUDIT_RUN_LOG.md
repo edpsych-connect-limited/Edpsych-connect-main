@@ -110,6 +110,32 @@ Each audit run records **what was tested**, **where**, and **what evidence was p
 - INT-SEC-2026-009
 - INT-SEC-2026-010
 
+## RUN-2026-01-21-03 (In Progress)
+
+- **Run ID:** RUN-2026-01-21-03
+- **Date/time (UTC):** 2026-01-21
+- **Commit SHA/tag:** TBD
+- **Environment:** Local (manual accessibility walkthroughs)
+- **Auditor(s):** Internal (Codex)
+- **Test accounts used:** Demo accounts only (role-based; no secrets)
+
+### Tooling gates
+- Lint: Not run (manual audit)
+- Typecheck: Not run (manual audit)
+- Build: Not run (manual audit)
+- Targeted validators: axe devtools (manual), keyboard-only checks, screen reader
+
+### Walkthroughs executed
+- Accessibility audit kickoff: **In progress**
+- Priority journeys: login, dashboards, assessments, reports, cases, EHCP, training, marketplace
+
+### Evidence produced
+- Pending: `docs/accessibility/AUDIT_CHECKLIST.md`
+- Pending: `docs/assurance/FINDINGS_REGISTER.md`
+
+### Findings created
+- TBD
+
 ## Run template
 
 - **Run ID:** (e.g., RUN-2025-12-15-01)
