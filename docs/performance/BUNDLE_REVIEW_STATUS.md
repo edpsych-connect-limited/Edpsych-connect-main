@@ -12,7 +12,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 - Reports creation
 
 ## Evidence Log
-- [ ] Baseline build stats recorded (top 10 bundles)
+- [~] Baseline build stats recorded (top 10 bundles)
 - [ ] Top 5 bundles identified and prioritized
 - [ ] Reduction plan documented (dynamic imports, dependency removal)
 - [ ] Build stats updated after reductions
@@ -20,6 +20,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 
 ## Notes
 - Keep deltas in KB and % with date stamps.
+- 2026-01-21: Build timed out before stats were produced; rerun build with extended timeout or CI runner.
 
 ## Capture Method (Baseline + After)
 1) Record build stats output (top 10 bundles) and store evidence file path.
@@ -32,3 +33,4 @@ Status key: [ ] pending, [~] in progress, [x] done
 | --- | --- | --- | --- | --- | --- | --- |
 | YYYY-MM-DD | Dashboard | app/dashboard.js | 000 | 0 / 0% | baseline | docs/performance/build-stats-YYYY-MM-DD.txt |
 | YYYY-MM-DD | Assessments | app/assessments.js | 000 | -0 / -0% | after reduction | docs/performance/build-stats-YYYY-MM-DD.txt |
+| 2026-01-21 | N/A | N/A | N/A | N/A | Baseline build started but timed out before bundle stats emitted. | docs/performance/build-stats-2026-01-21.txt |

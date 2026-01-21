@@ -1,0 +1,18 @@
+
+> edpsych-connect-web-v2@1.0.0 prebuild
+> rimraf node_modules/@sentry
+
+
+> edpsych-connect-web-v2@1.0.0 build
+> cross-env NODE_OPTIONS="--max-old-space-size=8192" node ./scripts/next-cli-patched.cjs build --webpack
+
+Ôû▓ Next.js 16.1.1 (webpack)
+- Environments: .env.production.local, .env.local, .env
+
+  Creating an optimized production build ...
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Parsing of E:\EdpsychConnect\node_modules\next-intl\dist\esm\production\extractor\format\index.js for build dependencies failed at 'import(t)'.
+<w> Build dependencies behind this expression are ignored and might cause incorrect cache invalidation.
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Parsing of E:\EdpsychConnect\node_modules\next-intl\dist\esm\production\extractor\format\index.js for build dependencies failed at 'import(t)'.
+<w> Build dependencies behind this expression are ignored and might cause incorrect cache invalidation.
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
