@@ -44,13 +44,13 @@ export interface RoleProfile {
   quickActions: RoleQuickAction[];
 }
 
-const ADMIN_PROFILE: RoleProfile = {
-  id: 'admin',
-  label: 'Platform Leadership',
-  description: 'Governance, compliance, and operational oversight.',
-  roles: ['ADMIN', 'SUPERADMIN', 'SUPER_ADMIN'],
+const OWNER_ADMIN_PROFILE: RoleProfile = {
+  id: 'owner-admin',
+  label: 'Platform Owner',
+  description: 'System governance, compliance, and platform-wide oversight.',
+  roles: ['SUPERADMIN', 'SUPER_ADMIN'],
   primaryWorkspace: {
-    label: 'Admin Command Center',
+    label: 'Owner Command Center',
     description: 'Manage governance, access, and system oversight.',
     href: '/admin',
   },
@@ -66,7 +66,7 @@ const ADMIN_PROFILE: RoleProfile = {
   ],
   quickActions: [
     {
-      title: 'Admin Dashboard',
+      title: 'Owner Dashboard',
       description: 'Manage users, settings, and system configuration.',
       icon: Shield,
       href: '/admin',
@@ -92,6 +92,58 @@ const ADMIN_PROFILE: RoleProfile = {
       icon: TrendingUp,
       href: '/analytics',
       color: 'bg-indigo-100 text-indigo-600',
+    },
+  ],
+};
+
+const PLATFORM_ADMIN_PROFILE: RoleProfile = {
+  id: 'platform-admin',
+  label: 'Platform Admin',
+  description: 'Operational oversight without owner-only controls.',
+  roles: ['ADMIN'],
+  primaryWorkspace: {
+    label: 'Admin Studio',
+    description: 'Operational governance and reporting.',
+    href: '/studios/admin',
+  },
+  outcomes: [
+    'Monitor operational performance and compliance signals',
+    'Coordinate workflows across teams',
+    'Keep delivery on track with analytics and reports',
+  ],
+  guidedSteps: [
+    { title: 'Open admin studio', description: 'Review operational governance views.', href: '/studios/admin' },
+    { title: 'Review analytics', description: 'Inspect outcomes and delivery metrics.', href: '/analytics' },
+    { title: 'Check reports', description: 'Track reporting status and exports.', href: '/reports' },
+  ],
+  quickActions: [
+    {
+      title: 'Admin Studio',
+      description: 'Operational governance views and compliance insights.',
+      icon: Shield,
+      href: '/studios/admin',
+      color: 'bg-slate-100 text-slate-600',
+    },
+    {
+      title: 'Analytics',
+      description: 'Review performance and delivery insights.',
+      icon: TrendingUp,
+      href: '/analytics',
+      color: 'bg-indigo-100 text-indigo-600',
+    },
+    {
+      title: 'Reports',
+      description: 'Monitor reporting outputs and evidence exports.',
+      icon: FileText,
+      href: '/reports',
+      color: 'bg-orange-100 text-orange-600',
+    },
+    {
+      title: 'Cases',
+      description: 'Monitor case load and progress signals.',
+      icon: Users,
+      href: '/cases',
+      color: 'bg-green-100 text-green-600',
     },
   ],
 };
@@ -473,7 +525,8 @@ const DEFAULT_PROFILE: RoleProfile = {
 };
 
 const ROLE_PROFILES: RoleProfile[] = [
-  ADMIN_PROFILE,
+  OWNER_ADMIN_PROFILE,
+  PLATFORM_ADMIN_PROFILE,
   LA_PROFILE,
   EP_PROFILE,
   SCHOOL_PROFILE,
@@ -487,4 +540,3 @@ export function resolveRoleProfile(role?: string): RoleProfile {
   const normalized = (role || '').toUpperCase();
   return ROLE_PROFILES.find((profile) => profile.roles.includes(normalized)) ?? DEFAULT_PROFILE;
 }
-

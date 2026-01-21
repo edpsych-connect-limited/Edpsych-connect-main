@@ -273,6 +273,7 @@ Progress log:
 - 2026-01-21: Updated login redirects so only SUPER_ADMIN routes to /admin.
 - 2026-01-21: Updated systematic role testing plan to include platform admin scenario.
 - 2026-01-21: Aligned admin studio CTA to non-owner landing route.
+- 2026-01-21: Split owner vs platform admin role journeys to avoid /admin links for ADMIN.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
