@@ -23,7 +23,6 @@ import { Link } from '@/navigation';
 console.log('Rendering EHCP Page');
 
 import { useAuth } from '@/lib/auth/hooks';
-import { downloadEHCPPDF } from '@/lib/ehcp/pdf-generator';
 import { useDemo } from '@/components/demo/DemoProvider';
 import ErrorDisplay from '@/components/error-handling/ErrorDisplay';
 import { EmptyState } from '@/components/ui/EmptyState';
@@ -108,6 +107,7 @@ export default function EHCPListPage() {
   const handleExportPDF = async (ehcp: EHCP) => {
     try {
       setIsExporting(true);
+      const { downloadEHCPPDF } = await import('@/lib/ehcp/pdf-generator');
       await downloadEHCPPDF(ehcp as any);
     } catch (_err) {
       console.error('Error exporting PDF:', _err);
@@ -126,6 +126,7 @@ export default function EHCPListPage() {
     try {
       setIsExporting(true);
       const selectedEHCPsArray = ehcps.filter((ehcp) => selectedEHCPs.has(ehcp.id));
+      const { downloadEHCPPDF } = await import('@/lib/ehcp/pdf-generator');
 
       for (const ehcp of selectedEHCPsArray) {
         await downloadEHCPPDF(ehcp as any);

@@ -32,6 +32,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 - Split training dashboard chart bundle into a dynamic client-only chunk.
 - After chart/PDF split, re-measure chunks for `/training/dashboard` and `/subscription`.
 - Lazy-load assessment PDF report generation and avoid client-side jsPDF type imports.
+- Lazy-load EHCP PDF export to keep jsPDF off the list view bundle.
 - Defer recharts by dynamically loading institutional performance charts.
 - Next targets: audit where `recharts` is loaded; defer chart components on admin analytics.
 - Next targets: isolate Three.js demo visuals behind dynamic import and only load in demo routes.

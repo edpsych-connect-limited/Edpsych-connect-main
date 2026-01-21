@@ -288,6 +288,7 @@ Progress log:
 - 2026-01-21: Deferred assessment PDF report generation and type-only report imports to reduce client jsPDF exposure.
 - 2026-01-21: Captured post-reduction bundle chunk sizes and route map evidence after build.
 - 2026-01-21: Post-assessment-report build completed; top chunk sizes unchanged from prior reduction run.
+- 2026-01-21: Deferred EHCP PDF export to lazy-load jsPDF on demand.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
