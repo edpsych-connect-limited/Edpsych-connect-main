@@ -13,7 +13,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 
 ## Evidence Log
 - [x] Baseline build stats recorded (top 10 bundles)
-- [~] Top 5 bundles identified and prioritized
+- [~] Top 5 bundles identified and prioritized (route mapping partially complete)
 - [ ] Reduction plan documented (dynamic imports, dependency removal)
 - [ ] Build stats updated after reductions
 - [ ] p95 impact verified against `docs/observability/SLI_SLO.md`
@@ -23,7 +23,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 - 2026-01-21: Build completed with warnings; Next build output did not include bundle sizes.
 - 2026-01-21: Bundle analyzer reports generated for client/edge/node.
 - 2026-01-21: Analyzer reports note "No bundles were parsed"; sizes may be limited to original module sizes.
-- 2026-01-21: Top chunk sizes captured from build output; page mapping still pending.
+- 2026-01-21: Top chunk sizes captured from build output; page mapping sourced from app router client-reference manifests.
 
 ## Capture Method (Baseline + After)
 1) Record build stats output (top 10 bundles) and store evidence file path.
@@ -38,8 +38,8 @@ Status key: [ ] pending, [~] in progress, [x] done
 | YYYY-MM-DD | Assessments | app/assessments.js | 000 | -0 / -0% | after reduction | docs/performance/build-stats-YYYY-MM-DD.txt |
 | 2026-01-21 | N/A | N/A | N/A | N/A | Baseline build completed; bundle sizes not emitted in console output. | docs/performance/build-stats-2026-01-21.txt |
 | 2026-01-21 | N/A | N/A | N/A | N/A | Bundle analyzer reports generated (client/edge/node). | docs/performance/client.html |
-| 2026-01-21 | N/A | b536a0f1.fd5e8f5628eedaf7.js | 653.56 | 0 / 0% | Top client chunk (file size). | docs/performance/chunk-sizes-2026-01-21.txt |
-| 2026-01-21 | N/A | 9915-014565fd99e7f287.js | 582.18 | 0 / 0% | Top client chunk (file size). | docs/performance/chunk-sizes-2026-01-21.txt |
-| 2026-01-21 | N/A | 7143-77251ab5e5f59b5f.js | 403.76 | 0 / 0% | Top client chunk (file size). | docs/performance/chunk-sizes-2026-01-21.txt |
-| 2026-01-21 | N/A | 164f4fb6-36e485247c9e3b53.js | 321.69 | 0 / 0% | Top client chunk (file size). | docs/performance/chunk-sizes-2026-01-21.txt |
-| 2026-01-21 | N/A | 4363.4a57b2862049070f.js | 195.27 | 0 / 0% | Top client chunk (file size). | docs/performance/chunk-sizes-2026-01-21.txt |
+| 2026-01-21 | Shared/vendor (route mapping pending) | b536a0f1.fd5e8f5628eedaf7.js | 653.56 | 0 / 0% | Heavy bundle; contains chart/canvas/three/ace/d3 modules. | docs/performance/chunk-sizes-2026-01-21.txt |
+| 2026-01-21 | /:locale/interventions/library; /:locale/interventions/new; /:locale/parent/dashboard; /:locale/school/dashboard; /:locale/teacher-dashboard | 9915-014565fd99e7f287.js | 582.18 | 0 / 0% | Shared across dashboards; chart/pdf/three/moment/ace modules. | docs/performance/chunk-sizes-2026-01-21.txt |
+| 2026-01-21 | /:locale/institutional-management | 7143-77251ab5e5f59b5f.js | 403.76 | 0 / 0% | Stripe + chart + lodash + ace modules. | docs/performance/chunk-sizes-2026-01-21.txt |
+| 2026-01-21 | /:locale/ehcp; /:locale/ehcp/*; /:locale/assessments/:id/conduct; /:locale/demo/assessment; /:locale/subscription* | 164f4fb6-36e485247c9e3b53.js | 321.69 | 0 / 0% | Shared across EHCP + subscription; chart/pdf/canvas/ace modules. | docs/performance/chunk-sizes-2026-01-21.txt |
+| 2026-01-21 | Shared/vendor (route mapping pending) | 4363.4a57b2862049070f.js | 195.27 | 0 / 0% | Shared bundle; canvas/three/ace modules. | docs/performance/chunk-sizes-2026-01-21.txt |
