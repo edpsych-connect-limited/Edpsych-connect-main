@@ -14,6 +14,12 @@ This document outlines the test scenarios for verifying the "invisible intellige
 - **Check**: Access to tenant management, user oversight, and global settings.
 - **Key Feature**: "God-mode" view of all schools and data.
 
+### 1a. Platform Admin (`admin-ops@demo.com`)
+**Objective**: Verify operational admin without owner access.
+- **Login**: Should redirect to `/dashboard`.
+- **Check**: Admin Studio access without `/admin` System Administration.
+- **Key Feature**: No access to owner-only controls.
+
 ### 2. Teacher (`teacher@demo.com`)
 **Objective**: Verify classroom management and lesson planning.
 - **Login**: Should redirect to `/dashboard`.
