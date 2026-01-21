@@ -21,7 +21,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 ## Notes
 - Keep deltas in KB and % with date stamps.
 - 2026-01-21: Build completed with warnings; Next build output did not include bundle sizes.
-- 2026-01-21: Next step is to run bundle analyzer to capture top 10 bundle sizes.
+- 2026-01-21: Bundle analyzer reports generated for client/edge/node.
 
 ## Capture Method (Baseline + After)
 1) Record build stats output (top 10 bundles) and store evidence file path.
@@ -35,3 +35,4 @@ Status key: [ ] pending, [~] in progress, [x] done
 | YYYY-MM-DD | Dashboard | app/dashboard.js | 000 | 0 / 0% | baseline | docs/performance/build-stats-YYYY-MM-DD.txt |
 | YYYY-MM-DD | Assessments | app/assessments.js | 000 | -0 / -0% | after reduction | docs/performance/build-stats-YYYY-MM-DD.txt |
 | 2026-01-21 | N/A | N/A | N/A | N/A | Baseline build completed; bundle sizes not emitted in console output. | docs/performance/build-stats-2026-01-21.txt |
+| 2026-01-21 | N/A | N/A | N/A | N/A | Bundle analyzer reports generated (client/edge/node). | docs/performance/client.html |

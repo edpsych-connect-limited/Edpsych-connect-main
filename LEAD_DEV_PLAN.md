@@ -276,6 +276,8 @@ Progress log:
 - 2026-01-21: Split owner vs platform admin role journeys to avoid /admin links for ADMIN.
 - 2026-01-21: Attempted bundle baseline build; capture timed out before stats emitted.
 - 2026-01-21: Completed bundle build; bundle sizes not emitted, analyzer still required.
+- 2026-01-21: Generated bundle analyzer reports (client/edge/node) for baseline sizing.
+- 2026-01-21: Enabled bundle analyzer in next.config.mjs (ANALYZE=true).
 - 2026-01-21: Started accessibility audit run (RUN-2026-01-21-03).
 - 2026-01-21: Logged performance signoff entry for bundle review evidence.
 - 2026-01-21: Logged accessibility audit run status in checklist.
