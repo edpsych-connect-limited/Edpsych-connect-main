@@ -290,6 +290,7 @@ Progress log:
 - 2026-01-21: Post-assessment-report build completed; top chunk sizes unchanged from prior reduction run.
 - 2026-01-21: Deferred EHCP PDF export to lazy-load jsPDF on demand.
 - 2026-01-21: Replaced non-ASCII trend arrows with ASCII-safe copy in institutional dashboards.
+- 2026-01-21: Post-EHCP build completed; top chunk sizes unchanged from prior reduction run.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
