@@ -56,3 +56,4 @@ Status key: [ ] pending, [x] done
 | YYYY-MM-DD | Compliance |  | Pending | docs/assurance/VENDOR_SUBPROCESSOR_AUDIT.md |
 | YYYY-MM-DD | Operations |  | Pending | docs/ops/RUNBOOK.md |
 | YYYY-MM-DD | Commercial |  | Pending | docs/launch/LEGAL_CHECKLIST.md |
+| 2026-01-21 | Performance |  | In Progress | docs/performance/build-stats-2026-01-21.txt |
