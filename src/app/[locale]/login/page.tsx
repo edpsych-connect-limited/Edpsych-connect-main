@@ -57,8 +57,8 @@ export default function LoginPage() {
     
     const role = userRole.toUpperCase();
     
-    // Super Admin / Admin - Admin dashboard
-    if (role === 'SUPER_ADMIN' || role === 'ADMIN' || role === 'SUPERADMIN') {
+    // Super Admin - System Administration
+    if (role === 'SUPER_ADMIN' || role === 'SUPERADMIN') {
       return '/admin';
     }
     

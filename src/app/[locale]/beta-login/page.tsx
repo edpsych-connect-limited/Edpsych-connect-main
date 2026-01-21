@@ -56,7 +56,7 @@ export default function BetaLoginPage() {
     if (!userRole) return '/dashboard';
     
     const role = userRole.toUpperCase();
-    if (role === 'SUPER_ADMIN' || role === 'ADMIN' || role === 'SUPERADMIN') {
+    if (role === 'SUPER_ADMIN' || role === 'SUPERADMIN') {
       return '/admin';
     }
     
