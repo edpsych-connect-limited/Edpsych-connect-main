@@ -199,7 +199,7 @@ const InstitutionalDashboard: React.FC<{ id?: string }> = ({ id }) => {
             <p className="text-sm text-gray-600">Assessment Completions</p>
             <p className="text-xl font-bold">{institution.metrics?.assessmentCompletions || 0}</p>
             <p className="text-sm text-gray-600">
-              <span className="text-green-600">↑</span> {institution.metrics?.assessmentCompletionsTrend || 0}% since last month
+              <span className="text-green-600">Up</span> {institution.metrics?.assessmentCompletionsTrend || 0}% since last month
             </p>
           </div>
         </div>
@@ -208,7 +208,7 @@ const InstitutionalDashboard: React.FC<{ id?: string }> = ({ id }) => {
             <p className="text-sm text-gray-600">Active Interventions</p>
             <p className="text-xl font-bold">{institution.metrics?.activeInterventions || 0}</p>
             <p className="text-sm text-gray-600">
-              <span className="text-green-600">↑</span> {institution.metrics?.activeInterventionsTrend || 0}% since last month
+              <span className="text-green-600">Up</span> {institution.metrics?.activeInterventionsTrend || 0}% since last month
             </p>
           </div>
         </div>
@@ -217,7 +217,7 @@ const InstitutionalDashboard: React.FC<{ id?: string }> = ({ id }) => {
             <p className="text-sm text-gray-600">Resource Utilization</p>
             <p className="text-xl font-bold">{institution.metrics?.resourceUtilization || 0}%</p>
             <p className="text-sm text-gray-600">
-              <span className="text-green-600">↑</span> {institution.metrics?.resourceUtilizationTrend || 0}% since last month
+              <span className="text-green-600">Up</span> {institution.metrics?.resourceUtilizationTrend || 0}% since last month
             </p>
           </div>
         </div>

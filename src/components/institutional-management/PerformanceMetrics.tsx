@@ -176,25 +176,25 @@ const PerformanceMetrics: React.FC<PerformanceMetricsProps> = ({ metrics }) => {
           <div className="bg-blue-50 p-4 rounded">
             <p className="text-sm text-gray-600">Assessment Completion Rate</p>
             <p className="text-xl font-bold">{metrics.assessmentCompletions || 86}%</p>
-            <p className="text-xs text-green-600">↑ {metrics.assessmentCompletionsTrend || 4}%</p>
+            <p className="text-xs text-green-600">Up {metrics.assessmentCompletionsTrend || 4}%</p>
           </div>
           
           <div className="bg-green-50 p-4 rounded">
             <p className="text-sm text-gray-600">Intervention Success Rate</p>
             <p className="text-xl font-bold">{metrics.activeInterventions || 72}%</p>
-            <p className="text-xs text-green-600">↑ {metrics.activeInterventionsTrend || 3}%</p>
+            <p className="text-xs text-green-600">Up {metrics.activeInterventionsTrend || 3}%</p>
           </div>
           
           <div className="bg-purple-50 p-4 rounded">
             <p className="text-sm text-gray-600">Resource Utilization</p>
             <p className="text-xl font-bold">{metrics.resourceUtilization || 93}%</p>
-            <p className="text-xs text-green-600">↑ {metrics.resourceUtilizationTrend || 5}%</p>
+            <p className="text-xs text-green-600">Up {metrics.resourceUtilizationTrend || 5}%</p>
           </div>
           
           <div className="bg-yellow-50 p-4 rounded">
             <p className="text-sm text-gray-600">User Satisfaction</p>
             <p className="text-xl font-bold">4.8/5</p>
-            <p className="text-xs text-green-600">↑ 0.2</p>
+            <p className="text-xs text-green-600">Up 0.2</p>
           </div>
         </div>
       </div>
