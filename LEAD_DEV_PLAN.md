@@ -248,6 +248,7 @@ Progress log:
 - 2026-01-20: Standardized SENCO needs breakdown empty state with shared EmptyState styling.
 - 2026-01-20: Expanded ethics admin evidence tab with production coverage snapshot and queue health.
 - 2026-01-20: Expanded evidence metrics API with workflow/status/aging and added JSON export.
+- 2026-01-20: Added CSV export for evidence dashboard snapshots.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -305,6 +306,7 @@ Progress log:
     - Production scope, data sources, and ownership documented
     - Human-readable summaries for executives
     - Ethics admin evidence tab aligned to production snapshot
+    - CSV export enabled for evidence snapshots
 
 [~] Improve AI review UX for clarity (why review is required)
 

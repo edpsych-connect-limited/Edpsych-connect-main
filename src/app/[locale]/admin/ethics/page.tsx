@@ -46,6 +46,51 @@ export default function EthicsAdminPage() {
     URL.revokeObjectURL(url);
   };
 
+  const handleEvidenceExportCsv = () => {
+    if (!evidenceMetrics) {
+      return;
+    }
+    const escapeValue = (value: unknown) => `"${String(value ?? '').replace(/"/g, '""')}"`;
+    const rows: string[] = [];
+    rows.push(['section', 'metric', 'value'].map(escapeValue).join(','));
+
+    rows.push(['summary', 'totalEvents', evidenceMetrics.summary?.totalEvents ?? 0].map(escapeValue).join(','));
+    rows.push(['summary', 'reviewsRequired', evidenceMetrics.summary?.reviewsRequired ?? 0].map(escapeValue).join(','));
+    rows.push(['summary', 'avgLatencyMs', evidenceMetrics.summary?.avgLatencyMs ?? 0].map(escapeValue).join(','));
+    rows.push(['summary', 'maxLatencyMs', evidenceMetrics.summary?.maxLatencyMs ?? 0].map(escapeValue).join(','));
+    rows.push(['summary', 'uniqueUsers', evidenceMetrics.summary?.uniqueUsers30d ?? 0].map(escapeValue).join(','));
+
+    Object.entries(evidenceMetrics.reviews ?? {}).forEach(([status, count]) => {
+      rows.push(['reviews', status, count ?? 0].map(escapeValue).join(','));
+    });
+
+    Object.entries(evidenceMetrics.reviewAging ?? {}).forEach(([bucket, count]) => {
+      rows.push(['reviewAging', bucket, count ?? 0].map(escapeValue).join(','));
+    });
+
+    Object.entries(evidenceMetrics.statuses ?? {}).forEach(([status, count]) => {
+      rows.push(['evidenceStatus', status, count ?? 0].map(escapeValue).join(','));
+    });
+
+    (evidenceMetrics.workflows ?? []).forEach((entry: any) => {
+      rows.push(['workflow', entry.workflow ?? 'unclassified', entry.count ?? 0].map(escapeValue).join(','));
+    });
+
+    (evidenceMetrics.byType ?? []).forEach((entry: any) => {
+      rows.push(['evidenceType', entry.type ?? 'unknown', entry.count ?? 0].map(escapeValue).join(','));
+    });
+
+    const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `evidence-dashboard-${timeRangeDays}d.csv`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  };
+
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -423,6 +468,13 @@ export default function EthicsAdminPage() {
                       onClick={handleEvidenceExport}
                     >
                       Export JSON
+                    </button>
+                    <button
+                      type="button"
+                      className="rounded-md border border-gray-200 bg-white px-3 py-1 text-sm text-gray-700 hover:bg-gray-50"
+                      onClick={handleEvidenceExportCsv}
+                    >
+                      Export CSV
                     </button>
                     <span>Window</span>
                     <select
