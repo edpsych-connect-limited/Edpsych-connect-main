@@ -348,37 +348,45 @@ export default function EthicsAdminPage() {
                     Add Monitor
                   </button>
                 </div>
-                {monitors.map((monitor) => (
-                  <div key={monitor.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
-                    <div className="flex justify-between items-start">
-                      <div className="flex-1">
-                        <h4 className="font-medium text-gray-900">{monitor.name}</h4>
-                        <p className="text-sm text-gray-600 mt-1">{monitor.description}</p>
-                        <div className="flex gap-2 mt-2">
-                          <span className="px-2 py-1 text-xs bg-gray-100 text-gray-800 rounded">
-                            {monitor.frequency}
-                          </span>
-                          <span className={`px-2 py-1 text-xs rounded ${
-                            monitor.severity === 'critical' ? 'bg-red-100 text-red-800' :
-                            monitor.severity === 'high' ? 'bg-orange-100 text-orange-800' :
-                            'bg-blue-100 text-blue-800'
+                {monitors.length === 0 ? (
+                  <EmptyState
+                    title="No monitors configured"
+                    description="Create an ethics monitor to track risk signals."
+                    actionLabel="Add monitor"
+                  />
+                ) : (
+                  monitors.map((monitor) => (
+                    <div key={monitor.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                      <div className="flex justify-between items-start">
+                        <div className="flex-1">
+                          <h4 className="font-medium text-gray-900">{monitor.name}</h4>
+                          <p className="text-sm text-gray-600 mt-1">{monitor.description}</p>
+                          <div className="flex gap-2 mt-2">
+                            <span className="px-2 py-1 text-xs bg-gray-100 text-gray-800 rounded">
+                              {monitor.frequency}
+                            </span>
+                            <span className={`px-2 py-1 text-xs rounded ${
+                              monitor.severity === 'critical' ? 'bg-red-100 text-red-800' :
+                              monitor.severity === 'high' ? 'bg-orange-100 text-orange-800' :
+                              'bg-blue-100 text-blue-800'
+                            }`}>
+                              {monitor.severity}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className={`px-3 py-1 text-sm font-medium rounded-full ${
+                            monitor.enabled
+                              ? 'bg-green-100 text-green-800'
+                              : 'bg-gray-100 text-gray-800'
                           }`}>
-                            {monitor.severity}
+                            {monitor.enabled ? 'Enabled' : 'Disabled'}
                           </span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <span className={`px-3 py-1 text-sm font-medium rounded-full ${
-                          monitor.enabled
-                            ? 'bg-green-100 text-green-800'
-                            : 'bg-gray-100 text-gray-800'
-                        }`}>
-                          {monitor.enabled ? 'Enabled' : 'Disabled'}
-                        </span>
-                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             )}
 
@@ -391,9 +399,11 @@ export default function EthicsAdminPage() {
                   </button>
                 </div>
                 {incidents.length === 0 ? (
-                  <div className="text-center py-12 text-gray-500">
-                    No active incidents
-                  </div>
+                  <EmptyState
+                    title="No active incidents"
+                    description="Incident alerts will appear here when reported."
+                    actionLabel="Report incident"
+                  />
                 ) : (
                   incidents.map((incident) => (
                     <div key={incident.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
@@ -433,28 +443,36 @@ export default function EthicsAdminPage() {
                     New Assessment
                   </button>
                 </div>
-                {assessments.map((assessment) => (
-                  <div key={assessment.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
-                    <div className="flex justify-between items-start">
-                      <div className="flex-1">
-                        <h4 className="font-medium text-gray-900">{assessment.title}</h4>
-                        <p className="text-sm text-gray-600 mt-1">{assessment.description}</p>
-                        <div className="flex gap-2 mt-2">
-                          <span className="px-2 py-1 text-xs bg-gray-100 text-gray-800 rounded">
-                            {assessment.componentType}
-                          </span>
-                          <span className={`px-2 py-1 text-xs rounded ${
-                            assessment.status === 'approved' ? 'bg-green-100 text-green-800' :
-                            assessment.status === 'in_review' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-gray-100 text-gray-800'
-                          }`}>
-                            {assessment.status.replace('_', ' ')}
-                          </span>
+                {assessments.length === 0 ? (
+                  <EmptyState
+                    title="No assessments submitted"
+                    description="Create an ethics assessment when a new AI component is reviewed."
+                    actionLabel="New assessment"
+                  />
+                ) : (
+                  assessments.map((assessment) => (
+                    <div key={assessment.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                      <div className="flex justify-between items-start">
+                        <div className="flex-1">
+                          <h4 className="font-medium text-gray-900">{assessment.title}</h4>
+                          <p className="text-sm text-gray-600 mt-1">{assessment.description}</p>
+                          <div className="flex gap-2 mt-2">
+                            <span className="px-2 py-1 text-xs bg-gray-100 text-gray-800 rounded">
+                              {assessment.componentType}
+                            </span>
+                            <span className={`px-2 py-1 text-xs rounded ${
+                              assessment.status === 'approved' ? 'bg-green-100 text-green-800' :
+                              assessment.status === 'in_review' ? 'bg-yellow-100 text-yellow-800' :
+                              'bg-gray-100 text-gray-800'
+                            }`}>
+                              {assessment.status.replace('_', ' ')}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             )}
 

@@ -7,7 +7,7 @@ of context and to provide a clear execution checklist.
 Status key: [ ] pending, [~] in progress, [x] done
 
 Owner: Codex (Project Lead) + Scott (Sponsor)
-Last updated: 2026-01-20
+Last updated: 2026-01-21
 
 -----------------------------------------------------------------------------
 Execution Timeline (Target)
@@ -371,6 +371,7 @@ Progress log:
     - error display with retry now in assessments, cases, EHCP, interventions
     - reports empty state now uses shared EmptyState component
     - SENCO needs breakdown now uses shared EmptyState component
+    - ethics admin monitors/incidents/assessments empty states use shared EmptyState
 
 -----------------------------------------------------------------------------
 7) Delivery + Validation
