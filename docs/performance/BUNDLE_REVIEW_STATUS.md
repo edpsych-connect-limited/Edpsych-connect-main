@@ -29,7 +29,8 @@ Status key: [ ] pending, [~] in progress, [x] done
 - Move PDF generation to lazy-loaded imports on subscription invoices (jsPDF only when downloading).
 - Split training dashboard chart bundle into a dynamic client-only chunk.
 - After chart/PDF split, re-measure chunks for `/training/dashboard` and `/subscription`.
-- Next targets: audit where `recharts` is loaded; defer chart components on admin analytics and institutional management.
+- Defer recharts by dynamically loading institutional performance charts.
+- Next targets: audit where `recharts` is loaded; defer chart components on admin analytics.
 - Next targets: isolate Three.js demo visuals behind dynamic import and only load in demo routes.
 
 ## Capture Method (Baseline + After)

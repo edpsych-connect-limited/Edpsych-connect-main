@@ -284,6 +284,7 @@ Progress log:
 - 2026-01-21: Logged performance signoff entry for bundle review evidence.
 - 2026-01-21: Logged accessibility audit run status in checklist.
 - 2026-01-21: Lazy-loaded jsPDF invoice generation and split training dashboard chart into a dynamic chunk; documented bundle reduction plan.
+- 2026-01-21: Deferred institutional performance charts via dynamic import to keep recharts off the main bundle.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

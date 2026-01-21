@@ -10,11 +10,19 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import InstitutionOverview from './InstitutionOverview';
 import DepartmentManagement from './DepartmentManagement';
 import ContactManagement from './ContactManagement';
 import SubscriptionManagement from './SubscriptionManagement';
-import PerformanceMetrics from './PerformanceMetrics';
+const PerformanceMetrics = dynamic(() => import('./PerformanceMetrics'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center h-64 text-sm text-gray-500">
+      Loading performance charts...
+    </div>
+  ),
+});
 import ActivityLogs from './ActivityLogs';
 import SLAAnalytics from './SLAAnalytics';
 
