@@ -489,7 +489,7 @@ export default function EthicsAdminPage() {
                     </div>
                     <div className="mt-4 grid grid-cols-3 gap-3 text-xs">
                       <div className="rounded-md border border-gray-200 bg-gray-50 p-2 text-gray-700">
-                        <p className="text-gray-500">Pending < 24h</p>
+                        <p className="text-gray-500">Pending &lt; 24h</p>
                         <p className="text-sm font-semibold text-gray-900">
                           {evidenceMetrics?.reviewAging?.lt24 || 0}
                         </p>
