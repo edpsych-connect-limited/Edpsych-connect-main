@@ -20,6 +20,9 @@ next-env.d.ts
 /.next_build*/
 /.next_build_gate*/
 /.next_dist_dir
+/.next_manual/
+/.next_force_clean/
+/.next_test/
 
 # Production
 /build
