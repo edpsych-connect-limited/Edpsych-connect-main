@@ -10,6 +10,7 @@
 
 import { useState, useEffect } from 'react';
 import { useDemo } from '@/components/demo/DemoProvider';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { AI_ASSIST_NOTICE, AI_DATA_NOTICE } from '@/lib/ai/ai-microcopy';
 
 export default function EthicsAdminPage() {
@@ -666,9 +667,12 @@ export default function EthicsAdminPage() {
                   </div>
                 )}
                 {reviews.length === 0 ? (
-                  <div className="text-center py-12 text-gray-500">
-                    No reviews in queue
-                  </div>
+                  <EmptyState
+                    title="No reviews in queue"
+                    description="AI review tasks will appear here when human oversight is required."
+                    actionLabel="View evidence snapshot"
+                    actionOnClick={() => setActiveTab('evidence')}
+                  />
                 ) : (
                   reviews.map((review) => (
                     <div key={review.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
