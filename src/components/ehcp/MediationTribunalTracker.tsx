@@ -36,6 +36,7 @@ import {
   PoundSterling,
   RefreshCw,
 } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 // Types
 interface MediationCase {
@@ -486,10 +487,12 @@ export default function MediationTribunalTracker() {
             className="space-y-4"
           >
             {filteredMediations.length === 0 ? (
-              <div className="bg-white dark:bg-gray-800 rounded-xl p-12 text-center">
-                <MessageSquare className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-500 dark:text-gray-400">No mediation cases found</p>
-              </div>
+              <EmptyState
+                title="No mediation cases found"
+                description="New mediation requests will appear here."
+                icon={<MessageSquare className="w-8 h-8 text-blue-500" />}
+                className="bg-white dark:bg-gray-800"
+              />
             ) : (
               filteredMediations.map((mediation) => (
                 <div
@@ -540,10 +543,12 @@ export default function MediationTribunalTracker() {
             className="space-y-4"
           >
             {filteredTribunals.length === 0 ? (
-              <div className="bg-white dark:bg-gray-800 rounded-xl p-12 text-center">
-                <Gavel className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-500 dark:text-gray-400">No tribunal cases found</p>
-              </div>
+              <EmptyState
+                title="No tribunal cases found"
+                description="Tribunal appeals will appear here when escalated."
+                icon={<Gavel className="w-8 h-8 text-blue-500" />}
+                className="bg-white dark:bg-gray-800"
+              />
             ) : (
               filteredTribunals.map((tribunal) => (
                 <div

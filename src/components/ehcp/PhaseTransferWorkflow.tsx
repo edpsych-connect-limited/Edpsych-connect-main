@@ -38,6 +38,7 @@ import {
   ClipboardList,
   Mail,
 } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 // Types
 interface PhaseTransfer {
@@ -412,10 +413,12 @@ export default function PhaseTransferWorkflow() {
       {/* Transfer List */}
       <div className="space-y-4">
         {filteredTransfers.length === 0 ? (
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-12 text-center">
-            <GraduationCap className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 dark:text-gray-400">No transfers found</p>
-          </div>
+          <EmptyState
+            title="No transfers found"
+            description="Phase transfers will appear here once scheduled."
+            icon={<GraduationCap className="w-8 h-8 text-blue-500" />}
+            className="bg-white dark:bg-gray-800"
+          />
         ) : (
           filteredTransfers.map((transfer) => (
             <motion.div

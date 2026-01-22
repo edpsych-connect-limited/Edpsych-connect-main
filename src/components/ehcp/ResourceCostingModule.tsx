@@ -35,6 +35,7 @@ import {
   Lightbulb,
   School,
 } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 // Types
 interface ProvisionCost {
@@ -493,10 +494,12 @@ export default function ResourceCostingModule() {
       {/* Cost List */}
       <div className="space-y-4">
         {filteredCosts.length === 0 ? (
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-12 text-center">
-            <PoundSterling className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 dark:text-gray-400">No cost records found</p>
-          </div>
+          <EmptyState
+            title="No cost records found"
+            description="Costing entries will appear here once added."
+            icon={<PoundSterling className="w-8 h-8 text-blue-500" />}
+            className="bg-white dark:bg-gray-800"
+          />
         ) : (
           filteredCosts.map((cost) => (
             <motion.div

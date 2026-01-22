@@ -48,6 +48,7 @@ import {
   Eye,
   Projector,
 } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 import LiveEHCPEditor from './LiveEHCPEditor';
 
 // Types
@@ -585,10 +586,12 @@ export default function AnnualReviewScheduler() {
             className="space-y-4"
           >
             {filteredReviews.length === 0 ? (
-              <div className="bg-white dark:bg-gray-800 rounded-xl p-12 text-center">
-                <Calendar className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-500 dark:text-gray-400">No reviews found</p>
-              </div>
+              <EmptyState
+                title="No reviews found"
+                description="Annual reviews will appear here once scheduled."
+                icon={<CalendarCheck className="w-8 h-8 text-blue-500" />}
+                className="bg-white dark:bg-gray-800"
+              />
             ) : (
               filteredReviews.map((review) => {
                 const daysUntilDue = getDaysUntilDue(review.dueDate);

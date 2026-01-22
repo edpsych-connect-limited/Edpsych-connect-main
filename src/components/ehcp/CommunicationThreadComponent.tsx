@@ -29,9 +29,11 @@ import {
   FileText,
   Download,
   User,
-  Building2
+  Building2,
+  MessageSquare,
 } from 'lucide-react';
 import type { CommunicationThread, CommunicationMessage, MessageType, MessageSender } from '@/lib/ehcp/communication-thread-service';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 interface CommunicationThreadComponentProps {
   ehcpApplicationId: number;
@@ -272,7 +274,11 @@ export function CommunicationThreadComponent({
   if (!thread) {
     return (
       <div className="bg-white rounded-lg border p-6">
-        <p className="text-gray-600 text-center">No messages found</p>
+        <EmptyState
+          title="No messages yet"
+          description="Start the conversation to capture evidence and decisions."
+          icon={<MessageSquare className="w-8 h-8 text-blue-500" />}
+        />
       </div>
     );
   }

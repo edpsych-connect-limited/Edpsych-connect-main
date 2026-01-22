@@ -17,6 +17,8 @@ import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/lib/auth/hooks';
 import { useDemo } from '@/components/demo/DemoProvider';
+import { History } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 interface EHCPPlanDetails {
   status?: string;
@@ -716,7 +718,11 @@ export default function EHCPDetailPage() {
                       </ul>
                     </div>
                   ) : (
-                    <p className="text-gray-500">No version history available.</p>
+                    <EmptyState
+                      title="No version history available"
+                      description="New revisions will be tracked as updates are published."
+                      icon={<History className="w-8 h-8 text-blue-500" />}
+                    />
                   )}
                 </div>
               )}
