@@ -453,6 +453,16 @@ export default function EnhancedCodingCurriculum({
     }
   };
 
+  const getNextLevelForTrack = (track: VideoTutorial['track']) => {
+    const trackType = track === 'python' ? 'Python' : track === 'react' ? 'React' : 'Blocks';
+    const trackLevels = levels
+      .filter((level) => level.type === trackType)
+      .sort((a, b) => a.id - b.id);
+    if (trackLevels.length === 0) return null;
+    const nextIncomplete = trackLevels.find((level) => !completedLevels.includes(level.id));
+    return nextIncomplete?.id ?? trackLevels[0].id;
+  };
+
   const runCode = () => {
     setIsRunning(true);
     setCodeOutput([]);
@@ -1200,7 +1210,7 @@ export default function EnhancedCodingCurriculum({
             <div className="p-6">
               <h3 className="text-xl font-bold text-white mb-2">{selectedVideo.title}</h3>
               <p className="text-slate-400 mb-4">{selectedVideo.description}</p>
-              <div className="flex justify-between items-center">
+              <div className="flex flex-wrap items-center justify-between gap-3">
                 <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                   selectedVideo.track === 'intro' ? 'bg-green-500/20 text-green-300' :
                   selectedVideo.track === 'blocks' ? 'bg-amber-500/20 text-amber-300' :
@@ -1209,16 +1219,33 @@ export default function EnhancedCodingCurriculum({
                 }`}>
                   {selectedVideo.track === 'intro' ? 'Getting Started' : selectedVideo.track.charAt(0).toUpperCase() + selectedVideo.track.slice(1)} Track
                 </span>
-                <button 
-                  onClick={() => {
-                    setVoiceEnabled(true);
-                    speak(`Now playing: ${selectedVideo.title}`);
-                  }}
-                  className="flex items-center gap-2 text-purple-300 font-medium hover:text-purple-200"
-                >
-                  <Volume2 className="w-4 h-4" />
-                  Enable Voice Guide
-                </button>
+                <div className="flex flex-wrap items-center gap-3">
+                  <button 
+                    onClick={() => {
+                      setVoiceEnabled(true);
+                      speak(`Now playing: ${selectedVideo.title}`);
+                    }}
+                    className="flex items-center gap-2 text-purple-300 font-medium hover:text-purple-200"
+                  >
+                    <Volume2 className="w-4 h-4" />
+                    Enable Voice Guide
+                  </button>
+                  <button
+                    onClick={() => {
+                      const nextLevelId = getNextLevelForTrack(selectedVideo.track);
+                      if (nextLevelId) {
+                        setActiveLevel(nextLevelId);
+                        setActiveTrack(selectedVideo.track === 'python' ? 'python' : selectedVideo.track === 'react' ? 'react' : 'blocks');
+                        setActiveTab('practice');
+                      }
+                      setSelectedVideo(null);
+                    }}
+                    className="inline-flex items-center gap-2 rounded-lg bg-purple-600 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-500"
+                  >
+                    <ArrowRight className="w-4 h-4" />
+                    Start Practice
+                  </button>
+                </div>
               </div>
             </div>
           </div>

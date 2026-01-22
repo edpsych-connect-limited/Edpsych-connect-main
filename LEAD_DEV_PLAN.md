@@ -316,6 +316,7 @@ Progress log:
 - 2026-01-22: Fixed intervention library export order so behavioural interventions and stats include all ingested entries.
 - 2026-01-22: Added full Coders of Tomorrow video catalog, availability gating, and guided challenge workflow in the coding curriculum.
 - 2026-01-22: Added persisted coding progress, watched video tracking, XP rewards, and achievement logic for Coders of Tomorrow.
+- 2026-01-22: Added video-to-practice handoff in Coders of Tomorrow to reduce learning flow gaps.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
