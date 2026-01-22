@@ -43,6 +43,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 - 2026-01-22: Deferred intervention library dataset import in `/interventions/library` to reduce shared dashboard bundle.
 - 2026-01-22: Deferred intervention library and designer components via dynamic import in interventions pages.
 - 2026-01-22: Replaced beta register react-icons/fa bundle with lucide-react to reduce 8e1d74a4 chunk.
+- 2026-01-22: Replaced battle royale react-icons/fa with lucide-react to reduce gamification bundle weight.
 
 ## Capture Method (Baseline + After)
 1) Record build stats output (top 10 bundles) and store evidence file path.

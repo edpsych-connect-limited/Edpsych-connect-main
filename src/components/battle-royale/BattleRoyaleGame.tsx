@@ -13,7 +13,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Html, Stars, PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaHeart, FaShieldAlt, FaBrain, FaClock, FaTrophy, FaGamepad, FaQuestionCircle, FaVolumeUp, FaVolumeMute, FaStar, FaFire, FaMedal } from 'react-icons/fa';
+import { Brain, Clock, Flame, Gamepad2, Heart, HelpCircle, Medal, Shield, Star, Trophy, Volume2, VolumeX } from 'lucide-react';
 import { getStudentQuestions } from '../../app/actions/gamification';
 import { EnhancedArena, EnhancedStorm, EnhancedPlayerMesh, EnhancedLootMesh } from './GameVisuals';
 import { useGameSounds } from './SoundEngine';
@@ -604,7 +604,7 @@ export const BattleRoyaleGame: React.FC = () => {
                 className="text-center mb-8"
               >
                 <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 flex items-center justify-center gap-3">
-                  <FaGamepad className="text-purple-400" />
+                  <Gamepad2 className="text-purple-400" />
                   Knowledge Battle Royale
                 </h1>
                 <p className="text-slate-300 text-lg">Test your knowledge and defeat opponents in epic brain battles!</p>
@@ -618,7 +618,7 @@ export const BattleRoyaleGame: React.FC = () => {
                 className="bg-slate-800/50 rounded-2xl p-6 mb-8 border border-slate-700"
               >
                 <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <FaQuestionCircle className="text-blue-400" />
+                  <HelpCircle className="text-blue-400" />
                   How to Play
                 </h2>
                 <div className="grid md:grid-cols-2 gap-4 text-slate-300">
@@ -641,7 +641,7 @@ export const BattleRoyaleGame: React.FC = () => {
                 </div>
                 <div className="mt-4 p-3 bg-yellow-500/10 rounded-lg border border-yellow-500/30">
                   <p className="text-yellow-300 text-sm flex items-center gap-2">
-                    <FaFire className="text-orange-400" />
+                    <Flame className="text-orange-400" />
                     <strong>Pro Tip:</strong> Get 3+ answers in a row for streak bonuses!
                   </p>
                 </div>
@@ -703,7 +703,7 @@ export const BattleRoyaleGame: React.FC = () => {
                       onClick={() => startGame('easy')}
                       className={`bg-green-600 hover:bg-green-500 text-white py-4 px-6 rounded-xl font-bold transition-all hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 ${questions.some(q => q.difficulty === 'easy') ? 'ring-4 ring-white' : 'opacity-70'}`}
                     >
-                      <FaStar className="mx-auto mb-2 text-2xl" />
+                      <Star className="mx-auto mb-2 text-2xl" />
                       Easy
                       <p className="text-xs font-normal mt-1 opacity-80">Key Stage 1</p>
                     </button>
@@ -711,8 +711,8 @@ export const BattleRoyaleGame: React.FC = () => {
                       onClick={() => startGame('medium')}
                       className={`bg-yellow-600 hover:bg-yellow-500 text-white py-4 px-6 rounded-xl font-bold transition-all hover:scale-105 hover:shadow-lg hover:shadow-yellow-500/30 ${questions.some(q => q.difficulty === 'medium') ? 'ring-4 ring-white' : 'opacity-70'}`}
                     >
-                      <FaStar className="mx-auto mb-2 text-2xl" />
-                      <FaStar className="mx-auto mb-2 text-2xl -mt-4" />
+                      <Star className="mx-auto mb-2 text-2xl" />
+                      <Star className="mx-auto mb-2 text-2xl -mt-4" />
                       Medium
                       <p className="text-xs font-normal mt-1 opacity-80">Key Stage 2</p>
                     </button>
@@ -720,7 +720,7 @@ export const BattleRoyaleGame: React.FC = () => {
                       onClick={() => startGame('hard')}
                       className={`bg-red-600 hover:bg-red-500 text-white py-4 px-6 rounded-xl font-bold transition-all hover:scale-105 hover:shadow-lg hover:shadow-red-500/30 ${questions.some(q => q.difficulty === 'hard') ? 'ring-4 ring-white' : 'opacity-70'}`}
                     >
-                      <FaMedal className="mx-auto mb-2 text-2xl text-yellow-300" />
+                      <Medal className="mx-auto mb-2 text-2xl text-yellow-300" />
                       Hard
                       <p className="text-xs font-normal mt-1 opacity-80">Key Stage 3+</p>
                     </button>
@@ -774,7 +774,7 @@ export const BattleRoyaleGame: React.FC = () => {
                 </div>
                 {textModeStreak >= 2 && (
                   <div className="text-orange-400 flex items-center gap-1" aria-live="polite">
-                    <FaFire />
+                    <Flame />
                     <span className="font-bold">{textModeStreak}x Streak!</span>
                   </div>
                 )}
@@ -785,7 +785,7 @@ export const BattleRoyaleGame: React.FC = () => {
                   className="p-2 rounded-lg bg-slate-700 text-white hover:bg-slate-600"
                   aria-label={soundEnabled ? 'Mute sound effects' : 'Enable sound effects'}
                 >
-                  {soundEnabled ? <FaVolumeUp /> : <FaVolumeMute />}
+                  {soundEnabled ? <Volume2 /> : <VolumeX />}
                 </button>
                 <button
                   onClick={() => {
@@ -892,7 +892,7 @@ export const BattleRoyaleGame: React.FC = () => {
                 animate={{ scale: 1 }}
                 transition={{ type: 'spring', bounce: 0.5 }}
               >
-                <FaTrophy className="text-yellow-400 text-8xl mx-auto mb-4" />
+                <Trophy className="text-yellow-400 text-8xl mx-auto mb-4" />
               </motion.div>
               <h2 className="text-5xl font-bold text-white mb-4">VICTORY ROYALE!</h2>
               <p className="text-2xl text-yellow-300 mb-2">Final Score: {accessibleMode ? textModeScore : selfPlayer?.score || 0} pts</p>
@@ -930,7 +930,7 @@ export const BattleRoyaleGame: React.FC = () => {
                 animate={{ rotate: 0, scale: 1 }}
                 transition={{ type: 'spring' }}
               >
-                <FaHeart className="text-red-500 text-8xl mx-auto mb-4 opacity-50" />
+                <Heart className="text-red-500 text-8xl mx-auto mb-4 opacity-50" />
               </motion.div>
               <h2 className="text-5xl font-bold text-white mb-4">ELIMINATED</h2>
               <p className="text-2xl text-red-300 mb-2">Final Score: {accessibleMode ? textModeScore : selfPlayer?.score || 0} pts</p>
@@ -981,14 +981,14 @@ export const BattleRoyaleGame: React.FC = () => {
             {/* Health & Shield */}
             <div className="bg-slate-900/80 p-3 rounded-lg border border-slate-700 text-white">
               <div className="flex items-center gap-2 mb-2">
-                <FaHeart className="text-red-500" />
+                <Heart className="text-red-500" />
                 <div className="w-32 h-2 bg-slate-700 rounded overflow-hidden">
                   <ProgressBar width={selfPlayer?.health || 0} color="bg-gradient-to-r from-red-600 to-red-400" className="transition-all" />
                 </div>
                 <span className="text-xs w-8">{selfPlayer?.health || 0}</span>
               </div>
               <div className="flex items-center gap-2">
-                <FaShieldAlt className="text-blue-500" />
+                <Shield className="text-blue-500" />
                 <div className="w-32 h-2 bg-slate-700 rounded overflow-hidden">
                   <ProgressBar width={selfPlayer?.shield || 0} color="bg-gradient-to-r from-blue-600 to-blue-400" className="transition-all" />
                 </div>
@@ -999,12 +999,12 @@ export const BattleRoyaleGame: React.FC = () => {
             {/* Score & Streak */}
             <div className="bg-slate-900/80 p-3 rounded-lg border border-slate-700 text-white">
               <div className="flex items-center gap-2 text-yellow-400">
-                <FaTrophy />
+                <Trophy />
                 <span className="font-bold">{selfPlayer?.score || 0} pts</span>
               </div>
               {(selfPlayer?.streak || 0) >= 2 && (
                 <div className="flex items-center gap-1 text-orange-400 text-sm mt-1">
-                  <FaFire className="animate-pulse" />
+                  <Flame className="animate-pulse" />
                   <span>{selfPlayer?.streak}x streak!</span>
                 </div>
               )}
@@ -1014,7 +1014,7 @@ export const BattleRoyaleGame: React.FC = () => {
           {/* Timer & Sound Toggle */}
           <div className="flex items-start gap-2">
             <div className="bg-slate-900/80 px-4 py-2 rounded-lg border border-slate-700 text-white flex items-center gap-3">
-              <FaClock className="text-yellow-400" />
+              <Clock className="text-yellow-400" />
               <span className="font-mono text-xl font-bold">
                 {Math.floor(gameState.timeLeft / 60)}:{(Math.floor(gameState.timeLeft) % 60).toString().padStart(2, '0')}
               </span>
@@ -1023,7 +1023,7 @@ export const BattleRoyaleGame: React.FC = () => {
               onClick={() => setSoundEnabled(!soundEnabled)}
               className="bg-slate-900/80 p-2 rounded-lg border border-slate-700 text-white hover:bg-slate-800 pointer-events-auto transition-colors"
             >
-              {soundEnabled ? <FaVolumeUp /> : <FaVolumeMute />}
+              {soundEnabled ? <Volume2 /> : <VolumeX />}
             </button>
           </div>
         </div>
@@ -1049,7 +1049,7 @@ export const BattleRoyaleGame: React.FC = () => {
             <div className="bg-slate-800 border border-slate-600 rounded-2xl p-6 max-w-lg w-full shadow-2xl pointer-events-auto">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                  <FaBrain className="text-purple-400" />
+                  <Brain className="text-purple-400" />
                   Knowledge Duel
                 </h3>
                 <div className="flex items-center gap-2">
@@ -1101,7 +1101,7 @@ export const BattleRoyaleGame: React.FC = () => {
                   : 'bg-gradient-to-r from-red-500 to-rose-500 text-white'
             }`}
           >
-            {feedback.type === 'streak' && <FaFire className="text-yellow-300 text-2xl" />}
+            {feedback.type === 'streak' && <Flame className="text-yellow-300 text-2xl" />}
             {feedback.message}
           </motion.div>
         )}
@@ -1143,7 +1143,7 @@ export const BattleRoyaleGame: React.FC = () => {
           onClick={() => setShowLeaderboard(!showLeaderboard)}
           className="absolute bottom-4 right-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white px-4 py-2 rounded-xl font-bold flex items-center gap-2 shadow-lg hover:shadow-indigo-500/30 transition-all pointer-events-auto"
         >
-          <FaTrophy className="text-yellow-400" />
+          <Trophy className="text-yellow-400" />
           Leaderboard
         </button>
       )}
@@ -1167,7 +1167,7 @@ export const BattleRoyaleGame: React.FC = () => {
             >
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                  <FaTrophy className="text-yellow-400" />
+                  <Trophy className="text-yellow-400" />
                   Leaderboard
                 </h2>
                 <button
@@ -1212,7 +1212,7 @@ export const BattleRoyaleGame: React.FC = () => {
                         <div className="flex items-center gap-4">
                           {player.streak >= 2 && (
                             <span className="text-orange-400 text-sm flex items-center gap-1">
-                              <FaFire /> {player.streak}x
+                              <Flame /> {player.streak}x
                             </span>
                           )}
                           <span className="text-yellow-400 font-bold">{player.score} pts</span>
@@ -1249,7 +1249,7 @@ export const BattleRoyaleGame: React.FC = () => {
               {unlockedAchievements.length > 0 && (
                 <div className="mt-4">
                   <h3 className="text-lg font-semibold text-slate-300 mb-3 flex items-center gap-2">
-                    <FaMedal className="text-yellow-400" />
+                    <Medal className="text-yellow-400" />
                     Achievements ({unlockedAchievements.length}/{ACHIEVEMENTS.length})
                   </h3>
                   <div className="flex flex-wrap gap-2">

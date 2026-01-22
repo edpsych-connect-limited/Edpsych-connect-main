@@ -11,7 +11,7 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
-import { FaUsers, FaGraduationCap, FaGamepad, FaPlay, FaQuestionCircle, FaTrophy } from 'react-icons/fa';
+import { Gamepad2, GraduationCap, HelpCircle, Play, Trophy, Users } from 'lucide-react';
 
 const BattleRoyaleGame = dynamic(() => import('./BattleRoyaleGame').then(mod => mod.BattleRoyaleGame), {
   ssr: false,
@@ -23,22 +23,22 @@ const BattleRoyalePreview: React.FC = () => {
 
   const features = [
     {
-      icon: <FaUsers className="text-2xl text-blue-600" />,
+      icon: <Users className="text-2xl text-blue-600" />,
       title: 'Multiplayer Experience',
       description: 'Compete with peers in real-time educational challenges'
     },
     {
-      icon: <FaGraduationCap className="text-2xl text-green-600" />,
+      icon: <GraduationCap className="text-2xl text-green-600" />,
       title: 'Educational Content',
       description: 'Curriculum-aligned challenges that reinforce learning'
     },
     {
-      icon: <FaGamepad className="text-2xl text-purple-600" />,
+      icon: <Gamepad2 className="text-2xl text-purple-600" />,
       title: 'Interactive Gameplay',
       description: 'Engaging 3D environment with real-time interactions'
     },
     {
-      icon: <FaTrophy className="text-2xl text-yellow-600" />,
+      icon: <Trophy className="text-2xl text-yellow-600" />,
       title: 'Skill-Based Progression',
       description: 'Level up based on academic performance and problem-solving'
     }
@@ -71,7 +71,7 @@ const BattleRoyalePreview: React.FC = () => {
               onClick={() => setIsPlaying(true)}
               className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors flex items-center mx-auto shadow-lg hover:scale-105 transform duration-200"
             >
-              <FaPlay className="mr-2" />
+              <Play className="mr-2" />
               Launch Demo Game
             </button>
           </div>
@@ -137,7 +137,7 @@ const BattleRoyalePreview: React.FC = () => {
             Try Battle Royale
           </button>
           <button className="border border-gray-300 hover:border-gray-400 text-gray-700 px-6 py-3 rounded-lg font-semibold transition-colors flex items-center">
-            <FaQuestionCircle className="mr-2" />
+            <HelpCircle className="mr-2" />
             How It Works
           </button>
         </div>

@@ -304,6 +304,7 @@ Progress log:
 - 2026-01-22: Deferred intervention library and designer components via dynamic import on interventions pages to reduce initial bundle load.
 - 2026-01-22: Captured post-intervention deferral bundle evidence (`docs/performance/chunk-sizes-2026-01-22-post-interventions.txt`).
 - 2026-01-22: Replaced beta register FontAwesome react-icons with lucide-react to shrink the beta register bundle.
+- 2026-01-22: Replaced battle royale react-icons with lucide-react to reduce gamification chunk size.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
