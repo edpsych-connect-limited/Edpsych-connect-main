@@ -252,7 +252,7 @@ export default function InterventionLibrary({
                 categoryFilter === category.value
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
+              } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
             >
               <span className="mr-2">{category.icon}</span>
               {category.label}

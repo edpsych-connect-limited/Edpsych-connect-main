@@ -298,7 +298,7 @@ export default function InterventionsPage() {
                   trackInterventionUsage('browse_library');
                   router.push('/interventions/library');
                 }}
-                className="px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 font-semibold"
+                className="px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
                 Browse Library
               </button>
@@ -308,7 +308,7 @@ export default function InterventionsPage() {
                   router.push('/interventions/new');
                 }}
                 data-tour="create-intervention"
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
                 + Create Custom
               </button>
