@@ -575,7 +575,7 @@ function InterventionProgressCard({ intervention, onClick }: InterventionProgres
           Review: {new Date(intervention.review_date).toLocaleDateString()}
         </span>
         <button className="text-blue-600 hover:text-blue-800 font-semibold text-sm">
-          View Details >
+          View Details {'>'}
         </button>
       </div>
     </div>
