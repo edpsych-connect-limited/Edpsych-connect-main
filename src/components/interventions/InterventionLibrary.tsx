@@ -41,6 +41,16 @@ interface InterventionLibraryProps {
   caseId?: number;
 }
 
+const ALLOWED_CATEGORY_FILTERS = new Set([
+  'all',
+  'favorites',
+  'academic',
+  'behavioural',
+  'social_emotional',
+  'communication',
+  'sensory',
+]);
+
 export default function InterventionLibrary({
   onSelect,
   mode = 'browse',
@@ -70,15 +80,6 @@ export default function InterventionLibrary({
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [evidenceFilter, setEvidenceFilter] = useState<string>('all');
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
-  const allowedCategoryFilters = new Set([
-    'all',
-    'favorites',
-    'academic',
-    'behavioural',
-    'social_emotional',
-    'communication',
-    'sensory',
-  ]);
 
   // Load interventions and favorites on mount
   useEffect(() => {
@@ -134,7 +135,7 @@ export default function InterventionLibrary({
 
   useEffect(() => {
     const category = searchParams.get('category');
-    if (category && allowedCategoryFilters.has(category)) {
+    if (category && ALLOWED_CATEGORY_FILTERS.has(category)) {
       setCategoryFilter(category);
     }
   }, [searchParams]);
