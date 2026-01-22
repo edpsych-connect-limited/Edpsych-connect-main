@@ -14,6 +14,8 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import { TrendingUp } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 interface ProgressDashboardProps {
   caseId?: number;
@@ -573,7 +575,7 @@ function InterventionProgressCard({ intervention, onClick }: InterventionProgres
           Review: {new Date(intervention.review_date).toLocaleDateString()}
         </span>
         <button className="text-blue-600 hover:text-blue-800 font-semibold text-sm">
-          View Details →
+          View Details >
         </button>
       </div>
     </div>
@@ -594,11 +596,13 @@ interface LineChartProps {
 function LineChart({ dataPoints, baseline, target, progressMeasure }: LineChartProps) {
   if (!dataPoints || dataPoints.length === 0) {
     return (
-      <div className="text-center py-8 text-gray-500">
-        <svg className="w-12 h-12 mx-auto mb-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-        <p className="text-sm">No progress data recorded yet</p>
+      <div className="py-8">
+        <EmptyState
+          title="No progress data recorded yet"
+          description="Add your first data point to visualize progress trends."
+          icon={<TrendingUp className="w-8 h-8 text-blue-500" />}
+          className="py-8"
+        />
       </div>
     );
   }

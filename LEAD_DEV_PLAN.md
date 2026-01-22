@@ -324,6 +324,7 @@ Progress log:
 - 2026-01-22: Added focus-visible rings across Coders of Tomorrow tabs, filters, and challenge controls.
 - 2026-01-22: Standardized intervention library empty state with shared EmptyState and lucide icons.
 - 2026-01-22: Added evidence dashboard time-range selection and export actions to governance admin view.
+- 2026-01-22: Standardized AI analytics and progress chart empty states with shared EmptyState.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -402,6 +403,7 @@ Progress log:
     - SENCO needs breakdown now uses shared EmptyState component
     - ethics admin monitors/incidents/assessments empty states use shared EmptyState
     - intervention library now uses shared EmptyState with consistent iconography
+    - AI analytics dashboard + progress charts now use shared EmptyState
 
 -----------------------------------------------------------------------------
 7) Delivery + Validation

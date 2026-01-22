@@ -5,12 +5,14 @@
  * Comprehensive dashboard for monitoring AI service performance, costs, and usage
  */
 import React, { useState, useEffect, useCallback } from 'react';
+import { Database } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../packages/ui/card';
 import { Button } from '../../packages/ui/button';
 import { Badge } from '../../packages/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../packages/ui/tabs';
 import { Progress } from '../../packages/ui/progress';
 import { Alert, AlertDescription } from '../../packages/ui/alert';
+import { EmptyState } from '@/components/ui/EmptyState';
 import {
   BarChart,
   Bar,
@@ -141,7 +143,15 @@ export default function AIAnalyticsDashboard() {
   }
 
   if (!data) {
-    return <div>No data available</div>;
+    return (
+      <EmptyState
+        title="No analytics data yet"
+        description="Once AI services record activity, insights will appear here."
+        icon={<Database className="w-8 h-8 text-blue-500" />}
+        actionLabel="Retry"
+        actionOnClick={() => fetchAnalytics()}
+      />
+    );
   }
 
   // Prepare chart data
