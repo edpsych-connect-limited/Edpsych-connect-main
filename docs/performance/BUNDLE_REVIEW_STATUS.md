@@ -40,6 +40,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 - Next targets: isolate Three.js demo visuals behind dynamic import and only load in demo routes.
   - 2026-01-22: Deferred gamification battle royale + coding dojo engines via dynamic import.
 - 2026-01-22: Deferred intervention library dataset import in `/interventions/library` to reduce shared dashboard bundle.
+- 2026-01-22: Deferred intervention library and designer components via dynamic import in interventions pages.
 
 ## Capture Method (Baseline + After)
 1) Record build stats output (top 10 bundles) and store evidence file path.

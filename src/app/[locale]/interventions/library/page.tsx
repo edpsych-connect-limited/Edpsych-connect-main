@@ -9,9 +9,17 @@
 export const dynamic = 'force-dynamic';
 
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
-import InterventionLibrary from '@/components/interventions/InterventionLibrary';
+const InterventionLibrary = dynamic(() => import('@/components/interventions/InterventionLibrary'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+    </div>
+  )
+});
 
 export default function InterventionLibraryPage() {
   const router = useRouter();

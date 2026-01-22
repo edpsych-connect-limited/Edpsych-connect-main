@@ -10,9 +10,17 @@ import { logger } from "@/lib/logger";
 export const dynamic = 'force-dynamic';
 
 import React, { useEffect, useState, Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
-import InterventionDesigner from '@/components/interventions/InterventionDesigner';
+const InterventionDesigner = dynamic(() => import('@/components/interventions/InterventionDesigner'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+    </div>
+  )
+});
 
 function NewInterventionContent() {
   const router = useRouter();

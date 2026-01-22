@@ -301,6 +301,7 @@ Progress log:
 - 2026-01-22: Captured bundle analyzer outputs and top client chunk sizes after dashboard library deferral (`docs/performance/chunk-sizes-2026-01-22.txt`).
 - 2026-01-22: Deferred gamification battle royale and coding dojo engines via dynamic import to keep Three.js off initial gamification bundle.
 - 2026-01-22: Deferred intervention library dataset loading to on-demand import for `/interventions/library`.
+- 2026-01-22: Deferred intervention library and designer components via dynamic import on interventions pages to reduce initial bundle load.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
