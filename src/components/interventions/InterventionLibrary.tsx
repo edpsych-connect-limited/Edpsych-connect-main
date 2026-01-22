@@ -225,7 +225,7 @@ export default function InterventionLibrary({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search interventions by name, description, or target..."
-            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:border-transparent focus:ring-2 focus:ring-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           />
           <svg
             className="absolute left-3 top-3.5 h-5 w-5 text-gray-400"
@@ -265,7 +265,7 @@ export default function InterventionLibrary({
           <select
             value={evidenceFilter}
             onChange={(e) => setEvidenceFilter(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             aria-label="Filter by Evidence Level"
           >
             {evidenceLevels.map((level) => (
