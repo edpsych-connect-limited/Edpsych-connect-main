@@ -9,6 +9,8 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { UserPlus, Users } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 interface Contact {
   id: string;
@@ -93,6 +95,11 @@ const ContactManagement: React.FC<ContactManagementProps> = ({
       isPrimary: false,
       department: ''
     });
+  };
+
+  const openAddModal = () => {
+    resetFormData();
+    setShowAddModal(true);
   };
 
   const handleAddContact = async (e: React.FormEvent) => {
@@ -274,10 +281,7 @@ const ContactManagement: React.FC<ContactManagementProps> = ({
           <p className="text-gray-600">Manage institution contacts</p>
         </div>
         <button
-          onClick={() => {
-            resetFormData();
-            setShowAddModal(true);
-          }}
+          onClick={openAddModal}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         >
           Add Contact
@@ -296,13 +300,19 @@ const ContactManagement: React.FC<ContactManagementProps> = ({
         </div>
 
         {contacts.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">
-            No contacts found. Add a contact to get started.
-          </div>
+          <EmptyState
+            title="No contacts found"
+            description="Add a contact to get started."
+            icon={<UserPlus className="w-8 h-8 text-blue-500" />}
+            actionLabel="Add contact"
+            actionOnClick={openAddModal}
+          />
         ) : filteredContacts.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">
-            No contacts match your search.
-          </div>
+          <EmptyState
+            title="No contacts match your search"
+            description="Try a different name or clear the search filter."
+            icon={<Users className="w-8 h-8 text-blue-500" />}
+          />
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
