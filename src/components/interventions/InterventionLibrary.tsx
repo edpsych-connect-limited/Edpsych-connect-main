@@ -26,7 +26,7 @@ import {
   Smile,
 } from 'lucide-react';
 import type { InterventionTemplate } from '@/lib/interventions/intervention-library';
-import EmptyState from '@/components/ui/EmptyState';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 // Map library intervention to component format
 interface Intervention {
