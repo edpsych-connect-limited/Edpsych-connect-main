@@ -9,9 +9,11 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { Sparkles } from 'lucide-react';
 import RecommendationList from './RecommendationList';
 import RecommendationFilters from './RecommendationFilters';
 import { RecommendationStatus } from '../../types/recommendation-engine-types';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 /**
  * Main dashboard component for personalized content recommendations
@@ -177,10 +179,13 @@ const RecommendationDashboard: React.FC = () => {
             {error}
           </div>
         ) : recommendations.length === 0 ? (
-          <div className="p-10 text-center">
-            <p className="text-lg mb-4">No recommendations found based on your criteria.</p>
-            <p>Try adjusting your filters or generate new recommendations.</p>
-          </div>
+          <EmptyState
+            title="No recommendations found"
+            description="Adjust your filters or generate new recommendations to continue."
+            icon={<Sparkles className="w-8 h-8 text-blue-500" />}
+            actionLabel="Generate recommendations"
+            actionOnClick={generateRecommendations}
+          />
         ) : (
           <div className="space-y-4">
             <div className="flex justify-between items-center">
