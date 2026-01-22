@@ -13,13 +13,9 @@
  * - National Reading Panel
  */
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import {
-  INTERVENTION_LIBRARY,
-  INTERVENTION_STATS,
-  type InterventionTemplate,
-} from '@/lib/interventions/intervention-library';
+import type { InterventionTemplate } from '@/lib/interventions/intervention-library';
 
 // Map library intervention to component format
 interface Intervention {
@@ -53,45 +49,78 @@ export default function InterventionLibrary({
   const router = useRouter();
 
   const [interventions, setInterventions] = useState<Intervention[]>([]);
+  const [libraryStats, setLibraryStats] = useState({
+    total: 0,
+    by_category: {
+      academic: 0,
+      behavioural: 0,
+      social_emotional: 0,
+      communication: 0,
+      sensory: 0,
+    },
+    by_evidence: {
+      tier_1: 0,
+      tier_2: 0,
+      tier_3: 0,
+    },
+  });
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [evidenceFilter, setEvidenceFilter] = useState<string>('all');
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
-  // Transform library interventions to component format
-  const transformedInterventions = useMemo(() => {
-    return INTERVENTION_LIBRARY.map((i: InterventionTemplate): Intervention => ({
-      id: i.id,
-      name: i.name,
-      category: i.category,
-      subcategory: i.subcategory,
-      evidence_level: i.evidence_level === 'tier_1' ? 'strong' : i.evidence_level === 'tier_2' ? 'moderate' : 'emerging',
-      description: i.description,
-      target_population: i.targeted_needs || [],
-      targeted_needs: i.targeted_needs,
-      expected_outcomes: i.expected_outcomes,
-      implementation_difficulty: i.complexity,
-      time_commitment: `${i.session_length}, ${i.frequency}`,
-      resources_required: i.resources_needed,
-      evidence_source: i.research_sources.join(', '),
-      effect_size: i.effect_size,
-    }));
-  }, []);
-
   // Load interventions and favorites on mount
   useEffect(() => {
-    // Load interventions from comprehensive evidence-based library (535+ interventions)
-    setInterventions(transformedInterventions);
-    console.log(`Loaded ${transformedInterventions.length} evidence-based interventions`);
-    setLoading(false);
-    
+    let mounted = true;
+
+    const loadLibrary = async () => {
+      try {
+        const { INTERVENTION_LIBRARY, INTERVENTION_STATS } = await import('@/lib/interventions/intervention-library');
+        if (!mounted) return;
+
+        setLibraryStats(INTERVENTION_STATS);
+        const transformed = INTERVENTION_LIBRARY.map((i: InterventionTemplate): Intervention => ({
+          id: i.id,
+          name: i.name,
+          category: i.category,
+          subcategory: i.subcategory,
+          evidence_level: i.evidence_level === 'tier_1' ? 'strong' : i.evidence_level === 'tier_2' ? 'moderate' : 'emerging',
+          description: i.description,
+          target_population: i.targeted_needs || [],
+          targeted_needs: i.targeted_needs,
+          expected_outcomes: i.expected_outcomes,
+          implementation_difficulty: i.complexity,
+          time_commitment: `${i.session_length}, ${i.frequency}`,
+          resources_required: i.resources_needed,
+          evidence_source: i.research_sources.join(', '),
+          effect_size: i.effect_size,
+        }));
+
+        setInterventions(transformed);
+        console.log(`Loaded ${transformed.length} evidence-based interventions`);
+      } catch (error) {
+        console.error('Failed to load intervention library:', error);
+        setInterventions([]);
+      } finally {
+        if (mounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadLibrary();
+
     // Load favorites from localStorage
     const stored = localStorage.getItem('intervention_favorites');
     if (stored) {
       setFavorites(new Set(JSON.parse(stored)));
     }
-  }, [transformedInterventions]);
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const toggleFavorite = (interventionId: string) => {
     const newFavorites = new Set(favorites);
@@ -131,13 +160,13 @@ export default function InterventionLibrary({
   };
 
   const categories = [
-    { value: 'all', label: `All Categories (${INTERVENTION_STATS.total})`, icon: '📚' },
+    { value: 'all', label: `All Categories (${libraryStats.total})`, icon: '📚' },
     { value: 'favorites', label: 'Favorites', icon: '⭐' },
-    { value: 'academic', label: `Academic (${INTERVENTION_STATS.by_category.academic})`, icon: '📖' },
-    { value: 'behavioural', label: `Behavioural (${INTERVENTION_STATS.by_category.behavioural})`, icon: '🎯' },
-    { value: 'social_emotional', label: `Social-Emotional (${INTERVENTION_STATS.by_category.social_emotional})`, icon: '❤️' },
-    { value: 'communication', label: `Communication (${INTERVENTION_STATS.by_category.communication})`, icon: '💬' },
-    { value: 'sensory', label: `Sensory (${INTERVENTION_STATS.by_category.sensory})`, icon: '🌈' },
+    { value: 'academic', label: `Academic (${libraryStats.by_category.academic})`, icon: '📖' },
+    { value: 'behavioural', label: `Behavioural (${libraryStats.by_category.behavioural})`, icon: '🎯' },
+    { value: 'social_emotional', label: `Social-Emotional (${libraryStats.by_category.social_emotional})`, icon: '❤️' },
+    { value: 'communication', label: `Communication (${libraryStats.by_category.communication})`, icon: '💬' },
+    { value: 'sensory', label: `Sensory (${libraryStats.by_category.sensory})`, icon: '🌈' },
   ];
 
   const evidenceLevels = [
@@ -161,12 +190,12 @@ export default function InterventionLibrary({
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-6 text-white">
         <h2 className="text-2xl font-bold mb-2">Evidence-Based Intervention Library</h2>
         <p className="text-blue-100">
-          {INTERVENTION_STATS.total}+ interventions validated by research | Effect sizes from meta-analyses
+          {libraryStats.total}+ interventions validated by research | Effect sizes from meta-analyses
         </p>
         <div className="mt-3 flex flex-wrap gap-2 text-xs">
-          <span className="bg-white/20 px-2 py-1 rounded">Tier 1: {INTERVENTION_STATS.by_evidence.tier_1}</span>
-          <span className="bg-white/20 px-2 py-1 rounded">Tier 2: {INTERVENTION_STATS.by_evidence.tier_2}</span>
-          <span className="bg-white/20 px-2 py-1 rounded">Tier 3: {INTERVENTION_STATS.by_evidence.tier_3}</span>
+          <span className="bg-white/20 px-2 py-1 rounded">Tier 1: {libraryStats.by_evidence.tier_1}</span>
+          <span className="bg-white/20 px-2 py-1 rounded">Tier 2: {libraryStats.by_evidence.tier_2}</span>
+          <span className="bg-white/20 px-2 py-1 rounded">Tier 3: {libraryStats.by_evidence.tier_3}</span>
         </div>
       </div>
 
