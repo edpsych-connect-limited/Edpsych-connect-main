@@ -322,6 +322,7 @@ Progress log:
 - 2026-01-22: Added focus-visible rings to interventions filters and action buttons for keyboard accessibility.
 - 2026-01-22: Added focus-visible rings to interventions search and filter fields for keyboard accessibility.
 - 2026-01-22: Added focus-visible rings across Coders of Tomorrow tabs, filters, and challenge controls.
+- 2026-01-22: Standardized intervention library empty state with shared EmptyState and lucide icons.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -398,6 +399,7 @@ Progress log:
     - reports empty state now uses shared EmptyState component
     - SENCO needs breakdown now uses shared EmptyState component
     - ethics admin monitors/incidents/assessments empty states use shared EmptyState
+    - intervention library now uses shared EmptyState with consistent iconography
 
 -----------------------------------------------------------------------------
 7) Delivery + Validation
