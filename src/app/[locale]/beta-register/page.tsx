@@ -4,7 +4,19 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
 import Link from 'next/link';
-import { FaUserPlus, FaShieldAlt, FaEnvelope, FaLock, FaUser, FaBuilding, FaCheck, FaTimes, FaSpinner, FaFlask, FaGraduationCap } from 'react-icons/fa';
+import {
+  Building,
+  Check,
+  FlaskConical,
+  GraduationCap,
+  Loader2,
+  Lock,
+  Mail,
+  Shield,
+  User,
+  UserPlus,
+  X
+} from 'lucide-react';
 
 /**
  * Beta Registration Page
@@ -175,14 +187,14 @@ export default function BetaRegisterPage() {
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 max-w-md w-full text-center border border-white/20">
           <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-            <FaCheck className="text-white text-3xl" />
+            <Check className="text-white text-3xl" />
           </div>
           <h1 className="text-2xl font-bold text-white mb-2">Registration Successful!</h1>
           <p className="text-slate-300 mb-4">
             Welcome to the EdPsych Connect Beta Programme. Redirecting to login...
           </p>
           <div className="animate-pulse text-purple-400">
-            <FaSpinner className="animate-spin inline mr-2" />
+            <Loader2 className="animate-spin inline mr-2" />
             Redirecting...
           </div>
         </div>
@@ -196,13 +208,13 @@ export default function BetaRegisterPage() {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <FaFlask className="text-purple-400 text-2xl" />
+            <FlaskConical className="text-purple-400 text-2xl" />
             <span className="bg-purple-500 text-white text-xs px-2 py-1 rounded-full font-semibold">
               BETA PROGRAMME
             </span>
           </div>
           <h1 className="text-3xl font-bold text-white mb-2 flex items-center justify-center gap-2">
-            <FaUserPlus className="text-purple-400" />
+            <UserPlus className="text-purple-400" />
             Join the Beta
           </h1>
           <p className="text-slate-300">
@@ -213,7 +225,7 @@ export default function BetaRegisterPage() {
         {/* Error message */}
         {error && (
           <div className="bg-red-500/20 border border-red-500 rounded-lg p-4 mb-6 text-red-200 flex items-center gap-2">
-            <FaTimes className="flex-shrink-0" />
+            <X className="flex-shrink-0" />
             <span>{error}</span>
           </div>
         )}
@@ -222,7 +234,7 @@ export default function BetaRegisterPage() {
           {/* Beta Code Section */}
           <div className="bg-white/5 rounded-xl p-4 border border-white/10">
             <label className="block text-white font-medium mb-2 flex items-center gap-2">
-              <FaShieldAlt className="text-purple-400" />
+              <Shield className="text-purple-400" />
               Beta Access Code *
             </label>
             <div className="flex gap-2">
@@ -246,9 +258,9 @@ export default function BetaRegisterPage() {
                 className="bg-purple-600 hover:bg-purple-500 disabled:bg-slate-600 text-white px-4 py-3 rounded-lg font-medium transition-colors flex items-center gap-2"
               >
                 {codeValidating ? (
-                  <FaSpinner className="animate-spin" />
+                  <Loader2 className="animate-spin" />
                 ) : codeValidated ? (
-                  <FaCheck className="text-green-400" />
+                  <Check className="text-green-400" />
                 ) : (
                   'Validate'
                 )}
@@ -257,7 +269,7 @@ export default function BetaRegisterPage() {
             {codeError && <p className="text-red-400 text-sm mt-2">{codeError}</p>}
             {codeValidated && (
               <p className="text-green-400 text-sm mt-2 flex items-center gap-1">
-                <FaCheck /> Code validated successfully
+                <Check /> Code validated successfully
                 {codeRole && ` (${codeRole} access)`}
               </p>
             )}
@@ -267,7 +279,7 @@ export default function BetaRegisterPage() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-white font-medium mb-2 flex items-center gap-2">
-                <FaUser className="text-purple-400" />
+                <User className="text-purple-400" />
                 First Name *
               </label>
               <input
@@ -297,7 +309,7 @@ export default function BetaRegisterPage() {
           {/* Email */}
           <div>
             <label className="block text-white font-medium mb-2 flex items-center gap-2">
-              <FaEnvelope className="text-purple-400" />
+              <Mail className="text-purple-400" />
               Email Address *
             </label>
             <input
@@ -315,7 +327,7 @@ export default function BetaRegisterPage() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-white font-medium mb-2 flex items-center gap-2">
-                <FaLock className="text-purple-400" />
+                <Lock className="text-purple-400" />
                 Password *
               </label>
               <input
@@ -355,7 +367,7 @@ export default function BetaRegisterPage() {
           {/* Role Selection */}
           <div>
             <label className="block text-white font-medium mb-2 flex items-center gap-2">
-              <FaGraduationCap className="text-purple-400" />
+              <GraduationCap className="text-purple-400" />
               Your Role *
             </label>
             <select
@@ -380,7 +392,7 @@ export default function BetaRegisterPage() {
           {/* Organisation (Optional) */}
           <div>
             <label className="block text-white font-medium mb-2 flex items-center gap-2">
-              <FaBuilding className="text-purple-400" />
+              <Building className="text-purple-400" />
               Organisation (Optional)
             </label>
             <input
@@ -477,12 +489,12 @@ export default function BetaRegisterPage() {
           >
             {isSubmitting ? (
               <>
-                <FaSpinner className="animate-spin" />
+                <Loader2 className="animate-spin" />
                 Creating Account...
               </>
             ) : (
               <>
-                <FaUserPlus />
+                <UserPlus />
                 Join Beta Programme
               </>
             )}
