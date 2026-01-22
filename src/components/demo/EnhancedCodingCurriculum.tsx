@@ -353,6 +353,9 @@ export default function EnhancedCodingCurriculum({
   const [totalXP, setTotalXP] = useState(450);
   const [completedLevels, setCompletedLevels] = useState([1, 2]);
   const [watchedVideos, setWatchedVideos] = useState<Set<string>>(new Set());
+  const [codeInputByLevel, setCodeInputByLevel] = useState<Record<number, string>>({});
+  const [practicePassByLevel, setPracticePassByLevel] = useState<Record<number, boolean>>({});
+  const [practiceFeedbackByLevel, setPracticeFeedbackByLevel] = useState<Record<number, { status: 'success' | 'warning' | 'error'; message: string }>>({});
   const [activeTrack, setActiveTrack] = useState<'blocks' | 'python' | 'react'>('blocks');
   const [voiceEnabled, setVoiceEnabled] = useState(false);
   const [accessibilityMode, setAccessibilityMode] = useState(false);
@@ -365,9 +368,24 @@ export default function EnhancedCodingCurriculum({
   const currentChallenge = LEVEL_CHALLENGES[currentLevel?.type as keyof typeof LEVEL_CHALLENGES] || LEVEL_CHALLENGES.Blocks;
   const completedSteps = completedStepsByLevel[activeLevel] || [];
   const stepsComplete = currentChallenge.steps.every((_, index) => completedSteps.includes(index));
+  const practicePassed = practicePassByLevel[activeLevel] ?? false;
+  const practiceFeedback = practiceFeedbackByLevel[activeLevel];
   const visibleVideos = videoFilter === 'all'
     ? videos
     : videos.filter((video) => (videoFilter === 'intro' ? video.track === 'intro' : video.track === videoFilter));
+  const currentCodeInput = currentLevel?.type === 'Python'
+    ? (codeInputByLevel[activeLevel] ?? CODE_SNIPPETS.python)
+    : currentLevel?.type === 'React'
+    ? (codeInputByLevel[activeLevel] ?? CODE_SNIPPETS.react)
+    : '';
+
+  useEffect(() => {
+    if (currentLevel?.type === 'Blocks') return;
+    const existing = codeInputByLevel[activeLevel];
+    if (existing) return;
+    const defaultCode = currentLevel.type === 'Python' ? CODE_SNIPPETS.python : CODE_SNIPPETS.react;
+    setCodeInputByLevel((prev) => ({ ...prev, [activeLevel]: defaultCode }));
+  }, [activeLevel, currentLevel?.type, codeInputByLevel]);
 
   useEffect(() => {
     const stored = localStorage.getItem('cot_progress_v1');
@@ -386,6 +404,12 @@ export default function EnhancedCodingCurriculum({
       if (Array.isArray(parsed?.watchedVideos)) {
         setWatchedVideos(new Set(parsed.watchedVideos));
       }
+      if (parsed?.codeInputByLevel && typeof parsed.codeInputByLevel === 'object') {
+        setCodeInputByLevel(parsed.codeInputByLevel);
+      }
+      if (parsed?.practicePassByLevel && typeof parsed.practicePassByLevel === 'object') {
+        setPracticePassByLevel(parsed.practicePassByLevel);
+      }
     } catch (error) {
       console.warn('Failed to parse Coders of Tomorrow progress:', error);
     }
@@ -397,9 +421,11 @@ export default function EnhancedCodingCurriculum({
       completedLevels,
       completedStepsByLevel,
       watchedVideos: Array.from(watchedVideos),
+      codeInputByLevel,
+      practicePassByLevel,
     };
     localStorage.setItem('cot_progress_v1', JSON.stringify(payload));
-  }, [totalXP, completedLevels, completedStepsByLevel, watchedVideos]);
+  }, [totalXP, completedLevels, completedStepsByLevel, watchedVideos, codeInputByLevel, practicePassByLevel]);
 
   const completeActiveLevel = () => {
     if (!completedLevels.includes(activeLevel)) {
@@ -463,6 +489,32 @@ export default function EnhancedCodingCurriculum({
     return nextIncomplete?.id ?? trackLevels[0].id;
   };
 
+  const evaluatePractice = () => {
+    if (!currentLevel) return { passed: false, status: 'error' as const, message: 'No level selected.' };
+    if (currentLevel.type === 'Blocks') {
+      return { passed: true, status: 'success' as const, message: 'Sequence executed. Ready to reflect on the order of actions.' };
+    }
+
+    const input = (codeInputByLevel[activeLevel] || '').toLowerCase();
+    if (currentLevel.type === 'Python') {
+      const hasDef = input.includes('def ');
+      const hasReturn = input.includes('return');
+      const hasVariable = input.includes('=');
+      if (hasDef && hasReturn && hasVariable) {
+        return { passed: true, status: 'success' as const, message: 'Great work. You used a function, a variable, and a return.' };
+      }
+      return { passed: false, status: 'warning' as const, message: 'Add a function, a variable assignment, and a return before re-running.' };
+    }
+
+    const hasFunction = input.includes('function ');
+    const hasJsx = input.includes('<') && input.includes('>');
+    const hasProps = input.includes('{') && input.includes('}');
+    if (hasFunction && hasJsx && hasProps) {
+      return { passed: true, status: 'success' as const, message: 'Solid component. You used JSX and props.' };
+    }
+    return { passed: false, status: 'warning' as const, message: 'Include a component function, JSX, and props before re-running.' };
+  };
+
   const runCode = () => {
     setIsRunning(true);
     setCodeOutput([]);
@@ -496,6 +548,15 @@ export default function EnhancedCodingCurriculum({
           "> ✅ You've built a REUSABLE COMPONENT!"
         ]);
       }
+      const evaluation = evaluatePractice();
+      setPracticeFeedbackByLevel((prev) => ({
+        ...prev,
+        [activeLevel]: { status: evaluation.status, message: evaluation.message },
+      }));
+      setPracticePassByLevel((prev) => ({
+        ...prev,
+        [activeLevel]: evaluation.passed,
+      }));
       setIsRunning(false);
       setShowConfetti(true);
       
@@ -878,11 +939,18 @@ export default function EnhancedCodingCurriculum({
                         </div>
                       </div>
                     ) : (
-                      <pre className="text-slate-300 leading-6">
-                        <code>
-                          {currentLevel.type === 'Python' ? CODE_SNIPPETS.python : CODE_SNIPPETS.react}
-                        </code>
-                      </pre>
+                      <textarea
+                        value={currentCodeInput}
+                        onChange={(e) =>
+                          setCodeInputByLevel((prev) => ({
+                            ...prev,
+                            [activeLevel]: e.target.value,
+                          }))
+                        }
+                        aria-label="Code editor"
+                        spellCheck={false}
+                        className="w-full min-h-[240px] rounded-lg border border-slate-700 bg-slate-900/60 p-4 text-slate-200 leading-6 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      />
                     )}
                   </div>
                 </div>
@@ -909,6 +977,23 @@ export default function EnhancedCodingCurriculum({
                     </div>
                   )}
                 </div>
+
+                {practiceFeedback && (
+                  <div
+                    className={`mt-4 rounded-lg border px-4 py-3 text-sm ${
+                      practiceFeedback.status === 'success'
+                        ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-200'
+                        : practiceFeedback.status === 'warning'
+                        ? 'border-amber-500/40 bg-amber-500/10 text-amber-200'
+                        : 'border-red-500/40 bg-red-500/10 text-red-200'
+                    }`}
+                  >
+                    <p className="font-semibold uppercase text-xs tracking-wide">
+                      {practiceFeedback.status === 'success' ? 'Practice passed' : practiceFeedback.status === 'warning' ? 'Practice needs work' : 'Practice error'}
+                    </p>
+                    <p className="mt-1">{practiceFeedback.message}</p>
+                  </div>
+                )}
               </div>
 
               {/* Guided Challenge */}
@@ -942,7 +1027,7 @@ export default function EnhancedCodingCurriculum({
                 </div>
                 <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
                   <p className="text-xs text-slate-400">
-                    Success criteria: {currentChallenge.success}
+                    Success criteria: {currentChallenge.success} Run the code to validate your solution.
                   </p>
                   <button
                     onClick={() => {
@@ -950,9 +1035,9 @@ export default function EnhancedCodingCurriculum({
                       setShowConfetti(true);
                       setTimeout(() => setShowConfetti(false), 3000);
                     }}
-                    disabled={!stepsComplete}
+                    disabled={!stepsComplete || !practicePassed}
                     className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
-                      stepsComplete
+                      stepsComplete && practicePassed
                         ? 'bg-green-600 text-white hover:bg-green-500'
                         : 'bg-slate-700 text-slate-400 cursor-not-allowed'
                     }`}

@@ -317,6 +317,7 @@ Progress log:
 - 2026-01-22: Added full Coders of Tomorrow video catalog, availability gating, and guided challenge workflow in the coding curriculum.
 - 2026-01-22: Added persisted coding progress, watched video tracking, XP rewards, and achievement logic for Coders of Tomorrow.
 - 2026-01-22: Added video-to-practice handoff in Coders of Tomorrow to reduce learning flow gaps.
+- 2026-01-22: Added editable code input, practice evaluation feedback, and validation gating for Coders of Tomorrow challenges.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
