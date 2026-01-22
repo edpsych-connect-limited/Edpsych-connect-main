@@ -74,9 +74,9 @@ export default function TeacherInterventionDashboard() {
     if (impactService) {
       return impactService;
     }
-    const module = await import('@/lib/tracking/impact-service');
-    setImpactService(module.ImpactService);
-    return module.ImpactService;
+    const impactModule = await import('@/lib/tracking/impact-service');
+    setImpactService(impactModule.ImpactService);
+    return impactModule.ImpactService;
   };
 
   const handleLogImpact = async (interventionId: string, rating: 'positive' | 'neutral' | 'negative') => {
