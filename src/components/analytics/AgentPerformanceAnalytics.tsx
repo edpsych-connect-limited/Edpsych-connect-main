@@ -9,7 +9,7 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { FaRobot, FaChartBar, FaClock, FaDollarSign, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { BarChart3, Bot, CheckCircle, Clock, DollarSign, Minus, TrendingDown, TrendingUp, XCircle } from 'lucide-react';
 
 interface AgentPerformanceData {
   agentId: string;
@@ -97,12 +97,12 @@ export default function AgentPerformanceAnalytics() {
     switch (trend) {
       case 'improving':
       case 'increasing':
-        return <span className="text-green-600">↗</span>;
+        return <TrendingUp className="h-4 w-4 text-green-600" />;
       case 'declining':
       case 'decreasing':
-        return <span className="text-red-600">↘</span>;
+        return <TrendingDown className="h-4 w-4 text-red-600" />;
       default:
-        return <span className="text-gray-600">→</span>;
+        return <Minus className="h-4 w-4 text-gray-600" />;
     }
   };
 
@@ -127,7 +127,7 @@ export default function AgentPerformanceAnalytics() {
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-6">
         <div className="flex items-center">
-          <FaTimesCircle className="h-6 w-6 text-red-600 mr-3" />
+          <XCircle className="h-6 w-6 text-red-600 mr-3" />
           <div>
             <h3 className="text-lg font-semibold text-red-800">Error Loading Agent Data</h3>
             <p className="text-red-600">{error}</p>
@@ -143,7 +143,7 @@ export default function AgentPerformanceAnalytics() {
       <div className="bg-white rounded-lg shadow-lg p-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <FaRobot className="h-8 w-8 text-blue-600" />
+            <Bot className="h-8 w-8 text-blue-600" />
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Agent Performance Analytics</h1>
               <p className="text-gray-600">Detailed performance metrics and utilization statistics for all AI agents</p>
@@ -176,7 +176,7 @@ export default function AgentPerformanceAnalytics() {
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <FaRobot className="h-6 w-6 text-blue-600" />
+                  <Bot className="h-6 w-6 text-blue-600" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900">{agent.name}</h3>
@@ -234,7 +234,7 @@ export default function AgentPerformanceAnalytics() {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <FaRobot className="h-8 w-8 text-blue-600" />
+                  <Bot className="h-8 w-8 text-blue-600" />
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900">{selectedAgent.name}</h2>
@@ -255,7 +255,7 @@ export default function AgentPerformanceAnalytics() {
             <div className="bg-white rounded-lg shadow-lg p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900">Response Time</h3>
-                <FaClock className="h-6 w-6 text-blue-600" />
+                <Clock className="h-6 w-6 text-blue-600" />
               </div>
               <div className="text-3xl font-bold text-blue-600 mb-2">
                 {formatResponseTime(selectedAgent.performanceMetrics.averageResponseTime)}
@@ -269,7 +269,7 @@ export default function AgentPerformanceAnalytics() {
             <div className="bg-white rounded-lg shadow-lg p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900">Tasks Processed</h3>
-                <FaChartBar className="h-6 w-6 text-green-600" />
+                <BarChart3 className="h-6 w-6 text-green-600" />
               </div>
               <div className="text-3xl font-bold text-green-600 mb-2">
                 {selectedAgent.performanceMetrics.totalTasksProcessed}
@@ -282,7 +282,7 @@ export default function AgentPerformanceAnalytics() {
             <div className="bg-white rounded-lg shadow-lg p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900">Utilization</h3>
-                <FaCheckCircle className="h-6 w-6 text-purple-600" />
+                <CheckCircle className="h-6 w-6 text-purple-600" />
               </div>
               <div className="text-3xl font-bold text-purple-600 mb-2">
                 {(selectedAgent.utilization.loadFactor * 100).toFixed(0)}%
@@ -295,7 +295,7 @@ export default function AgentPerformanceAnalytics() {
             <div className="bg-white rounded-lg shadow-lg p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900">Total Cost</h3>
-                <FaDollarSign className="h-6 w-6 text-yellow-600" />
+                <DollarSign className="h-6 w-6 text-yellow-600" />
               </div>
               <div className="text-3xl font-bold text-yellow-600 mb-2">
                 {formatCost(selectedAgent.performanceMetrics.totalCost)}

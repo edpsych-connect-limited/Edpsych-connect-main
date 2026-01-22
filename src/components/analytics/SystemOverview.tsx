@@ -9,7 +9,7 @@
  */
 
 import React, { useState, useEffect, useId } from 'react';
-import { FaServer, FaRobot, FaUsers, FaClock, FaExclamationTriangle, FaCheckCircle } from 'react-icons/fa';
+import { AlertTriangle, Bot, CheckCircle, Clock, Server, Users } from 'lucide-react';
 
 interface SystemMetrics {
   orchestrator: {
@@ -126,15 +126,15 @@ export default function SystemOverview() {
     switch (status) {
       case 'operational':
       case 'available':
-        return <FaCheckCircle className="h-4 w-4" />;
+        return <CheckCircle className="h-4 w-4" />;
       case 'degraded':
       case 'busy':
-        return <FaExclamationTriangle className="h-4 w-4" />;
+        return <AlertTriangle className="h-4 w-4" />;
       case 'down':
       case 'offline':
-        return <FaExclamationTriangle className="h-4 w-4" />;
+        return <AlertTriangle className="h-4 w-4" />;
       default:
-        return <FaServer className="h-4 w-4" />;
+        return <Server className="h-4 w-4" />;
     }
   };
 
@@ -160,7 +160,7 @@ export default function SystemOverview() {
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-6">
         <div className="flex items-center">
-          <FaExclamationTriangle className="h-6 w-6 text-red-600 mr-3" />
+          <AlertTriangle className="h-6 w-6 text-red-600 mr-3" />
           <div>
             <h3 className="text-lg font-semibold text-red-800">Error Loading Metrics</h3>
             <p className="text-red-600">{error}</p>
@@ -184,7 +184,7 @@ export default function SystemOverview() {
       <div className="bg-white rounded-lg shadow-lg p-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
-            <FaServer className="h-8 w-8 text-blue-600" />
+            <Server className="h-8 w-8 text-blue-600" />
             <div>
               <h1 className="text-2xl font-bold text-gray-900">System Overview</h1>
               <p className="text-gray-600">Real-time platform performance and health metrics</p>
@@ -212,7 +212,7 @@ export default function SystemOverview() {
                 <p className="text-sm font-medium text-gray-600">Total Agents</p>
                 <p className="text-2xl font-bold text-gray-900">{metrics.orchestrator.totalAgents}</p>
               </div>
-              <FaRobot className="h-8 w-8 text-blue-600" />
+              <Bot className="h-8 w-8 text-blue-600" />
             </div>
           </div>
 
@@ -222,7 +222,7 @@ export default function SystemOverview() {
                 <p className="text-sm font-medium text-gray-600">Active Agents</p>
                 <p className="text-2xl font-bold text-gray-900">{metrics.orchestrator.activeAgents}</p>
               </div>
-              <FaUsers className="h-8 w-8 text-green-600" />
+              <Users className="h-8 w-8 text-green-600" />
             </div>
           </div>
 
@@ -232,7 +232,7 @@ export default function SystemOverview() {
                 <p className="text-sm font-medium text-gray-600">Queued Tasks</p>
                 <p className="text-2xl font-bold text-gray-900">{metrics.orchestrator.queueStatus.pending}</p>
               </div>
-              <FaClock className="h-8 w-8 text-yellow-600" />
+              <Clock className="h-8 w-8 text-yellow-600" />
             </div>
           </div>
 
@@ -242,7 +242,7 @@ export default function SystemOverview() {
                 <p className="text-sm font-medium text-gray-600">System Uptime</p>
                 <p className="text-2xl font-bold text-gray-900">{formatUptime(metrics.orchestrator.systemInfo.uptime)}</p>
               </div>
-              <FaCheckCircle className="h-8 w-8 text-green-600" />
+              <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
           </div>
         </div>

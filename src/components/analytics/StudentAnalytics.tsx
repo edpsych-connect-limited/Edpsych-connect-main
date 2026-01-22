@@ -9,7 +9,7 @@
  */
 
 import React, { useState, useEffect, useId } from 'react';
-import { FaUser, FaChartLine, FaExclamationTriangle, FaTrophy, FaClock, FaBook } from 'react-icons/fa';
+import { AlertTriangle, Book, Clock, LineChart, Trophy, User } from 'lucide-react';
 
 const ProgressBar = ({ width, className }: { width: number, className?: string }) => {
   const id = useId().replace(/:/g, '');
@@ -153,7 +153,7 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-6">
         <div className="flex items-center">
-          <FaExclamationTriangle className="h-6 w-6 text-red-600 mr-3" />
+          <AlertTriangle className="h-6 w-6 text-red-600 mr-3" />
           <div>
             <h3 className="text-lg font-semibold text-red-800">Error Loading Student Data</h3>
             <p className="text-red-600">{error}</p>
@@ -169,7 +169,7 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
       <div className="bg-white rounded-lg shadow-lg p-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <FaUser className="h-8 w-8 text-blue-600" />
+            <User className="h-8 w-8 text-blue-600" />
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Student Analytics</h1>
               <p className="text-gray-600">Comprehensive student performance and engagement insights</p>
@@ -239,7 +239,7 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                  <FaUser className="h-8 w-8 text-blue-600" />
+                  <User className="h-8 w-8 text-blue-600" />
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900">{selectedStudent.name}</h2>
@@ -260,7 +260,7 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
             <div className="bg-white rounded-lg shadow-lg p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900">Attendance</h3>
-                <FaClock className="h-6 w-6 text-blue-600" />
+                <Clock className="h-6 w-6 text-blue-600" />
               </div>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
@@ -289,7 +289,7 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
             <div className="bg-white rounded-lg shadow-lg p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900">Academic Performance</h3>
-                <FaChartLine className="h-6 w-6 text-green-600" />
+                <LineChart className="h-6 w-6 text-green-600" />
               </div>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
@@ -319,7 +319,7 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
             <div className="bg-white rounded-lg shadow-lg p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900">Engagement</h3>
-                <FaBook className="h-6 w-6 text-purple-600" />
+                <Book className="h-6 w-6 text-purple-600" />
               </div>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
@@ -349,7 +349,7 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
           <div className="bg-white rounded-lg shadow-lg p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-gray-900">Risk Assessment</h3>
-              <FaExclamationTriangle className="h-6 w-6 text-orange-600" />
+              <AlertTriangle className="h-6 w-6 text-orange-600" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -374,7 +374,7 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
               <div>
                 <h4 className="font-medium text-gray-900 mb-2">Performance Prediction</h4>
                 <div className="flex items-center space-x-3">
-                  <FaTrophy className="h-8 w-8 text-yellow-500" />
+                  <Trophy className="h-8 w-8 text-yellow-500" />
                   <div>
                     <div className="text-2xl font-bold text-blue-600">
                       {selectedStudent.predictions.performance.predictedEndOfTermGrade}
@@ -403,7 +403,7 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
                     <div className="flex items-center justify-between">
                       <div>
                         <div className="flex items-center space-x-2">
-                          <FaExclamationTriangle className={`h-4 w-4 ${
+                          <AlertTriangle className={`h-4 w-4 ${
                             alert.severity === 'critical' ? 'text-red-600' :
                             alert.severity === 'high' ? 'text-orange-600' :
                             alert.severity === 'medium' ? 'text-yellow-600' :
