@@ -352,6 +352,7 @@ export default function EnhancedCodingCurriculum({
   const [selectedVideo, setSelectedVideo] = useState<VideoTutorial | null>(null);
   const [totalXP, setTotalXP] = useState(450);
   const [completedLevels, setCompletedLevels] = useState([1, 2]);
+  const [watchedVideos, setWatchedVideos] = useState<Set<string>>(new Set());
   const [activeTrack, setActiveTrack] = useState<'blocks' | 'python' | 'react'>('blocks');
   const [voiceEnabled, setVoiceEnabled] = useState(false);
   const [accessibilityMode, setAccessibilityMode] = useState(false);
@@ -368,11 +369,52 @@ export default function EnhancedCodingCurriculum({
     ? videos
     : videos.filter((video) => (videoFilter === 'intro' ? video.track === 'intro' : video.track === videoFilter));
 
+  useEffect(() => {
+    const stored = localStorage.getItem('cot_progress_v1');
+    if (!stored) return;
+    try {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed?.completedLevels)) {
+        setCompletedLevels(parsed.completedLevels);
+      }
+      if (typeof parsed?.totalXP === 'number') {
+        setTotalXP(parsed.totalXP);
+      }
+      if (parsed?.completedStepsByLevel && typeof parsed.completedStepsByLevel === 'object') {
+        setCompletedStepsByLevel(parsed.completedStepsByLevel);
+      }
+      if (Array.isArray(parsed?.watchedVideos)) {
+        setWatchedVideos(new Set(parsed.watchedVideos));
+      }
+    } catch (error) {
+      console.warn('Failed to parse Coders of Tomorrow progress:', error);
+    }
+  }, []);
+
+  useEffect(() => {
+    const payload = {
+      totalXP,
+      completedLevels,
+      completedStepsByLevel,
+      watchedVideos: Array.from(watchedVideos),
+    };
+    localStorage.setItem('cot_progress_v1', JSON.stringify(payload));
+  }, [totalXP, completedLevels, completedStepsByLevel, watchedVideos]);
+
   const completeActiveLevel = () => {
     if (!completedLevels.includes(activeLevel)) {
       setTotalXP(prev => prev + currentLevel.xp);
       setCompletedLevels(prev => [...prev, activeLevel]);
     }
+    setLevels((prev) => {
+      const sorted = [...prev].sort((a, b) => a.id - b.id);
+      const currentIndex = sorted.findIndex((level) => level.id === activeLevel);
+      const nextLevel = currentIndex >= 0 ? sorted[currentIndex + 1] : undefined;
+      if (!nextLevel) return prev;
+      return prev.map((level) =>
+        level.id === nextLevel.id ? { ...level, unlocked: true } : level
+      );
+    });
   };
 
   const toggleStep = (index: number) => {
@@ -388,11 +430,27 @@ export default function EnhancedCodingCurriculum({
   const handleVideoSelect = (video: VideoTutorial) => {
     const available = getVideoSourceCandidates(video.id).length > 0;
     if (!available) {
-      setVideoNotice('This tutorial is in production. Use the guided challenge below to keep progressing.');
+      setVideoNotice('This tutorial is in production. Use the guided challenge in the Practice tab to keep progressing.');
       return;
     }
     setVideoNotice(null);
     setSelectedVideo(video);
+  };
+
+  const markVideoWatched = (videoId: string) => {
+    let isNew = false;
+    setWatchedVideos((prev) => {
+      if (prev.has(videoId)) return prev;
+      isNew = true;
+      const next = new Set(prev);
+      next.add(videoId);
+      return next;
+    });
+    if (isNew) {
+      setTotalXP((prev) => prev + 25);
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 2000);
+    }
   };
 
   const runCode = () => {
@@ -457,6 +515,13 @@ export default function EnhancedCodingCurriculum({
   };
 
   const rank = getLevelRank();
+  const blockLevels = levels.filter((level) => level.type === 'Blocks');
+  const pythonLevels = levels.filter((level) => level.type === 'Python');
+  const reactLevels = levels.filter((level) => level.type === 'React');
+  const blockMastered = blockLevels.length > 0 && blockLevels.every((level) => completedLevels.includes(level.id));
+  const pythonStarted = pythonLevels.some((level) => completedLevels.includes(level.id));
+  const reactStarted = reactLevels.some((level) => completedLevels.includes(level.id));
+  const allLevelsComplete = levels.length > 0 && completedLevels.length >= levels.length;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
@@ -955,6 +1020,7 @@ export default function EnhancedCodingCurriculum({
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {visibleVideos.map((video) => {
                 const available = getVideoSourceCandidates(video.id).length > 0;
+                const isWatched = watchedVideos.has(video.id);
                 return (
                 <button
                   key={video.id}
@@ -980,6 +1046,11 @@ export default function EnhancedCodingCurriculum({
                     }`}>
                       {video.track === 'intro' ? 'Start Here' : video.track.charAt(0).toUpperCase() + video.track.slice(1)}
                     </div>
+                    {isWatched && (
+                      <div className="absolute top-3 right-3 bg-emerald-500 text-white text-xs font-semibold px-2 py-1 rounded">
+                        Watched
+                      </div>
+                    )}
                     {!available && (
                       <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-xs font-semibold text-white">
                         Video in production
@@ -1006,7 +1077,7 @@ export default function EnhancedCodingCurriculum({
                 { label: 'Total XP', value: totalXP.toLocaleString(), icon: Zap, color: 'yellow' },
                 { label: 'Levels Completed', value: `${completedLevels.length}/${levels.length}`, icon: CheckCircle, color: 'green' },
                 { label: 'Current Rank', value: rank.name, icon: Award, color: 'purple' },
-                { label: 'Videos Watched', value: '3/10', icon: Video, color: 'blue' },
+                { label: 'Videos Watched', value: `${watchedVideos.size}/${videos.length}`, icon: Video, color: 'blue' },
               ].map((stat, i) => {
                 const Icon = stat.icon;
                 return (
@@ -1029,12 +1100,12 @@ export default function EnhancedCodingCurriculum({
               </h2>
               <div className="grid md:grid-cols-3 gap-4">
                 {[
-                  { name: 'First Steps', desc: 'Complete your first level', earned: true },
-                  { name: 'Block Master', desc: 'Complete all block coding levels', earned: false },
-                  { name: 'Python Pioneer', desc: 'Start Python programming', earned: false },
-                  { name: 'React Rookie', desc: 'Build your first component', earned: false },
-                  { name: 'XP Hunter', desc: 'Earn 1000 XP', earned: false },
-                  { name: 'Developer', desc: 'Complete all levels', earned: false },
+                  { name: 'First Steps', desc: 'Complete your first level', earned: completedLevels.length > 0 },
+                  { name: 'Block Master', desc: 'Complete all block coding levels', earned: blockMastered },
+                  { name: 'Python Pioneer', desc: 'Start Python programming', earned: pythonStarted },
+                  { name: 'React Rookie', desc: 'Build your first component', earned: reactStarted },
+                  { name: 'XP Hunter', desc: 'Earn 1000 XP', earned: totalXP >= 1000 },
+                  { name: 'Developer', desc: 'Complete all levels', earned: allLevelsComplete },
                 ].map((achievement, i) => (
                   <div 
                     key={i} 
@@ -1115,8 +1186,7 @@ export default function EnhancedCodingCurriculum({
                 showControls={true}
                 className="aspect-video"
                 onComplete={() => {
-                  // Mark video as complete, add XP, etc.
-                  console.log('Video completed:', selectedVideo.title);
+                  markVideoWatched(selectedVideo.id);
                 }}
               />
               <button 

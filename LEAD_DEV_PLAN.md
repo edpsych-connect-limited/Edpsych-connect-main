@@ -315,6 +315,7 @@ Progress log:
 - 2026-01-22: Replaced react-icons with lucide-react across security, trust, beta, tutoring, gamification, and legacy landing components.
 - 2026-01-22: Fixed intervention library export order so behavioural interventions and stats include all ingested entries.
 - 2026-01-22: Added full Coders of Tomorrow video catalog, availability gating, and guided challenge workflow in the coding curriculum.
+- 2026-01-22: Added persisted coding progress, watched video tracking, XP rewards, and achievement logic for Coders of Tomorrow.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
