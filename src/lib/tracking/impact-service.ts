@@ -1,5 +1,3 @@
-import { InterventionTemplate } from '../interventions/intervention-library';
-
 export type ImpactRating = 'positive' | 'neutral' | 'negative' | 'unknown';
 
 export interface ImpactLog {

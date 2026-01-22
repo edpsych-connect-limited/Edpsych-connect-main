@@ -32,6 +32,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 - 2026-01-22: Post-beta icon swap build completed; top chunk sizes unchanged from prior run.
 - 2026-01-22: Post-battle icon swap build completed; react-icons chunk removed from top list.
 - 2026-01-22: Post-intervention designer deferral build completed; top chunk sizes unchanged.
+- 2026-01-22: Post-teacher dashboard deferral build completed; 9915 chunk no longer initial.
 
 ## Reduction Plan (Initial)
 - Move PDF generation to lazy-loaded imports on subscription invoices (jsPDF only when downloading).
@@ -48,6 +49,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 - 2026-01-22: Replaced beta register react-icons/fa bundle with lucide-react to reduce 8e1d74a4 chunk.
 - 2026-01-22: Replaced battle royale react-icons/fa with lucide-react to reduce gamification bundle weight.
 - 2026-01-22: Deferred intervention designer library and recommendation engine imports to reduce 9915 chunk.
+- 2026-01-22: Deferred teacher dashboard recommendation engine + impact service imports to avoid pulling intervention library on initial load.
 
 ## Capture Method (Baseline + After)
 1) Record build stats output (top 10 bundles) and store evidence file path.
@@ -82,3 +84,4 @@ Status key: [ ] pending, [~] in progress, [x] done
 | 2026-01-22 | N/A | N/A | N/A | 0 / 0% | Post-beta icon swap build; top chunk sizes unchanged. | docs/performance/chunk-sizes-2026-01-22-post-beta-icons.txt |
 | 2026-01-22 | N/A | N/A | N/A | 0 / 0% | Post-battle icon swap build; react-icons chunk removed from top list. | docs/performance/chunk-sizes-2026-01-22-post-battle-icons.txt |
 | 2026-01-22 | N/A | N/A | N/A | 0 / 0% | Post-intervention designer deferral build; top chunk sizes unchanged. | docs/performance/chunk-sizes-2026-01-22-post-intervention-designer.txt |
+| 2026-01-22 | N/A | N/A | N/A | 0 / 0% | Post-teacher dashboard deferral build; 9915 chunk not initial. | docs/performance/chunk-sizes-2026-01-22-post-teacher-dashboard.txt |

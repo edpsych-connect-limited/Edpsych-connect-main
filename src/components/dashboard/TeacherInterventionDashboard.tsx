@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { RecommendationEngine, StudentProfile, RecommendationResult } from '@/lib/ai/recommendation-engine';
-import { ImpactService } from '@/lib/tracking/impact-service';
+import type { StudentProfile, RecommendationResult } from '@/lib/ai/recommendation-engine';
 import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
 import VoiceCommandInterface from '@/components/orchestration/VoiceCommandInterface';
 import { 
@@ -37,31 +36,59 @@ export default function TeacherInterventionDashboard() {
   const [logs, setLogs] = useState<any[]>([]);
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [showVoiceInterface, setShowVoiceInterface] = useState(false);
+  const [impactService, setImpactService] = useState<null | { 
+    logImpact: (log: any) => any; 
+    getStudentLogs: (studentId: string) => any[]; 
+  }>(null);
 
   useEffect(() => {
-    // Simulate AI Engine Delay
-    setTimeout(() => {
-      try {
-        const engine = RecommendationEngine.getInstance();
-        const recs = engine.generateRecommendations(DEMO_PROFILE);
-        setRecommendations(recs);
-      } catch (e) {
-        console.error("AI Engine Error:", e);
-      } finally {
-        setLoading(false);
-      }
-    }, 800);
+    let mounted = true;
+
+    const loadRecommendations = async () => {
+      // Simulate AI Engine Delay
+      setTimeout(async () => {
+        try {
+          const { RecommendationEngine } = await import('@/lib/ai/recommendation-engine');
+          if (!mounted) return;
+          const engine = RecommendationEngine.getInstance();
+          const recs = engine.generateRecommendations(DEMO_PROFILE);
+          setRecommendations(recs);
+        } catch (e) {
+          console.error("AI Engine Error:", e);
+        } finally {
+          if (mounted) {
+            setLoading(false);
+          }
+        }
+      }, 800);
+    };
+
+    loadRecommendations();
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
-  const handleLogImpact = (interventionId: string, rating: 'positive' | 'neutral' | 'negative') => {
-    ImpactService.logImpact({
+  const loadImpactService = async () => {
+    if (impactService) {
+      return impactService;
+    }
+    const module = await import('@/lib/tracking/impact-service');
+    setImpactService(module.ImpactService);
+    return module.ImpactService;
+  };
+
+  const handleLogImpact = async (interventionId: string, rating: 'positive' | 'neutral' | 'negative') => {
+    const service = await loadImpactService();
+    service.logImpact({
       studentId: DEMO_PROFILE.id,
       interventionId,
       rating,
       notes: 'Logged via Teacher Dashboard'
     });
     // Refresh logs
-    setLogs(ImpactService.getStudentLogs(DEMO_PROFILE.id));
+    setLogs(service.getStudentLogs(DEMO_PROFILE.id));
     alert(`Impact logged: ${rating.toUpperCase()}`);
   };
 
