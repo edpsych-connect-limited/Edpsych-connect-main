@@ -21,6 +21,7 @@
 import React, { useState, useEffect } from 'react';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import CloudinaryVideoPlayer from '@/components/ui/CloudinaryVideoPlayer';
+import { getVideoSourceCandidates } from '@/lib/training/heygen-video-urls';
 import { 
   Play, 
   RefreshCw, 
@@ -81,7 +82,69 @@ const DEFAULT_CODING_VIDEOS: VideoTutorial[] = [
     duration: '5:30',
     track: 'intro'
   },
-  // ... (rest of static videos)
+  {
+    id: 'blocks-intro',
+    title: 'Introduction to Block Coding',
+    description: 'Learn the fundamentals of programming logic using visual blocks - perfect for beginners.',
+    duration: '8:15',
+    track: 'blocks'
+  },
+  {
+    id: 'blocks-events',
+    title: 'Events and Actions',
+    description: 'Understand how events trigger actions in your programs - the foundation of interactive coding.',
+    duration: '6:45',
+    track: 'blocks'
+  },
+  {
+    id: 'blocks-loops',
+    title: 'Loops and Repetition',
+    description: 'Master the power of loops to make your code efficient and powerful.',
+    duration: '7:20',
+    track: 'blocks'
+  },
+  {
+    id: 'python-basics',
+    title: 'Python Fundamentals',
+    description: 'Transition from blocks to text-based coding with Python - a globally used programming language.',
+    duration: '12:00',
+    track: 'python'
+  },
+  {
+    id: 'python-variables',
+    title: 'Variables and Data',
+    description: 'Learn how to store and manipulate data using variables in Python.',
+    duration: '9:30',
+    track: 'python'
+  },
+  {
+    id: 'python-functions',
+    title: 'Functions and Reusability',
+    description: 'Create your own functions to write cleaner, more powerful code.',
+    duration: '11:15',
+    track: 'python'
+  },
+  {
+    id: 'react-intro',
+    title: 'Introduction to React',
+    description: 'Learn the basics of React - the framework used to build modern web apps.',
+    duration: '15:00',
+    track: 'react'
+  },
+  {
+    id: 'react-components',
+    title: 'Building Components',
+    description: 'Create reusable UI components - the building blocks of modern web applications.',
+    duration: '13:45',
+    track: 'react'
+  },
+  {
+    id: 'react-state',
+    title: 'State and Interactivity',
+    description: 'Make your applications interactive with React state management.',
+    duration: '14:30',
+    track: 'react'
+  }
 ];
 
 // Enhanced levels with educational psychology integration
@@ -174,6 +237,42 @@ while game_active:
 }`
 };
 
+const LEVEL_CHALLENGES = {
+  Blocks: {
+    title: 'Build a greeting sequence',
+    prompt: 'Arrange the blocks so the avatar says hello and then moves.',
+    steps: [
+      'Start with an event block.',
+      'Add a say block with a greeting.',
+      'Add a movement block after the greeting.',
+      'Run the sequence to confirm the order is correct.'
+    ],
+    success: 'You can explain the order of actions and why it matters.'
+  },
+  Python: {
+    title: 'Change gravity with a function',
+    prompt: 'Define a function that sets a variable and returns success.',
+    steps: [
+      'Declare a function that accepts a value.',
+      'Assign the value to a variable.',
+      'Return a confirmation value.',
+      'Run the function once to verify the output.'
+    ],
+    success: 'You can describe what variables and functions do.'
+  },
+  React: {
+    title: 'Create a reusable UI component',
+    prompt: 'Build a component that renders a label and a value.',
+    steps: [
+      'Create a component function with props.',
+      'Render the props inside JSX.',
+      'Reuse the component twice with different values.',
+      'Run the component to confirm it renders.'
+    ],
+    success: 'You can describe how components make UI reusable.'
+  }
+} as const;
+
 export default function EnhancedCodingCurriculum({ 
   initialLevels = [], 
   initialVideos = [] 
@@ -249,6 +348,7 @@ export default function EnhancedCodingCurriculum({
   const [isRunning, setIsRunning] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [activeTab, setActiveTab] = useState<'learn' | 'practice' | 'videos' | 'progress'>('learn');
+  const [videoFilter, setVideoFilter] = useState<'all' | 'intro' | 'blocks' | 'python' | 'react'>('all');
   const [selectedVideo, setSelectedVideo] = useState<VideoTutorial | null>(null);
   const [totalXP, setTotalXP] = useState(450);
   const [completedLevels, setCompletedLevels] = useState([1, 2]);
@@ -256,9 +356,44 @@ export default function EnhancedCodingCurriculum({
   const [voiceEnabled, setVoiceEnabled] = useState(false);
   const [accessibilityMode, setAccessibilityMode] = useState(false);
   const [isTeacherMode, setIsTeacherMode] = useState(false);
+  const [videoNotice, setVideoNotice] = useState<string | null>(null);
+  const [completedStepsByLevel, setCompletedStepsByLevel] = useState<Record<number, number[]>>({});
 
   const currentLevel = levels.find(l => l.id === activeLevel) || levels[0];
   const trackVideos = videos.filter(v => v.track === activeTrack || v.track === 'intro');
+  const currentChallenge = LEVEL_CHALLENGES[currentLevel?.type as keyof typeof LEVEL_CHALLENGES] || LEVEL_CHALLENGES.Blocks;
+  const completedSteps = completedStepsByLevel[activeLevel] || [];
+  const stepsComplete = currentChallenge.steps.every((_, index) => completedSteps.includes(index));
+  const visibleVideos = videoFilter === 'all'
+    ? videos
+    : videos.filter((video) => (videoFilter === 'intro' ? video.track === 'intro' : video.track === videoFilter));
+
+  const completeActiveLevel = () => {
+    if (!completedLevels.includes(activeLevel)) {
+      setTotalXP(prev => prev + currentLevel.xp);
+      setCompletedLevels(prev => [...prev, activeLevel]);
+    }
+  };
+
+  const toggleStep = (index: number) => {
+    setCompletedStepsByLevel((prev) => {
+      const existing = prev[activeLevel] || [];
+      const next = existing.includes(index)
+        ? existing.filter((step) => step !== index)
+        : [...existing, index];
+      return { ...prev, [activeLevel]: next };
+    });
+  };
+
+  const handleVideoSelect = (video: VideoTutorial) => {
+    const available = getVideoSourceCandidates(video.id).length > 0;
+    if (!available) {
+      setVideoNotice('This tutorial is in production. Use the guided challenge below to keep progressing.');
+      return;
+    }
+    setVideoNotice(null);
+    setSelectedVideo(video);
+  };
 
   const runCode = () => {
     setIsRunning(true);
@@ -296,11 +431,7 @@ export default function EnhancedCodingCurriculum({
       setIsRunning(false);
       setShowConfetti(true);
       
-      // Add XP if level not completed
-      if (!completedLevels.includes(activeLevel)) {
-        setTotalXP(prev => prev + currentLevel.xp);
-        setCompletedLevels(prev => [...prev, activeLevel]);
-      }
+      completeActiveLevel();
       
       setTimeout(() => setShowConfetti(false), 3000);
     }, 1500);
@@ -550,7 +681,7 @@ export default function EnhancedCodingCurriculum({
                 {trackVideos.slice(0, 2).map((video) => (
                   <button
                     key={video.id}
-                    onClick={() => setSelectedVideo(video)}
+                    onClick={() => handleVideoSelect(video)}
                     className="p-4 bg-slate-900/50 rounded-xl text-left hover:bg-slate-800/50 transition-colors group"
                   >
                     <div className="aspect-video bg-gradient-to-br from-indigo-600 to-purple-700 rounded-lg flex items-center justify-center mb-3 relative overflow-hidden">
@@ -705,6 +836,57 @@ export default function EnhancedCodingCurriculum({
                 </div>
               </div>
 
+              {/* Guided Challenge */}
+              <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
+                <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
+                  <div>
+                    <h3 className="text-lg font-semibold text-white">Guided Challenge</h3>
+                    <p className="text-slate-400 text-sm">{currentChallenge.prompt}</p>
+                  </div>
+                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-200">
+                    {currentChallenge.title}
+                  </span>
+                </div>
+                <div className="space-y-3">
+                  {currentChallenge.steps.map((step, index) => (
+                    <button
+                      key={step}
+                      onClick={() => toggleStep(index)}
+                      className={`w-full text-left px-4 py-3 rounded-lg border flex items-start gap-3 transition-colors ${
+                        completedSteps.includes(index)
+                          ? 'bg-green-900/20 border-green-700 text-green-200'
+                          : 'bg-slate-900/60 border-slate-700 text-slate-200 hover:border-slate-500'
+                      }`}
+                    >
+                      <span className={`mt-0.5 text-xs font-bold ${completedSteps.includes(index) ? 'text-green-300' : 'text-slate-400'}`}>
+                        {completedSteps.includes(index) ? 'Done' : `Step ${index + 1}`}
+                      </span>
+                      <span className="text-sm">{step}</span>
+                    </button>
+                  ))}
+                </div>
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+                  <p className="text-xs text-slate-400">
+                    Success criteria: {currentChallenge.success}
+                  </p>
+                  <button
+                    onClick={() => {
+                      completeActiveLevel();
+                      setShowConfetti(true);
+                      setTimeout(() => setShowConfetti(false), 3000);
+                    }}
+                    disabled={!stepsComplete}
+                    className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                      stepsComplete
+                        ? 'bg-green-600 text-white hover:bg-green-500'
+                        : 'bg-slate-700 text-slate-400 cursor-not-allowed'
+                    }`}
+                  >
+                    Complete Challenge
+                  </button>
+                </div>
+              </div>
+
               {/* Learning Context */}
               <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6 flex items-start gap-4">
                 <div className="p-3 bg-blue-900/30 rounded-lg text-blue-400">
@@ -748,9 +930,12 @@ export default function EnhancedCodingCurriculum({
               {['all', 'intro', 'blocks', 'python', 'react'].map((track) => (
                 <button
                   key={track}
-                  onClick={() => setActiveTrack(track === 'all' || track === 'intro' ? 'blocks' : track as typeof activeTrack)}
+                  onClick={() => {
+                    setVideoFilter(track as typeof videoFilter);
+                    setVideoNotice(null);
+                  }}
                   className={`px-4 py-2 rounded-lg font-medium text-sm transition-colors ${
-                    (track === 'all' && activeTrack === 'blocks') || track === activeTrack
+                    track === videoFilter
                       ? 'bg-purple-600 text-white'
                       : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
                   }`}
@@ -760,13 +945,25 @@ export default function EnhancedCodingCurriculum({
               ))}
             </div>
 
+            {videoNotice && (
+              <div className="bg-slate-800/80 border border-slate-700 rounded-lg px-4 py-3 text-slate-200 text-sm text-center">
+                {videoNotice}
+              </div>
+            )}
+
             {/* Video Grid */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {videos.map((video) => (
+              {visibleVideos.map((video) => {
+                const available = getVideoSourceCandidates(video.id).length > 0;
+                return (
                 <button
                   key={video.id}
-                  onClick={() => setSelectedVideo(video)}
-                  className="bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700 hover:border-purple-500 transition-all group text-left"
+                  onClick={() => handleVideoSelect(video)}
+                  disabled={!available}
+                  aria-disabled={!available}
+                  className={`bg-slate-800/50 rounded-2xl overflow-hidden border transition-all group text-left ${
+                    available ? 'border-slate-700 hover:border-purple-500' : 'border-slate-800 opacity-70 cursor-not-allowed'
+                  }`}
                 >
                   <div className="aspect-video bg-gradient-to-br from-indigo-600 to-purple-700 flex items-center justify-center relative">
                     <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -783,13 +980,19 @@ export default function EnhancedCodingCurriculum({
                     }`}>
                       {video.track === 'intro' ? 'Start Here' : video.track.charAt(0).toUpperCase() + video.track.slice(1)}
                     </div>
+                    {!available && (
+                      <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-xs font-semibold text-white">
+                        Video in production
+                      </div>
+                    )}
                   </div>
                   <div className="p-4">
                     <h3 className="font-bold text-white group-hover:text-purple-300 transition-colors">{video.title}</h3>
                     <p className="text-slate-400 text-sm mt-2 line-clamp-2">{video.description}</p>
                   </div>
                 </button>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}

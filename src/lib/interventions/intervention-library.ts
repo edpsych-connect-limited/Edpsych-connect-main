@@ -11964,18 +11964,6 @@ SOCIAL_EMOTIONAL_INTERVENTIONS.push(
 );
 
 // ============================================================================
-// COMBINE ALL INTERVENTIONS
-// ============================================================================
-
-export const INTERVENTION_LIBRARY: InterventionTemplate[] = [
-  ...ACADEMIC_INTERVENTIONS,
-  ...BEHAVIORAL_INTERVENTIONS,
-  ...SOCIAL_EMOTIONAL_INTERVENTIONS,
-  ...COMMUNICATION_INTERVENTIONS,
-  ...SENSORY_INTERVENTIONS,
-];
-
-// ============================================================================
 // UTILITY FUNCTIONS
 // ============================================================================
 
@@ -12056,22 +12044,6 @@ export function getRecommendedInterventions(
 // ============================================================================
 // STATISTICS
 // ============================================================================
-
-export const INTERVENTION_STATS = {
-  total: INTERVENTION_LIBRARY.length,
-  by_category: {
-    academic: ACADEMIC_INTERVENTIONS.length,
-    behavioural: BEHAVIORAL_INTERVENTIONS.length,
-    social_emotional: SOCIAL_EMOTIONAL_INTERVENTIONS.length,
-    communication: COMMUNICATION_INTERVENTIONS.length,
-    sensory: SENSORY_INTERVENTIONS.length,
-  },
-  by_evidence: {
-    tier_1: INTERVENTION_LIBRARY.filter((i) => i.evidence_level === 'tier_1').length,
-    tier_2: INTERVENTION_LIBRARY.filter((i) => i.evidence_level === 'tier_2').length,
-    tier_3: INTERVENTION_LIBRARY.filter((i) => i.evidence_level === 'tier_3').length,
-  },
-};
 
 // ========================================================================
 // POSITIVE PSYCHOLOGY & WELLBEING INTERVENTIONS (Ingested)
@@ -12177,6 +12149,38 @@ ACADEMIC_INTERVENTIONS.push(
     tags: ['mindset', 'resilience', 'academic', 'tier_1']
   }
 );
+
+// ============================================================================
+// COMBINE ALL INTERVENTIONS
+// ============================================================================
+
+export const INTERVENTION_LIBRARY: InterventionTemplate[] = [
+  ...ACADEMIC_INTERVENTIONS,
+  ...BEHAVIORAL_INTERVENTIONS,
+  ...SOCIAL_EMOTIONAL_INTERVENTIONS,
+  ...COMMUNICATION_INTERVENTIONS,
+  ...SENSORY_INTERVENTIONS,
+];
+
+// ============================================================================
+// STATISTICS
+// ============================================================================
+
+export const INTERVENTION_STATS = {
+  total: INTERVENTION_LIBRARY.length,
+  by_category: {
+    academic: ACADEMIC_INTERVENTIONS.length,
+    behavioural: BEHAVIORAL_INTERVENTIONS.length,
+    social_emotional: SOCIAL_EMOTIONAL_INTERVENTIONS.length,
+    communication: COMMUNICATION_INTERVENTIONS.length,
+    sensory: SENSORY_INTERVENTIONS.length,
+  },
+  by_evidence: {
+    tier_1: INTERVENTION_LIBRARY.filter((i) => i.evidence_level === 'tier_1').length,
+    tier_2: INTERVENTION_LIBRARY.filter((i) => i.evidence_level === 'tier_2').length,
+    tier_3: INTERVENTION_LIBRARY.filter((i) => i.evidence_level === 'tier_3').length,
+  },
+};
 
 // ========================================================================
 // POSITIVE PSYCHOLOGY & WELLBEING INTERVENTIONS (Ingested)

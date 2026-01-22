@@ -313,6 +313,8 @@ Progress log:
 - 2026-01-22: Captured post-teacher dashboard deferral bundle evidence (`docs/performance/chunk-sizes-2026-01-22-post-teacher-dashboard.txt`).
 - 2026-01-22: Replaced analytics dashboards react-icons with lucide-react and updated trend indicators to lucide icons.
 - 2026-01-22: Replaced react-icons with lucide-react across security, trust, beta, tutoring, gamification, and legacy landing components.
+- 2026-01-22: Fixed intervention library export order so behavioural interventions and stats include all ingested entries.
+- 2026-01-22: Added full Coders of Tomorrow video catalog, availability gating, and guided challenge workflow in the coding curriculum.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

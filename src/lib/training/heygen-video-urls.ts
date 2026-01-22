@@ -732,6 +732,10 @@ const CODING_CURRICULUM_KEYS = new Set<string>([
   'react-state',
 ]);
 
+const CODING_PLACEHOLDER_HEYGEN_IDS = new Set<string>([
+  '84c23e6e11604b7da12d41ad23c90804'
+]);
+
 /**
  * Returns an ordered list of candidates for playback.
  * This is the canonical source-of-truth for priority ordering.
@@ -748,7 +752,9 @@ export function getVideoSourceCandidates(lessonId: string): VideoSourceCandidate
   }
 
   const heygenId = HEYGEN_VIDEO_IDS[lessonId];
-  const heygenCandidate: VideoSourceCandidate | null = heygenId
+  const isCodingPlaceholder = isCodingCurriculumKey && !!heygenId && CODING_PLACEHOLDER_HEYGEN_IDS.has(heygenId);
+  const resolvedHeygenId = isCodingPlaceholder ? undefined : heygenId;
+  const heygenCandidate: VideoSourceCandidate | null = resolvedHeygenId
     ? {
         type: 'heygen',
         kind: 'video',
@@ -763,11 +769,11 @@ export function getVideoSourceCandidates(lessonId: string): VideoSourceCandidate
   let cloudinaryUrl = CLOUDINARY_VIDEO_URLS[lessonId];
   // For coding curriculum keys, if there isn't a dedicated Cloudinary mp4 yet,
   // fall back to the known-good "innovation-coding-curriculum" CDN asset.
-  if (!cloudinaryUrl && isCodingCurriculumKey) {
+  if (!cloudinaryUrl && lessonId === 'intro-coding-journey') {
     cloudinaryUrl = CLOUDINARY_VIDEO_URLS['innovation-coding-curriculum'];
   }
 
-  const localPath = LOCAL_VIDEO_PATHS[lessonId];
+  const localPath = !isCodingCurriculumKey || lessonId === 'intro-coding-journey' ? LOCAL_VIDEO_PATHS[lessonId] : undefined;
 
   // Priority ordering:
   // - Identity-sensitive keys: Live -> HeyGen -> Cloudinary -> Local
