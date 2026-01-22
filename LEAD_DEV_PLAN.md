@@ -298,6 +298,7 @@ Progress log:
 - 2026-01-21: Standardized ethics review empty state using shared EmptyState component.
 - 2026-01-21: Standardized ethics admin monitors, incidents, and assessments empty states with shared EmptyState.
 - 2026-01-21: Deferred intervention, assessment, and course catalogs in school/parent dashboards via dynamic import to reduce initial bundles.
+- 2026-01-22: Captured bundle analyzer outputs and top client chunk sizes after dashboard library deferral (`docs/performance/chunk-sizes-2026-01-22.txt`).
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

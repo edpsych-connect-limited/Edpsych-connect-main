@@ -1,0 +1,448 @@
+
+> edpsych-connect-web-v2@1.0.0 prebuild
+> rimraf node_modules/@sentry
+
+
+> edpsych-connect-web-v2@1.0.0 build
+> cross-env NODE_OPTIONS="--max-old-space-size=8192" node ./scripts/next-cli-patched.cjs build --webpack
+
+Ôû▓ Next.js 16.1.1 (webpack)
+- Environments: .env.production.local, .env.local, .env
+
+  Creating an optimized production build ...
+[1mWebpack Bundle Analyzer[22m saved report to [1mE:\EdpsychConnect\.next_build_local_1769042330007_19972\analyze\nodejs.html[22m
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Parsing of E:\EdpsychConnect\node_modules\next-intl\dist\esm\production\extractor\format\index.js for build dependencies failed at 'import(t)'.
+<w> Build dependencies behind this expression are ignored and might cause incorrect cache invalidation.
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
+
+No bundles were parsed. Analyzer will show only original module sizes from stats file.
+
+[1mWebpack Bundle Analyzer[22m saved report to [1mE:\EdpsychConnect\.next_build_local_1769042330007_19972\analyze\edge.html[22m
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Parsing of E:\EdpsychConnect\node_modules\next-intl\dist\esm\production\extractor\format\index.js for build dependencies failed at 'import(t)'.
+<w> Build dependencies behind this expression are ignored and might cause incorrect cache invalidation.
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
+[1mWebpack Bundle Analyzer[22m saved report to [1mE:\EdpsychConnect\.next_build_local_1769042330007_19972\analyze\client.html[22m
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Parsing of E:\EdpsychConnect\node_modules\next-intl\dist\esm\production\extractor\format\index.js for build dependencies failed at 'import(t)'.
+<w> Build dependencies behind this expression are ignored and might cause incorrect cache invalidation.
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
+Ô£ô Compiled successfully in 7.4min
+  Skipping validation of types
+
+  We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
+  The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+  	- include was updated to add '.next_build_local_1769042330007_19972/types/**/*.ts'
+  	- include was updated to add '.next_build_local_1769042330007_19972/dev/types/**/*.ts'
+
+  Collecting page data using 15 workers ...
+Creating platformPrisma...
+Creating platformPrisma...
+Creating platformPrisma...
+Creating platformPrisma...
+Initializing Prisma Client with URL: postgresql://neondb_...
+Creating platformPrisma...
+Initializing Prisma Client with URL: postgresql://neondb_...
+Initializing Prisma Client with URL: postgresql://neondb_...
+Creating platformPrisma...
+Initializing Prisma Client with URL: postgresql://neondb_...
+Creating platformPrisma...
+Initializing Prisma Client with URL: postgresql://neondb_...
+Creating platformPrisma...
+Initializing Prisma Client with URL: postgresql://neondb_...
+Initializing Prisma Client with URL: postgresql://neondb_...
+Initializing Prisma Client with URL: postgresql://neondb_...
+Creating platformPrisma...
+Initializing Prisma Client with URL: postgresql://neondb_...
+Creating platformPrisma...
+Initializing Prisma Client with URL: postgresql://neondb_...
+platformPrisma created.
+platformPrisma created.
+platformPrisma created.
+Creating platformPrisma...
+Creating platformPrisma...
+Initializing Prisma Client with URL: postgresql://neondb_...
+Initializing Prisma Client with URL: postgresql://neondb_...
+platformPrisma created.
+Creating platformPrisma...
+Initializing Prisma Client with URL: postgresql://neondb_...
+platformPrisma created.
+Creating platformPrisma...
+Initializing Prisma Client with URL: postgresql://neondb_...
+platformPrisma created.
+platformPrisma created.
+Creating platformPrisma...
+platformPrisma created.
+Initializing Prisma Client with URL: postgresql://neondb_...
+platformPrisma created.
+platformPrisma created.
+platformPrisma created.
+platformPrisma created.
+platformPrisma created.
+platformPrisma created.
+platformPrisma created.
+  Generating static pages using 15 workers (0/67) ...
+  Generating static pages using 15 workers (16/67) 
+  Generating static pages using 15 workers (33/67) 
+  Generating static pages using 15 workers (50/67) 
+Ô£ô Generating static pages using 15 workers (67/67) in 2.2s
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+Ôöî Ôùï /_not-found
+Ôö£ ãÆ /[locale]
+Ôö£ ãÆ /[locale]/about
+Ôö£ ãÆ /[locale]/accessibility
+Ôö£ ãÆ /[locale]/admin
+Ôö£ ãÆ /[locale]/admin/ethics
+Ôö£ ãÆ /[locale]/admin/integrations
+Ôö£ ãÆ /[locale]/ai-agents
+Ôö£ ãÆ /[locale]/algorithms
+Ôö£ ãÆ /[locale]/analytics
+Ôö£ ãÆ /[locale]/assessments
+Ôö£ ãÆ /[locale]/assessments/[id]
+Ôö£ ãÆ /[locale]/assessments/[id]/conduct
+Ôö£ ãÆ /[locale]/assessments/new
+Ôö£ ãÆ /[locale]/assessments/tasks/digit-span
+Ôö£ ãÆ /[locale]/behaviour/tracker
+Ôö£ ãÆ /[locale]/beta-login
+Ôö£ ãÆ /[locale]/beta-register
+Ôö£ ãÆ /[locale]/blog
+Ôö£ ãÆ /[locale]/blog/[slug]
+Ôö£ ãÆ /[locale]/careers
+Ôö£ ãÆ /[locale]/cases
+Ôö£ ãÆ /[locale]/cases/[id]
+Ôö£ ãÆ /[locale]/cases/new
+Ôö£ ãÆ /[locale]/collaborate
+Ôö£ ãÆ /[locale]/collaborate/[token]
+Ôö£ ãÆ /[locale]/collaborate/thank-you
+Ôö£ ãÆ /[locale]/contact
+Ôö£ ãÆ /[locale]/dashboard
+Ôö£ ãÆ /[locale]/dashboard/inquiries
+Ôö£ ãÆ /[locale]/demo
+Ôö£ ãÆ /[locale]/demo/assessment
+Ôö£ ãÆ /[locale]/demo/coding
+Ôö£ ãÆ /[locale]/demo/ehcp
+Ôö£ ãÆ /[locale]/demo/gamification
+Ôö£ ãÆ /[locale]/demo/golden-thread
+Ôö£ ãÆ /[locale]/demo/interventions
+Ôö£ ãÆ /[locale]/demo/onboarding
+Ôö£ ãÆ /[locale]/demo/tracking
+Ôö£ ãÆ /[locale]/demo/training
+Ôö£ ãÆ /[locale]/demo/translator
+Ôö£ ãÆ /[locale]/diagnostic
+Ôö£ ãÆ /[locale]/directory
+Ôö£ ãÆ /[locale]/ehcp
+Ôö£ ãÆ /[locale]/ehcp/[id]
+Ôö£ ãÆ /[locale]/ehcp/modules
+Ôö£ ãÆ /[locale]/ehcp/modules/annual-reviews
+Ôö£ ãÆ /[locale]/ehcp/modules/compliance-risk
+Ôö£ ãÆ /[locale]/ehcp/modules/golden-thread
+Ôö£ ãÆ /[locale]/ehcp/modules/mediation-tribunal
+Ôö£ ãÆ /[locale]/ehcp/modules/phase-transfers
+Ôö£ ãÆ /[locale]/ehcp/modules/resource-costing
+Ôö£ ãÆ /[locale]/ehcp/modules/sen2-returns
+Ôö£ ãÆ /[locale]/ehcp/new
+Ôö£ ãÆ /[locale]/ep
+Ôö£ ãÆ /[locale]/ep/dashboard
+Ôö£ ãÆ /[locale]/forgot-password
+Ôö£ ãÆ /[locale]/forum
+Ôö£ ãÆ /[locale]/gamification
+Ôö£ ãÆ /[locale]/gdpr
+Ôö£ ãÆ /[locale]/help
+Ôö£ ãÆ /[locale]/help/[slug]
+Ôö£ ãÆ /[locale]/institutional-management
+Ôö£ ãÆ /[locale]/interventions
+Ôö£ ãÆ /[locale]/interventions/[id]
+Ôö£ ãÆ /[locale]/interventions/library
+Ôö£ ãÆ /[locale]/interventions/new
+Ôö£ ãÆ /[locale]/interventions/schedule
+Ôö£ ãÆ /[locale]/la-temp/dashboard
+Ôö£ ãÆ /[locale]/la/applications/[id]
+Ôö£ ãÆ /[locale]/la/dashboard
+Ôö£ ãÆ /[locale]/landing
+Ôö£ ãÆ /[locale]/login
+Ôö£ ãÆ /[locale]/marketplace
+Ôö£ ãÆ /[locale]/marketplace/book/[professionalId]
+Ôö£ ãÆ /[locale]/marketplace/dashboard
+Ôö£ ãÆ /[locale]/marketplace/la-panel
+Ôö£ ãÆ /[locale]/marketplace/profile
+Ôö£ ãÆ /[locale]/marketplace/register
+Ôö£ ãÆ /[locale]/networking
+Ôö£ ãÆ /[locale]/onboarding
+Ôö£ ãÆ /[locale]/outcomes
+Ôö£ ãÆ /[locale]/parent/dashboard
+Ôö£ ãÆ /[locale]/parents
+Ôö£ ãÆ /[locale]/pricing
+Ôö£ ãÆ /[locale]/privacy
+Ôö£ ãÆ /[locale]/problem-solver
+Ôö£ ãÆ /[locale]/professional/[id]
+Ôö£ ãÆ /[locale]/professional/portal
+Ôö£ ãÆ /[locale]/progress
+Ôö£ ãÆ /[locale]/provision
+Ôö£ ãÆ /[locale]/reports
+Ôö£ ãÆ /[locale]/reports/create
+Ôö£ ãÆ /[locale]/research
+Ôö£ ãÆ /[locale]/research/ethics
+Ôö£ ãÆ /[locale]/reset-password
+Ôö£ ãÆ /[locale]/safeguarding
+Ôö£ ãÆ /[locale]/safeguarding/log
+Ôö£ ãÆ /[locale]/school/dashboard
+Ôö£ ãÆ /[locale]/school/ehcp-request
+Ôö£ ãÆ /[locale]/senco
+Ôö£ ãÆ /[locale]/senco/audit
+Ôö£ ãÆ /[locale]/settings
+Ôö£ ãÆ /[locale]/signin
+Ôö£ ãÆ /[locale]/signup
+Ôö£ ãÆ /[locale]/student
+Ôö£ ãÆ /[locale]/student/lessons
+Ôö£ ãÆ /[locale]/student/lessons/[id]
+Ôö£ ãÆ /[locale]/studios/[studioId]
+Ôö£ ãÆ /[locale]/subscription
+Ôö£ ãÆ /[locale]/subscription/addon
+Ôö£ ãÆ /[locale]/subscription/checkout
+Ôö£ ãÆ /[locale]/teacher-dashboard
+Ôö£ ãÆ /[locale]/teacher/gamification
+Ôö£ ãÆ /[locale]/teachers
+Ôö£ ãÆ /[locale]/terms
+Ôö£ ãÆ /[locale]/test-auth
+Ôö£ ãÆ /[locale]/test-login
+Ôö£ ãÆ /[locale]/test-navigation
+Ôö£ ãÆ /[locale]/test-route
+Ôö£ ãÆ /[locale]/test-route/nested
+Ôö£ ãÆ /[locale]/tokenisation
+Ôö£ ãÆ /[locale]/training
+Ôö£ ãÆ /[locale]/training/academy
+Ôö£ ãÆ /[locale]/training/certificates
+Ôö£ ãÆ /[locale]/training/checkout/[productId]
+Ôö£ ãÆ /[locale]/training/courses
+Ôö£ ãÆ /[locale]/training/courses/[id]
+Ôö£ ãÆ /[locale]/training/courses/[id]/learn
+Ôö£ ãÆ /[locale]/training/dashboard
+Ôö£ ãÆ /[locale]/training/marketplace
+Ôö£ ãÆ /[locale]/transitions
+Ôö£ ãÆ /[locale]/verify
+Ôö£ ãÆ /[locale]/wellbeing/survey
+Ôö£ ãÆ /api/admin/blog/generate
+Ôö£ ãÆ /api/admin/tenants/[tenantId]/byod/config
+Ôö£ ãÆ /api/admin/tenants/[tenantId]/byod/validate
+Ôö£ ãÆ /api/ai/adaptive
+Ôö£ ãÆ /api/ai/chat
+Ôö£ ãÆ /api/ai/demos
+Ôö£ ãÆ /api/ai/matcher
+Ôö£ ãÆ /api/ai/reviews
+Ôö£ ãÆ /api/ai/reviews/[reviewId]
+Ôö£ ãÆ /api/algorithms
+Ôö£ ãÆ /api/algorithms/[id]
+Ôö£ ãÆ /api/algorithms/[id]/approve
+Ôö£ ãÆ /api/algorithms/[id]/licenses
+Ôö£ ãÆ /api/algorithms/[id]/publish
+Ôö£ ãÆ /api/algorithms/[id]/purchase
+Ôö£ ãÆ /api/algorithms/[id]/reject
+Ôö£ ãÆ /api/algorithms/[id]/review
+Ôö£ ãÆ /api/algorithms/[id]/versions
+Ôö£ ãÆ /api/algorithms/featured
+Ôö£ ãÆ /api/algorithms/popular
+Ôö£ ãÆ /api/algorithms/usage
+Ôö£ ãÆ /api/analytics/time-savings
+Ôö£ ãÆ /api/api-docs
+Ôö£ ãÆ /api/assessment/analytics
+Ôö£ ãÆ /api/assessments
+Ôö£ ãÆ /api/assessments/[id]
+Ôö£ ãÆ /api/assessments/[id]/report
+Ôö£ ãÆ /api/assessments/collaborations
+Ôö£ ãÆ /api/assessments/collaborations/[token]
+Ôö£ ãÆ /api/assessments/frameworks/[id]
+Ôö£ ãÆ /api/assessments/instances
+Ôö£ ãÆ /api/assessments/instances/[id]
+Ôö£ ãÆ /api/assessments/submit
+Ôö£ ãÆ /api/auth
+Ôö£ ãÆ /api/auth/forgot-password
+Ôö£ ãÆ /api/auth/login
+Ôö£ ãÆ /api/auth/logout
+Ôö£ ãÆ /api/auth/me
+Ôö£ ãÆ /api/auth/refresh
+Ôö£ ãÆ /api/auth/register
+Ôö£ ãÆ /api/auth/reset-password
+Ôö£ ãÆ /api/auth/session
+Ôö£ ãÆ /api/auth/signup
+Ôö£ ãÆ /api/automation/analytics
+Ôö£ ãÆ /api/automation/effectiveness
+Ôö£ ãÆ /api/automation/interventions
+Ôö£ ãÆ /api/automation/templates
+Ôö£ ãÆ /api/battle-royale/match/[id]
+Ôö£ ãÆ /api/battle-royale/matchmaking/queue
+Ôö£ ãÆ /api/battle-royale/matchmaking/status
+Ôö£ ãÆ /api/battle-royale/squad
+Ôö£ ãÆ /api/beta/register
+Ôö£ ãÆ /api/beta/validate-code
+Ôö£ ãÆ /api/blog
+Ôö£ ãÆ /api/blog/[slug]
+Ôö£ ãÆ /api/blog/generate
+Ôö£ ãÆ /api/blog/status
+Ôö£ ãÆ /api/cases
+Ôö£ ãÆ /api/cases/[id]
+Ôö£ ãÆ /api/class/[id]/actions
+Ôö£ ãÆ /api/class/[id]/students
+Ôö£ ãÆ /api/class/dashboard
+Ôö£ ãÆ /api/coding/curriculum
+Ôö£ ãÆ /api/coding/progress
+Ôö£ ãÆ /api/collaboration/cases
+Ôö£ ãÆ /api/cpd
+Ôö£ ãÆ /api/cpd/[id]
+Ôö£ ãÆ /api/cpd/portfolio
+Ôö£ ãÆ /api/cron/predictions
+Ôö£ ãÆ /api/cron/sync
+Ôö£ ãÆ /api/ehcp
+Ôö£ ãÆ /api/ehcp/[id]
+Ôö£ ãÆ /api/ehcp/[id]/export
+Ôö£ ãÆ /api/ehcp/annual-reviews
+Ôö£ ãÆ /api/ehcp/coherence
+Ôö£ ãÆ /api/ehcp/communication
+Ôö£ ãÆ /api/ehcp/compliance-risk
+Ôö£ ãÆ /api/ehcp/documents/upload
+Ôö£ ãÆ /api/ehcp/evidence-pack
+Ôö£ ãÆ /api/ehcp/funding-bands
+Ôö£ ãÆ /api/ehcp/golden-thread
+Ôö£ ãÆ /api/ehcp/mediation
+Ôö£ ãÆ /api/ehcp/phase-transfers
+Ôö£ ãÆ /api/ehcp/provision-costs
+Ôö£ ãÆ /api/ehcp/sen2
+Ôö£ ãÆ /api/ehcp/sen2-returns
+Ôö£ ãÆ /api/ehcp/sen2/export
+Ôö£ ãÆ /api/ehcp/triage
+Ôö£ ãÆ /api/ehcp/tribunals
+Ôö£ ãÆ /api/ehcp/validate-graduated-response
+Ôö£ ãÆ /api/errors
+Ôö£ ãÆ /api/ethics/analytics
+Ôö£ ãÆ /api/ethics/assessments
+Ôö£ ãÆ /api/ethics/incidents
+Ôö£ ãÆ /api/ethics/models
+Ôö£ ãÆ /api/ethics/models/[modelId]/versions
+Ôö£ ãÆ /api/ethics/models/versions/[versionId]/evaluations
+Ôö£ ãÆ /api/ethics/models/versions/[versionId]/transparency
+Ôö£ ãÆ /api/ethics/monitors
+Ôö£ ãÆ /api/evidence/metrics
+Ôö£ ãÆ /api/feedback
+Ôö£ ãÆ /api/forum/summary
+Ôö£ ãÆ /api/gamification
+Ôö£ ãÆ /api/gamification/battle-royale
+Ôö£ ãÆ /api/gamification/leaderboard
+Ôö£ ãÆ /api/health
+Ôö£ ãÆ /api/health-dashboard
+Ôö£ ãÆ /api/help
+Ôö£ ãÆ /api/help/[slug]
+Ôö£ ãÆ /api/help/categories
+Ôö£ ãÆ /api/help/chat
+Ôö£ ãÆ /api/helpbot
+Ôö£ ãÆ /api/integrations/connect
+Ôö£ ãÆ /api/integrations/data-warehouse/export
+Ôö£ ãÆ /api/integrations/logs
+Ôö£ ãÆ /api/integrations/status
+Ôö£ ãÆ /api/interventions
+Ôö£ ãÆ /api/interventions/[id]
+Ôö£ ãÆ /api/interventions/generate
+Ôö£ ãÆ /api/interventions/tracking
+Ôö£ ãÆ /api/la/applications
+Ôö£ ãÆ /api/la/applications/[id]
+Ôö£ ãÆ /api/la/applications/[id]/assign
+Ôö£ ãÆ /api/la/applications/[id]/contributions
+Ôö£ ãÆ /api/la/applications/[id]/decision
+Ôö£ ãÆ /api/la/applications/[id]/ehcp-draft
+Ôö£ ãÆ /api/la/compliance
+Ôö£ ãÆ /api/la/dashboard
+Ôö£ ãÆ /api/learning/personalization
+Ôö£ ãÆ /api/legal/signatures
+Ôö£ ãÆ /api/lessons/assign
+Ôö£ ãÆ /api/lessons/differentiate
+Ôö£ ãÆ /api/licenses
+Ôö£ ãÆ /api/marketplace/bookings/[id]/confirm
+Ôö£ ãÆ /api/marketplace/bookings/[id]/payment-intent
+Ôö£ ãÆ /api/marketplace/dashboard
+Ôö£ ãÆ /api/marketplace/la-panel/apply
+Ôö£ ãÆ /api/marketplace/professionals/register
+Ôö£ ãÆ /api/marketplace/professionals/search
+Ôö£ ãÆ /api/marketplace/profile/status
+Ôö£ ãÆ /api/monitoring/dashboard
+Ôö£ ãÆ /api/multi-agency/ep-dashboard
+Ôö£ ãÆ /api/multi-agency/view
+Ôö£ ãÆ /api/network
+Ôö£ ãÆ /api/onboarding/[...action]
+Ôö£ ãÆ /api/ops/email/status
+Ôö£ ãÆ /api/orchestrator/agent
+Ôö£ ãÆ /api/orchestrator/status
+Ôö£ ãÆ /api/orchestrator/tutor
+Ôö£ ãÆ /api/outcomes
+Ôö£ ãÆ /api/outcomes/track
+Ôö£ ãÆ /api/parent/children
+Ôö£ ãÆ /api/parent/messages
+Ôö£ ãÆ /api/parent/portal/[childId]
+Ôö£ ãÆ /api/portal/parent
+Ôö£ ãÆ /api/problem-solver
+Ôö£ ãÆ /api/professional/contributions
+Ôö£ ãÆ /api/professional/contributions/[id]
+Ôö£ ãÆ /api/professional/development
+Ôö£ ãÆ /api/professional/verification
+Ôö£ ãÆ /api/progress/dashboard
+Ôö£ ãÆ /api/public/collaborations/[id]
+Ôö£ ãÆ /api/reports
+Ôö£ ãÆ /api/reports/generate
+Ôö£ ãÆ /api/research/library
+Ôö£ ãÆ /api/resources/library
+Ôö£ ãÆ /api/safeguarding
+Ôö£ ãÆ /api/senco
+Ôö£ ãÆ /api/settings/integrations
+Ôö£ ãÆ /api/settings/integrations/connect
+Ôö£ ãÆ /api/settings/integrations/sync
+Ôö£ ãÆ /api/settings/integrations/test
+Ôö£ ãÆ /api/status
+Ôö£ ãÆ /api/students
+Ôö£ ãÆ /api/students/[id]
+Ôö£ ãÆ /api/students/[id]/lessons
+Ôö£ ãÆ /api/students/[id]/profile
+Ôö£ ãÆ /api/study-buddy/chat
+Ôö£ ãÆ /api/study-buddy/insights
+Ôö£ ãÆ /api/study-buddy/profile
+Ôö£ ãÆ /api/study-buddy/recommendations
+Ôö£ ãÆ /api/subscription
+Ôö£ ãÆ /api/subscription/addon
+Ôö£ ãÆ /api/subscription/change-tier
+Ôö£ ãÆ /api/subscription/check-feature
+Ôö£ ãÆ /api/subscription/create
+Ôö£ ãÆ /api/subscription/current
+Ôö£ ãÆ /api/subscription/portal
+Ôö£ ãÆ /api/subscription/status
+Ôö£ ãÆ /api/tokenisation/rewards
+Ôö£ ãÆ /api/tokenisation/treasury
+Ôö£ ãÆ /api/training
+Ôö£ ãÆ /api/training/courses
+Ôö£ ãÆ /api/training/courses/[id]
+Ôö£ ãÆ /api/training/create-payment-intent
+Ôö£ ãÆ /api/training/discount-codes/validate
+Ôö£ ãÆ /api/training/enrollments
+Ôö£ ãÆ /api/training/products
+Ôö£ ãÆ /api/training/progress
+Ôö£ ãÆ /api/transitions
+Ôö£ ãÆ /api/user/onboarding
+Ôö£ ãÆ /api/version
+Ôö£ ãÆ /api/video/captions
+Ôö£ ãÆ /api/video/health
+Ôö£ ãÆ /api/video/heygen-config
+Ôö£ ãÆ /api/video/heygen-token
+Ôö£ ãÆ /api/video/heygen-url
+Ôö£ ãÆ /api/voice/command
+Ôö£ ãÆ /api/voice/family
+Ôö£ ãÆ /api/voice/quick-actions
+Ôö£ ãÆ /api/voice/transcribe
+Ôö£ ãÆ /api/waitlist
+Ôö£ ãÆ /api/webhooks/stripe
+Ôö£ Ôùï /maintenance
+Ôö£ Ôùï /robots.txt
+Ôöö Ôùï /sitemap.xml
+
+
+ãÆ Proxy (Middleware)
+
+Ôùï  (Static)   prerendered as static content
+ãÆ  (Dynamic)  server-rendered on demand
+
