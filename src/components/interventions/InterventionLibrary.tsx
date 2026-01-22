@@ -15,7 +15,18 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import {
+  Activity,
+  BookOpen,
+  Hand,
+  Heart,
+  Layers,
+  MessageCircle,
+  Search,
+  Smile,
+} from 'lucide-react';
 import type { InterventionTemplate } from '@/lib/interventions/intervention-library';
+import EmptyState from '@/components/ui/EmptyState';
 
 // Map library intervention to component format
 interface Intervention {
@@ -178,13 +189,13 @@ export default function InterventionLibrary({
   };
 
   const categories = [
-    { value: 'all', label: `All Categories (${libraryStats.total})`, icon: '📚' },
-    { value: 'favorites', label: 'Favorites', icon: '⭐' },
-    { value: 'academic', label: `Academic (${libraryStats.by_category.academic})`, icon: '📖' },
-    { value: 'behavioural', label: `Behavioural (${libraryStats.by_category.behavioural})`, icon: '🎯' },
-    { value: 'social_emotional', label: `Social-Emotional (${libraryStats.by_category.social_emotional})`, icon: '❤️' },
-    { value: 'communication', label: `Communication (${libraryStats.by_category.communication})`, icon: '💬' },
-    { value: 'sensory', label: `Sensory (${libraryStats.by_category.sensory})`, icon: '🌈' },
+    { value: 'all', label: `All Categories (${libraryStats.total})`, icon: Layers },
+    { value: 'favorites', label: 'Favorites', icon: Heart },
+    { value: 'academic', label: `Academic (${libraryStats.by_category.academic})`, icon: BookOpen },
+    { value: 'behavioural', label: `Behavioural (${libraryStats.by_category.behavioural})`, icon: Activity },
+    { value: 'social_emotional', label: `Social-Emotional (${libraryStats.by_category.social_emotional})`, icon: Smile },
+    { value: 'communication', label: `Communication (${libraryStats.by_category.communication})`, icon: MessageCircle },
+    { value: 'sensory', label: `Sensory (${libraryStats.by_category.sensory})`, icon: Hand },
   ];
 
   const evidenceLevels = [
@@ -255,7 +266,7 @@ export default function InterventionLibrary({
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
             >
-              <span className="mr-2">{category.icon}</span>
+              <category.icon className="mr-2 h-4 w-4" />
               {category.label}
             </button>
           ))}
@@ -298,11 +309,11 @@ export default function InterventionLibrary({
       </div>
 
       {filteredInterventions.length === 0 && (
-        <div className="text-center py-12">
-          <div className="text-gray-400 text-6xl mb-4">🔍</div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">No interventions found</h3>
-          <p className="text-gray-600">Try adjusting your search or filters</p>
-        </div>
+        <EmptyState
+          title="No interventions found"
+          description="Try adjusting your search or filters."
+          icon={<Search className="w-8 h-8 text-blue-500" />}
+        />
       )}
     </div>
   );
@@ -350,9 +361,10 @@ function InterventionCard({
               e.stopPropagation();
               onToggleFavorite();
             }}
-            className="ml-2 text-2xl hover:scale-110 transition-transform"
+            className="ml-2 text-2xl hover:scale-110 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
           >
-            {isFavorite ? '⭐' : '☆'}
+            <Heart className={isFavorite ? 'h-6 w-6 fill-rose-500 text-rose-500' : 'h-6 w-6 text-gray-300'} />
           </button>
         </div>
 
@@ -363,7 +375,7 @@ function InterventionCard({
           }`}
         >
           {intervention.evidence_level.toUpperCase()} EVIDENCE
-          {intervention.effect_size && ` • ES: ${intervention.effect_size}`}
+          {intervention.effect_size && ` ES: ${intervention.effect_size}`}
         </div>
 
         <p className="text-gray-600 text-sm mb-4 flex-1">{intervention.description}</p>
@@ -459,3 +471,4 @@ function InterventionCard({
 // NOTE: This component now uses the comprehensive intervention library from
 // src/lib/interventions/intervention-library.ts which contains 109+ evidence-based
 // interventions across all categories. The old hardcoded array has been removed.
+
