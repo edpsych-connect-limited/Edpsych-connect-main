@@ -677,7 +677,7 @@ export default function EnhancedCodingCurriculum({
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                  className={`px-4 py-2 rounded-lg font-semibold transition-all flex items-center gap-2 whitespace-nowrap ${
+                  className={`px-4 py-2 rounded-lg font-semibold transition-all flex items-center gap-2 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-purple-900 ${
                     activeTab === tab.id
                       ? 'bg-white text-purple-900 shadow-lg'
                       : 'bg-white/10 text-white hover:bg-white/20'
@@ -900,7 +900,7 @@ export default function EnhancedCodingCurriculum({
                   <button 
                     onClick={runCode}
                     disabled={isRunning}
-                    className={`flex items-center gap-2 px-4 py-1.5 rounded-lg font-medium text-sm transition-all ${
+                    className={`flex items-center gap-2 px-4 py-1.5 rounded-lg font-medium text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
                       isRunning 
                         ? 'bg-slate-700 text-slate-400 cursor-wait' 
                         : 'bg-green-600 hover:bg-green-500 text-white shadow-lg shadow-green-900/20'
@@ -1012,7 +1012,7 @@ export default function EnhancedCodingCurriculum({
                     <button
                       key={step}
                       onClick={() => toggleStep(index)}
-                      className={`w-full text-left px-4 py-3 rounded-lg border flex items-start gap-3 transition-colors ${
+                      className={`w-full text-left px-4 py-3 rounded-lg border flex items-start gap-3 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
                         completedSteps.includes(index)
                           ? 'bg-green-900/20 border-green-700 text-green-200'
                           : 'bg-slate-900/60 border-slate-700 text-slate-200 hover:border-slate-500'
@@ -1036,7 +1036,7 @@ export default function EnhancedCodingCurriculum({
                       setTimeout(() => setShowConfetti(false), 3000);
                     }}
                     disabled={!stepsComplete || !practicePassed}
-                    className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                    className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
                       stepsComplete && practicePassed
                         ? 'bg-green-600 text-white hover:bg-green-500'
                         : 'bg-slate-700 text-slate-400 cursor-not-allowed'
@@ -1094,7 +1094,7 @@ export default function EnhancedCodingCurriculum({
                     setVideoFilter(track as typeof videoFilter);
                     setVideoNotice(null);
                   }}
-                  className={`px-4 py-2 rounded-lg font-medium text-sm transition-colors ${
+                  className={`px-4 py-2 rounded-lg font-medium text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
                     track === videoFilter
                       ? 'bg-purple-600 text-white'
                       : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
@@ -1122,7 +1122,7 @@ export default function EnhancedCodingCurriculum({
                   onClick={() => handleVideoSelect(video)}
                   disabled={!available}
                   aria-disabled={!available}
-                  className={`bg-slate-800/50 rounded-2xl overflow-hidden border transition-all group text-left ${
+                  className={`bg-slate-800/50 rounded-2xl overflow-hidden border transition-all group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
                     available ? 'border-slate-700 hover:border-purple-500' : 'border-slate-800 opacity-70 cursor-not-allowed'
                   }`}
                 >

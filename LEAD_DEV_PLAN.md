@@ -321,6 +321,7 @@ Progress log:
 - 2026-01-22: Added behavioural intervention empty-state guidance and library prefilter support.
 - 2026-01-22: Added focus-visible rings to interventions filters and action buttons for keyboard accessibility.
 - 2026-01-22: Added focus-visible rings to interventions search and filter fields for keyboard accessibility.
+- 2026-01-22: Added focus-visible rings across Coders of Tomorrow tabs, filters, and challenge controls.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
