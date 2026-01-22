@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
+import { BookOpen } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 interface Lesson {
   id: string;
@@ -124,10 +126,11 @@ export default function LessonList() {
         </div>
       ))}
       {curricula.length === 0 && (
-        <div className="text-center py-12">
-          <h3 className="mt-2 text-sm font-medium text-gray-900">No lessons found</h3>
-          <p className="mt-1 text-sm text-gray-500">Get started by enrolling in a course.</p>
-        </div>
+        <EmptyState
+          title="No lessons found"
+          description="Enroll in a course to start learning."
+          icon={<BookOpen className="w-8 h-8 text-blue-500" />}
+        />
       )}
     </div>
   );
