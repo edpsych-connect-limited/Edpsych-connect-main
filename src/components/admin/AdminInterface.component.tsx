@@ -448,13 +448,78 @@ export function UnifiedComplianceDashboard() {
   const [evidenceSnapshot, setEvidenceSnapshot] = useState<any>(null);
   const [evidenceLoading, setEvidenceLoading] = useState(true);
   const [evidenceError, setEvidenceError] = useState<string | null>(null);
+  const [timeRangeDays, setTimeRangeDays] = useState(30);
+
+  const handleEvidenceExport = () => {
+    if (!evidenceSnapshot) {
+      return;
+    }
+    const payload = {
+      exportedAt: new Date().toISOString(),
+      ...evidenceSnapshot,
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `evidence-dashboard-${timeRangeDays}d.json`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleEvidenceExportCsv = () => {
+    if (!evidenceSnapshot) {
+      return;
+    }
+    const escapeValue = (value: unknown) => `"${String(value ?? '').replace(/"/g, '""')}"`;
+    const rows: string[] = [];
+    rows.push(['section', 'metric', 'value'].map(escapeValue).join(','));
+
+    rows.push(['summary', 'totalEvents', evidenceSnapshot.summary?.totalEvents ?? 0].map(escapeValue).join(','));
+    rows.push(['summary', 'reviewsRequired', evidenceSnapshot.summary?.reviewsRequired ?? 0].map(escapeValue).join(','));
+    rows.push(['summary', 'avgLatencyMs', evidenceSnapshot.summary?.avgLatencyMs ?? 0].map(escapeValue).join(','));
+    rows.push(['summary', 'maxLatencyMs', evidenceSnapshot.summary?.maxLatencyMs ?? 0].map(escapeValue).join(','));
+    rows.push(['summary', 'uniqueUsers', evidenceSnapshot.summary?.uniqueUsers30d ?? 0].map(escapeValue).join(','));
+
+    Object.entries(evidenceSnapshot.reviews ?? {}).forEach(([status, count]) => {
+      rows.push(['reviews', status, count ?? 0].map(escapeValue).join(','));
+    });
+
+    Object.entries(evidenceSnapshot.reviewAging ?? {}).forEach(([bucket, count]) => {
+      rows.push(['reviewAging', bucket, count ?? 0].map(escapeValue).join(','));
+    });
+
+    Object.entries(evidenceSnapshot.statuses ?? {}).forEach(([status, count]) => {
+      rows.push(['evidenceStatus', status, count ?? 0].map(escapeValue).join(','));
+    });
+
+    (evidenceSnapshot.workflows ?? []).forEach((entry: any) => {
+      rows.push(['workflow', entry.workflow ?? 'unclassified', entry.count ?? 0].map(escapeValue).join(','));
+    });
+
+    (evidenceSnapshot.byType ?? []).forEach((entry: any) => {
+      rows.push(['evidenceType', entry.type ?? 'unknown', entry.count ?? 0].map(escapeValue).join(','));
+    });
+
+    const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `evidence-dashboard-${timeRangeDays}d.csv`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  };
 
   useEffect(() => {
     let isActive = true;
     const loadEvidence = async () => {
       try {
         setEvidenceLoading(true);
-        const response = await fetch('/api/evidence/metrics?timeRange=30');
+        const response = await fetch(`/api/evidence/metrics?timeRange=${timeRangeDays}`);
         if (!response.ok) {
           throw new Error('Failed to load evidence snapshot');
         }
@@ -477,7 +542,7 @@ export function UnifiedComplianceDashboard() {
     return () => {
       isActive = false;
     };
-  }, []);
+  }, [timeRangeDays]);
 
   return (
     <div className="unified-compliance-dashboard bg-white rounded-lg shadow-lg p-6">
@@ -487,9 +552,37 @@ export function UnifiedComplianceDashboard() {
         privacy, security, and AI audit systems.
       </p>
       <div className="mb-6 rounded-lg border border-gray-200 bg-gray-50 p-4">
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
           <h4 className="text-lg font-semibold text-gray-800">Evidence Governance Snapshot</h4>
-          <span className="text-xs text-gray-500">Last 30 days</span>
+          <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500">
+            <label className="flex items-center gap-2">
+              <span>Time range</span>
+              <select
+                value={timeRangeDays}
+                onChange={(event) => setTimeRangeDays(Number(event.target.value))}
+                className="rounded border border-gray-200 bg-white px-2 py-1 text-xs text-gray-700"
+                aria-label="Evidence time range"
+              >
+                <option value={7}>Last 7 days</option>
+                <option value={30}>Last 30 days</option>
+                <option value={90}>Last 90 days</option>
+              </select>
+            </label>
+            <button
+              type="button"
+              onClick={handleEvidenceExport}
+              className="rounded border border-blue-200 bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-700 hover:bg-blue-100"
+            >
+              Export JSON
+            </button>
+            <button
+              type="button"
+              onClick={handleEvidenceExportCsv}
+              className="rounded border border-emerald-200 bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 hover:bg-emerald-100"
+            >
+              Export CSV
+            </button>
+          </div>
         </div>
         {evidenceLoading ? (
           <p className="text-sm text-gray-500">Loading evidence metrics...</p>

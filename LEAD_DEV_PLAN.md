@@ -323,6 +323,7 @@ Progress log:
 - 2026-01-22: Added focus-visible rings to interventions search and filter fields for keyboard accessibility.
 - 2026-01-22: Added focus-visible rings across Coders of Tomorrow tabs, filters, and challenge controls.
 - 2026-01-22: Standardized intervention library empty state with shared EmptyState and lucide icons.
+- 2026-01-22: Added evidence dashboard time-range selection and export actions to governance admin view.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -383,6 +384,7 @@ Progress log:
     - Ethics admin evidence tab aligned to production snapshot
     - CSV export enabled for evidence snapshots
     - Compliance dashboard now shows evidence governance snapshot
+    - Governance admin view supports 7/30/90-day ranges with CSV/JSON export
 
 [x] Improve AI review UX for clarity (why review is required)
 
