@@ -318,6 +318,7 @@ Progress log:
 - 2026-01-22: Added persisted coding progress, watched video tracking, XP rewards, and achievement logic for Coders of Tomorrow.
 - 2026-01-22: Added video-to-practice handoff in Coders of Tomorrow to reduce learning flow gaps.
 - 2026-01-22: Added editable code input, practice evaluation feedback, and validation gating for Coders of Tomorrow challenges.
+- 2026-01-22: Added behavioural intervention empty-state guidance and library prefilter support.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

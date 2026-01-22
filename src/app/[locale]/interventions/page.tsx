@@ -135,6 +135,9 @@ export default function InterventionsPage() {
     );
   }
 
+  const isFilterEmpty = filteredInterventions.length === 0;
+  const isBehaviouralFilter = typeFilter === 'behavioral_intervention';
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -324,19 +327,45 @@ export default function InterventionsPage() {
         )}
 
         {/* Interventions List */}
-        {filteredInterventions.length === 0 ? (
+        {isFilterEmpty ? (
           <EmptyState
-            title="No interventions found"
+            title={isBehaviouralFilter ? "No behavioural interventions yet" : "No interventions found"}
             description={
               searchQuery || statusFilter !== 'all' || typeFilter !== 'all'
-                ? 'Try adjusting your search or filters to find what you are looking for.'
+                ? isBehaviouralFilter
+                  ? 'Create a behavioural intervention or start from a vetted template in the library.'
+                  : 'Try adjusting your search or filters to find what you are looking for.'
                 : 'Get started by creating your first intervention. You can browse our evidence-based library or create a custom one.'
             }
             icon={<Target className="w-8 h-8 text-blue-500" />}
-            actionLabel={interventions.length === 0 ? "Create Custom Intervention" : undefined}
-            actionHref={interventions.length === 0 ? "/interventions/new" : undefined}
-            secondaryActionLabel={interventions.length === 0 ? "Browse Library" : undefined}
-            secondaryActionHref={interventions.length === 0 ? "/interventions/library" : undefined}
+            actionLabel={
+              isBehaviouralFilter
+                ? "Browse Behavioural Library"
+                : interventions.length === 0
+                ? "Create Custom Intervention"
+                : undefined
+            }
+            actionHref={
+              isBehaviouralFilter
+                ? "/interventions/library?category=behavioural"
+                : interventions.length === 0
+                ? "/interventions/new"
+                : undefined
+            }
+            secondaryActionLabel={
+              isBehaviouralFilter
+                ? "Create Custom Intervention"
+                : interventions.length === 0
+                ? "Browse Library"
+                : undefined
+            }
+            secondaryActionHref={
+              isBehaviouralFilter
+                ? "/interventions/new"
+                : interventions.length === 0
+                ? "/interventions/library"
+                : undefined
+            }
           />
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6" data-tour="intervention-list">

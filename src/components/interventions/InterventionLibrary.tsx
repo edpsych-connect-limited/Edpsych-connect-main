@@ -14,7 +14,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import type { InterventionTemplate } from '@/lib/interventions/intervention-library';
 
 // Map library intervention to component format
@@ -47,6 +47,7 @@ export default function InterventionLibrary({
   caseId: _caseId,
 }: InterventionLibraryProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [interventions, setInterventions] = useState<Intervention[]>([]);
   const [libraryStats, setLibraryStats] = useState({
@@ -69,6 +70,15 @@ export default function InterventionLibrary({
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [evidenceFilter, setEvidenceFilter] = useState<string>('all');
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
+  const allowedCategoryFilters = new Set([
+    'all',
+    'favorites',
+    'academic',
+    'behavioural',
+    'social_emotional',
+    'communication',
+    'sensory',
+  ]);
 
   // Load interventions and favorites on mount
   useEffect(() => {
@@ -121,6 +131,13 @@ export default function InterventionLibrary({
       mounted = false;
     };
   }, []);
+
+  useEffect(() => {
+    const category = searchParams.get('category');
+    if (category && allowedCategoryFilters.has(category)) {
+      setCategoryFilter(category);
+    }
+  }, [searchParams]);
 
   const toggleFavorite = (interventionId: string) => {
     const newFavorites = new Set(favorites);
