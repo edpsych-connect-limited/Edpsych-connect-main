@@ -9,7 +9,7 @@
 
 import React, { useState, useCallback } from 'react';
 import Image from 'next/image';
-import { FaLinkedin, FaTwitter, FaEnvelope, FaUser } from 'react-icons/fa';
+import { Linkedin, Mail, Twitter, User } from 'lucide-react';
 
 interface SocialLinks {
   linkedin?: string;
@@ -65,7 +65,7 @@ const AvatarPlaceholder: React.FC<{ name: string; size?: 'small' | 'medium' | 'l
 
   return (
     <div className={`${sizeClasses[size]} ${colors[colorIndex]} rounded-full flex items-center justify-center text-white font-bold shadow-lg`}>
-      {initials || <FaUser className="w-8 h-8" />}
+      {initials || <User className="w-8 h-8" />}
     </div>
   );
 };
@@ -145,7 +145,7 @@ const SocialLinks: React.FC<{ links: SocialLinks; variant?: 'overlay' | 'inline'
           className={`${baseClasses} ${classes}`}
           aria-label={`${links.linkedin} profile`}
         >
-          <FaLinkedin className={size} />
+          <Linkedin className={size} />
         </a>
       )}
       {links.twitter && (
@@ -156,7 +156,7 @@ const SocialLinks: React.FC<{ links: SocialLinks; variant?: 'overlay' | 'inline'
           className={`${baseClasses} ${classes}`}
           aria-label="Twitter profile"
         >
-          <FaTwitter className={size} />
+          <Twitter className={size} />
         </a>
       )}
       {links.email && (
@@ -165,7 +165,7 @@ const SocialLinks: React.FC<{ links: SocialLinks; variant?: 'overlay' | 'inline'
           className={`${baseClasses} ${classes}`}
           aria-label="Email contact"
         >
-          <FaEnvelope className={size} />
+          <Mail className={size} />
         </a>
       )}
     </div>

@@ -10,7 +10,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaArrowRight, FaChalkboardTeacher, FaUserGraduate, FaUserTie, FaMicroscope } from 'react-icons/fa';
+import { ArrowRight, GraduationCap, Microscope, Presentation, User } from 'lucide-react';
 
 type UserRole = 'teacher' | 'student' | 'parent' | 'researcher';
 
@@ -26,10 +26,10 @@ const ConversionFunnel = (): React.ReactElement => {
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
 
   const roles = [
-    { id: 'teacher', name: 'Educators', icon: <FaChalkboardTeacher className="w-6 h-6" /> },
-    { id: 'student', name: 'Students', icon: <FaUserGraduate className="w-6 h-6" /> },
-    { id: 'parent', name: 'Parents', icon: <FaUserTie className="w-6 h-6" /> },
-    { id: 'researcher', name: 'Researchers', icon: <FaMicroscope className="w-6 h-6" /> }
+    { id: 'teacher', name: 'Educators', icon: <Presentation className="w-6 h-6" /> },
+    { id: 'student', name: 'Students', icon: <GraduationCap className="w-6 h-6" /> },
+    { id: 'parent', name: 'Parents', icon: <User className="w-6 h-6" /> },
+    { id: 'researcher', name: 'Researchers', icon: <Microscope className="w-6 h-6" /> }
   ];
 
   const funnelSteps: FunnelStep[] = [
@@ -170,7 +170,7 @@ const ConversionFunnel = (): React.ReactElement => {
                       <div className="flex justify-end">
                         <button className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium">
                           <span>Learn more</span>
-                          <FaArrowRight className="ml-1" />
+                          <ArrowRight className="ml-1" />
                         </button>
                       </div>
                     </motion.div>

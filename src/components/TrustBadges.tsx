@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import { FaShieldAlt, FaLock, FaCheckCircle, FaUserShield } from 'react-icons/fa';
+import { CheckCircle, Lock, Shield, UserCheck } from 'lucide-react';
 
 interface TrustBadgeProps {
   variant?: 'compact' | 'full' | 'minimal';
@@ -22,22 +22,22 @@ const TrustBadges: React.FC<TrustBadgeProps> = ({
 }) => {
   const badges = [
     {
-      icon: <FaLock className="text-blue-600" />,
+      icon: <Lock className="text-blue-600" />,
       label: 'AES-256-GCM Encrypted',
       description: 'Bank-level encryption for all data'
     },
     {
-      icon: <FaShieldAlt className="text-green-600" />,
+      icon: <Shield className="text-green-600" />,
       label: 'GDPR Compliant',
       description: 'European data protection standards'
     },
     {
-      icon: <FaCheckCircle className="text-purple-600" />,
+      icon: <CheckCircle className="text-purple-600" />,
       label: 'SOC 2 Certified',
       description: 'Security & compliance framework'
     },
     {
-      icon: <FaUserShield className="text-red-600" />,
+      icon: <UserCheck className="text-red-600" />,
       label: 'FERPA/COPPA Ready',
       description: 'Educational privacy standards'
     }
@@ -85,7 +85,7 @@ const TrustBadges: React.FC<TrustBadgeProps> = ({
           </div>
           <p className="text-gray-600 text-sm">{badge.description}</p>
           <div className="mt-3 flex items-center text-green-600 text-sm font-medium">
-            <FaCheckCircle className="mr-2" />
+            <CheckCircle className="mr-2" />
             Verified & Compliant
           </div>
         </div>

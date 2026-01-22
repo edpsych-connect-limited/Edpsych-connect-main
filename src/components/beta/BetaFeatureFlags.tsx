@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import { FaFlask, FaToggleOn, FaToggleOff, FaExclamationTriangle, FaRocket, FaBrain, FaGamepad, FaMicrophone, FaChartLine, FaShieldAlt } from 'react-icons/fa';
+import { AlertTriangle, Brain, FlaskConical, Gamepad2, LineChart, Mic, Rocket, Shield, ToggleLeft, ToggleRight } from 'lucide-react';
 
 /**
  * Beta Feature Flags Component
@@ -26,7 +26,7 @@ const BETA_FEATURES: BetaFeature[] = [
     id: 'ai_advanced_chat',
     name: 'Advanced AI Chat',
     description: 'Enhanced AI conversations with context memory and multi-turn reasoning',
-    icon: <FaBrain className="text-purple-400" />,
+    icon: <Brain className="text-purple-400" />,
     category: 'ai',
     risk: 'low',
     defaultEnabled: true,
@@ -35,7 +35,7 @@ const BETA_FEATURES: BetaFeature[] = [
     id: 'battle_royale_multiplayer',
     name: 'Battle Royale Multiplayer',
     description: 'Real-time multiplayer quiz battles with other users',
-    icon: <FaGamepad className="text-green-400" />,
+    icon: <Gamepad2 className="text-green-400" />,
     category: 'gamification',
     risk: 'medium',
     defaultEnabled: false,
@@ -44,7 +44,7 @@ const BETA_FEATURES: BetaFeature[] = [
     id: 'voice_commands_v2',
     name: 'Enhanced Voice Commands',
     description: 'New voice command capabilities with UK accent optimisation',
-    icon: <FaMicrophone className="text-blue-400" />,
+    icon: <Mic className="text-blue-400" />,
     category: 'voice',
     risk: 'low',
     defaultEnabled: true,
@@ -53,7 +53,7 @@ const BETA_FEATURES: BetaFeature[] = [
     id: 'predictive_analytics',
     name: 'Predictive Analytics',
     description: 'AI-powered predictions for student progress and intervention timing',
-    icon: <FaChartLine className="text-yellow-400" />,
+    icon: <LineChart className="text-yellow-400" />,
     category: 'analytics',
     risk: 'medium',
     defaultEnabled: false,
@@ -62,7 +62,7 @@ const BETA_FEATURES: BetaFeature[] = [
     id: 'auto_ehcp_drafting',
     name: 'AI EHCP Draft Generation',
     description: 'Automatically generate EHCP draft sections from assessment data',
-    icon: <FaRocket className="text-orange-400" />,
+    icon: <Rocket className="text-orange-400" />,
     category: 'ai',
     risk: 'high',
     defaultEnabled: false,
@@ -71,7 +71,7 @@ const BETA_FEATURES: BetaFeature[] = [
     id: 'experimental_ui',
     name: 'Experimental UI Components',
     description: 'Try new UI designs and interactions before they go live',
-    icon: <FaFlask className="text-pink-400" />,
+    icon: <FlaskConical className="text-pink-400" />,
     category: 'experimental',
     risk: 'medium',
     defaultEnabled: false,
@@ -186,7 +186,7 @@ export function BetaFeatureFlags({ onFeaturesChange, compact = false }: BetaFeat
     return (
       <div className="space-y-2">
         <h4 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
-          <FaFlask className="text-purple-400" />
+          <FlaskConical className="text-purple-400" />
           Beta Features
         </h4>
         <div className="space-y-1">
@@ -205,9 +205,9 @@ export function BetaFeatureFlags({ onFeaturesChange, compact = false }: BetaFeat
                 <span className="truncate">{feature.name}</span>
               </span>
               {features[feature.id] ? (
-                <FaToggleOn className="text-purple-400" />
+                <ToggleRight className="text-purple-400" />
               ) : (
-                <FaToggleOff className="text-slate-500" />
+                <ToggleLeft className="text-slate-500" />
               )}
             </button>
           ))}
@@ -221,7 +221,7 @@ export function BetaFeatureFlags({ onFeaturesChange, compact = false }: BetaFeat
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
-            <FaFlask className="text-purple-400 text-xl" />
+            <FlaskConical className="text-purple-400 text-xl" />
           </div>
           <div>
             <h3 className="text-lg font-semibold text-white">Beta Feature Toggles</h3>
@@ -229,7 +229,7 @@ export function BetaFeatureFlags({ onFeaturesChange, compact = false }: BetaFeat
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <FaShieldAlt className="text-slate-400" />
+          <Shield className="text-slate-400" />
           <span className="text-xs text-slate-400">
             {Object.values(features).filter(Boolean).length} of {BETA_FEATURES.length} enabled
           </span>
@@ -271,9 +271,9 @@ export function BetaFeatureFlags({ onFeaturesChange, compact = false }: BetaFeat
                       aria-label={`Toggle ${feature.name}`}
                     >
                       {features[feature.id] ? (
-                        <FaToggleOn className="text-purple-400 text-2xl" />
+                        <ToggleRight className="text-purple-400 text-2xl" />
                       ) : (
-                        <FaToggleOff className="text-slate-500 text-2xl" />
+                        <ToggleLeft className="text-slate-500 text-2xl" />
                       )}
                     </button>
                   </div>
@@ -290,7 +290,7 @@ export function BetaFeatureFlags({ onFeaturesChange, compact = false }: BetaFeat
           <div className="bg-slate-800 rounded-xl p-6 max-w-md w-full mx-4 border border-white/10">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center">
-                <FaExclamationTriangle className="text-red-400 text-xl" />
+                <AlertTriangle className="text-red-400 text-xl" />
               </div>
               <h4 className="text-lg font-semibold text-white">High Risk Feature</h4>
             </div>

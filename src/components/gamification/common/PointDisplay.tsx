@@ -7,7 +7,7 @@
  */
 
 import React from "react";
-import { FaStar } from "react-icons/fa";
+import { Star } from "lucide-react";
 
 export interface PointDisplayProps {
   points: number;
@@ -20,7 +20,7 @@ export const PointDisplay: React.FC<PointDisplayProps> = ({ points, size = "md" 
 
   return (
     <div className="flex items-center gap-2">
-      <FaStar className={`text-yellow-400 ${iconSize}`} />
+      <Star className={`text-yellow-400 ${iconSize}`} />
       <span className={`font-bold ${fontSize} text-gray-700`}>
         {points}
       </span>

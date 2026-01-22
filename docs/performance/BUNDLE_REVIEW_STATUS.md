@@ -34,6 +34,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 - 2026-01-22: Post-intervention designer deferral build completed; top chunk sizes unchanged.
 - 2026-01-22: Post-teacher dashboard deferral build completed; 9915 chunk no longer initial.
 - 2026-01-22: Replaced analytics dashboard react-icons with lucide-react to avoid pulling react-icons/fa into analytics routes.
+- 2026-01-22: Replaced react-icons with lucide-react in security/trust/beta/tutoring/gamification and legacy landing components.
 
 ## Reduction Plan (Initial)
 - Move PDF generation to lazy-loaded imports on subscription invoices (jsPDF only when downloading).
@@ -52,6 +53,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 - 2026-01-22: Deferred intervention designer library and recommendation engine imports to reduce 9915 chunk.
 - 2026-01-22: Deferred teacher dashboard recommendation engine + impact service imports to avoid pulling intervention library on initial load.
 - 2026-01-22: Replaced analytics dashboard icons with lucide-react to cut react-icons/fa dependency.
+- 2026-01-22: Replaced marketing/supporting UI icon sets with lucide-react to reduce react-icons footprint.
 
 ## Capture Method (Baseline + After)
 1) Record build stats output (top 10 bundles) and store evidence file path.

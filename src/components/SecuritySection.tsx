@@ -8,38 +8,38 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaShieldAlt, FaLock, FaEye, FaCheckCircle, FaDatabase, FaUserShield } from 'react-icons/fa';
+import { CheckCircle, Database, Eye, Lock, Shield, UserCheck } from 'lucide-react';
 import TrustBadges from './TrustBadges';
 
 const SecuritySection: React.FC = () => {
   const securityFeatures = [
     {
-      icon: <FaLock className="text-3xl text-blue-600" />,
+      icon: <Lock className="text-3xl text-blue-600" />,
       title: 'AES-256-GCM Encryption',
       description: 'Military-grade encryption identical to banking standards protects all student data, assessments, and personal information.'
     },
     {
-      icon: <FaShieldAlt className="text-3xl text-green-600" />,
+      icon: <Shield className="text-3xl text-green-600" />,
       title: 'Zero-Trust Security',
       description: 'Every data access request is verified and authenticated. No implicit trust - everything is encrypted and validated.'
     },
     {
-      icon: <FaEye className="text-3xl text-purple-600" />,
+      icon: <Eye className="text-3xl text-purple-600" />,
       title: 'Complete Transparency',
       description: 'Full visibility into data usage, encryption status, and security measures with comprehensive audit trails.'
     },
     {
-      icon: <FaCheckCircle className="text-3xl text-red-600" />,
+      icon: <CheckCircle className="text-3xl text-red-600" />,
       title: 'Regulatory Compliance',
       description: 'Pre-built compliance with GDPR, FERPA, COPPA, and UK Data Protection Act requirements.'
     },
     {
-      icon: <FaDatabase className="text-3xl text-indigo-600" />,
+      icon: <Database className="text-3xl text-indigo-600" />,
       title: 'Secure Multi-Database',
       description: 'Specialized databases for different data types with encryption at rest and in transit.'
     },
     {
-      icon: <FaUserShield className="text-3xl text-teal-600" />,
+      icon: <UserCheck className="text-3xl text-teal-600" />,
       title: 'Educational Privacy',
       description: 'Designed specifically for educational institutions with child protection and safeguarding measures.'
     }
@@ -102,25 +102,25 @@ const SecuritySection: React.FC = () => {
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
                 <div className="bg-white bg-opacity-20 p-2 rounded-full">
-                  <FaShieldAlt className="text-white" />
+                  <Shield className="text-white" />
                 </div>
                 <span>AES-256-GCM encryption for all student data</span>
               </div>
               <div className="flex items-center space-x-3">
                 <div className="bg-white bg-opacity-20 p-2 rounded-full">
-                  <FaShieldAlt className="text-white" />
+                  <Shield className="text-white" />
                 </div>
                 <span>GDPR, FERPA, and COPPA compliant</span>
               </div>
               <div className="flex items-center space-x-3">
                 <div className="bg-white bg-opacity-20 p-2 rounded-full">
-                  <FaShieldAlt className="text-white" />
+                  <Shield className="text-white" />
                 </div>
                 <span>Zero-trust security architecture</span>
               </div>
               <div className="flex items-center space-x-3">
                 <div className="bg-white bg-opacity-20 p-2 rounded-full">
-                  <FaShieldAlt className="text-white" />
+                  <Shield className="text-white" />
                 </div>
                 <span>Data breach protection & ethical AI</span>
               </div>

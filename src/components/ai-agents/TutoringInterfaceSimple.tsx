@@ -9,7 +9,7 @@
  */
 
 import React, { useState } from 'react';
-import { FaBookOpen, FaSpinner, FaCheckCircle } from 'react-icons/fa';
+import { BookOpen, CheckCircle, Loader2 } from 'lucide-react';
 import { useAuth } from '@/lib/auth/hooks';
 
 interface TutoringRequest {
@@ -111,7 +111,7 @@ export default function TutoringInterfaceSimple() {
     <div className="max-w-4xl mx-auto p-6">
       <div className="bg-white rounded-lg shadow-lg p-6">
         <div className="text-center mb-8">
-          <FaBookOpen className="text-4xl text-blue-600 mx-auto mb-4" />
+          <BookOpen className="text-4xl text-blue-600 mx-auto mb-4" />
           <h1 className="text-3xl font-bold text-gray-900">AI Tutoring Assistant</h1>
           <p className="text-gray-600 mt-2">Get personalized tutoring help</p>
         </div>
@@ -183,7 +183,7 @@ export default function TutoringInterfaceSimple() {
           >
             {isLoading ? (
               <>
-                <FaSpinner className="animate-spin" />
+                <Loader2 className="animate-spin" />
                 <span>Getting tutoring assistance...</span>
               </>
             ) : (
@@ -196,7 +196,7 @@ export default function TutoringInterfaceSimple() {
       {response && (
         <div className="mt-8 bg-white rounded-lg shadow-lg p-6">
           <div className="flex items-center mb-6">
-            <FaCheckCircle className="text-2xl text-green-600 mr-3" />
+            <CheckCircle className="text-2xl text-green-600 mr-3" />
             <h2 className="text-2xl font-semibold text-gray-900">Your Tutoring Session</h2>
           </div>
 

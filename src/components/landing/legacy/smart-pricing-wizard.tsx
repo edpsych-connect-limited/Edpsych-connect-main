@@ -10,7 +10,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaCalculator, FaRocket, FaStar, FaCheck, FaArrowRight, FaLightbulb } from 'react-icons/fa';
+import { ArrowRight, Check, Calculator, Lightbulb, Loader2, Rocket, Star } from 'lucide-react';
 
 
 interface UserProfile {
@@ -368,7 +368,7 @@ const SmartPricingWizard: React.FC = () => {
         className="text-center space-y-4 mb-8"
       >
         <div className="flex items-center justify-center space-x-3">
-          <FaCalculator className="text-4xl text-blue-600" />
+          <Calculator className="text-4xl text-blue-600" />
           <h1 className="text-4xl font-bold text-gray-900">Smart Pricing Wizard</h1>
         </div>
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -462,7 +462,7 @@ const SmartPricingWizard: React.FC = () => {
                   className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 flex items-center space-x-2 mx-auto"
                 >
                   <span>Continue</span>
-                  <FaArrowRight />
+                  <ArrowRight />
                 </button>
               </div>
             )}
@@ -479,7 +479,7 @@ const SmartPricingWizard: React.FC = () => {
             exit={{ opacity: 0 }}
             className="bg-white rounded-lg shadow-lg p-8 text-center"
           >
-            <div className="animate-spin text-6xl text-blue-600 mx-auto mb-4">🧠</div>
+            <Loader2 className="animate-spin text-6xl text-blue-600 mx-auto mb-4" />
             <h3 className="text-2xl font-semibold text-gray-900 mb-2">AI is analyzing your needs...</h3>
             <p className="text-gray-600">Our intelligent pricing algorithm is calculating the perfect plan for you.</p>
           </motion.div>
@@ -496,7 +496,7 @@ const SmartPricingWizard: React.FC = () => {
           >
             {/* Recommendation Header */}
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-8 text-white text-center">
-              <FaStar className="text-4xl mx-auto mb-4" />
+              <Star className="text-4xl mx-auto mb-4" />
               <h2 className="text-3xl font-bold mb-2">Your Perfect Plan</h2>
               <p className="text-xl opacity-90">Based on your needs, we recommend:</p>
             </div>
@@ -528,7 +528,7 @@ const SmartPricingWizard: React.FC = () => {
                   <ul className="space-y-2">
                     {recommendation.plan.features.map((feature, index) => (
                       <li key={index} className="flex items-center space-x-2">
-                        <FaCheck className="text-green-500 flex-shrink-0" />
+                        <Check className="text-green-500 flex-shrink-0" />
                         <span className="text-gray-700">{feature}</span>
                       </li>
                     ))}
@@ -540,7 +540,7 @@ const SmartPricingWizard: React.FC = () => {
                   <ul className="space-y-2">
                     {recommendation.plan.aiAgents.map((agent, index) => (
                       <li key={index} className="flex items-center space-x-2">
-                        <FaRocket className="text-blue-500 flex-shrink-0" />
+                        <Rocket className="text-blue-500 flex-shrink-0" />
                         <span className="text-gray-700">{agent}</span>
                       </li>
                     ))}
@@ -554,7 +554,7 @@ const SmartPricingWizard: React.FC = () => {
                 <ul className="space-y-2">
                   {recommendation.reasoning.map((reason, index) => (
                     <li key={index} className="flex items-start space-x-2">
-                      <FaLightbulb className="text-yellow-500 flex-shrink-0 mt-1" />
+                      <Lightbulb className="text-yellow-500 flex-shrink-0 mt-1" />
                       <span className="text-gray-700">{reason}</span>
                     </li>
                   ))}
@@ -564,7 +564,7 @@ const SmartPricingWizard: React.FC = () => {
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-4 justify-center">
                 <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 flex items-center space-x-2">
-                  <FaRocket />
+                  <Rocket />
                   <span>Get Started Today</span>
                 </button>
                 <button className="bg-gray-100 text-gray-700 px-8 py-3 rounded-lg hover:bg-gray-200">

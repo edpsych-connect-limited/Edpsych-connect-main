@@ -13,7 +13,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from '@/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaArrowRight, FaCalculator, FaChartLine, FaUsers, FaClock, FaCheckCircle, FaBrain, FaRocket } from 'react-icons/fa';
+import { ArrowRight, Brain, Calculator, CheckCircle, Clock, LineChart, Rocket, Users } from 'lucide-react';
 import { AIService } from '../../../services/ai-service';
 
 interface LiveMetrics {
@@ -213,7 +213,7 @@ const HeroSection: React.FC = () => {
                       animate={{ rotate: [0, 5, -5, 0] }}
                       transition={{ duration: 2, repeat: Infinity }}
                     >
-                      <FaBrain className="w-6 h-6 text-white" />
+                      <Brain className="w-6 h-6 text-white" />
                     </motion.div>
                     <div>
                       <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -269,14 +269,14 @@ const HeroSection: React.FC = () => {
                       ) : (
                         <>
                           <span>Show Solutions</span>
-                          <motion.div
-                            animate={{ x: [0, 4, 0] }}
-                            transition={{ duration: 1.5, repeat: Infinity }}
-                          >
-                            <FaArrowRight className="w-4 h-4" />
-                          </motion.div>
-                        </>
-                      )}
+                            <motion.div
+                              animate={{ x: [0, 4, 0] }}
+                              transition={{ duration: 1.5, repeat: Infinity }}
+                            >
+                              <ArrowRight className="w-4 h-4" />
+                            </motion.div>
+                          </>
+                        )}
                     </motion.button>
                   </div>
 
@@ -300,7 +300,7 @@ const HeroSection: React.FC = () => {
 
             <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-6 mb-8 border border-green-100">
               <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
-                <FaCalculator className="mr-2 text-green-600" />
+                <Calculator className="mr-2 text-green-600" />
                 Time Savings Estimator
               </h3>
               <div className="grid grid-cols-2 gap-4 mb-4">
@@ -356,7 +356,7 @@ const HeroSection: React.FC = () => {
                   animate={{ x: [0, 4, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
                 >
-                  <FaArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-5 h-5" />
                 </motion.div>
 
                 <motion.div
@@ -410,7 +410,7 @@ const HeroSection: React.FC = () => {
                       animate={{ rotate: [0, 5, -5, 0] }}
                       transition={{ duration: 3, repeat: Infinity }}
                     >
-                      <FaChartLine className="w-6 h-6 text-white" />
+                      <LineChart className="w-6 h-6 text-white" />
                     </motion.div>
                     <div>
                       <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -434,10 +434,10 @@ const HeroSection: React.FC = () => {
 
                 <div className="grid grid-cols-2 gap-6">
                   {[
-                    { value: 'Beta cohort open', label: 'Early Access Cohort', color: 'from-blue-500 to-blue-600', icon: FaUsers },
-                    { value: 'Pilot-ready', label: 'Workflow Coverage', color: 'from-green-500 to-green-600', icon: FaClock },
-                    { value: 'Sandbox mode', label: 'Safe Demo Data', color: 'from-purple-500 to-purple-600', icon: FaBrain },
-                    { value: 'Audit-first', label: 'Compliance Evidence', color: 'from-orange-500 to-orange-600', icon: FaRocket }
+                    { value: 'Beta cohort open', label: 'Early Access Cohort', color: 'from-blue-500 to-blue-600', icon: Users },
+                    { value: 'Pilot-ready', label: 'Workflow Coverage', color: 'from-green-500 to-green-600', icon: Clock },
+                    { value: 'Sandbox mode', label: 'Safe Demo Data', color: 'from-purple-500 to-purple-600', icon: Brain },
+                    { value: 'Audit-first', label: 'Compliance Evidence', color: 'from-orange-500 to-orange-600', icon: Rocket }
                   ].map((metric, index) => {
                     const Icon = metric.icon;
                     return (
@@ -526,7 +526,7 @@ const HeroSection: React.FC = () => {
                       animate={{ rotate: [0, 10, -10, 0] }}
                       transition={{ duration: 4, repeat: Infinity }}
                     >
-                      <FaCheckCircle className="w-6 h-6 text-white" />
+                      <CheckCircle className="w-6 h-6 text-white" />
                     </motion.div>
                     <div>
                       <h3 className="text-2xl font-bold text-white">

@@ -12,7 +12,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaRobot, FaLightbulb, FaRocket, FaCheckCircle, FaSpinner } from 'react-icons/fa';
+import { Bot, CheckCircle, Lightbulb, Loader2, Rocket } from 'lucide-react';
 
 
 interface Challenge {
@@ -321,7 +321,7 @@ const AIChallengeSolver: React.FC = () => {
         className="text-center space-y-4"
       >
         <div className="flex items-center justify-center space-x-3">
-          <FaRobot className="text-4xl text-blue-600" />
+          <Bot className="text-4xl text-blue-600" />
           <h1 className="text-4xl font-bold text-gray-900">AI Challenge Solver</h1>
         </div>
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -368,12 +368,12 @@ const AIChallengeSolver: React.FC = () => {
               >
                 {isLoading ? (
                   <>
-                    <FaSpinner className="animate-spin" />
+                    <Loader2 className="animate-spin" />
                     <span>Analysing...</span>
                   </>
                 ) : (
                   <>
-                    <FaLightbulb />
+                    <Lightbulb />
                     <span>Get AI Solution</span>
                   </>
                 )}
@@ -472,7 +472,7 @@ const AIChallengeSolver: React.FC = () => {
             exit={{ opacity: 0 }}
             className="bg-white rounded-lg shadow-lg p-8 text-center"
           >
-            <FaSpinner className="animate-spin text-4xl text-blue-600 mx-auto mb-4" />
+            <Loader2 className="animate-spin text-4xl text-blue-600 mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-gray-900 mb-2">AI is analysing your challenge...</h3>
             <p className="text-gray-600">Our specialized AI agents are working together to provide you with the best solution.</p>
           </motion.div>
@@ -490,7 +490,7 @@ const AIChallengeSolver: React.FC = () => {
           >
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-3">
-                <FaCheckCircle className="text-2xl text-green-600" />
+                <CheckCircle className="text-2xl text-green-600" />
                 <h2 className="text-2xl font-semibold text-gray-900">Your AI Solution</h2>
               </div>
               <div className="text-right">
@@ -511,7 +511,7 @@ const AIChallengeSolver: React.FC = () => {
 
               <div>
                 <h3 className="font-semibold text-gray-900 mb-4 flex items-center">
-                  <FaRocket className="mr-2 text-blue-600" />
+                  <Rocket className="mr-2 text-blue-600" />
                   Step-by-Step Action Plan
                 </h3>
                 <div className="space-y-3">
@@ -547,7 +547,7 @@ const AIChallengeSolver: React.FC = () => {
 
               <div className="flex flex-wrap gap-4 pt-6 border-t border-gray-200">
                 <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 flex items-center space-x-2">
-                  <FaRocket />
+                  <Rocket />
                   <span>Start Implementation</span>
                 </button>
                 <button className="bg-gray-100 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-200">

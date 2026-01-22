@@ -10,7 +10,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaRobot, FaBrain, FaSpinner, FaPaperPlane, FaSyncAlt } from 'react-icons/fa';
+import { Bot, Brain, Loader2, RefreshCw, Send } from 'lucide-react';
 
 // Define message types
 interface Message {
@@ -69,7 +69,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
     sender: 'ai',
     content: "Welcome to EdPsych Connect World! I'm your AI assistant powered by 13 specialized AI agents. How can I help you today?",
     agentName: "AI Coordinator",
-    agentIcon: <FaRobot className="text-blue-500" />,
+    agentIcon: <Bot className="text-blue-500" />,
     agentColor: 'bg-blue-100 border-blue-300',
     timestamp: new Date(),
   }]);
@@ -86,21 +86,21 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
       id: 'curriculum-designer', 
       name: 'Curriculum Designer', 
       role: 'Creates Personalised learning materials',
-      icon: <FaBrain className="text-blue-500" />,
+      icon: <Brain className="text-blue-500" />,
       color: 'bg-blue-100 border-blue-300'
     },
     { 
       id: 'student-mentor', 
       name: 'Student Mentor', 
       role: 'Provides guidance and support',
-      icon: <FaRobot className="text-purple-500" />,
+      icon: <Bot className="text-purple-500" />,
       color: 'bg-purple-100 border-purple-300'
     },
     { 
       id: 'assessment-generator', 
       name: 'Assessment Generator', 
       role: 'Creates intelligent assessments',
-      icon: <FaBrain className="text-green-500" />,
+      icon: <Brain className="text-green-500" />,
       color: 'bg-green-100 border-green-300'
     }
   ];
@@ -213,7 +213,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
       sender: 'ai',
       content: '',
       agentName: agent?.name || 'AI Assistant',
-      agentIcon: agent?.icon || <FaRobot className="text-blue-500" />,
+      agentIcon: agent?.icon || <Bot className="text-blue-500" />,
       agentColor: agent?.color || 'bg-blue-100 border-blue-300',
       timestamp: new Date(),
       isTyping: true,
@@ -242,7 +242,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
           sender: 'ai',
           content: responseData.content,
           agentName: agent?.name || 'AI Assistant',
-          agentIcon: agent?.icon || <FaRobot className="text-blue-500" />,
+          agentIcon: agent?.icon || <Bot className="text-blue-500" />,
           agentColor: agent?.color || 'bg-blue-100 border-blue-300',
           timestamp: new Date()
         };
@@ -283,7 +283,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
       sender: 'ai',
       content: "Welcome to EdPsych Connect World! I'm your AI assistant powered by 13 specialized AI agents. How can I help you today?",
       agentName: "AI Coordinator",
-      agentIcon: <FaRobot className="text-blue-500" />,
+      agentIcon: <Bot className="text-blue-500" />,
       agentColor: 'bg-blue-100 border-blue-300',
       timestamp: new Date(),
     }]);
@@ -309,7 +309,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
           title="Reset conversation"
           aria-label="Reset conversation"
         >
-          <FaSyncAlt />
+          <RefreshCw />
         </button>
       </div>
       
@@ -334,7 +334,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
                 {message.sender === 'ai' && (
                   <div className="flex items-center space-x-2 mb-1">
                     <div className="p-1 rounded-full bg-slate-800/60">
-                      {message.agentIcon || <FaRobot className="text-indigo-400" />}
+                      {message.agentIcon || <Bot className="text-indigo-400" />}
                     </div>
                     <span className="font-semibold text-sm text-white">
                       {message.agentName || 'AI Assistant'}
@@ -369,7 +369,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
           >
             <div className="p-3">
               <div className="flex items-center space-x-2 text-xs text-slate-300 mb-2">
-                <FaBrain className="text-yellow-400" />
+                <Brain className="text-yellow-400" />
                 <span className="font-medium">{currentAgent.name} thinking process:</span>
               </div>
               <div className="space-y-1 font-mono text-xs">
@@ -422,7 +422,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
             disabled={isResponding}
             className="flex-1 bg-transparent text-white placeholder-slate-400 p-3 focus:outline-none"
           />
-          {isResponding && <FaSpinner className="animate-spin text-indigo-400 mr-3" />}
+          {isResponding && <Loader2 className="animate-spin text-indigo-400 mr-3" />}
         </div>
         <button
           type="submit"
@@ -430,7 +430,7 @@ const AIConversationDemo: React.FC<AIConversationDemoProps> = ({ className = '',
           className="bg-indigo-600 text-white p-3 rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           aria-label="Send message"
         >
-          <FaPaperPlane />
+          <Send />
         </button>
       </form>
     </div>
