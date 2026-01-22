@@ -9,6 +9,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { 
   Trophy, 
   Code, 
@@ -26,8 +27,22 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 
 // Game Engines
-import BattleRoyalePreview from '@/components/battle-royale/BattleRoyalePreview';
-import EnhancedCodingCurriculum from '@/components/demo/EnhancedCodingCurriculum';
+const BattleRoyalePreview = dynamic(() => import('@/components/battle-royale/BattleRoyalePreview'), {
+  ssr: false,
+  loading: () => (
+    <div className="h-full w-full flex items-center justify-center text-sm text-slate-400">
+      Loading Battle Royale...
+    </div>
+  )
+});
+const EnhancedCodingCurriculum = dynamic(() => import('@/components/demo/EnhancedCodingCurriculum'), {
+  ssr: false,
+  loading: () => (
+    <div className="py-12 text-center text-sm text-slate-500">
+      Loading Coding Dojo...
+    </div>
+  )
+});
 
 // Types
 type GameMode = 'LOBBY' | 'BATTLE_ROYALE' | 'CODING_DOJO';

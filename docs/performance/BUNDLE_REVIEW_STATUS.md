@@ -38,6 +38,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 - Defer recharts by dynamically loading institutional performance charts.
 - Next targets: audit where `recharts` is loaded; defer chart components on admin analytics.
 - Next targets: isolate Three.js demo visuals behind dynamic import and only load in demo routes.
+  - 2026-01-22: Deferred gamification battle royale + coding dojo engines via dynamic import.
 
 ## Capture Method (Baseline + After)
 1) Record build stats output (top 10 bundles) and store evidence file path.
