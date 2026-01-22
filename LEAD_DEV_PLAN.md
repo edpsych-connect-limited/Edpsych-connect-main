@@ -306,6 +306,7 @@ Progress log:
 - 2026-01-22: Replaced beta register FontAwesome react-icons with lucide-react to shrink the beta register bundle.
 - 2026-01-22: Replaced battle royale react-icons with lucide-react to reduce gamification chunk size.
 - 2026-01-22: Captured post-beta icon swap bundle evidence (`docs/performance/chunk-sizes-2026-01-22-post-beta-icons.txt`).
+- 2026-01-22: Captured post-battle icon swap bundle evidence (`docs/performance/chunk-sizes-2026-01-22-post-battle-icons.txt`).
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

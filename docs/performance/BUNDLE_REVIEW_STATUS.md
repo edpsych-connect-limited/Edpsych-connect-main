@@ -30,6 +30,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 - 2026-01-22: Build completed; analyzer outputs saved (client/edge/node); captured top client chunk sizes via analyzer statSize.
 - 2026-01-22: Post-intervention deferral build completed; top chunk sizes unchanged from prior run.
 - 2026-01-22: Post-beta icon swap build completed; top chunk sizes unchanged from prior run.
+- 2026-01-22: Post-battle icon swap build completed; react-icons chunk removed from top list.
 
 ## Reduction Plan (Initial)
 - Move PDF generation to lazy-loaded imports on subscription invoices (jsPDF only when downloading).
@@ -77,3 +78,4 @@ Status key: [ ] pending, [~] in progress, [x] done
 | 2026-01-22 | main-app | 3794-d7a823c5a988a2d8.js | 694.71 | TBD | Analyzer statSize (raw); shared base bundle. | docs/performance/chunk-sizes-2026-01-22.txt |
 | 2026-01-22 | N/A | N/A | N/A | 0 / 0% | Post-intervention deferral build; top chunk sizes unchanged. | docs/performance/chunk-sizes-2026-01-22-post-interventions.txt |
 | 2026-01-22 | N/A | N/A | N/A | 0 / 0% | Post-beta icon swap build; top chunk sizes unchanged. | docs/performance/chunk-sizes-2026-01-22-post-beta-icons.txt |
+| 2026-01-22 | N/A | N/A | N/A | 0 / 0% | Post-battle icon swap build; react-icons chunk removed from top list. | docs/performance/chunk-sizes-2026-01-22-post-battle-icons.txt |
