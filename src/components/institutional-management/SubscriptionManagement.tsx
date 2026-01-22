@@ -9,6 +9,8 @@
  */
 
 import React, { useState, useEffect, useId } from 'react';
+import { FileText, ListChecks } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 interface License {
   id: string;
@@ -403,7 +405,12 @@ const SubscriptionManagement: React.FC<SubscriptionManagementProps> = ({
                   ))}
                 </ul>
               ) : (
-                <p className="text-sm text-gray-500">No feature information available</p>
+                <EmptyState
+                  title="No feature information available"
+                  description="Plan features will appear once configured."
+                  icon={<ListChecks className="w-8 h-8 text-blue-500" />}
+                  className="py-6"
+                />
               )}
             </div>
           </div>
@@ -557,8 +564,12 @@ const SubscriptionManagement: React.FC<SubscriptionManagementProps> = ({
               <tbody className="bg-white divide-y divide-gray-200">
                 {invoices.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="px-4 py-4 text-sm text-center text-gray-500">
-                      No invoices found
+                    <td colSpan={6} className="px-4 py-6">
+                      <EmptyState
+                        title="No invoices found"
+                        description="Invoices will appear once billing activity starts."
+                        icon={<FileText className="w-8 h-8 text-blue-500" />}
+                      />
                     </td>
                   </tr>
                 ) : (

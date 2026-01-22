@@ -9,6 +9,8 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { History } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 interface ActivityLog {
   id: string;
@@ -298,8 +300,12 @@ const ActivityLogs: React.FC<ActivityLogsProps> = ({
             <tbody className="bg-white divide-y divide-gray-200">
               {logs.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-4 py-4 text-sm text-center text-gray-500">
-                    No activity logs found
+                  <td colSpan={5} className="px-4 py-6">
+                    <EmptyState
+                      title="No activity logs found"
+                      description="Audit activity will appear here as users interact with the platform."
+                      icon={<History className="w-8 h-8 text-blue-500" />}
+                    />
                   </td>
                 </tr>
               ) : (

@@ -9,6 +9,8 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { Building2 } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 interface Department {
   id: string;
@@ -42,6 +44,10 @@ const DepartmentManagement: React.FC<DepartmentManagementProps> = ({
     headOfDepartment: '',
     description: '',
   });
+
+  const openAddDepartment = () => {
+    setShowAddModal(true);
+  };
 
   useEffect(() => {
     if (initialDepartments.length > 0) {
@@ -162,22 +168,20 @@ const DepartmentManagement: React.FC<DepartmentManagementProps> = ({
         <h2 className="text-xl font-bold">Departments</h2>
         <button
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          onClick={() => setShowAddModal(true)}
+          onClick={openAddDepartment}
         >
           Add Department
         </button>
       </div>
       
       {departments.length === 0 ? (
-        <div className="text-center py-8 bg-gray-50 rounded border border-gray-200">
-          <p className="text-gray-500 mb-4">No departments have been added yet.</p>
-          <button
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-            onClick={() => setShowAddModal(true)}
-          >
-            Add Your First Department
-          </button>
-        </div>
+        <EmptyState
+          title="No departments yet"
+          description="Add departments to organize staff and services."
+          icon={<Building2 className="w-8 h-8 text-blue-500" />}
+          actionLabel="Add department"
+          actionOnClick={openAddDepartment}
+        />
       ) : (
         <div className="overflow-hidden border border-gray-200 rounded-lg">
           <table className="min-w-full divide-y divide-gray-200">

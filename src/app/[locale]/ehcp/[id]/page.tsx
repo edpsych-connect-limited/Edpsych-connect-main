@@ -563,7 +563,10 @@ export default function EHCPDetailPage() {
                       ))}
                     </div>
                   ) : (
-                    <p className="text-gray-500">No outcomes defined yet.</p>
+                    <EmptyState
+                      title="No outcomes defined yet"
+                      description="Add outcomes to track progress against EHCP goals."
+                    />
                   )}
                 </div>
               )}
@@ -617,7 +620,10 @@ export default function EHCPDetailPage() {
                       </table>
                     </div>
                   ) : (
-                    <p className="text-gray-500">No provision defined yet.</p>
+                    <EmptyState
+                      title="No provision defined yet"
+                      description="Add provision details to clarify support and delivery."
+                    />
                   )}
                 </div>
               )}

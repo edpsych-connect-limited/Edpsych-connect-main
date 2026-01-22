@@ -330,6 +330,8 @@ Progress log:
 - 2026-01-22: Standardized student lesson list empty state with shared EmptyState.
 - 2026-01-22: Standardized contact management empty states with shared EmptyState.
 - 2026-01-22: Standardized EHCP module empty states (communications, mediation/tribunal, phase transfers, annual reviews, costing, version history).
+- 2026-01-22: Standardized institutional management empty states (activity logs, departments, subscription features/invoices).
+- 2026-01-22: Standardized EHCP detail empty states for outcomes and provision.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -414,6 +416,8 @@ Progress log:
     - student lesson list now uses shared EmptyState
     - contact management now uses shared EmptyState
     - EHCP modules now use shared EmptyState (communications, mediation/tribunal, phase transfers, annual reviews, costing, version history)
+    - institutional management now uses shared EmptyState (activity logs, departments, subscription features/invoices)
+    - EHCP detail outcomes and provision now use shared EmptyState
 
 -----------------------------------------------------------------------------
 7) Delivery + Validation
