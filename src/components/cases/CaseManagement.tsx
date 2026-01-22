@@ -21,6 +21,8 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { FolderSearch } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 // ============================================================================
 // TYPES
@@ -420,8 +422,12 @@ function CaseList({
             Loading cases...
           </div>
         ) : cases.length === 0 ? (
-          <div className="col-span-full text-center py-12 text-gray-500">
-            No cases found matching your filters.
+          <div className="col-span-full">
+            <EmptyState
+              title="No cases found"
+              description="Adjust filters or create a new case to continue."
+              icon={<FolderSearch className="w-8 h-8 text-blue-500" />}
+            />
           </div>
         ) : (
           cases.map((caseItem) => (
