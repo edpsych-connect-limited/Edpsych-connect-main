@@ -20,18 +20,14 @@
  * 4. Fidelity & Review
  */
 
-import React, { useState, useEffect as _useEffect } from 'react';
-import {
-  INTERVENTION_LIBRARY,
+import React, { useState, useEffect } from 'react';
+import type {
   InterventionTemplate,
   InterventionCategory,
-  getInterventionsByCategory,
-  searchInterventions,
 } from '@/lib/interventions/intervention-library';
-import {
-  generateRecommendations,
+import type {
   RecommendationRequest,
-  RecommendationResponse as _RecommendationResponse,
+  RecommendationResponse,
   InterventionRecommendation as _InterventionRecommendation,
 } from '@/lib/interventions/recommendation-engine';
 
@@ -126,11 +122,13 @@ export default function InterventionDesigner({
   >('library');
 
   // Library & Recommendations state
+  const [libraryData, setLibraryData] = useState<InterventionTemplate[]>([]);
   const [selectedCategory, setSelectedCategory] =
     useState<InterventionCategory | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedIntervention, setSelectedIntervention] =
     useState<InterventionTemplate | null>(null);
+  const [recommendations, setRecommendations] = useState<RecommendationResponse | null>(null);
 
   // Plan state
   const [currentPlan, setCurrentPlan] = useState<InterventionPlan | null>(null);
@@ -140,41 +138,91 @@ export default function InterventionDesigner({
   // RECOMMENDATION FUNCTIONS
   // ============================================================================
 
-  const recommendations = React.useMemo(() => {
-    if (!initialData?.initialData?.targetNeeds || []?.length === 0) return null;
+  useEffect(() => {
+    let mounted = true;
 
-    const request: RecommendationRequest = {
-      student_profile: {
-        student_id: initialData?.studentId || "unknown",
-        age: initialData?.studentAge || 10,
-        year_group: calculateYearGroup(initialData?.studentAge || 10),
-        current_setting: 'mainstream',
-        available_settings_for_intervention: ['classroom', 'small_group', 'one_to_one'],
-        specific_difficulties: initialData?.targetNeeds || [],
-      },
-      target_areas: initialData?.targetNeeds || [],
-      priority_level: 'high',
+    const loadLibrary = async () => {
+      try {
+        const { INTERVENTION_LIBRARY } = await import('@/lib/interventions/intervention-library');
+        if (mounted) {
+          setLibraryData(INTERVENTION_LIBRARY);
+        }
+      } catch (error) {
+        console.error('Failed to load intervention library:', error);
+      }
     };
 
-    return generateRecommendations(request);
+    loadLibrary();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const loadRecommendations = async () => {
+      const targetNeeds = initialData?.targetNeeds || initialData?.initialData?.targetNeeds || [];
+      if (!targetNeeds.length) {
+        if (mounted) {
+          setRecommendations(null);
+        }
+        return;
+      }
+
+      const request: RecommendationRequest = {
+        student_profile: {
+          student_id: initialData?.studentId || "unknown",
+          age: initialData?.studentAge || 10,
+          year_group: calculateYearGroup(initialData?.studentAge || 10),
+          current_setting: 'mainstream',
+          available_settings_for_intervention: ['classroom', 'small_group', 'one_to_one'],
+          specific_difficulties: targetNeeds,
+        },
+        target_areas: targetNeeds,
+        priority_level: 'high',
+      };
+
+      try {
+        const { generateRecommendations } = await import('@/lib/interventions/recommendation-engine');
+        const result = generateRecommendations(request);
+        if (mounted) {
+          setRecommendations(result);
+        }
+      } catch (error) {
+        console.error('Failed to generate recommendations:', error);
+        if (mounted) {
+          setRecommendations(null);
+        }
+      }
+    };
+
+    loadRecommendations();
+
+    return () => {
+      mounted = false;
+    };
   }, [initialData]);
 
   // Filter interventions
   const filteredInterventions = React.useMemo(() => {
-    let filtered = [...INTERVENTION_LIBRARY];
+    let filtered = [...libraryData];
 
-    // Category filter
     if (selectedCategory !== 'all') {
-      filtered = getInterventionsByCategory(selectedCategory);
+      filtered = filtered.filter((intervention) => intervention.category === selectedCategory);
     }
 
-    // Search filter
     if (searchQuery) {
-      filtered = searchInterventions(searchQuery);
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter((intervention) =>
+        intervention.name.toLowerCase().includes(query) ||
+        intervention.description.toLowerCase().includes(query)
+      );
     }
 
     return filtered;
-  }, [selectedCategory, searchQuery]);
+  }, [libraryData, selectedCategory, searchQuery]);
 
   // ============================================================================
   // PLAN MANAGEMENT

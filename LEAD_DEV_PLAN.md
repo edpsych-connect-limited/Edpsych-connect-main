@@ -307,6 +307,8 @@ Progress log:
 - 2026-01-22: Replaced battle royale react-icons with lucide-react to reduce gamification chunk size.
 - 2026-01-22: Captured post-beta icon swap bundle evidence (`docs/performance/chunk-sizes-2026-01-22-post-beta-icons.txt`).
 - 2026-01-22: Captured post-battle icon swap bundle evidence (`docs/performance/chunk-sizes-2026-01-22-post-battle-icons.txt`).
+- 2026-01-22: Deferred intervention designer library and recommendation engine imports to on-demand loading.
+- 2026-01-22: Captured post-intervention designer deferral bundle evidence (`docs/performance/chunk-sizes-2026-01-22-post-intervention-designer.txt`).
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

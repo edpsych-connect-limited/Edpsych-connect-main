@@ -10,10 +10,10 @@ import { logger } from "@/lib/logger";
 export const dynamic = 'force-dynamic';
 
 import React, { useEffect, useState, Suspense } from 'react';
-import dynamic from 'next/dynamic';
+import dynamicImport from 'next/dynamic';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
-const InterventionDesigner = dynamic(() => import('@/components/interventions/InterventionDesigner'), {
+const InterventionDesigner = dynamicImport(() => import('@/components/interventions/InterventionDesigner'), {
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center min-h-screen">

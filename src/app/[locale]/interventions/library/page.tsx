@@ -9,10 +9,10 @@
 export const dynamic = 'force-dynamic';
 
 import React from 'react';
-import dynamic from 'next/dynamic';
+import dynamicImport from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
-const InterventionLibrary = dynamic(() => import('@/components/interventions/InterventionLibrary'), {
+const InterventionLibrary = dynamicImport(() => import('@/components/interventions/InterventionLibrary'), {
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center min-h-screen">
