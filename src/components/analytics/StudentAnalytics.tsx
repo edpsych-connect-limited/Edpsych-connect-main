@@ -133,17 +133,17 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
   const getTrendIcon = (trend: string) => {
     switch (trend) {
       case 'improving':
-        return <span className="text-green-600">↗</span>;
+        return <span className="text-green-600">Up</span>;
       case 'declining':
-        return <span className="text-red-600">↘</span>;
+        return <span className="text-red-600">Down</span>;
       default:
-        return <span className="text-gray-600">→</span>;
+        return <span className="text-gray-600">Flat</span>;
     }
   };
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
+      <div className="flex items-center justify-center h-64" role="status" aria-live="polite">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
@@ -151,7 +151,7 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+      <div className="bg-red-50 border border-red-200 rounded-lg p-6" role="alert">
         <div className="flex items-center">
           <AlertTriangle className="h-6 w-6 text-red-600 mr-3" />
           <div>
@@ -180,7 +180,7 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
               aria-label="Time Range"
               value={timeRange}
               onChange={(e) => window.location.search = `?timeRange=${e.target.value}`}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="px-4 py-2 border border-gray-300 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
               <option value="week">This Week</option>
               <option value="month">This Month</option>
@@ -199,7 +199,16 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
               <div
                 key={student.studentId}
                 onClick={() => setSelectedStudent(student)}
-                className="p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-md cursor-pointer transition-all"
+                role="button"
+                tabIndex={0}
+                aria-label={`View analytics for ${student.name}`}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    setSelectedStudent(student);
+                  }
+                }}
+                className="p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-md cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="font-semibold text-gray-900">{student.name}</h3>
@@ -243,7 +252,7 @@ export default function StudentAnalytics({ studentId, classId, timeRange = 'week
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900">{selectedStudent.name}</h2>
-                  <p className="text-gray-600">Grade {selectedStudent.grade} • Student ID: {selectedStudent.studentId}</p>
+                  <p className="text-gray-600">Grade {selectedStudent.grade}  |  Student ID: {selectedStudent.studentId}</p>
                 </div>
               </div>
               <div className="text-right">

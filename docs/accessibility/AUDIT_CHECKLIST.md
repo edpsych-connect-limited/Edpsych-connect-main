@@ -109,3 +109,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-22: Case management cards now support keyboard activation; case UI copy normalized to ASCII-safe labels.
 - 2026-01-22: Case detail tabs now expose ARIA tablist semantics with arrow-key navigation.
 - 2026-01-22: Case management filter controls now include focus-visible rings.
+- 2026-01-22: Student analytics cards now support keyboard activation; loading/error states announce status.
