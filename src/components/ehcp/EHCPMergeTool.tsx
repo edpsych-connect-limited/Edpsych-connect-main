@@ -404,7 +404,16 @@ const SectionEditor: React.FC<{
                   <span className="text-sm font-medium">Section Locked</span>
                 </div>
                 <div className="text-sm text-gray-700 whitespace-pre-wrap">
-                  {section.mergedContent || <span className="text-gray-400 italic">No content yet</span>}
+                  {section.mergedContent ? (
+                    section.mergedContent
+                  ) : (
+                    <EmptyState
+                      title="No content yet"
+                      description="Unlock to edit or run auto-merge."
+                      icon={<FileText className="w-8 h-8 text-blue-500" />}
+                      className="bg-gray-50"
+                    />
+                  )}
                 </div>
               </div>
             ) : isEditing ? (

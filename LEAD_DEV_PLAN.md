@@ -335,6 +335,7 @@ Progress log:
 - 2026-01-22: Standardized additional empty states (collaboration form, blog comments, inquiries, golden thread, intervention progress/fidelity, directory recommendations, marketplace bookings, parent portal, case stakeholders, training resources).
 - 2026-01-22: Standardized remaining empty states (EHCP merge, SEN needs, SEN2 return, automated actions log, forum my topics, assessment invites).
 - 2026-01-22: Standardized Help Center search empty state and intervention designer goals/progress empty states.
+- 2026-01-22: Standardized EHCP merge locked-content placeholder and performance metrics mock empty state.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -424,6 +425,7 @@ Progress log:
     - collaboration form, blog comments, inquiries, golden thread, intervention progress/fidelity, directory recommendations, marketplace bookings, parent portal messages, case stakeholders, and training resources now use shared EmptyState
     - EHCP merge, SEN needs, SEN2 return, automated actions log, forum my topics, and assessment invites now use shared EmptyState
     - Help Center search empty state and intervention designer goals/progress now use shared EmptyState
+    - EHCP merge locked-content placeholder and performance metrics mock now use shared EmptyState
 
 -----------------------------------------------------------------------------
 7) Delivery + Validation

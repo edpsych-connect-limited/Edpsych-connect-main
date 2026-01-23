@@ -7,6 +7,8 @@
  */
 
 import React from 'react';
+import { Activity } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 const MockPerformanceMetrics: React.FC<any> = ({ id: _id, metrics, isLoading, error }) => {
   if (isLoading) {
@@ -23,7 +25,13 @@ const MockPerformanceMetrics: React.FC<any> = ({ id: _id, metrics, isLoading, er
   }
   
   if (!metrics) {
-    return <div>No performance data available</div>;
+    return (
+      <EmptyState
+        title="No performance data available"
+        description="Metrics will appear once usage data is recorded."
+        icon={<Activity className="w-8 h-8 text-blue-500" />}
+      />
+    );
   }
   
   return (
