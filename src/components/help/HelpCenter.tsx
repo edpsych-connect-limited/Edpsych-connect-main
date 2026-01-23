@@ -78,7 +78,7 @@ export default function HelpCenter() {
               href="/help/videos"
               className="text-sm text-indigo-600 hover:underline"
             >
-              View all videos ->
+              View all videos {'>'}
             </Link>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
