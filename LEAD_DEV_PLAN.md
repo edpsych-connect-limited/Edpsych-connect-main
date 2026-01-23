@@ -337,6 +337,7 @@ Progress log:
 - 2026-01-22: Standardized Help Center search empty state and intervention designer goals/progress empty states.
 - 2026-01-22: Standardized EHCP merge locked-content placeholder and performance metrics mock empty state.
 - 2026-01-22: Completed standardization of error and empty states across remaining edge flows.
+- 2026-01-22: Completed governance evidence dashboards scope (exports, ranges, compliance snapshot).
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -391,7 +392,7 @@ Progress log:
 [x] Expand telemetry beyond AI into product usage
     - Adoption metrics, drop-off points, task completion time
 
-[~] Evidence dashboards for governance and audit readiness
+[x] Evidence dashboards for governance and audit readiness
     - Production scope, data sources, and ownership documented
     - Human-readable summaries for executives
     - Ethics admin evidence tab aligned to production snapshot
@@ -450,5 +451,5 @@ Outstanding Focus (Next)
 [ ] Close enterprise launch readiness checklist (`docs/launch/SIGNOFF_CHECKLIST.md`)
 [ ] Complete keyboard + screen reader audits and log fixes
 [ ] Finish bundle review for core pages and record targets
-[ ] Implement evidence dashboard production scope (governance admin view + exports)
+[x] Implement evidence dashboard production scope (governance admin view + exports)
 [x] Standardize remaining error + empty states in edge flows
