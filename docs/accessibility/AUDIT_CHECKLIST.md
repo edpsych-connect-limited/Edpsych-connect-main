@@ -105,3 +105,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-22: Institutional dashboard tabs support arrow, Home, and End keyboard navigation.
 - 2026-01-22: Support chat header now provides keyboard toggle semantics.
 - 2026-01-22: Progress dashboard alert and intervention cards now support keyboard activation.
+- 2026-01-22: Progress dashboard export/time-range controls now show focus-visible rings; loading state announces status.
