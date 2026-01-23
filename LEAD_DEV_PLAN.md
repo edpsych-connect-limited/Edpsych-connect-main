@@ -342,6 +342,7 @@ Progress log:
 - 2026-01-22: Added institutional dashboard tablist semantics and accessible loading/error states.
 - 2026-01-22: Added arrow key, Home, and End navigation for institutional dashboard tabs.
 - 2026-01-22: Added keyboard-accessible toggle semantics to support chat header.
+- 2026-01-22: Added keyboard-accessible alert and intervention cards in progress dashboard.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

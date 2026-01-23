@@ -413,7 +413,15 @@ function AlertCard({ alert, onClick }: AlertCardProps) {
   return (
     <div
       onClick={onClick}
-      className={`${severityColors[alert.severity]} border rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow`}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onClick();
+        }
+      }}
+      className={`${severityColors[alert.severity]} border rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
     >
       <div className="flex items-start">
         <span className="text-2xl mr-3">{severityIcons[alert.severity]}</span>
@@ -462,7 +470,15 @@ function InterventionProgressCard({ intervention, onClick }: InterventionProgres
   return (
     <div
       onClick={onClick}
-      className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer overflow-hidden"
+      role="button"
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onClick();
+        }
+      }}
+      className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
     >
       {/* Header */}
       <div className="p-6">
@@ -574,9 +590,7 @@ function InterventionProgressCard({ intervention, onClick }: InterventionProgres
         <span className="text-xs text-gray-500">
           Review: {new Date(intervention.review_date).toLocaleDateString()}
         </span>
-        <button className="text-blue-600 hover:text-blue-800 font-semibold text-sm">
-          View Details {'>'}
-        </button>
+        <span className="text-blue-600 font-semibold text-sm">View Details {'>'}</span>
       </div>
     </div>
   );
