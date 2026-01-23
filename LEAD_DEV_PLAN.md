@@ -344,6 +344,7 @@ Progress log:
 - 2026-01-22: Added keyboard-accessible toggle semantics to support chat header.
 - 2026-01-22: Added keyboard-accessible alert and intervention cards in progress dashboard.
 - 2026-01-22: Added focus-visible rings and status role for progress dashboard controls.
+- 2026-01-22: Normalized case management UI to ASCII-safe labels and added keyboard access for case cards.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

@@ -328,10 +328,10 @@ function CaseList({
               Case Management
             </h1>
             <p className="text-gray-600">
-              {cases.length} active case(s) • {statusCounts.new} new • {statusCounts.in_progress} in progress
+              {cases.length} active case(s) | {statusCounts.new} new | {statusCounts.in_progress} in progress
             </p>
           </div>
-          <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+          <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
             + New Case
           </button>
         </div>
@@ -418,7 +418,7 @@ function CaseList({
       {/* Case Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
         {loading ? (
-          <div className="col-span-full text-center py-12 text-gray-500">
+          <div className="col-span-full text-center py-12 text-gray-500" role="status" aria-live="polite">
             Loading cases...
           </div>
         ) : cases.length === 0 ? (
@@ -475,7 +475,16 @@ function CaseCard({
   return (
     <div
       onClick={onClick}
-      className={`bg-white rounded-lg shadow-md p-6 cursor-pointer transition hover:shadow-xl border-l-4 ${priority.border}`}
+      role="button"
+      tabIndex={0}
+      aria-label={`Open case for ${caseItem.student_name}`}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onClick();
+        }
+      }}
+      className={`bg-white rounded-lg shadow-md p-6 cursor-pointer transition hover:shadow-xl border-l-4 ${priority.border} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
     >
       {/* Header */}
       <div className="flex justify-between items-start mb-3">
@@ -484,7 +493,7 @@ function CaseCard({
             {caseItem.student_name}
           </h3>
           <p className="text-sm text-gray-600">
-            {caseItem.year_group} • ID: {caseItem.id}
+            {caseItem.year_group} | ID: {caseItem.id}
           </p>
         </div>
         <span
@@ -575,9 +584,9 @@ function CaseDetail({
       <div className="bg-white rounded-lg shadow-md p-6">
         <button
           onClick={onBack}
-          className="text-blue-600 hover:text-blue-800 mb-4 flex items-center gap-2"
+          className="text-blue-600 hover:text-blue-800 mb-4 flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
         >
-          ← Back to Case List
+          &lt; Back to Case List
         </button>
 
         <div className="flex justify-between items-start">
@@ -587,18 +596,18 @@ function CaseDetail({
             </h1>
             <div className="flex gap-3 items-center text-gray-600">
               <span>Case ID: {caseItem.id}</span>
-              <span>•</span>
+              <span> | </span>
               <span>{caseItem.year_group}</span>
-              <span>•</span>
+              <span> | </span>
               <span>Student ID: {caseItem.student_id}</span>
             </div>
           </div>
 
           <div className="flex gap-2">
-            <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
               Update Status
             </button>
-            <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+            <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">
               Add Note
             </button>
           </div>
@@ -613,50 +622,50 @@ function CaseDetail({
               activeTab === 'overview'
                 ? 'border-b-2 border-blue-600 text-blue-600'
                 : 'text-gray-600 hover:text-gray-800'
-            }`}
+            } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
             onClick={() => setActiveTab('overview')}
           >
-            📋 Overview
+            Overview
           </button>
           <button
             className={`px-6 py-4 font-semibold ${
               activeTab === 'timeline'
                 ? 'border-b-2 border-blue-600 text-blue-600'
                 : 'text-gray-600 hover:text-gray-800'
-            }`}
+            } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
             onClick={() => setActiveTab('timeline')}
           >
-            📅 Timeline
+            Timeline
           </button>
           <button
             className={`px-6 py-4 font-semibold ${
               activeTab === 'documents'
                 ? 'border-b-2 border-blue-600 text-blue-600'
                 : 'text-gray-600 hover:text-gray-800'
-            }`}
+            } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
             onClick={() => setActiveTab('documents')}
           >
-            📁 Documents
+            Documents
           </button>
           <button
             className={`px-6 py-4 font-semibold ${
               activeTab === 'collaborators'
                 ? 'border-b-2 border-blue-600 text-blue-600'
                 : 'text-gray-600 hover:text-gray-800'
-            }`}
+            } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
             onClick={() => setActiveTab('collaborators')}
           >
-            👥 Team
+            Team
           </button>
           <button
             className={`px-6 py-4 font-semibold ${
               activeTab === 'notes'
                 ? 'border-b-2 border-blue-600 text-blue-600'
                 : 'text-gray-600 hover:text-gray-800'
-            }`}
+            } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
             onClick={() => setActiveTab('notes')}
           >
-            📝 Notes
+            Notes
           </button>
         </div>
 
@@ -812,14 +821,14 @@ function TimelineEventCard({
   isLatest: boolean;
 }) {
   const typeIcons: Record<string, string> = {
-    referral: '📋',
-    assessment: '📝',
-    intervention: '🎯',
-    meeting: '👥',
-    review: '🔄',
-    document: '📁',
-    note: '📌',
-    milestone: '🎉',
+    referral: 'Overview',
+    assessment: 'Notes',
+    intervention: 'Target',
+    meeting: 'Team',
+    review: 'Update',
+    document: 'Docs',
+    note: 'Pinned',
+    milestone: 'Milestone',
   };
 
   const typeColors: Record<string, string> = {
@@ -841,7 +850,7 @@ function TimelineEventCard({
           isLatest ? 'bg-blue-600 text-white border-blue-600' : 'bg-white border-gray-300'
         }`}
       >
-        {isLatest ? '✓' : ''}
+        {isLatest ? 'OK' : ''}
       </div>
 
       {/* Event Card */}
@@ -852,7 +861,7 @@ function TimelineEventCard({
             <div>
               <h4 className="font-bold text-gray-800">{event.title}</h4>
               <p className="text-xs text-gray-600">
-                {event.date} at {event.time} • By {event.author}
+                {event.date} at {event.time}  |  By {event.author}
               </p>
             </div>
           </div>
@@ -914,12 +923,12 @@ function DocumentsTab({ caseItem: _caseItem }: { caseItem: Case }) {
           >
             <div className="flex items-center gap-4">
               <span className="text-3xl">
-                {doc.type === 'PDF' ? '📄' : '📝'}
+                {doc.type === 'PDF' ? 'Doc' : 'Notes'}
               </span>
               <div>
                 <p className="font-semibold text-gray-800">{doc.filename}</p>
                 <p className="text-sm text-gray-600">
-                  {doc.size} • Uploaded by {doc.uploaded_by} on {doc.uploaded_date}
+                  {doc.size}  |  Uploaded by {doc.uploaded_by} on {doc.uploaded_date}
                 </p>
               </div>
             </div>
@@ -1014,11 +1023,11 @@ function CollaboratorsTab({ caseItem: _caseItem }: { caseItem: Case }) {
 
             <div className="space-y-1 text-sm">
               <p className="text-gray-700">
-                📧 <a href={`mailto:${collab.email}`} className="text-blue-600 hover:underline">{collab.email}</a>
+                Email: <a href={`mailto:${collab.email}`} className="text-blue-600 hover:underline">{collab.email}</a>
               </p>
               {collab.phone && (
                 <p className="text-gray-700">
-                  📞 <a href={`tel:${collab.phone}`} className="text-blue-600 hover:underline">{collab.phone}</a>
+                  Phone: <a href={`tel:${collab.phone}`} className="text-blue-600 hover:underline">{collab.phone}</a>
                 </p>
               )}
             </div>
@@ -1089,7 +1098,7 @@ function NotesTab({ caseItem: _caseItem }: { caseItem: Case }) {
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <p className="font-bold text-gray-800">{note.author}</p>
-                  <span className="text-xs text-gray-500">• {note.author_role}</span>
+                  <span className="text-xs text-gray-500"> |  {note.author_role}</span>
                 </div>
                 <p className="text-sm text-gray-600">{note.date}</p>
               </div>
