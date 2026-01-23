@@ -10,8 +10,6 @@ import { logger } from "@/lib/logger";
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 import React, { useState, useEffect } from 'react';
 import { analyticsService } from '../../lib/analytics';
 import type { ReportConfig } from '../../lib/analytics';
@@ -124,7 +122,7 @@ export default function Reports({ }: ReportsProps) {
           </div>
           <button
             onClick={() => setShowCreateForm(true)}
-            className="btn-primary"
+            className="btn-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           >
             Create Report
           </button>
@@ -143,8 +141,17 @@ export default function Reports({ }: ReportsProps) {
                   selectedReport?.id === report.id
                     ? 'border-primary-500 bg-primary-50'
                     : 'border-gray-200 hover:border-gray-300'
-                }`}
+                } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
                 onClick={() => setSelectedReport(report)}
+                role="button"
+                tabIndex={0}
+                aria-label={`Select ${report.name}`}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    setSelectedReport(report);
+                  }
+                }}
               >
                 <h3 className="font-medium text-gray-900">{report.name}</h3>
                 <p className="text-sm text-gray-600">{report.type}</p>
@@ -190,19 +197,19 @@ export default function Reports({ }: ReportsProps) {
                 <button
                   onClick={() => generateReport(selectedReport.id)}
                   disabled={loading}
-                  className="btn-primary"
+                  className="btn-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                 >
                   {loading ? 'Generating...' : 'Generate Report'}
                 </button>
                 <button
                   onClick={() => exportReport('csv')}
-                  className="btn-secondary"
+                  className="btn-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                 >
                   Export CSV
                 </button>
                 <button
                   onClick={() => exportReport('pdf')}
-                  className="btn-secondary"
+                  className="btn-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                 >
                   Export PDF
                 </button>
@@ -222,7 +229,7 @@ export default function Reports({ }: ReportsProps) {
             </div>
           ) : (
             <div className="text-center py-12">
-              <div className="text-4xl mb-4">📊</div>
+              <div className="text-4xl mb-4">Analytics</div>
               <h3 className="text-lg font-medium text-gray-900">Select a Report</h3>
               <p className="text-gray-500">Choose a report from the list to view details and generate results.</p>
             </div>
@@ -269,9 +276,9 @@ function CreateReportModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Create New Report</h2>
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" role="dialog" aria-modal="true" aria-labelledby="report-modal-title">
+        <div className="bg-white rounded-lg p-6 w-full max-w-md">
+        <h2 id="report-modal-title" className="text-xl font-bold text-gray-900 mb-4">Create New Report</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="report-name" className="block text-sm font-medium text-gray-700 mb-1">
@@ -282,7 +289,7 @@ function CreateReportModal({
               type="text"
               value={formData.name}
               onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               required
             />
           </div>
@@ -294,7 +301,7 @@ function CreateReportModal({
               id="report-type"
               value={formData.type}
               onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.value as ReportConfig['type'] }))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
               <option value="user-activity">User Activity</option>
               <option value="feature-usage">Feature Usage</option>
@@ -304,10 +311,10 @@ function CreateReportModal({
             </select>
           </div>
           <div className="flex space-x-3">
-            <button type="button" onClick={onClose} className="btn-secondary flex-1">
+            <button type="button" onClick={onClose} className="btn-secondary flex-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
               Cancel
             </button>
-            <button type="submit" className="btn-primary flex-1">
+            <button type="submit" className="btn-primary flex-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
               Create Report
             </button>
           </div>
