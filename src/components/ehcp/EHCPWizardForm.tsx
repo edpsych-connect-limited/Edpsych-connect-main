@@ -622,7 +622,7 @@ export default function EHCPWizardForm({
               formData.plan_details.section_e.outcomes.length === 0) && (
               <EmptyState
                 title="No outcomes added yet"
-                description="Click \"Add Outcome\" to create one."
+                description='Click "Add Outcome" to create one.'
                 icon={<Target className="w-8 h-8 text-blue-500" />}
                 className="py-8"
               />
@@ -744,7 +744,7 @@ export default function EHCPWizardForm({
               formData.plan_details.section_f.provision.length === 0) && (
               <EmptyState
                 title="No provisions added yet"
-                description="Click \"Add Provision\" to create one."
+                description='Click "Add Provision" to create one.'
                 icon={<ClipboardList className="w-8 h-8 text-blue-500" />}
                 className="py-8"
               />
