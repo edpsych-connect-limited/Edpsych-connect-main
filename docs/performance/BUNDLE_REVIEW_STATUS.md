@@ -35,6 +35,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 - 2026-01-22: Post-teacher dashboard deferral build completed; 9915 chunk no longer initial.
 - 2026-01-22: Replaced analytics dashboard react-icons with lucide-react to avoid pulling react-icons/fa into analytics routes.
 - 2026-01-22: Replaced react-icons with lucide-react in security/trust/beta/tutoring/gamification and legacy landing components.
+- 2026-01-22: Deferred AI analytics chart rendering into a dynamic import to reduce recharts footprint on initial load.
 
 ## Reduction Plan (Initial)
 - Move PDF generation to lazy-loaded imports on subscription invoices (jsPDF only when downloading).
