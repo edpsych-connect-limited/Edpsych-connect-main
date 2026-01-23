@@ -108,3 +108,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-22: Progress dashboard export/time-range controls now show focus-visible rings; loading state announces status.
 - 2026-01-22: Case management cards now support keyboard activation; case UI copy normalized to ASCII-safe labels.
 - 2026-01-22: Case detail tabs now expose ARIA tablist semantics with arrow-key navigation.
+- 2026-01-22: Case management filter controls now include focus-visible rings.

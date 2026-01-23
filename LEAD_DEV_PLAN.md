@@ -346,6 +346,7 @@ Progress log:
 - 2026-01-22: Added focus-visible rings and status role for progress dashboard controls.
 - 2026-01-22: Normalized case management UI to ASCII-safe labels and added keyboard access for case cards.
 - 2026-01-22: Added ARIA tablist semantics and arrow-key navigation for case detail tabs.
+- 2026-01-22: Added focus-visible rings to case management filters and search input.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
