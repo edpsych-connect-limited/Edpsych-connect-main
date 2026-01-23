@@ -102,3 +102,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-21: Accessibility audit run started; manual keyboard/screen reader passes pending.
 - 2026-01-22: Standardized empty states and focus-visible cues across core flows; manual verification pending.
 - 2026-01-22: Institutional dashboard tabs now use ARIA tablist semantics and accessible loading/error states.
+- 2026-01-22: Institutional dashboard tabs support arrow, Home, and End keyboard navigation.

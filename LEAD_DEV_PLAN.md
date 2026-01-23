@@ -340,6 +340,7 @@ Progress log:
 - 2026-01-22: Completed governance evidence dashboards scope (exports, ranges, compliance snapshot).
 - 2026-01-22: Deferred AI analytics chart bundle via dynamic import to reduce initial client payload.
 - 2026-01-22: Added institutional dashboard tablist semantics and accessible loading/error states.
+- 2026-01-22: Added arrow key, Home, and End navigation for institutional dashboard tabs.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

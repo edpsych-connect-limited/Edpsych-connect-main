@@ -8,7 +8,7 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import InstitutionOverview from './InstitutionOverview';
@@ -79,6 +79,7 @@ const InstitutionalDashboard: React.FC<{ id?: string }> = ({ id }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<number>(0);
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const tabs = [
     { id: 'overview', label: 'Overview' },
     { id: 'departments', label: 'Departments' },
@@ -88,6 +89,36 @@ const InstitutionalDashboard: React.FC<{ id?: string }> = ({ id }) => {
     { id: 'activity', label: 'Activity' },
   ];
   const activeTabId = tabs[activeTab]?.id ?? tabs[0].id;
+
+  const handleTabKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, index: number) => {
+    const lastIndex = tabs.length - 1;
+    let nextIndex: number | null = null;
+
+    switch (event.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+        nextIndex = index === lastIndex ? 0 : index + 1;
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        nextIndex = index === 0 ? lastIndex : index - 1;
+        break;
+      case 'Home':
+        nextIndex = 0;
+        break;
+      case 'End':
+        nextIndex = lastIndex;
+        break;
+      default:
+        break;
+    }
+
+    if (nextIndex !== null) {
+      event.preventDefault();
+      setActiveTab(nextIndex);
+      tabRefs.current[nextIndex]?.focus();
+    }
+  };
 
   useEffect(() => {
     const fetchInstitutionData = async () => {
@@ -257,6 +288,10 @@ const InstitutionalDashboard: React.FC<{ id?: string }> = ({ id }) => {
                 tabIndex={activeTab === index ? 0 : -1}
                 className={`inline-block py-2 px-4 font-semibold ${activeTab === index ? 'border-l border-t border-r rounded-t text-blue-600 border-gray-200 bg-white' : 'text-gray-500 hover:text-blue-500'}`}
                 onClick={() => setActiveTab(index)}
+                onKeyDown={(event) => handleTabKeyDown(event, index)}
+                ref={(el) => {
+                  tabRefs.current[index] = el;
+                }}
               >
                 {tab.label}
               </button>
