@@ -339,6 +339,7 @@ Progress log:
 - 2026-01-22: Completed standardization of error and empty states across remaining edge flows.
 - 2026-01-22: Completed governance evidence dashboards scope (exports, ranges, compliance snapshot).
 - 2026-01-22: Deferred AI analytics chart bundle via dynamic import to reduce initial client payload.
+- 2026-01-22: Added institutional dashboard tablist semantics and accessible loading/error states.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

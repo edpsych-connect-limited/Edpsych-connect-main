@@ -79,6 +79,15 @@ const InstitutionalDashboard: React.FC<{ id?: string }> = ({ id }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<number>(0);
+  const tabs = [
+    { id: 'overview', label: 'Overview' },
+    { id: 'departments', label: 'Departments' },
+    { id: 'contacts', label: 'Contacts' },
+    { id: 'subscription', label: 'Subscription' },
+    { id: 'performance', label: 'Performance' },
+    { id: 'activity', label: 'Activity' },
+  ];
+  const activeTabId = tabs[activeTab]?.id ?? tabs[0].id;
 
   useEffect(() => {
     const fetchInstitutionData = async () => {
@@ -117,17 +126,25 @@ const InstitutionalDashboard: React.FC<{ id?: string }> = ({ id }) => {
   }, [id]);
 
   if (loading) {
-    return <div className="flex justify-center items-center h-64">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-64" role="status" aria-live="polite">
+        Loading institutional dashboard...
+      </div>
+    );
   }
 
   if (error) {
     return (
-      <div className="p-5 text-center">
+      <div className="p-5 text-center" role="alert">
         <h2 className="text-xl font-bold text-red-500 mb-4">Error Loading Dashboard</h2>
         <p>{error}</p>
-        <p className="mt-4 text-blue-500 cursor-pointer" onClick={() => router.push('/institutions')}>
+        <button
+          type="button"
+          className="mt-4 text-blue-600 underline hover:text-blue-700"
+          onClick={() => router.push('/institutions')}
+        >
           Return to Institutions List
-        </p>
+        </button>
       </div>
     );
   }
@@ -137,9 +154,13 @@ const InstitutionalDashboard: React.FC<{ id?: string }> = ({ id }) => {
       <div className="p-5 text-center">
         <h2 className="text-xl font-bold mb-4">Institution Not Found</h2>
         <p>The requested institution could not be found or you don&apos;t have access to it.</p>
-        <p className="mt-4 text-blue-500 cursor-pointer" onClick={() => router.push('/institutions')}>
+        <button
+          type="button"
+          className="mt-4 text-blue-600 underline hover:text-blue-700"
+          onClick={() => router.push('/institutions')}
+        >
           Return to Institutions List
-        </p>
+        </button>
       </div>
     );
   }
@@ -224,21 +245,33 @@ const InstitutionalDashboard: React.FC<{ id?: string }> = ({ id }) => {
       </div>
 
       <div className="border-b mb-4">
-        <ul className="flex">
-          {['Overview', 'Departments', 'Contacts', 'Subscription', 'Performance', 'Activity'].map((tab, index) => (
+        <ul className="flex" role="tablist" aria-orientation="horizontal">
+          {tabs.map((tab, index) => (
             <li key={index} className="-mb-px">
               <button
+                id={`institutional-tab-${tab.id}`}
+                type="button"
+                role="tab"
+                aria-selected={activeTab === index}
+                aria-controls={`institutional-tabpanel-${tab.id}`}
+                tabIndex={activeTab === index ? 0 : -1}
                 className={`inline-block py-2 px-4 font-semibold ${activeTab === index ? 'border-l border-t border-r rounded-t text-blue-600 border-gray-200 bg-white' : 'text-gray-500 hover:text-blue-500'}`}
                 onClick={() => setActiveTab(index)}
               >
-                {tab}
+                {tab.label}
               </button>
             </li>
           ))}
         </ul>
       </div>
       
-      <div className="p-4 bg-white rounded shadow">
+      <div
+        className="p-4 bg-white rounded shadow"
+        role="tabpanel"
+        id={`institutional-tabpanel-${activeTabId}`}
+        aria-labelledby={`institutional-tab-${activeTabId}`}
+        tabIndex={0}
+      >
         {activeTab === 0 && (
           <InstitutionOverview institution={institution} />
         )}
