@@ -136,6 +136,31 @@ Each audit run records **what was tested**, **where**, and **what evidence was p
 ### Findings created
 - TBD
 
+## RUN-2026-01-22-01
+
+- **Run ID:** RUN-2026-01-22-01
+- **Date/time (UTC):** 2026-01-22
+- **Commit SHA/tag:** TBD
+- **Environment:** Local (accessibility remediation sweep)
+- **Auditor(s):** Internal (Codex)
+- **Test accounts used:** N/A
+
+### Tooling gates
+- Lint: Not run (remediation sweep)
+- Typecheck: Not run (remediation sweep)
+- Build: Not run (remediation sweep)
+- Targeted validators: Not run
+
+### Walkthroughs executed
+- Accessibility remediation sweep: **Executed** (empty-state standardization, focus-visible coverage)
+
+### Evidence produced
+- `docs/accessibility/AUDIT_CHECKLIST.md`
+- `LEAD_DEV_PLAN.md`
+
+### Findings created
+- TBD
+
 ## Run template
 
 - **Run ID:** (e.g., RUN-2025-12-15-01)

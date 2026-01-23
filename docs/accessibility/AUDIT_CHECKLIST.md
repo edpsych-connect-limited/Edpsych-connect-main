@@ -100,3 +100,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
   - Typography scale reviewed for headings/body across landing and dashboard shells.
 - 2026-01-21: Added journey tracker and audit execution plan.
 - 2026-01-21: Accessibility audit run started; manual keyboard/screen reader passes pending.
+- 2026-01-22: Standardized empty states and focus-visible cues across core flows; manual verification pending.
