@@ -20,7 +20,7 @@
  * 3. CaseTimeline - Visual timeline of events
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FolderSearch } from 'lucide-react';
 import { EmptyState } from '@/components/ui/EmptyState';
 
@@ -577,6 +577,45 @@ function CaseDetail({
   const [activeTab, setActiveTab] = useState<
     'overview' | 'timeline' | 'documents' | 'collaborators' | 'notes'
   >('overview');
+  const tabs = [
+    { id: 'overview', label: 'Overview' },
+    { id: 'timeline', label: 'Timeline' },
+    { id: 'documents', label: 'Documents' },
+    { id: 'collaborators', label: 'Team' },
+    { id: 'notes', label: 'Notes' },
+  ] as const;
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+
+  const activeTabIndex = tabs.findIndex((tab) => tab.id === activeTab);
+  const handleTabKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, index: number) => {
+    const lastIndex = tabs.length - 1;
+    let nextIndex: number | null = null;
+
+    switch (event.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+        nextIndex = index === lastIndex ? 0 : index + 1;
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        nextIndex = index === 0 ? lastIndex : index - 1;
+        break;
+      case 'Home':
+        nextIndex = 0;
+        break;
+      case 'End':
+        nextIndex = lastIndex;
+        break;
+      default:
+        break;
+    }
+
+    if (nextIndex !== null) {
+      event.preventDefault();
+      setActiveTab(tabs[nextIndex].id);
+      tabRefs.current[nextIndex]?.focus();
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -616,60 +655,39 @@ function CaseDetail({
 
       {/* Tabs */}
       <div className="bg-white rounded-lg shadow-md">
-        <div className="flex border-b border-gray-200">
-          <button
-            className={`px-6 py-4 font-semibold ${
-              activeTab === 'overview'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-800'
-            } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
-            onClick={() => setActiveTab('overview')}
-          >
-            Overview
-          </button>
-          <button
-            className={`px-6 py-4 font-semibold ${
-              activeTab === 'timeline'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-800'
-            } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
-            onClick={() => setActiveTab('timeline')}
-          >
-            Timeline
-          </button>
-          <button
-            className={`px-6 py-4 font-semibold ${
-              activeTab === 'documents'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-800'
-            } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
-            onClick={() => setActiveTab('documents')}
-          >
-            Documents
-          </button>
-          <button
-            className={`px-6 py-4 font-semibold ${
-              activeTab === 'collaborators'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-800'
-            } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
-            onClick={() => setActiveTab('collaborators')}
-          >
-            Team
-          </button>
-          <button
-            className={`px-6 py-4 font-semibold ${
-              activeTab === 'notes'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-800'
-            } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
-            onClick={() => setActiveTab('notes')}
-          >
-            Notes
-          </button>
+        <div className="flex border-b border-gray-200" role="tablist" aria-orientation="horizontal">
+          {tabs.map((tab, index) => (
+            <button
+              key={tab.id}
+              id={`case-tab-${tab.id}`}
+              role="tab"
+              type="button"
+              aria-selected={activeTab === tab.id}
+              aria-controls={`case-tabpanel-${tab.id}`}
+              tabIndex={activeTab === tab.id ? 0 : -1}
+              className={`px-6 py-4 font-semibold ${
+                activeTab === tab.id
+                  ? 'border-b-2 border-blue-600 text-blue-600'
+                  : 'text-gray-600 hover:text-gray-800'
+              } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
+              onClick={() => setActiveTab(tab.id)}
+              onKeyDown={(event) => handleTabKeyDown(event, index)}
+              ref={(el) => {
+                tabRefs.current[index] = el;
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
 
-        <div className="p-6">
+        <div
+          className="p-6"
+          role="tabpanel"
+          id={`case-tabpanel-${activeTab}`}
+          aria-labelledby={`case-tab-${activeTab}`}
+          tabIndex={0}
+        >
           {activeTab === 'overview' && <OverviewTab caseItem={caseItem} />}
           {activeTab === 'timeline' && <TimelineTab caseItem={caseItem} />}
           {activeTab === 'documents' && <DocumentsTab caseItem={caseItem} />}
