@@ -336,6 +336,7 @@ Progress log:
 - 2026-01-22: Standardized remaining empty states (EHCP merge, SEN needs, SEN2 return, automated actions log, forum my topics, assessment invites).
 - 2026-01-22: Standardized Help Center search empty state and intervention designer goals/progress empty states.
 - 2026-01-22: Standardized EHCP merge locked-content placeholder and performance metrics mock empty state.
+- 2026-01-22: Completed standardization of error and empty states across remaining edge flows.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -408,7 +409,7 @@ Progress log:
 
 [x] Add consistent microcopy for AI features and sensitive workflows
 
-[~] Standardize error and empty states
+[x] Standardize error and empty states
     - error display with retry now in assessments, cases, EHCP, interventions
     - reports empty state now uses shared EmptyState component
     - SENCO needs breakdown now uses shared EmptyState component
@@ -450,4 +451,4 @@ Outstanding Focus (Next)
 [ ] Complete keyboard + screen reader audits and log fixes
 [ ] Finish bundle review for core pages and record targets
 [ ] Implement evidence dashboard production scope (governance admin view + exports)
-[ ] Standardize remaining error + empty states in edge flows
+[x] Standardize remaining error + empty states in edge flows
