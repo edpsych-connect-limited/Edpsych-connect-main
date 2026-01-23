@@ -21,6 +21,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { BarChart3, Target } from 'lucide-react';
 import type {
   InterventionTemplate,
   InterventionCategory,
@@ -30,6 +31,7 @@ import type {
   RecommendationResponse,
   InterventionRecommendation as _InterventionRecommendation,
 } from '@/lib/interventions/recommendation-engine';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 // ============================================================================
 // TYPES
@@ -790,9 +792,12 @@ function PlanTab({
         </div>
 
         {plan.goals.length === 0 ? (
-          <p className="text-gray-500 text-center py-8">
-            No goals yet. Click "Add Goal" to create a SMART goal.
-          </p>
+          <EmptyState
+            title="No goals yet"
+            description='Click "Add Goal" to create a SMART goal.'
+            icon={<Target className="w-8 h-8 text-blue-500" />}
+            className="py-8"
+          />
         ) : (
           <div className="space-y-4">
             {plan.goals.map((goal: SMARTGoal, index: number) => (
@@ -812,7 +817,7 @@ function PlanTab({
         onClick={onSave}
         className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700"
       >
-        💾 Save Implementation Plan
+        Save Implementation Plan
       </button>
     </div>
   );
@@ -858,7 +863,7 @@ function SMARTGoalEditor({
             <option value="achieved">Achieved</option>
             <option value="not_achieved">Not Achieved</option>
           </select>
-          <span>{expanded ? '▲' : '▼'}</span>
+          <span>{expanded ? '^' : 'v'}</span>
         </div>
       </div>
 
@@ -995,8 +1000,12 @@ function ProgressTab({ plan, onAddData, onUpdateData }: any) {
           <tbody>
             {plan.progress_data.length === 0 ? (
               <tr>
-                <td colSpan={5} className="p-8 text-center text-gray-500">
-                  No progress data yet. Click "Add Data Point" to start tracking.
+                <td colSpan={5} className="p-6">
+                  <EmptyState
+                    title="No progress data yet"
+                    description='Click "Add Data Point" to start tracking.'
+                    icon={<BarChart3 className="w-8 h-8 text-blue-500" />}
+                  />
                 </td>
               </tr>
             ) : (

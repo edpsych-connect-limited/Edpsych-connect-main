@@ -14,6 +14,7 @@ import React, { useState } from 'react';
 import { Search, Book, FileText, MessageCircle, ChevronRight, Play, Video } from 'lucide-react';
 import { Link } from '@/navigation';
 import { VideoModal } from '@/components/video/VideoTutorialPlayer';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 // Featured video tutorials
 const FEATURED_VIDEOS = [
@@ -77,7 +78,7 @@ export default function HelpCenter() {
               href="/help/videos"
               className="text-sm text-indigo-600 hover:underline"
             >
-              View all videos →
+              View all videos ->
             </Link>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -144,8 +145,12 @@ export default function HelpCenter() {
               </button>
             ))}
             {filteredArticles.length === 0 && (
-              <div className="p-8 text-center text-slate-500">
-                No articles found matching "{searchQuery}"
+              <div className="p-8">
+                <EmptyState
+                  title="No articles found"
+                  description={`No articles found matching "${searchQuery}".`}
+                  className="bg-white border border-slate-200"
+                />
               </div>
             )}
           </div>
