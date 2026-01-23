@@ -111,3 +111,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-22: Case management filter controls now include focus-visible rings.
 - 2026-01-22: Student analytics cards now support keyboard activation; loading/error states announce status.
 - 2026-01-22: Analytics reports list now supports keyboard activation and modal dialog semantics.
+- 2026-01-22: Support chat controls now show focus-visible rings; response copy normalized to ASCII.

@@ -136,7 +136,7 @@ export function SupportChatbot() {
       if (bestMatch.links && bestMatch.links.length > 0) {
         response += '\n\n**Quick Links:**\n';
         bestMatch.links.forEach(link => {
-          response += `• [${link.text}](${link.url})\n`;
+          response += `- [${link.text}](${link.url})\n`;
         });
       }
       
@@ -144,7 +144,7 @@ export function SupportChatbot() {
       const relatedEntries = findRelevantEntries(input, 3).filter(e => e.id !== bestMatch.id);
       if (relatedEntries.length > 0) {
         response += '\n**Related Topics:** ';
-        response += relatedEntries.map(e => e.title).join(' • ');
+        response += relatedEntries.map(e => e.title).join(', ');
       }
       
       return response;
@@ -152,84 +152,84 @@ export function SupportChatbot() {
     
     // Fallback greeting handling
     if (lowerInput.match(/^(hi|hello|hey|good\s*(morning|afternoon|evening)|howdy|hiya)/)) {
-      return `👋 Hello! I'm your EdPsych Connect assistant.
+      return `Hello! I'm your EdPsych Connect assistant.
 
 **I can help with:**
-• 🧭 **Navigation** - "How do I get to the dashboard?"
-• 📊 **Assessments** - "How do I start an ECCA assessment?"
-• 📋 **EHCP** - "How do I create an EHCP?"
-• 🎯 **Interventions** - "What interventions are available?"
-• 🎓 **Training** - "How do I access CPD courses?"
-• ⚙️ **Account** - "How do I reset my password?"
-• 🔒 **Security** - "How is my data protected?"
+- **Navigation** - "How do I get to the dashboard?"
+- **Assessments** - "How do I start an ECCA assessment?"
+- **EHCP** - "How do I create an EHCP?"
+- **Interventions** - "What interventions are available?"
+- **Training** - "How do I access CPD courses?"
+- **Account** - "How do I reset my password?"
+- **Security** - "How is my data protected?"
 
 What would you like to know about?`;
     }
     
     // Thank you responses
     if (lowerInput.match(/(thank|thanks|cheers|brilliant|perfect|great|awesome)/)) {
-      return `😊 You're welcome! I'm here whenever you need help.
+      return `You're welcome! I'm here whenever you need help.
 
 **Quick Tips:**
-• Press **Cmd/Ctrl + K** for global search
-• Visit **/help** for detailed guides
-• Email **support@edpsychconnect.world** for complex issues
+- Press **Cmd/Ctrl + K** for global search
+- Visit **/help** for detailed guides
+- Email **support@edpsychconnect.world** for complex issues
 
 Is there anything else I can assist with?`;
     }
     
     // What can you do
     if (lowerInput.match(/(what can you|help with|what do you|capabilities)/)) {
-      return `🤖 **I'm your comprehensive EdPsych Connect guide!**
+      return `**I'm your comprehensive EdPsych Connect guide!**
 
 **I can help with:**
 
-📍 **Navigation**
-• Finding features and pages
-• Understanding the menu structure
-• Keyboard shortcuts
+**Navigation**
+- Finding features and pages
+- Understanding the menu structure
+- Keyboard shortcuts
 
-📊 **Core Features**
-• Assessments & ECCA framework
-• Case management
-• EHCP creation & reviews
-• Interventions library
-• Progress tracking
+**Core Features**
+- Assessments & ECCA framework
+- Case management
+- EHCP creation & reviews
+- Interventions library
+- Progress tracking
 
-🎓 **Learning**
-• Training courses & CPD
-• Video tutorials
-• Best practices
+**Learning**
+- Training courses & CPD
+- Video tutorials
+- Best practices
 
-⚙️ **Technical Support**
-• Account settings
-• Password issues
-• Integrations
-• Data & privacy
+**Technical Support**
+- Account settings
+- Password issues
+- Integrations
+- Data & privacy
 
-💡 **Just ask naturally!** For example:
-• "How do I create an assessment?"
-• "Where is the EHCP module?"
-• "How do I add a student?"`;
+**Just ask naturally!** For example:
+- "How do I create an assessment?"
+- "Where is the EHCP module?"
+- "How do I add a student?"`;
     }
     
     // Enhanced default response with suggestions
-    return `🤔 I'm not certain about that specific topic, but I'd love to help!
+    return `I'm not certain about that specific topic, but I'd love to help!
 
 **Try asking about:**
-• **Navigation**: "How do I get to the dashboard?"
-• **Assessments**: "How do I start a cognitive assessment?"
-• **EHCP**: "How do I create an Education Health Care Plan?"
-• **Cases**: "How do I add a new student?"
-• **Training**: "What CPD courses are available?"
-• **Reports**: "How do I generate a PDF report?"
-• **Account**: "How do I reset my password?"
-• **Security**: "How is student data protected?"
+- **Navigation**: "How do I get to the dashboard?"
+- **Assessments**: "How do I start a cognitive assessment?"
+- **EHCP**: "How do I create an Education Health Care Plan?"
+- **Cases**: "How do I add a new student?"
+- **Training**: "What CPD courses are available?"
+- **Reports**: "How do I generate a PDF report?"
+- **Account**: "How do I reset my password?"
+- **Security**: "How is student data protected?"
 
 **Additional Resources:**
-• 📚 Help Centre: **/help**
-• 📧 Email: support@edpsychconnect.world
-• 🎪 Try demos: **/demo**
+- Help Centre: **/help**
+- Email: support@edpsychconnect.world
+- Try demos: **/demo**
 
 Could you rephrase your question, or pick one of the topics above?`;
   };
@@ -238,7 +238,7 @@ Could you rephrase your question, or pick one of the topics above?`;
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all flex items-center justify-center z-50"
+        className="fixed bottom-6 right-6 w-14 h-14 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all flex items-center justify-center z-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
         aria-label="Open support chat"
       >
         <MessageCircle className="w-8 h-8" />
@@ -274,14 +274,14 @@ Could you rephrase your question, or pick one of the topics above?`;
         <div className="flex items-center gap-2">
           <button 
             onClick={(e) => { e.stopPropagation(); setIsMinimized(!isMinimized); }}
-            className="hover:text-blue-200"
+            className="hover:text-blue-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600"
             aria-label={isMinimized ? "Maximise chat" : "Minimise chat"}
           >
             {isMinimized ? <Maximize2 className="w-4 h-4" /> : <Minimize2 className="w-4 h-4" />}
           </button>
           <button 
             onClick={(e) => { e.stopPropagation(); setIsOpen(false); }}
-            className="hover:text-blue-200"
+            className="hover:text-blue-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600"
             aria-label="Close chat"
           >
             <X className="w-5 h-5" />
@@ -328,7 +328,7 @@ Could you rephrase your question, or pick one of the topics above?`;
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                 placeholder={isListening ? "Listening..." : "Type a message..."}
-                className={`flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm ${isListening ? 'bg-red-50 border-red-200 placeholder-red-400' : ''}`}
+                className={`flex-1 px-4 py-2 border border-gray-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 text-sm ${isListening ? 'bg-red-50 border-red-200 placeholder-red-400' : ''}`}
               />
               <button
                 onClick={isListening ? stopListening : startListening}
@@ -336,7 +336,7 @@ Could you rephrase your question, or pick one of the topics above?`;
                   isListening 
                     ? 'bg-red-500 hover:bg-red-600 text-white animate-pulse' 
                     : 'bg-gray-100 hover:bg-gray-200 text-gray-600'
-                }`}
+                } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
                 aria-label={isListening ? "Stop recording" : "Start voice input"}
                 title={isListening ? "Stop recording" : "Start voice input"}
               >
@@ -345,7 +345,7 @@ Could you rephrase your question, or pick one of the topics above?`;
               <button
                 onClick={handleSendMessage}
                 disabled={!inputValue.trim() || isTyping}
-                className="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                 aria-label="Send message"
               >
                 <Send className="w-5 h-5" />

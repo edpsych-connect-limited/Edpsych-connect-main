@@ -349,6 +349,7 @@ Progress log:
 - 2026-01-22: Added focus-visible rings to case management filters and search input.
 - 2026-01-22: Added keyboard-accessible student selection cards and focus-visible rings in student analytics.
 - 2026-01-22: Hardened analytics reports list selection, modal semantics, and focus-visible styling.
+- 2026-01-22: Normalized support chat responses to ASCII and added focus-visible rings to controls.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
