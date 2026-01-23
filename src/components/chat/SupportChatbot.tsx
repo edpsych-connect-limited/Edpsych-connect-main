@@ -253,7 +253,20 @@ Could you rephrase your question, or pick one of the topics above?`;
       }`}
     >
       {/* Header */}
-      <div className="flex items-center justify-between p-4 bg-blue-600 text-white rounded-t-lg cursor-pointer" onClick={() => setIsMinimized(!isMinimized)}>
+      <div
+        className="flex items-center justify-between p-4 bg-blue-600 text-white rounded-t-lg cursor-pointer"
+        role="button"
+        tabIndex={0}
+        aria-expanded={!isMinimized}
+        aria-label={isMinimized ? 'Expand support chat' : 'Collapse support chat'}
+        onClick={() => setIsMinimized(!isMinimized)}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            setIsMinimized(!isMinimized);
+          }
+        }}
+      >
         <div className="flex items-center gap-2">
           <MessageCircle className="w-5 h-5" />
           <span className="font-medium">EdPsych Assistant</span>
