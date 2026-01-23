@@ -9,6 +9,7 @@ import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 export default function BlogPostPage() {
   const params = useParams();
@@ -296,7 +297,11 @@ export default function BlogPostPage() {
               ))}
             </div>
           ) : (
-            <p className="text-gray-500 mb-8">No comments yet. Be the first to comment!</p>
+            <EmptyState
+              title="No comments yet"
+              description="Be the first to comment."
+              className="mb-8"
+            />
           )}
 
           {/* Comment Form */}

@@ -18,6 +18,7 @@
  */
 
 import React, { useState, useEffect, useRef, useId, useCallback } from 'react';
+import { FileText } from 'lucide-react';
 import {
   Course,
 } from '@/lib/training/course-catalog';
@@ -27,6 +28,7 @@ import {
   getSpeakerForVideo,
   VIDEO_OVERLAYS,
 } from '@/lib/training/heygen-video-urls';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 // ============================================================================
 // TYPES
@@ -1038,10 +1040,11 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                           </div>
                         ))
                       ) : (
-                        <div className="text-center py-12 text-gray-500">
-                          <div className="text-6xl mb-4">📚</div>
-                          <p>No resources available for this lesson</p>
-                        </div>
+                        <EmptyState
+                          title="No resources available for this lesson"
+                          description="Resources will appear when attachments are added."
+                          icon={<FileText className="w-8 h-8 text-blue-500" />}
+                        />
                       )}
                     </div>
                   </div>
@@ -1050,7 +1053,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                 {/* NOTES VIEW */}
                 {viewMode === 'notes' && (
                   <div>
-                    <h2 className="text-3xl font-bold text-gray-900 mb-6">📝 My Notes</h2>
+                    <h2 className="text-3xl font-bold text-gray-900 mb-6">My Notes</h2>
                     <div className="bg-yellow-50 border-2 border-yellow-300 rounded-xl p-6">
                       <textarea
                         value={state.notes}
@@ -1059,7 +1062,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                         className="w-full h-96 p-4 bg-white border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none resize-none"
                       />
                       <div className="mt-3 text-sm text-gray-600 text-right">
-                        💾 Auto-saves every 30 seconds
+                        Auto-saves every 30 seconds
                       </div>
                     </div>
                   </div>

@@ -8,6 +8,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/hooks';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 interface InterventionDetailClientProps {
   id: string;
@@ -488,9 +489,11 @@ function ProgressTab({ intervention }: { intervention: Intervention }) {
       <div>
         <h3 className="font-semibold text-gray-900 mb-4">Progress History</h3>
         {progressEntries.length === 0 ? (
-          <div className="text-center py-8 bg-gray-50 rounded-lg">
-            <p className="text-gray-600">No progress entries yet. Add your first entry above.</p>
-          </div>
+          <EmptyState
+            title="No progress entries yet"
+            description="Add your first entry above to start tracking progress."
+            className="bg-gray-50"
+          />
         ) : (
           <div className="space-y-3">
             {progressEntries
@@ -554,9 +557,11 @@ function FidelityTab({ intervention }: { intervention: Intervention }) {
           </div>
         </div>
       ) : (
-        <div className="text-center py-8 bg-gray-50 rounded-lg">
-          <p className="text-gray-600">No fidelity checklist defined for this intervention.</p>
-        </div>
+        <EmptyState
+          title="No fidelity checklist defined"
+          description="Add a checklist to monitor delivery consistency."
+          className="bg-gray-50"
+        />
       )}
 
       {/* Data Collection Method */}

@@ -15,6 +15,8 @@
  */
 
 import React, { useState } from 'react';
+import { Users } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 interface CaseManagerProps {
   caseId?: number;
@@ -782,9 +784,12 @@ function Step4Stakeholders({
             </div>
           ))}
           {(data[activeCategory] || []).length === 0 && (
-            <div className="text-center py-8 bg-gray-50 rounded-lg text-gray-600">
-              No stakeholders added yet
-            </div>
+            <EmptyState
+              title="No stakeholders added yet"
+              description="Add stakeholders to keep the case aligned across teams."
+              icon={<Users className="w-8 h-8 text-blue-500" />}
+              className="bg-gray-50"
+            />
           )}
         </div>
       </div>

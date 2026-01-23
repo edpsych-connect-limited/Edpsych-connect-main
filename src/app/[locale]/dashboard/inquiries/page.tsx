@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Mail, Calendar, User, Search } from 'lucide-react';
 import { ProfessionalInquiry } from '@prisma/client';
 import { Link } from '@/navigation';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 export default function InquiriesPage() {
   const { user, isLoading: authLoading } = useAuth();
@@ -57,9 +58,12 @@ export default function InquiriesPage() {
       <div className="grid gap-4">
         {inquiries.length === 0 ? (
           <Card>
-            <CardContent className="p-8 text-center text-muted-foreground">
-              <Mail className="h-12 w-12 mx-auto mb-4 opacity-20" />
-              <p>No inquiries received yet.</p>
+            <CardContent className="p-8">
+              <EmptyState
+                title="No inquiries received yet"
+                description="New messages from potential clients will appear here."
+                icon={<Mail className="h-8 w-8 text-blue-500" />}
+              />
             </CardContent>
           </Card>
         ) : (

@@ -31,6 +31,7 @@ import {
 import toast from 'react-hot-toast';
 import { VideoModal } from '@/components/video/VideoTutorialPlayer';
 import { VoiceCommandInterface } from '@/components/orchestration/VoiceCommandInterface';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 // Parent-facing video tutorials
 const PARENT_VIDEOS = [
@@ -230,10 +231,12 @@ const MessageThread: React.FC<{
 
   if (messages.length === 0) {
     return (
-      <div className="text-center py-8">
-        <MessageCircle className="w-12 h-12 text-gray-300 mx-auto mb-3" aria-hidden="true" />
-        <p className="text-gray-500">No messages yet. Start a conversation with the teacher!</p>
-      </div>
+      <EmptyState
+        title="No messages yet"
+        description="Start a conversation with the teacher."
+        icon={<MessageCircle className="w-8 h-8 text-blue-500" aria-hidden="true" />}
+        className="py-8"
+      />
     );
   }
 

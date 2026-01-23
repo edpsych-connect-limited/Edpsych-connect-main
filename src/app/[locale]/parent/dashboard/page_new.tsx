@@ -16,6 +16,7 @@ import {
   Loader2,
   AlertCircle
 } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 // Types matching the API response
 interface ParentPortalResponse {
@@ -278,7 +279,13 @@ export default function ParentDashboard() {
                   </div>
                 ))}
                 {portalData.recentLessons.length === 0 && (
-                  <div className="p-6 text-center text-slate-500">No recent lessons recorded.</div>
+                  <div className="p-6">
+                    <EmptyState
+                      title="No recent lessons recorded"
+                      description="Lessons will appear here as teachers log activity."
+                      icon={<BookOpen className="w-8 h-8 text-blue-500" />}
+                    />
+                  </div>
                 )}
               </div>
             </div>

@@ -16,8 +16,10 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { ClipboardList, Target } from 'lucide-react';
 import AIDraftButton from './AIDraftButton';
 import VideoTutorialPlayer from '@/components/video/VideoTutorialPlayer';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 interface EHCPFormData {
   tenant_id: number;
@@ -618,9 +620,12 @@ export default function EHCPWizardForm({
             ))}
             {(!formData.plan_details.section_e?.outcomes ||
               formData.plan_details.section_e.outcomes.length === 0) && (
-              <p className="text-center text-gray-500 py-8">
-                No outcomes added yet. Click "Add Outcome" to create one.
-              </p>
+              <EmptyState
+                title="No outcomes added yet"
+                description="Click \"Add Outcome\" to create one."
+                icon={<Target className="w-8 h-8 text-blue-500" />}
+                className="py-8"
+              />
             )}
           </div>
         )}
@@ -737,9 +742,12 @@ export default function EHCPWizardForm({
             )}
             {(!formData.plan_details.section_f?.provision ||
               formData.plan_details.section_f.provision.length === 0) && (
-              <p className="text-center text-gray-500 py-8">
-                No provisions added yet. Click "Add Provision" to create one.
-              </p>
+              <EmptyState
+                title="No provisions added yet"
+                description="Click \"Add Provision\" to create one."
+                icon={<ClipboardList className="w-8 h-8 text-blue-500" />}
+                className="py-8"
+              />
             )}
           </div>
         )}

@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MessageSquareQuote, Plus, X } from 'lucide-react';
 import { WriteRecommendationForm } from './WriteRecommendationForm';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 interface Recommendation {
   id: string;
@@ -41,10 +42,12 @@ export function RecommendationsSection({ professionalId, recommendations }: Reco
       <CardContent>
         <div className="space-y-6">
           {recommendations.length === 0 ? (
-             <div className="text-center py-6 text-muted-foreground bg-secondary/20 rounded-lg">
-                <p className="text-sm mb-2">No recommendations yet.</p>
-                <Button variant="link" size="sm" onClick={() => setShowForm(true)}>Be the first to write one!</Button>
-             </div>
+             <EmptyState
+               title="No recommendations yet"
+               description="Be the first to write one."
+               actionLabel="Write recommendation"
+               actionOnClick={() => setShowForm(true)}
+             />
           ) : (
              recommendations.map(rec => (
               <div key={rec.id} className="relative pl-4 border-l-2 border-primary/20">
@@ -53,8 +56,8 @@ export function RecommendationsSection({ professionalId, recommendations }: Reco
                 </blockquote>
                 <div className="flex items-center gap-2 text-xs">
                     <span className="font-semibold text-foreground">{rec.author.name}</span>
-                    <span className="text-muted-foreground">• {rec.author.role}</span>
-                    <span className="text-muted-foreground/60">• {rec.relationship}</span>
+                    <span className="text-muted-foreground">- {rec.author.role}</span>
+                    <span className="text-muted-foreground/60">- {rec.relationship}</span>
                 </div>
               </div>
             ))

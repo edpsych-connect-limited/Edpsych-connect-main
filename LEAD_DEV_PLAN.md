@@ -332,6 +332,7 @@ Progress log:
 - 2026-01-22: Standardized EHCP module empty states (communications, mediation/tribunal, phase transfers, annual reviews, costing, version history).
 - 2026-01-22: Standardized institutional management empty states (activity logs, departments, subscription features/invoices).
 - 2026-01-22: Standardized EHCP detail empty states for outcomes and provision.
+- 2026-01-22: Standardized additional empty states (collaboration form, blog comments, inquiries, golden thread, intervention progress/fidelity, directory recommendations, marketplace bookings, parent portal, case stakeholders, training resources).
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -418,6 +419,7 @@ Progress log:
     - EHCP modules now use shared EmptyState (communications, mediation/tribunal, phase transfers, annual reviews, costing, version history)
     - institutional management now uses shared EmptyState (activity logs, departments, subscription features/invoices)
     - EHCP detail outcomes and provision now use shared EmptyState
+    - collaboration form, blog comments, inquiries, golden thread, intervention progress/fidelity, directory recommendations, marketplace bookings, parent portal messages, case stakeholders, and training resources now use shared EmptyState
 
 -----------------------------------------------------------------------------
 7) Delivery + Validation

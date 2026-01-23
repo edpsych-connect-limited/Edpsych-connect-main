@@ -37,6 +37,7 @@ import {
   Printer,
   Share2,
 } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 // Inline date helpers used in the component
 const format = (date: string | Date, _pattern?: string): string => {
@@ -787,15 +788,14 @@ export default function ApplicationDetailView({ applicationId, onBack, onRefresh
             {/* Contribution List */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {application.contributions.length === 0 ? (
-                <div className="col-span-2 bg-gray-50 rounded-lg p-8 text-center">
-                  <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-500">No professionals assigned yet</p>
-                  <button
-                    onClick={() => setShowAssignModal(true)}
-                    className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
-                  >
-                    Assign Professional
-                  </button>
+                <div className="col-span-2">
+                  <EmptyState
+                    title="No professionals assigned yet"
+                    description="Assign a professional to progress the application."
+                    icon={<Users className="w-8 h-8 text-blue-500" />}
+                    actionLabel="Assign professional"
+                    actionOnClick={() => setShowAssignModal(true)}
+                  />
                 </div>
               ) : (
                 application.contributions.map((contribution) => (
@@ -820,10 +820,11 @@ export default function ApplicationDetailView({ applicationId, onBack, onRefresh
           >
             <h3 className="text-lg font-semibold text-gray-900 mb-6">Application Timeline</h3>
             {application.timelineEvents.length === 0 ? (
-              <div className="text-center py-8">
-                <History className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-500">No timeline events yet</p>
-              </div>
+              <EmptyState
+                title="No timeline events yet"
+                description="Timeline updates will appear as activity is recorded."
+                icon={<History className="w-8 h-8 text-blue-500" />}
+              />
             ) : (
               <div className="space-y-2">
                 {application.timelineEvents.map((event, index) => (
@@ -854,8 +855,11 @@ export default function ApplicationDetailView({ applicationId, onBack, onRefresh
               </button>
             </div>
             <div className="text-center py-8">
-              <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-500">No documents uploaded yet</p>
+              <EmptyState
+                title="No documents uploaded yet"
+                description="Upload documents to keep evidence and decisions together."
+                icon={<FileText className="w-8 h-8 text-blue-500" />}
+              />
             </div>
           </motion.div>
         )}

@@ -10,6 +10,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import CollaborativeInputForm from '@/components/assessments/CollaborativeInputForm';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 export default function CollaboratePage() {
   const params = useParams();
@@ -143,9 +144,10 @@ export default function CollaboratePage() {
   if (!formData) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="text-center">
-          <p className="text-gray-600">No form data available</p>
-        </div>
+        <EmptyState
+          title="No form data available"
+          description="Please request a new collaboration link from your Educational Psychologist."
+        />
       </div>
     );
   }

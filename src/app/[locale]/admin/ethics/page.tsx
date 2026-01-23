@@ -639,7 +639,11 @@ export default function EthicsAdminPage() {
                         ))}
                       </div>
                     ) : (
-                      <p className="text-sm text-gray-500">No evidence activity recorded yet.</p>
+                      <EmptyState
+                        title="No evidence activity recorded yet"
+                        description="Evidence events will appear here as workflows run."
+                        className="py-6"
+                      />
                     )}
                   </div>
                 </div>
@@ -656,7 +660,11 @@ export default function EthicsAdminPage() {
                       ))}
                     </div>
                   ) : (
-                    <p className="text-sm text-gray-500">No workflow evidence recorded yet.</p>
+                    <EmptyState
+                      title="No workflow evidence recorded yet"
+                      description="Workflow evidence will appear once events are logged."
+                      className="py-6"
+                    />
                   )}
                 </div>
               </div>

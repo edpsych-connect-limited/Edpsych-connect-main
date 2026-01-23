@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { 
   Calendar, 
   Star, 
@@ -293,12 +294,12 @@ export default function ProfessionalDashboard() {
         <TabsContent value="bookings" className="space-y-4">
           {bookings.length === 0 ? (
             <Card>
-              <CardContent className="py-12 text-center">
-                <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-500 mb-4">No bookings yet</p>
-                <p className="text-sm text-gray-400">
-                  Make sure your profile is complete and you're accepting bookings to start receiving requests.
-                </p>
+              <CardContent className="py-12">
+                <EmptyState
+                  title="No bookings yet"
+                  description="Complete your profile and enable bookings to start receiving requests."
+                  icon={<Calendar className="w-8 h-8 text-blue-500" />}
+                />
               </CardContent>
             </Card>
           ) : (

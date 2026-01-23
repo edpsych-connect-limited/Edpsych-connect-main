@@ -22,6 +22,7 @@ import {
   RefreshCw
 } from 'lucide-react';
 import { EHCPModuleVideoIntro } from '@/components/ehcp/EHCPModuleVideoIntro';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 // Custom LinkBreak icon since it may not exist in lucide
 const LinkBreakIcon = ({ className }: { className?: string }) => (
@@ -236,11 +237,12 @@ export default function GoldenThreadPage() {
             <p className="mt-4 text-gray-600">Analyzing golden threads...</p>
           </div>
         ) : analyses.length === 0 ? (
-          <div className="bg-white rounded-xl shadow-sm border p-12 text-center">
-            <GitBranch className="h-12 w-12 text-gray-300 mx-auto" />
-            <h3 className="mt-4 text-lg font-medium text-gray-900">No analyses yet</h3>
-            <p className="mt-2 text-gray-500">Golden thread analyses will appear here once generated.</p>
-          </div>
+          <EmptyState
+            title="No analyses yet"
+            description="Golden thread analyses will appear here once generated."
+            icon={<GitBranch className="h-8 w-8 text-blue-500" />}
+            className="bg-white border shadow-sm"
+          />
         ) : (
           <div className="space-y-4">
             {analyses.map((analysis) => (
