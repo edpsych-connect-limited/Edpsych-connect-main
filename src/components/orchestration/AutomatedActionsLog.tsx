@@ -30,6 +30,7 @@ import {
   X,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 /**
  * Automated Actions Log Component
@@ -647,15 +648,16 @@ export const AutomatedActionsLog: React.FC<AutomatedActionsLogProps> = ({
       {/* Actions list */}
       <div className="space-y-3">
         {filteredActions.length === 0 ? (
-          <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
-            <Activity className="w-16 h-16 text-gray-300 mx-auto mb-4" aria-hidden="true" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No Actions Found</h3>
-            <p className="text-gray-600">
-              {searchQuery
+          <EmptyState
+            title="No actions found"
+            description={
+              searchQuery
                 ? `No actions match "${searchQuery}"`
-                : 'No automated actions recorded for this time period'}
-            </p>
-          </div>
+                : 'No automated actions recorded for this time period'
+            }
+            icon={<Activity className="w-8 h-8 text-blue-500" aria-hidden="true" />}
+            className="bg-white border border-gray-200"
+          />
         ) : (
           <>
             {filteredActions.map((action) => (

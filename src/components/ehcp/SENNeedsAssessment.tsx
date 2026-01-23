@@ -11,6 +11,8 @@
  */
 
 import React, { useState } from 'react';
+import { ListChecks } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 interface SENNeedsAssessmentProps {
   studentId: number;
@@ -579,7 +581,11 @@ function Step3CurrentProvision({
           </div>
         ))}
         {(data.current_provision || []).length === 0 && (
-          <p className="text-center py-8 text-gray-600">No provision added yet</p>
+          <EmptyState
+            title="No provision added yet"
+            description="Add provision details to build the support plan."
+            icon={<ListChecks className="w-8 h-8 text-blue-500" />}
+          />
         )}
       </div>
     </div>

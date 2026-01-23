@@ -19,6 +19,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDemo } from '@/components/demo/DemoProvider';
 import type { AssessmentReport } from '@/lib/assessments/report-generator';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 // ============================================================================
 // TYPES
@@ -1144,7 +1145,11 @@ function CollaborativeInputStep({ assessmentData, updateAssessmentData: _ }: any
         )}
 
         {typeCollabs.length === 0 && !showInviteForm && (
-          <p className="text-sm text-gray-500 mt-2">No invitations sent yet</p>
+          <EmptyState
+            title="No invitations sent yet"
+            description="Invite collaborators to gather input."
+            className="mt-4"
+          />
         )}
       </div>
     );

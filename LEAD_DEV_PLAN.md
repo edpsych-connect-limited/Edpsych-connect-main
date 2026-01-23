@@ -333,6 +333,7 @@ Progress log:
 - 2026-01-22: Standardized institutional management empty states (activity logs, departments, subscription features/invoices).
 - 2026-01-22: Standardized EHCP detail empty states for outcomes and provision.
 - 2026-01-22: Standardized additional empty states (collaboration form, blog comments, inquiries, golden thread, intervention progress/fidelity, directory recommendations, marketplace bookings, parent portal, case stakeholders, training resources).
+- 2026-01-22: Standardized remaining empty states (EHCP merge, SEN needs, SEN2 return, automated actions log, forum my topics, assessment invites).
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
@@ -420,6 +421,7 @@ Progress log:
     - institutional management now uses shared EmptyState (activity logs, departments, subscription features/invoices)
     - EHCP detail outcomes and provision now use shared EmptyState
     - collaboration form, blog comments, inquiries, golden thread, intervention progress/fidelity, directory recommendations, marketplace bookings, parent portal messages, case stakeholders, and training resources now use shared EmptyState
+    - EHCP merge, SEN needs, SEN2 return, automated actions log, forum my topics, and assessment invites now use shared EmptyState
 
 -----------------------------------------------------------------------------
 7) Delivery + Validation

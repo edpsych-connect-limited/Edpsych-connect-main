@@ -35,6 +35,7 @@ import {
   Unlock,
   History,
 } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 import { smartMergeContributions } from '@/lib/ehcp/smart-merge';
 
@@ -358,10 +359,12 @@ const SectionEditor: React.FC<{
               Professional Contributions ({section.contributions.length})
             </h4>
             {section.contributions.length === 0 ? (
-              <div className="bg-gray-50 rounded-lg p-4 text-center">
-                <AlertCircle className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                <p className="text-sm text-gray-500">No contributions for this section yet</p>
-              </div>
+              <EmptyState
+                title="No contributions yet"
+                description="Invite professionals to contribute evidence for this section."
+                icon={<AlertCircle className="w-8 h-8 text-blue-500" />}
+                className="bg-gray-50"
+              />
             ) : (
               <div className="space-y-2 max-h-80 overflow-y-auto">
                 {section.contributions.map((contribution) => (

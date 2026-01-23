@@ -439,26 +439,17 @@ export default function ForumPage() {
             {activeTab === 'my-topics' && (
               <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-12 text-center">
                 {user ? (
-                  <>
-                    <MessageSquare className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">No topics yet</h3>
-                    <p className="text-gray-500 mb-4">Start a discussion to see your topics here</p>
-                    <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                      Create Your First Topic
-                    </button>
-                  </>
+                  <EmptyState
+                    title="No topics yet"
+                    description="Start a discussion to see your topics here."
+                  />
                 ) : (
-                  <>
-                    <Users className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">Sign in to view your topics</h3>
-                    <p className="text-gray-500 mb-4">Join the community to participate in discussions</p>
-                    <Link
-                      href="/login"
-                      className="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                    >
-                      Sign In
-                    </Link>
-                  </>
+                  <EmptyState
+                    title="Sign in to view your topics"
+                    description="Join the community to participate in discussions."
+                    actionLabel="Sign in"
+                    actionHref="/login"
+                  />
                 )}
               </div>
             )}

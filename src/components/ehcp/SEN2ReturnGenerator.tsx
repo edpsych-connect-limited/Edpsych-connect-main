@@ -37,6 +37,7 @@ import {
   Clock,
   Users,
 } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 // SEN2 Data Categories as per DfE specification
 interface SEN2Data {
@@ -635,10 +636,12 @@ export default function SEN2ReturnGenerator() {
           </div>
         </>
       ) : (
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-12 text-center">
-          <AlertCircle className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-600 dark:text-gray-300">No data available for the selected year.</p>
-        </div>
+        <EmptyState
+          title="No data available for the selected year"
+          description="Choose a different year or generate a new return."
+          icon={<AlertCircle className="w-8 h-8 text-blue-500" />}
+          className="bg-white dark:bg-gray-800"
+        />
       )}
     </div>
   );
