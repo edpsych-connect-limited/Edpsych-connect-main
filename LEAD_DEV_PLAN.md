@@ -354,6 +354,7 @@ Progress log:
 - 2026-01-22: Added launch signoff progress notes and aligned signoff log dates.
 - 2026-01-22: Normalized analytics dashboard trend indicators and added focus-visible rings on actions.
 - 2026-01-22: Hardened agent performance analytics with keyboard-selectable cards and accessible states.
+- 2026-01-22: Added focus-visible rings for admin navigation tabs and evidence exports.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

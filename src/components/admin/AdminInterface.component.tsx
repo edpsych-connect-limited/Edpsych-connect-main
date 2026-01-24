@@ -40,37 +40,37 @@ const ADMIN_TABS: TabConfig[] = [
   {
     id: 'overview',
     label: 'Overview',
-    icon: '📊',
+    icon: 'Analytics',
   },
   {
     id: 'subscriptions',
     label: 'Subscriptions',
     requiredRole: 'admin',
-    icon: '💳',
+    icon: 'Card',
   },
   {
     id: 'analytics',
     label: 'Analytics',
     requiredRole: 'admin',
-    icon: '📈',
+    icon: 'Chart',
   },
   {
     id: 'reports',
     label: 'Reports',
     requiredRole: 'admin',
-    icon: '📄',
+    icon: 'Doc',
   },
   {
     id: 'accounts',
     label: 'Accounts',
     requiredRole: 'admin',
-    icon: '👥',
+    icon: 'Team',
   },
   {
     id: 'compliance',
     label: 'Compliance',
     requiredRole: 'admin',
-    icon: '✅',
+    icon: 'OK',
   },
 ];
 
@@ -145,7 +145,7 @@ export default function AdminInterface() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center max-w-md">
-          <div className="text-6xl mb-4">🔒</div>
+          <div className="text-6xl mb-4">Secure</div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Access Denied</h2>
           <p className="text-gray-600 mb-4">
             You don&apos;t have permission to access the administrative interface.
@@ -264,7 +264,7 @@ export default function AdminInterface() {
             </span>
             {hasRole('super_admin') && (
               <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                🌟 God Mode
+                Star God Mode
               </span>
             )}
           </div>
@@ -283,7 +283,7 @@ export default function AdminInterface() {
                     ? 'bg-primary-600 text-white'
                     : 'text-gray-700 hover:bg-gray-100'
                   }
-                  whitespace-nowrap
+                  whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2
                 `}
               >
                 {tab.icon && <span>{tab.icon}</span>}
@@ -323,7 +323,7 @@ export default function AdminInterface() {
                           <button
                             onClick={handleGenerateBlogPost}
                             disabled={blogGenerating}
-                            className="px-4 py-2 text-sm font-medium bg-primary-600 text-white rounded-md hover:bg-primary-700 disabled:opacity-60"
+                            className="px-4 py-2 text-sm font-medium bg-primary-600 text-white rounded-md hover:bg-primary-700 disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                           >
                             {blogGenerating ? 'Generating...' : 'Generate now'}
                           </button>
@@ -560,7 +560,7 @@ export function UnifiedComplianceDashboard() {
               <select
                 value={timeRangeDays}
                 onChange={(event) => setTimeRangeDays(Number(event.target.value))}
-                className="rounded border border-gray-200 bg-white px-2 py-1 text-xs text-gray-700"
+                className="rounded border border-gray-200 bg-white px-2 py-1 text-xs text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                 aria-label="Evidence time range"
               >
                 <option value={7}>Last 7 days</option>
@@ -571,14 +571,14 @@ export function UnifiedComplianceDashboard() {
             <button
               type="button"
               onClick={handleEvidenceExport}
-              className="rounded border border-blue-200 bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-700 hover:bg-blue-100"
+              className="rounded border border-blue-200 bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-700 hover:bg-blue-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
               Export JSON
             </button>
             <button
               type="button"
               onClick={handleEvidenceExportCsv}
-              className="rounded border border-emerald-200 bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 hover:bg-emerald-100"
+              className="rounded border border-emerald-200 bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
             >
               Export CSV
             </button>
