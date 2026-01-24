@@ -4,6 +4,13 @@ This checklist defines the minimum signoff criteria for enterprise launch.
 
 Status key: [ ] pending, [~] in progress, [x] done
 
+Owner: Codex (Project Lead)
+
+## Progress Notes (2026-01-22)
+- Accessibility: keyboard/screen reader audits running; evidence logged in `docs/accessibility/AUDIT_CHECKLIST.md`.
+- Performance: bundle review active; evidence logged in `docs/performance/BUNDLE_REVIEW_STATUS.md`.
+- Reliability/Security/Compliance/Operations/Commercial: evidence capture pending; no signoff claims yet.
+
 ## Accessibility
 - [~] WCAG 2.1 AA audit complete
 - [~] Keyboard navigation verified for top 15 journeys
@@ -49,13 +56,11 @@ Status key: [ ] pending, [~] in progress, [x] done
 ## Signoff Log
 | Date | Area | Owner | Status | Evidence |
 | --- | --- | --- | --- | --- |
-| YYYY-MM-DD | Accessibility | Codex | Pending | docs/accessibility/AUDIT_CHECKLIST.md |
-| YYYY-MM-DD | Performance | Codex | Pending | docs/performance/BUNDLE_REVIEW_STATUS.md |
-| YYYY-MM-DD | Reliability | Codex | Pending | docs/observability/SLI_SLO.md |
-| YYYY-MM-DD | Security | Codex | Pending | docs/assurance/FINDINGS_REGISTER.md |
-| YYYY-MM-DD | Compliance | Codex | Pending | docs/assurance/VENDOR_SUBPROCESSOR_AUDIT.md |
-| YYYY-MM-DD | Operations | Codex | Pending | docs/ops/RUNBOOK.md |
-| YYYY-MM-DD | Commercial | Codex | Pending | docs/launch/LEGAL_CHECKLIST.md |
-| 2026-01-21 | Performance | Codex | In Progress | docs/performance/build-stats-2026-01-21.txt |
 | 2026-01-22 | Accessibility | Codex | In Progress | docs/accessibility/AUDIT_CHECKLIST.md |
 | 2026-01-22 | Performance | Codex | In Progress | docs/performance/BUNDLE_REVIEW_STATUS.md |
+| 2026-01-22 | Reliability | Codex | Pending | docs/observability/SLI_SLO.md |
+| 2026-01-22 | Security | Codex | Pending | docs/assurance/FINDINGS_REGISTER.md |
+| 2026-01-22 | Compliance | Codex | Pending | docs/assurance/VENDOR_SUBPROCESSOR_AUDIT.md |
+| 2026-01-22 | Operations | Codex | Pending | docs/ops/RUNBOOK.md |
+| 2026-01-22 | Commercial | Codex | Pending | docs/launch/LEGAL_CHECKLIST.md |
+| 2026-01-21 | Performance | Codex | In Progress | docs/performance/build-stats-2026-01-21.txt |
