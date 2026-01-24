@@ -117,7 +117,7 @@ export default function AgentPerformanceAnalytics() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
+      <div className="flex items-center justify-center h-64" role="status" aria-live="polite">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
@@ -125,7 +125,7 @@ export default function AgentPerformanceAnalytics() {
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+      <div className="bg-red-50 border border-red-200 rounded-lg p-6" role="alert">
         <div className="flex items-center">
           <XCircle className="h-6 w-6 text-red-600 mr-3" />
           <div>
@@ -154,7 +154,7 @@ export default function AgentPerformanceAnalytics() {
               aria-label="Time range"
               value={timeRange}
               onChange={(e) => setTimeRange(e.target.value as any)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="px-4 py-2 border border-gray-300 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
               <option value="hour">Last Hour</option>
               <option value="day">Last 24 Hours</option>
@@ -171,7 +171,16 @@ export default function AgentPerformanceAnalytics() {
           <div
             key={agent.agentId}
             onClick={() => setSelectedAgent(agent)}
-            className="bg-white rounded-lg shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow"
+            role="button"
+            tabIndex={0}
+            aria-label={`View performance for ${agent.name}`}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                setSelectedAgent(agent);
+              }
+            }}
+            className="bg-white rounded-lg shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           >
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-3">
@@ -238,7 +247,7 @@ export default function AgentPerformanceAnalytics() {
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900">{selectedAgent.name}</h2>
-                  <p className="text-gray-600">Agent ID: {selectedAgent.agentId} • Type: {selectedAgent.type}</p>
+                  <p className="text-gray-600">Agent ID: {selectedAgent.agentId} | Type: {selectedAgent.type}</p>
                 </div>
               </div>
               <div className="text-right">
