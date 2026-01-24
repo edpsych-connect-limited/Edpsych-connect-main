@@ -125,3 +125,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-22: Assessment administration wizard collaboration invites now include focus-visible rings; collaboration status labels normalized to ASCII.
 - 2026-01-23: Role dashboards refreshed with next-action panels and focus-visible states; manual keyboard and screen reader verification still pending.
 - 2026-01-23: Added focus-visible cues for EP, Parent, and School dashboard primary actions; verification pending.
+- 2026-01-23: Verification run passed; accessibility manual journey audits still outstanding.
