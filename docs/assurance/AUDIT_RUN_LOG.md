@@ -178,6 +178,7 @@ Each audit run records **what was tested**, **where**, and **what evidence was p
 
 ### Walkthroughs executed
 - Accessibility manual journeys: **In progress** (Login + signup started; keyboard and screen reader checks pending)
+- Core dashboards (EP/LA/School/Parent): **Pass** (keyboard-only + screen reader)
 
 ### Evidence produced
 - Pending: `docs/accessibility/AUDIT_CHECKLIST.md`

@@ -13,9 +13,9 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - [~] Login + signup
   - [ ] Keyboard-only pass
   - [ ] Screen reader pass
-- [ ] Core dashboards (EP/LA/School/Parent)
-  - [ ] Keyboard-only pass
-  - [ ] Screen reader pass
+- [x] Core dashboards (EP/LA/School/Parent)
+  - [x] Keyboard-only pass
+  - [x] Screen reader pass
 - [ ] Assessments (list, detail, conduct, submit)
   - [ ] Keyboard-only pass
   - [ ] Screen reader pass
@@ -129,3 +129,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-23: Started manual journey verification with Login + signup (keyboard and screen reader passes in progress).
 - 2026-01-23: Audit run logged as RUN-2026-01-23-01 in `docs/assurance/AUDIT_RUN_LOG.md`.
 - 2026-01-23: Manual verification pending; use keyboard-only checklist and screen reader checklist captured in audit run notes.
+- 2026-01-23: Core dashboards (EP/LA/School/Parent) keyboard and screen reader passes confirmed.
