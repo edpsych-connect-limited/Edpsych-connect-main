@@ -627,7 +627,7 @@ export default function AnnualReviewScheduler() {
                         </div>
                         <div>
                           <h3 className="font-semibold text-gray-900 dark:text-white">{review.studentName}</h3>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">{review.school} • {review.yearGroup}</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">{review.school} - {review.yearGroup}</p>
                           <div className="flex items-center gap-2 mt-2">
                             <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-${REVIEW_TYPE_CONFIG[review.reviewType].color}-100 text-${REVIEW_TYPE_CONFIG[review.reviewType].color}-700 dark:bg-${REVIEW_TYPE_CONFIG[review.reviewType].color}-900/30 dark:text-${REVIEW_TYPE_CONFIG[review.reviewType].color}-400`}>
                               {REVIEW_TYPE_CONFIG[review.reviewType].label}

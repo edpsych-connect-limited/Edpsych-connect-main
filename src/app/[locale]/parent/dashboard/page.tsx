@@ -51,6 +51,19 @@ export default function ParentDashboard() {
           <h1 className="text-2xl font-bold text-slate-900">Welcome back</h1>
           <p className="text-slate-600">Here's what's happening with {childProfile?.name || 'your child'}'s support plan.</p>
         </div>
+        <div className="mb-8 rounded-lg border border-indigo-100 bg-indigo-50 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-indigo-900">Decision Support</p>
+              <p className="text-sm text-indigo-800">
+                Review the active support plan, confirm upcoming appointments, and keep your wellbeing log current.
+              </p>
+            </div>
+            <div className="text-xs text-indigo-700">
+              Focus: support plan, appointments, wellbeing.
+            </div>
+          </div>
+        </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Feed */}
@@ -62,7 +75,10 @@ export default function ParentDashboard() {
                 <h2 className="font-bold text-slate-900 flex items-center gap-2">
                   <Activity className="w-5 h-5 text-indigo-600" /> Active Support
                 </h2>
-                <Link href="/interventions/schedule" className="text-sm text-indigo-600 font-medium hover:text-indigo-700">
+                <Link
+                  href="/interventions/schedule"
+                  className="text-sm text-indigo-600 font-medium hover:text-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
+                >
                   View Schedule
                 </Link>
               </div>
@@ -104,7 +120,10 @@ export default function ParentDashboard() {
                 <h2 className="font-bold text-slate-900 flex items-center gap-2">
                   <BookOpen className="w-5 h-5 text-indigo-600" /> Recommended Training
                 </h2>
-                <Link href="/training" className="text-sm text-indigo-600 font-medium hover:text-indigo-700">
+                <Link
+                  href="/training"
+                  className="text-sm text-indigo-600 font-medium hover:text-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
+                >
                   Browse Catalog
                 </Link>
               </div>
@@ -126,7 +145,7 @@ export default function ParentDashboard() {
                       </div>
                       <Link 
                         href={`/training/${course.id}`}
-                        className="ml-4 p-2 rounded-full bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition-colors"
+                        className="ml-4 p-2 rounded-full bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
                       >
                         <PlayCircle className="w-5 h-5" />
                       </Link>
@@ -167,6 +186,29 @@ export default function ParentDashboard() {
 
           {/* Sidebar */}
           <div className="space-y-6">
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+              <h2 className="font-bold text-slate-900 mb-4">Next Actions</h2>
+              <div className="space-y-2">
+                <Link
+                  href="/interventions/schedule"
+                  className="block w-full text-left px-4 py-2 rounded-lg hover:bg-slate-50 text-slate-700 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                >
+                  Review support schedule
+                </Link>
+                <Link
+                  href="/wellbeing/survey"
+                  className="block w-full text-left px-4 py-2 rounded-lg hover:bg-slate-50 text-slate-700 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                >
+                  Update wellbeing log
+                </Link>
+                <Link
+                  href="/training"
+                  className="block w-full text-left px-4 py-2 rounded-lg hover:bg-slate-50 text-slate-700 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                >
+                  Start parent training
+                </Link>
+              </div>
+            </div>
             
             {/* Upcoming Appointments */}
             <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
@@ -191,13 +233,16 @@ export default function ParentDashboard() {
             <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
               <h2 className="font-bold text-slate-900 mb-4">Quick Actions</h2>
               <div className="space-y-2">
-                <Link href="/wellbeing/survey" className="block w-full text-left px-4 py-2 rounded-lg hover:bg-slate-50 text-slate-700 text-sm font-medium transition-colors">
+                <Link
+                  href="/wellbeing/survey"
+                  className="block w-full text-left px-4 py-2 rounded-lg hover:bg-slate-50 text-slate-700 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                >
                   Update Wellbeing Log
                 </Link>
-                <button className="block w-full text-left px-4 py-2 rounded-lg hover:bg-slate-50 text-slate-700 text-sm font-medium transition-colors">
+                <button className="block w-full text-left px-4 py-2 rounded-lg hover:bg-slate-50 text-slate-700 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
                   Contact SENCO
                 </button>
-                <button className="block w-full text-left px-4 py-2 rounded-lg hover:bg-slate-50 text-slate-700 text-sm font-medium transition-colors">
+                <button className="block w-full text-left px-4 py-2 rounded-lg hover:bg-slate-50 text-slate-700 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
                   Upload Documents
                 </button>
               </div>

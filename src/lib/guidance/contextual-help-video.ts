@@ -1,7 +1,7 @@
 /**
- * Contextual Help → tutorial video mapping.
+ * Contextual Help -> tutorial video mapping.
  *
- * This module centralizes the contract for “zero-touch” in-app guidance:
+ * This module centralizes the contract for "zero-touch" in-app guidance:
  * given a route/pathname, we can deterministically choose the most relevant
  * tutorial video key.
  */
@@ -19,7 +19,7 @@ export const CONTEXTUAL_HELP_VIDEO_KEYS = {
   // Public demo pages
   CODING_CURRICULUM: 'intro-coding-journey',
   RESEARCH_HUB: 'innovation-research-hub',
-  // Canonical key for the “Safety Net” / Golden Thread demo.
+  // Canonical key for the "Safety Net" / Golden Thread demo.
   // NOTE: We still support the older alias key `no-child-left-behind` elsewhere
   // (e.g. in training video registries), but contextual help should emit the
   // canonical key to keep UI evidence + E2E expectations deterministic.
@@ -53,7 +53,7 @@ export type ContextualHelpVideoKey = (typeof CONTEXTUAL_HELP_VIDEO_KEYS)[keyof t
 export function getContextualHelpVideoKey(pathname: string): ContextualHelpVideoKey {
   const p = (pathname || '').toLowerCase();
 
-  // Locale stripping: "/en/xyz" → "/xyz".
+  // Locale stripping: "/en/xyz" -> "/xyz".
   // We keep leading slash.
   const normalized = p.replace(/^\/(en|cy)(?=\/|$)/, '');
 

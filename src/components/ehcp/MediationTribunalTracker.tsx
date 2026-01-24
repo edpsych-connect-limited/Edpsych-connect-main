@@ -426,7 +426,7 @@ export default function MediationTribunalTracker() {
               <PoundSterling className="w-5 h-5 text-amber-500" />
             </div>
             <div className="text-2xl font-bold text-gray-900 dark:text-white">
-              £{stats.totalCosts.toLocaleString()}
+              GBP {stats.totalCosts.toLocaleString()}
             </div>
           </motion.div>
         </div>
@@ -592,7 +592,7 @@ export default function MediationTribunalTracker() {
                     <div>
                       <div className="text-gray-500 dark:text-gray-400">Est. Cost</div>
                       <div className="font-medium text-gray-900 dark:text-white">
-                        £{tribunal.estimatedCost.toLocaleString()}
+                        GBP {tribunal.estimatedCost.toLocaleString()}
                       </div>
                     </div>
                     {tribunal.outcome && (
@@ -699,7 +699,7 @@ export default function MediationTribunalTracker() {
                 </div>
                 <div className="text-center p-4 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
                   <div className="text-3xl font-bold text-amber-600">
-                    £{stats.averageCostPerCase.toLocaleString()}
+                    GBP {stats.averageCostPerCase.toLocaleString()}
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Avg. Cost/Case</div>
                 </div>
@@ -743,7 +743,7 @@ export default function MediationTribunalTracker() {
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <div className="text-4xl font-bold text-red-600 mb-2">
-                    £{stats.totalCosts.toLocaleString()}
+                    GBP {stats.totalCosts.toLocaleString()}
                   </div>
                   <p className="text-gray-600 dark:text-gray-400">
                     Total spent on tribunals this year. This money could fund:
@@ -765,7 +765,7 @@ export default function MediationTribunalTracker() {
                 </div>
                 <div className="flex items-center justify-center">
                   <div className="text-center">
-                    <div className="text-6xl mb-2">💡</div>
+                    <div className="text-6xl mb-2">Tip</div>
                     <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
                       Better EHCPs = Fewer Tribunals = More Resources for Children
                     </p>

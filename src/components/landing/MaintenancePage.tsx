@@ -71,7 +71,7 @@ const MANIFESTO = [
   },
   {
     title: 'Technology Amplifies Expertise',
-    description: 'We don\'t replace educational psychologists—we multiply their impact 100-fold.',
+    description: 'We don\'t replace educational psychologists-we multiply their impact 100-fold.',
     icon: Brain,
   },
   {

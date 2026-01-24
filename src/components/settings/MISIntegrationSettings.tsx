@@ -364,7 +364,7 @@ export default function MISIntegrationSettings() {
                     <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{provider.description}</p>
                     {provider.lastSync && (
                       <p className="text-xs text-gray-500 dark:text-gray-500 mt-2">
-                        Last sync: {new Date(provider.lastSync).toLocaleString('en-GB')} • {provider.recordsSynced} records
+                        Last sync: {new Date(provider.lastSync).toLocaleString('en-GB')} - {provider.recordsSynced} records
                       </p>
                     )}
                   </div>

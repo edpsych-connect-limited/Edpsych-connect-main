@@ -69,11 +69,11 @@ const PLATFORM_KNOWLEDGE = {
       details: `The ECCA Framework is our flagship cognitive assessment system, developed by Dr. Scott Ighavongbe-Patrick. 
       
 Key features:
-• Stealth Assessments - Gamified assessments that feel like play, reducing anxiety
-• Dynamic Assessment - Real-time adaptation based on student responses
-• Cognitive Profiling - Comprehensive profiles across 8 cognitive domains
-• Evidence-Based - Built on decades of educational psychology research
-• SEND Compliance - Fully aligned with UK SEND Code of Practice
+- Stealth Assessments - Gamified assessments that feel like play, reducing anxiety
+- Dynamic Assessment - Real-time adaptation based on student responses
+- Cognitive Profiling - Comprehensive profiles across 8 cognitive domains
+- Evidence-Based - Built on decades of educational psychology research
+- SEND Compliance - Fully aligned with UK SEND Code of Practice
 
 How to use:
 1. Navigate to Assessments from your dashboard
@@ -89,12 +89,12 @@ How to use:
       description: 'Library of 500+ research-backed interventions matched to student needs',
       details: `Our intervention library contains over 500 evidence-based strategies, each with:
       
-• Effect size ratings (Cohen's d)
-• Implementation guides
-• Progress monitoring tools
-• Resource requirements
-• Time estimates
-• Success criteria
+- Effect size ratings (Cohen's d)
+- Implementation guides
+- Progress monitoring tools
+- Resource requirements
+- Time estimates
+- Success criteria
 
 The Self-Driving SENCO feature automatically:
 1. Analyses assessment results
@@ -111,22 +111,22 @@ The Self-Driving SENCO feature automatically:
       details: `Our EHCP system streamlines the entire statutory assessment process:
 
 For Schools/SENCOs:
-• Request initiation with evidence gathering
-• Section contribution templates
-• Timeline tracking against 20-week deadline
-• Multi-agency collaboration tools
+- Request initiation with evidence gathering
+- Section contribution templates
+- Timeline tracking against 20-week deadline
+- Multi-agency collaboration tools
 
 For Educational Psychologists:
-• Psychological advice templates
-• Assessment integration
-• Report generation
-• Panel preparation
+- Psychological advice templates
+- Assessment integration
+- Report generation
+- Panel preparation
 
 For Local Authorities:
-• Application management dashboard
-• Compliance monitoring
-• Panel decision recording
-• Annual review scheduling
+- Application management dashboard
+- Compliance monitoring
+- Panel decision recording
+- Annual review scheduling
 
 The Universal Translator feature automatically converts professional language into parent-friendly explanations.`,
       videos: ['ehcp-application-journey', 'ehcp-evidence-gathering', 'la-dashboard-overview'],
@@ -138,24 +138,24 @@ The Universal Translator feature automatically converts professional language in
       details: `The EP Marketplace connects:
 
 Schools looking for EP services with:
-• LA Panel-approved EPs
-• Independent practitioners
-• Specialist assessors
+- LA Panel-approved EPs
+- Independent practitioners
+- Specialist assessors
 
 Features:
-• Verified credentials (HCPC registration)
-• Enhanced DBS checks
-• Professional indemnity insurance (£6M minimum)
-• Availability calendars
-• Direct booking system
-• Secure messaging
-• Review and rating system
+- Verified credentials (HCPC registration)
+- Enhanced DBS checks
+- Professional indemnity insurance (GBP 6M minimum)
+- Availability calendars
+- Direct booking system
+- Secure messaging
+- Review and rating system
 
 For EPs:
-• Profile management
-• Job board access
-• Invoice generation
-• CPD tracking`,
+- Profile management
+- Job board access
+- Invoice generation
+- CPD tracking`,
       videos: ['la-professional-requests', 'help-collaboration', 'help-getting-started'],
       relatedTopics: ['la-panel', 'professionals', 'booking']
     },
@@ -165,20 +165,20 @@ For EPs:
       details: `Our Training Centre offers:
 
 Course Categories:
-• Cognitive Assessment techniques
-• Behavioural interventions
-• SEND legislation and compliance
-• Research methods
-• Professional skills
-• Specific learning difficulties
+- Cognitive Assessment techniques
+- Behavioural interventions
+- SEND legislation and compliance
+- Research methods
+- Professional skills
+- Specific learning difficulties
 
 Features:
-• Video-based learning with AI narration
-• Interactive quizzes
-• Downloadable resources
-• CPD certificates
-• Progress tracking
-• Cohort learning options
+- Video-based learning with AI narration
+- Interactive quizzes
+- Downloadable resources
+- CPD certificates
+- Progress tracking
+- Cohort learning options
 
 All courses are accredited and count towards professional development requirements.`,
       videos: ['help-cpd-tracking', 'help-getting-started', 'help-troubleshooting'],
@@ -190,25 +190,25 @@ All courses are accredited and count towards professional development requiremen
       details: `EdPsych Connect is built on solid research foundations:
 
 Theoretical Framework:
-• Cattell-Horn-Carroll (CHC) Theory of cognitive abilities
-• Dynamic Assessment principles (Feuerstein, Vygotsky)
-• Response to Intervention (RTI) framework
-• Universal Design for Learning (UDL)
+- Cattell-Horn-Carroll (CHC) Theory of cognitive abilities
+- Dynamic Assessment principles (Feuerstein, Vygotsky)
+- Response to Intervention (RTI) framework
+- Universal Design for Learning (UDL)
 
 Research Partnerships:
-• University collaborations for validation studies
-• Longitudinal outcome tracking
-• Peer-reviewed publications
+- University collaborations for validation studies
+- Longitudinal outcome tracking
+- Peer-reviewed publications
 
 Data-Driven Development:
-• Continuous A/B testing
-• User feedback integration
-• Outcome-based iteration
+- Continuous A/B testing
+- User feedback integration
+- Outcome-based iteration
 
 Our proprietary algorithms are developed and refined based on:
-• 50,000+ assessment data points
-• 10+ years of clinical practice
-• Collaboration with leading researchers`,
+- 50,000+ assessment data points
+- 10+ years of clinical practice
+- Collaboration with leading researchers`,
       videos: ['innovation-research-hub', 'assessment-interpreting', 'assessment-choosing'],
       relatedTopics: ['assessments', 'ecca', 'methodology']
     },
@@ -218,11 +218,11 @@ Our proprietary algorithms are developed and refined based on:
       details: `The EdPsych Connect Coding Curriculum is designed with neurodiversity in mind:
 
 Key Features:
-• Visual-first approach (block-based to text-based progression)
-• Gamified learning with Battle Royale competitions
-• Cognitive load management
-• Multi-sensory instruction
-• Differentiated pathways
+- Visual-first approach (block-based to text-based progression)
+- Gamified learning with Battle Royale competitions
+- Cognitive load management
+- Multi-sensory instruction
+- Differentiated pathways
 
 Curriculum Levels:
 1. Foundations - Computational thinking basics
@@ -232,11 +232,11 @@ Curriculum Levels:
 5. Advanced - AI/ML concepts
 
 Each level includes:
-• Video tutorials
-• Interactive exercises
-• Projects
-• Assessments
-• Certificates`,
+- Video tutorials
+- Interactive exercises
+- Projects
+- Assessments
+- Certificates`,
       videos: ['innovation-coding-curriculum', 'innovation-battle-royale', 'innovation-ai-agents'],
       relatedTopics: ['gamification', 'student-dashboard', 'battle-royale']
     },
@@ -246,24 +246,24 @@ Each level includes:
       details: `Our gamification system increases engagement through:
 
 Battle Royale Mode:
-• Real-time competitive assessments
-• Class vs class competitions
-• Leaderboards and rankings
-• Achievement badges
-• XP and levelling system
+- Real-time competitive assessments
+- Class vs class competitions
+- Leaderboards and rankings
+- Achievement badges
+- XP and levelling system
 
 The psychology behind it:
-• Intrinsic motivation through mastery
-• Social learning through competition
-• Reduced assessment anxiety
-• Immediate feedback loops
-• Growth mindset promotion
+- Intrinsic motivation through mastery
+- Social learning through competition
+- Reduced assessment anxiety
+- Immediate feedback loops
+- Growth mindset promotion
 
 Teachers can:
-• Create custom challenges
-• Set class goals
-• Award bonus points
-• Monitor engagement metrics`,
+- Create custom challenges
+- Set class goals
+- Award bonus points
+- Monitor engagement metrics`,
       videos: ['innovation-battle-royale', 'innovation-coding-curriculum', 'school-senco-portal'],
       relatedTopics: ['student-dashboard', 'assessments', 'engagement']
     }
@@ -466,14 +466,14 @@ function AIChatbot({ isOpen, onClose }: AIChatbotProps) {
     {
       id: '1',
       role: 'assistant',
-      content: `Hello${user?.name ? `, ${user.name}` : ''}! 👋 I'm your EdPsych Connect AI Assistant. I have comprehensive knowledge of the entire platform and can help you with:
+      content: `Hello${user?.name ? `, ${user.name}` : ''}! I'm your EdPsych Connect AI Assistant. I have comprehensive knowledge of the entire platform and can help you with:
 
-• **Assessments** - ECCA framework, stealth assessments, cognitive profiles
-• **Interventions** - Evidence-based strategies, Self-Driving SENCO
-• **EHCP** - Applications, reports, statutory timelines
-• **Training** - CPD courses, certificates, professional development
-• **Marketplace** - Finding EPs, booking, LA panel
-• **Technical Support** - Account issues, navigation, troubleshooting
+- **Assessments** - ECCA framework, stealth assessments, cognitive profiles
+- **Interventions** - Evidence-based strategies, Self-Driving SENCO
+- **EHCP** - Applications, reports, statutory timelines
+- **Training** - CPD courses, certificates, professional development
+- **Marketplace** - Finding EPs, booking, LA panel
+- **Technical Support** - Account issues, navigation, troubleshooting
 
 How can I help you today? You can also use voice input by clicking the microphone button.`,
       timestamp: new Date()
@@ -651,7 +651,7 @@ How can I help you today? You can also use voice input by clicking the microphon
       // Speak response if voice enabled
       if (voiceEnabled) {
         // Extract plain text for speech (remove markdown)
-        const plainText = aiContent.replace(/\*\*/g, '').replace(/•/g, '').replace(/\n/g, '. ');
+        const plainText = aiContent.replace(/\*\*/g, '').replace(/- /g, '').replace(/\n/g, '. ');
         speakResponse(plainText);
       }
 
@@ -828,7 +828,7 @@ How can I help you today? You can also use voice input by clicking the microphon
         </div>
         {isListening && (
           <p className="text-xs text-red-500 mt-2 text-center animate-pulse">
-            🎤 Listening... Speak now
+            Listening... Speak now
           </p>
         )}
       </div>

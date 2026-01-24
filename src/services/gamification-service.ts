@@ -197,7 +197,7 @@ export class GamificationService {
 
     const game = await prisma.battleRoyaleGame.create({
       data: {
-        name: `🎮 ${subject} Battle Royale: ${topic}`,
+        name: ` ${subject} Battle Royale: ${topic}`,
         subject,
         topic,
         yearGroup,
@@ -284,7 +284,7 @@ export class GamificationService {
         id: `countdown_${i}`,
         type: 'player_eliminated', // Reusing type for simplicity, should be 'system_message'
         timestamp: new Date(),
-        data: { message: `🎯 Battle begins in ${i}...`, type: 'countdown' },
+        data: { message: `TARGET Battle begins in ${i}...`, type: 'countdown' },
       });
     }
 
@@ -304,7 +304,7 @@ export class GamificationService {
       id: 'game_started',
       type: 'player_eliminated',
       timestamp: new Date(),
-      data: { message: '🚀 BATTLE ROYALE BEGINS! Fight for knowledge supremacy!', type: 'game_start' },
+      data: { message: 'START BATTLE ROYALE BEGINS! Fight for knowledge supremacy!', type: 'game_start' },
     });
   }
 
@@ -466,7 +466,7 @@ export class GamificationService {
       {
         id: `powerup_${Date.now()}_1`,
         type: 'knowledge',
-        name: '🧠 Knowledge Boost',
+        name: 'AI Knowledge Boost',
         description: 'Instantly gain advanced understanding of any topic',
         rarity: 'epic',
         duration: 60,
@@ -478,7 +478,7 @@ export class GamificationService {
       {
         id: `powerup_${Date.now()}_2`,
         type: 'speed',
-        name: '⚡ Lightning Speed',
+        name: ' Lightning Speed',
         description: 'Answer questions at incredible speed',
         rarity: 'rare',
         duration: 45,
@@ -489,7 +489,7 @@ export class GamificationService {
       {
         id: `powerup_${Date.now()}_3`,
         type: 'shield',
-        name: '🛡️ Knowledge Shield',
+        name: ' Knowledge Shield',
         description: 'Protect against wrong answers',
         rarity: 'common',
         duration: 30,
@@ -544,7 +544,7 @@ export class GamificationService {
         success: true,
         correct: true,
         points,
-        feedback: '🎉 OUTSTANDING! You crushed that question!',
+        feedback: 'READY OUTSTANDING! You crushed that question!',
         effects: ['score_boost', 'confidence_up'],
         animations: ['celebration', 'particles']
       };
@@ -553,7 +553,7 @@ export class GamificationService {
         success: true,
         correct: false,
         points: 0,
-        feedback: '❌ Not quite right, but great effort! Keep fighting!',
+        feedback: 'FAIL Not quite right, but great effort! Keep fighting!',
         effects: ['learning_opportunity'],
         animations: ['encouragement'],
         correctAnswer: question.correctAnswer,
@@ -585,7 +585,7 @@ export class GamificationService {
       success: true,
       powerUp: 'Unknown', // Need to fetch powerup details
       effects: [],
-      message: `🚀 ACTIVATED! Feel the power!`,
+      message: `START ACTIVATED! Feel the power!`,
       animations: ['power_surge', 'screen_flash', 'particles'],
       duration: 30
     };
@@ -626,7 +626,7 @@ export class GamificationService {
       id: 'storm_incoming',
       type: 'storm_damage',
       timestamp: new Date(),
-      data: { message: '⚠️ The Knowledge Storm approaches! Move to safe zones!', type: 'warning' }
+      data: { message: 'WARNING The Knowledge Storm approaches! Move to safe zones!', type: 'warning' }
     });
   }
 

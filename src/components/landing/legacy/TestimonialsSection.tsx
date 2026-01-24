@@ -45,7 +45,7 @@ export default function TestimonialsSection() {
               key={i}
               className="bg-white rounded-2xl shadow-lg p-8 border border-slate-200 hover:shadow-xl transition-all duration-300"
             >
-              <p className="text-slate-700 italic mb-6">“{t.quote}”</p>
+              <p className="text-slate-700 italic mb-6">"{t.quote}"</p>
               <div className="font-semibold text-slate-900">{t.name}</div>
               <div className="text-slate-500 text-sm">{t.role}</div>
             </div>

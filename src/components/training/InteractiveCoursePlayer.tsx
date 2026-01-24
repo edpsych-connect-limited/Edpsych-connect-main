@@ -398,7 +398,7 @@ export default function InteractiveCoursePlayer({
                   disabled={currentModuleIndex === 0 && currentLessonIndex === 0}
                   className="px-6 py-3 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  ← Previous Lesson
+                  Previous Lesson
                 </button>
 
                 <button
@@ -407,8 +407,8 @@ export default function InteractiveCoursePlayer({
                 >
                   {currentModuleIndex === course.modules.length - 1 &&
                   currentLessonIndex === currentModule.lessons.length - 1
-                    ? 'Complete Course →'
-                    : 'Mark Complete & Continue →'}
+                    ? 'Complete Course ->'
+                    : 'Mark Complete & Continue ->'}
                 </button>
               </div>
             </div>
@@ -420,7 +420,7 @@ export default function InteractiveCoursePlayer({
       {showCelebration && (
         <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-50">
           <div className="bg-white rounded-lg shadow-2xl p-8 animate-bounce">
-            <div className="text-6xl mb-4">🎉</div>
+            <div className="text-6xl mb-4">OK</div>
             <div className="text-2xl font-bold text-gray-900">Lesson Complete!</div>
             <div className="text-gray-600 mt-2">+10 Points</div>
           </div>
@@ -566,7 +566,7 @@ function QuizElement({ element, enrollmentId: _enrollmentId, onComplete }: Inter
           </span>
           {scoringEngine.getCurrentStreak() >= 3 && (
             <span className="text-sm font-bold text-yellow-700 bg-yellow-100 px-3 py-1 rounded-full animate-pulse">
-              🔥 {scoringEngine.getCurrentStreak()} streak!
+              STREAK {scoringEngine.getCurrentStreak()} streak!
             </span>
           )}
         </div>
@@ -596,10 +596,10 @@ function QuizElement({ element, enrollmentId: _enrollmentId, onComplete }: Inter
                 </span>
                 <span className="flex-1">{option}</span>
                 {showFeedback && index === currentQuestion.correct_answer && (
-                  <span className="text-green-600 text-2xl animate-scale-in">✓</span>
+                  <span className="text-green-600 text-2xl animate-scale-in">OK</span>
                 )}
                 {showFeedback && selectedAnswers[currentQuestionIndex] === index && index !== currentQuestion.correct_answer && (
-                  <span className="text-red-600 text-2xl animate-scale-in">✗</span>
+                  <span className="text-red-600 text-2xl animate-scale-in">NO</span>
                 )}
               </div>
             </button>
@@ -615,7 +615,7 @@ function QuizElement({ element, enrollmentId: _enrollmentId, onComplete }: Inter
         }`}>
           <div className="flex items-start space-x-3">
             <div className="flex-shrink-0 text-3xl">
-              {selectedAnswers[currentQuestionIndex] === currentQuestion.correct_answer ? '🎉' : '💡'}
+              {selectedAnswers[currentQuestionIndex] === currentQuestion.correct_answer ? 'OK' : 'TIP'}
             </div>
             <div className="flex-1">
               <p className="font-bold text-lg mb-2">
@@ -949,7 +949,7 @@ function InteractiveDiagramElement({ element, enrollmentId: _enrollmentId, onCom
 
       {allExplored && (
         <div className="mt-4 p-4 bg-green-50 rounded-lg">
-          <p className="text-green-800">✓ You&apos;ve explored all areas of this diagram!</p>
+          <p className="text-green-800">OK You&apos;ve explored all areas of this diagram!</p>
         </div>
       )}
     </div>

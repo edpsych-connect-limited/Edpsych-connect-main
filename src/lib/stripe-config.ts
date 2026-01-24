@@ -453,10 +453,10 @@ export function logStripeConfigStatus(): void {
   const { valid, missingVars } = validateStripeConfig();
 
   if (valid) {
-    logger.debug('[Stripe Config] ✓ All required environment variables are set');
+    logger.debug('[Stripe Config]  All required environment variables are set');
   } else {
     console.error(
-      `[Stripe Config] ✗ Missing environment variables: ${missingVars.join(', ')}`
+      `[Stripe Config]  Missing environment variables: ${missingVars.join(', ')}`
     );
   }
 
@@ -470,7 +470,7 @@ export function logStripeConfigStatus(): void {
 
   if (hasPlaceholders) {
     console.warn(
-      '[Stripe Config] ⚠️  Using placeholder price IDs. Update src/lib/stripe-config.ts with real Stripe price IDs from Dashboard'
+      '[Stripe Config] WARNING  Using placeholder price IDs. Update src/lib/stripe-config.ts with real Stripe price IDs from Dashboard'
     );
   }
 }

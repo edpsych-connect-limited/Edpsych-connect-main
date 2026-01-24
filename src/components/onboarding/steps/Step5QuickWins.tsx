@@ -176,7 +176,7 @@ export function Step5QuickWins() {
       {/* Header */}
       <div className="text-center">
         <h2 className="text-4xl font-bold text-gray-900 mb-3">
-          Get Your First Quick Wins! 🎯
+          Get Your First Quick Wins!
         </h2>
         <p className="text-lg text-gray-600">
           Complete these hands-on tasks to experience the platform&apos;s key workflows
@@ -208,7 +208,7 @@ export function Step5QuickWins() {
               </p>
               <p className="text-sm text-gray-600">
                 {allTasksComplete
-                  ? 'You\'re ready to use the platform! 🎉'
+                  ? 'You\'re ready to use the platform!'
                   : 'Complete all 3 tasks to unlock your full experience'
                 }
               </p>
@@ -263,7 +263,7 @@ export function Step5QuickWins() {
                       <h3 className="text-lg font-semibold text-gray-900 mb-1">
                         {task.title}
                         {task.completed && (
-                          <span className="ml-2 text-sm font-medium text-green-600">✓ Complete</span>
+                          <span className="ml-2 text-sm font-medium text-green-600">Complete</span>
                         )}
                       </h3>
                       <p className="text-sm text-gray-600">
@@ -407,7 +407,7 @@ export function Step5QuickWins() {
       {showSuccess && (
         <div className="fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-3 animate-slide-in-right z-50">
           <Check className="w-5 h-5" />
-          <span className="font-medium">Task completed! 🎉</span>
+          <span className="font-medium">Task completed!</span>
         </div>
       )}
 

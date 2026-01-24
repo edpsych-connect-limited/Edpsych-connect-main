@@ -45,7 +45,7 @@ export default function CookieBanner({ className = '' }: CookieBannerProps) {
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  🍪 Cookie Settings
+                  Cookie Settings
                 </h3>
               </div>
 
@@ -65,12 +65,12 @@ export default function CookieBanner({ className = '' }: CookieBannerProps) {
               {/* GDPR/CCPA Notice */}
               {settings.region === 'gdpr' && (
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                  🇪🇺 This site complies with GDPR requirements for EU users
+                  This site complies with GDPR requirements for EU users
                 </p>
               )}
               {settings.region === 'ccpa' && (
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                  🇺🇸 This site complies with CCPA requirements for California users
+                  This site complies with CCPA requirements for California users
                 </p>
               )}
             </div>

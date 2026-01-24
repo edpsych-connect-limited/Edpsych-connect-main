@@ -238,7 +238,7 @@ export const PrivacyPolicyManager: React.FC = () => {
                 <div>
                   <h3 className="text-lg font-medium text-gray-900">{privacyPolicy.title}</h3>
                   <p className="text-sm text-gray-600">
-                    Version {privacyPolicy.version} • Effective {new Date(privacyPolicy.effectiveDate).toLocaleDateString()}
+                    Version {privacyPolicy.version} - Effective {new Date(privacyPolicy.effectiveDate).toLocaleDateString()}
                   </p>
                 </div>
                 <span className={`px-2 py-1 text-xs rounded-full ${
@@ -311,14 +311,14 @@ export const PrivacyPolicyManager: React.FC = () => {
               disabled={processing === 'export'}
               className="bg-blue-600 text-white px-4 py-3 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {processing === 'export' ? 'Exporting...' : '📥 Export My Data'}
+              {processing === 'export' ? 'Exporting...' : 'Export My Data'}
             </button>
             <button
               onClick={handleDataDeletion}
               disabled={processing === 'delete'}
               className="bg-red-600 text-white px-4 py-3 rounded-md hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {processing === 'delete' ? 'Processing...' : '🗑️ Request Data Deletion'}
+              {processing === 'delete' ? 'Processing...' : 'Request Data Deletion'}
             </button>
           </div>
           <p className="text-sm text-gray-600 mt-4">

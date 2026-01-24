@@ -109,47 +109,47 @@ function useAuthProvider(): AuthContextType {
 
     const checkAuth = () => {
       try {
-        logger.info('🔍 Checking authentication status...');
+        logger.info('ANALYZE Checking authentication status...');
         setIsLoading(true);
 
         // Check for stored access token (synchronous)
         const storedToken = secureRetrieve('accessToken');
 
         if (!storedToken) {
-          logger.info('❌ No access token found');
+          logger.info('FAIL No access token found');
           setUser(null);
           setIsLoading(false);
           setIsInitialized(true);
           return;
         }
 
-        logger.info('✅ Access token found');
+        logger.info('OK Access token found');
 
         // Get stored user data (synchronous)
         const userData = secureRetrieve('userData');
 
         // Validate user data
         if (userData && userData.id) {
-          logger.info('✅ User data loaded:', {
+          logger.info('OK User data loaded:', {
             email: userData.email,
             role: userData.role,
             userId: userData.id
           });
           setUser(userData);
         } else {
-          logger.warn('⚠️ Token exists but no valid user data');
+          logger.warn('WARNING Token exists but no valid user data');
           // Clear invalid tokens
           clearAuthStorage();
           setUser(null);
         }
       } catch (_error) {
-        logger.error('❌ Authentication check failed:', _error);
+        logger.error('FAIL Authentication check failed:', _error);
         setUser(null);
         clearAuthStorage();
       } finally {
         setIsLoading(false);
         setIsInitialized(true);
-        logger.info('✅ Authentication check complete');
+        logger.info('OK Authentication check complete');
       }
     };
 
@@ -170,11 +170,11 @@ function useAuthProvider(): AuthContextType {
     try {
       setIsLoading(true);
       setAuthError(null);
-      logger.info('🔐 Starting login process:', { email });
+      logger.info(' Starting login process:', { email });
 
       // Validate inputs
       if (!email || !password) {
-        logger.error('❌ Login failed: Email and password are required');
+        logger.error('FAIL Login failed: Email and password are required');
         setAuthError('Email and password are required');
         return false;
       }
@@ -192,32 +192,32 @@ function useAuthProvider(): AuthContextType {
 
       if (!response.ok || !data.success) {
         const message = data?.error || data?.message || 'Login failed';
-        logger.error('❌ Login failed:', message);
+        logger.error('FAIL Login failed:', message);
         setAuthError(message);
         return false;
       }
 
-      logger.info('✅ Login API successful');
+      logger.info('OK Login API successful');
 
       // Store tokens and user data (synchronous - works for ALL users)
       try {
         secureStore('accessToken', data.data.accessToken);
-        logger.info('✅ Stored accessToken');
+        logger.info('OK Stored accessToken');
 
         secureStore('refreshToken', data.data.refreshToken);
-        logger.info('✅ Stored refreshToken');
+        logger.info('OK Stored refreshToken');
 
         secureStore('userData', data.data.user);
-        logger.info('✅ Stored userData');
+        logger.info('OK Stored userData');
       } catch (storageError) {
-        logger.error('❌ Failed to store auth data:', storageError);
+        logger.error('FAIL Failed to store auth data:', storageError);
         return false;
       }
 
       // Update state with user data
       setUser(data.data.user);
       setAuthError(null);
-      logger.info('✅ Login successful:', {
+      logger.info('OK Login successful:', {
         userId: data.data.user.id,
         email: data.data.user.email,
         role: data.data.user.role
@@ -225,7 +225,7 @@ function useAuthProvider(): AuthContextType {
 
       return true;
     } catch (_error) {
-      logger.error('❌ Login error:', _error);
+      logger.error('FAIL Login error:', _error);
       setAuthError('Network error. Please check your connection and try again.');
       return false;
     } finally {
@@ -242,11 +242,11 @@ function useAuthProvider(): AuthContextType {
   const signup = async (userData: any): Promise<boolean> => {
     try {
       setIsLoading(true);
-      logger.info('📝 Starting signup process');
+      logger.info(' Starting signup process');
 
       // Basic validation
       if (!userData.email || !userData.password) {
-        logger.error('❌ Signup failed: Email and password are required');
+        logger.error('FAIL Signup failed: Email and password are required');
         return false;
       }
 
@@ -261,7 +261,7 @@ function useAuthProvider(): AuthContextType {
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        logger.error('❌ Signup failed:', data.message || 'Unknown error');
+        logger.error('FAIL Signup failed:', data.message || 'Unknown error');
         return false;
       }
 
@@ -273,13 +273,13 @@ function useAuthProvider(): AuthContextType {
       // Update state
       setUser(data.data.user);
 
-      logger.info('✅ Signup successful:', {
+      logger.info('OK Signup successful:', {
         userId: data.data.user.id,
         email: data.data.user.email
       });
       return true;
     } catch (_error) {
-      logger.error('❌ Signup error:', _error);
+      logger.error('FAIL Signup error:', _error);
       return false;
     } finally {
       setIsLoading(false);
@@ -308,7 +308,7 @@ function useAuthProvider(): AuthContextType {
           });
         } catch (_error) {
           // Log but don't prevent logout
-          logger.warn('⚠️ Server logout failed, continuing with local logout:', _error);
+          logger.warn('WARNING Server logout failed, continuing with local logout:', _error);
         }
       }
 
@@ -319,10 +319,10 @@ function useAuthProvider(): AuthContextType {
       setUser(null);
 
       // Redirect to login page
-      logger.info('✅ User logged out successfully');
+      logger.info('OK User logged out successfully');
       router.push('/login');
     } catch (_error) {
-      logger.error('❌ Logout error:', _error);
+      logger.error('FAIL Logout error:', _error);
       // Still try to clear local state
       clearAuthStorage();
       setUser(null);
@@ -340,7 +340,7 @@ function useAuthProvider(): AuthContextType {
       const storedRefreshToken = secureRetrieve('refreshToken');
 
       if (!storedRefreshToken) {
-        logger.error('❌ Token refresh failed: No refresh token found');
+        logger.error('FAIL Token refresh failed: No refresh token found');
         return false;
       }
 
@@ -355,7 +355,7 @@ function useAuthProvider(): AuthContextType {
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        logger.error('❌ Token refresh failed:', data.message || 'Unknown error');
+        logger.error('FAIL Token refresh failed:', data.message || 'Unknown error');
         // Clear tokens on refresh failure
         clearAuthStorage();
         setUser(null);
@@ -368,10 +368,10 @@ function useAuthProvider(): AuthContextType {
         secureStore('refreshToken', data.data.refreshToken);
       }
 
-      logger.info('✅ Token refreshed successfully');
+      logger.info('OK Token refreshed successfully');
       return true;
     } catch (_error) {
-      logger.error('❌ Token refresh error:', _error);
+      logger.error('FAIL Token refresh error:', _error);
       clearAuthStorage();
       setUser(null);
       return false;
@@ -387,7 +387,7 @@ function useAuthProvider(): AuthContextType {
   const resetPassword = async (email: string): Promise<boolean> => {
     try {
       if (!email) {
-        logger.error('❌ Password reset failed: Email is required');
+        logger.error('FAIL Password reset failed: Email is required');
         return false;
       }
 
@@ -403,14 +403,14 @@ function useAuthProvider(): AuthContextType {
 
       // The API returns { message: ... } on success, not necessarily { success: true }
       if (response.ok) {
-        logger.info('✅ Password reset email sent');
+        logger.info('OK Password reset email sent');
         return true;
       }
 
-      logger.error('❌ Password reset request failed:', data.error || 'Unknown error');
+      logger.error('FAIL Password reset request failed:', data.error || 'Unknown error');
       return false;
     } catch (_error) {
-      logger.error('❌ Password reset request error:', _error);
+      logger.error('FAIL Password reset request error:', _error);
       return false;
     }
   };
@@ -431,12 +431,12 @@ function useAuthProvider(): AuthContextType {
     try {
       // Validate inputs
       if (!token || !password || !confirmPassword) {
-        logger.error('❌ Password reset failed: All fields are required');
+        logger.error('FAIL Password reset failed: All fields are required');
         return false;
       }
 
       if (password !== confirmPassword) {
-        logger.error('❌ Password reset failed: Passwords do not match');
+        logger.error('FAIL Password reset failed: Passwords do not match');
         return false;
       }
 
@@ -454,14 +454,14 @@ function useAuthProvider(): AuthContextType {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        logger.info('✅ Password reset completed successfully');
+        logger.info('OK Password reset completed successfully');
         return true;
       }
 
-      logger.error('❌ Password reset completion failed:', data.error || 'Unknown error');
+      logger.error('FAIL Password reset completion failed:', data.error || 'Unknown error');
       return false;
     } catch (_error) {
-      logger.error('❌ Password reset completion error:', _error);
+      logger.error('FAIL Password reset completion error:', _error);
       return false;
     }
   };
@@ -477,7 +477,7 @@ function useAuthProvider(): AuthContextType {
       const token = secureRetrieve('accessToken');
 
       if (!token) {
-        logger.error('❌ Password change failed: Not authenticated');
+        logger.error('FAIL Password change failed: Not authenticated');
         return false;
       }
 
@@ -493,20 +493,20 @@ function useAuthProvider(): AuthContextType {
       const responseData = await response.json();
 
       if (response.ok && responseData.success) {
-        logger.info('✅ Password changed successfully');
+        logger.info('OK Password changed successfully');
 
         // If requires re-authentication, log out
         if (responseData.requireReAuthentication) {
-          logger.info('ℹ️ Re-authentication required, logging out');
+          logger.info('INFO Re-authentication required, logging out');
           await logout();
         }
         return true;
       }
 
-      logger.error('❌ Password change failed:', responseData.message || 'Unknown error');
+      logger.error('FAIL Password change failed:', responseData.message || 'Unknown error');
       return false;
     } catch (_error) {
-      logger.error('❌ Password change error:', _error);
+      logger.error('FAIL Password change error:', _error);
       return false;
     }
   };
@@ -557,13 +557,13 @@ function useAuthProvider(): AuthContextType {
    *
    * @example
    * // SUPER_ADMIN user
-   * hasRole('admin') → true (god-mode grants all)
-   * hasRole('teacher') → true (100 >= 50)
+   * hasRole('admin') -> true (god-mode grants all)
+   * hasRole('teacher') -> true (100 >= 50)
    *
    * // TEACHER user
-   * hasRole('teacher') → true (exact match)
-   * hasRole('student') → true (50 >= 30, can help students)
-   * hasRole('admin') → false (50 < 90, correctly denied)
+   * hasRole('teacher') -> true (exact match)
+   * hasRole('student') -> true (50 >= 30, can help students)
+   * hasRole('admin') -> false (50 < 90, correctly denied)
    */
   const hasRole = (role: string): boolean => {
     if (!user || !user.role) return false;
@@ -654,7 +654,7 @@ export function withAuth<P extends object>(
 
       // If not loading and no user, redirect to login
       if (!user) {
-        logger.warn('⚠️ Unauthenticated access attempt, redirecting to login');
+        logger.warn('WARNING Unauthenticated access attempt, redirecting to login');
         router.push('/login');
         return;
       }
@@ -665,7 +665,7 @@ export function withAuth<P extends object>(
         ((requiredPermission && !hasPermission(requiredPermission)) ||
           (requiredRole && !hasRole(requiredRole)))
       ) {
-        logger.warn('⚠️ Unauthorized access attempt:', {
+        logger.warn('WARNING Unauthorized access attempt:', {
           userId: user.id,
           requiredPermission,
           requiredRole,

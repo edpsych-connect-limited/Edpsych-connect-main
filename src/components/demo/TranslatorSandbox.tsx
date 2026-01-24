@@ -188,7 +188,7 @@ export default function TranslatorSandbox() {
                         {result.detectedJargon.map((item, idx) => (
                           <div key={idx} className="bg-slate-50 p-3 rounded-lg border border-slate-100 text-sm">
                             <span className="font-bold text-slate-700">{item.term}</span>
-                            <span className="text-slate-400 mx-2">→</span>
+                            <span className="text-slate-400 mx-2">to</span>
                             <span className="text-slate-600">{item.definition}</span>
                           </div>
                         ))}

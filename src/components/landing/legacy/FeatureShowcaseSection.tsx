@@ -186,7 +186,7 @@ const features: Feature[] = [
       'Collaboration tools for multi-agency working'
     ],
     benefits: [
-      'Reduce EHCP creation time by 85% (40 hours → 4 hours)',
+      'Reduce EHCP creation time by 85% (40 hours -> 4 hours)',
       '100% UK SEND Code of Practice compliance',
       'Eliminate manual copy-paste errors',
       'Complete audit trail for legal purposes'
@@ -581,7 +581,7 @@ export default function FeatureShowcaseSection() {
             Everything You Need for SEND Support
           </h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-            From evidence-based assessment to intervention implementation, professional training to compliance management—all integrated into one powerful platform.
+            From evidence-based assessment to intervention implementation, professional training to compliance management - all integrated into one powerful platform.
           </p>
         </div>
 
@@ -632,7 +632,7 @@ export default function FeatureShowcaseSection() {
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <Shield className="w-6 h-6 text-indigo-600" aria-hidden="true" />
             <span className="text-slate-700 font-medium text-center">
-              UK GDPR Compliant • HCPC Registered • BPS Aligned • SEND Code of Practice Compliant
+              UK GDPR Compliant - HCPC Registered - BPS Aligned - SEND Code of Practice Compliant
             </span>
           </div>
         </div>

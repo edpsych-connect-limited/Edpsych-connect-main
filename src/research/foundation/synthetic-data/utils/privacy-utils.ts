@@ -123,7 +123,7 @@ function applyDifferentialPrivacy(
   options: PrivacyOptions
 ): void {
   const { epsilon, delta } = params;
-  logger.debug(`Applying differential privacy (ε=${epsilon}, δ=${delta})`);
+  logger.debug(`Applying differential privacy (epsilon=${epsilon}, delta=${delta})`);
   
   // Get numeric fields from schema
   const numericFields = dataset.schema.fields

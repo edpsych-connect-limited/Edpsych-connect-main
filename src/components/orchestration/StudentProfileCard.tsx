@@ -303,7 +303,7 @@ export const StudentProfileCard: React.FC<StudentProfileCardProps> = ({
           </h3>
           <p className="text-sm text-gray-600">
             <span className="font-medium">{profile.learningStyle}</span>
-            {' • '}
+            {' - '}
             <span className={urgencyConfig.textColor}>
               {profile.performanceLevel === 'above' && 'Working Above'}
               {profile.performanceLevel === 'at' && 'Working At Expected'}

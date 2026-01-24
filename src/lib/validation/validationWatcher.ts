@@ -185,7 +185,7 @@ export class ValidationWatcher {
         if (this.config.onSuccess) {
           this.config.onSuccess(filePath);
         }
-        logger.debug(`✓ ${filePath} - Validation passed`);
+        logger.debug(` ${filePath} - Validation passed`);
       } else {
         const errorMsg = result.errors.length > 0
           ? `${result.errors.length} error(s)`
@@ -197,7 +197,7 @@ export class ValidationWatcher {
           this.config.onError(error, filePath);
         }
 
-        logger.warn(`✗ ${filePath} - ${errorMsg}`);
+        logger.warn(` ${filePath} - ${errorMsg}`);
         result.errors.forEach((err: any) => {
           logger.warn(`  Line ${err.line}: ${err.message}`);
         });

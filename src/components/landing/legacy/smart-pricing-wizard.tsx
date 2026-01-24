@@ -183,20 +183,20 @@ const SmartPricingWizard: React.FC = () => {
       id: 1,
       question: 'What best describes your role?',
       options: [
-        { value: 'student', label: 'Student', icon: '🎓', description: 'Individual learner' },
-        { value: 'teacher', label: 'Teacher', icon: '👨‍🏫', description: 'Educator or tutor' },
-        { value: 'parent', label: 'Parent', icon: '👨‍👩‍👧‍👦', description: 'Supporting child\'s learning' },
-        { value: 'school', label: 'School', icon: '🏫', description: 'Educational institution' },
-        { value: 'individual', label: 'Individual', icon: '👤', description: 'Personal development' }
+        { value: 'student', label: 'Student', icon: 'EDU', description: 'Individual learner' },
+        { value: 'teacher', label: 'Teacher', icon: 'TCH', description: 'Educator or tutor' },
+        { value: 'parent', label: 'Parent', icon: 'FAM', description: 'Supporting child\'s learning' },
+        { value: 'school', label: 'School', icon: 'SCH', description: 'Educational institution' },
+        { value: 'individual', label: 'Individual', icon: 'USR', description: 'Personal development' }
       ]
     },
     {
       id: 2,
       question: 'How often do you plan to use the platform?',
       options: [
-        { value: 'light', label: 'Light Usage', icon: '🌟', description: 'Occasional use (1-2 times/week)' },
-        { value: 'moderate', label: 'Moderate Usage', icon: '⚡', description: 'Regular use (3-5 times/week)' },
-        { value: 'heavy', label: 'Heavy Usage', icon: '🚀', description: 'Daily intensive use' }
+        { value: 'light', label: 'Light Usage', icon: 'LIT', description: 'Occasional use (1-2 times/week)' },
+        { value: 'moderate', label: 'Moderate Usage', icon: 'MID', description: 'Regular use (3-5 times/week)' },
+        { value: 'heavy', label: 'Heavy Usage', icon: 'HVY', description: 'Daily intensive use' }
       ]
     },
     {
@@ -204,33 +204,33 @@ const SmartPricingWizard: React.FC = () => {
       question: 'Which features are most important to you?',
       type: 'multiSelect',
       options: [
-        { value: 'ai_agents', label: 'AI Agent Interactions', icon: '🤖' },
-        { value: 'progress_tracking', label: 'Progress Tracking', icon: '📊' },
-        { value: 'curriculum_design', label: 'Curriculum Design', icon: '📚' },
-        { value: 'assessment_creation', label: 'Assessment Creation', icon: '📝' },
-        { value: 'analytics', label: 'Advanced Analytics', icon: '📈' },
-        { value: 'collaboration', label: 'Collaboration Tools', icon: '🤝' },
-        { value: 'mobile_access', label: 'Mobile Access', icon: '📱' },
-        { value: 'api_access', label: 'API Access', icon: '🔌' }
+        { value: 'ai_agents', label: 'AI Agent Interactions', icon: 'AI' },
+        { value: 'progress_tracking', label: 'Progress Tracking', icon: 'PRG' },
+        { value: 'curriculum_design', label: 'Curriculum Design', icon: 'CUR' },
+        { value: 'assessment_creation', label: 'Assessment Creation', icon: 'ASM' },
+        { value: 'analytics', label: 'Advanced Analytics', icon: 'ANL' },
+        { value: 'collaboration', label: 'Collaboration Tools', icon: 'COL' },
+        { value: 'mobile_access', label: 'Mobile Access', icon: 'MOB' },
+        { value: 'api_access', label: 'API Access', icon: 'API' }
       ]
     },
     {
       id: 4,
       question: 'What is your budget range?',
       options: [
-        { value: 'low', label: '$0-20/month', icon: '💰', description: 'Basic features' },
-        { value: 'medium', label: '$20-100/month', icon: '💎', description: 'Most popular' },
-        { value: 'high', label: '$100-300/month', icon: '👑', description: 'Advanced features' },
-        { value: 'enterprise', label: '$300+/month', icon: '🏢', description: 'Enterprise solutions' }
+        { value: 'low', label: '$0-20/month', icon: 'LOW', description: 'Basic features' },
+        { value: 'medium', label: '$20-100/month', icon: 'MED', description: 'Most popular' },
+        { value: 'high', label: '$100-300/month', icon: 'HI', description: 'Advanced features' },
+        { value: 'enterprise', label: '$300+/month', icon: 'ENT', description: 'Enterprise solutions' }
       ]
     },
     {
       id: 5,
       question: 'How long do you plan to use the service?',
       options: [
-        { value: 'monthly', label: 'Month-to-Month', icon: '📅', description: 'Flexible monthly billing' },
-        { value: 'annual', label: 'Annual Plan', icon: '📆', description: 'Save 20% with annual billing' },
-        { value: 'lifetime', label: 'Lifetime Access', icon: '♾️', description: 'One-time payment, lifetime access' }
+        { value: 'monthly', label: 'Month-to-Month', icon: 'MON', description: 'Flexible monthly billing' },
+        { value: 'annual', label: 'Annual Plan', icon: 'ANN', description: 'Save 20% with annual billing' },
+        { value: 'lifetime', label: 'Lifetime Access', icon: 'LIFE', description: 'One-time payment, lifetime access' }
       ]
     }
   ];

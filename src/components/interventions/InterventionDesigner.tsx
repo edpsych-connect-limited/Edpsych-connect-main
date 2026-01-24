@@ -370,7 +370,7 @@ export default function InterventionDesigner({
           }`}
           onClick={() => setActiveTab('library')}
         >
-          📚 Library & Recommendations
+          Library Library & Recommendations
         </button>
         <button
           className={`px-6 py-3 font-semibold ${
@@ -381,7 +381,7 @@ export default function InterventionDesigner({
           onClick={() => setActiveTab('plan')}
           disabled={!currentPlan}
         >
-          📋 Implementation Plan
+          Plan Implementation Plan
         </button>
         <button
           className={`px-6 py-3 font-semibold ${
@@ -392,7 +392,7 @@ export default function InterventionDesigner({
           onClick={() => setActiveTab('progress')}
           disabled={!currentPlan}
         >
-          📊 Progress Tracking
+          Progress Progress Tracking
         </button>
         <button
           className={`px-6 py-3 font-semibold ${
@@ -403,7 +403,7 @@ export default function InterventionDesigner({
           onClick={() => setActiveTab('fidelity')}
           disabled={!currentPlan}
         >
-          ✅ Fidelity & Review
+          OK Fidelity & Review
         </button>
       </div>
 
@@ -470,7 +470,7 @@ function LibraryTab({
         {recommendations && (
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
             <h3 className="font-bold text-blue-900 mb-2 flex items-center">
-              💡 Evidence-Based Recommendations
+              Tips Evidence-Based Recommendations
             </h3>
             <p className="text-sm text-blue-800 mb-3">
               Based on student needs, these interventions are suggested:
@@ -512,11 +512,11 @@ function LibraryTab({
             className="w-full p-2 border border-gray-300 rounded"
           >
             <option value="all">All Categories</option>
-            <option value="academic">📖 Academic</option>
-            <option value="behavioral">🎯 Behavioural</option>
-            <option value="social_emotional">💙 Social-Emotional</option>
-            <option value="communication">💬 Communication</option>
-            <option value="sensory">🌈 Sensory</option>
+            <option value="academic">Academic Academic</option>
+            <option value="behavioral">Behavioral Behavioural</option>
+            <option value="social_emotional">Social-Emotional Social-Emotional</option>
+            <option value="communication">Communication Communication</option>
+            <option value="sensory">Sensory Sensory</option>
           </select>
         </div>
 
@@ -620,12 +620,12 @@ function InterventionDetails({
         onClick={() => onSelect(intervention)}
         className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition mb-6"
       >
-        📋 Create Implementation Plan
+        Plan Create Implementation Plan
       </button>
 
       {/* Sections */}
       <div className="space-y-6">
-        <Section title="🎯 Targeted Needs">
+        <Section title="Behavioral Targeted Needs">
           <ul className="list-disc list-inside text-gray-700">
             {intervention.targeted_needs.map((need, i) => (
               <li key={i}>{need}</li>
@@ -633,7 +633,7 @@ function InterventionDetails({
           </ul>
         </Section>
 
-        <Section title="⏱️ Time Commitment">
+        <Section title="Time Time Commitment">
           <p className="text-gray-700">
             <strong>Frequency:</strong> {intervention.frequency}
             <br />
@@ -643,7 +643,7 @@ function InterventionDetails({
           </p>
         </Section>
 
-        <Section title="📊 Expected Outcomes">
+        <Section title="Progress Expected Outcomes">
           <ul className="list-disc list-inside text-gray-700">
             {intervention.expected_outcomes.map((outcome, i) => (
               <li key={i}>{outcome}</li>
@@ -651,7 +651,7 @@ function InterventionDetails({
           </ul>
         </Section>
 
-        <Section title="🔧 Key Components">
+        <Section title="Components Key Components">
           <ul className="list-disc list-inside text-gray-700">
             {intervention.key_components.map((component, i) => (
               <li key={i}>{component}</li>
@@ -659,7 +659,7 @@ function InterventionDetails({
           </ul>
         </Section>
 
-        <Section title="✅ Fidelity Checklist">
+        <Section title="OK Fidelity Checklist">
           <ul className="list-disc list-inside text-gray-700">
             {intervention.fidelity_checklist.slice(0, 5).map((item, i) => (
               <li key={i}>{item}</li>
@@ -672,7 +672,7 @@ function InterventionDetails({
           </ul>
         </Section>
 
-        <Section title="📚 Research Evidence">
+        <Section title="Library Research Evidence">
           <ul className="list-disc list-inside text-gray-700">
             {intervention.research_sources.map((source, i) => (
               <li key={i}>{source}</li>
@@ -685,7 +685,7 @@ function InterventionDetails({
           )}
         </Section>
 
-        <Section title="🏠 Parent Information">
+        <Section title="Parent Parent Information">
           <p className="text-gray-700 leading-relaxed">
             {intervention.parent_information}
           </p>
@@ -1074,7 +1074,7 @@ function ProgressTab({ plan, onAddData, onUpdateData }: any) {
           </h3>
           <div className="bg-white border-2 border-gray-300 rounded-lg p-8 text-center h-64 flex items-center justify-center">
             <p className="text-gray-400">
-              📊 Chart.js line graph would display here showing progress trend
+              Progress Chart.js line graph would display here showing progress trend
               <br />
               <span className="text-sm">
                 (Implement with react-chartjs-2 in production)
@@ -1126,11 +1126,11 @@ function FidelityTab({ plan, setPlan }: any) {
             </p>
             <p className="text-sm">
               {fidelityPercentage >= 80 ? (
-                <span className="text-green-600">✅ High fidelity</span>
+                <span className="text-green-600">OK High fidelity</span>
               ) : fidelityPercentage >= 60 ? (
-                <span className="text-yellow-600">⚠️ Moderate fidelity - review implementation</span>
+                <span className="text-yellow-600">Warning Moderate fidelity - review implementation</span>
               ) : (
-                <span className="text-red-600">❌ Low fidelity - support needed</span>
+                <span className="text-red-600">No Low fidelity - support needed</span>
               )}
             </p>
           </div>

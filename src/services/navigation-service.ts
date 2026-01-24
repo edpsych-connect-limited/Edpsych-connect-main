@@ -683,14 +683,14 @@ export class NavigationService {
       {
         id: 'curriculum_tip',
         trigger: 'curriculum',
-        content: '💡 Pro tip: Use our lesson planner to save hours of preparation time each week!',
+        content: 'TIP Pro tip: Use our lesson planner to save hours of preparation time each week!',
         type: 'optimization',
         relevance: 0.9
       },
       {
         id: 'assessment_tip',
         trigger: 'assessment',
-        content: '🎯 Did you know? Our assessment tools can grade work and provide feedback instantly!',
+        content: 'TARGET Did you know? Our assessment tools can grade work and provide feedback instantly!',
         type: 'feature',
         relevance: 0.8
       }

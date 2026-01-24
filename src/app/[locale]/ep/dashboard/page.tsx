@@ -58,10 +58,13 @@ export default function EPDashboard() {
             <p className="text-slate-600">You have 3 upcoming visits and 2 reports due.</p>
           </div>
           <div className="flex gap-3">
-            <button className="px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg font-medium hover:bg-slate-50 transition-colors">
+            <button className="px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg font-medium hover:bg-slate-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
               Sync Calendar
             </button>
-            <Link href="/assessments/new" className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors">
+            <Link
+              href="/assessments/new"
+              className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+            >
               Start Assessment
             </Link>
           </div>
@@ -79,6 +82,49 @@ export default function EPDashboard() {
               Focus: reports, visits, then new assessments.
             </div>
           </div>
+        </div>
+        <div className="mb-8 grid gap-4 md:grid-cols-3">
+          {[
+            {
+              title: 'Review caseload',
+              description: 'Confirm today\'s visits and triage new referrals.',
+              href: '/cases',
+              icon: Calendar,
+              tone: 'text-indigo-600',
+              bg: 'bg-indigo-50',
+            },
+            {
+              title: 'Start assessment',
+              description: 'Launch a new assessment from the EP toolkit.',
+              href: '/assessments/new',
+              icon: Briefcase,
+              tone: 'text-emerald-600',
+              bg: 'bg-emerald-50',
+            },
+            {
+              title: 'Finish reports',
+              description: 'Complete drafts due this week before deadlines.',
+              href: '/reports',
+              icon: FileText,
+              tone: 'text-amber-600',
+              bg: 'bg-amber-50',
+            },
+          ].map((action) => {
+            const Icon = action.icon;
+            return (
+              <Link
+                key={action.title}
+                href={action.href}
+                className="group rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-indigo-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+              >
+                <div className={`mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg ${action.bg} ${action.tone}`}>
+                  <Icon className="h-5 w-5" />
+                </div>
+                <h3 className="text-sm font-semibold text-slate-900 group-hover:text-indigo-700">{action.title}</h3>
+                <p className="mt-1 text-xs text-slate-600">{action.description}</p>
+              </Link>
+            );
+          })}
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
@@ -122,7 +168,7 @@ export default function EPDashboard() {
                       <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-xs font-bold">Review</span>
                     </div>
                   </div>
-                  <button className="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 text-sm font-medium rounded hover:bg-slate-50">
+                  <button className="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 text-sm font-medium rounded hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
                     Join Call
                   </button>
                 </div>
@@ -147,8 +193,19 @@ export default function EPDashboard() {
                       <p className="text-xs text-amber-700 font-medium">Due in 2 days</p>
                     </div>
                   </div>
-                  <Link href="/assessments/123/report" className="text-sm font-bold text-amber-700 hover:underline">
+                  <Link
+                    href="/assessments/123/report"
+                    className="text-sm font-bold text-amber-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2"
+                  >
                     Continue Draft &gt;
+                  </Link>
+                </div>
+                <div className="text-right">
+                  <Link
+                    href="/reports"
+                    className="text-xs font-semibold text-amber-700 hover:text-amber-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2"
+                  >
+                    View all reports
                   </Link>
                 </div>
               </div>

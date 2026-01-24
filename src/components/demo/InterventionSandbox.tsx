@@ -84,10 +84,10 @@ const MOCK_INTERVENTIONS = [
   },
   {
     id: 'lego-therapy',
-    name: 'LEGO®-Based Therapy',
+    name: 'LEGO-Based Therapy',
     category: 'social_emotional',
     subcategory: 'social_skills',
-    description: 'Collaborative play therapy using LEGO® to improve social communication skills in children with autism.',
+    description: 'Collaborative play therapy using LEGO to improve social communication skills in children with autism.',
     evidence_level: 'tier_2',
     age_range: ['primary', 'secondary'],
     setting: ['small_group'],

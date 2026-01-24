@@ -54,11 +54,11 @@ export async function POST(request: NextRequest) {
 
     // Log to console (Vercel captures this and makes it available in dashboard)
     if (body.type === 'error') {
-      console.error('🚨 Client Error Report:', JSON.stringify(logEntry, null, 2));
+      console.error('ALERT Client Error Report:', JSON.stringify(logEntry, null, 2));
     } else if (body.type === 'warning') {
-      console.warn('⚠️ Client Warning Report:', JSON.stringify(logEntry, null, 2));
+      console.warn('WARNING Client Warning Report:', JSON.stringify(logEntry, null, 2));
     } else {
-      console.log('ℹ️ Client Info Report:', JSON.stringify(logEntry, null, 2));
+      console.log('INFO Client Info Report:', JSON.stringify(logEntry, null, 2));
     }
 
     // TODO: In production, send to external service
@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('❌ Failed to process error report:', error);
+    console.error('FAIL Failed to process error report:', error);
     return NextResponse.json(
       { error: 'Failed to process error report' },
       { status: 500 }

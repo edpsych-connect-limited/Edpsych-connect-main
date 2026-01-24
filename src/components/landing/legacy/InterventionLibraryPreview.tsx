@@ -218,7 +218,7 @@ export default function InterventionLibraryPreview() {
               <div className="space-y-2 text-sm text-slate-600 mb-4">
                 <div className="flex items-center">
                   <Clock className="w-4 h-4 mr-2 text-orange-600" />
-                  <span>{intervention.duration} • {intervention.sessions}</span>
+                  <span>{intervention.duration} - {intervention.sessions}</span>
                 </div>
                 <div className="flex items-center">
                   <Users className="w-4 h-4 mr-2 text-orange-600" />

@@ -1,5 +1,5 @@
 /**
- * Research Hub — Intervention Validation (Real-World Evidence)
+ * Research Hub - Intervention Validation (Real-World Evidence)
  *
  * Deterministic, privacy-preserving aggregation helpers for validating intervention
  * effectiveness at scale.

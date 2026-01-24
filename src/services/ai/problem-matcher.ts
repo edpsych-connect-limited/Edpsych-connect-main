@@ -1,6 +1,6 @@
 import { logger } from "@/lib/logger";
 /**
- * 🤖 INTELLIGENT PROBLEM MATCHER
+ * AI INTELLIGENT PROBLEM MATCHER
  * Revolutionary AI system that analyzes educational challenges in real-time
  * and provides personalized solutions from EdPsych Connect's 1,247+ features
  *
@@ -51,14 +51,14 @@ export class IntelligentProblemMatcher {
   constructor() {
     this.initializeFeatureDatabase();
     this.initializeSolutionTemplates();
-    logger.debug('🎯 Intelligent Problem Matcher initialized');
+    logger.debug('TARGET Intelligent Problem Matcher initialized');
   }
 
   /**
    * Analyze a problem described in natural language
    */
   async analyzeProblem(problemDescription: string): Promise<ProblemAnalysis> {
-    logger.debug(`🔍 Analyzing problem: "${problemDescription}"`);
+    logger.debug(`ANALYZE Analyzing problem: "${problemDescription}"`);
 
     try {
       // Use AI to classify and analyze the problem
@@ -89,7 +89,7 @@ export class IntelligentProblemMatcher {
       };
 
     } catch (_error) {
-      console.error('❌ Problem analysis failed:', _error);
+      console.error('FAIL Problem analysis failed:', _error);
       throw new Error('Unable to analyze problem. Please try rephrasing your challenge.');
     }
   }

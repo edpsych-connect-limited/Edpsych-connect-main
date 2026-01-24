@@ -6,14 +6,14 @@
  *
  * BUSINESS MODEL:
  * - One platform. Every tool. No more patchwork.
- * - Individual professionals: £19-79/month
- * - Schools: £149-599/month  
- * - MATs: £799-3,999/month
- * - Local Authorities: £2,999-29,999/month
+ * - Individual professionals: 19-79/month
+ * - Schools: 149-599/month  
+ * - MATs: 799-3,999/month
+ * - Local Authorities: 2,999-29,999/month
  * - Annual billing = 2 months free (17% discount)
  * 
  * COMPETITIVE POSITIONING:
- * - Replaces £25,000-50,000 of separate tools
+ * - Replaces 25,000-50,000 of separate tools
  * - AI tutoring, adaptive learning included
  * - Better than Century Tech, Edukey, CPOMS combined
  */
@@ -72,8 +72,8 @@ export const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
     name: 'Trainee EP',
     description: 'Discounted rate for verified EP trainees on doctoral programmes',
     tagline: 'Start your EP journey with professional tools',
-    price_monthly_gbp: 1900, // £19.00
-    price_annual_gbp: 19000, // £190.00 (2 months free)
+    price_monthly_gbp: 1900, // 19.00
+    price_annual_gbp: 19000, // 190.00 (2 months free)
     features: [
       { name: 'Case Management', included: true, description: 'Up to 30 cases' },
       { name: 'Basic Assessments', included: true, description: 'All core assessment tools' },
@@ -110,8 +110,8 @@ export const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
     name: 'Teacher Individual',
     description: 'Complete toolkit for classroom teachers and SENCOs',
     tagline: 'Professional SEND tools for educators',
-    price_monthly_gbp: 2900, // £29.00
-    price_annual_gbp: 29000, // £290.00 (2 months free)
+    price_monthly_gbp: 2900, // 29.00
+    price_annual_gbp: 29000, // 290.00 (2 months free)
     features: [
       { name: 'Case Management', included: true, description: 'Up to 50 cases' },
       { name: 'Basic Assessments', included: true },
@@ -147,8 +147,8 @@ export const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
     name: 'Individual EP',
     description: 'Everything an independent EP needs to run a modern practice',
     tagline: 'The complete EP toolkit',
-    price_monthly_gbp: 7900, // £79.00
-    price_annual_gbp: 79000, // £790.00 (2 months free)
+    price_monthly_gbp: 7900, // 79.00
+    price_annual_gbp: 79000, // 790.00 (2 months free)
     features: [
       { name: 'Unlimited Cases', included: true, description: 'Manage all your EP cases' },
       { name: 'All Assessment Tools', included: true, description: 'Including ECCA framework' },
@@ -192,8 +192,8 @@ export const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
     name: 'School Starter',
     description: 'Perfect for primary schools with up to 200 pupils',
     tagline: 'Everything small schools need',
-    price_monthly_gbp: 14900, // £149.00
-    price_annual_gbp: 149000, // £1,490.00 (2 months free)
+    price_monthly_gbp: 14900, // 149.00
+    price_annual_gbp: 149000, // 1,490.00 (2 months free)
     features: [
       { name: 'Unlimited Cases', included: true },
       { name: 'All Assessment Tools', included: true },
@@ -231,8 +231,8 @@ export const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
     name: 'School Standard',
     description: 'For medium schools with 200-500 pupils',
     tagline: 'The complete school solution',
-    price_monthly_gbp: 29900, // £299.00
-    price_annual_gbp: 299000, // £2,990.00 (2 months free)
+    price_monthly_gbp: 29900, // 299.00
+    price_annual_gbp: 299000, // 2,990.00 (2 months free)
     features: [
       { name: 'Everything in School Starter', included: true },
       { name: 'Team Collaboration', included: true, limit: 25, description: 'Up to 25 staff' },
@@ -269,8 +269,8 @@ export const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
     name: 'School Premium',
     description: 'For secondary schools with 500+ pupils',
     tagline: 'Enterprise features for large schools',
-    price_monthly_gbp: 49900, // £499.00
-    price_annual_gbp: 499000, // £4,990.00 (2 months free)
+    price_monthly_gbp: 49900, // 499.00
+    price_annual_gbp: 499000, // 4,990.00 (2 months free)
     features: [
       { name: 'Everything in School Standard', included: true },
       { name: 'Team Collaboration', included: true, limit: 50, description: 'Up to 50 staff' },
@@ -304,8 +304,8 @@ export const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
     name: 'Special School',
     description: 'Enhanced features for special schools and PRUs',
     tagline: 'Built for complex needs',
-    price_monthly_gbp: 59900, // £599.00
-    price_annual_gbp: 599000, // £5,990.00 (2 months free)
+    price_monthly_gbp: 59900, // 599.00
+    price_annual_gbp: 599000, // 5,990.00 (2 months free)
     features: [
       { name: 'Everything in School Premium', included: true },
       { name: 'EHCP Toolkit', included: true, description: 'Advanced EHCP management' },
@@ -344,8 +344,8 @@ export const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
     name: 'LA Essentials',
     description: 'For Local Authorities with up to 50 maintained schools',
     tagline: 'Transform your LA EP service',
-    price_monthly_gbp: 299900, // £2,999.00
-    price_annual_gbp: 2999000, // £29,990.00 (2 months free)
+    price_monthly_gbp: 299900, // 2,999.00
+    price_annual_gbp: 2999000, // 29,990.00 (2 months free)
     features: [
       { name: 'Everything in School Premium', included: true },
       { name: 'Multi-Agency Working', included: true },
@@ -427,7 +427,7 @@ export function getEnterprisePlans(): SubscriptionPlan[] {
 export function formatPrice(pence: number, period?: 'month' | 'year'): string {
   const pounds = (pence / 100).toFixed(2);
   const periodText = period ? `/${period}` : '';
-  return `£${pounds}${periodText}`;
+  return `${pounds}${periodText}`;
 }
 
 /**

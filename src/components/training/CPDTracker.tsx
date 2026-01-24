@@ -168,7 +168,7 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
         </div>
         {progressPercentage >= 100 && (
           <p className="text-sm text-green-600 mt-2 font-medium">
-            🎉 Congratulations! You&apos;ve met your annual CPD target!
+            OK Congratulations! You&apos;ve met your annual CPD target!
           </p>
         )}
       </div>
@@ -383,10 +383,10 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
                   <td className="px-4 py-3 text-center">
                     {entry.certificate ? (
                       <span className="inline-flex items-center justify-center w-6 h-6 bg-green-100 text-green-600 rounded-full">
-                        ✓
+                        OK
                       </span>
                     ) : (
-                      <span className="text-gray-400">—</span>
+                      <span className="text-gray-400">-</span>
                     )}
                   </td>
                 </tr>
@@ -398,7 +398,7 @@ export default function CPDTracker({ targetHours = 30, currentYear = new Date().
 
       <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
         <div className="flex items-start gap-3">
-          <div className="text-2xl">📋</div>
+          <div className="text-2xl">LIST</div>
           <div>
             <h4 className="font-semibold text-blue-900 text-sm mb-1">UK CPD Standards</h4>
             <p className="text-blue-800 text-xs">

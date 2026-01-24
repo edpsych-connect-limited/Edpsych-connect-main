@@ -9,11 +9,11 @@
  * automatically trigger in other modules.
  *
  * AUTOMATED FLOWS:
- * 1. Assessment → Profile → Lesson → Intervention
- * 2. Lesson Struggle → Support
- * 3. Progress Milestone → Level Change
- * 4. EHCP Due → Auto-Compile
- * 5. Battle Royale → Profile Update
+ * 1. Assessment -> Profile -> Lesson -> Intervention
+ * 2. Lesson Struggle -> Support
+ * 3. Progress Milestone -> Level Change
+ * 4. EHCP Due -> Auto-Compile
+ * 5. Battle Royale -> Profile Update
  *
  * PHILOSOPHY: Intelligence through connections, not complexity.
  */
@@ -118,7 +118,7 @@ export class CrossModuleIntelligenceService {
   }
 
   // ============================================================================
-  // FLOW 1: ASSESSMENT → PROFILE → LESSON → INTERVENTION
+  // FLOW 1: ASSESSMENT -> PROFILE -> LESSON -> INTERVENTION
   // ============================================================================
 
   /**
@@ -248,7 +248,7 @@ export class CrossModuleIntelligenceService {
   }
 
   // ============================================================================
-  // FLOW 2: LESSON STRUGGLE → SUPPORT
+  // FLOW 2: LESSON STRUGGLE -> SUPPORT
   // ============================================================================
 
   /**
@@ -362,7 +362,7 @@ export class CrossModuleIntelligenceService {
   }
 
   // ============================================================================
-  // FLOW 3: PROGRESS MILESTONE → LEVEL CHANGE
+  // FLOW 3: PROGRESS MILESTONE -> LEVEL CHANGE
   // ============================================================================
 
   /**
@@ -607,7 +607,7 @@ export class CrossModuleIntelligenceService {
   }
 
   // ============================================================================
-  // FLOW 6: EHCP DUE → AUTO-COMPILE
+  // FLOW 6: EHCP DUE -> AUTO-COMPILE
   // ============================================================================
 
   /**
@@ -665,7 +665,7 @@ export class CrossModuleIntelligenceService {
   }
 
   // ============================================================================
-  // FLOW 7: BATTLE ROYALE → PROFILE UPDATE
+  // FLOW 7: BATTLE ROYALE -> PROFILE UPDATE
   // ============================================================================
 
   /**

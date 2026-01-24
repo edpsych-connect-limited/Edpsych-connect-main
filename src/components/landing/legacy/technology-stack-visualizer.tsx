@@ -27,27 +27,27 @@ const TechnologyStackVisualizer = (): React.ReactElement => {
       technologies: [
         {
           name: 'React',
-          icon: '⚛️',
+          icon: 'R',
           description: 'UI component library'
         },
         {
           name: 'TypeScript',
-          icon: '🔷',
+          icon: 'TS',
           description: 'Type-safe JavaScript'
         },
         {
           name: 'Tailwind CSS',
-          icon: '🎨',
+          icon: 'TW',
           description: 'Utility-first CSS framework'
         },
         {
           name: 'Framer Motion',
-          icon: '✨',
+          icon: 'FM',
           description: 'Animation library'
         },
         {
           name: 'Three.js',
-          icon: '🌐',
+          icon: '3D',
           description: '3D visualization'
         }
       ]
@@ -58,22 +58,22 @@ const TechnologyStackVisualizer = (): React.ReactElement => {
       technologies: [
         {
           name: 'Node.js',
-          icon: '🟢',
+          icon: 'N',
           description: 'JavaScript runtime'
         },
         {
           name: 'Express',
-          icon: '🚂',
+          icon: 'EX',
           description: 'Web framework'
         },
         {
           name: 'NestJS',
-          icon: '🐱',
+          icon: 'NJ',
           description: 'API framework'
         },
         {
           name: 'WebSocket',
-          icon: '🔌',
+          icon: 'WS',
           description: 'Real-time communication'
         }
       ]
@@ -84,12 +84,12 @@ const TechnologyStackVisualizer = (): React.ReactElement => {
       technologies: [
         {
           name: 'PostgreSQL',
-          icon: '🐘',
+          icon: 'PG',
           description: 'Relational database'
         },
         {
           name: 'Redis',
-          icon: '⚡',
+          icon: 'RD',
           description: 'In-memory database'
         }
       ]
@@ -100,22 +100,22 @@ const TechnologyStackVisualizer = (): React.ReactElement => {
       technologies: [
         {
           name: 'TensorFlow',
-          icon: '🧠',
+          icon: 'TF',
           description: 'Machine learning framework'
         },
         {
           name: 'PyTorch',
-          icon: '🔥',
+          icon: 'PT',
           description: 'Deep learning framework'
         },
         {
           name: 'NLP Models',
-          icon: '💬',
+          icon: 'NLP',
           description: 'Natural language processing'
         },
         {
           name: 'OpenAI',
-          icon: '🤖',
+          icon: 'AI',
           description: 'AI model integration'
         }
       ]
@@ -126,22 +126,22 @@ const TechnologyStackVisualizer = (): React.ReactElement => {
       technologies: [
         {
           name: 'Docker',
-          icon: '🐳',
+          icon: 'DK',
           description: 'Containerization'
         },
         {
           name: 'Kubernetes',
-          icon: '☸️',
+          icon: 'K8S',
           description: 'Container orchestration'
         },
         {
           name: 'GitHub Actions',
-          icon: '🔄',
+          icon: 'GH',
           description: 'CI/CD automation'
         },
         {
           name: 'Vercel',
-          icon: '▲',
+          icon: 'V',
           description: 'Deployment platform'
         }
       ]

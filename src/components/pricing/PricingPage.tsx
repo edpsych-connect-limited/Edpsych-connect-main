@@ -34,7 +34,7 @@ import { Play, Shield, Zap, Users, ArrowRight, Star, Building2, GraduationCap, H
 // Video configuration for pricing page
 const PRICING_VIDEOS = {
   // Hero/Value Proposition
-  hero: { key: 'platform-introduction', title: 'The £2.35 Million Platform', duration: '2:30' },
+  hero: { key: 'platform-introduction', title: 'The GBP 2.35 Million Platform', duration: '2:30' },
   problem: { key: 'innovation-orchestration', title: 'The EdTech Problem', duration: '1:45' },
   solution: { key: 'no-child-left-behind', title: 'The Complete Solution', duration: '2:00' },
   
@@ -51,12 +51,12 @@ const PRICING_VIDEOS = {
   
   // Add-ons - December 2025 Pricing (aligned with video scripts)
   addons: [
-    { key: 'addon-ai-power-pack', title: 'AI Power Pack', duration: '1:30', price: '£49.99/mo', stripeAddonId: 'ADDON_AI_POWER' },
-    { key: 'addon-ehcp-accelerator', title: 'EHCP Accelerator', duration: '1:45', price: '£79.99/mo', stripeAddonId: 'ADDON_EHCP_ACCELERATOR' },
-    { key: 'addon-cpd-library', title: 'Unlimited CPD Library', duration: '1:15', price: '£29.99/mo', stripeAddonId: 'ADDON_CPD_UNLIMITED' },
-    { key: 'addon-api-access', title: 'API Access', duration: '1:30', price: '£199.99/mo', stripeAddonId: 'ADDON_API_ACCESS' },
-    { key: 'addon-white-label', title: 'White Label', duration: '1:45', price: '£499.99/mo', stripeAddonId: 'ADDON_WHITE_LABEL' },
-    { key: 'addon-priority-support', title: 'Priority Support', duration: '1:00', price: '£99.99/mo', stripeAddonId: 'ADDON_PRIORITY_SUPPORT' },
+    { key: 'addon-ai-power-pack', title: 'AI Power Pack', duration: '1:30', price: 'GBP 49.99/mo', stripeAddonId: 'ADDON_AI_POWER' },
+    { key: 'addon-ehcp-accelerator', title: 'EHCP Accelerator', duration: '1:45', price: 'GBP 79.99/mo', stripeAddonId: 'ADDON_EHCP_ACCELERATOR' },
+    { key: 'addon-cpd-library', title: 'Unlimited CPD Library', duration: '1:15', price: 'GBP 29.99/mo', stripeAddonId: 'ADDON_CPD_UNLIMITED' },
+    { key: 'addon-api-access', title: 'API Access', duration: '1:30', price: 'GBP 199.99/mo', stripeAddonId: 'ADDON_API_ACCESS' },
+    { key: 'addon-white-label', title: 'White Label', duration: '1:45', price: 'GBP 499.99/mo', stripeAddonId: 'ADDON_WHITE_LABEL' },
+    { key: 'addon-priority-support', title: 'Priority Support', duration: '1:00', price: 'GBP 99.99/mo', stripeAddonId: 'ADDON_PRIORITY_SUPPORT' },
   ],
   
   // Features
@@ -135,7 +135,7 @@ export default function PricingPage() {
               </h1>
               <p className="text-xl text-indigo-100 mb-8 leading-relaxed">
                 From individual teachers to Local Authorities - we have a plan that fits. 
-                Watch our 2-minute overview to see what £2.35M of development delivers.
+                Watch our 2-minute overview to see what GBP 2.35M of development delivers.
               </p>
               <div className="flex flex-wrap gap-4">
                 <button
@@ -177,7 +177,7 @@ export default function PricingPage() {
                   </div>
                   <div className="absolute bottom-4 left-4 right-4 text-left">
                     <p className="text-white/90 font-semibold">{PRICING_VIDEOS.hero.title}</p>
-                    <p className="text-white/60 text-sm">{PRICING_VIDEOS.hero.duration} • AI Presenter</p>
+                    <p className="text-white/60 text-sm">{PRICING_VIDEOS.hero.duration} - AI Presenter</p>
                   </div>
                 </button>
               )}
@@ -343,7 +343,7 @@ export default function PricingPage() {
                     onClick={() => handleAddAddon(addon.stripeAddonId)}
                     className="text-sm bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 font-medium transition-colors"
                   >
-                    Add to plan →
+                    Add to plan
                   </button>
                 </div>
               </div>
@@ -463,9 +463,9 @@ export default function PricingPage() {
                       return (
                         <td key={plan.id} className="py-3 px-4 text-center">
                           {feature?.included ? (
-                            <span className="text-green-600 font-bold text-xl">✓</span>
+                            <span className="text-green-600 font-bold text-xl">OK</span>
                           ) : (
-                            <span className="text-gray-300 font-bold text-xl">−</span>
+                            <span className="text-gray-300 font-bold text-xl">-</span>
                           )}
                           {feature?.limit && (
                             <div className="text-xs text-gray-600 mt-1">
@@ -502,7 +502,7 @@ export default function PricingPage() {
             />
             <FAQItem
               question="Is CPD training included?"
-              answer="CPD training courses are monetized separately. You can purchase individual courses (£49-299) or get unlimited access for £599/year. The subscription gives you access to the core EP platform tools."
+              answer="CPD training courses are monetized separately. You can purchase individual courses (GBP 49-299) or get unlimited access for GBP 599/year. The subscription gives you access to the core EP platform tools."
             />
             <FAQItem
               question="Is my data secure and GDPR compliant?"

@@ -183,7 +183,7 @@ export class ParentalService {
     const notification: ParentCommunication = {
       id: `achievement_${Date.now()}`,
       type: 'achievement',
-      title: `🎉 ${child.name} unlocked: ${achievement.title}!`,
+      title: `READY ${child.name} unlocked: ${achievement.title}!`,
       content: `${child.name} has achieved "${achievement.description}". This ${achievement.category} milestone shows great progress!`,
       priority: 'high',
       recipientIds: parentIds,
@@ -352,7 +352,7 @@ export class ParentalService {
       <div class="recent-achievements">
         <h4>Recent Achievements</h4>
         ${child.achievements.slice(0, 3).map(achievement =>
-          `<p>• ${achievement.title}</p>`
+          `<p>- ${achievement.title}</p>`
         ).join('')}
       </div>
 

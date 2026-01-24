@@ -109,7 +109,7 @@ export function UpgradePrompt({
           href="/pricing"
           className="text-blue-600 hover:text-blue-700 text-sm font-medium"
         >
-          View pricing →
+          View pricing
         </Link>
       </div>
     );

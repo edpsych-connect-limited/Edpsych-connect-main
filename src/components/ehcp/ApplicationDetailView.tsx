@@ -328,7 +328,7 @@ const TimelineEventItem: React.FC<{ event: TimelineEvent; isLast: boolean }> = (
       <div className={`pb-6 ${isLast ? '' : ''}`}>
         <div className="font-medium text-gray-900">{event.description}</div>
         <div className="text-sm text-gray-500 mt-1">
-          {event.createdBy.name} • {formatDistanceToNow(new Date(event.eventDate))}
+          {event.createdBy.name} - {formatDistanceToNow(new Date(event.eventDate))}
         </div>
       </div>
     </div>
@@ -485,7 +485,7 @@ export default function ApplicationDetailView({ applicationId, onBack, onRefresh
               </span>
             </div>
             <p className="text-gray-500 mt-1">
-              {application.child.firstName} {application.child.lastName} • Age {childAge}
+              {application.child.firstName} {application.child.lastName} - Age {childAge}
             </p>
           </div>
         </div>

@@ -15,6 +15,8 @@ import { useSchoolDashboard } from '@/hooks/useSchoolDashboard';
 
 export default function SchoolDashboard() {
   const { stats, classroomInterventions, students, loading } = useSchoolDashboard();
+  const featuredInterventions = classroomInterventions.slice(0, 3);
+  const visibleStudents = students.slice(0, 6);
 
   if (loading || !stats) {
     return <div className="min-h-screen bg-slate-50 flex items-center justify-center">Loading...</div>;
@@ -48,9 +50,69 @@ export default function SchoolDashboard() {
             <h1 className="text-2xl font-bold text-slate-900">SENCO Dashboard</h1>
             <p className="text-slate-600">Manage your SEN register and assessment requests.</p>
           </div>
-          <Link href="/cases/new" className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium flex items-center gap-2 transition-colors">
+          <Link
+            href="/cases/new"
+            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium flex items-center gap-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+          >
             <Plus className="w-4 h-4" /> New Request
           </Link>
+        </div>
+        <div className="mb-8 rounded-lg border border-emerald-100 bg-emerald-50 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-emerald-900">Decision Support</p>
+              <p className="text-sm text-emerald-800">
+                Triage critical actions first, then review teacher assessments and align
+                classroom strategies with priority needs.
+              </p>
+            </div>
+            <div className="text-xs text-emerald-700">
+              Focus: critical actions, assessments, interventions.
+            </div>
+          </div>
+        </div>
+        <div className="mb-8 grid gap-4 md:grid-cols-3">
+          {[
+            {
+              title: 'Review critical actions',
+              description: 'Check students requiring immediate SENCO attention.',
+              href: '/cases',
+              icon: AlertCircle,
+              tone: 'text-red-600',
+              bg: 'bg-red-50',
+            },
+            {
+              title: 'Launch assessment',
+              description: 'Start a new teacher assessment request.',
+              href: '/assessments',
+              icon: FileText,
+              tone: 'text-amber-600',
+              bg: 'bg-amber-50',
+            },
+            {
+              title: 'Assign intervention',
+              description: 'Select strategies aligned to this term\'s priorities.',
+              href: '/interventions',
+              icon: GraduationCap,
+              tone: 'text-indigo-600',
+              bg: 'bg-indigo-50',
+            },
+          ].map((action) => {
+            const Icon = action.icon;
+            return (
+              <Link
+                key={action.title}
+                href={action.href}
+                className="group rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-emerald-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+              >
+                <div className={`mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg ${action.bg} ${action.tone}`}>
+                  <Icon className="h-5 w-5" />
+                </div>
+                <h3 className="text-sm font-semibold text-slate-900 group-hover:text-emerald-700">{action.title}</h3>
+                <p className="mt-1 text-xs text-slate-600">{action.description}</p>
+              </Link>
+            );
+          })}
         </div>
 
         {/* Stats Grid (Wired to Libraries) */}
@@ -77,12 +139,15 @@ export default function SchoolDashboard() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-bold text-slate-900">Featured Classroom Strategies</h2>
-            <Link href="/interventions" className="text-sm text-indigo-600 font-medium hover:text-indigo-700">
+            <Link
+              href="/interventions"
+              className="text-sm text-indigo-600 font-medium hover:text-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
+            >
               View All {stats.interventionCount} Strategies
             </Link>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
-            {classroomInterventions.map(intervention => (
+            {featuredInterventions.map(intervention => (
               <div key={intervention.id} className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start justify-between mb-4">
                   <div className="p-2 bg-indigo-50 rounded-lg text-indigo-600">
@@ -132,7 +197,7 @@ export default function SchoolDashboard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {students.map((student, i) => (
+              {visibleStudents.map((student, i) => (
                 <tr key={i} className="hover:bg-slate-50 transition-colors">
                   <td className="px-6 py-4 font-medium text-slate-900">{student.name}</td>
                   <td className="px-6 py-4 text-slate-600">{student.year}</td>
@@ -144,7 +209,10 @@ export default function SchoolDashboard() {
                   </td>
                   <td className="px-6 py-4 text-slate-600">{student.review}</td>
                   <td className="px-6 py-4">
-                    <Link href={`/cases/${i}`} className="text-indigo-600 hover:text-indigo-700 font-medium">
+                    <Link
+                      href={`/cases/${i}`}
+                      className="text-indigo-600 hover:text-indigo-700 font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
+                    >
                       View Profile
                     </Link>
                   </td>
@@ -152,6 +220,16 @@ export default function SchoolDashboard() {
               ))}
             </tbody>
           </table>
+          {students.length > visibleStudents.length && (
+            <div className="px-6 py-4 border-t border-slate-100 text-right">
+              <Link
+                href="/cases"
+                className="text-sm font-semibold text-indigo-600 hover:text-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
+              >
+                View full register ({students.length})
+              </Link>
+            </div>
+          )}
         </div>
       </main>
     </div>

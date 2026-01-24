@@ -298,15 +298,15 @@ export class SecurityScanner {
    * @returns {string} Formatted report
    */
   formatReport(result: SecurityScanResult): string {
-    let report = '\n════════════════════════════════════════════════════════════\n';
+    let report = '\n\n';
     report += `  SECURITY SCAN REPORT\n`;
-    report += `════════════════════════════════════════════════════════════\n\n`;
+    report += `\n\n`;
 
-    report += `STATUS: ${result.passed ? '✅ PASSED' : '🚨 FAILED'}\n`;
+    report += `STATUS: ${result.passed ? 'OK PASSED' : 'ALERT FAILED'}\n`;
     report += `Summary: ${result.summary}\n\n`;
 
     // Statistics
-    report += `📊 STATISTICS:\n`;
+    report += `STATS STATISTICS:\n`;
     report += `  Critical Issues: ${result.stats.criticalCount}\n`;
     report += `  High Issues: ${result.stats.highCount}\n`;
     report += `  Medium Issues: ${result.stats.mediumCount}\n`;
@@ -317,7 +317,7 @@ export class SecurityScanner {
 
     // Issues by severity
     if (result.stats.criticalCount > 0) {
-      report += `🚨 CRITICAL (${result.stats.criticalCount}):\n`;
+      report += `ALERT CRITICAL (${result.stats.criticalCount}):\n`;
       result.issues
         .filter(i => i.severity === 'critical')
         .slice(0, 5)
@@ -333,7 +333,7 @@ export class SecurityScanner {
     }
 
     if (result.stats.highCount > 0) {
-      report += `⚠️  HIGH (${result.stats.highCount}):\n`;
+      report += `WARNING  HIGH (${result.stats.highCount}):\n`;
       result.issues
         .filter(i => i.severity === 'high')
         .slice(0, 3)
@@ -344,7 +344,7 @@ export class SecurityScanner {
         });
     }
 
-    report += `════════════════════════════════════════════════════════════\n`;
+    report += `\n`;
 
     return report;
   }

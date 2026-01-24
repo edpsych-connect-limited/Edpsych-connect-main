@@ -200,7 +200,7 @@ function ContributionCard({
           <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
             <User className="w-4 h-4" />
             {childAge ? `Age ${childAge}` : 'DOB not set'}
-            {child.year_group && ` • Year ${child.year_group}`}
+            {child.year_group && ` - Year ${child.year_group}`}
           </div>
           <DeadlineIndicator deadline={contribution.deadline} />
         </div>
@@ -556,10 +556,10 @@ export default function ProfessionalContributionPortal({ isDemo = false, demoUse
                 Statutory Requirements
               </h4>
               <ul className="space-y-1 text-gray-600 dark:text-gray-300">
-                <li>• Advice must be provided within 6 weeks of request</li>
-                <li>• Focus on educational needs and outcomes</li>
-                <li>• Include specific, quantified provision recommendations</li>
-                <li>• Reference SEND Code of Practice 2015</li>
+                <li>- Advice must be provided within 6 weeks of request</li>
+                <li>- Focus on educational needs and outcomes</li>
+                <li>- Include specific, quantified provision recommendations</li>
+                <li>- Reference SEND Code of Practice 2015</li>
               </ul>
             </div>
             <div>
@@ -567,10 +567,10 @@ export default function ProfessionalContributionPortal({ isDemo = false, demoUse
                 Best Practice Tips
               </h4>
               <ul className="space-y-1 text-gray-600 dark:text-gray-300">
-                <li>• Use child-friendly language where possible</li>
-                <li>• Include both strengths and areas of difficulty</li>
-                <li>• Make outcomes SMART and measurable</li>
-                <li>• Save drafts regularly</li>
+                <li>- Use child-friendly language where possible</li>
+                <li>- Include both strengths and areas of difficulty</li>
+                <li>- Make outcomes SMART and measurable</li>
+                <li>- Save drafts regularly</li>
               </ul>
             </div>
           </div>

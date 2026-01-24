@@ -375,15 +375,15 @@ export class PerformanceProfiler {
    * @returns {string} Formatted report
    */
   formatReport(result: PerformanceScanResult): string {
-    let report = '\n════════════════════════════════════════════════════════════\n';
+    let report = '\n\n';
     report += `  PERFORMANCE PROFILE REPORT\n`;
-    report += `════════════════════════════════════════════════════════════\n\n`;
+    report += `\n\n`;
 
-    report += `STATUS: ${result.passed ? '✅ PASSED' : '⚠️  WARNING'}\n`;
+    report += `STATUS: ${result.passed ? 'OK PASSED' : 'WARNING  WARNING'}\n`;
     report += `Summary: ${result.summary}\n\n`;
 
     // Statistics
-    report += `📊 METRICS:\n`;
+    report += `STATS METRICS:\n`;
     report += `  Files Scanned: ${result.stats.filesScanned}\n`;
     report += `  Total Issues: ${result.stats.totalIssues}\n`;
     report += `  High Complexity: ${result.stats.slowFunctions}\n`;
@@ -392,7 +392,7 @@ export class PerformanceProfiler {
 
     // Top issues
     if (result.stats.totalIssues > 0) {
-      report += `⚠️  TOP ISSUES:\n`;
+      report += `WARNING  TOP ISSUES:\n`;
       result.issues
         .sort((a, b) => {
           const severityOrder = { critical: 0, high: 1, medium: 2, low: 3 };
@@ -407,7 +407,7 @@ export class PerformanceProfiler {
         });
     }
 
-    report += `════════════════════════════════════════════════════════════\n`;
+    report += `\n`;
 
     return report;
   }

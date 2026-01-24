@@ -261,9 +261,9 @@ export default function EnterpriseLanding() {
                 className="grid grid-cols-3 gap-8"
               >
                 {[
-                  { icon: '🔒', label: 'Enterprise Security', desc: 'SOC 2 Type II Certified' },
-                  { icon: '⚡', label: 'Lightning Fast', desc: '< 100ms Response Time' },
-                  { icon: '🌍', label: 'Global Scale', desc: '99.9% Uptime SLA' }
+                  { icon: 'SEC', label: 'Enterprise Security', desc: 'SOC 2 Type II Certified' },
+                  { icon: 'FAST', label: 'Lightning Fast', desc: '< 100ms Response Time' },
+                  { icon: 'GLOBAL', label: 'Global Scale', desc: '99.9% Uptime SLA' }
                 ].map((feature) => (
                   <motion.div
                     key={feature.label}
@@ -328,7 +328,7 @@ export default function EnterpriseLanding() {
                     <div className="space-y-4">
                       <div className="flex items-center space-x-4 p-4 bg-slate-50 rounded-xl">
                         <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
-                          <span className="text-primary-600 font-bold">🧠</span>
+                          <span className="text-primary-600 font-bold">AI</span>
                         </div>
                         <div>
                           <div className="font-semibold text-slate-900">NeuroConnect Analytics</div>
@@ -338,7 +338,7 @@ export default function EnterpriseLanding() {
 
                       <div className="flex items-center space-x-4 p-4 bg-slate-50 rounded-xl">
                         <div className="w-10 h-10 bg-accent-100 rounded-lg flex items-center justify-center">
-                          <span className="text-accent-600 font-bold">🎯</span>
+                          <span className="text-accent-600 font-bold">GOAL</span>
                         </div>
                         <div>
                           <div className="font-semibold text-slate-900">Battle Royale Learning</div>
@@ -362,7 +362,7 @@ export default function EnterpriseLanding() {
                     ease: "easeInOut"
                   }}
                 >
-                  <div className="text-2xl mb-1">🚀</div>
+                  <div className="text-2xl mb-1">LAUNCH</div>
                   <div className="text-xs font-bold text-slate-900">3.4x</div>
                   <div className="text-xs text-slate-600">Engagement</div>
                 </motion.div>
@@ -379,7 +379,7 @@ export default function EnterpriseLanding() {
                     ease: "easeInOut"
                   }}
                 >
-                  <div className="text-2xl mb-1">🔬</div>
+                  <div className="text-2xl mb-1">R&D</div>
                   <div className="text-xs font-bold text-slate-900">48%</div>
                   <div className="text-xs text-slate-600">More Research</div>
                 </motion.div>
@@ -567,7 +567,7 @@ export default function EnterpriseLanding() {
             </motion.div>
 
             <p className="text-white/80 mt-6 text-sm">
-              No credit card required • Full access to all features • Enterprise support included
+              No credit card required - Full access to all features - Enterprise support included
             </p>
           </motion.div>
         </div>

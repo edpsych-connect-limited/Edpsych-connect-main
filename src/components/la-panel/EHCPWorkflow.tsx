@@ -38,12 +38,12 @@ export default function EHCPWorkflow({ caseId, studentName, onBack }: { caseId: 
       {/* Header with Back Button */}
       <div className="flex items-center gap-4 mb-6">
         <button onClick={onBack} className="text-gray-500 hover:text-gray-700 font-medium flex items-center gap-1">
-          ← Back to Dashboard
+          Back to Dashboard
         </button>
         <div className="h-6 w-px bg-gray-300"></div>
         <div>
           <h2 className="text-2xl font-bold text-gray-900">{studentName}</h2>
-          <p className="text-sm text-gray-500">Case ID: {caseId} • Statutory Deadline: Dec 20, 2025</p>
+          <p className="text-sm text-gray-500">Case ID: {caseId} - Statutory Deadline: Dec 20, 2025</p>
         </div>
       </div>
 

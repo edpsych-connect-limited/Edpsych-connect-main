@@ -7,7 +7,7 @@ of context and to provide a clear execution checklist.
 Status key: [ ] pending, [~] in progress, [x] done
 
 Owner: Codex (Project Lead) + Scott (Sponsor)
-Last updated: 2026-01-22
+Last updated: 2026-01-23
 
 -----------------------------------------------------------------------------
 Execution Timeline (Target)
@@ -51,11 +51,11 @@ Immediate next actions:
     - Outcomes: 3-5 primary tasks per role with entry points
     - Deliverable: Journey map + success criteria per role
 
-[~] Redesign role dashboards to reduce surface area and improve next actions
-    - [~] EP: assessment, report, intervention, time savings
-    - [~] LA: case triage, compliance, analytics, approvals
-    - [~] School: referrals, collaboration, interventions, progress
-    - [~] Parent: child updates, portal actions, communication
+[x] Redesign role dashboards to reduce surface area and improve next actions
+    - [x] EP: assessment, report, intervention, time savings
+    - [x] LA: case triage, compliance, analytics, approvals
+    - [x] School: referrals, collaboration, interventions, progress
+    - [x] Parent: child updates, portal actions, communication
 
 [x] Standardize navigation patterns across app and admin
     - Align layout, breadcrumbing, and page titles
@@ -359,6 +359,23 @@ Progress log:
 - 2026-01-22: Added focus-visible rings and status semantics for teacher intervention dashboard.
 - 2026-01-22: Normalized assessment results analysis list bullets and added focus-visible rings for actions/tabs.
 - 2026-01-22: Added focus-visible rings and ASCII-safe navigation labels in assessment administration flow.
+- 2026-01-22: Added focus-visible rings and status semantics in collaborative assessment input form.
+- 2026-01-22: Added focus-visible rings for assessment collaboration invite inputs and normalized status labels to ASCII.
+- 2026-01-22: Normalized EHCP review workflow and SEN needs assessment stepper labels/icons to ASCII-safe text.
+- 2026-01-22: Normalized EHCP professional contribution portal bullets and year-group separator to ASCII-safe text.
+- 2026-01-22: Normalized EHCP LA dashboard, application detail, merge tool, school submission, and governance modules to ASCII-safe labels (phase transfers, costing, golden thread, mediation).
+- 2026-01-22: Normalized case manager stepper icons, status labels, and safeguarding flags to ASCII-safe text.
+- 2026-01-22: Normalized AI assistant responses, demo sandbox copy, and recommendation/integration badges to ASCII-safe labels.
+- 2026-01-22: Normalized enterprise help center AI chatbot copy and guidance bullets to ASCII-safe text.
+- 2026-01-22: Normalized onboarding flow copy, status labels, and icons to ASCII-safe text.
+- 2026-01-22: Normalized landing and marketing components (legacy and flagship) to ASCII-safe text and labels.
+- 2026-01-22: Normalized remaining UI modules (progress, training, battle royale, privacy, demos) to ASCII-safe text and labels.
+- 2026-01-22: Normalized backend/shared libs, services, and API strings to ASCII-safe text (pricing, AI content, monitoring logs, interventions library).
+- 2026-01-23: Refocused EP, LA, School, and Parent dashboards with next-action panels and reduced surface area in role flows.
+- 2026-01-23: Added focus-visible rings for role dashboard primary actions (EP/Parent/School) to support keyboard navigation.
+- 2026-01-23: Removed JSX arrow glyphs that were breaking lint parsing across demos, EHCP flows, training, pricing, and research UI copy.
+- 2026-01-23: Regenerated Prisma client to include AI governance/evidence models; build now progresses through lint/type-check/tests before Next build timeout.
+- 2026-01-23: `npm run build` completed successfully; `npm run build:vercel` still slow due to full verify suite.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

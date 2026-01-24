@@ -340,7 +340,7 @@ export function generateProgressSummary(userProgresses: UserCourseProgress[]): P
         activity_type: 'course_complete',
         course_id: progress.course_id,
         course_title: course?.title || 'Unknown Course',
-        description: `🎓 Completed course!`,
+        description: `TRAIN Completed course!`,
         merits_earned: 100,
         timestamp: progress.completion_date,
       });

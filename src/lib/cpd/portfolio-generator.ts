@@ -198,8 +198,8 @@ export class CPDPortfolioGenerator {
       `learning activities across multiple categories of professional development.`,
       '',
       `Compliance Status:`,
-      `• HCPC Requirement (${hcpcTarget} hours): ${totalHours >= hcpcTarget ? '✓ Met' : '✗ Not Met'} (${totalHours}/${hcpcTarget} hours)`,
-      `• BPS Recommendation (${bpsTarget} hours): ${totalHours >= bpsTarget ? '✓ Met' : '✗ Not Met'} (${totalHours}/${bpsTarget} hours)`,
+      `- HCPC Requirement (${hcpcTarget} hours): ${totalHours >= hcpcTarget ? ' Met' : ' Not Met'} (${totalHours}/${hcpcTarget} hours)`,
+      `- BPS Recommendation (${bpsTarget} hours): ${totalHours >= bpsTarget ? ' Met' : ' Not Met'} (${totalHours}/${bpsTarget} hours)`,
     ];
 
     summary.forEach((line) => {
@@ -327,7 +327,7 @@ export class CPDPortfolioGenerator {
 
       if (entry.certificate) {
         doc.setTextColor(16, 185, 129);
-        doc.text('✓', this.PAGE_WIDTH - this.MARGIN - 5, yPos + 5);
+        doc.text('', this.PAGE_WIDTH - this.MARGIN - 5, yPos + 5);
       }
 
       // Activity Title
@@ -340,7 +340,7 @@ export class CPDPortfolioGenerator {
       doc.setFontSize(9);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(100, 116, 139);
-      doc.text(`${entry.category} • ${entry.provider}`, this.MARGIN + 3, yPos + 16);
+      doc.text(`${entry.category} - ${entry.provider}`, this.MARGIN + 3, yPos + 16);
 
       // Notes (if present)
       if (entry.notes) {
@@ -450,7 +450,7 @@ export class CPDPortfolioGenerator {
 
     // Copyright
     doc.text(
-      `© ${data.year} EdPsych Connect Limited`,
+      `(c) ${data.year} EdPsych Connect Limited`,
       this.MARGIN,
       this.PAGE_HEIGHT - 10
     );

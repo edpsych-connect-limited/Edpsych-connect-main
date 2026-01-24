@@ -210,7 +210,7 @@ export default function CollaborativeInputForm({
                 value={narrativeInput}
                 onChange={(e) => setNarrativeInput(e.target.value)}
                 rows={8}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                 placeholder={
                   contributor_type === 'child'
                     ? 'Tell us anything else you think is important...'
@@ -229,7 +229,7 @@ export default function CollaborativeInputForm({
                 type="text"
                 value={observationContext}
                 onChange={(e) => setObservationContext(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                 placeholder={
                   contributor_type === 'child'
                     ? 'e.g., At school, at home, with friends...'
@@ -251,8 +251,8 @@ export default function CollaborativeInputForm({
                   <span className="text-blue-800">{domain.name}</span>
                   <span className="text-blue-600 text-sm">
                     {responses[domain.id] && Object.keys(responses[domain.id]).length > 0
-                      ? '✓ Completed'
-                      : '○ Skipped'}
+                      ? 'Completed'
+                      : 'Pending'}
                   </span>
                 </div>
               ))}
@@ -294,7 +294,7 @@ export default function CollaborativeInputForm({
                       responses[domain.id]?.[question.id] === option
                         ? 'border-blue-600 bg-blue-50 text-blue-900 font-medium'
                         : 'border-gray-300 bg-white text-gray-700 hover:border-blue-400'
-                    }`}
+                    } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
                   >
                     {option}
                   </button>
@@ -307,7 +307,7 @@ export default function CollaborativeInputForm({
                 value={responses[domain.id]?.[question.id] || ''}
                 onChange={(e) => handleDomainResponse(domain.id, question.id, e.target.value)}
                 rows={5}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                 placeholder={question.placeholder}
               />
             )}
@@ -329,7 +329,7 @@ export default function CollaborativeInputForm({
                 {contributor_name} {formData.relationship_to_child && `(${formData.relationship_to_child})`}
               </p>
             </div>
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-gray-500" role="status" aria-live="polite">
               {isSaving ? (
                 <span className="flex items-center">
                   <svg className="animate-spin h-4 w-4 mr-2" viewBox="0 0 24 24">
@@ -388,7 +388,7 @@ export default function CollaborativeInputForm({
             <button
               onClick={handlePrevious}
               disabled={currentDomainIndex === 0}
-              className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
               Previous
             </button>
@@ -396,7 +396,7 @@ export default function CollaborativeInputForm({
             <button
               onClick={handleSaveDraft}
               disabled={isSaving}
-              className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+              className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
               {isSaving ? 'Saving...' : 'Save Draft'}
             </button>
@@ -405,14 +405,14 @@ export default function CollaborativeInputForm({
               <button
                 onClick={handleSubmitForm}
                 disabled={isSubmitting}
-                className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+                className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
               >
                 {isSubmitting ? 'Submitting...' : 'Submit Responses'}
               </button>
             ) : (
               <button
                 onClick={handleNext}
-                className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
                 Next Section
               </button>

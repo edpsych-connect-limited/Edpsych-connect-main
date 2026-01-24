@@ -26,7 +26,7 @@ const PricingSection: React.FC = () => {
               <p className="text-2xl font-bold mb-4">{plan.price}</p>
               <ul className="mb-4 text-gray-600">
                 {plan.features.map((f, i) => (
-                  <li key={i}>• {f}</li>
+                  <li key={i}>- {f}</li>
                 ))}
               </ul>
               <button className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">

@@ -41,7 +41,7 @@ export default function MasterclassCourseCard({ course, onEnroll }: MasterclassC
       {/* Featured badge */}
       {course.featured && (
         <div className="absolute top-4 right-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg z-10">
-          ⭐ Featured
+          FEATURED Featured
         </div>
       )}
 
@@ -115,7 +115,7 @@ export default function MasterclassCourseCard({ course, onEnroll }: MasterclassC
           <ul className="space-y-2">
             {course.learning_outcomes.slice(0, 3).map((outcome, index) => (
               <li key={index} className="flex items-start gap-2 text-sm text-gray-700">
-                <span className="text-green-600 mt-0.5">✓</span>
+                <span className="text-green-600 mt-0.5">OK</span>
                 <span>{outcome}</span>
               </li>
             ))}
@@ -165,10 +165,10 @@ export default function MasterclassCourseCard({ course, onEnroll }: MasterclassC
               className="w-full flex items-center justify-between px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors text-sm font-medium text-gray-700"
             >
               <span className="flex items-center gap-2">
-                📚 Evidence Base ({citations.length} {citations.length === 1 ? 'citation' : 'citations'})
+                EVIDENCE Evidence Base ({citations.length} {citations.length === 1 ? 'citation' : 'citations'})
               </span>
               <span className={`transform transition-transform ${showCitations ? 'rotate-180' : ''}`}>
-                ▼
+                v
               </span>
             </button>
 
@@ -192,14 +192,14 @@ export default function MasterclassCourseCard({ course, onEnroll }: MasterclassC
                           rel="noopener noreferrer"
                           className="text-blue-600 hover:text-blue-800 underline"
                         >
-                          View source →
+                          View source
                         </a>
                       )}
                     </div>
                   ))}
                 </div>
                 <p className="text-xs text-gray-500 mt-3 pt-3 border-t border-blue-200">
-                  <strong>Evidence Level:</strong> {evidenceBase?.evidence_level} • 
+                  <strong>Evidence Level:</strong> {evidenceBase?.evidence_level} - 
                   <strong className="ml-2">Last Updated:</strong> {new Date(evidenceBase?.last_updated || '').toLocaleDateString('en-GB', { year: 'numeric', month: 'long' })}
                 </p>
               </div>

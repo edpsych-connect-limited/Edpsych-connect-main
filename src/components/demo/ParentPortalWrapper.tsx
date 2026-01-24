@@ -102,7 +102,7 @@ export default function ParentPortalWrapper({ demoParentId, demoChildId }: Paren
               <div className="absolute inset-0 bg-gradient-to-tr from-rose-200 to-transparent rounded-full blur-3xl opacity-30 animate-pulse"></div>
               <div className="bg-white rounded-3xl shadow-2xl p-8 border border-slate-100 relative transform rotate-2 hover:rotate-0 transition-all duration-500">
                 <div className="flex items-center space-x-4 mb-6">
-                  <div className="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center text-2xl">👶</div>
+                  <div className="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center text-2xl">CHILD</div>
                   <div>
                     <div className="font-bold text-slate-900">Leo&apos;s Progress</div>
                     <div className="text-sm text-slate-500">Updated 2 hours ago</div>
@@ -145,17 +145,17 @@ export default function ParentPortalWrapper({ demoParentId, demoChildId }: Paren
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                icon: "📊",
+                icon: "STATS",
                 title: "Track Progress",
                 desc: "See exactly how your child is developing with easy-to-understand charts and updates."
               },
               {
-                icon: "🤝",
+                icon: "HELP",
                 title: "Collaborate",
                 desc: "Direct secure messaging with your child's support team and teachers."
               },
               {
-                icon: "📚",
+                icon: "COURSE",
                 title: "Expert Resources",
                 desc: "Access a library of strategies and activities tailored to your child's specific needs."
               }

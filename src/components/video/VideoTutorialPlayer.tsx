@@ -341,7 +341,7 @@ export const VideoTutorialPlayer: React.FC<VideoTutorialPlayerProps> = ({
                     className="absolute inset-0 w-full h-full object-contain opacity-90 z-0"
                 />
                 <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm backdrop-blur-sm z-10">
-                    📸 Interactive Walkthrough
+                    Interactive Walkthrough
                 </div>
             </>
         )}

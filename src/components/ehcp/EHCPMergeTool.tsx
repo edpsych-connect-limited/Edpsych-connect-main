@@ -617,7 +617,7 @@ export default function EHCPMergeTool({ applicationId, application, onBack, onSa
               <h1 className="text-2xl font-bold text-gray-900">EHCP Merge Tool</h1>
             </div>
             <p className="text-gray-500 mt-1">
-              {application.referenceNumber} • {application.child.firstName} {application.child.lastName}
+              {application.referenceNumber} - {application.child.firstName} {application.child.lastName}
             </p>
           </div>
         </div>

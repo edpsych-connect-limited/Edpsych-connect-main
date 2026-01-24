@@ -9,7 +9,7 @@
  * PROPRIETARY INNOVATION - The most powerful feature that NO competitor has.
  * 
  * The "Golden Thread" is the critical connection between:
- * Assessment → Needs → Outcomes → Provision → Progress
+ * Assessment -> Needs -> Outcomes -> Provision -> Progress
  * 
  * This visualisation shows:
  * - How each need maps to specific outcomes
@@ -496,7 +496,7 @@ export default function GoldenThreadVisualisation() {
             <div>
               <h2 className="text-2xl font-bold">Golden Thread Visualisation</h2>
               <p className="text-amber-100">
-                {data.studentName} • EHCP Coherence Analysis
+                {data.studentName} - EHCP Coherence Analysis
               </p>
             </div>
           </div>
@@ -650,7 +650,7 @@ export default function GoldenThreadVisualisation() {
               </div>
             </div>
 
-            {/* Three Column Layout: Needs → Outcomes → Provisions */}
+            {/* Three Column Layout: Needs -> Outcomes -> Provisions */}
             <div className="grid md:grid-cols-3 gap-0 divide-x divide-gray-200 dark:divide-gray-700">
               {/* NEEDS Column */}
               <div className="p-4">
@@ -696,7 +696,7 @@ export default function GoldenThreadVisualisation() {
                         )}
                         {need.linkedOutcomes.length > 0 && (
                           <span className="text-xs text-gray-400">
-                            → {need.linkedOutcomes.length} outcome{need.linkedOutcomes.length !== 1 ? 's' : ''}
+                            to {need.linkedOutcomes.length} outcome{need.linkedOutcomes.length !== 1 ? 's' : ''}
                           </span>
                         )}
                       </div>
@@ -801,12 +801,12 @@ export default function GoldenThreadVisualisation() {
                       </div>
                       {(!provision.quantified || !provision.specific) && (
                         <div className="mt-2 text-xs text-amber-600">
-                          ⚠️ {!provision.quantified && 'Not quantified'} {!provision.specific && 'Not specific enough'}
+                          Warning: {!provision.quantified && 'Not quantified'} {!provision.specific && 'Not specific enough'}
                         </div>
                       )}
                       {provision.linkedOutcomes.length === 0 && (
                         <div className="mt-2 text-xs text-red-600">
-                          ⚠️ Not linked to any outcome
+                          Warning: Not linked to any outcome
                         </div>
                       )}
                     </div>
@@ -855,7 +855,7 @@ export default function GoldenThreadVisualisation() {
                   </div>
                 </div>
                 <button className="text-sm font-medium text-indigo-600 hover:text-indigo-700 whitespace-nowrap">
-                  Fix this →
+                  Fix this
                 </button>
               </div>
             </div>

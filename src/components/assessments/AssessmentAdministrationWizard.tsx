@@ -465,7 +465,7 @@ export default function AssessmentAdministrationWizard({
           <p className="mt-2 text-gray-600">The requested assessment framework could not be loaded. Please try again or contact support.</p>
           <button
             onClick={() => router.back()}
-            className="mt-6 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
+            className="mt-6 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           >
             Go Back
           </button>
@@ -514,7 +514,7 @@ export default function AssessmentAdministrationWizard({
               <button
                 type="button"
                 onClick={() => startTour('assessment-admin')}
-                className="px-3 py-2 rounded-md text-sm font-medium text-blue-600 border border-blue-200 hover:bg-blue-50"
+                className="px-3 py-2 rounded-md text-sm font-medium text-blue-600 border border-blue-200 hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
                 Take Tour
               </button>
@@ -1031,7 +1031,7 @@ function CollaborativeInputStep({ assessmentData, updateAssessmentData: _ }: any
             type="text"
             value={inviteData.contributor_name}
             onChange={(e) => setInviteData(prev => ({ ...prev, contributor_name: e.target.value }))}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             placeholder="Full name"
           />
         </div>
@@ -1041,7 +1041,7 @@ function CollaborativeInputStep({ assessmentData, updateAssessmentData: _ }: any
             type="email"
             value={inviteData.contributor_email}
             onChange={(e) => setInviteData(prev => ({ ...prev, contributor_email: e.target.value }))}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             placeholder="email@example.com"
           />
         </div>
@@ -1051,7 +1051,7 @@ function CollaborativeInputStep({ assessmentData, updateAssessmentData: _ }: any
             type="text"
             value={inviteData.relationship_to_child}
             onChange={(e) => setInviteData(prev => ({ ...prev, relationship_to_child: e.target.value }))}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             placeholder="e.g., Mother, Class Teacher"
           />
         </div>
@@ -1060,7 +1060,7 @@ function CollaborativeInputStep({ assessmentData, updateAssessmentData: _ }: any
           <textarea
             value={inviteData.message}
             onChange={(e) => setInviteData(prev => ({ ...prev, message: e.target.value }))}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             rows={3}
             placeholder="Add a personal message to include in the email..."
           />
@@ -1069,13 +1069,13 @@ function CollaborativeInputStep({ assessmentData, updateAssessmentData: _ }: any
           <button
             onClick={() => handleSendInvitation(contributorType)}
             disabled={isSending || !inviteData.contributor_name || !inviteData.contributor_email}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           >
             {isSending ? 'Sending...' : 'Send Invitation'}
           </button>
           <button
             onClick={() => setShowInviteForm(null)}
-            className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+            className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           >
             Cancel
           </button>
@@ -1093,7 +1093,7 @@ function CollaborativeInputStep({ assessmentData, updateAssessmentData: _ }: any
           <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
           <button
             onClick={() => setShowInviteForm(type)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm"
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           >
             + Send Invitation
           </button>
@@ -1124,7 +1124,7 @@ function CollaborativeInputStep({ assessmentData, updateAssessmentData: _ }: any
                         : 'bg-gray-100 text-gray-800'
                     }`}
                   >
-                    {collab.status === 'received' ? '✓ Received' : 'Pending'}
+                    {collab.status === 'received' ? 'Received' : 'Pending'}
                   </span>
                 </div>
 

@@ -36,55 +36,55 @@ const ConversionFunnel = (): React.ReactElement => {
     {
       title: 'Discover AI Education Solutions',
       description: 'Explore how our platform revolutionizes education with AI-powered Personalised learning and intelligent assessment tools.',
-      icon: <div className="text-3xl">🔎</div>,
+      icon: <div className="text-3xl">SEARCH</div>,
       roles: ['teacher', 'student', 'parent', 'researcher']
     },
     {
       title: 'Create Free Account',
       description: 'Sign up in under 60 seconds and get immediate access to basic features with no credit card required.',
-      icon: <div className="text-3xl">✍️</div>,
+      icon: <div className="text-3xl">WRITE</div>,
       roles: ['teacher', 'student', 'parent', 'researcher']
     },
     {
       title: 'Personalised Onboarding',
       description: 'Take a quick assessment to help our AI understand your specific needs and goals.',
-      icon: <div className="text-3xl">🧩</div>,
+      icon: <div className="text-3xl">BUILD</div>,
       roles: ['teacher', 'student', 'parent', 'researcher']
     },
     {
       title: 'Teacher-Specific Resources',
       description: 'Access curriculum design tools, auto-generated assessments, and student analytics dashboards.',
-      icon: <div className="text-3xl">📚</div>,
+      icon: <div className="text-3xl">LEARN</div>,
       roles: ['teacher']
     },
     {
       title: 'Student Learning Journey',
       description: 'Experience adaptive learning paths, interactive challenges, and the Battle Royale educational game.',
-      icon: <div className="text-3xl">🎮</div>,
+      icon: <div className="text-3xl">PLAY</div>,
       roles: ['student']
     },
     {
       title: 'Parent Monitoring Tools',
       description: 'Monitor your child\'s progress, communicate with teachers, and receive Personalised recommendations.',
-      icon: <div className="text-3xl">👨‍👩‍👧‍👦</div>,
+      icon: <div className="text-3xl">FAMILY</div>,
       roles: ['parent']
     },
     {
       title: 'Research Laboratory',
       description: 'Access anonymized data, run educational experiments, and publish findings with our research tools.',
-      icon: <div className="text-3xl">🧪</div>,
+      icon: <div className="text-3xl">LAB</div>,
       roles: ['researcher']
     },
     {
       title: 'Explore Premium Features',
       description: 'Upgrade to unlock advanced analytics, specialized assessment tools, and integration capabilities.',
-      icon: <div className="text-3xl">⭐</div>,
+      icon: <div className="text-3xl">STAR</div>,
       roles: ['teacher', 'parent', 'researcher']
     },
     {
       title: 'Connect with Support',
       description: 'Get help from our AI support team or connect with a human specialist for Personalised assistance.',
-      icon: <div className="text-3xl">🤝</div>,
+      icon: <div className="text-3xl">HELP</div>,
       roles: ['teacher', 'student', 'parent', 'researcher']
     }
   ];

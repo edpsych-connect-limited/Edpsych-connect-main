@@ -98,13 +98,13 @@ export default function EHCPSandbox() {
 
   // Wizard steps
   const steps = [
-    { id: 'basic', name: 'Student Info', icon: '👤' },
-    { id: 'section_a', name: 'Section A: Views', icon: '👁️' },
-    { id: 'section_b', name: 'Section B: Needs', icon: '📚' },
-    { id: 'section_e', name: 'Section E: Outcomes', icon: '🎯' },
-    { id: 'section_f', name: 'Section F: Provision', icon: '🏫' },
-    { id: 'section_i', name: 'Section I: Placement', icon: '🏛️' },
-    { id: 'review', name: 'Review', icon: '✅' },
+    { id: 'basic', name: 'Student Info', icon: 'STUDENT' },
+    { id: 'section_a', name: 'Section A: Views', icon: 'VIEWS' },
+    { id: 'section_b', name: 'Section B: Needs', icon: 'NEEDS' },
+    { id: 'section_e', name: 'Section E: Outcomes', icon: 'OUTCOMES' },
+    { id: 'section_f', name: 'Section F: Provision', icon: 'PROVISION' },
+    { id: 'section_i', name: 'Section I: Placement', icon: 'PLACEMENT' },
+    { id: 'review', name: 'Review', icon: 'OK' },
   ];
 
   // Update form field helpers
@@ -492,7 +492,7 @@ export default function EHCPSandbox() {
                 : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
             }`}
           >
-            ← Previous
+            Previous
           </button>
           
           {currentStep < steps.length - 1 ? (
@@ -500,7 +500,7 @@ export default function EHCPSandbox() {
               onClick={nextStep}
               className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 shadow-lg shadow-blue-200 transition-colors"
             >
-              Next Step →
+              Next Step
             </button>
           ) : (
             <button

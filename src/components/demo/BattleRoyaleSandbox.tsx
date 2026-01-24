@@ -62,7 +62,7 @@ const ADAPTIVE_QUESTIONS = [
     difficulty: "Adaptive: Level 4",
     adaptation: "Visual Support Enabled",
     question: "Which fraction is equivalent to 0.75?",
-    visualAid: "¾ Pie Chart Visualization",
+    visualAid: "3/4 Pie Chart Visualization",
     options: [
       "1/2",
       "3/4",
@@ -70,7 +70,7 @@ const ADAPTIVE_QUESTIONS = [
       "4/5"
     ],
     correctAnswer: 1,
-    explanation: "0.75 is three quarters. Think of 75p out of £1.00."
+    explanation: "0.75 is three quarters. Think of 75p out of GBP 1.00."
   },
   {
     id: 2,
@@ -356,7 +356,7 @@ export default function BattleRoyaleSandbox() {
 
                   <div className="flex justify-between items-start mb-4">
                     <span className="px-3 py-1 bg-indigo-900/50 text-indigo-300 text-xs rounded-full border border-indigo-500/30">
-                      {ADAPTIVE_QUESTIONS[currentQuestionIndex].subject} • {ADAPTIVE_QUESTIONS[currentQuestionIndex].topic}
+                      {ADAPTIVE_QUESTIONS[currentQuestionIndex].subject} - {ADAPTIVE_QUESTIONS[currentQuestionIndex].topic}
                     </span>
                   </div>
                   
@@ -526,7 +526,7 @@ export default function BattleRoyaleSandbox() {
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-white">Leo Thompson</h2>
-                <p className="text-slate-400">Year 5 • Demo School</p>
+                <p className="text-slate-400">Year 5 - Demo School</p>
                 <div className="flex gap-2 mt-2">
                   <span className="px-2 py-1 bg-yellow-900/30 text-yellow-500 text-xs rounded border border-yellow-500/30 flex items-center gap-1">
                     <Crown className="w-3 h-3" /> Level 12
@@ -590,7 +590,7 @@ export default function BattleRoyaleSandbox() {
             <Activity className="w-6 h-6 text-indigo-400" />
             <div>
               <h3 className="text-lg font-bold text-white">Real-Time Cognitive Analysis (ECCA Framework)</h3>
-              <p className="text-xs text-slate-400">Stealth Assessment Engine v1.0 • Session ID: {sessionData.sessionId}</p>
+              <p className="text-xs text-slate-400">Stealth Assessment Engine v1.0 - Session ID: {sessionData.sessionId}</p>
             </div>
           </div>
 

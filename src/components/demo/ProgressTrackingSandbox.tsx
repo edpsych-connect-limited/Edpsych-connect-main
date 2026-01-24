@@ -23,10 +23,10 @@ const MOCK_STUDENTS = [
 ];
 
 const MOCK_INTERVENTIONS = [
-  { name: "ELSA Support", students: 12, avgImpact: "+6 SS Pts", cost: "£450", rating: 4.8, height: "h-3/4" },
-  { name: "Precision Teaching", students: 24, avgImpact: "+4 SS Pts", cost: "£0", rating: 4.2, height: "h-1/2" },
-  { name: "Talkabout", students: 8, avgImpact: "+5 SS Pts", cost: "£150", rating: 4.9, height: "h-2/3" },
-  { name: "Zones of Regulation", students: 35, avgImpact: "+3 SS Pts", cost: "£200", rating: 4.5, height: "h-1/3" },
+  { name: "ELSA Support", students: 12, avgImpact: "+6 SS Pts", cost: "GBP 450", rating: 4.8, height: "h-3/4" },
+  { name: "Precision Teaching", students: 24, avgImpact: "+4 SS Pts", cost: "GBP 0", rating: 4.2, height: "h-1/2" },
+  { name: "Talkabout", students: 8, avgImpact: "+5 SS Pts", cost: "GBP 150", rating: 4.9, height: "h-2/3" },
+  { name: "Zones of Regulation", students: 35, avgImpact: "+3 SS Pts", cost: "GBP 200", rating: 4.5, height: "h-1/3" },
 ];
 
 export default function ProgressTrackingSandbox() {
@@ -88,7 +88,7 @@ export default function ProgressTrackingSandbox() {
             </div>
             <span className="text-emerald-400 text-xs font-medium">On budget</span>
           </div>
-          <div className="text-2xl font-bold text-white">£12.4k</div>
+          <div className="text-2xl font-bold text-white">GBP 12.4k</div>
           <div className="text-xs text-slate-400">Notional SEN Budget Remaining</div>
         </div>
       </div>
@@ -242,7 +242,7 @@ export default function ProgressTrackingSandbox() {
                 <div key={idx} className="flex items-center justify-between">
                   <div>
                     <div className="text-sm font-medium text-slate-200">{item.name}</div>
-                    <div className="text-xs text-slate-500">{item.students} students • {item.cost}</div>
+                    <div className="text-xs text-slate-500">{item.students} students - {item.cost}</div>
                   </div>
                   <div className="text-right">
                     <div className="text-sm font-bold text-emerald-400">{item.avgImpact}</div>

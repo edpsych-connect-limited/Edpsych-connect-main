@@ -200,7 +200,7 @@ const ClassOverview: React.FC<{
           CLASS OVERVIEW - {classInfo.name}
         </h2>
         <p className="text-sm text-gray-600">
-          {classInfo.yearGroup} • {classInfo.totalStudents} students
+          {classInfo.yearGroup} - {classInfo.totalStudents} students
         </p>
       </div>
       <Users className="w-8 h-8 text-gray-400" aria-hidden="true" />
@@ -273,7 +273,7 @@ const StudentGrid: React.FC<{
         <h2 className="text-xl font-bold text-gray-900">
           STUDENT GRID
           <span className="text-sm font-normal text-gray-600 block sm:inline sm:ml-2">
-            (sorted by need • {filteredStudents.length} of {students.length} shown)
+            (sorted by need - {filteredStudents.length} of {students.length} shown)
           </span>
         </h2>
         <div className="w-full sm:w-auto">

@@ -99,7 +99,7 @@ export class DeploymentValidationService {
       this.cleanupOldData();
     }, interval);
 
-    logger.debug('🚀 Deployment monitoring started');
+    logger.debug('START Deployment monitoring started');
   }
 
   /**
@@ -508,50 +508,50 @@ export class DeploymentValidationService {
     const health = await this.getDeploymentHealth();
     const readiness = await this.validateDeploymentReadiness();
 
-    let report = `# 🚀 EdPsych Connect World - Deployment Validation Report\n\n`;
+    let report = `# START EdPsych Connect World - Deployment Validation Report\n\n`;
     report += `**Generated:** ${health.timestamp.toISOString()}\n`;
     report += `**Overall Status:** ${health.status.toUpperCase()}\n`;
     report += `**Version:** ${health.version}\n`;
     report += `**Uptime:** ${Math.round(health.uptime / 1000)}s\n\n`;
 
-    report += `## 📊 System Health\n`;
-    report += `✅ **Services Operational:** ${health.services.filter(s => s.status === 'operational').length}/${health.services.length}\n`;
-    report += `⚠️ **Services Degraded:** ${health.services.filter(s => s.status === 'degraded').length}\n`;
-    report += `❌ **Services Down:** ${health.services.filter(s => s.status === 'major_outage').length}\n\n`;
+    report += `## STATS System Health\n`;
+    report += `OK **Services Operational:** ${health.services.filter(s => s.status === 'operational').length}/${health.services.length}\n`;
+    report += `WARNING **Services Degraded:** ${health.services.filter(s => s.status === 'degraded').length}\n`;
+    report += `FAIL **Services Down:** ${health.services.filter(s => s.status === 'major_outage').length}\n\n`;
 
-    report += `## ⚡ Performance Metrics\n`;
-    report += `• **Average Response Time:** ${health.performance.averageResponseTime}ms\n`;
-    report += `• **Requests/Second:** ${health.performance.requestsPerSecond}\n`;
-    report += `• **Error Rate:** ${(health.performance.errorRate * 100).toFixed(2)}%\n`;
-    report += `• **Memory Usage:** ${health.performance.memoryUsage}%\n`;
-    report += `• **CPU Usage:** ${health.performance.cpuUsage}%\n\n`;
+    report += `##  Performance Metrics\n`;
+    report += `- **Average Response Time:** ${health.performance.averageResponseTime}ms\n`;
+    report += `- **Requests/Second:** ${health.performance.requestsPerSecond}\n`;
+    report += `- **Error Rate:** ${(health.performance.errorRate * 100).toFixed(2)}%\n`;
+    report += `- **Memory Usage:** ${health.performance.memoryUsage}%\n`;
+    report += `- **CPU Usage:** ${health.performance.cpuUsage}%\n\n`;
 
     if (readiness.issues.length > 0) {
-      report += `## ❌ Deployment Issues\n`;
+      report += `## FAIL Deployment Issues\n`;
       readiness.issues.forEach(issue => {
-        report += `• ${issue}\n`;
+        report += `- ${issue}\n`;
       });
       report += `\n`;
     }
 
     if (readiness.recommendations.length > 0) {
-      report += `## 💡 Recommendations\n`;
+      report += `## TIP Recommendations\n`;
       readiness.recommendations.forEach(rec => {
-        report += `• ${rec}\n`;
+        report += `- ${rec}\n`;
       });
       report += `\n`;
     }
 
-    report += `## 🎯 Deployment Status\n`;
-    report += `${readiness.ready ? '✅ READY FOR PRODUCTION' : '❌ NOT READY - Please fix issues above'}\n\n`;
+    report += `## TARGET Deployment Status\n`;
+    report += `${readiness.ready ? 'OK READY FOR PRODUCTION' : 'FAIL NOT READY - Please fix issues above'}\n\n`;
 
-    report += `## 📈 Service Status Details\n`;
+    report += `##  Service Status Details\n`;
     health.services.forEach(service => {
       report += `### ${service.name.toUpperCase()}\n`;
-      report += `• **Status:** ${service.status}\n`;
-      report += `• **Response Time:** ${service.responseTime}ms\n`;
-      report += `• **Uptime:** ${service.uptime}%\n`;
-      report += `• **Dependencies:** ${service.dependencies.join(', ') || 'None'}\n\n`;
+      report += `- **Status:** ${service.status}\n`;
+      report += `- **Response Time:** ${service.responseTime}ms\n`;
+      report += `- **Uptime:** ${service.uptime}%\n`;
+      report += `- **Dependencies:** ${service.dependencies.join(', ') || 'None'}\n\n`;
     });
 
     return report;
@@ -589,15 +589,15 @@ export async function validateSLAsAndSLOs(): Promise<{
   const report = `
 # SLA/SLO Validation Report
 **Timestamp:** ${new Date().toISOString()}
-**Uptime Validation:** ${uptimeValidated ? '✅ Passed' : '❌ Failed'}
-**Latency Validation:** ${latencyValidated ? '✅ Passed' : '❌ Failed'}
+**Uptime Validation:** ${uptimeValidated ? 'OK Passed' : 'FAIL Failed'}
+**Latency Validation:** ${latencyValidated ? 'OK Passed' : 'FAIL Failed'}
 
 ## Load Test Summary
 - Average Response Time: ${loadTestResult.summary.averageResponseTime}ms
 - Error Rate: ${(loadTestResult.summary.overallErrorRate * 100).toFixed(2)}%
 - Requests per Second: ${loadTestResult.summary.averageRequestsPerSecond}
 - Peak Response Time: ${loadTestResult.summary.peakResponseTime}ms
-- Passed: ${loadTestResult.passed ? '✅ Yes' : '❌ No'}
+- Passed: ${loadTestResult.passed ? 'OK Yes' : 'FAIL No'}
 
 ## Recommendations
 ${loadTestResult.recommendations.map(r => `- ${r}`).join('\n')}

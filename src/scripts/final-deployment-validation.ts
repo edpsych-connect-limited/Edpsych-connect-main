@@ -26,7 +26,7 @@ export class FinalDeploymentValidator {
    * Run complete final validation
    */
   async runFinalValidation(): Promise<FinalValidationReport> {
-    logger.debug('🚀 Starting Final Deployment Validation...');
+    logger.debug('START Starting Final Deployment Validation...');
 
     const timestamp = new Date();
 
@@ -78,66 +78,66 @@ export class FinalDeploymentValidator {
   async generateValidationReport(): Promise<string> {
     const validation = await this.runFinalValidation();
 
-    let report = `# 🎯 EdPsych Connect World - Final Deployment Validation Report\n\n`;
+    let report = `# TARGET EdPsych Connect World - Final Deployment Validation Report\n\n`;
     report += `**Validation Date:** ${validation.timestamp.toISOString()}\n`;
     report += `**Overall Status:** ${this.getStatusEmoji(validation.overallStatus)} ${validation.overallStatus.toUpperCase()}\n`;
     report += `**Risk Level:** ${this.getRiskEmoji(validation.riskLevel)} ${validation.riskLevel.toUpperCase()}\n`;
     report += `**Estimated Deployment Time:** ${validation.estimatedDeploymentTime} minutes\n\n`;
 
     // Test Results Summary
-    report += `## 🧪 Test Results Summary\n`;
-    report += `✅ **Tests Passed:** ${validation.testResults.passed}/${validation.testResults.tests.length}\n`;
-    report += `❌ **Tests Failed:** ${validation.testResults.failed}\n`;
-    report += `🔥 **Errors:** ${validation.testResults.errors}\n`;
-    report += `⏱️ **Total Test Duration:** ${validation.testResults.totalDuration}ms\n\n`;
+    report += `## TEST Test Results Summary\n`;
+    report += `OK **Tests Passed:** ${validation.testResults.passed}/${validation.testResults.tests.length}\n`;
+    report += `FAIL **Tests Failed:** ${validation.testResults.failed}\n`;
+    report += `ERRORS **Errors:** ${validation.testResults.errors}\n`;
+    report += `TIME **Total Test Duration:** ${validation.testResults.totalDuration}ms\n\n`;
 
     // Deployment Health
-    report += `## 🏥 Deployment Health\n`;
-    report += `📊 **Status:** ${validation.deploymentHealth.status.toUpperCase()}\n`;
-    report += `⏱️ **Uptime:** ${Math.round(validation.deploymentHealth.uptime / 1000)}s\n`;
-    report += `🔧 **Services Operational:** ${validation.deploymentHealth.services.filter((s: any) => s.status === 'operational').length}/${validation.deploymentHealth.services.length}\n\n`;
+    report += `## HEALTH Deployment Health\n`;
+    report += `STATUS **Status:** ${validation.deploymentHealth.status.toUpperCase()}\n`;
+    report += `TIME **Uptime:** ${Math.round(validation.deploymentHealth.uptime / 1000)}s\n`;
+    report += `SERVICES **Services Operational:** ${validation.deploymentHealth.services.filter((s: any) => s.status === 'operational').length}/${validation.deploymentHealth.services.length}\n\n`;
 
     // Readiness Check
     if (validation.readinessCheck.issues.length > 0) {
-      report += `## ❌ Deployment Issues Found\n`;
+      report += `## FAIL Deployment Issues Found\n`;
       validation.readinessCheck.issues.forEach((issue: string) => {
-        report += `• ${issue}\n`;
+        report += `- ${issue}\n`;
       });
       report += `\n`;
     }
 
     if (validation.readinessCheck.recommendations.length > 0) {
-      report += `## 💡 Recommendations\n`;
+      report += `## RECOMMENDATIONS Recommendations\n`;
       validation.readinessCheck.recommendations.forEach((rec: string) => {
-        report += `• ${rec}\n`;
+        report += `- ${rec}\n`;
       });
       report += `\n`;
     }
 
     // Detailed Test Results
-    report += `## 📋 Detailed Test Results\n`;
+    report += `## LIST Detailed Test Results\n`;
     const testSuites = this.groupTestsBySuite(validation.testResults.tests);
 
     Object.entries(testSuites).forEach(([suiteName, tests]) => {
       report += `### ${suiteName}\n`;
       tests.forEach((test: any) => {
-        const emoji = test.status === 'passed' ? '✅' : test.status === 'failed' ? '❌' : '🔥';
+        const emoji = test.status === 'passed' ? 'OK' : test.status === 'failed' ? 'FAIL' : 'ERRORS';
         report += `${emoji} ${test.testName} (${test.duration}ms)\n`;
       });
       report += `\n`;
     });
 
     // Final Assessment
-    report += `## 🎯 Final Assessment\n`;
+    report += `## TARGET Final Assessment\n`;
     if (validation.overallStatus === 'ready') {
-      report += `🎉 **READY FOR PRODUCTION DEPLOYMENT!**\n\n`;
+      report += `READY **READY FOR PRODUCTION DEPLOYMENT!**\n\n`;
       report += `The EdPsych Connect World platform has passed all validation checks and is ready for production deployment.\n`;
       report += `All systems are operational, performance is optimal, and the platform is fully tested.\n`;
     } else if (validation.overallStatus === 'needs_fixes') {
-      report += `⚠️ **DEPLOYMENT READY WITH MINOR FIXES**\n\n`;
+      report += `WARNING **DEPLOYMENT READY WITH MINOR FIXES**\n\n`;
       report += `The platform is functionally complete but has some minor issues that should be addressed before deployment.\n`;
     } else {
-      report += `❌ **CRITICAL ISSUES MUST BE RESOLVED**\n\n`;
+      report += `FAIL **CRITICAL ISSUES MUST BE RESOLVED**\n\n`;
       report += `Critical issues have been identified that must be resolved before production deployment.\n`;
     }
 
@@ -268,20 +268,20 @@ export class FinalDeploymentValidator {
 
   private getStatusEmoji(status: string): string {
     const emojis: Record<string, string> = {
-      'ready': '✅',
-      'needs_fixes': '⚠️',
-      'critical_issues': '❌'
+      'ready': 'OK',
+      'needs_fixes': 'WARNING',
+      'critical_issues': 'FAIL'
     };
-    return emojis[status] || '❓';
+    return emojis[status] || '';
   }
 
   private getRiskEmoji(risk: string): string {
     const emojis: Record<string, string> = {
-      'low': '🟢',
-      'medium': '🟡',
-      'high': '🔴'
+      'low': 'LOW',
+      'medium': 'MED',
+      'high': 'HIGH'
     };
-    return emojis[risk] || '❓';
+    return emojis[risk] || '';
   }
 
   private delay(ms: number): Promise<void> {
@@ -298,17 +298,17 @@ if (isDirectRun) {
   const validator = new FinalDeploymentValidator();
   validator.generateValidationReport()
     .then(report => {
-      logger.debug('✅ Final validation completed. Writing report...');
+      logger.debug('OK Final validation completed. Writing report...');
       const reportsDir = path.resolve(process.cwd(), 'reports');
       mkdirSync(reportsDir, { recursive: true });
       const reportPath = path.join(reportsDir, 'final-validation-report.md');
       writeFileSync(reportPath, report, 'utf8');
-      logger.debug(`📄 Report saved to: ${reportPath}`);
-      logger.debug('🛑 Terminating after one validation cycle.');
+      logger.debug(`DOC Report saved to: ${reportPath}`);
+      logger.debug(' Terminating after one validation cycle.');
       process.exit(0);
     })
     .catch(error => {
-      console.error('❌ Final validation failed:', error);
+      console.error('FAIL Final validation failed:', error);
       process.exit(1);
     });
 }

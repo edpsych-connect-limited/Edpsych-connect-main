@@ -293,7 +293,7 @@ export function CommunicationThreadComponent({
               Communication Thread
             </h3>
             <p className="text-sm text-gray-600 mt-1">
-              Application #{ehcpApplicationId} • {thread.messages.length} messages
+              Application #{ehcpApplicationId} - {thread.messages.length} messages
             </p>
           </div>
           {thread.unreadCount[viewerType.toLowerCase() as 'school' | 'la'] > 0 && (

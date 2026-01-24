@@ -148,7 +148,7 @@ export const COURSE_CATALOG: Course[] = [
       'Recognize when to request EHCP assessment'
     ],
     cpd_hours: 12,
-    total_merits: 180, // 8 modules × 2 lessons × 10 merits + 2 quizzes × 20 merits
+    total_merits: 180, // 8 modules x 2 lessons x 10 merits + 2 quizzes x 20 merits
     duration_minutes: 480,
     instructor: {
       name: 'Dr. Scott Ighavongbe-Patrick',
@@ -738,7 +738,7 @@ export const COURSE_CATALOG: Course[] = [
             content_url: '/content/training_videos/autism-spectrum-support/autism-m3-l1.mp4',
             duration_minutes: 30,
             merits_earned: 10,
-            content_text: 'SENSORY DIFFERENCES: Most autistic people have atypical sensory processing - world can be overwhelming OR under-stimulating. NOT "just sensitive" - neurological processing difference. EIGHT SENSES: Vision, hearing, smell, taste, touch, vestibular (balance), proprioception (body position), interoception (internal sensations). HYPERSENSITIVITY (over-responsive): Bright lights painful, sounds overwhelming, textures unbearable, smells overpowering, light touch irritating. Can cause meltdowns, avoidance, anxiety. HYPOSENSITIVITY (under-responsive): Seek sensory input, high pain threshold, constant movement, touch everything, strong tastes/smells. SENSORY SEEKING: Not misbehaviour - neurological NEED for input. SENSORY OVERLOAD: Too much input → shutdown or meltdown. NOT tantrum - neurological overwhelm.',
+            content_text: 'SENSORY DIFFERENCES: Most autistic people have atypical sensory processing - world can be overwhelming OR under-stimulating. NOT "just sensitive" - neurological processing difference. EIGHT SENSES: Vision, hearing, smell, taste, touch, vestibular (balance), proprioception (body position), interoception (internal sensations). HYPERSENSITIVITY (over-responsive): Bright lights painful, sounds overwhelming, textures unbearable, smells overpowering, light touch irritating. Can cause meltdowns, avoidance, anxiety. HYPOSENSITIVITY (under-responsive): Seek sensory input, high pain threshold, constant movement, touch everything, strong tastes/smells. SENSORY SEEKING: Not misbehaviour - neurological NEED for input. SENSORY OVERLOAD: Too much input -> shutdown or meltdown. NOT tantrum - neurological overwhelm.',
             resources: [
               {
                 id: 'autism-res-4',
@@ -1021,7 +1021,7 @@ export const COURSE_CATALOG: Course[] = [
             content_url: '/content/training_videos/autism-spectrum-support/autism-m7-l1.mp4',
             duration_minutes: 30,
             merits_earned: 10,
-            content_text: 'EXECUTIVE FUNCTION IN AUTISM: Many autistic people struggle with executive function (brain\'s "management system"). DIFFICULTIES: Task initiation (getting started), planning/organizing, time management, working memory, cognitive flexibility (switching tasks), self-monitoring, impulse control (sometimes). WHY: Monotropic attention (deep narrow focus hard to shift), processing differences, anxiety interfering, difficulty with abstract concepts like time. IMPACT: Appears "lazy" or "unmotivated" (actually executive function difficulty), incomplete work, disorganization, missed deadlines, difficulty with open-ended tasks, struggles with multi-step instructions. NOT WILLFUL: "Knowing what to do" ≠ "being able to do it". SUPPORT: Break tasks into steps, visual supports, external structure, scaffolding, explicit teaching, reduce cognitive load, extra time, check understanding.',
+            content_text: 'EXECUTIVE FUNCTION IN AUTISM: Many autistic people struggle with executive function (brain\'s "management system"). DIFFICULTIES: Task initiation (getting started), planning/organizing, time management, working memory, cognitive flexibility (switching tasks), self-monitoring, impulse control (sometimes). WHY: Monotropic attention (deep narrow focus hard to shift), processing differences, anxiety interfering, difficulty with abstract concepts like time. IMPACT: Appears "lazy" or "unmotivated" (actually executive function difficulty), incomplete work, disorganization, missed deadlines, difficulty with open-ended tasks, struggles with multi-step instructions. NOT WILLFUL: "Knowing what to do" != "being able to do it". SUPPORT: Break tasks into steps, visual supports, external structure, scaffolding, explicit teaching, reduce cognitive load, extra time, check understanding.',
             resources: [
               {
                 id: 'autism-res-11',
@@ -1181,7 +1181,7 @@ export const COURSE_CATALOG: Course[] = [
       'Differentiate ADHD from other conditions (autism, anxiety, learning difficulties)'
     ],
     cpd_hours: 12,
-    total_merits: 200, // 8 modules × 2 lessons × 10 merits + 8 quizzes × 20 merits = 160 + 160 = 320 (adjusted)
+    total_merits: 200, // 8 modules x 2 lessons x 10 merits + 8 quizzes x 20 merits = 160 + 160 = 320 (adjusted)
     duration_minutes: 480,
     instructor: {
       name: 'Dr. Scott Ighavongbe-Patrick',
@@ -1915,7 +1915,7 @@ export const COURSE_CATALOG: Course[] = [
             content_url: '/content/training_videos/dyslexia-intervention-strategies/dys-m3-l1.mp4',
             duration_minutes: 30,
             merits_earned: 10,
-            content_text: 'PHONOLOGICAL AWARENESS: Ability to hear, identify, and manipulate sounds in spoken language (NOT written - purely oral). Critical predictor of reading success. Dyslexic students have significant deficits here. CONTINUUM (simple → complex): 1) Word awareness (sentences have words), 2) Syllable awareness (butterfly = but-ter-fly), 3) Onset-rime (cat = /c/ + /at/), 4) PHONEMIC AWARENESS (individual phonemes: cat = /c/ /a/ /t/) - most critical and most difficult. PHONEMIC AWARENESS SKILLS: Isolation (first sound in "cat"? /c/), Blending (/c/ /a/ /t/ = cat), Segmentation (cat = /c/ /a/ /t/), Deletion (cat without /c/ = at), Substitution (change /c/ to /b/ = bat). Must be taught explicitly to dyslexic students - doesn\'t develop naturally.',
+            content_text: 'PHONOLOGICAL AWARENESS: Ability to hear, identify, and manipulate sounds in spoken language (NOT written - purely oral). Critical predictor of reading success. Dyslexic students have significant deficits here. CONTINUUM (simple -> complex): 1) Word awareness (sentences have words), 2) Syllable awareness (butterfly = but-ter-fly), 3) Onset-rime (cat = /c/ + /at/), 4) PHONEMIC AWARENESS (individual phonemes: cat = /c/ /a/ /t/) - most critical and most difficult. PHONEMIC AWARENESS SKILLS: Isolation (first sound in "cat"? /c/), Blending (/c/ /a/ /t/ = cat), Segmentation (cat = /c/ /a/ /t/), Deletion (cat without /c/ = at), Substitution (change /c/ to /b/ = bat). Must be taught explicitly to dyslexic students - doesn\'t develop naturally.',
             resources: [
               {
                 id: 'dys-res-5',
@@ -2052,7 +2052,7 @@ export const COURSE_CATALOG: Course[] = [
             content_url: '/content/training_videos/dyslexia-intervention-strategies/dys-m5-l1.mp4',
             duration_minutes: 30,
             merits_earned: 10,
-            content_text: 'FLUENCY: Reading with accuracy, appropriate rate, and prosody (expression). Critical because slow, labored reading impairs comprehension (cognitive load). Dyslexic readers often accurate but SLOW - fluency is key intervention. COMPONENTS: ACCURACY (correct word reading - prerequisite), RATE (words correct per minute - age-appropriate), PROSODY (phrasing, expression, intonation - sounds like talking). WHY DYSLEXICS STRUGGLE: Even after learning to decode, dyslexic readers don\'t develop automaticity easily - every word requires effort. IMPACT: Slow reading → reduced comprehension, tires quickly, reads less (less practice = less improvement), avoidance. GOAL: Automaticity - reading without conscious effort, freeing working memory for comprehension.',
+            content_text: 'FLUENCY: Reading with accuracy, appropriate rate, and prosody (expression). Critical because slow, labored reading impairs comprehension (cognitive load). Dyslexic readers often accurate but SLOW - fluency is key intervention. COMPONENTS: ACCURACY (correct word reading - prerequisite), RATE (words correct per minute - age-appropriate), PROSODY (phrasing, expression, intonation - sounds like talking). WHY DYSLEXICS STRUGGLE: Even after learning to decode, dyslexic readers don\'t develop automaticity easily - every word requires effort. IMPACT: Slow reading -> reduced comprehension, tires quickly, reads less (less practice = less improvement), avoidance. GOAL: Automaticity - reading without conscious effort, freeing working memory for comprehension.',
             resources: [
               {
                 id: 'dys-res-8',
@@ -2120,11 +2120,11 @@ export const COURSE_CATALOG: Course[] = [
           {
             id: 'dys-m6-l1',
             lesson_number: 1,
-            title: 'Simple View of Reading: Decoding × Comprehension',
+            title: 'Simple View of Reading: Decoding x Comprehension',
             type: 'reading',
             duration_minutes: 30,
             merits_earned: 10,
-            content_text: 'SIMPLE VIEW OF READING: Reading Comprehension = Decoding × Language Comprehension. Both necessary. DYSLEXIA PROFILE: Weak decoding BUT often strong language comprehension (listening comprehension, vocabulary, reasoning). IMPLICATION: Dyslexic students often understand complex texts when READ ALOUD but struggle when reading independently (decoding bottleneck). SUPPORT: 1) Continue teaching decoding (phonics, fluency), 2) Simultaneously develop language comprehension (vocabulary, background knowledge, inference), 3) Provide access to grade-level content through audiobooks/reading aloud (don\'t limit to decodable-level text for comprehension instruction). GOAL: Close decoding gap while maintaining/advancing comprehension - don\'t neglect comprehension while working on decoding!',
+            content_text: 'SIMPLE VIEW OF READING: Reading Comprehension = Decoding x Language Comprehension. Both necessary. DYSLEXIA PROFILE: Weak decoding BUT often strong language comprehension (listening comprehension, vocabulary, reasoning). IMPLICATION: Dyslexic students often understand complex texts when READ ALOUD but struggle when reading independently (decoding bottleneck). SUPPORT: 1) Continue teaching decoding (phonics, fluency), 2) Simultaneously develop language comprehension (vocabulary, background knowledge, inference), 3) Provide access to grade-level content through audiobooks/reading aloud (don\'t limit to decodable-level text for comprehension instruction). GOAL: Close decoding gap while maintaining/advancing comprehension - don\'t neglect comprehension while working on decoding!',
             resources: []
           },
           {
@@ -2155,9 +2155,9 @@ export const COURSE_CATALOG: Course[] = [
               id: 'dys-q11',
               question: 'According to the Simple View of Reading, reading comprehension equals:',
               type: 'multiple_choice',
-              options: ['Decoding only', 'Decoding + Language Comprehension', 'Decoding × Language Comprehension', 'Vocabulary × Fluency'],
-              correct_answer: 'Decoding × Language Comprehension',
-              explanation: 'The Simple View of Reading states: Reading Comprehension = Decoding × Language Comprehension. Both components are necessary - if either is zero, reading comprehension fails.',
+              options: ['Decoding only', 'Decoding + Language Comprehension', 'Decoding x Language Comprehension', 'Vocabulary x Fluency'],
+              correct_answer: 'Decoding x Language Comprehension',
+              explanation: 'The Simple View of Reading states: Reading Comprehension = Decoding x Language Comprehension. Both components are necessary - if either is zero, reading comprehension fails.',
               points: 5
             },
             {

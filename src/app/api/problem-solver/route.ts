@@ -94,9 +94,9 @@ Please provide a comprehensive solution addressing this challenge.`;
 3. Review existing support strategies and their effectiveness
 
 **Next Actions:**
-• Sign up for full access to EdPsych Connect World for comprehensive assessment tools
-• Book a consultation with our educational psychology team
-• Access our evidence-based intervention library
+- Sign up for full access to EdPsych Connect World for comprehensive assessment tools
+- Book a consultation with our educational psychology team
+- Access our evidence-based intervention library
 
 Please try again in a few moments, or contact us directly for personalized support.`;
 

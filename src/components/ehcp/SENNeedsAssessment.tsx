@@ -169,12 +169,12 @@ export default function SENNeedsAssessment({
   ];
 
   const steps = [
-    { number: 1, title: 'Primary Need', icon: '🎯' },
-    { number: 2, title: 'Detailed Assessment', icon: '📊' },
-    { number: 3, title: 'Current Provision', icon: '📚' },
-    { number: 4, title: 'Outcomes & Targets', icon: '🏆' },
-    { number: 5, title: 'Evidence & History', icon: '📁' },
-    { number: 6, title: 'Review & Save', icon: '💾' },
+    { number: 1, title: 'Primary Need', icon: '1' },
+    { number: 2, title: 'Detailed Assessment', icon: '2' },
+    { number: 3, title: 'Current Provision', icon: '3' },
+    { number: 4, title: 'Outcomes & Targets', icon: '4' },
+    { number: 5, title: 'Evidence & History', icon: '5' },
+    { number: 6, title: 'Review & Save', icon: '6' },
   ];
 
   return (
@@ -202,7 +202,7 @@ export default function SENNeedsAssessment({
                       : 'bg-gray-200 text-gray-600'
                   }`}
                 >
-                  {s.number < step ? '✓' : s.icon}
+                  {s.number < step ? 'OK' : s.icon}
                 </div>
                 <div className="ml-3 hidden md:block">
                   <div className="text-sm font-semibold">{s.title}</div>
@@ -565,9 +565,9 @@ function Step3CurrentProvision({
                 <h4 className="font-semibold text-gray-900">{provision.provision_type}</h4>
                 <p className="text-sm text-gray-600 mt-1">{provision.description}</p>
                 <div className="flex items-center space-x-4 mt-2 text-sm text-gray-600">
-                  <span>📅 {provision.frequency}</span>
-                  <span>👤 {provision.provider}</span>
-                  <span>📊 {provision.effectiveness}</span>
+                  <span>Freq: {provision.frequency}</span>
+                  <span>Provider: {provision.provider}</span>
+                  <span>Effectiveness: {provision.effectiveness}</span>
                 </div>
               </div>
               <button

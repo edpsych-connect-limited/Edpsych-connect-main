@@ -2,8 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useAuth } from '@/lib/auth/hooks';
 import LADashboard from '@/components/ehcp/LADashboard';
+import { AlertTriangle, ClipboardCheck, LayoutDashboard } from 'lucide-react';
 
 /**
  * LA Dashboard Page
@@ -89,6 +91,49 @@ export default function LADashboardPage() {
               Focus: overdue cases, compliance, approvals.
             </div>
           </div>
+        </div>
+        <div className="mb-6 grid gap-4 md:grid-cols-3">
+          {[
+            {
+              title: 'Triage overdue cases',
+              description: 'Review cases approaching statutory deadlines.',
+              href: '/ehcp',
+              icon: LayoutDashboard,
+              tone: 'text-indigo-600',
+              bg: 'bg-indigo-50',
+            },
+            {
+              title: 'Compliance risks',
+              description: 'Audit compliance alerts and aging plans.',
+              href: '/ehcp/modules/compliance-risk',
+              icon: AlertTriangle,
+              tone: 'text-amber-600',
+              bg: 'bg-amber-50',
+            },
+            {
+              title: 'Approve annual reviews',
+              description: 'Validate outcomes and capture decisions.',
+              href: '/ehcp/modules/annual-reviews',
+              icon: ClipboardCheck,
+              tone: 'text-emerald-600',
+              bg: 'bg-emerald-50',
+            },
+          ].map((action) => {
+            const Icon = action.icon;
+            return (
+              <Link
+                key={action.title}
+                href={action.href}
+                className="group rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-blue-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+              >
+                <div className={`mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg ${action.bg} ${action.tone}`}>
+                  <Icon className="h-5 w-5" />
+                </div>
+                <h3 className="text-sm font-semibold text-slate-900 group-hover:text-blue-700">{action.title}</h3>
+                <p className="mt-1 text-xs text-slate-600">{action.description}</p>
+              </Link>
+            );
+          })}
         </div>
         <LADashboard />
       </main>

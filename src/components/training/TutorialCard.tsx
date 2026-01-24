@@ -53,22 +53,22 @@ const TutorialCard: React.FC<TutorialProps> = ({ tutorial, onComplete }) => {
       case 'video':
         return {
           styles: 'bg-purple-100 text-purple-800',
-          icon: '🎬' // In a real implementation, this would be an SVG or icon component
+          icon: 'VIDEO' // In a real implementation, this would be an SVG or icon component
         };
       case 'interactive':
         return {
           styles: 'bg-blue-100 text-blue-800',
-          icon: '🖱️'
+          icon: 'MOUSE'
         };
       case 'guide':
         return {
           styles: 'bg-indigo-100 text-indigo-800',
-          icon: '📄'
+          icon: 'DOC'
         };
       default:
         return {
           styles: 'bg-gray-100 text-gray-800',
-          icon: '📚'
+          icon: 'GUIDE'
         };
     }
   };

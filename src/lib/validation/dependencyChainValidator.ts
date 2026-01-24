@@ -193,7 +193,7 @@ export class DependencyChainValidator {
           severity: 'critical',
           file: filePath,
           line: 0,
-          message: `Circular dependency detected: ${cycle.join(' → ')}`,
+          message: `Circular dependency detected: ${cycle.join(' -> ')}`,
           chain: cycle,
           suggestion: 'Refactor to remove cyclic imports or use lazy loading'
         });

@@ -297,7 +297,7 @@ export default function TrainingSandbox() {
                   onClick={() => setView('catalog')}
                   className="text-gray-500 hover:text-gray-700"
                 >
-                  ← Back
+                  Back
                 </button>
               )}
               <div>
@@ -401,7 +401,7 @@ export default function TrainingSandbox() {
                           <span className="text-xs text-gray-600 truncate max-w-[100px]">{course.instructor}</span>
                         </div>
                         <span className="text-indigo-600 text-sm font-medium group-hover:translate-x-1 transition-transform">
-                          {course.progress > 0 ? 'Continue' : 'Start Course'} →
+                          {course.progress > 0 ? 'Continue' : 'Start Course'}
                         </span>
                       </div>
                     </div>
@@ -484,7 +484,7 @@ export default function TrainingSandbox() {
                                     {lesson.type === 'reading' && <BookOpen className="w-3 h-3" />}
                                     {lesson.type === 'quiz' && <HelpCircle className="w-3 h-3" />}
                                     <span className="capitalize">{lesson.type}</span>
-                                    {lesson.duration && <span>• {lesson.duration}</span>}
+                                    {lesson.duration && <span>- {lesson.duration}</span>}
                                   </div>
                                 </div>
                                 <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
@@ -535,7 +535,7 @@ export default function TrainingSandbox() {
                         className="text-gray-500 hover:text-gray-700 text-sm"
                         aria-label="Back to course overview"
                       >
-                        ← Back to overview
+                        Back to overview
                       </button>
                     </div>
                     
@@ -575,7 +575,7 @@ export default function TrainingSandbox() {
                       <h3 className="text-2xl font-bold text-gray-900 mb-2">{selectedLesson.title}</h3>
                       <p className="text-gray-500 flex items-center gap-2">
                         <FileText className="w-4 h-4" />
-                        Reading Material • {selectedLesson.duration}
+                        Reading Material - {selectedLesson.duration}
                       </p>
                     </div>
                     <button
@@ -583,7 +583,7 @@ export default function TrainingSandbox() {
                       className="text-gray-500 hover:text-gray-700 text-sm"
                       aria-label="Back to course overview"
                     >
-                      ← Back to overview
+                      Back to overview
                     </button>
                   </div>
                   
@@ -660,7 +660,7 @@ export default function TrainingSandbox() {
               className="mb-4 text-gray-500 hover:text-gray-700 text-sm flex items-center gap-1"
               aria-label="Back to course"
             >
-              ← Back to Course
+              Back to Course
             </button>
             
             <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">

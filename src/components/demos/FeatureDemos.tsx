@@ -93,7 +93,7 @@ export function ECCAAssessmentDemo() {
                 <p className="text-sm text-gray-600">parent@example.com</p>
               </div>
               <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
-                ✓ Received
+                OK Received
               </span>
             </div>
           </div>
@@ -124,21 +124,21 @@ export function ECCAAssessmentDemo() {
 
             <div className="space-y-3">
               <div className="bg-white p-3 rounded border border-gray-200">
-                <p className="text-sm font-medium text-gray-700">✓ Cover Page & Student Information</p>
+                <p className="text-sm font-medium text-gray-700">OK Cover Page & Student Information</p>
               </div>
               <div className="bg-white p-3 rounded border border-gray-200">
-                <p className="text-sm font-medium text-gray-700">✓ Domain Observations & Scores</p>
+                <p className="text-sm font-medium text-gray-700">OK Domain Observations & Scores</p>
               </div>
               <div className="bg-white p-3 rounded border border-gray-200">
-                <p className="text-sm font-medium text-gray-700">✓ Professional Interpretation</p>
+                <p className="text-sm font-medium text-gray-700">OK Professional Interpretation</p>
               </div>
               <div className="bg-white p-3 rounded border border-gray-200">
-                <p className="text-sm font-medium text-gray-700">✓ Evidence-Based Recommendations</p>
+                <p className="text-sm font-medium text-gray-700">OK Evidence-Based Recommendations</p>
               </div>
             </div>
 
             <button className="mt-4 w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
-              📄 Download Professional Report
+              DOC Download Professional Report
             </button>
           </div>
         </div>
@@ -189,7 +189,7 @@ export function InterventionsDemo() {
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <h4 className="font-semibold text-gray-900 mb-1">{name}</h4>
-                    <p className="text-sm text-gray-600">Evidence Rating: Strong • Effect Size: +0.5 SD</p>
+                    <p className="text-sm text-gray-600">Evidence Rating: Strong - Effect Size: +0.5 SD</p>
                   </div>
                   <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded">Tier 2</span>
                 </div>
@@ -213,16 +213,16 @@ export function InterventionsDemo() {
 
           <div className="space-y-3">
             <div className="bg-white border border-gray-200 rounded p-3">
-              <p className="text-sm font-medium text-gray-700 mb-1">👥 Group Size: 1-4 students</p>
+              <p className="text-sm font-medium text-gray-700 mb-1">GROUP Group Size: 1-4 students</p>
             </div>
             <div className="bg-white border border-gray-200 rounded p-3">
-              <p className="text-sm font-medium text-gray-700 mb-1">⏱️ Duration: 20 minutes, 3x per week</p>
+              <p className="text-sm font-medium text-gray-700 mb-1">TIME Duration: 20 minutes, 3x per week</p>
             </div>
             <div className="bg-white border border-gray-200 rounded p-3">
-              <p className="text-sm font-medium text-gray-700 mb-1">📊 Effect Size: +0.54 SD (Strong evidence)</p>
+              <p className="text-sm font-medium text-gray-700 mb-1">STATS Effect Size: +0.54 SD (Strong evidence)</p>
             </div>
             <div className="bg-white border border-gray-200 rounded p-3">
-              <p className="text-sm font-medium text-gray-700 mb-1">✓ Implementation Guide Included</p>
+              <p className="text-sm font-medium text-gray-700 mb-1">OK Implementation Guide Included</p>
             </div>
           </div>
         </div>
@@ -326,7 +326,7 @@ export function EHCPDemo() {
                     item.status === 'inprogress' ? 'bg-blue-100 text-blue-800' :
                     'bg-gray-100 text-gray-600'
                   }`}>
-                    {item.status === 'complete' ? '✓' : item.section}
+                    {item.status === 'complete' ? 'OK' : item.section}
                   </div>
                   <div>
                     <p className="font-medium text-gray-900">Section {item.section}</p>
@@ -350,18 +350,18 @@ export function EHCPDemo() {
       content: (
         <div className="space-y-4">
           <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-            <h4 className="font-semibold text-green-900 mb-3">✓ EHCP Complete</h4>
+            <h4 className="font-semibold text-green-900 mb-3">OK EHCP Complete</h4>
             <p className="text-green-800 mb-4">All sections completed and ready for submission</p>
 
             <div className="space-y-2">
               <button className="w-full py-3 bg-blue-600 text-white rounded font-medium hover:bg-blue-700">
-                📄 Export as PDF
+                DOC Export as PDF
               </button>
               <button className="w-full py-3 bg-white border-2 border-gray-300 text-gray-700 rounded font-medium hover:bg-gray-50">
-                📧 Email to LA
+                EMAIL Email to LA
               </button>
               <button className="w-full py-3 bg-white border-2 border-gray-300 text-gray-700 rounded font-medium hover:bg-gray-50">
-                👨‍👩‍👧 Share with Parents
+                PARENTS Share with Parents
               </button>
             </div>
           </div>
@@ -394,15 +394,15 @@ export function TrainingDemo() {
         <div className="space-y-4">
           <div className="grid gap-4">
             {[
-              {title: 'ADHD Understanding & Support', modules: 8, cpd: 12, price: '£49'},
-              {title: 'Dyslexia Intervention Strategies', modules: 8, cpd: 12, price: '£49'},
-              {title: 'Autism Spectrum Support', modules: 8, cpd: 12, price: '£49'},
+              {title: 'ADHD Understanding & Support', modules: 8, cpd: 12, price: 'GBP 49'},
+              {title: 'Dyslexia Intervention Strategies', modules: 8, cpd: 12, price: 'GBP 49'},
+              {title: 'Autism Spectrum Support', modules: 8, cpd: 12, price: 'GBP 49'},
             ].map(course => (
               <div key={course.title} className="border border-gray-200 rounded-lg p-4 hover:border-blue-500 cursor-pointer">
                 <h4 className="font-semibold text-gray-900 mb-2">{course.title}</h4>
                 <div className="flex items-center gap-4 text-sm text-gray-600">
-                  <span>📚 {course.modules} modules</span>
-                  <span>🏆 {course.cpd} CPD hours</span>
+                  <span>COURSE {course.modules} modules</span>
+                  <span>TROPHY {course.cpd} CPD hours</span>
                   <span className="ml-auto font-bold text-blue-600">{course.price}</span>
                 </div>
               </div>
@@ -453,7 +453,7 @@ export function TrainingDemo() {
       content: (
         <div className="space-y-4">
           <div className="bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-300 rounded-lg p-6 text-center">
-            <div className="text-5xl mb-3">🏆</div>
+            <div className="text-5xl mb-3">TROPHY</div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">Certificate of Completion</h3>
             <p className="text-gray-700 mb-4">ADHD Understanding & Support</p>
 
@@ -494,16 +494,16 @@ export function BattleRoyaleDemo() {
       content: (
         <div className="space-y-4">
           <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg p-6">
-            <h3 className="text-2xl font-bold mb-2">⚔️ Battle Royale</h3>
+            <h3 className="text-2xl font-bold mb-2">BATTLE Battle Royale</h3>
             <p className="text-purple-100">Turn professional development into an exciting competition</p>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             {[
-              {icon: '🎯', label: 'Complete Tasks', value: '+100 merits'},
-              {icon: '🏆', label: 'Join Competitions', value: '6 types'},
-              {icon: '👥', label: 'Form Squads', value: '2-6 members'},
-              {icon: '🎁', label: 'Earn Rewards', value: '50+ badges'},
+              {icon: 'GOAL', label: 'Complete Tasks', value: '+100 merits'},
+              {icon: 'TROPHY', label: 'Join Competitions', value: '6 types'},
+              {icon: 'GROUP', label: 'Form Squads', value: '2-6 members'},
+              {icon: 'REWARD', label: 'Earn Rewards', value: '50+ badges'},
             ].map(item => (
               <div key={item.label} className="bg-white border border-gray-200 rounded-lg p-4 text-center">
                 <div className="text-3xl mb-2">{item.icon}</div>
@@ -525,27 +525,27 @@ export function BattleRoyaleDemo() {
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
             <div className="flex items-center justify-between mb-3">
               <h4 className="font-semibold text-gray-900">Your Merits</h4>
-              <p className="text-2xl font-bold text-yellow-600">⚡ 2,450</p>
+              <p className="text-2xl font-bold text-yellow-600">PTS 2,450</p>
             </div>
           </div>
 
           <div className="space-y-2">
             <div className="bg-white border border-gray-200 rounded p-3">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-700">✓ Complete Assessment</span>
-                <span className="text-green-600 font-medium">+100 ⚡</span>
+                <span className="text-sm text-gray-700">OK Complete Assessment</span>
+                <span className="text-green-600 font-medium">+100 PTS</span>
               </div>
             </div>
             <div className="bg-white border border-gray-200 rounded p-3">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-700">✓ Submit EHCP Report</span>
-                <span className="text-green-600 font-medium">+150 ⚡</span>
+                <span className="text-sm text-gray-700">OK Submit EHCP Report</span>
+                <span className="text-green-600 font-medium">+150 PTS</span>
               </div>
             </div>
             <div className="bg-white border border-gray-200 rounded p-3">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-700">✓ Help Squad Member</span>
-                <span className="text-green-600 font-medium">+50 ⚡</span>
+                <span className="text-sm text-gray-700">OK Help Squad Member</span>
+                <span className="text-green-600 font-medium">+50 PTS</span>
               </div>
             </div>
           </div>
@@ -575,8 +575,8 @@ export function BattleRoyaleDemo() {
 
             <div className="space-y-2">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-700">🥇 1st Place Reward</span>
-                <span className="font-bold text-purple-600">5,000 ⚡</span>
+                <span className="text-gray-700">1ST 1st Place Reward</span>
+                <span className="font-bold text-purple-600">5,000 PTS</span>
               </div>
             </div>
           </div>
@@ -650,7 +650,7 @@ export function ProgressTrackingDemo() {
           </div>
 
           <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-            <p className="text-green-800 font-medium">📈 Excellent progress! Continue current interventions</p>
+            <p className="text-green-800 font-medium">PROGRESS Excellent progress! Continue current interventions</p>
           </div>
         </div>
       ),

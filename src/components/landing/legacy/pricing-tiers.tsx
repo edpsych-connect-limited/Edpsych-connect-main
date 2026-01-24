@@ -87,7 +87,7 @@ const mainPricingTiers: PricingTier[] = [
     description: 'Essential AI-assisted educational tools with UK curriculum alignment',
     monthlyPrice: 9.99,
     annualPrice: 99.99,
-    currency: '£',
+    currency: 'GBP',
     features: [
       { name: 'AI-Assisted Learning', included: true },
       { name: 'Battle Royale Game', included: true },
@@ -110,7 +110,7 @@ const mainPricingTiers: PricingTier[] = [
     description: 'Advanced tools for education professionals with ML-powered assessment',
     monthlyPrice: 24.99,
     annualPrice: 249.99,
-    currency: '£',
+    currency: 'GBP',
     featured: true,
     features: [
       { name: 'AI-Assisted Learning', included: true },
@@ -134,7 +134,7 @@ const mainPricingTiers: PricingTier[] = [
     description: 'Complete platform for schools and educational institutions',
     monthlyPrice: 99.99,
     annualPrice: 999.99,
-    currency: '£',
+    currency: 'GBP',
     features: [
       { name: 'AI-Assisted Learning', included: true },
       { name: 'Battle Royale Game', included: true },
@@ -160,7 +160,7 @@ const researchPricingTiers: PricingTier[] = [
     description: 'Essential tools for individual researchers and small projects',
     monthlyPrice: 39.99,
     annualPrice: 399.99,
-    currency: '£',
+    currency: 'GBP',
     features: [
       { name: 'All Professional Features', included: true },
       { name: 'Anonymized Data Export (Basic)', included: true },
@@ -183,7 +183,7 @@ const researchPricingTiers: PricingTier[] = [
     description: 'Comprehensive tools for research teams and departments',
     monthlyPrice: 89.99,
     annualPrice: 899.99,
-    currency: '£',
+    currency: 'GBP',
     featured: true,
     features: [
       { name: 'All Research Basic Features', included: true },
@@ -207,7 +207,7 @@ const researchPricingTiers: PricingTier[] = [
     description: 'Enterprise-grade research platform for large institutions',
     monthlyPrice: 199.99,
     annualPrice: 1999.99,
-    currency: '£',
+    currency: 'GBP',
     features: [
       { name: 'All Research Advanced Features', included: true },
       { name: 'Unlimited Research Participants', included: true },

@@ -48,7 +48,7 @@ const CODE_SNIPPETS = {
         className={\`shield \${active ? 'glow' : ''}\`}
         style={{ opacity: power / 100 }}
       >
-        🛡️ Shield Level: {power}%
+        Shield Level: {power}%
       </div>
     </div>
   );
@@ -70,9 +70,9 @@ export default function CodingSandbox() {
       if (activeLevel === 1) {
         setCodeOutput(["> Initializing Avatar...", "> Saying: 'Hello World!'", "> Performing Victory Dance..."]);
       } else if (activeLevel === 3) {
-        setCodeOutput(["> Accessing Physics Engine...", "> Overriding Gravity Constant...", "> Gravity set to 1.6m/s²", "> SUPER JUMP ENABLED! 🚀"]);
+        setCodeOutput(["> Accessing Physics Engine...", "> Overriding Gravity Constant...", "> Gravity set to 1.6m/s^2", "> SUPER JUMP ENABLED! BOOST"]);
       } else if (activeLevel === 4) {
-        setCodeOutput(["> Compiling Component...", "> Rendering <EnergyShield />", "> Shield Power: 100%", "> System Online ✅"]);
+        setCodeOutput(["> Compiling Component...", "> Rendering <EnergyShield />", "> Shield Power: 100%", "> System Online OK"]);
       }
       setIsRunning(false);
       setShowConfetti(true);
@@ -109,7 +109,7 @@ export default function CodingSandbox() {
                 >
                   <div>
                     <div className="font-medium text-sm">{level.title}</div>
-                    <div className="text-xs opacity-70">{level.type} • {level.xp} XP</div>
+                    <div className="text-xs opacity-70">{level.type} - {level.xp} XP</div>
                   </div>
                   {activeLevel === level.id && <ChevronRight className="w-4 h-4" />}
                 </button>
@@ -208,7 +208,7 @@ export default function CodingSandbox() {
               ))}
               {showConfetti && (
                 <div className="text-yellow-400 font-bold mt-2 animate-bounce">
-                  ✨ LEVEL COMPLETE! +{LEVELS.find(l => l.id === activeLevel)?.xp} XP ✨
+                  LEVEL COMPLETE LEVEL COMPLETE! +{LEVELS.find(l => l.id === activeLevel)?.xp} XP LEVEL COMPLETE
                 </div>
               )}
             </div>

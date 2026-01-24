@@ -52,7 +52,7 @@ export default function FlagshipECCA() {
                         <div className="text-xs text-blue-800 font-medium uppercase">Core Domains</div>
                     </div>
                     <div className="p-3 bg-cyan-50 rounded-lg border border-cyan-100 text-center">
-                        <div className="text-2xl font-bold text-cyan-600">360°</div>
+                        <div className="text-2xl font-bold text-cyan-600">360 deg</div>
                         <div className="text-xs text-cyan-800 font-medium uppercase">Contextual View</div>
                     </div>
                 </div>

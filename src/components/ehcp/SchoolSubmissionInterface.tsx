@@ -613,7 +613,7 @@ export default function SchoolSubmissionInterface({
           senSupportHistory: [...prev.senSupportHistory, ...mappedSupport],
           // Also intelligent pre-fill of Evidence of Need if generic/empty
           evidenceOfNeed: prev.evidenceOfNeed.length < 50 
-            ? "Primary need identified through following assessments:\n\n" + result.data.map((i: any) => `• ${i.name}: ${i.rationale}`).join('\n')
+            ? "Primary need identified through following assessments:\n\n" + result.data.map((i: any) => `- ${i.name}: ${i.rationale}`).join('\n')
             : prev.evidenceOfNeed
         }));
       }
@@ -706,7 +706,7 @@ export default function SchoolSubmissionInterface({
             <h1 className="text-2xl font-bold">EHC Needs Assessment Request</h1>
           </div>
           <p className="text-indigo-100">
-            {schoolName} • Submit a request for an Education, Health and Care needs assessment
+            {schoolName} - Submit a request for an Education, Health and Care needs assessment
           </p>
         </div>
       </div>
@@ -1228,7 +1228,7 @@ export default function SchoolSubmissionInterface({
                         </p>
                         <p className="text-gray-600 text-sm">
                           {formData.child.dateOfBirth && format(new Date(formData.child.dateOfBirth), 'dd MMMM yyyy')}
-                          {formData.child.currentYear && ` • ${formData.child.currentYear}`}
+                          {formData.child.currentYear && ` - ${formData.child.currentYear}`}
                         </p>
                       </div>
                       

@@ -35,8 +35,8 @@ function defaultPolicy(): GovernancePolicy {
   return {
     ai: {
       enabled: enableAi,
-      // Default to redaction in production even if tenant doesn’t specify.
-      // This aligns with the existing AI integration’s default behavior.
+      // Default to redaction in production even if tenant doesn't specify.
+      // This aligns with the existing AI integration's default behavior.
       redactPII: process.env.NODE_ENV === 'production',
       // Explicitly default to *no training* to match our product privacy posture.
       allowTraining: false,

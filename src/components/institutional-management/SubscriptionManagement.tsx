@@ -501,13 +501,13 @@ const SubscriptionManagement: React.FC<SubscriptionManagementProps> = ({
                       </span>
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
-                      {license.assignedTo || '—'}
+                      {license.assignedTo || '-'}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
-                      {license.assignedDate ? new Date(license.assignedDate).toLocaleDateString() : '—'}
+                      {license.assignedDate ? new Date(license.assignedDate).toLocaleDateString() : '-'}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
-                      {license.expiryDate ? new Date(license.expiryDate).toLocaleDateString() : '—'}
+                      {license.expiryDate ? new Date(license.expiryDate).toLocaleDateString() : '-'}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-sm text-right">
                       <button
@@ -878,7 +878,7 @@ const SubscriptionManagement: React.FC<SubscriptionManagementProps> = ({
                 <div className="flex justify-between mb-1">
                   <span className="text-sm text-gray-500">Plan</span>
                   <span className="text-sm font-medium">
-                    {selectedPlan ? availablePlans.find(p => p.id === selectedPlan)?.name : '—'}
+                    {selectedPlan ? availablePlans.find(p => p.id === selectedPlan)?.name : '-'}
                   </span>
                 </div>
                 <div className="flex justify-between mb-1">
@@ -894,7 +894,7 @@ const SubscriptionManagement: React.FC<SubscriptionManagementProps> = ({
                 <div className="flex justify-between pt-2 border-t mt-2">
                   <span className="font-medium">Total</span>
                   <span className="font-bold">
-                    {selectedPlan ? `${availablePlans.find(p => p.id === selectedPlan)?.currency} ${calculatePrice()}` : '—'}
+                    {selectedPlan ? `${availablePlans.find(p => p.id === selectedPlan)?.currency} ${calculatePrice()}` : '-'}
                     {billingCycle === 'MONTHLY' ? '/month' : billingCycle === 'ANNUAL' ? '/year' : '/quarter'}
                   </span>
                 </div>

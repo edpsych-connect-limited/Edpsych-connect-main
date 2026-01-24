@@ -456,7 +456,7 @@ export function generateScoreSummary(scoreResult: ScoreResult): string {
   if (scoreResult.strengths.length > 0) {
     summary += 'RELATIVE STRENGTHS:\n';
     scoreResult.strengths.forEach((strength) => {
-      summary += `• ${strength}\n`;
+      summary += `- ${strength}\n`;
     });
     summary += '\n';
   }
@@ -464,7 +464,7 @@ export function generateScoreSummary(scoreResult: ScoreResult): string {
   if (scoreResult.weaknesses.length > 0) {
     summary += 'AREAS OF DIFFICULTY:\n';
     scoreResult.weaknesses.forEach((weakness) => {
-      summary += `• ${weakness}\n`;
+      summary += `- ${weakness}\n`;
     });
     summary += '\n';
   }

@@ -239,14 +239,14 @@ export class ValidationService {
    * @returns {Promise<{ passed: boolean; summary: string }>} Comprehensive result
    */
   async comprehensiveValidation(sourceDir: string): Promise<{ passed: boolean; summary: string }> {
-    logger.info('🔍 Starting comprehensive validation...\n');
+    logger.info('ANALYZE Starting comprehensive validation...\n');
 
     const results: any[] = [];
     let totalErrors = 0;
 
     try {
       // Layer 0: Environment configuration validation (new!)
-      logger.info('🔧 Layer 0: Environment Configuration Validation');
+      logger.info('TOOLS Layer 0: Environment Configuration Validation');
       const envResult = await this.envConfigValidator.validateDirectory(sourceDir);
       results.push({
         layer: 'Environment Config',
@@ -257,12 +257,12 @@ export class ValidationService {
       });
       totalErrors += envResult.errors.length;
       if (envResult.missingEnvVars.length > 0) {
-        logger.warn(`  ⚠ Missing env vars: ${envResult.missingEnvVars.join(', ')}`);
+        logger.warn(`   Missing env vars: ${envResult.missingEnvVars.join(', ')}`);
       }
-      logger.info(`  ✓ Environment: ${envResult.isValid ? 'PASS' : 'FAIL'} (${envResult.errors.length} errors, ${envResult.warnings.length} warnings)\n`);
+      logger.info(`   Environment: ${envResult.isValid ? 'PASS' : 'FAIL'} (${envResult.errors.length} errors, ${envResult.warnings.length} warnings)\n`);
 
       // Layer 1: Semantic validation (methods, types)
-      logger.info('📊 Layer 1: Semantic Validation');
+      logger.info('STATS Layer 1: Semantic Validation');
       const semanticResult = await this.validator.validateDirectory(sourceDir);
       results.push({
         layer: 'Semantic',
@@ -271,10 +271,10 @@ export class ValidationService {
         warnings: semanticResult.warnings.length
       });
       totalErrors += semanticResult.errors.length;
-      logger.info(`  ✓ Semantic: ${semanticResult.isValid ? 'PASS' : 'FAIL'} (${semanticResult.errors.length} errors)\n`);
+      logger.info(`   Semantic: ${semanticResult.isValid ? 'PASS' : 'FAIL'} (${semanticResult.errors.length} errors)\n`);
 
       // Layer 2: Dependency chain validation
-      logger.info('🔗 Layer 2: Dependency Chain Validation');
+      logger.info(' Layer 2: Dependency Chain Validation');
       const depResult = await this.dependencyValidator.validateDirectory(sourceDir);
       results.push({
         layer: 'Dependencies',
@@ -284,9 +284,9 @@ export class ValidationService {
         deepChains: depResult.stats.deepChains
       });
       totalErrors += depResult.errors.length;
-      logger.info(`  ✓ Dependencies: ${depResult.errors.length === 0 ? 'PASS' : 'FAIL'} (${depResult.stats.circularDeps} circular, ${depResult.stats.deepChains} deep chains)\n`);
+      logger.info(`   Dependencies: ${depResult.errors.length === 0 ? 'PASS' : 'FAIL'} (${depResult.stats.circularDeps} circular, ${depResult.stats.deepChains} deep chains)\n`);
 
-      logger.info('✅ All validation layers complete');
+      logger.info('OK All validation layers complete');
       const passed = totalErrors === 0;
 
       return {

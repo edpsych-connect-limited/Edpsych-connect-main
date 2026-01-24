@@ -31,7 +31,7 @@ export default function ClinicalValidationShowcase() {
       <section>
         <h2 className="text-2xl font-semibold mb-4">Ongoing Studies</h2>
         <ul className="list-disc list-inside">
-          <li>Randomised controlled trials with Year Groups 7–9</li>
+          <li>Randomised controlled trials with Year Groups 7-9</li>
           <li>Longitudinal studies on cognitive load reduction</li>
           <li>Collaborations with UK universities and NHS partners</li>
         </ul>

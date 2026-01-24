@@ -320,7 +320,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
     // Award merits
     if (scorePercentage >= quiz.passing_score) {
       const merits = scorePercentage === 100 ? quiz.merits_perfect_score : Math.round(quiz.merits_perfect_score * 0.7);
-      awardMerits(merits, scorePercentage === 100 ? '🏆 PERFECT SCORE!' : 'Quiz Passed');
+      awardMerits(merits, scorePercentage === 100 ? 'TROPHY PERFECT SCORE!' : 'Quiz Passed');
 
       setState((prev) => ({
         ...prev,
@@ -373,7 +373,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
 
   function handleCourseComplete() {
     // Award course completion bonus (100 merits)
-    awardMerits(100, '🎓 COURSE COMPLETE!');
+    awardMerits(100, 'COURSE COURSE COMPLETE!');
 
     setState((prev) => ({
       ...prev,
@@ -434,7 +434,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
       {showMeritAnimation && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 animate-bounce motion-reduce:animate-none" role="status" aria-live="polite">
           <div className="bg-yellow-400 text-yellow-900 px-8 py-6 rounded-2xl shadow-2xl border-4 border-yellow-500 text-center">
-            <div className="text-5xl font-bold mb-2">+{meritAmount} 🏆</div>
+            <div className="text-5xl font-bold mb-2">+{meritAmount} TROPHY</div>
             <div className="text-xl font-semibold">MERITS EARNED!</div>
           </div>
         </div>
@@ -444,11 +444,11 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
       {showCompletionCelebration && (
         <div className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center">
           <div className="bg-white rounded-3xl p-12 max-w-2xl text-center animate-pulse motion-reduce:animate-none" role="dialog" aria-modal="true" aria-labelledby="course-complete-title" aria-describedby="course-complete-summary">
-            <div className="text-8xl mb-6">🎓🎉🏆</div>
+            <div className="text-8xl mb-6">COURSEOKTROPHY</div>
             <h1 id="course-complete-title" className="text-5xl font-bold text-blue-600 mb-4">COURSE COMPLETE!</h1>
             <p className="text-2xl text-gray-700 mb-6">You&apos;ve mastered {course.title}</p>
             <div className="bg-yellow-100 border-4 border-yellow-400 rounded-xl p-6 mb-6">
-              <div className="text-4xl font-bold text-yellow-700">+100 BONUS MERITS! 🏆</div>
+              <div className="text-4xl font-bold text-yellow-700">+100 BONUS MERITS! TROPHY</div>
             </div>
             <div className="space-y-3 text-left bg-blue-50 rounded-xl p-6">
               <div className="flex justify-between text-lg">
@@ -461,7 +461,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
               </div>
               <div className="flex justify-between text-lg">
                 <span className="font-semibold">Badge Awarded:</span>
-                <span className="text-purple-600 font-bold">✨ {course.badge_awarded}</span>
+                <span className="text-purple-600 font-bold">AWARD {course.badge_awarded}</span>
               </div>
             </div>
             <button
@@ -483,7 +483,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
               <p className="text-gray-600 mt-1">{course.subtitle}</p>
             </div>
             <div className="text-right">
-              <div className="text-3xl font-bold text-yellow-600">🏆 {state.total_merits_earned}</div>
+              <div className="text-3xl font-bold text-yellow-600">TROPHY {state.total_merits_earned}</div>
               <div className="text-sm text-gray-600">Merits Earned</div>
             </div>
           </div>
@@ -527,7 +527,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                       <div className="font-semibold flex items-center justify-between">
                         <span>
                           Module {module.module_number}
-                          {moduleComplete && ' ✅'}
+                          {moduleComplete && ' OK'}
                         </span>
                       </div>
                       <div className="text-sm mt-1 opacity-90">{module.title}</div>
@@ -552,7 +552,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                       : 'text-gray-600 hover:text-gray-900'
                   }`}
                 >
-                  📚 Lesson
+                  LESSON Lesson
                 </button>
                 {currentQuiz && (
                   <button
@@ -563,7 +563,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                         : 'text-gray-600 hover:text-gray-900'
                     }`}
                   >
-                    ✏️ Quiz
+                    QUIZ Quiz
                   </button>
                 )}
                 <button
@@ -574,7 +574,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                       : 'text-gray-600 hover:text-gray-900'
                   }`}
                 >
-                  📎 Resources
+                  RES Resources
                 </button>
                 <button
                   onClick={() => setViewMode('notes')}
@@ -582,7 +582,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                     viewMode === 'notes' ? 'text-blue-600 border-b-4 border-blue-600' : 'text-gray-600 hover:text-gray-900'
                   }`}
                 >
-                  📝 Notes
+                  NOTES Notes
                 </button>
               </div>
 
@@ -594,9 +594,9 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                     <div className="mb-6">
                       <h2 className="text-3xl font-bold text-gray-900 mb-2">{currentLesson.title}</h2>
                       <div className="flex items-center space-x-4 text-sm text-gray-600">
-                        <span>⏱️ {currentLesson.duration_minutes} minutes</span>
-                        <span>🏆 {currentLesson.merits_earned} merits</span>
-                        <span className="capitalize">📋 {currentLesson.type}</span>
+                        <span>TIME {currentLesson.duration_minutes} minutes</span>
+                        <span>TROPHY {currentLesson.merits_earned} merits</span>
+                        <span className="capitalize">LIST {currentLesson.type}</span>
                         {(() => {
                           const lessonId = currentLesson.content_url 
                             ? extractLessonIdFromUrl(currentLesson.content_url)
@@ -609,7 +609,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                                   ? 'bg-blue-100 text-blue-800' 
                                   : 'bg-purple-100 text-purple-800'
                               }`}>
-                                {speaker === 'Dr. Scott' ? '👨‍⚕️' : '👨‍💻'} {speaker}
+                                {speaker === 'Dr. Scott' ? 'DR' : 'DEV'} {speaker}
                               </span>
                             );
                           }
@@ -716,7 +716,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
 
                                   {/* Label */}
                                   <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm backdrop-blur-sm z-10">
-                                    📸 Interactive Walkthrough
+                                    WALK Interactive Walkthrough
                                   </div>
                                 </div>
                               );
@@ -754,7 +754,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                                   }}
                                   className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
                                 >
-                                  ✅ Mark Video as Complete
+                                  OK Mark Video as Complete
                                 </button>
                                 <p className="text-sm text-gray-500 mt-2">
                                   Click when you&apos;ve finished watching
@@ -780,7 +780,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                     {/* Case Study */}
                     {currentLesson.type === 'case_study' && (
                       <div className="bg-blue-50 border-l-4 border-blue-600 rounded-r-xl p-8 mb-6">
-                        <h3 className="text-xl font-bold text-blue-900 mb-4">📖 Case Study</h3>
+                        <h3 className="text-xl font-bold text-blue-900 mb-4">CASE Case Study</h3>
                         <p className="text-gray-700 leading-relaxed mb-4">
                           {currentLesson.content_text ||
                             'A detailed case study would be presented here, allowing learners to apply theory to real-world scenarios.'}
@@ -799,12 +799,12 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                     {/* Interactive */}
                     {currentLesson.type === 'interactive' && (
                       <div className="bg-purple-50 border-2 border-purple-300 rounded-xl p-8 mb-6">
-                        <h3 className="text-xl font-bold text-purple-900 mb-4">🎮 Interactive Activity</h3>
+                        <h3 className="text-xl font-bold text-purple-900 mb-4">ACT Interactive Activity</h3>
                         <p className="text-gray-700 mb-4">
                           Interactive elements such as drag-and-drop, hotspot activities, or simulations would be embedded here.
                         </p>
                         <div className="bg-white rounded-lg p-8 text-center">
-                          <div className="text-6xl mb-4">🎯</div>
+                          <div className="text-6xl mb-4">GOAL</div>
                           <p className="text-gray-600">Interactive module placeholder</p>
                         </div>
                       </div>
@@ -817,7 +817,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                         disabled={state.current_module === 0 && state.current_lesson === 0}
                         className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                       >
-                        ← Previous
+                        Previous
                       </button>
 
                       {state.completed_lessons.includes(currentLesson.id) ? (
@@ -825,14 +825,14 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                           onClick={goToNextLesson}
                           className="px-8 py-3 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition-colors shadow-lg"
                         >
-                          Next Lesson →
+                          Next Lesson
                         </button>
                       ) : (
                         <button
                           onClick={handleLessonComplete}
                           className="px-8 py-3 bg-green-600 text-white rounded-lg font-bold hover:bg-green-700 transition-colors shadow-lg animate-pulse"
                         >
-                          ✅ Complete & Earn {currentLesson.merits_earned} Merits
+                          OK Complete & Earn {currentLesson.merits_earned} Merits
                         </button>
                       )}
                     </div>
@@ -845,9 +845,9 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                     <div className="mb-6">
                       <h2 className="text-3xl font-bold text-gray-900 mb-2">{currentQuiz.title}</h2>
                       <div className="flex items-center space-x-4 text-sm text-gray-600">
-                        <span>📝 {currentQuiz.questions.length} questions</span>
-                        <span>🎯 Pass: {currentQuiz.passing_score}%</span>
-                        <span>🏆 Perfect: {currentQuiz.merits_perfect_score} merits</span>
+                        <span>NOTES {currentQuiz.questions.length} questions</span>
+                        <span>GOAL Pass: {currentQuiz.passing_score}%</span>
+                        <span>TROPHY Perfect: {currentQuiz.merits_perfect_score} merits</span>
                       </div>
                     </div>
 
@@ -930,7 +930,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                           }`}
                         >
                           <div className="text-6xl mb-4">
-                            {state.quiz_score === 100 ? '🏆' : state.quiz_score >= currentQuiz.passing_score ? '✅' : '❌'}
+                            {state.quiz_score === 100 ? 'TROPHY' : state.quiz_score >= currentQuiz.passing_score ? 'OK' : 'NO'}
                           </div>
                           <div className="text-5xl font-bold mb-2">{state.quiz_score}%</div>
                           <div className="text-2xl font-semibold">
@@ -959,7 +959,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                                   <h4 className="font-semibold text-gray-900">
                                     {qIdx + 1}. {question.question}
                                   </h4>
-                                  <span className="text-2xl">{isCorrect ? '✅' : '❌'}</span>
+                                  <span className="text-2xl">{isCorrect ? 'OK' : 'NO'}</span>
                                 </div>
                                 <div className="text-sm space-y-1">
                                   <div>
@@ -1001,7 +1001,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                               onClick={goToNextLesson}
                               className="px-8 py-3 bg-green-600 text-white rounded-lg font-bold hover:bg-green-700 transition-colors"
                             >
-                              Continue to Next Module →
+                              Continue to Next Module
                             </button>
                           )}
                         </div>
@@ -1013,7 +1013,7 @@ export default function CoursePlayer({ courseId, userId, onComplete, onMeritEarn
                 {/* RESOURCES VIEW */}
                 {viewMode === 'resources' && (
                   <div>
-                    <h2 className="text-3xl font-bold text-gray-900 mb-6">📎 Course Resources</h2>
+                    <h2 className="text-3xl font-bold text-gray-900 mb-6">RES Course Resources</h2>
                     <div className="space-y-4">
                       {currentLesson?.resources && currentLesson.resources.length > 0 ? (
                         currentLesson.resources.map((resource) => (

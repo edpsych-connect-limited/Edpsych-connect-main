@@ -599,7 +599,7 @@ export class AIOrchestrator {
     // we should highlight that.
     let finalContent = response.content;
     if (response.confidence < 0.8 && knowledge.length > 0 && knowledge[0].score > 15) {
-        finalContent += `\n\n**I found a relevant Help Center article that checks out:**\n\n📌 **[${knowledge[0].article.title}](/help/${knowledge[0].article.slug})**\n${knowledge[0].snippet}`;
+        finalContent += `\n\n**I found a relevant Help Center article that checks out:**\n\n **[${knowledge[0].article.title}](/help/${knowledge[0].article.slug})**\n${knowledge[0].snippet}`;
     }
     
     return {
@@ -675,13 +675,13 @@ export class AIOrchestrator {
       content: `Welcome to EdPsych Connect! I'm your AI Coordinator, here to connect you with our team of 13 specialist AI agents. 
 
 I can help you with:
-• **Curriculum & Learning** - Personalised learning paths, differentiation strategies
-• **Assessment** - Diagnostic assessments, progress tracking, data analysis
-• **SEND Support** - EHCP guidance, inclusive strategies, reasonable adjustments
-• **Behaviour** - Positive behaviour support, functional analysis
-• **Safeguarding** - KCSIE guidance, reporting procedures
-• **Wellbeing** - Mental health support, resilience building
-• **And much more...**
+- **Curriculum & Learning** - Personalised learning paths, differentiation strategies
+- **Assessment** - Diagnostic assessments, progress tracking, data analysis
+- **SEND Support** - EHCP guidance, inclusive strategies, reasonable adjustments
+- **Behaviour** - Positive behaviour support, functional analysis
+- **Safeguarding** - KCSIE guidance, reporting procedures
+- **Wellbeing** - Mental health support, resilience building
+- **And much more...**
 
 What would you like help with today?`,
       confidence: 0.95,
@@ -716,9 +716,9 @@ I can help you navigate the EHCP process. Here's what you need to know:
 5. **Final EHCP** - Issued within 20 weeks total
 
 **Annual Reviews:**
-• Must occur within 12 months of EHCP being issued
-• Earlier reviews at transition points (Year 5, Year 9, Year 11)
-• Person-centred approach with pupil voice central
+- Must occur within 12 months of EHCP being issued
+- Earlier reviews at transition points (Year 5, Year 9, Year 11)
+- Person-centred approach with pupil voice central
 
 Would you like me to help with a specific aspect of the EHCP process?`,
         confidence: 0.92,
@@ -739,11 +739,11 @@ Would you like me to help with a specific aspect of the EHCP process?`,
 
 As your SEND Specialist, I can help with:
 
-• **EHCP Process** - Requests, assessments, annual reviews
-• **Graduated Approach** - Assess, Plan, Do, Review cycles
-• **Reasonable Adjustments** - Access arrangements, adaptations
-• **Inclusive Strategies** - Classroom differentiation, universal design
-• **Legal Compliance** - SEND Code of Practice, Equality Act
+- **EHCP Process** - Requests, assessments, annual reviews
+- **Graduated Approach** - Assess, Plan, Do, Review cycles
+- **Reasonable Adjustments** - Access arrangements, adaptations
+- **Inclusive Strategies** - Classroom differentiation, universal design
+- **Legal Compliance** - SEND Code of Practice, Equality Act
 
 The SEND Code of Practice 2015 sets out clear expectations for identifying and supporting children and young people with SEND.
 
@@ -765,24 +765,24 @@ What specific area would you like guidance on?`,
     return {
       content: `**Safeguarding Guidance**
 
-⚠️ **If a child is in immediate danger, contact the police on 999.**
+WARNING **If a child is in immediate danger, contact the police on 999.**
 
 I can provide guidance on safeguarding matters aligned with **Keeping Children Safe in Education (KCSIE) 2023**.
 
 **Key Principles:**
-• Safeguarding is everyone's responsibility
-• Act on concerns promptly - don't wait for certainty
-• Record accurately using the child's own words
-• Never promise confidentiality to a child
-• Follow your school's safeguarding procedures
+- Safeguarding is everyone's responsibility
+- Act on concerns promptly - don't wait for certainty
+- Record accurately using the child's own words
+- Never promise confidentiality to a child
+- Follow your school's safeguarding procedures
 
 **Types of Abuse to Recognise:**
-• Physical abuse
-• Emotional abuse
-• Sexual abuse (including online)
-• Neglect
-• Child criminal/sexual exploitation
-• Peer-on-peer abuse
+- Physical abuse
+- Emotional abuse
+- Sexual abuse (including online)
+- Neglect
+- Child criminal/sexual exploitation
+- Peer-on-peer abuse
 
 **Your Designated Safeguarding Lead (DSL) should be your first point of contact for concerns.**
 
@@ -807,16 +807,16 @@ Do you need guidance on a specific safeguarding matter?`,
 I can help you create personalised, differentiated curriculum content aligned with the UK National Curriculum.
 
 **Services Available:**
-• **Learning Path Creation** - Personalised sequences based on starting points
-• **Differentiation Strategies** - Adapting content for diverse learners
-• **Curriculum Mapping** - Aligning objectives across subjects and year groups
-• **Resource Recommendations** - Quality-assured teaching materials
+- **Learning Path Creation** - Personalised sequences based on starting points
+- **Differentiation Strategies** - Adapting content for diverse learners
+- **Curriculum Mapping** - Aligning objectives across subjects and year groups
+- **Resource Recommendations** - Quality-assured teaching materials
 
 **Key Stage Coverage:**
-• EYFS Framework
-• Key Stage 1 & 2 (Primary)
-• Key Stage 3 & 4 (Secondary)
-• Post-16 Pathways
+- EYFS Framework
+- Key Stage 1 & 2 (Primary)
+- Key Stage 3 & 4 (Secondary)
+- Post-16 Pathways
 
 What would you like help with? I can create a learning path, suggest differentiation strategies, or help plan a scheme of work.`,
       confidence: 0.88,
@@ -839,16 +839,16 @@ What would you like help with? I can create a learning path, suggest differentia
 I can help you design, implement, and analyse assessments that truly inform teaching and learning.
 
 **Assessment Types I Support:**
-• **Diagnostic** - Identify specific learning needs and gaps
-• **Formative** - Ongoing assessment to guide instruction
-• **Summative** - End-of-unit/term evaluation
-• **Baseline** - Establishing starting points
+- **Diagnostic** - Identify specific learning needs and gaps
+- **Formative** - Ongoing assessment to guide instruction
+- **Summative** - End-of-unit/term evaluation
+- **Baseline** - Establishing starting points
 
 **Key Features:**
-• Adaptive questioning that adjusts to pupil responses
-• Accessibility options for SEND learners
-• Detailed analytics and gap analysis
-• Progress tracking against national expectations
+- Adaptive questioning that adjusts to pupil responses
+- Accessibility options for SEND learners
+- Detailed analytics and gap analysis
+- Progress tracking against national expectations
 
 **Assessment Accommodations:**
 I can advise on appropriate access arrangements including extra time, reader/scribe support, rest breaks, and modified papers.
@@ -874,10 +874,10 @@ What type of assessment support do you need?`,
 I take a Positive Behaviour Support (PBS) approach, understanding that all behaviour is communication.
 
 **My Approach:**
-• **Functional Analysis** - Understanding the purpose behaviour serves
-• **Proactive Strategies** - Preventing difficulties before they occur
-• **Reactive Strategies** - Safe, dignified responses when needed
-• **Environmental Adaptations** - Creating supportive settings
+- **Functional Analysis** - Understanding the purpose behaviour serves
+- **Proactive Strategies** - Preventing difficulties before they occur
+- **Reactive Strategies** - Safe, dignified responses when needed
+- **Environmental Adaptations** - Creating supportive settings
 
 **Key Principles:**
 1. Build positive relationships first
@@ -887,10 +887,10 @@ I take a Positive Behaviour Support (PBS) approach, understanding that all behav
 5. Focus on skill-building, not just compliance
 
 **I Can Help With:**
-• Behaviour support plans
-• De-escalation strategies
-• Classroom management techniques
-• Trauma-informed approaches
+- Behaviour support plans
+- De-escalation strategies
+- Classroom management techniques
+- Trauma-informed approaches
 
 What specific behaviour support do you need?`,
       confidence: 0.86,
@@ -913,24 +913,24 @@ What specific behaviour support do you need?`,
 Mental health and wellbeing are fundamental to effective learning. I'm here to help.
 
 **For Students:**
-• Anxiety and worry management
-• Building resilience and coping skills
-• Emotional regulation strategies
-• Social skills development
-• Self-esteem building
+- Anxiety and worry management
+- Building resilience and coping skills
+- Emotional regulation strategies
+- Social skills development
+- Self-esteem building
 
 **For Staff:**
-• Recognising signs of poor mental health in pupils
-• Having supportive conversations
-• Self-care and professional boundaries
-• Managing workload stress
-• Vicarious trauma awareness
+- Recognising signs of poor mental health in pupils
+- Having supportive conversations
+- Self-care and professional boundaries
+- Managing workload stress
+- Vicarious trauma awareness
 
 **Whole-School Approaches:**
-• Wellbeing curricula (PSHE)
-• Mental Health Support Teams
-• Peer support programmes
-• Graduated response to mental health needs
+- Wellbeing curricula (PSHE)
+- Mental Health Support Teams
+- Peer support programmes
+- Graduated response to mental health needs
 
 Remember: You don't need to be a mental health professional to make a difference. Listening with empathy is powerful.
 
@@ -955,9 +955,9 @@ How can I support wellbeing in your setting?`,
 I help design targeted, evidence-based interventions with clear outcomes.
 
 **Wave Model:**
-• **Wave 1 (Universal)** - Quality First Teaching for all
-• **Wave 2 (Targeted)** - Small group interventions
-• **Wave 3 (Specialist)** - Individualised, intensive support
+- **Wave 1 (Universal)** - Quality First Teaching for all
+- **Wave 2 (Targeted)** - Small group interventions
+- **Wave 3 (Specialist)** - Individualised, intensive support
 
 **Intervention Design Principles:**
 1. **Specific** - Clear focus on identified needs
@@ -967,10 +967,10 @@ I help design targeted, evidence-based interventions with clear outcomes.
 5. **Monitored** - Regular progress checks
 
 **I Can Help With:**
-• Selecting appropriate interventions
-• Setting SMART outcomes
-• Creating progress monitoring schedules
-• Evaluating intervention effectiveness
+- Selecting appropriate interventions
+- Setting SMART outcomes
+- Creating progress monitoring schedules
+- Evaluating intervention effectiveness
 
 What area would you like intervention support for?`,
       confidence: 0.87,
@@ -993,25 +993,25 @@ What area would you like intervention support for?`,
 I help you understand what your data is telling you and what to do about it.
 
 **Data I Can Analyse:**
-• Academic progress against age-related expectations
-• Intervention effectiveness data
-• Attendance and engagement patterns
-• Behaviour incident trends
-• Wellbeing survey results
+- Academic progress against age-related expectations
+- Intervention effectiveness data
+- Attendance and engagement patterns
+- Behaviour incident trends
+- Wellbeing survey results
 
 **Key Questions I Help Answer:**
-• Is this pupil making expected progress?
-• Which interventions are most effective?
-• Are there patterns in our data?
-• Who needs additional support?
-• What are our school's strengths and areas for development?
+- Is this pupil making expected progress?
+- Which interventions are most effective?
+- Are there patterns in our data?
+- Who needs additional support?
+- What are our school's strengths and areas for development?
 
 **Features:**
-• Automated progress alerts
-• Cohort comparison analysis
-• Trend identification
-• Visual dashboards
-• Report generation
+- Automated progress alerts
+- Cohort comparison analysis
+- Trend identification
+- Visual dashboards
+- Report generation
 
 What data would you like me to help analyse?`,
       confidence: 0.86,
@@ -1034,11 +1034,11 @@ What data would you like me to help analyse?`,
 I help create professional, high-quality educational documentation.
 
 **Report Types I Support:**
-• Educational Psychology reports
-• EHCP advice and contributions
-• Progress reports for parents
-• Referral documentation
-• Annual review paperwork
+- Educational Psychology reports
+- EHCP advice and contributions
+- Progress reports for parents
+- Referral documentation
+- Annual review paperwork
 
 **Report Writing Principles:**
 1. **Strength-based** - Start with what's working
@@ -1048,10 +1048,10 @@ I help create professional, high-quality educational documentation.
 5. **Person-centred** - Child's voice central
 
 **I Can Help With:**
-• Structuring your report
-• Phrasing recommendations professionally
-• Ensuring legal compliance
-• Proofreading and editing suggestions
+- Structuring your report
+- Phrasing recommendations professionally
+- Ensuring legal compliance
+- Proofreading and editing suggestions
 
 What type of report are you working on?`,
       confidence: 0.84,
@@ -1074,28 +1074,28 @@ What type of report are you working on?`,
 Effective home-school partnership is crucial for pupil success. I'm here to help build those bridges.
 
 **Communication Support:**
-• Drafting sensitive communications
-• Explaining educational jargon
-• Preparing for difficult conversations
-• Translation and accessibility needs
+- Drafting sensitive communications
+- Explaining educational jargon
+- Preparing for difficult conversations
+- Translation and accessibility needs
 
 **Family Engagement:**
-• Involving parents in learning
-• Home learning strategies
-• Attendance improvement
-• Building trust with hard-to-reach families
+- Involving parents in learning
+- Home learning strategies
+- Attendance improvement
+- Building trust with hard-to-reach families
 
 **SEND Family Support:**
-• Explaining the EHCP process
-• Preparing families for annual reviews
-• Signposting to local services
-• Parent support groups
+- Explaining the EHCP process
+- Preparing families for annual reviews
+- Signposting to local services
+- Parent support groups
 
 **Key Principles:**
-• Assume positive intent
-• Listen first, advise second
-• Use accessible language
-• Recognise family expertise
+- Assume positive intent
+- Listen first, advise second
+- Use accessible language
+- Recognise family expertise
 
 How can I help strengthen your home-school partnership?`,
       confidence: 0.85,
@@ -1119,25 +1119,25 @@ How can I help strengthen your home-school partnership?`,
 I synthesise educational research to inform your practice.
 
 **Evidence Sources I Draw From:**
-• Peer-reviewed educational psychology journals
-• Education Endowment Foundation (EEF) guidance
-• NICE guidelines for mental health
-• DfE research reports
-• Cochrane systematic reviews
+- Peer-reviewed educational psychology journals
+- Education Endowment Foundation (EEF) guidance
+- NICE guidelines for mental health
+- DfE research reports
+- Cochrane systematic reviews
 
 **Research Areas:**
-• Learning and cognition
-• SEND interventions
-• Behaviour management
-• Assessment practices
-• Mental health in education
-• Teacher effectiveness
+- Learning and cognition
+- SEND interventions
+- Behaviour management
+- Assessment practices
+- Mental health in education
+- Teacher effectiveness
 
 **Evidence Strength Indicators:**
-🟢 Strong evidence (multiple RCTs, meta-analyses)
-🟡 Moderate evidence (some controlled studies)
-🟠 Emerging evidence (early research, case studies)
-🔴 Limited evidence (expert opinion, theoretical)
+LOW Strong evidence (multiple RCTs, meta-analyses)
+MED Moderate evidence (some controlled studies)
+ Emerging evidence (early research, case studies)
+HIGH Limited evidence (expert opinion, theoretical)
 
 What topic would you like research evidence on?`,
       confidence: 0.83,
@@ -1162,28 +1162,28 @@ What topic would you like research evidence on?`,
 I help learners develop the skills and strategies to become independent, effective learners.
 
 **Metacognitive Strategies:**
-• Planning and goal-setting
-• Monitoring understanding
-• Evaluating learning effectiveness
-• Adjusting approaches
+- Planning and goal-setting
+- Monitoring understanding
+- Evaluating learning effectiveness
+- Adjusting approaches
 
 **Study Skills:**
-• Organisation and time management
-• Note-taking techniques
-• Revision strategies
-• Memory techniques
+- Organisation and time management
+- Note-taking techniques
+- Revision strategies
+- Memory techniques
 
 **Motivation & Engagement:**
-• Building growth mindset
-• Overcoming procrastination
-• Managing exam anxiety
-• Celebrating progress
+- Building growth mindset
+- Overcoming procrastination
+- Managing exam anxiety
+- Celebrating progress
 
 **Executive Function Support:**
-• Working memory strategies
-• Attention and focus
-• Flexible thinking
-• Impulse control
+- Working memory strategies
+- Attention and focus
+- Flexible thinking
+- Impulse control
 
 What aspect of learning would you like support with?`,
       confidence: 0.85,

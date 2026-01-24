@@ -113,13 +113,13 @@ const SCHOOL_TYPE_CONFIG: Record<SchoolType, { name: string; color: string; avgC
 };
 
 const FUNDING_BAND_CONFIG: Record<FundingBand, { name: string; range: string; maxAmount: number }> = {
-  A: { name: 'Band A', range: '£0 - £6,000', maxAmount: 6000 },
-  B: { name: 'Band B', range: '£6,001 - £12,000', maxAmount: 12000 },
-  C: { name: 'Band C', range: '£12,001 - £18,000', maxAmount: 18000 },
-  D: { name: 'Band D', range: '£18,001 - £25,000', maxAmount: 25000 },
-  E: { name: 'Band E', range: '£25,001 - £35,000', maxAmount: 35000 },
-  F: { name: 'Band F', range: '£35,001 - £50,000', maxAmount: 50000 },
-  exceptional: { name: 'Exceptional', range: '£50,001+', maxAmount: 999999 },
+  A: { name: 'Band A', range: 'GBP 0 - GBP 6,000', maxAmount: 6000 },
+  B: { name: 'Band B', range: 'GBP 6,001 - GBP 12,000', maxAmount: 12000 },
+  C: { name: 'Band C', range: 'GBP 12,001 - GBP 18,000', maxAmount: 18000 },
+  D: { name: 'Band D', range: 'GBP 18,001 - GBP 25,000', maxAmount: 25000 },
+  E: { name: 'Band E', range: 'GBP 25,001 - GBP 35,000', maxAmount: 35000 },
+  F: { name: 'Band F', range: 'GBP 35,001 - GBP 50,000', maxAmount: 50000 },
+  exceptional: { name: 'Exceptional', range: 'GBP 50,001+', maxAmount: 999999 },
 };
 
 const PROVISION_RATES: Record<ProvisionCategory, { name: string; defaultRate: number }> = {
@@ -413,7 +413,7 @@ export default function ResourceCostingModule() {
                 </div>
                 <div className="text-sm font-medium text-gray-900 dark:text-white">{config.name}</div>
                 <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                  {comparison.studentCount} students • {comparison.percentageOfBudget}% of budget
+                  {comparison.studentCount} students - {comparison.percentageOfBudget}% of budget
                 </div>
                 <div className="mt-2 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                   <div 
@@ -592,7 +592,7 @@ export default function ResourceCostingModule() {
                   )}
                 </div>
                 <div className="flex items-center gap-4 mt-2 text-xs">
-                  <span className="flex items-center gap-1"><div className="w-2 h-2 bg-blue-500 rounded" /> School (£6k)</span>
+                  <span className="flex items-center gap-1"><div className="w-2 h-2 bg-blue-500 rounded" /> School (GBP 6k)</span>
                   <span className="flex items-center gap-1"><div className="w-2 h-2 bg-green-500 rounded" /> LA Top-up</span>
                   <span className="flex items-center gap-1"><div className="w-2 h-2 bg-purple-500 rounded" /> Health</span>
                   <span className="flex items-center gap-1"><div className="w-2 h-2 bg-amber-500 rounded" /> Social Care</span>
@@ -621,7 +621,7 @@ export default function ResourceCostingModule() {
                             </div>
                             <div className="text-sm text-gray-500 dark:text-gray-400">
                               {provision.description}
-                              {provision.hours > 0 && ` • ${provision.hours}hrs/wk × ${provision.weeksPerYear} weeks`}
+                              {provision.hours > 0 && ` - ${provision.hours}hrs/wk x ${provision.weeksPerYear} weeks`}
                             </div>
                           </div>
                           <div className="text-right">
@@ -671,9 +671,9 @@ export default function ResourceCostingModule() {
               Opportunities Identified
             </h4>
             <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-              <li>• 12 students may be suitable for stepped-down provision (potential saving: £45,000)</li>
-              <li>• 3 out-of-area placements could return to local provision (potential saving: £120,000)</li>
-              <li>• Group provision for SALT could serve 8 students (potential saving: £18,000)</li>
+              <li>- 12 students may be suitable for stepped-down provision (potential saving: GBP 45,000)</li>
+              <li>- 3 out-of-area placements could return to local provision (potential saving: GBP 120,000)</li>
+              <li>- Group provision for SALT could serve 8 students (potential saving: GBP 18,000)</li>
             </ul>
           </div>
           <div>
@@ -682,9 +682,9 @@ export default function ResourceCostingModule() {
               Risk Areas
             </h4>
             <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-              <li>• 5 placements at risk of cost increase due to escalating needs</li>
-              <li>• 2 independent placements under review by parents</li>
-              <li>• Transport costs up 15% year-on-year</li>
+              <li>- 5 placements at risk of cost increase due to escalating needs</li>
+              <li>- 2 independent placements under review by parents</li>
+              <li>- Transport costs up 15% year-on-year</li>
             </ul>
           </div>
         </div>

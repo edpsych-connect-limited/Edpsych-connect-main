@@ -111,7 +111,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Phonics program materials', 'Letter tiles/cards', 'Decodable books', 'Progress tracking sheets'],
-    cost_implications: '£100-£300 for materials, plus staff training',
+    cost_implications: 'GBP 100-GBP 300 for materials, plus staff training',
 
     key_components: [
       'Grapheme-phoneme correspondence teaching',
@@ -206,7 +206,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: false,
     resources_needed: ['Appropriately leveled texts', 'Timer', 'Progress chart', 'Recording device (optional)'],
-    cost_implications: 'Minimal - £0-£50 for reading materials',
+    cost_implications: 'Minimal - GBP 0-GBP 50 for reading materials',
 
     key_components: [
       'Text at instructional level (90-95% accuracy)',
@@ -300,7 +300,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Age-appropriate texts', 'Strategy cards', 'Question stems', 'Graphic organizers'],
-    cost_implications: '£50-£150 for materials and training',
+    cost_implications: 'GBP 50-GBP 150 for materials and training',
 
     key_components: [
       'Predicting (What will happen next?)',
@@ -398,7 +398,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Strategy charts', 'Graphic organizers', 'Mnemonic cards', 'Self-monitoring sheets', 'Writing portfolios'],
-    cost_implications: '£50-£200 for materials and training',
+    cost_implications: 'GBP 50-GBP 200 for materials and training',
 
     key_components: [
       'Explicit strategy instruction (e.g., POW: Pick my idea, Organize my notes, Write and say more)',
@@ -496,7 +496,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Manipulatives (blocks, counters, base-10 materials)', 'Visual representations (pictures, diagrams)', 'Number lines', 'Place value charts', 'Graph paper'],
-    cost_implications: '£100-£300 for quality manipulatives',
+    cost_implications: 'GBP 100-GBP 300 for quality manipulatives',
 
     key_components: [
       'Concrete stage: Physical manipulation of objects',
@@ -590,7 +590,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Planners/organizers', 'Strategy cards', 'Checklists', 'Timer', 'Study skill guides'],
-    cost_implications: '£30-£100 for materials per student',
+    cost_implications: 'GBP 30-GBP 100 for materials per student',
 
     key_components: [
       'Note-taking strategies (Cornell notes, mind maps)',
@@ -691,7 +691,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: true,
     resources_needed: ['Sound discrimination materials', 'Picture cards', 'Counters/tokens', 'Clapping games resources'],
-    cost_implications: '£30-£100 for materials',
+    cost_implications: 'GBP 30-GBP 100 for materials',
 
     key_components: [
       'Listening and discrimination skills',
@@ -787,7 +787,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: false,
     resources_needed: ['Rhyme books', 'Picture cards', 'Nursery rhyme resources', 'Musical instruments (optional)'],
-    cost_implications: '£20-£60 for books and materials',
+    cost_implications: 'GBP 20-GBP 60 for books and materials',
 
     key_components: [
       'Listening to and identifying rhymes',
@@ -880,7 +880,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: false,
     resources_needed: ['Sound makers (instruments, objects)', 'Audio recordings', 'Picture cards', 'Barrier screens'],
-    cost_implications: '£30-£80 for materials',
+    cost_implications: 'GBP 30-GBP 80 for materials',
 
     key_components: [
       'Environmental sound discrimination',
@@ -975,7 +975,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['OG-certified program materials', 'Letter cards', 'Sound cards', 'Syllable cards', 'Reading texts', 'Spelling materials'],
-    cost_implications: '£500-£2000 for materials + certified training (£3000+)',
+    cost_implications: 'GBP 500-GBP 2000 for materials + certified training (GBP 3000+)',
 
     key_components: [
       'Multisensory (visual, auditory, kinaesthetic, tactile)',
@@ -1078,7 +1078,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Age-appropriate phonics materials', 'High-interest decodable texts', 'Games-based resources', 'Progress tracking tools'],
-    cost_implications: '£100-£250 for materials',
+    cost_implications: 'GBP 100-GBP 250 for materials',
 
     key_components: [
       'Diagnostic assessment to identify gaps',
@@ -1180,7 +1180,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: true,
     resources_needed: ['High-interest books at appropriate level', 'Training for tutors/parents', 'Reward system', 'Reading log'],
-    cost_implications: '£30-£100 for books and training materials',
+    cost_implications: 'GBP 30-GBP 100 for books and training materials',
 
     key_components: [
       'Reading together (tutor and student read aloud simultaneously)',
@@ -1280,7 +1280,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: false,
     resources_needed: ['Reader\'s theatre scripts', 'Simple props (optional)', 'Performance space', 'Recording device (optional)'],
-    cost_implications: '£20-£60 for scripts (many free online)',
+    cost_implications: 'GBP 20-GBP 60 for scripts (many free online)',
 
     key_components: [
       'Select engaging script at instructional level',
@@ -1383,7 +1383,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Inference pictures', 'Texts at appropriate level', 'Question stems', 'Inference clues graphic organizers'],
-    cost_implications: '£30-£100 for materials',
+    cost_implications: 'GBP 30-GBP 100 for materials',
 
     key_components: [
       'Explicit teaching of inference ("reading detective work")',
@@ -1480,7 +1480,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Academic word lists', 'Morphology cards (prefixes, suffixes, roots)', 'Picture dictionaries', 'Context clue texts', 'Word maps'],
-    cost_implications: '£50-£150 for materials',
+    cost_implications: 'GBP 50-GBP 150 for materials',
 
     key_components: [
       'Teach Tier 2 academic vocabulary explicitly',
@@ -1578,7 +1578,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Non-fiction texts', 'Text structure graphic organizers', 'Text feature posters', 'Subject textbooks'],
-    cost_implications: '£30-£100 for texts and materials',
+    cost_implications: 'GBP 30-GBP 100 for texts and materials',
 
     key_components: [
       'Teach 5 main text structures explicitly',
@@ -1676,7 +1676,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Spelling program (Words Their Way, Spelling Mastery)', 'Word sorts', 'Personal spelling dictionaries', 'Multi-sensory spelling materials'],
-    cost_implications: '£50-£200 for program materials',
+    cost_implications: 'GBP 50-GBP 200 for program materials',
 
     key_components: [
       'Developmental spelling assessment',
@@ -1774,7 +1774,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: false,
     resources_needed: ['High-frequency word lists (Fry, Dolch)', 'Flashcards', 'Games', 'Multi-sensory materials'],
-    cost_implications: '£20-£50 for materials',
+    cost_implications: 'GBP 20-GBP 50 for materials',
 
     key_components: [
       'Systematic teaching of 100-300 most common words',
@@ -1869,7 +1869,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Diagnostic spelling assessment', 'Error analysis framework', 'Targeted intervention materials for each error type'],
-    cost_implications: '£50-£150 for assessment and materials',
+    cost_implications: 'GBP 50-GBP 150 for assessment and materials',
 
     key_components: [
       'Diagnostic spelling assessment',
@@ -1924,7 +1924,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Writing instruction'
     ],
 
-    implementation_guide: 'Step 1: Diagnostic assessment - dictate 20-30 words across difficulty levels, collect writing sample. Step 2: Error analysis - categorize errors: Phonological (sound errors - "sed" for said), Orthographic (visual pattern errors - "tode" for toad), Morphological (word part errors - "runing" for running). Step 3: Identify predominant pattern. Step 4: Target intervention: Phonological errors → phonics, sound segmentation. Orthographic errors → visual memory (look-cover-write-check), pattern recognition. Morphological errors → teach word parts, rules. Step 5: Practice targeted skills. Step 6: Re-assess after 4-6 weeks. Adjust intervention as needed. Highly Individualised!',
+    implementation_guide: 'Step 1: Diagnostic assessment - dictate 20-30 words across difficulty levels, collect writing sample. Step 2: Error analysis - categorize errors: Phonological (sound errors - "sed" for said), Orthographic (visual pattern errors - "tode" for toad), Morphological (word part errors - "runing" for running). Step 3: Identify predominant pattern. Step 4: Target intervention: Phonological errors -> phonics, sound segmentation. Orthographic errors -> visual memory (look-cover-write-check), pattern recognition. Morphological errors -> teach word parts, rules. Step 5: Practice targeted skills. Step 6: Re-assess after 4-6 weeks. Adjust intervention as needed. Highly Individualised!',
 
     parent_information: 'Instead of just "practicing more spelling", we\'re analyzing WHY your child makes spelling errors and targeting those specific difficulties. There are different types of spelling errors: sound-based (phonological), visual pattern-based (orthographic), and word parts-based (morphological). We identify your child\'s main error type and teach the skills they need. This is more efficient than random practice. At home, you can help by: focusing on the targeted skill we\'re working on, using the strategies we teach, celebrating progress in the targeted area, and being patient - fixing persistent spelling issues takes time but targeted intervention works!',
 
@@ -1963,7 +1963,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Handwriting program (e.g., Handwriting Without Tears)', 'Lined paper', 'Multi-sensory materials (sand trays, clay)', 'Pencil grips'],
-    cost_implications: '£50-£150 for program and materials',
+    cost_implications: 'GBP 50-GBP 150 for program and materials',
 
     key_components: [
       'Proper pencil grip and posture',
@@ -2062,7 +2062,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Cursive handwriting program', 'Lined paper', 'Models of cursive letters', 'Practice worksheets'],
-    cost_implications: '£40-£120 for program materials',
+    cost_implications: 'GBP 40-GBP 120 for program materials',
 
     key_components: [
       'Teach cursive letter formations',
@@ -2160,7 +2160,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Graphic organizers for each stage', 'Writing checklists', 'Peer conferencing protocols', 'Revision tools', 'Publishing materials'],
-    cost_implications: '£30-£100 for materials',
+    cost_implications: 'GBP 30-GBP 100 for materials',
 
     key_components: [
       'Pre-writing: brainstorming, planning, organizing',
@@ -2261,11 +2261,11 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: true,
     resources_needed: ['Sentence combining exercises', 'Mentor texts', 'Sentence combining games', 'Writing samples'],
-    cost_implications: '£20-£60 for materials',
+    cost_implications: 'GBP 20-GBP 60 for materials',
 
     key_components: [
       'Combine simple sentences using conjunctions (and, but, because, so)',
-      'Embed information (The dog barked. The dog was big. → The big dog barked.)',
+      'Embed information (The dog barked. The dog was big. -> The big dog barked.)',
       'Use relative clauses (who, which, that)',
       'Vary sentence structure',
       'Practice with kernel sentences',
@@ -2319,7 +2319,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Writing composition'
     ],
 
-    implementation_guide: 'Week 1-2: Combine with "and" (The cat ran. The dog ran. → The cat and the dog ran.). Week 3-4: "But" and "because" (I stayed home. I was sick. → I stayed home because I was sick.). Week 5-6: Embedding adjectives (The boy found a coin. The boy was young. The coin was gold. → The young boy found a gold coin.). Week 7-8: Embedding phrases (The dog barked. The dog was in the garden. → The dog in the garden barked.). Week 9-10: Relative clauses (The girl won. The girl was my friend. → The girl who was my friend won.). Week 11-12: Application - revise own writing to combine sentences. Use kernel sentences (very simple sentences) and combine. Compare before/after. Make it playful - "sentence puzzles"!',
+    implementation_guide: 'Week 1-2: Combine with "and" (The cat ran. The dog ran. -> The cat and the dog ran.). Week 3-4: "But" and "because" (I stayed home. I was sick. -> I stayed home because I was sick.). Week 5-6: Embedding adjectives (The boy found a coin. The boy was young. The coin was gold. -> The young boy found a gold coin.). Week 7-8: Embedding phrases (The dog barked. The dog was in the garden. -> The dog in the garden barked.). Week 9-10: Relative clauses (The girl won. The girl was my friend. -> The girl who was my friend won.). Week 11-12: Application - revise own writing to combine sentences. Use kernel sentences (very simple sentences) and combine. Compare before/after. Make it playful - "sentence puzzles"!',
 
     parent_information: 'Sentence combining is a powerful way to improve writing quality. Instead of lots of short, choppy sentences, your child is learning to combine ideas into more sophisticated sentences. Example: "I have a dog. My dog is big. My dog is brown." becomes "I have a big, brown dog." This makes writing sound better and more mature. At home: when your child writes short sentences, ask "Can you combine these?" Play with sentences like puzzles. Read books together and notice interesting sentences. This is more effective than teaching grammar rules!',
 
@@ -2357,7 +2357,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Genre-specific graphic organizers', 'Mentor texts for each genre', 'Genre rubrics', 'Success criteria checklists'],
-    cost_implications: '£40-£120 for materials',
+    cost_implications: 'GBP 40-GBP 120 for materials',
 
     key_components: [
       'Teach genre purposes and audiences',
@@ -2418,7 +2418,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Sentence combining'
     ],
 
-    implementation_guide: 'NARRATIVE (4 weeks): Structure (orientation, complication, resolution). Features (character, setting, dialogue, descriptive language). Language (past tense, time connectives). PERSUASIVE (4 weeks): Structure (position, reasons, conclusion). Features (persuasive devices, evidence). Language (present tense, modal verbs, connectives - therefore, however). INFORMATIONAL (4 weeks): Structure (introduction, facts organized, conclusion). Features (headings, facts, technical vocabulary). Language (present tense, formal). INSTRUCTIONAL (4 weeks): Structure (goal, materials, steps). Features (numbered steps, diagrams, imperative verbs). Each genre: Read mentor texts → Analyze structure → Teach features → Model writing → Joint construction → Independent writing. Use rubrics.',
+    implementation_guide: 'NARRATIVE (4 weeks): Structure (orientation, complication, resolution). Features (character, setting, dialogue, descriptive language). Language (past tense, time connectives). PERSUASIVE (4 weeks): Structure (position, reasons, conclusion). Features (persuasive devices, evidence). Language (present tense, modal verbs, connectives - therefore, however). INFORMATIONAL (4 weeks): Structure (introduction, facts organized, conclusion). Features (headings, facts, technical vocabulary). Language (present tense, formal). INSTRUCTIONAL (4 weeks): Structure (goal, materials, steps). Features (numbered steps, diagrams, imperative verbs). Each genre: Read mentor texts -> Analyze structure -> Teach features -> Model writing -> Joint construction -> Independent writing. Use rubrics.',
 
     parent_information: 'Different types of writing have different purposes and structures - like stories are different from instructions. We\'re teaching your child how to write in different genres: NARRATIVE (stories - beginning, middle, end, characters, plot), PERSUASIVE (convincing - opinion, reasons, conclusion), INFORMATIONAL (teaching facts - organized information), INSTRUCTIONAL (how-to - steps in order). At home: read different types of texts together, notice how they\'re organized differently, discuss the purpose ("Why did the author write this?"), and encourage writing in different genres for real purposes (story for entertainment, persuasive letter, information report, recipe).',
 
@@ -2457,7 +2457,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Grammar in context materials', 'Mentor texts', 'Editing checklists', 'Grammar games'],
-    cost_implications: '£30-£80 for materials',
+    cost_implications: 'GBP 30-GBP 80 for materials',
 
     key_components: [
       'Teach grammar concepts in mini-lessons',
@@ -2553,7 +2553,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: false,
     resources_needed: ['Mentor texts with varied punctuation', 'Punctuation games', 'Editing checklists'],
-    cost_implications: '£20-£50 for materials',
+    cost_implications: 'GBP 20-GBP 50 for materials',
 
     key_components: [
       'Teach essential punctuation: full stops, capitals, commas, speech marks',
@@ -2610,7 +2610,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Reading fluency (punctuation awareness)'
     ],
 
-    implementation_guide: 'BASIC (essential): Full stops and capitals (sentence boundaries), Commas in lists, Speech marks for dialogue. INTERMEDIATE: Commas for clauses ("Although it was raining, we played outside."), Apostrophes (possession and contraction), Question marks and exclamation marks for effect. ADVANCED: Semicolons (joining related sentences), Colons (introducing lists/explanations), Dashes for emphasis or parenthesis, Ellipses for suspense. Each punctuation: Model in mentor texts → Discuss effect → Experiment → Apply in writing → Edit. Key teaching: Punctuation controls HOW your writing sounds and what it means. Same sentence, different punctuation, different meaning: "Let\'s eat Grandma!" vs "Let\'s eat, Grandma!" Punctuation saves lives!',
+    implementation_guide: 'BASIC (essential): Full stops and capitals (sentence boundaries), Commas in lists, Speech marks for dialogue. INTERMEDIATE: Commas for clauses ("Although it was raining, we played outside."), Apostrophes (possession and contraction), Question marks and exclamation marks for effect. ADVANCED: Semicolons (joining related sentences), Colons (introducing lists/explanations), Dashes for emphasis or parenthesis, Ellipses for suspense. Each punctuation: Model in mentor texts -> Discuss effect -> Experiment -> Apply in writing -> Edit. Key teaching: Punctuation controls HOW your writing sounds and what it means. Same sentence, different punctuation, different meaning: "Let\'s eat Grandma!" vs "Let\'s eat, Grandma!" Punctuation saves lives!',
 
     parent_information: 'Punctuation is more than just following rules - it\'s about controlling how your writing sounds and what it means! We\'re teaching your child how punctuation creates pauses, emphasis, and clarity. At home: when reading together, occasionally discuss punctuation ("Why did the author use three dots...?"), try reading without punctuation and notice how confusing it is, experiment with punctuation ("How would this sound with a ! instead of .?"), and remember the joke: "Let\'s eat Grandma!" needs a comma to save Grandma! Punctuation matters!',
 
@@ -2649,7 +2649,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: false,
     resources_needed: ['Wide variety of books', 'Personal word journals', 'Library access', 'Book talk protocols'],
-    cost_implications: '£50-£200 for classroom library',
+    cost_implications: 'GBP 50-GBP 200 for classroom library',
 
     key_components: [
       'Daily independent reading (20+ min)',
@@ -2745,7 +2745,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Content-specific word lists', 'Visual supports (diagrams, images)', 'Frayer model templates', 'Content-area texts'],
-    cost_implications: '£30-£100 for materials',
+    cost_implications: 'GBP 30-GBP 100 for materials',
 
     key_components: [
       'Pre-teach key vocabulary before content',
@@ -2840,7 +2840,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Greek/Latin roots lists', 'Root word cards', 'Etymology resources', 'Word investigation activities'],
-    cost_implications: '£30-£80 for materials',
+    cost_implications: 'GBP 30-GBP 80 for materials',
 
     key_components: [
       'Teach common roots systematically (graph, port, ject, scrib)',
@@ -2937,7 +2937,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Subject-specific reading strategy guides', 'Graphic organizers', 'Think-aloud protocols'],
-    cost_implications: '£20-£60 for materials',
+    cost_implications: 'GBP 20-GBP 60 for materials',
 
     key_components: [
       'Pre-reading strategies (preview, predictions)',
@@ -3211,7 +3211,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: false,
     resources_needed: ['Time Timer', 'Sand timer', 'Digital visual timer app'],
-    cost_implications: 'Low (£20-£40 for physical timer)',
+    cost_implications: 'Low (GBP 20-GBP 40 for physical timer)',
 
     key_components: [
       'Visual representation of time vanishing (red disk)',
@@ -3351,7 +3351,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
   // ========================================================================
   {
     id: 'asd-social-stories',
-    name: 'ASD: Social Stories™ (Carol Gray)',
+    name: 'ASD: Social StoriesTM (Carol Gray)',
     category: 'social_emotional',
     subcategory: 'social_skills',
     description: 'Short descriptions of a particular situation, event, or activity, which include specific information about what to expect in that situation and why. Written from the autistic person\'s perspective.',
@@ -3477,7 +3477,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: true,
     resources_needed: ['Learning journals', 'Writing prompts', 'Think-write-pair-share protocols'],
-    cost_implications: '£10-£40 for journals',
+    cost_implications: 'GBP 10-GBP 40 for journals',
 
     key_components: [
       'Quick writes (5 min writing to explore ideas)',
@@ -3535,7 +3535,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Thinking skills'
     ],
 
-    implementation_guide: 'Writing to learn ≠ writing to show what you learned. It\'s writing to DEVELOP understanding. Activities: QUICK WRITE (3 min): "Write everything you know about photosynthesis." "What surprised you about today\'s lesson?" EXIT TICKET (2 min): "3 things you learned, 2 questions you have, 1 thing you\'ll remember." LEARNING LOG: Regular reflection on learning process. EXPLAIN IT: "Explain [concept] to someone who\'s never heard of it." THINK-WRITE-PAIR-SHARE: Think individually, write ideas, discuss with partner. Key: LOW STAKES - not graded on spelling/grammar. The act of writing = the act of thinking. Works in ALL subjects: Science (explain processes), Maths (explain problem-solving), History (analyze causes), PE (reflect on performance)!',
+    implementation_guide: 'Writing to learn != writing to show what you learned. It\'s writing to DEVELOP understanding. Activities: QUICK WRITE (3 min): "Write everything you know about photosynthesis." "What surprised you about today\'s lesson?" EXIT TICKET (2 min): "3 things you learned, 2 questions you have, 1 thing you\'ll remember." LEARNING LOG: Regular reflection on learning process. EXPLAIN IT: "Explain [concept] to someone who\'s never heard of it." THINK-WRITE-PAIR-SHARE: Think individually, write ideas, discuss with partner. Key: LOW STAKES - not graded on spelling/grammar. The act of writing = the act of thinking. Works in ALL subjects: Science (explain processes), Maths (explain problem-solving), History (analyze causes), PE (reflect on performance)!',
 
     parent_information: 'Writing helps learning! When students write about what they\'re learning, they understand and remember it better. We\'re using quick, informal writing in ALL subjects to help your child think deeply about content. This isn\'t about perfect spelling or grammar - it\'s about using writing as a thinking tool. At home: encourage your child to keep a learning journal, ask them to write quick summaries of what they learned at school, have them teach YOU by writing explanations, and remember - the goal is thinking, not perfect writing!',
 
@@ -3574,7 +3574,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: true,
     resources_needed: ['Wide variety of books', 'Book talk resources', 'Reading environment setup', 'Author visits/videos'],
-    cost_implications: '£100-£500 for classroom library and author events',
+    cost_implications: 'GBP 100-GBP 500 for classroom library and author events',
 
     key_components: [
       'Daily time for personal reading',
@@ -3673,7 +3673,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: false,
     resources_needed: ['High-interest books (sport, gaming, adventure, horror)', 'Graphic novels', 'Magazines', 'Digital texts', 'Multimodal texts'],
-    cost_implications: '£100-£300 for high-interest library',
+    cost_implications: 'GBP 100-GBP 300 for high-interest library',
 
     key_components: [
       'High-interest topics (sport, gaming, horror, adventure, real-life)',
@@ -3771,7 +3771,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Visual vocabulary materials', 'Bilingual dictionaries', 'Real objects/realia', 'Picture cards', 'EAL-specific resources'],
-    cost_implications: '£50-£200 for materials',
+    cost_implications: 'GBP 50-GBP 200 for materials',
 
     key_components: [
       'Systematic vocabulary teaching (high-frequency first, then academic)',
@@ -3869,7 +3869,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Sentence frames', 'Writing frames', 'Model texts', 'Bilingual texts', 'Visual supports'],
-    cost_implications: '£40-£150 for materials',
+    cost_implications: 'GBP 40-GBP 150 for materials',
 
     key_components: [
       'Reading with comprehensible input',
@@ -3969,7 +3969,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Texts at instructional level', 'Comprehension monitoring checklists', 'Fix-up strategy posters', 'Metacognitive prompts'],
-    cost_implications: '£20-£60 for materials',
+    cost_implications: 'GBP 20-GBP 60 for materials',
 
     key_components: [
       'Teach "does this make sense?" monitoring',
@@ -4028,7 +4028,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Metacognition training'
     ],
 
-    implementation_guide: 'Problem: many students keep reading even when they don\'t understand! TEACH: 1) MONITORING: "Does this make sense?" Stop frequently to check. Think-aloud: "Hmm, I\'m confused. That doesn\'t make sense." 2) FIX-UP STRATEGIES when comprehension breaks down: REREAD (go back), READ ON (context might help), SLOW DOWN, ASK QUESTIONS ("Who? What? Why?"), USE PICTURES/DIAGRAMS, CONNECT to what I know, LOOK UP unknown word. 3) METACOGNITION: "What am I thinking?" "Do I understand?" "What\'s confusing me?" Activities: Deliberate errors in text (spot the nonsense), Think-alouds, Coding text (✓ makes sense, ? confused, ! important). Key: ACTIVE reading, not passive. Good readers constantly monitor and fix!',
+    implementation_guide: 'Problem: many students keep reading even when they don\'t understand! TEACH: 1) MONITORING: "Does this make sense?" Stop frequently to check. Think-aloud: "Hmm, I\'m confused. That doesn\'t make sense." 2) FIX-UP STRATEGIES when comprehension breaks down: REREAD (go back), READ ON (context might help), SLOW DOWN, ASK QUESTIONS ("Who? What? Why?"), USE PICTURES/DIAGRAMS, CONNECT to what I know, LOOK UP unknown word. 3) METACOGNITION: "What am I thinking?" "Do I understand?" "What\'s confusing me?" Activities: Deliberate errors in text (spot the nonsense), Think-alouds, Coding text ( makes sense, ? confused, ! important). Key: ACTIVE reading, not passive. Good readers constantly monitor and fix!',
 
     parent_information: 'Good readers don\'t just read words - they actively check "Am I understanding this?" Your child is learning to monitor their own comprehension and use strategies when confused. At home: when reading together, MODEL monitoring ("Hmm, I\'m not sure I understand that. Let me reread."), ASK "Does that make sense?", PAUSE to check understanding, SHOW fix-up strategies ("I\'m confused, let me look at the picture for clues"), and ENCOURAGE questions. Reading is THINKING! We want active, strategic readers who know when they\'re confused and what to do about it.',
 
@@ -4071,7 +4071,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: true,
     resources_needed: ['Counters/manipulatives', 'Number cards', 'Ten frames', 'Number lines', 'Subitizing cards'],
-    cost_implications: '£30-£100 for materials',
+    cost_implications: 'GBP 30-GBP 100 for materials',
 
     key_components: [
       'Counting with one-to-one correspondence',
@@ -4168,7 +4168,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Base-10 blocks (Dienes)', 'Place value grids', 'Arrow cards', 'Place value counters', 'Number lines'],
-    cost_implications: '£50-£150 for manipulatives',
+    cost_implications: 'GBP 50-GBP 150 for manipulatives',
 
     key_components: [
       'Concrete representation (Base-10 blocks)',
@@ -4183,7 +4183,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
 
     fidelity_checklist: [
       'Use concrete materials first (Base-10 blocks)',
-      'Systematic progression: concrete → pictorial → abstract',
+      'Systematic progression: concrete -> pictorial -> abstract',
       'Explicit teaching of grouping/exchanging',
       'Place value language modeled',
       'Link to real-world contexts (money)',
@@ -4226,9 +4226,9 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Fractions and decimals (later)'
     ],
 
-    implementation_guide: 'PLACE VALUE = understanding that position determines value. Weeks 1-3: Use Base-10 blocks to build numbers - "43 = 4 tens and 3 ones" (concrete). Practice grouping: 10 ones make 1 ten. Weeks 4-6: Pictorial representations - draw tens as sticks, ones as dots. Arrow cards (40 + 3 = 43). Weeks 7-9: Place value grids, partitioning (238 = 200 + 30 + 8). Weeks 10-12: Comparing/ordering (which is bigger? why?), rounding. CRITICAL: Children must understand that "3" in "43" means 3 ones, but "3" in "230" means 3 tens (different VALUE, not just different position). Constant checking: "What does this digit represent?" Use money extensively (£2.34 = 2 pounds, 3 tens of pence, 4 pence).',
+    implementation_guide: 'PLACE VALUE = understanding that position determines value. Weeks 1-3: Use Base-10 blocks to build numbers - "43 = 4 tens and 3 ones" (concrete). Practice grouping: 10 ones make 1 ten. Weeks 4-6: Pictorial representations - draw tens as sticks, ones as dots. Arrow cards (40 + 3 = 43). Weeks 7-9: Place value grids, partitioning (238 = 200 + 30 + 8). Weeks 10-12: Comparing/ordering (which is bigger? why?), rounding. CRITICAL: Children must understand that "3" in "43" means 3 ones, but "3" in "230" means 3 tens (different VALUE, not just different position). Constant checking: "What does this digit represent?" Use money extensively (GBP 2.34 = 2 pounds, 3 tens of pence, 4 pence).',
 
-    parent_information: 'Place value is one of the most important concepts in all of maths! It\'s understanding that "357" means 3 hundreds, 5 tens, and 7 ones - not just "3, 5, 7". Children who struggle with place value will struggle with addition, subtraction, multiplication, and fractions. Your child is using special blocks (Base-10) to BUILD numbers and SEE what they mean. At home: use money (£2.45 = 2 pounds, 4 ten-pences, 5 pennies), play with arrow cards (300 + 50 + 7 = 357), ask "what does this digit mean?" Concrete understanding NOW = confident maths later!',
+    parent_information: 'Place value is one of the most important concepts in all of maths! It\'s understanding that "357" means 3 hundreds, 5 tens, and 7 ones - not just "3, 5, 7". Children who struggle with place value will struggle with addition, subtraction, multiplication, and fractions. Your child is using special blocks (Base-10) to BUILD numbers and SEE what they mean. At home: use money (GBP 2.45 = 2 pounds, 4 ten-pences, 5 pennies), play with arrow cards (300 + 50 + 7 = 357), ask "what does this digit mean?" Concrete understanding NOW = confident maths later!',
 
     useful_links: [
       'https://www.ncetm.org.uk/resources/place-value',
@@ -4264,7 +4264,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: false,
     resources_needed: ['Number bond cards', 'Ten frames', 'Numicon', 'Dice', 'Practice worksheets'],
-    cost_implications: '£20-£80 for materials',
+    cost_implications: 'GBP 20-GBP 80 for materials',
 
     key_components: [
       'Number bonds to 10 (4+6, 3+7...)',
@@ -4360,7 +4360,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Word banks', 'Sentence stems', 'Reasoning prompts', 'Visual supports', 'Problem-solving tasks'],
-    cost_implications: '£30-£100 for resources',
+    cost_implications: 'GBP 30-GBP 100 for resources',
 
     key_components: [
       'Mathematical vocabulary (more than, fewer, equal, altogether...)',
@@ -4460,7 +4460,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Counters', 'Base-10 blocks', 'Place value grids', 'Number lines', 'Part-whole diagrams'],
-    cost_implications: '£50-£150 for materials',
+    cost_implications: 'GBP 50-GBP 150 for materials',
 
     key_components: [
       'Concrete: use objects/blocks',
@@ -4470,12 +4470,12 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Column addition (with/without regrouping)',
       'Column subtraction (with/without regrouping)',
       'Word problems and reasoning',
-      'Inverse relationship (addition ↔ subtraction)'
+      'Inverse relationship (addition <-> subtraction)'
     ],
 
     fidelity_checklist: [
       'Always start concrete with new concepts',
-      'Progress systematically: C → P → A',
+      'Progress systematically: C -> P -> A',
       'Model each step explicitly',
       'Link to place value',
       'Teach mental strategies first',
@@ -4521,7 +4521,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Word problem strategies'
     ],
 
-    implementation_guide: 'CPA APPROACH = Concrete → Pictorial → Abstract. ADDITION: Weeks 1-3: Concrete (use counters/blocks to show 23+15 - build both numbers, combine, may need to regroup 10 ones for 1 ten). Weeks 4-6: Pictorial (draw tens and ones, then numerals). Weeks 7-10: Abstract column method with place value understanding. Mental strategies throughout (45+9 = 45+10-1). SUBTRACTION: Weeks 11-13: Concrete (42-18 - build 42, remove 18, may need to exchange 1 ten for 10 ones). Weeks 14-16: Pictorial. Weeks 17-20: Abstract column method. CRITICAL: Regrouping must be understood conceptually first! Use part-whole models. Link to real-world problems constantly.',
+    implementation_guide: 'CPA APPROACH = Concrete -> Pictorial -> Abstract. ADDITION: Weeks 1-3: Concrete (use counters/blocks to show 23+15 - build both numbers, combine, may need to regroup 10 ones for 1 ten). Weeks 4-6: Pictorial (draw tens and ones, then numerals). Weeks 7-10: Abstract column method with place value understanding. Mental strategies throughout (45+9 = 45+10-1). SUBTRACTION: Weeks 11-13: Concrete (42-18 - build 42, remove 18, may need to exchange 1 ten for 10 ones). Weeks 14-16: Pictorial. Weeks 17-20: Abstract column method. CRITICAL: Regrouping must be understood conceptually first! Use part-whole models. Link to real-world problems constantly.',
 
     parent_information: 'Your child is learning addition and subtraction the "mastery" way - deeply understanding HOW and WHY, not just memorizing tricks. We use real objects first, then pictures, then numbers. Why? Because this builds true understanding! Column methods come LAST, only when your child really understands place value. At home: use real objects (toys, pasta), draw pictures, explain the THINKING not just the answer. Ask "can you show me with objects?" Avoid rushing to written methods! Understanding now = no re-teaching later. Patience pays off!',
 
@@ -4559,14 +4559,14 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: false,
     resources_needed: ['Arrays', 'Counters', 'Times tables grids', 'Flash cards', 'Games', 'Online practice tools'],
-    cost_implications: '£30-£100 for materials',
+    cost_implications: 'GBP 30-GBP 100 for materials',
 
     key_components: [
       'Conceptual understanding (multiplication = repeated addition/groups of)',
       'Arrays and visual models',
       'Skip counting',
-      'Commutativity (3×4 = 4×3)',
-      'Derived facts (if 5×4=20, then 6×4=20+4)',
+      'Commutativity (3x4 = 4x3)',
+      'Derived facts (if 5x4=20, then 6x4=20+4)',
       'Systematic practice to automaticity',
       'Order of learning (2s, 5s, 10s, then 3s, 4s, 6s, 8s, 7s, 9s, 11s, 12s)',
       'Application to problems'
@@ -4620,9 +4620,9 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Multi-digit multiplication'
     ],
 
-    implementation_guide: 'ORDER MATTERS! Start with easiest: 2s, 5s, 10s (Weeks 1-6), then 3s (Weeks 7-9), 4s (Weeks 10-12), 6s (Weeks 13-15), 8s (Weeks 16-18), 7s (Weeks 19-22 - hardest!), 9s (Weeks 23-25 - teach finger trick and "one less" pattern), 11s and 12s (Weeks 26-30). For EACH table: 1) Build understanding with arrays (3×4 = 3 rows of 4 or 4 rows of 3), 2) Skip counting, 3) Pattern spotting, 4) Daily practice for automaticity, 5) Apply to word problems. Daily 5-10 minute practice is KEY! Use games (multiplication bingo, loops, online games). Aim for instant recall (3 seconds). Teach related division (if 3×4=12, then 12÷3=4). AVOID rote drill without understanding!',
+    implementation_guide: 'ORDER MATTERS! Start with easiest: 2s, 5s, 10s (Weeks 1-6), then 3s (Weeks 7-9), 4s (Weeks 10-12), 6s (Weeks 13-15), 8s (Weeks 16-18), 7s (Weeks 19-22 - hardest!), 9s (Weeks 23-25 - teach finger trick and "one less" pattern), 11s and 12s (Weeks 26-30). For EACH table: 1) Build understanding with arrays (3x4 = 3 rows of 4 or 4 rows of 3), 2) Skip counting, 3) Pattern spotting, 4) Daily practice for automaticity, 5) Apply to word problems. Daily 5-10 minute practice is KEY! Use games (multiplication bingo, loops, online games). Aim for instant recall (3 seconds). Teach related division (if 3x4=12, then 12/3=4). AVOID rote drill without understanding!',
 
-    parent_information: 'Times tables are essential mathematical building blocks! Your child is learning them with understanding first - seeing that 3×4 means "3 groups of 4" or "3 rows of 4". We use arrays (visual patterns) so it makes sense, not just memorization. Order matters: 2s, 5s, 10s first (easy!), then 3s, 4s, 6s, 8s, 7s (hardest!), then 9s, 11s, 12s. At home: practice little and often (5 mins daily), use games and apps, ask them to SHOW you with objects or drawings, practice in the car, use times tables songs. Aim for instant recall. This foundation is CRITICAL for all future maths!',
+    parent_information: 'Times tables are essential mathematical building blocks! Your child is learning them with understanding first - seeing that 3x4 means "3 groups of 4" or "3 rows of 4". We use arrays (visual patterns) so it makes sense, not just memorization. Order matters: 2s, 5s, 10s first (easy!), then 3s, 4s, 6s, 8s, 7s (hardest!), then 9s, 11s, 12s. At home: practice little and often (5 mins daily), use games and apps, ask them to SHOW you with objects or drawings, practice in the car, use times tables songs. Aim for instant recall. This foundation is CRITICAL for all future maths!',
 
     useful_links: [
       'https://www.ncetm.org.uk/multiplication-tables',
@@ -4659,11 +4659,11 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Counters', 'Sharing mats', 'Arrays', 'Place value counters', 'Division grids'],
-    cost_implications: '£40-£120 for materials',
+    cost_implications: 'GBP 40-GBP 120 for materials',
 
     key_components: [
-      'Division as sharing (12÷3 = share 12 between 3)',
-      'Division as grouping (12÷3 = how many 3s in 12?)',
+      'Division as sharing (12/3 = share 12 between 3)',
+      'Division as grouping (12/3 = how many 3s in 12?)',
       'Division as inverse of multiplication',
       'Concrete representations',
       'Division facts (linked to times tables)',
@@ -4721,9 +4721,9 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Ratio and proportion'
     ],
 
-    implementation_guide: 'TWO MEANINGS: Sharing (12÷3 = share 12 sweets between 3 people) and Grouping (12÷3 = how many groups of 3 in 12?). Weeks 1-3: Concrete sharing with counters. Weeks 4-6: Concrete grouping. Weeks 7-9: Link to multiplication (if 3×4=12, then 12÷3=4 and 12÷4=3). Practice division facts daily. Weeks 10-12: Short division with place value counters (84÷4). Weeks 13-15: Short division with exchanging. Weeks 16-20: Long division if needed, remainders, word problems. CRITICAL: Division facts must become automatic (linked to times tables). Model thinking: "20÷4... I know 4×5=20, so 20÷4=5". Use inverse constantly. Remainders: show concretely (13÷4 = 3 remainder 1).',
+    implementation_guide: 'TWO MEANINGS: Sharing (12/3 = share 12 sweets between 3 people) and Grouping (12/3 = how many groups of 3 in 12?). Weeks 1-3: Concrete sharing with counters. Weeks 4-6: Concrete grouping. Weeks 7-9: Link to multiplication (if 3x4=12, then 12/3=4 and 12/4=3). Practice division facts daily. Weeks 10-12: Short division with place value counters (84/4). Weeks 13-15: Short division with exchanging. Weeks 16-20: Long division if needed, remainders, word problems. CRITICAL: Division facts must become automatic (linked to times tables). Model thinking: "20/4... I know 4x5=20, so 20/4=5". Use inverse constantly. Remainders: show concretely (13/4 = 3 remainder 1).',
 
-    parent_information: 'Division is the hardest of the four operations - but your child is learning it with real understanding! Division has TWO meanings: SHARING (share 12 sweets between 3 people) and GROUPING (how many groups of 3 in 12?). Both matter! We use real objects first, then teach the written methods. Division facts are linked to times tables: if your child knows 4×6=24, they know 24÷4=6! At home: practice division facts (like times tables in reverse), use sharing situations (share 20 grapes between 4 people), ask "how many 5s in 30?". Division understanding = ready for fractions, percentages, ratios!',
+    parent_information: 'Division is the hardest of the four operations - but your child is learning it with real understanding! Division has TWO meanings: SHARING (share 12 sweets between 3 people) and GROUPING (how many groups of 3 in 12?). Both matter! We use real objects first, then teach the written methods. Division facts are linked to times tables: if your child knows 4x6=24, they know 24/4=6! At home: practice division facts (like times tables in reverse), use sharing situations (share 20 grapes between 4 people), ask "how many 5s in 30?". Division understanding = ready for fractions, percentages, ratios!',
 
     useful_links: [
       'https://www.ncetm.org.uk/division',
@@ -4759,7 +4759,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Place value grids', 'Grid paper', 'Place value counters', 'Estimation number lines'],
-    cost_implications: '£30-£100 for resources',
+    cost_implications: 'GBP 30-GBP 100 for resources',
 
     key_components: [
       'Place value understanding reinforced',
@@ -4821,9 +4821,9 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Problem-solving skills'
     ],
 
-    implementation_guide: 'MULTIPLICATION: Weeks 1-4: Grid method (23×16 = partition into 20+3 and 10+6, multiply each part, add). Clear place value! Weeks 5-8: Column multiplication (start 2-digit × 1-digit, then 2×2, then 3×2). Model each step, emphasize place value. DIVISION: Weeks 9-12: Chunking/grouping method (84÷6 = how many 6s? Take away 10×6=60, then 4×6=24, total 14). Weeks 13-16: Long division (bus stop method if appropriate). Weeks 17-20: Complex problems, remainders in context. ALWAYS estimate first (23×16 is about 20×20=400). Check with inverse. Practice mental strategies too (24×5 = 24×10÷2). Alignment is CRITICAL - use squared paper!',
+    implementation_guide: 'MULTIPLICATION: Weeks 1-4: Grid method (23x16 = partition into 20+3 and 10+6, multiply each part, add). Clear place value! Weeks 5-8: Column multiplication (start 2-digit x 1-digit, then 2x2, then 3x2). Model each step, emphasize place value. DIVISION: Weeks 9-12: Chunking/grouping method (84/6 = how many 6s? Take away 10x6=60, then 4x6=24, total 14). Weeks 13-16: Long division (bus stop method if appropriate). Weeks 17-20: Complex problems, remainders in context. ALWAYS estimate first (23x16 is about 20x20=400). Check with inverse. Practice mental strategies too (24x5 = 24x10/2). Alignment is CRITICAL - use squared paper!',
 
-    parent_information: 'Your child is mastering the most complex arithmetic calculations! Multi-digit multiplication (like 347×28) and long division (like 784÷16) require excellent place value understanding and systematic methods. We teach the "grid method" first for multiplication (breaking numbers into hundreds, tens, ones), then the column method. For division, we use "chunking" or long division. Always estimate first! (300×30=9000 roughly). At home: estimation is KEY (encourage approximate answers first), check with calculators AFTER working out, practice place value, patience - these are complex skills! Mastery now = ready for algebra, ratios, percentages!',
+    parent_information: 'Your child is mastering the most complex arithmetic calculations! Multi-digit multiplication (like 347x28) and long division (like 784/16) require excellent place value understanding and systematic methods. We teach the "grid method" first for multiplication (breaking numbers into hundreds, tens, ones), then the column method. For division, we use "chunking" or long division. Always estimate first! (300x30=9000 roughly). At home: estimation is KEY (encourage approximate answers first), check with calculators AFTER working out, practice place value, patience - these are complex skills! Mastery now = ready for algebra, ratios, percentages!',
 
     useful_links: [
       'https://www.ncetm.org.uk/calculation-guidance',
@@ -4860,7 +4860,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Fraction walls', 'Fraction bars', 'Cuisenaire rods', 'Circles/pizzas', 'Number lines', 'Bar models'],
-    cost_implications: '£60-£200 for manipulatives',
+    cost_implications: 'GBP 60-GBP 200 for manipulatives',
 
     key_components: [
       'Multiple meanings of fractions (part-whole, division, ratio, number)',
@@ -4880,7 +4880,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Emphasize fractions as NUMBERS',
       'Number line use is critical',
       'Bar models for operations',
-      'Link to division (3÷4 = 3/4)',
+      'Link to division (3/4 = 3/4)',
       'Real-world contexts',
       'Avoid rushing to algorithms'
     ],
@@ -4923,7 +4923,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Visual representation skills'
     ],
 
-    implementation_guide: 'FRACTIONS ARE NUMBERS, not just "parts of shapes"! Weeks 1-4: Unit fractions using concrete materials (1/2, 1/3, 1/4 of shapes, quantities). Weeks 5-8: Non-unit fractions (3/4 = three 1/4s). Weeks 9-12: Fractions on number line (CRITICAL - shows fractions are numbers). Weeks 13-16: Equivalent fractions with fraction walls (1/2 = 2/4 = 4/8). Weeks 17-20: Comparing/ordering using number lines and bar models. Weeks 21-24: Adding/subtracting with same denominator using concrete and bar models. Advanced: multiplication (3/4 × 2 = 3/4 + 3/4), division. Link to division constantly (sharing 3 pizzas between 4 people = 3/4 each = 3÷4). Use bar models for ALL operations!',
+    implementation_guide: 'FRACTIONS ARE NUMBERS, not just "parts of shapes"! Weeks 1-4: Unit fractions using concrete materials (1/2, 1/3, 1/4 of shapes, quantities). Weeks 5-8: Non-unit fractions (3/4 = three 1/4s). Weeks 9-12: Fractions on number line (CRITICAL - shows fractions are numbers). Weeks 13-16: Equivalent fractions with fraction walls (1/2 = 2/4 = 4/8). Weeks 17-20: Comparing/ordering using number lines and bar models. Weeks 21-24: Adding/subtracting with same denominator using concrete and bar models. Advanced: multiplication (3/4 x 2 = 3/4 + 3/4), division. Link to division constantly (sharing 3 pizzas between 4 people = 3/4 each = 3/4). Use bar models for ALL operations!',
 
     parent_information: 'Fractions are THE most difficult topic in primary maths - but your child is learning them properly from the start! We use lots of concrete materials (fraction bars, circles, Cuisenaire rods) and visual models. KEY: fractions are NUMBERS that go on number lines, not just "parts of pizzas"! 1/2 is halfway between 0 and 1. Your child will learn to compare fractions, find equivalent fractions (1/2 = 2/4), and add/subtract fractions. At home: cut up food (pizza, cake, chocolate) to show fractions, use measuring jugs (1/2 litre), talk about fractions in real life. Understanding fractions = ready for decimals, percentages, ratios, algebra!',
 
@@ -4961,14 +4961,14 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Base-10 blocks', 'Decimal place value grids', 'Money (coins)', 'Measuring equipment', 'Number lines'],
-    cost_implications: '£40-£120 for resources',
+    cost_implications: 'GBP 40-GBP 120 for resources',
 
     key_components: [
       'Decimals as fractions (0.3 = 3/10)',
       'Place value extension (tenths, hundredths, thousandths)',
       'Equivalence (0.5 = 1/2 = 50%)',
       'Ordering and comparing decimals',
-      'Decimal calculations (+ - × ÷)',
+      'Decimal calculations (+ - x /)',
       'Rounding decimals',
       'Real-world contexts (money, measurement)',
       'Converting between fractions, decimals, percentages'
@@ -5022,9 +5022,9 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Ratio and proportion'
     ],
 
-    implementation_guide: 'DECIMALS = FRACTIONS in disguise! 0.3 = 3/10, 0.45 = 45/100. Weeks 1-4: Tenths using concrete materials and money (£0.30 = 3/10 of £1). Number lines (0.3 is between 0 and 1). Weeks 5-8: Hundredths (£0.45 = 45p = 45/100). Place value grid (ones | tenths | hundredths). Weeks 9-12: Ordering decimals using number lines - address misconception (0.6 > 0.45 even though 45 > 6). Weeks 13-16: Decimal calculations using place value grids (addition, subtraction). Weeks 17-20: Multiplication and division by 10, 100, 1000 (digits move!), decimal × whole number, if ready: decimal × decimal. CRITICAL: Link to fractions and money constantly!',
+    implementation_guide: 'DECIMALS = FRACTIONS in disguise! 0.3 = 3/10, 0.45 = 45/100. Weeks 1-4: Tenths using concrete materials and money (GBP 0.30 = 3/10 of GBP 1). Number lines (0.3 is between 0 and 1). Weeks 5-8: Hundredths (GBP 0.45 = 45p = 45/100). Place value grid (ones | tenths | hundredths). Weeks 9-12: Ordering decimals using number lines - address misconception (0.6 > 0.45 even though 45 > 6). Weeks 13-16: Decimal calculations using place value grids (addition, subtraction). Weeks 17-20: Multiplication and division by 10, 100, 1000 (digits move!), decimal x whole number, if ready: decimal x decimal. CRITICAL: Link to fractions and money constantly!',
 
-    parent_information: 'Decimals are just another way of writing fractions! 0.5 = 5/10 = 1/2. Your child is learning to understand decimal place value (0.45 = 4 tenths and 5 hundredths), order decimals (0.6 is bigger than 0.45 - a common mistake!), and calculate with decimals. We use money heavily (£4.56 = 4 pounds, 5 ten-pence, 6 pennies) and measurement (2.3 metres). At home: use money for practice, measuring in cooking (2.5 litres), notice decimals everywhere (prices, distances, times). Understanding decimals = ready for science, percentages, and real-world maths!',
+    parent_information: 'Decimals are just another way of writing fractions! 0.5 = 5/10 = 1/2. Your child is learning to understand decimal place value (0.45 = 4 tenths and 5 hundredths), order decimals (0.6 is bigger than 0.45 - a common mistake!), and calculate with decimals. We use money heavily (GBP 4.56 = 4 pounds, 5 ten-pence, 6 pennies) and measurement (2.3 metres). At home: use money for practice, measuring in cooking (2.5 litres), notice decimals everywhere (prices, distances, times). Understanding decimals = ready for science, percentages, and real-world maths!',
 
     useful_links: [
       'https://www.ncetm.org.uk/decimals',
@@ -5060,7 +5060,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['100 squares', 'Percentage grids', 'Bar models', 'Real-world materials (sale posters, etc.)'],
-    cost_implications: '£30-£100 for resources',
+    cost_implications: 'GBP 30-GBP 100 for resources',
 
     key_components: [
       'Percent = "out of 100"',
@@ -5121,9 +5121,9 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Problem-solving strategies'
     ],
 
-    implementation_guide: 'PERCENT = "PER HUNDRED" (cent = 100 like century). Weeks 1-3: Understanding (50% = 50 out of 100 = 50/100 = 1/2 = 0.5). Use 100 squares. Weeks 4-6: Converting (fraction → decimal → percentage). Key equivalents memorized (1/2=0.5=50%, 1/4=0.25=25%, 3/4=0.75=75%, 1/10=0.1=10%). Weeks 7-9: Finding percentages using bar models (30% of 80 - draw bar, split into 10 sections = 8 each, 30% = 3 sections = 24). Weeks 10-12: Mental strategies (10% = ÷10, 5% = half of 10%, 1% = ÷100). Weeks 13-16: Increase/decrease (20% discount on £60 = find 20%, subtract). Real-world: sales, VAT, interest, statistics. Bar models are KEY!',
+    implementation_guide: 'PERCENT = "PER HUNDRED" (cent = 100 like century). Weeks 1-3: Understanding (50% = 50 out of 100 = 50/100 = 1/2 = 0.5). Use 100 squares. Weeks 4-6: Converting (fraction -> decimal -> percentage). Key equivalents memorized (1/2=0.5=50%, 1/4=0.25=25%, 3/4=0.75=75%, 1/10=0.1=10%). Weeks 7-9: Finding percentages using bar models (30% of 80 - draw bar, split into 10 sections = 8 each, 30% = 3 sections = 24). Weeks 10-12: Mental strategies (10% = /10, 5% = half of 10%, 1% = /100). Weeks 13-16: Increase/decrease (20% discount on GBP 60 = find 20%, subtract). Real-world: sales, VAT, interest, statistics. Bar models are KEY!',
 
-    parent_information: 'Percentages are everywhere - sales (20% off!), test scores (75%), statistics (40% of people...), interest rates. Your child is learning that "percent" means "out of 100" - so 50% = 50 out of 100 = 50/100 = 1/2 = 0.5 (all the same!). They\'ll learn to find percentages (30% of £80), understand discounts (20% off £60 = £12 off = £48), and convert between fractions, decimals, and percentages. At home: notice percentages everywhere, work out sales discounts together, discuss statistics in the news. Understanding percentages = financial literacy and real-world maths skills!',
+    parent_information: 'Percentages are everywhere - sales (20% off!), test scores (75%), statistics (40% of people...), interest rates. Your child is learning that "percent" means "out of 100" - so 50% = 50 out of 100 = 50/100 = 1/2 = 0.5 (all the same!). They\'ll learn to find percentages (30% of GBP 80), understand discounts (20% off GBP 60 = GBP 12 off = GBP 48), and convert between fractions, decimals, and percentages. At home: notice percentages everywhere, work out sales discounts together, discuss statistics in the news. Understanding percentages = financial literacy and real-world maths skills!',
 
     useful_links: [
       'https://www.ncetm.org.uk/percentages',
@@ -5160,7 +5160,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Word problem cards', 'Bar models', 'Visualization materials', 'Strategy posters'],
-    cost_implications: '£30-£100 for resources',
+    cost_implications: 'GBP 30-GBP 100 for resources',
 
     key_components: [
       'Read carefully (multiple times)',
@@ -5226,7 +5226,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
 
     implementation_guide: 'WORD PROBLEMS = reading + maths + reasoning. Teach explicit strategy: RUCSAC (Read, Understand, Choose operation, Solve, Answer with units, Check). Weeks 1-4: Modeling - teacher demonstrates thinking aloud for every step. Emphasize VISUALIZATION (draw picture, use objects, bar models). Weeks 5-8: Key information - what do we know? what do we need to find? Weeks 9-12: Choosing operations - addition words (altogether, total), subtraction words (difference, fewer), multiplication words (times, groups of), division words (share, each). Weeks 13-16: Bar models for ALL problems (comparison, part-whole, ratio). Weeks 17-20: Multi-step problems, checking answers. CRITICAL: Estimate BEFORE solving (roughly what should the answer be?). Check: does this make sense in the story?',
 
-    parent_information: 'Word problems are where reading meets maths - they\'re challenging! Your child is learning a systematic strategy: Read carefully (twice!), Understand what it\'s asking, Choose the operation (+, -, ×, ÷), Solve, Answer with units, Check (does this make sense?). We use BAR MODELS to visualize every problem - draw a picture showing the numbers and relationships. At home: read problems together, ask "what do we know?", ask "what do we need to find?", draw pictures or use objects, estimate first ("roughly, should the answer be 5 or 500?"), check the answer makes sense in the story. Word problems = real-world maths!',
+    parent_information: 'Word problems are where reading meets maths - they\'re challenging! Your child is learning a systematic strategy: Read carefully (twice!), Understand what it\'s asking, Choose the operation (+, -, x, /), Solve, Answer with units, Check (does this make sense?). We use BAR MODELS to visualize every problem - draw a picture showing the numbers and relationships. At home: read problems together, ask "what do we know?", ask "what do we need to find?", draw pictures or use objects, estimate first ("roughly, should the answer be 5 or 500?"), check the answer makes sense in the story. Word problems = real-world maths!',
 
     useful_links: [
       'https://www.ncetm.org.uk/problem-solving',
@@ -5262,7 +5262,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Bar model grids', 'Colored pens', 'Cuisenaire rods', 'Example problems', 'Practice books'],
-    cost_implications: '£40-£150 for resources',
+    cost_implications: 'GBP 40-GBP 150 for resources',
 
     key_components: [
       'Part-whole models (total = parts)',
@@ -5277,7 +5277,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
 
     fidelity_checklist: [
       'Model drawing every bar explicitly',
-      'Systematic progression (simple → complex)',
+      'Systematic progression (simple -> complex)',
       'Label all parts clearly',
       'Link bar to abstract equation',
       'Use for ALL problem types',
@@ -5323,7 +5323,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Algebraic thinking'
     ],
 
-    implementation_guide: 'BAR MODELS = rectangles representing quantities. Weeks 1-4: PART-WHOLE (Tom has 23 apples, 15 oranges, how many total? Draw 2 bars, label 23 and 15, total = 23+15). Weeks 5-8: COMPARISON (Tom has 23 apples, 15 more than Ben. How many does Ben have? Draw Tom bar = 23, Ben bar shorter, difference = 15, so Ben = 23-15). Weeks 9-12: MULTIPLICATION (3 bags, 5 sweets each, total? Draw 3 equal bars = 5 each, total = 3×5). Weeks 13-16: FRACTIONS (bar = whole, divide into parts). Weeks 17-20: PERCENTAGES (bar = 100%, divide proportionally). Weeks 21-24: RATIO, multi-step. CRITICAL: Label everything! "?" shows what we\'re finding. Link bar to equation (bar shows 23-15, so equation is 23-15=?).',
+    implementation_guide: 'BAR MODELS = rectangles representing quantities. Weeks 1-4: PART-WHOLE (Tom has 23 apples, 15 oranges, how many total? Draw 2 bars, label 23 and 15, total = 23+15). Weeks 5-8: COMPARISON (Tom has 23 apples, 15 more than Ben. How many does Ben have? Draw Tom bar = 23, Ben bar shorter, difference = 15, so Ben = 23-15). Weeks 9-12: MULTIPLICATION (3 bags, 5 sweets each, total? Draw 3 equal bars = 5 each, total = 3x5). Weeks 13-16: FRACTIONS (bar = whole, divide into parts). Weeks 17-20: PERCENTAGES (bar = 100%, divide proportionally). Weeks 21-24: RATIO, multi-step. CRITICAL: Label everything! "?" shows what we\'re finding. Link bar to equation (bar shows 23-15, so equation is 23-15=?).',
 
     parent_information: 'Bar modeling (also called Singapore Model Method) is a visual way of solving ANY word problem by drawing rectangles! Your child is learning to draw bars to represent the numbers and relationships in problems. Example: "Tom has 23 sweets, Ben has 15 fewer" - draw Tom\'s bar (23), draw Ben\'s bar shorter, mark the difference (15), work out Ben\'s amount. Bar models work for addition, subtraction, fractions, percentages, ratio - EVERYTHING! At home: encourage drawing bars for problems, label all parts, ask "what does each bar represent?", link the bar to the calculation. This is one of the most powerful problem-solving tools in maths!',
 
@@ -5361,7 +5361,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Complex problems', 'Bar models', 'Reasoning prompts', 'Strategy cards', 'Past SATs papers'],
-    cost_implications: '£30-£100 for resources',
+    cost_implications: 'GBP 30-GBP 100 for resources',
 
     key_components: [
       'Breaking problems into steps',
@@ -5424,7 +5424,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Metacognitive strategies'
     ],
 
-    implementation_guide: 'MULTI-STEP = multiple calculations needed in sequence. Weeks 1-4: Two-step problems - identify what to find FIRST. "Tom has 23 sweets, buys 12 more, then shares equally between 5 people. How many each?" Step 1: 23+12=35, Step 2: 35÷5=7. Use bar models! Weeks 5-10: Three-step problems, more complexity. Weeks 11-15: Reasoning problems requiring justification ("Prove that...", "Explain why...", "Is Alex correct?"). Model: restate the claim, test it, explain with evidence. Weeks 16-20: SATs-style reasoning (combination of calculation and explanation). Weeks 21-24: Open investigations (multiple approaches, pattern spotting). CRITICAL: Emphasize PROCESS over answer. Ask "what do we need to know first?" constantly!',
+    implementation_guide: 'MULTI-STEP = multiple calculations needed in sequence. Weeks 1-4: Two-step problems - identify what to find FIRST. "Tom has 23 sweets, buys 12 more, then shares equally between 5 people. How many each?" Step 1: 23+12=35, Step 2: 35/5=7. Use bar models! Weeks 5-10: Three-step problems, more complexity. Weeks 11-15: Reasoning problems requiring justification ("Prove that...", "Explain why...", "Is Alex correct?"). Model: restate the claim, test it, explain with evidence. Weeks 16-20: SATs-style reasoning (combination of calculation and explanation). Weeks 21-24: Open investigations (multiple approaches, pattern spotting). CRITICAL: Emphasize PROCESS over answer. Ask "what do we need to know first?" constantly!',
 
     parent_information: 'Complex, multi-step problems are the ultimate test of mathematical thinking - they require calculation skills AND reasoning! Your child is learning to break big problems into smaller steps: "What do I need to find FIRST before I can answer the question?" They\'ll tackle SATs-style reasoning questions that require explanation and justification. At home: tackle problems together, ask "what information do we need first?", break it into steps, write each step clearly, check after each step, ask "does this make sense?". These problems are HARD - celebrate perseverance and thinking, not just correct answers!',
 
@@ -5463,7 +5463,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Pattern blocks', 'Number sequences', 'Function machines', 'Visual patterns', 'Algebra tiles'],
-    cost_implications: '£40-£120 for resources',
+    cost_implications: 'GBP 40-GBP 120 for resources',
 
     key_components: [
       'Number patterns and sequences',
@@ -5526,7 +5526,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Function understanding'
     ],
 
-    implementation_guide: 'ALGEBRA = generalized arithmetic. Weeks 1-4: REPEATING PATTERNS (red, blue, red, blue... - what comes next? what\'s 10th?). GROWING PATTERNS (visual: 1 square, 3 squares, 5 squares... how many in pattern 10?). Weeks 5-8: NUMBER SEQUENCES (2, 5, 8, 11... what\'s the rule? add 3 each time). Describe in words, then symbols. Weeks 9-12: FUNCTION MACHINES (input → +5 → output). Find the rule. Weeks 13-16: VARIABLES (n + 3 = 10, find n). "n" is unknown. Weeks 17-20: EQUIVALENCE (3 + 4 = 2 + ? ... = means "same as", not "makes"). Missing number problems (? × 6 = 42). CRITICAL: From specific examples to general rules!',
+    implementation_guide: 'ALGEBRA = generalized arithmetic. Weeks 1-4: REPEATING PATTERNS (red, blue, red, blue... - what comes next? what\'s 10th?). GROWING PATTERNS (visual: 1 square, 3 squares, 5 squares... how many in pattern 10?). Weeks 5-8: NUMBER SEQUENCES (2, 5, 8, 11... what\'s the rule? add 3 each time). Describe in words, then symbols. Weeks 9-12: FUNCTION MACHINES (input -> +5 -> output). Find the rule. Weeks 13-16: VARIABLES (n + 3 = 10, find n). "n" is unknown. Weeks 17-20: EQUIVALENCE (3 + 4 = 2 + ? ... = means "same as", not "makes"). Missing number problems (? x 6 = 42). CRITICAL: From specific examples to general rules!',
 
     parent_information: 'Algebraic thinking is the foundation for secondary school algebra - and your child is building it NOW through patterns and relationships! They\'re learning to spot patterns (2, 4, 6, 8... goes up by 2), describe the rule, and predict what comes next. They\'re using "function machines" (input a number, add 5, what comes out?). They\'re learning that "=" means "the same as" (not "makes"). This IS algebra - just without scary symbols yet! At home: spot patterns everywhere (tiles, wallpaper, numbers), ask "what comes next?", ask "what\'s the rule?", play with number sequences. Algebraic thinking = logical thinking = real-world problem-solving!',
 
@@ -5564,7 +5564,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Algebra tiles', 'Balance scales', 'Equation cards', 'Visual models', 'Practice materials'],
-    cost_implications: '£40-£150 for resources',
+    cost_implications: 'GBP 40-GBP 150 for resources',
 
     key_components: [
       'Variables as unknowns and as varying quantities',
@@ -5627,7 +5627,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Graphical representations'
     ],
 
-    implementation_guide: 'ALGEBRA = generalized arithmetic with letters. Weeks 1-3: EXPRESSIONS vs EQUATIONS (3x + 2 is expression, 3x + 2 = 14 is equation). Simplify expressions (2x + 5x = 7x). Weeks 4-6: ONE-STEP EQUATIONS (x + 3 = 10, solve by doing inverse: subtract 3). Use balance model (both sides equal). Weeks 7-10: TWO-STEP EQUATIONS (2x + 3 = 11, undo +3 first, then undo ×2). Weeks 11-14: MULTI-STEP (brackets, like terms). Weeks 15-18: EQUATIONS WITH NEGATIVES. Weeks 19-24: SUBSTITUTION (if x=5, find 3x + 2), FORMING EQUATIONS from word problems. CRITICAL: ALWAYS check solution (substitute back in)!',
+    implementation_guide: 'ALGEBRA = generalized arithmetic with letters. Weeks 1-3: EXPRESSIONS vs EQUATIONS (3x + 2 is expression, 3x + 2 = 14 is equation). Simplify expressions (2x + 5x = 7x). Weeks 4-6: ONE-STEP EQUATIONS (x + 3 = 10, solve by doing inverse: subtract 3). Use balance model (both sides equal). Weeks 7-10: TWO-STEP EQUATIONS (2x + 3 = 11, undo +3 first, then undo x2). Weeks 11-14: MULTI-STEP (brackets, like terms). Weeks 15-18: EQUATIONS WITH NEGATIVES. Weeks 19-24: SUBSTITUTION (if x=5, find 3x + 2), FORMING EQUATIONS from word problems. CRITICAL: ALWAYS check solution (substitute back in)!',
 
     parent_information: 'Your child is learning FORMAL ALGEBRA - this is a major step in secondary maths! They\'re solving equations (2x + 3 = 11, find x) using "inverse operations" (undo operations to find the unknown). We use visual models (balance scales, algebra tiles) so it makes sense. They\'re learning to simplify expressions (2x + 5x = 7x), substitute values (if x=5, what is 3x+2?), and form equations from word problems. At home: ask them to explain their working, check answers together (substitute back in), relate to real situations ("I think of a number, double it, add 3, get 11 - what\'s my number?"). Algebra = powerful problem-solving tool!',
 
@@ -5666,7 +5666,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: false,
     resources_needed: ['2D shapes', '3D solids', 'Tangrams', 'Pattern blocks', 'Geoboards', 'Mirrors', 'Protractors'],
-    cost_implications: '£50-£150 for manipulatives',
+    cost_implications: 'GBP 50-GBP 150 for manipulatives',
 
     key_components: [
       '2D shape properties (sides, vertices, angles)',
@@ -5767,15 +5767,15 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Protractors', 'Angle demonstrators', 'Geometric diagrams', 'Angle rules posters', 'Practice problems'],
-    cost_implications: '£30-£100 for resources',
+    cost_implications: 'GBP 30-GBP 100 for resources',
 
     key_components: [
       'Measuring angles with protractor',
-      'Angles on a straight line (180°)',
-      'Angles around a point (360°)',
+      'Angles on a straight line (180 deg)',
+      'Angles around a point (360 deg)',
       'Vertically opposite angles',
-      'Angles in triangles (180°)',
-      'Angles in quadrilaterals (360°)',
+      'Angles in triangles (180 deg)',
+      'Angles in quadrilaterals (360 deg)',
       'Angles in polygons',
       'Parallel lines and angles',
       'Geometric reasoning and proof',
@@ -5831,9 +5831,9 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Trigonometry (later)'
     ],
 
-    implementation_guide: 'ANGLES = amount of turn measured in degrees. Weeks 1-3: MEASURING with protractor (acute < 90°, right = 90°, obtuse 90-180°, straight = 180°, reflex > 180°). Weeks 4-6: ANGLES ON LINE = 180° (supplementary). Calculate missing angles. Weeks 7-9: ANGLES AROUND POINT = 360°. Vertically opposite angles equal. Weeks 10-13: TRIANGLES - angles sum to 180° (prove by tearing corners, or using parallel lines). Calculate missing angle. Weeks 14-17: QUADRILATERALS - angles sum to 360°. Weeks 18-20: POLYGONS - sum of interior angles formula. PARALLEL LINES - corresponding, alternate, co-interior angles. CRITICAL: Reasoning with reasons (angles on line = 180° BECAUSE...)!',
+    implementation_guide: 'ANGLES = amount of turn measured in degrees. Weeks 1-3: MEASURING with protractor (acute < 90 deg, right = 90 deg, obtuse 90-180 deg, straight = 180 deg, reflex > 180 deg). Weeks 4-6: ANGLES ON LINE = 180 deg (supplementary). Calculate missing angles. Weeks 7-9: ANGLES AROUND POINT = 360 deg. Vertically opposite angles equal. Weeks 10-13: TRIANGLES - angles sum to 180 deg (prove by tearing corners, or using parallel lines). Calculate missing angle. Weeks 14-17: QUADRILATERALS - angles sum to 360 deg. Weeks 18-20: POLYGONS - sum of interior angles formula. PARALLEL LINES - corresponding, alternate, co-interior angles. CRITICAL: Reasoning with reasons (angles on line = 180 deg BECAUSE...)!',
 
-    parent_information: 'Angles are everywhere - corners of rooms, hands of clocks, road junctions! Your child is learning to measure angles with a protractor, and more importantly, to CALCULATE missing angles using angle facts: angles on a straight line = 180°, angles around a point = 360°, angles in a triangle = 180°, etc. They\'re developing GEOMETRIC REASONING - finding angles step-by-step with explanations. At home: spot angles everywhere, practice protractor use, ask "what\'s the missing angle?", discuss angle facts. This logical reasoning is crucial for maths and science!',
+    parent_information: 'Angles are everywhere - corners of rooms, hands of clocks, road junctions! Your child is learning to measure angles with a protractor, and more importantly, to CALCULATE missing angles using angle facts: angles on a straight line = 180 deg, angles around a point = 360 deg, angles in a triangle = 180 deg, etc. They\'re developing GEOMETRIC REASONING - finding angles step-by-step with explanations. At home: spot angles everywhere, practice protractor use, ask "what\'s the missing angle?", discuss angle facts. This logical reasoning is crucial for maths and science!',
 
     useful_links: [
       'https://www.ncetm.org.uk/angles',
@@ -5870,7 +5870,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: false,
     resources_needed: ['Rulers', 'Tape measures', 'Scales', 'Measuring jugs', 'Clocks', 'Money', 'Real objects to measure'],
-    cost_implications: '£60-£200 for equipment',
+    cost_implications: 'GBP 60-GBP 200 for equipment',
 
     key_components: [
       'Length (mm, cm, m, km)',
@@ -5934,7 +5934,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Science investigations'
     ],
 
-    implementation_guide: 'MEASUREMENT = comparing to standard units. Weeks 1-4: LENGTH - estimate first ("about 10cm?"), then measure with ruler. Millimetres, centimetres, metres, kilometres. When to use each? Weeks 5-8: MASS - estimate, use scales. Grams, kilograms. Weeks 9-12: CAPACITY - measuring jugs. Millilitres, litres. Practical activities (cooking!). Weeks 13-16: TIME - seconds, minutes, hours, days, weeks, months, years. Reading clocks, durations, timetables. Weeks 17-20: MONEY - pence, pounds. Converting (£3.50 = 350p). CONVERSIONS throughout: 1kg = 1000g, 1m = 100cm, 1l = 1000ml. CRITICAL: Always estimate before measuring!',
+    implementation_guide: 'MEASUREMENT = comparing to standard units. Weeks 1-4: LENGTH - estimate first ("about 10cm?"), then measure with ruler. Millimetres, centimetres, metres, kilometres. When to use each? Weeks 5-8: MASS - estimate, use scales. Grams, kilograms. Weeks 9-12: CAPACITY - measuring jugs. Millilitres, litres. Practical activities (cooking!). Weeks 13-16: TIME - seconds, minutes, hours, days, weeks, months, years. Reading clocks, durations, timetables. Weeks 17-20: MONEY - pence, pounds. Converting (GBP 3.50 = 350p). CONVERSIONS throughout: 1kg = 1000g, 1m = 100cm, 1l = 1000ml. CRITICAL: Always estimate before measuring!',
 
     parent_information: 'Measurement is everywhere - cooking, shopping, building, travelling! Your child is learning to choose the right unit (centimetres for a pencil, metres for a room, kilometres for a journey), estimate first ("about how long?"), then measure accurately with rulers, scales, measuring jugs. They\'re converting units (1 metre = 100 centimetres, 1 kilogram = 1000 grams). At home: involve them in cooking (measuring ingredients), DIY (measuring lengths), shopping (weighing fruit, reading prices), time (durations, timetables). Real-world measuring practice is THE BEST way to learn! Measurement = practical maths!',
 
@@ -5972,18 +5972,18 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Squared paper', '3D shapes', 'Centimetre cubes', 'Geoboards', 'Formula cards', 'Real objects'],
-    cost_implications: '£40-£150 for resources',
+    cost_implications: 'GBP 40-GBP 150 for resources',
 
     key_components: [
       'Perimeter (distance around)',
-      'Area of rectangles (length × width)',
-      'Area of triangles (½ base × height)',
+      'Area of rectangles (length x width)',
+      'Area of triangles (1/2 base x height)',
       'Area of compound shapes',
-      'Area of circles (πr²)',
-      'Volume of cuboids (l × w × h)',
+      'Area of circles (pir^2)',
+      'Volume of cuboids (l x w x h)',
       'Volume of prisms',
       'Surface area',
-      'Units (cm², m², cm³, m³)',
+      'Units (cm^2, m^2, cm^3, m^3)',
       'Real-world applications'
     ],
 
@@ -6036,7 +6036,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Problem-solving strategies'
     ],
 
-    implementation_guide: 'PERIMETER vs AREA: Perimeter = distance AROUND (cm), Area = space INSIDE (cm²). Weeks 1-4: PERIMETER - add all sides. Weeks 5-8: AREA OF RECTANGLES - count squares, then formula (length × width). Units: cm². Weeks 9-12: AREA OF TRIANGLES - show = half of rectangle, formula (½ base × height). Weeks 13-16: COMPOUND SHAPES - break into rectangles/triangles. Weeks 17-20: CIRCLES - circumference (2πr), area (πr²). Weeks 21-24: VOLUME OF CUBOIDS - count cubes, formula (l × w × h). Units: cm³. Surface area = area of all faces. CRITICAL: Understand BEFORE memorizing formulas!',
+    implementation_guide: 'PERIMETER vs AREA: Perimeter = distance AROUND (cm), Area = space INSIDE (cm^2). Weeks 1-4: PERIMETER - add all sides. Weeks 5-8: AREA OF RECTANGLES - count squares, then formula (length x width). Units: cm^2. Weeks 9-12: AREA OF TRIANGLES - show = half of rectangle, formula (1/2 base x height). Weeks 13-16: COMPOUND SHAPES - break into rectangles/triangles. Weeks 17-20: CIRCLES - circumference (2pir), area (pir^2). Weeks 21-24: VOLUME OF CUBOIDS - count cubes, formula (l x w x h). Units: cm^3. Surface area = area of all faces. CRITICAL: Understand BEFORE memorizing formulas!',
 
     parent_information: 'Area, perimeter, and volume are crucial for real-world tasks - decorating, gardening, packing, building! PERIMETER = distance around the edge (like a fence around a field). AREA = how much space inside (like carpet to cover a floor). VOLUME = how much 3D space (like water to fill a pool). Your child is learning to calculate these using formulas BUT understanding comes first! At home: real projects are best - measure rooms for carpet, garden for fencing, boxes for packing. Use squared paper to draw shapes and count squares. This is practical, real-world maths!',
 
@@ -6075,7 +6075,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: false,
     resources_needed: ['Graph paper', 'Data collection sheets', 'Rulers', 'Real data sources', 'Technology for graphing'],
-    cost_implications: '£30-£100 for resources',
+    cost_implications: 'GBP 30-GBP 100 for resources',
 
     key_components: [
       'Asking statistical questions',
@@ -6139,7 +6139,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Science investigations'
     ],
 
-    implementation_guide: 'DATA = information. Weeks 1-3: COLLECTING - ask question ("What\'s your favourite fruit?"), collect data (tally chart). Weeks 4-6: PICTOGRAMS - each symbol represents value (😊 = 2 people). Weeks 7-10: BAR CHARTS - discrete categories, bars don\'t touch. Axes labeled, title. Weeks 11-14: LINE GRAPHS - continuous data (temperature over time), points connected. Weeks 15-18: PIE CHARTS - parts of whole, sectors. Weeks 19-20: INTERPRETATION - "How many?", "What\'s most popular?", "What\'s the difference?". CRITICAL: Read and interpret graphs BEFORE drawing them! Use real class data!',
+    implementation_guide: 'DATA = information. Weeks 1-3: COLLECTING - ask question ("What\'s your favourite fruit?"), collect data (tally chart). Weeks 4-6: PICTOGRAMS - each symbol represents value (:) = 2 people). Weeks 7-10: BAR CHARTS - discrete categories, bars don\'t touch. Axes labeled, title. Weeks 11-14: LINE GRAPHS - continuous data (temperature over time), points connected. Weeks 15-18: PIE CHARTS - parts of whole, sectors. Weeks 19-20: INTERPRETATION - "How many?", "What\'s most popular?", "What\'s the difference?". CRITICAL: Read and interpret graphs BEFORE drawing them! Use real class data!',
 
     parent_information: 'Data handling is about collecting information and showing it visually - essential for science, geography, business, and everyday life! Your child is learning to collect data (surveys), organize it (tables), and create graphs (pictograms, bar charts, line graphs, pie charts). More importantly, they\'re learning to READ and INTERPRET graphs - what does this graph tell us? At home: look at graphs in newspapers, on websites, in sports (league tables!). Discuss what they show. Notice data everywhere (weather charts, Covid statistics, election results). Data literacy = understanding the modern world!',
 
@@ -6177,7 +6177,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Data sets', 'Calculators', 'Real-world statistics', 'Practice materials'],
-    cost_implications: '£20-£80 for resources',
+    cost_implications: 'GBP 20-GBP 80 for resources',
 
     key_components: [
       'Mean (average) - add all, divide by how many',
@@ -6240,7 +6240,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Probability'
     ],
 
-    implementation_guide: 'AVERAGES = typical or middle value. Weeks 1-4: MODE = most common (easiest). List data, count frequency, find most frequent. Weeks 5-8: MEDIAN = middle value. Order data (smallest to biggest), find middle. If even number, average of two middle values. Weeks 9-12: MEAN = total ÷ how many. Add all values, divide by number of values. This is what most people mean by "average". Weeks 13-16: RANGE = highest - lowest (shows spread). CHOOSING: Mode for categories (favorite color), Median if outliers (house prices), Mean for typical value (test scores). CRITICAL: Always interpret in context! What does this average MEAN in this situation?',
+    implementation_guide: 'AVERAGES = typical or middle value. Weeks 1-4: MODE = most common (easiest). List data, count frequency, find most frequent. Weeks 5-8: MEDIAN = middle value. Order data (smallest to biggest), find middle. If even number, average of two middle values. Weeks 9-12: MEAN = total / how many. Add all values, divide by number of values. This is what most people mean by "average". Weeks 13-16: RANGE = highest - lowest (shows spread). CHOOSING: Mode for categories (favorite color), Median if outliers (house prices), Mean for typical value (test scores). CRITICAL: Always interpret in context! What does this average MEAN in this situation?',
 
     parent_information: 'Averages are everywhere - average temperature, average house price, average test score, batting average! Your child is learning THREE types: MEAN (add all values, divide by how many - this is the usual "average"), MEDIAN (middle value when ordered), MODE (most common value). They\'re learning WHEN to use each (mean for typical, median if extreme values, mode for categories). They\'re also learning RANGE (difference between highest and lowest - shows spread). At home: discuss averages in news and sport, work out family averages (heights, bedtimes!), discuss which average makes sense. Understanding statistics = not being fooled by misleading data!',
 
@@ -6279,7 +6279,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['CBT materials', 'Growth mindset resources', 'Anxiety scales', 'Success tracking sheets', 'Relaxation tools'],
-    cost_implications: '£40-£150 for resources',
+    cost_implications: 'GBP 40-GBP 150 for resources',
 
     key_components: [
       'Identifying maths anxiety triggers',
@@ -6347,7 +6347,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Mental health support'
     ],
 
-    implementation_guide: 'MATHS ANXIETY = physiological response to maths (rapid heart rate, sweating, panic, avoidance). NOT lack of ability! Weeks 1-3: IDENTIFY anxiety (physical symptoms, negative thoughts, avoidance behaviours). Use anxiety scales. Discuss triggers. Normalize anxiety ("Many people feel this"). Weeks 4-8: CBT - challenge thoughts ("I\'m terrible at maths" → "I struggle with some areas but I\'m learning"). Evidence for/against. Growth mindset ("I can\'t do this YET"). Mistakes = learning. Weeks 9-14: ANXIETY MANAGEMENT - breathing (box breathing), grounding (5 senses), progressive relaxation. Practice before maths. Weeks 15-20: GRADUATED EXPOSURE - start with low-anxiety tasks, build success, gradually increase difficulty. Celebrate effort! Address test anxiety (practice tests, time management). CRITICAL: Safe environment, no pressure, focus on progress not perfection!',
+    implementation_guide: 'MATHS ANXIETY = physiological response to maths (rapid heart rate, sweating, panic, avoidance). NOT lack of ability! Weeks 1-3: IDENTIFY anxiety (physical symptoms, negative thoughts, avoidance behaviours). Use anxiety scales. Discuss triggers. Normalize anxiety ("Many people feel this"). Weeks 4-8: CBT - challenge thoughts ("I\'m terrible at maths" -> "I struggle with some areas but I\'m learning"). Evidence for/against. Growth mindset ("I can\'t do this YET"). Mistakes = learning. Weeks 9-14: ANXIETY MANAGEMENT - breathing (box breathing), grounding (5 senses), progressive relaxation. Practice before maths. Weeks 15-20: GRADUATED EXPOSURE - start with low-anxiety tasks, build success, gradually increase difficulty. Celebrate effort! Address test anxiety (practice tests, time management). CRITICAL: Safe environment, no pressure, focus on progress not perfection!',
 
     parent_information: 'Maths anxiety is REAL - it\'s a physical and emotional response to maths that can interfere with learning and performance. Your child might experience rapid heartbeat, sweating, panic, or complete avoidance. The good news? It CAN be reduced! We\'re using CBT (Cognitive Behavioral Therapy) to challenge negative thoughts ("I\'m terrible at maths" becomes "I struggle with some topics but I\'m improving"), teaching anxiety management (breathing, relaxation), building GROWTH MINDSET ("I can\'t do this YET"), and creating success experiences. At home: NEVER say "I\'m bad at maths too", praise EFFORT not just results, normalize mistakes ("mistakes help us learn"), avoid time pressure, be patient. Your support is CRUCIAL! Reducing anxiety = unlocking mathematical potential!',
 
@@ -6385,7 +6385,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Growth mindset posters', 'Success journals', 'Problem-solving challenges', 'Mathematical biography materials'],
-    cost_implications: '£30-£100 for resources',
+    cost_implications: 'GBP 30-GBP 100 for resources',
 
     key_components: [
       'Growth mindset ("brain can grow")',
@@ -6453,7 +6453,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Collaborative learning'
     ],
 
-    implementation_guide: 'MATHEMATICAL IDENTITY = how you see yourself as maths learner. "Am I a maths person?" Weeks 1-4: GROWTH MINDSET - brain is like muscle, grows with practice. FIXED ("I\'m bad at maths, always will be") vs GROWTH ("I struggle with fractions BUT I\'m learning"). Power of YET! Mistakes make brain grow! Weeks 5-8: REFRAMING - catch fixed statements, rephrase. "I can\'t do this" → "I can\'t do this YET". "I\'m terrible" → "This is hard for me right now". Model struggle! Weeks 9-14: STRENGTHS - identify what student IS good at (visual thinking? patterns? persistence?). Build on strengths. Success journal. Weeks 15-20: PROBLEM-SOLVING - multiple strategies valued. Discussions. Collaboration. Mathematical community. Weeks 21-24: ROLE MODELS - mathematicians who struggled (Einstein!), diverse mathematicians. CRITICAL: Teacher language is KEY! "I love how you persisted!", "Your mistake shows you\'re thinking!", "Multiple strategies - brilliant!"',
+    implementation_guide: 'MATHEMATICAL IDENTITY = how you see yourself as maths learner. "Am I a maths person?" Weeks 1-4: GROWTH MINDSET - brain is like muscle, grows with practice. FIXED ("I\'m bad at maths, always will be") vs GROWTH ("I struggle with fractions BUT I\'m learning"). Power of YET! Mistakes make brain grow! Weeks 5-8: REFRAMING - catch fixed statements, rephrase. "I can\'t do this" -> "I can\'t do this YET". "I\'m terrible" -> "This is hard for me right now". Model struggle! Weeks 9-14: STRENGTHS - identify what student IS good at (visual thinking? patterns? persistence?). Build on strengths. Success journal. Weeks 15-20: PROBLEM-SOLVING - multiple strategies valued. Discussions. Collaboration. Mathematical community. Weeks 21-24: ROLE MODELS - mathematicians who struggled (Einstein!), diverse mathematicians. CRITICAL: Teacher language is KEY! "I love how you persisted!", "Your mistake shows you\'re thinking!", "Multiple strategies - brilliant!"',
 
     parent_information: 'Has your child ever said "I\'m just not a maths person"? This is FIXED MINDSET - believing ability is fixed, not changeable. We\'re teaching GROWTH MINDSET: with effort and practice, your brain GROWS and you CAN improve! "I can\'t do this YET" is more powerful than "I can\'t do this". We\'re helping your child develop a POSITIVE MATHS IDENTITY - seeing themselves as capable mathematical thinkers. We celebrate EFFORT ("you worked so hard!"), STRATEGIES ("great method!"), and MISTAKES ("mistakes help our brains grow!"). At home: use growth language, NEVER say "I was bad at maths", praise effort not just correct answers, normalize struggle ("this is challenging and that\'s good!"), ask about their thinking not just answers. Your child CAN be a "maths person"!',
 
@@ -6492,7 +6492,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Numicon', 'Number lines', 'Dot cards', 'Cuisenaire rods', 'Base-10 blocks', 'Specialist software'],
-    cost_implications: '£100-£300 for specialist materials',
+    cost_implications: 'GBP 100-GBP 300 for specialist materials',
 
     key_components: [
       'Subitizing (instant small quantity recognition)',
@@ -6597,7 +6597,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Calculators', 'Maths apps', 'Visual aids', 'Number lines', 'Times tables grids', 'Real-world materials'],
-    cost_implications: '£50-£200 for technology and resources',
+    cost_implications: 'GBP 50-GBP 200 for technology and resources',
 
     key_components: [
       'Calculator use (when appropriate)',
@@ -6703,7 +6703,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Strategy cards', 'Self-questioning prompts', 'Reflection sheets', 'Think-aloud examples'],
-    cost_implications: '£30-£100 for resources',
+    cost_implications: 'GBP 30-GBP 100 for resources',
 
     key_components: [
       'Planning before solving',
@@ -6810,7 +6810,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Strategy posters', 'Worked examples', 'Practice materials', 'Strategy cards'],
-    cost_implications: '£30-£100 for resources',
+    cost_implications: 'GBP 30-GBP 100 for resources',
 
     key_components: [
       'Explicit strategy teaching',
@@ -6878,7 +6878,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Any content intervention'
     ],
 
-    implementation_guide: 'STRATEGIES = efficient methods. EXPLICIT teaching: Name → Model → Practice → Apply. Example strategies: MENTAL CALCULATION - making 10 (8+6 = 8+2+4 = 14), near doubles (7+8 = double 7 + 1), partitioning (34+27 = 30+20 + 4+7). PROBLEM-SOLVING - draw diagram, try simpler numbers, work backwards, look for patterns. REASONING - prove it, find examples/counterexamples, generalize. Teaching sequence: 1) NAME: "This is the partitioning strategy", 2) MODEL: Teacher demonstrates with think-aloud, 3) GUIDED: Students try with support, 4) INDEPENDENT: Students practice alone, 5) APPLY: Use in varied contexts, 6) COMPARE: Which strategy is best for this problem? Why? Weeks 1-6: Teach 2-3 key strategies, Weeks 7-12: Practice and comparison, Weeks 13-18: New strategies, Weeks 19-24: Strategy selection and application. CRITICAL: Explicit, systematic, lots of practice!',
+    implementation_guide: 'STRATEGIES = efficient methods. EXPLICIT teaching: Name -> Model -> Practice -> Apply. Example strategies: MENTAL CALCULATION - making 10 (8+6 = 8+2+4 = 14), near doubles (7+8 = double 7 + 1), partitioning (34+27 = 30+20 + 4+7). PROBLEM-SOLVING - draw diagram, try simpler numbers, work backwards, look for patterns. REASONING - prove it, find examples/counterexamples, generalize. Teaching sequence: 1) NAME: "This is the partitioning strategy", 2) MODEL: Teacher demonstrates with think-aloud, 3) GUIDED: Students try with support, 4) INDEPENDENT: Students practice alone, 5) APPLY: Use in varied contexts, 6) COMPARE: Which strategy is best for this problem? Why? Weeks 1-6: Teach 2-3 key strategies, Weeks 7-12: Practice and comparison, Weeks 13-18: New strategies, Weeks 19-24: Strategy selection and application. CRITICAL: Explicit, systematic, lots of practice!',
 
     parent_information: 'Your child is learning MATHEMATICAL STRATEGIES - efficient methods for calculation, problem-solving, and reasoning. For example, mental calculation strategies like "making 10" (to add 8+6, think 8+2=10, then 10+4=14) or "near doubles" (7+8 = double 7 plus 1). Problem-solving strategies like "draw a diagram" or "try simpler numbers first". These strategies are taught EXPLICITLY (not discovered): teacher names it, models it, students practice it, then apply it. At home: ask "what strategy did you use?", discuss different methods ("could you do it another way?"), use strategies in real life (mental calculation when shopping). Strategy knowledge = mathematical power!',
 
@@ -6917,7 +6917,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Reasoning tasks', 'Proof examples', 'Logic puzzles', 'Mathematical statements to investigate'],
-    cost_implications: '£30-£100 for resources',
+    cost_implications: 'GBP 30-GBP 100 for resources',
 
     key_components: [
       'Making conjectures (educated guesses)',
@@ -6986,7 +6986,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Geometric reasoning'
     ],
 
-    implementation_guide: 'REASONING = explaining WHY, not just WHAT. Weeks 1-4: CONJECTURES - "I think all even numbers can be split into two equal groups" (conjecture). How can we test? Try examples. Weeks 5-8: COUNTEREXAMPLES - "Odd numbers + odd numbers = even" (test: 3+5=8 ✓, 7+9=16 ✓, always true?). "All quadrilaterals have 4 right angles" (counterexample: trapezium). ONE counterexample disproves! Weeks 9-14: PROOF - showing something is ALWAYS true for ALL cases, not just examples. "Prove odd + odd = even" (odd = 2n+1, 2n+1 + 2m+1 = 2(n+m+1) which is even). Weeks 15-20: IF-THEN reasoning, logical arguments. Weeks 21-24: SPOTTING ERRORS in reasoning (is this argument valid?). CRITICAL: Always ask "WHY?", "How do you know?", "Prove it!", "Could there be a counterexample?"',
+    implementation_guide: 'REASONING = explaining WHY, not just WHAT. Weeks 1-4: CONJECTURES - "I think all even numbers can be split into two equal groups" (conjecture). How can we test? Try examples. Weeks 5-8: COUNTEREXAMPLES - "Odd numbers + odd numbers = even" (test: 3+5=8 , 7+9=16 , always true?). "All quadrilaterals have 4 right angles" (counterexample: trapezium). ONE counterexample disproves! Weeks 9-14: PROOF - showing something is ALWAYS true for ALL cases, not just examples. "Prove odd + odd = even" (odd = 2n+1, 2n+1 + 2m+1 = 2(n+m+1) which is even). Weeks 15-20: IF-THEN reasoning, logical arguments. Weeks 21-24: SPOTTING ERRORS in reasoning (is this argument valid?). CRITICAL: Always ask "WHY?", "How do you know?", "Prove it!", "Could there be a counterexample?"',
 
     parent_information: 'Mathematical reasoning is about WHY, not just getting answers! Your child is learning to make CONJECTURES (educated guesses like "I think all prime numbers except 2 are odd"), test them systematically, find COUNTEREXAMPLES (examples that prove something wrong), and construct PROOFS (showing something is ALWAYS true). This is real mathematical thinking - what mathematicians do! We ask "WHY?", "How do you know?", "Prove it!", "Could there be an exception?". At home: ask "how do you know?", discuss whether statements are always/sometimes/never true, find counterexamples together. Reasoning = critical thinking for life, not just maths!',
 
@@ -7024,7 +7024,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Rich task collections (NRICH, etc.)', 'Open-ended problems', 'Investigation materials', 'Collaborative resources'],
-    cost_implications: '£30-£100 for resources',
+    cost_implications: 'GBP 30-GBP 100 for resources',
 
     key_components: [
       'Open-ended tasks (multiple solutions)',
@@ -7093,7 +7093,7 @@ const ACADEMIC_INTERVENTIONS: InterventionTemplate[] = [
       'Collaborative learning'
     ],
 
-    implementation_guide: 'RICH TASKS = open-ended, multiple solutions, "low floor high ceiling" (everyone can start, nobody maxes out). Examples: "Find all ways to make 20 using 4 numbers", "Investigate which rectangles have perimeter = area", "Explore number patterns in Pascal\'s Triangle". NOT: "Work out 3×4". Session structure: 1) LAUNCH: Present task, ensure understanding, NO method given, 2) EXPLORE: Students work (pairs/small groups), try approaches, struggle is GOOD, teacher circulates asking questions not telling, 3) DISCUSS: Share strategies, solutions, reasoning. Compare approaches. Generalize. 4) REFLECT: What worked? What would you do differently? Use tasks from NRICH, Youcubed, Math Pickle. Weeks 1-10: Simpler rich tasks, scaffolding. Weeks 11-30: More complex investigations. Weeks 31-50: Extended projects. CRITICAL: Exploration and reasoning valued MORE than answers!',
+    implementation_guide: 'RICH TASKS = open-ended, multiple solutions, "low floor high ceiling" (everyone can start, nobody maxes out). Examples: "Find all ways to make 20 using 4 numbers", "Investigate which rectangles have perimeter = area", "Explore number patterns in Pascal\'s Triangle". NOT: "Work out 3x4". Session structure: 1) LAUNCH: Present task, ensure understanding, NO method given, 2) EXPLORE: Students work (pairs/small groups), try approaches, struggle is GOOD, teacher circulates asking questions not telling, 3) DISCUSS: Share strategies, solutions, reasoning. Compare approaches. Generalize. 4) REFLECT: What worked? What would you do differently? Use tasks from NRICH, Youcubed, Math Pickle. Weeks 1-10: Simpler rich tasks, scaffolding. Weeks 11-30: More complex investigations. Weeks 31-50: Extended projects. CRITICAL: Exploration and reasoning valued MORE than answers!',
 
     parent_information: 'Rich mathematical tasks are open-ended problems with multiple solutions - real mathematical thinking, not just practicing procedures! Example: "Find all ways to make 10 using exactly 4 numbers" (10+0+0+0, 5+5+0+0, 6+2+1+1, 5+3+1+1, 3+3+2+2...). Your child explores, tries different approaches, works with others, discusses strategies, justifies solutions. This develops REASONING, CREATIVITY, PROBLEM-SOLVING, and PERSISTENCE - the real skills of mathematics! It\'s challenging and that\'s the point! At home: try tasks together (NRICH website has great ones), encourage exploration ("try different ways"), discuss thinking not just answers, celebrate persistence ("you kept trying!"). Rich tasks = deep mathematical thinking!',
 
@@ -7136,7 +7136,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['FBA forms', 'Data collection tools', 'Visual supports', 'Reinforcement systems', 'Communication tools'],
-    cost_implications: '£100-£500 for assessment and materials',
+    cost_implications: 'GBP 100-GBP 500 for assessment and materials',
 
     key_components: [
       'Functional Behaviour Assessment (FBA)',
@@ -7232,7 +7232,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: true,
     resources_needed: ['Point cards', 'Designated check-in mentor', 'Home communication forms', 'Reinforcement system'],
-    cost_implications: '£20-£50 for materials',
+    cost_implications: 'GBP 20-GBP 50 for materials',
 
     key_components: [
       'Morning check-in with mentor',
@@ -7329,7 +7329,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: true,
     resources_needed: ['Zones curriculum/materials', 'Visual zone displays', 'Regulation strategy cards', 'Feeling thermometer'],
-    cost_implications: '£50-£150 for materials',
+    cost_implications: 'GBP 50-GBP 150 for materials',
 
     key_components: [
       'Four zones: Blue (low arousal - sad, tired, bored), Green (calm, focused, ready to learn), Yellow (elevated arousal - frustrated, excited, anxious), Red (extremely high arousal - angry, terrified, elated)',
@@ -7424,7 +7424,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['CBT workbooks', 'Thought record sheets', 'Coping cards', 'Relaxation materials', 'Assessment scales'],
-    cost_implications: '£50-£200 for resources, specialist training required',
+    cost_implications: 'GBP 50-GBP 200 for resources, specialist training required',
 
     key_components: [
       'Psychoeducation about thoughts-feelings-behaviours link',
@@ -7488,7 +7488,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
       'Medication (specialist decision)'
     ],
 
-    implementation_guide: 'SESSION STRUCTURE: 1) Mood check-in, 2) Review homework, 3) Session agenda, 4) New skill/concept, 5) Practice, 6) Homework setting, 7) Summary. CORE MODEL: Thoughts → Feelings → Behaviors. Weeks 1-2: Psychoeducation, engagement, goal-setting. Weeks 3-5: Thought identification (what am I thinking when anxious/sad?), introduce thought records. Weeks 6-8: Cognitive restructuring (is this thought helpful? is it true? what\'s the evidence? what would I tell a friend?). Develop balanced thoughts. Weeks 9-11: Behavioral experiments, exposure (face fears gradually), behavioural activation (do activities even when don\'t feel like it). Week 12: Relapse prevention, maintenance plan. CRITICAL: Homework is essential! Review every session.',
+    implementation_guide: 'SESSION STRUCTURE: 1) Mood check-in, 2) Review homework, 3) Session agenda, 4) New skill/concept, 5) Practice, 6) Homework setting, 7) Summary. CORE MODEL: Thoughts -> Feelings -> Behaviors. Weeks 1-2: Psychoeducation, engagement, goal-setting. Weeks 3-5: Thought identification (what am I thinking when anxious/sad?), introduce thought records. Weeks 6-8: Cognitive restructuring (is this thought helpful? is it true? what\'s the evidence? what would I tell a friend?). Develop balanced thoughts. Weeks 9-11: Behavioral experiments, exposure (face fears gradually), behavioural activation (do activities even when don\'t feel like it). Week 12: Relapse prevention, maintenance plan. CRITICAL: Homework is essential! Review every session.',
 
     parent_information: 'Your child is receiving CBT - a talking therapy that helps them understand how thoughts, feelings, and behaviours are connected. They\'ll learn to spot unhelpful thoughts ("I\'m rubbish", "Everyone hates me", "Something terrible will happen") and challenge them with evidence. They\'ll learn coping strategies and face fears gradually. Your role: encourage homework completion, praise efforts, use CBT language at home ("what\'s the thought?"), support exposure activities. CBT is active - your child needs to practice skills between sessions. Progress takes time but CBT is highly effective for anxiety and depression in children!',
 
@@ -7526,7 +7526,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Mindfulness scripts', 'Audio recordings', 'Mindfulness cards', 'Quiet space', 'Cushions/mats'],
-    cost_implications: '£30-£150 for resources and training',
+    cost_implications: 'GBP 30-GBP 150 for resources and training',
 
     key_components: [
       'Mindful breathing',
@@ -7628,7 +7628,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Trauma-informed training', 'Calm/safe spaces', 'Regulation tools', 'Relationship-building activities', 'Supervision for staff'],
-    cost_implications: '£500-£2000 for training, ongoing supervision costs',
+    cost_implications: 'GBP 500-GBP 2000 for training, ongoing supervision costs',
 
     key_components: [
       'Understanding trauma impact on brain/behaviour',
@@ -7733,7 +7733,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Visual schedules', 'Timers', 'Checklists', 'Movement breaks', 'Organization systems', 'Self-monitoring tools'],
-    cost_implications: '£100-£400 for environmental modifications and materials',
+    cost_implications: 'GBP 100-GBP 400 for environmental modifications and materials',
 
     key_components: [
       'Environmental modifications (seating, sensory tools, breaks)',
@@ -7839,7 +7839,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Visual supports', 'Social stories', 'Sensory tools', 'Predictable routines', 'Quiet space', 'Special interest materials'],
-    cost_implications: '£200-£1000+ for comprehensive modifications and resources',
+    cost_implications: 'GBP 200-GBP 1000+ for comprehensive modifications and resources',
 
     key_components: [
       'Autism-friendly environment (visual, predictable, calm)',
@@ -7947,7 +7947,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['9 Affects visual chart', 'Compass of Shame diagram', 'Affect recognition cards', 'Script identification worksheets', 'Breaking the loop strategy cards', 'Parent/teacher guide'],
-    cost_implications: '£50-£150 for training materials and visual resources',
+    cost_implications: 'GBP 50-GBP 150 for training materials and visual resources',
 
     key_components: [
       'Psychoeducation: 9 Affect Scripts (2 positive: joy/enjoyment, interest/excitement; 1 neutral: surprise/startle; 6 negative: distress/anguish, fear/terror, shame/humiliation, disgust, anger/rage, contempt)',
@@ -8025,7 +8025,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
       'http://www.tomkins.org - Tomkins Institute',
       'https://www.compassionatesch ools.org - Shame resilience',
       'https://www.affectscript.org - Educational resources',
-      'https://www.shameresiliencetheory.com - Brené Brown\'s work on shame'
+      'https://www.shameresiliencetheory.com - Brene Brown\'s work on shame'
     ],
 
     created_at: '2025-11-02',
@@ -8056,7 +8056,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Whole class introduction session materials', 'Circle meeting structure guide', 'Problem-solving frameworks', 'Consent forms', 'Meeting record sheets', 'Confidentiality agreements', 'People in Our Lives concentric circles worksheet'],
-    cost_implications: '£20-£100 for materials and facilitator time',
+    cost_implications: 'GBP 20-GBP 100 for materials and facilitator time',
 
     key_components: [
       'Whole class awareness session (40-60 mins)',
@@ -8148,7 +8148,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     name: 'Precision Monitoring with Direct Instruction',
     category: 'behavioural',
     subcategory: 'academic_progress_monitoring',
-    description: 'Precision Monitoring is an ASSESSMENT tool (not a teaching method) using daily probes and ratio chart graphing to track fluency development. Combined with Direct Instruction (Model-Lead-Test) teaching approach. Based on Haring & Eaton\'s Learning Hierarchy: Acquisition → Fluency → Maintenance → Generalization → Adaptation. Provides data-driven decision-making for intervention effectiveness.',
+    description: 'Precision Monitoring is an ASSESSMENT tool (not a teaching method) using daily probes and ratio chart graphing to track fluency development. Combined with Direct Instruction (Model-Lead-Test) teaching approach. Based on Haring & Eaton\'s Learning Hierarchy: Acquisition -> Fluency -> Maintenance -> Generalization -> Adaptation. Provides data-driven decision-making for intervention effectiveness.',
     targeted_needs: ['Slow learning progress', 'Lack of fluency', 'Skill retention difficulties', 'Need for data-driven intervention', 'Dyslexia', 'Dyscalculia', 'Learning difficulties', 'Monitoring intervention effectiveness'],
 
     evidence_level: 'tier_1',
@@ -8166,7 +8166,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Baseline assessment materials', 'Daily probe sheets (1-minute timings)', 'Ratio charts (semi-logarithmic)', 'Direct Instruction scripts/materials', 'SMART target templates', 'Decision rules guide (3-day rule, 8-day rule)', 'Probe builder tool (http://www.johnandgwyn.co.uk/multiprobe.xls)'],
-    cost_implications: '£50-£200 for materials, training, and probe generation tools',
+    cost_implications: 'GBP 50-GBP 200 for materials, training, and probe generation tools',
 
     key_components: [
       'Step 1: Identify difficulty and baseline (what CAN\'T child do?)',
@@ -8207,7 +8207,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
 
     expected_outcomes: [
       'Measurable fluency gains (80-90% reach target)',
-      'Movement through Learning Hierarchy (Acquisition→Fluency→Maintenance→Generalization→Adaptation)',
+      'Movement through Learning Hierarchy (Acquisition->Fluency->Maintenance->Generalization->Adaptation)',
       'Data shows intervention effectiveness',
       'Skill retention over time',
       'Faster learning rates',
@@ -8274,7 +8274,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Learning Hierarchy visual aid', 'Assessment probes', 'Data recording sheets', 'Training in framework application', 'Examples of stage-appropriate teaching strategies'],
-    cost_implications: '£50-£150 for training materials',
+    cost_implications: 'GBP 50-GBP 150 for training materials',
 
     key_components: [
       '1. ACQUISITION: Learning NEW skills - child doesn\'t know how to do it yet',
@@ -8343,7 +8343,7 @@ const BEHAVIORAL_INTERVENTIONS: InterventionTemplate[] = [
       'Problem-solving training (for Adaptation)'
     ],
 
-    implementation_guide: 'LEARNING HIERARCHY FRAMEWORK (Haring & Eaton, 1978): Five sequential stages of skill learning - each requires DIFFERENT teaching approaches. STAGE 1: ACQUISITION (CAN\'T DO IT) - Learning a NEW skill from scratch. Child: Doesn\'t know how, makes many errors, needs high support. Teaching Focus: ACCURACY (not speed). Strategies: Model-Lead-Test (show, do together, child does), errorless learning, high prompting, immediate corrective feedback, break into small steps, high reinforcement for trying/effort, slow pace, lots of repetition. Success Criteria: 80-90% accuracy on 3 consecutive sessions. STAGE 2: FLUENCY (CAN DO IT BUT SLOW) - Building speed and automaticity. Child: Knows how, accurate, but slow, effortful, not automatic. Teaching Focus: SPEED and AUTOMATICITY (accuracy already achieved). Strategies: Timed practice, repeated practice trials, games/competitions, reduce prompts, "beat your best" charts, precision teaching probes, celebrate speed gains (not just accuracy), shorter frequent sessions. Success Criteria: Age-appropriate rate (e.g., 60 sounds per minute for reading) with 95%+ accuracy for 3 consecutive sessions. STAGE 3: MAINTENANCE (KEEPING IT) - Retaining skills over time without ongoing practice. Child: Can do it fluently when prompted, but may forget if not practiced. Teaching Focus: RETENTION across time. Strategies: Distributed practice (spaced over time), periodic "cold probe" checks (without warning), review sessions (weekly → fortnightly → monthly), embed into routines, self-monitoring charts, celebrate retention ("You still remember from last month!"). Success Criteria: Skill performed at fluent level after 1 week, 2 weeks, 1 month without explicit teaching. STAGE 4: GENERALIZATION (USING IT EVERYWHERE) - Applying skill across different contexts. Child: Can do it with this teacher, these materials, this setting - but not elsewhere. Teaching Focus: APPLICATION across people, settings, materials, time. Strategies: Multiple exemplars (teach with varied examples), different teachers/adults, different settings (classroom, playground, home), different materials (worksheets, whiteboards, real objects), varied time of day, explicit "Where else could you use this?" discussions, program for generalization (don\'t assume it happens). Success Criteria: Skill performed fluently with 3+ different people, 3+ different settings, 3+ different materials. STAGE 5: ADAPTATION (CHANGING IT) - Modifying skill for novel/complex situations. Child: Can do it as taught, but can\'t modify/adapt when situation changes. Teaching Focus: FLEXIBILITY and problem-solving. Strategies: Novel problem situations, "What if?" scenarios, open-ended tasks, encourage creativity, problem-solving training, teach metacognitive strategies ("What do I know that might help?"), apply to real-world situations. Success Criteria: Child spontaneously adapts skill for new situations without prompting. KEY PRINCIPLES: 1) ASSESS stage first (don\'t assume) - a child may be fluent in one skill, acquisition in another. 2) MATCH teaching to stage - acquisition needs different strategies than fluency. 3) PROGRESS SEQUENTIALLY - don\'t skip stages. If fluency drops, return to acquisition. If generalization fails, more fluency building may be needed. 4) GENERALIZATION doesn\'t happen automatically - must be explicitly programmed. 5) Different REINFORCEMENT for different stages: Acquisition = reinforce effort/trying. Fluency = reinforce speed/improvement. Maintenance = reinforce remembering. Generalization = reinforce applying. Adaptation = reinforce creativity/problem-solving. EXAMPLE - TEACHING SIGHT WORDS: Acquisition: Model word, child repeats, flashcards with immediate feedback, high praise for trying, 5-10 words until 90% accuracy. Fluency: Timed flashcard games, "beat the clock", 1-minute probes, aim for instant recognition, celebrate speed gains. Maintenance: Weekly/monthly "cold checks", embed in daily reading, occasional review games. Generalization: Spot words in books, posters, labels around school/home, different fonts, different contexts. Adaptation: Use sight words creatively in sentences, stories, jokes - child plays with words.',
+    implementation_guide: 'LEARNING HIERARCHY FRAMEWORK (Haring & Eaton, 1978): Five sequential stages of skill learning - each requires DIFFERENT teaching approaches. STAGE 1: ACQUISITION (CAN\'T DO IT) - Learning a NEW skill from scratch. Child: Doesn\'t know how, makes many errors, needs high support. Teaching Focus: ACCURACY (not speed). Strategies: Model-Lead-Test (show, do together, child does), errorless learning, high prompting, immediate corrective feedback, break into small steps, high reinforcement for trying/effort, slow pace, lots of repetition. Success Criteria: 80-90% accuracy on 3 consecutive sessions. STAGE 2: FLUENCY (CAN DO IT BUT SLOW) - Building speed and automaticity. Child: Knows how, accurate, but slow, effortful, not automatic. Teaching Focus: SPEED and AUTOMATICITY (accuracy already achieved). Strategies: Timed practice, repeated practice trials, games/competitions, reduce prompts, "beat your best" charts, precision teaching probes, celebrate speed gains (not just accuracy), shorter frequent sessions. Success Criteria: Age-appropriate rate (e.g., 60 sounds per minute for reading) with 95%+ accuracy for 3 consecutive sessions. STAGE 3: MAINTENANCE (KEEPING IT) - Retaining skills over time without ongoing practice. Child: Can do it fluently when prompted, but may forget if not practiced. Teaching Focus: RETENTION across time. Strategies: Distributed practice (spaced over time), periodic "cold probe" checks (without warning), review sessions (weekly -> fortnightly -> monthly), embed into routines, self-monitoring charts, celebrate retention ("You still remember from last month!"). Success Criteria: Skill performed at fluent level after 1 week, 2 weeks, 1 month without explicit teaching. STAGE 4: GENERALIZATION (USING IT EVERYWHERE) - Applying skill across different contexts. Child: Can do it with this teacher, these materials, this setting - but not elsewhere. Teaching Focus: APPLICATION across people, settings, materials, time. Strategies: Multiple exemplars (teach with varied examples), different teachers/adults, different settings (classroom, playground, home), different materials (worksheets, whiteboards, real objects), varied time of day, explicit "Where else could you use this?" discussions, program for generalization (don\'t assume it happens). Success Criteria: Skill performed fluently with 3+ different people, 3+ different settings, 3+ different materials. STAGE 5: ADAPTATION (CHANGING IT) - Modifying skill for novel/complex situations. Child: Can do it as taught, but can\'t modify/adapt when situation changes. Teaching Focus: FLEXIBILITY and problem-solving. Strategies: Novel problem situations, "What if?" scenarios, open-ended tasks, encourage creativity, problem-solving training, teach metacognitive strategies ("What do I know that might help?"), apply to real-world situations. Success Criteria: Child spontaneously adapts skill for new situations without prompting. KEY PRINCIPLES: 1) ASSESS stage first (don\'t assume) - a child may be fluent in one skill, acquisition in another. 2) MATCH teaching to stage - acquisition needs different strategies than fluency. 3) PROGRESS SEQUENTIALLY - don\'t skip stages. If fluency drops, return to acquisition. If generalization fails, more fluency building may be needed. 4) GENERALIZATION doesn\'t happen automatically - must be explicitly programmed. 5) Different REINFORCEMENT for different stages: Acquisition = reinforce effort/trying. Fluency = reinforce speed/improvement. Maintenance = reinforce remembering. Generalization = reinforce applying. Adaptation = reinforce creativity/problem-solving. EXAMPLE - TEACHING SIGHT WORDS: Acquisition: Model word, child repeats, flashcards with immediate feedback, high praise for trying, 5-10 words until 90% accuracy. Fluency: Timed flashcard games, "beat the clock", 1-minute probes, aim for instant recognition, celebrate speed gains. Maintenance: Weekly/monthly "cold checks", embed in daily reading, occasional review games. Generalization: Spot words in books, posters, labels around school/home, different fonts, different contexts. Adaptation: Use sight words creatively in sentences, stories, jokes - child plays with words.',
 
     parent_information: 'Your child learns skills in STAGES - and different stages need different support! LEARNING HIERARCHY (Haring & Eaton, 1978): 1) ACQUISITION: Learning something NEW - they don\'t know how yet. What you\'ll see: Lots of errors, needs help, slow, effortful. What helps: SHOW them (model), do it WITH them, lots of practice, celebrate TRYING (not just getting it right), be patient, break it into tiny steps. Don\'t worry about speed yet - focus on getting it RIGHT. 2) FLUENCY: They CAN do it, but it\'s SLOW. What you\'ll see: Accurate but takes forever, lots of concentration needed, not automatic. What helps: PRACTICE for speed - timed games, "beat your own record", make it fun/competitive, celebrate getting FASTER. Now we care about speed! 3) MAINTENANCE: KEEPING the skill - not forgetting it. What you\'ll see: Can do it when reminded, but might forget if not practiced. What helps: Occasional practice (once a week, once a month), "Do you still remember how to...?", build it into routines, celebrate remembering from last time. 4) GENERALIZATION: Using the skill EVERYWHERE, not just at school. What you\'ll see: Can do it with teacher but not with you, can do it on worksheets but not in real life. What helps: Practice in DIFFERENT places (home, shops, park), with different people, with different materials, point out "This is like what you learned at school!" 5) ADAPTATION: CHANGING the skill for new situations - being creative/flexible. What you\'ll see: Can do exactly what was taught, but struggles when situation changes slightly. What helps: "What if?" questions, problem-solving, encourage trying new ways, real-world challenges, celebrate creative thinking. WHY THIS MATTERS: If your child is still LEARNING a skill (Acquisition), pushing them to be FAST will frustrate them - they\'ll practice errors! If they\'re already ACCURATE but slow (Fluency), they need speed practice - not more accuracy work. Match the support to the stage, and learning goes faster! Most importantly: GENERALIZATION doesn\'t happen automatically - kids with learning difficulties often need explicit help to use skills outside the teaching context. Practice at home, in the community, in different situations. That\'s how skills become truly functional!',
 
@@ -8388,7 +8388,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Social skills curriculum', 'Role-play scenarios', 'Video modeling materials', 'Reinforcement system', 'Parent communication materials'],
-    cost_implications: '£100-£300 for curriculum and materials',
+    cost_implications: 'GBP 100-GBP 300 for curriculum and materials',
 
     key_components: [
       'Explicit instruction of target skill',
@@ -8491,7 +8491,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['CBT workbooks/materials', 'Feeling thermometer', 'Thought diary', 'Relaxation scripts', 'Anxiety ladder/hierarchy'],
-    cost_implications: '£50-£200 for materials; requires trained practitioner (EP, MH worker)',
+    cost_implications: 'GBP 50-GBP 200 for materials; requires trained practitioner (EP, MH worker)',
 
     key_components: [
       'Psychoeducation about anxiety',
@@ -8595,7 +8595,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Restorative questions cards', 'Talking piece', 'Circle scripts', 'Training for facilitators', 'Follow-up agreement forms'],
-    cost_implications: '£500-£2000 for whole-school training + ongoing facilitation time',
+    cost_implications: 'GBP 500-GBP 2000 for whole-school training + ongoing facilitation time',
 
     key_components: [
       'Proactive circles (community building, check-ins)',
@@ -8699,7 +8699,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Mediator training curriculum', 'Mediation scripts', 'Badges/identification', 'Dedicated mediation space', 'Supervision system'],
-    cost_implications: '£200-£800 for training and materials',
+    cost_implications: 'GBP 200-GBP 800 for training and materials',
 
     key_components: [
       'Recruit and train peer mediators',
@@ -8799,7 +8799,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: false,
     resources_needed: ['Self-esteem activities', 'Strengths cards', 'Success journals', 'Affirmation cards', 'Goal-setting materials'],
-    cost_implications: '£30-£100 for resources',
+    cost_implications: 'GBP 30-GBP 100 for resources',
 
     key_components: [
       'Identifying personal strengths',
@@ -8900,7 +8900,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Resilience curriculum', 'Problem-solving activities', 'Coping strategy cards', 'Growth mindset materials'],
-    cost_implications: '£50-£150 for curriculum and resources',
+    cost_implications: 'GBP 50-GBP 150 for curriculum and resources',
 
     key_components: [
       'Problem-solving skills',
@@ -9002,7 +9002,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: false,
     resources_needed: ['Emotion faces/cards', 'Feelings vocabulary resources', 'Books about emotions', 'Emotion thermometer', 'Body maps'],
-    cost_implications: '£30-£100 for resources',
+    cost_implications: 'GBP 30-GBP 100 for resources',
 
     key_components: [
       'Emotion vocabulary (basic and complex emotions)',
@@ -9065,7 +9065,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Trauma-informed practice'
     ],
 
-    implementation_guide: 'EMOTIONAL LITERACY = understanding emotions. Weeks 1-2: BASIC EMOTIONS - happy, sad, angry, scared, surprised. Use faces, stories, photos. Name them. Weeks 3-4: RECOGNIZING IN SELF - "How do you feel?" Check-ins daily. Use emotion fans/charts. Weeks 5-6: RECOGNIZING IN OTHERS - look at faces, body language, tone. Practice with videos/photos. Empathy. Weeks 7-8: CAUSES - what makes you happy/sad/angry/scared? Triggers. Different people feel differently about same thing. Weeks 9-10: PHYSICAL SENSATIONS - where do you feel anger (chest tight, hot face)? Sad? Scared? Body mapping. Weeks 11-12: INTENSITY - emotion thermometer (bit annoyed → angry → furious). Complex emotions (frustrated, disappointed, embarrassed). CRITICAL: Normalize ALL emotions - no "bad" feelings! Validate feelings while teaching appropriate expression.',
+    implementation_guide: 'EMOTIONAL LITERACY = understanding emotions. Weeks 1-2: BASIC EMOTIONS - happy, sad, angry, scared, surprised. Use faces, stories, photos. Name them. Weeks 3-4: RECOGNIZING IN SELF - "How do you feel?" Check-ins daily. Use emotion fans/charts. Weeks 5-6: RECOGNIZING IN OTHERS - look at faces, body language, tone. Practice with videos/photos. Empathy. Weeks 7-8: CAUSES - what makes you happy/sad/angry/scared? Triggers. Different people feel differently about same thing. Weeks 9-10: PHYSICAL SENSATIONS - where do you feel anger (chest tight, hot face)? Sad? Scared? Body mapping. Weeks 11-12: INTENSITY - emotion thermometer (bit annoyed -> angry -> furious). Complex emotions (frustrated, disappointed, embarrassed). CRITICAL: Normalize ALL emotions - no "bad" feelings! Validate feelings while teaching appropriate expression.',
 
     parent_information: 'Emotional literacy means understanding emotions - recognizing them, naming them, knowing what causes them. It\'s the foundation for managing emotions! Your child is learning: emotion vocabulary (happy, sad, angry, scared, worried, excited, proud...), recognizing emotions in themselves and others, what triggers emotions, where they feel emotions in their body. ALL emotions are OK - we\'re teaching healthy ways to express them! At home: emotion check-ins ("how are you feeling?"), name your own emotions ("I feel frustrated because..."), read books about feelings, validate their emotions ("I understand you\'re angry, and hitting is not OK - let\'s find another way"), use emotion faces/charts. Emotional literacy = emotional intelligence!',
 
@@ -9102,7 +9102,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['EBSA assessment tools', 'Anxiety management resources', 'Graduated reintegration plan', 'Safe base in school', 'Home-school communication system'],
-    cost_implications: '£200-£1000+ for assessment and intensive support',
+    cost_implications: 'GBP 200-GBP 1000+ for assessment and intensive support',
 
     key_components: [
       'Comprehensive assessment (not truancy - understand anxiety)',
@@ -9171,7 +9171,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'CAMHS involvement if severe'
     ],
 
-    implementation_guide: 'EBSA ≠ TRUANCY. This is ANXIETY/DISTRESS about school, not refusal. ASSESSMENT: Why is school difficult? (bullying? academic pressure? transitions? sensory? social? separation anxiety? undiagnosed SEND?). What helps? What maintains avoidance? ANXIETY MANAGEMENT: Teach strategies (CBT, relaxation, mindfulness). ADDRESS TRIGGERS: Fix school factors (bullying, work pressure, transitions, sensory environment). GRADUATED REINTEGRATION: DO NOT force full return immediately! Start tiny (visit school briefly, safe room only, one lesson, morning only) → gradually increase. SAFE BASE: Key adult, safe room to retreat to when overwhelmed. PARENT PARTNERSHIP: Support parents - they\'re stressed too! Daily communication. FLEXIBILITY: Bad days will happen - don\'t punish. PATIENCE: This takes TIME! Weeks/months not days. MAINTAIN: Monitor long-term, be ready to support if attendance drops. CRITICAL: Punishment worsens EBSA!',
+    implementation_guide: 'EBSA != TRUANCY. This is ANXIETY/DISTRESS about school, not refusal. ASSESSMENT: Why is school difficult? (bullying? academic pressure? transitions? sensory? social? separation anxiety? undiagnosed SEND?). What helps? What maintains avoidance? ANXIETY MANAGEMENT: Teach strategies (CBT, relaxation, mindfulness). ADDRESS TRIGGERS: Fix school factors (bullying, work pressure, transitions, sensory environment). GRADUATED REINTEGRATION: DO NOT force full return immediately! Start tiny (visit school briefly, safe room only, one lesson, morning only) -> gradually increase. SAFE BASE: Key adult, safe room to retreat to when overwhelmed. PARENT PARTNERSHIP: Support parents - they\'re stressed too! Daily communication. FLEXIBILITY: Bad days will happen - don\'t punish. PATIENCE: This takes TIME! Weeks/months not days. MAINTAIN: Monitor long-term, be ready to support if attendance drops. CRITICAL: Punishment worsens EBSA!',
 
     parent_information: 'EBSA (Emotionally Based School Avoidance) means your child WANTS to attend school but anxiety/distress prevents them - it\'s NOT truancy or naughty behaviour! Morning distress, physical complaints (tummy ache, headache), panic, crying, pleading are signs. We will: understand WHY school is difficult (bullying? work stress? social? sensory? separation anxiety?), fix school problems where possible, teach anxiety management, create a graduated return plan (NOT forced immediate return - this makes it worse!), provide a safe base/person in school, work closely with you. This is HARD for everyone - you need support too! Be patient - improvement is gradual. Punishment doesn\'t work for EBSA. With the right support, children DO return to school! Contact us immediately if attendance drops - early intervention is key.',
 
@@ -9210,7 +9210,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Anger management curriculum', 'Calm-down strategies cards', 'Anger thermometer', 'Problem-solving worksheets', 'Relaxation materials'],
-    cost_implications: '£50-£150 for curriculum and resources',
+    cost_implications: 'GBP 50-GBP 150 for curriculum and resources',
 
     key_components: [
       'Recognizing anger (physical signs, thoughts, triggers)',
@@ -9311,7 +9311,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Bereavement resources', 'Memory boxes', 'Books about death/loss', 'Art materials', 'Referral pathways'],
-    cost_implications: '£50-£200 for resources + specialist training',
+    cost_implications: 'GBP 50-GBP 200 for resources + specialist training',
 
     key_components: [
       'Safe space to express grief',
@@ -9378,7 +9378,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Winston\'s Wish/bereavement charity support'
     ],
 
-    implementation_guide: 'GRIEF IN CHILDREN = different from adults. May not cry constantly, may play/laugh then suddenly sad, may regress, may worry about other deaths. SESSIONS: Safe space, consistent. Early sessions: What happened? What do they understand? What are they feeling? Normalize grief (sad, angry, scared, confused, numb ALL normal). EXPRESSION: Talking, drawing, play, writing, music - whatever works. MEMORY WORK: Memory box, photos, stories, "what I remember about...", continuing bond. NOT "moving on" but "carrying them forward". ADJUSTMENT: Life is different now - acknowledge changes, support with practical adjustments (who picks up from school now? celebrations without them?). FAMILY: Involve family, support parents (grieving themselves), school staff briefed. MONITOR: Most children grieve healthily. Watch for: prolonged intense grief, significant functional impairment, suicidal thoughts, traumatic grief → specialist referral. TIMING: Grief has no timeline - support as long as needed.',
+    implementation_guide: 'GRIEF IN CHILDREN = different from adults. May not cry constantly, may play/laugh then suddenly sad, may regress, may worry about other deaths. SESSIONS: Safe space, consistent. Early sessions: What happened? What do they understand? What are they feeling? Normalize grief (sad, angry, scared, confused, numb ALL normal). EXPRESSION: Talking, drawing, play, writing, music - whatever works. MEMORY WORK: Memory box, photos, stories, "what I remember about...", continuing bond. NOT "moving on" but "carrying them forward". ADJUSTMENT: Life is different now - acknowledge changes, support with practical adjustments (who picks up from school now? celebrations without them?). FAMILY: Involve family, support parents (grieving themselves), school staff briefed. MONITOR: Most children grieve healthily. Watch for: prolonged intense grief, significant functional impairment, suicidal thoughts, traumatic grief -> specialist referral. TIMING: Grief has no timeline - support as long as needed.',
 
     parent_information: 'I\'m so sorry for your family\'s loss. Your child\'s grief will look different from yours - children grieve in bursts, may seem OK then suddenly sad, may not talk about it then bring it up unexpectedly. All reactions are normal. We\'re providing safe space for your child to express feelings, remember the person who died, adjust to life changes. There\'s no "getting over it" - we help them carry the person in their heart while moving forward. At home: be honest (avoid euphemisms like "sleeping"), allow all emotions, maintain routines where possible, keep memories alive, look after yourself (you can\'t support them if you\'re not supported), consider family bereavement support. Contact specialist services if very severe grief. You\'re not alone - we\'re here for your whole family.',
 
@@ -9416,7 +9416,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['PfA planning tools', 'Person-centred planning resources', 'Careers resources', 'Independent living skills materials', 'Community links', 'Work experience placements', 'Travel training resources'],
-    cost_implications: '£500-£2,000 per student (staff time, resources, placements)',
+    cost_implications: 'GBP 500-GBP 2,000 per student (staff time, resources, placements)',
 
     key_components: [
       'Four PfA outcomes: Employment, Independent Living, Community Inclusion, Health',
@@ -9534,7 +9534,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Job coach', 'Employer partnerships', 'Travel training', 'Workplace assessment tools', 'Task analysis resources', 'Communication supports', 'Study programme elements (English, maths)'],
-    cost_implications: '£5,000-£15,000 per student (job coach, college partnership, resources)',
+    cost_implications: 'GBP 5,000-GBP 15,000 per student (job coach, college partnership, resources)',
 
     key_components: [
       'Real work placement (not simulated)',
@@ -9613,7 +9613,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Anxiety management if needed'
     ],
 
-    implementation_guide: 'SUPPORTED INTERNSHIPS = transformative for young people with SEND. NOT work experience (2 weeks). NOT volunteering. PROPER job role with proper job coach support.\n\nPHASE 1 - PREPARATION (Weeks 1-4): Assess student strengths, interests, support needs. Careers guidance. Identify suitable employers. Arrange workplace. Task analysis of job role. Plan support strategies. Travel training begins.\n\nPHASE 2 - INITIAL PLACEMENT (Weeks 5-12): Job coach works alongside student, teaching tasks explicitly using systematic instruction, modeling, practice, feedback. ALL tasks broken down (how to greet customers, how to stock shelves, how to use till, how to ask for help, how to take break, how to handle mistakes). Workplace social skills taught explicitly. Travel training continues.\n\nPHASE 3 - FADING SUPPORT (Weeks 13-30): Job coach gradually steps back as student becomes independent. From 1:1 all day → job coach nearby → check-ins only → occasional visits. BUT support always available if needed. Problem-solving work challenges. Employer feedback.\n\nPHASE 4 - PROGRESSION (Weeks 31+): Goal = PAID EMPLOYMENT. Options: 1) Employer offers job (best outcome!), 2) Use experience/reference for other jobs, 3) Extended internship if more time needed, 4) Further training/qualification then employment. Post-employment support continues (job coach check-ins, employer liaison, problem-solving).\n\nSTUDY PROGRAMME: Integrated English, maths, employability skills (CV, interview, rights at work, money management).\n\nEMPLOYER ENGAGEMENT: Educate about reasonable adjustments, benefits of diverse workforce, job coach role. Match student strengths to business needs. This is mutually beneficial - employers get reliable, motivated worker; student gets real job.\n\nCRITICAL SUCCESS FACTORS: 1) Job coach skilled and committed, 2) Employer genuinely engaged, 3) Tasks taught systematically, 4) Support faded not removed, 5) Student\'s interests/strengths matched to role, 6) Minimum 6 months, 7) Employment is the goal from the start.',
+    implementation_guide: 'SUPPORTED INTERNSHIPS = transformative for young people with SEND. NOT work experience (2 weeks). NOT volunteering. PROPER job role with proper job coach support.\n\nPHASE 1 - PREPARATION (Weeks 1-4): Assess student strengths, interests, support needs. Careers guidance. Identify suitable employers. Arrange workplace. Task analysis of job role. Plan support strategies. Travel training begins.\n\nPHASE 2 - INITIAL PLACEMENT (Weeks 5-12): Job coach works alongside student, teaching tasks explicitly using systematic instruction, modeling, practice, feedback. ALL tasks broken down (how to greet customers, how to stock shelves, how to use till, how to ask for help, how to take break, how to handle mistakes). Workplace social skills taught explicitly. Travel training continues.\n\nPHASE 3 - FADING SUPPORT (Weeks 13-30): Job coach gradually steps back as student becomes independent. From 1:1 all day -> job coach nearby -> check-ins only -> occasional visits. BUT support always available if needed. Problem-solving work challenges. Employer feedback.\n\nPHASE 4 - PROGRESSION (Weeks 31+): Goal = PAID EMPLOYMENT. Options: 1) Employer offers job (best outcome!), 2) Use experience/reference for other jobs, 3) Extended internship if more time needed, 4) Further training/qualification then employment. Post-employment support continues (job coach check-ins, employer liaison, problem-solving).\n\nSTUDY PROGRAMME: Integrated English, maths, employability skills (CV, interview, rights at work, money management).\n\nEMPLOYER ENGAGEMENT: Educate about reasonable adjustments, benefits of diverse workforce, job coach role. Match student strengths to business needs. This is mutually beneficial - employers get reliable, motivated worker; student gets real job.\n\nCRITICAL SUCCESS FACTORS: 1) Job coach skilled and committed, 2) Employer genuinely engaged, 3) Tasks taught systematically, 4) Support faded not removed, 5) Student\'s interests/strengths matched to role, 6) Minimum 6 months, 7) Employment is the goal from the start.',
 
     parent_information: 'A Supported Internship could be life-changing for your child. It\'s a proper job role in a real workplace (retail, hospitality, office, care, warehousing, etc.) with a job coach teaching your child the job. NOT work experience (2 weeks) or volunteering - this is 6-12 months working towards PAID EMPLOYMENT. Your child will learn actual job tasks, workplace behaviour, travel independently, earn references, and build confidence. Research shows 30-40% of young people with learning disabilities on Supported Internships get paid jobs afterwards - compared to only 6% generally. This could be your child\'s route out of NEET and into economic independence. It\'s hard work - full working days, travel, new social situations - but SO worthwhile. Your role: support them through challenges, celebrate progress, liaise with job coach, help with evening routine/sleep (working is tiring!), encourage them. Many parents worry "Can my child really work?" - YES, with the right support and the right match, they absolutely can! This is about aspirations, inclusion, and economic participation.',
 
@@ -9652,7 +9652,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['CBT for depression resources', 'Behavioral activation materials', 'Mood monitoring tools', 'Activity scheduling sheets', 'Risk assessment protocols', 'CAMHS referral pathways'],
-    cost_implications: '£200-£800 (staff training, resources, CAMHS liaison)',
+    cost_implications: 'GBP 200-GBP 800 (staff training, resources, CAMHS liaison)',
 
     key_components: [
       'Comprehensive assessment including risk',
@@ -9718,7 +9718,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Shorter sessions initially if concentration poor'
     ],
 
-    contraindications: ['SEVERE depression → CAMHS urgently', 'Suicidal ideation → safeguarding immediately', 'Psychosis → psychiatric assessment', 'Must work alongside medication if prescribed'],
+    contraindications: ['SEVERE depression -> CAMHS urgently', 'Suicidal ideation -> safeguarding immediately', 'Psychosis -> psychiatric assessment', 'Must work alongside medication if prescribed'],
 
     complementary_interventions: [
       'CAMHS treatment',
@@ -9731,9 +9731,9 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Peer support'
     ],
 
-    implementation_guide: 'DEPRESSION IN ADOLESCENTS = serious mental health condition, NOT "just a phase". Can severely impact education, relationships, development, and carries suicide risk. SCHOOLS CAN HELP but severe cases need CAMHS.\n\nASSESSMENT: How long? How severe? Triggering event or insidious onset? Suicidal thoughts? Self-harm? Functioning (school, friends, self-care)? Family history? Previous episodes? RISK ASSESSMENT - EVERY SESSION. If suicidal ideation → safeguarding procedures immediately.\n\nPSYCHOEDUCATION (Week 1-2): Depression is illness not weakness. Symptoms (low mood, anhedonia, negative thinking, fatigue, sleep/appetite changes, withdrawal). Explaining link between thoughts-feelings-behaviours. Treatment works! Mood monitoring.\n\nBEHAVIORAL ACTIVATION (Weeks 3-6): Depression = withdrawal from activities = more depression = VICIOUS CYCLE. BREAK IT by increasing pleasant/meaningful activities even if "don\'t feel like it". Activity scheduling - start tiny (10 min walk, text a friend, listen to music) → build up. Schedule daily. Achievement AND pleasure. Movement especially helpful.\n\nCOGNITIVE WORK (Weeks 7-10): Identify negative automatic thoughts ("I\'m worthless", "Nothing will get better", "Everyone hates me"). Challenge them - evidence? Alternative explanations? What would you tell a friend? Replace with balanced thoughts. Rumination vs problem-solving.\n\nPROBLEM-SOLVING (Weeks 11-12): Depression often linked to real problems (bullying, academic pressure, family issues, identity struggles). Systematic problem-solving approach. What CAN be changed? What support needed?\n\nSLEEP & ROUTINE (Throughout): Sleep hygiene critical. Regular sleep/wake times, limit screens, bedroom environment. Daily routine (depression loves chaos).\n\nRELAPSE PREVENTION (Weeks 13-15): Warning signs. Coping strategies. Support network. Maintenance plan. When to seek help again.\n\nFAMILY: Educate about depression, involvement in behavioural activation, reducing criticism, support without enabling withdrawal.\n\nCAMHS REFERRAL if: Severe depression, suicidal ideation/plans, self-harm, not responding to school-based intervention, psychotic symptoms, safeguarding concerns.',
+    implementation_guide: 'DEPRESSION IN ADOLESCENTS = serious mental health condition, NOT "just a phase". Can severely impact education, relationships, development, and carries suicide risk. SCHOOLS CAN HELP but severe cases need CAMHS.\n\nASSESSMENT: How long? How severe? Triggering event or insidious onset? Suicidal thoughts? Self-harm? Functioning (school, friends, self-care)? Family history? Previous episodes? RISK ASSESSMENT - EVERY SESSION. If suicidal ideation -> safeguarding procedures immediately.\n\nPSYCHOEDUCATION (Week 1-2): Depression is illness not weakness. Symptoms (low mood, anhedonia, negative thinking, fatigue, sleep/appetite changes, withdrawal). Explaining link between thoughts-feelings-behaviours. Treatment works! Mood monitoring.\n\nBEHAVIORAL ACTIVATION (Weeks 3-6): Depression = withdrawal from activities = more depression = VICIOUS CYCLE. BREAK IT by increasing pleasant/meaningful activities even if "don\'t feel like it". Activity scheduling - start tiny (10 min walk, text a friend, listen to music) -> build up. Schedule daily. Achievement AND pleasure. Movement especially helpful.\n\nCOGNITIVE WORK (Weeks 7-10): Identify negative automatic thoughts ("I\'m worthless", "Nothing will get better", "Everyone hates me"). Challenge them - evidence? Alternative explanations? What would you tell a friend? Replace with balanced thoughts. Rumination vs problem-solving.\n\nPROBLEM-SOLVING (Weeks 11-12): Depression often linked to real problems (bullying, academic pressure, family issues, identity struggles). Systematic problem-solving approach. What CAN be changed? What support needed?\n\nSLEEP & ROUTINE (Throughout): Sleep hygiene critical. Regular sleep/wake times, limit screens, bedroom environment. Daily routine (depression loves chaos).\n\nRELAPSE PREVENTION (Weeks 13-15): Warning signs. Coping strategies. Support network. Maintenance plan. When to seek help again.\n\nFAMILY: Educate about depression, involvement in behavioural activation, reducing criticism, support without enabling withdrawal.\n\nCAMHS REFERRAL if: Severe depression, suicidal ideation/plans, self-harm, not responding to school-based intervention, psychotic symptoms, safeguarding concerns.',
 
-    parent_information: 'Your child is experiencing depression - this is a real mental health condition, not "being difficult" or "a phase". Depression in teenagers looks different from adults - may be irritable not sad, withdrawn, loss of interest in everything, sleep changes, drop in grades, self-criticism. It\'s NOT your fault. Depression has many causes - biology, genetics, stress, trauma. We\'re providing evidence-based support using CBT and behavioural activation to help your child\'s mood improve. At home: encourage activities even if they "don\'t feel like it" (depression lies - doing nothing makes it worse), maintain routine, reduce criticism (they\'re suffering already), listen without trying to "fix" everything, look after yourself (supporting a depressed teen is exhausting), watch for risk (talk of suicide, self-harm → seek help immediately). Depression is treatable - most young people recover with the right support. If severe, CAMHS referral may be needed. You\'re not alone - we\'re here to support your whole family.',
+    parent_information: 'Your child is experiencing depression - this is a real mental health condition, not "being difficult" or "a phase". Depression in teenagers looks different from adults - may be irritable not sad, withdrawn, loss of interest in everything, sleep changes, drop in grades, self-criticism. It\'s NOT your fault. Depression has many causes - biology, genetics, stress, trauma. We\'re providing evidence-based support using CBT and behavioural activation to help your child\'s mood improve. At home: encourage activities even if they "don\'t feel like it" (depression lies - doing nothing makes it worse), maintain routine, reduce criticism (they\'re suffering already), listen without trying to "fix" everything, look after yourself (supporting a depressed teen is exhausting), watch for risk (talk of suicide, self-harm -> seek help immediately). Depression is treatable - most young people recover with the right support. If severe, CAMHS referral may be needed. You\'re not alone - we\'re here to support your whole family.',
 
     useful_links: [
       'https://www.youngminds.org.uk/young-person/mental-health-conditions/depression',
@@ -9771,7 +9771,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Self-harm assessment tools', 'Risk assessment protocols', 'DBT distress tolerance skills', 'Alternative coping strategies resources', 'Harm minimization guidance', 'CAMHS referral pathways', 'Safeguarding procedures'],
-    cost_implications: '£300-£1,000 (specialist training, resources, CAMHS liaison)',
+    cost_implications: 'GBP 300-GBP 1,000 (specialist training, resources, CAMHS liaison)',
 
     key_components: [
       'Comprehensive risk assessment (suicidality? severity?)',
@@ -9838,7 +9838,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Extended duration if needed'
     ],
 
-    contraindications: ['SUICIDAL SELF-HARM → CAMHS urgently + safeguarding', 'Severe/life-threatening → medical + psychiatric assessment', 'Cannot be sole intervention if severe - needs CAMHS'],
+    contraindications: ['SUICIDAL SELF-HARM -> CAMHS urgently + safeguarding', 'Severe/life-threatening -> medical + psychiatric assessment', 'Cannot be sole intervention if severe - needs CAMHS'],
 
     complementary_interventions: [
       'CAMHS treatment',
@@ -9850,9 +9850,9 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Medication if prescribed'
     ],
 
-    implementation_guide: 'SELF-HARM = COPING STRATEGY (unhealthy but functional). Young person is in distress and self-harm is how they\'re managing. Our job = understand why, teach better coping, address underlying pain. NOT punishment, NOT anger, NOT "attention-seeking" (even if communication function, still valid need!).\n\nASSESSMENT: When? How? Where? How often? How severe? (Medical risk?) What triggers? What function? (Emotion regulation - "releases tension"? Self-punishment - "I deserve pain"? Communication - "I need help"? Dissociation - "feel something"?) Suicidal intent? (CRITICAL: self-harm to cope ≠ suicide attempt, but can overlap). Social contagion? Other mental health issues?\n\nRISK ASSESSMENT EVERY SESSION: Recent self-harm? Suicidal thoughts? Plans? Access to means? Safety? → Safeguarding if high risk.\n\nBUILDING RELATIONSHIP (Weeks 1-3): MUST be non-judgmental. "I\'m worried about you" not "That\'s stupid/attention-seeking". Validate distress. Self-harm makes sense as coping (even if we want to replace it). Psychoeducation - why does self-harm "work"? (Endorphins, distraction, release, control). NOT "just stop" - need alternatives first.\n\nEMOTIONAL AWARENESS (Weeks 4-6): Many young people who self-harm can\'t identify emotions. "I just feel BAD". Emotion labeling. Triggers. Warning signs ("When I feel [emotion], I want to self-harm").\n\nALTERNATIVE COPING STRATEGIES (Weeks 7-12): CRITICAL - need alternatives BEFORE stopping self-harm. Distress tolerance skills (DBT): 1) DISTRACTION - intense activity, cold water, loud music, talking to someone. 2) SELF-SOOTHING - senses (soft blanket, nice smell, favorite song). 3) OPPOSITE ACTION - feeling angry? Do something gentle. Feeling sad? Do something uplifting. 4) PROS & CONS - of self-harming vs coping differently. 5) RIDE THE WAVE - urges peak then reduce. What works is individual - brainstorm, practice, identify what helps. NO JUDGMENT if self-harm happens - "What did you need in that moment? What else could you try next time?"\n\nUNDERLYING ISSUES (Weeks 13-18): Self-harm is symptom not cause. What\'s the pain underneath? Trauma? Bullying? Identity struggles? Family issues? Depression? Anxiety? Address these.\n\nSAFETY PLANNING: Who can I contact? What can I do? Where can I go? Safe environment? Remove means if possible.\n\nHARM MINIMIZATION (Controversial but pragmatic): If unable to stop immediately, how to reduce harm? Clean skin/tools? Treat wounds? Delay (15 minutes first)? Less severe method? (NOT condoning - reducing risk while building alternatives).\n\nFAMILY: Parents often terrified, angry, feeling helpless. Educate about self-harm, non-judgmental responses, support without surveillance, when to seek emergency help.\n\nCAMHS REFERRAL if: Suicidal intent, severe/frequent/escalating, not responding to school intervention, complex mental health needs.',
+    implementation_guide: 'SELF-HARM = COPING STRATEGY (unhealthy but functional). Young person is in distress and self-harm is how they\'re managing. Our job = understand why, teach better coping, address underlying pain. NOT punishment, NOT anger, NOT "attention-seeking" (even if communication function, still valid need!).\n\nASSESSMENT: When? How? Where? How often? How severe? (Medical risk?) What triggers? What function? (Emotion regulation - "releases tension"? Self-punishment - "I deserve pain"? Communication - "I need help"? Dissociation - "feel something"?) Suicidal intent? (CRITICAL: self-harm to cope != suicide attempt, but can overlap). Social contagion? Other mental health issues?\n\nRISK ASSESSMENT EVERY SESSION: Recent self-harm? Suicidal thoughts? Plans? Access to means? Safety? -> Safeguarding if high risk.\n\nBUILDING RELATIONSHIP (Weeks 1-3): MUST be non-judgmental. "I\'m worried about you" not "That\'s stupid/attention-seeking". Validate distress. Self-harm makes sense as coping (even if we want to replace it). Psychoeducation - why does self-harm "work"? (Endorphins, distraction, release, control). NOT "just stop" - need alternatives first.\n\nEMOTIONAL AWARENESS (Weeks 4-6): Many young people who self-harm can\'t identify emotions. "I just feel BAD". Emotion labeling. Triggers. Warning signs ("When I feel [emotion], I want to self-harm").\n\nALTERNATIVE COPING STRATEGIES (Weeks 7-12): CRITICAL - need alternatives BEFORE stopping self-harm. Distress tolerance skills (DBT): 1) DISTRACTION - intense activity, cold water, loud music, talking to someone. 2) SELF-SOOTHING - senses (soft blanket, nice smell, favorite song). 3) OPPOSITE ACTION - feeling angry? Do something gentle. Feeling sad? Do something uplifting. 4) PROS & CONS - of self-harming vs coping differently. 5) RIDE THE WAVE - urges peak then reduce. What works is individual - brainstorm, practice, identify what helps. NO JUDGMENT if self-harm happens - "What did you need in that moment? What else could you try next time?"\n\nUNDERLYING ISSUES (Weeks 13-18): Self-harm is symptom not cause. What\'s the pain underneath? Trauma? Bullying? Identity struggles? Family issues? Depression? Anxiety? Address these.\n\nSAFETY PLANNING: Who can I contact? What can I do? Where can I go? Safe environment? Remove means if possible.\n\nHARM MINIMIZATION (Controversial but pragmatic): If unable to stop immediately, how to reduce harm? Clean skin/tools? Treat wounds? Delay (15 minutes first)? Less severe method? (NOT condoning - reducing risk while building alternatives).\n\nFAMILY: Parents often terrified, angry, feeling helpless. Educate about self-harm, non-judgmental responses, support without surveillance, when to seek emergency help.\n\nCAMHS REFERRAL if: Suicidal intent, severe/frequent/escalating, not responding to school intervention, complex mental health needs.',
 
-    parent_information: 'Learning your child self-harms is devastating - you may feel scared, angry, guilty, helpless. First: this is NOT your fault. Self-harm is your child\'s way of coping with overwhelming distress - it "works" for them in the moment (releases tension, expresses pain, feel in control). Our goal is to understand WHY they\'re in such distress, and teach healthier coping strategies. Self-harm ≠ suicide attempt (though can co-exist), but it IS a sign your child is struggling. At home: stay calm (hard!), don\'t punish or remove sharps dramatically (surveillance can increase shame), DO say "I\'m worried about you, how can I help?", listen without judgment, help them use alternative coping strategies, look after yourself (this is traumatic for parents too), know when to seek emergency help (suicidal, severe injury, rapid escalation → A&E or crisis services). Most young people who self-harm DO stop with the right support. If severe, CAMHS involvement needed. Resources: Young Minds parents helpline, Self-harm support organizations. You\'re not alone.',
+    parent_information: 'Learning your child self-harms is devastating - you may feel scared, angry, guilty, helpless. First: this is NOT your fault. Self-harm is your child\'s way of coping with overwhelming distress - it "works" for them in the moment (releases tension, expresses pain, feel in control). Our goal is to understand WHY they\'re in such distress, and teach healthier coping strategies. Self-harm != suicide attempt (though can co-exist), but it IS a sign your child is struggling. At home: stay calm (hard!), don\'t punish or remove sharps dramatically (surveillance can increase shame), DO say "I\'m worried about you, how can I help?", listen without judgment, help them use alternative coping strategies, look after yourself (this is traumatic for parents too), know when to seek emergency help (suicidal, severe injury, rapid escalation -> A&E or crisis services). Most young people who self-harm DO stop with the right support. If severe, CAMHS involvement needed. Resources: Young Minds parents helpline, Self-harm support organizations. You\'re not alone.',
 
     useful_links: [
       'https://www.youngminds.org.uk/young-person/coping-with-life/self-harm',
@@ -9890,7 +9890,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Anti-bullying policy', 'PSHE anti-bullying curriculum', 'Reporting systems', 'Incident recording', 'Restorative justice resources', 'Parent information', 'Peer support training', 'Monitoring data systems'],
-    cost_implications: '£1,000-£5,000 (staff training, resources, programmes, time)',
+    cost_implications: 'GBP 1,000-GBP 5,000 (staff training, resources, programmes, time)',
 
     key_components: [
       'Clear anti-bullying policy (definition, procedures, consequences)',
@@ -9961,7 +9961,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Multi-agency for severe cases'
     ],
 
-    contraindications: ['Mediation NOT appropriate if power imbalance or serious harm', 'Restorative approaches only when victim feels safe', 'Criminal matters (assault, sexual harassment) → police'],
+    contraindications: ['Mediation NOT appropriate if power imbalance or serious harm', 'Restorative approaches only when victim feels safe', 'Criminal matters (assault, sexual harassment) -> police'],
 
     complementary_interventions: [
       'Restorative justice',
@@ -10013,7 +10013,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Ambassador training programme', 'Diana Award resources or similar', 'Badges/visibility', 'Campaign materials', 'Meeting space', 'Staff coordinator time', 'Peer support protocols'],
-    cost_implications: '£200-£1,000 (training, resources, Diana Award accreditation optional)',
+    cost_implications: 'GBP 200-GBP 1,000 (training, resources, Diana Award accreditation optional)',
 
     key_components: [
       'Selection of diverse student ambassadors (application or nomination)',
@@ -10088,7 +10088,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Mental health awareness'
     ],
 
-    implementation_guide: 'ANTI-BULLYING AMBASSADORS = student-led approach empowering young people to create kind, respectful school culture. Complements (not replaces) staff-led anti-bullying work.\n\nRECRUITMENT: Open to all (application or nomination). Select diverse group representing whole school community (year groups, genders, backgrounds, SEND). Interview or application process. Around 10-30 ambassadors depending on school size.\n\nTRAINING (Minimum half-day): 1) What is bullying? Types, impact, difference from conflict. 2) Role of ambassadors - awareness raising, peer support, reporting, campaigns. NOT investigation or mediation! 3) Listening skills and empathy. 4) Boundaries and safeguarding - when to refer to staff immediately. 5) Self-care - looking after yourself. 6) Planning campaigns.\n\nVISIBILITY: Badges, posters, assembly introduction, newsletter, website. Students need to KNOW who ambassadors are and how to access them.\n\nAWARENESS CAMPAIGNS: Anti-Bullying Week (November), Safer Internet Day (February), regular assemblies, posters, videos, social media (if age-appropriate). Creative, student-led.\n\nPEER SUPPORT: Available at break/lunch, designated space or roaming. Listening, signposting, reassuring. "I\'m here if you want to talk." If bullying disclosed → report to staff immediately. NOT trying to solve - supporting and referring.\n\nMEETINGS: Weekly or fortnightly. Plan campaigns, share observations (general not names), training top-ups, problem-solving, support each other. Staff coordinator leads.\n\nSAFEGUARDING: CRITICAL - ambassadors MUST know when to refer to staff (any bullying, safeguarding concern, beyond their role). They are NOT counselors or investigators. Clear protocols.\n\nRECOGNITION: Certificates, references, celebration events, Diana Award accreditation. Acknowledge their commitment.\n\nSUSTAINABILITY: New ambassadors recruited annually. Older ambassadors mentor new ones. Embedded in school culture.',
+    implementation_guide: 'ANTI-BULLYING AMBASSADORS = student-led approach empowering young people to create kind, respectful school culture. Complements (not replaces) staff-led anti-bullying work.\n\nRECRUITMENT: Open to all (application or nomination). Select diverse group representing whole school community (year groups, genders, backgrounds, SEND). Interview or application process. Around 10-30 ambassadors depending on school size.\n\nTRAINING (Minimum half-day): 1) What is bullying? Types, impact, difference from conflict. 2) Role of ambassadors - awareness raising, peer support, reporting, campaigns. NOT investigation or mediation! 3) Listening skills and empathy. 4) Boundaries and safeguarding - when to refer to staff immediately. 5) Self-care - looking after yourself. 6) Planning campaigns.\n\nVISIBILITY: Badges, posters, assembly introduction, newsletter, website. Students need to KNOW who ambassadors are and how to access them.\n\nAWARENESS CAMPAIGNS: Anti-Bullying Week (November), Safer Internet Day (February), regular assemblies, posters, videos, social media (if age-appropriate). Creative, student-led.\n\nPEER SUPPORT: Available at break/lunch, designated space or roaming. Listening, signposting, reassuring. "I\'m here if you want to talk." If bullying disclosed -> report to staff immediately. NOT trying to solve - supporting and referring.\n\nMEETINGS: Weekly or fortnightly. Plan campaigns, share observations (general not names), training top-ups, problem-solving, support each other. Staff coordinator leads.\n\nSAFEGUARDING: CRITICAL - ambassadors MUST know when to refer to staff (any bullying, safeguarding concern, beyond their role). They are NOT counselors or investigators. Clear protocols.\n\nRECOGNITION: Certificates, references, celebration events, Diana Award accreditation. Acknowledge their commitment.\n\nSUSTAINABILITY: New ambassadors recruited annually. Older ambassadors mentor new ones. Embedded in school culture.',
 
     parent_information: 'Our school has Anti-Bullying Ambassadors - trained student volunteers who promote kindness and support peers. They run awareness campaigns, provide peer listening, and help create a positive school culture. Ambassadors are NOT investigators - they support students and refer concerns to staff. If your child is interested in being an ambassador, they can apply [details]. If your child is experiencing bullying, they can talk to an ambassador who will ensure they get adult support. This peer-led approach empowers students to be part of the solution. Anti-Bullying Ambassadors complement our whole-school anti-bullying work - staff remain responsible for investigating and resolving bullying.',
 
@@ -10127,7 +10127,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: false,
     resources_needed: ['Study skills workbook', 'Revision planners', 'Timer/time management tools', 'Past papers', 'Mind mapping materials', 'Flashcard systems', 'Retrieval practice resources', 'Online study tools'],
-    cost_implications: '£50-£200 per student (resources, workbooks)',
+    cost_implications: 'GBP 50-GBP 200 per student (resources, workbooks)',
 
     key_components: [
       'Metacognition (thinking about learning)',
@@ -10209,7 +10209,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Mentoring'
     ],
 
-    implementation_guide: 'STUDY SKILLS GAP = CRITICAL! Many students, especially those with SEND, have NEVER been explicitly taught HOW to learn. They re-read notes passively, cram last-minute, don\'t plan. TEACH THEM!\n\nEVIDENCE-BASED REVISION TECHNIQUES (Dunlosky et al.):\n✅ HIGH UTILITY:\n1) RETRIEVAL PRACTICE - test yourself! Flashcards, past papers, quiz yourself. Pulling information from memory STRENGTHENS it. WAY more effective than re-reading. "If you can\'t recall it, you don\'t know it."\n2) SPACED PRACTICE - spread revision over time. NOT cramming! Study Topic A today, Topic B tomorrow, back to A next week. Spacing = better long-term retention.\n3) INTERLEAVING - mix up topics instead of blocking. Study Maths equations then History then back to Maths. Builds flexibility.\n\n❌ LOW UTILITY (but students love them!):\n- Re-reading notes passively (illusion of fluency)\n- Highlighting (doesn\'t engage brain)\n- Summarizing only (better than nothing but not as good as retrieval)\n\nWeek 1-2: METACOGNITION: "How do you currently revise?" (Most say: re-read notes, make pretty notes). "Is it working?" Teach: active vs passive learning. Brain science - testing strengthens memory, passive reading doesn\'t.\n\nWeek 3-4: PLANNING & TIME MANAGEMENT: Create revision timetable. Identify all topics, time available, allocate realistically. Break big tasks into small chunks. Use timer (Pomodoro: 25 min work, 5 min break). Start EARLY not last-minute.\n\nWeek 5-6: NOTE-TAKING: Cornell notes (question/notes/summary). Mind maps. Condensing notes. Organized filing. DON\'T spend hours making beautiful notes (procrastination!). Notes are for USING not admiring.\n\nWeek 7-8: RETRIEVAL PRACTICE: Flashcards (Quizlet), past papers, practice questions, blank page - write everything you know, quiz yourself. Self-test BEFORE looking at answers. Struggle = learning!\n\nWeek 9-10: EXAM TECHNIQUE: Read question carefully, underline key words, plan answer, time management in exam, structure, check work. Practice with past papers.\n\nWeek 11-12: AVOIDING PROCRASTINATION & EXAM ANXIETY: Procrastination = task feels overwhelming → break it down, start tiny (5 min), remove distractions. Exam anxiety - breathing, preparation reduces anxiety, positive self-talk.\n\nAPPLICATION: Students apply techniques to REAL subjects. Science test next week? Create flashcards, self-test, spaced practice.\n\nPARENTS: Help with revision timetable, test them (retrieval!), minimize distractions, encourage early start not cramming.',
+    implementation_guide: 'STUDY SKILLS GAP = CRITICAL! Many students, especially those with SEND, have NEVER been explicitly taught HOW to learn. They re-read notes passively, cram last-minute, don\'t plan. TEACH THEM!\n\nEVIDENCE-BASED REVISION TECHNIQUES (Dunlosky et al.):\nOK HIGH UTILITY:\n1) RETRIEVAL PRACTICE - test yourself! Flashcards, past papers, quiz yourself. Pulling information from memory STRENGTHENS it. WAY more effective than re-reading. "If you can\'t recall it, you don\'t know it."\n2) SPACED PRACTICE - spread revision over time. NOT cramming! Study Topic A today, Topic B tomorrow, back to A next week. Spacing = better long-term retention.\n3) INTERLEAVING - mix up topics instead of blocking. Study Maths equations then History then back to Maths. Builds flexibility.\n\nFAIL LOW UTILITY (but students love them!):\n- Re-reading notes passively (illusion of fluency)\n- Highlighting (doesn\'t engage brain)\n- Summarizing only (better than nothing but not as good as retrieval)\n\nWeek 1-2: METACOGNITION: "How do you currently revise?" (Most say: re-read notes, make pretty notes). "Is it working?" Teach: active vs passive learning. Brain science - testing strengthens memory, passive reading doesn\'t.\n\nWeek 3-4: PLANNING & TIME MANAGEMENT: Create revision timetable. Identify all topics, time available, allocate realistically. Break big tasks into small chunks. Use timer (Pomodoro: 25 min work, 5 min break). Start EARLY not last-minute.\n\nWeek 5-6: NOTE-TAKING: Cornell notes (question/notes/summary). Mind maps. Condensing notes. Organized filing. DON\'T spend hours making beautiful notes (procrastination!). Notes are for USING not admiring.\n\nWeek 7-8: RETRIEVAL PRACTICE: Flashcards (Quizlet), past papers, practice questions, blank page - write everything you know, quiz yourself. Self-test BEFORE looking at answers. Struggle = learning!\n\nWeek 9-10: EXAM TECHNIQUE: Read question carefully, underline key words, plan answer, time management in exam, structure, check work. Practice with past papers.\n\nWeek 11-12: AVOIDING PROCRASTINATION & EXAM ANXIETY: Procrastination = task feels overwhelming -> break it down, start tiny (5 min), remove distractions. Exam anxiety - breathing, preparation reduces anxiety, positive self-talk.\n\nAPPLICATION: Students apply techniques to REAL subjects. Science test next week? Create flashcards, self-test, spaced practice.\n\nPARENTS: Help with revision timetable, test them (retrieval!), minimize distractions, encourage early start not cramming.',
 
     parent_information: 'Your child is learning HOW to study effectively - a skill often not taught explicitly. Most students revise ineffectively (re-reading notes, highlighting, cramming) which creates illusion of learning but poor exam performance. We\'re teaching EVIDENCE-BASED techniques: 1) RETRIEVAL PRACTICE - self-testing (flashcards, past papers) is THE most effective revision method. 2) SPACED PRACTICE - spreading revision over weeks, not cramming night before. 3) PLANNING - revision timetables, breaking tasks down, starting early. At home: help them create and stick to revision plan, test them (it helps!), encourage active not passive revision, minimize phone/social media during study, support but don\'t do the work for them, praise effort and improvement. These skills = lifelong benefit! Students who master effective study strategies succeed academically and become independent learners. Study skills matter as much as subject knowledge.',
 
@@ -10249,7 +10249,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Diagnostic assessment tools', 'Subject-specific intervention programmes', 'Manipulatives (maths)', 'Phonics resources (reading)', 'Progress tracking system', 'Catch-up curriculum resources'],
-    cost_implications: '£500-£2,000 per student (staff time, resources, assessments)',
+    cost_implications: 'GBP 500-GBP 2,000 per student (staff time, resources, assessments)',
 
     key_components: [
       'Diagnostic assessment (where are the gaps?)',
@@ -10370,7 +10370,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: false,
     resources_needed: ['Growth mindset resources', 'Strengths cards/assessments', 'Positive psychology workbooks', 'Goal-setting materials', 'Gratitude journals', 'Celebration systems'],
-    cost_implications: '£50-£200 (resources, training)',
+    cost_implications: 'GBP 50-GBP 200 (resources, training)',
 
     key_components: [
       'Fixed vs growth mindset teaching',
@@ -10493,7 +10493,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: false,
     resources_needed: ['Transition workbooks', 'Photos/virtual tour of secondary school', 'Secondary school liaison', 'Social stories', 'Transition passport', 'Buddy system materials'],
-    cost_implications: '£100-£500 per student (staff time, resources, extra visits)',
+    cost_implications: 'GBP 100-GBP 500 per student (staff time, resources, extra visits)',
 
     key_components: [
       'Early identification of vulnerable students',
@@ -10615,7 +10615,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Nurture room', 'Homely resources (kitchen area, comfortable seating, toys, books)', 'Boxall Profile', 'Developmental curriculum', 'Routine visual supports', 'Breakfast/snack provision', '2 trained staff (teacher/TA)'],
-    cost_implications: '£10,000-£30,000 per group per year (staffing, room, resources)',
+    cost_implications: 'GBP 10,000-GBP 30,000 per group per year (staffing, room, resources)',
 
     key_components: [
       'Small group (max 6-12 children)',
@@ -10724,11 +10724,11 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     name: 'Social Stories for Autism Spectrum Understanding',
     category: 'social_emotional',
     subcategory: 'autism_support',
-    description: 'Personalized Social Stories™ intervention using short, structured stories to teach autistic students about social situations, expectations, and appropriate responses. Evidence-based visual and narrative approach addressing social understanding and anxiety in autism.',
+    description: 'Personalized Social StoriesTM intervention using short, structured stories to teach autistic students about social situations, expectations, and appropriate responses. Evidence-based visual and narrative approach addressing social understanding and anxiety in autism.',
     targeted_needs: ['Autism/ASC', 'Social understanding difficulties', 'Anxiety about new situations', 'Behavior in specific contexts', 'Transition difficulties', 'Unexpected change', 'Social communication gaps', 'Literal thinking', 'Need for predictability'],
 
     evidence_level: 'tier_1',
-    research_sources: ['Carol Gray Social Stories™ research', 'NICE Autism guidelines', 'National Autistic Society', 'NPDC Evidence-Based Practices', 'Autism-specific pedagogy'],
+    research_sources: ['Carol Gray Social StoriesTM research', 'NICE Autism guidelines', 'National Autistic Society', 'NPDC Evidence-Based Practices', 'Autism-specific pedagogy'],
     effect_size: 0.64,
     success_rate: '65-80% show improved understanding and behaviour',
 
@@ -10740,12 +10740,12 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
 
     complexity: 'medium',
     staff_training_required: true,
-    resources_needed: ['Social Stories™ training/guidelines', 'Writing materials', 'Photos/visuals', 'Laminator', 'Digital tools (for video social stories)', 'Storage system'],
-    cost_implications: '£50-£200 (training, resources, staff time to create stories)',
+    resources_needed: ['Social StoriesTM training/guidelines', 'Writing materials', 'Photos/visuals', 'Laminator', 'Digital tools (for video social stories)', 'Storage system'],
+    cost_implications: 'GBP 50-GBP 200 (training, resources, staff time to create stories)',
 
     key_components: [
       'Personalized to student (photo, interests, specific situation)',
-      'Specific Social Story™ structure (descriptive, perspective, directive sentences)',
+      'Specific Social StoryTM structure (descriptive, perspective, directive sentences)',
       'Positive, reassuring tone',
       'Visual supports (photos, symbols, drawings)',
       'Repeated reading (before and during situation)',
@@ -10759,7 +10759,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     ],
 
     fidelity_checklist: [
-      'Story follows Social Stories™ guidelines (Carol Gray)',
+      'Story follows Social StoriesTM guidelines (Carol Gray)',
       'Written from student perspective (first person)',
       'Positive, patient tone',
       'Appropriate sentence ratio (descriptive, perspective, directive)',
@@ -10810,7 +10810,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Siblings/peers can have copy too (whole-class understanding)'
     ],
 
-    contraindications: ['Must follow Social Stories™ format - poorly written stories ineffective or harmful', 'Not for punishment or coercion', 'Should be positive and descriptive not directive only'],
+    contraindications: ['Must follow Social StoriesTM format - poorly written stories ineffective or harmful', 'Not for punishment or coercion', 'Should be positive and descriptive not directive only'],
 
     complementary_interventions: [
       'Visual timetables',
@@ -10823,7 +10823,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Positive behaviour support'
     ],
 
-    implementation_guide: 'SOCIAL STORIES™ = Carol Gray\'s evidence-based intervention for AUTISM. Autistic students often struggle with: unpredictability, social expectations (unspoken rules), perspective-taking, anxiety about unknowns. Social Stories EXPLICITLY TEACH what to expect and how to respond.\n\nWHEN TO USE: New situations (starting school, assembly, fire drill), challenging situations (lunch hall, playground, transitions), behaviour targets (taking turns, asking for help), anxiety-provoking events (dentist, school trip, change in routine).\n\nSTRUCTURE (Carol Gray\'s guidelines):\n1) DESCRIPTIVE sentences - objective facts about situation. "Sometimes at school we have fire drills."\n2) PERSPECTIVE sentences - others\' thoughts/feelings. "The teacher wants everyone to be safe."\n3) DIRECTIVE sentences - what student should do. "I will line up quietly."\n4) Ratio: More descriptive/perspective, fewer directive. (NOT just rules!)\n\nTONE: Positive, patient, reassuring. NOT threatening or punishing. "This is what happens, this is what you can do, you\'ll be OK."\n\nPERSONALIZATION: Use student\'s name, photo, interests. Photos of ACTUAL environment/people. First person ("I", "my"). Specific to student\'s needs.\n\nVISUALS: Photos >> symbols >> drawings. Real photos of school, teachers, situations most helpful. Match student\'s processing (some need words+pictures, others pictures only).\n\nLENGTH: Depends on student. Young/complex needs: 1-2 sentences + pictures. Older/able: full page. Keep it SHORT - long stories lose attention.\n\nIMPLEMENTATION:\n1) WRITE story (follow guidelines, personalize, visuals)\n2) INTRODUCE: Read together, discuss, answer questions\n3) PRACTICE: Read daily BEFORE relevant situation (e.g., read fire drill story every morning)\n4) AVAILABLE: Have story accessible during situation if needed\n5) REVIEW: Did it help? Adjust if needed\n6) FADE: As student internalizes, reduce frequency\n\nEXAMPLE - Fire Drill Story:\n"Sometimes at school we have fire drills. [PHOTO of school]\nThe fire alarm is loud. It helps everyone know to leave the building. [PHOTO of alarm]\nMy teacher, Miss Smith, will tell us to line up. [PHOTO of Miss Smith]\nI will line up quietly with my class. [PHOTO of student lining up]\nWe will walk outside to the playground. [PHOTO of playground]\nWe will wait until the drill is finished. [PHOTO of class waiting]\nThen we will go back inside. I will be safe. [PHOTO of student smiling]"\n\nCOMMON MISTAKES: Too long, too directive (just rules), punishing tone, not personalized, no visuals, not reading it regularly.',
+    implementation_guide: 'SOCIAL STORIESTM = Carol Gray\'s evidence-based intervention for AUTISM. Autistic students often struggle with: unpredictability, social expectations (unspoken rules), perspective-taking, anxiety about unknowns. Social Stories EXPLICITLY TEACH what to expect and how to respond.\n\nWHEN TO USE: New situations (starting school, assembly, fire drill), challenging situations (lunch hall, playground, transitions), behaviour targets (taking turns, asking for help), anxiety-provoking events (dentist, school trip, change in routine).\n\nSTRUCTURE (Carol Gray\'s guidelines):\n1) DESCRIPTIVE sentences - objective facts about situation. "Sometimes at school we have fire drills."\n2) PERSPECTIVE sentences - others\' thoughts/feelings. "The teacher wants everyone to be safe."\n3) DIRECTIVE sentences - what student should do. "I will line up quietly."\n4) Ratio: More descriptive/perspective, fewer directive. (NOT just rules!)\n\nTONE: Positive, patient, reassuring. NOT threatening or punishing. "This is what happens, this is what you can do, you\'ll be OK."\n\nPERSONALIZATION: Use student\'s name, photo, interests. Photos of ACTUAL environment/people. First person ("I", "my"). Specific to student\'s needs.\n\nVISUALS: Photos >> symbols >> drawings. Real photos of school, teachers, situations most helpful. Match student\'s processing (some need words+pictures, others pictures only).\n\nLENGTH: Depends on student. Young/complex needs: 1-2 sentences + pictures. Older/able: full page. Keep it SHORT - long stories lose attention.\n\nIMPLEMENTATION:\n1) WRITE story (follow guidelines, personalize, visuals)\n2) INTRODUCE: Read together, discuss, answer questions\n3) PRACTICE: Read daily BEFORE relevant situation (e.g., read fire drill story every morning)\n4) AVAILABLE: Have story accessible during situation if needed\n5) REVIEW: Did it help? Adjust if needed\n6) FADE: As student internalizes, reduce frequency\n\nEXAMPLE - Fire Drill Story:\n"Sometimes at school we have fire drills. [PHOTO of school]\nThe fire alarm is loud. It helps everyone know to leave the building. [PHOTO of alarm]\nMy teacher, Miss Smith, will tell us to line up. [PHOTO of Miss Smith]\nI will line up quietly with my class. [PHOTO of student lining up]\nWe will walk outside to the playground. [PHOTO of playground]\nWe will wait until the drill is finished. [PHOTO of class waiting]\nThen we will go back inside. I will be safe. [PHOTO of student smiling]"\n\nCOMMON MISTAKES: Too long, too directive (just rules), punishing tone, not personalized, no visuals, not reading it regularly.',
 
     parent_information: 'Social Stories are short, personalized stories helping your autistic child understand social situations and what to expect. Autistic children often find unpredictable situations confusing or anxiety-provoking because social "rules" aren\'t obvious. Social Stories explicitly teach: what will happen, why it happens, what your child can do, reassurance they\'ll be OK. We\'ve created a Social Story for your child about [situation]. Please read it together daily, especially before that situation. Use positive, calm tone. Answer questions. Have it available during the situation if helpful. Over time, your child will understand and the story may not be needed anymore. You can create your own Social Stories at home for other situations (dentist, family events, holidays) using the same structure. Social Stories should be positive and informative, never punishing. This is a respectful, autism-affirming way to teach social understanding and reduce anxiety.',
 
@@ -10863,7 +10863,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Attachment theory training for staff', 'Trauma-informed practice resources', 'Relationship-building tools', 'Sensory regulation resources', 'Safe spaces', 'Visual schedules', 'Transition supports', 'Worry box', 'Permission cards'],
-    cost_implications: '£100-£500 for training and resources',
+    cost_implications: 'GBP 100-GBP 500 for training and resources',
 
     key_components: [
       'Understanding attachment styles (Resistant/Ambivalent, Disorganized/Disoriented, Avoidant)',
@@ -10974,7 +10974,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: true,
     resources_needed: ['Blank weekly timetables', 'Highlighter pens', 'Tracking forms', 'Review meeting structure', 'Home communication sheets'],
-    cost_implications: '£10-£30 for materials',
+    cost_implications: 'GBP 10-GBP 30 for materials',
 
     key_components: [
       'Weekly timetable format (personalized to child\'s schedule)',
@@ -11085,7 +11085,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['ABCC chart templates', 'Staff training in functional analysis', 'Analysis framework', 'Intervention planning tools', 'Data review meeting time'],
-    cost_implications: '£20-£100 for materials and training',
+    cost_implications: 'GBP 20-GBP 100 for materials and training',
 
     key_components: [
       'Antecedent: What was happening BEFORE? (Context, not trigger)',
@@ -11154,7 +11154,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
       'Relationship-building strategies'
     ],
 
-    implementation_guide: 'PHILOSOPHY: "Children are trying to solve problems rather than be one" (Herbert, 1985). Behavior is COMMUNICATION - child is trying to tell us something or achieve something. Our job: understand the message, then teach better ways to communicate. "What problem is the child trying to solve right now?" ABCC STRUCTURE: ANTECEDENT (A): What was happening BEFORE? NOT "What triggered it?" (we may not see trigger). CONTEXT: Where? With whom? What activity? What just happened? Example: "During Maths, in classroom, working independently on worksheet, 10 mins into task." BEHAVIOR (B): What happened? OBJECTIVE description. NOT "disruptive," "naughty," "attention-seeking." WHAT DID YOU SEE? Example: "Threw pencil across room, shouted \'This is stupid\', refused to continue." CONSEQUENCE (C): What happened AFTER? What did child OBTAIN or AVOID? NOT just "I gave detention." What payoff? Example: "Removed from lesson to quiet room, completed easier work with TA 1:1." (Obtained: escape from hard task + adult attention + easier work). COMMUNICATION (C): Complete LATER after multiple incidents. What is child communicating? What legitimate need? Example: "I need help with this work" or "I find it hard to persevere when frustrated" or "I need adult attention." ANALYSIS: Collect 5-10 incidents. Look for PATTERNS: Same antecedents? Same consequences? Common functions? FOUR FUNCTIONS: 1) ESCAPE/AVOIDANCE (to get away from something), 2) ATTENTION (to get adult/peer attention), 3) TANGIBLE (to get object/activity), 4) SENSORY (feels good/relieves discomfort). INTERVENTION: Match intervention to FUNCTION. Escape function? → Make task easier, teach help-seeking, provide breaks. Attention function? → Increase positive attention, teach appropriate attention-seeking. NOT one-size-fits-all!',
+    implementation_guide: 'PHILOSOPHY: "Children are trying to solve problems rather than be one" (Herbert, 1985). Behavior is COMMUNICATION - child is trying to tell us something or achieve something. Our job: understand the message, then teach better ways to communicate. "What problem is the child trying to solve right now?" ABCC STRUCTURE: ANTECEDENT (A): What was happening BEFORE? NOT "What triggered it?" (we may not see trigger). CONTEXT: Where? With whom? What activity? What just happened? Example: "During Maths, in classroom, working independently on worksheet, 10 mins into task." BEHAVIOR (B): What happened? OBJECTIVE description. NOT "disruptive," "naughty," "attention-seeking." WHAT DID YOU SEE? Example: "Threw pencil across room, shouted \'This is stupid\', refused to continue." CONSEQUENCE (C): What happened AFTER? What did child OBTAIN or AVOID? NOT just "I gave detention." What payoff? Example: "Removed from lesson to quiet room, completed easier work with TA 1:1." (Obtained: escape from hard task + adult attention + easier work). COMMUNICATION (C): Complete LATER after multiple incidents. What is child communicating? What legitimate need? Example: "I need help with this work" or "I find it hard to persevere when frustrated" or "I need adult attention." ANALYSIS: Collect 5-10 incidents. Look for PATTERNS: Same antecedents? Same consequences? Common functions? FOUR FUNCTIONS: 1) ESCAPE/AVOIDANCE (to get away from something), 2) ATTENTION (to get adult/peer attention), 3) TANGIBLE (to get object/activity), 4) SENSORY (feels good/relieves discomfort). INTERVENTION: Match intervention to FUNCTION. Escape function? -> Make task easier, teach help-seeking, provide breaks. Attention function? -> Increase positive attention, teach appropriate attention-seeking. NOT one-size-fits-all!',
 
     parent_information: 'ABCC charts help us understand WHY your child behaves in challenging ways. We believe: "Children are trying to solve problems rather than be one." Your child\'s behaviour is COMMUNICATION - they\'re trying to tell us something or achieve something, but in an unhelpful way. ABCC = Antecedent (what was happening before), Behavior (what happened), Consequence (what did they get/avoid), Communication (what were they trying to achieve?). Example: Antecedent = Difficult homework. Behavior = Shouting, refusal. Consequence = Sent to room (escape), homework not done. Communication = "I need help, this is too hard, I\'m frustrated." NOW WE UNDERSTAND! The intervention: Offer help earlier, break tasks down, teach \'I need help\' phrase, provide breaks. We\'re meeting the NEED (help with hard work) in an APPROPRIATE way. You can use ABCC at home too! When challenging behaviour happens, note: What was happening before? What exactly happened? What did my child get or avoid? What might they be trying to communicate? Once you understand the function, you can meet that need in a better way.',
 
@@ -11191,7 +11191,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Person-Centered Planning tools (One Page Profile, PATH, MAPs)', 'Accessible communication tools (AAC, symbols, Makaton)', 'Creative methods (art, play, photography, video)', 'Talking Mats', 'Scaling tools', 'Child-friendly questionnaires', 'Advocate support if needed'],
-    cost_implications: '£100-£500 for training and resources',
+    cost_implications: 'GBP 100-GBP 500 for training and resources',
 
     key_components: [
       'Multiple methods matched to child (verbal, visual, play-based, creative)',
@@ -11305,7 +11305,7 @@ const SOCIAL_EMOTIONAL_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Attachment training for all staff', 'Key Person system', 'Safe spaces', 'Sensory regulation tools', 'Visual supports', 'Therapeutic Life Story Work materials', 'Supervision for staff (attachment work is emotionally demanding)', 'Multi-agency collaboration protocols', 'Parent support resources'],
-    cost_implications: '£500-£2000 for whole-school training + ongoing supervision costs + therapeutic resources',
+    cost_implications: 'GBP 500-GBP 2000 for whole-school training + ongoing supervision costs + therapeutic resources',
 
     key_components: [
       'ATTACHMENT THEORY FOUNDATION: Secure base (Bowlby), Internal Working Model (beliefs about self/others), Attachment styles (Secure, Resistant, Avoidant, Disorganized)',
@@ -11445,7 +11445,7 @@ const COMMUNICATION_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['PECS pictures/symbols', 'Communication book', 'Velcro', 'Laminator', 'Storage system', 'Training in PECS protocol'],
-    cost_implications: '£100-£300 for materials + £500-£1000 for official training',
+    cost_implications: 'GBP 100-GBP 300 for materials + GBP 500-GBP 1000 for official training',
 
     key_components: [
       'Phase 1: Physical exchange (highly motivating items)',
@@ -11544,7 +11544,7 @@ const COMMUNICATION_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'medium',
     staff_training_required: true,
     resources_needed: ['Story grammar posters', 'Picture sequence cards', 'Story maps', 'Books at appropriate level', 'Recording device (optional)'],
-    cost_implications: '£30-£100 for materials',
+    cost_implications: 'GBP 30-GBP 100 for materials',
 
     key_components: [
       'Explicit teaching of story grammar (who, what, when, where, what happened, how it ended)',
@@ -11647,7 +11647,7 @@ const SENSORY_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'high',
     staff_training_required: true,
     resources_needed: ['Sensory equipment (swings, weighted items, textured materials, therapy balls)', 'Sensory room (ideal)', 'Occupational therapist'],
-    cost_implications: '£500-£2000 for equipment + OT fees',
+    cost_implications: 'GBP 500-GBP 2000 for equipment + OT fees',
 
     key_components: [
       'Assessment of sensory profile',
@@ -11745,7 +11745,7 @@ const SENSORY_INTERVENTIONS: InterventionTemplate[] = [
     complexity: 'low',
     staff_training_required: false,
     resources_needed: ['Movement break activity cards', 'Sensory tools (resistance bands, fidgets, weighted items)', 'Timer', 'Designated space'],
-    cost_implications: '£20-£100 for sensory tools',
+    cost_implications: 'GBP 20-GBP 100 for sensory tools',
 
     key_components: [
       'Scheduled regularly (proactive, not reactive)',
@@ -11864,7 +11864,7 @@ SOCIAL_EMOTIONAL_INTERVENTIONS.push(
     description: 'Assigning a specific "safe adult" for vulnerable students to check in with. Provides a secure base from which to explore the world.',
     targeted_needs: ['Insecure attachment', 'Anxiety', 'Lack of trust in adults', 'School refusal'],
     evidence_level: 'tier_2',
-    research_sources: ['Bowlby', 'Geddes (2006)', 'Bombèr (2007)'],
+    research_sources: ['Bowlby', 'Geddes (2006)', 'Bomber (2007)'],
     age_range: ['secondary'],
     setting: ['one_to_one'],
     duration: 'Long term',

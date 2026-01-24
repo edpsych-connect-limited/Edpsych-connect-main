@@ -11,7 +11,7 @@
  * 
  * Features:
  * - Video explainers for each coding concept
- * - Progressive learning path (Blocks → Python → React)
+ * - Progressive learning path (Blocks -> Python -> React)
  * - Interactive code editor with real-time feedback
  * - Achievement system with XP tracking
  * - Accessibility features for SEND students
@@ -523,29 +523,29 @@ export default function EnhancedCodingCurriculum({
     setTimeout(() => {
       if (currentLevel.type === 'Blocks') {
         setCodeOutput([
-          "> 🎮 Initializing Avatar...", 
-          "> 💬 Saying: 'Hello World!'", 
-          "> ⏰ Waiting 2 seconds...",
-          "> 💃 Performing Victory Dance...",
-          "> ✅ Great job! You've learned SEQUENCING!"
+          "> GAME Initializing Avatar...", 
+          "> MSG Saying: 'Hello World!'", 
+          "> WAIT Waiting 2 seconds...",
+          "> DANCE Performing Victory Dance...",
+          "> OK Great job! You've learned SEQUENCING!"
         ]);
       } else if (currentLevel.type === 'Python') {
         setCodeOutput([
-          "> 🔧 Accessing Physics Engine...", 
-          "> 📊 Current gravity: 9.8 m/s²",
-          "> ⚙️ Overriding Gravity Constant...", 
-          "> 🌙 Gravity set to 1.6 m/s² (Moon gravity!)",
-          "> 🚀 SUPER JUMP ENABLED!",
-          "> ✅ You've mastered VARIABLES and FUNCTIONS!"
+          "> TOOLS Accessing Physics Engine...", 
+          "> STATS Current gravity: 9.8 m/s^2",
+          "> CONFIG Overriding Gravity Constant...", 
+          "> MOON Gravity set to 1.6 m/s^2 (Moon gravity!)",
+          "> BOOST SUPER JUMP ENABLED!",
+          "> OK You've mastered VARIABLES and FUNCTIONS!"
         ]);
       } else if (currentLevel.type === 'React') {
         setCodeOutput([
-          "> ⚛️ Compiling React Component...", 
-          "> 🏗️ Building virtual DOM...",
-          "> 🖼️ Rendering <EnergyShield />", 
-          "> ⚡ Shield Power: 100%", 
-          "> 🟢 Component Online!",
-          "> ✅ You've built a REUSABLE COMPONENT!"
+          "> REACT Compiling React Component...", 
+          "> BUILD Building virtual DOM...",
+          "> RENDER Rendering <EnergyShield />", 
+          "> POWER Shield Power: 100%", 
+          "> ON Component Online!",
+          "> OK You've built a REUSABLE COMPONENT!"
         ]);
       }
       const evaluation = evaluatePractice();
@@ -578,11 +578,11 @@ export default function EnhancedCodingCurriculum({
 
   // Get level rank
   const getLevelRank = () => {
-    if (totalXP >= 2000) return { name: 'Master Developer', color: 'text-purple-500', icon: '🏆' };
-    if (totalXP >= 1000) return { name: 'Senior Coder', color: 'text-blue-500', icon: '⭐' };
-    if (totalXP >= 500) return { name: 'Junior Developer', color: 'text-green-500', icon: '🌟' };
-    if (totalXP >= 200) return { name: 'Code Apprentice', color: 'text-yellow-500', icon: '✨' };
-    return { name: 'Code Beginner', color: 'text-gray-500', icon: '🎯' };
+    if (totalXP >= 2000) return { name: 'Master Developer', color: 'text-purple-500', icon: 'TROPHY' };
+    if (totalXP >= 1000) return { name: 'Senior Coder', color: 'text-blue-500', icon: 'STAR' };
+    if (totalXP >= 500) return { name: 'Junior Developer', color: 'text-green-500', icon: 'STAR' };
+    if (totalXP >= 200) return { name: 'Code Apprentice', color: 'text-yellow-500', icon: 'SPARK' };
+    return { name: 'Code Beginner', color: 'text-gray-500', icon: 'TARGET' };
   };
 
   const rank = getLevelRank();
@@ -1360,7 +1360,7 @@ function TeacherDashboard() {
           <div className="bg-purple-50 p-4 rounded-xl border border-purple-100">
             <div className="text-purple-600 font-medium mb-1">Active Students</div>
             <div className="text-3xl font-bold text-gray-900">24/28</div>
-            <div className="text-sm text-purple-600 mt-2">↑ 12% from last week</div>
+            <div className="text-sm text-purple-600 mt-2">^ 12% from last week</div>
           </div>
           <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
             <div className="text-blue-600 font-medium mb-1">Avg. Progress</div>

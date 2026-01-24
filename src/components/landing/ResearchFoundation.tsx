@@ -90,7 +90,7 @@ export default function ResearchFoundation() {
                 
                 {/* Core Summary */}
                 <p className="text-slate-700 mb-4 leading-relaxed font-medium">
-                  Chartered Child and Adolescent Educational Psychologist and visionary founder of EdPsych Connect World—a revolutionary platform transforming how schools, families, and professionals collaborate to ensure every child reaches their full potential.
+                  Chartered Child and Adolescent Educational Psychologist and visionary founder of EdPsych Connect World-a revolutionary platform transforming how schools, families, and professionals collaborate to ensure every child reaches their full potential.
                 </p>
 
                 {/* Key Quote */}
@@ -116,10 +116,10 @@ export default function ResearchFoundation() {
                           <h4 className="font-bold text-slate-900">From Frontline to Innovation</h4>
                         </div>
                         <p className="text-slate-600 text-sm leading-relaxed mb-3">
-                          Dr Ighavongbe-Patrick&apos;s journey through education began on the frontlines—as a Behaviour Support Outreach Mentor reaching the most challenging and disengaged young people. He contributed to the groundbreaking <strong>Aim Higher</strong> national programme, widening higher education participation for disadvantaged students, and facilitated transformative summer school experiences for Children in Care.
+                          Dr Ighavongbe-Patrick&apos;s journey through education began on the frontlines-as a Behaviour Support Outreach Mentor reaching the most challenging and disengaged young people. He contributed to the groundbreaking <strong>Aim Higher</strong> national programme, widening higher education participation for disadvantaged students, and facilitated transformative summer school experiences for Children in Care.
                         </p>
                         <p className="text-slate-600 text-sm leading-relaxed mb-3">
-                          For over seven years, he served as a Level One Football Coach with Chesham United FC, using sport as a vehicle for engagement, mentorship, and personal development—skills that would later inform his approach to creating engaging educational experiences.
+                          For over seven years, he served as a Level One Football Coach with Chesham United FC, using sport as a vehicle for engagement, mentorship, and personal development-skills that would later inform his approach to creating engaging educational experiences.
                         </p>
                         <p className="text-slate-600 text-sm leading-relaxed">
                           His formal psychology career began at <strong>Achieving for Children</strong> (formerly Windsor and Maidenhead Educational Psychology Service) as an Assistant Psychologist, following his <strong>First Class Honours degree in Psychology</strong> from Buckinghamshire New University. After completing his doctoral training at the University of Southampton, he returned as a Maingrade Educational Psychologist (2016-2019) before advancing to Senior EP at Buckinghamshire Council.
@@ -133,10 +133,10 @@ export default function ResearchFoundation() {
                           <h4 className="font-bold text-slate-900">Professional Excellence & TEAM-UP</h4>
                         </div>
                         <p className="text-slate-600 text-sm leading-relaxed mb-3">
-                          As <strong>Senior Educational Psychologist at Buckinghamshire Council</strong> (until 2023), Dr Ighavongbe-Patrick conceived and named <strong>TEAM-UP</strong> (Termly Early Action Multi-Agency Unified Planning)—an initiative that was developed and driven to reality through collaborative multi-agency effort with the Head of Children's Services. This project addressed systemic delays in supporting children with complex needs by fostering collaboration between agencies and school SENCOs, shifting the paradigm from reactive crisis management to proactive, timely support.
+                          As <strong>Senior Educational Psychologist at Buckinghamshire Council</strong> (until 2023), Dr Ighavongbe-Patrick conceived and named <strong>TEAM-UP</strong> (Termly Early Action Multi-Agency Unified Planning)-an initiative that was developed and driven to reality through collaborative multi-agency effort with the Head of Children's Services. This project addressed systemic delays in supporting children with complex needs by fostering collaboration between agencies and school SENCOs, shifting the paradigm from reactive crisis management to proactive, timely support.
                         </p>
                         <p className="text-slate-600 text-sm leading-relaxed mb-3">
-                          In 2023, he resigned to focus full-time on EdPsych Connect Limited, while continuing as a <strong>Locum Consultant EP</strong> for Suffolk, Leicestershire (Quality Assessment EP), Worcestershire, and Hertfordshire—working directly with hundreds of children, parents, educators, and multi-agency professionals.
+                          In 2023, he resigned to focus full-time on EdPsych Connect Limited, while continuing as a <strong>Locum Consultant EP</strong> for Suffolk, Leicestershire (Quality Assessment EP), Worcestershire, and Hertfordshire-working directly with hundreds of children, parents, educators, and multi-agency professionals.
                         </p>
                         <p className="text-slate-600 text-sm leading-relaxed">
                           As an HCPC Registered Educational Psychologist with SDS clinical supervision accreditation, his practice spans early years through college education, with expertise in exclusions, restorative justice, SEMH, autism, and trauma-informed approaches.
@@ -150,22 +150,22 @@ export default function ResearchFoundation() {
                           <h4 className="font-bold text-slate-900">The Vision: A Complete Ecosystem</h4>
                         </div>
                         <p className="text-slate-600 text-sm leading-relaxed mb-3">
-                          EdPsych Connect World emerged from a decade of frontline practice and doctoral research. It represents not merely an EdTech application, but a <strong>first-of-its-kind complete ecosystem</strong>—where technology serves humanity rather than exploiting it.
+                          EdPsych Connect World emerged from a decade of frontline practice and doctoral research. It represents not merely an EdTech application, but a <strong>first-of-its-kind complete ecosystem</strong>-where technology serves humanity rather than exploiting it.
                         </p>
                         <ul className="text-slate-600 text-sm space-y-2 mb-3">
                           <li><strong>For Teachers:</strong> Liberation from administrative burden, restoring time for pastoral care and inspired teaching</li>
-                          <li><strong>For Students:</strong> Engaging, gamified learning differentiated to individual needs—where screen time becomes creative development time</li>
+                          <li><strong>For Students:</strong> Engaging, gamified learning differentiated to individual needs-where screen time becomes creative development time</li>
                           <li><strong>For Parents:</strong> Real-time partnership in their children&apos;s educational journey</li>
                           <li><strong>For Professionals:</strong> Marketplace, collaboration tools, and readily accessible support</li>
                           <li><strong>For Researchers:</strong> Anonymised real-world data powering continuous improvement</li>
-                          <li><strong>For the Future:</strong> A coding curriculum equipping children for the AI era—building creators, not consumers</li>
+                          <li><strong>For the Future:</strong> A coding curriculum equipping children for the AI era-building creators, not consumers</li>
                         </ul>
                       </div>
 
                       {/* Inspirational Note */}
                       <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg p-4 mb-4">
                         <p className="text-slate-700 text-sm leading-relaxed italic">
-                          &quot;Completing my doctorate in my late 40s reinforced my conviction that learning is a lifelong journey without barriers. This platform exists because I believe every child deserves what the wealthy can afford—world-class psychological support, engaging education, and adults who truly listen. Technology should amplify human potential, not replace it.&quot;
+                          &quot;Completing my doctorate in my late 40s reinforced my conviction that learning is a lifelong journey without barriers. This platform exists because I believe every child deserves what the wealthy can afford-world-class psychological support, engaging education, and adults who truly listen. Technology should amplify human potential, not replace it.&quot;
                         </p>
                       </div>
 

@@ -111,9 +111,9 @@ class RealUserMonitoring {
       this.startSession();
 
       this.isInitialized = true;
-      logger.debug('✅ Real User Monitoring initialized successfully');
+      logger.debug('OK Real User Monitoring initialized successfully');
     } catch (_error) {
-      console.error('❌ Failed to initialize Real User Monitoring:', _error);
+      console.error('FAIL Failed to initialize Real User Monitoring:', _error);
       // Don't throw - monitoring should not break the app
     }
   }
@@ -126,9 +126,9 @@ class RealUserMonitoring {
 
     try {
       // Sentry integration disabled - monitoring without external dependencies
-      logger.debug('ℹ️  Sentry monitoring disabled (optional dependency not installed)');
+      logger.debug('INFO  Sentry monitoring disabled (optional dependency not installed)');
     } catch (_error) {
-      console.warn('⚠️  Sentry not available:', (_error instanceof Error ? _error.message : String(_error)));
+      console.warn('WARNING  Sentry not available:', (_error instanceof Error ? _error.message : String(_error)));
     }
   }
 
@@ -148,9 +148,9 @@ class RealUserMonitoring {
         send_page_view: false, // We'll handle page views manually
       });
 
-      logger.debug('✅ Google Analytics initialized');
+      logger.debug('OK Google Analytics initialized');
     } catch (_error) {
-      console.warn('⚠️  Google Analytics not available:', (_error instanceof Error ? _error.message : String(_error)));
+      console.warn('WARNING  Google Analytics not available:', (_error instanceof Error ? _error.message : String(_error)));
     }
   }
 
@@ -223,10 +223,10 @@ class RealUserMonitoring {
           webVitals.getTTFB((metric: any) => this.trackWebVital('TTFB', metric));
         }
       }).catch(() => {
-        console.warn('⚠️  web-vitals library not available');
+        console.warn('WARNING  web-vitals library not available');
       });
     } catch (_error) {
-      console.warn('⚠️  Core Web Vitals monitoring not available:', (_error instanceof Error ? _error.message : String(_error)));
+      console.warn('WARNING  Core Web Vitals monitoring not available:', (_error instanceof Error ? _error.message : String(_error)));
     }
   }
 
@@ -452,7 +452,7 @@ class RealUserMonitoring {
           });
       }
     } catch (_error) {
-      console.warn('⚠️  Failed to send event to Sentry:', _error);
+      console.warn('WARNING  Failed to send event to Sentry:', _error);
     }
   }
 
@@ -501,7 +501,7 @@ class RealUserMonitoring {
           });
       }
     } catch (_error) {
-      console.warn('⚠️  Failed to send event to Google Analytics:', _error);
+      console.warn('WARNING  Failed to send event to Google Analytics:', _error);
     }
   }
 

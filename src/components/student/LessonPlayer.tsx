@@ -111,9 +111,9 @@ export default function LessonPlayer({ lessonId }: { lessonId: string }) {
             if (response.ok) {
               const result = await response.json();
               if (result.passed) {
-                setOutput(prev => prev + '\n\n✅ Exercise Completed! Progress saved.');
+                setOutput(prev => prev + '\n\nOK Exercise Completed! Progress saved.');
               } else {
-                setOutput(prev => prev + '\n\n⚠️ Code ran, but did not pass all test cases.');
+                setOutput(prev => prev + '\n\nWarning Code ran, but did not pass all test cases.');
               }
             } else {
               console.error('Failed to save progress');

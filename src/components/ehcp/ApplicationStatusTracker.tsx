@@ -307,7 +307,7 @@ export default function ApplicationStatusTracker({ applicationId }: ApplicationS
                 <p className="font-medium text-amber-900 mb-2">Outstanding Requirements</p>
                 <ul className="space-y-1">
                   {mockStatus.outstandingRequirements.map((req, i) => (
-                    <li key={i} className="text-sm text-amber-800">• {req}</li>
+                    <li key={i} className="text-sm text-amber-800">- {req}</li>
                   ))}
                 </ul>
               </div>

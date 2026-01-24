@@ -13,7 +13,7 @@
  * - Single framework agreement
  * - Quality assurance badge
  * 
- * Annual fee: £99/year
+ * Annual fee: GBP 99/year
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -76,12 +76,12 @@ export async function POST(request: NextRequest) {
       validationErrors.push('Enhanced DBS certificate is required');
     }
 
-    // Insurance required (minimum £6M coverage)
+    // Insurance required (minimum GBP 6M coverage)
     if (!compliance?.insuranceDocUrl || !compliance?.insuranceCoverageAmount) {
-      validationErrors.push('Professional indemnity insurance (minimum £6M coverage) is required');
+      validationErrors.push('Professional indemnity insurance (minimum GBP 6M coverage) is required');
     }
     if (compliance?.insuranceCoverageAmount && compliance.insuranceCoverageAmount < 6000000) {
-      validationErrors.push('Insurance coverage must be at least £6,000,000');
+      validationErrors.push('Insurance coverage must be at least GBP 6,000,000');
     }
 
     // HCPC Registration
@@ -160,7 +160,7 @@ export async function POST(request: NextRequest) {
           'References will be contacted',
           'Portfolio and experience will be assessed',
           'You will receive approval decision via email',
-          'Upon approval, £99 annual fee will be invoiced',
+          'Upon approval, GBP 99 annual fee will be invoiced',
           'You will gain LA Panel badge and higher visibility',
         ],
       },

@@ -590,7 +590,7 @@ export default function SEN2ReturnGenerator() {
                         <span className="font-medium">{warning.field}:</span> {warning.message}
                         {warning.suggestion && (
                           <div className="text-amber-600 dark:text-amber-400 mt-1">
-                            💡 {warning.suggestion}
+                            Tip: {warning.suggestion}
                           </div>
                         )}
                       </div>

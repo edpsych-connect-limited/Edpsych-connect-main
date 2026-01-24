@@ -470,7 +470,7 @@ export class BlogService {
         slug: prismaPost.category.slug,
         description: prismaPost.category.description || '',
         color: prismaPost.category.color || '#3b82f6',
-        icon: '📚'
+        icon: 'READ'
       },
       tags: tags,
       author: authorOverride || {

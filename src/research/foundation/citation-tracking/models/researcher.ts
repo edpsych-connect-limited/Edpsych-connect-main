@@ -284,7 +284,7 @@ export class Researcher implements IResearcher {
     
     for (let i = 0; i < sortedCounts.length; i++) {
       sumCitations += sortedCounts[i];
-      // g-index is the largest number where the top g articles have at least g² citations
+      // g-index is the largest number where the top g articles have at least g^2 citations
       if (sumCitations >= Math.pow(i + 1, 2)) {
         gIndex = i + 1;
       } else {

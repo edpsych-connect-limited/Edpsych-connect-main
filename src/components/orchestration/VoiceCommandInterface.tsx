@@ -521,7 +521,7 @@ export const VoiceCommandInterface: React.FC<VoiceCommandInterfaceProps> = ({
                 {currentResponse.actions.map((action, index) => (
                   <li key={index} className="text-xs text-blue-800 flex items-start gap-2">
                     <span className={action.executed ? 'text-green-600' : 'text-gray-500'}>
-                      {action.executed ? '✓' : '○'}
+                      {action.executed ? 'OK' : 'OFF'}
                     </span>
                     <span>{action.description}</span>
                   </li>

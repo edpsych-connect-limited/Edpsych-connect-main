@@ -302,7 +302,7 @@ export default function StudentProgressDashboard({
       {alerts.length > 0 && (
         <div className="bg-yellow-50 border-l-4 border-yellow-400 rounded-lg p-6">
           <h2 className="text-xl font-bold text-yellow-900 mb-4 flex items-center">
-            ⚠️ Active Alerts ({alerts.length})
+            Warning Active Alerts ({alerts.length})
           </h2>
           <div className="space-y-3">
             {alerts.map((alert) => (
@@ -319,28 +319,28 @@ export default function StudentProgressDashboard({
           value={metrics?.academic_progress || 0}
           unit="%"
           color="blue"
-          icon="📚"
+          icon="Library"
         />
         <MetricCard
           title="Behavioural Progress"
           value={metrics?.behavioral_progress || 0}
           unit="%"
           color="green"
-          icon="🎯"
+          icon="Goals"
         />
         <MetricCard
           title="Social-Emotional"
           value={metrics?.social_emotional_progress || 0}
           unit="%"
           color="purple"
-          icon="💙"
+          icon="Wellbeing"
         />
         <MetricCard
           title="Attendance Rate"
           value={metrics?.attendance_rate || 0}
           unit="%"
           color="indigo"
-          icon="📅"
+          icon="Calendar"
         />
       </div>
 
@@ -369,7 +369,7 @@ export default function StudentProgressDashboard({
           </h3>
           <div className="h-64 flex items-center justify-center bg-gray-50 rounded border-2 border-gray-200">
             <div className="text-center text-gray-400">
-              <p className="text-lg mb-2">📈 Line Chart</p>
+              <p className="text-lg mb-2">Chart Line Chart</p>
               <p className="text-sm">
                 Chart.js line graph showing academic, behavioural, and
                 <br />
@@ -389,7 +389,7 @@ export default function StudentProgressDashboard({
           </h3>
           <div className="h-64 flex items-center justify-center bg-gray-50 rounded border-2 border-gray-200">
             <div className="text-center text-gray-400">
-              <p className="text-lg mb-2">📊 Bar Chart</p>
+              <p className="text-lg mb-2">Chart Bar Chart</p>
               <p className="text-sm">
                 Comparing current performance across
                 <br />
@@ -409,7 +409,7 @@ export default function StudentProgressDashboard({
           </h3>
           <div className="h-64 flex items-center justify-center bg-gray-50 rounded border-2 border-gray-200">
             <div className="text-center text-gray-400">
-              <p className="text-lg mb-2">🎯 Radar Chart</p>
+              <p className="text-lg mb-2">Goals Radar Chart</p>
               <p className="text-sm">
                 Multi-dimensional profile showing strengths
                 <br />
@@ -429,7 +429,7 @@ export default function StudentProgressDashboard({
           </h3>
           <div className="h-64 flex items-center justify-center bg-gray-50 rounded border-2 border-gray-200">
             <div className="text-center text-gray-400">
-              <p className="text-lg mb-2">📈 Multi-line Chart</p>
+              <p className="text-lg mb-2">Chart Multi-line Chart</p>
               <p className="text-sm">
                 Showing progress for each active intervention
                 <br />
@@ -458,13 +458,13 @@ export default function StudentProgressDashboard({
       {/* Action Buttons */}
       <div className="flex gap-4">
         <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-          📄 Generate Progress Report
+          Report Generate Progress Report
         </button>
         <button className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition">
-          ✉️ Share with Parents
+          Share Share with Parents
         </button>
         <button className="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition">
-          📊 Export Data
+          Chart Export Data
         </button>
       </div>
     </div>
@@ -535,7 +535,7 @@ function GoalProgressBar({ goal }: { goal: Goal }) {
           </span>
           <p className="font-semibold text-gray-800">{goal.description}</p>
           <p className="text-sm text-gray-600 mt-1">
-            Target: {goal.target_date} • Last updated: {goal.last_updated}
+            Target: {goal.target_date} - Last updated: {goal.last_updated}
           </p>
         </div>
         <span className={`${colors.text} font-bold text-lg`}>
@@ -566,10 +566,10 @@ function GoalProgressBar({ goal }: { goal: Goal }) {
       {/* Status Badge */}
       <div className="mt-2">
         <span className={`${colors.text} text-sm font-semibold`}>
-          {goal.status === 'on_track' && '✅ On Track'}
-          {goal.status === 'at_risk' && '⚠️ At Risk'}
-          {goal.status === 'achieved' && '🎉 Achieved'}
-          {goal.status === 'not_achieved' && '❌ Not Achieved'}
+          {goal.status === 'on_track' && 'OK On Track'}
+          {goal.status === 'at_risk' && 'Warning At Risk'}
+          {goal.status === 'achieved' && 'Achieved Achieved'}
+          {goal.status === 'not_achieved' && 'Not Achieved Not Achieved'}
         </span>
       </div>
     </div>
@@ -578,11 +578,11 @@ function GoalProgressBar({ goal }: { goal: Goal }) {
 
 function ActivityCard({ activity }: { activity: ActivityItem }) {
   const typeIcons: Record<string, string> = {
-    assessment: '📝',
-    intervention: '🎯',
-    goal_update: '📊',
-    review: '👥',
-    alert: '⚠️',
+    assessment: 'Assessment',
+    intervention: 'Goals',
+    goal_update: 'Chart',
+    review: 'GROUP',
+    alert: 'Warning',
   };
 
   const severityColors: Record<string, string> = {
@@ -633,7 +633,7 @@ function AlertCard({ alert }: { alert: Alert }) {
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-2">
             <span className="text-lg">
-              {alert.severity === 'critical' ? '🚨' : '⚠️'}
+              {alert.severity === 'critical' ? 'Critical' : 'Warning'}
             </span>
             <span
               className={`${colors.text} text-xs font-bold uppercase tracking-wide`}

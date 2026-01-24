@@ -378,9 +378,9 @@ const MOCK_PORTAL_DATA: ParentPortalData = {
   progressUpdate: {
     weekOf: new Date().toISOString(),
     wins: [
-      { emoji: "🌟", description: "Completed all reading assignments with enthusiasm" },
-      { emoji: "🤝", description: "Helped a classmate with their math problems" },
-      { emoji: "🎨", description: "Created a beautiful art project about the Romans" }
+      { emoji: "STAR", description: "Completed all reading assignments with enthusiasm" },
+      { emoji: "HELP", description: "Helped a classmate with their math problems" },
+      { emoji: "ART", description: "Created a beautiful art project about the Romans" }
     ],
     workingOn: [
       { area: "Handwriting", progress: "Improving consistency in letter sizing" },
@@ -531,7 +531,7 @@ export const ParentPortal: React.FC<ParentPortalProps & { demoMode?: boolean }> 
               {portalData.child.name}'s Progress
             </h1>
             <p className="text-blue-100">
-              {portalData.child.className} • {portalData.child.yearGroup}
+              {portalData.child.className} - {portalData.child.yearGroup}
             </p>
             <p className="text-sm text-blue-100 mt-1">
               Week of {new Date(portalData.progressUpdate.weekOf).toLocaleDateString('en-GB', {

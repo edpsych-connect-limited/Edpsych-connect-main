@@ -216,7 +216,7 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      // Check MMR compatibility (within ±300)
+      // Check MMR compatibility (within +/-300)
       const playerMmr = brPlayer.mmr || 1000;
       const mmrDifference = Math.abs(playerMmr - squad.averageMmr);
 

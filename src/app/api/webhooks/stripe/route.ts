@@ -336,7 +336,7 @@ async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
   const subscriptionId = (invoice as any).subscription as string;
   const amountPaid = (invoice as any).amount_paid / 100; // Convert from cents
 
-  logger.debug(`[Stripe] Payment succeeded for subscription: ${subscriptionId}, amount: £${amountPaid}`);
+  logger.debug(`[Stripe] Payment succeeded for subscription: ${subscriptionId}, amount: GBP ${amountPaid}`);
 
   // Update subscription status to active (multi-tenant architecture)
   await prisma.subscriptions.updateMany({
@@ -375,11 +375,11 @@ async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
           <h2>Payment Received</h2>
           <p>Dear ${user.firstName || user.name},</p>
-          <p>Thank you for your payment of <strong>£${amountPaid.toFixed(2)}</strong> for ${tenantName}.</p>
+          <p>Thank you for your payment of <strong>GBP ${amountPaid.toFixed(2)}</strong> for ${tenantName}.</p>
           <p>Your subscription is now active and you have full access to all features.</p>
           <h3>Invoice Details</h3>
           <ul>
-            <li>Amount: £${amountPaid.toFixed(2)}</li>
+            <li>Amount: GBP ${amountPaid.toFixed(2)}</li>
             <li>Tier: ${subscription.tier}</li>
             <li>Date: ${new Date().toLocaleDateString('en-GB')}</li>
             <li>Invoice Number: ${invoice.number || invoice.id}</li>
@@ -389,7 +389,7 @@ async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
           <p style="color: #666; font-size: 12px;">EdPsych Connect Limited - Supporting educational psychology excellence</p>
         </div>
       `,
-      text: `Payment of £${amountPaid.toFixed(2)} received. Your subscription is now active.`,
+      text: `Payment of GBP ${amountPaid.toFixed(2)} received. Your subscription is now active.`,
     });
     
     logger.info(`[Stripe] Payment success email sent to ${user.email}`);
@@ -512,7 +512,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
       // Send welcome email
       await emailService.sendEmail({
         to: user.email,
-        subject: 'Welcome to EdPsych Connect! 🎉',
+        subject: 'Welcome to EdPsych Connect! READY',
         html: `
           <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #2563eb;">Welcome to EdPsych Connect!</h2>

@@ -109,12 +109,12 @@ export default function CaseManager({
   };
 
   const steps = [
-    { number: 1, title: 'Student Information', icon: '👤' },
-    { number: 2, title: 'Referral Details', icon: '📝' },
-    { number: 3, title: 'Background & History', icon: '📋' },
-    { number: 4, title: 'Stakeholders', icon: '👥' },
-    { number: 5, title: 'Consent & Safeguarding', icon: '🔒' },
-    { number: 6, title: 'Review & Save', icon: '💾' },
+    { number: 1, title: 'Student Information', icon: '1' },
+    { number: 2, title: 'Referral Details', icon: '2' },
+    { number: 3, title: 'Background & History', icon: '3' },
+    { number: 4, title: 'Stakeholders', icon: '4' },
+    { number: 5, title: 'Consent & Safeguarding', icon: '5' },
+    { number: 6, title: 'Review & Save', icon: '6' },
   ];
 
   return (
@@ -142,7 +142,7 @@ export default function CaseManager({
                       : 'bg-gray-200 text-gray-600'
                   }`}
                 >
-                  {s.number < step ? '✓' : s.icon}
+                  {s.number < step ? 'OK' : s.icon}
                 </div>
                 <div className="ml-3 hidden md:block">
                   <div className="text-sm font-semibold">{s.title}</div>
@@ -888,7 +888,7 @@ function Step5ConsentSafeguarding({
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
             />
             <p className="text-sm text-red-700 mt-2">
-              ⚠️ These notes are securely stored with restricted access. Follow your local
+              Warning: These notes are securely stored with restricted access. Follow your local
               safeguarding procedures for reporting concerns.
             </p>
           </div>
@@ -1016,13 +1016,13 @@ function Step6Review({ data }: { data: Partial<CaseData> }) {
         <div className="space-y-2">
           <div className="flex items-center">
             <span className={`text-2xl mr-2 ${data.consent_obtained ? 'text-green-600' : 'text-red-600'}`}>
-              {data.consent_obtained ? '✓' : '✗'}
+              {data.consent_obtained ? 'Yes' : 'No'}
             </span>
             <span className="text-gray-900">Consent Obtained</span>
           </div>
           <div className="flex items-center">
             <span className={`text-2xl mr-2 ${data.safeguarding_concerns ? 'text-red-600' : 'text-green-600'}`}>
-              {data.safeguarding_concerns ? '⚠️' : '✓'}
+              {data.safeguarding_concerns ? 'Warning' : 'OK'}
             </span>
             <span className="text-gray-900">
               {data.safeguarding_concerns

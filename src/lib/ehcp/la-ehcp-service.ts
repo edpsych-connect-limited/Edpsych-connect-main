@@ -1042,7 +1042,7 @@ export class LAEHCPService {
       await this.createTimelineEvent(app.id, {
         event_type: 'statutory_breach',
         event_category: 'compliance',
-        event_description: `⚠️ STATUTORY BREACH: ${breachType.replace('_', ' ')} - ${daysOverdue} days overdue`,
+        event_description: `WARNING STATUTORY BREACH: ${breachType.replace('_', ' ')} - ${daysOverdue} days overdue`,
         triggered_by_system: true,
         metadata: {
           breach_type: breachType,

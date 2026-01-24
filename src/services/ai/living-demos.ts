@@ -1,6 +1,6 @@
 import { logger } from "@/lib/logger";
 /**
- * 🎬 LIVING DEMONSTRATIONS SYSTEM
+ *  LIVING DEMONSTRATIONS SYSTEM
  * Real-time AI capability demonstrations that show the "invisible brain" in action
  *
  * This system provides interactive demos where visitors can see AI agents
@@ -38,7 +38,7 @@ export class LivingDemonstrationsSystem {
 
   constructor() {
     this.initializeDemoTemplates();
-    logger.debug('🎬 Living Demonstrations System initialized');
+    logger.debug(' Living Demonstrations System initialized');
   }
 
   /**
@@ -62,7 +62,7 @@ export class LivingDemonstrationsSystem {
     // Start the demo generation
     this.runDemo(demoSession);
 
-    logger.debug(`🎬 Started ${type} demo: ${demoId}`);
+    logger.debug(` Started ${type} demo: ${demoId}`);
     return demoId;
   }
 
@@ -116,10 +116,10 @@ export class LivingDemonstrationsSystem {
         timestamp: new Date()
       });
 
-      logger.debug(`✅ Demo completed: ${demoSession.type} in ${demoSession.endTime.getTime() - demoSession.startTime.getTime()}ms`);
+      logger.debug(`OK Demo completed: ${demoSession.type} in ${demoSession.endTime.getTime() - demoSession.startTime.getTime()}ms`);
 
     } catch (_error) {
-      console.error(`❌ Demo failed: ${demoSession.type}`, _error);
+      console.error(`FAIL Demo failed: ${demoSession.type}`, _error);
 
       demoSession.status = 'error';
       demoSession.output = { error: _error instanceof Error ? _error.message : String(_error) };

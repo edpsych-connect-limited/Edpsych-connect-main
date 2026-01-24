@@ -72,7 +72,7 @@ export default function LiveEHCPEditor({ initialOutcomes, onClose, onSave }: Omi
 
         <div className="flex items-center gap-4">
           <div className={`text-sm ${projectorMode ? 'text-gray-400' : 'text-gray-500'}`}>
-            {isConnected ? 'Connected' : 'Reconnecting...'} • Last saved {lastSaved.toLocaleTimeString()}
+            {isConnected ? 'Connected' : 'Reconnecting...'} - Last saved {lastSaved.toLocaleTimeString()}
           </div>
           
           <button

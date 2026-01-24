@@ -147,7 +147,7 @@ export default function InteractiveDemoPlayer({
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
-              {completedSteps.has(index) && '✓ '}
+              {completedSteps.has(index) && 'OK '}
               {step.title}
             </button>
           ))}

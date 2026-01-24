@@ -200,7 +200,7 @@ export const API_PRICING_PLANS: Record<string, ApiPricingPlan> = {
     resourcePricing: [
       {
         resourceType: ApiResourceType.API_CALL,
-        pricePerUnit: 0.0001, // £0.0001 per call after included calls
+        pricePerUnit: 0.0001, // 0.0001 per call after included calls
         includedUnits: 100000,
         volumeDiscounts: [
           { minUnits: 500000, discountedPrice: 0.00008 },
@@ -209,7 +209,7 @@ export const API_PRICING_PLANS: Record<string, ApiPricingPlan> = {
       },
       {
         resourceType: ApiResourceType.DATA_TRANSFER_GB,
-        pricePerUnit: 0.05, // £0.05 per GB
+        pricePerUnit: 0.05, // 0.05 per GB
         includedUnits: 10,
         volumeDiscounts: [
           { minUnits: 100, discountedPrice: 0.04 },
@@ -248,7 +248,7 @@ export const API_PRICING_PLANS: Record<string, ApiPricingPlan> = {
     resourcePricing: [
       {
         resourceType: ApiResourceType.API_CALL,
-        pricePerUnit: 0.00008, // £0.00008 per call after included calls
+        pricePerUnit: 0.00008, // 0.00008 per call after included calls
         includedUnits: 500000,
         volumeDiscounts: [
           { minUnits: 1000000, discountedPrice: 0.00006 },
@@ -257,7 +257,7 @@ export const API_PRICING_PLANS: Record<string, ApiPricingPlan> = {
       },
       {
         resourceType: ApiResourceType.DATA_TRANSFER_GB,
-        pricePerUnit: 0.04, // £0.04 per GB
+        pricePerUnit: 0.04, // 0.04 per GB
         includedUnits: 50,
         volumeDiscounts: [
           { minUnits: 200, discountedPrice: 0.03 },
@@ -266,7 +266,7 @@ export const API_PRICING_PLANS: Record<string, ApiPricingPlan> = {
       },
       {
         resourceType: ApiResourceType.COMPUTE_HOUR,
-        pricePerUnit: 0.50, // £0.50 per compute hour
+        pricePerUnit: 0.50, // 0.50 per compute hour
         includedUnits: 10,
         volumeDiscounts: [
           { minUnits: 100, discountedPrice: 0.40 },
@@ -305,7 +305,7 @@ export const API_PRICING_PLANS: Record<string, ApiPricingPlan> = {
     resourcePricing: [
       {
         resourceType: ApiResourceType.API_CALL,
-        pricePerUnit: 0.00005, // £0.00005 per call after included calls
+        pricePerUnit: 0.00005, // 0.00005 per call after included calls
         includedUnits: 5000000,
         volumeDiscounts: [
           { minUnits: 10000000, discountedPrice: 0.00003 },
@@ -314,7 +314,7 @@ export const API_PRICING_PLANS: Record<string, ApiPricingPlan> = {
       },
       {
         resourceType: ApiResourceType.DATA_TRANSFER_GB,
-        pricePerUnit: 0.03, // £0.03 per GB
+        pricePerUnit: 0.03, // 0.03 per GB
         includedUnits: 500,
         volumeDiscounts: [
           { minUnits: 1000, discountedPrice: 0.02 },
@@ -323,7 +323,7 @@ export const API_PRICING_PLANS: Record<string, ApiPricingPlan> = {
       },
       {
         resourceType: ApiResourceType.COMPUTE_HOUR,
-        pricePerUnit: 0.30, // £0.30 per compute hour
+        pricePerUnit: 0.30, // 0.30 per compute hour
         includedUnits: 100,
         volumeDiscounts: [
           { minUnits: 500, discountedPrice: 0.25 },
@@ -332,7 +332,7 @@ export const API_PRICING_PLANS: Record<string, ApiPricingPlan> = {
       },
       {
         resourceType: ApiResourceType.ML_TRAINING_HOUR,
-        pricePerUnit: 1.50, // £1.50 per ML training hour
+        pricePerUnit: 1.50, // 1.50 per ML training hour
         includedUnits: 20,
         volumeDiscounts: [
           { minUnits: 100, discountedPrice: 1.25 },
@@ -376,7 +376,7 @@ export const API_PRICING_PLANS: Record<string, ApiPricingPlan> = {
       },
       {
         resourceType: ApiResourceType.DATA_TRANSFER_GB,
-        pricePerUnit: 0.01, // £0.01 per GB
+        pricePerUnit: 0.01, // 0.01 per GB
         includedUnits: 10000,
         volumeDiscounts: [
           { minUnits: 50000, discountedPrice: 0.005 }
@@ -384,7 +384,7 @@ export const API_PRICING_PLANS: Record<string, ApiPricingPlan> = {
       },
       {
         resourceType: ApiResourceType.COMPUTE_HOUR,
-        pricePerUnit: 0.15, // £0.15 per compute hour
+        pricePerUnit: 0.15, // 0.15 per compute hour
         includedUnits: 1000,
         volumeDiscounts: [
           { minUnits: 5000, discountedPrice: 0.10 }
@@ -392,7 +392,7 @@ export const API_PRICING_PLANS: Record<string, ApiPricingPlan> = {
       },
       {
         resourceType: ApiResourceType.ML_TRAINING_HOUR,
-        pricePerUnit: 0.75, // £0.75 per ML training hour
+        pricePerUnit: 0.75, // 0.75 per ML training hour
         includedUnits: 500,
         volumeDiscounts: [
           { minUnits: 2000, discountedPrice: 0.50 }
@@ -400,7 +400,7 @@ export const API_PRICING_PLANS: Record<string, ApiPricingPlan> = {
       },
       {
         resourceType: ApiResourceType.DATABASE_QUERY,
-        pricePerUnit: 0.0001, // £0.0001 per complex query
+        pricePerUnit: 0.0001, // 0.0001 per complex query
         includedUnits: 1000000,
         volumeDiscounts: [
           { minUnits: 10000000, discountedPrice: 0.00005 }
@@ -438,7 +438,7 @@ export const API_PRICING_PLANS: Record<string, ApiPricingPlan> = {
     resourcePricing: [
       {
         resourceType: ApiResourceType.API_CALL,
-        pricePerUnit: 0.0002, // £0.0002 per call
+        pricePerUnit: 0.0002, // 0.0002 per call
         includedUnits: 0,
         volumeDiscounts: [
           { minUnits: 100000, discountedPrice: 0.00015 },
@@ -447,7 +447,7 @@ export const API_PRICING_PLANS: Record<string, ApiPricingPlan> = {
       },
       {
         resourceType: ApiResourceType.DATA_TRANSFER_GB,
-        pricePerUnit: 0.10, // £0.10 per GB
+        pricePerUnit: 0.10, // 0.10 per GB
         includedUnits: 0,
         volumeDiscounts: [
           { minUnits: 100, discountedPrice: 0.08 },
@@ -456,7 +456,7 @@ export const API_PRICING_PLANS: Record<string, ApiPricingPlan> = {
       },
       {
         resourceType: ApiResourceType.COMPUTE_HOUR,
-        pricePerUnit: 0.75, // £0.75 per compute hour
+        pricePerUnit: 0.75, // 0.75 per compute hour
         includedUnits: 0,
         volumeDiscounts: [
           { minUnits: 100, discountedPrice: 0.60 },
@@ -470,9 +470,9 @@ export const API_PRICING_PLANS: Record<string, ApiPricingPlan> = {
     isPublic: true,
     allowOverage: true,
     overagePriceMultiplier: 1,
-    minimumCreditAmount: 50, // £50 minimum credit
+    minimumCreditAmount: 50, // 50 minimum credit
     automaticTopUp: true,
     topUpThresholdPercentage: 20, // Top up when credit falls below 20%
-    topUpAmount: 50 // £50 top-up amount
+    topUpAmount: 50 // 50 top-up amount
   }
 };

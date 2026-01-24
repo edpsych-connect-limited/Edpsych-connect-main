@@ -76,7 +76,7 @@ const ukEducationTiers: PricingTier[] = [
     description: 'Perfect for individual teachers and small groups',
     monthlyPrice: 9.99,
     annualPrice: 99.99,
-    currency: '£',
+    currency: 'GBP',
     features: [
       { name: 'Up to 30 pupils', included: true },
       { name: 'Voice Interface: "How is Jamie doing?"', included: true, tooltip: 'Natural language queries with instant insights' },
@@ -103,7 +103,7 @@ const ukEducationTiers: PricingTier[] = [
     description: 'Complete solution for primary and secondary schools',
     monthlyPrice: 99.99,
     annualPrice: 999.99,
-    currency: '£',
+    currency: 'GBP',
     featured: true,
     features: [
       { name: 'Unlimited pupils', included: true },
@@ -134,7 +134,7 @@ const ukEducationTiers: PricingTier[] = [
     description: 'Enterprise solution for multi-academy trusts',
     monthlyPrice: 499.99,
     annualPrice: 4999.99,
-    currency: '£',
+    currency: 'GBP',
     features: [
       { name: 'Everything in School tier', included: true },
       { name: 'Multi-school centralised dashboard', included: true },
@@ -165,7 +165,7 @@ const ukResearchTiers: PricingTier[] = [
     description: 'For individual researchers and PhD students',
     monthlyPrice: 39.99,
     annualPrice: 399.99,
-    currency: '£',
+    currency: 'GBP',
     features: [
       { name: 'All School tier features', included: true },
       { name: 'Anonymised data export', included: true },
@@ -190,7 +190,7 @@ const ukResearchTiers: PricingTier[] = [
     description: 'For research teams and university departments',
     monthlyPrice: 89.99,
     annualPrice: 899.99,
-    currency: '£',
+    currency: 'GBP',
     featured: true,
     features: [
       { name: 'All Research Basic features', included: true },
@@ -217,7 +217,7 @@ const ukResearchTiers: PricingTier[] = [
     description: 'For universities and large research centres',
     monthlyPrice: 199.99,
     annualPrice: 1999.99,
-    currency: '£',
+    currency: 'GBP',
     features: [
       { name: 'All Research Advanced features', included: true },
       { name: 'Unlimited research participants', included: true },
@@ -241,7 +241,7 @@ const ukResearchTiers: PricingTier[] = [
 // UK Compliance badges component
 const ComplianceBadges = () => (
   <div style={{ display: 'flex', justifyContent: 'center', gap: 16, marginTop: 24, marginBottom: 24, flexWrap: 'wrap' }}>
-    <Chip label="🇬🇧 UK Data Centre" color="primary" variant="outlined" />
+    <Chip label="UK Data Centre" color="primary" variant="outlined" />
     <Chip label="GDPR Compliant" color="success" variant="outlined" />
     <Chip label="Ofsted Ready" color="info" variant="outlined" />
     <Chip label="ICO Registered" color="secondary" variant="outlined" />
@@ -380,7 +380,7 @@ export default function UKPricingTiers() {
       
       <div style={{ marginTop: 48, textAlign: 'center' }}>
         <Typography variant="body2" color="text.secondary" gutterBottom>
-          All prices exclude VAT • Educational discounts available
+          All prices exclude VAT - Educational discounts available
         </Typography>
         <Typography variant="subtitle1" color="text.secondary" gutterBottom style={{ marginTop: 16 }}>
           Need a bespoke solution for your academy trust?
@@ -392,21 +392,21 @@ export default function UKPricingTiers() {
 
       <div style={{ marginTop: 32, padding: 24, backgroundColor: '#ffffff', borderRadius: 16, boxShadow: '0 1px 3px rgba(0,0,0,0.12)' }}>
         <Typography variant="h6" gutterBottom>
-          🎯 Complete Feature List
+          Complete Feature List
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          <strong>11 AI Agents:</strong> Curriculum Designer • Learning Path Optimiser • Assessment Generator • 
-          Progress Analyst • Intervention Specialist • Student Mentor • Tutor • Coaching • Feedback • Monitoring • 
+          <strong>11 AI Agents:</strong> Curriculum Designer - Learning Path Optimiser - Assessment Generator - 
+          Progress Analyst - Intervention Specialist - Student Mentor - Tutor - Coaching - Feedback - Monitoring - 
           Assessment Agents
         </Typography>
         <Typography variant="body2" color="text.secondary" style={{ marginTop: 8 }}>
-          <strong>Core Features:</strong> Voice Interface • Battle Royale Game • UK Curriculum (KS1-4) • 
-          Relationship Analytics • Burnout Prevention • SIMS/Arbor Integration • Ofsted Reporting • 
-          SEND Support • Adaptive Learning • Cognitive Assessments • Parent Portal • Real-time Analytics
+          <strong>Core Features:</strong> Voice Interface - Battle Royale Game - UK Curriculum (KS1-4) - 
+          Relationship Analytics - Burnout Prevention - SIMS/Arbor Integration - Ofsted Reporting - 
+          SEND Support - Adaptive Learning - Cognitive Assessments - Parent Portal - Real-time Analytics
         </Typography>
         <Typography variant="body2" color="text.secondary" style={{ marginTop: 8 }}>
-          <strong>Research Tools:</strong> Anonymised Export • Statistical Analysis • Evidence Synthesis • 
-          Cohort Analysis • Predictive Modelling • Publication Support
+          <strong>Research Tools:</strong> Anonymised Export - Statistical Analysis - Evidence Synthesis - 
+          Cohort Analysis - Predictive Modelling - Publication Support
         </Typography>
       </div>
     </Container>

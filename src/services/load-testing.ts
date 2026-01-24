@@ -15,7 +15,7 @@ export const loadTesting = {
       minRequestsPerSecond: number;
     };
   }) {
-    logger.debug('🚀 Running load test with configuration:', config);
+    logger.debug('START Running load test with configuration:', config);
 
     // const startTime = Date.now();
     const simulatedResults = Array.from({ length: config.concurrency }).map(() => ({
@@ -51,7 +51,7 @@ export const loadTesting = {
       peakResponseTime,
     };
 
-    logger.debug('✅ Load test completed successfully.');
+    logger.debug('OK Load test completed successfully.');
     return { summary, passed, recommendations };
   },
 };

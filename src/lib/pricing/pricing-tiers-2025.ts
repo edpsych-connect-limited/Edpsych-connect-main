@@ -7,7 +7,7 @@
  * Tagline: "One platform. Every tool. No more patchwork."
  * 
  * This file defines the complete pricing structure for all products and tiers.
- * Based on market research showing we replace £25,000-50,000 of separate tools.
+ * Based on market research showing we replace 25,000-50,000 of separate tools.
  * 
  * PRICING PHILOSOPHY:
  * - Undercut competitors significantly while maintaining premium positioning
@@ -181,8 +181,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'Stay connected to your child\'s journey',
     description: 'Enhanced parent access with progress tracking and resources',
     target: 'individual',
-    priceMonthlyPence: 999, // £9.99
-    priceAnnualPence: 9900, // £99 (save ~£20)
+    priceMonthlyPence: 999, // 9.99
+    priceAnnualPence: 9900, // 99 (save ~20)
     features: [
       'DASHBOARD_ACCESS', 'STUDENT_PROFILES', 'PROGRESS_TRACKING',
       'PARENT_PORTAL', 'INTERVENTION_LIBRARY', 'BASIC_REPORTS'
@@ -204,8 +204,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'SEND support at your fingertips',
     description: 'Complete toolkit for classroom teachers and SENCOs',
     target: 'individual',
-    priceMonthlyPence: 2900, // £29
-    priceAnnualPence: 29000, // £290 (2 months free)
+    priceMonthlyPence: 2900, // 29
+    priceAnnualPence: 29000, // 290 (2 months free)
     features: [
       'DASHBOARD_ACCESS', 'CASE_MANAGEMENT', 'STUDENT_PROFILES',
       'BASIC_ASSESSMENTS', 'INTERVENTION_LIBRARY', 'PROGRESS_TRACKING',
@@ -229,8 +229,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'Learn with professional tools',
     description: 'Discounted rate for verified EP trainees (proof required)',
     target: 'individual',
-    priceMonthlyPence: 1900, // £19
-    priceAnnualPence: 19000, // £190
+    priceMonthlyPence: 1900, // 19
+    priceAnnualPence: 19000, // 190
     features: [
       'DASHBOARD_ACCESS', 'CASE_MANAGEMENT', 'STUDENT_PROFILES',
       'BASIC_ASSESSMENTS', 'ADVANCED_ASSESSMENTS', 'ECCA_FRAMEWORK',
@@ -256,8 +256,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'The complete EP practice toolkit',
     description: 'Everything an independent EP needs to run a modern practice',
     target: 'individual',
-    priceMonthlyPence: 7900, // £79
-    priceAnnualPence: 79000, // £790 (2 months free)
+    priceMonthlyPence: 7900, // 79
+    priceAnnualPence: 79000, // 790 (2 months free)
     features: [
       'DASHBOARD_ACCESS', 'CASE_MANAGEMENT', 'STUDENT_PROFILES',
       'BASIC_ASSESSMENTS', 'ADVANCED_ASSESSMENTS', 'ECCA_FRAMEWORK',
@@ -288,8 +288,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'SEND support for smaller schools',
     description: 'Perfect for primary schools with up to 200 pupils',
     target: 'school',
-    priceMonthlyPence: 14900, // £149
-    priceAnnualPence: 149000, // £1,490 (2 months free)
+    priceMonthlyPence: 14900, // 149
+    priceAnnualPence: 149000, // 1,490 (2 months free)
     features: [
       'DASHBOARD_ACCESS', 'CASE_MANAGEMENT', 'STUDENT_PROFILES',
       'BASIC_ASSESSMENTS', 'ADVANCED_ASSESSMENTS', 'ECCA_FRAMEWORK',
@@ -315,8 +315,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'Complete SEND orchestration',
     description: 'For medium schools with 200-500 pupils',
     target: 'school',
-    priceMonthlyPence: 29900, // £299
-    priceAnnualPence: 299000, // £2,990 (2 months free)
+    priceMonthlyPence: 29900, // 299
+    priceAnnualPence: 299000, // 2,990 (2 months free)
     features: [
       'DASHBOARD_ACCESS', 'CASE_MANAGEMENT', 'STUDENT_PROFILES',
       'BASIC_ASSESSMENTS', 'ADVANCED_ASSESSMENTS', 'ECCA_FRAMEWORK',
@@ -344,8 +344,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'Enterprise-grade for large schools',
     description: 'For secondary schools with 500+ pupils',
     target: 'school',
-    priceMonthlyPence: 49900, // £499
-    priceAnnualPence: 499000, // £4,990 (2 months free)
+    priceMonthlyPence: 49900, // 499
+    priceAnnualPence: 499000, // 4,990 (2 months free)
     features: [
       'DASHBOARD_ACCESS', 'CASE_MANAGEMENT', 'STUDENT_PROFILES',
       'BASIC_ASSESSMENTS', 'ADVANCED_ASSESSMENTS', 'ECCA_FRAMEWORK',
@@ -373,8 +373,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'Built for specialist provision',
     description: 'Enhanced features for special schools and PRUs',
     target: 'school',
-    priceMonthlyPence: 59900, // £599
-    priceAnnualPence: 599000, // £5,990 (2 months free)
+    priceMonthlyPence: 59900, // 599
+    priceAnnualPence: 599000, // 5,990 (2 months free)
     features: [
       'DASHBOARD_ACCESS', 'CASE_MANAGEMENT', 'STUDENT_PROFILES',
       'BASIC_ASSESSMENTS', 'ADVANCED_ASSESSMENTS', 'ECCA_FRAMEWORK',
@@ -406,8 +406,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'Trust-wide SEND coordination',
     description: 'For MATs with 2-5 schools',
     target: 'mat',
-    priceMonthlyPence: 79900, // £799
-    priceAnnualPence: 799000, // £7,990 (2 months free)
+    priceMonthlyPence: 79900, // 799
+    priceAnnualPence: 799000, // 7,990 (2 months free)
     features: [
       'DASHBOARD_ACCESS', 'CASE_MANAGEMENT', 'STUDENT_PROFILES',
       'BASIC_ASSESSMENTS', 'ADVANCED_ASSESSMENTS', 'ECCA_FRAMEWORK',
@@ -436,8 +436,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'Scale with confidence',
     description: 'For MATs with 6-15 schools',
     target: 'mat',
-    priceMonthlyPence: 149900, // £1,499
-    priceAnnualPence: 1499000, // £14,990 (2 months free)
+    priceMonthlyPence: 149900, // 1,499
+    priceAnnualPence: 1499000, // 14,990 (2 months free)
     features: [
       'DASHBOARD_ACCESS', 'CASE_MANAGEMENT', 'STUDENT_PROFILES',
       'BASIC_ASSESSMENTS', 'ADVANCED_ASSESSMENTS', 'ECCA_FRAMEWORK',
@@ -468,8 +468,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'Enterprise for growing trusts',
     description: 'For MATs with 16-30 schools',
     target: 'mat',
-    priceMonthlyPence: 249900, // £2,499
-    priceAnnualPence: 2499000, // £24,990 (2 months free)
+    priceMonthlyPence: 249900, // 2,499
+    priceAnnualPence: 2499000, // 24,990 (2 months free)
     features: [
       'DASHBOARD_ACCESS', 'CASE_MANAGEMENT', 'STUDENT_PROFILES',
       'BASIC_ASSESSMENTS', 'ADVANCED_ASSESSMENTS', 'ECCA_FRAMEWORK',
@@ -499,8 +499,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'For the largest trusts',
     description: 'For MATs with 31+ schools',
     target: 'mat',
-    priceMonthlyPence: 399900, // £3,999
-    priceAnnualPence: 3999000, // £39,990 (2 months free)
+    priceMonthlyPence: 399900, // 3,999
+    priceAnnualPence: 3999000, // 39,990 (2 months free)
     features: [
       'DASHBOARD_ACCESS', 'CASE_MANAGEMENT', 'STUDENT_PROFILES',
       'BASIC_ASSESSMENTS', 'ADVANCED_ASSESSMENTS', 'ECCA_FRAMEWORK',
@@ -535,8 +535,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'Start your digital transformation',
     description: 'For LAs with up to 50 maintained schools',
     target: 'la',
-    priceMonthlyPence: 349900, // £3,499
-    priceAnnualPence: 3499000, // £34,990 (2 months free)
+    priceMonthlyPence: 349900, // 3,499
+    priceAnnualPence: 3499000, // 34,990 (2 months free)
     features: [
       'DASHBOARD_ACCESS', 'CASE_MANAGEMENT', 'STUDENT_PROFILES',
       'BASIC_ASSESSMENTS', 'ADVANCED_ASSESSMENTS', 'ECCA_FRAMEWORK',
@@ -565,8 +565,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'Comprehensive LA solution',
     description: 'For LAs with 50-150 maintained schools',
     target: 'la',
-    priceMonthlyPence: 699900, // £6,999
-    priceAnnualPence: 6999000, // £69,990 (2 months free)
+    priceMonthlyPence: 699900, // 6,999
+    priceAnnualPence: 6999000, // 69,990 (2 months free)
     features: [
       'DASHBOARD_ACCESS', 'CASE_MANAGEMENT', 'STUDENT_PROFILES',
       'BASIC_ASSESSMENTS', 'ADVANCED_ASSESSMENTS', 'ECCA_FRAMEWORK',
@@ -598,8 +598,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'Full children\'s services integration',
     description: 'For LAs with 150-300 maintained schools',
     target: 'la',
-    priceMonthlyPence: 1499900, // £14,999
-    priceAnnualPence: 14999000, // £149,990 (2 months free)
+    priceMonthlyPence: 1499900, // 14,999
+    priceAnnualPence: 14999000, // 149,990 (2 months free)
     features: [
       'DASHBOARD_ACCESS', 'CASE_MANAGEMENT', 'STUDENT_PROFILES',
       'BASIC_ASSESSMENTS', 'ADVANCED_ASSESSMENTS', 'ECCA_FRAMEWORK',
@@ -632,8 +632,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'For major metropolitan authorities',
     description: 'For LAs with 300+ maintained schools',
     target: 'la',
-    priceMonthlyPence: 2999900, // £29,999
-    priceAnnualPence: 29999000, // £299,990 (2 months free)
+    priceMonthlyPence: 2999900, // 29,999
+    priceAnnualPence: 29999000, // 299,990 (2 months free)
     features: [
       'DASHBOARD_ACCESS', 'CASE_MANAGEMENT', 'STUDENT_PROFILES',
       'BASIC_ASSESSMENTS', 'ADVANCED_ASSESSMENTS', 'ECCA_FRAMEWORK',
@@ -669,8 +669,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'For doctoral and independent researchers',
     description: 'PhD students, post-docs, and independent researchers',
     target: 'research',
-    priceMonthlyPence: 3900, // £39
-    priceAnnualPence: 39000, // £390 (2 months free)
+    priceMonthlyPence: 3900, // 39
+    priceAnnualPence: 39000, // 390 (2 months free)
     features: [
       'DASHBOARD_ACCESS', 'CASE_MANAGEMENT', 'STUDENT_PROFILES',
       'BASIC_ASSESSMENTS', 'ADVANCED_ASSESSMENTS', 'PROGRESS_TRACKING',
@@ -694,8 +694,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'For university research groups',
     description: 'Research teams and labs',
     target: 'research',
-    priceMonthlyPence: 19900, // £199
-    priceAnnualPence: 199000, // £1,990 (2 months free)
+    priceMonthlyPence: 19900, // 199
+    priceAnnualPence: 199000, // 1,990 (2 months free)
     features: [
       'DASHBOARD_ACCESS', 'CASE_MANAGEMENT', 'STUDENT_PROFILES',
       'BASIC_ASSESSMENTS', 'ADVANCED_ASSESSMENTS', 'ECCA_FRAMEWORK',
@@ -722,8 +722,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'University-wide license',
     description: 'For universities and research institutions',
     target: 'research',
-    priceMonthlyPence: 99900, // £999
-    priceAnnualPence: 999000, // £9,990 (2 months free)
+    priceMonthlyPence: 99900, // 999
+    priceAnnualPence: 999000, // 9,990 (2 months free)
     features: [
       'DASHBOARD_ACCESS', 'CASE_MANAGEMENT', 'STUDENT_PROFILES',
       'BASIC_ASSESSMENTS', 'ADVANCED_ASSESSMENTS', 'ECCA_FRAMEWORK',
@@ -831,7 +831,7 @@ export const ADD_ON_PRODUCTS: AddOnProduct[] = [
     id: 'ADDON_AI_POWER',
     name: 'AI Power Pack',
     description: '500 additional AI calls per month',
-    priceMonthlyPence: 2900, // £29
+    priceMonthlyPence: 2900, // 29
     priceAnnualPence: 29000,
     compatibleTiers: ['TEACHER_INDIVIDUAL', 'TRAINEE_EP', 'INDIVIDUAL_EP', 'SCHOOL_STARTER', 'SCHOOL_STANDARD'],
     features: ['AI_INSIGHTS', 'AI_TUTOR']
@@ -840,7 +840,7 @@ export const ADD_ON_PRODUCTS: AddOnProduct[] = [
     id: 'ADDON_EHCP_ACCELERATOR',
     name: 'EHCP Accelerator',
     description: 'Advanced EHCP tools and templates',
-    priceMonthlyPence: 4900, // £49
+    priceMonthlyPence: 4900, // 49
     priceAnnualPence: 49000,
     compatibleTiers: ['INDIVIDUAL_EP', 'SCHOOL_STARTER', 'SCHOOL_STANDARD'],
     features: ['EHCP_SUPPORT']
@@ -849,7 +849,7 @@ export const ADD_ON_PRODUCTS: AddOnProduct[] = [
     id: 'ADDON_CPD_UNLIMITED',
     name: 'CPD Library Unlimited',
     description: 'Unlimited access to all CPD courses',
-    priceMonthlyPence: 9900, // £99
+    priceMonthlyPence: 9900, // 99
     priceAnnualPence: 99000,
     compatibleTiers: ['TEACHER_INDIVIDUAL', 'TRAINEE_EP', 'INDIVIDUAL_EP', 'SCHOOL_STARTER', 'SCHOOL_STANDARD'],
     features: ['CPD_UNLIMITED']
@@ -858,7 +858,7 @@ export const ADD_ON_PRODUCTS: AddOnProduct[] = [
     id: 'ADDON_API_ACCESS',
     name: 'API Access',
     description: 'Developer API for custom integrations',
-    priceMonthlyPence: 19900, // £199
+    priceMonthlyPence: 19900, // 199
     priceAnnualPence: 199000,
     compatibleTiers: ['SCHOOL_STANDARD', 'SCHOOL_PREMIUM', 'SCHOOL_SPECIAL'],
     features: ['API_ACCESS']
@@ -867,7 +867,7 @@ export const ADD_ON_PRODUCTS: AddOnProduct[] = [
     id: 'ADDON_WHITE_LABEL',
     name: 'White Label',
     description: 'Remove EdPsych Connect branding',
-    priceMonthlyPence: 49900, // £499
+    priceMonthlyPence: 49900, // 499
     priceAnnualPence: 499000,
     compatibleTiers: ['MAT_LARGE', 'MAT_ENTERPRISE', 'LA_ENTERPRISE', 'LA_METROPOLITAN'],
     features: ['WHITE_LABEL']
@@ -876,7 +876,7 @@ export const ADD_ON_PRODUCTS: AddOnProduct[] = [
     id: 'ADDON_PRIORITY_SUPPORT',
     name: 'Priority Support',
     description: '4-hour response SLA',
-    priceMonthlyPence: 7900, // £79
+    priceMonthlyPence: 7900, // 79
     priceAnnualPence: 79000,
     compatibleTiers: ['SCHOOL_STARTER', 'SCHOOL_STANDARD', 'MAT_SMALL', 'MAT_MEDIUM'],
     features: ['PRIORITY_SUPPORT']
@@ -885,7 +885,7 @@ export const ADD_ON_PRODUCTS: AddOnProduct[] = [
     id: 'ADDON_DATA_ANALYTICS_PRO',
     name: 'Data Analytics Pro',
     description: 'Advanced dashboards and predictive analytics',
-    priceMonthlyPence: 14900, // £149
+    priceMonthlyPence: 14900, // 149
     priceAnnualPence: 149000,
     compatibleTiers: ['SCHOOL_STANDARD', 'SCHOOL_PREMIUM', 'MAT_SMALL', 'MAT_MEDIUM'],
     features: ['CROSS_SCHOOL_ANALYTICS', 'RESEARCH_TOOLS']
@@ -909,49 +909,49 @@ export const ONE_TIME_PURCHASES: OneTimePurchase[] = [
     id: 'ONBOARD_SCHOOL',
     name: 'School Onboarding Package',
     description: 'Training, setup, data migration support',
-    pricePence: 49900, // £499
+    pricePence: 49900, // 499
     category: 'onboarding'
   },
   {
     id: 'ONBOARD_MAT',
     name: 'MAT Onboarding Package',
     description: 'Multi-school onboarding with training',
-    pricePence: 199900, // £1,999
+    pricePence: 199900, // 1,999
     category: 'onboarding'
   },
   {
     id: 'ONBOARD_LA',
     name: 'LA Onboarding Package',
     description: 'Full LA-wide implementation',
-    pricePence: 499900, // £4,999
+    pricePence: 499900, // 4,999
     category: 'onboarding'
   },
   {
     id: 'INTEGRATION_SIMS',
     name: 'SIMS Integration',
     description: 'Custom integration with SIMS MIS',
-    pricePence: 249900, // £2,499
+    pricePence: 249900, // 2,499
     category: 'integration'
   },
   {
     id: 'INTEGRATION_ARBOR',
     name: 'Arbor Integration',
     description: 'Custom integration with Arbor MIS',
-    pricePence: 249900, // £2,499
+    pricePence: 249900, // 2,499
     category: 'integration'
   },
   {
     id: 'CPD_SINGLE_COURSE',
     name: 'CPD Course (Single)',
     description: 'Individual course purchase',
-    pricePence: 4900, // £49 (to £299 depending on course)
+    pricePence: 4900, // 49 (to 299 depending on course)
     category: 'training'
   },
   {
     id: 'CPD_ANNUAL_BUNDLE',
     name: 'CPD Annual Bundle',
     description: 'Unlimited courses for 1 year',
-    pricePence: 59900, // £599
+    pricePence: 59900, // 599
     category: 'training'
   }
 ];
@@ -986,7 +986,7 @@ export const MARKETPLACE_LISTINGS: MarketplaceListing[] = [
     type: 'basic',
     name: 'Basic Seller',
     description: 'Enhanced visibility',
-    monthlyFeePence: 2900, // £29/month
+    monthlyFeePence: 2900, // 29/month
     commissionPercent: 10,
     features: [
       'Featured in category',
@@ -999,7 +999,7 @@ export const MARKETPLACE_LISTINGS: MarketplaceListing[] = [
     type: 'premium',
     name: 'Premium Seller',
     description: 'Maximum visibility and lowest fees',
-    monthlyFeePence: 9900, // £99/month
+    monthlyFeePence: 9900, // 99/month
     commissionPercent: 5,
     features: [
       'Homepage featuring',
@@ -1026,7 +1026,7 @@ export function getPlansByTarget(target: PricingPlan['target']): PricingPlan[] {
 
 export function formatPriceGBP(pence: number): string {
   if (pence === 0) return 'Free';
-  return `£${(pence / 100).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  return `${(pence / 100).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
 export function formatPricePerMonth(plan: PricingPlan, annual: boolean = false): string {

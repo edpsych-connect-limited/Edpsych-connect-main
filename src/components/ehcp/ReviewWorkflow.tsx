@@ -431,7 +431,7 @@ export default function ReviewWorkflow({
                           onClick={() => router.push(`/ehcp/${ehcpId}/reviews/${review.id}`)}
                           className="px-3 py-1 text-sm text-blue-600 hover:text-blue-800 font-medium"
                         >
-                          View Details →
+                          View Details
                         </button>
                       </div>
                     </div>
@@ -498,7 +498,7 @@ export default function ReviewWorkflow({
                           onClick={() => router.push(`/ehcp/${ehcpId}/amendments/${amendment.id}`)}
                           className="px-3 py-1 text-sm text-blue-600 hover:text-blue-800 font-medium"
                         >
-                          View Details →
+                          View Details
                         </button>
                       </div>
                     </div>

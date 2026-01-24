@@ -56,7 +56,7 @@ export default function GoldenThreadDashboard() {
             Autonomous Educational Intelligence
           </h1>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-            Watch the AI identify, assess, support, and communicate—without human intervention.
+            Watch the AI identify, assess, support, and communicate-without human intervention.
           </p>
         </div>
 
@@ -178,7 +178,7 @@ export default function GoldenThreadDashboard() {
                           <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-bold">LT</div>
                           <div>
                             <div className="font-bold text-slate-900">Leo Thompson</div>
-                            <div className="text-sm text-slate-500">Year 5 • Reg 5B</div>
+                            <div className="text-sm text-slate-500">Year 5 - Reg 5B</div>
                           </div>
                         </div>
                         <div className="text-right">

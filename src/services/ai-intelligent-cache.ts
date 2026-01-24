@@ -450,7 +450,7 @@ import { logger } from "@/lib/logger";
 export async function optimizeGlobalCDNAndCaching(): Promise<void> {
   const redis = getRedisClient();
 
-  logger.debug('🌍 Initializing global CDN and caching optimization...');
+  logger.debug(' Initializing global CDN and caching optimization...');
 
   // Configure Cloudflare cache headers
   const _cloudflareHeaders = {
@@ -478,7 +478,7 @@ export async function optimizeGlobalCDNAndCaching(): Promise<void> {
     await redis.set(`edge_cache:${asset}`, 'preloaded', 3600);
   }
 
-  logger.debug('✅ Redis edge cache preloaded with critical assets');
-  logger.debug('✅ Cloudflare and Vercel Edge caching strategies applied');
-  logger.debug('✅ Global CDN optimization complete');
+  logger.debug('OK Redis edge cache preloaded with critical assets');
+  logger.debug('OK Cloudflare and Vercel Edge caching strategies applied');
+  logger.debug('OK Global CDN optimization complete');
 }

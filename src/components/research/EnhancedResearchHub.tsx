@@ -521,7 +521,7 @@ export default function EnhancedResearchHub({ initialStudies = [] }: EnhancedRes
                   onClick={() => setActiveTab('studies')}
                   className="text-indigo-600 font-medium text-sm hover:underline"
                 >
-                  View All Studies →
+                  View All Studies
                 </button>
               </div>
               <div className="divide-y divide-gray-100">
@@ -861,7 +861,7 @@ export default function EnhancedResearchHub({ initialStudies = [] }: EnhancedRes
                           </div>
                           <div className="bg-gray-50 p-3 rounded-xl text-center">
                             <p className="text-2xl font-bold text-green-600">{framework.reliability}</p>
-                            <p className="text-xs text-gray-500">Reliability (α)</p>
+                            <p className="text-xs text-gray-500">Reliability (alpha)</p>
                           </div>
                           <div className="bg-gray-50 p-3 rounded-xl text-center">
                             <p className="text-2xl font-bold text-green-600">{framework.validity}</p>

@@ -6,7 +6,7 @@ import { logger } from "@/lib/logger";
  * the proprietary algorithms, assessment frameworks, and business logic
  * that represent significant R&D investment.
  * 
- * Copyright © 2025 EdPsych Connect Limited. All Rights Reserved.
+ * Copyright (c) 2025 EdPsych Connect Limited. All Rights Reserved.
  * Company No: 14989115 | HCPC: PYL042340
  * 
  * CONFIDENTIAL AND PROPRIETARY
@@ -237,7 +237,7 @@ export function getSecurityHeaders(): Record<string, string> {
     'Referrer-Policy': 'strict-origin-when-cross-origin',
     'Permissions-Policy': 'camera=(), microphone=(self), geolocation=()',
     'X-Powered-By': 'EdPsych Connect Limited',
-    'X-Copyright': '© 2025 EdPsych Connect Limited. All Rights Reserved.',
+    'X-Copyright': '(c) 2025 EdPsych Connect Limited. All Rights Reserved.',
   };
 }
 
@@ -278,7 +278,7 @@ export function logIPViolation(
   violationLogs.push(violation);
   
   // In production, this would send to a secure logging service
-  logger.warn('🚨 IP Violation Detected:', JSON.stringify(violation));
+  logger.warn('ALERT IP Violation Detected:', JSON.stringify(violation));
 }
 
 /**

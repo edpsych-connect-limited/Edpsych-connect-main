@@ -62,7 +62,7 @@ export default function TrainingPlatformSection() {
     {
       icon: Users,
       title: "Team Training",
-      description: "Enroll whole-school teams—track progress across departments and staff"
+      description: "Enroll whole-school teams-track progress across departments and staff"
     }
   ];
 
@@ -265,7 +265,7 @@ export default function TrainingPlatformSection() {
             Purchase Individual Courses or Get Full Access
           </h3>
           <p className="text-lg text-slate-700 mb-6 max-w-2xl mx-auto">
-            Buy courses individually (£50-150 per course) or get unlimited access with
+            Buy courses individually (GBP 50-150 per course) or get unlimited access with
             LA and School subscriptions. CPD certificates automatically generated on completion.
           </p>
           <div className="flex items-center justify-center gap-4">

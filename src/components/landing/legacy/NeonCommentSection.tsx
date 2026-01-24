@@ -68,7 +68,7 @@ export default function NeonCommentSection({ searchParams }: NeonCommentSectionP
             Neon comments
           </p>
           <h2 className="text-3xl sm:text-4xl font-display font-bold text-neutral-900">
-            Share a quick note—results land straight in Neon.
+            Share a quick note-results land straight in Neon.
           </h2>
           <p className="text-lg text-neutral-600">
             This form uses the `@neondatabase/serverless` driver to insert feedback directly into the

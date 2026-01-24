@@ -12,7 +12,7 @@ function normaliseText(input: string): string {
     .replace(/\r\n/g, '\n')
     .replace(/\r/g, '\n')
     // Avoid accidentally creating a cue timing line inside the cue payload.
-    .replace(/-->/g, '→')
+    .replace(/-->/g, '->')
     .trim();
 }
 

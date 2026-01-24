@@ -151,7 +151,7 @@ export default function CrisisImpactSection() {
     {
       icon: <Scale className="w-6 h-6" />,
       crisis: "Tribunal Costs",
-      statistic: "£500M+",
+      statistic: "GBP 500M+",
       statisticNumber: 500,
       statisticSuffix: "M+",
       reality: "Spent annually defending poor decisions. Money that could fund actual support for children goes to legal battles.",
@@ -313,7 +313,7 @@ export default function CrisisImpactSection() {
                 "EPs overwhelmed, support comes too late"
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3 text-slate-400">
-                  <span className="text-red-500 mt-1">✗</span>
+                  <span className="text-red-500 mt-1">NO</span>
                   {item}
                 </li>
               ))}

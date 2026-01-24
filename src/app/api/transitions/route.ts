@@ -2,10 +2,10 @@
  * Transition Planning API Routes
  * 
  * Supports all key educational transitions with comprehensive planning:
- * - EYFS → KS1
- * - KS2 → KS3 (Primary to Secondary)
- * - KS4 → Post-16
- * - Post-16 → Adult services
+ * - EYFS -> KS1
+ * - KS2 -> KS3 (Primary to Secondary)
+ * - KS4 -> Post-16
+ * - Post-16 -> Adult services
  * 
  * Features:
  * - Multi-phase transition management

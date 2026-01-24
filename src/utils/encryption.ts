@@ -35,9 +35,9 @@ export const secureStore = (key: string, data: any, useSession = false): void =>
     const storage = useSession ? sessionStorage : localStorage;
     const serialized = typeof data === 'string' ? data : JSON.stringify(data);
     storage.setItem(key, serialized);
-    logger.debug(`✅ [Storage] Stored ${key} successfully`);
+    logger.debug(`OK [Storage] Stored ${key} successfully`);
   } catch (_error) {
-    console.error(`❌ [Storage] Failed to store ${key}:`, _error);
+    console.error(`FAIL [Storage] Failed to store ${key}:`, _error);
     throw _error;
   }
 };
@@ -59,22 +59,22 @@ export const secureRetrieve = (key: string, useSession = false): any => {
     const data = storage.getItem(key);
 
     if (!data) {
-      logger.debug(`ℹ️ [Storage] No data found for ${key}`);
+      logger.debug(`INFO [Storage] No data found for ${key}`);
       return null;
     }
 
     try {
       // Try to parse as JSON
       const parsed = JSON.parse(data);
-      logger.debug(`✅ [Storage] Retrieved ${key} successfully`);
+      logger.debug(`OK [Storage] Retrieved ${key} successfully`);
       return parsed;
     } catch {
       // If not valid JSON, return as string
-      logger.debug(`✅ [Storage] Retrieved ${key} as string`);
+      logger.debug(`OK [Storage] Retrieved ${key} as string`);
       return data;
     }
   } catch (_error) {
-    console.error(`❌ [Storage] Failed to retrieve ${key}:`, _error);
+    console.error(`FAIL [Storage] Failed to retrieve ${key}:`, _error);
     return null;
   }
 };
@@ -93,9 +93,9 @@ export const secureRemove = (key: string, useSession = false): void => {
   try {
     const storage = useSession ? sessionStorage : localStorage;
     storage.removeItem(key);
-    logger.debug(`✅ [Storage] Removed ${key}`);
+    logger.debug(`OK [Storage] Removed ${key}`);
   } catch (_error) {
-    console.error(`❌ [Storage] Failed to remove ${key}:`, _error);
+    console.error(`FAIL [Storage] Failed to remove ${key}:`, _error);
   }
 };
 
@@ -133,9 +133,9 @@ export const clearAuthStorage = (useSession = false): void => {
     secureRemove('accessToken', useSession);
     secureRemove('refreshToken', useSession);
     secureRemove('userData', useSession);
-    logger.debug('✅ [Storage] Cleared all authentication data');
+    logger.debug('OK [Storage] Cleared all authentication data');
   } catch (_error) {
-    console.error('❌ [Storage] Failed to clear authentication data:', _error);
+    console.error('FAIL [Storage] Failed to clear authentication data:', _error);
   }
 };
 

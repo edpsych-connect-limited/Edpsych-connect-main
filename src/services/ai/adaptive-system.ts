@@ -1,6 +1,6 @@
 import { logger } from "@/lib/logger";
 /**
- * 🧠 ADAPTIVE INTELLIGENCE SYSTEM
+ * AI ADAPTIVE INTELLIGENCE SYSTEM
  * Real-time adaptation engine that makes the landing page "invisible intelligence"
  *
  * This system analyzes user behavior in real-time and adapts content, navigation,
@@ -69,7 +69,7 @@ export class AdaptiveIntelligenceSystem {
   private conversionMetrics: Map<string, any> = new Map();
 
   constructor() {
-    logger.debug('🧠 Adaptive Intelligence System initialized');
+    logger.debug('AI Adaptive Intelligence System initialized');
     this.initializeDefaultOptimizations();
   }
 
@@ -152,7 +152,7 @@ export class AdaptiveIntelligenceSystem {
     const detectedUserType = this.detectUserType(session);
     if (detectedUserType && detectedUserType !== session.userType) {
       session.userType = detectedUserType;
-      logger.debug(`👤 Detected user type: ${detectedUserType} for session ${session.id}`);
+      logger.debug(`USER Detected user type: ${detectedUserType} for session ${session.id}`);
     }
 
     // Analyze engagement patterns
@@ -334,7 +334,7 @@ export class AdaptiveIntelligenceSystem {
    * Trigger intervention for hesitation
    */
   private async triggerHesitationIntervention(session: UserSession): Promise<void> {
-    logger.debug(`🎯 Triggering hesitation intervention for session ${session.id}`);
+    logger.debug(`TARGET Triggering hesitation intervention for session ${session.id}`);
 
     // Generate personalized intervention content
     const prompt = `
@@ -364,7 +364,7 @@ export class AdaptiveIntelligenceSystem {
       });
 
       // Store intervention for delivery
-      logger.debug(`💬 Generated intervention: ${response.content.substring(0, 100)}...`);
+      logger.debug(`MESSAGE Generated intervention: ${response.content.substring(0, 100)}...`);
 
     } catch (_error) {
       console.warn('Failed to generate hesitation intervention:', _error);
@@ -375,13 +375,13 @@ export class AdaptiveIntelligenceSystem {
    * Trigger optimization for high intent
    */
   private async triggerIntentOptimization(session: UserSession): Promise<void> {
-    logger.debug(`🚀 Triggering intent optimization for session ${session.id}`);
+    logger.debug(`START Triggering intent optimization for session ${session.id}`);
 
     // Optimize conversion path
     const optimizations = await this.generateConversionOptimizations(session);
 
     // Apply optimizations
-    logger.debug(`✅ Applied ${optimizations.length} conversion optimizations`);
+    logger.debug(`OK Applied ${optimizations.length} conversion optimizations`);
   }
 
   /**

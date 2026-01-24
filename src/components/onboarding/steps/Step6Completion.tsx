@@ -40,7 +40,7 @@ export function Step6Completion() {
   // Show confetti animation on mount
   useEffect(() => {
     // In production, trigger confetti animation here
-    logger.debug('🎉 Onboarding completed!');
+    logger.debug('Onboarding completed!');
   }, []);
 
   const handleDownloadCertificate = () => {
@@ -104,17 +104,17 @@ export function Step6Completion() {
     {
       label: 'Time Spent',
       value: `${Math.floor(state.totalTimeSpent / 60)} min`,
-      icon: '⏱️'
+      icon: 'Time'
     },
     {
       label: 'Steps Completed',
       value: `${state.stepsCompleted.length} of 6`,
-      icon: '✅'
+      icon: 'Done'
     },
     {
       label: 'Features Explored',
       value: `${state.step4Data.featuresViewed.length}`,
-      icon: '🔍'
+      icon: 'Search'
     }
   ];
 
@@ -166,7 +166,7 @@ export function Step6Completion() {
           <PartyPopper className="w-10 h-10 text-white" aria-hidden="true" />
         </div>
         <h2 className="text-4xl font-bold text-gray-900 mb-3">
-          Congratulations! 🎉
+          Congratulations!
         </h2>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
           You&apos;ve successfully completed the onboarding. You&apos;re now ready to transform your SEND practice with EdPsych Connect World!
@@ -277,7 +277,7 @@ export function Step6Completion() {
           disabled={!selectedNextAction}
           className="w-full md:w-auto px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white text-lg font-bold rounded-xl hover:from-green-700 hover:to-emerald-700 focus:outline-none focus:ring-4 focus:ring-green-200 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl"
         >
-          Complete Onboarding & Get Started! 🚀
+          Complete Onboarding & Get Started!
         </button>
 
         {!selectedNextAction && (
@@ -299,20 +299,20 @@ export function Step6Completion() {
             target="_blank"
             className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 underline focus:outline-none focus:ring-2 focus:ring-indigo-300 rounded"
           >
-            📚 Help Centre
+            Help Centre
           </a>
           <a
             href="/training/getting-started"
             target="_blank"
             className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 underline focus:outline-none focus:ring-2 focus:ring-indigo-300 rounded"
           >
-            🎓 Getting Started Guide
+            Getting Started Guide
           </a>
           <a
             href="mailto:support@edpsychconnect.com"
             className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 underline focus:outline-none focus:ring-2 focus:ring-indigo-300 rounded"
           >
-            ✉️ Contact Support
+            Contact Support
           </a>
         </div>
       </div>

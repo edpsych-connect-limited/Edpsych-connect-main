@@ -2,7 +2,7 @@
  * Golden Thread Coherence Analysis Service
  * 
  * Analyses and ensures coherence across EHCP sections:
- * - Section B (Needs) → Section F (Provision) → Section E (Outcomes)
+ * - Section B (Needs) -> Section F (Provision) -> Section E (Outcomes)
  * 
  * The "Golden Thread" ensures:
  * 1. Every identified need has appropriate provision

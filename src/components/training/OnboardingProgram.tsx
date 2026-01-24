@@ -494,11 +494,11 @@ const OnboardingProgram: React.FC = () => {
               selectedCategory === category.id ? 'bg-blue-200 text-blue-700' : 'bg-gray-100 text-gray-600'
             }`}>
               {/* This would normally be an actual icon */}
-              <span className="text-lg">{category.icon === 'building' && '🏢'}
-              {category.icon === 'clipboard-check' && '📋'}
-              {category.icon === 'chart-line' && '📈'}
-              {category.icon === 'folder-open' && '📁'}
-              {category.icon === 'users' && '👥'}</span>
+              <span className="text-lg">{category.icon === 'building' && 'ORG'}
+              {category.icon === 'clipboard-check' && 'LIST'}
+              {category.icon === 'chart-line' && 'CHART'}
+              {category.icon === 'folder-open' && 'FILE'}
+              {category.icon === 'users' && 'GROUP'}</span>
             </div>
             <span className="text-sm font-medium text-center">{category.name}</span>
             <span className="text-xs text-gray-500 text-center mt-1">

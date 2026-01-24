@@ -325,10 +325,10 @@ const ActivityLogs: React.FC<ActivityLogsProps> = ({
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{log.resourceType}</div>
-                      <div className="text-xs text-gray-500">{log.resourceId || '—'}</div>
+                      <div className="text-xs text-gray-500">{log.resourceId || '-'}</div>
                     </td>
                     <td className="px-4 py-3 text-sm text-gray-500">
-                      {log.details || '—'}
+                      {log.details || '-'}
                     </td>
                   </tr>
                 ))

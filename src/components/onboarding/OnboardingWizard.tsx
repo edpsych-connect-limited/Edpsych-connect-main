@@ -228,7 +228,7 @@ export function OnboardingWizard({ className = '' }: OnboardingWizardProps) {
         {/* Helpful Tips */}
         <div className="mt-6 text-center text-sm text-gray-500">
           <p>
-            💡 <strong>Tip:</strong> Use arrow keys to navigate between steps.
+            <strong>Tip:</strong> Use arrow keys to navigate between steps.
             {state.canSkip && ' You can skip optional steps at any time.'}
           </p>
         </div>

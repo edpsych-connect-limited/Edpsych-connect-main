@@ -35,7 +35,7 @@ export class SchoolAuditEngine {
         severity: 'HIGH',
         title: 'Potential Undiagnosed Learning Needs',
         description: `${undiagnosed.length} students have a reading age gap > 2 years but are not on the SEN register. Early identification could unlock Top-Up funding.`,
-        potentialValue: undiagnosed.length * 6000, // Approx £6k per EHCP
+        potentialValue: undiagnosed.length * 6000, // Approx 6k per EHCP
         affectedStudents: undiagnosed.map(s => s.id)
       });
     }

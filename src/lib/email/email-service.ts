@@ -102,14 +102,14 @@ export class EmailService {
       // info.message exists on JSON transport response
       if (this.isMockMode || (info as any).message) {
         logger.info('=================================================================');
-        logger.info('📧 [EMAIL SERVICE - MOCK MODE]');
+        logger.info('EMAIL [EMAIL SERVICE - MOCK MODE]');
         logger.info(`To: ${options.to}`);
         logger.info(`Subject: ${options.subject}`);
         logger.info('-----------------------------------------------------------------');
         // Log the reset link specifically if found in HTML
         const linkMatch = options.html.match(/href="(.*?)"/);
         if (linkMatch) {
-          logger.info(`🔗 ACTION LINK: ${linkMatch[1]}`);
+          logger.info(` ACTION LINK: ${linkMatch[1]}`);
         }
         logger.info('=================================================================');
       }
@@ -123,7 +123,7 @@ export class EmailService {
       // Fallback to console log in development if sending fails
       if (!this.isProduction) {
         logger.debug('=================================================================');
-        logger.debug('📧 [EMAIL SERVICE - FALLBACK LOG]');
+        logger.debug('EMAIL [EMAIL SERVICE - FALLBACK LOG]');
         logger.debug(`To: ${options.to}`);
         logger.debug(`Subject: ${options.subject}`);
         logger.debug('-----------------------------------------------------------------');

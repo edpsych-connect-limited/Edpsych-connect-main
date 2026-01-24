@@ -176,7 +176,7 @@ export const EnhancedPlayerMesh = ({ player }: { player: Player }) => {
 
 export const EnhancedLootMesh = ({ loot }: { loot: Loot }) => {
   const color = loot.type === 'shield' ? '#3b82f6' : loot.type === 'health' ? '#ef4444' : '#eab308';
-  const icon = loot.type === 'shield' ? '🛡️' : loot.type === 'health' ? '❤️' : '⭐';
+  const icon = loot.type === 'shield' ? 'SHIELD' : loot.type === 'health' ? 'HEALTH' : 'STAR';
 
   return (
     <group position={loot.position}>

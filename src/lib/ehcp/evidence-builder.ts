@@ -4,7 +4,7 @@
  * This module exists to make evidence gathering for an Education, Health and Care Plan (EHCP)
  * repeatable and defensible.
  *
- * Script ↔ code proof anchors (intentional phrases used by the repo audit):
+ * Script <-> code proof anchors (intentional phrases used by the repo audit):
  * - "Our platform prompts you for these because they provide the objective baseline."
  * - "Our system pulls this directly from your intervention logs."
  */

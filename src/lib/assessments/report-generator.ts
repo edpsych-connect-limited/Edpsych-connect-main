@@ -485,7 +485,7 @@ export class AssessmentReportGenerator {
       scores.strengths.forEach((strength) => {
         this.checkPageBreak();
         this.doc.setFontSize(10);
-        this.doc.text('•', this.MARGIN + 2, this.yPosition);
+        this.doc.text('-', this.MARGIN + 2, this.yPosition);
         this.doc.text(strength, this.MARGIN + 7, this.yPosition);
         this.yPosition += 6;
       });
@@ -497,7 +497,7 @@ export class AssessmentReportGenerator {
       scores.weaknesses.forEach((weakness) => {
         this.checkPageBreak();
         this.doc.setFontSize(10);
-        this.doc.text('•', this.MARGIN + 2, this.yPosition);
+        this.doc.text('-', this.MARGIN + 2, this.yPosition);
         this.doc.text(weakness, this.MARGIN + 7, this.yPosition);
         this.yPosition += 6;
       });
@@ -534,7 +534,7 @@ export class AssessmentReportGenerator {
       report.interventions.forEach((intervention) => {
         this.checkPageBreak();
         this.doc.setFontSize(10);
-        this.doc.text('•', this.MARGIN + 2, this.yPosition);
+        this.doc.text('-', this.MARGIN + 2, this.yPosition);
         this.doc.text(intervention, this.MARGIN + 7, this.yPosition);
         this.yPosition += 6;
       });
@@ -604,7 +604,7 @@ export class AssessmentReportGenerator {
       report.distribution_list.forEach((recipient) => {
         this.checkPageBreak();
         this.doc.setFontSize(10);
-        this.doc.text('•', this.MARGIN + 2, this.yPosition);
+        this.doc.text('-', this.MARGIN + 2, this.yPosition);
         this.doc.text(recipient, this.MARGIN + 7, this.yPosition);
         this.yPosition += 6;
       });
@@ -623,7 +623,7 @@ export class AssessmentReportGenerator {
       report.template.interpretation_guidelines.forEach((guideline) => {
         this.checkPageBreak();
         this.doc.setFontSize(10);
-        this.doc.text('•', this.MARGIN + 2, this.yPosition);
+        this.doc.text('-', this.MARGIN + 2, this.yPosition);
 
         const lines = this.doc.splitTextToSize(guideline, this.CONTENT_WIDTH - 10);
         this.doc.text(lines, this.MARGIN + 7, this.yPosition);

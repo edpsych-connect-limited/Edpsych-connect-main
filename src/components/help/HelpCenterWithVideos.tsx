@@ -251,7 +251,7 @@ export default function HelpCenter() {
               onClick={() => setSelectedCategory(null)}
               className="text-indigo-600 hover:text-indigo-700 font-medium mb-4 flex items-center gap-1"
             >
-              ← Back to all categories
+              Back to all categories
             </button>
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">

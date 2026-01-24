@@ -1,6 +1,6 @@
 /**
  * AI Intelligent Problem Matcher API
- * Exposes natural language problem → solution matching
+ * Exposes natural language problem -> solution matching
  */
 
 import { NextRequest, NextResponse } from 'next/server';

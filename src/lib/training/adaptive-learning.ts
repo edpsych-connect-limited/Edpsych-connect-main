@@ -182,19 +182,19 @@ export function analyzeDifficultyAdjustment(profile: LearnerProfile, recentProgr
   let adjustmentReason = '';
   let shouldAdjust = false;
 
-  // User consistently scoring 90%+ and improving → Increase difficulty
+  // User consistently scoring 90%+ and improving -> Increase difficulty
   if (avgRecentScore >= 90 && performanceTrend === 'improving' && currentLevel !== 'expert') {
     recommendedLevel = increaseDifficulty(currentLevel);
     adjustmentReason = 'Excellent performance - ready for greater challenge';
     shouldAdjust = true;
   }
-  // User scoring below 60% and struggling → Decrease difficulty
+  // User scoring below 60% and struggling -> Decrease difficulty
   else if (avgRecentScore < 60 && performanceTrend === 'struggling' && currentLevel !== 'beginner') {
     recommendedLevel = decreaseDifficulty(currentLevel);
     adjustmentReason = 'Content may be too challenging - adjusting for better flow state';
     shouldAdjust = true;
   }
-  // User in optimal zone (70-89%) → Maintain current level
+  // User in optimal zone (70-89%) -> Maintain current level
   else {
     adjustmentReason = 'Performance in optimal challenge zone - maintaining current level';
   }
@@ -298,7 +298,7 @@ export function generatePersonalizedRecommendations(
       if (!allPrerequisitesMet) {
         confidenceScore -= 30;
         prerequisiteMet = false;
-        reasons.push('⚠️ Prerequisites not yet completed');
+        reasons.push('WARNING Prerequisites not yet completed');
       } else {
         confidenceScore += 10;
         reasons.push('Prerequisites completed');
@@ -321,7 +321,7 @@ export function generatePersonalizedRecommendations(
     recommendations.push({
       course_id: course.id,
       course_title: course.title,
-      reason: reasons.join(' • '),
+      reason: reasons.join(' - '),
       confidence_score: Math.min(Math.max(confidenceScore, 0), 100),
       estimated_completion_time_hours: estimatedCompletionTime,
       difficulty_match: difficultyMatch,
@@ -451,7 +451,7 @@ export function isReviewDue(completionDate: Date): boolean {
 
   const reviewIntervals = [1, 3, 7, 14, 30, 90];
 
-  // Check if current day matches any review interval (±1 day tolerance)
+  // Check if current day matches any review interval (+/-1 day tolerance)
   return reviewIntervals.some((interval) => Math.abs(daysSinceCompletion - interval) <= 1);
 }
 

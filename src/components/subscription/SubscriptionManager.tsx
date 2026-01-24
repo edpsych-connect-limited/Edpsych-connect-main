@@ -61,8 +61,8 @@ const SubscriptionManager: React.FC<SubscriptionManagerProps> = ({ className = '
   };
 
   const formatPrice = (amount: number | undefined) => {
-    if (amount === undefined) return '£0.00';
-    return `£${(amount / 100).toFixed(2)}`;
+    if (amount === undefined) return 'GBP 0.00';
+    return `GBP ${(amount / 100).toFixed(2)}`;
   };
 
   const getBillingCycleLabel = (cycle: BillingCycle | undefined) => {

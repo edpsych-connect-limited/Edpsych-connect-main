@@ -182,7 +182,7 @@ export class CertificateGenerator {
     doc.setFontSize(8);
     doc.setTextColor(148, 163, 184);
     doc.text(
-      '© 2025 EdPsych Connect Limited. All rights reserved.',
+      '(c) 2025 EdPsych Connect Limited. All rights reserved.',
       this.CERT_WIDTH / 2,
       this.CERT_HEIGHT - 5,
       { align: 'center' }
@@ -284,7 +284,7 @@ export class CertificateEmailer {
         </div>
 
         <div style="background: #f1f5f9; padding: 20px; text-align: center; font-size: 12px; color: #64748b;">
-          <p>© 2025 EdPsych Connect Limited. All rights reserved.</p>
+          <p>(c) 2025 EdPsych Connect Limited. All rights reserved.</p>
         </div>
       </div>
     `;
@@ -292,7 +292,7 @@ export class CertificateEmailer {
     // Send certificate email via email service
     const sent = await emailService.sendEmail({
       to: userEmail,
-      subject: `🎉 Your Certificate for ${courseName}`,
+      subject: `READY Your Certificate for ${courseName}`,
       html: emailHtml,
       text: `Congratulations ${userName}! You've successfully completed ${courseName}. View your certificate at: ${process.env.NEXT_PUBLIC_APP_URL || 'https://www.edpsychconnect.com'}/training/certificates/${certificateId}`,
     });
@@ -306,7 +306,7 @@ export class CertificateEmailer {
     // Return email content for logging/debugging purposes
     return {
       to: userEmail,
-      subject: `🎉 Your Certificate for ${courseName}`,
+      subject: `READY Your Certificate for ${courseName}`,
       html: emailHtml,
       certificateId,
       sent,

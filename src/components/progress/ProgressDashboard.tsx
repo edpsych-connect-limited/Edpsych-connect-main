@@ -220,25 +220,25 @@ export default function ProgressDashboard({
         <StatCard
           title="Active Interventions"
           value={stats.activeInterventions}
-          icon="🎯"
+          icon="Goals"
           color="blue"
         />
         <StatCard
           title="Average Progress"
           value={`${stats.averageProgress}%`}
-          icon="📈"
+          icon="Trend"
           color="green"
         />
         <StatCard
           title="Goals Achieved"
           value={stats.goalsAchieved}
-          icon="🏆"
+          icon="Awards"
           color="yellow"
         />
         <StatCard
           title="High Priority Alerts"
           value={stats.highAlerts}
-          icon="⚠️"
+          icon="Warning"
           color={stats.highAlerts > 0 ? 'red' : 'gray'}
         />
       </div>
@@ -323,7 +323,7 @@ export default function ProgressDashboard({
 
       {interventions.length === 0 && (
         <div className="bg-white rounded-lg shadow-md p-12 text-center">
-          <div className="text-gray-400 text-6xl mb-4">📊</div>
+          <div className="text-gray-400 text-6xl mb-4">Chart</div>
           <h3 className="text-xl font-semibold text-gray-900 mb-2">No Active Interventions</h3>
           <p className="text-gray-600 mb-6">
             Start tracking progress by creating your first intervention
@@ -398,9 +398,9 @@ function AlertCard({ alert, onClick }: AlertCardProps) {
   };
 
   const severityIcons = {
-    high: '🚨',
-    medium: '⚠️',
-    low: 'ℹ️',
+    high: 'Critical',
+    medium: 'Warning',
+    low: 'Info',
   };
 
   const typeLabels = {
@@ -461,10 +461,10 @@ function InterventionProgressCard({ intervention, onClick }: InterventionProgres
   };
 
   const trendIcons = {
-    improving: '📈',
-    stable: '➡️',
-    declining: '📉',
-    unknown: '❓',
+    improving: 'Up',
+    stable: 'Flat',
+    declining: 'Down',
+    unknown: 'Unknown',
   };
 
   return (

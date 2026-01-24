@@ -6,7 +6,7 @@
  * 
  * SEND Code of Practice 2015: Section 6.15-6.48
  * "Schools should adopt a graduated approach with four stages:
- * Assess → Plan → Do → Review"
+ * Assess -> Plan -> Do -> Review"
  * 
  * Validation Criteria:
  * - Minimum 2 complete Assess-Plan-Do-Review cycles
@@ -348,23 +348,23 @@ export function GraduatedResponseValidator({
           </h4>
           <ul className="space-y-2 text-sm text-blue-800">
             <li className="flex items-start">
-              <span className="mr-2">•</span>
+              <span className="mr-2">-</span>
               <span>Continue delivering targeted interventions at SEN Support level</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2">•</span>
+              <span className="mr-2">-</span>
               <span>Document all Assess-Plan-Do-Review cycles in detail</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2">•</span>
+              <span className="mr-2">-</span>
               <span>Ensure regular reviews (termly minimum) with progress data</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2">•</span>
+              <span className="mr-2">-</span>
               <span>Involve parents in all reviews and keep records of consultations</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2">•</span>
+              <span className="mr-2">-</span>
               <span>Consider requesting advice from external specialists (e.g., EP, SALT) while continuing SEN Support</span>
             </li>
           </ul>

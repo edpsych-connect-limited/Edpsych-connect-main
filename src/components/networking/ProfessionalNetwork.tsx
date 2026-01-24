@@ -537,7 +537,7 @@ const ProfessionalNetwork: React.FC = () => {
                       <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                     </svg>
                     <span>{group.memberCount} members</span>
-                    <span className="mx-2">•</span>
+                    <span className="mx-2">-</span>
                     <span>Last active: {group.lastActivity}</span>
                   </div>
                 </div>

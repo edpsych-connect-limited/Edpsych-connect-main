@@ -2,7 +2,7 @@
  * EdPsych Connect Cognitive Assessment (ECCA)
  * Version 1.0
  *
- * Copyright © 2025 EdPsych Connect Limited. All rights reserved.
+ * Copyright (c) 2025 EdPsych Connect Limited. All rights reserved.
  *
  * EVIDENCE BASE:
  * - Vygotsky, L. S. (1978). Mind in Society: Development of Higher Psychological Processes
@@ -544,7 +544,7 @@ foundational for learning, social interaction, and adaptive behaviour across con
         },
         {
           task: 'Wisconsin Card Sort Analogue',
-          description: 'Sort items by one rule, then switch to different rule when cued (color→shape→number)',
+          description: 'Sort items by one rule, then switch to different rule when cued (color->shape->number)',
           age_appropriate: '6-18',
           materials: 'Cards with multiple attributes',
           dynamic_component: 'Teach set-shifting strategy ("old rule off, new rule on") and retest',
@@ -737,7 +737,7 @@ foundational for learning, social interaction, and adaptive behaviour across con
       id: 'ecca-domain-processing-speed',
       name: 'Processing Speed and Efficiency',
       description: `
-Processing speed refers to the rate at which cognitive operations are executed—how quickly
+Processing speed refers to the rate at which cognitive operations are executed-how quickly
 information is perceived, processed, and responded to. Slow processing speed does not indicate
 lower intelligence but affects the efficiency of learning, particularly in timed or fast-paced
 environments. This domain assesses both perceptual speed (visual/auditory) and motor speed
@@ -987,7 +987,7 @@ environments. This domain assesses both perceptual speed (visual/auditory) and m
       id: 'ecca-domain-learning-memory',
       name: 'Learning and Memory Consolidation',
       description: `
-This domain assesses how children encode, store, and retrieve information over time—the process
+This domain assesses how children encode, store, and retrieve information over time-the process
 of turning experiences into durable learning. It explores verbal and visual learning, retention
 over delays, retrieval strategies, and transfer of learning to new contexts. Grounded in memory
 systems research (Tulving, Squire, Craik & Lockhart), this domain identifies how learning

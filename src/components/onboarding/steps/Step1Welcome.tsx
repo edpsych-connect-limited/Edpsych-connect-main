@@ -185,7 +185,7 @@ export function Step1Welcome() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          Welcome! 👋
+          Welcome!
         </motion.h2>
         <motion.p 
           className="text-lg text-gray-600"
@@ -193,7 +193,7 @@ export function Step1Welcome() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
         >
-          We&apos;re excited to have you join EdPsych Connect World — an all-in-one workspace for educational psychology and SEND collaboration.
+          We&apos;re excited to have you join EdPsych Connect World - an all-in-one workspace for educational psychology and SEND collaboration.
         </motion.p>
       </div>
 
@@ -234,7 +234,7 @@ export function Step1Welcome() {
                   <Play className="w-10 h-10 text-white fill-white ml-1" />
                 </div>
                 <p className="mt-4 text-lg font-medium">Watch Introduction</p>
-                <p className="text-sm text-white/70">2 minutes • AI Presenter</p>
+                <p className="text-sm text-white/70">2 minutes - AI Presenter</p>
               </div>
             </button>
           ) : isLoadingVideo ? (
@@ -330,7 +330,7 @@ export function Step1Welcome() {
                     }}
                     className="px-4 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition-colors shadow-lg"
                   >
-                    ✅ Mark as Watched
+                    Mark as Watched
                   </button>
                 </div>
               )}

@@ -6,10 +6,10 @@
  * "Children love games - make them addicted to learning instead of social media"
  *
  * Game Flow:
- * 🪂 Landing Zone → Choose your learning challenge
- * 💎 Loot Collection → Earn merits by completing activities
- * 🌪️ Storm Circle → Time-based competitions and events
- * 👑 Victory Royale → Achieve goals and dominate leaderboards
+ *  Landing Zone -> Choose your learning challenge
+ *  Loot Collection -> Earn merits by completing activities
+ *  Storm Circle -> Time-based competitions and events
+ *  Victory Royale -> Achieve goals and dominate leaderboards
  *
  * Core Features:
  * - Real-time merit system (the "loot")
@@ -409,7 +409,7 @@ export function checkStormSurvival(player: BattleRoyalePlayer, minutesInactive: 
     return {
       survived: true,
       damage_taken: 0,
-      warning: '⚠️ Storm approaching! Log in soon to maintain your streak.',
+      warning: 'WARNING Storm approaching! Log in soon to maintain your streak.',
     };
   }
 
@@ -417,7 +417,7 @@ export function checkStormSurvival(player: BattleRoyalePlayer, minutesInactive: 
   return {
     survived: false,
     damage_taken: 1, // Lose 1-day streak
-    warning: '💀 Eliminated by storm! Your learning streak has been reset.',
+    warning: ' Eliminated by storm! Your learning streak has been reset.',
   };
 }
 
@@ -438,7 +438,7 @@ export function checkVictoryRoyale(player: BattleRoyalePlayer): VictoryCheck {
   if (player.battle_pass_tier >= 100) {
     victories.push({
       type: 'battle_pass_complete',
-      title: '🏆 BATTLE PASS MAXED',
+      title: 'TROPHY BATTLE PASS MAXED',
       reward_merits: 1000,
       reward_items: ['legendary_trophy', 'victory_glider'],
     });
@@ -448,7 +448,7 @@ export function checkVictoryRoyale(player: BattleRoyalePlayer): VictoryCheck {
   if (player.current_rank === 'champion' || player.current_rank === 'legend') {
     victories.push({
       type: 'rank_champion',
-      title: '👑 CHAMPION ACHIEVED',
+      title: ' CHAMPION ACHIEVED',
       reward_merits: 500,
       reward_items: ['champion_crown', 'golden_contrail'],
     });

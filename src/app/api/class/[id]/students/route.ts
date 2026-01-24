@@ -8,7 +8,7 @@ import { logger } from "@/lib/logger";
  *
  * Features:
  * - Full student roster with profiles
- * - Urgency-based sorting (urgent → needs support → on track → exceeding)
+ * - Urgency-based sorting (urgent -> needs support -> on track -> exceeding)
  * - Recent activity summaries
  * - Class-wide statistical analysis
  * - Voice query optimization

@@ -1076,7 +1076,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'attention',
           },
         ],
-        scoring_instructions: 'Sum all item scores. Score ≥6 indicates clinically significant inattention symptoms',
+        scoring_instructions: 'Sum all item scores. Score >=6 indicates clinically significant inattention symptoms',
       },
       {
         section_id: 'hyperactivity-impulsivity',
@@ -1132,7 +1132,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'impulsivity',
           },
         ],
-        scoring_instructions: 'Sum all item scores. Score ≥6 indicates clinically significant hyperactivity-impulsivity symptoms',
+        scoring_instructions: 'Sum all item scores. Score >=6 indicates clinically significant hyperactivity-impulsivity symptoms',
       },
     ],
     interpretation_guidelines: [
@@ -1421,7 +1421,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       },
     ],
     interpretation_guidelines: [
-      'Developmental progression: rhyme → syllable → phoneme awareness',
+      'Developmental progression: rhyme -> syllable -> phoneme awareness',
       'Phoneme blending and segmentation critical for decoding',
       'Difficulties indicate risk for dyslexia/reading difficulties',
       'Phonological awareness is highly trainable through intervention',
@@ -1504,7 +1504,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'social_skills',
           },
         ],
-        scoring_instructions: 'Total score ≥4 indicates potential social communication difficulties warranting further assessment',
+        scoring_instructions: 'Total score >=4 indicates potential social communication difficulties warranting further assessment',
       },
       {
         section_id: 'restricted-repetitive',
@@ -1572,7 +1572,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'sensory_processing',
           },
         ],
-        scoring_instructions: 'Total score ≥4 indicates potential restricted/repetitive behaviours warranting further assessment',
+        scoring_instructions: 'Total score >=4 indicates potential restricted/repetitive behaviours warranting further assessment',
       },
     ],
     interpretation_guidelines: [
@@ -1828,7 +1828,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'emotional_regulation',
           },
         ],
-        scoring_instructions: 'Score ≥5 suggests clinically significant generalized anxiety',
+        scoring_instructions: 'Score >=5 suggests clinically significant generalized anxiety',
       },
       {
         section_id: 'social-anxiety',
@@ -1868,7 +1868,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'emotional_regulation',
           },
         ],
-        scoring_instructions: 'Score ≥4 suggests clinically significant social anxiety',
+        scoring_instructions: 'Score >=4 suggests clinically significant social anxiety',
       },
       {
         section_id: 'separation-anxiety',
@@ -1979,7 +1979,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'emotional_regulation',
           },
         ],
-        scoring_instructions: 'Persistent low mood (≥2 weeks) or sudden change warrants further assessment',
+        scoring_instructions: 'Persistent low mood (>=2 weeks) or sudden change warrants further assessment',
       },
       {
         section_id: 'regulation-skills',
@@ -2520,7 +2520,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'expressive_language',
           },
         ],
-        scoring_instructions: 'Total score ≥6 indicates age-appropriate narrative structure',
+        scoring_instructions: 'Total score >=6 indicates age-appropriate narrative structure',
       },
       {
         section_id: 'cohesion',
@@ -3575,7 +3575,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'numeracy',
           },
         ],
-        scoring_instructions: 'Total score ≥8 indicates significant risk for dyscalculia',
+        scoring_instructions: 'Total score >=8 indicates significant risk for dyscalculia',
       },
       {
         section_id: 'associated-difficulties',
@@ -3877,7 +3877,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'emotional_regulation',
           },
         ],
-        scoring_instructions: 'Score ≥5 suggests clinically significant mathematics anxiety',
+        scoring_instructions: 'Score >=5 suggests clinically significant mathematics anxiety',
       },
       {
         section_id: 'self-beliefs',
@@ -4049,7 +4049,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'emotional_regulation',
           },
         ],
-        scoring_instructions: '≥4 symptoms rated Often/Very Often suggests clinically significant ODD behaviours',
+        scoring_instructions: '>=4 symptoms rated Often/Very Often suggests clinically significant ODD behaviours',
       },
       {
         section_id: 'conduct-violation',
@@ -4621,7 +4621,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'social_skills',
           },
         ],
-        scoring_instructions: 'Score ≥6 suggests possible trauma-related difficulties; specialist assessment recommended',
+        scoring_instructions: 'Score >=6 suggests possible trauma-related difficulties; specialist assessment recommended',
       },
       {
         section_id: 'ace-indicators',
@@ -5619,7 +5619,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
     interpretation_guidelines: [
       '3+ "yes" responses warrant further assessment',
       'Use to guide which specific assessments to conduct',
-      'Consider graduated response: quality first teaching → targeted intervention → specialist assessment',
+      'Consider graduated response: quality first teaching -> targeted intervention -> specialist assessment',
       'Early identification allows early intervention - most effective approach',
       'Always consider environmental and contextual factors',
     ],
@@ -5712,7 +5712,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'working_memory',
           },
         ],
-        scoring_instructions: 'Score ≥5 suggests high learning potential',
+        scoring_instructions: 'Score >=5 suggests high learning potential',
       },
       {
         section_id: 'learning-characteristics',
@@ -6801,7 +6801,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'sensory_processing',
           },
         ],
-        scoring_instructions: 'Score 0-9. Score ≥6 suggests significant tactile processing differences.',
+        scoring_instructions: 'Score 0-9. Score >=6 suggests significant tactile processing differences.',
       },
       {
         section_id: 'vestibular-system',
@@ -6857,7 +6857,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'sensory_processing',
           },
         ],
-        scoring_instructions: 'Score 0-9. Score ≥6 suggests significant vestibular processing differences.',
+        scoring_instructions: 'Score 0-9. Score >=6 suggests significant vestibular processing differences.',
       },
       {
         section_id: 'proprioceptive-system',
@@ -6913,7 +6913,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'sensory_processing',
           },
         ],
-        scoring_instructions: 'Score 0-9. Score ≥6 suggests significant proprioceptive processing differences.',
+        scoring_instructions: 'Score 0-9. Score >=6 suggests significant proprioceptive processing differences.',
       },
       {
         section_id: 'visual-system',
@@ -6969,7 +6969,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'sensory_processing',
           },
         ],
-        scoring_instructions: 'Score 0-9. Score ≥6 suggests significant visual processing differences.',
+        scoring_instructions: 'Score 0-9. Score >=6 suggests significant visual processing differences.',
       },
       {
         section_id: 'auditory-system',
@@ -7025,7 +7025,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'sensory_processing',
           },
         ],
-        scoring_instructions: 'Score 0-9. Score ≥6 suggests significant auditory processing differences.',
+        scoring_instructions: 'Score 0-9. Score >=6 suggests significant auditory processing differences.',
       },
       {
         section_id: 'gustatory-system',
@@ -7065,7 +7065,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'sensory_processing',
           },
         ],
-        scoring_instructions: 'Score 0-6. Score ≥4 suggests significant gustatory processing differences.',
+        scoring_instructions: 'Score 0-6. Score >=4 suggests significant gustatory processing differences.',
       },
       {
         section_id: 'olfactory-system',
@@ -7105,7 +7105,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'sensory_processing',
           },
         ],
-        scoring_instructions: 'Score 0-6. Score ≥4 suggests significant olfactory processing differences.',
+        scoring_instructions: 'Score 0-6. Score >=4 suggests significant olfactory processing differences.',
       },
       {
         section_id: 'interoception-system',
@@ -7145,7 +7145,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'sensory_processing',
           },
         ],
-        scoring_instructions: 'Score 0-6. Score ≥4 suggests significant interoceptive processing differences.',
+        scoring_instructions: 'Score 0-6. Score >=4 suggests significant interoceptive processing differences.',
       },
       {
         section_id: 'functional-impact',
@@ -7217,7 +7217,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'adaptive_behaviour',
           },
         ],
-        scoring_instructions: 'Score 0-12. Score ≥6 indicates sensory differences are significantly impacting daily functioning.',
+        scoring_instructions: 'Score 0-12. Score >=6 indicates sensory differences are significantly impacting daily functioning.',
       },
     ],
     interpretation_guidelines: [
@@ -7226,7 +7226,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
       'Sensory seeking behaviour often compensatory mechanism for under-responsivity',
       'Functional impact is key - same sensory profile may or may not cause difficulties',
       'Sensory differences are dimensional - not "disordered" unless causing significant distress/impairment',
-      'Occupational Therapy assessment recommended if ≥3 sensory systems affected with functional impact',
+      'Occupational Therapy assessment recommended if >=3 sensory systems affected with functional impact',
       'Classroom accommodations can make substantial difference even without formal diagnosis',
       'Consider co-occurring conditions: autism (90%+ have sensory differences), ADHD (40-60%), anxiety',
       'Sensory differences often explain "challenging behaviour" - sensory-informed approach reduces meltdowns',
@@ -7311,7 +7311,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'perceptual_reasoning',
           },
         ],
-        scoring_instructions: 'Score 0-9. Score ≥5 suggests visual discrimination difficulties.',
+        scoring_instructions: 'Score 0-9. Score >=5 suggests visual discrimination difficulties.',
       },
       {
         section_id: 'visual-memory',
@@ -7367,7 +7367,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'perceptual_reasoning',
           },
         ],
-        scoring_instructions: 'Score 0-9. Score ≥5 suggests visual memory difficulties.',
+        scoring_instructions: 'Score 0-9. Score >=5 suggests visual memory difficulties.',
       },
       {
         section_id: 'form-constancy',
@@ -7407,7 +7407,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'perceptual_reasoning',
           },
         ],
-        scoring_instructions: 'Score 0-6. Score ≥4 suggests form constancy difficulties.',
+        scoring_instructions: 'Score 0-6. Score >=4 suggests form constancy difficulties.',
       },
       {
         section_id: 'spatial-relations',
@@ -7479,7 +7479,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'perceptual_reasoning',
           },
         ],
-        scoring_instructions: 'Score 0-12. Score ≥6 suggests spatial relations difficulties.',
+        scoring_instructions: 'Score 0-12. Score >=6 suggests spatial relations difficulties.',
       },
       {
         section_id: 'visual-closure',
@@ -7519,7 +7519,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'perceptual_reasoning',
           },
         ],
-        scoring_instructions: 'Score 0-6. Score ≥4 suggests visual closure difficulties.',
+        scoring_instructions: 'Score 0-6. Score >=4 suggests visual closure difficulties.',
       },
       {
         section_id: 'figure-ground',
@@ -7575,7 +7575,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'perceptual_reasoning',
           },
         ],
-        scoring_instructions: 'Score 0-9. Score ≥5 suggests figure-ground difficulties.',
+        scoring_instructions: 'Score 0-9. Score >=5 suggests figure-ground difficulties.',
       },
       {
         section_id: 'visual-motor',
@@ -7631,7 +7631,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'motor_skills',
           },
         ],
-        scoring_instructions: 'Score 0-9. Score ≥5 suggests visual-motor integration difficulties.',
+        scoring_instructions: 'Score 0-9. Score >=5 suggests visual-motor integration difficulties.',
       },
     ],
     interpretation_guidelines: [
@@ -7761,7 +7761,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'expressive_language',
           },
         ],
-        scoring_instructions: 'Selective mutism typically shows large discrepancy between contexts. Score difference ≥8 between home and school suggests SM.',
+        scoring_instructions: 'Selective mutism typically shows large discrepancy between contexts. Score difference >=8 between home and school suggests SM.',
       },
       {
         section_id: 'alternative-communication',
@@ -7905,7 +7905,7 @@ export const ASSESSMENT_LIBRARY: AssessmentTemplate[] = [
             domain: 'emotional_regulation',
           },
         ],
-        scoring_instructions: 'Score ≥8 indicates significant anxiety associated with speaking.',
+        scoring_instructions: 'Score >=8 indicates significant anxiety associated with speaking.',
       },
       {
         section_id: 'duration-impact',

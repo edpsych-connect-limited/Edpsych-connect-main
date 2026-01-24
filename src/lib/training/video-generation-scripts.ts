@@ -54,7 +54,7 @@ Thank you for your commitment to ethical research. Together, we're building an e
     script: `
 Welcome. I'm Dr Sarah Chen, and today we'll explore our Research Data Governance Framework.
 
-Data governance isn't just about compliance—it's about respecting the trust families place in us when they share sensitive information about their children.
+Data governance isn't just about compliance-it's about respecting the trust families place in us when they share sensitive information about their children.
 
 Our framework operates on five key principles:
 
@@ -128,13 +128,13 @@ Next, configure your sync options. You can choose to sync:
 
 I recommend starting with student data only. You can enable additional syncs later once you're comfortable with the process.
 
-Set your sync frequency—daily is typical, but some schools prefer real-time updates.
+Set your sync frequency-daily is typical, but some schools prefer real-time updates.
 
 Click "Save Configuration" and then "Run Initial Sync". The first sync may take several minutes depending on your school size.
 
 Once complete, you'll see your students appear in the platform, ready for assessment and intervention tracking.
 
-If you encounter any issues, our technical support team is available during school hours. The most common issue is API key permissions—ensure your Wonde account has read access enabled.
+If you encounter any issues, our technical support team is available during school hours. The most common issue is API key permissions-ensure your Wonde account has read access enabled.
 
 That's it! You're now connected. Welcome to streamlined data management.
     `,
@@ -159,13 +159,13 @@ Let me walk through the direct connection:
 
 In Settings, Integrations, select "SIMS Direct" from the provider dropdown.
 
-Enter your SIMS online URL—this typically looks like your school domain followed by "simsinternal".
+Enter your SIMS online URL-this typically looks like your school domain followed by "simsinternal".
 
 Provide your service account credentials. Your IT team should create a dedicated account for integrations rather than using a personal login.
 
 Click "Test Connection". If successful, you'll see a green tick and your school details.
 
-Configure your data mapping. SIMS uses specific field names—our system automatically maps these, but you can customise if needed.
+Configure your data mapping. SIMS uses specific field names-our system automatically maps these, but you can customise if needed.
 
 The most important mapping is SEND Status. Ensure your SIMS SEND codes align with our provision categories. We provide a mapping table in our documentation.
 
@@ -194,9 +194,9 @@ You'll need to generate an API token in Arbor. Here's how:
 
 Log into Arbor, go to School Settings, then API Access. Click "Generate New Token". Give it a descriptive name like "EdPsych Connect Integration".
 
-Set the permissions—you'll need read access to Students, Staff, and SEND data. If you want assessment data to sync back, enable write access to Custom Fields.
+Set the permissions-you'll need read access to Students, Staff, and SEND data. If you want assessment data to sync back, enable write access to Custom Fields.
 
-Copy the generated token immediately—it won't be shown again.
+Copy the generated token immediately-it won't be shown again.
 
 Back in EdPsych Connect, paste your API token and enter your school's Arbor URL.
 
@@ -204,10 +204,10 @@ Click "Verify". The system checks your credentials and confirms the connection.
 
 Now configure your sync preferences:
 
-Student Demographics—recommended for all schools.
-SEND Register—essential for intervention tracking.
-Attendance Data—useful for correlating support with attendance patterns.
-Assessment Data—enables round-trip sync.
+Student Demographics-recommended for all schools.
+SEND Register-essential for intervention tracking.
+Attendance Data-useful for correlating support with attendance patterns.
+Assessment Data-enables round-trip sync.
 
 Arbor excels at custom fields. You can map our assessment scores and provision data directly into your Arbor student profiles.
 
@@ -217,7 +217,7 @@ Run your initial sync and verify the data matches your expectations.
 
 One tip: Arbor's academic year structure differs from SIMS. Ensure your year groups are correctly mapped in the configuration.
 
-That's it—you're connected to Arbor. Enjoy the seamless data flow.
+That's it-you're connected to Arbor. Enjoy the seamless data flow.
     `,
   },
   
@@ -245,9 +245,9 @@ Remember, some sensitive data requires explicit approval from your Data Protecti
 Data Mapping Issues:
 
 If students appear but data seems wrong, check your field mappings. Common issues include:
-- Year group mismatches—UK years versus key stages
-- SEND codes that don't translate—ensure your MIS codes match our categories
-- Date formats—some systems use American date formats internally
+- Year group mismatches-UK years versus key stages
+- SEND codes that don't translate-ensure your MIS codes match our categories
+- Date formats-some systems use American date formats internally
 
 Use our mapping preview tool to see how data will transform before syncing.
 

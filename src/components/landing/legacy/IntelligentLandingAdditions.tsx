@@ -18,7 +18,7 @@ export const ProblemMatcher: React.FC = () => (
 export const FeatureExplorer: React.FC = () => (
   <section className="py-12 bg-white text-center">
     <h2 className="text-2xl font-bold mb-4">Feature Explorer</h2>
-    <p className="text-gray-600">Discover platform features tailored to your institution’s needs.</p>
+    <p className="text-gray-600">Discover platform features tailored to your institution's needs.</p>
   </section>
 );
 

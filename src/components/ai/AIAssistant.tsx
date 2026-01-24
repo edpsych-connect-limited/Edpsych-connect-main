@@ -363,13 +363,13 @@ function ThinkingProcess({ steps, currentStep }: { steps: string[]; currentStep:
               index <= currentStep ? "text-emerald-400" : "text-slate-500"
             )}
           >
-            <span className="text-emerald-500">→</span>
+            <span className="text-emerald-500">-</span>
             <span>{step}</span>
             {index === currentStep && (
               <Loader2 className="w-3 h-3 animate-spin text-amber-400 ml-1" />
             )}
             {index < currentStep && (
-              <span className="text-emerald-500 ml-1">✓</span>
+              <span className="text-emerald-500 ml-1">OK</span>
             )}
           </motion.div>
         ))}
@@ -559,16 +559,16 @@ export default function AIAssistant({
       setMessages([{
         id: 'welcome',
         role: 'assistant',
-        content: `**Welcome to EdPsych Connect!** 🧠
+        content: `**Welcome to EdPsych Connect!** 
 
-I'm **Dr. Scott AI** — your AI Coordinator, orchestrating 13 specialist AI agents to support your educational psychology work.
+I'm **Dr. Scott AI** - your AI Coordinator, orchestrating 13 specialist AI agents to support your educational psychology work.
 
 **I can help you:**
-• **Plan lessons** with differentiated content
-• **Write reports** including EHCP advice
-• **Analyse behaviour** patterns and create support plans
-• **Design interventions** with SMART outcomes
-• **Navigate safeguarding** concerns
+- **Plan lessons** with differentiated content
+- **Write reports** including EHCP advice
+- **Analyse behaviour** patterns and create support plans
+- **Design interventions** with SMART outcomes
+- **Navigate safeguarding** concerns
 
 How can I assist you today?`,
         agentId: 'coordinator',
@@ -1003,9 +1003,9 @@ async function generateLocalResponse(query: string): Promise<{
 **Curriculum Link:** Mathematics - Number: Fractions
 
 **Learning Objectives:**
-• Compare and order fractions with denominators that are multiples of the same number
-• Identify equivalent fractions
-• Add and subtract fractions with the same denominator
+- Compare and order fractions with denominators that are multiples of the same number
+- Identify equivalent fractions
+- Add and subtract fractions with the same denominator
 
 **Starter (10 mins):**
 Visual fraction wall activity - students match fraction cards to visual representations
@@ -1020,10 +1020,10 @@ Exit ticket: Order these fractions from smallest to largest
 Self-assessment thumbs up/down
 
 **Resources Needed:**
-• Fraction walls (physical and digital)
-• Number lines
-• Cuisenaire rods for Wave 2/3
-• Exit ticket templates
+- Fraction walls (physical and digital)
+- Number lines
+- Cuisenaire rods for Wave 2/3
+- Exit ticket templates
 
 **Assessment:**
 Formative: Observations during main activity
@@ -1048,22 +1048,22 @@ Would you like me to create differentiated worksheets or adapt this for specific
 *[Child's name]* presents with the following special educational needs:
 
 **Cognition and Learning:**
-• Specific learning difficulty affecting reading accuracy and fluency
-• Working memory difficulties impacting retention of instructions
-• Requires additional processing time for written tasks
+- Specific learning difficulty affecting reading accuracy and fluency
+- Working memory difficulties impacting retention of instructions
+- Requires additional processing time for written tasks
 
 **Communication and Interaction:**
-• Receptive language within age expectations
-• Expressive language shows word-finding difficulties under pressure
-• Benefits from visual supports alongside verbal instruction
+- Receptive language within age expectations
+- Expressive language shows word-finding difficulties under pressure
+- Benefits from visual supports alongside verbal instruction
 
 **Social, Emotional and Mental Health:**
-• Anxiety related to academic performance, particularly reading aloud
-• Developing self-regulation strategies with adult support
-• Positive peer relationships when in structured activities
+- Anxiety related to academic performance, particularly reading aloud
+- Developing self-regulation strategies with adult support
+- Positive peer relationships when in structured activities
 
 **Sensory and/or Physical:**
-• No significant needs identified in this area
+- No significant needs identified in this area
 
 **Section F: Provision Required**
 
@@ -1092,9 +1092,9 @@ Based on Positive Behaviour Support principles, here's my analysis:
 
 **Observed Pattern:**
 Behaviour incidents cluster around:
-• **Time:** Predominantly during unstructured times (break, lunch, transitions)
-• **Setting:** Open spaces with high sensory input
-• **Antecedents:** Changes to routine, perceived unfairness, peer conflict
+- **Time:** Predominantly during unstructured times (break, lunch, transitions)
+- **Setting:** Open spaces with high sensory input
+- **Antecedents:** Changes to routine, perceived unfairness, peer conflict
 
 **Hypothesised Functions:**
 1. **Escape/Avoidance** (Primary) - Behaviour allows escape from overwhelming sensory environments
@@ -1104,21 +1104,21 @@ Behaviour incidents cluster around:
 **Recommended Strategies:**
 
 **Proactive (Prevention):**
-• Visual schedule for transition times
-• Designated quiet space during breaks
-• Pre-warning of any routine changes (5-min warning)
-• Social story for unstructured time expectations
+- Visual schedule for transition times
+- Designated quiet space during breaks
+- Pre-warning of any routine changes (5-min warning)
+- Social story for unstructured time expectations
 
 **Active (Teaching):**
-• Emotion coaching using Zones of Regulation
-• Scripted phrases for requesting help/break
-• Peer buddy system during transitions
+- Emotion coaching using Zones of Regulation
+- Scripted phrases for requesting help/break
+- Peer buddy system during transitions
 
 **Reactive (Response):**
-• Calm, low-arousal approach
-• Offer pre-agreed choices
-• Allow processing time (10-second rule)
-• Avoid public confrontation
+- Calm, low-arousal approach
+- Offer pre-agreed choices
+- Allow processing time (10-second rule)
+- Avoid public confrontation
 
 Shall I create a formal Behaviour Support Plan or suggest specific interventions?`,
       suggestedActions: [
@@ -1145,19 +1145,19 @@ Key Stage 2
 **SMART Outcomes:**
 
 **Outcome 1: Reading Accuracy**
-• **Specific:** Improve decoding of CVC and CVCC words
-• **Measurable:** From 60% to 85% accuracy on standardised word list
-• **Achievable:** Using daily precision teaching + 3x weekly intervention
-• **Relevant:** Aligned with National Curriculum expectations
-• **Time-bound:** 12-week intervention cycle
+- **Specific:** Improve decoding of CVC and CVCC words
+- **Measurable:** From 60% to 85% accuracy on standardised word list
+- **Achievable:** Using daily precision teaching + 3x weekly intervention
+- **Relevant:** Aligned with National Curriculum expectations
+- **Time-bound:** 12-week intervention cycle
 
 **Outcome 2: Reading Fluency**
-• Increase reading rate from 45 wpm to 65 wpm on age-appropriate text
-• Monitored through weekly timed readings
+- Increase reading rate from 45 wpm to 65 wpm on age-appropriate text
+- Monitored through weekly timed readings
 
 **Outcome 3: Spelling**
-• Apply phonetic spelling strategies to 80% of unfamiliar words
-• Assessed through weekly dictation
+- Apply phonetic spelling strategies to 80% of unfamiliar words
+- Assessed through weekly dictation
 
 **Delivery Schedule:**
 | Day | Activity | Duration | Delivered by |
@@ -1169,9 +1169,9 @@ Key Stage 2
 | Fri | Multisensory programme + review | 30 min | TA (trained) |
 
 **Progress Monitoring:**
-• Weekly: Precision teaching data collection
-• Fortnightly: Running record
-• 6-weekly: Standardised assessment (YARC/Salford)
+- Weekly: Precision teaching data collection
+- Fortnightly: Running record
+- 6-weekly: Standardised assessment (YARC/Salford)
 
 **Review Date:** [12 weeks from start]`,
       suggestedActions: [
@@ -1190,37 +1190,37 @@ Key Stage 2
 Here are evidence-based wellbeing activities suitable for classroom use:
 
 **Daily Check-ins (5 mins)**
-• Emotion thermometer - students rate their mood 1-10
-• "Rose, Thorn, Bud" - one good thing, one challenge, one hope
-• Feelings wheel vocabulary building
+- Emotion thermometer - students rate their mood 1-10
+- "Rose, Thorn, Bud" - one good thing, one challenge, one hope
+- Feelings wheel vocabulary building
 
 **Mindfulness Activities (10 mins)**
-• Guided breathing exercises (4-7-8 technique)
-• Body scan relaxation
-• Mindful colouring or drawing
-• Gratitude journaling
+- Guided breathing exercises (4-7-8 technique)
+- Body scan relaxation
+- Mindful colouring or drawing
+- Gratitude journaling
 
 **Movement Breaks (5 mins)**
-• Brain breaks - cross-lateral movements
-• Yoga poses for focus (tree, mountain, warrior)
-• Shake-out exercises for energy release
+- Brain breaks - cross-lateral movements
+- Yoga poses for focus (tree, mountain, warrior)
+- Shake-out exercises for energy release
 
 **Social-Emotional Learning (15-20 mins)**
-• Zones of Regulation lessons
-• Friendship skills role-play
-• Problem-solving scenarios
-• Emotion coaching conversations
+- Zones of Regulation lessons
+- Friendship skills role-play
+- Problem-solving scenarios
+- Emotion coaching conversations
 
 **Whole-Class Programmes:**
-• **PSHE Curriculum:** Jigsaw, Coram Life Education
-• **Resilience:** Penn Resilience Programme, Bounce Back
-• **Mindfulness:** .b (dot-be), Paws b for primary
+- **PSHE Curriculum:** Jigsaw, Coram Life Education
+- **Resilience:** Penn Resilience Programme, Bounce Back
+- **Mindfulness:** .b (dot-be), Paws b for primary
 
 **Environmental Considerations:**
-• Calm corner with sensory resources
-• Visual emotion displays
-• Worry box for anonymous concerns
-• Celebration wall for achievements
+- Calm corner with sensory resources
+- Visual emotion displays
+- Worry box for anonymous concerns
+- Celebration wall for achievements
 
 Would you like detailed session plans for any of these activities?`,
       suggestedActions: [
@@ -1236,38 +1236,38 @@ Would you like detailed session plans for any of these activities?`,
       agentId: 'safeguarding-advisor',
       content: `**Safeguarding Guidance**
 
-⚠️ **Important:** If a child is in immediate danger, contact Police on 999.
+**Important:** If a child is in immediate danger, contact Police on 999.
 
 **Initial Response to a Disclosure:**
 
 **DO:**
-✓ Listen calmly and carefully
-✓ Take what the child says seriously  
-✓ Reassure them they were right to tell
-✓ Use the child's own words when recording
-✓ Explain what will happen next
-✓ Report to your Designated Safeguarding Lead (DSL) immediately
+OK Listen calmly and carefully
+OK Take what the child says seriously  
+OK Reassure them they were right to tell
+OK Use the child's own words when recording
+OK Explain what will happen next
+OK Report to your Designated Safeguarding Lead (DSL) immediately
 
 **DON'T:**
-✗ Promise confidentiality
-✗ Ask leading questions
-✗ Investigate yourself
-✗ Share information unnecessarily
-✗ Make promises you can't keep
-✗ Show shock or disbelief
+NO Promise confidentiality
+NO Ask leading questions
+NO Investigate yourself
+NO Share information unnecessarily
+NO Make promises you can't keep
+NO Show shock or disbelief
 
 **Recording Requirements:**
-• Date, time, and place of disclosure
-• Child's own words (verbatim where possible)
-• Any visible injuries (body map if appropriate)
-• Your actions taken
-• Signature and date
+- Date, time, and place of disclosure
+- Child's own words (verbatim where possible)
+- Any visible injuries (body map if appropriate)
+- Your actions taken
+- Signature and date
 
 **KCSIE 2023 Key Points:**
-• Safeguarding is EVERYONE's responsibility
-• Always act on concerns - don't wait for certainty
-• Information sharing is vital - don't assume others know
-• Consider context - child's whole situation matters
+- Safeguarding is EVERYONE's responsibility
+- Always act on concerns - don't wait for certainty
+- Information sharing is vital - don't assume others know
+- Consider context - child's whole situation matters
 
 **Next Steps:**
 1. Report to DSL immediately (or deputy if unavailable)
@@ -1291,12 +1291,12 @@ Do you need help with a specific safeguarding concern?`,
 
 Let me help you with that. I can connect you with our specialist agents:
 
-• **Curriculum Designer** - Lesson planning, differentiation, learning paths
-• **Assessment Specialist** - Tests, progress tracking, data analysis
-• **SEND Specialist** - EHCP, inclusion, reasonable adjustments
-• **Behaviour Analyst** - PBS plans, de-escalation, support strategies
-• **Wellbeing Monitor** - Mental health, resilience, emotional support
-• **Report Writer** - EP reports, documentation, professional writing
+- **Curriculum Designer** - Lesson planning, differentiation, learning paths
+- **Assessment Specialist** - Tests, progress tracking, data analysis
+- **SEND Specialist** - EHCP, inclusion, reasonable adjustments
+- **Behaviour Analyst** - PBS plans, de-escalation, support strategies
+- **Wellbeing Monitor** - Mental health, resilience, emotional support
+- **Report Writer** - EP reports, documentation, professional writing
 
 Could you tell me more about what specific support you need? For example:
 - "Plan a lesson on [topic] for [year group]"

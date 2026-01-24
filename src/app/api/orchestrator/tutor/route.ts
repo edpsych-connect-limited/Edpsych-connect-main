@@ -43,10 +43,10 @@ const generateDemoResponse = (subject: string, topic: string, level: string, lea
 
 function generateExplanation(subject: string, topic: string, level: string, learningStyle: string): string {
   const styleIntro: Record<string, string> = {
-    visual: '📊 Let me show you this concept visually.',
-    auditory: '🎧 Listen carefully as we explore this together.',
-    kinesthetic: '🤲 Let\'s learn by doing! Try this hands-on approach.',
-    reading_writing: '📚 Here\'s a detailed explanation to read through.',
+    visual: 'STATUS Let me show you this concept visually.',
+    auditory: ' Listen carefully as we explore this together.',
+    kinesthetic: ' Let\'s learn by doing! Try this hands-on approach.',
+    reading_writing: 'READ Here\'s a detailed explanation to read through.',
   };
 
   const levelContent: Record<string, string> = {
@@ -56,7 +56,7 @@ function generateExplanation(subject: string, topic: string, level: string, lear
     mastery: 'You\'re ready for expert-level content and real-world challenges.',
   };
 
-  return `${styleIntro[learningStyle] || styleIntro.visual}\n\n**Understanding ${topic} in ${subject}**\n\n${levelContent[level] || levelContent.developing}\n\n${getTopicContent(subject, topic)}\n\n💡 **Key Point:** Remember, learning is a journey. Take your time with each concept before moving on.`;
+  return `${styleIntro[learningStyle] || styleIntro.visual}\n\n**Understanding ${topic} in ${subject}**\n\n${levelContent[level] || levelContent.developing}\n\n${getTopicContent(subject, topic)}\n\nRECOMMENDATIONS **Key Point:** Remember, learning is a journey. Take your time with each concept before moving on.`;
 }
 
 function getTopicContent(subject: string, topic: string): string {
@@ -83,9 +83,9 @@ function generateExercise(subject: string, topic: string, level: string): {
     Mathematics: {
       type: 'multiple_choice' as const,
       question: `If you have ${level === 'foundation' ? '5 apples and get 3 more' : level === 'developing' ? 'a rectangle with length 6cm and width 4cm' : '3x + 7 = 22'}, what is the ${level === 'foundation' ? 'total' : level === 'developing' ? 'area' : 'value of x'}?`,
-      options: level === 'foundation' ? ['6', '7', '8', '9'] : level === 'developing' ? ['10 cm²', '20 cm²', '24 cm²', '30 cm²'] : ['3', '5', '7', '15'],
-      correctAnswer: level === 'foundation' ? '8' : level === 'developing' ? '24 cm²' : '5',
-      explanation: level === 'foundation' ? '5 + 3 = 8. When we add, we combine the groups together!' : level === 'developing' ? 'Area = length × width = 6 × 4 = 24 cm²' : 'Subtract 7 from both sides: 3x = 15, then divide by 3: x = 5',
+      options: level === 'foundation' ? ['6', '7', '8', '9'] : level === 'developing' ? ['10 cm^2', '20 cm^2', '24 cm^2', '30 cm^2'] : ['3', '5', '7', '15'],
+      correctAnswer: level === 'foundation' ? '8' : level === 'developing' ? '24 cm^2' : '5',
+      explanation: level === 'foundation' ? '5 + 3 = 8. When we add, we combine the groups together!' : level === 'developing' ? 'Area = length x width = 6 x 4 = 24 cm^2' : 'Subtract 7 from both sides: 3x = 15, then divide by 3: x = 5',
     },
     English: {
       type: 'multiple_choice' as const,
@@ -96,10 +96,10 @@ function generateExercise(subject: string, topic: string, level: string): {
     },
     Science: {
       type: 'multiple_choice' as const,
-      question: `What happens to water when it is heated to 100°C?`,
+      question: `What happens to water when it is heated to 100 degC?`,
       options: ['It freezes', 'It boils and becomes steam', 'It stays the same', 'It becomes ice'],
       correctAnswer: 'It boils and becomes steam',
-      explanation: 'At 100°C, water reaches its boiling point and changes from a liquid to a gas (steam). This is called evaporation.',
+      explanation: 'At 100 degC, water reaches its boiling point and changes from a liquid to a gas (steam). This is called evaporation.',
     },
   };
   
@@ -146,10 +146,10 @@ function generateResources(subject: string, topic: string): Array<{
 
 function generateMotivation(level: string): string {
   const messages: Record<string, string> = {
-    foundation: '🌱 Every expert was once a beginner. You\'re taking the first steps on an exciting journey!',
-    developing: '📈 You\'re making excellent progress! Keep building on what you\'ve learned.',
-    secure: '💪 Your hard work is paying off! You\'re developing strong skills.',
-    mastery: '🏆 Outstanding work! You\'re ready to tackle advanced challenges and help others learn.',
+    foundation: ' Every expert was once a beginner. You\'re taking the first steps on an exciting journey!',
+    developing: ' You\'re making excellent progress! Keep building on what you\'ve learned.',
+    secure: 'KEEP GOING Your hard work is paying off! You\'re developing strong skills.',
+    mastery: 'TROPHY Outstanding work! You\'re ready to tackle advanced challenges and help others learn.',
   };
   return messages[level] || messages.developing;
 }

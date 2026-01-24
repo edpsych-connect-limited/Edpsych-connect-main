@@ -117,7 +117,7 @@ const DIFFICULTY_CONFIG = {
     color: 'border-amber-300 bg-amber-50',
     headerBg: 'bg-amber-100',
     textColor: 'text-amber-900',
-    icon: '🎯',
+    icon: 'GOAL',
     description: 'Simplified with scaffolding',
   },
   at: {
@@ -126,7 +126,7 @@ const DIFFICULTY_CONFIG = {
     color: 'border-blue-300 bg-blue-50',
     headerBg: 'bg-blue-100',
     textColor: 'text-blue-900',
-    icon: '🎯',
+    icon: 'GOAL',
     description: 'Standard curriculum level',
   },
   above: {
@@ -135,7 +135,7 @@ const DIFFICULTY_CONFIG = {
     color: 'border-green-300 bg-green-50',
     headerBg: 'bg-green-100',
     textColor: 'text-green-900',
-    icon: '🎯',
+    icon: 'GOAL',
     description: 'Extended with challenges',
   },
 };
@@ -501,7 +501,7 @@ export const LessonDifferentiationView: React.FC<LessonDifferentiationViewProps>
             <div>
               <h2 className="text-xl font-bold text-gray-900">Differentiate: "{lessonPlan.title}"</h2>
               <p className="text-sm text-gray-600">
-                {lessonPlan.subject} • {totalStudents} students • 3 difficulty levels
+                {lessonPlan.subject} - {totalStudents} students - 3 difficulty levels
               </p>
             </div>
           </div>

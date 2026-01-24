@@ -71,14 +71,14 @@ interface Achievement {
 }
 
 const ACHIEVEMENTS: Achievement[] = [
-  { id: 'first-blood', name: 'First Blood', description: 'Win your first duel', icon: '⚔️', requirement: 1, type: 'wins' },
-  { id: 'streak-3', name: 'On Fire!', description: 'Get a 3x streak', icon: '🔥', requirement: 3, type: 'streak' },
-  { id: 'streak-5', name: 'Unstoppable!', description: 'Get a 5x streak', icon: '💥', requirement: 5, type: 'streak' },
-  { id: 'streak-10', name: 'LEGENDARY!', description: 'Get a 10x streak', icon: '👑', requirement: 10, type: 'streak' },
-  { id: 'score-500', name: 'Rising Star', description: 'Score 500 points', icon: '⭐', requirement: 500, type: 'score' },
-  { id: 'score-1000', name: 'Champion', description: 'Score 1000 points', icon: '🏆', requirement: 1000, type: 'score' },
-  { id: 'score-2000', name: 'Master', description: 'Score 2000 points', icon: '🎖️', requirement: 2000, type: 'score' },
-  { id: 'perfect-round', name: 'Perfect Round', description: 'Answer 10 questions without mistakes', icon: '💎', requirement: 10, type: 'perfect' },
+  { id: 'first-blood', name: 'First Blood', description: 'Win your first duel', icon: 'DUEL', requirement: 1, type: 'wins' },
+  { id: 'streak-3', name: 'On Fire!', description: 'Get a 3x streak', icon: 'FIRE', requirement: 3, type: 'streak' },
+  { id: 'streak-5', name: 'Unstoppable!', description: 'Get a 5x streak', icon: 'BLAST', requirement: 5, type: 'streak' },
+  { id: 'streak-10', name: 'LEGENDARY!', description: 'Get a 10x streak', icon: 'CROWN', requirement: 10, type: 'streak' },
+  { id: 'score-500', name: 'Rising Star', description: 'Score 500 points', icon: 'STAR', requirement: 500, type: 'score' },
+  { id: 'score-1000', name: 'Champion', description: 'Score 1000 points', icon: 'TROPHY', requirement: 1000, type: 'score' },
+  { id: 'score-2000', name: 'Master', description: 'Score 2000 points', icon: 'MEDAL', requirement: 2000, type: 'score' },
+  { id: 'perfect-round', name: 'Perfect Round', description: 'Answer 10 questions without mistakes', icon: 'GEM', requirement: 10, type: 'perfect' },
 ];
 
 // Expanded Curriculum-aligned questions (UK Key Stage focused)
@@ -109,12 +109,12 @@ const FALLBACK_QUESTIONS: Question[] = [
   
   // ========== KEY STAGE 2 - MEDIUM (Ages 7-11) ==========
   // Maths KS2
-  { id: 'ks2-m1', text: 'What is 7 × 8?', options: ['54', '56', '48', '63'], correctIndex: 1, points: 100, category: 'Maths KS2', difficulty: 'medium', curriculumLink: 'Times tables' },
-  { id: 'ks2-m2', text: 'What is 9 × 6?', options: ['45', '54', '56', '63'], correctIndex: 1, points: 100, category: 'Maths KS2', difficulty: 'medium', curriculumLink: 'Times tables' },
-  { id: 'ks2-m3', text: 'What is 12 × 12?', options: ['124', '134', '144', '154'], correctIndex: 2, points: 100, category: 'Maths KS2', difficulty: 'medium', curriculumLink: 'Times tables' },
+  { id: 'ks2-m1', text: 'What is 7 x 8?', options: ['54', '56', '48', '63'], correctIndex: 1, points: 100, category: 'Maths KS2', difficulty: 'medium', curriculumLink: 'Times tables' },
+  { id: 'ks2-m2', text: 'What is 9 x 6?', options: ['45', '54', '56', '63'], correctIndex: 1, points: 100, category: 'Maths KS2', difficulty: 'medium', curriculumLink: 'Times tables' },
+  { id: 'ks2-m3', text: 'What is 12 x 12?', options: ['124', '134', '144', '154'], correctIndex: 2, points: 100, category: 'Maths KS2', difficulty: 'medium', curriculumLink: 'Times tables' },
   { id: 'ks2-m4', text: 'What is 1/2 + 1/4?', options: ['2/6', '3/4', '1/6', '2/4'], correctIndex: 1, points: 100, category: 'Maths KS2', difficulty: 'medium', curriculumLink: 'Fractions' },
   { id: 'ks2-m5', text: 'What is 25% of 100?', options: ['20', '25', '30', '50'], correctIndex: 1, points: 100, category: 'Maths KS2', difficulty: 'medium', curriculumLink: 'Percentages' },
-  { id: 'ks2-m6', text: 'How many degrees in a right angle?', options: ['45°', '90°', '180°', '360°'], correctIndex: 1, points: 100, category: 'Maths KS2', difficulty: 'medium', curriculumLink: 'Angles' },
+  { id: 'ks2-m6', text: 'How many degrees in a right angle?', options: ['45 deg', '90 deg', '180 deg', '360 deg'], correctIndex: 1, points: 100, category: 'Maths KS2', difficulty: 'medium', curriculumLink: 'Angles' },
   
   // English KS2
   { id: 'ks2-e1', text: 'What type of word is "quickly"?', options: ['Noun', 'Verb', 'Adverb', 'Adjective'], correctIndex: 2, points: 100, category: 'English KS2', difficulty: 'medium', curriculumLink: 'Word classes' },
@@ -140,9 +140,9 @@ const FALLBACK_QUESTIONS: Question[] = [
   // ========== KEY STAGE 3 - HARD (Ages 11-14) ==========
   // Maths KS3
   { id: 'ks3-m1', text: 'Solve for x: 2x + 5 = 15', options: ['x = 3', 'x = 5', 'x = 7', 'x = 10'], correctIndex: 1, points: 150, category: 'Maths KS3', difficulty: 'hard', curriculumLink: 'Linear equations' },
-  { id: 'ks3-m2', text: 'What is the value of π (pi) to 2 decimal places?', options: ['3.12', '3.14', '3.16', '3.18'], correctIndex: 1, points: 150, category: 'Maths KS3', difficulty: 'hard', curriculumLink: 'Pi and circles' },
-  { id: 'ks3-m3', text: 'What is √144?', options: ['10', '11', '12', '13'], correctIndex: 2, points: 150, category: 'Maths KS3', difficulty: 'hard', curriculumLink: 'Square roots' },
-  { id: 'ks3-m4', text: 'What is 3² + 4²?', options: ['20', '25', '49', '12'], correctIndex: 1, points: 150, category: 'Maths KS3', difficulty: 'hard', curriculumLink: 'Pythagorean theorem' },
+  { id: 'ks3-m2', text: 'What is the value of pi (pi) to 2 decimal places?', options: ['3.12', '3.14', '3.16', '3.18'], correctIndex: 1, points: 150, category: 'Maths KS3', difficulty: 'hard', curriculumLink: 'Pi and circles' },
+  { id: 'ks3-m3', text: 'What is sqrt144?', options: ['10', '11', '12', '13'], correctIndex: 2, points: 150, category: 'Maths KS3', difficulty: 'hard', curriculumLink: 'Square roots' },
+  { id: 'ks3-m4', text: 'What is 3^2 + 4^2?', options: ['20', '25', '49', '12'], correctIndex: 1, points: 150, category: 'Maths KS3', difficulty: 'hard', curriculumLink: 'Pythagorean theorem' },
   
   // Science KS3
   { id: 'ks3-s1', text: 'What is the chemical symbol for water?', options: ['CO2', 'H2O', 'O2', 'NaCl'], correctIndex: 1, points: 150, category: 'Science KS3', difficulty: 'hard', curriculumLink: 'Chemical formulae' },
@@ -393,14 +393,14 @@ export const BattleRoyaleGame: React.FC = () => {
       
       if (newStreak >= 3) {
         playSound('streak');
-        setFeedback({ message: `🔥 ${newStreak}x STREAK! +${totalPoints} PTS`, type: 'streak' });
+        setFeedback({ message: `FIRE ${newStreak}x STREAK! +${totalPoints} PTS`, type: 'streak' });
       } else {
-        setFeedback({ message: `CORRECT! +${totalPoints} PTS 💥`, type: 'success' });
+        setFeedback({ message: `CORRECT! +${totalPoints} PTS BLAST`, type: 'success' });
       }
     } else {
       playSound('wrong');
       setTextModeStreak(0);
-      setFeedback({ message: 'Incorrect. Keep trying! 💪', type: 'error' });
+      setFeedback({ message: 'Incorrect. Keep trying! KEEP GOING', type: 'error' });
     }
     
     // Move to next question after delay
@@ -546,13 +546,13 @@ export const BattleRoyaleGame: React.FC = () => {
       if (isCorrect && newStreak >= 3) {
         playSound('streak');
         setFeedback({ 
-          message: `🔥 ${newStreak}x STREAK! +${totalPoints} PTS`, 
+          message: `FIRE ${newStreak}x STREAK! +${totalPoints} PTS`, 
           type: 'streak',
           points: totalPoints
         });
       } else {
         setFeedback({ 
-          message: isCorrect ? `CORRECT! +${totalPoints} PTS 💥` : 'WRONG! TOOK DAMAGE 🛡️', 
+          message: isCorrect ? `CORRECT! +${totalPoints} PTS BLAST` : 'WRONG! TOOK DAMAGE SHIELD', 
           type: isCorrect ? 'success' : 'error',
           points: isCorrect ? totalPoints : undefined
         });
@@ -674,7 +674,7 @@ export const BattleRoyaleGame: React.FC = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                   <span className="font-semibold">
-                    {accessibleMode ? '✓ Accessible Mode (Text-Only Quiz)' : 'Enable Accessible Mode'}
+                    {accessibleMode ? 'OK Accessible Mode (Text-Only Quiz)' : 'Enable Accessible Mode'}
                   </span>
                 </button>
                 <p className="text-slate-400 text-sm text-center mt-2">
@@ -845,7 +845,7 @@ export const BattleRoyaleGame: React.FC = () => {
                     </div>
                     {currentQuestion.curriculumLink && (
                       <p className="text-sm text-slate-500 mt-4">
-                        📚 Related to: {currentQuestion.curriculumLink}
+                        CUR Related to: {currentQuestion.curriculumLink}
                       </p>
                     )}
                   </div>
@@ -1078,7 +1078,7 @@ export const BattleRoyaleGame: React.FC = () => {
               </div>
               {activeQuestion.curriculumLink && (
                 <p className="text-xs text-slate-500 mt-4 flex items-center gap-1">
-                  📚 Curriculum: {activeQuestion.curriculumLink}
+                  CUR Curriculum: {activeQuestion.curriculumLink}
                 </p>
               )}
             </div>
@@ -1110,7 +1110,7 @@ export const BattleRoyaleGame: React.FC = () => {
       {/* Controls Hint */}
       {gameState.status === 'active' && !activeQuestion && (
         <div className="absolute bottom-4 left-4 text-white/50 text-sm font-mono pointer-events-none bg-slate-900/50 px-3 py-2 rounded-lg">
-          <span className="text-white/70">Controls:</span> WASD / Arrow Keys to Move • Approach Enemies to Duel
+          <span className="text-white/70">Controls:</span> WASD / Arrow Keys to Move - Approach Enemies to Duel
         </div>
       )}
 
@@ -1174,7 +1174,7 @@ export const BattleRoyaleGame: React.FC = () => {
                   onClick={() => setShowLeaderboard(false)}
                   className="text-slate-400 hover:text-white transition-colors"
                 >
-                  ✕
+                  X
                 </button>
               </div>
 
@@ -1206,7 +1206,7 @@ export const BattleRoyaleGame: React.FC = () => {
                             {player.name} {player.isSelf && '(You)'}
                           </span>
                           {player.health <= 0 && (
-                            <span className="text-red-400 text-xs">💀 Eliminated</span>
+                            <span className="text-red-400 text-xs">ELIM Eliminated</span>
                           )}
                         </div>
                         <div className="flex items-center gap-4">

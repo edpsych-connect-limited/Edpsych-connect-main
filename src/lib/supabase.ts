@@ -13,7 +13,7 @@
 // Compliance: GDPR, ISO 27001, SOC 2
 
 /**
- * ⚠️  DEPRECATED: This Supabase client is NOT used in production
+ * WARNING  DEPRECATED: This Supabase client is NOT used in production
  *
  * The EdPsych Connect World platform uses Neon Postgres, not Supabase.
  * This file is kept for reference only.
@@ -28,4 +28,4 @@
 // This file is intentionally left empty to prevent accidental usage
 // All authentication is handled through Railway Postgres in auth.ts
 
-console.warn('⚠️  WARNING: supabase.ts is deprecated. Use Railway Postgres instead.');
+console.warn('WARNING  WARNING: supabase.ts is deprecated. Use Railway Postgres instead.');

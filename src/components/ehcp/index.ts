@@ -101,7 +101,7 @@ export type {
  *    - Settlement recommendations
  * 
  * 8. PhaseTransferWorkflow
- *    - EYFS → KS1 → KS2 → KS3 → KS4 → KS5 → Post-19
+ *    - EYFS -> KS1 -> KS2 -> KS3 -> KS4 -> KS5 -> Post-19
  *    - School consultation management
  *    - Parent preference tracking
  *    - Risk identification
@@ -125,7 +125,7 @@ export type {
  *     - Value-for-money analysis
  * 
  * 12. GoldenThreadVisualisation (FLAGSHIP)
- *     - Needs → Outcomes → Provision coherence
+ *     - Needs -> Outcomes -> Provision coherence
  *     - Gap analysis and recommendations
  *     - Legally defensible EHCPs
  *     - Section-by-section breakdown
@@ -134,21 +134,21 @@ export type {
  * -------------------
  * 
  * Week 0: School submits EHCP request
- *         ↓
+ *         ->
  * Week 1-5: LA reviews request, gathers initial information
- *         ↓
+ *         ->
  * Week 6: LA makes decision (agree/refuse assessment)
- *         ↓
+ *         ->
  * Week 7-15: Multi-agency assessment
  *            - EP assessment (Section B, E, F)
  *            - Health assessment (Section C, G)
  *            - Social care assessment (Section D, H)
  *            - School input (Section A)
- *         ↓
+ *         ->
  * Week 16: Draft EHCP issued to parents
- *         ↓
+ *         ->
  * Week 17-19: Consultation period (15 calendar days minimum)
- *         ↓
+ *         ->
  * Week 20: Final EHCP issued
  * 
  * API Endpoints:

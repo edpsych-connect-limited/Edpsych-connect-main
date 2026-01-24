@@ -30,7 +30,7 @@ interface UkLocalizationContextType {
   formatUkDateTime: (date: Date) => string;
   
   /**
-   * Formats currency according to UK convention (£)
+   * Formats currency according to UK convention (GBP )
    */
   formatUkCurrency: (amount: number) => string;
   
@@ -70,7 +70,7 @@ const UkLocalizationContext = createContext<UkLocalizationContextType>({
   convertToUkSpelling: (text) => text,
   formatUkDate: (date) => date.toLocaleDateString(),
   formatUkDateTime: (date) => date.toLocaleString(),
-  formatUkCurrency: (amount) => `£${amount.toFixed(2)}`,
+  formatUkCurrency: (amount) => `GBP ${amount.toFixed(2)}`,
   containsUsSpellings: () => false,
   identifyUsSpellings: () => [],
   convertToUkGradeLevel: (grade) => grade,

@@ -761,7 +761,7 @@ function OverviewContent({
                     <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
                       {data.bottlenecks.recommendations.map((rec, i) => (
                         <li key={i} className="flex items-start gap-2">
-                          <span className="text-blue-500">•</span>
+                          <span className="text-blue-500">-</span>
                           {rec}
                         </li>
                       ))}
@@ -921,7 +921,7 @@ function OverviewContent({
                     Avg. Completion Days
                   </p>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
-                    Target: ≤140 (20 weeks)
+                    Target: 140 or less (20 weeks)
                   </p>
                 </div>
               </div>

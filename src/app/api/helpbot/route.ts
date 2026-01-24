@@ -141,12 +141,12 @@ export async function POST(request: NextRequest) {
       if (helpArticles.length > 0) {
         // Prefer database help articles as they're more comprehensive
         const topArticle = helpArticles[0];
-        response = `**${topArticle.article.title}**\n\n${topArticle.article.excerpt}\n\n${topArticle.snippet}\n\n[Read the full article →](/help/${topArticle.article.slug})`;
+        response = `**${topArticle.article.title}**\n\n${topArticle.article.excerpt}\n\n${topArticle.snippet}\n\n[Read the full article ->](/help/${topArticle.article.slug})`;
         
         if (helpArticles.length > 1) {
           response += '\n\n**Related Articles:**\n';
           helpArticles.slice(1).forEach(article => {
-            response += `• [${article.article.title}](/help/${article.article.slug})\n`;
+            response += `- [${article.article.title}](/help/${article.article.slug})\n`;
           });
         }
       } else if (knowledgeMatch) {
@@ -156,7 +156,7 @@ export async function POST(request: NextRequest) {
         if (knowledgeMatch.links && knowledgeMatch.links.length > 0) {
           response += '\n\n**Quick Links:**\n';
           knowledgeMatch.links.forEach(link => {
-            response += `• [${link.text}](${link.url})\n`;
+            response += `- [${link.text}](${link.url})\n`;
           });
         }
       } else {
@@ -164,16 +164,16 @@ export async function POST(request: NextRequest) {
         response = `I'm not certain about that specific question, but I'd be happy to help!
 
 **I can assist with:**
-• 🧭 Navigation - Finding features and pages
-• 📊 Assessments - ECCA framework and cognitive tools
-• 📋 EHCP - Education Health Care Plans
-• 🎯 Interventions - Evidence-based strategies
-• 🎓 Training - CPD courses and certificates
-• ⚙️ Account - Settings and preferences
+- NAV Navigation - Finding features and pages
+- STATUS Assessments - ECCA framework and cognitive tools
+- LIST EHCP - Education Health Care Plans
+- TARGET Interventions - Evidence-based strategies
+- TRAINING Training - CPD courses and certificates
+- SETTINGS Account - Settings and preferences
 
 **Additional Resources:**
-• Help Centre: /help
-• Email: support@edpsychconnect.world
+- Help Centre: /help
+- Email: support@edpsychconnect.world
 
 Could you rephrase your question or choose one of the topics above?`;
       }
@@ -210,8 +210,8 @@ Could you rephrase your question or choose one of the topics above?`;
         content: `I apologise, but I'm experiencing technical difficulties. Please try again in a moment.
 
 **Alternative Support:**
-• Help Centre: /help
-• Email: support@edpsychconnect.world
+- Help Centre: /help
+- Email: support@edpsychconnect.world
 
 Your question has been logged and our team will review it.`,
         usedAI: false,

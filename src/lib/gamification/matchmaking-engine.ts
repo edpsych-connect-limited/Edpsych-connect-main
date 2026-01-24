@@ -274,7 +274,7 @@ export class MatchmakingEngine {
     // Select players with similar MMR
     const selected: MatchmakingPlayer[] = [];
     const medianMMR = sortedPlayers[Math.floor(sortedPlayers.length / 2)].mmr;
-    const mmrTolerance = 200; // Allow ±200 MMR difference
+    const mmrTolerance = 200; // Allow +/-200 MMR difference
 
     for (const player of sortedPlayers) {
       if (Math.abs(player.mmr - medianMMR) <= mmrTolerance) {
@@ -335,7 +335,7 @@ export class MatchmakingEngine {
       return { success: false, message: 'Squad is at maximum capacity' };
     }
 
-    // Check MMR compatibility (within ±300 of squad average)
+    // Check MMR compatibility (within +/-300 of squad average)
     if (Math.abs(player.mmr - squad.averageMmr) > 300) {
       return { success: false, message: 'Skill level too different from squad' };
     }

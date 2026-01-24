@@ -68,7 +68,7 @@ const GenericTrainingModule: React.FC<{ curriculumId: string }> = ({ curriculumI
                 </div>
                 <div className="text-xs text-gray-500 mt-0.5 flex items-center gap-3">
                   <span className="flex items-center gap-1"><PlayCircle className="w-3 h-3" /> {lesson.duration}</span>
-                  <span className="hidden sm:inline text-gray-400">•</span>
+                  <span className="hidden sm:inline text-gray-400">-</span>
                   <span className="hidden sm:inline">{lesson.description}</span>
                 </div>
               </div>
@@ -119,7 +119,7 @@ const TrainingDashboard: React.FC = () => {
       id: 'onboarding',
       title: 'Institutional Onboarding',
       description: 'Get your institution set up on the platform with these essential tutorials',
-      icon: '🏢',
+      icon: 'ORG',
       component: <OnboardingProgram />,
       isFeatured: true
     },
@@ -127,7 +127,7 @@ const TrainingDashboard: React.FC = () => {
       id: 'admin-training',
       title: 'Administrator Training',
       description: 'Learn how to manage users, permissions, and institutional settings',
-      icon: '⚙️',
+      icon: 'SET',
       component: <GenericTrainingModule curriculumId="admin-training" />,
       isNew: true
     },
@@ -135,28 +135,28 @@ const TrainingDashboard: React.FC = () => {
       id: 'teacher-training',
       title: 'Teacher Training',
       description: 'Resources for classroom teachers using the platform',
-      icon: '👩‍🏫',
+      icon: 'TCH',
       component: <GenericTrainingModule curriculumId="teacher-training" />
     },
     {
       id: 'ep-training',
       title: 'Educational Psychologist Training',
       description: 'Specialized training for EPs on assessment and intervention features',
-      icon: '🧠',
+      icon: 'AI',
       component: <GenericTrainingModule curriculumId="ep-training" />
     },
     {
       id: 'researcher-training',
       title: 'Researcher Training',
       description: 'Learn how to use data collection and analysis tools',
-      icon: '📊',
+      icon: 'CHART',
       component: <GenericTrainingModule curriculumId="researcher-training" />
     },
     {
       id: 'integration-training',
       title: 'System Integration',
       description: 'Technical training for IT staff on API integration and data management',
-      icon: '🔌',
+      icon: 'API',
       component: <GenericTrainingModule curriculumId="integration-training" />
     },
   ];
@@ -292,7 +292,7 @@ const TrainingDashboard: React.FC = () => {
             </div>
           ) : (
             <div className="bg-white rounded-lg shadow p-8 text-center">
-              <div className="text-4xl mb-4">🔍</div>
+              <div className="text-4xl mb-4">SEARCH</div>
               <h3 className="text-xl font-semibold mb-2">No Training Module Selected</h3>
               <p className="text-gray-600 mb-4">
                 Please select a training program from the sidebar to get started.

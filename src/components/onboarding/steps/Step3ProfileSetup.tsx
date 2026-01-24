@@ -453,7 +453,7 @@ export function Step3ProfileSetup() {
             </p>
             <p className="text-sm text-indigo-700">
               {photoUploaded && organizationProvided && (!isEP || hcpcProvided)
-                ? 'Your profile is complete! 🎉'
+                ? 'Your profile is complete!'
                 : 'Add more details to help colleagues find and recognize you'
               }
             </p>
@@ -464,7 +464,7 @@ export function Step3ProfileSetup() {
       {/* Privacy Note */}
       <div className="text-center text-sm text-gray-500">
         <p>
-          🔒 All information is stored securely and complies with GDPR.{' '}
+          All information is stored securely and complies with GDPR.{' '}
           <a href="/privacy" target="_blank" className="text-indigo-600 hover:text-indigo-700 underline">
             Privacy Policy
           </a>

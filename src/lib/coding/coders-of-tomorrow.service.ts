@@ -152,16 +152,16 @@ export const NC_OBJECTIVES = {
 
 // Achievement Badges
 export const BADGES = {
-  FIRST_PROGRAM: { name: 'First Program', description: 'Write and run your first program', icon: '🎯' },
-  BUG_SQUASHER: { name: 'Bug Squasher', description: 'Debug 10 programs successfully', icon: '🐛' },
-  ALGORITHM_ACE: { name: 'Algorithm Ace', description: 'Master 5 different algorithms', icon: '🧠' },
-  CODE_STREAK_7: { name: 'Week Warrior', description: 'Code for 7 days in a row', icon: '🔥' },
-  CODE_STREAK_30: { name: 'Monthly Master', description: 'Code for 30 days in a row', icon: '⚡' },
-  PYTHON_PIONEER: { name: 'Python Pioneer', description: 'Complete 10 Python lessons', icon: '🐍' },
-  SCRATCH_STAR: { name: 'Scratch Star', description: 'Complete 10 Scratch projects', icon: '⭐' },
-  COLLABORATION_KING: { name: 'Team Player', description: 'Complete 5 peer review exercises', icon: '👥' },
-  PERFECT_SCORE: { name: 'Perfect Score', description: 'Get 100% on 10 exercises', icon: '💯' },
-  LANGUAGE_LEARNER: { name: 'Polyglot', description: 'Complete lessons in 3 different languages', icon: '🌍' },
+  FIRST_PROGRAM: { name: 'First Program', description: 'Write and run your first program', icon: 'TARGET' },
+  BUG_SQUASHER: { name: 'Bug Squasher', description: 'Debug 10 programs successfully', icon: '' },
+  ALGORITHM_ACE: { name: 'Algorithm Ace', description: 'Master 5 different algorithms', icon: 'AI' },
+  CODE_STREAK_7: { name: 'Week Warrior', description: 'Code for 7 days in a row', icon: 'ERRORS' },
+  CODE_STREAK_30: { name: 'Monthly Master', description: 'Code for 30 days in a row', icon: '' },
+  PYTHON_PIONEER: { name: 'Python Pioneer', description: 'Complete 10 Python lessons', icon: '' },
+  SCRATCH_STAR: { name: 'Scratch Star', description: 'Complete 10 Scratch projects', icon: '' },
+  COLLABORATION_KING: { name: 'Team Player', description: 'Complete 5 peer review exercises', icon: '' },
+  PERFECT_SCORE: { name: 'Perfect Score', description: 'Get 100% on 10 exercises', icon: '' },
+  LANGUAGE_LEARNER: { name: 'Polyglot', description: 'Complete lessons in 3 different languages', icon: '' },
 } as const;
 
 // ============================================================================
@@ -522,24 +522,24 @@ export class CodersOfTomorrowService {
 
     if (percentage === 100) {
       if (attemptNumber === 1) {
-        return '🎉 Perfect! All tests passed on your first try! Brilliant work!';
+        return 'READY Perfect! All tests passed on your first try! Brilliant work!';
       }
-      return '🎉 Excellent! All tests passed! Well done for persevering!';
+      return 'READY Excellent! All tests passed! Well done for persevering!';
     }
 
     if (percentage >= 80) {
-      return `👍 Nearly there! ${testsPassed}/${testsTotal} tests passed. Check the failed tests and try again!`;
+      return ` Nearly there! ${testsPassed}/${testsTotal} tests passed. Check the failed tests and try again!`;
     }
 
     if (percentage >= 50) {
-      return `💪 Good progress! ${testsPassed}/${testsTotal} tests passed. Keep working on it - you're getting there!`;
+      return `KEEP GOING Good progress! ${testsPassed}/${testsTotal} tests passed. Keep working on it - you're getting there!`;
     }
 
     if (attemptNumber >= 3) {
-      return `💡 Don't give up! Would you like a hint? Check the hints section for help.`;
+      return `TIP Don't give up! Would you like a hint? Check the hints section for help.`;
     }
 
-    return `🔍 ${testsPassed}/${testsTotal} tests passed. Have another look at the instructions and try again!`;
+    return `ANALYZE ${testsPassed}/${testsTotal} tests passed. Have another look at the instructions and try again!`;
   }
 
   // ==========================================================================

@@ -52,19 +52,19 @@ const RecommendationList: React.FC<RecommendationListProps> = ({
   const getReasonIcon = (reason: RecommendationReason) => {
     switch (reason) {
       case RecommendationReason.SIMILAR_CONTENT:
-        return { icon: '📚', bgColor: 'bg-blue-100', textColor: 'text-blue-800' };
+        return { icon: 'SIM', bgColor: 'bg-blue-100', textColor: 'text-blue-800' };
       case RecommendationReason.USER_INTEREST:
-        return { icon: '❤️', bgColor: 'bg-red-100', textColor: 'text-red-800' };
+        return { icon: 'INT', bgColor: 'bg-red-100', textColor: 'text-red-800' };
       case RecommendationReason.POPULAR:
-        return { icon: '🔥', bgColor: 'bg-orange-100', textColor: 'text-orange-800' };
+        return { icon: 'POP', bgColor: 'bg-orange-100', textColor: 'text-orange-800' };
       case RecommendationReason.TRENDING:
-        return { icon: '📈', bgColor: 'bg-green-100', textColor: 'text-green-800' };
+        return { icon: 'TRN', bgColor: 'bg-green-100', textColor: 'text-green-800' };
       case RecommendationReason.ASSESSMENT_BASED:
-        return { icon: '📝', bgColor: 'bg-purple-100', textColor: 'text-purple-800' };
+        return { icon: 'ASM', bgColor: 'bg-purple-100', textColor: 'text-purple-800' };
       case RecommendationReason.COLLEAGUE_USED:
-        return { icon: '👥', bgColor: 'bg-yellow-100', textColor: 'text-yellow-800' };
+        return { icon: 'COL', bgColor: 'bg-yellow-100', textColor: 'text-yellow-800' };
       default:
-        return { icon: '📎', bgColor: 'bg-gray-100', textColor: 'text-gray-800' };
+        return { icon: 'REC', bgColor: 'bg-gray-100', textColor: 'text-gray-800' };
     }
   };
   

@@ -124,7 +124,7 @@ export function DragAndDropElement({ element, onComplete }: DragAndDropProps) {
                 <span className="text-gray-900">{item.text}</span>
                 {isSubmitted && feedback[item.id] !== undefined && (
                   <span className="text-xl animate-scale-in">
-                    {feedback[item.id] ? '✓' : '✗'}
+                    {feedback[item.id] ? 'OK' : 'NO'}
                   </span>
                 )}
               </div>
@@ -276,7 +276,7 @@ export function SortingElement({ element, onComplete }: SortingProps) {
               )}
               {isSubmitted && (
                 <span className="text-2xl animate-scale-in">
-                  {item.order === index + 1 ? '✓' : '✗'}
+                  {item.order === index + 1 ? 'OK' : 'NO'}
                 </span>
               )}
             </div>
@@ -385,7 +385,7 @@ export function FillInTheBlankElement({ element, onComplete }: FillInTheBlankPro
                     }`}
                   >
                     <div className="flex items-start space-x-2">
-                      <span className="text-xl">{feedback[blank.id].correct ? '✓' : '✗'}</span>
+                      <span className="text-xl">{feedback[blank.id].correct ? 'OK' : 'NO'}</span>
                       <span>{feedback[blank.id].message}</span>
                     </div>
                   </div>

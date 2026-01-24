@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Log to console for immediate visibility during beta
-    logger.debug('📝 Beta Feedback Received:', {
+    logger.debug(' Beta Feedback Received:', {
       type,
       message: message.substring(0, 100) + (message.length > 100 ? '...' : ''),
       page: currentPage,

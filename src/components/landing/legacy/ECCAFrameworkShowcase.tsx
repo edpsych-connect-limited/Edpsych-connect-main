@@ -66,7 +66,7 @@ export default function ECCAFrameworkShowcase() {
 
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
             Our proprietary dynamic assessment framework combines evidence-based psychological theory
-            with practical educational psychology practice—copyright-safe, UK-specific, and designed
+            with practical educational psychology practice-copyright-safe, UK-specific, and designed
             for real-world EP workflows.
           </p>
         </div>
@@ -125,7 +125,7 @@ export default function ECCAFrameworkShowcase() {
                 },
                 {
                   title: "Strengths-Based Approach",
-                  desc: "Always begins with what the child CAN do—building from strengths"
+                  desc: "Always begins with what the child CAN do-building from strengths"
                 },
                 {
                   title: "LA-Compliant Reports",
@@ -137,7 +137,7 @@ export default function ECCAFrameworkShowcase() {
                 },
                 {
                   title: "Copyright-Safe",
-                  desc: "Proprietary framework—no licensing fees for standardised test materials"
+                  desc: "Proprietary framework-no licensing fees for standardised test materials"
                 }
               ].map((feature, idx) => (
                 <div key={idx} className="flex items-start">

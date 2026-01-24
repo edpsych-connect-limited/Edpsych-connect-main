@@ -679,15 +679,15 @@ export class CodeValidator {
    * @returns {string} Formatted report
    */
   formatReport(result: ValidationResult): string {
-    let report = '\n════════════════════════════════════════════════════════════\n';
+    let report = '\n\n';
     report += `  CODE VALIDATION REPORT\n`;
-    report += `════════════════════════════════════════════════════════════\n\n`;
+    report += `\n\n`;
 
-    report += `STATUS: ${result.isValid ? '✅ PASSED' : '❌ FAILED'}\n`;
+    report += `STATUS: ${result.isValid ? 'OK PASSED' : 'FAIL FAILED'}\n`;
     report += `Summary: ${result.summary}\n\n`;
 
     // Statistics
-    report += `📊 STATISTICS:\n`;
+    report += `STATS STATISTICS:\n`;
     report += `  Total Methods: ${result.stats.totalMethods}\n`;
     report += `  Total Calls: ${result.stats.totalCalls}\n`;
     report += `  Resolved: ${result.stats.resolvedCalls}\n`;
@@ -698,7 +698,7 @@ export class CodeValidator {
 
     // Errors
     if (result.errors.length > 0) {
-      report += `❌ ERRORS (${result.errors.length}):\n`;
+      report += `FAIL ERRORS (${result.errors.length}):\n`;
       result.errors.slice(0, 10).forEach((error, index) => {
         report += `  ${index + 1}. ${error.type} [${error.severity}]\n`;
         report += `     File: ${error.file}:${error.line}:${error.column}\n`;
@@ -715,7 +715,7 @@ export class CodeValidator {
 
     // Warnings
     if (result.warnings.length > 0) {
-      report += `⚠️  WARNINGS (${result.warnings.length}):\n`;
+      report += `WARNING  WARNINGS (${result.warnings.length}):\n`;
       result.warnings.slice(0, 5).forEach((warning, index) => {
         report += `  ${index + 1}. ${warning.type}\n`;
         report += `     File: ${warning.file}:${warning.line}\n`;
@@ -726,7 +726,7 @@ export class CodeValidator {
       }
     }
 
-    report += `\n════════════════════════════════════════════════════════════\n`;
+    report += `\n\n`;
 
     return report;
   }

@@ -586,7 +586,7 @@ function addImplementationConsiderations(
   );
 
   // Resource needs
-  if (intervention.cost_implications.toLowerCase().includes('minimal') || intervention.cost_implications.toLowerCase().includes('£0-')) {
+  if (intervention.cost_implications.toLowerCase().includes('minimal') || intervention.cost_implications.toLowerCase().includes('GBP 0-')) {
     considerations.push(`Low cost implementation: ${intervention.cost_implications}`);
   } else {
     considerations.push(`Resource requirements: ${intervention.cost_implications}`);

@@ -153,12 +153,12 @@ export class TriageDecisionService {
 
     if (mockCheck.duration < 6) {
       mockCheck.overallAdequacy = 'INSUFFICIENT';
-      mockCheck.evidence.push('⚠ Less than 6 months of SEN Support - may need more time');
+      mockCheck.evidence.push(' Less than 6 months of SEN Support - may need more time');
     }
 
     if (mockCheck.cyclesCompleted < 2) {
       mockCheck.overallAdequacy = 'INSUFFICIENT';
-      mockCheck.evidence.push('⚠ Fewer than 2 Assess-Plan-Do-Review cycles completed');
+      mockCheck.evidence.push(' Fewer than 2 Assess-Plan-Do-Review cycles completed');
     }
 
     return mockCheck;
@@ -278,7 +278,7 @@ Decision: ${decision.outcome === 'ASSESS' ? 'Proceed with Assessment' : 'Refuse 
 ${decision.reasoning}
 
 Next Steps:
-${decision.nextSteps.map(step => `• ${step}`).join('\n')}
+${decision.nextSteps.map(step => `- ${step}`).join('\n')}
 
 Right of Appeal:
 If you disagree with this decision, you have the right to appeal to the SEND Tribunal 

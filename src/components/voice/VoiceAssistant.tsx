@@ -83,7 +83,7 @@ export const VoiceAssistant: React.FC = () => {
     setIsHidden(true);
     localStorage.setItem('voiceAssistantHidden', 'true');
     toast('Voice assistant hidden. Use keyboard shortcut Ctrl+Shift+V to show again.', {
-      icon: '🎙️',
+      icon: 'MIC',
       duration: 4000,
     });
   }, [isListening, stopListening]);
@@ -101,7 +101,7 @@ export const VoiceAssistant: React.FC = () => {
         e.preventDefault();
         if (isHidden) {
           showAssistant();
-          toast('Voice assistant restored!', { icon: '🎙️' });
+          toast('Voice assistant restored!', { icon: 'MIC' });
         } else {
           hideAssistant();
         }
@@ -196,7 +196,7 @@ export const VoiceAssistant: React.FC = () => {
       if (data.success) {
         toast.success(data.response.text, {
           duration: 5000,
-          icon: '🎙️',
+          icon: 'MIC',
         });
       }
 

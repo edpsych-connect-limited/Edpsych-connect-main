@@ -24,7 +24,7 @@ const SimplePointDisplay: React.FC<{points: number, size?: "sm" | "md" | "lg"}> 
   
   return (
     <div className="flex items-center gap-2">
-      <span className={`${fontSize}`}>⭐</span>
+      <span className={`${fontSize}`}>STAR</span>
       <span className={`font-bold ${fontSize} text-gray-700`}>
         {points}
       </span>
@@ -48,7 +48,7 @@ export const AchievementCard: React.FC<AchievementCardProps> = ({
     >
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
-          <span className="text-xl">🏆</span>
+          <span className="text-xl">TROPHY</span>
           <h4 className="font-bold text-lg text-gray-800">
             {title}
           </h4>

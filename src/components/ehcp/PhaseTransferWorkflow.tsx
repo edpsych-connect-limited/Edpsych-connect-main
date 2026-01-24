@@ -9,12 +9,12 @@
  * Manages the critical transitions between educational phases (Key Stages).
  * 
  * Key Stages in UK Education:
- * - EYFS → KS1 (Reception to Year 1) - Age 5
- * - KS1 → KS2 (Year 2 to Year 3) - Age 7
- * - KS2 → KS3 (Year 6 to Year 7) - Age 11 - Primary to Secondary
- * - KS3 → KS4 (Year 9 to Year 10) - Age 14 - Start of GCSEs
- * - KS4 → KS5/Post-16 (Year 11 to Year 12/College) - Age 16
- * - KS5 → Higher Education/Adulthood (Year 13 onwards) - Age 18+
+ * - EYFS -> KS1 (Reception to Year 1) - Age 5
+ * - KS1 -> KS2 (Year 2 to Year 3) - Age 7
+ * - KS2 -> KS3 (Year 6 to Year 7) - Age 11 - Primary to Secondary
+ * - KS3 -> KS4 (Year 9 to Year 10) - Age 14 - Start of GCSEs
+ * - KS4 -> KS5/Post-16 (Year 11 to Year 12/College) - Age 16
+ * - KS5 -> Higher Education/Adulthood (Year 13 onwards) - Age 18+
  * 
  * Each transition requires EHCP review and update with specific considerations.
  */
@@ -543,25 +543,25 @@ export default function PhaseTransferWorkflow() {
         </h3>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
-            <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-2">Primary → Secondary (KS2 → KS3)</h4>
+            <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-2">Primary to Secondary (KS2 to KS3)</h4>
             <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-              <li>• Year 5 Annual Review: Discuss secondary options</li>
-              <li>• October Y6: Collect parent preferences</li>
-              <li>• November Y6: Send consultations to schools</li>
-              <li>• February Y6: Placement decision</li>
-              <li>• March Y6: Amend EHCP</li>
-              <li>• Summer Term: Transition visits and handover</li>
+              <li>- Year 5 Annual Review: Discuss secondary options</li>
+              <li>- October Y6: Collect parent preferences</li>
+              <li>- November Y6: Send consultations to schools</li>
+              <li>- February Y6: Placement decision</li>
+              <li>- March Y6: Amend EHCP</li>
+              <li>- Summer Term: Transition visits and handover</li>
             </ul>
           </div>
           <div>
-            <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-2">Secondary → Post-16 (KS4 → KS5/FE)</h4>
+            <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-2">Secondary to Post-16 (KS4 to KS5/FE)</h4>
             <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-              <li>• Year 10: Begin post-16 discussions</li>
-              <li>• Autumn Y11: Careers guidance and options</li>
-              <li>• January Y11: College consultations</li>
-              <li>• March Y11: Placement confirmed</li>
-              <li>• May Y11: Amend EHCP for post-16</li>
-              <li>• Summer Y11: Transition support and induction</li>
+              <li>- Year 10: Begin post-16 discussions</li>
+              <li>- Autumn Y11: Careers guidance and options</li>
+              <li>- January Y11: College consultations</li>
+              <li>- March Y11: Placement confirmed</li>
+              <li>- May Y11: Amend EHCP for post-16</li>
+              <li>- Summer Y11: Transition support and induction</li>
             </ul>
           </div>
         </div>

@@ -71,7 +71,7 @@ export default function OnboardingSandbox() {
               Authorize Secure Scan
             </button>
             <p className="text-xs text-slate-400 mt-4 flex items-center justify-center gap-1">
-              <Shield className="w-3 h-3" /> Bank-grade encryption • GDPR Compliant
+              <Shield className="w-3 h-3" /> Bank-grade encryption - GDPR Compliant
             </p>
           </div>
         )}

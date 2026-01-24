@@ -156,7 +156,7 @@ export default function AssessmentLibraryPreview() {
           </h3>
           <p className="text-lg text-slate-700 mb-6 max-w-3xl mx-auto">
             Each assessment template includes scoring algorithms, interpretation guidance, and
-            report generation—reducing assessment administration time by 40-60%.
+            report generation-reducing assessment administration time by 40-60%.
           </p>
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <div className="bg-white p-6 rounded-xl border border-green-200">

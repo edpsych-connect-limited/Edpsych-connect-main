@@ -121,3 +121,7 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-22: Teacher intervention dashboard controls now show focus-visible rings; loading state announces status.
 - 2026-01-22: Assessment results analysis actions and tabs now show focus-visible rings; list bullets normalized to ASCII.
 - 2026-01-22: Assessment administration navigation buttons now include focus-visible rings.
+- 2026-01-22: Collaborative input form review status, scale buttons, and narrative inputs now include focus-visible rings and status semantics.
+- 2026-01-22: Assessment administration wizard collaboration invites now include focus-visible rings; collaboration status labels normalized to ASCII.
+- 2026-01-23: Role dashboards refreshed with next-action panels and focus-visible states; manual keyboard and screen reader verification still pending.
+- 2026-01-23: Added focus-visible cues for EP, Parent, and School dashboard primary actions; verification pending.
