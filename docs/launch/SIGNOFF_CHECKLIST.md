@@ -10,7 +10,7 @@ Owner: Codex (Project Lead)
 - Accessibility: keyboard/screen reader audits running; evidence logged in `docs/accessibility/AUDIT_CHECKLIST.md`.
 - Performance: bundle review active; evidence logged in `docs/performance/BUNDLE_REVIEW_STATUS.md`.
 - Product readiness: role dashboards streamlined with next-action panels; validation pending.
-- Build: `npm run build` completed; full `build:vercel` still pending due to extended verify suite.
+- Build: `npm run build` completed; webpack cache warnings from `next-intl` noted, no build failure.
 - Verification: `npm run verify:ci` completed (lint, type-check, governance/security tests, smoke, secrets scan).
 - Reliability/Security/Compliance/Operations/Commercial: evidence capture pending; no signoff claims yet.
 

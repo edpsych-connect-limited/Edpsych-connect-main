@@ -379,6 +379,7 @@ Progress log:
 - 2026-01-23: `npm run verify:ci` completed successfully (lint, type-check, AI governance, security scans, smoke).
 - 2026-01-23: Logged accessibility audit run RUN-2026-01-23-01 with manual journey verification in progress.
 - 2026-01-23: Reduced video script coverage noise by only emitting orphaned-script warnings for full registry scope.
+- 2026-01-23: `npm run build` completed successfully; webpack cache warnings from `next-intl` noted (no functional failure).
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help
