@@ -350,6 +350,7 @@ Progress log:
 - 2026-01-22: Added keyboard-accessible student selection cards and focus-visible rings in student analytics.
 - 2026-01-22: Hardened analytics reports list selection, modal semantics, and focus-visible styling.
 - 2026-01-22: Normalized support chat responses to ASCII and added focus-visible rings to controls.
+- 2026-01-22: Updated launch signoff checklist statuses and ownership for in-progress evidence.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

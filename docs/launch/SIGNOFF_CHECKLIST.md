@@ -2,17 +2,17 @@
 
 This checklist defines the minimum signoff criteria for enterprise launch.
 
-Status key: [ ] pending, [x] done
+Status key: [ ] pending, [~] in progress, [x] done
 
 ## Accessibility
-- [ ] WCAG 2.1 AA audit complete
-- [ ] Keyboard navigation verified for top 15 journeys
-- [ ] Screen reader verification for top 10 flows
+- [~] WCAG 2.1 AA audit complete
+- [~] Keyboard navigation verified for top 15 journeys
+- [~] Screen reader verification for top 10 flows
 
 ## Performance
 - [ ] SLO dashboards green
 - [ ] p95 latency within targets for critical workflows
-- [ ] Bundle size review complete
+- [~] Bundle size review complete
 
 ## Reliability
 - [ ] Error budgets within thresholds
@@ -49,11 +49,13 @@ Status key: [ ] pending, [x] done
 ## Signoff Log
 | Date | Area | Owner | Status | Evidence |
 | --- | --- | --- | --- | --- |
-| YYYY-MM-DD | Accessibility |  | Pending | docs/accessibility/AUDIT_CHECKLIST.md |
-| YYYY-MM-DD | Performance |  | Pending | docs/performance/BUNDLE_REVIEW_STATUS.md |
-| YYYY-MM-DD | Reliability |  | Pending | docs/observability/SLI_SLO.md |
-| YYYY-MM-DD | Security |  | Pending | docs/assurance/FINDINGS_REGISTER.md |
-| YYYY-MM-DD | Compliance |  | Pending | docs/assurance/VENDOR_SUBPROCESSOR_AUDIT.md |
-| YYYY-MM-DD | Operations |  | Pending | docs/ops/RUNBOOK.md |
-| YYYY-MM-DD | Commercial |  | Pending | docs/launch/LEGAL_CHECKLIST.md |
-| 2026-01-21 | Performance |  | In Progress | docs/performance/build-stats-2026-01-21.txt |
+| YYYY-MM-DD | Accessibility | Codex | Pending | docs/accessibility/AUDIT_CHECKLIST.md |
+| YYYY-MM-DD | Performance | Codex | Pending | docs/performance/BUNDLE_REVIEW_STATUS.md |
+| YYYY-MM-DD | Reliability | Codex | Pending | docs/observability/SLI_SLO.md |
+| YYYY-MM-DD | Security | Codex | Pending | docs/assurance/FINDINGS_REGISTER.md |
+| YYYY-MM-DD | Compliance | Codex | Pending | docs/assurance/VENDOR_SUBPROCESSOR_AUDIT.md |
+| YYYY-MM-DD | Operations | Codex | Pending | docs/ops/RUNBOOK.md |
+| YYYY-MM-DD | Commercial | Codex | Pending | docs/launch/LEGAL_CHECKLIST.md |
+| 2026-01-21 | Performance | Codex | In Progress | docs/performance/build-stats-2026-01-21.txt |
+| 2026-01-22 | Accessibility | Codex | In Progress | docs/accessibility/AUDIT_CHECKLIST.md |
+| 2026-01-22 | Performance | Codex | In Progress | docs/performance/BUNDLE_REVIEW_STATUS.md |
