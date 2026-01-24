@@ -68,22 +68,22 @@ export default function ResultsAnalysis({
                 <div><strong>Assessor:</strong> Educational Psychologist</div>
               </div>
             </div>
-            <div className="flex gap-3">
-              <button
-                onClick={() => router.push(`/assessments/${assessmentId}/report`)}
-                className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
-              >
-                Generate Report
-              </button>
-              <button
-                onClick={() => router.push(`/assessments/${assessmentId}/edit`)}
-                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50"
-              >
-                Edit Assessment
-              </button>
-            </div>
+          <div className="flex gap-3">
+            <button
+              onClick={() => router.push(`/assessments/${assessmentId}/report`)}
+              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
+            >
+              Generate Report
+            </button>
+            <button
+              onClick={() => router.push(`/assessments/${assessmentId}/edit`)}
+              className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            >
+              Edit Assessment
+            </button>
           </div>
         </div>
+      </div>
 
         {/* Tabs */}
         <div className="bg-white shadow rounded-lg mb-6">
@@ -102,7 +102,7 @@ export default function ResultsAnalysis({
                     activeTab === tab.id
                       ? 'border-blue-500 text-blue-600'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                  }`}
+                  } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
                 >
                   {tab.label}
                 </button>
@@ -213,7 +213,7 @@ function OverviewTab({
             <ul className="space-y-2">
               {scores.strengths.map((strength, index) => (
                 <li key={index} className="text-sm text-green-800 flex items-start">
-                  <span className="mr-2">•</span>
+                  <span className="mr-2">-</span>
                   <span>{strength}</span>
                 </li>
               ))}
@@ -236,7 +236,7 @@ function OverviewTab({
             <ul className="space-y-2">
               {scores.weaknesses.map((weakness, index) => (
                 <li key={index} className="text-sm text-amber-800 flex items-start">
-                  <span className="mr-2">•</span>
+                  <span className="mr-2">-</span>
                   <span>{weakness}</span>
                 </li>
               ))}
@@ -484,7 +484,7 @@ function InterpretationTab({
           <ul className="space-y-2 text-sm text-gray-700">
             {template.interpretation_guidelines.map((guideline, index) => (
               <li key={index} className="flex items-start">
-                <span className="mr-2">•</span>
+                <span className="mr-2">-</span>
                 <span>{guideline}</span>
               </li>
             ))}

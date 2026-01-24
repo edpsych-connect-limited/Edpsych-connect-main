@@ -357,6 +357,7 @@ Progress log:
 - 2026-01-22: Added focus-visible rings for admin navigation tabs and evidence exports.
 - 2026-01-22: Normalized code quality dashboard copy and added accessible loading/error states.
 - 2026-01-22: Added focus-visible rings and status semantics for teacher intervention dashboard.
+- 2026-01-22: Normalized assessment results analysis list bullets and added focus-visible rings for actions/tabs.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

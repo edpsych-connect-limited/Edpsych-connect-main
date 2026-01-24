@@ -119,3 +119,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-22: Admin dashboard tabs and evidence export controls now show focus-visible rings.
 - 2026-01-22: Code quality dashboard loading/error states now announce status; copy normalized to ASCII.
 - 2026-01-22: Teacher intervention dashboard controls now show focus-visible rings; loading state announces status.
+- 2026-01-22: Assessment results analysis actions and tabs now show focus-visible rings; list bullets normalized to ASCII.
