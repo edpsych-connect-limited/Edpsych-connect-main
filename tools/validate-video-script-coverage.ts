@@ -84,21 +84,23 @@ function main() {
   }
 
   // Additional signal: scripts that exist but are not referenced by the chosen keyspace.
-  // This is a warning only.
-  const knownScriptKeys = new Set(listKnownScriptKeys());
-  const referencedKeys = new Set(sortedKeys.map(k => getVideoScriptResolution(k).resolvedKey));
+  // Only emit this warning for the full registry scope to avoid noise in AI-only checks.
+  if (scope === 'all') {
+    const knownScriptKeys = new Set(listKnownScriptKeys());
+    const referencedKeys = new Set(sortedKeys.map(k => getVideoScriptResolution(k).resolvedKey));
 
-  const orphaned = Array.from(knownScriptKeys)
-    .filter(k => !referencedKeys.has(k))
-    .sort()
-    .slice(0, 50);
+    const orphaned = Array.from(knownScriptKeys)
+      .filter(k => !referencedKeys.has(k))
+      .sort()
+      .slice(0, 50);
 
-  if (orphaned.length > 0) {
-    issues.push({
-      level: 'warning',
-      key: '(registry)',
-      message: `Found ${orphaned.length}+ script keys not referenced by VIDEO_SCRIPT_COVERAGE_SCOPE='${scope}'. This can be normal during migration. First 50: ${orphaned.join(', ')}`,
-    });
+    if (orphaned.length > 0) {
+      issues.push({
+        level: 'warning',
+        key: '(registry)',
+        message: `Found ${orphaned.length}+ script keys not referenced by VIDEO_SCRIPT_COVERAGE_SCOPE='${scope}'. First 50: ${orphaned.join(', ')}`,
+      });
+    }
   }
 
   const errors = issues.filter(i => i.level === 'error');
