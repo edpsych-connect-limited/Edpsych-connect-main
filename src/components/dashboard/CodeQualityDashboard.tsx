@@ -8,8 +8,6 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 /**
  * Code Quality Monitoring Dashboard
  * Real-time visualization of validation metrics
@@ -90,7 +88,7 @@ export default function CodeQualityDashboard() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
+      <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white" role="status" aria-live="polite">
         <div className="text-2xl font-bold">Loading metrics...</div>
       </div>
     );
@@ -98,7 +96,7 @@ export default function CodeQualityDashboard() {
 
   if (!data) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
+      <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white" role="alert">
         <div className="text-2xl font-bold text-red-500">Failed to load metrics</div>
       </div>
     );
@@ -139,7 +137,7 @@ export default function CodeQualityDashboard() {
           <p className="text-gray-400">Real-time monitoring of validation, security, and performance metrics</p>
           <div className="mt-4">
             <span className={`inline-block px-4 py-2 rounded-lg font-semibold ${getStatusColor(data.status)}`}>
-              ● {data.status.toUpperCase()}
+              Status: {data.status.toUpperCase()}
             </span>
           </div>
         </div>
@@ -155,7 +153,7 @@ export default function CodeQualityDashboard() {
 
         {/* Security Metrics */}
         <div className="bg-gray-800 rounded-lg p-6 mb-8">
-          <h2 className="text-2xl font-bold mb-6">🔒 Security Analysis</h2>
+          <h2 className="text-2xl font-bold mb-6">Security Analysis</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <SecurityMetricCard
               label="Critical"
@@ -171,7 +169,7 @@ export default function CodeQualityDashboard() {
 
         {/* Performance Metrics */}
         <div className="bg-gray-800 rounded-lg p-6 mb-8">
-          <h2 className="text-2xl font-bold mb-6">⚡ Performance Analysis</h2>
+          <h2 className="text-2xl font-bold mb-6">Performance Analysis</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <PerformanceMetricCard label="Avg Complexity" value={data.performance.averageComplexity.toFixed(2)} unit="" />
             <PerformanceMetricCard label="High Complexity" value={data.performance.highComplexityFunctions} status={data.performance.highComplexityFunctions > 0 ? 'warning' : 'success'} />
@@ -182,14 +180,14 @@ export default function CodeQualityDashboard() {
 
         {/* Recommendations */}
         <div className="bg-gray-800 rounded-lg p-6">
-          <h2 className="text-2xl font-bold mb-4">💡 Recommendations</h2>
+          <h2 className="text-2xl font-bold mb-4">Recommendations</h2>
           <ul className="space-y-2 text-gray-300">
-            {data.security.criticalIssues > 0 && <li>🔴 Fix {data.security.criticalIssues} critical security issue(s) immediately</li>}
-            {data.security.highIssues > 0 && <li>🟠 Address {data.security.highIssues} high-priority security issues</li>}
-            {data.performance.highComplexityFunctions > 0 && <li>🟡 Refactor {data.performance.highComplexityFunctions} high-complexity function(s)</li>}
-            {data.validation.orphanedMethods > 0 && <li>🟡 Review {data.validation.orphanedMethods} orphaned method(s)</li>}
+            {data.security.criticalIssues > 0 && <li>Fix {data.security.criticalIssues} critical security issue(s) immediately.</li>}
+            {data.security.highIssues > 0 && <li>Address {data.security.highIssues} high-priority security issues.</li>}
+            {data.performance.highComplexityFunctions > 0 && <li>Refactor {data.performance.highComplexityFunctions} high-complexity function(s).</li>}
+            {data.validation.orphanedMethods > 0 && <li>Review {data.validation.orphanedMethods} orphaned method(s).</li>}
             {data.validation.unresolvedCalls === 0 && data.security.criticalIssues === 0 && (
-              <li>✅ Code quality is excellent - keep up the good work!</li>
+              <li>Code quality is excellent - keep up the good work.</li>
             )}
           </ul>
         </div>

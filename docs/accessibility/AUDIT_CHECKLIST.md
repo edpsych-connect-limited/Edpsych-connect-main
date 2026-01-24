@@ -117,3 +117,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-22: Analytics dashboard actions now include focus-visible rings; trend indicators normalized to ASCII.
 - 2026-01-22: Agent performance analytics cards now support keyboard activation; loading/error states announce status.
 - 2026-01-22: Admin dashboard tabs and evidence export controls now show focus-visible rings.
+- 2026-01-22: Code quality dashboard loading/error states now announce status; copy normalized to ASCII.
