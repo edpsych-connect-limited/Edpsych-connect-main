@@ -52,10 +52,10 @@ Immediate next actions:
     - Deliverable: Journey map + success criteria per role
 
 [~] Redesign role dashboards to reduce surface area and improve next actions
-    - EP: assessment, report, intervention, time savings
-    - LA: case triage, compliance, analytics, approvals
-    - School: referrals, collaboration, interventions, progress
-    - Parent: child updates, portal actions, communication
+    - [~] EP: assessment, report, intervention, time savings
+    - [~] LA: case triage, compliance, analytics, approvals
+    - [~] School: referrals, collaboration, interventions, progress
+    - [~] Parent: child updates, portal actions, communication
 
 [x] Standardize navigation patterns across app and admin
     - Align layout, breadcrumbing, and page titles
