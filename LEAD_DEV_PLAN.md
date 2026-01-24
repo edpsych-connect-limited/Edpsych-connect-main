@@ -377,6 +377,7 @@ Progress log:
 - 2026-01-23: Regenerated Prisma client to include AI governance/evidence models; build now progresses through lint/type-check/tests before Next build timeout.
 - 2026-01-23: `npm run build` completed successfully; `npm run build:vercel` still slow due to full verify suite.
 - 2026-01-23: `npm run verify:ci` completed successfully (lint, type-check, AI governance, security scans, smoke).
+- 2026-01-23: Logged accessibility audit run RUN-2026-01-23-01 with manual journey verification in progress.
 
 -----------------------------------------------------------------------------
 2) Guided Workflows + Contextual Help

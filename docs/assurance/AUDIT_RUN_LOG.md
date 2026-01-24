@@ -161,6 +161,31 @@ Each audit run records **what was tested**, **where**, and **what evidence was p
 ### Findings created
 - TBD
 
+## RUN-2026-01-23-01 (In Progress)
+
+- **Run ID:** RUN-2026-01-23-01
+- **Date/time (UTC):** 2026-01-23
+- **Commit SHA/tag:** 3d6e8fefc4d9d94f6cdaafbdf3dfb554b92a84a3
+- **Environment:** Local (manual accessibility walkthroughs)
+- **Auditor(s):** Internal (Codex)
+- **Test accounts used:** Demo accounts only (role-based; no secrets)
+
+### Tooling gates
+- Lint: **Pass** (`npm run verify:ci`)
+- Typecheck: **Pass** (`npm run verify:ci`)
+- Build: **Pass** (`npm run build`)
+- Targeted validators: **Pass** (`npm run verify:ci`)
+
+### Walkthroughs executed
+- Accessibility manual journeys: **In progress** (Login + signup started; keyboard and screen reader checks pending)
+
+### Evidence produced
+- Pending: `docs/accessibility/AUDIT_CHECKLIST.md`
+- Pending: `docs/assurance/FINDINGS_REGISTER.md`
+
+### Findings created
+- TBD
+
 ## Run template
 
 - **Run ID:** (e.g., RUN-2025-12-15-01)
