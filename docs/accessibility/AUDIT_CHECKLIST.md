@@ -118,3 +118,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-22: Agent performance analytics cards now support keyboard activation; loading/error states announce status.
 - 2026-01-22: Admin dashboard tabs and evidence export controls now show focus-visible rings.
 - 2026-01-22: Code quality dashboard loading/error states now announce status; copy normalized to ASCII.
+- 2026-01-22: Teacher intervention dashboard controls now show focus-visible rings; loading state announces status.

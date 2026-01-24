@@ -131,7 +131,7 @@ export default function TeacherInterventionDashboard() {
           <div className="flex flex-col items-end">
              <button 
                onClick={() => setShowVoiceInterface(!showVoiceInterface)}
-               className={`mb-2 flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all ${
+               className={`mb-2 flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 ${
                  showVoiceInterface 
                    ? 'bg-red-50 text-red-600 ring-2 ring-red-200' 
                    : 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm'
@@ -144,7 +144,7 @@ export default function TeacherInterventionDashboard() {
               <Activity className="w-3 h-3 mr-1" />
               Live Clinical Library (440+ Strategies)
             </span>
-             <span className="text-xs text-slate-400 mt-1">Demo Student Profile • Real AI Logic</span>
+             <span className="text-xs text-slate-400 mt-1">Demo Student Profile | Real AI Logic</span>
           </div>
         </div>
       </header>
@@ -194,13 +194,13 @@ export default function TeacherInterventionDashboard() {
         <div className="border-b border-slate-200 flex">
             <button 
                 onClick={() => setActiveTab('recommendations')}
-                className={`px-6 py-4 text-sm font-medium ${activeTab === 'recommendations' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500 hover:text-slate-700'}`}
+                className={`px-6 py-4 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 ${activeTab === 'recommendations' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500 hover:text-slate-700'}`}
             >
                 AI Recommendations
             </button>
             <button 
                 onClick={() => setActiveTab('tracking')}
-                className={`px-6 py-4 text-sm font-medium ${activeTab === 'tracking' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500 hover:text-slate-700'}`}
+                className={`px-6 py-4 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 ${activeTab === 'tracking' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500 hover:text-slate-700'}`}
             >
                 Impact Tracking
             </button>
@@ -208,7 +208,7 @@ export default function TeacherInterventionDashboard() {
 
         <div className="p-6">
             {loading ? (
-                <div className="flex items-center justify-center py-12">
+                <div className="flex items-center justify-center py-12" role="status" aria-live="polite">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
                 </div>
             ) : (
@@ -268,21 +268,21 @@ export default function TeacherInterventionDashboard() {
                                 <div className="flex items-center space-x-3 pt-4 border-t border-slate-100">
                                     <button 
                                         onClick={() => handleLogImpact(rec.intervention.id, 'positive')}
-                                        className="flex items-center space-x-2 px-4 py-2 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors"
+                                        className="flex items-center space-x-2 px-4 py-2 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
                                     >
                                         <ThumbsUp className="w-4 h-4" />
                                         <span>It Worked</span>
                                     </button>
                                     <button 
                                         onClick={() => handleLogImpact(rec.intervention.id, 'neutral')}
-                                        className="flex items-center space-x-2 px-4 py-2 bg-slate-50 text-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
+                                        className="flex items-center space-x-2 px-4 py-2 bg-slate-50 text-slate-700 rounded-lg hover:bg-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
                                     >
                                         <Minus className="w-4 h-4" />
                                         <span>No Change</span>
                                     </button>
                                     <button 
                                         onClick={() => setSelectedVideo('feature-intervention-library')}
-                                        className="ml-auto flex items-center space-x-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium text-sm"
+                                        className="ml-auto flex items-center space-x-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
                                     >
                                         <PlayCircle className="w-4 h-4" />
                                         <span>View Implementation Guide</span>
@@ -324,7 +324,7 @@ export default function TeacherInterventionDashboard() {
             <div className="relative w-full max-w-4xl bg-black rounded-2xl overflow-hidden shadow-2xl">
                 <button 
                     onClick={() => setSelectedVideo(null)}
-                    className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors"
+                    className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                     <X className="w-6 h-6" />
                 </button>
