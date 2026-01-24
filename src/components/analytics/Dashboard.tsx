@@ -8,8 +8,6 @@
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-;
-
 import React, { useState, useEffect, useCallback, useId } from 'react';
 import { analyticsService } from '../../lib/analytics';
 import type { Dashboard, DashboardWidget } from '../../lib/analytics';
@@ -119,7 +117,7 @@ export default function Dashboard({ dashboardId = 'default' }: DashboardProps) {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
+      <div className="flex items-center justify-center h-64" role="status" aria-live="polite">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
@@ -144,8 +142,8 @@ export default function Dashboard({ dashboardId = 'default' }: DashboardProps) {
             <p className="text-gray-600">{dashboard.description}</p>
           </div>
           <div className="flex space-x-3">
-            <button className="btn-secondary">Export</button>
-            <button className="btn-primary">Edit Dashboard</button>
+            <button className="btn-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">Export</button>
+            <button className="btn-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">Edit Dashboard</button>
           </div>
         </div>
       </div>
@@ -183,7 +181,7 @@ function MetricWidget({ widget, data }: { widget: DashboardWidget; data: RealTim
             metric.trend === 'up' ? 'text-green-600' :
             metric.trend === 'down' ? 'text-red-600' : 'text-gray-600'
           }`}>
-            {metric.trend === 'up' ? '↗' : metric.trend === 'down' ? '↘' : '→'}
+            {metric.trend === 'up' ? 'Up' : metric.trend === 'down' ? 'Down' : 'Flat'}
             {Math.abs(metric.change ?? 0)}%
           </span>
         </div>
@@ -197,7 +195,7 @@ function ChartWidget({ widget, data: _data }: { widget: DashboardWidget; data?: 
   return (
     <div className="h-64 flex items-center justify-center bg-gray-50 rounded">
       <div className="text-center">
-        <div className="text-4xl mb-2">📊</div>
+        <div className="text-4xl mb-2">Chart</div>
         <p className="text-gray-600">Chart: {widget.config.type}</p>
         <p className="text-sm text-gray-500">Implementation pending</p>
       </div>
@@ -235,7 +233,7 @@ function HeatmapWidget(_props: { widget?: DashboardWidget; data?: RealTimeDataSt
   return (
     <div className="h-64 flex items-center justify-center bg-gray-50 rounded">
       <div className="text-center">
-        <div className="text-4xl mb-2">🔥</div>
+        <div className="text-4xl mb-2">Hot</div>
         <p className="text-gray-600">Heatmap</p>
         <p className="text-sm text-gray-500">Implementation pending</p>
       </div>

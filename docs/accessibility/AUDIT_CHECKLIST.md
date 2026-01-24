@@ -114,3 +114,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-22: Support chat controls now show focus-visible rings; response copy normalized to ASCII.
 - 2026-01-22: Launch signoff checklist updated to reflect in-progress accessibility evidence.
 - 2026-01-22: Launch signoff checklist now includes progress notes and updated log dates.
+- 2026-01-22: Analytics dashboard actions now include focus-visible rings; trend indicators normalized to ASCII.
