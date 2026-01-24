@@ -128,3 +128,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-23: Verification run passed; accessibility manual journey audits still outstanding.
 - 2026-01-23: Started manual journey verification with Login + signup (keyboard and screen reader passes in progress).
 - 2026-01-23: Audit run logged as RUN-2026-01-23-01 in `docs/assurance/AUDIT_RUN_LOG.md`.
+- 2026-01-23: Manual verification pending; use keyboard-only checklist and screen reader checklist captured in audit run notes.

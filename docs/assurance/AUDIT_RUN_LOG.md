@@ -186,6 +186,9 @@ Each audit run records **what was tested**, **where**, and **what evidence was p
 ### Findings created
 - TBD
 
+### Notes
+- Manual keyboard and screen reader verification requires local tester execution. Evidence pending.
+
 ## Run template
 
 - **Run ID:** (e.g., RUN-2025-12-15-01)
