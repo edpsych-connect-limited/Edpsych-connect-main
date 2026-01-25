@@ -16,9 +16,9 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - [x] Core dashboards (EP/LA/School/Parent)
   - [x] Keyboard-only pass
   - [x] Screen reader pass
-- [ ] Assessments (list, detail, conduct, submit)
-  - [ ] Keyboard-only pass
-  - [ ] Screen reader pass
+- [x] Assessments (list, detail, conduct, submit)
+  - [x] Keyboard-only pass
+  - [x] Screen reader pass
 - [ ] Reports (list, create, generate)
   - [ ] Keyboard-only pass
   - [ ] Screen reader pass
@@ -131,3 +131,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-23: Manual verification pending; use keyboard-only checklist and screen reader checklist captured in audit run notes.
 - 2026-01-23: Core dashboards (EP/LA/School/Parent) keyboard and screen reader passes confirmed.
 - 2026-01-23: Login + signup keyboard and screen reader passes confirmed.
+- 2026-01-23: Assessments journeys keyboard and screen reader passes confirmed.
