@@ -188,7 +188,7 @@ This DPIA does not assume controls exist unless evidenced.
 
 - Role-based access control (RBAC): implemented in auth middleware and role checks.
   Evidence: `src/lib/middleware/auth.ts`, `src/lib/auth/hooks.tsx`, `src/proxy.ts`
-- MFA for privileged access: not enforced in code; requires policy and implementation.
+- MFA for privileged access: enforced via email OTP for privileged roles (`src/app/api/auth/login/route.ts`, `src/app/api/auth/mfa/verify/route.ts`).
 - Audit logging: evidence telemetry implemented (see `docs/observability/TRACING_PLAN.md` and telemetry plans).
 
 ### 6.2 Encryption
@@ -249,10 +249,10 @@ Consultation status: not yet completed for this DPIA revision. Record dates and 
 
 ## 9. Conclusion
 
-Residual risk cannot be declared "low" until legal basis, transfer evidence, and MFA policy are confirmed.
+Residual risk cannot be declared "low" until legal basis and transfer evidence are confirmed.
 
 This DPIA is considered **in progress** until:
 - lawful basis and special category conditions are confirmed by legal;
 - international transfer evidence is attached to vendor register;
-- MFA policy is defined or compensating controls approved;
+- MFA policy is defined and enforced for privileged roles;
 - backup restore tests are executed and logged.

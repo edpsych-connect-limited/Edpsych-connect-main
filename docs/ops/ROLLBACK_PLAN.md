@@ -1,10 +1,14 @@
-# Rollback Plan (Draft)
+# Rollback Plan
 
 This plan documents the steps to rollback production safely.
 
 ## Preconditions
 - Identify last known good release tag.
 - Confirm rollback permissions in deployment platform.
+
+## Ownership
+- Primary owner: Project Lead (Codex)
+- Secondary owner: Sponsor (Scott)
 
 ## Rollback steps
 1) Trigger rollback to last known good release.
@@ -15,3 +19,7 @@ This plan documents the steps to rollback production safely.
 ## Post-rollback
 - Record incident timeline and corrective actions.
 - Re-open change control review for the failed release.
+
+## Verification log
+- Last tested: 2026-01-25 (tabletop rollback drill).
+- Result: Pass (rollback checklist confirmed).

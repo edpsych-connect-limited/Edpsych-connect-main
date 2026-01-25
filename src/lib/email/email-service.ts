@@ -169,6 +169,26 @@ export class EmailService {
   }
 
   /**
+   * Send multi-factor authentication code email
+   */
+  async sendMfaCodeEmail(email: string, code: string): Promise<boolean> {
+    return this.sendEmail({
+      to: email,
+      subject: 'Your EdPsych Connect security code',
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2>Security Code Required</h2>
+          <p>Use the verification code below to complete your sign-in.</p>
+          <div style="font-size: 28px; letter-spacing: 4px; font-weight: bold; margin: 16px 0;">${code}</div>
+          <p>This code expires in 5 minutes.</p>
+          <p>If you did not attempt to sign in, please reset your password and contact support.</p>
+        </div>
+      `,
+      text: `Your EdPsych Connect security code is ${code}. It expires in 5 minutes.`,
+    });
+  }
+
+  /**
    * Send waitlist confirmation email
    */
   async sendWaitlistConfirmationEmail(email: string, name?: string): Promise<boolean> {

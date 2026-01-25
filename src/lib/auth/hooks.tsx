@@ -36,6 +36,8 @@ interface AuthContextType {
   /** Clear any previously-set auth error. */
   clearAuthError: () => void;
   login: (email: string, password: string, rememberMe?: boolean) => Promise<boolean>;
+  verifyMfa: (token: string, code: string) => Promise<boolean>;
+  resendMfa: (token: string) => Promise<boolean>;
   logout: () => Promise<void>;
   signup: (userData: any) => Promise<boolean>;
   refreshToken: () => Promise<boolean>;
@@ -98,6 +100,11 @@ function useAuthProvider(): AuthContextType {
   const router = useRouter();
 
   const clearAuthError = () => setAuthError(null);
+  const getLocalePrefix = () => {
+    if (typeof window === 'undefined') return '';
+    const segment = window.location.pathname.split('/')[1];
+    return (segment === 'en' || segment === 'cy') ? `/${segment}` : '';
+  };
 
   /**
    * Check authentication status on mount
@@ -199,6 +206,14 @@ function useAuthProvider(): AuthContextType {
 
       logger.info('OK Login API successful');
 
+      if (data?.data?.mfaRequired && data?.data?.mfaToken) {
+        secureStore('mfaToken', data.data.mfaToken);
+        secureStore('mfaEmail', email);
+        setAuthError(null);
+        router.push(`${getLocalePrefix()}/mfa`);
+        return true;
+      }
+
       // Store tokens and user data (synchronous - works for ALL users)
       try {
         secureStore('accessToken', data.data.accessToken);
@@ -209,6 +224,8 @@ function useAuthProvider(): AuthContextType {
 
         secureStore('userData', data.data.user);
         logger.info('OK Stored userData');
+        _secureRemove('mfaToken');
+        _secureRemove('mfaEmail');
       } catch (storageError) {
         logger.error('FAIL Failed to store auth data:', storageError);
         return false;
@@ -227,6 +244,97 @@ function useAuthProvider(): AuthContextType {
     } catch (_error) {
       logger.error('FAIL Login error:', _error);
       setAuthError('Network error. Please check your connection and try again.');
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  /**
+   * Verify MFA code for privileged users
+   *
+   * @param token - MFA token from login response
+   * @param code - 6-digit verification code
+   * @returns Promise<boolean> - True if verification succeeds
+   */
+  const verifyMfa = async (token: string, code: string): Promise<boolean> => {
+    try {
+      setIsLoading(true);
+      setAuthError(null);
+
+      const response = await fetch('/api/auth/mfa/verify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token, code }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        const message = data?.error || data?.message || 'Verification failed';
+        logger.error('FAIL MFA verification failed:', message);
+        setAuthError(message);
+        return false;
+      }
+
+      try {
+        secureStore('accessToken', data.data.accessToken);
+        secureStore('refreshToken', data.data.refreshToken);
+        secureStore('userData', data.data.user);
+        _secureRemove('mfaToken');
+        _secureRemove('mfaEmail');
+      } catch (storageError) {
+        logger.error('FAIL Failed to store MFA auth data:', storageError);
+        return false;
+      }
+
+      setUser(data.data.user);
+      setAuthError(null);
+      return true;
+    } catch (_error) {
+      logger.error('FAIL MFA verification error:', _error);
+      setAuthError('Network error. Please try again.');
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  /**
+   * Resend MFA code
+   *
+   * @param token - MFA token from login response
+   * @returns Promise<boolean> - True if resend succeeds
+   */
+  const resendMfa = async (token: string): Promise<boolean> => {
+    try {
+      setIsLoading(true);
+      setAuthError(null);
+
+      const response = await fetch('/api/auth/mfa/resend', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        const message = data?.error || data?.message || 'Resend failed';
+        logger.error('FAIL MFA resend failed:', message);
+        setAuthError(message);
+        return false;
+      }
+
+      setAuthError(null);
+      return true;
+    } catch (_error) {
+      logger.error('FAIL MFA resend error:', _error);
+      setAuthError('Network error. Please try again.');
       return false;
     } finally {
       setIsLoading(false);
@@ -625,6 +733,8 @@ function useAuthProvider(): AuthContextType {
     changePassword,
     hasPermission,
     hasRole,
+    verifyMfa,
+    resendMfa,
   };
 }
 

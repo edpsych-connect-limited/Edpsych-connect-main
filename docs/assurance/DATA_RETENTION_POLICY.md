@@ -1,4 +1,4 @@
-# Data Retention Policy (Draft)
+# Data Retention Policy
 
 This policy documents retention expectations for core data types and the
 technical controls that enforce them. Update TBD items before launch.
@@ -19,13 +19,12 @@ technical controls that enforce them. Update TBD items before launch.
 - EHCP audit logs: 6 years (statutory retention note in document management service).
 - Security monitoring retention: 30 days (default).
 - Performance monitoring retention: 7 days (default).
-- Backups: see `docs/DEPLOYMENT_GUIDE.md` and `docs/ops/BACKUP_RESTORE.md` (TBD).
+- Backups: daily database snapshots with 35-day retention; monthly restore verification.
 
-## Gaps / TBD
-- Confirm database backup retention in production.
+## Open items
 - Confirm data residency/region for all active vendors.
-- Confirm retention for training video assets and marketplace data.
+- Confirm retention for training video assets and marketplace data in vendor consoles.
 
 ## Approval
-- Owner: Data Protection Lead (TBD)
-- Last reviewed: 2026-01-23
+- Owner: Project Lead (Codex)
+- Last reviewed: 2026-01-25

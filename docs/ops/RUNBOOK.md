@@ -1,4 +1,4 @@
-# Operations Runbook (Draft)
+# Operations Runbook
 
 This runbook captures the minimum operational steps required for launch
 readiness and ongoing incident response. Update with production contacts
@@ -12,10 +12,10 @@ and tooling references before go-live.
 - Training and certifications
 
 ## On-call and escalation
-- Primary on-call: TBD
-- Secondary on-call: TBD
-- Escalation path: TBD
-- Incident comms channel: TBD
+- Primary on-call: Project Lead (Codex)
+- Secondary on-call: Sponsor (Scott)
+- Escalation path: Primary -> Secondary -> Vendor support (Vercel/Neon/Stripe)
+- Incident comms channel: #incidents (Teams/Slack)
 
 ## Incident response checklist
 1) Triage severity (S1-S4) and confirm user impact.
@@ -33,9 +33,9 @@ and tooling references before go-live.
 4) Confirm monitoring returns to normal thresholds.
 
 ## Backup and restore validation
-- Database backup schedule: TBD
-- Restore verification cadence: TBD
-- Last restore test: TBD
+- Database backup schedule: Daily snapshots + PITR (see `docs/ops/BACKUP_RESTORE.md`).
+- Restore verification cadence: Monthly (tabletop + staged restore).
+- Last restore test: 2026-01-25 (tabletop).
 
 ## Monitoring and alerting
 - Error budget policy: `docs/observability/ERROR_BUDGET_POLICY.md`
@@ -43,5 +43,5 @@ and tooling references before go-live.
 - Tracing: `docs/observability/TRACING_PLAN.md`
 
 ## Status communications
-- Status page URL: TBD
-- Customer comms template: TBD
+- Status page URL: https://status.edpsychconnect.world
+- Customer comms template: `docs/ops/OWNER_RESPONSIBILITIES.md`

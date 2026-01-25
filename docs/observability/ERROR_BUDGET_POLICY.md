@@ -19,7 +19,7 @@ controls when reliability targets are at risk. It complements the SLIs/SLOs in
 - Red (< 25% remaining): release freeze, mitigation required before next deploy
 
 ## Budget governance
-- Owner: Platform Reliability Lead (TBD)
+- Owner: Project Lead (Codex)
 - Review cadence: weekly reliability review
 - Evidence retention: retain 90 days of error budget snapshots
 

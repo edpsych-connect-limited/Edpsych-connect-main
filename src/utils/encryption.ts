@@ -133,6 +133,8 @@ export const clearAuthStorage = (useSession = false): void => {
     secureRemove('accessToken', useSession);
     secureRemove('refreshToken', useSession);
     secureRemove('userData', useSession);
+    secureRemove('mfaToken', useSession);
+    secureRemove('mfaEmail', useSession);
     logger.debug('OK [Storage] Cleared all authentication data');
   } catch (_error) {
     console.error('FAIL [Storage] Failed to clear authentication data:', _error);

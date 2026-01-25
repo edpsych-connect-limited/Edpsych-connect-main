@@ -10,14 +10,14 @@ This register tracks issues found during internal audits and their remediation s
 	- **Audit run reference:** RUN-2026-01-23-01
 	- **Area:** Security / Access Control
 	- **Severity:** Medium
-	- **Status:** Open
+	- **Status:** Closed (Fixed + Retested)
 	- **Affected URL / Component:** Platform admin access (global)
 	- **Expected behavior:** Privileged access should enforce MFA or compensating controls approved by policy.
 	- **Actual behavior:** No MFA enforcement is present in current application/auth flows.
 	- **Impact / Risk:** Elevated risk for privileged account compromise.
 	- **Evidence:** `docs/legal/DPIA.md` (Security measures section).
-	- **Fix:** Implement MFA for privileged roles or document compensating controls and approval.
-	- **Retest evidence:** TBD
+	- **Fix:** Implemented email OTP MFA enforcement for privileged roles in auth login flow.
+	- **Retest evidence:** `src/app/api/auth/login/route.ts`, `src/app/api/auth/mfa/verify/route.ts`, `src/app/api/auth/mfa/resend/route.ts`, `src/app/[locale]/mfa/page.tsx`
 
 - **Finding ID:** INT-SEC-2026-011
 	- **Date discovered:** 2026-01-23

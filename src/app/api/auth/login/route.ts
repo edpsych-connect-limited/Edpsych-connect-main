@@ -9,11 +9,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import bcrypt from 'bcryptjs';
+import { randomInt, randomUUID } from 'crypto';
 import jwt from 'jsonwebtoken';
 import { prisma } from '@/lib/prisma';
 import { AuditLogger } from '@/lib/audit/audit-logger';
 import { checkRateLimit, getClientIP, RATE_LIMITS, createRateLimitHeaders } from '@/lib/rate-limit';
 import { createEvidenceTraceId, recordEvidenceEvent } from '@/lib/analytics/evidence-telemetry';
+import { getRedisClient } from '@/cache/redis-client';
+import { EmailService } from '@/lib/email/email-service';
 
 export const dynamic = 'force-dynamic';
 
@@ -22,6 +25,17 @@ const LoginSchema = z.object({
   email: z.string().trim().toLowerCase().email('Invalid email address'),
   password: z.string().min(1, 'Password is required'),
 });
+
+const PRIVILEGED_ROLES = new Set([
+  'SYSTEM_ADMIN',
+  'SUPER_ADMIN',
+  'SUPERADMIN',
+  'ADMIN',
+  'INSTITUTION_ADMIN',
+  'DEPARTMENT_MANAGER',
+  'LA_ADMIN',
+  'LA_MANAGER',
+]);
 
 export async function POST(request: NextRequest) {
   const startedAt = Date.now();
@@ -92,6 +106,58 @@ export async function POST(request: NextRequest) {
         { error: 'Invalid email or password' },
         { status: 401 }
       );
+    }
+
+    const normalizedRole = (user.role || '').toUpperCase();
+    const requiresMfa = PRIVILEGED_ROLES.has(normalizedRole);
+
+    if (requiresMfa) {
+      const mfaCode = randomInt(100000, 999999).toString();
+      const mfaToken = randomUUID();
+      const redis = getRedisClient();
+
+      await redis.set(
+        `mfa:login:${mfaToken}`,
+        JSON.stringify({
+          userId: user.id,
+          email: user.email,
+          role: user.role,
+          tenantId: user.tenant_id,
+          code: mfaCode,
+          createdAt: new Date().toISOString(),
+        }),
+        5 * 60
+      );
+
+      const emailService = EmailService.getInstance();
+      const delivered = await emailService.sendMfaCodeEmail(user.email, mfaCode);
+
+      if (!delivered) {
+        return NextResponse.json(
+          { error: 'MFA delivery failed. Please contact support.' },
+          { status: 500 }
+        );
+      }
+
+      AuditLogger.log({
+        userId: user.id,
+        tenantId: user.tenant_id,
+        action: 'MFA_CHALLENGE',
+        resource: 'auth',
+        details: { method: 'email-otp' },
+        ipAddress: request.headers.get('x-forwarded-for') || '127.0.0.1',
+        userAgent: request.headers.get('user-agent') || undefined,
+      });
+
+      return NextResponse.json({
+        success: true,
+        message: 'MFA required',
+        data: {
+          mfaRequired: true,
+          mfaToken,
+          mfaExpiresIn: 5 * 60,
+        },
+      });
     }
 
     const jwtSecret = process.env.NEXTAUTH_SECRET;

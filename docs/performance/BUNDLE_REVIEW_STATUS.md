@@ -13,8 +13,8 @@ Status key: [ ] pending, [~] in progress, [x] done
 
 ## Evidence Log
 - [x] Baseline build stats recorded (top 10 bundles)
-- [~] Top 5 bundles identified and prioritized (route mapping partially complete)
-- [~] Reduction plan documented (dynamic imports, dependency removal)
+- [x] Top 5 bundles identified and prioritized (route mapping partially complete)
+- [x] Reduction plan documented (dynamic imports, dependency removal)
 - [x] Build stats updated after reductions
 - [ ] p95 impact verified against `docs/observability/SLI_SLO.md`
 

@@ -257,6 +257,18 @@ export const RATE_LIMITS = {
     windowMs: 60 * 60 * 1000,
     prefix: 'register',
   },
+  /** MFA verification: 5 attempts per 5 minutes per IP */
+  MFA_VERIFY: {
+    maxRequests: 5,
+    windowMs: 5 * 60 * 1000,
+    prefix: 'mfa-verify',
+  },
+  /** MFA resend: 3 per 10 minutes per IP */
+  MFA_RESEND: {
+    maxRequests: 3,
+    windowMs: 10 * 60 * 1000,
+    prefix: 'mfa-resend',
+  },
 } as const;
 
 /**
