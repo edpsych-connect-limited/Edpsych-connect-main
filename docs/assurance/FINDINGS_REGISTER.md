@@ -10,14 +10,14 @@ This register tracks issues found during internal audits and their remediation s
 	- **Audit run reference:** RUN-2026-01-23-01
 	- **Area:** Security / Dependency Management
 	- **Severity:** Medium
-	- **Status:** Open
+	- **Status:** Closed (Fixed + Retested)
 	- **Affected URL / Component:** `node_modules/lodash`
 	- **Expected behavior:** Dependency audit should report zero known vulnerabilities in production dependencies.
 	- **Actual behavior:** `npm audit --production` reports lodash prototype pollution advisory (GHSA-xxjr-mmjv-4gpg).
 	- **Impact / Risk:** Potential prototype pollution risk if vulnerable lodash paths are reachable.
 	- **Evidence:** `npm audit --production` output on 2026-01-23.
 	- **Fix:** Apply `npm audit fix` or bump lodash to >=4.17.22 in dependency tree.
-	- **Retest evidence:** TBD
+	- **Retest evidence:** `npm audit fix` completed with 0 vulnerabilities (2026-01-23).
 
 - **Finding ID:** INT-PROD-2025-004
 	- **Date discovered:** 2025-12-16

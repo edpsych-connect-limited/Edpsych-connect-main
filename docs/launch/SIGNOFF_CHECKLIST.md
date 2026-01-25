@@ -33,7 +33,7 @@ Owner: Codex (Project Lead)
 
 ## Security
 - [x] Secret scanning clean (CI `security:scan` passes)
-- [~] Dependency audit complete
+- [x] Dependency audit complete
 - [~] Privacy and data retention reviewed
 
 ## Compliance and Governance
