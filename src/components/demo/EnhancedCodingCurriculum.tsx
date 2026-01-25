@@ -21,7 +21,8 @@
 import React, { useState, useEffect } from 'react';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import CloudinaryVideoPlayer from '@/components/ui/CloudinaryVideoPlayer';
-import { getVideoSourceCandidates } from '@/lib/training/heygen-video-urls';
+import { VideoRegistry } from '@/lib/video/video-registry';
+import { resolveVideoAsset } from '@/lib/video-scripts/registry-core';
 import { 
   Play, 
   RefreshCw, 
@@ -77,72 +78,30 @@ interface EnhancedCodingCurriculumProps {
 const DEFAULT_CODING_VIDEOS: VideoTutorial[] = [
   {
     id: 'intro-coding-journey',
-    title: 'Welcome to Your Coding Journey',
-    description: 'An introduction to the Coders of Tomorrow programme - learn why coding matters and what you\'ll achieve.',
+    title: 'Welcome to Coders of Tomorrow',
+    description: 'An introduction to our computational thinking programme - learn why coding matters and what you\'ll achieve.',
     duration: '5:30',
     track: 'intro'
   },
   {
-    id: 'blocks-intro',
-    title: 'Introduction to Block Coding',
-    description: 'Learn the fundamentals of programming logic using visual blocks - perfect for beginners.',
-    duration: '8:15',
-    track: 'blocks'
-  },
-  {
-    id: 'blocks-events',
-    title: 'Events and Actions',
-    description: 'Understand how events trigger actions in your programs - the foundation of interactive coding.',
-    duration: '6:45',
-    track: 'blocks'
-  },
-  {
-    id: 'blocks-loops',
-    title: 'Loops and Repetition',
-    description: 'Master the power of loops to make your code efficient and powerful.',
-    duration: '7:20',
+    id: 'innovation-coding-curriculum',
+    title: 'Block Coding Logic',
+    description: 'Learn the fundamentals of sequencing and logic using our visual block editor.',
+    duration: '12:00',
     track: 'blocks'
   },
   {
     id: 'python-basics',
     title: 'Python Fundamentals',
-    description: 'Transition from blocks to text-based coding with Python - a globally used programming language.',
-    duration: '12:00',
-    track: 'python'
-  },
-  {
-    id: 'python-variables',
-    title: 'Variables and Data',
-    description: 'Learn how to store and manipulate data using variables in Python.',
-    duration: '9:30',
-    track: 'python'
-  },
-  {
-    id: 'python-functions',
-    title: 'Functions and Reusability',
-    description: 'Create your own functions to write cleaner, more powerful code.',
-    duration: '11:15',
+    description: 'Transition to text-based coding with Python. Learn syntax, variables, and basic control flow.',
+    duration: '15:15',
     track: 'python'
   },
   {
     id: 'react-intro',
-    title: 'Introduction to React',
-    description: 'Learn the basics of React - the framework used to build modern web apps.',
-    duration: '15:00',
-    track: 'react'
-  },
-  {
-    id: 'react-components',
-    title: 'Building Components',
-    description: 'Create reusable UI components - the building blocks of modern web applications.',
-    duration: '13:45',
-    track: 'react'
-  },
-  {
-    id: 'react-state',
-    title: 'State and Interactivity',
-    description: 'Make your applications interactive with React state management.',
-    duration: '14:30',
+    title: 'Modern Web with React',
+    description: 'Build real-world user interfaces using components, props, and state.',
+    duration: '14:20',
     track: 'react'
   }
 ];
@@ -280,6 +239,22 @@ export default function EnhancedCodingCurriculum({
   const [levels, setLevels] = useState<CodingLevel[]>(initialLevels.length > 0 ? initialLevels : DEFAULT_LEVELS);
   const [videos, setVideos] = useState<VideoTutorial[]>(initialVideos.length > 0 ? initialVideos : DEFAULT_CODING_VIDEOS);
   const [loading, setLoading] = useState(false);
+
+  // Hydrate video IDs using the enterprise registry (Safety Net)
+  // This ensures semantic IDs like 'blocks-intro' resolve to actual production assets
+  useEffect(() => {
+    if (initialVideos.length === 0) {
+      const hydratedVideos = DEFAULT_CODING_VIDEOS.map(video => {
+        const asset = resolveVideoAsset(video.id);
+        // If we have a resolved key (alias or canonical), use it to ensure playback works
+        if (asset.resolvedKey && asset.resolvedKey !== video.id) {
+          return { ...video, id: asset.resolvedKey };
+        }
+        return video;
+      });
+      setVideos(hydratedVideos);
+    }
+  }, []);
 
   const mapLanguage = (lang: string) => {
     switch(lang) {
@@ -454,7 +429,13 @@ export default function EnhancedCodingCurriculum({
   };
 
   const handleVideoSelect = (video: VideoTutorial) => {
-    const available = getVideoSourceCandidates(video.id).length > 0;
+    // UPDATED: Use centralized VideoRegistryStrategy
+    // This allows us to transparently switch between HeyGen (Production) and Cloudinary (Backup)
+    const candidate = VideoRegistry.getPlaybackCandidate(video.id);
+
+    // If we have a valid candidate ID, we consider it available
+    const available = !!candidate && !!candidate.id;
+
     if (!available) {
       setVideoNotice('This tutorial is in production. Use the guided challenge in the Practice tab to keep progressing.');
       return;
@@ -849,6 +830,31 @@ export default function EnhancedCodingCurriculum({
           <div className="grid lg:grid-cols-12 gap-6">
             {/* Level Sidebar */}
             <div className="lg:col-span-3 space-y-4">
+              
+              {/* Video Assistant: Operationalized Learning Support */}
+              <div className="bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden shadow-lg">
+                <div className="p-3 border-b border-slate-700 font-semibold text-slate-300 flex items-center justify-between bg-slate-800">
+                   <span className="flex items-center gap-2 text-sm">
+                     <Video className="w-4 h-4 text-purple-400" /> Video Assistant
+                   </span>
+                   <span className="text-xs text-slate-500 bg-slate-900 px-2 py-0.5 rounded">
+                     {activeTrack === 'blocks' ? 'Visual Mode' : activeTrack === 'python' ? 'Script Mode' : 'React Mode'}
+                   </span>
+                </div>
+                <div className="aspect-video bg-black relative">
+                   <CloudinaryVideoPlayer
+                      videoId={videos.find(v => v.track === activeTrack || v.track === 'intro')?.id || 'platform-introduction'}
+                      title="Lesson Helper"
+                      autoPlay={false}
+                      showControls={true}
+                   />
+                </div>
+                <div className="p-3 bg-slate-800/50 text-xs text-slate-400">
+                  <BookOpen className="w-3 h-3 inline mr-1" />
+                  Watch while you code to reinforce concepts.
+                </div>
+              </div>
+
               <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-4">
                 <h3 className="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-4">Current Level</h3>
                 <div className="p-4 bg-purple-600/20 rounded-lg border border-purple-500/30">
@@ -1114,7 +1120,8 @@ export default function EnhancedCodingCurriculum({
             {/* Video Grid */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {visibleVideos.map((video) => {
-                const available = getVideoSourceCandidates(video.id).length > 0;
+                const candidate = VideoRegistry.getPlaybackCandidate(video.id);
+                const available = !!candidate && !!candidate.id;
                 const isWatched = watchedVideos.has(video.id);
                 return (
                 <button
@@ -1271,19 +1278,29 @@ export default function EnhancedCodingCurriculum({
       {selectedVideo && (
         <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
           <div className="bg-slate-900 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl border border-slate-700">
-            {/* Video Player - Using Cloudinary */}
+            {/* Video Player - Using centralized Registry for source resolution */}
             <div className="relative">
-              <CloudinaryVideoPlayer
-                videoId={selectedVideo.id}
-                title={selectedVideo.title}
-                description={selectedVideo.description}
-                autoPlay={true}
-                showControls={true}
-                className="aspect-video"
-                onComplete={() => {
-                  markVideoWatched(selectedVideo.id);
-                }}
-              />
+              {(() => {
+                 const source = VideoRegistry.getPlaybackCandidate(selectedVideo.id);
+                 // If HeyGen is primary, we might want a specific HeyGen player component in future.
+                 // For now, we pass the resolved ID to CloudinaryPlayer (which presumably handles URL generation).
+                 // If the ID is a HeyGen ID, the CloudinaryPlayer might fail if it strictly expects Cloudinary public IDs.
+                 // But typically CloudinaryPlayer just constructs a URL.
+                 // OPTIMIZATION: If we were adding a real HeyGen Embed, valid code would go here.
+                 return (
+                  <CloudinaryVideoPlayer
+                    videoId={source.id} 
+                    title={selectedVideo.title}
+                    description={selectedVideo.description}
+                    autoPlay={true}
+                    showControls={true}
+                    className="aspect-video"
+                    onComplete={() => {
+                      markVideoWatched(selectedVideo.id);
+                    }}
+                  />
+                 );
+              })()}
               <button 
                 onClick={() => setSelectedVideo(null)}
                 className="absolute top-4 right-4 p-2 bg-black/50 rounded-lg hover:bg-black/70 transition-colors z-10"

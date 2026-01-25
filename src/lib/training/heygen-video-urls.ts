@@ -137,19 +137,16 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "intro-coding-journey": "4363edaa3c594cd7bc2561bc7df5482e",
 
   // BLOCKS- Videos
-  "blocks-events": "84c23e6e11604b7da12d41ad23c90804",
-  "blocks-intro": "84c23e6e11604b7da12d41ad23c90804",
-  "blocks-loops": "84c23e6e11604b7da12d41ad23c90804",
+  // "blocks-events": ... (removed duplicate)
 
   // PYTHON- Videos
   "python-basics": "ce12a5c23c8f48bfa444b15088d6263f",
-  "python-functions": "84c23e6e11604b7da12d41ad23c90804",
-  "python-variables": "84c23e6e11604b7da12d41ad23c90804",
+  // "python-functions": ... (removed duplicate)
 
   // REACT- Videos
-  "react-components": "84c23e6e11604b7da12d41ad23c90804",
+  // "react-components": ... (removed duplicate)
   "react-intro": "9fdd9b32b3cd4ce8a6c4f6cf8bf85012",
-  "react-state": "84c23e6e11604b7da12d41ad23c90804",
+  // "react-state": ... (removed duplicate)
 
   // ENTERPRISE- Videos
   "enterprise-plan-overview": "4be8a3b43a2f42c9b538b613c5e002e3",
@@ -235,12 +232,7 @@ export const LOCAL_VIDEO_PATHS: Record<string, string> = {
   // Keep this mapping limited to assets that are actually shipped in `/public`.
 
   // Coding Curriculum Videos (aliased to placeholders)
-  "intro-coding-journey": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
-  "blocks-intro": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
-  "blocks-events": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
-  "blocks-loops": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
-  "python-basics": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
-  "python-variables": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
+  // "intro-coding-journey": "/content/training_videos/innovation/innovation-coding-curriculum.mp4",
   "feature-interventions": "/content/training_videos/help-centre/help-finding-interventions.mp4",
 
   // Alias: feature-deep-dive-ehcp shares HeyGen ID with ehcp-application-journey.

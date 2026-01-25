@@ -15,6 +15,40 @@ import { ONBOARDING_SCRIPTS } from '../../../video_scripts/world_class/onboardin
 import { MARKETING_VIDEOS } from '../../../video_scripts/world_class/marketing-scripts';
 import { ROLE_BASED_ONBOARDING } from '../../../video_scripts/world_class/role-based-onboarding-videos';
 import { ADDITIONAL_V4_SCRIPTS } from '../../../video_scripts/world_class/additional-scripts-v4-dr-scott';
+import { HEYGEN_VIDEO_IDS } from '../training/heygen-video-urls';
+
+// ============================================================================
+// VIDEO ASSET REGISTRY (Robust Strategy)
+// ============================================================================
+
+export interface VideoAsset {
+  key: string;            // The logical key (e.g. 'platform-introduction')
+  resolvedKey: string;    // The key after alias resolution
+  
+  // Production Assets
+  heygenId?: string;      // The canonical HeyGen ID (if exists)
+  cloudinaryId?: string;  // Explicit Cloudinary public ID override
+  
+  // Status Metadata
+  status: 'production' | 'placeholder' | 'missing';
+  
+  // Script / Transcript
+  transcript?: string;
+  sourceId?: string;
+  
+  // Fallback Logic
+  fallbackReason?: string;
+}
+
+// Keys known to be placeholders or temporary
+const PLACEHOLDER_KEYS = new Set([
+  'value-enterprise-platform', // Used as generic placeholder often
+  'platform-introduction', // Often used as default fallback
+]);
+
+// ============================================================================
+// SCRIPT TYPES & LOGIC
+// ============================================================================
 
 export type VideoScriptResolutionStatus = 'found' | 'missing';
 
@@ -69,16 +103,6 @@ const SCRIPT_ALIASES: Record<string, string> = {
   'feature-battle-royale-pricing': 'feature-battle-royale',
   'feature-deep-dive-ehcp': 'ehcp-application-journey',
 
-  // Coding curriculum placeholders
-  'intro-coding-journey': 'innovation-coding-curriculum',
-  'blocks-intro': 'innovation-coding-curriculum',
-  'blocks-events': 'innovation-coding-curriculum',
-  'blocks-loops': 'innovation-coding-curriculum',
-  'python-variables': 'innovation-coding-curriculum',
-  'python-functions': 'innovation-coding-curriculum',
-  'react-components': 'innovation-coding-curriculum',
-  'react-state': 'innovation-coding-curriculum',
-
   // Enterprise plan overview reuses orchestration explainer
   'enterprise-plan-overview': 'innovation-orchestration',
 
@@ -88,8 +112,6 @@ const SCRIPT_ALIASES: Record<string, string> = {
   'parent-communication': 'parent-portal-welcome',
 
   'clinical-trials': 'innovation-research-hub',
-  'longitudinal-studies': 'innovation-research-hub',
-  'research-ethics-submission': 'innovation-research-hub',
 
   // DYS- course key aliases (catalog uses dys-*, scripts use dyslexia-*).
   'dys-m2-l2': 'dyslexia-m2-l2',
@@ -254,4 +276,48 @@ export function hasVideoScript(key: string): boolean {
 
 export function listKnownScriptKeys(): string[] {
   return Array.from(getScriptIndex().keys()).sort();
+}
+
+// ============================================================================
+// ASSET RESOLUTION (Public API)
+// ============================================================================
+
+/**
+ * Resolves a video key to a robust asset definition.
+ * Handles:
+ * 1. Alias resolution (legacy mappings)
+ * 2. HeyGen ID lookup
+ * 3. Script resolution
+ * 4. Production status inference
+ */
+export function resolveVideoAsset(key: string): VideoAsset {
+  // 1. Resolve logical key via aliases
+  const resolvedKey = resolveScriptKey(key);
+  
+  // 2. Look up script data
+  const scriptRes = getVideoScriptResolution(resolvedKey);
+  
+  // 3. Look up Video ID (HeyGen)
+  // We check the resolved key first, then the specific key
+  const heygenId = HEYGEN_VIDEO_IDS[resolvedKey] || HEYGEN_VIDEO_IDS[key];
+  
+  // 4. Determine Status
+  let status: VideoAsset['status'] = 'missing';
+  if (heygenId) {
+    status = PLACEHOLDER_KEYS.has(resolvedKey) ? 'placeholder' : 'production';
+  } else if (scriptRes.status === 'found') {
+    // Script exists but no video -> technically missing/pending generation
+    status = 'missing';
+  }
+
+  // 5. Construct Asset
+  return {
+    key,
+    resolvedKey,
+    heygenId,
+    status,
+    transcript: scriptRes.status === 'found' ? scriptRes.transcript : undefined,
+    sourceId: scriptRes.status === 'found' ? scriptRes.sourceId : undefined,
+    cloudinaryId: `edpsych-connect/videos/${resolvedKey}`, // Convention-based fallback
+  };
 }

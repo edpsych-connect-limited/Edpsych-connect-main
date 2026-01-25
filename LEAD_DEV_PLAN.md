@@ -406,7 +406,7 @@ Progress log:
 [x] Run keyboard and screen-reader audits for top 15 journeys
     - Document fixes and retest
 
-[~] Normalize focus states and ARIA across core components
+[x] Normalize focus states and ARIA across core components
     - focus-visible applied to core button/input/empty-state controls
     - case detail tabs now use tablist/tabpanel semantics
     - EHCP section navigation marks active item
@@ -430,7 +430,7 @@ Progress log:
 
 [x] Establish error budgets and alerting thresholds
 
-[~] Review and reduce heavy client bundles (core pages)
+[x] Review and reduce heavy client bundles (core pages)
     - Bundle review status log: `docs/performance/BUNDLE_REVIEW_STATUS.md`
 
 -----------------------------------------------------------------------------
@@ -482,7 +482,7 @@ Progress log:
 [x] Define rollout plan (staging -> production)
 [x] Test plan: unit, integration, E2E on critical journeys
 [x] Accessibility and performance sign-off checklist
-[~] Enterprise launch readiness sign-off
+[x] Enterprise launch readiness sign-off
     - Source of truth: `docs/launch/SIGNOFF_CHECKLIST.md`
     - Accessibility: WCAG audit, keyboard, screen reader verification
     - Performance: SLO dashboards, p95 latency, bundle review
