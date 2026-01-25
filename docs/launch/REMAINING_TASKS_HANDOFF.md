@@ -73,6 +73,7 @@ These steps confirm the in-repo changes already completed (no external access re
   3) GDPR consent records are created via `src/lib/gdpr-compliance.ts`.
 
 ## AI oversight review
+[x] Verified via tooling (`tools/test-ai-governance.ts`) and code review (`AdminInterface.component.tsx`)
 - Evidence doc: `docs/assurance/AI_OVERSIGHT_REVIEW.md`
 - Verify:
   1) Governance defaults and tests exist (`tools/test-ai-governance.ts`).
