@@ -1,33 +1,22 @@
-// COMPLETELY DISABLED: Sentry SDK causes "self is not defined" during Next.js build
-// The @sentry/nextjs package has dependencies that try to access browser globals
-// during server-side compilation, breaking the build process.
-//
-// To re-enable Sentry error tracking post-launch:
-// 1. Use @sentry/nextjs with proper dynamic imports in error boundaries only
-// 2. OR implement Sentry via API route that doesn't get bundled into server build
-// 3. Ensure SENTRY_ENABLED=false during build, true only at runtime
-//
-// Current approach: Completely disable to unblock production deployment
+/**
+ * @copyright EdPsych Connect Limited 2025
+ * @license Proprietary - All Rights Reserved
+ * 
+ * CONFIDENTIAL: This software contains proprietary algorithms and trade secrets.
+ * Unauthorized copying, modification, distribution, or use is strictly prohibited.
+ */
 
-// import * as Sentry from "@sentry/nextjs";
-// 
-// // Only initialize Sentry if explicitly enabled via environment variable
-// // This prevents the SDK from loading during Next.js build when it tries to access
-// // browser globals like 'self', causing "ReferenceError: self is not defined"
-// // 
-// // Sentry initializes normally at runtime because SENTRY_ENABLED will be set in 
-// // production environment variables on the hosting platform.
-// const shouldInitSentry = process.env.SENTRY_ENABLED === 'true';
-// 
-// if (shouldInitSentry) {
-//   Sentry.init({
-//     dsn: "https://1739f1ab3c214b6600646650f89e2643@o4509879738826752.ingest.de.sentry.io/4509879781883984",
-// 
-//     // Reduced trace sample rate for production performance
-//     // 10% of transactions will be traced (was 100%)
-//     tracesSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1,
-// 
-//     // Setting this option to true will print useful information to the console while you're setting up Sentry.
-//     debug: false,
-//   });
-// }
+import * as Sentry from "@sentry/nextjs";
+
+const dsn = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN || '';
+const enabled = Boolean(dsn) && (process.env.SENTRY_ENABLED ? process.env.SENTRY_ENABLED === 'true' : true);
+const rawSampleRate = process.env.SENTRY_TRACES_SAMPLE_RATE ?? '0.1';
+const tracesSampleRate = Number(rawSampleRate);
+const environment = process.env.SENTRY_ENVIRONMENT || process.env.VERCEL_ENV || process.env.NODE_ENV;
+
+Sentry.init({
+  dsn,
+  environment,
+  enabled,
+  tracesSampleRate: Number.isFinite(tracesSampleRate) ? tracesSampleRate : 0.1,
+});
