@@ -40,9 +40,9 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - [x] AI review queue (submit, review, decision)
   - [x] Keyboard-only pass
   - [x] Screen reader pass
-- [ ] Training certificates (list, verify, download)
-  - [ ] Keyboard-only pass
-  - [ ] Screen reader pass
+- [x] Training certificates (list, verify, download)
+  - [x] Keyboard-only pass
+  - [x] Screen reader pass
 - [ ] Subscription management (upgrade, add-on, checkout)
   - [ ] Keyboard-only pass
   - [ ] Screen reader pass
@@ -139,3 +139,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-23: Marketplace journeys keyboard and screen reader passes confirmed.
 - 2026-01-23: Admin governance dashboards keyboard and screen reader passes confirmed.
 - 2026-01-23: AI review queue keyboard and screen reader passes confirmed.
+- 2026-01-23: Training certificates keyboard and screen reader passes confirmed.

@@ -188,6 +188,7 @@ Each audit run records **what was tested**, **where**, and **what evidence was p
 - Marketplace (search/booking/confirmation): **Pass** (keyboard-only + screen reader)
 - Admin governance dashboards (ethics/compliance/evidence): **Pass** (keyboard-only + screen reader)
 - AI review queue (submit/review/decision): **Pass** (keyboard-only + screen reader)
+- Training certificates (list/verify/download): **Pass** (keyboard-only + screen reader)
 
 ### Evidence produced
 - Pending: `docs/accessibility/AUDIT_CHECKLIST.md`
