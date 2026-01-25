@@ -25,9 +25,9 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - [x] Cases (list, create, detail, update)
   - [x] Keyboard-only pass
   - [x] Screen reader pass
-- [ ] EHCP (list, create, detail, export)
-  - [ ] Keyboard-only pass
-  - [ ] Screen reader pass
+- [x] EHCP (list, create, detail, export)
+  - [x] Keyboard-only pass
+  - [x] Screen reader pass
 - [ ] Training (academy, course detail, checkout)
   - [ ] Keyboard-only pass
   - [ ] Screen reader pass
@@ -134,3 +134,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-23: Assessments journeys keyboard and screen reader passes confirmed.
 - 2026-01-23: Reports journeys keyboard and screen reader passes confirmed.
 - 2026-01-23: Cases journeys keyboard and screen reader passes confirmed.
+- 2026-01-23: EHCP journeys keyboard and screen reader passes confirmed.
