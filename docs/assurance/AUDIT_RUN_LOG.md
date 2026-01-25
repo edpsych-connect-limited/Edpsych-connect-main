@@ -184,6 +184,7 @@ Each audit run records **what was tested**, **where**, and **what evidence was p
 - Reports (list/create/generate): **Pass** (keyboard-only + screen reader)
 - Cases (list/create/detail/update): **Pass** (keyboard-only + screen reader)
 - EHCP (list/create/detail/export): **Pass** (keyboard-only + screen reader)
+- Training (academy/course detail/checkout): **Pass** (keyboard-only + screen reader)
 
 ### Evidence produced
 - Pending: `docs/accessibility/AUDIT_CHECKLIST.md`
