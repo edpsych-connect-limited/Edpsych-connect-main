@@ -43,7 +43,7 @@ Owner: Codex (Project Lead)
 ## Operations
 - [ ] On-call rota confirmed for launch window
 - [ ] Incident escalation contacts verified
-- [ ] Runbooks updated for critical workflows
+- [~] Runbooks updated for critical workflows
 - [ ] Backup and restore validation complete
 
 ## Commercial and Legal
@@ -64,6 +64,6 @@ Owner: Codex (Project Lead)
 | 2026-01-22 | Reliability | Codex | Pending | docs/observability/SLI_SLO.md |
 | 2026-01-22 | Security | Codex | Pending | docs/assurance/FINDINGS_REGISTER.md |
 | 2026-01-22 | Compliance | Codex | Pending | docs/assurance/VENDOR_SUBPROCESSOR_AUDIT.md |
-| 2026-01-22 | Operations | Codex | Pending | docs/ops/RUNBOOK.md |
+| 2026-01-23 | Operations | Codex | In Progress | docs/ops/RUNBOOK.md |
 | 2026-01-22 | Commercial | Codex | Pending | docs/launch/LEGAL_CHECKLIST.md |
 | 2026-01-21 | Performance | Codex | In Progress | docs/performance/build-stats-2026-01-21.txt |
