@@ -65,6 +65,7 @@ These steps confirm the in-repo changes already completed (no external access re
   5) Retry throttle: MFA verify/resend rate limits enforced.
 
 ## Consent + telemetry validation
+[x] Verified via logic audit (`tools/verify-consent-telemetry.ts`)
 - Evidence doc: `docs/assurance/CONSENT_TELEMETRY_VALIDATION.md`
 - Verify:
   1) Cookie banner/settings persist to `edpsych_cookie_consent`.
