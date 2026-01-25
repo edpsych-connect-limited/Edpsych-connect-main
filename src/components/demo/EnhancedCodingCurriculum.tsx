@@ -254,7 +254,7 @@ export default function EnhancedCodingCurriculum({
       });
       setVideos(hydratedVideos);
     }
-  }, []);
+  }, [initialVideos.length]);
 
   const mapLanguage = (lang: string) => {
     switch(lang) {
