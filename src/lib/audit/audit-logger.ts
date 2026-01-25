@@ -32,7 +32,10 @@ export type AuditAction =
   | 'EXPORT' 
   | 'IMPORT'
   | 'SETTINGS_CHANGE'
-  | 'PERMISSION_CHANGE';
+  | 'PERMISSION_CHANGE'
+  | 'MFA_CHALLENGE'
+  | 'MFA_VERIFY_SUCCESS'
+  | 'MFA_VERIFY_FAILURE';
 
 export interface AuditLogEntry {
   userId?: number;

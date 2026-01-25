@@ -111,6 +111,8 @@ const SCRIPT_ALIASES: Record<string, string> = {
   'parent-home-support': 'parent-portal-welcome',
   'parent-communication': 'parent-portal-welcome',
 
+  'intro-coding-journey': 'innovation-coding-curriculum',
+
   'clinical-trials': 'innovation-research-hub',
 
   // DYS- course key aliases (catalog uses dys-*, scripts use dyslexia-*).
