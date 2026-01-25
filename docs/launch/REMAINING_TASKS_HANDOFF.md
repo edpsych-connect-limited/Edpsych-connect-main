@@ -80,6 +80,7 @@ These steps confirm the in-repo changes already completed (no external access re
   2) Admin ethics dashboards render and show oversight guidance.
 
 ## Audit trail verification
+[x] Verified via logic audit (`tools/verify-audit-logs.ts`)
 - Evidence doc: `docs/assurance/AUDIT_TRAIL_VERIFICATION.md`
 - Verify:
   1) Audit log utilities exist and are used in auth/API flows.
