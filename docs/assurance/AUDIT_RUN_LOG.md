@@ -186,6 +186,7 @@ Each audit run records **what was tested**, **where**, and **what evidence was p
 - EHCP (list/create/detail/export): **Pass** (keyboard-only + screen reader)
 - Training (academy/course detail/checkout): **Pass** (keyboard-only + screen reader)
 - Marketplace (search/booking/confirmation): **Pass** (keyboard-only + screen reader)
+- Admin governance dashboards (ethics/compliance/evidence): **Pass** (keyboard-only + screen reader)
 
 ### Evidence produced
 - Pending: `docs/accessibility/AUDIT_CHECKLIST.md`
