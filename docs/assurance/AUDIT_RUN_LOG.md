@@ -191,6 +191,7 @@ Each audit run records **what was tested**, **where**, and **what evidence was p
 - Training certificates (list/verify/download): **Pass** (keyboard-only + screen reader)
 - Subscription management (upgrade/add-on/checkout): **Pass** (keyboard-only + screen reader)
 - Safeguarding log (create/review/update): **Pass** (keyboard-only + screen reader)
+- Outcomes + analytics dashboards: **Pass** (keyboard-only + screen reader)
 
 ### Evidence produced
 - Pending: `docs/accessibility/AUDIT_CHECKLIST.md`

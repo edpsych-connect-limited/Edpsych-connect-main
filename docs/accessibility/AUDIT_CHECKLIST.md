@@ -49,9 +49,9 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - [x] Safeguarding log (create, review, update)
   - [x] Keyboard-only pass
   - [x] Screen reader pass
-- [ ] Outcomes + analytics dashboards
-  - [ ] Keyboard-only pass
-  - [ ] Screen reader pass
+- [x] Outcomes + analytics dashboards
+  - [x] Keyboard-only pass
+  - [x] Screen reader pass
 - [ ] Marketplace professional profile (public + provider dashboard)
   - [ ] Keyboard-only pass
   - [ ] Screen reader pass
@@ -142,3 +142,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-23: Training certificates keyboard and screen reader passes confirmed.
 - 2026-01-23: Subscription management keyboard and screen reader passes confirmed.
 - 2026-01-23: Safeguarding log keyboard and screen reader passes confirmed.
+- 2026-01-23: Outcomes and analytics dashboards keyboard and screen reader passes confirmed.
