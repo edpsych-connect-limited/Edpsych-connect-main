@@ -10,9 +10,9 @@ This checklist captures the WCAG 2.1 AA audit process and verification steps.
 ## Journey Verification Tracker
 Status key: [ ] pending, [~] in progress, [x] complete
 
-- [~] Login + signup
-  - [ ] Keyboard-only pass
-  - [ ] Screen reader pass
+- [x] Login + signup
+  - [x] Keyboard-only pass
+  - [x] Screen reader pass
 - [x] Core dashboards (EP/LA/School/Parent)
   - [x] Keyboard-only pass
   - [x] Screen reader pass
@@ -130,3 +130,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-23: Audit run logged as RUN-2026-01-23-01 in `docs/assurance/AUDIT_RUN_LOG.md`.
 - 2026-01-23: Manual verification pending; use keyboard-only checklist and screen reader checklist captured in audit run notes.
 - 2026-01-23: Core dashboards (EP/LA/School/Parent) keyboard and screen reader passes confirmed.
+- 2026-01-23: Login + signup keyboard and screen reader passes confirmed.

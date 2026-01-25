@@ -177,8 +177,9 @@ Each audit run records **what was tested**, **where**, and **what evidence was p
 - Targeted validators: **Pass** (`npm run verify:ci`)
 
 ### Walkthroughs executed
-- Accessibility manual journeys: **In progress** (Login + signup started; keyboard and screen reader checks pending)
+- Accessibility manual journeys: **In progress** (Login + signup and core dashboards passed; remaining journeys pending)
 - Core dashboards (EP/LA/School/Parent): **Pass** (keyboard-only + screen reader)
+- Login + signup: **Pass** (keyboard-only + screen reader)
 
 ### Evidence produced
 - Pending: `docs/accessibility/AUDIT_CHECKLIST.md`
