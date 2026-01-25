@@ -181,6 +181,7 @@ Each audit run records **what was tested**, **where**, and **what evidence was p
 - Core dashboards (EP/LA/School/Parent): **Pass** (keyboard-only + screen reader)
 - Login + signup: **Pass** (keyboard-only + screen reader)
 - Assessments (list/detail/conduct/submit): **Pass** (keyboard-only + screen reader)
+- Reports (list/create/generate): **Pass** (keyboard-only + screen reader)
 
 ### Evidence produced
 - Pending: `docs/accessibility/AUDIT_CHECKLIST.md`
