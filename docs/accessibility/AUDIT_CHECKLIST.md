@@ -31,9 +31,9 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - [x] Training (academy, course detail, checkout)
   - [x] Keyboard-only pass
   - [x] Screen reader pass
-- [ ] Marketplace (search, booking, confirmation)
-  - [ ] Keyboard-only pass
-  - [ ] Screen reader pass
+- [x] Marketplace (search, booking, confirmation)
+  - [x] Keyboard-only pass
+  - [x] Screen reader pass
 - [ ] Admin governance dashboards (ethics, compliance, evidence)
   - [ ] Keyboard-only pass
   - [ ] Screen reader pass
@@ -136,3 +136,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-23: Cases journeys keyboard and screen reader passes confirmed.
 - 2026-01-23: EHCP journeys keyboard and screen reader passes confirmed.
 - 2026-01-23: Training journeys keyboard and screen reader passes confirmed.
+- 2026-01-23: Marketplace journeys keyboard and screen reader passes confirmed.
