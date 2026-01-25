@@ -182,6 +182,7 @@ Each audit run records **what was tested**, **where**, and **what evidence was p
 - Login + signup: **Pass** (keyboard-only + screen reader)
 - Assessments (list/detail/conduct/submit): **Pass** (keyboard-only + screen reader)
 - Reports (list/create/generate): **Pass** (keyboard-only + screen reader)
+- Cases (list/create/detail/update): **Pass** (keyboard-only + screen reader)
 
 ### Evidence produced
 - Pending: `docs/accessibility/AUDIT_CHECKLIST.md`
