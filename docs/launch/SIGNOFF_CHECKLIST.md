@@ -12,7 +12,8 @@ Owner: Codex (Project Lead)
 - Product readiness: role dashboards streamlined with next-action panels; validation pending.
 - Build: `npm run build` completed; webpack cache warnings from `next-intl` noted, no build failure.
 - Verification: `npm run verify:ci` completed (lint, type-check, governance/security tests, smoke, secrets scan).
-- Reliability/Security/Compliance/Operations/Commercial: evidence capture pending; no signoff claims yet.
+- Reliability/Operations: draft runbook, incident playbook, rollback plan, and backup/restore plan captured.
+- Security/Compliance/Commercial: evidence capture pending; no signoff claims yet.
 
 ## Accessibility
 - [x] WCAG 2.1 AA audit complete
@@ -26,8 +27,8 @@ Owner: Codex (Project Lead)
 
 ## Reliability
 - [ ] Error budgets within thresholds
-- [ ] Incident response playbook verified
-- [ ] Rollback plan tested
+- [~] Incident response playbook verified
+- [~] Rollback plan tested
 
 ## Security
 - [x] Secret scanning clean (CI `security:scan` passes)
@@ -44,7 +45,7 @@ Owner: Codex (Project Lead)
 - [ ] On-call rota confirmed for launch window
 - [ ] Incident escalation contacts verified
 - [~] Runbooks updated for critical workflows
-- [ ] Backup and restore validation complete
+- [~] Backup and restore validation complete
 
 ## Commercial and Legal
 - [ ] Terms and privacy links verified in production
@@ -61,7 +62,7 @@ Owner: Codex (Project Lead)
 | --- | --- | --- | --- | --- |
 | 2026-01-23 | Accessibility | Codex | In Progress | docs/accessibility/AUDIT_CHECKLIST.md |
 | 2026-01-23 | Performance | Codex | In Progress | docs/performance/BUNDLE_REVIEW_STATUS.md |
-| 2026-01-22 | Reliability | Codex | Pending | docs/observability/SLI_SLO.md |
+| 2026-01-23 | Reliability | Codex | In Progress | docs/observability/SLI_SLO.md |
 | 2026-01-22 | Security | Codex | Pending | docs/assurance/FINDINGS_REGISTER.md |
 | 2026-01-22 | Compliance | Codex | Pending | docs/assurance/VENDOR_SUBPROCESSOR_AUDIT.md |
 | 2026-01-23 | Operations | Codex | In Progress | docs/ops/RUNBOOK.md |
