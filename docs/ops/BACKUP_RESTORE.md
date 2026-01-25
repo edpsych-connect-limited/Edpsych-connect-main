@@ -7,10 +7,13 @@ Document the backup schedule and restore verification plan for launch.
 - Object storage backups: Cloudinary asset export job weekly (metadata + asset list).
 - Retention period: 35 days for database snapshots; 12 months for asset export logs.
 
-## Restore verification
-- Cadence: monthly (tabletop + staged restore).
-- Validation steps:
-  1) Restore to a staging environment.
+## Restore Procedure
+> **Detailed steps are documented in:** [DATABASE_RESTORE_PROCEDURE.md](./DATABASE_RESTORE_PROCEDURE.md)
+
+### Summary
+- **Cadence:** Monthly validation (tabletop + staged restore).
+- **Validation steps:**
+  1) Restore to a staging environment using Neon branching.
   2) Validate authentication and core dashboards.
   3) Validate a sample case, assessment, and EHCP export.
   4) Record results in this document.

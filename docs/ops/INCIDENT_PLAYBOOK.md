@@ -20,6 +20,18 @@ Align severity with business impact and follow communication steps.
 - External updates within 60 minutes for S1/S2.
 - Update status page (https://status.edpsychconnect.world) for S1/S2.
 
+## Escalation Path
+> Contact details are stored in the secure password manager (1Password) under "Incident Contacts".
+
+1. **Incident Lead (On-Call)**: First responder.
+2. **Tech Lead / Engineering Manager**: If S1/S2 not resolved within 30 minutes.
+   - Responsible for stakeholder comms.
+3. **CTO / Founder**: If S1/S2 triggers potential data breach or >2hr downtime.
+   - Responsible for legal/PR activation.
+4. **Third-Party Support**:
+   - Neon Support (Database issues)
+   - Vercel Support (Hosting/Platform issues)
+
 ## Resolution and follow-up
 1) Confirm service stability and monitor recovery metrics.
 2) Document root cause, timeline, and corrective actions.
