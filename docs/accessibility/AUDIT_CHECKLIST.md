@@ -52,9 +52,12 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - [x] Outcomes + analytics dashboards
   - [x] Keyboard-only pass
   - [x] Screen reader pass
-- [ ] Marketplace professional profile (public + provider dashboard)
-  - [ ] Keyboard-only pass
-  - [ ] Screen reader pass
+- [x] Marketplace professional profile (public + provider dashboard)
+  - [x] Keyboard-only pass
+  - [x] Screen reader pass
+
+## Summary
+- All priority journeys have completed keyboard and screen reader checks.
 
 ## Keyboard Navigation
 - Tab order matches visual hierarchy
@@ -143,3 +146,4 @@ Status key: [ ] pending, [~] in progress, [x] complete
 - 2026-01-23: Subscription management keyboard and screen reader passes confirmed.
 - 2026-01-23: Safeguarding log keyboard and screen reader passes confirmed.
 - 2026-01-23: Outcomes and analytics dashboards keyboard and screen reader passes confirmed.
+- 2026-01-23: Marketplace professional profile keyboard and screen reader passes confirmed.

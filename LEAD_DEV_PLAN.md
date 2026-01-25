@@ -398,7 +398,7 @@ Progress log:
 -----------------------------------------------------------------------------
 3) Accessibility (WCAG 2.1 AA+) - Deep Audit
 -----------------------------------------------------------------------------
-[~] Run keyboard and screen-reader audits for top 15 journeys
+[x] Run keyboard and screen-reader audits for top 15 journeys
     - Document fixes and retest
 
 [~] Normalize focus states and ARIA across core components

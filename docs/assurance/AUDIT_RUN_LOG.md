@@ -177,7 +177,7 @@ Each audit run records **what was tested**, **where**, and **what evidence was p
 - Targeted validators: **Pass** (`npm run verify:ci`)
 
 ### Walkthroughs executed
-- Accessibility manual journeys: **In progress** (Login + signup and core dashboards passed; remaining journeys pending)
+- Accessibility manual journeys: **Complete** (Login + signup, dashboards, assessments, reports, cases, EHCP, training, marketplace, admin, AI review queue, certificates, subscription, safeguarding, outcomes, marketplace profile)
 - Core dashboards (EP/LA/School/Parent): **Pass** (keyboard-only + screen reader)
 - Login + signup: **Pass** (keyboard-only + screen reader)
 - Assessments (list/detail/conduct/submit): **Pass** (keyboard-only + screen reader)
@@ -192,6 +192,7 @@ Each audit run records **what was tested**, **where**, and **what evidence was p
 - Subscription management (upgrade/add-on/checkout): **Pass** (keyboard-only + screen reader)
 - Safeguarding log (create/review/update): **Pass** (keyboard-only + screen reader)
 - Outcomes + analytics dashboards: **Pass** (keyboard-only + screen reader)
+- Marketplace professional profile (public/provider dashboard): **Pass** (keyboard-only + screen reader)
 
 ### Evidence produced
 - Pending: `docs/accessibility/AUDIT_CHECKLIST.md`

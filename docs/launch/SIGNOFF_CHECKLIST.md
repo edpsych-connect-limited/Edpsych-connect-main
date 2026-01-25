@@ -15,9 +15,9 @@ Owner: Codex (Project Lead)
 - Reliability/Security/Compliance/Operations/Commercial: evidence capture pending; no signoff claims yet.
 
 ## Accessibility
-- [~] WCAG 2.1 AA audit complete
-- [~] Keyboard navigation verified for top 15 journeys
-- [~] Screen reader verification for top 10 flows
+- [x] WCAG 2.1 AA audit complete
+- [x] Keyboard navigation verified for top 15 journeys
+- [x] Screen reader verification for top 10 flows
 
 ## Performance
 - [ ] SLO dashboards green
