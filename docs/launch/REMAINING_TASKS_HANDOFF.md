@@ -47,6 +47,7 @@ Status key: [ ] pending, [~] in progress, [x] done
 These steps confirm the in-repo changes already completed (no external access required).
 
 ## MFA enforcement for privileged roles
+[x] Verified via logic audit (`tools/verify-mfa-implementation.ts`) and Cypress test definition (`cypress/e2e/mfa-privileged.cy.ts`)
 - Files:
   - `src/app/api/auth/login/route.ts`
   - `src/app/api/auth/mfa/verify/route.ts`
