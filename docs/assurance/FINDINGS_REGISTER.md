@@ -4,6 +4,21 @@ This register tracks issues found during internal audits and their remediation s
 
 ## Active findings
 
+- **Finding ID:** INT-SEC-2026-012
+	- **Date discovered:** 2026-01-23
+	- **Discovered by:** Internal audit (DPIA security controls review)
+	- **Audit run reference:** RUN-2026-01-23-01
+	- **Area:** Security / Access Control
+	- **Severity:** Medium
+	- **Status:** Open
+	- **Affected URL / Component:** Platform admin access (global)
+	- **Expected behavior:** Privileged access should enforce MFA or compensating controls approved by policy.
+	- **Actual behavior:** No MFA enforcement is present in current application/auth flows.
+	- **Impact / Risk:** Elevated risk for privileged account compromise.
+	- **Evidence:** `docs/legal/DPIA.md` (Security measures section).
+	- **Fix:** Implement MFA for privileged roles or document compensating controls and approval.
+	- **Retest evidence:** TBD
+
 - **Finding ID:** INT-SEC-2026-011
 	- **Date discovered:** 2026-01-23
 	- **Discovered by:** Internal audit (dependency scan)

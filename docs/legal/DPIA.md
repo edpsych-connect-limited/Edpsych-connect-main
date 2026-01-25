@@ -4,13 +4,13 @@
 
 **Document type:** Internal DPIA (auditor-ready format; not a certification)
 
-**Owner:** (TBD)
+**Owner:** Scott Patrick (Sponsor) + Codex (Project Lead)
 
 **Version:** 1.1
 
 **Date created:** December 5, 2025
 
-**Last updated:** December 15, 2025
+**Last updated:** January 23, 2026
 
 ---
 
@@ -21,7 +21,7 @@ This DPIA assesses the privacy risks of processing personal data in EdPsych Conn
 This document is written in an auditor-ready style:
 - avoid claims that are not evidenced;
 - link to evidence where available;
-- explicitly mark unknowns as **TBD**.
+- record open items and assumptions with explicit follow-ups.
 
 Related internal assurance pack:
 - `docs/assurance/README.md`
@@ -33,15 +33,19 @@ Related internal assurance pack:
 
 ### 1.1 Data controller(s)
 
-**TBD:** Identify whether the controller is:
-- (a) EdPsych Connect (for platform operations), and/or
-- (b) customer organisations (e.g., schools/LAs) as controllers for pupil data.
+Working allocation (pending legal confirmation):
+- Customer organisations (schools/LAs) act as **controllers** for pupil data entered into cases, assessments, EHCPs, and safeguarding workflows.
+- EdPsych Connect Limited acts as **processor** for tenant-controlled pupil data, and **controller** for platform operations (accounts, telemetry, billing).
 
-> Action: confirm and document controller/processor allocation per feature (EHCP, assessments, training, messaging).
+Action: legal confirmation required per feature (EHCP, assessments, training, messaging).
 
 ### 1.2 Data processor(s)
 
-**TBD:** List subprocessors and hosting providers that process personal data on behalf of the controller.
+Current subprocessors and hosting providers are listed in:
+- `docs/assurance/VENDOR_SUBPROCESSOR_AUDIT.md`
+
+Active vendors include Vercel (hosting), Neon (PostgreSQL), Stripe (payments), SendGrid (email),
+Cloudinary (media CDN), with optional AI providers and observability vendors.
 
 Evidence pointer:
 - Vendor register template: `docs/assurance/VENDOR_SUBPROCESSOR_AUDIT.md`
@@ -83,10 +87,11 @@ Potential data subjects include (confirm for each module):
 
 Children’s data is in scope. This increases risk and requires heightened safeguards.
 
-**TBD:** Document:
-- age ranges and how age is determined;
-- whether children have direct accounts;
-- parental controls/visibility.
+Current evidence:
+- Student accounts exist for learning modules (`src/app/[locale]/student`, `src/app/[locale]/student/lessons`).
+- Parent portal provides oversight and communication (`src/app/[locale]/parent/dashboard`).
+
+Action: confirm age ranges and parent/guardian consent model with product/legal.
 
 ---
 
@@ -98,15 +103,32 @@ Data is processed for providing educational support workflows and platform opera
 
 ### 3.2 Data minimisation
 
-**TBD:** Document how we ensure we only collect data necessary for each workflow.
+Data minimisation controls:
+- Role-based forms collect workflow-specific fields (cases, assessments, EHCP).
+- Optional fields are separated from required inputs in core workflows.
+
+Evidence:
+- `src/components/ehcp/SchoolSubmissionInterface.tsx` (required/optional EHCP inputs)
+- `src/components/assessments/AssessmentAdministrationWizard.tsx`
 
 ### 3.3 Accuracy
 
-**TBD:** Document how users can correct inaccurate records and how corrections propagate.
+Accuracy controls:
+- Users can update case, assessment, and EHCP records via edit flows.
+- Update endpoints persist corrections and are tracked in audit telemetry.
+
+Evidence:
+- `src/app/api/cases/[id]/route.ts`
+- `src/app/api/assessments/[id]/route.ts`
+- `src/app/api/ehcp/[id]/route.ts`
 
 ### 3.4 Storage limitation (retention)
 
-**TBD:** Define retention periods by record type (cases, assessment reports, logs, backups).
+Retention policy:
+- See `docs/assurance/DATA_RETENTION_POLICY.md`.
+- EHCP audit logs: 6 years (document management service note).
+- Security monitoring: 30 days (default).
+- Performance monitoring: 7 days (default).
 
 ---
 
@@ -116,22 +138,20 @@ This section must be confirmed with legal review.
 
 ### 4.1 UK GDPR lawful basis (Art. 6)
 
-**TBD:** Select and justify (per controller and feature):
-- Public task (Art. 6(1)(e))
-- Legal obligation (Art. 6(1)(c))
-- Legitimate interests (Art. 6(1)(f))
-- Contract (Art. 6(1)(b))
+Proposed lawful basis (pending legal sign-off):
+- Local Authority workflows: Public task / legal obligation (Art. 6(1)(e)/(c)).
+- School and professional workflows: Contract (Art. 6(1)(b)).
+- Platform operations/telemetry: Legitimate interests (Art. 6(1)(f)).
 
 ### 4.2 Special category condition (Art. 9)
 
-**TBD:** Select and justify (per feature), e.g.:
-- Art. 9(2)(g) substantial public interest,
-- Art. 9(2)(h) health/social care,
-- or another applicable condition.
+Proposed special category condition (pending legal sign-off):
+- Art. 9(2)(g) substantial public interest and/or
+- Art. 9(2)(h) health/social care (as applicable to EHCP and assessment workflows).
 
 ### 4.3 Data Protection Act 2018 schedules
 
-**TBD:** Document relevant DPA 2018 schedule condition(s), if applicable.
+Action: confirm DPA 2018 schedule condition(s) with legal review.
 
 ---
 
@@ -139,19 +159,21 @@ This section must be confirmed with legal review.
 
 ### 5.1 Data flow overview
 
-**TBD:** Add a simple diagram or bullet flow covering:
-- user -> web app -> API -> database;
-- file/video storage;
-- email delivery;
-- monitoring/logging;
-- AI features (if used).
+Data flow summary (current evidence):
+- User -> Next.js app -> API routes -> Postgres (Neon) via Prisma.
+- Media delivery via Cloudinary CDN (training and video assets).
+- Email delivery via SendGrid.
+- Observability via Vercel logs and internal telemetry (see `docs/observability/TRACING_PLAN.md`).
+- AI features (optional) via provider APIs (OpenAI/Anthropic/Gemini/xAI) when enabled.
 
 ### 5.2 International transfers
 
-**TBD:** Identify any processing outside UK and document:
-- countries/regions;
-- transfer mechanism (e.g., IDTA/SCC);
-- vendor assurances.
+International transfers (pending confirmation):
+- Hosting/CDN/AI providers may process data outside the UK depending on account region.
+- Until regions are confirmed, treat as potential international transfers requiring IDTA/SCC.
+
+Evidence pointer:
+- `docs/assurance/VENDOR_SUBPROCESSOR_AUDIT.md`
 
 Evidence pointer:
 - `docs/assurance/VENDOR_SUBPROCESSOR_AUDIT.md`
@@ -164,14 +186,15 @@ This DPIA does not assume controls exist unless evidenced.
 
 ### 6.1 Access control
 
-- Role-based access control (RBAC): **TBD** (link to implementation evidence)
-- MFA for privileged access: **TBD** (policy + enforcement evidence)
-- Audit logging: **TBD** (log schema and examples)
+- Role-based access control (RBAC): implemented in auth middleware and role checks.
+  Evidence: `src/lib/middleware/auth.ts`, `src/lib/auth/hooks.tsx`, `src/proxy.ts`
+- MFA for privileged access: not enforced in code; requires policy and implementation.
+- Audit logging: evidence telemetry implemented (see `docs/observability/TRACING_PLAN.md` and telemetry plans).
 
 ### 6.2 Encryption
 
-- Encryption in transit: **TBD** (hosting/TLS configuration evidence)
-- Encryption at rest: **TBD** (database/storage provider evidence)
+- Encryption in transit: HTTPS/TLS enforced by hosting providers (evidence to be attached from vendor consoles).
+- Encryption at rest: provider-managed storage encryption (evidence to be attached from vendor consoles).
 
 > Note: prior versions referenced specific algorithms (e.g., “AES-256”). This version requires an evidence link before naming algorithms.
 
@@ -195,11 +218,11 @@ Scoring approach (simple):
 
 | Risk | Scenario | Likelihood | Severity | Score | Existing controls | Residual risk | Evidence |
 |---|---|---:|---:|---:|---|---|---|
-| R1 | Unauthorized access | Privilege misuse or authz bug exposes sensitive data | TBD | TBD | TBD | RBAC/MFA/logging (TBD) | TBD | Link to evidence IDs |
-| R2 | Data loss/corruption | DB incident or operational error | TBD | TBD | TBD | Backups/restore (TBD) | TBD | Link to restore test evidence |
-| R3 | Inappropriate sharing | Misconfigured roles or sharing features | TBD | TBD | TBD | Permission boundaries (TBD) | TBD | Link to authz tests |
-| R4 | Vendor exposure | Subprocessor breach or transfer risk | TBD | TBD | TBD | Vendor due diligence (TBD) | TBD | Vendor register |
-| R5 | Children’s privacy | Excessive collection or unclear transparency | TBD | TBD | TBD | Minimisation + notices (TBD) | TBD | Privacy policy + DPIA updates |
+| R1 | Unauthorized access | Privilege misuse or authz bug exposes sensitive data | 2 | 5 | 10 | RBAC, auth middleware, telemetry | Medium | `src/lib/middleware/auth.ts` |
+| R2 | Data loss/corruption | DB incident or operational error | 2 | 4 | 8 | Backup/restore plan (draft) | Medium | `docs/ops/BACKUP_RESTORE.md` |
+| R3 | Inappropriate sharing | Misconfigured roles or sharing features | 2 | 4 | 8 | Role boundaries, audits | Medium | `src/proxy.ts`, `src/config/navigation.ts` |
+| R4 | Vendor exposure | Subprocessor breach or transfer risk | 2 | 4 | 8 | Vendor register + DPAs (pending) | Medium | `docs/assurance/VENDOR_SUBPROCESSOR_AUDIT.md` |
+| R5 | Children's privacy | Excessive collection or unclear transparency | 3 | 5 | 15 | Minimisation + notices | High | `src/app/[locale]/privacy/page.tsx` |
 
 ---
 
@@ -212,24 +235,24 @@ Prior DPIA indicated consultation with:
 - schools;
 - data privacy experts.
 
-**TBD:** Record dates, participants (or roles), and summary outcomes.
+Consultation status: not yet completed for this DPIA revision. Record dates and participants after review.
 
 ### 8.2 Sign-off
 
 | Role | Name | Date | Outcome |
 |---|---|---|---|
-| Product owner | TBD | TBD | TBD |
-| Data protection lead | TBD | TBD | TBD |
-| Engineering lead | TBD | TBD | TBD |
+| Product owner | Scott Patrick | Pending | Pending |
+| Data protection lead | Pending | Pending | Pending |
+| Engineering lead | Codex | Pending | Pending |
 
 ---
 
 ## 9. Conclusion
 
-The residual risk rating cannot be declared “low” until the **TBD** items are completed and linked to evidence.
+Residual risk cannot be declared "low" until legal basis, transfer evidence, and MFA policy are confirmed.
 
 This DPIA is considered **in progress** until:
-- lawful basis and special category condition are confirmed;
-- retention/transfers are documented;
-- security measures are evidenced;
-- the risk table has scored values and residual risk rationale.
+- lawful basis and special category conditions are confirmed by legal;
+- international transfer evidence is attached to vendor register;
+- MFA policy is defined or compensating controls approved;
+- backup restore tests are executed and logged.

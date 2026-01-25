@@ -15,6 +15,7 @@ Owner: Codex (Project Lead)
 - Reliability/Operations: draft runbook, incident playbook, rollback plan, and backup/restore plan captured.
 - Security: dependency audit found lodash prototype pollution advisory; fix pending.
 - Compliance: DPIA and retention policy documented, signoff pending.
+- Security: MFA gap logged as INT-SEC-2026-012; remediation pending.
 
 ## Accessibility
 - [x] WCAG 2.1 AA audit complete

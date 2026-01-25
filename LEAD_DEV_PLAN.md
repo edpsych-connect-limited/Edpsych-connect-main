@@ -383,6 +383,7 @@ Progress log:
 - 2026-01-23: Drafted reliability and operations artifacts (error budget policy, incident playbook, rollback plan, backup/restore plan).
 - 2026-01-23: Ran dependency audit; logged lodash advisory and started retention policy documentation.
 - 2026-01-23: Applied `npm audit fix` and closed lodash advisory in findings register.
+- 2026-01-23: Updated DPIA with current evidence and logged MFA gap in findings register.
 - 2026-01-23: Drafted operations runbook and marked Operations signoff in progress.
 
 -----------------------------------------------------------------------------
