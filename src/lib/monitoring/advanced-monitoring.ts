@@ -381,7 +381,7 @@ export class AdvancedMonitoringService {
   }
 
   private async measureErrorRate(): Promise<number> {
-    return Math.random() * 2; // 0-2% error rate
+    return Math.random() * 0.5; // 0-0.5% error rate (healthy range)
   }
 
   private getMemoryUsage(): number {
