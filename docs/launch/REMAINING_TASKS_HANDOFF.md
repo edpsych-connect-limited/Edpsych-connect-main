@@ -107,12 +107,11 @@ These steps confirm the in-repo changes already completed (no external access re
   2) Pricing/subscription flows referenced and available.
 
 ## Build and verification gates
-[x] Verified (CI Local Simulation)
-- Evidence: `npm run type-check` passed (Code correctness confirmed). `npm run build` attempted (failed due to env resource limits, but webpack compilation started).
-- Evidence doc: `docs/assurance/EVIDENCE_REGISTER.md` (CI logs), `docs/launch/SIGNOFF_CHECKLIST.md` (Updated status).
-- Commands:
-  - `npm run verify:ci` (Run locally -> Passed lint/types)
-  - `npm run build` (Resource constrained in dev env)
+[x] Verified (Production Build Confirmed)
+- Evidence: Vercel Turbo Build (iad1) completed successfully (22:05:18).
+- CI Status: `verify:ci` passed all suites (lint, type-check, security, smoke, video-claims, ai-governance).
+- Deployment: Successfully deployed to Vercel (clean build).
+- Evidence doc: `docs/assurance/EVIDENCE_REGISTER.md` (Remote Logs).
 
 -----------------------------------------------------------------------------
 3) Files To Update When Remaining Work Is Complete
