@@ -17,8 +17,20 @@ export default getRequestConfig(async ({requestLocale}) => {
     locale = 'en';
   }
  
-  return {
-    locale,
-    messages: (await import(`./messages/${locale}.json`)).default
-  };
+  // Load messages with error handling
+  try {
+    const messages = (await import(`./messages/${locale}.json`)).default;
+    return {
+      locale,
+      messages
+    };
+  } catch (error) {
+    // Fallback to English if the locale file is missing
+    console.error(`Failed to load messages for locale "${locale}":`, error);
+    const fallbackMessages = (await import('./messages/en.json')).default;
+    return {
+      locale: 'en',
+      messages: fallbackMessages
+    };
+  }
 });
