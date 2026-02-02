@@ -63,4 +63,4 @@ On Vercel, the deployment will now:
 ## References
 - [Next-intl v4 Documentation](https://next-intl.dev/docs/getting-started/app-router)
 - [Next-intl GitHub - Issue #1309](https://github.com/amannn/next-intl/issues/1309)
-- [Stack Overflow - Fix for "Couldn't find next-intl config file"](https://stackoverflow.com/questions/79631566/)
+- [Stack Overflow - Fix for "Couldn't find next-intl config file"](https://stackoverflow.com/questions/79631566/error-couldnt-find-next-intl-config-file-please-follow-the-instructions-at-ht)
