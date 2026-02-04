@@ -1,4 +1,3 @@
-import createNextIntlPlugin from 'next-intl/plugin';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
@@ -8,6 +7,8 @@ import { createRequire } from 'module';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const require = createRequire(import.meta.url);
+const nextIntlPluginModule = require('next-intl/plugin');
+const createNextIntlPlugin = nextIntlPluginModule?.default ?? nextIntlPluginModule;
 const nextIntlConfigPath = fs.existsSync(path.join(__dirname, 'src', 'i18n', 'request.ts'))
   ? './src/i18n/request.ts'
   : './src/i18n.ts';
