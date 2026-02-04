@@ -7,8 +7,14 @@ import { createRequire } from 'module';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const require = createRequire(import.meta.url);
-const nextIntlPluginModule = require('next-intl/plugin');
-const createNextIntlPlugin = nextIntlPluginModule?.default ?? nextIntlPluginModule;
+let createNextIntlPlugin;
+try {
+  const nextIntlPluginModule = require('next-intl/plugin');
+  createNextIntlPlugin = nextIntlPluginModule?.default ?? nextIntlPluginModule;
+} catch (error) {
+  console.error('[next-config] Failed to load next-intl/plugin', error);
+  throw error;
+}
 const nextIntlConfigPath = fs.existsSync(path.join(__dirname, 'src', 'i18n', 'request.ts'))
   ? './src/i18n/request.ts'
   : './src/i18n.ts';
