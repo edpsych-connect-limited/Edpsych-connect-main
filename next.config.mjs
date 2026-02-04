@@ -13,6 +13,9 @@ try {
   createNextIntlPlugin = nextIntlPluginModule?.default ?? nextIntlPluginModule;
 } catch (error) {
   console.error('[next-config] Failed to load next-intl/plugin', error);
+  if (error?.cause) {
+    console.error('[next-config] next-intl/plugin load cause:', error.cause);
+  }
   throw error;
 }
 const nextIntlConfigPath = fs.existsSync(path.join(__dirname, 'src', 'i18n', 'request.ts'))
