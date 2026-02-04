@@ -8,7 +8,9 @@
 //   spawns worker processes and may propagate exec args in ways that cause
 //   Node to reject `--r=` in NODE_OPTIONS.
 
-require('./patch-fs-runtime.cjs');
+if (process.platform === 'win32') {
+	require('./patch-fs-runtime.cjs');
+}
 
 const fs = require('node:fs');
 const path = require('node:path');

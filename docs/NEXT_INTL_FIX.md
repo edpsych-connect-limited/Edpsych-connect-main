@@ -11,11 +11,11 @@ The `next.config.mjs` was using `createNextIntlPlugin('./src/i18n.ts')` with a c
 - `./src/i18n/request.ts` (when using a `src` directory)
 - `./i18n/request.ts` (when not using a `src` directory)
 
-When using the default path, you call the plugin as `createNextIntlPlugin()` without any parameters.
+To avoid auto-detection ambiguities in CI/Vercel, we now pass the explicit request config path to the plugin.
 
 ## Solution
 1. Created `src/i18n/request.ts` at the expected default location
-2. Updated `next.config.mjs` to use `createNextIntlPlugin()` without path parameter
+2. Updated `next.config.mjs` to use `createNextIntlPlugin('./src/i18n/request.ts')`
 3. Added error handling for missing locale files with fallback to English
 
 ## File Structure

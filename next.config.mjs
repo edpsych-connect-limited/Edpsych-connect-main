@@ -7,15 +7,20 @@ import { createRequire } from 'module';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const withNextIntl = createNextIntlPlugin();
 const require = createRequire(import.meta.url);
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-  analyzerMode: 'static',
-  openAnalyzer: false,
-  generateStatsFile: true,
-  statsFilename: 'analyze/[name].stats.json',
-});
+const nextIntlConfigPath = fs.existsSync(path.join(__dirname, 'src', 'i18n', 'request.ts'))
+  ? './src/i18n/request.ts'
+  : './src/i18n.ts';
+const withNextIntl = createNextIntlPlugin(nextIntlConfigPath);
+const withBundleAnalyzer = process.env.ANALYZE === 'true'
+  ? require('@next/bundle-analyzer')({
+      enabled: true,
+      analyzerMode: 'static',
+      openAnalyzer: false,
+      generateStatsFile: true,
+      statsFilename: 'analyze/[name].stats.json',
+    })
+  : (config) => config;
 
 // Dist dir selection
 // - We allow overriding via NEXT_DIST_DIR (used by the release gate).
