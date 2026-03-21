@@ -12,6 +12,7 @@ import { SubscriptionTier } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { checkRateLimit, createRateLimitHeaders, getClientIP, RATE_LIMITS } from '@/lib/rate-limit';
+import { normalizeRole, normalizeTenantId } from '@/lib/auth/types';
 
 export async function POST(req: Request) {
   try {
@@ -128,15 +129,29 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Server not configured' }, { status: 500 });
     }
 
+    const canonicalRole = normalizeRole(newUser.role);
+    if (!canonicalRole) {
+      return NextResponse.json(
+        { success: false, error: 'Unsupported role for Phase 1 corridor' },
+        { status: 403 }
+      );
+    }
+
+    const normalizedTenantId = normalizeTenantId(newUser.tenant_id);
+
     // Generate Tokens
     const accessToken = sign(
       {
+        id: newUser.id.toString(),
         userId: newUser.id,
         email: newUser.email,
         name: newUser.name,
-        role: newUser.role,
-        tenantId: newUser.tenant_id,
+        role: canonicalRole,
+        tenant_id: normalizedTenantId,
+        tenantId: normalizedTenantId,
         permissions: newUser.permissions,
+        onboardingCompleted: newUser.onboarding_completed,
+        onboardingSkipped: newUser.onboarding_skipped,
       },
       jwtSecret,
       { expiresIn: '1d' }
@@ -157,9 +172,10 @@ export async function POST(req: Request) {
       name: newUser.name,
       firstName: newUser.firstName,
       lastName: newUser.lastName,
-      role: newUser.role,
+      role: canonicalRole,
       permissions: newUser.permissions,
-      tenantId: newUser.tenant_id,
+      tenantId: normalizedTenantId,
+      tenant_id: normalizedTenantId,
       tenant: {
         id: newTenant.id,
         name: newTenant.name,
@@ -172,7 +188,7 @@ export async function POST(req: Request) {
       professional: null,
     };
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       data: {
         user: userData,
@@ -180,6 +196,16 @@ export async function POST(req: Request) {
         refreshToken,
       },
     });
+
+    response.cookies.set('auth-token', accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24,
+      path: '/',
+    });
+
+    return response;
 
   } catch (error: any) {
     console.error('Signup error:', error);
