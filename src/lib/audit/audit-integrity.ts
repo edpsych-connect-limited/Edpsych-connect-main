@@ -87,6 +87,8 @@ function toError(err: unknown): Error {
   return new Error(typeof err === 'string' ? err : JSON.stringify(err));
 }
 
+let auditIntegrityModeDiagnosticLogged = false;
+
 /**
  * Fail-fast in production for missing audit-integrity configuration.
  *
@@ -97,7 +99,19 @@ function toError(err: unknown): Error {
 export function ensureAuditIntegrityProductionConfig(mode: AuditIntegrityMode): void {
   if (!isProductionEnv()) return;
 
+  const rawMode = process.env.AUDIT_LOG_INTEGRITY_MODE;
+  const hasRawMode = typeof rawMode === 'string' && rawMode.length > 0;
   const hasHmacKey = Boolean(process.env.AUDIT_LOG_HMAC_KEY);
+
+  if (!auditIntegrityModeDiagnosticLogged) {
+    auditIntegrityModeDiagnosticLogged = true;
+    logger.info('Audit integrity mode diagnostic', {
+      isProductionEnv: true,
+      hasAuditIntegrityModeEnv: hasRawMode,
+      normalizedMode: mode,
+      hasHmacKey,
+    });
+  }
 
   if (prodAuditIntegrityConfigCheck.checked) {
     if (
