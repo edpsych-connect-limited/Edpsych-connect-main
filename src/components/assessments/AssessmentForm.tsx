@@ -90,12 +90,12 @@ export default function AssessmentForm({
           : undefined,
       };
 
-      const url = isEditing
+      const submitUrl = isEditing && assessmentId
         ? `/api/assessments/${assessmentId}`
         : '/api/assessments';
-      const method = isEditing ? 'PUT' : 'POST';
+      const method: 'PUT' | 'POST' = isEditing ? 'PUT' : 'POST';
 
-      const response = await fetch(url, {
+      const response = await fetch(submitUrl, {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dataToSubmit),
@@ -106,13 +106,13 @@ export default function AssessmentForm({
         throw new Error(errorData.error || 'Failed to save assessment');
       }
 
-      const result = await response.json();
-      const assessmentId = result?.assessment?.id;
-      if (!assessmentId) {
+      const result: { assessment?: { id?: string | number } } = await response.json();
+      const savedAssessmentId = result?.assessment?.id;
+      if (!savedAssessmentId) {
         throw new Error('Assessment saved but no assessment ID was returned');
       }
 
-      router.push(`/assessments/${assessmentId}`);
+      router.push(`/assessments/${savedAssessmentId}`);
     } catch (_err) {
       setError(_err instanceof Error ? _err.message : 'An error occurred');
       console.error('Error saving assessment:', _err);

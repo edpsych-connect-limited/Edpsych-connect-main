@@ -125,15 +125,15 @@ export async function PUT(req: NextRequest) {
     return authResult.response;
   }
   const { session } = authResult;
+  const user = session.user as any;
+  const tenantId = typeof user?.tenant_id === 'string' ? parseInt(user.tenant_id, 10) : (user?.tenant_id as number | undefined);
+  const userId = parseInt(user?.id ?? '', 10);
   
   try {
     const body = await req.json();
     const { id, domains, ...updateData } = body;
 
     if (!id) {
-        const user = session.user as any;
-        const tenantId = typeof user?.tenant_id === 'string' ? parseInt(user.tenant_id, 10) : (user?.tenant_id as number | undefined);
-        const userId = parseInt(user?.id ?? '', 10);
         if (tenantId && !Number.isNaN(userId)) {
           await recordEvidenceEvent({
             tenantId,
@@ -247,9 +247,6 @@ export async function PUT(req: NextRequest) {
       }
     }
 
-    const user = session.user as any;
-    const tenantId = typeof user?.tenant_id === 'string' ? parseInt(user.tenant_id, 10) : (user?.tenant_id as number | undefined);
-    const userId = parseInt(user?.id ?? '', 10);
     if (tenantId && !Number.isNaN(userId)) {
       await recordEvidenceEvent({
         tenantId,

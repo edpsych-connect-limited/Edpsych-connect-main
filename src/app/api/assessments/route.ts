@@ -124,7 +124,7 @@ export async function POST(request: NextRequest) {
         assessment_type: validation.data.assessment_type,
         status: validation.data.status ?? 'pending',
         scheduled_date: validation.data.scheduled_date ? new Date(validation.data.scheduled_date) : undefined,
-        created_by: session.user.id,
+        created_by: parseInt(session.user.id, 10),
       },
     });
 
