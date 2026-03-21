@@ -17,10 +17,10 @@
  * @author Dr. Scott Ighavongbe-Patrick
  */
 
-import { useState, useEffect, useContext, createContext } from 'react';
+import { useState, useEffect, useContext, createContext, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
-import { AuthUser, PasswordUpdateRequest } from './types';
+import { AuthUser, PasswordUpdateRequest, normalizeRole, normalizeTenantId } from './types';
 import { secureStore, secureRetrieve, secureRemove as _secureRemove, clearAuthStorage } from '../../utils/encryption';
 import { logger } from "@/lib/logger";
 
@@ -106,53 +106,85 @@ function useAuthProvider(): AuthContextType {
     return (segment === 'en' || segment === 'cy') ? `/${segment}` : '';
   };
 
+  const normalizeAuthUser = useCallback((input: any): AuthUser | null => {
+    if (!input || !input.id || !input.email) return null;
+
+    const normalizedRole = normalizeRole(input.role);
+    if (!normalizedRole) return null;
+
+    return {
+      id: String(input.id),
+      email: String(input.email),
+      name: input.name ? String(input.name) : String(input.email),
+      role: normalizedRole,
+      permissions: Array.isArray(input.permissions) ? input.permissions.filter((p: unknown): p is string => typeof p === 'string') : [],
+      onboardingCompleted: typeof input.onboardingCompleted === 'boolean' ? input.onboardingCompleted : undefined,
+      onboardingSkipped: typeof input.onboardingSkipped === 'boolean' ? input.onboardingSkipped : undefined,
+      tenant_id: normalizeTenantId(input.tenant_id ?? input.tenantId),
+      tenantId: normalizeTenantId(input.tenant_id ?? input.tenantId),
+    };
+  }, []);
+
+  const syncUserFromServer = useCallback(async (): Promise<AuthUser | null> => {
+    logger.info('ANALYZE Syncing authentication state from server session...');
+
+    const response = await fetch('/api/auth/session', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      cache: 'no-store',
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || !data?.authenticated || !data?.session?.user) {
+      logger.info('FAIL No authenticated server session found');
+      clearAuthStorage();
+      setUser(null);
+      return null;
+    }
+
+    const normalizedUser = normalizeAuthUser(data.session.user);
+    if (!normalizedUser) {
+      logger.warn('WARNING Server session could not be normalized into canonical client auth state');
+      clearAuthStorage();
+      setUser(null);
+      return null;
+    }
+
+    try {
+      secureStore('userData', normalizedUser);
+    } catch (storageError) {
+      logger.warn('WARNING Failed to refresh cached userData from server session:', storageError);
+    }
+
+    setUser(normalizedUser);
+    logger.info('OK Authentication state synced from server session', {
+      email: normalizedUser.email,
+      role: normalizedUser.role,
+      userId: normalizedUser.id,
+    });
+
+    return normalizedUser;
+  }, [normalizeAuthUser]);
+
   /**
    * Check authentication status on mount
-   * Loads stored tokens and user data from storage
+   * Server session is authoritative; local storage is cache only.
    */
   useEffect(() => {
-    // Prevent multiple initializations
     if (isInitialized) return;
 
-    const checkAuth = () => {
+    const checkAuth = async () => {
       try {
-        logger.info('ANALYZE Checking authentication status...');
         setIsLoading(true);
-
-        // Check for stored access token (synchronous)
-        const storedToken = secureRetrieve('accessToken');
-
-        if (!storedToken) {
-          logger.info('FAIL No access token found');
-          setUser(null);
-          setIsLoading(false);
-          setIsInitialized(true);
-          return;
-        }
-
-        logger.info('OK Access token found');
-
-        // Get stored user data (synchronous)
-        const userData = secureRetrieve('userData');
-
-        // Validate user data
-        if (userData && userData.id) {
-          logger.info('OK User data loaded:', {
-            email: userData.email,
-            role: userData.role,
-            userId: userData.id
-          });
-          setUser(userData);
-        } else {
-          logger.warn('WARNING Token exists but no valid user data');
-          // Clear invalid tokens
-          clearAuthStorage();
-          setUser(null);
-        }
+        await syncUserFromServer();
       } catch (_error) {
         logger.error('FAIL Authentication check failed:', _error);
-        setUser(null);
         clearAuthStorage();
+        setUser(null);
       } finally {
         setIsLoading(false);
         setIsInitialized(true);
@@ -160,9 +192,8 @@ function useAuthProvider(): AuthContextType {
       }
     };
 
-    // Run authentication check immediately
     checkAuth();
-  }, [isInitialized]);
+  }, [isInitialized, syncUserFromServer]);
 
   /**
    * Log in a user with email and password
@@ -214,7 +245,7 @@ function useAuthProvider(): AuthContextType {
         return true;
       }
 
-      // Store tokens and user data (synchronous - works for ALL users)
+      // Store tokens for compatibility; server cookie/session remains authoritative.
       try {
         secureStore('accessToken', data.data.accessToken);
         logger.info('OK Stored accessToken');
@@ -222,8 +253,6 @@ function useAuthProvider(): AuthContextType {
         secureStore('refreshToken', data.data.refreshToken);
         logger.info('OK Stored refreshToken');
 
-        secureStore('userData', data.data.user);
-        logger.info('OK Stored userData');
         _secureRemove('mfaToken');
         _secureRemove('mfaEmail');
       } catch (storageError) {
@@ -231,13 +260,17 @@ function useAuthProvider(): AuthContextType {
         return false;
       }
 
-      // Update state with user data
-      setUser(data.data.user);
+      const syncedUser = await syncUserFromServer();
+      if (!syncedUser) {
+        setAuthError('Login completed but session could not be verified. Please try again.');
+        return false;
+      }
+
       setAuthError(null);
       logger.info('OK Login successful:', {
-        userId: data.data.user.id,
-        email: data.data.user.email,
-        role: data.data.user.role
+        userId: syncedUser.id,
+        email: syncedUser.email,
+        role: syncedUser.role
       });
 
       return true;
@@ -282,7 +315,6 @@ function useAuthProvider(): AuthContextType {
       try {
         secureStore('accessToken', data.data.accessToken);
         secureStore('refreshToken', data.data.refreshToken);
-        secureStore('userData', data.data.user);
         _secureRemove('mfaToken');
         _secureRemove('mfaEmail');
       } catch (storageError) {
@@ -290,7 +322,12 @@ function useAuthProvider(): AuthContextType {
         return false;
       }
 
-      setUser(data.data.user);
+      const syncedUser = await syncUserFromServer();
+      if (!syncedUser) {
+        setAuthError('Verification completed but session could not be verified. Please try again.');
+        return false;
+      }
+
       setAuthError(null);
       return true;
     } catch (_error) {
@@ -373,17 +410,19 @@ function useAuthProvider(): AuthContextType {
         return false;
       }
 
-      // Store tokens and user data
+      // Store tokens for compatibility; server cookie/session remains authoritative.
       secureStore('accessToken', data.data.accessToken);
       secureStore('refreshToken', data.data.refreshToken);
-      secureStore('userData', data.data.user);
 
-      // Update state
-      setUser(data.data.user);
+      const syncedUser = await syncUserFromServer();
+      if (!syncedUser) {
+        logger.error('FAIL Signup completed but session could not be verified');
+        return false;
+      }
 
       logger.info('OK Signup successful:', {
-        userId: data.data.user.id,
-        email: data.data.user.email
+        userId: syncedUser.id,
+        email: syncedUser.email
       });
       return true;
     } catch (_error) {
@@ -402,22 +441,18 @@ function useAuthProvider(): AuthContextType {
    */
   const logout = async (): Promise<void> => {
     try {
-      const token = secureRetrieve('accessToken');
-
-      // Attempt to invalidate token on server (don't block on failure)
-      if (token) {
-        try {
-          await fetch('/api/auth/logout', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`,
-            },
-          });
-        } catch (_error) {
-          // Log but don't prevent logout
-          logger.warn('WARNING Server logout failed, continuing with local logout:', _error);
-        }
+      // Attempt to invalidate session on server (don't block on failure)
+      try {
+        await fetch('/api/auth/logout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        });
+      } catch (_error) {
+        // Log but don't prevent logout
+        logger.warn('WARNING Server logout failed, continuing with local logout:', _error);
       }
 
       // Clear all authentication data
@@ -474,6 +509,12 @@ function useAuthProvider(): AuthContextType {
       secureStore('accessToken', data.data.accessToken);
       if (data.data.refreshToken) {
         secureStore('refreshToken', data.data.refreshToken);
+      }
+
+      const syncedUser = await syncUserFromServer();
+      if (!syncedUser) {
+        logger.error('FAIL Token refresh completed but session could not be verified');
+        return false;
       }
 
       logger.info('OK Token refreshed successfully');
@@ -582,19 +623,12 @@ function useAuthProvider(): AuthContextType {
    */
   const changePassword = async (data: PasswordUpdateRequest): Promise<boolean> => {
     try {
-      const token = secureRetrieve('accessToken');
-
-      if (!token) {
-        logger.error('FAIL Password change failed: Not authenticated');
-        return false;
-      }
-
       const response = await fetch('/api/auth/password/change', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
         },
+        credentials: 'include',
         body: JSON.stringify(data),
       });
 
