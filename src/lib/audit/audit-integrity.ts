@@ -135,7 +135,10 @@ export function ensureAuditIntegrityProductionConfig(mode: AuditIntegrityMode): 
     // In production, audit logs must be cryptographically verifiable.
     // We enforce HMAC mode so integrity cannot be spoofed by a DB-only attacker.
     if (mode !== 'hmac-sha256') {
-      throw new Error('AUDIT_LOG_INTEGRITY_MODE must be set to hmac-sha256 in production');
+      throw new Error(
+        `AUDIT_LOG_INTEGRITY_MODE must be set to hmac-sha256 in production ` +
+          `(diagnostic: hasAuditIntegrityModeEnv=${hasRawMode}; normalizedMode=${mode}; hasHmacKey=${hasHmacKey})`
+      );
     }
 
     // Fail-fast if key is missing.
