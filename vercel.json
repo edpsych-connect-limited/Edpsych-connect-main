@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npm run build:vercel",
+  "buildCommand": "npm run build:vercel:phase1",
   "outputDirectory": ".next",
   "framework": "nextjs",
   "env": {

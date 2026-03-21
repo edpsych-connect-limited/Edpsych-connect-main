@@ -24,6 +24,7 @@
     "verify:ci:capture": "cross-env NODE_OPTIONS=\"--require ./scripts/patch-fs-runtime.cjs\" tsx tools/capture-verify-ci.ts",
     "gate:beta": "npm run verify:ci",
     "build:vercel": "npm run verify:ci && npm run build",
+    "build:vercel:phase1": "npm run build",
     "test:pii-redaction": "cross-env NODE_OPTIONS=\"--require ./scripts/patch-fs-runtime.cjs\" tsx tools/test-pii-redaction.ts",
     "test:ai-governance": "cross-env NODE_OPTIONS=\"--require ./scripts/patch-fs-runtime.cjs\" tsx tools/test-ai-governance.ts",
     "test:ai-nontraining": "cross-env NODE_OPTIONS=\"--require ./scripts/patch-fs-runtime.cjs\" tsx tools/validate-ai-nontraining.ts",
