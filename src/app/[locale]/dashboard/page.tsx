@@ -49,13 +49,25 @@ export default function DashboardPage() {
       }
 
       try {
-        // Verify with API to avoid stale session data
-        const res = await fetch('/api/onboarding/status');
+        // Verify with consolidated onboarding API to avoid stale session data
+        const res = await fetch('/api/onboarding/status', {
+          headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (res.status === 401) {
+          router.push('/login');
+          return;
+        }
+
+        if (!res.ok) {
+          throw new Error(`Failed onboarding status check (${res.status})`);
+        }
+
         const data = await res.json();
-        
+
         if (data.success && data.data) {
           const { onboardingCompleted, onboardingSkipped } = data.data;
-          
+
           if (!onboardingCompleted && !onboardingSkipped) {
             router.push('/onboarding');
           }
