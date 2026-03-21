@@ -18,7 +18,6 @@ import { useDemo } from '@/components/demo/DemoProvider';
 import { PlayCircle } from 'lucide-react';
 
 interface AssessmentFormData {
-  tenant_id: number;
   case_id: number;
   assessment_type: string;
   scheduled_date: string;
@@ -43,7 +42,6 @@ export default function AssessmentForm({
 
   // Initialize form data
   const [formData, setFormData] = useState<AssessmentFormData>({
-    tenant_id: initialData?.tenant_id || 1,
     case_id: initialData?.case_id || 0,
     assessment_type: initialData?.assessment_type || 'cognitive',
     scheduled_date: initialData?.scheduled_date || '',
@@ -109,12 +107,12 @@ export default function AssessmentForm({
       }
 
       const result = await response.json();
-      alert(
-        isEditing
-          ? 'Assessment updated successfully!'
-          : 'Assessment created successfully!'
-      );
-      router.push(`/assessments/${result.assessment.id}`);
+      const assessmentId = result?.assessment?.id;
+      if (!assessmentId) {
+        throw new Error('Assessment saved but no assessment ID was returned');
+      }
+
+      router.push(`/assessments/${assessmentId}`);
     } catch (_err) {
       setError(_err instanceof Error ? _err.message : 'An error occurred');
       console.error('Error saving assessment:', _err);

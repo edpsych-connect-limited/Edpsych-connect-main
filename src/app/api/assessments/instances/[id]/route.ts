@@ -8,14 +8,14 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { authenticateRequest } from '@/lib/middleware/auth';
+import { authorizeRequest, Permission, canAccessTenant } from '@/lib/middleware/auth';
 import { createEvidenceTraceId, recordEvidenceEvent } from '@/lib/analytics/evidence-telemetry';
 
 export async function GET(req: NextRequest, props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const startedAt = Date.now();
   const traceId = createEvidenceTraceId();
-  const authResult = await authenticateRequest(req);
+  const authResult = await authorizeRequest(req, Permission.VIEW_ASSESSMENTS);
   if (!authResult.success) {
     return authResult.response;
   }
@@ -39,6 +39,10 @@ export async function GET(req: NextRequest, props: { params: Promise<{ id: strin
 
     if (!instance) {
       return NextResponse.json({ error: 'Assessment not found' }, { status: 404 });
+    }
+
+    if (!canAccessTenant(session.user.tenant_id, instance.tenant_id, session.user.role)) {
+      return NextResponse.json({ error: 'Access denied' }, { status: 403 });
     }
 
     // Transform data to match what the wizard expects
