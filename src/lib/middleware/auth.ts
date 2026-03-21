@@ -50,6 +50,8 @@ export enum Permission {
   INVITE_USERS = 'INVITE_USERS',
   MANAGE_DEPARTMENTS = 'MANAGE_DEPARTMENTS',
   VIEW_INSTITUTION_REPORTS = 'VIEW_INSTITUTION_REPORTS',
+  CREATE_REPORTS = 'CREATE_REPORTS',
+  GENERATE_REPORTS = 'GENERATE_REPORTS',
 
   // Department Manager permissions
   MANAGE_DEPARTMENT = 'MANAGE_DEPARTMENT',
@@ -90,6 +92,8 @@ const FULL_CORRIDOR_PERMISSIONS: Permission[] = [
   Permission.INVITE_USERS,
   Permission.MANAGE_DEPARTMENTS,
   Permission.VIEW_INSTITUTION_REPORTS,
+  Permission.CREATE_REPORTS,
+  Permission.GENERATE_REPORTS,
   Permission.MANAGE_ALL_INSTITUTIONS,
   Permission.MANAGE_ALL_USERS,
   Permission.VIEW_SYSTEM_LOGS,
@@ -120,6 +124,8 @@ const ROLE_PERMISSIONS: Record<string, Permission[]> = {
     Permission.INVITE_USERS,
     Permission.MANAGE_DEPARTMENTS,
     Permission.VIEW_INSTITUTION_REPORTS,
+    Permission.CREATE_REPORTS,
+    Permission.GENERATE_REPORTS,
   ],
   SENCO: [
     Permission.VIEW_OWN_DATA,
@@ -138,6 +144,8 @@ const ROLE_PERMISSIONS: Record<string, Permission[]> = {
     Permission.VIEW_STUDENT_DATA,
     Permission.EDIT_STUDENT_DATA,
     Permission.VIEW_INSTITUTION_REPORTS,
+    Permission.CREATE_REPORTS,
+    Permission.GENERATE_REPORTS,
   ],
   EP: [
     Permission.VIEW_OWN_DATA,
@@ -156,6 +164,8 @@ const ROLE_PERMISSIONS: Record<string, Permission[]> = {
     Permission.VIEW_STUDENT_DATA,
     Permission.EDIT_STUDENT_DATA,
     Permission.VIEW_INSTITUTION_REPORTS,
+    Permission.CREATE_REPORTS,
+    Permission.GENERATE_REPORTS,
   ],
   TEACHER: [
     Permission.VIEW_OWN_DATA,

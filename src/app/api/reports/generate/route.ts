@@ -8,10 +8,10 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { ReportGenerator, ReportData } from '@/lib/reports/report-generator';
-import authService from '@/lib/auth/auth-service';
 import { prisma } from '@/lib/prisma';
 import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
 import { getRequestId } from '@/lib/security/audit-logger';
+import { authorizeRequest, Permission } from '@/lib/middleware/auth';
 
 export async function POST(req: NextRequest) {
   const startedAt = Date.now();
@@ -19,6 +19,7 @@ export async function POST(req: NextRequest) {
   const requestId = getRequestId(req) ?? traceId;
   let tenantId: number | undefined;
   let userIdForAudit: number | undefined;
+
   const recordTrace = async (status: EvidenceStatus, metadata?: Record<string, unknown>) => {
     if (!tenantId) return;
     await recordEvidenceEvent({
@@ -37,12 +38,17 @@ export async function POST(req: NextRequest) {
   };
 
   try {
-    const session = await authService.getSessionFromRequest(req);
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const authResult = await authorizeRequest(req, Permission.GENERATE_REPORTS);
+    if (!authResult.success) {
+      return authResult.response;
     }
-    tenantId = session.tenant_id ? Number(session.tenant_id) : undefined;
-    userIdForAudit = parseInt(session.id);
+
+    const { session } = authResult;
+    tenantId = session.user.tenant_id;
+    if (!tenantId) {
+      return NextResponse.json({ error: 'Tenant context is required' }, { status: 400 });
+    }
+    userIdForAudit = parseInt(session.user.id, 10);
 
     const data: ReportData = await req.json();
 
@@ -63,15 +69,14 @@ export async function POST(req: NextRequest) {
       data.student.dob = new Date(data.student.dob);
     }
 
-    // Save to database
     await prisma.reports.create({
       data: {
-        tenant_id: session.tenant_id!,
-        author_id: parseInt(session.id),
+        tenant_id: tenantId,
+        author_id: userIdForAudit,
         title: `${data.type} Report for ${data.student.name}`,
         type: data.type,
         status: 'GENERATED',
-        content: data as any, 
+        content: data as any,
       },
     });
 
@@ -82,7 +87,6 @@ export async function POST(req: NextRequest) {
       sections: Array.isArray(data.sections) ? data.sections.length : 0,
     });
 
-    // Create response with PDF
     return new NextResponse(pdfBuffer as any, {
       headers: {
         'Content-Type': 'application/pdf',

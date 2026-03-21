@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import authService from '@/lib/auth/auth-service';
 import { prisma } from '@/lib/prisma';
 import { createEvidenceTraceId, recordEvidenceEvent } from '@/lib/analytics/evidence-telemetry';
 import { getRequestId } from '@/lib/security/audit-logger';
+import { authorizeRequest, Permission } from '@/lib/middleware/auth';
 
 export async function POST(req: NextRequest) {
   const startedAt = Date.now();
@@ -10,17 +10,23 @@ export async function POST(req: NextRequest) {
   const requestId = getRequestId(req);
 
   try {
-    const session = await authService.getSessionFromRequest(req);
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const authResult = await authorizeRequest(req, Permission.CREATE_REPORTS);
+    if (!authResult.success) {
+      return authResult.response;
+    }
+
+    const { session } = authResult;
+    const tenantId = session.user.tenant_id;
+    if (!tenantId) {
+      return NextResponse.json({ error: 'Tenant context is required' }, { status: 400 });
     }
 
     const data = await req.json();
 
     const report = await prisma.reports.create({
       data: {
-        tenant_id: session.tenant_id!,
-        author_id: parseInt(session.id),
+        tenant_id: tenantId,
+        author_id: parseInt(session.user.id, 10),
         title: `${data.type} Report for ${data.student.name || 'Unknown Student'} (Draft)`,
         type: data.type,
         status: 'DRAFT',
@@ -29,8 +35,8 @@ export async function POST(req: NextRequest) {
     });
 
     await recordEvidenceEvent({
-      tenantId: session.tenant_id!,
-      userId: parseInt(session.id, 10),
+      tenantId,
+      userId: parseInt(session.user.id, 10),
       traceId,
       requestId: requestId ?? traceId,
       eventType: 'report_draft',
@@ -58,14 +64,20 @@ export async function GET(req: NextRequest) {
   const requestId = getRequestId(req);
 
   try {
-    const session = await authService.getSessionFromRequest(req);
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const authResult = await authorizeRequest(req, Permission.VIEW_INSTITUTION_REPORTS);
+    if (!authResult.success) {
+      return authResult.response;
+    }
+
+    const { session } = authResult;
+    const tenantId = session.user.tenant_id;
+    if (!tenantId) {
+      return NextResponse.json({ error: 'Tenant context is required' }, { status: 400 });
     }
 
     const reports = await prisma.reports.findMany({
       where: {
-        tenant_id: session.tenant_id,
+        tenant_id: tenantId,
       },
       orderBy: {
         updated_at: 'desc',
@@ -73,8 +85,8 @@ export async function GET(req: NextRequest) {
     });
 
     await recordEvidenceEvent({
-      tenantId: session.tenant_id!,
-      userId: parseInt(session.id, 10),
+      tenantId,
+      userId: parseInt(session.user.id, 10),
       traceId,
       requestId: requestId ?? traceId,
       eventType: 'report_list',
