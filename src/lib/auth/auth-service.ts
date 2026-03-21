@@ -13,21 +13,14 @@ import { NextRequest } from 'next/server';
 import { redirect } from 'next/navigation';
 import prisma from '@/lib/prismaSafe';
 import bcrypt from 'bcryptjs';
+import { CanonicalSession, normalizeRole, normalizeTenantId, toCanonicalSession } from './types';
 
 // Types
-export interface UserSession {
-  id: string;
+export interface UserSession extends CanonicalSession {
   user_id?: string; // Backwards compatibility alias for id
-  email: string;
-  name: string;
-  role: 'admin' | 'educator' | 'researcher' | 'student';
   organization?: string;
-  permissions: string[];
   subscriptionTier: 'free' | 'premium' | 'enterprise';
   sessionId: string;
-  tenant_id?: number; // Multi-tenancy support
-  iat: number;
-  exp: number;
 }
 
 export interface AuthResult {
@@ -120,17 +113,25 @@ export async function authenticateUser(email: string, password: string): Promise
       }
     }
     
+    const normalizedRole = normalizeRole(user.role);
+    if (!normalizedRole) {
+      return {
+        success: false,
+        error: 'Unsupported role for Phase 1 authentication',
+      };
+    }
+
     // Create user session
     const session: UserSession = {
       id: user.id.toString(),
       email: user.email,
       name: user.name,
-      role: (user.role as any) || 'student', // Cast to any to satisfy strict union type
+      role: normalizedRole,
       organization: user.tenants?.name,
       permissions: user.permissions,
       subscriptionTier: subscriptionTier,
       sessionId: nanoid(),
-      tenant_id: user.tenant_id,
+      tenant_id: normalizeTenantId(user.tenant_id),
       iat: Math.floor(Date.now() / 1000),
       exp: Math.floor(Date.now() / 1000) + 60 * 60 * 8 // 8 hours
     };
@@ -179,8 +180,37 @@ export async function verifyToken(token: string): Promise<UserSession | null> {
     const { payload } = await jwtVerify(token, JWT_SECRET, {
       algorithms: ['HS256']
     });
+
+    const canonical = toCanonicalSession({
+      id: String(payload.id ?? payload.sub ?? payload.userId ?? ''),
+      email: String(payload.email ?? ''),
+      name: typeof payload.name === 'string' ? payload.name : undefined,
+      role: typeof payload.role === 'string' ? payload.role : undefined,
+      permissions: Array.isArray(payload.permissions) ? payload.permissions.filter((p): p is string => typeof p === 'string') : [],
+      tenant_id: payload.tenant_id,
+      tenantId: payload.tenantId,
+      onboardingCompleted: typeof payload.onboardingCompleted === 'boolean' ? payload.onboardingCompleted : undefined,
+      onboardingSkipped: typeof payload.onboardingSkipped === 'boolean' ? payload.onboardingSkipped : undefined,
+      iat: typeof payload.iat === 'number' ? payload.iat : undefined,
+      exp: typeof payload.exp === 'number' ? payload.exp : undefined,
+    });
+
+    if (!canonical) {
+      logger.warn('[AuthService] Token payload did not normalize into a canonical Phase 1 session');
+      return null;
+    }
+
     logger.debug('[AuthService] Token verified successfully');
-    return payload as unknown as UserSession;
+    return {
+      ...canonical,
+      user_id: canonical.id,
+      organization: typeof payload.organization === 'string' ? payload.organization : undefined,
+      subscriptionTier:
+        payload.subscriptionTier === 'premium' || payload.subscriptionTier === 'enterprise'
+          ? payload.subscriptionTier
+          : 'free',
+      sessionId: typeof payload.sessionId === 'string' ? payload.sessionId : nanoid(),
+    };
   } catch (_error) {
     console.error('[AuthService] Token verification error:', _error);
     return null;
