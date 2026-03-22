@@ -17,6 +17,11 @@ const router = Router();
 const apiKeyService = new ApiKeyService();
 const usageTrackingService = new UsageTrackingService();
 
+function asSingleString(value: string | string[] | undefined): string | undefined {
+  if (Array.isArray(value)) return value[0];
+  return value;
+}
+
 /**
  * Get available pricing plans
  * 
