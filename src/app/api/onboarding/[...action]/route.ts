@@ -158,16 +158,21 @@ async function handleGetStatus(userId: number): Promise<NextResponse> {
     if (progress.step_5_completed_at) stepsCompleted.push(5);
     if (progress.step_6_completed_at) stepsCompleted.push(6);
 
+    const onboardingCompleted = user?.onboarding_completed || false;
+    const currentStep = onboardingCompleted ? 6 : progress.current_step;
+    const resolvedStepsCompleted = onboardingCompleted ? [1, 2, 3, 4, 5, 6] : stepsCompleted;
+    const progressPercentage = onboardingCompleted ? 100 : Math.round((resolvedStepsCompleted.length / 6) * 100);
+
     return NextResponse.json({
       success: true,
       data: {
         userId,
-        onboardingCompleted: user?.onboarding_completed || false,
+        onboardingCompleted,
         onboardingSkipped: user?.onboarding_skipped || false,
-        currentStep: progress.current_step,
-        stepsCompleted,
+        currentStep,
+        stepsCompleted: resolvedStepsCompleted,
         stepsSkipped: progress.steps_skipped,
-        progressPercentage: Math.round((stepsCompleted.length / 6) * 100),
+        progressPercentage,
         progress: {
           step1: { 
             completed: progress.step_1_welcome_completed, 
