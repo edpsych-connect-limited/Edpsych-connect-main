@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
     }
 
     const requestedFrameworkId = typeof framework_id === 'string' && framework_id.trim() ? framework_id.trim() : null;
-    const resolvedFramework = requestedFrameworkId
+    const matchedFramework = requestedFrameworkId
       ? await prisma.assessmentFramework.findFirst({
           where: {
             OR: [
@@ -83,10 +83,12 @@ export async function POST(req: NextRequest) {
           },
           select: { id: true, abbreviation: true },
         })
-      : await prisma.assessmentFramework.findFirst({
-          where: { abbreviation: 'ECCA' },
-          select: { id: true, abbreviation: true },
-        });
+      : null;
+
+    const resolvedFramework = matchedFramework ?? await prisma.assessmentFramework.findFirst({
+      where: { abbreviation: 'ECCA' },
+      select: { id: true, abbreviation: true },
+    });
 
     if (!resolvedFramework) {
       await recordTrace('error', {
