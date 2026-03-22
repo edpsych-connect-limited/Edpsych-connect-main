@@ -12,6 +12,39 @@ import { prisma } from '@/lib/prisma';
 import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
 import { getRequestId } from '@/lib/security/audit-logger';
 import { authorizeRequest, Permission } from '@/lib/middleware/auth';
+import { z } from 'zod';
+
+const ReportGenerateSchema = z.object({
+  type: z.enum(['ehcp_advice', 'assessment', 'intervention_review', 'progress', 'annual_review']),
+  case_id: z.number().int().positive(),
+  assessment_id: z.number().int().positive(),
+  instance_id: z.string().min(1),
+  student: z.object({
+    name: z.string().min(1),
+    dob: z.union([z.string(), z.date()]),
+    school: z.string().min(1),
+    yearGroup: z.string().min(1),
+    upn: z.string().optional(),
+  }),
+  ep: z.object({
+    name: z.string().min(1),
+    hcpcNumber: z.string().min(1),
+    organization: z.string().min(1),
+  }),
+  date: z.union([z.string(), z.date()]),
+  sections: z.array(z.object({
+    title: z.string().min(1),
+    content: z.string().min(1),
+  })).min(1),
+  recommendations: z.array(z.object({
+    area: z.string().min(1),
+    recommendation: z.string().min(1),
+    rationale: z.string().min(1),
+    responsibility: z.string().min(1),
+    timescale: z.string().min(1),
+    priority: z.enum(['high', 'medium', 'low']),
+  })).min(1),
+});
 
 export async function POST(req: NextRequest) {
   const startedAt = Date.now();
@@ -50,15 +83,38 @@ export async function POST(req: NextRequest) {
     }
     userIdForAudit = parseInt(session.user.id, 10);
 
-    const data: ReportData = await req.json();
+    const rawData = await req.json();
+    const parsed = ReportGenerateSchema.safeParse(rawData);
 
-    // Basic validation
-    if (!data.student || !data.ep || !data.sections) {
-      await recordTrace('error', { reason: 'missing_required_data' });
+    if (!parsed.success) {
+      await recordTrace('error', { reason: 'invalid_payload' });
       return NextResponse.json(
-        { error: 'Missing required report data' },
+        { error: 'Invalid report generation payload', details: parsed.error.issues },
         { status: 400 }
       );
+    }
+
+    const data = parsed.data as ReportData & { case_id: number; assessment_id: number; instance_id: string };
+
+    const [existingCase, existingAssessment, existingInstance] = await Promise.all([
+      prisma.cases.findFirst({ where: { id: data.case_id, tenant_id: tenantId } }),
+      prisma.assessments.findFirst({ where: { id: data.assessment_id, tenant_id: tenantId, case_id: data.case_id } }),
+      prisma.assessmentInstance.findFirst({ where: { id: data.instance_id, tenant_id: tenantId, case_id: data.case_id } }),
+    ]);
+
+    if (!existingCase) {
+      await recordTrace('error', { reason: 'case_not_found', caseId: data.case_id });
+      return NextResponse.json({ error: 'Case not found in tenant scope' }, { status: 404 });
+    }
+
+    if (!existingAssessment) {
+      await recordTrace('error', { reason: 'assessment_not_found', assessmentId: data.assessment_id });
+      return NextResponse.json({ error: 'Assessment not found in tenant scope' }, { status: 404 });
+    }
+
+    if (!existingInstance) {
+      await recordTrace('error', { reason: 'instance_not_found', instanceId: data.instance_id });
+      return NextResponse.json({ error: 'Assessment instance not found in tenant scope' }, { status: 404 });
     }
 
     // Ensure dates are Date objects
