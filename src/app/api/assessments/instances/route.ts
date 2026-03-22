@@ -72,6 +72,33 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Assessment shell not found for case' }, { status: 404 });
     }
 
+    const requestedFrameworkId = typeof framework_id === 'string' && framework_id.trim() ? framework_id.trim() : null;
+    const resolvedFramework = requestedFrameworkId
+      ? await prisma.assessmentFramework.findFirst({
+          where: {
+            OR: [
+              { id: requestedFrameworkId },
+              { abbreviation: requestedFrameworkId.split('-')[0].toUpperCase() },
+            ],
+          },
+          select: { id: true, abbreviation: true },
+        })
+      : await prisma.assessmentFramework.findFirst({
+          where: { abbreviation: 'ECCA' },
+          select: { id: true, abbreviation: true },
+        });
+
+    if (!resolvedFramework) {
+      await recordTrace('error', {
+        reason: 'framework_not_found',
+        requestedFrameworkId,
+      });
+      return NextResponse.json(
+        { error: 'Assessment framework not found', requestedFrameworkId },
+        { status: 400 }
+      );
+    }
+
     if (!canAccessTenant(user.tenant_id, assessment.tenant_id, user.role)) {
       await recordTrace('error', { reason: 'tenant_access_denied', assessmentId: assessment.id });
       return NextResponse.json({ error: 'Access denied' }, { status: 403 });
@@ -80,7 +107,7 @@ export async function POST(req: NextRequest) {
     // Create the instance
     const instance = await prisma.assessmentInstance.create({
       data: {
-        framework_id,
+        framework_id: resolvedFramework.id,
         case_id: parsedCaseId,
         student_id: parsedStudentId,
         tenant_id: tenantId,
