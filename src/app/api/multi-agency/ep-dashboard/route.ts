@@ -169,8 +169,8 @@ export async function GET(
     const userId = session.user_id;
     const userRole = session.role;
 
-    // Verify user is an Educational Psychologist (educator or admin role)
-    if (userRole !== 'educator' && userRole !== 'admin') {
+    // Verify user is an Educational Psychologist or platform admin under canonical Phase 1 roles
+    if (userRole !== 'EP' && userRole !== 'SUPER_ADMIN' && userRole !== 'SCHOOL_ADMIN') {
       console.warn(`[EP Dashboard API] Non-EP access attempt - User: ${userId}, Role: ${userRole}`);
       return NextResponse.json({
         error: 'Access denied. This endpoint is only available to Educational Psychologists.'
