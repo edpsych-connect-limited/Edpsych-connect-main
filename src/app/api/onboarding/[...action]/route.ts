@@ -255,7 +255,8 @@ async function handleStart(userId: number): Promise<NextResponse> {
 
 async function handleUpdateStep(request: NextRequest, userId: number): Promise<NextResponse> {
   const body = await request.json();
-  const { step, data, completed, timeSpentSeconds } = body;
+  const { step, completed, timeSpentSeconds, ...rest } = body;
+  const data = (body?.data && typeof body.data === 'object') ? body.data : rest;
 
   // Prepare update data
   const updateData: any = {
