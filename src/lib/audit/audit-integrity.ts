@@ -87,8 +87,6 @@ function toError(err: unknown): Error {
   return new Error(typeof err === 'string' ? err : JSON.stringify(err));
 }
 
-let auditIntegrityModeDiagnosticLogged = false;
-
 /**
  * Fail-fast in production for missing audit-integrity configuration.
  *
@@ -99,19 +97,7 @@ let auditIntegrityModeDiagnosticLogged = false;
 export function ensureAuditIntegrityProductionConfig(mode: AuditIntegrityMode): void {
   if (!isProductionEnv()) return;
 
-  const rawMode = process.env.AUDIT_LOG_INTEGRITY_MODE;
-  const hasRawMode = typeof rawMode === 'string' && rawMode.length > 0;
   const hasHmacKey = Boolean(process.env.AUDIT_LOG_HMAC_KEY);
-
-  if (!auditIntegrityModeDiagnosticLogged) {
-    auditIntegrityModeDiagnosticLogged = true;
-    logger.info('Audit integrity mode diagnostic', {
-      isProductionEnv: true,
-      hasAuditIntegrityModeEnv: hasRawMode,
-      normalizedMode: mode,
-      hasHmacKey,
-    });
-  }
 
   if (prodAuditIntegrityConfigCheck.checked) {
     if (
@@ -135,10 +121,7 @@ export function ensureAuditIntegrityProductionConfig(mode: AuditIntegrityMode): 
     // In production, audit logs must be cryptographically verifiable.
     // We enforce HMAC mode so integrity cannot be spoofed by a DB-only attacker.
     if (mode !== 'hmac-sha256') {
-      throw new Error(
-        `AUDIT_LOG_INTEGRITY_MODE must be set to hmac-sha256 in production ` +
-          `(diagnostic: hasAuditIntegrityModeEnv=${hasRawMode}; normalizedMode=${mode}; hasHmacKey=${hasHmacKey})`
-      );
+      throw new Error('AUDIT_LOG_INTEGRITY_MODE must be set to hmac-sha256 in production');
     }
 
     // Fail-fast if key is missing.
