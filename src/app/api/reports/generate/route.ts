@@ -117,6 +117,37 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Assessment instance not found in tenant scope' }, { status: 404 });
     }
 
+    // Phase 2D: Fetch active/completed interventions for this case to include in report
+    const caseInterventions = await prisma.interventions.findMany({
+      where: {
+        case_id: data.case_id,
+        tenant_id: tenantId,
+        status: { in: ['active', 'completed'] },
+      },
+      include: {
+        intervention_reviews: {
+          orderBy: { review_date: 'desc' },
+          take: 1,
+        },
+      },
+      orderBy: { created_at: 'desc' },
+    });
+
+    // Attach to data payload so report generator can render it
+    if (caseInterventions.length > 0) {
+      (data as any).interventions = caseInterventions.map((iv) => ({
+        id: iv.id,
+        title: iv.title ?? iv.intervention_type.replace(/_/g, ' '),
+        type: iv.intervention_type,
+        status: iv.status,
+        goals: iv.goals,
+        frequency: iv.frequency,
+        start_date: iv.start_date,
+        end_date: iv.end_date,
+        latest_review: iv.intervention_reviews[0] ?? null,
+      }));
+    }
+
     // Ensure dates are Date objects
     if (typeof data.date === 'string') {
       data.date = new Date(data.date);

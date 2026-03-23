@@ -543,20 +543,130 @@ function OverviewTab({ caseDetail }: { caseDetail: CaseDetail }) {
 // INTERVENTIONS TAB
 // ============================================================================
 
+interface Intervention {
+  id: number;
+  title?: string;
+  intervention_type: string;
+  status: string;
+  start_date?: string;
+  review_date?: string;
+  assessment_instance_id?: string;
+  assessment_instance?: { id: string; title?: string; framework_id: string };
+  intervention_reviews?: Array<{ id: string; review_date: string; progress_rating: string; notes?: string }>;
+}
+
+const STATUS_COLOURS: Record<string, string> = {
+  planned: 'bg-yellow-100 text-yellow-800',
+  active: 'bg-green-100 text-green-800',
+  completed: 'bg-blue-100 text-blue-800',
+  discontinued: 'bg-red-100 text-red-800',
+};
+
+const RATING_COLOURS: Record<string, string> = {
+  on_track: 'bg-green-100 text-green-800',
+  concern: 'bg-yellow-100 text-yellow-800',
+  completed: 'bg-blue-100 text-blue-800',
+  discontinued: 'bg-red-100 text-red-800',
+};
+
 function InterventionsTab({ caseId, router }: { caseId: number; router: any }) {
+  const [interventions, setInterventions] = React.useState<Intervention[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const load = async () => {
+      try {
+        const res = await fetch(`/api/interventions?case_id=${caseId}&limit=50`);
+        if (!res.ok) throw new Error('Failed to load interventions');
+        const data = await res.json();
+        setInterventions(data.interventions ?? []);
+      } catch (e) {
+        setError(e instanceof Error ? e.message : 'Unknown error');
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, [caseId]);
+
+  if (loading) {
+    return <div className="py-12 text-center text-gray-500">Loading interventions…</div>;
+  }
+
+  if (error) {
+    return <div className="py-12 text-center text-red-600">Error: {error}</div>;
+  }
+
   return (
-    <div className="text-center py-12">
-      <div className="text-gray-400 text-6xl mb-4">Target</div>
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">No Interventions Yet</h3>
-      <p className="text-gray-600 mb-6">
-        Start tracking progress by creating your first intervention for this case
-      </p>
-      <button
-        onClick={() => router.push(`/interventions/new?caseId=${caseId}`)}
-        className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
-      >
-        Create Intervention
-      </button>
+    <div className="space-y-4">
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-semibold text-gray-900">
+          Interventions <span className="text-gray-400 font-normal text-base">({interventions.length})</span>
+        </h3>
+        <button
+          onClick={() => router.push(`/interventions/new?caseId=${caseId}`)}
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-semibold"
+        >
+          + Add Intervention
+        </button>
+      </div>
+
+      {interventions.length === 0 ? (
+        <div className="text-center py-12 bg-gray-50 rounded-lg">
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">No Interventions Yet</h3>
+          <p className="text-gray-600 mb-6">Create the first intervention for this case</p>
+          <button
+            onClick={() => router.push(`/interventions/new?caseId=${caseId}`)}
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
+          >
+            Create Intervention
+          </button>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {interventions.map((intervention) => (
+            <div
+              key={intervention.id}
+              className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+              onClick={() => router.push(`/interventions/${intervention.id}`)}
+            >
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <span className="font-semibold text-gray-900">
+                    {intervention.title ?? intervention.intervention_type.replace(/_/g, ' ')}
+                  </span>
+                  <span className="ml-2 text-xs text-gray-500 capitalize">
+                    {intervention.intervention_type.replace(/_/g, ' ')}
+                  </span>
+                </div>
+                <span className={`text-xs font-medium px-2 py-1 rounded-full capitalize ${STATUS_COLOURS[intervention.status] ?? 'bg-gray-100 text-gray-700'}`}>
+                  {intervention.status}
+                </span>
+              </div>
+              <div className="flex gap-4 text-sm text-gray-500">
+                {intervention.start_date && (
+                  <span>Started: {new Date(intervention.start_date).toLocaleDateString()}</span>
+                )}
+                {intervention.review_date && (
+                  <span>Review: {new Date(intervention.review_date).toLocaleDateString()}</span>
+                )}
+                {intervention.assessment_instance && (
+                  <span className="text-blue-600">Linked to assessment</span>
+                )}
+              </div>
+              {intervention.intervention_reviews && intervention.intervention_reviews.length > 0 && (
+                <div className="mt-2 pt-2 border-t border-gray-100">
+                  <span className="text-xs text-gray-500">Latest review: </span>
+                  <span className={`text-xs font-medium px-2 py-0.5 rounded-full capitalize ${RATING_COLOURS[intervention.intervention_reviews[0].progress_rating] ?? 'bg-gray-100 text-gray-700'}`}>
+                    {intervention.intervention_reviews[0].progress_rating.replace(/_/g, ' ')}
+                  </span>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

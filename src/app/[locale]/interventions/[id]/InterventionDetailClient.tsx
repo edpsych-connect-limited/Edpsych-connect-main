@@ -14,19 +14,40 @@ interface InterventionDetailClientProps {
   id: string;
 }
 
+interface InterventionGoal {
+  goal: string;
+  target_date?: string;
+  metric?: string;
+}
+
+interface InterventionReview {
+  id: string;
+  review_date: string;
+  progress_rating: 'on_track' | 'concern' | 'completed' | 'discontinued';
+  notes?: string;
+  next_review_date?: string;
+  reviewer?: { id: number; firstName?: string; lastName?: string };
+}
+
 interface Intervention {
   id: number;
   case_id: number;
   tenant_id: number;
   intervention_type: string;
+  title?: string;
   name: string;
-  description: string;
-  target_behavior: string;
-  status: 'planned' | 'active' | 'completed' | 'discontinued';
-  start_date: string;
-  review_date: string;
-  end_date?: string;
+  description?: string;
+  target_behavior?: string;
+  goals?: InterventionGoal[];
   frequency?: string;
+  responsible_person_id?: number;
+  review_date?: string;
+  ep_recommendation_ref?: string;
+  assessment_instance_id?: string;
+  assessment_instance?: { id: string; title?: string; framework_id: string; status: string };
+  status: 'planned' | 'active' | 'completed' | 'discontinued';
+  start_date?: string;
+  end_date?: string;
   duration_minutes?: number;
   location?: string;
   target_criteria?: string;
@@ -34,6 +55,7 @@ interface Intervention {
   progress_frequency?: string;
   data_collection_method?: string;
   fidelity_monitoring_frequency?: string;
+  intervention_reviews?: InterventionReview[];
   metadata?: any;
   created_at: string;
   updated_at: string;
@@ -45,7 +67,10 @@ export default function InterventionDetailClient({ id }: InterventionDetailClien
 
   const [intervention, setIntervention] = useState<Intervention | null>(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'overview' | 'progress' | 'fidelity'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'goals' | 'reviews' | 'progress' | 'fidelity'>('overview');
+  const [showAddReview, setShowAddReview] = useState(false);
+  const [reviewForm, setReviewForm] = useState({ review_date: new Date().toISOString().split('T')[0], progress_rating: 'on_track', notes: '', next_review_date: '' });
+  const [reviewSubmitting, setReviewSubmitting] = useState(false);
 
   useEffect(() => {
     const loadIntervention = async () => {
@@ -139,9 +164,9 @@ export default function InterventionDetailClient({ id }: InterventionDetailClien
     discontinued: 'Paused',
   };
 
-  const daysUntilReview = Math.ceil(
-    (new Date(intervention.review_date).getTime() - Date.now()) / (1000 * 60 * 60 * 24)
-  );
+  const daysUntilReview = intervention.review_date
+    ? Math.ceil((new Date(intervention.review_date).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
+    : null;
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -221,7 +246,7 @@ export default function InterventionDetailClient({ id }: InterventionDetailClien
         )}
 
         {/* Review Alert */}
-        {intervention.status === 'active' && daysUntilReview <= 14 && (
+        {intervention.status === 'active' && daysUntilReview !== null && daysUntilReview <= 14 && (
           <div
             className={`${
               daysUntilReview <= 7 ? 'bg-red-50 border-red-200' : 'bg-yellow-50 border-yellow-200'
@@ -246,7 +271,7 @@ export default function InterventionDetailClient({ id }: InterventionDetailClien
                   daysUntilReview <= 7 ? 'text-red-900' : 'text-yellow-900'
                 }`}
               >
-                Review due in {daysUntilReview} days ({new Date(intervention.review_date).toLocaleDateString()})
+                Review due in {daysUntilReview} days ({intervention.review_date ? new Date(intervention.review_date).toLocaleDateString() : ''})
               </p>
             </div>
           </div>
@@ -267,22 +292,26 @@ export default function InterventionDetailClient({ id }: InterventionDetailClien
                 Overview
               </button>
               <button
+                onClick={() => setActiveTab('goals')}
+                className={`py-4 px-1 border-b-2 font-semibold text-sm transition-colors ${activeTab === 'goals' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
+              >
+                Goals
+              </button>
+              <button
+                onClick={() => setActiveTab('reviews')}
+                className={`py-4 px-1 border-b-2 font-semibold text-sm transition-colors ${activeTab === 'reviews' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
+              >
+                Reviews {intervention.intervention_reviews && intervention.intervention_reviews.length > 0 && <span className="ml-1 bg-blue-100 text-blue-700 text-xs rounded-full px-1.5">{intervention.intervention_reviews.length}</span>}
+              </button>
+              <button
                 onClick={() => setActiveTab('progress')}
-                className={`py-4 px-1 border-b-2 font-semibold text-sm transition-colors ${
-                  activeTab === 'progress'
-                    ? 'border-blue-600 text-blue-600'
-                    : 'border-transparent text-gray-600 hover:text-gray-900'
-                }`}
+                className={`py-4 px-1 border-b-2 font-semibold text-sm transition-colors ${activeTab === 'progress' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
               >
                 Progress Data
               </button>
               <button
                 onClick={() => setActiveTab('fidelity')}
-                className={`py-4 px-1 border-b-2 font-semibold text-sm transition-colors ${
-                  activeTab === 'fidelity'
-                    ? 'border-blue-600 text-blue-600'
-                    : 'border-transparent text-gray-600 hover:text-gray-900'
-                }`}
+                className={`py-4 px-1 border-b-2 font-semibold text-sm transition-colors ${activeTab === 'fidelity' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
               >
                 Fidelity Checks
               </button>
@@ -291,6 +320,44 @@ export default function InterventionDetailClient({ id }: InterventionDetailClien
 
           <div className="p-6">
             {activeTab === 'overview' && <OverviewTab intervention={intervention} />}
+            {activeTab === 'goals' && <GoalsTab intervention={intervention} />}
+            {activeTab === 'reviews' && (
+              <ReviewsTab
+                intervention={intervention}
+                showAddReview={showAddReview}
+                setShowAddReview={setShowAddReview}
+                reviewForm={reviewForm}
+                setReviewForm={setReviewForm}
+                reviewSubmitting={reviewSubmitting}
+                onSubmitReview={async () => {
+                  if (!intervention) return;
+                  setReviewSubmitting(true);
+                  try {
+                    const res = await fetch(`/api/interventions/${intervention.id}/reviews`, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        review_date: new Date(reviewForm.review_date).toISOString(),
+                        progress_rating: reviewForm.progress_rating,
+                        notes: reviewForm.notes || undefined,
+                        next_review_date: reviewForm.next_review_date ? new Date(reviewForm.next_review_date).toISOString() : undefined,
+                      }),
+                    });
+                    if (res.ok) {
+                      const data = await res.json();
+                      setIntervention({
+                        ...intervention,
+                        intervention_reviews: [data.review, ...(intervention.intervention_reviews ?? [])],
+                      });
+                      setShowAddReview(false);
+                      setReviewForm({ review_date: new Date().toISOString().split('T')[0], progress_rating: 'on_track', notes: '', next_review_date: '' });
+                    }
+                  } finally {
+                    setReviewSubmitting(false);
+                  }
+                }}
+              />
+            )}
             {activeTab === 'progress' && <ProgressTab intervention={intervention} />}
             {activeTab === 'fidelity' && <FidelityTab intervention={intervention} />}
           </div>
@@ -367,7 +434,7 @@ function OverviewTab({ intervention }: { intervention: Intervention }) {
           <div className="bg-gray-50 rounded-lg p-4">
             <div className="text-sm font-semibold text-gray-600 mb-1">Timeline</div>
             <p className="text-gray-900">
-              {new Date(intervention.start_date).toLocaleDateString()} -{' '}
+              {intervention.start_date ? new Date(intervention.start_date).toLocaleDateString() : 'TBD'} -{' '}
               {intervention.end_date
                 ? new Date(intervention.end_date).toLocaleDateString()
                 : 'Ongoing'}
@@ -569,6 +636,181 @@ function FidelityTab({ intervention }: { intervention: Intervention }) {
         <div className="bg-gray-50 rounded-lg p-6">
           <h3 className="font-semibold text-gray-900 mb-2">Data Collection Method</h3>
           <p className="text-gray-700">{intervention.data_collection_method}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ============================================================================
+// GOALS TAB
+// ============================================================================
+
+function GoalsTab({ intervention }: { intervention: Intervention }) {
+  const goals = intervention.goals ?? [];
+  return (
+    <div className="space-y-4">
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-semibold text-gray-900">Intervention Goals</h3>
+      </div>
+      {intervention.ep_recommendation_ref && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-800">
+          <span className="font-medium">EP Recommendation: </span>{intervention.ep_recommendation_ref}
+        </div>
+      )}
+      {intervention.assessment_instance && (
+        <div className="bg-purple-50 border border-purple-200 rounded-lg p-3 text-sm text-purple-800">
+          <span className="font-medium">Linked Assessment: </span>
+          {intervention.assessment_instance.title ?? intervention.assessment_instance.framework_id} 
+          <span className="ml-2 capitalize text-purple-600">({intervention.assessment_instance.status})</span>
+        </div>
+      )}
+      {goals.length === 0 ? (
+        <div className="text-center py-8 bg-gray-50 rounded-lg text-gray-500">No goals defined for this intervention.</div>
+      ) : (
+        <div className="space-y-3">
+          {goals.map((goal, i) => (
+            <div key={i} className="bg-white border border-gray-200 rounded-lg p-4">
+              <div className="font-medium text-gray-900 mb-1">{goal.goal}</div>
+              <div className="flex gap-4 text-sm text-gray-500">
+                {goal.target_date && <span>Target: {new Date(goal.target_date).toLocaleDateString()}</span>}
+                {goal.metric && <span>Measure: {goal.metric}</span>}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      {intervention.frequency && (
+        <div className="bg-gray-50 rounded-lg p-4">
+          <span className="font-medium text-gray-700">Delivery Frequency: </span>
+          <span className="text-gray-900">{intervention.frequency}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ============================================================================
+// REVIEWS TAB
+// ============================================================================
+
+const RATING_LABELS: Record<string, string> = {
+  on_track: 'On Track',
+  concern: 'Concern',
+  completed: 'Completed',
+  discontinued: 'Discontinued',
+};
+
+const RATING_COLOURS_DETAIL: Record<string, string> = {
+  on_track: 'bg-green-100 text-green-800',
+  concern: 'bg-yellow-100 text-yellow-800',
+  completed: 'bg-blue-100 text-blue-800',
+  discontinued: 'bg-red-100 text-red-800',
+};
+
+function ReviewsTab({
+  intervention,
+  showAddReview,
+  setShowAddReview,
+  reviewForm,
+  setReviewForm,
+  reviewSubmitting,
+  onSubmitReview,
+}: {
+  intervention: Intervention;
+  showAddReview: boolean;
+  setShowAddReview: (v: boolean) => void;
+  reviewForm: { review_date: string; progress_rating: string; notes: string; next_review_date: string };
+  setReviewForm: (v: any) => void;
+  reviewSubmitting: boolean;
+  onSubmitReview: () => void;
+}) {
+  const reviews = intervention.intervention_reviews ?? [];
+  return (
+    <div className="space-y-4">
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-semibold text-gray-900">Progress Reviews</h3>
+        {!showAddReview && (
+          <button
+            onClick={() => setShowAddReview(true)}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-semibold"
+          >
+            + Add Review
+          </button>
+        )}
+      </div>
+
+      {showAddReview && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-3">
+          <h4 className="font-semibold text-blue-900">New Progress Review</h4>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Review Date</label>
+              <input type="date" value={reviewForm.review_date} onChange={e => setReviewForm({ ...reviewForm, review_date: e.target.value })}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Progress Rating</label>
+              <select value={reviewForm.progress_rating} onChange={e => setReviewForm({ ...reviewForm, progress_rating: e.target.value })}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                <option value="on_track">On Track</option>
+                <option value="concern">Concern</option>
+                <option value="completed">Completed</option>
+                <option value="discontinued">Discontinued</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+            <textarea value={reviewForm.notes} onChange={e => setReviewForm({ ...reviewForm, notes: e.target.value })}
+              rows={3} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="Review notes…" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Next Review Date (optional)</label>
+            <input type="date" value={reviewForm.next_review_date} onChange={e => setReviewForm({ ...reviewForm, next_review_date: e.target.value })}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
+          </div>
+          <div className="flex gap-2">
+            <button onClick={onSubmitReview} disabled={reviewSubmitting}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-semibold disabled:opacity-50">
+              {reviewSubmitting ? 'Saving…' : 'Save Review'}
+            </button>
+            <button onClick={() => setShowAddReview(false)}
+              className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-semibold">
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
+      {reviews.length === 0 ? (
+        <div className="text-center py-8 bg-gray-50 rounded-lg text-gray-500">No reviews recorded yet. Add the first review to track progress.</div>
+      ) : (
+        <div className="relative pl-6 border-l-2 border-gray-200 space-y-4">
+          {reviews.map((review) => (
+            <div key={review.id} className="relative">
+              <div className="absolute -left-[1.65rem] w-4 h-4 rounded-full bg-white border-2 border-blue-400 top-1" />
+              <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <span className={`text-xs font-medium px-2 py-1 rounded-full ${RATING_COLOURS_DETAIL[review.progress_rating] ?? 'bg-gray-100 text-gray-700'}`}>
+                      {RATING_LABELS[review.progress_rating] ?? review.progress_rating}
+                    </span>
+                    {review.reviewer && (
+                      <span className="ml-2 text-sm text-gray-500">
+                        {review.reviewer.firstName} {review.reviewer.lastName}
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-sm text-gray-500">{new Date(review.review_date).toLocaleDateString()}</span>
+                </div>
+                {review.notes && <p className="text-sm text-gray-700 mt-1">{review.notes}</p>}
+                {review.next_review_date && (
+                  <p className="text-xs text-gray-500 mt-2">Next review: {new Date(review.next_review_date).toLocaleDateString()}</p>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>
