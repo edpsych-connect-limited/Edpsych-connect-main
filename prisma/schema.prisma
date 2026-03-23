@@ -57,9 +57,11 @@ model users {
   assessments               assessments[]
   conducted_assessments     AssessmentInstance[]
   cases                     cases[]
-  interventions_created     interventions[]      @relation("interventions_created_byTousers")
-  interventions_implemented interventions[]      @relation("interventions_implemented_byTousers")
-  reports                   reports[]
+  interventions_created      interventions[]       @relation("interventions_created_byTousers")
+  interventions_implemented  interventions[]       @relation("interventions_implemented_byTousers")
+  interventions_responsible  interventions[]       @relation("interventions_responsible_personTousers")
+  intervention_reviews       InterventionReview[]  @relation("intervention_reviews_reviewed_byTousers")
+  reports                    reports[]
 
   // Relations - Gamification
   gamification_achievements gamification_achievements[]
@@ -353,13 +355,14 @@ model tenants {
   // users                users[]
   students             students[]
   professionals        professionals[]
-  assessments          assessments[]
-  assessment_instances AssessmentInstance[]
-  assessment_outcomes  AssessmentOutcome[]
-  cases                cases[]
-  interventions        interventions[]
-  reports              reports[]
-  subscriptions        subscriptions[]
+  assessments           assessments[]
+  assessment_instances  AssessmentInstance[]
+  assessment_outcomes   AssessmentOutcome[]
+  cases                 cases[]
+  interventions         interventions[]
+  intervention_reviews  InterventionReview[]
+  reports               reports[]
+  subscriptions         subscriptions[]
 
   // Relations - Training
   courses             courses[]
@@ -605,28 +608,61 @@ model assessments {
 }
 
 model interventions {
-  id                Int       @id @default(autoincrement())
-  tenant_id         Int
-  case_id           Int
-  intervention_type String
-  start_date        DateTime?
-  end_date          DateTime?
-  status            String
-  created_by        Int?
-  implemented_by    Int?
+  id                     Int       @id @default(autoincrement())
+  tenant_id              Int
+  case_id                Int
+  assessment_instance_id String?   // Phase 2D: links intervention to the assessment that generated it
+  intervention_type      String
+  title                  String?   // Phase 2D: human-readable title
+  description            String?   @db.Text  // Phase 2D: full description
+  goals                  Json?     // Phase 2D: structured goal list [{goal, target_date, metric}]
+  frequency              String?   // Phase 2D: e.g. "2x weekly", "daily"
+  responsible_person_id  Int?      // Phase 2D: user responsible for delivery
+  review_date            DateTime? // Phase 2D: scheduled next review
+  ep_recommendation_ref  String?   // Phase 2D: provenance — which EP assessment recommended this
+  start_date             DateTime?
+  end_date               DateTime?
+  status                 String    // planned | active | completed | discontinued
+  created_by             Int?
+  implemented_by         Int?
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 
   // Relations
-  tenants     tenants @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
-  cases       cases   @relation(fields: [case_id], references: [id], onDelete: Cascade)
-  creator     users?  @relation("interventions_created_byTousers", fields: [created_by], references: [id])
-  implementer users?  @relation("interventions_implemented_byTousers", fields: [implemented_by], references: [id])
+  tenants              tenants             @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  cases                cases               @relation(fields: [case_id], references: [id], onDelete: Cascade)
+  assessment_instance  AssessmentInstance? @relation(fields: [assessment_instance_id], references: [id])
+  creator              users?              @relation("interventions_created_byTousers", fields: [created_by], references: [id])
+  implementer          users?              @relation("interventions_implemented_byTousers", fields: [implemented_by], references: [id])
+  responsible_person   users?              @relation("interventions_responsible_personTousers", fields: [responsible_person_id], references: [id])
+  intervention_reviews InterventionReview[]
 
   @@index([tenant_id])
   @@index([case_id])
+  @@index([assessment_instance_id])
   @@index([status])
+}
+
+model InterventionReview {
+  id              String    @id @default(uuid())
+  tenant_id       Int
+  intervention_id Int
+  reviewed_by     Int
+  review_date     DateTime
+  progress_rating String    // on_track | concern | completed | discontinued
+  notes           String?   @db.Text
+  next_review_date DateTime?
+  created_at      DateTime  @default(now())
+
+  // Relations
+  tenant       tenants       @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  intervention interventions @relation(fields: [intervention_id], references: [id], onDelete: Cascade)
+  reviewer     users         @relation("intervention_reviews_reviewed_byTousers", fields: [reviewed_by], references: [id])
+
+  @@index([tenant_id])
+  @@index([intervention_id])
+  @@index([review_date])
 }
 
 model reports {
@@ -4935,11 +4971,12 @@ model AssessmentInstance {
   collaborations      AssessmentCollaboration[]
 
   // Relations to core models
-  tenant   tenants             @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
-  case     cases               @relation(fields: [case_id], references: [id], onDelete: Cascade)
-  student  students            @relation(fields: [student_id], references: [id], onDelete: Cascade)
-  user     users               @relation(fields: [conducted_by], references: [id])
-  outcomes AssessmentOutcome[]
+  tenant        tenants             @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  case          cases               @relation(fields: [case_id], references: [id], onDelete: Cascade)
+  student       students            @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  user          users               @relation(fields: [conducted_by], references: [id])
+  outcomes      AssessmentOutcome[]
+  interventions interventions[]
 
   @@index([tenant_id])
   @@index([framework_id])
