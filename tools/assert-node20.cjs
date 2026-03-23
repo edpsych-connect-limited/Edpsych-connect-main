@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 /**
- * Hard guard: this repo targets Node.js 20.x.
+ * Hard guard: this repo targets Node.js 20.x or 22.x.
  *
- * Why: CI and production builds must be deterministic. Some tools will “work” on
+ * Why: CI and production builds must be deterministic. Some tools will "work" on
  * newer Node versions, then fail later (or worse: behave differently).
  *
  * Opt-out (local only): set ALLOW_UNSUPPORTED_NODE=1
@@ -14,15 +14,15 @@ function parseMajor(version) {
   return m ? Number(m[1]) : NaN;
 }
 
-const expectedMajor = 20;
+const supportedMajors = [20, 22];
 const major = parseMajor(process.version);
 const allow = process.env.ALLOW_UNSUPPORTED_NODE === '1' || process.env.ALLOW_UNSUPPORTED_NODE === 'true';
 
-if (major !== expectedMajor && !allow) {
+if (!supportedMajors.includes(major) && !allow) {
   // eslint-disable-next-line no-console
   console.error(
     [
-      `NODE_VERSION_MISMATCH: Expected Node ${expectedMajor}.x, got ${process.version}.`,
+      `NODE_VERSION_MISMATCH: Expected Node ${supportedMajors.join(' or ')}.x, got ${process.version}.`,
       '',
       'Fix:',
       '  - If you use nvm:      nvm install 20 && nvm use 20',

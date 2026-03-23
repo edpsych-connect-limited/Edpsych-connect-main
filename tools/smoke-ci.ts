@@ -56,22 +56,23 @@ function main() {
     }
   }
 
-  // 1) Node version sanity (we pin to Node 20.x for CI/Vercel reproducibility)
+  // 1) Node version sanity (we pin to Node 20.x or 22.x for CI/Vercel reproducibility)
   //    but avoid breaking local developer workflows if they're experimenting
   //    on a different Node version.
   const major = parseMajorNodeVersion(process.version);
+  const supportedNodeMajors = [20, 22];
   if (isCI) {
     assert(
-      major === 20,
+      supportedNodeMajors.includes(major),
       [
-        `Expected Node 20.x in CI, got ${process.version}.`,
-        'Fix: use Node 20 (see package.json engines, .nvmrc, .node-version).',
+        `Expected Node ${supportedNodeMajors.join(' or ')}.x in CI, got ${process.version}.`,
+        'Fix: use Node 20 or 22 (see package.json engines, .nvmrc, .node-version).',
         'Tip: run `node tools/assert-node20.cjs` for a detailed remediation message.',
       ].join(' '),
     );
-  } else if (major !== 20) {
+  } else if (!supportedNodeMajors.includes(major)) {
     // eslint-disable-next-line no-console
-    console.warn(`SMOKE_WARN: Recommended Node 20.x; detected ${process.version}`);
+    console.warn(`SMOKE_WARN: Recommended Node 20.x or 22.x; detected ${process.version}`);
   }
 
   // 2) Ensure critical files exist (routing/SEO + observability)
