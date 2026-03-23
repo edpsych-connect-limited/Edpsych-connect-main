@@ -60,7 +60,7 @@ router.post('/citations', async (req: Request, res: Response) => {
  */
 router.get('/citations/:id', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id: string = req.params.id as string;
     const result = await citationService.getCitation(id);
     
     if (result.success) {
@@ -79,7 +79,7 @@ router.get('/citations/:id', async (req: Request, res: Response) => {
  */
 router.put('/citations/:id', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id: string = req.params.id as string;
     const updateData: UpdateCitationInput = req.body;
     const result = await citationService.updateCitation(id, updateData);
     
@@ -99,7 +99,7 @@ router.put('/citations/:id', async (req: Request, res: Response) => {
  */
 router.delete('/citations/:id', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id: string = req.params.id as string;
     const result = await citationService.deleteCitation(id);
     
     if (result.success) {
@@ -162,7 +162,7 @@ router.get('/citations/search', async (req: Request, res: Response) => {
  */
 router.get('/citations/publication/:id', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id: string = req.params.id as string;
     const result = await citationService.getPublicationCitations(id);
     
     if (result.success) {
@@ -181,7 +181,7 @@ router.get('/citations/publication/:id', async (req: Request, res: Response) => 
  */
 router.post('/citations/:id/verify', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id: string = req.params.id as string;
     const { verifiedBy } = req.body;
     
     if (!verifiedBy) {
@@ -347,7 +347,7 @@ router.post('/publications', async (req: Request, res: Response) => {
  */
 router.get('/publications/:id', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id: string = req.params.id as string;
     const result = await publicationService.getPublication(id);
     
     if (result.success) {
@@ -366,7 +366,7 @@ router.get('/publications/:id', async (req: Request, res: Response) => {
  */
 router.put('/publications/:id', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id: string = req.params.id as string;
     const updateData: UpdatePublicationInput = req.body;
     const result = await publicationService.updatePublication(id, updateData);
     
@@ -386,7 +386,7 @@ router.put('/publications/:id', async (req: Request, res: Response) => {
  */
 router.delete('/publications/:id', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id: string = req.params.id as string;
     const result = await publicationService.deletePublication(id);
     
     if (result.success) {
@@ -462,7 +462,7 @@ router.get('/publications/search', async (req: Request, res: Response) => {
  */
 router.get('/publications/author/:id', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id: string = req.params.id as string;
     const result = await publicationService.getAuthorPublications(id);
     
     if (result.success) {
@@ -481,7 +481,8 @@ router.get('/publications/author/:id', async (req: Request, res: Response) => {
  */
 router.get('/publications/identifier/:type/:value', async (req: Request, res: Response) => {
   try {
-    const { type, value } = req.params;
+    const type: string = req.params.type as string;
+    const value: string = req.params.value as string;
     const result = await publicationService.getPublicationByIdentifier(type, value);
     
     if (result.success) {
@@ -500,7 +501,7 @@ router.get('/publications/identifier/:type/:value', async (req: Request, res: Re
  */
 router.post('/publications/:id/download', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id: string = req.params.id as string;
     const result = await publicationService.trackDownload(id);
     
     if (result.success) {
@@ -519,7 +520,7 @@ router.post('/publications/:id/download', async (req: Request, res: Response) =>
  */
 router.post('/publications/:id/view', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id: string = req.params.id as string;
     const result = await publicationService.trackView(id);
     
     if (result.success) {
@@ -538,7 +539,7 @@ router.post('/publications/:id/view', async (req: Request, res: Response) => {
  */
 router.get('/publications/:id/metrics', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id: string = req.params.id as string;
     const result = await publicationService.getPublicationImpactMetrics(id);
     
     if (result.success) {
@@ -619,7 +620,7 @@ router.post('/publications/export', async (req: Request, res: Response) => {
  */
 router.get('/metrics/researcher/:id', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id: string = req.params.id as string;
     const {
       timePeriod,
       customStartDate,
@@ -685,7 +686,9 @@ router.post('/metrics/researchers/compare', async (req: Request, res: Response) 
  */
 router.get('/metrics/history/:entityType/:entityId/:metricType', async (req: Request, res: Response) => {
   try {
-    const { entityType, entityId, metricType } = req.params;
+    const entityType: string = req.params.entityType as string;
+    const entityId: string = req.params.entityId as string;
+    const metricType: string = req.params.metricType as string;
     
     if (!['researcher', 'publication', 'journal', 'institution'].includes(entityType)) {
       res.status(400).json({
@@ -718,7 +721,8 @@ router.get('/metrics/history/:entityType/:entityId/:metricType', async (req: Req
  */
 router.get('/metrics/researcher/:id/field-normalized/:field', async (req: Request, res: Response) => {
   try {
-    const { id, field } = req.params;
+    const id: string = req.params.id as string;
+    const field: string = req.params.field as string;
     
     if (!Object.values(ResearchField).includes(field as ResearchField)) {
       res.status(400).json({
@@ -750,7 +754,7 @@ router.get('/metrics/researcher/:id/field-normalized/:field', async (req: Reques
  */
 router.get('/metrics/publication/:id/altmetrics', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id: string = req.params.id as string;
     const result = await impactMetricsService.calculatePublicationAltmetrics(id);
     
     if (result.success) {
@@ -769,7 +773,7 @@ router.get('/metrics/publication/:id/altmetrics', async (req: Request, res: Resp
  */
 router.get('/metrics/researcher/:id/network', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id: string = req.params.id as string;
     const result = await impactMetricsService.getCitationNetworkMetrics(id);
     
     if (result.success) {

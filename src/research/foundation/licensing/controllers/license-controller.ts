@@ -99,7 +99,7 @@ router.get('/licenses/:id',
   requireCapability('customIntegration', true),
   async (req: Request, res: Response) => {
     try {
-      const licenseId = req.params.subscriptionId;
+      const licenseId: string = req.params.subscriptionId as string;
       
       const license = await licenseService.getLicense(licenseId);
       
@@ -135,7 +135,7 @@ router.put('/licenses/:id',
   requireCapability('customIntegration', true),
   async (req: Request, res: Response) => {
     try {
-      const licenseId = req.params.subscriptionId;
+      const licenseId: string = req.params.subscriptionId as string;
       
       // In a real implementation, we would verify that the user is authorized
       // to update this specific license
@@ -176,7 +176,7 @@ router.post('/licenses/:id/deactivate',
   requireCapability('customIntegration', true),
   async (req: Request, res: Response) => {
     try {
-      const licenseId = req.params.subscriptionId;
+      const licenseId: string = req.params.subscriptionId as string;
       
       // In a real implementation, we would verify that the user is authorized
       // to deactivate this specific license
@@ -215,7 +215,7 @@ router.post('/licenses/:id/renew',
   requireCapability('customIntegration', true),
   async (req: Request, res: Response) => {
     try {
-      const licenseId = req.params.subscriptionId;
+      const licenseId: string = req.params.subscriptionId as string;
       const durationMonths = req.body.durationMonths;
       
       if (!durationMonths || durationMonths <= 0) {
@@ -262,7 +262,7 @@ router.post('/licenses/:id/upgrade',
   requireCapability('customIntegration', true),
   async (req: Request, res: Response) => {
     try {
-      const licenseId = req.params.subscriptionId;
+      const licenseId: string = req.params.subscriptionId as string;
       const newTier = req.body.tier as LicenseTier;
       
       if (!newTier) {
@@ -309,7 +309,7 @@ router.get('/organizations/:organizationId/licenses',
   requireCapability('customIntegration', true),
   async (req: Request, res: Response) => {
     try {
-      const organizationId = req.params.organizationId;
+      const organizationId: string = req.params.organizationId as string;
       
       // In a real implementation, we would verify that the user is authorized
       // to view licenses for this organization
