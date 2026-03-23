@@ -112,24 +112,19 @@ export function useSchoolDashboard() {
         const fallbackInterventions = fallbackLibraries?.INTERVENTION_LIBRARY ?? [];
         const fallbackStats = fallbackLibraries?.INTERVENTION_STATS ?? { total: 0 };
 
-        // Fallback to mock data if API fails (for demo purposes/resilience)
+        // API failed — show zero-state stats and empty register
         const teacherAssessments = fallbackAssessments.filter(a => a.qualification_required === 'teacher' || a.qualification_required === 'senco').length;
         const interventions = fallbackInterventions.filter(i => i.setting.includes('classroom')).slice(0, 3);
         
         setStats({
-          activeCases: 12, // Mock data
+          activeCases: 0,
           teacherAssessments,
           interventionCount: fallbackStats.total,
-          criticalActions: 2 // Mock data
+          criticalActions: 0
         });
 
         setClassroomInterventions(interventions);
-
-        setStudents([
-          { id: '1', name: 'Leo Thompson', year: 'Year 4', need: 'Cognition & Learning', status: 'Assessment', statusColor: 'bg-amber-100 text-amber-700', review: 'Jan 24, 2026' },
-          { id: '2', name: 'Sarah Jenkins', year: 'Year 6', need: 'SEMH', status: 'EHCP Active', statusColor: 'bg-green-100 text-green-700', review: 'Feb 10, 2026' },
-          { id: '3', name: 'Michael Chang', year: 'Year 3', need: 'Communication', status: 'Monitoring', statusColor: 'bg-blue-100 text-blue-700', review: 'Mar 01, 2026' },
-        ]);
+        setStudents([]);
       } finally {
         setLoading(false);
       }

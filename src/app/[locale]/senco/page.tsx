@@ -18,13 +18,7 @@ import { VoiceCommandInterface } from '@/components/orchestration/VoiceCommandIn
 import { EmptyState } from '@/components/ui/EmptyState';
 import { Feature } from '@/types/prisma-enums';
 
-// Mock data for staff caseload (not yet available in backend)
-const mockStaffCaseload = [
-  { name: 'Mrs. Smith', caseload: 28, capacity: 30 },
-  { name: 'Mr. Jones', caseload: 31, capacity: 30 },
-  { name: 'Ms. Wilson', caseload: 24, capacity: 30 },
-  { name: 'Mrs. Brown', caseload: 22, capacity: 25 },
-];
+
 
 function SENCODashboardContent() {
   const [activeTab, setActiveTab] = useState<'overview' | 'register' | 'compliance' | 'analytics'>('overview');
@@ -32,23 +26,27 @@ function SENCODashboardContent() {
   const [data, setData] = useState<{
     metrics: any;
     alerts: any[];
+    compliance: any;
   } | null>(null);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const [dashboardRes, actionsRes] = await Promise.all([
+        const [dashboardRes, actionsRes, complianceRes] = await Promise.all([
           fetch('/api/senco?action=dashboard'),
-          fetch('/api/senco?action=actions')
+          fetch('/api/senco?action=actions'),
+          fetch('/api/senco?action=compliance')
         ]);
         
         const dashboard = await dashboardRes.json();
         const actions = await actionsRes.json();
+        const compliance = await complianceRes.json();
         
         if (dashboard.success) {
           setData({
             metrics: dashboard.data,
-            alerts: actions.success ? actions.data : []
+            alerts: actions.success ? actions.data : [],
+            compliance: compliance.success ? compliance.data : null
           });
         }
       } catch (error) {
@@ -242,46 +240,52 @@ function SENCODashboardContent() {
                 </div>
               </div>
 
-              {/* Staff Caseload */}
+              {/* SEND Status Breakdown */}
               <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Staff Caseload</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Status Overview</h2>
                 <div className="space-y-4">
-                  {mockStaffCaseload.map((staff, idx) => {
-                    const percentage = (staff.caseload / staff.capacity) * 100;
-                    const isOverloaded = percentage > 100;
-                    const widthClass = percentage >= 100 ? 'w-full' :
-                      percentage >= 90 ? 'w-[90%]' :
-                      percentage >= 80 ? 'w-[80%]' :
-                      percentage >= 70 ? 'w-[70%]' :
-                      percentage >= 60 ? 'w-[60%]' :
-                      percentage >= 50 ? 'w-[50%]' :
-                      percentage >= 40 ? 'w-[40%]' :
-                      percentage >= 30 ? 'w-[30%]' :
-                      percentage >= 20 ? 'w-[20%]' :
-                      percentage >= 10 ? 'w-[10%]' : 'w-[5%]';
-                    return (
-                      <div key={idx}>
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{staff.name}</span>
-                          <span className={`text-sm ${isOverloaded ? 'text-red-600' : 'text-gray-500'}`}>
-                            {staff.caseload}/{staff.capacity}
-                          </span>
-                        </div>
-                        <div 
-                          className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2"
-                          title={`Caseload: ${staff.caseload} of ${staff.capacity}`}
-                        >
+                  {Object.entries(metrics?.caseload?.byStatus || {}).length > 0 ? (
+                    Object.entries(metrics?.caseload?.byStatus || {}).map(([status, count], idx) => {
+                      const total = totalStudents || 1;
+                      const percentage = Math.round(((count as number) / total) * 100);
+                      const widthClass = percentage >= 100 ? 'w-full' :
+                        percentage >= 90 ? 'w-[90%]' :
+                        percentage >= 80 ? 'w-[80%]' :
+                        percentage >= 70 ? 'w-[70%]' :
+                        percentage >= 60 ? 'w-[60%]' :
+                        percentage >= 50 ? 'w-[50%]' :
+                        percentage >= 40 ? 'w-[40%]' :
+                        percentage >= 30 ? 'w-[30%]' :
+                        percentage >= 20 ? 'w-[20%]' :
+                        percentage >= 10 ? 'w-[10%]' : 'w-[5%]';
+                      return (
+                        <div key={idx}>
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                              {status.replace(/_/g, ' ')}
+                            </span>
+                            <span className="text-sm text-gray-500">{count as number}</span>
+                          </div>
                           <div
-                            className={`h-2 rounded-full transition-all ${
-                              isOverloaded ? 'bg-red-500' : percentage > 80 ? 'bg-amber-500' : 'bg-green-500'
-                            } ${widthClass}`}
-                            aria-hidden="true"
-                          />
-                          <span className="sr-only">Caseload: {staff.caseload} of {staff.capacity}</span>
+                            className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2"
+                            title={`${status}: ${count}`}
+                          >
+                            <div
+                              className={`h-2 rounded-full transition-all bg-indigo-500 ${widthClass}`}
+                              aria-hidden="true"
+                            />
+                            <span className="sr-only">{status}: {count as number}</span>
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })
+                  ) : (
+                    <EmptyState
+                      title="No status data"
+                      description="SEND register data will appear here once students are added."
+                      className="bg-gray-50 dark:bg-gray-800/60 border-dashed"
+                    />
+                  )}
                 </div>
               </div>
             </div>
@@ -349,31 +353,96 @@ function SENCODashboardContent() {
           <div className="space-y-6">
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Compliance Overview</h2>
-              <div className="grid md:grid-cols-3 gap-6">
-                <ComplianceCard
-                  title="Annual Reviews"
-                  completed={28}
-                  total={34}
-                  status="on-track"
+              {data?.compliance ? (
+                <div className="grid md:grid-cols-3 gap-6">
+                  <ComplianceCard
+                    title="EHCP Annual Reviews"
+                    completed={data.compliance.ehcpCompliance?.compliant ?? 0}
+                    total={data.compliance.ehcpCompliance?.total ?? 0}
+                    status={
+                      data.compliance.ehcpCompliance?.annualReviewsOverdue > 0
+                        ? 'critical'
+                        : data.compliance.ehcpCompliance?.annualReviewsDue > 0
+                        ? 'attention'
+                        : 'on-track'
+                    }
+                  />
+                  <ComplianceCard
+                    title="SEN Support Plans"
+                    completed={data.compliance.senSupportCompliance?.withCurrentPlans ?? 0}
+                    total={data.compliance.senSupportCompliance?.total ?? 0}
+                    status={
+                      data.compliance.senSupportCompliance?.reviewsOverdue > 0
+                        ? 'critical'
+                        : data.compliance.senSupportCompliance?.plansNeedingReview > 0
+                        ? 'attention'
+                        : 'on-track'
+                    }
+                  />
+                  <ComplianceCard
+                    title="Provision Maps"
+                    completed={data.compliance.documentationCompliance?.provisionMaps ?? 0}
+                    total={
+                      (data.compliance.ehcpCompliance?.total ?? 0) +
+                      (data.compliance.senSupportCompliance?.total ?? 0) || 1
+                    }
+                    status={
+                      (data.compliance.documentationCompliance?.provisionMaps ?? 0) === 0
+                        ? 'attention'
+                        : 'on-track'
+                    }
+                  />
+                </div>
+              ) : (
+                <EmptyState
+                  title="Compliance data unavailable"
+                  description="Unable to load compliance metrics. Please try refreshing."
+                  className="bg-gray-50 dark:bg-gray-800/60 border-dashed"
                 />
-                <ComplianceCard
-                  title="IEP Updates"
-                  completed={85}
-                  total={93}
-                  status="attention"
-                />
-                <ComplianceCard
-                  title="Provision Records"
-                  completed={120}
-                  total={127}
-                  status="on-track"
-                />
-              </div>
+              )}
             </div>
             
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Statutory Deadlines</h2>
-              <p className="text-gray-500 dark:text-gray-400">Upcoming statutory deadlines will be displayed here.</p>
+              {(data?.compliance?.statutoryDeadlines?.length ?? 0) > 0 ? (
+                <div className="space-y-3">
+                  {data?.compliance?.statutoryDeadlines?.map((deadline: any, idx: number) => (
+                    <div
+                      key={idx}
+                      className={`p-4 rounded-lg border-l-4 ${
+                        deadline.status === 'OVERDUE'
+                          ? 'bg-red-50 dark:bg-red-900/20 border-red-500'
+                          : deadline.status === 'AT_RISK'
+                          ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-500'
+                          : 'bg-green-50 dark:bg-green-900/20 border-green-500'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="font-medium text-gray-900 dark:text-white">
+                            {deadline.type.replace(/_/g, ' ')} — {deadline.studentName}
+                          </p>
+                          <p className="text-sm text-gray-500 mt-1">{deadline.description}</p>
+                        </div>
+                        <span className={`text-sm font-medium ${
+                          deadline.status === 'OVERDUE' ? 'text-red-600' :
+                          deadline.status === 'AT_RISK' ? 'text-amber-600' : 'text-green-600'
+                        }`}>
+                          {deadline.daysRemaining < 0
+                            ? `${Math.abs(deadline.daysRemaining)}d overdue`
+                            : `${deadline.daysRemaining}d remaining`}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <EmptyState
+                  title="No upcoming deadlines"
+                  description="All statutory deadlines are on track or no data available."
+                  className="bg-gray-50 dark:bg-gray-800/60 border-dashed"
+                />
+              )}
             </div>
           </div>
         )}
