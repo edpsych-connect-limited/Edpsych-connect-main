@@ -35,24 +35,22 @@
 - Phase 1 controlled stabilization
   - objective: keep the proven corridor coherent, repeatable, and deployment-safe
 - Deployment normalization
-  - objective: determine when the temporary Vercel validation build gate can be removed safely
-  - **status 2026-03-23:** repo-wide type-check now passes clean (zero errors). All string|string[] param errors in research foundation controllers resolved. Next: assess whether full Next.js build passes on Vercel with env vars injected, and whether build gate can be removed.
+  - objective: restore standard Vercel build gate (was temporarily relaxed to `build:vercel:phase1` = plain `npm run build`)
+  - **status 2026-03-23 (complete):** all verify:ci checks now pass locally: type-check ✅, lint ✅, ai-governance ✅, ai-nontraining ✅, security-by-design ✅, intervention-validation-scale ✅, video-registry ✅, video-claims ✅, video-script-coverage ✅, video-script-provenance ✅, security:scan ✅. smoke:ci fails only due to local Node 22 vs required Node 20 — Vercel uses Node 20 per engines field. **Build gate restored to `build:vercel` (full verify:ci + build) in vercel.json.**
 - Memory / operating infrastructure
   - objective: keep project state explicit in repo docs and assistant memory so execution does not rely on reconstructing chat context
 
 ## 3. NEXT
-1. Confirm latest READY preview still preserves the proven corridor after each new hardening commit
-2. Keep tightening only runtime-proven brittleness in Phase 1 surfaces
-3. Decide whether repo-wide non-corridor type/build failures must be fixed now or can remain deferred while Phase 1 stabilizes
-4. Remove temporary Vercel validation build relaxation when normal branch deployment is no longer blocked by unrelated code
-5. Produce a Phase 1 release-readiness checklist
+1. Scott or cron loop to push committed changes to GitHub (requires git credentials on exec host)
+2. Confirm Vercel picks up the restored build gate and build passes in production/preview
+3. Confirm latest READY preview still preserves the proven corridor after build gate change
+4. Produce a Phase 1 release-readiness checklist
+5. Keep tightening only runtime-proven brittleness in Phase 1 surfaces
 
 ## 4. BLOCKERS
-- No active corridor blocker at the moment
-- Deployment normalization status:
-  - ✅ Repo-wide type-check is now clean (zero errors as of 2026-03-23)
-  - ⏳ Next: verify full Vercel build passes with env vars injected before removing temporary build gate
-  - Local build fails on missing DATABASE_URL / NEXTAUTH_SECRET — expected; env injected on Vercel only
+- No active corridor blocker
+- No deployment normalization blocker: build gate restored to full `build:vercel` (verify:ci + build)
+- Vercel deploy is triggered automatically on push to `phase1-auth-unification`; push credentials must be present on the execution host for the cron loop to trigger deploys directly
 
 ## 5. DEFERRED
 ### Phase 2
