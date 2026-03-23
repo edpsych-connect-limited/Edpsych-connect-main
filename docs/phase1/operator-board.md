@@ -36,6 +36,7 @@
   - objective: keep the proven corridor coherent, repeatable, and deployment-safe
 - Deployment normalization
   - objective: determine when the temporary Vercel validation build gate can be removed safely
+  - **status 2026-03-23:** repo-wide type-check now passes clean (zero errors). All string|string[] param errors in research foundation controllers resolved. Next: assess whether full Next.js build passes on Vercel with env vars injected, and whether build gate can be removed.
 - Memory / operating infrastructure
   - objective: keep project state explicit in repo docs and assistant memory so execution does not rely on reconstructing chat context
 
@@ -48,10 +49,10 @@
 
 ## 4. BLOCKERS
 - No active corridor blocker at the moment
-- Active deployment normalization issue:
-  - temporary Vercel validation build gate is still required
-  - classification: config / deployment-process issue
-  - source: unrelated repo-wide non-corridor type/build failures still block normal branch deployment
+- Deployment normalization status:
+  - ✅ Repo-wide type-check is now clean (zero errors as of 2026-03-23)
+  - ⏳ Next: verify full Vercel build passes with env vars injected before removing temporary build gate
+  - Local build fails on missing DATABASE_URL / NEXTAUTH_SECRET — expected; env injected on Vercel only
 
 ## 5. DEFERRED
 ### Phase 2
