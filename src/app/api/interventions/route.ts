@@ -38,6 +38,7 @@ const InterventionQuerySchema = z.object({
 const CreateInterventionSchema = z.object({
   tenant_id: z.number().positive(),
   case_id: z.number().positive(),
+  assessment_instance_id: z.string().optional(),
   intervention_type: z.enum([
     'academic_support',
     'behavioral_intervention',
@@ -50,6 +51,17 @@ const CreateInterventionSchema = z.object({
     'environmental_adjustment',
     'other',
   ]),
+  title: z.string().min(1).max(255).optional(),
+  description: z.string().optional(),
+  goals: z.array(z.object({
+    goal: z.string(),
+    target_date: z.string().optional(),
+    metric: z.string().optional(),
+  })).optional(),
+  frequency: z.string().optional(),
+  responsible_person_id: z.number().positive().optional(),
+  review_date: z.string().datetime().optional(),
+  ep_recommendation_ref: z.string().optional(),
   start_date: z.string().datetime().optional(),
   end_date: z.string().datetime().optional(),
   status: z.enum(['planned', 'active', 'completed', 'discontinued']).default('planned'),
@@ -270,7 +282,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { tenant_id, case_id, intervention_type, start_date, end_date, status } = validation.data;
+    const {
+      tenant_id, case_id, assessment_instance_id,
+      intervention_type, title, description, goals,
+      frequency, responsible_person_id, review_date, ep_recommendation_ref,
+      start_date, end_date, status,
+    } = validation.data;
 
     // 4. Security: Enforce tenant isolation (GDPR compliance)
     if (!canAccessTenant(user.tenant_id, tenant_id, user.role)) {
@@ -295,10 +312,19 @@ export async function POST(request: NextRequest) {
       data: {
         tenant_id,
         case_id,
+        assessment_instance_id: assessment_instance_id ?? null,
         intervention_type,
+        title: title ?? null,
+        description: description ?? null,
+        goals: goals ? JSON.parse(JSON.stringify(goals)) : null,
+        frequency: frequency ?? null,
+        responsible_person_id: responsible_person_id ?? null,
+        review_date: review_date ? new Date(review_date) : null,
+        ep_recommendation_ref: ep_recommendation_ref ?? null,
         start_date: start_date ? new Date(start_date) : null,
         end_date: end_date ? new Date(end_date) : null,
         status,
+        created_by: parseInt(user.id, 10),
         created_at: new Date(),
         updated_at: new Date(),
       },

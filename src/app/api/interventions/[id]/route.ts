@@ -135,6 +135,21 @@ export async function GET(
             },
           },
         },
+        intervention_reviews: {
+          orderBy: { review_date: 'desc' },
+          include: {
+            reviewer: { select: { id: true, firstName: true, lastName: true } },
+          },
+        },
+        assessment_instance: {
+          select: {
+            id: true,
+            title: true,
+            framework_id: true,
+            status: true,
+            assessment_date: true,
+          },
+        },
       },
     });
 
