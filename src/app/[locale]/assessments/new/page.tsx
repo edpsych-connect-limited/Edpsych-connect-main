@@ -19,6 +19,8 @@ export default function NewAssessmentPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const type = searchParams.get('type');
+  const caseIdParam = searchParams.get('caseId');
+  const initialCaseId = caseIdParam ? Number.parseInt(caseIdParam, 10) : 0;
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -100,11 +102,11 @@ export default function NewAssessmentPage() {
             </div>
           </div>
         </div>
-        <AssessmentForm 
-          initialData={{ 
+        <AssessmentForm
+          initialData={{
             assessment_type: type || undefined,
-            tenant_id: (user?.tenant_id as number) || 1
-          }} 
+            case_id: Number.isFinite(initialCaseId) ? initialCaseId : 0,
+          }}
         />
       </div>
     </div>

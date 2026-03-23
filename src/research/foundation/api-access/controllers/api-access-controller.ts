@@ -17,6 +17,11 @@ const router = Router();
 const apiKeyService = new ApiKeyService();
 const usageTrackingService = new UsageTrackingService();
 
+function asSingleString(value: string | string[] | undefined): string | undefined {
+  if (Array.isArray(value)) return value[0];
+  return value;
+}
+
 /**
  * Get available pricing plans
  * 
@@ -57,7 +62,7 @@ router.get('/pricing-plans/:id',
   verifyLicense(),
   async (_req: Request, res: Response) => {
     try {
-      const planId = _req.params.subscriptionId;
+      const planId: string = _req.params.subscriptionId as string;
       const plan = API_PRICING_PLANS[planId];
       
       if (!plan) {
@@ -181,7 +186,7 @@ router.get('/keys/:id',
   requireCapability('customIntegration', true),
   async (req: Request, res: Response) => {
     try {
-      const apiKeyId = req.params.subscriptionId;
+      const apiKeyId: string = req.params.subscriptionId as string;
       const apiKey = await apiKeyService.getApiKey(apiKeyId);
       
       if (!apiKey) {
@@ -223,7 +228,7 @@ router.put('/keys/:id',
   requireCapability('customIntegration', true),
   async (req: Request, res: Response) => {
     try {
-      const apiKeyId = req.params.subscriptionId;
+      const apiKeyId: string = req.params.subscriptionId as string;
       const { name, expiresAt, allowedIpAddresses, allowedDomains, 
               allowedEndpoints, maxRequestsPerSecond, quotaOverrides, isActive } = req.body;
       
@@ -297,7 +302,7 @@ router.post('/keys/:id/deactivate',
   requireCapability('customIntegration', true),
   async (_req: Request, res: Response) => {
     try {
-      const apiKeyId = _req.params.subscriptionId;
+      const apiKeyId: string = _req.params.subscriptionId as string;
       
       // In a real implementation, we would verify that the API key belongs to the authenticated user's organization
       
@@ -334,7 +339,7 @@ router.post('/keys/:id/rotate',
   requireCapability('customIntegration', true),
   async (req: Request, res: Response) => {
     try {
-      const apiKeyId = req.params.subscriptionId;
+      const apiKeyId: string = req.params.subscriptionId as string;
       
       // In a real implementation, we would verify that the API key belongs to the authenticated user's organization
       

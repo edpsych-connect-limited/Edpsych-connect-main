@@ -6,13 +6,12 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '../auth';
-import { verifyToken } from '../auth/auth-service';
+import authService from '../auth/auth-service';
 import { auditLogger, getIpAddress, getUserAgent, getRequestId } from '../security/audit-logger';
 import { AuditEventType, AuditSeverity } from '../security/audit-logger';
 import { setTenantContext } from '@/lib/db/tenant-context';
 import { getPrismaForTenant } from '@/lib/prisma';
+import { normalizeRole, normalizeTenantId } from '../auth/types';
 
 /**
  * Permission types for role-based access control
@@ -51,6 +50,8 @@ export enum Permission {
   INVITE_USERS = 'INVITE_USERS',
   MANAGE_DEPARTMENTS = 'MANAGE_DEPARTMENTS',
   VIEW_INSTITUTION_REPORTS = 'VIEW_INSTITUTION_REPORTS',
+  CREATE_REPORTS = 'CREATE_REPORTS',
+  GENERATE_REPORTS = 'GENERATE_REPORTS',
 
   // Department Manager permissions
   MANAGE_DEPARTMENT = 'MANAGE_DEPARTMENT',
@@ -68,141 +69,40 @@ export enum Permission {
 /**
  * Role to permissions mapping
  */
+const FULL_CORRIDOR_PERMISSIONS: Permission[] = [
+  Permission.VIEW_OWN_DATA,
+  Permission.EDIT_OWN_PROFILE,
+  Permission.VIEW_EHCP,
+  Permission.CREATE_EHCP,
+  Permission.EDIT_EHCP,
+  Permission.DELETE_EHCP,
+  Permission.EXPORT_EHCP,
+  Permission.VIEW_ASSESSMENTS,
+  Permission.CREATE_ASSESSMENTS,
+  Permission.EDIT_ASSESSMENTS,
+  Permission.SUBMIT_ASSESSMENTS,
+  Permission.VIEW_INTERVENTIONS,
+  Permission.CREATE_INTERVENTIONS,
+  Permission.EDIT_INTERVENTIONS,
+  Permission.VIEW_STUDENT_DATA,
+  Permission.EDIT_STUDENT_DATA,
+  Permission.VIEW_ALL_STUDENTS,
+  Permission.MANAGE_INSTITUTION,
+  Permission.VIEW_INSTITUTION_USERS,
+  Permission.INVITE_USERS,
+  Permission.MANAGE_DEPARTMENTS,
+  Permission.VIEW_INSTITUTION_REPORTS,
+  Permission.CREATE_REPORTS,
+  Permission.GENERATE_REPORTS,
+  Permission.MANAGE_ALL_INSTITUTIONS,
+  Permission.MANAGE_ALL_USERS,
+  Permission.VIEW_SYSTEM_LOGS,
+  Permission.MANAGE_SYSTEM_SETTINGS,
+  Permission.VIEW_ALL_DATA,
+];
+
 const ROLE_PERMISSIONS: Record<string, Permission[]> = {
-  SYSTEM_ADMIN: [
-    ...Object.values(Permission), // System admins have all permissions
-  ],
-  SUPER_ADMIN: [
-    ...Object.values(Permission),
-  ],
-  SUPERADMIN: [
-    ...Object.values(Permission),
-  ],
-  ADMIN: [
-    ...Object.values(Permission),
-  ],
-
-  INSTITUTION_ADMIN: [
-    Permission.VIEW_OWN_DATA,
-    Permission.EDIT_OWN_PROFILE,
-    Permission.VIEW_EHCP,
-    Permission.CREATE_EHCP,
-    Permission.EDIT_EHCP,
-    Permission.DELETE_EHCP,
-    Permission.EXPORT_EHCP,
-    Permission.VIEW_ASSESSMENTS,
-    Permission.CREATE_ASSESSMENTS,
-    Permission.EDIT_ASSESSMENTS,
-    Permission.SUBMIT_ASSESSMENTS,
-    Permission.VIEW_INTERVENTIONS,
-    Permission.CREATE_INTERVENTIONS,
-    Permission.EDIT_INTERVENTIONS,
-    Permission.VIEW_ALL_STUDENTS,
-    Permission.MANAGE_INSTITUTION,
-    Permission.VIEW_INSTITUTION_USERS,
-    Permission.INVITE_USERS,
-    Permission.MANAGE_DEPARTMENTS,
-    Permission.VIEW_INSTITUTION_REPORTS,
-  ],
-
-  DEPARTMENT_MANAGER: [
-    Permission.VIEW_OWN_DATA,
-    Permission.EDIT_OWN_PROFILE,
-    Permission.VIEW_EHCP,
-    Permission.CREATE_EHCP,
-    Permission.EDIT_EHCP,
-    Permission.EXPORT_EHCP,
-    Permission.VIEW_ASSESSMENTS,
-    Permission.CREATE_ASSESSMENTS,
-    Permission.EDIT_ASSESSMENTS,
-    Permission.SUBMIT_ASSESSMENTS,
-    Permission.VIEW_INTERVENTIONS,
-    Permission.CREATE_INTERVENTIONS,
-    Permission.EDIT_INTERVENTIONS,
-    Permission.VIEW_STUDENT_DATA,
-    Permission.MANAGE_DEPARTMENT,
-    Permission.VIEW_DEPARTMENT_USERS,
-    Permission.VIEW_DEPARTMENT_REPORTS,
-  ],
-
-  EDUCATIONAL_PSYCHOLOGIST: [
-    Permission.VIEW_OWN_DATA,
-    Permission.EDIT_OWN_PROFILE,
-    Permission.VIEW_EHCP,
-    Permission.CREATE_EHCP,
-    Permission.EDIT_EHCP,
-    Permission.EXPORT_EHCP,
-    Permission.VIEW_ASSESSMENTS,
-    Permission.CREATE_ASSESSMENTS,
-    Permission.EDIT_ASSESSMENTS,
-    Permission.SUBMIT_ASSESSMENTS,
-    Permission.VIEW_INTERVENTIONS,
-    Permission.CREATE_INTERVENTIONS,
-    Permission.EDIT_INTERVENTIONS,
-    Permission.VIEW_STUDENT_DATA,
-    Permission.EDIT_STUDENT_DATA,
-  ],
-
-  EP: [
-    Permission.VIEW_OWN_DATA,
-    Permission.EDIT_OWN_PROFILE,
-    Permission.VIEW_EHCP,
-    Permission.CREATE_EHCP,
-    Permission.EDIT_EHCP,
-    Permission.EXPORT_EHCP,
-    Permission.VIEW_ASSESSMENTS,
-    Permission.CREATE_ASSESSMENTS,
-    Permission.EDIT_ASSESSMENTS,
-    Permission.SUBMIT_ASSESSMENTS,
-    Permission.VIEW_INTERVENTIONS,
-    Permission.CREATE_INTERVENTIONS,
-    Permission.EDIT_INTERVENTIONS,
-    Permission.VIEW_STUDENT_DATA,
-    Permission.EDIT_STUDENT_DATA,
-  ],
-
-  TEACHER: [
-    Permission.VIEW_OWN_DATA,
-    Permission.EDIT_OWN_PROFILE,
-    Permission.VIEW_EHCP,
-    Permission.VIEW_ASSESSMENTS,
-    Permission.VIEW_INTERVENTIONS,
-    Permission.VIEW_STUDENT_DATA,
-  ],
-
-  SENCO: [
-    Permission.VIEW_OWN_DATA,
-    Permission.EDIT_OWN_PROFILE,
-    Permission.VIEW_EHCP,
-    Permission.CREATE_EHCP,
-    Permission.EDIT_EHCP,
-    Permission.EXPORT_EHCP,
-    Permission.VIEW_ASSESSMENTS,
-    Permission.CREATE_ASSESSMENTS,
-    Permission.EDIT_ASSESSMENTS,
-    Permission.VIEW_INTERVENTIONS,
-    Permission.CREATE_INTERVENTIONS,
-    Permission.EDIT_INTERVENTIONS,
-    Permission.VIEW_STUDENT_DATA,
-    Permission.EDIT_STUDENT_DATA,
-  ],
-
-  PARENT: [
-    Permission.VIEW_OWN_DATA,
-    Permission.EDIT_OWN_PROFILE,
-    Permission.VIEW_EHCP,
-    Permission.VIEW_ASSESSMENTS,
-    Permission.VIEW_INTERVENTIONS,
-  ],
-
-  STUDENT: [
-    Permission.VIEW_OWN_DATA,
-    Permission.EDIT_OWN_PROFILE,
-  ],
-  RESEARCHER: [
-    Permission.VIEW_OWN_DATA,
-    Permission.EDIT_OWN_PROFILE,
-  ],
+  SUPER_ADMIN: [...FULL_CORRIDOR_PERMISSIONS],
   SCHOOL_ADMIN: [
     Permission.VIEW_OWN_DATA,
     Permission.EDIT_OWN_PROFILE,
@@ -224,52 +124,10 @@ const ROLE_PERMISSIONS: Record<string, Permission[]> = {
     Permission.INVITE_USERS,
     Permission.MANAGE_DEPARTMENTS,
     Permission.VIEW_INSTITUTION_REPORTS,
+    Permission.CREATE_REPORTS,
+    Permission.GENERATE_REPORTS,
   ],
-  LA_ADMIN: [
-    Permission.VIEW_OWN_DATA,
-    Permission.EDIT_OWN_PROFILE,
-    Permission.VIEW_EHCP,
-    Permission.CREATE_EHCP,
-    Permission.EDIT_EHCP,
-    Permission.DELETE_EHCP,
-    Permission.EXPORT_EHCP,
-    Permission.VIEW_ASSESSMENTS,
-    Permission.CREATE_ASSESSMENTS,
-    Permission.EDIT_ASSESSMENTS,
-    Permission.SUBMIT_ASSESSMENTS,
-    Permission.VIEW_INTERVENTIONS,
-    Permission.CREATE_INTERVENTIONS,
-    Permission.EDIT_INTERVENTIONS,
-    Permission.VIEW_ALL_STUDENTS,
-    Permission.MANAGE_INSTITUTION,
-    Permission.VIEW_INSTITUTION_USERS,
-    Permission.INVITE_USERS,
-    Permission.MANAGE_DEPARTMENTS,
-    Permission.VIEW_INSTITUTION_REPORTS,
-  ],
-  LA_MANAGER: [
-    Permission.VIEW_OWN_DATA,
-    Permission.EDIT_OWN_PROFILE,
-    Permission.VIEW_EHCP,
-    Permission.CREATE_EHCP,
-    Permission.EDIT_EHCP,
-    Permission.DELETE_EHCP,
-    Permission.EXPORT_EHCP,
-    Permission.VIEW_ASSESSMENTS,
-    Permission.CREATE_ASSESSMENTS,
-    Permission.EDIT_ASSESSMENTS,
-    Permission.SUBMIT_ASSESSMENTS,
-    Permission.VIEW_INTERVENTIONS,
-    Permission.CREATE_INTERVENTIONS,
-    Permission.EDIT_INTERVENTIONS,
-    Permission.VIEW_ALL_STUDENTS,
-    Permission.MANAGE_INSTITUTION,
-    Permission.VIEW_INSTITUTION_USERS,
-    Permission.INVITE_USERS,
-    Permission.MANAGE_DEPARTMENTS,
-    Permission.VIEW_INSTITUTION_REPORTS,
-  ],
-  LA_CASEWORKER: [
+  SENCO: [
     Permission.VIEW_OWN_DATA,
     Permission.EDIT_OWN_PROFILE,
     Permission.VIEW_EHCP,
@@ -285,8 +143,11 @@ const ROLE_PERMISSIONS: Record<string, Permission[]> = {
     Permission.EDIT_INTERVENTIONS,
     Permission.VIEW_STUDENT_DATA,
     Permission.EDIT_STUDENT_DATA,
+    Permission.VIEW_INSTITUTION_REPORTS,
+    Permission.CREATE_REPORTS,
+    Permission.GENERATE_REPORTS,
   ],
-  LAA: [
+  EP: [
     Permission.VIEW_OWN_DATA,
     Permission.EDIT_OWN_PROFILE,
     Permission.VIEW_EHCP,
@@ -294,21 +155,19 @@ const ROLE_PERMISSIONS: Record<string, Permission[]> = {
     Permission.EDIT_EHCP,
     Permission.EXPORT_EHCP,
     Permission.VIEW_ASSESSMENTS,
+    Permission.CREATE_ASSESSMENTS,
+    Permission.EDIT_ASSESSMENTS,
+    Permission.SUBMIT_ASSESSMENTS,
     Permission.VIEW_INTERVENTIONS,
+    Permission.CREATE_INTERVENTIONS,
+    Permission.EDIT_INTERVENTIONS,
     Permission.VIEW_STUDENT_DATA,
+    Permission.EDIT_STUDENT_DATA,
+    Permission.VIEW_INSTITUTION_REPORTS,
+    Permission.CREATE_REPORTS,
+    Permission.GENERATE_REPORTS,
   ],
-  LOCAL_AUTHORITY: [
-    Permission.VIEW_OWN_DATA,
-    Permission.EDIT_OWN_PROFILE,
-    Permission.VIEW_EHCP,
-    Permission.CREATE_EHCP,
-    Permission.EDIT_EHCP,
-    Permission.EXPORT_EHCP,
-    Permission.VIEW_ASSESSMENTS,
-    Permission.VIEW_INTERVENTIONS,
-    Permission.VIEW_STUDENT_DATA,
-  ],
-  STAFF: [
+  TEACHER: [
     Permission.VIEW_OWN_DATA,
     Permission.EDIT_OWN_PROFILE,
     Permission.VIEW_EHCP,
@@ -322,18 +181,16 @@ const ROLE_PERMISSIONS: Record<string, Permission[]> = {
  * Check if user has a specific permission
  */
 export function hasPermission(userRole: string | null | undefined, permission: Permission): boolean {
-  if (!userRole) return false;
+  const normalizedRole = normalizeRole(userRole);
+  if (!normalizedRole) return false;
 
-  const normalizedRole = userRole.toUpperCase().replace(/\s+/g, '_');
   const permissions = ROLE_PERMISSIONS[normalizedRole] || [];
 
   return permissions.includes(permission);
 }
 
 export function isAdminRole(userRole: string | null | undefined): boolean {
-  if (!userRole) return false;
-  const normalizedRole = userRole.toUpperCase().replace(/\s+/g, '_');
-  return ['SYSTEM_ADMIN', 'SUPER_ADMIN', 'SUPERADMIN', 'ADMIN'].includes(normalizedRole);
+  return normalizeRole(userRole) === 'SUPER_ADMIN';
 }
 
 /**
@@ -362,37 +219,18 @@ export async function authenticateRequest(request: NextRequest): Promise<{
       role: string;
       name?: string;
       tenant_id?: number;
+      permissions?: string[];
+      onboardingCompleted?: boolean;
+      onboardingSkipped?: boolean;
     };
   };
 } | {
   success: false;
   response: NextResponse;
 }> {
-  let session = await getServerSession(authOptions);
+  const verifiedSession = await authService.getSessionFromRequest(request);
 
-  // Fallback: Check for Bearer token if NextAuth session is missing
-  if (!session?.user) {
-    const authHeader = request.headers.get('Authorization');
-    if (authHeader && authHeader.startsWith('Bearer ')) {
-      const token = authHeader.substring(7);
-      const verifiedSession = await verifyToken(token);
-      
-      if (verifiedSession) {
-        // Construct a session object compatible with NextAuth structure
-        session = {
-          user: {
-            id: verifiedSession.id,
-            email: verifiedSession.email,
-            role: verifiedSession.role,
-            name: verifiedSession.name,
-            tenant_id: verifiedSession.tenant_id,
-          }
-        } as any;
-      }
-    }
-  }
-
-  if (!session?.user) {
+  if (!verifiedSession) {
     const ipAddress = getIpAddress(request);
     const userAgent = getUserAgent(request);
     const requestId = getRequestId(request);
@@ -422,19 +260,40 @@ export async function authenticateRequest(request: NextRequest): Promise<{
     };
   }
 
+  const normalizedRole = normalizeRole(verifiedSession.role);
+  if (!normalizedRole) {
+    return {
+      success: false,
+      response: NextResponse.json(
+        { error: 'Unsupported role for Phase 1 corridor.' },
+        { status: 403 }
+      ),
+    };
+  }
+
+  const session = {
+    user: {
+      id: verifiedSession.id,
+      email: verifiedSession.email,
+      role: normalizedRole,
+      name: verifiedSession.name,
+      tenant_id: normalizeTenantId(verifiedSession.tenant_id),
+      permissions: verifiedSession.permissions,
+      onboardingCompleted: verifiedSession.onboardingCompleted,
+      onboardingSkipped: verifiedSession.onboardingSkipped,
+    },
+  };
+
   // Establish request-scoped tenant context so downstream DB calls can route correctly.
-  // This is critical for BYOD (tenant-specific database routing) while keeping code changes minimal.
   try {
     const tenantId = session.user.tenant_id;
-    const tenantPrisma = await getPrismaForTenant(tenantId);
+    const tenantPrisma = tenantId ? await getPrismaForTenant(tenantId) : undefined;
     setTenantContext({
-      tenantId: typeof tenantId === 'string' ? parseInt(tenantId) : tenantId,
+      tenantId,
       userId: session.user.id,
       prisma: tenantPrisma as any,
     });
   } catch (_error) {
-    // If tenant routing setup fails, do not block authentication; fall back to platform DB.
-    // Access control checks still prevent cross-tenant access.
     setTenantContext({
       tenantId: session.user.tenant_id,
       userId: session.user.id,
@@ -443,7 +302,7 @@ export async function authenticateRequest(request: NextRequest): Promise<{
 
   return {
     success: true,
-    session: session as any,
+    session,
   };
 }
 

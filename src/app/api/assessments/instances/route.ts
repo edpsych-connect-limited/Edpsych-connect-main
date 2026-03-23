@@ -8,13 +8,13 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { authenticateRequest } from '@/lib/middleware/auth';
+import { authorizeRequest, Permission, canAccessTenant } from '@/lib/middleware/auth';
 import { createEvidenceTraceId, recordEvidenceEvent, type EvidenceStatus } from '@/lib/analytics/evidence-telemetry';
 
 export async function POST(req: NextRequest) {
   const startedAt = Date.now();
   const traceId = createEvidenceTraceId();
-  const authResult = await authenticateRequest(req);
+  const authResult = await authorizeRequest(req, Permission.CREATE_ASSESSMENTS);
   if (!authResult.success) {
     return authResult.response;
   }
@@ -22,12 +22,12 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const { 
-      framework_id, 
-      case_id, 
-      student_id, 
+    const {
+      framework_id,
+      case_id,
+      student_id,
       domains,
-      ...otherData 
+      ...otherData
     } = body;
 
     const user = session.user as any;
@@ -52,18 +52,71 @@ export async function POST(req: NextRequest) {
       });
     };
     
+    const parsedCaseId = Number.parseInt(String(case_id), 10);
+    const parsedStudentId = Number.parseInt(String(student_id), 10);
+    if (!tenantId || Number.isNaN(parsedCaseId) || Number.isNaN(parsedStudentId) || Number.isNaN(userId)) {
+      await recordTrace('error', { reason: 'invalid_core_fields' });
+      return NextResponse.json({ error: 'Invalid assessment instance payload' }, { status: 400 });
+    }
+
+    const assessment = await prisma.assessments.findFirst({
+      where: {
+        case_id: parsedCaseId,
+        tenant_id: tenantId,
+      },
+      orderBy: { created_at: 'desc' },
+    });
+
+    if (!assessment) {
+      await recordTrace('error', { reason: 'assessment_not_found', case_id: parsedCaseId });
+      return NextResponse.json({ error: 'Assessment shell not found for case' }, { status: 404 });
+    }
+
+    const requestedFrameworkId = typeof framework_id === 'string' && framework_id.trim() ? framework_id.trim() : null;
+    const matchedFramework = requestedFrameworkId
+      ? await prisma.assessmentFramework.findFirst({
+          where: {
+            OR: [
+              { id: requestedFrameworkId },
+              { abbreviation: requestedFrameworkId.split('-')[0].toUpperCase() },
+            ],
+          },
+          select: { id: true, abbreviation: true },
+        })
+      : null;
+
+    const resolvedFramework = matchedFramework ?? await prisma.assessmentFramework.findFirst({
+      where: { abbreviation: 'ECCA' },
+      select: { id: true, abbreviation: true },
+    });
+
+    if (!resolvedFramework) {
+      await recordTrace('error', {
+        reason: 'framework_not_found',
+        requestedFrameworkId,
+      });
+      return NextResponse.json(
+        { error: 'Assessment framework not found', requestedFrameworkId },
+        { status: 400 }
+      );
+    }
+
+    if (!canAccessTenant(user.tenant_id, assessment.tenant_id, user.role)) {
+      await recordTrace('error', { reason: 'tenant_access_denied', assessmentId: assessment.id });
+      return NextResponse.json({ error: 'Access denied' }, { status: 403 });
+    }
+
     // Create the instance
     const instance = await prisma.assessmentInstance.create({
       data: {
-        framework_id,
-        case_id: parseInt(case_id),
-        student_id: parseInt(student_id),
-        tenant_id: parseInt(user.tenant_id),
-        conducted_by: parseInt(user.id),
+        framework_id: resolvedFramework.id,
+        case_id: parsedCaseId,
+        student_id: parsedStudentId,
+        tenant_id: tenantId,
+        conducted_by: userId,
         status: 'draft',
         title: otherData.title,
         assessment_date: new Date(),
-        // Initialize other fields if needed
       }
     });
 
@@ -96,20 +149,20 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   const startedAt = Date.now();
   const traceId = createEvidenceTraceId();
-  const authResult = await authenticateRequest(req);
+  const authResult = await authorizeRequest(req, Permission.EDIT_ASSESSMENTS);
   if (!authResult.success) {
     return authResult.response;
   }
   const { session } = authResult;
+  const user = session.user as any;
+  const tenantId = typeof user?.tenant_id === 'string' ? parseInt(user.tenant_id, 10) : (user?.tenant_id as number | undefined);
+  const userId = parseInt(user?.id ?? '', 10);
   
   try {
     const body = await req.json();
     const { id, domains, ...updateData } = body;
 
     if (!id) {
-        const user = session.user as any;
-        const tenantId = typeof user?.tenant_id === 'string' ? parseInt(user.tenant_id, 10) : (user?.tenant_id as number | undefined);
-        const userId = parseInt(user?.id ?? '', 10);
         if (tenantId && !Number.isNaN(userId)) {
           await recordEvidenceEvent({
             tenantId,
@@ -139,6 +192,41 @@ export async function PUT(req: NextRequest) {
         collaborative_input: _collaborative_input, // Handled separately or ignored
         ...validUpdateData 
     } = updateData;
+
+    const existingInstance = await prisma.assessmentInstance.findUnique({ where: { id } });
+    if (!existingInstance) {
+      await recordEvidenceEvent({
+        tenantId: tenantId!,
+        userId,
+        traceId,
+        requestId: traceId,
+        eventType: 'assessment_instance',
+        workflowType: 'assessments',
+        actionType: 'update_instance',
+        status: 'error',
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata: { reason: 'instance_not_found', instanceId: id },
+      });
+      return NextResponse.json({ error: 'Assessment instance not found' }, { status: 404 });
+    }
+
+    if (!canAccessTenant(user.tenant_id, existingInstance.tenant_id, user.role)) {
+      await recordEvidenceEvent({
+        tenantId: tenantId!,
+        userId,
+        traceId,
+        requestId: traceId,
+        eventType: 'assessment_instance',
+        workflowType: 'assessments',
+        actionType: 'update_instance',
+        status: 'error',
+        durationMs: Date.now() - startedAt,
+        evidenceType: 'measured',
+        metadata: { reason: 'tenant_access_denied', instanceId: id },
+      });
+      return NextResponse.json({ error: 'Access denied' }, { status: 403 });
+    }
 
     // Update the instance
     const instance = await prisma.assessmentInstance.update({
@@ -188,9 +276,6 @@ export async function PUT(req: NextRequest) {
       }
     }
 
-    const user = session.user as any;
-    const tenantId = typeof user?.tenant_id === 'string' ? parseInt(user.tenant_id, 10) : (user?.tenant_id as number | undefined);
-    const userId = parseInt(user?.id ?? '', 10);
     if (tenantId && !Number.isNaN(userId)) {
       await recordEvidenceEvent({
         tenantId,

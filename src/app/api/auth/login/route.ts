@@ -17,6 +17,7 @@ import { checkRateLimit, getClientIP, RATE_LIMITS, createRateLimitHeaders } from
 import { createEvidenceTraceId, recordEvidenceEvent } from '@/lib/analytics/evidence-telemetry';
 import { getRedisClient } from '@/cache/redis-client';
 import { EmailService } from '@/lib/email/email-service';
+import { normalizeRole, normalizeTenantId } from '@/lib/auth/types';
 
 export const dynamic = 'force-dynamic';
 
@@ -108,8 +109,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const normalizedRole = (user.role || '').toUpperCase();
-    const requiresMfa = PRIVILEGED_ROLES.has(normalizedRole);
+    const rawNormalizedRole = (user.role || '').toUpperCase();
+    const canonicalRole = normalizeRole(user.role);
+
+    if (!canonicalRole) {
+      return NextResponse.json(
+        { error: 'Unsupported role for Phase 1 corridor' },
+        { status: 403 }
+      );
+    }
+
+    const requiresMfa = PRIVILEGED_ROLES.has(rawNormalizedRole);
 
     if (requiresMfa) {
       const mfaCode = randomInt(100000, 999999).toString();
@@ -121,8 +131,9 @@ export async function POST(request: NextRequest) {
         JSON.stringify({
           userId: user.id,
           email: user.email,
-          role: user.role,
-          tenantId: user.tenant_id,
+          role: canonicalRole,
+          tenantId: normalizeTenantId(user.tenant_id),
+          tenant_id: normalizeTenantId(user.tenant_id),
           code: mfaCode,
           createdAt: new Date().toISOString(),
         }),
@@ -173,9 +184,9 @@ export async function POST(request: NextRequest) {
         userId: user.id, // Keep for backward compatibility
         email: user.email,
         name: user.name,
-        role: user.role,
-        tenant_id: user.tenant_id, // Changed from tenantId to tenant_id to match authService
-        tenantId: user.tenant_id, // Keep for backward compatibility
+        role: canonicalRole,
+        tenant_id: normalizeTenantId(user.tenant_id),
+        tenantId: normalizeTenantId(user.tenant_id),
         permissions: user.permissions,
       },
       jwtSecret,
@@ -215,9 +226,10 @@ export async function POST(request: NextRequest) {
       name: user.name,
       firstName: user.firstName,
       lastName: user.lastName,
-      role: user.role,
+      role: canonicalRole,
       permissions: user.permissions,
-      tenantId: user.tenant_id,
+      tenantId: normalizeTenantId(user.tenant_id),
+      tenant_id: normalizeTenantId(user.tenant_id),
       tenant: {
         id: user.tenants.id,
         name: user.tenants.name,

@@ -77,8 +77,8 @@ export function getAuditIntegrityMode(): AuditIntegrityMode {
 
 type ProdAuditIntegrityConfigCheck =
   | { checked: false }
-  | { checked: true; error: null }
-  | { checked: true; error: Error };
+  | { checked: true; error: null; mode: AuditIntegrityMode; hasHmacKey: boolean }
+  | { checked: true; error: Error; mode: AuditIntegrityMode; hasHmacKey: boolean };
 
 let prodAuditIntegrityConfigCheck: ProdAuditIntegrityConfigCheck = { checked: false };
 
@@ -90,14 +90,31 @@ function toError(err: unknown): Error {
 /**
  * Fail-fast in production for missing audit-integrity configuration.
  *
- * Important: this is cached per process to avoid noisy per-request error logs.
+ * Important: cache only a successful validation strongly. If runtime env was
+ * initially stale or unavailable, we must allow later requests in the same
+ * process to re-evaluate the current env truth after a redeploy/runtime refresh.
  */
 export function ensureAuditIntegrityProductionConfig(mode: AuditIntegrityMode): void {
   if (!isProductionEnv()) return;
 
+  const hasHmacKey = Boolean(process.env.AUDIT_LOG_HMAC_KEY);
+
   if (prodAuditIntegrityConfigCheck.checked) {
-    if (prodAuditIntegrityConfigCheck.error) throw prodAuditIntegrityConfigCheck.error;
-    return;
+    if (
+      prodAuditIntegrityConfigCheck.mode === mode &&
+      prodAuditIntegrityConfigCheck.hasHmacKey === hasHmacKey &&
+      prodAuditIntegrityConfigCheck.error === null
+    ) {
+      return;
+    }
+
+    if (
+      prodAuditIntegrityConfigCheck.mode === mode &&
+      prodAuditIntegrityConfigCheck.hasHmacKey === hasHmacKey &&
+      prodAuditIntegrityConfigCheck.error
+    ) {
+      throw prodAuditIntegrityConfigCheck.error;
+    }
   }
 
   try {
@@ -110,13 +127,24 @@ export function ensureAuditIntegrityProductionConfig(mode: AuditIntegrityMode): 
     // Fail-fast if key is missing.
     requireEnv('AUDIT_LOG_HMAC_KEY');
 
-    prodAuditIntegrityConfigCheck = { checked: true, error: null };
+    prodAuditIntegrityConfigCheck = {
+      checked: true,
+      error: null,
+      mode,
+      hasHmacKey,
+    };
   } catch (err) {
     const error = toError(err);
-    prodAuditIntegrityConfigCheck = { checked: true, error };
-    // Log exactly once per process to avoid spamming production logs.
+    prodAuditIntegrityConfigCheck = {
+      checked: true,
+      error,
+      mode,
+      hasHmacKey,
+    };
     logger.error('Audit integrity production configuration invalid', {
       error: error.message,
+      mode,
+      hasHmacKey,
     });
     throw error;
   }

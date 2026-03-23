@@ -54,25 +54,13 @@ export default function LoginPage() {
   // Helper to determine redirect path based on role
   const getRedirectPath = (userRole?: string) => {
     if (!userRole) return '/dashboard';
-    
+
     const role = userRole.toUpperCase();
-    
-    // Super Admin - System Administration
-    if (role === 'SUPER_ADMIN' || role === 'SUPERADMIN') {
+
+    if (role === 'SUPER_ADMIN') {
       return '/admin';
     }
-    
-    // LA roles - LA Dashboard
-    if (role === 'LA_ADMIN' || role === 'LA_MANAGER' || role === 'LA_CASEWORKER') {
-      return '/la/dashboard';
-    }
 
-    // Parent - Parent Portal
-    if (role === 'PARENT') {
-      return '/parents';
-    }
-    
-    // Default - general dashboard
     return '/dashboard';
   };
 
