@@ -41,10 +41,10 @@
   - objective: keep project state explicit in repo docs and assistant memory so execution does not rely on reconstructing chat context
 
 ## 3. NEXT
-1. Scott or cron loop to push committed changes to GitHub (requires git credentials on exec host)
+1. ~~Push committed changes to GitHub~~ — **done 2026-03-23 17:02 UTC**, commit `3f58ec2b` pushed via PAT
 2. Confirm Vercel picks up the restored build gate and build passes in production/preview
 3. Confirm latest READY preview still preserves the proven corridor after build gate change
-4. Produce a Phase 1 release-readiness checklist
+4. ~~Produce a Phase 1 release-readiness checklist~~ — **done 2026-03-23 17:22 UTC**, see `docs/phase1/release-readiness-checklist.md`
 5. Keep tightening only runtime-proven brittleness in Phase 1 surfaces
 
 ## 4. BLOCKERS
