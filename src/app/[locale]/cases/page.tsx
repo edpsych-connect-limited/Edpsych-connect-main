@@ -8,7 +8,7 @@
 // Force dynamic rendering for auth-required pages
 export const dynamic = 'force-dynamic';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Link } from '@/navigation';
 import { useAuth } from '@/lib/auth/hooks';
@@ -49,7 +49,7 @@ export default function CasesPage() {
     analyticsService.trackFeatureUsage(entityId, 'cases', action, data);
   };
 
-  const loadCases = async () => {
+  const loadCases = useCallback(async () => {
     try {
       setError(null);
       const response = await fetch('/api/cases');
@@ -78,13 +78,13 @@ export default function CasesPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user?.organization]);
 
   useEffect(() => {
     if (user) {
       loadCases();
     }
-  }, [user]);
+  }, [user, loadCases]);
 
   // Show loading during authentication check
   if (authLoading) {
