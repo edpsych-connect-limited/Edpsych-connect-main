@@ -29,7 +29,7 @@ import { Link } from '@/navigation';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { useAuth } from '@/lib/auth/hooks';
 
-// Forum categories with UK educational psychology focus
+// Forum categories — structural definitions only; counts come from the API
 const FORUM_CATEGORIES = [
   {
     id: 'send-support',
@@ -37,8 +37,8 @@ const FORUM_CATEGORIES = [
     description: 'Discuss evidence-based approaches for supporting students with Special Educational Needs and Disabilities',
     icon: 'S',
     color: 'bg-blue-100 text-blue-700',
-    topics: 156,
-    posts: 1247
+    topics: 0,
+    posts: 0
   },
   {
     id: 'assessment-practice',
@@ -46,8 +46,8 @@ const FORUM_CATEGORIES = [
     description: 'Share insights on cognitive assessments, ECCA framework implementation, and evaluation methods',
     icon: 'A',
     color: 'bg-purple-100 text-purple-700',
-    topics: 89,
-    posts: 723
+    topics: 0,
+    posts: 0
   },
   {
     id: 'ehcp-guidance',
@@ -55,8 +55,8 @@ const FORUM_CATEGORIES = [
     description: 'Navigate Education, Health and Care Plans, tribunals, and statutory assessments',
     icon: 'E',
     color: 'bg-green-100 text-green-700',
-    topics: 134,
-    posts: 1089
+    topics: 0,
+    posts: 0
   },
   {
     id: 'interventions',
@@ -64,8 +64,8 @@ const FORUM_CATEGORIES = [
     description: 'Evidence-based interventions for literacy, numeracy, behaviour, and emotional wellbeing',
     icon: 'I',
     color: 'bg-amber-100 text-amber-700',
-    topics: 201,
-    posts: 1654
+    topics: 0,
+    posts: 0
   },
   {
     id: 'mental-health',
@@ -73,8 +73,8 @@ const FORUM_CATEGORIES = [
     description: 'Supporting student mental health, anxiety, and emotional regulation in educational settings',
     icon: 'M',
     color: 'bg-teal-100 text-teal-700',
-    topics: 178,
-    posts: 1432
+    topics: 0,
+    posts: 0
   },
   {
     id: 'autism-neurodiversity',
@@ -82,8 +82,8 @@ const FORUM_CATEGORIES = [
     description: 'Strategies for supporting autistic students and embracing neurodiversity in schools',
     icon: 'N',
     color: 'bg-indigo-100 text-indigo-700',
-    topics: 223,
-    posts: 1876
+    topics: 0,
+    posts: 0
   },
   {
     id: 'professional-development',
@@ -91,8 +91,8 @@ const FORUM_CATEGORIES = [
     description: 'CPD opportunities, research updates, and career development for EPs and educators',
     icon: 'P',
     color: 'bg-pink-100 text-pink-700',
-    topics: 67,
-    posts: 412
+    topics: 0,
+    posts: 0
   },
   {
     id: 'research-evidence',
@@ -100,8 +100,8 @@ const FORUM_CATEGORIES = [
     description: 'Discuss latest research, meta-analyses, and evidence-based practice in educational psychology',
     icon: 'R',
     color: 'bg-rose-100 text-rose-700',
-    topics: 98,
-    posts: 567
+    topics: 0,
+    posts: 0
   }
 ];
 
@@ -216,12 +216,12 @@ export default function ForumPage() {
             <div className="hidden md:block">
               <div className="flex items-center gap-8 text-center">
                 <div>
-                  <div className="text-3xl font-bold">{FORUM_CATEGORIES.reduce((sum, c) => sum + c.topics, 0).toLocaleString()}</div>
-                  <div className="text-blue-200 text-sm">Topics</div>
+                  <div className="text-3xl font-bold">{FORUM_CATEGORIES.length}</div>
+                  <div className="text-blue-200 text-sm">Categories</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold">{FORUM_CATEGORIES.reduce((sum, c) => sum + c.posts, 0).toLocaleString()}</div>
-                  <div className="text-blue-200 text-sm">Posts</div>
+                  <div className="text-3xl font-bold">Be first</div>
+                  <div className="text-blue-200 text-sm">Early Access</div>
                 </div>
               </div>
             </div>
