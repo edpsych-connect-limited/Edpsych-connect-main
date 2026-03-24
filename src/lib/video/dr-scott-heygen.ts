@@ -13,7 +13,7 @@ export const ALLOWED_DR_SCOTT_AVATAR_IDS = [
 
 // IMPORTANT: This must match the currently approved Dr Scott voice ID.
 // If you rotate the voice in HeyGen, update this constant and re-run CI.
-export const REQUIRED_DR_SCOTT_VOICE_ID = '50d2a2a531d049719a0debbf82e1cf4c' as const; // Scott Ighavongbe-Patrick — confirmed 2026-03-24
+export const REQUIRED_DR_SCOTT_VOICE_ID = '7814e6a7f7d84f4eb7a14c453d9d472a' as const; // Dr Scott Voice.m4a — confirmed best lipsync 2026-03-24
 
 function splitCastingIds(raw: string): string[] {
   return String(raw || '')
