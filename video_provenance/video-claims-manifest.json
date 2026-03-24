@@ -7876,6 +7876,81 @@
           }
         }
       ]
+    },
+    "landing-platform-overview": {
+      "claims": [
+        {
+          "id": "landing-platform-overview-001",
+          "statement": "Key landing-platform-overview is present in the canonical HEYGEN_VIDEO_IDS registry and rendered in the landing VideoPremiereSection component.",
+          "status": "verified",
+          "lastReviewedAt": "2026-03-24T09:00:00.000Z",
+          "kind": "registry-key",
+          "expected": "present",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/components/landing/VideoPremiereSection.tsx"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "landing-platform-overview"
+              }
+            ],
+            "notes": "PLACEHOLDER video ID \u2014 actual HeyGen video not yet recorded. Key introduced for landing page video carousel."
+          }
+        }
+      ]
+    },
+    "landing-ehcp-workflow": {
+      "claims": [
+        {
+          "id": "landing-ehcp-workflow-001",
+          "statement": "Key landing-ehcp-workflow is present in the canonical HEYGEN_VIDEO_IDS registry and rendered in the landing VideoPremiereSection component.",
+          "status": "verified",
+          "lastReviewedAt": "2026-03-24T09:00:00.000Z",
+          "kind": "registry-key",
+          "expected": "present",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/components/landing/VideoPremiereSection.tsx"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "landing-ehcp-workflow"
+              }
+            ],
+            "notes": "PLACEHOLDER video ID \u2014 actual HeyGen video not yet recorded. Key introduced for landing page EHCP workflow demo carousel."
+          }
+        }
+      ]
+    },
+    "landing-intervention-engine": {
+      "claims": [
+        {
+          "id": "landing-intervention-engine-001",
+          "statement": "Key landing-intervention-engine is present in the canonical HEYGEN_VIDEO_IDS registry and rendered in the landing VideoPremiereSection component.",
+          "status": "verified",
+          "lastReviewedAt": "2026-03-24T09:00:00.000Z",
+          "kind": "registry-key",
+          "expected": "present",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts",
+              "src/components/landing/VideoPremiereSection.tsx"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "landing-intervention-engine"
+              }
+            ],
+            "notes": "PLACEHOLDER video ID \u2014 actual HeyGen video not yet recorded. Key introduced for landing page intervention engine demo carousel."
+          }
+        }
+      ]
     }
   }
 }
