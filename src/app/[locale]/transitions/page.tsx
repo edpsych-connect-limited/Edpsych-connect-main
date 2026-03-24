@@ -8,11 +8,11 @@
  * Comprehensive transition support for key educational phases
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   ArrowRight, Calendar, Users, CheckCircle, Clock,
   Plus, Search, Filter, Download, ChevronRight, School,
-  GraduationCap, Briefcase, AlertTriangle, MapPin
+  GraduationCap, Briefcase, AlertTriangle, MapPin, Loader2
 } from 'lucide-react';
 import { FeatureGate } from '@/components/subscription/FeatureGate';
 import { Feature } from '@/types/prisma-enums';
@@ -30,56 +30,6 @@ interface TransitionPlan {
   checklistProgress: number;
   lastUpdate: string;
 }
-
-const mockTransitions: TransitionPlan[] = [
-  {
-    id: '1',
-    studentName: 'Emily Watson',
-    currentYear: 'Year 6',
-    transitionType: 'year6',
-    destinationSetting: 'Riverside Academy',
-    status: 'in-progress',
-    keyDates: [
-      { label: 'Initial meeting', date: '2025-01-15', completed: true },
-      { label: 'Setting visit', date: '2025-02-20', completed: false },
-      { label: 'Transition review', date: '2025-04-10', completed: false },
-      { label: 'Handover meeting', date: '2025-06-15', completed: false },
-    ],
-    checklistProgress: 45,
-    lastUpdate: '2025-12-01',
-  },
-  {
-    id: '2',
-    studentName: 'James Collins',
-    currentYear: 'Year 9',
-    transitionType: 'year9',
-    destinationSetting: 'Options Review - GCSE Selection',
-    status: 'planning',
-    keyDates: [
-      { label: 'PfA meeting', date: '2025-01-20', completed: false },
-      { label: 'Options evening', date: '2025-02-05', completed: false },
-      { label: 'Final selection', date: '2025-03-01', completed: false },
-    ],
-    checklistProgress: 25,
-    lastUpdate: '2025-11-28',
-  },
-  {
-    id: '3',
-    studentName: 'Sophie Ahmed',
-    currentYear: 'Year 11',
-    transitionType: 'year11',
-    destinationSetting: 'City College - Supported Internship',
-    status: 'in-progress',
-    keyDates: [
-      { label: 'Post-16 review', date: '2024-11-15', completed: true },
-      { label: 'College visit', date: '2025-01-10', completed: true },
-      { label: 'Application submitted', date: '2025-01-30', completed: false },
-      { label: 'Transition planning meeting', date: '2025-03-15', completed: false },
-    ],
-    checklistProgress: 60,
-    lastUpdate: '2025-12-03',
-  },
-];
 
 const transitionTypes = {
   year6: {
@@ -108,10 +58,29 @@ const transitionTypes = {
 function TransitionPlanningContent() {
   const [selectedType, setSelectedType] = useState<TransitionType>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [transitions, setTransitions] = useState<TransitionPlan[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredTransitions = selectedType === 'all'
-    ? mockTransitions
-    : mockTransitions.filter(t => t.transitionType === selectedType);
+  useEffect(() => {
+    // No transition planning API exists yet — show empty state rather than mock data
+    setLoading(false);
+    setTransitions([]);
+  }, []);
+
+  const filteredTransitions = (selectedType === 'all'
+    ? transitions
+    : transitions.filter(t => t.transitionType === selectedType)
+  ).filter(t =>
+    !searchQuery || t.studentName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -159,26 +128,26 @@ function TransitionPlanningContent() {
           <SummaryCard
             icon={Users}
             label="Active Transitions"
-            value="24"
+            value={transitions.filter(t => t.status !== 'complete').length.toString()}
             subtext="Across all year groups"
           />
           <SummaryCard
             icon={CheckCircle}
             label="Completed This Year"
-            value="18"
+            value={transitions.filter(t => t.status === 'complete').length.toString()}
             subtext="Successfully transitioned"
           />
           <SummaryCard
             icon={AlertTriangle}
             label="Needs Attention"
-            value="5"
+            value={transitions.filter(t => t.checklistProgress < 30).length.toString()}
             subtext="Pending actions required"
           />
           <SummaryCard
             icon={Calendar}
             label="Upcoming Deadlines"
-            value="12"
-            subtext="Next 30 days"
+            value="—"
+            subtext="No data yet"
           />
         </div>
 
@@ -188,7 +157,7 @@ function TransitionPlanningContent() {
           <div className="grid md:grid-cols-3 gap-4">
             {(Object.entries(transitionTypes) as [keyof typeof transitionTypes, typeof transitionTypes.year6][]).map(([key, config]) => {
               const Icon = config.icon;
-              const count = mockTransitions.filter(t => t.transitionType === key).length;
+              const count = transitions.filter((t: TransitionPlan) => t.transitionType === key).length;
               
               return (
                 <button
