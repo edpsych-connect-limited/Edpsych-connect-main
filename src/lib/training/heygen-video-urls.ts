@@ -118,7 +118,7 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "help-first-assessment": "c2f83ce8d785468a8d762bebb2cee7f0",
   "help-generating-reports": "54882ac8986c404d99b052952de1699b",
   "help-troubleshooting": "a47ac27a1b444cc892840d32c9d63cbb",
-  "help-getting-started": "47faddd661d648e5ae34c8360c8b2286", // Alias to onboarding-platform-tour
+  // "help-getting-started": "47faddd661d648e5ae34c8360c8b2286", // Removed: duplicate key (canonical at top of file)
 
   // Legacy/compat aliases (keep until all call sites are migrated)
   "feature-interventions": "47aa88223c364600b6618b54c719f717", // alias -> help-finding-interventions
@@ -168,7 +168,7 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
 
   // SECURITY- Videos
   "security-deep-dive": "12fbfee13dd04c7087eee79ad1101fb2",
-  "ethical-ai-oversight": "7de1da950ad34f4b891ecc8f2e153e07",
+  // "ethical-ai-oversight": "7de1da950ad34f4b891ecc8f2e153e07", // Removed: duplicate key (canonical at top of file)
 
   // FEATURE- Videos
   "feature-accessibility": "a53810c3826544d0b67a19dbf0848419",
