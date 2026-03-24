@@ -179,7 +179,7 @@ export default function StudioPage({ params }: StudioPageProps) {
             </CardContent>
           </Card>
 
-          {/* Activity Widget (Mock) */}
+          {/* Activity Widget */}
           <Card>
             <CardHeader className="pb-3 border-b border-gray-100">
               <CardTitle className="text-base font-semibold flex items-center">
@@ -188,16 +188,8 @@ export default function StudioPage({ params }: StudioPageProps) {
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4">
-              <div className="space-y-4">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="flex items-start pb-4 border-b border-gray-50 last:border-0 last:pb-0">
-                    <div className="w-2 h-2 rounded-full bg-gray-300 mt-1.5 mr-3 shrink-0"></div>
-                    <div>
-                      <p className="text-sm font-medium text-gray-700">System updated</p>
-                      <p className="text-xs text-gray-500 block">2 hours ago</p>
-                    </div>
-                  </div>
-                ))}
+              <div className="py-4 text-center text-sm text-gray-400">
+                No recent activity to display.
               </div>
             </CardContent>
             <CardFooter className="bg-gray-50 border-t border-gray-100 p-3">
