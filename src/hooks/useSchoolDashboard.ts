@@ -81,8 +81,8 @@ export function useSchoolDashboard() {
         
         setStats({
           activeCases: metrics.caseload.totalStudents,
-          teacherAssessments, // Keep static for now as API doesn't seem to return this specific count
-          interventionCount: metrics.weeklyActivity.interventionsStarted,
+          teacherAssessments,
+          interventionCount: INTERVENTION_STATS.total,
           criticalActions: metrics.caseload.urgentActions
         });
 

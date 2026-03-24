@@ -8,83 +8,120 @@
  * SMART outcome management with progress monitoring and evidence collection
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Target, TrendingUp, Calendar, CheckCircle, AlertCircle, Plus,
   Search, Download, ChevronRight, Clock,
-  FileText, ArrowUpRight, ArrowDownRight
+  FileText, ArrowUpRight, ArrowDownRight, Loader2
 } from 'lucide-react';
 import { FeatureGate } from '@/components/subscription/FeatureGate';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { Feature } from '@/types/prisma-enums';
 
-// Mock data for demonstration
-const mockOutcomes = [
-  {
-    id: '1',
-    studentName: 'James Patterson',
-    outcome: 'Improve reading comprehension from Year 3 to Year 5 level',
-    category: 'Cognition & Learning',
-    baseline: 'Year 3.2',
-    target: 'Year 5.0',
-    current: 'Year 4.4',
-    progress: 72,
-    trend: 'up',
-    dueDate: '2025-07-01',
-    status: 'on-track',
-    evidenceCount: 8,
-    lastUpdate: '2025-12-01',
-  },
-  {
-    id: '2',
-    studentName: 'Sarah Mitchell',
-    outcome: 'Develop independent self-regulation strategies for classroom transitions',
-    category: 'SEMH',
-    baseline: '2/10 transitions managed',
-    target: '8/10 transitions managed',
-    current: '5/10 transitions managed',
-    progress: 50,
-    trend: 'up',
-    dueDate: '2025-06-30',
-    status: 'attention',
-    evidenceCount: 5,
-    lastUpdate: '2025-11-28',
-  },
-  {
-    id: '3',
-    studentName: 'Mohammed Ahmed',
-    outcome: 'Increase verbal communication initiations in group settings',
-    category: 'Communication & Interaction',
-    baseline: '1-2 initiations per session',
-    target: '8-10 initiations per session',
-    current: '6 initiations per session',
-    progress: 65,
-    trend: 'stable',
-    dueDate: '2025-09-01',
-    status: 'on-track',
-    evidenceCount: 12,
-    lastUpdate: '2025-12-03',
-  },
-];
+interface Outcome {
+  id: string;
+  studentName?: string;
+  title: string;
+  description?: string;
+  category: string;
+  baseline?: { description: string; level: number };
+  target?: { description: string; level: number };
+  progressPercentage?: number;
+  progressTrend?: 'up' | 'down' | 'stable';
+  timeBound?: string;
+  status?: string;
+  evidenceCount?: number;
+  lastProgressDate?: string;
+  student?: { firstName: string; lastName: string };
+}
 
-const outcomeCategories = [
-  { id: 'all', label: 'All Outcomes', count: 45 },
-  { id: 'cognition', label: 'Cognition & Learning', count: 18 },
-  { id: 'communication', label: 'Communication & Interaction', count: 12 },
-  { id: 'semh', label: 'SEMH', count: 10 },
-  { id: 'sensory', label: 'Sensory/Physical', count: 5 },
+interface OutcomeSummary {
+  activeOutcomes: number;
+  onTrackPercentage: number;
+  needsAttentionCount: number;
+  achievedThisTerm: number;
+}
+
+const OUTCOME_CATEGORIES = [
+  { id: 'all', label: 'All Outcomes' },
+  { id: 'COGNITION', label: 'Cognition & Learning' },
+  { id: 'COMMUNICATION', label: 'Communication & Interaction' },
+  { id: 'SOCIAL_EMOTIONAL', label: 'SEMH' },
+  { id: 'SENSORY_PHYSICAL', label: 'Sensory/Physical' },
 ];
 
 function OutcomeTrackingContent() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const needsAttention = mockOutcomes.filter((outcome) => outcome.status !== 'on-track');
-  const dueSoon = mockOutcomes.filter((outcome) => {
-    const due = new Date(outcome.dueDate);
+  const [outcomes, setOutcomes] = useState<Outcome[]>([]);
+  const [summary, setSummary] = useState<OutcomeSummary | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchOutcomes() {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch('/api/outcomes?action=list&limit=50');
+        if (!res.ok) throw new Error('Failed to fetch outcomes');
+        const data = await res.json();
+        if (data.success && data.data) {
+          const list: Outcome[] = data.data.outcomes ?? data.data ?? [];
+          setOutcomes(list);
+
+          const active = list.filter((o) => o.status !== 'ACHIEVED').length;
+          const onTrack = list.filter((o) => o.status === 'ON_TRACK').length;
+          const attn = list.filter((o) => o.status === 'NEEDS_ATTENTION' || o.status === 'AT_RISK').length;
+          const achieved = list.filter((o) => o.status === 'ACHIEVED').length;
+          setSummary({
+            activeOutcomes: active,
+            onTrackPercentage: active > 0 ? Math.round((onTrack / active) * 100) : 0,
+            needsAttentionCount: attn,
+            achievedThisTerm: achieved,
+          });
+        } else {
+          setOutcomes([]);
+          setSummary({ activeOutcomes: 0, onTrackPercentage: 0, needsAttentionCount: 0, achievedThisTerm: 0 });
+        }
+      } catch (err) {
+        setError('Unable to load outcome data. Please try refreshing.');
+        setOutcomes([]);
+        setSummary({ activeOutcomes: 0, onTrackPercentage: 0, needsAttentionCount: 0, achievedThisTerm: 0 });
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchOutcomes();
+  }, []);
+
+  const filteredOutcomes = outcomes.filter((o) => {
+    const matchesCategory = selectedCategory === 'all' || o.category === selectedCategory;
+    const name = o.student ? `${o.student.firstName} ${o.student.lastName}` : (o.studentName ?? '');
+    const matchesSearch =
+      !searchQuery ||
+      name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (o.title ?? '').toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  const needsAttention = filteredOutcomes.filter((o) => o.status === 'NEEDS_ATTENTION' || o.status === 'AT_RISK');
+  const dueSoon = filteredOutcomes.filter((o) => {
+    if (!o.timeBound) return false;
+    const due = new Date(o.timeBound);
     const now = new Date();
     const diffDays = Math.ceil((due.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
     return diffDays >= 0 && diffDays <= 30;
   });
-  const evidenceGaps = mockOutcomes.filter((outcome) => outcome.evidenceCount < 5);
+  const evidenceGaps = filteredOutcomes.filter((o) => (o.evidenceCount ?? 0) < 5);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -113,34 +150,40 @@ function OutcomeTrackingContent() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {error && (
+          <div className="mb-6 p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm">
+            {error}
+          </div>
+        )}
+
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <SummaryCard
             icon={Target}
             label="Active Outcomes"
-            value="45"
-            change="+3 this month"
+            value={summary?.activeOutcomes.toString() ?? '0'}
+            change=""
             trend="up"
           />
           <SummaryCard
             icon={TrendingUp}
             label="On Track"
-            value="78%"
-            change="+5% from last month"
+            value={`${summary?.onTrackPercentage ?? 0}%`}
+            change=""
             trend="up"
           />
           <SummaryCard
             icon={AlertCircle}
             label="Needs Attention"
-            value="8"
-            change="2 newly flagged"
+            value={summary?.needsAttentionCount.toString() ?? '0'}
+            change=""
             trend="attention"
           />
           <SummaryCard
             icon={CheckCircle}
             label="Achieved This Term"
-            value="12"
-            change="4 pending verification"
+            value={summary?.achievedThisTerm.toString() ?? '0'}
+            change=""
             trend="up"
           />
         </div>
@@ -154,9 +197,6 @@ function OutcomeTrackingContent() {
                 Focus attention where outcomes need the fastest intervention.
               </p>
             </div>
-            <button className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
-              Review Priorities
-            </button>
           </div>
           <div className="mt-4 grid gap-4 md:grid-cols-3">
             <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900 dark:border-amber-900/40 dark:bg-amber-900/20 dark:text-amber-100">
@@ -183,7 +223,7 @@ function OutcomeTrackingContent() {
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4">
               <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Categories</h3>
               <div className="space-y-2">
-                {outcomeCategories.map((cat) => (
+                {OUTCOME_CATEGORIES.map((cat) => (
                   <button
                     key={cat.id}
                     onClick={() => setSelectedCategory(cat.id)}
@@ -195,7 +235,9 @@ function OutcomeTrackingContent() {
                   >
                     <span>{cat.label}</span>
                     <span className="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full">
-                      {cat.count}
+                      {cat.id === 'all'
+                        ? outcomes.length
+                        : outcomes.filter((o) => o.category === cat.id).length}
                     </span>
                   </button>
                 ))}
@@ -236,7 +278,7 @@ function OutcomeTrackingContent() {
                 />
               </div>
               <label htmlFor="outcome-sort" className="sr-only">Sort outcomes</label>
-              <select 
+              <select
                 id="outcome-sort"
                 aria-label="Sort outcomes by"
                 className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
@@ -250,9 +292,21 @@ function OutcomeTrackingContent() {
 
             {/* Outcome Cards */}
             <div className="space-y-4">
-              {mockOutcomes.map((outcome) => (
-                <OutcomeCard key={outcome.id} outcome={outcome} />
-              ))}
+              {filteredOutcomes.length > 0 ? (
+                filteredOutcomes.map((outcome) => (
+                  <OutcomeCard key={outcome.id} outcome={outcome} />
+                ))
+              ) : (
+                <EmptyState
+                  title="No outcomes found"
+                  description={
+                    searchQuery || selectedCategory !== 'all'
+                      ? 'No outcomes match your current filters.'
+                      : 'No outcomes have been created yet. Use the New Outcome button to get started.'
+                  }
+                  className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl"
+                />
+              )}
             </div>
           </div>
         </div>
@@ -280,98 +334,124 @@ function SummaryCard({ icon: Icon, label, value, change, trend }: {
       </div>
       <p className="text-2xl font-bold text-gray-900 dark:text-white mt-4">{value}</p>
       <p className="text-sm text-gray-500 dark:text-gray-400">{label}</p>
-      <p className={`text-xs mt-2 ${
-        trend === 'up' ? 'text-green-600' : trend === 'down' ? 'text-red-600' : 'text-amber-600'
-      }`}>
-        {change}
-      </p>
+      {change && (
+        <p className={`text-xs mt-2 ${
+          trend === 'up' ? 'text-green-600' : trend === 'down' ? 'text-red-600' : 'text-amber-600'
+        }`}>
+          {change}
+        </p>
+      )}
     </div>
   );
 }
 
-function OutcomeCard({ outcome }: { outcome: typeof mockOutcomes[0] }) {
-  const statusColors = {
-    'on-track': 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
-    'attention': 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
-    'at-risk': 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
+function OutcomeCard({ outcome }: { outcome: Outcome }) {
+  const statusColors: Record<string, string> = {
+    'ON_TRACK': 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+    'NEEDS_ATTENTION': 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
+    'AT_RISK': 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
+    'ACHIEVED': 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
   };
+
+  const statusLabels: Record<string, string> = {
+    'ON_TRACK': 'On Track',
+    'NEEDS_ATTENTION': 'Needs Attention',
+    'AT_RISK': 'At Risk',
+    'ACHIEVED': 'Achieved',
+  };
+
+  const studentName = outcome.student
+    ? `${outcome.student.firstName} ${outcome.student.lastName}`
+    : (outcome.studentName ?? 'Unknown Student');
+
+  const progress = outcome.progressPercentage ?? 0;
+  const status = outcome.status ?? 'ON_TRACK';
+
+  const progressWidth =
+    progress >= 90 ? 'w-[90%]' :
+    progress >= 80 ? 'w-[80%]' :
+    progress >= 70 ? 'w-[70%]' :
+    progress >= 60 ? 'w-[60%]' :
+    progress >= 50 ? 'w-[50%]' :
+    progress >= 40 ? 'w-[40%]' :
+    progress >= 30 ? 'w-[30%]' :
+    progress >= 20 ? 'w-[20%]' :
+    progress >= 10 ? 'w-[10%]' : 'w-[5%]';
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:border-indigo-500/50 transition-colors cursor-pointer">
       <div className="flex items-start justify-between">
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-2">
-            <h3 className="font-semibold text-gray-900 dark:text-white">{outcome.studentName}</h3>
-            <span className={`text-xs px-2 py-1 rounded-full ${statusColors[outcome.status as keyof typeof statusColors]}`}>
-              {outcome.status === 'on-track' ? 'On Track' : outcome.status === 'attention' ? 'Needs Attention' : 'At Risk'}
+            <h3 className="font-semibold text-gray-900 dark:text-white">{studentName}</h3>
+            <span className={`text-xs px-2 py-1 rounded-full ${statusColors[status] ?? statusColors['ON_TRACK']}`}>
+              {statusLabels[status] ?? status}
             </span>
             <span className="text-xs px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-              {outcome.category}
+              {outcome.category?.replace(/_/g, ' ')}
             </span>
           </div>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">{outcome.outcome}</p>
-          
+          <p className="text-gray-600 dark:text-gray-300 mb-4">{outcome.title}</p>
+
           {/* Progress Section */}
-          <div className="grid grid-cols-3 gap-4 mb-4">
-            <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Baseline</p>
-              <p className="text-sm font-medium text-gray-900 dark:text-white">{outcome.baseline}</p>
+          {(outcome.baseline || outcome.target) && (
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              {outcome.baseline && (
+                <div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Baseline</p>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">{outcome.baseline.description}</p>
+                </div>
+              )}
+              {outcome.target && (
+                <div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Target</p>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">{outcome.target.description}</p>
+                </div>
+              )}
             </div>
-            <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Current</p>
-              <p className="text-sm font-medium text-indigo-600">{outcome.current}</p>
-            </div>
-            <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Target</p>
-              <p className="text-sm font-medium text-gray-900 dark:text-white">{outcome.target}</p>
-            </div>
-          </div>
+          )}
 
           {/* Progress Bar */}
           <div className="mb-4">
             <div className="flex items-center justify-between text-sm mb-1">
               <span className="text-gray-500 dark:text-gray-400">Progress</span>
-              <span className="font-medium text-gray-900 dark:text-white">{outcome.progress}%</span>
+              <span className="font-medium text-gray-900 dark:text-white">{progress}%</span>
             </div>
-            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2" title={`Progress: ${outcome.progress}%`}>
+            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2" title={`Progress: ${progress}%`}>
               <div
                 className={`h-2 rounded-full transition-all ${
-                  outcome.status === 'on-track' ? 'bg-green-500' :
-                  outcome.status === 'attention' ? 'bg-amber-500' : 'bg-red-500'
-                } ${
-                  outcome.progress >= 90 ? 'w-[90%]' :
-                  outcome.progress >= 80 ? 'w-[80%]' :
-                  outcome.progress >= 70 ? 'w-[70%]' :
-                  outcome.progress >= 60 ? 'w-[60%]' :
-                  outcome.progress >= 50 ? 'w-[50%]' :
-                  outcome.progress >= 40 ? 'w-[40%]' :
-                  outcome.progress >= 30 ? 'w-[30%]' :
-                  outcome.progress >= 20 ? 'w-[20%]' :
-                  outcome.progress >= 10 ? 'w-[10%]' : 'w-[5%]'
-                }`}
+                  status === 'ON_TRACK' || status === 'ACHIEVED' ? 'bg-green-500' :
+                  status === 'NEEDS_ATTENTION' ? 'bg-amber-500' : 'bg-red-500'
+                } ${progressWidth}`}
                 aria-hidden="true"
               />
-              <span className="sr-only">Progress: {outcome.progress}%</span>
+              <span className="sr-only">Progress: {progress}%</span>
             </div>
           </div>
 
           {/* Meta Info */}
-          <div className="flex items-center gap-6 text-sm text-gray-500 dark:text-gray-400">
-            <div className="flex items-center gap-1">
-              <Calendar className="w-4 h-4" />
-              Due: {outcome.dueDate}
-            </div>
-            <div className="flex items-center gap-1">
-              <FileText className="w-4 h-4" />
-              {outcome.evidenceCount} evidence items
-            </div>
-            <div className="flex items-center gap-1">
-              <Clock className="w-4 h-4" />
-              Updated: {outcome.lastUpdate}
-            </div>
+          <div className="flex items-center gap-6 text-sm text-gray-500 dark:text-gray-400 flex-wrap">
+            {outcome.timeBound && (
+              <div className="flex items-center gap-1">
+                <Calendar className="w-4 h-4" />
+                Due: {new Date(outcome.timeBound).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+              </div>
+            )}
+            {typeof outcome.evidenceCount === 'number' && (
+              <div className="flex items-center gap-1">
+                <FileText className="w-4 h-4" />
+                {outcome.evidenceCount} evidence items
+              </div>
+            )}
+            {outcome.lastProgressDate && (
+              <div className="flex items-center gap-1">
+                <Clock className="w-4 h-4" />
+                Updated: {new Date(outcome.lastProgressDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+              </div>
+            )}
           </div>
         </div>
-        <ChevronRight className="w-5 h-5 text-gray-400" />
+        <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1" />
       </div>
     </div>
   );
