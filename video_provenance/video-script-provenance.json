@@ -1283,33 +1283,63 @@
     },
     "landing-platform-overview": {
       "key": "landing-platform-overview",
-      "resolvedKey": "landing-platform-overview",
-      "sourceId": "landing-page-2026-03-24",
-      "title": "EdPsych Connect - Why I Built It",
-      "scriptSha256": "ca61671d038ca1a822e8e8e7be75bc9159e556f429ac5ea146b6aa9b9c59f831",
-      "verifiedAudioMatch": true,
-      "generatedAt": "2026-03-24T10:30:18.409Z",
-      "castingNote": "Dr Scott Ighavongbe-Patrick — avatar d680604a31f34ce096c84bed708774c3, voice 50d2a2a531d049719a0debbf82e1cf4c"
+      "resolvedKey": "platform-introduction",
+      "sourceId": "world-class-marketing",
+      "title": "Welcome to EdPsych Connect World",
+      "scriptSha256": "6d63e41457b1aa97d48a9fc2976b26b9efedf1ec6713a306b84cb91a8ea39946",
+      "verifiedAudioMatch": false,
+      "generatedAt": "2026-03-24T10:52:45.255Z",
+      "castingNote": "Dr Scott Ighavongbe-Patrick — avatar d680604a31f34ce096c84bed708774c3, voice 50d2a2a531d049719a0debbf82e1cf4c. Landing page video generated 2026-03-24."
     },
     "landing-ehcp-workflow": {
       "key": "landing-ehcp-workflow",
-      "resolvedKey": "landing-ehcp-workflow",
-      "sourceId": "landing-page-2026-03-24",
-      "title": "EdPsych Connect - EHCP Made Manageable",
-      "scriptSha256": "6e626124f02b9662e58826b0244c15de8744fe98946002c7c6a1c73be57e2d78",
-      "verifiedAudioMatch": true,
-      "generatedAt": "2026-03-24T10:30:18.409Z",
-      "castingNote": "Dr Scott Ighavongbe-Patrick — avatar d680604a31f34ce096c84bed708774c3, voice 50d2a2a531d049719a0debbf82e1cf4c"
+      "resolvedKey": "ehcp-application-journey",
+      "sourceId": "world-class-v4-core",
+      "title": "Your Education, Health and Care Plan Application Journey",
+      "scriptSha256": "2e6d528fe85228579b0aacfbf01b114b63058bc98771e15ed54e9419ad9df5ec",
+      "verifiedAudioMatch": false,
+      "generatedAt": "2026-03-24T10:52:45.255Z",
+      "castingNote": "Dr Scott Ighavongbe-Patrick — avatar d680604a31f34ce096c84bed708774c3, voice 50d2a2a531d049719a0debbf82e1cf4c. Landing page video generated 2026-03-24."
     },
     "landing-intervention-engine": {
       "key": "landing-intervention-engine",
-      "resolvedKey": "landing-intervention-engine",
-      "sourceId": "landing-page-2026-03-24",
-      "title": "EdPsych Connect - Interventions That Stay Connected",
-      "scriptSha256": "be849583c451c521a602fd7e213d40cfcfe04f321f726ac492cc4329188f2bc5",
-      "verifiedAudioMatch": true,
-      "generatedAt": "2026-03-24T10:30:18.409Z",
-      "castingNote": "Dr Scott Ighavongbe-Patrick — avatar d680604a31f34ce096c84bed708774c3, voice 50d2a2a531d049719a0debbf82e1cf4c"
+      "resolvedKey": "help-finding-interventions",
+      "sourceId": "world-class-v4-core",
+      "title": "Finding the Right Intervention",
+      "scriptSha256": "adffabde863795161779b858b1e6e3b1d3a839a73c05d97d15d57c7062c32a3d",
+      "verifiedAudioMatch": false,
+      "generatedAt": "2026-03-24T10:52:45.255Z",
+      "castingNote": "Dr Scott Ighavongbe-Patrick — avatar d680604a31f34ce096c84bed708774c3, voice 50d2a2a531d049719a0debbf82e1cf4c. Landing page video generated 2026-03-24."
+    },
+    "ep-assessment-deep-dive": {
+      "key": "ep-assessment-deep-dive",
+      "resolvedKey": "onboard-ep-assessment-suite",
+      "sourceId": "dr-scott-role-videos-2026-03-24",
+      "title": "EP Assessment Suite",
+      "scriptSha256": "944c9ded5fe38e1c503409d6fabc202f0f3f9b90573b3715b03a6fe632c159d2",
+      "verifiedAudioMatch": false,
+      "generatedAt": "2026-03-24T10:53:11.380Z",
+      "castingNote": "Dr Scott Ighavongbe-Patrick — video mapped 2026-03-24."
+    },
+    "ep-report-writing": {
+      "key": "ep-report-writing",
+      "resolvedKey": "onboard-ep-report-writing",
+      "sourceId": "dr-scott-role-videos-2026-03-24",
+      "title": "EP Report Writing",
+      "scriptSha256": "a734c2857d9e8a6f591bdace6af66e13e3a0d8209cd4b24dde5f02df7627e939",
+      "verifiedAudioMatch": false,
+      "generatedAt": "2026-03-24T10:53:11.380Z",
+      "castingNote": "Dr Scott Ighavongbe-Patrick — video mapped 2026-03-24."
+    },
+    "la-compliance-analytics": {
+      "key": "la-compliance-analytics",
+      "resolvedKey": "la-dashboard-overview",
+      "sourceId": "world-class-v4-core",
+      "title": "Your Local Authority Dashboard Overview",
+      "scriptSha256": "6d1cffade230f6b0926255f1377a2241f9f64b054218ce1e8155d00c5ee0e254",
+      "verifiedAudioMatch": false,
+      "generatedAt": "2026-03-24T10:53:26.351Z",
+      "castingNote": "Mapped to la-dashboard-overview. Dr Scott video 98afc3ad."
     }
   }
 }
