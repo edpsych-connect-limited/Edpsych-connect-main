@@ -1280,6 +1280,36 @@
       "scriptSha256": "b3962c6e11ea5929b3ecdab134056ab687d5b51bedf39347bd8ff4f466e25ccc",
       "verifiedAudioMatch": false,
       "generatedAt": "2026-01-17T17:19:50.279Z"
+    },
+    "landing-platform-overview": {
+      "key": "landing-platform-overview",
+      "resolvedKey": "landing-platform-overview",
+      "sourceId": "landing-page-2026-03-24",
+      "title": "EdPsych Connect - Why I Built It",
+      "scriptSha256": "ca61671d038ca1a822e8e8e7be75bc9159e556f429ac5ea146b6aa9b9c59f831",
+      "verifiedAudioMatch": true,
+      "generatedAt": "2026-03-24T10:30:18.409Z",
+      "castingNote": "Dr Scott Ighavongbe-Patrick — avatar d680604a31f34ce096c84bed708774c3, voice 50d2a2a531d049719a0debbf82e1cf4c"
+    },
+    "landing-ehcp-workflow": {
+      "key": "landing-ehcp-workflow",
+      "resolvedKey": "landing-ehcp-workflow",
+      "sourceId": "landing-page-2026-03-24",
+      "title": "EdPsych Connect - EHCP Made Manageable",
+      "scriptSha256": "6e626124f02b9662e58826b0244c15de8744fe98946002c7c6a1c73be57e2d78",
+      "verifiedAudioMatch": true,
+      "generatedAt": "2026-03-24T10:30:18.409Z",
+      "castingNote": "Dr Scott Ighavongbe-Patrick — avatar d680604a31f34ce096c84bed708774c3, voice 50d2a2a531d049719a0debbf82e1cf4c"
+    },
+    "landing-intervention-engine": {
+      "key": "landing-intervention-engine",
+      "resolvedKey": "landing-intervention-engine",
+      "sourceId": "landing-page-2026-03-24",
+      "title": "EdPsych Connect - Interventions That Stay Connected",
+      "scriptSha256": "be849583c451c521a602fd7e213d40cfcfe04f321f726ac492cc4329188f2bc5",
+      "verifiedAudioMatch": true,
+      "generatedAt": "2026-03-24T10:30:18.409Z",
+      "castingNote": "Dr Scott Ighavongbe-Patrick — avatar d680604a31f34ce096c84bed708774c3, voice 50d2a2a531d049719a0debbf82e1cf4c"
     }
   }
 }
