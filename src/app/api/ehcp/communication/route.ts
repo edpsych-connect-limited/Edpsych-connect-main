@@ -1,12 +1,13 @@
+import authService from '@/lib/auth/auth-service';
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { CommunicationThreadService } from '@/lib/ehcp/communication-thread-service';
 import { logger } from '@/lib/logger';
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(req);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -18,10 +19,10 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Missing applicationId' }, { status: 400 });
     }
 
-    const tenantId = session.user.tenant_id || 1;
+    const tenantId = session.tenant_id || 1;
     const service = new CommunicationThreadService(tenantId);
     // Infer viewerType from role
-    const viewerType = session.user.role === 'LA_ADMIN' ? 'LA' : 'SCHOOL';
+    const viewerType = (session as any).role === 'LA_ADMIN' ? 'LA' : 'SCHOOL';
 
     const thread = await service.getThread(Number(applicationId), viewerType);
 
@@ -34,7 +35,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(req);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -42,17 +43,17 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { applicationId, content, type, attachments, subject } = body;
 
-    const tenantId = session.user.tenant_id || 1;
+    const tenantId = session.tenant_id || 1;
     const service = new CommunicationThreadService(tenantId);
     
     // Determine sender based on user role (Mock logic for now, using session in real)
-    const sender = session.user.role === 'LA_ADMIN' ? 'LA' : 'SCHOOL';
+    const sender = (session as any).role === 'LA_ADMIN' ? 'LA' : 'SCHOOL';
 
     const message = await service.sendMessage(
         applicationId,
         sender,
-        session.user.name || 'Unknown User',
-        session.user.email || 'unknown@example.com',
+        session.name || 'Unknown User',
+        session.email || 'unknown@example.com',
         type || 'UPDATE',
         subject || 'Update',
         content,

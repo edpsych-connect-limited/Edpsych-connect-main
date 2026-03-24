@@ -60,7 +60,7 @@ export default function CasesPage() {
         id: c.id,
         student_name: c.students ? `${c.students.first_name} ${c.students.last_name}` : 'Unknown Student',
         year_group: c.students?.year_group || 'Unknown',
-        school: 'Unknown School', // TODO: Fetch school details
+        school: user?.organization || '',
         case_type: c.type || 'General',
         status: c.status,
         priority: c.priority,

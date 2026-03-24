@@ -122,6 +122,7 @@ function useAuthProvider(): AuthContextType {
       onboardingSkipped: typeof input.onboardingSkipped === 'boolean' ? input.onboardingSkipped : undefined,
       tenant_id: normalizeTenantId(input.tenant_id ?? input.tenantId),
       tenantId: normalizeTenantId(input.tenant_id ?? input.tenantId),
+      organization: input.organization ? String(input.organization) : undefined,
     };
   }, []);
 

@@ -1,6 +1,7 @@
+import authService from '@/lib/auth/auth-service';
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { TriageDecisionService } from '@/lib/ehcp/triage-decision-service';
 import { logger } from '@/lib/logger';
 
@@ -10,14 +11,14 @@ import { logger } from '@/lib/logger';
  */
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(req);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const body = await req.json();
     const { applicationId, action, data } = body;
-    const tenantId = session.user.tenant_id || 1;
+    const tenantId = session.tenant_id || 1;
     const triageService = new TriageDecisionService(tenantId);
 
     // 1. Quality Check (Week 1-3)
@@ -33,7 +34,7 @@ export async function POST(req: NextRequest) {
         applicationId,
         outcome,
         reason,
-        ['LA Panel', session.user.name || 'Admin', session.user.id]
+        ['LA Panel', session.name || 'Admin', session.id]
       );
       
       // Auto-generate letter

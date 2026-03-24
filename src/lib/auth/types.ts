@@ -44,6 +44,7 @@ export interface AuthUser {
   onboardingSkipped?: boolean;
   tenant_id?: number;
   tenantId?: number | string;
+  organization?: string;
 }
 
 export interface CanonicalSession {

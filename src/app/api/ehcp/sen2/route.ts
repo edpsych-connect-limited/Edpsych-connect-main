@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * SEN2 Returns API Routes
  * 
@@ -8,9 +9,9 @@
  * Zero Gap Project - Sprint 1
  */
 
-import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { NextRequest, NextResponse } from 'next/server';
+
+
 import { createSEN2Service } from '@/lib/ehcp/sen2-returns.service';
 import { logger } from '@/lib/logger';
 
@@ -18,16 +19,16 @@ import { logger } from '@/lib/logger';
 // GET - List all SEN2 returns or get a specific one
 // ============================================================================
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const user = session.user as any;
+    const user = session as any;
     const tenantId = user.tenantId;
 
     if (!tenantId) {
@@ -67,16 +68,16 @@ export async function GET(request: Request) {
 // POST - Generate a new SEN2 return
 // ============================================================================
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const user = session.user as any;
+    const user = session as any;
     const tenantId = user.tenantId;
     const userId = user.id;
 
@@ -131,16 +132,16 @@ export async function POST(request: Request) {
 // PUT - Update/Submit a SEN2 return
 // ============================================================================
 
-export async function PUT(request: Request) {
+export async function PUT(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const user = session.user as any;
+    const user = session as any;
     const tenantId = user.tenantId;
     const userId = parseInt(user.id, 10);
 

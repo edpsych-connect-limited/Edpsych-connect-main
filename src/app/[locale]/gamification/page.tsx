@@ -53,17 +53,27 @@ export default function GamificationPage() {
   const [xpCurrent, setXpCurrent] = useState(2450);
   const [xpNext, setXpNext] = useState(3000);
 
-  // Simple mock leaderboard data if API fails or for initial render
-  const [leaderboard, setLeaderboard] = useState([
-    { rank: 1, name: 'CyberStudent_99', xp: 15400, school: 'Oakwood Academy' },
-    { rank: 2, name: 'NeuroNinja', xp: 14200, school: 'St. Marys' },
-    { rank: 3, name: 'LogicMaster', xp: 13800, school: 'Westfield High' },
-  ]);
+  const [leaderboard, setLeaderboard] = useState<{ rank: number; name: string; xp: number }[]>([]);
 
-  // Load leaderboard (simulate API)
+  // Load leaderboard from real API
   useEffect(() => {
-    // In a real implementation, this would fetch from /api/gamification/leaderboard
-    // keeping the mock for World Class UI demo resilience
+    fetch('/api/gamification/leaderboard')
+      .then(res => res.json())
+      .then(data => {
+        if (data.leaderboard && Array.isArray(data.leaderboard)) {
+          setLeaderboard(
+            data.leaderboard.map((entry: { rank: number; name: string; points: number }) => ({
+              rank: entry.rank,
+              name: entry.name,
+              xp: entry.points,
+            }))
+          );
+        }
+      })
+      .catch(() => {
+        // API unavailable — show empty leaderboard; no mock data
+        setLeaderboard([]);
+      });
   }, []);
 
   const handleReturnToLobby = () => setActiveGame('LOBBY');
@@ -269,6 +279,11 @@ export default function GamificationPage() {
                    </div>
                    
                    <div className="space-y-4">
+                      {leaderboard.length === 0 && (
+                        <div className="text-center py-6 text-slate-500 text-sm">
+                          No scores yet — be the first on the board!
+                        </div>
+                      )}
                       {leaderboard.map((entry, index) => (
                          <div key={index} className="flex items-center p-3 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800/50 transition-colors group">
                             <div className={`
@@ -281,7 +296,6 @@ export default function GamificationPage() {
                             </div>
                             <div className="flex-1">
                                <div className="font-bold text-sm group-hover:text-white transition-colors">{entry.name}</div>
-                               <div className="text-xs text-slate-500">{entry.school}</div>
                             </div>
                             <div className="text-right">
                                <div className="font-mono text-sm text-purple-400 font-bold">{entry.xp.toLocaleString()}</div>

@@ -11,10 +11,20 @@ import {
   GraduationCap,
   BookOpen
 } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import { useSchoolDashboard } from '@/hooks/useSchoolDashboard';
 
 export default function SchoolDashboard() {
+  const { data: session } = useSession();
   const { stats, classroomInterventions, students, loading } = useSchoolDashboard();
+  
+  const schoolName = (session?.user as any)?.organization || 'School Portal';
+  const schoolInitials = schoolName
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w: string) => w[0].toUpperCase())
+    .join('');
   const featuredInterventions = classroomInterventions.slice(0, 3);
   const visibleStudents = students.slice(0, 6);
 
@@ -36,9 +46,9 @@ export default function SchoolDashboard() {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold">
-                SM
+                {schoolInitials}
               </div>
-              <span className="text-sm font-medium text-slate-700">St. Mary's Primary</span>
+              <span className="text-sm font-medium text-slate-700">{schoolName}</span>
             </div>
           </div>
         </div>
